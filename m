@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA9AB79A546
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 10:02:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599105.934371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73D5979A5A7
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 10:10:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599112.934380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfbs3-00051P-H3; Mon, 11 Sep 2023 08:02:11 +0000
+	id 1qfbz1-0000ke-3M; Mon, 11 Sep 2023 08:09:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599105.934371; Mon, 11 Sep 2023 08:02:11 +0000
+Received: by outflank-mailman (output) from mailman id 599112.934380; Mon, 11 Sep 2023 08:09:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfbs3-0004zc-CT; Mon, 11 Sep 2023 08:02:11 +0000
-Received: by outflank-mailman (input) for mailman id 599105;
- Mon, 11 Sep 2023 08:02:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qfbz0-0000hZ-Uh; Mon, 11 Sep 2023 08:09:22 +0000
+Received: by outflank-mailman (input) for mailman id 599112;
+ Mon, 11 Sep 2023 08:09:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S94K=E3=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qfbs1-0004zW-UG
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 08:02:10 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20625.outbound.protection.outlook.com
- [2a01:111:f400:fe59::625])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80922f98-5079-11ee-8784-cb3800f73035;
- Mon, 11 Sep 2023 10:02:08 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by SA3PR12MB7831.namprd12.prod.outlook.com (2603:10b6:806:311::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Mon, 11 Sep
- 2023 08:02:04 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9a2:f8ec:7c75:fe95]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9a2:f8ec:7c75:fe95%6]) with mapi id 15.20.6768.029; Mon, 11 Sep 2023
- 08:02:04 +0000
+ <SRS0=Gp74=E3=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1qfbyy-0000g6-Uc
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 08:09:20 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 814b1504-507a-11ee-9b0d-b553b5be7939;
+ Mon, 11 Sep 2023 10:09:18 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-500b66f8b27so7106217e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Sep 2023 01:09:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,180 +40,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80922f98-5079-11ee-8784-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=csYRBZUwfCCGiur03VXX+aOc8HEpl3zMfX+RLHysL756C4F0GA48sQBv/xFyVxJiCn1A2aVt7q6BxqMHmYSHvbVKcnkqylv5TfrJsxl3MSJzk1jVdhTGVJG1Z9iDKTjPE1rAxhSgig9oVA5dx/1/UQZVIrKturBmHpOqIPsWuc5bTT5xaVUBF8XCtJA9SydeY74TvRv3trJTtOtp3tV98uOxCy3wWHRppiINPySrtJMH1zctWQWFaiF9BuF3xlyuOL6Xe85L4ig9+GonzgRx8j3j4D3+TGm9m5WkxgIo+pbB6IJ/q7RU4rkC+cQD9IbJSmCPUTpvyeJktdDmLTxEDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xtKHm2qinFfsEuYofHDyysvKk6gtmsstZPJV13d+BOI=;
- b=GMiU/kdPDyjpmUsTWdbwXWJqNK+X83f7TIHf+olUAKpWyKd43Vo5wxNzScUdJwAyv5o5h9Q5dJ0vQfmWkwLzUBeV5k1cc6avZQM38MShAZ89VJGPjG9o32teFhpAxDSHE5PHRNJOcLBET6pL05piog0g9Yz8GRrGGFx4kVtUNwop6MleZgvzqqpbbsLI+XoPOiaXMgfOPqASQI7miUVCpsl4Z+3tUyqmrS/w420Jvxuy+6i19SncJiwjsyEbFbMsWzg1o8S4IHytCSR96Ia+hUrg7wzp523Z1NgBaR0WIXE0xdttFq7TLxPkKlmoU1PDhm+nDCSBRT2btaalhYFo0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtKHm2qinFfsEuYofHDyysvKk6gtmsstZPJV13d+BOI=;
- b=p1PuwkKrxLLy5W9dJ1COV6mLAp1LB+ewgPnOJR3GcEbKdE2y0GE52SxLemeErhfhggNgTlujLE1YevbWhPFvDdf+pcW7a/oGgESB32MRtbqWTs2sfsIbFyMHZzEOuA7ZY/TX5FSlo/9deHh91HP8NsPlEBzERmBXlcjM4NqcNXw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <3dc0a9b2-d690-b9c7-321f-008ba1fbf084@amd.com>
-Date: Mon, 11 Sep 2023 09:01:57 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.0
-Subject: Re: Xen 4.18 release: Reminder about feature/code freeze
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
- <jbeulich@suse.com>, "jgross@suse.com" <jgross@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- "community.manager@xenproject.org" <community.manager@xenproject.org>
-References: <AS8PR08MB79918D6EE559A2807DC6D56792F2A@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <AS8PR08MB79918D6EE559A2807DC6D56792F2A@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0061.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::12) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 814b1504-507a-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694419757; x=1695024557; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=RMObPANAVTF2OcBeGnJ2qRv65zU7kWJjvY0xrUK0r4A=;
+        b=AZp8+wTjX9rIyJH79You+bGQYy0dtaPnjAAYBy3vD4YRQ7R9CteUTL0u8DYJalikoX
+         YWsNh1H/QOT+HtUfI1XzZdH0FH/sRWr/CU4FwkmQEFpmaHei6bZEqyGgSeFfzUaFIobE
+         9vgdirbF+0Nm7yUzRP4zmeSdrKkSclFG6cre6dFKCtcNHLIoxAS7gd9Zh5VOZvJfhxoy
+         6Vdna/2Q/zvQY/WWzbbFaTv0VSArqpJ95KQ/LwD7rW3TzW8kynjtvsfw1p6Lea4SXr/b
+         cd4+06OGZFSh2+3Q27jVd/jZFHLZSkWbat7jAKntJnw6i28f5RmVmmz6IW6z4PVM/z2f
+         5WCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694419757; x=1695024557;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RMObPANAVTF2OcBeGnJ2qRv65zU7kWJjvY0xrUK0r4A=;
+        b=aka7IWTrUm6ihvSfHXNtz2VxC4w4Tat+hFra2aNG/GFMHrGRyQjn9NKZDfqhvPup1q
+         jlODZQq5jyjOAwNziPrNGqR/inP0SYlmtgNH1teiyX+QHTj/L3VpV+cgZgldvFVqQ6qi
+         +44R+aAAaCy88wvgb2Y42P+fTwRnolXUFeP+9ZT2mtgNkhWAGyVNqJK0SP5QH8eYMEPf
+         88V/VYBvvnmYsmo+libceKr/aJDCxy6XZUV96jxrF67m6s3eOVLJLZTp7VTbX8Eo7h2Q
+         2r9MnYtReZkqPRkEDMnQ2VHxYE71AX/7hMXgNQn4Z9WkTiKx216Tm9+vzLw+NMn+0bz+
+         FoXQ==
+X-Gm-Message-State: AOJu0YxKWTbozd50Dk2h/HLIeTW40YPIGtYTT3nDQmIFvrhPpJjpxAg+
+	GBYfZoMepjIDQycStL3w4JrysDgzA2UGuQZCjTE=
+X-Google-Smtp-Source: AGHT+IG5ZXGo9589Vj6DKhOkVTIAwhZLP+gAXuBuUcVb/mgMGfjs6WdO39OOp0Li4izgIOXPUHb9QRxew4G2mK6DcR8=
+X-Received: by 2002:ac2:5287:0:b0:4fe:8ba9:4c4 with SMTP id
+ q7-20020ac25287000000b004fe8ba904c4mr5835179lfm.59.1694419757196; Mon, 11 Sep
+ 2023 01:09:17 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SA3PR12MB7831:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a51b572-76fd-45fc-7853-08dbb29d62e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	7cZ3QUAnMD3Qhexv/fiHMyEbFy+SKgaLyzEiDXSfPyFDUP0xmL5Cc9N2XPAFriDkRS98402N1JkXfMDiYZg1/G6HjpAx4cBd6FbUnizzn+PAlxCaJPEfSncwN0rQhHOC5XVgNexiwl12fwsAvuQlSSlpEcYTRm6scKF1nyzzhzB+jFreUKkvAxldOwEMP4sgofJEAsqRZGG7aMhmm9YYPR2pCJJhQ383GcAuEzCV+zT2dfNt8pIHo7peFEANFK6WJzfcQHBW/22E+dAM/aR6SKZI+3tl6GnYoaIRQuYUwZakXXHq4adbqGyPhBg+ZTmBBHoed11wmmXmpyq6Yry/XpDVeZyw/sm5En/P1lj2N9FT+RACDHn4IZZEbhNLLylfLeAxJK+nPhjXKNOUkSDUk+QC5adazpWSx9N7bS7mzP6wv4JRgwdPmbtrf6+nW+kQVTPps/Cmp3PFGv7QB86M6wLH/HxXsgXV1UJzfZDdHMT97ykIEHhH9K0bc6Eu/fCvbQTJfqy7Er9SXt4Kql65jo83VKrU9J9LY7X2T3UzMEpVtW4F9l5yXH5k4OGMjCYNxozg6up+zMQHdekiQH02UpDKsa5SsPg+H7nMC9vfzIU/Pn9ssfbG+INX5lTu/FGRuyYGtMYS1rcvRKPBChI54jlICDF2+zaXSD0zw+AKJ10=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(396003)(136003)(39860400002)(366004)(186009)(451199024)(1800799009)(6486002)(6506007)(53546011)(6512007)(6666004)(83380400001)(31696002)(38100700002)(36756003)(2616005)(26005)(31686004)(316002)(7416002)(41300700001)(8676002)(8936002)(54906003)(66476007)(2906002)(66556008)(4326008)(66946007)(110136005)(478600001)(966005)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L0pVN2phTGRJcy8ybTBpaXBhM29vMTl2aCtuVGt2Z1I0NTJKb1VHMEFNL2My?=
- =?utf-8?B?ei9vZ2tVQ1IzYU1JUmdpUnM3TURQa0JtQmlKeUJoYkNhMnZHdzBHdElMdUN6?=
- =?utf-8?B?QkloeGNvaDdXZkluRUlyanVQRFoxRDRucnB6RGhua1VpdTJGZVZyZzY0ZDZ1?=
- =?utf-8?B?clA2WDZjZkJsTjFicXJWVVlySWw4d0Y5Y0RkckVVbmFsSWR6dXU1M3FOa0JQ?=
- =?utf-8?B?aTcwem42dVVLRStDdUwwamRQUXZaRExaR0lLMTU3bERDKzgweTBsTUZxc3Mv?=
- =?utf-8?B?OEozZUJxK3JXNG15dFJwclhwZ1FtOG04Y3UzbVFhcG4vaGIvZThlTnEvS0cr?=
- =?utf-8?B?Q2tCdlNsbXpNT0JTK0N3NllWNS9tUzlJc1pya3dreVBmeFA4MUFNSGJjcElL?=
- =?utf-8?B?WUN4cWJRN2ZKY0NaQW5CQk5TZGpKQStHU1E0eXpBUmJET2wxSGU3QU9aK085?=
- =?utf-8?B?VEg2VVFYcitqUENHYU84ekM2dnFNa1BYbEt1cnAwOHhaODMzdjBDdGFCbkZ1?=
- =?utf-8?B?WjBKMEYvRlY0TUIyUHRUVzluRkp6am1ldFpQdVY2WHY0TnBBRWtjREltc1A0?=
- =?utf-8?B?c3N6TXV3VHFjeTFNZXhJWld1dmt1Nlc1VDFvcERtSWpPY3BFbFlGL1FBcmlq?=
- =?utf-8?B?ajJpdFp6dXNUdi9vclM5eXEvQXd4c2x3dDBJU2p1N0lDN2tGV1BNdWFoQ05O?=
- =?utf-8?B?YU1IZ3F6UU9vclFHY0hCSE5lUGFJTXNSNW1mc3ZEMktsWHR5VURSVisxWENk?=
- =?utf-8?B?WG5yalRaOGx2aUlwSER3aW9RK3JpTVZ6RnNHYmxUNTZXcDJ1aHRhQS9KTTlJ?=
- =?utf-8?B?WS9TOWwyOUIrMmZ4Y3NkQnJXbjBSamFKMGllQXEzSlFWYlh0OU4zVVR3bjZP?=
- =?utf-8?B?enlwU2VTbDlDYzNEQWpXZzhTZGxsWjFhOUdGZ25OTS8zMEJBa0UzMGF5YS9o?=
- =?utf-8?B?Tmhsa2pOcVY3d0d2SzNnVGRyY0xzR0loZG0wdFVxMUMwOFlhS29RQmxqTDZp?=
- =?utf-8?B?NDBVL0VBMnJKeW4wRlAzVHBjRzdMZG1BRXAxTEJnY2ozSXQ2cUJXdFhJbk00?=
- =?utf-8?B?dE9rNVF4R3ZzMkk5aWQyck9BS0dJTnJMQ21ZakNzYVdsdWNBUGVKWDJnU091?=
- =?utf-8?B?cmNnZTZic29oYnJrQnZWV3pvczdrc2h5RFU1VUxUcnpTTmZVbWI2YU5YK1ZG?=
- =?utf-8?B?T3Y3OE41RXUrRGNlRzNwdnFlUjJjczBPY3luRjhDUWg3cE1EYXVrbjd2WktQ?=
- =?utf-8?B?L2VuN1drZ09HNTZSb0lFMUJzK2V6Z01ia2dPV21xczF4RURMR0pRajc4QW1z?=
- =?utf-8?B?dTZhSThyVE15RHMvUStyYlZFTTl6U3c2dmZiN0dpbStkZ0QwbkxweEFmeFd4?=
- =?utf-8?B?MmtpM3FHc3AyT3c4T0ZhbEY4V1VUUmp2WkJDdFYxZVJteVgwNWV2eGo1L29M?=
- =?utf-8?B?QVRtUERxSi9MNFUrMXFuUEVsbG56N1ZDVVdjeCtvM0t6a0crZGhQc3RTYVdC?=
- =?utf-8?B?VnNic2RqKzZKNFlaYmQ1d2ZhRDJTSENnTWxRWm9vRkVWdFQ4MDhwLzZxdC9D?=
- =?utf-8?B?MlI0anpQQ25ka0kzZUV4RDF4eXJ3dmtBdkVWVzRPYnQrT3dIdmpRWHhXWWY0?=
- =?utf-8?B?KzJDTU9XNE1WOUwzc2JCN0x5MTJUMjNIVy9RZ1pBTW92djc1MVZLR1AzL2Jw?=
- =?utf-8?B?Rm5WZ2lGbEdlUTFNb2xXMnJOWnBCMmtzTldFOW1SSlp2cCsxUmNtR2gwZHkr?=
- =?utf-8?B?dzdPT3dZdi9ad0NYbjlLN0lYVjE3WExhSWhIdEppTVZ1L1pwMjYyS0JoWDJM?=
- =?utf-8?B?TTY3N1hQaTNNd0FiUjdQV2VOQTh5b2pPUS94L2ZZckowYm1JRFRGTGtEWnph?=
- =?utf-8?B?THh0UVgzcXU5ckZqN2tqaFNIdmgyQ0tHRGpZbjBSRWhBd1p6YU1seCtkTzky?=
- =?utf-8?B?QVd2bHdmWnlxSEE2Tk5BYWZpNU5RdFM1MW4rU2JNaXpGNXg0NTZEV1ZjWXV5?=
- =?utf-8?B?Z1M5c3NINVRzWGpPcDJVN3BaaVl6MUVrUXNwZzFTMU9UdHF5OFJRdjQvMm5T?=
- =?utf-8?B?cTllTGhFcis4S0d1MjFmQ2trMUVDSEpjaWVuQytpdjFXYnF2TzRhR3o2ZHQ4?=
- =?utf-8?Q?SziSE3ckHcPIEKJLPF8RawuI6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a51b572-76fd-45fc-7853-08dbb29d62e1
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 08:02:04.3597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TtlvU353Hyxwsk8TGepeMKY4rdmfHGJjH2E/4GqEStedaIu+Sr5efWJXfDk2n5v+HRhkoK7clT/7FdPHyZBxFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7831
+References: <AS8PR08MB79918D6EE559A2807DC6D56792F2A@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <3dc0a9b2-d690-b9c7-321f-008ba1fbf084@amd.com>
+In-Reply-To: <3dc0a9b2-d690-b9c7-321f-008ba1fbf084@amd.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 11 Sep 2023 04:09:03 -0400
+Message-ID: <CAJ=z9a2LpUe_9160PEChMG=pSLYcwLwETdrTN2zDrk21QP2qpw@mail.gmail.com>
+Subject: Re: Xen 4.18 release: Reminder about feature/code freeze
+To: Ayan Kumar Halder <ayankuma@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	"community.manager@xenproject.org" <community.manager@xenproject.org>, "jgross@suse.com" <jgross@suse.com>, 
+	"sstabellini@kernel.org" <sstabellini@kernel.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000ba8f35060510d73a"
 
-Hi Henry,
+--000000000000ba8f35060510d73a
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/09/2023 02:08, Henry Wang wrote:
-> CAUTION: This message has originated from an External Source. Please 
-> use proper judgment and caution when opening attachments, clicking 
-> links, or responding to this email.
+On Mon, 11 Sep 2023 at 09:02, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+
+> Hi Henry,
 >
-> Hi everyone,
->
-> This is the reminder that we are currently in the feature freeze. I 
-> apologise
->
-> for the delay.
->
-> I decided to make the code freeze date on Fri Sep 22, 2023, to give 
-> people more
->
-> time to react because of my late reminder about feature freeze. The 
-> hard code
->
-> freeze date will remain unchanged, i.e. Fri Oct 6, 2023. So currently 
-> we have 2
->
-> weeks before code freeze and another 4 weeks before hard code freeze. If
->
-> everything goes well, we can cut 4.18 rc1 at Fri Sep 29, 2023.
->
-> Also, below is the critical items on my list for 4.18 release:
->
-> 1. [PATCH 0/7] tools: More Python 3 fixes (part 1 of N)
->
-> https://gitlab.com/xen-project/xen/-/issues/114
->
-> 2. tools: Switch to non-truncating XENVER_* ops
->
+> On 11/09/2023 02:08, Henry Wang wrote:
+> > CAUTION: This message has originated from an External Source. Please
+> > use proper judgment and caution when opening attachments, clicking
+> > links, or responding to this email.
+> >
+> > Hi everyone,
+> >
+> > This is the reminder that we are currently in the feature freeze. I
+> > apologise
+> >
+> > for the delay.
+> >
+> > I decided to make the code freeze date on Fri Sep 22, 2023, to give
+> > people more
+> >
+> > time to react because of my late reminder about feature freeze. The
+> > hard code
+> >
+> > freeze date will remain unchanged, i.e. Fri Oct 6, 2023. So currently
+> > we have 2
+> >
+> > weeks before code freeze and another 4 weeks before hard code freeze. If
+> >
+> > everything goes well, we can cut 4.18 rc1 at Fri Sep 29, 2023.
+> >
+> > Also, below is the critical items on my list for 4.18 release:
+> >
+> > 1. [PATCH 0/7] tools: More Python 3 fixes (part 1 of N)
+> >
+> > https://gitlab.com/xen-project/xen/-/issues/114
+> >
+> > 2. tools: Switch to non-truncating XENVER_* ops
+> >
+> >
 > https://lore.kernel.org/xen-devel/20230117135336.11662-1-andrew.cooper3@citrix.com/
->
-> 3. dom0less vs xenstored setup race Was: xen | Failed pipeline for 
-> staging | 6a47ba2f
->
-> https://marc.info/?l=xen-devel&m=168312468808977 
-> <https://marc.info/?l=xen-devel&m=168312468808977>
->
-> https://marc.info/?l=xen-devel&m=168312687610283 
-> <https://marc.info/?l=xen-devel&m=168312687610283>
->
-> 4. The proper eIBRS support for x86
->
+> >
+> > 3. dom0less vs xenstored setup race Was: xen | Failed pipeline for
+> > staging | 6a47ba2f
+> >
+> > https://marc.info/?l=xen-devel&m=168312468808977
+> > <https://marc.info/?l=xen-devel&m=168312468808977>
+> >
+> > https://marc.info/?l=xen-devel&m=168312687610283
+> > <https://marc.info/?l=xen-devel&m=168312687610283>
+> >
+> > 4. The proper eIBRS support for x86
+> >
+> >
 > https://lore.kernel.org/xen-devel/ec8e75da-743b-50dc-4665-854c446c974e@citrix.com/
->
-> 5. [PATCH 1/2] credit: Limit load balancing to once per millisecond
->
+> >
+> > 5. [PATCH 1/2] credit: Limit load balancing to once per millisecond
+> >
+> >
 > https://lore.kernel.org/xen-devel/20230630113756.672607-1-george.dunlap@cloud.com/
->
-> 6. [PATCH 0/2]  Revoke IOMEM/IO port/IRQ permissions on PCI detach for 
-> HVM guest
->
-> https://lore.kernel.org/xen-devel/20230809103305.30561-1-julien@xen.org/
->
-> 7. [PATCH v2 0/8] Fixes to debugging facilities
->
+> >
+> > 6. [PATCH 0/2]  Revoke IOMEM/IO port/IRQ permissions on PCI detach for
+> > HVM guest
+> >
+> > https://lore.kernel.org/xen-devel/20230809103305.30561-1-julien@xen.org/
+> >
+> > 7. [PATCH v2 0/8] Fixes to debugging facilities
+> >
+> >
 > https://lore.kernel.org/xen-devel/21cc28b9-91d1-1e6e-23ac-00c44f3ec08e@gmail.com/
+> >
+>
+> Did you miss "[PATCH v6 00/13] xen/arm: Split MMU code as the prepration
+> of MPU work" ?
+
+
+AFAIU Henry listed all the critical series for 4.18. Can you explain why do
+you think this is one?
+
+Cheers,
+
+
+>
+> It see that patches from [PATCH v6 06/13] xen/arm: Split page table
+> related code to mmu/pt.c ... are yet to be reviewed and committed.
+>
+> - Ayan
+>
+> > Kind regards,
+> >
+> > Henry
+> >
 >
 
-Did you miss "[PATCH v6 00/13] xen/arm: Split MMU code as the prepration 
-of MPU work" ?
+--000000000000ba8f35060510d73a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It see that patches from [PATCH v6 06/13] xen/arm: Split page table 
-related code to mmu/pt.c ... are yet to be reviewed and committed.
-
-- Ayan
-
-> Kind regards,
+<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Mon, 11 Sep 2023 at 09:02, Ayan Kumar Halder &lt;<a href=
+=3D"mailto:ayankuma@amd.com">ayankuma@amd.com</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
+c solid;padding-left:1ex">Hi Henry,<br>
+<br>
+On 11/09/2023 02:08, Henry Wang wrote:<br>
+&gt; CAUTION: This message has originated from an External Source. Please <=
+br>
+&gt; use proper judgment and caution when opening attachments, clicking <br=
 >
-> Henry
+&gt; links, or responding to this email.<br>
+&gt;<br>
+&gt; Hi everyone,<br>
+&gt;<br>
+&gt; This is the reminder that we are currently in the feature freeze. I <b=
+r>
+&gt; apologise<br>
+&gt;<br>
+&gt; for the delay.<br>
+&gt;<br>
+&gt; I decided to make the code freeze date on Fri Sep 22, 2023, to give <b=
+r>
+&gt; people more<br>
+&gt;<br>
+&gt; time to react because of my late reminder about feature freeze. The <b=
+r>
+&gt; hard code<br>
+&gt;<br>
+&gt; freeze date will remain unchanged, i.e. Fri Oct 6, 2023. So currently =
+<br>
+&gt; we have 2<br>
+&gt;<br>
+&gt; weeks before code freeze and another 4 weeks before hard code freeze. =
+If<br>
+&gt;<br>
+&gt; everything goes well, we can cut 4.18 rc1 at Fri Sep 29, 2023.<br>
+&gt;<br>
+&gt; Also, below is the critical items on my list for 4.18 release:<br>
+&gt;<br>
+&gt; 1. [PATCH 0/7] tools: More Python 3 fixes (part 1 of N)<br>
+&gt;<br>
+&gt; <a href=3D"https://gitlab.com/xen-project/xen/-/issues/114" rel=3D"nor=
+eferrer" target=3D"_blank">https://gitlab.com/xen-project/xen/-/issues/114<=
+/a><br>
+&gt;<br>
+&gt; 2. tools: Switch to non-truncating XENVER_* ops<br>
+&gt;<br>
+&gt; <a href=3D"https://lore.kernel.org/xen-devel/20230117135336.11662-1-an=
+drew.cooper3@citrix.com/" rel=3D"noreferrer" target=3D"_blank">https://lore=
+.kernel.org/xen-devel/20230117135336.11662-1-andrew.cooper3@citrix.com/</a>=
+<br>
+&gt;<br>
+&gt; 3. dom0less vs xenstored setup race Was: xen | Failed pipeline for <br=
 >
+&gt; staging | 6a47ba2f<br>
+&gt;<br>
+&gt; <a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D168312468808977" r=
+el=3D"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&amp;m=
+=3D168312468808977</a> <br>
+&gt; &lt;<a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D16831246880897=
+7" rel=3D"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&am=
+p;m=3D168312468808977</a>&gt;<br>
+&gt;<br>
+&gt; <a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D168312687610283" r=
+el=3D"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&amp;m=
+=3D168312687610283</a> <br>
+&gt; &lt;<a href=3D"https://marc.info/?l=3Dxen-devel&amp;m=3D16831268761028=
+3" rel=3D"noreferrer" target=3D"_blank">https://marc.info/?l=3Dxen-devel&am=
+p;m=3D168312687610283</a>&gt;<br>
+&gt;<br>
+&gt; 4. The proper eIBRS support for x86<br>
+&gt;<br>
+&gt; <a href=3D"https://lore.kernel.org/xen-devel/ec8e75da-743b-50dc-4665-8=
+54c446c974e@citrix.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.=
+kernel.org/xen-devel/ec8e75da-743b-50dc-4665-854c446c974e@citrix.com/</a><b=
+r>
+&gt;<br>
+&gt; 5. [PATCH 1/2] credit: Limit load balancing to once per millisecond<br=
+>
+&gt;<br>
+&gt; <a href=3D"https://lore.kernel.org/xen-devel/20230630113756.672607-1-g=
+eorge.dunlap@cloud.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.=
+kernel.org/xen-devel/20230630113756.672607-1-george.dunlap@cloud.com/</a><b=
+r>
+&gt;<br>
+&gt; 6. [PATCH 0/2]=C2=A0 Revoke IOMEM/IO port/IRQ permissions on PCI detac=
+h for <br>
+&gt; HVM guest<br>
+&gt;<br>
+&gt; <a href=3D"https://lore.kernel.org/xen-devel/20230809103305.30561-1-ju=
+lien@xen.org/" rel=3D"noreferrer" target=3D"_blank">https://lore.kernel.org=
+/xen-devel/20230809103305.30561-1-julien@xen.org/</a><br>
+&gt;<br>
+&gt; 7. [PATCH v2 0/8] Fixes to debugging facilities<br>
+&gt;<br>
+&gt; <a href=3D"https://lore.kernel.org/xen-devel/21cc28b9-91d1-1e6e-23ac-0=
+0c44f3ec08e@gmail.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.k=
+ernel.org/xen-devel/21cc28b9-91d1-1e6e-23ac-00c44f3ec08e@gmail.com/</a><br>
+&gt;<br>
+<br>
+Did you miss &quot;[PATCH v6 00/13] xen/arm: Split MMU code as the preprati=
+on <br>
+of MPU work&quot; ?</blockquote><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">AFAIU Henry listed all the critical series for 4.18. Can you explain why=
+ do you think this is one?</div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">Cheers,</div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex" =
+dir=3D"auto"><br>
+<br>
+It see that patches from [PATCH v6 06/13] xen/arm: Split page table <br>
+related code to mmu/pt.c ... are yet to be reviewed and committed.<br>
+<br>
+- Ayan<br>
+<br>
+&gt; Kind regards,<br>
+&gt;<br>
+&gt; Henry<br>
+&gt;<br>
+</blockquote></div></div>
+
+--000000000000ba8f35060510d73a--
 
