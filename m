@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934B179A735
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 12:18:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599241.934563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8379979A73D
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Sep 2023 12:34:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599250.934573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfdzu-0002r3-AB; Mon, 11 Sep 2023 10:18:26 +0000
+	id 1qfeEe-0006si-Kr; Mon, 11 Sep 2023 10:33:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599241.934563; Mon, 11 Sep 2023 10:18:26 +0000
+Received: by outflank-mailman (output) from mailman id 599250.934573; Mon, 11 Sep 2023 10:33:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfdzu-0002oL-6r; Mon, 11 Sep 2023 10:18:26 +0000
-Received: by outflank-mailman (input) for mailman id 599241;
- Mon, 11 Sep 2023 10:18:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AVcC=E3=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1qfdzt-0002oB-FJ
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 10:18:25 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8981bc44-508c-11ee-9b0d-b553b5be7939;
- Mon, 11 Sep 2023 12:18:23 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 97BBB5C010C;
- Mon, 11 Sep 2023 06:18:22 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 11 Sep 2023 06:18:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 11 Sep 2023 06:18:19 -0400 (EDT)
+	id 1qfeEe-0006qQ-Hr; Mon, 11 Sep 2023 10:33:40 +0000
+Received: by outflank-mailman (input) for mailman id 599250;
+ Mon, 11 Sep 2023 10:33:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Xbw8=E3=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qfeEc-0006qK-TM
+ for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 10:33:38 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa8bd28f-508e-11ee-8784-cb3800f73035;
+ Mon, 11 Sep 2023 12:33:37 +0200 (CEST)
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
+ by AS4PR04MB9340.eurprd04.prod.outlook.com (2603:10a6:20b:4e8::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Mon, 11 Sep
+ 2023 10:33:34 +0000
+Received: from AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::9d93:f481:7a9b:345d]) by AS8PR04MB8788.eurprd04.prod.outlook.com
+ ([fe80::9d93:f481:7a9b:345d%5]) with mapi id 15.20.6768.029; Mon, 11 Sep 2023
+ 10:33:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,220 +47,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8981bc44-508c-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1694427502; x=1694513902; bh=ScrWZQKwX09Lm7cCEF/K+QNOvN5j9Emk7tI
-	4RlnwZ5c=; b=pMqI5KrZkQ/SsOlVH7pURqGlQH2U8W5r90ZXuyxFLMpoqyFpMLH
-	qW9Dw9mpTx0w91uIAIg7Qs4HTu8HQCUuNZZ9KhqVTfb2GF5k6gUHvR2ViSnHCQqM
-	mdppOtquqzqs/XhYcovIHrOfWLhDzd+plFRQFj6YwU/JzF1oWb4deIFN3zpAdh3I
-	S6AE46mQCq2zcjjoEkBPSE0avUlyhOrq/zB7oxNpEVJOlHpe72YWsJiGaBd5uFJv
-	0YLi8LUzE8E2SZDDP1pjwzvU7yXkE1G9h2YUZiWixEc6G+NUYkPn+A0Aib4kpOCp
-	kKxtU9Cd6fNH7Vlp1H+aAaLpyalxC19s2+g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1694427502; x=1694513902; bh=ScrWZQKwX09Lm
-	7cCEF/K+QNOvN5j9Emk7tI4RlnwZ5c=; b=PgDJ0LKmMN3ROFV1GcI4kFYBfzuCE
-	wx8ro7McPucHqRKFQEJ1lfp7zKzMh6X9VWQQ1ClNkanyOLrmCjF1tF0XBD39S6WT
-	XpK/L2jIF+OEitFtKB4Gn5oxrfMlRimWYicHYdo7zerNCE+bNKslmPJJuY95DUUI
-	39N2eZ+rYoWf9C35P5Ns2f2yvpE6Jb6G03YMri3uoECEiSicDhWyZCfoel3TRf9f
-	mcjz9vNmcneOa+Nsolbb0iZ6m0oKJWpo9K8MzpGOmvCFuA5orDk0U7zHGaML7f9P
-	I1qQMiJHb2e/V/LqF+hQm83U5mt/FhQ8N/8DCNfzeZ9XpVGGqbeIcEr/A==
-X-ME-Sender: <xms:bun-ZHuvmc0x5MxT150HFgvPP-FYGnHqjLB7rJrAUjgXPUzAwFh_NA>
-    <xme:bun-ZIdVclUJ7QXW_7WNepOrpIMli6YK-46P5drsPrwOgAhfh2tw1i6ygVkthglxD
-    -qmUK4YkU-BH4o>
-X-ME-Received: <xmr:bun-ZKwMWvxJdGHq84_rg_PVnsvR4zsUtVJ3wOtTZHzf-89mO2K1t__ccU9NCxm0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeigedgvdehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepkfffggfuvfevfhfhjggtsehgtderredttdejnecuhfhrohhmpefuihhmohhn
-    ucfirghishgvrhcuoehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homheqnecuggftrfgrthhtvghrnhepvdeukeevgeekgeetffdthffgheejjefgteektedt
-    tdejgeekiedvleeuvedvgeeknecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpuhgvfh
-    hirdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepshhimhhonhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:bun-ZGNZLXX8okaTDfxL-_xrlvPKT-Rtn9vV1Lv1sfJmCF1YZWjJxA>
-    <xmx:bun-ZH_FJSA9Qxn15JgUtBSLrc8hJLT4Jrr6M_VhQVz5uvuRe2uULw>
-    <xmx:bun-ZGXNf1NaWr5mgF1v59EjO1bvHkw0DhH0JukDG-f6_FO1YCi9mQ>
-    <xmx:bun-ZKaaTHQHRi5W5H-3CiecSQyR-nH59x4ihI7qBwhN-EibAAWlnA>
-Feedback-ID: idc5945a3:Fastmail
-Message-ID: <5a27c672-b176-0f77-3003-f3e3de0e32f7@invisiblethingslab.com>
-Date: Mon, 11 Sep 2023 12:17:51 +0200
-MIME-Version: 1.0
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <d5a99971-059b-022f-1b17-ca22431fad4f@citrix.com>
- <80bae614-052e-0f90-cf13-0e5e4ed1a5cd@invisiblethingslab.com>
- <6f81176c-2df8-d3d3-b3a6-ac6349b97ef2@citrix.com>
+X-Inumbo-ID: aa8bd28f-508e-11ee-8784-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aNted1NekJJC5U1n5BrTqaM+xNJxU0c9Ae2gp1u4Dyw0TMnNDB8/VhgSB76YeC3Geo87uGJ6HlR+NdUnrj5QOBFVdX2WwoQrTNehNH1JRWX+saFAEI7r1O04sHSSEKUFsCudXXwKXt8un/PkOQSsec4fJ+8jEGZOgqWoNAoS7nyKdmweWsPzTJbxPSbqavqffNxpST7tqbTR9VtvW7ZEyFprmMqcpHvGUIKqwmOeM79kHj+XKAHkrruyVsENlDcUGv+jX73kGm6m7bVn6+w11gDAX0BM8T6ID2hDjU9N8Wmju5ZoU0rb7CGanHuhMXLZ1d6+zOkroaN+jaGDeIGAxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M1jBjkYGcUXmUOzSRiTBVmfG5X95K5u4lP9o8z8noAQ=;
+ b=hXhCxoaDhzm/SSqpb0jSsfULnOWWg2XK22ZYnz03pbPUhEGaFlolMEKtq3kBV/7PVGsgna/NoxxqwgRIqtm3vCNb0xLea+8/DvDlfunedz9HnFJfLx+1IKdDoUkyC2gCJcIO+U3/1Q6DmMpuKRoRfDX6gkUPC6ijPtm7mclPKVvYdZdWotBC4uNpx1lCvssK7NrU327jF1gcM1Ccb2YYeQtw9DwyY/VN6x0EleT6RiWG7Zh9KpRgq7JkBrpF97/MJXGOpdA+Sf46al6FFVsk4DHS1fQgu20b61x9EhCbe28AKfWc2nBXl3HHOT9Q51lIbgwEg7I8zxDWGBbRg30LTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M1jBjkYGcUXmUOzSRiTBVmfG5X95K5u4lP9o8z8noAQ=;
+ b=gD/P5pCS+C1XdltgVangLKxyrOsVk3/SJypWntJHUlFNgVREyVlB6wQdIqw/f7Yl5CfEvMF2pJuIKjC4oi/7Fiv+E4RkDiPWHdSMaNU13g8Qu2bRMVWLHV1fxvpH+z6qLes8bdd2QH1g4EO9L/U9y6Fm6FhpgcZjjDHeKxFkZ7gT35XUwIO4uLBP3P/z/v+gY0BIGT2+h/3cD/lwSthOTeUNdxaiaQHLBn3oqJ7yOV2nyjhTpK+KMpJtxYsTK+AoyEFd5TDvBSKJiVHGRpPRu0yMnlDw6EFq04z34csvKjKevLv95RRvE7gZMze6cBKEShDLOQTQPF3bWWzwiGQXbA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <64ef7f9a-8810-bdcc-a4c8-2336de79ad01@suse.com>
+Date: Mon, 11 Sep 2023 12:33:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [XEN PATCH v2 1/2] coverage: simplify the logic of choosing the
+ number of gcov counters depending on the gcc version
 Content-Language: en-US
-From: Simon Gaiser <simon@invisiblethingslab.com>
-In-Reply-To: <6f81176c-2df8-d3d3-b3a6-ac6349b97ef2@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------9NLtl5rYABqj561OCXqs6uaZ"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------9NLtl5rYABqj561OCXqs6uaZ
-Content-Type: multipart/mixed; boundary="------------RHe5H2gi4sNvZU9jX1Muvv4V";
- protected-headers="v1"
-From: Simon Gaiser <simon@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-Message-ID: <5a27c672-b176-0f77-3003-f3e3de0e32f7@invisiblethingslab.com>
-Subject: Re: [XEN PATCH] x86/ACPI: Ignore entries with invalid APIC IDs when
- parsing MADT
-References: <7f158a54548456daba9f2e105d099d2e5e2c2f38.1691399031.git.simon@invisiblethingslab.com>
- <d5a99971-059b-022f-1b17-ca22431fad4f@citrix.com>
- <80bae614-052e-0f90-cf13-0e5e4ed1a5cd@invisiblethingslab.com>
- <6f81176c-2df8-d3d3-b3a6-ac6349b97ef2@citrix.com>
-In-Reply-To: <6f81176c-2df8-d3d3-b3a6-ac6349b97ef2@citrix.com>
-
---------------RHe5H2gi4sNvZU9jX1Muvv4V
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Javi Merino <javi.merino@cloud.com>
+References: <cover.1694189143.git.javi.merino@cloud.com>
+ <f40f16bad7553f63d81574eac39e1fddaeec0be4.1694189143.git.javi.merino@cloud.com>
+ <93c7ff14-2aa8-09a6-f04d-9dbb3969f470@suse.com>
+ <4073db4a-0ccd-7047-4d34-25ad18100f12@citrix.com>
+ <37f70cdf-a25f-5315-c005-0811ca801e3a@suse.com>
+ <27b478c4-16a0-2e1e-b580-ebfcbd29d1c0@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <27b478c4-16a0-2e1e-b580-ebfcbd29d1c0@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0100.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::6) To AS8PR04MB8788.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42f::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB8788:EE_|AS4PR04MB9340:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97b3c5c9-2ed5-4652-04ac-08dbb2b28d30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	9XfFg+gdz7vzKs/d2RE8yu1N/rAuiuQk4RR79tC4cxdw6d0xjfkVRCmerzBuendG3WGb03etG2JWUp5TF5cfso7PQ5D+WwcglFXQ5NsseJxJh32wq2zxkyKNHa+egzZYFX2A53yg+pX5/6jdwaqw4W2A+8hPDRnL1BTT/glUgbcwdJbXyU/hU9UBa/IuIGdLvoQcbL6OAPrKze6/bJGcAWEtuWoqTjjAMenMeTYIbfHJg5vOKllyPN1EpAsPDzUJooiaYRKj1tGu7FrH0/kzMgrRqPXtvjGplYezswkElc9aIFCrKHCKW2b33Huxc/Qf8a81xY1joCIDbNBI4ayoAMyOASSERh2BjepOyfy0WVw9Av0AfdRLfa2cYzohEucyhnbDUJIN5p+wO8NbaO+RYjDOi5PYAoB8M6hFPAD6tr0lfGn/bnUCBVdlBduShtrDOJT5c/DxhOm3QginU4JXNBnbiQrqs48SLjLl7F+7OOEIMt0I1tvgbMUwafH8Z8W22ORVIVgRIAYefWLiCHxkWiJijp7J2FaYSg33fkEcWEC+3rAb+P7cX8tOFkF+vsLxGUCUkhIUpDiTDADt1db/2IQSm9k1FzS4lzLZypkgMdjo129tX4xVOnHM0SgBeuK4uwJPz1sSsZ+L86gg4uLMcA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(346002)(366004)(136003)(376002)(186009)(1800799009)(451199024)(53546011)(6486002)(6506007)(41300700001)(316002)(2906002)(36756003)(478600001)(86362001)(31696002)(66476007)(54906003)(66556008)(6916009)(38100700002)(66946007)(5660300002)(83380400001)(2616005)(8936002)(8676002)(4326008)(26005)(31686004)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cmZNSWtEdEZOeWlYUHZRSUYyR3A4YXN4b2ptSnhsMDhhb1QyYTVZTGJSZVNP?=
+ =?utf-8?B?L0hyZ2Fzb3FJRU1BU2QrNXp5U1MwWXhHcmxmQThNNXdzV0hNUFE2cXFvOWZl?=
+ =?utf-8?B?UDZYU29IUjFUL3duN1VKSHNOeklRaWV5UFVFdlVlN3ZGNmxDbEM4bHlzVlBM?=
+ =?utf-8?B?VmpKSWpKaEhKT2d0cndaN3R3Qy9mUnhxVGNDSFhlSHRHdVV3Ym5sQXFFRVcy?=
+ =?utf-8?B?emFhYU9LbFp5dDI1UDJCMHVvWXRwKzBVa203VUtPTWpMWW14M0hDUURwZVVy?=
+ =?utf-8?B?VEpkc3Q4S05CQzI2RU1OQXpwdCtQeTJkaHhBMHhXaVUzY0pRY2drWFlZQjJQ?=
+ =?utf-8?B?WUg2dEt3UUMydHR5WG82UXI2aGlhRGlDUkZjRUhEMHA0TGNLUFFDd1pNM2Vo?=
+ =?utf-8?B?bThFeThXZjNjdGpuNFVrNGxpekoxVmhMTG1wVkpydExCTGJveWo5NlRMc29p?=
+ =?utf-8?B?THNPalY0OGg5Z1hsT2JMYmFUdVZrYjc3TW1IajVkNXdnd0lRTXFoN0N3ZTVV?=
+ =?utf-8?B?TXdIM2kvL1lxcFdyN0thM0toc3hkbmp1SUdUMjBuZGRUS25mbzVGL1B1dzho?=
+ =?utf-8?B?bzhqaVRod0htZ0VKL3M0ODh4MjBRRnhaTTlSQkVvZDVrRjljbk44aS9GL1hZ?=
+ =?utf-8?B?aUNxankxSmh6eWpaalVSeG5UcHYxbWFFSGlhbjNCdm83VFdMbWVyV1Axa25z?=
+ =?utf-8?B?QXp6UUZ6VkxWditHazNTSnFZbm91UDZuUnRzVUhCTU1SbE5XdktJQTc3SzZx?=
+ =?utf-8?B?NytvUkxyZGFOZGNENEhJaHdCSXBFc2FIdzh3RkFZRHY2Lzl1MS96N3FzdXB1?=
+ =?utf-8?B?NU1yZktMQjFzOUp0cWlFU0RZaGVhNmtwTFU2WFZhTjFIZnZzWFpmRnpDc1N1?=
+ =?utf-8?B?MjB5akpqVndUQU5vbyt6VnNmRUJlTytmdGg1aEtUWTBUVjk4Y2RrbTQ3SDRw?=
+ =?utf-8?B?NXdsc2ZNNFRiMVhnY3FkTEkrZlFZQW45OGwwMmJJcTBacFl6VC9lTU4yMGtt?=
+ =?utf-8?B?bnVod2JrQ1pwdWRsYVJobUIxcDlPV2dBWENxYjRqT09wYWNxVWRMdUpZQnpH?=
+ =?utf-8?B?WnowK0RZNXo2N05FQVRoNlFjK1hDN1BMaUxzNzFUYmVRa0c0Y2JJRDFxazRl?=
+ =?utf-8?B?VS94SXJlR2g2RXFvVW5MT0FYa1djWURVSzVyTXpCZG5ZWTE3dytGVVZhMGtp?=
+ =?utf-8?B?Q0U5aWsvVUpSWkozMW5sMTJZYUYwcGhTa1BJZlJaa25RUEh0Um1RWUpJc1Zh?=
+ =?utf-8?B?M1M3WUlWaEdJSEd2dTJCdVFxTGU3Ny9HRzJzSVdLV2RhamZ0RldmOGhLSGxk?=
+ =?utf-8?B?cnlFRVNXMWQ2SDZYSG1LU0lnSkdwbG9kSVNEbXRVRW5BK3RqazZRY29CNEhH?=
+ =?utf-8?B?aFlOR095bmFEeC9nNlpPRnNVTDgyZnhSd1hNRW9td3AwTTFHOVRINHBLMTMr?=
+ =?utf-8?B?YjNRc1RBSi9Eb1g4UDJ3bzdQY2pmR2QvR3EzQ2ZGemZoNk9Ca2JJRWRoU0h4?=
+ =?utf-8?B?dzRWVU0ydmNDMm5hR0ZNcmNxMHpkQ3VJbHVoby9QVno4aU1uR1gxZTVvRzNX?=
+ =?utf-8?B?bm1FUmtrdlVNQnRHdTlaYUE5bmhodU5yQTRJNFo3Z21RalZGKzN0bWFpc3No?=
+ =?utf-8?B?MFFGNWV6M1BndDhjL2ZNVEZkOENrM2pIZXVjS1orSENqK2ViMFp2eWhvL0wy?=
+ =?utf-8?B?eW5Zam4rR2g4QUdZNzh2Wk5HUURPZ0J4ZE9mL2RZcUc2eTFiTXBESDVlNnBP?=
+ =?utf-8?B?UjlNQ0FmYkloZm5VbGVCZVArRUlIdm9wbk5HUDlraXUyejd3Skg1bkNBREp5?=
+ =?utf-8?B?RXNyUnNwZEZ2MXJPSzk1YjlOU0FNVVZSQWQvVmUxUkROM1FzYmlRa3RERFNS?=
+ =?utf-8?B?R1greHpnekY1TTEzdHZUdXdqaWdJRkJ5MHFsZExCa25nVEZwcWs1RU1rTnVm?=
+ =?utf-8?B?ZE5EOE1Cb1c4cnROVlRFMVBwNGhnblQ2b1kxQzUzQnVYdjZ3Y1hRMjhsc2Z1?=
+ =?utf-8?B?S1dvVjRqcU41cUs1d2tRdWVXSGZZUXZHczFDamdEbEtvMXZtbUhsUE1OQnZw?=
+ =?utf-8?B?SGp5bFNRTXhnUCt4VysrMUtqcGNwc0VjS2tNbkdGWGJqUXhIQ0JTQnpLVEtR?=
+ =?utf-8?Q?O3cH97vTUgeIAYYqDph6mjM5L?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97b3c5c9-2ed5-4652-04ac-08dbb2b28d30
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8788.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 10:33:34.7008
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XZV/lPrLgfn8Smk4XSjy8QbPwgG7EKX6ySBnwVXwaPFNpAN6vtA4ZYKHPnJIwGjMxnd5eNWrVLoaGX3FGznsEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9340
 
-Andrew Cooper:
-> On 07/08/2023 3:45 pm, Simon Gaiser wrote:
->> Andrew Cooper:
->>> On 07/08/2023 10:38 am, Simon Gaiser wrote:
->>>> It seems some firmwares put dummy entries in the ACPI MADT table for=
- non
->>>> existing processors. On my NUC11TNHi5 those have the invalid APIC ID=
-
->>>> 0xff. Linux already has code to handle those cases both in
->>>> acpi_parse_lapic [1] as well as in acpi_parse_x2apic [2]. So add the=
-
->>>> same check to Xen.
+On 11.09.2023 11:59, Andrew Cooper wrote:
+> On 11/09/2023 10:53 am, Jan Beulich wrote:
+>> On 11.09.2023 11:48, Andrew Cooper wrote:
+>>> On 11/09/2023 8:54 am, Jan Beulich wrote:
+>>>> On 08.09.2023 18:20, Javi Merino wrote:
+>>>>> The current structure of choosing the correct file based on the
+>>>>> compiler version makes us make 33 line files just to define a
+>>>>> constant.  The changes after gcc 4.7 are minimal, just the number of
+>>>>> counters.
+>>>>>
+>>>>> Fold the changes in gcc_4_9.c, gcc_5.c and gcc_7.c into gcc_4_7.c to
+>>>>> remove a lot of the boilerplate and keep the logic of choosing the
+>>>>> GCOV_COUNTER in gcc_4_7.c.
+>>>>>
+>>>>> Signed-off-by: Javi Merino <javi.merino@cloud.com>
+>>>>> ---
+>>>>>  xen/common/coverage/Makefile  |  6 +-----
+>>>>>  xen/common/coverage/gcc_4_7.c | 17 +++++++++--------
+>>>>>  xen/common/coverage/gcc_4_9.c | 33 ---------------------------------
+>>>>>  xen/common/coverage/gcc_5.c   | 33 ---------------------------------
+>>>>>  xen/common/coverage/gcc_7.c   | 30 ------------------------------
+>>>>>  5 files changed, 10 insertions(+), 109 deletions(-)
+>>>>>  delete mode 100644 xen/common/coverage/gcc_4_9.c
+>>>>>  delete mode 100644 xen/common/coverage/gcc_5.c
+>>>>>  delete mode 100644 xen/common/coverage/gcc_7.c
+>>>>>
+>>>>> diff --git a/xen/common/coverage/Makefile b/xen/common/coverage/Makefile
+>>>>> index 63f98c71d6..d729afc9c7 100644
+>>>>> --- a/xen/common/coverage/Makefile
+>>>>> +++ b/xen/common/coverage/Makefile
+>>>>> @@ -1,11 +1,7 @@
+>>>>>  obj-y += coverage.o
+>>>>>  ifneq ($(CONFIG_CC_IS_CLANG),y)
+>>>>>  obj-y += gcov_base.o gcov.o
+>>>>> -obj-y += $(call cc-ifversion,-lt,0407, \
+>>>>> -		gcc_3_4.o, $(call cc-ifversion,-lt,0409, \
+>>>>> -		gcc_4_7.o, $(call cc-ifversion,-lt,0500, \
+>>>>> -		gcc_4_9.o, $(call cc-ifversion,-lt,0700, \
+>>>>> -		gcc_5.o, gcc_7.o))))
+>>>>> +obj-y += $(call cc-ifversion,-lt,0407, gcc_3_4.o, gcc_4_7.o)
+>>>>>  else
+>>>>>  obj-y += llvm.o
+>>>>>  endif
+>>>>> diff --git a/xen/common/coverage/gcc_4_7.c b/xen/common/coverage/gcc_4_7.c
+>>>>> index 25b4a8bcdc..ddbc9f4bb0 100644
+>>>>> --- a/xen/common/coverage/gcc_4_7.c
+>>>>> +++ b/xen/common/coverage/gcc_4_7.c
+>>>>> @@ -18,15 +18,16 @@
+>>>>>  
+>>>>>  #include "gcov.h"
+>>>>>  
+>>>>> -/*
+>>>>> - * GCOV_COUNTERS will be defined if this file is included by other
+>>>>> - * source files.
+>>>>> - */
+>>>>> -#ifndef GCOV_COUNTERS
+>>>>> -# if !(GCC_VERSION >= 40700 && GCC_VERSION < 40900)
+>>>>> -#  error "Wrong version of GCC used to compile gcov"
+>>>>> -# endif
+>>>>> +#if (GCC_VERSION >= 40700 && GCC_VERSION < 40900)
+>>>>>  #define GCOV_COUNTERS 8
+>>>>> +#elif (GCC_VERSION >= 40900 && GCC_VERSION < 50000)
+>>>>> +#define GCOV_COUNTERS 9
+>>>>> +#elif GCC_VERSION >= 50000 && GCC_VERSION < 70000
+>>>>> +#define GCOV_COUNTERS 10
+>>>>> +#elif GCC_VERSION >= 70000
+>>>>> +#define GCOV_COUNTERS 9
+>>>>> +#else
+>>>>> +#error "Wrong version of GCC used to compile gcov"
+>>>>>  #endif
+>>>> How about inverse order:
 >>>>
->>>> Note that on some older (2nd gen Core i) laptop of mine I also saw d=
-ummy
->>>> entries with a valid APIC ID. Linux would still ignore those because=
+>>>> #if GCC_VERSION >= 70000
+>>>> #define GCOV_COUNTERS 9
+>>>> #elif GCC_VERSION >= 50000
+>>>> #define GCOV_COUNTERS 10
+>>>> #elif GCC_VERSION >= 40900
+>>>> #define GCOV_COUNTERS 9
+>>>> #elif GCC_VERSION >= 40700
+>>>> #define GCOV_COUNTERS 8
+>>>> #else
+>>>> #error "Wrong version of GCC used to compile gcov"
+>>>> #endif
+>>> Forward order is the one that results in a smaller diff when inserting
+>>> new entries.
+>> Hmm, even in forward order one prior #elif will need touching
+> 
+>  #if GCC_VERSION < 40700
+>  #define GCOV_COUNTERS 8
+>  #elif GCC_VERSION < 40900
+>  #define GCOV_COUNTERS 9
+>  #elif GCC_VERSION < 50000
+>  #define GCOV_COUNTERS 10
+>  #elif GCC_VERSION < 70000
+>  #define GCOV_COUNTERS 9
+> +#elif GCC_VERSION < FOO
+> +#define GCOV_COUNTERS BAR
+>  #else
+>  #error "Wrong version of GCC used to compile gcov"
+>  #endif
 
->>>> they have !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE. But in Xe=
-n
->>>> this check is only active for madt_revision >=3D 5. But since this v=
-ersion
->>>> check seems to be intentionally I leave that alone.
->>> I recall there being a discussion over this, ultimately with the vers=
-ion
->>> check being removed.  IIRC it was a defacto standard used for a long
->>> time prior to actually getting written into the ACPI spec, so does ex=
-ist
->>> in practice in older MADTs.
->> So I noticed that the check in Linux is actually slightly different th=
-an
->> I thought. Since [3] it always considers the CPU usable if
->> ACPI_MADT_ENABLED is set. Otherwise it consider it only usable if
->> MADT revision >=3D 5 and ACPI_MADT_ONLINE_CAPABLE is set.
->>
->> So I checked what the ACPI spec says:
->>
->> Up to 6.2 Errata B [6] it only defines ACPI_MADT_ENABLE as:
->>
->>     If zero, this processor is unusable, and the operating system
->>     support will not attempt to use it.
->>
->> And the bit that later will be ACPI_MADT_ONLINE_CAPABLE is reserved wi=
-th
->> "Must be zero".
->>
->> 6.3 [7] Then adds ACPI_MADT_ONLINE_CAPABLE and changes the meaning of
->> ACPI_MADT_ENABLE:
->>
->>     Enabled
->>         If this bit is set the processor is ready for use. If this bit=
+But that doesn't achieve the same as the other construct: No #error for
+gcc earlier than 4.7, and your (presumed; i.e. taking just patch context
+without the two added lines) construct would fail to build for gcc 7. We
+want an open upper bound but a determined lower one.
 
->>         is clear and the Online Capable bit is set, system hardware
->>         supports enabling this processor during OS runtime. If this bi=
-t
->>         is clear and the Online Capable bit is also clear, this
->>         processor is unusable, and OSPM shall ignore the contents of t=
-he
->>         Processor Local APIC Structure.
->>
->>     Online Capbable
->>         The information conveyed by this bit depends on the value of t=
-he
->>         Enabled bit. If the Enabled bit is set, this bit is reserved a=
-nd
->>         must be zero. Otherwise, if this this bit is set, system
->>         hardware supports enabling this processor during OS runtime.
->>
->> So with confirming firmwares it should be safe change the simply ignor=
-e
->> the entry if !ACPI_MADT_ENABLED && !ACPI_MADT_ONLINE_CAPABLE
->>
->> We can also do it like Linux and ignore ACPI_MADT_ONLINE_CAPABLE
->> completely if revision < 5.
->>
->> Note that the revision was already increased to 5 before 6.3.
->>
->> ACPI spec version    MADT revision
->>                  =20
->> 6.2 [4]              4
->> 6.2 Errata A [5]     45 (typo I guess)
->> 6.2 Errata B         5
->> 6.3                  5
->>
->> [3]: https://git.kernel.org/torvalds/c/e2869bd7af608c343988429ceb1c2fe=
-99644a01f
->> [4]: http://www.uefi.org/sites/default/files/resources/ACPI_6_2.pdf
->> [5]: http://www.uefi.org/sites/default/files/resources/ACPI%206_2_A_Se=
-pt29.pdf
->> [6]: https://uefi.org/sites/default/files/resources/ACPI_6_2_B_final_J=
-an30.pdf
->> [7]: https://uefi.org/sites/default/files/resources/ACPI_6_3_May16.pdf=
-
->=20
-> Honestly, the reserved must be zero means there's no need for a version=
-
-> check at all.  That bit will not be set even in older MADT revisions.
->=20
-> That said, it's likely easier to retain the version check than to set u=
-p
-> a quirks infrastructure for buggy older MADTs.
-
-Yes, that's what I was thinking too. Send a patch:
-https://lore.kernel.org/xen-devel/20230911101238.18005-1-simon@invisiblet=
-hingslab.com/
-
-Simon
-
---------------RHe5H2gi4sNvZU9jX1Muvv4V--
-
---------------9NLtl5rYABqj561OCXqs6uaZ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmT+6VIACgkQkO9xfO/x
-ly8g4g/+OFmAInumSqZBLJFA9RNo6wSaqAnGCD9ueWr2DpHbIK1nM/DQz30XHXp9
-4NlfklK8ltCehxR+DcEh0mRYIFfgycqRsNSc0k5IwfX3ehM1aYnniT2wdfvoNHmr
-F9v7DtAWxv3APCNozWRYQibNY43ly20e1mj9vMtiTW0IYJaswmP18yJRfKXAadW1
-NPbRckNwC8objOSmoL60ThnD0KbD//mdkdSvMR4/+rdpWiFN91PNey3lGqDuu3yQ
-u02ECeCAMOiPpZfBElafFqZMMWYkGG/XCv7mBloYqmFFowSAHEH6AhMw+662CBku
-GdHFQ/Pr9Faul+6f+2KDyve7kADBo0uwhbewYCBjs7J47/0e91klS1KnlX8gm/ot
-uNp33gVQ4oD9m2S2mv5WVNrJmPDRCudr9Iv1iDiivy0PXcm0SZ2JCdKfunGc4Eiv
-wqODwfVgzFliC9YmQPxEt5/a686P7Cq9ocwXoVSDAy+9tlOO+UhkXoNXxeLLLuR2
-Pyo7Fbn17xM/feSdA1tzqU8JWo/NeYfqbUyZARIwCGeYfLRTB4dYSzH3iObf4aeI
-j6cjfjJogy9at9OPz73m8pHQyM0S7AARPNiHhPxtQ9h21BjdL8e9Ew8lvhQDa8rB
-kJPWWcoKZkYSoxFAM7BOKVCYE0sklYUv0pVMqt5i5oGP39t8qyk=
-=ze3I
------END PGP SIGNATURE-----
-
---------------9NLtl5rYABqj561OCXqs6uaZ--
+Jan
 
