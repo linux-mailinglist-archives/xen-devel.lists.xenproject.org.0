@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB10779CD21
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:05:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600313.935951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4136179CE16
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:19:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600327.935962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0HD-0000P8-DR; Tue, 12 Sep 2023 10:05:47 +0000
+	id 1qg0UK-0004MN-I0; Tue, 12 Sep 2023 10:19:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600313.935951; Tue, 12 Sep 2023 10:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 600327.935962; Tue, 12 Sep 2023 10:19:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0HD-0000Mp-Ap; Tue, 12 Sep 2023 10:05:47 +0000
-Received: by outflank-mailman (input) for mailman id 600313;
- Tue, 12 Sep 2023 10:05:46 +0000
+	id 1qg0UK-0004Ku-FK; Tue, 12 Sep 2023 10:19:20 +0000
+Received: by outflank-mailman (input) for mailman id 600327;
+ Tue, 12 Sep 2023 10:19:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V3Pz=E4=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qg0HC-0000Mj-FW
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:05:46 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=Mt1s=E4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qg0UJ-0004Jb-2d
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:19:19 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efbf4ae7-5153-11ee-9b0d-b553b5be7939;
- Tue, 12 Sep 2023 12:05:44 +0200 (CEST)
-Received: from [192.168.1.9] (net-93-66-137-131.cust.vodafonedsl.it
- [93.66.137.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 313A94EE0749;
- Tue, 12 Sep 2023 12:05:43 +0200 (CEST)
+ id d4319b25-5155-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 12:19:17 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-401b0d97850so59871215e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Sep 2023 03:19:17 -0700 (PDT)
+Received: from [192.168.20.115] (ip-185-104-136-29.ptr.icomera.net.
+ [185.104.136.29]) by smtp.gmail.com with ESMTPSA id
+ r18-20020a5d6952000000b003141a3c4353sm12592111wrw.30.2023.09.12.03.19.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Sep 2023 03:19:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +45,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efbf4ae7-5153-11ee-9b0d-b553b5be7939
-Message-ID: <ce839d89-931a-3595-584e-eab3f665cea3@bugseng.com>
-Date: Tue, 12 Sep 2023 12:05:42 +0200
+X-Inumbo-ID: d4319b25-5155-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1694513956; x=1695118756; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=27aNj847z6WP7Aj8LQYB9kh7/yLtTyxrvmLSUeUuS2k=;
+        b=husyTaohEUSOtj+v29P9gAcPA6BZXkGLoSI2BzJbQt8QoYoAyZIRob6/bd3rVM4tXY
+         MtPp0ZmY/yVqc57HkGSIAVubc8luk/jUjboepfqIG/FmYgoNq3QH+8EJjbveyjq4FRDw
+         T/aIP+bBYUaqm+5Q4+MTnkophk9lnAdXS2OCc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694513956; x=1695118756;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=27aNj847z6WP7Aj8LQYB9kh7/yLtTyxrvmLSUeUuS2k=;
+        b=fLKX7sYRk/Yjdl0TXHlKkwH83XJ8JHKLOvzaInynTDBZ1HLa/0UOUR+NML1CQWQf9M
+         IPihtX/0Ga3Dhhha51QVTXTNyaT4VCfys12OqgaiGTdZ5rH5BWY1tZs0+6VeMrEi6+5V
+         FWb4k8Gi8Bl0fxEGRL6tWob8I19CtTB+8zZW1RlXafqvWghi9VuOpuCUDSOwYP6Hyewm
+         /0SV8qUbyAYiIlgLe6gx9Y9Nq2JaTnx2l5O5vEY3GEn6fKPSp50LMZ4LL85PPLGTNjAe
+         2c3guR//75K8InlvjVzSS9bTrm+M5CTJvXLFwgPw9/EeVblJ6r5omUYt4aJYgJllgJ/o
+         Ndiw==
+X-Gm-Message-State: AOJu0Yzo5na/e/NvhWB/GB3y2ifVjrYznLvHa3t7zfZjmJzC2KPJAXkZ
+	cL613AQ5dCv00uesyercXYkMxA==
+X-Google-Smtp-Source: AGHT+IEVV+ACr1rzlrFXz/xU7M9EDTs+jbmI0NZOOLdRAYYH67/9/VowHlGH5bpHkBD8qzpSH5738A==
+X-Received: by 2002:a7b:c042:0:b0:401:aa8f:7573 with SMTP id u2-20020a7bc042000000b00401aa8f7573mr10929389wmc.6.1694513956566;
+        Tue, 12 Sep 2023 03:19:16 -0700 (PDT)
+Message-ID: <4a98d2d7-457a-020b-c936-d19b772b626e@citrix.com>
+Date: Tue, 12 Sep 2023 11:18:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [XEN PATCH v2 03/10] misra: add deviations for direct inclusion
- guards
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1694510856.git.simone.ballarin@bugseng.com>
- <0c1fb82b539d939e7c6655a9a8f3d7fe8b213cef.1694510856.git.simone.ballarin@bugseng.com>
- <50e33371-8dc5-d4cb-a606-72d1ab005c21@suse.com>
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <50e33371-8dc5-d4cb-a606-72d1ab005c21@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v2 1/5] automation: add python3's setuptools to
+ containers
+Content-Language: en-GB
+To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
+ George Dunlap <george.dunlap@cloud.com>, Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1694450145.git.javi.merino@cloud.com>
+ <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
+In-Reply-To: <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 12/09/23 11:52, Jan Beulich wrote:
-> On 12.09.2023 11:36, Simone Ballarin wrote:
->> --- a/docs/misra/safe.json
->> +++ b/docs/misra/safe.json
->> @@ -36,6 +36,14 @@
->>           },
->>           {
->>               "id": "SAF-4-safe",
->> +            "analyser": {
->> +                "eclair": "MC3R1.D4.10"
->> +            },
->> +            "name": "Dir 4.10: direct inclusion guard before",
->> +            "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
->> +        },
->> +        {
->> +            "id": "SAF-5-safe",
->>               "analyser": {},
->>               "name": "Sentinel",
->>               "text": "Next ID to be used"
->> diff --git a/xen/arch/arm/include/asm/hypercall.h b/xen/arch/arm/include/asm/hypercall.h
->> index ccd26c5184..24f8c61a73 100644
->> --- a/xen/arch/arm/include/asm/hypercall.h
->> +++ b/xen/arch/arm/include/asm/hypercall.h
->> @@ -1,3 +1,4 @@
->> +/* SAF-3-safe direct inclusion guard before */
->>   #ifndef __XEN_HYPERCALL_H__
->>   #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
->>   #endif
->> diff --git a/xen/arch/x86/include/asm/hypercall.h b/xen/arch/x86/include/asm/hypercall.h
->> index ec2edc771e..dfdfe80021 100644
->> --- a/xen/arch/x86/include/asm/hypercall.h
->> +++ b/xen/arch/x86/include/asm/hypercall.h
->> @@ -2,6 +2,7 @@
->>    * asm-x86/hypercall.h
->>    */
->>   
->> +/* SAF-3-safe direct inclusion guard before */
->>   #ifndef __XEN_HYPERCALL_H__
->>   #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
->>   #endif
->> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
->> index 0a2b16d05d..190ada7800 100644
->> --- a/xen/include/xen/unaligned.h
->> +++ b/xen/include/xen/unaligned.h
->> @@ -3,6 +3,7 @@
->>    * without faulting, and at least reasonably efficiently.  Other architectures
->>    * will need to have a custom asm/unaligned.h.
->>    */
->> +/* SAF-3-safe direct inclusion guard before */
->>   #ifndef __ASM_UNALIGNED_H__
->>   #error "xen/unaligned.h should not be included directly - include asm/unaligned.h instead"
->>   #endif
-> 
-> Apart from the recurring off-by-1, will this have the intended effect of
-> Eclair still choking if there's then no inclusion guard following these
-> early constructs?
-> 
-> Jan
-> 
+On 11/09/2023 5:51 pm, Javi Merino wrote:
+> In preparation of dropping python distutils and moving to setuptools,
+> add the python3 setuptools module to the containers that need it.
+>
+> The centos7 container was building using python2.  Change it to build
+> python scripts using python3.
+>
+> Debian Stretch is no longer debian oldstable, so move to the archive
+> repositories.
+>
+> Signed-off-by: Javi Merino <javi.merino@cloud.com>
 
-No, if you put something between the direct inclusion guard and the 
-inclusion guard, no violation will be generated.
+We are not dropping distutils.  We're moving to support both distutils
+and setuptools, because setuptools doesn't support the minimum version
+of python that Xen supports.
 
--- 
-Simone Ballarin, M.Sc.
+Therefore, it's important to keep some of the containers on distutils
+rather than switching all to setuptools.
 
-Field Application Engineer, BUGSENG (https://bugseng.com)
+CenOS can stay as is, as can Stretch and probably Bionic/Focal.
 
+Any containers with Py3.10 or later definitely need to move, seeing as
+distuils is formally deprecated there
+
+It's sadly a little too early to make a Py3.12 container, which will
+lack distutils, but we can come back to that in 4.19.
+
+As Stefano points out, you should refresh at least some of the arm64
+containers too.  RISC-V and PPC aren't set up for tools builds set, so
+they're fine to leave.
+
+~Andrew
 
