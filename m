@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF34A79D1BE
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 15:04:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600477.936115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A24079D222
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 15:31:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600488.936125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg33y-0000J3-PW; Tue, 12 Sep 2023 13:04:18 +0000
+	id 1qg3TT-0006IU-Jk; Tue, 12 Sep 2023 13:30:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600477.936115; Tue, 12 Sep 2023 13:04:18 +0000
+Received: by outflank-mailman (output) from mailman id 600488.936125; Tue, 12 Sep 2023 13:30:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg33y-0000H6-Mg; Tue, 12 Sep 2023 13:04:18 +0000
-Received: by outflank-mailman (input) for mailman id 600477;
- Tue, 12 Sep 2023 13:04:17 +0000
+	id 1qg3TT-0006FX-GY; Tue, 12 Sep 2023 13:30:39 +0000
+Received: by outflank-mailman (input) for mailman id 600488;
+ Tue, 12 Sep 2023 13:30:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg33x-0000Gw-Cg; Tue, 12 Sep 2023 13:04:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qg3TR-0006FR-Tg
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 13:30:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg33x-0006c2-By; Tue, 12 Sep 2023 13:04:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg33x-0008MW-1D; Tue, 12 Sep 2023 13:04:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qg33x-0007BW-0j; Tue, 12 Sep 2023 13:04:17 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qg3TR-0007Ch-H8; Tue, 12 Sep 2023 13:30:37 +0000
+Received: from [15.248.2.157] (helo=[10.24.67.41])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qg3TR-0002pJ-6G; Tue, 12 Sep 2023 13:30:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +39,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5lENZY3I4NKR9q/ZwDUX5X/7YLT1ZW+08ILKuzGKAuA=; b=jbFkb5p1ZV06VtgAyrCQShylbB
-	jUiWPZAhQqpHTMXaz/rhiCOXy2pj5fIx4zDq8v9rhwYUKJuN4yT9UWD9OXHeVycH4vWU0qFC2fPjb
-	achSk6VDRsfaLmRf/czleO61hFIBUcuaYeSAPhew/iMYqXknU6V1Tnb9OGPxFLWMESP0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182964-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=a9+nKxRSXlAEPaXUbLk1YgfCNIi/4jTo5QHszyY/w0U=; b=GSE088YGKfffZQAk4UAAHG9B8Q
+	ouZW+ZWbHRV9JoErGN3NDqVh0e6f4lY39Ld73CEsIucWOy4xriBNxHN928V843BOB6EYRWcvsm9Dk
+	J7x9v54eq1djin2MDgl1F5KtOPfxXvjOj6rTz+OZnxl5GLM6XqdNnV1TsGN3X7MPOtFA=;
+Message-ID: <e63b1aac-5401-414d-9d51-2b67b3759f3a@xen.org>
+Date: Tue, 12 Sep 2023 14:30:35 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 182964: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=4f4a2c3b0768cd389c8f27ec77871887ba89e6f5
-X-Osstest-Versions-That:
-    ovmf=b7a48bed16dd75ce6a864540ab7dc38d8f1f657b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 Sep 2023 13:04:17 +0000
-
-flight 182964 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182964/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 4f4a2c3b0768cd389c8f27ec77871887ba89e6f5
-baseline version:
- ovmf                 b7a48bed16dd75ce6a864540ab7dc38d8f1f657b
-
-Last test of basis   182961  2023-09-12 07:44:09 Z    0 days
-Testing same since   182964  2023-09-12 11:12:21 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/arm: Handle empty grant table region in
+ find_unallocated_memory()
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230824090640.25338-1-michal.orzel@amd.com>
+ <7d216ef6-398c-4086-8a7a-33e80dcacda7@xen.org>
+ <d029d806-33a2-6774-4aa2-ae8f1303288b@amd.com>
+ <832d6508-50d8-4f78-ae58-2203100a67f2@xen.org>
+In-Reply-To: <832d6508-50d8-4f78-ae58-2203100a67f2@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 24/08/2023 11:04, Julien Grall wrote:
+> 
+> 
+> On 24/08/2023 10:17, Michal Orzel wrote:
+>> On 24/08/2023 11:10, Julien Grall wrote:
+>>> On 24/08/2023 10:06, Michal Orzel wrote:
+>>>> When creating dom0 with grant table support disabled in Xen and no 
+>>>> IOMMU,
+>>>> the following assert is triggered (debug build):
+>>>> "Assertion 's <= e' failed at common/rangeset.c:189"
+>>>
+>>> A partial stack trace would have been handy. This help the reader to
+>>> understand how you came to the conclusion that the issue was in
+>>> find_unallocated_memory().
+>> Here you go:
+>> (XEN) Xen call trace:
+>> (XEN)    [<0000020000218568>] rangeset_remove_range+0xbc/0x2cc (PC)
+>> (XEN)    [<00000200002c76bc>] 
+>> domain_build.c#make_hypervisor_node+0x294/0x7c4 (LR)
+>> (XEN)    [<00000200002ca240>] domain_build.c#handle_node+0x7ec/0x924
+>> (XEN)    [<00000200002ca7ac>] domain_build.c#construct_dom0+0x434/0x4d8
+>>
+>> Can you append this to the commit msg while committing or do you want 
+>> a respin?
+> 
+> Thanks. It can be done on commit.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I have now committed the patch. Sorry for the delay.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b7a48bed16..4f4a2c3b07  4f4a2c3b0768cd389c8f27ec77871887ba89e6f5 -> xen-tested-master
+-- 
+Julien Grall
 
