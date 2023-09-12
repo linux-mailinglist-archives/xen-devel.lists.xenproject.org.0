@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26CD979D8C7
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 20:36:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600738.936526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D82F779D9BB
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 21:45:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600782.936563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg8F8-0005DB-Ls; Tue, 12 Sep 2023 18:36:10 +0000
+	id 1qg9J7-0003zf-FQ; Tue, 12 Sep 2023 19:44:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600738.936526; Tue, 12 Sep 2023 18:36:10 +0000
+Received: by outflank-mailman (output) from mailman id 600782.936563; Tue, 12 Sep 2023 19:44:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg8F8-0005AC-Hq; Tue, 12 Sep 2023 18:36:10 +0000
-Received: by outflank-mailman (input) for mailman id 600738;
- Tue, 12 Sep 2023 18:36:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YY/q=E4=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qg8F6-0004Nn-UC
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 18:36:08 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ad72a20-519b-11ee-9b0d-b553b5be7939;
- Tue, 12 Sep 2023 20:36:05 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 34E8E8285940;
- Tue, 12 Sep 2023 13:36:04 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id wiCnQFjRUYTc; Tue, 12 Sep 2023 13:36:03 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id CB83A828588C;
- Tue, 12 Sep 2023 13:36:02 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id G-6wvpSRwke5; Tue, 12 Sep 2023 13:36:02 -0500 (CDT)
-Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 5489882869AC;
- Tue, 12 Sep 2023 13:36:02 -0500 (CDT)
+	id 1qg9J7-0003xt-CL; Tue, 12 Sep 2023 19:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 600782;
+ Tue, 12 Sep 2023 19:44:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qg9J5-0003xj-TV; Tue, 12 Sep 2023 19:44:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qg9J5-0007dN-SN; Tue, 12 Sep 2023 19:44:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qg9J5-0000mo-LO; Tue, 12 Sep 2023 19:44:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qg9J5-0006LA-Kr; Tue, 12 Sep 2023 19:44:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,82 +42,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ad72a20-519b-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com CB83A828588C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694543762; bh=cF5IvHr5u7imGadcwYNiu5y563SLZGH4suAc9S6xZk0=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=sRurfK0c/cp+pmQdGiETrI7rVpVS3xanOQQqk86LrHVno6CDvUHZWxe+OXpg0/w5S
-	 xOseXb95hE87vAwsi+mIfErvx98ChQw2f5VnT5zUpvyPdsZIAOj2ffpQknGzlaZKDz
-	 18dQIUmIMGwTix7YCkDDdnYAWgi7y3vX7/eiFAbY=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=M6s91KVpI4KU2CFi3qpTmhLSSk4nKENlgeuoon0IeJM=; b=WQQH+k2CwEaXSBrGgtYNvpimMG
+	EYAf50/t/5y+1f8B0bjYefrCbmQUKm8s5lc7wBQtxCYa02LI9GuQz4Rf2s6DFkCzeng2/cDzjrkGB
+	2ENxZ9Pi2vioB0LdjRTY6Es0Ubm/+U5czFpI8FLxosx9cPimNt/uGGpUcoWoeFm5ro4I=;
 To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v5 5/5] xen/ppc: Enable full Xen build
-Date: Tue, 12 Sep 2023 13:35:54 -0500
-Message-Id: <98a4fe2a4a2aee0a33b6b2110cd6ee906d4e0fe1.1694543103.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1694543103.git.sanastasio@raptorengineering.com>
-References: <cover.1694543103.git.sanastasio@raptorengineering.com>
+Message-ID: <osstest-182974-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 182974: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:heisenbug
+X-Osstest-Versions-This:
+    ovmf=7f1a8cad9945674f068ff5e98a533280a7f0efb1
+X-Osstest-Versions-That:
+    ovmf=4f4a2c3b0768cd389c8f27ec77871887ba89e6f5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 Sep 2023 19:44:19 +0000
 
-Bring ppc's Makefile and arch.mk in line with arm and x86 to disable the
-build overrides and enable the full Xen build.
+flight 182974 ovmf real [real]
+flight 182980 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182974/
+http://logs.test-lab.xenproject.org/osstest/logs/182980/
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/ppc/Makefile | 16 +++++++++++++++-
- xen/arch/ppc/arch.mk  |  3 ---
- 2 files changed, 15 insertions(+), 4 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
-index 6d5569ff64..71feb5e2c4 100644
---- a/xen/arch/ppc/Makefile
-+++ b/xen/arch/ppc/Makefile
-@@ -11,10 +11,24 @@ $(TARGET): $(TARGET)-syms
- 	cp -f $< $@
- 
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	$(NM) -pa --format=sysv $(dot-target).0 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).0.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(dot-target).0.o -o $(dot-target).1
-+	$(NM) -pa --format=sysv $(dot-target).1 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
-+	    $(dot-target).1.o -o $@
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-+	rm -f $(@D)/.$(@F).[0-9]*
- 
- $(obj)/xen.lds: $(src)/xen.lds.S FORCE
- 	$(call if_changed_dep,cpp_lds_S)
-diff --git a/xen/arch/ppc/arch.mk b/xen/arch/ppc/arch.mk
-index d05cbf1df5..917ad0e6a8 100644
---- a/xen/arch/ppc/arch.mk
-+++ b/xen/arch/ppc/arch.mk
-@@ -7,6 +7,3 @@ CFLAGS += -m64 -mlittle-endian -mcpu=$(ppc-march-y)
- CFLAGS += -mstrict-align -mcmodel=medium -mabi=elfv2 -fPIC -mno-altivec -mno-vsx -msoft-float
- 
- LDFLAGS += -m elf64lppc
--
--# TODO: Drop override when more of the build is working
--override ALL_OBJS-y = arch/$(SRCARCH)/built_in.o common/libfdt/built_in.o lib/built_in.o
--- 
-2.30.2
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install  fail pass in 182980-retest
 
+version targeted for testing:
+ ovmf                 7f1a8cad9945674f068ff5e98a533280a7f0efb1
+baseline version:
+ ovmf                 4f4a2c3b0768cd389c8f27ec77871887ba89e6f5
+
+Last test of basis   182964  2023-09-12 11:12:21 Z    0 days
+Testing same since   182974  2023-09-12 16:12:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Laszlo Ersek <lersek@redhat.com>
+  Sunil V L <sunilvl@ventanamicro.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   4f4a2c3b07..7f1a8cad99  7f1a8cad9945674f068ff5e98a533280a7f0efb1 -> xen-tested-master
 
