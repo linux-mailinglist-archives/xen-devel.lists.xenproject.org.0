@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3E379B204
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 01:57:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599819.935392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B509079C12A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 02:40:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599826.935402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfqlw-0007hD-96; Mon, 11 Sep 2023 23:56:52 +0000
+	id 1qfrRw-0006ju-2Y; Tue, 12 Sep 2023 00:40:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599819.935392; Mon, 11 Sep 2023 23:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 599826.935402; Tue, 12 Sep 2023 00:40:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfqlw-0007fB-62; Mon, 11 Sep 2023 23:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 599819;
- Mon, 11 Sep 2023 23:56:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qfrRv-0006iE-VO; Tue, 12 Sep 2023 00:40:15 +0000
+Received: by outflank-mailman (input) for mailman id 599826;
+ Tue, 12 Sep 2023 00:40:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ipyp=E3=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qfqlv-0007f4-E9
- for xen-devel@lists.xenproject.org; Mon, 11 Sep 2023 23:56:51 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dee3753c-50fe-11ee-8786-cb3800f73035;
- Tue, 12 Sep 2023 01:56:49 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id E06AA8285544;
- Mon, 11 Sep 2023 18:56:47 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id ERcn-qdieOB7; Mon, 11 Sep 2023 18:56:47 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 3B769828573E;
- Mon, 11 Sep 2023 18:56:47 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id CIc6uPVVeNTf; Mon, 11 Sep 2023 18:56:47 -0500 (CDT)
-Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id C81048285544;
- Mon, 11 Sep 2023 18:56:46 -0500 (CDT)
+ <SRS0=2+51=E4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qfrRt-0006hg-OZ
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 00:40:13 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec6f0378-5104-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 02:40:10 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 4F7D0CE16F5;
+ Tue, 12 Sep 2023 00:40:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309D6C116A3;
+ Tue, 12 Sep 2023 00:40:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,131 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dee3753c-50fe-11ee-8786-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 3B769828573E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694476607; bh=UW40c96QVHsCWqUdK/2i+1XHEV7FgUG9wP7O0ATnoos=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=t8zlfo0I/wGD0PSWy0NzZIDW16tPAbmW5g5hY4oc+NQQ+F5tqruSMK5yNZNTfcdJ4
-	 3ecTz1tAMXDjDQ8DLAY/wn4pWvVmLkWHjNLcoNI0kPKkWwY2RZWG1NCrTjgxNWKf9p
-	 +qHYRVws9k7fiute1eRLl6TEZxEpq1p5eMeHWo78=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <7d3029fc-1188-3c55-0a54-bb9899fb91e8@raptorengineering.com>
-Date: Mon, 11 Sep 2023 18:56:46 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v4 1/5] xen/ppc: Implement atomic.h
-Content-Language: en-US
+X-Inumbo-ID: ec6f0378-5104-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694479202;
+	bh=Dxmm2rLn/WJ21SRhnu/nMYLAH7UCGT8LC9nHanY707A=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=CrfSXoK7S4g0ty0OkouoWgz/0GuULQvMK/PuO6qJ7pE2pi2v+Rd+DSUwN8SCYEUzJ
+	 GNvKhiz/nYO0mlBs8layGWkdGbUaHkDlgkOa3uXxaNB4PnHzWhIj/eh/QZvN69yC9C
+	 XB64i/I4ltifFItYVPEuqRxJukS2lzhg6vEbc40rgIcjQsZlhUI41xszl/F8Sh/NHi
+	 nFxpSGjoor1+guqCzefPN2aD8WzHf2cPZovWbAQ7uWy8m0RXycKAkfNBC71mCc6YCA
+	 zyxkD7z6UP6BXqE7XHfCwt09xlwj4x9ABAXECAb2zB9Rv7PjIgrqNVZYC5rvfqwRzA
+	 iav2pvOl5j5Zw==
+Date: Mon, 11 Sep 2023 17:39:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1694211900.git.sanastasio@raptorengineering.com>
- <7ed453323033a759427da33cea7d18ddca247ae7.1694211900.git.sanastasio@raptorengineering.com>
- <93f4a2f3-b98c-332d-64a6-9e34cc9dddf2@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <93f4a2f3-b98c-332d-64a6-9e34cc9dddf2@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, julien@xen.org, george.dunlap@citrix.com, 
+    bertrand.marquis@arm.com, roberto.bagnara@bugseng.com, 
+    nicola.vetrini@bugseng.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3] docs/misra: add rule 2.1 exceptions
+In-Reply-To: <ef37384f-c3e6-1425-f27a-1bd70f34dd6d@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2309111739510.1847660@ubuntu-linux-20-04-desktop>
+References: <20230908230318.1719290-1-sstabellini@kernel.org> <ef37384f-c3e6-1425-f27a-1bd70f34dd6d@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/11/23 6:33 AM, Jan Beulich wrote:
-> On 09.09.2023 00:50, Shawn Anastasio wrote:
->> Implement atomic.h for PPC, based off of the original Xen 3.2
->> implementation. This implementation depends on some functions that are
->> not yet defined (notably __cmpxchg), so it can't yet be used.
->>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+On Mon, 11 Sep 2023, Jan Beulich wrote:
+> On 09.09.2023 01:03, Stefano Stabellini wrote:
+> > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > During the discussions that led to the acceptance of Rule 2.1, we
+> > decided on a few exceptions that were not properly recorded in
+> > rules.rst. Add them now.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > Acked-by: Jan Beulich <jbeulich@suse.com>
+> > ---
+> > Nicola, does this work with ECLAIR?
+> > 
+> > I am referring to the locations of the SAF-2-safe tag on top of
+> > call_psci_system_off, BUG, etc.
+> > 
+> > Changes in v3:
+> > - added SAF-2-safe to safe.json
+> > - added a few SAF-2-safe examples
+> > ---
+> >  docs/misra/rules.rst    | 13 ++++++++++++-
+> >  docs/misra/safe.json    |  8 ++++++++
+> >  xen/arch/arm/psci.c     |  1 +
+> >  xen/arch/x86/shutdown.c |  1 +
+> >  xen/include/xen/bug.h   |  2 ++
+> >  5 files changed, 24 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> > index 34916e266a..82de4c645d 100644
+> > --- a/docs/misra/rules.rst
+> > +++ b/docs/misra/rules.rst
+> > @@ -107,7 +107,18 @@ maintainers if you want to suggest a change.
+> >     * - `Rule 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_01_1.c>`_
+> >       - Required
+> >       - A project shall not contain unreachable code
+> > -     -
+> > +     - The following are allowed:
+> > +         - Invariantly constant conditions, e.g. if(IS_ENABLED(CONFIG_HVM)) { S; }
+> > +         - Switch with a controlling value statically determined not to
+> > +           match one or more case statements
 > 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
->
+> I (continue to) consider this as too lax. I don't think we want to permit
+> something like
+> 
+> void test(uint8_t val)
+> {
+>     switch ( val )
+>     {
+>     case 0x100:
+>         ...
+> 
+> Imo like in the earlier bullet point I think this wants limiting to
+> compile-time constant values, at least initially.
 
-Thanks.
-
-> Just one remaining question:
-> 
->> +static always_inline void read_atomic_size(const volatile void *p, void *res,
->> +                                           unsigned int size)
->> +{
->> +    ASSERT(IS_ALIGNED((vaddr_t)p, size));
->> +    switch ( size )
->> +    {
->> +    case 1:
->> +        *(uint8_t *)res = read_u8_atomic(p);
->> +        break;
->> +    case 2:
->> +        *(uint16_t *)res = read_u16_atomic(p);
->> +        break;
->> +    case 4:
->> +        *(uint32_t *)res = read_u32_atomic(p);
->> +        break;
->> +    case 8:
->> +        *(uint64_t *)res = read_u64_atomic(p);
->> +        break;
->> +    default:
->> +        __bad_atomic_read(p, res);
->> +        break;
->> +    }
->> +}
->> +
->> +static always_inline void write_atomic_size(volatile void *p, const void *val,
->> +                                            unsigned int size)
->> +{
->> +    ASSERT(IS_ALIGNED((vaddr_t)p, size));
->> +    switch ( size )
->> +    {
->> +    case 1:
->> +        write_u8_atomic(p, *(const uint8_t *)val);
->> +        break;
->> +    case 2:
->> +        write_u16_atomic(p, *(const uint16_t *)val);
->> +        break;
->> +    case 4:
->> +        write_u32_atomic(p, *(const uint32_t *)val);
->> +        break;
->> +    case 8:
->> +        write_u64_atomic(p, *(const uint64_t *)val);
->> +        break;
->> +    default:
->> +        __bad_atomic_size();
->> +        break;
->> +    }
->> +}
-> 
-> These two functions being as similar as is possible, ...
-> 
->> +#define read_atomic(p)                                                         \
->> +    ({                                                                         \
->> +        union {                                                                \
->> +            typeof(*(p)) val;                                                  \
->> +            char c[sizeof(*(p))];                                              \
->> +        } x_;                                                                  \
->> +        read_atomic_size(p, x_.c, sizeof(*(p)));                               \
->> +        x_.val;                                                                \
->> +    })
-> 
-> ... is there a reason you keep using a union here ...
-> 
->> +#define write_atomic(p, x)                                                     \
->> +    do                                                                         \
->> +    {                                                                          \
->> +        typeof(*(p)) x_ = (x);                                                 \
->> +        write_atomic_size(p, &x_, sizeof(*(p)));                               \
->> +    } while ( 0 )
-> 
-> ... while you did away with its use here?
->
-
-Yes. In the case of read_atomic the caller is allowed (expected, even)
-to pass in const pointers for `p`, which wouldn't work if a simple
-typeof(*(p)) declaration was used since it would inherit the constness
-and thus wouldn't be passable to read_atomic_size.
-
-In the case of write_atomic though, there is no need to support const
-`p`, so no union is necessary.
-
-> Jan
-
-Thanks,
-Shawn
+Yes good point
 
