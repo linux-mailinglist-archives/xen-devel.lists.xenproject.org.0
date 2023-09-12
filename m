@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECDC079DC9E
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 01:22:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600819.936630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 266E279DCCD
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 01:42:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600861.936671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChJ-0000Qd-NC; Tue, 12 Sep 2023 23:21:33 +0000
+	id 1qgD17-0006qY-DU; Tue, 12 Sep 2023 23:42:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600819.936630; Tue, 12 Sep 2023 23:21:33 +0000
+Received: by outflank-mailman (output) from mailman id 600861.936671; Tue, 12 Sep 2023 23:42:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChJ-0000Op-K1; Tue, 12 Sep 2023 23:21:33 +0000
-Received: by outflank-mailman (input) for mailman id 600819;
- Tue, 12 Sep 2023 23:21:31 +0000
+	id 1qgD17-0006og-Ap; Tue, 12 Sep 2023 23:42:01 +0000
+Received: by outflank-mailman (input) for mailman id 600861;
+ Tue, 12 Sep 2023 23:41:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qLIb=E4=citrix.com=prvs=612d1dac3=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qgChH-0008LM-Ou
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:21:31 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a55f0f5-51c3-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 01:21:30 +0200 (CEST)
+ <SRS0=Dd3m=E4=epam.com=prvs=3619f40973=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1qgD15-0006oa-Kq
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:41:59 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5b959a1-51c5-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 01:41:58 +0200 (CEST)
+Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38CKhMSe024185; Tue, 12 Sep 2023 23:41:48 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2056.outbound.protection.outlook.com [104.47.12.56])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3t2y9908qg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Sep 2023 23:41:48 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by AS8PR03MB7286.eurprd03.prod.outlook.com (2603:10a6:20b:2b7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Tue, 12 Sep
+ 2023 23:41:43 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::e9f8:ffda:29cc:3dbe]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::e9f8:ffda:29cc:3dbe%7]) with mapi id 15.20.6768.029; Tue, 12 Sep 2023
+ 23:41:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,265 +53,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a55f0f5-51c3-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1694560889;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=phPA3tnKIFy3A0mEPKxsnBzaUvqhIfnN1XY0+oKtm6Y=;
-  b=YyKbNGbJdxnOrTIrKWg2aBcYeGSyQbUJ7aWE1pKb2vPXYY1JL4mOvWrG
-   lqXuUagEn06WwXs/Sl/jZNumezLPFi9dyJEf8ZmQF2OovVKfdpO3iux4k
-   cYTa32LtWEnKn55Jp4P5KXLTjq95crqkC9R1nMmhTDXj8E0ZC82dP3/IF
-   Q=;
-X-CSE-ConnectionGUID: 77hly/MbRSyZrodrhAl29Q==
-X-CSE-MsgGUID: EjBfDZonQZG3XVVjx5Cd6A==
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 122460588
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:ucl286NgZscUsyrvrR2Nl8FynXyQoLVcMsEvi/4bfWQNrUoqhDcAy
- jQXWW2EMviCNmehed52b4u3pB8PuJbTzIM3Hgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGjxSs/jrRC9H5qyo42tJ5wZmOJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0rkoAWVfs
- tkSEgscXAqEi/i26bbhG9A506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXQH5kLxhvI9
- goq+UzUADsUGO6YzwO33SmcuNHNjX7QVNw7QejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxLncAZi5MbpohrsBebT4r0
- FiJ2dDgAzMps6e9RneU97PSpjS3URX5NkdbO3VCF1FcpYC+/sdq1Emnostf/LCd0YL1HSC35
- jqwlzkMnbIfl84i0//qxAWS696znaThQgkw7wTRe2uq6AJleYKoD7CVBUjnAeVod9jAEATY1
- JQQs43Htb1VU8nR/MCYaL9VdIxF8cppJ9E1bbRHO5A6vwqg9He4FWy7yGEvfRw5WirolNKAX
- aMyhe+zzMUDVJdJRfUtC25UNyjN5fG6fekJrtiOMrJzjmFZLWdrBh1Ga0+KxHzKm0Mxi6w5M
- przWZ/yXCpHVf85kWPrGr51PVoXKscWnz+7eHwG507/jer2iIC9Gd/pz2dinshmtfjZ8W05A
- v5UNteQygU3bQENSnC/zGLnFnhTdSJTLcmv+6RqmhurflIO9JcJV6WAntvMuuVNw8xoqws/1
- ijkBBQAmAOh3SyvxMfjQikLVY4DlK1X9RoTVRHA937xs5T/Se5DNJsiSqY=
-IronPort-HdrOrdr: A9a23:AoxiXKAVwZLgQm/lHela55DYdb4zR+YMi2TDt3oddfWaSKylfq
- GV7ZImPHrP4gr5N0tOpTntAse9qDbnhPxICOoqTNCftWvdyQiVxehZhOOP/9SjIVyaygc078
- xdmsNFebnN5DZB7PoT4GODYqkdKNvsytHXuQ8JpU0dPD2DaMtbnndE4h7wKDwOeOHfb6BJaa
- Z14KB81kKdUEVSVOuXLF8fUdPOotXa/aiWHSLvV3YcmXKzZSrD0s+BLySl
-X-Talos-CUID: 9a23:2w4zKWNZ9amRyO5DB3Zn8F9TP8ofSWzv1nDcOU+RDTw4cejA
-X-Talos-MUID: 9a23:d4hB1AmrzLyBJmFvZ6a0dnpPNu1mz5apDnk/vs42hfeGJXFbN2m02WE=
-X-IronPort-AV: E=Sophos;i="6.02,141,1688443200"; 
-   d="scan'208";a="122460588"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jinoh Kang
-	<jinoh.kang.kr@gmail.com>
-Subject: [PATCH 5/5] x86/pv: Rewrite %dr6 handling
-Date: Wed, 13 Sep 2023 00:21:13 +0100
-Message-ID: <20230912232113.402347-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230912232113.402347-1-andrew.cooper3@citrix.com>
-References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: f5b959a1-51c5-11ee-8786-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QrViNF5Flpu3LMtwBY5n9XmOBow3sow9e+4+0lR/jwiIncNXwvHR6omtmXjzzhW68Wh2SAfG6ZZB32RteSOya7Wbl0tnJaMdOKnaSCn95K97YotLTZf1wSKlQ9qZFW16gNwYaVCFTUJRWMHaMiP60IgkCUtFJASHtHiy0WlwmbH6BxIRAg2RkUttn513Fg8RdJdwNAxfm9W9x6fZXZvw7hhJ4wm4EjLpkGFYwlHIscqlTkgNesqL7KiN4p2tXP6wStXpnSMARTixSyyUmrtMQo3i27R56UnPy7VxcltZMOA2BQy9gozWGed6seapbGryds+pn1JfTkcRU5MrwlpFgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ByCiywusZZZLVTSAT8Os38Och+OnuvlsrVYSwBJUIE8=;
+ b=l7vI+wgfJozDMLQcpJsW9XTcVFZRdnjrc1QpRQL9QxN4y1Zmbwk/zc7ooIAz0+QChVfCuCS84aZaGhkzu6sj5G+e2tycxaBmN4cJnXbLhYQunF8eHERM8Jp04tLWdIETITAZ0LVjsDVbpJF6ULqQ7UyRVnk45WroA5opwTR0BLxn/Y3FKPqyBR6vNaM/ZilvtabM4aIJ9WqymNQ208GKRFJ9W3ijURWLOT5Tr0KtHA4dIG4KmwV6Bn3BDaHdtk0BfWggC+110k0PlKFWj/zV99w9w0jfXbnK7/oMs88qUB6dKUJqu9siemHJ+fd8/3puU4ZQ86m4MHW76BHByomDBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ByCiywusZZZLVTSAT8Os38Och+OnuvlsrVYSwBJUIE8=;
+ b=sEd7pzlQE+bVaMIkwYMwCnNGKPuQtdO21lEzH1yE7QP8rGdnig12tX3uDQUZ5HeaettL9vxfWg7yyYEvpG0edgmruw0Db+n953Y95A+YS6Go+aCcbQ8iVm0xwP1pcELGgAM/+VuM5AnyPGnsbzMhv7QG2YYbwOiRDK1aPs0YObV0bKTsLzZooj8j2B4LLjbpa9Jch+ITPzfX4vlvwDKjrEz1tEPL5aLpYEV1S+KrEmcJHLtnLlqOYwt+57Rpg1TEDpj+UdxZfhAZp6FBIGqSJKw8SgEtohZ7/v/3JPy/jmu+DK6koVglv4IPGU/7tHgPuJw0+AcN7ZYj3CsAVjYvfQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>,
+        Andrew Cooper
+	<andrew.cooper3@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>,
+        Julien
+ Grall <julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>,
+        Paul Durrant <paul@xen.org>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v9 04/16] vpci: add hooks for PCI device assign/de-assign
+Thread-Topic: [PATCH v9 04/16] vpci: add hooks for PCI device assign/de-assign
+Thread-Index: AQHZ2s9Kc9kNunOnfUurMYypVVbdQ7AXA+KAgADqFoA=
+Date: Tue, 12 Sep 2023 23:41:41 +0000
+Message-ID: <874jjzhsd4.fsf@epam.com>
+References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
+ <20230829231912.4091958-5-volodymyr_babchuk@epam.com>
+ <77e2dbc0-c224-4c1e-72a0-5b19aa76ba0b@suse.com>
+In-Reply-To: <77e2dbc0-c224-4c1e-72a0-5b19aa76ba0b@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.10.7; emacs 29.1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AS8PR03MB7286:EE_
+x-ms-office365-filtering-correlation-id: 2722a01a-5881-4923-42aa-08dbb3e9d0db
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 3whGvaP+duoz3uQ7LN5ku0hU1+tjgODKZCnUqflBTIB4j4w2hCBG25XR1Zf51p0Jph5NPYKvtTXTXnAj7veBOu7cIkntV9BDPQnneL4Woc5UI8B8l5YVT84HnN9T9uWIypI73ahsqa+fqxnpe2CFXFPE6FOKuVxJ4fYLChzZylM3KA/BIxD+9mYCrSeJ/y2ASi9kngD4lzXPxRcGr+qhqvp4dTjLataY7yc4hikt4qZOcEVoIL0o23qYxBayzbuxTmgvP/oLtoaFaJOKm5YqoBM+4EO0Iq54M9eDNBIgi2+Lna5kcq0PmvAPHJVKQ+FzJfUPF4itL0o0i9QEsukDG4thVYolG8yfFvIWp2MMn3a6psMcRzpnljL0k0OnH8QEASWOfzJEyk5dkdGYkNebokX3R8OVKMZa5RlHx4oV0Poqu7/QuHnu4gn5zlxRHMetStaYo7ywsx1enleQBOsUZJRVLHqTSOE8f6EnMfzg7ZXbOQBPON/SUgEil+fZSxGpwsK+nzYL34RnXe0ZZHBa4tXqx0UZvzCGr3gqiXY8uEMXOKfIWh2uxJ8K6TBbDT4njK6bJp0NpQY9+Ahn9rEh9b1Gd5fRwK+iu6czy9aPZadIsbMAWuXsGE+Lpj+7EM62
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(366004)(396003)(346002)(376002)(186009)(451199024)(1800799009)(7416002)(6512007)(5660300002)(55236004)(71200400001)(6486002)(53546011)(6506007)(26005)(478600001)(2906002)(2616005)(83380400001)(8936002)(4326008)(6916009)(66946007)(41300700001)(91956017)(122000001)(8676002)(38070700005)(76116006)(38100700002)(54906003)(66446008)(316002)(86362001)(64756008)(36756003)(66556008)(66476007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?2RHOet4OR7dwCpNXscSc2DMN6JHjCNT9TrkrrI3gj2N8yN9aVLmpoWZx5a?=
+ =?iso-8859-1?Q?HQuMRnTd902tqmGu1gKl0J5oCN37nXY2LicnQVA584bWjuJ0c9YbF6yPQD?=
+ =?iso-8859-1?Q?u0JMo4tKcPhpS6zSkgtexnEIlVImBuPVvhYZZOr9w98PSBgkDoEuz88M0M?=
+ =?iso-8859-1?Q?S2tk8oyXMtbpCyLL2LG7aOpQukY6HTxeQ2bkKOLn+vphPr630P7ShAoyyV?=
+ =?iso-8859-1?Q?9QPpoS+ocNeZmQHeBTLs89ZeTB4/Vgo6AwExtEEin6tZnGMJRY5fvCu7y2?=
+ =?iso-8859-1?Q?3pd+g60P7NDab0DnkhVduQ8cbHbWMnI93yjwLAtZHfgbIO5t2+YIb4FmCB?=
+ =?iso-8859-1?Q?ybeWUvs1nosI5Xq4iC+CkNPmka1jZsvZuPZPkVMduX78Zfp/kuPHatUAeP?=
+ =?iso-8859-1?Q?TleupgUXvPSIUm/gyM8awjnSfCw30+CC/iM4oko+wuhwYKOM+AuZA6yXVO?=
+ =?iso-8859-1?Q?OAi7SaHdBx45ugRIBiLthUu0g02RhOrzU9AJSCbI63CP7I8dQ+UIexK+wb?=
+ =?iso-8859-1?Q?AyideE3/twZCQzCk90kkTFoguZ7lEK/JuHccGbhfMU1LxVm6YE0FG4NK3G?=
+ =?iso-8859-1?Q?A0pu5mIuYy+B2gdnBGMfpSWtLxmyJqZGZ6RjSAPQhl7RafuNoelGgTZavz?=
+ =?iso-8859-1?Q?Lu3d9MOpnlRPA8bBrXGpyxJuI/lFL8jh1W8R5efP8/ZgDBS3C/ERH/GIwE?=
+ =?iso-8859-1?Q?o8vYXXB9SXiHZ+YrPoPTua8GYwcdnlBV1pWGv2wlPygq4vMKj/e1qdszHF?=
+ =?iso-8859-1?Q?BYrXQoZo0EBDKW7k2MLmxql9FPJyoH+FSqaSfmAwXfPL/Bdo90tWK5Lyd+?=
+ =?iso-8859-1?Q?EOk0gmq6foJjxEM5hxYKlff8IODEZAb79fRVG+Y3JLPJbUR4+AioiXJVTM?=
+ =?iso-8859-1?Q?60jhaUQtUJoTPdFVGl37CTp+qXmQA9lNERBTLnCsTJQgInhwCTr57PmLcC?=
+ =?iso-8859-1?Q?rnvnPUz89iSNEO7J6fI9WX9LnzJhZ1DICOpU/j2LT3vokDtn/SclZnMyl7?=
+ =?iso-8859-1?Q?I8ztQvjPdjb9/CUYW5Jx8isPvW/h19KAzE99uLIdBBhey/1fHcXOJ2dudF?=
+ =?iso-8859-1?Q?C5PSYO2iSNiPOMSjpWM44YO3LQZxX8duJ5N+gQLtJZLsulXBHQXjp8GGaA?=
+ =?iso-8859-1?Q?TfYLFnnkHpJvghapQAdeGYFsZ1v4zU3nN252AYj0whppoEgRZRcD6KNpGA?=
+ =?iso-8859-1?Q?ByDME2Tf7ZigVl0RWrh91ocnBAQADJpJpgLoOB9WVwhrisMxpddyu2LILw?=
+ =?iso-8859-1?Q?n5AjTdyhBTKWl2yfOZBhHWbeP+eNXB5/6OCP3DXvFZhSRaNtQCP23O+kXm?=
+ =?iso-8859-1?Q?5flffXnUrotIukAalMDkjnrYF1nV/XslgBVtQ8JQP03nNxFvHcBmYSs8Jd?=
+ =?iso-8859-1?Q?kTrTiWSCyTdG9bcFawuw/aOEEKtV4rV10KptfWebnlbnnOq7UW9w4l2Bc/?=
+ =?iso-8859-1?Q?iOg+KtZz9xJmYg0uYZmEbIbQo0VGz1LCCdncMOAIXLEHMLqrLvZzla84+e?=
+ =?iso-8859-1?Q?KK/S3Kc+K7o9cKxgITgDC172ESO522ZSld9VrZ0xvSA1YewDE6wUsIoAvk?=
+ =?iso-8859-1?Q?DxopH+aN40xgTCA6OOlTUuBkrK01xzVw+f0rztUto4FBRlsxQxQVolhnIN?=
+ =?iso-8859-1?Q?cFCP0Wq7Aw/hB1elqjbKjVeFTvaPFqWitKgdDHBLN50a0hmmjrBHaqXQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2722a01a-5881-4923-42aa-08dbb3e9d0db
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2023 23:41:41.5345
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9TLf+7br29Juq/aXhjC5cUD1VVMb781fzaPMlraacbVoA2H+GWxlblzTaMMN2j8/tvpFQA4KF2awwMtb4IIlphXxk2Egm20QRYyUkM/Yep4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7286
+X-Proofpoint-GUID: kg7lmJNT3NUUY6WgQwM6fy2sdEt4zpMq
+X-Proofpoint-ORIG-GUID: kg7lmJNT3NUUY6WgQwM6fy2sdEt4zpMq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-12_22,2023-09-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0
+ lowpriorityscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ adultscore=0 mlxscore=0 clxscore=1011 mlxlogscore=919 impostorscore=0
+ malwarescore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2308100000 definitions=main-2309120201
 
-All #DB exceptions result in an update of %dr6, but this isn't handled
-properly by Xen for any guest type.
 
-To start with, add a new pending_dbg field to x86_event, sharing storage with
-cr2, and using the Intel VMCS PENDING_DBG semantics.  Also introduce a
-pv_inject_DB() wrapper use this field nicely.
+Hi Jan,
 
-Remove all ad-hoc dr6 handling, leaving it to pv_inject_event() in most cases
-and using the new x86_merge_dr6() helper.
+Jan Beulich <jbeulich@suse.com> writes:
 
-In do_debug(), adjust dr6 manually only when a debugger is attached.  This
-maintains the old behaviour.
+> On 30.08.2023 01:19, Volodymyr Babchuk wrote:
+>> @@ -1481,6 +1488,13 @@ static int assign_device(struct domain *d, u16 se=
+g, u8 bus, u8 devfn, u32 flag)
+>>      if ( pdev->broken && d !=3D hardware_domain && d !=3D dom_io )
+>>          goto done;
+>> =20
+>> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) )
+>> +    {
+>> +        write_lock(&pdev->domain->pci_lock);
+>> +        vpci_deassign_device(pdev);
+>> +        write_unlock(&pdev->domain->pci_lock);
+>> +    }
+>
+> Why is the DomIO special case ...
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Jinoh Kang <jinoh.kang.kr@gmail.com>
----
- xen/arch/x86/include/asm/domain.h      | 12 ++++++++++++
- xen/arch/x86/pv/emul-priv-op.c         |  5 +----
- xen/arch/x86/pv/emulate.c              |  6 ++----
- xen/arch/x86/pv/ro-page-fault.c        |  4 ++--
- xen/arch/x86/pv/traps.c                | 17 +++++++++++++----
- xen/arch/x86/traps.c                   | 12 +++++++-----
- xen/arch/x86/x86_emulate/x86_emulate.h |  5 ++++-
- 7 files changed, 41 insertions(+), 20 deletions(-)
+vpci_deassign_device() does nothing if vPCI was initialized for a
+domain. So it not wrong to call this function even if pdev belongs to dom_i=
+o.
 
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index c2d9fc333be5..5bf488437ce1 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -729,6 +729,18 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
-     pv_inject_event(&event);
- }
- 
-+static inline void pv_inject_DB(unsigned long pending_dbg)
-+{
-+    struct x86_event event = {
-+        .vector      = X86_EXC_DB,
-+        .type        = X86_EVENTTYPE_HW_EXCEPTION,
-+        .error_code  = X86_EVENT_NO_EC,
-+        .pending_dbg = pending_dbg,
-+    };
-+
-+    pv_inject_event(&event);
-+}
-+
- static inline void pv_inject_page_fault(int errcode, unsigned long cr2)
- {
-     const struct x86_event event = {
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 6963db35c960..437172ee0fc3 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -1365,10 +1365,7 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
-         ASSERT(!curr->arch.pv.trap_bounce.flags);
- 
-         if ( ctxt.ctxt.retire.pending_dbg )
--        {
--            curr->arch.dr6 |= ctxt.ctxt.retire.pending_dbg | DR_STATUS_RESERVED_ONE;
--            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
--        }
-+            pv_inject_DB(ctxt.ctxt.retire.pending_dbg);
- 
-         /* fall through */
-     case X86EMUL_RETRY:
-diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
-index e7a1c0a2cc4f..e522e58533f1 100644
---- a/xen/arch/x86/pv/emulate.c
-+++ b/xen/arch/x86/pv/emulate.c
-@@ -71,11 +71,9 @@ void pv_emul_instruction_done(struct cpu_user_regs *regs, unsigned long rip)
- {
-     regs->rip = rip;
-     regs->eflags &= ~X86_EFLAGS_RF;
-+
-     if ( regs->eflags & X86_EFLAGS_TF )
--    {
--        current->arch.dr6 |= DR_STEP | DR_STATUS_RESERVED_ONE;
--        pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
--    }
-+        pv_inject_DB(X86_DR6_BS);
- }
- 
- uint64_t pv_get_reg(struct vcpu *v, unsigned int reg)
-diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
-index cad28ef928ad..f6bb33556e72 100644
---- a/xen/arch/x86/pv/ro-page-fault.c
-+++ b/xen/arch/x86/pv/ro-page-fault.c
-@@ -389,8 +389,8 @@ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs)
- 
-         /* Fallthrough */
-     case X86EMUL_OKAY:
--        if ( ctxt.retire.singlestep )
--            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+        if ( ctxt.retire.pending_dbg )
-+            pv_inject_DB(ctxt.retire.pending_dbg);
- 
-         /* Fallthrough */
-     case X86EMUL_RETRY:
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 74f333da7e1c..553b04bca956 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -13,6 +13,7 @@
- #include <xen/softirq.h>
- 
- #include <asm/pv/trace.h>
-+#include <asm/debugreg.h>
- #include <asm/shared.h>
- #include <asm/traps.h>
- #include <irq_vectors.h>
-@@ -50,9 +51,9 @@ void pv_inject_event(const struct x86_event *event)
-     tb->cs    = ti->cs;
-     tb->eip   = ti->address;
- 
--    if ( event->type == X86_EVENTTYPE_HW_EXCEPTION &&
--         vector == X86_EXC_PF )
-+    switch ( vector | -(event->type == X86_EVENTTYPE_SW_INTERRUPT) )
-     {
-+    case X86_EXC_PF:
-         curr->arch.pv.ctrlreg[2] = event->cr2;
-         arch_set_cr2(curr, event->cr2);
- 
-@@ -62,9 +63,17 @@ void pv_inject_event(const struct x86_event *event)
-             error_code |= PFEC_user_mode;
- 
-         trace_pv_page_fault(event->cr2, error_code);
--    }
--    else
-+        break;
-+
-+    case X86_EXC_DB:
-+        curr->arch.dr6 = x86_merge_dr6(curr->domain->arch.cpu_policy,
-+                                       curr->arch.dr6, event->pending_dbg);
-+        /* Fallthrough */
-+
-+    default:
-         trace_pv_trap(vector, regs->rip, use_error_code, error_code);
-+        break;
-+    }
- 
-     if ( use_error_code )
-     {
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index dead728ce329..ae5d73abf557 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1887,7 +1887,7 @@ void do_device_not_available(struct cpu_user_regs *regs)
- /* SAF-1-safe */
- void do_debug(struct cpu_user_regs *regs)
- {
--    unsigned long dr6;
-+    unsigned long dr6, pending_dbg;
-     struct vcpu *v = current;
- 
-     /* Stash dr6 as early as possible. */
-@@ -1997,17 +1997,19 @@ void do_debug(struct cpu_user_regs *regs)
-         return;
-     }
- 
--    /* Save debug status register where guest OS can peek at it */
--    v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
--    v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
-+    /* Flip dr6 to have positive polarity. */
-+    pending_dbg = dr6 ^ X86_DR6_DEFAULT;
- 
-     if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
-     {
-+        /* Save debug status register where gdbsx can peek at it */
-+        v->arch.dr6 = x86_merge_dr6(v->domain->arch.cpu_policy,
-+                                    v->arch.dr6, pending_dbg);
-         domain_pause_for_debugger();
-         return;
-     }
- 
--    pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-+    pv_inject_DB(pending_dbg);
- }
- 
- /* SAF-1-safe */
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index f0e74d23c378..81f99dfaa02f 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -78,7 +78,10 @@ struct x86_event {
-     uint8_t       type;         /* X86_EVENTTYPE_* */
-     uint8_t       insn_len;     /* Instruction length */
-     int32_t       error_code;   /* X86_EVENT_NO_EC if n/a */
--    unsigned long cr2;          /* Only for X86_EXC_PF h/w exception */
-+    union {
-+        unsigned long cr2;         /* #PF */
-+        unsigned long pending_dbg; /* #DB (new DR6 bits, positive polarity) */
-+    };
- };
- 
- /*
--- 
-2.30.2
+>> @@ -1506,6 +1520,15 @@ static int assign_device(struct domain *d, u16 se=
+g, u8 bus, u8 devfn, u32 flag)
+>>          rc =3D iommu_call(hd->platform_ops, assign_device, d, devfn,
+>>                          pci_to_dev(pdev), flag);
+>>      }
+>> +    if ( rc )
+>> +        goto done;
+>> +
+>> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) && d !=3D dom_io)
+>> +    {
+>> +        write_lock(&d->pci_lock);
+>> +        rc =3D vpci_assign_device(pdev);
+>> +        write_unlock(&d->pci_lock);
+>> +    }
+>
+> ... relevant only here?
+>
 
+There is no sense to initialize vPCI for dom_io.
+
+
+--=20
+WBR, Volodymyr=
 
