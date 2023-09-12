@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCCFF79DC9D
+	by mail.lfdr.de (Postfix) with ESMTPS id ECDC079DC9E
 	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 01:22:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600817.936610 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.600819.936630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChH-0008NX-8k; Tue, 12 Sep 2023 23:21:31 +0000
+	id 1qgChJ-0000Qd-NC; Tue, 12 Sep 2023 23:21:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600817.936610; Tue, 12 Sep 2023 23:21:31 +0000
+Received: by outflank-mailman (output) from mailman id 600819.936630; Tue, 12 Sep 2023 23:21:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChH-0008LZ-68; Tue, 12 Sep 2023 23:21:31 +0000
-Received: by outflank-mailman (input) for mailman id 600817;
- Tue, 12 Sep 2023 23:21:30 +0000
+	id 1qgChJ-0000Op-K1; Tue, 12 Sep 2023 23:21:33 +0000
+Received: by outflank-mailman (input) for mailman id 600819;
+ Tue, 12 Sep 2023 23:21:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qLIb=E4=citrix.com=prvs=612d1dac3=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qgChG-0008LM-Jt
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:21:30 +0000
+ id 1qgChH-0008LM-Ou
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:21:31 +0000
 Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
  [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1783b4b6-51c3-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 01:21:28 +0200 (CEST)
+ id 1a55f0f5-51c3-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 01:21:30 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,60 +36,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1783b4b6-51c3-11ee-8786-cb3800f73035
+X-Inumbo-ID: 1a55f0f5-51c3-11ee-8786-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1694560887;
+  d=citrix.com; s=securemail; t=1694560889;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=17zQ/LA3e8HCaF9E25s0sPXuwUparmz1rf9n5G2YsDI=;
-  b=LpmLpRE+XhrXvj6S6m8yRSFolHHsrM5+Misf+55n3owHTrW6b2LIpl31
-   J24sMVZTiq8NkcGJ9rxEvGvDdRXgRRwh/xlz8uUVXwMmDvykXMB4PPipd
-   Vd5ofrxlF64mQkwzcxvsYtbzWfW2OAOPq3e6JAd4iZE2lFViWlF71uXlT
-   U=;
+  bh=phPA3tnKIFy3A0mEPKxsnBzaUvqhIfnN1XY0+oKtm6Y=;
+  b=YyKbNGbJdxnOrTIrKWg2aBcYeGSyQbUJ7aWE1pKb2vPXYY1JL4mOvWrG
+   lqXuUagEn06WwXs/Sl/jZNumezLPFi9dyJEf8ZmQF2OovVKfdpO3iux4k
+   cYTa32LtWEnKn55Jp4P5KXLTjq95crqkC9R1nMmhTDXj8E0ZC82dP3/IF
+   Q=;
 X-CSE-ConnectionGUID: 77hly/MbRSyZrodrhAl29Q==
-X-CSE-MsgGUID: BPWehqUeTh+3I1FvjXVUaQ==
+X-CSE-MsgGUID: EjBfDZonQZG3XVVjx5Cd6A==
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 122460587
+X-MesageID: 122460588
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:kyXTiKAro9YIQBVW/wHjw5YqxClBgxIJ4kV8jS/XYbTApDor0TYFx
- 2obXmzSPvuCZDCne9FwPYq+90gOv8DcxtRlQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48D8kk/nOH+KgYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbCRMscpvlDs15K6p4GJB5ARjDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwpbl3BXAJ0
- PYiEyE/dBePneKfxOjqc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4bQGZsNwxbHz
- o7A107BPRwaLeGS9TrGqVP1qPHNrR3GUbtHQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
- FAPvDojq7Ao806mRcW7WAe3yFamlBMBX9tbE8Uh9RqAjKHT5m6xGWwsXjNHLts8u6ceRz0s0
- V/PnNrvCnpsqpWaTHuc8vGfqjbaBMQOBTZcP2leF1JDuoS95thp1XojU+qPDobq0d3xCHbVy
- QqxvRokgLkJjecPjfSCqAWvby2XmrDFSQs85wPyV22j7x9kaIPNW7FE+WQ3/t4bct/HEwDpU
- Gws3pHHsbtQVc3leDmlGr1lIV2/2xqS3NQwa3ZLFoJpyTmi8mXLkWt4sGAnfxcB3irplFbUj
- K7vVeF5vs870JiCN/Ufj2eN5yMClPKIKDgdfqqIBueim7AoHON9wAlgZFSLw0fmm1U2nKc0N
- P+zKJj9UStGUvo6lWfrHo/xNIPHIQhkmQvuqW3TlUz7gdJymlbFIVv6DLd+Rr9gt/7VyOkk2
- 91eK9GL231ivB7WO0HqHXooBQlSdxATXMmmw/G7g8bfemKK7kl9Ua6OqV7gEqQ595loehDgp
- yjjARcIkQSn1BUq62yiMxheVV8mZr4nxVpTAMDmFQ/AN6QLCWp30JoiSg==
-IronPort-HdrOrdr: A9a23:26F2HK+t0klHWH/HF2puk+AuI+orL9Y04lQ7vn2ZKSY5TiVXra
- CTdZUgpHnJYVMqMk3I9uruBEDtex3hHNtOkOss1NSZLW7bUQmTXeJfBOLZqlWNJ8S9zJ856U
- 4JScND4bbLfDxHZKjBgTVRE7wbsaa6GKLDv5ah85+6JzsaGp2J7G1Ce3am+lUdfng+OXKgfq
- Dsm/auoVCbCAwqR/X+PFYpdc7ZqebGkZr3CCR2eyLOuGG1/EiVAKeRKWnj4isj
-X-Talos-CUID: 9a23:DJXptW1R2MGvkZp6rCGAHbxfRZ8ldmya6X3qGF6KE2FlUr28TQXBwfYx
-X-Talos-MUID: =?us-ascii?q?9a23=3AfCGxTA0EzEGc6fC5ntCVSzmeXjUjyZyRBUAUrJg?=
- =?us-ascii?q?6u4rfFHVeJTWtsgm+e9py?=
+IronPort-Data: A9a23:ucl286NgZscUsyrvrR2Nl8FynXyQoLVcMsEvi/4bfWQNrUoqhDcAy
+ jQXWW2EMviCNmehed52b4u3pB8PuJbTzIM3Hgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/jrRC9H5qyo42tJ5wZmOJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0rkoAWVfs
+ tkSEgscXAqEi/i26bbhG9A506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXQH5kLxhvI9
+ goq+UzUADsUGO6YzwO33SmcuNHNjX7QVNw7QejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxLncAZi5MbpohrsBebT4r0
+ FiJ2dDgAzMps6e9RneU97PSpjS3URX5NkdbO3VCF1FcpYC+/sdq1Emnostf/LCd0YL1HSC35
+ jqwlzkMnbIfl84i0//qxAWS696znaThQgkw7wTRe2uq6AJleYKoD7CVBUjnAeVod9jAEATY1
+ JQQs43Htb1VU8nR/MCYaL9VdIxF8cppJ9E1bbRHO5A6vwqg9He4FWy7yGEvfRw5WirolNKAX
+ aMyhe+zzMUDVJdJRfUtC25UNyjN5fG6fekJrtiOMrJzjmFZLWdrBh1Ga0+KxHzKm0Mxi6w5M
+ przWZ/yXCpHVf85kWPrGr51PVoXKscWnz+7eHwG507/jer2iIC9Gd/pz2dinshmtfjZ8W05A
+ v5UNteQygU3bQENSnC/zGLnFnhTdSJTLcmv+6RqmhurflIO9JcJV6WAntvMuuVNw8xoqws/1
+ ijkBBQAmAOh3SyvxMfjQikLVY4DlK1X9RoTVRHA937xs5T/Se5DNJsiSqY=
+IronPort-HdrOrdr: A9a23:AoxiXKAVwZLgQm/lHela55DYdb4zR+YMi2TDt3oddfWaSKylfq
+ GV7ZImPHrP4gr5N0tOpTntAse9qDbnhPxICOoqTNCftWvdyQiVxehZhOOP/9SjIVyaygc078
+ xdmsNFebnN5DZB7PoT4GODYqkdKNvsytHXuQ8JpU0dPD2DaMtbnndE4h7wKDwOeOHfb6BJaa
+ Z14KB81kKdUEVSVOuXLF8fUdPOotXa/aiWHSLvV3YcmXKzZSrD0s+BLySl
+X-Talos-CUID: 9a23:2w4zKWNZ9amRyO5DB3Zn8F9TP8ofSWzv1nDcOU+RDTw4cejA
+X-Talos-MUID: 9a23:d4hB1AmrzLyBJmFvZ6a0dnpPNu1mz5apDnk/vs42hfeGJXFbN2m02WE=
 X-IronPort-AV: E=Sophos;i="6.02,141,1688443200"; 
-   d="scan'208";a="122460587"
+   d="scan'208";a="122460588"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jinoh Kang
 	<jinoh.kang.kr@gmail.com>
-Subject: [PATCH 4/5] x86/pv: Drop priv_op_ctxt.bpmatch and use pending_dbg instead
-Date: Wed, 13 Sep 2023 00:21:12 +0100
-Message-ID: <20230912232113.402347-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/5] x86/pv: Rewrite %dr6 handling
+Date: Wed, 13 Sep 2023 00:21:13 +0100
+Message-ID: <20230912232113.402347-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230912232113.402347-1-andrew.cooper3@citrix.com>
 References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
@@ -97,11 +96,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-With a full pending_dbg field in x86_emulate_ctxt, use it rather than using a
-local bpmatch field.
+All #DB exceptions result in an update of %dr6, but this isn't handled
+properly by Xen for any guest type.
 
-This simplifies the OKAY/DONE path as singlestep is already accumulated by
-x86_emulate() when appropriate.
+To start with, add a new pending_dbg field to x86_event, sharing storage with
+cr2, and using the Intel VMCS PENDING_DBG semantics.  Also introduce a
+pv_inject_DB() wrapper use this field nicely.
+
+Remove all ad-hoc dr6 handling, leaving it to pv_inject_event() in most cases
+and using the new x86_merge_dr6() helper.
+
+In do_debug(), adjust dr6 manually only when a debugger is attached.  This
+maintains the old behaviour.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -110,94 +116,184 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 CC: Jinoh Kang <jinoh.kang.kr@gmail.com>
 ---
- xen/arch/x86/pv/emul-priv-op.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ xen/arch/x86/include/asm/domain.h      | 12 ++++++++++++
+ xen/arch/x86/pv/emul-priv-op.c         |  5 +----
+ xen/arch/x86/pv/emulate.c              |  6 ++----
+ xen/arch/x86/pv/ro-page-fault.c        |  4 ++--
+ xen/arch/x86/pv/traps.c                | 17 +++++++++++++----
+ xen/arch/x86/traps.c                   | 12 +++++++-----
+ xen/arch/x86/x86_emulate/x86_emulate.h |  5 ++++-
+ 7 files changed, 41 insertions(+), 20 deletions(-)
 
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index c2d9fc333be5..5bf488437ce1 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -729,6 +729,18 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
+     pv_inject_event(&event);
+ }
+ 
++static inline void pv_inject_DB(unsigned long pending_dbg)
++{
++    struct x86_event event = {
++        .vector      = X86_EXC_DB,
++        .type        = X86_EVENTTYPE_HW_EXCEPTION,
++        .error_code  = X86_EVENT_NO_EC,
++        .pending_dbg = pending_dbg,
++    };
++
++    pv_inject_event(&event);
++}
++
+ static inline void pv_inject_page_fault(int errcode, unsigned long cr2)
+ {
+     const struct x86_event event = {
 diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 257891a2a2dd..6963db35c960 100644
+index 6963db35c960..437172ee0fc3 100644
 --- a/xen/arch/x86/pv/emul-priv-op.c
 +++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -34,7 +34,6 @@ struct priv_op_ctxt {
-         unsigned long base, limit;
-     } cs;
-     char *io_emul_stub;
--    unsigned int bpmatch;
- };
- 
- /* I/O emulation helpers.  Use non-standard calling conventions. */
-@@ -367,7 +366,8 @@ static int cf_check read_io(
-     if ( !guest_io_okay(port, bytes, curr, ctxt->regs) )
-         return X86EMUL_UNHANDLEABLE;
- 
--    poc->bpmatch = check_guest_io_breakpoint(curr, port, bytes);
-+    poc->ctxt.retire.pending_dbg |=
-+        check_guest_io_breakpoint(curr, port, bytes);
- 
-     if ( admin_io_okay(port, bytes, currd) )
-     {
-@@ -472,7 +472,8 @@ static int cf_check write_io(
-     if ( !guest_io_okay(port, bytes, curr, ctxt->regs) )
-         return X86EMUL_UNHANDLEABLE;
- 
--    poc->bpmatch = check_guest_io_breakpoint(curr, port, bytes);
-+    poc->ctxt.retire.pending_dbg |=
-+        check_guest_io_breakpoint(curr, port, bytes);
- 
-     if ( admin_io_okay(port, bytes, currd) )
-     {
-@@ -636,7 +637,8 @@ static int cf_check rep_ins(
-         return X86EMUL_EXCEPTION;
-     }
- 
--    poc->bpmatch = check_guest_io_breakpoint(curr, port, bytes_per_rep);
-+    poc->ctxt.retire.pending_dbg |=
-+        check_guest_io_breakpoint(curr, port, bytes_per_rep);
- 
-     while ( *reps < goal )
-     {
-@@ -658,7 +660,7 @@ static int cf_check rep_ins(
- 
-         ++*reps;
- 
--        if ( poc->bpmatch || hypercall_preempt_check() )
-+        if ( poc->ctxt.retire.pending_dbg || hypercall_preempt_check() )
-             break;
- 
-         /* x86_emulate() clips the repetition count to ensure we don't wrap. */
-@@ -703,7 +705,8 @@ static int cf_check rep_outs(
-         return X86EMUL_EXCEPTION;
-     }
- 
--    poc->bpmatch = check_guest_io_breakpoint(curr, port, bytes_per_rep);
-+    poc->ctxt.retire.pending_dbg |=
-+        check_guest_io_breakpoint(curr, port, bytes_per_rep);
- 
-     while ( *reps < goal )
-     {
-@@ -726,7 +729,7 @@ static int cf_check rep_outs(
- 
-         ++*reps;
- 
--        if ( poc->bpmatch || hypercall_preempt_check() )
-+        if ( poc->ctxt.retire.pending_dbg || hypercall_preempt_check() )
-             break;
- 
-         /* x86_emulate() clips the repetition count to ensure we don't wrap. */
-@@ -1361,12 +1364,9 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
-     case X86EMUL_DONE:
+@@ -1365,10 +1365,7 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
          ASSERT(!curr->arch.pv.trap_bounce.flags);
  
--        if ( ctxt.ctxt.retire.singlestep )
--            ctxt.bpmatch |= DR_STEP;
--
--        if ( ctxt.bpmatch )
-+        if ( ctxt.ctxt.retire.pending_dbg )
-         {
--            curr->arch.dr6 |= ctxt.bpmatch | DR_STATUS_RESERVED_ONE;
-+            curr->arch.dr6 |= ctxt.ctxt.retire.pending_dbg | DR_STATUS_RESERVED_ONE;
-             pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
-         }
+         if ( ctxt.ctxt.retire.pending_dbg )
+-        {
+-            curr->arch.dr6 |= ctxt.ctxt.retire.pending_dbg | DR_STATUS_RESERVED_ONE;
+-            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+-        }
++            pv_inject_DB(ctxt.ctxt.retire.pending_dbg);
  
+         /* fall through */
+     case X86EMUL_RETRY:
+diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
+index e7a1c0a2cc4f..e522e58533f1 100644
+--- a/xen/arch/x86/pv/emulate.c
++++ b/xen/arch/x86/pv/emulate.c
+@@ -71,11 +71,9 @@ void pv_emul_instruction_done(struct cpu_user_regs *regs, unsigned long rip)
+ {
+     regs->rip = rip;
+     regs->eflags &= ~X86_EFLAGS_RF;
++
+     if ( regs->eflags & X86_EFLAGS_TF )
+-    {
+-        current->arch.dr6 |= DR_STEP | DR_STATUS_RESERVED_ONE;
+-        pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+-    }
++        pv_inject_DB(X86_DR6_BS);
+ }
+ 
+ uint64_t pv_get_reg(struct vcpu *v, unsigned int reg)
+diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
+index cad28ef928ad..f6bb33556e72 100644
+--- a/xen/arch/x86/pv/ro-page-fault.c
++++ b/xen/arch/x86/pv/ro-page-fault.c
+@@ -389,8 +389,8 @@ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs)
+ 
+         /* Fallthrough */
+     case X86EMUL_OKAY:
+-        if ( ctxt.retire.singlestep )
+-            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
++        if ( ctxt.retire.pending_dbg )
++            pv_inject_DB(ctxt.retire.pending_dbg);
+ 
+         /* Fallthrough */
+     case X86EMUL_RETRY:
+diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
+index 74f333da7e1c..553b04bca956 100644
+--- a/xen/arch/x86/pv/traps.c
++++ b/xen/arch/x86/pv/traps.c
+@@ -13,6 +13,7 @@
+ #include <xen/softirq.h>
+ 
+ #include <asm/pv/trace.h>
++#include <asm/debugreg.h>
+ #include <asm/shared.h>
+ #include <asm/traps.h>
+ #include <irq_vectors.h>
+@@ -50,9 +51,9 @@ void pv_inject_event(const struct x86_event *event)
+     tb->cs    = ti->cs;
+     tb->eip   = ti->address;
+ 
+-    if ( event->type == X86_EVENTTYPE_HW_EXCEPTION &&
+-         vector == X86_EXC_PF )
++    switch ( vector | -(event->type == X86_EVENTTYPE_SW_INTERRUPT) )
+     {
++    case X86_EXC_PF:
+         curr->arch.pv.ctrlreg[2] = event->cr2;
+         arch_set_cr2(curr, event->cr2);
+ 
+@@ -62,9 +63,17 @@ void pv_inject_event(const struct x86_event *event)
+             error_code |= PFEC_user_mode;
+ 
+         trace_pv_page_fault(event->cr2, error_code);
+-    }
+-    else
++        break;
++
++    case X86_EXC_DB:
++        curr->arch.dr6 = x86_merge_dr6(curr->domain->arch.cpu_policy,
++                                       curr->arch.dr6, event->pending_dbg);
++        /* Fallthrough */
++
++    default:
+         trace_pv_trap(vector, regs->rip, use_error_code, error_code);
++        break;
++    }
+ 
+     if ( use_error_code )
+     {
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index dead728ce329..ae5d73abf557 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1887,7 +1887,7 @@ void do_device_not_available(struct cpu_user_regs *regs)
+ /* SAF-1-safe */
+ void do_debug(struct cpu_user_regs *regs)
+ {
+-    unsigned long dr6;
++    unsigned long dr6, pending_dbg;
+     struct vcpu *v = current;
+ 
+     /* Stash dr6 as early as possible. */
+@@ -1997,17 +1997,19 @@ void do_debug(struct cpu_user_regs *regs)
+         return;
+     }
+ 
+-    /* Save debug status register where guest OS can peek at it */
+-    v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
+-    v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
++    /* Flip dr6 to have positive polarity. */
++    pending_dbg = dr6 ^ X86_DR6_DEFAULT;
+ 
+     if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
+     {
++        /* Save debug status register where gdbsx can peek at it */
++        v->arch.dr6 = x86_merge_dr6(v->domain->arch.cpu_policy,
++                                    v->arch.dr6, pending_dbg);
+         domain_pause_for_debugger();
+         return;
+     }
+ 
+-    pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
++    pv_inject_DB(pending_dbg);
+ }
+ 
+ /* SAF-1-safe */
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+index f0e74d23c378..81f99dfaa02f 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.h
++++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+@@ -78,7 +78,10 @@ struct x86_event {
+     uint8_t       type;         /* X86_EVENTTYPE_* */
+     uint8_t       insn_len;     /* Instruction length */
+     int32_t       error_code;   /* X86_EVENT_NO_EC if n/a */
+-    unsigned long cr2;          /* Only for X86_EXC_PF h/w exception */
++    union {
++        unsigned long cr2;         /* #PF */
++        unsigned long pending_dbg; /* #DB (new DR6 bits, positive polarity) */
++    };
+ };
+ 
+ /*
 -- 
 2.30.2
 
