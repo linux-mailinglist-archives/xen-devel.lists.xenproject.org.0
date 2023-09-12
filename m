@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4323B79CCCE
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:03:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600305.935941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB10779CD21
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:05:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600313.935951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0El-0008G9-1U; Tue, 12 Sep 2023 10:03:15 +0000
+	id 1qg0HD-0000P8-DR; Tue, 12 Sep 2023 10:05:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600305.935941; Tue, 12 Sep 2023 10:03:15 +0000
+Received: by outflank-mailman (output) from mailman id 600313.935951; Tue, 12 Sep 2023 10:05:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0Ek-0008Dp-V8; Tue, 12 Sep 2023 10:03:14 +0000
-Received: by outflank-mailman (input) for mailman id 600305;
- Tue, 12 Sep 2023 10:03:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qg0Ej-0008Dh-Jv
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:03:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qg0Ej-0002e5-9F; Tue, 12 Sep 2023 10:03:13 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qg0Ej-00030I-1x; Tue, 12 Sep 2023 10:03:13 +0000
+	id 1qg0HD-0000Mp-Ap; Tue, 12 Sep 2023 10:05:47 +0000
+Received: by outflank-mailman (input) for mailman id 600313;
+ Tue, 12 Sep 2023 10:05:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V3Pz=E4=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1qg0HC-0000Mj-FW
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:05:46 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id efbf4ae7-5153-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 12:05:44 +0200 (CEST)
+Received: from [192.168.1.9] (net-93-66-137-131.cust.vodafonedsl.it
+ [93.66.137.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 313A94EE0749;
+ Tue, 12 Sep 2023 12:05:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,136 +40,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=u9xEYcPGxDMscrMJEr54KeD+W25FcsVlxHma95xRNHw=; b=EmrKei/opY2QVm6ntITxT2gCzd
-	c+1vE9aZmpEiLeXVFSkfwrXvwK5LgeuXHgMBCb3UWjkuO1+3xHrc9hPnyXuS6qvPXwaZjxzICs6dK
-	IfcQeQ64FGbY8FejXZYxFiL6fK2MUzoelY+pObiAXsn2Nh73+rB9/PFYFh+Yuf3qiks4=;
-Message-ID: <6ca62546-8626-46ab-85bb-8e96e466251d@xen.org>
-Date: Tue, 12 Sep 2023 11:03:11 +0100
+X-Inumbo-ID: efbf4ae7-5153-11ee-9b0d-b553b5be7939
+Message-ID: <ce839d89-931a-3595-584e-eab3f665cea3@bugseng.com>
+Date: Tue, 12 Sep 2023 12:05:42 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Skip Xen specific nodes/properties from hwdom
- /chosen node
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230911123401.27659-1-michal.orzel@amd.com>
- <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
- <042fae56-e8e2-c079-2686-d27c5469b7fc@amd.com>
- <e24a7d3a-ca18-474b-bce2-84b97512c58e@xen.org>
- <faf253c3-2c99-9380-c120-a2dd3110b796@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <faf253c3-2c99-9380-c120-a2dd3110b796@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [XEN PATCH v2 03/10] misra: add deviations for direct inclusion
+ guards
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1694510856.git.simone.ballarin@bugseng.com>
+ <0c1fb82b539d939e7c6655a9a8f3d7fe8b213cef.1694510856.git.simone.ballarin@bugseng.com>
+ <50e33371-8dc5-d4cb-a606-72d1ab005c21@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <50e33371-8dc5-d4cb-a606-72d1ab005c21@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 11/09/2023 16:09, Michal Orzel wrote:
+On 12/09/23 11:52, Jan Beulich wrote:
+> On 12.09.2023 11:36, Simone Ballarin wrote:
+>> --- a/docs/misra/safe.json
+>> +++ b/docs/misra/safe.json
+>> @@ -36,6 +36,14 @@
+>>           },
+>>           {
+>>               "id": "SAF-4-safe",
+>> +            "analyser": {
+>> +                "eclair": "MC3R1.D4.10"
+>> +            },
+>> +            "name": "Dir 4.10: direct inclusion guard before",
+>> +            "text": "Headers with just the direct inclusion guard before the inclusion guard are safe."
+>> +        },
+>> +        {
+>> +            "id": "SAF-5-safe",
+>>               "analyser": {},
+>>               "name": "Sentinel",
+>>               "text": "Next ID to be used"
+>> diff --git a/xen/arch/arm/include/asm/hypercall.h b/xen/arch/arm/include/asm/hypercall.h
+>> index ccd26c5184..24f8c61a73 100644
+>> --- a/xen/arch/arm/include/asm/hypercall.h
+>> +++ b/xen/arch/arm/include/asm/hypercall.h
+>> @@ -1,3 +1,4 @@
+>> +/* SAF-3-safe direct inclusion guard before */
+>>   #ifndef __XEN_HYPERCALL_H__
+>>   #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+>>   #endif
+>> diff --git a/xen/arch/x86/include/asm/hypercall.h b/xen/arch/x86/include/asm/hypercall.h
+>> index ec2edc771e..dfdfe80021 100644
+>> --- a/xen/arch/x86/include/asm/hypercall.h
+>> +++ b/xen/arch/x86/include/asm/hypercall.h
+>> @@ -2,6 +2,7 @@
+>>    * asm-x86/hypercall.h
+>>    */
+>>   
+>> +/* SAF-3-safe direct inclusion guard before */
+>>   #ifndef __XEN_HYPERCALL_H__
+>>   #error "asm/hypercall.h should not be included directly - include xen/hypercall.h instead"
+>>   #endif
+>> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
+>> index 0a2b16d05d..190ada7800 100644
+>> --- a/xen/include/xen/unaligned.h
+>> +++ b/xen/include/xen/unaligned.h
+>> @@ -3,6 +3,7 @@
+>>    * without faulting, and at least reasonably efficiently.  Other architectures
+>>    * will need to have a custom asm/unaligned.h.
+>>    */
+>> +/* SAF-3-safe direct inclusion guard before */
+>>   #ifndef __ASM_UNALIGNED_H__
+>>   #error "xen/unaligned.h should not be included directly - include asm/unaligned.h instead"
+>>   #endif
 > 
+> Apart from the recurring off-by-1, will this have the intended effect of
+> Eclair still choking if there's then no inclusion guard following these
+> early constructs?
 > 
-> On 11/09/2023 16:48, Julien Grall wrote:
->> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->>
->>
->> On 11/09/2023 15:01, Michal Orzel wrote:
->>> Hi Julien,
->>>
->>> On 11/09/2023 15:14, Julien Grall wrote:
->>>>
->>>>
->>>> Hi,
->>>>
->>>> On 11/09/2023 13:34, Michal Orzel wrote:
->>>>> Host device tree nodes under /chosen with compatible string
->>>>> "xen,evtchn-v1", "xen,domain-shared-memory-v1" are Xen specific and not
->>>>> meant to be exposed to hardware domain.
->>>>
->>>> So, how dom0 is meant to discover the static event channel, shared
->>>> memory it can use?
->>>
->>> For static shared memory:
->>> A node with this compatible is only meant for Xen since it contains information like host-guest mapping.
->>> Xen creates a different node for guests under /reserved-memory.
->>> Linux binding:
->>> https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
->>> Xen node generation:
->>> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/domain_build.c;hb=HEAD#l1407
->>
->> Ah good point. I agree with this one.
->>
->>>
->>> For static event channels:
->>> This is a bit weird so let me put it in a different way.
->>> 1) Xen does not create any node for static evtchn for domU.
->>> 2) The booting.txt states:
->>> There is no need to describe the static event channel info in the domU device
->>> tree. Static event channels are only useful in fully static configurations,
->>> and in those configurations, the domU device tree dynamically generated by Xen
->>> is not needed.
->>> 3) The "xen,evtchn" property specifies the local port as well as phandle of domU node.
->>> dom0 does not have access to domU nodes, therefore exposing a property with not existing phandle
->>> makes me think that:
->>
->> You have a point for the phandle. Yet, this is the only way dom0 can
->> find the event channel today. As we exposed it, I don't think we can
->> remove it until we have a proper replacement.
->>
->> We might get away if the feature is not supported it at all. But there
->> is no statement, so it is a little unclear whether the feature is meant
->> to be in technical preview.
->>
->> In any case, I think the commit message deserve a bit more explanation
->> as hiding "xen,evtchn-v1"/"xen,domain-shared-memory-v1" is not
->> uncontroversial.
->>
->>> a) point 2) applies to dom0 as well and we should hide this node or > b) there is a missing property for both dom0 and domUs to tell them
->> about static local port in a proper way
->>>
->>> Exposing Xen specific evtchn node only to dom0 and not to domU with required information happen to be found as first value
->>> in xen,evtchn is definitely not a proper solution.
->>
->> My concern here is we exposed such information to dom0. So as I said
->> above, I don't think we can simply remove it as there is no other way to
->> find such information today.
->>
->> It doesn't matter that it wasn't exposed to domU.
->>
->>> Also, there is no Linux binding for it.
->>
->> AFAIK the static event channel support was not added in Linux until very
->> recently. Also, I think the kernel doesn't directly use the static event
->> channel. So it is possible, this is just an overlook.
+> Jan
 > 
-> I've found this thread in which Stefano, Rahul and Bertrand agrees on not exposing
-> any dt property and the rationale behind:
-> https://patchwork.kernel.org/project/xen-devel/patch/4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com/
 
-Ok. So the expectation is that each end will have hardcoded event 
-channel number. I feel this is going to lead to issue when someone will 
-try to re-number event channel but forgot to update one of the 
-component. Anyway...
-
-> 
-> I would not call exposing node to dom0 as something done deliberately given that it happens automatically by copying.
-> So my understanding is
-> that we did not want to expose any node and dom0 case was overlooked (since done automatically).
-> 
-> Exposing half the interface (from system POV) in a way it should not be done (phandle) is not great IMO.
-> In any case, if you insist on keeping xen,evtchn, I can leave with it.
-> 
-> This feature is marked as tech preview with no Linux binding in place so I would not be worried.
-
-... I overlooked it was a tech preview. So I am having less concern 
-about remove the property. But I still think we need to find a way to 
-describe it in the device-tree for future usage (see why above).
-
-Cheers,
+No, if you put something between the direct inclusion guard and the 
+inclusion guard, no violation will be generated.
 
 -- 
-Julien Grall
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
