@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA6A79CE8A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:38:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600378.936015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 364AD79CE93
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 12:41:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600384.936025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0my-00032r-4X; Tue, 12 Sep 2023 10:38:36 +0000
+	id 1qg0pg-0005DG-JR; Tue, 12 Sep 2023 10:41:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600378.936015; Tue, 12 Sep 2023 10:38:36 +0000
+Received: by outflank-mailman (output) from mailman id 600384.936025; Tue, 12 Sep 2023 10:41:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg0my-0002zk-1T; Tue, 12 Sep 2023 10:38:36 +0000
-Received: by outflank-mailman (input) for mailman id 600378;
- Tue, 12 Sep 2023 10:38:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mt1s=E4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qg0mw-0002zc-9N
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:38:34 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8560d773-5158-11ee-8786-cb3800f73035;
- Tue, 12 Sep 2023 12:38:33 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-402cc6b8bedso61780935e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Sep 2023 03:38:33 -0700 (PDT)
-Received: from [192.168.20.115] (ip-185-104-136-29.ptr.icomera.net.
- [185.104.136.29]) by smtp.gmail.com with ESMTPSA id
- y23-20020a7bcd97000000b003fee6f027c7sm15790746wmj.19.2023.09.12.03.38.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Sep 2023 03:38:32 -0700 (PDT)
+	id 1qg0pg-0005AJ-Et; Tue, 12 Sep 2023 10:41:24 +0000
+Received: by outflank-mailman (input) for mailman id 600384;
+ Tue, 12 Sep 2023 10:41:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qg0pe-0005AD-9s
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 10:41:22 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qg0pd-0003cr-1h; Tue, 12 Sep 2023 10:41:21 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qg0pc-0004ad-Sr; Tue, 12 Sep 2023 10:41:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8560d773-5158-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694515113; x=1695119913; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F3EtqXrry0ueazV4mCBYkQeluUr85c2GdrizbaULfGY=;
-        b=EFDSoz1NPKV+n47gnDKOlWXruhDFyJqFaXyVBCqrHB/ZRSs0VObrpc4FulQi6M4lbA
-         tg6zxcQSIVcNEdt5WFZjSol2gAaFYPU7GxKOn0kQtqMw5iQ44EaHW790MK8LZaIfmD4b
-         HfnXdsiK/638PaUvLGVLy3IasLDm+KhTtc/CQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694515113; x=1695119913;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=F3EtqXrry0ueazV4mCBYkQeluUr85c2GdrizbaULfGY=;
-        b=px4/vQh7BZ6g86/uJE2xftteWUy9Vo/ozSjF+XkBYC16qZG3bHVBoDg65a5Er7f+tH
-         UpY6n4GTa5hRMgiIiiUVSTx6L9fe9Zo0dxy0JEG3ByWdww/hQoJ+J0N8P5sV9pVxRiwP
-         ttdBr671j3Kw9zJ81xw47HjnBvjON7KBDYvdJpr4JyOwK4vxKYN/CloP1WSDKjh1fZYZ
-         wOfvPhh3UJTsKtQzTRvBKiKOT6wRWCNf6tPPh6HMa2yi3xiJUnC066AIqD5cu+Y7Hga0
-         JdOeB6o/10FKkHEYBaZGgP3z+lxQE2riCjZD7A4+Te6NnK1Kxrkbom6WxiFzBFP5hINH
-         +6eg==
-X-Gm-Message-State: AOJu0YxKgyxeYTcieJyOP85MQe9fMIctdRSp3lrcESdt87YhOq35GBSq
-	wxb3YERlNSbG3XaNjZNhEPV1UA==
-X-Google-Smtp-Source: AGHT+IGWhwmIKkO3gbEzAKdxw3be8Mk0JKlzbKfELNl3bSq7PNSrPi29AZ5bT/0D+QTnvpxlIIsUGQ==
-X-Received: by 2002:a7b:c84b:0:b0:401:d2cb:e6f2 with SMTP id c11-20020a7bc84b000000b00401d2cbe6f2mr9887916wml.32.1694515112752;
-        Tue, 12 Sep 2023 03:38:32 -0700 (PDT)
-Message-ID: <fdf87d82-aa3c-fd2e-6271-848f1a806fb2@citrix.com>
-Date: Tue, 12 Sep 2023 11:38:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=3nN1KHFUgWgtcGvhFLEIFZyesX3nsDZA47EtBRD/ydQ=; b=oaaI7Uk+tXBubqXFGkL6tzMOMo
+	ambdnG834KryOuZVP0QEM5XdipwLOdZu+9InVOUi/RnyyPe8Ye/y5bXpsXuuWxEqPGlwIIDOSWc1L
+	/pEuTBoq9M/hckRV2BIuoRPDT6JCs/mtoN5UeejJVvvmduWrp36QVtklXU6zZJYi9YNY=;
+Message-ID: <37efc33e-fe20-4527-9ab5-0069c0f9c10f@xen.org>
+Date: Tue, 12 Sep 2023 11:41:19 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v2 3/5] tools: don't use distutils in configure nor
- Makefile
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/arm: Skip Xen specific nodes/properties from hwdom
+ /chosen node
 Content-Language: en-GB
-To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
- George Dunlap <george.dunlap@cloud.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <cover.1694450145.git.javi.merino@cloud.com>
- <7b3ecf211f60e0d6f7a4d146b62f9c28eff003f5.1694450145.git.javi.merino@cloud.com>
-In-Reply-To: <7b3ecf211f60e0d6f7a4d146b62f9c28eff003f5.1694450145.git.javi.merino@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230911123401.27659-1-michal.orzel@amd.com>
+ <366e89e3-bc3d-4c54-b1ad-8147abbabdc7@xen.org>
+ <042fae56-e8e2-c079-2686-d27c5469b7fc@amd.com>
+ <e24a7d3a-ca18-474b-bce2-84b97512c58e@xen.org>
+ <faf253c3-2c99-9380-c120-a2dd3110b796@amd.com>
+ <alpine.DEB.2.22.394.2309111620130.1847660@ubuntu-linux-20-04-desktop>
+ <a649d56c-0bdd-2383-6073-477a8202f049@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <a649d56c-0bdd-2383-6073-477a8202f049@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11/09/2023 5:51 pm, Javi Merino wrote:
-> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->
-> Python distutils is deprecated and is going to be removed in Python
-> 3.12. The distutils.sysconfig is available as sysconfig module in
-> stdlib since Python 3.2, so use that directly.
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-This breaks Py2, doesn't it?
 
-> ---
->  m4/python_devel.m4       | 28 ++++++++++++++--------------
->  tools/libs/stat/Makefile |  4 ++--
->  2 files changed, 16 insertions(+), 16 deletions(-)
->
-> diff --git a/m4/python_devel.m4 b/m4/python_devel.m4
-> index bbf1e0354b..bb60857b03 100644
-> --- a/m4/python_devel.m4
-> +++ b/m4/python_devel.m4
-> @@ -5,21 +5,21 @@ ac_previous_libs=$LIBS
->  AC_PATH_PROG([pyconfig], [$PYTHON-config], [no])
->  AS_IF([test x"$pyconfig" = x"no"], [
->      dnl For those that don't have python-config
-> -    CPPFLAGS="$CFLAGS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print("-I" + distutils.sysconfig.get_config_var("INCLUDEPY"))'`"
-> -    CPPFLAGS="$CPPFLAGS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print(distutils.sysconfig.get_config_var("CFLAGS"))'`"
-> -    LDFLAGS="$LDFLAGS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print("-L" + distutils.sysconfig.get_python_lib(plat_specific=1,\
-> +    CPPFLAGS="$CFLAGS `$PYTHON -c 'import sysconfig; \
-> +        print("-I" + sysconfig.get_config_var("INCLUDEPY"))'`"
-> +    CPPFLAGS="$CPPFLAGS `$PYTHON -c 'import sysconfig; \
-> +        print(sysconfig.get_config_var("CFLAGS"))'`"
-> +    LDFLAGS="$LDFLAGS `$PYTHON -c 'import sysconfig; \
-> +        print("-L" + sysconfig.get_python_lib(plat_specific=1,\
->          standard_lib=1) + "/config")'`"
-> -    LDFLAGS="$LDFLAGS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print(distutils.sysconfig.get_config_var("LINKFORSHARED"))'`"
-> -    LDFLAGS="$LDFLAGS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print(distutils.sysconfig.get_config_var("LDFLAGS"))'`"
-> -    LIBS="$LIBS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print(distutils.sysconfig.get_config_var("LIBS"))'`"
-> -    LIBS="$LIBS `$PYTHON -c 'import distutils.sysconfig; \
-> -        print(distutils.sysconfig.get_config_var("SYSLIBS"))'`"
-> +    LDFLAGS="$LDFLAGS `$PYTHON -c 'import sysconfig; \
-> +        print(sysconfig.get_config_var("LINKFORSHARED"))'`"
-> +    LDFLAGS="$LDFLAGS `$PYTHON -c 'import sysconfig; \
-> +        print(sysconfig.get_config_var("LDFLAGS"))'`"
-> +    LIBS="$LIBS `$PYTHON -c 'import sysconfig; \
-> +        print(sysconfig.get_config_var("LIBS"))'`"
-> +    LIBS="$LIBS `$PYTHON -c 'import sysconfig; \
-> +        print(sysconfig.get_config_var("SYSLIBS"))'`"
+On 12/09/2023 08:18, Michal Orzel wrote:
+> Hi Stefano,
+> 
+> On 12/09/2023 01:21, Stefano Stabellini wrote:
+>> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>>
+>>
+>> On Mon, 11 Sep 2023, Michal Orzel wrote:
+>>> On 11/09/2023 16:48, Julien Grall wrote:
+>>>> On 11/09/2023 15:01, Michal Orzel wrote:
+>>>>> Hi Julien,
+>>>>>
+>>>>> On 11/09/2023 15:14, Julien Grall wrote:
+>>>>>>
+>>>>>>
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 11/09/2023 13:34, Michal Orzel wrote:
+>>>>>>> Host device tree nodes under /chosen with compatible string
+>>>>>>> "xen,evtchn-v1", "xen,domain-shared-memory-v1" are Xen specific and not
+>>>>>>> meant to be exposed to hardware domain.
+>>>>>>
+>>>>>> So, how dom0 is meant to discover the static event channel, shared
+>>>>>> memory it can use?
+>>>>>
+>>>>> For static shared memory:
+>>>>> A node with this compatible is only meant for Xen since it contains information like host-guest mapping.
+>>>>> Xen creates a different node for guests under /reserved-memory.
+>>>>> Linux binding:
+>>>>> https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
+>>>>> Xen node generation:
+>>>>> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/domain_build.c;hb=HEAD#l1407
+>>>>
+>>>> Ah good point. I agree with this one.
+>>>>
+>>>>>
+>>>>> For static event channels:
+>>>>> This is a bit weird so let me put it in a different way.
+>>>>> 1) Xen does not create any node for static evtchn for domU.
+>>>>> 2) The booting.txt states:
+>>>>> There is no need to describe the static event channel info in the domU device
+>>>>> tree. Static event channels are only useful in fully static configurations,
+>>>>> and in those configurations, the domU device tree dynamically generated by Xen
+>>>>> is not needed.
+>>>>> 3) The "xen,evtchn" property specifies the local port as well as phandle of domU node.
+>>>>> dom0 does not have access to domU nodes, therefore exposing a property with not existing phandle
+>>>>> makes me think that:
+>>>>
+>>>> You have a point for the phandle. Yet, this is the only way dom0 can
+>>>> find the event channel today. As we exposed it, I don't think we can
+>>>> remove it until we have a proper replacement.
+>>>>
+>>>> We might get away if the feature is not supported it at all. But there
+>>>> is no statement, so it is a little unclear whether the feature is meant
+>>>> to be in technical preview.
+>>>>
+>>>> In any case, I think the commit message deserve a bit more explanation
+>>>> as hiding "xen,evtchn-v1"/"xen,domain-shared-memory-v1" is not
+>>>> uncontroversial.
+>>>>
+>>>>> a) point 2) applies to dom0 as well and we should hide this node or > b) there is a missing property for both dom0 and domUs to tell them
+>>>> about static local port in a proper way
+>>>>>
+>>>>> Exposing Xen specific evtchn node only to dom0 and not to domU with required information happen to be found as first value
+>>>>> in xen,evtchn is definitely not a proper solution.
+>>>>
+>>>> My concern here is we exposed such information to dom0. So as I said
+>>>> above, I don't think we can simply remove it as there is no other way to
+>>>> find such information today.
+>>>>
+>>>> It doesn't matter that it wasn't exposed to domU.
+>>>>
+>>>>> Also, there is no Linux binding for it.
+>>>>
+>>>> AFAIK the static event channel support was not added in Linux until very
+>>>> recently. Also, I think the kernel doesn't directly use the static event
+>>>> channel. So it is possible, this is just an overlook.
+>>>
+>>> I've found this thread in which Stefano, Rahul and Bertrand agrees on not exposing
+>>> any dt property and the rationale behind:
+>>> https://patchwork.kernel.org/project/xen-devel/patch/4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com/
+>>
+>> yes it was done on purpose
+>>
+>>
+>>> I would not call exposing node to dom0 as something done deliberately given that it happens automatically by copying. So my understanding is
+>>> that we did not want to expose any node and dom0 case was overlooked (since done automatically).
+>>>
+>>> Exposing half the interface (from system POV) in a way it should not be done (phandle) is not great IMO.
+>>> In any case, if you insist on keeping xen,evtchn, I can leave with it.
+>>>
+>>> This feature is marked as tech preview with no Linux binding in place so I would not be worried.
+>>
+>> Yes I agree. I don't think we risk breaking anything. I would remove
+>> that info from Dom0. Even if we wanted to expose it to Dom0, this is not
+>> the right way to do it...
+> 
+> Ok, so my understanding was correct and the code itself need no change. Following Julien advice to add more
+> information to commit msg, my proposal for it is as follows:
+> 
+> Skip the following Xen specific host device tree nodes/properties
+> from being included into hardware domain /chosen node:
+>   - xen,static-heap: this property informs Xen about memory regions
+>     reserved exclusively as static heap,
+>   - xen,domain-shared-memory-v1: node with this compatible informs Xen
+>     about static shared memory region for a domain. Xen exposes a different
+>     node (under /reserved-memory with compatible "xen,shared-memory-v1") to
+>     let domain know about the shared region,
+>   - xen,evtchn-v1: node with this compatible informs Xen about static
+>     event channel configuration for a domain. Xen does not expose information
+>     about static event channels to domUs and dom0 case was overlooked (by
+>     default nodes from host dt are copied to dom0 fdt unless explicitly marked
+>     to be skipped), since the author's idea was not to expose it (refer
+>     docs/misc/arm/device-tree/booting.txt, "Static Event Channel"). Even if we
+>     wanted to expose the static event channel information, the current node
+>     is in the wrong format (i.e. contains phandle to domU node not visible by
+>     dom0). Lastly, this feature is marked as tech-preview and there is no
+>     Linux binding in place.
 
-I know the code was terrible to start with, but it's absurd to fork
-multiple processes just to append different fields into the same variable.
+The new commit message LGTM.
 
-Why not have a config.py in this directory which takes
-CPPFLAGS/LDFLAGS/LIBS as an input prints everything it needs.  Then you
-can repeat the import trick to prefer sysconfig and fall back to
-distutils if sysconfig isn't available.
+Cheers,
 
-~Andrew
+-- 
+Julien Grall
 
