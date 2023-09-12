@@ -2,65 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0132279C157
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 02:52:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.599852.935442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9756C79C189
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 03:16:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.599865.935457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfrda-0002GZ-V8; Tue, 12 Sep 2023 00:52:18 +0000
+	id 1qfrzq-0004m9-TZ; Tue, 12 Sep 2023 01:15:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 599852.935442; Tue, 12 Sep 2023 00:52:18 +0000
+Received: by outflank-mailman (output) from mailman id 599865.935457; Tue, 12 Sep 2023 01:15:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfrda-0002EL-SM; Tue, 12 Sep 2023 00:52:18 +0000
-Received: by outflank-mailman (input) for mailman id 599852;
- Tue, 12 Sep 2023 00:52:17 +0000
+	id 1qfrzq-0004ip-Qu; Tue, 12 Sep 2023 01:15:18 +0000
+Received: by outflank-mailman (input) for mailman id 599865;
+ Tue, 12 Sep 2023 01:15:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O/bM=E4=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qfrdZ-0002EF-CA
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 00:52:17 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20619.outbound.protection.outlook.com
- [2a01:111:f400:7d00::619])
+ <SRS0=2+51=E4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qfrzq-0004ij-82
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 01:15:18 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e4d9516-5106-11ee-8786-cb3800f73035;
- Tue, 12 Sep 2023 02:52:16 +0200 (CEST)
-Received: from AM6P195CA0019.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:81::32)
- by AS2PR08MB8951.eurprd08.prod.outlook.com (2603:10a6:20b:5fa::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Tue, 12 Sep
- 2023 00:52:12 +0000
-Received: from AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:81:cafe::c0) by AM6P195CA0019.outlook.office365.com
- (2603:10a6:209:81::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35 via Frontend
- Transport; Tue, 12 Sep 2023 00:52:12 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT062.mail.protection.outlook.com (100.127.140.99) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6792.11 via Frontend Transport; Tue, 12 Sep 2023 00:52:11 +0000
-Received: ("Tessian outbound b5a0f4347031:v175");
- Tue, 12 Sep 2023 00:52:11 +0000
-Received: from 2b96ab36140d.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 234F5C94-3AE2-4959-B636-26E91545BAF2.1; 
- Tue, 12 Sep 2023 00:52:00 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2b96ab36140d.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 12 Sep 2023 00:52:00 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by DU0PR08MB7518.eurprd08.prod.outlook.com (2603:10a6:10:312::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Tue, 12 Sep
- 2023 00:51:56 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::7083:22dc:6b5f:5965]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::7083:22dc:6b5f:5965%7]) with mapi id 15.20.6768.029; Tue, 12 Sep 2023
- 00:51:56 +0000
+ id d30fe0d2-5109-11ee-8786-cb3800f73035;
+ Tue, 12 Sep 2023 03:15:16 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id F18BECE19B7;
+ Tue, 12 Sep 2023 01:15:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236F8C3279B;
+ Tue, 12 Sep 2023 01:15:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,159 +45,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e4d9516-5106-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G66WJsm9YoL7h5KPdifZjeRlsNp5KT6hzQIL9HF7ogk=;
- b=ZUr4xzGyiM0mg17orU+8FhvnMzrniuDyvzAmfchgsm5h0hbZ3a3ufaV9U8/SSZhIjppl1ciRvf2zcFqZQuiSR5+D2ZM4JQcfX3fvvmd/d91ElKoYnse1+sOo//qbMMr6l21kdjJ/oH3N7tV14xclns9W03BWu45Ey4l1/2so45g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 31c9191d2fb1a738
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I9/wUvsLgRzU0nP8LTPelxb8+0BHRcxxYFLSNjXAXB9jcFbls03PhGuqRXMsJp4c56gBpn3/zLz/EEXTXjScnWsLhMGvTELvOm6HqhE0zCoN+MBGgt3AcS6meCjfycnZxaoWaI3Tq5qpSkSikrSKiKG4ERVmN1yW30NSaIg4dd1JHOWiFH3RCDAjNm2FJRfODtFtDjEua0eRP8E1PhcI41ZYz7kNOFlnYGEtnzfO6NMrPxaZ459riZXj6kQ1cXc36rqzdb6cxRYoe8o8MNXOnk5dT98iPGq4MDivrb7TNIkkrUMxJQKxb5eDYvnGdkXQxzFGttoKFoPJ1oWiqXcTPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G66WJsm9YoL7h5KPdifZjeRlsNp5KT6hzQIL9HF7ogk=;
- b=V+6uBkfNjlup925wdbr7jJYkKtqDQSB/IRU1Ae50IfbvhTxWkb6n8XoWk0nbYNGjBg9WlL709HmI1FZR23YbwuW/y1uHNff8wN0NevuXVTg3IHLAw3dQ4QHw5SIs3omZQDo8vdCsyVTvks7hrXdep0ibC8jvJepYkpQFINY2aGCeVbNajfvrU/6F0A5ueDA77xlN1LpJHCC18C1LdMujiFuSmxQ6xpLPAnRT0QHpc2PvXOZ3+jykEtyEGXAvx35aKw6y4afZhj38wXbK/LZ596So5SNGPWCvV5woce5X/2Vecei1IDcjIRVoDR4izabg4U6AQADCu+ec3JenDYC+iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G66WJsm9YoL7h5KPdifZjeRlsNp5KT6hzQIL9HF7ogk=;
- b=ZUr4xzGyiM0mg17orU+8FhvnMzrniuDyvzAmfchgsm5h0hbZ3a3ufaV9U8/SSZhIjppl1ciRvf2zcFqZQuiSR5+D2ZM4JQcfX3fvvmd/d91ElKoYnse1+sOo//qbMMr6l21kdjJ/oH3N7tV14xclns9W03BWu45Ey4l1/2so45g=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Ayan Kumar Halder <ayankuma@amd.com>, Penny Zheng <Penny.Zheng@arm.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v6 00/13] xen/arm: Split MMU code as the prepration of MPU
- work
-Thread-Topic: [PATCH v6 00/13] xen/arm: Split MMU code as the prepration of
- MPU work
-Thread-Index: AQHZ2U+MSWp0FTqbTEGC9gDQVfV1eLARkWSAgAQtfICAALUbgA==
-Date: Tue, 12 Sep 2023 00:51:56 +0000
-Message-ID: <F05F6158-7D79-4EC3-B591-93DE4018EB33@arm.com>
-References: <20230828013224.669433-1-Henry.Wang@arm.com>
- <alpine.DEB.2.22.394.2309081515340.6458@ubuntu-linux-20-04-desktop>
- <8da354d9-5b80-709d-8b0a-be1ba5694b37@amd.com>
-In-Reply-To: <8da354d9-5b80-709d-8b0a-be1ba5694b37@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.700.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|DU0PR08MB7518:EE_|AM7EUR03FT062:EE_|AS2PR08MB8951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67fd1e72-27e0-48da-9b2e-08dbb32a7feb
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- C1eRvodfAvTUWlbxYvNdFzHfMRHLPjEcVhfaeEEqco0JCOEGlImNikVjhtzbRmnJCD4VGjSa9vY07qGu586KKZqBvACD8BrqJcbltxDYlk2Tyx0gl70oka+asGV6hdcEr2uj+yBKG2Q9O95AEOQnVnanrB0cYSraep9RSN9SzMc/GoRmfND7zpKbn7sz8O/atQ+WKuI9+Vv57KISzTBO1jGrsbYeNUlnAmqri7QY3uNHNNUff0Vo4/agCokNpLwa1i7TIRxE9xfQ12o6adAes9zVUYZXMrJ7s878DDfbeprw61BQt3m0qwXXRStxJGGqGoSpXQdUCfSmOGgPhWVLxEpmRcV5xNBssPRET5LgoKtSd0WgwIubyZDEmQ9x0JFn36inixxJiYhyOsyt0eOg6b/gIv9VcAEuTz2cS6z9I5+aq5qH+Sgo3obbnpO00aLsgy1zIQO5UFnsitlwdLIqTo83SAKgupsEdsxzNFRxlvu3Oj3YbifEp1CApT0ibFpHln8WXoLiBSCiTawwFt8S2z7D9cy9lUzbFmLxP1tJxd5q9yRd7IO1NfO18ftgwvvBT2HxvnZmYUISQMNfX3+TRa2PBMYKPInUzPjw+JrVvK4Zg1mCs02VQD7NSULzH4dA
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(396003)(346002)(136003)(376002)(1800799009)(451199024)(186009)(71200400001)(6506007)(53546011)(6486002)(41300700001)(83380400001)(26005)(478600001)(2616005)(966005)(2906002)(54906003)(66446008)(6636002)(66476007)(76116006)(66946007)(66556008)(316002)(64756008)(91956017)(8676002)(4326008)(8936002)(86362001)(36756003)(6512007)(38070700005)(33656002)(38100700002)(5660300002)(110136005)(122000001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C478792308C9854AB10A2FEC3AEF11F1@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d30fe0d2-5109-11ee-8786-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694481307;
+	bh=kc79cE19D2SgPw/0+3mzwupSU4EsEpOLwtqGmPwaQXI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=R4HRNu/n74kg+NrNVX6SxwrT9kaN1liG7/PW9eAspstIqyL2ONTGFwSyszXhqDJTd
+	 0x0DPu8p/d17sZ6f+SyaLfMsRn/19LkLC3t+pVvDsBny7Q6iIeJB5LNwcbpZmx5QJC
+	 9xunTWqEDN1c8dgawhQYyuLVxkLD20M4omY33JABiPLxaXqWnoeEFk7os3iFs4a/Z0
+	 6t743+PR4AfJFtLMcx58Dwb540w7yR420nuSjVKkV8edp3KE9r1isI4K5lTHuLEYZB
+	 8xBPPWFv8BV8RC2DMMFYIvjgz8W/HnZKS1nX4M8uydtWybauZML4dmaLFbDoIqn+KE
+	 Znd3oJZQ/T6Lw==
+Date: Mon, 11 Sep 2023 18:15:03 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Javi Merino <javi.merino@cloud.com>
+cc: xen-devel@lists.xenproject.org, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@cloud.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Bertrand.Marquis@arm.com
+Subject: Re: [XEN PATCH v2 1/5] automation: add python3's setuptools to
+ containers
+In-Reply-To: <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
+Message-ID: <alpine.DEB.2.22.394.2309111805530.1847660@ubuntu-linux-20-04-desktop>
+References: <cover.1694450145.git.javi.merino@cloud.com> <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7518
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	eddd081f-2d31-414f-34b6-08dbb32a76a7
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	kixE6eUky9cj9ff1r1jTGBL4BVhohlH8/p2asS+cpw1X6/e6MPwu3wxQwMxpdeLxEwiyDkbkyg/zax+EFQIOuQf8LF/QnQu5UEsVP335CO1GtXyhtX1c/T6BX1uIQkHPGODt90qJodc6EDCHB4sym+04XGCOz2WdNWTHnZB8ocr0GScnj0twuoRsQiW09g9a4EAVyX6TeIr1QldxUB9Gy9MMHW5fAYCwfF/QcgHnuTqpzUqwvs4csWDiQmNp0njRtzza/9KgGnk1tkMjULA/7KF2vOG8VRYCQeH3zoxckGgFN5uc1biJTvZL+p2+tPPslmLXCtf2wg4VlvoG+AW/3WZIxVWZzsSvC0ddNJ+QC4fyS42/dytV67uP9WoVc0QNt36noVM58thJsCwBGA/inrBaWUjapfNi8DVKANo7MrOKoCMwJZG8fHd17idr01TK/oE1XGLDH9+BlSpeLDNZNP1IyNEKXysT7nfq98e58kGQyG66dWKFbgXcPmXovT3UUH09j6ovSZDX/7QRaTi2w39vkP8/sgsmm9ILtyC3er7fCHr4J7vwB/Bx9TBU1fzhsZkVfZbFsp8a5C3KfSgYPyDe/Bu5F+Ynst96lntfAujw4Vwg1JMEIYVcpvzgMeGDZvsgQ438abB+sbMuKQePGYyIXlzUEKQMqPKMOo0UBbrj9SBfCbXWjbZEYxsycu8fadGe6Ll58nco2MrVsDdbGuwOIZUqOPZBiMgly5JM2F8=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(186009)(451199024)(82310400011)(1800799009)(40470700004)(36840700001)(46966006)(81166007)(33656002)(36756003)(86362001)(40480700001)(2616005)(6512007)(5660300002)(966005)(478600001)(54906003)(53546011)(110136005)(6636002)(70586007)(6506007)(70206006)(316002)(6486002)(41300700001)(26005)(336012)(8936002)(8676002)(4326008)(47076005)(107886003)(356005)(82740400003)(40460700003)(83380400001)(36860700001)(2906002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2023 00:52:11.8577
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67fd1e72-27e0-48da-9b2e-08dbb32a7feb
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8951
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Ayan,
+On Mon, 11 Sep 2023, Javi Merino wrote:
+> In preparation of dropping python distutils and moving to setuptools,
+> add the python3 setuptools module to the containers that need it.
+> 
+> The centos7 container was building using python2.  Change it to build
+> python scripts using python3.
+> 
+> Debian Stretch is no longer debian oldstable, so move to the archive
+> repositories.
+> 
+> Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> ---
+>  automation/build/alpine/3.18.dockerfile        |  1 +
+>  automation/build/archlinux/current.dockerfile  |  1 +
+>  automation/build/centos/7.dockerfile           |  3 ++-
+>  automation/build/debian/bookworm.dockerfile    |  1 +
+>  automation/build/debian/stretch.dockerfile     | 11 ++++++++++-
+>  automation/build/suse/opensuse-leap.dockerfile |  1 +
+>  automation/build/ubuntu/bionic.dockerfile      |  1 +
+>  automation/build/ubuntu/focal.dockerfile       |  1 +
+>  automation/build/ubuntu/trusty.dockerfile      |  1 +
+>  automation/build/ubuntu/xenial.dockerfile      |  1 +
 
-> On Sep 11, 2023, at 22:03, Ayan Kumar Halder <ayankuma@amd.com> wrote:
->=20
-> Hi Henry,
->=20
-> On 08/09/2023 23:15, Stefano Stabellini wrote:
->>=20
->> I committed patches 1-5
->>=20
->> On Mon, 28 Aug 2023, Henry Wang wrote:
->>>=20
->>> Henry Wang (9):
->>>   xen/arm: Introduce CONFIG_MMU Kconfig option
->>>   xen/arm64: Split and move MMU-specific head.S to mmu/head.S
->>>   xen/arm64: Fold setup_fixmap() to create_page_tables()
->>>   xen/arm: Split page table related code to mmu/pt.c
->>>   xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
->>>   xen/arm: Fold mmu_init_secondary_cpu() to head.S
->>>   xen/arm: Extract MMU-specific MM code
->>>   xen/arm: Split MMU-specific setup_mm() and related code out
->>>   xen/arm: Fold pmap and fixmap into MMU system
->>>=20
->>> Penny Zheng (2):
->>>   xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
->>>   xen/arm: mmu: move MMU specific P2M code to mmu/p2m.{c,h}
->>>=20
->>> Wei Chen (2):
->>>   xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()
->>>   xen/arm: Move MMU related definitions from config.h to mmu/layout.h
->=20
-> Except for "[PATCH v6 08/13] xen/arm: Fold mmu_init_secondary_cpu() to he=
-ad.S " where I have a small comment, I am happy with the current set.
+We are missing:
+automation/build/alpine/3.18-arm64v8.dockerfile
+automation/build/suse/opensuse-tumbleweed.dockerfile
+automation/build/suse/opensuse-leap.dockerfile
+automation/build/debian/jessie-i386.dockerfile
+automation/build/debian/bookworm-i386.dockerfile
+automation/build/debian/stretch-i386.dockerfile
+automation/build/debian/jessie.dockerfile
+automation/build/debian/bookworm-arm64v8.dockerfile
+automation/build/fedora/29.dockerfile
 
-Thanks!
++Bertrand because I am not sure if we need any changes to the Yocto
+containers
 
->=20
-> I have made the corresponding changes for Arm32 MMU (See https://gitlab.c=
-om/xen-project/people/ayankuma/xen/-/commits/mmu_arm32_on_arm64?ref_type=3D=
-heads ),
->=20
-> and triggered the CI. It looks all good (qemu-smoke-ppc64le-pseries-gcc f=
-ailure seems unrelated).
->=20
-> I have sent out the patches for review so that the maintainers/you can ha=
-ve a look and review them
 
-Sure, me and Penny will have a look.
 
-Kind regards,
-Henry
 
->=20
-> ("[XEN v1 0/4] xen/arm: Split MMU code as the prepration of MPU work form=
- Arm32").
->=20
-> - Ayan
+>  10 files changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/build/alpine/3.18.dockerfile b/automation/build/alpine/3.18.dockerfile
+> index ca5756955e..5d2a69a060 100644
+> --- a/automation/build/alpine/3.18.dockerfile
+> +++ b/automation/build/alpine/3.18.dockerfile
+> @@ -34,6 +34,7 @@ RUN apk --no-cache add \
+>    ocaml-findlib \
+>    patch  \
+>    python3-dev \
+> +  py3-setuptools \
+>    texinfo \
+>    util-linux-dev \
+>    xz-dev \
+> diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
+> index 13fb472d9e..47e79637a4 100644
+> --- a/automation/build/archlinux/current.dockerfile
+> +++ b/automation/build/archlinux/current.dockerfile
+> @@ -34,6 +34,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
+>          pixman \
+>          pkgconfig \
+>          python \
+> +        python-setuptools \
+>          sdl \
+>          sdl2 \
+>          spice \
+> diff --git a/automation/build/centos/7.dockerfile b/automation/build/centos/7.dockerfile
+> index 69dcefb2f0..f14f70014a 100644
+> --- a/automation/build/centos/7.dockerfile
+> +++ b/automation/build/centos/7.dockerfile
+> @@ -22,7 +22,8 @@ RUN yum -y update \
+>          ncurses-devel \
+>          zlib-devel \
+>          openssl-devel \
+> -        python-devel \
+> +        python3-devel \
+> +        python3-setuptools \
+>          libuuid-devel \
+>          pkgconfig \
+>          flex \
+> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
+> index f8415425e6..ae008c8d46 100644
+> --- a/automation/build/debian/bookworm.dockerfile
+> +++ b/automation/build/debian/bookworm.dockerfile
+> @@ -16,6 +16,7 @@ RUN apt-get update && \
+>          libncurses5-dev \
+>          libssl-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
+> index 1af6c691f8..9f4b91a9e3 100644
+> --- a/automation/build/debian/stretch.dockerfile
+> +++ b/automation/build/debian/stretch.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:stretch
+> +FROM debian/eol:stretch
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> @@ -8,6 +8,14 @@ ENV USER root
+>  RUN mkdir /build
+>  WORKDIR /build
+>  
+> +# Debian stretch is now archived.  Fetch packages from
+> +# archive.debian.org and skip the stretch-updates repository, as it is
+> +# not longer valid.
+> +RUN sed -i \
+> +    -e 's/deb.debian.org/archive.debian.org/' \
+> +    -e '/stretch-updates/d' \
+> +    /etc/apt/sources.list
 
+For the records I would prefer to get rid of Stretch altogether, but I
+don't want to scope-creep this patch series, so this is OK for now.
+
+
+
+
+>  # build depends
+>  RUN apt-get update && \
+>      apt-get --quiet --yes install \
+> @@ -17,6 +25,7 @@ RUN apt-get update && \
+>          libssl-dev \
+>          python-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
+> index 98ee42970d..7010b71aca 100644
+> --- a/automation/build/suse/opensuse-leap.dockerfile
+> +++ b/automation/build/suse/opensuse-leap.dockerfile
+> @@ -60,6 +60,7 @@ RUN zypper install -y --no-recommends \
+>          'pkgconfig(sdl)' \
+>          'pkgconfig(sdl2)' \
+>          python3-devel \
+> +        python3-setuptools \
+>          systemd-devel \
+>          tar \
+>          transfig \
+> diff --git a/automation/build/ubuntu/bionic.dockerfile b/automation/build/ubuntu/bionic.dockerfile
+> index e15f54431e..9cceb11ef9 100644
+> --- a/automation/build/ubuntu/bionic.dockerfile
+> +++ b/automation/build/ubuntu/bionic.dockerfile
+> @@ -17,6 +17,7 @@ RUN apt-get update && \
+>          libssl-dev \
+>          python-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
+> index 9c851c0620..e3d11194ee 100644
+> --- a/automation/build/ubuntu/focal.dockerfile
+> +++ b/automation/build/ubuntu/focal.dockerfile
+> @@ -16,6 +16,7 @@ RUN apt-get update && \
+>          libncurses5-dev \
+>          libssl-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> diff --git a/automation/build/ubuntu/trusty.dockerfile b/automation/build/ubuntu/trusty.dockerfile
+> index 22e294c20c..7e819c8e4e 100644
+> --- a/automation/build/ubuntu/trusty.dockerfile
+> +++ b/automation/build/ubuntu/trusty.dockerfile
+> @@ -17,6 +17,7 @@ RUN apt-get update && \
+>          libssl-dev \
+>          python-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> diff --git a/automation/build/ubuntu/xenial.dockerfile b/automation/build/ubuntu/xenial.dockerfile
+> index 2d2ba3e31f..19464eead8 100644
+> --- a/automation/build/ubuntu/xenial.dockerfile
+> +++ b/automation/build/ubuntu/xenial.dockerfile
+> @@ -17,6 +17,7 @@ RUN apt-get update && \
+>          libssl-dev \
+>          python-dev \
+>          python3-dev \
+> +        python3-setuptools \
+>          xorg-dev \
+>          uuid-dev \
+>          libyajl-dev \
+> -- 
+> 2.41.0
+> 
 
