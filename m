@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63A479CC06
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 11:38:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600135.935754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E627379CC07
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 11:38:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600143.935765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfzql-0000oP-6f; Tue, 12 Sep 2023 09:38:27 +0000
+	id 1qfzqx-0001LD-I1; Tue, 12 Sep 2023 09:38:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600135.935754; Tue, 12 Sep 2023 09:38:27 +0000
+Received: by outflank-mailman (output) from mailman id 600143.935765; Tue, 12 Sep 2023 09:38:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qfzql-0000mJ-30; Tue, 12 Sep 2023 09:38:27 +0000
-Received: by outflank-mailman (input) for mailman id 600135;
- Tue, 12 Sep 2023 09:38:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qfzqx-0001J1-Ez; Tue, 12 Sep 2023 09:38:39 +0000
+Received: by outflank-mailman (input) for mailman id 600143;
+ Tue, 12 Sep 2023 09:38:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V3Pz=E4=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qfzqk-0000lh-4f
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 09:38:26 +0000
+ id 1qfzqw-0008Jk-3J
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 09:38:38 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e561451-5150-11ee-8786-cb3800f73035;
- Tue, 12 Sep 2023 11:38:24 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 24d5358b-5150-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 11:38:35 +0200 (CEST)
 Received: from beta.station (net-93-66-137-131.cust.vodafonedsl.it
  [93.66.137.131])
- by support.bugseng.com (Postfix) with ESMTPSA id CB11A4EE0745;
- Tue, 12 Sep 2023 11:38:23 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id A41494EE0743;
+ Tue, 12 Sep 2023 11:38:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +40,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e561451-5150-11ee-8786-cb3800f73035
+X-Inumbo-ID: 24d5358b-5150-11ee-9b0d-b553b5be7939
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	sstabellini@kernel.org,
 	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH v2 01/10] misra: add deviation for headers that explicitly avoid guards
-Date: Tue, 12 Sep 2023 11:36:47 +0200
-Message-Id: <e78d0868a635fe9fba851bb8c2cfc80ba6d73491.1694510856.git.simone.ballarin@bugseng.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v2 02/10] misra: modify deviations for empty and generated headers
+Date: Tue, 12 Sep 2023 11:36:48 +0200
+Message-Id: <6da900e1692ac1c1fff554da53dfbbeb1e42ad07.1694510856.git.simone.ballarin@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1694510856.git.simone.ballarin@bugseng.com>
 References: <cover.1694510856.git.simone.ballarin@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some headers, under specific circumstances (documented in a comment at
-the beginning of the file), explicitly avoid inclusion guards: the caller
-is responsible for including them correctly.
+This patch modifies deviations for Directive 4.10:
+"Precautions shall be taken in order to prevent the contents of
+a header file being included more than once"
 
-These files are not supposed to comply with Directive 4.10:
-"Precautions shall be taken in order to prevent the contents of a header
-file being included more than once"
+This patch avoids the file-based deviation for empty headers, and
+replaces it with a comment-based one using the format specified in
+docs/misra/safe.json.
 
-This patch adds deviation cooments for headers that avoid guards.
+Generated headers are not generally safe against multi-inclusions,
+whether a header is safe depends on the nature of the generated code
+in the header. For that reason, this patch drops the deviation for
+generated headers.
 
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 
 ---
 Changes in v2:
 - use the format introduced with doc/misra/safe.json instead of
-  a generic text-based deviation
+  a file-based deviation for empty headers
+- remove deviation for generated headers
 ---
- docs/misra/safe.json                        | 8 ++++++++
- xen/include/public/arch-x86/cpufeatureset.h | 1 +
- xen/include/public/errno.h                  | 1 +
- 3 files changed, 10 insertions(+)
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 7 -------
+ docs/misra/safe.json                             | 8 ++++++++
+ xen/arch/arm/efi/runtime.h                       | 1 +
+ xen/include/Makefile                             | 2 +-
+ 4 files changed, 10 insertions(+), 8 deletions(-)
 
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index d8170106b4..9313027af1 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -78,13 +78,6 @@ inline functions."
+ -config=MC3R1.D4.9,macros+={deliberate, "loc(file(api:public))"}
+ -doc_end
+ 
+--doc_begin="This header file is autogenerated or empty, therefore it poses no
+-risk if included more than once."
+--file_tag+={empty_header, "^xen/arch/arm/efi/runtime\\.h$"}
+--file_tag+={autogen_headers, "^xen/include/xen/compile\\.h$||^xen/include/generated/autoconf.h$||^xen/include/xen/hypercall-defs.h$"}
+--config=MC3R1.D4.10,reports+={safe, "all_area(all_loc(file(empty_header||autogen_headers)))"}
+--doc_end
+-
+ -doc_begin="Files that are intended to be included more than once do not need to
+ conform to the directive."
+ -config=MC3R1.D4.10,reports+={safe, "first_area(text(^/\\* This file is legitimately included multiple times\\. \\*/$, begin-4))"}
 diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-index 39c5c056c7..db438c9770 100644
+index db438c9770..e8e200cb0a 100644
 --- a/docs/misra/safe.json
 +++ b/docs/misra/safe.json
-@@ -20,6 +20,14 @@
+@@ -28,6 +28,14 @@
          },
          {
-             "id": "SAF-2-safe",
+             "id": "SAF-3-safe",
 +            "analyser": {
 +                "eclair": "MC3R1.D4.10"
 +            },
-+            "name": "Dir 4.10: headers that leave it up to the caller to include them correctly",
-+            "text": "Headers that deliberatively avoid inclusion guards explicitly leaving responsibility to the caller are allowed."
++            "name": "Dir 4.10: empty headers",
++            "text": "Empty headers pose no risk if included more than once."
 +        },
 +        {
-+            "id": "SAF-3-safe",
++            "id": "SAF-4-safe",
              "analyser": {},
              "name": "Sentinel",
              "text": "Next ID to be used"
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 6b6ce2745c..eac1ae4b2a 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -23,6 +23,7 @@
-  * their XEN_CPUFEATURE() being appropriate in the included context.
-  */
+diff --git a/xen/arch/arm/efi/runtime.h b/xen/arch/arm/efi/runtime.h
+index 25afcebed1..5e35184ff4 100644
+--- a/xen/arch/arm/efi/runtime.h
++++ b/xen/arch/arm/efi/runtime.h
+@@ -1 +1,2 @@
++/* SAF-2-safe empty header */
+ /* Placeholder for ARM-specific runtime include/declarations */
+diff --git a/xen/include/Makefile b/xen/include/Makefile
+index 2e61b50139..31782fb177 100644
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -53,7 +53,7 @@ cmd_compat_h = \
+     mv -f $@.new $@
  
-+/* SAF-1-safe header that leaves it up to the caller to include them correctly */
- #ifndef XEN_CPUFEATURE
+ quiet_cmd_stub_h = GEN     $@
+-cmd_stub_h = echo '/* empty */' >$@
++cmd_stub_h = echo '/* SAF-2-safe empty header */' >$@
  
- /*
-diff --git a/xen/include/public/errno.h b/xen/include/public/errno.h
-index 5a78a7607c..8b60ac74ae 100644
---- a/xen/include/public/errno.h
-+++ b/xen/include/public/errno.h
-@@ -17,6 +17,7 @@
-  * will unilaterally #undef XEN_ERRNO().
-  */
- 
-+/* SAF-1-safe header that leaves it up to the caller to include them correctly */
- #ifndef XEN_ERRNO
- 
- /*
+ quiet_cmd_compat_i = CPP     $@
+ cmd_compat_i = $(CPP) $(filter-out -Wa$(comma)% -include %/include/xen/config.h,$(XEN_CFLAGS)) $(cppflags-y) -o $@ $<
 -- 
 2.34.1
 
