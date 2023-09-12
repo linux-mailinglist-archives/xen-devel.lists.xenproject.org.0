@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE40779D888
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 20:18:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600719.936477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9BF79D88D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 20:21:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600728.936487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg7wy-0000cX-SZ; Tue, 12 Sep 2023 18:17:24 +0000
+	id 1qg7zw-0002DT-AH; Tue, 12 Sep 2023 18:20:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600719.936477; Tue, 12 Sep 2023 18:17:24 +0000
+Received: by outflank-mailman (output) from mailman id 600728.936487; Tue, 12 Sep 2023 18:20:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg7wy-0000aZ-Pm; Tue, 12 Sep 2023 18:17:24 +0000
-Received: by outflank-mailman (input) for mailman id 600719;
- Tue, 12 Sep 2023 18:17:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg7wx-0000aP-7m; Tue, 12 Sep 2023 18:17:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg7wx-0005l6-2D; Tue, 12 Sep 2023 18:17:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qg7ww-0005Rd-Nu; Tue, 12 Sep 2023 18:17:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qg7ww-000344-NT; Tue, 12 Sep 2023 18:17:22 +0000
+	id 1qg7zw-0002B3-7d; Tue, 12 Sep 2023 18:20:28 +0000
+Received: by outflank-mailman (input) for mailman id 600728;
+ Tue, 12 Sep 2023 18:20:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YY/q=E4=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qg7zv-0002Ax-7f
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 18:20:27 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a7b7bf2-5199-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 20:20:24 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C886C82856CC;
+ Tue, 12 Sep 2023 13:20:23 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Dp82U-wf0SvM; Tue, 12 Sep 2023 13:20:22 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id A035E8285713;
+ Tue, 12 Sep 2023 13:20:22 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 4Lm59cH7zDgk; Tue, 12 Sep 2023 13:20:22 -0500 (CDT)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id E0FF282856CC;
+ Tue, 12 Sep 2023 13:20:21 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +51,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=OOARfpTitkC5PMVl5D3JYfNbuxO2qODZmc1nz0Bdp4I=; b=HxxMtS0y0V7fyVuDVzGWPNwE/M
-	wiQT+IQMaYRkwKRfRtUu9M69L6QAOJ+MwViiQsn1APGImrP+uQmeK+fiMkAq1W5OLk5TfRkgVH2cB
-	n/t/iCdIQ+DGuNP7z5oWB5MVh9ocA4Bdjl5NksdFRj23if/+swbubBAbhnwPni3RWTVM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-182958-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0a7b7bf2-5199-11ee-9b0d-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A035E8285713
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1694542822; bh=1eb6yy1hZOI9yF5r5wsKynxD4GExCLXigy00kGmpq7Y=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=MefAfXsSlt/aCLHXQNECnSDlPLZ1Ndw65ri4Y/5tLX1MfCRcJNzUutwig5VVTnCSt
+	 Rpch8A31XG1vZ4DwNbzSMlVLiOEyce3nkVeDtY/rH7517ITFew8coNc+fIvwGmJOL+
+	 r7X5juNF/HonqYcupvx7DtdL3zG00u6eHcRkcJTY=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <0b6ea450-e60b-de6b-6bd8-e78fd2f2b2db@raptorengineering.com>
+Date: Tue, 12 Sep 2023 13:20:21 -0500
 MIME-Version: 1.0
-Subject: [libvirt test] 182958: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-amd64-i386-libvirt-xsm:xen-install:fail:heisenbug
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=ca40725a2101c597c03661771a4e546001f629cc
-X-Osstest-Versions-That:
-    libvirt=16ad37c119c66a8a0bb0dce57ccc7847b7050350
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 Sep 2023 18:17:22 +0000
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v4 3/5] xen/ppc: Define minimal stub headers required for
+ full build
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1694211900.git.sanastasio@raptorengineering.com>
+ <ec21e13fd3de4142d305924a6f5d55ad15745731.1694211900.git.sanastasio@raptorengineering.com>
+ <1868edde-1b7e-84c6-6881-ac3b98934932@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <1868edde-1b7e-84c6-6881-ac3b98934932@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 182958 libvirt real [real]
-flight 182975 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182958/
-http://logs.test-lab.xenproject.org/osstest/logs/182975/
+On 9/11/23 9:45 AM, Jan Beulich wrote:
+> On 09.09.2023 00:50, Shawn Anastasio wrote:
+>> Additionally, change inclusion of asm/ headers to corresponding xen/ ones
+>> throughout arch/ppc now that they work.
+>>
+>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> 
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> albeit ...
+> 
+>>
+>>  xen/arch/ppc/Kconfig                     |   1 +
+>>  xen/arch/ppc/include/asm/altp2m.h        |  25 +++
+>>  xen/arch/ppc/include/asm/bug.h           |   9 +
+>>  xen/arch/ppc/include/asm/cache.h         |   2 +
+>>  xen/arch/ppc/include/asm/config.h        |  10 +
+>>  xen/arch/ppc/include/asm/cpufeature.h    |  10 +
+>>  xen/arch/ppc/include/asm/current.h       |  43 ++++
+>>  xen/arch/ppc/include/asm/delay.h         |  12 ++
+>>  xen/arch/ppc/include/asm/device.h        |  53 +++++
+>>  xen/arch/ppc/include/asm/div64.h         |  14 ++
+>>  xen/arch/ppc/include/asm/domain.h        |  47 +++++
+>>  xen/arch/ppc/include/asm/event.h         |  36 ++++
+>>  xen/arch/ppc/include/asm/flushtlb.h      |  24 +++
+>>  xen/arch/ppc/include/asm/grant_table.h   |   5 +
+>>  xen/arch/ppc/include/asm/guest_access.h  |  68 +++++++
+>>  xen/arch/ppc/include/asm/guest_atomics.h |  23 +++
+>>  xen/arch/ppc/include/asm/hardirq.h       |  19 ++
+>>  xen/arch/ppc/include/asm/hypercall.h     |   5 +
+>>  xen/arch/ppc/include/asm/io.h            |  16 ++
+>>  xen/arch/ppc/include/asm/iocap.h         |   8 +
+>>  xen/arch/ppc/include/asm/iommu.h         |   8 +
+>>  xen/arch/ppc/include/asm/irq.h           |  33 +++
+>>  xen/arch/ppc/include/asm/mem_access.h    |   5 +
+>>  xen/arch/ppc/include/asm/mm.h            | 243 ++++++++++++++++++++++-
+>>  xen/arch/ppc/include/asm/monitor.h       |  43 ++++
+>>  xen/arch/ppc/include/asm/nospec.h        |  15 ++
+>>  xen/arch/ppc/include/asm/numa.h          |  26 +++
+>>  xen/arch/ppc/include/asm/p2m.h           |  95 +++++++++
+>>  xen/arch/ppc/include/asm/page.h          |  18 ++
+>>  xen/arch/ppc/include/asm/paging.h        |   7 +
+>>  xen/arch/ppc/include/asm/pci.h           |   7 +
+>>  xen/arch/ppc/include/asm/percpu.h        |  24 +++
+>>  xen/arch/ppc/include/asm/processor.h     |  10 +
+>>  xen/arch/ppc/include/asm/random.h        |   9 +
+>>  xen/arch/ppc/include/asm/setup.h         |   6 +
+>>  xen/arch/ppc/include/asm/smp.h           |  18 ++
+>>  xen/arch/ppc/include/asm/softirq.h       |   8 +
+>>  xen/arch/ppc/include/asm/spinlock.h      |  15 ++
+>>  xen/arch/ppc/include/asm/system.h        | 219 +++++++++++++++++++-
+>>  xen/arch/ppc/include/asm/time.h          |  23 +++
+>>  xen/arch/ppc/include/asm/vm_event.h      |  49 +++++
+> 
+> ... this file now wants dropping, and xen/arch/ppc/include/asm/Makefile
+> instead indicating to use the asm-generic variant.
+>
 
-Failures :-/ but no regressions.
+Got it -- I'll drop it and use asm-generic.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-libvirt-xsm   7 xen-install         fail pass in 182975-retest
+> Note further that xen/arch/ppc/include/asm/numa.h has a leftover Arm
+> reference that likely wasn't meant to be there.
+>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-libvirt-xsm 15 migrate-support-check fail in 182975 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182803
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182803
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182803
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+Good catch, will fix.
 
-version targeted for testing:
- libvirt              ca40725a2101c597c03661771a4e546001f629cc
-baseline version:
- libvirt              16ad37c119c66a8a0bb0dce57ccc7847b7050350
+> Jan
 
-Last test of basis   182803  2023-09-09 04:18:51 Z    3 days
-Testing same since   182958  2023-09-12 04:18:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Privoznik <mprivozn@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Praveen K Paladugu <prapal@linux.microsoft.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   16ad37c119..ca40725a21  ca40725a2101c597c03661771a4e546001f629cc -> xen-tested-master
+Thanks,
+Shawn
 
