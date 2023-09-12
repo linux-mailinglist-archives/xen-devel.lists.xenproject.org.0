@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11E0479D7E2
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 19:47:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600695.936440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6524779D862
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Sep 2023 20:09:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600703.936452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg7Sy-0002cM-32; Tue, 12 Sep 2023 17:46:24 +0000
+	id 1qg7oH-0006GF-M1; Tue, 12 Sep 2023 18:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600695.936440; Tue, 12 Sep 2023 17:46:24 +0000
+Received: by outflank-mailman (output) from mailman id 600703.936452; Tue, 12 Sep 2023 18:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qg7Sy-0002ag-0M; Tue, 12 Sep 2023 17:46:24 +0000
-Received: by outflank-mailman (input) for mailman id 600695;
- Tue, 12 Sep 2023 17:46:23 +0000
+	id 1qg7oH-0006Cp-IU; Tue, 12 Sep 2023 18:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 600703;
+ Tue, 12 Sep 2023 18:08:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2+51=E4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qg7Sx-0002ZH-3J
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 17:46:23 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47182a2a-5194-11ee-9b0d-b553b5be7939;
- Tue, 12 Sep 2023 19:46:19 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BD05761656;
- Tue, 12 Sep 2023 17:46:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E46C433C7;
- Tue, 12 Sep 2023 17:46:16 +0000 (UTC)
+ <SRS0=YY/q=E4=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qg7oG-0006Cj-Ck
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 18:08:24 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5af8a122-5197-11ee-9b0d-b553b5be7939;
+ Tue, 12 Sep 2023 20:08:21 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 32D9782856E8;
+ Tue, 12 Sep 2023 13:08:19 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 5d10FWiM5tGv; Tue, 12 Sep 2023 13:08:18 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 436F08285713;
+ Tue, 12 Sep 2023 13:08:18 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id YW7w8svlRWLo; Tue, 12 Sep 2023 13:08:18 -0500 (CDT)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id BCA0E82856E8;
+ Tue, 12 Sep 2023 13:08:17 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +51,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47182a2a-5194-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694540777;
-	bh=FAnN0umrHiaTSlldOzix2uRE+u+92RhQY5zq2hjJ3tY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gnxs/csWJDEoLu22OxMOOxOiHHzlqp3b6fEXdd/4iIvMGUKpdBPP69soV+2nrXZZy
-	 9C1dM87dxwvPt4KkcylK4FvknD/9OC9DVMiDqY5RBfUkdmv8GJ211k79sNIOvvGka4
-	 jXnjRhS96Pc/bz0ehzjbUt1woqCLDbjivY+FsbtMxyFWFeI1mkWu9Zt7PC9QnWkGb2
-	 8G4AuoyROAL+kT0Qe5REjPfclAld4UKs7b2cAlSLP1Ddhgoy68u/mfkSbPmHB874hD
-	 qY9E8sJHz1gTripI5Uiaz22uJ8f/spAdy3UphXG/l8bvUu7n+uuwIrGKS/gUz/cJYd
-	 evGCzMUhUXLjw==
-Date: Tue, 12 Sep 2023 10:46:02 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Henry.Wang@arm.com
-Subject: Re: [PATCH v2] xen/arm: Skip Xen specific nodes/properties from
- hwdom /chosen node
-In-Reply-To: <20230912105341.16687-1-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2309121045570.2080229@ubuntu-linux-20-04-desktop>
-References: <20230912105341.16687-1-michal.orzel@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 5af8a122-5197-11ee-9b0d-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 436F08285713
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1694542098; bh=xYCNi9uY9zXPATSSt/FI4NbEkh5aL2fadK98ItLA1Gc=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=ovIH8QMwyShvWHlQpivfMDe6ae5ioA/tshMsah3sezQeE4/3dSaB3w6hPK2HZ3JpC
+	 6mlofPbJW5vHPWRjEGACSJL/1nTM7Pc+rmkrVlBHccpeZC5EdNfHi9kmq1KQKwd2kM
+	 aW7XPZ8Vl2Uo/0wzb1eAVAV3+G1EuUk0NyP4RIFg=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <b92b75f9-67b0-33ef-00d6-4ccf516a4cc9@raptorengineering.com>
+Date: Tue, 12 Sep 2023 13:08:17 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v4 2/5] xen/ppc: Implement bitops.h
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1694211900.git.sanastasio@raptorengineering.com>
+ <31292b9b259a401045646d50a7237364640bc85b.1694211900.git.sanastasio@raptorengineering.com>
+ <65b367b2-34b7-0887-6f29-8cb8e77ede7f@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <65b367b2-34b7-0887-6f29-8cb8e77ede7f@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 12 Sep 2023, Michal Orzel wrote:
-> Skip the following Xen specific host device tree nodes/properties
-> from being included into hardware domain /chosen node:
->  - xen,static-heap: this property informs Xen about memory regions
->    reserved exclusively as static heap,
->  - xen,domain-shared-memory-v1: node with this compatible informs Xen
->    about static shared memory region for a domain. Xen exposes a different
->    node (under /reserved-memory with compatible "xen,shared-memory-v1") to
->    let domain know about the shared region,
->  - xen,evtchn-v1: node with this compatible informs Xen about static
->    event channel configuration for a domain. Xen does not expose
->    information about static event channels to domUs and dom0 case was
->    overlooked (by default nodes from host dt are copied to dom0 fdt unless
->    explicitly marked to be skipped), since the author's idea was not to
->    expose it (refer docs/misc/arm/device-tree/booting.txt, "Static Event
->    Channel"). Even if we wanted to expose the static event channel
->    information, the current node is in the wrong format (i.e. contains
->    phandle to domU node not visible by dom0). Lastly, this feature is
->    marked as tech-preview and there is no Linux dt binding in place.
+On 9/11/23 8:53 AM, Jan Beulich wrote:
+> On 09.09.2023 00:50, Shawn Anastasio wrote:
+>> +/**
+>> + * test_bit - Determine whether a bit is set
+>> + * @nr: bit number to test
+>> + * @addr: Address to start counting from
+>> + */
+>> +static inline int test_bit(int nr, const volatile void *addr)
+>> +{
+>> +    const volatile unsigned long *p = (const volatile unsigned long *)addr;
+>> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
+>> +}
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Do you really mean unsigned long in here? (As an aside I'd also recommend
+> to drop the cast; I don't think it's needed for anything.)
+>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Good point -- this should definitely be int.
 
-Do we need Henry's explicit approval on bug fixes at this point?
-
-
-> ---
-> Changes in v2:
->  - update commit msg with better reasoning
-> ---
->  xen/arch/arm/domain_build.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>> +static inline unsigned long test_and_clear_bits(
+>> +    unsigned long mask,
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 29dcbb8a2ee6..413568c0e2fd 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1149,7 +1149,7 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->           * * remember xen,dom0-bootargs if we don't already have
->           *   bootargs (from module #1, above).
->           * * remove bootargs,  xen,dom0-bootargs, xen,xen-bootargs,
-> -         *   linux,initrd-start and linux,initrd-end.
-> +         *   xen,static-heap, linux,initrd-start and linux,initrd-end.
->           * * remove stdout-path.
->           * * remove bootargs, linux,uefi-system-table,
->           *   linux,uefi-mmap-start, linux,uefi-mmap-size,
-> @@ -1158,7 +1158,8 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->           */
->          if ( dt_node_path_is_equal(node, "/chosen") )
->          {
-> -            if ( dt_property_name_is_equal(prop, "xen,xen-bootargs") ||
-> +            if ( dt_property_name_is_equal(prop, "xen,static-heap") ||
-> +                 dt_property_name_is_equal(prop, "xen,xen-bootargs") ||
->                   dt_property_name_is_equal(prop, "linux,initrd-start") ||
->                   dt_property_name_is_equal(prop, "linux,initrd-end") ||
->                   dt_property_name_is_equal(prop, "stdout-path") ||
-> @@ -2300,6 +2301,8 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
->      static const struct dt_device_match skip_matches[] __initconst =
->      {
->          DT_MATCH_COMPATIBLE("xen,domain"),
-> +        DT_MATCH_COMPATIBLE("xen,domain-shared-memory-v1"),
-> +        DT_MATCH_COMPATIBLE("xen,evtchn-v1"),
->          DT_MATCH_COMPATIBLE("xen,xen"),
->          DT_MATCH_COMPATIBLE("xen,multiboot-module"),
->          DT_MATCH_COMPATIBLE("multiboot,module"),
-> -- 
-> 2.25.1
+> While apparently benign here, perhaps also better to use unsigned int.
+> (Looks like I even missed instances yet further up.)
 > 
+>> +    volatile unsigned int *p)
+>> +{
+>> +    unsigned long old, t;
+> 
+> I'm less certain here, because I don't know what exactly "r" permits on
+> ppc. (Having said that I notice that mask also is used with an "r"
+> constraint, so restrictions would then apply there as well. But if long
+> is really needed in various placed, then I would say that a comment is
+> warranted, perhaps next to the BITOP_* defines.)
+>
+
+I've tested it and it seems "r" works as expected with 32-bit operands,
+so there should be no problem changing these longs to ints.
+
+>> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
+>> +                   "1: lwarx %0,0,%3,0\n"
+>> +                   "andc %1,%0,%2\n"
+>> +                   "stwcx. %1,0,%3\n"
+>> +                   "bne- 1b\n"
+>> +                   PPC_ATOMIC_EXIT_BARRIER
+>> +                   : "=&r" (old), "=&r" (t)
+>> +                   : "r" (mask), "r" (p)
+>> +                   : "cc", "memory" );
+>> +
+>> +    return (old & mask);
+>> +}
+>> +
+>> +static inline int test_and_clear_bit(unsigned int nr,
+>> +                                     volatile void *addr)
+>> +{
+>> +    return test_and_clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr +
+>> +                               BITOP_WORD(nr)) != 0;
+> 
+> I think this is misleading wrapping of arguments. Even if not strictly
+> mandated, imo if an argument doesn't fit on the rest of a line it should
+> start on a fresh one.
+>
+
+Will fix.
+
+> Jan
+
+Thanks,
+Shawn
 
