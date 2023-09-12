@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D8D79DCA0
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 01:22:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600821.936646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE73879DC9B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 01:22:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600822.936654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChL-0000l8-8Q; Tue, 12 Sep 2023 23:21:35 +0000
+	id 1qgChL-0000zU-R5; Tue, 12 Sep 2023 23:21:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600821.936646; Tue, 12 Sep 2023 23:21:35 +0000
+Received: by outflank-mailman (output) from mailman id 600822.936654; Tue, 12 Sep 2023 23:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgChL-0000ge-3W; Tue, 12 Sep 2023 23:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 600821;
- Tue, 12 Sep 2023 23:21:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgChL-0000r3-NB; Tue, 12 Sep 2023 23:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 600822;
+ Tue, 12 Sep 2023 23:21:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qLIb=E4=citrix.com=prvs=612d1dac3=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qgChJ-0008LM-PS
- for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:21:33 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b46ccd3-51c3-11ee-8786-cb3800f73035;
+ id 1qgChK-0000Tq-OZ
+ for xen-devel@lists.xenproject.org; Tue, 12 Sep 2023 23:21:34 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 19dcf772-51c3-11ee-9b0d-b553b5be7939;
  Wed, 13 Sep 2023 01:21:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,59 +36,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b46ccd3-51c3-11ee-8786-cb3800f73035
+X-Inumbo-ID: 19dcf772-51c3-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1694560891;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=apmerlyDUBgQyxtkEbBPNC4C0DW18lxpoQKg6ktPeMI=;
-  b=GNU7BbtQZe7IUE4NS4X7GG8SjU2lunIePUv/DuH/hDj9yTFSyUMKL0hh
-   WxqaO8feQpuCvjcza9Y3/B8TfM81pSiQ19Xb1LM1xYwQ86vpPDmC4YbV2
-   orxGN6yqA8Bvk5PEi9LI7Y9ywMXqnae4zmc5weXr2VgOHzQMAcn6/jnJp
-   E=;
-X-CSE-ConnectionGUID: nO66D9+OQ+yXSxiZ0nj3dw==
-X-CSE-MsgGUID: 3A1q4fmuT5W4bqNegB7EWg==
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=I+t08q4edjlX+Xq8TCZHZvBTk0F1uFlqxmMDbLaf4mY=;
+  b=hqp3EJWCNXKrQZik1o0b5axZ2r91hzESwjcAsyKUMQxGGrEF1EcjW3j+
+   KRNmdWBU1iUM0w4laBiPEAbbgukNd4oobFd8YlsD8lSqo4jPP/8NkV7h3
+   ryd1gEyO2uHCpPLtjOChR9a+QG7AqFjexDP3JL8wqh7ut0ToOC73JWbjl
+   4=;
+X-CSE-ConnectionGUID: +h1fXvQHQkmwDB2eMJUqUg==
+X-CSE-MsgGUID: FJMcmrPeQn6tryP3ZGVlgA==
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 125168442
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 121104892
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:WluxHaoRxEKXmnclhAYkSF5bz3BeBmIwZRIvgKrLsJaIsI4StFCzt
- garIBmAafbZY2ejeIgnOYiz9UsC7MLQz4UwQAI+qCgxE34UoJuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbOCYmYpA1Y8FE/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GlwUmAWP6gR5wePziNNUfrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXADYqME6v1qGR+fGqetJ8h/Z7KsuwMJxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
- jucoj2nUk1GbrRzzxLe2yu12uHKgB+mZ94YDZu1+dQ1rWKckzl75Bo+CgLg/KjRZlSFc8JSL
- QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
- BmOhdyBLT5utrqVD3GU8LjSrimaNi0cLGtEbigBJTbp+PG6/tt11EiWCI8+Tujs1Iad9SzML
- y6iqg9g2ZlCzukylLSLxkDGsWqqpMPFUVtgjunIZV6N4gR8bY+jQoWn71nH8PpNRLqkokm9U
- GsswJbHsr1XZX2ZvGnUGbhWQun1jxqQGGeE6WODCaXN4NhEF5SLWYlLqA9zK05yWirvUW+4O
- RSD0e+9CXI6AZdLUUOVS9jhYyjJ5fK6fTgAahwzRoMUCqWdjCfdoElTibe4hggBanQEn6AlI
- ou8es2xF3scAqkP5GPoFrtAjeR1m3ljmDq7qXXHI/OPi+b2WZJoYe1dbAvmgh4RvMtoXzk5A
- /4AbpDXmn2zocX1YzXN8J57ELz5BSFTOHwCkOQOLrTrClM/SAkc5wr5netJl3pNw/4EyY8lP
- xiVBidl9bYIrSSed17SOik9MOKHsFQWhStTABHA9G2AgxALCbtDJo9FH3frVdHLLNBe8MM=
-IronPort-HdrOrdr: A9a23:zJpDGqDuy/6moNHlHemW55DYdb4zR+YMi2TDgXoBLiC9Ffbo9P
- xG/c566faasl0ssR0b8+xoW5PgfZq/z/FICNIqTNOftWDd0QOVxedZgLcKqAePJ8SRzIJgPQ
- gLSdkZNDVdZ2IK7/oTQWODYrMd/OU=
-X-Talos-CUID: =?us-ascii?q?9a23=3AOC6ACGp2xm/8TAVC0A384tbmUcYCLCPxnTT3Ggy?=
- =?us-ascii?q?pOV15SY/NT13L9Lwxxg=3D=3D?=
-X-Talos-MUID: 9a23:XKj01gT2w/Wjb3k8RXS3rWh7aMlt/pjzNxwHiLMLtOPbGBN/bmI=
+IronPort-Data: A9a23:3vWIxaxEq/v/DVkj61F6t+cfxirEfRIJ4+MujC+fZmUNrF6WrkUEy
+ WRJWDyCa/uDZWGne4h2a43j8UkCsZWEn9dgTwc6/yAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjPzOHvykTrecZkidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8EkHUMja4mtC5QRvPKoT4TcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KSJOr
+ PIoNgktVxOGmM6cmr+eaNR1u8t2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyMlKZOUYn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwPxx/A+
+ jKXpQwVBDk0FvmUzCC9/0uq2PPVjBugaq0sELKRo6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiFFQMwrsokxXzNC/
+ l2ImdTpQz9mtrLTSmi1+bKdrDf0Mi8QRVLufgddE1FDuYO65thu0FSWFI0L/LOJYsPdWjGpz
+ QCUlQgHhLAMoeRR2oCZwEn6jGf5znTWdTId6gLSV2Ojywp2Yo+5eoClgWTmAeZ8wJWxFQfY4
+ iVd8ySKxKVXVMzWynTRKAkYNOvxj8tpJgEwlrKG83MJ0z22s0CucolLiN2VDBc4a51UEdMFj
+ aK6hO+w2HOxFCH6BUOUS9jrYyjP8UQHPY2/Ps04lvIUPvBMmPavpUmCn3K40WH3i1QLmqoiI
+ 5qdesvEJS9EWPg6kGHoGr5AjOZDKsUCKYT7H8yT8vha+eDGOC79pUktYDNikdzVHIvb+V6Io
+ r6zxuOByglFUf2WX8Uk2dd7ELz+FlBiXcqeg5UOJoa+zv9ORDlJ5wn5nelwJOSIXs19yo/1w
+ 51KchYBlgGn1SSZcVTih7IKQOqHYKuTZEkTZUQEVWtEEVB6CWpzxM/zr6cKQIQ=
+IronPort-HdrOrdr: A9a23:rI8Wo6qbu7TY2S9WSVKJK30aV5r9eYIsimQD101hICG9Ffbo9P
+ xG/c5rtyMc7QxwZJhOo6H7BEC/ewK6yXcY2/hvAV7AZniBhILLFvAa0WKK+VSJcBEWkNQtqZ
+ uIGJIOc+EYY2IK8PoTmGODYrIdKN7uys6VbbC39RtQpdoDUdAZ0+9qYjz7LqVkLDMoOXIofK
+ D32iJczwDMRZxvBP7LY0U4Yw==
+X-Talos-CUID: 9a23:AiiQX2y2KlyC2++E1hVkBgVXGpkrQmPk7E7TJlCUIzxkbZ+oUGKfrfY=
+X-Talos-MUID: 9a23:39MKXAoItbwxmzAnilYezx9AEcxt+ZyjMUZTjY8Xg5K2GhJ0NB7I2Q==
 X-IronPort-AV: E=Sophos;i="6.02,141,1688443200"; 
-   d="scan'208";a="125168442"
+   d="scan'208";a="121104892"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jinoh Kang
 	<jinoh.kang.kr@gmail.com>
-Subject: [PATCH 2/5] x86: Introduce x86_merge_dr6()
-Date: Wed, 13 Sep 2023 00:21:10 +0100
-Message-ID: <20230912232113.402347-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/5] x86/emul: Add a pending_dbg field to x86_emulate_ctxt.retire
+Date: Wed, 13 Sep 2023 00:21:11 +0100
+Message-ID: <20230912232113.402347-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230912232113.402347-1-andrew.cooper3@citrix.com>
 References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
@@ -96,10 +96,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The current logic used to update %dr6 when injecting #DB is buggy.  The
-architectural behaviour is to overwrite B{0..3} and accumulate all other bits.
+Lots of this is very very broken, but we need to start somewhere.
 
-Introduce x86_merge_dr6() to perform the operaton properly.
+PENDING_DBG, INTERRUPTIBILITY and ACTIVITY are internal pipeline registers
+which Intel exposed to software in the VMCS, and AMD exposed a subset of in
+the VMCB.  Importantly, bits set in PENDING_DBG can survive across multiple
+instruction boundaries if e.g. delivery of #DB is delayed by a MovSS.
+
+For now, introduce a full pending_dbg field into the retire union.  This keeps
+the sh_page_fault() and init_context() paths working but in due course the
+field will want to lose the "retire" infix.
+
+In addition, set singlestep into pending_dbg as appropriate.  Leave the old
+singlestep bitfield in place until we can adjust the callers to handle it
+properly.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -108,82 +118,67 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 CC: Jinoh Kang <jinoh.kang.kr@gmail.com>
 ---
- xen/arch/x86/debug.c                 | 20 ++++++++++++++++++++
- xen/arch/x86/include/asm/debugreg.h  |  7 +++++++
- xen/arch/x86/include/asm/x86-defns.h |  7 +++++++
- 3 files changed, 34 insertions(+)
+ xen/arch/x86/x86_emulate/x86_emulate.c |  6 +++++-
+ xen/arch/x86/x86_emulate/x86_emulate.h | 17 ++++++++++++++---
+ 2 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/debug.c b/xen/arch/x86/debug.c
-index 127fe83021cd..bfcd83ea4d0b 100644
---- a/xen/arch/x86/debug.c
-+++ b/xen/arch/x86/debug.c
-@@ -3,6 +3,7 @@
-  * Copyright (C) 2023 XenServer.
-  */
- #include <xen/kernel.h>
-+#include <xen/lib.h>
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index e88245eae9fb..de707c8ec211 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -8379,7 +8379,10 @@ x86_emulate(
+     if ( !mode_64bit() )
+         _regs.r(ip) = (uint32_t)_regs.r(ip);
  
- #include <xen/lib/x86/cpu-policy.h>
+-    /* Should a singlestep #DB be raised? */
++    if ( singlestep )
++        ctxt->retire.pending_dbg |= X86_DR6_BS;
++
++    /* Should a singlestep #DB be raised? (BROKEN - TODO, merge into pending_dbg) */
+     if ( rc == X86EMUL_OKAY && singlestep && !ctxt->retire.mov_ss )
+     {
+         ctxt->retire.singlestep = true;
+@@ -8659,6 +8662,7 @@ int x86_emulate_wrapper(
+     {
+         typeof(ctxt->retire) retire = ctxt->retire;
  
-@@ -28,6 +29,25 @@ unsigned int x86_adj_dr6_rsvd(const struct cpu_policy *p, unsigned int dr6)
-     return dr6;
- }
++        retire.pending_dbg = 0;
+         retire.unblock_nmi = false;
+         ASSERT(!retire.raw);
+     }
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+index 698750267a90..f0e74d23c378 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.h
++++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+@@ -588,15 +588,26 @@ struct x86_emulate_ctxt
+     /* Canonical opcode (see below) (valid only on X86EMUL_OKAY). */
+     unsigned int opcode;
  
-+unsigned int x86_merge_dr6(const struct cpu_policy *p, unsigned int dr6,
-+                           unsigned int new)
-+{
-+    /* Flip dr6 to have positive polarity. */
-+    dr6 ^= X86_DR6_DEFAULT;
+-    /* Retirement state, set by the emulator (valid only on X86EMUL_OKAY). */
++    /*
++     * Retirement state, set by the emulator (valid only on X86EMUL_OKAY/DONE).
++     *
++     * TODO: all this state should be input/output from the VMCS PENDING_DBG,
++     * INTERRUPTIBILITY and ACTIVITIY fields.
++     */
+     union {
+-        uint8_t raw;
++        unsigned long raw;
+         struct {
++            /*
++             * Accumulated %dr6 trap bits, positive polarity.  Should only be
++             * interpreted in the case of X86EMUL_OKAY/DONE.
++             */
++            unsigned int pending_dbg;
 +
-+    /* Sanity check that only known values are passed in. */
-+    ASSERT(!(dr6 & ~X86_DR6_KNOWN_MASK));
-+    ASSERT(!(new & ~X86_DR6_KNOWN_MASK));
-+
-+    /* Breakpoint matches are overridden.  All other bits accumulate. */
-+    dr6 = (dr6 & ~X86_DR6_BP_MASK) | new;
-+
-+    /* Flip dr6 back to having default polarity. */
-+    dr6 ^= X86_DR6_DEFAULT;
-+
-+    return x86_adj_dr6_rsvd(p, dr6);
-+}
-+
- unsigned int x86_adj_dr7_rsvd(const struct cpu_policy *p, unsigned int dr7)
- {
-     unsigned int zeros = X86_DR7_ZEROS;
-diff --git a/xen/arch/x86/include/asm/debugreg.h b/xen/arch/x86/include/asm/debugreg.h
-index 39ba312b84ee..e98a9ce977fa 100644
---- a/xen/arch/x86/include/asm/debugreg.h
-+++ b/xen/arch/x86/include/asm/debugreg.h
-@@ -89,4 +89,11 @@ struct cpu_policy;
- unsigned int x86_adj_dr6_rsvd(const struct cpu_policy *p, unsigned int dr6);
- unsigned int x86_adj_dr7_rsvd(const struct cpu_policy *p, unsigned int dr7);
- 
-+/*
-+ * Merge new bits into dr6.  'new' is always given in positive polarity,
-+ * matching the Intel VMCS PENDING_DBG semantics.
-+ */
-+unsigned int x86_merge_dr6(const struct cpu_policy *p, unsigned int dr6,
-+                           unsigned int new);
-+
- #endif /* _X86_DEBUGREG_H */
-diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
-index 5838631ef634..edfecc89bd08 100644
---- a/xen/arch/x86/include/asm/x86-defns.h
-+++ b/xen/arch/x86/include/asm/x86-defns.h
-@@ -116,6 +116,13 @@
- #define X86_DR6_BT              (_AC(1, UL) << 15)   /* Task switch                 */
- #define X86_DR6_RTM             (_AC(1, UL) << 16)   /* #DB/#BP in RTM region (INV) */
- 
-+#define X86_DR6_BP_MASK                                 \
-+    (X86_DR6_B0 | X86_DR6_B1 | X86_DR6_B2 | X86_DR6_B3)
-+
-+#define X86_DR6_KNOWN_MASK                                      \
-+    (X86_DR6_BP_MASK | X86_DR6_BLD | X86_DR6_BD | X86_DR6_BS |  \
-+     X86_DR6_BT | X86_DR6_RTM)
-+
- #define X86_DR6_ZEROS           _AC(0x00001000, UL)  /* %dr6 bits forced to 0       */
- #define X86_DR6_DEFAULT         _AC(0xffff0ff0, UL)  /* Default %dr6 value          */
+             bool hlt:1;          /* Instruction HLTed. */
+             bool mov_ss:1;       /* Instruction sets MOV-SS irq shadow. */
+             bool sti:1;          /* Instruction sets STI irq shadow. */
+             bool unblock_nmi:1;  /* Instruction clears NMI blocking. */
+-            bool singlestep:1;   /* Singlestepping was active. */
++            bool singlestep:1;   /* Singlestepping was active. (TODO, merge into pending_dbg) */
+         };
+     } retire;
  
 -- 
 2.30.2
