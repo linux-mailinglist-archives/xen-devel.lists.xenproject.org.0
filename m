@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79A1279E0D7
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 09:30:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600994.936877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5385C79E0DA
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 09:32:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601001.936887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgKJl-0007t9-3O; Wed, 13 Sep 2023 07:29:45 +0000
+	id 1qgKM2-0000un-GM; Wed, 13 Sep 2023 07:32:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600994.936877; Wed, 13 Sep 2023 07:29:45 +0000
+Received: by outflank-mailman (output) from mailman id 601001.936887; Wed, 13 Sep 2023 07:32:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgKJl-0007qY-0X; Wed, 13 Sep 2023 07:29:45 +0000
-Received: by outflank-mailman (input) for mailman id 600994;
- Wed, 13 Sep 2023 07:29:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgKM2-0000sP-Dc; Wed, 13 Sep 2023 07:32:06 +0000
+Received: by outflank-mailman (input) for mailman id 601001;
+ Wed, 13 Sep 2023 07:32:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qJrE=E5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qgKJi-0007qO-Rj
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 07:29:43 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on060b.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::60b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d892a72-5207-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 09:29:41 +0200 (CEST)
+ id 1qgKM1-0000sJ-01
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 07:32:05 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061a.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1ce4891-5207-11ee-9b0d-b553b5be7939;
+ Wed, 13 Sep 2023 09:32:03 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by VI1PR04MB9810.eurprd04.prod.outlook.com (2603:10a6:800:1df::11)
+ by AS8PR04MB8756.eurprd04.prod.outlook.com (2603:10a6:20b:42f::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.37; Wed, 13 Sep
- 2023 07:29:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Wed, 13 Sep
+ 2023 07:32:00 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6792.019; Wed, 13 Sep 2023
- 07:29:37 +0000
+ 07:32:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,312 +47,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d892a72-5207-11ee-8786-cb3800f73035
+X-Inumbo-ID: a1ce4891-5207-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R6CN046504YACvM/p+7epTiLfx88P1xkG6g16xY0pVKgAUp0MSWdZD8aoHc71ZSIcwxfB1nrVyVdj9i2xxhTqr2NximQWJ7lqMZOFhZnrUhpFoh2HBOIyouYUU0BdmqhvxpwjQXQ56ePTRMKbBOGEkt9kMFCd72dOmnSIGQTCLLDFEsq9VfdWbHKYt02w4zZ/uBdzyFuJfzV12mIkSgVZXibwfYpG65X1UpgdrEdE6CwlqL0ThEoKQjiBE13Q1bYAfT03AOwNm+lbxE+8cibPSUnBRbSXPV6f5x8qm7T9Gq2yt7VceStCnAntvVP/MuRRetUd9++kd7lQVj48SqZkw==
+ b=ai58XmAK60Y5crv7Ldek21LSTLBC8ox+o8jfZ2UVCYs3EwpUJJ2utQpdnEi2iamDOCBtt6dpZAiR0zqcLJg0xyKL+hxJlGCWBUHo7r6j7OyeT8613LplL+kLtjFH5ln1UvKpiX6E9kEmDPmb38xlOokFyzmep2xYayWbAUs6ny8L0OwBHvnxfPKOQwDaD0T7vhqR3csunTnrBKnOWBz6MT9+7DRSNrKQWD2Uj26yYnlXI5erl3o4iOoLQZskusQUyhz1cs541XUJhC/ZHLW8JSTmsc8rHxHB5kMidMNXS0GJuMtip08dTkBoJDr2BXZ4L3vzSIHlj4PHP3I5TEesUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HNCw7ohUZz3U+URZOXzVYI6KdH4LIvexbVxm71GAocw=;
- b=Rm3V5NgtJUDeXltk7mBvHesJM/LHMSiLFgTLtM+MSqC/QUNFCYOGHc1hClqSjsO7vvxz10YYcmBvG5C9CCznstMOct3nprEncjNO3L5Y/585p0SrpdAa+q+sm3oL3Mqsb37jC5IBdc8U+5OP7/R2JoDcWw+8vyxPSGAGuXFZwIoxrgn3FYWBbQCHRutkkJ+8L2q35zDhN7613n+fWCEm6T+IIt/0Znfyyp2mXjVoC9XOxO1uchxk35ewgWfKu3I4ueiHAhGr9xONefeAlzF6lK2qtoMJvJcxT59t6J+2f4y+WxZA1OqQSB+drxwHvT2CyysfrfyiNgu8hnalbWhfFw==
+ bh=/tiHzTrYqqG3aaqu9LsDUaxhtnU6xcOEZaIY6SzhcLI=;
+ b=FhPMdOY4X1s6Bnxs3Fck3sBfWlHwiT7VtpXs0NqFSFgDTuR/9+MRFsc61iUp+flPX5G1afSUGHx5/m8aTqO7HXmS5xM5do+7KPd9QqJ0vCJvkAG4MRfH61gOEBshD2WMpCwWOdpXGsDYoFomZ6tjAEzl57hScA2zg0wX5mIdlR7IfVCeMS/thKdc9pAYq2XApsjn3t/bfLYvcd3YKZXnvCsxEhQ8dlhqXpujWHRoNABcMSIYJrBZDoEFvzfTVIqDGCLF7JEPtjnTk2UNvcBY7RKluNboi5r+ft2v77H2Ya3MdEAO/jCfmaFo7KIFZgmiojWg5/WfZc+nA5lql0z6MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HNCw7ohUZz3U+URZOXzVYI6KdH4LIvexbVxm71GAocw=;
- b=Sunv4OZVfeJuwwLUmwEw6xfcbgOXyNR2ioBMN9aDHYNeHKCZFg4jXH27oTCqR8QnBSHwC0D3Aty8WykUy84GtI7LDzbQh5j6luBfHE2gdXDrASiFAx6ulllhRpiWrg9CGW8SmcCFDtEv7hIsBwvO7f5KIQfvyARP0WfJGup1GkkfFxMaXONiluLoyfKbIekEi9SHLwa10sAW3XK6ZJhQSPt3cI4ZwJyVo++FKYVW3Oiuo8Ln+ZdsPc55p6hPQ961huQE6m1DtSnmgGxkmKKn8ZlvPjg7/Ic7xmXZ747/n20ZX9FI6tiVHkozHnA6crr6YqvzX9knUELSkui2Dsn/UA==
+ bh=/tiHzTrYqqG3aaqu9LsDUaxhtnU6xcOEZaIY6SzhcLI=;
+ b=Qy/YmyjNbU3Zbw5NeNJDb972AHKole3yVHqN7uoAJFCQtBTm8CJir1lyL8SdhSdGQxPSDqjamv4jsBk1fZtFB43D+3hAXUwWfE7VNoMG7EETRz/u97dTYwAwfF8lBdMbDye3YrKJjzW5dYeagLUwIEvcONZaoH1mk5v3kB07stJgVh3t8mK3KG7kT8RaCVxCCFki8+TYcR5iWYqhELhvILpIqZdjh7XG49csZYNGUHtoXR+0XeZlmTPDIcnsHu8vls8vHt3p7cqkThQpH5KFUrScyxRuQ67SwXuP3rwzCfFvFE0CX31t4AyohdsFayqkMoC72NpgBQv84Q2Yb6b7GQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <60d5d841-29da-519b-057c-18c5796c8f1e@suse.com>
-Date: Wed, 13 Sep 2023 09:29:34 +0200
+Message-ID: <a17ba988-2850-fced-d225-97e1d11f6576@suse.com>
+Date: Wed, 13 Sep 2023 09:31:57 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH v5 2/5] xen/ppc: Implement bitops.h
 Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1694543103.git.sanastasio@raptorengineering.com>
- <06892692342540b6dc1af4d530fe3c2c25cf4a2e.1694543103.git.sanastasio@raptorengineering.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <06892692342540b6dc1af4d530fe3c2c25cf4a2e.1694543103.git.sanastasio@raptorengineering.com>
+Subject: [PATCH] timer: fix NR_CPUS=1 build with gcc13
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0045.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-ClientProxiedBy: FRYP281CA0004.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::14)
+ To DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|VI1PR04MB9810:EE_
-X-MS-Office365-Filtering-Correlation-Id: acb64a7a-dc74-450c-492f-08dbb42b2f43
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19b146e7-f195-4b6d-55c2-08dbb42b8468
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	cjbw/I5hVH5/Y0+CIvZqTod5fllEKva1EgEEx1rd6xcG6d3rQ/3b9qubhJu60gX8mwr+hbLkQy26UvKBER3bZC1u1gaOklhcNcD/iIrnU8KGJR2c4n/WjA9tCiMG3TV8BEFNFJmxYsd0sM6DOSs/Z4ux3dDrsjJVfp4L3t6rpRBylO/NpXPkMtRP/7YKySNxJmn9O7Aiyd2vtkOFZbLCWCZXwVKl/4w/ReG/fVmNLzutuA2qjZBD7o8iJlAGoPc22oGt2eJ4fXnRBAsXzzZwmh05DsYIRK1wUjh3XJkDS5to1LasVG4KuDsT4gz8fWslbFpZ27j4ScrYbqrkp/Bff0DJeeXiHapesiZEXYIWwppEvk5Glw8WK1xakDG6tYcjM1gwHLG5OZqf1oKIC0VLDR9V0C6Pz75NYZpaRMA8Wm/E7HmmJRgCCUQdo5c+i6LitTxFmZPHCuCpeGoBmxr+tSH1FpWi2xkVhcs+Iz0h96PY+PYwq2GW0FRX/bchHJyEB22kWaTeIND35yFEGmF2DwFfAaDXdGhGVsSsTB2NsmlC5zrY51ARS758ER+R/bknWSJui87TUcx1KPPYJQNyqmhBfFzoRQ9+La8tqdQ6lLn+ouxB5odq8lO6/TbPa/WVIYptaIeTCtakNBuRcZZlHA==
+	0umaN6X0wUYLlXTbF3J0l/HaCUKRzcC4NOvHa0/XcWHYHZJOlrzg7vZSA2yRILDUtNFHkXzjRXV8pqDLKVnBAHhRe08am4wySNA3CX16RaZJft8+ybgJFZBZvpTyh9O7tpPunz1dG2E1SF5QHDfnVa9n0k85IXzWLfNPEK/PTUBlOrxR0epAzWJuAxaGBD+dyCqcd232jX2X7zUCfJF9B3lBRoQLtGHjXISIpSbZpS74YeA/l75LFfqeMk/SGXfl6bXJRhUkQXSWq5JbjSzSL+tgvn7LsUd+46/ERIYzp78M5UWvJBAV9DmSRIfw/87NZRK8bCsveK92GkpSwewu2IIlW30cHp9/OufH30RRuXQZMQo+gI3rS3YR7p2vmqVzga7hyTVROjKFYeYM5CbRnYBJdlx94yzVCFjk59H2fTcN7+6vfqWZ0Tk7zI50bwGvZWe6m0DapNSKpSbbimasaU4gEyZwtaRCZs3vswP28gGCbvRPND1b1H56zcnsSDxUWXJhFmH5OT7GP2wP5y4yHZG57I+HawFMUeDPga75MTFTi0Q/f/cERyooKusyYEoiNJi9T9x/ieWfQhH3UwOFQTqvf4LFiL2Jby7YCaVrY6sKssBghqCf8Ed6VzbeRIxKKUMgX33E7GCKhGLWdvcBZQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(366004)(39860400002)(376002)(346002)(186009)(451199024)(1800799009)(6916009)(316002)(66556008)(41300700001)(66476007)(66946007)(478600001)(38100700002)(86362001)(31696002)(36756003)(2906002)(5660300002)(8936002)(4326008)(8676002)(2616005)(31686004)(26005)(83380400001)(6486002)(53546011)(6506007)(6512007)(6666004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(376002)(136003)(396003)(39860400002)(451199024)(1800799009)(186009)(31686004)(6506007)(6486002)(6666004)(478600001)(38100700002)(2906002)(4744005)(83380400001)(6512007)(2616005)(26005)(36756003)(86362001)(31696002)(66476007)(54906003)(66556008)(66946007)(316002)(6916009)(41300700001)(8676002)(4326008)(8936002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RTFYZVYxSW5NR2hFOGc0VVNkVFlhUjREU0cxT2FmRXVHSTJNM1lqenBYSk1M?=
- =?utf-8?B?RXJsWkZNRitVeWdNbEE2dXRBTG9ocGdvVVdDTm10NE51UFBFTGVQZTZwOCtF?=
- =?utf-8?B?c0w3ZG1QNVJINVFNdUZFOGxONnh2a25rYTRRZEtzR09qaXZlZjRsbVBjTkM4?=
- =?utf-8?B?cTZFK1BSV1R6NEh5RDJNZmQwMmsxTU45S3VpbWpXeW4xaWM4M1EvNE82N00x?=
- =?utf-8?B?QmpKeXA2TEZMb2JOcGtTQ25vWVVsbjBSc20xVzAxNHV6Q0ZVSVRIendwZHFz?=
- =?utf-8?B?dlJBbnErNmZiUXJSNDNuSUoyRkM3Z2w5SmUzblUzVzRLeWZBZGZCY2lTNCtZ?=
- =?utf-8?B?ekJlQ1Q2eHpRU0ZGd3ROTUZmakhJTmFvRHIraGtpOUc1aTIvVG9KYXVrSzNr?=
- =?utf-8?B?clRPR0VQdlcyWjRjcXJTMDliMlpyZmZIMXpKR0Y0djJzOEFDOGM1WHVSRUNv?=
- =?utf-8?B?bmIxekg4U1lzVCtJOXFwOEpCY20rRmJpMmo4MlBHWit0MjQxR2IyUW1xTnN5?=
- =?utf-8?B?blRJcE96Q1VQZXBvRWlGZmhlWk5zcmdpY3ZqeGliQ0lMLzlhR1pPd2tTZHV2?=
- =?utf-8?B?dXd6cGsyeEIxaFpTMithcUFCUmZ4c1JsUERhQlJyWnBVNDlIR2syNk1JQ2pl?=
- =?utf-8?B?MFU5VkdkWjYwRVVXaGF4ZnJsTWZybHBmcU9WRmdCUHhBTXZlOXUzYVJkY2ha?=
- =?utf-8?B?VHcxYWU2bW1JNytRWTc1Rjl3UU1mdXdFYmZJVTZVaXRnZ2NvQW8zc01ySlRt?=
- =?utf-8?B?ZlcvdUIvaU1ad2l3UGt5eW94K1YzSmk4azEyTi90MzdZL3FBbHBNRDZPSmRz?=
- =?utf-8?B?cXpmc3lZRm10ZWdFK3gvdm9DaEt6VGlWS0VHRVJRSmF2b3NraUIxOW9pOXY2?=
- =?utf-8?B?UDgzejhhcDl2OHVPNHpNUkN5WFdUTE5FbkcwQnZBTG1ZY2pPd3N2Z3FEZWVz?=
- =?utf-8?B?cWVKVldIbXdYZHhaa3NBd3hXRUZRcDZYUlpsWVE1amF5R0w3dmdFRXJmNktL?=
- =?utf-8?B?TWV2S3hSU0gwYTg3QkdvU1pOK3Ntd3VBd0pBL2xSbzAxVHJDU3puQ2tFcFVL?=
- =?utf-8?B?d2p4MXhJQTJvR1lyREJSTENsM0o3K2ZWMG1XR2NDSVVuakFhcTZtaXp4eGw0?=
- =?utf-8?B?SEdjWkNJcHVvNXovWHBGcDRQNTdGMDJGUEN3bjZQVmEySlhLd1ZRZ0xPWTBX?=
- =?utf-8?B?dU94YWsrcTVaMGl4V3l3Wm5XOVdLZm92VUtkMmM4M1Z1NUJ5Qlh5MTdPQzRE?=
- =?utf-8?B?UWtKMEJMaFlnT1ZsK1JLd1l6VU5vdTNrL0hWZGF4NlAxbisvVDNmcWlKM0hP?=
- =?utf-8?B?ZkkzME5wSnFYb3FmakZTdUFBMHhsQ1NkcUdHL05vRlhuYlJwb1N5dWNGcGpI?=
- =?utf-8?B?Tmg4M1VLVmwyRFduTFpwcElja1NiMDBybVpJa2xZNDYzYXVUTjZYYmtpenpF?=
- =?utf-8?B?c1daMi9UaGdqRjdTRGx1SnlVOE1tNjhtZkFWdWw4RVdJV3haWmxnS0NwQUFi?=
- =?utf-8?B?NzAwcS9IMWdxMjBuOFpRajUzUHhXV2RudnVzNVFMNk5DYWlhR3laVVc2NkVO?=
- =?utf-8?B?L0xZQ04rc0FReWpwQWRxRUQ2SnovUnF0VnQwOGg3d2grUm5mNjZ4Zi9JRW5S?=
- =?utf-8?B?Zk5ENGlCTGoxSDVQT1dQeTlkM004RFJkNlQrUlA1bEs1Y24vNy96Q1VMYU9I?=
- =?utf-8?B?aEZ3QU4xdWNFbHplMFowcDNGekNSa2g3STNDckZYUVNxVm9qZ2JoVTR1Z25x?=
- =?utf-8?B?dkVVNmV6VW1MWXpwUS9kQlJZYnViWnVpenhnbVN2WkhZcy9Yc3NmeGM0ZUg2?=
- =?utf-8?B?SWY2ZzFkd1p4akZFQ1hxOHBla09VZi9oa3c5VG04NERaS25hRXZPWWpPWG0y?=
- =?utf-8?B?NTVNcXhkWlNwc0JRUmg5SXB3ZmRrNllmdlFib2xtZlQ2NndhQ2JMZFU5NGNC?=
- =?utf-8?B?THJDT0NLekp6bE45bHhyN2FWcGpzY0x4UjI0OVJGcGtKV05FMzYzQmdocWsy?=
- =?utf-8?B?Y3JXRThSUGtBbnFHUTVYMk1PeW9Ia3ZqL0RwUndad2hsT2NveG9ZUnpubGVL?=
- =?utf-8?B?MzJ5TVJLNmEvc1lmVkM3YTlmcm1VMGhlTzJQNlZ5M3lTNTZ6Vys0NlJyL0lk?=
- =?utf-8?Q?dYPsG+qJbWFbfw+6OmzgukdZI?=
+	=?utf-8?B?NlU1VUxMa3laUTYvVDl1a0tRUldaNWx5Nms1eGt5bUNRUUdHRzQ5bzIzTXp0?=
+ =?utf-8?B?MHJIQ01NQkVoYmJOcmt6RHNJUHFVZk9obURQTVpHdUh1OUtNQ29Nc3AyUWZa?=
+ =?utf-8?B?ZXZCdmtRZUtjYmNWY1RCV3FRT1VzRDVYRDduMjMzSDRJRzBjUlVueVRiOWNP?=
+ =?utf-8?B?eCtlTmZ2anZ3TUNRbCtSdXZSeTRDdTgya1hncXBCU3p3YWFKdlVJNEdMMHR3?=
+ =?utf-8?B?WFZxckJjenBZT0cvZzFMdkpMREJVRFY4emZ3MFFHaERzNkFNUk5zZkVOZ3dF?=
+ =?utf-8?B?Z1hydmtjTzkzRjA2dVExdU9DaGhCWEs0bGtnK0ZWRmpyT3JtQkRHcmFuWDlF?=
+ =?utf-8?B?ZU5rOVZ2WjZHeWlCU1FyVk03dU5pQnlScWxzZGFZODhCcnV2VmllR05WZE1p?=
+ =?utf-8?B?UTRDenQvNjZLVlk0OVFnKzdYWUN3SE04SE5rYnV5cVhOb0ZmWi9HaTJDWlp5?=
+ =?utf-8?B?RURRRVFMZnJBOXZXN0UvRytVT0pTSVFQdS90T0tKQk1ldHJ6cXE2SzdIc1Y5?=
+ =?utf-8?B?SW4vRWNFeWRtT0NSTmFKYmhJa0RRZ3JOT0RqK20rN1JmZWdxZTRJMFQyZEky?=
+ =?utf-8?B?M1VnaFZ6V0g5dDdRS2tReDlpOWcwdk50RWRkQ012RElxQjYzQnZlYmJYNlRD?=
+ =?utf-8?B?RStySTF0Q1A1ZHhNNEhUWFBoUEFuM3RydE9JaWhlL1orWmdaNkVCbmVBbnpX?=
+ =?utf-8?B?R1l6SjUwZjNkbnZiRGlPdE8zOUlxc3phbUhHKzhqSjVDajFKRzErQ3FVUE1F?=
+ =?utf-8?B?RWc4NEMvWHNuSnd2Q1AxZE9PbEtYdTdCOXZLTEJaOGlYZ2tNWXVtWVVqT2Ny?=
+ =?utf-8?B?Vmd2Vi9qNXUrWHhRZjF1UVZkN2ZZbHFkc2hVcFNicVJnTVhNWlZrR3poTWdw?=
+ =?utf-8?B?eUI2RmtUQ0pmMEp5Y2c5UEZlTW50T0RLMVM0eE1LUVJpaUJienh1d09UMm1F?=
+ =?utf-8?B?Zy9ZcXl0cFhYZG9BajQ2RiswOUVyc0N3Z1kxTXM4UDk3Y2pZY1NVMjZMTUhV?=
+ =?utf-8?B?Rm9pME4yTTJibXBqNlA3N1dYMFdWcG9taGJURnBWTlNvV2pLd2tDNytWR1lH?=
+ =?utf-8?B?bVljR0F4dE5pSHF6ZnRpZEt6UlVYM1lxVzBMbWtNQVJpSU9CVXQrbU9LMTNt?=
+ =?utf-8?B?b3JMWjZMd2wveVA1cGVveUlhbnNTbVhsaC9NaDFVTFFRNzR4ZDJaYVI2cUJp?=
+ =?utf-8?B?a0ZCTGZhcG5yd3YraWsvTjl5dWNSUzA0WWIzNGxDemQwQmNuN1VOamxtSSsv?=
+ =?utf-8?B?UnJLUmRnM25tMXZqU0ZtanY2TkdPMHAxd05mUGpqTUhqSllkUE80NXRNdlVK?=
+ =?utf-8?B?WGdHaGkrbTI4V0hncnVqblpwRDF5TUtNaFZnaFhPZlp3SkNQT0JOTm0yRHkx?=
+ =?utf-8?B?a2xaM1pYVWE1QWFjSUlqV0EwVWUzbzNEYTlwMFZKdEFqYnVBNHExSnB3Y1M4?=
+ =?utf-8?B?WVpCSkxlTGlISWt5Qk9KQTh5MGU0VitZRElraWFwbDlDenBiQ0VWSjd1c1pz?=
+ =?utf-8?B?OXVxS1B3QlFsd2VPa21hT2NET2FOSDg2MWZXd2VmQjd5blIvL1E5WlphTmVi?=
+ =?utf-8?B?NWJ6UEdlMzZjTDJJblFscDhKd21SSHdvZ1hpKzhpbm1oVUJtQTZJZVl0OFU5?=
+ =?utf-8?B?SFpSUXdtbVJVVU1EK0huZEl4MHB3c2JPZmlWTnliM3lBVWFnZCtHVHRMVUxP?=
+ =?utf-8?B?U3haekxKWmh6VGg2OUpyZ2hXZUE3RmlrbnpVOWs1MjMwTDk2eE10d3ZqdXJP?=
+ =?utf-8?B?d0VZU3RXN01tRU9hRDYwUlN4d1Rsbjl1ZjFhU0RHQ2EvZFdyeW5VQmQ5d09B?=
+ =?utf-8?B?a1JUYkhGYURwcU10cXFmWjNBS0VHaUlZV3lKdnd1SktsVHpOMjRxRUQ2MHRR?=
+ =?utf-8?B?bmltU2xlWnBSODcrTU9LQU5FMlQzeE5jTTlzK1BRSWg2cFd1MkJINkV5S3NM?=
+ =?utf-8?B?dWVRaDc3OWlsRnFxQTIyeDFGWE15eUtRWXc1WERBTlJnVE5uVkg4N3hLOWhz?=
+ =?utf-8?B?WmYwNGlYU1YwYkduMkNkSzdoMzJCTHNMbkNJdnljMDB1ek8zaitucmFXbE90?=
+ =?utf-8?B?U3ZpTE92Ui9uZ3IrVG8zR0Vtd3NQNWM5VklCdktaaWx4QVYwYW1uOGxHRnY3?=
+ =?utf-8?Q?iiNiSoD07IL+ll2wy6h/8Q0V+?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acb64a7a-dc74-450c-492f-08dbb42b2f43
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19b146e7-f195-4b6d-55c2-08dbb42b8468
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 07:29:37.4132
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 07:32:00.2497
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XV/UpLpFy24wIv1TbE9wYdYqwmRtL4QL4iUjGKs2c4IT+n5kZQ8iX9/1o3NbrWTWxVrXaMXBk8R1aw5He/fPOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9810
+X-MS-Exchange-CrossTenant-UserPrincipalName: A+kXmMOltB2lqD+stXgOPER9QI2vc7zaqVcX1NsEn0bAzG3VNoAHdhfVH6y66dDbLIfLq7YxysOmbIs1NRig8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8756
 
-On 12.09.2023 20:35, Shawn Anastasio wrote:
-> Implement bitops.h, based on Linux's implementation as of commit
-> 5321d1b1afb9a17302c6cec79f0cbf823eb0d3fc. Though it is based off of
-> Linux's implementation, this code diverges significantly in a number of
-> ways:
->   - Bitmap entries changed to 32-bit words to match X86 and Arm on Xen
->   - PPC32-specific code paths dropped
->   - Formatting completely re-done to more closely line up with Xen.
->     Including 4 space indentation.
->   - Use GCC's __builtin_popcount* for hweight* implementation
-> 
-> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v5:
->   - Switch lingering ulong bitop parameters/return values to uint.
-> 
-> v4:
->   - Mention __builtin_popcount impelmentation of hweight* in message
->   - Change type of BITOP_MASK expression from unsigned long to unsigned
->     int
->   - Fix remaining underscore-prefixed macro params/vars
->   - Fix line wrapping in test_and_clear_bit{,s}
->   - Change type of test_and_clear_bits' pointer parameter from void *
->     to unsigned int *. This was already done for other functions but
->     missed here.
->   - De-macroize test_and_set_bits.
->   - Fix formatting of ffs{,l} macro's unary operators
->   - Drop extra blank in ffz() macro definition
-> 
-> v3:
->   - Fix style of inline asm blocks.
->   - Fix underscore-prefixed macro parameters/variables
->   - Use __builtin_popcount for hweight* implementation
->   - Update C functions to use proper Xen coding style
-> 
-> v2:
->   - Clarify changes from Linux implementation in commit message
->   - Use PPC_ATOMIC_{ENTRY,EXIT}_BARRIER macros from <asm/memory.h> instead
->     of hardcoded "sync" instructions in inline assembly blocks.
->   - Fix macro line-continuing backslash spacing
->   - Fix hard-tab usage in find_*_bit C functions.
-> 
->  xen/arch/ppc/include/asm/bitops.h | 332 +++++++++++++++++++++++++++++-
->  1 file changed, 329 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-> index 548e97b414..0f75ff3f9d 100644
-> --- a/xen/arch/ppc/include/asm/bitops.h
-> +++ b/xen/arch/ppc/include/asm/bitops.h
-> @@ -1,9 +1,335 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Adapted from Linux's arch/powerpc/include/asm/bitops.h.
-> + *
-> + * Merged version by David Gibson <david@gibson.dropbear.id.au>.
-> + * Based on ppc64 versions by: Dave Engebretsen, Todd Inglett, Don
-> + * Reed, Pat McCarthy, Peter Bergner, Anton Blanchard.  They
-> + * originally took it from the ppc32 code.
-> + */
->  #ifndef _ASM_PPC_BITOPS_H
->  #define _ASM_PPC_BITOPS_H
-> 
-> +#include <asm/memory.h>
-> +
-> +#define __set_bit(n, p)         set_bit(n, p)
-> +#define __clear_bit(n, p)       clear_bit(n, p)
-> +
-> +#define BITOP_BITS_PER_WORD     32
-> +#define BITOP_MASK(nr)          (1U << ((nr) % BITOP_BITS_PER_WORD))
-> +#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
-> +#define BITS_PER_BYTE           8
-> +
->  /* PPC bit number conversion */
-> -#define PPC_BITLSHIFT(be)	(BITS_PER_LONG - 1 - (be))
-> -#define PPC_BIT(bit)		(1UL << PPC_BITLSHIFT(bit))
-> -#define PPC_BITMASK(bs, be)	((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
-> +#define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
-> +#define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
-> +#define PPC_BITMASK(bs, be)  ((PPC_BIT(bs) - PPC_BIT(be)) | PPC_BIT(bs))
-> +
-> +/* Macro for generating the ***_bits() functions */
-> +#define DEFINE_BITOP(fn, op, prefix)                                           \
-> +static inline void fn(unsigned int mask,                                      \
-> +                      volatile unsigned int *p_)                               \
-> +{                                                                              \
-> +    unsigned int old;                                                         \
-> +    unsigned int *p = (unsigned int *)p_;                                      \
+Gcc13 apparently infers from "if ( old_cpu < new_cpu )" that "new_cpu"
+is >= 1, and then (on x86) complains about "per_cpu(timers, new_cpu)"
+exceeding __per_cpu_offset[]'s bounds (being an array of 1 in such a
+configuration). Make the code conditional upon there being at least 2
+CPUs configured (otherwise there simply is nothing to migrate [to]).
 
-What use is this, when ...
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> +    asm volatile ( prefix                                                      \
-> +                   "1: lwarx %0,0,%3,0\n"                                      \
-> +                   #op "%I2 %0,%0,%2\n"                                        \
-> +                   "stwcx. %0,0,%3\n"                                          \
-> +                   "bne- 1b\n"                                                 \
-> +                   : "=&r" (old), "+m" (*p)                                    \
-
-... the "+m" operand isn't used and ...
-
-> +                   : "rK" (mask), "r" (p)                                      \
-> +                   : "cc", "memory" );                                         \
-
-... there's a memory clobber anyway?
-
-Also (nit) note that the long -> int change has caused some of the
-backslashes to no longer align.
-
-> +}
-> +
-> +DEFINE_BITOP(set_bits, or, "")
-> +DEFINE_BITOP(change_bits, xor, "")
-
-Are there further plans to add uses of DEFINE_BITOP() with the last argument
-not an empty string? If not, how about simplifying things by dropping the
-macro parameter?
-
-> +#define DEFINE_CLROP(fn, prefix)                                               \
-> +static inline void fn(unsigned int mask, volatile unsigned int *p_)           \
-> +{                                                                              \
-> +    unsigned int old;                                                         \
-> +    unsigned int *p = (unsigned int *)p_;                                      \
-> +    asm volatile ( prefix                                                      \
-> +                   "1: lwarx %0,0,%3,0\n"                                      \
-> +                   "andc %0,%0,%2\n"                                           \
-> +                   "stwcx. %0,0,%3\n"                                          \
-> +                   "bne- 1b\n"                                                 \
-> +                   : "=&r" (old), "+m" (*p)                                    \
-> +                   : "r" (mask), "r" (p)                                       \
-> +                   : "cc", "memory" );                                         \
-> +}
-> +
-> +DEFINE_CLROP(clear_bits, "")
-
-Same question here.
-
-> +static inline void set_bit(int nr, volatile void *addr)
-> +{
-> +    set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
-> +}
-> +static inline void clear_bit(int nr, volatile void *addr)
-> +{
-> +    clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr + BITOP_WORD(nr));
-> +}
-> +
-> +/**
-> + * test_bit - Determine whether a bit is set
-> + * @nr: bit number to test
-> + * @addr: Address to start counting from
-> + */
-> +static inline int test_bit(int nr, const volatile void *addr)
-> +{
-> +    const volatile unsigned int *p = addr;
-> +    return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD - 1)));
-> +}
-> +
-> +static inline unsigned int test_and_clear_bits(
-> +    unsigned int mask,
-> +    volatile unsigned int *p)
-> +{
-> +    unsigned int old, t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%3,0\n"
-> +                   "andc %1,%0,%2\n"
-> +                   "stwcx. %1,0,%3\n"
-> +                   "bne- 1b\n"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (old), "=&r" (t)
-> +                   : "r" (mask), "r" (p)
-> +                   : "cc", "memory" );
-> +
-> +    return (old & mask);
-> +}
-> +
-> +static inline int test_and_clear_bit(unsigned int nr,
-> +                                     volatile void *addr)
-> +{
-> +    return test_and_clear_bits(BITOP_MASK(nr), (volatile unsigned int *)addr +
-> +                               BITOP_WORD(nr)) != 0;
-
-Didn't you indicate you'd adjust the odd wrapping?
-
-> +}
-> +
-> +static inline unsigned int test_and_set_bits(
-> +    unsigned int mask,
-> +    volatile unsigned int *p)
-> +{
-> +    unsigned int old, t;
-> +
-> +    asm volatile ( PPC_ATOMIC_ENTRY_BARRIER
-> +                   "1: lwarx %0,0,%3,0\n"
-> +                   "or%I2 %1,%0,%2\n"
-> +                   "stwcx. %1,0,%3\n"
-> +                   "bne- 1b\n"
-> +                   PPC_ATOMIC_EXIT_BARRIER
-> +                   : "=&r" (old), "=&r" (t)
-> +                   : "rK" (mask), "r" (p)
-> +                   : "cc", "memory" );
-> +
-> +    return (old & mask);
-> +}
-> +
-> +static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
-> +{
-> +    return test_and_set_bits(BITOP_MASK(nr), (volatile unsigned int *)addr +
-> +                                             BITOP_WORD(nr)) != 0;
-
-Same here then.
-
-Jan
+--- a/xen/common/timer.c
++++ b/xen/common/timer.c
+@@ -356,6 +356,7 @@ bool timer_expires_before(struct timer *
+ 
+ void migrate_timer(struct timer *timer, unsigned int new_cpu)
+ {
++#if CONFIG_NR_CPUS > 1
+     unsigned int old_cpu;
+     bool_t active;
+     unsigned long flags;
+@@ -404,6 +405,7 @@ void migrate_timer(struct timer *timer,
+ 
+     spin_unlock(&per_cpu(timers, old_cpu).lock);
+     spin_unlock_irqrestore(&per_cpu(timers, new_cpu).lock, flags);
++#endif /* CONFIG_NR_CPUS > 1 */
+ }
+ 
+ 
 
