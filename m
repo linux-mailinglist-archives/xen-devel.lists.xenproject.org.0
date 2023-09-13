@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C9D79F2D6
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:28:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601585.937649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 579AF79F2D5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:28:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601588.937672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgWTK-0005gw-H0; Wed, 13 Sep 2023 20:28:26 +0000
+	id 1qgWTM-0006Cs-Qh; Wed, 13 Sep 2023 20:28:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601585.937649; Wed, 13 Sep 2023 20:28:26 +0000
+Received: by outflank-mailman (output) from mailman id 601588.937672; Wed, 13 Sep 2023 20:28:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgWTK-0005eY-Dd; Wed, 13 Sep 2023 20:28:26 +0000
-Received: by outflank-mailman (input) for mailman id 601585;
- Wed, 13 Sep 2023 20:28:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgWTM-00064L-HA; Wed, 13 Sep 2023 20:28:28 +0000
+Received: by outflank-mailman (input) for mailman id 601588;
+ Wed, 13 Sep 2023 20:28:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z4av=E5=citrix.com=prvs=613b8bbe6=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qgWTJ-0004dA-06
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 20:28:25 +0000
+ id 1qgWTK-0004yg-Ub
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 20:28:26 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 15e34a42-5274-11ee-8787-cb3800f73035;
- Wed, 13 Sep 2023 22:28:23 +0200 (CEST)
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15f63a70-5274-11ee-9b0d-b553b5be7939;
+ Wed, 13 Sep 2023 22:28:24 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,57 +36,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15e34a42-5274-11ee-8787-cb3800f73035
+X-Inumbo-ID: 15f63a70-5274-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1694636903;
+  d=citrix.com; s=securemail; t=1694636904;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mZLU7yqbhnu8RFdttdE7JP+JDv6CudSB/eLutF8Nbbo=;
-  b=Q34pzGydG57qG0EdZqqvWKl0k9W3sRafNLAljV5QNJocfPhg/RrlWNnM
-   5D3AbrGqa6cfuQ/xTYgEkY5xZDys22KkjpEkLz6MLyeQnIIogcHYGtQdN
-   dA6zMg4TURrpDDH15PJFHf4CwfnqHFU7lAtHa1w2JvIyD2+sH1jNlqsyU
-   g=;
-X-CSE-ConnectionGUID: OTY/1Nd8T/+vvQCCeXLd1A==
-X-CSE-MsgGUID: xmbwu7F0R1OtFqblUXH+wQ==
+  bh=2OX3DxkMU6J5CjLFRkPzVMla4/tm4f+X2kaevcyHDIQ=;
+  b=Tkd7e31bd3fAo5f/ivGt1lQq+AF4Cb52xSqaCD9LXpxkE27taasi7PfZ
+   GXax0h1B2ubdf0hYMmtB9Ros/7mjNviKjq9TH8zpBrsuocx9Zvq94zNOq
+   u9fcJA2f72cuuddmLyjHCHzltu/uoGwndvtFdWpAKdaxbLgs3raxVSD1n
+   Y=;
+X-CSE-ConnectionGUID: hN7dthOmQouNNVMZfTFHmw==
+X-CSE-MsgGUID: 5pkOILBvSXyUEX0ggRl1Tw==
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 121213281
+X-MesageID: 121213284
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:mSAOkq3qv5C9ipOMt/bD5cVxkn2cJEfYwER7XKvMYLTBsI5bpzEAz
- GsfXDvUaKmIZ2umeYhybtjn9UMAv5bdxoVmSAVtpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8teTb8nuDgNyo4GlD5g1nPqgQ1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfJl1/s
- qU+JGAxKVOdmdud67+LbuU1r5F2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGcxKk2aOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiHJ8MxB/D/
- DKfl4j/KgEfPsOClhTdyCuLmsHWlyfGaKJRC4Tto5aGh3XMnzdOWXX6T2CTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jY+cddNF+wx6CmW17HZpQ2eAwAsUTppeNEg8sgsSlQXO
- kShxo2zQ2Y16fvMFCzbr+3Pxd+vBcQLBUg+VGhdawdV356gvp8KpTnCfvJvSYfg27UZBgrM6
- zyNqSE/gZAagsgKy7i38Dj7vt68mnTaZlVrv1uKBwpJ+is8Pdf4PNLwtTA3+N4adO6kok+9U
- G/ociR0xMQHFtmzmSOEW43h95n5tq/eYFUwbbOCdqTNFghBGVb5Lei8Axkkfi+F1/ronhewO
- ifuVft5vsM7AZdTRfYfj3iNI8or17P8Mt/uS+rZaNFDCrAoKl7bono2PRLOgj68+KTJrU3YE
- c3HGftA8F5AUfg3pNZIb7l1PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYrpw3PXBt3VGJis+V2Pm
- /4Gbpvi9vmqeLGmCsUh2dJJfA9iwLlSLcyelvG7gcbfflU+RThxW6e5LHFIU9UNopm5X9zgp
- hmVMnK0AnKj7ZEbAW1mskxeVY4=
-IronPort-HdrOrdr: A9a23:6EGM1KAi2/IDXCTlHemN55DYdb4zR+YMi2TDtnoBMiC9F/bzqy
- nApoV+6faZskd1ZJhCo6HiBEDjewK7yXcd2+B4VtbDYODIghrLEGgI1/qa/9SPIVyHygef78
- tdmmpFZeHYPBxVi8D15QX9KdomzdWdtIi1mOa29QYLceinUc5dBs5CZDqmLg==
-X-Talos-CUID: 9a23:fEtew2HGnyiNxZmIqmJAyH9TQ+YpIkGaj2nOGmSTBFZNROS8HAo=
-X-Talos-MUID: 9a23:/rN/EAgN4R/qTlJ2BfMVXMMpJMJi/LnxJhg3yLIaldCOMRFAG3SCtWHi
+IronPort-Data: A9a23:g6lX8KAc4rcXbBVW/zXjw5YqxClBgxIJ4kV8jS/XYbTApD4rg2QAz
+ GYdXTzTaKrYazDyKo92bNu+/ENQ75CBytA3QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48D8kk/nOH+KgYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMscpvlDs15K6p4GJB5QRlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw+sAoDX1O0
+ vkhLy0rSC6mteyK7pK+Vbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4bTH5wOxBbEz
+ o7A1znhATY7EPaB8gqUz1+c3uDApyeiZJ1HQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFamlBMBX9tbE8Uh9RqAjKHT5m6xGWwsXjNHLts8u6cLqScCj
+ wHT2YmzXHo27ePTECjGnluJkd+sESgzcmMeZQgBdAwYxf/dhbM9sjzvS8k2RcZZkebJMT33x
+ jmLqg03iLMSkdMH2s2HwLzXv96/jsOXF1Bov207Skrgt1okP9D9O+RE/HCBtZ59wJClok5tV
+ ZTus+yX96gwAJ6Ej0Rhq81dTejyt55p3NAx6GOD/qXNFRz3qxZPnqgKulmSwXuF1e5dIlfUj
+ Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMktLVbeoHE2PhLIt4wIrKTKuftvU
+ Xt8WZzwZUv29Iw9lGbmLwvj+eBDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGZinchghJ5oVD79q
+ o4FX+PTkkU3bQELSnWPmWLlBQxQfCdT6FGfg5A/S9Nv1SI6RD55VqaBketJlk4Mt/09q9okN
+ 0qVAidwoGcTT1WdQelWQhiPsI/SYKs=
+IronPort-HdrOrdr: A9a23:UARoG66DfrkgqFCANwPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HWoB17726TtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QC5SWY+eQMbEVt6nHCXGDYrQd/OU=
+X-Talos-CUID: =?us-ascii?q?9a23=3AMiGufGrNSqKXV4FP4jNIfZLmUcADLXHBzFDVGki?=
+ =?us-ascii?q?lL0BXbY+bdXGw/bwxxg=3D=3D?=
+X-Talos-MUID: 9a23:6xHzcQVe4wxmJBTq/GL0hxZDEO122JS/NW09yZoJgc3dCTMlbg==
 X-IronPort-AV: E=Sophos;i="6.02,144,1688443200"; 
-   d="scan'208";a="121213281"
+   d="scan'208";a="121213284"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 6/8] x86/entry: Track the IST-ness of an entry for the exit paths
-Date: Wed, 13 Sep 2023 21:27:56 +0100
-Message-ID: <20230913202758.508225-7-andrew.cooper3@citrix.com>
+Subject: [PATCH 7/8] x86/spec-ctrl: Issue VERW during IST exit to Xen
+Date: Wed, 13 Sep 2023 21:27:57 +0100
+Message-ID: <20230913202758.508225-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230913202758.508225-1-andrew.cooper3@citrix.com>
 References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
@@ -94,14 +95,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
-entry/exit asm, so it only needs setting in the IST path.
+There is a corner case where e.g. an NMI hitting an exit-to-guest path after
+SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
+flush to scrub potentially sensitive data from uarch buffers.
 
-As this is subtle and fragile, add check_ist_exit() to be used in debugging
-builds to cross-check that the ist_exit boolean matches the entry vector.
+In order to compensate, issue VERW when exiting to Xen from an IST entry.
 
-Write check_ist_exit() it in C, because it's debug only and the logic more
-complicated than I care about maintaining in asm.
+SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
+and we're about to add a third.  Load the field into %ebx, and list the
+register as clobbered.
+
+%r12 has been arranged to be the ist_exit signal, so add this as an input
+dependency and use it to identify when to issue a VERW.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -109,107 +114,70 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/traps.c               | 13 +++++++++++++
- xen/arch/x86/x86_64/compat/entry.S |  9 ++++++++-
- xen/arch/x86/x86_64/entry.S        | 23 ++++++++++++++++++++---
- 3 files changed, 41 insertions(+), 4 deletions(-)
+ xen/arch/x86/include/asm/spec_ctrl_asm.h | 20 +++++++++++++++-----
+ xen/arch/x86/x86_64/entry.S              |  2 +-
+ 2 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index dead728ce329..0a005f088bca 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -2259,6 +2259,19 @@ void asm_domain_crash_synchronous(unsigned long addr)
-         do_softirq();
- }
- 
-+#ifdef CONFIG_DEBUG
-+void check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
-+{
-+    const unsigned int ist_mask =
-+        (1U << X86_EXC_NMI) | (1U << X86_EXC_DB) |
-+        (1U << X86_EXC_DF)  | (1U << X86_EXC_MC);
-+    uint8_t ev = regs->entry_vector;
-+    bool is_ist = (ev < X86_EXC_NUM) && ((1U << ev) & ist_mask);
-+
-+    ASSERT(is_ist == ist_exit);
-+}
-+#endif
-+
+diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+index acdb526d292d..9740697114ad 100644
+--- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
++++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+@@ -344,10 +344,12 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+  */
+ .macro SPEC_CTRL_EXIT_TO_XEN
  /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
-index bd5abd8040bd..7504bfb4f326 100644
---- a/xen/arch/x86/x86_64/compat/entry.S
-+++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -117,8 +117,15 @@ compat_process_trap:
-         call  compat_create_bounce_frame
-         jmp   compat_test_all_events
+- * Requires %r14=stack_end
+- * Clobbers %rax, %rcx, %rdx
++ * Requires %r12=ist_exit, %r14=stack_end
++ * Clobbers %rax, %rbx, %rcx, %rdx
+  */
+-    testb $SCF_ist_sc_msr, STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14)
++    movzbl STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14), %ebx
++
++    testb $SCF_ist_sc_msr, %bl
+     jz .L\@_skip_sc_msr
  
--/* %rbx: struct vcpu, interrupts disabled */
-+/* %rbx: struct vcpu, %r12: ist_exit, interrupts disabled */
- ENTRY(compat_restore_all_guest)
+     /*
+@@ -358,7 +360,7 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+      */
+     xor %edx, %edx
+ 
+-    testb $SCF_use_shadow, STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14)
++    testb $SCF_use_shadow, %bl
+     jz .L\@_skip_sc_msr
+ 
+     mov STACK_CPUINFO_FIELD(shadow_spec_ctrl)(%r14), %eax
+@@ -367,8 +369,16 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+ 
+ .L\@_skip_sc_msr:
+ 
+-    /* TODO VERW */
++    test %r12, %r12
++    jz .L\@_skip_ist_exit
 +
-+#ifdef CONFIG_DEBUG
-+        mov   %rsp, %rdi
-+        mov   %r12, %rsi
-+        call  check_ist_exit
-+#endif
-+
-         ASSERT_INTERRUPTS_DISABLED
-         mov   $~(X86_EFLAGS_IOPL | X86_EFLAGS_VM), %r11d
-         and   UREGS_eflags(%rsp),%r11d
++    /* Logically DO_SPEC_CTRL_COND_VERW but without the %rsp=cpuinfo dependency */
++    testb $SCF_verw, %bl
++    jz .L\@_verw_skip
++    verw STACK_CPUINFO_FIELD(verw_sel)(%r14)
++.L\@_verw_skip:
+ 
++.L\@_skip_ist_exit:
+ .endm
+ 
+ #endif /* __ASSEMBLY__ */
 diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 525877e97330..da084a7e8e54 100644
+index da084a7e8e54..f70752fa36c1 100644
 --- a/xen/arch/x86/x86_64/entry.S
 +++ b/xen/arch/x86/x86_64/entry.S
-@@ -142,10 +142,16 @@ process_trap:
+@@ -686,7 +686,7 @@ UNLIKELY_START(ne, exit_cr3)
+ UNLIKELY_END(exit_cr3)
  
-         .section .text.entry, "ax", @progbits
+         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
+-        SPEC_CTRL_EXIT_TO_XEN     /* Req: %r14=end, Clob: acd */
++        SPEC_CTRL_EXIT_TO_XEN     /* Req: %r12=ist_exit %r14=end, Clob: abcd */
  
--/* %rbx: struct vcpu, interrupts disabled */
-+/* %rbx: struct vcpu, %r12: ist_exit, interrupts disabled */
- restore_all_guest:
--        ASSERT_INTERRUPTS_DISABLED
- 
-+#ifdef CONFIG_DEBUG
-+        mov   %rsp, %rdi
-+        mov   %r12, %rsi
-+        call  check_ist_exit
-+#endif
-+
-+        ASSERT_INTERRUPTS_DISABLED
-         /* Stash guest SPEC_CTRL value while we can read struct vcpu. */
-         mov VCPU_arch_msrs(%rbx), %rdx
-         mov VCPUMSR_spec_ctrl_raw(%rdx), %r15d
-@@ -659,8 +665,15 @@ ENTRY(early_page_fault)
-         .section .text.entry, "ax", @progbits
- 
-         ALIGN
--/* No special register assumptions. */
-+/* %r12=ist_exit */
- restore_all_xen:
-+
-+#ifdef CONFIG_DEBUG
-+        mov   %rsp, %rdi
-+        mov   %r12, %rsi
-+        call  check_ist_exit
-+#endif
-+
-         /*
-          * Check whether we need to switch to the per-CPU page tables, in
-          * case we return to late PV exit code (from an NMI or #MC).
-@@ -1087,6 +1100,10 @@ handle_ist_exception:
- .L_ist_dispatch_done:
-         mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
-         mov   %bl, STACK_CPUINFO_FIELD(use_pv_cr3)(%r14)
-+
-+        /* This is an IST exit */
-+        mov   $1, %r12
-+
-         cmpb  $X86_EXC_NMI, UREGS_entry_vector(%rsp)
-         jne   ret_from_intr
- 
+         RESTORE_ALL adj=8
+         iretq
 -- 
 2.30.2
 
