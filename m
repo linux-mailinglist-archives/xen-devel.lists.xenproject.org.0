@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A6C79E4D5
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BEF79E4D6
 	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 12:26:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601174.937107 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.601175.937116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgN48-00018o-BJ; Wed, 13 Sep 2023 10:25:48 +0000
+	id 1qgN4L-0001Q7-J6; Wed, 13 Sep 2023 10:26:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601174.937107; Wed, 13 Sep 2023 10:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 601175.937116; Wed, 13 Sep 2023 10:26:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgN48-000166-8Y; Wed, 13 Sep 2023 10:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 601174;
- Wed, 13 Sep 2023 10:25:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yjWf=E5=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qgN47-000160-7B
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 10:25:47 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e68a753b-521f-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 12:25:46 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2bcb89b476bso114200131fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 03:25:46 -0700 (PDT)
+	id 1qgN4L-0001OJ-Fl; Wed, 13 Sep 2023 10:26:01 +0000
+Received: by outflank-mailman (input) for mailman id 601175;
+ Wed, 13 Sep 2023 10:25:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgN4J-0001Nd-FR; Wed, 13 Sep 2023 10:25:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgN4J-0002RR-DE; Wed, 13 Sep 2023 10:25:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgN4J-0004q6-2I; Wed, 13 Sep 2023 10:25:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgN4J-0008Ak-1s; Wed, 13 Sep 2023 10:25:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,131 +42,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e68a753b-521f-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1694600745; x=1695205545; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AnVOd1OmPn26d0MyqQJvJzMKH46KhBt4Kite4K+jHvs=;
-        b=Y18lJp2lxOaBcQ+FY5L0baO9/K4GP7zERATA7rI/kXTEoRtUBG7uEQWKjyozBVLqs9
-         OiFLkQUOxsTQeSoCG63h7FIJ7e02J5qNo3gQzNZMVcdahGApjxSl3dHch6uKCgsvZNOM
-         mflXMOH6ZZQFfxCuulmKEojZlP3UPjOYAmw1M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694600745; x=1695205545;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AnVOd1OmPn26d0MyqQJvJzMKH46KhBt4Kite4K+jHvs=;
-        b=v7LqSfuGL3GDsw/TSzUa6WL63wOcJkTsW83OGxC2yqDxtftgtu9rK9YYL28SuNURSP
-         xtjMEyFw9Et1gDS1xGPda+rztCqowEQO+oDqsi9eIxR4G2phdcRqK6K+dvHERpN1RN55
-         gZkTiwKkHENA2NhNB2kt6rd0x/QooghSlegfPgEQ9/rJad8SXvu33aJZF1YXe8WbHRH8
-         KUvVGNlj2Hc9b88vBMYeRvdi25mqstUoIt2rI/cOOa5YDTQVV3i0uAP63NJ1vGLpq0SI
-         tMclCRzet+K3InO7x8ZlKnE8Ok7Afo1JLneIGIyZv+U3nW3vKVJaYy33fhD005gTgn1k
-         QpAg==
-X-Gm-Message-State: AOJu0YzvPzgGap5BBTK5n+hAle7I37LR6Hq9TVtAcVQZaLgjm6m/eYE+
-	tJ8hk0qrOa2Qe496bF0q6Tt5edfYBwV3k4YmTJ3NY7d4+Pa6QmsBy8MT1Q==
-X-Google-Smtp-Source: AGHT+IE9olSIF3tW61dxmxgGzDefZsGkFax2HWCa/BNyXMFyNyZ3Vqf3pAte65Id+2VlvJ5UNiCG59ztpoJYwYJM+5U=
-X-Received: by 2002:a2e:b0d6:0:b0:2bc:ffcc:6cc0 with SMTP id
- g22-20020a2eb0d6000000b002bcffcc6cc0mr1958349ljl.17.1694600745595; Wed, 13
- Sep 2023 03:25:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <a17ba988-2850-fced-d225-97e1d11f6576@suse.com>
- <CA+zSX=aCwR5gxk3jyPDoWRvoFAAjORWigtrbaO9ow5EvmT_tZg@mail.gmail.com> <ea6686a2-dfe3-4a6f-5d3c-a729f95520d1@suse.com>
-In-Reply-To: <ea6686a2-dfe3-4a6f-5d3c-a729f95520d1@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 13 Sep 2023 11:25:34 +0100
-Message-ID: <CA+zSX=a1oyPOJLvwBq+YXGnumi7HAqk_XoL=Wat9iHnz7fTe6g@mail.gmail.com>
-Subject: Re: [PATCH] timer: fix NR_CPUS=1 build with gcc13
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zopt03a8aW6ILF0CBtwN7s7c4YHSN6zudkoSR7hlkns=; b=F/poE2WK0ejp0zxGkHpjFtATuW
+	HesIEP2orE91t0jSVOEfhRFsg6c1DBdilIKOKCuZuTZ7ZT+mlkO4Rq+0lDAtCy8cSXqrvC3yVV5tb
+	3f+bNnFDc/M8zVv+7nsdoyMJ4VbpYe1jwHqajf6MKVCLIG52fN5cNoR8/iVfgJzvBqIU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182991-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 182991: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6aa25c32180ab59081c73bae4c568367d9133a1f
+X-Osstest-Versions-That:
+    xen=21ec0c42267be169be6019e5a09b61cbf16d10ce
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 Sep 2023 10:25:59 +0000
 
-On Wed, Sep 13, 2023 at 11:05=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 13.09.2023 11:44, George Dunlap wrote:
-> > On Wed, Sep 13, 2023 at 8:32=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> Gcc13 apparently infers from "if ( old_cpu < new_cpu )" that "new_cpu"
-> >> is >=3D 1, and then (on x86) complains about "per_cpu(timers, new_cpu)=
-"
-> >> exceeding __per_cpu_offset[]'s bounds (being an array of 1 in such a
-> >> configuration). Make the code conditional upon there being at least 2
-> >> CPUs configured (otherwise there simply is nothing to migrate [to]).
-> >
-> > Hmm, without digging into it, migrate_timer() doesn't seem like very
-> > robust code: It doesn't check to make sure that new_cpu is valid, nor
-> > does it give the option of returning an error if anything fails.
->
-> Question is - what do you expect the callers to do upon getting back
-> failure?
+flight 182991 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182991/
 
-[snip]
+Failures :-/ but no regressions.
 
-> >  Would it make more sense to add `||
-> > (new_cpu > CONFIG_NR_CPUS)` to the early-return  conditional at the
-> > top of the first `for (; ; )` loop?
->
-> But that would mean not doing what was requested without any indication
-> to the caller. An out-of-range CPU passed in is generally very likely
-> to result in a crash, I think.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-If it's only off by a little bit, there's a good chance it might just
-corrupt some other data, causing a crash further down the line, where
-it's not obvious what went wrong.  Generally speaking, passing an
-error up the stack, explicitly crashing, or explicitly doing nothing
-with a warning to the console are all better options.
+version targeted for testing:
+ xen                  6aa25c32180ab59081c73bae4c568367d9133a1f
+baseline version:
+ xen                  21ec0c42267be169be6019e5a09b61cbf16d10ce
 
-> > I guess if we don't expect it ever to be called, it might be better to
-> > get rid of the code entirely; but maybe in that case we should add
-> > something like the following?
-> >
-> > ```
-> > #else
-> >     WARN_ONCE("migrate_timer: Request to move to %u on a single-core
-> > system!", new_cpu);
-> >     ASSERT_UNREACHABLE();
-> > #endif
-> > ```
->
-> With the old_cpu =3D=3D new_cpu case explicitly permitted (and that being
-> the only legal case when NR_CPUS=3D1, which arguably is an aspect which
-> makes gcc's diagnostic questionable), perhaps only
->
-> #else
->     old_cpu =3D ...;
->     if ( old_cpu !=3D TIMER_CPU_status_killed )
->         WARN_ON(new_cpu !=3D old_cpu);
-> #endif
->
-> (I'm afraid we have no WARN_ON_ONCE() yet, nor WARN_ONCE())?
+Last test of basis   182968  2023-09-12 14:03:40 Z    0 days
+Testing same since   182991  2023-09-13 08:00:30 Z    0 days    1 attempts
 
-I think I was looking for `printk_once`.
+------------------------------------------------------------
+People who touched revisions under test:
+  Federico Serafini <federico.serafini@bugseng.com>
+  Gianluca	Luparini <gianluca.luparini@bugseng.com>
+  Gianluca Luparini <gianluca.luparini@bugseng.com>
+  Jan Beulich <jbeulich@suse.com>
+  Paul Durrant <paul@xen.org>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-If there's no reasonable way to fail more gracefully (or no real point
-in making the effort to do so), what if we add the following to the
-top of the function?  Does that make gcc13 happy?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-```
-if ( new_cpu >=3D CONFIG_NR_CPUS )
-{
-    printk_once(/* whatever */);
-    ASSERT_UNREACHABLE();
-    return;
-}
-```
 
-Or, if we feel like being passed an invalid cpu means the state is so
-bad it would be better to just crash and have done with it:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-```
-  BUG_ON(new_cpu >=3D CONFIG_NR_CPUS);
-```
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
- -George
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   21ec0c4226..6aa25c3218  6aa25c32180ab59081c73bae4c568367d9133a1f -> smoke
 
