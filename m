@@ -2,30 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABA8179F2E4
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:31:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601609.937719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9693179F30C
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:44:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601623.937729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgWWa-0003CM-W3; Wed, 13 Sep 2023 20:31:48 +0000
+	id 1qgWhv-0005kl-0K; Wed, 13 Sep 2023 20:43:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601609.937719; Wed, 13 Sep 2023 20:31:48 +0000
+Received: by outflank-mailman (output) from mailman id 601623.937729; Wed, 13 Sep 2023 20:43:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgWWa-00039x-SO; Wed, 13 Sep 2023 20:31:48 +0000
-Received: by outflank-mailman (input) for mailman id 601609;
- Wed, 13 Sep 2023 20:31:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgWhu-0005hl-Tg; Wed, 13 Sep 2023 20:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 601623;
+ Wed, 13 Sep 2023 20:43:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qJZS=E5=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1qgWWY-00036K-Dz
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 20:31:46 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8dcdadda-5274-11ee-9b0d-b553b5be7939;
- Wed, 13 Sep 2023 22:31:44 +0200 (CEST)
+ <SRS0=VJSs=E5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qgWht-0005hd-4a
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 20:43:29 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30c0d3cc-5276-11ee-8787-cb3800f73035;
+ Wed, 13 Sep 2023 22:43:27 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-401c90ed2ecso2761795e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 13:43:27 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v13-20020a05600c214d00b003fc16ee2864sm85104wml.48.2023.09.13.13.43.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Sep 2023 13:43:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,54 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dcdadda-5274-11ee-9b0d-b553b5be7939
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1694637103;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QvkOsN1rW+cp52e2+U4Pd+r05FQCQ6lhz8OcOV4VJRg=;
-	b=C6R/MqGX0vKqtOvLU3C+zB1Ud6qHIXTZENaw6i8p6l71u60mxd8dlKBzHfonNFw3slv6hk
-	/un+sL9MS5Hpo1Ry3zGP58xwRyGilAKfe4gTKGOTjbO8Yz450mHvTShaRsKfwtZ1fVSipe
-	sadVgwt4pQJlGVgPbIkL9kDrgU35Gy+yxJnCIrQWdoIH0JWqTQAHj+8EqeU0I9WFnsnmcE
-	T9gV38fWLcZ/QAu3GYxKy0yqIinywKACLqP8t3ET8dkhUvSU5k/JSJiLL2DPFaQBBRo9hz
-	JZDPEPIFkjeKbyAK4BOaxjRIPXwnChK6aBGw6XR9zdhrpvl/c2V5+ptX7fNsew==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1694637103;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QvkOsN1rW+cp52e2+U4Pd+r05FQCQ6lhz8OcOV4VJRg=;
-	b=TKsu/hjOD1gx9+yb7ULkLNunmTjskubueADGLHtmCtevMFV3bUBtbtKEsvX0XDVbeuf2Xb
-	zKVD0Jx6oGfA82Ag==
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, solene@openbsd.org, Marek =?utf-8?Q?Marczykowski?=
- =?utf-8?Q?-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Demi Marie Obenour
- <demi@invisiblethingslab.com>, Roger Pau Monne <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, the arch/x86 maintainers <x86@kernel.org>
-Subject: Re: [Xen PATCH] x86/amd: do not expose HWCR.TscFreqSel to guests
-In-Reply-To: <fca202a8-2716-6ed1-c2ce-707deeddb3ab@citrix.com>
-References: <20230912162305.34339-1-roger.pau@citrix.com>
- <fc91c802-5f71-4ec9-8c11-68fd2c4ae672@citrix.com>
- <2cfcda8f-bd51-085b-997a-0ff31434d460@suse.com>
- <fca202a8-2716-6ed1-c2ce-707deeddb3ab@citrix.com>
-Date: Wed, 13 Sep 2023 22:31:43 +0200
-Message-ID: <87sf7hzufk.ffs@tglx>
+X-Inumbo-ID: 30c0d3cc-5276-11ee-8787-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1694637806; x=1695242606; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2cP/HuQGwBjPzdptzfINxiTBZUDLm/3WoHcnGK2QCIo=;
+        b=otS/6kGEp986MLYDhZHUU5SYd/MvM/+OaZ+Hb9BUFYw+lJidEMfRXo+PwjDGStNP6Z
+         0vPUje6f9nIczGvLg699+JmjrSSKwCI1x1B9VH1WABOlFtMnXscG8sluvADA6QHR2Vr6
+         raTCCHgbKuaOvN/icOCgepyCovKZUw3krDLBw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694637806; x=1695242606;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2cP/HuQGwBjPzdptzfINxiTBZUDLm/3WoHcnGK2QCIo=;
+        b=Knv6xpHRvZdL3IlMatuFXgnaF+1QrdBJkIFuM2RZtWo/ceefrGRVboA8/7+DsAAWtn
+         k1c9mWBcMzr2G6B4SzV/Fzr9w0F7B9P1ljKRI/SUSTEiny9xPZPMiKlGiPxbL4+5ZrZ2
+         iwW7pElzpYCZCb4KcN7GUwSQWUMr/S55hRUQ01gzHqYyo5732NUwp1/YNBirSCdRwO5E
+         mxp+LXABBK2kIinU4u9ITdApfIaqJeI1oCiwQscjwnNbpBYJYw5U4M/3UJWYWLtNDCnb
+         F9/128x40GsDvZaRjkiUVaMlEaFmIG+tuiA4aMARwg7+5fTMWFXrIy46+uE9wCZIYIHD
+         KNJQ==
+X-Gm-Message-State: AOJu0YyvAkikOUj1DOGXrqzaU4zIMtU7asE61uJtinZlGY994/oVO9+N
+	+QghgvLrsbQ47lDiN4DOVbyBTquwpiCa5QpFeJU=
+X-Google-Smtp-Source: AGHT+IFdXudZT/AlBlIydwwpcRT/G/fYgzJUS5xpbRFdmTNvJ37l6oE3SHcUeGzxL/g1n0MwXLghXg==
+X-Received: by 2002:a1c:4b0a:0:b0:3ff:28b8:c53d with SMTP id y10-20020a1c4b0a000000b003ff28b8c53dmr2848643wma.33.1694637806632;
+        Wed, 13 Sep 2023 13:43:26 -0700 (PDT)
+Message-ID: <a4f616f2-d371-0cf8-6173-4231d3d4b8eb@citrix.com>
+Date: Wed, 13 Sep 2023 21:43:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 8/8] x86/spec-ctrl: Mitigate the Zen1 DIV leakge
+Content-Language: en-GB
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
+ <20230913202758.508225-9-andrew.cooper3@citrix.com>
+In-Reply-To: <20230913202758.508225-9-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 13 2023 at 12:02, Andrew Cooper wrote:
-> The PSTATE MSRs are entirely model specific, fully read/write, and the
-> Enable bit is not an enable bit; its a "not valid yet" bit that firmware
-> is required to adjust to be consistent across the coherency fabric.
->
-> Linux is simply wrong with it's printk() under virt, and wants adjusting.
+On 13/09/2023 9:27 pm, Andrew Cooper wrote:
+> @@ -955,6 +960,40 @@ static void __init srso_calculations(bool hw_smt_enabled)
+>          setup_force_cpu_cap(X86_FEATURE_SRSO_NO);
+>  }
+>  
+> +/*
+> + * Div leakage is specific to the AMD Zen1 microarchitecure.  Use STIBP as a
+> + * heuristic to select between Zen1 and Zen2 uarches.
+> + */
+> +static bool __init has_div_vuln(void)
+> +{
+> +    if ( !(boot_cpu_data.x86_vendor &
+> +           (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+> +        return false;
+> +
+> +    if ( (boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
+> +         !boot_cpu_has(X86_FEATURE_AMD_STIBP) )
+> +        return false;
 
-No objections from my side.
+Bah - this serves me right for positing before waiting for CI to check
+that Naples picks the right default.  The STIBP check is backwards and
+will mix up Zen1/2.
 
-Thanks,
+I'm going to create real is_zen{1,2}_uarch() helpers in amd.h to avoid
+opencoding this heuristic yet again.  I highly doubt this will be the
+final time we need it.
 
-        tglx
+~Andrew
 
