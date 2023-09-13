@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A9B79E701
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 13:38:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601229.937217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B51D79E7D4
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 14:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601253.937226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgOCq-0003v3-3E; Wed, 13 Sep 2023 11:38:52 +0000
+	id 1qgOtB-00068o-FP; Wed, 13 Sep 2023 12:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601229.937217; Wed, 13 Sep 2023 11:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 601253.937226; Wed, 13 Sep 2023 12:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgOCp-0003rO-WA; Wed, 13 Sep 2023 11:38:51 +0000
-Received: by outflank-mailman (input) for mailman id 601229;
- Wed, 13 Sep 2023 11:38:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qgOCo-0003ob-H6
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 11:38:50 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a5c0bf3-522a-11ee-9b0d-b553b5be7939;
- Wed, 13 Sep 2023 13:38:48 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE4EF1F461;
- Wed, 13 Sep 2023 11:38:47 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9401D13582;
- Wed, 13 Sep 2023 11:38:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NCztIkefAWWVCwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 13 Sep 2023 11:38:47 +0000
+	id 1qgOtB-00065y-Ck; Wed, 13 Sep 2023 12:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 601253;
+ Wed, 13 Sep 2023 12:22:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o3wF=E5=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1qgOt9-00065s-KT
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 12:22:35 +0000
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [2607:f8b0:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 374573e3-5230-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 14:22:34 +0200 (CEST)
+Received: by mail-pg1-x52a.google.com with SMTP id
+ 41be03b00d2f7-577a98f78b2so1236916a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 05:22:34 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+ by smtp.gmail.com with ESMTPSA id
+ g1-20020a170902c38100b001c3267ae314sm10323061plg.156.2023.09.13.05.22.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Sep 2023 05:22:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,107 +46,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a5c0bf3-522a-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1694605127; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=++Gf4nZevYukLnMCd8J7gk+s802IZpzJx/5E73wtImY=;
-	b=SHILpcKUB+qttiLi6k4sYhNzmXEFE767/y3kD9zbG2bluvZ7ghrloO9UGyNAhPubecIaKP
-	NGNWWh5CDcoRq9haIK8xFSRVnZ0ag62gtllZXtXM6vGJ8WcYBytmyjAszMfOa3Kyr1S2Ur
-	7HXYBqGaBGWrqpTPsAL3X8ci5xu+xRw=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 3/3] x86/xen: allow nesting of same lazy mode
-Date: Wed, 13 Sep 2023 13:38:28 +0200
-Message-Id: <20230913113828.18421-4-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230913113828.18421-1-jgross@suse.com>
-References: <20230913113828.18421-1-jgross@suse.com>
+X-Inumbo-ID: 374573e3-5230-11ee-8786-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694607753; x=1695212553; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bd7AjsFGHVU9ZgF8t64qnNi1wuPnAXka53rRg0j9Ps8=;
+        b=LWgyjsEEelOcCRWM2eUo45fI/75Ruucet0marW43aDGtBKe74wV4/0Fqxy0kEYBaHX
+         wi0K0WT3enAI9QUuD5s0S7tJ7q/s20xkvTc3EYblc497Mt3wUOP4RmdjMK9Nnez48kcH
+         UrHgsnweuxIJDJkjZe1Aaid0o8lk5u0i8SdAtM0sFXLzUNENcpa/sFWX9Gn3nWUEQZ+z
+         gdIY5KGeZrvc4YgF95Huj7UBIZcLvnuCCI6d+SqzzcS/jgXvQjAXB5urWo39yxZ1i8DI
+         MN/16lz5tKk9/rYpAMqa+dDti2jK1ivdoQ1n4qZlHvWU/a7Wl5BIfLG6mEX7mIXK91oj
+         hxAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694607753; x=1695212553;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bd7AjsFGHVU9ZgF8t64qnNi1wuPnAXka53rRg0j9Ps8=;
+        b=TjMIHSekCpoxXPMN7JUqKybhVzvpMFtorz/TThzzY0No8BoG/RIXUuZYuIIBl/nI4t
+         M1xF+isxDtEZFzv4dao4H8sXBqCTCRFG7PDVv8wSzyjs6xE18aE1YBTlxrHEdNa7rvnr
+         9N3gMSvvXNn1xKWw3kQ7kOxubeiSKGWJU0hoiTeJ0M/8A4Mzen41rdiAYwYPz3Twy8d+
+         RJlh2dtSzgmxD/oMrAb8hoU6yBhTEoPWANU+AmSKlW87hqllQBmeeglVXc5OxUHiRE94
+         Ly/AhQ3AWrmBBPl8FvUrtvKFZvmHzE4GUAzb656kSdl9KwwVeJWFB+G3Io5lfY3v4mRV
+         mGYg==
+X-Gm-Message-State: AOJu0YyzHt9hbHuakHO13egfBHhkhES6oZ5WLoCXfS++mp4RqRYpmPU5
+	FhhEp8aLBvSMc6Zp+b++CPK+HQ==
+X-Google-Smtp-Source: AGHT+IFUceWhWOwzr7PceZj0Aedx/pJWoToZ/n1XM68m4HSxGEeSRi2V9aKihvMef0Dz/aLMOl/mPA==
+X-Received: by 2002:a05:6a20:e125:b0:137:3c67:85d7 with SMTP id kr37-20020a056a20e12500b001373c6785d7mr2865750pzb.16.1694607752788;
+        Wed, 13 Sep 2023 05:22:32 -0700 (PDT)
+Message-ID: <5e88f5d5-5aa2-4052-b250-69c2a443344f@daynix.com>
+Date: Wed, 13 Sep 2023 21:22:26 +0900
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [QEMU PATCH v4 10/13] virtio-gpu: Resource UUID
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ "ernunes@redhat.com" <ernunes@redhat.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
+ "Huang, Honglei1" <Honglei1.Huang@amd.com>,
+ "Zhang, Julia" <Julia.Zhang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+References: <20230831093252.2461282-1-ray.huang@amd.com>
+ <20230831093252.2461282-11-ray.huang@amd.com>
+ <58a4e81f-b0ce-49db-8a6a-f6b5bdc3d2d6@daynix.com> <ZPw2UjxogIULU722@amd.com>
+ <11c227e8-a464-41ce-a435-82c570746388@daynix.com>
+ <CADSE00Kc1Jza7sbERRndWbXgoF1s2V-FNxEOWJ6WgvomzgvMPA@mail.gmail.com>
+ <cf99ac00-6f48-4778-b319-6079a931ba5d@daynix.com>
+ <CADSE00+6zcT7iKR0JW1Bk8es6HtBpzAKa9JW6u5yyjDoLPw2KQ@mail.gmail.com>
+Content-Language: en-US
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <CADSE00+6zcT7iKR0JW1Bk8es6HtBpzAKa9JW6u5yyjDoLPw2KQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When running as a paravirtualized guest under Xen, Linux is using
-"lazy mode" for issuing hypercalls which don't need to take immediate
-effect in order to improve performance (examples are e.g. multiple
-PTE changes).
+On 2023/09/13 20:34, Albert Esteve wrote:
+> 
+> 
+> On Wed, Sep 13, 2023 at 12:34 PM Akihiko Odaki <akihiko.odaki@daynix.com 
+> <mailto:akihiko.odaki@daynix.com>> wrote:
+> 
+>     On 2023/09/13 16:55, Albert Esteve wrote:
+>      > Hi Antonio,
+>      >
+>      > If I'm not mistaken, this patch is related with:
+>      >
+>     https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html
+>     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>
+>      >
+>     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html
+>     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>>
+>      > IMHO, ideally, virtio-gpu and vhost-user-gpu both, would use the
+>      > infrastructure from the patch I linked to store the
+>      > virtio objects, so that they can be later shared with other devices.
+> 
+>     I don't think such sharing is possible because the resources are
+>     identified by IDs that are local to the device. That also complicates
+>     migration.
+> 
+>     Regards,
+>     Akihiko Odaki
+> 
+> Hi Akihiko,
+> 
+> As far as I understand, the feature to export dma-bufs from the
+> virtgpu was introduced as part of the virtio cross-device sharing
+> proposal [1]. Thus, it shall be posible. When virtgpu ASSING_UUID,
+> it exports and identifies the dmabuf resource, so that when the dmabuf gets
+> shared inside the guest (e.g., with virtio-video), we can use the assigned
+> UUID to find the dmabuf in the host (using the patch that I linked above),
+> and import it.
+> 
+> [1] - https://lwn.net/Articles/828988/ <https://lwn.net/Articles/828988/>
 
-There are two different lazy modes defined: MMU and CPU lazy mode.
-Today it is not possible to nest multiple lazy mode sections, even if
-they are of the same kind. A recent change in memory management added
-nesting of MMU lazy mode sections, resulting in a regression when
-running as Xen PV guest.
+The problem is that virtio-gpu can have other kind of resources like 
+pixman and OpenGL textures and manage them and DMA-BUFs with unified 
+resource ID.
 
-Technically there is no reason why nesting of multiple sections of the
-same kind of lazy mode shouldn't be allowed. So add support for that
-for fixing the regression.
+So you cannot change:
+g_hash_table_insert(g->resource_uuids, 
+GUINT_TO_POINTER(assign.resource_id), uuid);
+by:
+virtio_add_dmabuf(uuid, assign.resource_id);
 
-Fixes: bcc6cc832573 ("mm: add default definition of set_ptes()")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/include/asm/xen/hypervisor.h | 15 +++++++++++++--
- arch/x86/xen/enlighten_pv.c           |  1 +
- 2 files changed, 14 insertions(+), 2 deletions(-)
+assign.resource_id is not DMA-BUF file descriptor, and the underlying 
+resource my not be DMA-BUF at first place.
 
-diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-index ed05ce3df5c7..7048dfacc04b 100644
---- a/arch/x86/include/asm/xen/hypervisor.h
-+++ b/arch/x86/include/asm/xen/hypervisor.h
-@@ -72,10 +72,18 @@ enum xen_lazy_mode {
- };
- 
- DECLARE_PER_CPU(enum xen_lazy_mode, xen_lazy_mode);
-+DECLARE_PER_CPU(unsigned int, xen_lazy_nesting);
- 
- static inline void enter_lazy(enum xen_lazy_mode mode)
- {
--	BUG_ON(this_cpu_read(xen_lazy_mode) != XEN_LAZY_NONE);
-+	enum xen_lazy_mode old_mode = this_cpu_read(xen_lazy_mode);
-+
-+	if (mode == old_mode) {
-+		this_cpu_inc(xen_lazy_nesting);
-+		return;
-+	}
-+
-+	BUG_ON(old_mode != XEN_LAZY_NONE);
- 
- 	this_cpu_write(xen_lazy_mode, mode);
- }
-@@ -84,7 +92,10 @@ static inline void leave_lazy(enum xen_lazy_mode mode)
- {
- 	BUG_ON(this_cpu_read(xen_lazy_mode) != mode);
- 
--	this_cpu_write(xen_lazy_mode, XEN_LAZY_NONE);
-+	if (this_cpu_read(xen_lazy_nesting) == 0)
-+		this_cpu_write(xen_lazy_mode, XEN_LAZY_NONE);
-+	else
-+		this_cpu_dec(xen_lazy_nesting);
- }
- 
- enum xen_lazy_mode xen_get_lazy_mode(void);
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 54b83825c4b6..bbbfdd495ebd 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -102,6 +102,7 @@ struct tls_descs {
- };
- 
- DEFINE_PER_CPU(enum xen_lazy_mode, xen_lazy_mode) = XEN_LAZY_NONE;
-+DEFINE_PER_CPU(unsigned int, xen_lazy_nesting);
- 
- enum xen_lazy_mode xen_get_lazy_mode(void)
- {
--- 
-2.35.3
+Also, since this lives in the common code that is not used only by 
+virtio-gpu-gl but also virtio-gpu, which supports migration, we also 
+need to take care of that. It is not a problem for DMA-BUF as DMA-BUF is 
+not migratable anyway, but the situation is different in this case.
 
+Implementing cross-device sharing is certainly a possibility, but that 
+requires more than dealing with DMA-BUFs.
 
