@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7223D79E6E8
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 13:35:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601220.937177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDE079E6FB
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 13:38:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601225.937187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgO90-0001dK-OZ; Wed, 13 Sep 2023 11:34:54 +0000
+	id 1qgOCY-0002nJ-8a; Wed, 13 Sep 2023 11:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601220.937177; Wed, 13 Sep 2023 11:34:54 +0000
+Received: by outflank-mailman (output) from mailman id 601225.937187; Wed, 13 Sep 2023 11:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgO90-0001aC-Li; Wed, 13 Sep 2023 11:34:54 +0000
-Received: by outflank-mailman (input) for mailman id 601220;
- Wed, 13 Sep 2023 11:34:53 +0000
+	id 1qgOCY-0002kg-4h; Wed, 13 Sep 2023 11:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 601225;
+ Wed, 13 Sep 2023 11:38:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gBHS=E5=redhat.com=aesteve@srs-se1.protection.inumbo.net>)
- id 1qgO8z-0001a6-7P
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 11:34:53 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qgOCW-0002ka-Fe
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 11:38:32 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8cdd7fb7-5229-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 13:34:51 +0200 (CEST)
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-643-lXvvlqzJPV2qN_oeh8wiYA-1; Wed, 13 Sep 2023 07:34:46 -0400
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-27372e336b2so810509a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 04:34:46 -0700 (PDT)
+ id 10607691-522a-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 13:38:31 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B28341F385;
+ Wed, 13 Sep 2023 11:38:30 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36BE613582;
+ Wed, 13 Sep 2023 11:38:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id L4D9CzafAWVVCwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 13 Sep 2023 11:38:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,148 +51,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8cdd7fb7-5229-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694604890;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zMskR6cu9i22y34XL44NEQPqeIL9khl3qtNSgvRoqCA=;
-	b=XzeZqGJV0h6ly2gHAEw4VOvWXWWi6u0016XZ83w35st0SP0UZaG90Hl+3bNp8Drh6TpcWd
-	epl0seBj9ZPluX3mUzhY6uchLv2TxI7PhOIebJt4jOUMahGFjNJX3aqAa9DAH0tJnesnNh
-	2nGClfGUlcAsWz7AOlUvslONPEW2J+I=
-X-MC-Unique: lXvvlqzJPV2qN_oeh8wiYA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694604885; x=1695209685;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zMskR6cu9i22y34XL44NEQPqeIL9khl3qtNSgvRoqCA=;
-        b=t1HhZQDiLs9g1Mg3u+NTb4vl2L1sYiplblHnbOxv2SX4JoLoIDvN5gLTFLCR1C7DbT
-         lC0jIgBTEkgxdYqx55JqMF2aO4A3s8dTlCYXI3Tp5jk3pQ7lvHFF4j5N3hIG1uCFTKya
-         LS13dExlc1XyO4hlE+f8Zo4lgL5FBjTx7iEH9r1keoz45luxupcwpz+aCjh0mXMQ4mPB
-         83N4QTVylK5Q+WnuNNKzMKoex4P+VbUkJaEruPTTeb3UW4/3uYcSZRfAH2M2Duo/5uDK
-         GRwOsTjhiPct281IXITghviBZnqfPBASl4Zf7NzZrmzA3ttBwXvm/dKICux6b4NPCRtk
-         epJQ==
-X-Gm-Message-State: AOJu0YwruJfen8L4xZ+Pe86h76EhPHrRZdS3Lx7vjPBttuSKmuCuhONq
-	8Jq0yLg18yxhDxzCw/tCOhFEtqwqNDwLHrv3/tanTt+cfW9gyt32Dz1q2gDwcFVPeAcBVB+9LL9
-	y6afOfNbCpQOoAsZE17uFEApWqnWNnmv1u0YQYq2y/e0=
-X-Received: by 2002:a17:90b:4b82:b0:26d:689f:4253 with SMTP id lr2-20020a17090b4b8200b0026d689f4253mr7447233pjb.6.1694604885610;
-        Wed, 13 Sep 2023 04:34:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHJWBwNCbFL7Jyu5Boq2Q8xMqbev4t/zbOs3GqV/MXKXOUFx1M1LMxGo4WIMdWApSj5iZlPgc9WjXu2ERG7xSA=
-X-Received: by 2002:a17:90b:4b82:b0:26d:689f:4253 with SMTP id
- lr2-20020a17090b4b8200b0026d689f4253mr7447190pjb.6.1694604885258; Wed, 13 Sep
- 2023 04:34:45 -0700 (PDT)
+X-Inumbo-ID: 10607691-522a-11ee-8786-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1694605110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=uJxCMUIT09a7qNSpE55xAHMI/oO/Stvr6RHMZiPfub0=;
+	b=sUXrGqZZOoVIQv+OGxhDBecrjHjH49ZzQmiR8HgriyCUNOyvY51cp4MNfw9H1W6dCN5PWU
+	nlskKpBvJv3CbZBLqFWxt7NaFEeKD7XRZUMlyWluXouJQXkXs4bbOOzvEQlLkhJAKeb+KB
+	zwEY9BZ/BObVZJyxnDHCZXPPTtSlHnI=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	Ajay Kaher <akaher@vmware.com>,
+	Alexey Makhalov <amakhalov@vmware.com>,
+	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Subject: [PATCH 0/3] xen: cleanup and fix lazy mode handling
+Date: Wed, 13 Sep 2023 13:38:25 +0200
+Message-Id: <20230913113828.18421-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <20230831093252.2461282-1-ray.huang@amd.com> <20230831093252.2461282-11-ray.huang@amd.com>
- <58a4e81f-b0ce-49db-8a6a-f6b5bdc3d2d6@daynix.com> <ZPw2UjxogIULU722@amd.com>
- <11c227e8-a464-41ce-a435-82c570746388@daynix.com> <CADSE00Kc1Jza7sbERRndWbXgoF1s2V-FNxEOWJ6WgvomzgvMPA@mail.gmail.com>
- <cf99ac00-6f48-4778-b319-6079a931ba5d@daynix.com>
-In-Reply-To: <cf99ac00-6f48-4778-b319-6079a931ba5d@daynix.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 13 Sep 2023 13:34:34 +0200
-Message-ID: <CADSE00+6zcT7iKR0JW1Bk8es6HtBpzAKa9JW6u5yyjDoLPw2KQ@mail.gmail.com>
-Subject: Re: [QEMU PATCH v4 10/13] virtio-gpu: Resource UUID
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, 
-	Antonio Caggiano <antonio.caggiano@collabora.com>, 
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, "ernunes@redhat.com" <ernunes@redhat.com>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, 
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="000000000000388aee06053bf2d0"
+Content-Transfer-Encoding: 8bit
 
---000000000000388aee06053bf2d0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This small series is cleaning up Xen lazy mode handling by removing
+unused stuff and moving purely Xen-specific code away from general
+kernel code.
 
-On Wed, Sep 13, 2023 at 12:34=E2=80=AFPM Akihiko Odaki <akihiko.odaki@dayni=
-x.com>
-wrote:
+The last patch is fixing a regression which was introduced in the
+6.6 merge window.
 
-> On 2023/09/13 16:55, Albert Esteve wrote:
-> > Hi Antonio,
-> >
-> > If I'm not mistaken, this patch is related with:
-> > https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html
-> > <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>
-> > IMHO, ideally, virtio-gpu and vhost-user-gpu both, would use the
-> > infrastructure from the patch I linked to store the
-> > virtio objects, so that they can be later shared with other devices.
->
-> I don't think such sharing is possible because the resources are
-> identified by IDs that are local to the device. That also complicates
-> migration.
->
-> Regards,
-> Akihiko Odaki
->
-> Hi Akihiko,
+Juergen Gross (3):
+  arm/xen: remove lazy mode related definitions
+  x86/xen: move paravirt lazy code
+  x86/xen: allow nesting of same lazy mode
 
-As far as I understand, the feature to export dma-bufs from the
-virtgpu was introduced as part of the virtio cross-device sharing
-proposal [1]. Thus, it shall be posible. When virtgpu ASSING_UUID,
-it exports and identifies the dmabuf resource, so that when the dmabuf gets
-shared inside the guest (e.g., with virtio-video), we can use the assigned
-UUID to find the dmabuf in the host (using the patch that I linked above),
-and import it.
+ arch/x86/include/asm/paravirt_types.h | 15 ------
+ arch/x86/include/asm/xen/hypervisor.h | 37 +++++++++++++++
+ arch/x86/kernel/paravirt.c            | 67 ---------------------------
+ arch/x86/xen/enlighten_pv.c           | 40 +++++++++++++---
+ arch/x86/xen/mmu_pv.c                 | 55 ++++++++++++++--------
+ arch/x86/xen/multicalls.h             |  4 +-
+ include/trace/events/xen.h            | 12 ++---
+ include/xen/arm/hypervisor.h          | 12 -----
+ 8 files changed, 114 insertions(+), 128 deletions(-)
 
-[1] - https://lwn.net/Articles/828988/
-
---000000000000388aee06053bf2d0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Sep 13, 2023 at 12:34=E2=80=
-=AFPM Akihiko Odaki &lt;<a href=3D"mailto:akihiko.odaki@daynix.com" target=
-=3D"_blank">akihiko.odaki@daynix.com</a>&gt; wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">On 2023/09/13 16:55, Albert Esteve wrot=
-e:<br>
-&gt; Hi Antonio,<br>
-&gt; <br>
-&gt; If I&#39;m not mistaken, this patch is related with: <br>
-&gt; <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01=
-853.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/archiv=
-e/html/qemu-devel/2023-09/msg01853.html</a> <br>
-&gt; &lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/m=
-sg01853.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/ar=
-chive/html/qemu-devel/2023-09/msg01853.html</a>&gt;<br>
-&gt; IMHO, ideally, virtio-gpu and vhost-user-gpu both, would use the <br>
-&gt; infrastructure from the patch I linked to store the<br>
-&gt; virtio objects, so that they can be later shared with other devices.<b=
-r>
-<br>
-I don&#39;t think such sharing is possible because the resources are <br>
-identified by IDs that are local to the device. That also complicates <br>
-migration.<br>
-<br>
-Regards,<br>
-Akihiko Odaki<br>
-<br></blockquote><div>Hi Akihiko,</div><div><br></div><div>As far as I unde=
-rstand, the feature to export dma-bufs=C2=A0from the</div><div>virtgpu was =
-introduced as part of the virtio cross-device sharing</div><div>proposal [1=
-]. Thus, it shall be posible. When virtgpu=C2=A0ASSING_UUID,</div><div>it e=
-xports and identifies the dmabuf resource, so that when the dmabuf gets</di=
-v><div>shared inside the guest (e.g., with virtio-video), we can use the as=
-signed</div><div>UUID to find the dmabuf in the host (using the patch that =
-I linked above),</div><div>and import it.</div><div><br></div><div>[1] -=C2=
-=A0<a href=3D"https://lwn.net/Articles/828988/" target=3D"_blank">https://l=
-wn.net/Articles/828988/</a></div></div></div>
-
---000000000000388aee06053bf2d0--
+-- 
+2.35.3
 
 
