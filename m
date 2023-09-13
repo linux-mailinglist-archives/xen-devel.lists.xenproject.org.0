@@ -2,35 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E3D79DD13
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 02:15:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600870.936686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 645CB79DD3F
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 02:50:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600882.936696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgDWz-0004uN-CS; Wed, 13 Sep 2023 00:14:57 +0000
+	id 1qgE4M-0002dz-1p; Wed, 13 Sep 2023 00:49:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600870.936686; Wed, 13 Sep 2023 00:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 600882.936696; Wed, 13 Sep 2023 00:49:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgDWz-0004rJ-9S; Wed, 13 Sep 2023 00:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 600870;
- Wed, 13 Sep 2023 00:14:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qgDWx-0004r9-Bq; Wed, 13 Sep 2023 00:14:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qgDWx-0005iq-8d; Wed, 13 Sep 2023 00:14:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qgDWw-0007Zt-Tm; Wed, 13 Sep 2023 00:14:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qgDWw-0007Mt-TI; Wed, 13 Sep 2023 00:14:54 +0000
+	id 1qgE4L-0002bd-VS; Wed, 13 Sep 2023 00:49:25 +0000
+Received: by outflank-mailman (input) for mailman id 600882;
+ Wed, 13 Sep 2023 00:49:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nLNB=E5=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1qgE4J-0002bX-TY
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 00:49:24 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0600.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f840666-51cf-11ee-9b0d-b553b5be7939;
+ Wed, 13 Sep 2023 02:49:20 +0200 (CEST)
+Received: from DUZPR01CA0200.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::10) by AS8PR08MB8923.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5b3::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Wed, 13 Sep
+ 2023 00:49:16 +0000
+Received: from DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:4b6:cafe::d3) by DUZPR01CA0200.outlook.office365.com
+ (2603:10a6:10:4b6::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19 via Frontend
+ Transport; Wed, 13 Sep 2023 00:49:16 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT007.mail.protection.outlook.com (100.127.142.161) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6792.19 via Frontend Transport; Wed, 13 Sep 2023 00:49:15 +0000
+Received: ("Tessian outbound 1eb4e931b055:v175");
+ Wed, 13 Sep 2023 00:49:15 +0000
+Received: from 816b41260634.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ B3B2CE11-D8C7-4951-B21E-C25A3CE2A06A.1; 
+ Wed, 13 Sep 2023 00:49:08 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 816b41260634.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 13 Sep 2023 00:49:08 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS8PR08MB6663.eurprd08.prod.outlook.com (2603:10a6:20b:39b::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Wed, 13 Sep
+ 2023 00:49:02 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::7083:22dc:6b5f:5965]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::7083:22dc:6b5f:5965%7]) with mapi id 15.20.6768.029; Wed, 13 Sep 2023
+ 00:49:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,249 +72,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=NdU8Z30V25c6jJpyN0PE5cxOd3rD+CgvwA4q30MIls0=; b=hfdk+bSul3e7v6B24xrp2JW4Ra
-	jGzycwjAX+afopBsyjpjZAdCZ0pPBGuQqg2QnUZH98K5wHu3eq1eGVT6lGVscEmPEfH93FzSettm9
-	+j6LLZZNy1HIw4jijgyZrWHtyBvuF7f9YcDWhdjNHPGGMCFOGPWLP/zB2A0Op1CnKJPI=;
-To: xen-devel@lists.xenproject.org
-Subject: [qemu-mainline bisection] complete build-armhf
-Message-Id: <E1qgDWw-0007Mt-TI@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Sep 2023 00:14:54 +0000
+X-Inumbo-ID: 5f840666-51cf-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zeSspoeqCIJNLnmJpQa/+IXd5YSdvIQQrDrqLU/SWoc=;
+ b=VgwK+tDYNLuDBnhDuQ7iPDWPCy6L4Zp1SZksrsJSODtPyziXP2ubw6v8+9BFIGGszQTwdUtvTdZN6nbUamcp3KghT92jig6XgXvsH1ZuNea03IlLULYYuECDapGs8o3tP9tecLB+Kg55ZLWV3FK/4vLQn0zpVdyw0i/Uwg/SiZM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 3e349d789b60d5de
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LgnI7DGINu4oJ2fGwWgWoD3QdUT/aF53p4skHm0UjG9SGZbU1KSwnw+aZsPAGriD3mpEjWQHOilzfm0bOyVND6/OqvegCnr86eKof57xS9g7dndVgdZ/RAj3ufpCWIHW26gpbSOhRfmy1P5aUiJ1HxAdk0rA4dFF6MjSJ+pMdSbhtOsXwh2SHi6I2hxURQV26guKrG8ttswIAZNxZMQ+fUKC76Hm8LEAZpNGjtoSyy2m4zdUp9GUKq7cFILK3akWomqVGKvxRzcI4O01IJMRFzka0H9ttUBaS1oppiOaXj4Dnae5nBqx2e5Q3OwOhD7+kAczpO6qfvTk2gwMEfocMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zeSspoeqCIJNLnmJpQa/+IXd5YSdvIQQrDrqLU/SWoc=;
+ b=kOPYPWZt2mm+nkgbY9aI/nhPXG/c1A8hc9sQG5KH1L7sNs+huttQzTbwyATsutdgo75IPO9KCwJaC823XIlBj/bzGbH9j6zK2wnOTwJoxEjIIDAIb5u2J6kWAZwU93UZ9u5BVddLRJQAqGTRUUFdVeT8gn+I8hclrjubG+Vyr3oh0gBVyT7lhzNlXFdHHoWvekCtZj2UarqSaXvEH8c2K9i9pjhL4IN04DKpdW3h0G4Nm6baBt5ApUW1YwY7GmzM4BrHQUa3YLFZXKHcDIUrrJvHnAAHiwYcLTNwljctOhnc4RY39frnCD2TihCKGKc3BdZnFU6m+497JZJrGqRnuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zeSspoeqCIJNLnmJpQa/+IXd5YSdvIQQrDrqLU/SWoc=;
+ b=VgwK+tDYNLuDBnhDuQ7iPDWPCy6L4Zp1SZksrsJSODtPyziXP2ubw6v8+9BFIGGszQTwdUtvTdZN6nbUamcp3KghT92jig6XgXvsH1ZuNea03IlLULYYuECDapGs8o3tP9tecLB+Kg55ZLWV3FK/4vLQn0zpVdyw0i/Uwg/SiZM=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2] xen/arm: Skip Xen specific nodes/properties from hwdom
+ /chosen node
+Thread-Topic: [PATCH v2] xen/arm: Skip Xen specific nodes/properties from
+ hwdom /chosen node
+Thread-Index: AQHZ5Wd9D+O58lCZNU6biiACA0CDeLAXdy8AgAB2IoA=
+Date: Wed, 13 Sep 2023 00:49:02 +0000
+Message-ID: <F80F50C1-4880-4776-8AE1-9552397624F2@arm.com>
+References: <20230912105341.16687-1-michal.orzel@amd.com>
+ <alpine.DEB.2.22.394.2309121045570.2080229@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2309121045570.2080229@ubuntu-linux-20-04-desktop>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.700.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|AS8PR08MB6663:EE_|DBAEUR03FT007:EE_|AS8PR08MB8923:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a8851a5-e61b-46c6-2f72-08dbb3f34157
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ hcr0DRjD+dBgao8dDG1/MvtyTAk9rsFubj584ef3+oTbfpvFVPvwVQJi+M4LW3PTF+nl6ctPkXcBHBtv2v9TvcmKjUPxOjOYcttjMpZAKxQ7ayFJjRxLfwUP2c0U8RUAA2ZOlwzRfFv+5fhNPEylV4XVB32kjj7m1zL8QPRNxXn4e8SkSTyb5fhyP1+dA0FJtD341+fOhinBurW9n11VGI3X/KjvB/0wz5l/IToGOePQ+WNxqcBZlOKLJ1hlNNjwIK4PHR4D3/wyxju0SdjyHRerhZ/GRS/ErlonP0Ajyn/kwclg9XgUzATY13BwvTSJ/zpcldw1Ny1QS+bLsP7gmxQvW6WyUb1FdhvGcdi0SfGDZ8I+ZSUcdBrGpTXwq23HsguSF/r7hj0Kc0GuNBxTZ/sD5tcH5oXK2b3PxJ3CWl1SbqYfFMQejYbyzFvC0dpgs1TSM6YEk/b21Sb3UBOICvg0MP1c/BTYRUJ9JBZfI5ymITgTicQHCvu4NUbwaqW/RlRAOIJL8P1cmbWEWtoIxsI0PvJQijR80tJ2T5ckSVYvT159mkDrd7u/q0BFmE6oeUWAfAPIxZnpzPRQeBbolS5sMu6mKHo9YafORYurPgjOUb1VQqQpALx1IER2GjAPtCC53GGUYUolKHwiiO3T9g==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(346002)(396003)(366004)(39860400002)(1800799009)(451199024)(186009)(478600001)(6506007)(53546011)(6486002)(71200400001)(6512007)(26005)(2616005)(91956017)(2906002)(41300700001)(66476007)(76116006)(66946007)(66446008)(66556008)(54906003)(316002)(64756008)(6916009)(5660300002)(8936002)(4326008)(8676002)(36756003)(86362001)(33656002)(122000001)(38070700005)(38100700002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <510983D9AF625C4D8293CFC13C0FDF20@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6663
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	506d0784-b2e6-4347-175d-08dbb3f33949
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ehul/zBKNC+gIAVehbFoORiWLVAbS8fMy7ezJf75WovLb/1qspw9BrioI83/6weF913gBBvwRdGar/3U+CMAtRaZ+z4bwBCQQgCvuU+wJAmg8wslGXip2UjaCzGPx8xrDUA7YOO2oXN1eQaM+HVrsMJa25RrDU9WoQSLI36IeLdX+A1EwbMQtjRVMMvWsp36iorQ6vyclRT6m4kL72RmcswiBuqI0r4PsoYdIKobp7lsuqtxr+8S3wbv6hN3ixhnC/C+z+tEWV2Akqb59gRRgDITFTZ6rWVDAF7Pv7X4n8Kgv1mLCOntn5PVzZtUA/AVyY9qk5O95XGqD2vRP5R36tzC4WnhVwlh+R+UCcEKHOzymw3Y4YjBE8WaIkHA9Elkn65vlsMzlhE/nqTdC0eRzHpFONwr4lazcKAcZf1Kp9UgXctmInkihwNWNGDQtD92jZ1UXoEsoiLigScc+vtpn2F9Es482aQrgNUaO09/I1C3c4K4BEYDHjUJL2AiC8A2jgbajYLcmbbnaOTQXv9cPv/DrrP4D2h7Owa90aG8I/9Cce1Oog4IlE+Aq2e0F0fkfu0AYfuFNXkEpU9mOcsrjzaK36AIzdV6n9CT4bai2S1mZjKfylh9/0SHlYvwndMiZT+pPC5R4azoPbbYCqGmXqwlIiI4IAUH7dVxOUDidzi04GK6sNdNrU7l7ss6h/3OgjVZq6W0OfNgRYudPap5V2Cep5AJ/K1YkPbTTPGkECrbwX1lj75ZM5aVc5NIClYv
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(346002)(39860400002)(376002)(186009)(82310400011)(1800799009)(451199024)(46966006)(36840700001)(40470700004)(41300700001)(36756003)(40480700001)(4326008)(6862004)(8936002)(8676002)(40460700003)(5660300002)(107886003)(70586007)(70206006)(316002)(86362001)(54906003)(33656002)(82740400003)(81166007)(36860700001)(2906002)(47076005)(356005)(336012)(26005)(2616005)(478600001)(6512007)(6506007)(6486002)(53546011);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 00:49:15.7714
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a8851a5-e61b-46c6-2f72-08dbb3f34157
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8923
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-armhf
-testid xen-build
+Hi Stefano,
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu https://gitlab.com/qemu-project/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+> On Sep 13, 2023, at 01:46, Stefano Stabellini <sstabellini@kernel.org> wr=
+ote:
+>=20
+> On Tue, 12 Sep 2023, Michal Orzel wrote:
+>> Skip the following Xen specific host device tree nodes/properties
+>> from being included into hardware domain /chosen node:
+>> - xen,static-heap: this property informs Xen about memory regions
+>>   reserved exclusively as static heap,
+>> - xen,domain-shared-memory-v1: node with this compatible informs Xen
+>>   about static shared memory region for a domain. Xen exposes a differen=
+t
+>>   node (under /reserved-memory with compatible "xen,shared-memory-v1") t=
+o
+>>   let domain know about the shared region,
+>> - xen,evtchn-v1: node with this compatible informs Xen about static
+>>   event channel configuration for a domain. Xen does not expose
+>>   information about static event channels to domUs and dom0 case was
+>>   overlooked (by default nodes from host dt are copied to dom0 fdt unles=
+s
+>>   explicitly marked to be skipped), since the author's idea was not to
+>>   expose it (refer docs/misc/arm/device-tree/booting.txt, "Static Event
+>>   Channel"). Even if we wanted to expose the static event channel
+>>   information, the current node is in the wrong format (i.e. contains
+>>   phandle to domU node not visible by dom0). Lastly, this feature is
+>>   marked as tech-preview and there is no Linux dt binding in place.
+>>=20
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>=20
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>=20
+> Do we need Henry's explicit approval on bug fixes at this point?
 
-*** Found and reproduced problem changeset ***
+I think it is a bit too early, we can wait for the code freeze for the rele=
+ase-ack.
+Before code freeze, maintainers/committers can push the patch as usual.
 
-  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
-  Bug introduced:  ca056f4499c259c0de68ed7cefad7ee7b62bfa43
-  Bug not present: a5e9fbf1dfd5b3f901f987755c89f1dc636c3747
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/182986/
+Anyway, I agree this patch is definitely qualified to be included in 4.18 s=
+o feel
+free to add below tag if you want.
 
+Release-acked-by: Henry Wang <Henry.Wang@arm.com>
 
-  commit ca056f4499c259c0de68ed7cefad7ee7b62bfa43
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed May 3 12:48:02 2023 +0200
-  
-      Python: Drop support for Python 3.7
-      
-      Debian 10 is not anymore a supported distro, since Debian 12 was
-      released on June 10, 2023.  Our supported build platforms as of today
-      all support at least 3.8 (and all of them except for Ubuntu 20.04
-      support 3.9):
-      
-      openSUSE Leap 15.5: 3.6.15 (3.11.2)
-      CentOS Stream 8:    3.6.8  (3.8.13, 3.9.16, 3.11.4)
-      CentOS Stream 9:    3.9.17 (3.11.4)
-      Fedora 37:          3.11.4
-      Fedora 38:          3.11.4
-      Debian 11:          3.9.2
-      Debian 12:          3.11.2
-      Alpine 3.14, 3.15:  3.9.16
-      Alpine 3.16, 3.17:  3.10.10
-      Ubuntu 20.04 LTS:   3.8.10
-      Ubuntu 22.04 LTS:   3.10.12
-      NetBSD 9.3:         3.9.13*
-      FreeBSD 12.4:       3.9.16
-      FreeBSD 13.1:       3.9.18
-      OpenBSD 7.2:        3.9.17
-      
-      Note: NetBSD does not appear to have a default meta-package, but offers
-      several options, the lowest of which is 3.7.15. However, "python39"
-      appears to be a pre-requisite to one of the other packages we request
-      in tests/vm/netbsd.
-      
-      Since it is safe under our supported platform policy, bump our
-      minimum supported version of Python to 3.8.  The two most interesting
-      features to have by default include:
-      
-      - the importlib.metadata module, whose lack is responsible for over 100
-        lines of code in mkvenv.py
-      
-      - improvements to asyncio, for example asyncio.CancelledError
-        inherits from BaseException rather than Exception
-      
-      In addition, code can now use the assignment operator ':='
-      
-      Because mypy now learns about importlib.metadata, a small change to
-      mkvenv.py is needed to pass type checking.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Kind regards,
+Henry
 
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-armhf.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-armhf.xen-build --summary-out=tmp/182986.bisection-summary --basis-template=182707 --blessings=real,real-bisect,real-retry qemu-mainline build-armhf xen-build
-Searching for failure / basis pass:
- 182943 fail [host=cubietruck-gleizes] / 182707 [host=cubietruck-picasso] 182638 [host=cubietruck-metzinger] 182606 ok.
-Failure / basis pass flights: 182943 / 182606
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu https://gitlab.com/qemu-project/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest cc26a2cb3162845bf51d41ea8cd1c438ffa6c50a c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
-Basis pass beafabdae49c873adecdb7511dbebe9d4ff5c8f0 17780edd81d27fcfdb7a802efc870a99788bd2fc 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 e5522c71beaa83f2f5d2118724ace9f90c22e583
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#beafabdae49c873adecdb7511dbebe9d4ff5c8f0-cc26a2cb3162845bf51d41ea8cd1c438ffa6c50a https://gitlab.com/qemu-project/qemu.git#17780edd81d27fcfdb7a802efc870a99788bd2fc-c5ea91da443b458352c1b629b490ee6631775cb4 git://xenbits.xen.org/osstest/seabios.git#7a4003be25eae462f3c3d8aad96b57e34dc0c2b8-7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 git://xenbits.xen.org/xen.git#e5522c71beaa83f2f5d2118724ace9f90c22e583-49b2d6a\
- 529122f10e17a17f807d8d51154b5ba14
-Loaded 20183 nodes in revision graph
-Searching for test results:
- 182588 [host=cubietruck-metzinger]
- 182606 pass beafabdae49c873adecdb7511dbebe9d4ff5c8f0 17780edd81d27fcfdb7a802efc870a99788bd2fc 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 e5522c71beaa83f2f5d2118724ace9f90c22e583
- 182638 [host=cubietruck-metzinger]
- 182707 [host=cubietruck-picasso]
- 182723 [host=cubietruck-braque]
- 182730 [host=cubietruck-braque]
- 182739 [host=cubietruck-braque]
- 182770 [host=cubietruck-metzinger]
- 182796 [host=cubietruck-metzinger]
- 182801 [host=cubietruck-metzinger]
- 182814 [host=cubietruck-picasso]
- 182835 [host=cubietruck-picasso]
- 182845 [host=cubietruck-picasso]
- 182854 [host=cubietruck-metzinger]
- 182865 [host=cubietruck-metzinger]
- 182879 [host=cubietruck-metzinger]
- 182884 [host=cubietruck-metzinger]
- 182900 [host=cubietruck-metzinger]
- 182907 fail b240eab03530f063ef5438497d70a731b19a201e c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182914 fail b240eab03530f063ef5438497d70a731b19a201e c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182939 pass beafabdae49c873adecdb7511dbebe9d4ff5c8f0 17780edd81d27fcfdb7a802efc870a99788bd2fc 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 e5522c71beaa83f2f5d2118724ace9f90c22e583
- 182929 fail cc26a2cb3162845bf51d41ea8cd1c438ffa6c50a c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182942 fail b240eab03530f063ef5438497d70a731b19a201e c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182946 fail cc26a2cb3162845bf51d41ea8cd1c438ffa6c50a c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182947 fail b74f1f7ab5e956f58ae1771dc4e2a4b92bc51430 2f352bc2270fdc896beb2957b5171b03ba3e2d66 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 cba6d44a13d5e25334d164e27cb1b1d7674aa05e
- 182943 fail cc26a2cb3162845bf51d41ea8cd1c438ffa6c50a c5ea91da443b458352c1b629b490ee6631775cb4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 49b2d6a529122f10e17a17f807d8d51154b5ba14
- 182950 fail 5443c2dc310d2c8eb15fb8eefd5057342e78cd0d 631c872614aca91eaf947c1748f0f27f99635d92 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 cba6d44a13d5e25334d164e27cb1b1d7674aa05e
- 182951 pass b81557a00c61cc80ab118828f16ed9ce79455880 269e60635a72f8dec4cb210b5b99e9e7f8920f34 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 1f79fce10a75f88d2c2a6ace469a4046bc1b9cb5
- 182953 pass 4d196352f35ac516b477e568265b4e537b0283d8 bde438c3ecdb9813038b226c429dd982925d8205 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 d8c3ff585b9fd10200b05aca77139de2789d0517
- 182957 pass b81557a00c61cc80ab118828f16ed9ce79455880 c97d45d55798b27410253df8fc724d2a02189aa8 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 1f79fce10a75f88d2c2a6ace469a4046bc1b9cb5
- 182960 pass b81557a00c61cc80ab118828f16ed9ce79455880 13d9f6dca08a38e9258b6328f3ad61bdb8e19619 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 1f79fce10a75f88d2c2a6ace469a4046bc1b9cb5
- 182962 pass bbf182229587958b17336c114e0a1525c4f90f3d 3df17650730fcc84a551baf34133e22e96101c84 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182967 fail bbf182229587958b17336c114e0a1525c4f90f3d fc30abf84662fd68c9308aa07c18b71eed0dffc0 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182970 pass bbf182229587958b17336c114e0a1525c4f90f3d 875be287cdba7b5a499711823314355fccc60913 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182976 fail bbf182229587958b17336c114e0a1525c4f90f3d 28a43cb4dcb3a58408c2936f7be5cb1e1a3ca016 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182977 fail bbf182229587958b17336c114e0a1525c4f90f3d 0a88ac9662950cecac74b5de3056071a964e4fc4 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182978 fail bbf182229587958b17336c114e0a1525c4f90f3d ca056f4499c259c0de68ed7cefad7ee7b62bfa43 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182979 pass bbf182229587958b17336c114e0a1525c4f90f3d a5e9fbf1dfd5b3f901f987755c89f1dc636c3747 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182981 fail bbf182229587958b17336c114e0a1525c4f90f3d ca056f4499c259c0de68ed7cefad7ee7b62bfa43 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182982 pass bbf182229587958b17336c114e0a1525c4f90f3d a5e9fbf1dfd5b3f901f987755c89f1dc636c3747 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182984 fail bbf182229587958b17336c114e0a1525c4f90f3d ca056f4499c259c0de68ed7cefad7ee7b62bfa43 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182985 pass bbf182229587958b17336c114e0a1525c4f90f3d a5e9fbf1dfd5b3f901f987755c89f1dc636c3747 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
- 182986 fail bbf182229587958b17336c114e0a1525c4f90f3d ca056f4499c259c0de68ed7cefad7ee7b62bfa43 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
-Searching for interesting versions
- Result found: flight 182606 (pass), for basis pass
- Result found: flight 182907 (fail), for basis failure (at ancestor ~14)
- Repro found: flight 182939 (pass), for basis pass
- Repro found: flight 182943 (fail), for basis failure
- 0 revisions at bbf182229587958b17336c114e0a1525c4f90f3d a5e9fbf1dfd5b3f901f987755c89f1dc636c3747 7a4003be25eae462f3c3d8aad96b57e34dc0c2b8 03f64b54a1d14893e7851a60ba4855fb75abf30a
-No revisions left to test, checking graph state.
- Result found: flight 182979 (pass), for last pass
- Result found: flight 182981 (fail), for first failure
- Repro found: flight 182982 (pass), for last pass
- Repro found: flight 182984 (fail), for first failure
- Repro found: flight 182985 (pass), for last pass
- Repro found: flight 182986 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
-  Bug introduced:  ca056f4499c259c0de68ed7cefad7ee7b62bfa43
-  Bug not present: a5e9fbf1dfd5b3f901f987755c89f1dc636c3747
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/182986/
-
-
-  commit ca056f4499c259c0de68ed7cefad7ee7b62bfa43
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed May 3 12:48:02 2023 +0200
-  
-      Python: Drop support for Python 3.7
-      
-      Debian 10 is not anymore a supported distro, since Debian 12 was
-      released on June 10, 2023.  Our supported build platforms as of today
-      all support at least 3.8 (and all of them except for Ubuntu 20.04
-      support 3.9):
-      
-      openSUSE Leap 15.5: 3.6.15 (3.11.2)
-      CentOS Stream 8:    3.6.8  (3.8.13, 3.9.16, 3.11.4)
-      CentOS Stream 9:    3.9.17 (3.11.4)
-      Fedora 37:          3.11.4
-      Fedora 38:          3.11.4
-      Debian 11:          3.9.2
-      Debian 12:          3.11.2
-      Alpine 3.14, 3.15:  3.9.16
-      Alpine 3.16, 3.17:  3.10.10
-      Ubuntu 20.04 LTS:   3.8.10
-      Ubuntu 22.04 LTS:   3.10.12
-      NetBSD 9.3:         3.9.13*
-      FreeBSD 12.4:       3.9.16
-      FreeBSD 13.1:       3.9.18
-      OpenBSD 7.2:        3.9.17
-      
-      Note: NetBSD does not appear to have a default meta-package, but offers
-      several options, the lowest of which is 3.7.15. However, "python39"
-      appears to be a pre-requisite to one of the other packages we request
-      in tests/vm/netbsd.
-      
-      Since it is safe under our supported platform policy, bump our
-      minimum supported version of Python to 3.8.  The two most interesting
-      features to have by default include:
-      
-      - the importlib.metadata module, whose lack is responsible for over 100
-        lines of code in mkvenv.py
-      
-      - improvements to asyncio, for example asyncio.CancelledError
-        inherits from BaseException rather than Exception
-      
-      In addition, code can now use the assignment operator ':='
-      
-      Because mypy now learns about importlib.metadata, a small change to
-      mkvenv.py is needed to pass type checking.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-armhf.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-182986: tolerable ALL FAIL
-
-flight 182986 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/182986/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-armhf                   6 xen-build               fail baseline untested
-
-
-jobs:
- build-armhf                                                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
