@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D5B79E49F
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 12:11:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601162.937097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56A6C79E4D5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 12:26:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601174.937107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgMqN-00063S-Vb; Wed, 13 Sep 2023 10:11:35 +0000
+	id 1qgN48-00018o-BJ; Wed, 13 Sep 2023 10:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601162.937097; Wed, 13 Sep 2023 10:11:35 +0000
+Received: by outflank-mailman (output) from mailman id 601174.937107; Wed, 13 Sep 2023 10:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgMqN-00061Y-Sj; Wed, 13 Sep 2023 10:11:35 +0000
-Received: by outflank-mailman (input) for mailman id 601162;
- Wed, 13 Sep 2023 10:11:34 +0000
+	id 1qgN48-000166-8Y; Wed, 13 Sep 2023 10:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 601174;
+ Wed, 13 Sep 2023 10:25:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VJSs=E5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qgMqM-00061S-CJ
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 10:11:34 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=yjWf=E5=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1qgN47-000160-7B
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 10:25:47 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea13f538-521d-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 12:11:33 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-31dca134c83so6688857f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 03:11:33 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- t15-20020adff04f000000b0031434c08bb7sm15028074wro.105.2023.09.13.03.11.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Sep 2023 03:11:32 -0700 (PDT)
+ id e68a753b-521f-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 12:25:46 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2bcb89b476bso114200131fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 03:25:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +40,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea13f538-521d-11ee-8786-cb3800f73035
+X-Inumbo-ID: e68a753b-521f-11ee-8786-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694599892; x=1695204692; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GGgyci124H8hidEcnFo2r9YAeq+z/nN9ybuqnCCcg8I=;
-        b=jJMoIvrmlOhWWnwN33C45sQuSz0sF4L1xFYvbskRMfBp/a5u0sqGMBAmGEgy3ADUln
-         LGbErX4wZM/zGFloIBP0LC1yaiYOYcJmqXINH1rquEJI4bFNG7mpmSC3dVVOcEU+yqG9
-         I53YduLIKnUZYVHCCBXtXC8gg1D4rl9EoMGnY=
+        d=cloud.com; s=cloud; t=1694600745; x=1695205545; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AnVOd1OmPn26d0MyqQJvJzMKH46KhBt4Kite4K+jHvs=;
+        b=Y18lJp2lxOaBcQ+FY5L0baO9/K4GP7zERATA7rI/kXTEoRtUBG7uEQWKjyozBVLqs9
+         OiFLkQUOxsTQeSoCG63h7FIJ7e02J5qNo3gQzNZMVcdahGApjxSl3dHch6uKCgsvZNOM
+         mflXMOH6ZZQFfxCuulmKEojZlP3UPjOYAmw1M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694599892; x=1695204692;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GGgyci124H8hidEcnFo2r9YAeq+z/nN9ybuqnCCcg8I=;
-        b=dyOGFBjGlMmFkrARcypbNiKvZwHe3tS/3DKuC0BpFmZunTf3as42McwBQnyl0jlbr7
-         p8SiE8Jtx/J0VoJVOZAcoyVtsq6/lYm8x76BtoYuV8t/9ClWGxAS5aVYE3G308SaboYo
-         Sxr1szcZt+1QMfmvJfRc8fdqxnVLG06istOUenojbbxUdlFUCWfwHxPgRhBmZsdBqzIS
-         45xFeRh3x/skF+PZ+PlJ320y7V8IX4ZAqfOFnP2ohmgNU7FrPC46s7yfdthM1p/x+Y6t
-         1W65yrGKOA55IMPfMdj3+iuzzZw827sQh5eklk0vMxWZ8hQeUSyCDyeRnS937Sf8YWmn
-         CQ7A==
-X-Gm-Message-State: AOJu0YwZf2HrSA7zBY1hnePsUDoepI/uqKhRyJla5pdXtLGcjLkwi6We
-	KIKpnT/T4RektzHDLELpngBwfg==
-X-Google-Smtp-Source: AGHT+IE9jI98Etvv0Q/L8W2UsIGOJxDBuDGWChRK9AHW/+RsHrUPCobZBfe2JlL1cbS+3nm/uOPung==
-X-Received: by 2002:a05:6000:11d1:b0:315:8f4f:81b8 with SMTP id i17-20020a05600011d100b003158f4f81b8mr1762144wrx.50.1694599892496;
-        Wed, 13 Sep 2023 03:11:32 -0700 (PDT)
-Message-ID: <793b37dd-5eb6-f69b-e86d-bcc1ed388561@citrix.com>
-Date: Wed, 13 Sep 2023 11:11:31 +0100
+        d=1e100.net; s=20230601; t=1694600745; x=1695205545;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=AnVOd1OmPn26d0MyqQJvJzMKH46KhBt4Kite4K+jHvs=;
+        b=v7LqSfuGL3GDsw/TSzUa6WL63wOcJkTsW83OGxC2yqDxtftgtu9rK9YYL28SuNURSP
+         xtjMEyFw9Et1gDS1xGPda+rztCqowEQO+oDqsi9eIxR4G2phdcRqK6K+dvHERpN1RN55
+         gZkTiwKkHENA2NhNB2kt6rd0x/QooghSlegfPgEQ9/rJad8SXvu33aJZF1YXe8WbHRH8
+         KUvVGNlj2Hc9b88vBMYeRvdi25mqstUoIt2rI/cOOa5YDTQVV3i0uAP63NJ1vGLpq0SI
+         tMclCRzet+K3InO7x8ZlKnE8Ok7Afo1JLneIGIyZv+U3nW3vKVJaYy33fhD005gTgn1k
+         QpAg==
+X-Gm-Message-State: AOJu0YzvPzgGap5BBTK5n+hAle7I37LR6Hq9TVtAcVQZaLgjm6m/eYE+
+	tJ8hk0qrOa2Qe496bF0q6Tt5edfYBwV3k4YmTJ3NY7d4+Pa6QmsBy8MT1Q==
+X-Google-Smtp-Source: AGHT+IE9olSIF3tW61dxmxgGzDefZsGkFax2HWCa/BNyXMFyNyZ3Vqf3pAte65Id+2VlvJ5UNiCG59ztpoJYwYJM+5U=
+X-Received: by 2002:a2e:b0d6:0:b0:2bc:ffcc:6cc0 with SMTP id
+ g22-20020a2eb0d6000000b002bcffcc6cc0mr1958349ljl.17.1694600745595; Wed, 13
+ Sep 2023 03:25:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/amd: do not expose HWCR.TscFreqSel to guests
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, solene@openbsd.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Demi Marie Obenour <demi@invisiblethingslab.com>
-References: <20230912162305.34339-1-roger.pau@citrix.com>
- <fc91c802-5f71-4ec9-8c11-68fd2c4ae672@citrix.com>
- <989ebefa-42f1-cac7-e2d3-f4bcd1e4b662@citrix.com>
- <ZQFt-7x90QWL_Rmi@MacBook-MacBook-Pro-de-Roger.local>
-In-Reply-To: <ZQFt-7x90QWL_Rmi@MacBook-MacBook-Pro-de-Roger.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <a17ba988-2850-fced-d225-97e1d11f6576@suse.com>
+ <CA+zSX=aCwR5gxk3jyPDoWRvoFAAjORWigtrbaO9ow5EvmT_tZg@mail.gmail.com> <ea6686a2-dfe3-4a6f-5d3c-a729f95520d1@suse.com>
+In-Reply-To: <ea6686a2-dfe3-4a6f-5d3c-a729f95520d1@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Wed, 13 Sep 2023 11:25:34 +0100
+Message-ID: <CA+zSX=a1oyPOJLvwBq+YXGnumi7HAqk_XoL=Wat9iHnz7fTe6g@mail.gmail.com>
+Subject: Re: [PATCH] timer: fix NR_CPUS=1 build with gcc13
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/09/2023 9:08 am, Roger Pau Monné wrote:
-> On Tue, Sep 12, 2023 at 05:36:53PM +0100, Andrew Cooper wrote:
->> On 12/09/2023 5:35 pm, Andrew Cooper wrote:
->>> On 12/09/2023 5:23 pm, Roger Pau Monne wrote:
->>>> OpenBSD will attempt to unconditionally access PSTATE0 if HWCR.TscFreqSel is
->>>> set, and will also attempt to unconditionally access HWCR if the TSC is
->>>> reported as Invariant.
->>>>
->>>> The reasoning for exposing HWCR.TscFreqSel was to avoid Linux from printing a
->>>> (bogus) warning message, but doing so at the cost of OpenBSD not booting is not
->>>> a suitable solution.
->>>>
->>>> In order to fix expose an empty HWCR.
->>> At first I was thinking a straight up revert, but AMD's CPUID Faulting
->>> is an architectural bit in here so it's worth keeping the register around.
->>>
->>>> Fixes: 14b95b3b8546 ('x86/AMD: expose HWCR.TscFreqSel to guests')
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> ---
->>>> Not sure whether we want to expose something when is_cpufreq_controller() is
->>>> true, seeing as there's a special wrmsr handler for the same MSR in that case.
->>>> Likely should be done for PV only, but also likely quite bogus.
->>>>
->>>> Missing reported by as the issue came from the QubesOS tracker.
->>> Well - we can at least have a:
->>>
->>> Link: https://github.com/QubesOS/qubes-issues/issues/8502
->>>
->>> in the commit message, and it's probably worth asking Solène / Marek
->>> (both CC'd) if they want a Reported-by tag.
->>>
->>>> ---
->>>>  xen/arch/x86/msr.c | 8 ++++++--
->>>>  1 file changed, 6 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
->>>> index 3f0450259cdf..964d500ff8a1 100644
->>>> --- a/xen/arch/x86/msr.c
->>>> +++ b/xen/arch/x86/msr.c
->>>> @@ -240,8 +240,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->>>>      case MSR_K8_HWCR:
->>>>          if ( !(cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
->>>>              goto gp_fault;
->>>> -        *val = get_cpu_family(cp->basic.raw_fms, NULL, NULL) >= 0x10
->>>> -               ? K8_HWCR_TSC_FREQ_SEL : 0;
->>>> +        /*
->>>> +         * OpenBSD 7.3 accesses HWCR unconditionally if the TSC is reported as
->>>> +         * Invariant.  Do not set TSC_FREQ_SEL as that would trigger OpenBSD to
->>>> +         * also poke at PSTATE0.
->>>> +         */
->>> While this is true, the justification for removing this is because
->>> TSC_FREQ_SEL is a model specific bit, not an architectural bit in HWCR.
->>>
->>> Also because it's addition without writing into the migration stream was
->>> bogus irrespective of the specifics of the bit.
->>>
->>> I'm still of the opinion that it's buggy for OpenBSD to be looking at
->>> model specific bits when virtualised, but given my latest reading of the
->>> AMD manuals, I think OpenBSD *is* well behaved looking at PSTATE0 if it
->>> can see TSC_FREQ_SEL.
->>>
->>> In some theoretical future where the toolstack better understands MSRs
->>> and (non)migratable VMs (which is the QubesOS usecase), then it would in
->>> principle be fine to construct a VM which can see the host TSC_FREQ_SEL
->>> and PSTATE* values.
->>>
->>> Preferably with an adjusted comment, Reviewed-by: Andrew Cooper
->>> <andrew.cooper3@citrix.com>
->> Sorry - I meant to be clearer here.  I'd suggest just deleting the
->> comment and leaving an unconditional return of 0 (which will become
->> conditional when we wire up CPUID Faulting).
->>
->> MSR_HWCR *is* an architectural MSR on any 64bit AMD system, so shouldn't
->> fault.
-> Hm, I think it's worth to at least keep a note that if TSC_FREQ_SEL is
-> exposed PSTATE0 must also be exposed to prevent OpenBSD 7.3 from
-> panicking.
+On Wed, Sep 13, 2023 at 11:05=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 13.09.2023 11:44, George Dunlap wrote:
+> > On Wed, Sep 13, 2023 at 8:32=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >>
+> >> Gcc13 apparently infers from "if ( old_cpu < new_cpu )" that "new_cpu"
+> >> is >=3D 1, and then (on x86) complains about "per_cpu(timers, new_cpu)=
+"
+> >> exceeding __per_cpu_offset[]'s bounds (being an array of 1 in such a
+> >> configuration). Make the code conditional upon there being at least 2
+> >> CPUs configured (otherwise there simply is nothing to migrate [to]).
+> >
+> > Hmm, without digging into it, migrate_timer() doesn't seem like very
+> > robust code: It doesn't check to make sure that new_cpu is valid, nor
+> > does it give the option of returning an error if anything fails.
+>
+> Question is - what do you expect the callers to do upon getting back
+> failure?
 
-But there's nothing OpenBSD 7.3 specific about it.
+[snip]
 
-Any software which sees this bit is permitted (expected even) to edit
-the pstate registers.
+> >  Would it make more sense to add `||
+> > (new_cpu > CONFIG_NR_CPUS)` to the early-return  conditional at the
+> > top of the first `for (; ; )` loop?
+>
+> But that would mean not doing what was requested without any indication
+> to the caller. An out-of-range CPU passed in is generally very likely
+> to result in a crash, I think.
 
+If it's only off by a little bit, there's a good chance it might just
+corrupt some other data, causing a crash further down the line, where
+it's not obvious what went wrong.  Generally speaking, passing an
+error up the stack, explicitly crashing, or explicitly doing nothing
+with a warning to the console are all better options.
 
-You know why it's called frequency select?  Because firmware is supposed
-to program the systemwide frequency/voltage to the user's request for
-whether the system wants to run cooler, or be overclocked.
+> > I guess if we don't expect it ever to be called, it might be better to
+> > get rid of the code entirely; but maybe in that case we should add
+> > something like the following?
+> >
+> > ```
+> > #else
+> >     WARN_ONCE("migrate_timer: Request to move to %u on a single-core
+> > system!", new_cpu);
+> >     ASSERT_UNREACHABLE();
+> > #endif
+> > ```
+>
+> With the old_cpu =3D=3D new_cpu case explicitly permitted (and that being
+> the only legal case when NR_CPUS=3D1, which arguably is an aspect which
+> makes gcc's diagnostic questionable), perhaps only
+>
+> #else
+>     old_cpu =3D ...;
+>     if ( old_cpu !=3D TIMER_CPU_status_killed )
+>         WARN_ON(new_cpu !=3D old_cpu);
+> #endif
+>
+> (I'm afraid we have no WARN_ON_ONCE() yet, nor WARN_ONCE())?
 
+I think I was looking for `printk_once`.
 
-Putting OpenBSD 7.3 in the commit message is absolutely relevant to why
-we're making this change now, but it's not relevant to why we have
-concluded that TSC_FREQ_SEL is bogus to expose to guests.
+If there's no reasonable way to fail more gracefully (or no real point
+in making the effort to do so), what if we add the following to the
+top of the function?  Does that make gcc13 happy?
 
-~Andrew
+```
+if ( new_cpu >=3D CONFIG_NR_CPUS )
+{
+    printk_once(/* whatever */);
+    ASSERT_UNREACHABLE();
+    return;
+}
+```
+
+Or, if we feel like being passed an invalid cpu means the state is so
+bad it would be better to just crash and have done with it:
+
+```
+  BUG_ON(new_cpu >=3D CONFIG_NR_CPUS);
+```
+
+ -George
 
