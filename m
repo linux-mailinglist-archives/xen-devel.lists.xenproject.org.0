@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF4879F284
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:01:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601545.937579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6C079F285
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 22:01:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601546.937586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgW2r-0006jN-M8; Wed, 13 Sep 2023 20:01:05 +0000
+	id 1qgW2s-0006rn-4X; Wed, 13 Sep 2023 20:01:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601545.937579; Wed, 13 Sep 2023 20:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 601546.937586; Wed, 13 Sep 2023 20:01:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgW2r-0006iZ-G5; Wed, 13 Sep 2023 20:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 601545;
+	id 1qgW2r-0006jH-R6; Wed, 13 Sep 2023 20:01:05 +0000
+Received: by outflank-mailman (input) for mailman id 601546;
  Wed, 13 Sep 2023 20:01:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KJQj=E5=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1qgW2q-0006hx-2d
+ id 1qgW2q-0006RI-Du
  for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 20:01:04 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43455a95-5270-11ee-8787-cb3800f73035;
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43625a95-5270-11ee-9b0d-b553b5be7939;
  Wed, 13 Sep 2023 22:01:02 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-614-PwMA5HczPguv2YeuDT1NhA-1; Wed, 13 Sep 2023 16:00:56 -0400
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+ us-mta-303-I8LERHS8PpC5WWseqPnzKg-1; Wed, 13 Sep 2023 16:00:58 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BF8B857A9D;
- Wed, 13 Sep 2023 20:00:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C57788905A;
+ Wed, 13 Sep 2023 20:00:57 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.13])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 10CD640C6EBF;
- Wed, 13 Sep 2023 20:00:48 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C1B9910F1BE7;
+ Wed, 13 Sep 2023 20:00:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43455a95-5270-11ee-8787-cb3800f73035
+X-Inumbo-ID: 43625a95-5270-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1694635261;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pG2WPZLRqDLjPAdddF1KKTi0oO1n+tSekW4IHh1/dp4=;
-	b=TaEu0B6j7lNdai1MjO/xRT11xDT483roe+4KRIyuhtUEEbMWwA0NgUt5eEZJwSaWdodXes
-	HqeG6Fx1jKecmhXexqfpDd7Tqo1idKfbViOsFlnOAX2FFo7BwJ00kARgMTzqmft/LAZKCG
-	p3Wk1OkR4fVJWJEYz4h16l6vtBSoTyc=
-X-MC-Unique: PwMA5HczPguv2YeuDT1NhA-1
+	bh=vZx2mIKFs9Ta6GgBCR1MQ0gDXiljqmR/KSAIKi0gYQc=;
+	b=BdWFWU7MxQBY56c8Y7hU0g0tfxDOHJHCEbQ9/rSM71KsBAkxDRnlu6IH0n6pg/t/mcdh9v
+	7DH/HQJXuTkoWB1CfcdEA+4GIPezBiqciDWlZeAO/4UKlavPtMPdmqRmrr3H8q7WULUIS0
+	bJnDoiCMhSlDpbxnsJK0vRmR0nG6yMw=
+X-MC-Unique: I8LERHS8PpC5WWseqPnzKg-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -80,443 +80,235 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Fam Zheng <fam@euphon.net>,
 	Stefano Garzarella <sgarzare@redhat.com>,
 	Hanna Reitz <hreitz@redhat.com>
-Subject: [PATCH v3 1/4] block: rename blk_io_plug_call() API to defer_call()
-Date: Wed, 13 Sep 2023 16:00:42 -0400
-Message-ID: <20230913200045.1024233-2-stefanha@redhat.com>
+Subject: [PATCH v3 2/4] util/defer-call: move defer_call() to util/
+Date: Wed, 13 Sep 2023 16:00:43 -0400
+Message-ID: <20230913200045.1024233-3-stefanha@redhat.com>
 In-Reply-To: <20230913200045.1024233-1-stefanha@redhat.com>
 References: <20230913200045.1024233-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 
-Prepare to move the blk_io_plug_call() API out of the block layer so
-that other subsystems call use this deferred call mechanism. Rename it
-to defer_call() but leave the code in block/plug.c.
+The networking subsystem may wish to use defer_call(), so move the code
+to util/ where it can be reused.
 
-The next commit will move the code out of the block layer.
+As a reminder of what defer_call() does:
+
+This API defers a function call within a defer_call_begin()/defer_call_end()
+section, allowing multiple calls to batch up. This is a performance
+optimization that is used in the block layer to submit several I/O requests
+at once instead of individually:
+
+  defer_call_begin(); <-- start of section
+  ...
+  defer_call(my_func, my_obj); <-- deferred my_func(my_obj) call
+  defer_call(my_func, my_obj); <-- another
+  defer_call(my_func, my_obj); <-- another
+  ...
+  defer_call_end(); <-- end of section, my_func(my_obj) is called once
 
 Suggested-by: Ilya Maximets <i.maximets@ovn.org>
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Paul Durrant <paul@xen.org>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- include/sysemu/block-backend-io.h |   6 +-
- block/blkio.c                     |   8 +--
- block/io_uring.c                  |   4 +-
- block/linux-aio.c                 |   4 +-
- block/nvme.c                      |   4 +-
- block/plug.c                      | 109 +++++++++++++++---------------
- hw/block/dataplane/xen-block.c    |  10 +--
- hw/block/virtio-blk.c             |   4 +-
- hw/scsi/virtio-scsi.c             |   6 +-
- 9 files changed, 76 insertions(+), 79 deletions(-)
+ MAINTAINERS                       |  3 ++-
+ include/qemu/defer-call.h         | 16 ++++++++++++++++
+ include/sysemu/block-backend-io.h |  4 ----
+ block/blkio.c                     |  1 +
+ block/io_uring.c                  |  1 +
+ block/linux-aio.c                 |  1 +
+ block/nvme.c                      |  1 +
+ hw/block/dataplane/xen-block.c    |  1 +
+ hw/block/virtio-blk.c             |  1 +
+ hw/scsi/virtio-scsi.c             |  1 +
+ block/plug.c => util/defer-call.c |  2 +-
+ block/meson.build                 |  1 -
+ util/meson.build                  |  1 +
+ 13 files changed, 27 insertions(+), 7 deletions(-)
+ create mode 100644 include/qemu/defer-call.h
+ rename block/plug.c => util/defer-call.c (99%)
 
-diff --git a/include/sysemu/block-backend-io.h b/include/sysemu/block-backend-io.h
-index be4dcef59d..cfcfd85c1d 100644
---- a/include/sysemu/block-backend-io.h
-+++ b/include/sysemu/block-backend-io.h
-@@ -100,9 +100,9 @@ void blk_iostatus_set_err(BlockBackend *blk, int error);
- int blk_get_max_iov(BlockBackend *blk);
- int blk_get_max_hw_iov(BlockBackend *blk);
- 
--void blk_io_plug(void);
--void blk_io_unplug(void);
--void blk_io_plug_call(void (*fn)(void *), void *opaque);
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 00562f924f..acda735326 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2685,12 +2685,13 @@ S: Supported
+ F: util/async.c
+ F: util/aio-*.c
+ F: util/aio-*.h
++F: util/defer-call.c
+ F: util/fdmon-*.c
+ F: block/io.c
+-F: block/plug.c
+ F: migration/block*
+ F: include/block/aio.h
+ F: include/block/aio-wait.h
++F: include/qemu/defer-call.h
+ F: scripts/qemugdb/aio.py
+ F: tests/unit/test-fdmon-epoll.c
+ T: git https://github.com/stefanha/qemu.git block
+diff --git a/include/qemu/defer-call.h b/include/qemu/defer-call.h
+new file mode 100644
+index 0000000000..e2c1d24572
+--- /dev/null
++++ b/include/qemu/defer-call.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Deferred calls
++ *
++ * Copyright Red Hat.
++ */
++
++#ifndef QEMU_DEFER_CALL_H
++#define QEMU_DEFER_CALL_H
++
++/* See documentation in util/defer-call.c */
 +void defer_call_begin(void);
 +void defer_call_end(void);
 +void defer_call(void (*fn)(void *), void *opaque);
++
++#endif /* QEMU_DEFER_CALL_H */
+diff --git a/include/sysemu/block-backend-io.h b/include/sysemu/block-backend-io.h
+index cfcfd85c1d..d174275a5c 100644
+--- a/include/sysemu/block-backend-io.h
++++ b/include/sysemu/block-backend-io.h
+@@ -100,10 +100,6 @@ void blk_iostatus_set_err(BlockBackend *blk, int error);
+ int blk_get_max_iov(BlockBackend *blk);
+ int blk_get_max_hw_iov(BlockBackend *blk);
  
+-void defer_call_begin(void);
+-void defer_call_end(void);
+-void defer_call(void (*fn)(void *), void *opaque);
+-
  AioContext *blk_get_aio_context(BlockBackend *blk);
  BlockAcctStats *blk_get_stats(BlockBackend *blk);
+ void *blk_aio_get(const AIOCBInfo *aiocb_info, BlockBackend *blk,
 diff --git a/block/blkio.c b/block/blkio.c
-index 1dd495617c..7cf6d61f47 100644
+index 7cf6d61f47..0a0a6c0f5f 100644
 --- a/block/blkio.c
 +++ b/block/blkio.c
-@@ -312,10 +312,10 @@ static void blkio_detach_aio_context(BlockDriverState *bs)
- }
- 
- /*
-- * Called by blk_io_unplug() or immediately if not plugged. Called without
-- * blkio_lock.
-+ * Called by defer_call_end() or immediately if not in a deferred section.
-+ * Called without blkio_lock.
-  */
--static void blkio_unplug_fn(void *opaque)
-+static void blkio_deferred_fn(void *opaque)
- {
-     BDRVBlkioState *s = opaque;
- 
-@@ -332,7 +332,7 @@ static void blkio_submit_io(BlockDriverState *bs)
- {
-     BDRVBlkioState *s = bs->opaque;
- 
--    blk_io_plug_call(blkio_unplug_fn, s);
-+    defer_call(blkio_deferred_fn, s);
- }
- 
- static int coroutine_fn
+@@ -13,6 +13,7 @@
+ #include "block/block_int.h"
+ #include "exec/memory.h"
+ #include "exec/cpu-common.h" /* for qemu_ram_get_fd() */
++#include "qemu/defer-call.h"
+ #include "qapi/error.h"
+ #include "qemu/error-report.h"
+ #include "qapi/qmp/qdict.h"
 diff --git a/block/io_uring.c b/block/io_uring.c
-index 69d9820928..8429f341be 100644
+index 8429f341be..3a1e1f45b3 100644
 --- a/block/io_uring.c
 +++ b/block/io_uring.c
-@@ -306,7 +306,7 @@ static void ioq_init(LuringQueue *io_q)
-     io_q->blocked = false;
- }
- 
--static void luring_unplug_fn(void *opaque)
-+static void luring_deferred_fn(void *opaque)
- {
-     LuringState *s = opaque;
-     trace_luring_unplug_fn(s, s->io_q.blocked, s->io_q.in_queue,
-@@ -367,7 +367,7 @@ static int luring_do_submit(int fd, LuringAIOCB *luringcb, LuringState *s,
-             return ret;
-         }
- 
--        blk_io_plug_call(luring_unplug_fn, s);
-+        defer_call(luring_deferred_fn, s);
-     }
-     return 0;
- }
+@@ -15,6 +15,7 @@
+ #include "block/block.h"
+ #include "block/raw-aio.h"
+ #include "qemu/coroutine.h"
++#include "qemu/defer-call.h"
+ #include "qapi/error.h"
+ #include "sysemu/block-backend.h"
+ #include "trace.h"
 diff --git a/block/linux-aio.c b/block/linux-aio.c
-index 1a51503271..49a37174c2 100644
+index 49a37174c2..a2670b3e46 100644
 --- a/block/linux-aio.c
 +++ b/block/linux-aio.c
-@@ -353,7 +353,7 @@ static uint64_t laio_max_batch(LinuxAioState *s, uint64_t dev_max_batch)
-     return max_batch;
- }
- 
--static void laio_unplug_fn(void *opaque)
-+static void laio_deferred_fn(void *opaque)
- {
-     LinuxAioState *s = opaque;
- 
-@@ -393,7 +393,7 @@ static int laio_do_submit(int fd, struct qemu_laiocb *laiocb, off_t offset,
-         if (s->io_q.in_queue >= laio_max_batch(s, dev_max_batch)) {
-             ioq_submit(s);
-         } else {
--            blk_io_plug_call(laio_unplug_fn, s);
-+            defer_call(laio_deferred_fn, s);
-         }
-     }
+@@ -14,6 +14,7 @@
+ #include "block/raw-aio.h"
+ #include "qemu/event_notifier.h"
+ #include "qemu/coroutine.h"
++#include "qemu/defer-call.h"
+ #include "qapi/error.h"
+ #include "sysemu/block-backend.h"
  
 diff --git a/block/nvme.c b/block/nvme.c
-index b6e95f0b7e..dfbd1085fd 100644
+index dfbd1085fd..96b3f8f2fa 100644
 --- a/block/nvme.c
 +++ b/block/nvme.c
-@@ -476,7 +476,7 @@ static void nvme_trace_command(const NvmeCmd *cmd)
-     }
- }
- 
--static void nvme_unplug_fn(void *opaque)
-+static void nvme_deferred_fn(void *opaque)
- {
-     NVMeQueuePair *q = opaque;
- 
-@@ -503,7 +503,7 @@ static void nvme_submit_command(NVMeQueuePair *q, NVMeRequest *req,
-     q->need_kick++;
-     qemu_mutex_unlock(&q->lock);
- 
--    blk_io_plug_call(nvme_unplug_fn, q);
-+    defer_call(nvme_deferred_fn, q);
- }
- 
- static void nvme_admin_cmd_sync_cb(void *opaque, int ret)
-diff --git a/block/plug.c b/block/plug.c
-index 98a155d2f4..f26173559c 100644
---- a/block/plug.c
-+++ b/block/plug.c
-@@ -1,24 +1,21 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-- * Block I/O plugging
-+ * Deferred calls
-  *
-  * Copyright Red Hat.
-  *
-- * This API defers a function call within a blk_io_plug()/blk_io_unplug()
-+ * This API defers a function call within a defer_call_begin()/defer_call_end()
-  * section, allowing multiple calls to batch up. This is a performance
-  * optimization that is used in the block layer to submit several I/O requests
-  * at once instead of individually:
-  *
-- *   blk_io_plug(); <-- start of plugged region
-+ *   defer_call_begin(); <-- start of section
-  *   ...
-- *   blk_io_plug_call(my_func, my_obj); <-- deferred my_func(my_obj) call
-- *   blk_io_plug_call(my_func, my_obj); <-- another
-- *   blk_io_plug_call(my_func, my_obj); <-- another
-+ *   defer_call(my_func, my_obj); <-- deferred my_func(my_obj) call
-+ *   defer_call(my_func, my_obj); <-- another
-+ *   defer_call(my_func, my_obj); <-- another
-  *   ...
-- *   blk_io_unplug(); <-- end of plugged region, my_func(my_obj) is called once
-- *
-- * This code is actually generic and not tied to the block layer. If another
-- * subsystem needs this functionality, it could be renamed.
-+ *   defer_call_end(); <-- end of section, my_func(my_obj) is called once
+@@ -16,6 +16,7 @@
+ #include "qapi/error.h"
+ #include "qapi/qmp/qdict.h"
+ #include "qapi/qmp/qstring.h"
++#include "qemu/defer-call.h"
+ #include "qemu/error-report.h"
+ #include "qemu/main-loop.h"
+ #include "qemu/module.h"
+diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
+index e9dd8f8a99..c4bb28c66f 100644
+--- a/hw/block/dataplane/xen-block.c
++++ b/hw/block/dataplane/xen-block.c
+@@ -19,6 +19,7 @@
   */
  
  #include "qemu/osdep.h"
-@@ -27,66 +24,66 @@
- #include "qemu/thread.h"
- #include "sysemu/block-backend.h"
- 
--/* A function call that has been deferred until unplug() */
-+/* A function call that has been deferred until defer_call_end() */
- typedef struct {
-     void (*fn)(void *);
-     void *opaque;
--} UnplugFn;
-+} DeferredCall;
- 
- /* Per-thread state */
- typedef struct {
--    unsigned count;       /* how many times has plug() been called? */
--    GArray *unplug_fns;   /* functions to call at unplug time */
--} Plug;
-+    unsigned nesting_level;
-+    GArray *deferred_call_array;
-+} DeferCallThreadState;
- 
--/* Use get_ptr_plug() to fetch this thread-local value */
--QEMU_DEFINE_STATIC_CO_TLS(Plug, plug);
-+/* Use get_ptr_defer_call_thread_state() to fetch this thread-local value */
-+QEMU_DEFINE_STATIC_CO_TLS(DeferCallThreadState, defer_call_thread_state);
- 
- /* Called at thread cleanup time */
--static void blk_io_plug_atexit(Notifier *n, void *value)
-+static void defer_call_atexit(Notifier *n, void *value)
- {
--    Plug *plug = get_ptr_plug();
--    g_array_free(plug->unplug_fns, TRUE);
-+    DeferCallThreadState *thread_state = get_ptr_defer_call_thread_state();
-+    g_array_free(thread_state->deferred_call_array, TRUE);
- }
- 
- /* This won't involve coroutines, so use __thread */
--static __thread Notifier blk_io_plug_atexit_notifier;
-+static __thread Notifier defer_call_atexit_notifier;
- 
- /**
-- * blk_io_plug_call:
-+ * defer_call:
-  * @fn: a function pointer to be invoked
-  * @opaque: a user-defined argument to @fn()
-  *
-- * Call @fn(@opaque) immediately if not within a blk_io_plug()/blk_io_unplug()
-- * section.
-+ * Call @fn(@opaque) immediately if not within a
-+ * defer_call_begin()/defer_call_end() section.
-  *
-  * Otherwise defer the call until the end of the outermost
-- * blk_io_plug()/blk_io_unplug() section in this thread. If the same
-+ * defer_call_begin()/defer_call_end() section in this thread. If the same
-  * @fn/@opaque pair has already been deferred, it will only be called once upon
-- * blk_io_unplug() so that accumulated calls are batched into a single call.
-+ * defer_call_end() so that accumulated calls are batched into a single call.
-  *
-  * The caller must ensure that @opaque is not freed before @fn() is invoked.
-  */
--void blk_io_plug_call(void (*fn)(void *), void *opaque)
-+void defer_call(void (*fn)(void *), void *opaque)
- {
--    Plug *plug = get_ptr_plug();
-+    DeferCallThreadState *thread_state = get_ptr_defer_call_thread_state();
- 
--    /* Call immediately if we're not plugged */
--    if (plug->count == 0) {
-+    /* Call immediately if we're not deferring calls */
-+    if (thread_state->nesting_level == 0) {
-         fn(opaque);
-         return;
-     }
- 
--    GArray *array = plug->unplug_fns;
-+    GArray *array = thread_state->deferred_call_array;
-     if (!array) {
--        array = g_array_new(FALSE, FALSE, sizeof(UnplugFn));
--        plug->unplug_fns = array;
--        blk_io_plug_atexit_notifier.notify = blk_io_plug_atexit;
--        qemu_thread_atexit_add(&blk_io_plug_atexit_notifier);
-+        array = g_array_new(FALSE, FALSE, sizeof(DeferredCall));
-+        thread_state->deferred_call_array = array;
-+        defer_call_atexit_notifier.notify = defer_call_atexit;
-+        qemu_thread_atexit_add(&defer_call_atexit_notifier);
-     }
- 
--    UnplugFn *fns = (UnplugFn *)array->data;
--    UnplugFn new_fn = {
-+    DeferredCall *fns = (DeferredCall *)array->data;
-+    DeferredCall new_fn = {
-         .fn = fn,
-         .opaque = opaque,
-     };
-@@ -106,46 +103,46 @@ void blk_io_plug_call(void (*fn)(void *), void *opaque)
- }
- 
- /**
-- * blk_io_plug: Defer blk_io_plug_call() functions until blk_io_unplug()
-+ * defer_call_begin: Defer defer_call() functions until defer_call_end()
-  *
-- * blk_io_plug/unplug are thread-local operations. This means that multiple
-- * threads can simultaneously call plug/unplug, but the caller must ensure that
-- * each unplug() is called in the same thread of the matching plug().
-+ * defer_call_begin() and defer_call_end() are thread-local operations. The
-+ * caller must ensure that each defer_call_begin() has a matching
-+ * defer_call_end() in the same thread.
-  *
-- * Nesting is supported. blk_io_plug_call() functions are only called at the
-- * outermost blk_io_unplug().
-+ * Nesting is supported. defer_call() functions are only called at the
-+ * outermost defer_call_end().
-  */
--void blk_io_plug(void)
-+void defer_call_begin(void)
- {
--    Plug *plug = get_ptr_plug();
-+    DeferCallThreadState *thread_state = get_ptr_defer_call_thread_state();
- 
--    assert(plug->count < UINT32_MAX);
-+    assert(thread_state->nesting_level < UINT32_MAX);
- 
--    plug->count++;
-+    thread_state->nesting_level++;
- }
- 
- /**
-- * blk_io_unplug: Run any pending blk_io_plug_call() functions
-+ * defer_call_end: Run any pending defer_call() functions
-  *
-- * There must have been a matching blk_io_plug() call in the same thread prior
-- * to this blk_io_unplug() call.
-+ * There must have been a matching defer_call_begin() call in the same thread
-+ * prior to this defer_call_end() call.
-  */
--void blk_io_unplug(void)
-+void defer_call_end(void)
- {
--    Plug *plug = get_ptr_plug();
-+    DeferCallThreadState *thread_state = get_ptr_defer_call_thread_state();
- 
--    assert(plug->count > 0);
-+    assert(thread_state->nesting_level > 0);
- 
--    if (--plug->count > 0) {
-+    if (--thread_state->nesting_level > 0) {
-         return;
-     }
- 
--    GArray *array = plug->unplug_fns;
-+    GArray *array = thread_state->deferred_call_array;
-     if (!array) {
-         return;
-     }
- 
--    UnplugFn *fns = (UnplugFn *)array->data;
-+    DeferredCall *fns = (DeferredCall *)array->data;
- 
-     for (guint i = 0; i < array->len; i++) {
-         fns[i].fn(fns[i].opaque);
-diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-index 3b6f2b0aa2..e9dd8f8a99 100644
---- a/hw/block/dataplane/xen-block.c
-+++ b/hw/block/dataplane/xen-block.c
-@@ -509,7 +509,7 @@ static int xen_block_get_request(XenBlockDataPlane *dataplane,
- 
- /*
-  * Threshold of in-flight requests above which we will start using
-- * blk_io_plug()/blk_io_unplug() to batch requests.
-+ * defer_call_begin()/defer_call_end() to batch requests.
-  */
- #define IO_PLUG_THRESHOLD 1
- 
-@@ -537,7 +537,7 @@ static bool xen_block_handle_requests(XenBlockDataPlane *dataplane)
-      * is below us.
-      */
-     if (inflight_atstart > IO_PLUG_THRESHOLD) {
--        blk_io_plug();
-+        defer_call_begin();
-     }
-     while (rc != rp) {
-         /* pull request from ring */
-@@ -577,12 +577,12 @@ static bool xen_block_handle_requests(XenBlockDataPlane *dataplane)
- 
-         if (inflight_atstart > IO_PLUG_THRESHOLD &&
-             batched >= inflight_atstart) {
--            blk_io_unplug();
-+            defer_call_end();
-         }
-         xen_block_do_aio(request);
-         if (inflight_atstart > IO_PLUG_THRESHOLD) {
-             if (batched >= inflight_atstart) {
--                blk_io_plug();
-+                defer_call_begin();
-                 batched = 0;
-             } else {
-                 batched++;
-@@ -590,7 +590,7 @@ static bool xen_block_handle_requests(XenBlockDataPlane *dataplane)
-         }
-     }
-     if (inflight_atstart > IO_PLUG_THRESHOLD) {
--        blk_io_unplug();
-+        defer_call_end();
-     }
- 
-     return done_something;
++#include "qemu/defer-call.h"
+ #include "qemu/error-report.h"
+ #include "qemu/main-loop.h"
+ #include "qemu/memalign.h"
 diff --git a/hw/block/virtio-blk.c b/hw/block/virtio-blk.c
-index 39e7f23fab..6a45033d15 100644
+index 6a45033d15..a1f8e15522 100644
 --- a/hw/block/virtio-blk.c
 +++ b/hw/block/virtio-blk.c
-@@ -1134,7 +1134,7 @@ void virtio_blk_handle_vq(VirtIOBlock *s, VirtQueue *vq)
-     bool suppress_notifications = virtio_queue_get_notification(vq);
+@@ -12,6 +12,7 @@
+  */
  
-     aio_context_acquire(blk_get_aio_context(s->blk));
--    blk_io_plug();
-+    defer_call_begin();
- 
-     do {
-         if (suppress_notifications) {
-@@ -1158,7 +1158,7 @@ void virtio_blk_handle_vq(VirtIOBlock *s, VirtQueue *vq)
-         virtio_blk_submit_multireq(s, &mrb);
-     }
- 
--    blk_io_unplug();
-+    defer_call_end();
-     aio_context_release(blk_get_aio_context(s->blk));
- }
- 
+ #include "qemu/osdep.h"
++#include "qemu/defer-call.h"
+ #include "qapi/error.h"
+ #include "qemu/iov.h"
+ #include "qemu/module.h"
 diff --git a/hw/scsi/virtio-scsi.c b/hw/scsi/virtio-scsi.c
-index 45b95ea070..c2465e3e88 100644
+index c2465e3e88..83c154e74e 100644
 --- a/hw/scsi/virtio-scsi.c
 +++ b/hw/scsi/virtio-scsi.c
-@@ -799,7 +799,7 @@ static int virtio_scsi_handle_cmd_req_prepare(VirtIOSCSI *s, VirtIOSCSIReq *req)
-         return -ENOBUFS;
-     }
-     scsi_req_ref(req->sreq);
--    blk_io_plug();
-+    defer_call_begin();
-     object_unref(OBJECT(d));
-     return 0;
- }
-@@ -810,7 +810,7 @@ static void virtio_scsi_handle_cmd_req_submit(VirtIOSCSI *s, VirtIOSCSIReq *req)
-     if (scsi_req_enqueue(sreq)) {
-         scsi_req_continue(sreq);
-     }
--    blk_io_unplug();
-+    defer_call_end();
-     scsi_req_unref(sreq);
- }
+@@ -18,6 +18,7 @@
+ #include "standard-headers/linux/virtio_ids.h"
+ #include "hw/virtio/virtio-scsi.h"
+ #include "migration/qemu-file-types.h"
++#include "qemu/defer-call.h"
+ #include "qemu/error-report.h"
+ #include "qemu/iov.h"
+ #include "qemu/module.h"
+diff --git a/block/plug.c b/util/defer-call.c
+similarity index 99%
+rename from block/plug.c
+rename to util/defer-call.c
+index f26173559c..037dc0abf0 100644
+--- a/block/plug.c
++++ b/util/defer-call.c
+@@ -22,7 +22,7 @@
+ #include "qemu/coroutine-tls.h"
+ #include "qemu/notify.h"
+ #include "qemu/thread.h"
+-#include "sysemu/block-backend.h"
++#include "qemu/defer-call.h"
  
-@@ -836,7 +836,7 @@ static void virtio_scsi_handle_cmd_vq(VirtIOSCSI *s, VirtQueue *vq)
-                 while (!QTAILQ_EMPTY(&reqs)) {
-                     req = QTAILQ_FIRST(&reqs);
-                     QTAILQ_REMOVE(&reqs, req, next);
--                    blk_io_unplug();
-+                    defer_call_end();
-                     scsi_req_unref(req->sreq);
-                     virtqueue_detach_element(req->vq, &req->elem, 0);
-                     virtio_scsi_free_req(req);
+ /* A function call that has been deferred until defer_call_end() */
+ typedef struct {
+diff --git a/block/meson.build b/block/meson.build
+index f351b9d0d3..59ff6d380c 100644
+--- a/block/meson.build
++++ b/block/meson.build
+@@ -21,7 +21,6 @@ block_ss.add(files(
+   'mirror.c',
+   'nbd.c',
+   'null.c',
+-  'plug.c',
+   'preallocate.c',
+   'progress_meter.c',
+   'qapi.c',
+diff --git a/util/meson.build b/util/meson.build
+index c4827fd70a..769b24f2e0 100644
+--- a/util/meson.build
++++ b/util/meson.build
+@@ -28,6 +28,7 @@ util_ss.add(when: 'CONFIG_WIN32', if_true: pathcch)
+ if glib_has_gslice
+   util_ss.add(files('qtree.c'))
+ endif
++util_ss.add(files('defer-call.c'))
+ util_ss.add(files('envlist.c', 'path.c', 'module.c'))
+ util_ss.add(files('host-utils.c'))
+ util_ss.add(files('bitmap.c', 'bitops.c'))
 -- 
 2.41.0
 
