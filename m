@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0739F79F7DF
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 04:18:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601720.937859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB4B79F9A3
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 06:46:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601458.937930 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgbvX-0007vX-Hx; Thu, 14 Sep 2023 02:17:55 +0000
+	id 1qgeEb-0004Ey-3d; Thu, 14 Sep 2023 04:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601720.937859; Thu, 14 Sep 2023 02:17:55 +0000
+Received: by outflank-mailman (output) from mailman id 601458.937930; Thu, 14 Sep 2023 04:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgbvX-0007tH-F2; Thu, 14 Sep 2023 02:17:55 +0000
-Received: by outflank-mailman (input) for mailman id 601720;
- Thu, 14 Sep 2023 02:17:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgeEb-0004Ci-0S; Thu, 14 Sep 2023 04:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 601458;
+ Wed, 13 Sep 2023 14:37:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eUwO=E6=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qgbvW-0007cj-7I
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 02:17:54 +0000
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [2607:f8b0:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5c42f7d-52a4-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 04:17:48 +0200 (CEST)
-Received: by mail-oi1-x230.google.com with SMTP id
- 5614622812f47-3ab244f2c89so275233b6e.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 19:17:48 -0700 (PDT)
-Received: from leoy-huanghe.lan ([98.98.115.199])
- by smtp.gmail.com with ESMTPSA id
- w17-20020aa78591000000b0068c5bd3c3b4sm212275pfn.206.2023.09.13.19.17.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Sep 2023 19:17:46 -0700 (PDT)
+ <SRS0=x+cg=E5=amd.com=Yazen.Ghannam@srs-se1.protection.inumbo.net>)
+ id 1qgQzF-0001Cp-4R
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 14:37:01 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe6e1b8a-5242-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 16:36:59 +0200 (CEST)
+Received: from BN8PR12MB3108.namprd12.prod.outlook.com (2603:10b6:408:40::20)
+ by CY8PR12MB7220.namprd12.prod.outlook.com (2603:10b6:930:58::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Wed, 13 Sep
+ 2023 14:36:55 +0000
+Received: from BN8PR12MB3108.namprd12.prod.outlook.com
+ ([fe80::377c:b288:3718:408b]) by BN8PR12MB3108.namprd12.prod.outlook.com
+ ([fe80::377c:b288:3718:408b%7]) with mapi id 15.20.6792.019; Wed, 13 Sep 2023
+ 14:36:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +47,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5c42f7d-52a4-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694657867; x=1695262667; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lQzdKFAFpw1dsG/FwADri/Y+ip52cCaS+Mt5CUf5r0I=;
-        b=OoViiB033eO+lvxzLCVfqUhNYnZuaLDhZC5pPiS7W2A27XR2uIXBA3VnY6zP3GJYJN
-         UE6uyuHGekO2/LIwX4cjAL4BXLFUzkEdwQFLQqrddaaAEouN+ubZ0ZhMvQEGq6IJYskE
-         FKEtvvz097yCC2fZYdtFtNI6vzx/Oie0CN8zNvkkzW4Nh/Q5FWrK9lBxcsMpB/ji0mus
-         0r3/y8oqaFPTEnmLaob8aY4hz87iSRyNRkdSAOYPa2vt22TVVBTjpUHB/YoyCnbaxPzn
-         MQZtNEqAXfcbPb5ZzDPUPQDChg6UVNSLpu1T7u9t6q1gxfFPHYWPqolmxOwDAtcntxHk
-         f1/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694657867; x=1695262667;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lQzdKFAFpw1dsG/FwADri/Y+ip52cCaS+Mt5CUf5r0I=;
-        b=wMAmE5Nmk8kOO0TFb54EIFFZSjMe2Oe52rIIPF4VDdizksPttUqfrlx3G7rlNkjLKj
-         B2WR7PdjGYlDLepnTzcWbLYy24WZGJbmGxe73gbdSYLZaorXOCrI8O1HdYKldibGKTNw
-         dCqZ2OpgJn1BdhUVFZosROKwEG6erP56sEU36JiPUNPNThF5qSKyn5vgTpLeATIyaS3L
-         D96owrrc7MoxNL3VpnWccxb3zVLggvSqUx9tQk+lqRtaLdzbxDwDR7bmRcoX9gsjuvoi
-         uQdxiXWsNrBGlNNJzpxiowZEB/RAbA9rZd3YykBGGmqouf7L0BEJj0HHYkduaktVCe1w
-         1qWA==
-X-Gm-Message-State: AOJu0YxydR0lEeQ5ZXIu6bXVGNA1TtIVg/xg1hqAmQwxRKBKC3Ky0F/1
-	Y4OoAbKyYtvUp0Zi7qRm17gqpkr99Np/FhfidYrcw2Rt
-X-Google-Smtp-Source: AGHT+IH998mHGXgmUJqPe4iq3QUZeNo84jpuKN6GfiNbLQ76lCPEcSRLbo/lBW13KqkI1kaLtYglrA==
-X-Received: by 2002:a05:6808:306:b0:3a6:fba6:d900 with SMTP id i6-20020a056808030600b003a6fba6d900mr4542700oie.22.1694657867311;
-        Wed, 13 Sep 2023 19:17:47 -0700 (PDT)
-From: Leo Yan <leo.yan@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>,
-	Leo Yan <leo.yan@linaro.org>
-Subject: [PATCH v3 2/2] xen/arm: Enlarge identity map space to 127TB
-Date: Thu, 14 Sep 2023 10:17:34 +0800
-Message-Id: <20230914021734.1395472-3-leo.yan@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230914021734.1395472-1-leo.yan@linaro.org>
-References: <20230914021734.1395472-1-leo.yan@linaro.org>
+X-Inumbo-ID: fe6e1b8a-5242-11ee-8786-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hUNQ10EhbuDA8TPz6UTYxxdItFd9EvVpbt9+x1bKFuYrxguy9Z0Bb5vJ2i/tm5J3G/IDy6Raee4DUOZKb/CanCRKjx5oa7zxCaKsFg8mXQ/2RJuMmt3cRxB5oqLZuSTmq5n9ZKHNqeMVRslzzw0WPUiKMbU4TyPflYoha0y1Bnk9mtzUNKcf665PLsl/eKeJ4aG2G+R3tNhlqip53XSAIveLfh/cKO2EkAkNR4jO8h/nDR3dkqUpVtdFFLPztgZfq8VPJdFuPcOyceeZXJMc3Ar3TBEKFiMaj4E4XT/KN0preSx28ToUahgsSiCOzDvIZuRk+iO+OLMtJhestXiRhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ahnKZmxJT8dusQtBeSkWr2k8rK751AY00jAIFynw+14=;
+ b=ctReq4SL0yyXQYXcoE79uIEVlehvamEeiZt2Aa83B5ok2aQVMJveLbxC1DDBXjdgajBua+gOs1TIvCHUx3C7nR0ywVdEeZuyg/Vbxi61rKRZpZaVtaM3RiuKy6jeaUOS8dE2CoW/mtxLcozTqiVtRvcrWOqI0UDcdGcrVPY4GGvPSZrTZEBK4XuRzbzCtcvQNrqIQ03GMzoyYpl8y7kndPPugF6Bgq4u49nqrb3kMnifeHpSQuvj3Ax4X0umNPjMkzgPOAtr5Iw6FpM8Swcv+yXSjq2IlU4HLcOzY8c0dI6rM/01Owo3/Bt1Ba3oNJpWRaKig0sFpWW8ZQfdTYYkLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ahnKZmxJT8dusQtBeSkWr2k8rK751AY00jAIFynw+14=;
+ b=jLLvd9VwpjuyR867JHxfLR1Yc0qip5pvotsIzBm2E3LI+rh3saJRFJhIAvUiEmqoGUrJvIaKgzrit9iYiHogDFyipt9CGhjOrczeZuQ/suS5P8/28bXIPuJ20rcrYOS4GGZuinkrFuCxYzYFPgvZ9z83WAXHIp/zUJUOl06ScR4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <40d3399a-b260-4ffa-a503-40c61468a189@amd.com>
+Date: Wed, 13 Sep 2023 10:36:50 -0400
+User-Agent: Mozilla Thunderbird
+Cc: yazen.ghannam@amd.com, smita.koralahallichannabasappa@amd.com,
+ linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org,
+ xen-devel@lists.xenproject.org, rric@kernel.org, james.morse@arm.com,
+ tony.luck@intel.com
+Subject: Re: [PATCH] Revert "EDAC/mce_amd: Do not load edac_mce_amd module on
+ guests"
+Content-Language: en-US
+To: Borislav Petkov <bp@alien8.de>, Elliott Mitchell <ehem+xen@m5p.com>
+References: <20210628172740.245689-1-Smita.KoralahalliChannabasappa@amd.com>
+ <ZPqQEHXgmak1LMNh@mattapan.m5p.com>
+ <20230908035911.GAZPqcD/EjfKZ0ISrZ@fat_crate.local>
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+In-Reply-To: <20230908035911.GAZPqcD/EjfKZ0ISrZ@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR15CA0021.namprd15.prod.outlook.com
+ (2603:10b6:208:1b4::34) To BN8PR12MB3108.namprd12.prod.outlook.com
+ (2603:10b6:408:40::20)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3108:EE_|CY8PR12MB7220:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66a30150-ada6-47e3-20ee-08dbb466e068
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	rMEp8RLbYtVa8hXEDxhq3loSPv79Wd6FoZTTAyoznocgRXyJRoBX5PAKuPmNw2LKCIjhj16y4yA+lYWn0yaZxdwngq+QVBwQnTgQBUFEfOamHEMoMiLDGtw8QzsWwh9s52TSrvhjyz97nUKWGeKDT4V569chhrF1gBuE1sQeg2W981TOa3rLqp/0J7wa2vhf65aJavTgJpa/LCEXinuS6GG+6JAMS4EhjfTTrwvwrEfkVz7wZI4aEv3rq7xHYWa6f7zIee3f+kag1oBj0QGsxvwezQSZrKmqbtipMn4AM5wA1rW+RpLtL7B6CRZ3knE5Crkn3SAEcrAorQWGt99Wobp81jlOulwbHbCANTW7+CznaUeTq0UfTl+zAEJJhpeKZdFmbDBoWyRMnTmyh0Hn3k7MMVBHS2FGXczHYnt83v8GHSDnwduGvlqtktFXMIGgVSh8Snq46OH5udj8S3V2DTOdTyBxYAUxOgp/7FLHRlbryAPSMFPE459jAt1S426E6gDLOfoOJIdJEWzAfeLltyLB6IkuochPEG/69Kx/Kis6Z/+i2NY8YNYAR2PAAwFTA/E2hnmrocp7qVGa1WeB2vj4qf6GHxSD1+j9ZBzTujG98HNyXy+ku6zCRHKLRPjCpv8jXoJuttpQGswcJbu6hg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR12MB3108.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(376002)(136003)(396003)(346002)(451199024)(1800799009)(186009)(31686004)(6666004)(53546011)(6486002)(110136005)(478600001)(66946007)(6506007)(31696002)(36756003)(6512007)(86362001)(38100700002)(4744005)(26005)(2616005)(316002)(8936002)(41300700001)(4326008)(8676002)(5660300002)(2906002)(66476007)(44832011)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VHM2MzhFMkswRHJwL2U5czgyRUhGbURINGJ5RTlHU3RTeDZwck9ZOXB0TDB2?=
+ =?utf-8?B?N0FXdkd1Y3Z6ZWQvOXBFL1pWdjRpUDdzMnJTSGErU3hkK2dtbmMrOGpvQ0ho?=
+ =?utf-8?B?dTJFNWhCSGxtTU1KbTdBcDZGMHpFNWU5YWt5aENSS2VkTlBoYWdjNWVqY255?=
+ =?utf-8?B?TncwWG53OTFQVE9jRWxIN2QrbmFzSFM4STBrVnNzeHFHNW9SQ0dlWUpUNXNv?=
+ =?utf-8?B?TFZNeDhybWcxT2RZcytReEtYT1NTR3JaNm1hdXlDK21BQ2Y2WkFVTFVVRUhE?=
+ =?utf-8?B?Y3Z1b1ZjeW5wdnoySWhtNFF1c2JsZlVrR0NHd3dXQ25ZZWp2cjZaOEJYKzlZ?=
+ =?utf-8?B?QnlJaVRZUjR6UDB3OHdvSFlNVnhEWVppZUIvWU9oS1EvOW4xSkxIRTlpNmJy?=
+ =?utf-8?B?YzRIekMwei9tSW8zdXhMRzV3VkRZNkg1WDZvUm0wS0RsOGFmbVZ4dDBKQitn?=
+ =?utf-8?B?MlBaeVlsYlpHV0NGODVHVXAwUHl1azl3V2wvRXczSkJNMGFtWlh3NGFYd1dD?=
+ =?utf-8?B?QmdvU3RkUjY1TFFpWkNQMTdsaEwzd09uRGFCTnFldDVBdUxnOXpvUFQxTmpM?=
+ =?utf-8?B?QmNPeElXRlF1cisrOUtMTnRFajlmRDFZek1SbkpjQWNaTndEczZkT3EvUlNY?=
+ =?utf-8?B?ZnJ0MUVjK3VLUm54YnJXNloyU0FqNkRYOTJ0d2V4TWs3a201TXJ1bVpNN1du?=
+ =?utf-8?B?TElDTUp2SktYZUk3ZkFZaHYwKzIvQm1EQkF3RTRvLzZwd3UxMGI3ajJwNWdp?=
+ =?utf-8?B?bTlXNW1vRkw1QkpQRGRnN0FSVXVBWE5nenFVWmtTNi9NMTQrZWk0WEs2aXRY?=
+ =?utf-8?B?aytwNnA3cXVteEttekVaVG1BNFpwZ1FsTEc2a201RldmVDZqeUZ2d2Via1J6?=
+ =?utf-8?B?dnpROFRFUTVNazhMc0VkaE4rcW1sZldvZ1JFdEJIcEdFb1Z4SDE3alFmZ3JY?=
+ =?utf-8?B?ZlNZdCt3OGtPeENaZUZjK3NzUndqL2cwSVRQSXZkQTFQdHhoMFh2SFVRdzN5?=
+ =?utf-8?B?V2JuNlVFL0I2a1JtZzNnUytlbkg0NS9uSU5VdzI2QVgwYzA2TkJGcjZWM3JP?=
+ =?utf-8?B?RzJOYUZMMUpkV3hWT3NVTlpXemhCbzFmczIvN0x2dUJGZEtrRXZZb1M5ZWJu?=
+ =?utf-8?B?QzVnbFFOOUZYKzR3WVFCdzM5NnQwUWhqM1NacllxWkRvdmN2dU95UG45Uk1P?=
+ =?utf-8?B?enpYRmplKzBpUzhHTnJnNEFqdTNGSFQ5Z2Vzci9semtvTzhHckdlbEVCYUZa?=
+ =?utf-8?B?KzB5Wng4ZVZLZ0VoVDE1amxpMStxRXN1WjMzakNrdFNyV1MxNGdDTW1qOWxY?=
+ =?utf-8?B?L0ZpSkV5Y2RDNTlmVVBLdEJ2WmIreC9saE1YMXVtRWsvUWhCb09LRlVWS3BW?=
+ =?utf-8?B?L1p5K0d1NG9xVnRoRUZoYXlMS0RqR2wwSDVQMElXSHdqVXRkSVBlVTlWRXpM?=
+ =?utf-8?B?S3R0UEt4Tmp6aUp6Ly92eER5VUxtdE14aUowdEZXL1lHWUlzMXZFSDJxdlZk?=
+ =?utf-8?B?Zm9yWEJjSTZlNXNNNnVZdDhjdGxCZk5jYmpKR25IMUs2RXpFenpmMGFSTExU?=
+ =?utf-8?B?clVLTHMyaWNzL1BxbEtzdkZnaC92NUNrVi93V0E3UnUybE1TR0VVRDR3RGRL?=
+ =?utf-8?B?YnZaZlREdjJtZnRadXN6QTEyZFlWU3g5QVRQNXRhcmt5cWwwWUZSNFpmOUpo?=
+ =?utf-8?B?MWhxU1ZTaDlCQmxqL0V6L1p6TVV4NXlQY1g2WFphOURPWkNZN1ZzcjdYbStk?=
+ =?utf-8?B?am95WmN4WUZoTEtXdy9va1B0N3lCV0hJU2p1a2dxbVh5M3d5VURuZzRySWxG?=
+ =?utf-8?B?MXRDWjZPMXN5NUVudkJ2YVF1SDZHV3l6SnJWaTM5Q25tNlNJVDNyY1pNMlpL?=
+ =?utf-8?B?YVhvOG1KYW01eERqeHlKZGkzWUpiNklrbWJ4cWhTZ2ZiY2FTWmVUMGYvWVVs?=
+ =?utf-8?B?dEd4bDV2UCtIbURWclV5eE8wYlZOVmwvODFQaG9Tbm1sdWQzejJGQlhyc0xn?=
+ =?utf-8?B?cEtUU2VnZVMrZkZ0ODVDQy9peWwwMGpxNWMzSDhNL3V1MkdiWmFWcE1WM2Ey?=
+ =?utf-8?B?MGVrSDlIcXp6VStodEhjTGhPSHZ5amdHOFJmTDZvWWNzdTZ1b3dKWnp3OTV4?=
+ =?utf-8?Q?yWJZK5wkFBDVuAYnhz0v8xIZg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66a30150-ada6-47e3-20ee-08dbb466e068
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3108.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 14:36:54.9404
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5mheaqWTEv+3Kyq0krkw4EqeNQhiyuR5tL7jFHywgDzQVUDr1b9Jsu9J4EsVPUQb7i0nEQOVCj4wwa494L1qVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7220
 
-On ADLink AVA platform (Ampere Altra SoC with 32 Arm Neoverse N1 cores),
-the physical memory regions are:
+On 9/7/23 11:59 PM, Borislav Petkov wrote:
+> On Thu, Sep 07, 2023 at 08:08:00PM -0700, Elliott Mitchell wrote:
+>> This reverts commit 767f4b620edadac579c9b8b6660761d4285fa6f9.
+>>
+>> There are at least 3 valid reasons why a VM may see MCE events/registers.
+> 
+> Hmm, so they all read like a bunch of handwaving to me, with those
+> probable hypothetical "may" formulations.
+> 
+> How about we cut to the chase and you explain what exactly is the
+> concrete issue you're encountering and trying to solve?
 
-  DRAM memory regions:
-    Node[0] Region[0]: 0x000080000000 - 0x0000ffffffff
-    Node[0] Region[1]: 0x080000000000 - 0x08007fffffff
-    Node[0] Region[2]: 0x080100000000 - 0x0807ffffffff
+Also, please note that the EDAC modules don't handle MCE events
+directly. They act on information passed from the MCE subsystem.
 
-The UEFI loads Xen hypervisor and DTB into the high memory, the kernel
-and ramdisk images are loaded into the low memory space:
+Furthermore, there are other EDAC modules that have the same !hypervisor
+check, so why change only this one?
 
-  (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
-  (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device Tree
-  (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
-  (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
-
-In this case, the Xen binary is loaded above 8TB, which exceeds the
-maximum supported identity map space of 2TB in Xen. Consequently, the
-system fails to boot.
-
-This patch enlarges identity map space to 127TB, allowing module loading
-within the range of [0x0 .. 0x00007eff_ffff_ffff].
-
-Note, despite this expansion of the identity map to 127TB, the frame
-table still only supports 2TB.  The reason is the frame table is data
-structure for the page management, which does not require coverage of
-the memory layout gaps (refer to pfn_pdx_hole_setup() for Xen removing
-the biggest gap from memory regions).  Thus, 2TB of memory support
-remains sufficient for most use cases.
-
-Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
-Reported-by: Alexey Klimov <alexey.klimov@linaro.org>
-Signed-off-by: Leo Yan <leo.yan@linaro.org>
----
- xen/arch/arm/arm64/mm.c               | 6 ++++--
- xen/arch/arm/include/asm/mmu/layout.h | 8 ++++----
- 2 files changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/xen/arch/arm/arm64/mm.c b/xen/arch/arm/arm64/mm.c
-index 78b7c7eb00..cb69df0661 100644
---- a/xen/arch/arm/arm64/mm.c
-+++ b/xen/arch/arm/arm64/mm.c
-@@ -41,7 +41,8 @@ static void __init prepare_boot_identity_mapping(void)
-     clear_page(boot_third_id);
- 
-     if ( id_offsets[0] >= IDENTITY_MAPPING_AREA_NR_L0 )
--        panic("Cannot handle ID mapping above 2TB\n");
-+        panic("Cannot handle ID mapping above %uTB\n",
-+              IDENTITY_MAPPING_AREA_NR_L0 >> 1);
- 
-     /* Link first ID table */
-     pte = mfn_to_xen_entry(virt_to_mfn(boot_first_id), MT_NORMAL);
-@@ -74,7 +75,8 @@ static void __init prepare_runtime_identity_mapping(void)
-     DECLARE_OFFSETS(id_offsets, id_addr);
- 
-     if ( id_offsets[0] >= IDENTITY_MAPPING_AREA_NR_L0 )
--        panic("Cannot handle ID mapping above 2TB\n");
-+        panic("Cannot handle ID mapping above %uTB\n",
-+              IDENTITY_MAPPING_AREA_NR_L0 >> 1);
- 
-     /* Link first ID table */
-     pte = pte_of_xenaddr((vaddr_t)xen_first_id);
-diff --git a/xen/arch/arm/include/asm/mmu/layout.h b/xen/arch/arm/include/asm/mmu/layout.h
-index 2cb2382fbf..fa16d07d0d 100644
---- a/xen/arch/arm/include/asm/mmu/layout.h
-+++ b/xen/arch/arm/include/asm/mmu/layout.h
-@@ -19,11 +19,11 @@
-  *   2G -   4G   Domheap: on-demand-mapped
-  *
-  * ARM64 layout:
-- * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
-+ * 0x0000000000000000 - 0x00007effffffffff (127TB, L0 slots [0..253])
-  *
-  *  Reserved to identity map Xen
-  *
-- * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4])
-+ * 0x00007f0000000000 - 0x00007f7fffffffff (512GB, L0 slot [254])
-  *  (Relative offsets)
-  *   0  -   2M   Unmapped
-  *   2M -  10M   Xen text, data, bss
-@@ -35,7 +35,7 @@
-  *
-  *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
-  *
-- * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
-+ * 0x00007f8000000000 - 0x00007fffffffffff (512GB, L0 slots [255])
-  *  Unused
-  *
-  * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
-@@ -49,7 +49,7 @@
- #define XEN_VIRT_START          _AT(vaddr_t, MB(2))
- #else
- 
--#define IDENTITY_MAPPING_AREA_NR_L0     4
-+#define IDENTITY_MAPPING_AREA_NR_L0     254
- #define XEN_VM_MAPPING                  SLOT0(IDENTITY_MAPPING_AREA_NR_L0)
- 
- #define SLOT0_ENTRY_BITS  39
--- 
-2.34.1
-
+Thanks,
+Yazen
 
