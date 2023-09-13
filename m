@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EA879E87A
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 14:59:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601271.937257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADB0C79E8B2
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 15:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601277.937266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgPRs-0005cV-IO; Wed, 13 Sep 2023 12:58:28 +0000
+	id 1qgPb6-0007w5-GD; Wed, 13 Sep 2023 13:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601271.937257; Wed, 13 Sep 2023 12:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 601277.937266; Wed, 13 Sep 2023 13:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgPRs-0005Zg-F2; Wed, 13 Sep 2023 12:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 601271;
- Wed, 13 Sep 2023 12:58:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gBHS=E5=redhat.com=aesteve@srs-se1.protection.inumbo.net>)
- id 1qgPRr-0005Za-CZ
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 12:58:27 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 397d1698-5235-11ee-8786-cb3800f73035;
- Wed, 13 Sep 2023 14:58:25 +0200 (CEST)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-44-5-aCNz-xPtWwb6PkW0OqGg-1; Wed, 13 Sep 2023 08:58:20 -0400
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-27372e336b2so869165a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Sep 2023 05:58:20 -0700 (PDT)
+	id 1qgPb6-0007th-D6; Wed, 13 Sep 2023 13:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 601277;
+ Wed, 13 Sep 2023 13:07:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgPb4-0007tX-I1; Wed, 13 Sep 2023 13:07:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgPb4-0006Xx-Dz; Wed, 13 Sep 2023 13:07:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgPb3-0000UX-WE; Wed, 13 Sep 2023 13:07:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qgPb3-0000Jz-Vi; Wed, 13 Sep 2023 13:07:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,310 +42,393 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 397d1698-5235-11ee-8786-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694609904;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=39ec+42JeB+j1CbwXASOlDxqz4wzR2fUyc8rEMzvKgY=;
-	b=XCQcJUhwALR6jbzeAJJk37m+vVTridoRwHwUf1v0UFXT9s1BYb9GSQRDhT2iA5rtAGIqnY
-	Is5+rokWai6X0YiM5X5QNrA32NMMZk0E2j5uHK+BSuasFjfjuxnZH3A6caSKiQ5yaSP4zn
-	d1Ind7kcxMh/HBQCsNeydSh/6CIJj6s=
-X-MC-Unique: 5-aCNz-xPtWwb6PkW0OqGg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694609899; x=1695214699;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=39ec+42JeB+j1CbwXASOlDxqz4wzR2fUyc8rEMzvKgY=;
-        b=bEYPJMJKc+UDTpjDkyYpgjnQB1RuZnjHJ8x8LPXazsAs6xSaN13YzkEKrl344oXlbD
-         LcpGwC5H/8q2vgtfh9kN5slXRudCPbJQs90GxssVmGsZUxYZ4UWkmXDAF54MvXepsnaZ
-         E5pmx1d2vbasDfVtuHJC3xXd3iHQMZnCpoFtZmLHh6QjD4MJtwb7b3OI37Qs/ZjYySI5
-         L4aXs/mhTA9lR5vKE3weOqAqrMrd0r7jaOPdXidxjfaOPKOI/oL9wa7HaQUq+J8+Qn1T
-         0gZuE2CcMXogtjF7g9YMzLWaBLmGzCs+1DQAs8T0UJWmUoPBsl1B9gDwnBMsKUWVuuZq
-         MZ4w==
-X-Gm-Message-State: AOJu0Yx4iI5JNnBe9uk3HW6Mmw2evVrhLteyKpyIQrOcc86ZP6/DDkTf
-	zluiwi90Rt459wUlcDBDCWnYEdlXRUtywr2O597H61k4+cK2y4/fWBUMDjMzR5ObVQFy6AQ1iy8
-	E225dJ8U1hUQpn/1J1DX+1IytmahI8VdjYScCHUbrW8M=
-X-Received: by 2002:a17:90b:1902:b0:269:4fe8:687 with SMTP id mp2-20020a17090b190200b002694fe80687mr3917108pjb.19.1694609899653;
-        Wed, 13 Sep 2023 05:58:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH61qvMRdN3LPMiWAjCSRDtpzdel5iiJmmJEhut4Q0QbARnWkG/bcS1VhoV1g2d29bwNFmFQWLpet9R1u26/N8=
-X-Received: by 2002:a17:90b:1902:b0:269:4fe8:687 with SMTP id
- mp2-20020a17090b190200b002694fe80687mr3917071pjb.19.1694609899262; Wed, 13
- Sep 2023 05:58:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230831093252.2461282-1-ray.huang@amd.com> <20230831093252.2461282-11-ray.huang@amd.com>
- <58a4e81f-b0ce-49db-8a6a-f6b5bdc3d2d6@daynix.com> <ZPw2UjxogIULU722@amd.com>
- <11c227e8-a464-41ce-a435-82c570746388@daynix.com> <CADSE00Kc1Jza7sbERRndWbXgoF1s2V-FNxEOWJ6WgvomzgvMPA@mail.gmail.com>
- <cf99ac00-6f48-4778-b319-6079a931ba5d@daynix.com> <CADSE00+6zcT7iKR0JW1Bk8es6HtBpzAKa9JW6u5yyjDoLPw2KQ@mail.gmail.com>
- <5e88f5d5-5aa2-4052-b250-69c2a443344f@daynix.com>
-In-Reply-To: <5e88f5d5-5aa2-4052-b250-69c2a443344f@daynix.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 13 Sep 2023 14:58:07 +0200
-Message-ID: <CADSE00+BUq-6jKH3v2PYNThn+9Z4UCFcr3Cv9Z48eUX0b=6ymA@mail.gmail.com>
-Subject: Re: [QEMU PATCH v4 10/13] virtio-gpu: Resource UUID
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, 
-	Antonio Caggiano <antonio.caggiano@collabora.com>, 
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, "ernunes@redhat.com" <ernunes@redhat.com>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, 
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000014281b06053d1d4f"
-
---00000000000014281b06053d1d4f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vaf6PxbB1CPYq+955P/ffqGh33EHYoj5nMmwFD/fC2s=; b=yk0+IUaXane5HKMTWvPjSSLVdL
+	rUAEq7q66I7hiGupGaDQ159B9zqLroTpzvUbI7aEqy4Gxde/DJtKRKjw3zECiQMTaxfOERAW61scn
+	gwKIdZCZEHvQCi4/4OiFp4MQYASZ8eIUY0iE8zZbxGyE4QL/xPjL6Kh2JspP0GUVJJqg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-182987-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 182987: regressions - trouble: broken/fail/pass
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-libvirt:<job status>:broken:regression
+    xen-unstable:test-amd64-i386-examine-uefi:host-install:broken:regression
+    xen-unstable:test-amd64-amd64-libvirt:host-install(5):broken:regression
+    xen-unstable:test-amd64-amd64-examine-uefi:host-install:broken:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable:test-amd64-i386-libvirt-pair:guest-migrate/dst_host/src_host/debian.repeat:fail:regression
+    xen-unstable:test-amd64-amd64-examine-uefi:memdisk-try-append:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=21ec0c42267be169be6019e5a09b61cbf16d10ce
+X-Osstest-Versions-That:
+    xen=f1546c98e06fec6c2d1e15ff8e80547d10365bc3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 Sep 2023 13:07:57 +0000
 
-On Wed, Sep 13, 2023 at 2:22=E2=80=AFPM Akihiko Odaki <akihiko.odaki@daynix=
-.com>
-wrote:
+flight 182987 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/182987/
 
-> On 2023/09/13 20:34, Albert Esteve wrote:
-> >
-> >
-> > On Wed, Sep 13, 2023 at 12:34=E2=80=AFPM Akihiko Odaki <akihiko.odaki@d=
-aynix.com
-> > <mailto:akihiko.odaki@daynix.com>> wrote:
-> >
-> >     On 2023/09/13 16:55, Albert Esteve wrote:
-> >      > Hi Antonio,
-> >      >
-> >      > If I'm not mistaken, this patch is related with:
-> >      >
-> >     https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.htm=
-l
-> >
-> >      >
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.htm=
-l
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.htm=
-l
-> >>
-> >      > IMHO, ideally, virtio-gpu and vhost-user-gpu both, would use the
-> >      > infrastructure from the patch I linked to store the
-> >      > virtio objects, so that they can be later shared with other
-> devices.
-> >
-> >     I don't think such sharing is possible because the resources are
-> >     identified by IDs that are local to the device. That also complicat=
-es
-> >     migration.
-> >
-> >     Regards,
-> >     Akihiko Odaki
-> >
-> > Hi Akihiko,
-> >
-> > As far as I understand, the feature to export dma-bufs from the
-> > virtgpu was introduced as part of the virtio cross-device sharing
-> > proposal [1]. Thus, it shall be posible. When virtgpu ASSING_UUID,
-> > it exports and identifies the dmabuf resource, so that when the dmabuf
-> gets
-> > shared inside the guest (e.g., with virtio-video), we can use the
-> assigned
-> > UUID to find the dmabuf in the host (using the patch that I linked
-> above),
-> > and import it.
-> >
-> > [1] - https://lwn.net/Articles/828988/ <https://lwn.net/Articles/828988=
-/
-> >
->
-> The problem is that virtio-gpu can have other kind of resources like
-> pixman and OpenGL textures and manage them and DMA-BUFs with unified
-> resource ID.
->
+Regressions :-(
 
-I see.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt        <job status>                 broken
+ test-amd64-i386-examine-uefi  5 host-install           broken REGR. vs. 182955
+ test-amd64-amd64-libvirt      5 host-install(5)        broken REGR. vs. 182955
+ test-amd64-amd64-examine-uefi  5 host-install          broken REGR. vs. 182955
+ test-amd64-i386-xl-qemut-debianhvm-amd64  8 xen-boot     fail REGR. vs. 182955
+ test-amd64-i386-libvirt-pair 28 guest-migrate/dst_host/src_host/debian.repeat fail REGR. vs. 182955
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-examine-uefi  4 memdisk-try-append     fail blocked in 182955
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop      fail blocked in 182955
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 182955
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 182955
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 182955
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 182955
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 182955
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 182955
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 182955
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 182955
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 182955
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 182955
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 182955
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ xen                  21ec0c42267be169be6019e5a09b61cbf16d10ce
+baseline version:
+ xen                  f1546c98e06fec6c2d1e15ff8e80547d10365bc3
+
+Last test of basis   182955  2023-09-12 02:45:51 Z    1 days
+Failing since        182969  2023-09-12 14:07:18 Z    0 days    2 attempts
+Testing same since   182987  2023-09-13 01:08:42 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gianluca Luparini <gianluca.luparini@bugseng.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     broken  
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-i386-examine-uefi                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
->
-> So you cannot change:
-> g_hash_table_insert(g->resource_uuids,
-> GUINT_TO_POINTER(assign.resource_id), uuid);
-> by:
-> virtio_add_dmabuf(uuid, assign.resource_id);
->
-> assign.resource_id is not DMA-BUF file descriptor, and the underlying
-> resource my not be DMA-BUF at first place.
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I didn't really look into the patch in-depth, so the code was intended
-to give an idea of how the implementation would look like with
-the cross-device patch API. Indeed, it is not the resource_id,
-(I just took a brief look at the virtio specificacion 1.2), but the
-underlying
-resource what we want to use here.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->
-> Also, since this lives in the common code that is not used only by
-> virtio-gpu-gl but also virtio-gpu, which supports migration, we also
-> need to take care of that. It is not a problem for DMA-BUF as DMA-BUF is
-> not migratable anyway, but the situation is different in this case.
->
-> Implementing cross-device sharing is certainly a possibility, but that
-> requires more than dealing with DMA-BUFs.
->
->
-So, if I understood correctly, dmabufs are just a subset of the resources
-that the gpu manages, or can assign UUIDs to. I am not sure why
-the virt gpu driver would want to send a ASSIGN_UUID for anything
-that is not a dmabuf (are we sure it does?), but I am not super familiarize=
-d
-with virtgpu to begin with.
-But I see that internally, the GPU specs relate a UUID with a resource_id,
-so we still need both tables:
-- one to relate UUID with resource_id to be able to locate the underlying
-resource
-- the table that holds the dmabuf with the UUID for cross-device sharing
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-With that in mind, sounds to me that the support for cross-device sharing
-could
-be added on top of this patch, once
-https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html
-lands.
+broken-job test-amd64-amd64-libvirt broken
+broken-step test-amd64-i386-examine-uefi host-install
+broken-step test-amd64-amd64-libvirt host-install(5)
+broken-step test-amd64-amd64-examine-uefi host-install
 
-I hope that makes sense.
-Regards,
-Albert
+Not pushing.
 
---00000000000014281b06053d1d4f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+commit 21ec0c42267be169be6019e5a09b61cbf16d10ce
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Thu Aug 24 11:06:40 2023 +0200
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr" class=3D"gmail_sign=
-ature"><div dir=3D"ltr"><br></div></div></div></div><br><div class=3D"gmail=
-_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Sep 13, 2023 at 2:22=
-=E2=80=AFPM Akihiko Odaki &lt;<a href=3D"mailto:akihiko.odaki@daynix.com">a=
-kihiko.odaki@daynix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On 2023/09/13 20:34, Albert Esteve wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt; On Wed, Sep 13, 2023 at 12:34=E2=80=AFPM Akihiko Odaki &lt;<a href=3D"=
-mailto:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com=
-</a> <br>
-&gt; &lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.com" target=3D"_blan=
-k">akihiko.odaki@daynix.com</a>&gt;&gt; wrote:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0On 2023/09/13 16:55, Albert Esteve wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Hi Antonio,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; If I&#39;m not mistaken, this patch is relate=
-d with:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://lists.gnu.org/archive/html/qemu-=
-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https://l=
-ists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;&gt;<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; IMHO, ideally, virtio-gpu and vhost-user-gpu =
-both, would use the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; infrastructure from the patch I linked to sto=
-re the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; virtio objects, so that they can be later sha=
-red with other devices.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0I don&#39;t think such sharing is possible because =
-the resources are<br>
-&gt;=C2=A0 =C2=A0 =C2=A0identified by IDs that are local to the device. Tha=
-t also complicates<br>
-&gt;=C2=A0 =C2=A0 =C2=A0migration.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Regards,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Akihiko Odaki<br>
-&gt; <br>
-&gt; Hi Akihiko,<br>
-&gt; <br>
-&gt; As far as I understand, the feature to export dma-bufs=C2=A0from the<b=
-r>
-&gt; virtgpu was introduced as part of the virtio cross-device sharing<br>
-&gt; proposal [1]. Thus, it shall be posible. When virtgpu=C2=A0ASSING_UUID=
-,<br>
-&gt; it exports and identifies the dmabuf resource, so that when the dmabuf=
- gets<br>
-&gt; shared inside the guest (e.g., with virtio-video), we can use the assi=
-gned<br>
-&gt; UUID to find the dmabuf in the host (using the patch that I linked abo=
-ve),<br>
-&gt; and import it.<br>
-&gt; <br>
-&gt; [1] - <a href=3D"https://lwn.net/Articles/828988/" rel=3D"noreferrer" =
-target=3D"_blank">https://lwn.net/Articles/828988/</a> &lt;<a href=3D"https=
-://lwn.net/Articles/828988/" rel=3D"noreferrer" target=3D"_blank">https://l=
-wn.net/Articles/828988/</a>&gt;<br>
-<br>
-The problem is that virtio-gpu can have other kind of resources like <br>
-pixman and OpenGL textures and manage them and DMA-BUFs with unified <br>
-resource ID.<br></blockquote><div><br></div><div>I see.</div><div>=C2=A0</d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-So you cannot change:<br>
-g_hash_table_insert(g-&gt;resource_uuids, <br>
-GUINT_TO_POINTER(assign.resource_id), uuid);<br>
-by:<br>
-virtio_add_dmabuf(uuid, assign.resource_id);<br>
-<br>
-assign.resource_id is not DMA-BUF file descriptor, and the underlying <br>
-resource my not be DMA-BUF at first place.<br></blockquote><div><br></div><=
-div>I didn&#39;t really look into the patch in-depth, so the=C2=A0code was =
-intended</div><div>to give an idea of how the implementation would look lik=
-e with</div><div>the cross-device patch API. Indeed, it is not the resource=
-_id,</div><div>(I just took a brief look at the virtio specificacion=C2=A01=
-.2), but the underlying</div><div>resource what we want to use here.</div><=
-div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Also, since this lives in the common code that is not used only by <br>
-virtio-gpu-gl but also virtio-gpu, which supports migration, we also <br>
-need to take care of that. It is not a problem for DMA-BUF as DMA-BUF is <b=
-r>
-not migratable anyway, but the situation is different in this case.<br>
-<br>
-Implementing cross-device sharing is certainly a possibility, but that <br>
-requires more than dealing with DMA-BUFs.<br>
-<br></blockquote><div><br></div><div>So, if I understood correctly, dmabufs=
-=C2=A0are just a subset of the resources</div><div>that the gpu manages, or=
- can assign UUIDs to. I am not sure why</div><div>the virt gpu driver would=
- want to send a ASSIGN_UUID for anything</div><div>that is not a dmabuf (ar=
-e we sure it does?), but I am not super familiarized</div><div>with virtgpu=
-=C2=A0to begin with.</div><div>But I see that internally, the GPU specs rel=
-ate a UUID with a resource_id,</div><div>so we still need both tables:</div=
-><div>- one to relate UUID with resource_id to be able to locate the underl=
-ying resource</div><div>- the table that holds the dmabuf with the UUID for=
- cross-device sharing</div><div><br></div><div>With that in mind, sounds to=
- me that the support for cross-device sharing could</div><div>be added on t=
-op of this patch, once=C2=A0<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01850.html">https://lists.gnu.org/archive/html/qemu-de=
-vel/2023-09/msg01850.html</a></div><div>lands.</div><div><br></div><div>I h=
-ope that makes sense.</div><div>Regards,</div><div>Albert</div></div></div>
+    xen/arm: Handle empty grant table region in find_unallocated_memory()
+    
+    When creating dom0 with grant table support disabled in Xen and no IOMMU,
+    the following assert is triggered (debug build):
+    "Assertion 's <= e' failed at common/rangeset.c:189"
+    
+    (XEN) Xen call trace:
+    (XEN)    [<0000020000218568>] rangeset_remove_range+0xbc/0x2cc (PC)
+    (XEN)    [<00000200002c76bc>] domain_build.c#make_hypervisor_node+0x294/0x7c4 (LR)
+    (XEN)    [<00000200002ca240>] domain_build.c#handle_node+0x7ec/0x924
+    (XEN)    [<00000200002ca7ac>] domain_build.c#construct_dom0+0x434/0x4d8
+    
+    This is because find_unallocated_memory() (used to find memory holes
+    for extended regions) calls rangeset_remove_range() for an empty
+    grant table region. Fix it by checking if the size of region is not 0.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
 
---00000000000014281b06053d1d4f--
+commit 5e8df433db791ba7e63ac1253e4e2a06ccd353d7
+Author: Gianluca Luparini <gianluca.luparini@bugseng.com>
+Date:   Tue Sep 12 11:02:51 2023 +0200
 
+    x86/viridian: address violations of MISRA C:2012 Rule 7.2
+    
+    The xen sources contains violations of MISRA C:2012 Rule 7.2 whose
+    headline states:
+    "A 'u' or 'U' suffix shall be applied to all integer constants
+    that are represented in an unsigned type".
+    
+    Add the 'U' suffix to integers literals with unsigned type and also to other
+    literals used in the same contexts or near violations, when their positive
+    nature is immediately clear. The latter changes are done for the sake of
+    uniformity.
+    
+    Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Paul Durrant <paul@xen.org>
+
+commit 7a952cc3ecfd948272bec91218a4862418e5a321
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Sep 12 11:02:16 2023 +0200
+
+    build: restrict gcc11 workaround to versions earlier than 11.3.0
+    
+    The fix for this issue was backported to 11.3, so let's not unduly
+    engage the workaround.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit a22f0de322c288d26e9f29179beef1e1779ccfbd
+Author: Gianluca Luparini <gianluca.luparini@bugseng.com>
+Date:   Tue Sep 12 11:01:19 2023 +0200
+
+    x86/viridian: address violations of MISRA C:2012 Rule 7.3
+    
+    The xen sources contain violations of MISRA C:2012 Rule 7.3 whose headline
+    states:
+    "The lowercase character 'l' shall not be used in a literal suffix".
+    
+    Use the "L" suffix instead of the "l" suffix, to avoid potential ambiguity.
+    If the "u" suffix is used near "L", use the "U" suffix instead, for consistency.
+    
+    The changes in this patch are mechanical.
+    
+    Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Paul Durrant <paul@xen.org>
+(qemu changes not included)
 
