@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F6079DF9C
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 07:58:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.600952.936806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF09D79DFAD
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Sep 2023 08:03:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.600958.936817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgIt9-000835-5O; Wed, 13 Sep 2023 05:58:11 +0000
+	id 1qgIxT-0001AR-L6; Wed, 13 Sep 2023 06:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 600952.936806; Wed, 13 Sep 2023 05:58:11 +0000
+Received: by outflank-mailman (output) from mailman id 600958.936817; Wed, 13 Sep 2023 06:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgIt9-00081E-1q; Wed, 13 Sep 2023 05:58:11 +0000
-Received: by outflank-mailman (input) for mailman id 600952;
- Wed, 13 Sep 2023 05:58:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgIxT-00017J-Hl; Wed, 13 Sep 2023 06:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 600958;
+ Wed, 13 Sep 2023 06:02:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qJrE=E5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qgIt7-000817-AN
- for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 05:58:09 +0000
+ id 1qgIxS-00017D-4k
+ for xen-devel@lists.xenproject.org; Wed, 13 Sep 2023 06:02:38 +0000
 Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0622.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::622])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 829cf7ff-51fa-11ee-9b0d-b553b5be7939;
- Wed, 13 Sep 2023 07:58:07 +0200 (CEST)
+ (mail-ve1eur01on062f.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2338d4f7-51fb-11ee-8786-cb3800f73035;
+ Wed, 13 Sep 2023 08:02:36 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB9PR04MB8378.eurprd04.prod.outlook.com (2603:10a6:10:25f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.19; Wed, 13 Sep
- 2023 05:58:04 +0000
+ by AS8PR04MB7621.eurprd04.prod.outlook.com (2603:10a6:20b:299::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.34; Wed, 13 Sep
+ 2023 06:02:31 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6792.019; Wed, 13 Sep 2023
- 05:58:04 +0000
+ 06:02:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,151 +47,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 829cf7ff-51fa-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 2338d4f7-51fb-11ee-8786-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ogw/rbkbLIL7oVoxarbFERvm6WRF95/0zZcMbY8NXvHLZRaYmaUvPiEzDJAqFQX9AKoTvdkLE2Fqhxt+CSxMHoyeYn6kvS/QQXLwkEDWsKi51BqZfYuQzTPv+FmTb/s5qPgg3RTdvma1dRf19sAbMWt8FEJZPUYufNyeSKHn89UFLKN/pPmbQzyY/LpxA2X3onGSoLmJwTmLM5VakfhRUC2YGKzbt079MQnbbVxSjx+GU0fye8X93xSyB0y7iPF0DmDSoVBz2DovgdRXoiNNaS8l2Ig3cZWaVHpBUtXQa+xVx6NAG0AF1r/9kaTD//prckqGfgBaYfznSgpQ0PQVlQ==
+ b=Bu7qUIDpFmevW6Z8RhGFXym7dsoWXAUQjW04GrfndyZHLRfbafZuw9WpP6XxZAYnPCFbBr3imLuiZpullXpHkmJLElf0PCJAi8B/mck8yWy958l+LfU8iai4emWJXcgIA3IkCwbT83KGUS2/dqTL2K5xZHnx55YUWpSfWvifY0tAuwWLAztBm/npkrHYrisi9rFLSOulUU1zp5h/SpgnfvfZBkUSwpgumFAoExIMnpAAndVVRSkxoBGTBo5StKCX0X4KHRixRsX90TRsLq9F9JoSmxSW087yDq3gTnBgRqfDI3ubNdzeR6vGYX/NXsY3193NnVhKj8L3LIpnfkcEfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h3XRPmyR/rYeCPkUbHbM6Ne0NiE7p8QqzvML3QMDIx8=;
- b=NL4fzdaIEP3fEQWVHEivPV7r6h+EQyYryA2fYrGB6aRYh0xl7vbscT6V8PAVpJeXU2gAl11S+Z2qd2QyZ5if4tu9B3tu/sDav03vyITN2vIGypqy7pNfCYHlssKsU3iGHzXgoj7VDiw8k0dW3Siwj21yOBkgkWGIyoEpJuWXxKFVRThuYr0g/XsOZEnLfPLG0ROFfqNveq0vhjRIYqy4vHSrb12iJi4cHV2VREBVywR0uQ7VVQwFZAr6MEqETM2Krc7eFDjrMyrxLOx/HRV0EKzo/OyC0RTTQl9ZQtJjuIVjdC5Q1ShzDUOzI9o2CBMqviyWQlhewCR1Mz6C3oWIPA==
+ bh=8k5ka4Rd5oGj/IiMM7fslevP2QenLXS6Y3xO8jqJvWA=;
+ b=gL1YQQFjVTuihlKQIKCRKRePyPYtxr1rPYYzv9cjDzO08kEalDpbL3vLrnm2qNDKx6CbtVFevAV9ArtzkwBTltoekkl8rF2blh8UhHxQ1XGQUZMq+OKD6cfvQbZqNV/WognorpXcEuA9FUH01M3AoKdZQok/Y9EhnG7vnHa6jKbttzNHvH8prRJA2z8Bfr6HjXXLpecCZzIVWTXdzAyNU0ckGR8b0sPUZXspUXlP8+vKvIeqqyiZTFOG+gl7BkXRf4JTFZqxXVD8E8rOHrATBSSTMIeXh7wXwzmnljrB2N99vMYRszJqLB1ByN/SDC7CMlVyNw4UfkbPk5zKIPfydg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h3XRPmyR/rYeCPkUbHbM6Ne0NiE7p8QqzvML3QMDIx8=;
- b=SLFzUZ4bt7MOP5MA7UPxThXWmkqEVZzKAwkIdj62OLm2AfbIsprrSMSShmrXUn7m+oXlPNuqUYPww6JVEkPgzFNNmZnmMoiP2vTFyZciQtKLRL9rfDP6569xNhdKctHcBtDJxaIz5AvE2AFUtZLCE6aFDkHwk0r3XiMNKy+Mvv5lOV5gC+irQ7eSltITN4P7S9BqG9LnQLJkXEPilaUm0xKZ02R6LdzNOUAeZeqfw2nJ80ZhtJhYEiRWsizDZ0BdMPLkO84+xLCohS2+UKepvn8rptIGanG8uCIOJiEfY/pevHMmRE+cfnzWY3W/TX4R1v17aPepCpNLcvfj0UIINQ==
+ bh=8k5ka4Rd5oGj/IiMM7fslevP2QenLXS6Y3xO8jqJvWA=;
+ b=vCvU3olmsKx/J+xmY/wZtniQeNTI0gpBKLCzrKXh/fdA6D0Iupw7PJDw7UzCWla+27vsw7BqHEPuNf9kMX3eOExqcisgmRtjCBhA8d3/uhVuCVn0jDGs/mE4a+5TnzsEtw08ux6jN0x8D5cjg94W6zW96KUR/CEepZ1wbOP7sWJUeLF9vkJrt3mj348EqwL4vH5UPpy892iSHdxvEWJJVCKNc6ZO0ynvbtId+qXSEgzE6Ovg4xRHX/1XvGSDJmXTnEQAoP+RSyInuwKl3yoLfRNJycfZAAZkpqq89gM9BhHJjc5xmPE2Jaqa57eWzexuL88SchMeX4c7U6mTYlGh7A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1f57bbf2-d6f3-2e3d-61e0-049b8e2e070a@suse.com>
-Date: Wed, 13 Sep 2023 07:58:01 +0200
+Message-ID: <6d98425e-b66a-8de5-4eac-fc28212bfe9a@suse.com>
+Date: Wed, 13 Sep 2023 08:02:29 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH v9 04/16] vpci: add hooks for PCI device assign/de-assign
+Subject: Re: [PATCH v4 1/5] xen/ppc: Implement atomic.h
 Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-5-volodymyr_babchuk@epam.com>
- <77e2dbc0-c224-4c1e-72a0-5b19aa76ba0b@suse.com> <874jjzhsd4.fsf@epam.com>
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1694211900.git.sanastasio@raptorengineering.com>
+ <7ed453323033a759427da33cea7d18ddca247ae7.1694211900.git.sanastasio@raptorengineering.com>
+ <93f4a2f3-b98c-332d-64a6-9e34cc9dddf2@suse.com>
+ <7d3029fc-1188-3c55-0a54-bb9899fb91e8@raptorengineering.com>
+ <07f75b80-1579-25ec-ab64-cbc1f2ff15e1@suse.com>
+ <c155907a-c5b5-a3fa-f9f8-f68ec51a3c87@raptorengineering.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <874jjzhsd4.fsf@epam.com>
+In-Reply-To: <c155907a-c5b5-a3fa-f9f8-f68ec51a3c87@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0212.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0209.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB8378:EE_
-X-MS-Office365-Filtering-Correlation-Id: 496fa93a-8c0c-469b-b3e3-08dbb41e64c4
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB7621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ebc52c5-4024-4842-fe81-08dbb41f0494
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	GPNLFCefySKTWPUEwvV3EDXqlftU+vj2uDh56LM+giBFOcEkBKA5HiCeOAajdnFkhsrruMAtFcSBY1DaU8QX3HIdQd4IbnUQaHrAD9z0UMeZuFpnYLEoCw9X2Pz/y215cageNhVWssvDNcFXN31XYEsxeUEx4pyyUle/hc7K1aC07Haebv3EB34csIrRg409xD4vTkfCUsOPkFbVOSxwdcXbA54u+ZhbxpQufe77Io4bRy2LmgKLDoa7wpSAMADGdIv+K2yowthn2agY9U6JXRhLiwJ2w8wKGmRYR1Q+HUttrJAvRuJtl22gsdYl/zHKi4oN23jwoBPwSj3Ie1tQbljN1MDe8SBCxG6NSgzVKQ7HMv86hha7ZlXTTMPJKquEsVMdPlgTib2whB79Le0FNnd9KIXhmnfECJVpiywAfZYIZBpfAgSUk/+RrgzriX/tOgP0m6qGL40bCBh6QZzDF7gIK506zR8ckhLBkRWa8xeLbfdn0iWjC4ZJ0jwYcmGGxIw7fCMOXFPg/l/G65saKsmceQRDHYSxSxDREWXiWH0Lzyn2IGyIxDHN+FMWzpSmBozu+ey5iYywanviFBQe+pvxh0rpy4z9Oa0RuwAJHu7Ei4t+fsM3ECmiNlrIEPNQcI86Yt8oUY37G6JYFfKGnA==
+	K/PYg5a0DlwkO0M3AkCbXimRENK/WxZb6I34kcWLZpeCO4lQ7DW9+nRt8r1rDzvDwRDmURivqH0q/sxaLAINfZZeIoJiquszTfgSV4ai+UX67Hg0WgZIAyXuNLyE/zqColY7+HmA+twB2kpESGKNopLpSLZGh707yWZu5frycyHOKAVTHqfwLH2A/U66tODrpLsM6GqUMMO1ZWhf4ayiJ3l6Y80wmmIn0bUodns7tj7kE/kqVTGV9n4cvbHchGN+l3UFLZS8EA6hqgVMLh+U8vmx0r5D6bVVR/qIPQxaSnq1dVgn1hDmISGA0DMlSoX7FauBFz5VrSfuOvkwAA26PmPwrCAufHTByHCTrZCKvcf7Bfi/h9nVMYnpS27CF7UllmylXHyXm9REHPQf/41Ka57kkJVsi4aPOA/RnIbtQTTPJ7tMD49guRzfiD+UxB3TOVuLUkZGy8slhjdbqg12dHBDxDSWEnI2MfIhB7wOac0vdTcA7K/Ka2SXNGygiMtwYIVvZrJEcbGxs3LyjLkJSlQ5/XxtxwsACnaNDUY/hVdH8dn9FBtXd+SsdLIsvI5GH5Dnea1v7wzDHspe/AwfZJJOTPf89paATn6y+whfbzzL3xdH8FyGi03UDz/YGGdICpWjgfj9X103dbelffOtjQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(366004)(39860400002)(396003)(451199024)(186009)(1800799009)(38100700002)(2616005)(31686004)(36756003)(478600001)(6916009)(41300700001)(66556008)(66946007)(66476007)(54906003)(53546011)(83380400001)(6666004)(26005)(316002)(6506007)(6512007)(6486002)(8936002)(8676002)(2906002)(4326008)(31696002)(86362001)(5660300002)(7416002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(396003)(346002)(136003)(376002)(451199024)(186009)(1800799009)(2906002)(26005)(6916009)(316002)(41300700001)(66476007)(66556008)(66946007)(5660300002)(478600001)(8676002)(4326008)(8936002)(31686004)(6512007)(6486002)(6506007)(2616005)(53546011)(36756003)(86362001)(83380400001)(38100700002)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z3hFTVNQL2pOd0JrZ25QMXhQdWFiTTV1ZmVnWGcyNnVHOEExN0Fyb05vWGxR?=
- =?utf-8?B?TFlad2pTM3p1RVRsQjlJN0JreWRobTQ5TG1KMVFLUlVWRUNIcE9yOFNYS0hx?=
- =?utf-8?B?THJPdjlqdGM2ZHZ2RnlVS2JQWGViYzhubWg3aDNyRjBHUWpEWmtBTzBtN2FO?=
- =?utf-8?B?SkthKzZJOVdDRU1iak53bU5aYTFjNnlnd0ZhcHNQTGMrUk1KNzNxdXRIL2s1?=
- =?utf-8?B?ZXV1K3BFSkRVcUVTSEdBSzRXQWNjSEZ6RCs0L2IrZlprd2tLSjN0b2xGQWZp?=
- =?utf-8?B?eEVRSHEzTWlyRVgvY0NLWmxFYWl2Q0UraDVhVUplcWJtOUluRkxCN0hqV2lT?=
- =?utf-8?B?c2RNb09udXBtWDdoa0dTZ0NGbE4xZS9nQk9wYWhhMDlYYjNCZ3MySXRwcHN4?=
- =?utf-8?B?OVJpNk10UU40eEovVTNmS21PTkhZUk5NMGRQMkEyWFlMUFB6eUxOVGFQejNq?=
- =?utf-8?B?WTF6SVk5WVVHYWYrTFJEWFYrVkwvUzdNQVZkb0pWdFdqZGJ5LzhjRVZiNkxj?=
- =?utf-8?B?WXVSWFVhcUV3NzBzQ05VM3ZHRVhVYTVrY1NYR2hlZTZlVmdkZXBpR0ZqU0No?=
- =?utf-8?B?TXBFSlFSSENuUUZ2aVk0dXRTNFlza29SN0srenVVUGtoUVd1OHcvYXBENWEz?=
- =?utf-8?B?N0JCdlFwcHY5bFQ4K2ZNemkrUmZTTXZCUVBQTnkzcnNPSFpUZjg1ejdFdWlG?=
- =?utf-8?B?S2RRNjFyd3lwcWtWTzgvZUtncU1adHFkYjhWWngrOHlZaDlkQ1AzWHRrU0Y5?=
- =?utf-8?B?blVqeE1YRnQ2RkFtcWN0bGFFcHIyZHNzbzhjOFN3RDNPRTJqQk5wU3RPS2Zk?=
- =?utf-8?B?eXZ4azlJWC9mYjhtZklobzJpTFJIMjZuT2tsMHRHamU4TVQ2UVB1QTdmYUN1?=
- =?utf-8?B?WXBWSkpjUVQwcTBQc25RMFI3S3FCMlc1bGtuSEU4cWpEQjNPTFVRaWR3NWZt?=
- =?utf-8?B?M1o2VkVVdWdIUWJHeWdvSzZYOVE1KzdXZlJla0FydlpHYTNXYVVYU2Z1QUs4?=
- =?utf-8?B?NWxuczlKZGNFSWphZGlIUzE1VTFOckw1NVJZWHBXUFRCeGhiZWpLQ0djdCtK?=
- =?utf-8?B?YTJ5R1I2MDBsSEIwWmcrS3hWL3ovZVp0RGdLTVZ6cjJaWW1YZlJWTE1MNk9B?=
- =?utf-8?B?ODhBNG01V1kzMUZDdS9QRjlzb24yQ0t1a1AzYUhCYmVrTEhpSjlLSlI0WE5u?=
- =?utf-8?B?SnB1ZW9tOWVBSklDL0hIc0VMLzV2dWwwMEx6ZG1VOGpBT2NBMlBvQjRzdk03?=
- =?utf-8?B?R09HN2VwTUNTYlNldmF0akZlV1BPdHlJS1gwOXhnZjRncEJLY3hpOE5kR0s4?=
- =?utf-8?B?Z3plSHpUak5kK21ZaDdOQmtrZWpoeFc5NHF1d29ObllCWTVhNnE2UzlQNHNk?=
- =?utf-8?B?b3RHUVA5OHRaNnVzVDNpUWkyMkh1Kzk1SW9xSTF5dCtNNER4dDRHZjcxNTRh?=
- =?utf-8?B?VHZBd2FnaS93aEpNZDhzcThWM1FNUlhNUWU3WndzZ0xTT09iaTVjU2hxN01E?=
- =?utf-8?B?WW1CZXNBaDM2aDBZb29lSHZlR3R4TUxpVG56MGVUdWxVNENQb0tOMnloZUFr?=
- =?utf-8?B?dFhXNTM2SzFKZkpMdUt6WmN0NzdNSkVHeWxqLytOOW5qTllBbXN6NVdtcWk3?=
- =?utf-8?B?S2JjWjF2S3Baek5vWXAxZkJwcjVYVlBFYkFpNFQyaUlEd1FybzFvYlRBVlJ5?=
- =?utf-8?B?ZmpUUDdaZzIvQmdkRGJuUWJjMWI0T3BxZmJUWnFla0FPaVU0ZVZ3UHZrTW5k?=
- =?utf-8?B?VmU2bmNRenRuMDhncEpPbXpZT0VFRFpCSVZnbTdrRjlFZ0pxZnVZeXF3cWRI?=
- =?utf-8?B?T1pYS1FibzBHMFlpYTF4U0t1QUhzaklGUHhRcGxGaTlGeE9BMVpJYjllOXhm?=
- =?utf-8?B?ZFNTNTZxTVdGaW5YeWhYN2xKMjFlZGZwbUMxZ2pEbC81Tm5pVm9LTlEvVW10?=
- =?utf-8?B?ODFNSC9rZ1JoNHVYYTR1SUlvNFpMMGtHV2tuV2xLY2tNaEpwRiszMFhrMnhO?=
- =?utf-8?B?WFJ0a01meVd6aG41aEdXUTBWOUxPMnV1SEdFNndWZ2tpb1JadmhiTndyb0Y5?=
- =?utf-8?B?bzd3VHFTNXJDeDRXMUwzN0V6aWR1UjhVVkFlTVMrWnI0eU9SRjdpLzVabXVV?=
- =?utf-8?Q?A02TZXsinymExruO1RQKvWcvs?=
+	=?utf-8?B?SG5vZ3RjVUVZOE82LzlzbVRVVk91Z3RVWnRrN1VPcXRZV0NhWjJvb2svUUF0?=
+ =?utf-8?B?MGpzRzNUdGtRQmQyV3djNWQwZ1huOGVQMXNoVDdYYXpqdlc0ckk5emlqMEhT?=
+ =?utf-8?B?UkU5QjF5OFZHUXFkN1ZpY0dTQUdXeHQxZ3BuYXFFQmxYKzZhSTAvbjB5L25k?=
+ =?utf-8?B?Y08zTDRFbmRPR2FwS3BrYzlaQkRiMDhQZnpLRWdjOFBOUEc0aEQ2UUdOYVls?=
+ =?utf-8?B?a21NTlVCQXM1SFBQMHNxY3owOGVtUlhVTThzbTB6NHVwSitXUDNETE1ROXNJ?=
+ =?utf-8?B?N01weWdvY1NiREoyQ2RRVVRrUDQ2b0ovM0ZZNllSWUFOZ3A1OFVUellIK1pG?=
+ =?utf-8?B?SS9YdmpTcElHdFVpNzFoc0tKQjRNWVpWT0YyNzJXaS9UekEveVdpZ2dPL3pq?=
+ =?utf-8?B?cklkcytPSVJzNXBWYnFGV2l1ajJtMWJFbmwwSFh3V3BrTVlFRWRwOGlzeThl?=
+ =?utf-8?B?UUFJVWJsMVJXL2swRWpNdHpYWlQ5SStoQ0dNT1ZIdlc1M0F3U1dRTDVnVmpF?=
+ =?utf-8?B?cm1UcmhVVmRkVzhraHZ6ZFUyQTM3bld2aHZJblZPZkJ5MTl1RTVHb3FXQ1Zw?=
+ =?utf-8?B?cFRRRXlvSmR6bGVFTjBEU0s3SjJlRWdDSmJ0QUFsN0tIeXlhVVNnUmJuT2dk?=
+ =?utf-8?B?Um5JTVM4YTFkeXZUUW1vWUpuNXBpSklOL1NlOENJbGhzUWJ2cU5MT0QzdFJ0?=
+ =?utf-8?B?WUtmS1NpN2xQeDNRY25MYXl5VUtBVklrSUtoaWEwTkQxWjhTTXljV3VmRmU0?=
+ =?utf-8?B?MzM1bUcvazhudnM1eTl3Y1hTU2FEUWNGemRlaHNKYnJ2QXFaQ3pST0ZHQXJV?=
+ =?utf-8?B?T1p0UEtQNmhWaGVIdzFNbXRYcGV0QUV5QmhOODNDUjd1aTZHemNrS2VDelkw?=
+ =?utf-8?B?WW9yL1NYV2xlbDZlbHZJaGYzdzI4NUVMdDQ5UnVaQTNCWGQvSzQyNTJHMUxO?=
+ =?utf-8?B?bldOd2lOcXFHL3hrN0dQR2o0SDhtSE5CT1VKRHcveGJ1TlpqNERWUDdWSzhw?=
+ =?utf-8?B?cnNMdUU5Vll4NGV1Q3Z3SmNpOWhDZW9WelVOUXdENHhjcGZTYkNhOForZnpX?=
+ =?utf-8?B?dFJFWHA0TzRVMGNNR1Z5c2RvbG83cHU5YjhlQTcvaU9na2pxOUttQXlEdWZC?=
+ =?utf-8?B?MkdVYXlpWjErRkt1bVJ4eXBmSW11NGNPTENmajN6b3FNLy9BalltazdTTDZQ?=
+ =?utf-8?B?bXlIYzc3cDZBNmRjVkc2elRwRlltOWFtWmt5d1FMN0UzV3FYWmpOK1JEQjRZ?=
+ =?utf-8?B?Yk1sTUpleEhKc1dpekpsRkxoT29pU2FSMHBBd1B4eFgzRVRUQWRmaW5EYnY3?=
+ =?utf-8?B?aFl6ZDhHTllOVTVhamozK3dHTDdhUDAzbjhVUkE3MkZwdGk5RHJaY1BDYloz?=
+ =?utf-8?B?ZWdPSmd4OGo0Wm5zV0JQeTllN2oxZUJDdmpJdXdnVGJUZ2ZqU0Iram1NTFRD?=
+ =?utf-8?B?SElQb1hiWTNvT25xTXZmMjZWaDV2VDEyeVpuMzJ2emNWQ050WE5ZVHhiSnFk?=
+ =?utf-8?B?MTRLOXdUWW5jRzdoM0gxS05vdDdJMnVuUklkaXRXemh3Mk0wcTloalBVeTd2?=
+ =?utf-8?B?YUt1OTFZRnBheHl0ZGFXN0NNelB2dlN3VzM3VlN4c3J5bURNTE9iM0RmU2pV?=
+ =?utf-8?B?eWRWNUdZMlNZV2JvT2tERnArN3NJRDh3SnRDaUcrVFRtN2tyR0EvYmY0Ykdo?=
+ =?utf-8?B?WWlKZzBpTjhYZXp0MjRnYWVoUjJLVjVaOFVrK1dHOG45bGhXajk4WlBpKzVQ?=
+ =?utf-8?B?bGVSZEJGWGFuSHd1LzNLTTlFYkNva3Ixb1NRb1RROU54SnlQZm9JV1Q2aStq?=
+ =?utf-8?B?c0JwRWdMTmpXUHdkblZVRkY5Ykd5NGFtY1J4ME5xSFRuY3dyTTd2NjdnVkVm?=
+ =?utf-8?B?RUIyYkNrdTEzVS9kclVVc3dEWDNFeFhBRXNxdEZWRm9VL2VHQ1VENjBCZ05D?=
+ =?utf-8?B?TlJwY2NVa3RmQk0wQk9ENWdpWDhsWnVDQ1lZWEhzdHJxOHFXUlJCdjdpRkVo?=
+ =?utf-8?B?TFZUZnhpazg1bXFkcUJqMTVXdUMrVnJrR3VkZTJob2NxL2RnK05kRmkxSmpa?=
+ =?utf-8?B?ckdndVZHdmVpbERaK21RUlAxOUdXaVhiUmp5WG0xcGVIL0xIUFFWZ00rUVhX?=
+ =?utf-8?Q?lDwpJNy1oGVAFCvsSWxIY2ugk?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 496fa93a-8c0c-469b-b3e3-08dbb41e64c4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ebc52c5-4024-4842-fe81-08dbb41f0494
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 05:58:03.8130
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2023 06:02:31.8229
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rbt9Y1zKEIoAeDuuuEJihyzxejT4KL9A3dAcY1ldWwU8VxFpb6z+06+lNwTtpmk4wtFHgEatk4+7XhehX4XBgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8378
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3qraew5EfEmyvSEwK2cGcC6eIhei2DUvzzo4LSvRkqSE6gTsVjEZLSs+c7ixui+N/Soep+8uXSJM/CXzzLhlAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7621
 
-On 13.09.2023 01:41, Volodymyr Babchuk wrote:
-> Jan Beulich <jbeulich@suse.com> writes:
->> On 30.08.2023 01:19, Volodymyr Babchuk wrote:
->>> @@ -1481,6 +1488,13 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->>>      if ( pdev->broken && d != hardware_domain && d != dom_io )
->>>          goto done;
->>>  
->>> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) )
->>> +    {
->>> +        write_lock(&pdev->domain->pci_lock);
->>> +        vpci_deassign_device(pdev);
->>> +        write_unlock(&pdev->domain->pci_lock);
->>> +    }
+On 12.09.2023 20:10, Shawn Anastasio wrote:
+> On 9/12/23 1:48 AM, Jan Beulich wrote:
+>> On 12.09.2023 01:56, Shawn Anastasio wrote:
+>>> On 9/11/23 6:33 AM, Jan Beulich wrote:
+>>>> On 09.09.2023 00:50, Shawn Anastasio wrote:
+>>>>> +static always_inline void read_atomic_size(const volatile void *p, void *res,
+>>>>> +                                           unsigned int size)
+>>>>> +{
+>>>>> +    ASSERT(IS_ALIGNED((vaddr_t)p, size));
+>>>>> +    switch ( size )
+>>>>> +    {
+>>>>> +    case 1:
+>>>>> +        *(uint8_t *)res = read_u8_atomic(p);
+>>>>> +        break;
+>>>>> +    case 2:
+>>>>> +        *(uint16_t *)res = read_u16_atomic(p);
+>>>>> +        break;
+>>>>> +    case 4:
+>>>>> +        *(uint32_t *)res = read_u32_atomic(p);
+>>>>> +        break;
+>>>>> +    case 8:
+>>>>> +        *(uint64_t *)res = read_u64_atomic(p);
+>>>>> +        break;
+>>>>> +    default:
+>>>>> +        __bad_atomic_read(p, res);
+>>>>> +        break;
+>>>>> +    }
+>>>>> +}
+>>>>> +
+>>>>> +static always_inline void write_atomic_size(volatile void *p, const void *val,
+>>>>> +                                            unsigned int size)
+>>>>> +{
+>>>>> +    ASSERT(IS_ALIGNED((vaddr_t)p, size));
+>>>>> +    switch ( size )
+>>>>> +    {
+>>>>> +    case 1:
+>>>>> +        write_u8_atomic(p, *(const uint8_t *)val);
+>>>>> +        break;
+>>>>> +    case 2:
+>>>>> +        write_u16_atomic(p, *(const uint16_t *)val);
+>>>>> +        break;
+>>>>> +    case 4:
+>>>>> +        write_u32_atomic(p, *(const uint32_t *)val);
+>>>>> +        break;
+>>>>> +    case 8:
+>>>>> +        write_u64_atomic(p, *(const uint64_t *)val);
+>>>>> +        break;
+>>>>> +    default:
+>>>>> +        __bad_atomic_size();
+>>>>> +        break;
+>>>>> +    }
+>>>>> +}
+>>>>
+>>>> These two functions being as similar as is possible, ...
+>>>>
+>>>>> +#define read_atomic(p)                                                         \
+>>>>> +    ({                                                                         \
+>>>>> +        union {                                                                \
+>>>>> +            typeof(*(p)) val;                                                  \
+>>>>> +            char c[sizeof(*(p))];                                              \
+>>>>> +        } x_;                                                                  \
+>>>>> +        read_atomic_size(p, x_.c, sizeof(*(p)));                               \
+>>>>> +        x_.val;                                                                \
+>>>>> +    })
+>>>>
+>>>> ... is there a reason you keep using a union here ...
+>>>>
+>>>>> +#define write_atomic(p, x)                                                     \
+>>>>> +    do                                                                         \
+>>>>> +    {                                                                          \
+>>>>> +        typeof(*(p)) x_ = (x);                                                 \
+>>>>> +        write_atomic_size(p, &x_, sizeof(*(p)));                               \
+>>>>> +    } while ( 0 )
+>>>>
+>>>> ... while you did away with its use here?
+>>>>
+>>>
+>>> Yes. In the case of read_atomic the caller is allowed (expected, even)
+>>> to pass in const pointers for `p`, which wouldn't work if a simple
+>>> typeof(*(p)) declaration was used since it would inherit the constness
+>>> and thus wouldn't be passable to read_atomic_size.
 >>
->> Why is the DomIO special case ...
+>> But the helper function's first parameter is const volatile void *, and
+>> while you can't assign to a const variable, such a variable can of course
+>> have an initializer (like you have it in the write case).
 > 
-> vpci_deassign_device() does nothing if vPCI was initialized for a
-> domain. So it not wrong to call this function even if pdev belongs to dom_io.
+> Yes, however the second parameter to read_atomic_size is a void *. If
+> read_atomic macro's local `x_` was declared with a simple typeof(*(p))
+> then it would inherit the const and thus couldn't be passed as the
+> second parameter to read_atomic_size.
 
-Well, okay, but then you acquire a lock just to do nothing (apart
-from the apparent asymmetry).
-
->>> @@ -1506,6 +1520,15 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->>>          rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
->>>                          pci_to_dev(pdev), flag);
->>>      }
->>> +    if ( rc )
->>> +        goto done;
->>> +
->>> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) && d != dom_io)
->>> +    {
->>> +        write_lock(&d->pci_lock);
->>> +        rc = vpci_assign_device(pdev);
->>> +        write_unlock(&d->pci_lock);
->>> +    }
->>
->> ... relevant only here?
->>
-> 
-> There is no sense to initialize vPCI for dom_io.
-
-Of course.
+Oh, indeed, I was looking at the wrong parameter. I'm sorry for the noise.
+That said though, all of this could be avoided if read_atomic_size()
+returned a value rather than using a pointer parameter. But that's
+something for a future patch, I guess.
 
 Jan
 
