@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D1A7A0EB4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 22:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602696.939428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D2A37A0F5A
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 22:54:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602703.939438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgsaV-000110-If; Thu, 14 Sep 2023 20:05:19 +0000
+	id 1qgtLQ-0007cZ-1J; Thu, 14 Sep 2023 20:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602696.939428; Thu, 14 Sep 2023 20:05:19 +0000
+Received: by outflank-mailman (output) from mailman id 602703.939438; Thu, 14 Sep 2023 20:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgsaV-0000yX-FJ; Thu, 14 Sep 2023 20:05:19 +0000
-Received: by outflank-mailman (input) for mailman id 602696;
- Thu, 14 Sep 2023 20:05:18 +0000
+	id 1qgtLP-0007ar-Td; Thu, 14 Sep 2023 20:53:47 +0000
+Received: by outflank-mailman (input) for mailman id 602703;
+ Thu, 14 Sep 2023 20:53:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qgsaU-0000yP-3j
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 20:05:18 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ <SRS0=K7SL=E6=gmail.com=pryorm09@srs-se1.protection.inumbo.net>)
+ id 1qgtLN-0007Za-Tp
+ for xen-devel@lists.xen.org; Thu, 14 Sep 2023 20:53:45 +0000
+Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
+ [2607:f8b0:4864:20::936])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05a42108-533a-11ee-8788-cb3800f73035;
- Thu, 14 Sep 2023 22:05:16 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-401d6f6b2e0so16216805e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 13:05:16 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z25-20020a1c4c19000000b003fe29f6b61bsm2801946wmf.46.2023.09.14.13.05.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Sep 2023 13:05:15 -0700 (PDT)
+ id caac4068-5340-11ee-8788-cb3800f73035;
+ Thu, 14 Sep 2023 22:53:44 +0200 (CEST)
+Received: by mail-ua1-x936.google.com with SMTP id
+ a1e0cc1a2514c-7a7d7a3d975so706386241.3
+ for <xen-devel@lists.xen.org>; Thu, 14 Sep 2023 13:53:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +40,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05a42108-533a-11ee-8788-cb3800f73035
+X-Inumbo-ID: caac4068-5340-11ee-8788-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694721916; x=1695326716; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3vId4sGLx2eHjI1TRIXVKBBQP34DBKTvr1CrE3vZyMI=;
-        b=tNugVZ7uc8xqg2EBSHUq+i8vuxttGRm2zY9z7UX3H7V972/Xz9JlwWvlQNoWNXWlKj
-         NlZiJjtroyAiBhSc+1zFtcsp5fR3bO/y5Ra0Wk+nqdr5AfUFwEm3i3nkl8DNqj7LaBeF
-         emUc0o1cmADH4E4OZ+cOUkX3fYX2PZVVjawvU=
+        d=gmail.com; s=20221208; t=1694724823; x=1695329623; darn=lists.xen.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=2mOvvlqWA+AKUW19DqEpbmZAH94qZibDsH3zwHATfUw=;
+        b=O7e6slW2OUV5RWPckigdsLpusVV8XTdAIc436FkCcCtlA8RaEBLhEEz7FcTisJ5eH3
+         Fo2IEdStuBEvPMvyq7eFH9Lk8Jm5hukEBOJYHU/vXdG4Vuufr6BGM6ELgvd0226SAykp
+         WlUJjcX4Ngj1Ql6FH04CHBx0Nz8cEciIkU64Dxx31ITesoJ/dCgTOUA8f1XD4KD4XgAq
+         sRto+Ahr3bK5kAzTmRB6KjnTF5C3ouB+JTlHsSTX1aP1J1sboctqovkOH8KaP0ul4g9q
+         EjstTdtEW0SoejIzl6x/1hdAK1siq2Lh7RN7IDDyNaDKjlVKFOuCCgJzIX0yguS1r5if
+         qtKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694721916; x=1695326716;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3vId4sGLx2eHjI1TRIXVKBBQP34DBKTvr1CrE3vZyMI=;
-        b=xIrND11xBG/iu2WJZJLon6q+5fUsDIBVHk/R/wnH1ITRZ8gVHSrdRhu9aduRINv1T5
-         xCqU8z7ajy+q9c0NAPlFt2afI00CAPGa4elg+t+fqfVS1kxCAc75ii9zvC1GK2MduWDx
-         zA3C17stq86AbFSmB3Vhk0dkQTAM6bRqMCmVuzpDItm5LMhj9AbQeiG/qyTYBwK51gi4
-         GLRs2mrHYNJDH/v3bGJG1qQlRsSsAW0cayX6L9A/LuBqIabkXqbkeCdUcI5oxhbieebk
-         oWQFX0SEjTlRkEjjMPanhG4juP0dklOGGq1iCJSfGRQ2xiIlKz7StzoQL8i2T8nHckKx
-         z8Fw==
-X-Gm-Message-State: AOJu0YzO92RSH23g+6lcuyDXErTng/0M04MmrA4lSKKW9rY5vEbc6BIs
-	NJdXp7VM/S8SBzxnlKitdV//pw==
-X-Google-Smtp-Source: AGHT+IEFOMu8HOw1fLimacRClqpUxu9YYIpRBWrQpDg29JIiiHG1zJtWI6wj4wfcsLWWwQsSl6GBrg==
-X-Received: by 2002:a05:600c:b4b:b0:3fe:1b5e:82 with SMTP id k11-20020a05600c0b4b00b003fe1b5e0082mr1946889wmr.20.1694721915901;
-        Thu, 14 Sep 2023 13:05:15 -0700 (PDT)
-Message-ID: <55bf2c04-c238-ba86-3ef4-99b0524c17ae@citrix.com>
-Date: Thu, 14 Sep 2023 21:05:15 +0100
+        d=1e100.net; s=20230601; t=1694724823; x=1695329623;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2mOvvlqWA+AKUW19DqEpbmZAH94qZibDsH3zwHATfUw=;
+        b=UhmJpuBXbhEIQVfIHMWwyYgIuHjE+NX/mw1li+H1rChfou6QP85dSj6QJVrTDQsJza
+         XEr+LWj7sigzlQ4hvTkw/F4LC5AAuvSyL7UUXJW59iEsEyv379T54nWgw5CVw1GDXEig
+         bVBVwpX+S7ZS11Y9j8oFDSotzRnd367+A44u74kWH6kOmoXx0J+4qjA02greIf7fhOVc
+         xeMoifSNkJl469uHh6ad2W+z7fhBIslCys3j5wZ7YBmVxWx/d5UFJw4vBL1c9Ce9Ipkn
+         mgej2iBWjKwJj2oEm1WwhHYpk7v5xQTb1Qu7DouWlLaf6auWKSvxtVbjWGxKKrYliWqc
+         o3SQ==
+X-Gm-Message-State: AOJu0YxFlL9p3feL2Td3Y0LSIWGYw0iIeFY0+iTRXv5E01U7NNTqTlsm
+	Yb3dDqBiWIosLn9gdBJydECmFiIcb3lO9tWfbyVxBZ9lFPU=
+X-Google-Smtp-Source: AGHT+IEgIeYWSnij5g6FsUJegUkYmVfZkZqAOIe1MysHzP4uEdTLwxBQWi9MRulj7RLS1YDfJGZlL2E04ToRatETxdI=
+X-Received: by 2002:a1f:e783:0:b0:48d:5af8:b9d0 with SMTP id
+ e125-20020a1fe783000000b0048d5af8b9d0mr6836666vkh.6.1694724823058; Thu, 14
+ Sep 2023 13:53:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 8/8] x86/spec-ctrl: Mitigate the Zen1 DIV leakge
-Content-Language: en-GB
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
- <20230913202758.508225-9-andrew.cooper3@citrix.com>
- <CAKf6xpuRh00P9at-bY+XE669vjoMf_xMwozQkCx=DL6Q2kLwgg@mail.gmail.com>
-In-Reply-To: <CAKf6xpuRh00P9at-bY+XE669vjoMf_xMwozQkCx=DL6Q2kLwgg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Pry Mar <pryorm09@gmail.com>
+Date: Thu, 14 Sep 2023 13:53:31 -0700
+Message-ID: <CAHnBbQ_KTWXQiw7PuxzsiH563uCCNaJL6+VkmcK+V_n5M8RaPA@mail.gmail.com>
+Subject: 4.8-unstable: building firmware/hvmloader errors in Bookworm with gcc-12.2
+To: xen-devel <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="000000000000120d59060557df8e"
 
-On 14/09/2023 2:12 pm, Jason Andryuk wrote:
-> On Wed, Sep 13, 2023 at 6:09 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->> @@ -955,6 +960,40 @@ static void __init srso_calculations(bool hw_smt_enabled)
->>          setup_force_cpu_cap(X86_FEATURE_SRSO_NO);
->>  }
->>
->> +/*
->> + * Div leakage is specific to the AMD Zen1 microarchitecure.  Use STIBP as a
->> + * heuristic to select between Zen1 and Zen2 uarches.
->> + */
->> +static bool __init has_div_vuln(void)
->> +{
->> +    if ( !(boot_cpu_data.x86_vendor &
->> +           (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
->> +        return false;
->> +
->> +    if ( (boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
->> +         !boot_cpu_has(X86_FEATURE_AMD_STIBP) )
->> +        return false;
->> +
->> +    return true;
->> +}
->> +
->> +static void __init div_calculations(bool hw_smt_enabled)
->> +{
->> +    bool cpu_bug_div = has_div_vuln();
->> +
-> Would it make sense to add
->     if ( !cpu_bug_div )
->         return
-> ...
->
->> +    if ( opt_div_scrub == -1 )
->> +        opt_div_scrub = cpu_bug_div;
->> +
->> +    if ( opt_div_scrub )
->> +        setup_force_cpu_cap(X86_FEATURE_SC_DIV);
-> ...so that div-scrub=1 isn't setting X86_FEATURE_SC_DIV on un-affected
-> hardware?  Or do you want to leave command line control in place in
-> case it might be needed as a future workaround on other hardware?
+--000000000000120d59060557df8e
+Content-Type: text/plain; charset="UTF-8"
 
-All options (where possible) allow for paths to be explicitly activated
-on un-affected hardware so we can test this giant mess.
+Hello,
 
-The only cases where we ignore a user choice is when the result will
-crash from e.g. #GP due to insufficient microcode.
+First attempt to build xen-4.18-unstabl in deb12 (Bookworm):
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.asl
+  9851:             Name ( SLT, 0x0 )
+Remark   2173 -          Creation of named objects within a method is
+highly inefficient, use globals or method local variables instead ^
+ (\_GPE._L03)
 
-~Andrew
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.asl
+  9852:             Name ( EVT, 0x0 )
+Remark   2173 -          Creation of named objects within a method is
+highly inefficient, use globals or method local variables instead ^
+ (\_GPE._L03)
+
+ASL Input:
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.asl
+-  397476 bytes   8140 keywords  11139 source lines
+AML Output:
+ /home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.aml
+-   73130 bytes   5541 opcodes    2599 named objects
+Hex Dump:
+ /home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.hex
+-  686160 bytes
+
+Compilation successful. 0 Errors, 129 Warnings, 2 Remarks, 2762
+Optimizations
+sed -e 's/AmlCode/dsdt_anycpu/g' -e 's/_aml_code//g'
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.hex
+> /home/mockbuild/pbdeps/xen-4.18~rc0/debi>
+echo "int dsdt_anycpu_len=sizeof(dsdt_anycpu);" >>
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.c.tmp
+mv -f
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.c.tmp
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmlo>
+rm -f
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.aml
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmload>
+make[9]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/libacpi'
+make[8]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader'
+make[7]: ***
+[/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/../../tools/Rules.mk:206:
+subdir-all-hvmloader] Error 2
+make[7]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware'
+make[6]: ***
+[/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/../../tools/Rules.mk:201:
+subdirs-all] Error 2
+make[6]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware'
+make[5]: *** [Makefile:37: all] Error 2
+make[5]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware'
+make[4]: ***
+[/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/../tools/Rules.mk:206:
+subdir-all-firmware] Error 2
+make[4]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools'
+make[3]: ***
+[/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/../tools/Rules.mk:201:
+subdirs-all] Error 2
+make[3]: Leaving directory
+'/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools'
+make[2]: *** [debian/rules.real:218: debian/stamps/build-utils_amd64] Error
+2
+make[2]: Leaving directory '/home/mockbuild/pbdeps/xen-4.18~rc0'
+make[1]: *** [debian/rules.gen:57: build-arch_amd64_real] Error 2
+make[1]: Leaving directory '/home/mockbuild/pbdeps/xen-4.18~rc0'
+make: *** [debian/rules:24: build-arch] Error 2
+dpkg-buildpackage: error: debian/rules build subprocess returned exit
+status 2
+
+any help is appreciated,
+PryMar56
+
+--000000000000120d59060557df8e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>First attempt to buil=
+d xen-4.18-unstabl in deb12 (Bookworm):<br></div><div>/home/mockbuild/pbdep=
+s/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt=
+_anycpu.asl =C2=A0 9851: =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name ( S=
+LT, 0x0 )<br>Remark =C2=A0 2173 - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Creatio=
+n of named objects within a method is highly inefficient, use globals or me=
+thod local variables instead ^ =C2=A0(\_GPE._L03)<br><br>/home/mockbuild/pb=
+deps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/d=
+sdt_anycpu.asl =C2=A0 9852: =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name =
+( EVT, 0x0 )<br>Remark =C2=A0 2173 - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Crea=
+tion of named objects within a method is highly inefficient, use globals or=
+ method local variables instead ^ =C2=A0(\_GPE._L03)<br><br>ASL Input: =C2=
+=A0 =C2=A0 /home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd=
+64/tools/firmware/hvmloader/dsdt_anycpu.asl - =C2=A0397476 bytes =C2=A0 814=
+0 keywords =C2=A011139 source lines<br>AML Output: =C2=A0 =C2=A0/home/mockb=
+uild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvml=
+oader/dsdt_anycpu.aml - =C2=A0 73130 bytes =C2=A0 5541 opcodes =C2=A0 =C2=
+=A02599 named objects<br>Hex Dump: =C2=A0 =C2=A0 =C2=A0/home/mockbuild/pbde=
+ps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsd=
+t_anycpu.hex - =C2=A0686160 bytes<br><br>Compilation successful. 0 Errors, =
+129 Warnings, 2 Remarks, 2762 Optimizations<br>sed -e &#39;s/AmlCode/dsdt_a=
+nycpu/g&#39; -e &#39;s/_aml_code//g&#39; /home/mockbuild/pbdeps/xen-4.18~rc=
+0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.hex &=
+gt; /home/mockbuild/pbdeps/xen-4.18~rc0/debi&gt;<br>echo &quot;int dsdt_any=
+cpu_len=3Dsizeof(dsdt_anycpu);&quot; &gt;&gt; /home/mockbuild/pbdeps/xen-4.=
+18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader/dsdt_anycpu.=
+c.tmp<br>mv -f /home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils=
+_amd64/tools/firmware/hvmloader/dsdt_anycpu.c.tmp /home/mockbuild/pbdeps/xe=
+n-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmlo&gt;<br>rm -f=
+ /home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/f=
+irmware/hvmloader/dsdt_anycpu.aml /home/mockbuild/pbdeps/xen-4.18~rc0/debia=
+n/build/build-utils_amd64/tools/firmware/hvmload&gt;<br>make[9]: Leaving di=
+rectory &#39;/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_a=
+md64/tools/libacpi&#39;<br>make[8]: Leaving directory &#39;/home/mockbuild/=
+pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/firmware/hvmloader=
+&#39;<br>make[7]: *** [/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/bui=
+ld-utils_amd64/tools/firmware/../../tools/Rules.mk:206: subdir-all-hvmloade=
+r] Error 2<br>make[7]: Leaving directory &#39;/home/mockbuild/pbdeps/xen-4.=
+18~rc0/debian/build/build-utils_amd64/tools/firmware&#39;<br>make[6]: *** [=
+/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/fi=
+rmware/../../tools/Rules.mk:201: subdirs-all] Error 2<br>make[6]: Leaving d=
+irectory &#39;/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_=
+amd64/tools/firmware&#39;<br>make[5]: *** [Makefile:37: all] Error 2<br>mak=
+e[5]: Leaving directory &#39;/home/mockbuild/pbdeps/xen-4.18~rc0/debian/bui=
+ld/build-utils_amd64/tools/firmware&#39;<br>make[4]: *** [/home/mockbuild/p=
+bdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools/../tools/Rules.mk:2=
+06: subdir-all-firmware] Error 2<br>make[4]: Leaving directory &#39;/home/m=
+ockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_amd64/tools&#39;<br>m=
+ake[3]: *** [/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils_a=
+md64/tools/../tools/Rules.mk:201: subdirs-all] Error 2<br>make[3]: Leaving =
+directory &#39;/home/mockbuild/pbdeps/xen-4.18~rc0/debian/build/build-utils=
+_amd64/tools&#39;<br>make[2]: *** [debian/rules.real:218: debian/stamps/bui=
+ld-utils_amd64] Error 2<br>make[2]: Leaving directory &#39;/home/mockbuild/=
+pbdeps/xen-4.18~rc0&#39;<br>make[1]: *** [debian/rules.gen:57: build-arch_a=
+md64_real] Error 2<br>make[1]: Leaving directory &#39;/home/mockbuild/pbdep=
+s/xen-4.18~rc0&#39;<br>make: *** [debian/rules:24: build-arch] Error 2<br>d=
+pkg-buildpackage: error: debian/rules build subprocess returned exit status=
+ 2</div><div><br></div><div>any help is appreciated,</div><div>PryMar56<br>=
+</div></div>
+
+--000000000000120d59060557df8e--
 
