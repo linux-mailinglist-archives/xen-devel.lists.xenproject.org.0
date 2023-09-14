@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAA4879FAD5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 07:31:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601869.938191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5946E79FADA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 07:32:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.601905.938240 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgewO-0000rn-Va; Thu, 14 Sep 2023 05:31:00 +0000
+	id 1qgexn-0004AA-DL; Thu, 14 Sep 2023 05:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601869.938191; Thu, 14 Sep 2023 05:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 601905.938240; Thu, 14 Sep 2023 05:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgewO-0000pJ-SH; Thu, 14 Sep 2023 05:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 601869;
- Thu, 14 Sep 2023 05:30:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgexn-00047Y-9t; Thu, 14 Sep 2023 05:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 601905;
+ Thu, 14 Sep 2023 05:32:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IZLI=E6=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qgelE-0001X7-RU
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 05:19:28 +0000
+ id 1qgelG-0001XI-6t
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 05:19:30 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46938adc-52be-11ee-8787-cb3800f73035;
- Thu, 14 Sep 2023 07:19:27 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 46b4fd32-52be-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 07:19:28 +0200 (CEST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2023 22:17:40 -0700
+ 13 Sep 2023 22:17:41 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by orsmga001.jf.intel.com with ESMTP; 13 Sep 2023 22:17:39 -0700
+ by orsmga001.jf.intel.com with ESMTP; 13 Sep 2023 22:17:40 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46938adc-52be-11ee-8787-cb3800f73035
+X-Inumbo-ID: 46b4fd32-52be-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1694668768; x=1726204768;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=daicXFK30tmpTUp95RTD2ZQAe5K9xY8zuW1WSEbSaqA=;
-  b=IZ3fDdlobGpN06FbjcdFiP9FpheyP5cyVJPDH8xjeX49jBnNSlyP7UGW
-   kPtUcIgIGsO2RE2rfkIt2N5bWehy6lUlRO20VmAjTfMfI34MpNlnI0Euf
-   RDWrqarKs1HwU/MusuRg3yHfZI2gD4eVWMff0seugKGTQCl4IvR/dyycU
-   6qRMta/dkaC92O0VIss3q3KOy1jdozi5oKM3OnCOFvOCntLm9sfaT+MRO
-   IberLtrRd6zaR1JOCWi0Te4HbU2OQWEO62AG/PspS82oNdSJVILfhrh8Y
-   p2sAQnaaLcGLBmDCWeJvuhCFOJRKTVCyqO6Qs7PxgnR7JpwOOd0iYdVCU
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="382661342"
+  bh=m7R91mzhAyMwuxf88uvtu3V1UGcA6vznqDxNdL57F/c=;
+  b=LdsBeh/HA8BbzjZtfgV3bx+7TO4JQzwRVokM+ISVEdMGLk5XAuwDUvjV
+   iTY9Y0oI/8GrJdxbA9sRS9ze3MR0BiGI+2Xn3BuiMWQ3inKwt7AmVQSdA
+   rw6iWZ65d2ghTN1Wq0tECn7F92UTRHojOrLOV2fGEbduzRoahPLFkgal7
+   kp+EV/fg2uRXBkE+plYG0kzZn54OmwVJ1RDhuWcPm7Z80RVp66RMLJWFF
+   MddF70tyUUc+U7EJtQJvJScVdoDnE78NV8PXFohl2zytXJJCGF6HX33CM
+   W8UZnkvJ1zhIza2GPCqOhua2VtjF6MENQ6tWdxxvNACV9d/KjChW2yUCE
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="382661357"
 X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; 
-   d="scan'208";a="382661342"
+   d="scan'208";a="382661357"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="779488802"
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="779488805"
 X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; 
-   d="scan'208";a="779488802"
+   d="scan'208";a="779488805"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -84,9 +84,9 @@ Cc: tglx@linutronix.de,
 	mhiramat@kernel.org,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com
-Subject: [PATCH v10 21/38] x86/fred: No ESPFIX needed when FRED is enabled
-Date: Wed, 13 Sep 2023 21:47:48 -0700
-Message-Id: <20230914044805.301390-22-xin3.li@intel.com>
+Subject: [PATCH v10 22/38] x86/fred: Allow single-step trap and NMI when starting a new task
+Date: Wed, 13 Sep 2023 21:47:49 -0700
+Message-Id: <20230914044805.301390-23-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230914044805.301390-1-xin3.li@intel.com>
 References: <20230914044805.301390-1-xin3.li@intel.com>
@@ -95,42 +95,93 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Because FRED always restores the full value of %rsp, ESPFIX is
-no longer needed when it's enabled.
+Entering a new task is logically speaking a return from a system call
+(exec, fork, clone, etc.). As such, if ptrace enables single stepping
+a single step exception should be allowed to trigger immediately upon
+entering user space. This is not optional.
+
+NMI should *never* be disabled in user space. As such, this is an
+optional, opportunistic way to catch errors.
+
+Allow single-step trap and NMI when starting a new task, thus once
+the new task enters user space, single-step trap and NMI are both
+enabled immediately.
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/kernel/espfix_64.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/x86/kernel/espfix_64.c b/arch/x86/kernel/espfix_64.c
-index 16f9814c9be0..6726e0473d0b 100644
---- a/arch/x86/kernel/espfix_64.c
-+++ b/arch/x86/kernel/espfix_64.c
-@@ -106,6 +106,10 @@ void __init init_espfix_bsp(void)
- 	pgd_t *pgd;
- 	p4d_t *p4d;
+Changes since v8:
+* Use high-order 48 bits above the lowest 16 bit SS only when FRED
+  is enabled (Thomas Gleixner).
+---
+ arch/x86/kernel/process_64.c | 38 ++++++++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 6 deletions(-)
+
+diff --git a/arch/x86/kernel/process_64.c b/arch/x86/kernel/process_64.c
+index 4f87f5987ae8..c075591b7b46 100644
+--- a/arch/x86/kernel/process_64.c
++++ b/arch/x86/kernel/process_64.c
+@@ -56,6 +56,7 @@
+ #include <asm/resctrl.h>
+ #include <asm/unistd.h>
+ #include <asm/fsgsbase.h>
++#include <asm/fred.h>
+ #ifdef CONFIG_IA32_EMULATION
+ /* Not included via unistd.h */
+ #include <asm/unistd_32_ia32.h>
+@@ -528,7 +529,7 @@ void x86_gsbase_write_task(struct task_struct *task, unsigned long gsbase)
+ static void
+ start_thread_common(struct pt_regs *regs, unsigned long new_ip,
+ 		    unsigned long new_sp,
+-		    unsigned int _cs, unsigned int _ss, unsigned int _ds)
++		    u16 _cs, u16 _ss, u16 _ds)
+ {
+ 	WARN_ON_ONCE(regs != current_pt_regs());
  
-+	/* FRED systems always restore the full value of %rsp */
-+	if (cpu_feature_enabled(X86_FEATURE_FRED))
-+		return;
-+
- 	/* Install the espfix pud into the kernel page directory */
- 	pgd = &init_top_pgt[pgd_index(ESPFIX_BASE_ADDR)];
- 	p4d = p4d_alloc(&init_mm, pgd, ESPFIX_BASE_ADDR);
-@@ -129,6 +133,10 @@ void init_espfix_ap(int cpu)
- 	void *stack_page;
- 	pteval_t ptemask;
+@@ -545,11 +546,36 @@ start_thread_common(struct pt_regs *regs, unsigned long new_ip,
+ 	loadsegment(ds, _ds);
+ 	load_gs_index(0);
  
-+	/* FRED systems always restore the full value of %rsp */
-+	if (cpu_feature_enabled(X86_FEATURE_FRED))
-+		return;
+-	regs->ip		= new_ip;
+-	regs->sp		= new_sp;
+-	regs->cs		= _cs;
+-	regs->ss		= _ss;
+-	regs->flags		= X86_EFLAGS_IF;
++	regs->ip	= new_ip;
++	regs->sp	= new_sp;
++	regs->csx	= _cs;
++	regs->ssx	= _ss;
++	/*
++	 * Allow single-step trap and NMI when starting a new task, thus
++	 * once the new task enters user space, single-step trap and NMI
++	 * are both enabled immediately.
++	 *
++	 * Entering a new task is logically speaking a return from a
++	 * system call (exec, fork, clone, etc.). As such, if ptrace
++	 * enables single stepping a single step exception should be
++	 * allowed to trigger immediately upon entering user space.
++	 * This is not optional.
++	 *
++	 * NMI should *never* be disabled in user space. As such, this
++	 * is an optional, opportunistic way to catch errors.
++	 *
++	 * Paranoia: High-order 48 bits above the lowest 16 bit SS are
++	 * discarded by the legacy IRET instruction on all Intel, AMD,
++	 * and Cyrix/Centaur/VIA CPUs, thus can be set unconditionally,
++	 * even when FRED is not enabled. But we choose the safer side
++	 * to use these bits only when FRED is enabled.
++	 */
++	if (cpu_feature_enabled(X86_FEATURE_FRED)) {
++		regs->fred_ss.swevent	= true;
++		regs->fred_ss.nmi	= true;
++	}
 +
- 	/* We only have to do this once... */
- 	if (likely(per_cpu(espfix_stack, cpu)))
- 		return;		/* Already initialized */
++	regs->flags	= X86_EFLAGS_IF | X86_EFLAGS_FIXED;
+ }
+ 
+ void
 -- 
 2.34.1
 
