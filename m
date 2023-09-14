@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E467A0B31
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 19:03:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602605.939268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB0217A0BE9
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 19:42:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602613.939279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgpjt-0005cF-SK; Thu, 14 Sep 2023 17:02:49 +0000
+	id 1qgqLx-00039X-RK; Thu, 14 Sep 2023 17:42:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602605.939268; Thu, 14 Sep 2023 17:02:49 +0000
+Received: by outflank-mailman (output) from mailman id 602613.939279; Thu, 14 Sep 2023 17:42:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgpjt-0005aX-Oe; Thu, 14 Sep 2023 17:02:49 +0000
-Received: by outflank-mailman (input) for mailman id 602605;
- Thu, 14 Sep 2023 17:02:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GE3m=E6=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1qgpjr-0005ZB-Sa
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 17:02:47 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85c52d58-5320-11ee-8788-cb3800f73035;
- Thu, 14 Sep 2023 19:02:45 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 38EH252b038701
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 14 Sep 2023 13:02:11 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 38EH25Ba038700;
- Thu, 14 Sep 2023 10:02:05 -0700 (PDT) (envelope-from ehem)
+	id 1qgqLx-00036Y-NO; Thu, 14 Sep 2023 17:42:09 +0000
+Received: by outflank-mailman (input) for mailman id 602613;
+ Thu, 14 Sep 2023 17:42:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qgqLv-00036Q-BN
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 17:42:07 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 04b6d6cb-5326-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 19:42:05 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-401d6f6b2e0so15440465e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 10:42:05 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ l4-20020a5d4804000000b0030ada01ca78sm2272631wrq.10.2023.09.14.10.42.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Sep 2023 10:42:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85c52d58-5320-11ee-8788-cb3800f73035
-Date: Thu, 14 Sep 2023 10:02:05 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: "Luck, Tony" <tony.luck@intel.com>, Yazen Ghannam <yazen.ghannam@amd.com>,
-        smita.koralahallichannabasappa@amd.com, linux-edac@vger.kernel.org,
-        linux-kernel@vger.kernel.org, x86@kernel.org,
-        xen-devel@lists.xenproject.org, rric@kernel.org, james.morse@arm.com
-Subject: Re: [PATCH] Revert "EDAC/mce_amd: Do not load edac_mce_amd module on
- guests"
-Message-ID: <ZQM8jRx8uKEbEo00@mattapan.m5p.com>
-References: <20210628172740.245689-1-Smita.KoralahalliChannabasappa@amd.com>
- <ZPqQEHXgmak1LMNh@mattapan.m5p.com>
- <20230908035911.GAZPqcD/EjfKZ0ISrZ@fat_crate.local>
+X-Inumbo-ID: 04b6d6cb-5326-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1694713324; x=1695318124; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=O5P09Fowp3yjIYcgyxnprWNjqJlp5DVeKLE4sUDeX1E=;
+        b=Wp8Vf+RuMo3CRfop6vPplpt/V5cq8tztGcGDOcD2MjNRhRfiosymQTHiGLhQd3KzGH
+         ZZNEgZJj7ADx2dJztoPt9wturDXHkpb6moA8/1j1386xdEshkdnzXE82opkEJ9SQYlBZ
+         NXHx5Mfj0/AlnAcemqSOBWegIoj3giLzvU0fc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694713324; x=1695318124;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O5P09Fowp3yjIYcgyxnprWNjqJlp5DVeKLE4sUDeX1E=;
+        b=LMJR5yP0vsdzQXqlQEulKvQsk47sIBnfXsez5T3+vhMTxUREN/fOa11Y9511hipgkJ
+         5Rz9ITHjZBlBG/fI+cVAFYtbAlKmamoXKLUCF0sGlrdNomjfJTVKtDla8JjKxkYr+CpV
+         sp7OseuyxHgDBR37sxy68huAYjK8ShG7KuinwO0QRdi2jY6pBzescYZ0959bErhr7sVL
+         RkrQrlNVQfVcnvy+DCcGkUNk2YXow7PCA8OhuHm90T/tWhLviqEmgIZcOD9g6n/j8cAJ
+         SETCO/JBckdcBVvNj+l3FcBVmuWl6iGNl100wp0Yq4yN9qymHIlUFCF9q2RV1Ye5pltf
+         JnqQ==
+X-Gm-Message-State: AOJu0Yz5of7ikUBKEDlFwDgN/n3mV4wtx2L0flDd1arndKnyCkDwJoqw
+	GYQIVboJE15K0xXSJZIFrdMRKWetDW/X+6S0D2aY1g==
+X-Google-Smtp-Source: AGHT+IGMAWwLRr/hOumS9DT09MGLMrowZemv7tB8rOLepMBJRbm7MiYvLmERbLPPlCXJ8riZxXJWUA==
+X-Received: by 2002:a5d:6e56:0:b0:317:6579:2b9f with SMTP id j22-20020a5d6e56000000b0031765792b9fmr1704358wrz.30.1694713324372;
+        Thu, 14 Sep 2023 10:42:04 -0700 (PDT)
+Message-ID: <2d767f96-9f20-e786-9148-cae5c30a41fd@citrix.com>
+Date: Thu, 14 Sep 2023 18:42:03 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230908035911.GAZPqcD/EjfKZ0ISrZ@fat_crate.local>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/shutdown: change default reboot method preference
+Content-Language: en-GB
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <20230914152120.92696-1-roger.pau@citrix.com>
+In-Reply-To: <20230914152120.92696-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 08, 2023 at 05:59:11AM +0200, Borislav Petkov wrote:
-> On Thu, Sep 07, 2023 at 08:08:00PM -0700, Elliott Mitchell wrote:
-> > This reverts commit 767f4b620edadac579c9b8b6660761d4285fa6f9.
-> > 
-> > There are at least 3 valid reasons why a VM may see MCE events/registers.
-> 
-> Hmm, so they all read like a bunch of handwaving to me, with those
-> probable hypothetical "may" formulations.
+On 14/09/2023 4:21 pm, Roger Pau Monne wrote:
+> The current logic to chose the preferred reboot method is based on the mode Xen
+> has been booted into, so if the box is booted from UEFI, the preferred reboot
+> method will be to use the ResetSystem() run time service call.
+>
+> However, that call seems to be widely untested once the firmware has exited
+> boot services, and quite often leads to a result similar to:
 
-Indeed.  At what point is the lack of information and response long
-enough to simply commit a revert due to those lacks?
+I don't know how true this is.  What Xen does differently to most of the
+rest of the world is not calling SetVirtualAddressMap()
 
-Even with the commit message having been rewritten and the link to:
-https://lkml.kernel.org/r/20210628172740.245689-1-Smita.KoralahalliChannabasappa@amd.com
-added, this still reads as roughly:
+>
+> Hardware Dom0 shutdown: rebooting machine
+> ----[ Xen-4.18-unstable  x86_64  debug=y  Tainted:   C    ]----
+> CPU:    0
+> RIP:    e008:[<0000000000000017>] 0000000000000017
+> RFLAGS: 0000000000010202   CONTEXT: hypervisor
+> [...]
+> Xen call trace:
+>    [<0000000000000017>] R 0000000000000017
+>    [<ffff83207eff7b50>] S ffff83207eff7b50
+>    [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
+>    [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
+>    [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
+>    [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
+>    [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
+>    [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
+>    [<ffff82d040283d33>] F arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0x113/0x129
+>    [<ffff82d04028436c>] F arch/x86/acpi/cpu_idle.c#acpi_processor_idle+0x3eb/0x5f7
+>    [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
+>
+> ****************************************
+> Panic on CPU 0:
+> FATAL TRAP: vector = 6 (invalid opcode)
+> ****************************************
+>
+> Which in most cases does lead to a reboot, however that's unreliable.
+>
+> Change the default reboot preference to prefer ACPI over UEFI if available and
+> not in reduced hardware mode.
+>
+> This is in line to what Linux does, so it's unlikely to cause issues on current
+> and future hardware, since there's a much higher chance of vendors testing
+> hardware with Linux rather than Xen.
+>
+> I'm not aware of using ACPI reboot causing issues on boxes that do have
+> properly implemented ResetSystem() methods.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-"A hypothetical bug on a hypothetivisor"
+Wording aside, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I rather suspect a genuine issue was observed, but with absolutely no
-detail this is useless.  I can make some guesses, but those guesses
-relation to reality is dubious.
+This is a giant embarrassment to Xen, and needs fixing.
 
+> ---
+> I haven't found anything in the UEFI spec that mandates to use ResetSystem()
+> when booted from UEFI, I've only found:
+>
+> "One method of resetting the platform is through the EFI Runtime Service
+> ResetSystem()."
+>
+> But that's vaguely a recommendation.
+>
+> I've found a lot of boxes that don't reboot properly using ResetSystem(), and I
+> think our default should attempt to make sure Xen reliably reboots on as much
+> hardware as possible.
 
-On Wed, Sep 13, 2023 at 03:50:12PM +0000, Luck, Tony wrote:
-> > Also, please note that the EDAC modules don't handle MCE events
-> > directly. They act on information passed from the MCE subsystem.
-> >
-> > Furthermore, there are other EDAC modules that have the same !hypervisor
-> > check, so why change only this one?
-> 
-> The older Intel EDAC drivers translated system physical addresses to DIMM
-> addresses by digging around in the CONFIG and MMIO space of the memory
-> controller devices. It would seem unwise for a VMM to give access to those
-> addresses to a guest (in general ... perhaps OK for a Xen style "DOM0" guest that is
-> handling many tasks for the VMM?).
+You're supposed to use ResetSystem() so all the value-add can be added
+behind your back, but it's a chocolate teapot when it's so broken that
+none of the OSes use it...
 
-Which seems oddly similar to:
-"the Linux kernel may be handling adminstrative duties/hardware
-for a hypervisor.  In this case, the events need to be processed and
-potentially passed back through the hypervisor."
-
-
-On Wed, Sep 13, 2023 at 12:21:50PM -0400, Yazen Ghannam wrote:
-> The MCE decoder may access some newer MCA registers, or request info
-> from the MCE subsystem. But this is for informational error decoding. It
-> won't support any actions that a guest could take.
-> 
-> The AMD64 EDAC module reads system-specific memory controller registers
-> through non-architectural interfaces. So also unwise or not useful for a
-> guest to access.
-
-This could be emulated.  With it not being officially specified the
-emulation may not be too accurate, but it is possible.  Admittedly VMware
-may have abandoned this level of perfect emulation accuracy, but one
-could do it.  Which would be "full virtualization of MCE events."
-
-
-On Wed, Sep 13, 2023 at 10:36:50AM -0400, Yazen Ghannam wrote:
-> Furthermore, there are other EDAC modules that have the same !hypervisor
-> check, so why change only this one?
-
-Indeed.  Those will also need similar treatment, but that wouldn't be a
-revert of 767f4b620eda.  I found 767f4b620eda in the process of looking
-for the correct hook point.
-
-
-
-There are at least two, and possibly more, points of view with regards
-to MCE and virtualization.  I keep noticing most implementers are
-strictly thinking of perfect, full virtualization of hardware, and
-missing what is actually desired.
-
-Full virtualization is where you are renting an actual physical slice of
-actual hardware, proper virtualization of CEs and UEs is desireable.
-
-In reality most clients merely want to rent the processing power the
-hardware provides and not deal with actually owning the hardware.  To
-them, CEs are an annoyance since they clutter logs and they're not
-something they're in a position to deal with.  Instead the owner of the
-hardware wants the CEs so they can monitor hardware health.
-
-What you want depends on your SLAs, but the most prominent authors keep
-missing that many clients (VM owners) don't actually want to deal with
-CEs.  A SLA could also state a single UE means discarding current VM
-state and rolling back to the last known good checkpoint.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+~Andrew
 
