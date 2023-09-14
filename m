@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18057A08A5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 17:09:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602411.939075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CD307A08BA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 17:12:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602424.939095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgny5-0007wU-9t; Thu, 14 Sep 2023 15:09:21 +0000
+	id 1qgo0i-0001pi-Tu; Thu, 14 Sep 2023 15:12:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602411.939075; Thu, 14 Sep 2023 15:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 602424.939095; Thu, 14 Sep 2023 15:12:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgny5-0007tE-6Y; Thu, 14 Sep 2023 15:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 602411;
- Thu, 14 Sep 2023 15:09:20 +0000
+	id 1qgo0i-0001mx-Qn; Thu, 14 Sep 2023 15:12:04 +0000
+Received: by outflank-mailman (input) for mailman id 602424;
+ Thu, 14 Sep 2023 15:12:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9rCx=E6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qgnmT-0002W4-AQ
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 14:57:21 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1qgnmV-0002W4-NX
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 14:57:23 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0160b900-530f-11ee-8787-cb3800f73035;
- Thu, 14 Sep 2023 16:57:20 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2bcb0b973a5so16354911fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 07:57:20 -0700 (PDT)
+ id 01e14105-530f-11ee-8787-cb3800f73035;
+ Thu, 14 Sep 2023 16:57:21 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2b9c907bc68so17355891fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 07:57:21 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a14-20020a2e860e000000b002b6ffa50896sm309828lji.128.2023.09.14.07.57.19
+ a14-20020a2e860e000000b002b6ffa50896sm309828lji.128.2023.09.14.07.57.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Sep 2023 07:57:19 -0700 (PDT)
+ Thu, 14 Sep 2023 07:57:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0160b900-530f-11ee-8787-cb3800f73035
+X-Inumbo-ID: 01e14105-530f-11ee-8787-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694703440; x=1695308240; darn=lists.xenproject.org;
+        d=gmail.com; s=20221208; t=1694703441; x=1695308241; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F15dxGQnK3sehzSOwvv5F5BATla17v6rMpQqDBCmSQQ=;
-        b=f1day6IZI0EyS5QL0FGOS3ahfAVDmhGG+Dl6+RppPGoqRo+JIqqJjFTrs0CvOp9qyv
-         deF9YhzlhwFTcX6Gktanfu3XDMYVMDfeDMCsUOj3oN369GvX4MxW7oZaZ315rlL6LvLJ
-         NTXo9gqqaXw5LZb2tHejeF0nyXK0Ya4kVTw7giO8lSBViy/Wld+24C/HTc4/AuAL+MwU
-         ElavM4lVEI5yK7PlwgCit5tFT03LOroPNe3GDa07q+Y/TMtyPUUz9nVEJpaRRVIk8kIa
-         QmtxuT15TTPjWYMLhFfhvBhlNrIcGpRPgN6fYASQiAKqUfWYDihQNOswlPXLcjrBEqAt
-         7Bhg==
+        bh=1gqkhvANInIWgDmOoOPJUCId3lz6JPHGNXOuOXwQD0U=;
+        b=oZAP/o6tA7U+vthV+pyrVxTuZjqHO9w506Q3wRghSyFIQYEDIAJD4Sfj1fRF+YG7jq
+         q/my5WA1uCl3q2UgjFPK6DnUzc6LNz/UoO1Ylu8TAzcMFYjPp23io2o+4jJbIudkPir2
+         jH1wSVT2WH5OsBR9XsXYhNcGzHHpZfcvroTb7rzrbzkwah85tYE51B06VCkvMdPpDUcJ
+         NBIzUTAsIkC6esgNu5Cgh70lidPgOT4ub/r4otZ/OiXqBZXj6kzJk1Cl3MmwdqA+SmS7
+         tTta2ESa9ZRJ2l1hqoewAQVJj/QcR2JqSGVz4hfg6HcLCM/r/3vpkBSiRj43+OXQw/lq
+         Aaag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694703440; x=1695308240;
+        d=1e100.net; s=20230601; t=1694703441; x=1695308241;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=F15dxGQnK3sehzSOwvv5F5BATla17v6rMpQqDBCmSQQ=;
-        b=mOtS5NjDfWulM1qxPwNzgs/E8zt366+i0WqCrUHcBRuRTThDSBLCL3WS00xGcoSJHy
-         0czF4hCgQO8HfnWq0KUcRsvSIqGo8hRNQsasG12QqSpV8aCAMEjyfQS3Ig+uZpLMaZwa
-         K3iPcU99q6IKBLqFfzRzaQ2rzlh/Yk3thTDgr84pPA1xpUT/o/aOBN0PJtNEVYDPnGOv
-         xA60/HTI8RGLAqaTEhTjyZlloUW6CSK2ALCvmRCdTnFxLNvw0fSGNRLA1uVkHLQ+VmCQ
-         TxnqfLASryKnACSuhc8YSdeM+NboCS+BBkpKQgHaZXJf9/ZpW4g4953cqlKHKQ/Qm07q
-         VmiQ==
-X-Gm-Message-State: AOJu0YxfgdfUafVx34xjXgn38S8Bqbec6DE54TOSp8w3pDIth+5ijDQl
-	SOpsmIaXvniS28AidwN6RnR2BK3M9/M=
-X-Google-Smtp-Source: AGHT+IH4+dQpAED5rWJZE+3xxCQwXeBCWcvjSgP1BciK56T83EKqzyhY0y2XpPJ3tVhD+xl6eNkHNQ==
-X-Received: by 2002:a2e:b178:0:b0:2b9:f27f:e491 with SMTP id a24-20020a2eb178000000b002b9f27fe491mr5594299ljm.42.1694703439916;
-        Thu, 14 Sep 2023 07:57:19 -0700 (PDT)
+        bh=1gqkhvANInIWgDmOoOPJUCId3lz6JPHGNXOuOXwQD0U=;
+        b=jvSdGYfDj1oOZiUiSACoixvinOBYrCjM+Dm0anW6oXp88BWdt0tqFPap0eb6uL7eLm
+         0E2WRVorpHTMLXDWmfCtM6V0esDSvtVNYx+eG22x5zk+JVv3siq7CJmyzBwSvRRC9agR
+         LfmlLFHBUW/BunykwKwICzNi7LwP8ryvnvoUGxBL5MD8bI/PPbxEab6niobcxfWuWRKX
+         gieI7BbiomjzIX2FNdBkxGN6OriFpquAkCTGITjG9DBot/VMRgOEjvsjPo/Vx6ADglSW
+         UQOpenEsu2pbzJavNn9o8zj2K6l4TX1jX8tpxO5RAK7+/vkJQ6WxMYhKc4YuCudRULpR
+         1xqg==
+X-Gm-Message-State: AOJu0YyNqqrtnxVu6angTigio0XIHGkDe4LXdfinv94NnqhzqD+PUkg5
+	GJ5vsi0XlRZhCzDKTzlRrkFJ6nDg4VQ=
+X-Google-Smtp-Source: AGHT+IHSLICORFafw9BuEY1nMokrIyXeJugx5OEqDLKMY8O6saI+9vYKCLyW18Rzq5eC+iJwY4lGNA==
+X-Received: by 2002:a2e:9b4d:0:b0:2bc:ba71:ddf2 with SMTP id o13-20020a2e9b4d000000b002bcba71ddf2mr5298747ljj.15.1694703440811;
+        Thu, 14 Sep 2023 07:57:20 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,9 +83,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 16/29] xen/asm-generic: introduce stub header flushtlb.h
-Date: Thu, 14 Sep 2023 17:56:37 +0300
-Message-ID: <8f5e2ac850eced2153d68effcb36aca1ed065aee.1694702259.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 17/29] xen/asm-generic: introduce stub header percpu.h
+Date: Thu, 14 Sep 2023 17:56:38 +0300
+Message-ID: <521647680aa5010629ded799010c8f9e5d22cde3.1694702259.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1694702259.git.oleksii.kurochko@gmail.com>
 References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
@@ -96,54 +96,47 @@ The patch introduces header stub necessry for full Xen build.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/include/asm-generic/flushtlb.h | 42 ++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
- create mode 100644 xen/include/asm-generic/flushtlb.h
+ xen/include/asm-generic/percpu.h | 35 ++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 xen/include/asm-generic/percpu.h
 
-diff --git a/xen/include/asm-generic/flushtlb.h b/xen/include/asm-generic/flushtlb.h
+diff --git a/xen/include/asm-generic/percpu.h b/xen/include/asm-generic/percpu.h
 new file mode 100644
-index 0000000000..79e4773179
+index 0000000000..d1069adb61
 --- /dev/null
-+++ b/xen/include/asm-generic/flushtlb.h
-@@ -0,0 +1,42 @@
++++ b/xen/include/asm-generic/percpu.h
+@@ -0,0 +1,35 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_FLUSHTLB_H__
-+#define __ASM_GENERIC_FLUSHTLB_H__
++#ifndef __ASM_GENERIC_PERCPU_H__
++#define __ASM_GENERIC_PERCPU_H__
 +
-+#include <xen/cpumask.h>
++#ifndef __ASSEMBLY__
 +
-+/*
-+ * Filter the given set of CPUs, removing those that definitely flushed their
-+ * TLB since @page_timestamp.
-+ */
-+/* XXX lazy implementation just doesn't clear anything.... */
-+static inline void tlbflush_filter(cpumask_t *mask, uint32_t page_timestamp) {}
++#include <xen/types.h>
 +
-+#define tlbflush_current_time() (0)
++extern char __per_cpu_start[], __per_cpu_data_end[];
++extern unsigned long __per_cpu_offset[NR_CPUS];
++void percpu_init_areas(void);
 +
-+static inline void page_set_tlbflush_timestamp(struct page_info *page)
-+{
-+    BUG();
-+}
++#define per_cpu(var, cpu)  \
++    (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[cpu]))
 +
-+/* Flush specified CPUs' TLBs */
-+void arch_flush_tlb_mask(const cpumask_t *mask);
++#define this_cpu(var) \
++    (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[get_processor_id()]))
 +
-+#endif /* __ASM_GENERIC_FLUSHTLB_H__ */
++#define per_cpu_ptr(var, cpu)  \
++    (*RELOC_HIDE(var, __per_cpu_offset[cpu]))
++#define this_cpu_ptr(var) \
++    (*RELOC_HIDE(var, get_processor_id()))
++
++#endif
++
++#endif /* __ASM_GENERIC_PERCPU_H__ */
++
 +/*
 + * Local variables:
 + * mode: C
 + * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-+
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: BSD
 + * c-basic-offset: 4
 + * indent-tabs-mode: nil
 + * End:
