@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B03F79FA6B
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1DD79FA70
 	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 07:19:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.601774.937981 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.601772.937955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgel7-0002JN-Oa; Thu, 14 Sep 2023 05:19:21 +0000
+	id 1qgel5-0001fR-3X; Thu, 14 Sep 2023 05:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 601774.937981; Thu, 14 Sep 2023 05:19:21 +0000
+Received: by outflank-mailman (output) from mailman id 601772.937955; Thu, 14 Sep 2023 05:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgel7-0002Gm-Iv; Thu, 14 Sep 2023 05:19:21 +0000
-Received: by outflank-mailman (input) for mailman id 601774;
- Thu, 14 Sep 2023 05:19:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgel4-0001Yj-UX; Thu, 14 Sep 2023 05:19:18 +0000
+Received: by outflank-mailman (input) for mailman id 601772;
+ Thu, 14 Sep 2023 05:19:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IZLI=E6=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qgel5-0001XI-Nv
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 05:19:19 +0000
+ id 1qgel3-0001X7-5c
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 05:19:17 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e1b3943-52be-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 07:19:15 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f7bdddf-52be-11ee-8787-cb3800f73035;
+ Thu, 14 Sep 2023 07:19:16 +0200 (CEST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2023 22:17:29 -0700
+ 13 Sep 2023 22:17:30 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by orsmga001.jf.intel.com with ESMTP; 13 Sep 2023 22:17:28 -0700
+ by orsmga001.jf.intel.com with ESMTP; 13 Sep 2023 22:17:29 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e1b3943-52be-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 3f7bdddf-52be-11ee-8787-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694668755; x=1726204755;
+  t=1694668756; x=1726204756;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=5bEJT87B98JS6iQ6LlrNVmLBQuK2BkIiNY3V5ZdVNuo=;
-  b=TZcMfJVVKikul2XGgBirfZ38qdcLXNewEzDWWvl32buFHbfZvHMSAzB3
-   Oty0PQLPI8K1npLJQB29J2r7L3G3JlxB9m1QeR8uLEZqCN5hISqB5Gsgp
-   jBNQDwvt6HtEzqeHezx3vURXDU0lxVCFrwlFgJaZcvU/hGazGogI5wOPa
-   wYG9YrNmzwFERtNxRu96L/hdzUb5uAZs12ZYvyI9NHABonjkVVzaa+zyI
-   mIRi0i3m65bJoxBqpTPeV7KJ+Gx4Jt8bDGpUCMzeo43vgOjPdFV8ZmNpN
-   23Vr/WvYzegkDzp5xv2yShynDs6Ut8xoBwRkVSmie+SWuM4GOtBKn+N4h
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="382661079"
+  bh=kr0CN67v2SsYJemD+2TL2DrONkvf6IluzdZd2yzKUPQ=;
+  b=ezwGlEpHYeeZ/0Idm88wug8+t++G2vPBEpedG3NQapaU3ygxRmoqwxOJ
+   75w29q7zPmCj8hE6n1W3T3ZOhAnXs9noar78zRvbBgcuclheWQBIylIOv
+   bNEtLEr5ssNllwGHvb8IYNu+OwucG56m8oJTv0AKgPEK9GxPZeVwhRkmT
+   cmKvCzGPHeIMTDvhgfjW31azofYaEHeLEhCatEWF6+z/CsCmT/bgNIeD1
+   m+GcN1K3lPjiDynCch986JkHJiae5wUKCyFTFJBl2nOpfDUZSkDSWzYYs
+   w+ztFmo7gZMpBuYNhwy8F6wIyhijnWuRu0QQhom21tgFGWGDO1yRrucTv
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="382661091"
 X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; 
-   d="scan'208";a="382661079"
+   d="scan'208";a="382661091"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="779488736"
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="779488739"
 X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; 
-   d="scan'208";a="779488736"
+   d="scan'208";a="779488739"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -84,53 +84,51 @@ Cc: tglx@linutronix.de,
 	mhiramat@kernel.org,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com
-Subject: [PATCH v10 01/38] x86/cpufeatures: Add the cpu feature bit for WRMSRNS
-Date: Wed, 13 Sep 2023 21:47:28 -0700
-Message-Id: <20230914044805.301390-2-xin3.li@intel.com>
+Subject: [PATCH v10 02/38] x86/opcode: Add the WRMSRNS instruction to the x86 opcode map
+Date: Wed, 13 Sep 2023 21:47:29 -0700
+Message-Id: <20230914044805.301390-3-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230914044805.301390-1-xin3.li@intel.com>
 References: <20230914044805.301390-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-WRMSRNS is an instruction that behaves exactly like WRMSR, with
-the only difference being that it is not a serializing instruction
-by default. Under certain conditions, WRMSRNS may replace WRMSR to
-improve performance.
-
-Add the CPU feature bit for WRMSRNS.
+Add the opcode used by WRMSRNS, which is the non-serializing version of
+WRMSR and may replace it to improve performance, to the x86 opcode map.
 
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/include/asm/cpufeatures.h       | 1 +
- tools/arch/x86/include/asm/cpufeatures.h | 1 +
- 2 files changed, 2 insertions(+)
+ arch/x86/lib/x86-opcode-map.txt       | 2 +-
+ tools/arch/x86/lib/x86-opcode-map.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 58cb9495e40f..330876d34b68 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -322,6 +322,7 @@
- #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
- #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
- #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
-+#define X86_FEATURE_WRMSRNS		(12*32+19) /* "" Non-Serializing Write to Model Specific Register instruction */
- #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
- #define X86_FEATURE_AVX_IFMA            (12*32+23) /* "" Support for VPMADD52[H,L]UQ */
- #define X86_FEATURE_LAM			(12*32+26) /* Linear Address Masking */
-diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
-index 798e60b5454b..1b9d86ba5bc2 100644
---- a/tools/arch/x86/include/asm/cpufeatures.h
-+++ b/tools/arch/x86/include/asm/cpufeatures.h
-@@ -318,6 +318,7 @@
- #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
- #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
- #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
-+#define X86_FEATURE_WRMSRNS		(12*32+19) /* "" Non-Serializing Write to Model Specific Register instruction */
- #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
- #define X86_FEATURE_AVX_IFMA            (12*32+23) /* "" Support for VPMADD52[H,L]UQ */
- #define X86_FEATURE_LAM			(12*32+26) /* Linear Address Masking */
+diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..1efe1d9bf5ce 100644
+--- a/arch/x86/lib/x86-opcode-map.txt
++++ b/arch/x86/lib/x86-opcode-map.txt
+@@ -1051,7 +1051,7 @@ GrpTable: Grp6
+ EndTable
+ 
+ GrpTable: Grp7
+-0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
++0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B) | WRMSRNS (110),(11B)
+ 1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
+diff --git a/tools/arch/x86/lib/x86-opcode-map.txt b/tools/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..1efe1d9bf5ce 100644
+--- a/tools/arch/x86/lib/x86-opcode-map.txt
++++ b/tools/arch/x86/lib/x86-opcode-map.txt
+@@ -1051,7 +1051,7 @@ GrpTable: Grp6
+ EndTable
+ 
+ GrpTable: Grp7
+-0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
++0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B) | WRMSRNS (110),(11B)
+ 1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
 -- 
 2.34.1
 
