@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4E87A0D06
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 20:39:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602635.939317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC3C7A0DC7
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:04:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602640.939328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrF9-0002R3-OT; Thu, 14 Sep 2023 18:39:11 +0000
+	id 1qgrcx-0002AP-KS; Thu, 14 Sep 2023 19:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602635.939317; Thu, 14 Sep 2023 18:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 602640.939328; Thu, 14 Sep 2023 19:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrF9-0002Nz-Lo; Thu, 14 Sep 2023 18:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 602635;
- Thu, 14 Sep 2023 18:39:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgrcx-00027u-Gz; Thu, 14 Sep 2023 19:03:47 +0000
+Received: by outflank-mailman (input) for mailman id 602640;
+ Thu, 14 Sep 2023 19:03:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qgrF8-0002Nr-2N
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 18:39:10 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcf2409a-532d-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 20:39:07 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-31f7638be6eso1191821f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 11:39:07 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- d6-20020adfef86000000b0031f82743e25sm2427195wro.67.2023.09.14.11.39.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Sep 2023 11:39:07 -0700 (PDT)
+ <SRS0=PYVF=E6=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qgrcw-00027n-Ve
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:03:46 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d3f5d99-5331-11ee-8788-cb3800f73035;
+ Thu, 14 Sep 2023 21:03:45 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 10AE38285AF8;
+ Thu, 14 Sep 2023 14:03:44 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Qb2nJYNDubs5; Thu, 14 Sep 2023 14:03:42 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id B7692828518F;
+ Thu, 14 Sep 2023 14:03:42 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id N5a6YuRu3C99; Thu, 14 Sep 2023 14:03:42 -0500 (CDT)
+Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id DF0168285146;
+ Thu, 14 Sep 2023 14:03:41 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +51,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcf2409a-532d-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 6d3f5d99-5331-11ee-8788-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com B7692828518F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694716747; x=1695321547; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qsfT4Ey3oOOVsjw+YjbBKz6D/Z9okdMGB7smZhVyoN8=;
-        b=PtJV5RKEtKrF/um2lx2vsMdSNyII9Qjmjgl0+nf6u6qM9JzQO0g1B1Wt3yVeIJRnda
-         RqdkdMsouAHEuQLkVCrlb16GyBPWhDlsf4bVrJW0Q+NP6JXh8PNyWs0xcGSRA9ML9TAc
-         a3CckWN/XMA5Tjbufw3u8afTEy1TukAWKFXoY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694716747; x=1695321547;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qsfT4Ey3oOOVsjw+YjbBKz6D/Z9okdMGB7smZhVyoN8=;
-        b=nhbFT8vQi/3tm9XMCVwdwHBzNyigRjgO+xRw1/hyyt/f8DWSXLgtjJlr4qG/0Rkmzu
-         juF514GucqemYtQzq5+tc3IQHVbU09CK5hvebRtvCEV0gRgWhTCkvMsTvOCiZizG4afc
-         o+je1niO9o9MTUOh4OWP5PTnd3ligWtwme+bZPk4tKcCylutqENM13hPkMFJy4SKNzOQ
-         s4Mn7RirZ5SAiAf713J6nGdONhoh5Eiax7x/f8QCJhB8wYrZjOQfUEhmDQ36n+ltE/GA
-         dWi07XqgLTV1Z1tlDS2lpHo8mNIbslZDS6TqvdpUmKPSmf/lGyVuLZxaK+WueRLVxC36
-         QrXg==
-X-Gm-Message-State: AOJu0YyLo9nf9D/dWs5z8LpmjoNhGmt3TmHq8eurWjR9MZU0sBcN0OmO
-	OK+iuAI0/dtXNuD7oTH2wi3NfQ==
-X-Google-Smtp-Source: AGHT+IEbHJTQiImbJV3xo2IrMuuflNMoVmKaRHWnEjCXh0car7BDQGfCjy2eDiyXN1XplqHnO3V4LQ==
-X-Received: by 2002:a5d:5149:0:b0:317:6310:a616 with SMTP id u9-20020a5d5149000000b003176310a616mr5774003wrt.36.1694716747346;
-        Thu, 14 Sep 2023 11:39:07 -0700 (PDT)
-Message-ID: <3e9e1bc0-3d11-9283-b053-0e5ad171b3f1@citrix.com>
-Date: Thu, 14 Sep 2023 19:39:06 +0100
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1694718222; bh=SlcfViZ8PVobFSUAn5b3XiYb5tQIcuHoy2EfPPCIYK8=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=AMTf/+narDyb8zbKmHsr+LVCd2u/gAaCeVEeBAMt2M+y+F7+WUTdPCf5u2vDwfjk3
+	 938/7Cc0tJWtdYN6ZBDXGWoEWxNMS+z0T5WHpOzriCD1rYNP5XMGjBRAwxw2Jnv8HK
+	 faQ8c8oSoQiwJslESmq6gy+bkNV3ojXXmJHydApE=
+X-Virus-Scanned: amavisd-new at rptsys.com
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH v6 0/4] ppc: Enable full Xen build
+Date: Thu, 14 Sep 2023 14:03:30 -0500
+Message-Id: <cover.1694717278.git.sanastasio@raptorengineering.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 5/5] x86/pv: Rewrite %dr6 handling
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jinoh Kang <jinoh.kang.kr@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
- <20230912232113.402347-6-andrew.cooper3@citrix.com>
- <7c847e46-6890-5511-dda9-b16e8b0ac7ab@suse.com>
-In-Reply-To: <7c847e46-6890-5511-dda9-b16e8b0ac7ab@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14/09/2023 5:06 pm, Jan Beulich wrote:
-> On 13.09.2023 01:21, Andrew Cooper wrote:
->> --- a/xen/arch/x86/include/asm/domain.h
->> +++ b/xen/arch/x86/include/asm/domain.h
->> @@ -729,6 +729,18 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
->>      pv_inject_event(&event);
->>  }
->>  
->> +static inline void pv_inject_DB(unsigned long pending_dbg)
->> +{
->> +    struct x86_event event = {
->> +        .vector      = X86_EXC_DB,
->> +        .type        = X86_EVENTTYPE_HW_EXCEPTION,
->> +        .error_code  = X86_EVENT_NO_EC,
->> +        .pending_dbg = pending_dbg,
-> This being a sub-field of an unnamed union, the build will break (also
-> in pv_inject_page_fault() then, for cr2 being switched at the same time)
-> once again for old enough gcc.
+Hello all,
 
-I'm sick and tired of utterly obsolete compiler bugs stopping us writing
-good code.
+This patch series performs all of the additions necessary to drop the
+build overrides for PPC and enable the full Xen build. Except in cases
+where compatibile implementations already exist (e.g. bitops.h), the
+newly added definitions are simple, unimplemented stubs that just call
+BUG_ON("unimplemented").
 
-It will break HVM #PF too, and I'll fix it for now as these patches need
-backporting, but I've got a very strong mind to intentionally break it
-next time this comes up in staging.
+Thanks,
+Shawn
 
->> --- a/xen/arch/x86/pv/emulate.c
->> +++ b/xen/arch/x86/pv/emulate.c
->> @@ -71,11 +71,9 @@ void pv_emul_instruction_done(struct cpu_user_regs *regs, unsigned long rip)
->>  {
->>      regs->rip = rip;
->>      regs->eflags &= ~X86_EFLAGS_RF;
->> +
->>      if ( regs->eflags & X86_EFLAGS_TF )
->> -    {
->> -        current->arch.dr6 |= DR_STEP | DR_STATUS_RESERVED_ONE;
->> -        pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
->> -    }
->> +        pv_inject_DB(X86_DR6_BS);
->>  }
-> This (not your change, the construct) looks bogus at the first and second
-> glance, because of looking at EFLAGS.TF after emulation, when the initial
-> state of TF matters. It is only correct (at the third, closer look) because
-> the function presently is used only from paths not altering the guest's
-> EFLAGS. Do you think it would make sense to add a comment at this occasion?
+Shawn Anastasio (4):
+  xen/ppc: Implement bitops.h
+  xen/ppc: Define minimal stub headers required for full build
+  xen/ppc: Add stub function and symbol definitions
+  xen/ppc: Enable full Xen build
 
-It is buggy yes, but if you notice, so is SVM's __update_guest_eip() and
-VMX's update_guest_eip().
+ xen/arch/ppc/Kconfig                     |   1 +
+ xen/arch/ppc/Makefile                    |  17 +-
+ xen/arch/ppc/arch.mk                     |   3 -
+ xen/arch/ppc/include/asm/Makefile        |   2 +
+ xen/arch/ppc/include/asm/altp2m.h        |  25 ++
+ xen/arch/ppc/include/asm/bitops.h        | 332 +++++++++++++++++++++-
+ xen/arch/ppc/include/asm/bug.h           |   9 +
+ xen/arch/ppc/include/asm/cache.h         |   2 +
+ xen/arch/ppc/include/asm/config.h        |  10 +
+ xen/arch/ppc/include/asm/cpufeature.h    |  10 +
+ xen/arch/ppc/include/asm/current.h       |  43 +++
+ xen/arch/ppc/include/asm/delay.h         |  12 +
+ xen/arch/ppc/include/asm/device.h        |  53 ++++
+ xen/arch/ppc/include/asm/div64.h         |  14 +
+ xen/arch/ppc/include/asm/domain.h        |  47 ++++
+ xen/arch/ppc/include/asm/event.h         |  36 +++
+ xen/arch/ppc/include/asm/flushtlb.h      |  24 ++
+ xen/arch/ppc/include/asm/grant_table.h   |   5 +
+ xen/arch/ppc/include/asm/guest_access.h  |  68 +++++
+ xen/arch/ppc/include/asm/guest_atomics.h |  23 ++
+ xen/arch/ppc/include/asm/hardirq.h       |  19 ++
+ xen/arch/ppc/include/asm/hypercall.h     |   5 +
+ xen/arch/ppc/include/asm/io.h            |  16 ++
+ xen/arch/ppc/include/asm/iocap.h         |   8 +
+ xen/arch/ppc/include/asm/iommu.h         |   8 +
+ xen/arch/ppc/include/asm/irq.h           |  33 +++
+ xen/arch/ppc/include/asm/mem_access.h    |   5 +
+ xen/arch/ppc/include/asm/mm.h            | 243 +++++++++++++++-
+ xen/arch/ppc/include/asm/monitor.h       |  43 +++
+ xen/arch/ppc/include/asm/nospec.h        |  15 +
+ xen/arch/ppc/include/asm/numa.h          |  26 ++
+ xen/arch/ppc/include/asm/p2m.h           |  95 +++++++
+ xen/arch/ppc/include/asm/page.h          |  18 ++
+ xen/arch/ppc/include/asm/paging.h        |   7 +
+ xen/arch/ppc/include/asm/pci.h           |   7 +
+ xen/arch/ppc/include/asm/percpu.h        |  24 ++
+ xen/arch/ppc/include/asm/processor.h     |  10 +
+ xen/arch/ppc/include/asm/random.h        |   9 +
+ xen/arch/ppc/include/asm/setup.h         |   6 +
+ xen/arch/ppc/include/asm/smp.h           |  18 ++
+ xen/arch/ppc/include/asm/softirq.h       |   8 +
+ xen/arch/ppc/include/asm/spinlock.h      |  15 +
+ xen/arch/ppc/include/asm/system.h        | 219 ++++++++++++++-
+ xen/arch/ppc/include/asm/time.h          |  23 ++
+ xen/arch/ppc/include/asm/xenoprof.h      |   0
+ xen/arch/ppc/mm-radix.c                  |  44 ++-
+ xen/arch/ppc/setup.c                     |   8 +
+ xen/arch/ppc/stubs.c                     | 339 +++++++++++++++++++++++
+ xen/arch/ppc/tlb-radix.c                 |   2 +-
+ xen/include/public/hvm/save.h            |   2 +
+ xen/include/public/pmu.h                 |   2 +
+ xen/include/public/xen.h                 |   2 +
+ 52 files changed, 2004 insertions(+), 11 deletions(-)
+ create mode 100644 xen/arch/ppc/include/asm/Makefile
+ create mode 100644 xen/arch/ppc/include/asm/altp2m.h
+ create mode 100644 xen/arch/ppc/include/asm/cpufeature.h
+ create mode 100644 xen/arch/ppc/include/asm/current.h
+ create mode 100644 xen/arch/ppc/include/asm/delay.h
+ create mode 100644 xen/arch/ppc/include/asm/device.h
+ create mode 100644 xen/arch/ppc/include/asm/div64.h
+ create mode 100644 xen/arch/ppc/include/asm/domain.h
+ create mode 100644 xen/arch/ppc/include/asm/event.h
+ create mode 100644 xen/arch/ppc/include/asm/flushtlb.h
+ create mode 100644 xen/arch/ppc/include/asm/grant_table.h
+ create mode 100644 xen/arch/ppc/include/asm/guest_access.h
+ create mode 100644 xen/arch/ppc/include/asm/guest_atomics.h
+ create mode 100644 xen/arch/ppc/include/asm/hardirq.h
+ create mode 100644 xen/arch/ppc/include/asm/hypercall.h
+ create mode 100644 xen/arch/ppc/include/asm/io.h
+ create mode 100644 xen/arch/ppc/include/asm/iocap.h
+ create mode 100644 xen/arch/ppc/include/asm/iommu.h
+ create mode 100644 xen/arch/ppc/include/asm/irq.h
+ create mode 100644 xen/arch/ppc/include/asm/mem_access.h
+ create mode 100644 xen/arch/ppc/include/asm/monitor.h
+ create mode 100644 xen/arch/ppc/include/asm/nospec.h
+ create mode 100644 xen/arch/ppc/include/asm/numa.h
+ create mode 100644 xen/arch/ppc/include/asm/p2m.h
+ create mode 100644 xen/arch/ppc/include/asm/paging.h
+ create mode 100644 xen/arch/ppc/include/asm/pci.h
+ create mode 100644 xen/arch/ppc/include/asm/percpu.h
+ create mode 100644 xen/arch/ppc/include/asm/random.h
+ create mode 100644 xen/arch/ppc/include/asm/setup.h
+ create mode 100644 xen/arch/ppc/include/asm/smp.h
+ create mode 100644 xen/arch/ppc/include/asm/softirq.h
+ create mode 100644 xen/arch/ppc/include/asm/spinlock.h
+ create mode 100644 xen/arch/ppc/include/asm/time.h
+ create mode 100644 xen/arch/ppc/include/asm/xenoprof.h
+ create mode 100644 xen/arch/ppc/stubs.c
 
-And remember that while for most instructions it's the initial state
-that matters, it's the final state that matters for SYSCALL/SYSRET, and
-each of LRET/IRET/ERET{U,S} have oddities that aren't currently
-expressed in the emulator.
+--
+2.30.2
 
-I'll leave a todo for now.  This is a problem that can only reasonably
-be fixed by unifying the intercept and emulation paths into a coherent
-model of the instruction cycle.
-
-~Andrew
 
