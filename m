@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F107A0E2F
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:24:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602672.939377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B2C7A0E54
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:28:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602677.939388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrvm-0002Nu-Hs; Thu, 14 Sep 2023 19:23:14 +0000
+	id 1qgs0Z-0004Kx-3q; Thu, 14 Sep 2023 19:28:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602672.939377; Thu, 14 Sep 2023 19:23:14 +0000
+Received: by outflank-mailman (output) from mailman id 602677.939388; Thu, 14 Sep 2023 19:28:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrvm-0002MI-F3; Thu, 14 Sep 2023 19:23:14 +0000
-Received: by outflank-mailman (input) for mailman id 602672;
- Thu, 14 Sep 2023 19:23:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgs0Z-0004IA-0a; Thu, 14 Sep 2023 19:28:11 +0000
+Received: by outflank-mailman (input) for mailman id 602677;
+ Thu, 14 Sep 2023 19:28:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qgrvk-0002MA-GJ
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:23:12 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24aaa1ff-5334-11ee-8788-cb3800f73035;
- Thu, 14 Sep 2023 21:23:11 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-31aeef88a55so1145351f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 12:23:11 -0700 (PDT)
+ id 1qgs0X-0004I2-D1
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:28:09 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4f629f5-5334-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 21:28:07 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-31fa15f4cc6so1241760f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 12:28:07 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- y14-20020a5d4ace000000b003176eab8868sm2542445wrs.82.2023.09.14.12.23.10
+ f4-20020adfdb44000000b00317f29ad113sm2539572wrj.32.2023.09.14.12.28.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Sep 2023 12:23:10 -0700 (PDT)
+ Thu, 14 Sep 2023 12:28:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24aaa1ff-5334-11ee-8788-cb3800f73035
+X-Inumbo-ID: d4f629f5-5334-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694719391; x=1695324191; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1694719687; x=1695324487; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qrWE2AHuxv5Yaqe7gnDbJGwX4muVOrWYvJSdz6hQA3Y=;
-        b=XCByoK2Aaka1VQFrGc0RGFnLvfGpxnLFViESk5e3MYtc7YjbHPehFPkWZAavCgVgXw
-         3VFHPXDgEfvkguwkb6jdvTdOXQ0NuqSgt+cVOUJ9RVhQyLTtjAp4pHCQw2rwoQr20EYV
-         /Bu36T9I8wXTehteDtjt+DYmZpo5qLQ5k6vpo=
+        bh=8RBeXJcgmWMKJvqZB5m47b/HjX9bLYO318KdOcckF7w=;
+        b=mbHywGf9eslFPJvXI0gEw+YfTVlU4ZWwcw2IVU92hppno/LtCdQgfg6m3XjvPwZ0pD
+         ot6ZRbhklbD1y7TgK5MnHZay6Z0R8Kkc/KzYjT860RRBCaaILqz3vLEL3hpuggT3ukhl
+         ojhhXs+O/XD6YHqK4VOUNgUMCRgX2ruPOObS8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694719391; x=1695324191;
+        d=1e100.net; s=20230601; t=1694719687; x=1695324487;
         h=content-transfer-encoding:in-reply-to:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=qrWE2AHuxv5Yaqe7gnDbJGwX4muVOrWYvJSdz6hQA3Y=;
-        b=OviqES2RUEPP0TS38mjHFCrLF+1xDwUyqkbanumboo14nHSHA5p5uRNeBvBwM4rKhP
-         43eDtry9B+nUZGmnGf8m7cq+7vrBY0yANOT3eIoQjMoNyAAlZp+hNhmUSvHGVzy5WUN6
-         jD0MGI9bUIvXM54kW+aTsRiWHN/LcDHn5vQvD7TS10bRcRdEwV6iwZXzLnRQBc1MDzyM
-         5Lp31Oqjv1kzf8TyLce5gu/I5ENdaEh72XaR+3qluYsPH6tFSrRJG4Q+Kpg1rYql6RCc
-         HfuA59C092YEkvjZc9qo3rx1metK8pFoUEcRODZIk1E2u8FhrV7ExHutC6/NOhhBVf0Y
-         zJ4w==
-X-Gm-Message-State: AOJu0Yy05VbfOlRFMPVfjGKDJI1VD4b6BFAnilLbxYV3D4b53YWCbJeI
-	9EVMN6nS+SDLalZQn1DstobL1g==
-X-Google-Smtp-Source: AGHT+IFFxd+WItPq4GUuGULYVRX/Ys5ZHWMN67MReWrTea3Rm4M5QmcjKb/ncnJ9ZyCVwSAntgnQjg==
-X-Received: by 2002:adf:f710:0:b0:314:2e95:1ec9 with SMTP id r16-20020adff710000000b003142e951ec9mr5574733wrp.10.1694719390872;
-        Thu, 14 Sep 2023 12:23:10 -0700 (PDT)
-Message-ID: <35177e10-3306-69fc-4ece-bba453cbdb0c@citrix.com>
-Date: Thu, 14 Sep 2023 20:23:10 +0100
+        bh=8RBeXJcgmWMKJvqZB5m47b/HjX9bLYO318KdOcckF7w=;
+        b=kGsBAjQnP75VLOlYkrob1WgJn73RhEfxsVi1ikEGhWGIAUGJr3RECyvEDiX/fEfpCI
+         XWwOsirvHfQ3qhlxEsBPxOlIqeNS0b+pepJ/6cRzl/f6b7pG9ORCdSn8nthXUuhA3F8d
+         9FWcc5+4ktCGdPuAtRHTF85/K5wA6Z3VffudEd0CNUSfTCsUeG/r56SvQ+2UnX8kvet1
+         0NGrhpdlUEXtMdbxhRv9HApXHPsvRbls06c/IO1Cxhc6HurqUd2hNepwbWIbtyKhw8m1
+         FbVsv2DGtkLPaBpg1F/n/yF0CnjVoY78fAz6sQHX9Pr82dZM0jC3CDP8V/l0DTepYXfj
+         FnvQ==
+X-Gm-Message-State: AOJu0YwXwj7jM4YeXvv0xVeYKSu5xpaSA+2vY5yU8tYlghtQSrEOH4MY
+	fEZo9mHgy2EF5YtPCrrN5F5+thd4hJqxyU1OYqIP2w==
+X-Google-Smtp-Source: AGHT+IHt512bZZk2GGdLMy2BDHdamN+s+RVlUweHqYB2wa48x4R+YqsqHN2UlKVUwX7vxSGvpEjeFQ==
+X-Received: by 2002:a5d:5149:0:b0:317:6310:a616 with SMTP id u9-20020a5d5149000000b003176310a616mr5873998wrt.36.1694719686745;
+        Thu, 14 Sep 2023 12:28:06 -0700 (PDT)
+Message-ID: <0ab5dbd9-4bc4-8c3f-ea37-36454adb141c@citrix.com>
+Date: Thu, 14 Sep 2023 20:28:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 4/8] x86/spec-ctrl: Extend all SPEC_CTRL_{ENTER,EXIT}_*
- comments
+Subject: Re: [PATCH 5/8] x86/entry: Adjust restore_all_xen to hold stack_end
+ in %r14
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
- <20230913202758.508225-5-andrew.cooper3@citrix.com>
- <e12f46d9-25eb-d564-4cb7-0e476e741725@suse.com>
-In-Reply-To: <e12f46d9-25eb-d564-4cb7-0e476e741725@suse.com>
+ <20230913202758.508225-6-andrew.cooper3@citrix.com>
+ <099ac89d-ea37-352e-940e-91993c1649d9@suse.com>
+In-Reply-To: <099ac89d-ea37-352e-940e-91993c1649d9@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14/09/2023 8:58 am, Jan Beulich wrote:
+On 14/09/2023 9:51 am, Jan Beulich wrote:
 > On 13.09.2023 22:27, Andrew Cooper wrote:
->> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
->> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
->> @@ -218,7 +218,10 @@
->>      wrmsr
->>  .endm
->>  
->> -/* Use after an entry from PV context (syscall/sysenter/int80/int82/etc). */
->> +/*
->> + * Used after a synchronous entry from PV context.  SYSCALL, SYSENTER, INT,
->> + * etc.  Will always interrupt a guest speculation context.
->> + */
->>  .macro SPEC_CTRL_ENTRY_FROM_PV
->>  /*
->>   * Requires %rsp=regs/cpuinfo, %rdx=0
-> For the entry point comments - not being a native speaker -, the use of
-> "{will,may} interrupt" reads odd. You're describing the macros here,
-> not the the events that led to their invocation. Therefore it would seem
-> to me that "{will,may} have interrupted" would be more appropriate.
+>> All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
+>> for consistency, freeing up %rbx to be used differently.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
+> The choice of %rbx was, iirc, for avoiding unnecessary code size increase
+> (due to extra REX prefixes needed in some of the affected insns). I
+> understand you view this as not a real concern, but I think saying so
+> explicitly in the description would be at least desirable. After all there
+> would also be the alternative of further parametrizing the involved macros.
 
-The salient information is what the speculation state looks like when
-we're running the asm in these macros.
+Yeah I'm seriously not concerned about a REX prefix or two.
 
-Sync and Async perhaps aren't the best terms.  For PV context at least,
-it boils down to:
-
-1) CPL>0 => you were in fully-good guest speculation context
-2) CPL=0 => you were in fully-good Xen speculation context
-3) IST && CPL=0 => Here be dragons.
-
-HVM is more of a challenge.  VT-x behaves like an IST path, while SVM
-does allow us to atomically switch to good Xen state.
-
-Really, this needs to be a separate doc, with diagrams...
-
->> @@ -319,7 +334,14 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->>      UNLIKELY_END(\@_serialise)
->>  .endm
->>  
->> -/* Use when exiting to Xen in IST context. */
->> +/*
->> + * Use when exiting from any entry context, back to Xen context.  This
->> + * includes returning to other SPEC_CTRL_{ENTRY,EXIT}_* regions with
->> + * unsanitised state.
->> + *
->> + * Because we might have interrupted Xen beyond SPEC_CTRL_EXIT_TO_$GUEST, we
->> + * must treat this as if it were an EXIT_TO_$GUEST case too.
->> + */
->>  .macro SPEC_CTRL_EXIT_TO_XEN
->>  /*
->>   * Requires %rbx=stack_end
-> Is it really "must"? At least in theory there are ways to recognize that
-> exit is back to Xen context outside of interrupted entry/exit regions
-> (simply by evaluating how far below stack top %rsp is).
-
-Yes, it is must - it's about how Xen behaves right now, not about some
-theoretical future with different tracking mechanism.
-
-Checking the stack is very fragile and we've had bugs doing this in the
-past.  It would break completely if we were to take things such as the
-recursive-NMI fix (not that we're liable to at this point with FRED on
-the horizon.)
-
-A perhaps less fragile option would be to have .text.entry.spec_suspect
-section and check %rip being in that.
-
-But neither of these are good options.  It's adding complexity (latency)
-to a fastpath to avoid a small hit in a rare case, so is a concrete
-anti-optimisation.
-
->> @@ -344,6 +366,9 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->>      wrmsr
->>  
->>  .L\@_skip_sc_msr:
->> +
->> +    /* TODO VERW */
->> +
->>  .endm
-> I don't think this comment is strictly necessary to add here, when the
-> omission is addressed in a later patch. But I also don't mind its
-> addition.
-
-It doesn't especially matter if the series gets committed in one go, but
-it does matter if it ends up being split.  This is the patch which
-observes that VERW is missing.
+This is about making all the helpers more consistent, to cut down on the
+number of errors involved in modifying this mess.
 
 ~Andrew
 
