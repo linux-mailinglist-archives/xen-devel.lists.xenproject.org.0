@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C759E7A0E7F
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:49:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602686.939408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE6D7A0EA5
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 22:02:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602691.939417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgsLN-0002z2-Vu; Thu, 14 Sep 2023 19:49:41 +0000
+	id 1qgsX0-0008IX-VR; Thu, 14 Sep 2023 20:01:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602686.939408; Thu, 14 Sep 2023 19:49:41 +0000
+Received: by outflank-mailman (output) from mailman id 602691.939417; Thu, 14 Sep 2023 20:01:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgsLN-0002x2-Sz; Thu, 14 Sep 2023 19:49:41 +0000
-Received: by outflank-mailman (input) for mailman id 602686;
- Thu, 14 Sep 2023 19:49:40 +0000
+	id 1qgsX0-0008GK-SW; Thu, 14 Sep 2023 20:01:42 +0000
+Received: by outflank-mailman (input) for mailman id 602691;
+ Thu, 14 Sep 2023 20:01:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qgsLM-0002wv-BH
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:49:40 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1qgsWz-0008GD-C2
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 20:01:41 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d66fba2f-5337-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 21:49:38 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3ff1c397405so14888575e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 12:49:38 -0700 (PDT)
+ id 842396e6-5339-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 22:01:39 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-31dcf18f9e2so1284825f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 13:01:39 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k15-20020a5d628f000000b0031f729d883asm2549357wru.42.2023.09.14.12.49.37
+ t3-20020a05600001c300b003143b14848dsm2534643wrx.102.2023.09.14.13.01.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Sep 2023 12:49:37 -0700 (PDT)
+ Thu, 14 Sep 2023 13:01:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d66fba2f-5337-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 842396e6-5339-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694720978; x=1695325778; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1694721698; x=1695326498; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7A4PeC+rd8LSHW0uKuWhJ/8TcslGyjVfH6s8/VssAec=;
-        b=ltKNPLl4Rk3v7ptQYCXjf94c2k2M4GiFkRrRQpK1NvIx18dEIe34KsyROo/MwaS3Y1
-         cPAlZ+BpIZdz91uvyF7W8NTMsraFU0q9K4cykJw0Y4TWhUmy2q8vP54qHnpHoc0rDrCD
-         ApUEN4VABbau8f59kDhmlauv8BtJKBOXYNN4Q=
+        bh=uT84xhqzCFx4hVoWnPZzHjqOo1Q9Jzf191GjeVA1KD8=;
+        b=fkbeqc2bFmkSIZqI63KvDMvoFly1fef4NgvUQc0pLCKHHWTIPbeehILH/Mn57Qvv5B
+         SoXaLNMZFPhyMlJmKZtVxZG6A/syyzmJMbO7zScJ/CBuEGE8rhrVN96nmcey3dBsGH8y
+         RQqdvWRLFKxB6C8TUYIuotKNLBmcFQN8iviMo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694720978; x=1695325778;
+        d=1e100.net; s=20230601; t=1694721698; x=1695326498;
         h=content-transfer-encoding:in-reply-to:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=7A4PeC+rd8LSHW0uKuWhJ/8TcslGyjVfH6s8/VssAec=;
-        b=vDfcPE8UHotLESJCtcxQPqGjNNz3BkJWCYtMGPPA9247Rcxz8qjzVx6IQif1frc0ap
-         ut7UXGSMn3iwBObyH1ste8isC0oNCA5NJtyF3kI9qCV6h3/rung14h6URAbYuUgCZQ2h
-         v5ic7mu+Hye/UcrMvyEuID8M4XQ0cwKoenBD5qc656jqLmHf4n1wqnLObJUQkLC9QR/y
-         stqPNt5eh70VIssELBQD3LxfRBYQY0ghAZc4Oo5wKxXS2CjrMVEhW+UcGtgJz61Zv24l
-         8qQE9xTSUgttL9LT5h+sLtDNgH0vO89eVPOV/mRm8jiwYzLBcaJYGyEc1SoQxpc7eHvt
-         ABng==
-X-Gm-Message-State: AOJu0Ywdtes93TZi1cnNYxrvQlbke7yianJNSh3qiAqGWcuksr0/A46B
-	kPO8ycQzB93lrQY32s2EXJWKwg==
-X-Google-Smtp-Source: AGHT+IHARt0QTuVygXNlB0sCBJ/cgrhCyle/zyqLD9rufZCO8vLGcz1oZtauJ4a+PwRMIIteMUIW8Q==
-X-Received: by 2002:a05:600c:cc:b0:3fe:1db2:5179 with SMTP id u12-20020a05600c00cc00b003fe1db25179mr5385625wmm.19.1694720977712;
-        Thu, 14 Sep 2023 12:49:37 -0700 (PDT)
-Message-ID: <22864483-9cb8-7220-f82e-883fd2ef617a@citrix.com>
-Date: Thu, 14 Sep 2023 20:49:37 +0100
+        bh=uT84xhqzCFx4hVoWnPZzHjqOo1Q9Jzf191GjeVA1KD8=;
+        b=I4HkjImKtoZ0xgnMhJ43Ykg/41gm0u7vpu1ud/1ceW+VT5ALWCSDsZFJBlL9FaikY+
+         WQ2ityZYrp4LA/5tAUkmCtXlaYYLfklkOak4WIaZYX2MWEsiyrISk+Tre+sUyXBdWCPa
+         zYRWEt7+Ruyezh1uc93AYQkq5CZVmV5emIONrlNZqSrYADIKJa9BFS5jLDSuAXRQd35N
+         yHeuvoAQ88+SChAzTYsr5BDBAvE0ky0Xcufz6VWRxK4AWH1MmUeZBxALNfNLgh6bOCUG
+         5uKyJkBJtCbqW8ThNvNePCIiTrTiye1EkKi/3ELhPsVkqQxD80B+OBOdsSR75pKW2LjZ
+         2mqg==
+X-Gm-Message-State: AOJu0Yyy61MTqBaEP2BCajI8bbvKQqxDhB4nShatjmGR69utoBrLl5Vv
+	u0A03LuK1m8YqXl9EtdKRbjQgg==
+X-Google-Smtp-Source: AGHT+IH1mhYAh3tiLd3UyHALgPo5AZe62QU7CxmZTtetKa7eHOxgsuH0EK3lk8Snkaw1OLTjcrspZA==
+X-Received: by 2002:a5d:51ca:0:b0:31d:da10:e477 with SMTP id n10-20020a5d51ca000000b0031dda10e477mr5462223wrv.8.1694721698652;
+        Thu, 14 Sep 2023 13:01:38 -0700 (PDT)
+Message-ID: <309c52fb-ac30-c895-bc39-a3c1a7eaa9e1@citrix.com>
+Date: Thu, 14 Sep 2023 21:01:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 7/8] x86/spec-ctrl: Issue VERW during IST exit to Xen
+Subject: Re: [PATCH 8/8] x86/spec-ctrl: Mitigate the Zen1 DIV leakge
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
- <20230913202758.508225-8-andrew.cooper3@citrix.com>
- <f771260c-feed-9183-0c0c-308f517e09b4@suse.com>
-In-Reply-To: <f771260c-feed-9183-0c0c-308f517e09b4@suse.com>
+ <20230913202758.508225-9-andrew.cooper3@citrix.com>
+ <f60a8b98-0358-6dbf-5c60-ff0cfbc715a5@suse.com>
+In-Reply-To: <f60a8b98-0358-6dbf-5c60-ff0cfbc715a5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/09/2023 11:01 am, Jan Beulich wrote:
+On 14/09/2023 11:52 am, Jan Beulich wrote:
 > On 13.09.2023 22:27, Andrew Cooper wrote:
->> There is a corner case where e.g. an NMI hitting an exit-to-guest path after
->> SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
->> flush to scrub potentially sensitive data from uarch buffers.
->>
->> In order to compensate, issue VERW when exiting to Xen from an IST entry.
->>
->> SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
->> and we're about to add a third.  Load the field into %ebx, and list the
->> register as clobbered.
->>
->> %r12 has been arranged to be the ist_exit signal, so add this as an input
->> dependency and use it to identify when to issue a VERW.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> While looking technically okay, I still have a couple of remarks:
->
->> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
->> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
->> @@ -344,10 +344,12 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->>   */
->>  .macro SPEC_CTRL_EXIT_TO_XEN
->>  /*
->> - * Requires %r14=stack_end
->> - * Clobbers %rax, %rcx, %rdx
->> + * Requires %r12=ist_exit, %r14=stack_end
->> + * Clobbers %rax, %rbx, %rcx, %rdx
-> While I'd generally be a little concerned of the growing dependency and
-> clobber lists, there being a single use site makes this pretty okay. The
-> macro invocation being immediately followed by RESTORE_ALL effectively
-> means we can clobber almost everything here.
->
-> As to register usage and my comment on patch 5: There's no real need
-> to switch %rbx to %r14 there if I'm not mistaken
-
-As said, it's about consistency of the helpers.
-
-
->>   */
->> -    testb $SCF_ist_sc_msr, STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14)
->> +    movzbl STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14), %ebx
+>> @@ -378,6 +392,8 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+>>      verw STACK_CPUINFO_FIELD(verw_sel)(%r14)
+>>  .L\@_verw_skip:
+>>  
+>> +    ALTERNATIVE "", DO_SPEC_CTRL_DIV, X86_FEATURE_SC_DIV
 >> +
->> +    testb $SCF_ist_sc_msr, %bl
->>      jz .L\@_skip_sc_msr
->>  
->>      /*
->> @@ -358,7 +360,7 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->>       */
->>      xor %edx, %edx
->>  
->> -    testb $SCF_use_shadow, STACK_CPUINFO_FIELD(spec_ctrl_flags)(%r14)
->> +    testb $SCF_use_shadow, %bl
->>      jz .L\@_skip_sc_msr
->>  
->>      mov STACK_CPUINFO_FIELD(shadow_spec_ctrl)(%r14), %eax
->> @@ -367,8 +369,16 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->>  
->>  .L\@_skip_sc_msr:
->>  
->> -    /* TODO VERW */
->> +    test %r12, %r12
->> +    jz .L\@_skip_ist_exit
->> +
->> +    /* Logically DO_SPEC_CTRL_COND_VERW but without the %rsp=cpuinfo dependency */
->> +    testb $SCF_verw, %bl
->> +    jz .L\@_verw_skip
->> +    verw STACK_CPUINFO_FIELD(verw_sel)(%r14)
->> +.L\@_verw_skip:
-> Nit: .L\@_skip_verw would be more consistent with the other label names.
+>>  .L\@_skip_ist_exit:
+>>  .endm
+> While we did talk about using alternatives patching here, I'm now in
+> doubt again, in particular because the rest of the macro uses
+> conditionals anyway, and the code here is bypassed for non-IST exits. If
+> you're sure you want to stick to this, then I think some justification
+> wants adding to the description.
 
-So it would.  I'll tweak.
+Patching IST paths is safe - we drop into NMI context, and rewrite
+before starting APs.
+
+VERW needs to remain a conditional because of the FB_CLEAR/MMIO paths. 
+MSR_SPEC_CTRL is going to turn back into being an alternative when I
+make eIBRS work sensibly.
+
+>> @@ -955,6 +960,40 @@ static void __init srso_calculations(bool hw_smt_enabled)
+>>          setup_force_cpu_cap(X86_FEATURE_SRSO_NO);
+>>  }
+>>  
+>> +/*
+>> + * Div leakage is specific to the AMD Zen1 microarchitecure.  Use STIBP as a
+>> + * heuristic to select between Zen1 and Zen2 uarches.
+>> + */
+>> +static bool __init has_div_vuln(void)
+>> +{
+>> +    if ( !(boot_cpu_data.x86_vendor &
+>> +           (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+>> +        return false;
+>> +
+>> +    if ( (boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
+>> +         !boot_cpu_has(X86_FEATURE_AMD_STIBP) )
+>> +        return false;
+>> +
+>> +    return true;
+>> +}
+>> +
+>> +static void __init div_calculations(bool hw_smt_enabled)
+>> +{
+>> +    bool cpu_bug_div = has_div_vuln();
+>> +
+>> +    if ( opt_div_scrub == -1 )
+>> +        opt_div_scrub = cpu_bug_div;
+>> +
+>> +    if ( opt_div_scrub )
+>> +        setup_force_cpu_cap(X86_FEATURE_SC_DIV);
+> Isn't this only lowering performance (even if just slightly) when SMT is
+> enabled, without gaining us very much?
+
+It is consistent with how MDS/L1TF/others work, which is important.
+
+And it does protect against a single-threaded attacker, for what that's
+worth in practice.
+
+>
+>> +    if ( opt_smt == -1 && cpu_bug_div && hw_smt_enabled )
+>> +        warning_add(
+>> +            "Booted on leaky-DIV hardware with SMT/Hyperthreading\n"
+>> +            "enabled.  Please assess your configuration and choose an\n"
+>> +            "explicit 'smt=<bool>' setting.  See XSA-439.\n");
+>> +}
+> What about us running virtualized? The topology we see may not be that
+> of the underlying hardware. Maybe check_smt_enabled() should return
+> true when cpu_has_hypervisor is true? (In-guest decisions would
+> similarly need to assume that they may be running on SMT-enabled
+> hardware, despite not themselves seeing this to be the case.)
+>
+> Since we can't know for sure when running virtualized, that's a case
+> where I would consider it useful to enable the workaround nevertheless
+> (perhaps accompanied by a warning that whether this helps depends on
+> the next level hypervisor).
+
+Honestly, SMT's not relevant.  If you're virtualised, you've lost
+irrespective.
+
+There is no FOO_NO bit, so there's no possible way a VM can figure out
+if it is current on, or may subsequently move to, an impacted processor.
 
 ~Andrew
 
