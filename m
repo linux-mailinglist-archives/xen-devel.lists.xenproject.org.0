@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA27279FDA8
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 09:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602108.938492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70DBA79FE1D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 10:16:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602119.938501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qghFF-0002RW-3h; Thu, 14 Sep 2023 07:58:37 +0000
+	id 1qghWN-0001li-0p; Thu, 14 Sep 2023 08:16:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602108.938492; Thu, 14 Sep 2023 07:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 602119.938501; Thu, 14 Sep 2023 08:16:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qghFF-0002O9-0D; Thu, 14 Sep 2023 07:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 602108;
- Thu, 14 Sep 2023 07:58:35 +0000
+	id 1qghWM-0001iX-TZ; Thu, 14 Sep 2023 08:16:18 +0000
+Received: by outflank-mailman (input) for mailman id 602119;
+ Thu, 14 Sep 2023 08:16:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nkWz=E6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qghFD-0002O3-8i
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 07:58:35 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2060b.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::60b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eUwO=E6=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1qghWL-0001iR-KQ
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 08:16:17 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 801d8774-52d4-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 09:58:33 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM7PR04MB6917.eurprd04.prod.outlook.com (2603:10a6:20b:109::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Thu, 14 Sep
- 2023 07:58:30 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6792.020; Thu, 14 Sep 2023
- 07:58:28 +0000
+ id f8a70104-52d6-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 10:16:15 +0200 (CEST)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-1c3887039d4so5486275ad.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 01:16:15 -0700 (PDT)
+Received: from leoy-huanghe.lan ([128.1.74.161])
+ by smtp.gmail.com with ESMTPSA id
+ e4-20020a170902b78400b001b8b73da7b1sm933900pls.227.2023.09.14.01.16.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Sep 2023 01:16:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,176 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 801d8774-52d4-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MPtMu+lnC0PsWYhchkwbxMiyzBrMUUZHUGGHRmYCvags76jAEfKV2/5VhT2LQtkkqN4zJJrmcoo3DIyearEmNrJUTi06w807fWzm+wLWQnzMdllny0TMdLYdvZS0zgzHgFgFtJJoyHItg9WpDQlEq66agaVquqw1gR8XaCSCksvdPIhj5b+9q/3M9yBSpPiGSA5QA+zJ6VWGHAJEBbUyD5c7acMH8xHMlOmOFw76IfvBYYNPQmzS/+rYMSUT1j0rSslxpSNHSoTjdcTjfLx6noBU95u2vlqjERSTOcGfXIDXjiizt2AbM/PAEmMloMvZCA54VYUi5/cXgKxhfFXXmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rzGlRzfDDIiJ9Wk1up/xdP3rqGawsHI8yBrKmgJSLIo=;
- b=bMatiaHrH7SsCd+Kkp7r6Iyc30TZ3/8ae6e3rigto7LRgetrrWJaZycw7uKlfz9mUzSrcH20WwT0KvbYpf4xebkR38NjearRc7mqY7k/HoLB1CFx65+/2VKN18cRl2XWZoLAuh/P11ruJiAKHw+hxfHVT0fizaGwWGxHMxHgpYD9x0EtcdtgKZcbBBWzFcpq7KfuAmZdOrIi+uXv/7qyZCAy3rYh7mREjqvBCxPCthi7U3BsiC0tb54H0FSEzsWTKg3evQIQcl9Y6u1MvMRHSD/tBmr+lO3fbjDK+X1v0zAqpahLiXpJjXXztKic0GmAQjfbZ8KL8bkeWnnPP20lXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rzGlRzfDDIiJ9Wk1up/xdP3rqGawsHI8yBrKmgJSLIo=;
- b=eMXJJY1xOb2CbvZgUksjtd2V88NUAcCYU3xpPKXx8tqtVjZ/m/nAqIWQS54IfIWK/+QEBktovbOGsQNnO8cC4+jmbYjD49030qOmAOjwmXZIBd2x8XZniO6YVLjonbIEcSJHO/CjsCklVy6GjWK2kXSlH9vfKqkbkNwO8goLcfd0lC6C/7lKqSx0Ozl4BVnfHDIDjMhOUerXBoUrGL9Jvd4foRDIcHxrp8iTCJrZYQryhzKwpCe1CpNwIfCKNqwnWMtJ9N1N3wOw3+HyLIvg8CPlODyx+nYPaTgbuvC0ixxmunNX5WPw+SNXqfRQNvPX/kzScmTdlQ+x1ljul67CcQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e12f46d9-25eb-d564-4cb7-0e476e741725@suse.com>
-Date: Thu, 14 Sep 2023 09:58:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 4/8] x86/spec-ctrl: Extend all SPEC_CTRL_{ENTER,EXIT}_*
- comments
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
- <20230913202758.508225-5-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230913202758.508225-5-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0157.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: f8a70104-52d6-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1694679373; x=1695284173; darn=lists.xenproject.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=erZc72uNW5LSdWCcey59N0Lei+G74ikjhkTi45NnJ9I=;
+        b=r0o3UYcQqYqfwlAuyVSzLuPhsw/Kar9INQ0NkHffLSgb44Dh0wnQWkoJ+g1DcGLV9g
+         K70zs23+VImMq/+2qrWPhygglcyVZLPiWhbQq0VWbihd3jhPWm7JPvzrkDVx/gsMMMDQ
+         /JJGFgv6254/6Y5LDGC85uGHX98+Ki/MjUwxNk9DW0KP7RS17Um3B25QlA8w7rosHVTn
+         LHM9dXPkEa/sK3G6i/B9GlMU1KJOeLGYYh7K9qUrap8zZHlD0aDCnEMwvY4UZiARBlxr
+         4i7FHtPIAsZz2nzNUL5nKkBs6SNbJt+3Ug6Acwn9HYlfkJA5mNAt8TmcqDIi3AhAfQns
+         XVMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694679374; x=1695284174;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=erZc72uNW5LSdWCcey59N0Lei+G74ikjhkTi45NnJ9I=;
+        b=XOf9eZjlm9rbT2kg+sRMcTTc6sNlscLkl2ydXLJZigNz+wy5j6V97SqEkqsH6x0vZc
+         vKp3JjTHRx9ghXE5StfE/n5SGHAnHYa5G6ETwhCXKr8930WG/8b8a/LhYVBl/CzdWWZX
+         F3tgO8M4TjZRQO7w3/xhAkIWTq7YgcCU5MpXweR9Kfg1DYBMzDXWDEdijg31mWsItTun
+         3PXNCiOlPBXbnB3faYbzMFiIiqwfMwOFvEi8Tpynbps0UuNyW9lhQHGOwj3npXn3CmxJ
+         +my5oym//JkyONa8M2YHhIoZ6vcFH0WOiRpuMAcQAUsE0MlW8qkUkUwj/5LyOXj6kkFN
+         3bAQ==
+X-Gm-Message-State: AOJu0YyHYh8vuH/bH6O2AtGyzeAQYxn+jFICXyCdIC6DQaQjJTEmoAys
+	5kUQlDuIrU07GLNbqQKyUoUhzGg2Kl+0o14u9Dtc84Dx
+X-Google-Smtp-Source: AGHT+IHztyVwM9QaGgqtaVcJfKKKaoA5VqokkMVCUZQBLjoEzgR1u9S3z89i5dvZf//fnQqEl2vJTg==
+X-Received: by 2002:a17:903:1cc:b0:1c3:aef9:872e with SMTP id e12-20020a17090301cc00b001c3aef9872emr4519734plh.34.1694679373638;
+        Thu, 14 Sep 2023 01:16:13 -0700 (PDT)
+Date: Thu, 14 Sep 2023 16:16:07 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Henry Wang <Henry.Wang@arm.com>, Penny Zheng <penny.zheng@arm.com>
+Subject: RFC: arm64: Handling reserved memory nodes
+Message-ID: <20230914081607.GA1400758@leoy-huanghe.lan>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM7PR04MB6917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f9c48cb-5eca-4945-a42d-08dbb4f8617b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gSgGrKxqMdNPJJpMvYf/YJ+3bjKXI4d23/tcclG2Tyw1fjjud5YU9KxifinHV1k6q0FGZrdTKeWOjUqSJO6eBhT5lkbIjMoC9NTzME1IARTCSUDvLKE/ocxZ7nZXHx/aoTEJxuv5CuRKiFkU2oB+0yhP45V+0jbMT3Wbewu9UPsb+4j1wJGEbKurpbLoKBRMr+dBoAiOor5SY8C+TpYn8A2jWTOZGXCDPHR7l04EBHu5Y3zAPK4ijOspU3w4sa1bx9GuhFTJzjt/WsERH9vwVVtSkozYIjUQ2Mctz0z6cXQyoUlz43AqjoKRCwYHySQnlvM4REtF3xs07s5DV9gN/H6qJz+o9OyUOahvOO1yT9DRtPzrlsKTYuRqfGwOwiRJKTuDGH1a3Yl4tJTYY+glWzF/4p8yax+Znl1DfwirCyKhyDf/1mfntRIIHwHjy1JxxAyaQDIl1ipY6quCaT0KFX8zlK4dW6FyqsrMjPLh6zXMKwUQbwONCssemsOGiqfdtO6fNYFnv8sWlIvYzJUfHYgYqqKbAaQQjSZ6mlhJ64iaW2zH9PFy9bOQG6u1BSxQQNINbwjAvedImoUh7Qtu398R+mDTq+ioHfcHw0o+vYh/RdRx/qTyhPSGhxGi4hWV0IhMegBIkTD1BMLAY6XUog==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(346002)(396003)(136003)(39860400002)(186009)(451199024)(1800799009)(31686004)(478600001)(38100700002)(6486002)(6506007)(26005)(6512007)(6666004)(53546011)(66556008)(2906002)(31696002)(4326008)(2616005)(5660300002)(8676002)(54906003)(66946007)(36756003)(6916009)(66476007)(41300700001)(316002)(8936002)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WHpEakZGRXYvdW9GWFlmS3VhQjFJdnFFYkRxQTlxMnQ5NkxRNFV1TFZmZmpZ?=
- =?utf-8?B?MUFQZEhQUWxpWTErbS9aNHpMQXduU0M3OHpOK3AxcTEwNTNhdFhqWTJxdjRV?=
- =?utf-8?B?Y2tkdEYzQ3ZzUERtUzRURXF0Wmt4dU9RRGl5dEZXRUtZUjV3dStXYm1oU096?=
- =?utf-8?B?TXdZNkprOGtqMk54N1ZhNTd1ck91OUc1NC9rYWdOVUQ1dlF2Q2JqZ1VYdzFG?=
- =?utf-8?B?clhycXZHYkdHU0diZjIyRHVvaDcwWnNnWnNKaDBMNStGMUZXVFoxZ0U5QlZs?=
- =?utf-8?B?MG1CWWt6M1d4NUVualJNeVNyYTNldkIxcVpnSHZtc2x6S0djVTlBdGo1T01M?=
- =?utf-8?B?Z0NEdGw4eFBwLzJPem5VWmNKWXhBaVNwUlZ6Rm1xZXRCYUd1VHIvSGo3UWM3?=
- =?utf-8?B?UkNIWW9zenRuSEtSRndSbVBYMG1TbFI0SUVjNFBjb0U0OEtycWsvSWtUVTdY?=
- =?utf-8?B?MFpodTBpU1pEUUltNU5mTHV1dzJKYnBraDE5a05scTV0QVhYU1lkRkdBbWRi?=
- =?utf-8?B?c3pWOWJidWpWeW83RSs1TGV2NGNrV3pOTGZ2V2VCUDdjVjhkKzA4VzByQmFo?=
- =?utf-8?B?UFYyYmZjdTBXZHhxUDNiWXNER0x2Nzg4NVRXVU1RVE5GYmdsTzI1cmxCOHdu?=
- =?utf-8?B?Uk5hRWlNd3JBZDVKNW9vcmNQY3pCNDlkMjdJZjBSRlkwSXloTnVyS2NqR2pT?=
- =?utf-8?B?RnZQVlZxMVZhUGlmU0RrNm9OL09iYWJoa2l5MmNrTlVhTGxvRW1MUTBhNzVZ?=
- =?utf-8?B?NlRCS3RuSnFaMEgrdEgraGt6RHVMdGJReHBlSWp0THdVMDA0NytuSXdNSUg3?=
- =?utf-8?B?bGJQcHA2NEROMW8zcWNzZnRXUzVnSjFXQkpUb1A1SkwrVUNyZ2ZicGFId2Vz?=
- =?utf-8?B?WmZOSTZIVmNoMVhESzVhb1ZkZ2RFODA0WC8vNE5EYjZDNThpSkdpbm40NU5C?=
- =?utf-8?B?K3ZLaW9BcFBGTmtOc2c0UDdEL3hMelJpTkxaWEFwK0RPZ3FaaEt0SkI3cFUz?=
- =?utf-8?B?ZVkzZzlPbXBFalc0N3YxbUo2bU1Mck9mNm9RdjhIU09UenZlcytYRGxkd2lG?=
- =?utf-8?B?WVJGMHNNT290Vms1U2lBZVQ5WENqRW5Ic3ZxN3gwRE5hdHFCNElNdzlZZUtw?=
- =?utf-8?B?SW12SGlMdDNDdlhVZGRXeXRMY1hUeU84L0QxeEpZc2l1WmdCdE42QmZBbTI0?=
- =?utf-8?B?VnZhY09Fb0x4d3h3amN2aXpiZ3NSQ0pBdGdUM0tkTG1DQWkyV1NjV3VDRnJw?=
- =?utf-8?B?bFVjMG9adzUvcG4yZzZxZm1panViNWdNeTg1YnNRK0NNOWdVSDZ0Q2F2MEhN?=
- =?utf-8?B?elU4d0hLcmlvUnEzUFl6RjVZc1pQNU9iZDVNaEs1a3BlbmdsQmFJcUo3VmNN?=
- =?utf-8?B?RDJCT3VqbWhzN1ZETFZGWkJKRHJMdUtNa256NWVLdWtyRkRKMWhOb3lBMzBG?=
- =?utf-8?B?cllNRk1hRHNreFVrMG53WHBiS3BSRkQ5S0I2aTl6L2ZNRWJkVitQcDRLYysx?=
- =?utf-8?B?ODRmTG9RTCsxN2JFcVA1NnNrOHExY3N6WVptTWxDdXB1anlSZEhmZklmdkt6?=
- =?utf-8?B?aHVKMUR3akJqWGx0OFpKbFFLSWFoRFhEZmlMcUoxUW5aNDNoSHVjbnZDTWYy?=
- =?utf-8?B?OGhVcGdzSHF5OHd4QldvSXh3VGRoQnVpZUxWVUdkMmxBZXk4dS9QWTE5WFVi?=
- =?utf-8?B?bWRhbVErQmV0RHV5am1GTGRwcmx1VkZHZ0UxRHV2L2xBdU5hTkthNXVDQk96?=
- =?utf-8?B?SzFOZ3MyZ0xhc081Uld3ZGYvWTlramJaTEVyby96Z2pBN0JMNUFxT0huc0No?=
- =?utf-8?B?eXJSTHpPMlIyZCtjV3hkaDM1RC9sVUVTcG1nQjY4OXZEdnlhdUhQTGpJelZR?=
- =?utf-8?B?OUFzbzBWTEZCUVJISWFGeWdrMmlXS0ZHMHpkRmpSa0g2QkZwRTM0RDVJSW9k?=
- =?utf-8?B?TU1ncVpXQmJwVkdacUJvUTliRHNFNlRxTnAvOHI3S1RlaDBLV3l4cWhVOWdi?=
- =?utf-8?B?TFVMcUZ5SU5MbkhHL2lkbWZlNmdCaHg3QUFMdy9KTk1idXBLSk5acHpodEZ2?=
- =?utf-8?B?MldMTUJjZDgzazhjOXJFVWRIK0JHaEFhcHkvd2FmMHpOVEtLdEJRTVVQS20x?=
- =?utf-8?Q?V9PS+WyypTBjV27wO7hL9DACd?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f9c48cb-5eca-4945-a42d-08dbb4f8617b
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 07:58:28.4801
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9StHN2a8IKEjGmGElAvdrTnntKyquMwIFJg2tWT0/z4HRVexnkJd6rCTdOBzAmUh4Apka0wyJrkywhjkyLWt0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6917
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 13.09.2023 22:27, Andrew Cooper wrote:
-> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-> @@ -218,7 +218,10 @@
->      wrmsr
->  .endm
->  
-> -/* Use after an entry from PV context (syscall/sysenter/int80/int82/etc). */
-> +/*
-> + * Used after a synchronous entry from PV context.  SYSCALL, SYSENTER, INT,
-> + * etc.  Will always interrupt a guest speculation context.
-> + */
->  .macro SPEC_CTRL_ENTRY_FROM_PV
->  /*
->   * Requires %rsp=regs/cpuinfo, %rdx=0
+Hi all,
 
-For the entry point comments - not being a native speaker -, the use of
-"{will,may} interrupt" reads odd. You're describing the macros here,
-not the the events that led to their invocation. Therefore it would seem
-to me that "{will,may} have interrupted" would be more appropriate.
+I'd like to discuss for how to handle the reserved memory nodes in DT
+binding on Xen / Arm64.  Note, now I am using DTB when boot Xen but
+not UEFI/ACPI (ACPI is disabled in this case).
 
-> @@ -233,7 +236,11 @@
->          X86_FEATURE_SC_MSR_PV
->  .endm
->  
-> -/* Use in interrupt/exception context.  May interrupt Xen or PV context. */
-> +/*
-> + * Used after a synchronous interrupt or exception.  May interrupt Xen or PV
-> + * context, but will not interrupt Xen with a guest speculation context,
-> + * outside of fatal error cases.
-> + */
->  .macro SPEC_CTRL_ENTRY_FROM_INTR
->  /*
->   * Requires %rsp=regs, %r14=stack_end, %rdx=0
+## Failure
 
-I find "synchronous" here odd, when this includes interrupts. Below you
-at least qualify things further, by saying "fully asynchronous with
-finding sane state"; I think further qualification is warranted here as
-well, to avoid any ambiguity.
+I ported Xen on a platform, after the kernel booting, the Xen hypervisor
+reports error:
 
-> @@ -319,7 +334,14 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->      UNLIKELY_END(\@_serialise)
->  .endm
->  
-> -/* Use when exiting to Xen in IST context. */
-> +/*
-> + * Use when exiting from any entry context, back to Xen context.  This
-> + * includes returning to other SPEC_CTRL_{ENTRY,EXIT}_* regions with
-> + * unsanitised state.
-> + *
-> + * Because we might have interrupted Xen beyond SPEC_CTRL_EXIT_TO_$GUEST, we
-> + * must treat this as if it were an EXIT_TO_$GUEST case too.
-> + */
->  .macro SPEC_CTRL_EXIT_TO_XEN
->  /*
->   * Requires %rbx=stack_end
+  (XEN) arch/arm/p2m.c:2202: d0v0: Failing to acquire the MFN 0x1a02dc
 
-Is it really "must"? At least in theory there are ways to recognize that
-exit is back to Xen context outside of interrupted entry/exit regions
-(simply by evaluating how far below stack top %rsp is).
+This error is caused by kernel using an invalid memory frame number
+0x1a02dc, we can convert it to the address:
 
-> @@ -344,6 +366,9 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
->      wrmsr
->  
->  .L\@_skip_sc_msr:
-> +
-> +    /* TODO VERW */
-> +
->  .endm
+  0x1a02dc << PAGE_SHIFT = 0x1_a02d_c000
 
-I don't think this comment is strictly necessary to add here, when the
-omission is addressed in a later patch. But I also don't mind its
-addition.
+## Reason
 
-Jan
+Two important things we need to check.  One is what's the DT binding
+passed from the bootloader to Xen hypervisor, and the second thing is
+what's the DT binding passed from Xen hypervisor to kernel.
+
+We can see the bootloader passes below memory nodes to Xen hypervisor:
+
+  (XEN) RAM: 0000000020000000 - 00000000bfffffff
+  (XEN) RAM: 00000001a0000000 - 00000002ffffffff
+  (XEN)
+  (XEN) MODULE[0]: 0000000020100000 - 0000000020265000 Xen
+  (XEN) MODULE[1]: 0000000023000000 - 0000000023024000 Device Tree
+  (XEN) MODULE[2]: 0000000024000000 - 0000000028000000 Kernel
+  (XEN)  RESVD[0]: 0000000020000000 - 000000002000ffff
+  (XEN)  RESVD[1]: 0000000040000000 - 000000005fffffff
+  (XEN)  RESVD[2]: 00000001a0000000 - 00000001bfffffff
+  (XEN)  RESVD[3]: 000000002e000000 - 000000002fffffff
+
+We can see the second DDR section is:
+
+  [0x0000_0001_a000_0000 .. 0x0000_0002_ffff_ffff]
+
+And there have reserved memory section is:
+
+  [0x0000_0001_a000_0000 .. 0x0000_0001_bfff_ffff]
+
+When register the boot memory sections, dt_unreserved_regions() will
+remove all reserved memory sections, which means the section
+[0x0000_0001_a000_0000 .. 0x0000_0001_bfff_ffff] is not managed by Xen
+hypervisor at all.  If later kernel uses any pages in this range, Xen
+will report the error.
+
+But Dom0 kernel's memory nodes are:
+
+  [    0.000000] Early memory node ranges
+  [    0.000000]   node   0: [mem 0x0000000020000000-0x000000002000ffff]
+  [    0.000000]   node   0: [mem 0x000000002e000000-0x000000002fffffff]
+  [    0.000000]   node   0: [mem 0x0000000040000000-0x000000005fffffff]
+  [    0.000000]   node   0: [mem 0x0000000060000000-0x0000000077bfffff]
+  [    0.000000]   node   0: [mem 0x00000001a0000000-0x00000001bfffffff]
+
+Based on this log, we can know Xen hypervisor passes the reserved memory
+regions to Dom0 kernel, and when Dom0 kernel tries to allocate pages
+from these reserved memory regions, Xen hypervisor reports error.
+
+For more specific, this issue is cause by the commit 248faa637d ("xen/arm:
+add reserved-memory regions to the dom0 memory node").  When Xen
+hypervisor synthesizes DT nodes, it calls below function to generate
+_normal_ memory nodes for the reserved memory regions.
+
+  make_memory_node()
+  {
+     /*
+      * Create a second memory node to store the ranges covering
+      * reserved-memory regions.
+      */
+     res = make_memory_node(d, kinfo->fdt, addrcells, sizecells,
+                            &bootinfo.reserved_mem);
+     if ( res )
+         return res;
+
+     ...
+  }
+
+## Fixes
+
+I think it's wrong to add the reserved memory regions into the DT
+binding as normal memory nodes for Dom0 kernel.  On the other hand, we
+cannot simply remove these reserved memory regions and don't pass to
+Dom0 kernel - we might reserve memory for specific purpose, for example,
+ramoops [1] for kernel debugging.
+
+The right thing to do is to keep these reserved memory nodes to Dom0
+kernel.  So one task is to record properties for these reserved memory
+node name and properties and pass to Dom0 kernel.
+
+The difficulty is how we can avoid allocate these reserved memory
+regions in Xen hypervisor.  We cannot register the reserved memory
+into the boot pages, otherwise, the reserved memory might be allocated
+in the early phase.  But we need to register these pages into the
+frame management framework and reserve them in the first place, so
+that we can allow Dom0 kernel to use them.  (I checked a bit the static
+memory mechanism, seems to me we cannot use it to resolve this issue).
+
+Before I proceed, I'd like to check if Xen community has related
+discussion or not?  Or any suggestions or input will be appreciate!
+
+Leo
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts#n54
 
