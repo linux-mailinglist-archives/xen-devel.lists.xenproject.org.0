@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9982379FE6D
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 10:31:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602132.938515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD0C79FED8
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 10:47:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602139.938526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qghjp-00034Y-8A; Thu, 14 Sep 2023 08:30:13 +0000
+	id 1qgi0X-0001xq-M7; Thu, 14 Sep 2023 08:47:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602132.938515; Thu, 14 Sep 2023 08:30:13 +0000
+Received: by outflank-mailman (output) from mailman id 602139.938526; Thu, 14 Sep 2023 08:47:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qghjp-00032s-4a; Thu, 14 Sep 2023 08:30:13 +0000
-Received: by outflank-mailman (input) for mailman id 602132;
- Thu, 14 Sep 2023 08:30:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qgi0X-0001uU-J6; Thu, 14 Sep 2023 08:47:29 +0000
+Received: by outflank-mailman (input) for mailman id 602139;
+ Thu, 14 Sep 2023 08:47:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ae2/=E6=redhat.com=aesteve@srs-se1.protection.inumbo.net>)
- id 1qghjn-00032m-C1
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 08:30:11 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9e65521-52d8-11ee-8787-cb3800f73035;
- Thu, 14 Sep 2023 10:30:09 +0200 (CEST)
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-668-8P0gNERCP1mQLLWoEi6OOA-1; Thu, 14 Sep 2023 04:30:04 -0400
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-26d43d10ce5so643198a91.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 01:30:04 -0700 (PDT)
+ <SRS0=zRER=E6=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qgi0W-0001jD-0q
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 08:47:28 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::615])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53831ccf-52db-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 10:47:25 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MW4PR12MB6705.namprd12.prod.outlook.com (2603:10b6:303:1e3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Thu, 14 Sep
+ 2023 08:47:22 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::5a5a:18dd:4832:75db]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::5a5a:18dd:4832:75db%4]) with mapi id 15.20.6792.019; Thu, 14 Sep 2023
+ 08:47:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,743 +47,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9e65521-52d8-11ee-8787-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694680208;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yA6YEmooBezgU/7PUR3h+x7ndZimwJxchJ/tlSKweSU=;
-	b=ccTps/+17rAWDrUSrLnyk6xob8fUN/dfNSHM5786VreNsqy3leRMBPs02T6ffIP3Usa93U
-	FIRvvqBg3jR8SP34ztj/xsqfcY3JKDXWPis8UAg0kfNfNqj7j+OMU5wYEqIrsuT+oCpc72
-	rLaI+dR0Zbo+rvo1W7OI359easILMj8=
-X-MC-Unique: 8P0gNERCP1mQLLWoEi6OOA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694680203; x=1695285003;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yA6YEmooBezgU/7PUR3h+x7ndZimwJxchJ/tlSKweSU=;
-        b=IPAewgj1aQAHUQVwHhCkGoiAY0FuVUVgGn2NvsAbuRtvkeA8E08ohX5mKvV7sktlQi
-         BYBOatn/oFGj4LPYcmC8VbofhHMJTpW2MgbhHU8kwltIgif9rdRcG4NQyJ+Am1h9gCH2
-         W6fBHTeTWkzmWzcqzf0lK9aoKnXXe8uSLh3kqhjEN3OlHdXZLcNm9lsUMheiIH2rqyE4
-         i00hdOF88i6pDJViLrDQInXKHklaTe1giFbm9vdtj2jr4BKsvTRs/Xh1yAn8mmdOjjXe
-         8xoKO9H15Xtd1Ohuxr7ICM/zr4RMAe0H1O7T0GqJixhp6rjMZw+YxcFMjYUBht2Hpyn9
-         KvSg==
-X-Gm-Message-State: AOJu0YzboHekvjyTi868rygFXYLBiGxeQH8FBRf2Dbs9tzuDVwDkS/ao
-	7r1gFbEdRseC8gDTyetOk+EMcSk2NnAHXND48BMlOQFzUoILfQYHcKpN+8QXy4Ok+FEL1Fpqaao
-	g5DM0IcXVDwlEJ1gq5qEBTjQgYcdhJeHjLaM1QGKCxMw=
-X-Received: by 2002:a17:90a:8c88:b0:269:18f5:683e with SMTP id b8-20020a17090a8c8800b0026918f5683emr4549204pjo.3.1694680203467;
-        Thu, 14 Sep 2023 01:30:03 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHvpnIrI0fs8uswe/o8Tr9VmbnQC1HIMGfwSGp6+i8vBzb9EeSU1mTm5ednofrRjwOe2msFRh39ayPz1qPNx1c=
-X-Received: by 2002:a17:90a:8c88:b0:269:18f5:683e with SMTP id
- b8-20020a17090a8c8800b0026918f5683emr4549172pjo.3.1694680203144; Thu, 14 Sep
- 2023 01:30:03 -0700 (PDT)
+X-Inumbo-ID: 53831ccf-52db-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eretO6qT2dExoACgk6OTRr3LTmLbk35tCZONpWv6z2yiJ4ctSLG+U++HBViIjYybTJH8zBx64e/WqfpwIWkKEIeaJ1wU8zyTrgZf0WCdiLHS45bPkmgytRv4GcZhEahD3ylj9d8v4hmiZMcpgm2IQQ9bztvEwnb2w/p9Hnr/LkPAxQorFoVFaBu2bQOQz6stz/Sl4UPJJrSrhGnOyE6F/M+GvnjI31AuWAROuXcts2C3fHje5dDdyYns+FY3+e0EUggdGTy7XVFET1PYBAnSzipRea+FsGEwr5NqeZeSxmEjP5QX/Tfv77PzyCpABrcLVu68BZEetDKz7pSOIX4eEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZHttxgqJ7+177QlRxzXNmshTUldz5laqhWBI/MK6DI=;
+ b=Hpd/otCILcDvm9MyYZP+Fo9+UlWYGRzQWl0C3P59gFw2QOivZ7FAN/1qH+c+Q4y7cSAwyoA0h+v7EeRmMBnu2ghNbsiJpgv9LEbMlLqosjfKpHx7FE7U9P2Rx7WdPd9Ay96YjYXSR3INEHnK26uEp01UaaNNYKjYtEU0oAT/3HjRZ7wcZvgNNQkpLC27WQI3eGZPjkqV2KNe09IGaAxZt61woKuGloJ/+Yqo9uIiBy/EK/Qz+LwfV+gVmaYVU+YchvAyidOpEvBXtE5yN7E8/tk2c+rdurh43xuLxj0lnC/GIomUric9bAwZyAV0aenrixU7RRcou4EIr+H4YR3/KA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pZHttxgqJ7+177QlRxzXNmshTUldz5laqhWBI/MK6DI=;
+ b=YBTA/1CilqTqeLSwzrb0MCof4NQFO7HHf84fl35Uzudn/c7O8sLQvDxm+WakUG3oRpM4NZSeKtobm8m5mB/Ob9OfKE9OBZuTRZ9rrDDUQHcibkIwkhYAJYmc+0o7X8CrqYowiXZy/7s7AnprOwtjtPSEZPRGR5oTBwPeb18Ezbg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <af39704c-ed41-109d-0a6d-ed5e4ac2ef36@amd.com>
+Date: Thu, 14 Sep 2023 09:47:15 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [XEN v1 4/4] xen/arm: traps.c: Enclose VMSA specific registers
+ within CONFIG_MMU
+To: Penny Zheng <penny.zheng@arm.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, wei.chen@arm.com,
+ henry.wang@arm.com
+References: <20230911135942.791206-1-ayan.kumar.halder@amd.com>
+ <20230911135942.791206-5-ayan.kumar.halder@amd.com>
+ <a958921e-500e-fd26-741d-1a1b686fdfcb@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <a958921e-500e-fd26-741d-1a1b686fdfcb@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P265CA0473.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a2::29) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
-References: <20230831093252.2461282-1-ray.huang@amd.com> <20230831093252.2461282-11-ray.huang@amd.com>
- <58a4e81f-b0ce-49db-8a6a-f6b5bdc3d2d6@daynix.com> <ZPw2UjxogIULU722@amd.com>
- <11c227e8-a464-41ce-a435-82c570746388@daynix.com> <CADSE00Kc1Jza7sbERRndWbXgoF1s2V-FNxEOWJ6WgvomzgvMPA@mail.gmail.com>
- <cf99ac00-6f48-4778-b319-6079a931ba5d@daynix.com> <CADSE00+6zcT7iKR0JW1Bk8es6HtBpzAKa9JW6u5yyjDoLPw2KQ@mail.gmail.com>
- <5e88f5d5-5aa2-4052-b250-69c2a443344f@daynix.com> <CADSE00+BUq-6jKH3v2PYNThn+9Z4UCFcr3Cv9Z48eUX0b=6ymA@mail.gmail.com>
- <3918c96c-f106-494d-8e97-6d86cef8df27@daynix.com> <CADSE00LNYm+vKaYwnTAdECGUXPCfiJ7aLqszDuqSzCLLhVOHhQ@mail.gmail.com>
- <0adaf816-e050-43c3-8284-fc41627543ef@daynix.com>
-In-Reply-To: <0adaf816-e050-43c3-8284-fc41627543ef@daynix.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 14 Sep 2023 10:29:51 +0200
-Message-ID: <CADSE00Kyid+=FkkopSGDAyeJ_MY2exDdxoPf18pzthKy70kkKg@mail.gmail.com>
-Subject: Re: [QEMU PATCH v4 10/13] virtio-gpu: Resource UUID
-To: Akihiko Odaki <akihiko.odaki@daynix.com>
-Cc: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, 
-	Antonio Caggiano <antonio.caggiano@collabora.com>, 
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, "ernunes@redhat.com" <ernunes@redhat.com>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, 
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, 
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/alternative; boundary="00000000000084498506054d7be3"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW4PR12MB6705:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11d76b9a-d358-4ec6-c516-08dbb4ff35ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	TGcQ2HcVlm3xHNUFShFg9cf7Q9dew/2vIbfoDHtwwLCVTez60xYaVPat4vhpU+UvLWlYbIAibMl/je1fLZfnId2t1hwv4i6Z18Ip1roGILRKMu+iCkh1LeCy/3MfGY/EbSEH1sv16kcKPjYDVR0Uq5EjzTsl+gRuwtabsJpVTQ9L+3WvRES8jSODsL6HTE2IUTUae4t44b0MegxHajYHF6YKOFwTvYLgbwxO4FgNnfGKzuXelFC4S7AcgvcRTe59CgWJBFyoMubuD8KMupZke+t7KTBkpo1MQIzyyhmjSHpvXQc13tZik3hLnk0949zGj0Q1lLzDxK+PgNbssH4pkaC7K7lcKNSIpu/l6OQjdw3E/Cl6AUH7/U1HxAGb2wALx/A56xBe8YDS6KqMvaGIri1we114O1cmv0BeUbuhexpOdBs6it6+Fzj3gL8OqPvQ7t4UTAOJG9oeoZSDxSHVKZYSTDoMRY+kKMYQ8mu3FyMJu3LH8iviDP6D2BBeuR33I1wpTtFKrMb1g3fSx136VUb5lXiMtaRmgQFCJmxED/ScdKKvM7zO0HScpSIhszymzAjGLCoZ2Zp2508qi05yP8EZIrnEFxt9tXhZNaPejHoPdp13fiiqo8o/VTNQGS7BgGWhZ5sdDiT1PSmjV10Czg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(136003)(346002)(366004)(376002)(186009)(451199024)(1800799009)(31686004)(6486002)(53546011)(6506007)(6666004)(38100700002)(36756003)(31696002)(2616005)(478600001)(4326008)(2906002)(83380400001)(6512007)(5660300002)(8936002)(66946007)(110136005)(8676002)(316002)(41300700001)(66476007)(26005)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Qk5vQ2p3YzRMTFJ0S083WFRTdGpGd3NvUWNxdnNxWUMvN1ZVdzQweENzUGY2?=
+ =?utf-8?B?dW9lU1dmc1RGck9aMWNHenhKTjZGNUdZT2dFcHRIeW5kM0JnelhabG1VSXdE?=
+ =?utf-8?B?S0l5SmlDSjFBOURXTndzUHUxSlZSTVg5YndDdW84N3VidEQ2R0x5MDM4cUZu?=
+ =?utf-8?B?SDIyek1URy9SYzFsQUt3NFBTSzZiV0lFdThLZDJSUU5haXhEVlk2SkwwR1JO?=
+ =?utf-8?B?SkFOcURBa21YNFRGa0RDSEFJK1ZFRlhZTnFGZEVmcE9JeUh5WDh3VTBzbFNn?=
+ =?utf-8?B?QjNabzVSVDBhQUc0d01SMng5ZzVKV2JCTmlQUjZXRHZCaUVRaTNYcmNTRHFK?=
+ =?utf-8?B?UmpkbkRXdUxHQXdTRUNtYTd4a3kxa2xBclZCaDZmSVY1UmxBcFB6V2JxVjFp?=
+ =?utf-8?B?MFYwOUxaT2RuS2dzdDNQb25zWnR2b1dZRzJQbWM5eDV2NTZFS0FjTlJMeloy?=
+ =?utf-8?B?WjVHMjFla2s3TGtXcm91VzBOcWthVDVhQTJXZ0Jyd0NCbjNzdmh5ZGxpQVFY?=
+ =?utf-8?B?QXdmM3RKRjJ0Q0RBSzExTm9oSHk3c2ErbmI5dmdVOTRNS1YwWHhFbUY1SlNl?=
+ =?utf-8?B?ZlBkRlh2Vm1ZTzRXTURNNUhvaEJEV2pLK0dLc3RHTDdPU1A2QlVFUEpPQ0RC?=
+ =?utf-8?B?ZHJVN01wZDdnWU0rbTJQNER4dDdGN3FZRUFhVG8wOVlKSG5jOG55RHVEWGYy?=
+ =?utf-8?B?MENPM2hOcWthRXl3dFZtdmF5SGhxSkZkUTBVdVZOdWYxYU9sc0VhVCtVbnBT?=
+ =?utf-8?B?N21nYXlDbTNlMnVZT2dheWlDc2pkOXNuN2Z3OE1XUEs4Sm80QlNLd0lxZlp4?=
+ =?utf-8?B?UGp4eGZ3UFhDRVBDVXU2bUFOYitIRGxlVGlqOXA5a3YweWFlMXMzY2JobXYw?=
+ =?utf-8?B?ZWNGZW95UEFNbC9xbVhQZUlCOUdwcDhEb3M4WThzTHhnVjJ6MUdWbWFQZGZT?=
+ =?utf-8?B?cWRjTWhjZnVETnIySld2a29Vc0Vvc1BvNXFEMmVPZnp5M3h6a0djQnR2Tk9x?=
+ =?utf-8?B?bkNiY3MwWlZxeTN6ZFRKVjFlMlNnU3p4M296aVpIOUdwVXViWC9mdmpONVpI?=
+ =?utf-8?B?V1I5N2hXYkJuWG93YXpTMUFRbEJSeHlaQU9lakVYREljamFoYW0wTVhUS1Bx?=
+ =?utf-8?B?SUpYOHBmSzdTZ2hDdWVXZ3cyRWU2Wkt6M1ZDeEF5QmNpN0xnek1YbHBmSzdJ?=
+ =?utf-8?B?YkdiaUZhc1ZUbzhmUHlqQzRIZHJZU2dZa0RkYWZWSkZKenZDLzY4eGJVd2lo?=
+ =?utf-8?B?L1BFaXVEb05Ud29RRHpUamEvVjdHU3V0ZEtSaVBsTnFtS2hWQlFqM2lvRyts?=
+ =?utf-8?B?SmxCNzkyUXdGeTVoVjJRZ0x4NEZvLzZmVWljNWhxQXZhRXlJd3JKdkw1Z0Yr?=
+ =?utf-8?B?RnhIRjdFc2QyRitxd3ZYNUhRUGxnMnp0cnBENHRUcGFqNjVsVU91dEJ3QWhD?=
+ =?utf-8?B?K0dIOEVkYTJRODU5TnE3Ry93SGZQUVFKMStPaStTUVd2VEdQckdhYVZhSFlo?=
+ =?utf-8?B?cmwyYUVpWk92QVV3UWt2MUI3N2xLYWNJKzVPdmMxR2FYTnY1NVJiQk9MY3pN?=
+ =?utf-8?B?cGFSNHV4MjZwU1MzVkVNbU9ScDMxVzdwR3lSRnc4ZS9laEFkb0tGSk9LbS9Q?=
+ =?utf-8?B?QldjQWxpeHd5L3ozTDlYS0o4aXN1OGRnalU3NmpSYWRabUM5a2RLUHlxeTJj?=
+ =?utf-8?B?U0tuT0hsNzFUYmhkamdjTDJUVDVOaE9MdmUzMWlVQm5MY3lMM3ZtQ3JPRmhZ?=
+ =?utf-8?B?eWxrUnFOK25nbnJMcDI0My9FZVFFeXE4VXBtd254UmE1cDJabmU5Z2dPUC9i?=
+ =?utf-8?B?ZDg3amo5aXBmZlNaZG1qM1VQR0RYWFBsc2RmR2Jyb2RpMzNNS0NRdkUzUGdT?=
+ =?utf-8?B?MHlISXVGL1Jva3JKT0Rpa3VFeW1KU1VPUXlCVG93akdmUHdwazVsMHpvOWpl?=
+ =?utf-8?B?OXkyNlI1UTFXUGFPMVQvTVBzbWpCQmxKMEUzd0VneUZMeUhmME9QcEgrY0wv?=
+ =?utf-8?B?N0lRUUowYmxrSFUvMmVVQkhFVW4vdXVPdkhYOWN5KzNrS1ZRemJCNDRBRTdF?=
+ =?utf-8?B?WTdXVnh0eDJhbEJVbmhmZVhWM2l5UW9CNFpmK1VQMytpYTVPeHh2cU82aHBT?=
+ =?utf-8?Q?4zKgltcFxlxmNVr2DoKYot9CV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11d76b9a-d358-4ec6-c516-08dbb4ff35ff
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2023 08:47:22.1465
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WwrzDG9dfGoU0yZRS0BRfXhAQQYmjWvNf18iBOtdrsPLmYYTzEPN6ohHDLfarAAvESieY6iaGsjbh0rtfyxxZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6705
 
---00000000000084498506054d7be3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 14, 2023 at 9:17=E2=80=AFAM Akihiko Odaki <akihiko.odaki@daynix=
-.com>
-wrote:
-
-> On 2023/09/13 23:18, Albert Esteve wrote:
-> >
-> >
-> > On Wed, Sep 13, 2023 at 3:43=E2=80=AFPM Akihiko Odaki <akihiko.odaki@da=
-ynix.com
-> > <mailto:akihiko.odaki@daynix.com>> wrote:
-> >
-> >     On 2023/09/13 21:58, Albert Esteve wrote:
-> >      >
-> >      >
-> >      > On Wed, Sep 13, 2023 at 2:22=E2=80=AFPM Akihiko Odaki
-> >     <akihiko.odaki@daynix.com <mailto:akihiko.odaki@daynix.com>
-> >      > <mailto:akihiko.odaki@daynix.com
-> >     <mailto:akihiko.odaki@daynix.com>>> wrote:
-> >      >
-> >      >     On 2023/09/13 20:34, Albert Esteve wrote:
-> >      >      >
-> >      >      >
-> >      >      > On Wed, Sep 13, 2023 at 12:34=E2=80=AFPM Akihiko Odaki
-> >      >     <akihiko.odaki@daynix.com <mailto:akihiko.odaki@daynix.com>
-> >     <mailto:akihiko.odaki@daynix.com <mailto:akihiko.odaki@daynix.com>>
-> >      >      > <mailto:akihiko.odaki@daynix.com
-> >     <mailto:akihiko.odaki@daynix.com>
-> >      >     <mailto:akihiko.odaki@daynix.com
-> >     <mailto:akihiko.odaki@daynix.com>>>> wrote:
-> >      >      >
-> >      >      >     On 2023/09/13 16:55, Albert Esteve wrote:
-> >      >      >      > Hi Antonio,
-> >      >      >      >
-> >      >      >      > If I'm not mistaken, this patch is related with:
-> >      >      >      >
-> >      >      >
-> >      >
-> >     https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.htm=
-l
-> >
-> >      >
-> >       <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>>
-> >      >      >
-> >      >
-> >       <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html> <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>>>
-> >      >      >      >
-> >      >      >
-> >      >
-> >       <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html> <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>>
-> >      >      >
-> >      >
-> >       <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html> <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html <
-> https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html>>>>
-> >      >      >      > IMHO, ideally, virtio-gpu and vhost-user-gpu both,
-> >     would
-> >      >     use the
-> >      >      >      > infrastructure from the patch I linked to store th=
-e
-> >      >      >      > virtio objects, so that they can be later shared
-> with
-> >      >     other devices.
-> >      >      >
-> >      >      >     I don't think such sharing is possible because the
-> >     resources are
-> >      >      >     identified by IDs that are local to the device. That
-> also
-> >      >     complicates
-> >      >      >     migration.
-> >      >      >
-> >      >      >     Regards,
-> >      >      >     Akihiko Odaki
-> >      >      >
-> >      >      > Hi Akihiko,
-> >      >      >
-> >      >      > As far as I understand, the feature to export
-> >     dma-bufs from the
-> >      >      > virtgpu was introduced as part of the virtio cross-device
-> >     sharing
-> >      >      > proposal [1]. Thus, it shall be posible. When
-> >     virtgpu ASSING_UUID,
-> >      >      > it exports and identifies the dmabuf resource, so that
-> >     when the
-> >      >     dmabuf gets
-> >      >      > shared inside the guest (e.g., with virtio-video), we can
-> >     use the
-> >      >     assigned
-> >      >      > UUID to find the dmabuf in the host (using the patch that=
- I
-> >      >     linked above),
-> >      >      > and import it.
-> >      >      >
-> >      >      > [1] - https://lwn.net/Articles/828988/
-> >     <https://lwn.net/Articles/828988/>
-> >      >     <https://lwn.net/Articles/828988/
-> >     <https://lwn.net/Articles/828988/>>
-> >     <https://lwn.net/Articles/828988/ <https://lwn.net/Articles/828988/=
+On 14/09/2023 06:48, Penny Zheng wrote:
+> Hi, Ayan
+Hi Penny,
 >
-> >      >     <https://lwn.net/Articles/828988/
-> >     <https://lwn.net/Articles/828988/>>>
-> >      >
-> >      >     The problem is that virtio-gpu can have other kind of
-> >     resources like
-> >      >     pixman and OpenGL textures and manage them and DMA-BUFs with
-> >     unified
-> >      >     resource ID.
-> >      >
-> >      >
-> >      > I see.
-> >      >
-> >      >
-> >      >     So you cannot change:
-> >      >     g_hash_table_insert(g->resource_uuids,
-> >      >     GUINT_TO_POINTER(assign.resource_id), uuid);
-> >      >     by:
-> >      >     virtio_add_dmabuf(uuid, assign.resource_id);
-> >      >
-> >      >     assign.resource_id is not DMA-BUF file descriptor, and the
-> >     underlying
-> >      >     resource my not be DMA-BUF at first place.
-> >      >
-> >      >
-> >      > I didn't really look into the patch in-depth, so the code was
-> >     intended
-> >      > to give an idea of how the implementation would look like with
-> >      > the cross-device patch API. Indeed, it is not the resource_id,
-> >      > (I just took a brief look at the virtio specificacion 1.2), but
-> the
-> >      > underlying
-> >      > resource what we want to use here.
-> >      >
-> >      >
-> >      >     Also, since this lives in the common code that is not used
-> >     only by
-> >      >     virtio-gpu-gl but also virtio-gpu, which supports migration,
-> >     we also
-> >      >     need to take care of that. It is not a problem for DMA-BUF a=
-s
-> >      >     DMA-BUF is
-> >      >     not migratable anyway, but the situation is different in thi=
-s
-> >     case.
-> >      >
-> >      >     Implementing cross-device sharing is certainly a possibility=
-,
-> >     but that
-> >      >     requires more than dealing with DMA-BUFs.
-> >      >
-> >      >
-> >      > So, if I understood correctly, dmabufs are just a subset of the
-> >     resources
-> >      > that the gpu manages, or can assign UUIDs to. I am not sure why
-> >      > the virt gpu driver would want to send a ASSIGN_UUID for anythin=
-g
-> >      > that is not a dmabuf (are we sure it does?), but I am not super
-> >     familiarized
-> >      > with virtgpu to begin with.
-> >
-> >     In my understanding, an resource will be first created as OpenGL or
-> >     Vulkan textures and then exported as a DMA-BUF file descriptor. For
-> >     these resource types exporting/importing code is mandatory.
-> >
-> >     For pixman buffers (i.e., non-virgl device), I don't see a compelli=
-ng
-> >     reason to have cross-device sharing. It is possible to omit resourc=
-e
-> >     UUID feature from non-virgl device to avoid implementing complicate=
-d
-> >     migration.
-> >
-> >
-> > I see, thanks for the clarification.
-> > I would assume you could avoid the UUID feature for those resources, bu=
-t
-> > I will need to check the driver implementation. It is worth checking
-> > though, if
-> > that would simplify the implementation.
-> >
-> >
-> >      > But I see that internally, the GPU specs relate a UUID with a
-> >     resource_id,
-> >      > so we still need both tables:
-> >      > - one to relate UUID with resource_id to be able to locate the
-> >      > underlying resource
-> >      > - the table that holds the dmabuf with the UUID for cross-device
-> >     sharing
-> >      >
-> >      > With that in mind, sounds to me that the support for cross-devic=
-e
-> >      > sharing could
-> >      > be added on top of this patch, once
-> >      >
-> >     https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.htm=
-l
-> >
-> >      >
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.htm=
-l
-> >     <https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.htm=
-l
-> >>
-> >      > lands.
-> >
-> >     That is possible, but I think it's better to implement cross-device
-> >     sharing at the same time introducing virtio-dmabuf.
-> >
-> >     The current design of virtio-dmabuf looks somewhat inconsistent; it=
-'s
-> >     named "dmabuf", but internally the UUIDs are stored into something
-> >     named
-> >     "resource_uuids" and it has SharedObjectType so it's more like a
-> >     generic
-> >     resource sharing mechanism. If you actually have an implementation =
-of
-> >     cross-device sharing using virtio-dmabuf, it will be clear what kin=
-d
-> of
-> >     feature is truly necessary.
-> >
-> >
-> > Yeah, the file was named as virtio-dmabuf following the kernel
-> > implementation. Also, because for the moment it only aims to share
-> > dmabufs. However, virtio specs leave the virtio object defintion vague
-> [1]
-> > (I guess purposely). It is up to the specific devices to define what an
-> > object
-> > means for them. So the implementation tries to follow that, and
-> > leave the contents of the table generic. The table can hold any kind of
-> > object,
-> > and the API exposes type-specific functions (for dmabufs, or others).
-> In the guest kernel, the name "virtio_dma_buf" represents the interface
-> between the *guest* kernel and *guest* user-space. It makes sense since
-> the cross-device resource sharing is managed by the userspace and
-> DMA-BUF is the only interface between them for this purpose.
+> On 2023/9/11 21:59, Ayan Kumar Halder wrote:
+>> The VMSA specific registers (ie TCR, TTBR0, TTBR1, VTTBR, etc) are 
+>> valid when
+>> MMU is used, thus we can enclose them with CONFIG_MMU.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>>   xen/arch/arm/traps.c | 17 +++++++++++++++--
+>>   1 file changed, 15 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>> index 46c9a4031b..83522fcc5a 100644
+>> --- a/xen/arch/arm/traps.c
+>> +++ b/xen/arch/arm/traps.c
+>> @@ -698,8 +698,10 @@ static void __do_trap_serror(struct 
+>> cpu_user_regs *regs, bool guest)
+>>   struct reg_ctxt {
+>>       /* Guest-side state */
+>>       register_t sctlr_el1;
+>> +#ifdef CONFIG_MMU
+>>       register_t tcr_el1;
+>>       uint64_t ttbr0_el1, ttbr1_el1;
+>> +#endif
+>>   #ifdef CONFIG_ARM_32
+>>       uint32_t dfsr, ifsr;
+>>       uint32_t dfar, ifar;
+>> @@ -801,9 +803,11 @@ static void show_registers_32(const struct 
+>> cpu_user_regs *regs,
+>>       if ( guest_mode_on )
+>>       {
+>>           printk("     SCTLR: %"PRIregister"\n", ctxt->sctlr_el1);
+>> +#ifdef CONFIG_MMU
+>>           printk("       TCR: %"PRIregister"\n", ctxt->tcr_el1);
+>>           printk("     TTBR0: %016"PRIx64"\n", ctxt->ttbr0_el1);
+>>           printk("     TTBR1: %016"PRIx64"\n", ctxt->ttbr1_el1);
+>> +#endif
 >
-> The situation is different for QEMU; QEMU interacts with backends using
-> backend-specific interfaces (OpenGL/pixman) and virgl is capable to
-> export textures as DMA-BUF. DMA-BUF is not universal in this sense. As
-> such, we cannot just borrow the kernel-side naming but invent one.
+> FWIS, on v8R-AArch64, with MPU on EL2, we could still support VMSA on 
+> EL1, so registers like TTBR0_EL1/TCR_EL1 are valid.
+> See ARM DDI 0600B.a Table G1-2 Alphabetical index of modified AArch64 
+> System registers (continued) for detailed info.
+
+Actually, you are correct. And, we should not be using CONFIG_MMU to 
+enclose VMSA EL1 registers. I am ok to drop this patch.
+
+However, refer G1.3.7  "ID_AA64MMFR0_EL1, AArch64 Memory Model Feature 
+Register 0"
+
+When MSA_frac, bits [55:52] == 0b0001, then there is no support for 
+VMSAv8-64. IIUC, VMSA EL1 registers will not be present.
+
+If this is correct, then we might need to have AARCH64_V8R specific 
+config as ID_AA64MMFR0_EL1 can be interpreted for this configuration only.
+
+Appreciate your comments.
+
+- Ayan
+
 >
-> It is not a gpu-specific feature. It is a generic cross-device sharing
-mechanism for virtio objects. In this case, virtio objects happen to be
-dmabufs in this first iteration. Hence, the name.
-
-virtio-gpu (and vhost-user-gpu) will use this feature only with virgl, that
-is
-fine, and transversal to the object-sharing mechanism. It allows
-to share dmabufs in the host following how they are shared in the guest.
-The virtgpu driver may call ASSIGN_UUID for other types of resources (not
-sure,
-but could be), but they will never be shared with other virtio devices.
-So they are not too relevant. Also, the shared objects table could
-potentially
-be accessed from any virtio device, not only virtio-gpu or virtio-video.
-
-What I am trying to say, is that the name focuses solely in its current
-usage,
-i.e., sharing dmabufs between virtio-gpu (as exporter), and virtio-video
-(as importer).
-If it grows to something more, imo it can be renamed later.
-
-Regards,
-Albert
-
---00000000000084498506054d7be3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr" class=3D"gmail_sign=
-ature"><div dir=3D"ltr"><br></div></div></div></div><br><div class=3D"gmail=
-_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 14, 2023 at 9:17=
-=E2=80=AFAM Akihiko Odaki &lt;<a href=3D"mailto:akihiko.odaki@daynix.com">a=
-kihiko.odaki@daynix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">On 2023/09/13 23:18, Albert Esteve wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt; On Wed, Sep 13, 2023 at 3:43=E2=80=AFPM Akihiko Odaki &lt;<a href=3D"m=
-ailto:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com<=
-/a> <br>
-&gt; &lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.com" target=3D"_blan=
-k">akihiko.odaki@daynix.com</a>&gt;&gt; wrote:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0On 2023/09/13 21:58, Albert Esteve wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; On Wed, Sep 13, 2023 at 2:22=E2=80=AFPM Akihi=
-ko Odaki<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"mailto:akihiko.odaki@daynix.com" tar=
-get=3D"_blank">akihiko.odaki@daynix.com</a> &lt;mailto:<a href=3D"mailto:ak=
-ihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com</a>&gt;<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &lt;mailto:<a href=3D"mailto:akihiko.odaki@da=
-ynix.com" target=3D"_blank">akihiko.odaki@daynix.com</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.c=
-om" target=3D"_blank">akihiko.odaki@daynix.com</a>&gt;&gt;&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0On 2023/09/13 20:34, Alber=
-t Esteve wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; On Wed, Sep 13, 2023=
- at 12:34=E2=80=AFPM Akihiko Odaki<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"mailto:akih=
-iko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com</a> &lt;ma=
-ilto:<a href=3D"mailto:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.=
-odaki@daynix.com</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.c=
-om" target=3D"_blank">akihiko.odaki@daynix.com</a> &lt;mailto:<a href=3D"ma=
-ilto:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com</=
-a>&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; &lt;mailto:<a href=
-=3D"mailto:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix=
-.com</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.c=
-om" target=3D"_blank">akihiko.odaki@daynix.com</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mail=
-to:akihiko.odaki@daynix.com" target=3D"_blank">akihiko.odaki@daynix.com</a>=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:akihiko.odaki@daynix.c=
-om" target=3D"_blank">akihiko.odaki@daynix.com</a>&gt;&gt;&gt;&gt; wrote:<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0O=
-n 2023/09/13 16:55, Albert Esteve wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt; Hi Antonio,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt; If I&#39;m not mistaken, this patch is related with:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://lists.gnu.org/archive/html/qemu-=
-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https://l=
-ists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive=
-/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank=
-">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a> &=
-lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0185=
-3.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/archive/=
-html/qemu-devel/2023-09/msg01853.html</a>&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive=
-/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank=
-">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a> &=
-lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0185=
-3.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/archive/=
-html/qemu-devel/2023-09/msg01853.html</a>&gt; &lt;<a href=3D"https://lists.=
-gnu.org/archive/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" t=
-arget=3D"_blank">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0=
-1853.html</a> &lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/=
-2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https://lists.g=
-nu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive=
-/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank=
-">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a> &=
-lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0185=
-3.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/archive/=
-html/qemu-devel/2023-09/msg01853.html</a>&gt; &lt;<a href=3D"https://lists.=
-gnu.org/archive/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" t=
-arget=3D"_blank">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0=
-1853.html</a> &lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/=
-2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https://lists.g=
-nu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive=
-/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank=
-">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01853.html</a> &=
-lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0185=
-3.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/archive/=
-html/qemu-devel/2023-09/msg01853.html</a>&gt; &lt;<a href=3D"https://lists.=
-gnu.org/archive/html/qemu-devel/2023-09/msg01853.html" rel=3D"noreferrer" t=
-arget=3D"_blank">https://lists.gnu.org/archive/html/qemu-devel/2023-09/msg0=
-1853.html</a> &lt;<a href=3D"https://lists.gnu.org/archive/html/qemu-devel/=
-2023-09/msg01853.html" rel=3D"noreferrer" target=3D"_blank">https://lists.g=
-nu.org/archive/html/qemu-devel/2023-09/msg01853.html</a>&gt;&gt;&gt;&gt;<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt; IMHO, ideally, virtio-gpu and vhost-user-gpu both,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0would<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0use the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt; infrastructure from the patch I linked to store the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =
-&gt; virtio objects, so that they can be later shared with<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0other devices.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0I=
- don&#39;t think such sharing is possible because the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0resources are<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0i=
-dentified by IDs that are local to the device. That also<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0complicates<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0m=
-igration.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0R=
-egards,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0A=
-kihiko Odaki<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Hi Akihiko,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; As far as I understa=
-nd, the feature to export<br>
-&gt;=C2=A0 =C2=A0 =C2=A0dma-bufs=C2=A0from the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; virtgpu was introduc=
-ed as part of the virtio cross-device<br>
-&gt;=C2=A0 =C2=A0 =C2=A0sharing<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; proposal [1]. Thus, =
-it shall be posible. When<br>
-&gt;=C2=A0 =C2=A0 =C2=A0virtgpu=C2=A0ASSING_UUID,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; it exports and ident=
-ifies the dmabuf resource, so that<br>
-&gt;=C2=A0 =C2=A0 =C2=A0when the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0dmabuf gets<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; shared inside the gu=
-est (e.g., with virtio-video), we can<br>
-&gt;=C2=A0 =C2=A0 =C2=A0use the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0assigned<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; UUID to find the dma=
-buf in the host (using the patch that I<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0linked above),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; and import it.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 &gt; [1] - <a href=3D"htt=
-ps://lwn.net/Articles/828988/" rel=3D"noreferrer" target=3D"_blank">https:/=
-/lwn.net/Articles/828988/</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn.net/Articles/828988/" re=
-l=3D"noreferrer" target=3D"_blank">https://lwn.net/Articles/828988/</a>&gt;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn=
-.net/Articles/828988/" rel=3D"noreferrer" target=3D"_blank">https://lwn.net=
-/Articles/828988/</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn.net/Articles/828988/" re=
-l=3D"noreferrer" target=3D"_blank">https://lwn.net/Articles/828988/</a>&gt;=
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn.net/Articles/828988/" re=
-l=3D"noreferrer" target=3D"_blank">https://lwn.net/Articles/828988/</a> &lt=
-;<a href=3D"https://lwn.net/Articles/828988/" rel=3D"noreferrer" target=3D"=
-_blank">https://lwn.net/Articles/828988/</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn=
-.net/Articles/828988/" rel=3D"noreferrer" target=3D"_blank">https://lwn.net=
-/Articles/828988/</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lwn.net/Articles/828988/" re=
-l=3D"noreferrer" target=3D"_blank">https://lwn.net/Articles/828988/</a>&gt;=
-&gt;&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0The problem is that virtio=
--gpu can have other kind of<br>
-&gt;=C2=A0 =C2=A0 =C2=A0resources like<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0pixman and OpenGL textures=
- and manage them and DMA-BUFs with<br>
-&gt;=C2=A0 =C2=A0 =C2=A0unified<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0resource ID.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; I see.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0So you cannot change:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0g_hash_table_insert(g-&gt;=
-resource_uuids,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0GUINT_TO_POINTER(assign.re=
-source_id), uuid);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0by:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0virtio_add_dmabuf(uuid, as=
-sign.resource_id);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0assign.resource_id is not =
-DMA-BUF file descriptor, and the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0underlying<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0resource my not be DMA-BUF=
- at first place.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; I didn&#39;t really look into the patch in-de=
-pth, so the=C2=A0code was<br>
-&gt;=C2=A0 =C2=A0 =C2=A0intended<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; to give an idea of how the implementation wou=
-ld look like with<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; the cross-device patch API. Indeed, it is not=
- the resource_id,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; (I just took a brief look at the virtio speci=
-ficacion=C2=A01.2), but the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; underlying<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; resource what we want to use here.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Also, since this lives in =
-the common code that is not used<br>
-&gt;=C2=A0 =C2=A0 =C2=A0only by<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0virtio-gpu-gl but also vir=
-tio-gpu, which supports migration,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0we also<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0need to take care of that.=
- It is not a problem for DMA-BUF as<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0DMA-BUF is<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0not migratable anyway, but=
- the situation is different in this<br>
-&gt;=C2=A0 =C2=A0 =C2=A0case.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Implementing cross-device =
-sharing is certainly a possibility,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0but that<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0requires more than dealing=
- with DMA-BUFs.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; So, if I understood correctly, dmabufs=C2=A0a=
-re just a subset of the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0resources<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; that the gpu manages, or can assign UUIDs to.=
- I am not sure why<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; the virt gpu driver would want to send a ASSI=
-GN_UUID for anything<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; that is not a dmabuf (are we sure it does?), =
-but I am not super<br>
-&gt;=C2=A0 =C2=A0 =C2=A0familiarized<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; with virtgpu=C2=A0to begin with.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0In my understanding, an resource will be first crea=
-ted as OpenGL or<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Vulkan textures and then exported as a DMA-BUF file=
- descriptor. For<br>
-&gt;=C2=A0 =C2=A0 =C2=A0these resource types exporting/importing code is ma=
-ndatory.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0For pixman buffers (i.e., non-virgl device), I don&=
-#39;t see a compelling<br>
-&gt;=C2=A0 =C2=A0 =C2=A0reason to have cross-device sharing. It is possible=
- to omit resource<br>
-&gt;=C2=A0 =C2=A0 =C2=A0UUID feature from non-virgl device to avoid impleme=
-nting complicated<br>
-&gt;=C2=A0 =C2=A0 =C2=A0migration.<br>
-&gt; <br>
-&gt; <br>
-&gt; I see, thanks for the clarification.<br>
-&gt; I would assume you could avoid the UUID feature for those resources, b=
-ut<br>
-&gt; I will need to check the driver implementation. It is worth checking <=
-br>
-&gt; though, if<br>
-&gt; that would simplify the implementation.<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; But I see that internally, the GPU specs rela=
-te a UUID with a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0resource_id,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; so we still need both tables:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; - one to relate UUID with resource_id to be a=
-ble to locate the<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; underlying resource<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; - the table that holds the dmabuf with the UU=
-ID for cross-device<br>
-&gt;=C2=A0 =C2=A0 =C2=A0sharing<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; With that in mind, sounds to me that the supp=
-ort for cross-device<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; sharing could<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; be added on top of this patch, once<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://lists.gnu.org/archive/html/qemu-=
-devel/2023-09/msg01850.html" rel=3D"noreferrer" target=3D"_blank">https://l=
-ists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01850.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html</a>&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01850.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html</a><br>
-&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.gnu.org/archive/html/q=
-emu-devel/2023-09/msg01850.html" rel=3D"noreferrer" target=3D"_blank">https=
-://lists.gnu.org/archive/html/qemu-devel/2023-09/msg01850.html</a>&gt;&gt;<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; lands.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0That is possible, but I think it&#39;s better to im=
-plement cross-device<br>
-&gt;=C2=A0 =C2=A0 =C2=A0sharing at the same time introducing virtio-dmabuf.=
-<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0The current design of virtio-dmabuf looks somewhat =
-inconsistent; it&#39;s<br>
-&gt;=C2=A0 =C2=A0 =C2=A0named &quot;dmabuf&quot;, but internally the UUIDs =
-are stored into something<br>
-&gt;=C2=A0 =C2=A0 =C2=A0named<br>
-&gt;=C2=A0 =C2=A0 =C2=A0&quot;resource_uuids&quot; and it has SharedObjectT=
-ype so it&#39;s more like a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0generic<br>
-&gt;=C2=A0 =C2=A0 =C2=A0resource sharing mechanism. If you actually have an=
- implementation of<br>
-&gt;=C2=A0 =C2=A0 =C2=A0cross-device sharing using virtio-dmabuf, it will b=
-e clear what kind of<br>
-&gt;=C2=A0 =C2=A0 =C2=A0feature is truly necessary.<br>
-&gt; <br>
-&gt; <br>
-&gt; Yeah, the file was named as virtio-dmabuf following the kernel<br>
-&gt; implementation. Also, because for the moment it only aims to share<br>
-&gt; dmabufs. However, virtio specs leave the virtio object defintion=C2=A0=
-vague [1]<br>
-&gt; (I guess purposely). It is up to the specific devices to define what a=
-n <br>
-&gt; object<br>
-&gt; means for them. So the implementation tries to follow that, and<br>
-&gt; leave the contents of the table generic. The table can hold any kind o=
-f <br>
-&gt; object,<br>
-&gt; and the API exposes type-specific functions (for dmabufs,=C2=A0or othe=
-rs).<br>
-In the guest kernel, the name &quot;virtio_dma_buf&quot; represents the int=
-erface <br>
-between the *guest* kernel and *guest* user-space. It makes sense since <br=
->
-the cross-device resource sharing is managed by the userspace and <br>
-DMA-BUF is the only interface between them for this purpose.<br>
-<br>
-The situation is different for QEMU; QEMU interacts with backends using <br=
->
-backend-specific interfaces (OpenGL/pixman) and virgl is capable to <br>
-export textures as DMA-BUF. DMA-BUF is not universal in this sense. As <br>
-such, we cannot just borrow the kernel-side naming but invent one.<br>
-<br></blockquote><div>It is not a gpu-specific feature. It is a generic cro=
-ss-device sharing</div><div>mechanism for virtio objects. In this case, vir=
-tio objects happen to be</div><div>dmabufs in this first iteration. Hence, =
-the name.</div><div><br></div><div>virtio-gpu (and vhost-user-gpu) will use=
- this feature only with virgl, that is</div><div>fine, and transversal to t=
-he object-sharing mechanism. It allows</div><div>to share dmabufs in the ho=
-st following how they are shared in the guest.</div><div>The virtgpu=C2=A0d=
-river may call ASSIGN_UUID for other types of resources (not sure,</div><di=
-v>but could be), but they will never be shared with other virtio devices.</=
-div><div>So they are not too relevant. Also, the shared objects table could=
- potentially</div><div>be accessed from any virtio device, not only virtio-=
-gpu or virtio-video.</div><div><br></div><div>What I am trying to say, is t=
-hat the name focuses solely in its current usage,</div><div>i.e., sharing d=
-mabufs between virtio-gpu (as exporter), and virtio-video (as importer).</d=
-iv><div>If it grows to something more, imo it can=C2=A0be renamed later.</d=
-iv><div><br></div><div>Regards,</div><div>Albert</div></div></div>
-
---00000000000084498506054d7be3--
-
+>>           printk("      IFAR: %08"PRIx32", IFSR: %08"PRIx32"\n"
+>>                  "      DFAR: %08"PRIx32", DFSR: %08"PRIx32"\n",
+>>   #ifdef CONFIG_ARM_64
+>> @@ -873,9 +877,11 @@ static void show_registers_64(const struct 
+>> cpu_user_regs *regs,
+>>           printk("   FAR_EL1: %016"PRIx64"\n", ctxt->far);
+>>           printk("\n");
+>>           printk(" SCTLR_EL1: %"PRIregister"\n", ctxt->sctlr_el1);
+>> +#ifdef CONFIG_MMU
+>>           printk("   TCR_EL1: %"PRIregister"\n", ctxt->tcr_el1);
+>>           printk(" TTBR0_EL1: %016"PRIx64"\n", ctxt->ttbr0_el1);
+>>           printk(" TTBR1_EL1: %016"PRIx64"\n", ctxt->ttbr1_el1);
+>> +#endif
+>>           printk("\n");
+>>       }
+>>   }
+>> @@ -907,13 +913,15 @@ static void _show_registers(const struct 
+>> cpu_user_regs *regs,
+>>           show_registers_32(regs, ctxt, guest_mode_on, v);
+>>   #endif
+>>       }
+>> +#ifdef CONFIG_MMU
+>>       printk("  VTCR_EL2: %"PRIregister"\n", READ_SYSREG(VTCR_EL2));
+>>       printk(" VTTBR_EL2: %016"PRIx64"\n", ctxt->vttbr_el2);
+>> +    printk(" TTBR0_EL2: %016"PRIx64"\n", READ_SYSREG64(TTBR0_EL2));
+>>       printk("\n");
+>> +#endif
+>>         printk(" SCTLR_EL2: %"PRIregister"\n", READ_SYSREG(SCTLR_EL2));
+>>       printk("   HCR_EL2: %"PRIregister"\n", READ_SYSREG(HCR_EL2));
+>> -    printk(" TTBR0_EL2: %016"PRIx64"\n", READ_SYSREG64(TTBR0_EL2));
+>>       printk("\n");
+>>       printk("   ESR_EL2: %"PRIregister"\n", regs->hsr);
+>>       printk(" HPFAR_EL2: %"PRIregister"\n", READ_SYSREG(HPFAR_EL2));
+>> @@ -931,9 +939,13 @@ void show_registers(const struct cpu_user_regs 
+>> *regs)
+>>   {
+>>       struct reg_ctxt ctxt;
+>>       ctxt.sctlr_el1 = READ_SYSREG(SCTLR_EL1);
+>> +#ifdef CONFIG_MMU
+>>       ctxt.tcr_el1 = READ_SYSREG(TCR_EL1);
+>>       ctxt.ttbr0_el1 = READ_SYSREG64(TTBR0_EL1);
+>>       ctxt.ttbr1_el1 = READ_SYSREG64(TTBR1_EL1);
+>> +    ctxt.vttbr_el2 = READ_SYSREG64(VTTBR_EL2);
+>> +#endif
+>> +
+>>   #ifdef CONFIG_ARM_32
+>>       ctxt.dfar = READ_CP32(DFAR);
+>>       ctxt.ifar = READ_CP32(IFAR);
+>> @@ -945,7 +957,6 @@ void show_registers(const struct cpu_user_regs 
+>> *regs)
+>>       if ( guest_mode(regs) && is_32bit_domain(current->domain) )
+>>           ctxt.ifsr32_el2 = READ_SYSREG(IFSR32_EL2);
+>>   #endif
+>> -    ctxt.vttbr_el2 = READ_SYSREG64(VTTBR_EL2);
+>>         _show_registers(regs, &ctxt, guest_mode(regs), current);
+>>   }
+>> @@ -954,9 +965,11 @@ void vcpu_show_registers(const struct vcpu *v)
+>>   {
+>>       struct reg_ctxt ctxt;
+>>       ctxt.sctlr_el1 = v->arch.sctlr;
+>> +#ifdef CONFIG_MMU
+>>       ctxt.tcr_el1 = v->arch.ttbcr;
+>>       ctxt.ttbr0_el1 = v->arch.ttbr0;
+>>       ctxt.ttbr1_el1 = v->arch.ttbr1;
+>> +#endif
+>>   #ifdef CONFIG_ARM_32
+>>       ctxt.dfar = v->arch.dfar;
+>>       ctxt.ifar = v->arch.ifar;
 
