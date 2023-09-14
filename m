@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8CB47A0040
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 11:37:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602176.938585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726007A00F7
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 11:55:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602184.938595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgimZ-0005sB-Gv; Thu, 14 Sep 2023 09:37:07 +0000
+	id 1qgj3h-00055r-VE; Thu, 14 Sep 2023 09:54:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602176.938585; Thu, 14 Sep 2023 09:37:07 +0000
+Received: by outflank-mailman (output) from mailman id 602184.938595; Thu, 14 Sep 2023 09:54:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgimZ-0005r8-EG; Thu, 14 Sep 2023 09:37:07 +0000
-Received: by outflank-mailman (input) for mailman id 602176;
- Thu, 14 Sep 2023 09:37:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qgimY-0005qD-Un
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 09:37:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qgimY-0002qU-Mq; Thu, 14 Sep 2023 09:37:06 +0000
-Received: from [15.248.3.3] (helo=[10.24.67.35])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qgimY-0004Gx-G5; Thu, 14 Sep 2023 09:37:06 +0000
+	id 1qgj3h-00053y-SM; Thu, 14 Sep 2023 09:54:49 +0000
+Received: by outflank-mailman (input) for mailman id 602184;
+ Thu, 14 Sep 2023 09:54:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qgj3g-00053r-IK
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 09:54:48 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc7cbe96-52e4-11ee-9b0d-b553b5be7939;
+ Thu, 14 Sep 2023 11:54:46 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-401bbfc05fcso7618535e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 02:54:46 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ u20-20020a05600c211400b003fe1fe56202sm1489326wml.33.2023.09.14.02.54.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Sep 2023 02:54:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,129 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=zGMiidAp6KiQFnF0CuxpF8jNv8x97nvi5ACKXaGt7sY=; b=5v/yyLPL31ExwsaQDQtfYMOexu
-	wy3DWd/RwxoInDOPabRhlcSCe7Ld4TuWF1Yy3g84joA7JCi5ESjGhxr53+86QzmnIlhuxiTdzQXw9
-	DD9ERtb3Yvd9BGiCgMFyFrSIY0/775vHXFWhZMvUPym+4a8UodkHhGThTEXLzSgftT2o=;
-Message-ID: <23a0185e-428d-496b-96b6-d5082800bfd4@xen.org>
-Date: Thu, 14 Sep 2023 10:37:05 +0100
+X-Inumbo-ID: bc7cbe96-52e4-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1694685286; x=1695290086; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fnEsIAeUeRDytyDgEkmMnJgqklpj0VzFI2M3W0xEsYo=;
+        b=BTeLSHAKYzeqJtTjHm2jP9HiWkAWBdzZExqCVWOLvQrx6OTNsNRjB2VpU6lzD4KHiy
+         KNcsSRLIvbnfm1T/GxeqClPb5/NPygx8i5Oa5q3Zi447hvsUCzQYaY/rOUlemVFCBfXc
+         w8AOcOL6WAMG2uv5w9nXDkIcEWopz2E75xlbo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694685286; x=1695290086;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fnEsIAeUeRDytyDgEkmMnJgqklpj0VzFI2M3W0xEsYo=;
+        b=jhckfPNkd7zjYA3DBr2fcnUFJuIp0nog8UljkFSSB7HsngpJoqPHjlkzqDbrATKdcF
+         8rcf5iY4gwbejXagTlof+CRD8vqJwZSkIXS/i5qWmziTSvFPMvVvmSnQbKHc+NGeevcn
+         yO5Lwoi/0gMDM2KMIomTD56UN+rdz0zTGL6QGOOvgK3q6RBw1lfiOZl0Zt5tclBd79/6
+         uUPsCFGl/W2Zg2Vo5mq+asK1vRmwUwlAzZTE2NySNqP4LlK/jnK1m2COOsiiJBoBLSzl
+         X471kF9BY6Bw6EXE+otOW4GWuVvkjAgghKIIcWQoQocCRGvqlyt6TY5OIPChNWOgesqN
+         FzOQ==
+X-Gm-Message-State: AOJu0Yy0z3HNS8KPhDUoT7ty2sXFfs/Dc3hl//tBAOq0AYR6T+BsN7fq
+	9KQCQh/qvSvkmuGpDyN6gNtmgg==
+X-Google-Smtp-Source: AGHT+IEbW/34obSf9Pjgt9KdCBO1eNO685TleUgQUdivzFpTEwHWBti6lVC8WQhXjmrgFWCV435+IQ==
+X-Received: by 2002:a7b:c7cb:0:b0:3fe:dc99:56ea with SMTP id z11-20020a7bc7cb000000b003fedc9956eamr4072824wmk.19.1694685285953;
+        Thu, 14 Sep 2023 02:54:45 -0700 (PDT)
+Message-ID: <cde7f3b7-2e58-222a-ebac-6e745150eedd@citrix.com>
+Date: Thu, 14 Sep 2023 10:54:44 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: RFC: arm64: Handling reserved memory nodes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/8] x86/spec-ctrl: Fix confusion between
+ SPEC_CTRL_EXIT_TO_XEN{,_IST}
 Content-Language: en-GB
-To: Leo Yan <leo.yan@linaro.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Henry Wang
- <Henry.Wang@arm.com>, Penny Zheng <penny.zheng@arm.com>
-References: <20230914081607.GA1400758@leoy-huanghe.lan>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230914081607.GA1400758@leoy-huanghe.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
+ <20230913202758.508225-2-andrew.cooper3@citrix.com>
+ <4181dbec-38a4-d0dd-c132-2d23579c36a7@suse.com>
+In-Reply-To: <4181dbec-38a4-d0dd-c132-2d23579c36a7@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 14/09/2023 09:16, Leo Yan wrote:
-> Hi all,
+On 14/09/2023 7:56 am, Jan Beulich wrote:
+> On 13.09.2023 22:27, Andrew Cooper wrote:
+>> c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
+>> dropped the only user, leaving behind the (incorrect) implication that Xen had
+>> split exit paths.
+>>
+>> Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
+>> to SPEC_CTRL_EXIT_TO_XEN for consistency.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> albeit ...
+>
+>> @@ -256,11 +255,6 @@
+>>      ALTERNATIVE "", __stringify(DO_SPEC_CTRL_ENTRY maybexen=1),         \
+>>          X86_FEATURE_SC_MSR_PV
+>>  
+>> -/* Use when exiting to Xen context. */
+>> -#define SPEC_CTRL_EXIT_TO_XEN                                           \
+>> -    ALTERNATIVE "",                                                     \
+>> -        DO_SPEC_CTRL_EXIT_TO_XEN, X86_FEATURE_SC_MSR_PV
+>> -
+>>  /* Use when exiting to PV guest context. */
+>>  #define SPEC_CTRL_EXIT_TO_PV                                            \
+>>      ALTERNATIVE "",                                                     \
+>> @@ -328,7 +322,7 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+>>  .endm
+>>  
+>>  /* Use when exiting to Xen in IST context. */
+>> -.macro SPEC_CTRL_EXIT_TO_XEN_IST
+>> +.macro SPEC_CTRL_EXIT_TO_XEN
+> ... with the comment her updated (either by dropping "in IST" or by
+> explicitly mentioning both cases).
 
-Hi Leo,
+The comment is rewritten from scratch in patch 4.  I'm not moving that
+rewrite to here, and the comment isn't technically wrong to begin with,
+but I suppose I can drop the IST part.  Just means more churn.
 
-> I'd like to discuss for how to handle the reserved memory nodes in DT
-> binding on Xen / Arm64.  Note, now I am using DTB when boot Xen but
-> not UEFI/ACPI (ACPI is disabled in this case).
-> 
-> ## Failure
-> 
-> I ported Xen on a platform, after the kernel booting, the Xen hypervisor
-> reports error:
-> 
->    (XEN) arch/arm/p2m.c:2202: d0v0: Failing to acquire the MFN 0x1a02dc
-> 
-> This error is caused by kernel using an invalid memory frame number
-> 0x1a02dc, we can convert it to the address:
-> 
->    0x1a02dc << PAGE_SHIFT = 0x1_a02d_c000
-
-This error is coming from get_page_from_gva(). The use of the function 
-is usually an indication that Xen is trying to access the page. Can you 
-use WARN() to provide a full trace?
-
-> 
-> ## Reason
-> 
-> Two important things we need to check.  One is what's the DT binding
-> passed from the bootloader to Xen hypervisor, and the second thing is
-> what's the DT binding passed from Xen hypervisor to kernel.
-> 
-> We can see the bootloader passes below memory nodes to Xen hypervisor:
-> 
->    (XEN) RAM: 0000000020000000 - 00000000bfffffff
->    (XEN) RAM: 00000001a0000000 - 00000002ffffffff
->    (XEN)
->    (XEN) MODULE[0]: 0000000020100000 - 0000000020265000 Xen
->    (XEN) MODULE[1]: 0000000023000000 - 0000000023024000 Device Tree
->    (XEN) MODULE[2]: 0000000024000000 - 0000000028000000 Kernel
->    (XEN)  RESVD[0]: 0000000020000000 - 000000002000ffff
->    (XEN)  RESVD[1]: 0000000040000000 - 000000005fffffff
->    (XEN)  RESVD[2]: 00000001a0000000 - 00000001bfffffff
->    (XEN)  RESVD[3]: 000000002e000000 - 000000002fffffff
-> 
-> We can see the second DDR section is:
-> 
->    [0x0000_0001_a000_0000 .. 0x0000_0002_ffff_ffff]
-> 
-> And there have reserved memory section is:
-> 
->    [0x0000_0001_a000_0000 .. 0x0000_0001_bfff_ffff]
-> 
-> When register the boot memory sections, dt_unreserved_regions() will
-> remove all reserved memory sections, which means the section
-> [0x0000_0001_a000_0000 .. 0x0000_0001_bfff_ffff] is not managed by Xen
-> hypervisor at all.  If later kernel uses any pages in this range, Xen
-> will report the error.
-
-It is perfectly fine for dom0 to access a page that are not managed by 
-Xen (a good example is MMIO regions are not managed). Now, some problems 
-can occur if the page then needs to be access by Xen (e.g. if they 
-contain hypercall buffers).
-
-[...]
-
-> ## Fixes
-> 
-> I think it's wrong to add the reserved memory regions into the DT
-> binding as normal memory nodes for Dom0 kernel.  On the other hand, we
-> cannot simply remove these reserved memory regions and don't pass to
-> Dom0 kernel - we might reserve memory for specific purpose, for example,
-> ramoops [1] for kernel debugging.
-> 
-> The right thing to do is to keep these reserved memory nodes to Dom0
-> kernel.  So one task is to record properties for these reserved memory
-> node name and properties and pass to Dom0 kernel.
-> 
-> The difficulty is how we can avoid allocate these reserved memory
-> regions in Xen hypervisor.  We cannot register the reserved memory
-> into the boot pages, otherwise, the reserved memory might be allocated
-> in the early phase.  But we need to register these pages into the
-> frame management framework and reserve them in the first place, so
-> that we can allow Dom0 kernel to use them.  (I checked a bit the static
-> memory mechanism, seems to me we cannot use it to resolve this issue).
-
- From my understanding reserved region are normal RAM which have been 
-carved out for specific purpose. They may expect different caching 
-policy (e.g. non-cachable). AFAIK, Xen doesn't have the capability to 
-know the memory attribute (the DT binding only tell whether the region 
-should not mapped. See the property "no-map"), hence why they were 
-excluded from the memory management.
-
-It would be good to understand why Xen may try to get a reference on the 
-page.
-
-Also, can you find the associated reserved-region and content of the 
-Device-Tree?
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
