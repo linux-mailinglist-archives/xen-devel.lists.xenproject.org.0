@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 293BD7A0DC4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:04:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602642.939349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F107A0E2F
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 21:24:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602672.939377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrd0-0002fc-90; Thu, 14 Sep 2023 19:03:50 +0000
+	id 1qgrvm-0002Nu-Hs; Thu, 14 Sep 2023 19:23:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602642.939349; Thu, 14 Sep 2023 19:03:50 +0000
+Received: by outflank-mailman (output) from mailman id 602672.939377; Thu, 14 Sep 2023 19:23:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgrd0-0002ca-3b; Thu, 14 Sep 2023 19:03:50 +0000
-Received: by outflank-mailman (input) for mailman id 602642;
- Thu, 14 Sep 2023 19:03:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgrvm-0002MI-F3; Thu, 14 Sep 2023 19:23:14 +0000
+Received: by outflank-mailman (input) for mailman id 602672;
+ Thu, 14 Sep 2023 19:23:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PYVF=E6=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qgrcy-0002IU-BO
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:03:48 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d95965e-5331-11ee-9b0d-b553b5be7939;
- Thu, 14 Sep 2023 21:03:45 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 04AF98285A2E;
- Thu, 14 Sep 2023 14:03:45 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 9cPvSY9x485Z; Thu, 14 Sep 2023 14:03:44 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 572B48285972;
- Thu, 14 Sep 2023 14:03:44 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id zR5FLeRV9JEH; Thu, 14 Sep 2023 14:03:44 -0500 (CDT)
-Received: from raptor-ewks-026.rptsys.com (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id DB1668285899;
- Thu, 14 Sep 2023 14:03:43 -0500 (CDT)
+ <SRS0=uqVP=E6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qgrvk-0002MA-GJ
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 19:23:12 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24aaa1ff-5334-11ee-8788-cb3800f73035;
+ Thu, 14 Sep 2023 21:23:11 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-31aeef88a55so1145351f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 12:23:11 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ y14-20020a5d4ace000000b003176eab8868sm2542445wrs.82.2023.09.14.12.23.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Sep 2023 12:23:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,82 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d95965e-5331-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 572B48285972
+X-Inumbo-ID: 24aaa1ff-5334-11ee-8788-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1694718224; bh=cF5IvHr5u7imGadcwYNiu5y563SLZGH4suAc9S6xZk0=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=KWDQbCV9ocOyFIVElNWjobXz/rH9Ru5+Wn0XCxDofZRZ1ZaBRHqk9Go7jIpbbHSqO
-	 lRiLx01n1TEd7edDAk77VHIR2phkFhXzwTMMyErUD8rwcVxenVMHrOVUFLaRTJarYV
-	 MV9X0WUjdfgnTMr8iOOv2dcBo5hUo79eyHIpusa8=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v6 4/4] xen/ppc: Enable full Xen build
-Date: Thu, 14 Sep 2023 14:03:34 -0500
-Message-Id: <ae5a07b0c1761d79d111e1fc1d0f911425ea191a.1694717278.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1694717278.git.sanastasio@raptorengineering.com>
-References: <cover.1694717278.git.sanastasio@raptorengineering.com>
+        d=citrix.com; s=google; t=1694719391; x=1695324191; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qrWE2AHuxv5Yaqe7gnDbJGwX4muVOrWYvJSdz6hQA3Y=;
+        b=XCByoK2Aaka1VQFrGc0RGFnLvfGpxnLFViESk5e3MYtc7YjbHPehFPkWZAavCgVgXw
+         3VFHPXDgEfvkguwkb6jdvTdOXQ0NuqSgt+cVOUJ9RVhQyLTtjAp4pHCQw2rwoQr20EYV
+         /Bu36T9I8wXTehteDtjt+DYmZpo5qLQ5k6vpo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694719391; x=1695324191;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qrWE2AHuxv5Yaqe7gnDbJGwX4muVOrWYvJSdz6hQA3Y=;
+        b=OviqES2RUEPP0TS38mjHFCrLF+1xDwUyqkbanumboo14nHSHA5p5uRNeBvBwM4rKhP
+         43eDtry9B+nUZGmnGf8m7cq+7vrBY0yANOT3eIoQjMoNyAAlZp+hNhmUSvHGVzy5WUN6
+         jD0MGI9bUIvXM54kW+aTsRiWHN/LcDHn5vQvD7TS10bRcRdEwV6iwZXzLnRQBc1MDzyM
+         5Lp31Oqjv1kzf8TyLce5gu/I5ENdaEh72XaR+3qluYsPH6tFSrRJG4Q+Kpg1rYql6RCc
+         HfuA59C092YEkvjZc9qo3rx1metK8pFoUEcRODZIk1E2u8FhrV7ExHutC6/NOhhBVf0Y
+         zJ4w==
+X-Gm-Message-State: AOJu0Yy05VbfOlRFMPVfjGKDJI1VD4b6BFAnilLbxYV3D4b53YWCbJeI
+	9EVMN6nS+SDLalZQn1DstobL1g==
+X-Google-Smtp-Source: AGHT+IFFxd+WItPq4GUuGULYVRX/Ys5ZHWMN67MReWrTea3Rm4M5QmcjKb/ncnJ9ZyCVwSAntgnQjg==
+X-Received: by 2002:adf:f710:0:b0:314:2e95:1ec9 with SMTP id r16-20020adff710000000b003142e951ec9mr5574733wrp.10.1694719390872;
+        Thu, 14 Sep 2023 12:23:10 -0700 (PDT)
+Message-ID: <35177e10-3306-69fc-4ece-bba453cbdb0c@citrix.com>
+Date: Thu, 14 Sep 2023 20:23:10 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 4/8] x86/spec-ctrl: Extend all SPEC_CTRL_{ENTER,EXIT}_*
+ comments
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230913202758.508225-1-andrew.cooper3@citrix.com>
+ <20230913202758.508225-5-andrew.cooper3@citrix.com>
+ <e12f46d9-25eb-d564-4cb7-0e476e741725@suse.com>
+In-Reply-To: <e12f46d9-25eb-d564-4cb7-0e476e741725@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Bring ppc's Makefile and arch.mk in line with arm and x86 to disable the
-build overrides and enable the full Xen build.
+On 14/09/2023 8:58 am, Jan Beulich wrote:
+> On 13.09.2023 22:27, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
+>> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+>> @@ -218,7 +218,10 @@
+>>      wrmsr
+>>  .endm
+>>  
+>> -/* Use after an entry from PV context (syscall/sysenter/int80/int82/etc). */
+>> +/*
+>> + * Used after a synchronous entry from PV context.  SYSCALL, SYSENTER, INT,
+>> + * etc.  Will always interrupt a guest speculation context.
+>> + */
+>>  .macro SPEC_CTRL_ENTRY_FROM_PV
+>>  /*
+>>   * Requires %rsp=regs/cpuinfo, %rdx=0
+> For the entry point comments - not being a native speaker -, the use of
+> "{will,may} interrupt" reads odd. You're describing the macros here,
+> not the the events that led to their invocation. Therefore it would seem
+> to me that "{will,may} have interrupted" would be more appropriate.
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/ppc/Makefile | 16 +++++++++++++++-
- xen/arch/ppc/arch.mk  |  3 ---
- 2 files changed, 15 insertions(+), 4 deletions(-)
+The salient information is what the speculation state looks like when
+we're running the asm in these macros.
 
-diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
-index 6d5569ff64..71feb5e2c4 100644
---- a/xen/arch/ppc/Makefile
-+++ b/xen/arch/ppc/Makefile
-@@ -11,10 +11,24 @@ $(TARGET): $(TARGET)-syms
- 	cp -f $< $@
- 
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) -o $@
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
-+	$(NM) -pa --format=sysv $(dot-target).0 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).0.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).0.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
-+	    $(dot-target).0.o -o $(dot-target).1
-+	$(NM) -pa --format=sysv $(dot-target).1 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).1.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).1.o
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
-+	    $(dot-target).1.o -o $@
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
-+	rm -f $(@D)/.$(@F).[0-9]*
- 
- $(obj)/xen.lds: $(src)/xen.lds.S FORCE
- 	$(call if_changed_dep,cpp_lds_S)
-diff --git a/xen/arch/ppc/arch.mk b/xen/arch/ppc/arch.mk
-index d05cbf1df5..917ad0e6a8 100644
---- a/xen/arch/ppc/arch.mk
-+++ b/xen/arch/ppc/arch.mk
-@@ -7,6 +7,3 @@ CFLAGS += -m64 -mlittle-endian -mcpu=$(ppc-march-y)
- CFLAGS += -mstrict-align -mcmodel=medium -mabi=elfv2 -fPIC -mno-altivec -mno-vsx -msoft-float
- 
- LDFLAGS += -m elf64lppc
--
--# TODO: Drop override when more of the build is working
--override ALL_OBJS-y = arch/$(SRCARCH)/built_in.o common/libfdt/built_in.o lib/built_in.o
--- 
-2.30.2
+Sync and Async perhaps aren't the best terms.  For PV context at least,
+it boils down to:
 
+1) CPL>0 => you were in fully-good guest speculation context
+2) CPL=0 => you were in fully-good Xen speculation context
+3) IST && CPL=0 => Here be dragons.
+
+HVM is more of a challenge.  VT-x behaves like an IST path, while SVM
+does allow us to atomically switch to good Xen state.
+
+Really, this needs to be a separate doc, with diagrams...
+
+>> @@ -319,7 +334,14 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+>>      UNLIKELY_END(\@_serialise)
+>>  .endm
+>>  
+>> -/* Use when exiting to Xen in IST context. */
+>> +/*
+>> + * Use when exiting from any entry context, back to Xen context.  This
+>> + * includes returning to other SPEC_CTRL_{ENTRY,EXIT}_* regions with
+>> + * unsanitised state.
+>> + *
+>> + * Because we might have interrupted Xen beyond SPEC_CTRL_EXIT_TO_$GUEST, we
+>> + * must treat this as if it were an EXIT_TO_$GUEST case too.
+>> + */
+>>  .macro SPEC_CTRL_EXIT_TO_XEN
+>>  /*
+>>   * Requires %rbx=stack_end
+> Is it really "must"? At least in theory there are ways to recognize that
+> exit is back to Xen context outside of interrupted entry/exit regions
+> (simply by evaluating how far below stack top %rsp is).
+
+Yes, it is must - it's about how Xen behaves right now, not about some
+theoretical future with different tracking mechanism.
+
+Checking the stack is very fragile and we've had bugs doing this in the
+past.  It would break completely if we were to take things such as the
+recursive-NMI fix (not that we're liable to at this point with FRED on
+the horizon.)
+
+A perhaps less fragile option would be to have .text.entry.spec_suspect
+section and check %rip being in that.
+
+But neither of these are good options.  It's adding complexity (latency)
+to a fastpath to avoid a small hit in a rare case, so is a concrete
+anti-optimisation.
+
+>> @@ -344,6 +366,9 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
+>>      wrmsr
+>>  
+>>  .L\@_skip_sc_msr:
+>> +
+>> +    /* TODO VERW */
+>> +
+>>  .endm
+> I don't think this comment is strictly necessary to add here, when the
+> omission is addressed in a later patch. But I also don't mind its
+> addition.
+
+It doesn't especially matter if the series gets committed in one go, but
+it does matter if it ends up being split.  This is the patch which
+observes that VERW is missing.
+
+~Andrew
 
