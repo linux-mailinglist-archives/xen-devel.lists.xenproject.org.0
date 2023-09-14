@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28CE37A081A
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DC357A081B
 	for <lists+xen-devel@lfdr.de>; Thu, 14 Sep 2023 16:57:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602358.938928 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.602356.938910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgnmO-00045H-Bh; Thu, 14 Sep 2023 14:57:16 +0000
+	id 1qgnmM-0003UA-FC; Thu, 14 Sep 2023 14:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602358.938928; Thu, 14 Sep 2023 14:57:16 +0000
+Received: by outflank-mailman (output) from mailman id 602356.938910; Thu, 14 Sep 2023 14:57:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgnmO-0003xy-1q; Thu, 14 Sep 2023 14:57:16 +0000
-Received: by outflank-mailman (input) for mailman id 602358;
- Thu, 14 Sep 2023 14:57:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qgnmM-0003OC-6J; Thu, 14 Sep 2023 14:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 602356;
+ Thu, 14 Sep 2023 14:57:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9rCx=E6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qgnmL-0002WX-5M
- for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 14:57:13 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fbdc96cb-530e-11ee-9b0d-b553b5be7939;
+ id 1qgnmK-0002W4-7t
+ for xen-devel@lists.xenproject.org; Thu, 14 Sep 2023 14:57:12 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc029670-530e-11ee-8787-cb3800f73035;
  Thu, 14 Sep 2023 16:57:11 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2bfb0a2682fso17380141fa.2
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2bfc2b26437so16160121fa.0
  for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 07:57:11 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a14-20020a2e860e000000b002b6ffa50896sm309828lji.128.2023.09.14.07.57.09
+ a14-20020a2e860e000000b002b6ffa50896sm309828lji.128.2023.09.14.07.57.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Sep 2023 07:57:10 -0700 (PDT)
+ Thu, 14 Sep 2023 07:57:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbdc96cb-530e-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: fc029670-530e-11ee-8787-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20221208; t=1694703431; x=1695308231; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u1QnQP4FV4x1+MRf6vUoDUIxoKiv+APN/HEwJJ83S9A=;
-        b=mzEpfgKMFcLz3DaJgPL0AIS3/hc29fhOhnKbgkjtTALtvUXtg6SajwUdtGPyc3VwoS
-         aTfppKwcmg9JAzUZ7CzZzvqk5KIOAc3GVMY0CWzKxPsr/ISpctatzIckofMgQz9axrEC
-         QrL2pEGkS4DeyAun1mKmZ6j6NPJvIgBOsWfeJHo4ZUeyihG2LNR7tRwWntLRG7SXs2Zs
-         Mh15AKVgua/CQ67oIRLlR7F9YDignZQF6WVvARXJB34Hl5RSm6EjvDcpgXH+chlm8l40
-         iD2ByFlWdwZ7f2NaYdbpS9Qumyoc0F9tJvmqp3C/2TNf4oxo2xSMAy4crDaemPVUFnk4
-         zsDg==
+        bh=svTWqdPYc3ftSZpDKuUWuYkTn6Vp//dh2r2RtkrDP2E=;
+        b=XUy1GQBbwZr909HCD9mH92fQ2n9A+WQsYRO1ca2syYNuftSzrw9HWM9fscbnH7CPtl
+         h0YvhgqnfN+UFHto8xsrCPvM3oOyzT0CjZoR1McCOXVjap2IiF8BHsiOYiXd+AmaxD4j
+         qHUppktg3cHWIx5lGU5r/Q+N4dzUnvG7/SdPjm0EEaWtBb8ErVXakwRnK6C/EPJ+qjER
+         vtz700BabUI8xW8Whos4yphk3lO0sZ7EpArGMNay+WJthIf+5vWrYPnEDzjF5x0qRN4P
+         y9N/xXlUFwI5Ioz0a6i0Ox7/9bg0ou3rnclsnxeHWVamPO/c47ftvCxrhvYu0ht9oW7O
+         ubIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1694703431; x=1695308231;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=u1QnQP4FV4x1+MRf6vUoDUIxoKiv+APN/HEwJJ83S9A=;
-        b=q48bxWiieFDfqpDbNQDNijwmX54eG9bKiwsoI6I/gkGoi5NXNztX/xYM4gLGb0HGwi
-         MgsU16UbYsSzmIQl4dQ9gQGNAtc0EiClWvvTqn69U7Ppl7E9AjvQ/aAuN6GbnN0DU6la
-         UWj8KG8C4rvyNQl7OYj+KXGqt3IzDamXhDRv01nEP0gkDRFMt3ecNXOicQVXBZK4Bdls
-         DvhR6i6c0YXq8pHG8vkRg5GggySoj98okmWvBJUZBWpa7XNOYwDkRLRvYd1jafNeT4qA
-         SvHsZVRPT1tpRTRPxOovmsOaLOfCIBPFUNKKBUnkH0r4QGn8mssVOSKcfCLmzE8UoXdb
-         46IA==
-X-Gm-Message-State: AOJu0YwOIjOYF4fbwceBzA8y8XrQZuQRcMC7+Br/2s8adX5PEZIKyJuK
-	yqPoS9JS2v9cke3davkMWpbNndfannc=
-X-Google-Smtp-Source: AGHT+IGxMUoYxVZ41O0EyhntREPIb/EUffUQofUYjhCKQGYsZNVLPhQjb5tDZEoCLWYNHChqXu/jCw==
-X-Received: by 2002:a2e:b00e:0:b0:2bd:bc9:30aa with SMTP id y14-20020a2eb00e000000b002bd0bc930aamr5392840ljk.23.1694703430551;
-        Thu, 14 Sep 2023 07:57:10 -0700 (PDT)
+        bh=svTWqdPYc3ftSZpDKuUWuYkTn6Vp//dh2r2RtkrDP2E=;
+        b=UY+m5NhZLMR5sq6SjqQwI+cibe2D6qjaxpsNwyPbrleMaAnmMbtFf55Rsu1/T4X4nt
+         oo7ik+u7tsUBzMzd0eXQ6ZvW1SXRqbF1Yt7xb/d2zzd1fVlPx+aWQAtsoucx5uTsyQUH
+         9czGvEObQVhKRp/BCmI2dxRfczHeopU1Dv3bn4PVQ/5WHg6U3pEkhVKbnxmFPy7QwttK
+         5K1QIv3DCHZw4iXJuYUsTWzphHqZ2yW6wgD6hC81PDyxo46FxbuNqDlDdP0/KGGHvREw
+         xsXUxsJe+dfgJMJuzUWK95DAnIcxPm3y/pdxK2otHiTijDq+947lbjHRbGRwSAoMq5pm
+         9x/Q==
+X-Gm-Message-State: AOJu0YxVJIZIYgJAXGThlKXRNra+EtcEtW+WNQ7vAjauYEgMB+bdYjEt
+	iavckPQIPxbKesp64NckXRI/TqT+QkI=
+X-Google-Smtp-Source: AGHT+IGSzGN+thgWV5HA2e1EpC6tTCT3RVL7noSwopFanb0rR30SRaZ7g6RhKSuz6ZkzQh56VdH+sg==
+X-Received: by 2002:a2e:93d7:0:b0:2bb:9781:1a4c with SMTP id p23-20020a2e93d7000000b002bb97811a4cmr5066743ljh.27.1694703431205;
+        Thu, 14 Sep 2023 07:57:11 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,9 +83,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 04/29] xen/asm-generic: introduce stub header device.h
-Date: Thu, 14 Sep 2023 17:56:25 +0300
-Message-ID: <3cc9ecc3abcd21c5ed7276b01bf5963e6a5fd5e0.1694702259.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 05/29] xen/asm-generic: introduce stub header event.h
+Date: Thu, 14 Sep 2023 17:56:26 +0300
+Message-ID: <69563e3f41cb6971f93630d9df59395f159bd3c4.1694702259.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1694702259.git.oleksii.kurochko@gmail.com>
 References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
@@ -96,72 +96,46 @@ The patch introduces stub header needed for full Xen build.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/include/asm-generic/device.h | 65 ++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 xen/include/asm-generic/device.h
+ xen/include/asm-generic/event.h | 39 +++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+ create mode 100644 xen/include/asm-generic/event.h
 
-diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
+diff --git a/xen/include/asm-generic/event.h b/xen/include/asm-generic/event.h
 new file mode 100644
-index 0000000000..66e69ecd78
+index 0000000000..d25ba36aad
 --- /dev/null
-+++ b/xen/include/asm-generic/device.h
-@@ -0,0 +1,65 @@
++++ b/xen/include/asm-generic/event.h
+@@ -0,0 +1,39 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DEVICE_H__
-+#define __ASM_GENERIC_DEVICE_H__
++#ifndef __ASM_GENERIC_EVENT_H__
++#define __ASM_GENERIC_EVENT_H__
 +
-+struct dt_device_node;
++#include <xen/sched.h>
 +
-+enum device_type
++static inline void vcpu_mark_events_pending(struct vcpu *v)
 +{
-+    DEV_DT,
-+    DEV_PCI,
-+};
++}
 +
-+struct device {
-+    enum device_type type;
-+#ifdef CONFIG_HAS_DEVICE_TREE
-+    struct dt_device_node *of_node; /* Used by drivers imported from Linux */
-+#endif
-+};
-+
-+enum device_class
++static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
 +{
-+    DEVICE_SERIAL,
-+    DEVICE_IOMMU,
-+    DEVICE_GIC,
-+    DEVICE_PCI_HOSTBRIDGE,
-+    /* Use for error */
-+    DEVICE_UNKNOWN,
-+};
++    return 0;
++}
 +
-+struct device_desc {
-+    /* Device name */
-+    const char *name;
-+    /* Device class */
-+    enum device_class class;
-+    /* List of devices supported by this driver */
-+    const struct dt_device_match *dt_match;
-+    /*
-+     * Device initialization.
-+     *
-+     * -EAGAIN is used to indicate that device probing is deferred.
-+     */
-+    int (*init)(struct dt_device_node *dev, const void *data);
-+};
++static inline int local_events_need_delivery(void)
++{
++    return 0;
++}
 +
-+typedef struct device device_t;
++static inline void local_event_delivery_enable(void)
++{
++}
 +
-+#define DT_DEVICE_START(_name, _namestr, _class)                    \
-+static const struct device_desc __dev_desc_##_name __used           \
-+__section(".dev.info") = {                                          \
-+    .name = _namestr,                                               \
-+    .class = _class,                                                \
++static inline bool arch_virq_is_global(unsigned int virq)
++{
++    return true;
++}
 +
-+#define DT_DEVICE_END                                               \
-+};
-+
-+#endif /* __ASM_GENERIC_DEVICE_H__ */
++#endif /* __ASM_GENERIC_EVENT_H__ */
 +
 +/*
 + * Local variables:
