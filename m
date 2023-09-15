@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB7897A21AB
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 17:01:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603215.940206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64ACA7A2205
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 17:12:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603259.940225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhAJd-0006gY-N6; Fri, 15 Sep 2023 15:01:05 +0000
+	id 1qhATr-0003kn-Lc; Fri, 15 Sep 2023 15:11:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603215.940206; Fri, 15 Sep 2023 15:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 603259.940225; Fri, 15 Sep 2023 15:11:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhAJd-0006Tc-EQ; Fri, 15 Sep 2023 15:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 603215;
- Fri, 15 Sep 2023 15:01:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qhATr-0003iX-Iu; Fri, 15 Sep 2023 15:11:39 +0000
+Received: by outflank-mailman (input) for mailman id 603259;
+ Fri, 15 Sep 2023 15:11:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zf2R=E7=citrix.com=prvs=615989724=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qhAJb-0004UV-8R
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 15:01:03 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae6378ef-53d8-11ee-8788-cb3800f73035;
- Fri, 15 Sep 2023 17:01:01 +0200 (CEST)
+ <SRS0=cweo=E7=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1qhATp-0003iR-B6
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 15:11:37 +0000
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [2607:f8b0:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28701ae4-53da-11ee-9b0d-b553b5be7939;
+ Fri, 15 Sep 2023 17:11:35 +0200 (CEST)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1c336f5b1ffso20096125ad.2
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 08:11:35 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+ by smtp.gmail.com with ESMTPSA id
+ u6-20020a17090341c600b001c3f7fd1ef7sm3623245ple.12.2023.09.15.08.11.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Sep 2023 08:11:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,293 +46,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae6378ef-53d8-11ee-8788-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1694790061;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=G13uxDI+Vf2EUoeXWUQgkocQAX3E/eken8QVmw9pr80=;
-  b=CtnVVfzePCFH5UK/W9icaPHtFN1rgv6w1SJwlnEZmaCX0AnVaPDsDo4j
-   7aS8mS9HIH8MX2adzgG4shfC2dZFXdgDY5qcDYBeihzZtmruwmX+dPjLk
-   yqjDvwS9+UI9V5Vn63esuhZMVtOgwlm+oVqceT7dO3z7S5bX43YTJqgdt
-   k=;
-X-CSE-ConnectionGUID: T6/GhXioRSe6SFi4s144KQ==
-X-CSE-MsgGUID: 2jZM/k87SiyEhEWEqg5jag==
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 125509281
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:H+M9LKlYZ4uTeowJepNbCnzo5gyeJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIaXzuPbKnbZDD9KItwa47no0pVvJHSmN9kGgJsri0wECMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5K6aVA8w5ARkPqga5QKGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- cBGbx8NXhGEvdm7nomVS7V335h/D/C+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHWdTFCpU3Tjq0w+2XJlyR60aT3McqTcduPLSlQth/C+
- z+erj6pW3n2MvTFywigtXH82dTOjA77db0/DbLl9Pdl1Qj7Kms7V0RNCArTTeOCol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Mcc39QWMwar8+BuCCy4PSTspQMMinN87Q3otz
- FDhoj/yLWUx6vvPEyvbr+rK62roYkD5MFPuewc4E0wq4+nip7sIg0z0YNc/C/fp0v7MTGSYL
- y+xkAAygLAajMgu3qq9/Ezajz/EmqUlXjLZ9S2MADv7s1oRiJqNItXxtAOFtaoowJOxFAHpg
- ZQSpySJAAni57mpnTfFfugCFarBCx2tYGyF2g4H83XMGl2QF5+fkWJ4umEWyKRBaJxsldrVj
- Kj74Fg52XOrFCH2BZKbmqroYyjQ8YDuFM7+StffZcdUb556eWevpX8/ORfJhjy9yBNwycnT3
- Kt3l+72XR727ow9kFKLqxo1i+d3lkjSO0uMLXwE8/hX+eXHPyPEIVv0GFCPcvo4/Mu5TPb9q
- r5i2z+x40wHCoXWO3CHmbP/2HhWdRDX87iq8Z0IHgNCSyI6cFwc5wj5mu95IdY8zv4Exo8lP
- BiVAydl9bY2vlWfQS3iV5ypQOiHsUpXxZ7jARERAA==
-IronPort-HdrOrdr: A9a23:mA6Q+KG1BoxfIOWopLqEx8eALOsnbusQ8zAXPiFKOH5om6mj/a
- 2TdZsguSMc5Ax/ZJhYo6HkBEDYewK5yXcX2/hzAV7BZmjbUQKTRekI0WKF+UyHJ8SUzI5gPM
- lbHZSWR+eAamSTfqzBkXCF+q4bsaO6GVeT9JrjJ88Gd3AQV0jI1XYANjqm
-X-Talos-CUID: 9a23:YP5kG24hxNP8CAXtA9ssyBBTNcAVc3rn93qOGGG5VX0wFOG2cArF
-X-Talos-MUID: =?us-ascii?q?9a23=3A7hQ8sA1Wewob9y7Up/v59lNonzUjuaacLQcOwco?=
- =?us-ascii?q?9utipNQFPFi6S0Ta+Tdpy?=
-X-IronPort-AV: E=Sophos;i="6.02,149,1688443200"; 
-   d="scan'208";a="125509281"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 9/9] x86/spec-ctrl: Mitigate the Zen1 DIV leakge
-Date: Fri, 15 Sep 2023 16:00:38 +0100
-Message-ID: <20230915150038.602577-10-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230915150038.602577-1-andrew.cooper3@citrix.com>
-References: <20230915150038.602577-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 28701ae4-53da-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694790693; x=1695395493; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KCQqoZ18jpGX1KCrU7S3I3Im0sSOsGzv0y0heQncKU4=;
+        b=b+60VPOOc18Rc0vZz0qVv30N2I5F6mEQP6orxrPmaesCk6YDfefq3Y/ajFegYyrioA
+         SiorMQga5wCqsdEpVQYgOVtchmwJfJhMAwNlsdbM/7rRLA2+Uf1mfBORShZHC9NN8VDy
+         vbK0tWPfHRVJAwo/EM04m4qVopTE+K0QJDl4clAAImJfT+VwjKsYHeou6nEouNrNwri+
+         AF5dNFfQoJQnQ7Cs8wmCz5OVU7PEmz5Zl6Lnd+bxgocgdA20mBdqL0j2Mt/YzkWm5d2M
+         4qj5JGlO1p0LWQa2biy8iEvYl+MIw0ubpRu2ew2SofYHn6rf/GGiVC0AKMSwW/JMnIrF
+         ON4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694790693; x=1695395493;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KCQqoZ18jpGX1KCrU7S3I3Im0sSOsGzv0y0heQncKU4=;
+        b=NOkAGoXHJiA73R8gmx4Hcq7OijPyOkAk72H7SbfVBAw+Xyohhjfag1XpfmM/YP7ivs
+         83TepbhAM2DlqN8ueUTy7X7jAMpDoWKX11YUnRp/AL3s6kvxdmbREDboFIElwcORRsjv
+         P8l3Az4GwIqepuV8yJ5SV3agv3ctVopKXgGXescUO76wdjIPBTCcUDpWoawIxyDc+Eya
+         ew7UBWBIM5htd8dtmeD2X8ijrXzMdxnii3S58RlihIiCmVueRMNxhTVdfGvUIeWvcqbJ
+         N3ErLP0xAxZ7b6RlgqJRRdV5uugWti5mhLXwrkDomhv2xhWwNqRBGSNvjhOwsuHpLBBy
+         Rcow==
+X-Gm-Message-State: AOJu0Yxe2zemn3BDTqfqOQ0z+qbbV4pVNRqH+/8J9evQk9+Z53lBvlJa
+	6Qxyy3rGGmWGNxSIu4I90275Cg==
+X-Google-Smtp-Source: AGHT+IFeBqAAw/xZfJOIrv+PMMlVSoIDSLdN/PSNRJYjvS4mbp4KtNnaSSjCRhmZFu3zOoD/wmVTFw==
+X-Received: by 2002:a17:902:e552:b0:1c3:3682:f83f with SMTP id n18-20020a170902e55200b001c33682f83fmr2476230plf.30.1694790693438;
+        Fri, 15 Sep 2023 08:11:33 -0700 (PDT)
+Message-ID: <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
+Date: Sat, 16 Sep 2023 00:11:27 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
+ deallocation of memory regions
+Content-Language: en-US
+To: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230915111130.24064-1-ray.huang@amd.com>
+ <20230915111130.24064-8-ray.huang@amd.com>
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <20230915111130.24064-8-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In the Zen1 microarchitecure, there is one divider in the pipeline which
-services uops from both threads.  In the case of #DE, the latched result from
-the previous DIV to execute will be forwarded speculatively.
+On 2023/09/15 20:11, Huang Rui wrote:
+> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> 
+> When the memory region has a different life-cycle from that of her parent,
+> could be automatically released, once has been unparent and once all of her
+> references have gone away, via the object's free callback.
+> 
+> However, currently, references to the memory region are held by its owner
+> without first incrementing the memory region object's reference count.
+> As a result, the automatic deallocation of the object, not taking into
+> account those references, results in use-after-free memory corruption.
+> 
+> This patch increases the reference count of an owned memory region object
+> on each memory_region_ref() and decreases it on each memory_region_unref().
+> 
+> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> V4 -> V5:
+>      - ref/unref only owned memory regions (Akihiko)
+> 
+>   softmmu/memory.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/softmmu/memory.c b/softmmu/memory.c
+> index 7d9494ce70..15e1699750 100644
+> --- a/softmmu/memory.c
+> +++ b/softmmu/memory.c
+> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
+>       /* MMIO callbacks most likely will access data that belongs
+>        * to the owner, hence the need to ref/unref the owner whenever
+>        * the memory region is in use.
+> +     * Likewise, the owner keeps references to the memory region,
+> +     * hence the need to ref/unref the memory region object to prevent
+> +     * its automatic deallocation while still referenced by its owner.
 
-This is an interesting covert channel that allows two threads to communicate
-without any system calls.  In also allows userspace to obtain the result of
-the most recent DIV instruction executed (even speculatively) in the core,
-which can be from a higher privilege context.
+This comment does not make sense. Traditionally no such automatic 
+deallocation happens so the owner has been always required to free the 
+memory region when it gets finalized.
 
-Scrub the result from the divider by executing a non-faulting divide.  This
-needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
+"[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
+introduces a different kind of memory region, which can be freed anytime 
+before the device gets finalized. Even in this case, the owner removes 
+the reference to the memory owner by doing res->region = NULL;
 
-This is XSA-439 / CVE-2023-20588.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-
-No embargo - this is already public.  XSA paperwork to follow.
-
-v2:
- * Rebase over the introduction of is_zen1_uarch().
- * Fix the SC_DIV bit not to alias SC_VERW_IDLE.
- * Extend comments.
----
- docs/misc/xen-command-line.pandoc        |  6 ++-
- xen/arch/x86/hvm/svm/entry.S             |  1 +
- xen/arch/x86/include/asm/cpufeatures.h   |  2 +-
- xen/arch/x86/include/asm/spec_ctrl_asm.h | 17 ++++++++
- xen/arch/x86/spec_ctrl.c                 | 49 +++++++++++++++++++++++-
- 5 files changed, 72 insertions(+), 3 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index f88e6a70aed6..7acd68885656 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2353,7 +2353,7 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
- >              {msr-sc,rsb,md-clear,ibpb-entry}=<bool>|{pv,hvm}=<bool>,
- >              bti-thunk=retpoline|lfence|jmp, {ibrs,ibpb,ssbd,psfd,
- >              eager-fpu,l1d-flush,branch-harden,srb-lock,
-->              unpriv-mmio,gds-mit}=<bool> ]`
-+>              unpriv-mmio,gds-mit,div-scrub}=<bool> ]`
- 
- Controls for speculative execution sidechannel mitigations.  By default, Xen
- will pick the most appropriate mitigations based on compiled in support,
-@@ -2475,6 +2475,10 @@ has elected not to lock the configuration, Xen will use GDS_CTRL to mitigate
- GDS with.  Otherwise, Xen will mitigate by disabling AVX, which blocks the use
- of the AVX2 Gather instructions.
- 
-+On all hardware, the `div-scrub=` option can be used to force or prevent Xen
-+from mitigating the DIV-leakage vulnerability.  By default, Xen will mitigate
-+DIV-leakage on hardware believed to be vulnerable.
-+
- ### sync_console
- > `= <boolean>`
- 
-diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
-index 9effd2199ba0..c52528fed4cf 100644
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -72,6 +72,7 @@ __UNLIKELY_END(nsvm_hap)
- 1:          /* No Spectre v1 concerns.  Execution will hit VMRUN imminently. */
-         .endm
-         ALTERNATIVE "", svm_vmentry_spec_ctrl, X86_FEATURE_SC_MSR_HVM
-+        ALTERNATIVE "", DO_SPEC_CTRL_DIV, X86_FEATURE_SC_DIV
- 
-         pop  %r15
-         pop  %r14
-diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
-index da0593de8542..c3aad21c3b43 100644
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -35,7 +35,7 @@ XEN_CPUFEATURE(SC_RSB_HVM,        X86_SYNTH(19)) /* RSB overwrite needed for HVM
- XEN_CPUFEATURE(XEN_SELFSNOOP,     X86_SYNTH(20)) /* SELFSNOOP gets used by Xen itself */
- XEN_CPUFEATURE(SC_MSR_IDLE,       X86_SYNTH(21)) /* Clear MSR_SPEC_CTRL on idle */
- XEN_CPUFEATURE(XEN_LBR,           X86_SYNTH(22)) /* Xen uses MSR_DEBUGCTL.LBR */
--/* Bits 23 unused. */
-+XEN_CPUFEATURE(SC_DIV,            X86_SYNTH(23)) /* DIV scrub needed */
- XEN_CPUFEATURE(SC_RSB_IDLE,       X86_SYNTH(24)) /* RSB overwrite needed for idle. */
- XEN_CPUFEATURE(SC_VERW_IDLE,      X86_SYNTH(25)) /* VERW used by Xen for idle */
- XEN_CPUFEATURE(XEN_SHSTK,         X86_SYNTH(26)) /* Xen uses CET Shadow Stacks */
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index 9a27e3170347..5c5b3b6f5324 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -165,6 +165,19 @@
- .L\@_verw_skip:
- .endm
- 
-+.macro DO_SPEC_CTRL_DIV
-+/*
-+ * Requires nothing
-+ * Clobbers %rax
-+ *
-+ * Issue a DIV for its flushing side effect (Zen1 uarch specific).  Any
-+ * non-faulting DIV will do; a byte DIV has least latency, and doesn't clobber
-+ * %rdx.
-+ */
-+    mov $1, %eax
-+    div %al
-+.endm
-+
- .macro DO_SPEC_CTRL_ENTRY maybexen:req
- /*
-  * Requires %rsp=regs (also cpuinfo if !maybexen)
-@@ -267,6 +280,8 @@
-     ALTERNATIVE "", DO_SPEC_CTRL_EXIT_TO_GUEST, X86_FEATURE_SC_MSR_PV
- 
-     DO_SPEC_CTRL_COND_VERW
-+
-+    ALTERNATIVE "", DO_SPEC_CTRL_DIV, X86_FEATURE_SC_DIV
- .endm
- 
- /*
-@@ -379,6 +394,8 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
-     verw STACK_CPUINFO_FIELD(verw_sel)(%r14)
- .L\@_skip_verw:
- 
-+    ALTERNATIVE "", DO_SPEC_CTRL_DIV, X86_FEATURE_SC_DIV
-+
- .L\@_skip_ist_exit:
- .endm
- 
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 9b8fdb5303ad..4c510094498e 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -67,6 +67,7 @@ static int8_t __initdata opt_srb_lock = -1;
- static bool __initdata opt_unpriv_mmio;
- static bool __ro_after_init opt_fb_clear_mmio;
- static int8_t __initdata opt_gds_mit = -1;
-+static int8_t __initdata opt_div_scrub = -1;
- 
- static int __init cf_check parse_spec_ctrl(const char *s)
- {
-@@ -121,6 +122,7 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-             opt_srb_lock = 0;
-             opt_unpriv_mmio = false;
-             opt_gds_mit = 0;
-+            opt_div_scrub = 0;
-         }
-         else if ( val > 0 )
-             rc = -EINVAL;
-@@ -273,6 +275,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-             opt_unpriv_mmio = val;
-         else if ( (val = parse_boolean("gds-mit", s, ss)) >= 0 )
-             opt_gds_mit = val;
-+        else if ( (val = parse_boolean("div-scrub", s, ss)) >= 0 )
-+            opt_div_scrub = val;
-         else
-             rc = -EINVAL;
- 
-@@ -473,7 +477,7 @@ static void __init print_details(enum ind_thunk thunk)
-                "\n");
- 
-     /* Settings for Xen's protection, irrespective of guests. */
--    printk("  Xen settings: BTI-Thunk %s, SPEC_CTRL: %s%s%s%s%s, Other:%s%s%s%s%s\n",
-+    printk("  Xen settings: BTI-Thunk %s, SPEC_CTRL: %s%s%s%s%s, Other:%s%s%s%s%s%s\n",
-            thunk == THUNK_NONE      ? "N/A" :
-            thunk == THUNK_RETPOLINE ? "RETPOLINE" :
-            thunk == THUNK_LFENCE    ? "LFENCE" :
-@@ -498,6 +502,7 @@ static void __init print_details(enum ind_thunk thunk)
-            opt_l1d_flush                             ? " L1D_FLUSH" : "",
-            opt_md_clear_pv || opt_md_clear_hvm ||
-            opt_fb_clear_mmio                         ? " VERW"  : "",
-+           opt_div_scrub                             ? " DIV" : "",
-            opt_branch_harden                         ? " BRANCH_HARDEN" : "");
- 
-     /* L1TF diagnostics, printed if vulnerable or PV shadowing is in use. */
-@@ -955,6 +960,46 @@ static void __init srso_calculations(bool hw_smt_enabled)
-         setup_force_cpu_cap(X86_FEATURE_SRSO_NO);
- }
- 
-+/*
-+ * The Div leakage issue is specific to the AMD Zen1 microarchitecure.
-+ *
-+ * However, there's no $FOO_NO bit defined, so if we're virtualised we have no
-+ * hope of spotting the case where we might move to vulnerable hardware.  We
-+ * also can't make any useful conclusion about SMT-ness.
-+ *
-+ * Don't check the hypervisor bit, so at least we do the safe thing when
-+ * booting on something that looks like a Zen1 CPU.
-+ */
-+static bool __init has_div_vuln(void)
-+{
-+    if ( !(boot_cpu_data.x86_vendor &
-+           (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
-+        return false;
-+
-+    if ( (boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
-+         !is_zen1_uarch() )
-+        return false;
-+
-+    return true;
-+}
-+
-+static void __init div_calculations(bool hw_smt_enabled)
-+{
-+    bool cpu_bug_div = has_div_vuln();
-+
-+    if ( opt_div_scrub == -1 )
-+        opt_div_scrub = cpu_bug_div;
-+
-+    if ( opt_div_scrub )
-+        setup_force_cpu_cap(X86_FEATURE_SC_DIV);
-+
-+    if ( opt_smt == -1 && !cpu_has_hypervisor && cpu_bug_div && hw_smt_enabled )
-+        warning_add(
-+            "Booted on leaky-DIV hardware with SMT/Hyperthreading\n"
-+            "enabled.  Please assess your configuration and choose an\n"
-+            "explicit 'smt=<bool>' setting.  See XSA-439.\n");
-+}
-+
- static void __init ibpb_calculations(void)
- {
-     bool def_ibpb_entry = false;
-@@ -1714,6 +1759,8 @@ void __init init_speculation_mitigations(void)
- 
-     ibpb_calculations();
- 
-+    div_calculations(hw_smt_enabled);
-+
-     /* Check whether Eager FPU should be enabled by default. */
-     if ( opt_eager_fpu == -1 )
-         opt_eager_fpu = should_use_eager_fpu();
--- 
-2.30.2
-
+Regards,
+Akihiko Odaki
 
