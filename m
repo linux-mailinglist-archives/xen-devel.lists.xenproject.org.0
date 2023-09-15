@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879C37A20C9
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 16:25:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603183.940094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A07DE7A20DB
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 16:27:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603188.940104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9kB-0000DP-TL; Fri, 15 Sep 2023 14:24:27 +0000
+	id 1qh9nM-0001tS-AZ; Fri, 15 Sep 2023 14:27:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603183.940094; Fri, 15 Sep 2023 14:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 603188.940104; Fri, 15 Sep 2023 14:27:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9kB-0000AF-Qa; Fri, 15 Sep 2023 14:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 603183;
- Fri, 15 Sep 2023 14:24:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cz4l=E7=gmail.com=jinoh.kang.kr@srs-se1.protection.inumbo.net>)
- id 1qh9kA-00008l-I0
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 14:24:26 +0000
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [2607:f8b0:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90fec5db-53d3-11ee-9b0d-b553b5be7939;
- Fri, 15 Sep 2023 16:24:24 +0200 (CEST)
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1c44a25bd0bso301845ad.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 07:24:23 -0700 (PDT)
-Received: from [10.137.0.57] ([14.33.99.107]) by smtp.gmail.com with ESMTPSA id
- r8-20020a1709028bc800b001bf11cf2e21sm3531228plo.210.2023.09.15.07.24.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 07:24:21 -0700 (PDT)
+	id 1qh9nM-0001rc-7f; Fri, 15 Sep 2023 14:27:44 +0000
+Received: by outflank-mailman (input) for mailman id 603188;
+ Fri, 15 Sep 2023 14:27:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qh9nK-0001rW-NT
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 14:27:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qh9nK-0005aU-6X; Fri, 15 Sep 2023 14:27:42 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qh9nJ-0004Ko-Vt; Fri, 15 Sep 2023 14:27:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +39,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90fec5db-53d3-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1694787862; x=1695392662; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EHTaktzv7bnoZ+Ko6dJsAHaA50L9PLb96lYLjtqY4v0=;
-        b=iyYICjsLUcUCK6xs6VDl8QOfv2ke6zwvysEAk8ZGLE+TSRXuUo911+jRFiNHbdyTDu
-         rL1ZIc+1YAj9XHDgpHV/17FyY0zb7pAjLo7q2N9nQesAgAQlAgyWLLLYuSDFil1KL61z
-         kxIGWMVwxa3K6SlLX2TUdN9ikfm0zqaEsewTmRHTHlIxTfZHHh1vVM6hGOVyYPhRZoj5
-         9PtQf3BCKRRYbAylMwCSTFOCpoBQ2/wT2VaKS+9z0AludEJ01F4MOsuGr+c6FlohRkEX
-         AaL+4S2oouf0LVmUP700J7WSvVReUzmAji1xVv75SFnSnX6oCPdst7RLYPvyEOHJBTyV
-         mV8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694787862; x=1695392662;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EHTaktzv7bnoZ+Ko6dJsAHaA50L9PLb96lYLjtqY4v0=;
-        b=mwS9jXQaiCljSiJmr5F5j9kn6ZUbAKrYuOeBMm55SqRaxaOVQ4jIvhph4EBLFt0yS6
-         I9VplFzu9J/q9s8zvXE33jwrMfA8nnabvP7dRWfEVgAmVH+ukBY9t5FOb+XxIfNu42x9
-         ob3vlL0XklJkfLm5jbQ18lrKm5721xxQ626C7zLiQBwRGobFNSNJawdgV1iZGFHsVNWx
-         wvElzCBIKoWLvhzPzhwDPr03eojSIdwvbswClQAPL9DysKupqO4V6e6Zboafa3fQ8A7g
-         W53zmlB6BIaos7+M4RRo5Bm0xlEq9IfDpgUosPjWmYWdS3+HvJIXSKMSEJ8Kd6j2Dxgj
-         UiQA==
-X-Gm-Message-State: AOJu0Yxd4I274sXIQBMqYbe9GPClQHBgcfla+BZfkm7uEArGMp0xrIPA
-	EKG1wNdvakLTud383K1X5vQ=
-X-Google-Smtp-Source: AGHT+IHOC3EoV4PITFfm4nnfvVTEwlIOKsvmT9ctLPJOP0sIRZRuC/Hmt3QQIXlG3iqE7jlcTyMp5Q==
-X-Received: by 2002:a17:902:ec8d:b0:1c3:22a9:8643 with SMTP id x13-20020a170902ec8d00b001c322a98643mr1860968plg.31.1694787862337;
-        Fri, 15 Sep 2023 07:24:22 -0700 (PDT)
-Message-ID: <d4073297-4095-20b2-13f2-e1d6e8bd9c17@gmail.com>
-Date: Fri, 15 Sep 2023 23:24:17 +0900
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xnhn3aKc3YlLSDzkYZp/1f1Nzs9om5x/LxHz3ICgYi0=; b=P4HeswXKEWSd0uDBiIskYohPo4
+	X+c6B/HN+ZtOarj61OejSW1qZIBd5hcc62RjnwadgXkW8UXqnJH4d7iQJFB2WI25Cxck0PCNb1dXe
+	HhweCi7ocKaKCXAw88ZrycKx7OIj1NRh810UFQQnJzWbfCjldLwWSPCW5onlVuOWllhs=;
+Message-ID: <1b85b1fc-72b7-4ed7-9236-3d82671ca44e@xen.org>
+Date: Fri, 15 Sep 2023 15:27:40 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 3/5] x86/emul: Add a pending_dbg field to
- x86_emulate_ctxt.retire
-Content-Language: en-US
-From: Jinoh Kang <jinoh.kang.kr@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
- <20230912232113.402347-4-andrew.cooper3@citrix.com>
- <e17dd8a7-91d0-fc30-203e-09058ee5e61d@gmail.com>
-In-Reply-To: <e17dd8a7-91d0-fc30-203e-09058ee5e61d@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen/x86: io_apic: Introduce a command line option to
+ skip timer check
+Content-Language: en-GB
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20230818134441.45586-1-julien@xen.org>
+ <20230818134441.45586-2-julien@xen.org>
+ <ZQRiL0Mf5_5EC8oj@MacBook-MacBook-Pro-de-Roger.local>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ZQRiL0Mf5_5EC8oj@MacBook-MacBook-Pro-de-Roger.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/15/23 21:20, Jinoh Kang wrote:
-> On 9/13/23 08:21, Andrew Cooper wrote:
->> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
->> index 698750267a90..f0e74d23c378 100644
->> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
->> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
->> @@ -588,15 +588,26 @@ struct x86_emulate_ctxt
->>      /* Canonical opcode (see below) (valid only on X86EMUL_OKAY). */
->>      unsigned int opcode;
->>  
->> -    /* Retirement state, set by the emulator (valid only on X86EMUL_OKAY). */
->> +    /*
->> +     * Retirement state, set by the emulator (valid only on X86EMUL_OKAY/DONE).
->> +     *
->> +     * TODO: all this state should be input/output from the VMCS PENDING_DBG,
->> +     * INTERRUPTIBILITY and ACTIVITIY fields.
->> +     */
->>      union {
->> -        uint8_t raw;
->> +        unsigned long raw;
+Hi Roger,
+
+On 15/09/2023 14:54, Roger Pau Monné wrote:
+> On Fri, Aug 18, 2023 at 02:44:40PM +0100, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Currently, Xen will spend ~100ms to check if the timer works. If the
+>> Admin knows their platform have a working timer, then it would be
+>> handy to be able to bypass the check.
 > 
-> Minor nit: this should be uint64_t for clarity.  Otherwise, it's not at all
-> clear that the raw field covers the entire union, unless you remind myself
-> that Xen does not support 32-bit host.
+> I'm of the opinion that the current code is at least dubious.
+> 
+> Specifically attempts to test the PIT timer, even when the hypervisor
+> might be using a different timer.  At which point it mostly attempts
+> to test that the interrupt routing from the PIT (or it's replacement)
+> is correct, and that Xen can receive such interrupts.
+> 
+> We go to great lengths in order to attempt to please this piece of
+> code, even when no PIT is available, at which point we switch the HPET
+> to legacy replacement mode in order to satisfy the checks.
+> 
+> I think the current code is not useful, and I would be fine if it was
+> just removed.
 
-you remind yourself*.  What a weird typo to make :-(
+I am afraid I don't know enough the code to be able to say if it can be 
+removed.
+
+I also have no idea how common are such platforms nowadays (I suspect it 
+is rather small). Which I why I went with a command line option.
+
+> 
+>>
+>> Introduce a command line option 'no_timer_check' (the name is
+>> matching the Linux parameter) for this purpose.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>> ---
+>>   docs/misc/xen-command-line.pandoc |  7 +++++++
+>>   xen/arch/x86/io_apic.c            | 11 +++++++++++
+>>   2 files changed, 18 insertions(+)
+>>
+>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>> index 4872b9098e83..1f9d3106383f 100644
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -1896,6 +1896,13 @@ This option is ignored in **pv-shim** mode.
+>>   ### nr_irqs (x86)
+>>   > `= <integer>`
+>>   
+>> +### no_timer_works (x86)
+> 
+> I find the naming confusing, and I would rather avoid negative named
+> booleans.
+> 
+> Maybe it should be `check_pit_intr` and default to enabled for the
+> time being?
+Jan suggested to use timer-irq-works. Would you be happy with the name?
+
+> 
+>> +> `=<boolean>`
+>> +
+>> +> Default: `true`
+> 
+> I think the default is wrong here?  AFAICT no_timer_check will default
+> to false.
+
+Ah yes. In the downstream version, I went with setting to true by 
+default as we don't support any platform with broken timer. I forgot to 
+update the patch before sending.
+
+> 
+>> +
+>> +Disables the code which tests for broken timer IRQ sources.
+> 
+> Hm, yes, it does check for one specific source, which doesn't need to
+> be the currently selected timer.
+> 
+> "Disables the code which tests interrupt injection from the legacy
+> i8259 timer."
+
+I can update the comment.
+
+> 
+> Even that is not fully true, as it would resort to testing the HPET
+> legacy mode if PIT doesn't work, but one could argue the HPET legacy
+> mode is just a replacement for the i8254.
+> 
+>> +
+>>   ### irq-max-guests (x86)
+>>   > `= <integer>`
+>>   
+>> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+>> index b3afef8933d7..4875bb97003f 100644
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
+>>   int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
+>>   int __read_mostly nr_ioapics;
+>>   
+>> +/*
+>> + * The logic to check if the timer is working is expensive. So allow
+>> + * the admin to bypass it if they know their platform doesn't have
+>> + * a buggy timer.
+> 
+> I would mention i8254 here, as said this is quite likely not testing
+> the currently in use timer.
+
+Sure.
+
+> Note that if you don't want to run the test in timer_irq_works() you
+> can possibly avoid the code in preinit_pit(), as there no need to
+> setup channel 0 in periodic mode then.
+
+The channel also seems to be used as a fallback method for calibrating 
+the APIC (see calibrate_APIC_clock()). AFAICT, the fallback method 
+should only be used when the PIT is enabled.
+
+I think it would still be feasible to avoid running the IRQ tests even 
+when PIT is used. So it means, we cannot skip preinit_pit().
+
+As a side note, I noticed that preinit_pit() is called during resume. 
+But I can't find any use of channel 0 after boot. So maybe the call 
+could be removed?
+
+Cheers,
 
 -- 
-Sincerely,
-Jinoh Kang
-
+Julien Grall
 
