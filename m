@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E091A7A1428
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 05:11:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602844.939624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDDAF7A156D
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 07:28:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602851.939635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgzDt-0001lN-Uc; Fri, 15 Sep 2023 03:10:25 +0000
+	id 1qh1Ma-0006oC-Gb; Fri, 15 Sep 2023 05:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602844.939624; Fri, 15 Sep 2023 03:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 602851.939635; Fri, 15 Sep 2023 05:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgzDt-0001j9-Rt; Fri, 15 Sep 2023 03:10:25 +0000
-Received: by outflank-mailman (input) for mailman id 602844;
- Fri, 15 Sep 2023 03:10:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8CaZ=E7=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1qgzDs-0001j1-M6
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 03:10:24 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67c105f1-5375-11ee-9b0d-b553b5be7939;
- Fri, 15 Sep 2023 05:10:22 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-1c06f6f98c0so14969375ad.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 20:10:22 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- y7-20020a17090322c700b001c0a414695dsm2285725plg.62.2023.09.14.20.10.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Sep 2023 20:10:20 -0700 (PDT)
+	id 1qh1Ma-0006lp-Cd; Fri, 15 Sep 2023 05:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 602851;
+ Fri, 15 Sep 2023 05:27:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X3kr=E7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qh1MY-0006lj-DF
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 05:27:30 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9001a2a1-5388-11ee-8788-cb3800f73035;
+ Fri, 15 Sep 2023 07:27:29 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 983C01F38C;
+ Fri, 15 Sep 2023 05:27:28 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 053D313479;
+ Fri, 15 Sep 2023 05:27:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id m4dhOz/rA2VrYwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 15 Sep 2023 05:27:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +51,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67c105f1-5375-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1694747420; x=1695352220; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=s66uVsXieXZEwrz2tGtxEkm4KD1eEh+8pBHuZBZ6AXU=;
-        b=Ag+kMRx/vdAnUXWljupD5btwkNsRDTUtEP0cqhHcwABH9HCPuaQa4tRZCYwXwqgeOE
-         Oxk2eqxObvVqZkq/bvpHnSr4jQPXVwYL7MkctHVLxUGrNUW36XAbXHh4gTQ1Q5er1h7o
-         DrT5DAYudTGMaaO+6e4WEUDEIJXhNVFs6sVbo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694747420; x=1695352220;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s66uVsXieXZEwrz2tGtxEkm4KD1eEh+8pBHuZBZ6AXU=;
-        b=k8WL5lwwRWK3i/2Q1Ghs96XgSr6TUJvs1L4rESY5P60VzLx3V2Ltq39z7Nr5+WER1Z
-         LG8CaIHOwCiZJVfH4vb5tfAW2zM9kuie1tXPCkkJBcfeu/maDJIUgzuHv30yKxGKgsEu
-         LK6Z3uvZiD0AVV8/pc83HdLpu4CTz6+IXMAKdHVvbmaJ41BRZ2W4woKSK2yVxnRxw0aT
-         Qz0DgACQ4oGKy5sjijwiQ4unWixHyIdtkh+Riydh8PipqoiaFbtmfV+Ol7f+lmNKDGnk
-         KlzIzrJkgzerQ5TaTQPJ9ERZmTXm3eBOyoXkmyBOFA0ZJrauGXEUPNva0gZgvOwWy25c
-         Oonw==
-X-Gm-Message-State: AOJu0Yx62ZEMMOoFiIuF1NVGXWQP5kVJEjOg4yf9l8P4cRoLxAbLJJKY
-	axLGRg4laZ3WMtTnLb3T3589jw==
-X-Google-Smtp-Source: AGHT+IHiPr6yjry1eOi32qemWdUt8KSs5Y4FRrVUY+L6LPMW/8uikqG4J6/IPV1vKIwXV6zuvnYF/Q==
-X-Received: by 2002:a17:902:76c5:b0:1bb:c06e:647a with SMTP id j5-20020a17090276c500b001bbc06e647amr443590plt.53.1694747420577;
-        Thu, 14 Sep 2023 20:10:20 -0700 (PDT)
-Date: Thu, 14 Sep 2023 20:10:19 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Justin Stitt <justinstitt@google.com>
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
-Message-ID: <202309142009.DD5AE193@keescook>
-References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+X-Inumbo-ID: 9001a2a1-5388-11ee-8788-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1694755648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=QU8myV3ur4X5421f1/iCCeH3dClVFgzG1eLkkZQpaSE=;
+	b=NtKM/H7jhZhi6WVeOgIIjPD3lWAFrjAaJmVRY1uX3CKXpNBPqle4T/CnIYXShURolHHb6P
+	p+oO7hLblgc9P9h0no2Cwk8ea9Gl4cXJ5YrfpyYrWVLekSpRAD+FCGr/2gVGFeCmjCv5aj
+	hx/RjNMAZ6jQwJZp+d9t0XSaoGde3vA=
+Message-ID: <76fe3edb-cc84-46f1-80f6-00ea36fbad16@suse.com>
+Date: Fri, 15 Sep 2023 07:27:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 08/38] x86/cpufeatures: Add the cpu feature bit for
+ FRED
+Content-Language: en-US
+To: Thomas Gleixner <tglx@linutronix.de>, andrew.cooper3@citrix.com,
+ Jan Beulich <jbeulich@suse.com>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, luto@kernel.org, pbonzini@redhat.com,
+ seanjc@google.com, peterz@infradead.org, ravi.v.shankar@intel.com,
+ mhiramat@kernel.org, jiangshanlai@gmail.com, Xin Li <xin3.li@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-9-xin3.li@intel.com>
+ <d98a362d-d806-4458-9473-be5bea254db7@suse.com>
+ <77ca8680-02e2-cdaa-a919-61058e2d5245@suse.com>
+ <7d907488-d626-0801-3d4b-af42d00a5537@citrix.com> <87o7i41bya.ffs@tglx>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <87o7i41bya.ffs@tglx>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0DJc54CgcwM0KkGine9Y86ek"
 
-On Mon, Sep 11, 2023 at 06:59:31PM +0000, Justin Stitt wrote:
-> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
-> 
-> `efi_loader_signature` has space for 4 bytes. We are copying "Xen" (3 bytes)
-> plus a NUL-byte which makes 4 total bytes. With that being said, there is
-> currently not a bug with the current `strncpy()` implementation in terms of
-> buffer overreads but we should favor a more robust string interface
-> either way.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0DJc54CgcwM0KkGine9Y86ek
+Content-Type: multipart/mixed; boundary="------------FxBkvOSsZsO036jILYJ06LWo";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Thomas Gleixner <tglx@linutronix.de>, andrew.cooper3@citrix.com,
+ Jan Beulich <jbeulich@suse.com>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, luto@kernel.org, pbonzini@redhat.com,
+ seanjc@google.com, peterz@infradead.org, ravi.v.shankar@intel.com,
+ mhiramat@kernel.org, jiangshanlai@gmail.com, Xin Li <xin3.li@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+Message-ID: <76fe3edb-cc84-46f1-80f6-00ea36fbad16@suse.com>
+Subject: Re: [PATCH v10 08/38] x86/cpufeatures: Add the cpu feature bit for
+ FRED
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-9-xin3.li@intel.com>
+ <d98a362d-d806-4458-9473-be5bea254db7@suse.com>
+ <77ca8680-02e2-cdaa-a919-61058e2d5245@suse.com>
+ <7d907488-d626-0801-3d4b-af42d00a5537@citrix.com> <87o7i41bya.ffs@tglx>
+In-Reply-To: <87o7i41bya.ffs@tglx>
 
-Yeah, this will work. Since this is a u32 destination, I do wonder if
-strtomem_pad() would be better since we're not really writing a string?
-But since this is all hard-coded, it doesn't matter. :)
+--------------FxBkvOSsZsO036jILYJ06LWo
+Content-Type: multipart/mixed; boundary="------------FKBb0HfIKq5W00Hh1Q7xjNPA"
 
-Reviewed-by: Kees Cook <keescook@chromium.org>
+--------------FKBb0HfIKq5W00Hh1Q7xjNPA
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
--Kees
+T24gMTUuMDkuMjMgMDM6MDcsIFRob21hcyBHbGVpeG5lciB3cm90ZToNCj4gT24gVGh1LCBT
+ZXAgMTQgMjAyMyBhdCAxNDoxNSwgYW5kcmV3IHdyb3RlOg0KPj4gUFYgZ3Vlc3RzIGFyZSBu
+ZXZlciBnb2luZyB0byBzZWUgRlJFRCAob3IgTEtHUyBmb3IgdGhhdCBtYXR0ZXIpIGJlY2F1
+c2UNCj4+IGl0IGFkdmVydGlzZXMgdG9vIG11Y2ggc3R1ZmYgd2hpY2ggc2ltcGx5IHRyYXBz
+IGJlY2F1c2UgdGhlIGtlcm5lbCBpcyBpbg0KPj4gQ1BMMy4NCj4+DQo+PiBUaGF0IHNhaWQs
+IHRoZSA2NGJpdCBQViBBQkkgaXMgYSB3aG9sZSBsb3QgY2xvc2VyIHRvIEZSRUQgdGhhbiBp
+dCBpcyB0bw0KPj4gSURUIGRlbGl2ZXJ5LsKgIChBbG1vc3QgYXMgaWYgd2UgZGVjaWRlZCAx
+NSB5ZWFycyBhZ28gdGhhdCBnaXZpbmcgdGhlIFBWDQo+PiBndWVzdCBrZXJuZWwgYSBnb29k
+IHN0YWNrIGFuZCBHU2Jhc2Ugd2FzIHRoZSByaWdodCB0aGluZyB0byBkby4uLikNCj4gDQo+
+IE5vIGFyZ3VtZW50IGFib3V0IHRoYXQuDQo+IA0KPj4gSW4gc29tZSBjb3Bpb3VzIGZyZWUg
+dGltZSwgSSB0aGluayB3ZSBvdWdodCB0byBwcm92aWRlIGENCj4+IG1pbm9ybHktcGFyYXZp
+cnQgRlJFRCB0byBQViBndWVzdHMgYmVjYXVzZSB0aGVyZSBhcmUgc3RpbGwgc29tZQ0KPj4g
+aW1wcm92ZW1lbnRzIGF2YWlsYWJsZSBhcyBsb3cgaGFuZ2luZyBmcnVpdC4NCj4+DQo+PiBN
+eSBwbGFuIHdhcyB0byBoYXZlIGEgUFYgaHlwZXJ2aXNvciBsZWFmIGFkdmVydGlzaW5nIHBh
+cmF2aXJ0IHZlcnNpb25zDQo+PiBvZiBoYXJkd2FyZSBmZWF0dXJlcywgc28gYSBndWVzdCBj
+b3VsZCBzZWUgIkkgZG9uJ3QgaGF2ZSBhcmNoaXRlY3R1cmFsDQo+PiBGUkVELCBidXQgSSBk
+byBoYXZlIHBhcmF2aXJ0LUZSRUQgd2hpY2ggaXMgYXMgc2ltaWxhciBhcyB3ZSBjYW4NCj4+
+IHJlYXNvbmFibHkgbWFrZSBpdCIuwqAgVGhlIHNhbWUgZ29lcyBmb3IgYSB3aG9sZSBidW5j
+aCBvZiBvdGhlciBmZWF0dXJlcy4NCj4gDQo+ICpHUk9BTioNCj4gDQo+IEkgdG9sZCB5b3Ug
+YmVmb3JlIHRoYXQgd2Ugd2FudCBsZXNzIHBhcmF2aXJ0IG5vbnNlbnNlIGFuZCBub3QgbW9y
+ZS4NCg0KSSBhZ3JlZS4NCg0KV2Ugd2lsbCBzdGlsbCBoYXZlIHRvIHN1cHBvcnQgdGhlIFBW
+IHN0dWZmIGZvciBub24tRlJFRCBoeXBlcnZpc29ycyBldmVuIHdpdGgNCnB2LUZSRUQgYmVp
+bmcgYXZhaWxhYmxlIG9uIG5ldyBYZW4uIFNvIGFkZGluZyBwdi1GUkVEIHdvdWxkIGp1c3Qg
+YWRkIG1vcmUgUFYNCmludGVyZmFjZXMgd2l0aG91dCB0aGUgYWJpbGl0eSB0byByZW1vdmUg
+b2xkIHN0dWZmLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------FKBb0HfIKq5W00Hh1Q7xjNPA
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> A suitable replacement is `strscpy` [2] due to the fact that it guarantees
-> NUL-termination on the destination buffer while being functionally the
-> same in this case.
-> 
-> Link: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings[1]
-> Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
-> Link: https://github.com/KSPP/linux/issues/90
-> Cc: linux-hardening@vger.kernel.org
-> Cc: Kees Cook <keescook@chromium.org>
-> Signed-off-by: Justin Stitt <justinstitt@google.com>
-> ---
-> Note: build-tested
-> ---
->  arch/x86/xen/efi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/xen/efi.c b/arch/x86/xen/efi.c
-> index 863d0d6b3edc..7250d0e0e1a9 100644
-> --- a/arch/x86/xen/efi.c
-> +++ b/arch/x86/xen/efi.c
-> @@ -138,7 +138,7 @@ void __init xen_efi_init(struct boot_params *boot_params)
->  	if (efi_systab_xen == NULL)
->  		return;
->  
-> -	strncpy((char *)&boot_params->efi_info.efi_loader_signature, "Xen",
-> +	strscpy((char *)&boot_params->efi_info.efi_loader_signature, "Xen",
->  			sizeof(boot_params->efi_info.efi_loader_signature));
->  	boot_params->efi_info.efi_systab = (__u32)__pa(efi_systab_xen);
->  	boot_params->efi_info.efi_systab_hi = (__u32)(__pa(efi_systab_xen) >> 32);
-> 
-> ---
-> base-commit: 2dde18cd1d8fac735875f2e4987f11817cc0bc2c
-> change-id: 20230911-strncpy-arch-x86-xen-efi-c-14292f5a79ee
-> 
-> Best regards,
-> --
-> Justin Stitt <justinstitt@google.com>
-> 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
--- 
-Kees Cook
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------FKBb0HfIKq5W00Hh1Q7xjNPA--
+
+--------------FxBkvOSsZsO036jILYJ06LWo--
+
+--------------0DJc54CgcwM0KkGine9Y86ek
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUD6z8FAwAAAAAACgkQsN6d1ii/Ey9P
+4gf/aBMi3KQPER3qnsza7bJcPa30yR8O4Wf7AA5RDD14BujhuYLFNBNKD79hG/g36bQXKFhJrB+M
+Q4VMVlTDJUjk1kiCriaIUsP60e9f7a7jrnqjVyts6qJs4ykLfNbY9RALxJ29UTIS77HB/524y9U/
+LLFQbDMI9/wMcx7x8IttNv8vTwHIaFdAqL8ThInV47Q6U2w1fJ+EBEQbGQkmKR7yE7R5HuXsLPgm
+xNofJdtZFYteoGDwQ2wBdk1EwcrSVahKJ5AED175u96yZkl6+OclIFvUdT3CViu+8U9BzxwmcZbE
+NUFYACRcGmot95W4xgjmdbd5HpZ8yqLhc4jLfVOm7A==
+=E+ek
+-----END PGP SIGNATURE-----
+
+--------------0DJc54CgcwM0KkGine9Y86ek--
 
