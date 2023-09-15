@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25697A23B0
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 18:38:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603303.940255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475897A23E3
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 18:48:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603309.940264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhBp6-0007HA-Cx; Fri, 15 Sep 2023 16:37:40 +0000
+	id 1qhBzW-0001nW-AV; Fri, 15 Sep 2023 16:48:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603303.940255; Fri, 15 Sep 2023 16:37:40 +0000
+Received: by outflank-mailman (output) from mailman id 603309.940264; Fri, 15 Sep 2023 16:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhBp6-0007E9-9g; Fri, 15 Sep 2023 16:37:40 +0000
-Received: by outflank-mailman (input) for mailman id 603303;
- Fri, 15 Sep 2023 16:37:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qhBzW-0001kW-7Y; Fri, 15 Sep 2023 16:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 603309;
+ Fri, 15 Sep 2023 16:48:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cweo=E7=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1qhBp4-0007Bh-Td
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 16:37:39 +0000
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [2607:f8b0:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d8214f9-53e6-11ee-8788-cb3800f73035;
- Fri, 15 Sep 2023 18:37:37 +0200 (CEST)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-1c09673b006so18708255ad.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 09:37:37 -0700 (PDT)
+ id 1qhBzU-0001kJ-Sf
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 16:48:24 +0000
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [2607:f8b0:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id adf9c9f0-53e7-11ee-9b0d-b553b5be7939;
+ Fri, 15 Sep 2023 18:48:22 +0200 (CEST)
+Received: by mail-pf1-x42f.google.com with SMTP id
+ d2e1a72fcca58-68fbd5cd0ceso2040283b3a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 09:48:22 -0700 (PDT)
 Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
  ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
  by smtp.gmail.com with ESMTPSA id
- 13-20020a170902ee4d00b001aaecc0b6ffsm3708212plo.160.2023.09.15.09.37.30
+ m17-20020a17090ab79100b00262eccfa29fsm4990545pjr.33.2023.09.15.09.48.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 09:37:35 -0700 (PDT)
+ Fri, 15 Sep 2023 09:48:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,43 +46,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d8214f9-53e6-11ee-8788-cb3800f73035
+X-Inumbo-ID: adf9c9f0-53e7-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694795856; x=1695400656; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694796501; x=1695401301; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QvbdwGc2q9ykrPdPA/5vXC1OmEEsdu9JN7M2jZpSlQY=;
-        b=zy0tAPcmT95f243WIxUgdket5RNexmVdRSxwu3BRohaBQllLpXuiQPoekt1R7HgqTw
-         qvS7AiVunFG3aq/SIcjNxPkJt1AkTGuVGR3nVQzgMbEq9N2ocUScIuqiZVOGPDfFWTmI
-         nl/i0Xhy4bWVW8FgUfSXR/Uz3ToLVQAX3VSQSk0DzCX1UVkvdqd6dUKV9Pb3XB9jcEkS
-         VoLyb7gpuswv60x6KDKI1ntdC02PH0ZeQzmBI7fNF15o9/G22IAwc+7w1WAC3pixN6ib
-         mQuEsZicQfy9nOb+kQilt+T36eBAgOjb7LZA+8uj84exuNWA3tDik0cHbUmwulDKkK9O
-         TgYQ==
+        bh=1ABFv1pK71RPcXpZmYjUJAjE3pR/vvyihnbU3LDvHYM=;
+        b=i1390cPAXNtV3h2TxMComW+ybl5jYzmWeq6FU2hqcuxB0lo2duAap2XsQHdOSMRpcd
+         RVM8pjZ3qm2Qxh82Okk81YI+TQaiyNljvnmo0wCE2VPezXcm2fN29RHLbrQPx+m4AwPo
+         kS9GFHLsDqMzCOML3WrZ1DFpjkmBZgFZVCo/DyGfzfX2DaXtfxvqmJxw5FxZSyL1tQ6K
+         l9VK1fsFvpgWMqEB0zCOs2ayrNPKjpucsZigfZ4nH6r9Ml0gjXSxOGg5j+3cLgVGxYnL
+         jKKOEfLxSHK6nf8sIPyIsf3/t1mn/ucILO0HrHVnjz6I0bqfdgoR3Waf2IdYHEc37Q5E
+         w0aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694795856; x=1695400656;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+        d=1e100.net; s=20230601; t=1694796501; x=1695401301;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QvbdwGc2q9ykrPdPA/5vXC1OmEEsdu9JN7M2jZpSlQY=;
-        b=lvdTUvkZfNmFs73gP7tw/7L3FwfqA/ot0nLHNDEMC/YX1kIqoNjuFA6kJGPFFMJhXY
-         H/A7dkYNHn6r8Ov6ZsB54/lFSB2l9/zMNIXn0kOzTLIkyFRe5r5Ha7UGcuWMd28j0vvp
-         F435DJSfk/Ej2QAyqN/1fx/JxtzHDXTj2gAI3vEYuO4yUIFk35wE9W1uq1Ai2TJyjvBz
-         5cMOdFBZ6hCt9C/1HYq49GmTIGILATbTFbB5WB+c5mn3rhMxJPlyLDQCUIt6ZpQ59pI4
-         XhzhFeRmtWMi1RA3oEn3kTgyhQnI7DKdrDHs4Vz8+qdJTquf+3lj9SzYKUR4KfyX55MH
-         XJFQ==
-X-Gm-Message-State: AOJu0YyzhAOWOMiDF+lLEXP4r5PjH4dac/0hWVR4scNgnMQGcroo+/SH
-	WWiCsRFi/jWa+YYLXCY5PW/3BA==
-X-Google-Smtp-Source: AGHT+IHbWHKGZmN4Ilxyi7utzfQU0/OWAKabcK7DzJPoXar13eQHnjOLF+Kj6/lxHHwJgWxPUH4Dfw==
-X-Received: by 2002:a17:903:2291:b0:1b8:6cae:4400 with SMTP id b17-20020a170903229100b001b86cae4400mr2373071plh.37.1694795855923;
-        Fri, 15 Sep 2023 09:37:35 -0700 (PDT)
-Message-ID: <9700c2ed-93c5-4bf6-bc6b-d5d33359d9a7@daynix.com>
-Date: Sat, 16 Sep 2023 01:37:29 +0900
+        bh=1ABFv1pK71RPcXpZmYjUJAjE3pR/vvyihnbU3LDvHYM=;
+        b=QVS6OqDubwPgYBfjCb61p4QNGh5WUJ12Y/5gfHlXQ9Gx5u/v5sROxrvA1rPgb4hg7l
+         2QIs5F02cY6M3A1iPwmfdmCO0mn1Q5XiSrTMcdxohh1yiIMuZi1KmOqSaOvnA37yRrZz
+         Jiy9BXD2mUxghOisf+Sb033dS8Gs1skWh+rfa/kVywPaEiT/8CN5arjLwITgVrA7FjXy
+         YI6vxjrYhYsu3UOc1213hdjW08uj/CP3HjylBijfU8iAOPfUwqa56wJOXmbwePz1YuNz
+         HQ96e3sIgD0vjCpRQFkAPzYaBzlRCKmUh+89YKxiGuoaebAYYaKhNraKNNF3KPeY1O21
+         AzCQ==
+X-Gm-Message-State: AOJu0YzKPyqUc/N3negddWuTzFlYC6dvHPX5lhMgMJJcxIx+YrkDus6N
+	4wrVKgspI6VEdiaTnxULIM3nyA==
+X-Google-Smtp-Source: AGHT+IHli99nSnZrzIK9dwMuLFLoTLYUlA60VSGUBhns+P/ipbmvVaqxTm9+cI83BiSH03TdQVZIsA==
+X-Received: by 2002:a17:90a:fb92:b0:274:6a79:17c1 with SMTP id cp18-20020a17090afb9200b002746a7917c1mr2090131pjb.15.1694796500796;
+        Fri, 15 Sep 2023 09:48:20 -0700 (PDT)
+Message-ID: <a3a46b78-9feb-47f3-bd3e-519ebe899737@daynix.com>
+Date: Sat, 16 Sep 2023 01:48:14 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands
+Subject: Re: [QEMU PATCH v5 10/13] virtio-gpu: Resource UUID
 Content-Language: en-US
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
  "Michael S . Tsirkin" <mst@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -105,92 +104,159 @@ Cc: xen-devel@lists.xenproject.org,
  Chen Jiqian <Jiqian.Chen@amd.com>,
  Antonio Caggiano <antonio.caggiano@collabora.com>
 References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-10-ray.huang@amd.com>
- <a14b26dc-c804-4be8-83d5-088e71d37a7b@daynix.com>
-In-Reply-To: <a14b26dc-c804-4be8-83d5-088e71d37a7b@daynix.com>
+ <20230915111130.24064-11-ray.huang@amd.com>
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <20230915111130.24064-11-ray.huang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 2023/09/16 1:04, Akihiko Odaki wrote:
-> On 2023/09/15 20:11, Huang Rui wrote:
->> From: Antonio Caggiano <antonio.caggiano@collabora.com>
->>
->> Support BLOB resources creation, mapping and unmapping by calling the
->> new stable virglrenderer 0.10 interface. Only enabled when available and
->> via the blob config. E.g. -device virtio-vga-gl,blob=true
->>
->> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->> Signed-off-by: Huang Rui <ray.huang@amd.com>
->> ---
->>
->> V4 -> V5:
->>      - Use memory_region_init_ram_ptr() instead of
->>        memory_region_init_ram_device_ptr() (Akihiko)
->>
->>   hw/display/virtio-gpu-virgl.c  | 213 +++++++++++++++++++++++++++++++++
->>   hw/display/virtio-gpu.c        |   4 +-
->>   include/hw/virtio/virtio-gpu.h |   5 +
->>   meson.build                    |   4 +
->>   4 files changed, 225 insertions(+), 1 deletion(-)
->>
->> diff --git a/hw/display/virtio-gpu-virgl.c 
->> b/hw/display/virtio-gpu-virgl.c
->> index 312953ec16..563a6f2f58 100644
->> --- a/hw/display/virtio-gpu-virgl.c
->> +++ b/hw/display/virtio-gpu-virgl.c
->> @@ -17,6 +17,7 @@
->>   #include "trace.h"
->>   #include "hw/virtio/virtio.h"
->>   #include "hw/virtio/virtio-gpu.h"
->> +#include "hw/virtio/virtio-gpu-bswap.h"
->>   #include "ui/egl-helpers.h"
->> @@ -78,9 +79,24 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
->>       virgl_renderer_resource_create(&args, NULL, 0);
->>   }
->> +static void virgl_resource_destroy(VirtIOGPU *g,
->> +                                   struct virtio_gpu_simple_resource 
->> *res)
->> +{
->> +    if (!res)
->> +        return;
->> +
->> +    QTAILQ_REMOVE(&g->reslist, res, next);
->> +
->> +    virtio_gpu_cleanup_mapping_iov(g, res->iov, res->iov_cnt);
->> +    g_free(res->addrs);
->> +
->> +    g_free(res);
->> +}
->> +
->>   static void virgl_cmd_resource_unref(VirtIOGPU *g,
->>                                        struct virtio_gpu_ctrl_command 
->> *cmd)
->>   {
->> +    struct virtio_gpu_simple_resource *res;
->>       struct virtio_gpu_resource_unref unref;
->>       struct iovec *res_iovs = NULL;
->>       int num_iovs = 0;
->> @@ -88,13 +104,22 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
->>       VIRTIO_GPU_FILL_CMD(unref);
->>       trace_virtio_gpu_cmd_res_unref(unref.resource_id);
->> +    res = virtio_gpu_find_resource(g, unref.resource_id);
->> +
->>       virgl_renderer_resource_detach_iov(unref.resource_id,
->>                                          &res_iovs,
->>                                          &num_iovs);
->>       if (res_iovs != NULL && num_iovs != 0) {
->>           virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
->> +        if (res) {
->> +            res->iov = NULL;
->> +            res->iov_cnt = 0;
->> +        }
->>       }
->> +
->>       virgl_renderer_resource_unref(unref.resource_id);
->> +
->> +    virgl_resource_destroy(g, res);
+On 2023/09/15 20:11, Huang Rui wrote:
+> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+> 
+> Enable resource UUID feature and implement command resource assign UUID.
+> This is done by introducing a hash table to map resource IDs to their
+> UUIDs.
+> 
+> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> V4 -> V5:
+>      - Add virtio migration handling for uuid (Akihiko)
+>      - Adjust sequence to allocate gpu resource before virglrender resource
+>        creation (Akihiko)
+>      - Clean up (Akihiko)
+> 
+>   hw/display/trace-events        |  1 +
+>   hw/display/virtio-gpu-base.c   |  2 ++
+>   hw/display/virtio-gpu-virgl.c  | 21 ++++++++++++
+>   hw/display/virtio-gpu.c        | 58 ++++++++++++++++++++++++++++++++++
+>   include/hw/virtio/virtio-gpu.h |  6 ++++
+>   5 files changed, 88 insertions(+)
+> 
+> diff --git a/hw/display/trace-events b/hw/display/trace-events
+> index 2336a0ca15..54d6894c59 100644
+> --- a/hw/display/trace-events
+> +++ b/hw/display/trace-events
+> @@ -41,6 +41,7 @@ virtio_gpu_cmd_res_create_blob(uint32_t res, uint64_t size) "res 0x%x, size %" P
+>   virtio_gpu_cmd_res_unref(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_back_attach(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_back_detach(uint32_t res) "res 0x%x"
+> +virtio_gpu_cmd_res_assign_uuid(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_toh_2d(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_toh_3d(uint32_t res) "res 0x%x"
+>   virtio_gpu_cmd_res_xfer_fromh_3d(uint32_t res) "res 0x%x"
+> diff --git a/hw/display/virtio-gpu-base.c b/hw/display/virtio-gpu-base.c
+> index 4f2b0ba1f3..f44388715c 100644
+> --- a/hw/display/virtio-gpu-base.c
+> +++ b/hw/display/virtio-gpu-base.c
+> @@ -236,6 +236,8 @@ virtio_gpu_base_get_features(VirtIODevice *vdev, uint64_t features,
+>           features |= (1 << VIRTIO_GPU_F_CONTEXT_INIT);
+>       }
+>   
+> +    features |= (1 << VIRTIO_GPU_F_RESOURCE_UUID);
+> +
+>       return features;
+>   }
+>   
+> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> index 563a6f2f58..8a017dbeb4 100644
+> --- a/hw/display/virtio-gpu-virgl.c
+> +++ b/hw/display/virtio-gpu-virgl.c
+> @@ -36,11 +36,20 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+>   {
+>       struct virtio_gpu_resource_create_2d c2d;
+>       struct virgl_renderer_resource_create_args args;
+> +    struct virtio_gpu_simple_resource *res;
+>   
+>       VIRTIO_GPU_FILL_CMD(c2d);
+>       trace_virtio_gpu_cmd_res_create_2d(c2d.resource_id, c2d.format,
+>                                          c2d.width, c2d.height);
+>   
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    if (!res) {
+> +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> +        return;
+> +    }
+> +    res->resource_id = c2d.resource_id;
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> +
 
-This may leak memory region.
+The struct virtio_gpu_simple_resource for a resource created with 
+virgl_cmd_create_resource_2d() and virgl_resource_attach_backing() will 
+not have iov and iov_cnt set, which is inconsistent with 
+virgl_cmd_resource_create_blob().
+
+>       args.handle = c2d.resource_id;
+>       args.target = 2;
+>       args.format = c2d.format;
+> @@ -60,11 +69,20 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+>   {
+>       struct virtio_gpu_resource_create_3d c3d;
+>       struct virgl_renderer_resource_create_args args;
+> +    struct virtio_gpu_simple_resource *res;
+>   
+>       VIRTIO_GPU_FILL_CMD(c3d);
+>       trace_virtio_gpu_cmd_res_create_3d(c3d.resource_id, c3d.format,
+>                                          c3d.width, c3d.height, c3d.depth);
+>   
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    if (!res) {
+> +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> +        return;
+> +    }
+> +    res->resource_id = c3d.resource_id;
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> +
+>       args.handle = c3d.resource_id;
+>       args.target = c3d.target;
+>       args.format = c3d.format;
+> @@ -682,6 +700,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>           /* TODO add security */
+>           virgl_cmd_ctx_detach_resource(g, cmd);
+>           break;
+> +    case VIRTIO_GPU_CMD_RESOURCE_ASSIGN_UUID:
+> +        virtio_gpu_resource_assign_uuid(g, cmd);
+> +        break;
+>       case VIRTIO_GPU_CMD_GET_CAPSET_INFO:
+>           virgl_cmd_get_capset_info(g, cmd);
+>           break;
+> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+> index cc4c1f81bb..44414c1c5e 100644
+> --- a/hw/display/virtio-gpu.c
+> +++ b/hw/display/virtio-gpu.c
+> @@ -966,6 +966,38 @@ virtio_gpu_resource_detach_backing(VirtIOGPU *g,
+>       virtio_gpu_cleanup_mapping(g, res);
+>   }
+>   
+> +void virtio_gpu_resource_assign_uuid(VirtIOGPU *g,
+> +                                     struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_assign_uuid assign;
+> +    struct virtio_gpu_resp_resource_uuid resp;
+> +    QemuUUID *uuid;
+> +
+> +    VIRTIO_GPU_FILL_CMD(assign);
+> +    virtio_gpu_bswap_32(&assign, sizeof(assign));
+> +    trace_virtio_gpu_cmd_res_assign_uuid(assign.resource_id);
+> +
+> +    res = virtio_gpu_find_check_resource(g, assign.resource_id, false, __func__, &cmd->error);
+> +    if (!res) {
+> +        return;
+> +    }
+> +
+> +    memset(&resp, 0, sizeof(resp));
+> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_RESOURCE_UUID;
+> +
+> +    uuid = g_hash_table_lookup(g->resource_uuids, GUINT_TO_POINTER(assign.resource_id));
+> +    if (!uuid) {
+> +        uuid = g_new(QemuUUID, 1);
+> +        qemu_uuid_generate(uuid);
+> +        g_hash_table_insert(g->resource_uuids, GUINT_TO_POINTER(assign.resource_id), uuid);
+> +        res->has_uuid = true;
+> +    }
+
+What about embedding uuid into struct virtio_gpu_simple_resource? You 
+will not need to maintain another table in this way.
 
