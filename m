@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA6E7A1390
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 04:07:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.602837.939615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E091A7A1428
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 05:11:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.602844.939624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgyEY-00010a-Dg; Fri, 15 Sep 2023 02:07:02 +0000
+	id 1qgzDt-0001lN-Uc; Fri, 15 Sep 2023 03:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 602837.939615; Fri, 15 Sep 2023 02:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 602844.939624; Fri, 15 Sep 2023 03:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qgyEY-0000y6-Aj; Fri, 15 Sep 2023 02:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 602837;
- Fri, 15 Sep 2023 02:07:00 +0000
+	id 1qgzDt-0001j9-Rt; Fri, 15 Sep 2023 03:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 602844;
+ Fri, 15 Sep 2023 03:10:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9T1c=E7=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1qgyEW-0000v1-D7
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 02:07:00 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8CaZ=E7=chromium.org=keescook@srs-se1.protection.inumbo.net>)
+ id 1qgzDs-0001j1-M6
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 03:10:24 +0000
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [2607:f8b0:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bd982fb-536c-11ee-9b0d-b553b5be7939;
- Fri, 15 Sep 2023 04:06:57 +0200 (CEST)
-Received: from [172.27.2.41] ([98.35.210.218]) (authenticated bits=0)
- by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 38F265Wd3668683
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Thu, 14 Sep 2023 19:06:06 -0700
+ id 67c105f1-5375-11ee-9b0d-b553b5be7939;
+ Fri, 15 Sep 2023 05:10:22 +0200 (CEST)
+Received: by mail-pl1-x62d.google.com with SMTP id
+ d9443c01a7336-1c06f6f98c0so14969375ad.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Sep 2023 20:10:22 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ y7-20020a17090322c700b001c0a414695dsm2285725plg.62.2023.09.14.20.10.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Sep 2023 20:10:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bd982fb-536c-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 38F265Wd3668683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2023091101; t=1694743567;
-	bh=pS+FaX3FGPx0JfqHE/l2ITnl7xmsLE2z552abw2UC+0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=L9Tn4bNWud/CxiGNp8dzV9DjK/XgpKI9glMVqLtI284PNIM+SU+lt6/HVStRqyVH+
-	 Wa217xj/vgHHveKFL3+RFza4ZxqOYDCyK118q8ZMfUs6FM1DJ3XmbNm8j7tboNUv35
-	 CaKawJfEqcY1xG1CRP25CZItxE2Tt6Syd+xn3AuaPTvjnDrojd6kvP5LvdtaWjPr9z
-	 z+1v6TEBpYVeuLyH+uat0FpanQYtkD2FVdr8ypVLKEBPypEZsGMwF5hBYQjJB99Bht
-	 toS9X9qEIa/l11zjrnNpZhnSWZKp+DJQXz/2flAJ8ojaF0zHwqIVFcnJwYgDHpAcjg
-	 dyKUsdqLoIv4w==
-Message-ID: <b05e3092-8ba3-f4e1-b5a3-2125944936fd@zytor.com>
-Date: Thu, 14 Sep 2023 19:06:04 -0700
+X-Inumbo-ID: 67c105f1-5375-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1694747420; x=1695352220; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=s66uVsXieXZEwrz2tGtxEkm4KD1eEh+8pBHuZBZ6AXU=;
+        b=Ag+kMRx/vdAnUXWljupD5btwkNsRDTUtEP0cqhHcwABH9HCPuaQa4tRZCYwXwqgeOE
+         Oxk2eqxObvVqZkq/bvpHnSr4jQPXVwYL7MkctHVLxUGrNUW36XAbXHh4gTQ1Q5er1h7o
+         DrT5DAYudTGMaaO+6e4WEUDEIJXhNVFs6sVbo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694747420; x=1695352220;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s66uVsXieXZEwrz2tGtxEkm4KD1eEh+8pBHuZBZ6AXU=;
+        b=k8WL5lwwRWK3i/2Q1Ghs96XgSr6TUJvs1L4rESY5P60VzLx3V2Ltq39z7Nr5+WER1Z
+         LG8CaIHOwCiZJVfH4vb5tfAW2zM9kuie1tXPCkkJBcfeu/maDJIUgzuHv30yKxGKgsEu
+         LK6Z3uvZiD0AVV8/pc83HdLpu4CTz6+IXMAKdHVvbmaJ41BRZ2W4woKSK2yVxnRxw0aT
+         Qz0DgACQ4oGKy5sjijwiQ4unWixHyIdtkh+Riydh8PipqoiaFbtmfV+Ol7f+lmNKDGnk
+         KlzIzrJkgzerQ5TaTQPJ9ERZmTXm3eBOyoXkmyBOFA0ZJrauGXEUPNva0gZgvOwWy25c
+         Oonw==
+X-Gm-Message-State: AOJu0Yx62ZEMMOoFiIuF1NVGXWQP5kVJEjOg4yf9l8P4cRoLxAbLJJKY
+	axLGRg4laZ3WMtTnLb3T3589jw==
+X-Google-Smtp-Source: AGHT+IHiPr6yjry1eOi32qemWdUt8KSs5Y4FRrVUY+L6LPMW/8uikqG4J6/IPV1vKIwXV6zuvnYF/Q==
+X-Received: by 2002:a17:902:76c5:b0:1bb:c06e:647a with SMTP id j5-20020a17090276c500b001bbc06e647amr443590plt.53.1694747420577;
+        Thu, 14 Sep 2023 20:10:20 -0700 (PDT)
+Date: Thu, 14 Sep 2023 20:10:19 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Justin Stitt <justinstitt@google.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
+Message-ID: <202309142009.DD5AE193@keescook>
+References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v10 03/38] x86/msr: Add the WRMSRNS instruction support
-Content-Language: en-US
-To: andrew.cooper3@citrix.com, Thomas Gleixner <tglx@linutronix.de>,
-        Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
-        linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-        x86@kernel.org, luto@kernel.org, pbonzini@redhat.com,
-        seanjc@google.com, peterz@infradead.org, jgross@suse.com,
-        ravi.v.shankar@intel.com, mhiramat@kernel.org, jiangshanlai@gmail.com
-References: <20230914044805.301390-1-xin3.li@intel.com>
- <20230914044805.301390-4-xin3.li@intel.com>
- <6f5678ff-f8b1-9ada-c8c7-f32cfb77263a@citrix.com> <87y1h81ht4.ffs@tglx>
- <7ba4ae3e-f75d-66a8-7669-b6eb17c1aa1c@citrix.com> <87v8cc1ehe.ffs@tglx>
- <50e96f85-66f8-2a4f-45c9-a685c757bb28@citrix.com>
- <5cf50d76-8e18-2863-4889-70e9c18298a1@zytor.com>
- <af5990d5-58d5-9109-b37b-1f696a43fe86@citrix.com>
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <af5990d5-58d5-9109-b37b-1f696a43fe86@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
 
-On 9/14/23 18:46, andrew.cooper3@citrix.com wrote:
-> On 15/09/2023 1:38 am, H. Peter Anvin wrote:
->> On 9/14/23 17:33, andrew.cooper3@citrix.com wrote:
->>>
->>> It's an assumption about what "definitely won't" be paravirt in the
->>> future.
->>>
->>> XenPV stack handling is almost-FRED-like and has been for the better
->>> part of two decades.
->>>
->>> You frequently complain that there's too much black magic holding XenPV
->>> together.  A paravirt-FRED will reduce the differences vs native
->>> substantially.
->>>
->>
->> Call it "paravirtualized exception handling." In that sense, the
->> refactoring of the exception handling to benefit FRED is definitely
->> useful for reducing paravirtualization. The FRED-specific code is
->> largely trivial, and presumably what you would do is to replace the
->> FRED wrapper with a Xen wrapper and call the common handler routines.
+On Mon, Sep 11, 2023 at 06:59:31PM +0000, Justin Stitt wrote:
+> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
 > 
-> Why do only half the job?
+> `efi_loader_signature` has space for 4 bytes. We are copying "Xen" (3 bytes)
+> plus a NUL-byte which makes 4 total bytes. With that being said, there is
+> currently not a bug with the current `strncpy()` implementation in terms of
+> buffer overreads but we should favor a more robust string interface
+> either way.
+
+Yeah, this will work. Since this is a u32 destination, I do wonder if
+strtomem_pad() would be better since we're not really writing a string?
+But since this is all hard-coded, it doesn't matter. :)
+
+Reviewed-by: Kees Cook <keescook@chromium.org>
+
+-Kees
+
 > 
-> There's no need for any Xen wrappers at all when XenPV can use the
-> native FRED paths, as long as ERETU, ERETS and the relevant MSRs can be
-> paravirt (sure - with an interface that sucks less than right now) so
-> they're not taking the #GP/emulate in Xen path.
+> A suitable replacement is `strscpy` [2] due to the fact that it guarantees
+> NUL-termination on the destination buffer while being functionally the
+> same in this case.
 > 
-> And this can work on all hardware with a slightly-future version of Xen
-> and Linux, because it's just a minor adjustment to how Xen writes the
-> exception frame on the guests stack as part of event delivery.
+> Link: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings[1]
+> Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
+> Link: https://github.com/KSPP/linux/issues/90
+> Cc: linux-hardening@vger.kernel.org
+> Cc: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Justin Stitt <justinstitt@google.com>
+> ---
+> Note: build-tested
+> ---
+>  arch/x86/xen/efi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/xen/efi.c b/arch/x86/xen/efi.c
+> index 863d0d6b3edc..7250d0e0e1a9 100644
+> --- a/arch/x86/xen/efi.c
+> +++ b/arch/x86/xen/efi.c
+> @@ -138,7 +138,7 @@ void __init xen_efi_init(struct boot_params *boot_params)
+>  	if (efi_systab_xen == NULL)
+>  		return;
+>  
+> -	strncpy((char *)&boot_params->efi_info.efi_loader_signature, "Xen",
+> +	strscpy((char *)&boot_params->efi_info.efi_loader_signature, "Xen",
+>  			sizeof(boot_params->efi_info.efi_loader_signature));
+>  	boot_params->efi_info.efi_systab = (__u32)__pa(efi_systab_xen);
+>  	boot_params->efi_info.efi_systab_hi = (__u32)(__pa(efi_systab_xen) >> 32);
+> 
+> ---
+> base-commit: 2dde18cd1d8fac735875f2e4987f11817cc0bc2c
+> change-id: 20230911-strncpy-arch-x86-xen-efi-c-14292f5a79ee
+> 
+> Best regards,
+> --
+> Justin Stitt <justinstitt@google.com>
 > 
 
-It's not about doing "half the job", it's about using the proper 
-abstraction mechanism. By all means, if you can join the common code 
-flow earlier, do so, but paravirtualizing the entry/exit stubs which is 
-the *only* place ERETU and ERETS show up is just crazy.
-
-Similarly, nearly all the MSRs are just configuration setup. The only 
-ones which have any kind of performance relevance is the stack setup (RSP0).
-
-	-hpa
-
+-- 
+Kees Cook
 
