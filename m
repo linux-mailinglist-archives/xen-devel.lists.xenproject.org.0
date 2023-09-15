@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5C4B7A20F9
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 16:30:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603196.940115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3727A7A21A9
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 17:01:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603205.940126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9pY-00039D-N7; Fri, 15 Sep 2023 14:30:00 +0000
+	id 1qhAJO-0004Xr-4j; Fri, 15 Sep 2023 15:00:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603196.940115; Fri, 15 Sep 2023 14:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 603205.940126; Fri, 15 Sep 2023 15:00:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9pY-00036g-KM; Fri, 15 Sep 2023 14:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 603196;
- Fri, 15 Sep 2023 14:29:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qhAJO-0004Un-0T; Fri, 15 Sep 2023 15:00:50 +0000
+Received: by outflank-mailman (input) for mailman id 603205;
+ Fri, 15 Sep 2023 15:00:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=upey=E7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qh9pX-0002yz-CE
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 14:29:59 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5860c2ee-53d4-11ee-9b0d-b553b5be7939;
- Fri, 15 Sep 2023 16:29:57 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-403012f276dso24117195e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 07:29:57 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- p14-20020a1c740e000000b003fe407ca05bsm7709831wmc.37.2023.09.15.07.29.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 07:29:56 -0700 (PDT)
+ <SRS0=Zf2R=E7=citrix.com=prvs=615989724=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qhAJM-0004UV-A2
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 15:00:48 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a47306e3-53d8-11ee-8788-cb3800f73035;
+ Fri, 15 Sep 2023 17:00:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +36,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5860c2ee-53d4-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1694788197; x=1695392997; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2xcff1kcxhoz3KcUS9Eu7Vmqb5cn75vy1j5tZzB6S98=;
-        b=l3pwbapNl2NQ+ETKlix2NXi6ExyEO29XGnovort2C3mUiy/dvMZd0lmLRvNX/PZRwl
-         649Ufni0HaiJdRgwRVX5sZiJabQXwo7PWaFy02UoO/Fu6euho+dDNSfrn7fb5jbsUPAm
-         xE99f8KMrld9sKu+TtCSZvgb+Wb6HPRVJNJaQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694788197; x=1695392997;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2xcff1kcxhoz3KcUS9Eu7Vmqb5cn75vy1j5tZzB6S98=;
-        b=S76ZelayDwrIemkQ8DEVViFWAX2kbAmUptjIxho7v5V2nFndMSXFY0xnoJJ5xNw1CX
-         hP3xnRa+vIL0aQuqxYIwFEXItyfVNGTIj9a/3o78oV7Ir1oPuscQjk4NxhhCiaq0df38
-         RJ8jaBsv9SBCK8ZepT8MDpto6av2rRhER/ZRQ4ySsVvPIrXmCVKgYbxle1Rgom+YBCda
-         vp+jmta9J38zVr+wagTcBTvhK5rUCPcAtzFfmlpItAJHpBfcpzpa3sDbqqT6SFDtp8/x
-         bdFQuZxQDYzJ2iDOEVV2kHyTn8F1ARocz45RHzF3oGUWhYTqRO+1bRYrvmLpZwvhxuj4
-         fUXQ==
-X-Gm-Message-State: AOJu0YzCe7/z3O8Wj+ZO2rthycwIfkuT47bjePstuccacQpHOFnffzEn
-	GzkUmnRDxot4Ii723pqS5+XGPQ==
-X-Google-Smtp-Source: AGHT+IEUFtnp2b6gDLlglWzNcbzFk7OFojOT3v9/f7IOLfsVNqyHECW6lE28HQ3G/VCn7a+ry20PjQ==
-X-Received: by 2002:a05:600c:3645:b0:402:ea83:45cf with SMTP id y5-20020a05600c364500b00402ea8345cfmr1909619wmq.2.1694788197138;
-        Fri, 15 Sep 2023 07:29:57 -0700 (PDT)
-Message-ID: <eacdd0ca-2898-bc50-5982-8620a68a6783@citrix.com>
-Date: Fri, 15 Sep 2023 15:29:56 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
+X-Inumbo-ID: a47306e3-53d8-11ee-8788-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1694790045;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=xCdonSEcxaU4vwlQq38DDIMhFTLSIUdrwIj+TgYH0mY=;
+  b=J+gUtUO1Abd0hiHosLLr/FeGhBT39vYZRXG4fufJ9XKSSmuJTBuDHmWb
+   zoELZZg3M2GfYpaqxM+1tM+CuG8jVoHduzeyKNXjknoEQKbUcM4Kifc5x
+   srf7wzHwPZ9HLJdUokeju3D7mnzpRDwlb2wjVQWKCSi3zrUhx5GfN1Ukq
+   w=;
+X-CSE-ConnectionGUID: X/kd13lbTuuvW1qLdo0dGQ==
+X-CSE-MsgGUID: qYqSKn0vRF+3Dh3Y+UsXew==
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 123201208
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:+2eaAqLujdG83sdyFE+RG5UlxSXFcZb7ZxGr2PjKsXjdYENSgzMPz
+ WNKDWCCb//ZN2H9LY8jPtmy8h5XuJHVnYM3TFdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrZwP9TlK6q4mhA7wVjPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5HRmJCr
+ KccIgwQcw683vuSzLXjRsZV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTH54Pxh/C/
+ jKuE2LRGyADD/+ZkSS/3DH3qu+UrGDGQ7IfC+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LRQv3
+ 0WMlsnkBhRutqOUUnOX8rqIrTK0NjMRJGVEbigBJSMH6t/vupAujTrAS99iFOi+ididJN3r6
+ 2nU9m5k3exV1JNVkfzhpjgrng5AuLD5CQ05v17TVF648x1GPZeBa4vw5XfiuKMowJmicnGNu
+ 30Nms675e8IDI2QmCHlfNjhDI1F9N7ebmSC3AcH840Jsm30piX9Jdw4DCRWfh8BDyoSRdP+j
+ KY/Uyt17YQbAnalZLQfj2mZW5VzlviI+TgIu5npgjtyjnpZLl/vEMJGPxT4M4XRfK8EyPtXB
+ HtjWZzwZUv28Iw+pNZMe88T0KUw2gc1zn7JSJbwwnyPiOTPOCHMF+xeYQTXPojVCZ9oRi2Pq
+ 76z0OPQkH1ivBDWOHGLoeb/03hURZTEOXwGg5MOLbPSSuaXMGogF+XQ0dscl39NxsxoehPz1
+ ijlACdwkQOv7UAr3C3WMhiPnpuzB8cgxZ/6VARwVWuVN48LOtr3tv1GJsFmLdHKNoVLlJZJc
+ hXMQO3Yatwnd9gN0211gUXVxGC6SCmWuA==
+IronPort-HdrOrdr: A9a23:U6LJRaHe1nY8ivoQpLqELMeALOsnbusQ8zAXPiBKJCC9E/bo8v
+ xG+c5w6faaslkssR0b9+xoW5PwI080l6QU3WB5B97LMDUO0FHCEGgI1/qA/9SPIUzDHu4279
+ YbT0B9YueAcGSTW6zBkXWF+9VL+qj5zEix792uq0uE1WtRGtldBwESMHf9LmRGADNoKLAeD5
+ Sm6s9Ot1ObCA8qhpTSPAhiYwDbzee77a7bXQ==
+X-Talos-CUID: 9a23:NKOnB2xbek+JuNT5Eg/BBgUkXcMpKybZxkvNPlGHUH9NRLrNRXCprfY=
+X-Talos-MUID: =?us-ascii?q?9a23=3AsLimug4mqFX8qBCnJEKIsQ0txoxx0r2VK0ZVj68?=
+ =?us-ascii?q?o+JKoNXdBeAqGvDmoF9o=3D?=
+X-IronPort-AV: E=Sophos;i="6.02,149,1688443200"; 
+   d="scan'208";a="123201208"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 3/5] x86/emul: Add a pending_dbg field to
- x86_emulate_ctxt.retire
-Content-Language: en-GB
-To: Jinoh Kang <jinoh.kang.kr@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230912232113.402347-1-andrew.cooper3@citrix.com>
- <20230912232113.402347-4-andrew.cooper3@citrix.com>
- <e17dd8a7-91d0-fc30-203e-09058ee5e61d@gmail.com>
- <d4073297-4095-20b2-13f2-e1d6e8bd9c17@gmail.com>
-In-Reply-To: <d4073297-4095-20b2-13f2-e1d6e8bd9c17@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Jason Andryuk <jandryuk@gmail.com>
+Subject: [PATCH 0/9] x86/spec-ctrl: AMD DIV fix, and VERW prerequisite bugfixes
+Date: Fri, 15 Sep 2023 16:00:29 +0100
+Message-ID: <20230915150038.602577-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 15/09/2023 3:24 pm, Jinoh Kang wrote:
-> On 9/15/23 21:20, Jinoh Kang wrote:
->> On 9/13/23 08:21, Andrew Cooper wrote:
->>> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
->>> index 698750267a90..f0e74d23c378 100644
->>> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
->>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
->>> @@ -588,15 +588,26 @@ struct x86_emulate_ctxt
->>>      /* Canonical opcode (see below) (valid only on X86EMUL_OKAY). */
->>>      unsigned int opcode;
->>>  
->>> -    /* Retirement state, set by the emulator (valid only on X86EMUL_OKAY). */
->>> +    /*
->>> +     * Retirement state, set by the emulator (valid only on X86EMUL_OKAY/DONE).
->>> +     *
->>> +     * TODO: all this state should be input/output from the VMCS PENDING_DBG,
->>> +     * INTERRUPTIBILITY and ACTIVITIY fields.
->>> +     */
->>>      union {
->>> -        uint8_t raw;
->>> +        unsigned long raw;
->> Minor nit: this should be uint64_t for clarity.  Otherwise, it's not at all
->> clear that the raw field covers the entire union, unless you remind myself
->> that Xen does not support 32-bit host.
-> you remind yourself*.  What a weird typo to make :-(
+Patch 9 is the XSA-439 fix for the AMD DIV issue, disclosed insufficiently
+ahead of August 8th for us to prepare a fix for the embargo.
 
-For better or worse, this is form preferred by the Xen coding style.
+Patches 1 thru 8 are prerequisites, identified while trying to write patch 9.
 
-We deleted the 32bit build of the Xen more than a decade ago, and have
-been 64bit-only ever since.
+All 9 patches are for all security trees.
 
-~Andrew
+Andrew Cooper (9):
+  x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
+  x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
+  x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm
+    macros
+  x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
+  x86/entry: Adjust restore_all_xen to hold stack_end in %r14
+  x86/entry: Track the IST-ness of an entry for the exit paths
+  x86/spec-ctrl: Issue VERW during IST exit to Xen
+  x86/amd: Introduce is_zen{1,2}_uarch() predicates
+  x86/spec-ctrl: Mitigate the Zen1 DIV leakge
+
+ docs/misc/xen-command-line.pandoc        |   6 +-
+ xen/arch/x86/cpu/amd.c                   |  18 +--
+ xen/arch/x86/hvm/svm/entry.S             |   1 +
+ xen/arch/x86/include/asm/amd.h           |  11 ++
+ xen/arch/x86/include/asm/cpufeatures.h   |   2 +-
+ xen/arch/x86/include/asm/spec_ctrl_asm.h | 152 ++++++++++++++++-------
+ xen/arch/x86/spec_ctrl.c                 |  49 +++++++-
+ xen/arch/x86/traps.c                     |  13 ++
+ xen/arch/x86/x86_64/compat/entry.S       |   9 +-
+ xen/arch/x86/x86_64/entry.S              |  30 ++++-
+ 10 files changed, 220 insertions(+), 71 deletions(-)
+
+-- 
+2.30.2
+
 
