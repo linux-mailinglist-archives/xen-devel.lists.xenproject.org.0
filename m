@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DAD27A240A
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 18:59:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603316.940275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA187A2438
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 19:04:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603323.940285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhC9R-00051y-8I; Fri, 15 Sep 2023 16:58:41 +0000
+	id 1qhCEh-0007Mh-Rt; Fri, 15 Sep 2023 17:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603316.940275; Fri, 15 Sep 2023 16:58:41 +0000
+Received: by outflank-mailman (output) from mailman id 603323.940285; Fri, 15 Sep 2023 17:04:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhC9R-0004zg-5G; Fri, 15 Sep 2023 16:58:41 +0000
-Received: by outflank-mailman (input) for mailman id 603316;
- Fri, 15 Sep 2023 16:58:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qhCEh-0007Kh-OC; Fri, 15 Sep 2023 17:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 603323;
+ Fri, 15 Sep 2023 17:04:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cweo=E7=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1qhC9Q-0004za-ID
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 16:58:40 +0000
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [2607:f8b0:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1dca5fe4-53e9-11ee-8788-cb3800f73035;
- Fri, 15 Sep 2023 18:58:39 +0200 (CEST)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-68fbb10dea4so1955779b3a.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Sep 2023 09:58:39 -0700 (PDT)
-Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
- ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
- by smtp.gmail.com with ESMTPSA id
- fm25-20020a056a002f9900b0068782960099sm3185450pfb.22.2023.09.15.09.58.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Sep 2023 09:58:37 -0700 (PDT)
+ <SRS0=DYUW=E7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1qhCEg-0007KZ-Ii
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 17:04:06 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de210d87-53e9-11ee-9b0d-b553b5be7939;
+ Fri, 15 Sep 2023 19:04:03 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 007BE5C00F7;
+ Fri, 15 Sep 2023 13:04:01 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 15 Sep 2023 13:04:00 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 15 Sep 2023 13:03:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,126 +43,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dca5fe4-53e9-11ee-8788-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694797118; x=1695401918; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SuhfdU4PspnFHfisOXH5BuuofTvFKNo2MDW2PD1bi8M=;
-        b=uqlymalZGx0UemnQ9CEddvuO/G+eaMFhjv0wPo9vI8qpIw2i9J9OK8h32/zluqVnhB
-         C75a/2J274IOXNhFkyb6jPdUjNujRXzDY1jdtVQl6aXoRFnkqzfyTmcr17X+RphMfIZv
-         mOe8tZpz0SVYstkvVUr0Ki6JSbFCuz59dymnkMxOeBAnIXfXf40TQOora4/sgqqFDCJB
-         Zf77jzxPzsqpJJ22OwfGXb/R9MLk4350oxYg9ZDwkCss7Xo/RPOQC71pGTrmTAuFYXCt
-         e/7zAAUl7P/qkUxuyiLaLo6hVRSd7sqvNbrzkvjZ267KplapOLQvdG4cEnRMYCTa9aR9
-         zehQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694797118; x=1695401918;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SuhfdU4PspnFHfisOXH5BuuofTvFKNo2MDW2PD1bi8M=;
-        b=gvQcmXwBKA4x/2v7XZizjijXzfFFLPaBvrZUOgP37cA72nYFwiAtQBq7RfeZ/G0/f7
-         48nY6s5CZi/LBiKpEvkIGcxnfBY1/irlByzvbA4Pl11QM9jfMiPFmrCPNHg2N0qXTnRs
-         kfLJJesB+ZqkOh1kmeL1f5HjmUJTbx+WSlgKuA1nlHT1XfqaQpSNUBZ4KsPEkbBUBolz
-         L2fPspFBjQmp/avry2v9VVVkf/Mccm4/3lerQeuTUncPrwklU9NHIOnnu+sraQCqJO+b
-         CfM5a1i9+DQxEza3Y2eW0KHFTk/YhuCE7j9Pc0CdgSNVtczeFUZVyckmabOJiH8LkmLJ
-         fVow==
-X-Gm-Message-State: AOJu0YzzLu12p5vZL7Tb8AleUK+ApFquseR+YSbdVQjoOy+ZOWcvex3t
-	cDw9OP6Y0jajBE2fTywb14/2EQ==
-X-Google-Smtp-Source: AGHT+IFdIGM6BidTwVLg4yqxDpSenVicZi7FNFdLCOeFim7bvnHJNiyUoQPR1KebsFw6KPvuwdbZBA==
-X-Received: by 2002:a05:6a20:3d83:b0:13d:bf07:7444 with SMTP id s3-20020a056a203d8300b0013dbf077444mr2649176pzi.0.1694797117959;
-        Fri, 15 Sep 2023 09:58:37 -0700 (PDT)
-Message-ID: <37ed7472-428f-4a5a-8ac9-fd2a7ab05691@daynix.com>
-Date: Sat, 16 Sep 2023 01:58:31 +0900
+X-Inumbo-ID: de210d87-53e9-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1694797440; x=1694883840; bh=LVbBNxpAeKgLQAa3HP57HtgBVcAKesVrZi0
+	FcBdP+GQ=; b=01AJ+dho/1xrJtILnT1BFvcAQFhPQuV6IY0Nlxk6YI/MTbC9DZT
+	gONsTxP23M9cdG+Crvwe2aWlSrBJSWMEIU39lSeqZulmEkGKXQNjz2/etct8Ghld
+	2ehSJ1ycIg9EVpVgAMyhIE1wc1VMnEd5hLxFFcNfoMzZIEFsXHJKfsyM4xrsM/eG
+	9x4khxMDySP8N78w0If5SwRj5vZo7hFH24Cwc6P1PvRnRPyhKhi0hmUcMlip79qL
+	BlFcZfr+OGZaK3VwYBjNjGlNbhWWZhedlXY4Ot0fsDXPfl+BG52IufLhS4wkINKm
+	Y4D06tkilSdO2BbhiJVg4yW0Ccy5UQHhxaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1694797440; x=1694883840; bh=LVbBNxpAeKgLQ
+	Aa3HP57HtgBVcAKesVrZi0FcBdP+GQ=; b=DMd8VSTHdy++jeVpic+l1hEUXVO7t
+	PdZn901UthHgb9IFV374jyqdkGhTmT7OXeVcD/h4cLjdDfcgmsyifdhbcAvhVu2h
+	GZ+CYWmw1dQmgw/JJn+k5NpOADFWl3IsWKc3Ad4Cb8tM8CR9ZJ8B5d2yLMuaEwTX
+	n3sgflNdFmY/KBX1id3MFrqO9W4hP3YGJypp7DUg0v5pyebjs6iYXpz81jyCXHZv
+	EvTni5ZLQ+bwInHTUlTmAqolYAk1LjzJbMVh2ktE7bhaPa8U/D0MZfo1HZuAz0Zd
+	6Ep7nzk1zm9G5rYxBE62i2yOCCQkvHEsPgqWSfOjT3nbWGxkvv46QIv6A==
+X-ME-Sender: <xms:gI4EZSuual_D5cDAmKu-83fC0FQciOXxnFunwdsyEi8JJd_6H7rupA>
+    <xme:gI4EZXfmgJrn6AQkl9a-Ne1wG7Yi2lqv7F8QulIqAQynqRybpnUJ0zTLF-D3_wX0f
+    Og4BEZ0_O56zA>
+X-ME-Received: <xmr:gI4EZdxiBTfLKgZGvkI8D0gAMV2k9zQwY7ZaPPv3P547t_oC8V2MVFSSDhuxDchEXI0hZqj3EmkVPKtMK7iWXEb2KYJko0rg5Gk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudejvddguddthecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
+    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
+    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:gI4EZdMr0HOykIdiDPz1p38aL39gHs2HalcZJdk4JuyEwn_SaYF0SQ>
+    <xmx:gI4EZS__yfOhw5DbhS5CFb2lRkz7gw4k9Qjg3vaD1thGuQnqzlE2nQ>
+    <xmx:gI4EZVV9gMoFkZzYTMwMjTwbRp3Gv-UsbqTjsDa_KToOIIIok2Kovg>
+    <xmx:gI4EZUIjHrJZRiTy4iulOVXeoUAcnOrKRPw4zhIMAmHZpYOmKHBoTw>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 15 Sep 2023 19:03:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/shutdown: change default reboot method preference
+Message-ID: <ZQSOfOvO4xKO/nvz@mail-itl>
+References: <20230914152120.92696-1-roger.pau@citrix.com>
+ <2d767f96-9f20-e786-9148-cae5c30a41fd@citrix.com>
+ <ZQQDthWFElFEOhZ_@MacBook-MacBook-Pro-de-Roger.local>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [QEMU PATCH v5 06/13] virtio-gpu: Support context init feature
- with virglrenderer
-Content-Language: en-US
-To: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
-Cc: xen-devel@lists.xenproject.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>,
- Antonio Caggiano <antonio.caggiano@collabora.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-7-ray.huang@amd.com>
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <20230915111130.24064-7-ray.huang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="naEGlt9VSeCl9SNW"
+Content-Disposition: inline
+In-Reply-To: <ZQQDthWFElFEOhZ_@MacBook-MacBook-Pro-de-Roger.local>
 
-On 2023/09/15 20:11, Huang Rui wrote:
-> Patch "virtio-gpu: CONTEXT_INIT feature" has added the context_init
-> feature flags.
-> We would like to enable the feature with virglrenderer, so add to create
-> virgl renderer context with flags using context_id when valid.
-> 
-> Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> ---
-> 
-> V4 -> V5:
->      - Inverted patch 5 and 6 because we should configure
->        HAVE_VIRGL_CONTEXT_INIT firstly. (Philippe)
-> 
->   hw/display/virtio-gpu-virgl.c | 13 +++++++++++--
->   hw/display/virtio-gpu.c       |  2 ++
->   2 files changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
-> index 8bb7a2c21f..312953ec16 100644
-> --- a/hw/display/virtio-gpu-virgl.c
-> +++ b/hw/display/virtio-gpu-virgl.c
-> @@ -106,8 +106,17 @@ static void virgl_cmd_context_create(VirtIOGPU *g,
->       trace_virtio_gpu_cmd_ctx_create(cc.hdr.ctx_id,
->                                       cc.debug_name);
->   
-> -    virgl_renderer_context_create(cc.hdr.ctx_id, cc.nlen,
-> -                                  cc.debug_name);
-> +    if (cc.context_init) {
-> +#ifdef HAVE_VIRGL_CONTEXT_INIT
-> +        virgl_renderer_context_create_with_flags(cc.hdr.ctx_id,
-> +                                                 cc.context_init,
-> +                                                 cc.nlen,
-> +                                                 cc.debug_name);
-> +        return;
-> +#endif
-> +    }
-> +
-> +    virgl_renderer_context_create(cc.hdr.ctx_id, cc.nlen, cc.debug_name);
->   }
->   
->   static void virgl_cmd_context_destroy(VirtIOGPU *g,
-> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-> index 3e658f1fef..a66cbd9930 100644
-> --- a/hw/display/virtio-gpu.c
-> +++ b/hw/display/virtio-gpu.c
-> @@ -1506,6 +1506,8 @@ static Property virtio_gpu_properties[] = {
->       DEFINE_PROP_BIT("blob", VirtIOGPU, parent_obj.conf.flags,
->                       VIRTIO_GPU_FLAG_BLOB_ENABLED, false),
->       DEFINE_PROP_SIZE("hostmem", VirtIOGPU, parent_obj.conf.hostmem, 0),
-> +    DEFINE_PROP_BIT("context_init", VirtIOGPU, parent_obj.conf.flags,
-> +                    VIRTIO_GPU_FLAG_CONTEXT_INIT_ENABLED, false),
->       DEFINE_PROP_END_OF_LIST(),
->   };
->   
 
-I think it's more convenient if this feature is enabled by default.
+--naEGlt9VSeCl9SNW
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 Sep 2023 19:03:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/shutdown: change default reboot method preference
+
+On Fri, Sep 15, 2023 at 09:11:50AM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Sep 14, 2023 at 06:42:03PM +0100, Andrew Cooper wrote:
+> > On 14/09/2023 4:21 pm, Roger Pau Monne wrote:
+> > > The current logic to chose the preferred reboot method is based on th=
+e mode Xen
+> > > has been booted into, so if the box is booted from UEFI, the preferre=
+d reboot
+> > > method will be to use the ResetSystem() run time service call.
+> > >
+> > > However, that call seems to be widely untested once the firmware has =
+exited
+> > > boot services, and quite often leads to a result similar to:
+> >=20
+> > I don't know how true this is.=C2=A0 What Xen does differently to most =
+of the
+> > rest of the world is not calling SetVirtualAddressMap()
+>=20
+> Hm, but that doesn't seem to affect the rest of the run-time services
+> (at least on this box), it's (just?) ResetSystem() that misbehaves.
+
+I've seen (too) many firmwares where also GetVariable crashes without
+SetVirtualAddressMap(). That's why we have a build-time option to
+actually call SetVirtualAddressMap().
+
+Anyway, I agree that preferring ACPI reboot even when booted through
+UEFI is a good idea.
+
+> I can remove that sentence however, it is more of a guess rather than
+> a fact.
+>=20
+> >=20
+> > >
+> > > Hardware Dom0 shutdown: rebooting machine
+> > > ----[ Xen-4.18-unstable  x86_64  debug=3Dy  Tainted:   C    ]----
+> > > CPU:    0
+> > > RIP:    e008:[<0000000000000017>] 0000000000000017
+> > > RFLAGS: 0000000000010202   CONTEXT: hypervisor
+> > > [...]
+> > > Xen call trace:
+> > >    [<0000000000000017>] R 0000000000000017
+> > >    [<ffff83207eff7b50>] S ffff83207eff7b50
+> > >    [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
+> > >    [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
+> > >    [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
+> > >    [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
+> > >    [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
+> > >    [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
+> > >    [<ffff82d040283d33>] F arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry=
++0x113/0x129
+> > >    [<ffff82d04028436c>] F arch/x86/acpi/cpu_idle.c#acpi_processor_idl=
+e+0x3eb/0x5f7
+> > >    [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
+> > >
+> > > ****************************************
+> > > Panic on CPU 0:
+> > > FATAL TRAP: vector =3D 6 (invalid opcode)
+> > > ****************************************
+> > >
+> > > Which in most cases does lead to a reboot, however that's unreliable.
+> > >
+> > > Change the default reboot preference to prefer ACPI over UEFI if avai=
+lable and
+> > > not in reduced hardware mode.
+> > >
+> > > This is in line to what Linux does, so it's unlikely to cause issues =
+on current
+> > > and future hardware, since there's a much higher chance of vendors te=
+sting
+> > > hardware with Linux rather than Xen.
+> > >
+> > > I'm not aware of using ACPI reboot causing issues on boxes that do ha=
+ve
+> > > properly implemented ResetSystem() methods.
+> > >
+> > > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >=20
+> > Wording aside, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >=20
+> > This is a giant embarrassment to Xen, and needs fixing.
+>=20
+> Looking at Linux I think we need to add an override for Acer
+> TravelMate X514-51T to force it to use UEFI, will send v2 with it.
+>=20
+> I do wonder if we need to keep the reboot_dmi_table[] entries that
+> force systems to use ACPI, as it would now be the default?  My
+> thinking is that it's likely better to keep it just in case we change
+> the default again in the future.
+>=20
+> Thanks, Roger.
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--naEGlt9VSeCl9SNW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmUEjnwACgkQ24/THMrX
+1yyUmgf+KVDSstlk/HfwG36LjiP89S39wNOI7zwy/zzWmnN4qS07BRIhW/muwiKb
+li7ckrSDLvngAcdrE1YOHfcPAN1pBbLJoHmV2pJMmGFcSs2T5uiTXs5ORi1418Z0
+7dqzUidozSrRcweuHr6V5HOgR+5sgyU8xm1pOvUvcMRwBVDDrjK11ar+QW1WvQz7
+lGSPdKzJ45N0EV4M1ERA5ydXmIHbSwM7QANAxXw5JD1lO+EuR7iFlBzi02v6ePwE
+i9Mm7u1di6EzbCBvQgGGnd6sB/rBIPxCyoKAWbo63hr5VP1RoMGkM19sBOXb6uKv
+t312auwifr4kDK+XfgH0XTjuqBgvcQ==
+=4nFk
+-----END PGP SIGNATURE-----
+
+--naEGlt9VSeCl9SNW--
 
