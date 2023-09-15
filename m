@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9A67A1EF7
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 14:43:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603125.940025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E6B7A1F38
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 14:52:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603133.940035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh8A1-0000uI-5l; Fri, 15 Sep 2023 12:43:01 +0000
+	id 1qh8Is-00055H-2h; Fri, 15 Sep 2023 12:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603125.940025; Fri, 15 Sep 2023 12:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 603133.940035; Fri, 15 Sep 2023 12:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh8A1-0000rs-2b; Fri, 15 Sep 2023 12:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 603125;
- Fri, 15 Sep 2023 12:42:59 +0000
+	id 1qh8Ir-00052I-VX; Fri, 15 Sep 2023 12:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 603133;
+ Fri, 15 Sep 2023 12:52:08 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qh89z-0000rP-90; Fri, 15 Sep 2023 12:42:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qh8Iq-00052C-CB
+ for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 12:52:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qh89z-0003C6-5p; Fri, 15 Sep 2023 12:42:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qh89y-0000Bh-9X; Fri, 15 Sep 2023 12:42:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qh89y-0006Cg-8z; Fri, 15 Sep 2023 12:42:58 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qh8Ip-0003M5-LO; Fri, 15 Sep 2023 12:52:07 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qh8Ip-0000Am-93; Fri, 15 Sep 2023 12:52:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,288 +40,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=TEvJg95BZ9AMaIHfERhesJQcdi2dLWRSN86dW/Dg+k4=; b=zV4yCgL9ZzNswFQq+NuIa7N0NW
-	3uUjljUBK5RRaUODOhj/Zg5KfaihAl71Ij3GEKUaiZLJtO4bHUueLox3wbQIMqRiRiUi+uaKmBXJL
-	FrtZbIrjNc62BxzX3WfQLgYODAJIJTkmlOcWemujzOctPcg8IDofawus1vayheuMtaws=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=TgbWgVqJYFklDRXTfxuDdZGkTlQvmt/ixcBP2ZGtcoY=; b=TNIg38
+	PztBXw1shwLa6h+aXlyOwp+L9tkMYvvo0GbRzRjZhV4vsOhErzqSP5qBPIoy0FochebSKOc/v4Tv4
+	Q3ncuN+fg19az95KGIuuL4V4ZwafUx/3F51eECgCzWZXqrQ9KanI3bbYoiBSnwl0EZ+p3zMYkP31p
+	QUNmO1H4riY=;
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183005-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Henry.Wang@arm.com,
+	Julien Grall <jgrall@amazon.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH for-4.18 v2] tools/light: Revoke permissions when a PCI detach for HVM domain
+Date: Fri, 15 Sep 2023 13:52:04 +0100
+Message-Id: <20230915125204.22719-1-julien@xen.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Subject: [xen-unstable test] 183005: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=6aa25c32180ab59081c73bae4c568367d9133a1f
-X-Osstest-Versions-That:
-    xen=6aa25c32180ab59081c73bae4c568367d9133a1f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 Sep 2023 12:42:58 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 183005 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183005/
+From: Julien Grall <jgrall@amazon.com>
 
-Failures :-/ but no regressions.
+Currently, libxl will grant IOMEM, I/O port and IRQ permissions when
+a PCI is attached (see pci_add_dm_done()) for all domain types. However,
+the permissions are only revoked for non-HVM domain (see do_pci_remove()).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183000
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 183000
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183000
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183000
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 183000
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 183000
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183000
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183000
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183000
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183000
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 183000
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183000
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+This means that HVM domains will be left with extra permissions. While
+this look bad on the paper, the IRQ permissions should be revoked
+when the Device Model call xc_physdev_unmap_pirq() and such domain
+cannot directly mapped I/O port and IOMEM regions. Instead, this has to
+be done by a Device Model.
 
-version targeted for testing:
- xen                  6aa25c32180ab59081c73bae4c568367d9133a1f
-baseline version:
- xen                  6aa25c32180ab59081c73bae4c568367d9133a1f
+The Device Model can only run in dom0 or PV stubdomain (upstream libxl
+doesn't have support for HVM/PVH stubdomain).
 
-Last test of basis   183005  2023-09-15 01:53:36 Z    0 days
-Testing same since                          (not found)         0 attempts
+For PV/PVH stubdomain, the permission are properly revoked, so there is
+no security concern.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+This leaves dom0. There are two cases:
+  1) Privileged: Anyone gaining access to the Device Model would already
+     have large control on the host.
+  2) Deprivileged: PCI passthrough require PHYSDEV operations which
+     are not accessible when the Device Model is restricted.
 
+So overall, it is believed that the extra permissions cannot be exploited.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Rework the code so the permissions are all removed for HVM domains.
+This needs to happen after the QEMU has detached the device. So
+the revocation is now moved to pci_remove_detached().
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Also add a comment on top of the error message when the PIRQ cannot
+be unbind to explain this could be a spurious error as QEMU may have
+already done it.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+---
 
+    Changes since v1:
+        * Move the code to revoke in pci_remove_detached()
+        * Add a comment on top of the PIRQ unbind error path
+        * Use goto to deal with errors.
+---
+ tools/libs/light/libxl_pci.c | 137 ++++++++++++++++++++---------------
+ 1 file changed, 77 insertions(+), 60 deletions(-)
 
-Published tested tree is already up to date.
+diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+index 7f5f170e6eb0..96cb4da0794e 100644
+--- a/tools/libs/light/libxl_pci.c
++++ b/tools/libs/light/libxl_pci.c
+@@ -1968,7 +1968,6 @@ static void do_pci_remove(libxl__egc *egc, pci_remove_state *prs)
+         goto out_fail;
+     }
+ 
+-    rc = ERROR_FAIL;
+     if (type == LIBXL_DOMAIN_TYPE_HVM) {
+         prs->hvm = true;
+         switch (libxl__device_model_version_running(gc, domid)) {
+@@ -1989,65 +1988,7 @@ static void do_pci_remove(libxl__egc *egc, pci_remove_state *prs)
+             rc = ERROR_INVAL;
+             goto out_fail;
+         }
+-    } else {
+-        char *sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/resource", pci->domain,
+-                                     pci->bus, pci->dev, pci->func);
+-        FILE *f = fopen(sysfs_path, "r");
+-        unsigned int start = 0, end = 0, flags = 0, size = 0;
+-        int irq = 0;
+-        int i;
+-
+-        if (f == NULL) {
+-            LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
+-            goto skip1;
+-        }
+-        for (i = 0; i < PROC_PCI_NUM_RESOURCES; i++) {
+-            if (fscanf(f, "0x%x 0x%x 0x%x\n", &start, &end, &flags) != 3)
+-                continue;
+-            size = end - start + 1;
+-            if (start) {
+-                if (flags & PCI_BAR_IO) {
+-                    rc = xc_domain_ioport_permission(ctx->xch, domid, start, size, 0);
+-                    if (rc < 0)
+-                        LOGED(ERROR, domid,
+-                              "xc_domain_ioport_permission error 0x%x/0x%x",
+-                              start,
+-                              size);
+-                } else {
+-                    rc = xc_domain_iomem_permission(ctx->xch, domid, start>>XC_PAGE_SHIFT,
+-                                                    (size+(XC_PAGE_SIZE-1))>>XC_PAGE_SHIFT, 0);
+-                    if (rc < 0)
+-                        LOGED(ERROR, domid,
+-                              "xc_domain_iomem_permission error 0x%x/0x%x",
+-                              start,
+-                              size);
+-                }
+-            }
+-        }
+-        fclose(f);
+-skip1:
+-        if (!pci_supp_legacy_irq())
+-            goto skip_irq;
+-        sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
+-                               pci->bus, pci->dev, pci->func);
+-        f = fopen(sysfs_path, "r");
+-        if (f == NULL) {
+-            LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
+-            goto skip_irq;
+-        }
+-        if ((fscanf(f, "%u", &irq) == 1) && irq) {
+-            rc = xc_physdev_unmap_pirq(ctx->xch, domid, irq);
+-            if (rc < 0) {
+-                LOGED(ERROR, domid, "xc_physdev_unmap_pirq irq=%d", irq);
+-            }
+-            rc = xc_domain_irq_permission(ctx->xch, domid, irq, 0);
+-            if (rc < 0) {
+-                LOGED(ERROR, domid, "xc_domain_irq_permission irq=%d", irq);
+-            }
+-        }
+-        fclose(f);
+     }
+-skip_irq:
+     rc = 0;
+ out_fail:
+     pci_remove_detached(egc, prs, rc); /* must be last */
+@@ -2226,7 +2167,11 @@ static void pci_remove_detached(libxl__egc *egc,
+                                 int rc)
+ {
+     STATE_AO_GC(prs->aodev->ao);
+-    int stubdomid = 0;
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++    unsigned int start = 0, end = 0, flags = 0, size = 0;
++    int  irq = 0, i, stubdomid = 0;
++    const char *sysfs_path;
++    FILE *f;
+     uint32_t domainid = prs->domid;
+     bool isstubdom;
+ 
+@@ -2242,6 +2187,78 @@ static void pci_remove_detached(libxl__egc *egc,
+     if (rc && !prs->force)
+         goto out;
+ 
++    /* Revoke the permissions */
++    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/resource",
++                           pci->domain, pci->bus, pci->dev, pci->func);
++
++    f = fopen(sysfs_path, "r");
++    if (f == NULL) {
++        LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
++        goto skip_bar;
++    }
++
++    for (i = 0; i < PROC_PCI_NUM_RESOURCES; i++) {
++        if (fscanf(f, "0x%x 0x%x 0x%x\n", &start, &end, &flags) != 3)
++            continue;
++        size = end - start + 1;
++        if (start) {
++            if (flags & PCI_BAR_IO) {
++                rc = xc_domain_ioport_permission(ctx->xch, domid, start,
++                                                 size, 0);
++                if (rc < 0)
++                    LOGED(ERROR, domid,
++                          "xc_domain_ioport_permission error 0x%x/0x%x",
++                          start,
++                          size);
++            } else {
++                rc = xc_domain_iomem_permission(ctx->xch, domid,
++                                                start >> XC_PAGE_SHIFT,
++                                                (size + (XC_PAGE_SIZE - 1)) >> XC_PAGE_SHIFT,
++                                                0);
++                if (rc < 0)
++                    LOGED(ERROR, domid,
++                          "xc_domain_iomem_permission error 0x%x/0x%x",
++                          start,
++                          size);
++            }
++        }
++    }
++    fclose(f);
++
++skip_bar:
++    if (!pci_supp_legacy_irq())
++        goto skip_legacy_irq;
++
++    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
++                           pci->bus, pci->dev, pci->func);
++
++    f = fopen(sysfs_path, "r");
++    if (f == NULL) {
++        LOGED(ERROR, domid, "Couldn't open %s", sysfs_path);
++        goto skip_legacy_irq;
++    }
++
++    if ((fscanf(f, "%u", &irq) == 1) && irq) {
++        rc = xc_physdev_unmap_pirq(ctx->xch, domid, irq);
++        if (rc < 0) {
++            /*
++             * QEMU may have already unmapped the IRQ. So the error
++             * may be spurious. For now, still print an error message as
++             * it is not easy to distinguished between valid and
++             * spurious error.
++             */
++            LOGED(ERROR, domid, "xc_physdev_unmap_pirq irq=%d", irq);
++        }
++        rc = xc_domain_irq_permission(ctx->xch, domid, irq, 0);
++        if (rc < 0) {
++            LOGED(ERROR, domid, "xc_domain_irq_permission irq=%d", irq);
++        }
++    }
++
++    fclose(f);
++
++skip_legacy_irq:
++
+     isstubdom = libxl_is_stubdom(CTX, domid, &domainid);
+ 
+     /* don't do multiple resets while some functions are still passed through */
+-- 
+2.40.1
 
 
