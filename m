@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0231F7A2056
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 16:01:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603166.940075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 339337A20AD
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Sep 2023 16:18:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603173.940085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9NN-0002UN-Ph; Fri, 15 Sep 2023 14:00:53 +0000
+	id 1qh9dk-0005SZ-7H; Fri, 15 Sep 2023 14:17:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603166.940075; Fri, 15 Sep 2023 14:00:53 +0000
+Received: by outflank-mailman (output) from mailman id 603173.940085; Fri, 15 Sep 2023 14:17:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qh9NN-0002S2-MR; Fri, 15 Sep 2023 14:00:53 +0000
-Received: by outflank-mailman (input) for mailman id 603166;
- Fri, 15 Sep 2023 14:00:52 +0000
+	id 1qh9dk-0005Pb-3m; Fri, 15 Sep 2023 14:17:48 +0000
+Received: by outflank-mailman (input) for mailman id 603173;
+ Fri, 15 Sep 2023 14:17:46 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qh9NM-0002Rw-5W
- for xen-devel@lists.xenproject.org; Fri, 15 Sep 2023 14:00:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qh9di-0005PR-NU; Fri, 15 Sep 2023 14:17:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qh9NJ-0004wZ-PA; Fri, 15 Sep 2023 14:00:49 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qh9NJ-0003Fu-K5; Fri, 15 Sep 2023 14:00:49 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qh9di-0005NY-IS; Fri, 15 Sep 2023 14:17:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qh9di-0002Wc-2P; Fri, 15 Sep 2023 14:17:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qh9di-0007uG-1v; Fri, 15 Sep 2023 14:17:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,136 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=QUV1spqR0JMQKCwaTmDPetRqsUrvpfywVpdbE0IFAQo=; b=e/uMGhSca3lUwnoRwxRIyPMTsA
-	xzQdFnoUWf5U11IfC4maAFAZzpkiz1DnNgnxDZLXhvCThoOI2LWqC5uxFoR81bKrYCUIrZGrqp/Q/
-	tAKNfrk7wBynvpxVBjU5e3tJ8w2ZNu6VMBaPxqjt0Y19IXlOCRT/QJrcbZAS/oOjstPo=;
-Message-ID: <28ada8e1-0b24-4632-8bec-4939405f5d00@xen.org>
-Date: Fri, 15 Sep 2023 15:00:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=mDP0evtLRu6G4KPfZAB3liucQBPPhQsWlzv3Ov5Oe5o=; b=U4gc0G0sge76oKRv9FgrTYeyoE
+	ejYmlnX9fIZ9fRHC2jVjy50HRlIR3ttuItME/Lf6SmWFOk0B1lb4wbq8PFg+dcUGqpzg9Zi/QOjgX
+	dJESCHhjIjHvno4ES9ww+VLMgW88iMyZxRtKXGE/5AZeqPiF1HeqxsFvguBsfC0LHFvY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183007-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/x86: ioapic: Bail out from timer_irq_works() as
- soon as possible
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230818134441.45586-1-julien@xen.org>
- <20230818134441.45586-3-julien@xen.org>
- <a198d472-4b1d-1da5-e336-232af98b87aa@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <a198d472-4b1d-1da5-e336-232af98b87aa@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 183007: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f26c0018ba44730404c0daf2131dc144d1345672
+X-Osstest-Versions-That:
+    libvirt=1f85f0967b12521f3d7321cb8469393e72d0ce7a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 15 Sep 2023 14:17:46 +0000
 
-Hi Jan,
+flight 183007 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183007/
 
-On 07/09/2023 15:28, Jan Beulich wrote:
-> On 18.08.2023 15:44, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Currently timer_irq_works() will wait the full 100ms before checking
->> that pit0_ticks has been incremented at least 4 times.
->>
->> However, the bulk of the BIOS/platform should not have a buggy timer.
->> So waiting for the full 100ms is a bit harsh.
->>
->> Rework the logic to only wait until 100ms passed or we saw more than
->> 4 ticks. So now, in the good case, this will reduce the wait time
->> to ~50ms.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> In principle this is all fine. There's a secondary aspect though which
-> may call for a slight rework of the patch.
-> 
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -1509,6 +1509,8 @@ static void __init setup_ioapic_ids_from_mpc(void)
->>   static int __init timer_irq_works(void)
->>   {
->>       unsigned long t1, flags;
->> +    /* Wait for maximum 10 ticks */
->> +    unsigned long msec = (10 * 1000) / HZ;
-> 
-> (Minor remark: I don't think this needs to be unsigned long; unsigned
-> in will suffice.)
+Failures :-/ but no regressions.
 
-You are right. I can switch to unsigned int.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183001
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183001
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183001
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-> 
->> @@ -1517,19 +1519,25 @@ static int __init timer_irq_works(void)
->>   
->>       local_save_flags(flags);
->>       local_irq_enable();
->> -    /* Let ten ticks pass... */
->> -    mdelay((10 * 1000) / HZ);
->> -    local_irq_restore(flags);
->>   
->> -    /*
->> -     * Expect a few ticks at least, to be sure some possible
->> -     * glue logic does not lock up after one or two first
->> -     * ticks in a non-ExtINT mode.  Also the local APIC
->> -     * might have cached one ExtINT interrupt.  Finally, at
->> -     * least one tick may be lost due to delays.
->> -     */
->> -    if ( (ACCESS_ONCE(pit0_ticks) - t1) > 4 )
->> +    while ( msec-- )
->> +    {
->> +        mdelay(1);
->> +        /*
->> +         * Expect a few ticks at least, to be sure some possible
->> +         * glue logic does not lock up after one or two first
->> +         * ticks in a non-ExtINT mode.  Also the local APIC
->> +         * might have cached one ExtINT interrupt.  Finally, at
->> +         * least one tick may be lost due to delays.
->> +         */
->> +        if ( (ACCESS_ONCE(pit0_ticks) - t1) <= 4 )
->> +            continue;
->> +
->> +        local_irq_restore(flags);
->>           return 1;
->> +    }
->> +
->> +    local_irq_restore(flags);
->>   
->>       return 0;
->>   }
-> 
-> While Andrew has a patch pending (not sure why it didn't go in yet)
-> to simplify local_irq_restore(), and while further it shouldn't really
-> need using here (local_irq_disable() ought to be fine)
+version targeted for testing:
+ libvirt              f26c0018ba44730404c0daf2131dc144d1345672
+baseline version:
+ libvirt              1f85f0967b12521f3d7321cb8469393e72d0ce7a
 
-Skimming through the code, the last call of timer_irq_works() in 
-check_timer() happens after the interrupts masking state have been restored:
+Last test of basis   183001  2023-09-14 04:18:45 Z    1 days
+Testing same since   183007  2023-09-15 04:20:23 Z    0 days    1 attempts
 
-local_irq_restore(flags);
+------------------------------------------------------------
+People who touched revisions under test:
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
 
-if ( timer_irq_works() )
-   ...
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
-So I think timer_irq_works() can be called with interrupts enabled and 
-therefore we can't use local_irq_disable().
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> I can see that
-> you don't want to make such an adjustment here. But then I'd prefer if
-> we got away with just a single instance, adjusting the final return
-> statement accordingly (easiest would likely be to go from the value of
-> "msec").
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I was thinking to use 'msec > 0' as a condition to determine if the test 
-passed. However, it would consider a failure if it tooks 10ms for the 
-test to pass.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I will see if I can rework the loop.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Cheers,
 
--- 
-Julien Grall
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   1f85f0967b..f26c0018ba  f26c0018ba44730404c0daf2131dc144d1345672 -> xen-tested-master
 
