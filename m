@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805B97A2F46
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 12:42:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603562.940599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D79D7A305C
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 14:58:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603573.940609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhSkj-0001PL-Ti; Sat, 16 Sep 2023 10:42:17 +0000
+	id 1qhUqm-0003PS-HW; Sat, 16 Sep 2023 12:56:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603562.940599; Sat, 16 Sep 2023 10:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 603573.940609; Sat, 16 Sep 2023 12:56:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhSkj-0001N3-PX; Sat, 16 Sep 2023 10:42:17 +0000
-Received: by outflank-mailman (input) for mailman id 603562;
- Sat, 16 Sep 2023 10:42:17 +0000
+	id 1qhUqm-0003NM-EW; Sat, 16 Sep 2023 12:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 603573;
+ Sat, 16 Sep 2023 12:56:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9p/v=FA=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1qhSki-0001Mv-TS
- for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 10:42:17 +0000
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [2607:f8b0:4864:20::436])
+ <SRS0=uTkj=FA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qhUql-0003NE-M7
+ for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 12:56:39 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b206892f-547d-11ee-9b0d-b553b5be7939;
- Sat, 16 Sep 2023 12:42:13 +0200 (CEST)
-Received: by mail-pf1-x436.google.com with SMTP id
- d2e1a72fcca58-68fdd5c1bbbso2150910b3a.1
- for <xen-devel@lists.xenproject.org>; Sat, 16 Sep 2023 03:42:13 -0700 (PDT)
-Received: from [192.168.159.125] ([157.82.206.1])
+ id 782f977f-5490-11ee-9b0d-b553b5be7939;
+ Sat, 16 Sep 2023 14:56:36 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2bcb0b973a5so47444931fa.3
+ for <xen-devel@lists.xenproject.org>; Sat, 16 Sep 2023 05:56:36 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-12-44-130.as13285.net. [92.12.44.130])
  by smtp.gmail.com with ESMTPSA id
- d24-20020aa78e58000000b0066a4e561beesm4429037pfr.173.2023.09.16.03.42.06
+ h27-20020a170906111b00b009a1fef32ce6sm3777515eja.177.2023.09.16.05.56.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 16 Sep 2023 03:42:11 -0700 (PDT)
+ Sat, 16 Sep 2023 05:56:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b206892f-547d-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 782f977f-5490-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1694860932; x=1695465732; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fMlMz/YYNDZAhuao03JJ46ovHxuLEAGPhfUj85JSgJk=;
-        b=WB0BYrSRFStvN1cfAFDk67P+2Gnj/jN/+p+p67vKABtAlm4qoRFM5l9mw0ah8Avj5E
-         gVww+bpz/dzoD+eq2gLLai6p1MYnofCUXou51XzRnlWbzvFu7tE707P/PSff1fvLZQcD
-         6DQZG7a6EcT/2ko7Q7xpM1RlMl6AJVQ3RVv5ee0zTHFgBKA6nN2Ymd8SRljbU91JlpN6
-         unJKGcxTBkaKXjrjngBGmUjdwGD8eXyLohB24DE7g4BcFQpesG4M+MlhguAt8WzimLF9
-         tuQTWZu72TNXAhMT9iZReOxQxEoUe8c0dNGktASmoBHOqKWaDi8eTr8tVlfc2AnAIWjJ
-         23vQ==
+        d=citrix.com; s=google; t=1694868996; x=1695473796; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=M7jgxxPuxbWU76KV3Hy7c5QtmjotxJWNHz+7GihJMaQ=;
+        b=UfHeAZh0kDEBilKDXq6F4w8xl56K4/Y3F4FLnT16queD+y0WZoW96cpTRxRB1vmNCS
+         Hiv6w+dTHXt+zIHAqnsZVSrvNjK2LIZ9FQ2uqcWLLtYxNWtTc9wALwOofCeAoY5c/Wdt
+         QpSLu9CWv3kGn2q9yq8L6qCY7vG6TSZF02nJQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694860932; x=1695465732;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fMlMz/YYNDZAhuao03JJ46ovHxuLEAGPhfUj85JSgJk=;
-        b=qQgMvqDEyXeEePZR/QlQ/ScMY3tZHGiiDZGyhcB434EdxiKHpFZRjkeLK3O+MwnlJ9
-         jBaEzSlC/aDbbL2tkXXbKv1OsBM2wE1TQ5CZEfjlpqhn8ucAKL5KPqEOSGiYCYHLo1YW
-         VKKtxOnBCwhKUNEtdK59ONfwJYzjYNahoiPBMHYMG9mrx2scLQgqGZxHeQzpbfOSfRAd
-         Xl7tQ/DyXW7RVA0L0FasMUFuJNWR09M/B9qJ+ALTH/GQD0ykBppJecw46rkiYdraDgcA
-         CeR5H0cU0AIzqU8bt5cErS1MgC13/Byo8n2DgUclabcZvd6h2BFoXBtdNhF3EIjCRdig
-         7WFQ==
-X-Gm-Message-State: AOJu0YzWIo4ZJgiZsK7DsdtpfFTKcFCguH6ysAyN6zYfAeMTG+QF34j7
-	dwFsTeW4ZKwCJIDWl4btWL85qg==
-X-Google-Smtp-Source: AGHT+IFfWi26tA9JRMHYNtmN9NsNcAFqAiwUz8BoV78jy4UsxqwdKDvn+41U5SbJAzRkO8+gt4iZgA==
-X-Received: by 2002:a05:6a00:8086:b0:68e:16ce:f2e3 with SMTP id eh6-20020a056a00808600b0068e16cef2e3mr10213797pfb.0.1694860932313;
-        Sat, 16 Sep 2023 03:42:12 -0700 (PDT)
-Message-ID: <d671bfad-7d78-41cf-a6f4-e92bf6ce2bd5@daynix.com>
-Date: Sat, 16 Sep 2023 19:42:04 +0900
+        d=1e100.net; s=20230601; t=1694868996; x=1695473796;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=M7jgxxPuxbWU76KV3Hy7c5QtmjotxJWNHz+7GihJMaQ=;
+        b=bIYw4h3lW2yPgrtDBk4Uq7w5PiQIFLAbXLcxxTVkshQWxPgoqEsYOEj+AV6CdUdTML
+         j9Md+/IPwYOlAaRk8etylfM79gcPf4O2kouAGZJCwWKQia4h+EikvCqH1gz8OrXEzNSk
+         dM6twHIM3SxFo0CMESJ+DH3EmnlubXqsf0HknkAsbfAAEYzK0dWk+4GzCYQSSjpAa4ky
+         QyxKtvpsVnItF4qOpQIr4I2pyQjhaoCyPpLhoGj3E5659a8Ve8Xcm3xLloVeonEvKeFE
+         Z+nzVWB9uFkixHzT4P0Hjv56N/GbDMtXo3t8d1WwLYu96yZ3Rz3vbzeLxR1NSLxQwMCF
+         l4Jg==
+X-Gm-Message-State: AOJu0YxAfeNPI5BwGEFQPWb7D6qVUFqsrz70ffakPyEuVua7kE7FYPNl
+	EvvqJGKNJaZMD6bswQPzLOCaiA==
+X-Google-Smtp-Source: AGHT+IE47sHKYccZ3NTUWPcoonVCECEkqb9OHh5RB4wiRjGJTLWewkr/2JcaiCUjaGPs3K+Rbypy0w==
+X-Received: by 2002:a2e:9297:0:b0:2b9:f13b:6139 with SMTP id d23-20020a2e9297000000b002b9f13b6139mr3970283ljh.20.1694868995737;
+        Sat, 16 Sep 2023 05:56:35 -0700 (PDT)
+Message-ID: <17514c61-a561-b5a7-8b8f-8c3d8dbd845f@citrix.com>
+Date: Sat, 16 Sep 2023 13:56:34 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [QEMU PATCH v5 06/13] virtio-gpu: Support context init feature
- with virglrenderer
-To: Huang Rui <ray.huang@amd.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin"
- <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Albert Esteve <aesteve@redhat.com>, "ernunes@redhat.com"
- <ernunes@redhat.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>, Alyssa Ross <hi@alyssa.is>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
- "Huang, Honglei1" <Honglei1.Huang@amd.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Antonio Caggiano <antonio.caggiano@collabora.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-7-ray.huang@amd.com>
- <561abf48-d72c-467d-94fd-54ffa1dfb512@daynix.com> <ZQWEQ9ZHkokhKOSA@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <ZQWEQ9ZHkokhKOSA@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 7/7] x86/pv: Rewrite %dr6 handling
+Content-Language: en-GB
+To: Jinoh Kang <jinoh.kang.kr@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20230915203628.837732-1-andrew.cooper3@citrix.com>
+ <20230915203628.837732-8-andrew.cooper3@citrix.com>
+ <0aee121e-a2ac-1c6c-be33-59d842419708@gmail.com>
+In-Reply-To: <0aee121e-a2ac-1c6c-be33-59d842419708@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2023/09/16 19:32, Huang Rui wrote:
-> On Fri, Sep 15, 2023 at 11:20:46PM +0800, Akihiko Odaki wrote:
->> On 2023/09/15 20:11, Huang Rui wrote:
->>> Patch "virtio-gpu: CONTEXT_INIT feature" has added the context_init
->>> feature flags.
->>> We would like to enable the feature with virglrenderer, so add to create
->>> virgl renderer context with flags using context_id when valid.
->>>
->>> Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>
->>> V4 -> V5:
->>>       - Inverted patch 5 and 6 because we should configure
->>>         HAVE_VIRGL_CONTEXT_INIT firstly. (Philippe)
->>>
->>>    hw/display/virtio-gpu-virgl.c | 13 +++++++++++--
->>>    hw/display/virtio-gpu.c       |  2 ++
->>>    2 files changed, 13 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
->>> index 8bb7a2c21f..312953ec16 100644
->>> --- a/hw/display/virtio-gpu-virgl.c
->>> +++ b/hw/display/virtio-gpu-virgl.c
->>> @@ -106,8 +106,17 @@ static void virgl_cmd_context_create(VirtIOGPU *g,
->>>        trace_virtio_gpu_cmd_ctx_create(cc.hdr.ctx_id,
->>>                                        cc.debug_name);
->>>    
->>> -    virgl_renderer_context_create(cc.hdr.ctx_id, cc.nlen,
->>> -                                  cc.debug_name);
->>> +    if (cc.context_init) {
->>> +#ifdef HAVE_VIRGL_CONTEXT_INIT
->>> +        virgl_renderer_context_create_with_flags(cc.hdr.ctx_id,
->>> +                                                 cc.context_init,
->>> +                                                 cc.nlen,
->>> +                                                 cc.debug_name);
->>> +        return;
->>> +#endif
->>
->> This should deal with the case when context_init is set while
->> HAVE_VIRGL_CONTEXT_INIT is not defined.
-> 
-> Actually, I received the comment below before:
-> 
-> https://lore.kernel.org/qemu-devel/32588d0e-a1f2-30c4-5e9f-e6e7c4190b65@linaro.org/
-> 
-> At original patch set, I have the case while HAVE_VIRGL_CONTEXT_INIT is set
-> but HAVE_VIRGL_CONTEXT_INIT is not defined. But I think we may encounter
-> the case that virgl_renderer_context_create_with_flags is not defined in
-> virglrenderer early version. Should I bring the error message back?
-> 
-> Thanks,
-> Ray
+On 16/09/2023 8:50 am, Jinoh Kang wrote:
+> On 9/16/23 05:36, Andrew Cooper wrote:
+>> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+>> index dead728ce329..447edc827b3a 100644
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -1887,11 +1887,11 @@ void do_device_not_available(struct cpu_user_regs *regs)
+>>  /* SAF-1-safe */
+>>  void do_debug(struct cpu_user_regs *regs)
+>>  {
+>> -    unsigned long dr6;
+>> +    unsigned long pending_dbg;
+>>      struct vcpu *v = current;
+>>  
+>> -    /* Stash dr6 as early as possible. */
+>> -    dr6 = read_debugreg(6);
+>> +    /* Stash dr6 as early as possible, operating with positive polarity. */
+>> +    pending_dbg = read_debugreg(6) ^ X86_DR6_DEFAULT;
+> We don't reset DR6 after reading it, and there is no guarantee that the PV guest
+> will reset it either, so it doesn't match PENDING_DBG exactly IIRC.
+>
+> On the other hand, nothing will probably care about its double-accumulating
+> quirk except perhaps monitor users.
+>
+> Do we want to document that, shadow DR6 for PV (which seems a little overkill
+> if we don't trap DR6 access from PV already), or just live with that?
 
-I suggest checking VIRTIO_GPU_FLAG_CONTEXT_INIT_ENABLED instead of 
-reporting an error here. Perhaps it may be easier to add #ifdef around:
- > +    DEFINE_PROP_BIT("context_init", VirtIOGPU, parent_obj.conf.flags,
- > +                    VIRTIO_GPU_FLAG_CONTEXT_INIT_ENABLED, false),
+Different DR6's.
+
+This is Xen responding to a real #DB (most likely from a PV guest, but
+maybe from debugging activity in Xen itself), and in ...
+
+>>  
+>>      /*
+>>       * At the time of writing (March 2018), on the subject of %dr6:
+
+... this piece of context missing from the patch, Xen always writes
+X86_DR6_DEFAULT back in order to clear the sticky bits.
+
+This behaviour hasn't changed.  Xen always sees a "clean" DR6 on every
+new #DB.
+
+For the PV guest, what matters is ...
+
+>> @@ -1963,13 +1963,13 @@ void do_debug(struct cpu_user_regs *regs)
+>>           * If however we do, safety measures need to be enacted.  Use a big
+>>           * hammer and clear all debug settings.
+>>           */
+>> -        if ( dr6 & (DR_TRAP3 | DR_TRAP2 | DR_TRAP1 | DR_TRAP0) )
+>> +        if ( pending_dbg & X86_DR6_BP_MASK )
+>>          {
+>>              unsigned int bp, dr7 = read_debugreg(7);
+>>  
+>>              for ( bp = 0; bp < 4; ++bp )
+>>              {
+>> -                if ( (dr6 & (1u << bp)) && /* Breakpoint triggered? */
+>> +                if ( (pending_dbg & (1u << bp)) && /* Breakpoint triggered? */
+>>                       (dr7 & (3u << (bp * DR_ENABLE_SIZE))) && /* Enabled? */
+>>                       ((dr7 & (3u << ((bp * DR_CONTROL_SIZE) + /* Insn? */
+>>                                       DR_CONTROL_SHIFT))) == DR_RW_EXECUTE) )
+>> @@ -1990,24 +1990,23 @@ void do_debug(struct cpu_user_regs *regs)
+>>           * so ensure the message is ratelimited.
+>>           */
+>>          gprintk(XENLOG_WARNING,
+>> -                "Hit #DB in Xen context: %04x:%p [%ps], stk %04x:%p, dr6 %lx\n",
+>> +                "Hit #DB in Xen context: %04x:%p [%ps], stk %04x:%p, pending_dbg %lx\n",
+>>                  regs->cs, _p(regs->rip), _p(regs->rip),
+>> -                regs->ss, _p(regs->rsp), dr6);
+>> +                regs->ss, _p(regs->rsp), pending_dbg);
+>>  
+>>          return;
+>>      }
+>>  
+>> -    /* Save debug status register where guest OS can peek at it */
+>> -    v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
+>> -    v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
+>> -
+>>      if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
+>>      {
+>> +        /* Save debug status register where gdbsx can peek at it */
+>> +        v->arch.dr6 = x86_merge_dr6(v->domain->arch.cpu_policy,
+>> +                                    v->arch.dr6, pending_dbg);
+>>          domain_pause_for_debugger();
+>>          return;
+>>      }
+>>  
+>> -    pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+>> +    pv_inject_DB(pending_dbg);
+
+... this, which will merge all new pending bits into the guest's DR6.
+
+If the guest chooses not to clean out DR6 each time, then it will see
+content accumulate.
+
+To your earlier point of shadowing, we already have to do that.  DR6 is
+just one of many registers we need to context switch for the vCPU.
+
+PV guests, being ring-deprivieged, trap into Xen for every DR access,
+and Xen handles every one of their #DB exceptions.  This is one reason
+why I split the work into several parts.  PV guests are easier to get
+sorted properly, and patch 1,2,5,6 are all common improvements relevant
+to HVM too.
+
+~Andrew
 
