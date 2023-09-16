@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88D387A2ECA
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 10:17:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603542.940568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B549C7A2F41
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 12:34:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603550.940579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhQTZ-0006TI-Vt; Sat, 16 Sep 2023 08:16:25 +0000
+	id 1qhSc0-0007VI-Qz; Sat, 16 Sep 2023 10:33:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603542.940568; Sat, 16 Sep 2023 08:16:25 +0000
+Received: by outflank-mailman (output) from mailman id 603550.940579; Sat, 16 Sep 2023 10:33:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhQTZ-0006Qj-T8; Sat, 16 Sep 2023 08:16:25 +0000
-Received: by outflank-mailman (input) for mailman id 603542;
- Sat, 16 Sep 2023 08:16:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8KG6=FA=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qhQTY-0006Qd-8f
- for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 08:16:24 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5208d0fe-5469-11ee-8788-cb3800f73035;
- Sat, 16 Sep 2023 10:16:22 +0200 (CEST)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1c328b53aeaso25708575ad.2
- for <xen-devel@lists.xenproject.org>; Sat, 16 Sep 2023 01:16:22 -0700 (PDT)
-Received: from leoy-huanghe.lan (211-75-219-203.hinet-ip.hinet.net.
- [211.75.219.203]) by smtp.gmail.com with ESMTPSA id
- ob6-20020a17090b390600b00274803c4c90sm3375365pjb.40.2023.09.16.01.16.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Sep 2023 01:16:20 -0700 (PDT)
+	id 1qhSc0-0007Sv-NY; Sat, 16 Sep 2023 10:33:16 +0000
+Received: by outflank-mailman (input) for mailman id 603550;
+ Sat, 16 Sep 2023 10:33:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JNh2=FA=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
+ id 1qhSby-0007SW-M9
+ for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 10:33:14 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ea463a2-547c-11ee-9b0d-b553b5be7939;
+ Sat, 16 Sep 2023 12:33:11 +0200 (CEST)
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
+ by BN9PR12MB5292.namprd12.prod.outlook.com (2603:10b6:408:105::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.21; Sat, 16 Sep
+ 2023 10:33:06 +0000
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::c3b:811:fd1d:c33e]) by SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::c3b:811:fd1d:c33e%6]) with mapi id 15.20.6792.021; Sat, 16 Sep 2023
+ 10:33:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,296 +47,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5208d0fe-5469-11ee-8788-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694852181; x=1695456981; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=znzxBn3XMW/AVPV60GAuf3cZnI47t+BFwyFxpeecC1w=;
-        b=mSbSRLjsV18Azkbgtid68EhBhkSR+aTWWOrEpIPcH2UP+JxxPlZNzHfPQdS+C27sjs
-         rl1NFWdzjSYhcescWW73QpY5JwQue8vPzI26UufOhViYeBKy9gpLNfUKJ6gU6R3svjOx
-         VdEoQD5joRGABcAYVfJPozUPec5FDOkn9QrFe3qvonUKTFfHoJwJp1Tr1myBtB4/LCSQ
-         ZndGHsN/LMCb2ethfBZ5DkOn+8SVIbk6zdpFagw6AHAfeNPZ7TxR9bMrXx2dYe+hsNDQ
-         /eBZX2a3GvugPghZrBcnhuh6+pmzMqVRmO69ddbQY2aPSJ+qNFDZKBzRQcu6J26mnSpP
-         OiMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694852181; x=1695456981;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=znzxBn3XMW/AVPV60GAuf3cZnI47t+BFwyFxpeecC1w=;
-        b=xONzSCL3b14LFZGfpS3yg+eJaCpi7TOpk8Qgg0le5wOgFs1zb9POmY8ZQvVi0nqCvx
-         Agh63vhnsdayaLioW0O0nJbOC8EkziQ+qhfMMT0dKQVrNJcgTmyskhSOKNrMLQQZEY+5
-         P2miIyy2OPq1kp11Vq2tjyogVUtlj3HI4EUMVoFHR/Qlwyf5Tg6z2eLgBkQ39S/9zr3m
-         FdePMDxoHiizjFaqDwsovBAsEEfjMUqRZlQafA9pslru4CO25K2Kur0KBJPTvqEQS/LM
-         JqDViJ/i6ZDUeZbPeI4vZc7ZoxQze269tfUI+TqesMkME5gQb/AUDxSWjlIKj6FAAoQ8
-         03JA==
-X-Gm-Message-State: AOJu0YxlXCQuFTJizp9slDzIxVNvOJAlm3pjK1ieZsaWLvxf06HS2UQm
-	hZ54l5DgUKMYAEVusyQmkakXO+/sdCUo2Jv9PO8=
-X-Google-Smtp-Source: AGHT+IFCGeiJEw8+LJM5viMxzLIJ5dDA6tRJQbOj5AiVpdJzZuNs8IYnYnEUFN09gdvkaXmIESLGpQ==
-X-Received: by 2002:a17:90a:1347:b0:274:9823:b481 with SMTP id y7-20020a17090a134700b002749823b481mr3484649pjf.9.1694852181053;
-        Sat, 16 Sep 2023 01:16:21 -0700 (PDT)
-Date: Sat, 16 Sep 2023 16:16:15 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
+X-Inumbo-ID: 6ea463a2-547c-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L6MdulTHMjmfnKMNO4ZXElH2eJwLvd5+bJfuaVEqMYPFphACW4rNe7Bov3R2FnnIXHfcIXQ7gZTHMN8cH6Bujx+eamYgNqNUHSR0tJeACdJrPLPv2YqosnuefKiLW3LS74QZl1YPBjXUHixIhr8Pk0vuEOBosvX4rstxVcIqr+FbH6oUHOzB0KUoPZSNGakQUraLxRBtYwvnCGTTA3+8Bbj+Pgwa3ZH+Qxz4lL5lHjPbaaxROBEmDW5DGs3zDa+z8wFD7EIpt3ZN1TJxc3pRTZCBHfSBQgxgssyguJr6H9u4YqTjfYyu2wirbI/b5zxbXruHCWS0YKlP35dBHzBiDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dsvEVklb27yICg9NOj/RmbVN0fwndIiYt1iCTi16vVU=;
+ b=Wf868VRVTl3upXEUNr1iGKNcQRYy5/lCEv4S9nRBVCOp9OFrKqAiDEcfNe0Sa0mYC8Urej2k9D7f/hAKojYkm7xsUj1QVNoj8oSUj34szjWMhPrch9ZvdtzcQUoGJhrGXjInvdx5zLpfiXPx7t9hX0mRcb31XynfcaJSpdUX+Wf6PvY2E1oehg+RMn3AE/X+NBKEwTWUhwNmFOvIS9P7LYEnoFV4RZagdMnHit7biXbI7I74Gzo1LLEl7ERPaLyw1QsP6GEdg1ssRtPM3+6SjOQERafKUEs2AWsy7C7F2usQ1uvI0AEnIWDnxssNvwkXY+29dMY+mAXasgS146GQug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dsvEVklb27yICg9NOj/RmbVN0fwndIiYt1iCTi16vVU=;
+ b=ZFJpmcF+8uWfHty1vDiIziZYbdXQ/RkjVPcVdgUhWtNAz9u3icUpqkYcilGODN3tLIMPTJWDNb2HhmV5LIlbmMMJJVR1j3P39ruG6xH6A8XOjqqRuDyLqtjJC0/FlTre1EVHKa+DWxPb6DwmbryDPCwYcCBrYzzGF1mRlSb5ZCE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Date: Sat, 16 Sep 2023 18:32:35 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Henry Wang <Henry.Wang@arm.com>, Penny Zheng <penny.zheng@arm.com>
-Subject: Re: RFC: arm64: Handling reserved memory nodes
-Message-ID: <20230916081541.GA3291774@leoy-huanghe.lan>
-References: <20230914081607.GA1400758@leoy-huanghe.lan>
- <23a0185e-428d-496b-96b6-d5082800bfd4@xen.org>
-MIME-Version: 1.0
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+	Robert Beckett <bob.beckett@collabora.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Albert Esteve <aesteve@redhat.com>,
+	"ernunes@redhat.com" <ernunes@redhat.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Alyssa Ross <hi@alyssa.is>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Antonio Caggiano <antonio.caggiano@collabora.com>
+Subject: Re: [QEMU PATCH v5 06/13] virtio-gpu: Support context init feature
+ with virglrenderer
+Message-ID: <ZQWEQ9ZHkokhKOSA@amd.com>
+References: <20230915111130.24064-1-ray.huang@amd.com>
+ <20230915111130.24064-7-ray.huang@amd.com>
+ <561abf48-d72c-467d-94fd-54ffa1dfb512@daynix.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <23a0185e-428d-496b-96b6-d5082800bfd4@xen.org>
+In-Reply-To: <561abf48-d72c-467d-94fd-54ffa1dfb512@daynix.com>
+X-ClientProxiedBy: SGXP274CA0009.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::21)
+ To SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|BN9PR12MB5292:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3ef947a-c79d-4977-2f03-08dbb6a04f5a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CQe0PpzYtiICKJkQ60SA6zaFy0I1J1S+o76I+VLp42nUBhzEdgdf3SZaXSW2TDi1pLGoqa9viyG4RedeLhbi1kiSB9tMRGZDoKM88ox9Te9O/Leh7YqVT4Dxpy3JL1Hc8FTVrXQTtTR5fHh0ZEhHomw/vSrxDCgYG+tRadZHisvCTwRz2C6MaEN7y8Wi3/DiyQp9+8WwN/V2zCC+vzkRe+oTk5GCJWYgh3raHp1r7ukYK1J6ScB9T1X+59tdCfukiphNwN2QWTIK2hOzRDIC7WyMVft6XC2GVqgVSqXj2FaQgEo/ai4ZCAhMzxChOC2+BCq2fGZB3nFk8YnUiV3FImNrcgSqI2ghVGqUSYfTuAG0cOhcAlu59DqQvwOijbwbUPKdlu7BYY7xhf2ZHvZmBY+1KRAzQXiRbcX//iCyrW0reTFkqE4idAbqKu2ZlodApOx5c8Wma2MsuoanPWVply8EaKgi0U0RdcvSyvPG6rmOU2baocJ+e9w+fL1EuL+LsYQa0R9YAN8WQY9QvNn2M0+S3FWqyZ03raXbNvZw6dk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(366004)(346002)(376002)(136003)(1800799009)(451199024)(186009)(6486002)(6506007)(53546011)(6512007)(6666004)(66899024)(38100700002)(36756003)(83380400001)(26005)(2616005)(2906002)(8936002)(86362001)(41300700001)(7416002)(4326008)(8676002)(316002)(54906003)(66556008)(6916009)(66476007)(66946007)(478600001)(966005)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?olTEiYuHeZvAFqutQtT48QNP3sDv1DKKPc6QI2XfyNjzzatWN6S5YWDZvugK?=
+ =?us-ascii?Q?HzCP1GvGce5m4z43Nipd7QfOMXf13fo6V8gZNRvu9Dav+p/ga6hFFJSFpTv9?=
+ =?us-ascii?Q?YhE0auUeyVts71sPfa9o0cVYM5QNHSiNoMtwOfQu2LmZw7aHXSqMSmUMjNPL?=
+ =?us-ascii?Q?WL3lANDBI9eFx8vf/2A0eAiibMcgPAIZQn4Y0OQwaeorBDewGfavA8cG0Oiy?=
+ =?us-ascii?Q?50vXr0TdNBm76EUkdJ9p5M2WTkamKebbTRoVyeZSwKYpb7+0Ezc+vybSZ6Ty?=
+ =?us-ascii?Q?c68swv8lawOCivOsw6Fl/iK5f0qMqp++URLbQaMHLnE3Pvccv1QDKPn+/Z2m?=
+ =?us-ascii?Q?qyGYV383+2esiR1CVVwuAFtJS3ah1RJzciL+yZht3or0b2fB4hwlpU98j+FW?=
+ =?us-ascii?Q?VI6PA7egG0nWt9nnv4diOSG711uvtAl0GvBd/VVKD2xoLC51T6z3/6oqbPLf?=
+ =?us-ascii?Q?wNYnf8knwvbvvqnJrrbbJtJr+1FMi3gvHJp6yUvme2cYV1ZDof62fPZCgO8W?=
+ =?us-ascii?Q?ZcWnFzbl2xDa/368XRriJE7PUg/pCnZmzWeXHi/Qc7MV8+HrlNZRYGUcgDJd?=
+ =?us-ascii?Q?NPcnT4xfPvgNLB6vkpzotDaLTxeDiprKl9IjwgP78SUTPTKpdCOYp1dxVQ+C?=
+ =?us-ascii?Q?S6EVRIc9h2vc4VfXhuhb9xjTvdbBCy7X/Wq5NKNA+TbjrOoRJmj5Inl/36F6?=
+ =?us-ascii?Q?S0O/5AdkhllTVvulmuTznp7RMUjePs0cL8N/PfDTpYS7pkt+rEuqqWR3NFPV?=
+ =?us-ascii?Q?xPI0ylmECY05Lvy0WszOzIhcxtx3FZGDT3nILMecu5yeYs9H7Z9HVHvPBll3?=
+ =?us-ascii?Q?kNTwtb7Kx0Chvs2+m1rz7JS+ysWV98UuU0svv1OTf64vnI8kyZxJ6KqDNkDw?=
+ =?us-ascii?Q?44xQa9kYrhwYj2lKJoUXLWYO1ykfqmVjlZic41LoqyBTvJzu8UuQsfZDq5l9?=
+ =?us-ascii?Q?BeuQFoMfVAEPgVa19P10x8slQOL0tsODnE8vtI/Oh7Iw4fZgmtwe6QHKjFM6?=
+ =?us-ascii?Q?gdla0UI+ymQpb5tCJA/o6jZShyX6Tfc5QRMYsmL7bqKdNy4pfRGy887wdJmu?=
+ =?us-ascii?Q?hLbQq1TsFRkNLkcs2P3xEiVx6M3Cvd+q4IQDRHMR5CFhXHuSIgq7c35Hpog6?=
+ =?us-ascii?Q?e6VK2N2sYWn0ZyaNoOsVgJ8U5FeLBh7vhS97mC4xGs8L5VjPxP7rRmquTjoo?=
+ =?us-ascii?Q?JkIP4lon14IcF+nT2BLxHdGKAq9nEePJ7O03dTcuxzYJ9t0R/O5inwO0AHUd?=
+ =?us-ascii?Q?xVaZuR7sNuBbyAU6d4OHmUh5y6wwFZdm15X659l21EVY0wldCHeKMCtxwmio?=
+ =?us-ascii?Q?JfZrSkcn8ruJxlmNqq9PDl6KRdu6tNtB0eO/51ENQkVXcGy4INbtF22+WeCj?=
+ =?us-ascii?Q?yml/PO4tRxN2T/ZEMMyCWuFkOGJA9Vhf+Lbwajcq56W0JY4+LkwNKdeuL7eS?=
+ =?us-ascii?Q?ntDKP8T5Xjlf7a4DwN+jfbqfS+pUdKmihG4P5g7XHWj1oTW8da2HZ1WJAZbt?=
+ =?us-ascii?Q?keHUXl/0bQdKwj2H31rtGCa//0C7Txq2zUKuthjJTSTsBV9keL45Fv5XOGCe?=
+ =?us-ascii?Q?Pz7lJsWyWCGUFRKk87iR5KueLWeUgtDYXEZmQoyk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3ef947a-c79d-4977-2f03-08dbb6a04f5a
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2023 10:33:05.2962
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cPsaDzpzlLm20+waFZ6jbVF/vfvaKY6URQowGQhYg/pCWiw4XqE75VMAeUw6RkmjUQjWdFx9UesMnB6UZixh3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5292
 
-Hi Julien,
-
-On Thu, Sep 14, 2023 at 10:37:05AM +0100, Julien Grall wrote:
-
-[...]
-
-> > This error is caused by kernel using an invalid memory frame number
-> > 0x1a02dc, we can convert it to the address:
+On Fri, Sep 15, 2023 at 11:20:46PM +0800, Akihiko Odaki wrote:
+> On 2023/09/15 20:11, Huang Rui wrote:
+> > Patch "virtio-gpu: CONTEXT_INIT feature" has added the context_init
+> > feature flags.
+> > We would like to enable the feature with virglrenderer, so add to create
+> > virgl renderer context with flags using context_id when valid.
 > > 
-> >    0x1a02dc << PAGE_SHIFT = 0x1_a02d_c000
+> > Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> > Signed-off-by: Huang Rui <ray.huang@amd.com>
+> > ---
+> > 
+> > V4 -> V5:
+> >      - Inverted patch 5 and 6 because we should configure
+> >        HAVE_VIRGL_CONTEXT_INIT firstly. (Philippe)
+> > 
+> >   hw/display/virtio-gpu-virgl.c | 13 +++++++++++--
+> >   hw/display/virtio-gpu.c       |  2 ++
+> >   2 files changed, 13 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> > index 8bb7a2c21f..312953ec16 100644
+> > --- a/hw/display/virtio-gpu-virgl.c
+> > +++ b/hw/display/virtio-gpu-virgl.c
+> > @@ -106,8 +106,17 @@ static void virgl_cmd_context_create(VirtIOGPU *g,
+> >       trace_virtio_gpu_cmd_ctx_create(cc.hdr.ctx_id,
+> >                                       cc.debug_name);
+> >   
+> > -    virgl_renderer_context_create(cc.hdr.ctx_id, cc.nlen,
+> > -                                  cc.debug_name);
+> > +    if (cc.context_init) {
+> > +#ifdef HAVE_VIRGL_CONTEXT_INIT
+> > +        virgl_renderer_context_create_with_flags(cc.hdr.ctx_id,
+> > +                                                 cc.context_init,
+> > +                                                 cc.nlen,
+> > +                                                 cc.debug_name);
+> > +        return;
+> > +#endif
 > 
-> This error is coming from get_page_from_gva(). The use of the function is
-> usually an indication that Xen is trying to access the page. Can you use
-> WARN() to provide a full trace?
+> This should deal with the case when context_init is set while 
+> HAVE_VIRGL_CONTEXT_INIT is not defined.
 
-With adding WARN(), I can get below trace log:
+Actually, I received the comment below before:
 
-  (XEN) arch/arm/p2m.c:2206: d0v0: Failing to acquire the MFN 0x1a0171
-  (XEN) Xen WARN at arch/arm/p2m.c:2208
-  (XEN) ----[ Xen-4.18-unstable  arm64  debug=y  Tainted:      S ]----
-  (XEN) CPU:    0
-  (XEN) PC:     00007f000027540c get_page_from_gva+0x30c/0x334
-  (XEN) LR:     00007f000027540c
-  (XEN) SP:     00008002ffee7a20
-  (XEN) CPSR:   0000000080000249 MODE:64-bit EL2h (Hypervisor, handler)
-  (XEN)      X0: 00007f0000318038  X1: 0000000000000000  X2: 0000000000000000
-  (XEN)      X3: 0000000000000001  X4: 00007f00002bf956  X5: 0000000000000000
-  (XEN)      X6: 00008002ffff2150  X7: 00008002ffff2150  X8: 7f7f7f7f7f7f7f7f
-  (XEN)      X9: 0000000000000080 X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
-  (XEN)     X12: 0000000000000008 X13: 0000000000000030 X14: 0000000000000000
-  (XEN)     X15: 000000003be6b29d X16: 000000000000000c X17: 000000009c4542e5
-  (XEN)     X18: 0000000000000014 X19: 00008002fffcd000 X20: 00008002ffeef000
-  (XEN)     X21: 00007f08054050b8 X22: 0000000000000000 X23: 00000000001a0171
-  (XEN)     X24: 00000001a0171d80 X25: 0000000000000004 X26: 0000000000000000
-  (XEN)     X27: 00008002ffeef000 X28: 0000000000001000  FP: 00008002ffee7a20
-  (XEN) 
-  (XEN)   VTCR_EL2: 00000000800a3558
-  (XEN)  VTTBR_EL2: 00010002fffca000
-  (XEN) 
-  (XEN)  SCTLR_EL2: 0000000030cd183d
-  (XEN)    HCR_EL2: 00000000807c663f
-  (XEN)  TTBR0_EL2: 0000000020251000
-  (XEN) 
-  (XEN)    ESR_EL2: 00000000f2000001
-  (XEN)  HPFAR_EL2: 0000000000176800
-  (XEN)    FAR_EL2: ffffffc011900000
-  (XEN) 
-  (XEN) Xen stack trace from sp=00008002ffee7a20:
-  (XEN)    00008002ffee7a80 00007f000026cc44 0000000000000d80 0000000000000018
-  (XEN)    0000000000000007 0000000000000018 00008002ffee7cf8 ffffffc01187bd80
-  (XEN)    00008002ffee7ad0 00000000ffffffc8 00008002ffee7ab0 00007f000032211e
-  (XEN)    00008002ffee7b00 00007f000026ce54 ffffffffffffffdf ffffffc01187bd80
-  (XEN)    0000000000000007 0000000000000000 00008002fffcd000 ffffffc0117cc000
-  (XEN)    00000001a01db000 0000000000000000 0000000000000000 0000000000000000
-  (XEN)    0000000000000007 00007f00002b0018 00008002ffeefe16 0000000000000000
-  (XEN)    00008002ffee7b10 00007f000021ab3c 00008002ffee7e40 00007f0000277c84
-  (XEN)    00008002ffee7ea0 000000005a000ea1 00008002ffee7f20 00008002ffeef000
-  (XEN)    000000005a000ea1 ffffffc0117cc000 00007f00003190a4 00007f0000319080
-  (XEN)    000000000000001b 00008002ffee7c20 00008002ffee7b90 00007f000026e27c
-  (XEN)    0000000000000000 00007f000026e384 00008002ffee7bd0 00007f0000269f88
-  (XEN)    000000000000001b 00007f0000329000 00008002ffee7c20 0000000000000000
-  (XEN)    0000000000001fff 0000000080000249 00008002ffee7c10 00007f00002797cc
-  (XEN)    0000000000000010 000000005a000ea1 00008002ffee7d28 0000000080000249
-  (XEN)    000000005a000ea1 ffffffc011603ba8 00008002ffee7d40 00007f000026232c
-  (XEN)    00008002ffee7c50 00007f0000270a68 00008002fffcd000 00008002ffeef000
-  (XEN)    00007f0800e4d0a8 00008002ffeef000 00008002ffee7c70 00007f0000223f48
-  (XEN)    00008002ffee7c90 00007f0000224264 00007f00002bfa20 00008002ffee7dca
-  (XEN)    0000000000000000 00008002ffee7dca 00008002ffee7cb0 00007f00002242dc
-  (XEN)    00000000000002c0 00007f000024b068 00008002ffee7cd0 00007f000024b0c4
-  (XEN)    000000000000000a 00007f000026ce54 00008002ffee7d40 00007f00002484c0
-  (XEN)    000000000000000a 000000005a000ea1 00008002ffee7d20 00007f0000224264
-  (XEN)    00007f00002bf950 000000005a000ea1 000000000000000a 000000000000000a
-  (XEN)    00008002ffee7d40 00007f00002242bc 000000000000000a 00000000000002c0
-  (XEN)    00008002ffee7d50 00007f000024946c 00008002ffee7e40 00007f0000277cc0
-  (XEN)    00008002ffee7ea0 000000005a000ea1 00008002ffee7f20 00008002ffeef000
-  (XEN)    000000005a000ea1 ffffffc011613d40 ffffffc011713878 0000000000000059
-  (XEN)    00008002ffee7dc0 00007f0000223f48 00008002ffee7de0 00007f0000224264
-  (XEN)    00008002ffee7de0 00007f0000223f48 00008002ffee7e00 00007f0000224264
-  (XEN)    00008002ffeefe10 00008002ffeef000 00007f0000318288 0000000000000004
-  (XEN)    00008002ffee7e20 00007f00002242dc 0000000000000240 00008002ffeef000
-  (XEN)    00008002ffee7e40 00007f000027c484 0000000000000004 0000000000000000
-  (XEN)    00008002ffee7e70 00007f0000279400 00008002ffee7ea0 000000005a000ea1
-  (XEN)    00008002ffee7fa8 0000000080000005 ffffffc01187bd30 00007f0000262480
-  (XEN)    0000000000000000 ffffffc0117d2000 ffffffc01187bd30 00007f0000262474
-  (XEN)    0000000000000007 ffffffc01187bd80 00000000001a01db 0000000000000005
-  (XEN)    0000000000000005 ffffffc011802880 ffffffc0118028e0 0000000000000018
-  (XEN)    0000000020000000 ffffffc010021d1c ffffff81bfcabb90 0000000000000040
-  (XEN)    0000000000000000 00000000000003da ffffffffffffffff 000000003be6b29d
-  (XEN) Xen call trace:
-  (XEN)    [<00007f000027540c>] get_page_from_gva+0x30c/0x334 (PC)
-  (XEN)    [<00007f000027540c>] get_page_from_gva+0x30c/0x334 (LR)
-  (XEN)    [<00007f000026cc44>] guestcopy.c#copy_guest+0x198/0x2ec
-  (XEN)    [<00007f000026ce54>] raw_copy_from_guest+0x20/0x28
-  (XEN)    [<00007f000021ab3c>] do_memory_op+0x1104/0x24c0
-  (XEN)    [<00007f0000277c84>] traps.c#do_trap_hypercall+0x120/0x288
-  (XEN)    [<00007f0000279400>] do_trap_guest_sync+0x448/0x63c
-  (XEN)    [<00007f0000262480>] entry.o#guest_sync_slowpath+0xa8/0xd8
-  (XEN) 
+https://lore.kernel.org/qemu-devel/32588d0e-a1f2-30c4-5e9f-e6e7c4190b65@linaro.org/
 
-I can match the hypervisor trap with the Linux kernel function
-xen_guest_init() in arch/arm/xen/enlighten.c:
-
-  static int __init xen_guest_init(void)
-  {
-    struct xen_add_to_physmap xatp;
-    ...
-
-    shared_info_page = (struct shared_info *)get_zeroed_page(GFP_KERNEL);
-
-    if (!shared_info_page) {
-            pr_err("not enough memory\n");
-            return -ENOMEM;
-    }
-    xatp.domid = DOMID_SELF;
-    xatp.idx = 0;
-    xatp.space = XENMAPSPACE_shared_info;
-    xatp.gpfn = virt_to_gfn(shared_info_page);
-
-    if (HYPERVISOR_memory_op(XENMEM_add_to_physmap, &xatp))
-            BUG();
-    ...
-  }
-
-My understanding is the local variable 'xatp' is located in the stack
-and the stack is located in the intermediate physical address
-0x1_a017_1000. Thus, when copies the structure 'xatp' from Dom0 to the
-Xen hypervisor, the hypervisor detects the IPA is not managed by its
-frame table.
-
-This is because the memory range [00000001a0000000 - 00000001bfffffff]
-is the reserved region so Xen hypervisor doesn't populate this region
-and the frame table doesn't initialize for it.  On the other hand,
-this memory range is passed to Dom0 Kernel as _normal_ memory region
-and the kernel allocates pages from this memory region, same with
-other memory regions.
-
-[...]
-
-> > ## Fixes
-> > 
-> > I think it's wrong to add the reserved memory regions into the DT
-> > binding as normal memory nodes for Dom0 kernel.  On the other hand, we
-> > cannot simply remove these reserved memory regions and don't pass to
-> > Dom0 kernel - we might reserve memory for specific purpose, for example,
-> > ramoops [1] for kernel debugging.
-> > 
-> > The right thing to do is to keep these reserved memory nodes to Dom0
-> > kernel.  So one task is to record properties for these reserved memory
-> > node name and properties and pass to Dom0 kernel.
-> > 
-> > The difficulty is how we can avoid allocate these reserved memory
-> > regions in Xen hypervisor.  We cannot register the reserved memory
-> > into the boot pages, otherwise, the reserved memory might be allocated
-> > in the early phase.  But we need to register these pages into the
-> > frame management framework and reserve them in the first place, so
-> > that we can allow Dom0 kernel to use them.  (I checked a bit the static
-> > memory mechanism, seems to me we cannot use it to resolve this issue).
-> 
-> From my understanding reserved region are normal RAM which have been carved
-> out for specific purpose. They may expect different caching policy (e.g.
-> non-cachable).
-
-Yes, I agree, but we cannot assume the mapping attribution is always
-non-cachable. It can be mapped as normal type, or device type (with and
-different variants, like strong ordered, write-combined, etc).
-
-> AFAIK, Xen doesn't have the capability to know the memory
-> attribute (the DT binding only tell whether the region should not mapped.
-> See the property "no-map"), hence why they were excluded from the memory
-> management.
-
-I think it's right to exclude the reserved memory regions from the
-normal memory management.
-
-Here the problem is these reserved memory regions are passed as normal
-memory nodes to Dom0 kernel, then Dom0 kernel allocates pages from
-these reserved memory regions.  Apparently, this might lead to conflict,
-e.g. the reserved memory is used by Dom0 kernel, at the meantime the
-memory is used by another purpose (e.g. by MCU in the system).
-
-Here I am a bit confused for "Xen doesn't have the capability to know
-the memory attribute".  I looked into the file arch/arm/guest_walk.c,
-IIUC, it walks through the stage 1's page tables for the virtual
-machine and get the permission for the mapping, we also can get to
-know the mapping attribute, right?
-
-Another question for the attribute for MMIO regions. For mapping MMIO
-regions, prepare_dtb_hwdom() sets the attribute 'p2m_mmio_direct_c'
-for the stage 2, but in the Linux kernel the MMIO's attribute can
-be one of below variants:
-
-- ioremap(): device type with nGnRE;
-- ioremap_np(): device type with nGnRnE (strong-ordered);
-- ioremap_wc(): normal non-cachable.
-
-If Xen hypervisor can handle these MMIO types in stage 2, then we should
-can use the same way to map stage 2 tables for the reserved memory.  A
-difference for the reserved memory is it can be mapped as normal memory
-with cacheable.
-
-> It would be good to understand why Xen may try to get a reference on the
-> page.
-
-I think the above log can answer this question.
-
-> Also, can you find the associated reserved-region and content of the
-> Device-Tree?
-
-The DT binding is something like (I tweaked a bit for readable):
-
-	memory@20000000 {
-		#address-cells = <0x02>;
-		#size-cells = <0x02>;
-		device_type = "memory";
-		reg = <0x00 0x20000000 0x00 0xa0000000>,
-                      <0x01 0xa0000000 0x01 0x60000000>;
-	};
-
-
-	reserved-memory {
-		#address-cells = <0x02>;
-		#size-cells = <0x02>;
-		ranges;
-
-		reserved_mem1 {
-			reg = <0x00 0x20000000 0x00 0x00010000>;
-			no-map;
-		};
-
-		reserved_mem2 {
-			reg = <0x00 0x40000000 0x00 0x20000000>;
-			no-map;
-		};
-
-		reserved_mem3 {
-			reg = <0x01 0xa0000000 0x00 0x20000000>;
-			no-map;
-		};
-
-		reserved_mem4 {
-			reg = <0x00 0x2e000000 0x00 0x02000000>;
-			no-map;
-		};
-        };
+At original patch set, I have the case while HAVE_VIRGL_CONTEXT_INIT is set
+but HAVE_VIRGL_CONTEXT_INIT is not defined. But I think we may encounter
+the case that virgl_renderer_context_create_with_flags is not defined in
+virglrenderer early version. Should I bring the error message back?
 
 Thanks,
-Leo
+Ray
 
