@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844137A2E67
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 09:38:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.603520.940539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E39187A2E68
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Sep 2023 09:44:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.603526.940549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhPrU-0007eP-8q; Sat, 16 Sep 2023 07:37:04 +0000
+	id 1qhPyN-0000hc-VU; Sat, 16 Sep 2023 07:44:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 603520.940539; Sat, 16 Sep 2023 07:37:04 +0000
+Received: by outflank-mailman (output) from mailman id 603526.940549; Sat, 16 Sep 2023 07:44:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qhPrU-0007bo-5J; Sat, 16 Sep 2023 07:37:04 +0000
-Received: by outflank-mailman (input) for mailman id 603520;
- Sat, 16 Sep 2023 07:37:03 +0000
+	id 1qhPyN-0000eu-Sa; Sat, 16 Sep 2023 07:44:11 +0000
+Received: by outflank-mailman (input) for mailman id 603526;
+ Sat, 16 Sep 2023 07:44:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V1Uw=FA=gmail.com=jinoh.kang.kr@srs-se1.protection.inumbo.net>)
- id 1qhPrT-0007bg-2R
- for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 07:37:03 +0000
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [2607:f8b0:4864:20::529])
+ id 1qhPyM-0000eo-BX
+ for xen-devel@lists.xenproject.org; Sat, 16 Sep 2023 07:44:10 +0000
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [2607:f8b0:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2a28550-5463-11ee-8788-cb3800f73035;
- Sat, 16 Sep 2023 09:37:01 +0200 (CEST)
-Received: by mail-pg1-x529.google.com with SMTP id
- 41be03b00d2f7-53fa455cd94so2135167a12.2
- for <xen-devel@lists.xenproject.org>; Sat, 16 Sep 2023 00:37:01 -0700 (PDT)
+ id d1807990-5464-11ee-8788-cb3800f73035;
+ Sat, 16 Sep 2023 09:44:09 +0200 (CEST)
+Received: by mail-pg1-x52a.google.com with SMTP id
+ 41be03b00d2f7-573ccec985dso2328845a12.2
+ for <xen-devel@lists.xenproject.org>; Sat, 16 Sep 2023 00:44:09 -0700 (PDT)
 Received: from [10.137.0.57] ([14.33.99.107]) by smtp.gmail.com with ESMTPSA id
- h18-20020a62b412000000b0066684d8115bsm4115010pfn.178.2023.09.16.00.36.57
+ s8-20020a17090a764800b0026b50d9aee6sm3979212pjl.25.2023.09.16.00.44.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 16 Sep 2023 00:36:59 -0700 (PDT)
+ Sat, 16 Sep 2023 00:44:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2a28550-5463-11ee-8788-cb3800f73035
+X-Inumbo-ID: d1807990-5464-11ee-8788-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1694849820; x=1695454620; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1694850248; x=1695455048; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=j0S51/pBUY6hmXFoUgUPjQ7JL3/euyO3Px8Jqn+fpdk=;
-        b=Dq/0SAvxQuxglJycLd9dyGmJwn1xYKmstmVlei5x9tZeWRVqcSlorqhvgeJEx1wN9Z
-         V3eXeBmKHLCQc4B794oXdfhpvdyWi/648PKiGqnNkPfyQyInMZJ2SmJQZ6L/UbMOOD4I
-         QBsjFw8PJAFwmaQd1JBVyE7ZebvCmmQATbrl9xrWlJuQ17PvWxs2W05pobKi4WvCtUYl
-         9Q6AvZnqsaoFeu5H7NaExz4MDithqPyIhGSoaUbyiaL6dqsJWYtQ5Ny0Lf4uRFgDVU0h
-         a9frhIket0rfdzNJH8jSGOhGTpdTQOD9ZzRwIPnt+9NMRNKpAmHvRk8SN2ENaxeg7g6+
-         yfRg==
+        bh=RyuT4kdZ2116u9L0YxuBdo/Qb02fPEko0CzEQ4I9mNs=;
+        b=Pkz93Bxh5ZKymz6t1AaNqiiu2AYoJ4ibIDLp8aI7DJk6EsIgrR3YTVN5ciCfhMixti
+         4JIUxtFHWa6wMMJ/basiGkzb7b637cL4M2THUgzTC6UzVoTP3QSE4KxbqSDwACTJvY+a
+         Go0JKWSkSXr/ApK4rDXykd264uMXcBzsb98wekc/4xzHIUkEZPVJz1F2QXO1sxFP6+vp
+         efnKP4k+bjgVrT6pS8e+dAYqzyqhI43wEzElPmoFEvti4uejnfUGSvsf4uOoXVHgt0bu
+         RQUSYitkv4zCy9Yk6nQja2y96YD2alQW7Xr2yKCVSgVpDvilSx8SphPF1ZP7FLT5Z54l
+         frZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694849820; x=1695454620;
+        d=1e100.net; s=20230601; t=1694850248; x=1695455048;
         h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0S51/pBUY6hmXFoUgUPjQ7JL3/euyO3Px8Jqn+fpdk=;
-        b=Mpidctk7pkB8Yx4QlKwIw2KbhVnTXG9Hb+JbrPFW/bRpoy6RsOz0PahBJa22bPqK8+
-         8nNk8FzkbUevFtigqWWqhB9f67vaSbUIJ2GBvy5WYYTjhpBckYVd/b7sW5SHBWTLGIZ4
-         UWSHeIg4w7jK0X10UP9o0aGmZXBqQkdPAVwWEXPPc8DIE+4pyhr4qeFdRXAgC+n7LlbX
-         Ki88CfHAyeQzgQcAvNOS7xVoJESEjnzWnj+4P0Kx7w0TRhFS8S4c9LL097ggQLLBS9gk
-         +iDoGmKuP67TO5KCAFb6WhFA61ZamLSFg+Cv6lz50GiBOVlOYqGTpNRG7d+dG4OFTtDZ
-         mlrw==
-X-Gm-Message-State: AOJu0YwI1uhF7T3Y3zLnjV6/syjZmYvfOMIAVT2LVg8QTPCbTz81mlVW
-	U6nMdQSu/tpjGBj7SaMJNbs=
-X-Google-Smtp-Source: AGHT+IFundl9U8Fv5LEXrsFHxSeLqH78IU7tWeqGL1ByLSZ3sVZTgYxaGHwDV/IORmYPln8rlDYegw==
-X-Received: by 2002:a05:6a20:320d:b0:14b:8023:33c8 with SMTP id hl13-20020a056a20320d00b0014b802333c8mr3554550pzc.2.1694849819989;
-        Sat, 16 Sep 2023 00:36:59 -0700 (PDT)
-Message-ID: <095d4737-3728-b1c2-d64d-dc5e9b438b80@gmail.com>
-Date: Sat, 16 Sep 2023 16:36:54 +0900
+        bh=RyuT4kdZ2116u9L0YxuBdo/Qb02fPEko0CzEQ4I9mNs=;
+        b=cLgfn45Yn2GDmYzZ5ZIkBIZkwDGVM+pbpkS2vUlGG8L1/nu5YczwJafr16PGd6uYRJ
+         ofUWz/VFthGnjkggGwxUlr/RGa7RDUKZTkIDnxZQjpCibbF8wYu+fT+mbUDyvM27+szn
+         wJOqMMfXukAzDF5WRfJ36T8r2dh9brFQGnkSwHpYXXk0KGlzpQ9eXdu3mrvyQADtXljK
+         qK6H/GSXi3Y2uG2dHfncfyxV8d6KPeVK7WYU7pDdL9olMqLa/lPIhYtqhWHitK8Z5ODI
+         vZqLqv2sUUOUGhvVN9IAfjGuGViidiS7kDVEg34A6TQEvxIF7UdxpCITVhJ53lQxXLCd
+         O/1A==
+X-Gm-Message-State: AOJu0YyA9Xx55rCi+e+HVlh7fX98RtmFQOC1wlQpLPWCnhaelrgfyMox
+	jV8xcs876z7XR8In00NK3X8=
+X-Google-Smtp-Source: AGHT+IHAjuXw/InLndBQl1FDBBuA5PKvkcd4Iz+lQlW7CXct74zLZSoJqThu6vEmxX224lwLF0dBSQ==
+X-Received: by 2002:a05:6a20:d405:b0:13a:6bca:7a84 with SMTP id il5-20020a056a20d40500b0013a6bca7a84mr4014052pzb.44.1694850247629;
+        Sat, 16 Sep 2023 00:44:07 -0700 (PDT)
+Message-ID: <b9115a81-f46f-129f-8075-5775f4da56dc@gmail.com>
+Date: Sat, 16 Sep 2023 16:44:03 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
  <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
 References: <20230915203628.837732-1-andrew.cooper3@citrix.com>
- <20230915203628.837732-5-andrew.cooper3@citrix.com>
+ <20230915203628.837732-7-andrew.cooper3@citrix.com>
 From: Jinoh Kang <jinoh.kang.kr@gmail.com>
-Subject: Re: [PATCH 4/7] x86/pv: Drop priv_op_ctxt.bpmatch and use pending_dbg
- instead
-In-Reply-To: <20230915203628.837732-5-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 6/7] x86: Extend x86_event with a pending_dbg field
+In-Reply-To: <20230915203628.837732-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 9/16/23 05:36, Andrew Cooper wrote:
-> @@ -658,7 +660,7 @@ static int cf_check rep_ins(
->  
->          ++*reps;
->  
-> -        if ( poc->bpmatch || hypercall_preempt_check() )
-> +        if ( poc->ctxt.retire.pending_dbg || hypercall_preempt_check() )
->              break;
->  
->          /* x86_emulate() clips the repetition count to ensure we don't wrap. */
+> ... using the Intel VMCS PENDING_DBG semantics, and sharing storage with cr2.
+> 
+> This requires working around anonymous union bugs in obsolete versions of GCC,
+> which in turn needs to drop unnecessary const qualifiers.
 
-(snip)
+I'd write this as a inline comment as long as it doesn't make the code
+too verbose.
 
-> @@ -726,7 +729,7 @@ static int cf_check rep_outs(
+Please disregard this if it doesn't match our coding style.
+
+> 
+> Also introduce a pv_inject_DB() wrapper use this field nicely.
+
+Minor nit: Also introduce a pv_inject_DB() wrapper to* use this field nicely.
+
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Jinoh Kang <jinoh.kang.kr@gmail.com>
+> 
+> v2:
+>  * Split out of prior patch.
+> ---
+>  xen/arch/x86/include/asm/domain.h      | 18 ++++++++++++++++--
+>  xen/arch/x86/include/asm/hvm/hvm.h     |  3 ++-
+>  xen/arch/x86/x86_emulate/x86_emulate.h |  5 ++++-
+>  3 files changed, 22 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index c2d9fc333be5..fd1f306222be 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -729,15 +729,29 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
+>      pv_inject_event(&event);
+>  }
 >  
->          ++*reps;
+> +static inline void pv_inject_DB(unsigned long pending_dbg)
+> +{
+> +    struct x86_event event = {
+> +        .vector      = X86_EXC_DB,
+> +        .type        = X86_EVENTTYPE_HW_EXCEPTION,
+> +        .error_code  = X86_EVENT_NO_EC,
+> +    };
+> +
+> +    event.pending_dbg = pending_dbg;
+> +
+> +    pv_inject_event(&event);
+> +}
+> +
+>  static inline void pv_inject_page_fault(int errcode, unsigned long cr2)
+>  {
+> -    const struct x86_event event = {
+> +    struct x86_event event = {
+>          .vector = X86_EXC_PF,
+>          .type = X86_EVENTTYPE_HW_EXCEPTION,
+>          .error_code = errcode,
+> -        .cr2 = cr2,
+>      };
 >  
-> -        if ( poc->bpmatch || hypercall_preempt_check() )
-> +        if ( poc->ctxt.retire.pending_dbg || hypercall_preempt_check() )
->              break;
+> +    event.cr2 = cr2;
+> +
+>      pv_inject_event(&event);
+>  }
 >  
->          /* x86_emulate() clips the repetition count to ensure we don't wrap. */
-
-These two hunks look like a behavioral change in singlestep mode.
-
-This is actually a fix, assuming the emulator previously did not handle
-'rep {in,out}s' in singlestep mode correctly, since it now checks for
-PENDING_DBG.BS in addition to PENDING_DBG.B[0-4].
-
-If this is the case, (at least) this part of the patch looks like a stable
-candidate.  You might want to edit the commit message to reflect that.
-
-(Ideally all the HWBP handling should be part of the emulator logic, but
- I don't see an easy way to generalize the PV-specific logic.  It could
- be its own patch anyway.)
+> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+> index 6d53713fc3a9..ea966f4429f9 100644
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -532,9 +532,10 @@ static inline void hvm_inject_page_fault(int errcode, unsigned long cr2)
+>          .vector = X86_EXC_PF,
+>          .type = X86_EVENTTYPE_HW_EXCEPTION,
+>          .error_code = errcode,
+> -        .cr2 = cr2,
+>      };
+>  
+> +    event.cr2 = cr2;
+> +
+>      hvm_inject_event(&event);
+>  }
+>  
+> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+> index fbc023c37e34..e567a9b635d9 100644
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+> @@ -78,7 +78,10 @@ struct x86_event {
+>      uint8_t       type;         /* X86_EVENTTYPE_* */
+>      uint8_t       insn_len;     /* Instruction length */
+>      int32_t       error_code;   /* X86_EVENT_NO_EC if n/a */
+> -    unsigned long cr2;          /* Only for X86_EXC_PF h/w exception */
+> +    union {
+> +        unsigned long cr2;         /* #PF */
+> +        unsigned long pending_dbg; /* #DB (new DR6 bits, positive polarity) */
+> +    };
+>  };
+>  
+>  /*
 
 -- 
 Sincerely,
