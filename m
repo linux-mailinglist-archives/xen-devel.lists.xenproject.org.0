@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8141F7A5316
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 21:27:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604202.941435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176C67A531C
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 21:29:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604212.941446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiJtO-0001xd-HF; Mon, 18 Sep 2023 19:26:46 +0000
+	id 1qiJvc-0002pl-UP; Mon, 18 Sep 2023 19:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604202.941435; Mon, 18 Sep 2023 19:26:46 +0000
+Received: by outflank-mailman (output) from mailman id 604212.941446; Mon, 18 Sep 2023 19:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiJtO-0001uy-Dq; Mon, 18 Sep 2023 19:26:46 +0000
-Received: by outflank-mailman (input) for mailman id 604202;
- Mon, 18 Sep 2023 19:26:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qiJvc-0002mo-R6; Mon, 18 Sep 2023 19:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 604212;
+ Mon, 18 Sep 2023 19:29:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiJtN-0001ud-Ae; Mon, 18 Sep 2023 19:26:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiJtN-00029h-7d; Mon, 18 Sep 2023 19:26:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiJtM-0007n8-Rj; Mon, 18 Sep 2023 19:26:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qiJtM-0004qp-RL; Mon, 18 Sep 2023 19:26:44 +0000
+ (envelope-from <SRS0=5AVA=FC=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1qiJvb-0002me-L4
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 19:29:04 +0000
+Received: from sonic312-24.consmr.mail.gq1.yahoo.com
+ (sonic312-24.consmr.mail.gq1.yahoo.com [98.137.69.205])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c123919-5659-11ee-9b0d-b553b5be7939;
+ Mon, 18 Sep 2023 21:28:58 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic312.consmr.mail.gq1.yahoo.com with HTTP; Mon, 18 Sep 2023 19:28:55 +0000
+Received: by hermes--production-ne1-6cbd549489-vgq2q (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 37c3c06ffad938951c78619d23a59c3a; 
+ Mon, 18 Sep 2023 19:28:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +42,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EDLQKvkkOEo9VQTtPuXlQs9BfHnZzMPAvL3d6G4pdLY=; b=whiluMDECSVcodyL6miplhQu0N
-	netQ2zB31K3cNVxKJaeokiZiUvaAssx2puhDD0T9Tz8XXpkvHzrNHtwRxbQpArbKg//Ym9hS1zQG0
-	rA2GjP5qNPIODH1nGL0dKlDSOX2IGvDd5Mj02px8gOvMOyp5CR244hXdRtuyKqJfwYCY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183031-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9c123919-5659-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1695065335; bh=ZBSgQAZ92TmyZLCmaW8NNKPPhDYur2cUlrAqYuxTEKU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=IAGjqrl5Hx2p6K539MLT8GSakPiWRcOLduHUVLYW1qAOH3AiwoQrZmItooeWUdiiDdR+WZyoJ4juoFBtd9G6RhTutsLDtawgKGBeB0U97FQ1rFIu0gJhQyqdRk/vhdnfRhe0NOQHGuIpjoO7vH2sGyTAHLrp6eBCJ0UhdaZbDYexJ3hejbjsRt2JWGgUBPoMsQ3qpbo/9h7SOej22gxEMzyOzchvVSzLefLwaccDXB3HfBKV0/jq9LuGPJf2I0WLIu65c84+6+IphcZArHHL6Rxvsji6qUiQSI6J3gbFz9HS+whabcfPZ/q2BP5yMiuKKvZguCZvcSWM5X98lvGgpw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1695065335; bh=5vzRoq44MKYB4tNj9daDAhfNAIuZ/nuUC+Nx+hDpbbm=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=jN4YKt2xRQ1TzKZMcdzkCP+jkjn9QWzTkpGSTcEURizWwfVH2jxADS9jiTMO/RD6KNz8+CR+58n0cJydVs/ngQHd7Zl4O6ULc+TJ61dWkAuHpcapWnDCx0e9RiLWntJRDxLbkbajtrYtqD3OoQPPd4NOiSbk1e6lctE9plPQoQsGbVgMNZMSjfy4YbCakTD9cO7ny1M8EAy77dvI/X6ovsDYz5nhVGxUOUkon9yfr4hiO2AoNSNY0xn/iLOSXAL/qofSmTNkjXPpObKb39PkN6mYDjaj97Gdgv/YSzqviC98R4qUw+zQiVvbB1EhqyoYe6gm5dDRm4SWZLUzj8/51A==
+X-YMail-OSG: tSnEX60VM1k7XeSbkU8xPF3ObHJKV6p8H7zz0pDB7VOTAAeZTUBbmme2QPv6_oo
+ dysDTIGg8eWNStVZlF20MpnkU_OvzwPJgq2x4IEFfqqcxx5K1Qcw5p7QxctJrzeiq5i18DB7Bjqn
+ MxsZ.vgHorlt0XhLFFVrCyOZyEPmRIqey81IA5_tiYhnshbly3iczbe71JNYzKYVoC6G9T6uipbf
+ yYPAVCb3tNwvRulc1baj2uym5rPIt34CNRCIOwTBWwtbfLCTpU9vb6HRT5b5xFJiTEvQnsR5mkhU
+ EN3pA996ik6E_8z5tUx3THm.dRJn9ttJfapgmqRaN0iyBEWRlOqPaTpIghSupGRGURRFw4zRqPFY
+ 8dFqT.apnLR9VZli75JV1Tu6UvBiHW_2LB2_rlp._z90a03yzDOTC63xRlkkAMqvkAUfic3feOfI
+ k8OWFGUx6zzuErLoYD5zHAVsQCkY_VZKgm7IFPmw9cYedReP1EqCLSXuWQwPomxxIPCNp4MW37_.
+ 3YGgPEBbqtmiCnYElx9gsiys94jVJluQA3meqTX75Di_oOqpLePkAQieukyDYtltBE63SpXUKaVb
+ 8DA.6qX6dA6KxQII2YUP1YxzPU.AFsLrdBpPAy5yRgSX06GtJe3yICGecl7kEswwmrRNmVTx5Ik.
+ OI9FlBfShqoHkBebmoaJgAQTncOG5p1wpfE40UQtEKw0XkofvrHBAN5VTDdDs32gqlplql2ofuSz
+ REnP6nxfwPoWrL9._XLZMwC4E1leCs3mG_HY6NF3TXGovWIlhzSebeWAwQrCnHO1YNCBDmicMV0J
+ 8iZEVBvg9cjbRgY56488AGkVnvf.UljYvqAUVWa7cTkGDaGMUtDjm9kyhMX97EQpGzlpuzHjI.MZ
+ NQzD6PPhjpRVKlIvfnGwC5UQrdDJyCPkSsBpwE4gohP1uacn_xdqYxgyptM6823FQj7hVKDyPwQC
+ HzXkU9Q.AP9ctSQ_s0q2H1ZRliGUAv2GtTqCEJGpv1qGeuq.WNmuPZI.Lvc_k4s7mW7WGyMprLF7
+ JPSQqoxMrf.o8Hb45Q8ssVYpbQD9YuydvZRdzHphtpOQLesTkkup7saxEpNpNSh8KhwhYXviQCvw
+ GY_olVO0iRKIHnQVFxlRTwrz2k_6Wm0rIzqpqHyjwMhTgnB9GCuyqnDbeOy1B6thykXyMHBuIJKl
+ ClooUG.ysGODbHSisTAsH2xidT23OJsg4xeFNMNtNEMqF0zNPKKuMUahFP5MXTXuEYDz4EpzrKR5
+ dOp4OiagnxxcBmsBMUcJuZGIGTmiY0i3UxmiRftaccPrBRTPJEoT6I2OfokVFmS3Oe54_deGJefE
+ 4RWmMhbmpjd0_P_wAQzz_4hZmTkRghUff17Dj18aqUcB8I6i_uLJpkjEkVDjp.WhgGCDnN0ytSjn
+ 15bsjEja47IRou3F5BQEQH8ZiFhNvIoGKzz2nCfnIPKPpxuBenkPojiwcCE0xeyc0gRGWpYP4NEK
+ 7Yhmzf8TzdfLeCRxQzh7kzI8Bo63MrgqGiXimYAJXoXjG1SbSZCBPPyVj3FEYHZxwnFe_Km6eWtw
+ zolCpySkGtJpMD6u8wgYUoQ95HChJBpHoZl2BxmTtlS7jWD3Q_mDCRK42R_XuRy0QmzNJzF7t0ZG
+ Yy_fbhisjdiIZNHZqVwOJ5QIKEoixDxHCWcrQ4qCQXFJ.RMaSrIKwa52oiZsQKv15ZoxQZasIm4w
+ DTcedCjkJZBTmV0f3h._3cmNE93yflk8k8mbL4nZgbWxQP4D7cwehSbKBKOOnolqopWSSrxfeIw2
+ 3uGqDledL_dd2ulC8DcrYHwgNyBqVuWSHDhkPCJVcX7hpr_P3_tr0RnmclUkxi2Eywyj7Fb3lqoc
+ xflueDTRWbUPQ63Oa44_alQUyqMdn7kHjr3G8Z7Wg4f08ySBwQQxorBHf1PY2XIYzACMFXcRPJko
+ KZVsoUuDcIDvjad9Xo2vWCGLCm173A0cUGHTebOjYESvCsGOeRJSR0ZSXWpDkJkasgGbZ.LuZn3o
+ Xw9MJTl09LOKuQlySnIK6gxqAiSC63zT3TBfQIYKmJGFrp5Segy2Dfrvpwm28I8Fk219gDUkJDmf
+ k9ih_lU2jBfOouvBxfk32nom8KXLGrkC1aPUgG1qU.wK2dIKIopYAN47nu5eSIMmleB6AfadTOEG
+ wewP2XFKh1VIJoWVlYtuEchdP79QrzsmzvOVSLMWufh_fa2HnIDxGbDhe0b2vc5UgHZ3thrAUF4T
+ 3UnIpK4qbvvMlBuPy
+X-Sonic-MF: <brchuckz@aim.com>
+X-Sonic-ID: 4e57dd28-2cc4-4f72-8202-7c9886aae99e
+Message-ID: <09079b5a-a0b3-4184-aef1-14764fa0ea41@netscape.net>
+Date: Mon, 18 Sep 2023 15:28:50 -0400
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183031: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-X-Osstest-Versions-That:
-    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 18 Sep 2023 19:26:44 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: xl dmesg buffer too small for Xen 4.18?
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <b20bdc7e-4c07-4bde-b206-4142310211d4.ref@netscape.net>
+ <b20bdc7e-4c07-4bde-b206-4142310211d4@netscape.net>
+ <9baf6bec-49c6-474b-a5e3-5f0473aaffc7@netscape.net>
+ <640f5a9d-913e-494b-b2c6-c9b3694f7cd3@xen.org>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <640f5a9d-913e-494b-b2c6-c9b3694f7cd3@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.21797 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-flight 183031 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183031/
+On 9/18/2023 2:49 PM, Julien Grall wrote:
+> (+Roger and moving to xen-devel)
+> 
+> Hi,
+> 
+> On 18/09/2023 19:17, Chuck Zmudzinski wrote:
+>> On 9/18/2023 9:00 AM, Chuck Zmudzinski wrote:
+>>> Hello,
+>>>
+>>> I tested Xen 4.18~rc0 on Alma Linux 9 and my first tests indicate it works fine for starting the guests I manage but I notice that immediately after boot and with only dom0 running on the system, I get:
+>>>
+>>> [user@Malmalinux ~]$ sudo xl dmesg
+>>> 00bee72000-00000bee72fff type=7 attr=000000000000000f
+>>> (XEN)  00000bee73000-00000bef49fff type=4 attr=000000000000000f
+>>> (XEN)  00000bef4a000-00000bef4bfff type=7 attr=000000000000000f
+>>> (XEN)  00000bef4c000-00000befbafff type=4 attr=000000000000000f
+>>> (XEN)  00000befbb000-00000befbbfff type=7 attr=000000000000000f
+>>> ...
+>>>
+>>> I have noticed the buffer fills up quickly on earlier Xen versions, but never have I seen it fill up during boot and with only dom0 running.
+>>>
+>>> Can increasing the buffer fix this? How would one do that?
+>>>
+>>> Thanks
+>>>
+>> 
+>> I see the setting is the command line option conring_size:
+>> 
+>> https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#conring_size
+>> 
+>> The default is 16k, I tried 48k and that was big enough to capture all the messages at boot for 4.18 rc0. This is probably not an issue if the release candidate is being more verbose than the actual release will be. But if the release is still this verbose, maybe the default of 16k should be increased.
+> 
+> Thanks for the report. This remind me the series [1] from Roger which 
+> tries to increase the default size to 32K. @Roger, I am wondering if we 
+> should revive it?
+> 
+> Cheers,
+> 
+> [1] 
+> https://lore.kernel.org/xen-devel/20220630082330.82706-1-roger.pau@citrix.com/
+> 
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-baseline version:
- xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
-
-Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
-Testing same since   183031  2023-09-18 17:01:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:24:25 2023 +0100
-
-    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
-    
-    In the Zen1 microarchitecure, there is one divider in the pipeline which
-    services uops from both threads.  In the case of #DE, the latched result from
-    the previous DIV to execute will be forwarded speculatively.
-    
-    This is an interesting covert channel that allows two threads to communicate
-    without any system calls.  In also allows userspace to obtain the result of
-    the most recent DIV instruction executed (even speculatively) in the core,
-    which can be from a higher privilege context.
-    
-    Scrub the result from the divider by executing a non-faulting divide.  This
-    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
-    
-    Alternatives in IST context is believed safe now that it's done in NMI
-    context.
-    
-    This is XSA-439 / CVE-2023-20588.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 15 12:13:51 2023 +0100
-
-    x86/amd: Introduce is_zen{1,2}_uarch() predicates
-    
-    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
-    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
-    opencoding it, and the explanation of the heuristic, at each usage site.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:53:33 2023 +0100
-
-    x86/spec-ctrl: Issue VERW during IST exit to Xen
-    
-    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
-    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
-    flush to scrub potentially sensitive data from uarch buffers.
-    
-    In order to compensate, issue VERW when exiting to Xen from an IST entry.
-    
-    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
-    and we're about to add a third.  Load the field into %ebx, and list the
-    register as clobbered.
-    
-    %r12 has been arranged to be the ist_exit signal, so add this as an input
-    dependency and use it to identify when to issue a VERW.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 12:20:12 2023 +0100
-
-    x86/entry: Track the IST-ness of an entry for the exit paths
-    
-    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
-    entry/exit asm, so it only needs setting in the IST path.
-    
-    As this is subtle and fragile, add check_ist_exit() to be used in debugging
-    builds to cross-check that the ist_exit boolean matches the entry vector.
-    
-    Write check_ist_exit() it in C, because it's debug only and the logic more
-    complicated than I care to maintain in asm.
-    
-    For now, we only need to use this signal in the exit-to-Xen path, but some
-    exit-to-guest paths happen in IST context too.  Check the correctness in all
-    exit paths to avoid the logic bit-rotting.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:48:16 2023 +0100
-
-    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
-    
-    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
-    for consistency.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 45f00557350dc7d0756551069803fc49c29184ca
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:11:50 2023 +0100
-
-    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
-    
-    ... to better explain how they're used.
-    
-    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
-    corner case when e.g. an NMI hits late in an exit-to-guest path.
-    
-    Leave a TODO, which will be addressed in subsequent patches which arrange for
-    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 1 11:38:44 2023 +0100
-
-    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
-    
-    These have grown more complex over time, with some already having been
-    converted.
-    
-    Provide full Requires/Clobbers comments, otherwise missing at this level of
-    indirection.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 694bb0f280fd08a4377e36e32b84b5062def4de2
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 17:03:16 2023 +0100
-
-    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
-    
-    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
-    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
-    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
-    
-    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
-    is going to be too generic shortly.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 15:06:49 2023 +0100
-
-    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
-    
-    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
-    dropped the only user, leaving behind the (incorrect) implication that Xen had
-    split exit paths.
-    
-    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
-    to SPEC_CTRL_EXIT_TO_XEN for consistency.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+I just tested with 24k, and that is also big enough. So 32k would also be good. But the default of 16k appears to be too small for Xen 4.18 rc0 on my machine.
 
