@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55E97A4997
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 14:28:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604011.941201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF7E7A49AE
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 14:31:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604018.941211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiDMX-0005xE-7Q; Mon, 18 Sep 2023 12:28:25 +0000
+	id 1qiDPV-0007jc-Mm; Mon, 18 Sep 2023 12:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604011.941201; Mon, 18 Sep 2023 12:28:25 +0000
+Received: by outflank-mailman (output) from mailman id 604018.941211; Mon, 18 Sep 2023 12:31:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiDMX-0005vO-3Q; Mon, 18 Sep 2023 12:28:25 +0000
-Received: by outflank-mailman (input) for mailman id 604011;
- Mon, 18 Sep 2023 12:28:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qiDPV-0007hN-KA; Mon, 18 Sep 2023 12:31:29 +0000
+Received: by outflank-mailman (input) for mailman id 604018;
+ Mon, 18 Sep 2023 12:31:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S4ic=FC=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qiDMV-0005vI-81
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 12:28:23 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da3285fe-561e-11ee-9b0d-b553b5be7939;
- Mon, 18 Sep 2023 14:28:20 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-401f68602a8so48940515e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 05:28:20 -0700 (PDT)
-Received: from CTX-Georges-MBP.citrite.net
- (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
- by smtp.gmail.com with ESMTPSA id
- 7-20020a05600c020700b003fe2de3f94fsm12187475wmi.12.2023.09.18.05.28.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Sep 2023 05:28:19 -0700 (PDT)
+ <SRS0=ngl4=FC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qiDPU-0007hH-UV
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 12:31:28 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4979a252-561f-11ee-8788-cb3800f73035;
+ Mon, 18 Sep 2023 14:31:27 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40476ce8b2fso38048555e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 05:31:27 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 7-20020a05600c230700b003fefcbe7fa8sm12422668wmo.28.2023.09.18.05.30.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Sep 2023 05:31:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,292 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da3285fe-561e-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 4979a252-561f-11ee-8788-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695040100; x=1695644900; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0fpCgVjY/UDRsPYgZC1Uh38RaXgYWqjSfswfqVWb528=;
-        b=jluUl7mmvXhmz37p9q7gdZCcDGKAwasO8tw8bYUEWgUL7lPW+IEWVdvc7VW72OIFT5
-         LZn9MS/B/Le6CiEhvgAET3z/iU/qAMCVesuKqi1k88g4/VcX/45Y28Wo1GE2krdULOmy
-         igo3U+Cx4pLjN4mlr/zIbRYU1OKykPFnc6NRs=
+        d=citrix.com; s=google; t=1695040287; x=1695645087; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eyq7XKz+Pwc3IHWuGyUogdikjt6N7gbNZGUDPCycHWE=;
+        b=kfvuNamhIyVRVTW5HwntsD4Oe53peDtYew5/qMhr1l6V7RTdkf9aBgzJx71unBDXOg
+         vKSubAlbmykc/xhT4iUsN4kt/jllD2G7DuNmeZQbIW+O/o2aWZm7fz+YUQlit/NpRfZv
+         X4xbEcrzaDP3DAb0eBDpXQ1lTZ4X/NyQB2svQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695040100; x=1695644900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1695040287; x=1695645087;
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0fpCgVjY/UDRsPYgZC1Uh38RaXgYWqjSfswfqVWb528=;
-        b=kp0bb1XumaMgdVGFBsl5YFQFa8+T4VZkiMCMGiyglZjMOo2unHvcMnT+jVrp4/ehAC
-         PiweA7QuqmsREzQY8PQzAN2JOrkAkVJHZ64PkzjVsUreDdk38eOjM6BRr5x08h+p6zHE
-         tDR09aAotqHgaFowU1WqHPI5i4gV+rj9YPjz4+eAm6cpyOuzB/0BM5tUfAyhczmFaJGW
-         +Y0ri+Ueu+EBNPyvHYqwRysmzo5HFU7SxzdzLaAZgFFQ2mQQIJ1c22iqGLw3YDdurove
-         VOBKb02fKhZ2ZRGD0MpcYhK8zd/r6bbGp5YXcE9UrieJ/8NoSqQTe94ahP6vIa9+1cjA
-         +/uA==
-X-Gm-Message-State: AOJu0YzXO71mq0YTmWOKWhCHQbGSazxOTc992gQdklrryjY3X+A6gQ6j
-	z2pAjJCfXYjAYi94/pbuxRXNC6bti2uOb5+5Uvw=
-X-Google-Smtp-Source: AGHT+IGUTBZZcc3rUxpiPomh2PXvx4Ib8EcuV9+BCL73YaUYEqPRMGG6+1+fIOcURSVfyd6l5HoMvQ==
-X-Received: by 2002:a05:600c:225a:b0:401:2ee0:7558 with SMTP id a26-20020a05600c225a00b004012ee07558mr7265745wmm.32.1695040099749;
-        Mon, 18 Sep 2023 05:28:19 -0700 (PDT)
-From: George Dunlap <george.dunlap@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] docs: Document a policy for when to deviate from specifications
-Date: Mon, 18 Sep 2023 13:28:16 +0100
-Message-ID: <20230918122817.6577-1-george.dunlap@cloud.com>
-X-Mailer: git-send-email 2.42.0
+        bh=Eyq7XKz+Pwc3IHWuGyUogdikjt6N7gbNZGUDPCycHWE=;
+        b=aTGGS/PB5oxOkh6Y7efnq0IdV38XBlQaNDBLfgMjuobXHvn18HIoI31yZ1d6ndJa5M
+         KNa3SnHtj7Tf2SJgfZFf9tVMjUsSPBOUA63ZfwJUB8ywVHLFzGebtJB3V4v1rMhhPq26
+         Qh9sTZ7OFk5/+TeLKIVZApwvtLFyF9E4mvaa+ITVST6qAsPwYpTDuT+yCs/o/f0XiIQN
+         lXnIbNipRy7y0NYdiKkUZGuU8Mpw4UKG15XlbQEhh4VOh6ZRrMgHYbcgUTNyYhqMNMK2
+         V9aBa8qIDRkU1GNAqyUFK8iAhq13MNi3iIO9Aytqw1Ffayy4ISSYXDcNXkg5Gp5PiNOv
+         NK+Q==
+X-Gm-Message-State: AOJu0Yzl14FzzCmQ1sjo/NmILU4qlKVFJu0Gl9KcXFdetSta+L0kTYgT
+	5S1rU0FP6pW7liXOazputRMTvptwIxpb6zUo+T4=
+X-Google-Smtp-Source: AGHT+IGCkzVGmx78iq0Pc4rpUPg8VOyCxqnY4qyMet0vDPgE6Glk0JEQbLxzRDMmaHpTYcM3BdH9dA==
+X-Received: by 2002:a05:600c:228c:b0:401:c52c:5ed8 with SMTP id 12-20020a05600c228c00b00401c52c5ed8mr7524727wmf.13.1695040286752;
+        Mon, 18 Sep 2023 05:31:26 -0700 (PDT)
+Message-ID: <7d1eb0eb-adec-0890-2c30-a99404e0291c@citrix.com>
+Date: Mon, 18 Sep 2023 13:30:51 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 4/9] x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_*
+ comments
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230915150038.602577-1-andrew.cooper3@citrix.com>
+ <20230915150038.602577-5-andrew.cooper3@citrix.com>
+ <7eeaaf67-336b-e5a1-6f64-9ad5db14e330@suse.com>
+In-Reply-To: <7eeaaf67-336b-e5a1-6f64-9ad5db14e330@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-There is an ongoing disagreement among maintainers for how Xen should
-handle deviations to specifications such as ACPI or EFI.
+On 18/09/2023 11:59 am, Jan Beulich wrote:
+> On 15.09.2023 17:00, Andrew Cooper wrote:
+>> ... to better explain how they're used.
+>>
+>> Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
+>> corner case when e.g. an NMI hits late in an exit-to-guest path.
+>>
+>> Leave a TODO, which will be addressed in subsequent patches which arrange for
+>> DO_COND_VERW to be safe within SPEC_CTRL_EXIT_TO_XEN.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
+> Two nits though:
+>
+>> @@ -233,7 +236,11 @@
+>>          X86_FEATURE_SC_MSR_PV
+>>  .endm
+>>  
+>> -/* Use in interrupt/exception context.  May interrupt Xen or PV context. */
+>> +/*
+>> + * Used after an exception or maskable interrupt, hitting Xen or PV context.
+>> + * There will either be a guest speculation context, or (baring fatal
+> Isn't this "barring"?
+>
+>> @@ -260,7 +270,13 @@
+>>  .endm
+>>  
+>>  /*
+>> - * Use in IST interrupt/exception context.  May interrupt Xen or PV context.
+>> + * Used after an IST entry hitting Xen or PV context.  Special care is needed,
+>> + * because when hitting Xen context, there may not a well-formed speculation
+> Missing "be"?
 
-Write up an explicit policy, and include two worked-out examples from
-recent discussions.
+Both fixed, thanks.
 
-Signed-off-by: George Dunlap <george.dunlap@cloud.com>
----
-NB that the technical descriptions of the costs of the accommodations
-or lack thereof I've just gathered from reading the discussions; I'm
-not familiar enough with the details to assert things about them.  So
-please correct any technical issues.
----
- docs/policy/FollowingSpecifications.md | 219 +++++++++++++++++++++++++
- 1 file changed, 219 insertions(+)
- create mode 100644 docs/policy/FollowingSpecifications.md
-
-diff --git a/docs/policy/FollowingSpecifications.md b/docs/policy/FollowingSpecifications.md
-new file mode 100644
-index 0000000000..a197f01f65
---- /dev/null
-+++ b/docs/policy/FollowingSpecifications.md
-@@ -0,0 +1,219 @@
-+# Guidelines for following specifications
-+
-+## In general, follow specifications
-+
-+In general, specifications such as ACPI and EFI should be followed.
-+
-+## Accommodate non-compliant systems if it doesn't affect compliant systems
-+
-+Sometimes, however, there occur situations where real systems "in the
-+wild" violate these specifications, or at least our interpretation of
-+them (henceforth called "non-compliant").  If we can accommodate
-+non-compliant systems without affecting any compliant systems, then we
-+should do so.
-+
-+## If accommodation would affect theoretical compliant systems that are
-+   not known to exist, and Linux and/or Windows takes the
-+   accommodation, take the accommodation unless there's a
-+   reason not to.
-+
-+Sometimes, however, there occur situations where real, non-compliant
-+systems "in the wild" cannot be accommodated without affecting
-+theoretical compliant systems; but there are no known theoretical
-+compliant systems which exist.  If Linux and/or Windows take the
-+accommodation, then from a cost/benefits perspective it's probably best
-+for us to take the accommodation as well.
-+
-+This is really a generalization of the next principle; the "reason not
-+to" would be in the form of a cost-benefits analysis as described in
-+the next section showing why the "special case" doesn't apply to the
-+accommodation in question.
-+
-+## If things aren't clear, do a cost-benefits analysis
-+
-+Sometimes, however, things are more complicated or less clear.  In
-+that case, we should do a cost-benefits analysis for a particular
-+accommodation.  Things which should be factored into the analysis:
-+
-+N-1: The number of non-compliant systems that require the accommodation
-+ N-1a: The number of known current systems
-+ N-1b: The probable number of unknown current systems
-+ N-1c: The probable number of unknown future systems
-+
-+N-2 The severity of the effect of non-accommodation on these systems
-+
-+C-1: The number of compliant systems that would be affected by the accommodation
-+ C-1a: The number of known current systems
-+ C-1b: The probable number of unknown current systems
-+ C-1c: The probable number of unknown future systems
-+
-+C-2 The severity of the effect of accommodation on these systems
-+
-+Intuitively, N-1 * N-2 gives us N, the cost of not making the
-+accommodation, and C-1 * C-2 gives us C, the cost of taking the
-+accommodation.  If N > C, then we should take the accommodation; if C >
-+N, then we shouldn't.
-+
-+The idea isn't to come up with actual numbers to plug in here
-+(although that's certainly an option if someone wants to), but to
-+explain the general idea we're trying to get at.
-+
-+A couple of other principles to factor in:
-+
-+Vendors tend to copy themselves and other vendors.  If one or two
-+major vendors are known to create compliant or non-compliant systems
-+in a particular way, then there are likely to be more unknown and
-+future systems which will be affected by / need a similar accommodation
-+respectively; that is, we should raise our estimates of N-1{b,c} and
-+C-1{b,c}.
-+
-+Some downstreams already implement accommodations, and test on a
-+variety of hardware.  If downstreams such as QubesOS or XenServer /
-+XCP-ng implement the accommodations, then N-1 * N-2 is likely to be
-+non-negligible, and C-1 * C-2 is likely to be negligible.
-+
-+Windows and Linux are widely tested.  If Windows and/or Linux make a
-+particular accommodation, and that accommodation has remained stable
-+without being reverted, then it's likely that the number of unknown
-+current systems that are affected by the accommodation is negligible;
-+that is, we should lower the C-1b estimate.
-+
-+Vendors tend to test server hardware on Windows and Linux.  If Windows
-+and/or Linux make a particular accommodation, then it's unlikely that
-+future systems will be affected by the accommodation; that is, we
-+should lower the C-1c estimate.
-+
-+# Example applications
-+
-+Here are some examples of how these principles can be applied.
-+
-+## ACPI MADT tables containing ~0
-+
-+Xen disables certain kinds of features on CPU hotplug systems; for
-+example, it will avoid using TSC, which is faster and more power
-+efficient (since on a hot-pluggable system it won't be reliable), and
-+instead fall back to other timer sources which are slower and less
-+power efficient.
-+
-+Some hardware vendors have (it seems) begun making a single ACPI table
-+image for a range of similar systems, with MADT entries for the number
-+of CPUs based on the system with the most CPUs, and then for the
-+systems with fewer CPUs, replacing the APIC IDs in the MADT table with
-+~0, to indicate that those entries aren't valid.  These systems are
-+not hotplug capable.  Sometimes the invalid slots are on a separate
-+socket.
-+
-+One interpretation of the spec is that a system with such MADT entries
-+could actually have an extra socket, and that later the system could
-+update the MADT table, populating the APIC IDs with real values.
-+
-+If Xen finds an MADT where all slots are either populated or filled
-+with APICID ~0, , should it consider it a multi-socket hotplug system,
-+disable features available on single-socket systems?  Or should it
-+accommodate the systems above, treating the system as systems
-+incapable of hotplug?
-+
-+N-1a: People have clearly found a number of systems in the wild, from
-+different vendors, that exhibit this property; it's a non-negligible
-+number of systems.
-+
-+N-1b,c: Since these systems are from different vendors, and there seem to
-+be a fair number of them, there are likely to be many more that we
-+don't know about; and likely to be many more produced in the future.
-+
-+N-2: Xen will use more expensive (both time and power-wise) clock
-+sources unless the user manually modifies the Xen command-line.
-+
-+C-1a,b: There are no known systems that implement phyical CPU hotplug
-+whatsoever, much less a system that uses ~0 for APICIDs.
-+
-+There are hypervisors that implement *virtual* CPU hotplug; but they
-+don't use ~0 for APICIDs.
-+
-+C-1c: It seems that physical CPU hotplug is an unsolved problem: it was
-+worked on for quite a while and then abandoned.  So it seems fairly
-+unlikely that any physical CPU hotplug systems will come to exist any
-+time in the near future.
-+
-+If any hotplug systems were created, they would only be affected if
-+they happened to use ~0 the APIC ID of the empty slots in the MADT
-+table.  This by itself seems unlikely, given the number of vendors who
-+are now using that to mean "invalid slot", and the fact that virtual
-+hotplug systems don't do this.
-+
-+Furthermore, Linux has been treating such entries as permanently
-+invalid since 2016.  If any system were to implement physical CPU
-+hotplug in the future, and use ~0 as a placeholder APIC ID, it's very
-+likely they would test it on Linux, discover that it doesn't work, and
-+modify the system to enable it to work (perhaps copying QEMU's
-+behavior).  It seems likely that Windows will do the same thing,
-+further reducing the probability that any system like this will make
-+it into production.
-+
-+So the potential number of future systems affected by this before we
-+can implement a fix seems very small indeed.
-+
-+C-2: If such a system did exist, everything would work fine at boot;
-+the only issue would be that when an extra CPU was plugged in, nothing
-+would happen.  This could be overridden by a command-line argument.
-+
-+Adding these all together, there's a widespread, moderate cost to not
-+accommodating these systems, and an uncertain and small cost to
-+accommodating them.  So it makes sense to apply the accommodation.
-+
-+## Calling EFI Reboot method
-+
-+One interpretation of the EFI spec is that operating systems should
-+call the EFI ResetSystem method in preference to the ACPI reboot
-+method.
-+
-+However, although the ResetSystem method is required by the EFI spec,
-+a large number of different systems doesn't actully work, at least
-+when called by Xen: a large number of systems don't cleanly reboot
-+after calling the EFI REBOOT method, but rather crash or fail in some
-+other random way.
-+
-+(One reason for this is that the Windows EFI test doesn't call the EFI
-+ResetSystem method, but calls the ACPI reboot method.  One possibile
-+explanation for the repeated pattern is that vendors smoke-test the
-+ResetSystem method from the EFI shell, which has its own memory map;
-+but fail to test it when running on the OS memory map.)
-+
-+Should Xen follow our interpretation of the EFI spec, and call the
-+ResetSystem method in preference to the ACPI reboot method?  Or should
-+Xen accommodate systems with broken ResetSystem methods, and call the
-+ACPI reboot method by default?
-+
-+N-1a: There are clearly a large number of systems which exhibit this
-+property.
-+
-+N-1b,c: Given the large number of diverse vendors who make this
-+mistake, it seems likely that there are even more that we don't know
-+about, and this will continue into the future.
-+
-+N-2: Systems are incapable of rebooting cleanly unless the right runes
-+are put into the Xen command line to make it prefer using the ACPI
-+reboot method.
-+
-+C-1a: A system would only be negatively affected if 1) an ACPI reboot
-+method exists, 2) an EFI method exists, and 3) calling the ACPI method
-+in preference to the EFI method causes some sort of issue.  So far
-+nobody has run into such a system.
-+
-+C-1b,c: The Windows EFI test explicitly tests the ACPI reboot method
-+on EFI systems.  Linux also prefers calling the ACPI reboot method
-+even when an EFI method is available.  The chance of someone shipping
-+a system that had a problem while that was the case is very tiny: it
-+basically wouldn't run either of the two most important operating
-+systems.
-+
-+C-2: It seems likely that the worst that could happen is what's
-+happening now when calling the EFI method: that the ACPI method would
-+cause a weird crash, which then would reboot or hang.
-+
-+XenServer has shipped this accommodation for several years now.
-+
-+Adding these altogether, the cost of non-accommodation is widespread
-+and moderate; that is to say, non-negligible; and the cost of
-+accommodation is theoretical and tiny.  So it makes sense to apply the
-+accommodation.
-\ No newline at end of file
--- 
-2.42.0
-
+~Andrew
 
