@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B56377A4B07
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 16:21:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604094.941309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 460F47A4B36
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 16:48:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604099.941318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiF7G-0002cB-HW; Mon, 18 Sep 2023 14:20:46 +0000
+	id 1qiFXN-0002yd-JB; Mon, 18 Sep 2023 14:47:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604094.941309; Mon, 18 Sep 2023 14:20:46 +0000
+Received: by outflank-mailman (output) from mailman id 604099.941318; Mon, 18 Sep 2023 14:47:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiF7G-0002Zw-Ek; Mon, 18 Sep 2023 14:20:46 +0000
-Received: by outflank-mailman (input) for mailman id 604094;
- Mon, 18 Sep 2023 14:20:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ngl4=FC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qiF7E-0002Zq-Hl
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 14:20:44 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ca7f052-562e-11ee-9b0d-b553b5be7939;
- Mon, 18 Sep 2023 16:20:42 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3214d4ecd39so1110931f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 07:20:42 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f13-20020a5d568d000000b0031fd849e797sm12632678wrv.105.2023.09.18.07.20.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Sep 2023 07:20:41 -0700 (PDT)
+	id 1qiFXN-0002vM-GS; Mon, 18 Sep 2023 14:47:45 +0000
+Received: by outflank-mailman (input) for mailman id 604099;
+ Mon, 18 Sep 2023 14:47:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9yUr=FC=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1qiFXL-0002s9-Pa
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 14:47:43 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51cb8c95-5632-11ee-8788-cb3800f73035;
+ Mon, 18 Sep 2023 16:47:42 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-694-ZNSI5qm6NxGEWYqOK2iQsg-1; Mon, 18 Sep 2023 10:47:37 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBD30101A53B;
+ Mon, 18 Sep 2023 14:47:36 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.39.192.127])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D456A1C554;
+ Mon, 18 Sep 2023 14:47:35 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id E818F21E6900; Mon, 18 Sep 2023 16:47:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +52,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ca7f052-562e-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1695046842; x=1695651642; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1tvnMSfJQ0y/S7NaF2xcO4uXI/f0UBKn80Bbhm57+Ds=;
-        b=ab1Z1Fu0wkT1eP+80CBkI+VkwCTwIXIBqgKyBer80Gcj+N1b+iiTH7m6Jn0/0s4wbe
-         eHDG9Vc/BDEGCLYh/OlPrF405kfoCUMAIC7heF07HbX4ht9VZXJMzA1ZbC59Uz1/6CA5
-         U0og4Ka9uafQzISj0Ka7IfDXJ38EAP80FwTuA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695046842; x=1695651642;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1tvnMSfJQ0y/S7NaF2xcO4uXI/f0UBKn80Bbhm57+Ds=;
-        b=AdYCDed1U0CSGy7/MuqZ4vbwY4/4Wh6hndFTW7nQqERgxj/gNlMbYdkXuJxuW8CZQC
-         n0DyUJaExErsv9BgnY3QxYdnA9mZk1FPbm/mvqoGklwKQ4/EUoVT0yBtYM9OkHjo/3+K
-         JUKObVseXHCgDHVVVp98B2wE9FjlhI98hpD01s/08FF2LysLDkw3UUmH5wMG3JhattiR
-         wW2cgpumJ7giSIEYkRdG+s+BPxxLbM8lA9YYITkNvMaKaVrOjfzY1iQP11E3liqGDv7W
-         29JHx1+Z1XwGzoO71dH+b3lfrq10NNmvBTdBd3upbtheql+7nuTjS53DOvXMeE5dct0y
-         bTQQ==
-X-Gm-Message-State: AOJu0Yyh6Aviwy/qA4eGPTfk4q/QV2wqFEavtJCuLVWXpLVr9sTsbtyB
-	66NkqbiAbZ2gERP8Uv+mBY+z6w==
-X-Google-Smtp-Source: AGHT+IE8lziHllWZxVCf7MtcsN5GAO5vu+kT675UKHzUnhzswe39wIaAArp2ntNMYiTJ9RfUCf/FRA==
-X-Received: by 2002:a5d:6309:0:b0:313:f463:9d40 with SMTP id i9-20020a5d6309000000b00313f4639d40mr6746009wru.65.1695046841830;
-        Mon, 18 Sep 2023 07:20:41 -0700 (PDT)
-Message-ID: <a29c7623-631e-e104-d7d6-2bf97af0bebf@citrix.com>
-Date: Mon, 18 Sep 2023 15:20:41 +0100
+X-Inumbo-ID: 51cb8c95-5632-11ee-8788-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695048461;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rr10BgvxSqJ2B7JFeQPeJKV1bmS3WBpXTQ2eSz0GfVQ=;
+	b=MZYyycQFUTmyFTnIVC8Yr/jvD9mA/MatGDzxH0baby5JP9EL29R/Q+PAcpqef97q4Gml2S
+	Ri9OO/wj0Epy5QjfMWE2UlHwMzFerIeusjQRYlbe/oVl9M5MwGi6q/eyUqfZE42EZ/IvPC
+	NK9rpL+yDLNbubl8VTCNObl1+z9JMT8=
+X-MC-Unique: ZNSI5qm6NxGEWYqOK2iQsg-1
+From: Markus Armbruster <armbru@redhat.com>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org,  hreitz@redhat.com,  eblake@redhat.com,
+  vsementsov@yandex-team.ru,  jsnow@redhat.com,  idryomov@gmail.com,
+  pl@kamp.de,  sw@weilnetz.de,  sstabellini@kernel.org,
+  anthony.perard@citrix.com,  paul@xen.org,  pbonzini@redhat.com,
+  marcandre.lureau@redhat.com,  berrange@redhat.com,  thuth@redhat.com,
+  philmd@linaro.org,  stefanha@redhat.com,  fam@euphon.net,
+  quintela@redhat.com,  peterx@redhat.com,  leobras@redhat.com,
+  kraxel@redhat.com,  qemu-block@nongnu.org,
+  xen-devel@lists.xenproject.org,  alex.bennee@linaro.org,
+  peter.maydell@linaro.org
+Subject: Re: [PATCH 5/7] block/vdi: Clean up local variable shadowing
+References: <20230831132546.3525721-1-armbru@redhat.com>
+	<20230831132546.3525721-6-armbru@redhat.com>
+	<ZQQKsxgrT2mLokFi@redhat.com>
+Date: Mon, 18 Sep 2023 16:47:34 +0200
+In-Reply-To: <ZQQKsxgrT2mLokFi@redhat.com> (Kevin Wolf's message of "Fri, 15
+	Sep 2023 09:41:39 +0200")
+Message-ID: <871qevczcp.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 9/9] x86/spec-ctrl: Mitigate the Zen1 DIV leakge
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230915150038.602577-1-andrew.cooper3@citrix.com>
- <20230915150038.602577-10-andrew.cooper3@citrix.com>
- <13289cc3-c419-0625-06c9-e7ffd79f9890@suse.com>
-In-Reply-To: <13289cc3-c419-0625-06c9-e7ffd79f9890@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 
-On 18/09/2023 12:15 pm, Jan Beulich wrote:
-> On 15.09.2023 17:00, Andrew Cooper wrote:
->> In the Zen1 microarchitecure, there is one divider in the pipeline which
->> services uops from both threads.  In the case of #DE, the latched result from
->> the previous DIV to execute will be forwarded speculatively.
->>
->> This is an interesting covert channel that allows two threads to communicate
->> without any system calls.  In also allows userspace to obtain the result of
->> the most recent DIV instruction executed (even speculatively) in the core,
->> which can be from a higher privilege context.
->>
->> Scrub the result from the divider by executing a non-faulting divide.  This
->> needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
->>
->> This is XSA-439 / CVE-2023-20588.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Kevin Wolf <kwolf@redhat.com> writes:
+
+> Am 31.08.2023 um 15:25 hat Markus Armbruster geschrieben:
+>> Local variables shadowing other local variables or parameters make the
+>> code needlessly hard to understand.  Tracked down with -Wshadow=local.
+>> Clean up: delete inner declarations when they are actually redundant,
+>> else rename variables.
+>> 
+>> Signed-off-by: Markus Armbruster <armbru@redhat.com>
 >
-> Nevertheless I would have hoped you add at least a sentence on the alternatives
-> patching of the IST path. Hitting #MC while patching is possible, after all
-> (yes, you will tell me that #MC is almost certainly fatal to the system anyway,
-> but still).
-
-I'll see what I can do.
-
->
->> @@ -955,6 +960,46 @@ static void __init srso_calculations(bool hw_smt_enabled)
->>          setup_force_cpu_cap(X86_FEATURE_SRSO_NO);
->>  }
+>> @@ -700,7 +699,7 @@ nonallocating_write:
+>>          /* One or more new blocks were allocated. */
+>>          VdiHeader *header;
+>>          uint8_t *base;
+>> -        uint64_t offset;
+>> +        uint64_t offs;
+>>          uint32_t n_sectors;
 >>  
->> +/*
->> + * The Div leakage issue is specific to the AMD Zen1 microarchitecure.
->> + *
->> + * However, there's no $FOO_NO bit defined, so if we're virtualised we have no
->> + * hope of spotting the case where we might move to vulnerable hardware.  We
->> + * also can't make any useful conclusion about SMT-ness.
->> + *
->> + * Don't check the hypervisor bit, so at least we do the safe thing when
->> + * booting on something that looks like a Zen1 CPU.
->> + */
->> +static bool __init has_div_vuln(void)
->> +{
->> +    if ( !(boot_cpu_data.x86_vendor &
->> +           (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
->> +        return false;
->> +
->> +    if ( (boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
->> +         !is_zen1_uarch() )
->> +        return false;
->> +
->> +    return true;
->> +}
-> Just to mention it - personally I consider
+>>          g_free(block);
+>> @@ -723,11 +722,11 @@ nonallocating_write:
+>>          bmap_first /= (SECTOR_SIZE / sizeof(uint32_t));
+>>          bmap_last /= (SECTOR_SIZE / sizeof(uint32_t));
+>>          n_sectors = bmap_last - bmap_first + 1;
+>> -        offset = s->bmap_sector + bmap_first;
+>> +        offs = s->bmap_sector + bmap_first;
+>>          base = ((uint8_t *)&s->bmap[0]) + bmap_first * SECTOR_SIZE;
+>>          logout("will write %u block map sectors starting from entry %u\n",
+>>                 n_sectors, bmap_first);
+>> -        ret = bdrv_co_pwrite(bs->file, offset * SECTOR_SIZE,
+>> +        ret = bdrv_co_pwrite(bs->file, offs * SECTOR_SIZE,
+>>                               n_sectors * SECTOR_SIZE, base, 0);
+>>      }
 >
->     ...
->     if ( ... )
->         return true;
->
->     return false;
-> }
->
-> a minor anti-pattern, as a sole return imo makes more clear what's going on.
+> Having two variables 'offset' and 'offs' doesn't really help with
+> clarity either. Can we be more specific and use something like
+> 'bmap_offset' here?
 
-Well yes, here is an area where we disagree.
+Sure!
 
-It's the same as trailing commas on lists, or "| 0)" for bitmaps for
-making a smaller delta for future changes.
-
-> In a case like this, where you intentionally split return paths anyway, I'd
-> then go with
->
-> static bool __init has_div_vuln(void)
-> {
->     if ( !(boot_cpu_data.x86_vendor &
->            (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
->         return false;
->
->     if ( boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18 )
->         return false;
->
->     return is_zen1_uarch();
-> }
-
-I'll swap to this because there is no realistic chance of the logic
-chain needing to expand.
-
-~Andrew
 
