@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 370CC7A4990
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 14:27:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604006.941192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55E97A4997
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 14:28:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604011.941201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiDL9-00055w-Sr; Mon, 18 Sep 2023 12:26:59 +0000
+	id 1qiDMX-0005xE-7Q; Mon, 18 Sep 2023 12:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604006.941192; Mon, 18 Sep 2023 12:26:59 +0000
+Received: by outflank-mailman (output) from mailman id 604011.941201; Mon, 18 Sep 2023 12:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiDL9-00053J-Q2; Mon, 18 Sep 2023 12:26:59 +0000
-Received: by outflank-mailman (input) for mailman id 604006;
- Mon, 18 Sep 2023 12:26:58 +0000
+	id 1qiDMX-0005vO-3Q; Mon, 18 Sep 2023 12:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 604011;
+ Mon, 18 Sep 2023 12:28:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q4jH=FC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qiDL8-00053D-Fq
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 12:26:58 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0602.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::602])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S4ic=FC=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1qiDMV-0005vI-81
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 12:28:23 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7f27a42-561e-11ee-9b0d-b553b5be7939;
- Mon, 18 Sep 2023 14:26:56 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB9PR04MB9450.eurprd04.prod.outlook.com (2603:10a6:10:369::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.26; Mon, 18 Sep
- 2023 12:26:53 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6792.026; Mon, 18 Sep 2023
- 12:26:53 +0000
+ id da3285fe-561e-11ee-9b0d-b553b5be7939;
+ Mon, 18 Sep 2023 14:28:20 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-401f68602a8so48940515e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 05:28:20 -0700 (PDT)
+Received: from CTX-Georges-MBP.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ 7-20020a05600c020700b003fe2de3f94fsm12187475wmi.12.2023.09.18.05.28.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Sep 2023 05:28:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +46,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7f27a42-561e-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DHJVRUkxbadiDBl1D96pVRyvrDsL4dfuSD/HEsS/W9CV+Yv0lFxgiGhZucSA3AOQ2HEqvSCncCP9Epxf8XYF5U6dEOSal9l3d9fwWQvXGinX2apIECUVtYRoNLXPyuuwcchVyxNdHf9yzB8zdCObAmryZovLxQBKCBInBP3c7vgU3dorlgn45OIFX42n310MuPHXhAeIJ4Wd8OonnDQb2K7Dcb95ezI5eHgqhFqCXaZZLCRqmMqcZUBkGMppziqict3Mswx8utHfzfs+ffjet5lrs5X9uf6DswTD5CHE8QH+ocTeqraQDAwaeLFDeaRr59Tht0i3s0ZVp79pBYDLbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZWp2IpDs0vRp0OtYFPLQOBzJ172L9P4VXQe5K/mK7xU=;
- b=WRByl8mBXHrbAOJwPO3J+sHR9yVdSfEr/MEz9JiG1oLKstAHDB8DtBOCVpYCfqJke8XXRdT4SdrG51ExR4Yk+N/STvuwpzP88MwTWPJ+DBWQg0IEcq/YjQApm9D0d1GewcxBo7HGwg+f7Bh/UKoFP4qshPadQcIG3irAhu+ExMXpYsWwz/pkeFROS/4dxhZunr3XtB/NztrXC4PzFA6yZLO1rikU+BKkEasvs45DQoKIhpiHLQ86CeM98ZOdn8KU7Xjubxn7aeEEVW06tf2ny7J35jHO2nHpCayeNfRtX4pxvjLaNpCVb6vBxPXi16gYEWNDznj9JzU/40ApKnVvvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZWp2IpDs0vRp0OtYFPLQOBzJ172L9P4VXQe5K/mK7xU=;
- b=J7ygN7pSLRCZyL+JJXxq6sINMypyqDoBhhxhiBmyTIL6g0OK0/IG0Dmm108UGwApIZbPICLh1XGuctI9wMnJF+UIXBbRS/r8iDYmPQWuEAAK4G5H93Pq678jHVYHaTfwJlfR3nWEjMBsYvCFTaPhrTX8aeRY84REKTbfdJnqYD4qaihb1DKbo3KZL4/HAou2nGdyfeAqdbzj8v6dfxwxiVfufFLoFOfqrvgYhbxnprqhgZK4Ys0oVLrcr4onmZ8YZqHNNEDVkRiilfC1Ozo3UjCojsvsx0Q0NOZ7IIyda1o2JDhhpRwe6pvFaKMmzr1Wdt3tWMMbn2IQtOYZiRW+Xg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e22af903-cbdf-dfed-8f69-44e5ea05ef8b@suse.com>
-Date: Mon, 18 Sep 2023 14:26:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v2] x86/shutdown: change default reboot method preference
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230915074347.94712-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230915074347.94712-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0153.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: da3285fe-561e-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1695040100; x=1695644900; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0fpCgVjY/UDRsPYgZC1Uh38RaXgYWqjSfswfqVWb528=;
+        b=jluUl7mmvXhmz37p9q7gdZCcDGKAwasO8tw8bYUEWgUL7lPW+IEWVdvc7VW72OIFT5
+         LZn9MS/B/Le6CiEhvgAET3z/iU/qAMCVesuKqi1k88g4/VcX/45Y28Wo1GE2krdULOmy
+         igo3U+Cx4pLjN4mlr/zIbRYU1OKykPFnc6NRs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695040100; x=1695644900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0fpCgVjY/UDRsPYgZC1Uh38RaXgYWqjSfswfqVWb528=;
+        b=kp0bb1XumaMgdVGFBsl5YFQFa8+T4VZkiMCMGiyglZjMOo2unHvcMnT+jVrp4/ehAC
+         PiweA7QuqmsREzQY8PQzAN2JOrkAkVJHZ64PkzjVsUreDdk38eOjM6BRr5x08h+p6zHE
+         tDR09aAotqHgaFowU1WqHPI5i4gV+rj9YPjz4+eAm6cpyOuzB/0BM5tUfAyhczmFaJGW
+         +Y0ri+Ueu+EBNPyvHYqwRysmzo5HFU7SxzdzLaAZgFFQ2mQQIJ1c22iqGLw3YDdurove
+         VOBKb02fKhZ2ZRGD0MpcYhK8zd/r6bbGp5YXcE9UrieJ/8NoSqQTe94ahP6vIa9+1cjA
+         +/uA==
+X-Gm-Message-State: AOJu0YzXO71mq0YTmWOKWhCHQbGSazxOTc992gQdklrryjY3X+A6gQ6j
+	z2pAjJCfXYjAYi94/pbuxRXNC6bti2uOb5+5Uvw=
+X-Google-Smtp-Source: AGHT+IGUTBZZcc3rUxpiPomh2PXvx4Ib8EcuV9+BCL73YaUYEqPRMGG6+1+fIOcURSVfyd6l5HoMvQ==
+X-Received: by 2002:a05:600c:225a:b0:401:2ee0:7558 with SMTP id a26-20020a05600c225a00b004012ee07558mr7265745wmm.32.1695040099749;
+        Mon, 18 Sep 2023 05:28:19 -0700 (PDT)
+From: George Dunlap <george.dunlap@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] docs: Document a policy for when to deviate from specifications
+Date: Mon, 18 Sep 2023 13:28:16 +0100
+Message-ID: <20230918122817.6577-1-george.dunlap@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 239eb83f-23c0-4c30-1de3-08dbb8428a98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ovR/jgUY1N0cdIEa/wCCbBtkTFZYKSNshoA6906lm5zanYlegV5k18z0jS8w3yTXspkIlK+4shVxSUEqTb5pJ/f8TJaLZc32YjIipJYiSwlz+TouQhZWyeUl+mnJJlCw9k5pWNZgUlP/gJ2jWqcaShbAOFOune4GWG1c78kkD8YlUrbpZIX9ruC8aW7iFw0hlK4s8NO1KjjnK8fCs94Xm/GLeQgalA+Te1/xDs7z3oO/KRW6sXAODeOALoXI0mUqgjEkeqLNTFKlQJJxCtUXle27LWPMca1hMAIxGifQAjHhIwYwHTtaJvciLQaQhKizzAvhCd9P54tCyhMEiOwGBxzGbBuQpfd1O65JGOP8YRWZtB5QDiwGZLox+C+ZQQApiRtlGm1ESEXDTdhZUOVPKKOS/YE9m1Nqx768sJgIuRnFv6F2CeqVnWybwZshjanyJUYebn6uFf7kS6T/kcPZK3c19m8PAi9BJoeZSyx9KfxQJP7vtUG5LLb/9w7gH+Tkusyr/jcCiYvEz88rC3tEnfc5dmWShB9MAQwUdCALPjQJyIk/OpPTJSYExvWvxfK7okAX88rrVuWlKeIYl+Q7zI4tdLiAJiQvzzWW8zh1M4PsA/cWH3c9rubxu8SOXOeWR3J4rF0EspVlhWz8t1FOLQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199024)(1800799009)(186009)(6486002)(5660300002)(6506007)(53546011)(86362001)(6512007)(54906003)(316002)(66946007)(41300700001)(66556008)(38100700002)(66476007)(31686004)(478600001)(6916009)(2616005)(8936002)(8676002)(26005)(2906002)(31696002)(36756003)(4326008)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U3o1ODJRWEplckhUNG01MW1xU2Z5WWdjelZ0cU9jMEdyTXZlYW9vSkRsUDVF?=
- =?utf-8?B?RjFZVDZwYXg5S1o1ZE5vZWJ0RVJPS05YUElCODJlZUt1T2hNRUNTWjM4WE0w?=
- =?utf-8?B?b2pKTnhueWQrbTUwVWExcmxsSkx2ZDRnWllCdEJIVXpHZ1VXeUhITFQ5dzYw?=
- =?utf-8?B?NkZTa21CWk01azkvYmJKWUlGVkZ4K2pvUEFJZGFCMFNlZ3pBWCttVU9jNWNS?=
- =?utf-8?B?U2RScHB6YUdrVURkaytBZGFCOFpMMTFBM3FWbE9wYm8rekxhMUlRNGpST2Z3?=
- =?utf-8?B?cDBoRHI4QzZVRmxtVU5ZN0pYdUF2enhjaDQ0QVVkQlBwSkdMU251ZVhxWlFS?=
- =?utf-8?B?QndBUGNlRUFjMVpmMkhad3ZYblVhaVBVNlhybjVmNThoTTZpc3FyS01sK2t1?=
- =?utf-8?B?cTN6VEd0Wko5K2hsb1NLaGFMYWNNUFE4eSt4TlJPQ2JtbjJtVDhZOVJQNVp4?=
- =?utf-8?B?OHFoUjk5M2pwM2s4ekNOQWR0NER4bkNnYWdHU2FJSGpVcFFYemVGOWI1NW1E?=
- =?utf-8?B?YkVoR25KZlFKQUtDU21sUVN1V3FSQUlPdFFEY1p4c09Ga0FUcGFSLzAzQW41?=
- =?utf-8?B?dEgrWGREWHlRUjVpT20wa2c4OHYrTUNSSFlwQlNLeXJ4VjNHUjJaTHFOOGww?=
- =?utf-8?B?dFdISExtcHlTZFMyQUE4N3d0LzhKMnJ4NkFMNVM5MTgyTkpHL244Q2k3OW9x?=
- =?utf-8?B?c09rSk1yQ2RwMlpmOTVvRkNOT28vdmc5MVhvdUYyam1hc1VKMFdSM1VxVjV2?=
- =?utf-8?B?ZndVbkwzODFJTG0zdHluNGkrRGpKU1hwS1JMYnpGaVVMN2R3SHhEakFhNjA4?=
- =?utf-8?B?QUk0K1luZEljLys2RFZKYWpaVGNreisvVnVXc1VqdXJDcVV6aG5qRlorZTFq?=
- =?utf-8?B?anFYOXhZNmczT0pYWlR6WEV6ZGNQbk9Qemc2MWUrWVVtYnZOVkV6NTE4dkVF?=
- =?utf-8?B?c3ZqQkhCS0ZyN3FuR2dkeHhjRUVkbzY2YkI4NmF0T2JoeWIxMU1qRURPaEJr?=
- =?utf-8?B?ZC9iMS9zNytESVdGQlRGZlRtOFhlcm5HMDZjWURnekptd0x6NEtsajA2WTJ0?=
- =?utf-8?B?QXQvTmFrMkx0ZC9zUlBvSmN3aGRsOTJMQ3pDNTErNzEvTjErTG5vN3RnS1Qv?=
- =?utf-8?B?MGE2Yi9FYUpPQlVkY0NiN05YVEprN0dBTUo2Z3pHMXVSKzlNWUp5cTJkeFA2?=
- =?utf-8?B?MU9Yckl2VHoydmlaeUdQUXFpc2lHTFZkby9yZ1FSY0YvQjkvQ2llN29SWkc3?=
- =?utf-8?B?Tmw3Y0VEUk9rS0tkTFRUWktPTjBoc2dRTjVXQW1LaWoxT3kyUEE1Y3dZWkNL?=
- =?utf-8?B?YkNveGZRaENmSWJTSzBZQWY0aEYyVmZwVk4zekNUK3ZhVDNlZUd0S3JvN3ZH?=
- =?utf-8?B?eUc3RU1QZEtobkhKR000dGdQcUxTakJTeEtUN1dhKzYyTkNraGlUNjhvV2Rq?=
- =?utf-8?B?NTJKSDN0eE83ZDEyTEROblR0eHUzQ2tiZXo3aG9xWGNZTzZKampxRXdYQUJk?=
- =?utf-8?B?MlpQQ0pDL0ZVMVVUK1hBMUh6VXNlM1U2L3l0Mm05QmhQY3N3NXNnUUUvakRU?=
- =?utf-8?B?YUFJQmU1aGwzTVJmOTZkSlNzb2dqUXg4NUQzRzMrV0xHODZ2UGZZY1ZKNS92?=
- =?utf-8?B?K0E4Tldmc2RUTXQrWklVMWF5K2MrTGROR3BtbzdFUDJaSVRvTmo4R2duSk1Y?=
- =?utf-8?B?RzZiWDY5NitBb0RKck4yL0I5QWxNOTg1Q251NTNwZnY2Y0VnOHV5WmNJQ0Zy?=
- =?utf-8?B?Z1dweWlNZTVqQW9RSTBudUIzTmpkcUs1bTVhRExObUtvVjk0S2pYbC9Eclkx?=
- =?utf-8?B?T2hhTU15UGd1WW9HTUtLeHFjUVJCWDBLOXhrK2ZoUElaYm1oRFZmMmg5QUZL?=
- =?utf-8?B?dUx1MXZtamxJS2JMdHZGWkNzTkpSYmZpTDJPZ1NPc2hXd21mUWpDdEgxazVV?=
- =?utf-8?B?VXlsaWFNTGhRWDdqQUNvelJZUC9zampnd3lDZXc5eS83MXp2bmpRczRIdGZC?=
- =?utf-8?B?aFpyNlc0NlZlYXdiOWQ5bklDU0hoR2dXdFJZenpDRXRlRUFxb212a2ZqVXVI?=
- =?utf-8?B?RFlqSFg1NkxYRXNieThXS0JkS1N1akRicGp0d2ZDMlRhbWw3cEgrQy9NalF5?=
- =?utf-8?Q?PoCCViL7M6Rqke4iG8A4Yh+gX?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 239eb83f-23c0-4c30-1de3-08dbb8428a98
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2023 12:26:53.7190
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pDYQuOc9RMxMMTaemxcmIepcaG1ZTb6ZV6df2CYPE01ZEvug8uAEN6EYnU6+jBvOEFyDCXwqqIarVVOl7Np40A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9450
+Content-Transfer-Encoding: 8bit
 
-On 15.09.2023 09:43, Roger Pau Monne wrote:
-> The current logic to chose the preferred reboot method is based on the mode Xen
-> has been booted into, so if the box is booted from UEFI, the preferred reboot
-> method will be to use the ResetSystem() run time service call.
-> 
-> However, that method seems to be widely untested, and quite often leads to a
-> result similar to:
-> 
-> Hardware Dom0 shutdown: rebooting machine
-> ----[ Xen-4.18-unstable  x86_64  debug=y  Tainted:   C    ]----
-> CPU:    0
-> RIP:    e008:[<0000000000000017>] 0000000000000017
-> RFLAGS: 0000000000010202   CONTEXT: hypervisor
-> [...]
-> Xen call trace:
->    [<0000000000000017>] R 0000000000000017
->    [<ffff83207eff7b50>] S ffff83207eff7b50
->    [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
->    [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
->    [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
->    [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
->    [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
->    [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
->    [<ffff82d040283d33>] F arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0x113/0x129
->    [<ffff82d04028436c>] F arch/x86/acpi/cpu_idle.c#acpi_processor_idle+0x3eb/0x5f7
->    [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
-> 
-> ****************************************
-> Panic on CPU 0:
-> FATAL TRAP: vector = 6 (invalid opcode)
-> ****************************************
-> 
-> Which in most cases does lead to a reboot, however that's unreliable.
-> 
-> Change the default reboot preference to prefer ACPI over UEFI if available and
-> not in reduced hardware mode.
-> 
-> This is in line to what Linux does, so it's unlikely to cause issues on current
-> and future hardware, since there's a much higher chance of vendors testing
-> hardware with Linux rather than Xen.
+There is an ongoing disagreement among maintainers for how Xen should
+handle deviations to specifications such as ACPI or EFI.
 
-I certainly appreciate this as a goal. However, ...
+Write up an explicit policy, and include two worked-out examples from
+recent discussions.
 
-> Add a special case for one Acer model that does require being rebooted using
-> ResetSystem().  See Linux commit 0082517fa4bce for rationale.
+Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+---
+NB that the technical descriptions of the costs of the accommodations
+or lack thereof I've just gathered from reading the discussions; I'm
+not familiar enough with the details to assert things about them.  So
+please correct any technical issues.
+---
+ docs/policy/FollowingSpecifications.md | 219 +++++++++++++++++++++++++
+ 1 file changed, 219 insertions(+)
+ create mode 100644 docs/policy/FollowingSpecifications.md
 
-... this is precisely what I'd like to avoid: Needing workarounds on spec-
-conforming systems.
+diff --git a/docs/policy/FollowingSpecifications.md b/docs/policy/FollowingSpecifications.md
+new file mode 100644
+index 0000000000..a197f01f65
+--- /dev/null
++++ b/docs/policy/FollowingSpecifications.md
+@@ -0,0 +1,219 @@
++# Guidelines for following specifications
++
++## In general, follow specifications
++
++In general, specifications such as ACPI and EFI should be followed.
++
++## Accommodate non-compliant systems if it doesn't affect compliant systems
++
++Sometimes, however, there occur situations where real systems "in the
++wild" violate these specifications, or at least our interpretation of
++them (henceforth called "non-compliant").  If we can accommodate
++non-compliant systems without affecting any compliant systems, then we
++should do so.
++
++## If accommodation would affect theoretical compliant systems that are
++   not known to exist, and Linux and/or Windows takes the
++   accommodation, take the accommodation unless there's a
++   reason not to.
++
++Sometimes, however, there occur situations where real, non-compliant
++systems "in the wild" cannot be accommodated without affecting
++theoretical compliant systems; but there are no known theoretical
++compliant systems which exist.  If Linux and/or Windows take the
++accommodation, then from a cost/benefits perspective it's probably best
++for us to take the accommodation as well.
++
++This is really a generalization of the next principle; the "reason not
++to" would be in the form of a cost-benefits analysis as described in
++the next section showing why the "special case" doesn't apply to the
++accommodation in question.
++
++## If things aren't clear, do a cost-benefits analysis
++
++Sometimes, however, things are more complicated or less clear.  In
++that case, we should do a cost-benefits analysis for a particular
++accommodation.  Things which should be factored into the analysis:
++
++N-1: The number of non-compliant systems that require the accommodation
++ N-1a: The number of known current systems
++ N-1b: The probable number of unknown current systems
++ N-1c: The probable number of unknown future systems
++
++N-2 The severity of the effect of non-accommodation on these systems
++
++C-1: The number of compliant systems that would be affected by the accommodation
++ C-1a: The number of known current systems
++ C-1b: The probable number of unknown current systems
++ C-1c: The probable number of unknown future systems
++
++C-2 The severity of the effect of accommodation on these systems
++
++Intuitively, N-1 * N-2 gives us N, the cost of not making the
++accommodation, and C-1 * C-2 gives us C, the cost of taking the
++accommodation.  If N > C, then we should take the accommodation; if C >
++N, then we shouldn't.
++
++The idea isn't to come up with actual numbers to plug in here
++(although that's certainly an option if someone wants to), but to
++explain the general idea we're trying to get at.
++
++A couple of other principles to factor in:
++
++Vendors tend to copy themselves and other vendors.  If one or two
++major vendors are known to create compliant or non-compliant systems
++in a particular way, then there are likely to be more unknown and
++future systems which will be affected by / need a similar accommodation
++respectively; that is, we should raise our estimates of N-1{b,c} and
++C-1{b,c}.
++
++Some downstreams already implement accommodations, and test on a
++variety of hardware.  If downstreams such as QubesOS or XenServer /
++XCP-ng implement the accommodations, then N-1 * N-2 is likely to be
++non-negligible, and C-1 * C-2 is likely to be negligible.
++
++Windows and Linux are widely tested.  If Windows and/or Linux make a
++particular accommodation, and that accommodation has remained stable
++without being reverted, then it's likely that the number of unknown
++current systems that are affected by the accommodation is negligible;
++that is, we should lower the C-1b estimate.
++
++Vendors tend to test server hardware on Windows and Linux.  If Windows
++and/or Linux make a particular accommodation, then it's unlikely that
++future systems will be affected by the accommodation; that is, we
++should lower the C-1c estimate.
++
++# Example applications
++
++Here are some examples of how these principles can be applied.
++
++## ACPI MADT tables containing ~0
++
++Xen disables certain kinds of features on CPU hotplug systems; for
++example, it will avoid using TSC, which is faster and more power
++efficient (since on a hot-pluggable system it won't be reliable), and
++instead fall back to other timer sources which are slower and less
++power efficient.
++
++Some hardware vendors have (it seems) begun making a single ACPI table
++image for a range of similar systems, with MADT entries for the number
++of CPUs based on the system with the most CPUs, and then for the
++systems with fewer CPUs, replacing the APIC IDs in the MADT table with
++~0, to indicate that those entries aren't valid.  These systems are
++not hotplug capable.  Sometimes the invalid slots are on a separate
++socket.
++
++One interpretation of the spec is that a system with such MADT entries
++could actually have an extra socket, and that later the system could
++update the MADT table, populating the APIC IDs with real values.
++
++If Xen finds an MADT where all slots are either populated or filled
++with APICID ~0, , should it consider it a multi-socket hotplug system,
++disable features available on single-socket systems?  Or should it
++accommodate the systems above, treating the system as systems
++incapable of hotplug?
++
++N-1a: People have clearly found a number of systems in the wild, from
++different vendors, that exhibit this property; it's a non-negligible
++number of systems.
++
++N-1b,c: Since these systems are from different vendors, and there seem to
++be a fair number of them, there are likely to be many more that we
++don't know about; and likely to be many more produced in the future.
++
++N-2: Xen will use more expensive (both time and power-wise) clock
++sources unless the user manually modifies the Xen command-line.
++
++C-1a,b: There are no known systems that implement phyical CPU hotplug
++whatsoever, much less a system that uses ~0 for APICIDs.
++
++There are hypervisors that implement *virtual* CPU hotplug; but they
++don't use ~0 for APICIDs.
++
++C-1c: It seems that physical CPU hotplug is an unsolved problem: it was
++worked on for quite a while and then abandoned.  So it seems fairly
++unlikely that any physical CPU hotplug systems will come to exist any
++time in the near future.
++
++If any hotplug systems were created, they would only be affected if
++they happened to use ~0 the APIC ID of the empty slots in the MADT
++table.  This by itself seems unlikely, given the number of vendors who
++are now using that to mean "invalid slot", and the fact that virtual
++hotplug systems don't do this.
++
++Furthermore, Linux has been treating such entries as permanently
++invalid since 2016.  If any system were to implement physical CPU
++hotplug in the future, and use ~0 as a placeholder APIC ID, it's very
++likely they would test it on Linux, discover that it doesn't work, and
++modify the system to enable it to work (perhaps copying QEMU's
++behavior).  It seems likely that Windows will do the same thing,
++further reducing the probability that any system like this will make
++it into production.
++
++So the potential number of future systems affected by this before we
++can implement a fix seems very small indeed.
++
++C-2: If such a system did exist, everything would work fine at boot;
++the only issue would be that when an extra CPU was plugged in, nothing
++would happen.  This could be overridden by a command-line argument.
++
++Adding these all together, there's a widespread, moderate cost to not
++accommodating these systems, and an uncertain and small cost to
++accommodating them.  So it makes sense to apply the accommodation.
++
++## Calling EFI Reboot method
++
++One interpretation of the EFI spec is that operating systems should
++call the EFI ResetSystem method in preference to the ACPI reboot
++method.
++
++However, although the ResetSystem method is required by the EFI spec,
++a large number of different systems doesn't actully work, at least
++when called by Xen: a large number of systems don't cleanly reboot
++after calling the EFI REBOOT method, but rather crash or fail in some
++other random way.
++
++(One reason for this is that the Windows EFI test doesn't call the EFI
++ResetSystem method, but calls the ACPI reboot method.  One possibile
++explanation for the repeated pattern is that vendors smoke-test the
++ResetSystem method from the EFI shell, which has its own memory map;
++but fail to test it when running on the OS memory map.)
++
++Should Xen follow our interpretation of the EFI spec, and call the
++ResetSystem method in preference to the ACPI reboot method?  Or should
++Xen accommodate systems with broken ResetSystem methods, and call the
++ACPI reboot method by default?
++
++N-1a: There are clearly a large number of systems which exhibit this
++property.
++
++N-1b,c: Given the large number of diverse vendors who make this
++mistake, it seems likely that there are even more that we don't know
++about, and this will continue into the future.
++
++N-2: Systems are incapable of rebooting cleanly unless the right runes
++are put into the Xen command line to make it prefer using the ACPI
++reboot method.
++
++C-1a: A system would only be negatively affected if 1) an ACPI reboot
++method exists, 2) an EFI method exists, and 3) calling the ACPI method
++in preference to the EFI method causes some sort of issue.  So far
++nobody has run into such a system.
++
++C-1b,c: The Windows EFI test explicitly tests the ACPI reboot method
++on EFI systems.  Linux also prefers calling the ACPI reboot method
++even when an EFI method is available.  The chance of someone shipping
++a system that had a problem while that was the case is very tiny: it
++basically wouldn't run either of the two most important operating
++systems.
++
++C-2: It seems likely that the worst that could happen is what's
++happening now when calling the EFI method: that the ACPI method would
++cause a weird crash, which then would reboot or hang.
++
++XenServer has shipped this accommodation for several years now.
++
++Adding these altogether, the cost of non-accommodation is widespread
++and moderate; that is to say, non-negligible; and the cost of
++accommodation is theoretical and tiny.  So it makes sense to apply the
++accommodation.
+\ No newline at end of file
+-- 
+2.42.0
 
-> I'm not aware of using ACPI reboot causing issues on boxes that do have
-> properly implemented ResetSystem() methods.
-
-I'm also puzzled by this statement: That Acer aspect is a clear indication
-of there being an issue. Plus it's quite easy to see that hooks may be put
-in place by various firmware components that would then be used to make
-certain adjustments to the platform, ahead of an orderly reboot / shutdown.
-
-> --- a/xen/arch/x86/shutdown.c
-> +++ b/xen/arch/x86/shutdown.c
-> @@ -150,19 +150,20 @@ static void default_reboot_type(void)
->  
->      if ( xen_guest )
->          reboot_type = BOOT_XEN;
-> +    else if ( !acpi_disabled && !acpi_gbl_reduced_hardware )
-> +        reboot_type = BOOT_ACPI;
->      else if ( efi_enabled(EFI_RS) )
->          reboot_type = BOOT_EFI;
-> -    else if ( acpi_disabled )
-> -        reboot_type = BOOT_KBD;
->      else
-> -        reboot_type = BOOT_ACPI;
-> +        reboot_type = BOOT_KBD;
->  }
->  
->  static int __init cf_check override_reboot(const struct dmi_system_id *d)
->  {
->      enum reboot_type type = (long)d->driver_data;
->  
-> -    if ( type == BOOT_ACPI && acpi_disabled )
-> +    if ( (type == BOOT_ACPI && acpi_disabled) ||
-> +         (type == BOOT_EFI && !efi_enabled(EFI_RS)) )
->          type = BOOT_KBD;
-
-I guess I don't follow this adjustment: Why would we fall back to KBD
-first thing? Wouldn't it make sense to try ACPI first if EFI cannot
-be used? And go further to KBD only if ACPI then also turns out
-disabled (a mode that Xen quite likely won't correctly operate in
-anymore anyway, due to bitrot)?
-
-As an aside, KBD likely is unusable on hw-reduced systems, for there
-simply not being a legacy keyboard controller. Instead we may need to
-fall back to CF9 in such a case.
-
-Jan
 
