@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BCDD7A559D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 00:07:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604252.941505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B2E7A55A4
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 00:13:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604257.941515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiMOd-0002O3-5D; Mon, 18 Sep 2023 22:07:11 +0000
+	id 1qiMUk-0004Cy-Oq; Mon, 18 Sep 2023 22:13:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604252.941505; Mon, 18 Sep 2023 22:07:11 +0000
+Received: by outflank-mailman (output) from mailman id 604257.941515; Mon, 18 Sep 2023 22:13:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiMOd-0002L6-1l; Mon, 18 Sep 2023 22:07:11 +0000
-Received: by outflank-mailman (input) for mailman id 604252;
- Mon, 18 Sep 2023 22:07:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qiMUk-0004AX-Lz; Mon, 18 Sep 2023 22:13:30 +0000
+Received: by outflank-mailman (input) for mailman id 604257;
+ Mon, 18 Sep 2023 22:13:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fCDX=FC=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1qiMOb-0002L0-PK
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 22:07:09 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b592c5d1-566f-11ee-8789-cb3800f73035;
- Tue, 19 Sep 2023 00:07:08 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-31f7638be6eso4767668f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 15:07:08 -0700 (PDT)
+ id 1qiMUj-0004AR-N0
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 22:13:29 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 96baf8b0-5670-11ee-9b0d-b553b5be7939;
+ Tue, 19 Sep 2023 00:13:26 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-403012f27e1so53806485e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 15:13:26 -0700 (PDT)
 Received: from EMEAENG6DZjqCfH.citrite.net
  (cpc92302-cmbg19-2-0-cust781.5-4.cable.virginm.net. [82.1.211.14])
  by smtp.gmail.com with ESMTPSA id
- w11-20020a5d608b000000b0031ad5fb5a0fsm5427233wrt.58.2023.09.18.15.07.06
+ hn40-20020a05600ca3a800b003fef19bb55csm13447199wmb.34.2023.09.18.15.13.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Sep 2023 15:07:07 -0700 (PDT)
+ Mon, 18 Sep 2023 15:13:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,107 +46,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b592c5d1-566f-11ee-8789-cb3800f73035
+X-Inumbo-ID: 96baf8b0-5670-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695074828; x=1695679628; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1695075205; x=1695680005; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=K0eIuqhVudrLNm7EY4JRjnY0fob2JkaWzkDEU9UXOdA=;
-        b=HfTWrtKNdnhocE/rS0S3bCBjDaFBwCyEhdbRdiIxG/VzP3e7zQh0h3IZdzG5FY3raD
-         ygLztMna+q8dI108ONEeLtL1yMqD/CEQ+vIXhSdI0VWWlyc/7O5jFFFvF63yF0CtNAB0
-         1g0ofW2f//CwutJPI3LYlR8DARGlaYSox5M0E=
+        bh=VufNTtcC8A50tBzWsfIQvIez/o1cGVdBWLqR6oYxSyA=;
+        b=Ruos52wFaW1MiwuxE4QutMCdyNqqFT7CQ+vIDt8n0s5o+A8VrIS57/2ZYydPMTDurq
+         4hq7KrtDinIuEbVXox0ZEMwCNPcQjcic/JUKwbdC7Sp9dacjcDStQktjKu08H+HMRGB8
+         MVcJZ7ZBZm/qlOtEBu7/5Pe5mXnVvVJEexbtA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695074828; x=1695679628;
+        d=1e100.net; s=20230601; t=1695075205; x=1695680005;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=K0eIuqhVudrLNm7EY4JRjnY0fob2JkaWzkDEU9UXOdA=;
-        b=vDOq/x8TK/g4LR60rDUcWD7eeD9b3VdoW89BLWWczbMSnmfaiDqLhG4ADdxXo85Bep
-         IfyTQVtN+hmN/0P2XPSMZBLvHHd7NUaYoow0B5zi08O/4IXTkX/7kDITo7Jg/HYsa9sf
-         OwUJBKE1N31ffMVVW5h714+Y8DI0qIQYoVLW1x1XY5OZkmqphldrTh47jmqmV2grTwGn
-         dHoyd7wkJsnNteDIQiaiH7V9XebR1PtHSprVpzYhVzWdZpS0BQSzSEEwD/XLWMuFx6G9
-         OH6jiMIWWGOTcpGLz7u6S2JxynZmqs8fDrJkOMHdrTJyrdaPH6sFeTQSvq28nNfTwcbm
-         eApQ==
-X-Gm-Message-State: AOJu0YzlHW3Uq5Vj87434GeeTXv6Mfcl020ganZWhN7LzpWRZie/5P1h
-	6Pteo1QvEw0Yrd4OWNbV5jT6VQ==
-X-Google-Smtp-Source: AGHT+IFlRChRv/nuAy3zUZ4vfotVIgUnAxWPMMRplUAiaAHOHX9KH/jmPhq3Z2yqbclF4uK5ThARnA==
-X-Received: by 2002:a5d:51c9:0:b0:31f:b9ea:76c with SMTP id n9-20020a5d51c9000000b0031fb9ea076cmr8831172wrv.48.1695074827798;
-        Mon, 18 Sep 2023 15:07:07 -0700 (PDT)
-Date: Mon, 18 Sep 2023 23:07:05 +0100
+        bh=VufNTtcC8A50tBzWsfIQvIez/o1cGVdBWLqR6oYxSyA=;
+        b=RdXiZdozn/kINhCF+sawGNw+mMmax8UZJWRNNLjqH2XewBSDv8wnBOKqsHCjgLXVB/
+         PHR/hU0S26wVKDgjiAIRrcbeidjHq4ZV8egC7jgDZ3kIyF6AxjT14k7MrZsAOEIDw5rv
+         pFugrneW1J2yaE3llyxrQh1/j7SaR4wYacp/YOVShiXsrQZctzJzSOEjAxNuC9GKVL7T
+         M87gkzVb8d5Ntp2OPBjJ/ZVHTnRvtUgI02hnVvx4/3hE5p0oBNS2n1EcEZXzvgARFwNG
+         4UwI0MP8Ra/ih6BPzptg09f84KMSLFfL2ugdO2NQZnF4dbMB0i2ZbtkVIU4rhkb/anEg
+         QQ0A==
+X-Gm-Message-State: AOJu0YyEGULvDKGfDpgudNSSAilLH17eBd79XVOh3/5wD3ehkKwELb8D
+	DPwFmoZElMqDupB24acVcx5Qwg==
+X-Google-Smtp-Source: AGHT+IFkszWcElams76AAS21twN4oRF11GGiBy2fp1HfCFrGJVMDbluyo0tFm+SouqSMX5p1b27NWA==
+X-Received: by 2002:a05:600c:152:b0:400:57d1:4913 with SMTP id w18-20020a05600c015200b0040057d14913mr8988867wmm.9.1695075205535;
+        Mon, 18 Sep 2023 15:13:25 -0700 (PDT)
+Date: Mon, 18 Sep 2023 23:13:23 +0100
 From: Javi Merino <javi.merino@cloud.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>, 
-	George Dunlap <george.dunlap@cloud.com>, Doug Goldstein <cardoe@cardoe.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2 1/5] automation: add python3's setuptools to
- containers
-Message-ID: <tdjaujfa5g3mc4msfvbicqdfofuccveq2stri33bb5f4nbt6uq@gsswahemejvk>
+	George Dunlap <george.dunlap@cloud.com>, Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [XEN PATCH v2 2/5] tools: convert setup.py to use setuptools
+Message-ID: <6qtmcuwngc2edlvyrx5zokr7vscktqptirbi7igvvgrgpvm52b@eyzjhtk73y5k>
 References: <cover.1694450145.git.javi.merino@cloud.com>
- <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
- <4a98d2d7-457a-020b-c936-d19b772b626e@citrix.com>
+ <9bbf71efc710dc869baf0c5ba926630e81181620.1694450145.git.javi.merino@cloud.com>
+ <93ef8146-c8f5-586f-b754-b28b2b733222@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4a98d2d7-457a-020b-c936-d19b772b626e@citrix.com>
+In-Reply-To: <93ef8146-c8f5-586f-b754-b28b2b733222@citrix.com>
 
-On Tue, Sep 12, 2023 at 11:18:42AM +0100, Andrew Cooper wrote:
+On Tue, Sep 12, 2023 at 11:22:56AM +0100, Andrew Cooper wrote:
 > On 11/09/2023 5:51 pm, Javi Merino wrote:
-> > In preparation of dropping python distutils and moving to setuptools,
-> > add the python3 setuptools module to the containers that need it.
+> > From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 > >
-> > The centos7 container was building using python2.  Change it to build
-> > python scripts using python3.
+> > Python distutils is deprecated and is going to be removed in Python
+> > 3.12. Migrate to setuptools.
+> > Setuptools in Python 3.11 complains:
+> > SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+> > Keep using setup.py anyway to build C extension.
 > >
-> > Debian Stretch is no longer debian oldstable, so move to the archive
-> > repositories.
-> >
-> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 > 
-> We are not dropping distutils.  We're moving to support both distutils
-> and setuptools, because setuptools doesn't support the minimum version
-> of python that Xen supports.
+> Throughout the commit message, s/use/support/ seeing as we're not
+> removing distutils.
 
-Indeed.  I wrote this when the series was about dropping distutils and
-forgot to update the commit message when I change it to support both.
+Ok.
 
-> Therefore, it's important to keep some of the containers on distutils
-> rather than switching all to setuptools.
+> Next, this needs a SoB from you because you've changed the patch from
+> what Marek originally wrote.
+
+Done
+
+> > diff --git a/tools/pygrub/setup.py b/tools/pygrub/setup.py
+> > index 502aa4df2d..f9e8feb2e6 100644
+> > --- a/tools/pygrub/setup.py
+> > +++ b/tools/pygrub/setup.py
+> > @@ -1,5 +1,9 @@
+> > -from distutils.core import setup, Extension
+> > -from distutils.ccompiler import new_compiler
+> > +try:
+> > +    from setuptools import setup, Extension
+> > +except ImportError:
+> > +    # distutils was removed in Python 3.12.  If this import fails,
+> > +    # install setuptools.
+> > +    from distutils.core import setup, Extension
 > 
-> CenOS can stay as is, as can Stretch and probably Bionic/Focal.
-
-I agree for CentOS and Debian. For Ubuntu we have the following containers:
-  * 14.04 (trusty)
-  * 16.04 (xenial)
-  * 18.04 (bionic)
-  * 20.04 (focal)
-
-Following the logic of only moving the new ones, I will leave as is
-the old ones (trusty, xenial and bionic) and only move focal to
-setuptools.
-
-> Any containers with Py3.10 or later definitely need to move, seeing as
-> distuils is formally deprecated there
+> Finally, this feels a little unnecessary.  How about just:
 > 
-> It's sadly a little too early to make a Py3.12 container, which will
-> lack distutils, but we can come back to that in 4.19.
+> # Prefer setuptools, fall back to distutils
+> try:
+>     from setuptools import setup, Extension
+> except ImportError:
+>     from distutils.core import setup, Extension
 
-Yes, even python's own 3.12 release candidate still includes it.
-
-  $ podman run --rm -it docker.io/python:3.12-rc-bookworm
-  Python 3.12.0rc2 (main, Sep  8 2023, 03:00:59) [GCC 12.2.0] on linux
-  Type "help", "copyright", "credits" or "license" for more information.
-  >>> import distutils
-  >>>
-
-> As Stefano points out, you should refresh at least some of the arm64
-> containers too.  RISC-V and PPC aren't set up for tools builds set, so
-> they're fine to leave.
-
-I have refreshed the arm64 containers.
-
-Cheers,
-Javi
+Done
 
