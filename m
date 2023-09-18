@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E49C7A55D4
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 00:37:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604264.941524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2ED7A562B
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 01:20:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604272.941540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiMro-0008J7-KQ; Mon, 18 Sep 2023 22:37:20 +0000
+	id 1qiNW9-0006kn-Pt; Mon, 18 Sep 2023 23:19:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604264.941524; Mon, 18 Sep 2023 22:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 604272.941540; Mon, 18 Sep 2023 23:19:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiMro-0008Gt-Ho; Mon, 18 Sep 2023 22:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 604264;
- Mon, 18 Sep 2023 22:37:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fCDX=FC=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1qiMrm-0008Gn-P2
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 22:37:18 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb57aab7-5673-11ee-9b0d-b553b5be7939;
- Tue, 19 Sep 2023 00:37:16 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-404539209ffso52394375e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 15:37:16 -0700 (PDT)
-Received: from EMEAENG6DZjqCfH.citrite.net
- (cpc92302-cmbg19-2-0-cust781.5-4.cable.virginm.net. [82.1.211.14])
- by smtp.gmail.com with ESMTPSA id
- a4-20020a05600c068400b004042dbb8925sm13367595wmn.38.2023.09.18.15.37.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Sep 2023 15:37:15 -0700 (PDT)
+	id 1qiNW9-0006jY-Mc; Mon, 18 Sep 2023 23:19:01 +0000
+Received: by outflank-mailman (input) for mailman id 604272;
+ Mon, 18 Sep 2023 23:19:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiNW8-0006jO-Vy; Mon, 18 Sep 2023 23:19:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiNW8-0007qj-Q9; Mon, 18 Sep 2023 23:19:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiNW8-00024t-EF; Mon, 18 Sep 2023 23:19:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiNW8-0002z5-Dl; Mon, 18 Sep 2023 23:19:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,100 +42,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb57aab7-5673-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695076636; x=1695681436; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ant0kuog40rEnX+vpk5qCevwiuCrfL/tfIulEhfmYjk=;
-        b=WpjXh3f8b2avcpy1vaLmfqdCA0p7NkNOQOrphAPU1cDrRbyXgv9T8XDGxGddMi5WFf
-         D+tUKkk2LAzYPMUaA15xHgZfFfDmkceAvBic/3lLn7yZsvEpyPT4wRz8NGly2RtQTa5G
-         G6f0ZfO0gntlBHlcB/x4HJwlnUMBWd+DKil10=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695076636; x=1695681436;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ant0kuog40rEnX+vpk5qCevwiuCrfL/tfIulEhfmYjk=;
-        b=UoZXj4efA+qSgRiPPKrLW49EYuAXfrHK9HAvpvfPDBCE9VMZfzo0cnaK8gcFkaprp7
-         8G4BYlM4M+/he63skTRBvlyOV7GEjgZFu9URxBc8mPJmSNGKpy2IQNG3ED8158G1g/Un
-         U0W2T8aZXLLhewpvMBkLcR9G2Xpu0yhk32H5g5VwIftUuJ8hLSFno7xwknHjYtvMcYic
-         +KrUkX8lx0fb5k2W9PEY4f2ufk3ehJBXYlsucShGsuCXH4ypINbjnHNcT0HoNjEltN4z
-         +c9doJB46NyxsIgdXLHuxIjNhHO9vwD5W7b65WRsa8Hatec6AceHqAL0gjp1wTchd/ph
-         aj5Q==
-X-Gm-Message-State: AOJu0Yxj3OZhDlQtL3fPWl+OBV5emoiqpBrBx0qdwNrGIu+7lrkdc31s
-	yj0nLN/xDAjGE/H+MJNFSMll/A==
-X-Google-Smtp-Source: AGHT+IF7zNjnMuMTzYcqRkerfIeEs6A9Icckhv7vNoLtpDIvhBr+ojfh0kDboDBhBbaFKVFCWXjDxw==
-X-Received: by 2002:a1c:721a:0:b0:3fc:92:73d6 with SMTP id n26-20020a1c721a000000b003fc009273d6mr9456055wmc.11.1695076636132;
-        Mon, 18 Sep 2023 15:37:16 -0700 (PDT)
-Date: Mon, 18 Sep 2023 23:37:14 +0100
-From: Javi Merino <javi.merino@cloud.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: 
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	George Dunlap <george.dunlap@cloud.com>, Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN PATCH v2 3/5] tools: don't use distutils in configure nor
- Makefile
-Message-ID: <lxd2k5zl6oojwukqsqpfep2qyjnwutrs2p4q2az5agga2f3ksp@ehes5ohfjxim>
-References: <cover.1694450145.git.javi.merino@cloud.com>
- <7b3ecf211f60e0d6f7a4d146b62f9c28eff003f5.1694450145.git.javi.merino@cloud.com>
- <fdf87d82-aa3c-fd2e-6271-848f1a806fb2@citrix.com>
- <ZQBQnGOU/voT6QcV@mail-itl>
- <ac894d3f-c0f2-3928-c8f8-15f87573211f@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FV5ZEiM6Z+lQgkCM9NKkxff22FRLACdbnZmDYChhNx4=; b=WziaBNE72NoyQcZk9to+Nj81SN
+	Y+aJVFIoI9nsf84qO8NdGO2DjdMcNSd/akXzYdvB4H6jrXTiOlJnfzZq7ewh3plSbzduuWtXpkAgB
+	0Z4EV6dHWjYK0voYyYnDMcQq9osUd1wnnFj1Ch7BL2vkVDbdo+GIPkmq0rpppD8F6NFQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183034-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ac894d3f-c0f2-3928-c8f8-15f87573211f@citrix.com>
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183034: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+X-Osstest-Versions-That:
+    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 Sep 2023 23:19:00 +0000
 
-On Tue, Sep 12, 2023 at 01:17:21PM +0100, Andrew Cooper wrote:
-> On 12/09/2023 12:50 pm, Marek Marczykowski-Górecki wrote:
-> > On Tue, Sep 12, 2023 at 11:38:04AM +0100, Andrew Cooper wrote:
-> >> On 11/09/2023 5:51 pm, Javi Merino wrote:
-> >>> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> >>>
-> >>> Python distutils is deprecated and is going to be removed in Python
-> >>> 3.12. The distutils.sysconfig is available as sysconfig module in
-> >>> stdlib since Python 3.2, so use that directly.
-> >>>
-> >>> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> >> This breaks Py2, doesn't it?
-> > I was thinking that too, but "sysconfig" module seems to be in Python
-> > 2.7 too.
+flight 183034 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183034/
 
-Yes, I forgot to say it.  I tested this with python2 as well as python3.  I did:
+Regressions :-(
 
-  PYTHON=$(which python) ./configure
-  make -C tools/pygrub clean && make -C tools/pygrub
-  make -C tools/python clean && make -C tools/python
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
 
-with python being:
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-  $ python --version
-  Python 2.7.18.6
+version targeted for testing:
+ xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+baseline version:
+ xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
 
-I did the same test with just `./configure` and python3 being:
+Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
+Testing same since   183031  2023-09-18 17:01:55 Z    0 days    2 attempts
 
-  $ python3 --version
-  Python 3.12.0rc2
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
 
-> Oh, so it is.  Lovely that the documentation says this...
-> 
-> It seems to have appeared in Py2.7 and 3.2 together. 
-> https://docs.python.org/2.7/library/sysconfig.html
-> 
-> I notice that README currently says Py2.6.  We can definitely bump that
-> to 2.7, and take this patch as-is.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
 
-Marek had a patch that bumped the minimum version to 3.2[0] but I
-dropped it from the series as we were going to keep the support for python2.
 
-[0] https://lore.kernel.org/xen-devel/20230316171634.320626-4-marmarek@invisiblethingslab.com/
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I will bump the minimum version of python to 2.7 in the README.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
-Javi
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:24:25 2023 +0100
+
+    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
+    
+    In the Zen1 microarchitecure, there is one divider in the pipeline which
+    services uops from both threads.  In the case of #DE, the latched result from
+    the previous DIV to execute will be forwarded speculatively.
+    
+    This is an interesting covert channel that allows two threads to communicate
+    without any system calls.  In also allows userspace to obtain the result of
+    the most recent DIV instruction executed (even speculatively) in the core,
+    which can be from a higher privilege context.
+    
+    Scrub the result from the divider by executing a non-faulting divide.  This
+    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
+    
+    Alternatives in IST context is believed safe now that it's done in NMI
+    context.
+    
+    This is XSA-439 / CVE-2023-20588.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 15 12:13:51 2023 +0100
+
+    x86/amd: Introduce is_zen{1,2}_uarch() predicates
+    
+    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
+    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
+    opencoding it, and the explanation of the heuristic, at each usage site.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:53:33 2023 +0100
+
+    x86/spec-ctrl: Issue VERW during IST exit to Xen
+    
+    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
+    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
+    flush to scrub potentially sensitive data from uarch buffers.
+    
+    In order to compensate, issue VERW when exiting to Xen from an IST entry.
+    
+    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
+    and we're about to add a third.  Load the field into %ebx, and list the
+    register as clobbered.
+    
+    %r12 has been arranged to be the ist_exit signal, so add this as an input
+    dependency and use it to identify when to issue a VERW.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 12:20:12 2023 +0100
+
+    x86/entry: Track the IST-ness of an entry for the exit paths
+    
+    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
+    entry/exit asm, so it only needs setting in the IST path.
+    
+    As this is subtle and fragile, add check_ist_exit() to be used in debugging
+    builds to cross-check that the ist_exit boolean matches the entry vector.
+    
+    Write check_ist_exit() it in C, because it's debug only and the logic more
+    complicated than I care to maintain in asm.
+    
+    For now, we only need to use this signal in the exit-to-Xen path, but some
+    exit-to-guest paths happen in IST context too.  Check the correctness in all
+    exit paths to avoid the logic bit-rotting.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:48:16 2023 +0100
+
+    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
+    
+    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
+    for consistency.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 45f00557350dc7d0756551069803fc49c29184ca
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:11:50 2023 +0100
+
+    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
+    
+    ... to better explain how they're used.
+    
+    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
+    corner case when e.g. an NMI hits late in an exit-to-guest path.
+    
+    Leave a TODO, which will be addressed in subsequent patches which arrange for
+    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 1 11:38:44 2023 +0100
+
+    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
+    
+    These have grown more complex over time, with some already having been
+    converted.
+    
+    Provide full Requires/Clobbers comments, otherwise missing at this level of
+    indirection.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 694bb0f280fd08a4377e36e32b84b5062def4de2
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 17:03:16 2023 +0100
+
+    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
+    
+    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
+    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
+    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
+    
+    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
+    is going to be too generic shortly.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 15:06:49 2023 +0100
+
+    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
+    
+    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
+    dropped the only user, leaving behind the (incorrect) implication that Xen had
+    split exit paths.
+    
+    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
+    to SPEC_CTRL_EXIT_TO_XEN for consistency.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
