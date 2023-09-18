@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788837A5525
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 23:39:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604240.941484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 631AA7A552F
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Sep 2023 23:42:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604247.941494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiLxO-0005i3-Lc; Mon, 18 Sep 2023 21:39:02 +0000
+	id 1qiM05-0007AI-8b; Mon, 18 Sep 2023 21:41:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604240.941484; Mon, 18 Sep 2023 21:39:02 +0000
+Received: by outflank-mailman (output) from mailman id 604247.941494; Mon, 18 Sep 2023 21:41:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiLxO-0005eu-Ic; Mon, 18 Sep 2023 21:39:02 +0000
-Received: by outflank-mailman (input) for mailman id 604240;
- Mon, 18 Sep 2023 21:39:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qiM05-00077f-5H; Mon, 18 Sep 2023 21:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 604247;
+ Mon, 18 Sep 2023 21:41:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fCDX=FC=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1qiLxM-0005eo-OO
- for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 21:39:00 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c64989d1-566b-11ee-8789-cb3800f73035;
- Mon, 18 Sep 2023 23:38:58 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-31c5c06e8bbso4821941f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Sep 2023 14:38:58 -0700 (PDT)
-Received: from EMEAENG6DZjqCfH.citrite.net
- (cpc92302-cmbg19-2-0-cust781.5-4.cable.virginm.net. [82.1.211.14])
- by smtp.gmail.com with ESMTPSA id
- j3-20020a056000124300b0031f34a395e7sm13749528wrx.45.2023.09.18.14.38.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Sep 2023 14:38:57 -0700 (PDT)
+ <SRS0=dTdg=FC=canb.auug.org.au=sfr@srs-se1.protection.inumbo.net>)
+ id 1qiM02-00076b-CK
+ for xen-devel@lists.xenproject.org; Mon, 18 Sep 2023 21:41:47 +0000
+Received: from gandalf.ozlabs.org (mail.ozlabs.org [2404:9400:2221:ea00::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 263b017f-566c-11ee-9b0d-b553b5be7939;
+ Mon, 18 Sep 2023 23:41:43 +0200 (CEST)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4RqJCN1dznz4wd0;
+ Tue, 19 Sep 2023 07:41:36 +1000 (AEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,98 +42,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c64989d1-566b-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695073138; x=1695677938; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DCoqJu0Zhun8wrL1924bhTNlpE7X1nLpU44gfzMAISM=;
-        b=RvMmjB6Cj+Ao81pkAak8B0OEQVEC4VnqxaN41GPmbuAct6b+JMXLxinVD7R6plfG0h
-         lqx3/LOIpGJVOlTyAZHBAheW35eTezsETsZC15AMjcq07Uh5jN1lEzAuzKj/rVK5ZWny
-         RPIXi314fN64AKqew0gMUyhNFCTb+AuURP51s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695073138; x=1695677938;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DCoqJu0Zhun8wrL1924bhTNlpE7X1nLpU44gfzMAISM=;
-        b=Ci6Z9GB2aY2OZhaSmrz9aCzwKBGKnaEMbSEBAN8q52KmuVXRQz8qqyuuYbQiGCL3jH
-         bCFePo6aowiC/7jRaw9K2gmVUFHVtrn+bd4CyPVjwdI7/4MGkbzlTEGkgHxBqjuCUUL3
-         Kp1qjnV88jPZXnuc0odn+w1fCR9hPsodbyDNghFMuiakxjeNyquOuCHznN2+yMvNj6uc
-         ypR+YwJ4qz261iVvS/qSlyiOI85Wtbi01QG8KXkV9vkDF1mG1TSOFxYCnj/4ovA1171Z
-         30xisJYg9+o6NNAAcVJuBQL05EQ3Ju5sPLAWa6ZLgc3mO4dT/TC6+PAeJ7ok0A8hnx1O
-         Rl3Q==
-X-Gm-Message-State: AOJu0YwdCjNNd6ilx94SllRAq96h+qsIXhL4YvXSkZ40bxmMsJmmG3me
-	HpkQN84eIg5Fmp3fqAqTNUj5kA==
-X-Google-Smtp-Source: AGHT+IFi/HjIgfPjSpOovc4MaL7TytLdQs3LP2zlG1Y3eNU46c3LDe3kt3/rxqZlbPkKqcGN42adjQ==
-X-Received: by 2002:adf:ab0c:0:b0:31f:fedd:83ad with SMTP id q12-20020adfab0c000000b0031ffedd83admr6033525wrc.4.1695073137910;
-        Mon, 18 Sep 2023 14:38:57 -0700 (PDT)
-Date: Mon, 18 Sep 2023 22:38:55 +0100
-From: Javi Merino <javi.merino@cloud.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>, 
-	George Dunlap <george.dunlap@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Doug Goldstein <cardoe@cardoe.com>, Bertrand.Marquis@arm.com
-Subject: Re: [XEN PATCH v2 1/5] automation: add python3's setuptools to
- containers
-Message-ID: <mo3j4l5wynbrb5oz7z6edztqqfhwy5m322hjta72vsoxsz7kce@tej5b2jllgu6>
-References: <cover.1694450145.git.javi.merino@cloud.com>
- <4f14ea4aeb44c234d9930578614a35234769fa41.1694450145.git.javi.merino@cloud.com>
- <alpine.DEB.2.22.394.2309111805530.1847660@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 263b017f-566c-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+	s=201702; t=1695073296;
+	bh=Vb4eL9CHfhRBJsfJ0QsA45UJHbqU+38DlbUmYxZcS5Q=;
+	h=Date:From:To:Cc:Subject:From;
+	b=salWIiGxClYMhB8OJT8bjACqDFCVOL8DX6OpgycRUWdkNdnuyouIHGg9V1rOEqLdA
+	 lB3Pkfd/pKTEriamMfKah8I2SvP0jCeHKPAcJ+Wk84Ez9/9tBimh10qf38FNqienPo
+	 kVXS6uR7LRze4UN72z8vU/z3+u/A7UGooBJqVUKJfmZKYf85jajrpO9Ug9R3ksByRH
+	 tfccSwmEEe2IN210tHsKVDFScaVEQm2psATwDAoqOvnEzAufbEhty/gvZ3U4En6EL6
+	 i49BqqrUW6pIo+ppvxUWt9wQAk1cijwhr2KsOlBnHImgnHxEpSo0WOzwQO5Erz0vdp
+	 VVLJPsOkjr2jQ==
+Date: Tue, 19 Sep 2023 07:41:35 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Juergen Gross <jgross@suse.com>, Konrad Rzeszutek Wilk
+ <konrad.wilk@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Xen Devel
+ <xen-devel@lists.xenproject.org>
+Cc: Kees Cook <keescook@chromium.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>
+Subject: linux-next: duplicate patch in the xen-tip tree
+Message-ID: <20230919074135.3e9b06b0@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2309111805530.1847660@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/signed; boundary="Sig_/+kF1L/j/yNt5jxoz.jnIOrC";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-On Mon, Sep 11, 2023 at 06:15:03PM -0700, Stefano Stabellini wrote:
-> On Mon, 11 Sep 2023, Javi Merino wrote:
-> > In preparation of dropping python distutils and moving to setuptools,
-> > add the python3 setuptools module to the containers that need it.
-> > 
-> > The centos7 container was building using python2.  Change it to build
-> > python scripts using python3.
-> > 
-> > Debian Stretch is no longer debian oldstable, so move to the archive
-> > repositories.
-> > 
-> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> > ---
-> >  automation/build/alpine/3.18.dockerfile        |  1 +
-> >  automation/build/archlinux/current.dockerfile  |  1 +
-> >  automation/build/centos/7.dockerfile           |  3 ++-
-> >  automation/build/debian/bookworm.dockerfile    |  1 +
-> >  automation/build/debian/stretch.dockerfile     | 11 ++++++++++-
-> >  automation/build/suse/opensuse-leap.dockerfile |  1 +
-> >  automation/build/ubuntu/bionic.dockerfile      |  1 +
-> >  automation/build/ubuntu/focal.dockerfile       |  1 +
-> >  automation/build/ubuntu/trusty.dockerfile      |  1 +
-> >  automation/build/ubuntu/xenial.dockerfile      |  1 +
-> 
-> We are missing:
-> automation/build/alpine/3.18-arm64v8.dockerfile
-> automation/build/suse/opensuse-tumbleweed.dockerfile
-> automation/build/debian/bookworm-i386.dockerfile
-> automation/build/debian/bookworm-arm64v8.dockerfile
-> automation/build/debian/stretch-i386.dockerfile
+--Sig_/+kF1L/j/yNt5jxoz.jnIOrC
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Of course! I wasn't able to test it using CI and I missed a bunch of
-failed tests.  I have now added it to all of these.
+Hi all,
 
-> automation/build/suse/opensuse-leap.dockerfile
+The following commit is also in Linus Torvalds' tree as a different commit
+(but the same patch):
 
-Leap is already in the list.
+  603392995417 ("x86/paravirt: Fix tlb_remove_table function callback proto=
+type warning")
 
-> automation/build/fedora/29.dockerfile
+This is commit
 
-Why? It already has setuptools.
+  fcce1c6cb156 ("x86/paravirt: Fix tlb_remove_table function callback proto=
+type warning")
 
-> automation/build/debian/jessie-i386.dockerfile
-> automation/build/debian/jessie.dockerfile
+in Linus' tree.
 
-Why? The jessie container is not run in automation.  Arguably, the
-docker files should be deleted instead.
-
+--=20
 Cheers,
-Javi
+Stephen Rothwell
+
+--Sig_/+kF1L/j/yNt5jxoz.jnIOrC
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmUIxA8ACgkQAVBC80lX
+0GympAgAm1mO57c/f5RDekcV0a/MNqPpNNpvhkHZqMAezFHrKmY0STuctRsiqv03
+Jd55r/qxXVrpmBPC37dawEn+bF9nJb+KgF/K9pVFFwu7AXqjYUEgbMyGu5Ahe3c5
+pksjE9fVVfLIzHqj1EhQOwUngZcKUoVBEoaFzifmbj4yyrYWZOuksAtNKWqgpiTc
+F4LYqL8TjPHI4qifm8wxCZCmQZ0FlmpJAOJYC+StZmjLG6WVoMU0PVg6x14zODfk
+e6KnNC7f25z2JniTiDlziDpaFgnNqbh1dHdBpitZ2HvqoAscQVQaA/SPZzGQvTfh
+MqyoXR3BgGQmUXWipC6tdOGHh0RxDg==
+=eOiP
+-----END PGP SIGNATURE-----
+
+--Sig_/+kF1L/j/yNt5jxoz.jnIOrC--
 
