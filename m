@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F19D7A5995
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 07:49:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604345.941663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27EE67A599D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 07:56:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604350.941672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTaq-0003Vt-3M; Tue, 19 Sep 2023 05:48:16 +0000
+	id 1qiTi0-0004yJ-QQ; Tue, 19 Sep 2023 05:55:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604345.941663; Tue, 19 Sep 2023 05:48:16 +0000
+Received: by outflank-mailman (output) from mailman id 604350.941672; Tue, 19 Sep 2023 05:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTaq-0003TL-0Q; Tue, 19 Sep 2023 05:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 604345;
- Tue, 19 Sep 2023 05:48:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qiTi0-0004wA-Nt; Tue, 19 Sep 2023 05:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 604350;
+ Tue, 19 Sep 2023 05:55:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L0bg=FD=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1qiTao-0003TF-O7
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 05:48:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1dd46433-56b0-11ee-9b0d-b553b5be7939;
- Tue, 19 Sep 2023 07:48:12 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-683-xHw6_rRWPtevVZjCFt_5Cw-1; Tue, 19 Sep 2023 01:48:07 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (envelope-from <SRS0=0Oxb=FD=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qiThz-0004w1-KQ
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 05:55:39 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 286ee577-56b1-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 07:55:38 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98501811E7B;
- Tue, 19 Sep 2023 05:48:06 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.39.192.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 69AFDC15BB8;
- Tue, 19 Sep 2023 05:48:06 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 5EA2321E6900; Tue, 19 Sep 2023 07:48:05 +0200 (CEST)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 894AA22839;
+ Tue, 19 Sep 2023 05:55:37 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3293D13458;
+ Tue, 19 Sep 2023 05:55:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id zoLyCtk3CWVPQwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 19 Sep 2023 05:55:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,113 +51,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dd46433-56b0-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695102490;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b/fZBqgWohIXDyoS//C2CQBh2i20NsRptRtuC2Sy1CY=;
-	b=iHHS+K9RY52CHvbGbyANylsE2rDicGMj5U8/HDwKVfH01yQxY5JcsJ9fQUiwbma+hUxLQ/
-	0fzHwvqf7xQLzj3URGxzBeedL7nLT3vQ812sqFTgyZVLCjb6/UJsHp2y4VR5vtlsd36liU
-	z7WZEY+iSNkD41BazejMFhWwtkQH06o=
-X-MC-Unique: xHw6_rRWPtevVZjCFt_5Cw-1
-From: Markus Armbruster <armbru@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org,  hreitz@redhat.com,  eblake@redhat.com,
-  vsementsov@yandex-team.ru,  jsnow@redhat.com,  idryomov@gmail.com,
-  pl@kamp.de,  sw@weilnetz.de,  sstabellini@kernel.org,
-  anthony.perard@citrix.com,  paul@xen.org,  pbonzini@redhat.com,
-  marcandre.lureau@redhat.com,  berrange@redhat.com,  thuth@redhat.com,
-  philmd@linaro.org,  stefanha@redhat.com,  fam@euphon.net,
-  quintela@redhat.com,  peterx@redhat.com,  leobras@redhat.com,
-  kraxel@redhat.com,  qemu-block@nongnu.org,
-  xen-devel@lists.xenproject.org,  alex.bennee@linaro.org,
-  peter.maydell@linaro.org
-Subject: Re: [PATCH 4/7] block/dirty-bitmap: Clean up local variable shadowing
-References: <20230831132546.3525721-1-armbru@redhat.com>
-	<20230831132546.3525721-5-armbru@redhat.com>
-	<ZQQNUjN4Laf+k1Nk@redhat.com>
-Date: Tue, 19 Sep 2023 07:48:05 +0200
-In-Reply-To: <ZQQNUjN4Laf+k1Nk@redhat.com> (Kevin Wolf's message of "Fri, 15
-	Sep 2023 09:52:50 +0200")
-Message-ID: <8734za4stm.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
+X-Inumbo-ID: 286ee577-56b1-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1695102937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NqK2AzLjcSSziUXv/bRsgo92hGjv4vqcHTVq9z+bJUs=;
+	b=S6RFLxGsdYKiAAZnCMFAgl0LoF6l1MPDh02afDmCYyAqR5IKsyjHRk7gAUXnIKvT+86FI6
+	VFvPtLmxdA7N8e6a0Pfer6jYLuWlPszyR2YBjtnXwKcrqcQgLK0WmXP5U5Lb4zlO+R5FcW
+	hapJJwAu6vpuqRkUTq2pf57Ei0T+Os8=
+Message-ID: <6ca5e35a-515e-4205-a8f2-13c0176f93cd@suse.com>
+Date: Tue, 19 Sep 2023 07:55:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
+Content-Language: en-US
+To: Justin Stitt <justinstitt@google.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>
+References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JLHfp2JVY4v5vNtIURUkIWuZ"
 
-Kevin Wolf <kwolf@redhat.com> writes:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JLHfp2JVY4v5vNtIURUkIWuZ
+Content-Type: multipart/mixed; boundary="------------vs6263xuQCyPAXuihv3xaRux";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Justin Stitt <justinstitt@google.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>
+Message-ID: <6ca5e35a-515e-4205-a8f2-13c0176f93cd@suse.com>
+Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
+References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
 
-> Am 31.08.2023 um 15:25 hat Markus Armbruster geschrieben:
->> Local variables shadowing other local variables or parameters make the
->> code needlessly hard to understand.  Tracked down with -Wshadow=local.
->> Clean up: delete inner declarations when they are actually redundant,
->> else rename variables.
->> 
->> Signed-off-by: Markus Armbruster <armbru@redhat.com>
->> ---
->>  block/monitor/bitmap-qmp-cmds.c | 2 +-
->>  block/qcow2-bitmap.c            | 3 +--
->>  2 files changed, 2 insertions(+), 3 deletions(-)
->> 
->> diff --git a/block/monitor/bitmap-qmp-cmds.c b/block/monitor/bitmap-qmp-cmds.c
->> index 55f778f5af..4d018423d8 100644
->> --- a/block/monitor/bitmap-qmp-cmds.c
->> +++ b/block/monitor/bitmap-qmp-cmds.c
->> @@ -276,7 +276,7 @@ BdrvDirtyBitmap *block_dirty_bitmap_merge(const char *node, const char *target,
->>  
->>      for (lst = bms; lst; lst = lst->next) {
->>          switch (lst->value->type) {
->> -            const char *name, *node;
->> +            const char *name;
->>          case QTYPE_QSTRING:
->>              name = lst->value->u.local;
->>              src = bdrv_find_dirty_bitmap(bs, name);
->
-> The names in this function are all over the place... A more ambitious
-> patch could rename the parameters to dst_node/dst_bitmap and these
-> variables to src_node/src_bitmap to get some more consistency (both with
-> each other and with the existing src/dst variables).
+--------------vs6263xuQCyPAXuihv3xaRux
+Content-Type: multipart/mixed; boundary="------------P6Yp5JLuOoYDSWVGOGON5fDh"
 
-What exactly would you like me to consider?  Perhaps:
+--------------P6Yp5JLuOoYDSWVGOGON5fDh
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-* Rename parameter @node to @dst_node
+T24gMTEuMDkuMjMgMjA6NTksIEp1c3RpbiBTdGl0dCB3cm90ZToNCj4gYHN0cm5jcHlgIGlz
+IGRlcHJlY2F0ZWQgZm9yIHVzZSBvbiBOVUwtdGVybWluYXRlZCBkZXN0aW5hdGlvbiBzdHJp
+bmdzIFsxXS4NCj4gDQo+IGBlZmlfbG9hZGVyX3NpZ25hdHVyZWAgaGFzIHNwYWNlIGZvciA0
+IGJ5dGVzLiBXZSBhcmUgY29weWluZyAiWGVuIiAoMyBieXRlcykNCj4gcGx1cyBhIE5VTC1i
+eXRlIHdoaWNoIG1ha2VzIDQgdG90YWwgYnl0ZXMuIFdpdGggdGhhdCBiZWluZyBzYWlkLCB0
+aGVyZSBpcw0KPiBjdXJyZW50bHkgbm90IGEgYnVnIHdpdGggdGhlIGN1cnJlbnQgYHN0cm5j
+cHkoKWAgaW1wbGVtZW50YXRpb24gaW4gdGVybXMgb2YNCj4gYnVmZmVyIG92ZXJyZWFkcyBi
+dXQgd2Ugc2hvdWxkIGZhdm9yIGEgbW9yZSByb2J1c3Qgc3RyaW5nIGludGVyZmFjZQ0KPiBl
+aXRoZXIgd2F5Lg0KPiANCj4gQSBzdWl0YWJsZSByZXBsYWNlbWVudCBpcyBgc3Ryc2NweWAg
+WzJdIGR1ZSB0byB0aGUgZmFjdCB0aGF0IGl0IGd1YXJhbnRlZXMNCj4gTlVMLXRlcm1pbmF0
+aW9uIG9uIHRoZSBkZXN0aW5hdGlvbiBidWZmZXIgd2hpbGUgYmVpbmcgZnVuY3Rpb25hbGx5
+IHRoZQ0KPiBzYW1lIGluIHRoaXMgY2FzZS4NCj4gDQo+IExpbms6IHd3dy5rZXJuZWwub3Jn
+L2RvYy9odG1sL2xhdGVzdC9wcm9jZXNzL2RlcHJlY2F0ZWQuaHRtbCNzdHJuY3B5LW9uLW51
+bC10ZXJtaW5hdGVkLXN0cmluZ3NbMV0NCj4gTGluazogaHR0cHM6Ly9tYW5wYWdlcy5kZWJp
+YW4ub3JnL3Rlc3RpbmcvbGludXgtbWFudWFsLTQuOC9zdHJzY3B5LjkuZW4uaHRtbCBbMl0N
+Cj4gTGluazogaHR0cHM6Ly9naXRodWIuY29tL0tTUFAvbGludXgvaXNzdWVzLzkwDQo+IENj
+OiBsaW51eC1oYXJkZW5pbmdAdmdlci5rZXJuZWwub3JnDQo+IENjOiBLZWVzIENvb2sgPGtl
+ZXNjb29rQGNocm9taXVtLm9yZz4NCj4gU2lnbmVkLW9mZi1ieTogSnVzdGluIFN0aXR0IDxq
+dXN0aW5zdGl0dEBnb29nbGUuY29tPg0KDQpQdXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxp
+bnVzLTYuNmENCg0KDQpKdWVyZ2VuDQoNCg==
+--------------P6Yp5JLuOoYDSWVGOGON5fDh
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-* Rename which parameter to @dst_bitmap?
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-* Rename nested local @node to @src_node
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-* Rename which local variable to @src_bitmap?
+--------------P6Yp5JLuOoYDSWVGOGON5fDh--
 
-* Move nested locals to function scope
+--------------vs6263xuQCyPAXuihv3xaRux--
 
-> Preexisting, so I'm not insisting that you should do this.
->
->> diff --git a/block/qcow2-bitmap.c b/block/qcow2-bitmap.c
->> index 037fa2d435..ffd5cd3b23 100644
->> --- a/block/qcow2-bitmap.c
->> +++ b/block/qcow2-bitmap.c
->> @@ -1555,7 +1555,6 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
->>      FOR_EACH_DIRTY_BITMAP(bs, bitmap) {
->>          const char *name = bdrv_dirty_bitmap_name(bitmap);
->>          uint32_t granularity = bdrv_dirty_bitmap_granularity(bitmap);
->> -        Qcow2Bitmap *bm;
->>  
->>          if (!bdrv_dirty_bitmap_get_persistence(bitmap) ||
->>              bdrv_dirty_bitmap_inconsistent(bitmap)) {
->> @@ -1625,7 +1624,7 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
->>  
->>      /* allocate clusters and store bitmaps */
->>      QSIMPLEQ_FOREACH(bm, bm_list, entry) {
->> -        BdrvDirtyBitmap *bitmap = bm->dirty_bitmap;
->> +        bitmap = bm->dirty_bitmap;
->>  
->>          if (bitmap == NULL || bdrv_dirty_bitmap_readonly(bitmap)) {
->>              continue;
->
-> Reviewed-by: Kevin Wolf <kwolf@redhat.com>
+--------------JLHfp2JVY4v5vNtIURUkIWuZ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Thanks!
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUJN9gFAwAAAAAACgkQsN6d1ii/Ey9b
+Bgf8CTf585RCh50vukpF14vtoVOLQzRwI5l+KakkqgIo2ZZnsFuAx7/VDacR6DEZFv/09CLD349E
++6v1grvdGCORORr8CzFuD5u4Ou1Vmuosze6qwkq7Mmuez738yFLOyMU8XXm+vB1a8FwgpwGyNiq7
+sc1rZ2VdNGCqT93m1ykuF2YJjvjsHEQqQ8twmg8FoKh83U8JWQoFphxw3aKcXSZge1rpz/9/4kY+
+jVcmKg1QU9M+9HmhrRnz4tnxqMs/sARqxTUd0JqWwiEmf8jn3o5tpYdGcVOujVeN60U/rTLsMYyP
+60G1Zhv6TiL+q+Au4qdYW7YdGQRv8Ca6buyUWIS/hg==
+=NvJy
+-----END PGP SIGNATURE-----
+
+--------------JLHfp2JVY4v5vNtIURUkIWuZ--
 
