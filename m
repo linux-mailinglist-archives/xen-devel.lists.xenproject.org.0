@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27EE67A599D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 07:56:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604350.941672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3467A59EE
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 08:28:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604355.941684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTi0-0004yJ-QQ; Tue, 19 Sep 2023 05:55:40 +0000
+	id 1qiUDR-0001iD-A4; Tue, 19 Sep 2023 06:28:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604350.941672; Tue, 19 Sep 2023 05:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 604355.941684; Tue, 19 Sep 2023 06:28:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTi0-0004wA-Nt; Tue, 19 Sep 2023 05:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 604350;
- Tue, 19 Sep 2023 05:55:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qiUDR-0001er-6H; Tue, 19 Sep 2023 06:28:09 +0000
+Received: by outflank-mailman (input) for mailman id 604355;
+ Tue, 19 Sep 2023 06:28:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Oxb=FD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qiThz-0004w1-KQ
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 05:55:39 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 286ee577-56b1-11ee-8789-cb3800f73035;
- Tue, 19 Sep 2023 07:55:38 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 894AA22839;
- Tue, 19 Sep 2023 05:55:37 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3293D13458;
- Tue, 19 Sep 2023 05:55:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zoLyCtk3CWVPQwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 19 Sep 2023 05:55:37 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiUDQ-0001eh-4j; Tue, 19 Sep 2023 06:28:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiUDP-00013N-Sq; Tue, 19 Sep 2023 06:28:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiUDP-0008GF-HM; Tue, 19 Sep 2023 06:28:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiUDP-00035k-Gt; Tue, 19 Sep 2023 06:28:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,179 +42,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 286ee577-56b1-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1695102937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NqK2AzLjcSSziUXv/bRsgo92hGjv4vqcHTVq9z+bJUs=;
-	b=S6RFLxGsdYKiAAZnCMFAgl0LoF6l1MPDh02afDmCYyAqR5IKsyjHRk7gAUXnIKvT+86FI6
-	VFvPtLmxdA7N8e6a0Pfer6jYLuWlPszyR2YBjtnXwKcrqcQgLK0WmXP5U5Lb4zlO+R5FcW
-	hapJJwAu6vpuqRkUTq2pf57Ei0T+Os8=
-Message-ID: <6ca5e35a-515e-4205-a8f2-13c0176f93cd@suse.com>
-Date: Tue, 19 Sep 2023 07:55:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eo2N5Vp55kz/hLCJ3O5B3jveUHmXwAiQJxYjs0MHpq8=; b=Zu0XWZg3tMZLU9qRDGWEWeIbRu
+	Z4kseKmeYywJjEYfC1vulXZtu9DvctNFAwYeaIFeWtzukvHl4WnsqnXZf1X/vr+2E99PvRM4vImob
+	LWiCw+ekJi3YzNUgMyRehIKiUV7VBAcaaD0hJxV3aorM8xXyUhLAWmsfiE5VRzmeIPn8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183045-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
-Content-Language: en-US
-To: Justin Stitt <justinstitt@google.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>
-References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JLHfp2JVY4v5vNtIURUkIWuZ"
+Subject: [xen-unstable-smoke test] 183045: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+X-Osstest-Versions-That:
+    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 19 Sep 2023 06:28:07 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JLHfp2JVY4v5vNtIURUkIWuZ
-Content-Type: multipart/mixed; boundary="------------vs6263xuQCyPAXuihv3xaRux";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Justin Stitt <justinstitt@google.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, Kees Cook <keescook@chromium.org>
-Message-ID: <6ca5e35a-515e-4205-a8f2-13c0176f93cd@suse.com>
-Subject: Re: [PATCH] xen/efi: refactor deprecated strncpy
-References: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
-In-Reply-To: <20230911-strncpy-arch-x86-xen-efi-c-v1-1-96ab2bba2feb@google.com>
+flight 183045 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183045/
 
---------------vs6263xuQCyPAXuihv3xaRux
-Content-Type: multipart/mixed; boundary="------------P6Yp5JLuOoYDSWVGOGON5fDh"
+Regressions :-(
 
---------------P6Yp5JLuOoYDSWVGOGON5fDh
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
 
-T24gMTEuMDkuMjMgMjA6NTksIEp1c3RpbiBTdGl0dCB3cm90ZToNCj4gYHN0cm5jcHlgIGlz
-IGRlcHJlY2F0ZWQgZm9yIHVzZSBvbiBOVUwtdGVybWluYXRlZCBkZXN0aW5hdGlvbiBzdHJp
-bmdzIFsxXS4NCj4gDQo+IGBlZmlfbG9hZGVyX3NpZ25hdHVyZWAgaGFzIHNwYWNlIGZvciA0
-IGJ5dGVzLiBXZSBhcmUgY29weWluZyAiWGVuIiAoMyBieXRlcykNCj4gcGx1cyBhIE5VTC1i
-eXRlIHdoaWNoIG1ha2VzIDQgdG90YWwgYnl0ZXMuIFdpdGggdGhhdCBiZWluZyBzYWlkLCB0
-aGVyZSBpcw0KPiBjdXJyZW50bHkgbm90IGEgYnVnIHdpdGggdGhlIGN1cnJlbnQgYHN0cm5j
-cHkoKWAgaW1wbGVtZW50YXRpb24gaW4gdGVybXMgb2YNCj4gYnVmZmVyIG92ZXJyZWFkcyBi
-dXQgd2Ugc2hvdWxkIGZhdm9yIGEgbW9yZSByb2J1c3Qgc3RyaW5nIGludGVyZmFjZQ0KPiBl
-aXRoZXIgd2F5Lg0KPiANCj4gQSBzdWl0YWJsZSByZXBsYWNlbWVudCBpcyBgc3Ryc2NweWAg
-WzJdIGR1ZSB0byB0aGUgZmFjdCB0aGF0IGl0IGd1YXJhbnRlZXMNCj4gTlVMLXRlcm1pbmF0
-aW9uIG9uIHRoZSBkZXN0aW5hdGlvbiBidWZmZXIgd2hpbGUgYmVpbmcgZnVuY3Rpb25hbGx5
-IHRoZQ0KPiBzYW1lIGluIHRoaXMgY2FzZS4NCj4gDQo+IExpbms6IHd3dy5rZXJuZWwub3Jn
-L2RvYy9odG1sL2xhdGVzdC9wcm9jZXNzL2RlcHJlY2F0ZWQuaHRtbCNzdHJuY3B5LW9uLW51
-bC10ZXJtaW5hdGVkLXN0cmluZ3NbMV0NCj4gTGluazogaHR0cHM6Ly9tYW5wYWdlcy5kZWJp
-YW4ub3JnL3Rlc3RpbmcvbGludXgtbWFudWFsLTQuOC9zdHJzY3B5LjkuZW4uaHRtbCBbMl0N
-Cj4gTGluazogaHR0cHM6Ly9naXRodWIuY29tL0tTUFAvbGludXgvaXNzdWVzLzkwDQo+IENj
-OiBsaW51eC1oYXJkZW5pbmdAdmdlci5rZXJuZWwub3JnDQo+IENjOiBLZWVzIENvb2sgPGtl
-ZXNjb29rQGNocm9taXVtLm9yZz4NCj4gU2lnbmVkLW9mZi1ieTogSnVzdGluIFN0aXR0IDxq
-dXN0aW5zdGl0dEBnb29nbGUuY29tPg0KDQpQdXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxp
-bnVzLTYuNmENCg0KDQpKdWVyZ2VuDQoNCg==
---------------P6Yp5JLuOoYDSWVGOGON5fDh
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+baseline version:
+ xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
+Testing same since   183031  2023-09-18 17:01:55 Z    0 days    4 attempts
 
---------------P6Yp5JLuOoYDSWVGOGON5fDh--
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
 
---------------vs6263xuQCyPAXuihv3xaRux--
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
 
---------------JLHfp2JVY4v5vNtIURUkIWuZ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUJN9gFAwAAAAAACgkQsN6d1ii/Ey9b
-Bgf8CTf585RCh50vukpF14vtoVOLQzRwI5l+KakkqgIo2ZZnsFuAx7/VDacR6DEZFv/09CLD349E
-+6v1grvdGCORORr8CzFuD5u4Ou1Vmuosze6qwkq7Mmuez738yFLOyMU8XXm+vB1a8FwgpwGyNiq7
-sc1rZ2VdNGCqT93m1ykuF2YJjvjsHEQqQ8twmg8FoKh83U8JWQoFphxw3aKcXSZge1rpz/9/4kY+
-jVcmKg1QU9M+9HmhrRnz4tnxqMs/sARqxTUd0JqWwiEmf8jn3o5tpYdGcVOujVeN60U/rTLsMYyP
-60G1Zhv6TiL+q+Au4qdYW7YdGQRv8Ca6buyUWIS/hg==
-=NvJy
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------JLHfp2JVY4v5vNtIURUkIWuZ--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:24:25 2023 +0100
+
+    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
+    
+    In the Zen1 microarchitecure, there is one divider in the pipeline which
+    services uops from both threads.  In the case of #DE, the latched result from
+    the previous DIV to execute will be forwarded speculatively.
+    
+    This is an interesting covert channel that allows two threads to communicate
+    without any system calls.  In also allows userspace to obtain the result of
+    the most recent DIV instruction executed (even speculatively) in the core,
+    which can be from a higher privilege context.
+    
+    Scrub the result from the divider by executing a non-faulting divide.  This
+    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
+    
+    Alternatives in IST context is believed safe now that it's done in NMI
+    context.
+    
+    This is XSA-439 / CVE-2023-20588.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 15 12:13:51 2023 +0100
+
+    x86/amd: Introduce is_zen{1,2}_uarch() predicates
+    
+    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
+    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
+    opencoding it, and the explanation of the heuristic, at each usage site.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:53:33 2023 +0100
+
+    x86/spec-ctrl: Issue VERW during IST exit to Xen
+    
+    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
+    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
+    flush to scrub potentially sensitive data from uarch buffers.
+    
+    In order to compensate, issue VERW when exiting to Xen from an IST entry.
+    
+    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
+    and we're about to add a third.  Load the field into %ebx, and list the
+    register as clobbered.
+    
+    %r12 has been arranged to be the ist_exit signal, so add this as an input
+    dependency and use it to identify when to issue a VERW.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 12:20:12 2023 +0100
+
+    x86/entry: Track the IST-ness of an entry for the exit paths
+    
+    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
+    entry/exit asm, so it only needs setting in the IST path.
+    
+    As this is subtle and fragile, add check_ist_exit() to be used in debugging
+    builds to cross-check that the ist_exit boolean matches the entry vector.
+    
+    Write check_ist_exit() it in C, because it's debug only and the logic more
+    complicated than I care to maintain in asm.
+    
+    For now, we only need to use this signal in the exit-to-Xen path, but some
+    exit-to-guest paths happen in IST context too.  Check the correctness in all
+    exit paths to avoid the logic bit-rotting.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:48:16 2023 +0100
+
+    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
+    
+    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
+    for consistency.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 45f00557350dc7d0756551069803fc49c29184ca
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:11:50 2023 +0100
+
+    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
+    
+    ... to better explain how they're used.
+    
+    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
+    corner case when e.g. an NMI hits late in an exit-to-guest path.
+    
+    Leave a TODO, which will be addressed in subsequent patches which arrange for
+    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 1 11:38:44 2023 +0100
+
+    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
+    
+    These have grown more complex over time, with some already having been
+    converted.
+    
+    Provide full Requires/Clobbers comments, otherwise missing at this level of
+    indirection.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 694bb0f280fd08a4377e36e32b84b5062def4de2
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 17:03:16 2023 +0100
+
+    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
+    
+    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
+    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
+    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
+    
+    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
+    is going to be too generic shortly.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 15:06:49 2023 +0100
+
+    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
+    
+    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
+    dropped the only user, leaving behind the (incorrect) implication that Xen had
+    split exit paths.
+    
+    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
+    to SPEC_CTRL_EXIT_TO_XEN for consistency.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
