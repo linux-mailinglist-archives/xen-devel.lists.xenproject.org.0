@@ -2,35 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B2F57A6037
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 12:53:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604590.942052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF577A60B0
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 13:07:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604601.942069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiYLt-0008Vw-8u; Tue, 19 Sep 2023 10:53:09 +0000
+	id 1qiYZG-0003E2-HJ; Tue, 19 Sep 2023 11:06:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604590.942052; Tue, 19 Sep 2023 10:53:09 +0000
+Received: by outflank-mailman (output) from mailman id 604601.942069; Tue, 19 Sep 2023 11:06:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiYLt-0008Td-6C; Tue, 19 Sep 2023 10:53:09 +0000
-Received: by outflank-mailman (input) for mailman id 604590;
- Tue, 19 Sep 2023 10:53:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiYLr-0008TT-R9; Tue, 19 Sep 2023 10:53:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiYLr-00080Z-I7; Tue, 19 Sep 2023 10:53:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiYLr-0002do-1x; Tue, 19 Sep 2023 10:53:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qiYLr-0005Rb-1X; Tue, 19 Sep 2023 10:53:07 +0000
+	id 1qiYZG-0003Bd-EJ; Tue, 19 Sep 2023 11:06:58 +0000
+Received: by outflank-mailman (input) for mailman id 604601;
+ Tue, 19 Sep 2023 11:06:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ezs9=FD=citrix.com=prvs=619432e5c=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qiYZE-0003BX-Sq
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 11:06:57 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3245d84-56dc-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 13:06:54 +0200 (CEST)
+Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 19 Sep 2023 07:06:50 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by DM4PR03MB6158.namprd03.prod.outlook.com (2603:10b6:5:399::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Tue, 19 Sep
+ 2023 11:06:47 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
+ 11:06:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +49,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Bh+/bpp8RRYNH0Bxf5xJBA7Y5Adxan2YOtXSt01oAtw=; b=LseHbhA3Ihcy6xwH7GJjlAUhtz
-	fSIiBgzo/KmJlgOtHkRgtSR9OMSlEv9ZCtvmzU2UkL8fm9C2ijTcBXitrgwDMaX0XrygYZNh/QNOL
-	uBWnCgKdhhvS2/xLIeLn4/smNx2cDLsK8+90y/9TkinCSCyC9UZq/ZJsS/ckOCnKOV4c=;
+X-Inumbo-ID: a3245d84-56dc-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1695121614;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=9pmBBFPJzQNYBCaHCZgzrn330g5J9H2WaO5kJqeMN8c=;
+  b=INgtW3eQLinoaJ+2bZ6i+eyYUTQm0f/9EkvSwpZJF5KYxgIkKqBcSro9
+   sN2bJwklHAwmc2BKE2zuHAGWq2NtKoyHg6e4LeaytRByRFwG/KHkrBTU3
+   sOzxLFZX53KR5FES7yiSdjUSgfuhC3GyfuMSoKOaBW6w+Ew+Hdd546Io0
+   c=;
+X-CSE-ConnectionGUID: 4QDYL1O3RBi2f/XE2ATWpQ==
+X-CSE-MsgGUID: uSfOj1pjRUaiMtUtClAsZw==
+X-IronPort-RemoteIP: 104.47.58.169
+X-IronPort-MID: 122337571
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:T7S4BqOsc2famT3vrR2DlsFynXyQoLVcMsEvi/4bfWQNrUol32dWm
+ DQcDGvUO6uMZ2XwctwgOd/gpktUv5TUnIdkHgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/jrRC9H5qyo42tJ5w1mP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0rpOLVBqr
+ NtDEhoMNB7Et8/s6Y6EUtA506zPLOGzVG8ekldJ6GiASNwAEdXESaiM4sJE1jAtgMwIBezZe
+ 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+PpxujaCpOBy+OGF3N79YNuFSN8Thk+Fj
+ mnH4374ElcRM9n3JT+tqyj23bSQwHyiMG4UPKCD+Nlo2UWR/FEaCTgKaEeQpdCiuFHrDrqzL
+ GRRoELCt5Ma5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAGRDNcbN0ttOctWCcnk
+ FSOmrvBGjhHoLCTD3WH+d+pQSiaPCEUKSoIY38CRA5cut37+tht31TIU8ppF7OzgpvtAzbsz
+ juWrS84wbIOkcoM0Kb99lfC696xmqX0oscOzl2/dgqYAslRPeZJu6TABYDn0Mt9
+IronPort-HdrOrdr: A9a23:EB5NcaFDip4MTCM1pLqEEseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV+6faQslwssR4b9uxoVJPvfZq+z+8R3WByB8bAYOCOggLBQL2KhbGI/9SKIVydygcy78
+ Zdm6gVMqyMMbB55/yKnDVRxbwbsaa6GKPDv5ah8590JzsaDJ2Jd21Ce32m+ksdfnghObMJUK
+ Cyy+BgvDSadXEefq2AdwM4t7iqnayzqHr+CyR2fyIa1A==
+X-Talos-CUID: 9a23:8J6ck2Hu+U4IQ0/LqmI7zWIlPpkCKUf3zS3eZH+VU09Vd6WsHAo=
+X-Talos-MUID: 9a23:lKyftQowjC+LKC7qYmkezyxZOuBqurysMn0EkLAahtWvMQVrCSjI2Q==
+X-IronPort-AV: E=Sophos;i="6.02,159,1688443200"; 
+   d="scan'208";a="122337571"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B+zus5xlfgYeE4xa5K9TNRRjIkbMNjLEQW6REkWFU48+pYyrGsXHAol6cSrF3f4rMnUENqcqooPs85xgtBUSHzpxGMNf+HDs8IME5U3RSGSw72wnXfGbob/Mu9mIn9N94YaseWr7JhtbE4Tg2HbZz+CGtUi8+m/Lja4yyb0g5kCAdMdhdYB17e9Yt1cyJLCgAu8x8UWN+JH4eoV4Fg18L8jOWkzrPygsC7PQ9uFiTOc+oldkAykdQNF6E9ziyMckhlrPcWh+aF9eb477l5RceP6X8NmUSSsxLB4KFPKwsGh35XbnB1GXKPzCmR/axOZu85j/6IZJWjnrcA2bTwJ+bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UX1eXRHpKe+Hj5+QRAop5/FRgFcMkLQbGSBj77udeCE=;
+ b=LcuFoILpgw04FCKjOr4gKttSoHAO0yMSl8i57IHcx70NEkzh8q5crEjZFFBBXpejuyKBNlpRp0TIPEX5RUiXi93uBcS0XRTVrG94PD2JKgxMx+OwTaWnODdngeBDqMPpBi13mw5/GCy3aPWQn3mPzOkg+VsHmefLo+MowANc0pWnU7I+i5ZrtkhQPOEXUERZ6KqD9J91fzPEdAmag0jfBoNE3iolxzk1paDyJ4BLkt6netBVK9vvRkfvzyiohqM5ZDDT1b9QFQwPsjiT5Al+rU/7Gq0G9lHzw2zNzbh4SWLN8WSp+C2alCMTL9oZ5mdJUnX1BtDz10qVcBZQ7PTA4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UX1eXRHpKe+Hj5+QRAop5/FRgFcMkLQbGSBj77udeCE=;
+ b=WaslZwCMepIf5vZRav2IJFtwkoVweFPTsL9g8+pXe7i4a8It4N5QQZrrVMxX8CciFPvb7sO8b+Taag2ztCX9xCZv4oJGFChUyFNb1wIAiVzdX/3CGYGPgYavCRd5k6PJlPt720gMiu4k7nJnOQOoPfuF0MaDi44Luu5jZjUYWQU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183050-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/i8259: do not assume interrupts always target CPU0
+Date: Tue, 19 Sep 2023 13:06:37 +0200
+Message-ID: <20230919110637.12078-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.42.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0686.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:37b::18) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183050: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-X-Osstest-Versions-That:
-    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Sep 2023 10:53:07 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DM4PR03MB6158:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9dcf8a7-04bd-4b58-00dd-08dbb90083c7
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mrhkg3iikizVVlnXOg5S6iGzT1mQRslCdCK77ljKBq76vYAfE7tKh/+5flgdbChZtxNvCUDEn3zcRFrpmXIB8cdWn495AqfQ3GB49pSJuZZxk5bTSA+dWWj7wqG9FDrCiMjvfPrDoleC+Q9P+gecwFjxlLDWbOQBMvWikszKQrwni0/HCLz/Vx83sWWbHzsNV5LQZq8QpUXTITE6a+8edwU+2yNzj1Yb1WVjH6uPh7PjX7jeCilvDjosbQP1SPWldRFxq5Ut/ALVKLSQk5H3FP/fwkf7HY7isEbEFPXup29JwW5IXBxShZtxUbnd0dhLKku3wlo19gKFn9NhR029lKqCxNiaoliRxBw997YToExCSEkXELOfp1Rp1grrzte9xNxabvJr8npvnCtLmlYd+hI3mHOu9nZQx3chdnL73EdhjKdhBmJFr/YkffbvtBS+oklthpyp27umZk3VwJelpAxrckqsWJJRQoOEeVPDkCfnJPXA2L4ppMtItMKnCO2FsDhTEYa2k4E10tTdwuxmrtfgu/NctLZFnF10bS3LHNBUwledZt/srxV5r7j85r/J
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(396003)(376002)(39860400002)(1800799009)(186009)(451199024)(83380400001)(6512007)(6666004)(82960400001)(6506007)(6486002)(36756003)(41300700001)(2906002)(66946007)(66476007)(66556008)(316002)(54906003)(6916009)(5660300002)(8676002)(8936002)(4326008)(38100700002)(478600001)(86362001)(1076003)(26005)(2616005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aW1vdkJwbGRMUWhTcWVZdXJLTmRXUjhBM2NOaCtxRm83L2FMUzlrY2J6MVRM?=
+ =?utf-8?B?Qm14VlZONUlMKzlQVTc1UjNlRTB4dlpVQmVuaUJTcUZ6a0RGckRJWlQvSkpP?=
+ =?utf-8?B?OXQwaktobFdiYlVOWUpCTThIN0l3cFd3V3g5K0RmV001RUVWbTN1MWxWMy82?=
+ =?utf-8?B?a1JLaDJZYk1rWmp0QVFFY3dHcVhRQzFPM003Y3pnZmhNU2p1ZVVGTml6bk1U?=
+ =?utf-8?B?cmIvbUpNa21xcytGcHhZU2pyeVg0UCtReXRTN014YW1SckFRUXVmbTBuWFVK?=
+ =?utf-8?B?bFk0VUdVV1lhOTlVZzlyaklCUkVFMlNsQzN1RktheHJNWnZxckhXKzY2eWNY?=
+ =?utf-8?B?R1R4MmRsbUJtU1B5dmJ5MHNUb0VoRkFHTFBHYVhKMTF3MU9jSWpZZi8wRXIy?=
+ =?utf-8?B?cW9QVkx1SXB4eGxUWUN0b3RWNVZubTBKVVJxa0RPb2VYNmQ3UmVHYzBMc2xB?=
+ =?utf-8?B?NjZ0S0RyemVZSi8vaEYvYjZSU2xFL0JZODVvR1hmOXBzTUtwZVA5SVcwVWZ4?=
+ =?utf-8?B?WEkzNW83djFZT29sdE1GRTBCcUo1SlpPNU03NGExQWV5bHlLeEFCS3BEQW9y?=
+ =?utf-8?B?ck1KZEhtc2NlRTM3cjZsY3J2VTNrcTNFSUYyaUcyNGtYWEdKRERJa3hrZmtp?=
+ =?utf-8?B?a1J1SkJmT1grVEpCbUtLdzJwallsZktxZTN4bC9xeGYzOEljK2JtU2Ezc25K?=
+ =?utf-8?B?MjFjTWJSN1ZBenh6SGxPT3FCRDNsVXZyMzF1VEtmZDFpMGtPSVRKSzBRK3Yv?=
+ =?utf-8?B?NmVyVWdDQ0VTcTE0S2xwK1VGNFFzS0l4cVpCTDRYaTJYZjhxSERsbWttS3VB?=
+ =?utf-8?B?UlZSam1xSEtBT3dHQ1FxM05raVU2ZXdXWFlrUG9KeG9KNGZQbmQwQmJPRzlI?=
+ =?utf-8?B?TFFBNGEzL2lneU04UXVpdEpWMTdSQ0FvZFFiY3pYZFB4YXZSTUNia1lpclZm?=
+ =?utf-8?B?bkpObm12TlQ3UXNtRzJNbDlabEtrVVdnZFovZWU0SStqeXBCbU9XQk1PMC9K?=
+ =?utf-8?B?M2M1dm4zcmI3NWt6ZG11Z0JFa0xXOU1kbzF5ZzBmcDFHWkJKUWpYR0NXbHN0?=
+ =?utf-8?B?ZUtOL3pRRWx1alYvTVB0WXVXLzgzM3N2bUVTdGczNkk2eGVhNEVzNytwTHJ2?=
+ =?utf-8?B?VDJuNmtqL05KMk1UQWEwUnZ3WmtUYlJyM2hYbktXZUZCVk9vcVp6OXNJb0RG?=
+ =?utf-8?B?UWU5Y3VKdG5xVUp2Zmx6SFZna1FDeHZxTGxma2RmZVk1ZlFuNWZxMWRoYTVH?=
+ =?utf-8?B?QWk2ZmtyTHQrWWhmQ1FUdThHTlRZWi9EWWdxeDdoVzBYVVRxdUg2bEtzQUtw?=
+ =?utf-8?B?UGFLRCtKQStkTFl6dlRyd1dyRFNmZHVsQStaaWZrK2xuWS9LMm9pZHNvZ0pm?=
+ =?utf-8?B?bEVNSEFHNmRkNk9PZUVpOUVTcE9pLzIvelpNTFJOR3N2MWlFTXpNNHppanFu?=
+ =?utf-8?B?YWE1bnhEbCs0L0JqNXJaZXI0Tk5NWTNWb3BNTHplV0NaRGRUWTlmVE50QTM2?=
+ =?utf-8?B?L2xsaFhIM3VZQTNKc1ppOE9tWmtzVGlzcVNVU1AzTzBoYkFJYkxlY3JVamxP?=
+ =?utf-8?B?OXIwc01GWmhoNStITi9DdUlnck5UaWUxNzFzMUdNaXQwL09Ub2JRQUR5YzRB?=
+ =?utf-8?B?WXoyTFQvdlRINlExY2EzWHlsT3RQeWxzbkZmb2o4emlScmYvbG5RYmxLUjJD?=
+ =?utf-8?B?bUZkNXZ0Uy9BelJveVQzTDFtRWJ4RjN5YVRxNThiRWlKV3RidG1kOEE4QW4w?=
+ =?utf-8?B?NUc3K0E0ZmpiT2JiSldOV3hZRXhLN0JkOXQraWFQODFOMU85QWpyWjB1OFVr?=
+ =?utf-8?B?UkJ0aTNTR0RlcWg4b0EzeE5mVDhtZUpVOTN6NlpWRTA2cDdnYTNpZWtsUzBx?=
+ =?utf-8?B?T2lCSHQva2J1YVNTSTJVZlpKRjhuQzJad3ZpTXBWM1FEU29FUlByT1BidG1D?=
+ =?utf-8?B?dFN3SDkrQTRNd1B3a2JjdHhXUCswUzJMRVlZNjdJdk9panhqanZ0UW5LZzhJ?=
+ =?utf-8?B?WnJ1RG9MaERXdnNuUXNWWVgxbUxGVTJLcEEyWHVScGRNUFVkeFRGdWt3TUsz?=
+ =?utf-8?B?S1QyNmR2eGtyTjhBREhMOE1oRnJ3S0tsTDVPaGhSSXY1R09nSm1nd3VaTU5m?=
+ =?utf-8?B?SWVOKzVnSkVwTDZZRjIzaEJveGpxS3ZDMnpocmFOZzUzSDhZUnNPaU00RG5V?=
+ =?utf-8?B?dkE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	5PKF+7xg0SmjTmxv7I3mn3BZeouHMwtW9AQVI9W45PPxNLKWu91wMIsheyJcFfJa96jmFTsXno4RZj3iGlSkrl0caaadIR1Dm+D2MZ5a0+TKRUXaLQm47OezSZ2BingSO+6kBCGuTV9jlul5BkpBeZYZ28Z8JIERbx6YmYa8NOpqhgq7UT2J1+v3k/wt6MfIaJehZz987DZvay3XB4KaO/taltlYRWAMDjic/ZFu+u/HoPFzZA4WIMDdo9rGixHUXKk/WbqP0QFLHLokSa+YR1Gb3B3jeYCdp+KB+4M57PyJhoGVhLpmLN9SsbmyLI0V2dQ2Ye5KXcik9h7tFwRdrxMUsR8rz9kYqgBL8Emv/wL6T9eS/S1lTPEJyR9wvOw3/YSImi10uhyPXqnmBNZLJ3bK5/RyNxsTWuO/zp4Ol/yW0sHRCd3/92x4rbZqCU0BSBCdjr3CJ908alVscQ1CjLdT9fmiP3PXm0ddE+KQzm0zQ4q8VJ8OEqmrOQyCKzWwetrplHPetz4OJlEeLd2w5jfVHqS6c1kNCMjnjSd9wpx5O7IgQSSt+qxArjLgGFj/I0b75wItdOZYv9UqOdkqPbpPfN3EoxPSra5rpg5Obip21PBgZ0CgPqEyaS7WUpJyw5dwE8wEs0CoOQbEyxTwW/TWgsovFY2WQ5fP/FPAz46k+T9qh6QyX0r5+ddcyA3fwdJUPSQwd4rYuqzv5R44cMwfbjLeAgRg2xHTP9pLQC4HqYOp3UB6ZaVaTirFTn4yvQ6FvOq/56MWSJu+AoQmMKZh23tLlWUUXXR3ghK6A7spz0gESQKEPp855tY90uyIAaaY0pcKwUyXjntbHmG6Wg==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9dcf8a7-04bd-4b58-00dd-08dbb90083c7
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 11:06:46.8249
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JJklJ/mrZ3nhuyCWE0D3fkdoWjdSErNI7R/IAbU/YdI3cnvzfJz9Jj+outKrawa7uV2Uom9gWM9Ot3lCbF6Abg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6158
 
-flight 183050 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183050/
+Sporadically we have seen the following during AP bringup on AMD platforms
+only:
 
-Regressions :-(
+microcode: CPU59 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
+microcode: CPU60 updated from revision 0x830104d to 0x830107a, date = 2023-05-17
+CPU60: No irq handler for vector 27 (IRQ -2147483648)
+microcode: CPU61 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
+This is similar to the issue raised on Linux commit 36e9e1eab777e, where they
+also observed i8259 (active) vectors getting delivered to CPUs different than
+0.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Adjust the target CPU mask of i8259 interrupt descriptors to contain all
+possible CPUs, so that APs will reserve the vector at startup if any legacy IRQ
+is still delivered through the i8259.  Note that if the IO-APIC takes over
+those interrupt descriptors the CPU mask will be reset.
 
-version targeted for testing:
- xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-baseline version:
- xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
+Spurious i8259 interrupt vectors however (IRQ7 and IRQ15) can be injected even
+when all i8259 pins are masked, and hence need to be handled on all CPUs.
+Reserve such vectors in order to prevent dynamic interrupt sources from using
+them.
 
-Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
-Testing same since   183031  2023-09-18 17:01:55 Z    0 days    5 attempts
+Finally, handle spurious i8259 interrupts on all CPUs and adjust the printed
+message to display the CPU where the spurious interrupt has been received, so
+it looks like:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+microcode: CPU1 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
+cpu1: spurious 8259A interrupt: IRQ7
+microcode: CPU2 updated from revision 0x830104d to 0x830107a, date = 2023-05-17
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
+Fixes: 3fba06ba9f8b ('x86/IRQ: re-use legacy vector ranges on APs')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+One theory I have is that the APs at some point (before jumping into Xen code)
+have the local APIC hardware-disabled, and hence are considered valid targets
+by the i8259, but by the time the vector is fetched from the i8259 the
+interrupt has either been masked, or already consumed by a different CPU.
+---
+ xen/arch/x86/i8259.c | 18 ++++++++++++++++--
+ xen/arch/x86/irq.c   |  9 ++++++++-
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/x86/i8259.c b/xen/arch/x86/i8259.c
+index ed9f55abe51e..ad3bca9895d0 100644
+--- a/xen/arch/x86/i8259.c
++++ b/xen/arch/x86/i8259.c
+@@ -222,7 +222,8 @@ static bool _mask_and_ack_8259A_irq(unsigned int irq)
+         is_real_irq = false;
+         /* Report spurious IRQ, once per IRQ line. */
+         if (!(spurious_irq_mask & irqmask)) {
+-            printk("spurious 8259A interrupt: IRQ%d.\n", irq);
++            printk("cpu%u: spurious 8259A interrupt: IRQ%u\n",
++                   smp_processor_id(), irq);
+             spurious_irq_mask |= irqmask;
+         }
+         /*
+@@ -349,7 +350,20 @@ void __init init_IRQ(void)
+             continue;
+         desc->handler = &i8259A_irq_type;
+         per_cpu(vector_irq, cpu)[LEGACY_VECTOR(irq)] = irq;
+-        cpumask_copy(desc->arch.cpu_mask, cpumask_of(cpu));
++
++        /*
++         * The interrupt affinity logic never targets interrupts to offline
++         * CPUs, hence it's safe to use cpumask_all here.
++         *
++         * Legacy PIC interrupts are only targeted to CPU0, but depending on
++         * the platform they can be distributed to any online CPU in hardware.
++         * The kernel has no influence on that. So all active legacy vectors
++         * must be installed on all CPUs.
++         *
++         * IO-APIC will change the destination mask if/when taking ownership of
++         * the interrupt.
++         */
++        cpumask_copy(desc->arch.cpu_mask, &cpumask_all);
+         desc->arch.vector = LEGACY_VECTOR(irq);
+     }
+     
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 6abfd8162120..2379fdda3a7e 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -466,6 +466,14 @@ int __init init_irq_data(void)
+           vector++ )
+         __set_bit(vector, used_vectors);
+ 
++    /*
++     * Mark i8259 spurious vectors as used to avoid (re)using them.  Otherwise
++     * it won't be possible to distinguish between device triggered interrupts
++     * or spurious i8259 ones.
++     */
++    __set_bit(LEGACY_VECTOR(7), used_vectors);
++    __set_bit(LEGACY_VECTOR(15), used_vectors);
++
+     return 0;
+ }
+ 
+@@ -1920,7 +1928,6 @@ void do_IRQ(struct cpu_user_regs *regs)
+                 kind = "";
+             if ( !(vector >= FIRST_LEGACY_VECTOR &&
+                    vector <= LAST_LEGACY_VECTOR &&
+-                   !smp_processor_id() &&
+                    bogus_8259A_irq(vector - FIRST_LEGACY_VECTOR)) )
+             {
+                 printk("CPU%u: No irq handler for vector %02x (IRQ %d%s)\n",
+-- 
+2.42.0
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:24:25 2023 +0100
-
-    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
-    
-    In the Zen1 microarchitecure, there is one divider in the pipeline which
-    services uops from both threads.  In the case of #DE, the latched result from
-    the previous DIV to execute will be forwarded speculatively.
-    
-    This is an interesting covert channel that allows two threads to communicate
-    without any system calls.  In also allows userspace to obtain the result of
-    the most recent DIV instruction executed (even speculatively) in the core,
-    which can be from a higher privilege context.
-    
-    Scrub the result from the divider by executing a non-faulting divide.  This
-    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
-    
-    Alternatives in IST context is believed safe now that it's done in NMI
-    context.
-    
-    This is XSA-439 / CVE-2023-20588.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 15 12:13:51 2023 +0100
-
-    x86/amd: Introduce is_zen{1,2}_uarch() predicates
-    
-    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
-    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
-    opencoding it, and the explanation of the heuristic, at each usage site.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:53:33 2023 +0100
-
-    x86/spec-ctrl: Issue VERW during IST exit to Xen
-    
-    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
-    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
-    flush to scrub potentially sensitive data from uarch buffers.
-    
-    In order to compensate, issue VERW when exiting to Xen from an IST entry.
-    
-    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
-    and we're about to add a third.  Load the field into %ebx, and list the
-    register as clobbered.
-    
-    %r12 has been arranged to be the ist_exit signal, so add this as an input
-    dependency and use it to identify when to issue a VERW.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 12:20:12 2023 +0100
-
-    x86/entry: Track the IST-ness of an entry for the exit paths
-    
-    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
-    entry/exit asm, so it only needs setting in the IST path.
-    
-    As this is subtle and fragile, add check_ist_exit() to be used in debugging
-    builds to cross-check that the ist_exit boolean matches the entry vector.
-    
-    Write check_ist_exit() it in C, because it's debug only and the logic more
-    complicated than I care to maintain in asm.
-    
-    For now, we only need to use this signal in the exit-to-Xen path, but some
-    exit-to-guest paths happen in IST context too.  Check the correctness in all
-    exit paths to avoid the logic bit-rotting.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:48:16 2023 +0100
-
-    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
-    
-    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
-    for consistency.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 45f00557350dc7d0756551069803fc49c29184ca
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:11:50 2023 +0100
-
-    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
-    
-    ... to better explain how they're used.
-    
-    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
-    corner case when e.g. an NMI hits late in an exit-to-guest path.
-    
-    Leave a TODO, which will be addressed in subsequent patches which arrange for
-    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 1 11:38:44 2023 +0100
-
-    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
-    
-    These have grown more complex over time, with some already having been
-    converted.
-    
-    Provide full Requires/Clobbers comments, otherwise missing at this level of
-    indirection.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 694bb0f280fd08a4377e36e32b84b5062def4de2
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 17:03:16 2023 +0100
-
-    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
-    
-    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
-    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
-    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
-    
-    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
-    is going to be too generic shortly.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 15:06:49 2023 +0100
-
-    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
-    
-    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
-    dropped the only user, leaving behind the (incorrect) implication that Xen had
-    split exit paths.
-    
-    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
-    to SPEC_CTRL_EXIT_TO_XEN for consistency.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
