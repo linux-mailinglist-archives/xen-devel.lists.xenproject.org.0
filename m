@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DA1C7A5C6D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 10:25:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604454.941834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4D37A5C8A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 10:29:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604461.941844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiW2t-0008LY-Pc; Tue, 19 Sep 2023 08:25:23 +0000
+	id 1qiW6H-0001Gz-75; Tue, 19 Sep 2023 08:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604454.941834; Tue, 19 Sep 2023 08:25:23 +0000
+Received: by outflank-mailman (output) from mailman id 604461.941844; Tue, 19 Sep 2023 08:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiW2t-0008Jo-N0; Tue, 19 Sep 2023 08:25:23 +0000
-Received: by outflank-mailman (input) for mailman id 604454;
- Tue, 19 Sep 2023 08:25:22 +0000
+	id 1qiW6H-0001Eo-4V; Tue, 19 Sep 2023 08:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 604461;
+ Tue, 19 Sep 2023 08:28:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vY4L=FD=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qiW2s-0008Ji-4Q
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 08:25:22 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=SkrE=FD=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1qiW6E-0001Ei-Jq
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 08:28:50 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12367e17-56c6-11ee-8789-cb3800f73035;
- Tue, 19 Sep 2023 10:25:20 +0200 (CEST)
-Received: from [192.168.1.15] (host-87-19-206-190.retail.telecomitalia.it
- [87.19.206.190])
- by support.bugseng.com (Postfix) with ESMTPSA id DAC714EE0737;
- Tue, 19 Sep 2023 10:25:19 +0200 (CEST)
+ id 8ea3091c-56c6-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 10:28:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,51 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12367e17-56c6-11ee-8789-cb3800f73035
-Message-ID: <046797bc-160f-85db-d8c4-f48407cd731c@bugseng.com>
-Date: Tue, 19 Sep 2023 10:25:19 +0200
+X-Inumbo-ID: 8ea3091c-56c6-11ee-8789-cb3800f73035
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1695112128;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g/J3RiWKdg8c3IzdjWmLh9zLCv7VF76fYepXRQtkHb0=;
+	b=U3ecSGCa3F2gvLLwz1Ij5s049fnE+mB8KhUG/kINpG9gVGfyTRvYvyyxoFnM0is9mqZ0Um
+	RSFc8r37Ueg5axCqiQW0rdvc8RErKGb7CCXtfrEA+F38yE/AwhQCiw6v622RKTttoTvTCz
+	RTJsf6jx1UlOXNAoqOTC/hQxrmZqNEgjEcZByd3DjNjh5CD9r/CIe13PTRRCK31Q+Tjkgd
+	HZeL25W9eVSai+S77A3weyQcehuhDyUfqHcTht0GIWMmWmyLC8mi+I7+W8KgGxNCqcw46D
+	Q1jY8vAZtTR3H02IWJgTCCmosSGbuL+SzPWJ3XPqStgVHKCRxUiHTGzMUMrnUA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1695112128;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g/J3RiWKdg8c3IzdjWmLh9zLCv7VF76fYepXRQtkHb0=;
+	b=Sl2Ncxcrp84n8qOLd17+QPVSsnJWwjTJhHEW5C5C3dyLrVSuoCsaT/WfyM/4UuDdWtvOxm
+	EdqWbhFdtlEDc9Bg==
+To: Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, luto@kernel.org, pbonzini@redhat.com,
+ seanjc@google.com, peterz@infradead.org, jgross@suse.com,
+ ravi.v.shankar@intel.com, mhiramat@kernel.org, andrew.cooper3@citrix.com,
+ jiangshanlai@gmail.com
+Subject: Re: [PATCH v10 36/38] x86/fred: Add fred_syscall_init()
+In-Reply-To: <20230914044805.301390-37-xin3.li@intel.com>
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-37-xin3.li@intel.com>
+Date: Tue, 19 Sep 2023 10:28:47 +0200
+Message-ID: <87v8c6woqo.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [XEN PATCH] xen/vPCI: address violation of MISRA C:2012 Rule 8.3
-Content-Language: en-US, it
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <c0a206c000f475f50d7ee52825567fcd111568ee.1694164323.git.federico.serafini@bugseng.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <c0a206c000f475f50d7ee52825567fcd111568ee.1694164323.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 08/09/23 11:13, Federico Serafini wrote:
-> Make function declaration consistent with the corresponding definition.
-> No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> ---
->   xen/include/xen/vpci.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index 0b8a2a3c74..d743d96a10 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -26,7 +26,7 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->                  __used_section(".data.vpci." p) = x
->   
->   /* Add vPCI handlers to device. */
-> -int __must_check vpci_add_handlers(struct pci_dev *dev);
-> +int __must_check vpci_add_handlers(struct pci_dev *pdev);
->   
->   /* Remove all handlers and free vpci related structures. */
->   void vpci_remove_device(struct pci_dev *pdev);
+On Wed, Sep 13 2023 at 21:48, Xin Li wrote:
+> +static inline void fred_syscall_init(void)
+> +{
+> +	/*
+> +	 * Per FRED spec 5.0, FRED uses the ring 3 FRED entrypoint for SYSCALL
+> +	 * and SYSENTER, and ERETU is the only legit instruction to return to
+> +	 * ring 3, as a result there is _no_ need to setup the SYSCALL and
+> +	 * SYSENTER MSRs.
+> +	 *
+> +	 * Note, both sysexit and sysret cause #UD when FRED is enabled.
+> +	 */
+> +	wrmsrl(MSR_LSTAR, 0ULL);
+> +	wrmsrl_cstar(0ULL);
 
-Are there any chances of getting an ack?
+That write is pointless. See the comment in wrmsrl_cstar().
 
--- 
-Federico Serafini, M.Sc.
+Thanks,
 
-Software Engineer, BUGSENG (http://bugseng.com)
+        tglx
 
