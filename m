@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16497A5C4B
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 10:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604446.941818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA1C7A5C6D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 10:25:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604454.941834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiVvh-0006oR-T9; Tue, 19 Sep 2023 08:17:57 +0000
+	id 1qiW2t-0008LY-Pc; Tue, 19 Sep 2023 08:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604446.941818; Tue, 19 Sep 2023 08:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 604454.941834; Tue, 19 Sep 2023 08:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiVvh-0006lt-QA; Tue, 19 Sep 2023 08:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 604446;
- Tue, 19 Sep 2023 08:17:56 +0000
+	id 1qiW2t-0008Jo-N0; Tue, 19 Sep 2023 08:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 604454;
+ Tue, 19 Sep 2023 08:25:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vJAK=FD=gmail.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1qiVvg-0006ll-Hd
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 08:17:56 +0000
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [2607:f8b0:4864:20::729])
+ <SRS0=vY4L=FD=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qiW2s-0008Ji-4Q
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 08:25:22 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08be296b-56c5-11ee-8789-cb3800f73035;
- Tue, 19 Sep 2023 10:17:55 +0200 (CEST)
-Received: by mail-qk1-x729.google.com with SMTP id
- af79cd13be357-76dbe263c68so240552285a.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Sep 2023 01:17:55 -0700 (PDT)
+ id 12367e17-56c6-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 10:25:20 +0200 (CEST)
+Received: from [192.168.1.15] (host-87-19-206-190.retail.telecomitalia.it
+ [87.19.206.190])
+ by support.bugseng.com (Postfix) with ESMTPSA id DAC714EE0737;
+ Tue, 19 Sep 2023 10:25:19 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +40,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08be296b-56c5-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695111474; x=1695716274; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=g6XmqpxXe+pFJEvymDTF8JR4Ea1fwE1Z3SOQg5pG66Q=;
-        b=LOE+4Jxxi9Z9a3Fm+wO6efLVjPscqnvqAM1xF8Udx/jfaO8OuoE7hC4Y4J9cVcy5Go
-         5xBitqvIB1nd41yYMxvH1gywC6/w18IY5oA6SWg8yTTdalOn1hzyiyZyzMplDcLKXRn+
-         eCqHoLJrQZPFqFs4wvlWM9dBvEPxwJMVZ/mRoTKjPJI4poffeqm5032a+3jj6XhXCxsK
-         IMQontsTP0FF+TbYBJ4BBWwrHNw6d8B1dJ6XNU8ZZePHr+ab85kxjQIG1cY3jvzXkfO6
-         nAP7KiodVeyhxL+cdHIt9CuJSMUXBhssNXFeldTpsib7EKzt6qpvvCZs2Sf/Yz62ztA/
-         WMiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695111474; x=1695716274;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=g6XmqpxXe+pFJEvymDTF8JR4Ea1fwE1Z3SOQg5pG66Q=;
-        b=TiolRxfayje54fui+P8kOfor9R0+c3PD5HftcTDQFlgoSBQrdc1RIiDq6expvDYdc7
-         KMRij34EQDUft85X9DmjMoLLnlUBMoEOBDgStaGyEV3FGUKBBnqhj2AuoVQsCf1Pzfq2
-         hkSwNJLPjW+ovgmgh2L4PLIaijpwqPkL/0I1Do2bFl61fRaUJyogSG4jhacW2BVNBw3K
-         AYiPhvcRkulQHEe4TSvMjAi6olD58TRtdfjGM9zFkl1PAVvm++Td02N4jXpWEVo/HCck
-         0KgwCYrBW6Z7OboUW4rpDcG+IX2Nn00GxEIfRDycUsiRyTV2rLM1zSvs+tJlAXqFQbl3
-         DZuw==
-X-Gm-Message-State: AOJu0YwOvx9EhAy+vqZC50ew/lF2Veitbsh71RCqcCsFjxJdo0euMrpM
-	A9/uamca677wfIUjYimS9YWLnVZu6mo/75PVaog=
-X-Google-Smtp-Source: AGHT+IFrojAXgVVGst6JFQ0C2v6XMWIlWUwMMsKEePdzd+QZppOC/bSo9UUG0gwct+RD/tgsIxswtt+y5ED36ahcmWw=
-X-Received: by 2002:a05:620a:2a15:b0:767:c30:517 with SMTP id
- o21-20020a05620a2a1500b007670c300517mr2947653qkp.3.1695111474434; Tue, 19 Sep
- 2023 01:17:54 -0700 (PDT)
+X-Inumbo-ID: 12367e17-56c6-11ee-8789-cb3800f73035
+Message-ID: <046797bc-160f-85db-d8c4-f48407cd731c@bugseng.com>
+Date: Tue, 19 Sep 2023 10:25:19 +0200
 MIME-Version: 1.0
-References: <20230915111130.24064-1-ray.huang@amd.com> <20230915111130.24064-6-ray.huang@amd.com>
-In-Reply-To: <20230915111130.24064-6-ray.huang@amd.com>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Tue, 19 Sep 2023 12:17:43 +0400
-Message-ID: <CAJ+F1CK6_vDhh_=2kvHXkba8HYTvTuCP9ov-xW9EJ76SB4toWQ@mail.gmail.com>
-Subject: Re: [QEMU PATCH v5 05/13] virtio-gpu: Configure context init for virglrenderer
-To: Huang Rui <ray.huang@amd.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
-	Akihiko Odaki <akihiko.odaki@daynix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Antonio Caggiano <quic_acaggian@quicinc.com>, 
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>, 
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>, 
-	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>, 
-	Antonio Caggiano <antonio.caggiano@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [XEN PATCH] xen/vPCI: address violation of MISRA C:2012 Rule 8.3
+Content-Language: en-US, it
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <c0a206c000f475f50d7ee52825567fcd111568ee.1694164323.git.federico.serafini@bugseng.com>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <c0a206c000f475f50d7ee52825567fcd111568ee.1694164323.git.federico.serafini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi
-
-On Fri, Sep 15, 2023 at 6:16=E2=80=AFPM Huang Rui <ray.huang@amd.com> wrote=
-:
->
-> Configure context init feature flag for virglrenderer.
->
-> Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
+On 08/09/23 11:13, Federico Serafini wrote:
+> Make function declaration consistent with the corresponding definition.
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > ---
->
-> V4 -> V5:
->     - Inverted patch 5 and 6 because we should configure
->       HAVE_VIRGL_CONTEXT_INIT firstly. (Philippe)
->
->  meson.build | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/meson.build b/meson.build
-> index 98e68ef0b1..ff20d3c249 100644
-> --- a/meson.build
-> +++ b/meson.build
-> @@ -1068,6 +1068,10 @@ if not get_option('virglrenderer').auto() or have_=
-system or have_vhost_user_gpu
->                                         prefix: '#include <virglrenderer.=
-h>',
->                                         dependencies: virgl))
->    endif
-> +  config_host_data.set('HAVE_VIRGL_CONTEXT_INIT',
-> +                       cc.has_function('virgl_renderer_context_create_wi=
-th_flags',
-> +                                       prefix: '#include <virglrenderer.=
-h>',
-> +                                       dependencies: virgl))
+>   xen/include/xen/vpci.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 0b8a2a3c74..d743d96a10 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -26,7 +26,7 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+>                  __used_section(".data.vpci." p) = x
+>   
+>   /* Add vPCI handlers to device. */
+> -int __must_check vpci_add_handlers(struct pci_dev *dev);
+> +int __must_check vpci_add_handlers(struct pci_dev *pdev);
+>   
+>   /* Remove all handlers and free vpci related structures. */
+>   void vpci_remove_device(struct pci_dev *pdev);
 
-Move it under the "if virgl.found()" block above.
+Are there any chances of getting an ack?
 
-I suggest to name it after what is actually checked:
-HAVE_VIRGL_CONTEXT_CREATE_WITH_FLAGS for ex
+-- 
+Federico Serafini, M.Sc.
 
->  endif
->  blkio =3D not_found
->  if not get_option('blkio').auto() or have_block
-> --
-> 2.34.1
->
->
-
-
---=20
-Marc-Andr=C3=A9 Lureau
+Software Engineer, BUGSENG (http://bugseng.com)
 
