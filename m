@@ -2,49 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A5517A5F88
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 12:29:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604563.942012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F097A5F8B
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 12:30:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604568.942023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiXyL-0000XB-Lf; Tue, 19 Sep 2023 10:28:49 +0000
+	id 1qiXzL-0001Fq-Vj; Tue, 19 Sep 2023 10:29:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604563.942012; Tue, 19 Sep 2023 10:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 604568.942023; Tue, 19 Sep 2023 10:29:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiXyL-0000VL-Iq; Tue, 19 Sep 2023 10:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 604563;
- Tue, 19 Sep 2023 10:28:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qiXzL-0001D8-SF; Tue, 19 Sep 2023 10:29:51 +0000
+Received: by outflank-mailman (input) for mailman id 604568;
+ Tue, 19 Sep 2023 10:29:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7tQr=FD=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
- id 1qiXyK-0000VF-6e
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 10:28:48 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20626.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::626])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f5058d7-56d7-11ee-9b0d-b553b5be7939;
- Tue, 19 Sep 2023 12:28:45 +0200 (CEST)
-Received: from DM6PR13CA0060.namprd13.prod.outlook.com (2603:10b6:5:134::37)
- by IA0PR12MB8280.namprd12.prod.outlook.com (2603:10b6:208:3df::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.20; Tue, 19 Sep
- 2023 10:28:40 +0000
-Received: from DS3PEPF000099E0.namprd04.prod.outlook.com
- (2603:10b6:5:134:cafe::65) by DM6PR13CA0060.outlook.office365.com
- (2603:10b6:5:134::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28 via Frontend
- Transport; Tue, 19 Sep 2023 10:28:40 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099E0.mail.protection.outlook.com (10.167.17.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.19 via Frontend Transport; Tue, 19 Sep 2023 10:28:40 +0000
-Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
- 2023 05:28:33 -0500
+ <SRS0=ezs9=FD=citrix.com=prvs=619432e5c=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qiXzJ-0001Cg-U2
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 10:29:50 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 738c3aa8-56d7-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 12:29:47 +0200 (CEST)
+Received: from mail-dm6nam11lp2169.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 19 Sep 2023 06:29:44 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SJ2PR03MB7380.namprd03.prod.outlook.com (2603:10b6:a03:567::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Tue, 19 Sep
+ 2023 10:29:38 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
+ 10:29:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,154 +49,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f5058d7-56d7-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 738c3aa8-56d7-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1695119387;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=lxneTlTtDC2nBH0rCoXvwJi5HrU1MDdSg+R4NQ6E2aM=;
+  b=OGC7uitDEbmD/axavfywhdZv+hVW0pHMpUunbr73GsfFdOalV4iooiuP
+   1TiDWPun/ugMJcwUjcs803pJTxhwvy1wNYwe/hz+J/BG4GsiqDYVBJIGd
+   b1N78hl7r86i9kaA0wNf7tSihMwtvaHLeAM+JbHZcr/7IVulzR31BRd2M
+   4=;
+X-CSE-ConnectionGUID: uw9gq3hISG2z4K5Bx/eWOA==
+X-CSE-MsgGUID: kP+dmVRTQ3aJEFgR5JeYYQ==
+X-IronPort-RemoteIP: 104.47.57.169
+X-IronPort-MID: 122937800
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:66dtSq3hGCcyaMPRSPbD5fVwkn2cJEfYwER7XKvMYLTBsI5bp2MPy
+ GBMXG+OP/3bNmSjLdkkPN/l9U1U7JPRn9YySVNkpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb8nuDgNyo4GlD5g1nNKgR1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfHH4f+
+ uVDKBE2QUqR28Hr6qL8R9ZLr5F2RCXrFNt3VnBI6xj8VK9jbbWdBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvC6Kkl0ZPLvFabI5fvSQQspYhACAr
+ 3/u9GXlGBAKcteYzFJp91r13LWexnyrANp6+LuQ9cYpjFit/FAqUxQ0eHW0m6Sbh3+PYocKQ
+ 6AT0m90xUQoz2SpRNTgWxyzoFafowURHdFXFoUS9wWl2qfSpQGDCQAsXjNHLdArqsIybTgrz
+ UOS2cPkAyR1t7+YQm7b8a2bxQ5eIgAQJG4GICMBEw0M5oC6pJlp10yeCNF+DKSyk9v5Xynqx
+ CyHpzQ/gLNVitMX06K8/hbMhDfESoX1czPZLz7/BgqNhj6Vrqb8D2B0wTA3Ncp9Ebs=
+IronPort-HdrOrdr: A9a23:53F2hK8UrbtFgRExoRZuk+AcI+orL9Y04lQ7vn2ZKSY5TiX4rb
+ HKoB1/73XJYVkqN03I9ervBEDiewK/yXcW2+ks1N6ZNWGLhILBFupfBODZsl7d8kPFl9K01c
+ 1bAtJD4N+bNykGsS4tijPIb+rJw7O8gd+Vbf+19QYIcenzAZsQlzuQDGygYypLbTgDP7UVPr
+ yG6PFKojKxEE5nFfhSVhE+Lo7+T8SgruOeXSI7
+X-Talos-CUID: 9a23:OjBzfGOMlbdri+5DRTY2+1dPGuEeXSfPkFSNCV//BFlOYejA
+X-Talos-MUID: =?us-ascii?q?9a23=3A8Qy1aw+iPFVM2IPSXCt+3i6Qf8RQoKirNnoxqM4?=
+ =?us-ascii?q?PmeSqOhYtGTqsvQ3iFw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.02,159,1688443200"; 
+   d="scan'208";a="122937800"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GdB9w//K7Bw3QQjxbomV+zw+VDSsVTzE/qGcCQB6kxiQToUhXMxWTMnK5NiFFRP1T3fUaTISbOaCwP5p07nmZ7UBNWSJoSYEgpc1i1z8TCdlpkmVDgOtVxM7ui8Ocj7sJC98kPP88xbd5XuX4ScHu6NgJB9C/ECTt/mH8LfiHtUloFyk/JB6k+KfySV8bBxoZC4o7ENHH9BNj+4e5dJw08XqvbncHx9IFE1jDQ24a6BwdIFzGRdS7fKQ/cyGzopViCvqrkC0Nh/aVYKqq2p36pTwc+gZu8HnOng9qShd4cP85Sxk9RHH2VaTrrYzmHNTyNlEUWoihyoJFseojSI8dg==
+ b=AgGCjcZ32GfDcgiO2AQkaD3ElR/Xtvl6/846H4w8Dm/QgelV6tRAisWUlWH4s1Qav+bupzi3Y91KAmUYI2rz0/TawYk9AHFVxhECdWVadKMLBJlawmoaK3MHiCC1GBN9yUMWJl3IOa3upiSsv79ys+qgvxOXJgK5C33tsBE1Lqx+ZLsatFLwPYe1ser8Ae5vhf4KaSEWl8kDwDtpoGuhsXQTSEwhotATKMJJ/cWEnee2xycFp1a3/UEn0Vb8BQvAL5I7BcbZk1lRasMshzfh2CovkT/Ack3XbRrjK7cVd5pprb+O8C1/1RWoRtbAjFxhSCdLzda7Ha/eN3sfuXFqYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9uf1xrb9kzJVicQ/7BW/Jp6m5fiVAxzzaxgZLSncVI=;
- b=HAkihXKJKH3wustd8d9BIDe7bE3iScpwiteAmwgBex4EbAQ4OHkO9FTTQXxqRmq5bloUUl8ibCQ9aw1DK8WNJ75jJYP3uED8nctOXei4hni5jCvmDOoaKn9/nR2J2kOuP30VFeto2xqC2WucQL27G6bu6bq1M1ezNpwiMksMVrpE/ZJA0C/Gb7lVMCD2z8dGcm4uQePm6RVaXv19uyjHnATH1r99sLH8HzVJRhdatWcYYGnYiPuEsMAvg7jxxa8oNbD0Yc9FI2miw6RV9oTsrpA/V3cfCtFZJTAWrktafK5ZNJole7ZN49kSfK8D4Q8+OMLoP6co3aHLy4NHspfSPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=daynix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=MZtA3MxKhjLEND6BPIhUZ0t7Ora7aXByzy6UnHBCCL4=;
+ b=KY9nEZV0yF5Bto6eQ3teycNjHe+lb4G39k9xqLIiCjZx9BnIzesO8B5yT5rC9SvGRXPu2vgfSg7e0yzDAWpRa4N6t8Vh6irjxGILnNV5EE9UZWhiyKNRLUmmYKTbK0wU/hHgB375qDERSfSuhpjl3nzLp4xQ7UOSEb0oT+wjVf40YS6oVj9Vpikk+XMSKfa7mxF6K8FqQKc3eC3uyICeWuHXw8L7lDtP7rB2n8JqsUaU6p03VBW87q/uD9KjQjN7K/ZfkFve97U20okyK4NTOr4QHHNcWP+6+ybtegoMcchzF5dpNckpkqlECd5lDHFRF6oonK1cpkGywYh9C1aLlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9uf1xrb9kzJVicQ/7BW/Jp6m5fiVAxzzaxgZLSncVI=;
- b=dxqDD0IMNfV5mQ8grgwlCY1uHA+bp1ZhU9j68zFSXZwAxhfZd/sxwk4M9aCfQIkVmGjb/dexZ9wW2P53flynwnJKnYRMPypGEwEHBndORaSKiqtfXy98RDu5VNcm4MoZywRO8heSzhG2v/Cb+diGjMklN3OM6OIJF5K+H1rWRa8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
-Date: Tue, 19 Sep 2023 13:28:24 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
- deallocation of memory regions
-Content-Language: en-US
-To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
-	Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Antonio Caggiano <quic_acaggian@quicinc.com>,
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett
-	<bob.beckett@collabora.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	=?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
-	<qemu-devel@nongnu.org>
-CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
-	<gurchetansingh@chromium.org>, Albert Esteve <aesteve@redhat.com>,
-	<ernunes@redhat.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
-	<philmd@linaro.org>, Alyssa Ross <hi@alyssa.is>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Alex Deucher
-	<alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
-	<christian.koenig@amd.com>, Pierre-Eric Pelloux-Prayer
-	<pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>,
-	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-8-ray.huang@amd.com>
- <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
-From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-In-Reply-To: <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ bh=MZtA3MxKhjLEND6BPIhUZ0t7Ora7aXByzy6UnHBCCL4=;
+ b=NQ4E9B+Y2bZEb64beiojhg7qAPKPwtzNLAQRhb9LIADzREg3ZsRq9NwZ5mMasTK2oXze9fXuru9ybyBXQ7YvP3koQr80t1XvNzSIo9RQBY0xWrykyJje/KjXkvD+My0DOcevEkRypt/M4SqShQH1896TJd95G340wNfkgd7AnHw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 19 Sep 2023 12:29:32 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] x86/shutdown: change default reboot method preference
+Message-ID: <ZQl4DKfDuDIyK8Fi@MacBookPdeRoger>
+References: <20230915074347.94712-1-roger.pau@citrix.com>
+ <e22af903-cbdf-dfed-8f69-44e5ea05ef8b@suse.com>
+ <ZQhoHZvk7tXfGI2g@MacBookPdeRoger>
+ <b92b994c-a9cd-10c3-033b-3c1aa752fa8e@suse.com>
+ <ZQh0KXX2yLewO3uV@MacBookPdeRoger>
+ <2d1e6916-b501-e133-1463-fc55e3eaf2c6@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+In-Reply-To: <2d1e6916-b501-e133-1463-fc55e3eaf2c6@suse.com>
+X-ClientProxiedBy: LO4P302CA0032.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::13) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E0:EE_|IA0PR12MB8280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97093709-8413-4283-e0e6-08dbb8fb3148
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ2PR03MB7380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1668ebc9-e00a-48e8-d035-08dbb8fb536b
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NpBwepw1UrZo3jXYTCr/GFwsKvTOLXh556CrFSJrIyu+LT5BZajL2c99a9s0bQ/yhlCSuYu3TjgE4JylMAxq/EhjLNvGEUt76b1MBGR100vSSmMfqIw6eDP47cvzBFnFoo6Jd9LE4oCjyUgaguHjWxEO8EGVjsJnMgThUrqIvLAK4RkMwh+9vQDTydN0jJquIUWy0U4L1uhZxtjYB4Nv8Dbb2ztct9oG0jvuq8TxhN8y06FaporBcCpckaMhdFZ/y/MbnqQXV5r2JABf8huUa3LZ9BczwS0fYZzEghRf/3I5u6YJhdiD/Y/5dhwLcqpSLe2gwY/nZShLihLBFvQBCeQAbHD/Ek42pXRoHZBXuZcBsiFoPbQxtLXDkuLwE0l9BUhMkVvxvgVttTf05U8VhfhO5asWjQGGlHEai3VUZvQeVoPv7YX5uJ3/b+V+fHZGCY+z5J9dAO97/PZIvmKbRiDY9UpHTIZjrjLU2o95+Y1j2JftTcLXTlLcAV8C5VhaaLhWDr8+/fOG0FBSaNsWlFkUiyoyrxbp1vxbVjPcEn/KuEeqGcYaiODcl/CA/DK82nzTvZgBn8paK/hkT0j8803iriIYcfGsSTpeZhQRwLh62g9irHMVgsAB+MtwoArgN7q6pRcz4Kk6bluTnoLF54vPZliksBwgNHCO0Fgv3CtDbYAfV2+b8CUuUZHKpKQ8S0uHFmWSKTEAqYAZIaybph7Dw6qM+bvIQwoX0TbCdbEuNhEJuFpqRZ656rm3gLWRqjs1m05WOFhY7Zuv7sSewTg4u0IS52b+aJv8jwmpkpfGTyjUm4AcboZpJkUcnSuHT9dN6MuhZAl49jJuwTszQw==
+	LV1Acn6mTkOuMIW5i7dGXAtn+P3Uw+zhfbEqLbO32fwJBIyY5JZ7CL0J9LNtY1ljeQCOsRK4EgotaIZoi4eIpvSaoHGHAVyOgctFNHf/A94NwWUJ63mMVa1QqFKAcdCWzXgaBsYMSWkXCKFiBLzK3LQERm6ttsLu9SAJjThZzVuWEH0uD7oS+Zli9wWDRMwjoZzJ6+Ae8gEjBsZRfbDrcTyfZVaTe5gIISczQdORJ/8KU5fmtFCXMHII8AIopvFht0TqPwj43NK0KRj2dyxNFigQDUADCbgtWSSdlX+R76PrCzx/SqcRHmVTOcB1bcJtaFScZ5vN7dnTZRGaU69T+9x0x6gLX3eedYSWCGihiVqWCrwxJ/KZBrJEoFh0NlrmXrWNnyTNSQXcqe5zM3ZeidJOwHhbWBVE3qGuZPkPGokEiyi4Jd25aX7ORObZ/yZAMvUClB8oIIaVIis3pMZQgQvTevPzd60ar0TVUXlHBq0DFwv5pYLEySmkLU5Y5hVp3c9Jb1ozHr0xbkkgkSR3nOLlMhfpJXLiVC2gGgyI0dXqLx6FtPex66eiNl8gepXW
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199024)(82310400011)(1800799009)(186009)(40470700004)(46966006)(36840700001)(70206006)(70586007)(54906003)(53546011)(110136005)(40480700001)(16576012)(316002)(41300700001)(31686004)(478600001)(44832011)(6666004)(66899024)(8936002)(4326008)(8676002)(40460700003)(82740400003)(26005)(5660300002)(16526019)(47076005)(36860700001)(356005)(81166007)(921005)(336012)(83380400001)(426003)(2906002)(2616005)(86362001)(31696002)(7416002)(36756003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 10:28:40.5437
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(366004)(376002)(346002)(396003)(39860400002)(136003)(451199024)(186009)(1800799009)(6512007)(9686003)(54906003)(66476007)(66946007)(66556008)(316002)(6916009)(6506007)(6486002)(41300700001)(6666004)(8936002)(33716001)(4326008)(8676002)(5660300002)(53546011)(86362001)(478600001)(26005)(83380400001)(85182001)(82960400001)(38100700002)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NSttM0xWb3ZCR0ZJdGd1SnNNOFJrejZraWJ6SStmRDVzSEFrbFFJNXhCdEFM?=
+ =?utf-8?B?UTZ1MXBacWpwaXJBenZxWmEyQnBlRE1kSHd2Wit6ekRCamsyYUl5YldYZzFo?=
+ =?utf-8?B?WnRxY3NGZVhJQXdIQ2lRcDRFek4xTXNHLzEydkt3S0tPNUp2WUdYbWthK2pW?=
+ =?utf-8?B?UVV6M3JUdTB1ZlQrcWFhbC9EaVhJTmw2NXhwZDJOQTRIRmgvYktGYkJrM3B6?=
+ =?utf-8?B?YmtubnlBbVFleXRHQWphUk1HSEtNYnNvTWNUUUZMWGJtOEpLcHVOaU1DWkt4?=
+ =?utf-8?B?WHIwWXV3UmhScU53U1NLSnBETkRhN2FaMEhBMHNuajA0bURoekJ3SjVvM0ZC?=
+ =?utf-8?B?eDVlQXlwYlBORzc0cnNpaGQrOEtwVkpJcDlzVkptM1lZUEVPdXNZcktWdWdQ?=
+ =?utf-8?B?M2p1Q2FDdjNId080ajlUMHErYzhvNzV0cTUwRDRmWjNiYlFYSUN5Nm1YT1FS?=
+ =?utf-8?B?UEplTzJQaVdhcU5qVmZlOWQ4YnRUOVFBazdXVmNWTVZ2LzNVLzNoZmFud3pN?=
+ =?utf-8?B?VEZCZlgwTmpBcmhSaTNyWjh6VXhtald3RUJVUEF4VmxFNWhNMndDaDVxWFFt?=
+ =?utf-8?B?bjlsbmxSVGZGcFZhMUtZd0M1WW1sZzdRcHo4ZXZncDRoZjI2cjBjTVNXdkFQ?=
+ =?utf-8?B?bWk1d0xZMzVlUlFvbEtFbS9RWUh3YWNqNStDc1Rpa0gwZ3JobktDVXB3ZXR5?=
+ =?utf-8?B?SUV4aERIMTlBNmh5TlJjVDhHQ1RxM1V0NVU0UnZjWndiLzVWUUZFOGZKeHMz?=
+ =?utf-8?B?a2FzMGMwcmJxU3diUnVOcDVjR2dXc2pyaXNYQys5M01idEZGK3N1QmdlTEFH?=
+ =?utf-8?B?L2lHOVVYSWgrRTczbEx3blhZUDNuK3AvWTd4VzNBa3MrZGh0Q3Z1RDkrajNa?=
+ =?utf-8?B?OFIveCtqK2d5dG90RkVjWHR0ejFJRHZ1MU5BT0VEMUZ1TFRyZUI1SVRvN0NB?=
+ =?utf-8?B?NGxWRDhqcGdPOUpPdzFxU09VaWhYK3dSOXc4UHkzZUdwVU1Dcjhmd2RydHVQ?=
+ =?utf-8?B?cHVnVVB4QUN0anRYSFZjQWNqRDYzUy9NNVozZ0xoV2Q5eUpkL2N0V0tUL21G?=
+ =?utf-8?B?MVdTN2JnL2VGakRyT21mUEpZRHAyYjJhaEZnZXFsbnFxMXJtdi9ObTVjT2NH?=
+ =?utf-8?B?TVdsZ2pqWUI1STJ6UjU2eGJlWkQ0Y0VDdFREVEhSQzZpeVhNaXBlRDJxaGFB?=
+ =?utf-8?B?cU9QUTNMaTY5RjJweUZJOTFYckdLYldPQTdzWGdyQlY1eVgxYXZPbWNjd01E?=
+ =?utf-8?B?eWlkUHNOU3c2YVNVdW5lQmFUT1QxQVVuNjRqUFgwSVB5THJ2RkdJZVdlcUxk?=
+ =?utf-8?B?eXZsVTJIWCtwQ3U5dHMxK3E5d2laS2NHV0RjK0tFMWh2LytxMU9FN2NyT3Vs?=
+ =?utf-8?B?cFJUM3FVNWNTeGEvb2JuMFFaZEQ2ZnYyTkYrN1VWUkpibmZCZjhYMDY2ODdJ?=
+ =?utf-8?B?dGoveEdXcFdlMDhyajhmR3hEanViOWVqeXpCY1Q3WFQ3ejlHQ0tvQWQ3bGk0?=
+ =?utf-8?B?V04wUVJzMmxmSm5INWNFcmFZZTAxOWhHcC80RzlxajV5NmRnb3czUVhvTUNL?=
+ =?utf-8?B?a3dFa25XVnhGa0lKK1E4TW5RUnpBWUwxNFcwUElPT3lkSVQ1MUttTnNHWUhU?=
+ =?utf-8?B?OHV0WlphaGU4d0FlN3JZOU8vZ0ZpMlVSRHh6MHF3bEtVb0pVeFdyOWs4YkxP?=
+ =?utf-8?B?WjEzMHV6aDlOTld6emVYV2NlTnhWV28rcEJrdUJPbm9VNXlwSVg2eWxqangv?=
+ =?utf-8?B?cUt4YTdEZHBNZFZmQlBONGw0UmdvVzBRa2RmUUVLaHVsWDNHazlNZGM5MXpI?=
+ =?utf-8?B?V3Zic0x3Y2lKY2s4SndhOUdTMlZTVnhiR3k5MTQ2SnZ1TG1XS3YwcFVOTFlK?=
+ =?utf-8?B?OTFuTW54aDRaTm14bXkxSFpQb2RyVGxXazJkWmd1Yy9yY0xwdFpYSlFXdXNh?=
+ =?utf-8?B?emxXblNBRHdxeVZBdjhxTTRVL2Y3QzQvR0l0NnZxamc4TnNWNk9RK0lMN0dB?=
+ =?utf-8?B?OGdEeG1RenhVcVlmWXBPZ3BzRWowOWJKcWdhb3h0cndiQ0V0WHpmVlpmQmtk?=
+ =?utf-8?B?K2g3bWpSTXhLN1VBUlJsendCVlZ6SXgrQkVETFVweDJtbklVNERJdmpmeGk5?=
+ =?utf-8?Q?Ln0/YVSi9fCTCFvc5sDgDKzr+?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	p6JgvlSl+2890W12w+qiPVj4Rr474G0fFxS+Xm8VjDTwq/DE7RChsn3Efsn5VLc3iY/MYYoAG+7TjWhlae4EWW5kXRLZUlGl/n11pwwHhP6x8VkM+LVQC9Yj+iHg7q2e6WIHj+N1EHMrBU9YzwTn0wCgBHY0/WvfFZnT3Oo58Av+it5pZAXg2JdWQJjm3Iz+n2W8lFlcSJHipaKor97/3Sv6sd0gKLwUhL0eUgAMQDMHxogjqnJ04Q59HpqnjUCZdFazL/SpW6fwtXlyFYWZEuHQCoUexfQKEMXdCXiDEG4jiZsXLId1AqVLm0LyihGD0BcQwRZbh+gOFihb0jsRPLnmwo8PdOJIp20m0D8z6qfCYM1HpFRt4xHVfCInifptfZv5Fg3sgl6Dc007Wt0xG1d34raHofG6Bwm9w7vDyBHI7atWv78Ad7jAkv/k/1U15vNIxabjoKJCWpGmTGwg3HzeIkeKUVGcBBcK8LvKHOt/9y0zVC4vN6i4Fz9yFI7d1lRr0LDC1fT1FANNEmsKonkc2Ocbh/cHYoP/BV+LMX0bdpUNsIEscFINIWBfI+JXbDfN/dmyycRNjuWUP7Au83JAPv1bLXg1GWPJj+SKQly2jPY/C57zpzewjtUKFbmWL0VNevTtl1I9+WGXyQO07/bu+WwO65iD7AhS0lw0DY+cvLNjOJwN4p8SxsP7mB4/ssHSBt2Un5PjdEncLUq2K1NtfOBYj2eFHF8TJrTnGPQ3hv+94LWk1ohnuvA2S1AxeCJH8W4QaQUvcSBTRUZtDSDAMUUTNfitsUhHy+6P2LAA6aV9Wx5UIJ0qAlgCr0hooTmmIRS2zn1icQCdT3V2+w==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1668ebc9-e00a-48e8-d035-08dbb8fb536b
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 10:29:38.0789
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97093709-8413-4283-e0e6-08dbb8fb3148
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099E0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8280
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D55cFkaaEOGFkBmVkSQX3ncdzA7/aCZNmZhtFHxY9JwtFXShNBQZeS4aw7/wZKBkp+NwCyAfO2TTpQ++hfIavQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7380
 
+On Tue, Sep 19, 2023 at 11:31:07AM +0200, Jan Beulich wrote:
+> On 18.09.2023 18:00, Roger Pau Monné wrote:
+> > On Mon, Sep 18, 2023 at 05:44:47PM +0200, Jan Beulich wrote:
+> >> On 18.09.2023 17:09, Roger Pau Monné wrote:
+> >>> On Mon, Sep 18, 2023 at 02:26:51PM +0200, Jan Beulich wrote:
+> >>>> On 15.09.2023 09:43, Roger Pau Monne wrote:
+> >>>>> The current logic to chose the preferred reboot method is based on the mode Xen
+> >>>>> has been booted into, so if the box is booted from UEFI, the preferred reboot
+> >>>>> method will be to use the ResetSystem() run time service call.
+> >>>>>
+> >>>>> However, that method seems to be widely untested, and quite often leads to a
+> >>>>> result similar to:
+> >>>>>
+> >>>>> Hardware Dom0 shutdown: rebooting machine
+> >>>>> ----[ Xen-4.18-unstable  x86_64  debug=y  Tainted:   C    ]----
+> >>>>> CPU:    0
+> >>>>> RIP:    e008:[<0000000000000017>] 0000000000000017
+> >>>>> RFLAGS: 0000000000010202   CONTEXT: hypervisor
+> >>>>> [...]
+> >>>>> Xen call trace:
+> >>>>>    [<0000000000000017>] R 0000000000000017
+> >>>>>    [<ffff83207eff7b50>] S ffff83207eff7b50
+> >>>>>    [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
+> >>>>>    [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
+> >>>>>    [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
+> >>>>>    [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
+> >>>>>    [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
+> >>>>>    [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
+> >>>>>    [<ffff82d040283d33>] F arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0x113/0x129
+> >>>>>    [<ffff82d04028436c>] F arch/x86/acpi/cpu_idle.c#acpi_processor_idle+0x3eb/0x5f7
+> >>>>>    [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
+> >>>>>
+> >>>>> ****************************************
+> >>>>> Panic on CPU 0:
+> >>>>> FATAL TRAP: vector = 6 (invalid opcode)
+> >>>>> ****************************************
+> >>>>>
+> >>>>> Which in most cases does lead to a reboot, however that's unreliable.
+> >>>>>
+> >>>>> Change the default reboot preference to prefer ACPI over UEFI if available and
+> >>>>> not in reduced hardware mode.
+> >>>>>
+> >>>>> This is in line to what Linux does, so it's unlikely to cause issues on current
+> >>>>> and future hardware, since there's a much higher chance of vendors testing
+> >>>>> hardware with Linux rather than Xen.
+> >>>>
+> >>>> I certainly appreciate this as a goal. However, ...
+> >>>>
+> >>>>> Add a special case for one Acer model that does require being rebooted using
+> >>>>> ResetSystem().  See Linux commit 0082517fa4bce for rationale.
+> >>>>
+> >>>> ... this is precisely what I'd like to avoid: Needing workarounds on spec-
+> >>>> conforming systems.
+> >>>
+> >>> I wouldn't call that platform spec-conforming when ACPI reboot doesn't
+> >>> work reliably on it either.  I haven't been able to find a wording on
+> >>> the UEFI specification that mandates using ResetSystem() in order to
+> >>> reset the platform.  I've only found this wording:
+> >>>
+> >>> "... then the UEFI OS Loader has taken control of the platform, and
+> >>> EFI will not regain control of the system until the platform is reset.
+> >>> One method of resetting the platform is through the EFI Runtime
+> >>> Service ResetSystem()."
+> >>>
+> >>> And this reads to me as a mere indication that one option is to use
+> >>> ResetSystem(), but that there are likely other platform specific reset
+> >>> methods that are suitable to be used for OSes and still be compliant
+> >>> with the UEFI spec.
+> >>
+> >> See my reference to ia64.
+> > 
+> > Right, I understand that on ia64 things might have been different, due
+> > to the platform lacking any other reboot method, but I don't see how
+> > this applies to x86 where there are other reboot methods.
+> > 
+> >> With ACPI_FADT_RESET_REGISTER not set, I don't
+> >> think there would have been any other non-custom reboot method there. So
+> >> while perhaps not mandated, it's still the designated abstraction layer.
+> > 
+> > Again the spec doesn't mention that ResetSystem() must be used, so
+> > while it would make sense if it was reliable, it clearly isn't.  In
+> > which case resorting to the more reliable method should always be
+> > preferred, specially if the spec is so lax as to call ResetSystem()
+> > "One method of resetting the platform".
+> 
+> That wording wasn't there in 1.02, but I can see it all the way back to
+> at least 2.1. So yes, you have a point. Yet - adding onto an earlier
+> remark of mine - EFI_RESET_NOTIFICATION_PROTOCOL is pretty useless if
+> use of ResetSystem() was optional.
 
-On 15/9/23 18:11, Akihiko Odaki wrote:
-> On 2023/09/15 20:11, Huang Rui wrote:
->> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->>
->> When the memory region has a different life-cycle from that of her 
->> parent,
->> could be automatically released, once has been unparent and once all 
->> of her
->> references have gone away, via the object's free callback.
->>
->> However, currently, references to the memory region are held by its 
->> owner
->> without first incrementing the memory region object's reference count.
->> As a result, the automatic deallocation of the object, not taking into
->> account those references, results in use-after-free memory corruption.
->>
->> This patch increases the reference count of an owned memory region 
->> object
->> on each memory_region_ref() and decreases it on each 
->> memory_region_unref().
->>
->> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->> Signed-off-by: Huang Rui <ray.huang@amd.com>
->> ---
->>
->> V4 -> V5:
->>      - ref/unref only owned memory regions (Akihiko)
->>
->>   softmmu/memory.c | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/softmmu/memory.c b/softmmu/memory.c
->> index 7d9494ce70..15e1699750 100644
->> --- a/softmmu/memory.c
->> +++ b/softmmu/memory.c
->> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
->>       /* MMIO callbacks most likely will access data that belongs
->>        * to the owner, hence the need to ref/unref the owner whenever
->>        * the memory region is in use.
->> +     * Likewise, the owner keeps references to the memory region,
->> +     * hence the need to ref/unref the memory region object to prevent
->> +     * its automatic deallocation while still referenced by its owner.
->
-> This comment does not make sense. Traditionally no such automatic 
-> deallocation happens so the owner has been always required to free the 
-> memory region when it gets finalized.
->
-> "[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
-> introduces a different kind of memory region, which can be freed 
-> anytime before the device gets finalized. Even in this case, the owner 
-> removes the reference to the memory owner by doing res->region = NULL;
+See the note in
+EFI_RESET_NOTIFICATION_PROTOCOL.RegisterResetNotify():
 
-Hi Akihiko,
+"The list of registered reset notification functions are processed if
+ResetSystem() is called before ExitBootServices(). The list of
+registered reset notification functions is ignored if ResetSystem() is
+called after ExitBootServices()."
 
-You are right, the word "owner" is not correct. The issue observed was 
-due to the references kept in flatview ranges and the fact that 
-flatview_destroy() is asynchronous and was called after memory region's 
-destruction.
+Those handlers are only called before ExitBootServices(), so for our
+use-case it doesn't make a difference, as we call ResetSystem() after
+having exited boot services.
 
-If I replace the word "owner" with "memory subsystem" in the commit 
-message and drop the comment, would that be ok with you? or do want to 
-suggest something else?
-
-Xenia
-
->
->
-> Regards,
-> Akihiko Odaki
+Thanks, Roger.
 
