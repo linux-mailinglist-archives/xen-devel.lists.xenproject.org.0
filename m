@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFA827A5975
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 07:40:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604338.941650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F19D7A5995
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 07:49:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604345.941663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTTJ-0002Zr-AG; Tue, 19 Sep 2023 05:40:29 +0000
+	id 1qiTaq-0003Vt-3M; Tue, 19 Sep 2023 05:48:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604338.941650; Tue, 19 Sep 2023 05:40:29 +0000
+Received: by outflank-mailman (output) from mailman id 604345.941663; Tue, 19 Sep 2023 05:48:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiTTJ-0002X0-7A; Tue, 19 Sep 2023 05:40:29 +0000
-Received: by outflank-mailman (input) for mailman id 604338;
- Tue, 19 Sep 2023 05:40:27 +0000
+	id 1qiTaq-0003TL-0Q; Tue, 19 Sep 2023 05:48:16 +0000
+Received: by outflank-mailman (input) for mailman id 604345;
+ Tue, 19 Sep 2023 05:48:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L0bg=FD=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1qiTTH-0002WC-Hw
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 05:40:27 +0000
+ id 1qiTao-0003TF-O7
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 05:48:14 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07f3d513-56af-11ee-9b0d-b553b5be7939;
- Tue, 19 Sep 2023 07:40:25 +0200 (CEST)
+ id 1dd46433-56b0-11ee-9b0d-b553b5be7939;
+ Tue, 19 Sep 2023 07:48:12 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-382-vA5vnuYKMPGzn5wULdrNyg-1; Tue, 19 Sep 2023 01:40:20 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+ us-mta-683-xHw6_rRWPtevVZjCFt_5Cw-1; Tue, 19 Sep 2023 01:48:07 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06EC1185A79B;
- Tue, 19 Sep 2023 05:40:20 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98501811E7B;
+ Tue, 19 Sep 2023 05:48:06 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.39.192.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ECB2140E950;
- Tue, 19 Sep 2023 05:40:19 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 69AFDC15BB8;
+ Tue, 19 Sep 2023 05:48:06 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 8BE0821E6900; Tue, 19 Sep 2023 07:40:18 +0200 (CEST)
+ id 5EA2321E6900; Tue, 19 Sep 2023 07:48:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,20 +52,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07f3d513-56af-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 1dd46433-56b0-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695102024;
+	s=mimecast20190719; t=1695102490;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eCtoW5YmugRAOgCVYwI8LazpWJuSKfz0/Y0RnlW+RR8=;
-	b=QqmIHdaTOR7CpBCeidedeeHXCkayzW3F0FfUOKKwfSKxYySukDxYQu6K033g3Jx1oexMm/
-	/VIyS9GRdX/8abLCy5dzghVIfR//oCPSz2j7m0Qn8+8EEFy9bwH+G8uiyna1XG7P2HAqUv
-	eooFxoQ3OqTwN1zH1wlNf07fueHuu1U=
-X-MC-Unique: vA5vnuYKMPGzn5wULdrNyg-1
+	bh=b/fZBqgWohIXDyoS//C2CQBh2i20NsRptRtuC2Sy1CY=;
+	b=iHHS+K9RY52CHvbGbyANylsE2rDicGMj5U8/HDwKVfH01yQxY5JcsJ9fQUiwbma+hUxLQ/
+	0fzHwvqf7xQLzj3URGxzBeedL7nLT3vQ812sqFTgyZVLCjb6/UJsHp2y4VR5vtlsd36liU
+	z7WZEY+iSNkD41BazejMFhWwtkQH06o=
+X-MC-Unique: xHw6_rRWPtevVZjCFt_5Cw-1
 From: Markus Armbruster <armbru@redhat.com>
-To: Eric Blake <eblake@redhat.com>
-Cc: qemu-devel@nongnu.org,  kwolf@redhat.com,  hreitz@redhat.com,
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org,  hreitz@redhat.com,  eblake@redhat.com,
   vsementsov@yandex-team.ru,  jsnow@redhat.com,  idryomov@gmail.com,
   pl@kamp.de,  sw@weilnetz.de,  sstabellini@kernel.org,
   anthony.perard@citrix.com,  paul@xen.org,  pbonzini@redhat.com,
@@ -75,52 +75,89 @@ Cc: qemu-devel@nongnu.org,  kwolf@redhat.com,  hreitz@redhat.com,
   kraxel@redhat.com,  qemu-block@nongnu.org,
   xen-devel@lists.xenproject.org,  alex.bennee@linaro.org,
   peter.maydell@linaro.org
-Subject: Re: [PATCH 1/7] migration/rdma: Fix save_page method to fail on
- polling error
+Subject: Re: [PATCH 4/7] block/dirty-bitmap: Clean up local variable shadowing
 References: <20230831132546.3525721-1-armbru@redhat.com>
-	<20230831132546.3525721-2-armbru@redhat.com>
-	<npnhurzixjae6schhran3dnicpwozrhkaan5sxcf3gyxviam5y@ofklh25a6wlc>
-Date: Tue, 19 Sep 2023 07:40:18 +0200
-In-Reply-To: <npnhurzixjae6schhran3dnicpwozrhkaan5sxcf3gyxviam5y@ofklh25a6wlc>
-	(Eric Blake's message of "Thu, 31 Aug 2023 08:38:09 -0500")
-Message-ID: <87a5ti4t6l.fsf@pond.sub.org>
+	<20230831132546.3525721-5-armbru@redhat.com>
+	<ZQQNUjN4Laf+k1Nk@redhat.com>
+Date: Tue, 19 Sep 2023 07:48:05 +0200
+In-Reply-To: <ZQQNUjN4Laf+k1Nk@redhat.com> (Kevin Wolf's message of "Fri, 15
+	Sep 2023 09:52:50 +0200")
+Message-ID: <8734za4stm.fsf@pond.sub.org>
 User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 
-Eric Blake <eblake@redhat.com> writes:
+Kevin Wolf <kwolf@redhat.com> writes:
 
-> On Thu, Aug 31, 2023 at 03:25:40PM +0200, Markus Armbruster wrote:
->> qemu_rdma_save_page() reports polling error with error_report(), then
->> succeeds anyway.  This is because the variable holding the polling
->> status *shadows* the variable the function returns.  The latter
->> remains zero.
+> Am 31.08.2023 um 15:25 hat Markus Armbruster geschrieben:
+>> Local variables shadowing other local variables or parameters make the
+>> code needlessly hard to understand.  Tracked down with -Wshadow=local.
+>> Clean up: delete inner declarations when they are actually redundant,
+>> else rename variables.
 >> 
->> Broken since day one, and duplicated more recently.
->> 
->> Fixes: 2da776db4846 (rdma: core logic)
->> Fixes: b390afd8c50b (migration/rdma: Fix out of order wrid)
->
-> Alas, the curse of immutable git history preserving typos in commit
-> subjects ;)
-
-"wrid" is short for "work request ID", actually.
-
->             The alternative of rewriting history and breaking SHA
-> references is worse.
-
-Rewriting master is a big no-no.
-
-git-note can be used to correct the record, but it has its usability
-issues.
-
 >> Signed-off-by: Markus Armbruster <armbru@redhat.com>
 >> ---
->>  migration/rdma.c | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
+>>  block/monitor/bitmap-qmp-cmds.c | 2 +-
+>>  block/qcow2-bitmap.c            | 3 +--
+>>  2 files changed, 2 insertions(+), 3 deletions(-)
+>> 
+>> diff --git a/block/monitor/bitmap-qmp-cmds.c b/block/monitor/bitmap-qmp-cmds.c
+>> index 55f778f5af..4d018423d8 100644
+>> --- a/block/monitor/bitmap-qmp-cmds.c
+>> +++ b/block/monitor/bitmap-qmp-cmds.c
+>> @@ -276,7 +276,7 @@ BdrvDirtyBitmap *block_dirty_bitmap_merge(const char *node, const char *target,
+>>  
+>>      for (lst = bms; lst; lst = lst->next) {
+>>          switch (lst->value->type) {
+>> -            const char *name, *node;
+>> +            const char *name;
+>>          case QTYPE_QSTRING:
+>>              name = lst->value->u.local;
+>>              src = bdrv_find_dirty_bitmap(bs, name);
 >
-> Reviewed-by: Eric Blake <eblake@redhat.com>
+> The names in this function are all over the place... A more ambitious
+> patch could rename the parameters to dst_node/dst_bitmap and these
+> variables to src_node/src_bitmap to get some more consistency (both with
+> each other and with the existing src/dst variables).
+
+What exactly would you like me to consider?  Perhaps:
+
+* Rename parameter @node to @dst_node
+
+* Rename which parameter to @dst_bitmap?
+
+* Rename nested local @node to @src_node
+
+* Rename which local variable to @src_bitmap?
+
+* Move nested locals to function scope
+
+> Preexisting, so I'm not insisting that you should do this.
+>
+>> diff --git a/block/qcow2-bitmap.c b/block/qcow2-bitmap.c
+>> index 037fa2d435..ffd5cd3b23 100644
+>> --- a/block/qcow2-bitmap.c
+>> +++ b/block/qcow2-bitmap.c
+>> @@ -1555,7 +1555,6 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
+>>      FOR_EACH_DIRTY_BITMAP(bs, bitmap) {
+>>          const char *name = bdrv_dirty_bitmap_name(bitmap);
+>>          uint32_t granularity = bdrv_dirty_bitmap_granularity(bitmap);
+>> -        Qcow2Bitmap *bm;
+>>  
+>>          if (!bdrv_dirty_bitmap_get_persistence(bitmap) ||
+>>              bdrv_dirty_bitmap_inconsistent(bitmap)) {
+>> @@ -1625,7 +1624,7 @@ bool qcow2_store_persistent_dirty_bitmaps(BlockDriverState *bs,
+>>  
+>>      /* allocate clusters and store bitmaps */
+>>      QSIMPLEQ_FOREACH(bm, bm_list, entry) {
+>> -        BdrvDirtyBitmap *bitmap = bm->dirty_bitmap;
+>> +        bitmap = bm->dirty_bitmap;
+>>  
+>>          if (bitmap == NULL || bdrv_dirty_bitmap_readonly(bitmap)) {
+>>              continue;
+>
+> Reviewed-by: Kevin Wolf <kwolf@redhat.com>
 
 Thanks!
 
