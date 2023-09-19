@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2977A5FEC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 12:45:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604583.942042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2F57A6037
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 12:53:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604590.942052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiYDv-0005gd-FV; Tue, 19 Sep 2023 10:44:55 +0000
+	id 1qiYLt-0008Vw-8u; Tue, 19 Sep 2023 10:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604583.942042; Tue, 19 Sep 2023 10:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 604590.942052; Tue, 19 Sep 2023 10:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiYDv-0005ea-Cp; Tue, 19 Sep 2023 10:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 604583;
- Tue, 19 Sep 2023 10:44:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ckRK=FD=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1qiYDt-0005eU-Qw
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 10:44:53 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 900329ef-56d9-11ee-8789-cb3800f73035;
- Tue, 19 Sep 2023 12:44:52 +0200 (CEST)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1c3cbfa40d6so49362035ad.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Sep 2023 03:44:52 -0700 (PDT)
-Received: from [157.82.206.151] ([157.82.206.151])
- by smtp.gmail.com with ESMTPSA id
- 17-20020a170902ee5100b001bb7a736b4csm3409972plo.77.2023.09.19.03.44.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Sep 2023 03:44:50 -0700 (PDT)
+	id 1qiYLt-0008Td-6C; Tue, 19 Sep 2023 10:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 604590;
+ Tue, 19 Sep 2023 10:53:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiYLr-0008TT-R9; Tue, 19 Sep 2023 10:53:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiYLr-00080Z-I7; Tue, 19 Sep 2023 10:53:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiYLr-0002do-1x; Tue, 19 Sep 2023 10:53:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qiYLr-0005Rb-1X; Tue, 19 Sep 2023 10:53:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +42,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 900329ef-56d9-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1695120291; x=1695725091; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=smljqgzosS5OJqCedcK9N/6xUm9qe80j7oWlUug+4Jw=;
-        b=VY/SKgmGtgDZajQwl5i0WMHKJ3WNQBhtn5RJxnZu9sCISMdlxH4sNlBYpBylMqowV7
-         RBFi/iMcECU/yP7Id7cXNkjKMVLeigBytn72+skDtduT+Xk8yhnykBcKQVOSFSxN51Ht
-         zsCMRhPwHlpOl+XnDPpYAxmBEVFV2WplE7m8YQe7iNRrU7sqzEZeBjp8l5k6Ux+RQIJP
-         OLussTdvNGbHf3kmaTh8wkXs/oSAbvVxEQmALZac1NpfgtonQDuv1dJNuAdUeNbbv0ic
-         xqgRNO6trc/eK3X+ggqggv8KTt7zBUQz90aigtBllK6h1LwzOxDN8L6MNPwts31lJQKY
-         MTqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695120291; x=1695725091;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=smljqgzosS5OJqCedcK9N/6xUm9qe80j7oWlUug+4Jw=;
-        b=uz0Tr9MtC/i1zZUEom5c5rApCVCXxdt59fQk0sVZ+KnOal5cf//8lTopCap94VbQ6O
-         s+o9wCS50vieC2hh7C5GXy+lttJhDQYYzpTOVOcWNqUKWuFKXuawWN4gSt51w2QW4d/N
-         8gOiRQR6BZP5yTYEiSbod1UH/5mHvRwlfpUtV9H2DG3tzp6uWfsUqpxz3LeG8row2HH/
-         6Y9K7INqJnn2GHSW2OSen4l4Ag/bYwO1cJjr/rBZ6HVU7TiVDL2pRfFyAOYVRksTcFob
-         cWsd0HOwLwn8SSKcOhtfSLklhh1NpTsF5JZA3lfgM6DnFq5JAM6LhjKnyZW8s5nKrnH6
-         Zbkg==
-X-Gm-Message-State: AOJu0YxvXY5vv66NquVNt1IgO78F8dg+uqT6Q3TFbHRDHAvvbW89dHua
-	jdPvQwGdKW1U4k5naPD0t00MNg==
-X-Google-Smtp-Source: AGHT+IE1rvQgqf2KfT7I++lA0G6ulx4YIhz3L5ez9EyE2wjGmry5CNVl3i/34lsTkQNO0gf+B6/CXg==
-X-Received: by 2002:a17:903:507:b0:1b8:4f93:b210 with SMTP id jn7-20020a170903050700b001b84f93b210mr9965606plb.45.1695120291167;
-        Tue, 19 Sep 2023 03:44:51 -0700 (PDT)
-Message-ID: <75698621-d210-40eb-872d-f3cfc6e4dbff@daynix.com>
-Date: Tue, 19 Sep 2023 19:44:45 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
- deallocation of memory regions
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Huang Rui
- <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
-Cc: xen-devel@lists.xenproject.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-8-ray.huang@amd.com>
- <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
- <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Bh+/bpp8RRYNH0Bxf5xJBA7Y5Adxan2YOtXSt01oAtw=; b=LseHbhA3Ihcy6xwH7GJjlAUhtz
+	fSIiBgzo/KmJlgOtHkRgtSR9OMSlEv9ZCtvmzU2UkL8fm9C2ijTcBXitrgwDMaX0XrygYZNh/QNOL
+	uBWnCgKdhhvS2/xLIeLn4/smNx2cDLsK8+90y/9TkinCSCyC9UZq/ZJsS/ckOCnKOV4c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183050-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183050: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+X-Osstest-Versions-That:
+    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 19 Sep 2023 10:53:07 +0000
 
-On 2023/09/19 19:28, Xenia Ragiadakou wrote:
-> 
-> On 15/9/23 18:11, Akihiko Odaki wrote:
->> On 2023/09/15 20:11, Huang Rui wrote:
->>> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->>>
->>> When the memory region has a different life-cycle from that of her 
->>> parent,
->>> could be automatically released, once has been unparent and once all 
->>> of her
->>> references have gone away, via the object's free callback.
->>>
->>> However, currently, references to the memory region are held by its 
->>> owner
->>> without first incrementing the memory region object's reference count.
->>> As a result, the automatic deallocation of the object, not taking into
->>> account those references, results in use-after-free memory corruption.
->>>
->>> This patch increases the reference count of an owned memory region 
->>> object
->>> on each memory_region_ref() and decreases it on each 
->>> memory_region_unref().
->>>
->>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>
->>> V4 -> V5:
->>>      - ref/unref only owned memory regions (Akihiko)
->>>
->>>   softmmu/memory.c | 5 +++++
->>>   1 file changed, 5 insertions(+)
->>>
->>> diff --git a/softmmu/memory.c b/softmmu/memory.c
->>> index 7d9494ce70..15e1699750 100644
->>> --- a/softmmu/memory.c
->>> +++ b/softmmu/memory.c
->>> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
->>>       /* MMIO callbacks most likely will access data that belongs
->>>        * to the owner, hence the need to ref/unref the owner whenever
->>>        * the memory region is in use.
->>> +     * Likewise, the owner keeps references to the memory region,
->>> +     * hence the need to ref/unref the memory region object to prevent
->>> +     * its automatic deallocation while still referenced by its owner.
->>
->> This comment does not make sense. Traditionally no such automatic 
->> deallocation happens so the owner has been always required to free the 
->> memory region when it gets finalized.
->>
->> "[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
->> introduces a different kind of memory region, which can be freed 
->> anytime before the device gets finalized. Even in this case, the owner 
->> removes the reference to the memory owner by doing res->region = NULL;
-> 
-> Hi Akihiko,
-> 
-> You are right, the word "owner" is not correct. The issue observed was 
-> due to the references kept in flatview ranges and the fact that 
-> flatview_destroy() is asynchronous and was called after memory region's 
-> destruction.
-> 
-> If I replace the word "owner" with "memory subsystem" in the commit 
-> message and drop the comment, would that be ok with you? or do want to 
-> suggest something else?
+flight 183050 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183050/
 
-This will extend the lifetime of the memory region, but the underlying 
-memory is still synchronously freed. Can you show that the flatview 
-range will not be used to read the freed memory?
+Regressions :-(
 
-Regards,
-Akihiko Odaki
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+baseline version:
+ xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
+
+Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
+Testing same since   183031  2023-09-18 17:01:55 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:24:25 2023 +0100
+
+    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
+    
+    In the Zen1 microarchitecure, there is one divider in the pipeline which
+    services uops from both threads.  In the case of #DE, the latched result from
+    the previous DIV to execute will be forwarded speculatively.
+    
+    This is an interesting covert channel that allows two threads to communicate
+    without any system calls.  In also allows userspace to obtain the result of
+    the most recent DIV instruction executed (even speculatively) in the core,
+    which can be from a higher privilege context.
+    
+    Scrub the result from the divider by executing a non-faulting divide.  This
+    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
+    
+    Alternatives in IST context is believed safe now that it's done in NMI
+    context.
+    
+    This is XSA-439 / CVE-2023-20588.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 15 12:13:51 2023 +0100
+
+    x86/amd: Introduce is_zen{1,2}_uarch() predicates
+    
+    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
+    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
+    opencoding it, and the explanation of the heuristic, at each usage site.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:53:33 2023 +0100
+
+    x86/spec-ctrl: Issue VERW during IST exit to Xen
+    
+    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
+    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
+    flush to scrub potentially sensitive data from uarch buffers.
+    
+    In order to compensate, issue VERW when exiting to Xen from an IST entry.
+    
+    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
+    and we're about to add a third.  Load the field into %ebx, and list the
+    register as clobbered.
+    
+    %r12 has been arranged to be the ist_exit signal, so add this as an input
+    dependency and use it to identify when to issue a VERW.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 12:20:12 2023 +0100
+
+    x86/entry: Track the IST-ness of an entry for the exit paths
+    
+    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
+    entry/exit asm, so it only needs setting in the IST path.
+    
+    As this is subtle and fragile, add check_ist_exit() to be used in debugging
+    builds to cross-check that the ist_exit boolean matches the entry vector.
+    
+    Write check_ist_exit() it in C, because it's debug only and the logic more
+    complicated than I care to maintain in asm.
+    
+    For now, we only need to use this signal in the exit-to-Xen path, but some
+    exit-to-guest paths happen in IST context too.  Check the correctness in all
+    exit paths to avoid the logic bit-rotting.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Sep 13 13:48:16 2023 +0100
+
+    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
+    
+    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
+    for consistency.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 45f00557350dc7d0756551069803fc49c29184ca
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Aug 30 20:11:50 2023 +0100
+
+    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
+    
+    ... to better explain how they're used.
+    
+    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
+    corner case when e.g. an NMI hits late in an exit-to-guest path.
+    
+    Leave a TODO, which will be addressed in subsequent patches which arrange for
+    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Sep 1 11:38:44 2023 +0100
+
+    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
+    
+    These have grown more complex over time, with some already having been
+    converted.
+    
+    Provide full Requires/Clobbers comments, otherwise missing at this level of
+    indirection.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 694bb0f280fd08a4377e36e32b84b5062def4de2
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 17:03:16 2023 +0100
+
+    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
+    
+    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
+    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
+    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
+    
+    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
+    is going to be too generic shortly.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 12 15:06:49 2023 +0100
+
+    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
+    
+    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
+    dropped the only user, leaving behind the (incorrect) implication that Xen had
+    split exit paths.
+    
+    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
+    to SPEC_CTRL_EXIT_TO_XEN for consistency.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
