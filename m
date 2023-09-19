@@ -2,42 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6794C7A664B
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 16:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604796.942315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CFFA7A6681
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 16:22:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604801.942325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qibVG-0006HA-H9; Tue, 19 Sep 2023 14:15:02 +0000
+	id 1qibcM-0000lB-9Y; Tue, 19 Sep 2023 14:22:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604796.942315; Tue, 19 Sep 2023 14:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 604801.942325; Tue, 19 Sep 2023 14:22:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qibVG-0006Dq-EQ; Tue, 19 Sep 2023 14:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 604796;
- Tue, 19 Sep 2023 14:15:00 +0000
+	id 1qibcM-0000iS-5s; Tue, 19 Sep 2023 14:22:22 +0000
+Received: by outflank-mailman (input) for mailman id 604801;
+ Tue, 19 Sep 2023 14:22:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ezs9=FD=citrix.com=prvs=619432e5c=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qibVE-0006Dk-Ne
- for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 14:15:00 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e812e8d5-56f6-11ee-9b0d-b553b5be7939;
- Tue, 19 Sep 2023 16:14:56 +0200 (CEST)
-Received: from mail-dm6nam04lp2049.outbound.protection.outlook.com (HELO
- NAM04-DM6-obe.outbound.protection.outlook.com) ([104.47.73.49])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 Sep 2023 10:14:52 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by CO1PR03MB5907.namprd03.prod.outlook.com (2603:10b6:303:6e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Tue, 19 Sep
- 2023 14:14:49 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
- 14:14:49 +0000
+ <SRS0=7tQr=FD=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1qibcK-0000iK-8U
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 14:22:20 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060f.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::60f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eec85700-56f7-11ee-9b0d-b553b5be7939;
+ Tue, 19 Sep 2023 16:22:16 +0200 (CEST)
+Received: from DM6PR06CA0065.namprd06.prod.outlook.com (2603:10b6:5:54::42) by
+ CY5PR12MB6251.namprd12.prod.outlook.com (2603:10b6:930:21::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6792.27; Tue, 19 Sep 2023 14:22:11 +0000
+Received: from DS1PEPF00017093.namprd03.prod.outlook.com
+ (2603:10b6:5:54:cafe::e3) by DM6PR06CA0065.outlook.office365.com
+ (2603:10b6:5:54::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28 via Frontend
+ Transport; Tue, 19 Sep 2023 14:22:11 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.20 via Frontend Transport; Tue, 19 Sep 2023 14:22:11 +0000
+Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 19 Sep
+ 2023 09:22:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,175 +56,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e812e8d5-56f6-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1695132896;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=YuMYEG+iGOkX2rKZ3el/4bqIgn/qMGCfyI2B/Y2bkx8=;
-  b=bztqMSmuKdRcVCgOukSxCX5Qk6tSd4/YlFwuZ2Lbk0oe5z7dMicXTktf
-   0t3OO/q6BYLla/frpj6yBpA/DzStiIkVLVAZkoOsQN2sLNRdskTM5Kc/m
-   rNJjywCeCVwiCg7f4j1Zb8yh0/L7LGJ3W6es7SgTimnD/1aMZfJstL5SF
-   4=;
-X-CSE-ConnectionGUID: XAkISIv5Sc2jY7n/7Q+QWw==
-X-CSE-MsgGUID: MVcuoZisS2Ca0i3GaY/miA==
-X-IronPort-RemoteIP: 104.47.73.49
-X-IronPort-MID: 121747094
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:WRBnOKJqYHkLxZ9RFE+RHpQlxSXFcZb7ZxGr2PjKsXjdYENShjICn
- 2seXj+HOPffZDakKNx3Pdyx8BkFusSGmNRrQFRlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrZwP9TlK6q4mhA7wVvPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5HKGJvz
- t0GdQsGNBKy2OTxn4v4c9Zz05FLwMnDZOvzu1lG5BSBUbMKZM6GRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/VspTSCpOBy+OGF3N79YNuFSN8Thk+Fj
- mnH4374ElcRM9n3JT+tqyj12bOQxXKnMG4UPJiG/eNtslyI/TY4AUUXDnSykL68i2frDrqzL
- GRRoELCt5Ma9kamU938VB2Qu2Ofs1gXXN84O+8n7ACAzILE7gDfAXILJhZac8AvvsIyQT0s1
- 3eKksnvCDgpt6eaIVqC8p+EoDX0PjIaRUcSaClBQQYb7t3LpIAokgmJXttlCLSyjND+BXf32
- T/ikcQlr7AajMpO26Dl+1nC226ovsKREl9z4RjLVGW46A8/fJSie4Gj9Vnc67BHMZqdSV6C+
- nMDnqBy8dwzMH1ErwTVKM1lIV1jz63t3OH06bK3I6Qcyg==
-IronPort-HdrOrdr: A9a23:cIOgCqm0Tz59avng+QBcsWmRGsPpDfLo3DAbv31ZSRFFG/Fw9/
- rCoB17726QtN91YhsdcL+7V5VoLUmzyXcX2/hyAV7BZmnbUQKTRekP0WKL+Vbd8kbFh41gPM
- lbEpSXCLfLfCJHZcSR2njELz73quP3jJxBho3lvghQpRkBUdAF0+/gYDzranGfQmN9dP0EPa
- vZ3OVrjRy6d08aa8yqb0N1JNQq97Xw5fTbiQdtPW9f1DWz
-X-Talos-CUID: =?us-ascii?q?9a23=3Api+4omvI8dWE1a4gtPDQD9le6IsVW37891bOfnS?=
- =?us-ascii?q?zU2RYF7vSFmbTwZx7xp8=3D?=
-X-Talos-MUID: 9a23:HaqHmwqbd4UgMO4XcPsezxRcP9pv0aW1MxommM0H4OaNBGt1Oh7I2Q==
-X-IronPort-AV: E=Sophos;i="6.02,159,1688443200"; 
-   d="scan'208";a="121747094"
+X-Inumbo-ID: eec85700-56f7-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EVUGFn+AEcudLtd/JTGNSeAYe0ktlI+NCZ4459DhShtFzjFXBdjiAuBJhEFifoka98/sIHXKsvusXAVS8IYkrxBus0aUv6TCCbZIGYemESauvgZfUHVm6qdHcWjyASUDPrUidyvdu9FJxgzan3ZWImjzR3cybd6XklhPRkJmhdnD3/1mRxGK3J+GR9sarYDSUkj/iWCjmfrjj9g5DPnkn4VVF2aVCxX0D5yb45NwvN+2bxw07MmPr4+tKWC+0KfVOI/PPY5QSK3ByxIOMXg62ngnRHMZEzHjPDohXpECwy4AEya5PuAOaHrdp9hWKwMr4YGQ9WRbGtG2Uck3FORF7w==
+ b=IDHMcx5/RpWpKAUnHaA99meZcKmx6/+TGbORYXMQ9tn2sGQ6YDcFmJ5m/coXuwdz+74tfYERKPDWikW3YBbtPex0sjb+T4bdxRTp24FJsgZKqWkLfNXGfutlLCoAco1VOlSWTAkwbDqrCPMjGDcnWYcUDm4nD7auwSUl5uEuHTHq/eu1deqoku9lqBgcMC3ikCCWsezQLW1qw8dcK2Wu/Kllm3tTPcUVrxqyqSKI0dUT3JBjRRN4YK85pOAXb47+8K7pbY2NJKg5mP7l7XzVD5LHQRD5wBjSGuhRf4OR8eogsdDZLR9fMyUGxl4LXLy96Bs3HqdAbfuspX+yerFxUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ajS2uRO6wnVyggQd4OqE5WGtuU97nQyAI7MNbKCh70=;
- b=QVFY6uwEDSyTbYDrkK6CKhr6iRMtgktkwexw5jxz01tk09siYYnDwrB2nYut1WvqMWzzqc/bcLxUTgMsg5RjmsCRUhIo+q2BVrLnGsQ49EUDwq0cGc5+0LahGiywxG74Mk16JUbmYLPtZc/y8DnIjeK5x22vmINW39Jm9vKbXSS4imlc+ydkG5Hi19y4+C/B5nIz8MaudmPl9IZRLtmth8bRB36+Jx5oi/qW9CPYAKnawFEp1ajMf3K9YMcD/eSFJRI9gSQaTD6SrbwAVMGyxN++gCEQDF+EARrEe237cZrhV685p3ioqVgb5CfpW2UdZwipw+2lXzjzitURvfGXcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=wgvsZjqkleztQTOBKHxfCGMxUvKR3l93bJ2rH6pP8a4=;
+ b=BW4BDohT07ijpbOoXzcYnj+RRBmDrkrqSmtzSRf3hJwAMICIba+j50q+nTD9cpEcSbIAhK3S6bLmnlGlOziNf/TaXYnUfI1t1N6uWZ3G5RQtCirWN/9EdXEx6rxPm3G6xtAHg1NmXjPT9A0DuNEJAJMCUl0lIz3IsjudEtub44h2rxP6UwFnca7Fa8GxXlCl7TR2Ar4/h8j3XBG3IZjDXzPKisidQibUsW7AydOfBODJbJRVBOM6/2+0OAb2q/jpDMXTAKUgEyu7/Oba+dnMXLGTa/4j+RbkBiaifVMy9aE7OoPZvetRagNpX+MaBw4gvm/gRH63HyImEX8XVkUWPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=daynix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ajS2uRO6wnVyggQd4OqE5WGtuU97nQyAI7MNbKCh70=;
- b=XqoyAI3WItsNqbgSNA8zNtrKmiQtsv0wt83bB5xfV/bmeljBWyc878/YmCgrzK2mNtBszG4c2YmJvNENWnNl/YvuGKBsiDJnfP6OWYjqpDOGMJ6UGPQLr2hyXXmWLXxRJtFWSAFvAQufNmW6D3N22u8lTwefWhhSt0gBrvoweYg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 19 Sep 2023 16:14:43 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3] console/serial: bump buffer from 16K to 128K
-Message-ID: <ZQms01Wq62yMzGDg@MacBookPdeRoger>
-References: <20230919125118.12657-1-roger.pau@citrix.com>
- <46b0b9e0-29b2-d526-d32f-d03415e621fb@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <46b0b9e0-29b2-d526-d32f-d03415e621fb@suse.com>
-X-ClientProxiedBy: LO4P123CA0587.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:295::15) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ bh=wgvsZjqkleztQTOBKHxfCGMxUvKR3l93bJ2rH6pP8a4=;
+ b=ZbByqPwRUc5c509LNKo+6FfT6TelHuP3rBfo4/epYEJMukxmWV1xoyoQbhdCjn6eBpTttLprquj9Lj2QfuROOvD8v0apn+YoYEp7CvakXOY7KHPCU96zxGVr74q6Zt47YMakc/Zjob8rqGTT4GYTfn19S27YSHMuPhQP5pcu1k0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <32a68715-201b-9923-9600-fe5ae49e4b7b@amd.com>
+Date: Tue, 19 Sep 2023 17:21:49 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
+ deallocation of memory regions
+Content-Language: en-US
+To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
+	Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett
+	<bob.beckett@collabora.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	=?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+	<qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
+	<gurchetansingh@chromium.org>, Albert Esteve <aesteve@redhat.com>,
+	<ernunes@redhat.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
+	<philmd@linaro.org>, Alyssa Ross <hi@alyssa.is>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+	<christian.koenig@amd.com>, Pierre-Eric Pelloux-Prayer
+	<pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>,
+	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230915111130.24064-1-ray.huang@amd.com>
+ <20230915111130.24064-8-ray.huang@amd.com>
+ <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
+ <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
+ <75698621-d210-40eb-872d-f3cfc6e4dbff@daynix.com>
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+In-Reply-To: <75698621-d210-40eb-872d-f3cfc6e4dbff@daynix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|CO1PR03MB5907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a3c7586-4c41-477c-5e41-08dbb91ac883
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|CY5PR12MB6251:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0beb3c87-a39e-4b35-24b3-08dbb91bd084
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	dJen2QbhelGgBq877xzG+WbvKX/navGG3CES39ASeev33ZhT3Qqind+p26kN4w3wQMUCmfsdJi3hUC4XZhJGqfGQFi0FZsUIv4los/UltwNfdNHTXpVRA0kLCs9LD1M7adOfuIZ/L+66AZvq9dY/MxCG3NuPlk6vsh19EcvMG0f6y6KnNDPm5V8p7fRp0/M6LwAar+zYLZZwKpnsdS8PteseufJyHITy/Hytaupv0gZqiMlG/6meoCQXUudtNq1yG9o16xio9svoJf7KjCrA3THzxPpJswSS+a6CBHNpE6a9KDRgn/TpK90WpxRM52/c6Ywo3FMHZPzBouXKQDEs5KkBX/laB0VBijam4G0/seRh7h07QamimB7UI0Mhk+E/6q0TFsANVd1VGfkCwb43IRgCPVPXUy0ojfnNSQNtDSzrrSqFX9wdsk9+ye/vKkVYlp9CSFvIXc0qGPPe2tBaC3h5kKkr2JiDnTbbZDJD3vBiVFhXCTiAmpK5FrIupTrxqjs1Yj21XDBdXEXEzTZ+y/9K5kc9L4OORZI7BTn+mr1Z9Hi87UX0s5qhUNMCZ03r
+	NQR+Tjn51ujPzVk9ZHQ84nE+EUKnf4FODiVoEnM5g2+KGbK9tvE3N3AoP8YDF0mJQc4N0kVVa1JRXOP7wJVy1yElJwmTAoHFzkXj8mjbq2midAkHhv5QeQKLvfZiAsaCbSHBnLuLUi3MxP9sYFZMTH2L3efacfGT6UvObwy+LlJkERS1gXtV4e/unT/tB+P27Ck2u0BSvXxY6qQraauqmuik/F0RgZ44mVi2OXNITVs0huzxI3lsOJCoziQUqEKHkc2TP4RRckwqQTmyBMx/lTnj6xOqMY70XkwDNzPqs17MVuS0Muv844fALf5DXtT+oiuHhHVnPf9fV8wIhWyyI1/OvO8zB+ifXxQFj1DJ0D4zsImksoeOfDmQjMkR7zvim6peDUQt8yAImRmQHGNR50OaXlduIo3jCsCCXFUVvsCyx8KZ7GmrZd989frQyMRh5tIvlyarfgfCjtLvrVoR9901ePQBQklq6M4c8uBpfo4Y8iSGHmLvzq7JCacXr2v6LNl8nr2OJNO1Dz2S8INiD2uZML/yaiUEMhwxrdZr0YYVeOfiP3CDO5DH7FHbwAG0vuL510VCFuNWnenUasA2ziHrpVdXhFc5KdL6HVjniSRYe0hm+sRmP/0UxbgudL5ItjyDbSl68Oj709IKnkhcrfFcqijmI1h6eQ/pT7nfCDEWkZRo2B3Xl0hEhvQomqTNJJdxNZDgKaLrQbPA77cSO1DFsqF6yeRLOaii03l9LVu0gCMWVHxbdNEaws5sSB8mAwdMN6WqCbH67mUC2OCEoWTV7apmIdaZwPoBJa7ioDgKgbXlmWtjEhAViyQor7urHpDDP3gvnkgQ63YnDP+qFQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(366004)(346002)(136003)(376002)(396003)(39860400002)(451199024)(186009)(1800799009)(316002)(4326008)(41300700001)(6916009)(5660300002)(9686003)(6506007)(6486002)(6666004)(6512007)(53546011)(2906002)(8676002)(8936002)(54906003)(66556008)(66476007)(66946007)(478600001)(86362001)(33716001)(83380400001)(26005)(85182001)(82960400001)(38100700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SGJJRVFGeXlTOHFqOCtTZm0zNkx2SVBIblNmZUZKOU5yOHlvQit5KzQwWkNp?=
- =?utf-8?B?dmV5Nmx2QjcyQ29CVnlnc2ttNTdmMEZCOGpSZUhGQks1OEhZak50ekd6QWF1?=
- =?utf-8?B?Q3I3ajdTeXZnSE5XUGZqK1Jvenp1OVhlWmQzZDlOa1J1TTlJTmgySmo3NUhj?=
- =?utf-8?B?cnNzMEhSd0hpUEZGY1NtQ0RUcUdyRWhNcjREcEE2YWE3cWNndXJ5KzhURFNG?=
- =?utf-8?B?L2xqQzJ6S3YzYWVWTkErdnk3dzVxOUYzblJqTzZIOERQekZPNTBaVkkwWmc1?=
- =?utf-8?B?SXpZUk1NbUcwQmF6ZVlrSFpaTjhxODZkbVcva0IwREhkbFZuYUE0eWxtSm5s?=
- =?utf-8?B?eU9iRWdwNHMweGFMdDRPOFJFL3pza0NFUy9JTlhuQkNjN283WGpPQmRRbGlM?=
- =?utf-8?B?UTdYdkVrV2p3THRJVWJaSHFpYk9Uc21NaGJKdzRreDhmVzFXZW5MSnpsR3Rj?=
- =?utf-8?B?MUY0ZkVFR2RXSW5Tc2x5NVF5OUpURmo2V0hNZFVjdW5qRXVuSXRGZCtNOXR3?=
- =?utf-8?B?SWNvK2g1MXB1Nm1lZXp0YVZXbjdzaDZTKzZsN3A4N2wzeVM3aHA4ZGdtQVI2?=
- =?utf-8?B?TnNlK0FhL3JGY0M4Q2NKL0xVcjZOYS9YU3ptRmdKR0hSdGtjUWtyRXJnNlla?=
- =?utf-8?B?YWZ1a2drcitNTFFHb0IzU1BpY2xYSDg0Zkc4cE5tTTNESFViZHpjcG1WeXZr?=
- =?utf-8?B?cDk1ZkFpbnJRUHRIMnd1LzZENlNjZEhwMWpTRWc4VDRuUlJCdDExbFh5Vkhu?=
- =?utf-8?B?Tno1NHpyaThsM2E4ZHcvYkZoL2d0RnJiL1B6eW1rSk5GZUxpMGRrMGt2eFJM?=
- =?utf-8?B?cjBhdEsrZWVNeFZ2ZnhtekF0YjJnajFIdlBrNFlGZHVEU2owUFFxV2xTdVpT?=
- =?utf-8?B?N2o2UTdCQUxLSjMyQmZZTitUNzBDNUs5UWtGZGtNREF4UEkxUXRMYm8zMEpn?=
- =?utf-8?B?ZUlFdVJaQThpQ2JHU2FGVU8wa2VWbStqV3FpRmYzUS9VTENKVlorS3E2Q3Er?=
- =?utf-8?B?VzZhK2hGSzNXYWFlMW5GbElQOFFKZ2RvM3Y1YjVsYW11YmRvUU1nQm5mRTVv?=
- =?utf-8?B?SUs3RkxxcUVUN2xDWDZyUmlRcUxxMG94R2FWU1RJYWNYK0tjaWM5R1JNd3p3?=
- =?utf-8?B?QXR4YVhUeHRRS1Z0a2VkeVV6a29BRWxPNE5UaVhrWXhZTEkwM1pvVjFGb2ls?=
- =?utf-8?B?S1hXazl0dENCQTRQOGVqK1dqczVkaXVUNlR2bDMrVVZ0dndhYmZzWUlHckRD?=
- =?utf-8?B?ZFNROHF4S05UMmdBQkcwWjZwN0tmWEdTRHdSNWEwLzFEdXpqcU1mbWpkN2th?=
- =?utf-8?B?alFhUlE4b25YTVpING5VL1Q2SXlnbVFjVnhFSEprdDFBUitKUmNXY0U3NVN1?=
- =?utf-8?B?VlF6UXdrQWsrNFBhYjI3WXkvSDc1QVhRdnJibHFKTVIwT3JJSGZMR292V2Nl?=
- =?utf-8?B?Y3MzS0pFNVAyK1pmdkJHSG91SkhHdkZlbWZZZzAxbHpseFlOdEZrUzkybUVw?=
- =?utf-8?B?Y0srb1d0bUlJY3pvSVl0N2MwSnJKdE00dmRxQXo5TktiK0lKb1ZsQjJQSFVv?=
- =?utf-8?B?ZzVGVDREYURqMGRCRUEvc0pmenlnYVUrUENrMVREVE5PZUJmTFZqb1ZKRGpr?=
- =?utf-8?B?U0ptVlB4b1M1V1VOeTBrYlg4bk1OaVl1UTF6TitjOWFqRVU3V0lySHp3dW9v?=
- =?utf-8?B?eU90WUpOY1BCQ0lzc1pha3JiN092aE1VeDdnYVZaTzBJK2l5ZGs1RU9rc2hD?=
- =?utf-8?B?c0NIQUM4S2d2bkVFdHd0NGw4K1AxdkNBWlBzRWlYRU14N0ZaOHl2cHZKWlpK?=
- =?utf-8?B?VkwxbXVTWVVjenByWDlqbVNXeXVJSEhmcDYyc1JKb1BHT09DMWkzUGtrb01p?=
- =?utf-8?B?R3dpakpiOWtuZkp4QUwxU1IxM3ZvUFh5WVhxNmdOQUErUXMzeXlMNEJQcThU?=
- =?utf-8?B?OVR2bkxiVEFDdElXUlJvQXBTZmVMK0VXY0pwS1MwZU9JQTVxQnlXUzhWd1Jh?=
- =?utf-8?B?SjlvNWVHSGEvN216SU9nTTZCclNBclh5ZHRZR0VJSGlNVE1YUHMvUEdoNkw0?=
- =?utf-8?B?RkRlbDhpdlNCdnl1bzN6Q0lKRjNnWW45MVQ4MU1hcGszZXVsd3FBUktEMWVh?=
- =?utf-8?B?b1pLZnZPT21mL0VFeTRjRWJBcnBPVkh5STdxaVpqYUpJaDArVDFUaGdsWTha?=
- =?utf-8?B?UlE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	350zwEBw+zcSWzhALHYELxyu5JZrkqU55kmjeLlqvXF9UmdG+lH2d+2MLZSTOIgmPnK9crN8aqiNb9t399na102s42P5qbrmBSflnSfh7HQ73MviIUMBrO9kkh5npYylYoKowaNjwhXPyFZuykRDbvKNQIBc6n2ypcDOosKxV9NmK5Kkj4ocLcuHM7/A2eYGxKtZzwWkHb1EgMQRVKgPljDKx2aLF+NhchuRKX7qIViMSujTvMulSTMKpj+MGSvDeK1Ny9EuNk+NjieHx28x8gO3VHb1YeO7+yb8IuqEopVf6AangvcmMJ7QJRfXlc7Dcj2YavmGreMN3Ony3Q18wYz2ZEyHysyrwUCOkWqLavTKdmqN1OILypdXxHr0wP6ZcSryxYY/L/gVr5OFs78Efas6T+LRlctseKu/Sn/K8dmH6katcVzIJZviAky/v2xi1ZC+4f2qmw5zkeWMsnhF3Z8/U+ejCHXH90hBRRHeEPjMNgxm+wIG6PjiuZ/5fCIoixRZHjyEnBkw4yY3veRG+EAPsDTjJkjl5hEvRnPTSxUimZudbGV1mMX9dq7QPNESZmMr8DmqvuGuGb2EsLl5EL6/0jZU2jHmwmQVYCg1oEsZCDS8GTqXSMXZFp+n7i3/1HFLTFpGwImTpQxuuiYiF4epR1PxTNlbR09glT4WE38q1ZrwA/9dfLZbEjG1bthFxQP6a3Fw4rtkCuohkqkhwmy42i3WxKPB/rnIuv4o1SjMe4sXc1q7c6EChXa8fPQAdk1Hn9NR6TmhktaKSuZQqxn1yRwY8PNLBHfTqVY2UQs++YGI3zA1UlOCJoPubqr/FfhOcVcwoE3aCUzvdiilLKIcWvonMdRnAz2uTgfnJw4=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3c7586-4c41-477c-5e41-08dbb91ac883
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 14:14:49.0772
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(396003)(39860400002)(346002)(376002)(82310400011)(451199024)(1800799009)(186009)(40470700004)(46966006)(36840700001)(66899024)(356005)(921005)(82740400003)(81166007)(36756003)(40480700001)(40460700003)(86362001)(31696002)(478600001)(54906003)(70206006)(16576012)(2906002)(70586007)(110136005)(6666004)(53546011)(8676002)(8936002)(44832011)(5660300002)(4326008)(7416002)(31686004)(41300700001)(316002)(47076005)(36860700001)(26005)(16526019)(2616005)(426003)(336012)(83380400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 14:22:11.5071
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wrw796zXX0pIrYxMdBUMt92LicEbxQXmZsK3Gd81CSV50axXtYLxTC+LxDE7G+mllkNBvqbYB61sEEu/csza1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5907
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0beb3c87-a39e-4b35-24b3-08dbb91bd084
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6251
 
-On Tue, Sep 19, 2023 at 03:06:45PM +0200, Jan Beulich wrote:
-> On 19.09.2023 14:51, Roger Pau Monne wrote:
-> > Testing on a Kaby Lake box with 8 CPUs leads to the serial buffer
-> > being filled halfway during dom0 boot, and thus a non-trivial chunk of
-> > Linux boot messages are dropped.
-> > 
-> > Increasing the buffer to 128K does fix the issue and Linux boot
-> > messages are no longer dropped.  There's no justification either on
-> > why 16K was chosen, and hence bumping to 128K in order to cope with
-> > current systems generating output faster does seem appropriate to have
-> > a better user experience with the provided defaults.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > --
-> > Changes since v2:
-> >  - Bump to 128K.
-> 
-> Wow, I was hesitant about 32k, and now we're going all the way up to 128?
-> Even the recent report indicated 24k would be fine there ...
 
-24k would be rounded to 32k anyway.
+On 19/9/23 13:44, Akihiko Odaki wrote:
+> On 2023/09/19 19:28, Xenia Ragiadakou wrote:
+>>
+>> On 15/9/23 18:11, Akihiko Odaki wrote:
+>>> On 2023/09/15 20:11, Huang Rui wrote:
+>>>> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>>
+>>>> When the memory region has a different life-cycle from that of her 
+>>>> parent,
+>>>> could be automatically released, once has been unparent and once 
+>>>> all of her
+>>>> references have gone away, via the object's free callback.
+>>>>
+>>>> However, currently, references to the memory region are held by its 
+>>>> owner
+>>>> without first incrementing the memory region object's reference count.
+>>>> As a result, the automatic deallocation of the object, not taking into
+>>>> account those references, results in use-after-free memory corruption.
+>>>>
+>>>> This patch increases the reference count of an owned memory region 
+>>>> object
+>>>> on each memory_region_ref() and decreases it on each 
+>>>> memory_region_unref().
+>>>>
+>>>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>>>> ---
+>>>>
+>>>> V4 -> V5:
+>>>>      - ref/unref only owned memory regions (Akihiko)
+>>>>
+>>>>   softmmu/memory.c | 5 +++++
+>>>>   1 file changed, 5 insertions(+)
+>>>>
+>>>> diff --git a/softmmu/memory.c b/softmmu/memory.c
+>>>> index 7d9494ce70..15e1699750 100644
+>>>> --- a/softmmu/memory.c
+>>>> +++ b/softmmu/memory.c
+>>>> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
+>>>>       /* MMIO callbacks most likely will access data that belongs
+>>>>        * to the owner, hence the need to ref/unref the owner whenever
+>>>>        * the memory region is in use.
+>>>> +     * Likewise, the owner keeps references to the memory region,
+>>>> +     * hence the need to ref/unref the memory region object to 
+>>>> prevent
+>>>> +     * its automatic deallocation while still referenced by its 
+>>>> owner.
+>>>
+>>> This comment does not make sense. Traditionally no such automatic 
+>>> deallocation happens so the owner has been always required to free 
+>>> the memory region when it gets finalized.
+>>>
+>>> "[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
+>>> introduces a different kind of memory region, which can be freed 
+>>> anytime before the device gets finalized. Even in this case, the 
+>>> owner removes the reference to the memory owner by doing res->region 
+>>> = NULL;
+>>
+>> Hi Akihiko,
+>>
+>> You are right, the word "owner" is not correct. The issue observed 
+>> was due to the references kept in flatview ranges and the fact that 
+>> flatview_destroy() is asynchronous and was called after memory 
+>> region's destruction.
+>>
+>> If I replace the word "owner" with "memory subsystem" in the commit 
+>> message and drop the comment, would that be ok with you? or do want 
+>> to suggest something else?
+>
+> This will extend the lifetime of the memory region, but the underlying 
+> memory is still synchronously freed. Can you show that the flatview 
+> range will not be used to read the freed memory?
 
-I don't think 32k vs 128k makes that much difference, it's still an
-infinitesimal part of the memory on any modern computer.  Simply the
-risk of loosing output is IMO not worth us being conservative with
-the amount here, specially if we are speaking about KiB, not even MiB.
+Yes, the intention of this patch is to delay the mr object finalization 
+until all memory_region_unref() on this mr have been taken place.
 
-Thanks, Roger.
+What do you mean by "the underlying memory is still synchronously freed"?
+
 
