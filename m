@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3467A59EE
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 08:28:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604355.941684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FEAF7A59F1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 08:30:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604365.941694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiUDR-0001iD-A4; Tue, 19 Sep 2023 06:28:09 +0000
+	id 1qiUFR-00039J-Rt; Tue, 19 Sep 2023 06:30:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604355.941684; Tue, 19 Sep 2023 06:28:09 +0000
+Received: by outflank-mailman (output) from mailman id 604365.941694; Tue, 19 Sep 2023 06:30:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiUDR-0001er-6H; Tue, 19 Sep 2023 06:28:09 +0000
-Received: by outflank-mailman (input) for mailman id 604355;
- Tue, 19 Sep 2023 06:28:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qiUFR-00036I-NO; Tue, 19 Sep 2023 06:30:13 +0000
+Received: by outflank-mailman (input) for mailman id 604365;
+ Tue, 19 Sep 2023 06:30:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiUDQ-0001eh-4j; Tue, 19 Sep 2023 06:28:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiUDP-00013N-Sq; Tue, 19 Sep 2023 06:28:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qiUDP-0008GF-HM; Tue, 19 Sep 2023 06:28:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qiUDP-00035k-Gt; Tue, 19 Sep 2023 06:28:07 +0000
+ (envelope-from <SRS0=L0bg=FD=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1qiUFQ-000365-1S
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 06:30:12 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fac99e10-56b5-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 08:30:10 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-79-Mbk6CQNmM5-oLzM5NqDO9A-1; Tue, 19 Sep 2023 02:30:00 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3520C185A78E;
+ Tue, 19 Sep 2023 06:30:00 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.39.192.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C33C014171B6;
+ Tue, 19 Sep 2023 06:29:59 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id CC2D721E6900; Tue, 19 Sep 2023 08:29:58 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +52,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eo2N5Vp55kz/hLCJ3O5B3jveUHmXwAiQJxYjs0MHpq8=; b=Zu0XWZg3tMZLU9qRDGWEWeIbRu
-	Z4kseKmeYywJjEYfC1vulXZtu9DvctNFAwYeaIFeWtzukvHl4WnsqnXZf1X/vr+2E99PvRM4vImob
-	LWiCw+ekJi3YzNUgMyRehIKiUV7VBAcaaD0hJxV3aorM8xXyUhLAWmsfiE5VRzmeIPn8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183045-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fac99e10-56b5-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695105009;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GnEy/R37W9DqVlZ+UU16jlrw13YWmEkRgYevJnbQIhY=;
+	b=I3xQnalN61/ctqXcxrNKZT4X56zRhTimGaFZKf+86KKFBkEdonOhbjgrSXkohIsOhhD8EA
+	nBCRNs5mLascRB2XJlpd4ji/fgBhuMPeXN13ADbYnPUk/tWG7s7yqvWFM/1hjn7WdbwOPu
+	E0t1iLfMFpuYqDsCqdF1uR5+pSli17w=
+X-MC-Unique: Mbk6CQNmM5-oLzM5NqDO9A-1
+From: Markus Armbruster <armbru@redhat.com>
+To: Eric Blake <eblake@redhat.com>
+Cc: Markus Armbruster <armbru@redhat.com>,  qemu-devel@nongnu.org,
+  kwolf@redhat.com,  hreitz@redhat.com,  vsementsov@yandex-team.ru,
+  jsnow@redhat.com,  idryomov@gmail.com,  sw@weilnetz.de,
+  sstabellini@kernel.org,  anthony.perard@citrix.com,  paul@xen.org,
+  pbonzini@redhat.com,  marcandre.lureau@redhat.com,  berrange@redhat.com,
+  thuth@redhat.com,  philmd@linaro.org,  stefanha@redhat.com,
+  fam@euphon.net,  quintela@redhat.com,  peterx@redhat.com,
+  leobras@redhat.com,  kraxel@redhat.com,  qemu-block@nongnu.org,
+  xen-devel@lists.xenproject.org,  alex.bennee@linaro.org,
+  peter.maydell@linaro.org
+Subject: Re: [PATCH 7/7] qobject atomics osdep: Make a few macros more hygienic
+References: <20230831132546.3525721-1-armbru@redhat.com>
+	<20230831132546.3525721-8-armbru@redhat.com>
+	<vfkfi6uld3gbd4urmqdlzkv6djtws6mkbluc5qvwcla6btszhu@ff66zfyd7smm>
+	<87ledqjn39.fsf@pond.sub.org>
+	<viam47z5ascty5zluzvj3byrrrp2fe6jh6vevcaggpozxwzabj@avo7fb3gs7bt>
+Date: Tue, 19 Sep 2023 08:29:58 +0200
+In-Reply-To: <viam47z5ascty5zluzvj3byrrrp2fe6jh6vevcaggpozxwzabj@avo7fb3gs7bt>
+	(Eric Blake's message of "Fri, 1 Sep 2023 08:18:38 -0500")
+Message-ID: <87v8c63cbd.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183045: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-X-Osstest-Versions-That:
-    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Sep 2023 06:28:07 +0000
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 
-flight 183045 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183045/
+Eric Blake <eblake@redhat.com> writes:
 
-Regressions :-(
+> On Fri, Sep 01, 2023 at 10:48:26AM +0200, Markus Armbruster wrote:
+>> > Indeed, not fully understanding the preprocessor makes for some
+>> > interesting death traps.
+>> 
+>> We use ALL_CAPS for macros to signal "watch out for traps".
+>> 
+>
+>> >> -#define QOBJECT(obj) ({                                         \
+>> >> -    typeof(obj) _obj = (obj);                                   \
+>> >> -    _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
+>> >> +#define QOBJECT_INTERNAL(obj, l) ({                                     \
+>> >> +    typeof(obj) PASTE(_obj, l) = (obj);                                 \
+>> >> +    PASTE(_obj, l)                                                      \
+>> >> +        ? container_of(&(PASTE(_obj, l))->base, QObject, base) : NULL;  \
+>> >>  })
+>> >> +#define QOBJECT(obj) QOBJECT_INTERNAL((obj), __COUNTER__)
+>> >
+>> > Slick!  Every call to QOBJECT() defines a unique temporary variable
+>> > name.  But as written, QOBJECT(o) expands to this (when __COUNTER__ is
+>> > 1):
+>> >
+>> > ({
+>> >   typeof((o)) _obj1 = ((o));
+>> >   _obj1 ? container_of(&(_obj1)->base, QObject, base) : NULL;
+>> > })
+>> >
+>> > which has three sets of redundant parens that could be elided.  Why do
+>> > you need to add () around obj when forwarding to QOBJECT_INTERNAL()?
+>> 
+>> Habit: enclose macro arguments in parenthesis unless there's a specific
+>> need not to.
+>> 
+>> > The only way the expansion of the text passed through the 'obj'
+>> > parameter can contain a comma is if the user has already parenthesized
+>> > it on their end (not that I expect a comma expression to be a frequent
+>> > argument to QOBJECT(), but who knows).  Arguing that it is to silence
+>> > a syntax checker is weak; since we must NOT add parens around the
+>> > parameters to QOBJECT_INTERNAL (calling PASTE((_obj), (l)) is
+>> > obviously wrong).
+>> >
+>> > Meanwhile, the repetition of three calls to PASTE() is annoying.  How
+>> > about:
+>> >
+>> > #define QOBJECT_INTERNAL_2(_obj, _tmp) ({ \
+>> >   typeof _obj _tmp = _obj; \
+>> >   _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+>> >   )}
+>> > #define QOBJECT_INTERNAL_1(_arg, _tmp) QOBJECT_INTERNAL_2(_arg, _tmp)
+>> > #define QOBJECT_INTERNAL(_arg, _ctr) \
+>> >   QOBJECT_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+>> > #define QOBJECT(obj) QOBJECT_INTERNAL((obj), __COUNTER__)
+>> >
+>> > or:
+>> >
+>> > #define QOBJECT_INTERNAL_2(_obj, _tmp) ({ \
+>> >   typeof(_obj) _tmp = (_obj); \
+>> >   _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+>> >   )}
+>> > #define QOBJECT_INTERNAL_1(_arg, _tmp) QOBJECT_INTERNAL_2(_arg, _tmp)
+>> > #define QOBJECT_INTERNAL(_arg, _ctr) \
+>> >   QOBJECT_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+>> > #define QOBJECT(obj) QOBJECT_INTERNAL(obj, __COUNTER__)
+>> >
+>> > where, in either case, QOBJECT(o) should then expand to
+>> >
+>> > ({
+>> >   typeof (o) _obj1 = (o);
+>> >   _obj1 ? container_of(&_obj1->base, QObject, base) : NULL;
+>> > })
+>> 
+>> The idea is to have the innermost macro take the variable name instead
+>> of the counter.  "PASTE(_obj, l)" then becomes "_tmp" there, which is
+>> more legible.  However, we pay for it by going through two more macros.
+>> 
+>> Can you explain why you need two more?
+>
+> Likewise habit, on my part (and laziness - I wrote the previous email
+> without testing anything). I've learned over the years that pasting is
+> hard (you can't mix ## with a macro that you want expanded without 2
+> layers of indirection), so I started out by adding two layers of
+> QOBJECT_INTERNAL, then wrote QOBJECT to forward to QOBJECT_INTERNAL.
+> But now that you asked, I actually spent the time to test with the
+> preprocessor, and your hunch is indeed correct: I over-compensated
+> becaues of my habit.
+>
+> $cat foo.c
+> #define PASTE(_a, _b) _a##_b
+>
+> #define QOBJECT_INTERNAL_2(_obj, _tmp) ({       \
+>   typeof _obj _tmp = _obj; \
+>   _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+>   )}
+> #define QOBJECT_INTERNAL_1(_arg, _tmp) QOBJECT_INTERNAL_2(_arg, _tmp)
+> #define QOBJECT_INTERNAL(_arg, _ctr) \
+>   QOBJECT_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+> #define QOBJECT(obj) QOBJECT_INTERNAL((obj), __COUNTER__)
+>
+> QOBJECT(o)
+>
+> #define Q_INTERNAL_1(_obj, _tmp) ({ \
+>   typeof _obj _tmp = _obj; \
+>   _tmp ? container_of(&_tmp->base, QObject, base) : NULL; \
+>   )}
+> #define Q_INTERNAL(_arg, _ctr) \
+>   Q_INTERNAL_1(_arg, PASTE(_obj, _ctr))
+> #define Q(obj) Q_INTERNAL((obj), __COUNTER__)
+>
+> Q(o)
+> $ gcc -E foo.c
+> # 0 "foo.c"
+> # 0 "<built-in>"
+> # 0 "<command-line>"
+> # 1 "/usr/include/stdc-predef.h" 1 3 4
+> # 0 "<command-line>" 2
+> # 1 "foo.c"
+> # 12 "foo.c"
+> ({ typeof (o) _obj0 = (o); _obj0 ? container_of(&_obj0->base, QObject, base) : NULL; )}
+> # 22 "foo.c"
+> ({ typeof (o) _obj1 = (o); _obj1 ? container_of(&_obj1->base, QObject, base) : NULL; )}
+>
+> So the important part was merely ensuring that __COUNTER__ has a
+> chance to be expanded PRIOR to the point where ## gets its argument,
+> and one less layer of indirection was still sufficient for that.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
+The version with less indirection is easier to understand for me.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>> 
+>> Complication: the innermost macro needs to take all its variable names
+>> as arguments.  The macro above has just one.  Macros below have two.
+>> 
+>> Not quite sure which version is easier to understand.
+>
+> Proper comments may help; once you realize that you are passing in the
+> unique variable name(s) to be used as the temporary identifier(s),
+> rather than an integer that still needs to be glued, then separating
+> the task of generating name(s) (which is done once per name, instead
+> of repeated 3 times) makes sense to me.  I also like minimizing the
+> number of times I have to spell out __COUNTER__; wrapping unique name
+> generation behind a well-named helper macro gives a better view of why
+> it is needed in the first place.
 
-version targeted for testing:
- xen                  b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-baseline version:
- xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
+I can add this comment to every instance of the __COUNTER__ trick:
 
-Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
-Testing same since   183031  2023-09-18 17:01:55 Z    0 days    4 attempts
+    /*
+     * Preprocessor wizardry ahead: glue(_val, l) expands to a new
+     * identifier in each macro expansion.  Helps avoid shadowing
+     * variables and the unwanted name captures that come with it.
+     */
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+> At any rate, this comment still applies:
+>
+>> >
+>> > I think you are definitely on the right track to have all internal
+>> > variable declarations within a macro definition use multi-layered
+>> > expansion with the help of __COUNTER__ to ensure that the macro's
+>> > temporary variable is globally unique; so if you leave it as written,
+>> > I could live with:
+>> >
+>> > Reviewed-by: Eric Blake <eblake@redhat.com>
+>> >
+>> > But if you respin it to pick up any of my suggestions, I'll definitely
+>> > spend another review cycle on the result.
+>> >
+>> > If it helps, here's what I ended up using in nbdkit:
+>> >
+>> > https://gitlab.com/nbdkit/nbdkit/-/blame/master/common/include/unique-name.h#L36
+>> > /* https://stackoverflow.com/a/1597129
+>> >  * https://stackoverflow.com/a/12711226
+>> >  */
+>> > #define XXUNIQUE_NAME(name, counter) name ## counter
+>> > #define XUNIQUE_NAME(name, counter) XXUNIQUE_NAME (name, counter)
+>> > #define NBDKIT_UNIQUE_NAME(name) XUNIQUE_NAME (name, __COUNTER__)
+>> >
+>> > https://gitlab.com/nbdkit/nbdkit/-/blame/master/common/include/minmax.h#L47
+>> > #include "unique-name.h"
+>> >
+>> > #undef MIN
+>> > #define MIN(x, y) \
+>> >   MIN_1 ((x), (y), NBDKIT_UNIQUE_NAME (_x), NBDKIT_UNIQUE_NAME (_y))
+>> >
+>> > ...
+>> > #define MIN_1(x, y, _x, _y) ({                 \
+>> >       __auto_type _x = (x);                    \
+>> >       __auto_type _y = (y);                    \
+>> >       _x < _y ? _x : _y;                       \
+>> >     })
+>> 
+>> Thanks!
+>
+> and so I'm fine leaving it up to you if you want to copy the paradigm
+> I've seen elsewhere, or if you want to leave it as you first proposed.
+> The end result is the same, and it is more of a judgment call on which
+> form is easier for you to reason about.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
+I need to review the two competing versions once more to decide which I
+find easier to read.  Or shall I say less hard; preprocessor wizardry is
+never really easy.
 
+> But as other commenters mentioned, we already have a glue() macro, so
+> use that instead of PASTE(), no matter what else you choose.
+>
+> Looking forward to v2!
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Thanks again!
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:24:25 2023 +0100
-
-    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
-    
-    In the Zen1 microarchitecure, there is one divider in the pipeline which
-    services uops from both threads.  In the case of #DE, the latched result from
-    the previous DIV to execute will be forwarded speculatively.
-    
-    This is an interesting covert channel that allows two threads to communicate
-    without any system calls.  In also allows userspace to obtain the result of
-    the most recent DIV instruction executed (even speculatively) in the core,
-    which can be from a higher privilege context.
-    
-    Scrub the result from the divider by executing a non-faulting divide.  This
-    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
-    
-    Alternatives in IST context is believed safe now that it's done in NMI
-    context.
-    
-    This is XSA-439 / CVE-2023-20588.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 15 12:13:51 2023 +0100
-
-    x86/amd: Introduce is_zen{1,2}_uarch() predicates
-    
-    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
-    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
-    opencoding it, and the explanation of the heuristic, at each usage site.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:53:33 2023 +0100
-
-    x86/spec-ctrl: Issue VERW during IST exit to Xen
-    
-    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
-    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
-    flush to scrub potentially sensitive data from uarch buffers.
-    
-    In order to compensate, issue VERW when exiting to Xen from an IST entry.
-    
-    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
-    and we're about to add a third.  Load the field into %ebx, and list the
-    register as clobbered.
-    
-    %r12 has been arranged to be the ist_exit signal, so add this as an input
-    dependency and use it to identify when to issue a VERW.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 12:20:12 2023 +0100
-
-    x86/entry: Track the IST-ness of an entry for the exit paths
-    
-    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
-    entry/exit asm, so it only needs setting in the IST path.
-    
-    As this is subtle and fragile, add check_ist_exit() to be used in debugging
-    builds to cross-check that the ist_exit boolean matches the entry vector.
-    
-    Write check_ist_exit() it in C, because it's debug only and the logic more
-    complicated than I care to maintain in asm.
-    
-    For now, we only need to use this signal in the exit-to-Xen path, but some
-    exit-to-guest paths happen in IST context too.  Check the correctness in all
-    exit paths to avoid the logic bit-rotting.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:48:16 2023 +0100
-
-    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
-    
-    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
-    for consistency.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 45f00557350dc7d0756551069803fc49c29184ca
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:11:50 2023 +0100
-
-    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
-    
-    ... to better explain how they're used.
-    
-    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
-    corner case when e.g. an NMI hits late in an exit-to-guest path.
-    
-    Leave a TODO, which will be addressed in subsequent patches which arrange for
-    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 1 11:38:44 2023 +0100
-
-    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
-    
-    These have grown more complex over time, with some already having been
-    converted.
-    
-    Provide full Requires/Clobbers comments, otherwise missing at this level of
-    indirection.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 694bb0f280fd08a4377e36e32b84b5062def4de2
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 17:03:16 2023 +0100
-
-    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
-    
-    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
-    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
-    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
-    
-    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
-    is going to be too generic shortly.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 15:06:49 2023 +0100
-
-    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
-    
-    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
-    dropped the only user, leaving behind the (incorrect) implication that Xen had
-    split exit paths.
-    
-    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
-    to SPEC_CTRL_EXIT_TO_XEN for consistency.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
