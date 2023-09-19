@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CACA7A65B5
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 15:50:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.604766.942269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91CA07A65BB
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Sep 2023 15:52:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.604773.942279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qib7I-0008CE-Jt; Tue, 19 Sep 2023 13:50:16 +0000
+	id 1qib8t-0000Xo-Va; Tue, 19 Sep 2023 13:51:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 604766.942269; Tue, 19 Sep 2023 13:50:16 +0000
+Received: by outflank-mailman (output) from mailman id 604773.942279; Tue, 19 Sep 2023 13:51:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qib7I-00089X-GM; Tue, 19 Sep 2023 13:50:16 +0000
-Received: by outflank-mailman (input) for mailman id 604766;
- Tue, 19 Sep 2023 13:50:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qib8t-0000Ul-RI; Tue, 19 Sep 2023 13:51:55 +0000
+Received: by outflank-mailman (input) for mailman id 604773;
+ Tue, 19 Sep 2023 13:51:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qib7G-00089N-U7; Tue, 19 Sep 2023 13:50:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qib7G-0004HA-P8; Tue, 19 Sep 2023 13:50:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qib7G-0008PH-GG; Tue, 19 Sep 2023 13:50:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qib7G-0002e4-Fo; Tue, 19 Sep 2023 13:50:14 +0000
+ (envelope-from <SRS0=Lmoc=FD=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qib8s-0000TN-I7
+ for xen-devel@lists.xenproject.org; Tue, 19 Sep 2023 13:51:54 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on060b.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b02ac858-56f3-11ee-8789-cb3800f73035;
+ Tue, 19 Sep 2023 15:51:53 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB8173.eurprd04.prod.outlook.com (2603:10a6:102:1ca::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Tue, 19 Sep
+ 2023 13:51:50 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::f749:b27f:2187:6654%6]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
+ 13:51:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,324 +47,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1bN1WVEzTgQ49wPH7rv4SeWMI6RkdlOLacpKuBsVnJ0=; b=sGkLOh2tYvZKYbWvLSNX7aEPGT
-	sycKpsa0U1Vy+ILrwtxc5UJT8WIu8yKYlChbccLTy8fUk2Y0+Z388lhiftKQ2rMOSa6Epctui/Jzp
-	yNwzZljDl1mPZ8TjWbzreEJgshogWSXB/A5QVVKMGPIJVACYannEimrZdoaAR50bIb7g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183058-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b02ac858-56f3-11ee-8789-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hebtk4cyoeAUAxhjmx6Sl2ee2H2DGIJuF8Xmf8LqoHylzdeaAD0D3ehILgcuJUsD03iIKGTvfSFCkeIsk8oPYsBPUaWfyYAV6gdiCpYBWgCfo6MknuTbueRZ34ypbc5JVzOms7U7drDKykSJMjPs1bpBlbsWkTqYWoEZ4GTRdONe9CeYK5tM0JqmNhCCnnbGeb9/y7j01Bta0Whz3S8pb71OTOhzgcEa8xqDSem4Dk2imQ1EUYrB+Lcq0+r4/M9f5iEyVSEHPi+TDuQ+QQ6w6BJcoyxstSGIoGnSBorzpO5jIc8r4rz+Ud0pp20L+6KtaQcN7xRPcY1Q3BgpC9Hv6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MTtWIWgqYS5XpeR+XCcErzNBzEjcrGPaQrGDrSJ9sDg=;
+ b=dTTMbpqjdO62u3W9pFRo7vKvhQiDNuCKYhBkGiCfJsZ8mHiv7WRxJciPDBgvBQeZp8/yNdA7E5/DrJH8DjMFlUxegAn8utgOYlJ4B8FoTzLTSmr3GFAzEGLJoj1x5toGW2APbWR0qAn/FuuSMCmgMFkmbJ+0RYLCvyHgJAHhhCT/qlb7zvSalXSwqcK3M8itn5K2Fd1/mBC1E72iVOCTtSCYa9nm7qqiYtxns1Qoo+2mL4X6fKfHQoCs6J8vIRPtbFHWYvtPcdk9MAerHwd6wQfWpKRbVIPdYCSgQxC5Rin3ek9ki+Aq/h9W+HxLSqeMqob+7AxYMY7mDWZuAf2+zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MTtWIWgqYS5XpeR+XCcErzNBzEjcrGPaQrGDrSJ9sDg=;
+ b=WREoc44HYI4PGbpmNCUxpwAvIvbOy9aLSdz5nx+agSKT3k8Hes1BnMZeke7ZeEkzAjrg5EURfLJTLknt7rABGNxji100s6oi92/lSaSckP0MatekOgi1obFwYv6F4gDwBZKc5vhuLsT+6ZqnCH8Ox0JAvt3xj5cWO/Gpv+1VgcPYv54GuzIsMG/vUfFOvGUsZuiGyWLqrRXKMAE+7wy5pBJvSUHHznAbpo1lCMBGTb2apqi4YeVBtO3hM2Jlc3TY9PYVNeNBYKP9a2H0egwuYRlgblfVACZervsvhVvhKlU7maOhJktweyFF2ieIQgJWGLVxpbaBz+F6fMTMo1MZPA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f343f3be-c42d-7007-2d65-3465dad03969@suse.com>
+Date: Tue, 19 Sep 2023 15:51:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH 03/10] x86 setup: change bootstrap map to accept new boot
+ module structures
+Content-Language: en-US
+To: Christopher Clark <christopher.w.clark@gmail.com>
+Cc: Daniel Smith <dpsmith@apertussolutions.com>, stefano.stabellini@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Luca Fancellu <luca.fancellu@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Rich Persaud <persaur@gmail.com>, xen-devel@lists.xenproject.org
+References: <20230701071835.41599-1-christopher.w.clark@gmail.com>
+ <20230701071835.41599-4-christopher.w.clark@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230701071835.41599-4-christopher.w.clark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0075.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::23) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183058: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ea36ac0de27c2a7c847a2a52c3e0f97a45864d81
-X-Osstest-Versions-That:
-    xen=2ea38251eb67639be7aa9d7b64084b1be0230273
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Sep 2023 13:50:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8173:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35c94f78-e1da-46a1-23bf-08dbb91792c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mq8+AANnwy7nC/MnJBAhAUsWltZY1JW9K5ay9wF6r1lycNiBEneXQM7WA1oYiX3sd6ZqKp/GE1f0UU2AVBFpPGoAhbUG9xe+DqEHD9K0mOGSEfHvHTFy4bmI3dQsbAk6/7sHyZkC1ctAuyzWlw4764L6B5LaKCL0d7845tVSQaan7gMuKHPLBrh9Ca/vhdXCXe1Z6GMLXFkoBqU3i3lUIbYlQMA5Ou2bgmWD4c0KDe1ZOBxe9S01vpSM8VpIuSWohWIahNKoNKWMoFreHV2LQBG8MV8E7zIsG7oHheu1IDrssktHV+zKEiHNkOREyyRgnkd99wj4rOPC1wMP0tPkhwhPmfdBwI+0rNMXaNxVcU0FI1+10CzPKq0WzKOh8UO85l6UNW8JazxA8cfLSbD5HBbshcO2mY971uwBWl/gQ2PQEg8+0Ae5VU3v3yB/v457Pa/REUqGgJKdhYv2TWgA6Qhki5wFT79T8KYt1dwGJLpZRITS5QcWPA180htXglRuVsnedxKjEYYNWf4EEjf8FRt19IWPntEuJZBR0hOrhkHolqgnHFiNZcctsTS/R5GSHgk0Qfqg3xxNwgS3zRcyUE9HEmv7jSqW+eEzYunVvwaUT2s3NDrnNVMt7D34Ur9CQ9Xy1t40qoJ4xlUAoXNwhg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(346002)(366004)(376002)(39860400002)(451199024)(1800799009)(186009)(4744005)(2906002)(7416002)(31686004)(5660300002)(8936002)(8676002)(66899024)(41300700001)(54906003)(6916009)(316002)(66476007)(66946007)(66556008)(478600001)(53546011)(6666004)(6486002)(36756003)(6506007)(2616005)(26005)(6512007)(38100700002)(4326008)(31696002)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WWdKRS8rT1dEVWhkMFg0TVdHY01zU1ZGUVNSWnpqWWxYQm9JM2plQkkwTXha?=
+ =?utf-8?B?dCtqRndjTlNFelFwME9tTGhFTTh5SldHNE5DSFUwdklYUE5mcnBGdjI5L0I5?=
+ =?utf-8?B?U2dSWGhYdDhIWGl5amUySHBvUkwrNk9ncEpVWUd3WlZsaUNLbUM2MFR0T00w?=
+ =?utf-8?B?WThwa1YxeTYrc3Y5MlFOdmlRMzBwMzczRnNQVDVySGJrSm84VEZzQlRhQ1Bl?=
+ =?utf-8?B?Z1hqc1NVWnI4VEh4eFNkS29oU1BIRXYwU0VmNEpYNmZRZWNLc3ZHc3ZhYVRn?=
+ =?utf-8?B?bld1Q2Z0UERTbDI3S2plREVDWlI3bTRtRTdORmNHSC9XZm9SQUhRUVh1R2FX?=
+ =?utf-8?B?Sy9BNVdzVENlZVF0Mk5Mb2t1ZW5HK2R2dHRBRFlVNzJMM3JuY3BUOFdJSjUv?=
+ =?utf-8?B?V3l6ZGQzeENFWmF5ZzBwZFREMEdTaUt0akl1d2t2cHpNNnVtWE9CZmlSS2U2?=
+ =?utf-8?B?MDAvWWExUFIySTNmYkx1NFdBWlVTdytNdU5EcU1GVEVoWHV1Vllob1hjVUVa?=
+ =?utf-8?B?SFRNWXhiRkRHcG50ZzAxKzlGMmdMWGJHc01BT2lnS2UzN1o1UHVmNHpPTHd2?=
+ =?utf-8?B?blNMRE5rRVZaaTQvdVNBandVTjNBM05vTU5nVUIrdDY5TFE5aG9LcmZwSWNW?=
+ =?utf-8?B?L0tLbmgyUDVQV1ovQ3Vyd3RvQnNLZkdhZTd4empBeDVkTllOblFLbGdVUmN4?=
+ =?utf-8?B?bjNMdmFOQThqbDJVM05YdmQ5TDRNNmtPUUs0WS94b3hPVTBuMjJ3cnFxTmNT?=
+ =?utf-8?B?SURra2Rad2FkMzF1VC9DTVZ4MFoxSXpXWHBXR0Nvc2hqM1hQZmp2em8wZWdI?=
+ =?utf-8?B?dEIrZnUvMmNqb0pSRGl1L3ZDK0pzM0NNL3RkaVk0bnozbzdheXEweFduVEtp?=
+ =?utf-8?B?elRqTUtRc0FZUFNFL1FtRFIyQ2FWT1BJR1FXVlhlZ0pIVmxFRXNtemtCcU9k?=
+ =?utf-8?B?ZWdJempwMlhNRE9WaUpXN2FZWXI2ekNmZDlhNHVXN0xhQ3h1aElKbklXSWxL?=
+ =?utf-8?B?RmpZZDl6cEhUaXA5eFhNVENJRlhBOTNmWFhYR28zeDdGYmRmSUZYYjFLSWhp?=
+ =?utf-8?B?RFhRRzNSdDNuUWwwdzYxWk9kWDk0SWpub1lBRFBNc04wKzBmLzJqY0xVRWEw?=
+ =?utf-8?B?M0FCR1phOHRZa1RkWjVxS1JOZ21jd09SbC9GMGs2VWxUTzdJM1hLVTEvemhn?=
+ =?utf-8?B?UGNUNGJxblIzK3dEL0EyUlFTM0dUZEc1UjRJb2VQSVNWYkY3eS80SEREZFVh?=
+ =?utf-8?B?VXBENHJzNEdtdjNZZ2k5bVdHZ1NxVDdZMkhiK0JIVWV4MEVBNTk1QzQwVitL?=
+ =?utf-8?B?Y2JYZStOeXlaeGk5U3o1QzgzOWtDWktTVXNOR3k4ekhsZmRmd0E2cmVPSTYy?=
+ =?utf-8?B?cnZ1SWswbS9QVS9JNE1Tc0srUi9RUlJLWVFiZm90TCtQVy81UWpCdy9SYWRw?=
+ =?utf-8?B?cEdvdGl0UGJrRXlPK0NhZzFRb1lQVnZVNjQ5S0N0SmlnbXN2NW5tajNZOVhB?=
+ =?utf-8?B?NmZkRTJqcG5DbC8xcVlvOE41MEFTRFRqb0JmT0Z2MmxxYndaUDB2VTF1ZHor?=
+ =?utf-8?B?SVlod3V3b0ltaTJLdHArdHN4UkFsdzZFVjVsbjJwUzRUZlFTdjJreVp2a2Qw?=
+ =?utf-8?B?UnpMbFRkbG9yT3ZtQTQxNGRWNU1Mc2J2OTlQQWhoOHVJUHY5MDJ1MS9vek1Q?=
+ =?utf-8?B?dDN0bkhrZVlyTVNyL0N0YmpSUEcwTzcrMDNOTTduSzdxM3dRWWZXcXZXQ0JK?=
+ =?utf-8?B?Slcwd3l5VEoyUE9XSWZaT3RCRGNqMWxwdHNzNHF2UjJyVDZQK1BXYlg4VEs5?=
+ =?utf-8?B?d2tMTktmQVI3SGp2QklTb2NuVDl0ZmVEdG95ZHZxc3Q2SUR0bUE3dGJPQ1pz?=
+ =?utf-8?B?eE8ySDMxeFJyRUtneTZLZVZ6djVhMnJFYnRTbnVDYXZkeWRUVjBTejRVT0do?=
+ =?utf-8?B?dUpydFJxTHluQzJKZWZ5SmU2azBPWEt4SWxEbjdOZ2FDdzE0VitWZFB5N2t0?=
+ =?utf-8?B?MGNXTnQraWNzd1ZDQjFyUzBNT3ltNk8vUlM2MmJ4dWxJQVpqclIwa1M5NG1m?=
+ =?utf-8?B?TjhDYVcwTXdsYWpmTERGL2Q4TFhrYmU0UytWbCtOS0ZUcWRBWjY4WGpvSnlt?=
+ =?utf-8?Q?UuhQ8zguNEUWS5gqczxWJpRej?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35c94f78-e1da-46a1-23bf-08dbb91792c9
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 13:51:50.2741
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ibd+UpYX36qyz9CS9+Znv8VJkx96i7wi2j3Q/ByryvU/lUWCo+j0N0Cb24DYQ9OGdxFx4tmPmqSmKZBcont7Uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8173
 
-flight 183058 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183058/
+On 01.07.2023 09:18, Christopher Clark wrote:
+> To convert the x86 boot logic from multiboot to boot module structures,
+> change the bootstrap map function to accept a boot module parameter.
+> 
+> To allow incremental change from multiboot to boot modules across all
+> x86 setup logic, provide a temporary inline wrapper that still accepts a
+> multiboot module parameter and use it where necessary.
 
-Regressions :-(
+And all uses of the original function are converted to the new wrapper,
+except when passing NULL - am I getting this right? Plus down the road
+you'll change all of them back? Too much code churn for my taste, to be
+honest, not the least because this undermines easy use of "git blame".
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 183030
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 183030
+If the above observation is right, and since passing NULL to the wrapper
+is fine too, why don't you deal with this by using a macro wrapper
+instead, without needing to touch all the call sites:
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+#define bootstrap_map(m) bootstrap_map_multiboot(m)
 
-version targeted for testing:
- xen                  ea36ac0de27c2a7c847a2a52c3e0f97a45864d81
-baseline version:
- xen                  2ea38251eb67639be7aa9d7b64084b1be0230273
+Misra won't like that, but as you say it's temporary.
 
-Last test of basis   183030  2023-09-18 14:02:00 Z    0 days
-Failing since        183031  2023-09-18 17:01:55 Z    0 days    6 attempts
-Testing same since   183058  2023-09-19 11:03:10 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Shawn Anastasio <sanastasio@raptorengineering.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ea36ac0de27c2a7c847a2a52c3e0f97a45864d81
-Author: Shawn Anastasio <sanastasio@raptorengineering.com>
-Date:   Thu Sep 14 14:03:34 2023 -0500
-
-    xen/ppc: Enable full Xen build
-    
-    Bring ppc's Makefile and arch.mk in line with arm and x86 to disable the
-    build overrides and enable the full Xen build.
-    
-    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 23f2f4a0977503187cd05cbc8963464a25e75eaf
-Author: Shawn Anastasio <sanastasio@raptorengineering.com>
-Date:   Thu Sep 14 14:03:33 2023 -0500
-
-    xen/ppc: Add stub function and symbol definitions
-    
-    Add stub function and symbol definitions required by common code. If the
-    file that the definition is supposed to be located in doesn't already
-    exist yet, temporarily place its definition in the new stubs.c
-    
-    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 4a2f68f90930458903589aefa2bef7b368af3df4
-Author: Shawn Anastasio <sanastasio@raptorengineering.com>
-Date:   Thu Sep 14 14:03:32 2023 -0500
-
-    xen/ppc: Define minimal stub headers required for full build
-    
-    Additionally, change inclusion of asm/ headers to corresponding xen/ ones
-    throughout arch/ppc now that they work.
-    
-    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit fa6696e63b6e490f3348ad973b30e361d68e366f
-Author: Simon Gaiser <simon@invisiblethingslab.com>
-Date:   Tue Sep 19 11:02:13 2023 +0200
-
-    x86/ACPI: Fix logging of MADT entries
-    
-    The recent change to ignore MADT entries with invalid APIC IDs also
-    affected logging of MADT entries. That's not desired [1] [2], so restore
-    the old behavior.
-    
-    Fixes: 47342d8f490c ("x86/ACPI: Ignore entries with invalid APIC IDs when parsing MADT")
-    Link: https://lore.kernel.org/xen-devel/0bd3583c-a55d-9a68-55b1-c383499d46d8@suse.com/ # [1]
-    Link: https://lore.kernel.org/xen-devel/f780d40e-c828-c57a-b19c-16ee15c1454a@suse.com/ # [2]
-    Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 93d2ee85f189aab6d8326871b9991469d795fbc9
-Author: Federico Serafini <federico.serafini@bugseng.com>
-Date:   Tue Sep 19 11:01:56 2023 +0200
-
-    xen/vPCI: address violation of MISRA C:2012 Rule 8.3
-    
-    Make function declaration consistent with the corresponding definition.
-    No functional change.
-    
-    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit b5926c6ecf05c28ee99c6248c42d691ccbf0c315
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:24:25 2023 +0100
-
-    x86/spec-ctrl: Mitigate the Zen1 DIV leakage
-    
-    In the Zen1 microarchitecure, there is one divider in the pipeline which
-    services uops from both threads.  In the case of #DE, the latched result from
-    the previous DIV to execute will be forwarded speculatively.
-    
-    This is an interesting covert channel that allows two threads to communicate
-    without any system calls.  In also allows userspace to obtain the result of
-    the most recent DIV instruction executed (even speculatively) in the core,
-    which can be from a higher privilege context.
-    
-    Scrub the result from the divider by executing a non-faulting divide.  This
-    needs performing on the exit-to-guest paths, and ist_exit-to-Xen.
-    
-    Alternatives in IST context is believed safe now that it's done in NMI
-    context.
-    
-    This is XSA-439 / CVE-2023-20588.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit de1d265001397f308c5c3c5d3ffc30e7ef8c0705
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 15 12:13:51 2023 +0100
-
-    x86/amd: Introduce is_zen{1,2}_uarch() predicates
-    
-    We already have 3 cases using STIBP as a Zen1/2 heuristic, and are about to
-    introduce a 4th.  Wrap the heuristic into a pair of predicates rather than
-    opencoding it, and the explanation of the heuristic, at each usage site.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 3ee6066bcd737756b0990d417d94eddc0b0d2585
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:53:33 2023 +0100
-
-    x86/spec-ctrl: Issue VERW during IST exit to Xen
-    
-    There is a corner case where e.g. an NMI hitting an exit-to-guest path after
-    SPEC_CTRL_EXIT_TO_* would have run the entire NMI handler *after* the VERW
-    flush to scrub potentially sensitive data from uarch buffers.
-    
-    In order to compensate, issue VERW when exiting to Xen from an IST entry.
-    
-    SPEC_CTRL_EXIT_TO_XEN already has two reads of spec_ctrl_flags off the stack,
-    and we're about to add a third.  Load the field into %ebx, and list the
-    register as clobbered.
-    
-    %r12 has been arranged to be the ist_exit signal, so add this as an input
-    dependency and use it to identify when to issue a VERW.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 21bdc25b05a0f8ab6bc73520a9ca01327360732c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 12:20:12 2023 +0100
-
-    x86/entry: Track the IST-ness of an entry for the exit paths
-    
-    Use %r12 to hold an ist_exit boolean.  This register is zero elsewhere in the
-    entry/exit asm, so it only needs setting in the IST path.
-    
-    As this is subtle and fragile, add check_ist_exit() to be used in debugging
-    builds to cross-check that the ist_exit boolean matches the entry vector.
-    
-    Write check_ist_exit() it in C, because it's debug only and the logic more
-    complicated than I care to maintain in asm.
-    
-    For now, we only need to use this signal in the exit-to-Xen path, but some
-    exit-to-guest paths happen in IST context too.  Check the correctness in all
-    exit paths to avoid the logic bit-rotting.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7aa28849a1155d856e214e9a80a7e65fffdc3e58
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 13 13:48:16 2023 +0100
-
-    x86/entry: Adjust restore_all_xen to hold stack_end in %r14
-    
-    All other SPEC_CTRL_{ENTRY,EXIT}_* helpers hold stack_end in %r14.  Adjust it
-    for consistency.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 45f00557350dc7d0756551069803fc49c29184ca
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Aug 30 20:11:50 2023 +0100
-
-    x86/spec-ctrl: Improve all SPEC_CTRL_{ENTER,EXIT}_* comments
-    
-    ... to better explain how they're used.
-    
-    Doing so highlights that SPEC_CTRL_EXIT_TO_XEN is missing a VERW flush for the
-    corner case when e.g. an NMI hits late in an exit-to-guest path.
-    
-    Leave a TODO, which will be addressed in subsequent patches which arrange for
-    VERW flushing to be safe within SPEC_CTRL_EXIT_TO_XEN.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7125429aafb9e3c9c88fc93001fc2300e0ac2cc8
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Sep 1 11:38:44 2023 +0100
-
-    x86/spec-ctrl: Turn the remaining SPEC_CTRL_{ENTRY,EXIT}_* into asm macros
-    
-    These have grown more complex over time, with some already having been
-    converted.
-    
-    Provide full Requires/Clobbers comments, otherwise missing at this level of
-    indirection.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 694bb0f280fd08a4377e36e32b84b5062def4de2
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 17:03:16 2023 +0100
-
-    x86/spec-ctrl: Fold DO_SPEC_CTRL_EXIT_TO_XEN into it's single user
-    
-    With the SPEC_CTRL_EXIT_TO_XEN{,_IST} confusion fixed, it's now obvious that
-    there's only a single EXIT_TO_XEN path.  Fold DO_SPEC_CTRL_EXIT_TO_XEN into
-    SPEC_CTRL_EXIT_TO_XEN to simplify further fixes.
-    
-    When merging labels, switch the name to .L\@_skip_sc_msr as "skip" on its own
-    is going to be too generic shortly.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 1c18d73774533a55ba9d1cbee8bdace03efdb5e7
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Sep 12 15:06:49 2023 +0100
-
-    x86/spec-ctrl: Fix confusion between SPEC_CTRL_EXIT_TO_XEN{,_IST}
-    
-    c/s 3fffaf9c13e9 ("x86/entry: Avoid using alternatives in NMI/#MC paths")
-    dropped the only user, leaving behind the (incorrect) implication that Xen had
-    split exit paths.
-    
-    Delete the unused SPEC_CTRL_EXIT_TO_XEN and rename SPEC_CTRL_EXIT_TO_XEN_IST
-    to SPEC_CTRL_EXIT_TO_XEN for consistency.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+Jan
 
