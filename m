@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32737A7A7F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 13:36:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605622.943209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4F77A7A90
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 13:43:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605657.943236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qivUW-0006qi-8h; Wed, 20 Sep 2023 11:35:36 +0000
+	id 1qivbP-0002OD-Gh; Wed, 20 Sep 2023 11:42:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605622.943209; Wed, 20 Sep 2023 11:35:36 +0000
+Received: by outflank-mailman (output) from mailman id 605657.943236; Wed, 20 Sep 2023 11:42:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qivUW-0006oo-4j; Wed, 20 Sep 2023 11:35:36 +0000
-Received: by outflank-mailman (input) for mailman id 605622;
- Wed, 20 Sep 2023 11:35:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qivbP-0002Lr-C2; Wed, 20 Sep 2023 11:42:43 +0000
+Received: by outflank-mailman (input) for mailman id 605657;
+ Wed, 20 Sep 2023 11:42:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f1ZV=FE=citrix.com=prvs=6207273cf=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qivUT-0006oh-Np
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 11:35:34 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc6ea2b2-57a9-11ee-8789-cb3800f73035;
- Wed, 20 Sep 2023 13:35:31 +0200 (CEST)
-Received: from mail-mw2nam12lp2047.outbound.protection.outlook.com (HELO
- NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.47])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Sep 2023 07:35:27 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by BL1PR03MB6168.namprd03.prod.outlook.com (2603:10b6:208:319::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Wed, 20 Sep
- 2023 11:35:13 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 11:35:12 +0000
+ <SRS0=IStA=FE=gmail.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1qivbO-0002F3-4e
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 11:42:42 +0000
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [2607:f8b0:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ccacc27c-57aa-11ee-9b0d-b553b5be7939;
+ Wed, 20 Sep 2023 13:42:39 +0200 (CEST)
+Received: by mail-pf1-x433.google.com with SMTP id
+ d2e1a72fcca58-68c576d35feso6154101b3a.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Sep 2023 04:42:39 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+ by smtp.gmail.com with ESMTPSA id
+ q20-20020a170902e31400b001b8baa83639sm11707841plc.200.2023.09.20.04.42.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Sep 2023 04:42:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,599 +46,984 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc6ea2b2-57a9-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1695209731;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=Dh0BfuhdfdtiPi74v6j7+V024uUypGoCqx8chXi80as=;
-  b=IKxJHJCG1cqj+cxuqtDI66lijq8+iyTrH1sZUslVylfDr561i1kTn/8g
-   K9B5tEh2Wyc8WNQeE8EGBDyxsAF+WEmKm9aOy8kha/UDf0P8BKV0fSx4L
-   iUGNRZjATjsxBxHaK3UcZfxWGfpQBImy2SZITcO2c6WwE+ADpOkradNbk
-   U=;
-X-CSE-ConnectionGUID: BBDMwFY6QHO/bRgPQFuUjA==
-X-CSE-MsgGUID: pYpRekUvTAyUIzjSH7zFwA==
-X-IronPort-RemoteIP: 104.47.66.47
-X-IronPort-MID: 123220503
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:P8U6t6Lhk+d8UG0BFE+RCZQlxSXFcZb7ZxGr2PjKsXjdYENS3jBWy
- WMdC2GAPfeMMGf2Kd13O4jj80MCsMLRnd9gGVFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrZwP9TlK6q4mhA7wZmPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5dK01r6
- tIpdgktSVeJve2O+Zymd+tF05FLwMnDZOvzu1lG5BSAV7MDfsqGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/RppTSMpOBy+OGF3N79YNuFSN8Thk+Fj
- mnH4374ElcRM9n3JT+tqyj33LWXwHugMG4UPKWJ7sRng2CN+kUCNTwEV2Cb/uuXlWfrDrqzL
- GRRoELCt5MaykuvSdXsWgyil1SNtBUcRtl4HvUz7UeGza+8yxaUAC0IQyBMbPQitdQqXno62
- 1mRhdTrCDdz9rqPRhq17auZsjqoJW4VLGsOaCUeRA0Jy9DmrMc4iRenZvFnHa2uh9v5AwbZx
- TyQsTM+jLUei80M/6ij9FWBiDWpzqUlVSYw7wTTG2e6tAVwYdf/Y5TysQSEq/FdMIyeU1+N+
- mAenNST5/wPCpfLkzGRROIKH/ei4PPt3CDgvGOD1qIJr1yFk0NPt6gKiN2iDC+F6vo5RAI=
-IronPort-HdrOrdr: A9a23:6fauvqHW4bjMTwQVpLqEEseALOsnbusQ8zAXPiBKJCC9vPb5qy
- nOpoV+6faQslwssR4b9uxoVJPvfZq+z+8R3WByB8bAYOCOggLBQL2KhbGI/9SKIVydygcy78
- Zdm6gVMqyMMbB55/yKnDVRxbwbsaa6GKPDv5ah8590JzsaDJ2Jd21Ce32m+ksdfnghObMJUK
- Cyy+BgvDSadXEefq2AdwM4t7iqnayzqHr+CyR2fyIa1A==
-X-Talos-CUID: =?us-ascii?q?9a23=3AX09jOGvKY/fBDm7+6iNFU27E6IsPWFH401nhfXa?=
- =?us-ascii?q?YLiFjcrKtcHGNxaFNxp8=3D?=
-X-Talos-MUID: 9a23:lMIVBAQwjOoNaVVRRXT0tSlYOcRV/ZiHGX0sg5c9m5aWGzNZbmI=
-X-IronPort-AV: E=Sophos;i="6.02,161,1688443200"; 
-   d="scan'208";a="123220503"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=STH4Ypr+mbKUuu2f4nz99mxPcyFVl1QK0SKaA4jzC4BSg/zp+O4jF2nCHcr65TrOvrx6AVMucer8Vvy8GWUyRvj8mWLNONeDmoxhPBReboo2XO+H1jM8AFBEiaxRylESuI5Dt2Fnp3gG2YEOb6SoazS4nL2cFOm/mW/Hs1e4hVq5QN1WfljpIqtpOAa2vMSXEJIWqEb2FZpsH/7zAIFahRtW7WQH9sjQ05fS3NFWLurL+pxygdla7P7ZtcYqxFyGy/MffPArPIsLwN6CsqemPmducdsiPnLA48DGT0tFqRwfMuqWsjCKBWmKAqw3TyEbB9Uup4gAUTFzvAHf9jpmtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j4MRD6gNFNJh61LVyeuvy3dTlHcFfDyJli0rfl97l1M=;
- b=Ong3YpJHv7+s9NkNPoB0683G+9zzN4PoZOTHyepiAlXOtYdc0TjYRjBvAlhq5BUwjyZHpu0U8ciAFYB+eJSkB+BSTSXb0o5/r/Yi32t0BZ8YB+c0HnkoOOyRZwCw720/pdZLMECynPl2NkJ8gLHUJwCPdAodlpUW5yCxeuPwwZavNvwB2NapuLQ/24+cNRx4IVc/I6oqPdX24wGvxWaY9N6UOXR05ereiEJMQzmhzUpLWZtokhilAtj1vh6+SSR7iIVVbXYvCsoH21CBQKEDcvU8b6G5f9Y34zhHMTx95A+SmMuKUpagf5UCWjP+8gYdttGg5q8UdpEsGGwjkoNuWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: ccacc27c-57aa-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j4MRD6gNFNJh61LVyeuvy3dTlHcFfDyJli0rfl97l1M=;
- b=W47cZ8AP5gbLzKddIH8G+vkJd1qI5vV8dLRD2YoPCq0GG17TqWaWMdTJzCFuTL0srNReBZ8wI91TQUBPKVYAu/+vGByoIqrmKIOn/z2BMbYVtj8QGZLCb1MTEzdCCvF/RkvSVuZ4yeoPVmHWqoaXPSuGlemDmT7qkcJuDDfPEyo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 20 Sep 2023 13:35:06 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v9 08/16] vpci/header: handle p2m range sets per BAR
-Message-ID: <ZQrY6q4WXkAq1cAm@MacBookPdeRoger>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-9-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230829231912.4091958-9-volodymyr_babchuk@epam.com>
-X-ClientProxiedBy: LO4P123CA0293.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:196::10) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+        d=gmail.com; s=20230601; t=1695210158; x=1695814958; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QqdVtuvv/bute/5FjIyf0NTlHLXavZRB/wxJnfabUaA=;
+        b=DmQlzTEKXnqUynfxjWtIqJTdE3wi0ORW42wvEGkQw9FlYnHrFtY7RE8VzbQME8Yf9S
+         uxsr1f8ZqLMi245y46IYWoFpm6rLEK8vtZkcSNtMu2p7G/nXymS2RKLZ0pd98nqdJwfc
+         LkU4doH/j5odPEZ2zWdl9AwMLF6zr7OJqdvYKkFJk/XoJYdwld4WDnPSq/tfUGeRGoFO
+         A2DpfncIMogAhCZaRe0/XeSX7rELCTRfKLrzMA3m70AaqMP/Sjox7AT7ERaBikuGjvPM
+         zy2Ky8105v8mQZoRr6OOTR7dmXTWKdnqOXei+TDVup9/dd/302izZmjQ0KqbeXfdM1hb
+         rrqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695210158; x=1695814958;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QqdVtuvv/bute/5FjIyf0NTlHLXavZRB/wxJnfabUaA=;
+        b=TrehQSQlaAgkrzurhhhOBkctii2Arlnjv0gpxuk3ukR4NSitp77nVc11JKAoasey4R
+         e+b8SUvj2ND9qeUiHJzrT3Mhl/os63+TYsTWqKCl3vwKB6iaDDTKPUtljJ9fGQTPX/6e
+         10paQ3M1ieWzZU2rStKM0budW4M45JXEkjegTNjdwgfsCf4hyiVqo0fUvK5UiUigrRoP
+         UkRFvUjeBx689L0BLvJ6YeHaBCd0a3nfoGlNZvY/q8g4MmTJ6k901xMhxOFNl/sJUzhk
+         JU7tczoUIlzu4cXSkECiXMdwZw6ScLFpTOkxdDvLCnBDAkms2zohWof9hkcxmQxcHk4a
+         Bmjg==
+X-Gm-Message-State: AOJu0Yy4UsJdgKhblL/M2SeKhUpklfLKOvW71QbRhJv+3jKTrTqHLxTJ
+	/morfB9keLIFKPC4ZBWQuoU=
+X-Google-Smtp-Source: AGHT+IFU4kVBzIIMmYjkGMEHZZ1wtdu16GpwbD287TEMcTUn1TqlNt/npV6L90GNttyhyolk5AZTyA==
+X-Received: by 2002:a05:6a20:394e:b0:138:2fb8:6b42 with SMTP id r14-20020a056a20394e00b001382fb86b42mr2465679pzg.14.1695210157627;
+        Wed, 20 Sep 2023 04:42:37 -0700 (PDT)
+Message-ID: <2620fca0-a5b4-49d0-bf91-fd359ee4999b@gmail.com>
+Date: Wed, 20 Sep 2023 20:42:30 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BL1PR03MB6168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 205e13c8-f74d-4d89-542d-08dbb9cda6f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	b1fQ7uHLekBmQX5faYugPPSFVucFOYQdOo0RjEniuUmVS4nd+E/galtvwFo4eLAw7a74brpxLjnvD4di4kMKzGTzrHTpzrVJNzGDBv31KzHotjMreVzOnF3QVh2OVnSocp1wedFGMwt6MLL+0/Wl3kW53kwjfjnREFSwRvJLBcrM0QJ8eBpHbZjifd2ngTPGUZoq/SONm8lNqp1xuU49xdkxeWAtVeAEQ6h2i7a7PbuG7hIylvDw6bxMnL2qiddoNa8UWZEDM1hLVYUuzF8pfUe1VDsEWNDOHNcOTgfApsBFDCeqRMXOjMApftnf1PRGs0DaAWtCqZ3cOCeA4zCEzPDKgx2CCdqgE4VsdnIagVblaDHgIQksFKKLoMOp3+wq6wCmMih4+BYDPt/X4ojKuLgNinKRa7+OwnFa7RX4EA/zVPqwfO6FQR/9F0rckVwmUpi2dFIy7BNvcQJH11kT7+lQk2AhHyoS4nCB8b2Rf6UtXJ5OaepHJ2M74uZMWbrgVGyOpJo7ColzKR2qQ5xQtiNu+AjBjbnqbPQMX3cPlTayU4a99O+uRdxcCKkNk/Ns
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(346002)(366004)(39860400002)(136003)(376002)(396003)(186009)(451199024)(1800799009)(41300700001)(8676002)(4326008)(8936002)(6916009)(82960400001)(38100700002)(316002)(66476007)(54906003)(66556008)(66946007)(9686003)(6512007)(83380400001)(478600001)(5660300002)(26005)(6486002)(6506007)(6666004)(30864003)(2906002)(33716001)(66899024)(86362001)(85182001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmNVZlFmUTNpaWE0eGNURUMwRklHdnpCWFB3R1lvRmVzelpkb0dSOFZLUnRZ?=
- =?utf-8?B?aHhqSzEwV1Zudk5SclZ5SGJzU1ZvWVJrK2lhOXQwUitMQ2xxN3c0YThBbVFZ?=
- =?utf-8?B?QUtYUWFnVVQxSklqUXl5cjRLN1pQSjJBcnpwelk2MXVtYVlWWG9NUzhiYXhU?=
- =?utf-8?B?Rzd5dUUwb01maW9ISDRVZ2I4ZElqbXVLcEh2UlVzU0lQUkc5UzVST3Fkemcw?=
- =?utf-8?B?RkJnaUU5VnY5ZFl0dVhlQlJjQ1NMbjdvUmprZG5WaW9acVR5ZTRQVm1MZmVs?=
- =?utf-8?B?YU1BL21oL1g2R3RYTUZpeWg1Y2NwVGhwcDN6U2dsL0xoaTJjbXNvU0hVd3BX?=
- =?utf-8?B?RlI2UHpCT2NXOVFjejJCVytMVXJJRnBmWW5hRHF5M0RCRVZ0KzlobzcyZ0o4?=
- =?utf-8?B?YW1jNS9YS05SWmRBTU5NOExhcksxUkQ5cUk0YVlvVU0wMXRkVDJRbnBvYURq?=
- =?utf-8?B?UlM5aXUyZkZiY3lNMmlJejk4Y0tselBsZkFoTGRkdlpDQVJaSUNjQSs4cHVi?=
- =?utf-8?B?MXBvTnplS3p4S0NPZ21UY1V5TXpKT25ldlFJUVcwSVRhdWJndFgvV1kzWEhM?=
- =?utf-8?B?SWRaUitvWWw1bVMvbjJSV1pyeEJacTlUcW0zOU5wUVZNMDZadFhWN2ZqWGFV?=
- =?utf-8?B?V0JDYnhnNWN5TEhzL2hIeTE3VWtUZ0ZrVnlpYitKY1Rjb25sdDRIcFZJOTRu?=
- =?utf-8?B?MXVVaElQRklpcFd2cDQ5WHdaeUVNOG9xVFJHK3pzeGJMcXgzcmJEK05FZk02?=
- =?utf-8?B?VEg5VWk3a0lnR0tWeGFUdDZTNFIzUkM5OGZUcDdRTEFlSURETjFrbnp5ZWEr?=
- =?utf-8?B?NkxoS2tCMWRFeVBkVzd1M3VZMjBlTUVSdFBtL0phRGhZQ1p6UDA2RkpKNG5Z?=
- =?utf-8?B?TGJLSkNzQVBDcmF4Z2FQdDcxSHhnRGRsZ1hCaFhwK21LcjhZU203T2NzS2xB?=
- =?utf-8?B?QVJ5ZE5sVnlQUDNCcVU0ZG5hbng3dThWZjNnazlYT29yR05IQVdRUTNLdGJV?=
- =?utf-8?B?R1J2c0hYMjkzZGVVQUkvQ2ZSQTJDUGpsWmdsSFN1ZWRKVVVpV2R4TjRFYU1n?=
- =?utf-8?B?TUdvSnF6Y0p0MERHdmN6bWpwZE1lNlRpTWNHRlFYa2drbUtPV29JdzNlaTBj?=
- =?utf-8?B?VWIxZ0FvQXN3SjJjR2J2Um1PdzI2c0Z6ZjFBYVNvSE9OR3QxRDM0Rm8yaVhE?=
- =?utf-8?B?cXdBQkNTbkhieERYc0NSOWRQaUtXTFZLWGlpSmZ1dW8xbmNPUXlzWksva0RL?=
- =?utf-8?B?cGhpeHM4L0R6V3RkRThySmx0eGFVNlhSUEE0U01wTlBlaExOMURXNEd5TE5p?=
- =?utf-8?B?bC9HQkxaR2tKTDRGbndldllRTGFKWWN5bmdPMzVCWDAyNWFFbDVnUms3QUM5?=
- =?utf-8?B?SHlZdlBjN2YwUTFjVkVvL0xaK3o0SndNQXlTNlMxTFpEUDlWcGF5czlCb0hK?=
- =?utf-8?B?WjFyYWlSK1hhR0RKS3dGZG1wU0NpMGNxdDBLRUxhd0Y2elg3RWxsTTBRU1hi?=
- =?utf-8?B?bFdiV05sRlpKUTJRSkx6WlNzL3NValh4aExoYk52eUtNdUZ0SVFvcHhBQjAw?=
- =?utf-8?B?aXFsTm15UVlxdFB6VXpOS2xOaGxvOWh3a0FWYkJoNXBwZ3ZqZmUvTjB4Wlpy?=
- =?utf-8?B?NkhvSWNtemFlS2V1KzFnYzlCOTRUWjE2VExka2tONlNmUkFiNm9PZ0VmNi92?=
- =?utf-8?B?ZmdlaC9KYnJBdnJ6L0FWL3h5ekJlbjVadDJJZmhwdjhxdTRJVDFnSFlYNEZn?=
- =?utf-8?B?bmZtckZCeWRYakdiNE9TQThQUmVxaTkvN3UyUERTYTdlSmxFL2E4S2xXNDI4?=
- =?utf-8?B?Uy9mcVg4WXBLSmpwbEJ2RVhpTytkKzhadHVnZDV4eUxYZFI0L1NVV3JuckZQ?=
- =?utf-8?B?bWZvaDhQODZaekh5SXI3MUhkRTB0NnpvNjlhU3V5bmdYOUVXU2dIRitjbzN1?=
- =?utf-8?B?ZmhidEZqT2JIdVJxblR0dER1MzdadHdmUDNrK1hreCs2WFArYXVsSElwYlAx?=
- =?utf-8?B?SlkyOGw0eEVvdkdyNXpkd2hTbjZlSUwwcHplZW0yV0g2aUsyT1VwVDBLMXg5?=
- =?utf-8?B?R3ZYTmdmTlZBQnpFRkZmamh5Q09scFB6dHlYa0Q1T2RFckhPUkN0NHI3aHR3?=
- =?utf-8?B?bVZRZ09nK0w1K3VVSnNrUUtnRkhUVVZJSzVleXUzNDRnY3ptYVB6czErMzRt?=
- =?utf-8?B?ZEE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	mQeZldiapKZQQ0bx1Qw3m4t9dot6ZK94oZQKbQpMrfMTptcPMfEJUCa0IKipF1lld9uPedqSwIuaNMtUKI4r3N8kOncBYF/nf3s+ZkWA64l+JVSr42WSpArBJuS/HpokHGBEqjdUWqBPVBIthzM3VroPEpowtpEyaHSGZnEKNqqqljxKZE333Cy9g9aqpTt2PT5buhwHrj4poT4BWshpcTnRLJno2NSnQOW07UVWJSgo9wlSMqczSMI/mms87vPFWVJGiMJSJOBEtaukZVlqWzW1KRyxaztolWEQLATe3Sh6WWqN9lBBzqfgoGkJTbelU8uM+9EUYzpJQKuNrD6z1GKQYzX0cVufU79Woi5GB89SSaAIeAwKIjftO7rlJjhq6PhtYbyyKC9wL7752lsSv4JTsyaR8eNMrbEAmo35MwRdo8VYHud2a941OFp5LMCzFd6iC3OzFne7Yev+st1VoKGPU4cooPch1Tv14SRkiGx1WoUNMYpQ3VJBMeoHValplhel8n+AUxp72hgia6X9f0ZJD+4475tGWzjvGfV7m1Bie+JVso/QAn4/zDI//RAl/1xlAfYDmOd7SE7KBYA+0lVDZB8Gi5pL0dWFmvM5vuftGYV/qO4qt++STkSxEOO5DCEokjpfHSrHeoMmzwL5/wdY92OV2BbabqCJCA0g3iOZty0hv6w0euC06wQ8To/5qp1Y2Qbqvhcr2SmzPCTMR4U5AVZzvjKSy3UVDfqwJT9129kJnoAFnm418pJ2p4h1vgkrhjg4l2IAAs+1hzwShKB3fs1nSpWLnLkQbRBW/MekcLw8rD1jQ0fOZI0NYicE4xNp337PxaIjDDH5Y2NSNQ==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 205e13c8-f74d-4d89-542d-08dbb9cda6f9
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 11:35:12.5812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hEL3Wff4salxDx1DUNQC7RMNize9cXUL83kdYZyDspEtOPDZ6uZvmzmtzwIaiI0ufEM1kLwjYuJZ+INmhRyQgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6168
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 6/9] gfxstream + rutabaga: add initial support for
+ gfxstream
+Content-Language: en-US
+To: Gurchetan Singh <gurchetansingh@chromium.org>, qemu-devel@nongnu.org,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Cc: marcandre.lureau@redhat.com, ray.huang@amd.com, alex.bennee@linaro.org,
+ shentey@gmail.com, hi@alyssa.is, ernunes@redhat.com,
+ manos.pitsidianakis@linaro.org, philmd@linaro.org,
+ mark.cave-ayland@ilande.co.uk, Huang Rui <ray.huang@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ qemu-devel@nongnu.org, xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230829003629.410-1-gurchetansingh@chromium.org>
+ <20230829003629.410-7-gurchetansingh@chromium.org>
+From: Akihiko Odaki <akihiko.odaki@gmail.com>
+In-Reply-To: <20230829003629.410-7-gurchetansingh@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 29, 2023 at 11:19:44PM +0000, Volodymyr Babchuk wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On 2023/08/29 9:36, Gurchetan Singh wrote:
+> This adds initial support for gfxstream and cross-domain.  Both
+> features rely on virtio-gpu blob resources and context types, which
+> are also implemented in this patch.
 > 
-> Instead of handling a single range set, that contains all the memory
-> regions of all the BARs and ROM, have them per BAR.
-> As the range sets are now created when a PCI device is added and destroyed
-> when it is removed so make them named and accounted.
+> gfxstream has a long and illustrious history in Android graphics
+> paravirtualization.  It has been powering graphics in the Android
+> Studio Emulator for more than a decade, which is the main developer
+> platform.
 > 
-> Note that rangesets were chosen here despite there being only up to
-> 3 separate ranges in each set (typically just 1). But rangeset per BAR
-> was chosen for the ease of implementation and existing code re-usability.
+> Originally conceived by Jesse Hall, it was first known as "EmuGL" [a].
+> The key design characteristic was a 1:1 threading model and
+> auto-generation, which fit nicely with the OpenGLES spec.  It also
+> allowed easy layering with ANGLE on the host, which provides the GLES
+> implementations on Windows or MacOS enviroments.
 > 
-> This is in preparation of making non-identity mappings in p2m for the MMIOs.
+> gfxstream has traditionally been maintained by a single engineer, and
+> between 2015 to 2021, the goldfish throne passed to Frank Yang.
+> Historians often remark this glorious reign ("pax gfxstreama" is the
+> academic term) was comparable to that of Augustus and both Queen
+> Elizabeths.  Just to name a few accomplishments in a resplendent
+> panoply: higher versions of GLES, address space graphics, snapshot
+> support and CTS compliant Vulkan [b].
 > 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> One major drawback was the use of out-of-tree goldfish drivers.
+> Android engineers didn't know much about DRM/KMS and especially TTM so
+> a simple guest to host pipe was conceived.
 > 
+> Luckily, virtio-gpu 3D started to emerge in 2016 due to the work of
+> the Mesa/virglrenderer communities.  In 2018, the initial virtio-gpu
+> port of gfxstream was done by Cuttlefish enthusiast Alistair Delva.
+> It was a symbol compatible replacement of virglrenderer [c] and named
+> "AVDVirglrenderer".  This implementation forms the basis of the
+> current gfxstream host implementation still in use today.
+> 
+> cross-domain support follows a similar arc.  Originally conceived by
+> Wayland aficionado David Reveman and crosvm enjoyer Zach Reizner in
+> 2018, it initially relied on the downstream "virtio-wl" device.
+> 
+> In 2020 and 2021, virtio-gpu was extended to include blob resources
+> and multiple timelines by yours truly, features gfxstream/cross-domain
+> both require to function correctly.
+> 
+> Right now, we stand at the precipice of a truly fantastic possibility:
+> the Android Emulator powered by upstream QEMU and upstream Linux
+> kernel.  gfxstream will then be packaged properfully, and app
+> developers can even fix gfxstream bugs on their own if they encounter
+> them.
+> 
+> It's been quite the ride, my friends.  Where will gfxstream head next,
+> nobody really knows.  I wouldn't be surprised if it's around for
+> another decade, maintained by a new generation of Android graphics
+> enthusiasts.
+> 
+> Technical details:
+>    - Very simple initial display integration: just used Pixman
+>    - Largely, 1:1 mapping of virtio-gpu hypercalls to rutabaga function
+>      calls
+> 
+> Next steps for Android VMs:
+>    - The next step would be improving display integration and UI interfaces
+>      with the goal of the QEMU upstream graphics being in an emulator
+>      release [d].
+> 
+> Next steps for Linux VMs for display virtualization:
+>    - For widespread distribution, someone needs to package Sommelier or the
+>      wayland-proxy-virtwl [e] ideally into Debian main. In addition, newer
+>      versions of the Linux kernel come with DRM_VIRTIO_GPU_KMS option,
+>      which allows disabling KMS hypercalls.  If anyone cares enough, it'll
+>      probably be possible to build a custom VM variant that uses this display
+>      virtualization strategy.
+> 
+> [a] https://android-review.googlesource.com/c/platform/development/+/34470
+> [b] https://android-review.googlesource.com/q/topic:%22vulkan-hostconnection-start%22
+> [c] https://android-review.googlesource.com/c/device/generic/goldfish-opengl/+/761927
+> [d] https://developer.android.com/studio/releases/emulator
+> [e] https://github.com/talex5/wayland-proxy-virtwl
+> 
+> Signed-off-by: Gurchetan Singh <gurchetansingh@chromium.org>
+> Tested-by: Alyssa Ross <hi@alyssa.is>
+> Tested-by: Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>
+> Tested-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+> Reviewed-by: Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>
+> Reviewed-by: Antonio Caggiano <quic_acaggian@quicinc.com>
+> Reviewed-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 > ---
-> Since v9:
-> - removed d->vpci.map_pending in favor of checking v->vpci.pdev !=
-> NULL
-> - printk -> gprintk
-> - renamed bar variable to fix shadowing
-> - fixed bug with iterating on remote device's BARs
-> - relaxed lock in vpci_process_pending
-> - removed stale comment
-> Since v6:
-> - update according to the new locking scheme
-> - remove odd fail label in modify_bars
-> Since v5:
-> - fix comments
-> - move rangeset allocation to init_bars and only allocate
->   for MAPPABLE BARs
-> - check for overlap with the already setup BAR ranges
-> Since v4:
-> - use named range sets for BARs (Jan)
-> - changes required by the new locking scheme
-> - updated commit message (Jan)
-> Since v3:
-> - re-work vpci_cancel_pending accordingly to the per-BAR handling
-> - s/num_mem_ranges/map_pending and s/uint8_t/bool
-> - ASSERT(bar->mem) in modify_bars
-> - create and destroy the rangesets on add/remove
-> ---
->  xen/drivers/vpci/header.c | 252 ++++++++++++++++++++++++++------------
->  xen/drivers/vpci/vpci.c   |   6 +
->  xen/include/xen/vpci.h    |   2 +-
->  3 files changed, 180 insertions(+), 80 deletions(-)
+>   hw/display/virtio-gpu-pci-rutabaga.c |   47 ++
+>   hw/display/virtio-gpu-rutabaga.c     | 1119 ++++++++++++++++++++++++++
+>   hw/display/virtio-vga-rutabaga.c     |   50 ++
+>   3 files changed, 1216 insertions(+)
+>   create mode 100644 hw/display/virtio-gpu-pci-rutabaga.c
+>   create mode 100644 hw/display/virtio-gpu-rutabaga.c
+>   create mode 100644 hw/display/virtio-vga-rutabaga.c
 > 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index e96d7b2b37..3cc6a96849 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -161,63 +161,101 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
->  
->  bool vpci_process_pending(struct vcpu *v)
->  {
-> -    if ( v->vpci.mem )
-> +    struct pci_dev *pdev = v->vpci.pdev;
-> +    struct map_data data = {
-> +        .d = v->domain,
-> +        .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> +    };
-> +    struct vpci_header *header = NULL;
-> +    unsigned int i;
+> diff --git a/hw/display/virtio-gpu-pci-rutabaga.c b/hw/display/virtio-gpu-pci-rutabaga.c
+> new file mode 100644
+> index 0000000000..c96729e198
+> --- /dev/null
+> +++ b/hw/display/virtio-gpu-pci-rutabaga.c
+> @@ -0,0 +1,47 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
 > +
-> +    if ( !pdev )
-> +        return false;
+> +#include "qemu/osdep.h"
+> +#include "qapi/error.h"
+> +#include "qemu/module.h"
+> +#include "hw/pci/pci.h"
+> +#include "hw/qdev-properties.h"
+> +#include "hw/virtio/virtio.h"
+> +#include "hw/virtio/virtio-bus.h"
+> +#include "hw/virtio/virtio-gpu-pci.h"
+> +#include "qom/object.h"
 > +
-> +    read_lock(&v->domain->pci_lock);
-> +    header = &pdev->vpci->header;
-
-You should likely check that pdev->vpci != NULL before accessing it,
-and that the device is still assigned to the domain, v->domain ==
-pdev->domain.
-
-> +    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
-> -        struct map_data data = {
-> -            .d = v->domain,
-> -            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> -        };
-> -        int rc = rangeset_consume_ranges(v->vpci.mem, map_range, &data);
-> +        struct vpci_bar *bar = &header->bars[i];
-> +        int rc;
+> +#define TYPE_VIRTIO_GPU_RUTABAGA_PCI "virtio-gpu-rutabaga-pci"
+> +OBJECT_DECLARE_SIMPLE_TYPE(VirtIOGPURutabagaPCI, VIRTIO_GPU_RUTABAGA_PCI)
 > +
-> +        if ( rangeset_is_empty(bar->mem) )
-> +            continue;
+> +struct VirtIOGPURutabagaPCI {
+> +    VirtIOGPUPCIBase parent_obj;
 > +
-> +        rc = rangeset_consume_ranges(bar->mem, map_range, &data);
->  
->          if ( rc == -ERESTART )
-> +        {
-> +            read_unlock(&v->domain->pci_lock);
->              return true;
-> +        }
->  
-> -        write_lock(&v->domain->pci_lock);
-> -        spin_lock(&v->vpci.pdev->vpci->lock);
-> -        /* Disable memory decoding unconditionally on failure. */
-> -        modify_decoding(v->vpci.pdev,
-> -                        rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
-> -                        !rc && v->vpci.rom_only);
-> -        spin_unlock(&v->vpci.pdev->vpci->lock);
-> -
-> -        rangeset_destroy(v->vpci.mem);
-> -        v->vpci.mem = NULL;
->          if ( rc )
-> -            /*
-> -             * FIXME: in case of failure remove the device from the domain.
-> -             * Note that there might still be leftover mappings. While this is
-> -             * safe for Dom0, for DomUs the domain will likely need to be
-> -             * killed in order to avoid leaking stale p2m mappings on
-> -             * failure.
-> -             */
-> -            vpci_deassign_device(v->vpci.pdev);
-> -        write_unlock(&v->domain->pci_lock);
-> +        {
-> +            spin_lock(&pdev->vpci->lock);
-> +            /* Disable memory decoding unconditionally on failure. */
-> +            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
-> +                            false);
-> +            spin_unlock(&pdev->vpci->lock);
+> +    VirtIOGPURutabaga vdev;
+> +};
 > +
-> +            v->vpci.pdev = NULL;
-> +
-> +            read_unlock(&v->domain->pci_lock);
-> +
-> +            if ( is_hardware_domain(v->domain) )
-> +            {
-> +                write_lock(&v->domain->pci_lock);
-
-This unlock/lock dance is racy, and I'm not sure there's much point in
-removing the vPCI handlers for the device, it's not likely to be
-helpful to dom0.  It might be better to just unconditionally disable
-memory decoding and empty all the rangesets.  Not sure whether there's
-more cached state that would need dealing with in pdev->vpci.
-
-Maybe as a bodge you could leave the current vpci_deassign_device()
-call and check that pdev->domain == v->domain after having taken the
-pci_lock.
-
-> +                vpci_deassign_device(v->vpci.pdev);
-> +                write_unlock(&v->domain->pci_lock);
-> +            }
-> +            else
-> +            {
-> +                domain_crash(v->domain);
-> +            }
-> +            return false;
-> +        }
->      }
-> +    read_unlock(&v->domain->pci_lock);
-> +
-> +    v->vpci.pdev = NULL;
-> +
-> +    spin_lock(&pdev->vpci->lock);
-> +    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
-> +    spin_unlock(&pdev->vpci->lock);
-
-Why do you drop the pci_lock before calling modify_decoding()?  It
-needs to stay locked until operations on pdev have finished, iow:
-after modify_decoding(), or else accessing the contents of pdev->vpci
-is not safe, and the device could be deassigned in the meantime.
-
->  
->      return false;
->  }
->  
->  static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
-> -                            struct rangeset *mem, uint16_t cmd)
-> +                            uint16_t cmd)
->  {
->      struct map_data data = { .d = d, .map = true };
-> -    int rc;
-> +    struct vpci_header *header = &pdev->vpci->header;
-> +    int rc = 0;
-> +    unsigned int i;
->  
->      ASSERT(rw_is_locked(&d->pci_lock));
->  
-> -    while ( (rc = rangeset_consume_ranges(mem, map_range, &data)) == -ERESTART )
-> +    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
-> -        /*
-> -         * It's safe to drop and reacquire the lock in this context
-> -         * without risking pdev disappearing because devices cannot be
-> -         * removed until the initial domain has been started.
-> -         */
-> -        read_unlock(&d->pci_lock);
-> -        process_pending_softirqs();
-> -        read_lock(&d->pci_lock);
-> -    }
-> +        struct vpci_bar *bar = &header->bars[i];
->  
-> -    rangeset_destroy(mem);
-> +        if ( rangeset_is_empty(bar->mem) )
-> +            continue;
-> +
-> +        while ( (rc = rangeset_consume_ranges(bar->mem, map_range,
-> +                                              &data)) == -ERESTART )
-> +        {
-> +            /*
-> +             * It's safe to drop and reacquire the lock in this context
-> +             * without risking pdev disappearing because devices cannot be
-> +             * removed until the initial domain has been started.
-> +             */
-> +            write_unlock(&d->pci_lock);
-> +            process_pending_softirqs();
-> +            write_lock(&d->pci_lock);
-> +        }
-> +    }
->      if ( !rc )
->          modify_decoding(pdev, cmd, false);
->  
-> @@ -225,10 +263,12 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
->  }
->  
->  static void defer_map(struct domain *d, struct pci_dev *pdev,
-> -                      struct rangeset *mem, uint16_t cmd, bool rom_only)
-> +                      uint16_t cmd, bool rom_only)
->  {
->      struct vcpu *curr = current;
->  
-> +    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-> +
->      /*
->       * FIXME: when deferring the {un}map the state of the device should not
->       * be trusted. For example the enable bit is toggled after the device
-> @@ -236,7 +276,6 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
->       * started for the same device if the domain is not well-behaved.
->       */
->      curr->vpci.pdev = pdev;
-> -    curr->vpci.mem = mem;
->      curr->vpci.cmd = cmd;
->      curr->vpci.rom_only = rom_only;
->      /*
-> @@ -250,33 +289,33 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
->  static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->  {
->      struct vpci_header *header = &pdev->vpci->header;
-> -    struct rangeset *mem = rangeset_new(NULL, NULL, 0);
->      struct pci_dev *tmp, *dev = NULL;
->      const struct domain *d;
->      const struct vpci_msix *msix = pdev->vpci->msix;
-> -    unsigned int i;
-> +    unsigned int i, j;
->      int rc;
->  
->      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
->  
-> -    if ( !mem )
-> -        return -ENOMEM;
-> -
->      /*
-> -     * Create a rangeset that represents the current device BARs memory region
-> -     * and compare it against all the currently active BAR memory regions. If
-> -     * an overlap is found, subtract it from the region to be mapped/unmapped.
-> +     * Create a rangeset per BAR that represents the current device memory
-> +     * region and compare it against all the currently active BAR memory
-> +     * regions. If an overlap is found, subtract it from the region to be
-> +     * mapped/unmapped.
->       *
-> -     * First fill the rangeset with all the BARs of this device or with the ROM
-> +     * First fill the rangesets with the BAR of this device or with the ROM
->       * BAR only, depending on whether the guest is toggling the memory decode
->       * bit of the command register, or the enable bit of the ROM BAR register.
->       */
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
-> -        const struct vpci_bar *bar = &header->bars[i];
-> +        struct vpci_bar *bar = &header->bars[i];
->          unsigned long start = PFN_DOWN(bar->addr);
->          unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
->  
-> +        if ( !bar->mem )
-> +            continue;
-> +
->          if ( !MAPPABLE_BAR(bar) ||
->               (rom_only ? bar->type != VPCI_BAR_ROM
->                         : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) ||
-> @@ -292,14 +331,31 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              continue;
->          }
->  
-> -        rc = rangeset_add_range(mem, start, end);
-> +        rc = rangeset_add_range(bar->mem, start, end);
->          if ( rc )
->          {
->              printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
->                     start, end, rc);
-> -            rangeset_destroy(mem);
->              return rc;
->          }
-> +
-> +        /* Check for overlap with the already setup BAR ranges. */
-> +        for ( j = 0; j < i; j++ )
-> +        {
-> +            struct vpci_bar *prev_bar = &header->bars[j];
-> +
-> +            if ( rangeset_is_empty(prev_bar->mem) )
-> +                continue;
-> +
-> +            rc = rangeset_remove_range(prev_bar->mem, start, end);
-> +            if ( rc )
-> +            {
-> +                gprintk(XENLOG_WARNING,
-> +                       "%pp: failed to remove overlapping range [%lx, %lx]: %d\n",
-> +                        &pdev->sbdf, start, end, rc);
-> +                return rc;
-> +            }
-> +        }
->      }
->  
->      /* Remove any MSIX regions if present. */
-> @@ -309,14 +365,21 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->          unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
->                                       vmsix_table_size(pdev->vpci, i) - 1);
->  
-> -        rc = rangeset_remove_range(mem, start, end);
-> -        if ( rc )
-> +        for ( j = 0; j < ARRAY_SIZE(header->bars); j++ )
->          {
-> -            printk(XENLOG_G_WARNING
-> -                   "Failed to remove MSIX table [%lx, %lx]: %d\n",
-> -                   start, end, rc);
-> -            rangeset_destroy(mem);
-> -            return rc;
-> +            const struct vpci_bar *bar = &header->bars[j];
-> +
-> +            if ( rangeset_is_empty(bar->mem) )
-> +                continue;
-> +
-> +            rc = rangeset_remove_range(bar->mem, start, end);
-> +            if ( rc )
-> +            {
-> +                gprintk(XENLOG_WARNING,
-> +                       "%pp: failed to remove MSIX table [%lx, %lx]: %d\n",
-> +                        &pdev->sbdf, start, end, rc);
-> +                return rc;
-> +            }
->          }
->      }
->  
-> @@ -356,27 +419,34 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->  
->              for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
->              {
-> -                const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
-> -                unsigned long start = PFN_DOWN(bar->addr);
-> -                unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
-> -
-> -                if ( !bar->enabled ||
-> -                     !rangeset_overlaps_range(mem, start, end) ||
-> -                     /*
-> -                      * If only the ROM enable bit is toggled check against
-> -                      * other BARs in the same device for overlaps, but not
-> -                      * against the same ROM BAR.
-> -                      */
-> -                     (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
-> +                const struct vpci_bar *remote_bar = &tmp->vpci->header.bars[i];
-> +                unsigned long start = PFN_DOWN(remote_bar->addr);
-> +                unsigned long end = PFN_DOWN(remote_bar->addr +
-> +                                             remote_bar->size - 1);
-> +
-> +                if ( !remote_bar->enabled )
->                      continue;
->  
-> -                rc = rangeset_remove_range(mem, start, end);
-> -                if ( rc )
-> +                for ( j = 0; j < ARRAY_SIZE(header->bars); j++)
->                  {
-> -                    printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-> -                           start, end, rc);
-> -                    rangeset_destroy(mem);
-> -                    return rc;
-> +                    const struct vpci_bar *bar = &header->bars[j];
-> +                    if ( !rangeset_overlaps_range(bar->mem, start, end) ||
-
-Missing newline between local variable definition and code.
-
-> +                         /*
-> +                          * If only the ROM enable bit is toggled check against
-> +                          * other BARs in the same device for overlaps, but not
-> +                          * against the same ROM BAR.
-> +                          */
-> +                         (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
-> +                        continue;
-> +
-> +                    rc = rangeset_remove_range(bar->mem, start, end);
-> +                    if ( rc )
-> +                    {
-> +                        gprintk(XENLOG_WARNING,
-> +                                "%pp: failed to remove [%lx, %lx]: %d\n",
-> +                                &pdev->sbdf, start, end, rc);
-> +                        return rc;
-> +                    }
->                  }
->              }
->          }
-> @@ -400,10 +470,10 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->           * will always be to establish mappings and process all the BARs.
->           */
->          ASSERT((cmd & PCI_COMMAND_MEMORY) && !rom_only);
-> -        return apply_map(pdev->domain, pdev, mem, cmd);
-> +        return apply_map(pdev->domain, pdev, cmd);
->      }
->  
-> -    defer_map(dev->domain, dev, mem, cmd, rom_only);
-> +    defer_map(dev->domain, dev, cmd, rom_only);
->  
->      return 0;
->  }
-> @@ -595,6 +665,20 @@ static void cf_check rom_write(
->          rom->addr = val & PCI_ROM_ADDRESS_MASK;
->  }
->  
-> +static int bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *bar,
-> +                            unsigned int i)
+> +static void virtio_gpu_rutabaga_initfn(Object *obj)
 > +{
-> +    char str[32];
+> +    VirtIOGPURutabagaPCI *dev = VIRTIO_GPU_RUTABAGA_PCI(obj);
 > +
-> +    snprintf(str, sizeof(str), "%pp:BAR%d", &pdev->sbdf, i);
-
-%u for i.
-
-> +
-> +    bar->mem = rangeset_new(pdev->domain, str, RANGESETF_no_print);
-> +    if ( !bar->mem )
-> +        return -ENOMEM;
-> +
-> +    return 0;
-
-Could be simplified as:
-
-return !bar->mem ? -ENOMEM : 0;
-
-But I don't have a strong opinion, I understand some people might find
-this obscure.
-
+> +    virtio_instance_init_common(obj, &dev->vdev, sizeof(dev->vdev),
+> +                                TYPE_VIRTIO_GPU_RUTABAGA);
+> +    VIRTIO_GPU_PCI_BASE(obj)->vgpu = VIRTIO_GPU_BASE(&dev->vdev);
 > +}
 > +
->  static int cf_check init_bars(struct pci_dev *pdev)
->  {
->      uint16_t cmd;
-> @@ -675,6 +759,10 @@ static int cf_check init_bars(struct pci_dev *pdev)
->          else
->              bars[i].type = VPCI_BAR_MEM32;
->  
-> +        rc = bar_add_rangeset(pdev, &bars[i], i);
-> +        if ( rc )
-> +            return rc;
+> +static const TypeInfo virtio_gpu_rutabaga_pci_info[] = {
+> +    {
+> +        .name = TYPE_VIRTIO_GPU_RUTABAGA_PCI,
+> +        .parent = TYPE_VIRTIO_GPU_PCI_BASE,
+> +        .instance_size = sizeof(VirtIOGPURutabagaPCI),
+> +        .instance_init = virtio_gpu_rutabaga_initfn,
+> +        .interfaces = (InterfaceInfo[]) {
+> +            { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+> +        }
+> +    },
+> +};
+> +
+> +DEFINE_TYPES(virtio_gpu_rutabaga_pci_info)
+> +
+> +module_obj(TYPE_VIRTIO_GPU_RUTABAGA_PCI);
+> +module_kconfig(VIRTIO_PCI);
+> +module_dep("hw-display-virtio-gpu-pci");
+> diff --git a/hw/display/virtio-gpu-rutabaga.c b/hw/display/virtio-gpu-rutabaga.c
+> new file mode 100644
+> index 0000000000..a105e06214
+> --- /dev/null
+> +++ b/hw/display/virtio-gpu-rutabaga.c
+> @@ -0,0 +1,1119 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +
+> +#include "qemu/osdep.h"
+> +#include "qapi/error.h"
+> +#include "qemu/error-report.h"
+> +#include "qemu/iov.h"
+> +#include "trace.h"
+> +#include "hw/virtio/virtio.h"
+> +#include "hw/virtio/virtio-gpu.h"
+> +#include "hw/virtio/virtio-gpu-pixman.h"
+> +#include "hw/virtio/virtio-iommu.h"
+> +
+> +#include <glib/gmem.h>
+> +#include <rutabaga_gfx/rutabaga_gfx_ffi.h>
+> +
+> +#define CHECK(condition, cmd)                                                 \
+> +    do {                                                                      \
+> +        if (!(condition)) {                                                   \
+> +            error_report("CHECK failed in %s() %s:" "%d", __func__,           \
+> +                         __FILE__, __LINE__);                                 \
+> +            (cmd)->error = VIRTIO_GPU_RESP_ERR_UNSPEC;                        \
+> +            return;                                                           \
+> +       }                                                                      \
+> +    } while (0)
+> +
+> +/*
+> + * This is the size of the char array in struct sock_addr_un. No Wayland socket
+> + * can be created with a path longer than this, including the null terminator.
+> + */
+> +#define UNIX_PATH_MAX sizeof((struct sockaddr_un) {} .sun_path)
+> +
+> +struct rutabaga_aio_data {
+> +    struct VirtIOGPURutabaga *vr;
+> +    struct rutabaga_fence fence;
+> +};
+> +
+> +static void
+> +virtio_gpu_rutabaga_update_cursor(VirtIOGPU *g, struct virtio_gpu_scanout *s,
+> +                                  uint32_t resource_id)
+> +{
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct rutabaga_transfer transfer = { 0 };
+> +    struct iovec transfer_iovec;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    res = virtio_gpu_find_resource(g, resource_id);
+> +    if (!res) {
+> +        return;
+> +    }
+> +
+> +    if (res->width != s->current_cursor->width ||
+> +        res->height != s->current_cursor->height) {
+> +        return;
+> +    }
+> +
+> +    transfer.x = 0;
+> +    transfer.y = 0;
+> +    transfer.z = 0;
+> +    transfer.w = res->width;
+> +    transfer.h = res->height;
+> +    transfer.d = 1;
+> +
+> +    transfer_iovec.iov_base = s->current_cursor->data;
+> +    transfer_iovec.iov_len = res->width * res->height * 4;
+> +
+> +    rutabaga_resource_transfer_read(vr->rutabaga, 0,
+> +                                    resource_id, &transfer,
+> +                                    &transfer_iovec);
+> +}
+> +
+> +static void
+> +virtio_gpu_rutabaga_gl_flushed(VirtIOGPUBase *b)
+> +{
+> +    VirtIOGPU *g = VIRTIO_GPU(b);
+> +    virtio_gpu_process_cmdq(g);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_create_resource_2d(VirtIOGPU *g,
+> +                                struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct rutabaga_create_3d rc_3d = { 0 };
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_create_2d c2d;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(c2d);
+> +    trace_virtio_gpu_cmd_res_create_2d(c2d.resource_id, c2d.format,
+> +                                       c2d.width, c2d.height);
+> +
+> +    rc_3d.target = 2;
+> +    rc_3d.format = c2d.format;
+> +    rc_3d.bind = (1 << 1);
+> +    rc_3d.width = c2d.width;
+> +    rc_3d.height = c2d.height;
+> +    rc_3d.depth = 1;
+> +    rc_3d.array_size = 1;
+> +    rc_3d.last_level = 0;
+> +    rc_3d.nr_samples = 0;
+> +    rc_3d.flags = VIRTIO_GPU_RESOURCE_FLAG_Y_0_TOP;
+> +
+> +    result = rutabaga_resource_create_3d(vr->rutabaga, c2d.resource_id, &rc_3d);
+> +    CHECK(!result, cmd);
+> +
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    res->width = c2d.width;
+> +    res->height = c2d.height;
+> +    res->format = c2d.format;
+> +    res->resource_id = c2d.resource_id;
+> +
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_create_resource_3d(VirtIOGPU *g,
+> +                                struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct rutabaga_create_3d rc_3d = { 0 };
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_create_3d c3d;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(c3d);
+> +
+> +    trace_virtio_gpu_cmd_res_create_3d(c3d.resource_id, c3d.format,
+> +                                       c3d.width, c3d.height, c3d.depth);
+> +
+> +    rc_3d.target = c3d.target;
+> +    rc_3d.format = c3d.format;
+> +    rc_3d.bind = c3d.bind;
+> +    rc_3d.width = c3d.width;
+> +    rc_3d.height = c3d.height;
+> +    rc_3d.depth = c3d.depth;
+> +    rc_3d.array_size = c3d.array_size;
+> +    rc_3d.last_level = c3d.last_level;
+> +    rc_3d.nr_samples = c3d.nr_samples;
+> +    rc_3d.flags = c3d.flags;
+> +
+> +    result = rutabaga_resource_create_3d(vr->rutabaga, c3d.resource_id, &rc_3d);
+> +    CHECK(!result, cmd);
+> +
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +    res->width = c3d.width;
+> +    res->height = c3d.height;
+> +    res->format = c3d.format;
+> +    res->resource_id = c3d.resource_id;
+> +
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_resource_unref(VirtIOGPU *g,
+> +                            struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_unref unref;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(unref);
+> +
+> +    trace_virtio_gpu_cmd_res_unref(unref.resource_id);
+> +
+> +    res = virtio_gpu_find_resource(g, unref.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    result = rutabaga_resource_unref(vr->rutabaga, unref.resource_id);
+> +    CHECK(!result, cmd);
+> +
+> +    if (res->image) {
+> +        pixman_image_unref(res->image);
+> +    }
+> +
+> +    QTAILQ_REMOVE(&g->reslist, res, next);
+> +    g_free(res);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_context_create(VirtIOGPU *g,
+> +                            struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_ctx_create cc;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(cc);
+> +    trace_virtio_gpu_cmd_ctx_create(cc.hdr.ctx_id,
+> +                                    cc.debug_name);
+> +
+> +    result = rutabaga_context_create(vr->rutabaga, cc.hdr.ctx_id,
+> +                                     cc.context_init, cc.debug_name, cc.nlen);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_context_destroy(VirtIOGPU *g,
+> +                             struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_ctx_destroy cd;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(cd);
+> +    trace_virtio_gpu_cmd_ctx_destroy(cd.hdr.ctx_id);
+> +
+> +    result = rutabaga_context_destroy(vr->rutabaga, cd.hdr.ctx_id);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_resource_flush(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result, i;
+> +    struct virtio_gpu_scanout *scanout = NULL;
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct rutabaga_transfer transfer = { 0 };
+> +    struct iovec transfer_iovec;
+> +    struct virtio_gpu_resource_flush rf;
+> +    bool found = false;
+> +
+> +    VirtIOGPUBase *vb = VIRTIO_GPU_BASE(g);
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +    if (vr->headless) {
+> +        return;
+> +    }
+> +
+> +    VIRTIO_GPU_FILL_CMD(rf);
+> +    trace_virtio_gpu_cmd_res_flush(rf.resource_id,
+> +                                   rf.r.width, rf.r.height, rf.r.x, rf.r.y);
+> +
+> +    res = virtio_gpu_find_resource(g, rf.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    for (i = 0; i < vb->conf.max_outputs; i++) {
+> +        scanout = &vb->scanout[i];
+> +        if (i == res->scanout_bitmask) {
+> +            found = true;
+> +            break;
+> +        }
+> +    }
+> +
+> +    if (!found) {
+> +        return;
+> +    }
+> +
+> +    transfer.x = 0;
+> +    transfer.y = 0;
+> +    transfer.z = 0;
+> +    transfer.w = res->width;
+> +    transfer.h = res->height;
+> +    transfer.d = 1;
+> +
+> +    transfer_iovec.iov_base = pixman_image_get_data(res->image);
+> +    transfer_iovec.iov_len = res->width * res->height * 4;
+> +
+> +    result = rutabaga_resource_transfer_read(vr->rutabaga, 0,
+> +                                             rf.resource_id, &transfer,
+> +                                             &transfer_iovec);
+> +    CHECK(!result, cmd);
+> +    dpy_gfx_update_full(scanout->con);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_set_scanout(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_scanout *scanout = NULL;
+> +    struct virtio_gpu_set_scanout ss;
+> +
+> +    VirtIOGPUBase *vb = VIRTIO_GPU_BASE(g);
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +    if (vr->headless) {
+> +        return;
+> +    }
+> +
+> +    VIRTIO_GPU_FILL_CMD(ss);
+> +    trace_virtio_gpu_cmd_set_scanout(ss.scanout_id, ss.resource_id,
+> +                                     ss.r.width, ss.r.height, ss.r.x, ss.r.y);
+> +
+> +    CHECK(ss.scanout_id < VIRTIO_GPU_MAX_SCANOUTS, cmd);
+> +    scanout = &vb->scanout[ss.scanout_id];
+> +
+> +    if (ss.resource_id == 0) {
+> +        dpy_gfx_replace_surface(scanout->con, NULL);
+> +        dpy_gl_scanout_disable(scanout->con);
+> +        return;
+> +    }
+> +
+> +    res = virtio_gpu_find_resource(g, ss.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    if (!res->image) {
+> +        pixman_format_code_t pformat;
+> +        pformat = virtio_gpu_get_pixman_format(res->format);
+> +        CHECK(pformat, cmd);
+> +
+> +        res->image = pixman_image_create_bits(pformat,
+> +                                              res->width,
+> +                                              res->height,
+> +                                              NULL, 0);
+> +        CHECK(res->image, cmd);
+> +        pixman_image_ref(res->image);
+> +    }
+> +
+> +    vb->enable = 1;
+> +
+> +    /* realloc the surface ptr */
+> +    scanout->ds = qemu_create_displaysurface_pixman(res->image);
+> +    dpy_gfx_replace_surface(scanout->con, NULL);
+> +    dpy_gfx_replace_surface(scanout->con, scanout->ds);
+> +    res->scanout_bitmask = ss.scanout_id;
+> +}
+> +
+> +static void
+> +rutabaga_cmd_submit_3d(VirtIOGPU *g,
+> +                       struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_cmd_submit cs;
+> +    struct rutabaga_command rutabaga_cmd = { 0 };
+> +    g_autofree uint8_t *buf = NULL;
+> +    size_t s;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(cs);
+> +    trace_virtio_gpu_cmd_ctx_submit(cs.hdr.ctx_id, cs.size);
+> +
+> +    buf = g_new0(uint8_t, cs.size);
+> +    s = iov_to_buf(cmd->elem.out_sg, cmd->elem.out_num,
+> +                   sizeof(cs), buf, cs.size);
+> +    CHECK(s == cs.size, cmd);
+> +
+> +    rutabaga_cmd.ctx_id = cs.hdr.ctx_id;
+> +    rutabaga_cmd.cmd = buf;
+> +    rutabaga_cmd.cmd_size = cs.size;
+> +
+> +    result = rutabaga_submit_command(vr->rutabaga, &rutabaga_cmd);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_transfer_to_host_2d(VirtIOGPU *g,
+> +                                 struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct rutabaga_transfer transfer = { 0 };
+> +    struct virtio_gpu_transfer_to_host_2d t2d;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(t2d);
+> +    trace_virtio_gpu_cmd_res_xfer_toh_2d(t2d.resource_id);
+> +
+> +    transfer.x = t2d.r.x;
+> +    transfer.y = t2d.r.y;
+> +    transfer.z = 0;
+> +    transfer.w = t2d.r.width;
+> +    transfer.h = t2d.r.height;
+> +    transfer.d = 1;
+> +
+> +    result = rutabaga_resource_transfer_write(vr->rutabaga, 0, t2d.resource_id,
+> +                                              &transfer);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_transfer_to_host_3d(VirtIOGPU *g,
+> +                                 struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct rutabaga_transfer transfer = { 0 };
+> +    struct virtio_gpu_transfer_host_3d t3d;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(t3d);
+> +    trace_virtio_gpu_cmd_res_xfer_toh_3d(t3d.resource_id);
+> +
+> +    transfer.x = t3d.box.x;
+> +    transfer.y = t3d.box.y;
+> +    transfer.z = t3d.box.z;
+> +    transfer.w = t3d.box.w;
+> +    transfer.h = t3d.box.h;
+> +    transfer.d = t3d.box.d;
+> +    transfer.level = t3d.level;
+> +    transfer.stride = t3d.stride;
+> +    transfer.layer_stride = t3d.layer_stride;
+> +    transfer.offset = t3d.offset;
+> +
+> +    result = rutabaga_resource_transfer_write(vr->rutabaga, t3d.hdr.ctx_id,
+> +                                              t3d.resource_id, &transfer);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_transfer_from_host_3d(VirtIOGPU *g,
+> +                                   struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct rutabaga_transfer transfer = { 0 };
+> +    struct virtio_gpu_transfer_host_3d t3d;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(t3d);
+> +    trace_virtio_gpu_cmd_res_xfer_fromh_3d(t3d.resource_id);
+> +
+> +    transfer.x = t3d.box.x;
+> +    transfer.y = t3d.box.y;
+> +    transfer.z = t3d.box.z;
+> +    transfer.w = t3d.box.w;
+> +    transfer.h = t3d.box.h;
+> +    transfer.d = t3d.box.d;
+> +    transfer.level = t3d.level;
+> +    transfer.stride = t3d.stride;
+> +    transfer.layer_stride = t3d.layer_stride;
+> +    transfer.offset = t3d.offset;
+> +
+> +    result = rutabaga_resource_transfer_read(vr->rutabaga, t3d.hdr.ctx_id,
+> +                                             t3d.resource_id, &transfer, NULL);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_attach_backing(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct rutabaga_iovecs vecs = { 0 };
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_attach_backing att_rb;
+> +    int ret;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(att_rb);
+> +    trace_virtio_gpu_cmd_res_back_attach(att_rb.resource_id);
+> +
+> +    res = virtio_gpu_find_resource(g, att_rb.resource_id);
+> +    CHECK(res, cmd);
+> +    CHECK(!res->iov, cmd);
+> +
+> +    ret = virtio_gpu_create_mapping_iov(g, att_rb.nr_entries, sizeof(att_rb),
+> +                                        cmd, NULL, &res->iov, &res->iov_cnt);
+> +    CHECK(!ret, cmd);
+> +
+> +    vecs.iovecs = res->iov;
+> +    vecs.num_iovecs = res->iov_cnt;
+> +
+> +    ret = rutabaga_resource_attach_backing(vr->rutabaga, att_rb.resource_id,
+> +                                           &vecs);
+> +    if (ret != 0) {
+> +        virtio_gpu_cleanup_mapping(g, res);
+> +    }
+> +
+> +    CHECK(!ret, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_detach_backing(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_detach_backing detach_rb;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(detach_rb);
+> +    trace_virtio_gpu_cmd_res_back_detach(detach_rb.resource_id);
+> +
+> +    res = virtio_gpu_find_resource(g, detach_rb.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    rutabaga_resource_detach_backing(vr->rutabaga,
+> +                                     detach_rb.resource_id);
+> +
+> +    virtio_gpu_cleanup_mapping(g, res);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_ctx_attach_resource(VirtIOGPU *g,
+> +                                 struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_ctx_resource att_res;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(att_res);
+> +    trace_virtio_gpu_cmd_ctx_res_attach(att_res.hdr.ctx_id,
+> +                                        att_res.resource_id);
+> +
+> +    result = rutabaga_context_attach_resource(vr->rutabaga, att_res.hdr.ctx_id,
+> +                                              att_res.resource_id);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_ctx_detach_resource(VirtIOGPU *g,
+> +                                 struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_ctx_resource det_res;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(det_res);
+> +    trace_virtio_gpu_cmd_ctx_res_detach(det_res.hdr.ctx_id,
+> +                                        det_res.resource_id);
+> +
+> +    result = rutabaga_context_detach_resource(vr->rutabaga, det_res.hdr.ctx_id,
+> +                                              det_res.resource_id);
+> +    CHECK(!result, cmd);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_get_capset_info(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_get_capset_info info;
+> +    struct virtio_gpu_resp_capset_info resp;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(info);
+> +
+> +    result = rutabaga_get_capset_info(vr->rutabaga, info.capset_index,
+> +                                      &resp.capset_id, &resp.capset_max_version,
+> +                                      &resp.capset_max_size);
+> +    CHECK(!result, cmd);
+> +
+> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_CAPSET_INFO;
+> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+> +}
+> +
+> +static void
+> +rutabaga_cmd_get_capset(VirtIOGPU *g, struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    struct virtio_gpu_get_capset gc;
+> +    struct virtio_gpu_resp_capset *resp;
+> +    uint32_t capset_size, capset_version;
+> +    uint32_t current_id, i;
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(gc);
+> +    for (i = 0; i < vr->num_capsets; i++) {
+> +        result = rutabaga_get_capset_info(vr->rutabaga, i,
+> +                                          &current_id, &capset_version,
+> +                                          &capset_size);
+> +        CHECK(!result, cmd);
+> +
+> +        if (current_id == gc.capset_id) {
+> +            break;
+> +        }
+> +    }
+> +
+> +    CHECK(i < vr->num_capsets, cmd);
+> +
+> +    resp = g_malloc0(sizeof(*resp) + capset_size);
+> +    resp->hdr.type = VIRTIO_GPU_RESP_OK_CAPSET;
+> +    rutabaga_get_capset(vr->rutabaga, gc.capset_id, gc.capset_version,
+> +                        resp->capset_data, capset_size);
+> +
+> +    virtio_gpu_ctrl_response(g, cmd, &resp->hdr, sizeof(*resp) + capset_size);
+> +    g_free(resp);
+> +}
+> +
+> +static void
+> +rutabaga_cmd_resource_create_blob(VirtIOGPU *g,
+> +                                  struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int result;
+> +    struct rutabaga_iovecs vecs = { 0 };
+> +    g_autofree struct virtio_gpu_simple_resource *res = NULL;
+> +    struct virtio_gpu_resource_create_blob cblob;
+> +    struct rutabaga_create_blob rc_blob = { 0 };
+> +
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(cblob);
+> +    trace_virtio_gpu_cmd_res_create_blob(cblob.resource_id, cblob.size);
+> +
+> +    CHECK(cblob.resource_id != 0, cmd);
+> +
+> +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> +
+> +    res->resource_id = cblob.resource_id;
+> +    res->blob_size = cblob.size;
+> +
+> +    if (cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
+> +        result = virtio_gpu_create_mapping_iov(g, cblob.nr_entries,
+> +                                               sizeof(cblob), cmd, &res->addrs,
+> +                                               &res->iov, &res->iov_cnt);
+> +        CHECK(!result, cmd);
+> +    }
+> +
+> +    rc_blob.blob_id = cblob.blob_id;
+> +    rc_blob.blob_mem = cblob.blob_mem;
+> +    rc_blob.blob_flags = cblob.blob_flags;
+> +    rc_blob.size = cblob.size;
+> +
+> +    vecs.iovecs = res->iov;
+> +    vecs.num_iovecs = res->iov_cnt;
+> +
+> +    result = rutabaga_resource_create_blob(vr->rutabaga, cblob.hdr.ctx_id,
+> +                                           cblob.resource_id, &rc_blob, &vecs,
+> +                                           NULL);
+> +
+> +    if (result && cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
+> +        virtio_gpu_cleanup_mapping(g, res);
+> +    }
+> +
+> +    CHECK(!result, cmd);
+> +
+> +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> +    res = NULL;
+> +}
+> +
+> +static void
+> +rutabaga_cmd_resource_map_blob(VirtIOGPU *g,
+> +                               struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    uint32_t map_info = 0;
+> +    uint32_t slot = 0;
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct rutabaga_mapping mapping = { 0 };
+> +    struct virtio_gpu_resource_map_blob mblob;
+> +    struct virtio_gpu_resp_map_info resp = { 0 };
+> +
+> +    VirtIOGPUBase *vb = VIRTIO_GPU_BASE(g);
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(mblob);
+> +
+> +    CHECK(mblob.resource_id != 0, cmd);
+> +
+> +    res = virtio_gpu_find_resource(g, mblob.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    result = rutabaga_resource_map_info(vr->rutabaga, mblob.resource_id,
+> +                                        &map_info);
+> +    CHECK(!result, cmd);
+> +
+> +    /*
+> +     * RUTABAGA_MAP_ACCESS_* flags are not part of the virtio-gpu spec, but do
+> +     * exist to potentially allow the hypervisor to restrict write access to
+> +     * memory. QEMU does not need to use this functionality at the moment.
+> +     */
+> +    resp.map_info = map_info & RUTABAGA_MAP_CACHE_MASK;
+> +
+> +    result = rutabaga_resource_map(vr->rutabaga, mblob.resource_id, &mapping);
+> +    CHECK(!result, cmd);
+> +
+> +    for (slot = 0; slot < MAX_SLOTS; slot++) {
+> +        if (vr->memory_regions[slot].used) {
+> +            continue;
+> +        }
+> +
+> +        MemoryRegion *mr = &(vr->memory_regions[slot].mr);
+> +        memory_region_init_ram_ptr(mr, OBJECT(vr), "blob", mapping.size,
+> +                                   mapping.ptr);
+> +        memory_region_add_subregion(&vb->hostmem, mblob.offset, mr);
+> +        vr->memory_regions[slot].resource_id = mblob.resource_id;
+> +        vr->memory_regions[slot].used = 1;
+> +        break;
+> +    }
+> +
+> +    if (slot >= MAX_SLOTS) {
+> +        result = rutabaga_resource_unmap(vr->rutabaga, mblob.resource_id);
+> +        CHECK(!result, cmd);
+> +    }
+> +
+> +    CHECK(slot < MAX_SLOTS, cmd);
+> +
+> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_MAP_INFO;
+> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+> +}
+> +
+> +static void
+> +rutabaga_cmd_resource_unmap_blob(VirtIOGPU *g,
+> +                                 struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    int32_t result;
+> +    uint32_t slot = 0;
+> +    struct virtio_gpu_simple_resource *res;
+> +    struct virtio_gpu_resource_unmap_blob ublob;
+> +
+> +    VirtIOGPUBase *vb = VIRTIO_GPU_BASE(g);
+> +    VirtIOGPURutabaga *vr = VIRTIO_GPU_RUTABAGA(g);
+> +
+> +    VIRTIO_GPU_FILL_CMD(ublob);
+> +
+> +    CHECK(ublob.resource_id != 0, cmd);
+> +
+> +    res = virtio_gpu_find_resource(g, ublob.resource_id);
+> +    CHECK(res, cmd);
+> +
+> +    for (slot = 0; slot < MAX_SLOTS; slot++) {
+> +        if (vr->memory_regions[slot].resource_id != ublob.resource_id) {
+> +            continue;
+> +        }
+> +
+> +        MemoryRegion *mr = &(vr->memory_regions[slot].mr);
+> +        memory_region_del_subregion(&vb->hostmem, mr);
+> +
+> +        vr->memory_regions[slot].resource_id = 0;
+> +        vr->memory_regions[slot].used = 0;
+> +        break;
+> +    }
+> +
+> +    CHECK(slot < MAX_SLOTS, cmd);
+> +    result = rutabaga_resource_unmap(vr->rutabaga, res->resource_id);
 
-Don't you need to use the fail label in order to restore the previous
-command register value on the device? (here and below)
+Hi,
 
-Thanks, Roger.
+After the discussion with Xenia Ragiadakou regarding their patch for 
+Venus, I found a bug present in the Venus implementation also affects 
+Rutabaga.
+
+The problem is that the memory region may not immediately go away with 
+memory_region_del_subregion(), but it may be kept a bit after that. The 
+memory region has a pointer to the mapped memory so the unmapping call 
+that immediately follows will make it dangling.
+
+Xenia raised a question whether the dangling pointer can be actually 
+dereferenced and result in use-after-free, but the answer is 
+unfortunately yes. For example, consider the following call chain:
+kvm_cpu_exec -> address_space_rw -> address_space_write -> 
+flatview_write -> flatview_write_continue
+
+address_space_write() holds a RCU read lock so that the flatview it 
+refers to will not go away during the operation even if it becomes 
+obsolete and will be used for writes. It is possible that the obsolete 
+flatview contains the memory region for the memory that is concurrently 
+unmapped by virtio-gpu-rutabaga/virgl.  Note that the function can be 
+called without holding BQL, and KVM actually does so.
+
+Another case is address_space_map(). It acquires the reference to the 
+memory with memory_region_ref() and expects it will be available until 
+memory_region_unref() gets called with address_space_unmap().
+
+In conclusion, both of Rutabaga and Virgl need to ensure to wait until 
+all refrences to memory region will be gone before unmapping the 
+underlying memory. The patch "[QEMU PATCH v5 07/13] softmmu/memory: 
+enable automatic deallocation of memory regions" in the venus patch 
+series is useful to know when that happens.
+
+Regards,
+Akihiko Odaki
 
