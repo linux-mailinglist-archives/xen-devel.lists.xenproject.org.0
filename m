@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785BC7A87C5
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 17:01:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605789.943386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 232F07A87D7
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 17:04:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605795.943396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiyhJ-0002Mt-W2; Wed, 20 Sep 2023 15:01:01 +0000
+	id 1qiykH-00039A-A0; Wed, 20 Sep 2023 15:04:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605789.943386; Wed, 20 Sep 2023 15:01:01 +0000
+Received: by outflank-mailman (output) from mailman id 605795.943396; Wed, 20 Sep 2023 15:04:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiyhJ-0002K7-TC; Wed, 20 Sep 2023 15:01:01 +0000
-Received: by outflank-mailman (input) for mailman id 605789;
- Wed, 20 Sep 2023 15:01:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GbOY=FE=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1qiyhI-0002Jz-9h
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 15:01:00 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80cc9386-57c6-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 17:00:57 +0200 (CEST)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qiygf-00Efi6-1Z; Wed, 20 Sep 2023 15:00:24 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 8FF67300348; Wed, 20 Sep 2023 17:00:22 +0200 (CEST)
+	id 1qiykH-00037U-7H; Wed, 20 Sep 2023 15:04:05 +0000
+Received: by outflank-mailman (input) for mailman id 605795;
+ Wed, 20 Sep 2023 15:04:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NUdD=FE=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qiykF-00037J-Ad
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 15:04:03 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ef1ef802-57c6-11ee-8789-cb3800f73035;
+ Wed, 20 Sep 2023 17:04:02 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 863A820121;
+ Wed, 20 Sep 2023 15:04:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EABDF132C7;
+ Wed, 20 Sep 2023 15:04:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id UheJN+AJC2X5NwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 20 Sep 2023 15:04:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,51 +51,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80cc9386-57c6-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=rWkB7EDNng9M39a7Z5ofZ+3H/5SPbGNHhMrFP2dtGbY=; b=gbBwTJ41KAmMXmjfJHdJuM7m3X
-	hExgqa3hFHE8oGJcBGAwWV1T/3bCar8Q/4J6kCFh3lPc6C1w5JSzk0t/sppfTeuOuPqbkwJYbcQCA
-	Msu0ZRdMcoOovrESWX3e875PmIMIBSrS4FtQ6mkCe/JdrliuRxauJrt0MJcZjPdo7EqSm+fAmOhwe
-	trz1GroFYHwCKDYsYL97k/F/mFR5NvDSXdmntjJExEs8ifO6+1NTZod2ifPXoYaZVSZxEMeqngWfs
-	NrrhUFV7r0Gl9W5Rr7JEAOnQhVOOIU0Ua8nWwf0A1uLrrKzCuLGBjfkYGwTe+kgu4Pq9ruGUQXJ33
-	qvYYaX6A==;
-Date: Wed, 20 Sep 2023 17:00:22 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: andrew.cooper3@citrix.com
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>,
-	Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
-	pbonzini@redhat.com, seanjc@google.com, jgross@suse.com,
-	ravi.v.shankar@intel.com, mhiramat@kernel.org,
-	jiangshanlai@gmail.com
+X-Inumbo-ID: ef1ef802-57c6-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1695222241; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=jhwvy1bp86gje66T0zgnWteCCUaFAwIi1HMTZqN1nBg=;
+	b=f9zvoVoNuvOSHxLREISRnzT5i9A//F5vt7Ap/fL4304tzIw5FJKLFL5MilulzsAplsV2Fn
+	ME77Wyz8yooq4qOByF1O9GWewSFQme/OGbnXDH+GTQU/u2sYFYvYqN2amcMNxM9hEr80Dw
+	EB0ddYipgwItpQKLEmq8VM0Y0TKK9w8=
+Message-ID: <60901bed-9101-4545-b8f8-30110c57b5f7@suse.com>
+Date: Wed, 20 Sep 2023 17:04:00 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v10 03/38] x86/msr: Add the WRMSRNS instruction support
-Message-ID: <20230920150022.GH424@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>, andrew.cooper3@citrix.com
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
+ pbonzini@redhat.com, seanjc@google.com, ravi.v.shankar@intel.com,
+ mhiramat@kernel.org, jiangshanlai@gmail.com
 References: <20230914044805.301390-1-xin3.li@intel.com>
  <20230914044805.301390-4-xin3.li@intel.com>
- <6f5678ff-f8b1-9ada-c8c7-f32cfb77263a@citrix.com>
- <87y1h81ht4.ffs@tglx>
+ <6f5678ff-f8b1-9ada-c8c7-f32cfb77263a@citrix.com> <87y1h81ht4.ffs@tglx>
  <7ba4ae3e-f75d-66a8-7669-b6eb17c1aa1c@citrix.com>
  <0e7d37db-e1af-ac40-6eca-5565d1bebcde@zytor.com>
  <6575702e-fea5-61b2-dd61-7b556a8603e8@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6575702e-fea5-61b2-dd61-7b556a8603e8@citrix.com>
+ <20230920150022.GH424@noisy.programming.kicks-ass.net>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20230920150022.GH424@noisy.programming.kicks-ass.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------RVpxGTyREcthBDWOR8O1ivR5"
 
-On Fri, Sep 15, 2023 at 02:16:50AM +0100, andrew.cooper3@citrix.com wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------RVpxGTyREcthBDWOR8O1ivR5
+Content-Type: multipart/mixed; boundary="------------C07rRAI3IhEhj8qtRuziLenv";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>, andrew.cooper3@citrix.com
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
+ pbonzini@redhat.com, seanjc@google.com, ravi.v.shankar@intel.com,
+ mhiramat@kernel.org, jiangshanlai@gmail.com
+Message-ID: <60901bed-9101-4545-b8f8-30110c57b5f7@suse.com>
+Subject: Re: [PATCH v10 03/38] x86/msr: Add the WRMSRNS instruction support
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-4-xin3.li@intel.com>
+ <6f5678ff-f8b1-9ada-c8c7-f32cfb77263a@citrix.com> <87y1h81ht4.ffs@tglx>
+ <7ba4ae3e-f75d-66a8-7669-b6eb17c1aa1c@citrix.com>
+ <0e7d37db-e1af-ac40-6eca-5565d1bebcde@zytor.com>
+ <6575702e-fea5-61b2-dd61-7b556a8603e8@citrix.com>
+ <20230920150022.GH424@noisy.programming.kicks-ass.net>
+In-Reply-To: <20230920150022.GH424@noisy.programming.kicks-ass.net>
 
-> Juergen has already done the work to delete one of these two patching
-> mechanisms and replace it with the other.
-> 
-> https://lore.kernel.org/lkml/a32e211f-4add-4fb2-9e5a-480ae9b9bbf2@suse.com/
-> 
-> Unfortunately, it's only collecting pings and tumbleweeds.
+--------------C07rRAI3IhEhj8qtRuziLenv
+Content-Type: multipart/mixed; boundary="------------E2bQmzXzNCZykNFZVGazG22b"
 
-Fixed that...
+--------------E2bQmzXzNCZykNFZVGazG22b
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMjAuMDkuMjMgMTc6MDAsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBGcmksIFNl
+cCAxNSwgMjAyMyBhdCAwMjoxNjo1MEFNICswMTAwLCBhbmRyZXcuY29vcGVyM0BjaXRyaXgu
+Y29tIHdyb3RlOg0KPiANCj4+IEp1ZXJnZW4gaGFzIGFscmVhZHkgZG9uZSB0aGUgd29yayB0
+byBkZWxldGUgb25lIG9mIHRoZXNlIHR3byBwYXRjaGluZw0KPj4gbWVjaGFuaXNtcyBhbmQg
+cmVwbGFjZSBpdCB3aXRoIHRoZSBvdGhlci4NCj4+DQo+PiBodHRwczovL2xvcmUua2VybmVs
+Lm9yZy9sa21sL2EzMmUyMTFmLTRhZGQtNGZiMi05ZTVhLTQ4MGFlOWI5YmJmMkBzdXNlLmNv
+bS8NCj4+DQo+PiBVbmZvcnR1bmF0ZWx5LCBpdCdzIG9ubHkgY29sbGVjdGluZyBwaW5ncyBh
+bmQgdHVtYmxld2VlZHMuDQo+IA0KPiBGaXhlZCB0aGF0Li4uDQoNClRoYW5rcy4gOi0pDQoN
+Cg0KSnVlcmdlbg0K
+--------------E2bQmzXzNCZykNFZVGazG22b
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------E2bQmzXzNCZykNFZVGazG22b--
+
+--------------C07rRAI3IhEhj8qtRuziLenv--
+
+--------------RVpxGTyREcthBDWOR8O1ivR5
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmULCeAFAwAAAAAACgkQsN6d1ii/Ey8x
+ugf/XVkGaQBYLrzcVnRMf46PQbRj6BvHUsCw4UR+1iqNi9DicNgvlw5k6IXjInLXXt60rakJtdIq
+n2IR1/UQGQ+zovM3O228k33+2WUY/qBMGeq/LjJ7fBgx1YXfKyuZAx2XNE16AqsSMdJEqoJxpjZQ
+mqO7NHVGtG+ZEQyaBtCP5BsygXEQmawzgdCdlt06+QBY4f7F45F/i1qLrfM26PeTXv4A9Iq8q8oP
+vgKTQ2uuxInOPp7uZ9NuXjtQnFMPgE5FmPk5Iopjysr6ZPkWGLll4ifOZOHRUPobMpri26vaJ0fS
+36SWqXNfEICWqe67J3W7fp5xiupWGwnn5+wAHnCSEQ==
+=doxl
+-----END PGP SIGNATURE-----
+
+--------------RVpxGTyREcthBDWOR8O1ivR5--
 
