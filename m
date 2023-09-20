@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC8307A760D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 10:40:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605302.942904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5EE7A762D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 10:42:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605311.942924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qisk6-0005ic-97; Wed, 20 Sep 2023 08:39:30 +0000
+	id 1qismx-00087v-3G; Wed, 20 Sep 2023 08:42:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605302.942904; Wed, 20 Sep 2023 08:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 605311.942924; Wed, 20 Sep 2023 08:42:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qisk6-0005fU-66; Wed, 20 Sep 2023 08:39:30 +0000
-Received: by outflank-mailman (input) for mailman id 605302;
- Wed, 20 Sep 2023 08:39:28 +0000
+	id 1qismw-00085o-VD; Wed, 20 Sep 2023 08:42:26 +0000
+Received: by outflank-mailman (input) for mailman id 605311;
+ Wed, 20 Sep 2023 08:42:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f1ZV=FE=citrix.com=prvs=6207273cf=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qisk4-0005e8-M5
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 08:39:28 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3355228a-5791-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 10:39:25 +0200 (CEST)
-Received: from mail-dm3nam02lp2041.outbound.protection.outlook.com (HELO
- NAM02-DM3-obe.outbound.protection.outlook.com) ([104.47.56.41])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Sep 2023 04:39:22 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SJ0PR03MB6326.namprd03.prod.outlook.com (2603:10b6:a03:390::16)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7N78=FE=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
+ id 1qismu-00084Y-Dq
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 08:42:24 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20622.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9cd10bbc-5791-11ee-9b0d-b553b5be7939;
+ Wed, 20 Sep 2023 10:42:21 +0200 (CEST)
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
+ by IA0PR12MB8421.namprd12.prod.outlook.com (2603:10b6:208:40f::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28; Wed, 20 Sep
- 2023 08:39:13 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 08:39:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.19; Wed, 20 Sep
+ 2023 08:42:13 +0000
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::c3b:811:fd1d:c33e]) by SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::c3b:811:fd1d:c33e%6]) with mapi id 15.20.6792.021; Wed, 20 Sep 2023
+ 08:42:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,324 +47,499 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3355228a-5791-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1695199165;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=1BRW4VuYePBwiJIDzbK4U8+0+aphNdsQpbvRrESzcaU=;
-  b=DGi9urfjIHrLhkuwMUI4sH25clolPQ+NhOJN2q3bNuA20zZEWJB00U2b
-   250LPxu2urJbS8Xnnt5lYkG5ioynGNoUUoxZWLtV+DwhVz2LutZZP6zOz
-   ivW69qxZuzRdeKmWnzk8sqkSN7UVnlttxDr6MzvdeCx6PurlSP1ZPSUFZ
-   E=;
-X-CSE-ConnectionGUID: p/4uQM4rQ7SVLKcUQGc/Mg==
-X-CSE-MsgGUID: ocnJm4pWTdKc10O/l19a/A==
-X-IronPort-RemoteIP: 104.47.56.41
-X-IronPort-MID: 123054172
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:IiGxpKNUOlvBp3DvrR0SlsFynXyQoLVcMsEvi/4bfWQNrUpx0WcDm
- DQWWzuHOa6KY2X9KY9/bY+xoE8GucWHn4IwQAto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGjxSs/jrRC9H5qyo42tJ5ARmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0v4wXXx30
- KACEW82UDSgjN+P77n8b+Y506zPLOGzVG8ekldJ6GmDSNoDGtXESaiM4sJE1jAtgMwIBezZe
- 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+PRxvzG7IA9ZidABNPLPfdOHX4NNl1uwr
- WPa5WXpRBodMbRzzBLcqCn027OWwnmTtIQ6E7a+1Ps2mGKvyk8YUUUxEl/i8PD+oxvrMz5YA
- wlOksY0loAM80isQsj4TgePineOtR4BWPJdC+Q/rgqKz8L88wufQ2QJUDNFQNgnr9MtAywn0
- EeTmNHkDiApt6eaIVqG6rqLpCmufygUKWMPbzUNSwct6tzv5oo0i3rnadJuE7W8iNHvLhj2z
- yqXtyg1h7gVjskj2r2y+BbMhDfEjprDQxMx5w7Xdnm49Q4/b4mgD6Sq9Fza4PBoPIufCF6bs
- xAsgNOC5eoDCZWMki2lQ+gXGrytofGfP1X0nlpHD5QnsTO39BaLZYlN5BluKUEvNdwLEQIFe
- 2fWsAJVoZNWZ32jaPctZ5rrU5hzi6/9Cd7iS/bYKMJUZYR8fxOG+ycoYlOM22fqkw4nlqRX1
- YqnTPtAxE0yUcxPpAdajc9EuVP37kjSHV/ueK0=
-IronPort-HdrOrdr: A9a23:maYS1qvF+7C2B/LU9GcnRgGY7skDWdV00zEX/kB9WHVpm6uj5q
- KTdZUgpHzJYVMqM03I9urgBED+ewK7yXcY2+Ys1M6ZLXHbUTKTXfpfBOjZowEIeReOjNK1vJ
- 0IG8JD4bbLY2SS4/yX3OFte+xQueVuKc2T9ILjJg9WID2DlslbnmNE4hzxKDwQeDV7
-X-Talos-CUID: =?us-ascii?q?9a23=3AOZMiyGmp9OjIpt8fxaWrl0mMfpDXOWWakGrpBhO?=
- =?us-ascii?q?iMDlSdpm2QmKp16gjtsU7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3Avqx16w+2FRO1UpoY+AeJjjCQf8Bj5YarVFgyrZk?=
- =?us-ascii?q?lsJDcEmt0YmaUyx3iFw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.02,161,1688443200"; 
-   d="scan'208";a="123054172"
+X-Inumbo-ID: 9cd10bbc-5791-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YtnJUeqw4pHMl+cWip2Kb20YPXuKlgit47rVRTowJKOlKXMUecEs9rLixsl3pzy5pyr42atKa7Nh01+SHEWj9vXMc+fPt0X02X9tQWTyXJ5OSFYCdY/LXcskSq/r/qOVFm20Gs7fyOeNd7qFlJrOI5vv7mIYl5Xk+khtBRtuAxnM0KwPy9sUZFNRq+vTBjoN8YZMkph+8DLD10+wDQcsa7WQL4SBmEu0+Z8cD2sB9l0LSpZ411D8TgyFnlrXtBnxvQh02+1IgeJEQnE8lWMNNccojQxPZ1cFwz48J4oE6qX4K5VXEqHhSnHsBX42Qj6w9R0BdZ/xsWUz+dSK6p2Rpw==
+ b=lRwBUJ1LjrkF0nqL8wqiZ0+MS7UD5PEkOpNdTkaWZnWKqUy8593P7UraIn5mLrwv4UMQNePEVxuCwv0mJX4J9v9V5fAV8gIcUsE9uFLaUpdHaCNTZFw4uEhj15swGJYQzdnnCkI0bVHwquntuztOxGLo1W3MKF4A873Q34zalWb6Hmjmcuxp3dTWzzz4n8IqDLDRcYEr8ZDkksBA2zepimNbPP+lwqWEAn9I6H5Q8jQxwzdytS8FA++BvUVX2Q5gODWiFiJQcq4gfI8+Hme9mbPPoSiZc4iAutlSNktU5xMUkVUiluYlI7Awlitv7IU0bvMlViukfN2fiVIVWEjKWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j22sGOJzmYFfaFHf0BAuMPnSwOdzz8XnncNM1sZxYLg=;
- b=Vgl0/hpXYZhF62NG1qYiGb3vLsdDHnwYV2YFXStaqx8xEhWxEfNpMwes+A6940rPCYTS0vExvd1Qz1XRW7oe7Q4FkLOZz+PZ2pNdQUHRavfkRNmAj0shK4E/IpxYBfDSa7TaSU0p6jR8LHJiBFlXHuQK2dvNCEvZ+dyjQj2KOp7u7EDZ4KdVx6KPsek975u+UZoyvBnysCVYQoE6WYw3PNF/7TLGcAsIqJGqkTZBCFBLdunCYTfMOo5Fq/fLDlbSZVDm+bPF4tXbUCXOaXN83OdcU/BFO9G1PFirzX+rPOKblvvXgKC/4WE6a4O0TqWzM3lW4k3LuRlE38DVKcI3hw==
+ bh=Bncs6D0qnZ2rxd1tro+efyJlKkvljoFGVx34A2/aCPU=;
+ b=ez693Fg+y0+MXiB9q0yVTDo2XAUIQ/ViFxPYA0vy63Sk8WfsJebdzRa7pMFCbcLgv+kkpgk1vxcOwpOFYY38nU5l3ebZB4ewziw327TiN3yxjcmxDLVuhllZZYZxoFxta592jwS8ni0lUOt5RL1HLa3tFG5KPnNUENZGjkBWeHiM/W1o+aKRAUEdkcZe8UjcZtVj0uJahIDoV0jLxKXfskin0dvrafq574jrxXSWE6BdiCU5hZldQMloueJ1rRdfmmNjgIyFc48bZsu14dt1QEVsecfan+sW6oipb+arQl6jj99dc+MMU8gZfyTbks1ijJdmv9QeUN2IyLdVW0pBTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j22sGOJzmYFfaFHf0BAuMPnSwOdzz8XnncNM1sZxYLg=;
- b=DzdC/0uDZahWUEQhjAsA/IgM/c46TMNdmiC8pzkpMA2KRTmSovMERbFKdJTvNo7XXkyEtRx8Q0K15gv8PQVGsyy+e/UljbE+lhCHipQvZ/v/jqSv/4P4xYtngRqfAzXdUjm2ELOVF/DI5algBmlTPLRKfsChqHWvKsDcuGX9+mQ=
+ bh=Bncs6D0qnZ2rxd1tro+efyJlKkvljoFGVx34A2/aCPU=;
+ b=5UJP5zteQS1L83WbWchJVhAfLfAGapKz0AQ3PFt40CI/NlP9DwsYtbDX78TmY0qOMd0APjf2gUh0e8+dylOiaI0FbFoDWEIE+NTHpI21HcjgY/jb4EclAd1Z5JPL0RFkBnQPE/8ZfbfJR2qz9pD9bZh45Ing+wgF3DBrmnbLjcI=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 20 Sep 2023 10:39:08 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v9 04/16] vpci: add hooks for PCI device assign/de-assign
-Message-ID: <ZQqvrDGH6Qxxgrjp@MacBookPdeRoger>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-5-volodymyr_babchuk@epam.com>
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Date: Wed, 20 Sep 2023 16:41:44 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@gmail.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Akihiko Odaki <akihiko.odaki@daynix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+	Robert Beckett <bob.beckett@collabora.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Albert Esteve <aesteve@redhat.com>,
+	"ernunes@redhat.com" <ernunes@redhat.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Alyssa Ross <hi@alyssa.is>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Antonio Caggiano <antonio.caggiano@collabora.com>
+Subject: Re: [QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands
+Message-ID: <ZQqwSN7OaFfTlCZP@amd.com>
+References: <20230915111130.24064-1-ray.huang@amd.com>
+ <20230915111130.24064-10-ray.huang@amd.com>
+ <CAJ+F1CLXqxGKOoOvmXKZWJYENmH6Z3CJhoftvjQBRFO=fhtQuA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20230829231912.4091958-5-volodymyr_babchuk@epam.com>
-X-ClientProxiedBy: LO2P265CA0041.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:61::29) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJ+F1CLXqxGKOoOvmXKZWJYENmH6Z3CJhoftvjQBRFO=fhtQuA@mail.gmail.com>
+X-ClientProxiedBy: SI2P153CA0026.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::18) To SJ2PR12MB8690.namprd12.prod.outlook.com
+ (2603:10b6:a03:540::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7395119c-094a-4a79-5497-08dbb9b51166
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|IA0PR12MB8421:EE_
+X-MS-Office365-Filtering-Correlation-Id: fac9a002-6c27-4f43-61e8-08dbb9b57bdd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9bbFmmFEMNMyfdiSjbE3ne2woMsRkWwuhzovX7kMM1SQRTQwQ/HGiObKIDq31SewTiFEr9UXW0seO9dyvXIkmsVMDlagV/gSdnmKtpYnIOfugovePTkvq4DgXLutp+HxgxUmnKm8rlnwchvlxmhCYjwvhTP34rDOycSaivOWfydNO9/0yMbvTpa0P3sx0lFsz9pMoZy1/KxI++22UQEn+zGtR8Fg4GCL4NjbsJ75elCmZtM+PlAje2RyhKtsCLUJwXHj5UyqUl67ptwdWMFRlANzHmDKAF8J14Q09HhQH23k2YDEY05pcHtnElyyO6OPtHL5iXvVglEKdTcp8Zfl40Yzf72abLW3ljA6RuTLEFVSBvhwUedkJbZEjvl/q+5xlyowlS64fiSthBYJ7HvdG9USBRQw3Tgr9lpZ8yf8bpSDOaLMVuUd4qnj+8YjulYgDounA6zdaEDsPOTZkARAa68boipXz6AryzVepk+Rg5YaJ9vv0oNvHI2KJHVMkeHiC4YJl1t05qCM6OeVVKK9UNgWV97Np64ARpwhCdYiVo2sT5ZGLRsmkjBC2ntu4fN/
+	YUnUIcTuXmlUEwQfjJ4nkN+Xw/D0EVWbEgwI/61PXLy3HBZo8mKC1OZAOEhyAkSd3JSUHTHzkI8UhrAp+vNGTfyXRuH1r2HVo7+XE+Vzcii1hSHmomnnr27QoIXYLP5jRhhZDF1BwXDv8NS7LcakoUdLftDiRGFQkgi9wFysF8TJ7luPj3twAgPtdjl3Jko3h48CPzFd7dPrdQ3+yjGFPjenam/0K4lTz6eirUaY8/98CTmwMuse0prU4stF5ilwJI3IOX4kX2SNkGK3jxnCERvzJ1vvLdNFC119kirSzzH/CrFus2RKreo8ARgo0taFma8zEdIKfw1Q3LVCAYmoAoQr7U9M4tHb0OhRlpBBWdWavtKfjZvwrLWc1erfLD1SCrgRj+jKnDtNOwmgIKopcjp3/fVLPS/49CG4IrsLu9v7m8ZRhdKMfJcO/MyKcnveCscKm2+wz897xnQ9F03xMOWWh9/81YKv7fecNGieXBGDh0jHlarh1F2WNY+JpT1wvmF4sxNY5cU8bYsV/qDp6GLey1oH9WgDMtEBcC3D0KVbDsQ74ayP3bDH54QSdYjC
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(396003)(346002)(136003)(376002)(366004)(39860400002)(186009)(1800799009)(451199024)(38100700002)(6666004)(6506007)(6486002)(86362001)(82960400001)(85182001)(2906002)(26005)(6512007)(9686003)(83380400001)(478600001)(5660300002)(8936002)(6916009)(4326008)(8676002)(41300700001)(33716001)(316002)(7416002)(66556008)(54906003)(66476007)(66946007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(346002)(376002)(136003)(39860400002)(451199024)(1800799009)(186009)(53546011)(6486002)(6506007)(6666004)(6512007)(478600001)(83380400001)(26005)(2616005)(30864003)(2906002)(7416002)(54906003)(66946007)(66476007)(66556008)(316002)(6916009)(4326008)(8676002)(8936002)(5660300002)(41300700001)(36756003)(86362001)(38100700002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0h1Q0F2WU9BczByNlR6ckZMMlBoSmJaYzIvRkxEcUVjUXJWZ2JCblRseTFk?=
- =?utf-8?B?c1psSVVmb2NiRlhEajIwcGoyNEtEQUpJZDhJSWlyL1dZbFRlQ1IvZjMvT05P?=
- =?utf-8?B?MkE3YzFxSUxuNU5FUC9wRmZCSlVDc0lqMVh1Nm1nS1RvWk9EdklhSklKVXpq?=
- =?utf-8?B?Z3l5OFdiam9CM0R0VVU3MEI4a0tIMldsQ08yTUd5UldnT2syVGFFUFlkSVNn?=
- =?utf-8?B?Yjg0dWx3aEVad0JoMEUybjFBS0hQcm5JQjB1QjFrT0J2Z0pwbFhVTzlGcWxZ?=
- =?utf-8?B?MURlRlE1ZU80cDhjNVVSczNhYzVPcGtOeUZlZmlGNnpGZHQraGlyR0RNTHZy?=
- =?utf-8?B?azIzTXh3MUVhNEVkTEdiUGQrMlZ2YlRISVN4RVl2QTRlTXY4bFlWOS9aNHo4?=
- =?utf-8?B?QTRIaGw1bVFGczVFTUVpOWJxODlyNUR3MHdxL1Q3T01ndVVCOEZkZTlROGRF?=
- =?utf-8?B?ZlZ3MUpldUtGcHJSQ0dabnlrcUtQQkRCcEVzU2VNbnFrcTZBVk05VU9CVzF5?=
- =?utf-8?B?ZThSem5zdGxZTXpGaGVHNlBNSlNiU240VmVIOFNqRER5Y0RQKytSRDRPN3R1?=
- =?utf-8?B?Risvb3h4NDZmWTlLeGlabXdIU3NZcmdidHZKZGZTK0dGZUVaRlBiMFYyRjRO?=
- =?utf-8?B?a3JHbVR2KzAwaDRmb3p1R1h6L3NnL3QvQjBEUVk2RmVxZ1I1dG13blIrRXNu?=
- =?utf-8?B?dFE1Q1FvQ2RWbGNyOGJwTjFwMzlucGFyb1FVdnYxWnlYYTI1U0dVUWxLbnJr?=
- =?utf-8?B?WVg4cmd3WGI0WUJRNVFmbW9RaFJXbThaZXBKbFFGV1pzZU02S3NZWFoxT1ZP?=
- =?utf-8?B?NG5aREwxalpsRVFIUEVNbU9sMFVlYmJWaUkvY3NlU3lDYmE0L210QWYrSjUy?=
- =?utf-8?B?Mk1tN2szYU9lQ20rSHE4V01WNmtMNlUwekFSa2FZbk9VaS91M0lFQ09WNzds?=
- =?utf-8?B?TW1oWHlTcUJjamZydzlhLzJGSkllZUJPUGVWQnFlclpkclVIc0xrN1RGMktO?=
- =?utf-8?B?SFZiRlNnWkVnZEFNNFFHeElOdC9WaVc1STRHeDRwUjkzQkhyY2JZblhZYXo0?=
- =?utf-8?B?ckpZdlIyRE12dkkxWFFZbWxSV3dJV0V2eWRKVENrM0FsQTAwbk5OWitzZUdR?=
- =?utf-8?B?MkxWTWZCMWFiZnltckU5eVgxTVc3SlUwZFErdk1HTzVHdjdyYlBnMmVFTjUx?=
- =?utf-8?B?T1pMU3k1dWczNU16cWVDc01lU3ZoZGloZ2JiaFZCOTA2Q1VLSFNWYjRvcXRP?=
- =?utf-8?B?ZjNXYyt6YWNIMkNPMUp1OFcyeE9oNHdRWXMvTklzREZBbVhvcFNKMWJZU1Mx?=
- =?utf-8?B?MFcza1RnbTAyZlpVL1l0UGtmdEJtRWNYZDhLSkhaZnc5MlpGQ3FwWWdUN1J3?=
- =?utf-8?B?Q0djY1dnYVNxcnpmWkxoRWxqR3E1dGJ6ZnU5THcybmREVXNFdXdlSmJnbWlR?=
- =?utf-8?B?dTNjT0JuWnpUNVkyOEFWQ01CY1RMdE9FR3VITXVZR2dQVlpJbVgzMXR4NXMv?=
- =?utf-8?B?eGNIOThmdUVndS9DdUxVbjlVRmRaOFVsK2ZaZG5GQmdRRTJZN0YycnVNQWcz?=
- =?utf-8?B?T3lhWVR1eEFRcDNqb0ZEQXo4QUhlQzdFcVc4T2xWOVZORG5lcnQ4NExTZlhn?=
- =?utf-8?B?YmJ5U1doNHdnaS9Pem1kUUZ1SXpTbHMvcW5rNjAwMHJ1K3FkV0xHTWVwaDlR?=
- =?utf-8?B?bHE2b1dZZjg3Yit2bDA0MDUxS0RWM3Z4Nmsvd0l1Rktmc3pTMExHU1g2YW0z?=
- =?utf-8?B?djkybE5VZUoxN0hNOWpNM2xraUR4RFlBYnRIZDhLYWZsQTRsMjBwQnVzUDVh?=
- =?utf-8?B?djdqMWhBSjA3TCtPVUhSZ1UrYXZKMkxxeEcwMWx0UmJQWG9iQnVrd2lhK0dz?=
- =?utf-8?B?MjFqUVNITG0vRHJNcElCM1ltSXdSL2dDNk5GeFdqd1N5SUlhcmVGTjVlWndX?=
- =?utf-8?B?TWtBVHhpTXM5YnJlY1VGUjZHSmNmbXk1TDlqSEFacnp1VWtOSFhtaHVMZ2dq?=
- =?utf-8?B?MGlPQUIvbDBhazM3TnAzNk1vbEF3SVhaanFrMC93TVBoQkJPbDVEeWxpUXNH?=
- =?utf-8?B?SXRXK2tBdGxvWG5XcXRYSGZ4RGQwTXdITUd5bkgzaDYwZFhqRTdlcHZkRHBa?=
- =?utf-8?Q?kEUzfurmRepe6Ljf5QXOKO9Ds?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	qwoIeG62CRlNXUnaMbVn2PFJ1/hwM4RWRwv2390wishUeyKImpCV9k8eYAP1PPwcBg0fRIxRDI2jY2PsREBss/Yz+h53ou9S0bv/Sx2Ta6T8acfjo2apQWYCTIp6m+LZhhpLSxFKhSQt2eXXGtPxh/TK/LeYy+f+rOIPe4gVszTI9PWnRqJ8j0mrUbBPxt5inh+0BfOBOq7MKr9Td/+Kt8B4Q2mhA+5z++oh5FSoiMD+0Dc5ntGZ9kbFfcLPepw/Q8s6hMyR2Hnan4ULmRH3QTGFQVTUaCBUe7oHBMIdOPRC3syc0DEYnipkPdPGY+4FhxLxmbMRIFd3XSu4B26IW8iBlQ42vYYS30xFFgi9Hn/FCWX+V0lfteQsUFtoRr2XIz8YVi4lY4Bvs5p4lxRFrfikMf/I3EXhXPFaVR4VhfwMwkT+a8HO4cakYv+5TbtIFBJKzvI6LyR0GnDszAi3W2wV4QLdyVFYd9FPbS9z/z400ykUmTOKU4ACqGMlrMrTJ7tRQj15vpTMf09+DYJIr09jWrx7zZEs1dBZQGbuTf5El9afMdpjG91MhkIMoFYwq1oM3IwgJKHAUQrBeh+uV77a/wjNehuii+OIhhiRR3UdMpeRd969tyPpJlcmiJdMiR9B0RH1txuRRqbS/SPhfYzzXGUUkPA+PIcA8RyR10G9/dt2IzqhqaSbk6KAJGdp45ndjHmPXmMumyVLOA/pAsb6zrNQhJkqEglSyephwakozlAhApoh4yuccKV6G5E5e8BIjOt+Br/FDw87ylPMdrW2e6aeWxzCaJzyfIX+egUVX/OyWLwXFCDUSOWvB95dnDhsW3AEGz/tpuT5ATPsT2FEJ8a0vLVNj5ynbmrmlLmFIQcHsC4yecWQJzkdTrYcBis5Osw1I8/v0gFE00JMdw==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7395119c-094a-4a79-5497-08dbb9b51166
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+	=?utf-8?B?Rm9VaDBiVVhhdDIyUWxkZFdJK0RCTEZ2RE9yREY4UWhmOTU1YUJsK29LSndx?=
+ =?utf-8?B?OWRxSXFzNnpnVDdoOVN2SzJDcXZWUHVMS3dqeUorbmNac3J3djlzQW01eC9R?=
+ =?utf-8?B?YzBsd2M3cDRVVC9TakFqZ2R0cDV5QzZvVWlSS2tkZFZQaHo2U0huVW9VbDc1?=
+ =?utf-8?B?SjJZWUFZSEtaUk5yekZWc0I5MUxGOWMxY01oYzhnTmVKbTBTMnVTWndveFd1?=
+ =?utf-8?B?OGVCcE1aY3lYOUV1elNGdG5vODFkb3h5S3RMOWdzbk1EcFdKOWo3Yjgwb254?=
+ =?utf-8?B?RzJKWk1HbXpRTW9tVGtIUXFicmNqa0lKZ1FKYkF2U2orYlV2Z3BHTXMwYW5v?=
+ =?utf-8?B?T2I4VGhxTTBjSXQ0aGxTaWQrMGlwRGtTQmZtMmVQMDJJZFhRUzJzaXdrcGNH?=
+ =?utf-8?B?NlYvcDZSRTJnUjkySnJwdkRvM3cxczk0eStKUjhvVTNsdGxoUTBLYmtMOGtp?=
+ =?utf-8?B?ckJWTkliRFp3Wnd0N1orR1ZnQmlqWTR1REIyYVJNMDFNdmc5b2pRZlpINWVh?=
+ =?utf-8?B?TzdBaitGYjg4c1dqN2V1TWNrMDNJWTA4Q1NmblBweEVEZTUrbG5Ob1NROG1Z?=
+ =?utf-8?B?WllHdXRaU1lXU1hlYjhIM056TkR5NXZMT3g4T3hPQnhCczQ3a1hHczlqZFV2?=
+ =?utf-8?B?eW54QTFYSTdRRjhiejBuTG5qa0lPZ3dHaTFveHlRbVhDRDdjdXlwZjdQV0hB?=
+ =?utf-8?B?RE15U200MXViU2ZHdVdEaU1POTNUL2piaStkT05hM1hQOGhTOUx4TEpXa3h1?=
+ =?utf-8?B?cEZCdCtLMklMcWZhazFzK2QyaWwwd3N5RVl1NUphODB1THltanZlalByZSs0?=
+ =?utf-8?B?ZE5BS3hQVHRVUkxsenk5ckg0UmVFL1pyZlZlOUgybXQyV2ZVMlBFblo2eDNa?=
+ =?utf-8?B?ZUk1Tm1IL3U4TlR1cm1PbDFwWU56UjQ5T2FSeHNFdkNoSnA5MFJQUjZ3U3FQ?=
+ =?utf-8?B?VE1KL0IwYit2WnJkMW4xZlNHL2hKSE1rdmpJNys3RlYrOWk3L2M1WkFuMlRt?=
+ =?utf-8?B?YjdxVmIzYlorUk1zM094MnlsZDhVbjBYQk5WUXpzaFFzTWQycFBleVpCeU5x?=
+ =?utf-8?B?MlFPWlBzTmhTT05UaWdpQUdBTWRiZHg2am4yNmRHNmVrdUdUTVREMWpNNkJr?=
+ =?utf-8?B?czZZUnJnNE9hZ2x0Uk1GUkhoU1IvWFgxUWlQRjJveTVFcjR4YU5YU1VSMkFk?=
+ =?utf-8?B?WTd4amF2N1Y0WGdiZklWb0tpbW5NNE9HZVNIa21EOHdHVWZkNTFVeUFwUTRL?=
+ =?utf-8?B?SEtLeW9nbXR3VDhCd1JWMVQ0MURGWHVCRGt4aFFGNXJLdk5aNGpzcnNVV1pi?=
+ =?utf-8?B?VGNPRm9DWmhFVU9qdkVSOXg1MXkxa3Fhb1Vid08wK2xBWllhZWg4bWEyWVRp?=
+ =?utf-8?B?dUlXa1F0Y3JURWZRejN5ZGFVVWRvWUxwMzlIMUgwTjJFSTdiaUJuSnRySUZY?=
+ =?utf-8?B?ejZBRDl5eGV1KytXOG5McC8reUpRZzh2VHpRRDdGYi9aK2ZYMGpnQkhjY0Ro?=
+ =?utf-8?B?T2g4RGJSRUFaN0FmbHRaeFhsMjZ3OERsN1RGZ2FwWVE3dDNnem9qaUI2NzVh?=
+ =?utf-8?B?SHFGbFlxSlJXK1AvUEFLUzZHN25LUmhoMHNSRlMydUltYjV5T2RtU1NsSEFP?=
+ =?utf-8?B?czBNQWNiTTJIdzFxVG42dlVUc0xsdCtIUUowOTcrUXNTSmM1MmdBU2NGZ01S?=
+ =?utf-8?B?MURhWjd0ZmJvNmhaenVJY2pNbVpCRElKaW5uN0Q0aXlQcWJUcU5ZckV6RzJH?=
+ =?utf-8?B?OUpmazJ1UWJnbUx0QStHRnJQdWxDSkJ4dzZDMmE5aFhua1ZRVlVmOVVHNEk5?=
+ =?utf-8?B?dWRoOXJlM2REL0pVTjNmWW03cjFyZzR0cjlNcEpmSTdYaGdiTm93TWs0d3Q3?=
+ =?utf-8?B?VjluOHNrYzNsQW5ydm4xb2hVN1JySER0SFZNTjMraitGODFwd3FtRFlqSjFv?=
+ =?utf-8?B?VWJNUXpwTUhhaklraXBvZG5iVng0M1BheThLd2x6V0tBQjFQc0FVNXpMQU5G?=
+ =?utf-8?B?WFFZa2ErdXJkY0k4aERYbUkwREpFRzV1TGRySWU3QlpnOTJCRGhWK1BjS1Rt?=
+ =?utf-8?B?WnRUSE03R0JpY040UHR3QnNLM3RrdytEV2xvclFKaThrU3NqWlBDbHlNZk9T?=
+ =?utf-8?Q?Iv3nnyMN8YQNVzp2B41UluzH1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fac9a002-6c27-4f43-61e8-08dbb9b57bdd
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 08:39:13.7893
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 08:42:12.3905
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pQN+uTzjlrgpSYxDdnRkFqPj90e2qxNb+NtQ/kNjm1DV8KMGNyDjxVmtNy1NQx886mzDlPiSzw/2Lwwl/BQ6DQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6326
+X-MS-Exchange-CrossTenant-UserPrincipalName: z28u8TB4F4tYpi+couiZFvp0NT8PYBVzqrFbjHL9uKy5T6TfTG+w5+wKTzjEieFMUDXywuzCH5eCDhB9PqQqSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8421
 
-On Tue, Aug 29, 2023 at 11:19:43PM +0000, Volodymyr Babchuk wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On Tue, Sep 19, 2023 at 04:44:01PM +0800, Marc-André Lureau wrote:
+> Hi
 > 
-> When a PCI device gets assigned/de-assigned we need to
-> initialize/de-initialize vPCI state for the device.
+> On Fri, Sep 15, 2023 at 3:14 PM Huang Rui <ray.huang@amd.com> wrote:
+> >
+> > From: Antonio Caggiano <antonio.caggiano@collabora.com>
+> >
+> > Support BLOB resources creation, mapping and unmapping by calling the
+> > new stable virglrenderer 0.10 interface. Only enabled when available and
+> > via the blob config. E.g. -device virtio-vga-gl,blob=true
+> >
+> > Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> > Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> > Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> > Signed-off-by: Huang Rui <ray.huang@amd.com>
+> > ---
+> >
+> > V4 -> V5:
+> >     - Use memory_region_init_ram_ptr() instead of
+> >       memory_region_init_ram_device_ptr() (Akihiko)
+> >
+> >  hw/display/virtio-gpu-virgl.c  | 213 +++++++++++++++++++++++++++++++++
+> >  hw/display/virtio-gpu.c        |   4 +-
+> >  include/hw/virtio/virtio-gpu.h |   5 +
+> >  meson.build                    |   4 +
+> >  4 files changed, 225 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> > index 312953ec16..563a6f2f58 100644
+> > --- a/hw/display/virtio-gpu-virgl.c
+> > +++ b/hw/display/virtio-gpu-virgl.c
+> > @@ -17,6 +17,7 @@
+> >  #include "trace.h"
+> >  #include "hw/virtio/virtio.h"
+> >  #include "hw/virtio/virtio-gpu.h"
+> > +#include "hw/virtio/virtio-gpu-bswap.h"
+> >
+> >  #include "ui/egl-helpers.h"
+> >
+> > @@ -78,9 +79,24 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+> >      virgl_renderer_resource_create(&args, NULL, 0);
+> >  }
+> >
+> > +static void virgl_resource_destroy(VirtIOGPU *g,
+> > +                                   struct virtio_gpu_simple_resource *res)
+> > +{
+> > +    if (!res)
+> > +        return;
+> > +
 > 
-> Also, rename vpci_add_handlers() to vpci_assign_device() and
-> vpci_remove_device() to vpci_deassign_device() to better reflect role
-> of the functions.
+> QEMU coding style imposes braces
 > 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> ---
-> Since v9:
-> - removed previous  vpci_[de]assign_device function and renamed
->   existing handlers
-> - dropped attempts to handle errors in assign_device() function
-> - do not call vpci_assign_device for dom_io
-> - use d instead of pdev->domain
-> - use IS_ENABLED macro
-> Since v8:
-> - removed vpci_deassign_device
-> Since v6:
-> - do not pass struct domain to vpci_{assign|deassign}_device as
->   pdev->domain can be used
-> - do not leave the device assigned (pdev->domain == new domain) in case
->   vpci_assign_device fails: try to de-assign and if this also fails, then
->   crash the domain
-> Since v5:
-> - do not split code into run_vpci_init
-> - do not check for is_system_domain in vpci_{de}assign_device
-> - do not use vpci_remove_device_handlers_locked and re-allocate
->   pdev->vpci completely
-> - make vpci_deassign_device void
-> Since v4:
->  - de-assign vPCI from the previous domain on device assignment
->  - do not remove handlers in vpci_assign_device as those must not
->    exist at that point
-> Since v3:
->  - remove toolstack roll-back description from the commit message
->    as error are to be handled with proper cleanup in Xen itself
->  - remove __must_check
->  - remove redundant rc check while assigning devices
->  - fix redundant CONFIG_HAS_VPCI check for CONFIG_HAS_VPCI_GUEST_SUPPORT
->  - use REGISTER_VPCI_INIT machinery to run required steps on device
->    init/assign: add run_vpci_init helper
-> Since v2:
-> - define CONFIG_HAS_VPCI_GUEST_SUPPORT so dead code is not compiled
->   for x86
-> Since v1:
->  - constify struct pci_dev where possible
->  - do not open code is_system_domain()
->  - extended the commit message
-> ---
->  xen/drivers/Kconfig           |  4 ++++
->  xen/drivers/passthrough/pci.c | 31 +++++++++++++++++++++++++++----
->  xen/drivers/vpci/header.c     |  2 +-
->  xen/drivers/vpci/vpci.c       |  6 +++---
->  xen/include/xen/vpci.h        | 10 +++++-----
->  5 files changed, 40 insertions(+), 13 deletions(-)
+
+Thanks for reminder.
+
+> > +    QTAILQ_REMOVE(&g->reslist, res, next);
+> > +
+> > +    virtio_gpu_cleanup_mapping_iov(g, res->iov, res->iov_cnt);
+> > +    g_free(res->addrs);
+> > +
+> > +    g_free(res);
 > 
-> diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
-> index db94393f47..780490cf8e 100644
-> --- a/xen/drivers/Kconfig
-> +++ b/xen/drivers/Kconfig
-> @@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
->  config HAS_VPCI
->  	bool
->  
-> +config HAS_VPCI_GUEST_SUPPORT
-> +	bool
-> +	depends on HAS_VPCI
-> +
->  endmenu
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 4f18293900..64281f2d5e 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -757,7 +757,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->           * For devices not discovered by Xen during boot, add vPCI handlers
->           * when Dom0 first informs Xen about such devices.
->           */
-> -        ret = vpci_add_handlers(pdev);
-> +        ret = vpci_assign_device(pdev);
->          if ( ret )
->          {
->              printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
-> @@ -771,7 +771,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->          if ( ret )
->          {
->              write_lock(&hardware_domain->pci_lock);
-> -            vpci_remove_device(pdev);
-> +            vpci_deassign_device(pdev);
->              list_del(&pdev->domain_list);
->              write_unlock(&hardware_domain->pci_lock);
->              pdev->domain = NULL;
-> @@ -819,7 +819,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
->          {
-> -            vpci_remove_device(pdev);
-> +            vpci_deassign_device(pdev);
->              pci_cleanup_msi(pdev);
->              ret = iommu_remove_device(pdev);
->              if ( pdev->domain )
-> @@ -877,6 +877,13 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
->              goto out;
->      }
->  
-> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) )
-> +    {
-> +        write_lock(&d->pci_lock);
-> +        vpci_deassign_device(pdev);
-> +        write_unlock(&d->pci_lock);
-> +    }
+> If you embed virtio_gpu_simple_resource in a new struct, we should
+> instead call the existing virtio_gpu_resource_destroy() I guess.
 
-I'm confused by this one, shouldn't the code rely on has_vpci()
-instead?  (which is already checked for in vpci_deassign_device()).
+Yes, but I didn't call virtio_gpu_resource_destroy() here, I am using the
+virgl_resource_destroy() and the input should be the virgl resource in next
+version. May I know whether I miss understood your point?
 
-If you have a system without CONFIG_HAS_VPCI_GUEST_SUPPORT but vPCI is
-used by dom0 you likely still need the hooks in {,de}assign_device()
-so that vPCI status is properly handled for dom0 as the devices get
-deassigned to dom0 and assigned to a guest? (and maybe moved back to
-dom0 at a later point).
+> 
+> > +}
+> > +
+> >  static void virgl_cmd_resource_unref(VirtIOGPU *g,
+> >                                       struct virtio_gpu_ctrl_command *cmd)
+> >  {
+> > +    struct virtio_gpu_simple_resource *res;
+> >      struct virtio_gpu_resource_unref unref;
+> >      struct iovec *res_iovs = NULL;
+> >      int num_iovs = 0;
+> > @@ -88,13 +104,22 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
+> >      VIRTIO_GPU_FILL_CMD(unref);
+> >      trace_virtio_gpu_cmd_res_unref(unref.resource_id);
+> >
+> > +    res = virtio_gpu_find_resource(g, unref.resource_id);
+> > +
+> >      virgl_renderer_resource_detach_iov(unref.resource_id,
+> >                                         &res_iovs,
+> >                                         &num_iovs);
+> >      if (res_iovs != NULL && num_iovs != 0) {
+> >          virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
+> > +        if (res) {
+> > +            res->iov = NULL;
+> > +            res->iov_cnt = 0;
+> > +        }
+> >      }
+> > +
+> >      virgl_renderer_resource_unref(unref.resource_id);
+> > +
+> > +    virgl_resource_destroy(g, res);
+> >  }
+> >
+> >  static void virgl_cmd_context_create(VirtIOGPU *g,
+> > @@ -426,6 +451,183 @@ static void virgl_cmd_get_capset(VirtIOGPU *g,
+> >      g_free(resp);
+> >  }
+> >
+> > +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> > +
+> > +static void virgl_cmd_resource_create_blob(VirtIOGPU *g,
+> > +                                           struct virtio_gpu_ctrl_command *cmd)
+> > +{
+> > +    struct virtio_gpu_simple_resource *res;
+> > +    struct virtio_gpu_resource_create_blob cblob;
+> > +    struct virgl_renderer_resource_create_blob_args virgl_args = { 0 };
+> > +    int ret;
+> > +
+> > +    VIRTIO_GPU_FILL_CMD(cblob);
+> > +    virtio_gpu_create_blob_bswap(&cblob);
+> > +    trace_virtio_gpu_cmd_res_create_blob(cblob.resource_id, cblob.size);
+> > +
+> > +    if (cblob.resource_id == 0) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> > +                      __func__);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    res = virtio_gpu_find_resource(g, cblob.resource_id);
+> > +    if (res) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already exists %d\n",
+> > +                      __func__, cblob.resource_id);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    res = g_new0(struct virtio_gpu_simple_resource, 1);
+> > +    if (!res) {
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> > +        return;
+> 
+> needless error handling, glib will abort() on OOM.
 
-> +
->      devfn = pdev->devfn;
->      ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
->                       pci_to_dev(pdev));
-> @@ -1147,7 +1154,7 @@ static void __hwdom_init setup_one_hwdom_device(const struct setup_hwdom *ctxt,
->                PCI_SLOT(devfn) == PCI_SLOT(pdev->devfn) );
->  
->      write_lock(&ctxt->d->pci_lock);
-> -    err = vpci_add_handlers(pdev);
-> +    err = vpci_assign_device(pdev);
->      write_unlock(&ctxt->d->pci_lock);
->      if ( err )
->          printk(XENLOG_ERR "setup of vPCI for d%d failed: %d\n",
-> @@ -1481,6 +1488,13 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->      if ( pdev->broken && d != hardware_domain && d != dom_io )
->          goto done;
->  
-> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) )
-> +    {
-> +        write_lock(&pdev->domain->pci_lock);
-> +        vpci_deassign_device(pdev);
-> +        write_unlock(&pdev->domain->pci_lock);
-> +    }
-> +
->      rc = pdev_msix_assign(d, pdev);
->      if ( rc )
->          goto done;
-> @@ -1506,6 +1520,15 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
->          rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
->                          pci_to_dev(pdev), flag);
->      }
-> +    if ( rc )
-> +        goto done;
+OK, I will remove all simliar error handling in next version.
 
-rc can't be != 0 here, as the increment statement in the for loop
-above will zero rc at each iteration.
+> 
+> > +    }
+> > +
+> > +    res->resource_id = cblob.resource_id;
+> > +    res->blob_size = cblob.size;
+> > +
+> > +    if (cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
+> > +        ret = virtio_gpu_create_mapping_iov(g, cblob.nr_entries, sizeof(cblob),
+> > +                                            cmd, &res->addrs, &res->iov,
+> > +                                            &res->iov_cnt);
+> > +        if (!ret) {
+> > +            g_free(res);
+> > +            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> > +            return;
+> > +        }
+> > +    }
+> > +
+> > +    QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+> > +
+> > +    virgl_args.res_handle = cblob.resource_id;
+> > +    virgl_args.ctx_id = cblob.hdr.ctx_id;
+> > +    virgl_args.blob_mem = cblob.blob_mem;
+> > +    virgl_args.blob_id = cblob.blob_id;
+> > +    virgl_args.blob_flags = cblob.blob_flags;
+> > +    virgl_args.size = cblob.size;
+> > +    virgl_args.iovecs = res->iov;
+> > +    virgl_args.num_iovs = res->iov_cnt;
+> > +
+> > +    ret = virgl_renderer_resource_create_blob(&virgl_args);
+> > +    if (ret) {
+> > +        virgl_resource_destroy(g, res);
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: virgl blob create error: %s\n",
+> > +                      __func__, strerror(-ret));
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> > +    }
+> > +}
+> > +
+> > +static void virgl_cmd_resource_map_blob(VirtIOGPU *g,
+> > +                                        struct virtio_gpu_ctrl_command *cmd)
+> > +{
+> > +    struct virtio_gpu_simple_resource *res;
+> > +    struct virtio_gpu_resource_map_blob mblob;
+> > +    int ret;
+> > +    void *data;
+> > +    uint64_t size;
+> > +    struct virtio_gpu_resp_map_info resp;
+> > +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+> > +
+> > +    VIRTIO_GPU_FILL_CMD(mblob);
+> > +    virtio_gpu_map_blob_bswap(&mblob);
+> > +
+> > +    if (mblob.resource_id == 0) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> > +                      __func__);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    res = virtio_gpu_find_resource(g, mblob.resource_id);
+> > +    if (!res) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+> > +                      __func__, mblob.resource_id);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +    if (res->region) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already mapped %d\n",
+> > +                     __func__, mblob.resource_id);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    ret = virgl_renderer_resource_map(res->resource_id, &data, &size);
+> > +    if (ret) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource map error: %s\n",
+> > +                      __func__, strerror(-ret));
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    res->region = g_new0(MemoryRegion, 1);
+> > +    if (!res->region) {
+> 
+> no need for OOM handling here too
+> 
+> > +        virgl_renderer_resource_unmap(res->resource_id);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_OUT_OF_MEMORY;
+> > +        return;
+> > +    }
+> > +    memory_region_init_ram_ptr(res->region, OBJECT(g), NULL, size, data);
+> > +    OBJECT(res->region)->free = g_free;
+> > +    memory_region_add_subregion(&b->hostmem, mblob.offset, res->region);
+> > +    memory_region_set_enabled(res->region, true);
+> > +
+> > +    memset(&resp, 0, sizeof(resp));
+> > +    resp.hdr.type = VIRTIO_GPU_RESP_OK_MAP_INFO;
+> > +    virgl_renderer_resource_get_map_info(mblob.resource_id, &resp.map_info);
+> > +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+> > +}
+> > +
+> > +static int virtio_gpu_virgl_resource_unmap(VirtIOGPU *g,
+> > +                                           struct virtio_gpu_simple_resource
+> > +                                           *res)
+> > +{
+> > +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+> > +
+> > +    if (!res) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already unmapped %d\n",
+> > +                      __func__, res->resource_id);
+> > +        return VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +    }
+> > +
+> > +    memory_region_set_enabled(res->region, false);
+> > +    memory_region_del_subregion(&b->hostmem, res->region);
+> > +    object_unparent(OBJECT(res->region));
+> > +    res->region = NULL;
+> > +
+> > +    return virgl_renderer_resource_unmap(res->resource_id);
+> > +}
+> > +
+> > +static void virgl_cmd_resource_unmap_blob(VirtIOGPU *g,
+> > +                                          struct virtio_gpu_ctrl_command *cmd)
+> > +{
+> > +    struct virtio_gpu_simple_resource *res;
+> > +    struct virtio_gpu_resource_unmap_blob ublob;
+> > +    VIRTIO_GPU_FILL_CMD(ublob);
+> > +    virtio_gpu_unmap_blob_bswap(&ublob);
+> > +
+> > +    if (ublob.resource_id == 0) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+> > +                      __func__);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    res = virtio_gpu_find_resource(g, ublob.resource_id);
+> > +    if (!res) {
+> > +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+> > +                      __func__, ublob.resource_id);
+> > +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+> > +        return;
+> > +    }
+> > +
+> > +    virtio_gpu_virgl_resource_unmap(g, res);
+> > +}
+> > +
+> > +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+> > +
+> >  void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+> >                                        struct virtio_gpu_ctrl_command *cmd)
+> >  {
+> > @@ -492,6 +694,17 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+> >      case VIRTIO_GPU_CMD_GET_EDID:
+> >          virtio_gpu_get_edid(g, cmd);
+> >          break;
+> > +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> > +    case VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB:
+> > +        virgl_cmd_resource_create_blob(g, cmd);
+> > +        break;
+> > +    case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
+> > +        virgl_cmd_resource_map_blob(g, cmd);
+> > +        break;
+> > +    case VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB:
+> > +        virgl_cmd_resource_unmap_blob(g, cmd);
+> > +        break;
+> > +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+> >      default:
+> >          cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+> >          break;
+> > diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+> > index 5b7a7eab4f..cc4c1f81bb 100644
+> > --- a/hw/display/virtio-gpu.c
+> > +++ b/hw/display/virtio-gpu.c
+> > @@ -1367,10 +1367,12 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+> >              return;
+> >          }
+> >
+> > +#ifndef HAVE_VIRGL_RESOURCE_BLOB
+> >          if (virtio_gpu_virgl_enabled(g->parent_obj.conf)) {
+> > -            error_setg(errp, "blobs and virgl are not compatible (yet)");
+> > +            error_setg(errp, "Linked virglrenderer does not support blob resources");
+> >              return;
+> >          }
+> > +#endif
+> >      }
+> >
+> >      if (!virtio_gpu_base_device_realize(qdev,
+> > diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
+> > index 55973e112f..b9adc28071 100644
+> > --- a/include/hw/virtio/virtio-gpu.h
+> > +++ b/include/hw/virtio/virtio-gpu.h
+> > @@ -58,6 +58,11 @@ struct virtio_gpu_simple_resource {
+> >      int dmabuf_fd;
+> >      uint8_t *remapped;
+> >
+> > +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+> > +    /* only blob resource needs this region to be mapped as guest mmio */
+> > +    MemoryRegion *region;
+> > +#endif
+> > +
+> >      QTAILQ_ENTRY(virtio_gpu_simple_resource) next;
+> >  };
+> >
+> > diff --git a/meson.build b/meson.build
+> > index ff20d3c249..f7b744ab82 100644
+> > --- a/meson.build
+> > +++ b/meson.build
+> > @@ -1072,6 +1072,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
+> >                         cc.has_function('virgl_renderer_context_create_with_flags',
+> >                                         prefix: '#include <virglrenderer.h>',
+> >                                         dependencies: virgl))
+> > +  config_host_data.set('HAVE_VIRGL_RESOURCE_BLOB',
+> > +                       cc.has_function('virgl_renderer_resource_create_blob',
+> > +                                       prefix: '#include <virglrenderer.h>',
+> > +                                       dependencies: virgl))
+> 
+> better moved under the if virgl.found() block
 
-> +
-> +    if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) && d != dom_io)
-> +    {
-> +        write_lock(&d->pci_lock);
-> +        rc = vpci_assign_device(pdev);
-> +        write_unlock(&d->pci_lock);
-> +    }
+Yes, will update.
 
-Why do you need the extra d != dom_io check here?  has_vpci() will
-fail for dom_io, no need to special case it here.
-
-Thanks, Roger.
+> 
+> >  endif
+> >  blkio = not_found
+> >  if not get_option('blkio').auto() or have_block
+> > --
+> > 2.34.1
+> >
+> >
+> 
+> 
+> -- 
+> Marc-André Lureau
 
