@@ -2,52 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A54B7A8659
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 16:18:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605772.943356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CBED7A8776
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 16:45:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605778.943366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiy20-00081I-BT; Wed, 20 Sep 2023 14:18:20 +0000
+	id 1qiyRS-0005e2-CQ; Wed, 20 Sep 2023 14:44:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605772.943356; Wed, 20 Sep 2023 14:18:20 +0000
+Received: by outflank-mailman (output) from mailman id 605778.943366; Wed, 20 Sep 2023 14:44:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiy20-0007yc-84; Wed, 20 Sep 2023 14:18:20 +0000
-Received: by outflank-mailman (input) for mailman id 605772;
- Wed, 20 Sep 2023 14:18:18 +0000
+	id 1qiyRS-0005bZ-96; Wed, 20 Sep 2023 14:44:38 +0000
+Received: by outflank-mailman (input) for mailman id 605778;
+ Wed, 20 Sep 2023 14:44:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7wrp=FE=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qiy1y-0007yU-EN
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 14:18:18 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20613.outbound.protection.outlook.com
- [2a01:111:f400:7eab::613])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KFvK=FE=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1qiyRR-0005bT-5I
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 14:44:37 +0000
+Received: from sonic310-21.consmr.mail.gq1.yahoo.com
+ (sonic310-21.consmr.mail.gq1.yahoo.com [98.137.69.147])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8964f27f-57c0-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 16:18:16 +0200 (CEST)
-Received: from MW4PR04CA0077.namprd04.prod.outlook.com (2603:10b6:303:6b::22)
- by BL0PR12MB4964.namprd12.prod.outlook.com (2603:10b6:208:1c7::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.19; Wed, 20 Sep
- 2023 14:18:11 +0000
-Received: from CO1PEPF000044F1.namprd05.prod.outlook.com
- (2603:10b6:303:6b:cafe::ef) by MW4PR04CA0077.outlook.office365.com
- (2603:10b6:303:6b::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.30 via Frontend
- Transport; Wed, 20 Sep 2023 14:18:11 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000044F1.mail.protection.outlook.com (10.167.241.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6792.19 via Frontend Transport; Wed, 20 Sep 2023 14:18:11 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 20 Sep
- 2023 09:18:10 -0500
-Received: from [172.20.57.36] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 20 Sep 2023 09:18:09 -0500
+ id 3522054f-57c4-11ee-9b0d-b553b5be7939;
+ Wed, 20 Sep 2023 16:44:32 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic310.consmr.mail.gq1.yahoo.com with HTTP; Wed, 20 Sep 2023 14:44:30 +0000
+Received: by hermes--production-ne1-6cbd549489-84thk (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 25f55bca556ea028f0a42f54df88281a; 
+ Wed, 20 Sep 2023 14:44:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,87 +42,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8964f27f-57c0-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XpCRpooaEAXaAqFDt2gUtgeGcCTUYpNtbfDwAOweUM7+PXd47FDOCW5sZhHvr+Glb8/ThZfPkTbfGKvndCrlL6y0hVCqR/XCYn0AifABlEubp5dT7qwO+SO7QotNs4D8zIfm1CvxJBZO5o1itEAUr2INf7ES2qBGxMDBQyfViQ+O9qt1BFhPXSTZwCRnithcBrCzJuIa7JCrUbf3NGybi4o3BySBugaj96DrKMYdiVEs6WvBnXGkiilwzWhBVc6TB5TOmXf0/0eD6lucglMOm5SUFubaTNnes5phNeSL4OuCHyqpKTQOyi57NlEs9AU2UUaZkGNJidUTUtZ80kw/LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AOkWYrKVa4rWt3ZBaP3oVAkeSEsIxBth2zVbNviXskI=;
- b=jcJ22Ng7qJahYZo4Qa6SSzZX548QT6GXN9nf2BFulFrO3xMs3rktdC2s4Qt/P0xgiqGzoI7bvOEEaAispfSujQ3+5hRNpCo2S0uAycEQXkZTUFihx9Ir27a5PUSTaznkXFFN/YtvHzk39r8hTFquJjjug075AOwqCxZ1QIB4XvMbMIKk8W+ye+cIbXE9ohdbjS7XaKYYbQQfKzWzvxjAJIulKnH2VTT8A9w7YSYnv4M5l76fT8uA55oeAS7+r7Dn7gflwX5YkWakKwvCSTG7Pcfj55qOashAtN9aqhHssXWYfG0ULGMK3N9m5h3It3Nj8IZh3DHFG4umFWJtQ2fsxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AOkWYrKVa4rWt3ZBaP3oVAkeSEsIxBth2zVbNviXskI=;
- b=ZWkNiscrkW2ka5v0Vo4HaWqxjTZEOE92gktQlCnFf77QR0QPqqo8rdv1JCz6lh0IWMNuKLzfO8DvhF++L3YJJS7ZAtURr1jDaqY5ZQcwe9YbgZ3nPhGVBl/I1zhxlUh++hE0rP7KruQHDUWYHBCtBZExsq6xo3mMgyJzE3/Am04=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <dfe31cee-8cc5-0ae1-dd23-f96bd6f00427@amd.com>
-Date: Wed, 20 Sep 2023 10:18:08 -0400
+X-Inumbo-ID: 3522054f-57c4-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1695221070; bh=XijLq0YSqnbK496MfIb79/fWIh7B6yNruOyf40BE6qc=; h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=T6Nuia+7IYdO/N2oL/i18bxl8UOwMZVVLrgCCjw9cbNSwqVvGU3phLdUVT6lvZkxGJm90IXjaAFSRMB+/of4Y/tVLajBvwFJmWZ8wQm45ZlKAIeUb2clwB4B6YBFpfDoUNjvF0rcKHAAUZ3ja0l5dMUH8jIwvWGddOOQiNMQoeFfkc356yvb9GUwbBC6ic0tL8vjUkupUpes/RnPgiV6BoFz6ZtelK6bVNtOCQhUi3PdGvrXmz/Q1heajgF+KyB3qmcF8ZOVRTvUFAv30/q08Gs/BLhgbZ9dE1G0xs4R0oB3J1oFFWlpUWg5J6K5aW6U/z86jfpNunIgcl9/clhzWg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1695221070; bh=4c4lC1v68u+I+Wt7Cuj9L2lAfhigVlQETv6LsH3QlSV=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=gS2jmeS/FgPGusT0zwC/Dh59Ardkfg0Kr5uEfU499BFGo30ntSNSZQW8p3uW0ZYGyawxpEUSq9oucjbABdOgh0jFhPsGDA3sDeMlXP3o/ser+yIgaxxHmpxC3UClhdigcyZjTRfrHpsm71GHX7B1WbKB7p2pC6w349Y9fp/Mj6mC1Brj6tldJhOP9+pTPrewO9D9E6CDeYLMOBXvduH0YuqbTrx8iZ8ukuEZ6Eil9CKzk5er3EcwXulUqfGQ7UpEISgjujAv9Deh/nkAEBFZhkaXr7JGX1ghtSKDbAtGv76AaCCPPBb2seUltnVhZ1lPLLkPJuFxhrTpfgNUm/kLyA==
+X-YMail-OSG: AU922YAVM1l6OB7xoRirelMQZYVALkclBUK8gX196Cec0Q38m1glfY1uYRZkP5d
+ tiX2sCjVl5Urp9n1B8ivdvzgaIHXXKfAioBUayzEb6nwUPtZ4v0MfouDVkBf0NXCJoMf0tUnE7Zb
+ BgtynytOsY.qaGo6b1Nw4NX.mmaI1bJ1K7UbMIOWADV5mUGl75RWk0uyIfO1EU.5OfMB5ZQOEL5l
+ oQaMbBJ8oCuioBZKuPJV4SR5rt9JWK7hNRhug7qPQ0ngQKM5XiJhzE7DNjNXLmwG7e0Oy.2A8h1a
+ .5_N5bMoEVWPry5YyxaPFjfnNo6h.KCeI7gcV9i0imZYO665VJnXVuMjYoRTPbcgfNGQyPkFCPzu
+ 1X3Q2bbG0d1weTzmUkPcYmevT3ddq2Cx6usKwLmS.sKrfxZ4UyWPUWFp1kw7FdRadGkZqMmxe_Vv
+ u_q2hVtle4K2Yo03Bv7B.AKYGxluBXtgDhn_pKTD6VBhKKCL4hCFZ_BLhrMvkTjvCrHODGZK3d0A
+ OcYQRIHSlw2gSc1u7o0TTLFIpW7bSvc6vPj5N_m9KxvGwNgub_e065rTMPcaimGlVJrb.Oh0pqym
+ rnUWM51NUq0H_..q4GpeHix69zJKphNXgLzr1TefFVGjBj7IebJ6vs4qnsRfPGr0UMPTyjMHx1Eh
+ e570YyuXmn2uMa0OrlJFu9_PC6TCGY5_fI.3JzY4MoPI8EIaJvdJBGm6Gxnnq5vbRSDdAl6Y4vvg
+ yQxUorQCUECCOt8UpzC6fFU893o7eE_wxHx2Jj0P3qx8KdoBh9gkUxQLL90z8Mdg.DA.tf8pUwdY
+ QnfYOrIS3odmgiuwkOSe9b83n6S.MhiDKr4E1Biqihv_0.yuWen4LIhVkKZEpLMMHJcM1OJvQwUO
+ kYktyQma_FmrPPhoTaWaw9ziWl7sSYvO6aIGfHwekwV2mpItaRauy8LwQHn2H0jPd3QwLZug1BiV
+ RGIAj7xDvOrxRKZD7tCTUOEw5dm1Cb.R3doZMKkHsNF91Z8w0Efu27o2ZYwQ6hWXc7OwQ6_L4PIU
+ QL7cLjWsJs6aO9wDyxWWRwjXFlJf1V1eQwAm_4AtjVJuRW9kCQdJRLYsWeGNCHrbMnI4pOF8T1Ul
+ 50Z3BzUxjjDkmVs8ibPZ1A56B6YUPHwnS0HgRAMeN4NtkjZ67KiGNbDA12rxXnLzdVeBoCrxzHu9
+ l_Faq_J.cD6F12t_gbn5GlTpgWKvgywf7JpRDKPIbMF9g3o9iFEiO5RlcZkcVkuv4pbbNX9dA3nD
+ 0MskXloyNnvVyJUR3VqJh4d1XRWMg4qIXIDFX2v8NWwqiohN4mUodQj8dFETXJRsBBVuemryqiCv
+ F5UqEr8BUDySfnYfXwe8iFWVIKr8Oe4i1n5FwJ2AT_g.JTtvEYvpKc0fdLvpFcXxYoeBH1lHBe7v
+ mxSA.HlLxDvQSF7Us46syvM9yVHVbHvQw8jqRM_eVvSLEdX5ebW9wiQsSmri5rqN1A.V5YHbodag
+ hXV5Bpk6o9nZ5dOxuLa.2rc7qMsCvKrksu2PXHE.zLnEL4HZFac9kAIfFeTBhIaRiHp2SladMhXL
+ S5CHi9t.6m44Yf7QpR5gb6JHYeFOYZtAhzRdSk5HuOkV2X0VJBEL0QaZB0IsTCnoUDdgeDbjpd5h
+ hd0JeM95i7yZs1mwV2CM.8W6VoLEK43f4mbwl1CQZ6Se5B5KyycBq3cnmZI_UcO.7dsrgYY_j4VV
+ FScynXEM.qxg2dACE.rVUO1UUWRLxbzKpPeJziXiHih3OQgyf_FEEk1_oN9CyfpAsO7ChVaDE1aI
+ rW7Ykh8GoCR_3r5kuvgtNUOOtqCNaSMnjpWI2IGlGNdL3Tc3A3a3x7lLjjWAh7u71ZpM9uqTucJo
+ BUUB6qG29KgzGRggMIpPfJrwSCxYsejUDU3IWIn6nXdiU8Dw2QDWEVHyLbaLpFgqNVislDcZgSkE
+ OYR16XddgLtfTuZq9Wh7tLwgZBBYn4Zaa3IxSIjmCwlLrzTX7NVcdW1PN6aitwPIp.N3HpVfDG8E
+ GMXgql6CszcOaw2LKrw3KrsXdqIcwkpFStL.xTxIshFvW5Z198kV6ODOlDZjPM61c20rJkIBhXrG
+ 8XMTNbQo76t3.G8oJiRaXkq7DQt1_mi37Yt0NuBBRMxsGDidLLbC_RSmSeipvtnl3qQaYPJylwJ.
+ WUpqRa0jgNrN0DBn6tiM5uS3xcQ6nmWJFWKAF7UwZTvWNXjodKOUOQsFyM_FCnhNyA1iwV6ozAf5
+ mdVw1Ibs3lT2Th24UC55DcLWKo4PTa8Y-
+X-Sonic-MF: <brchuckz@aim.com>
+X-Sonic-ID: e5e70465-c2df-41c0-81bf-a8fcd2dc0a37
+Message-ID: <6cd8d49f-2b69-471c-84b7-890f31f585b5@aol.com>
+Date: Wed, 20 Sep 2023 10:44:23 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v9 06/16] vpci/header: implement guest BAR register
- handlers
+User-Agent: Mozilla Thunderbird
+From: Chuck Zmudzinski <brchuckz@aol.com>
+Subject: Re: [PATCH v3 2/6] hw/isa/piix3: Reuse piix3_realize() in
+ piix3_xen_realize()
+To: Bernhard Beschow <shentey@gmail.com>, Jason Andryuk <jandryuk@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: qemu-devel@nongnu.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, David Woodhouse <dwmw@amazon.co.uk>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost
+ <eduardo@habkost.net>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+References: <20230312120221.99183-1-shentey@gmail.com>
+ <20230312120221.99183-3-shentey@gmail.com>
+ <f52c41f7-e662-4afd-8ac9-ce2c0da2b1be@perard>
+ <7F45B51F-F1E3-4F04-A46F-4C80509C7195@gmail.com>
+ <622b9674-fffd-4634-ac30-d0db3230478e@perard>
+ <CAKf6xpvxf=F52etJ8o3eLQV4JVD5WM57znGoP3ctONRf7uPisA@mail.gmail.com>
+ <B0FF78F4-1193-495B-919C-84A1FF8ADF12@gmail.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-7-volodymyr_babchuk@epam.com>
- <ZQrAK-XgKQwEPVED@MacBookPdeRoger>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <ZQrAK-XgKQwEPVED@MacBookPdeRoger>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <B0FF78F4-1193-495B-919C-84A1FF8ADF12@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F1:EE_|BL0PR12MB4964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 720acdeb-b10e-47e5-359e-08dbb9e46baf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/FgtsQkplXbrwBMLdKEmLdJxb71Dir4m7hOeXq/jrmdzo8/6wALtBU5QD2k3V/E+Iv6clNGbDYaRaK0YPi9dOpKbusjZiVBING7q4GCjJavCti2jCo6wx01LnGXaAO7aZbIYp3WO/j/5f0d5DZP4AE5mHeuk4lwhgqhynRxOAerE0kmr8wYUMFzEKwEV/OJr/E9sRZYxwqxh18mv21X4RY5uvDetwWK1GVIV5zAMcrD/6POqvZwzfj6HAO/iJcEDgRA9lqKuafT3uOimit6B9InuLQABz7E4+nkTD0Bs0RverFUNw2BMpFAovkj3OIkHcLd3pFeVORgnBQi8KmBU8YsWuIKeA2yb2CQFykTZqPb/zlUrvBk8Fno39iQX6bRajdtNbuSpdsVMVE9ovfCdIS6hQpSpU7hm8OWIf9l5VfHNKLYqH091pPCqR35Hi5cuQOGhGgue6WJAMEyi7t3X7MPzZEloUBsVTYYHOpK9FPkLgnLAGqNuTQnp79qeztUuQteMRhAE1Nu0fEYhSk4djUUagga4KklVov38XWOcmPMOoJLeSokksWjRVa40g4jAiH71+FtAxL7/EQZ0j2rbcXT+T1w3qtsXgjHFaM/BwgtFtPYNGp6UBWcU2nc/nA6A4rLDmYZxfWoY5nT/aDYr+OTQD1debL/PLQJ7xL0qIn3s3rGYlOQja3x5mbyqYUJeB89j7gO9YgWGewdFAFI/LXzlofBoqBMLiK+V7PEUp3CxqzXf+ppsa38pw59YafyemAS0tMlzmQ41sxSwPo6q73VDGEkapteTngfjzKU3ml4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(346002)(39860400002)(136003)(376002)(82310400011)(1800799009)(186009)(451199024)(46966006)(40470700004)(36840700001)(53546011)(478600001)(8936002)(8676002)(44832011)(70586007)(31686004)(70206006)(966005)(16576012)(110136005)(316002)(54906003)(5660300002)(40460700003)(2616005)(36860700001)(36756003)(82740400003)(31696002)(86362001)(40480700001)(4326008)(47076005)(2906002)(4744005)(336012)(26005)(41300700001)(426003)(81166007)(356005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 14:18:11.1977
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 720acdeb-b10e-47e5-359e-08dbb9e46baf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4964
+X-Mailer: WebService/1.1.21797 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 9/20/23 05:49, Roger Pau Monné wrote:
-> On Tue, Aug 29, 2023 at 11:19:43PM +0000, Volodymyr Babchuk wrote:
->> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
->> index e58bbdf68d..e96d7b2b37 100644
->> --- a/xen/drivers/vpci/header.c
->> +++ b/xen/drivers/vpci/header.c
->> +static uint32_t cf_check empty_bar_read(const struct pci_dev *pdev,
->> +                                        unsigned int reg, void *data)
->> +{
->> +    return 0;
->> +}
+On 9/19/2023 4:02 PM, Bernhard Beschow wrote:
 > 
-> If we are going to gain a lot of helpers that return a fixed value it
-> might be worthwhile to introduce a helper that returns what gets
-> passed as 'data'.  Let's leave it as you propose for now.
+> 
+> Am 3. April 2023 12:27:14 UTC schrieb Jason Andryuk <jandryuk@gmail.com>:
+>>On Mon, Apr 3, 2023 at 5:33 AM Anthony PERARD <anthony.perard@citrix.com> wrote:
+>>>
+>>> On Sat, Apr 01, 2023 at 10:36:45PM +0000, Bernhard Beschow wrote:
+>>> >
+>>> >
+>>> > Am 30. März 2023 13:00:25 UTC schrieb Anthony PERARD <anthony.perard@citrix.com>:
+>>> > >On Sun, Mar 12, 2023 at 01:02:17PM +0100, Bernhard Beschow wrote:
+>>> > >> This is a preparational patch for the next one to make the following
+>>> > >> more obvious:
+>>> > >>
+>>> > >> First, pci_bus_irqs() is now called twice in case of Xen where the
+>>> > >> second call overrides the pci_set_irq_fn with the Xen variant.
+>>> > >
+>>> > >pci_bus_irqs() does allocates pci_bus->irq_count, so the second call in
+>>> > >piix3_xen_realize() will leak `pci_bus->irq_count`. Could you look if
+>>> > >pci_bus_irqs_cleanup() can be called before the second pci_bus_irqs()
+>>> > >call, or maybe some other way to avoid the leak?
+>>> >
+>>> > Thanks for catching this! I'll post a v4.
+>>> >
+>>> > I think the most fool-proof way to fix this is to free irq_count just before the assignment. pci_bus_irqs_cleanup() would then have to NULL the attribute such that pci_bus_irqs() can be called afterwards.
+>>> >
+>>> > BTW: I tried running qemu-system-x86_64 with PIIX4 rather than PIIX3 as Xen guest with my pc-piix4 branch without success. This branch essentially just provides slightly different PCI IDs for PIIX. Does xl or something else in Xen check these? If not then this means I'm still missing something. Under KVM this branch works just fine. Any idea?
+>>>
+>>> Maybe the ACPI tables provided by libxl needs to be updated.
+>>> Or maybe something in the firmware (SeaBIOS or OVMF/OvmfXen) check the
+>>> id (I know that the PCI id of the root bus is checked, but I don't know
+>>> if that's the one that's been changed).
+>>
+>>Xen also has hvmloader, which runs before SeaBIOS/OVMF.  Looking at
+>>tools/firmware/hvmloader/pci.c, it has
+>>        ASSERT((devfn != PCI_ISA_DEVFN) ||
+>>               ((vendor_id == 0x8086) && (device_id == 0x7000)));
+>>
+>>From QEMU, it looks like 0x7000 is PCI_DEVICE_ID_INTEL_82371SB_0, but
+>>PIIX4 uses 0x7110 (PCI_DEVICE_ID_INTEL_82371AB_0).  Maybe try removing
+>>that check?
+> 
+> I was finally able to build Xen successfully (without my distribution providing too recent dependencies that prevent compilation). With 0x7110 added in the line above I could indeed run a Xen guest with PIIX4. Yay!
+> 
+> Now I just need to respin my PIIX consolidation series...
 
-For future reference, I introduce such a helper in the vPCI capabilities filtering series [1]. If that series happens gets committed before this one, it could be worthwhile making the switch. But since the helper is not upstream yet, +1 for leaving as is for now.
+Welcome to the world of running guests on Xen! I am the one who tested your earlier patches with Xen guests, and I just wanted to say thanks for keeping me in the loop. Please Cc me when you post your respin of the PIIX consolidation series since I would like to also test it in my Xen environment. I understand I will also need to patch hvmloader.c on the Xen side to set the correct device id.
 
-[1] https://lists.xenproject.org/archives/html/xen-devel/2023-09/msg00796.html
+Kind regards,
+
+Chuck
+
+> 
+> Best regards,
+> Bernhard
+> 
+>>
+>>Regards,
+>>Jason
+
 
