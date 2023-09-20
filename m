@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6083D7A78FD
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 12:19:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605501.943084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F6D77A7909
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 12:20:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605507.943095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiuI3-00023e-10; Wed, 20 Sep 2023 10:18:39 +0000
+	id 1qiuJR-0004EA-Br; Wed, 20 Sep 2023 10:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605501.943084; Wed, 20 Sep 2023 10:18:39 +0000
+Received: by outflank-mailman (output) from mailman id 605507.943095; Wed, 20 Sep 2023 10:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qiuI2-00021y-UO; Wed, 20 Sep 2023 10:18:38 +0000
-Received: by outflank-mailman (input) for mailman id 605501;
- Wed, 20 Sep 2023 10:18:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qiuJR-0004B3-8B; Wed, 20 Sep 2023 10:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 605507;
+ Wed, 20 Sep 2023 10:20:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rvvO=FE=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1qiuI1-00021s-O4
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 10:18:38 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e39e541-579f-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 12:18:35 +0200 (CEST)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1d6a7354533so2480855fac.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Sep 2023 03:18:35 -0700 (PDT)
-Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
- ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
- by smtp.gmail.com with ESMTPSA id
- v17-20020aa78091000000b00687fcb1e609sm9900008pff.116.2023.09.20.03.18.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Sep 2023 03:18:33 -0700 (PDT)
+ <SRS0=DGJ5=FE=suse.com=nik.borisov@srs-se1.protection.inumbo.net>)
+ id 1qiuJP-0003G7-Uf
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 10:20:03 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43055a7f-579f-11ee-8789-cb3800f73035;
+ Wed, 20 Sep 2023 12:20:03 +0200 (CEST)
+Received: from DBBPR04MB7788.eurprd04.prod.outlook.com (2603:10a6:10:1e4::15)
+ by DB9PR04MB9703.eurprd04.prod.outlook.com (2603:10a6:10:302::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Wed, 20 Sep
+ 2023 10:20:00 +0000
+Received: from DBBPR04MB7788.eurprd04.prod.outlook.com
+ ([fe80::5b25:12c8:9f51:9b31]) by DBBPR04MB7788.eurprd04.prod.outlook.com
+ ([fe80::5b25:12c8:9f51:9b31%4]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
+ 10:20:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,181 +47,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e39e541-579f-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1695205114; x=1695809914; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wGNXVPxGii/1OrruCGR9o+G35rIoyKM+zE3Q4kluY2o=;
-        b=V/wiBZOkUhIwaqBAmRvTj6ircbnQr8bc0Y8pZQTOecm53U8kT0qWAWqwaHyobM9xiK
-         CztD6VBHgfkXJA9JI9vv4XSWSJ3kzjIt0zZhyV2YpzaFGhNsjfZi2+YkBJ5RKv55/ff6
-         OKoE/Yt56u7KAYCAIe9mRQfI3muXga5ahURzUEHtUJ7hMdEyNNGbqkJWd46SFh/3otrt
-         GlA05V506XjrnzsdTBhqHwKVQaBm5C1S4Zz4++SV0ZNHBk/2MRsM+A3oUn+lg+srmr87
-         Znkf/vtzckV60TDqBnZKdDSePX7ml3x5qVFjR4ITf18OQrbQNuv0q2LBFhUE0/k92jTn
-         p7xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695205114; x=1695809914;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wGNXVPxGii/1OrruCGR9o+G35rIoyKM+zE3Q4kluY2o=;
-        b=o6nfox14RWbtuu5Q+lk8Q5DE6ePyfSjsLes5f11mKTpeiBMdOcPFMYV+jg3ofZJDTt
-         vS8lLeQeuSbFgvj8BqOkdPpPQtoa956mdyYZ8oEiiqpKvMt8WUEge2TT11TeAiOQlaJu
-         HxX8Ln7riW1xWT55Je2zvAyA9yXivAsi505Vo0TCu4slmgwI1gMNdi3AYEmTtECJYM5q
-         11x4itWTPDJIjzb2Hsn1U7B+Ffyca8+GVm1M6OvVB6ldgZa6rPr+60AvPG8pjpUWmDhX
-         yGw/uwAX5AtW84E4SInXHlQR//020LrHAq6Ni5oJDf3UgzdwDIac/tF74g2WxOI0W8VV
-         dddw==
-X-Gm-Message-State: AOJu0YxRVnvnCm1yLqifBjeSFU1HGhJq5tw5YN/M7mHqlqJq/3621Jbb
-	mWsYD7xNQTLzpHX2xxurL7ebZw==
-X-Google-Smtp-Source: AGHT+IETjZDCEEs66uqF++esmIHFfY2g6LKNY3dRSbU1y5F6WeIuUIjbS0tRfk5rD7INdlVSaQGKgg==
-X-Received: by 2002:a05:6870:8a29:b0:1bb:753d:e6db with SMTP id p41-20020a0568708a2900b001bb753de6dbmr2230286oaq.3.1695205114050;
-        Wed, 20 Sep 2023 03:18:34 -0700 (PDT)
-Message-ID: <610ae949-89e7-4722-951d-ba0e8427919d@daynix.com>
-Date: Wed, 20 Sep 2023 19:18:27 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
- deallocation of memory regions
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Huang Rui
- <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
-Cc: xen-devel@lists.xenproject.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-8-ray.huang@amd.com>
- <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
- <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
- <75698621-d210-40eb-872d-f3cfc6e4dbff@daynix.com>
- <32a68715-201b-9923-9600-fe5ae49e4b7b@amd.com>
- <73a35fbb-c9a4-41dc-a6c7-26037b0e412f@daynix.com>
- <1f8863da-fad1-f983-8ed0-d6bf8d9544b8@amd.com>
+X-Inumbo-ID: 43055a7f-579f-11ee-8789-cb3800f73035
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O5HQwT670UVX8mnI0ax+FZj9EsuY4esnkzbGJCLSr3sgHEbv+A0PtTLSObG5YKXPWqmENTjruN0bIPsmLSaZ7Xdgi4lD2Y0EvL7wf1ZFGOHk958e2ZNomWAC0aTkT3fwjCEJpB92qw3diCmSzea+Si8AwyhXJ3LFbgg9CAATA6UrImQajy33h/WZYLst+Z/K+58SNHKO4NdvvGvygugCOSF4ZSjd4bmMcsgJeVq8YSqHer8Q27SYBuYaLZihmlX9lzB8payeJ2SpJYwBGcYoyQJLRrjkc3arM3eksbvAYB8+G30T/7N+Lr39dwxTOBHdH6YkGJRk0hhPtvU5v2mdPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YAINhEdYTcENyXk8OY5ai9zN5pJCicyvFXeYrjOYSPk=;
+ b=Tk055o/G+0dcH5nVVPu9VlH1hxH7IhX5z7RJXT5M0BCw21Lw9/E3Hi41eI6rEfUGOZGGybO9QWdVrY0HKfa2us17bC4/kndQh24Xv6G/AZ2QdnUv4P7F5ijRCr6NSbc7xVcchYjzS3+Pi52ePlvQw5il0i7xBmDoNO9KQd63Hl3f5JwN+18eCHkGvV7OWbrHMRsuzO5RPVnTfx6dmdqVGeW8CVboANe2qZP7tGhl3U3ofPMZDNInd7q+OWy17yYMlSwrCoSSMerTK4LmrU3YLX+3pucK1sonCwvPp3qne8ycMKWXWDCGWW2GpJxlxoaMDZwEy/WsU/f8ErwbVkT6qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YAINhEdYTcENyXk8OY5ai9zN5pJCicyvFXeYrjOYSPk=;
+ b=4dMO9RPLB8esifBXGX+b69aSKwYBMKuuu9SbliM2w+93wU3sv8Wh0ypn6QH1p5e2pLrGGsGlX5zBguqFOfjixxMG6DNB/LhVhz9ujtqLtoow8uZliP2SgPIs9SUAImRtiHdt7K82+QRBgNyEBhSQHbl2H18jtGyoffTOd49SNCHhFmIqnv51HMK4cpDXI0B9+zhDzbcsfZRYLPTq6Q5t+o5vKOsEZVOWieQtE7F9ovHr+BAEd2L2dO92Lb+6M3vdXY7OswSe9uFRZ2ER4YhpDzXBz91uKTRKFkmdaQV+MvypNYOVKX087sx6eZ6L7BRHgwbPnUpYBXMkFhQktqlnNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <aaed79d5-d683-d1bc-7ba1-b33c8d6db618@suse.com>
+Date: Wed, 20 Sep 2023 13:19:56 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v10 09/38] x86/fred: Disable FRED support if
+ CONFIG_X86_FRED is disabled
 Content-Language: en-US
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <1f8863da-fad1-f983-8ed0-d6bf8d9544b8@amd.com>
+To: Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ pbonzini@redhat.com, seanjc@google.com, peterz@infradead.org,
+ jgross@suse.com, ravi.v.shankar@intel.com, mhiramat@kernel.org,
+ andrew.cooper3@citrix.com, jiangshanlai@gmail.com
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-10-xin3.li@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+In-Reply-To: <20230914044805.301390-10-xin3.li@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0098.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cb::15) To DBBPR04MB7788.eurprd04.prod.outlook.com
+ (2603:10a6:10:1e4::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DBBPR04MB7788:EE_|DB9PR04MB9703:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e38e81a-8c4e-4991-7042-08dbb9c32549
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ZbyrK9C+nN2sIcAa9U8A4mG00Z/bAaHO+AuovHU6defTCjOQsINvYY6lphvwL0TupGeSiieGz/Jg3WyX2rp8veexmyXx4Tz8KgWFzTm0rYAbgWmwivrGvLMgn0jPuYS7q5IklfIhkYrUYtUleH8ejqAZNpj2k0gtYK7pmuP3Ds+3277tuBgv6anaALRNczHIlJU6kJY0NTVzCPxyGetMn5mMFIBoZIOTaFsGR8UySX7rg1LjpHw0zOa3YXs6MriIb/8fltt5zHFk97Xdz+eoVwlq7BkTMCDp+5LWWRRl70HmwyYqy/+9t5f3u8yQHN/uP17w2SLDjAooROBR8SwrdOtiOQV5HIVQyIRxW/zucBlLwAt9dhWIKRsmvT4Cq2E8AHusYguWNs6el1oMkHBRntcxelM0k1fnffndSLb2Aif1XQFTESChf3rGxkqPewgS3uA0I4ogsns/n3nkaoIlp9Uy5VQKwLidtK3538JzuupBYfFw3hvmJRd3ihWuAKRiOGMS8tylKQnUJAuwrQ1W9FWAeIdTwca7ouCh/r0q3Gi7WeFxxuIokus/XoikFSUpaxLk7/aJYPDv0CNfZonsPkqEZ+65qSM3KPaB97V2Xvzs1a9jv6pmMzE/vByQ9Ndh0KrqQhM/q1wG/56fXMTipg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7788.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(396003)(376002)(39860400002)(136003)(1800799009)(186009)(451199024)(26005)(2616005)(8676002)(8936002)(4326008)(7416002)(83380400001)(2906002)(31696002)(36756003)(86362001)(6506007)(6486002)(31686004)(5660300002)(6666004)(316002)(6512007)(478600001)(66946007)(66556008)(41300700001)(38100700002)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dGUzUzVlT09tVWt4cTltMXQ3cEZnME5OUmJqUFJnUXgzRlBBa3dGbmdMVDVV?=
+ =?utf-8?B?ZFZhZWhLdU9ZWFlKQ2FiUFVnNXZhN2QyK2I3clBxN2dsWDV2clZ3aWRsKzEr?=
+ =?utf-8?B?dzd6WUhlSC9ick1uSG9teFR2eGVwb0cxK1lNVTRVY1pTaDNQdzRjaDh4NkJl?=
+ =?utf-8?B?VDF5d3BHank3dnFKUGtCQmgzVk5uTmhJR01MMHVDZ3pjNm9QczZqQU9TeHJn?=
+ =?utf-8?B?K1owVitaaVU3bUNuYWwvdGlhZDFxell4UEtHVmtvejgyV3VTYlhUSk9kRkht?=
+ =?utf-8?B?ejl1Q1FrYlVPeFlubTBDTFhzMHhqNi9EVjJVOWRNNnMwdzVIR0hFbU8vSExm?=
+ =?utf-8?B?dWZ5U2V3WWhDRy9wZVU3Sk13T25XSTdjWVh1V3dZeThsbE5TRTJ3WFArUXdR?=
+ =?utf-8?B?QVNXRlFFb3R3TDg0Z1ZXUlU4ZUgvU1QyQmdJS05BTEhlL1BPeUtEQWU5WDFP?=
+ =?utf-8?B?QmVzb3VKSTJLcVlSSnVpWDNIZjBEZ0I5eVVGOHVPUjZXSGRseWo3TXhDMDN4?=
+ =?utf-8?B?MElteE9mTFhoNkdrZmJSM3FVcm9pTzBnelFNaHhEbVF2cVFRZW5KK1pqQith?=
+ =?utf-8?B?QU1wZ0dqdW9CQ2o3ZExaOGQzbGE2RHFpRFVRd21JOGhYTHBOTzRSd0QvYkZJ?=
+ =?utf-8?B?MkZ0dEdpYmswd3BDSFc4ZVZ1bnE0SS9QanZZbTVORm9sSVVSQkE5empUdHpz?=
+ =?utf-8?B?dlFVa0pyTlY1WUZZb01JblRoSDRhU09nMjZQUXNMZ3diK1NiRFovK2FKenhC?=
+ =?utf-8?B?V2lyeklWUGUxampJdXNvZTFxRXBGVExJOEpRV3NQZWhseHZNZ0ZyTkMzNE5C?=
+ =?utf-8?B?cVFRcXlSTGlPcitERWRENmF0bDY1WUZPeVFqQ3YxclVzZGVMUjVReTFiMThO?=
+ =?utf-8?B?bGdqenJNZXNIV05RSC9IaWwrY01jVHpFTmp0bDJuYUl2NG1CakRUWVI1OEtX?=
+ =?utf-8?B?T3N2UFFXY2lDUFU4NVNWODJVOEdlYUxOUDdRcXcra2lKd3IyTnVuUTRRRWIv?=
+ =?utf-8?B?cTRvUjRoOHVMdkpPUkZzUGlDK2p1MlhDRFMwbldoaTAraE0zQklIcWhlQmp1?=
+ =?utf-8?B?OWZjdUx6M0d0NmtDQmhhVlVjNUxmakcxbnl5UzBJUmJmM0tKVXZ4cGQ4bUQv?=
+ =?utf-8?B?clJwZ0U0Z1dqN24vbFFLY2orZDFpMEtncENMdkMrdDZxa0lXYzc0Q1dzUkp0?=
+ =?utf-8?B?STlCdlIwVUVUTG50TWU2UUJhRllVTENPWlQzNi8vVnNYTWNQeWdveHB6blpl?=
+ =?utf-8?B?OUNWemkxbnpHd05JK3dnNUttSVJzazNGNUtjWjh2VGJWa2RjVENpV2xYTmFT?=
+ =?utf-8?B?SU9FV3J5QlNGMDF6UnVWUTlyU2J1bkpRcWVLbFNVYzRhWXJsbmRpZGRpd2s0?=
+ =?utf-8?B?U0Z2NExTSWFIclNoZzBtL1dud3dxQ2RGOTZ3NE8rc0Z6UGR1YmVrRjMyRHFT?=
+ =?utf-8?B?Q29JNk5CdjR4K2kyUUZGZEt1eHJ3QTBDTXJzQ0FSSVArT0hLR24zYkg1cVR4?=
+ =?utf-8?B?M3B5VWVJUmJCT2FCbVBEbWxXWk1pNUl6ZXY5blowYkg2ekpscVNIaFcrQkts?=
+ =?utf-8?B?N1RYcXJ3T2dEZ0ZLYnhHN2FZODI0V05idjdvL1NxTFZPN1RoQnhPSDJidy94?=
+ =?utf-8?B?ZTdwYnVEajIwd0dFRzdjNjZMYUNBbzRhSnJNU1BCNmVZZjdkc3ZFanZnMUZU?=
+ =?utf-8?B?RmoxOWtIYks5anJVdlRQQkh1N0kxTnRUTk9Vd0IxTkJXaTk4MGVuM2xuQ3NB?=
+ =?utf-8?B?T1hLcm9oMnNQWlN6RVlYQ3lUNnFqQVlreVVzNGlrNVJ2TzhFd2k2cEYvVlJQ?=
+ =?utf-8?B?QXg2d2REWGRjcUpRMzNDc3RVUVMvNExPbHBpTXA1SHRsbnByZW02ajQ5azNG?=
+ =?utf-8?B?TUNTaC80L3E3cjZQUW10dlI2Ni9pbDNyUmJYZVhmYzdsNmlsSkN0em5rV1BS?=
+ =?utf-8?B?Q2xPTDdGQ1pPZXdpNmhkb3lwTUdDTWtwVDhIT1BUSXV4Yjh3L3FmWXBlUXpU?=
+ =?utf-8?B?YWJIMDdVM2ZKbFlab3YwUzZWU3Q2VXlEa3FiMlNNN1FFeTgwNVlpM3I3Tmw5?=
+ =?utf-8?B?Zit2VWhlTWU5MWlHRkdRRjIybHNJY2p4NUFNM3JuU3hZeVFaRnpWZVJ6aTRL?=
+ =?utf-8?Q?gkjQgbXLoUdX8YFCFNLsh28bJ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e38e81a-8c4e-4991-7042-08dbb9c32549
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7788.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 10:20:00.0455
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gw/P3fDnlhKg24u3Qd13vdZu029a/Zv4oqik/MLVWTKMPaHSo3OcXBRu7GKof8FbiJ6sBXov8DVqEYMP+/5FNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9703
 
-On 2023/09/20 17:57, Xenia Ragiadakou wrote:
-> 
-> On 20/9/23 01:18, Akihiko Odaki wrote:
->> On 2023/09/19 23:21, Xenia Ragiadakou wrote:
->>>
->>> On 19/9/23 13:44, Akihiko Odaki wrote:
->>>> On 2023/09/19 19:28, Xenia Ragiadakou wrote:
->>>>>
->>>>> On 15/9/23 18:11, Akihiko Odaki wrote:
->>>>>> On 2023/09/15 20:11, Huang Rui wrote:
->>>>>>> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->>>>>>>
->>>>>>> When the memory region has a different life-cycle from that of 
->>>>>>> her parent,
->>>>>>> could be automatically released, once has been unparent and once 
->>>>>>> all of her
->>>>>>> references have gone away, via the object's free callback.
->>>>>>>
->>>>>>> However, currently, references to the memory region are held by 
->>>>>>> its owner
->>>>>>> without first incrementing the memory region object's reference 
->>>>>>> count.
->>>>>>> As a result, the automatic deallocation of the object, not taking 
->>>>>>> into
->>>>>>> account those references, results in use-after-free memory 
->>>>>>> corruption.
->>>>>>>
->>>>>>> This patch increases the reference count of an owned memory 
->>>>>>> region object
->>>>>>> on each memory_region_ref() and decreases it on each 
->>>>>>> memory_region_unref().
->>>>>>>
->>>>>>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->>>>>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>>>>>> ---
->>>>>>>
->>>>>>> V4 -> V5:
->>>>>>>      - ref/unref only owned memory regions (Akihiko)
->>>>>>>
->>>>>>>   softmmu/memory.c | 5 +++++
->>>>>>>   1 file changed, 5 insertions(+)
->>>>>>>
->>>>>>> diff --git a/softmmu/memory.c b/softmmu/memory.c
->>>>>>> index 7d9494ce70..15e1699750 100644
->>>>>>> --- a/softmmu/memory.c
->>>>>>> +++ b/softmmu/memory.c
->>>>>>> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
->>>>>>>       /* MMIO callbacks most likely will access data that belongs
->>>>>>>        * to the owner, hence the need to ref/unref the owner 
->>>>>>> whenever
->>>>>>>        * the memory region is in use.
->>>>>>> +     * Likewise, the owner keeps references to the memory region,
->>>>>>> +     * hence the need to ref/unref the memory region object to 
->>>>>>> prevent
->>>>>>> +     * its automatic deallocation while still referenced by its 
->>>>>>> owner.
->>>>>>
->>>>>> This comment does not make sense. Traditionally no such automatic 
->>>>>> deallocation happens so the owner has been always required to free 
->>>>>> the memory region when it gets finalized.
->>>>>>
->>>>>> "[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
->>>>>> introduces a different kind of memory region, which can be freed 
->>>>>> anytime before the device gets finalized. Even in this case, the 
->>>>>> owner removes the reference to the memory owner by doing 
->>>>>> res->region = NULL;
->>>>>
->>>>> Hi Akihiko,
->>>>>
->>>>> You are right, the word "owner" is not correct. The issue observed 
->>>>> was due to the references kept in flatview ranges and the fact that 
->>>>> flatview_destroy() is asynchronous and was called after memory 
->>>>> region's destruction.
->>>>>
->>>>> If I replace the word "owner" with "memory subsystem" in the commit 
->>>>> message and drop the comment, would that be ok with you? or do want 
->>>>> to suggest something else?
->>>>
->>>> This will extend the lifetime of the memory region, but the 
->>>> underlying memory is still synchronously freed. Can you show that 
->>>> the flatview range will not be used to read the freed memory?
->>>
->>> Yes, the intention of this patch is to delay the mr object 
->>> finalization until all memory_region_unref() on this mr have been 
->>> taken place.
->>>
->>> What do you mean by "the underlying memory is still synchronously 
->>> freed"?
->>>
->>
->> A pointer is passed to memory_region_init_ram_ptr() with the ptr 
->> parameter when initializing the memory region and the memory region 
->> keeps the pointer.
->>
->> In virtio_gpu_virgl_resource_unmap(), the memory pointed with the 
->> pointer is unmapped with virgl_renderer_resource_unmap() and makes the 
->> pointer kept by the memory region dangling though the lifetime of the 
->> memory region is extended with this patch. Can you show that the 
->> dangling pointer the memory region has will never be referenced?
-> 
-> I see your point but I think it is not directly related to this patch. 
-> IMHO, it is related to the implementation of 
-> virtio_gpu_virgl_resource_unmap(). Maybe the unmapping should be done in 
-> the free callback. However, I would expect the pointer to a disabled 
-> memory region to not be used, not sure though.
 
-Unmapping in the free callback sounds good.
+
+On 14.09.23 г. 7:47 ч., Xin Li wrote:
+> From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
+> 
+> Add CONFIG_X86_FRED to <asm/disabled-features.h> to make
+> cpu_feature_enabled() work correctly with FRED.
+> 
+> Originally-by: Megha Dey <megha.dey@intel.com>
+> Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+> Tested-by: Shan Kang <shan.kang@intel.com>
+> Signed-off-by: Xin Li <xin3.li@intel.com>
+> ---
+>   arch/x86/include/asm/disabled-features.h       | 8 +++++++-
+>   tools/arch/x86/include/asm/disabled-features.h | 8 +++++++-
+>   2 files changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/disabled-features.h b/arch/x86/include/asm/disabled-features.h
+> index 702d93fdd10e..3cde57cb5093 100644
+> --- a/arch/x86/include/asm/disabled-features.h
+> +++ b/arch/x86/include/asm/disabled-features.h
+> @@ -117,6 +117,12 @@
+>   #define DISABLE_IBT	(1 << (X86_FEATURE_IBT & 31))
+>   #endif
+>   
+> +#ifdef CONFIG_X86_FRED
+> +# define DISABLE_FRED	0
+> +#else
+> +# define DISABLE_FRED	(1 << (X86_FEATURE_FRED & 31))
+> +#endif
+> +
+>   /*
+>    * Make sure to add features to the correct mask
+>    */
+> @@ -134,7 +140,7 @@
+>   #define DISABLED_MASK11	(DISABLE_RETPOLINE|DISABLE_RETHUNK|DISABLE_UNRET| \
+>   			 DISABLE_CALL_DEPTH_TRACKING|DISABLE_USER_SHSTK)
+>   #define DISABLED_MASK12	(DISABLE_LAM)
+> -#define DISABLED_MASK13	0
+> +#define DISABLED_MASK13	(DISABLE_FRED)
+>   #define DISABLED_MASK14	0
+>   #define DISABLED_MASK15	0
+>   #define DISABLED_MASK16	(DISABLE_PKU|DISABLE_OSPKE|DISABLE_LA57|DISABLE_UMIP| \
+> diff --git a/tools/arch/x86/include/asm/disabled-features.h b/tools/arch/x86/include/asm/disabled-features.h
+> index fafe9be7a6f4..d540ecdd8812 100644
+> --- a/tools/arch/x86/include/asm/disabled-features.h
+> +++ b/tools/arch/x86/include/asm/disabled-features.h
+> @@ -105,6 +105,12 @@
+>   # define DISABLE_TDX_GUEST	(1 << (X86_FEATURE_TDX_GUEST & 31))
+>   #endif
+>   
+> +#ifdef CONFIG_X86_FRED
+> +# define DISABLE_FRED	0
+> +#else
+> +# define DISABLE_FRED	(1 << (X86_FEATURE_FRED & 31))
+> +#endif
+> +
+>   /*
+>    * Make sure to add features to the correct mask
+>    */
+> @@ -122,7 +128,7 @@
+>   #define DISABLED_MASK11	(DISABLE_RETPOLINE|DISABLE_RETHUNK|DISABLE_UNRET| \
+>   			 DISABLE_CALL_DEPTH_TRACKING)
+>   #define DISABLED_MASK12	(DISABLE_LAM)
+> -#define DISABLED_MASK13	0
+> +#define DISABLED_MASK13	(DISABLE_FRED)
+
+FRED feature is defined in cpuid word 12, not 13
+
+>   #define DISABLED_MASK14	0
+>   #define DISABLED_MASK15	0
+>   #define DISABLED_MASK16	(DISABLE_PKU|DISABLE_OSPKE|DISABLE_LA57|DISABLE_UMIP| \
 
