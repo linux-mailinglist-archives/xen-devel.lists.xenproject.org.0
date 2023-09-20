@@ -2,42 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C10397A764F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 10:50:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605332.942945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABD07A7685
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 10:58:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605338.942955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qisuN-0003GE-4X; Wed, 20 Sep 2023 08:50:07 +0000
+	id 1qit26-0005B5-UW; Wed, 20 Sep 2023 08:58:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605332.942945; Wed, 20 Sep 2023 08:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 605338.942955; Wed, 20 Sep 2023 08:58:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qisuN-0003E9-1S; Wed, 20 Sep 2023 08:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 605332;
- Wed, 20 Sep 2023 08:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qit26-00058x-QI; Wed, 20 Sep 2023 08:58:06 +0000
+Received: by outflank-mailman (input) for mailman id 605338;
+ Wed, 20 Sep 2023 08:58:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f1ZV=FE=citrix.com=prvs=6207273cf=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qisuL-00037a-Oj
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 08:50:05 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af96c6e6-5792-11ee-8789-cb3800f73035;
- Wed, 20 Sep 2023 10:50:03 +0200 (CEST)
-Received: from mail-bn7nam10lp2104.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.104])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Sep 2023 04:50:00 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SA2PR03MB5722.namprd03.prod.outlook.com (2603:10b6:806:110::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Wed, 20 Sep
- 2023 08:49:58 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::cfc3:da2b:a0d3:e744%4]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 08:49:58 +0000
+ <SRS0=w30U=FE=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1qit25-00057g-Qo
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 08:58:05 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20621.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::621])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce11a2b5-5793-11ee-9b0d-b553b5be7939;
+ Wed, 20 Sep 2023 10:58:03 +0200 (CEST)
+Received: from MN2PR01CA0012.prod.exchangelabs.com (2603:10b6:208:10c::25) by
+ CH2PR12MB5513.namprd12.prod.outlook.com (2603:10b6:610:68::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6792.28; Wed, 20 Sep 2023 08:57:59 +0000
+Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
+ (2603:10b6:208:10c:cafe::cf) by MN2PR01CA0012.outlook.office365.com
+ (2603:10b6:208:10c::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.28 via Frontend
+ Transport; Wed, 20 Sep 2023 08:57:59 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6792.19 via Frontend Transport; Wed, 20 Sep 2023 08:57:59 +0000
+Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 20 Sep
+ 2023 03:57:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,155 +56,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af96c6e6-5792-11ee-8789-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1695199803;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=bKsiO8S3/FCAAs4k53sSlu7YUWSKTQOMwi2IzEQmXDg=;
-  b=dkcykiG91RumrY6+0+vEyZlT6SBtXNUOCzyBafamgORQd5GO+PQ9hSGH
-   UGP3FMknswhj2yMRYle43HeLAsMoD7hnXh3ou7Z0S+dAArD51i31cW0IQ
-   S57zQdTmNKvA3UHznTtMpOoXiEyey9hW+29wERgV3CUMA0nZJfo05e10K
-   4=;
-X-CSE-ConnectionGUID: qCf5QH9JT02aK5qznyM82Q==
-X-CSE-MsgGUID: eUR5U9zYSxKkHtALnUsCcQ==
-X-IronPort-RemoteIP: 104.47.70.104
-X-IronPort-MID: 123612205
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:1LnF/q6IBFub8Gn3oNKT/QxRtAHGchMFZxGqfqrLsTDasY5as4F+v
- modDWGGOviOZjakKtB3at++9RwC7Z7Qy4RhTQU9+SBmHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRG/ykTraCY3gtLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9lU35pwehBtC5gZlPaER5AeH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m7
- NcWdQktPzK/37i/4++iWO99o5R5FZy+VG8fkikIITDxK98DGMiGaYOVoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6MlEooiOSF3Nn9I7RmQe1PmUmVv
- CTe9nnRCRAGLt2PjzGC9xpAg8eWx3ilAdhITODQGvhCjWCpm1FCGiwtRXi4geWQrkiDQPlUE
- hlBksYphe1onKCxdfHDWBm/rG+BrwQrcdNaGO0n6ymA0qPRpQ2eAwAsXjNHLdArqsIybTgrz
- UOS2cPkAyR1t7+YQm7b8a2bxRupJSUKJHUeIy8FSQcI6cPqpo0bhxfDCN1kFcaIYsbdHDjxx
- 3WAqnc4jrBK1coTjfzjoRbAni6moYXPQkgt/ALLU2m57wR/Iom4e4iv7lud5vFFRGqEcmS8U
- LE/s5D2xIgz4VulzkRhnM1l8GmV2su4
-IronPort-HdrOrdr: A9a23:NROAb6/j2su5U2fG609uk+DWI+orL9Y04lQ7vn2ZKCY4TiX8ra
- uTdZsguiMc5Ax+ZJhDo7C90di7IE80nKQdieN9AV7IZniEhILHFvAG0aLShxHmBi3i5qp8+M
- 5bAsxD4QTLfDpHsfo=
-X-Talos-CUID: =?us-ascii?q?9a23=3Afd5q+GoFvaZGZbu9MpJlSN/mUdkOfCDk7CbyHxf?=
- =?us-ascii?q?iAEU0Ua+TWHrAopoxxg=3D=3D?=
-X-Talos-MUID: 9a23:YZkMCQmLqFNfrs2fMTwVdnpvCf013vW8OXsdspYmp+CgMxFrEDyk2WE=
-X-IronPort-AV: E=Sophos;i="6.02,161,1688443200"; 
-   d="scan'208";a="123612205"
+X-Inumbo-ID: ce11a2b5-5793-11ee-9b0d-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GDedsowe+/j/pgoDuGIHILxauZgKfcP+hqvjhBjFsBLgQnGgjE3uFAdavfvSrY9yJv4cl+USShTk+BICALs5+g5u8DpQRRRaiP6Zg1OXolytxIGwe/icZGcL1Myfd2Pn/WqK0dlsaW1vyxFoRpPPeOXWcXRoS1tI/4QHj9QySYuqIAPc/6HuynTPZO0deU76f7XBxtKObcYAr8WX4cdv1rthtnRPm1vcl+4c4hEUgys1Qz7/c4cs1hg6NPipvV3nyKepAHrpdsbF9z8kFtpCyfM+uTe6O6uN6V5Y8K/gDE5YowRuH7EhhVyhK3s14otXpQNrrWzq57YMMMTIXWD5sg==
+ b=Dmh5Aqynf1mkcG/xXtE9K2sAqufwe8IDGH4gz+VGHphc6l4c63hyymhiz9easWKc2jl5s0c/LJfGEjg1zq611jL9VoHOuKBAoucdF9RodUeB8939lcRGw/TDWChUWYPDRVf/O4xe3sEbleV8FwWSnK2770X3OzR9wcdLNPt5Zzt7mDSO/wnIgh/nK4SBt1zciWMgXGKdFNqEye4uy6oPjSG0vwvwTiUzvkpeDPzG6YB4zO3gADy9efjo4c0vTX1WNvXzBLkpIvEHBNQtNVi92tL6M0hTw1Ix7GNiQ0yDhoZsHHEbFd59sntHKZGFYx1vZuTPb0zsw/inojNw4RaNxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HEfNjB83SoK3B+/q8Gn85XQ+4AIz7pDO5meLctimCr4=;
- b=KlVAz+lHYhIkUEBZF7O6x7z95NSUmuaLtKKnZQlLQSZXELAcQMhzkC9YGcLqNroOMbGwWkD4lrDEQWmw1C3kv1NEqSe/APbr4G3rLB7vwy6F04yTPKx/BQe3W0qYw3AcNWkZpMykj4P5+A/IENwecFZE1r+cSreaEQ0iG7Y0siC0ZtCFff8H5u20f1Sj2Lw8ynQs9WnBAZ3bw75muyyQFH0SeMDksPXLgxC7wTAa6IeViU/ans8slbtAD5scmglnIj12U+o9aojAGfSv5Yl1eWWi/c/Z52T4j3Bo/1DOnVz7HzN+L7iX7v6+R5SBxaAcKo7KFFP2wbwmTA+1zVXlug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=74tPTW4ioZVLVy0YvoVINl98cFQeriV1oowMGyshdMU=;
+ b=NqkK/z3pEp0YTIqjdGvPWwGx4yExNtusBH44Rc1wgs0y50Rx4cChYfSzSYyNS5tljxZXqU1tCp9jCHSFs+sQdbAs+6rhVLwQ7BEAur1VMSiNZO7tf2sfiW9hL6zvc5bh1Id6rH+f8j9tZWGCO8g65nyoCC9iV6R82pXsmZ4VyRDP/wvic5eqo0MJvZpehp0X90FGT7RBMDi+hsvzpnw9SwfHsn7cRobIyseAv7YMEwUfeMlL2TkKS2GzZRwNJiLEzj8G7BL1UY8SRTWw5i5Vfp9pNAOXvEmkeHby0inUWfriy9vOgrIPXOwyEQ2yIxEDDkjZLDa5oJQmGBmSc6qScA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=daynix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HEfNjB83SoK3B+/q8Gn85XQ+4AIz7pDO5meLctimCr4=;
- b=UlGyrxRkdVCUyvMy/NH8dEKsTRNrxAMObaqcpoajnKkxcO1FR4nXtNlECEd2X2niiLweuJlOHzbJdmHEeVD5xeHVT4T7ZrKgP3fdCjsdyeHn9PNXFS7mTKMd5RP31uWS4tbyIJVGbkBR5iuwjmIgTRNSy6/NfwUUcE0mKG0wCE8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 20 Sep 2023 10:49:52 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v9 05/16] vpci/header: rework exit path in init_bars
-Message-ID: <ZQqyMG1eQMUTrRo-@MacBookPdeRoger>
-References: <20230829231912.4091958-1-volodymyr_babchuk@epam.com>
- <20230829231912.4091958-6-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230829231912.4091958-6-volodymyr_babchuk@epam.com>
-X-ClientProxiedBy: LO4P123CA0054.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:152::23) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ bh=74tPTW4ioZVLVy0YvoVINl98cFQeriV1oowMGyshdMU=;
+ b=Mp1tYltDndF7D7o2VaiGeBM0vCsFBhBvvcD+L1BTNFY4SuMGjWnEJcOWZdsIFVeCq+k2Wh9xL1EjyJRVaxb3GarBRfhX8JFGK0DII59DJgwAR3S7SdGU5p2fVCehIzepCV1AgGfbswTxr59LtScP4gLlYRu2D5trUOXQT3yVP3Y=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <1f8863da-fad1-f983-8ed0-d6bf8d9544b8@amd.com>
+Date: Wed, 20 Sep 2023 11:57:33 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [QEMU PATCH v5 07/13] softmmu/memory: enable automatic
+ deallocation of memory regions
+Content-Language: en-US
+To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
+	Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett
+	<bob.beckett@collabora.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	=?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+	<qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
+	<gurchetansingh@chromium.org>, Albert Esteve <aesteve@redhat.com>,
+	<ernunes@redhat.com>, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
+	<philmd@linaro.org>, Alyssa Ross <hi@alyssa.is>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+	<christian.koenig@amd.com>, Pierre-Eric Pelloux-Prayer
+	<pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>,
+	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20230915111130.24064-1-ray.huang@amd.com>
+ <20230915111130.24064-8-ray.huang@amd.com>
+ <99fb4575-9f8d-4ab6-bc22-911bbaa7ca55@daynix.com>
+ <c0370b6e-c17e-2400-ef8a-7a759d2fc2d7@amd.com>
+ <75698621-d210-40eb-872d-f3cfc6e4dbff@daynix.com>
+ <32a68715-201b-9923-9600-fe5ae49e4b7b@amd.com>
+ <73a35fbb-c9a4-41dc-a6c7-26037b0e412f@daynix.com>
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+In-Reply-To: <73a35fbb-c9a4-41dc-a6c7-26037b0e412f@daynix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SA2PR03MB5722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5dd83cc2-b911-48d9-3747-08dbb9b69193
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|CH2PR12MB5513:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91fcf1ae-1335-4cb6-ec21-08dbb9b7b05b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	hZ9B9dUfRqiS7MWd1mk9S0e/+EApkv9f2KBp8HHvUfI8aOkUgpmc72YQOa328g7uZce5dMo/dbtx5UhcRCTQB6xUHvorHBjE/YbIyiSjEIZEsf9iFXF+QBR8ZSgIv+tFsBgwgNtOLXKORST9eps5lBkHy/IDrrzrzpxmV/PzZwdLuFv9aSdXhk/qqJtIIOELyST1o8j2KfNl2+NNEkiS0Z8rm4sPXkoFvQ1nytbzmzKJL+bTpcT9MbnTnHawwhxlKXTcah1UIJ9aDy1mcXth6kZZRCszzCoaRlWaFdJkfoVfK+zEqoS2IBoiVaUN5GmYIOAkzeYhJXfgEiq+MOHiPzUnn3vbeB6wjRG/q2cDNag73iYtFpEWDoP8U0BrJ+0dI7VesXmdwTVezx9Aec+gCTtUJGsaYThtLjxMnnyHgmSOxle93L256zTyJ5kn9Ac128eg/ORSyJJqdGjPeF9CyaVHJUCHLOoVhdTvkmVSlV2/FpMJTvERy1DPZnR07KssM4dNrSPkjuTPJFQQYdkZCzpGuPlEZ50pfcMjktboMo3GbFN9G9DoAcO9ePzm7FMc
+	CjvLctolLrLVkDtK0zLnKiT2urWiLMn+EvulXxVcmT/AbsFN2JZ13mXISgWw8EvBrYYg7ChMomEEKURDzQ+epvCmXcxgGzF8pTwz9L4OGXQ/znc2WNdpZ3Tzj/vGx1qnooSV6eyprR9YqPcqny84Xy22vghQbd+2gO8EhwxwNJ521YgkDzPxTk3nXls7BrIedL3Zp7ZYnDg+Cmv1qzaLblopnIYUdg+hSoYinm4ugQSSbxXxlqMQ0YIDWGI1FV4BgdZDD8/HLBI5Anxce4Yo78fghYnFfur5asmoR1PINsWPJ6mDYC7vfpnA1H5MvMvXLqux0hvuAERpTLzUyf9uWUABt2nAzN3IXpfGnbVNbto1ojaWm5ym5006T7VVYx3nDzYpao5HwHNroJ2F0g2NyX2MAuKfBAp1jHqeL9tRBBBIuO5BUSRRIDzBTCoEHWO3hYlOJPttKsUG5WrE/RVXAem3JOKU8AiJD1yXozPmFBo0tOqO2389mOgiJ8pyd430/3fcT8tCPCbI0KcKLI2dPRQk9rHJ2iWewO2vnQD4RjplozOAfsic/julQ9wcCmNu93DTphIJUvxfP0Yl7oO+ONCQKxtHEcIbMqZbz+TI6s8ueKf1QJ9sr8EM7HsiaUjCtjndpGU1AlO5YjdwiD2M9Rew2nDJDcbCcXj43am6btAyyh/4Uierc3F9RgDTjlhIyCqIFTnCnoakGTJtT3aQYdB3WOZOFVGt8d3noGHPPpc9yl1ELtxzCVRW+ePdC2yfKdExTtD81dhrIjJSw1x88l2Z1M4KYXHGS21NDg/YX2ySpVEc6+sjpi4hZfzmCeta0Y1mHV2xiX5qiyy7P/g0Nw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(396003)(376002)(346002)(136003)(366004)(39860400002)(186009)(451199024)(1800799009)(54906003)(66556008)(41300700001)(316002)(66476007)(8936002)(8676002)(66946007)(6916009)(6486002)(6506007)(9686003)(6512007)(4326008)(6666004)(478600001)(82960400001)(33716001)(38100700002)(2906002)(86362001)(26005)(5660300002)(4744005)(85182001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SlRiRHNSRVRwdWVjeDhmSjBIcEEyY1lCeXh6VDRyWVk1VStlbEgxQkVEM0NK?=
- =?utf-8?B?OWYwOXBaMk1Na3pXOG5ZK3c0cnVDdXJicnJoR2dQMDFFMnVYTytPR01xaGk4?=
- =?utf-8?B?QU50OGZiMnN1SjhCd1E5VEgwVXUxWmRDVUMrdW50cWUwM1hDN0FnNlhBeDAx?=
- =?utf-8?B?TTZ1amVhbko5VVc0a3ZPV3FzSC9wWnBRdGIybzdneFJTb3daTFJoYUk5bHRW?=
- =?utf-8?B?SUw4bEtWYmE0Q3RjTW94T2tWSTJzWURqSU5zaEw0bGNjQUlZOHBxMEdRcnZ0?=
- =?utf-8?B?YW83d2lBOSs5K21DQTdqaTNCMHF1YXFmVjFvSmg1a2NHOGNkMkZDcC8rQWRo?=
- =?utf-8?B?Ty85Ym5nVEpYQzBrOXJJUUxwaGt1QmVzT3ZVbE1oanRZOG9lZzlJQnRCUDBP?=
- =?utf-8?B?YUw1c29RL0FOY1NnY2xTUGxjNUE5ZGJwVUtIa25QZ3lkenRUbDQ1UFErNHhn?=
- =?utf-8?B?aUpMNDQwVkJZZVdIWnU5eVhsMVVQazFPZEc0SG50UE9UaFRCdGFweFZzZXBw?=
- =?utf-8?B?RjRud0lRREFEZmJHMnpxVXAwcS9vSWJQY0FvYWJyS2VVUE5CUlBFZElaSTJR?=
- =?utf-8?B?dHlYa1MvSTZZQmpnOU1jbnhFam1FK1BSR3RWTEZZR21CczFaRnJIckJFUjgz?=
- =?utf-8?B?SjVDa1UzcGlFcUdQMWYxMm1IeFZiN0N6T2h6TjNDaVhDMjhOdWtjdHAwZmZ2?=
- =?utf-8?B?SlRCR3ZzNktidnBNZVBVZG9MR3pqUGErdngwSlc5RlYwSHU2S1h4L1RzbENL?=
- =?utf-8?B?VTNHMkliOTIyVGxQY3ZYVjB4VURubHp4UVFXNXhnak9PRzVyTDJGUy9TTE5Y?=
- =?utf-8?B?bmZPbkFmSGJtclc5elJwbVNTZ05WdGl2MVgvbDErWGw2NUJLOWNRcTRubDh5?=
- =?utf-8?B?bWUxVFdTZjhaakpyL1pHa3BVTWZCSHRiNHF6ZW11M2xmU05IQXMzN2ZOVHh4?=
- =?utf-8?B?TC9wK2xISHpGdjN4SXQvdlFXQlRvbkZvS3BCelBWZVFLS0t5MktGZmVMTVVB?=
- =?utf-8?B?QWg4MGhlNDZBZGNKM3pmRWJ1S1FaK3p5NUVUdzJNSkVBcWpicUFUWjM1L3BV?=
- =?utf-8?B?YlhyUTJRTG8wcGU1KysrclhMY2dHcUs1bUFyN25CNlVsUWUwdWFEOWIzdzlT?=
- =?utf-8?B?NE40ZFlKOEVKVFUvQzl5aTAveWJ5RVRhUnd3QW5vN3ExY2ZnR2FQdmZEVGRl?=
- =?utf-8?B?Q3ZZYWExRDNRQWF5T3ZhSzZmU0NxY3ZYMXdDYnhQQmxjQkVrWFBUZ2k2eHVv?=
- =?utf-8?B?VlZiVU5WNjNRemVYL2NPdXRpUjZJWmRtelhWaUFQamhVUjhwK05aZlRTeStE?=
- =?utf-8?B?WktnbDlXY0FMeTZmaUJmdExLQUQ0Y21PeWYraU13QWRMRHhKZlBYRXdXTkFp?=
- =?utf-8?B?YVRPNFc2TkdIcVNYZDgwSUtsWnNkMkdyV243aWFVYUViMEdoZFRLL1d6MFk0?=
- =?utf-8?B?UmNtYm1kYzlja2s1d3NhSmlXcXUxSFJpdDl3ZEtvUlpBQ2MzY2RXZ0gzUXFD?=
- =?utf-8?B?ZFpobExrMzR1L3lGTlB5UW1BKy9pWlM2RjdTbWxSa3FUYmVhRGV1RENyU0p4?=
- =?utf-8?B?TmRudnFmbjZVeXBSU3U0RzF3YThLSWtpMFg3YVBZQTdmMys1NERhTGtVSTB2?=
- =?utf-8?B?RTdGN1hFQzhsbEc1aUdzbEpJU2YyUW1Ga0ltQmx1Z1BwRVhOYTFsYWpSSG4w?=
- =?utf-8?B?TWVSMmZGUG0zQXRObFJ6QmdUQzZxcUlXWFB3N3R6Q1FXM3hPb1JSdjJ0Q1l1?=
- =?utf-8?B?RURXaXNJV1drZEhQR3kzUDJ3cEF5V0hzWThhRlI5V2dzUVZVY1BWVm4wRzVD?=
- =?utf-8?B?QitHWEhxYTBtOXBzOHZFZDFrSXFrSDBwYTBKVkN3RzdhMWRqVzNRT09LdUlT?=
- =?utf-8?B?UDI4VFdMNE5STkxrZFFUZk5JL3RVa0xncElTTzNtN2NRS3N6ZWM0c3NGY3B5?=
- =?utf-8?B?aEg5by9tOWZHVHViSWZIbnVjbHBuZGNQY0dudVdxQ1FGWUhsbHdwUC9ZdFlI?=
- =?utf-8?B?NE1ERmVMWFRqNFJvYkh0YWQrZi9YMkNWa2QwTTBFZkVCMTVxd2hFQ2Z3bEth?=
- =?utf-8?B?aHN5eld6ZzFkcEUvK1hkS2l6a0JkZVhSRkRxQUxvaDBIdkVTK1RPdHNYRTV4?=
- =?utf-8?B?QUtTdzRLVUVJMWkyY3dNdnBOdXZsZFBVMjJSY2dnV1ZOYWtqanFidkJtWEhJ?=
- =?utf-8?B?WEE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	dpIh41ELivT+S82UIF/OoQ+rvaz85AUl7myaLmXbspzZuE2raRs9C+mTnL0M43rd7Gw+FWeO+lE9kxUsUBet5vwW3Qp9U5nbJBLFHVOxDtCNrROc6FTIws4hOO0vO81zlSn5mgxmoOOHClM1Mbu3B0e01qXnFxMjNeyRAioDEi+EUn8ujCIjbUQtdRMgxyTvL5OUYlmfgtwazgxNmJu6QYRIZSL8QSnuXWxUdogJqpEsKnOSDj9xzeyyJgICJgCXafLtBlnC8Hcnxc7ZLTjhqT4L98ftq1ZCP04ZLq6/oUkjpF3VgFyb6jssE456mkK2xBef7t7Uzs06bJMe5F33Gij5gAA7HQfVp6MGbkywLPJziZmquk/PEt5sPb0U2QlWtPOjj3D22rknroJfk4b/n3KIQGRuXVyXn+GXGX9dcUesLECkoU36X/U0Wnbs9EPDZa6NkBSuufFsLXOET29AM5I4/GSEL2gQOIQghxN+WwmZvkiqGEqxNJ/XCOayXUj6Fu5KrxZFprO0dBGLz1pQ5v7mtu0Rl5Twyi0cyD2LgI9+FsEe7lyTMWabNk9v6IK6lEUs2oKYu5Gqbn+pJiJp/W0ANNH0fFGQU6y92Vf/LHyDdmxQtIPYD16nSmeUCnQcwp3js8zEUPVNdSCGLJ2fu2pfYUwyXNn790jpfXOUZipcqvU2K5SX4jZXnB3bGg/YFBuqL7y8L3Vd9quF5IBDiCn6aK1z3tv+cTyv3Br6kpuepMcuN48LpHA5SqSDvitxLd9J3DYSvkKURzww76IbpWB7J2h/QICdS1k37kqQcfioj9jqeuz8kcPPGzmm9Pgy
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dd83cc2-b911-48d9-3747-08dbb9b69193
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 08:49:58.2512
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(82310400011)(451199024)(1800799009)(186009)(46966006)(40470700004)(36840700001)(5660300002)(31686004)(7416002)(2906002)(44832011)(4326008)(8676002)(41300700001)(8936002)(316002)(54906003)(70206006)(70586007)(66899024)(26005)(16526019)(426003)(336012)(110136005)(16576012)(478600001)(40460700003)(356005)(6666004)(2616005)(83380400001)(82740400003)(36756003)(36860700001)(47076005)(86362001)(40480700001)(921005)(81166007)(31696002)(53546011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 08:57:59.1556
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J657CyAt/807163WhAyVeUMPWTxlcUfNfKVecD3soZ/uZ+QnxgXxxc934NBXKa9UjHhtBDKd4nD7DTIWcHlx3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5722
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91fcf1ae-1335-4cb6-ec21-08dbb9b7b05b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB55.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5513
 
-On Tue, Aug 29, 2023 at 11:19:43PM +0000, Volodymyr Babchuk wrote:
-> Introduce "fail" label in init_bars() function to have the centralized
-> error return path. This is the pre-requirement for the future changes
-> in this function.
-> 
-> This patch does not introduce functional changes.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 20/9/23 01:18, Akihiko Odaki wrote:
+> On 2023/09/19 23:21, Xenia Ragiadakou wrote:
+>>
+>> On 19/9/23 13:44, Akihiko Odaki wrote:
+>>> On 2023/09/19 19:28, Xenia Ragiadakou wrote:
+>>>>
+>>>> On 15/9/23 18:11, Akihiko Odaki wrote:
+>>>>> On 2023/09/15 20:11, Huang Rui wrote:
+>>>>>> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>>>>
+>>>>>> When the memory region has a different life-cycle from that of 
+>>>>>> her parent,
+>>>>>> could be automatically released, once has been unparent and once 
+>>>>>> all of her
+>>>>>> references have gone away, via the object's free callback.
+>>>>>>
+>>>>>> However, currently, references to the memory region are held by 
+>>>>>> its owner
+>>>>>> without first incrementing the memory region object's reference 
+>>>>>> count.
+>>>>>> As a result, the automatic deallocation of the object, not taking 
+>>>>>> into
+>>>>>> account those references, results in use-after-free memory 
+>>>>>> corruption.
+>>>>>>
+>>>>>> This patch increases the reference count of an owned memory 
+>>>>>> region object
+>>>>>> on each memory_region_ref() and decreases it on each 
+>>>>>> memory_region_unref().
+>>>>>>
+>>>>>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>>>>>> ---
+>>>>>>
+>>>>>> V4 -> V5:
+>>>>>>      - ref/unref only owned memory regions (Akihiko)
+>>>>>>
+>>>>>>   softmmu/memory.c | 5 +++++
+>>>>>>   1 file changed, 5 insertions(+)
+>>>>>>
+>>>>>> diff --git a/softmmu/memory.c b/softmmu/memory.c
+>>>>>> index 7d9494ce70..15e1699750 100644
+>>>>>> --- a/softmmu/memory.c
+>>>>>> +++ b/softmmu/memory.c
+>>>>>> @@ -1800,6 +1800,9 @@ void memory_region_ref(MemoryRegion *mr)
+>>>>>>       /* MMIO callbacks most likely will access data that belongs
+>>>>>>        * to the owner, hence the need to ref/unref the owner 
+>>>>>> whenever
+>>>>>>        * the memory region is in use.
+>>>>>> +     * Likewise, the owner keeps references to the memory region,
+>>>>>> +     * hence the need to ref/unref the memory region object to 
+>>>>>> prevent
+>>>>>> +     * its automatic deallocation while still referenced by its 
+>>>>>> owner.
+>>>>>
+>>>>> This comment does not make sense. Traditionally no such automatic 
+>>>>> deallocation happens so the owner has been always required to free 
+>>>>> the memory region when it gets finalized.
+>>>>>
+>>>>> "[QEMU PATCH v5 09/13] virtio-gpu: Handle resource blob commands" 
+>>>>> introduces a different kind of memory region, which can be freed 
+>>>>> anytime before the device gets finalized. Even in this case, the 
+>>>>> owner removes the reference to the memory owner by doing 
+>>>>> res->region = NULL;
+>>>>
+>>>> Hi Akihiko,
+>>>>
+>>>> You are right, the word "owner" is not correct. The issue observed 
+>>>> was due to the references kept in flatview ranges and the fact that 
+>>>> flatview_destroy() is asynchronous and was called after memory 
+>>>> region's destruction.
+>>>>
+>>>> If I replace the word "owner" with "memory subsystem" in the commit 
+>>>> message and drop the comment, would that be ok with you? or do want 
+>>>> to suggest something else?
+>>>
+>>> This will extend the lifetime of the memory region, but the 
+>>> underlying memory is still synchronously freed. Can you show that 
+>>> the flatview range will not be used to read the freed memory?
+>>
+>> Yes, the intention of this patch is to delay the mr object 
+>> finalization until all memory_region_unref() on this mr have been 
+>> taken place.
+>>
+>> What do you mean by "the underlying memory is still synchronously 
+>> freed"?
+>>
+>
+> A pointer is passed to memory_region_init_ram_ptr() with the ptr 
+> parameter when initializing the memory region and the memory region 
+> keeps the pointer.
+>
+> In virtio_gpu_virgl_resource_unmap(), the memory pointed with the 
+> pointer is unmapped with virgl_renderer_resource_unmap() and makes the 
+> pointer kept by the memory region dangling though the lifetime of the 
+> memory region is extended with this patch. Can you show that the 
+> dangling pointer the memory region has will never be referenced?
 
-Thanks, Roger.
+I see your point but I think it is not directly related to this patch. 
+IMHO, it is related to the implementation of 
+virtio_gpu_virgl_resource_unmap(). Maybe the unmapping should be done in 
+the free callback. However, I would expect the pointer to a disabled 
+memory region to not be used, not sure though.
+
+
 
