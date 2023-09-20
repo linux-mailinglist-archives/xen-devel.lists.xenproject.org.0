@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD3D7A8D05
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 21:42:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605959.943615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA867A8D91
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 22:11:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606000.943643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qj35v-00082f-LX; Wed, 20 Sep 2023 19:42:43 +0000
+	id 1qj3XT-0008UL-9g; Wed, 20 Sep 2023 20:11:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605959.943615; Wed, 20 Sep 2023 19:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 606000.943643; Wed, 20 Sep 2023 20:11:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qj35v-00080q-Iu; Wed, 20 Sep 2023 19:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 605959;
- Wed, 20 Sep 2023 19:42:42 +0000
+	id 1qj3XT-0008SW-6f; Wed, 20 Sep 2023 20:11:11 +0000
+Received: by outflank-mailman (input) for mailman id 606000;
+ Wed, 20 Sep 2023 20:11:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2cdA=FE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qj35u-00080h-5b
- for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 19:42:42 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MBGo=FE=redhat.com=eblake@srs-se1.protection.inumbo.net>)
+ id 1qj3XS-0008SE-Ix
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 20:11:10 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dbcbea38-57ed-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 21:42:40 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-401d6f6b2e0so9015435e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Sep 2023 12:42:40 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l18-20020a5d4112000000b0031c6e1ea4c7sm19358510wrp.90.2023.09.20.12.42.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Sep 2023 12:42:39 -0700 (PDT)
+ id d5115b38-57f1-11ee-9b0d-b553b5be7939;
+ Wed, 20 Sep 2023 22:11:07 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-232-rRZj9kNcNqGVfV692jvxlw-1; Wed, 20 Sep 2023 16:11:03 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42BE38001EA;
+ Wed, 20 Sep 2023 20:11:02 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.65])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B256D140E950;
+ Wed, 20 Sep 2023 20:10:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +50,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dbcbea38-57ed-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1695238960; x=1695843760; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=acycBaUVRbKczSMSNKZl09qAe9XOfy7bYXC098UYWks=;
-        b=Zk+Lu0XjvbGQGmb4owO84qZREqrxYBCMaGG45BFHDakIiULiDOPktaItOGqQvWK9dm
-         yCUTk9a0fLgJ7u0bNvOmVASORGL4LVpf7GjAQFPS5f9kQyVDjsGnal8vWQiXp/dTfGOM
-         GYs0xRdVylYdSysCeNw3nT0DD2/t1AZtPlrqc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695238960; x=1695843760;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=acycBaUVRbKczSMSNKZl09qAe9XOfy7bYXC098UYWks=;
-        b=JGxIZ/K1PpgZBhFZgxYmC6hhJYbNbqmK9vRfYGJSS1ogskhmUr/cS/HUcjE2zM16dg
-         yoKCS7vpTQ8LpSWaJgdJtTNwShWuJ2JoEPomNKW+KdoMKYKW6z832qIpTPfKHEQq3q9l
-         7Gcc8GOlJlm+bQhFDMC/wMxBJbIoS9nEHXL0CYXIQip+7Wh3IWFF3LXlpTncTUyPAz7f
-         e94dXeH8isk4F0AhYsbQ9GBTAYHEBXqWgYHw9U10ssxwhGIUP8m4WMt+YWSNzVMr+lY8
-         Zl2b+TMdTqRlQJXYaMLIjm6JTDTrzB2XK3rSzJe9qP+heO0a9tGdg30xbt1SbUG165ov
-         GvFA==
-X-Gm-Message-State: AOJu0YzaLL62n2A1Q8pxbSPxeA4ziWGFBjHMWkT8JJjQnwlxMxS91GRc
-	paXLQajtkC1iv/vWmiEo4y9aBUH0LpecfPiXu/Q=
-X-Google-Smtp-Source: AGHT+IH/HMFAxydrkEMFYuxK9he3HouJeVXMyhbN/52ouLgwyOM/DT9fH8WGP4znmOkhTzfFxyuOvw==
-X-Received: by 2002:a05:6000:1817:b0:319:5234:5c92 with SMTP id m23-20020a056000181700b0031952345c92mr2363364wrh.35.1695238959777;
-        Wed, 20 Sep 2023 12:42:39 -0700 (PDT)
-Message-ID: <1967aed1-3c46-963c-687b-50feb09781aa@citrix.com>
-Date: Wed, 20 Sep 2023 20:42:39 +0100
+X-Inumbo-ID: d5115b38-57f1-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695240666;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JzgvNJzY/68WUln+4ygEgcbphW7zrzD8/5OdQWeLmIw=;
+	b=B4DWnVI9QORlb9+vMdkSMMVxIL+gZMRXoSNxkiyfO8T2MgfUkqCXK3UPBPxdD4D75OP634
+	O8YkDK22xywFoturFEDXwSAFzwbb3LoNQhd+NOuCadnSZ1FFB+vjCOWxMCkNydMbU9vBnF
+	AqHoifg/5tBjLGsk+vA+lJauUaC0iSw=
+X-MC-Unique: rRZj9kNcNqGVfV692jvxlw-1
+Date: Wed, 20 Sep 2023 15:10:58 -0500
+From: Eric Blake <eblake@redhat.com>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, kwolf@redhat.com, hreitz@redhat.com, 
+	vsementsov@yandex-team.ru, jsnow@redhat.com, idryomov@gmail.com, pl@kamp.de, sw@weilnetz.de, 
+	sstabellini@kernel.org, anthony.perard@citrix.com, paul@xen.org, pbonzini@redhat.com, 
+	marcandre.lureau@redhat.com, berrange@redhat.com, thuth@redhat.com, philmd@linaro.org, 
+	stefanha@redhat.com, fam@euphon.net, quintela@redhat.com, peterx@redhat.com, 
+	leobras@redhat.com, kraxel@redhat.com, qemu-block@nongnu.org, 
+	xen-devel@lists.xenproject.org, alex.bennee@linaro.org, peter.maydell@linaro.org
+Subject: Re: [PATCH v2 7/7] qobject atomics osdep: Make a few macros more
+ hygienic
+Message-ID: <3gjitlytxqobntg4fluip365s5ijwt3h2zvf3tjbmtiifikv53@xxrl7slw5tjt>
+References: <20230920183149.1105333-1-armbru@redhat.com>
+ <20230920183149.1105333-8-armbru@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v3 0/4] python: Support setuptools
-Content-Language: en-GB
-To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1695102101.git.javi.merino@cloud.com>
-In-Reply-To: <cover.1695102101.git.javi.merino@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230920183149.1105333-8-armbru@redhat.com>
+User-Agent: NeoMutt/20230517
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 
-On 19/09/2023 7:30 am, Javi Merino wrote:
-> This series adds support for setuptools as distutils will be
-> deprecated in python 3.12.
->
-> Not done for this series:
->   - Andrew suggested simplifying the code in m4/python_devel.m4[0] and
->     this is not done yet.
->
-> [0] https://lore.kernel.org/xen-devel/fdf87d82-aa3c-fd2e-6271-848f1a806fb2@citrix.com/
->
-> Changes since v2:
->   - These containers used for gitlab ci were missing setuptools in the
->     previous series and now they have it:
->     * alpine/3.18-arm64v8
->     * opensuse-tumbleweed
->     * debian/bookworm-i386
->     * debian/bookworm-arm64v8
->   - These containers used for gitlab ci are being kept without
->     setuptools to test installations that don't have it:
->     * centos/7
->     * debian/stretch
->     * ubuntu/trusty
->     * ubuntu/xenial
->     * ubuntu/bionic
->   - Fix commit messages that talked about removing distutils support
->     as we are keeping it.
->   - Add my Signed-off-by to all commits
->   - Clarify in the readme that python's minimum version is 2.7.
->   - Fold the changes to the ./configure script into the patch that
->     changes `m4/python_devel.m4`.  Create ./configure using autoconf
->     2.69.
->
-> Changes since v1:
->   - Update all containers to have setuptools, as python 3.12
->     deprecates distutils in favour of setuptools
->   - Keep python2's support by falling back to distutils if setuptools
->     is not installed
->   - Drop the commit about raising the baseline requirement for python,
->     as we keep supporting python2
->
-> v1: https://lore.kernel.org/xen-devel/20230316171634.320626-1-marmarek@invisiblethingslab.com/
-> v2: https://lore.kernel.org/xen-devel/cover.1694450145.git.javi.merino@cloud.com/
->
-> Javi Merino (2):
->   automation: add python3's setuptools to containers
->   README: update to remove old note about the build system's python
->     expectation
->
-> Marek Marczykowski-Górecki (2):
->   tools: convert setup.py to use setuptools
->   tools: don't use distutils in configure nor Makefile
+On Wed, Sep 20, 2023 at 08:31:49PM +0200, Markus Armbruster wrote:
+...
+> The only reliable way to prevent unintended variable name capture is
+> -Wshadow.
+> 
+> One blocker for enabling it is shadowing hiding in function-like
+> macros like
+> 
+>      qdict_put(dict, "name", qobject_ref(...))
+> 
+> qdict_put() wraps its last argument in QOBJECT(), and the last
+> argument here contains another QOBJECT().
+> 
+> Use dark preprocessor sorcery to make the macros that give us this
+> problem use different variable names on every call.
+> 
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> Reviewed-by: Eric Blake <eblake@redhat.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+It's changed (for the better) since v1, so I'm re-reviewing.
 
-I'll rebuild the containers and regenerate autoconf.
+> ---
+>  include/qapi/qmp/qobject.h | 11 +++++++++--
+>  include/qemu/atomic.h      | 17 ++++++++++++-----
+>  include/qemu/compiler.h    |  3 +++
+>  include/qemu/osdep.h       | 31 +++++++++++++++++++++++--------
+>  4 files changed, 47 insertions(+), 15 deletions(-)
+> 
+> diff --git a/include/qapi/qmp/qobject.h b/include/qapi/qmp/qobject.h
+> index 9003b71fd3..d36cc97805 100644
+> --- a/include/qapi/qmp/qobject.h
+> +++ b/include/qapi/qmp/qobject.h
+> @@ -45,10 +45,17 @@ struct QObject {
+>      struct QObjectBase_ base;
+>  };
+>  
+> -#define QOBJECT(obj) ({                                         \
+> +/*
+> + * Preprocessory sorcery ahead: use a different identifier for the
+
+s/Preprocessory/Preprocessor/ (multiple times in the patch)
+
+> + * local variable in each expansion, so we can nest macro calls
+> + * without shadowing variables.
+> + */
+> +#define QOBJECT_INTERNAL(obj, _obj) ({                          \
+>      typeof(obj) _obj = (obj);                                   \
+> -    _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
+> +    _obj                                                        \
+> +        ? container_of(&(_obj)->base, QObject, base) : NULL;    \
+
+As pointed out before, you can write &_obj->base instead of
+&(_obj)->base, now that we know _obj is a single identifier rather
+than an arbitrary expression.  Not strictly necessary since the extra
+() doesn't change semantics...
+
+>  })
+> +#define QOBJECT(obj) QOBJECT_INTERNAL((obj), MAKE_IDENTFIER(_obj))
+>  
+>  /* Required for qobject_to() */
+>  #define QTYPE_CAST_TO_QNull     QTYPE_QNULL
+> diff --git a/include/qemu/atomic.h b/include/qemu/atomic.h
+> index d95612f7a0..d4cbd01909 100644
+> --- a/include/qemu/atomic.h
+> +++ b/include/qemu/atomic.h
+> @@ -157,13 +157,20 @@
+>      smp_read_barrier_depends();
+>  #endif
+>  
+> -#define qatomic_rcu_read(ptr)                          \
+> -    ({                                                 \
+> +/*
+> + * Preprocessory sorcery ahead: use a different identifier for the
+> + * local variable in each expansion, so we can nest macro calls
+> + * without shadowing variables.
+> + */
+> +#define qatomic_rcu_read_internal(ptr, _val)            \
+> +    ({                                                  \
+>      qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+> -    typeof_strip_qual(*ptr) _val;                      \
+> -    qatomic_rcu_read__nocheck(ptr, &_val);             \
+> -    _val;                                              \
+> +    typeof_strip_qual(*ptr) _val;                       \
+> +    qatomic_rcu_read__nocheck(ptr, &_val);              \
+
+...but it looks odd for the patch to not be consistent on that front.
+
+> +    _val;                                               \
+>      })
+> +#define qatomic_rcu_read(ptr) \
+> +    qatomic_rcu_read_internal((ptr), MAKE_IDENTFIER(_val))
+>  
+>  #define qatomic_rcu_set(ptr, i) do {                   \
+>      qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+> diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
+> index a309f90c76..03236d830c 100644
+> --- a/include/qemu/compiler.h
+> +++ b/include/qemu/compiler.h
+> @@ -37,6 +37,9 @@
+>  #define tostring(s) #s
+>  #endif
+>  
+> +/* Expands into an identifier stemN, where N is another number each time */
+> +#define MAKE_IDENTFIER(stem) glue(stem, __COUNTER__)
+
+I like how this turned out.
+
+With the spelling fix, and optionally with the redundant () dropped,
+you can keep my R-b.
+
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
+
 
