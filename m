@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0803A7A8BC6
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E247A8BC8
 	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 20:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605888.943527 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.605889.943536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qj1zW-0008EX-Ba; Wed, 20 Sep 2023 18:32:02 +0000
+	id 1qj1zW-0008Sp-TF; Wed, 20 Sep 2023 18:32:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605888.943527; Wed, 20 Sep 2023 18:32:02 +0000
+Received: by outflank-mailman (output) from mailman id 605889.943536; Wed, 20 Sep 2023 18:32:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qj1zV-0008AP-U5; Wed, 20 Sep 2023 18:32:01 +0000
-Received: by outflank-mailman (input) for mailman id 605888;
+	id 1qj1zW-0008Hp-KZ; Wed, 20 Sep 2023 18:32:02 +0000
+Received: by outflank-mailman (input) for mailman id 605889;
  Wed, 20 Sep 2023 18:32:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wKQE=FE=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1qj1zU-0007WV-6w
+ id 1qj1zU-0007W9-Me
  for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 18:32:00 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fadc242b-57e3-11ee-9b0d-b553b5be7939;
- Wed, 20 Sep 2023 20:31:58 +0200 (CEST)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fbee1a60-57e3-11ee-8789-cb3800f73035;
+ Wed, 20 Sep 2023 20:31:59 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-616-JMOR339hPOO4Fkf-bHeIMg-1; Wed, 20 Sep 2023 14:31:53 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+ us-mta-461-hrEPizR0PjKkhEZ8z8iLZA-1; Wed, 20 Sep 2023 14:31:54 -0400
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE28B3816D8E;
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC7CE28EC10E;
  Wed, 20 Sep 2023 18:31:52 +0000 (UTC)
 Received: from blackfin.pond.sub.org (unknown [10.39.192.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 63FB1C185EF;
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 64D8A40C6EBF;
  Wed, 20 Sep 2023 18:31:52 +0000 (UTC)
 Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 467D921E690C; Wed, 20 Sep 2023 20:31:49 +0200 (CEST)
+ id 4A41521E690E; Wed, 20 Sep 2023 20:31:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,18 +52,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fadc242b-57e3-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: fbee1a60-57e3-11ee-8789-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695234717;
+	s=mimecast20190719; t=1695234718;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=p9yrL6sfTg7uK2lAJ2dhNnzI9tHwDDSYk4qrcqZO5/I=;
-	b=bB1evOPB8TLO70v62TtAF41vcFPPPAPBLfcb2dRUcfZfisQJV3eQIz7nCP4BIkGLY0Vjq0
-	+JB72Fe6oBUc3mZE4dxjLBd/2vYxUCZkrmeDowpSq2t5YfAAzCPb7drYeBpMV5yKv+lWA2
-	oz3H/A7iPMNDGTlR56e7nctXUQQd8TA=
-X-MC-Unique: JMOR339hPOO4Fkf-bHeIMg-1
+	bh=4d8o9jVLRrQAC/C156ADyMbZ06/G9fhC8Of9ewcXqM0=;
+	b=ZzpS1voN6BMlmA59e3w/qgCeAJucXXblcAJrlVOpu4y6grOPlr8NNW9lgqq0IaHDjim0Gk
+	sABq3ZNzcWiW/LO2+caenfahGCFeCbjEzvpFWH1uNsxhqHLgdy8mkW99YaPNp/yyLD8VGB
+	FX+TJPxex0ve/vvktKcA5lgbHuovSME=
+X-MC-Unique: hrEPizR0PjKkhEZ8z8iLZA-1
 From: Markus Armbruster <armbru@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: kwolf@redhat.com,
@@ -92,243 +92,246 @@ Cc: kwolf@redhat.com,
 	xen-devel@lists.xenproject.org,
 	alex.bennee@linaro.org,
 	peter.maydell@linaro.org
-Subject: [PATCH v2 6/7] block: Clean up local variable shadowing
-Date: Wed, 20 Sep 2023 20:31:48 +0200
-Message-ID: <20230920183149.1105333-7-armbru@redhat.com>
+Subject: [PATCH v2 7/7] qobject atomics osdep: Make a few macros more hygienic
+Date: Wed, 20 Sep 2023 20:31:49 +0200
+Message-ID: <20230920183149.1105333-8-armbru@redhat.com>
 In-Reply-To: <20230920183149.1105333-1-armbru@redhat.com>
 References: <20230920183149.1105333-1-armbru@redhat.com>
 MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 
-Local variables shadowing other local variables or parameters make the
-code needlessly hard to understand.  Tracked down with -Wshadow=local.
-Clean up: delete inner declarations when they are actually redundant,
-else rename variables.
+Variables declared in macros can shadow other variables.  Much of the
+time, this is harmless, e.g.:
+
+    #define _FDT(exp)                                                  \
+        do {                                                           \
+            int ret = (exp);                                           \
+            if (ret < 0) {                                             \
+                error_report("error creating device tree: %s: %s",   \
+                        #exp, fdt_strerror(ret));                      \
+                exit(1);                                               \
+            }                                                          \
+        } while (0)
+
+Harmless shadowing in h_client_architecture_support():
+
+        target_ulong ret;
+
+        [...]
+
+        ret = do_client_architecture_support(cpu, spapr, vec, fdt_bufsize);
+        if (ret == H_SUCCESS) {
+            _FDT((fdt_pack(spapr->fdt_blob)));
+            [...]
+        }
+
+        return ret;
+
+However, we can get in trouble when the shadowed variable is used in a
+macro argument:
+
+    #define QOBJECT(obj) ({                                 \
+        typeof(obj) o = (obj);                              \
+        o ? container_of(&(o)->base, QObject, base) : NULL; \
+     })
+
+QOBJECT(o) expands into
+
+    ({
+--->    typeof(o) o = (o);
+        o ? container_of(&(o)->base, QObject, base) : NULL;
+    })
+
+Unintended variable name capture at --->.  We'd be saved by
+-Winit-self.  But I could certainly construct more elaborate death
+traps that don't trigger it.
+
+To reduce the risk of trapping ourselves, we use variable names in
+macros that no sane person would use elsewhere.  Here's our actual
+definition of QOBJECT():
+
+    #define QOBJECT(obj) ({                                         \
+        typeof(obj) _obj = (obj);                                   \
+        _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
+    })
+
+Works well enough until we nest macro calls.  For instance, with
+
+    #define qobject_ref(obj) ({                     \
+        typeof(obj) _obj = (obj);                   \
+        qobject_ref_impl(QOBJECT(_obj));            \
+        _obj;                                       \
+    })
+
+the expression qobject_ref(obj) expands into
+
+    ({
+        typeof(obj) _obj = (obj);
+        qobject_ref_impl(
+            ({
+--->            typeof(_obj) _obj = (_obj);
+                _obj ? container_of(&(_obj)->base, QObject, base) : NULL;
+            }));
+        _obj;
+    })
+
+Unintended variable name capture at --->.
+
+The only reliable way to prevent unintended variable name capture is
+-Wshadow.
+
+One blocker for enabling it is shadowing hiding in function-like
+macros like
+
+     qdict_put(dict, "name", qobject_ref(...))
+
+qdict_put() wraps its last argument in QOBJECT(), and the last
+argument here contains another QOBJECT().
+
+Use dark preprocessor sorcery to make the macros that give us this
+problem use different variable names on every call.
 
 Signed-off-by: Markus Armbruster <armbru@redhat.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-Acked-by: Ilya Dryomov <idryomov@gmail.com>
+Reviewed-by: Eric Blake <eblake@redhat.com>
 ---
- block.c              |  9 +++++----
- block/rbd.c          |  2 +-
- block/stream.c       |  1 -
- block/vvfat.c        | 35 ++++++++++++++++++-----------------
- hw/block/xen-block.c |  6 +++---
- 5 files changed, 27 insertions(+), 26 deletions(-)
+ include/qapi/qmp/qobject.h | 11 +++++++++--
+ include/qemu/atomic.h      | 17 ++++++++++++-----
+ include/qemu/compiler.h    |  3 +++
+ include/qemu/osdep.h       | 31 +++++++++++++++++++++++--------
+ 4 files changed, 47 insertions(+), 15 deletions(-)
 
-diff --git a/block.c b/block.c
-index 8da89aaa62..bb5dd17e9c 100644
---- a/block.c
-+++ b/block.c
-@@ -3035,18 +3035,19 @@ static BdrvChild *bdrv_attach_child_common(BlockDriverState *child_bs,
-                                               &local_err);
+diff --git a/include/qapi/qmp/qobject.h b/include/qapi/qmp/qobject.h
+index 9003b71fd3..d36cc97805 100644
+--- a/include/qapi/qmp/qobject.h
++++ b/include/qapi/qmp/qobject.h
+@@ -45,10 +45,17 @@ struct QObject {
+     struct QObjectBase_ base;
+ };
  
-         if (ret < 0 && child_class->change_aio_ctx) {
--            Transaction *tran = tran_new();
-+            Transaction *aio_ctx_tran = tran_new();
-             GHashTable *visited = g_hash_table_new(NULL, NULL);
-             bool ret_child;
+-#define QOBJECT(obj) ({                                         \
++/*
++ * Preprocessory sorcery ahead: use a different identifier for the
++ * local variable in each expansion, so we can nest macro calls
++ * without shadowing variables.
++ */
++#define QOBJECT_INTERNAL(obj, _obj) ({                          \
+     typeof(obj) _obj = (obj);                                   \
+-    _obj ? container_of(&(_obj)->base, QObject, base) : NULL;   \
++    _obj                                                        \
++        ? container_of(&(_obj)->base, QObject, base) : NULL;    \
+ })
++#define QOBJECT(obj) QOBJECT_INTERNAL((obj), MAKE_IDENTFIER(_obj))
  
-             g_hash_table_add(visited, new_child);
-             ret_child = child_class->change_aio_ctx(new_child, child_ctx,
--                                                    visited, tran, NULL);
-+                                                    visited, aio_ctx_tran,
-+                                                    NULL);
-             if (ret_child == true) {
-                 error_free(local_err);
-                 ret = 0;
-             }
--            tran_finalize(tran, ret_child == true ? 0 : -1);
-+            tran_finalize(aio_ctx_tran, ret_child == true ? 0 : -1);
-             g_hash_table_destroy(visited);
-         }
+ /* Required for qobject_to() */
+ #define QTYPE_CAST_TO_QNull     QTYPE_QNULL
+diff --git a/include/qemu/atomic.h b/include/qemu/atomic.h
+index d95612f7a0..d4cbd01909 100644
+--- a/include/qemu/atomic.h
++++ b/include/qemu/atomic.h
+@@ -157,13 +157,20 @@
+     smp_read_barrier_depends();
+ #endif
  
-@@ -6077,12 +6078,12 @@ void bdrv_iterate_format(void (*it)(void *opaque, const char *name),
-     QLIST_FOREACH(drv, &bdrv_drivers, list) {
-         if (drv->format_name) {
-             bool found = false;
--            int i = count;
+-#define qatomic_rcu_read(ptr)                          \
+-    ({                                                 \
++/*
++ * Preprocessory sorcery ahead: use a different identifier for the
++ * local variable in each expansion, so we can nest macro calls
++ * without shadowing variables.
++ */
++#define qatomic_rcu_read_internal(ptr, _val)            \
++    ({                                                  \
+     qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+-    typeof_strip_qual(*ptr) _val;                      \
+-    qatomic_rcu_read__nocheck(ptr, &_val);             \
+-    _val;                                              \
++    typeof_strip_qual(*ptr) _val;                       \
++    qatomic_rcu_read__nocheck(ptr, &_val);              \
++    _val;                                               \
+     })
++#define qatomic_rcu_read(ptr) \
++    qatomic_rcu_read_internal((ptr), MAKE_IDENTFIER(_val))
  
-             if (use_bdrv_whitelist && !bdrv_is_whitelisted(drv, read_only)) {
-                 continue;
-             }
+ #define qatomic_rcu_set(ptr, i) do {                   \
+     qemu_build_assert(sizeof(*ptr) <= ATOMIC_REG_SIZE); \
+diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
+index a309f90c76..03236d830c 100644
+--- a/include/qemu/compiler.h
++++ b/include/qemu/compiler.h
+@@ -37,6 +37,9 @@
+ #define tostring(s) #s
+ #endif
  
-+            i = count;
-             while (formats && i && !found) {
-                 found = !strcmp(formats[--i], drv->format_name);
-             }
-diff --git a/block/rbd.c b/block/rbd.c
-index 978671411e..472ca05cba 100644
---- a/block/rbd.c
-+++ b/block/rbd.c
-@@ -1290,7 +1290,7 @@ static int coroutine_fn qemu_rbd_start_co(BlockDriverState *bs,
-          * operations that exceed the current size.
-          */
-         if (offset + bytes > s->image_size) {
--            int r = qemu_rbd_resize(bs, offset + bytes);
-+            r = qemu_rbd_resize(bs, offset + bytes);
-             if (r < 0) {
-                 return r;
-             }
-diff --git a/block/stream.c b/block/stream.c
-index e522bbdec5..007253880b 100644
---- a/block/stream.c
-+++ b/block/stream.c
-@@ -282,7 +282,6 @@ void stream_start(const char *job_id, BlockDriverState *bs,
-     /* Make sure that the image is opened in read-write mode */
-     bs_read_only = bdrv_is_read_only(bs);
-     if (bs_read_only) {
--        int ret;
-         /* Hold the chain during reopen */
-         if (bdrv_freeze_backing_chain(bs, above_base, errp) < 0) {
-             return;
-diff --git a/block/vvfat.c b/block/vvfat.c
-index 0ddc91fc09..856b479c91 100644
---- a/block/vvfat.c
-+++ b/block/vvfat.c
-@@ -777,7 +777,6 @@ static int read_directory(BDRVVVFATState* s, int mapping_index)
-     while((entry=readdir(dir))) {
-         unsigned int length=strlen(dirname)+2+strlen(entry->d_name);
-         char* buffer;
--        direntry_t* direntry;
-         struct stat st;
-         int is_dot=!strcmp(entry->d_name,".");
-         int is_dotdot=!strcmp(entry->d_name,"..");
-@@ -857,7 +856,7 @@ static int read_directory(BDRVVVFATState* s, int mapping_index)
- 
-     /* fill with zeroes up to the end of the cluster */
-     while(s->directory.next%(0x10*s->sectors_per_cluster)) {
--        direntry_t* direntry=array_get_next(&(s->directory));
-+        direntry = array_get_next(&(s->directory));
-         memset(direntry,0,sizeof(direntry_t));
-     }
- 
-@@ -1962,24 +1961,24 @@ get_cluster_count_for_direntry(BDRVVVFATState* s, direntry_t* direntry, const ch
-                  * This is horribly inefficient, but that is okay, since
-                  * it is rarely executed, if at all.
-                  */
--                int64_t offset = cluster2sector(s, cluster_num);
-+                int64_t offs = cluster2sector(s, cluster_num);
- 
-                 vvfat_close_current_file(s);
-                 for (i = 0; i < s->sectors_per_cluster; i++) {
-                     int res;
- 
-                     res = bdrv_is_allocated(s->qcow->bs,
--                                            (offset + i) * BDRV_SECTOR_SIZE,
-+                                            (offs + i) * BDRV_SECTOR_SIZE,
-                                             BDRV_SECTOR_SIZE, NULL);
-                     if (res < 0) {
-                         return -1;
-                     }
-                     if (!res) {
--                        res = vvfat_read(s->bs, offset, s->cluster_buffer, 1);
-+                        res = vvfat_read(s->bs, offs, s->cluster_buffer, 1);
-                         if (res) {
-                             return -1;
-                         }
--                        res = bdrv_co_pwrite(s->qcow, offset * BDRV_SECTOR_SIZE,
-+                        res = bdrv_co_pwrite(s->qcow, offs * BDRV_SECTOR_SIZE,
-                                              BDRV_SECTOR_SIZE, s->cluster_buffer,
-                                              0);
-                         if (res < 0) {
-@@ -2467,8 +2466,9 @@ commit_direntries(BDRVVVFATState* s, int dir_index, int parent_mapping_index)
- 
-     for (c = first_cluster; !fat_eof(s, c); c = modified_fat_get(s, c)) {
-         direntry_t *first_direntry;
--        void* direntry = array_get(&(s->directory), current_dir_index);
--        int ret = vvfat_read(s->bs, cluster2sector(s, c), direntry,
++/* Expands into an identifier stemN, where N is another number each time */
++#define MAKE_IDENTFIER(stem) glue(stem, __COUNTER__)
 +
-+        direntry = array_get(&(s->directory), current_dir_index);
-+        ret = vvfat_read(s->bs, cluster2sector(s, c), (uint8_t *)direntry,
-                 s->sectors_per_cluster);
-         if (ret)
-             return ret;
-@@ -2690,12 +2690,12 @@ static int handle_renames_and_mkdirs(BDRVVVFATState* s)
-                 direntry_t* direntry = array_get(&(s->directory),
-                         mapping->info.dir.first_dir_index);
-                 uint32_t c = mapping->begin;
--                int i = 0;
-+                int j = 0;
+ #ifndef likely
+ #define likely(x)   __builtin_expect(!!(x), 1)
+ #define unlikely(x)   __builtin_expect(!!(x), 0)
+diff --git a/include/qemu/osdep.h b/include/qemu/osdep.h
+index 2897720fac..0d39bb1876 100644
+--- a/include/qemu/osdep.h
++++ b/include/qemu/osdep.h
+@@ -383,19 +383,28 @@ void QEMU_ERROR("code path is reachable")
+  * determined by the pre-processor instead of the compiler, you'll
+  * have to open-code it.  Sadly, Coverity is severely confused by the
+  * constant variants, so we have to dumb things down there.
++ *
++ * Preprocessory sorcery ahead: use different identifiers for the
++ * local variables in each expansion, so we can nest macro calls
++ * without shadowing variables.
+  */
+-#undef MIN
+-#define MIN(a, b)                                       \
++#define MIN_INTERNAL(a, b, _a, _b)                      \
+     ({                                                  \
+         typeof(1 ? (a) : (b)) _a = (a), _b = (b);       \
+         _a < _b ? _a : _b;                              \
+     })
+-#undef MAX
+-#define MAX(a, b)                                       \
++#undef MIN
++#define MIN(a, b) \
++    MIN_INTERNAL((a), (b), MAKE_IDENTFIER(_a), MAKE_IDENTFIER(_b))
++
++#define MAX_INTERNAL(a, b, _a, _b)                      \
+     ({                                                  \
+         typeof(1 ? (a) : (b)) _a = (a), _b = (b);       \
+         _a > _b ? _a : _b;                              \
+     })
++#undef MAX
++#define MAX(a, b) \
++    MAX_INTERNAL((a), (b), MAKE_IDENTFIER(_a), MAKE_IDENTFIER(_b))
  
-                 /* recurse */
-                 while (!fat_eof(s, c)) {
-                     do {
--                        direntry_t* d = direntry + i;
-+                        direntry_t *d = direntry + j;
+ #ifdef __COVERITY__
+ # define MIN_CONST(a, b) ((a) < (b) ? (a) : (b))
+@@ -416,14 +425,20 @@ void QEMU_ERROR("code path is reachable")
+ /*
+  * Minimum function that returns zero only if both values are zero.
+  * Intended for use with unsigned values only.
++ *
++ * Preprocessory sorcery ahead: use different identifiers for the
++ * local variables in each expansion, so we can nest macro calls
++ * without shadowing variables.
+  */
+-#ifndef MIN_NON_ZERO
+-#define MIN_NON_ZERO(a, b)                              \
++#define MIN_NON_ZERO_INTERNAL(a, b, _a, _b)             \
+     ({                                                  \
+         typeof(1 ? (a) : (b)) _a = (a), _b = (b);       \
+-        _a == 0 ? _b : (_b == 0 || _b > _a) ? _a : _b;  \
++        _a == 0 ? _b                                    \
++        : (_b == 0 || _b > _a) ? _a                     \
++        : _b;                                           \
+     })
+-#endif
++#define MIN_NON_ZERO(a, b) \
++    MIN_NON_ZERO_INTERNAL((a), (b), MAKE_IDENTFIER(_a), MAKE_IDENTFIER(_b))
  
-                         if (is_file(d) || (is_directory(d) && !is_dot(d))) {
-                             int l;
-@@ -2716,8 +2716,8 @@ static int handle_renames_and_mkdirs(BDRVVVFATState* s)
- 
-                             schedule_rename(s, m->begin, new_path);
-                         }
--                        i++;
--                    } while((i % (0x10 * s->sectors_per_cluster)) != 0);
-+                        j++;
-+                    } while (j % (0x10 * s->sectors_per_cluster) != 0);
-                     c = fat_get(s, c);
-                 }
-             }
-@@ -2804,16 +2804,16 @@ static int coroutine_fn GRAPH_RDLOCK handle_commits(BDRVVVFATState* s)
-             int begin = commit->param.new_file.first_cluster;
-             mapping_t* mapping = find_mapping_for_cluster(s, begin);
-             direntry_t* entry;
--            int i;
-+            int j;
- 
-             /* find direntry */
--            for (i = 0; i < s->directory.next; i++) {
--                entry = array_get(&(s->directory), i);
-+            for (j = 0; j < s->directory.next; j++) {
-+                entry = array_get(&(s->directory), j);
-                 if (is_file(entry) && begin_of_direntry(entry) == begin)
-                     break;
-             }
- 
--            if (i >= s->directory.next) {
-+            if (j >= s->directory.next) {
-                 fail = -6;
-                 continue;
-             }
-@@ -2833,8 +2833,9 @@ static int coroutine_fn GRAPH_RDLOCK handle_commits(BDRVVVFATState* s)
-             mapping->mode = MODE_NORMAL;
-             mapping->info.file.offset = 0;
- 
--            if (commit_one_file(s, i, 0))
-+            if (commit_one_file(s, j, 0)) {
-                 fail = -7;
-+            }
- 
-             break;
-         }
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index 3906b9058b..a07cd7eb5d 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -369,7 +369,7 @@ static void xen_block_get_vdev(Object *obj, Visitor *v, const char *name,
-     case XEN_BLOCK_VDEV_TYPE_XVD:
-     case XEN_BLOCK_VDEV_TYPE_HD:
-     case XEN_BLOCK_VDEV_TYPE_SD: {
--        char *name = disk_to_vbd_name(vdev->disk);
-+        char *vbd_name = disk_to_vbd_name(vdev->disk);
- 
-         str = g_strdup_printf("%s%s%lu",
-                               (vdev->type == XEN_BLOCK_VDEV_TYPE_XVD) ?
-@@ -377,8 +377,8 @@ static void xen_block_get_vdev(Object *obj, Visitor *v, const char *name,
-                               (vdev->type == XEN_BLOCK_VDEV_TYPE_HD) ?
-                               "hd" :
-                               "sd",
--                              name, vdev->partition);
--        g_free(name);
-+                              vbd_name, vdev->partition);
-+        g_free(vbd_name);
-         break;
-     }
-     default:
+ /*
+  * Round number down to multiple. Safe when m is not a power of 2 (see
 -- 
 2.41.0
 
