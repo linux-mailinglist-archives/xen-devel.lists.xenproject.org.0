@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1C67A6FA2
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 01:47:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.605063.942690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E47FC7A718E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Sep 2023 06:35:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.605071.942699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qikPm-0001D0-50; Tue, 19 Sep 2023 23:45:58 +0000
+	id 1qiouQ-0001O7-K4; Wed, 20 Sep 2023 04:33:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 605063.942690; Tue, 19 Sep 2023 23:45:58 +0000
+Received: by outflank-mailman (output) from mailman id 605071.942699; Wed, 20 Sep 2023 04:33:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qikPm-00019j-2F; Tue, 19 Sep 2023 23:45:58 +0000
-Received: by outflank-mailman (input) for mailman id 605063;
- Tue, 19 Sep 2023 23:45:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qiouQ-0001LU-E8; Wed, 20 Sep 2023 04:33:54 +0000
+Received: by outflank-mailman (input) for mailman id 605071;
+ Wed, 20 Sep 2023 04:33:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qikPk-00019Z-NK; Tue, 19 Sep 2023 23:45:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qikPk-0002oQ-Gj; Tue, 19 Sep 2023 23:45:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qikPk-00062i-2G; Tue, 19 Sep 2023 23:45:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qikPk-0000bY-1t; Tue, 19 Sep 2023 23:45:56 +0000
+ (envelope-from <SRS0=3b5T=FE=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1qiouO-0001LO-GQ
+ for xen-devel@lists.xenproject.org; Wed, 20 Sep 2023 04:33:52 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e38cfe33-576e-11ee-8789-cb3800f73035;
+ Wed, 20 Sep 2023 06:33:48 +0200 (CEST)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 21:33:41 -0700
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by FMSMGA003.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 19 Sep 2023 21:33:41 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Tue, 19 Sep 2023 21:33:41 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32 via Frontend Transport; Tue, 19 Sep 2023 21:33:41 -0700
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.43) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.32; Tue, 19 Sep 2023 21:33:40 -0700
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
+ by CH3PR11MB8187.namprd11.prod.outlook.com (2603:10b6:610:160::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.26; Wed, 20 Sep
+ 2023 04:33:38 +0000
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::922f:ec7c:601b:7f61]) by SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::922f:ec7c:601b:7f61%5]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
+ 04:33:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +63,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Qn6k5UPlAbgbLspiG9OU6MSQ+ajVLMWJGzCgcaAKO+U=; b=basgEo9H1jIbrWokcw3C0p6MTu
-	d37h8/NS6FasS1NdcLNtHimHxabz1sysevGJuODO6LXUkfZ5e1BzARMBp9s/Ad+QG/blN+XYSJ4fK
-	RRnBDr2XZy4Cef7VWTXPoWhWUF/EhymAx9/Mf9yzc/IqIqlQ4R5SOHnAkkiTZHk447QU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183048-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e38cfe33-576e-11ee-8789-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695184428; x=1726720428;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KodWI222Ne4KcR+J4h7jJIpwYezt6mL7WzTywnyFLHo=;
+  b=NKzUE7M1DtOLH/PSq6DhIt6NaPbBrp1NQq1l5WCyNsVrxybvIJZL0a0U
+   Aff5jbPYqFcMcTsFo5CkOwtsX7qWj3ospIgZ7fzpsbTCmtfZuA7/cCyT4
+   WdfnFr1czW/6xauJX6FByKgb9dOIZgd7cERWA9E+GG7JIvjCnxmN0xhR/
+   q7EMcbGIZRoJ+tMDjvwW3TpplNKAlznS1pB/b9WABueJVUs+SkM0Wtqyw
+   Vfa0MAOG5ELqAvotv0B0WYJJU4AhjnZbH5bcPXaUWkm0amBOk+DEBWQhr
+   dD4wTfG7PU47vwo9FVjZnDQUsrreJR6wsYYW5OuNRFAB8TE2bhedcCt4p
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="380020871"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; 
+   d="scan'208";a="380020871"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="836695527"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; 
+   d="scan'208";a="836695527"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GDGdrb+ENySOSoaJwFbw7TvyFIbnqaTP8IP40GnC2Ulga0UvZKEfvRIVJwHjXVsAzYHuJSp9m8u9qrhNzRWgJiUu/u8bZAv36Cpbd8Ny1ImyCdIz8giK6bIu6UrqMp250UTCM30io5a+c29ronDjWWdSxwJbxQIJPLR/tXY8fMY/CUBrnBR2NPQ7fWok52VyK7ag27HIBSLIqj01w0fw7PdF5zp8wcj5q4O0hYLT1YkfLmz+Xd54KCV6pZiIID/+8cBVMMk5WimrfgVwgLcl8aHJ3m/8JPEurF/Ee/wAbjXb0Am4VZzuiyVl0rpbqVgdYWEWnP8pnxEgOEvC6wae5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cuWtYsNSV45fWFoOBKicjRCIAtGyvumISLu68v8Tnfw=;
+ b=UwqzdeYdSGLKU4z2foRy/kpYEqkZ8JwwcOv5KKxve7edM1IpzozjbIPX7JyifsUpfIrLARDIKjGSHHX4/EAjYLvMWLhi4EgxSCggbBcK5Q0D3EgkWkRF9p1lFyxeY2US5mgz/5d5P8Uow8e7JpbnsErbyzj067ugsR0JjZBz/uEu7gmGugk8UsWBSZ5/+uAM0hZNyMhNVdpoDEHrBEtOUvP7E2O6KwQDcmt2LZg6YOAKQZ/SA9ZY926YG6xx52PKIdEbeeoZG15IOcX+tw5cEAS0dhZ1g1bekwFtB5irj3TNK41y8X7JCrFfgLOXEbw+plt0Pfmdm9qgqhxp11FRaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Li, Xin3" <xin3.li@intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
+	<linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy"
+	<luto@kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"Christopherson,, Sean" <seanjc@google.com>, "peterz@infradead.org"
+	<peterz@infradead.org>, "Gross, Jurgen" <jgross@suse.com>, "Shankar, Ravi V"
+	<ravi.v.shankar@intel.com>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>
+Subject: RE: [PATCH v10 36/38] x86/fred: Add fred_syscall_init()
+Thread-Topic: [PATCH v10 36/38] x86/fred: Add fred_syscall_init()
+Thread-Index: AQHZ5strXMSQ17oxYk2by6W1B7FxqLAh2QeAgAFNrPA=
+Date: Wed, 20 Sep 2023 04:33:38 +0000
+Message-ID: <SA1PR11MB6734C02FFB973B2074EC6CC8A8F9A@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-37-xin3.li@intel.com> <87v8c6woqo.ffs@tglx>
+In-Reply-To: <87v8c6woqo.ffs@tglx>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|CH3PR11MB8187:EE_
+x-ms-office365-filtering-correlation-id: c40c0e54-f61e-4c4f-7255-08dbb992c296
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: khPSh9PhOUeMIRmEw4KIle6Rf8sOG8VwkEu2VnURKMnAICdS9+mt1eUdVSS2cafnVDyKS0tFtQQSmp7Fib4DZYOobmiukEGiAqCDNX5XNx6dPKJfO/CJsrN19Qov80o5qSeqdAlRdvIbY+N+WlIeP8KFSokZO7aCVsMnO4G/lgxazUNZrj+a450O/DDrUfTlKen/l7sZpgcz3gq5MY6u1NWj2eoir8GVpVV3ujfbUOCQnOxOynUA3JAqr4g84OksuOb2HJ8AUuwPEiz4aEMasYXmoGavXxMu/29s7yr3RKj9dkMMTT/PIcH6LHZJHh499izxOgi65n3LeqS73eEb17IbeQKIE+fauLH4rAJg6XQSPIdEyjSfLIqwktE/frhqFQmlF/YfiD9iF3vzMtwT0ZIDSMzuUzz7HTxDGcDIEPwGKVH1Q7UQteoLTZPCNlbhIkHrdasfhf2J2aLJdOaC5kSq0SYDXb15hSiC+W8K1+Aev50yhEswlwtWAE3l+MR+tQMcqmwbmkeNTlCZ0v2L4hxO80t+GRiVil8CspzAtkHbHny+Y3r2zO9P8GasgKahnwCLogd6EhHqPjYLBMLFxNqVAfeCEi/uIeDWZMH+PDLoYItU9avgLD9LlAua7TM1
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(136003)(346002)(366004)(376002)(186009)(451199024)(1800799009)(26005)(52536014)(33656002)(8676002)(4326008)(8936002)(7416002)(2906002)(4744005)(66476007)(5660300002)(55016003)(86362001)(9686003)(71200400001)(6506007)(7696005)(122000001)(38070700005)(38100700002)(82960400001)(41300700001)(110136005)(76116006)(66946007)(66556008)(316002)(478600001)(64756008)(54906003)(66446008);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jZ6ohgHOzvXsD6IYtOKwm9p/axEO9d/fyVqePdBFmr/1y1yiGkLHAr8PIBYG?=
+ =?us-ascii?Q?wT1efeGaLkeHQ9qIMw5lrRR6quIMkiIBdGVvlyzlt0rCmgHqyDa/AVdi1tGg?=
+ =?us-ascii?Q?i2qnmeEgZmoeM/A2uLtoOQNj7cfjTe5GlsWgHSZ3boxDnM8U+Myqw9rb/rHd?=
+ =?us-ascii?Q?fYSASLigfqu1p1UwGl58x4/DMMz0Gyxx2Oq2vXSQnvdQkcqPMV6pE3GVwPFk?=
+ =?us-ascii?Q?EhzQJFKNWmFLV6jv3W2QAQJ984ty09YjsqQ7esDMNLuDzy4hEhXJRvoCa9yS?=
+ =?us-ascii?Q?2N0SSzALvJvlBqS6F4U1MITb9Cp1eXNDzDh1Ji9UPJf4/8vMOQsfiuNQgz94?=
+ =?us-ascii?Q?3SoHMb6B8H6x18YwhXH0CNBj9czoUaT57MAdfu68ww51Uoce5FFbo+BwJ0kM?=
+ =?us-ascii?Q?K/iMKTpvAq4NPz5cpdwtRfV1A3KojQWoPIBdP2buV2lvgUiqkbak6my1Xj+N?=
+ =?us-ascii?Q?bO+sxDXIS5JVhu+PG57PCCytJewputXFT9RDOfJDQJ/5RTV+WcgJYGQYTSTj?=
+ =?us-ascii?Q?f5kf0Ci2zc+LU7iHl4b92xsNCtLOEeOlUz2UeNTAWrmSFv3yczcBxHgzW7ya?=
+ =?us-ascii?Q?JGEI4JyLHnu8LDewB3SGBTOSd3h2ASDp9fZz3Vmw1m6Uq4u8ZqcyqCGCgeVS?=
+ =?us-ascii?Q?mor6DT+e5qpeSVbyh5XR4l6w5JVyjiYkY+P9FoYCqTQqPP/LQjFL5ZxuKLy2?=
+ =?us-ascii?Q?lB7eUfjCKcxrE6x371W4u8cqPfquOA4S+CbCMTfTnGqG8DnNE/+yeqmo1AH5?=
+ =?us-ascii?Q?0V5ZwEjEFoslpkuvfCcZpuTjLVGspRaqmdGt3hwCwK5cYzAann3cK+LYMuhe?=
+ =?us-ascii?Q?bXSYlkgD8MKSNMdRjk9rImOZ2604+2rlJD0Kk2PvR9cInM/yw8eN5RD/Fo+5?=
+ =?us-ascii?Q?HRaBq1bRoehr3GyY9UtJQIhVygtoyhfZRFDQLnDOw/f1vcIoaQ/W+SYzB5or?=
+ =?us-ascii?Q?jSVLKQA8NOow3l0N9mQwPGsn0q0Vqt9iU54zpfV6F8Rad9MOcki9op8aKB57?=
+ =?us-ascii?Q?HbYGMAOfN6+P3pmkczBDLTbrLVkN0Q336ITpbT5yEMZAnAqPE4csMuS+OS5t?=
+ =?us-ascii?Q?cTYqR74VW2Lqlz4WmuAK/Oleo2L3B29KmaUCIt+A/KoVc9LlrAEl5cX+tEXG?=
+ =?us-ascii?Q?ygrmQ44DrAWbHrxzGy2uL1BivUPKS2v0tkGopp2b90XZCpM5c+fuaA4fOWck?=
+ =?us-ascii?Q?8qO2Y70Z76lbUAR5lrbw/P8/xC7YQIqLw8xl08IDBNHRUaiJBqgCXVswm+px?=
+ =?us-ascii?Q?8WzM3gxPdlhAAIuJ87KSXANYULGk7pSaTo9sWGf/CUSVhi0Ve3966jBRL1Kx?=
+ =?us-ascii?Q?hw+PHDkSNyDM67aY8mccqstPlpVhOuaf1FfrQM30HOAAFYpsXzGwREP+IaNV?=
+ =?us-ascii?Q?jJpvoWilQCAr59Qe1q0BWL6EXJJJ4qp35BOnGcbCRIbIKxt3neCs1Alh7FO6?=
+ =?us-ascii?Q?jdjQCIcbtnJqQ3oVTjLXXQ5ssMEzzT85orUauR//KK4vUbwWciUAVi5rD+3/?=
+ =?us-ascii?Q?cH4O+qogp1db1dqBsoaUn2H1TvBdcuS+G7JdKnpLo1rJqVCYgdHF/J/o41s2?=
+ =?us-ascii?Q?Sej5cA8gCWV+b25DTqU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: [libvirt test] 183048: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=732c5f42704259b239f9533c31d43799054f184b
-X-Osstest-Versions-That:
-    libvirt=47230842aa6bca1da75cc92c50144f223d1ad1d3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Sep 2023 23:45:56 +0000
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c40c0e54-f61e-4c4f-7255-08dbb992c296
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2023 04:33:38.3441
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KIdLu7r7wJ74jFtFEdlCvuzKRT84bG+qv3nJ0V30Fcf2ryKHYN9rOKCDbpFuBYkE4e+J9fkJcJF7y0cJuSi9Sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8187
+X-OriginatorOrg: intel.com
 
-flight 183048 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183048/
+> > +static inline void fred_syscall_init(void) {
+> > +	/*
+> > +	 * Per FRED spec 5.0, FRED uses the ring 3 FRED entrypoint for SYSCAL=
+L
+> > +	 * and SYSENTER, and ERETU is the only legit instruction to return to
+> > +	 * ring 3, as a result there is _no_ need to setup the SYSCALL and
+> > +	 * SYSENTER MSRs.
+> > +	 *
+> > +	 * Note, both sysexit and sysret cause #UD when FRED is enabled.
+> > +	 */
+> > +	wrmsrl(MSR_LSTAR, 0ULL);
+> > +	wrmsrl_cstar(0ULL);
+>=20
+> That write is pointless. See the comment in wrmsrl_cstar().
 
-Failures :-/ but no regressions.
+What I heard is that AMD is going to support FRED.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183014
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183014
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183014
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+Both LSTAR and CSTAR have no function when FRED is enabled, so maybe
+just do NOT write to them?
 
-version targeted for testing:
- libvirt              732c5f42704259b239f9533c31d43799054f184b
-baseline version:
- libvirt              47230842aa6bca1da75cc92c50144f223d1ad1d3
+Thanks!
+    Xin
 
-Last test of basis   183014  2023-09-16 04:20:23 Z    3 days
-Testing same since   183048  2023-09-19 04:18:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  K Shiva Kiran <shiva_kr@riseup.net>
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   47230842aa..732c5f4270  732c5f42704259b239f9533c31d43799054f184b -> xen-tested-master
 
