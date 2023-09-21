@@ -2,33 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CCC7A9414
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 14:12:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606333.944186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D149B7A941C
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 14:13:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606346.944227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjIX1-0005Dy-IM; Thu, 21 Sep 2023 12:11:43 +0000
+	id 1qjIYf-0006lU-57; Thu, 21 Sep 2023 12:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606333.944186; Thu, 21 Sep 2023 12:11:43 +0000
+Received: by outflank-mailman (output) from mailman id 606346.944227; Thu, 21 Sep 2023 12:13:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjIX1-0005Ap-FU; Thu, 21 Sep 2023 12:11:43 +0000
-Received: by outflank-mailman (input) for mailman id 606333;
- Thu, 21 Sep 2023 12:11:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iWz/=FF=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qjIX0-0004uB-0F
- for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 12:11:42 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 055763e4-5878-11ee-878a-cb3800f73035;
- Thu, 21 Sep 2023 14:11:40 +0200 (CEST)
-Received: from Dell.homenet.telecomitalia.it
- (host-82-50-59-70.retail.telecomitalia.it [82.50.59.70])
- by support.bugseng.com (Postfix) with ESMTPSA id A9FFB4EE073F;
- Thu, 21 Sep 2023 14:11:39 +0200 (CEST)
+	id 1qjIYe-0006h0-TH; Thu, 21 Sep 2023 12:13:24 +0000
+Received: by outflank-mailman (input) for mailman id 606346;
+ Thu, 21 Sep 2023 12:13:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x4Y2=FF=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1qjIYc-0005zm-PY
+ for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 12:13:22 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fdba246-5878-11ee-9b0d-b553b5be7939;
+ Thu, 21 Sep 2023 14:13:19 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-492-NyX3vEfCOqSYhFypna-S0Q-1; Thu, 21 Sep 2023 08:13:16 -0400
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB08880D09A;
+ Thu, 21 Sep 2023 12:13:13 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.39.192.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 78A4571128D;
+ Thu, 21 Sep 2023 12:13:13 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 6A38121E6900; Thu, 21 Sep 2023 14:13:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,329 +52,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 055763e4-5878-11ee-878a-cb3800f73035
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v3] xen/hypercalls: address violations of MISRA C:2012 Rule 8.3
-Date: Thu, 21 Sep 2023 14:11:24 +0200
-Message-Id: <2c3e9469b3e59c7c4d0128320515f2b3df2b4c1c.1695297383.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 3fdba246-5878-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695298398;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LHmiermdl6RPWlPPPWfGL90MXuUtrZGZhe9H8fs+5EQ=;
+	b=gAKSFL3MB2UnkKjWIllSMNM7yx0q00egv6wn0b8Ia/aFuMooFmO4DMfpqAppWnYXkn6D9m
+	+RsyXGRjV496w6047PWWzVoksUbDTMgXdBgmqipSic0HAQ2l9t2tzHYgAPrbMLtNteiTh7
+	xrjWpyHstdZVFCIYlYYwDG48JeMtmt4=
+X-MC-Unique: NyX3vEfCOqSYhFypna-S0Q-1
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: kwolf@redhat.com,
+	hreitz@redhat.com,
+	eblake@redhat.com,
+	vsementsov@yandex-team.ru,
+	jsnow@redhat.com,
+	idryomov@gmail.com,
+	pl@kamp.de,
+	sw@weilnetz.de,
+	sstabellini@kernel.org,
+	anthony.perard@citrix.com,
+	paul@xen.org,
+	pbonzini@redhat.com,
+	marcandre.lureau@redhat.com,
+	berrange@redhat.com,
+	thuth@redhat.com,
+	philmd@linaro.org,
+	stefanha@redhat.com,
+	fam@euphon.net,
+	quintela@redhat.com,
+	peterx@redhat.com,
+	leobras@redhat.com,
+	kraxel@redhat.com,
+	qemu-block@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	alex.bennee@linaro.org,
+	peter.maydell@linaro.org
+Subject: [PATCH v3 0/7] Steps towards enabling -Wshadow=local
+Date: Thu, 21 Sep 2023 14:13:05 +0200
+Message-ID: <20230921121312.1301864-1-armbru@redhat.com>
 MIME-Version: 1.0
+Content-type: text/plain
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 
-Make function declarations and definitions consistent.
-No functional change.
+Local variables shadowing other local variables or parameters make the
+code needlessly hard to understand.  Bugs love to hide in such code.
+Evidence: PATCH 1.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v3:
-- removed changes involving types with fixed/unfixed width;
-- uniformed parameter names of compat_memory_op() with {do,hvm}_memory_op().
----
-Changes in v2:
-- change compat_grant_table_op() definition instead of the declaration;
-- use unsigned int for multicall()'s parameter in accordance with XEN
-  coding style.
----
----
- xen/common/compat/grant_table.c | 22 +++++++++---------
- xen/common/compat/memory.c      | 40 ++++++++++++++++-----------------
- 2 files changed, 31 insertions(+), 31 deletions(-)
+Enabling -Wshadow would prevent bugs like this one.  But we'd have to
+clean up all the offenders first.  We got a lot of them.
 
-diff --git a/xen/common/compat/grant_table.c b/xen/common/compat/grant_table.c
-index f8177c84c0..e00bc24a34 100644
---- a/xen/common/compat/grant_table.c
-+++ b/xen/common/compat/grant_table.c
-@@ -57,7 +57,7 @@ CHECK_gnttab_cache_flush;
- #undef xen_gnttab_cache_flush
+Enabling -Wshadow=local should be less work for almost as much gain.
+I took a stab at it.  There's a small, exciting part, and a large,
+boring part.
+
+The exciting part is dark preprocessor sorcery to let us nest macro
+calls without shadowing: PATCH 7.
+
+The boring part is cleaning up all the other warnings.  I did some
+[PATCH 2-6], but ran out of steam long before finishing the job.  Some
+160 unique warnings remain.
+
+To see them, enable -Wshadow=local like so:
+
+diff --git a/meson.build b/meson.build
+index 98e68ef0b1..9fc4c7ac9d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -466,6 +466,9 @@ warn_flags = [
+   '-Wno-tautological-type-limit-compare',
+   '-Wno-psabi',
+   '-Wno-gnu-variable-sized-type-not-at-end',
++  '-Wshadow=local',
++  '-Wno-error=shadow=local',
++  '-Wno-error=shadow=compatible-local',
+ ]
  
- int compat_grant_table_op(
--    unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) cmp_uop, unsigned int count)
-+    unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
- {
-     int rc = 0;
-     unsigned int i, cmd_op;
-@@ -71,7 +71,7 @@ int compat_grant_table_op(
-     {
- #define CASE(name) \
-     case GNTTABOP_##name: \
--        if ( unlikely(!guest_handle_okay(guest_handle_cast(cmp_uop, \
-+        if ( unlikely(!guest_handle_okay(guest_handle_cast(uop, \
-                                                            gnttab_##name##_compat_t), \
-                                          count)) ) \
-             rc = -EFAULT; \
-@@ -119,7 +119,7 @@ int compat_grant_table_op(
- 
- #undef CASE
-     default:
--        return do_grant_table_op(cmd, cmp_uop, count);
-+        return do_grant_table_op(cmd, uop, count);
-     }
- 
-     if ( (int)count < 0 )
-@@ -148,7 +148,7 @@ int compat_grant_table_op(
-         case GNTTABOP_setup_table:
-             if ( unlikely(count > 1) )
-                 rc = -EINVAL;
--            else if ( unlikely(__copy_from_guest(&cmp.setup, cmp_uop, 1)) )
-+            else if ( unlikely(__copy_from_guest(&cmp.setup, uop, 1)) )
-                 rc = -EFAULT;
-             else if ( unlikely(!compat_handle_okay(cmp.setup.frame_list, cmp.setup.nr_frames)) )
-                 rc = -EFAULT;
-@@ -193,7 +193,7 @@ int compat_grant_table_op(
-                 } while (0)
-                 XLAT_gnttab_setup_table(&cmp.setup, nat.setup);
- #undef XLAT_gnttab_setup_table_HNDL_frame_list
--                if ( unlikely(__copy_to_guest(cmp_uop, &cmp.setup, 1)) )
-+                if ( unlikely(__copy_to_guest(uop, &cmp.setup, 1)) )
-                     rc = -EFAULT;
-                 else
-                     i = 1;
-@@ -203,7 +203,7 @@ int compat_grant_table_op(
-         case GNTTABOP_transfer:
-             for ( n = 0; n < COMPAT_ARG_XLAT_SIZE / sizeof(*nat.xfer) && i < count && rc == 0; ++i, ++n )
-             {
--                if ( unlikely(__copy_from_guest_offset(&cmp.xfer, cmp_uop, i, 1)) )
-+                if ( unlikely(__copy_from_guest_offset(&cmp.xfer, uop, i, 1)) )
-                     rc = -EFAULT;
-                 else
-                 {
-@@ -222,7 +222,7 @@ int compat_grant_table_op(
-             {
-                 XEN_GUEST_HANDLE_PARAM(gnttab_transfer_compat_t) xfer;
- 
--                xfer = guest_handle_cast(cmp_uop, gnttab_transfer_compat_t);
-+                xfer = guest_handle_cast(uop, gnttab_transfer_compat_t);
-                 guest_handle_add_offset(xfer, i);
-                 cnt_uop = guest_handle_cast(xfer, void);
-                 while ( n-- )
-@@ -237,7 +237,7 @@ int compat_grant_table_op(
-         case GNTTABOP_copy:
-             for ( n = 0; n < COMPAT_ARG_XLAT_SIZE / sizeof(*nat.copy) && i < count && rc == 0; ++i, ++n )
-             {
--                if ( unlikely(__copy_from_guest_offset(&cmp.copy, cmp_uop, i, 1)) )
-+                if ( unlikely(__copy_from_guest_offset(&cmp.copy, uop, i, 1)) )
-                     rc = -EFAULT;
-                 else
-                 {
-@@ -267,7 +267,7 @@ int compat_grant_table_op(
-             {
-                 XEN_GUEST_HANDLE_PARAM(gnttab_copy_compat_t) copy;
- 
--                copy = guest_handle_cast(cmp_uop, gnttab_copy_compat_t);
-+                copy = guest_handle_cast(uop, gnttab_copy_compat_t);
-                 guest_handle_add_offset(copy, i);
-                 cnt_uop = guest_handle_cast(copy, void);
-                 while ( n-- )
-@@ -285,7 +285,7 @@ int compat_grant_table_op(
-                 rc = -EINVAL;
-                 break;
-             }
--            if ( unlikely(__copy_from_guest(&cmp.get_status, cmp_uop, 1) ||
-+            if ( unlikely(__copy_from_guest(&cmp.get_status, uop, 1) ||
-                           !compat_handle_okay(cmp.get_status.frame_list,
-                                               cmp.get_status.nr_frames)) )
-             {
-@@ -303,7 +303,7 @@ int compat_grant_table_op(
-             if ( rc >= 0 )
-             {
-                 XEN_GUEST_HANDLE_PARAM(gnttab_get_status_frames_compat_t) get =
--                    guest_handle_cast(cmp_uop,
-+                    guest_handle_cast(uop,
-                                       gnttab_get_status_frames_compat_t);
- 
-                 if ( unlikely(__copy_field_to_guest(get, nat.get_status,
-diff --git a/xen/common/compat/memory.c b/xen/common/compat/memory.c
-index 8c34f201c2..45e5fb0e5d 100644
---- a/xen/common/compat/memory.c
-+++ b/xen/common/compat/memory.c
-@@ -54,7 +54,7 @@ static int cf_check get_reserved_device_memory(
- }
- #endif
- 
--int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-+int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     struct vcpu *curr = current;
-     struct domain *currd = curr->domain;
-@@ -96,7 +96,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         case XENMEM_increase_reservation:
-         case XENMEM_decrease_reservation:
-         case XENMEM_populate_physmap:
--            if ( copy_from_guest(&cmp.rsrv, compat, 1) )
-+            if ( copy_from_guest(&cmp.rsrv, arg, 1) )
-                 return start_extent;
- 
-             /* Is size too large for us to encode a continuation? */
-@@ -158,7 +158,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         {
-             int order_delta;
- 
--            if ( copy_from_guest(&cmp.xchg, compat, 1) )
-+            if ( copy_from_guest(&cmp.xchg, arg, 1) )
-                 return -EFAULT;
- 
-             order_delta = cmp.xchg.out.extent_order - cmp.xchg.in.extent_order;
-@@ -241,14 +241,14 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         case XENMEM_maximum_reservation:
-         case XENMEM_maximum_gpfn:
-         case XENMEM_maximum_ram_page:
--            nat.hnd = compat;
-+            nat.hnd = arg;
-             break;
- 
-         case XENMEM_add_to_physmap:
-             BUILD_BUG_ON((typeof(cmp.atp.size))-1 >
-                          (UINT_MAX >> MEMOP_EXTENT_SHIFT));
- 
--            if ( copy_from_guest(&cmp.atp, compat, 1) )
-+            if ( copy_from_guest(&cmp.atp, arg, 1) )
-                 return -EFAULT;
- 
-             XLAT_add_to_physmap(nat.atp, &cmp.atp);
-@@ -271,7 +271,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             enum XLAT_add_to_physmap_batch_u u =
-                 XLAT_add_to_physmap_batch_u_res0;
- 
--            if ( copy_from_guest(&cmp.atpb, compat, 1) )
-+            if ( copy_from_guest(&cmp.atpb, arg, 1) )
-                 return -EFAULT;
-             size = cmp.atpb.size;
-             if ( !compat_handle_okay(cmp.atpb.idxs, size) ||
-@@ -322,7 +322,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
- 
-         case XENMEM_remove_from_physmap:
-         {
--            if ( copy_from_guest(&cmp.xrfp, compat, 1) )
-+            if ( copy_from_guest(&cmp.xrfp, arg, 1) )
-                 return -EFAULT;
- 
-             XLAT_remove_from_physmap(nat.xrfp, &cmp.xrfp);
-@@ -331,7 +331,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         }
- 
-         case XENMEM_access_op:
--            if ( copy_from_guest(&cmp.mao, compat, 1) )
-+            if ( copy_from_guest(&cmp.mao, arg, 1) )
-                 return -EFAULT;
-             
- #define XLAT_mem_access_op_HNDL_pfn_list(_d_, _s_)                      \
-@@ -355,7 +355,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             enum XLAT_vnuma_topology_info_vmemrange vmemrange =
-                 XLAT_vnuma_topology_info_vmemrange_h;
- 
--            if ( copy_from_guest(&cmp.vnuma, compat, 1) )
-+            if ( copy_from_guest(&cmp.vnuma, arg, 1) )
-                 return -EFAULT;
- 
- #define XLAT_vnuma_topology_info_HNDL_vdistance_h(_d_, _s_)		\
-@@ -381,7 +381,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             if ( unlikely(start_extent) )
-                 return -EINVAL;
- 
--            if ( copy_from_guest(&grdm.map, compat, 1) ||
-+            if ( copy_from_guest(&grdm.map, arg, 1) ||
-                  !compat_handle_okay(grdm.map.buffer, grdm.map.nr_entries) )
-                 return -EFAULT;
- 
-@@ -395,7 +395,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             if ( !rc && grdm.map.nr_entries < grdm.used_entries )
-                 rc = -ENOBUFS;
-             grdm.map.nr_entries = grdm.used_entries;
--            if ( __copy_to_guest(compat, &grdm.map, 1) )
-+            if ( __copy_to_guest(arg, &grdm.map, 1) )
-                 rc = -EFAULT;
- 
-             return rc;
-@@ -406,7 +406,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         {
-             xen_pfn_t *xen_frame_list = NULL;
- 
--            if ( copy_from_guest(&cmp.mar, compat, 1) )
-+            if ( copy_from_guest(&cmp.mar, arg, 1) )
-                 return -EFAULT;
- 
-             /* Marshal the frame list in the remainder of the xlat space. */
-@@ -470,7 +470,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             break;
-         }
-         default:
--            return compat_arch_memory_op(cmd, compat);
-+            return compat_arch_memory_op(cmd, arg);
-         }
- 
-         rc = do_memory_op(cmd, nat.hnd);
-@@ -481,14 +481,14 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-                 cmp.vnuma.nr_vnodes = nat.vnuma->nr_vnodes;
-                 cmp.vnuma.nr_vcpus = nat.vnuma->nr_vcpus;
-                 cmp.vnuma.nr_vmemranges = nat.vnuma->nr_vmemranges;
--                if ( __copy_to_guest(compat, &cmp.vnuma, 1) )
-+                if ( __copy_to_guest(arg, &cmp.vnuma, 1) )
-                     rc = -EFAULT;
-             }
-             break;
-         }
- 
-         cmd = 0;
--        if ( hypercall_xlat_continuation(&cmd, 2, 0x02, nat.hnd, compat) )
-+        if ( hypercall_xlat_continuation(&cmd, 2, 0x02, nat.hnd, arg) )
-         {
-             BUG_ON(rc != __HYPERVISOR_memory_op);
-             BUG_ON((cmd & MEMOP_CMD_MASK) != op);
-@@ -573,7 +573,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             }
- 
-             cmp.xchg.nr_exchanged = nat.xchg->nr_exchanged;
--            if ( __copy_field_to_guest(guest_handle_cast(compat,
-+            if ( __copy_field_to_guest(guest_handle_cast(arg,
-                                                          compat_memory_exchange_t),
-                                        &cmp.xchg, nr_exchanged) )
-                 rc = -EFAULT;
-@@ -605,7 +605,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             cmp.vnuma.nr_vnodes = nat.vnuma->nr_vnodes;
-             cmp.vnuma.nr_vcpus = nat.vnuma->nr_vcpus;
-             cmp.vnuma.nr_vmemranges = nat.vnuma->nr_vmemranges;
--            if ( __copy_to_guest(compat, &cmp.vnuma, 1) )
-+            if ( __copy_to_guest(arg, &cmp.vnuma, 1) )
-                 rc = -EFAULT;
-             break;
- 
-@@ -618,7 +618,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             {
-                 ASSERT(split == 0 && rc == 0);
-                 if ( __copy_field_to_guest(
--                         guest_handle_cast(compat,
-+                         guest_handle_cast(arg,
-                                            compat_mem_acquire_resource_t),
-                          nat.mar, nr_frames) )
-                     return -EFAULT;
-@@ -707,7 +707,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-             if ( done < nat.mar->nr_frames )
-                 return hypercall_create_continuation(
-                     __HYPERVISOR_memory_op, "ih",
--                    op | (start_extent << MEMOP_EXTENT_SHIFT), compat);
-+                    op | (start_extent << MEMOP_EXTENT_SHIFT), arg);
- 
-             /*
-              * Well... Somethings gone wrong with the two levels of chunking.
-@@ -728,7 +728,7 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-         cmd = op | (start_extent << MEMOP_EXTENT_SHIFT);
-         if ( split > 0 && hypercall_preempt_check() )
-             return hypercall_create_continuation(
--                __HYPERVISOR_memory_op, "ih", cmd, compat);
-+                __HYPERVISOR_memory_op, "ih", cmd, arg);
-     } while ( split > 0 );
- 
-     if ( unlikely(rc > INT_MAX) )
+ if targetos != 'darwin'
+
+You may want to drop the -Wno-error lines.
+
+v3:
+* PATCH 7: Comment typo [Eric], peel off a pair of parenthesis [Eric],
+  revert accidental line breaks [Kevin]
+
+v2:
+* PATCH 3+6: Mollify checkpatch
+* PATCH 4: Redo for clearer code, R-bys dropped [Kevin]
+* PATCH 5: Rename tweaked [Kevin]
+* PATCH 6: Rename local @tran instead of the parameter [Kevin]
+* PATCH 7: Drop PASTE(), use glue() instead [Richard]; pass
+  identifiers instead of __COUNTER__ for readability [Eric]; add
+  comments
+
+Markus Armbruster (7):
+  migration/rdma: Fix save_page method to fail on polling error
+  migration: Clean up local variable shadowing
+  ui: Clean up local variable shadowing
+  block/dirty-bitmap: Clean up local variable shadowing
+  block/vdi: Clean up local variable shadowing
+  block: Clean up local variable shadowing
+  qobject atomics osdep: Make a few macros more hygienic
+
+ include/qapi/qmp/qobject.h      | 10 ++++++++--
+ include/qemu/atomic.h           | 17 +++++++++++-----
+ include/qemu/compiler.h         |  3 +++
+ include/qemu/osdep.h            | 27 ++++++++++++++++++-------
+ block.c                         |  9 +++++----
+ block/monitor/bitmap-qmp-cmds.c | 19 +++++++++---------
+ block/qcow2-bitmap.c            |  3 +--
+ block/rbd.c                     |  2 +-
+ block/stream.c                  |  1 -
+ block/vdi.c                     |  7 +++----
+ block/vvfat.c                   | 35 +++++++++++++++++----------------
+ hw/block/xen-block.c            |  6 +++---
+ migration/block.c               |  4 ++--
+ migration/ram.c                 |  8 +++-----
+ migration/rdma.c                | 14 ++++++++-----
+ migration/vmstate.c             |  2 +-
+ ui/gtk.c                        | 14 ++++++-------
+ ui/spice-display.c              |  9 +++++----
+ ui/vnc-palette.c                |  2 --
+ ui/vnc.c                        | 12 +++++------
+ ui/vnc-enc-zrle.c.inc           |  9 ++++-----
+ 21 files changed, 121 insertions(+), 92 deletions(-)
+
 -- 
-2.34.1
+2.41.0
 
 
