@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A3C7A9440
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 14:24:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606389.944285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F261F7A944E
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 14:39:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606407.944296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjIit-00054H-T5; Thu, 21 Sep 2023 12:23:59 +0000
+	id 1qjIxQ-0000ww-5T; Thu, 21 Sep 2023 12:39:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606389.944285; Thu, 21 Sep 2023 12:23:59 +0000
+Received: by outflank-mailman (output) from mailman id 606407.944296; Thu, 21 Sep 2023 12:39:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjIit-00052J-Q5; Thu, 21 Sep 2023 12:23:59 +0000
-Received: by outflank-mailman (input) for mailman id 606389;
- Thu, 21 Sep 2023 12:23:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qjIxQ-0000uD-2W; Thu, 21 Sep 2023 12:39:00 +0000
+Received: by outflank-mailman (input) for mailman id 606407;
+ Thu, 21 Sep 2023 12:38:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gqFj=FF=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qjIis-0004xy-7l
- for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 12:23:58 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb718365-5879-11ee-9b0d-b553b5be7939;
- Thu, 21 Sep 2023 14:23:55 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-32179d3c167so755909f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Sep 2023 05:23:55 -0700 (PDT)
-Received: from georged-x-u.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- n5-20020a5d4005000000b0031c5dda3aedsm1620901wrp.95.2023.09.21.05.23.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Sep 2023 05:23:54 -0700 (PDT)
+ <SRS0=k/An=FF=redhat.com=pbonzini@srs-se1.protection.inumbo.net>)
+ id 1qjIxO-0000u7-Et
+ for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 12:38:58 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d44073b5-587b-11ee-878a-cb3800f73035;
+ Thu, 21 Sep 2023 14:38:57 +0200 (CEST)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-68-66Xh11FxNqiEJpGAa8yxWw-1; Thu, 21 Sep 2023 08:38:52 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-3fd0fa4d08cso6886865e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Sep 2023 05:38:52 -0700 (PDT)
+Received: from ?IPV6:2001:b07:6468:f312:9af8:e5f5:7516:fa89?
+ ([2001:b07:6468:f312:9af8:e5f5:7516:fa89])
+ by smtp.googlemail.com with ESMTPSA id
+ c12-20020adfed8c000000b0032179c4a46dsm1650846wro.100.2023.09.21.05.38.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Sep 2023 05:38:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +50,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb718365-5879-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695299035; x=1695903835; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ND6JjdDALXmgUMQ6eVlffEnK99gwZtTIG42TlqB7sOk=;
-        b=GDd7DlMzly7unkahiNv1p9gD70jWIKCcCwe3co9olUZoYUthQx3bhn7MLwMMvqcUF6
-         F9lCHOoZPqRmeH9X/xyLA3konPT5hYnqgZfqEeXMNBhdbUz++BXPQVm6vs30NBpE7zNG
-         HWJhevp1S7tlim64xIR6pi5Lb87K/OESgQv8o=
+X-Inumbo-ID: d44073b5-587b-11ee-878a-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695299935;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jkSn+PxPk9HUDFePBeJ+qJj/mQ3EC7rJPAPt5aKMVQM=;
+	b=Zqkwp7dX9YxjJ4LSgYDDprHVAhqJcqGt+EFJ3KDvfm2eeHmnlZoymxfAryo/ERkgVyF1Iv
+	Rqh34QN2cokEMFmPfauR3ipwwIXT+zhpZjnZrafcrlXKTJkWA0yoTlOK5lX+hDTiMFvtcU
+	C7d7JyubVmO7U/UbnI08TvnkubxGSfw=
+X-MC-Unique: 66Xh11FxNqiEJpGAa8yxWw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695299035; x=1695903835;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ND6JjdDALXmgUMQ6eVlffEnK99gwZtTIG42TlqB7sOk=;
-        b=KsTC5v900+Am7xxTd/ExVrQSYZuu+Smqh28KOZEXE9plH9qNaq8av7jZC6ctudvJy6
-         Tx1vjDtpH2r+QJTpi2gy1zSQir3DrHAmlhcNoy4USh5jsLAXYeisagkD4QEM74S6rhM/
-         g+P9gPMpzkSzGovkjflULIqs5vmuoioh8pGYPtpLU0NcAXyFUQmwN5lvZa0jSB/P/TLs
-         4j3SorPG859Oo/OQpELs4z5Qf3QQttBQt02C7GUL/6w+odcDHNcDWsqRQf3b8cqKXWuS
-         ow35JLmzkWR+sUq1Did8OVw8nusuXHfS7upVnXNPQFlhuQKnQzEMv/KCJJ3l+PokYFYe
-         sOLQ==
-X-Gm-Message-State: AOJu0YxgXd1pI5F+09nUW++6FPltmALEWvByIEY6857/5Xt+DPD1T6qL
-	pBdXkfQyJxwnKSqdfV1et1KmP7GgMVh/ATAShAg=
-X-Google-Smtp-Source: AGHT+IGjwxRe2ylX66/0bx/FQE0r6xzF2bdDMVP4PCeaXLq53QDiJu9bRg6SNSp3yo0ySblFUN4cFw==
-X-Received: by 2002:a5d:61cd:0:b0:31f:91ae:4509 with SMTP id q13-20020a5d61cd000000b0031f91ae4509mr5096426wrv.40.1695299034566;
-        Thu, 21 Sep 2023 05:23:54 -0700 (PDT)
-From: George Dunlap <george.dunlap@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@cloud.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v2 2/2] credit: Don't steal vcpus which have yielded
-Date: Thu, 21 Sep 2023 13:23:52 +0100
-Message-Id: <20230921122352.2307574-2-george.dunlap@cloud.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230921122352.2307574-1-george.dunlap@cloud.com>
-References: <20230921122352.2307574-1-george.dunlap@cloud.com>
+        d=1e100.net; s=20230601; t=1695299931; x=1695904731;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jkSn+PxPk9HUDFePBeJ+qJj/mQ3EC7rJPAPt5aKMVQM=;
+        b=D1gYhqGxQ+DjVN8aDhipq2AW1iWSZNaX/HW/6g4xwhL57x1qUvCKrYJ/0AEk8T35Km
+         mJbu3gV8ukyUwpimfL95MA7Bvpmkv5z3+H8pAVwjN5hGxu6kFkZlX0nckMse0uAp+ZyG
+         WIFSLtoA54iYXcBv838xBo1G8iiR7ch50WXw0AHQFe4cAsEelDl6kaF71bTdmrtPN+mU
+         brYfbBdx3DghpoSbTvdp4GBxZxHVHnP3tTikmHwXnKLegi9uxFZGV6yApFZUYpjIhPpW
+         Oxkx9XeVp7Jw5PnXwh4ST6L/DiUwbrPlqVsUbBpEpUCUG4NUHEhCa9MU9JWwqopcr/pw
+         KeYw==
+X-Gm-Message-State: AOJu0Ywu5DeqEMTLInr4/Cg7DtczvRtgSWbTBC6YT5LNQX8PFRZxEzGA
+	HgVvbJvLBEuig5Tu2Z/l0Nr1Q32HxbDwxTPA97RMtOyNat6WxvPZuULyi5wbVaOZ35EAia7WzHb
+	RiR5hDd1G39jEDeb+qceSx3Bp17g=
+X-Received: by 2002:a05:600c:2218:b0:3fe:d7c8:e0d with SMTP id z24-20020a05600c221800b003fed7c80e0dmr5342826wml.34.1695299931204;
+        Thu, 21 Sep 2023 05:38:51 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFiI3gcW3I+u5Eo8SPNcaANg2683MWXN2khdedOCHDWhlltohFDz1lgyBkB4z+3k5LCX1UlHw==
+X-Received: by 2002:a05:600c:2218:b0:3fe:d7c8:e0d with SMTP id z24-20020a05600c221800b003fed7c80e0dmr5342805wml.34.1695299930876;
+        Thu, 21 Sep 2023 05:38:50 -0700 (PDT)
+Message-ID: <9d2cccad-16ee-abcf-5a34-7e513a050229@redhat.com>
+Date: Thu, 21 Sep 2023 14:38:48 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v10 33/38] x86/entry: Add fred_entry_from_kvm() for VMX to
+ handle IRQ/NMI
+To: Nikolay Borisov <nik.borisov@suse.com>, Xin Li <xin3.li@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ seanjc@google.com, peterz@infradead.org, jgross@suse.com,
+ ravi.v.shankar@intel.com, mhiramat@kernel.org, andrew.cooper3@citrix.com,
+ jiangshanlai@gmail.com
+References: <20230914044805.301390-1-xin3.li@intel.com>
+ <20230914044805.301390-34-xin3.li@intel.com>
+ <8163cf98-8968-72a4-4193-1ca9f019d9ff@suse.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+In-Reply-To: <8163cf98-8968-72a4-4193-1ca9f019d9ff@suse.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On large systems with many vcpus yielding due to spinlock priority
-inversion, it's not uncommon for a vcpu to yield its timeslice, only
-to be immediately stolen by another pcpu looking for higher-priority
-work.
+On 9/21/23 14:11, Nikolay Borisov wrote:
+>>
+>> +SYM_FUNC_START(asm_fred_entry_from_kvm)
+>> +    push %rbp
+>> +    mov %rsp, %rbp
+> 
+> use FRAME_BEGIN/FRAME_END macros to ommit this code if 
+> CONFIG_FRAME_POINTER is disabled.
 
-To prevent this:
+No, the previous stack pointer is used below, so the code might as well 
+use %rbp for that; but it must do so unconditionally.
 
-* Keep the YIELD flag until a vcpu is removed from a runqueue
+Paolo
 
-* When looking for work to steal, skip vcpus which have yielded
+>> +
+>> +    UNWIND_HINT_SAVE
+>> +
+>> +    /*
+>> +     * Don't check the FRED stack level, the call stack leading to this
+>> +     * helper is effectively constant and shallow (relatively speaking).
+>> +     *
+>> +     * Emulate the FRED-defined redzone and stack alignment.
+>> +     */
+>> +    sub $(FRED_CONFIG_REDZONE_AMOUNT << 6), %rsp
+>> +    and $FRED_STACK_FRAME_RSP_MASK, %rsp
+>> +
+>> +    /*
+>> +     * Start to push a FRED stack frame, which is always 64 bytes:
+>> +     *
+>> +     * +--------+-----------------+
+>> +     * | Bytes  | Usage           |
+>> +     * +--------+-----------------+
+>> +     * | 63:56  | Reserved        |
+>> +     * | 55:48  | Event Data      |
+>> +     * | 47:40  | SS + Event Info |
+>> +     * | 39:32  | RSP             |
+>> +     * | 31:24  | RFLAGS          |
+>> +     * | 23:16  | CS + Aux Info   |
+>> +     * |  15:8  | RIP             |
+>> +     * |   7:0  | Error Code      |
+>> +     * +--------+-----------------+
+>> +     */
+>> +    push $0                /* Reserved, must be 0 */
+>> +    push $0                /* Event data, 0 for IRQ/NMI */
+>> +    push %rdi            /* fred_ss handed in by the caller */
+>> +    push %rbp
 
-NB that this does mean that sometimes a VM is inserted into an empty
-runqueue; handle that case.
+^^ here
 
-Signed-off-by: George Dunlap <george.dunlap@cloud.com>
----
-Changes since v1:
-- Moved a comment tweak to the right patch
+Paolo
 
-CC: Dario Faggioli <dfaggioli@suse.com>
----
- xen/common/sched/credit.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
-index 5c06f596d2..38a6f6fa6d 100644
---- a/xen/common/sched/credit.c
-+++ b/xen/common/sched/credit.c
-@@ -298,14 +298,10 @@ __runq_insert(struct csched_unit *svc)
-      * runnable unit if we can.  The next runq_sort will bring it forward
-      * within 30ms if the queue too long. */
-     if ( test_bit(CSCHED_FLAG_UNIT_YIELD, &svc->flags)
--         && __runq_elem(iter)->pri > CSCHED_PRI_IDLE )
--    {
-+         && __runq_elem(iter)->pri > CSCHED_PRI_IDLE
-+         && iter->next != runq)
-         iter=iter->next;
- 
--        /* Some sanity checks */
--        BUG_ON(iter == runq);
--    }
--
-     list_add_tail(&svc->runq_elem, iter);
- }
- 
-@@ -321,6 +317,11 @@ __runq_remove(struct csched_unit *svc)
- {
-     BUG_ON( !__unit_on_runq(svc) );
-     list_del_init(&svc->runq_elem);
-+
-+    /*
-+     * Clear YIELD flag when scheduling back in
-+     */
-+    clear_bit(CSCHED_FLAG_UNIT_YIELD, &svc->flags);
- }
- 
- static inline void
-@@ -1637,6 +1638,13 @@ csched_runq_steal(int peer_cpu, int cpu, int pri, int balance_step)
-         if ( speer->pri <= pri )
-             break;
- 
-+        /*
-+         * Don't steal a UNIT which has yielded; it's waiting for a
-+         * reason
-+         */
-+        if (test_bit(CSCHED_FLAG_UNIT_YIELD, &speer->flags))
-+            continue;
-+
-         /* Is this UNIT runnable on our PCPU? */
-         unit = speer->unit;
-         BUG_ON( is_idle_unit(unit) );
-@@ -1954,11 +1962,6 @@ static void cf_check csched_schedule(
-         dec_nr_runnable(sched_cpu);
-     }
- 
--    /*
--     * Clear YIELD flag before scheduling out
--     */
--    clear_bit(CSCHED_FLAG_UNIT_YIELD, &scurr->flags);
--
-     do {
-         snext = __runq_elem(runq->next);
- 
--- 
-2.25.1
+>> +    pushf
+>> +    mov $__KERNEL_CS, %rax
+>> +    push %rax 
 
 
