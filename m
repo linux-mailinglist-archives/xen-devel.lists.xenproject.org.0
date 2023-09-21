@@ -2,60 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50DDC7A98E1
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 19:55:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606545.944532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE4F7A9D6B
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Sep 2023 21:36:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606551.944543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjNtN-00008X-2h; Thu, 21 Sep 2023 17:55:09 +0000
+	id 1qjPSP-0006PS-8D; Thu, 21 Sep 2023 19:35:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606545.944532; Thu, 21 Sep 2023 17:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 606551.944543; Thu, 21 Sep 2023 19:35:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjNtM-000064-Vt; Thu, 21 Sep 2023 17:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 606545;
- Thu, 21 Sep 2023 17:55:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qjPSP-0006MB-5E; Thu, 21 Sep 2023 19:35:25 +0000
+Received: by outflank-mailman (input) for mailman id 606551;
+ Thu, 21 Sep 2023 19:35:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9GIt=FF=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qjNtK-00005x-Pg
- for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 17:55:07 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc6e0c87-58a7-11ee-9b0d-b553b5be7939;
- Thu, 21 Sep 2023 19:55:03 +0200 (CEST)
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 10:55:00 -0700
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga008.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 21 Sep 2023 10:54:59 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.32; Thu, 21 Sep 2023 10:54:59 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.32; Thu, 21 Sep 2023 10:54:59 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.32 via Frontend Transport; Thu, 21 Sep 2023 10:54:58 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.105)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.32; Thu, 21 Sep 2023 10:54:58 -0700
-Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
- by CH3PR11MB8465.namprd11.prod.outlook.com (2603:10b6:610:1bc::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.31; Thu, 21 Sep
- 2023 17:54:56 +0000
-Received: from SA1PR11MB6734.namprd11.prod.outlook.com
- ([fe80::922f:ec7c:601b:7f61]) by SA1PR11MB6734.namprd11.prod.outlook.com
- ([fe80::922f:ec7c:601b:7f61%5]) with mapi id 15.20.6792.026; Thu, 21 Sep 2023
- 17:54:56 +0000
+ (envelope-from <SRS0=gWeo=FF=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1qjPSN-0006M2-9b
+ for xen-devel@lists.xenproject.org; Thu, 21 Sep 2023 19:35:23 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ff45104d-58b5-11ee-878a-cb3800f73035;
+ Thu, 21 Sep 2023 21:35:20 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 38LJYcGK073129
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 21 Sep 2023 15:34:44 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.17.1/8.15.2/Submit) id 38LJYboP073128;
+ Thu, 21 Sep 2023 12:34:37 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -67,140 +43,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc6e0c87-58a7-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695318904; x=1726854904;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=lZI9EHcbdOxip7edtlh2mYkLMLJrHlYZxeQh2OLaPQc=;
-  b=cLUHP+oBhQPvI7Vy+7C3h0XCTMrQeIk99xfpeUU5Cs3wbXszCmXHc3z/
-   F25MaxYzHat6CMTZ/ORQUwTVmNiHRfsRzLJxEUjNhlPgGfe9b8MNA26AJ
-   u2kNvTQ6+MRWnLrzODvxGddRK1e0idGYOOTUE5Sx3nB++RxRqvfujQ6hR
-   +GmQGeL1OuxX3TZTpE9XnJLcZJubGsdevXD5VBxf6v74pUr8nzAJwuDAp
-   V6qGQRQ3Uok2H9gkR6eh622WThj3dk8tGl4wJVDPSLYTKjISOhECh1iC3
-   CuY6Q5nAxJ6mO1/XIjhKOo9A9ij55ANfmtGNkYjK4CpbyLluSUaMKtwdV
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="379488319"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; 
-   d="scan'208";a="379488319"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="776534413"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; 
-   d="scan'208";a="776534413"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=klSKAOkH4VvXZ4+Yx+0pEt9Z77ayspbMF5JWe/2mau3xhJW+4KwLGWwPwbG0+TjXLNXIZ4jDPYA1lxzlzKwk787rnKQxo1r0b1PDm2p8TzyBgcyfBpWlrZRdmIZTZXLPEYgST1blxPznmkHkQeqZ3L/rnaN/Y4gZoNAoLWlgcE4MlbkNtt8Tkh5m97n8/s6BMWemwgB62GkFrpdEyt/gxRI+OkTwjsv1qIWvLsgxmfBHecmWE7IYG7ExfYFdZOtSDAg8z6auPxx8OCHonLcCrmO116pO4+TnxPPkwmt1mCax0ebMqchp/id3KD3mrlJglihtJgm/D5bI6XXV4kEhOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lZI9EHcbdOxip7edtlh2mYkLMLJrHlYZxeQh2OLaPQc=;
- b=apro2Vgs5t5N3Iyz5A5u0R34ojv8+KCqEVwN02oi3GbUGZdX7CjH1tu2d3EjY6r+0ArpS4ONnCG6PjqPNv/d6b6k/nM6En3mValhUP0ubvtojCEiwoyxFE2RhkPWriianAMBA4KcGxaCuFIov5U/Iod7VPuLcXGth+qCyESIATowdkSOxCZrmVYxzU8J+ZQ/8BPACsji9WD2QV7mxGo8PGxivt4XvxoekKbvmGd8bbyChsVybDf38dIqEWxpDcgZCQyLKrEdZNobq6AZl3Qib1ZwlVos/WvuIT0kOShmJnxLbX5tiA2+/4hi59hVp3Dle0WIOm+cWVmnqqcRIDc2Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-From: "Li, Xin3" <xin3.li@intel.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Nikolay Borisov
-	<nik.borisov@suse.com>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
-	<linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy"
-	<luto@kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"Christopherson,, Sean" <seanjc@google.com>, "peterz@infradead.org"
-	<peterz@infradead.org>, "Gross, Jurgen" <jgross@suse.com>, "Shankar, Ravi V"
-	<ravi.v.shankar@intel.com>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>
-Subject: RE: [PATCH v10 28/38] x86/fred: FRED entry/exit and dispatch code
-Thread-Topic: [PATCH v10 28/38] x86/fred: FRED entry/exit and dispatch code
-Thread-Index: AQHZ5stMrcSPSIs00UmJ9LfsWvvEWbAlE+eAgAAFnoCAAIIg0A==
-Date: Thu, 21 Sep 2023 17:54:55 +0000
-Message-ID: <SA1PR11MB6734856675798D0C4E359619A8F8A@SA1PR11MB6734.namprd11.prod.outlook.com>
-References: <20230914044805.301390-1-xin3.li@intel.com>
- <20230914044805.301390-29-xin3.li@intel.com>
- <22921663-0e5e-58c0-c6c8-c45f991790ea@suse.com> <871qerj0tk.ffs@tglx>
-In-Reply-To: <871qerj0tk.ffs@tglx>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|CH3PR11MB8465:EE_
-x-ms-office365-filtering-correlation-id: 21fa82ea-9490-4bfb-077b-08dbbacbddab
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: usafrOlCoF4lwI98vzlPgF3cjsv1wxdDDZKT3gFS/W1VHSixGotx0vQCZtp4kU9Yt/xoQR3b3gxUqfu4fhaLsiyx8Js1gZY9BIUWIV25w1/uUIOQcDnrsXm3AAMFfG6hmRSumlZ42a+wezG1wJsjL9h4OP1arndkpivtj8JZBIQfutnZbRmmXLSq2Nawjt00wv4V0Qu3RkDjYzcXK19WwgtqTA0c1cNDsQPOLQDrqb8Pxr4onxWI6/upGneVIKYNjf2Lo3ta1K6RZEW5J+lv9t2GJWLha8+2axwYJ44AZtT49bYoBYmedZi5IwoYBBO4qmENMDgQYAVdgEk70QDyB/fsZAcU4oFXcALnWTdbPNx9Zkyozab30i4Tnt3twBnwAw9/fPttTT6JHUrF0LZmYPzvtz9/aEwjYN0Za2QdX0EFWQfA0lf/f1yrhX0iLavQMrOWEttXEGEFlYYeJhRLY7EUEUp8/3e35ogqMl2Z9vZIRC4G21UsEok9VTb0w6pJsUkjFPAkeX1hRjLUBB3kMwO24iX5MZVdYyM0h/BES3uvDNRqjOgh9Mdgq92/z92g54+xjU9Jn+YrYd7hvDBhkSIkb3V+VwbxtorFtJjZrgA=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(136003)(346002)(376002)(39860400002)(451199024)(186009)(1800799009)(86362001)(2906002)(7416002)(4744005)(9686003)(26005)(33656002)(55016003)(64756008)(54906003)(66476007)(66446008)(316002)(41300700001)(66946007)(66556008)(110136005)(76116006)(122000001)(71200400001)(4326008)(8676002)(8936002)(966005)(478600001)(38100700002)(38070700005)(5660300002)(7696005)(6506007)(82960400001)(52536014);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OTg3N0JSbHplSEFmaUFTd2dzZU56TVpRamN1QTA3T1VqaHhJQnFtNnRZM3JI?=
- =?utf-8?B?b3NxRzE0N2p5ZUFab0pyemkwOHluUm5URVYzSFg1d2dTR3JzQzUrL1d0ekdL?=
- =?utf-8?B?c2dnOXpaVTdkUDZxTkc1b0lGVzRWY0VQbVBOZ2RzTEZQQzRiRFk3YmNUa3E1?=
- =?utf-8?B?aXdoNjlFTS9yQm5Sa3NGZjJ0YzU2UWMwb0FRY1BiT3h1SzEwUlMyeHpVMWY5?=
- =?utf-8?B?c2dzVG1hS0lRWThEN2hqRFFEQktmeHR4UEZiclBJdkwxeUhNRS9VUkdlTS9r?=
- =?utf-8?B?dEJLT0hEWWc1NWFtV1NwYWxtUkxoWlF4bEl6RVVKRkdMdlVnZDBIa1p3dlhn?=
- =?utf-8?B?T296Q1hjYnNTcjB2SGpXNU5IYTRmWE83TGV1NXBzbSt1dVZ3ekp2K2FleXhW?=
- =?utf-8?B?UDB0WllQZm9YZ295QXlQdkVDNXdJby9pZmFxUHBOTW1jWnU2VU54T1E1eEdt?=
- =?utf-8?B?VmtOcHF1amJZS2E3bW9RTzVDSGp1MTh2RXU0QmI2V2ZnOTcrYUNZWlM5VDN0?=
- =?utf-8?B?aFZoZkFCUVdEaFRISzAwVm5Ia0R3Ym5lbWZ6bU5wNVo0WVRFTFhWVGRBUmFk?=
- =?utf-8?B?aGFnWUhxNWc1OHU5TGlXZUR6T0pZYmd6UXcwWkdKV29QWDdDQWcrT2k2blJk?=
- =?utf-8?B?RUFvTGJBRXE5VmU4YStNNmd1ZEhwUXpJMkljTE94cnlRMWY2WUx1N0RnZytq?=
- =?utf-8?B?Tk1VaklaT0ZpNjQ3a3JWTVFNT3JlWWdOTzRUUUF3eG4wZy9tdkxCcTdSSXdY?=
- =?utf-8?B?K2RBVTBSdkcrNHB5SFozN1FndWdKOUlwbjlUTVZrUEVCMDhkZVAwUFk3QnMx?=
- =?utf-8?B?ZllEdlNGYldLVnd2TkNGc3E4TnVmdDc1bThJbDNDU1d1MkRJMEFTcnU2ZUQ4?=
- =?utf-8?B?UG1QYlVXTFcyUUVPdjU4SnpMZGd5S3pTUlVKTUVnTVBCU2V5ZVBnMU1XbGNK?=
- =?utf-8?B?cGlnaUxwR2xvcmhCNnVpTkpBSUlKb1dxVDF4N2ptaHpZSllTS0IxV0dGSGkr?=
- =?utf-8?B?Slgwa0FEVEFRQUhrSVdDME41bnluSU1oOG4weTBhaHBueFYxb3F4c1VwUVFj?=
- =?utf-8?B?aXpKZEJrN3ZHK3N4QWdISTc4b251STJjL3R1elU5eGo5bkJVQ04wSStwblJJ?=
- =?utf-8?B?SEsxaUliNXBvVFR1UUxWbGRnNVlnK1p2WWdZbzJUc0dMR2RlYUZWbnExRTcr?=
- =?utf-8?B?SEMxNllBT3J2TTVTMHcxWW9uV2ZMUkNCalNEWmVLbHc4b3JUQmdCeUNaQTRQ?=
- =?utf-8?B?eTQvTEY3K0ZUaWtIa1VkTlgrUE9xb2ozbVVVTlhIZGRvbWpLK0JjOVlhL3A0?=
- =?utf-8?B?emNuTHFiOTNUMXRuS1dTU1F0VExGa0xUN2dNY0VwbnQrdUpIYVRrcG9lYlVN?=
- =?utf-8?B?YWtHWW1ZZURNNWJKc3J1cTlaaU44bzVPQk9yaStDQWxPTFZwcTYvRllkbE5y?=
- =?utf-8?B?TkdOcUZWaldXRVRjZ0xuTVoxdVdtbUM2ZnJUS1RtaXZIWEk3bC9abk92aW00?=
- =?utf-8?B?ZWZ3SUZHK2RoYUt1dGg5U05BYi9rZnZkOFBDWGg5cWZJUzVNK09nbGtld0xV?=
- =?utf-8?B?OFhRWjFXeE1XMzlyOG9BeUVVYlJVTGd4d1p3bWZaNGEwd0hNb2FjNjNJVSsx?=
- =?utf-8?B?U1Z5ZlV3VVRiaE1OSUMrQ3h5cldXWXk1SkJPUlRQdXM5b0lDaWRkQXZhSUkr?=
- =?utf-8?B?dVdTTEIvdlpCM0JtZVZwYnFWbWZZb20vdUpweWQ2WWFCZFNxc0RvYktJWHNE?=
- =?utf-8?B?c1JFMkZsbFp5enRtbXNuajFOSzQ5eGltM3g1d1VpdTNpTk5GNitnMmVjMmlw?=
- =?utf-8?B?Wm10Wkd4aEtQZTduSElEOXY4UVlCczNPSi9MQi9UNjFOYTFMdk8yak5tZ3k2?=
- =?utf-8?B?OXRiY081Uk12cDNIRWxBeFN5RWlxMlI1MnhBc0RjalB1Y1ZubnRpb29Mb0t3?=
- =?utf-8?B?QVkwTmltb0xGQUxlS0ZrNGRvNVhGZ2xaUStyK1NPeE9UVXFoZWhjbFUzSmtl?=
- =?utf-8?B?Qll5YzlRTTFHeGl0WDYzemJWRHZYdDU1bnNaRUZoRkRqbWx2SjVnd1pjaXY5?=
- =?utf-8?B?cTRTbUcrckJmaG5aUVlHSU5TU1BjZDdoSDJaRzlCZWRLeG9SL0QrNkxVa2VB?=
- =?utf-8?Q?Mv0c=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21fa82ea-9490-4bfb-077b-08dbbacbddab
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2023 17:54:56.3153
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dqzbTCljUXnHwVQ/yt8Cf1wPIlgPk43ACMha53miHsR3vWs+P/y0luOHyuJ0fHpyvdZPCwwelJDVsQzJDa3ugg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8465
-X-OriginatorOrg: intel.com
+X-Inumbo-ID: ff45104d-58b5-11ee-878a-cb3800f73035
+Message-Id: <7a880e33ff91d0c76986159e3559c56ee6894d21.1695324653.git.ehem+xen@m5p.com>
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+        "Roger Pau Monné" <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+        George Dunlap <george.dunlap@citrix.com>,
+        Julien Grall <julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>
+Date: Thu, 21 Sep 2023 09:18:42 -0700
+Subject: [PATCH WIP] xen/public: move incomplete type definitions to xen.h
+X-Spam-Status: No, score=1.5 required=10.0 tests=DATE_IN_PAST_03_06,
+	KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-PiA+IFNpbmNlIGZ1dHVyZSBrZXJuZWxzIHdpbGwgc3VwcG9ydCBib290dGltZSB0b2dnbGluZyBv
-ZiB3aGV0aGVyIDMyYml0DQo+ID4gc3lzY2FsbCBpbnRlcmZhY2Ugc2hvdWxkIGJlIGVuYWJsZWQg
-b3Igbm90IGFzIHBlcjoNCj4gPiBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgv
-a2VybmVsL2dpdC90aXAvdGlwLmdpdC9jb21taXQvP2g9DQo+ID4geDg2L2VudHJ5JmlkPTFkYTVj
-OWJjMTE5ZDNhNzQ5YjUxOTU5NmI5M2Y5YjI2NjdlOTNjNGENCj4gPg0KPiA+IEl0IHdpbGwgbWFr
-ZSBtb3JlIHNlbnNlIHRvIHJlcGxhY2UgdGhpcyB3aXRoIGlhMzJfZW5hYmxlZCgpIGludm9jYXRp
-b24uDQo+ID4gSSBndWVzcyB0aGlzIGNvdWxkIGJlIGRvbmUgYXMgYSBmb2xsb3ctdXAgcGF0Y2gg
-YmFzZWQgb24gd2hlbiB0aGlzIGlzDQo+ID4gbWVyZ2VkIGFzIHRoZSBpYTMyX2VuYmFsZWQgY2hh
-bmdlcyBhcmUgZ29pbmcgdG8gYmUgbWVyZ2VkIGluIDYuNy4NCj4gDQo+IFRoZSBzaW1wbGVzdCBz
-b2x1dGlvbiBpcyB0byByZWJhc2UgdGhlIHNlcmllcyB0byB0aXAgeDg2L2VudHJ5IGFuZCBqdXN0
-IGRvIGl0IHJpZ2h0DQo+IGF3YXkgOikNCg0KSnVzdCBkaWQgaXQgZm9yIHRoZSBuZXh0IGl0ZXJh
-dGlvbi4NCg==
+Hypercall wrappers need the incomplete type definitions.  Only when the
+actual structure needed.  As such these incomplete definitions should be
+in xen.h next to their hypercalls, rather than spread all over.
+
+trap_info_t is particularly notable since even though the hypercall is
+x86-only, the wrapper is likely to be visible to generic source code.
+
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+---
+trap_info_t and HYPERVISOR_set_trap_table() is something I ran into.
+With the incomplete definition, the wrapper is accaptable to an ARM
+compiler.  Without the incomplete definition, it fails.
+
+Note, this has been shown to build in my environment.  I'm unsure
+whether the incomplete structure plus type definition is acceptable to
+all supportted compilers.
+
+I'm wondering about __ASSEMBLY__.  I suspect this could be handled better
+by having a macro for all these suspiciously similar type definitions.  I
+suspect it would be handy for DEFINE_XEN_GUEST_HANDLE() to be null when
+__ASSEMBLY__ is defined.
+
+This seems to suggest all the __HYPERVISOR_* definitions need to move
+later in the file.
+---
+ xen/include/public/arch-x86/xen.h |  2 --
+ xen/include/public/platform.h     |  2 --
+ xen/include/public/sched.h        |  2 --
+ xen/include/public/xen.h          | 24 ++++++++++++++++++++----
+ 4 files changed, 20 insertions(+), 10 deletions(-)
+
+diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+index c0f4551247..896440333c 100644
+--- a/xen/include/public/arch-x86/xen.h
++++ b/xen/include/public/arch-x86/xen.h
+@@ -143,8 +143,6 @@ struct trap_info {
+     uint16_t      cs;      /* code selector                                 */
+     unsigned long address; /* code offset                                   */
+ };
+-typedef struct trap_info trap_info_t;
+-DEFINE_XEN_GUEST_HANDLE(trap_info_t);
+ 
+ typedef uint64_t tsc_timestamp_t; /* RDTSC timestamp */
+ 
+diff --git a/xen/include/public/platform.h b/xen/include/public/platform.h
+index 15777b5416..bb7f2dfcb0 100644
+--- a/xen/include/public/platform.h
++++ b/xen/include/public/platform.h
+@@ -659,8 +659,6 @@ struct xen_platform_op {
+         uint8_t                       pad[128];
+     } u;
+ };
+-typedef struct xen_platform_op xen_platform_op_t;
+-DEFINE_XEN_GUEST_HANDLE(xen_platform_op_t);
+ 
+ #endif /* __XEN_PUBLIC_PLATFORM_H__ */
+ 
+diff --git a/xen/include/public/sched.h b/xen/include/public/sched.h
+index b4362c6a1d..2b65c0db8c 100644
+--- a/xen/include/public/sched.h
++++ b/xen/include/public/sched.h
+@@ -118,8 +118,6 @@
+ struct sched_shutdown {
+     unsigned int reason; /* SHUTDOWN_* => enum sched_shutdown_reason */
+ };
+-typedef struct sched_shutdown sched_shutdown_t;
+-DEFINE_XEN_GUEST_HANDLE(sched_shutdown_t);
+ 
+ struct sched_poll {
+     XEN_GUEST_HANDLE(evtchn_port_t) ports;
+diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+index b812a0a324..32a76afbd4 100644
+--- a/xen/include/public/xen.h
++++ b/xen/include/public/xen.h
+@@ -75,13 +75,25 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
+  */
+ 
+ #define __HYPERVISOR_set_trap_table        0
++#ifndef __ASSEMBLY__
++typedef struct trap_info trap_info_t;
++DEFINE_XEN_GUEST_HANDLE(trap_info_t);
++#endif
+ #define __HYPERVISOR_mmu_update            1
++#ifndef __ASSEMBLY__
++typedef struct mmu_update mmu_update_t;
++DEFINE_XEN_GUEST_HANDLE(mmu_update_t);
++#endif
+ #define __HYPERVISOR_set_gdt               2
+ #define __HYPERVISOR_stack_switch          3
+ #define __HYPERVISOR_set_callbacks         4
+ #define __HYPERVISOR_fpu_taskswitch        5
+ #define __HYPERVISOR_sched_op_compat       6 /* compat since 0x00030101 */
+ #define __HYPERVISOR_platform_op           7
++#ifndef __ASSEMBLY__
++typedef struct xen_platform_op xen_platform_op_t;
++DEFINE_XEN_GUEST_HANDLE(xen_platform_op_t);
++#endif
+ #define __HYPERVISOR_set_debugreg          8
+ #define __HYPERVISOR_get_debugreg          9
+ #define __HYPERVISOR_update_descriptor    10
+@@ -100,9 +112,17 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
+ #define __HYPERVISOR_vcpu_op              24
+ #define __HYPERVISOR_set_segment_base     25 /* x86/64 only */
+ #define __HYPERVISOR_mmuext_op            26
++#ifndef __ASSEMBLY__
++typedef struct mmuext_op mmuext_op_t;
++DEFINE_XEN_GUEST_HANDLE(mmuext_op_t);
++#endif
+ #define __HYPERVISOR_xsm_op               27
+ #define __HYPERVISOR_nmi_op               28
+ #define __HYPERVISOR_sched_op             29
++#ifndef __ASSEMBLY__
++typedef struct sched_shutdown sched_shutdown_t;
++DEFINE_XEN_GUEST_HANDLE(sched_shutdown_t);
++#endif
+ #define __HYPERVISOR_callback_op          30
+ #define __HYPERVISOR_xenoprof_op          31
+ #define __HYPERVISOR_event_channel_op     32
+@@ -449,8 +469,6 @@ struct mmuext_op {
+         xen_pfn_t src_mfn;
+     } arg2;
+ };
+-typedef struct mmuext_op mmuext_op_t;
+-DEFINE_XEN_GUEST_HANDLE(mmuext_op_t);
+ #endif
+ 
+ /*
+@@ -615,8 +633,6 @@ struct mmu_update {
+     uint64_t ptr;       /* Machine address of PTE. */
+     uint64_t val;       /* New contents of PTE.    */
+ };
+-typedef struct mmu_update mmu_update_t;
+-DEFINE_XEN_GUEST_HANDLE(mmu_update_t);
+ 
+ /*
+  * ` enum neg_errnoval
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |       ehem+sigmsg@m5p.com      PGP 87145445       |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
