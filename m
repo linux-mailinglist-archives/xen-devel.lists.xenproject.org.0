@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755DE7AAF65
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 12:24:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606816.944865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3708E7AAF84
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 12:31:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606824.944876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjdKR-0005ZT-Uv; Fri, 22 Sep 2023 10:24:07 +0000
+	id 1qjdRk-0007eC-R6; Fri, 22 Sep 2023 10:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606816.944865; Fri, 22 Sep 2023 10:24:07 +0000
+Received: by outflank-mailman (output) from mailman id 606824.944876; Fri, 22 Sep 2023 10:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjdKR-0005Wr-Rf; Fri, 22 Sep 2023 10:24:07 +0000
-Received: by outflank-mailman (input) for mailman id 606816;
- Fri, 22 Sep 2023 10:24:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qjdRk-0007cB-OA; Fri, 22 Sep 2023 10:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 606824;
+ Fri, 22 Sep 2023 10:31:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qjdKQ-0005Wf-DE; Fri, 22 Sep 2023 10:24:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qjdKQ-0005tH-4A; Fri, 22 Sep 2023 10:24:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qjdKP-0006Mp-KV; Fri, 22 Sep 2023 10:24:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qjdKP-00007G-K3; Fri, 22 Sep 2023 10:24:05 +0000
+ (envelope-from <SRS0=pt6G=FG=kernel.org=maz@srs-se1.protection.inumbo.net>)
+ id 1qjdRj-0007c5-96
+ for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 10:31:39 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 353c633d-5933-11ee-878a-cb3800f73035;
+ Fri, 22 Sep 2023 12:31:37 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 12CBE62263;
+ Fri, 22 Sep 2023 10:31:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705AAC433C8;
+ Fri, 22 Sep 2023 10:31:35 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1qjdRd-00FHue-1c;
+ Fri, 22 Sep 2023 11:31:33 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +50,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7tPA9rGSKrgQGMw+JO0Dk8Z/ppgcitz0XQ92bPY5ngk=; b=R9diy3/eoMqqGLXdQ4VjKaNfq0
-	oifeOyoe4+mCxGyaXj0OX5D07pUiQXIAomahQnKuPvG0Ewv7dIpCjzc7ZGj/iY2foyYfbmx3uEake
-	P0lEWsHdMwbzOZ0TLYzXuootON14eJ6Tss6DAyxvih4KCITrd8jOju/8uv68UeQ9OQDM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183114-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 183114: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=28a267af4024c329e58121ccd9bf5f4f7aabc0f4
-X-Osstest-Versions-That:
-    ovmf=f67e1934d985dcb8a465dcf44484be3688be99a5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Sep 2023 10:24:05 +0000
+X-Inumbo-ID: 353c633d-5933-11ee-878a-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695378695;
+	bh=YTEt1kxkIMkm1+nI3n50bWZAlpyXcbBEreGRryReUVI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=B5myd+yLK12q3EKpyGwEZ2fqVqoRNHNL5+HeRt2P+4lFn1x6V98ErB2S6KBpeApKi
+	 Z9TEs5gqZKdRuVPAp8g4r2w4pGZxhTa1SMzpXhgt3C8jyiJ5K4oyjvOcnFUfpYC4Z1
+	 0R0B/3/1EFp1GrjOMy01jesB5/tT2Jd2BB2mnUzw26mIGlTHSQP+dDYF9Uw4mS9hfV
+	 1RF+mp4W3mBIroBgTRClTRki+owHcxlQmBQSCmrAcLVJmmgyZAM8NdIDe8hYFNoCFI
+	 qCCBvDVKUIUUJjb26S7B0IGamYUCbyCTWPNzNjE16zgnqX9eoJfky6ycmwguXII+OW
+	 wWxhf3Soyfcpw==
+Date: Fri, 22 Sep 2023 11:31:31 +0100
+Message-ID: <86wmwio5x8.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Stewart
+ Hildebrand <stewart.hildebrand@amd.com>,
+	Stefano Stabellini
+	<sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Julien
+ Grall <julien@xen.org>
+Subject: Re: [PATCH v1 2/3] ARM: GICv3 ITS: do not invalidate memory while sending a command
+In-Reply-To: <875y43f45p.fsf@epam.com>
+References: <20230919112827.1001484-1-volodymyr_babchuk@epam.com>
+	<20230919112827.1001484-3-volodymyr_babchuk@epam.com>
+	<1614d73f-72b0-44f2-8e34-0e6c58a1a375@xen.org>
+	<87fs3afcxb.fsf@epam.com>
+	<597db9f5-b959-4b75-9410-0d0c16e3acda@xen.org>
+	<875y43f45p.fsf@epam.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/29.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org, stewart.hildebrand@amd.com, sstabellini@kernel.org, bertrand.marquis@arm.com, julien@xen.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-flight 183114 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183114/
+Volodymyr,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 28a267af4024c329e58121ccd9bf5f4f7aabc0f4
-baseline version:
- ovmf                 f67e1934d985dcb8a465dcf44484be3688be99a5
+On Fri, 22 Sep 2023 01:22:11 +0100,
+Volodymyr Babchuk <Volodymyr_Babchuk@epam.com> wrote:
+> 
+> 
+> Hi Mark,
 
-Last test of basis   183111  2023-09-22 04:10:47 Z    0 days
-Testing same since   183114  2023-09-22 08:40:58 Z    0 days    1 attempts
+s/k/c/
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ranbir Singh <Ranbir.Singh3@Dell.com>
-  Ranbir Singh <rsingh@ventanamicro.com>
+> 
+> I am writing to you, because you are GICv3 maintainer in Linux. We are
+> updating ITS driver in Xen and we have a question about cache
+> maintenance WRT memory shared with ITS. As I can see, the Linux ITS
+> driver uses gic_flush_dcache_to_poc() all over the code. This boils down
+> to "dc civac" instruction which does both clean and invalidate. But do
+> we really need to invalidate a cache when we are sending an ITS command?
+> In my understanding it is sufficient to clean a cache only and Linux
+> uses clean&invalidate just out of convenience. Is this correct?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+It really depends how you look at it. We use DC CIVA as the standard
+way to give a buffer to a device, as that's what the DMA API
+does. Switching to a simple clean is possible, but I don't really see
+what it brings you.
 
+ITS commands are usually written as a single command followed by a
+SYNC/VSYNC. That's a total a 8 64bit words, which makes a cache line
+on 99.999% of the implementations.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+What do you gain by keeping the cache line around? Not much. By the
+time you go around the command queue and need the same data again, it
+will have been evicted from your L1 already.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+So while I don't see a problem with what you are suggesting, I also
+think the change is pretty much irrelevant.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+HTH,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+	M.
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   f67e1934d9..28a267af40  28a267af4024c329e58121ccd9bf5f4f7aabc0f4 -> xen-tested-master
+-- 
+Without deviation from the norm, progress is not possible.
 
