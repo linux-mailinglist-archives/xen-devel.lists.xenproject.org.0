@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E2A27AB1F0
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 14:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606850.944895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2801D7AB1F1
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 14:16:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606856.944906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjf3f-0006Zz-MD; Fri, 22 Sep 2023 12:14:55 +0000
+	id 1qjf4j-000777-0R; Fri, 22 Sep 2023 12:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606850.944895; Fri, 22 Sep 2023 12:14:55 +0000
+Received: by outflank-mailman (output) from mailman id 606856.944906; Fri, 22 Sep 2023 12:16:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjf3f-0006Xw-JC; Fri, 22 Sep 2023 12:14:55 +0000
-Received: by outflank-mailman (input) for mailman id 606850;
- Fri, 22 Sep 2023 12:14:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Esjf=FG=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qjf3f-0006Xq-2N
- for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 12:14:55 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a260fbc2-5941-11ee-9b0d-b553b5be7939;
- Fri, 22 Sep 2023 14:14:52 +0200 (CEST)
-Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
- [93.36.216.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 397024EE0739;
- Fri, 22 Sep 2023 14:14:52 +0200 (CEST)
+	id 1qjf4i-000744-Th; Fri, 22 Sep 2023 12:16:00 +0000
+Received: by outflank-mailman (input) for mailman id 606856;
+ Fri, 22 Sep 2023 12:15:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qjf4h-00073q-Dn; Fri, 22 Sep 2023 12:15:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qjf4h-0000Jz-6Q; Fri, 22 Sep 2023 12:15:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qjf4g-0000eZ-RJ; Fri, 22 Sep 2023 12:15:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qjf4g-0004O7-Qq; Fri, 22 Sep 2023 12:15:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a260fbc2-5941-11ee-9b0d-b553b5be7939
-Message-ID: <8e3a44d4-e8ba-1750-4602-ca5e510a043e@bugseng.com>
-Date: Fri, 22 Sep 2023 14:14:51 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rN7HuB/URZlc9wem+3TgD+A3TzDSp7M1nzJSTQLcJD0=; b=XSnGAX/ZlUUEaCBMrImc4Gwt0R
+	GkdSLXZhF/XOIRLzmNrmFb6S4d+pE2A7s1IIn/7MxZgIp/vLJMMQuqqVyKOFkISQpfCtlZffCG1Xw
+	zhZ57xg9orXXX0olx7+Wucd+OEgVcqUJe9/KoYFBnwsrzgfd7QqKMLTOin+cbwRzEofE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183115-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [XEN PATCH] xen/emul-i8254: address a violation of MISRA C:2012
- Rule 8.3
-Content-Language: en-US, it
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <be245ab9b3805cdb1ba93695b95eeab24d432d6a.1695308350.git.federico.serafini@bugseng.com>
- <0801b6f4-85d8-d10b-1f03-18201641e8f2@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <0801b6f4-85d8-d10b-1f03-18201641e8f2@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183115: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b5003ab72564b51892f4c933eb39d7d6083f3824
+X-Osstest-Versions-That:
+    ovmf=28a267af4024c329e58121ccd9bf5f4f7aabc0f4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 22 Sep 2023 12:15:58 +0000
 
-On 22/09/23 10:29, Jan Beulich wrote:
-> On 21.09.2023 17:05, Federico Serafini wrote:
->> Make function declaration and definition consistent.
->> No fuctional change.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   xen/arch/x86/emul-i8254.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
->> index 41ec4a1ef1..c48a3606a2 100644
->> --- a/xen/arch/x86/emul-i8254.c
->> +++ b/xen/arch/x86/emul-i8254.c
->> @@ -572,7 +572,7 @@ static uint32_t speaker_ioport_read(
->>   }
->>   
->>   static int cf_check handle_speaker_io(
->> -    int dir, unsigned int port, uint32_t bytes, uint32_t *val)
->> +    int dir, unsigned int port, unsigned int bytes, uint32_t *val)
->>   {
->>       struct PITState *vpit = vcpu_vpit(current);
->>   
-> 
-> While okay-ish, could I talk you into addressing the problem at its root,
-> by eliminating the two forward declarations? Afaict all it takes is to
-> move pit_init() down past the two functions it takes the address of. (Of
-> course at that point it may want considering whether to keep
-> pit_{,de}init() and pit_reset() close together.)
-> 
-> Jan
->
+flight 183115 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183115/
 
-It seems to me a good alternative, I'll send a v2.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b5003ab72564b51892f4c933eb39d7d6083f3824
+baseline version:
+ ovmf                 28a267af4024c329e58121ccd9bf5f4f7aabc0f4
 
--- 
-Federico Serafini, M.Sc.
+Last test of basis   183114  2023-09-22 08:40:58 Z    0 days
+Testing same since   183115  2023-09-22 10:43:46 Z    0 days    1 attempts
 
-Software Engineer, BUGSENG (http://bugseng.com)
+------------------------------------------------------------
+People who touched revisions under test:
+  Jeff Brasen <jbrasen@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   28a267af40..b5003ab725  b5003ab72564b51892f4c933eb39d7d6083f3824 -> xen-tested-master
 
