@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D407F7AB20B
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 14:21:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606865.944915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E387AB214
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 14:25:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606870.944926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjf9k-0000WK-Io; Fri, 22 Sep 2023 12:21:12 +0000
+	id 1qjfDt-00019Z-3N; Fri, 22 Sep 2023 12:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606865.944915; Fri, 22 Sep 2023 12:21:12 +0000
+Received: by outflank-mailman (output) from mailman id 606870.944926; Fri, 22 Sep 2023 12:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjf9k-0000U3-G8; Fri, 22 Sep 2023 12:21:12 +0000
-Received: by outflank-mailman (input) for mailman id 606865;
- Fri, 22 Sep 2023 12:21:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PcWe=FG=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qjf9j-0000Tx-Ny
- for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 12:21:11 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82cff504-5942-11ee-9b0d-b553b5be7939;
- Fri, 22 Sep 2023 14:21:09 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2c131ddfeb8so25504981fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 22 Sep 2023 05:21:09 -0700 (PDT)
+	id 1qjfDt-00016q-09; Fri, 22 Sep 2023 12:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 606870;
+ Fri, 22 Sep 2023 12:25:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wvYF=FG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qjfDr-00016j-A2
+ for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 12:25:27 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1bb79b31-5943-11ee-878a-cb3800f73035;
+ Fri, 22 Sep 2023 14:25:26 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 562181FE01;
+ Fri, 22 Sep 2023 12:25:25 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1168413478;
+ Fri, 22 Sep 2023 12:25:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ECvRArWHDWVrPAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 22 Sep 2023 12:25:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,222 +51,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82cff504-5942-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1695385269; x=1695990069; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SzuBbOezhsINIJFbS7DgCqRwOk+Ahx4Okjk5opUgxKY=;
-        b=f2iaues+qjHSrjl+TBpM2U0Xn0fYgoGBR4aYGzJdsnUhA8AKknOscHyZpPy1ubMG/i
-         A5Ec7H5JV0DDj82uaEZR75CZz67y2U8TxBtlHGfib4ofVABvb7hxc9IS8ztZ2iIpfJvY
-         sl9lD2CtsdTkHAA647lsmD3AoImQJvtTsXTMg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695385269; x=1695990069;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SzuBbOezhsINIJFbS7DgCqRwOk+Ahx4Okjk5opUgxKY=;
-        b=T85cgOZhxVGnk+QojWwsBGw69OZIIjs4NnHf00Oqou5slvbNrEuifyd+ChxM+s8wbF
-         imlaVjtyVwkunpsQw0pAVDhP08QT6LD7uMrmcaZpDo496bzgBYIS4Ii1kRLmGh6KY4oE
-         Pw/NCdmgc0RsGsBO1FmbWqIoKGM/1d6jwmOtPPMuDBNYxtIssKrwGy7CKfijqpd9ob6h
-         ajAk12mbu4y6MC1Y/hgWR3FNCtCCQzZgTmxqdvreHbhIrn3pige0/KezHJGIBRbE6Mtc
-         4ki2JyG/gFbIur1hd4x9TqSpBH9uuB7VCnxXKbirdgFvKgppV6cZShRMlAo+pN4CBpym
-         DpDQ==
-X-Gm-Message-State: AOJu0YzSs7xlqweQR1yZ+qtiDTuMBlHy0NwWrfiUcsdGJMJk2URVTFH5
-	isRosZ21ybA+dMQCwPK+UIydJdjyQMvrqN4ld7v1uA==
-X-Google-Smtp-Source: AGHT+IGFppNgEnTHRj7loteC6lPmp0SifWIVALfbafZiO4PclAlB6SAHoV4ameJYKRF/fRvU64XoIyHX4lb+BSmePvY=
-X-Received: by 2002:a2e:8683:0:b0:2ba:6519:c50f with SMTP id
- l3-20020a2e8683000000b002ba6519c50fmr7127352lji.52.1695385268656; Fri, 22 Sep
- 2023 05:21:08 -0700 (PDT)
+X-Inumbo-ID: 1bb79b31-5943-11ee-878a-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1695385525; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=nhy7j1eTzgmniQer5/IetmxJis4P+4LhDjj6xjCqKZ4=;
+	b=O6bc8/3K8Qedv+Mj2zlA+/Ly8XtEe7RPzT5NKULyatwmDxh8e2ftva+rPLf+PLo2JuINyK
+	sERASGD36u/r4tBhwt+LnCHxbwpHuQAWibQQub/s60V34DP+zIK1/BudJnHXlFNFMQbxlj
+	nhkH6f0n08RJepyhthw97kaYumMvPkw=
+Message-ID: <dcbac05e-ebfb-43b3-8107-d43d3f76df2a@suse.com>
+Date: Fri, 22 Sep 2023 14:25:24 +0200
 MIME-Version: 1.0
-References: <20230921122352.2307574-1-george.dunlap@cloud.com> <9456c563-dfbb-4592-a4cb-c11b75f1c27f@suse.com>
-In-Reply-To: <9456c563-dfbb-4592-a4cb-c11b75f1c27f@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 22 Sep 2023 13:20:57 +0100
-Message-ID: <CA+zSX=aCyQg+R09_zw2EwcLCtMLOFCqQYejmP-aWXficZ-okdg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] credit: Limit load balancing to once per millisecond
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] credit: Limit load balancing to once per
+ millisecond
+Content-Language: en-US
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20230921122352.2307574-1-george.dunlap@cloud.com>
+ <9456c563-dfbb-4592-a4cb-c11b75f1c27f@suse.com>
+ <CA+zSX=aCyQg+R09_zw2EwcLCtMLOFCqQYejmP-aWXficZ-okdg@mail.gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <CA+zSX=aCyQg+R09_zw2EwcLCtMLOFCqQYejmP-aWXficZ-okdg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Le40BWuZpRp3Nh1nUZzjUU2A"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Le40BWuZpRp3Nh1nUZzjUU2A
+Content-Type: multipart/mixed; boundary="------------M75wwt7tL7tOJdonyyXNrj67";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+Message-ID: <dcbac05e-ebfb-43b3-8107-d43d3f76df2a@suse.com>
+Subject: Re: [PATCH v2 1/2] credit: Limit load balancing to once per
+ millisecond
+References: <20230921122352.2307574-1-george.dunlap@cloud.com>
+ <9456c563-dfbb-4592-a4cb-c11b75f1c27f@suse.com>
+ <CA+zSX=aCyQg+R09_zw2EwcLCtMLOFCqQYejmP-aWXficZ-okdg@mail.gmail.com>
+In-Reply-To: <CA+zSX=aCyQg+R09_zw2EwcLCtMLOFCqQYejmP-aWXficZ-okdg@mail.gmail.com>
+
+--------------M75wwt7tL7tOJdonyyXNrj67
+Content-Type: multipart/mixed; boundary="------------MeSXn0Ef0v7EhH5g8uJVCUHu"
+
+--------------MeSXn0Ef0v7EhH5g8uJVCUHu
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMjIuMDkuMjMgMTQ6MjAsIEdlb3JnZSBEdW5sYXAgd3JvdGU6DQo+IE9uIFRodSwgU2Vw
+IDIxLCAyMDIzIGF0IDI6MTLigK9QTSBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+
+IHdyb3RlOg0KPj4NCj4+IE9uIDIxLjA5LjIzIDE0OjIzLCBHZW9yZ2UgRHVubGFwIHdyb3Rl
+Og0KPj4+IFRoZSBjcmVkaXQgc2NoZWR1bGVyIHRyaWVzIGFzIGhhcmQgYXMgaXQgY2FuIHRv
+IGVuc3VyZSB0aGF0IGl0IGFsd2F5cw0KPj4+IHJ1bnMgc2NoZWR1bGluZyB1bml0cyB3aXRo
+IHBvc2l0aXZlIGNyZWRpdCAoUFJJX1RTX1VOREVSKSBiZWZvcmUNCj4+PiBydW5uaW5nIHRo
+b3NlIHdpdGggbmVnYXRpdmUgY3JlZGl0IChQUklfVFNfT1ZFUikuICBJZiB0aGUgbmV4dA0K
+Pj4+IHJ1bm5hYmxlIHNjaGVkdWxpbmcgdW5pdCBpcyBvZiBwcmlvcml0eSBPVkVSLCBpdCB3
+aWxsIGFsd2F5cyBydW4gdGhlDQo+Pj4gbG9hZCBiYWxhbmNlciwgd2hpY2ggd2lsbCBzY291
+ciB0aGUgc3lzdGVtIGxvb2tpbmcgZm9yIGFub3RoZXINCj4+PiBzY2hlZHVsaW5nIHVuaXQg
+b2YgdGhlIFVOREVSIHByaW9yaXR5Lg0KPj4+DQo+Pj4gVW5mb3J0dW5hdGVseSwgYXMgdGhl
+IG51bWJlciBvZiBjb3JlcyBvbiBhIHN5c3RlbSBoYXMgZ3Jvd24sIHRoZSBjb3N0DQo+Pj4g
+b2YgdGhlIHdvcmstc3RlYWxpbmcgYWxnb3JpdGhtIGhhcyBkcmFtYXRpY2FsbHkgaW5jcmVh
+c2VkOyBhIHJlY2VudA0KPj4+IHRyYWNlIG9uIGEgc3lzdGVtIHdpdGggMTI4IGNvcmVzIHNo
+b3dlZCB0aGlzIHRha2luZyBvdmVyIDUwDQo+Pj4gbWljcm9zZWNvbmRzLg0KPj4+DQo+Pj4g
+QWRkIGEgcGFyYW1ldGVyLCBsb2FkX2JhbGFuY2VfcmF0ZWxpbWl0LCB0byBsaW1pdCB0aGUg
+ZnJlcXVlbmN5IG9mDQo+Pj4gbG9hZCBiYWxhbmNlIG9wZXJhdGlvbnMgb24gYSBnaXZlbiBw
+Y3B1LiAgRGVmYXVsdCB0aGlzIHRvIDENCj4+PiBtaWxsaXNlY29uZC4NCj4+Pg0KPj4+IElu
+dmVydCB0aGUgbG9hZCBiYWxhbmNpbmcgY29uZGl0aW9uYWwgdG8gbWFrZSBpdCBtb3JlIGNs
+ZWFyLCBhbmQgbGluZQ0KPj4+IHVwIG1vcmUgY2xvc2VseSB3aXRoIHRoZSBjb21tZW50IGFi
+b3ZlIGl0Lg0KPj4+DQo+Pj4gT3ZlcmFsbCBpdCBtaWdodCBiZSBjbGVhbmVyIHRvIGhhdmUg
+dGhlIGxhc3RfbG9hZF9iYWxhbmNlIGNoZWNraW5nDQo+Pj4gaGFwcGVuIGluc2lkZSBjc2No
+ZWRfbG9hZF9iYWxhbmNlKCksIGJ1dCB0aGF0IHdvdWxkIHJlcXVpcmUgZWl0aGVyDQo+Pj4g
+cGFzc2luZyBib3RoIG5vdyBhbmQgc3BjIGludG8gdGhlIGZ1bmN0aW9uLCBvciBsb29raW5n
+IHRoZW0gdXAgYWdhaW47DQo+Pj4gYm90aCBvZiB3aGljaCBzZWVtZWQgdG8gYmUgd29yc2Ug
+dGhhbiBzaW1wbHkgY2hlY2tpbmcgYW5kIHNldHRpbmcgdGhlDQo+Pj4gdmFsdWVzIGJlZm9y
+ZSBjYWxsaW5nIGl0Lg0KPj4+DQo+Pj4gT24gYSBzeXN0ZW0gd2l0aCBhIHZjcHU6cGNwdSBy
+YXRpbyBvZiAyOjEsIHJ1bm5pbmcgV2luZG93cyBndWVzdHMNCj4+PiAod2hpY2ggd2lsbCBl
+bmQgdXAgY2FsbGluZyBZSUVMRCBkdXJpbmcgc3BpbmxvY2sgY29udGVudGlvbiksIHRoaXMN
+Cj4+PiBwYXRjaCBpbmNyZWFzZWQgcGVyZm9ybWFuY2Ugc2lnbmlmaWNhbnRseS4NCj4+Pg0K
+Pj4+IFNpZ25lZC1vZmYtYnk6IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2xvdWQu
+Y29tPg0KPj4+IC0tLQ0KPj4+IENoYW5nZXMgc2luY2UgdjE6DQo+Pj4gLSBGaXggZWRpdGlu
+ZyBtaXN0YWtlIGluIGNvbW1pdCBtZXNzYWdlDQo+Pj4gLSBJbXByb3ZlIGRvY3VtZW50YXRp
+b24NCj4+PiAtIGdsb2JhbCB2YXIgaXMgX19yb19hZnRlcl9pbml0DQo+Pj4gLSBSZW1vdmUg
+c3lzY3RsLCBhcyBpdCdzIG5vdCB1c2VkLiAgRGVmaW5lIG1heCB2YWx1ZSBpbiBjcmVkaXQu
+Yy4NCj4+PiAtIEZpeCBzb21lIHN0eWxlIGlzc3Vlcw0KPj4+IC0gTW92ZSBjb21tZW50IHR3
+ZWFrIHRvIHRoZSByaWdodCBwYXRjaA0KPj4+IC0gSW4gdGhlIGV2ZW50IHRoYXQgdGhlIGNv
+bW1hbmRsaW5lLXBhcmFtZXRlciB2YWx1ZSBpcyB0b28gaGlnaCwgY2xpcA0KPj4+ICAgICB0
+byB0aGUgbWF4aW11bSB2YWx1ZSByYXRoZXIgdGhhbiBzZXR0aW5nIHRvIHRoZSBkZWZhdWx0
+Lg0KPj4+DQo+Pj4gQ0M6IERhcmlvIEZhZ2dpb2xpIDxkZmFnZ2lvbGlAc3VzZS5jb20+DQo+
+Pj4gQ0M6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+Pj4g
+Q0M6IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT4NCj4+PiBDQzog
+SmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPj4+IENDOiBKdWxpZW4gR3JhbGwg
+PGp1bGllbkB4ZW4ub3JnPg0KPj4+IENDOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxs
+aW5pQGtlcm5lbC5vcmc+DQo+Pj4gQ0M6IFdlaSBMaXUgPHdsQHhlbi5vcmc+DQo+Pj4gLS0t
+DQo+Pj4gICAgZG9jcy9taXNjL3hlbi1jb21tYW5kLWxpbmUucGFuZG9jIHwgIDggKysrKysr
+DQo+Pj4gICAgeGVuL2NvbW1vbi9zY2hlZC9jcmVkaXQuYyAgICAgICAgIHwgNDcgKysrKysr
+KysrKysrKysrKysrKysrKysrKy0tLS0tLQ0KPj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgNDYg
+aW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS9k
+b2NzL21pc2MveGVuLWNvbW1hbmQtbGluZS5wYW5kb2MgYi9kb2NzL21pc2MveGVuLWNvbW1h
+bmQtbGluZS5wYW5kb2MNCj4+PiBpbmRleCBmODhlNmE3MGFlLi45YzNjNzJhN2Y5IDEwMDY0
+NA0KPj4+IC0tLSBhL2RvY3MvbWlzYy94ZW4tY29tbWFuZC1saW5lLnBhbmRvYw0KPj4+ICsr
+KyBiL2RvY3MvbWlzYy94ZW4tY29tbWFuZC1saW5lLnBhbmRvYw0KPj4+IEBAIC0xODg0LDYg
+KzE4ODQsMTQgQEAgQnkgZGVmYXVsdCwgWGVuIHdpbGwgdXNlIHRoZSBJTlZQQ0lEIGluc3Ry
+dWN0aW9uIGZvciBUTEIgbWFuYWdlbWVudCBpZg0KPj4+ICAgIGl0IGlzIGF2YWlsYWJsZS4g
+IFRoaXMgb3B0aW9uIGNhbiBiZSB1c2VkIHRvIGNhdXNlIFhlbiB0byBmYWxsIGJhY2sgdG8N
+Cj4+PiAgICBvbGRlciBtZWNoYW5pc21zLCB3aGljaCBhcmUgZ2VuZXJhbGx5IHNsb3dlci4N
+Cj4+Pg0KPj4+ICsjIyMgbG9hZC1iYWxhbmNlLXJhdGVsaW1pdA0KPj4+ICs+IGA9IDxpbnRl
+Z2VyPmANCj4+PiArDQo+Pj4gK1RoZSBtaW5pbXVtIGludGVydmFsIGJldHdlZW4gbG9hZCBi
+YWxhbmNpbmcgZXZlbnRzIG9uIGEgZ2l2ZW4gcGNwdSwgaW4NCj4+PiArbWljcm9zZWNvbmRz
+LiAgQSB2YWx1ZSBvZiAnMCcgd2lsbCBkaXNhYmxlIHJhdGUgbGltaXRpbmcuICBNYXhpbXVt
+DQo+Pj4gK3ZhbHVlIDEgc2Vjb25kLiBBdCB0aGUgbW9tZW50IG9ubHkgY3JlZGl0IGhvbm9y
+cyB0aGlzIHBhcmFtZXRlci4NCj4+PiArRGVmYXVsdCAxbXMuDQo+Pj4gKw0KPj4+ICAgICMj
+IyBub2lycWJhbGFuY2UgKHg4NikNCj4+PiAgICA+IGA9IDxib29sZWFuPmANCj4+Pg0KPj4+
+IGRpZmYgLS1naXQgYS94ZW4vY29tbW9uL3NjaGVkL2NyZWRpdC5jIGIveGVuL2NvbW1vbi9z
+Y2hlZC9jcmVkaXQuYw0KPj4+IGluZGV4IGYyY2QzZDlkYTMuLjVjMDZmNTk2ZDIgMTAwNjQ0
+DQo+Pj4gLS0tIGEveGVuL2NvbW1vbi9zY2hlZC9jcmVkaXQuYw0KPj4+ICsrKyBiL3hlbi9j
+b21tb24vc2NoZWQvY3JlZGl0LmMNCj4+PiBAQCAtNTAsNiArNTAsMTAgQEANCj4+PiAgICAj
+ZGVmaW5lIENTQ0hFRF9USUNLU19QRVJfVFNMSUNFICAgICAzDQo+Pj4gICAgLyogRGVmYXVs
+dCB0aW1lc2xpY2U6IDMwbXMgKi8NCj4+PiAgICAjZGVmaW5lIENTQ0hFRF9ERUZBVUxUX1RT
+TElDRV9NUyAgICAzMA0KPj4+ICsvKiBEZWZhdWx0IGxvYWQgYmFsYW5jaW5nIHJhdGVsaW1p
+dDogMW1zICovDQo+Pj4gKyNkZWZpbmUgQ1NDSEVEX0RFRkFVTFRfTE9BRF9CQUxBTkNFX1JB
+VEVMSU1JVF9VUyAxMDAwDQo+Pj4gKy8qIE1heCBsb2FkIGJhbGFuY2luZyByYXRlbGltaXQ6
+IDFzICovDQo+Pj4gKyNkZWZpbmUgQ1NDSEVEX01BWF9MT0FEX0JBTEFOQ0VfUkFURUxJTUlU
+X1VTICAgICAxMDAwMDAwDQo+Pj4gICAgI2RlZmluZSBDU0NIRURfQ1JFRElUU19QRVJfTVNF
+QyAgICAgMTANCj4+PiAgICAvKiBOZXZlciBzZXQgYSB0aW1lciBzaG9ydGVyIHRoYW4gdGhp
+cyB2YWx1ZS4gKi8NCj4+PiAgICAjZGVmaW5lIENTQ0hFRF9NSU5fVElNRVIgICAgICAgICAg
+ICBYRU5fU1lTQ1RMX1NDSEVEX1JBVEVMSU1JVF9NSU4NCj4+PiBAQCAtMTUzLDYgKzE1Nyw3
+IEBAIHN0cnVjdCBjc2NoZWRfcGNwdSB7DQo+Pj4NCj4+PiAgICAgICAgdW5zaWduZWQgaW50
+IGlkbGVfYmlhczsNCj4+PiAgICAgICAgdW5zaWduZWQgaW50IG5yX3J1bm5hYmxlOw0KPj4+
+ICsgICAgc190aW1lX3QgbGFzdF9sb2FkX2JhbGFuY2U7DQo+Pj4NCj4+PiAgICAgICAgdW5z
+aWduZWQgaW50IHRpY2s7DQo+Pj4gICAgICAgIHN0cnVjdCB0aW1lciB0aWNrZXI7DQo+Pj4g
+QEAgLTIxOCw3ICsyMjMsNyBAQCBzdHJ1Y3QgY3NjaGVkX3ByaXZhdGUgew0KPj4+DQo+Pj4g
+ICAgICAgIC8qIFBlcmlvZCBvZiBtYXN0ZXIgYW5kIHRpY2sgaW4gbWlsbGlzZWNvbmRzICov
+DQo+Pj4gICAgICAgIHVuc2lnbmVkIGludCB0aWNrX3BlcmlvZF91cywgdGlja3NfcGVyX3Rz
+bGljZTsNCj4+PiAtICAgIHNfdGltZV90IHJhdGVsaW1pdCwgdHNsaWNlLCB1bml0X21pZ3Jf
+ZGVsYXk7DQo+Pj4gKyAgICBzX3RpbWVfdCByYXRlbGltaXQsIHRzbGljZSwgdW5pdF9taWdy
+X2RlbGF5LCBsb2FkX2JhbGFuY2VfcmF0ZWxpbWl0Ow0KPj4+DQo+Pj4gICAgICAgIHN0cnVj
+dCBsaXN0X2hlYWQgYWN0aXZlX3Nkb207DQo+Pj4gICAgICAgIHVpbnQzMl90IHdlaWdodDsN
+Cj4+PiBAQCAtNjEyLDYgKzYxNyw4IEBAIGluaXRfcGRhdGEoc3RydWN0IGNzY2hlZF9wcml2
+YXRlICpwcnYsIHN0cnVjdCBjc2NoZWRfcGNwdSAqc3BjLCBpbnQgY3B1KQ0KPj4+ICAgICAg
+ICBCVUdfT04oIWlzX2lkbGVfdW5pdChjdXJyX29uX2NwdShjcHUpKSk7DQo+Pj4gICAgICAg
+IGNwdW1hc2tfc2V0X2NwdShjcHUsIHBydi0+aWRsZXJzKTsNCj4+PiAgICAgICAgc3BjLT5u
+cl9ydW5uYWJsZSA9IDA7DQo+Pj4gKw0KPj4+ICsgICAgc3BjLT5sYXN0X2xvYWRfYmFsYW5j
+ZSA9IE5PVygpOw0KPj4+ICAgIH0NCj4+Pg0KPj4+ICAgIHN0YXRpYyB2b2lkIGNmX2NoZWNr
+DQo+Pj4gQEAgLTE2NzYsOSArMTY4MywxNyBAQCBjc2NoZWRfcnVucV9zdGVhbChpbnQgcGVl
+cl9jcHUsIGludCBjcHUsIGludCBwcmksIGludCBiYWxhbmNlX3N0ZXApDQo+Pj4gICAgICAg
+IHJldHVybiBOVUxMOw0KPj4+ICAgIH0NCj4+Pg0KPj4+ICsvKg0KPj4+ICsgKiBNaW5pbXVt
+IGRlbGF5LCBpbiBtaWNyb3NlY29uZHMsIGJldHdlZW4gbG9hZCBiYWxhbmNlIG9wZXJhdGlv
+bnMuDQo+Pj4gKyAqIFRoaXMgcHJldmVudHMgc3BlbmRpbmcgdG9vIG11Y2ggdGltZSBkb2lu
+ZyBsb2FkIGJhbGFuY2luZywgcGFydGljdWxhcmx5DQo+Pj4gKyAqIHdoZW4gdGhlIHN5c3Rl
+bSBoYXMgYSBoaWdoIG51bWJlciBvZiBZSUVMRHMgZHVlIHRvIHNwaW5sb2NrIHByaW9yaXR5
+IGludmVyc2lvbi4NCj4+PiArICovDQo+Pj4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgX19yb19h
+ZnRlcl9pbml0IGxvYWRfYmFsYW5jZV9yYXRlbGltaXRfdXMgPSBDU0NIRURfREVGQVVMVF9M
+T0FEX0JBTEFOQ0VfUkFURUxJTUlUX1VTOw0KPj4+ICtpbnRlZ2VyX3BhcmFtKCJsb2FkLWJh
+bGFuY2UtcmF0ZWxpbWl0IiwgbG9hZF9iYWxhbmNlX3JhdGVsaW1pdF91cyk7DQo+Pj4gKw0K
+Pj4+ICAgIHN0YXRpYyBzdHJ1Y3QgY3NjaGVkX3VuaXQgKg0KPj4+ICAgIGNzY2hlZF9sb2Fk
+X2JhbGFuY2Uoc3RydWN0IGNzY2hlZF9wcml2YXRlICpwcnYsIGludCBjcHUsDQo+Pj4gLSAg
+ICBzdHJ1Y3QgY3NjaGVkX3VuaXQgKnNuZXh0LCBib29sICpzdG9sZW4pDQo+Pj4gKyAgICAg
+ICAgICAgICAgICAgICAgc3RydWN0IGNzY2hlZF91bml0ICpzbmV4dCwgYm9vbCAqc3RvbGVu
+KQ0KPj4+ICAgIHsNCj4+PiAgICAgICAgY29uc3Qgc3RydWN0IGNwdXBvb2wgKmMgPSBnZXRf
+c2NoZWRfcmVzKGNwdSktPmNwdXBvb2w7DQo+Pj4gICAgICAgIHN0cnVjdCBjc2NoZWRfdW5p
+dCAqc3BlZXI7DQo+Pj4gQEAgLTE5NTgsMTUgKzE5NzMsMTkgQEAgc3RhdGljIHZvaWQgY2Zf
+Y2hlY2sgY3NjaGVkX3NjaGVkdWxlKA0KPj4+ICAgICAgICAgICAgLyoNCj4+PiAgICAgICAg
+ICAgICAqIFNNUCBMb2FkIGJhbGFuY2U6DQo+Pj4gICAgICAgICAgICAgKg0KPj4+IC0gICAg
+ICAgICAqIElmIHRoZSBuZXh0IGhpZ2hlc3QgcHJpb3JpdHkgbG9jYWwgcnVubmFibGUgVU5J
+VCBoYXMgYWxyZWFkeSBlYXRlbg0KPj4+IC0gICAgICAgICAqIHRocm91Z2ggaXRzIGNyZWRp
+dHMsIGxvb2sgb24gb3RoZXIgUENQVXMgdG8gc2VlIGlmIHdlIGhhdmUgbW9yZQ0KPj4+IC0g
+ICAgICAgICAqIHVyZ2VudCB3b3JrLi4uIElmIG5vdCwgY3NjaGVkX2xvYWRfYmFsYW5jZSgp
+IHdpbGwgcmV0dXJuIHNuZXh0LCBidXQNCj4+PiAtICAgICAgICAgKiBhbHJlYWR5IHJlbW92
+ZWQgZnJvbSB0aGUgcnVucS4NCj4+PiArICAgICAgICAgKiBJZiB0aGUgbmV4dCBoaWdoZXN0
+IHByaW9yaXR5IGxvY2FsIHJ1bm5hYmxlIFVOSVQgaGFzDQo+Pj4gKyAgICAgICAgICogYWxy
+ZWFkeSBlYXRlbiB0aHJvdWdoIGl0cyBjcmVkaXRzIChhbmQgd2UncmUgYmVsb3cgdGhlDQo+
+Pj4gKyAgICAgICAgICogYmFsYW5jaW5nIHJhdGVsaW1pdCksIGxvb2sgb24gb3RoZXIgUENQ
+VXMgdG8gc2VlIGlmIHdlIGhhdmUNCj4+PiArICAgICAgICAgKiBtb3JlIHVyZ2VudCB3b3Jr
+Li4uIElmIHdlIGRvbid0LCBjc2NoZWRfbG9hZF9iYWxhbmNlKCkgd2lsbA0KPj4+ICsgICAg
+ICAgICAqIHJldHVybiBzbmV4dCwgYnV0IGFscmVhZHkgcmVtb3ZlZCBmcm9tIHRoZSBydW5x
+Lg0KPj4+ICAgICAgICAgICAgICovDQo+Pj4gLSAgICAgICAgaWYgKCBzbmV4dC0+cHJpID4g
+Q1NDSEVEX1BSSV9UU19PVkVSICkNCj4+PiAtICAgICAgICAgICAgX19ydW5xX3JlbW92ZShz
+bmV4dCk7DQo+Pj4gLSAgICAgICAgZWxzZQ0KPj4+ICsgICAgICAgIGlmICggc25leHQtPnBy
+aSA8PSBDU0NIRURfUFJJX1RTX09WRVINCj4+PiArICAgICAgICAgICAgICYmIG5vdyAtIHNw
+Yy0+bGFzdF9sb2FkX2JhbGFuY2UgPiBwcnYtPmxvYWRfYmFsYW5jZV9yYXRlbGltaXQpIHsN
+Cj4+DQo+PiBeIEp1c3QgZm91bmQgYSBzdHlsZSBpc3N1ZSAoYWZ0ZXIgQW5kcmV3IHBvaW50
+aW5nIG91dCB0aGUgb25lcyBpbiBwYXRjaCAyKS4NCj4gDQo+IEp1c3QgY2hlY2tpbmcsIHlv
+dSBtZWFuIHRoZSBzcGFjZSBiZWZvcmUgdGhlIGNsb3NpbmcgYClgPw0KDQpZZXMuDQoNCg0K
+SnVlcmdlbg0KDQo=
+--------------MeSXn0Ef0v7EhH5g8uJVCUHu
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 21, 2023 at 2:12=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
-te:
->
-> On 21.09.23 14:23, George Dunlap wrote:
-> > The credit scheduler tries as hard as it can to ensure that it always
-> > runs scheduling units with positive credit (PRI_TS_UNDER) before
-> > running those with negative credit (PRI_TS_OVER).  If the next
-> > runnable scheduling unit is of priority OVER, it will always run the
-> > load balancer, which will scour the system looking for another
-> > scheduling unit of the UNDER priority.
-> >
-> > Unfortunately, as the number of cores on a system has grown, the cost
-> > of the work-stealing algorithm has dramatically increased; a recent
-> > trace on a system with 128 cores showed this taking over 50
-> > microseconds.
-> >
-> > Add a parameter, load_balance_ratelimit, to limit the frequency of
-> > load balance operations on a given pcpu.  Default this to 1
-> > millisecond.
-> >
-> > Invert the load balancing conditional to make it more clear, and line
-> > up more closely with the comment above it.
-> >
-> > Overall it might be cleaner to have the last_load_balance checking
-> > happen inside csched_load_balance(), but that would require either
-> > passing both now and spc into the function, or looking them up again;
-> > both of which seemed to be worse than simply checking and setting the
-> > values before calling it.
-> >
-> > On a system with a vcpu:pcpu ratio of 2:1, running Windows guests
-> > (which will end up calling YIELD during spinlock contention), this
-> > patch increased performance significantly.
-> >
-> > Signed-off-by: George Dunlap <george.dunlap@cloud.com>
-> > ---
-> > Changes since v1:
-> > - Fix editing mistake in commit message
-> > - Improve documentation
-> > - global var is __ro_after_init
-> > - Remove sysctl, as it's not used.  Define max value in credit.c.
-> > - Fix some style issues
-> > - Move comment tweak to the right patch
-> > - In the event that the commandline-parameter value is too high, clip
-> >    to the maximum value rather than setting to the default.
-> >
-> > CC: Dario Faggioli <dfaggioli@suse.com>
-> > CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> > CC: George Dunlap <george.dunlap@citrix.com>
-> > CC: Jan Beulich <jbeulich@suse.com>
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Wei Liu <wl@xen.org>
-> > ---
-> >   docs/misc/xen-command-line.pandoc |  8 ++++++
-> >   xen/common/sched/credit.c         | 47 +++++++++++++++++++++++++-----=
--
-> >   2 files changed, 46 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-=
-line.pandoc
-> > index f88e6a70ae..9c3c72a7f9 100644
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -1884,6 +1884,14 @@ By default, Xen will use the INVPCID instruction=
- for TLB management if
-> >   it is available.  This option can be used to cause Xen to fall back t=
-o
-> >   older mechanisms, which are generally slower.
-> >
-> > +### load-balance-ratelimit
-> > +> `=3D <integer>`
-> > +
-> > +The minimum interval between load balancing events on a given pcpu, in
-> > +microseconds.  A value of '0' will disable rate limiting.  Maximum
-> > +value 1 second. At the moment only credit honors this parameter.
-> > +Default 1ms.
-> > +
-> >   ### noirqbalance (x86)
-> >   > `=3D <boolean>`
-> >
-> > diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
-> > index f2cd3d9da3..5c06f596d2 100644
-> > --- a/xen/common/sched/credit.c
-> > +++ b/xen/common/sched/credit.c
-> > @@ -50,6 +50,10 @@
-> >   #define CSCHED_TICKS_PER_TSLICE     3
-> >   /* Default timeslice: 30ms */
-> >   #define CSCHED_DEFAULT_TSLICE_MS    30
-> > +/* Default load balancing ratelimit: 1ms */
-> > +#define CSCHED_DEFAULT_LOAD_BALANCE_RATELIMIT_US 1000
-> > +/* Max load balancing ratelimit: 1s */
-> > +#define CSCHED_MAX_LOAD_BALANCE_RATELIMIT_US     1000000
-> >   #define CSCHED_CREDITS_PER_MSEC     10
-> >   /* Never set a timer shorter than this value. */
-> >   #define CSCHED_MIN_TIMER            XEN_SYSCTL_SCHED_RATELIMIT_MIN
-> > @@ -153,6 +157,7 @@ struct csched_pcpu {
-> >
-> >       unsigned int idle_bias;
-> >       unsigned int nr_runnable;
-> > +    s_time_t last_load_balance;
-> >
-> >       unsigned int tick;
-> >       struct timer ticker;
-> > @@ -218,7 +223,7 @@ struct csched_private {
-> >
-> >       /* Period of master and tick in milliseconds */
-> >       unsigned int tick_period_us, ticks_per_tslice;
-> > -    s_time_t ratelimit, tslice, unit_migr_delay;
-> > +    s_time_t ratelimit, tslice, unit_migr_delay, load_balance_ratelimi=
-t;
-> >
-> >       struct list_head active_sdom;
-> >       uint32_t weight;
-> > @@ -612,6 +617,8 @@ init_pdata(struct csched_private *prv, struct csche=
-d_pcpu *spc, int cpu)
-> >       BUG_ON(!is_idle_unit(curr_on_cpu(cpu)));
-> >       cpumask_set_cpu(cpu, prv->idlers);
-> >       spc->nr_runnable =3D 0;
-> > +
-> > +    spc->last_load_balance =3D NOW();
-> >   }
-> >
-> >   static void cf_check
-> > @@ -1676,9 +1683,17 @@ csched_runq_steal(int peer_cpu, int cpu, int pri=
-, int balance_step)
-> >       return NULL;
-> >   }
-> >
-> > +/*
-> > + * Minimum delay, in microseconds, between load balance operations.
-> > + * This prevents spending too much time doing load balancing, particul=
-arly
-> > + * when the system has a high number of YIELDs due to spinlock priorit=
-y inversion.
-> > + */
-> > +static unsigned int __ro_after_init load_balance_ratelimit_us =3D CSCH=
-ED_DEFAULT_LOAD_BALANCE_RATELIMIT_US;
-> > +integer_param("load-balance-ratelimit", load_balance_ratelimit_us);
-> > +
-> >   static struct csched_unit *
-> >   csched_load_balance(struct csched_private *prv, int cpu,
-> > -    struct csched_unit *snext, bool *stolen)
-> > +                    struct csched_unit *snext, bool *stolen)
-> >   {
-> >       const struct cpupool *c =3D get_sched_res(cpu)->cpupool;
-> >       struct csched_unit *speer;
-> > @@ -1958,15 +1973,19 @@ static void cf_check csched_schedule(
-> >           /*
-> >            * SMP Load balance:
-> >            *
-> > -         * If the next highest priority local runnable UNIT has alread=
-y eaten
-> > -         * through its credits, look on other PCPUs to see if we have =
-more
-> > -         * urgent work... If not, csched_load_balance() will return sn=
-ext, but
-> > -         * already removed from the runq.
-> > +         * If the next highest priority local runnable UNIT has
-> > +         * already eaten through its credits (and we're below the
-> > +         * balancing ratelimit), look on other PCPUs to see if we have
-> > +         * more urgent work... If we don't, csched_load_balance() will
-> > +         * return snext, but already removed from the runq.
-> >            */
-> > -        if ( snext->pri > CSCHED_PRI_TS_OVER )
-> > -            __runq_remove(snext);
-> > -        else
-> > +        if ( snext->pri <=3D CSCHED_PRI_TS_OVER
-> > +             && now - spc->last_load_balance > prv->load_balance_ratel=
-imit) {
->
-> ^ Just found a style issue (after Andrew pointing out the ones in patch 2=
-).
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Just checking, you mean the space before the closing `)`?
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
- -George
+--------------MeSXn0Ef0v7EhH5g8uJVCUHu--
+
+--------------M75wwt7tL7tOJdonyyXNrj67--
+
+--------------Le40BWuZpRp3Nh1nUZzjUU2A
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUNh7QFAwAAAAAACgkQsN6d1ii/Ey/z
+eQf8Cj0sZRDrMJ4K6g2j+nOZmu1h5IAyyJIzQ2SncR6WtZXsl3YBWV80GdDreS6/tOiutUCf63pp
+zzrLbL1q948vtxBnCaBJ73vJa2iVtLDOdo+m9w5T/jKNz2y9DRn+ebG8WKGPq1h8eSI3Ji6mIBIT
+tvSs4CDk+4ymLQP9e2+8beeusPrVYjsl070PMR8h71Gu+rCLvkVECx43TPm6rFAyzWqImYF9O34V
+m6UuwERpT4tQf/gUg3P5ktzVGwgEMFiYLdCzYcIbD0Pvul0zQbruV2BuWwKP3hFN9edAhCcAzwst
+CmSAfAvs9xeoK0dkZCTAVS40c2Z+JNhHXSxUHPpwUQ==
+=BLMh
+-----END PGP SIGNATURE-----
+
+--------------Le40BWuZpRp3Nh1nUZzjUU2A--
 
