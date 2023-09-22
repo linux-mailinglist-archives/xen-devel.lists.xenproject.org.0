@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443327AB44C
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 17:00:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.606925.945020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DD47AB4A3
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Sep 2023 17:19:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.606931.945030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjhdX-0001xB-Bf; Fri, 22 Sep 2023 15:00:07 +0000
+	id 1qjhw4-0004hk-W1; Fri, 22 Sep 2023 15:19:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 606925.945020; Fri, 22 Sep 2023 15:00:07 +0000
+Received: by outflank-mailman (output) from mailman id 606931.945030; Fri, 22 Sep 2023 15:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjhdX-0001u3-8k; Fri, 22 Sep 2023 15:00:07 +0000
-Received: by outflank-mailman (input) for mailman id 606925;
- Fri, 22 Sep 2023 15:00:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qjhw4-0004fA-Sb; Fri, 22 Sep 2023 15:19:16 +0000
+Received: by outflank-mailman (input) for mailman id 606931;
+ Fri, 22 Sep 2023 15:19:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YT8q=FG=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1qjhdV-0001gg-D8
- for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 15:00:05 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5c2a6f6-5958-11ee-878a-cb3800f73035;
- Fri, 22 Sep 2023 17:00:04 +0200 (CEST)
+ <SRS0=Esjf=FG=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qjhw3-0004f4-Fv
+ for xen-devel@lists.xenproject.org; Fri, 22 Sep 2023 15:19:15 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 62dcdbb7-595b-11ee-9b0d-b553b5be7939;
+ Fri, 22 Sep 2023 17:19:13 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.160.108.56])
+ by support.bugseng.com (Postfix) with ESMTPSA id B0EE64EE0739;
+ Fri, 22 Sep 2023 17:19:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,73 +39,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5c2a6f6-5958-11ee-878a-cb3800f73035
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1695394802;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yymdn5Ib3vdedE1bKPjXhrIk07DP2toWMx0YBeOSCKc=;
-	b=JCA+KUnb692VWlx1fmj161S4ivDwYTrM1u8X2p5arIqoauHvahJMRyQgJNnCijDhvdZTN5
-	2vhPfci1iBhuF4Qy2zYMF8JGpNHrq0VAOBaIOZz4r3zSiAs1S0WjK2Y/a5ZLPZiRHiR72P
-	REbPguOF78kSQmQ7J0MndgAQ5u9+VLIa/hw1U5uaXSml+++MgocMsUUHEo8yUUBhh55/dy
-	QQw13O85IYkSyENm5eCNprEvBu0VGY6MYJBQev1Uj1n9rrZjN0zSSXrLOJq5WBnRYuLa3i
-	/YCovSEvga/R0iW5oDIVClJYgWEFtXfzNaoHbWAAyTqcD536K6Nb5/nqacqCUg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1695394802;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yymdn5Ib3vdedE1bKPjXhrIk07DP2toWMx0YBeOSCKc=;
-	b=CIDz5h5BcX/Bz/jkuzgX2qYw3Xx+SDJYkCZCT8rgToE1CkxZkoLWZYWz8rraUAqGtvF28b
-	64aTOX6aC7JwbuBQ==
-To: "Li, Xin3" <xin3.li@intel.com>, "Li, Xin3" <xin3.li@intel.com>, Nikolay
- Borisov <nik.borisov@suse.com>, "linux-doc@vger.kernel.org"
- <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
- <linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org"
- <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Cc: "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "Lutomirski, Andy" <luto@kernel.org>, "pbonzini@redhat.com"
- <pbonzini@redhat.com>, "Christopherson,, Sean" <seanjc@google.com>,
- "peterz@infradead.org" <peterz@infradead.org>, "Gross, Jurgen"
- <jgross@suse.com>, "Shankar, Ravi V" <ravi.v.shankar@intel.com>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>, "andrew.cooper3@citrix.com"
- <andrew.cooper3@citrix.com>, "jiangshanlai@gmail.com"
- <jiangshanlai@gmail.com>
-Subject: RE: [PATCH v10 03/38] x86/msr: Add the WRMSRNS instruction support
-In-Reply-To: <SA1PR11MB6734445986E951E686172419A8FFA@SA1PR11MB6734.namprd11.prod.outlook.com>
-References: <20230914044805.301390-1-xin3.li@intel.com>
- <20230914044805.301390-4-xin3.li@intel.com>
- <dda01248-f456-d8d7-5021-ef6b2e7ade2c@suse.com>
- <SA1PR11MB6734F205C2171425415E4F00A8F9A@SA1PR11MB6734.namprd11.prod.outlook.com>
- <SA1PR11MB6734445986E951E686172419A8FFA@SA1PR11MB6734.namprd11.prod.outlook.com>
-Date: Fri, 22 Sep 2023 17:00:02 +0200
-Message-ID: <87o7hugsnh.ffs@tglx>
+X-Inumbo-ID: 62dcdbb7-595b-11ee-9b0d-b553b5be7939
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2] xen/emul-i8254: remove forward declarations and re-order functions
+Date: Fri, 22 Sep 2023 17:19:04 +0200
+Message-Id: <b2877f0e2d867e04e806d70cc2ba175386c30d9c.1695392080.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 22 2023 at 08:16, Xin3 Li wrote:
->> > > +static __always_inline void __wrmsrns(u32 msr, u32 low, u32 high)
->> >
->> > Shouldn't this be named wrmsrns_safe since it has exception handling, similar
->> to
->> > the current wrmsrl_safe.
->> >
->> 
->> Both safe and unsafe versions have exception handling, while the safe
->> version returns an integer to its caller to indicate an exception did
->> happen or not.
->
-> I notice there are several call sites using the safe version w/o
-> checking the return value, should the unsafe version be a better
-> choice in such cases?
+Remove forward declarations, including one that violates MISRA C Rule
+8.3 ("All declarations of an object or function shall use the same
+names and type qualifiers"), and re-order functions.
+No functional change.
 
-Depends. The safe version does not emit a warning on fail. So if the
-callsite truly does not care about the error it's fine.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/emul-i8254.c | 129 ++++++++++++++++++--------------------
+ 1 file changed, 62 insertions(+), 67 deletions(-)
+
+diff --git a/xen/arch/x86/emul-i8254.c b/xen/arch/x86/emul-i8254.c
+index 41ec4a1ef1..8157428d94 100644
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -48,11 +48,6 @@
+ #define RW_STATE_WORD0 3
+ #define RW_STATE_WORD1 4
+ 
+-static int cf_check handle_pit_io(
+-    int dir, unsigned int port, unsigned int bytes, uint32_t *val);
+-static int cf_check handle_speaker_io(
+-    int dir, unsigned int port, unsigned int bytes, uint32_t *val);
+-
+ #define get_guest_time(v) \
+    (is_hvm_vcpu(v) ? hvm_get_guest_time(v) : (u64)get_s_time())
+ 
+@@ -466,68 +461,7 @@ static int cf_check pit_load(struct domain *d, hvm_domain_context_t *h)
+ HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_load, 1, HVMSR_PER_DOM);
+ #endif
+ 
+-void pit_reset(struct domain *d)
+-{
+-    PITState *pit = domain_vpit(d);
+-    struct hvm_hw_pit_channel *s;
+-    int i;
+-
+-    if ( !has_vpit(d) )
+-        return;
+-
+-    if ( is_hvm_domain(d) )
+-    {
+-        TRACE_0D(TRC_HVM_EMUL_PIT_STOP_TIMER);
+-        destroy_periodic_time(&pit->pt0);
+-        pit->pt0.source = PTSRC_isa;
+-    }
+-
+-    spin_lock(&pit->lock);
+-
+-    for ( i = 0; i < 3; i++ )
+-    {
+-        s = &pit->hw.channels[i];
+-        s->mode = 0xff; /* the init mode */
+-        s->gate = (i != 2);
+-        pit_load_count(pit, i, 0);
+-    }
+-
+-    spin_unlock(&pit->lock);
+-}
+-
+-void pit_init(struct domain *d)
+-{
+-    PITState *pit = domain_vpit(d);
+-
+-    if ( !has_vpit(d) )
+-        return;
+-
+-    spin_lock_init(&pit->lock);
+-
+-    if ( is_hvm_domain(d) )
+-    {
+-        register_portio_handler(d, PIT_BASE, 4, handle_pit_io);
+-        register_portio_handler(d, 0x61, 1, handle_speaker_io);
+-    }
+-
+-    pit_reset(d);
+-}
+-
+-void pit_deinit(struct domain *d)
+-{
+-    PITState *pit = domain_vpit(d);
+-
+-    if ( !has_vpit(d) )
+-        return;
+-
+-    if ( is_hvm_domain(d) )
+-    {
+-        TRACE_0D(TRC_HVM_EMUL_PIT_STOP_TIMER);
+-        destroy_periodic_time(&pit->pt0);
+-    }
+-}
+-
+-/* the intercept action for PIT DM retval:0--not handled; 1--handled */  
++/* the intercept action for PIT DM retval:0--not handled; 1--handled */
+ static int cf_check handle_pit_io(
+     int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+ {
+@@ -620,6 +554,67 @@ int pv_pit_handler(int port, int data, int write)
+     return !write ? ioreq.data : 0;
+ }
+ 
++void pit_reset(struct domain *d)
++{
++    PITState *pit = domain_vpit(d);
++    struct hvm_hw_pit_channel *s;
++    int i;
++
++    if ( !has_vpit(d) )
++        return;
++
++    if ( is_hvm_domain(d) )
++    {
++        TRACE_0D(TRC_HVM_EMUL_PIT_STOP_TIMER);
++        destroy_periodic_time(&pit->pt0);
++        pit->pt0.source = PTSRC_isa;
++    }
++
++    spin_lock(&pit->lock);
++
++    for ( i = 0; i < 3; i++ )
++    {
++        s = &pit->hw.channels[i];
++        s->mode = 0xff; /* the init mode */
++        s->gate = (i != 2);
++        pit_load_count(pit, i, 0);
++    }
++
++    spin_unlock(&pit->lock);
++}
++
++void pit_init(struct domain *d)
++{
++    PITState *pit = domain_vpit(d);
++
++    if ( !has_vpit(d) )
++        return;
++
++    spin_lock_init(&pit->lock);
++
++    if ( is_hvm_domain(d) )
++    {
++        register_portio_handler(d, PIT_BASE, 4, handle_pit_io);
++        register_portio_handler(d, 0x61, 1, handle_speaker_io);
++    }
++
++    pit_reset(d);
++}
++
++void pit_deinit(struct domain *d)
++{
++    PITState *pit = domain_vpit(d);
++
++    if ( !has_vpit(d) )
++        return;
++
++    if ( is_hvm_domain(d) )
++    {
++        TRACE_0D(TRC_HVM_EMUL_PIT_STOP_TIMER);
++        destroy_periodic_time(&pit->pt0);
++    }
++}
++
+ /*
+  * Local variables:
+  * mode: C
+-- 
+2.34.1
+
 
