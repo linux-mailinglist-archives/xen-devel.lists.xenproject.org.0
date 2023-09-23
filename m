@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65E367ABFDC
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Sep 2023 12:12:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.607085.945278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03AF7ABFE1
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Sep 2023 12:12:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.607086.945289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjzc4-0001Ab-Ja; Sat, 23 Sep 2023 10:11:48 +0000
+	id 1qjzc6-0001R5-12; Sat, 23 Sep 2023 10:11:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 607085.945278; Sat, 23 Sep 2023 10:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 607086.945289; Sat, 23 Sep 2023 10:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjzc4-00018m-FL; Sat, 23 Sep 2023 10:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 607085;
- Sat, 23 Sep 2023 10:11:47 +0000
+	id 1qjzc5-0001PC-RL; Sat, 23 Sep 2023 10:11:49 +0000
+Received: by outflank-mailman (input) for mailman id 607086;
+ Sat, 23 Sep 2023 10:11:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xNi6=FH=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qjzc3-0000Pn-4s
- for xen-devel@lists.xenproject.org; Sat, 23 Sep 2023 10:11:47 +0000
+ id 1qjzc4-0000Pn-4u
+ for xen-devel@lists.xenproject.org; Sat, 23 Sep 2023 10:11:48 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98d7b2ed-59f9-11ee-9b0d-b553b5be7939;
+ id 98e1b9da-59f9-11ee-9b0d-b553b5be7939;
  Sat, 23 Sep 2023 12:11:44 +0200 (CEST)
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2023 03:11:37 -0700
+ 23 Sep 2023 03:11:38 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
  by fmsmga008.fm.intel.com with ESMTP; 23 Sep 2023 03:11:37 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98d7b2ed-59f9-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 98e1b9da-59f9-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1695463904; x=1726999904;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=9qsPaAmdkqHl0KD85EKfAfnheAb+UY4gBzEbjksg7Tw=;
-  b=fv0ZQs1QUktfRChCuvv9I9Cq0z5P02C58rdfW7HU9pZVWCM6fY6tSr6k
-   sAs1D34MPJmCEpTgExc4BhK7WJThcoACO4TZJPIhB9EzWZmxKACYT4Sjj
-   FHsXqTuSS6CpevI1h+YPPbAp9Gi9X/EXigiFQ5wZpdkjbMJ2599VW60Fb
-   hyaQLbmjbzAD1LWTY+tSBHfG50aNbzS29NiKf3qDo2LkXvq2Wp6LTU4cj
-   VEQlDOryOeLautz9q5Tyyp4vSSIAYN9hWsq04cel//8kzSdcnEafDrkSR
-   I+AtyGlh6abJGwgQ0v5JMrV4WJaZLaFKZqwColi21wNi8g2n6IqnJfUcj
+  bh=IuyTaHxTCpXU3koACAwE/wPTCk5NNVb2w/wLiweVXto=;
+  b=GHYVT+h1s8TCrVaUxv5AJti6meqrrOCtLKp/q3coA26Q3sS7XS3ziLc4
+   /uw84P55JO3OIuL3qvlD+Sohv6ds6Z0K6Cq871FAcOlof8axMsZ/OPI7B
+   6r5nTDTVbn9wfEk+u8E2OV2uWpLqhmPZDYrdS8AzaU32214xWT09tYwHX
+   RS9cxoer8/yPI5xXxe3rOiGYZJ/EsdgqD3Ho1BYJ5zYllXS3KUkcXo7lC
+   MAhATr6TU2V8nTLUl8SYP+zjezx87+dGD+Glv02IvEqGNLCX9ISEZ3baB
+   dHHJWHn64K1MUwQcIKFEn+I66eoW1wnN5Pa6Nw2Gzfi6ZgQGQPyF+DoPl
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="447492107"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="447492120"
 X-IronPort-AV: E=Sophos;i="6.03,171,1694761200"; 
-   d="scan'208";a="447492107"
+   d="scan'208";a="447492120"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="813388107"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="813388110"
 X-IronPort-AV: E=Sophos;i="6.03,171,1694761200"; 
-   d="scan'208";a="813388107"
+   d="scan'208";a="813388110"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -85,60 +85,73 @@ Cc: tglx@linutronix.de,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com
-Subject: [PATCH v11 03/37] x86/msr: Add the WRMSRNS instruction support
-Date: Sat, 23 Sep 2023 02:41:38 -0700
-Message-Id: <20230923094212.26520-4-xin3.li@intel.com>
+Subject: [PATCH v11 04/37] x86/entry: Remove idtentry_sysvec from entry_{32,64}.S
+Date: Sat, 23 Sep 2023 02:41:39 -0700
+Message-Id: <20230923094212.26520-5-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230923094212.26520-1-xin3.li@intel.com>
 References: <20230923094212.26520-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an always inline API __wrmsrns() to embed the WRMSRNS instruction
-into the code.
+idtentry_sysvec is really just DECLARE_IDTENTRY defined in
+<asm/idtentry.h>, no need to define it separately.
 
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/include/asm/msr.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ arch/x86/entry/entry_32.S       | 4 ----
+ arch/x86/entry/entry_64.S       | 8 --------
+ arch/x86/include/asm/idtentry.h | 2 +-
+ 3 files changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 65ec1965cd28..c284ff9ebe67 100644
---- a/arch/x86/include/asm/msr.h
-+++ b/arch/x86/include/asm/msr.h
-@@ -97,6 +97,19 @@ static __always_inline void __wrmsr(unsigned int msr, u32 low, u32 high)
- 		     : : "c" (msr), "a"(low), "d" (high) : "memory");
- }
+diff --git a/arch/x86/entry/entry_32.S b/arch/x86/entry/entry_32.S
+index 6e6af42e044a..e0f22ad8ff7e 100644
+--- a/arch/x86/entry/entry_32.S
++++ b/arch/x86/entry/entry_32.S
+@@ -649,10 +649,6 @@ SYM_CODE_START_LOCAL(asm_\cfunc)
+ SYM_CODE_END(asm_\cfunc)
+ .endm
  
-+/*
-+ * WRMSRNS behaves exactly like WRMSR with the only difference being
-+ * that it is not a serializing instruction by default.
-+ */
-+static __always_inline void __wrmsrns(u32 msr, u32 low, u32 high)
-+{
-+	/* Instruction opcode for WRMSRNS; supported in binutils >= 2.40. */
-+	asm volatile("1: .byte 0x0f,0x01,0xc6\n"
-+		     "2:\n"
-+		     _ASM_EXTABLE_TYPE(1b, 2b, EX_TYPE_WRMSR)
-+		     : : "c" (msr), "a"(low), "d" (high));
-+}
-+
- #define native_rdmsr(msr, val1, val2)			\
- do {							\
- 	u64 __val = __rdmsr((msr));			\
-@@ -297,6 +310,11 @@ do {							\
- 
- #endif	/* !CONFIG_PARAVIRT_XXL */
- 
-+static __always_inline void wrmsrns(u32 msr, u64 val)
-+{
-+	__wrmsrns(msr, val, val >> 32);
-+}
-+
+-.macro idtentry_sysvec vector cfunc
+-	idtentry \vector asm_\cfunc \cfunc has_error_code=0
+-.endm
+-
  /*
-  * 64-bit version of wrmsr_safe():
-  */
+  * Include the defines which emit the idt entries which are shared
+  * shared between 32 and 64 bit and emit the __irqentry_text_* markers
+diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
+index f71664dea1a3..179e08d34eb6 100644
+--- a/arch/x86/entry/entry_64.S
++++ b/arch/x86/entry/entry_64.S
+@@ -432,14 +432,6 @@ SYM_CODE_END(\asmsym)
+ 	idtentry \vector asm_\cfunc \cfunc has_error_code=1
+ .endm
+ 
+-/*
+- * System vectors which invoke their handlers directly and are not
+- * going through the regular common device interrupt handling code.
+- */
+-.macro idtentry_sysvec vector cfunc
+-	idtentry \vector asm_\cfunc \cfunc has_error_code=0
+-.endm
+-
+ /**
+  * idtentry_mce_db - Macro to generate entry stubs for #MC and #DB
+  * @vector:		Vector number
+diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
+index 05fd175cec7d..cfca68f6cb84 100644
+--- a/arch/x86/include/asm/idtentry.h
++++ b/arch/x86/include/asm/idtentry.h
+@@ -447,7 +447,7 @@ __visible noinstr void func(struct pt_regs *regs,			\
+ 
+ /* System vector entries */
+ #define DECLARE_IDTENTRY_SYSVEC(vector, func)				\
+-	idtentry_sysvec vector func
++	DECLARE_IDTENTRY(vector, func)
+ 
+ #ifdef CONFIG_X86_64
+ # define DECLARE_IDTENTRY_MCE(vector, func)				\
 -- 
 2.34.1
 
