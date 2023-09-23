@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6485C7ABFDB
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Sep 2023 12:12:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.607089.945318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CE57ABFE5
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Sep 2023 12:12:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.607090.945329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjzc9-0002I2-2v; Sat, 23 Sep 2023 10:11:53 +0000
+	id 1qjzcA-0002Ze-Fl; Sat, 23 Sep 2023 10:11:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 607089.945318; Sat, 23 Sep 2023 10:11:53 +0000
+Received: by outflank-mailman (output) from mailman id 607090.945329; Sat, 23 Sep 2023 10:11:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qjzc8-0002ED-TR; Sat, 23 Sep 2023 10:11:52 +0000
-Received: by outflank-mailman (input) for mailman id 607089;
- Sat, 23 Sep 2023 10:11:51 +0000
+	id 1qjzcA-0002W2-8v; Sat, 23 Sep 2023 10:11:54 +0000
+Received: by outflank-mailman (input) for mailman id 607090;
+ Sat, 23 Sep 2023 10:11:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xNi6=FH=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qjzc7-0000Pn-5G
- for xen-devel@lists.xenproject.org; Sat, 23 Sep 2023 10:11:51 +0000
+ id 1qjzc8-0000Pn-5X
+ for xen-devel@lists.xenproject.org; Sat, 23 Sep 2023 10:11:52 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a380aa3-59f9-11ee-9b0d-b553b5be7939;
- Sat, 23 Sep 2023 12:11:46 +0200 (CEST)
+ id 9a94ddf5-59f9-11ee-9b0d-b553b5be7939;
+ Sat, 23 Sep 2023 12:11:47 +0200 (CEST)
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2023 03:11:39 -0700
+ 23 Sep 2023 03:11:40 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
  by fmsmga008.fm.intel.com with ESMTP; 23 Sep 2023 03:11:39 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a380aa3-59f9-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 9a94ddf5-59f9-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695463906; x=1726999906;
+  t=1695463907; x=1726999907;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FhC/0k2yq7T7yCxf9L591KcnQJP82j/O9GzJYrzxumw=;
-  b=dmDsfVyDX9rVK3SfLX+OZDBK/sWHUt7ayiKzahqeKefTf3Ujnl4Yle7r
-   OdW4Lk/xaqlp7Qr2AUrQt6Aibo4Hf7BqjDuqhK9mLLkPhnuHTLTlkP3aU
-   KJdk7uadDnMMRn3AzXr4lz8zIUz+ljlUUrPkwtzFa523M33UazWncE8sl
-   z1YUpG64YfqVmqPXpvT5nrgnwGxzQp0ROO+O2hxUyRcI6+P6bVvEEEmZ7
-   RkeG/7WlY34U4eq7inTpqTXgBdaIifQu+yhj0jwF62um90QQX1EitEoM5
-   /uJp1IYAJU9pkbEnmTyspG4KAExwRhfVQ+tCv+YzzaZ+ivUxOwAqlvL3S
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="447492156"
+  bh=ZlGESG1ZjbxHp/2vGEpu7uzY2F9a0taEPQgxug8c1Qc=;
+  b=mqWpm+ziSGBCxt1+XVJGIbKQqj3tDJ1a2SGdSpLugmodk6BV/jG2IYUG
+   xDtt9PFMt9uvf/RzLxDtrFxjZntCctTxWGprivFHKaZ9sQhzLxCYa23MF
+   pPtie+ZW2xpYX+5lfH+pjaYt1CPdsEbuTyt8m8RbWlUejErSbDxwu0eD+
+   ZvgF3KH0yprB/KcBNsSrORn65VnxIOv1ioiNKImHBMlxwLnceONTO2zqM
+   mndCHtt6BwRFhtKXRxvst/6O9yuwPbyVoVEzPbsPQf3feDmFA5CFrSjRK
+   fi3yEC8GoD6dbItYBNGXzU7i///fO+pOuh90OAjqa9ARr9XuRgcVRYuGA
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="447492168"
 X-IronPort-AV: E=Sophos;i="6.03,171,1694761200"; 
-   d="scan'208";a="447492156"
+   d="scan'208";a="447492168"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="813388125"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="813388128"
 X-IronPort-AV: E=Sophos;i="6.03,171,1694761200"; 
-   d="scan'208";a="813388125"
+   d="scan'208";a="813388128"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -85,46 +85,70 @@ Cc: tglx@linutronix.de,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com
-Subject: [PATCH v11 07/37] x86/fred: Add Kconfig option for FRED (CONFIG_X86_FRED)
-Date: Sat, 23 Sep 2023 02:41:42 -0700
-Message-Id: <20230923094212.26520-8-xin3.li@intel.com>
+Subject: [PATCH v11 08/37] x86/cpufeatures: Add the cpu feature bit for FRED
+Date: Sat, 23 Sep 2023 02:41:43 -0700
+Message-Id: <20230923094212.26520-9-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230923094212.26520-1-xin3.li@intel.com>
 References: <20230923094212.26520-1-xin3.li@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Add the configuration option CONFIG_X86_FRED to enable FRED.
+Any FRED CPU will always have the following features as its baseline:
+  1) LKGS, load attributes of the GS segment but the base address into
+     the IA32_KERNEL_GS_BASE MSR instead of the GS segment’s descriptor
+     cache.
+  2) WRMSRNS, non-serializing WRMSR for faster MSR writes.
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/Kconfig | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/x86/include/asm/cpufeatures.h       | 1 +
+ arch/x86/kernel/cpu/cpuid-deps.c         | 2 ++
+ tools/arch/x86/include/asm/cpufeatures.h | 1 +
+ 3 files changed, 4 insertions(+)
 
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 3154dbc49cf5..c3dd317d476c 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -496,6 +496,15 @@ config X86_CPU_RESCTRL
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index 330876d34b68..57ae93dc1e52 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -321,6 +321,7 @@
+ #define X86_FEATURE_FZRM		(12*32+10) /* "" Fast zero-length REP MOVSB */
+ #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
+ #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
++#define X86_FEATURE_FRED		(12*32+17) /* Flexible Return and Event Delivery */
+ #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
+ #define X86_FEATURE_WRMSRNS		(12*32+19) /* "" Non-Serializing Write to Model Specific Register instruction */
+ #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index e462c1d3800a..b7174209d855 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -82,6 +82,8 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_XFD,			X86_FEATURE_XGETBV1   },
+ 	{ X86_FEATURE_AMX_TILE,			X86_FEATURE_XFD       },
+ 	{ X86_FEATURE_SHSTK,			X86_FEATURE_XSAVES    },
++	{ X86_FEATURE_FRED,			X86_FEATURE_LKGS      },
++	{ X86_FEATURE_FRED,			X86_FEATURE_WRMSRNS   },
+ 	{}
+ };
  
- 	  Say N if unsure.
- 
-+config X86_FRED
-+	bool "Flexible Return and Event Delivery"
-+	depends on X86_64
-+	help
-+	  When enabled, try to use Flexible Return and Event Delivery
-+	  instead of the legacy SYSCALL/SYSENTER/IDT architecture for
-+	  ring transitions and exception/interrupt handling if the
-+	  system supports.
-+
- if X86_32
- config X86_BIGSMP
- 	bool "Support for big SMP systems with more than 8 CPUs"
+diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
+index 1b9d86ba5bc2..18bab7987d7f 100644
+--- a/tools/arch/x86/include/asm/cpufeatures.h
++++ b/tools/arch/x86/include/asm/cpufeatures.h
+@@ -317,6 +317,7 @@
+ #define X86_FEATURE_FZRM		(12*32+10) /* "" Fast zero-length REP MOVSB */
+ #define X86_FEATURE_FSRS		(12*32+11) /* "" Fast short REP STOSB */
+ #define X86_FEATURE_FSRC		(12*32+12) /* "" Fast short REP {CMPSB,SCASB} */
++#define X86_FEATURE_FRED		(12*32+17) /* Flexible Return and Event Delivery */
+ #define X86_FEATURE_LKGS		(12*32+18) /* "" Load "kernel" (userspace) GS */
+ #define X86_FEATURE_WRMSRNS		(12*32+19) /* "" Non-Serializing Write to Model Specific Register instruction */
+ #define X86_FEATURE_AMX_FP16		(12*32+21) /* "" AMX fp16 Support */
 -- 
 2.34.1
 
