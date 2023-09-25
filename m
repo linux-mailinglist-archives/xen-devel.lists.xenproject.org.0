@@ -2,65 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D00E7AD6C9
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 13:12:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.607822.946140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D097AD6D4
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 13:15:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.607828.946150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkjV7-0001n5-EF; Mon, 25 Sep 2023 11:11:41 +0000
+	id 1qkjYO-0003AY-Sg; Mon, 25 Sep 2023 11:15:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 607822.946140; Mon, 25 Sep 2023 11:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 607828.946150; Mon, 25 Sep 2023 11:15:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkjV7-0001l6-BA; Mon, 25 Sep 2023 11:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 607822;
- Mon, 25 Sep 2023 11:11:39 +0000
+	id 1qkjYO-00038c-Ov; Mon, 25 Sep 2023 11:15:04 +0000
+Received: by outflank-mailman (input) for mailman id 607828;
+ Mon, 25 Sep 2023 11:15:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LToL=FJ=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qkjV5-0001kz-S2
- for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 11:11:39 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0628.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::628])
+ <SRS0=+D6T=FJ=actia.se=jonas.blixt@srs-se1.protection.inumbo.net>)
+ id 1qkjYN-00038W-3B
+ for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 11:15:03 +0000
+Received: from mail.actia.se (mail.actia.se [212.181.117.226])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c22b372-5b94-11ee-878a-cb3800f73035;
- Mon, 25 Sep 2023 13:11:38 +0200 (CEST)
-Received: from DUZPR01CA0064.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c2::17) by AS8PR08MB9840.eurprd08.prod.outlook.com
- (2603:10a6:20b:613::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Mon, 25 Sep
- 2023 11:11:36 +0000
-Received: from DBAEUR03FT036.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:3c2:cafe::8f) by DUZPR01CA0064.outlook.office365.com
- (2603:10a6:10:3c2::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.35 via Frontend
- Transport; Mon, 25 Sep 2023 11:11:36 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT036.mail.protection.outlook.com (100.127.142.193) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6838.19 via Frontend Transport; Mon, 25 Sep 2023 11:11:35 +0000
-Received: ("Tessian outbound c99fbc01d472:v175");
- Mon, 25 Sep 2023 11:11:35 +0000
-Received: from b1932902f14c.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- F1E3F85F-99F1-4011-AAD1-DA41003488D6.1; 
- Mon, 25 Sep 2023 11:11:28 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b1932902f14c.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 25 Sep 2023 11:11:28 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by PA4PR08MB6238.eurprd08.prod.outlook.com (2603:10a6:102:e8::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Mon, 25 Sep
- 2023 11:11:27 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::dfff:49d6:ed04:118b]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::dfff:49d6:ed04:118b%6]) with mapi id 15.20.6813.027; Mon, 25 Sep 2023
- 11:11:27 +0000
+ id c56138b0-5b94-11ee-878a-cb3800f73035;
+ Mon, 25 Sep 2023 13:15:02 +0200 (CEST)
+Received: from S036ANL.actianordic.se (10.12.31.117) by S035ANL.actianordic.se
+ (10.12.31.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 25 Sep
+ 2023 13:15:01 +0200
+Received: from S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69]) by
+ S036ANL.actianordic.se ([fe80::e13e:1feb:4ea6:ec69%4]) with mapi id
+ 15.01.2507.032; Mon, 25 Sep 2023 13:15:01 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,145 +43,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c22b372-5b94-11ee-878a-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JgfUXEUsclrNv2W7ehQdHKt6Eu82+bdctyihwVew8YI=;
- b=YccxtLLLDGxvcXHUwsuLkUCPgs2w7RigvENNM4wQcE+i8EFFLGgRemA4sprKkXuju771jo7ydapjz4Cd+463mJQTcoeiKtFlKJE2QCeIW2P7sTyDqPk1cnQ+Xftle5MGzlMvrZ/swE8qYXkl80jKzljBtP2tN7zYNySREIcUd8Q=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 6ab877325e33b9fc
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fp/e7zinK0e3uNKG8QT0+oEJWjmsKoFHy5zPR6MhzVchQjnn95tBSXLMRFxoK4EmT4RFjAoY72uN6EnMw+vwm2ZgfRrRIk03aFnvrxDN91QGFBKoFESZb+f9/LZANtbGRHPJl3EqP+KOmvsxi7HxOp6s8xr9CfZtFODZCUG2Wr21awf6oFVKMby9bJ0r6sOMMpejvPKgV1ET9wMExvSKCKfGXlA0F+QgiewDhw/8O3ANz8faLkJeH49N4JKelwTa6RPI2HXZuPPmWr+HtWbfmlosFiYdvNN07tJkxRbpziloqfEdXULKa+19KUdTCCia/VYiTSISsdtfiDehUoPorA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JgfUXEUsclrNv2W7ehQdHKt6Eu82+bdctyihwVew8YI=;
- b=YmXIhZjG3nqY5I8VoCaBCQlg5NZD8vA3dn8LoaGfCo7s/4yqlBwFshuNNjsvyl2TPblBtA2dMvJMHJQaQnxcjo7ytSe7c+aPg1EiBM5HCYRlppSuSpsHHJahF4NW0iai72jO8ja+5QcLH0WUfT7ESilOhUjYS3+nWmTOL9gb/7jYrEgjcYSgLarNCytEJEfC+CBws6FzayBtsV9QUoYUNRQdHvg62TGxsivLUUYFl36TBaX2mEQOxOo6V1HMqcctylnu1i7wRr9vpgXz+idYhHScBLj8s9vxL8V7T6CsuboW4jhdUX2GnMpoqZzLA8XGG3JUm0KnCf/t99EZS6O7iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JgfUXEUsclrNv2W7ehQdHKt6Eu82+bdctyihwVew8YI=;
- b=YccxtLLLDGxvcXHUwsuLkUCPgs2w7RigvENNM4wQcE+i8EFFLGgRemA4sprKkXuju771jo7ydapjz4Cd+463mJQTcoeiKtFlKJE2QCeIW2P7sTyDqPk1cnQ+Xftle5MGzlMvrZ/swE8qYXkl80jKzljBtP2tN7zYNySREIcUd8Q=
-From: Henry Wang <Henry.Wang@arm.com>
-To: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>,
-	"xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>, "consulting@bugseng.com"
-	<consulting@bugseng.com>, Jan Beulich <jbeulich@suse.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
-	<julien@xen.org>
-Subject: Re: [XEN PATCH v4] drivers/video: make declarations of defined
- functions available
-Thread-Topic: [XEN PATCH v4] drivers/video: make declarations of defined
- functions available
-Thread-Index: AQHZ75BxeEriYuxeZk+v70ty8+HkJrArXccAgAAFGAA=
-Date: Mon, 25 Sep 2023 11:11:26 +0000
-Message-ID: <C7F9410A-F5F1-4DC4-B8FF-242F58792950@arm.com>
-References:
- <5830a4d838883a20a6b320dd9af44ef4bb18ddaa.1695632599.git.nicola.vetrini@bugseng.com>
- <28310181-d7f5-a8b6-f1fd-ea9ca0db56cb@citrix.com>
-In-Reply-To: <28310181-d7f5-a8b6-f1fd-ea9ca0db56cb@citrix.com>
-Accept-Language: zh-CN, en-US
+X-Inumbo-ID: c56138b0-5b94-11ee-878a-cb3800f73035
+From: Jonas Blixt <jonas.blixt@actia.se>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Xen(arm64)  hang on suspend/resume
+Thread-Topic: Xen(arm64)  hang on suspend/resume
+Thread-Index: Adnvmnpoa5ryhO19Q7aaxFF2dGz1TQ==
+Date: Mon, 25 Sep 2023 11:15:01 +0000
+Message-ID: <3c79ea2fec984e21b07d9365c08a5862@actia.se>
+Accept-Language: en-US, sv-SE
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.700.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|PA4PR08MB6238:EE_|DBAEUR03FT036:EE_|AS8PR08MB9840:EE_
-X-MS-Office365-Filtering-Correlation-Id: 150530de-da96-4afb-43a9-08dbbdb82eb5
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- jf51OoSmgHHS6tF+qyiffD9H4WHKhdJC6rTl4KR8i+du+ROZ2Y52CNyVbNo0MECSh0dTMUU7en9nIiPjqVyq2TrjmXuCxeE4Hs61qtnyoLoUUYSkNiMrjgOQ+eu93YZi6SUZlBkjR5NloE0TKZ4NudFaxo09u+BNh1KqPZeXLRwwrQC9z2EpnRD3ih/qYf5vo3OYTbIBiLI5DTws2z49X9RJaRhZD8Vyl7jj9mMm0z3G9w7ucd1kibQNpZhl+AMocBt2M4cwJOubo33PQMg5289hiY19sRTx7Rc/bTN3OVElt2I0Wqm5bCrb04Xmt7+ffsk9G+lYRaXZj5Tmdt/gZEyRrcQf0kj9Q4KLFour3VpX5qvGpw1abFNSOmgRak4QkSsUqeBlpJQUzssiXmwY8ySD8VADkjX8tjWT+5zbtcYVSk+xZh7XRFp47vTuZMnjMyUgplh1PI9nmvU5dWdJgW8NLd9kkLiwT7uhAJ6YQEYGOflVHBnyTGvIdlitYGDW0PK2z85bov9Wxllc2khtccRkRXv9sqcuRnVOL3jgfbEx2tA3TZJyZgWv6f8pOjhtI/a4g6o69XbUp6heCy95xZPieoXv8LpOEWIpMTA/JYPRTMRPz9FffzjqKFIkg7HWS2Oj5cz4lWSembuczQsaDQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(346002)(39860400002)(136003)(376002)(230922051799003)(1800799009)(186009)(451199024)(4744005)(7416002)(6512007)(316002)(6916009)(76116006)(66476007)(64756008)(66946007)(54906003)(91956017)(2906002)(66556008)(66446008)(41300700001)(8936002)(8676002)(4326008)(478600001)(71200400001)(5660300002)(38070700005)(38100700002)(33656002)(6506007)(53546011)(122000001)(36756003)(26005)(2616005)(6486002)(86362001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <77FF484483F1D341821AC420FB6A7F2A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+x-originating-ip: [10.12.12.144]
+x-esetresult: clean, is OK
+x-esetid: 37303A294A191A5C6C7262
+Content-Type: multipart/alternative;
+	boundary="_000_3c79ea2fec984e21b07d9365c08a5862actiase_"
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6238
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT036.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a6ff9ec3-f30c-48ae-707b-08dbbdb82974
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ivNaxkqs+tta77s7tKzkrsCTBlDh1NCPS1KX1zZ0RgxkHva8VKPQy4ojp7w/i1cB70nlWkJL6D7bc/xy+Oh1ns6oClt3JnNxIG83ACYBRR7YiVbICBp5QLTLqMNukkxd9yEvgNsAVs9X/c2kcaJHMRLFBfwgzlC1Zs5k61hqucfs3xH37/d4vKdJjENDbg9Zt2tYifbaa9DXqQMD4jq5vUfl19I6vbwrkwFWZmN67lA1dseSzIRV+8TzTN819lrQii8zMQxxaaKcz8lhQBir1W//0fR+N59JTYeHA4LmieerABLwIQX5tVl1tSRpyBStrHDL12LuWvmYe2TAlqsw2cxHDg28302FR63kZib0bjnHHlgIWFKji/h8RCFxXpDK7iVkbiuX4pd2J8n+HgqmGA6DCz1RE7sFyVRGpekQiY86Y3B516FEGXwvVLI+2ibTLZfnEuQdIP0mmWmlcYB1SIgievAKW3GytKKAO2dPA6Ref6nBYLyquPCyan5lbOQo91Dgmq2IFOb4+gm6hNsTjHFUKMD4tmfe5q5QloV7tUMEPro8sB6Mdwr0zUGIRA5+LOYJXZS9KbgSI9vR9b8uRyjP75cnFwJbIfyKaSe+9egMTQEK0mcezm/6aEI2meIghuTDlyzFqRDcl31qZ4o9okXhctq5/rXqPxvvur/snIuz6apsI7hEFKyOmhCDbX98iOWiTp/MKoTh73wd0NNd6/67SXQLMNQyQP8R8WBEHNmvnmkcbcRcBvCD+ZKWKU3K
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(346002)(376002)(396003)(230922051799003)(186009)(82310400011)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(40480700001)(40460700003)(2906002)(47076005)(36860700001)(4744005)(356005)(82740400003)(81166007)(53546011)(70586007)(54906003)(6512007)(70206006)(6506007)(6486002)(26005)(5660300002)(336012)(41300700001)(316002)(478600001)(8936002)(8676002)(6862004)(4326008)(2616005)(86362001)(36756003)(33656002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2023 11:11:35.8164
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 150530de-da96-4afb-43a9-08dbbdb82eb5
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT036.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9840
 
-Hi Andrew,
+--_000_3c79ea2fec984e21b07d9365c08a5862actiase_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> On Sep 25, 2023, at 18:53, andrew.cooper3@citrix.com wrote:
->=20
-> On 25/09/2023 10:11 am, Nicola Vetrini wrote:
->> diff --git a/xen/include/xen/vga.h b/xen/include/xen/vga.h
->> index f72b63d446b1..9b2c47971d0c 100644
->> --- a/xen/include/xen/vga.h
->> +++ b/xen/include/xen/vga.h
->> @@ -13,6 +13,12 @@
->>=20
->> #ifdef CONFIG_VGA
->> extern struct xen_vga_console_info vga_console_info;
->> +int fill_console_start_info(struct dom0_vga_console_info *);
->=20
-> ci
->=20
->> +void vesa_init(void);
->> +void vesa_early_init(void);
->> +void vesa_endboot(bool keep);
->> +#else
->> +static inline void vesa_init(void) {};
->=20
-> Extraneous ;
->=20
-> Both can be fixed on commit, but we're in code freeze now, so every
-> patch needs approving by the release manager (Henry, CC'd)
+Hello,
 
-That is very nice of you, yes please kindly fix on commit, feel free to
-take my tag:
+I've encountered a strange behavior with Xen on arm64 with regards to suspe=
+nd/resume.
 
-Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+My setup:
+Version: Xen 4.13.1
+Target: NXP imx8x SoC
 
-Kind regards,
-Henry
+We also use a set of patches from Aggios (https://xen-devel.narkive.com/yGp=
+s0HKG/rfc-v2-xen-arm-suspend-to-ram-support-in-xen-for-arm)
 
->=20
-> ~Andrew
+Occasionally xen gets stuck on resume. We know that the lower levels wake u=
+p and xen starts to resume because xen's debug console is available. When w=
+e're in this state dom0 does not resume and both pCPU's are in idle loops. =
+If we at this point issue debug console commands (like 'h' for the help men=
+u) that schedule tasklets dom0 wakes up and continues. Debug function that =
+run in the irq-handler does not have the same effect.
 
+This is what the run queue looks like:
+
+sched_smt_power_savings: disabled
+NOW=3D490275382125
+Online Cpus: 0-1
+Cpupool 0:
+Cpus: 0-1
+Scheduler: SMP Credit Scheduler rev2 (credit2)
+Active queues: 1
+    default-weight     =3D 256
+Runqueue 0:
+    ncpus              =3D 2
+    cpus               =3D 0-1
+    max_weight         =3D 256
+    pick_bias          =3D 1
+    instload           =3D 1
+    aveload            =3D 282294 (~107%)
+    idlers: 0
+    tickled: 0
+    fully idle cores: 0
+Domain info:
+    Domain: 0 w 256 c 0 v 2
+      1: [0.0] flags=3D2 cpu=3D1 credit=3D984625 [w=3D256] load=3D208781 (~=
+79%)
+      2: [0.1] flags=3D0 cpu=3D1 credit=3D9742375 [w=3D256] load=3D25693 (~=
+9%)
+    Domain: 1 w 256 c 0 v 1
+      3: [1.0] flags=3D0 cpu=3D1 credit=3D10447250 [w=3D256] load=3D7835 (~=
+2%)
+Runqueue 0:
+CPU[00] runq=3D0, sibling=3D{0}, core=3D{0}
+CPU[01] runq=3D0, sibling=3D{1}, core=3D{1}
+    run: [0.0] flags=3D2 cpu=3D1 credit=3D-1543000 [w=3D256] load=3D208781 =
+(~79%)
+RUNQ:
+      0: [0.1] flags=3D0 cpu=3D1 credit=3D10275375 [w=3D256] load=3D25279 (=
+~9%)
+[t: display multi-cpu clock info]
+Synced stime skew: max=3D125ns avg=3D125ns samples=3D1 current=3D125ns
+Synced cycles skew: max=3D1 avg=3D1 samples=3D1 current=3D1
+
+I would be grateful if I could get some hint's on how to debug this.
+
+Best Regards
+Jonas
+
+
+
+--_000_3c79ea2fec984e21b07d9365c08a5862actiase_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ligatures:standardcontextual;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hello,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I&#8217;ve encountered a strang=
+e behavior with Xen on arm64 with regards to suspend/resume.<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">My setup:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white">Vers=
+ion:
+</span><span style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,san=
+s-serif;color:#172B4D;background:white">Xen 4.13.1<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white">Targ=
+et: NXP imx8x SoC<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white"><o:p=
+>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white">We a=
+lso use a set of patches from Aggios (<a href=3D"https://xen-devel.narkive.=
+com/yGps0HKG/rfc-v2-xen-arm-suspend-to-ram-support-in-xen-for-arm">https://=
+xen-devel.narkive.com/yGps0HKG/rfc-v2-xen-arm-suspend-to-ram-support-in-xen=
+-for-arm</a>)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white"><o:p=
+>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Segoe UI&quot;,sans-serif;color:#172B4D;background:white">Occa=
+sionally xen gets stuck on resume. We know that the lower levels wake up an=
+d xen starts to resume because xen&#8217;s debug console
+ is available. When we&#8217;re in this state dom0 does not resume and both=
+ pCPU&#8217;s are in idle loops. If we at this point issue debug console co=
+mmands (like &#8216;h&#8217; for the help menu) that schedule tasklets dom0=
+ wakes up and continues. Debug function that run in the
+ irq-handler does not have the same effect.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">This is what the run queue look=
+s like:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">sched_smt_power_savings: disabl=
+ed<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">NOW=3D490275382125<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Online Cpus: 0-1<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Cpupool 0:<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Cpus: 0-1<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Scheduler: SMP Credit Scheduler=
+ rev2 (credit2)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Active queues: 1<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; default-weig=
+ht&nbsp;&nbsp;&nbsp;&nbsp; =3D 256<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Runqueue 0:<o:p></o:p></span></=
+p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; ncpus&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D=
+ 2<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; cpus&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; =3D 0-1<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; max_weight&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 256<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; pick_bias&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 1<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; instload&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 1<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; aveload&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 282294 (~=
+107%)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; idlers: 0<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; tickled: 0<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; fully idle c=
+ores: 0<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Domain info:<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; Domain: 0 w =
+256 c 0 v 2<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+1: [0.0] flags=3D2 cpu=3D1 credit=3D984625 [w=3D256] load=3D208781 (~79%)<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+2: [0.1] flags=3D0 cpu=3D1 credit=3D9742375 [w=3D256] load=3D25693 (~9%)<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; Domain: 1 w =
+256 c 0 v 1<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+3: [1.0] flags=3D0 cpu=3D1 credit=3D10447250 [w=3D256] load=3D7835 (~2%)<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Runqueue 0:<o:p></o:p></span></=
+p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">CPU[00] runq=3D0, sibling=3D{0}=
+, core=3D{0}<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">CPU[01] runq=3D0, sibling=3D{1}=
+, core=3D{1}<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp; run: [0.0] f=
+lags=3D2 cpu=3D1 credit=3D-1543000 [w=3D256] load=3D208781 (~79%)<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">RUNQ:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+0: [0.1] flags=3D0 cpu=3D1 credit=3D10275375 [w=3D256] load=3D25279 (~9%)<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">[t: display multi-cpu clock inf=
+o]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Synced stime skew: max=3D125ns =
+avg=3D125ns samples=3D1 current=3D125ns<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Synced cycles skew: max=3D1 avg=
+=3D1 samples=3D1 current=3D1<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I would be grateful if I could =
+get some hint&#8217;s on how to debug this.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Jonas<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_3c79ea2fec984e21b07d9365c08a5862actiase_--
 
