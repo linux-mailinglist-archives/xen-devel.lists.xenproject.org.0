@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E53007ADCC2
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 18:09:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.607931.946258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE7CD7ADDBD
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 19:19:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.607982.946278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qko8m-0006cw-Lb; Mon, 25 Sep 2023 16:08:56 +0000
+	id 1qkpE9-0000od-TN; Mon, 25 Sep 2023 17:18:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 607931.946258; Mon, 25 Sep 2023 16:08:56 +0000
+Received: by outflank-mailman (output) from mailman id 607982.946278; Mon, 25 Sep 2023 17:18:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qko8m-0006bC-It; Mon, 25 Sep 2023 16:08:56 +0000
-Received: by outflank-mailman (input) for mailman id 607931;
- Mon, 25 Sep 2023 16:08:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e0KE=FJ=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1qko8l-0006Yh-0j
- for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 16:08:55 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1af8555-5bbd-11ee-878a-cb3800f73035;
- Mon, 25 Sep 2023 18:08:53 +0200 (CEST)
-Received: from [127.0.0.1] ([99.8.153.148]) (authenticated bits=0)
- by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 38PG7vwg1512316
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Mon, 25 Sep 2023 09:07:58 -0700
+	id 1qkpE9-0000j8-Qi; Mon, 25 Sep 2023 17:18:33 +0000
+Received: by outflank-mailman (input) for mailman id 607982;
+ Mon, 25 Sep 2023 17:18:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1il/=FJ=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1qkpE8-0000do-IJ
+ for xen-devel@lists.xen.org; Mon, 25 Sep 2023 17:18:32 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 88238663-5bc7-11ee-9b0d-b553b5be7939;
+ Mon, 25 Sep 2023 19:18:28 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1qkpDs-0004vH-06; Mon, 25 Sep 2023 17:18:16 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1qkpDr-0005W1-UI; Mon, 25 Sep 2023 17:18:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +43,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1af8555-5bbd-11ee-878a-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 38PG7vwg1512316
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2023091101; t=1695658079;
-	bh=D4dkY7ib239sJgAi09Fyq922U7t4CmCadoRO6xTmuuw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=m+YYgtMYbvG0oSi6qazn8+RQFHlQXxy4UY2F0Rjs+LlWVTXbJbLPUJNxUdaSMUJq+
-	 b7/To74zymNcjg+EeY5RtIp7nST07IEQfhIeHothUwS4zDyLxItkTUc7ZPCdMuN6BB
-	 QRaFihbHEYpIbAfr/55Q5ZC5HWI0PCGLeubKxlwLdb8R4e9SC2t4rY7hPGQxGO8Nii
-	 qQxaxc6FPDuDh2d7sdIIUuXNsw+noU3Xhr4VJg/M8+Fd03my+G3N4jdPz6q+N1Fzm2
-	 kZF9LFH7Je5OllJOyYS8lR7SKuvShm49bOICGyBzUkB+iYLoG0co28aUJ0lbcNNhc1
-	 sdrrP/d4qsEWQ==
-Date: Mon, 25 Sep 2023 09:07:47 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
-        linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-CC: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
-        pbonzini@redhat.com, seanjc@google.com, peterz@infradead.org,
-        jgross@suse.com, ravi.v.shankar@intel.com, mhiramat@kernel.org,
-        andrew.cooper3@citrix.com, jiangshanlai@gmail.com,
-        nik.borisov@suse.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v11_35/37=5D_x86/syscall=3A_Split_ID?= =?US-ASCII?Q?T_syscall_setup_code_into_idt=5Fsyscall=5Finit=28=29?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20230923094212.26520-36-xin3.li@intel.com>
-References: <20230923094212.26520-1-xin3.li@intel.com> <20230923094212.26520-36-xin3.li@intel.com>
-Message-ID: <D4167CD5-B619-448D-B660-24ABC0786E0A@zytor.com>
+X-Inumbo-ID: 88238663-5bc7-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
+	Content-Transfer-Encoding:Content-Type;
+	bh=1SeR4xn+wsNgQw8XgwMb9lXe9y838lCWovJEFN+RunU=; b=oxJl0jPqT1ibAXYpXztu3+sfO+
+	+Vnlx+Mgz6IB0NtzNPsMWkmHd1s/ePd8uilCSY73JsDYmDJ4MTJV6fv4oNq+AfgHxJsLKXwj7Uun0
+	spLxfMmtZOJa95Tz0zWY4XifMlQWrH0kIGUh2TauM22i/XZglUrQs+9teUPo1n0eiUN4=;
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Mailer: MIME-tools 5.509 (Entity 5.509)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 439 v2 (CVE-2023-20588) - x86/AMD: Divide
+ speculative information leak
+Message-Id: <E1qkpDr-0005W1-UI@xenbits.xenproject.org>
+Date: Mon, 25 Sep 2023 17:18:15 +0000
 
-On September 23, 2023 2:42:10 AM PDT, Xin Li <xin3=2Eli@intel=2Ecom> wrote:
->Because FRED uses the ring 3 FRED entrypoint for SYSCALL and SYSENTER and
->ERETU is the only legit instruction to return to ring 3, there is NO need
->to setup SYSCALL and SYSENTER MSRs for FRED, except the IA32_STAR MSR=2E
->
->Split IDT syscall setup code into idt_syscall_init() to make it easy to
->skip syscall setup code when FRED is enabled=2E
->
->Suggested-by: Thomas Gleixner <tglx@linutronix=2Ede>
->Tested-by: Shan Kang <shan=2Ekang@intel=2Ecom>
->Signed-off-by: Xin Li <xin3=2Eli@intel=2Ecom>
->---
-> arch/x86/kernel/cpu/common=2Ec | 13 ++++++++++---
-> 1 file changed, 10 insertions(+), 3 deletions(-)
->
->diff --git a/arch/x86/kernel/cpu/common=2Ec b/arch/x86/kernel/cpu/common=
-=2Ec
->index 20bbedbf6dcb=2E=2E2ee4e7b597a3 100644
->--- a/arch/x86/kernel/cpu/common=2Ec
->+++ b/arch/x86/kernel/cpu/common=2Ec
->@@ -2071,10 +2071,8 @@ static void wrmsrl_cstar(unsigned long val)
-> 		wrmsrl(MSR_CSTAR, val);
-> }
->=20
->-/* May not be marked __init: used by software suspend */
->-void syscall_init(void)
->+static inline void idt_syscall_init(void)
-> {
->-	wrmsr(MSR_STAR, 0, (__USER32_CS << 16) | __KERNEL_CS);
-> 	wrmsrl(MSR_LSTAR, (unsigned long)entry_SYSCALL_64);
->=20
-> 	if (ia32_enabled()) {
->@@ -2108,6 +2106,15 @@ void syscall_init(void)
-> 	       X86_EFLAGS_AC|X86_EFLAGS_ID);
-> }
->=20
->+/* May not be marked __init: used by software suspend */
->+void syscall_init(void)
->+{
->+	/* The default user and kernel segments */
->+	wrmsr(MSR_STAR, 0, (__USER32_CS << 16) | __KERNEL_CS);
->+
->+	idt_syscall_init();
->+}
->+
-> #else	/* CONFIG_X86_64 */
->=20
-> #ifdef CONFIG_STACKPROTECTOR
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-Am I missing something, or is this patch a noop?
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+            Xen Security Advisory CVE-2023-20588 / XSA-439
+                               version 2
+
+             x86/AMD: Divide speculative information leak
+
+UPDATES IN VERSION 2
+====================
+
+Version 1 accidentally linked to the wrong AMD bulletin.  This has been
+corrected in v2.  All other information in v1 is believed to be correct.
+
+ISSUE DESCRIPTION
+=================
+
+In the Zen1 microarchitecure, there is one divider in the pipeline which
+services uops from both threads.  In the case of #DE, the latched result
+from the previous DIV to execute will be forwarded speculatively.
+
+This is a covert channel that allows two threads to communicate without
+any system calls.  In also allows userspace to obtain the result of the
+most recent DIV instruction executed (even speculatively) in the core,
+which can be from a higher privilege context.
+
+For more information, see:
+ * https://www.amd.com/en/resources/product-security/bulletin/amd-sb-7007.html
+
+IMPACT
+======
+
+An attacker might be able to infer data from a different execution
+context on the same CPU core.
+
+VULNERABLE SYSTEMS
+==================
+
+All versions of Xen are vulnerable.
+
+Only AMD Zen1 CPUs are believed to be vulnerable.
+
+MITIGATION
+==========
+
+There is no mitigation.
+
+RESOLUTION
+==========
+
+The patches for Xen overwrite the buffer in the divider on the
+return-to-guest path.
+
+However, as with some prior speculative vulnerabilities, the fix is only
+effective in combination with disabling SMT.  For the same reasons as
+before, Xen does not disable SMT by default.
+
+The system administrator is required to risk-assess their workload, and
+choose whether to enable or disable SMT.  Xen will issue a warning if
+SMT is active and the user has not provided an explicit choice via the
+smt=<bool> command line option.
+
+Details of the vulnerability became public before the Xen patches were
+complete.  Hence the patches are already applied to the appropriate
+trees.  They are:
+
+Xen-unstable: 1c18d7377453^..b5926c6ecf05
+Xen 4.17:     d2d2dcae879c^..9ac2f49f5fa3
+Xen 4.16:     08539e8315fd^..de751c3d906d
+Xen 4.15:     db3386e6cad6^..d7b78041dc81
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmURwLwMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZMjgIAI+pm7OnUq8EbuD6eyB7yDKBRwm9U7Hu2yrO47f0
+CHO/HdMANfx0nCbpKS8+7GXa2gooJXgp3Fo0NGri2G0+hzXNQTsaGnMEMgBV7O0M
+OXYzao39dhPATP4hi5bm0xPTZ+3zMaP06xvl7JqNqsPK8GFz/cZr/Hsz5r2boZRO
+3FXEmbgsG2KTR5+HrSNoeA3LM9aoUqEiIq6oGxLaTr7UI6xK4FL5VFloWhS0r9yp
+gD7HHP6NlV1Ysxt1xKCxf109HrzWEvih/Gd8hG6eqiHR+i2zyS1hna8Ll/sRFkOO
+x9FpYHljtb3WKX9bUh4aZXdoAWRW0aR+SWcXToPSk5aFJiE=
+=W6vz
+-----END PGP SIGNATURE-----
+
+--=separator--
 
