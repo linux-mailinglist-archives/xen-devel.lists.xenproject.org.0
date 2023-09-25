@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7327AD321
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 10:17:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.607696.945975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9237AD44F
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 11:13:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.607721.945994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkgm1-00042P-KD; Mon, 25 Sep 2023 08:16:57 +0000
+	id 1qkhdb-0006ZQ-JC; Mon, 25 Sep 2023 09:12:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 607696.945975; Mon, 25 Sep 2023 08:16:57 +0000
+Received: by outflank-mailman (output) from mailman id 607721.945994; Mon, 25 Sep 2023 09:12:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkgm1-0003zM-HS; Mon, 25 Sep 2023 08:16:57 +0000
-Received: by outflank-mailman (input) for mailman id 607696;
- Mon, 25 Sep 2023 08:16:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qkgm0-0003zD-W5; Mon, 25 Sep 2023 08:16:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qkgm0-00082D-OS; Mon, 25 Sep 2023 08:16:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qkgm0-0006Xu-Fx; Mon, 25 Sep 2023 08:16:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qkgm0-0007Ri-FU; Mon, 25 Sep 2023 08:16:56 +0000
+	id 1qkhdb-0006XX-FH; Mon, 25 Sep 2023 09:12:19 +0000
+Received: by outflank-mailman (input) for mailman id 607721;
+ Mon, 25 Sep 2023 09:12:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FPzs=FJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qkhdZ-0006XR-Qu
+ for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 09:12:17 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d5d02fc-5b83-11ee-9b0d-b553b5be7939;
+ Mon, 25 Sep 2023 11:12:13 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 68B0C4EE0737;
+ Mon, 25 Sep 2023 11:12:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qlUcMcR6TkSlvHG5p3h4KHaXR95u8roD05vPnrNJN54=; b=NXqBRdv8+A66coav1eXBtld4Bv
-	mLsO3PpNGv/bhbaJ3MC8YQ4pPNHsKxLc3mromCdQ0v8Rg0GwZuxG4I48s3d/iLJhfzd/ngfKyiCFk
-	4xiQXVl3Pjd1ysxaaErYrM2LAnxVP44lYmi95Wx9B+zxuxzMtDpKi9MnjXEbH/DyW+2Q=;
+X-Inumbo-ID: 9d5d02fc-5b83-11ee-9b0d-b553b5be7939
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183151-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH v4] drivers/video: make declarations of defined functions available
+Date: Mon, 25 Sep 2023 11:11:41 +0200
+Message-Id: <5830a4d838883a20a6b320dd9af44ef4bb18ddaa.1695632599.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 183151: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=43dcf453fc15ca152945ca41dcce7f2f43a14313
-X-Osstest-Versions-That:
-    ovmf=8b2e6b90b85fd4b1f7f921da09b16f5175acea8a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 Sep 2023 08:16:56 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 183151 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183151/
+The declarations for 'vesa_{init,early_init,endboot}' needed by
+'xen/drivers/video/vesa.c' and 'fill_console_start_info' in 'vga.c'
+are now available by moving the relative code inside 'vga.h'.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 43dcf453fc15ca152945ca41dcce7f2f43a14313
-baseline version:
- ovmf                 8b2e6b90b85fd4b1f7f921da09b16f5175acea8a
+While moving the code, the alternative definitions are now guarded by
+CONFIG_VGA. The alternative #define-s for 'vesa_early_init' and 'vesa_endboot'
+are dropped, since currently they have no callers when CONFIG_VGA is not defined. 
 
-Last test of basis   183119  2023-09-22 15:12:28 Z    2 days
-Testing same since   183151  2023-09-25 03:12:35 Z    0 days    1 attempts
+This also resolves violations of MISRA C:2012 Rule 8.4.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Henz, Patrick <patrick.henz@hpe.com>
-  Patrick Henz <patrick.henz@hpe.com>
+Fixes: 6d9199bd0f22 ("x86-64: enable hypervisor output on VESA frame buffer")
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- Moved fill_console_start_info to vga.h
+  (21bee1787021 introduced this function)
+Changes in v3:
+- Changed the preprocessor guard
+- Replace the inclusions of <xen/console.h> with <xen/vga.h> where needed.
+Changes in v4:
+- Reworded commit message
+- Removed superfluous stub definitions
+---
+ xen/arch/x86/include/asm/setup.h  | 6 ------
+ xen/arch/x86/platform_hypercall.c | 2 +-
+ xen/arch/x86/pv/dom0_build.c      | 2 +-
+ xen/drivers/video/vga.c           | 8 --------
+ xen/include/xen/console.h         | 2 --
+ xen/include/xen/vga.h             | 6 ++++++
+ 6 files changed, 8 insertions(+), 18 deletions(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index b0e6a39e2365..dfdd9e555149 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -25,12 +25,6 @@ void subarch_init_memory(void);
+ 
+ void init_IRQ(void);
+ 
+-#ifdef CONFIG_VIDEO
+-void vesa_init(void);
+-#else
+-static inline void vesa_init(void) {};
+-#endif
+-
+ int construct_dom0(
+     struct domain *d,
+     const module_t *image, unsigned long image_headroom,
+diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
+index 9ff2da8fc324..9469de9045c7 100644
+--- a/xen/arch/x86/platform_hypercall.c
++++ b/xen/arch/x86/platform_hypercall.c
+@@ -14,7 +14,6 @@
+ #include <xen/event.h>
+ #include <xen/domain_page.h>
+ #include <xen/trace.h>
+-#include <xen/console.h>
+ #include <xen/iocap.h>
+ #include <xen/guest_access.h>
+ #include <xen/hypercall.h>
+@@ -24,6 +23,7 @@
+ #include <xen/pmstat.h>
+ #include <xen/irq.h>
+ #include <xen/symbols.h>
++#include <xen/vga.h>
+ #include <asm/current.h>
+ #include <public/platform.h>
+ #include <acpi/cpufreq/processor_perf.h>
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index 909ee9a899a4..5bbed3a36a21 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -4,7 +4,6 @@
+  * Copyright (c) 2002-2005, K A Fraser
+  */
+ 
+-#include <xen/console.h>
+ #include <xen/domain.h>
+ #include <xen/domain_page.h>
+ #include <xen/init.h>
+@@ -13,6 +12,7 @@
+ #include <xen/pfn.h>
+ #include <xen/sched.h>
+ #include <xen/softirq.h>
++#include <xen/vga.h>
+ 
+ #include <asm/bzimage.h>
+ #include <asm/dom0_build.h>
+diff --git a/xen/drivers/video/vga.c b/xen/drivers/video/vga.c
+index 0a03508bee60..18b590cdf072 100644
+--- a/xen/drivers/video/vga.c
++++ b/xen/drivers/video/vga.c
+@@ -54,14 +54,6 @@ string_param("vga", opt_vga);
+ static unsigned int columns, lines;
+ #define ATTRIBUTE   7
+ 
+-#ifdef CONFIG_X86
+-void vesa_early_init(void);
+-void vesa_endboot(bool_t keep);
+-#else
+-#define vesa_early_init() ((void)0)
+-#define vesa_endboot(x)   ((void)0)
+-#endif
+-
+ void __init video_init(void)
+ {
+     char *p;
+diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
+index 53c56191ba9e..ab5c30c0daf2 100644
+--- a/xen/include/xen/console.h
++++ b/xen/include/xen/console.h
+@@ -20,8 +20,6 @@ void console_init_postirq(void);
+ void console_endboot(void);
+ int console_has(const char *device);
+ 
+-int fill_console_start_info(struct dom0_vga_console_info *);
+-
+ unsigned long console_lock_recursive_irqsave(void);
+ void console_unlock_recursive_irqrestore(unsigned long flags);
+ void console_force_unlock(void);
+diff --git a/xen/include/xen/vga.h b/xen/include/xen/vga.h
+index f72b63d446b1..9b2c47971d0c 100644
+--- a/xen/include/xen/vga.h
++++ b/xen/include/xen/vga.h
+@@ -13,6 +13,12 @@
+ 
+ #ifdef CONFIG_VGA
+ extern struct xen_vga_console_info vga_console_info;
++int fill_console_start_info(struct dom0_vga_console_info *);
++void vesa_init(void);
++void vesa_early_init(void);
++void vesa_endboot(bool keep);
++#else
++static inline void vesa_init(void) {};
+ #endif
+ 
+ #endif /* _XEN_VGA_H */
+-- 
+2.34.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8b2e6b90b8..43dcf453fc  43dcf453fc15ca152945ca41dcce7f2f43a14313 -> xen-tested-master
 
