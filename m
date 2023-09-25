@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB397ADE60
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 20:11:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608065.946331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0C07ADEF7
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Sep 2023 20:34:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608072.946344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkq39-0006HN-Gy; Mon, 25 Sep 2023 18:11:15 +0000
+	id 1qkqOg-0002PC-Ct; Mon, 25 Sep 2023 18:33:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608065.946331; Mon, 25 Sep 2023 18:11:15 +0000
+Received: by outflank-mailman (output) from mailman id 608072.946344; Mon, 25 Sep 2023 18:33:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qkq39-0006EY-EG; Mon, 25 Sep 2023 18:11:15 +0000
-Received: by outflank-mailman (input) for mailman id 608065;
- Mon, 25 Sep 2023 18:11:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jxCo=FJ=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qkq37-0006CB-GR
- for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 18:11:13 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e76e5e59-5bce-11ee-9b0d-b553b5be7939;
- Mon, 25 Sep 2023 20:11:10 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 45D9F8285190;
- Mon, 25 Sep 2023 13:11:09 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id CJjrGQbRkn7h; Mon, 25 Sep 2023 13:11:07 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id C799D828556B;
- Mon, 25 Sep 2023 13:11:07 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id PRqRV2614bKw; Mon, 25 Sep 2023 13:11:07 -0500 (CDT)
-Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 914288285190;
- Mon, 25 Sep 2023 13:11:07 -0500 (CDT)
+	id 1qkqOg-0002MO-9T; Mon, 25 Sep 2023 18:33:30 +0000
+Received: by outflank-mailman (input) for mailman id 608072;
+ Mon, 25 Sep 2023 18:33:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qkqOe-0002MI-QG
+ for xen-devel@lists.xenproject.org; Mon, 25 Sep 2023 18:33:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qkqOe-0006uz-CN; Mon, 25 Sep 2023 18:33:28 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qkqOe-00020B-5s; Mon, 25 Sep 2023 18:33:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,103 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e76e5e59-5bce-11ee-9b0d-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com C799D828556B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1695665467; bh=PveyGtbqZtJ73LuTrgM5cgpKVjcNUW8ZMGjMgt/CeA4=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=HQzeEvwEyhXXBVNTvmTcRbM6kuZb/vPRGXZMsaWL554T8EgnkoRV3pZLXRnHPl5sO
-	 OmFgcENJnzEgPJyUmStDRq3vI1eDCHsNmqnuKJhLgWQERccX4BVnTlx9Rv5UIC/emu
-	 RkJqi58KXcrA1L7acP1YYZbAmjkSQaoAj3iXbhV8=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <752d163b-7830-9150-0757-8cadc22309f7@raptorengineering.com>
-Date: Mon, 25 Sep 2023 13:11:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Fuix1avwfmcAPWyXGNOfh55VhzAnJtmnl0NVoXcCljI=; b=bl//sYNBiZjxfxDbG72l5fxPGS
+	Yw/i9/QWWsDjKHjTyopWyHs2wrrWB1ISgQoYK56y59Y2wIsnFhUNJbfY1MJlyeYkwMhvZix8E71H/
+	gYPnlNqp4nEXWyfUDCyv8NnrsjC02EWUqEb3105J5FexQoT7vBquMSDUCPV82HO4Xrps=;
+Message-ID: <d4ab6108-b190-437e-bd15-af9afb086794@xen.org>
+Date: Mon, 25 Sep 2023 19:33:26 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: xen | Failed pipeline for staging | ea36ac0d
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
+User-Agent: Mozilla Thunderbird
+Subject: [for-4.18] Re: [PATCH v2] ARM: GICv3 ITS: flush caches for newly
+ allocated ITT
+Content-Language: en-GB
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <65096f918e2e5_29a56047619e@gitlab-sidekiq-catchall-v2-84c6ffbc68-bt8nn.mail>
- <9aa0fad3-4132-8444-fb3f-8e1d542652e6@suse.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <9aa0fad3-4132-8444-fb3f-8e1d542652e6@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Henry Wang <Henry.Wang@arm.com>
+References: <20230922222710.1383808-1-volodymyr_babchuk@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230922222710.1383808-1-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/19/23 5:21 AM, Jan Beulich wrote:
-> On 19.09.2023 11:53, GitLab wrote:
->>
->>
->> Pipeline #1009404353 has failed!
->>
->> Project: xen ( https://gitlab.com/xen-project/xen )
->> Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
->>
->> Commit: ea36ac0d ( https://gitlab.com/xen-project/xen/-/commit/ea36ac0de27c2a7c847a2a52c3e0f97a45864d81 )
->> Commit Message: xen/ppc: Enable full Xen build
->>
->> Bring ppc's Mak...
->> Commit Author: Shawn Anastasio
->> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
->>
->>
->> Pipeline #1009404353 ( https://gitlab.com/xen-project/xen/-/pipelines/1009404353 ) triggered by Ganis ( https://gitlab.com/ganis )
->> had 5 failed jobs.
->>
->> Job #5118269375 ( https://gitlab.com/xen-project/xen/-/jobs/5118269375/raw )
->>
->> Stage: build
->> Name: debian-bullseye-gcc-ppc64le-debug-randconfig
-> 
-> This and ...
-> 
->> Job #5118269256 ( https://gitlab.com/xen-project/xen/-/jobs/5118269256/raw )
->>
->> Stage: analyze
->> Name: eclair-x86_64
->> Job #5118269373 ( https://gitlab.com/xen-project/xen/-/jobs/5118269373/raw )
->>
->> Stage: build
->> Name: debian-bullseye-gcc-ppc64le-randconfig
-> 
-> ... this imo can't be expected to work. Is it really useful to run randconfig
-> tests on ports which are only in the process of being brought up?
->
+Hi,
 
-Agreed, randconfig could probably use dropping for now. I'll prepare a
-patch.
+(Adding [for-4.18] in the title for Henry to spot the request)
 
->> Job #5118269370 ( https://gitlab.com/xen-project/xen/-/jobs/5118269370/raw )
->>
->> Stage: build
->> Name: debian-bullseye-gcc-ppc64le-debug
->> Job #5118269369 ( https://gitlab.com/xen-project/xen/-/jobs/5118269369/raw )
->>
->> Stage: build
->> Name: debian-bullseye-gcc-ppc64le
+On 22/09/2023 23:27, Volodymyr Babchuk wrote:
+> ITS manages Device Tables and Interrupt Translation Tables on its own,
+> so generally we are not interested in maintaining any coherence with
+> CPU's view of those memory regions, except one case: ITS requires that
+> Interrupt Translation Tables should be initialized with
+> zeroes. Existing code already does this, but it does not cleans
+> caches afterwards. This means that ITS may see un-initialized ITT and
+> CPU can overwrite portions of ITT later, when it finally decides to
+> flush caches. Visible effect of this issue that there are not
+> interrupts delivered from a device.
 > 
-> These two, otoh, look to be a result of the tests pre-seeding xen/.config with
-> CONFIG_DEBUG settings, followed by making the olddefconfig goal. That, aiui,
-> isn't picking up xen/arch/*/configs/*_defconfig, which at this point is
-> mandatory for PPC (and likely is going to be so also for RISC-V once the full
-> build is enabled there), at least as far as some of the option disables there
-> go.
+> Fix this by calling clean_and_invalidate_dcache_va_range() for newly
+> allocated ITT.
 > 
-> I think this wants switching to making the defconfig goal, and substituting
-> CONFIG_DEBUG in the resulting .config. Due to x86'es and Arm's defconfig-s
-> all being empty, this ought to be no change in what exactly is being tested
-> there.
->
 
-These two have KBUILD_DEFCONFIG set to ppc64_defconfig in their
-configuration (build.yaml:552), so I'm not sure what exactly needs to be
-changed in order to get the desired behavior.
+I would consider to add:
 
-> Jan
+Fixes: 69082e1c210d ("ARM: GICv3 ITS: introduce device mapping")
 
-Thanks,
-Shawn
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+@Henry, this patch should be low-risk. We are cleaning & invalidating 
+the cache, so there should be no change for platform not requiring cache 
+maintenance. This should hopefully had support for more platform. Note 
+that the GICv3 ITS feature is still experimental.
+
+Based on what I wrote above, would you be OK to have this patch in 4.18?
+
+Cheers,
+
+-- 
+Julien Grall
 
