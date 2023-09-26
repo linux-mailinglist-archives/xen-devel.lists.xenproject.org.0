@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A418C7AF0B3
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 18:30:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608465.946941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F5217AF1E4
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 19:45:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608472.946951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlAw5-0001nA-7Y; Tue, 26 Sep 2023 16:29:21 +0000
+	id 1qlC62-0004jh-Jr; Tue, 26 Sep 2023 17:43:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608465.946941; Tue, 26 Sep 2023 16:29:21 +0000
+Received: by outflank-mailman (output) from mailman id 608472.946951; Tue, 26 Sep 2023 17:43:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlAw5-0001lB-4d; Tue, 26 Sep 2023 16:29:21 +0000
-Received: by outflank-mailman (input) for mailman id 608465;
- Tue, 26 Sep 2023 16:29:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qlAw3-0001kx-IA; Tue, 26 Sep 2023 16:29:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qlAw3-000709-DB; Tue, 26 Sep 2023 16:29:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qlAw3-00045W-1M; Tue, 26 Sep 2023 16:29:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qlAw3-0000mN-0o; Tue, 26 Sep 2023 16:29:19 +0000
+	id 1qlC62-0004i1-GS; Tue, 26 Sep 2023 17:43:42 +0000
+Received: by outflank-mailman (input) for mailman id 608472;
+ Tue, 26 Sep 2023 17:43:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IkXO=FK=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qlC61-0004hj-HB
+ for xen-devel@lists.xenproject.org; Tue, 26 Sep 2023 17:43:41 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34d14d99-5c94-11ee-878a-cb3800f73035;
+ Tue, 26 Sep 2023 19:43:32 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id A1574828556B;
+ Tue, 26 Sep 2023 12:43:22 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id WypO6wFJ1aEq; Tue, 26 Sep 2023 12:43:21 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id B427382857EF;
+ Tue, 26 Sep 2023 12:43:21 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id KuSDRRb40TjV; Tue, 26 Sep 2023 12:43:21 -0500 (CDT)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 09688828556B;
+ Tue, 26 Sep 2023 12:43:20 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +51,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ASNJNBkk47gzzY99UARZ35KpPGHELXS6naocWcA7rmY=; b=3dfFfhIU/6aoooR1M7arLLdR0m
-	TTSQDNs+4uzEaoUiOGQQWczAReJ1ebJdt9ZZJOXfjrk1vLBJDCLYofXBSEPk4hqPG8ZrPVihvPh+O
-	yMQqODhi/djrZLQNWvNbdwZZ0KdLsElsB5Nxqbc1QJCA2JyWbGjhPSgeVxHD0wTEeljc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183179-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 34d14d99-5c94-11ee-878a-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com B427382857EF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1695750201; bh=awV4JiSFn5yl9G+gOQk8GMFw9Vl8DKZX7jYRBXuOro0=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=OstKRatVe6FlqHTO4+00blwjw1Rp31bM+2aOe9pGvBx8B44J9jEQnEH+5ZPd2rNdA
+	 Qj9azrCBwjpcIlF8XsG0AaCrBHDtY/Pw4COWLP1cgHP8eevbbpGrmecwmObEQA9VtS
+	 PtmdQo4zArYP/UnZdfQwgftfiD5/Zp/8HgcwLRfo=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <2f348eb1-1e66-22d4-dafe-20ada835155f@raptorengineering.com>
+Date: Tue, 26 Sep 2023 12:43:19 -0500
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183179: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=cbb71b95dd708b1e26899bbe1e7bf9a85081fd60
-X-Osstest-Versions-That:
-    xen=d6351a10c80fcbbf2b5996d351b7181ba17b3b32
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 26 Sep 2023 16:29:19 +0000
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH 2/3] automation: Change build script to use arch defconfig
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Doug Goldstein <cardoe@cardoe.com>, Michal Orzel <michal.orzel@amd.com>
+References: <cover.1695681330.git.sanastasio@raptorengineering.com>
+ <beb83dd70b15ee6bd896fb26532f5debf955cd48.1695681330.git.sanastasio@raptorengineering.com>
+ <alpine.DEB.2.22.394.2309251609330.1403502@ubuntu-linux-20-04-desktop>
+ <59f73c32-bde9-b0a4-00e8-24db1fea2d87@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <59f73c32-bde9-b0a4-00e8-24db1fea2d87@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 183179 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183179/
+On 9/26/23 2:19 AM, Jan Beulich wrote:
+> On 26.09.2023 01:12, Stefano Stabellini wrote:
+>> On Mon, 25 Sep 2023, Shawn Anastasio wrote:
+>>> Change automation build script to call the make defconfig target before
+>>> setting CONFIG_DEBUG and extra options. This fixes issues on Power where
+>>> the build fails without using the ppc64_defconfig.
+>>>
+>>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>> Reported-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Nit: Tags in chronological order please (also affects patch 1).
+>
+Will fix.
 
-Failures :-/ but no regressions.
+>> What is the problem specifically? Is the issue that CONFIG_DEBUG enabled
+>> before make olddefconfig causes certain DEBUG options also to default to
+>> yes, and these additional options don't work well on Power?
+> 
+> No, the issue is that "make olddefconfig" takes the existing .config
+> without even considering the arch's default configuration that was
+> specified (KBUILD_DEFCONFIG).
+> 
+>>> --- a/automation/scripts/build
+>>> +++ b/automation/scripts/build
+>>> @@ -22,7 +22,12 @@ if [[ "${RANDCONFIG}" == "y" ]]; then
+>>>      # RANDCONFIG implies HYPERVISOR_ONLY
+>>>      HYPERVISOR_ONLY="y"
+>>>  else
+>>> -    echo "CONFIG_DEBUG=${debug}" > xen/.config
+>>> +    # Start off with arch's defconfig
+>>> +    make -C xen defconfig
+>>> +
+>>> +    # Drop existing CONFIG_DEBUG and replace with value of ${debug}
+>>> +    sed -i 's/^CONFIG_DEBUG=[yn]//g' xen/.config
+>>> +    echo "CONFIG_DEBUG=${debug}" >> xen/.config
+>>>
+>>>      if [[ -n "${EXTRA_XEN_CONFIG}" ]]; then
+>>>          echo "${EXTRA_XEN_CONFIG}" >> xen/.config
+> 
+> It never really became clear to me whether kconfig honors the first,
+> last, or any random setting in a .config that it takes as input, when
+> a certain option appears there more than once. The change you make
+> implies it's consistently "last" - can you confirm that's the actual
+> behavior of kconfig?
+>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I actually tried to avoid this issue alltogether with the sed command I
+added before the echo to drop any existing CONFIG_DEBUG= line.
 
-version targeted for testing:
- xen                  cbb71b95dd708b1e26899bbe1e7bf9a85081fd60
-baseline version:
- xen                  d6351a10c80fcbbf2b5996d351b7181ba17b3b32
+> Jan
 
-Last test of basis   183156  2023-09-25 09:00:25 Z    1 days
-Testing same since   183176  2023-09-26 09:00:28 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Shawn Anastasio <sanastasio@raptorengineering.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   d6351a10c8..cbb71b95dd  cbb71b95dd708b1e26899bbe1e7bf9a85081fd60 -> smoke
+Thanks,
+Shawn
 
