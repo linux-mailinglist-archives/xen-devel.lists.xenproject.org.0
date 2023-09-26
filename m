@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55E87AECE4
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 14:31:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608433.946893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9298C7AEE07
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 15:37:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608440.946901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ql7Cq-0000RQ-Nj; Tue, 26 Sep 2023 12:30:24 +0000
+	id 1ql8EW-0001nq-Gm; Tue, 26 Sep 2023 13:36:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608433.946893; Tue, 26 Sep 2023 12:30:24 +0000
+Received: by outflank-mailman (output) from mailman id 608440.946901; Tue, 26 Sep 2023 13:36:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ql7Cq-0000OT-Je; Tue, 26 Sep 2023 12:30:24 +0000
-Received: by outflank-mailman (input) for mailman id 608433;
- Tue, 26 Sep 2023 12:30:23 +0000
+	id 1ql8EW-0001m9-EB; Tue, 26 Sep 2023 13:36:12 +0000
+Received: by outflank-mailman (input) for mailman id 608440;
+ Tue, 26 Sep 2023 13:36:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ql7Cp-0000OJ-KX; Tue, 26 Sep 2023 12:30:23 +0000
+ id 1ql8EV-0001lz-84; Tue, 26 Sep 2023 13:36:11 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ql7Cp-0000Uj-HZ; Tue, 26 Sep 2023 12:30:23 +0000
+ id 1ql8EV-00025u-5I; Tue, 26 Sep 2023 13:36:11 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ql7Cp-0003VK-1R; Tue, 26 Sep 2023 12:30:23 +0000
+ id 1ql8EU-00065J-Ko; Tue, 26 Sep 2023 13:36:10 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ql7Cp-0006AU-10; Tue, 26 Sep 2023 12:30:23 +0000
+ id 1ql8EU-0007nK-KO; Tue, 26 Sep 2023 13:36:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,67 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/uf4TPepzF8OKye2W7J8sl1kAVi7OZQMVxBu2B2/MG8=; b=gh07eK8+IgNVJIbhAgunSpGVD+
-	vxBFZGnxTz9cPEdhwiyZuUoSIMJp7ExZHszm32p73nETWUM+k5foVBTPJrXwHSLBR0+nqMUucufZo
-	gsq3dcVAeKD+hU0WhBXIJWaVv74pMFF+aNYrwh6LwyE2VM8WpJ15C2iunoHqzm8pQYQo=;
+	bh=58EcEfPYiUpPTA7w/SjmXMzT3N8TcSGx1M6FsfzgxxA=; b=3KhbDG7bMOMT20I1asWGKRRb67
+	LH/EyipjnCKp/wXFbQlvQysLym03DQeY0v/8vYzNPGwf918e6olbNTR405M0Yauhp+duBs9DJWkFN
+	9ge5N4DBnsuZRdvGlxorDVA6FmO+MSyHbCqH/HPDJ5zh4C1CgOXJFZ2DcBVuAHu2G81U=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183172-mainreport@xen.org>
+Message-ID: <osstest-183176-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [libvirt test] 183172: tolerable all pass - PUSHED
+Subject: [xen-unstable-smoke test] 183176: regressions - FAIL
 X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:host-ping-check-xen:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    libvirt=51a074e74c6ef2fb95e6f53d41315e3f1e00be77
+    xen=cbb71b95dd708b1e26899bbe1e7bf9a85081fd60
 X-Osstest-Versions-That:
-    libvirt=3fd64fb0e236fc80ffa2cc977c0d471f11fc39bf
+    xen=d6351a10c80fcbbf2b5996d351b7181ba17b3b32
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 26 Sep 2023 12:30:23 +0000
+Date: Tue, 26 Sep 2023 13:36:10 +0000
 
-flight 183172 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183172/
+flight 183176 xen-unstable-smoke real [real]
+flight 183177 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183176/
+http://logs.test-lab.xenproject.org/osstest/logs/183177/
 
-Failures :-/ but no regressions.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl          10 host-ping-check-xen      fail REGR. vs. 183156
 
 Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183126
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183126
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183126
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
 version targeted for testing:
- libvirt              51a074e74c6ef2fb95e6f53d41315e3f1e00be77
+ xen                  cbb71b95dd708b1e26899bbe1e7bf9a85081fd60
 baseline version:
- libvirt              3fd64fb0e236fc80ffa2cc977c0d471f11fc39bf
+ xen                  d6351a10c80fcbbf2b5996d351b7181ba17b3b32
 
-Last test of basis   183126  2023-09-23 04:18:44 Z    3 days
-Testing same since   183172  2023-09-26 04:20:27 Z    0 days    1 attempts
+Last test of basis   183156  2023-09-25 09:00:25 Z    1 days
+Testing same since   183176  2023-09-26 09:00:28 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Dmitry Frolov <frolov@swemel.ru>
-  Jim Fehlig <jfehlig@suse.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
+  Jan Beulich <jbeulich@suse.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+  Stefano Stabellini <sstabellini@kernel.org>
 
 jobs:
- build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
  build-amd64                                                  pass    
- build-arm64                                                  pass    
  build-armhf                                                  pass    
- build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
  test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
 
 
 ------------------------------------------------------------
@@ -179,8 +124,42 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Pushing revision :
+Not pushing.
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   3fd64fb0e2..51a074e74c  51a074e74c6ef2fb95e6f53d41315e3f1e00be77 -> xen-tested-master
+------------------------------------------------------------
+commit cbb71b95dd708b1e26899bbe1e7bf9a85081fd60
+Author: Shawn Anastasio <sanastasio@raptorengineering.com>
+Date:   Tue Sep 26 10:08:25 2023 +0200
+
+    automation: Drop ppc64le-*randconfig jobs
+    
+    Since ppc64le is still undergoing early bringup, disable the randconfig
+    CI build which was causing spurious CI failures.
+    
+    Reported-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit e47f8c6c2a27cbdadb75b443af069a77f917067d
+Author: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Date:   Tue Sep 26 10:06:18 2023 +0200
+
+    drivers/video: make declarations of defined functions available
+    
+    The declarations for 'vesa_{init,early_init,endboot}' needed by
+    'xen/drivers/video/vesa.c' and 'fill_console_start_info' in 'vga.c'
+    are now available by moving the relative code inside 'vga.h'.
+    
+    While moving the code, the alternative definitions are now guarded by
+    CONFIG_VGA. The alternative #define-s for 'vesa_early_init' and 'vesa_endboot'
+    are dropped, since currently they have no callers when CONFIG_VGA is not defined.
+    
+    This also resolves violations of MISRA C:2012 Rule 8.4.
+    
+    Fixes: 6d9199bd0f22 ("x86-64: enable hypervisor output on VESA frame buffer")
+    Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+(qemu changes not included)
 
