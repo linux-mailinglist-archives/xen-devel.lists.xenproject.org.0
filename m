@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FDFD7AE78E
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 10:11:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608350.946776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A4497AE82C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Sep 2023 10:37:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608359.946786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ql39r-0003Gq-4M; Tue, 26 Sep 2023 08:11:03 +0000
+	id 1ql3Yp-0001qv-3U; Tue, 26 Sep 2023 08:36:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608350.946776; Tue, 26 Sep 2023 08:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 608359.946786; Tue, 26 Sep 2023 08:36:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ql39r-0003F7-1c; Tue, 26 Sep 2023 08:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 608350;
- Tue, 26 Sep 2023 08:11:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ql3Yp-0001oV-01; Tue, 26 Sep 2023 08:36:51 +0000
+Received: by outflank-mailman (input) for mailman id 608359;
+ Tue, 26 Sep 2023 08:36:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O22Y=FK=suse.com=nik.borisov@srs-se1.protection.inumbo.net>)
- id 1ql39q-0003Ew-Dn
- for xen-devel@lists.xenproject.org; Tue, 26 Sep 2023 08:11:02 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on062f.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a5a5622-5c44-11ee-9b0d-b553b5be7939;
- Tue, 26 Sep 2023 10:11:00 +0200 (CEST)
-Received: from PA4PR04MB7790.eurprd04.prod.outlook.com (2603:10a6:102:cc::8)
- by PR3PR04MB7308.eurprd04.prod.outlook.com (2603:10a6:102:80::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=zadu=FK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ql3Yn-0001oP-D2
+ for xen-devel@lists.xenproject.org; Tue, 26 Sep 2023 08:36:49 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::61d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4112736-5c47-11ee-878a-cb3800f73035;
+ Tue, 26 Sep 2023 10:36:47 +0200 (CEST)
+Received: from BL1PR13CA0345.namprd13.prod.outlook.com (2603:10b6:208:2c6::20)
+ by CH0PR12MB5107.namprd12.prod.outlook.com (2603:10b6:610:be::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Tue, 26 Sep
- 2023 08:10:57 +0000
-Received: from PA4PR04MB7790.eurprd04.prod.outlook.com
- ([fe80::edd3:f00:3088:6e61]) by PA4PR04MB7790.eurprd04.prod.outlook.com
- ([fe80::edd3:f00:3088:6e61%4]) with mapi id 15.20.6813.027; Tue, 26 Sep 2023
- 08:10:57 +0000
+ 2023 08:36:42 +0000
+Received: from BL02EPF0001A104.namprd05.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::a7) by BL1PR13CA0345.outlook.office365.com
+ (2603:10b6:208:2c6::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.20 via Frontend
+ Transport; Tue, 26 Sep 2023 08:36:42 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.14 via Frontend Transport; Tue, 26 Sep 2023 08:36:42 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 26 Sep
+ 2023 03:36:40 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 26 Sep
+ 2023 03:36:39 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Tue, 26 Sep 2023 03:36:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +63,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a5a5622-5c44-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: d4112736-5c47-11ee-878a-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mJIiNVnIi1U9Gun+B5TKso75IXXKPeqFiqfKgkSr+CD/Ht+FavBSUI2qkPuyrqFFkF5+wKorbHqtt0yYUaCS7brK64Qq/uyDLWLIYguFw7mDdxxyeRuQ5+rfnmPMjAohrAyhQ+bs78++draT+5QApwpWpG1XBBxTsa2F1DkTKprKmW5njIkSQop2z+6G6RkgGemMc0AW5IqGrBUdwCZzsJwPpqGwJ4SvxEp+OiTG6FZGpltkSNoxsZHn47Tgo9Ds6GBHNfu4mm4RjMX0psThqZjfa9Ehuy51NyDKjoC9/3dN6T/UZR9+utgmehJoVW1B180GrKHPdzfyAUHaMX4Uqw==
+ b=dtdKHhKF+NqiBXH0d/U0R6JEy+l+4hYV+ckw+UXU71mqkIRi75tUo0ffUVePgDXOFPsGhadep2XQ3oqbEQznnC5VG59/+b8nDPiVKbjRWe90moVVwdmouZa8Abo929CDzP+C/CEpgRJGEboHpenZ15X/9RKLW/teOYCywwMBHqbTeDdKu5iirys2tj45/TBIXz2s2ABBxo6Fe28UC07R3oyo61DPGrnc6XK0C7oYaoOSdQrGHFtcXdzNEZ31hFdJPhN7eJYZNPziFYhwvqKxu211f4yqqZ9w3kKG3U4irfoESEHT7GIc9X8NjGar13JDrDH0a0FgMaOthb2lydY2PA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TyZEe6WbNYUl0OlEuOpwvuzVbgy4StGtpHEjSLuTn/I=;
- b=Eqan70rzVaXbRYv8THfTRE3yN7h7D3ApmrK6Q/rYKBTahB/SkTta4kJmNRRS8kbTBVA5+Cj9nacRwZ76uVF59nBPW5GbiHP0vvnlWE7WIC2wcp9ELTDA5RXkadXlZ1lHMx5IsBJq5/3tCCC5H3H36idXpz0uTq+s8QebPKVj76gINCAJ4MEmWBnxa01E7UKQinRd5P3N/okL0UmAhuxxAwWnwtIEFSB2VQLB9xOKN8b5eo6gM2lHuJz8C6QihwA1pIQIB3UgvmFBfMrTE5YOdOBRaISSvluKRzeSxrnFRpwRFkJENkdcEE3pg7nCdt1bVA0SaoOScpQD/o1vubSzpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=OJDLhCR314p+O+W8iM1wkVF4IyFJUY+coostCiKCla8=;
+ b=UATuKEJmIwml4zLOkCdQoBIdqtZqd6BBbA4VcoGTLiYZfryifCapSZQvNQDh+MBkFLfbHNV3ycpqeUhvtmUVA2kHGyzdQWqoZ0MvN+8XN4c1uw6bAaCS0VBzpwnTfHZ4Ix5q6Jw70oN4TNTQSPWtjCKyhlcoD/Yg75exYwDyqLkvKRZibsftt+7XzA8e4SmW/MzDucMnyqsgE8oBYHtdVfnVolFB/vuhKMPeo9SbAi9XVfRHI5Igen3sb7bFXg2F+sEdB9mCBHhRNPhJIKb3T8opW7ZqAg4dUjG2/IDBHx1JQSOBSMTHFy7yd5akTYpkeuWFdu0bgV29jTeisQSkUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TyZEe6WbNYUl0OlEuOpwvuzVbgy4StGtpHEjSLuTn/I=;
- b=cuw5VU3ZvbBN3If06lGMF0LrgE6QKNg2SAE2+a3PVQQnOGDbT+XJnuHiVBovgxLqprlA/Q2B2zrTtbAtE792xsZcuRf5801QkUFKDMagyukbExfSe5C2IOOnOeF6KQ4QUAHPr47VActxtreXX0Xd69OrDe+1wvadCUwnAwUlNaCJcpbGCuN5LEWgJQeHYF+FPvAmG06nu07HScRksNhXj4mMfWTvMcIhCTbNTTXoRkENbKooFmb5E760sXXGypTjMdSsbJG+1nSOoI70tFGBukAgBWBfZKlJY33oKR28YKnFebSTtMsEsSIbLkaHHrGk0Zq2wAZe+LPOKDwuE/Ee3g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7acd7bb3-0406-4fd9-8396-835bfd951d87@suse.com>
-Date: Tue, 26 Sep 2023 11:10:51 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
- pbonzini@redhat.com, seanjc@google.com, peterz@infradead.org,
- jgross@suse.com, ravi.v.shankar@intel.com, mhiramat@kernel.org,
- andrew.cooper3@citrix.com, jiangshanlai@gmail.com
-References: <20230923094212.26520-1-xin3.li@intel.com>
- <20230923094212.26520-6-xin3.li@intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Subject: Re: [PATCH v11 05/37] x86/trapnr: Add event type macros to
- <asm/trapnr.h>
-In-Reply-To: <20230923094212.26520-6-xin3.li@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI1PR07CA0137.eurprd07.prod.outlook.com
- (2603:10a6:802:16::24) To PA4PR04MB7790.eurprd04.prod.outlook.com
- (2603:10a6:102:cc::8)
+ bh=OJDLhCR314p+O+W8iM1wkVF4IyFJUY+coostCiKCla8=;
+ b=yim16/PZWnG9DzfKZOe5Etx2tmnzgP8W2j3GLvd+IkJgVahC81QO2td1fFofscWWOAHUSaxBTXngZeGJaLL+G6ydig2d3Yd+rNy+T/hL87ClMdvt+SXkIdsWSF0zT0SaaVB+krdjR+kUIUG40oJU/M27KtTHZY8jv9G1PUo+QxY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <b0d2494a-8223-a101-5d10-f3803629f2f3@amd.com>
+Date: Tue, 26 Sep 2023 10:36:04 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] xen/arm: Skip memory nodes if not enabled
+Content-Language: en-US
+To: Leo Yan <leo.yan@linaro.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <20230926053333.180811-1-leo.yan@linaro.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20230926053333.180811-1-leo.yan@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB7790:EE_|PR3PR04MB7308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61b92aee-8ee6-488e-04d1-08dbbe681ca8
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|CH0PR12MB5107:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81ec2808-9a52-404b-322d-08dbbe6bb5c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Bj4NER64y4VtiS3kn8raEFPN1DmEnYc55dWznaSvLP1k5Ik/7yTT95+eNZLQqP57km+Z+rvuCZMiImSZb9D+Z/mh/vmwMX2jk7lJYynhUjH8eIwKE8CUVWurRrMYL8cB2+7IghuboC5K1LsIGbCJwJ3gPwWDvrW6ps6EEuAkeRCdfPA9k3Vt9MpuJk63dnOP6kDemUbX11hNTKMR4WKapcXvfCSOzVBztEtWV4pVShDNFDA7/EtRv81el3GO5CuiEl26X2ObgzsRCc84B7wR6wcIyEojVO/eJesUcHOLFxBzZP30RNW5Bc/TMijzfJx3g32joWywDBdr8VcsE/AQZsX6Z3gHf3pV99AOMzpunK9d6UaWrkj4TpRd6q+2M7x68TOHsZA1Su5qyc3cFalxSdBMW9tIxgFSUza4wyrfOAYht0YjBqLhFG+iOw+u8/+UDhsyPtWKBDJNGmf+ec1rW2fU03BeE6uBh1IrkaphroUqI/7KBHFmZ9Swl5YwEwXGcrjGQIswOcRUmut4SkCRFxlqQh+FUOL/7fOn2CJ0A1IRLJZP4UK7M9Pn9FYBeDN8lv+rVcKarssroBek6Lmh0PiX1p+kz3PmX+E2WCwq8gKVvyigt9HhCbL3o4EVw2xpWqfj1FiiZ+TkNe30gLvAYw==
+	ZfaVP7/ygXMRCgjovH38ip5wFXz5WZ2C1nd/s/Dy7aEaWggGEb2t5ss5ZAom0idN0MUdQ0ChnMSDU5l0YgCWFgZ2biAEUbZZR/YhCUV+vZ5SCCRBgfzWJiqRst7DkUoHu0GxETzCOUg5LRfycIBqg286GEMNrtBoflP9lQGBaxGfXJXTScF50hqlncBygC/Vi5SXmjUcloXogI34ENO4exQ9T2sSdAOwgXoLB2a8/Ki2/IR5v7LU2vB7zm0hzTJvoxrpEUB/CnIbACGaEY3PxrIfmPpnhCGhKHNZ7CQbwrdU4+bzojKmr2CEtw7tWH7QvAZEa0CwybiKUNteGBTXqPPumjQQgZ3WM1c5UGSvIFVIgzwVipgfqMoKgnVl+ZJBrNWA8F02Eyw6Xz3kAV6jehLmW+MogZpgZUShluK3nFStEn3P7IKDalA46CxrOnlW7bxjt/2uwxVxawvJuSCJTWZis+/pQX4ue0W4g/mo249/rsp+btovFqpnad2Aib/huEL42WKJsu/t7AyEW/uex5Ukg36j5IY9sjwfeYJ+ivx2V/8ut8uZAoVflK4jh8p+a/eIj1AAS3W8yeuexackoFgOTdpg5jCl0OqjnHQIJg5QYryGtPT4n0KeTdlbVTF5ENSgH9lrOz00iPL5DTIZgZNLYneRloIOiafKhSlQOo+c8O+Pudr/rJkFOifYoHZA2IDOEXVpL9jNrLwkztxQDYy3P1wjP2OzRNSNyVqk/r/blCH7CyioUqEEZ+VJ7/0xAYd2oiUOqoozcIJhARoQ7CfM5a2aFIBt00o1PUlJ/BHALVJgz2XBkf2k5Vm0WQPV
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(136003)(366004)(376002)(39860400002)(230922051799003)(451199024)(1800799009)(186009)(83380400001)(31686004)(5660300002)(66476007)(66556008)(41300700001)(66946007)(4326008)(6486002)(7416002)(478600001)(316002)(2906002)(86362001)(38100700002)(6666004)(31696002)(8676002)(8936002)(2616005)(6506007)(36756003)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dkltcHBQNVc0dFFiVWdKQ1BHbWU2TjNEWnJHb093aE02TnVZekhDKzJLTTdI?=
- =?utf-8?B?U2lJYVVBZkhobk4zcVUvMlZzOVAyQzBHbjlTWjJQSXUwN2psVnRvYnBabkV0?=
- =?utf-8?B?L08yKzF1UFlOU1ZjZnMrc05TcFkxUEkvbURHUHJYcTY5QjlaMVNxekpTM0Mv?=
- =?utf-8?B?ZXdqaGpBMyt6ekRwZE5nbjNjbzBVTWpxZjk5anFtSWlJTlh2RU5EemxteTNn?=
- =?utf-8?B?bFlLOXJPNFR4NXpHeUorMkpLRFdLcDRQV0hwaXNHM1ZINmNxdjFDMHg4VUx5?=
- =?utf-8?B?bVhDU0JzM0MzdlR2WG5zRERxMG42TEFoc1VDZDg3R2lsb0pjdTRvUnFIRTNt?=
- =?utf-8?B?YmVJeFhhZ0RIU1BsdVRpYUJ5c004VjZINEZpeCt2ZnYrRVJEVkc5aXhpR2pQ?=
- =?utf-8?B?ODFUNURDUkd5eXBpMmJoZG9Uc3U4V2hzRy96NEhENzBDTFZ3LzhkcEFIRGFx?=
- =?utf-8?B?OXliZm0vbEJTaUlJaldOWGJkWlB0YWFva1YyYjQvVDFmKzVRblIvRkFQN0ZP?=
- =?utf-8?B?YzFVbEdJeWh4YXBOdU9OT3c2YW9UbFNnbUpFbGhjM2kwS09OTlFqd0RYc0Jm?=
- =?utf-8?B?MGJIZVhsY3lIVWdxVzRUdlFmWCtBWk1KOTV6VTdjUmlocER4VzBOS1BGTFFq?=
- =?utf-8?B?WXZlNDdEQTU0ZmpnNEpYNUlRWWh6ZG5peC9wMUFDMjFnWHQraTBobWNMQkVM?=
- =?utf-8?B?UlBBbkgzT3lVVDh5eDJyNVU1Snd1RnpIWXVwQ3gyQXNROEpBSU4zck5NTDZR?=
- =?utf-8?B?N1pUbHlhVThmUWJSR2ZlUWJOTnB5RkRBOFl3WU5rYThwR2JiWTR3RFIyMFE4?=
- =?utf-8?B?QnNwUGdDREk2ZUQzWnFWR3NhWm9kbWE0MDY4V1FmWmR4WjlSMGRDbXRJaWVy?=
- =?utf-8?B?UXZRalFYYk9HcXF4WlRRWG5LdUNJdlBwb2JFK2ZITzlPOVZCOUZiSUN3NVVt?=
- =?utf-8?B?RkxJNTVBa3Q2OS9tL1FLL2xFTnZqOXBQNTQ0Y0FWT2F3MmlZSTgwejNnUVdW?=
- =?utf-8?B?RWRwcjJ2eGpTa2llWXdNRWM0QjF0aGNrRFl5a3o1MWpCTy9id2IybFpGZ0pi?=
- =?utf-8?B?RXVQeGNSY1lWMFRRZ210MUhnbGV3bUszc25iMjdSTWZ1WTVrNmFxTnRCS2t5?=
- =?utf-8?B?MGJnRk04aG9jV3ZEOFVDN0dBM21LakpHQUtFSUZYN1NFcTRSUWpDcldZL0w1?=
- =?utf-8?B?MW1UaTVTM3Yxc3B4K1JDaXpkOTZmZzA3R2c4bkxuVm55YmpyRmg5aHJIUFJN?=
- =?utf-8?B?Vk5SSGg5UHlaL1Y0bHY3QUdKVTRpbVIvZHg3cnF6T3hwU2dQTXZjb3lvdllH?=
- =?utf-8?B?UElvdUNlQWorVzN0SHZGc1Vld1VkR3U1bXFRRzA2WWJYZElvVTFoSk9kUjdX?=
- =?utf-8?B?aE1weWNrTXhKN05WKzBITysweDF1ZUZuUlM2VEtzeHhqTTBaSFFBTGFpYW1I?=
- =?utf-8?B?d2FSaDBESDBVOThhWXIrOTB3YU1lN29nZFZiZTFtT2hqTWI4MzRmVWNtSDhF?=
- =?utf-8?B?aGpzVU55NmRJYlVzMmhkdUY2OXh4RkNGMUJBRGFCSXg0MTRnSGJTZzlQaWFT?=
- =?utf-8?B?cWdsNXlWQkx0SmZzaVA2UTNmckkwNDZoYXoyejB6aGl6b2F0Nml2a0tmRHFG?=
- =?utf-8?B?SXVoRThKMjRiZTA2NmxhOHBIdysxaEZMM3pSNi9XK3F6VDg0YWtBMzdqYzls?=
- =?utf-8?B?NnVWTnB0eXNXVkE2V1dxTisxcFVkN0FxcEkrZFFaZkpQdklUaGNNZDI2Yk1j?=
- =?utf-8?B?SUNUWGhrZ3ZQOXdjdk11QTFVK1REbnBYYmpxNUxqU3ZtUlFtMW00RHV4Z0xT?=
- =?utf-8?B?cDF3YVNXVUNUOGY0NElTTTVwYTR1SmV1RkJrdWRhUnBLQUh0bC9hTlQ2UUZp?=
- =?utf-8?B?d2NkRlVDWEZQRHVSdUFZTnBUWU1XSGtlQmJGaVVvcWtvRUYvUi8vZHVPOCtz?=
- =?utf-8?B?UGpzYmJZbEtIM25nS3ZzN1gvNzloWTlCcTNra1NVRGx3U1h1RXFIY29wYTFW?=
- =?utf-8?B?b1d5a04xUEhndEliSk1CVmhudUZ0NGt4ajNTWE9GenVUWE5MYlR2OWRFZGw0?=
- =?utf-8?B?eU90ZnlCc2xvRlpoRUwwaFY3anpHSUhuZVVDOFNFanVYMHp1QVFQRUFzMUQ4?=
- =?utf-8?B?ZjZRWFNLK0RhN05aTUJTV0lDcjF2QlJhTGxTT0wrRnBhYmM5Qnd6MnZrNEFx?=
- =?utf-8?Q?jbAeNkLMfloYBTj4wqmF3Ql9JKkm4nQdxLEbNxuUnYAs?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61b92aee-8ee6-488e-04d1-08dbbe681ca8
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 08:10:57.1043
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(346002)(136003)(39860400002)(376002)(230922051799003)(1800799009)(186009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(31696002)(86362001)(36756003)(31686004)(40480700001)(478600001)(54906003)(336012)(4326008)(426003)(53546011)(110136005)(70206006)(70586007)(316002)(41300700001)(16576012)(8936002)(5660300002)(8676002)(44832011)(26005)(2616005)(47076005)(2906002)(40460700003)(356005)(82740400003)(81166007)(36860700001)(83380400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 08:36:42.3228
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fQQtphp/I8e249xxRsoJ1ChPtcaMKCw4h8sW1UCNb4HN53zVtTsdbziEYYiHhNSUdT7OUsfbM9whycS58j6DCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7308
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81ec2808-9a52-404b-322d-08dbbe6bb5c9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5107
 
+Hello,
 
-
-On 23.09.23 г. 12:41 ч., Xin Li wrote:
-> Intel VT-x classifies events into eight different types, which is
-> inherited by FRED for event identification. As such, event type
-> becomes a common x86 concept, and should be defined in a common x86
-> header.
+On 26/09/2023 07:33, Leo Yan wrote:
 > 
-> Add event type macros to <asm/trapnr.h>, and use it in <asm/vmx.h>.
 > 
-> Suggested-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-> Tested-by: Shan Kang <shan.kang@intel.com>
-> Signed-off-by: Xin Li <xin3.li@intel.com>
+> During the Linux kernel booting, an error is reported by the Xen
+> hypervisor:
+> 
+>   (XEN) arch/arm/p2m.c:2202: d0v0: Failing to acquire the MFN 0x1a02dc
+> 
+> The kernel attempts to use an invalid memory frame number, which can be
+> converted to: 0x1a02dc << PAGE_SHIFT, resulting in 0x1_a02d_c000.
+> 
+> The invalid memory frame falls into a reserved memory node, which is
+> defined in the device tree as below:
+> 
+>   reserved-memory {
+>           #address-cells = <0x02>;
+>           #size-cells = <0x02>;
+>           ranges;
+> 
+>           ...
+> 
+>           ethosn_reserved {
+>                   compatible = "shared-dma-pool";
+>                   reg = <0x01 0xa0000000 0x00 0x20000000>;
+>                   status = "disabled";
+>                   no-map;
+>           };
+> 
+>           ...
+>   };
+> 
+> Xen excludes all reserved memory regions from the frame management
+> through the dt_unreserved_regions() function. On the other hand, the
+> reserved memory nodes are passed to the Linux kernel. However, the Linux
+> kernel ignores the 'ethosn_reserved' node since its status is
+> "disabled". This leads to the Linux kernel to allocate pages from the
+> reserved memory range.
+> 
+> As a result, when the kernel passes the data structure residing in the
+> frame 0x1_a02d_c000 in the Xen hypervisor, the hypervisor detects that
+> it misses to manage the frame and reports the error.
+> 
+> Essentially, this issue is caused by the Xen hypervisor which misses to
+> handle the status for the memory nodes (for both the normal memory nodes
+> and the reserved memory nodes) and transfers them to the Linux kernel.
+> 
+> This patch introduces a function memory_node_is_available(). If it
+> detects a memory node is not enabled, the hypervisor will not add the
+> memory region into the memory lists. In the end, this avoids to generate
+> the memory nodes from the memory lists sent to the kernel and the kernel
+> cannot use the disabled memory nodes any longer.
+
+Interesting. So FWICS, we have 2 issues that have a common ground:
+1) If the reserved memory node has a status "disabled", it implies that this region
+is no longer reserved and can be used which is not handled today by Xen and leads
+to the above mentioned problem.
+
+2) If the memory node has a status "disabled" it implies that it should not be used
+which is not the case in current Xen. This means that at the moment, Xen would try
+to use such a memory region which is incorrect.
+
+I think the commit msg should be more generic and focus on these two issues.
+Summary:
+Xen does not handle the status property of memory nodes and ends up using them.
+Xen does not handle the status property of reserved memory nodes. If status is disabled
+it means the reserved region shall no longer be treated as reserved. Xen passes the reserved
+memory nodes untouched to dom0 fdt and creates a memory node to cover reserved regions.
+Disabled reserved memory nodes are ignored by the guest which leaves us with the exposed
+memory nodes. Guest can access such a region but it is excluded from the page management in Xen
+which results in Xen being unable to obtain the corresponding MFN.
+
+> 
+> Signed-off-by: Leo Yan <leo.yan@linaro.org>
 > ---
+>  xen/arch/arm/bootfdt.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> Changes since v10:
-> * A few comment fixes and improvements (Andrew Cooper).
-> ---
->   arch/x86/include/asm/trapnr.h | 12 ++++++++++++
->   arch/x86/include/asm/vmx.h    | 17 +++++++++--------
->   2 files changed, 21 insertions(+), 8 deletions(-)
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index 2673ad17a1..b46dde06a9 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -206,11 +206,27 @@ int __init device_tree_for_each_node(const void *fdt, int node,
+>      return 0;
+>  }
 > 
-> diff --git a/arch/x86/include/asm/trapnr.h b/arch/x86/include/asm/trapnr.h
-> index f5d2325aa0b7..8d1154cdf787 100644
-> --- a/arch/x86/include/asm/trapnr.h
-> +++ b/arch/x86/include/asm/trapnr.h
-> @@ -2,6 +2,18 @@
->   #ifndef _ASM_X86_TRAPNR_H
->   #define _ASM_X86_TRAPNR_H
->   
-> +/*
-> + * Event type codes used by FRED, Intel VT-x and AMD SVM
-> + */
-> +#define EVENT_TYPE_EXTINT	0	// External interrupt
-> +#define EVENT_TYPE_RESERVED	1
-> +#define EVENT_TYPE_NMI		2	// NMI
-> +#define EVENT_TYPE_HWEXC	3	// Hardware originated traps, exceptions
-> +#define EVENT_TYPE_SWINT	4	// INT n
-> +#define EVENT_TYPE_PRIV_SWEXC	5	// INT1
-> +#define EVENT_TYPE_SWEXC	6	// INTO, INT3
+> +static bool __init memory_node_is_available(const void *fdt, unsigned long node)
+This function is not strictly related to memory node so it would be better to call it e.g. device_tree_node_is_available.
+This way it can be used in the future for other nodes if needed. Also, I would move it somewhere near the top of the file
+next to other helpers.
+Also, node should be of type 'int'
 
-nit: This turned into INTO (Oh) rather than INT0( zero) in v11
 
-<nit>
+> +{
+> +    const char *status = fdt_getprop(fdt, node, "status", NULL);
+> +
+> +    if (!status)
+white spaces between brackets and condition
+if ( !status )
+
+> +        return true;
+> +
+> +    if (!strcmp(status, "ok") || !strcmp(status, "okay"))
+white spaces between brackets and condition
+if ( !strcmp(status, "ok") || !strcmp(status, "okay") )
+
+> +        return true;
+> +
+> +    return false;
+> +}
+> +
+>  static int __init process_memory_node(const void *fdt, int node,
+>                                        const char *name, int depth,
+>                                        u32 address_cells, u32 size_cells,
+>                                        void *data)
+>  {
+> +    if (!memory_node_is_available(fdt, node))
+> +        return 0;
+I would move this check to device_tree_get_meminfo()
+> +
+>      return device_tree_get_meminfo(fdt, node, "reg", address_cells, size_cells,
+>                                     data, MEMBANK_DEFAULT);
+>  }
+> --
+> 2.39.2
+> 
+> 
+
+Also, I think it would be nice to add ASSERT(bootinfo.mem.nr_banks); e.g. in boot_fdt_info().
+Otherwise the panic from Xen when there is no memory bank:
+The frametable cannot cover the physical region ...
+is not really meaningful for normal users.
+
+This is just my suggestion (@Julien ?)
+
+~Michal
+
 
