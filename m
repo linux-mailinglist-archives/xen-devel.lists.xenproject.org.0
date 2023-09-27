@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1429C7B0FAB
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 01:52:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609185.948110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F2757B0FAA
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 01:52:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609186.948120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qleKi-00032S-Kv; Wed, 27 Sep 2023 23:52:44 +0000
+	id 1qleKj-0003Gk-SH; Wed, 27 Sep 2023 23:52:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609185.948110; Wed, 27 Sep 2023 23:52:44 +0000
+Received: by outflank-mailman (output) from mailman id 609186.948120; Wed, 27 Sep 2023 23:52:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qleKi-00030I-IG; Wed, 27 Sep 2023 23:52:44 +0000
-Received: by outflank-mailman (input) for mailman id 609185;
+	id 1qleKj-0003FO-PI; Wed, 27 Sep 2023 23:52:45 +0000
+Received: by outflank-mailman (input) for mailman id 609186;
  Wed, 27 Sep 2023 23:52:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KiVY=FL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qleKh-0002zs-GQ
- for xen-devel@lists.xenproject.org; Wed, 27 Sep 2023 23:52:43 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ <SRS0=Hjpc=FL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qleKi-0002zs-6P
+ for xen-devel@lists.xenproject.org; Wed, 27 Sep 2023 23:52:44 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2b814ef-5d90-11ee-878a-cb3800f73035;
+ id f2f0bdd7-5d90-11ee-878a-cb3800f73035;
  Thu, 28 Sep 2023 01:52:42 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-405361bba99so120339875e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 27 Sep 2023 16:52:42 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-12-62-212.as13285.net. [92.12.62.212])
- by smtp.gmail.com with ESMTPSA id
- d29-20020adfa41d000000b003197869bcd7sm13021847wra.13.2023.09.27.16.52.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Sep 2023 16:52:41 -0700 (PDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 50E1FB81907;
+ Wed, 27 Sep 2023 23:52:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F841C433C9;
+ Wed, 27 Sep 2023 23:52:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2b814ef-5d90-11ee-878a-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1695858762; x=1696463562; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K74mjmEvgSGZBxH98NSZ2fJL7O7MrHJ5pRZ+4flV+hI=;
-        b=cpsu8aJgK5CsokaPgGox80wAaCU74Mll4JjqNg58mFV4OUbKlp9XoUWg0rrM2zzgD2
-         8lmozD0S0jjYRBJpTd9fQFMGUTW3GEM+f7+ZvXmyS6vuZRY+djkHFoZkNhGTJpL0ERTl
-         oESyO9W1wKa6yA1gUULe0eZTyNZ1GFu/kTX+Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695858762; x=1696463562;
-        h=content-transfer-encoding:in-reply-to:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=K74mjmEvgSGZBxH98NSZ2fJL7O7MrHJ5pRZ+4flV+hI=;
-        b=jKqdSE3ImH1urlgkvAI89oZ32v87ee075LIQlFWKDrcb3jvFwwWS5e9k9+0wXbCGb/
-         nVV1s9Q2rwti9NPLawwvjCOeVJL17BgN3sEFuqDc0jb2YVC/pd5ZBNMsjEtgDyHOcf0k
-         rlMDzdHJ7JPp284fblxQWpWQO9rCBIHCfjzgND/2+KPE+gFQtVP8mXBiOg1p4OU7IZeD
-         X7EtiyrdUPD4X3446425UXdHLXT1FGTC36GNjdeGdWcm4Y4m15pZH3gnkJ5oq+HkPso7
-         myZeiZv1+QYzSWPNKK5sa0ArVlp2EmsbxRRxwbgXf2NMj5rPkEOBZdGa6p5wRfOkV3P/
-         a7Cw==
-X-Gm-Message-State: AOJu0YyQKXV/wcOS7xUhhAgp9Ae50PF2ijxy6GSV8vOVS9z4sTlsordF
-	nlm5K8dPMnLnS6JQG7gklJ1gNQ==
-X-Google-Smtp-Source: AGHT+IHN6/ZlARfR3fPMWQum55Zi9m6EL9BZdMQuVrcfMH7L3m05JV2KD/CqiWqTQNAZR/iM0JYu0Q==
-X-Received: by 2002:adf:ec05:0:b0:323:1df0:c039 with SMTP id x5-20020adfec05000000b003231df0c039mr2901417wrn.56.1695858762022;
-        Wed, 27 Sep 2023 16:52:42 -0700 (PDT)
-Message-ID: <a31ce6cb-6234-5e7f-5cd4-ed190f029811@citrix.com>
-Date: Thu, 28 Sep 2023 00:52:34 +0100
+X-Inumbo-ID: f2f0bdd7-5d90-11ee-878a-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695858761;
+	bh=6nHPpORlUP7QGEbOcj+UStECZkv7qzsx8Tsiz3wPVII=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=WqK1eSnUAknxHewh5QiYxrlaXNUP1me4ZdBIdUUenOiUMmsfzDUbVxkkC+2mz5U2m
+	 eyoAn4ybCKrMoaSIGyhZ0nx+rAEeduAOdRCHhsESj1QNnmU+osY8fjPTsfJkExUALb
+	 diCHC0m5/UrmwgcQ4aXuk8YaZWUpsaeOANFF8Aq0i2v1KsXLGj0TY/4OVHy3rsIzQz
+	 Q1aT+/49BJFEdkP0NEWaYdvBYkWSEXuIEwdIaO3PieD7V9jkHjqwlLNXnNNv4Trrfu
+	 CySZQm7kuZvz3SwT01xrD/SjDesmCNEepdUY0kE26f1Wu2hrzriOVGo/gDIIyu41o1
+	 BjgpzCDiH462g==
+Date: Wed, 27 Sep 2023 16:52:38 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: xen-devel@lists.xenproject.org, jbeulich@suse.com, 
+    andrew.cooper3@citrix.com, roger.pau@citrix.com, julien@xen.org, 
+    george.dunlap@citrix.com, bertrand.marquis@arm.com, 
+    roberto.bagnara@bugseng.com, nicola.vetrini@bugseng.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: Re: [PATCH v3] docs/misra: add 14.3
+In-Reply-To: <20230908202723.1641469-1-sstabellini@kernel.org>
+Message-ID: <alpine.DEB.2.22.394.2309271649120.1403502@ubuntu-linux-20-04-desktop>
+References: <20230908202723.1641469-1-sstabellini@kernel.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Xen 4.18 release: Reminder about code freeze
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Henry Wang <Henry.Wang@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Jan Beulich <jbeulich@suse.com>, "jgross@suse.com" <jgross@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- "community.manager@xenproject.org" <community.manager@xenproject.org>
-References: <AS8PR08MB7991D1099E32CC9F03B0E0F692FCA@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2309271603590.1403502@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2309271603590.1403502@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 28/09/2023 12:04 am, Stefano Stabellini wrote:
-> On Mon, 25 Sep 2023, Henry Wang wrote:
->> 3. dom0less vs xenstored setup race Was: xen | Failed pipeline for staging | 6a47ba2f
->>
->> https://marc.info/?l=xen-devel&m=168312468808977
->>
->> https://marc.info/?l=xen-devel&m=168312687610283
-> For this issue I suggest to go with this fix unless someone can produce
-> a better fix before RC2. I don't think we should cut RC2 with this issue
-> unsolved.
->
-> ---
-> [PATCH] xenstored: reset domain connection before XENSTORE_CONNECTED
->
-> From: Julien Grall <julien@xen.org>
->
-> xenstored will set interface->connection to XENSTORE_CONNECTED before
-> finalizing the connection which can cause initialization errors on the
-> guest side. Make sure to call domain_conn_reset(domain) before setting
-> XENSTORE_CONNECTED.
->
-> Signed-off-by: Julien Grall <julien@xen.org>
-> [stefano: rebase, commit message]
+Hi Henry,
+
+This patch is now acked. Should it go in 4.18?
+
+In terms of risk of breaking, it is zero as nothing builds or runs based
+on this document.
+
+At the same time, the benefit is also low because the main value of this
+document is for future coding changes that would be too late now for
+4.18. So the benefits of committing it now are ease of keeping track of
+the change and positive PR when we make the 4.18 release and we talk
+about the total number of MISRA C rules we adopted.
+
+
+
+On Fri, 8 Sep 2023, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> Add 14.3, with project-wide deviations.
+> 
+> Also take the opportunity to clarify that parameters of function pointer
+> types are expected to have names (Rule 8.2).
+> 
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-No - this hasn't got any better at fixing the problem than the last time
-it failed to fix the problem.
-
-You cannot have 3 entities in parallel fight for control in a 2-way
-communication channel.
-
-Failure to understand this is what created the problem to begin with.
-
-You took an existing ABI from oxenstored, and implemented it
-incompatibly in other entities, had init-dom0less corrupt a shared comms
-buffer that it isn't the producer or consumer of, and added bug in Linux
-because you didn't write down the behaviour you wanted, let alone the
-behaviour you actually provided.
-
-Stop tinkering in the hope that it hides the problem.  You're only
-making it harder to fix properly.
-
-Tell me, when was the last time this failed...
-
-~Andrew
+> ---
+> Changes in v3:
+> - add ,
+> - add switch(sizeof(...)) and switch(offsetof(...))
+> ---
+>  docs/misra/rules.rst | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 34916e266a..ac76e20a9c 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -234,7 +234,8 @@ maintainers if you want to suggest a change.
+>     * - `Rule 8.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_02.c>`_
+>       - Required
+>       - Function types shall be in prototype form with named parameters
+> -     -
+> +     - Clarification: both function and function pointers types shall
+> +       have named parameters.
+>  
+>     * - `Rule 8.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_03.c>`_
+>       - Required
+> @@ -385,6 +386,18 @@ maintainers if you want to suggest a change.
+>       - A loop counter shall not have essentially floating type
+>       -
+>  
+> +   * - `Rule 14.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_03.c>`_
+> +     - Required
+> +     - Controlling expressions shall not be invariant
+> +     - Due to the extensive usage of IS_ENABLED, sizeof compile-time
+> +       checks, and other constructs that are detected as errors by MISRA
+> +       C scanners, managing the configuration of a MISRA C scanner for
+> +       this rule would be unmanageable. Thus, this rule is adopted with
+> +       a project-wide deviation on if, ?:, switch(sizeof(...)), and
+> +       switch(offsetof(...)) statements.
+> +
+> +       while(0) and while(1) and alike are allowed.
+> +
+>     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
+>       - Required
+>       - A switch-expression shall not have essentially Boolean type
+> -- 
+> 2.25.1
+> 
 
