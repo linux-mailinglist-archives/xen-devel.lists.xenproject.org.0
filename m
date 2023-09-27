@@ -2,56 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6256D7B04AD
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Sep 2023 14:50:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.608924.947738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5DF57B04D4
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Sep 2023 14:59:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.608928.947748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlTyy-0000Nd-SA; Wed, 27 Sep 2023 12:49:36 +0000
+	id 1qlU8E-0002js-OU; Wed, 27 Sep 2023 12:59:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 608924.947738; Wed, 27 Sep 2023 12:49:36 +0000
+Received: by outflank-mailman (output) from mailman id 608928.947748; Wed, 27 Sep 2023 12:59:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlTyy-0000Lm-PO; Wed, 27 Sep 2023 12:49:36 +0000
-Received: by outflank-mailman (input) for mailman id 608924;
- Wed, 27 Sep 2023 12:49:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eJCl=FL=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qlTyw-0000Lg-GR
- for xen-devel@lists.xenproject.org; Wed, 27 Sep 2023 12:49:34 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061e.outbound.protection.outlook.com
- [2a01:111:f400:7e89::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d4fc220-5d34-11ee-878a-cb3800f73035;
- Wed, 27 Sep 2023 14:49:32 +0200 (CEST)
-Received: from DS7PR03CA0311.namprd03.prod.outlook.com (2603:10b6:8:2b::23) by
- SA3PR12MB8000.namprd12.prod.outlook.com (2603:10b6:806:31f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Wed, 27 Sep
- 2023 12:49:27 +0000
-Received: from DS2PEPF00003440.namprd02.prod.outlook.com
- (2603:10b6:8:2b:cafe::2c) by DS7PR03CA0311.outlook.office365.com
- (2603:10b6:8:2b::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.22 via Frontend
- Transport; Wed, 27 Sep 2023 12:49:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003440.mail.protection.outlook.com (10.167.18.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 27 Sep 2023 12:49:26 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 27 Sep
- 2023 07:49:25 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 27 Sep
- 2023 07:49:25 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 27 Sep 2023 07:49:24 -0500
+	id 1qlU8E-0002hN-Lh; Wed, 27 Sep 2023 12:59:10 +0000
+Received: by outflank-mailman (input) for mailman id 608928;
+ Wed, 27 Sep 2023 12:59:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qlU8D-0002hH-2H
+ for xen-devel@lists.xenproject.org; Wed, 27 Sep 2023 12:59:09 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qlU8C-00038I-Eq; Wed, 27 Sep 2023 12:59:08 +0000
+Received: from [15.248.2.159] (helo=[10.24.67.27])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qlU8C-0003Z0-80; Wed, 27 Sep 2023 12:59:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,233 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d4fc220-5d34-11ee-878a-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aHjnPgu3NZNR30spJ9vuBjUs8w0FYxXSWwLtlGdLJM2Pi5XdkLBIwO9GhhkQPPgcPs2f6wTWt9gOBQkp8BFfD2uo17skIPJtdrFIfEGdfH/ZIs+z68iHGq1rOakFlvqCGUNhXpPHZJ5ivg8ELllvZAgvY3QKBhJvS2naoK2zuDnsrem18FdBzXoyjza/XeBw7+6WhhNd2g6uU2XijpuS2Ss6oEVaMO1IGN8MpdvqO6AptZe2rRKmZ9iHwOfnRqB5Vo3dvucFUL4BfB99KSfyC337mkYfNBxGMYaUm1oQTv3jrro+zSE4I2o1S1txoU5Oon1+x6T/a62avu1v0bRJeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=krWSpJxCG15kfLt9wnpPwPMoHEqbTjBN/EwRJsLeLiQ=;
- b=QCZ1mw+2JNMu3IL6T8+ypbnz/kXuiImaINgzzarndRDh98tDm3Gufr6b3tuB/iXc5aFKfWW+0O9BD3GcYFwu8F5KoHeQb2NoPgQ3Ue0/NVyQHY3bKVJGbx2Omkznpk9QcXDch26aVTww+O+BOWoibgIQzhLCDiVpjX7IG8lnJ4m/JTVtAAVHqcjLP9p1eNDLH6TMbYaYAqArIEm9OoHj07D4XlcJXYQ98A7HitvKwHm+1LOmsVxhdHJ4X7D5+RhTruGmMEVqTeWMY2UbUt/hybpBK/cpNfSHE4zrulm2serGyJP6a+pM3cwhqZFXqlcLBr79bI0UvsIFFEsRDr2Mtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=krWSpJxCG15kfLt9wnpPwPMoHEqbTjBN/EwRJsLeLiQ=;
- b=JgZEemHLrIO61i/gCNJugwPhqF7k4Qwsy3W5fQY7isV4ZDxlXLAj2YLyRC1cxf1PmmbFK+3X1zs8L+aKm4UBOqhR2Z7XzTNU9eMuL7FmrmR3bRq6yx5uFbOi5SMqv9GMgza0DYxuazIocZHWmNqpunJhtJsbhDtkctQ13bHgoC4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <3964a12c-b808-2ee4-9651-68c21ead817b@amd.com>
-Date: Wed, 27 Sep 2023 14:49:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=EKvD41HcYz4afrz/n+zLMTKRa2w+zuYP82K+RFIBBlM=; b=AOojjtx4U1z2RGF0HwZkAzW87D
+	jdjNcZfi0bc3J6ZXOiX75fygdpK8TojoSBMX0WrTHDkQ8U+5rSOZWh3OoGmhVOsGbKGhDbG+D+WiL
+	+2OBgvCyaU7zB0u3h74UbUas4YHdb7F3oWtWjXe2usSVPvybsPMuDg0ZQ4zp+5ZlQU0U=;
+Message-ID: <ed3ea203-4244-4bbe-a9e0-ac8882ecc83c@xen.org>
+Date: Wed, 27 Sep 2023 13:59:06 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] xen/arm: Skip memory nodes if not enabled
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Leo Yan <leo.yan@linaro.org>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230926053333.180811-1-leo.yan@linaro.org>
- <b0d2494a-8223-a101-5d10-f3803629f2f3@amd.com>
- <36d8f5ce-ef87-40cc-9515-12a2007bfa6d@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <36d8f5ce-ef87-40cc-9515-12a2007bfa6d@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen on AWS EC2 Graviton 2 metal instances (c6g.metal)
+Content-Language: en-GB
+To: "Driscoll, Dan" <dan.driscoll@siemens.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "arvind.raghuraman@siemens.com" <arvind.raghuraman@siemens.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "rahul.singh@arm.com" <rahul.singh@arm.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>
+References: <DM6PR07MB43168B0D4DEA80BF2474B9D89AC3A@DM6PR07MB4316.namprd07.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <DM6PR07MB43168B0D4DEA80BF2474B9D89AC3A@DM6PR07MB4316.namprd07.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003440:EE_|SA3PR12MB8000:EE_
-X-MS-Office365-Filtering-Correlation-Id: b214813a-2598-4114-4a82-08dbbf582ea4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GImvHBPMIQf37XkM3U6TFVL1RqxzhbA8Y85Kd61TC7qaao+QVYXzRQQIBzzlUhOgMxa0O4I2LKRaRSWgEnUp9AojB+dWi3rVyu3WSZwSS7xZIfXoBH84xJNOpolD+mMCaRhtacGr8VAMpdRQJoItQL/8AhoGdByjIgREnqm0Gr0yr4JPSv18kzk1LnZlHiS44dW9A8EfxfNi4iaXfOTCWrp3IK0ODgWLUnZoMg2//i8Om1GUutyFXN0H/yeYjNyZQoyVbY5N1c63KkGgxnbaSw8gIWCxTZ6qk29ARXrUN9gPHx/AnXMIr3akBSehNSawbLo6MwNA+eCHhvxOz0FcM5q2I/P+CXLklpgDoIiMtKGJhd/nJg8h9Uu4gK+rtQZHstavkrutaqmq5LNImv+6ig0/MxRF434NPUwZtJVyDAB5zUknUnaElx7vlw9qCSmOtJhhte/jrdwNMnD4YlEVDT7t9giZEtnkBPbm3AZrfB9JdJZQUshTWefuPuhUVFVnxnGEyt8yAzoklfYXjteNSTjMAsfkVI6Lxqvi/+rK/6bKYNCi/BoC3g+o1UJOVpkAmGTYXgudVC75/23WhRfjGS+ahBbPrP+KwCPk55uYmNw+hfczp6yrlAI2rkWnmySTyIOHMF/IxA/W2eUBJJ5RjjIwiCaH8feA+BkXOIqZjvkWei3UHSbnIJmF9ZO71j9bS11JjAJK4MUdqSYd7wx2FlUvxe4xXGTCjD4EnypbAuoeGI8wLgS8Lfzmjde42RQYS8Usf7uARS25cCDHcz+6f2zxZpIylAsyvA7lfMcsmkRg6ZBqwkPlhs2NzHTCpCE3
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(136003)(376002)(396003)(346002)(230922051799003)(451199024)(82310400011)(186009)(1800799009)(40470700004)(36840700001)(46966006)(2906002)(47076005)(83380400001)(478600001)(4326008)(5660300002)(8676002)(70586007)(70206006)(336012)(426003)(44832011)(26005)(8936002)(36860700001)(41300700001)(110136005)(54906003)(316002)(16576012)(2616005)(31686004)(82740400003)(53546011)(81166007)(356005)(31696002)(86362001)(36756003)(40460700003)(66899024)(40480700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2023 12:49:26.2822
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b214813a-2598-4114-4a82-08dbbf582ea4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003440.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8000
 
-Hi Julien,
+Hi Dan,
 
-On 27/09/2023 13:01, Julien Grall wrote:
-> 
-> 
-> Hi Michal,
-> 
-> On 26/09/2023 09:36, Michal Orzel wrote:
->> On 26/09/2023 07:33, Leo Yan wrote:
->>>
->>>
->>> During the Linux kernel booting, an error is reported by the Xen
->>> hypervisor:
->>>
->>>    (XEN) arch/arm/p2m.c:2202: d0v0: Failing to acquire the MFN 0x1a02dc
->>>
->>> The kernel attempts to use an invalid memory frame number, which can be
->>> converted to: 0x1a02dc << PAGE_SHIFT, resulting in 0x1_a02d_c000.
->>>
->>> The invalid memory frame falls into a reserved memory node, which is
->>> defined in the device tree as below:
->>>
->>>    reserved-memory {
->>>            #address-cells = <0x02>;
->>>            #size-cells = <0x02>;
->>>            ranges;
->>>
->>>            ...
->>>
->>>            ethosn_reserved {
->>>                    compatible = "shared-dma-pool";
->>>                    reg = <0x01 0xa0000000 0x00 0x20000000>;
->>>                    status = "disabled";
->>>                    no-map;
->>>            };
->>>
->>>            ...
->>>    };
->>>
->>> Xen excludes all reserved memory regions from the frame management
->>> through the dt_unreserved_regions() function. On the other hand, the
->>> reserved memory nodes are passed to the Linux kernel. However, the Linux
->>> kernel ignores the 'ethosn_reserved' node since its status is
->>> "disabled". This leads to the Linux kernel to allocate pages from the
->>> reserved memory range.
->>>
->>> As a result, when the kernel passes the data structure residing in the
->>> frame 0x1_a02d_c000 in the Xen hypervisor, the hypervisor detects that
->>> it misses to manage the frame and reports the error.
->>>
->>> Essentially, this issue is caused by the Xen hypervisor which misses to
->>> handle the status for the memory nodes (for both the normal memory nodes
->>> and the reserved memory nodes) and transfers them to the Linux kernel.
->>>
->>> This patch introduces a function memory_node_is_available(). If it
->>> detects a memory node is not enabled, the hypervisor will not add the
->>> memory region into the memory lists. In the end, this avoids to generate
->>> the memory nodes from the memory lists sent to the kernel and the kernel
->>> cannot use the disabled memory nodes any longer.
->>
->> Interesting. So FWICS, we have 2 issues that have a common ground:
->> 1) If the reserved memory node has a status "disabled", it implies that this region
->> is no longer reserved and can be used which is not handled today by Xen and leads
->> to the above mentioned problem.
->>
->> 2) If the memory node has a status "disabled" it implies that it should not be used
->> which is not the case in current Xen. This means that at the moment, Xen would try
->> to use such a memory region which is incorrect.
->>
->> I think the commit msg should be more generic and focus on these two issues.
->> Summary:
->> Xen does not handle the status property of memory nodes and ends up using them.
->> Xen does not handle the status property of reserved memory nodes. If status is disabled
->> it means the reserved region shall no longer be treated as reserved. Xen passes the reserved
->> memory nodes untouched to dom0 fdt and creates a memory node to cover reserved regions.
->> Disabled reserved memory nodes are ignored by the guest which leaves us with the exposed
->> memory nodes. Guest can access such a region but it is excluded from the page management in Xen
->> which results in Xen being unable to obtain the corresponding MFN.
->>
->>>
->>> Signed-off-by: Leo Yan <leo.yan@linaro.org>
->>> ---
->>>   xen/arch/arm/bootfdt.c | 16 ++++++++++++++++
->>>   1 file changed, 16 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
->>> index 2673ad17a1..b46dde06a9 100644
->>> --- a/xen/arch/arm/bootfdt.c
->>> +++ b/xen/arch/arm/bootfdt.c
->>> @@ -206,11 +206,27 @@ int __init device_tree_for_each_node(const void *fdt, int node,
->>>       return 0;
->>>   }
->>>
->>> +static bool __init memory_node_is_available(const void *fdt, unsigned long node)
->> This function is not strictly related to memory node so it would be better to call it e.g. device_tree_node_is_available.
-> 
-> +1.
-> 
->>> +{
->>> +    const char *status = fdt_getprop(fdt, node, "status", NULL);
->>> +
->>> +    if (!status)
->> white spaces between brackets and condition
->> if ( !status )
->>
->>> +        return true;
->>> +
->>> +    if (!strcmp(status, "ok") || !strcmp(status, "okay"))
->> white spaces between brackets and condition
->> if ( !strcmp(status, "ok") || !strcmp(status, "okay") )
->>
->>> +        return true;
->>> +
->>> +    return false;
->>> +}
->>> +
->>>   static int __init process_memory_node(const void *fdt, int node,
->>>                                         const char *name, int depth,
->>>                                         u32 address_cells, u32 size_cells,
->>>                                         void *data)
->>>   {
->>> +    if (!memory_node_is_available(fdt, node))
->>> +        return 0;
->> I would move this check to device_tree_get_meminfo()
-> 
-> I am ok with that. But the commit message would need to gain a paragraph
-> explaining that we will now support "status" for static memory/heap.
-> 
->>> +
->>>       return device_tree_get_meminfo(fdt, node, "reg", address_cells, size_cells,
->>>                                      data, MEMBANK_DEFAULT);
->>>   }
->>> --
->>> 2.39.2
->>>
->>>
->>
->> Also, I think it would be nice to add ASSERT(bootinfo.mem.nr_banks); e.g. in boot_fdt_info().
->> Otherwise the panic from Xen when there is no memory bank:
->> The frametable cannot cover the physical region ...
->> is not really meaningful for normal users.
->>
->> This is just my suggestion (@Julien ?)
-> 
-> I think a check for the number of banks makes sense. But I would prefer
-> if the check also happens in production. So, something like:
-> 
-> if ( !bootinfo.mem.nr_banks )
->    panic(...);
-> 
-> We already have one in the setup_mm() for arm32. So we need another one
-> for the arm64 version. The other solution is to consolidate it in one
-> place you suggested.
-> 
-> I have a slightly preference for having it in setup_mm() even if this is
-> duplicated.
-Either way is fine. The advantage of placing the check in boot_fdt_info() is
-that we can have a single check instead of duplicated and we do the check before
-the "first" use which happens to be the banks sorting. The advantage of setup_mm()
-is that it is the one dealing with memory banks and is called after early_print_info()
-so user can see some additional info.
+Thanks for the report.
 
-@Leo, will you send a patch for that? Don't feel obliged as it is not strictly related
-to your patch in which case I can handle it.
+On 26/09/2023 20:41, Driscoll, Dan wrote:
+> 	First off - sorry for the very long email, but there are a lot of details related to this topic and I figured more details might be better than less but I could be wrong here....
+> 
+> 	Within Siemens Embedded, we have been doing some prototyping using Xen for some upcoming customer related work - this email thread attempts to explain what has been done here and our analysis of the problems we are having.
+> 
+> 	We have done some initial prototyping to get Xen running on an AWS Graviton 2 instance using an EC2 Arm64 "metal" instance (c6g.metal - no AWS hypervisor) and ran into some problems during this prototyping.
+> 
+> 	Since the Edge Workload Abstraction and Orchestration Layer (EWAOL) that is part of SOAFEE already has some enablement of Xen in various environments (including an Arm64 server environment), we used this as a starting point.
+> 
+> 	We were able to successfully bring up Xen and a Yocto dom0 and multiple domu Yocto guests on an Arm AVA server (AVA Developer Platform - 32 core Neoverse N1 server) following documented steps with some minimal configuration changes (we simply extended the configuration to include 3 Linux guests): https://ewaol.docs.arm.com/en/kirkstone-dev/manual/build_system.html#build-system
+> 
+> 	So, this specific EWAOL support has all the proper bitbake layers to generate images for both bare-metal (Linux running natively) and a virtualization build (using Xen) for AVA and also a Neoverse N1 System Development Platform (N1SDP), but we only verified this on AVA.
+> c6g.medium
+> 	AWS also has support for EWAOL on Graviton 2, but the only supported configuration is a bare-metal configuration (Linux running natively) and the virtualization build hasn't been implemented in the bitbake layers in their repo - here is the URL for information / instructions on this support: https://github.com/aws4embeddedlinux/meta-aws-ewaol
+> https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/grub.html
+> 	As part of our effort to bring this up, we did a VERY minimal patch to the repo used for the AWS EWAOL to generate a virtualization build (attached meta-aws-ewaol.patch).  The resultant build of the AWS EWAOL support with this patch applied does result in Xen being built as well as a dom0 Yocto kernel, but there is definitely missing support to properly build everything for this virtualization layer.  Following the instructions for meta-aws-ewaol,  we generated an AMI and started an EC2 instance with this AMI (c6g.metal type).  The resultant image does boot, but it boots into the dom0 Linux kernel with problems recorded in the boot log related to Xen (see dom0-linux-boot.txt).
+> 
+>         Looking more closely at the EFI partition, it was clear that systemd-boot was being used and it was set-up to boot the dom0 Linux kernel and not boot into Xen - the Xen EFI images were not present in the EFI partition and obviously no launch entries existed for Xen.  To rectify this, the Xen EFI image that were built as part of the AWS EWAOL build mentioned above where placed in the EFI partition, along with a Xen config file that provided the dom0 Linux kernel image details.  A new entry was added into the EFI image for Xen and the launch conf file was updated to boot Xen instead of dom0 Linux.  This resulted in the EC2 instance becoming "bricked" and no longer accessible.
+>         
+>         Details on the EFI related content and changes we made are captured in the meta-aws-ewaol-efi-boot-changes.txt file attached above.
+>         
+>         The next step was comparing the AVA Xen output that was working and we noticed a few differences - the AVA build did enable ACPI and UNSUPPORTED kconfig settings whereas the AWS Xen build did not.  So, we tried again to bring up another EC2 metal instance using the same AMI as before and utilized the AVA Xen EFI image instead and same Xen config file.  The result was the same - a "bricked" instance.
+>         
+>         We will likely try to use the entire AVA flow on AWS Graviton next as it is using GRUB 2 instead of systemd-boot and we hope to maybe extend or enable some of the debug output during boot.  The AWS EC2 instances have a "serial console", but we have yet to see any output on this console prior to Linux boot logs - no success in getting EC2 serial output during EFI booting.
 
-~Michal
+That's interesting. The documentation for AWS [1] suggests that the logs 
+from boot should be seen. They even have a page for troubleshooting 
+using GRUB [2].
+
+I just launched a c6g.metal and I could access the serial console but 
+then it didn't work across reboot.
+
+I have tried a c6g.medium and the serial was working across reboot (I 
+could see some logs). So I wonder whether the serial console is there is 
+a missing configuration for baremetal?
+
+>         
+>         We have had a call and some email exchanges with AWS on this topic (Luke Harvey, Jeremy Dahan, Robert DeOliveira, and Azim Siddique) and they said there have been multiple virtualization solutions successfully booted on Graviton 2 metal instances, so they felt that Xen should be useable once we figured out configuration / boot details.  The provided some guidance how we might go about some more exploration here, but nothing really specific to supporting Xen.
+
+To be honest, without a properly working serial console, it is going to 
+be very difficult to debug any issue in Xen.
+
+Right now, it is unclear whether Xen has output anything. If we can 
+confirm the serial console has intended and then are still no logs, then 
+I would suggest to enable earlyprintk in Xen. For your Graviton2, I 
+think the following lines in xen/.config should do the trick:
+
+CONFIG_DEBUG=y
+CONFIG_EARLY_UART_CHOICE_PL011=y
+CONFIG_EARLY_UART_PL011=y
+CONFIG_EARLY_PRINTK=y
+CONFIG_EARLY_UART_BASE_ADDRESS=0x83e00000
+CONFIG_EARLY_UART_PL011_BAUD_RATE=115200
+
+>         
+>         I have attached the following files for reference:
+>         
+> 	* meta-aws-ewaol.patch - patch to AWS EWAOL repo found at https://github.com/aws4embeddedlinux/meta-aws-ewaol
+> 	* meta-aws-ewaol-efi-boot-changes.txt - Description of EFI related changes made to AWS EWAOL EFI partition in attempt to boot Xen
+> 	* ava.xen.config - config file for Xen build for AVA using EWAOL virtualization build
+> 	* aws.xen.config - config file for Xen build for AWS using EWAOL virtualization build
+> 	* xen-4.16.1.cfg - Xen config file placed in root of EFI boot partition alongside xen-4.16.1.efi image
+
+May I ask why you are using 4.16.1 rather than 4.17? In general I would 
+recommend to use the latest stable version or even a staging (the 
+on-going development branch) for bring-up because we don't always 
+backport everything to stable branch. So a bug may have been fixed in 
+newer revision.
+
+That said, skimming through the logs, I couldn't spot any patches that 
+may help on Graviton 2.
+
+Best regards,
+
+[1] 
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-serial-console.html
+[2] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/grub.html
+
+> 
+> Dan Driscoll
+> Distinguished Engineer
+> Siemens DISW - Embedded Platform Solutions
+
+-- 
+Julien Grall
 
