@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99F977B09E5
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Sep 2023 18:22:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609135.948030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C0FE7B0B0E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Sep 2023 19:28:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609141.948041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlXIC-0005Om-BT; Wed, 27 Sep 2023 16:21:40 +0000
+	id 1qlYJG-0000sn-2J; Wed, 27 Sep 2023 17:26:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609135.948030; Wed, 27 Sep 2023 16:21:40 +0000
+Received: by outflank-mailman (output) from mailman id 609141.948041; Wed, 27 Sep 2023 17:26:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlXIC-0005ME-8r; Wed, 27 Sep 2023 16:21:40 +0000
-Received: by outflank-mailman (input) for mailman id 609135;
- Wed, 27 Sep 2023 16:21:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SvcD=FL=kernel.org=brauner@srs-se1.protection.inumbo.net>)
- id 1qlXIA-0005M8-V7
- for xen-devel@lists.xenproject.org; Wed, 27 Sep 2023 16:21:38 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecd6043c-5d51-11ee-9b0d-b553b5be7939;
- Wed, 27 Sep 2023 18:21:36 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 89EFFCE1A9C;
- Wed, 27 Sep 2023 16:21:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3E3C433C7;
- Wed, 27 Sep 2023 16:21:21 +0000 (UTC)
+	id 1qlYJF-0000r3-Vh; Wed, 27 Sep 2023 17:26:49 +0000
+Received: by outflank-mailman (input) for mailman id 609141;
+ Wed, 27 Sep 2023 17:26:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qlYJE-0000qt-Ie; Wed, 27 Sep 2023 17:26:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qlYJE-0001pl-7J; Wed, 27 Sep 2023 17:26:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qlYJD-0003xK-PF; Wed, 27 Sep 2023 17:26:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qlYJD-0000eA-Om; Wed, 27 Sep 2023 17:26:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,149 +42,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecd6043c-5d51-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695831690;
-	bh=5fVqTod0fsU3D85/NgpH5eX11yWtVW2s8jme29QI3SA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K+SdxwDZhx8uxbb5abeHgPolVgmwSiIBL6/AzX/eEpmg7s5Jd1TwEPpueT17Z+y1i
-	 r/3aJFhGZoIRaqB+ADboLRaAQZpJm6SMvyfu5jpdUX9fmjLLqHrtdJHSnoHaBHBoNB
-	 1Ras0NDOeGzjZ5rjoNJ7hj3RFSgjPFHQeOCu0doiR1ZFlmc7Dtn7+Tg4yFYE5HRxY7
-	 FflbgLOEB1zCas3wjtrhbqXfzlZd6DZqKcBXDoRDLeETsNHRLxD2cXgjOH7guvx0ma
-	 AufPlRnLwdi+pMqoWiBGk6SGa+Snjtz53w/pXkwTjOc2fDnSaUxFN105snuKm+T14u
-	 FBsBAdYo6oMFA==
-Date: Wed, 27 Sep 2023 18:21:19 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Anna Schumaker <anna@kernel.org>, Chao Yu <chao@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Kleikamp <shaggy@kernel.org>, David Sterba <dsterba@suse.com>,
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
-	Gao Xiang <xiang@kernel.org>, Jack Wang <jinpu.wang@ionos.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	jfs-discussion@lists.sourceforge.net,
-	Joern Engel <joern@lazybastard.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kent Overstreet <kent.overstreet@gmail.com>,
-	linux-bcache@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-pm@vger.kernel.org, linux-raid@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Mike Snitzer <snitzer@kernel.org>, Minchan Kim <minchan@kernel.org>,
-	ocfs2-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Song Liu <song@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
-	target-devel@vger.kernel.org, Ted Tso <tytso@mit.edu>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 0/29] block: Make blkdev_get_by_*() return handle
-Message-ID: <20230927-prahlen-reintreten-93706074e58d@brauner>
-References: <20230818123232.2269-1-jack@suse.cz>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NtIHchGUhl1RZpnAMOgOrwWS/bt8cCKzNNrMgiMy0II=; b=GD+KFQY0AISqP0X9cr8kOtkLYK
+	Z6lXzfvawHcWwkTHdJVERjQOKe/YbDLTeNOIvb7m/x7qKLM8XguBdiuKqq6t/KWZPM36Jg5E5I8us
+	zYEm9q4VMkcKRISeROuEZtxL42Ry+WVAdPlRjOQtJ21XgYdgrl8Lv+bDqrDgQ5P4Swhc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183188-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230818123232.2269-1-jack@suse.cz>
+Subject: [libvirt test] 183188: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-i386-libvirt-xsm:xen-install:fail:heisenbug
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=d77cc21d4b5f60f950aa7f0106d4190dde2b0f1b
+X-Osstest-Versions-That:
+    libvirt=51a074e74c6ef2fb95e6f53d41315e3f1e00be77
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 Sep 2023 17:26:47 +0000
 
-On Wed, 27 Sep 2023 11:34:07 +0200, Jan Kara wrote:
-> Create struct bdev_handle that contains all parameters that need to be
-> passed to blkdev_put() and provide bdev_open_* functions that return
-> this structure instead of plain bdev pointer. This will eventually allow
-> us to pass one more argument to blkdev_put() (renamed to bdev_release())
-> without too much hassle.
-> 
-> 
-> [...]
+flight 183188 libvirt real [real]
+flight 183195 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183188/
+http://logs.test-lab.xenproject.org/osstest/logs/183195/
 
-> to ease review / testing. Christian, can you pull the patches to your tree
-> to get some exposure in linux-next as well? Thanks!
+Failures :-/ but no regressions.
 
-Yep. So I did it slighly differently. I pulled in the btrfs prereqs and
-then applied your series on top of it so we get all the Link: tags right.
-I'm running tests right now. Please double-check.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-libvirt-xsm   7 xen-install         fail pass in 183195-retest
 
----
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt-xsm 15 migrate-support-check fail in 183195 never pass
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183172
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183172
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183172
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-Applied to the vfs.super branch of the vfs/vfs.git tree.
-Patches in the vfs.super branch should appear in linux-next soon.
+version targeted for testing:
+ libvirt              d77cc21d4b5f60f950aa7f0106d4190dde2b0f1b
+baseline version:
+ libvirt              51a074e74c6ef2fb95e6f53d41315e3f1e00be77
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Last test of basis   183172  2023-09-26 04:20:27 Z    1 days
+Testing same since   183188  2023-09-27 04:20:33 Z    0 days    1 attempts
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Jiri Denemark <jdenemar@redhat.com>
+  Weblate <noreply@weblate.org>
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.super
 
-[01/29] block: Provide bdev_open_* functions
-       https://git.kernel.org/vfs/vfs/c/b7c828aa0b3c
-[02/29] block: Use bdev_open_by_dev() in blkdev_open()
-        https://git.kernel.org/vfs/vfs/c/d4e36f27b45a
-[03/29] block: Use bdev_open_by_dev() in disk_scan_partitions() and blkdev_bszset()
-        https://git.kernel.org/vfs/vfs/c/5f9bd6764c7a
-[04/29] drdb: Convert to use bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/0220ca8e443d
-[05/29] pktcdvd: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/7af10b889789
-[06/29] rnbd-srv: Convert to use bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/3d27892a4be7
-[07/29] xen/blkback: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/26afb0ed10b3
-[08/29] zram: Convert to use bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/efc8e3f4c6dc
-[09/29] bcache: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/dc893f51d24a
-[10/29] dm: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/80c2267c6d07
-[11/29] md: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/15db36126ca6
-[12/29] mtd: block2mtd: Convert to bdev_open_by_dev/path()
-        https://git.kernel.org/vfs/vfs/c/4c27234bf3ce
-[13/29] nvmet: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/70cffddcc300
-[14/29] s390/dasd: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/5581d03457f8
-[15/29] scsi: target: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/43de7d844d47
-[16/29] PM: hibernate: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/105ea4a2fd18
-[17/29] PM: hibernate: Drop unused snapshot_test argument
-        https://git.kernel.org/vfs/vfs/c/b589a66e3688
-[18/29] mm/swap: Convert to use bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/615af8e29233
-[19/29] fs: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/5173192bcfe6
-[20/29] btrfs: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/8cf64782764f
-[21/29] erofs: Convert to use bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/4d41880bf249
-[22/29] ext4: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/f7507612395e
-[23/29] f2fs: Convert to bdev_open_by_dev/path()
-        https://git.kernel.org/vfs/vfs/c/d9ff8e3b6498
-[24/29] jfs: Convert to bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/459dc6376338
-[25/29] nfs/blocklayout: Convert to use bdev_open_by_dev/path()
-        https://git.kernel.org/vfs/vfs/c/5b1df9a40929
-[26/29] ocfs2: Convert to use bdev_open_by_dev()
-        https://git.kernel.org/vfs/vfs/c/b6b95acbd943
-[27/29] reiserfs: Convert to bdev_open_by_dev/path()
-        https://git.kernel.org/vfs/vfs/c/7e3615ff6119
-[28/29] xfs: Convert to bdev_open_by_path()
-        https://git.kernel.org/vfs/vfs/c/176ccb99e207
-[29/29] block: Remove blkdev_get_by_*() functions
-        https://git.kernel.org/vfs/vfs/c/953863a5a2ff
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   51a074e74c..d77cc21d4b  d77cc21d4b5f60f950aa7f0106d4190dde2b0f1b -> xen-tested-master
 
