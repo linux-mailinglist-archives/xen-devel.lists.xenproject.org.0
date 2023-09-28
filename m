@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064D77B1815
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 12:11:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609433.948535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C9B7B181F
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 12:14:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609438.948544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlnzC-0001Xi-P7; Thu, 28 Sep 2023 10:11:10 +0000
+	id 1qlo2L-0002h4-EV; Thu, 28 Sep 2023 10:14:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609433.948535; Thu, 28 Sep 2023 10:11:10 +0000
+Received: by outflank-mailman (output) from mailman id 609438.948544; Thu, 28 Sep 2023 10:14:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlnzC-0001Vb-LR; Thu, 28 Sep 2023 10:11:10 +0000
-Received: by outflank-mailman (input) for mailman id 609433;
- Thu, 28 Sep 2023 10:11:09 +0000
+	id 1qlo2L-0002eZ-BO; Thu, 28 Sep 2023 10:14:25 +0000
+Received: by outflank-mailman (input) for mailman id 609438;
+ Thu, 28 Sep 2023 10:14:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ur7q=FM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qlnzB-0001VT-7D
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 10:11:09 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0616.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::616])
+ id 1qlo2J-0002ct-Os
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 10:14:23 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2060e.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::60e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 572f4cd7-5de7-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 12:11:08 +0200 (CEST)
+ id cb0cb2f8-5de7-11ee-878a-cb3800f73035;
+ Thu, 28 Sep 2023 12:14:22 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB8PR04MB7097.eurprd04.prod.outlook.com (2603:10a6:10:12a::11)
+ by AS1PR04MB9285.eurprd04.prod.outlook.com (2603:10a6:20b:4df::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.23; Thu, 28 Sep
- 2023 10:11:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.22; Thu, 28 Sep
+ 2023 10:14:19 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9f5d:8bed:7a5b:e75a]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::9f5d:8bed:7a5b:e75a%6]) with mapi id 15.20.6838.016; Thu, 28 Sep 2023
- 10:11:05 +0000
+ 10:14:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,201 +47,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 572f4cd7-5de7-11ee-878a-cb3800f73035
+X-Inumbo-ID: cb0cb2f8-5de7-11ee-878a-cb3800f73035
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mbdilbLjUW1bp8PSYWocBA1WPxl+1ov31P6490xeFTnXUOxBfkE1WBAWjWRve42sd7K9f/+RFkWmLe97FO+G7+yVjx34dr6Urx69X1CP83XlolaYIFuqeDb7fqzbbwfL7Y7ZGMiuuKg8LsFAkoJdF5Ob1WbiUzGV/2u5WErFy0djdnc+X7hoNpx0hWDglXwkw4N2t8adZ+vlCHke/vzKH5YQU2QQa0dVHUvwsCr820to6GZSP3/oh/Jn7hDOBdsMqgpj0wlbuuvW2s+OrX7Oku8pPXpt/GjvGP/eYwXph0MI2+8UUbooAZfz5g8rKCpOCqotaFvvX6XCJAsmgKmk+w==
+ b=Vc0dcChFXauKE8UcIRo/1H7GjQK/YSgU+EOIEmBI8LDG+Qz/LBGKCvE8rdSWkUeBfDNSGq7ogXdUBqteiaqWjafJlDNBleXX0/WqQ42DY2l2DVc9Fxp6m7eNCMJOtmSRRcbwUIlX0nsqNyqMIc+NoslBVqqb4CXHkgW5rrOEXe2pnGGtU+E/d622Qi3lBMoAnX6iKFko2RiOCkZSBM+Npb1fY7up6THcrlYJPFb2uuBxxHTGKO7U1CxRyQUeE6LeE5AVnzBWcZKCZX+NkbFXa1rKMiDqvd8gTl2TScMg2swgKF87hQwLv6yhtwKUXk3bxxxX3v8eWkfXh/0KmVP1Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FMXGBBlkA6slFqLbMvehze/eWvDnTt87mceZCPdp12w=;
- b=FgGEZAFCEKZ4FEWZIBA/2hZoCGCHMl0YYPx0kjl5VTBeF5VtfDxO7/dioXiW1FqaWmK4KkfbdoDEYc3ueXFfzNoly91vlJcY10FtMjvj42pdllOVEifgi9jvRXx6wDPhhfBbBytVGaxcEimFVBT9qbhr8yjrXuzKF75gdz4PZ2WaB4tjkfTC399mBWJjd+d5t1BYLEbU7TeE4GEFzelEiLeTCXy3C6LcZcakkiV4ynyL/U758O+eMjNXMAwXyF9mxm6tOWOI9cd2FkhSH1nvS6gbQV0UH36c5C+NhakpM8LyTWO5uKPV36jOechRY3MuOLqwZlaDkUuzXE8jvyl7Pg==
+ bh=jHVDb1/eJmLr2TOz/kFmxKMBsA+MXe+vOM3vKURTNRc=;
+ b=E64mwH7vduWV9jPbZmbgs6xsPkce6NAFNpTYw72fd340DvKCQdSIk6kDUapw5O+vI1JcSQp/ygzaO19yTB1Al+wfYdMGLTLLq6yfgalZiojSNv5nM1J7u3xLjEL5c3W3X6GVN6yD5HyZi6f40HL3ABNRO9dRMYTvotBXTWYWeBn2UofGZDgstucDR20Akl/p9m7zGyB7zQCKEQp3mhNXOtsgZQRi+r8HkTyYHgrjL7/t7+3aA+2LPonQmEGfYaBhadGKzXzJF0EhdYUPBM/X40pMcmoFyrzzF8o6LumFOAkWblMnN1T5QLPj85sFwL7XsaLFdxx1uG+iXQz0JgaFNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FMXGBBlkA6slFqLbMvehze/eWvDnTt87mceZCPdp12w=;
- b=MeEcBPWPDsjmQxtO76cHwZYU7BVUqgZsFDEuvBwcYWFW/k6hdIEOD7VAU1Nl9DqroxDn1uY/jiFB89EmBJh8RRkBN4aA1KFz5kLCAT6Obb8ImSbitdAfw7ZmC+J7BD3cv16VOqLzKzinEIurNKMywchvOdPITT8Tjaio6BQZlSWeR/6q6vR+3UvLoxBjunx4MfVi/b8fwNEFdTpKZ/PcwafEXJjNxmUCs4LZNCLnylon22oOqyQSDWUcOLQpgcANa6BZPBI49FnR6RZf0o2j8WMlIyI9SMoVvI1VxlTmbMn/4bHk5YjM9e7VZS9RK6AReK/HtqqqMfCapIrNSDjt+w==
+ bh=jHVDb1/eJmLr2TOz/kFmxKMBsA+MXe+vOM3vKURTNRc=;
+ b=EdS5EEGLa3+SGJcp5ZR+6ypIRXrb/hYTb9JGuWMkoun/Bi3G6xBP4P/ecHl1Mgq2YEaoFkfP8YGZe6Zx4vj14Wbpq+vptBb6/XAsOIY/x7rY0BGjt3LIhJOol1CeW6SDySEqmvLxt2xl8/SeskDmbiG4JxJWRUJ3ypGXEzLOXGs6UG97jNfsP2zouseuhJbmFwh/B9aBMEM0/BrXfcek09v7l8SoUEupMdg3RE9U9X4+TT+/EaUxo30tqaxUjbIQQ/iuAQfLnTZOpViwf2/yrBmfhTT72V8WV3Mv7IwI5pFJ96ptgjS8/DOKU02AM1Y//LE5k9AFL51294N3hbgxzQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d285a456-307a-0a36-0910-cb80f419627d@suse.com>
-Date: Thu, 28 Sep 2023 12:11:02 +0200
+Message-ID: <4566ffee-7e97-0309-f5ff-7ce24b050e8a@suse.com>
+Date: Thu, 28 Sep 2023 12:14:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH v4 5/9] x86/mem-sharing: copy GADDR based shared guest
- areas
+Subject: Re: [PATCH v4 6/9] domain: map/unmap GADDR based shared guest areas
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Henry Wang <Henry.Wang@arm.com>
 References: <3ba59868-101d-b68a-d8b7-767ee94910ec@suse.com>
- <6047c192-0f37-e4ff-5980-fd137b3f1869@suse.com>
- <ZRVMhdyI8s4chr7b@MacBookPdeRoger>
+ <a34cef71-d60f-43ae-f61d-13d6c846eaa4@suse.com>
+ <ZRVPqiRHXMJC3Bo9@MacBookPdeRoger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZRVMhdyI8s4chr7b@MacBookPdeRoger>
+In-Reply-To: <ZRVPqiRHXMJC3Bo9@MacBookPdeRoger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0114.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB8PR04MB7097:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7b5a579-f8b2-4fd2-bcc4-08dbc00b39e6
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS1PR04MB9285:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7be5ddd5-940d-4c7a-b17c-08dbc00bade2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	JfPdr/kErUhirlYqZqE4ufoa7Igf4wRNwo7HaZVzXZFXWljRaBAHo9ZzbBRVuDvgIbL6QBBWa+m6NhMz1l2JT3mwHyZPJn+NTF3HW+hiihbw913RoRMf7PX6UpsVmrIjbVmCbP64I+MpMjd7+zuWLp2tCi0g5NXYyHCqrKI7A15oThawxeKKM1GxDmvm4T998X0+VcvjPsjBRDO9Gjw5uJO9pvG+lB5hVLq/O2ByhGwGThLGmHdeVzsn70v6bikpbmLFpOTB1szX/FRakpz4oRAzV0fpQkhq8vsgjiWXGxLYTqTWXTKX3xVi0x4TDl519p27pYjhqedNudaZvEd5oeMzdqnArOTmssLmyQyoQ7voGKOQ1mxDWP3KDh3T6+rvw26xreRJEzXtOUYCgo8bMn9vXKW3sp0/MFgE58skHtvT42MnW0H5aUWCHqDiVYjnwomVANycCyxO9KPt4Vuw9aRpOP9TWA6BaY4il1tC9Cpa38WEegMGy17cNj2lK+Iz6Jnidsq0XFdSZ3iLO3ce9kqyUjCeF51rLi5eN3gkgLkqNirOJFrG2m2QWtCZvAChb8zOuFybM8X+Y6A/0FE90VOxiWC4Sft5Tf2iaJJbNj9kVBQUkued17RMXYakpigZU64YOwsGbXoJjdFiF3/aEQ==
+	LgjlEGiaRC11OdtbMtYHKh78mvaw89tYUvlgPhKjuL5FOas3IB3e9kwfrzczZBMnaBhtFH5vom+a9mzHUih2ORD1yFm6SqKmgKRtzoUsIZIJxgX/KkqJVmpVswquwVE3KhqiwaWyFJnfZZ0FVm/N8wuwTgdZtwibSewKzWjYPECkRWG5wuCUEPVp0kckus0R2eD28ZAFgjCNB/2r3tjTXhEpDBFbdNlU834/ErTp/4i1uZzUFyi2qGxBREFRVUQ1b/Kt21yLpMk2flHA1oZYfQKk1JHbsMpxaBWOadSzM4ggUNxAA40EbePhj+4uSfloiGRPGQhknsXXLhoD3Fa11aJnKELx/IBpG5mbkiw4zOIcrhS2NSOVwoQ8oX2jpDAfrLKNDd4OeBSGYabBMdU85AmsWvIKmvnGXye/dWCbxlwaVcrOkZDpmmf+ZWl2LdgCcsEhXHWR9do9g8jQ2d7Le1rSLu9quOMsRYozGkN3vFy9wdwNDNxgSBHLxKpOwdHFvNdgkA4HlpO40u5CMf28+HJT7msctT8j7QBi0BT1HauJAViN26NkTPYvFafCCPWTomXu2TxAVSCCbkenkH62xdWS+VbSYyfBuL8niy8JaBf2SOWRBXYyTr3L147yi08dexEcgJgDYiVuv/BX7ugyBA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(366004)(136003)(346002)(376002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(8676002)(8936002)(4326008)(31686004)(110136005)(5660300002)(66899024)(53546011)(6512007)(66476007)(66946007)(54906003)(83380400001)(316002)(26005)(6666004)(41300700001)(31696002)(38100700002)(2616005)(86362001)(6506007)(6486002)(66556008)(2906002)(478600001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(39860400002)(396003)(366004)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(36756003)(31686004)(316002)(2906002)(83380400001)(6916009)(41300700001)(5660300002)(8676002)(4326008)(8936002)(2616005)(66946007)(66476007)(66556008)(86362001)(31696002)(6486002)(6506007)(53546011)(6512007)(54906003)(26005)(38100700002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bXZnM2VHaElMTnUzZDJ3YVN1anFUQTVacURKQy94V2JQV25GQjRqdVhFaFJt?=
- =?utf-8?B?QWFHdnQ4VFh1ODBtMzhpS1JXOUU3U3o0cEl0aXFXUGd1My80dVZsSTM1KzRH?=
- =?utf-8?B?R1JFVEl3V2tiRm0rK1I3Rjd3QTRlUmpFclJKeVBrVS95SXByclp2aDQ3YVIw?=
- =?utf-8?B?a3QxQXVxNk5LOG9hWUpHYlFPWHcxb0ZEcVJwNkNzcXRJUXppSTdJekdKcDlL?=
- =?utf-8?B?c3hSbXdGY0lEUXh5Mm1mYkRkeXQya2FrdUpLRjNIR0lkTUxYWXlOL3dLYXJD?=
- =?utf-8?B?dEFtTUoxV0xaQU9CdVFEa1ZmTDR2U3Vuc2xneUJuOGFrZytYa1cxUU5sdU1L?=
- =?utf-8?B?cmgyOGxsNWcxSjJMcVVPenQwQWJ3bkZpaWI2OVpXNmxNT0hJTzdYMk45QUxz?=
- =?utf-8?B?ZGo5aUxLaUFId1g5MnVQOEpLZXF2dUJydzJXNTd6ZEhKYVF4RVIrS2ZYNStE?=
- =?utf-8?B?UXZaczhXSzRCUFFUTm5zVTV6cUtWYnNYN21kdGpGTTl4ZE4zM1hmU0RoN1RS?=
- =?utf-8?B?MWtQcXZiMDB6SmRQVFpvY2ZNTmxjSU8yUWdlRGpiTjRTdFRTV3F0WXozSDA2?=
- =?utf-8?B?ZjhPWVhaNG9OSkJ0bTY4SDFnekpRVDlvQUxGQzJ0M2NPNGxoMy9EakRrNnp1?=
- =?utf-8?B?REFQTXRURy9Ta1FTQVZ1Z2Q1Q1dDa21zdGFhV1VIWGpvU2xIWEQrTFp5ckpB?=
- =?utf-8?B?eThzZWlrNFRIdDRRMWIxcjFVa2FodG1pUW5XTEh6aXN4OW1SVEppcnU5SFpC?=
- =?utf-8?B?RGFITmJnVzJOU29JZHB0VE9zNXRqekNmek1LQ1Q4eE5VNGtFR0phYVdhNzhR?=
- =?utf-8?B?YVMweVRVSEFsZEdYYU8vREdQSms2T2p5ZzdCeHJPUVdSS0dqWk5lK2ZaeDNR?=
- =?utf-8?B?enVBTDcvRGdMNTJVOEZZWkxnYUE5YndqbDZMMzEwYUhZWXpSdlFJdWo3Qmw4?=
- =?utf-8?B?dU44aVBpMkNOOHNLMG1YUlhnTGNoRHc4K1RtaTZZbUhWUWR1WFRvUUt5RU9R?=
- =?utf-8?B?OXhnemdRYlcyUkQ2c3RZMmRVUWVnSlVZS0ZHc1ByWWFtbm4rNTVYWjVrVzVF?=
- =?utf-8?B?WExuZGl3MDY3aXpJOWo4TnlxSjhheTFMUXIwTVRyTjMrN1c0K0QyQ2RSS0pS?=
- =?utf-8?B?Z1lyMFlZU1BmS3ZMa3FKUWN3UDZQNXB4Yit3OCsrK3Nvc1ovUGpSVC9ycUox?=
- =?utf-8?B?OVhjREsxTHYvZGdhZGtiaEZ0VjV2ODhvTXJoa0x5bExwdllqcWRBRXhGajd5?=
- =?utf-8?B?SlZ3bUpwYkZyQ25udFRqSDQ1ZWQwWEdvM1NoYUhKUVQwd0V6QUg5WWlucHBv?=
- =?utf-8?B?dHpCZUUwblE2eEQ1K3RuMklmZXZJSm4vWVJ6eWlqeG1ONnZrcUhNZkRtbmRF?=
- =?utf-8?B?SEUzcDhGZnNhaDVDU2pXY1lrblVkZ1VNcktKQUlUdk4xb3M3YVk5eGhnMGti?=
- =?utf-8?B?cGdBTC9nOE5QMk9RU2dQNzZmekZCOEJEZzF0WkRXN1lIWHZYbVV6a3Jkdzhk?=
- =?utf-8?B?T1pnYlF4VmJlZzdneVhPYUZRUjVyZm5rQUdXbkpOekhQUFNnR0ZjM2pLK1ZY?=
- =?utf-8?B?dHdIc1lzOHZqS2JvRWZZWWs4Vk9OSlh0bUV0YkEweUd0dmU3bnNwenNsS0lX?=
- =?utf-8?B?RmhJNHRmT1lrLytlV3JpYkgyTUEvS3I1Q0dGdGlaWWdZV2FOQklNZUVpTksr?=
- =?utf-8?B?YlowdllSV1o5TFRjeU5uNFBJbnFzdjRoS204MVpyQzFHYTJKbFdnK2Q4am1F?=
- =?utf-8?B?cHNhK2Z1WE91dWRTMktWZFRvSjQ5U0NqNmZKbzBORnhXaElibnh1R0NoUlho?=
- =?utf-8?B?dGhhZTR5aXlxTmtuVE9kUGtuemNDN2dSdWhFSFdQdlZlVU9Tam9jaUh1ekFl?=
- =?utf-8?B?RFhlMkFUUWxTL2c4K0t0NElaRDRxTmhvRGNCYlByZ3VrRDhORUFjSURqRTBS?=
- =?utf-8?B?VFZ3QzQrdHp0M0RLWXNlKzlBUVc0bFN1cUtnRE4zK3QwanliL3ZCQWR0MmN1?=
- =?utf-8?B?WXJyK2ltaW5FQmk0OEEvTitEZkNPdThNMkdhT09lU0ljSDBtTkw5bUM5NHJl?=
- =?utf-8?B?VzA2WGNTbCtLbjNQWHFpTTk2WVJ3M2NGR1JaT3Q5dTJHbS90SlNOVTl1SG1V?=
- =?utf-8?Q?i0tpm2HGlcKH1pF5RffnFMKdp?=
+	=?utf-8?B?Q1ZPN292Q2dPY05zTUY0OVhIaDdleG1rZExEcXhNR0k4VVhiUzJmZE4vblhH?=
+ =?utf-8?B?c0Jqa3J2c1VCRmdKUUgrMXk5MnpYUjM3eWVYb2s3aEp5MkpJdDlpL2VQNUZD?=
+ =?utf-8?B?QUFSanY5bHp1TktIREtOeEtaZWdiYkYvdmdlZ1BVajlrOHJXU294Um9HS0Rh?=
+ =?utf-8?B?Y1U4a0dIOENLRXd6WjJCRHZTak9kMEN3NTFUYmx4dW5rMThIYklUa0F0V0E5?=
+ =?utf-8?B?WWJQY0U4RXJOUDJjRGRReHBTQjNpdHZsRTEvd2dOeDdweWFiNVlwSXBWaGpx?=
+ =?utf-8?B?dytGT0tHTHp0ajUrM3BXcHdvZHdidk82NjA3TGNXbFdRMDdMaGtKNGpTbGNH?=
+ =?utf-8?B?S0l5cmxNbDRVSzhRdG1PUXVIdTVIb1EwdFp6TENZdUdLSGV3M0w3YnhNRGM3?=
+ =?utf-8?B?aXhoYW1kejUvZytZaE1td0JnbWZVVmZndjdWaEVZbzQrR0FxWTdFNmJIbmZW?=
+ =?utf-8?B?eE8rNm1GdmZ6aUJTYkl0MVI2NTJMUnVialRqMGVvaHEwM0I3S1h4Mm1JRU13?=
+ =?utf-8?B?UEFqbmxnYUJjT2M3TkJ1SGdjUUJvclFVNTJqSldNUzlMeHdQK0VNYXMxQTA5?=
+ =?utf-8?B?cGpKczBMbEs0MzJwc0xUd1A2S05FQ21vQnAxdW4rRE5rMjNNclJDYWJ1bHA4?=
+ =?utf-8?B?UXJzcXlQZzF1Tm1NTFJPaVhHNVRUVDN4OHJqbFJDeHlkNDVhYmpCYVlrMnU1?=
+ =?utf-8?B?blZCT2ZWS2E2K2xYc05vTzBhWWxZYVV4U0EwaFZCSFBsQjZTNmlJbVdOVVgv?=
+ =?utf-8?B?VEFFMFZEUFFabm1mVWJlQW9NM1ByaFJwWGN2TGNJZEJlK1FTOE1YR0d3bnQw?=
+ =?utf-8?B?NmRkT3M2RTIyanVqQjc3Y1dRWnhnMHJaK2J1eVhhbjlkbURnRDVWVDlYUzVB?=
+ =?utf-8?B?UUVUbjZVZFZZeksrSFNXcmdUM3NkWGQwTVNmcGRENTBraW5vdTQrUVQ0MlN6?=
+ =?utf-8?B?SDhRcXFCOXVRTFpJS0JibWFlTVJRczIyQ0tFbzFJWUltNUtqekZrN3A0eXMv?=
+ =?utf-8?B?MVZaQk9xUzVlTUI3eHZlOGZ2cDZEU2Y0QW5xU0xUYmhWT2VsdVU4QnhaK1c1?=
+ =?utf-8?B?OW1aTk9ZRFhpcVRXenU0N0VWZjNvZ1lzNmwxMFpZUE5JOVZDVHZCQ2JmVGNL?=
+ =?utf-8?B?WVJKOVdrSDQxd3BKbXpRMG9GN1pyYWhnK2xleDJUVDVic3IyRldxZ2hwM3lM?=
+ =?utf-8?B?Rm5OQlJpNGRCanBrVVN1QjlzZnRRY01CYWdkdElHNkhmUzZRODIxOHFGUitx?=
+ =?utf-8?B?YlJxWDFkZ0FvS1A3NGNWL2dCbnMva2E4eDM1bGE2L00zRjBEbjgyalhEMHlm?=
+ =?utf-8?B?VEZ4eWFHekg4dGc3d3BGVXFycUV0Y0FheFJqbHhISitpNUppMW9FTmthTVNr?=
+ =?utf-8?B?NFVhNjgrc08zeWFBSVhIZlhyVXQwTnc0QkVwcVJKSmhGTlJXK2Z3VE5OZklI?=
+ =?utf-8?B?bGZLOUxUYURaTWozdGMvd3BMOW1QVjFLUDVreVBJOUlZQkJCekJpSHhYUmFS?=
+ =?utf-8?B?VGZDYWw1d00yQ1g2Z29NNHNxdjhZT2FlS0IxZG1zRUpNdXMzSlhiblFhVUZS?=
+ =?utf-8?B?MUtDVzFncnd5b00zbVJCN1doTFFqY1ZDR1hjQzJFZnA3c1ZIU2VzMUNTRHBm?=
+ =?utf-8?B?QlZSUFJLZURXbVR0cFZYTGlJRHoxcnJvcHFEL2pGQ0JVUm1QZ0d2ZVovdFhM?=
+ =?utf-8?B?ZzJ2OXJrMDFRVE5aeUZTS2VWSFQycDhTVHovQTJXUFdxdjdTYURTekZkaEhQ?=
+ =?utf-8?B?dmRzNzh2Z0d0RStpbU1xWndFQTRydGFQTFArZ29jeHBpQzVaU0xsNG9SQTBy?=
+ =?utf-8?B?aHNpdDBIdjNaTU9JWmN1SkcrVHZ1WWJKcERxYnJDTHgzNUUyYWljdzkxbTNh?=
+ =?utf-8?B?OWplQXJyL05Rblk3bXgraW1QdFVJVEZaaHdBVXFhZUdRZWY5c1hiNXZkWjZq?=
+ =?utf-8?B?TWl3TUtmcUdudGowOE94QjBjSmM4bThVb29uZXlkc3BzYUVMbm05ek90TEZt?=
+ =?utf-8?B?d2kvTXVSSVZGcjVUWEQyQ2U0Z0YvKzR5T3E2WkFpODl1RnIvaDZJTk9YN01i?=
+ =?utf-8?B?aG5pQnNXQVlRZWxlR0xvcjJrQnEvRXQ2U3BUTkQ0QWhPSEl2VERzSGkvSXRY?=
+ =?utf-8?Q?JBiupQemD89rgUGexLUROyhev?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7b5a579-f8b2-4fd2-bcc4-08dbc00b39e6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7be5ddd5-940d-4c7a-b17c-08dbc00bade2
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 10:11:05.2808
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 10:14:19.8771
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r4gDBd1iB10Pt5Ih8VsIBC1qCDs60+2IxvAtD/BydRh8aPW29bCL8fyl/jG0M+o5tCQtW46cltnR71W8OQ7edQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7097
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2digPlPUEDwKGN+x/qgrxclUxGCNUpu8slrBBN1+D0q724pB4DX/sXGgCMUXz6yDpg6rOLHyZEvW5vtwPmSCaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9285
 
-On 28.09.2023 11:51, Roger Pau Monné wrote:
-> On Thu, Sep 28, 2023 at 09:16:20AM +0200, Jan Beulich wrote:
->> --- a/xen/arch/x86/mm/mem_sharing.c
->> +++ b/xen/arch/x86/mm/mem_sharing.c
->> @@ -1641,6 +1641,68 @@ static void copy_vcpu_nonreg_state(struc
->>      hvm_set_nonreg_state(cd_vcpu, &nrs);
->>  }
->>  
->> +static int copy_guest_area(struct guest_area *cd_area,
->> +                           const struct guest_area *d_area,
->> +                           struct vcpu *cd_vcpu,
->> +                           const struct domain *d)
->> +{
->> +    mfn_t d_mfn, cd_mfn;
->> +
->> +    if ( !d_area->pg )
->> +        return 0;
->> +
->> +    d_mfn = page_to_mfn(d_area->pg);
->> +
->> +    /* Allocate & map a page for the area if it hasn't been already. */
->> +    if ( !cd_area->pg )
->> +    {
->> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
->> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
->> +        p2m_type_t p2mt;
->> +        p2m_access_t p2ma;
->> +        unsigned int offset;
->> +        int ret;
->> +
->> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL, NULL);
->> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
->> +        {
->> +            struct page_info *pg = alloc_domheap_page(cd_vcpu->domain, 0);
->> +
->> +            if ( !pg )
->> +                return -ENOMEM;
->> +
->> +            cd_mfn = page_to_mfn(pg);
->> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
->> +
->> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K, p2m_ram_rw,
->> +                                 p2m->default_access, -1);
->> +            if ( ret )
->> +                return ret;
->> +        }
+On 28.09.2023 12:04, Roger Pau Monné wrote:
+> On Thu, Sep 28, 2023 at 09:16:48AM +0200, Jan Beulich wrote:
+>> The registration by virtual/linear address has downsides: At least on
+>> x86 the access is expensive for HVM/PVH domains. Furthermore for 64-bit
+>> PV domains the areas are inaccessible (and hence cannot be updated by
+>> Xen) when in guest-user mode, and for HVM guests they may be
+>> inaccessible when Meltdown mitigations are in place. (There are yet
+>> more issues.)
+>>
+>> In preparation of the introduction of new vCPU operations allowing to
+>> register the respective areas (one of the two is x86-specific) by
+>> guest-physical address, flesh out the map/unmap functions.
+>>
+>> Noteworthy differences from map_vcpu_info():
+>> - areas can be registered more than once (and de-registered),
+>> - remote vCPU-s are paused rather than checked for being down (which in
+>>   principle can change right after the check),
+>> - the domain lock is taken for a much smaller region.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I'm still unsure why map_guest_area() shouldn't be able to deal with a
-> forked child needing the page to be mapped.  What happens when a
-> forked child executes the hypercall to map such areas against not yet
-> populated gfns?
-> 
-> Shouldn't map_guest_area() be capable of handling those calls and
-> populating on demand?
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Funny you should use this wording: P2M_ALLOC will deal with populating
-PoD slots, yes, but aiui forks don't fill their p2m with all PoD slots,
-but rather leave them empty. Yet again I need to leave it to Tamas to
-confirm or prove me wrong.
-
->> +        else if ( p2mt != p2m_ram_rw )
->> +            return -EBUSY;
->> +
->> +        /*
->> +         * Map the area into the guest. For simplicity specify the entire range
->> +         * up to the end of the page: All the function uses it for is to check
->> +         * that the range doesn't cross page boundaries. Having the area mapped
->> +         * in the original domain implies that it fits there and therefore will
->> +         * also fit in the clone.
->> +         */
->> +        offset = PAGE_OFFSET(d_area->map);
->> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
->> +                             PAGE_SIZE - offset, cd_area, NULL);
->> +        if ( ret )
->> +            return ret;
->> +    }
->> +    else
->> +        cd_mfn = page_to_mfn(cd_area->pg);
->> +
->> +    copy_domain_page(cd_mfn, d_mfn);
-> 
-> I think the page copy should be done only once, when the page is
-> populated on the child p2m.  Otherwise areas smaller than a page size
-> (like vpcu_time_info_t) that share the same page will get multiple
-> copies of the same data for no reason.
-
-I think you're right, but this would then be another issue in the original
-code that I merely didn't spot (and it's not just "copy for no reason",
-we'd actually corrupt what was put there before). IOW the copying needs to
-move ahead of map_guest_area() (or yet more precisely after the error
-checking for p2m->set_entry()), and in the original code it would have
-needed to live ahead of map_vcpu_info(). Once again I'd like Tamas to
-confirm (or otherwise) before making that change, though.
+Thanks, but to be clear: Formally this doesn't help this patch make any
+progress, aiui. I'll still need an A-b by a REST maintainer then. An R-b
+from you would be different in this regard.
 
 Jan
 
