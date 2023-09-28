@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1257B1EC1
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:42:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609809.949002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D977B1EA1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:37:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609811.948992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlrHo-0005sn-UC; Thu, 28 Sep 2023 13:42:36 +0000
+	id 1qlrCh-0003cn-BS; Thu, 28 Sep 2023 13:37:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609809.949002; Thu, 28 Sep 2023 13:42:36 +0000
+Received: by outflank-mailman (output) from mailman id 609811.948992; Thu, 28 Sep 2023 13:37:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlrHo-0005r6-Qr; Thu, 28 Sep 2023 13:42:36 +0000
-Received: by outflank-mailman (input) for mailman id 609809;
- Thu, 28 Sep 2023 13:36:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qlrCh-0003at-8U; Thu, 28 Sep 2023 13:37:19 +0000
+Received: by outflank-mailman (input) for mailman id 609811;
+ Thu, 28 Sep 2023 13:37:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iMsa=FM=gmail.com=icegambit91@srs-se1.protection.inumbo.net>)
- id 1qlrCN-0003Yn-TI
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:36:59 +0000
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [2607:f8b0:4864:20::102e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17bb6941-5e04-11ee-9b0d-b553b5be7939;
- Thu, 28 Sep 2023 15:36:57 +0200 (CEST)
-Received: by mail-pj1-x102e.google.com with SMTP id
- 98e67ed59e1d1-274b3d48e15so9083693a91.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Sep 2023 06:36:57 -0700 (PDT)
-Received: from valdaarhun.localnet ([2401:4900:1c42:8fff::2e:ebb7])
- by smtp.gmail.com with ESMTPSA id
- c3-20020a637243000000b005742092c211sm12673566pgn.64.2023.09.28.06.36.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Sep 2023 06:36:55 -0700 (PDT)
+ <SRS0=nhI2=FM=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1qlrCf-0003an-3p
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:37:17 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1f676bff-5e04-11ee-878a-cb3800f73035;
+ Thu, 28 Sep 2023 15:37:15 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AF3DFCE21CE;
+ Thu, 28 Sep 2023 13:37:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ED8C433C8;
+ Thu, 28 Sep 2023 13:36:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +41,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17bb6941-5e04-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695908216; x=1696513016; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MUdU7BGqF/nk4/vKNdMRuoOiP4xEs6VLIiAHMkfMm4Y=;
-        b=gRGAB9g+y7gtYzBfId5ls6oOYBaBXo/ZJZIR9fvIsR9hrvV9Cfchmkd/Q/9uKlWEa0
-         Vad6MAkayAnlAFR6/p6Ylfj7it7dBYmKkbZrobz/g8dNimhi6h5jF3TIBZCtySgOrOZt
-         z421IJqcMV7ctlptKbr9Dzh4fST0ZOhobaSUpX0VlVfOZJU2RzcvA76Jyl+kvsfkIpNr
-         1VIdbQV5r2L2W64Wzxqr61K9yI8q8cSmQlM+nwhQr46apeEGhUL3zH+CnUCRyhy4Sb9L
-         h9x/okWt9h3EC61uDNSzc//kmtcz8FeSaHgsb3lT4Ax2lGq2Sd03TWzTx82wwINgaRkg
-         FVWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695908216; x=1696513016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MUdU7BGqF/nk4/vKNdMRuoOiP4xEs6VLIiAHMkfMm4Y=;
-        b=E66vP5I6Y+D5X5q8c4JtX86/M44roaG9EzqXvY4vTYqOifZdDC+UYlht1/JiRBXIEx
-         8/3XPq3zu+uNxUSrkq8AcJuCQc6W50hTw6CH+PrrgeEG/JFxiMDnn5Un+BSbwineZDIx
-         d6+unTbTZ8eGAjcSOOpJkEbz4Bct43pUsiYg7tgXbRLORw1RBdco0H5FyTfeZaqU+Iq7
-         +udxSFw+BSlpzMiHtG+vEi0CpfOmny8hb09aJw3M7rzyy73BQke/0vTaXtI+nDFlkIOj
-         HZKxcWSWhGYrHPMj0seM2biYz1kWknqNj2DahwEQT0xHx3m/KPyjLpXyzKymLM477wrB
-         gUtQ==
-X-Gm-Message-State: AOJu0YxId+nSRLAa63jmHwRloxHq+LHFwEhx8Gy4EiFbkSwQk9JhDDLA
-	6zYwVDwPvn9bhTnesCFpwQPumyl+7FU=
-X-Google-Smtp-Source: AGHT+IEnWREIIqcQsh4vg/PAgL20KUG4vk3pWeKRbf4AqDNv+wSYxJ6eTWZvV1ZHz8ZWzfw8x2QxuQ==
-X-Received: by 2002:a17:90a:ce92:b0:26d:4ab3:fe11 with SMTP id g18-20020a17090ace9200b0026d4ab3fe11mr1002946pju.24.1695908216137;
-        Thu, 28 Sep 2023 06:36:56 -0700 (PDT)
-From: Sahil <icegambit91@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com
-Subject: Beginner looking to contribute to project in archived list
-Date: Thu, 28 Sep 2023 19:06:52 +0530
-Message-ID: <3269277.aeNJFYEL58@valdaarhun>
+X-Inumbo-ID: 1f676bff-5e04-11ee-878a-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1695908220;
+	bh=+wQRUm2msRT1Vv6LzHjx16q1r07oTZukLX6w4Q72cRo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fQY4RQBXMdvdqFGAIafv/Phk7Y1oE+EJjzKjC3TRuINAbWxqzcqLPwyX0a9VAn7db
+	 lrLv0OwYBTVD2TtgiIEZJRfo0bKqoMi2GBhCLXf4v+k2xekgAHOfI6frhHYfLI3c4k
+	 s478XPbm0PhMMeW0NqTPzj3Xl+SvTPCIBgs7SdE0=
+Date: Thu, 28 Sep 2023 15:36:55 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: j.granados@samsung.com
+Cc: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
+	josh@joshtriplett.org, Kees Cook <keescook@chromium.org>,
+	Phillip Potter <phil@philpotter.co.uk>,
+	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Doug Gilbert <dgilbert@interlog.com>,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
+	Russ Weight <russell.h.weight@intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-serial@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-rdma@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, netdev@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 01/15] cdrom: Remove now superfluous sentinel element
+ from ctl_table array
+Message-ID: <2023092855-cultivate-earthy-4d25@gregkh>
+References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
+ <20230928-jag-sysctl_remove_empty_elem_drivers-v1-1-e59120fca9f9@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-1-e59120fca9f9@samsung.com>
 
-Hi,
+On Thu, Sep 28, 2023 at 03:21:26PM +0200, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which
+> will reduce the overall build time size of the kernel and run time
+> memory bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove sentinel element from cdrom_table
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
+> ---
+>  drivers/cdrom/cdrom.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
+> index cc2839805983..451907ade389 100644
+> --- a/drivers/cdrom/cdrom.c
+> +++ b/drivers/cdrom/cdrom.c
+> @@ -3654,8 +3654,7 @@ static struct ctl_table cdrom_table[] = {
+>  		.maxlen		= sizeof(int),
+>  		.mode		= 0644,
+>  		.proc_handler	= cdrom_sysctl_handler
+> -	},
+> -	{ }
+> +	}
 
-I have never contributed to the Xen Project before. I am interested in virtualization,
-firmware and low-level systems programming. I would like to start contributing to
-Xen and learn more about these fields while working on the job.
+You should have the final entry as "}," so as to make any future
+additions to the list to only contain that entry, that's long been the
+kernel style for lists like this.
 
-I was going through the archived project listings [1] in the wiki and I came across the
-project - "CPU/RAM/PCI diagram tool" [2]. The project was suggested in 2014 but I could
-not find any updates on the status of the project.
+So your patches will just remove one line, not 2 and add 1, making it a
+smaller diff.
 
-Is this project still open for development? If so, I would like to work on it. If not, is there
-an open project/task that I could work on or contribute to? I am comfortable with C and
-Python. I am also currently working on my Rust skills.
+thanks,
 
-I look forward to hearing from you.
-
-[1] https://wiki.xenproject.org/wiki/Archived/GSoC_2015
-[2] https://wiki.xenproject.org/wiki/Archived/GSoC_2015#CPU.2FRAM.2FPCI_diagram_tool
-
-Thanks,
-Sahil
-
-
+greg k-h
 
