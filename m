@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4EA67B1DFA
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609714.948860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3887B1E06
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:23:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609737.948953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlqyb-0000wF-GJ; Thu, 28 Sep 2023 13:22:45 +0000
+	id 1qlqyl-0003lI-IE; Thu, 28 Sep 2023 13:22:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609714.948860; Thu, 28 Sep 2023 13:22:45 +0000
+Received: by outflank-mailman (output) from mailman id 609737.948953; Thu, 28 Sep 2023 13:22:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlqyb-0000fo-0h; Thu, 28 Sep 2023 13:22:45 +0000
-Received: by outflank-mailman (input) for mailman id 609714;
- Thu, 28 Sep 2023 13:20:42 +0000
+	id 1qlqyk-0003TQ-Il; Thu, 28 Sep 2023 13:22:54 +0000
+Received: by outflank-mailman (input) for mailman id 609737;
+ Thu, 28 Sep 2023 13:20:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c6vw=FM=kernel.org=devnull+j.granados.samsung.com@srs-se1.protection.inumbo.net>)
- id 1qlqwc-000873-Lh
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:20:42 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qlqwi-000873-NH
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:20:48 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d226ec99-5e01-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 15:20:41 +0200 (CEST)
+ id d3ddcd6d-5e01-11ee-878a-cb3800f73035;
+ Thu, 28 Sep 2023 15:20:45 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 23E9A61CB6;
+ by sin.source.kernel.org (Postfix) with ESMTP id 681E5CE21D7;
  Thu, 28 Sep 2023 13:20:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 694BAC32792;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D24DC3278F;
  Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 505F0E732D7;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 65ACDE732D0;
  Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -46,26 +46,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d226ec99-5e01-11ee-878a-cb3800f73035
+X-Inumbo-ID: d3ddcd6d-5e01-11ee-878a-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1695907237;
-	bh=qEbYGqUMnAni5CU3u1xnFGdb1FPLHz8knsrTsoBqy2s=;
+	bh=ZUiksl6W6uAlLzfzmV82mN2ZY2mOo2/OdWLFk3qByI8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EHLQaBcOwLswCBdGO23q6TptXW6rEuRsuyDDju9YDgRwtTJAFZW1glERTx2pWCUDF
-	 tOjVoIbCmJcAzVL9/nTdUYWAUEoFOLTZaeqDmRP7/hYb80DQCpMkK431kVYV4MtfFt
-	 nuFRCQTcKbRTwk6aFUMiInxZgGf9g5PN30MfE6Qn8BPKnhdkF5OHjDHyNHlefR16a7
-	 kovNGZEJ82o8HzdaJTXh1lfiwnQ7miRpMa5No/lMwaB3fxzvkpo62uyXd+OJ7Lamtz
-	 GFU10q1sSUCvk3aoq4J6ku2lDemCv1JH5wQAVTiONg+P8BHZEPDbPLIxqj2PRpLtAJ
-	 88YnEQ7UZgt5Q==
+	b=XAmlR43N6LnlJWcxBRfJ4bGYX3efFf3VyDERCl9d9561sagPAB7JBOqTCKHhzbBws
+	 Co5bW1LR04BRjXSzgqgigGnspcMgU7Ay7e7Dswa57sw5pcE6eLuRpRmV0qB9dyFpJo
+	 ePxhk5Q1d+Wg4yRBouhE37dS8A8LHGsGW/jjgvFD4QC1wFaogI1GXyCa0PQV4OCVRC
+	 NjTSXs4ab4JtUkPvyk3A/6ypSj1z8UEtEd2jT17geAa3bVI7XSijzJ/y7ZPKJM3mfw
+	 JCFOFie1GX3MB32wgsEqQ9dPhxu5u+5L3oj+Gz6KUuq2yEeQEVLF6JScdvZYV7FKaD
+	 tL3TGuj7xNI7w==
 From: Joel Granados via B4 Relay <devnull+j.granados.samsung.com@kernel.org>
-Date: Thu, 28 Sep 2023 15:21:39 +0200
-Subject: [PATCH 14/15] hyper-v/azure: Remove now superfluous sentinel
- element from ctl_table array
+Date: Thu, 28 Sep 2023 15:21:40 +0200
+Subject: [PATCH 15/15] intel drm: Remove now superfluous sentinel element
+ from ctl_table array
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Message-Id: =?utf-8?q?=3C20230928-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=
- =?utf-8?q?rs-v1-14-e59120fca9f9=40samsung=2Ecom=3E?=
+ =?utf-8?q?rs-v1-15-e59120fca9f9=40samsung=2Ecom=3E?=
 References:
  <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 In-Reply-To:
@@ -106,17 +106,18 @@ Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Joel Granados <j.granados@samsung.com>
 X-Mailer: b4 0.13-dev-86aa5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=961; i=j.granados@samsung.com;
- h=from:subject:message-id; bh=4F2+ffa3GXhFGEYppFEHm2Mtt4QSfNMs1+9vGf3WJxo=;
- b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3f7bbg+0UaO56WXQOXlIq7JJTQoGGJcP1ef
- /0I3/y2l9yJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93wAKCRC6l81St5ZB
- T4FKC/9a2qdj27UKReYhOR67fov89RkcBAc0SAtrPXpSnnrATI2eCpgilBgK1TJnsd0vUJGn0v3
- HjutmUfnoXup+S3WT9l3Slop3hFazPlp4SGiLhCk1S23c/OlDwWO3IiAx8fA32NnNESs+MiBioa
- mXZu1jueoTISV7491NrBE5AqSzUD6+hA+gD6YfMNt4IFj5W3Hgy97oNrKmbVPktauNusnunZZ3F
- o192QRllKpTe1YlCVbYhL7flWa+1/barEVZyZWVtxgNuB0P57zgVImqQ8XQmCxmECx8AD0wq5Ks
- O59WWgdwa2mnVSl6yc2foQ8tNalHJ38XJAfBwByhMtcPnw4jsyyRTs/yPy24cW1Ht3s4r+RdWr1
- SWhzfXIIcW9zXul6wENWenDvXgVnHgPonLkKr/3w7ZFnRaLRczi94+a9SLqVIsthKPjIE+3Oj1E
- nOgzwMEh2XX72oDthoVuqB9I+Pl7Reo4jpwdDfbqp1O6tARRauhhozGbiE+umxbAGQwJo=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1010;
+ i=j.granados@samsung.com; h=from:subject:message-id;
+ bh=Z9ZtfK3DEA99EXZ7fr8sV5mKU3DvB0mjVyvX0TU3lCI=;
+ b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3gFlneS4Mf90CaCbyJH1c7W29aNmmDMi/fY
+ CLHmU/OGzqJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV94AAKCRC6l81St5ZB
+ T+SdC/9jFG0RUkuS7dLpAVcMO6D7jlVD+ZtX/jfu+rwthZV8WGVLtJ8kcAR7BPdgAWXivaJ86Dp
+ P8HoauS68D0RI9Rl9X/gHaLDOKz2eejqJOE8LOTNyc5oeWYoHn33YzNJbhBnz6UoWV0vUdddE34
+ GRQqY6MKoVxUSV4CWxcsjFchdIDzBQiMIwUqspGaJghb9FT9hzSCLfXyl5vJzx8A+y2J8mT49k2
+ Zu4B/1iFwUdke4OebC6tbh93+vu6byFilf9UV3QNKYcRyJ5GGOmA8VWdq1U89/l+7ecOpeI+39E
+ VAvGXaumDhZWUpNQ1QcR6XhGrFL3IBE/XkZwVuXcVyY6NfbR19/0xgBykkluiUglYLyjlLnmfcl
+ 5XmrIaXdLBsIKU3e2gt+wdTGHqGSyzFDdbp0RF2kkLOO1GnpNivaGGSl8okOViY6fb1bAGKWSZM
+ FhB8ybdTYNi+IqN7tj+lwciJDUGicuxAJy3KGeA8aLCwF3Lo29sNp5FS7A428ifTZoZbQ=
 X-Developer-Key: i=j.granados@samsung.com; a=openpgp;
  fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
 X-Endpoint-Received:
@@ -132,27 +133,27 @@ will reduce the overall build time size of the kernel and run time
 memory bloat by ~64 bytes per sentinel (further information Link :
 https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
 
-Remove sentinel from hv_ctl_table
+Remove sentinel from oa_table
 
 Signed-off-by: Joel Granados <j.granados@samsung.com>
 ---
- drivers/hv/hv_common.c | 3 +--
+ drivers/gpu/drm/i915/i915_perf.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
-index ccad7bca3fd3..bc7d678030aa 100644
---- a/drivers/hv/hv_common.c
-+++ b/drivers/hv/hv_common.c
-@@ -147,8 +147,7 @@ static struct ctl_table hv_ctl_table[] = {
- 		.proc_handler	= proc_dointvec_minmax,
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2		= SYSCTL_ONE
--	},
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 04bc1f4a1115..97ef6d2ad037 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -4895,8 +4895,7 @@ static struct ctl_table oa_table[] = {
+ 	 .proc_handler = proc_dointvec_minmax,
+ 	 .extra1 = SYSCTL_ZERO,
+ 	 .extra2 = &oa_sample_rate_hard_limit,
+-	 },
 -	{}
 +	}
  };
  
- static int hv_die_panic_notify_crash(struct notifier_block *self,
+ static u32 num_perf_groups_per_gt(struct intel_gt *gt)
 
 -- 
 2.30.2
