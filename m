@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9FBB7B1E87
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:34:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609795.948982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1257B1EC1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:42:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609809.949002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlr9E-0002Tv-Qv; Thu, 28 Sep 2023 13:33:44 +0000
+	id 1qlrHo-0005sn-UC; Thu, 28 Sep 2023 13:42:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609795.948982; Thu, 28 Sep 2023 13:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 609809.949002; Thu, 28 Sep 2023 13:42:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlr9E-0002SF-O6; Thu, 28 Sep 2023 13:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 609795;
- Thu, 28 Sep 2023 13:33:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LMSP=FM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qlr9D-0002S7-EI
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:33:43 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3e30777-5e03-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 15:33:42 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 67E94218F6;
- Thu, 28 Sep 2023 13:33:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30ADA138E9;
- Thu, 28 Sep 2023 13:33:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Kft8CbSAFWWVcQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 28 Sep 2023 13:33:40 +0000
+	id 1qlrHo-0005r6-Qr; Thu, 28 Sep 2023 13:42:36 +0000
+Received: by outflank-mailman (input) for mailman id 609809;
+ Thu, 28 Sep 2023 13:36:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iMsa=FM=gmail.com=icegambit91@srs-se1.protection.inumbo.net>)
+ id 1qlrCN-0003Yn-TI
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:36:59 +0000
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [2607:f8b0:4864:20::102e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 17bb6941-5e04-11ee-9b0d-b553b5be7939;
+ Thu, 28 Sep 2023 15:36:57 +0200 (CEST)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ 98e67ed59e1d1-274b3d48e15so9083693a91.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Sep 2023 06:36:57 -0700 (PDT)
+Received: from valdaarhun.localnet ([2401:4900:1c42:8fff::2e:ebb7])
+ by smtp.gmail.com with ESMTPSA id
+ c3-20020a637243000000b005742092c211sm12673566pgn.64.2023.09.28.06.36.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Sep 2023 06:36:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,215 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3e30777-5e03-11ee-878a-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1695908021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=J7XYfBNJCPVTZbqpCY8elyTd0rptVgojsn4tPFFx5cQ=;
-	b=q/Ab4JicXAapmsOnZJFIpYXlFBZFzQpU5Q959jxAduZR2sfnkckU3XvYE+VJF8Qgu3nBXC
-	VkC3c+5foismVJH0WeVEQ+xoyN/5uMZemmvJP8RKhdDr2ltRdZKxr16a8wmAwcpQlexkgl
-	RY//qYnHu0513gjwDdrBZabQuBcxiTI=
-Message-ID: <4607b3c0-b992-4b23-9a89-4ddfb9447c82@suse.com>
-Date: Thu, 28 Sep 2023 15:33:38 +0200
+X-Inumbo-ID: 17bb6941-5e04-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695908216; x=1696513016; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MUdU7BGqF/nk4/vKNdMRuoOiP4xEs6VLIiAHMkfMm4Y=;
+        b=gRGAB9g+y7gtYzBfId5ls6oOYBaBXo/ZJZIR9fvIsR9hrvV9Cfchmkd/Q/9uKlWEa0
+         Vad6MAkayAnlAFR6/p6Ylfj7it7dBYmKkbZrobz/g8dNimhi6h5jF3TIBZCtySgOrOZt
+         z421IJqcMV7ctlptKbr9Dzh4fST0ZOhobaSUpX0VlVfOZJU2RzcvA76Jyl+kvsfkIpNr
+         1VIdbQV5r2L2W64Wzxqr61K9yI8q8cSmQlM+nwhQr46apeEGhUL3zH+CnUCRyhy4Sb9L
+         h9x/okWt9h3EC61uDNSzc//kmtcz8FeSaHgsb3lT4Ax2lGq2Sd03TWzTx82wwINgaRkg
+         FVWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695908216; x=1696513016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MUdU7BGqF/nk4/vKNdMRuoOiP4xEs6VLIiAHMkfMm4Y=;
+        b=E66vP5I6Y+D5X5q8c4JtX86/M44roaG9EzqXvY4vTYqOifZdDC+UYlht1/JiRBXIEx
+         8/3XPq3zu+uNxUSrkq8AcJuCQc6W50hTw6CH+PrrgeEG/JFxiMDnn5Un+BSbwineZDIx
+         d6+unTbTZ8eGAjcSOOpJkEbz4Bct43pUsiYg7tgXbRLORw1RBdco0H5FyTfeZaqU+Iq7
+         +udxSFw+BSlpzMiHtG+vEi0CpfOmny8hb09aJw3M7rzyy73BQke/0vTaXtI+nDFlkIOj
+         HZKxcWSWhGYrHPMj0seM2biYz1kWknqNj2DahwEQT0xHx3m/KPyjLpXyzKymLM477wrB
+         gUtQ==
+X-Gm-Message-State: AOJu0YxId+nSRLAa63jmHwRloxHq+LHFwEhx8Gy4EiFbkSwQk9JhDDLA
+	6zYwVDwPvn9bhTnesCFpwQPumyl+7FU=
+X-Google-Smtp-Source: AGHT+IEnWREIIqcQsh4vg/PAgL20KUG4vk3pWeKRbf4AqDNv+wSYxJ6eTWZvV1ZHz8ZWzfw8x2QxuQ==
+X-Received: by 2002:a17:90a:ce92:b0:26d:4ab3:fe11 with SMTP id g18-20020a17090ace9200b0026d4ab3fe11mr1002946pju.24.1695908216137;
+        Thu, 28 Sep 2023 06:36:56 -0700 (PDT)
+From: Sahil <icegambit91@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com
+Subject: Beginner looking to contribute to project in archived list
+Date: Thu, 28 Sep 2023 19:06:52 +0530
+Message-ID: <3269277.aeNJFYEL58@valdaarhun>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/15] xen: Remove now superfluous sentinel element from
- ctl_table array
-Content-Language: en-US
-To: j.granados@samsung.com, Luis Chamberlain <mcgrof@kernel.org>,
- willy@infradead.org, josh@joshtriplett.org, Kees Cook
- <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>,
- Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jiri Slaby <jirislaby@kernel.org>, "James E.J. Bottomley"
- <jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Doug Gilbert <dgilbert@interlog.com>,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern <dsahern@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
- Russ Weight <russell.h.weight@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
- <20230928-jag-sysctl_remove_empty_elem_drivers-v1-3-e59120fca9f9@samsung.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-3-e59120fca9f9@samsung.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------SeFKlArjiibReMSAFzJfhGG0"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------SeFKlArjiibReMSAFzJfhGG0
-Content-Type: multipart/mixed; boundary="------------0ZW6nDW7eE13o0syrRxubfk6";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: j.granados@samsung.com, Luis Chamberlain <mcgrof@kernel.org>,
- willy@infradead.org, josh@joshtriplett.org, Kees Cook
- <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>,
- Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jiri Slaby <jirislaby@kernel.org>, "James E.J. Bottomley"
- <jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Doug Gilbert <dgilbert@interlog.com>,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern <dsahern@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
- Russ Weight <russell.h.weight@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Message-ID: <4607b3c0-b992-4b23-9a89-4ddfb9447c82@suse.com>
-Subject: Re: [PATCH 03/15] xen: Remove now superfluous sentinel element from
- ctl_table array
-References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
- <20230928-jag-sysctl_remove_empty_elem_drivers-v1-3-e59120fca9f9@samsung.com>
-In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-3-e59120fca9f9@samsung.com>
+Hi,
 
---------------0ZW6nDW7eE13o0syrRxubfk6
-Content-Type: multipart/mixed; boundary="------------LcwAXBbPGfDBE07m39FWafwE"
+I have never contributed to the Xen Project before. I am interested in virtualization,
+firmware and low-level systems programming. I would like to start contributing to
+Xen and learn more about these fields while working on the job.
 
---------------LcwAXBbPGfDBE07m39FWafwE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+I was going through the archived project listings [1] in the wiki and I came across the
+project - "CPU/RAM/PCI diagram tool" [2]. The project was suggested in 2014 but I could
+not find any updates on the status of the project.
 
-T24gMjguMDkuMjMgMTU6MjEsIEpvZWwgR3JhbmFkb3MgdmlhIEI0IFJlbGF5IHdyb3RlOg0K
-PiBGcm9tOiBKb2VsIEdyYW5hZG9zIDxqLmdyYW5hZG9zQHNhbXN1bmcuY29tPg0KPiANCj4g
-VGhpcyBjb21taXQgY29tZXMgYXQgdGhlIHRhaWwgZW5kIG9mIGEgZ3JlYXRlciBlZmZvcnQg
-dG8gcmVtb3ZlIHRoZQ0KPiBlbXB0eSBlbGVtZW50cyBhdCB0aGUgZW5kIG9mIHRoZSBjdGxf
-dGFibGUgYXJyYXlzIChzZW50aW5lbHMpIHdoaWNoDQo+IHdpbGwgcmVkdWNlIHRoZSBvdmVy
-YWxsIGJ1aWxkIHRpbWUgc2l6ZSBvZiB0aGUga2VybmVsIGFuZCBydW4gdGltZQ0KPiBtZW1v
-cnkgYmxvYXQgYnkgfjY0IGJ5dGVzIHBlciBzZW50aW5lbCAoZnVydGhlciBpbmZvcm1hdGlv
-biBMaW5rIDoNCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL1pPNVl4NUpGb2dHaSUy
-RmNCb0Bib21iYWRpbC5pbmZyYWRlYWQub3JnLykNCj4gDQo+IFJlbW92ZSBzZW50aW5lbCBm
-cm9tIGJhbGxvb25fdGFibGUNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEpvZWwgR3JhbmFkb3Mg
-PGouZ3JhbmFkb3NAc2Ftc3VuZy5jb20+DQoNCkFja2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxq
-Z3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdlbg0KDQo=
---------------LcwAXBbPGfDBE07m39FWafwE
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Is this project still open for development? If so, I would like to work on it. If not, is there
+an open project/task that I could work on or contribute to? I am comfortable with C and
+Python. I am also currently working on my Rust skills.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+I look forward to hearing from you.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+[1] https://wiki.xenproject.org/wiki/Archived/GSoC_2015
+[2] https://wiki.xenproject.org/wiki/Archived/GSoC_2015#CPU.2FRAM.2FPCI_diagram_tool
 
---------------LcwAXBbPGfDBE07m39FWafwE--
+Thanks,
+Sahil
 
---------------0ZW6nDW7eE13o0syrRxubfk6--
 
---------------SeFKlArjiibReMSAFzJfhGG0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUVgLMFAwAAAAAACgkQsN6d1ii/Ey8V
-GQf/bIe1mAML3lO7z0/31oud11LQ5zQBcxwiW5lzF6ZeuVP1TBjHaf26R1neWJKkBHmeLq8qHU0P
-qcpp+wgxBrMvV8VRlUkbb/Ts+ILP/SA4tyq87G9li0o5JvMeHWJRXacx3fWQW5AGm0Z7Cja5EEqQ
-p8STnVcEYuW2oB8VKnxr139uvZIsRDk0s3pOWKy7B/P3FGyZQjSDt0JODtqUdXujIz2J2xXNkRGM
-VY6myGjH/OP1pH2wJzshvobjUNLz9bxs5tVzC+nk7XzNExeWVBZ0lKxduA334HptbEXibflg9vDF
-QcK4ngjHeMbRhdDGWaMfB+8ZtOTDvd6FEHFTihTYCw==
-=fBr/
------END PGP SIGNATURE-----
-
---------------SeFKlArjiibReMSAFzJfhGG0--
 
