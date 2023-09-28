@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7B27B286A
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 00:25:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610050.949278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A5A77B2878
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 00:32:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610056.949288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlzQl-0007O6-CI; Thu, 28 Sep 2023 22:24:23 +0000
+	id 1qlzYW-000192-43; Thu, 28 Sep 2023 22:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610050.949278; Thu, 28 Sep 2023 22:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 610056.949288; Thu, 28 Sep 2023 22:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlzQl-0007L5-90; Thu, 28 Sep 2023 22:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 610050;
- Thu, 28 Sep 2023 22:24:22 +0000
+	id 1qlzYW-00016Q-18; Thu, 28 Sep 2023 22:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 610056;
+ Thu, 28 Sep 2023 22:32:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NjmF=FM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qlzQk-0007Kz-Cz
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 22:24:22 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1qlzYV-00016K-7z
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 22:32:23 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c45f8f31-5e4d-11ee-878b-cb3800f73035;
- Fri, 29 Sep 2023 00:24:21 +0200 (CEST)
+ id e34e47d1-5e4e-11ee-878b-cb3800f73035;
+ Fri, 29 Sep 2023 00:32:21 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2505861DA7;
- Thu, 28 Sep 2023 22:24:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D40EC433C8;
- Thu, 28 Sep 2023 22:24:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8892161D9E;
+ Thu, 28 Sep 2023 22:32:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C191C433C7;
+ Thu, 28 Sep 2023 22:32:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,130 +41,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c45f8f31-5e4d-11ee-878b-cb3800f73035
+X-Inumbo-ID: e34e47d1-5e4e-11ee-878b-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695939858;
-	bh=H76zN8S7OvC1y7q1g6XWTHf1rNyWR18UVQ0hRqwlfNg=;
+	s=k20201202; t=1695940340;
+	bh=dBuXBy3TylXN/QVUSxaztn4EmidT8l7aSHCf1BqAKJc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jyi7k4desFqjUDXcp3jNflMX33Lfc3oOUq2sbS9tR4HzIVHbkMoTnWhNPqbFBRyeC
-	 42s2sssnMRi3MnX/a59ozywGBI0+07N3KhPdb6Oz5ByWteygWqbOjWiq+wUZAa0YJE
-	 qoD0M2Q7xmTZVc06YXBePs989iCjq3IYb0QB+XaRRJvq1hV5k+5db4Yz0F7YzE3zTp
-	 jJ8GWwe2VlR4NVbCIrjikHfLRTYoGqUAvVacazWXhciwaeLgS6TBdItLVnZ8iP+iwO
-	 ThVPQDnr8wTBfXqHn/4Sj30Q/NmeArIgmC3+x/CGcZJgi364rCjFaieS5bZGX3Znai
-	 NX0X1WzcYpelg==
-Date: Thu, 28 Sep 2023 15:24:15 -0700 (PDT)
+	b=XelxxT0KdZubwcdvmjDv5Z6XJ0NyiZvsQFt2wMa0en+vD9eyGJ1zwulnJGH95tDAU
+	 FaFRLBOAqGkeEarvJuamVAKIvyb2rilkTa2JeOZyeeyk2aMzUNVVDeTu8f4eoeI/hu
+	 eQzlf3RcpOGp8Gz93RCP6rVrVBZOlT9KGkRexP6VC9ZacxY2AdoAQZ13lRwSjH47jG
+	 bIuQjKOivBGFBLd+4+oJ4n+fjDXVpzfuV1zHXAFVrvQcV1oqaLgcOHHyRaPCEPOW1y
+	 ZPIAIJTmtP8dBkIO7PxdNxQq8qHj5ul6eDrTG+Y1yWt+Vn3sg9RBUXNXIcASsfDOEI
+	 2y1PCvkPG8WzQ==
+Date: Thu, 28 Sep 2023 15:32:16 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
-    sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
-In-Reply-To: <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop>
-References: <cover.1694510856.git.simone.ballarin@bugseng.com> <b62205a1-885b-ea4e-3ce2-7ad58cfc938d@suse.com> <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com> <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com> <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
- <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, 
+    Henry Wang <Henry.Wang@arm.com>
+Subject: Re: [XEN PATCH v2 1/3] docs/misra: add documentation skeleton for
+ MISRA C:2012 Dir 4.1
+In-Reply-To: <3bf90dc627f6cd68dcd535461cbbdf32@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2309281527070.1996340@ubuntu-linux-20-04-desktop>
+References: <cover.1695801813.git.nicola.vetrini@bugseng.com> <5bb4dea2f48d0ef9a48a06c1b11c0dfcbd991aaf.1695801813.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2309271750130.1996340@ubuntu-linux-20-04-desktop>
+ <3bf90dc627f6cd68dcd535461cbbdf32@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 28 Sep 2023, Jan Beulich wrote:
-> On 28.09.2023 15:17, Simone Ballarin wrote:
-> > On 28/09/23 14:51, Jan Beulich wrote:
-> >> On 28.09.2023 14:46, Simone Ballarin wrote:
-> >>> On 13/09/23 10:02, Jan Beulich wrote:
-> >>>> On 12.09.2023 11:36, Simone Ballarin wrote:
-> >>>>> Add or move inclusion guards to address violations of
-> >>>>> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
-> >>>>> to prevent the contents of a header file being included more than
-> >>>>> once").
-> >>>>>
-> >>>>> Inclusion guards must appear at the beginning of the headers
-> >>>>> (comments are permitted anywhere) and the #if directive cannot
-> >>>>> be used for other checks.
-> >>>>>
-> >>>>> Simone Ballarin (10):
-> >>>>>     misra: add deviation for headers that explicitly avoid guards
-> >>>>>     misra: modify deviations for empty and generated headers
-> >>>>>     misra: add deviations for direct inclusion guards
-> >>>>>     xen/arm: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     xen/x86: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     x86/EFI: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     xen/common: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     xen/efi: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     xen: address violations of MISRA C:2012 Directive 4.10
-> >>>>>     x86/asm: address violations of MISRA C:2012 Directive 4.10
-> >>>>
-> >>>> Just to mention it here again for the entire series, seeing that despite
-> >>>> my earlier comments to this effect a few R-b have arrived: If private
-> >>>> headers need to gain guards (for, imo, no real reason), we first need to
-> >>>> settle on a naming scheme for these guards, such that guards used in
-> >>>> private headers aren't at risk of colliding with ones used headers
-> >>>> living in one of the usual include directories. IOW imo fair parts of
-> >>>> this series may need redoing.
-> >>>>
-> >>>> Jan
-> >>>>
-> >>>
-> >>> My proposal is:
-> >>> - the relative path from "xen/arch" for files in this directory
-> >>>     (i.e. X86_X86_X86_MMCONFIG_H for "xen/arch/x86/x86_64/mmconfig.h";
-> >>
-> >> X86_X86_64_MMCONFIG_H that is?
-> >>
-> >> Yet then this scheme won't hold for xen/arch/include/asm/... ? It's also
-> >> not clear whether you're deliberately omitting leading/trailing underscores
-> >> here, which may be a way to distinguish private from global headers.
-> > 
-> > Each name that begins with a double or single underscore (__, _) 
-> > followed by an uppercase letter is reserved. Using a reserved identifier 
-> > is an undefined-b.
-> > 
-> > I would be better to avoid them.
+On Thu, 28 Sep 2023, Nicola Vetrini wrote:
+> On 28/09/2023 02:55, Stefano Stabellini wrote:
+> > On Wed, 27 Sep 2023, Nicola Vetrini wrote:
+> > > The aforementioned directive requires the project to supply documentation
+> > > on the measures taken towards the minimization of run-time failures.
 > 
-> I'm with you about avoiding them, except that we use such all over the
-> place. Taking this together with ...
+> > > +
+> > > +Documentation for MISRA C:2012 Dir 4.1: mistyped access to function
+> > > +___________________________________________________________________
+> > > +
+> > > +The code never uses function pointers.
+> > 
+> > You missed my previous comment on this one
+> > 
 > 
-> >>> - for the others, the entire path.
-> >>
-> >> What exactly is "entire" here?
-> > 
-> > Let me try again.
-> > 
-> > If we are inside xen/arch the relative path starting from this directory:
-> >    | xen/arch/x86/include/asm/compat.h
-> >    X86_INCLUDE_ASM_COMPAT_H
-> > 
-> > For xen/include, the current convention.
-> > Maybe, in a future patch, we can consider removing the leading _.
-> > 
-> > For the others, the relative path after xen:
-> >    | xen/common/efi/efi.h
-> >    COMMON_EFI_EFI_H
-> 
-> ... this you're effectively suggesting to change all existing guards.
-> That's an option, but likely not a preferred one. Personally I'd prefer
-> if in particular the headers in xen/include/ and in xen/arch/*include/
-> didn't needlessly include _INCLUDE_ in their guard names.
-> 
-> I'm really curious what others think.
+> You're right.
+> This is about the usage of a function having a certain signature as having
+> another.
+> It could happen for instance:
+> - with incongruent declarations
+> - no prototypes
+> - casts on function pointers
+> Most of these can be caught by complying with other rules, but I'm not sure if
+> they
+> fully cover every case, and besides there are still violations on the rules
+> tied to this.
+> I guess we can say that this is a WIP.
 
-If it is a MISRA requirement to avoid names that begin with single or
-double underscore, then I think we should bite the bullet and change all
-guard names, taking the opportunity to make them consistent.
+We do want to follow these guidelines and like you wrote they are
+covered by other MISRA rules that we have adopted and we are already
+scanning for (or planning to) using ECLAIR. I think we should highlight
+that, especially we have done a lot of work on incongruent declarations
+and missing prototypes.
 
-If it is not a MISRA requirement, then I think we should go for the path
-of least resistance and try to make the smallest amount of changes
-overall, which seems to be:
 
-- for xen/include/blah.h, __BLAH_H__
-- for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
-- for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
+> > > +
+> > > +Documentation for MISRA C:2012 Dir 4.1: invariant violation
+> > > +___________________________________________________________
+> > > +
+> > > +To be written.
+> > 
+> > Also this one escaped.
+> > 
+> > Overall, this is much better!
+> > 
+> 
+> I replied on v1, but maybe I missed some further reply:
+> It's the violation of a project invariant (e.g., an assert or BUILD_BUG).
+> Something along the lines of this could fit in the documentation:
+> "The extensive checks in the code ensure that any violation of a
+> compile-time invariant will be detected in prior to release builds, and
+> failure
+> of run-time invariant is also extensively tested."
+
+We can also add the number of invariants is drastically reduced in
+release builds.
 
