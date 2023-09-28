@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643107B2126
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 17:25:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609919.949108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15EBC7B216F
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 17:36:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609950.949148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlssy-0003SH-Ud; Thu, 28 Sep 2023 15:25:04 +0000
+	id 1qlt40-0007oX-Es; Thu, 28 Sep 2023 15:36:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609919.949108; Thu, 28 Sep 2023 15:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 609950.949148; Thu, 28 Sep 2023 15:36:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlssy-0003MT-Mj; Thu, 28 Sep 2023 15:25:04 +0000
-Received: by outflank-mailman (input) for mailman id 609919;
- Thu, 28 Sep 2023 15:25:03 +0000
+	id 1qlt40-0007li-Bs; Thu, 28 Sep 2023 15:36:28 +0000
+Received: by outflank-mailman (input) for mailman id 609950;
+ Thu, 28 Sep 2023 15:36:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QRba=FM=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qlssx-00032t-FK
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 15:25:03 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3164e8e3-5e13-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 17:25:02 +0200 (CEST)
-Received: from beta.station (net-188-218-250-245.cust.vodafonedsl.it
- [188.218.250.245])
- by support.bugseng.com (Postfix) with ESMTPSA id 9E3544EE073C;
- Thu, 28 Sep 2023 17:25:01 +0200 (CEST)
+ <SRS0=oxVr=FM=gmail.com=wei.liu.linux@srs-se1.protection.inumbo.net>)
+ id 1qlsuD-00032t-FE
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 15:26:21 +0000
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f6bdcd9-5e13-11ee-878a-cb3800f73035;
+ Thu, 28 Sep 2023 17:26:20 +0200 (CEST)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-6c4e7951dddso4759200a34.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Sep 2023 08:26:20 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([20.69.120.36])
+ by smtp.gmail.com with ESMTPSA id
+ j14-20020aa78dce000000b006906aaf1e4dsm13514673pfr.150.2023.09.28.08.26.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Sep 2023 08:26:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,218 +44,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3164e8e3-5e13-11ee-878a-cb3800f73035
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	sstabellini@kernel.org,
-	jbeulich@suse.com,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Gianluca Luparini <gianluca.luparini@bugseng.com>
-Subject: [XEN PATCH v7 4/4] xen/x86: address violations of MISRA C:2012 Rule 7.2
-Date: Thu, 28 Sep 2023 17:23:04 +0200
-Message-Id: <bdd904ece02fdd6365db4911b411ba8b20b7debc.1695913900.git.simone.ballarin@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1695913900.git.simone.ballarin@bugseng.com>
-References: <cover.1695913900.git.simone.ballarin@bugseng.com>
+X-Inumbo-ID: 5f6bdcd9-5e13-11ee-878a-cb3800f73035
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695914779; x=1696519579;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PYPUiAEm0lZNQbU6hKmoJKqPGRAnrTCwSSHfRdZ7LfA=;
+        b=Bt/JtE2c0XpULgI1BcBBNZTQejlaC2BXxa3AWeMWYcCgzj/EG6igByfQAf/Q9xdSEm
+         7HZjJwO+06EP1dBRDTgRT1V/18k3GGdodlNjH7/I7AcaNoBcq7m0G0vvx2F8j7jpkQlb
+         TGxHXfJpUV+sJaSFGx3yfeNk8STUjWrl9dV5aaJISSKXqSSM5/uvz/J0CcglDwUfcIRf
+         3v+tMn42o1F7agBjF/cdV/S0wGPtkFcAXfvpPibs3wEtst7Y82mSrPUxF+ido9YalEnp
+         lCw7eqLUhKX22AvXF92h1FQR1IolTnGrhJSowkdzrbhZm1ucaRiK3OWPER+hE1Zud2BC
+         Qq1A==
+X-Gm-Message-State: AOJu0YyElMdHVTpzUbmPNKWGoaUOEMxyZLKYNnWOu2ouIg3wxQodbzGp
+	PAMS9a6tZ8RNsKSKhUTFezg=
+X-Google-Smtp-Source: AGHT+IEkFDTusLpYox11EoA1Tl2MJIdC5Ad7Ua286wH6ql8JYqDg2cQ1Wc6Zlzvv071aY+VufA88gQ==
+X-Received: by 2002:a9d:73d5:0:b0:6c4:b339:2528 with SMTP id m21-20020a9d73d5000000b006c4b3392528mr1632381otk.16.1695914778722;
+        Thu, 28 Sep 2023 08:26:18 -0700 (PDT)
+Date: Thu, 28 Sep 2023 15:26:16 +0000
+From: Wei Liu <wei.liu@kernel.org>
+To: j.granados@samsung.com
+Cc: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
+	josh@joshtriplett.org, Kees Cook <keescook@chromium.org>,
+	Phillip Potter <phil@philpotter.co.uk>,
+	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Doug Gilbert <dgilbert@interlog.com>,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
+	Russ Weight <russell.h.weight@intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-serial@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-rdma@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, netdev@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 14/15] hyper-v/azure: Remove now superfluous sentinel
+ element from ctl_table array
+Message-ID: <ZRWbGDlXCS4t8tMf@liuwe-devbox-debian-v2>
+References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
+ <65157da8.050a0220.fb263.fdb1SMTPIN_ADDED_BROKEN@mx.google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <65157da8.050a0220.fb263.fdb1SMTPIN_ADDED_BROKEN@mx.google.com>
 
-The xen sources contains violations of MISRA C:2012 Rule 7.2 whose
-headline states:
-"A 'u' or 'U' suffix shall be applied to all integer constants
-that are represented in an unsigned type".
+Please change the prefix to "Drivers: hv:" in the subject line in the
+two patches.
 
-Add the 'U' suffix to integers literals with unsigned type.
+On Thu, Sep 28, 2023 at 03:21:39PM +0200, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which
+> will reduce the overall build time size of the kernel and run time
+> memory bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove sentinel from hv_ctl_table
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
+> ---
+>  drivers/hv/hv_common.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+> index ccad7bca3fd3..bc7d678030aa 100644
+> --- a/drivers/hv/hv_common.c
+> +++ b/drivers/hv/hv_common.c
+> @@ -147,8 +147,7 @@ static struct ctl_table hv_ctl_table[] = {
+>  		.proc_handler	= proc_dointvec_minmax,
+>  		.extra1		= SYSCTL_ZERO,
+>  		.extra2		= SYSCTL_ONE
+> -	},
+> -	{}
+> +	}
 
-For the sake of uniformity, the following change is made:
-- add the 'U' suffix to switch cases in 'cpuid.c'
+Please keep the comma at the end.
 
-Signed-off-by: Gianluca Luparini <gianluca.luparini@bugseng.com>
-Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
----
-Changes in v7:
-- change cast to long in a cast to unsigned long in INVALID_PERCPU_AREA
-  to match the type of the first operand
-- add missing Signed-off-by tags
-Changes in v6:
-- new patch obtained by splitting X86 related changes from
-"xen/x86: address violations of MISRA C:2012 Rule 7.2 (v5)"
----
- xen/arch/x86/apic.c       |  2 +-
- xen/arch/x86/cpu-policy.c | 18 +++++++++---------
- xen/arch/x86/cpuid.c      |  8 ++++----
- xen/arch/x86/extable.c    |  2 +-
- xen/arch/x86/percpu.c     |  2 +-
- xen/arch/x86/psr.c        |  2 +-
- xen/arch/x86/spec_ctrl.c  | 12 ++++++------
- 7 files changed, 23 insertions(+), 23 deletions(-)
-
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index f1264ce7ed..6a43d81d2a 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1191,7 +1191,7 @@ static void __init calibrate_APIC_clock(void)
-      * Setup the APIC counter to maximum. There is no way the lapic
-      * can underflow in the 100ms detection time frame.
-      */
--    __setup_APIC_LVTT(0xffffffff);
-+    __setup_APIC_LVTT(0xffffffffU);
- 
-     bus_freq = calibrate_apic_timer();
-     if ( !bus_freq )
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 81e574390f..423932bc13 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -321,7 +321,7 @@ static void recalculate_misc(struct cpu_policy *p)
-         p->extd.vendor_edx = p->basic.vendor_edx;
- 
-         p->extd.raw_fms = p->basic.raw_fms;
--        p->extd.raw[0x1].b &= 0xff00ffff;
-+        p->extd.raw[0x1].b &= 0xff00ffffU;
-         p->extd.e1d |= p->basic._1d & CPUID_COMMON_1D_FEATURES;
- 
-         p->extd.raw[0x8].a &= 0x0000ffff; /* GuestMaxPhysAddr hidden. */
-@@ -378,10 +378,10 @@ static void __init calculate_host_policy(void)
-      * this information.
-      */
-     if ( cpu_has_lfence_dispatch )
--        max_extd_leaf = max(max_extd_leaf, 0x80000021);
-+        max_extd_leaf = max(max_extd_leaf, 0x80000021U);
- 
--    p->extd.max_leaf = 0x80000000 | min_t(uint32_t, max_extd_leaf & 0xffff,
--                                          ARRAY_SIZE(p->extd.raw) - 1);
-+    p->extd.max_leaf = 0x80000000U | min_t(uint32_t, max_extd_leaf & 0xffff,
-+                                           ARRAY_SIZE(p->extd.raw) - 1);
- 
-     x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
-     recalculate_xstate(p);
-@@ -793,11 +793,11 @@ void recalculate_cpuid_policy(struct domain *d)
- 
-     p->basic.max_leaf   = min(p->basic.max_leaf,   max->basic.max_leaf);
-     p->feat.max_subleaf = min(p->feat.max_subleaf, max->feat.max_subleaf);
--    p->extd.max_leaf    = 0x80000000 | min(p->extd.max_leaf & 0xffff,
--                                           ((p->x86_vendor & (X86_VENDOR_AMD |
--                                                              X86_VENDOR_HYGON))
--                                            ? CPUID_GUEST_NR_EXTD_AMD
--                                            : CPUID_GUEST_NR_EXTD_INTEL) - 1);
-+    p->extd.max_leaf    = 0x80000000U | min(p->extd.max_leaf & 0xffff,
-+                                            ((p->x86_vendor & (X86_VENDOR_AMD |
-+                                                               X86_VENDOR_HYGON))
-+                                             ? CPUID_GUEST_NR_EXTD_AMD
-+                                             : CPUID_GUEST_NR_EXTD_INTEL) - 1);
- 
-     x86_cpu_policy_to_featureset(p, fs);
-     x86_cpu_policy_to_featureset(max, max_fs);
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 455a09b2dd..7290a979c6 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -93,7 +93,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-         }
-         break;
- 
--    case 0x40000000 ... 0x400000ff:
-+    case 0x40000000U ... 0x400000ffU:
-         if ( is_viridian_domain(d) )
-             return cpuid_viridian_leaves(v, leaf, subleaf, res);
- 
-@@ -103,10 +103,10 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-          * Intel reserve up until 0x4fffffff for hypervisor use.  AMD reserve
-          * only until 0x400000ff, but we already use double that.
-          */
--    case 0x40000100 ... 0x400001ff:
-+    case 0x40000100U ... 0x400001ffU:
-         return cpuid_hypervisor_leaves(v, leaf, subleaf, res);
- 
--    case 0x80000000 ... 0x80000000 + CPUID_GUEST_NR_EXTD - 1:
-+    case 0x80000000U ... 0x80000000U + CPUID_GUEST_NR_EXTD - 1:
-         ASSERT((p->extd.max_leaf & 0xffff) < ARRAY_SIZE(p->extd.raw));
-         if ( (leaf & 0xffff) > min_t(uint32_t, p->extd.max_leaf & 0xffff,
-                                      ARRAY_SIZE(p->extd.raw) - 1) )
-@@ -352,7 +352,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-         }
-         break;
- 
--    case 0x80000001:
-+    case 0x80000001U:
-         /* SYSCALL is hidden outside of long mode on Intel. */
-         if ( p->x86_vendor == X86_VENDOR_INTEL &&
-              is_hvm_domain(d) && !hvm_long_mode_active(v) )
-diff --git a/xen/arch/x86/extable.c b/xen/arch/x86/extable.c
-index 74b14246e9..652010f413 100644
---- a/xen/arch/x86/extable.c
-+++ b/xen/arch/x86/extable.c
-@@ -141,7 +141,7 @@ static int __init cf_check stub_selftest(void)
-           .rax = 0x0123456789abcdef,
-           .res.fields.trapnr = X86_EXC_GP },
-         { .opc = { endbr64, 0x02, 0x04, 0x04, 0xc3 }, /* add (%rsp,%rax),%al */
--          .rax = 0xfedcba9876543210,
-+          .rax = 0xfedcba9876543210UL,
-           .res.fields.trapnr = X86_EXC_SS },
-         { .opc = { endbr64, 0xcc, 0xc3, 0xc3, 0xc3 }, /* int3 */
-           .res.fields.trapnr = X86_EXC_BP },
-diff --git a/xen/arch/x86/percpu.c b/xen/arch/x86/percpu.c
-index 288050cdba..3205eacea6 100644
---- a/xen/arch/x86/percpu.c
-+++ b/xen/arch/x86/percpu.c
-@@ -12,7 +12,7 @@ unsigned long __per_cpu_offset[NR_CPUS];
-  * possible #PF at (NULL + a little) which has security implications in the
-  * context of PV guests.
-  */
--#define INVALID_PERCPU_AREA (0x8000000000000000L - (long)__per_cpu_start)
-+#define INVALID_PERCPU_AREA (0x8000000000000000UL - (unsigned long)__per_cpu_start)
- #define PERCPU_ORDER get_order_from_bytes(__per_cpu_data_end - __per_cpu_start)
- 
- void __init percpu_init_areas(void)
-diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
-index 4c01813c4b..0b9631ac44 100644
---- a/xen/arch/x86/psr.c
-+++ b/xen/arch/x86/psr.c
-@@ -191,7 +191,7 @@ static struct feat_node *feat_l2_cat;
- static struct feat_node *feat_mba;
- 
- /* Common functions */
--#define cat_default_val(len) (0xffffffff >> (32 - (len)))
-+#define cat_default_val(len) (0xffffffffU >> (32 - (len)))
- 
- /*
-  * get_cdp_data - get DATA COS register value from input COS ID.
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 6fd7d44ce4..c53632089e 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -406,10 +406,10 @@ static void __init print_details(enum ind_thunk thunk)
-         cpuid_count(7, 0, &max, &tmp, &tmp, &_7d0);
-     if ( max >= 2 )
-         cpuid_count(7, 2, &tmp, &tmp, &tmp, &_7d2);
--    if ( boot_cpu_data.extended_cpuid_level >= 0x80000008 )
--        cpuid(0x80000008, &tmp, &e8b, &tmp, &tmp);
--    if ( boot_cpu_data.extended_cpuid_level >= 0x80000021 )
--        cpuid(0x80000021, &e21a, &tmp, &tmp, &tmp);
-+    if ( boot_cpu_data.extended_cpuid_level >= 0x80000008U )
-+        cpuid(0x80000008U, &tmp, &e8b, &tmp, &tmp);
-+    if ( boot_cpu_data.extended_cpuid_level >= 0x80000021U )
-+        cpuid(0x80000021U, &e21a, &tmp, &tmp, &tmp);
-     if ( cpu_has_arch_caps )
-         rdmsrl(MSR_ARCH_CAPABILITIES, caps);
- 
-@@ -1612,8 +1612,8 @@ void __init init_speculation_mitigations(void)
-          * TODO: Adjust cpu_has_svm_spec_ctrl to be usable earlier on boot.
-          */
-         if ( opt_msr_sc_hvm &&
--             (boot_cpu_data.extended_cpuid_level >= 0x8000000a) &&
--             (cpuid_edx(0x8000000a) & (1u << SVM_FEATURE_SPEC_CTRL)) )
-+             (boot_cpu_data.extended_cpuid_level >= 0x8000000aU) &&
-+             (cpuid_edx(0x8000000aU) & (1u << SVM_FEATURE_SPEC_CTRL)) )
-             setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
-     }
- 
--- 
-2.34.1
-
+>  };
+>  
+>  static int hv_die_panic_notify_crash(struct notifier_block *self,
+> 
+> -- 
+> 2.30.2
+> 
 
