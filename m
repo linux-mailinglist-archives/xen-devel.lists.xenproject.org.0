@@ -2,57 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD107B28D7
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 01:33:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610108.949377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96717B28D9
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 01:34:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610114.949395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qm0Ua-0001jd-Me; Thu, 28 Sep 2023 23:32:24 +0000
+	id 1qm0WN-0002vU-3f; Thu, 28 Sep 2023 23:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610108.949377; Thu, 28 Sep 2023 23:32:24 +0000
+Received: by outflank-mailman (output) from mailman id 610114.949395; Thu, 28 Sep 2023 23:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qm0Ua-0001hQ-Jt; Thu, 28 Sep 2023 23:32:24 +0000
-Received: by outflank-mailman (input) for mailman id 610108;
- Thu, 28 Sep 2023 23:32:23 +0000
+	id 1qm0WN-0002sw-0z; Thu, 28 Sep 2023 23:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 610114;
+ Thu, 28 Sep 2023 23:34:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=33nX=FM=amdcloud.onmicrosoft.com=bounces+SRS=0floO=FM@srs-se1.protection.inumbo.net>)
- id 1qm0UZ-0001hK-FJ
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 23:32:23 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20606.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::606])
+ <SRS0=NjmF=FM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qm0WL-0002so-4H
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 23:34:13 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43c71bf1-5e57-11ee-878b-cb3800f73035;
- Fri, 29 Sep 2023 01:32:22 +0200 (CEST)
-Received: from BLAPR03CA0065.namprd03.prod.outlook.com (2603:10b6:208:329::10)
- by IA1PR12MB6140.namprd12.prod.outlook.com (2603:10b6:208:3e8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.23; Thu, 28 Sep
- 2023 23:32:15 +0000
-Received: from BL6PEPF0001AB55.namprd02.prod.outlook.com
- (2603:10b6:208:329:cafe::87) by BLAPR03CA0065.outlook.office365.com
- (2603:10b6:208:329::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25 via Frontend
- Transport; Thu, 28 Sep 2023 23:32:15 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB55.mail.protection.outlook.com (10.167.241.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Thu, 28 Sep 2023 23:32:15 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 28 Sep
- 2023 18:32:14 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 28 Sep
- 2023 18:32:14 -0500
-Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Thu, 28 Sep 2023 18:32:13 -0500
+ id 85f326d3-5e57-11ee-878b-cb3800f73035;
+ Fri, 29 Sep 2023 01:34:11 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 3AFC5CE234A;
+ Thu, 28 Sep 2023 23:34:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DB3C433C8;
+ Thu, 28 Sep 2023 23:34:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,81 +41,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43c71bf1-5e57-11ee-878b-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UkzikMpcedhbHF1TiOZN3IIAu+SUOaJUJpOTbA3rbv5+RAllEkB8yk6CGHY+78dhTDJG24GAnl8yTzikBSn0QKF1aD9igg+EX0ZJyA4IiH5ejovsiM5I7WK72vQOlh//9vzEcHuw6yzF/Ew7R/mc0MrccySLdudfs9fRRxFVUnMeC80DpLocYa8VqSEVNh60hMM3LUsmNfxZZfjEWPVXWTIQ4NhF7JQsSiZJWJAivkP3v4aVahYJPLTxzCZEgT/P5tLH8vg4b201RKTshp51Kl0nnEWNuN2yDoNGtouT+s7EjJn+ItN7EGKH+GkdYO5qxPJjlhxJWH0FJXbC2e5BHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HFekxmIWiGuxZhkHilRxFo21oGlCAbLTUeYT9BvpbU=;
- b=YJaB+tbKt1K/3fKybJ9e1JN5EgBJmOJ8TCCVAdcqN4cMsjNPG6z8gwWHPiyUIFAY/W08/qGFAOpKMa63yQN0/ODOuR+nafR7NwNgfoszHjJLE9hEuPWjnQsf/UGyCOaeZgUzHwKRj8esDwWW//mmWRjq8Q9Wzc3tJ7nhNZqnR5WsDZ7cwklt0Cek3RLrPr8syu37Vx/F9z0p95DBC8Sf50OJmPuMZ0p+R6v4y8f4jgCwxhBDc+Kj/nkdMTXDM3O2gOpNh7MSFUPNxeTWe6FMVviX2yaHvh/UCAD/Ztk5p+P72GuSfw7ZooXTyJCeDORmd6iosknJpZcvaaAowV8K1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=kernel.org; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=kernel.org; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2HFekxmIWiGuxZhkHilRxFo21oGlCAbLTUeYT9BvpbU=;
- b=ZVKTRljnYXOjf8WQfNozEgFGrTbvGEwCPhh6QYYN3ces5VWxh5Y29BzhtmrYPdKiw9h/lpypDOw1rE4Z2TrRSdqlgrWbB+krfwT0Vz7M6J1DyYxWFm6P7zJqVwcXfc6VkgWxmbn2WaqKSnjM9kZ8p3sE8mOw8PEOBmbsIO0SAS3VrqkTxRThLZdIPA1rWaTtSpCO3HFcMlcCW673oA7obvz0teccu/ookZ0Xn7Doi+nVbVwRNRRMlbUj5l8Xs1KUNGlDToImTi5YJbtBrLQCjR+kxyiV8NaBDK3R5EezhWNJD2A2PyHBNF0iaurWIbt1jmQeO4YpTx/eitVP9lPE6g==
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=kernel.org; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=kernel.org;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- kernel.org discourages use of 165.204.84.17 as permitted sender)
-Date: Thu, 28 Sep 2023 16:32:12 -0700
+X-Inumbo-ID: 85f326d3-5e57-11ee-878b-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695944046;
+	bh=Xoa5PZmDzQ5MQQ8MQ2N3+vxiCgdCik3g10fqh+WmT0Y=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=LbjkUBeLMLdkb2d5yY1b+xoQIEioZJRx44dk3+TYcmqLsBdTejk+2FZKW5GVTCR/3
+	 8JtEiOq8Ch/PUpEnklDr5oj9ioXmJhunIhzL7kymL99T07M252G1je5Dc/atadjkj1
+	 gKpZpajUGLGC0rCpSXUA7hW+NqQuRuHFBoBaxfJRm2bE191hoQQMuNaaLsRBEJ2sjU
+	 0wFkiKZw3cZcu9cN3AISsixzAleCjhW2blnoW9/taxo3gNLnQo2n3l002mjQgsD+3n
+	 F1zYTnx8FQpXD5/ZtBmE8yMzo58T6URnVFBuC8yp8NKMlD58yM4TnU0ZBY2QqwZrQq
+	 s3Beun0Pw4TzQ==
+Date: Thu, 28 Sep 2023 16:34:03 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <jbeulich@suse.com>,
-	<andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, <julien@xen.org>,
-	<bertrand.marquis@arm.com>, <george.dunlap@citrix.com>, <wl@xen.org>
-Subject: [PATCH] cpumask: fix integer type in cpumask_first
-Message-ID: <alpine.DEB.2.22.394.2309281629360.1996340@ubuntu-linux-20-04-desktop>
+To: Ayan Kumar Halder <ayankuma@amd.com>
+cc: Luca Fancellu <Luca.Fancellu@arm.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Misra rule 10.3 violations report script
+In-Reply-To: <fff7c46c-78ea-4656-fcca-85667e176104@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2309281633450.1996340@ubuntu-linux-20-04-desktop>
+References: <D36FE722-43D5-4A93-B725-AD4157A1BA61@arm.com> <fff7c46c-78ea-4656-fcca-85667e176104@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB55:EE_|IA1PR12MB6140:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8db9a137-869a-4515-43b8-08dbc07b2606
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/saHeQVemjVhpkwFSVSyFeeavwrUIKWOQhHxoZwtPEmOSp8iryEJCWFN5nrWq643M/Vf8RhABEcox++AnE478ZlZ0EXlEgbBN9l1f3MfX9hA4XnWdisE6nIka1OPqJ3dpYBaq/sO23hl8jliSk7Kg+CRELsc7XoQy1RBCCv/6ynQVRxoGR6wfUrMdFi/d4S7JCboTPm1UJaztcl3xW4kcZM6+sYRfufwkTs3cgYW45Dh/nanTiWSHdiWOD3KLF5zZIfmOF/iM3h6abTrz+oHo/03qB2x8jUDKW6MyoqZxKqcNX9TJWDrDUkh33voI0bk2dibhH09vgoU3gYoiXh2oFxAsFRllk8rxR4fVg+JYSdYMjOble3HSYLQpU+tO6EHwzzuK1ZGn7Zrc88D3vjq5A8i57IrHVOubbx9IU7ImVcOf+X0ubSpH4rLj+f7Ab5zjLJ9VIRrvN+oxoDJr3O3fZDDG5Xwc7+iJRIDJVdXNt5KZDiMJ+haKoWakJDiih+qgRZzzR42+HdoEbuSXWr3cMz+B709Z8/xXykv3oqRO33m9ccUJetr97u8Y7zBqhciVqtpx7NlKYqM094GH6yrxzu0NDecwOC6WMdAk/rtoM8w0SlxEsseaRX2s1brZqV9AZ7U2L+tlxhDeChhKe1JNUgn7PHFgbLiXoSBsnwHdS7p5rtYVQxCxP/+Wgjg2NRabR8s0IJnvXcjGSRCbCXfYFy9/1KbDNrwkUyxO+NL06WWZt+LOTSlkhIqNUdW4ZIxIpzegD0vKctuCt+dfRAE5g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(7916004)(39860400002)(376002)(136003)(346002)(396003)(230922051799003)(82310400011)(61400799006)(48200799006)(64100799003)(451199024)(46966006)(40470700004)(47076005)(498600001)(35950700001)(40460700003)(26005)(336012)(82740400003)(40480700001)(9686003)(356005)(81166007)(86362001)(4744005)(2906002)(33716001)(8936002)(8676002)(4326008)(5660300002)(316002)(70586007)(70206006)(54906003)(6916009)(41300700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 23:32:15.4043
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8db9a137-869a-4515-43b8-08dbc07b2606
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB55.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6140
+Content-Type: multipart/mixed; boundary="8323329-407177967-1695944046=:1996340"
 
-nr_cpu_ids is unsigned int, but find_first_bit returns unsigned long (at
-least on arm). Use the larger type for min_t to avoid larger-to-smaller
-type assignments. This address 141 MISRA C 10.3 violations.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
+--8323329-407177967-1695944046=:1996340
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-diff --git a/xen/include/xen/cpumask.h b/xen/include/xen/cpumask.h
-index 9826707909..a6ed6a28e8 100644
---- a/xen/include/xen/cpumask.h
-+++ b/xen/include/xen/cpumask.h
-@@ -208,7 +208,7 @@ static inline void cpumask_copy(cpumask_t *dstp, const cpumask_t *srcp)
- 
- static inline int cpumask_first(const cpumask_t *srcp)
- {
--	return min_t(int, nr_cpu_ids, find_first_bit(srcp->bits, nr_cpu_ids));
-+	return min_t(unsigned long, nr_cpu_ids, find_first_bit(srcp->bits, nr_cpu_ids));
- }
- 
- static inline int cpumask_next(int n, const cpumask_t *srcp)
+On Thu, 28 Sep 2023, Ayan Kumar Halder wrote:
+> On 28/09/2023 09:34, Luca Fancellu wrote:
+> > CAUTION: This message has originated from an External Source. Please use
+> > proper judgment and caution when opening attachments, clicking links, or
+> > responding to this email.
+> > 
+> > 
+> > Hi all,
+> Hi Luca,
+> > 
+> > In the last MISRA meeting Stefano told me about the Rule 10.3 and that we
+> > have a lot of violations,
+> > but GCC has a way to list them as written in rules.rst.
+> > 
+> > So the issue was just that we have a lot of violations, most of them coming
+> > from headers and the
+> > Developer might feel a bit lost since the number is very high, so I’ve
+> > developed this script to take
+> > the GCC build log and create a list of unique occurrences of the violations
+> > sorted in descending
+> > order, so that who has a bit of time can try to fix some of those and maybe
+> > can start from the top
+> > of the list to fix as many as possible occurrences.
+> > 
+> > I attach the script as patch file.
+> 
+> This is an excellent script to see the violations in a neat way. For eg, I see
+> this
+> 
+> arch/arm/domain_build.c:3883:28 (1)
+> arch/arm/domain_build.c:3910:36 (1)
+> ./include/xen/pfn.h:6:23 (1)
+> ./include/xen/macros.h:4:40 (1)
+> arch/arm/setup.c:221:10 (1)
+> arch/arm/setup.c:227:59 (1)
+> 
+> I think once in a while, we have been approached by newbies wanting to
+> contribute to Xen project.
+> 
+> For eg "Beginner looking to contribute to project in archived list"
+> 
+> Sometimes people reach out individually as well.
+> 
+> Do you have such similar tasks (like this) within or beyond the scope of MISRA
+> which will require some basic programming skills and is a great first step to
+> learn and contribute to Xen project ?
+> 
+> This can be things which students/folks can contribute on an ad-hoc basis.
+> 
+> I can work with Kelly to see if we can put them in a wiki page.
+
+That's a great idea
+
+
+> I could see https://wiki.xenproject.org/wiki/Outreach_Program_Projects , but
+> don't know if it is up to date.
+
+I don't think it is
+--8323329-407177967-1695944046=:1996340--
 
