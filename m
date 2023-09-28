@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052857B27BD
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 23:51:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610043.949268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7B27B286A
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 00:25:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610050.949278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlyuB-0000F0-Q5; Thu, 28 Sep 2023 21:50:43 +0000
+	id 1qlzQl-0007O6-CI; Thu, 28 Sep 2023 22:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610043.949268; Thu, 28 Sep 2023 21:50:43 +0000
+Received: by outflank-mailman (output) from mailman id 610050.949278; Thu, 28 Sep 2023 22:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlyuB-0000Ce-N2; Thu, 28 Sep 2023 21:50:43 +0000
-Received: by outflank-mailman (input) for mailman id 610043;
- Thu, 28 Sep 2023 21:50:41 +0000
+	id 1qlzQl-0007L5-90; Thu, 28 Sep 2023 22:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 610050;
+ Thu, 28 Sep 2023 22:24:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NjmF=FM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qlyu9-0000CY-T0
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 21:50:41 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1qlzQk-0007Kz-Cz
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 22:24:22 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 107499b5-5e49-11ee-878b-cb3800f73035;
- Thu, 28 Sep 2023 23:50:39 +0200 (CEST)
+ id c45f8f31-5e4d-11ee-878b-cb3800f73035;
+ Fri, 29 Sep 2023 00:24:21 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 58420B81DC7;
- Thu, 28 Sep 2023 21:50:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DAEC433C8;
- Thu, 28 Sep 2023 21:50:37 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2505861DA7;
+ Thu, 28 Sep 2023 22:24:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D40EC433C8;
+ Thu, 28 Sep 2023 22:24:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,160 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 107499b5-5e49-11ee-878b-cb3800f73035
+X-Inumbo-ID: c45f8f31-5e4d-11ee-878b-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695937838;
-	bh=KYNUa5ryU0RL0VJ175+q3fCUjAGzW34k7+kEkZSv/m8=;
+	s=k20201202; t=1695939858;
+	bh=H76zN8S7OvC1y7q1g6XWTHf1rNyWR18UVQ0hRqwlfNg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Pac2YD7kwhmZKRLAvnTbcbxfm4j6pUCdNwi4UgUk+xbF0alVHMhWsVmYb4+wowDzq
-	 yTiMhxOjGwE+Z+7/amHFntDGjYFo5/GW1fJ7f29NIBs8oHxd/B8RWs1Ei7z+cAIq0o
-	 zidCBsq0ZZagQH7Zyh0ZbmV/pJuwwebT+t4LzJguiGHnuL7QpO73avqSBAldVRQk0P
-	 C39H6vKq8tB9ixEe2V96vMnbzE+p1KuFwMTjjUpo5786I9Pf8FaMxXOK7EJe/QGVBA
-	 mIhcRh9o3/cuj9fboPa8A/BL9DdlnlBC6QNX9uETnDprjjz4thkWMJEwD+PKbNqKML
-	 ipiYU0jsWjwug==
-Date: Thu, 28 Sep 2023 14:50:35 -0700 (PDT)
+	b=jyi7k4desFqjUDXcp3jNflMX33Lfc3oOUq2sbS9tR4HzIVHbkMoTnWhNPqbFBRyeC
+	 42s2sssnMRi3MnX/a59ozywGBI0+07N3KhPdb6Oz5ByWteygWqbOjWiq+wUZAa0YJE
+	 qoD0M2Q7xmTZVc06YXBePs989iCjq3IYb0QB+XaRRJvq1hV5k+5db4Yz0F7YzE3zTp
+	 jJ8GWwe2VlR4NVbCIrjikHfLRTYoGqUAvVacazWXhciwaeLgS6TBdItLVnZ8iP+iwO
+	 ThVPQDnr8wTBfXqHn/4Sj30Q/NmeArIgmC3+x/CGcZJgi364rCjFaieS5bZGX3Znai
+	 NX0X1WzcYpelg==
+Date: Thu, 28 Sep 2023 15:24:15 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleg Nikitenko <oleshiiwood@gmail.com>
-cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
+    sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com
-Subject: Re: changing Dom0 data during smc call inside of xen during cache
- coloring
-In-Reply-To: <CA+SAi2tHLVDj+q8KMD7OuhHoj0sSZ-39qs3Z94WGmL2OA3TM_g@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2309281447180.1996340@ubuntu-linux-20-04-desktop>
-References: <CA+SAi2tXMupikB2YgEXuq98KnOcqm6zWrk19rNvWTfzf2=ku-w@mail.gmail.com> <dba88398-3aef-4541-a8e8-8fd075c0d40e@xen.org> <CA+SAi2tHLVDj+q8KMD7OuhHoj0sSZ-39qs3Z94WGmL2OA3TM_g@mail.gmail.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
+ 4.10
+In-Reply-To: <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop>
+References: <cover.1694510856.git.simone.ballarin@bugseng.com> <b62205a1-885b-ea4e-3ce2-7ad58cfc938d@suse.com> <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com> <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com> <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
+ <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2062875528-1695937640=:1996340"
-Content-ID: <alpine.DEB.2.22.394.2309281447310.1996340@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, 28 Sep 2023, Jan Beulich wrote:
+> On 28.09.2023 15:17, Simone Ballarin wrote:
+> > On 28/09/23 14:51, Jan Beulich wrote:
+> >> On 28.09.2023 14:46, Simone Ballarin wrote:
+> >>> On 13/09/23 10:02, Jan Beulich wrote:
+> >>>> On 12.09.2023 11:36, Simone Ballarin wrote:
+> >>>>> Add or move inclusion guards to address violations of
+> >>>>> MISRA C:2012 Directive 4.10 ("Precautions shall be taken in order
+> >>>>> to prevent the contents of a header file being included more than
+> >>>>> once").
+> >>>>>
+> >>>>> Inclusion guards must appear at the beginning of the headers
+> >>>>> (comments are permitted anywhere) and the #if directive cannot
+> >>>>> be used for other checks.
+> >>>>>
+> >>>>> Simone Ballarin (10):
+> >>>>>     misra: add deviation for headers that explicitly avoid guards
+> >>>>>     misra: modify deviations for empty and generated headers
+> >>>>>     misra: add deviations for direct inclusion guards
+> >>>>>     xen/arm: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     xen/x86: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     x86/EFI: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     xen/common: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     xen/efi: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     xen: address violations of MISRA C:2012 Directive 4.10
+> >>>>>     x86/asm: address violations of MISRA C:2012 Directive 4.10
+> >>>>
+> >>>> Just to mention it here again for the entire series, seeing that despite
+> >>>> my earlier comments to this effect a few R-b have arrived: If private
+> >>>> headers need to gain guards (for, imo, no real reason), we first need to
+> >>>> settle on a naming scheme for these guards, such that guards used in
+> >>>> private headers aren't at risk of colliding with ones used headers
+> >>>> living in one of the usual include directories. IOW imo fair parts of
+> >>>> this series may need redoing.
+> >>>>
+> >>>> Jan
+> >>>>
+> >>>
+> >>> My proposal is:
+> >>> - the relative path from "xen/arch" for files in this directory
+> >>>     (i.e. X86_X86_X86_MMCONFIG_H for "xen/arch/x86/x86_64/mmconfig.h";
+> >>
+> >> X86_X86_64_MMCONFIG_H that is?
+> >>
+> >> Yet then this scheme won't hold for xen/arch/include/asm/... ? It's also
+> >> not clear whether you're deliberately omitting leading/trailing underscores
+> >> here, which may be a way to distinguish private from global headers.
+> > 
+> > Each name that begins with a double or single underscore (__, _) 
+> > followed by an uppercase letter is reserved. Using a reserved identifier 
+> > is an undefined-b.
+> > 
+> > I would be better to avoid them.
+> 
+> I'm with you about avoiding them, except that we use such all over the
+> place. Taking this together with ...
+> 
+> >>> - for the others, the entire path.
+> >>
+> >> What exactly is "entire" here?
+> > 
+> > Let me try again.
+> > 
+> > If we are inside xen/arch the relative path starting from this directory:
+> >    | xen/arch/x86/include/asm/compat.h
+> >    X86_INCLUDE_ASM_COMPAT_H
+> > 
+> > For xen/include, the current convention.
+> > Maybe, in a future patch, we can consider removing the leading _.
+> > 
+> > For the others, the relative path after xen:
+> >    | xen/common/efi/efi.h
+> >    COMMON_EFI_EFI_H
+> 
+> ... this you're effectively suggesting to change all existing guards.
+> That's an option, but likely not a preferred one. Personally I'd prefer
+> if in particular the headers in xen/include/ and in xen/arch/*include/
+> didn't needlessly include _INCLUDE_ in their guard names.
+> 
+> I'm really curious what others think.
 
---8323329-2062875528-1695937640=:1996340
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2309281447311.1996340@ubuntu-linux-20-04-desktop>
+If it is a MISRA requirement to avoid names that begin with single or
+double underscore, then I think we should bite the bullet and change all
+guard names, taking the opportunity to make them consistent.
 
-On Thu, 28 Sep 2023, Oleg Nikitenko wrote:
-> Hello Julien,
-> 
-> I am still fighting with xen Cache Coloring with aes.
-> When I sent a request to hardware aes after xen with CC started I got the mistake in CSU.
-> When I dumped structure contents on both sides I got the different data.
-> Xilinx related contact wrote to me.
-> 
-> When cache coloring is enabled, Dom0 is not 1:1 mapped (guest physical addresses in Dom0 != physical addresses). If the Xilinx drivers in
-> Linux (xcsudma.c) issue EEMI calls with a guest physical address (for instance the address of a memory buffer allocated by Linux), then
-> this address is no longer a physical address and would need to be translated. EEMI calls always get forwarded to Xen first, then Xen issues
-> a corresponding EEMI call to the firmware (see xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi). But Xen is probably passing the EEMI
-> calls parameters unmodified. Then PMU tries to read the address but since this is not a physical address, it fails. Basically we need to
-> add code to Xen xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi to translate any guest physical addresses passed as EEMI calls arguments
-> into physical addresses before making the EEMI call to firmware.
-> 
-> This is an example patch, which is translating the parameter on register x2 for the EEMI call 0xC200002F. I haven't checked the EEMI
-> protocol for this call but this just an example to show you how to translate parameters.
-> 
-> diff --git a/xen/arch/arm/platforms/xilinx-eemi.c b/xen/arch/arm/platforms/xilinx-eemi.c index 500c86dc69..bff1b71196 100644 ---
-> a/xen/arch/arm/platforms/xilinx-eemi.c +++ b/xen/arch/arm/platforms/xilinx-eemi.c @@ -409,6 +409,30 @@ bool xilinx_eemi(struct
-> cpu_user_regs *regs, const uint32_t fid, } goto forward_to_fw;
-> 
->  *  case 0xC200002F:
->  *  {
->  *  uint64_t example_possible_address_param = get_user_reg(regs, 2);
->  *  uint64_t translated_address = mfn_to_maddr(gfn_to_mfn(current->domain,
->  *  gaddr_to_gfn(example_possible_address_param)));
->  *  translated_address += example_possible_address_param & ~PAGE_MASK; +
->  *  arm_smccc_1_1_smc(get_user_reg(regs, 0),
->  *  get_user_reg(regs, 1),
->  *  translated_address,
->  *  get_user_reg(regs, 3),
->  *  get_user_reg(regs, 4),
->  *  get_user_reg(regs, 5),
->  *  get_user_reg(regs, 6),
->  *  get_user_reg(regs, 7),
->  *  &res); +
->  *  set_user_reg(regs, 0, res.a0);
->  *  set_user_reg(regs, 1, res.a1);
->  *  set_user_reg(regs, 2, res.a2);
->  *  set_user_reg(regs, 3, res.a3);
->  *  return true;
->  *  }
-> 
-> + default: if ( is_hardware_domain(current->domain) ) goto forward_to_fw;
-> 
-> The aes request structure contains physical addresses of the source and destination.
-> These addresses are obtained via two calls dma_alloc_coherent.
-> The address of this structure is kept at x2 register.
+If it is not a MISRA requirement, then I think we should go for the path
+of least resistance and try to make the smallest amount of changes
+overall, which seems to be:
 
-OK I see the question is about the Xilinx Xen tree. In the logs below we
-have:
-
-> (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -> 11432000                                                        log from xen
- 
-So it looks Linux passed 0 as address in x2, which cannot be right?
-
-
-
-> I applied the suggested scheme in xen for xilinx_eemi(...) function.
-> 
-> case 0xC200002F:
-> {
-> uint64_t paramaddr = get_user_reg(regs, 2);
-
-It would seem that this is not read correctly? It should not be zero.
-
-
-> uint64_t phyaddr = mfn_to_maddr(gfn_to_mfn(current->domain, gaddr_to_gfn(paramaddr)));
-> phyaddr += (paramaddr & ~PAGE_MASK);
-> gprintk(XENLOG_DEBUG, "Forwarding AES operation: %u r2 %lx -> %lx\n", fid, paramaddr, phyaddr);
-> set_user_reg(regs, 2, phyaddr);
-> }
-> goto forward_to_fw;
-> 
-> As a result I got the same issue as earlier.
-> 
-> [   17.350086]
-> zynq_aes_gcm                                                                                                                        user
-> log
-> 
-> [   17.350202] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @                                                       kernel log from Dom0
-> [   17.353015] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
-> [   17.358515] zynqmp_aes [0] ffffffc00910d000 2806000 firmware:zynqmp-firmware:zynqmp-aes
-> [   17.366546] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @
-> [   17.372347] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
-> [   17.377775] zynqmp_aes [1] ffffffc009115000 42a14000 keytype 1
-> [   17.383660] zynqmp_aes [2] dump request align 1 ++
-> [   17.388501] 00 60 80 02 00 00 00 00
-> [   17.392032] 50 60 80 02 00 00 00 00
-> [   17.395583] 00 00 00 00 00 00 00 00
-> [   17.399117] 00 60 80 02 00 00 00 00
-> [   17.402664] 40 00 00 00 00 00 00 00
-> [   17.406226] 00 00 00 00 00 00 00 00
-> [   17.409755] 01 00 00 00 00 00 00 00
-> [   17.413311] zynqmp_aes [3] dump request --
-> 
-> (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -> 11432000                                                        log from xen
-
-Here
-
-
-> @ 000042A14000
-> @                                                                                                                                      csu
-> log from aes
-> 04 E4 00 6F 05 E4 00 6F
-> 06 E4 00 6F 07 E4 00 6F
-> 10 E4 00 6F 11 E4 00 6F
-> 12 E4 00 6F 13 E4 00 6F
-> 14 E4 00 6F 15 E4 00 6F
-> 16 E4 00 6F 17 E4 00 6F
-> 18 E4 00 6F 19 E4 00 6F
-> 
-> ERROR:   pm_aes_engine ### args 6 ret 0 addr 0 42a14000 ###                                                                ATF log
-> 
-> So the address of the structure was not changed.
-> This is the question. 
-> How can I map this address to xen and change physical addresses there ?
---8323329-2062875528-1695937640=:1996340--
+- for xen/include/blah.h, __BLAH_H__
+- for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
+- for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
 
