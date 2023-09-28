@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15EBC7B216F
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 17:36:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609950.949148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FCDD7B216A
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 17:33:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609945.949138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlt40-0007oX-Es; Thu, 28 Sep 2023 15:36:28 +0000
+	id 1qlt0s-00072I-0t; Thu, 28 Sep 2023 15:33:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609950.949148; Thu, 28 Sep 2023 15:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 609945.949138; Thu, 28 Sep 2023 15:33:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlt40-0007li-Bs; Thu, 28 Sep 2023 15:36:28 +0000
-Received: by outflank-mailman (input) for mailman id 609950;
- Thu, 28 Sep 2023 15:36:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oxVr=FM=gmail.com=wei.liu.linux@srs-se1.protection.inumbo.net>)
- id 1qlsuD-00032t-FE
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 15:26:21 +0000
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f6bdcd9-5e13-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 17:26:20 +0200 (CEST)
-Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-6c4e7951dddso4759200a34.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Sep 2023 08:26:20 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([20.69.120.36])
- by smtp.gmail.com with ESMTPSA id
- j14-20020aa78dce000000b006906aaf1e4dsm13514673pfr.150.2023.09.28.08.26.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Sep 2023 08:26:18 -0700 (PDT)
+	id 1qlt0r-000701-U7; Thu, 28 Sep 2023 15:33:13 +0000
+Received: by outflank-mailman (input) for mailman id 609945;
+ Thu, 28 Sep 2023 15:33:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LMSP=FM=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qlt0q-0006yi-Sm
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 15:33:12 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 547b95db-5e14-11ee-9b0d-b553b5be7939;
+ Thu, 28 Sep 2023 17:33:10 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E0B96218E6;
+ Thu, 28 Sep 2023 15:33:09 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96E44138E9;
+ Thu, 28 Sep 2023 15:33:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id tL2aI7WcFWUbMQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 28 Sep 2023 15:33:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +51,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f6bdcd9-5e13-11ee-878a-cb3800f73035
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695914779; x=1696519579;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PYPUiAEm0lZNQbU6hKmoJKqPGRAnrTCwSSHfRdZ7LfA=;
-        b=Bt/JtE2c0XpULgI1BcBBNZTQejlaC2BXxa3AWeMWYcCgzj/EG6igByfQAf/Q9xdSEm
-         7HZjJwO+06EP1dBRDTgRT1V/18k3GGdodlNjH7/I7AcaNoBcq7m0G0vvx2F8j7jpkQlb
-         TGxHXfJpUV+sJaSFGx3yfeNk8STUjWrl9dV5aaJISSKXqSSM5/uvz/J0CcglDwUfcIRf
-         3v+tMn42o1F7agBjF/cdV/S0wGPtkFcAXfvpPibs3wEtst7Y82mSrPUxF+ido9YalEnp
-         lCw7eqLUhKX22AvXF92h1FQR1IolTnGrhJSowkdzrbhZm1ucaRiK3OWPER+hE1Zud2BC
-         Qq1A==
-X-Gm-Message-State: AOJu0YyElMdHVTpzUbmPNKWGoaUOEMxyZLKYNnWOu2ouIg3wxQodbzGp
-	PAMS9a6tZ8RNsKSKhUTFezg=
-X-Google-Smtp-Source: AGHT+IEkFDTusLpYox11EoA1Tl2MJIdC5Ad7Ua286wH6ql8JYqDg2cQ1Wc6Zlzvv071aY+VufA88gQ==
-X-Received: by 2002:a9d:73d5:0:b0:6c4:b339:2528 with SMTP id m21-20020a9d73d5000000b006c4b3392528mr1632381otk.16.1695914778722;
-        Thu, 28 Sep 2023 08:26:18 -0700 (PDT)
-Date: Thu, 28 Sep 2023 15:26:16 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: j.granados@samsung.com
-Cc: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
-	josh@joshtriplett.org, Kees Cook <keescook@chromium.org>,
-	Phillip Potter <phil@philpotter.co.uk>,
-	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-	Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
-	Russ Weight <russell.h.weight@intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-serial@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-rdma@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, netdev@vger.kernel.org,
-	linux-raid@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 14/15] hyper-v/azure: Remove now superfluous sentinel
- element from ctl_table array
-Message-ID: <ZRWbGDlXCS4t8tMf@liuwe-devbox-debian-v2>
-References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
- <65157da8.050a0220.fb263.fdb1SMTPIN_ADDED_BROKEN@mx.google.com>
+X-Inumbo-ID: 547b95db-5e14-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1695915189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R4vy0zU0Pr1f3U56GuNDaWODiU85Wy0KJE3fHb1+eWo=;
+	b=em9roNfYcAkpdHg8RN8J4aS5lXXniLVeSqcg4TDUGnKLURMJEdPh7eUUdOMoonDbfVMlAI
+	++XAUtLrwdmvCjlJ+o/CmGQMdJGCaaqEflLLfL2yhlw6N1TPK1HzVFQWEWb0GrLLCqSPyU
+	JHwy8itCmB/fEt0RHTONGRfvXWoffnc=
+Message-ID: <8c0f3255-83ea-4108-847f-63b895997577@suse.com>
+Date: Thu, 28 Sep 2023 17:33:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <65157da8.050a0220.fb263.fdb1SMTPIN_ADDED_BROKEN@mx.google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] xen: evtchn: Allow shared registration of IRQ handers
+Content-Language: en-US
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ stratos-dev@op-lists.linaro.org, Erik Schilling <erik.schilling@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <cover.1693311370.git.viresh.kumar@linaro.org>
+ <fc6d47de76a8b77d0a1b4bc8204694c079715f2e.1693311370.git.viresh.kumar@linaro.org>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <fc6d47de76a8b77d0a1b4bc8204694c079715f2e.1693311370.git.viresh.kumar@linaro.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JVTR8m52YxNgV4MDl5HMuc3s"
 
-Please change the prefix to "Drivers: hv:" in the subject line in the
-two patches.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JVTR8m52YxNgV4MDl5HMuc3s
+Content-Type: multipart/mixed; boundary="------------fh0Fr5pHK4fHyrXGogPynGTi";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ stratos-dev@op-lists.linaro.org, Erik Schilling <erik.schilling@linaro.org>,
+ Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <8c0f3255-83ea-4108-847f-63b895997577@suse.com>
+Subject: Re: [PATCH 1/2] xen: evtchn: Allow shared registration of IRQ handers
+References: <cover.1693311370.git.viresh.kumar@linaro.org>
+ <fc6d47de76a8b77d0a1b4bc8204694c079715f2e.1693311370.git.viresh.kumar@linaro.org>
+In-Reply-To: <fc6d47de76a8b77d0a1b4bc8204694c079715f2e.1693311370.git.viresh.kumar@linaro.org>
 
-On Thu, Sep 28, 2023 at 03:21:39PM +0200, Joel Granados via B4 Relay wrote:
-> From: Joel Granados <j.granados@samsung.com>
-> 
-> This commit comes at the tail end of a greater effort to remove the
-> empty elements at the end of the ctl_table arrays (sentinels) which
-> will reduce the overall build time size of the kernel and run time
-> memory bloat by ~64 bytes per sentinel (further information Link :
-> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
-> 
-> Remove sentinel from hv_ctl_table
-> 
-> Signed-off-by: Joel Granados <j.granados@samsung.com>
-> ---
->  drivers/hv/hv_common.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
-> index ccad7bca3fd3..bc7d678030aa 100644
-> --- a/drivers/hv/hv_common.c
-> +++ b/drivers/hv/hv_common.c
-> @@ -147,8 +147,7 @@ static struct ctl_table hv_ctl_table[] = {
->  		.proc_handler	= proc_dointvec_minmax,
->  		.extra1		= SYSCTL_ZERO,
->  		.extra2		= SYSCTL_ONE
-> -	},
-> -	{}
-> +	}
+--------------fh0Fr5pHK4fHyrXGogPynGTi
+Content-Type: multipart/mixed; boundary="------------S0lyxxAH05x0JFhaooIfch0M"
 
-Please keep the comma at the end.
+--------------S0lyxxAH05x0JFhaooIfch0M
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->  };
->  
->  static int hv_die_panic_notify_crash(struct notifier_block *self,
-> 
-> -- 
-> 2.30.2
-> 
+T24gMjkuMDguMjMgMTQ6MjksIFZpcmVzaCBLdW1hciB3cm90ZToNCj4gQ3VycmVudGx5IHRo
+ZSBoYW5kbGluZyBvZiBldmVudHMgaXMgc3VwcG9ydGVkIGVpdGhlciBpbiB0aGUga2VybmVs
+IG9yDQo+IHVzZXJzcGFjZSwgYnV0IG5vdCBib3RoLg0KPiANCj4gSW4gb3JkZXIgdG8gc3Vw
+cG9ydCBmYXN0IGRlbGl2ZXJ5IG9mIGludGVycnVwdHMgZnJvbSB0aGUgZ3Vlc3QgdG8gdGhl
+DQo+IGJhY2tlbmQsIHdlIG5lZWQgdG8gaGFuZGxlIHRoZSBRdWV1ZSBub3RpZnkgcGFydCBv
+ZiBWaXJ0aW8gcHJvdG9jb2wgaW4NCj4ga2VybmVsIGFuZCB0aGUgcmVzdCBpbiB1c2Vyc3Bh
+Y2UuDQo+IA0KPiBVcGRhdGUgdGhlIGludGVycnVwdCBoYW5kbGVyIHJlZ2lzdHJhdGlvbiBm
+bGFnIHRvIElSUUZfU0hBUkVEIGZvciBldmVudA0KPiBjaGFubmVscywgd2hpY2ggd291bGQg
+YWxsb3cgbXVsdGlwbGUgZW50aXRpZXMgdG8gYmluZCB0aGVpciBpbnRlcnJ1cHQNCj4gaGFu
+ZGxlciBmb3IgdGhlIHNhbWUgZXZlbnQgY2hhbm5lbCBwb3J0Lg0KPiANCj4gQWxzbyBpbmNy
+ZW1lbnQgdGhlIHJlZmVyZW5jZSBjb3VudCBvZiBpcnFfaW5mbyB3aGVuIG11bHRpcGxlIGVu
+dGl0aWVzDQo+IHRyeSB0byBiaW5kIGV2ZW50IGNoYW5uZWwgdG8gaXJxY2hpcCwgc28gdGhl
+IHVuYmluZGluZyBoYXBwZW5zIG9ubHkNCj4gYWZ0ZXIgYWxsIHRoZSB1c2VycyBhcmUgZ29u
+ZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFZpcmVzaCBLdW1hciA8dmlyZXNoLmt1bWFyQGxp
+bmFyby5vcmc+DQo+IC0tLQ0KPiAgIGRyaXZlcnMveGVuL2V2ZW50cy9ldmVudHNfYmFzZS5j
+IHwgMSArDQo+ICAgZHJpdmVycy94ZW4vZXZ0Y2huLmMgICAgICAgICAgICAgfCAyICstDQo+
+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4g
+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRzX2Jhc2UuYyBiL2Ry
+aXZlcnMveGVuL2V2ZW50cy9ldmVudHNfYmFzZS5jDQo+IGluZGV4IGM3NzE1ZjhiZDQ1Mi4u
+MDE4MjY4MGRhYjNhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRz
+X2Jhc2UuYw0KPiArKysgYi9kcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRzX2Jhc2UuYw0KPiBA
+QCAtMTIzOSw2ICsxMjM5LDcgQEAgc3RhdGljIGludCBiaW5kX2V2dGNobl90b19pcnFfY2hp
+cChldnRjaG5fcG9ydF90IGV2dGNobiwgc3RydWN0IGlycV9jaGlwICpjaGlwLA0KPiAgIAl9
+IGVsc2Ugew0KPiAgIAkJc3RydWN0IGlycV9pbmZvICppbmZvID0gaW5mb19mb3JfaXJxKGly
+cSk7DQo+ICAgCQlXQVJOX09OKGluZm8gPT0gTlVMTCB8fCBpbmZvLT50eXBlICE9IElSUVRf
+RVZUQ0hOKTsNCj4gKwkJaW5mby0+cmVmY250Kys7DQoNClRoaXMgc2hvdWxkIGJlIGNvbmRp
+dGlvbmFsIG9uIHRoZSBXQVJOX09OKCkgbm90IHRyaWdnZXJpbmcuDQoNCj4gICAJfQ0KPiAg
+IA0KPiAgIG91dDoNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL2V2dGNobi5jIGIvZHJp
+dmVycy94ZW4vZXZ0Y2huLmMNCj4gaW5kZXggYzk5NDE1YTcwMDUxLi40M2Y3NzkxNWZlYjUg
+MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMveGVuL2V2dGNobi5jDQo+ICsrKyBiL2RyaXZlcnMv
+eGVuL2V2dGNobi5jDQo+IEBAIC0zOTcsNyArMzk3LDcgQEAgc3RhdGljIGludCBldnRjaG5f
+YmluZF90b191c2VyKHN0cnVjdCBwZXJfdXNlcl9kYXRhICp1LCBldnRjaG5fcG9ydF90IHBv
+cnQpDQo+ICAgCWlmIChyYyA8IDApDQo+ICAgCQlnb3RvIGVycjsNCj4gICANCj4gLQlyYyA9
+IGJpbmRfZXZ0Y2huX3RvX2lycWhhbmRsZXJfbGF0ZWVvaShwb3J0LCBldnRjaG5faW50ZXJy
+dXB0LCAwLA0KPiArCXJjID0gYmluZF9ldnRjaG5fdG9faXJxaGFuZGxlcl9sYXRlZW9pKHBv
+cnQsIGV2dGNobl9pbnRlcnJ1cHQsIElSUUZfU0hBUkVELA0KPiAgIAkJCQkJICAgICAgIHUt
+Pm5hbWUsIGV2dGNobik7DQo+ICAgCWlmIChyYyA8IDApDQo+ICAgCQlnb3RvIGVycjsNCg0K
+DQpKdWVyZ2VuDQo=
+--------------S0lyxxAH05x0JFhaooIfch0M
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------S0lyxxAH05x0JFhaooIfch0M--
+
+--------------fh0Fr5pHK4fHyrXGogPynGTi--
+
+--------------JVTR8m52YxNgV4MDl5HMuc3s
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUVnLUFAwAAAAAACgkQsN6d1ii/Ey/3
+KQf+IET6cM4Bo9o34kH8hoFxRF9K2Dbi0YZXC7NdlDK9OVrbqJ9SruSDaoo/z65Jaz3HGdX6uyXC
+eGC8JwcRUyrc+SWUTb6sm776y83CykA9SPXY3FizGjBv97X1t87Xdez4fudFELKSljdhU1IQimDz
+aAi6ekhfGP2iCV1r/jDqCRnQb9Rv/FZ8VDVDnURV3HrudhNmWeL2q9hYww/ZovU4YcDJNUoTJz+9
+PnXMwuLuZVq9BguAkiQevecjs+OXfFEgZN8CcnoqvE6SZlCoqKbrudaajYZwzniyHPihI1ZOVFzx
+OXGaMiGVUQLB3HKbb+u/IL0VEs5xVGZGTIMkRcNllA==
+=H/n6
+-----END PGP SIGNATURE-----
+
+--------------JVTR8m52YxNgV4MDl5HMuc3s--
 
