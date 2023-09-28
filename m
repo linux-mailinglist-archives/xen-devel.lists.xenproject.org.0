@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF27C7B1D81
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.609704.948812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF1C7B1DF8
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Sep 2023 15:22:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.609716.948865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlqvU-0006na-Kn; Thu, 28 Sep 2023 13:19:32 +0000
+	id 1qlqyb-000162-Vu; Thu, 28 Sep 2023 13:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 609704.948812; Thu, 28 Sep 2023 13:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 609716.948865; Thu, 28 Sep 2023 13:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qlqvU-0006kw-Hy; Thu, 28 Sep 2023 13:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 609704;
- Thu, 28 Sep 2023 13:19:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ur7q=FM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qlqvS-0006ko-Sm
- for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:19:31 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on2061a.outbound.protection.outlook.com
- [2a01:111:f400:fe12::61a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7adbc0b-5e01-11ee-878a-cb3800f73035;
- Thu, 28 Sep 2023 15:19:30 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB8774.eurprd04.prod.outlook.com (2603:10a6:10:2e1::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Thu, 28 Sep
- 2023 13:19:28 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9f5d:8bed:7a5b:e75a]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::9f5d:8bed:7a5b:e75a%6]) with mapi id 15.20.6838.016; Thu, 28 Sep 2023
- 13:19:28 +0000
+	id 1qlqyb-0000rg-Jj; Thu, 28 Sep 2023 13:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 609716;
+ Thu, 28 Sep 2023 13:20:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c6vw=FM=kernel.org=devnull+j.granados.samsung.com@srs-se1.protection.inumbo.net>)
+ id 1qlqwc-00087E-Vn
+ for xen-devel@lists.xenproject.org; Thu, 28 Sep 2023 13:20:43 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0416a6c-5e01-11ee-9b0d-b553b5be7939;
+ Thu, 28 Sep 2023 15:20:38 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8693D61B7D;
+ Thu, 28 Sep 2023 13:20:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 22F39C433C7;
+ Thu, 28 Sep 2023 13:20:36 +0000 (UTC)
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E9633E732D0;
+ Thu, 28 Sep 2023 13:20:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,176 +46,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7adbc0b-5e01-11ee-878a-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gz68zQTyJtiiVW92YrskSaMXKXNCXybXHC2quvrhgfLb4JRfy9+7TifjI+dN3qHB37DlcvDN9gNyWlghetG3lBlkG7SeGQsS86wMfYh2zyc+G2wX/ScOy+kQJGt8mmmWaVcexbgyNjS0sMt755IKObFVPZcnxM1Tq8wu3cV/QGuka8wnFMbbVsxXAXq6oDIS8DEh0TotGRJNBc2FztHJ1pd5As2nggX+i3l8kdiig0pJ0ZpEE7yFyDDe2t/hCGBel2KjB9R+Rd8ygyNXXAc3HGOaH4Dg5R0ks9FXDgC0F3GhHu5ji6kXIda1ng8NxOJWlamTfwom+T6KRLMdwqblBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YV6fOoxT4lI+0q9BhmcjphMe+Os1d1bLqPZmkU063w4=;
- b=D3ngVyW2lhJCo42HYGuK47uIjFkFq27SofR4dD9h6uHJkxzAmSG9QlFNAJZEAUNGpKfiI5yxZ6gE/cZmil3CGV+MGD/2DTaa3X48wWQspSqgnAEJrWVNNdUjiB6NY4CClcQPkUgJoMQX2A7LDjNPzS0kEv5gWGp0aDWBrcOUyCwqRy2tCcqow8Vcaz8tYcaoZOhCoU43iH1uJQLm0H3KSAA6T6s7J9OICW5XC2rFyQBWSRe09/qFHUA4RklP7dcakrETlebvLF14rzEAqdSHY/JDjKzUkjoxE0o0xZuNv+ua1UgBm+EXypToQvTmNT+Pw6RYbZwda76IjC0LBRrxRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YV6fOoxT4lI+0q9BhmcjphMe+Os1d1bLqPZmkU063w4=;
- b=EBXkoZscjX7ZBwtHswYNTaHFVspKyLIwzdjaHNCLMg4zasZDcRqb1SoIUcYE4PiQzHNCsjbxCAoq9SWJ5YLU0lAyulimpyJ330gx3OM30GY/AUd9ExPGTGItU0pq+wZmEmnU8uJk1KwpeAeWBwsBHsQq3MEISv0FRUsaKR4LQRU8V34VxvFmwTmkG1bomAIX4RlYCtmAO4lA78Jr1hTuAbM1egpcUBhJLKqa8bbgoEOX3HvwXMuKi2maDI3Ykyts/1qwc3/qYaNQ9RM5KyVbmwLbJtgDxVejtnjt6+SVs54nNGvVxiON3r46/wei45AHpshpmdIEjitRQQimJY8ALw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b05190e0-f091-b52c-7d89-d72bd993fec9@suse.com>
-Date: Thu, 28 Sep 2023 15:19:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v4 5/9] x86/mem-sharing: copy GADDR based shared guest
- areas
-Content-Language: en-US
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Henry Wang <Henry.Wang@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <3ba59868-101d-b68a-d8b7-767ee94910ec@suse.com>
- <6047c192-0f37-e4ff-5980-fd137b3f1869@suse.com>
- <ZRVMhdyI8s4chr7b@MacBookPdeRoger>
- <d285a456-307a-0a36-0910-cb80f419627d@suse.com>
- <ZRVeiAFlyf1LJ2qR@MacBookPdeRoger>
- <CABfawhmAZGTaKZfmwY4t8599i6qKaTOJ-fngFmtvS4LhJMh7iA@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CABfawhmAZGTaKZfmwY4t8599i6qKaTOJ-fngFmtvS4LhJMh7iA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0219.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::12) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: d0416a6c-5e01-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695907236;
+	bh=/ReCWJpDrK72V/iL+mSIF6lFswNe6gbu22VtPYv0d5U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=scDsG9Gnm4LK1PUQmm/g4t7Yvsh9MWkqBLOTgxKwSv1rX0HENZ99rl9HkYmZid4Zb
+	 bIn8GQ4wV7+unUrupqZjboa6kgSdyT8476xXJ1nJX2i90M1s3RHtRZaS2HFXL81A9a
+	 dySqhoGIT7lwggto3jmjfRopEK9uYgDdirPJaa3DkpVDer/E0WzANyQHvbwBrUtIUq
+	 HCabb4Y0YRwY1SDpgpJKhfjkadV/eSRTJmhHg6sTlZZqgnNBb+A4itWQ8FqDIa0qTt
+	 EBJorY1Q3z4tLv5PiZ71YL8SHfoeNT8QNK01uMcakd4pQPkPR4oX5F/BTOP1gOobk2
+	 t07n0M7IKCT4A==
+From: Joel Granados via B4 Relay <devnull+j.granados.samsung.com@kernel.org>
+Subject: [PATCH 00/15] sysctl: Remove sentinel elements from drivers
+Date: Thu, 28 Sep 2023 15:21:25 +0200
+Message-Id:
+ <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8774:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcdbed50-0012-466a-fcf6-08dbc0258ae4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	P2i0UpFNiH1ddo/df91eE3lqtT+XuDAk4VRymBwYnKwb5hLvhICjzdH5CcLvY4FKCIDxP8V/Q62lCd0p6zrXKSB0aRbzEG93PaP8KWfzIiSRVyaErXSnwj4Hh714nvOIadLBNKpZkZOP+ZGwbhN9efgPtrR+O32Enmvw9wtf9NFQE07qDc45KTh6jfVJCm1lFsPsxZ0WPaapkbaYTUp8WiVOvhEL8VDYv23PvlQRBs59w5ffzruhU6m0c966+sFLwvf/V3Bwj/mRYIDCSQ3xzOcsZ0Z7NHhfXad+bI2LDQmAxG4Pgg6C9tXDljw6p9FGAphgmzHp1nTFpgSAXqZfI8b0CTgQXLnDbUcSettKtxCGEdw6SlaDEaYuAohlom0NaD/+q+W7/SGoBM7XTmXTvCKfk3Iylrk8kGuMZ0ELxRVj1wWa9th+STwayD0dGqu7Lg3i3JL4KbctxuLpDC0rK1B489QeoQb7pnQhvH6RqjYWYqx8PuNKdNzLt2+Nbc/ksl5ukntlv+e22mLeLmFvy92smifosH9+PzcfBwOKbMaUrTeF/yi80TfE5xpPZVQDopoL+PxYvxTLXJ8Z/ie/z2E87bk3lxvhx3BH8tg0wYXGERQQxyIzNGZVvUZjZ3oL3juLW2KsbkYGjhGNUWJ6TQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(396003)(376002)(136003)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(41300700001)(31686004)(6916009)(316002)(83380400001)(8676002)(66946007)(36756003)(8936002)(4326008)(5660300002)(2616005)(6486002)(31696002)(6512007)(53546011)(86362001)(6506007)(54906003)(66476007)(6666004)(26005)(66556008)(38100700002)(2906002)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cHk3QXpDRDVGRXZSbFphbjR1U0x1ZEk5bFhwSFNDcFdLVEw1amY0UTNPYm55?=
- =?utf-8?B?Qjh5WEh2a3VkeGR0UUtyWEp3bmNmSzRFUm9CeDgwN29ZN2tjWmpGaE9GMHRV?=
- =?utf-8?B?V28zK1FkMDhEUUIwbnhobEt6dE1wSEs4ME5FaE03bG5EdktsN0FDOFY5VUMz?=
- =?utf-8?B?eFQ1MGQxcDJOTDdtaFYwZkRvTkZCUjIrd1pUNFRaNTg3MGg2dnRSdWcvOW4w?=
- =?utf-8?B?b2xwYmlFeDlvUlNwL3NLSDFVTzllejJybkd0QjdRZ0lKZFJLRWVUWFdib0pR?=
- =?utf-8?B?dHhvMnRESG0xK2xwN3NTb0N6akkwMDVRbXpzNnBmelBvOTdSNEpSQ2J0dWZi?=
- =?utf-8?B?ZXR1WGNvaTdHcWY3UlRPQmdSSDBUeGEzTk5nK0J5SXVhSTdadmNwcWl4dWV5?=
- =?utf-8?B?M011Vk9RQXZoN216V25ISGtSczJUT2N3WlBYa2pRaXRXOStYbGd6dTZPajBv?=
- =?utf-8?B?S1l4VTVxNHlpd2grUWYySDV2K2JDa1Z0NW9qazFNWFQ1djAvUmwvLzJ2dUk4?=
- =?utf-8?B?czJsTUV1VUVPb0NsOHRIeFA2RlJGVllBOWlrdUdPN3h0RTFScnZDVzlNZUJo?=
- =?utf-8?B?Tkc1ZmxGUmdIOWNCdTg2ZWs4VFB5dEJmUFFsRC9RUXkyZkNuYVNlSGFMZGZi?=
- =?utf-8?B?N3ZHN1FMZFl0QlEzRmI5WFl4bVpYZWVxNGRNQWlqUjZCLzNFRyt0aUI1ajBL?=
- =?utf-8?B?QzFNdUZOakdMR0ZQK1lwWVJOSjI3VDg0Rjk4RFhSek9IUERRUUdNVm9UUENX?=
- =?utf-8?B?d2ZuUG5SblEzNXZlVkYxZlVZRi9ERjlWK3QzaTlyK2IyOGJPM2N2Y2R0aWhE?=
- =?utf-8?B?MzBJMDNlNkJraVJrbTlhYzV5WGFsMVl1cXpnTHFjVlJrd01jNWRWb1F4cnFR?=
- =?utf-8?B?UWFsQ3h2WXJDVlJzc25ZVHNHMG9NTW5uTm0xeHhnMkNRMGJLQVhuaVdBWEU1?=
- =?utf-8?B?QjVxRllJT2N2dmxablppN0F5NVNjSE16L24vNWl4bmZVUWhVaWpOWWdtbW1I?=
- =?utf-8?B?L0VoWCsyM3pGUk4vaW1HYTlsZjhtNE9BdjNrVW5ZeGhpV3BoVmJoa0sxZW8y?=
- =?utf-8?B?WHV6Z05MVXU3Rmx6ZEp0SkxjRytvWGN3L0VtWEpxWkFZYWVQUVB5UmhyOHA5?=
- =?utf-8?B?OGJKK29lZTBGTWpVMXF6dy9icFdrTFY2RmVPV1d1cnJYMHJJalRpUXBzdkN6?=
- =?utf-8?B?NGhKNXN2eGlVTDJRNUd6aU5hUzYzZFZDTGsreno1TlFDdWdIdEFpc3JIZ1Ey?=
- =?utf-8?B?b2VZMlVnN0xTVUxjRGFCSjRGSG1NQTdIbld3eGU5MmFQVlFaWm5qWXdvVVkz?=
- =?utf-8?B?RlhEc1ViVGttaUFBOFo3VnhFQnk4S2F3S1RZK1lWOVF4YnJYUmNVeFJNdkdI?=
- =?utf-8?B?SldJeG5CaHN2Wml2S0RwSHVYY3BRQkpJVkZ6Z2hwUGh0bWh0dU1CMXNieENV?=
- =?utf-8?B?OEozc2FFLzZ5VG9zOEVhK2k5eVZHM1pGRFdra25XZzNZZ3JyQnJEdkRzVE9K?=
- =?utf-8?B?VFNDdi9uYThicjlKK0NsWWRSemFUSHB0bVhpSEJoOXJSdkRjeDhRSWxjQmow?=
- =?utf-8?B?Z1ZkTllvR2x2amNWbjUySGtjWVBiNm1Wd29LNjcvcHR5c29DbnFRSEJyWGRU?=
- =?utf-8?B?WkhJdi9IVFhqWDhjYk9EQWJaOXRSbDJDSTl5YjF6VXVEaDRMdzZ0YWZlc2JP?=
- =?utf-8?B?Z05LWGRaSzUyRGtOSWd3YjgyT2EzQ0VRNDU0TE5RYkF5K2Rad0VlR3Q3d3NO?=
- =?utf-8?B?WFplK1o1cWZNWEpZTEgrd2tSS1pISWNwZlduZytvWXVzbExXWXlNK3ZabDlN?=
- =?utf-8?B?blF6d0dSNERxRFZMT0lmeWVybXMwS2dLZUx5SzN0SmdMNEwvYTdZRWR5UTlU?=
- =?utf-8?B?Ym44MkZqakE2YzFkN1lJTmkyUzV4bGdkRkFaZU1rYXJvdy9LWE0vQlg1YnQ0?=
- =?utf-8?B?VThneVgxOE9jWWtQZ0MxQ3NTb0Q4WG9UczlxQjdLOG5CdHVLWlVUT2FXdHJh?=
- =?utf-8?B?K1Mrc0JPMEplRFdJM3N0dXVsS1JyWFJKazY0UDN5emZBQkEycERiYklOUVI3?=
- =?utf-8?B?Y1Q5a3hPc0pGMTFLSzYybEFudFQ4bGxFZXdTOHNOU2JLWmxLSW9QcENYSVJG?=
- =?utf-8?Q?nDTYCE0Qhl60RyQ1i1zzB4ehp?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcdbed50-0012-466a-fcf6-08dbc0258ae4
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2023 13:19:28.0656
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kLBnKig+oajcwDrVe11hPwHSyaTXLpeRONfVstBzoipZbPesOsNc0SgusyU7jNccivRWbX0qxzlNZ+8OWsJSaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8774
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANV9FWUC/x3NQQrCMBBG4auUWRuIqaj1KiIhJH/rSNOWmRIsp
+ Xc3uPw27+2kEIbSo9lJUFh5nirOp4biO0wDDKdqcta1tnM38wmD0U3jOnpBngs88rJuHiOyT8I
+ Foqa37aW7umDTPVJNLYKev//N83UcPwjXVN92AAAA
+To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org, 
+ josh@joshtriplett.org, Kees Cook <keescook@chromium.org>, 
+ Phillip Potter <phil@philpotter.co.uk>, 
+ Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Doug Gilbert <dgilbert@interlog.com>, 
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern <dsahern@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>, 
+ Russ Weight <russell.h.weight@intel.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ linux-serial@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-rdma@vger.kernel.org, 
+ openipmi-developer@lists.sourceforge.net, netdev@vger.kernel.org, 
+ linux-raid@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Joel Granados <j.granados@samsung.com>
+X-Mailer: b4 0.13-dev-86aa5
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10065;
+ i=j.granados@samsung.com; h=from:subject:message-id;
+ bh=fRUi88e8Yrfs5rdUzu1POWjh/qONRBnWNcqSlQXmGgc=;
+ b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3bNyb1VxuwdtMXcfZEsTF6o4ERzgUMNE5M8
+ lqmBKMN3YiJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV92wAKCRC6l81St5ZB
+ T4AtC/4mhShg1QMnei1FJl3JIv1Quh127jI/+NM0CoRgmiCk+zTJLLlylW6VOYX1i8V8pr9JOo4
+ vny6+C4lgliXTc+PohQ77bmfuM/TDLZeVOnKnuIrsJWYwW4Kf8EshmF7Z+S3HzYBDHWn4jC6r7l
+ Pffc4T8MVQMtDD2xLl3mDsjmiCLck/UiOBLcpNFd5gKKLiICG33x/vmFvDN5Bt01LeEe45GD4NG
+ O1uuxbZLByRu2Nxs5hSMK+WstfoyThZ9klbHQdSyFzlRNVbZsJhNV/35qYf8JSInt63K/fwVivN
+ pftbvCU/Yu7xhzpGL0OcEQMhW+TwzbRh72FP7LoRbW9Y+KWfogwMPIdWHWSW/yU4Grw1DWHEU+I
+ lI8DJ789JvZR3iYix0NrBVRczvxeopZSBMLSbu4KcByTnJm5/egA6gwRDwR/mDO8qZV41BwmsKH
+ ffucunTJ6gTNc87dnIILxwbb13f7weZvk5go6QdqwvuIgXwv2hZyR90mGRyNdtFobBzT8=
+X-Developer-Key: i=j.granados@samsung.com; a=openpgp;
+ fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
+X-Endpoint-Received:
+ by B4 Relay for j.granados@samsung.com/default with auth_id=70
+X-Original-From: Joel Granados <j.granados@samsung.com>
+Reply-To: <j.granados@samsung.com>
 
-On 28.09.2023 14:57, Tamas K Lengyel wrote:
-> On Thu, Sep 28, 2023 at 7:08 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
->> On Thu, Sep 28, 2023 at 12:11:02PM +0200, Jan Beulich wrote:
->>> On 28.09.2023 11:51, Roger Pau Monné wrote:
->>>> On Thu, Sep 28, 2023 at 09:16:20AM +0200, Jan Beulich wrote:
->>>>> +        /*
->>>>> +         * Map the area into the guest. For simplicity specify the entire range
->>>>> +         * up to the end of the page: All the function uses it for is to check
->>>>> +         * that the range doesn't cross page boundaries. Having the area mapped
->>>>> +         * in the original domain implies that it fits there and therefore will
->>>>> +         * also fit in the clone.
->>>>> +         */
->>>>> +        offset = PAGE_OFFSET(d_area->map);
->>>>> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
->>>>> +                             PAGE_SIZE - offset, cd_area, NULL);
->>>>> +        if ( ret )
->>>>> +            return ret;
->>>>> +    }
->>>>> +    else
->>>>> +        cd_mfn = page_to_mfn(cd_area->pg);
->>>>> +
->>>>> +    copy_domain_page(cd_mfn, d_mfn);
->>>>
->>>> I think the page copy should be done only once, when the page is
->>>> populated on the child p2m.  Otherwise areas smaller than a page size
->>>> (like vpcu_time_info_t) that share the same page will get multiple
->>>> copies of the same data for no reason.
->>>
->>> I think you're right, but this would then be another issue in the original
->>> code that I merely didn't spot (and it's not just "copy for no reason",
->>> we'd actually corrupt what was put there before). IOW the copying needs to
->>> move ahead of map_guest_area() (or yet more precisely after the error
->>> checking for p2m->set_entry()), and in the original code it would have
->>> needed to live ahead of map_vcpu_info(). Once again I'd like Tamas to
->>> confirm (or otherwise) before making that change, though.
->>
->> Yes, it's already an issue in the current code.  I wonder whether
->> logic in the guest or Xen could malfunctions due to the fact that
->> map_vcpu_info() unconditionally sets evtchn_upcall_pending and injects
->> an event channel upcall, but the later call to copy_domain_page()
->> might unset evtchn_upcall_pending while the vector is already injected.
-> 
-> Sorry but I really don't follow the discussion here. My understanding
-> was that map_vcpu_info, as its name suggests, maps the page. We use it
-> to map a new page into that position in case the fork hasn't set it up
-> yet but the parent has one. Then we follow with the copy from the
-> parent so the page content is matching. If there is already a
-> vcpu_info page in the fork, we just do the copy.
-> 
-> Now, if map_vcpu_info does more then mapping, then I don't know what
-> it does, why it does it, and what happens if we skip it when the fork
-> is reset for example. Is the suggestion to call it map_vcpu_info every
-> time the page content is reset (ie after the copy)?
+From: Joel Granados <j.granados@samsung.com>
 
-The vCPU info area (already prior to this series) and the two other areas
-can be updated by the hypervisor at any time. Once one such area is
-registered within a certain page, if another such area happens to live in
-the same page, copying the entire page again would overwrite all updates
-that might already have been made for the first area. IOW copying ought
-to - imo - happen exactly once, when the new page is allocated.
+What?
+These commits remove the sentinel element (last empty element) from the
+sysctl arrays of all the files under the "drivers/" directory that use a
+sysctl array for registration. The merging of the preparation patches
+(in https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+to mainline allows us to just remove sentinel elements without changing
+behavior (more info here [1]).
 
-As to map_vcpu_info() - just look at the function: It writes to the newly
-registered area. Even if the function name says just "map", that's an
-integral part of the operation. We can't just map it, but leave the area
-untouched.
+These commits are part of a bigger set (here
+https://github.com/Joelgranados/linux/tree/tag/sysctl_remove_empty_elem_V4)
+that remove the ctl_table sentinel. Make the review process easier by
+chunking the commits into manageable pieces. Each chunk can be reviewed
+separately without noise from parallel sets.
 
-Jan
+Now that the architecture chunk has been mostly reviewed [6], we send
+the "drivers/" directory. Once this one is done, it will be follwed by
+"fs/*", "kernel/*", "net/*" and miscellaneous. The final set will remove
+the unneeded check for ->procname == NULL.
+
+Why?
+By removing the sysctl sentinel elements we avoid kernel bloat as
+ctl_table arrays get moved out of kernel/sysctl.c into their own
+respective subsystems. This move was started long ago to avoid merge
+conflicts; the sentinel removal bit came after Mathew Wilcox suggested
+it to avoid bloating the kernel by one element as arrays moved out. This
+patchset will reduce the overall build time size of the kernel and run
+time memory bloat by about ~64 bytes per declared ctl_table array. I
+have consolidated some links that shed light on the history of this
+effort [2].
+
+Testing:
+* Ran sysctl selftests (./tools/testing/selftests/sysctl/sysctl.sh)
+* Ran this through 0-day with no errors or warnings
+
+Size saving after removing all sentinels:
+  These are the bytes that we save after removing all the sentinels
+  (this plus all the other chunks). I included them to get an idea of
+  how much memory we are talking about.
+    * bloat-o-meter:
+        - The "yesall" configuration results save 9158 bytes
+          https://lore.kernel.org/all/20230621091000.424843-1-j.granados@samsung.com/
+        - The "tiny" config + CONFIG_SYSCTL save 1215 bytes
+          https://lore.kernel.org/all/20230809105006.1198165-1-j.granados@samsung.com/
+    * memory usage:
+        In memory savings are measured to be 7296 bytes. (here is how to
+        measure [3])
+
+Size saving after this patchset:
+    * bloat-o-meter
+        - The "yesall" config saves 2432 bytes [4]
+        - The "tiny" config saves 64 bytes [5]
+    * memory usage:
+        In this case there were no bytes saved because I do not have any
+        of the drivers in the patch. To measure it comment the printk in
+        `new_dir` and uncomment the if conditional in `new_links` [3].
+
+Comments/feedback greatly appreciated
+
+Best
+Joel
+
+[1]
+We are able to remove a sentinel table without behavioral change by
+introducing a table_size argument in the same place where procname is
+checked for NULL. The idea is for it to keep stopping when it hits
+->procname == NULL, while the sentinel is still present. And when the
+sentinel is removed, it will stop on the table_size. You can go to 
+(https://lore.kernel.org/all/20230809105006.1198165-1-j.granados@samsung.com/)
+for more information.
+
+[2]
+Links Related to the ctl_table sentinel removal:
+* Good summary from Luis sent with the "pull request" for the
+  preparation patches.
+  https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/
+* Another very good summary from Luis.
+  https://lore.kernel.org/all/ZMFizKFkVxUFtSqa@bombadil.infradead.org/
+* This is a patch set that replaces register_sysctl_table with register_sysctl
+  https://lore.kernel.org/all/20230302204612.782387-1-mcgrof@kernel.org/
+* Patch set to deprecate register_sysctl_paths()
+  https://lore.kernel.org/all/20230302202826.776286-1-mcgrof@kernel.org/
+* Here there is an explicit expectation for the removal of the sentinel element.
+  https://lore.kernel.org/all/20230321130908.6972-1-frank.li@vivo.com
+* The "ARRAY_SIZE" approach was mentioned (proposed?) in this thread
+  https://lore.kernel.org/all/20220220060626.15885-1-tangmeng@uniontech.com
+
+[3]
+To measure the in memory savings apply this on top of this patchset.
+
+"
+diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+index c88854df0b62..e0073a627bac 100644
+--- a/fs/proc/proc_sysctl.c
++++ b/fs/proc/proc_sysctl.c
+@@ -976,6 +976,8 @@ static struct ctl_dir *new_dir(struct ctl_table_set *set,
+        table[0].procname = new_name;
+        table[0].mode = S_IFDIR|S_IRUGO|S_IXUGO;
+        init_header(&new->header, set->dir.header.root, set, node, table, 1);
++       // Counts additional sentinel used for each new dir.
++       printk("%ld sysctl saved mem kzalloc \n", sizeof(struct ctl_table));
+
+        return new;
+ }
+@@ -1199,6 +1201,9 @@ static struct ctl_table_header *new_links(struct ctl_dir *dir, struct ctl_table_
+                link_name += len;
+                link++;
+        }
++       // Counts additional sentinel used for each new registration
++       //if ((head->ctl_table + head->ctl_table_size)->procname)
++               printk("%ld sysctl saved mem kzalloc \n", sizeof(struct ctl_table));
+        init_header(links, dir->header.root, dir->header.set, node, link_table,
+                    head->ctl_table_size);
+        links->nreg = nr_entries;
+"
+and then run the following bash script in the kernel:
+
+accum=0
+for n in $(dmesg | grep kzalloc | awk '{print $3}') ; do
+    echo $n
+    accum=$(calc "$accum + $n")
+done
+echo $accum
+
+[4]
+add/remove: 0/0 grow/shrink: 0/21 up/down: 0/-2432 (-2432)
+Function                                     old     new   delta
+xpc_sys_xpc_hb                               192     128     -64
+xpc_sys_xpc                                  128      64     -64
+vrf_table                                    128      64     -64
+ucma_ctl_table                               128      64     -64
+tty_table                                    192     128     -64
+sg_sysctls                                   128      64     -64
+scsi_table                                   128      64     -64
+random_table                                 448     384     -64
+raid_table                                   192     128     -64
+oa_table                                     192     128     -64
+mac_hid_files                                256     192     -64
+iwcm_ctl_table                               128      64     -64
+ipmi_table                                   128      64     -64
+hv_ctl_table                                 128      64     -64
+hpet_table                                   128      64     -64
+firmware_config_table                        192     128     -64
+cdrom_table                                  448     384     -64
+balloon_table                                128      64     -64
+parport_sysctl_template                      912     720    -192
+parport_default_sysctl_table                 584     136    -448
+parport_device_sysctl_template               776     136    -640
+Total: Before=429940038, After=429937606, chg -0.00%
+
+[5]
+add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-64 (-64)
+Function                                     old     new   delta
+random_table                                 448     384     -64
+Total: Before=1885527, After=1885463, chg -0.00%
+
+[6] https://lore.kernel.org/all/20230913-jag-sysctl_remove_empty_elem_arch-v2-0-d1bd13a29bae@samsung.com/
+
+Signed-off-by: Joel Granados <j.granados@samsung.com>
+
+---
+
+---
+Joel Granados (15):
+      cdrom: Remove now superfluous sentinel element from ctl_table array
+      hpet: Remove now superfluous sentinel element from ctl_table array
+      xen: Remove now superfluous sentinel element from ctl_table array
+      tty: Remove now superfluous sentinel element from ctl_table array
+      scsi: Remove now superfluous sentinel element from ctl_table array
+      parport: Remove the now superfluous sentinel element from ctl_table array
+      macintosh: Remove the now superfluous sentinel element from ctl_table array
+      infiniband: Remove the now superfluous sentinel element from ctl_table array
+      char-misc: Remove the now superfluous sentinel element from ctl_table array
+      vrf: Remove the now superfluous sentinel element from ctl_table array
+      sgi-xp: Remove the now superfluous sentinel element from ctl_table array
+      fw loader: Remove the now superfluous sentinel element from ctl_table array
+      raid: Remove now superfluous sentinel element from ctl_table array
+      hyper-v/azure: Remove now superfluous sentinel element from ctl_table array
+      intel drm: Remove now superfluous sentinel element from ctl_table array
+
+ drivers/base/firmware_loader/fallback_table.c |  3 +-
+ drivers/cdrom/cdrom.c                         |  3 +-
+ drivers/char/hpet.c                           |  3 +-
+ drivers/char/ipmi/ipmi_poweroff.c             |  3 +-
+ drivers/char/random.c                         |  3 +-
+ drivers/gpu/drm/i915/i915_perf.c              |  3 +-
+ drivers/hv/hv_common.c                        |  3 +-
+ drivers/infiniband/core/iwcm.c                |  3 +-
+ drivers/infiniband/core/ucma.c                |  3 +-
+ drivers/macintosh/mac_hid.c                   |  3 +-
+ drivers/md/md.c                               |  3 +-
+ drivers/misc/sgi-xp/xpc_main.c                |  6 ++--
+ drivers/net/vrf.c                             |  3 +-
+ drivers/parport/procfs.c                      | 42 ++++++++++++---------------
+ drivers/scsi/scsi_sysctl.c                    |  3 +-
+ drivers/scsi/sg.c                             |  3 +-
+ drivers/tty/tty_io.c                          |  3 +-
+ drivers/xen/balloon.c                         |  3 +-
+ 18 files changed, 36 insertions(+), 60 deletions(-)
+---
+base-commit: 0e945134b680040b8613e962f586d91b6d40292d
+change-id: 20230927-jag-sysctl_remove_empty_elem_drivers-f034962a0d8c
+
+Best regards,
+-- 
+Joel Granados <j.granados@samsung.com>
+
 
