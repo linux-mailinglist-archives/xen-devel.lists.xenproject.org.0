@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44107B39DF
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 20:17:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610655.950125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D90827B3A08
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 20:30:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610662.950135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmI1w-0001Ml-14; Fri, 29 Sep 2023 18:16:00 +0000
+	id 1qmIFM-00046k-C2; Fri, 29 Sep 2023 18:29:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610655.950125; Fri, 29 Sep 2023 18:16:00 +0000
+Received: by outflank-mailman (output) from mailman id 610662.950135; Fri, 29 Sep 2023 18:29:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmI1v-0001Jk-Ts; Fri, 29 Sep 2023 18:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 610655;
- Fri, 29 Sep 2023 18:15:58 +0000
+	id 1qmIFM-00044G-8t; Fri, 29 Sep 2023 18:29:52 +0000
+Received: by outflank-mailman (input) for mailman id 610662;
+ Fri, 29 Sep 2023 18:29:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xaAI=FN=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qmI1u-0001Je-LS
- for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 18:15:58 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b95f6db-5ef4-11ee-878c-cb3800f73035;
- Fri, 29 Sep 2023 20:15:56 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 49E578285644;
- Fri, 29 Sep 2023 13:15:55 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QrZE8fcX8f7x; Fri, 29 Sep 2023 13:15:54 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 5AE4082856CF;
- Fri, 29 Sep 2023 13:15:54 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ZgkATqvkucEI; Fri, 29 Sep 2023 13:15:54 -0500 (CDT)
-Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id E06128285644;
- Fri, 29 Sep 2023 13:15:53 -0500 (CDT)
+ <SRS0=Fe2t=FN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qmIFK-00044A-SQ
+ for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 18:29:50 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c591893-5ef6-11ee-878c-cb3800f73035;
+ Fri, 29 Sep 2023 20:29:49 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-32615eaa312so589324f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Sep 2023 11:29:49 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ j2-20020a5d4642000000b00317e77106dbsm21995538wrs.48.2023.09.29.11.29.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Sep 2023 11:29:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,135 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b95f6db-5ef4-11ee-878c-cb3800f73035
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 5AE4082856CF
+X-Inumbo-ID: 2c591893-5ef6-11ee-878c-cb3800f73035
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1696011354; bh=xsCVRKGyYaJM/8/272BDM+ViI9Cavt7wNk+6JaXwXzk=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=Uw8MB5B3mp7HT31ztf94qMx0/K96HvImWSJA88dHafk4C9HtCdkpbmSoH5ac/BvBl
-	 caKU8nfpROBlGMy/cAIbXBDesuqFnTRWfRR5WGWTRdCchJIJ0l+/15oxYvNrMcrp+c
-	 nPnfspnbvBpYZZKtVANmZQOAUFFocmqPam3xY6Dk=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <1c54864c-e2c2-56eb-1b42-6013d9e609e1@raptorengineering.com>
-Date: Fri, 29 Sep 2023 13:15:53 -0500
+        d=citrix.com; s=google; t=1696012189; x=1696616989; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=AEa7As8/xtsWqegGei6A5Tb7gDmWHgxkdZMeYqU9Hhw=;
+        b=TveDoswcSlR6IcIfqvsBG4iFFCzzqBvhobGrtTeRFtO6UWr/SzBfhHdc8PZPONEOO8
+         gqPydJne+3cx1IiTb1cWCBtybDnfhQ1lhekLuauLyHYxS8nJk8jAWmsVI9og9MytMPD7
+         8OCvcD5FhQnPbs6TMqGaEAO9CiffyrfJDtrhg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696012189; x=1696616989;
+        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AEa7As8/xtsWqegGei6A5Tb7gDmWHgxkdZMeYqU9Hhw=;
+        b=GRDyev05khYlksJoYv+GZZtFpAlp0K6POtr4PYqBAyhdZeqL/FW0e7hkC1mkWGl/pa
+         JpemXJi2+si4cB/EX66KRiKbZaCU2v6XHHyPXAPQ4AUXt2iq8XeDYK0sRbffVh3FQ3P0
+         ug6wvlvz0uuuXsNGojFdfwJp6ebbhAVEM1OLP44mqB8qvg0d6MY81B4clx3rgQxVZbXE
+         W2lyw6kjuj/t9aFX7BUw7twMjl9y0waUrtjF9Q+IHXlwQ77ULrG+cWH8PyEzGdqCGoQX
+         BGe8+TASdjsOXsbFSmBhYXhN37lJG3eYHREJkt+Ier0qOO34vhRtOfwHEkH0mDPlFUn3
+         8kwg==
+X-Gm-Message-State: AOJu0YzQ6ZWMqkSCNZgMCUUL81QxaRs4ZlUZwNHigHMt4kRlqg1RMsoA
+	7DNmqCNcOfEFE2RD4uLgYn6nGxxlLyxjL5VGFwc=
+X-Google-Smtp-Source: AGHT+IE2BF0lpgwgfaaaSu1aNeA1stGgTGNY7hmwUqvq7w6VvkOW+a2Scmg6d5KsqdYpEYy7KDunBQ==
+X-Received: by 2002:a5d:5610:0:b0:319:6d91:28bf with SMTP id l16-20020a5d5610000000b003196d9128bfmr4173592wrv.60.1696012188908;
+        Fri, 29 Sep 2023 11:29:48 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------M0arufweOvb06m7RsghkJaY9"
+Message-ID: <0ef3fd80-e6bf-46e2-8f2e-a349d8528cef@citrix.com>
+Date: Fri, 29 Sep 2023 19:29:48 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Subject: Re: [PATCH 2/3] xen/ppc: Add .text.exceptions section for exception
  vectors
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Content-Language: en-GB
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
 Cc: Timothy Pearson <tpearson@raptorengineering.com>,
  Jan Beulich <jbeulich@suse.com>, Henry Wang <Henry.Wang@arm.com>
 References: <cover.1695942864.git.sanastasio@raptorengineering.com>
  <de5b99d79671a7fe11c5720797aaa6e3207661d1.1695942864.git.sanastasio@raptorengineering.com>
  <dc966303-6b94-4b82-8b66-4c55bc325449@citrix.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <dc966303-6b94-4b82-8b66-4c55bc325449@citrix.com>
+ <1c54864c-e2c2-56eb-1b42-6013d9e609e1@raptorengineering.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <1c54864c-e2c2-56eb-1b42-6013d9e609e1@raptorengineering.com>
+
+This is a multi-part message in MIME format.
+--------------M0arufweOvb06m7RsghkJaY9
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/29/23 4:28 AM, Andrew Cooper wrote:
-> On 29/09/2023 12:19 am, Shawn Anastasio wrote:
->> On Power, the exception vectors must lie at a fixed address, depending
->> on the state of the Alternate Interrupt Location (AIL) field of the
->> Logical Partition Control Register (LPCR). Create a .text.exceptions
->> section in the linker script at an address suitable for AIL=3 plus an
->> accompanying assertion to pave the way for implementing exception
->> support.
-> 
-> Thanks - this is a perfect level of detail as far as I'm concerned as a
-> PPC novice.
-> 
+On 29/09/2023 7:15 pm, Shawn Anastasio wrote:
+> On 9/29/23 4:28 AM, Andrew Cooper wrote:
+>> As I said for patch 1, we're now at 4.18-rc1.   Does this need to be
+>> included now, or wait for 4.19?  There's something to be said for having
+>> a basic exception handler, but it is technically a new feature...
 >>
->> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->> ---
->>  xen/arch/ppc/include/asm/config.h | 3 +++
->>  xen/arch/ppc/xen.lds.S            | 7 +++++++
->>  2 files changed, 10 insertions(+)
->>
->> diff --git a/xen/arch/ppc/include/asm/config.h b/xen/arch/ppc/include/asm/config.h
->> index a11a09c570..e012b75beb 100644
->> --- a/xen/arch/ppc/include/asm/config.h
->> +++ b/xen/arch/ppc/include/asm/config.h
->> @@ -42,6 +42,9 @@
->>  
->>  #define XEN_VIRT_START _AC(0xc000000000000000, UL)
->>  
->> +/* Fixed address for start of the section containing exception vectors */
->> +#define EXCEPTION_VECTORS_START _AC(0xc000000000000100, UL)
-> 
-> The patch looks fine, but a PPC question.  Does AIL=3 really mean a hard
-> coded address at 0xc000000000000100 ?
-> 
-> Or is it +0x100 from something else that happens to be programmed to
-> XEN_VIRT_START ?
-> 
+> I don't think there's any pressing need to bring this into 4.18, unless
+> the burden of doing so is trivial.
 
-AIL=3 means a hardcoded address at 0xc000000000004000, actually, but by
-placing the section earlier we can take advantage of some of the space
-in between ...0100 and ...4000 for things like the {h_,}exception_common
-routines introduced in the next patch instead of just having the linker
-pad it with nops.
+Ok, in which case lets not complicate 4.18 with this.
 
-(Now that I look closely though, I see that I erroneously placed those
-routines in .text rather than .text.exceptions in the next patch --
-that's something I'll fix for v2).
-
->> +
->>  #define VMAP_VIRT_START (XEN_VIRT_START + GB(1))
->>  #define VMAP_VIRT_SIZE  GB(1)
->>  
->> diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
->> index 9e46035155..9e888d7383 100644
->> --- a/xen/arch/ppc/xen.lds.S
->> +++ b/xen/arch/ppc/xen.lds.S
->> @@ -24,6 +24,10 @@ SECTIONS
->>          _stext = .;            /* Text section */
->>          *(.text.header)
->>  
->> +        . = ALIGN(256);
->> +        _stext_exceptions = .;
-> 
-> If this is really only used for the linker assertion, then it wants to be
-> 
->     HIDDEN(_stext_exceptions = .);
-> 
-> otherwise the debugging symbols will have _stext_exceptions typically
-> hiding exc_sysreset in the disassembly and symbol table.
->
-
-It is indeed only used for the assertion -- I'll make this change in v2.
-
->> +        *(.text.exceptions)
->> +
->>          *(.text.cold)
->>          *(.text.unlikely .text.*_unlikely .text.unlikely.*)
->>  
->> @@ -184,3 +188,6 @@ ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
->>  
->>  ASSERT(!SIZEOF(.got),      ".got non-empty")
->>  ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
->> +
->> +ASSERT(_stext_exceptions == EXCEPTION_VECTORS_START, \
->> +       ".text.exceptions not at expected location -- .text.header too big?");
-> 
-> No need for ; at the end, and no need for \ either.
->
-
-Will fix.
-
-> As I said for patch 1, we're now at 4.18-rc1.   Does this need to be
-> included now, or wait for 4.19?  There's something to be said for having
-> a basic exception handler, but it is technically a new feature...
->
-
-I don't think there's any pressing need to bring this into 4.18, unless
-the burden of doing so is trivial.
-
-> ~Andrew
+Shortly I'll start up my usual xen-next branch to hold okay'd content
+for 4.19, but the patches can sit on mailing list in the short term.
 
 Thanks,
-Shawn
+
+~Andrew
+--------------M0arufweOvb06m7RsghkJaY9
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 29/09/2023 7:15 pm, Shawn Anastasio
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:1c54864c-e2c2-56eb-1b42-6013d9e609e1@raptorengineering.com">
+      <pre class="moz-quote-pre" wrap="">On 9/29/23 4:28 AM, Andrew Cooper wrote:<span
+      style="white-space: pre-wrap">
+</span></pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">As I said for patch 1, we're now at 4.18-rc1.   Does this need to be
+included now, or wait for 4.19?  There's something to be said for having
+a basic exception handler, but it is technically a new feature...
+
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I don't think there's any pressing need to bring this into 4.18, unless
+the burden of doing so is trivial.</pre>
+    </blockquote>
+    <br>
+    Ok, in which case lets not complicate 4.18 with this.<br>
+    <br>
+    Shortly I'll start up my usual xen-next branch to hold okay'd
+    content for 4.19, but the patches can sit on mailing list in the
+    short term.<br>
+    <br>
+    Thanks,<br>
+    <br>
+    ~Andrew<br>
+  </body>
+</html>
+
+--------------M0arufweOvb06m7RsghkJaY9--
 
