@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E837B3068
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 12:31:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610490.949918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3865A7B3204
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 14:05:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610504.949929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmAlj-0003Ah-9D; Fri, 29 Sep 2023 10:30:47 +0000
+	id 1qmCEH-0000oX-Co; Fri, 29 Sep 2023 12:04:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610490.949918; Fri, 29 Sep 2023 10:30:47 +0000
+Received: by outflank-mailman (output) from mailman id 610504.949929; Fri, 29 Sep 2023 12:04:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmAlj-000394-6U; Fri, 29 Sep 2023 10:30:47 +0000
-Received: by outflank-mailman (input) for mailman id 610490;
- Fri, 29 Sep 2023 10:30:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2FIE=FN=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qmAlh-00038y-27
- for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 10:30:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e1facad-5eb3-11ee-878c-cb3800f73035;
- Fri, 29 Sep 2023 12:30:43 +0200 (CEST)
-Received: from [192.168.1.15] (host-87-11-204-216.retail.telecomitalia.it
- [87.11.204.216])
- by support.bugseng.com (Postfix) with ESMTPSA id 481A64EE0739;
- Fri, 29 Sep 2023 12:30:42 +0200 (CEST)
+	id 1qmCEH-0000lv-9L; Fri, 29 Sep 2023 12:04:21 +0000
+Received: by outflank-mailman (input) for mailman id 610504;
+ Fri, 29 Sep 2023 12:04:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmCEG-0000ll-5M; Fri, 29 Sep 2023 12:04:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmCEF-0006Qa-VM; Fri, 29 Sep 2023 12:04:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmCEF-0000NH-J5; Fri, 29 Sep 2023 12:04:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmCEF-0007FL-Id; Fri, 29 Sep 2023 12:04:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,56 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e1facad-5eb3-11ee-878c-cb3800f73035
-Message-ID: <837cde69-eb15-66ba-1b91-974f8307f295@bugseng.com>
-Date: Fri, 29 Sep 2023 12:30:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [XEN PATCH 1/4] video/vesa: drop bool_t
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7hP4Eyx6AKnE9gvX0WriO2kYrbxz/c0e2yO/3JFUPro=; b=vcqyDBc9dMkvgYoGvjh31VAQls
+	O8d+X/7cMdrrrMpytKeTeLqtOq+ELMvmK1j166mU7X4uV/vrLgcg0yKpwonzrh9OlmZra5ihc4S7o
+	yCXoxagdHBAEgJL5m7HX9VAZ1YXCwt8OaniAZ5G+DhkmkUe6orYnawVTK3arygzzdjXI=;
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Henry Wang <henry.wang@arm.com>
-References: <cover.1695972930.git.federico.serafini@bugseng.com>
- <96027a74236514f38f54051d24a93b6d692644ac.1695972930.git.federico.serafini@bugseng.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <96027a74236514f38f54051d24a93b6d692644ac.1695972930.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <osstest-183213-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183213: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a8ab67cae01eca7bba8627ce13429c59fda056f3
+X-Osstest-Versions-That:
+    xen=a363089e68ed677fef12c296253535753fe817e3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Sep 2023 12:04:19 +0000
 
-On 29/09/23 10:56, Federico Serafini wrote:
-> Drop bool_t to make function declaration and definition consistent and address
-> a violation of MISRA C:2012 Rule 8.3.
-> No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> ---
->   xen/drivers/video/vesa.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/video/vesa.c b/xen/drivers/video/vesa.c
-> index b007ff5678..70feca21ac 100644
-> --- a/xen/drivers/video/vesa.c
-> +++ b/xen/drivers/video/vesa.c
-> @@ -145,7 +145,7 @@ static void cf_check lfb_flush(void)
->       __asm__ __volatile__ ("sfence" : : : "memory");
->   }
->   
-> -void __init vesa_endboot(bool_t keep)
-> +void __init vesa_endboot(bool keep)
->   {
->       if ( keep )
->       {
+flight 183213 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183213/
 
-I am seeing that there is an acked patch that solves this,
-so this patch should be dropped.
+Failures :-/ but no regressions.
 
--- 
-Federico Serafini, M.Sc.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Software Engineer, BUGSENG (http://bugseng.com)
+version targeted for testing:
+ xen                  a8ab67cae01eca7bba8627ce13429c59fda056f3
+baseline version:
+ xen                  a363089e68ed677fef12c296253535753fe817e3
+
+Last test of basis   183197  2023-09-28 00:02:01 Z    1 days
+Testing same since   183213  2023-09-29 09:02:08 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   a363089e68..a8ab67cae0  a8ab67cae01eca7bba8627ce13429c59fda056f3 -> smoke
 
