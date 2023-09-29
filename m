@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA7757B3806
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 18:35:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610629.950083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0BF7B3812
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 18:43:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610634.950092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmGSm-0002tD-BX; Fri, 29 Sep 2023 16:35:36 +0000
+	id 1qmGZS-0005VW-0y; Fri, 29 Sep 2023 16:42:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610629.950083; Fri, 29 Sep 2023 16:35:36 +0000
+Received: by outflank-mailman (output) from mailman id 610634.950092; Fri, 29 Sep 2023 16:42:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmGSm-0002qa-8X; Fri, 29 Sep 2023 16:35:36 +0000
-Received: by outflank-mailman (input) for mailman id 610629;
- Fri, 29 Sep 2023 16:35:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qmGZR-0005TD-Ug; Fri, 29 Sep 2023 16:42:29 +0000
+Received: by outflank-mailman (input) for mailman id 610634;
+ Fri, 29 Sep 2023 16:42:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m+YX=FN=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qmGSk-0002qU-Fl
- for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 16:35:34 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34cf6c6d-5ee6-11ee-9b0d-b553b5be7939;
- Fri, 29 Sep 2023 18:35:31 +0200 (CEST)
-Received: from beta.station (net-188-218-250-245.cust.vodafonedsl.it
- [188.218.250.245])
- by support.bugseng.com (Postfix) with ESMTPSA id 3C6854EE0739;
- Fri, 29 Sep 2023 18:35:31 +0200 (CEST)
+ <SRS0=LkXg=FN=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1qmGZR-0005T7-9S
+ for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 16:42:29 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d1607bb-5ee7-11ee-878c-cb3800f73035;
+ Fri, 29 Sep 2023 18:42:28 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2bffa8578feso235825351fa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Sep 2023 09:42:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,113 +40,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34cf6c6d-5ee6-11ee-9b0d-b553b5be7939
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH] automation/eclair: update accepted and clean guidelines
-Date: Fri, 29 Sep 2023 18:35:10 +0200
-Message-Id: <b163d56b606a86a8772e97cd1938c737aeef4754.1696003647.git.simone.ballarin@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 2d1607bb-5ee7-11ee-878c-cb3800f73035
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1696005747; x=1696610547; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=z3RayBwtucIeYOJBYJcU44qYWWgYdJyFKw1GhJhGYEo=;
+        b=jabxkHFCVpJ9VfypNWXDaQ5QQTPhS07vLir7lILltOnifWUG2ReCupfG2RnpHMRgJA
+         hD77vUePWOmkbbi37ushze1xGAcRvvxjcyiZl4HKZIqHVYsb2Hdmp+kGQbofrgV2fTTV
+         xjYAOoakH7eyuQ51ZruYXQOMzXT1ktFlqCk6M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696005747; x=1696610547;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=z3RayBwtucIeYOJBYJcU44qYWWgYdJyFKw1GhJhGYEo=;
+        b=nZ7tvSrcVcbOcxrAcQOH1PKdB7/cANLdhFONREVdmtkYTe+040PJ+heGfR9Ea266oF
+         nAVUuGTIWKFIL2PD0L/macTqqFZyM5vt3QqrQ2PxiHcolVZKmNU4ba8UvKJVn6HOwd48
+         ra+oauz1+ZQmrs8I0LJWWush8INlxcfz7ploiWJ7BEvDc7YfCc7x9sdesogM+jzty86t
+         b8zU5OjuoQWAMmWJM9d1/2163YTtqbg98lA6rktquD+Jom00ycWzxdrNWPywmmQeLCTt
+         BACA4+cy8OGsg7tOGIfWc+z6GoSlmFA6/8iZ95+RzKwjFdbeA3rUXJPvIOzzjCbXKEn2
+         9wfQ==
+X-Gm-Message-State: AOJu0YyHTrwWIHddhEBSg9hVVtI/gXFAg8beBYVYI0dymwjwbMYGkCd1
+	bRsw4d7NBc4yIX0+V6TxU29Gp7C7gWuuNqw+chTmwcXbtsP5SmKsiIk=
+X-Google-Smtp-Source: AGHT+IFuZ1OovX6uWjpk/NwTAun5kAwS1EZVURByyXM17qFdCIfGIkU/uS3BjHy6BgAJP2N9uE5yBDym6nTWTgZoOF0=
+X-Received: by 2002:ac2:4898:0:b0:503:3816:c42c with SMTP id
+ x24-20020ac24898000000b005033816c42cmr3839036lfc.41.1696005747157; Fri, 29
+ Sep 2023 09:42:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 29 Sep 2023 17:42:16 +0100
+Message-ID: <CA+zSX=Z904nF0yD1grRZc1miEOhdTHqAd4j-S1j8GY+1bo9COw@mail.gmail.com>
+Subject: Sketch of an idea for handling the "mixed workload" problem
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>, Demi Marie Obenour <demi@invisiblethingslab.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
 
-This patch updates accepted and clean guidelines selectors.
+The basic credit2 algorithm goes something like this:
 
-Align accepted selector with docs/misra/rules.txt.
-Add rule 7.3 in the clean selector for ARM.
-Avoid regular expressions in all service selectors: usign them
-requires escaping dots, which make selectors hard to read.
+1. All vcpus start with the same number of credits; about 10ms worth
+if everyone has the same weight
 
-Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
----
- automation/eclair_analysis/ECLAIR/tagging.ecl | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+2. vcpus burn credits as they consume cpu, based on the relative
+weights: higher weights burn slower, lower weights burn faster
 
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/ecl=
-air_analysis/ECLAIR/tagging.ecl
-index 3f589fd716..78a0bc948b 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -18,7 +18,8 @@
- #######################
-=20
- -doc=3D"Accepted guidelines as reported in XEN/docs/misra/rules.rst"
---service_selector=3D{accepted_guidelines,"^(MC3R1\\.D1\\.1|MC3R1\\.D2\\.1|=
-MC3R1\\.D4\\.3|MC3R1\\.D4\\.7|MC3R1\\.D4\\.10|MC3R1\\.D4\\.11|MC3R1\\.D4\\.=
-14|MC3R1\\.R1\\.1|MC3R1\\.R1\\.3|MC3R1\\.R1\\.4|MC3R1\\.R2\\.1|MC3R1\\.R2\\=
-.6|MC3R1\\.R2\\.2|MC3R1\\.R3\\.1|MC3R1\\.R3\\.2|MC3R1\\.R4\\.1|MC3R1\\.R4\\=
-.2|MC3R1\\.R5\\.1|MC3R1\\.R5\\.2|MC3R1\\.R5\\.3|MC3R1\\.R5\\.4|MC3R1\\.R5\\=
-.6|MC3R1\\.R6\\.1|MC3R1\\.R6\\.2|MC3R1\\.R7\\.1|MC3R1\\.R7\\.2|MC3R1\\.R7\\=
-.3|MC3R1\\.R7\\.4|MC3R1\\.R8\\.1|MC3R1\\.R8\\.2|MC3R1\\.R8\\.3|MC3R1\\.R8\\=
-.4|MC3R1\\.R8\\.5|MC3R1\\.R8\\.6|MC3R1\\.R8\\.8|MC3R1\\.R8\\.10|MC3R1\\.R8\=
-\.12|MC3R1\\.R8\\.14|MC3R1\\.R9\\.1|MC3R1\\.R9\\.2|MC3R1\\.R9\\.3|MC3R1\\.R=
-9\\.4|MC3R1\\.R9\\.5|MC3R1\\.R12\\.5|MC3R1\\.R13\\.6|MC3R1\\.R13\\.1|MC3R1\=
-\.R14\\.1|MC3R1\\.R16\\.7|MC3R1\\.R17\\.3|MC3R1\\.R17\\.4|MC3R1\\.R17\\.6|M=
-C3R1\\.R18\\.3|MC3R1\\.R19\\.1|MC3R1\\.R20\\.7|MC3R1\\.R20\\.13|MC3R1\\.R20=
-\\.14|MC3R1\\.R21\\.13|MC3R1\\.R21\\.17|MC3R1\\.R21\\.18|MC3R1\\.R21\\.19|M=
-C3R1\\.R21\\.20|MC3R1\\.R21\\.21|MC3R1\\.R22\\.2|MC3R1\\.R22\\.4|MC3R1\\.R2=
-2\\.5|MC3R1\\.R22\\.6)$"
-+-service_selector=3D{accepted_guidelines,
-+    "MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.1||MC3R1.D4.3||MC3R1.D4.7||MC3R1.D4.=
-10||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.=
-1||MC3R1.R2.2||MC3R1.R2.6||MC3R1.R2.2||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||=
-MC3R1.R4.2||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.3||MC3R1.R5.4||MC3R1.R5.6||MC3=
-R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R7.2||MC3R1.R7.3||MC3R1.R7.4||MC3R1.=
-R8.1||MC3R1.R8.2||MC3R1.R8.3||MC3R1.R8.4||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.=
-8||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.1||MC3R1.R9.2||MC3R1.R9.=
-3||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R10.1||MC3R1.R10.2||MC3R1.R10.3||MC3R1.R10=
-.4||MC3R1.R12.5||MC3R1.R13.6||MC3R1.R13.1||MC3R1.R14.1||MC3R1.R14.3||MC3R1.=
-R16.7||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R18.3||MC3R1.R19.1||MC3=
-R1.R20.7||MC3R1.R20.13||MC3R1.R20.14||MC3R1.R21.13||MC3R1.R21.17||MC3R1.R21=
-.18||MC3R1.R21.19||MC3R1.R21.20||MC3R1.R21.21||MC3R1.R22.2||MC3R1.R22.4||MC=
-3R1.R22.5||MC3R1.R22.6"
- }
- -doc=3D"All reports of accepted guidelines are tagged as accepted."
- -reports+=3D{status:accepted,"service(accepted_guidelines)"}
-@@ -29,17 +30,17 @@
-=20
- -doc_begin=3D"Clean guidelines: new violations for these guidelines are no=
-t accepted."
-=20
---service_selector=3D{clean_guidelines_common,"^(MC3R1\\.D1\\.1|MC3R1\\.D2\=
-\.1|MC3R1\\.D4\\.11|MC3R1\\.D4\\.14|MC3R1\\.R1\\.1|MC3R1\\.R1\\.3|MC3R1\\.R=
-1\\.4|MC3R1\\.R2\\.2|MC3R1\\.R3\\.1|MC3R1\\.R3\\.2|MC3R1\\.R4\\.1|MC3R1\\.R=
-5\\.1|MC3R1\\.R5\\.2|MC3R1\\.R5\\.4|MC3R1\\.R6\\.1|MC3R1\\.R6\\.2|MC3R1\\.R=
-7\\.1|MC3R1\\.R8\\.1|MC3R1\\.R8\\.5|MC3R1\\.R8\\.8|MC3R1\\.R8\\.10|MC3R1\\.=
-R8\\.12|MC3R1\\.R8\\.14|MC3R1\\.R9\\.2|MC3R1\\.R9\\.4|MC3R1\\.R9\\.5|MC3R1\=
-\.R12\\.5|MC3R1\\.R17\\.3|MC3R1\\.R17\\.4|MC3R1\\.R17\\.6|MC3R1\\.R21\\.13|=
-MC3R1\\.R21\\.19|MC3R1\\.R21\\.21|MC3R1\\.R22\\.2|MC3R1\\.R22\\.4|MC3R1\\.R=
-22\\.5|MC3R1\\.R22\\.6)$"
-+-service_selector=3D{clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R=
-1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.2||MC3R1=
-.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R6=
-.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R8.1||MC3R1.R8.5||MC3R1.R8.8||MC3R1.R8.10=
-||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.2||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R12.5=
-||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R21.13||MC3R1.R21.19||MC3R1.=
-R21.21||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6"
- }
-=20
- -setq=3Dtarget,getenv("XEN_TARGET_ARCH")
-=20
- if(string_equal(target,"x86_64"),
--    service_selector({"additional_clean_guidelines","^(MC3R1\\.D4\\.3)$"})
-+    service_selector({"additional_clean_guidelines","MC3R1.D4.3"})
- )
-=20
- if(string_equal(target,"arm64"),
--    service_selector({"additional_clean_guidelines","^(MC3R1\\.R5\\.3|MC3R=
-1\\.R7\\.2|MC3R1\\.R8\\.6|MC3R1\\.R9\\.3)$"})
-+    service_selector({"additional_clean_guidelines","MC3R1.R5.3||MC3R1.R7.=
-2||MC3R1.R7.3||MC3R1.R8.6||MC3R1.R9.3"})
- )
-=20
- -reports+=3D{clean:added,"service(clean_guidelines_common||additional_clea=
-n_guidelines)"}
---=20
-2.34.1
+3. At any given point in time, the runnable vcpu with the highest
+credit is allowed to run
 
+4. When the "next runnable vcpu" on a runqueue is negative, credit is
+reset: everyone gets another 10ms, and can carry over at most 2ms of
+credit over the reset.
+
+Generally speaking, vcpus that use less than their quota and have lots
+of interrupts are scheduled immediately, since when they wake up they
+always have more credit than the vcpus who are burning through their
+slices.
+
+But what about a situation as described recently on Matrix, where a VM
+uses a non-negligible amount of cpu doing un-accelerated encryption
+and decryption, which can be delayed by a few MS, as well as handling
+audio events?  How can we make sure that:
+
+1. We can run whenever interrupts happen
+2. We get no more than our fair share of the cpu?
+
+The counter-intuitive key here is that in order to achieve the above,
+you need to *deschedule or preempt early*, so that when the interrupt
+comes, you have spare credit to run the interrupt handler.  How do we
+manage that?
+
+The idea I'm working out comes from a phrase I used in the Matrix
+discussion, about a vcpu that "foolishly burned all its credits".
+Naturally the thing you want to do to have credits available is to
+save them up.
+
+So the idea would be this.  Each vcpu would have a "boost credit
+ratio" and a "default boost interval"; there would be sensible
+defaults based on typical workloads, but these could be tweaked for
+individual VMs.
+
+When credit is assigned, all VMs would get the same amount of credit,
+but divided into two "buckets", according to the boost credit ratio.
+
+Under certain conditions, a vcpu would be considered "boosted"; this
+state would last either until the default boost interval, or until
+some other event (such as a de-boost yield).
+
+The queue would be sorted thus:
+
+* Boosted vcpus, by boost credit available
+* Non-boosted vcpus, by non-boost credit available
+
+Getting more boost credit means having lower priority when not
+boosted; and burning through your boost credit means not being
+scheduled when you need to be.
+
+Other ways we could consider putting a vcpu into a boosted state (some
+discussed on Matrix or emails linked from Matrix):
+* Xen is about to preempt, but finds that the vcpu interrupts are
+blocked (this sort of overlaps with the "when we deliver an interrupt"
+one)
+* Xen is about to preempt, but finds that the (currently out-of-tree)
+"dont_desched" bit has been set in the shared memory area
+
+Other ways to consider de-boosting:
+* There's a way to trigger a VMEXIT when interrupts have been
+re-enabled; setting this up when the VM is in the boost state
+
+Getting the defaults right might take some thinking.  If you set the
+default "boost credit ratio" to 25% and the "default boost interval"
+to 500ms, then you'd basically have five "boosts" per scheduling
+window.  The window depends on how active other vcpus are, but if it's
+longer than 20ms your system is too overloaded.
+
+Thoughts?  Demi, what kinds of interrupt counts are you getting for your VM?
+
+ -George
 
