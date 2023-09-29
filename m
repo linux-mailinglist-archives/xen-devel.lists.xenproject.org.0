@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 797CC7B3BFE
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 23:35:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610744.950278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBA37B3C31
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Sep 2023 23:57:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610753.950288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmL8C-0005sM-0n; Fri, 29 Sep 2023 21:34:40 +0000
+	id 1qmLSu-0003Op-Sm; Fri, 29 Sep 2023 21:56:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610744.950278; Fri, 29 Sep 2023 21:34:39 +0000
+Received: by outflank-mailman (output) from mailman id 610753.950288; Fri, 29 Sep 2023 21:56:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmL8B-0005p6-UL; Fri, 29 Sep 2023 21:34:39 +0000
-Received: by outflank-mailman (input) for mailman id 610744;
- Fri, 29 Sep 2023 21:34:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/xMB=FN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qmL8A-0005p0-LI
- for xen-devel@lists.xenproject.org; Fri, 29 Sep 2023 21:34:38 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc4ffdfc-5f0f-11ee-878c-cb3800f73035;
- Fri, 29 Sep 2023 23:34:35 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 7595BB82147;
- Fri, 29 Sep 2023 21:34:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68422C433C7;
- Fri, 29 Sep 2023 21:34:33 +0000 (UTC)
+	id 1qmLSu-0003ME-Ox; Fri, 29 Sep 2023 21:56:04 +0000
+Received: by outflank-mailman (input) for mailman id 610753;
+ Fri, 29 Sep 2023 21:56:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmLSt-0003M4-GR; Fri, 29 Sep 2023 21:56:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmLSt-0004gw-37; Fri, 29 Sep 2023 21:56:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmLSs-0005fY-Hr; Fri, 29 Sep 2023 21:56:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qmLSs-0006H6-HM; Fri, 29 Sep 2023 21:56:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,92 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc4ffdfc-5f0f-11ee-878c-cb3800f73035
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696023274;
-	bh=CKiMOv7w+H9l7zOQwP0JdQ1knLqx21NOxcB2PP1TQi4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NQyXYjZqhtu0QJArRLxlsy3ywIsMnBe78fcLXNx/skJFOfdpoG2BCwf4XumVva+yH
-	 OviMCoXdvc4+1xPh3tn90Mh8uMGEwThJ9UiopdiVN5rYm/CiclIr3vqiX8Fv+/YOne
-	 OTxSmil8uPAyJg7Je2Lr+DnO/jPWQiPhnqJY5N4Pkh6mtsg3t4UR/+CkKeg/QkrUpY
-	 +saMaiOIEXuJ/5gZAb78zz7W4mHopQ5rHqI6T6Wm6rVopeoKVDh08keg/229zWjN0F
-	 aIw8cwRuE+wseiAivnKqrKy84FRhnyx2Zf9ESmEcTjgMjBctGIk0hqaBErubPk4VVW
-	 m9f2A6fbsxhmA==
-Date: Fri, 29 Sep 2023 14:34:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
-    "roger.pau@citrix.com" <roger.pau@citrix.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "george.dunlap@citrix.com" <george.dunlap@citrix.com>, 
-    "wl@xen.org" <wl@xen.org>, sanastasio@raptorengineering.com
-Subject: Re: [PATCH] cpumask: fix integer type in cpumask_first
-In-Reply-To: <DD5A5A95-82B2-4886-8B5F-BC75C64CC7FC@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2309291432050.2348112@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2309281629360.1996340@ubuntu-linux-20-04-desktop> <e5815f93-80a4-4628-9eae-98c431c70dcc@xen.org> <DD5A5A95-82B2-4886-8B5F-BC75C64CC7FC@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HTBXQXmqYiX8bB927s7/TgzJdFQs01LoRkau3j50l9Y=; b=imUh+PDfrK3aoZLC3kh37XAU//
+	tLBpPMtiKOfeWKx4wMTsaEqWtIG7pCWAU+SUXeGyZ3gBvikOdtZRLY4xVMbL6qj00j5GeP/2fSpGU
+	VGpRyayniYAFj+HcOxmTYFzh6Qe6D8zP/SysgxN2uuEdSlr6QIQiFwR0n/iVb//DL+Bs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183210-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1404774899-1696023215=:2348112"
-Content-ID: <alpine.DEB.2.22.394.2309291433400.2348112@ubuntu-linux-20-04-desktop>
+Subject: [libvirt test] 183210: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=52d1872e6562d0cd0821668d631fdedcd4a34934
+X-Osstest-Versions-That:
+    libvirt=dd403f8873cf8de7675b89ed757a4228af7bc05e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Sep 2023 21:56:02 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 183210 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183210/
 
---8323329-1404774899-1696023215=:2348112
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2309291433401.2348112@ubuntu-linux-20-04-desktop>
+Failures :-/ but no regressions.
 
-On Fri, 29 Sep 2023, Luca Fancellu wrote:
-> > On 29 Sep 2023, at 08:31, Julien Grall <julien@xen.org> wrote:
-> > 
-> > Hi Stefano,
-> > 
-> > On 29/09/2023 00:32, Stefano Stabellini wrote:
-> >> nr_cpu_ids is unsigned int, but find_first_bit returns unsigned long (at
-> >> least on arm).
-> > 
-> > find_* are meant to be used by common code. So I think the first step is to correct the return type so it is consistent across all architectures.
-> > 
-> > I don't have a strong opinion on whether they should all return 'unsigned long'.
-> > 
-> > Then we can discuss if the MISRA rule is still violated.
-> > 
-> >> Use the larger type for min_t to avoid larger-to-smaller
-> >> type assignments. This address 141 MISRA C 10.3 violations.
-> > 
-> > I find interesting you are saying this given that...
-> >> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> >> ---
-> >> diff --git a/xen/include/xen/cpumask.h b/xen/include/xen/cpumask.h
-> >> index 9826707909..a6ed6a28e8 100644
-> >> --- a/xen/include/xen/cpumask.h
-> >> +++ b/xen/include/xen/cpumask.h
-> >> @@ -208,7 +208,7 @@ static inline void cpumask_copy(cpumask_t *dstp, const cpumask_t *srcp)
-> >>    static inline int cpumask_first(const cpumask_t *srcp)
-> >>  {
-> >> - return min_t(int, nr_cpu_ids, find_first_bit(srcp->bits, nr_cpu_ids));
-> >> + return min_t(unsigned long, nr_cpu_ids, find_first_bit(srcp->bits, nr_cpu_ids));
-> > 
-> > ... cpumask_first() is return 'int'. So rather than fixing it, you seem to have just moved the violation.
-> > 
-> >>  }
-> >>    static inline int cpumask_next(int n, const cpumask_t *srcp)
-> 
-> I’ve also found that find_first_bit returns:
-> 
->  - unsigned int on x86
->  - unsigned long on ppc
->  - unsigned long on arm64
->  - int on arm32 (seems that value is always >= 0
-> 
-> So maybe they can be all unsigned int, and cpumask_first can be as well unsigned int?
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183201
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183201
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183201
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-I am OK with that. Julien, Shawn do you agree? If so, I can make the
-change to find_first_bit so that it returns unsigned int on all arches.
---8323329-1404774899-1696023215=:2348112--
+version targeted for testing:
+ libvirt              52d1872e6562d0cd0821668d631fdedcd4a34934
+baseline version:
+ libvirt              dd403f8873cf8de7675b89ed757a4228af7bc05e
+
+Last test of basis   183201  2023-09-28 04:20:29 Z    1 days
+Testing same since   183210  2023-09-29 04:20:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   dd403f8873..52d1872e65  52d1872e6562d0cd0821668d631fdedcd4a34934 -> xen-tested-master
 
