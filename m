@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721B17B3D1D
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Sep 2023 01:59:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.610772.950308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791B17B3E9D
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Sep 2023 08:15:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.610792.950318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmNO2-0005YY-8P; Fri, 29 Sep 2023 23:59:10 +0000
+	id 1qmTFC-0007mz-Tn; Sat, 30 Sep 2023 06:14:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 610772.950308; Fri, 29 Sep 2023 23:59:10 +0000
+Received: by outflank-mailman (output) from mailman id 610792.950318; Sat, 30 Sep 2023 06:14:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qmNO2-0005VY-4s; Fri, 29 Sep 2023 23:59:10 +0000
-Received: by outflank-mailman (input) for mailman id 610772;
- Fri, 29 Sep 2023 23:59:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qmTFC-0007jd-Qy; Sat, 30 Sep 2023 06:14:26 +0000
+Received: by outflank-mailman (input) for mailman id 610792;
+ Sat, 30 Sep 2023 06:14:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qmNNz-0005VN-Ua; Fri, 29 Sep 2023 23:59:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qmNNz-0007YG-JA; Fri, 29 Sep 2023 23:59:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qmNNz-0000sE-A9; Fri, 29 Sep 2023 23:59:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qmNNz-0005Yw-9f; Fri, 29 Sep 2023 23:59:07 +0000
+ (envelope-from <SRS0=T/O9=FO=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1qmTFB-0007jX-Cn
+ for xen-devel@lists.xenproject.org; Sat, 30 Sep 2023 06:14:25 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98335a85-5f58-11ee-9b0d-b553b5be7939;
+ Sat, 30 Sep 2023 08:14:22 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 38U6Dox1013323
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Sat, 30 Sep 2023 02:13:56 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.17.1/8.15.2/Submit) id 38U6Dl20013322;
+ Fri, 29 Sep 2023 23:13:47 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +43,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kEjFYmD55mc6q8G3MAkrtDXkrF3d+TbrfBU+ohVQcyo=; b=0ieafBgltm4UWe2ULcxsb367xn
-	7NrIwYs9+6NeBjfhk+G0AAx5Z1Ez24fwlwsapCziw5XTQXTP20XTw8uwB5n/aCqxpvh9BRPNA7jqc
-	Cf1AeM/wHigPlIBHpoHVcWhWVfTaUPj4JQ/OjfatsjBZyRBJ+rGU4jhS1ijVLS3T8bGQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183218-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 98335a85-5f58-11ee-9b0d-b553b5be7939
+Date: Fri, 29 Sep 2023 23:13:47 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+        jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com,
+        bertrand.marquis@arm.com, george.dunlap@citrix.com, wl@xen.org
+Subject: Re: [PATCH] bitmap: fix n__ signess
+Message-ID: <ZRe8myyldx2ar3Yv@mattapan.m5p.com>
+References: <alpine.DEB.2.22.394.2309281616200.1996340@ubuntu-linux-20-04-desktop>
+ <592517ec-f093-4789-8cd6-320f886e45ae@xen.org>
+ <alpine.DEB.2.22.394.2309291401010.2348112@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183218: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=5bdfcf7fe89759321335159c8304833dc32a25cd
-X-Osstest-Versions-That:
-    xen=2797a717121cda0da5eeea3a17203d1c155c5e54
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Sep 2023 23:59:07 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2309291401010.2348112@ubuntu-linux-20-04-desktop>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-flight 183218 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183218/
+On Fri, Sep 29, 2023 at 02:13:59PM -0700, Stefano Stabellini wrote:
+> On Fri, 29 Sep 2023, Julien Grall wrote:
+> > On 29/09/2023 00:19, Stefano Stabellini wrote:
+> > > All callers of the bitmap_switch macro (which are all within bitmap.h)
+> > > pass an int as first parameter. Do not assign it to an unsigned int
+> > > potentially introducing errors.
+> > > 
+> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > ---
+> > > 
+> > > We could also have gone the other way and change all the callers and the
+> > > callers' callers to use an unsigned int instead, but I went for the path
+> > > of least resistance.
+> > 
+> > I understand this will solve the issue right now because the callers are all
+> > passing 'int'. However, all the callers will need to switch to 'unsigned int'
+> > in order to solve violations in their callers.
+> > 
+> > That unless we decide to use 'int' everywhere, but I think this is a bad idea
+> > because 'n__' is not supposed to be negative.
+> > 
+> > Overall, this may be an easy win right now, but this will need to be reverted.
+> > So, I am not happy to ack it and would in fact be leaning towards Nacking it.
+> 
+> I understand this point and I was undecided myself about the approach.
+> The issue for me is the overwhelming amount of gcc warnings (thankfully
+> Luca's script helps a lot with it). With so many warning, it is
+> difficult to draw the line where to stop fixing things to generate a
+> digestable patch and not having the feeling of unraveling an infinite
+> ball of yarn. So, worried about having to change hundreds of lines of
+> code, I submitted the minimal change instead.
+> 
+> In this case though unsigned int is obviously the right type and the
+> patch below works as well. So I think that's better.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  5bdfcf7fe89759321335159c8304833dc32a25cd
-baseline version:
- xen                  2797a717121cda0da5eeea3a17203d1c155c5e54
-
-Last test of basis   183214  2023-09-29 13:03:41 Z    0 days
-Testing same since   183218  2023-09-29 19:02:06 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+This looks much better to me.  Did changing the nbits arguments of
+bitmap_copy(), bitmap_fill(), and bitmap_weight(), result in the mess
+getting worse?  If so then this is a reasonable stopping point, but if
+you didn't check I would be tempted to do so (ensure consistency amoung
+these functions).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   2797a71712..5bdfcf7fe8  5bdfcf7fe89759321335159c8304833dc32a25cd -> smoke
 
