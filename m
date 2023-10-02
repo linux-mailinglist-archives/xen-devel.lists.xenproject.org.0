@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF2C7B4CD2
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 09:50:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611143.950576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 828B27B4CD0
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 09:50:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611145.950597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnDgr-0006ln-MX; Mon, 02 Oct 2023 07:50:05 +0000
+	id 1qnDgu-0007LH-CH; Mon, 02 Oct 2023 07:50:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611143.950576; Mon, 02 Oct 2023 07:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 611145.950597; Mon, 02 Oct 2023 07:50:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnDgr-0006jo-Hv; Mon, 02 Oct 2023 07:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 611143;
- Mon, 02 Oct 2023 07:50:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qnDgu-0007JX-7D; Mon, 02 Oct 2023 07:50:08 +0000
+Received: by outflank-mailman (input) for mailman id 611145;
+ Mon, 02 Oct 2023 07:50:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uL8T=FQ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qnDgq-00065N-2r
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 07:50:04 +0000
+ id 1qnDgs-0006dn-0d
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 07:50:06 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bc71713-60f8-11ee-878e-cb3800f73035;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4bcd8670-60f8-11ee-9b0d-b553b5be7939;
  Mon, 02 Oct 2023 09:50:03 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id BF3B84EE074E;
- Mon,  2 Oct 2023 09:50:02 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 741074EE0C87;
+ Mon,  2 Oct 2023 09:50:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bc71713-60f8-11ee-878e-cb3800f73035
+X-Inumbo-ID: 4bcd8670-60f8-11ee-9b0d-b553b5be7939
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -53,49 +53,97 @@ Cc: sstabellini@kernel.org,
 	Henry.Wang@arm.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 2/7] x86: add deviations for variables only used in asm code
-Date: Mon,  2 Oct 2023 09:49:45 +0200
-Message-Id: <c533d2a73151d89a910ad42b106ccd13991713db.1696232393.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH 3/7] x86: add deviation comments for  asm-only functions
+Date: Mon,  2 Oct 2023 09:49:46 +0200
+Message-Id: <cf9012d5e4fbe514e9cce3f0074b1a87df505bc0.1696232393.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1696232393.git.nicola.vetrini@bugseng.com>
 References: <cover.1696232393.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These variables are only used by asm code, and therefore
-the lack of a declaration is justified by the corresponding
-SAF comment.
+As stated in rules.rst, functions used only in asm code
+are allowed to have no prior declaration visible when being
+defined, hence these functions are deviated.
+This also fixes violations of MISRA C:2012 Rule 8.4.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/x86/include/asm/asm_defns.h | 1 +
- xen/arch/x86/setup.c                 | 1 +
- 2 files changed, 2 insertions(+)
+ xen/arch/x86/hvm/svm/intr.c      | 1 +
+ xen/arch/x86/hvm/svm/nestedsvm.c | 1 +
+ xen/arch/x86/hvm/svm/svm.c       | 2 ++
+ xen/arch/x86/traps.c             | 1 +
+ xen/arch/x86/x86_64/traps.c      | 1 +
+ 5 files changed, 6 insertions(+)
 
-diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
-index baaaccb26e17..a2516de7749b 100644
---- a/xen/arch/x86/include/asm/asm_defns.h
-+++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -31,6 +31,7 @@ asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
-  * gets set up by the containing function.
-  */
- #ifdef CONFIG_FRAME_POINTER
-+/* SAF-1-safe */
- register unsigned long current_stack_pointer asm("rsp");
- # define ASM_CALL_CONSTRAINT , "+r" (current_stack_pointer)
- #else
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 08ba1f95d635..7e2979f419af 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -153,6 +153,7 @@ char __section(".init.bss.stack_aligned") __aligned(STACK_SIZE)
- void *stack_start = cpu0_stack + STACK_SIZE - sizeof(struct cpu_info);
+diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
+index 192e17ebbfbb..bd9dc560bbc6 100644
+--- a/xen/arch/x86/hvm/svm/intr.c
++++ b/xen/arch/x86/hvm/svm/intr.c
+@@ -123,6 +123,7 @@ static void svm_enable_intr_window(struct vcpu *v, struct hvm_intack intack)
+         vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
+ }
  
- /* Used by the boot asm to stash the relocated multiboot info pointer. */
 +/* SAF-1-safe */
- unsigned int __initdata multiboot_ptr;
+ void svm_intr_assist(void)
+ {
+     struct vcpu *v = current;
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index a09b6abaaeaf..c80d59e0728e 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -1441,6 +1441,7 @@ nestedsvm_vcpu_vmexit(struct vcpu *v, struct cpu_user_regs *regs,
+ }
  
- struct cpuinfo_x86 __read_mostly boot_cpu_data = { 0, 0, 0, 0, -1 };
+ /* VCPU switch */
++/* SAF-1-safe */
+ void nsvm_vcpu_switch(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index beb076ea8d62..b9fabd45a119 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1044,6 +1044,7 @@ static void noreturn cf_check svm_do_resume(void)
+     reset_stack_and_jump(svm_asm_do_resume);
+ }
+ 
++/* SAF-1-safe */
+ void svm_vmenter_helper(void)
+ {
+     const struct cpu_user_regs *regs = guest_cpu_user_regs();
+@@ -2574,6 +2575,7 @@ const struct hvm_function_table * __init start_svm(void)
+     return &svm_function_table;
+ }
+ 
++/* SAF-1-safe */
+ void svm_vmexit_handler(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 0a005f088bca..f27ddb728b2c 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -2260,6 +2260,7 @@ void asm_domain_crash_synchronous(unsigned long addr)
+ }
+ 
+ #ifdef CONFIG_DEBUG
++/* SAF-1-safe */
+ void check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
+ {
+     const unsigned int ist_mask =
+diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
+index f4d17b483032..bcb7559b21c3 100644
+--- a/xen/arch/x86/x86_64/traps.c
++++ b/xen/arch/x86/x86_64/traps.c
+@@ -266,6 +266,7 @@ void show_page_walk(unsigned long addr)
+            l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
+ }
+ 
++/* SAF-1-safe */
+ void do_double_fault(struct cpu_user_regs *regs)
+ {
+     unsigned int cpu;
 -- 
 2.34.1
 
