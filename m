@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD9057B4E8C
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 11:03:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611302.950909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF067B4F60
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 11:47:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611367.950928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnEpT-0008KW-EU; Mon, 02 Oct 2023 09:03:03 +0000
+	id 1qnFVM-0003fr-3d; Mon, 02 Oct 2023 09:46:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611302.950909; Mon, 02 Oct 2023 09:03:03 +0000
+Received: by outflank-mailman (output) from mailman id 611367.950928; Mon, 02 Oct 2023 09:46:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnEpT-0008IK-Bh; Mon, 02 Oct 2023 09:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 611302;
- Mon, 02 Oct 2023 09:03:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qnFVM-0003eA-0Z; Mon, 02 Oct 2023 09:46:20 +0000
+Received: by outflank-mailman (input) for mailman id 611367;
+ Mon, 02 Oct 2023 09:46:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qnrB=FQ=csgroup.eu=christophe.leroy@srs-se1.protection.inumbo.net>)
- id 1qnEpS-0007pr-2v
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 09:03:02 +0000
-Received: from FRA01-MR2-obe.outbound.protection.outlook.com
- (mail-mr2fra01on20601.outbound.protection.outlook.com
- [2a01:111:f400:7e19::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cd12a21-6102-11ee-878e-cb3800f73035;
- Mon, 02 Oct 2023 11:03:01 +0200 (CEST)
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
- by PR1P264MB1613.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1b7::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.28; Mon, 2 Oct
- 2023 09:02:58 +0000
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::27df:697c:bd7d:774f]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::27df:697c:bd7d:774f%6]) with mapi id 15.20.6838.024; Mon, 2 Oct 2023
- 09:02:58 +0000
+ <SRS0=/9Xl=FQ=gmail.com=oleshiiwood@srs-se1.protection.inumbo.net>)
+ id 1qnFVK-0003ck-7V
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 09:46:18 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8769554a-6108-11ee-9b0d-b553b5be7939;
+ Mon, 02 Oct 2023 11:46:15 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-406619b53caso23711855e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Oct 2023 02:46:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,158 +40,444 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cd12a21-6102-11ee-878e-cb3800f73035
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ix63YH6kl9LDCsA8kyCWM5IIPCBWvQQ/NObvRSbxee+pAsZ1yVHrhnzNg3eS0bUca7rYQP2E0x8CWwaARHxhkXAawtqW5Ne6ORACJ1udaeXW/1Uj+PbCxOhnJLjgeJ+0esX6euLDCAtvnVFjB/IQig0Xl5eoW/cCLrdPS1mc8u6HFlAhSMtfwvZvndaKzm3PcHEb4BgOCmZqJXjBUyQcvFJG+9xZ7C4gyUrCzKy1hoZP2c7BTzzZrSlPuqnjvyjBeUjg79eyG1vkoK6kVmGdPW/XxNW4dhYSEA9DGd0EpsXXNxqyWIQ+C6NAYa2wQsZuXzXVMHamJHF654eB3G8TAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tT5hiUKlaP3zn5htPJ5De6+jP9HZUKBL5XqW7313Naw=;
- b=WtNfUivDIjAF2SRQhPLgDc4PIUXPq9/ZE7lzeCYLCUxgZvt5zhtjhEaC21rVSC0dyhtWzl/p2su3nuDzs028JWGE3WH47xXJuxGHn4iRaEXYSVI5Zij/2TgxRlZjxW5T+wACZtyjigYbHNFoUyXfHObEuEqf9+iP8U3vHfijz+Lp3xe3IJ+x703Aryf/ai7x4We/LkL6gwGze2zgnJw8s7JLWn8IyTzUNUGb+9SUOzTGgOKabzTc3JqMFuzEivX+QASQrCykvCgvU1mL4FRxluSZ0xepCHwgEOxhOj79S2fXclWfm4UaAVakJFJP3Tj/LJ6C122DPh/Q1oqMlloIMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
- dkim=pass header.d=csgroup.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tT5hiUKlaP3zn5htPJ5De6+jP9HZUKBL5XqW7313Naw=;
- b=M7KdIW0I4gZYCwG5d1lEioTacEVbawmaO701wxEub4mP92kqkf7bj4ZPhk0E/7TZbj6LVvezI+UTjgIzZes4tOGqw8hi7ohDdRh2wugZPr0PWJYFMOFncZ6ux2bqzJciG4fk6zwjKZa9ITnKLT5RDrln6+BoBJOZPV1BaaC26tTsUMtC78ryNpMf6sZS/RkhsagHKACZFmIqpO3rleRKhKN32nOFBu1Ql3utRhFYY87LtMD4/efrTglWZWqRmmlzOA1x+ma1lwYT1mnSB2Ucr2Xeuq+Aa8E1i3TXzyTs1Nqrr54aAhAZxdvB/AmGGzyXqKFCuI0aHxDot9++JumMFg==
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: Joel Granados <j.granados@samsung.com>
-CC: Luis Chamberlain <mcgrof@kernel.org>, "willy@infradead.org"
-	<willy@infradead.org>, "josh@joshtriplett.org" <josh@joshtriplett.org>, Kees
- Cook <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>, Clemens
- Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Jiri Slaby <jirislaby@kernel.org>, "James
- E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
-	<martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Sudip
- Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
- Romanovsky <leon@kernel.org>, Corey Minyard <minyard@acm.org>, Theodore Ts'o
-	<tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern
-	<dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Robin Holt <robinmholt@gmail.com>, Steve Wahl
-	<steve.wahl@hpe.com>, Russ Weight <russell.h.weight@intel.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>, "K. Y. Srinivasan"
-	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
-	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jani Nikula
-	<jani.nikula@linux.intel.com>, Joonas Lahtinen
-	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
-	<airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [PATCH 00/15] sysctl: Remove sentinel elements from drivers
-Thread-Topic: [PATCH 00/15] sysctl: Remove sentinel elements from drivers
-Thread-Index: AQHZ8g7L9GtM3GaC7kiSbpIXyc5PdrAwblgAgAXHowCAAARdgA==
-Date: Mon, 2 Oct 2023 09:02:58 +0000
-Message-ID: <e9966cb5-40dd-6a53-dc22-4a1fd1f8a2e2@csgroup.eu>
-References:
- <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
- <CGME20230928163139eucas1p261a3b6b6cc62bafd5ace2771926911c2@eucas1p2.samsung.com>
- <5fadd85e-f2d7-878c-b709-3523e89dd93a@csgroup.eu>
- <20231002084718.bmme7yi4xfs7sw4b@localhost>
-In-Reply-To: <20231002084718.bmme7yi4xfs7sw4b@localhost>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=csgroup.eu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR1P264MB1613:EE_
-x-ms-office365-filtering-correlation-id: adfe874a-b6fb-4bb7-ae0f-08dbc3265fb8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- huib1xu4cRxSeJbUhGWDFR4PK9/qZji4WeLJtNogtv9lSbuf6HtlZqV/cIYJM6Dmq9Xc1vyj7FsjZ8JG2ejJDnhR95Kd0FgbGUHvf1hBPgs97LFIc2Id2lYbU2yxHX7B3c4rggYG+C8Umz32FPx10ZZtfdprp89ltz+8JcTH+a3iTixYeIPQqoTerzWrrdco8H9SYIenXjAwxto2DBMkYiLo9gzAVmhmHwEa6FSWP7m6mNDmAkOK/1pXPjJ+mRUizwovh40Thc0QtRiKELqjVAO2qO9Refu5xV7W+eCPtwbXLY0rQjXDKHvE2P9gcG6dFteWKDMqZR//x7ABI1X6dAig8BzIa5A8uL7WD8MgbO5m0liYUz6ZeCDcqHhk7DaLJNiWjVjkGlFALcF7QgLixex2+46SglwaMrkaWpwBG6U8c0HLBYkiGzcoRIipHThLzW2Lwu+t2k9FGPNEirAIydNdWDeI8MU3HW0mKYtsq3bZii7tQEgkmV6GtmqlqGO8iecoQ4mTgCW90AYJe63dCHZoJywXq5Pi0UQ3I+N4EP31y/a7/+YD1wVcucLHhg7Gvt4EiBR/Oi+5udBZEc8q128QztBo/nuIitN1DkQalKWkCc3e2iGx1mx7L5GwP/p9wlfZEmyWE8RK7GVZyHmfQvKTDlHLbGCSgyy9HN5s6L8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(39850400004)(396003)(346002)(376002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(31686004)(2906002)(316002)(41300700001)(54906003)(4326008)(8676002)(8936002)(4744005)(7416002)(7406005)(7366002)(44832011)(36756003)(91956017)(5660300002)(76116006)(6916009)(66556008)(66446008)(66946007)(31696002)(478600001)(86362001)(6506007)(71200400001)(6512007)(38100700002)(2616005)(38070700005)(122000001)(26005)(64756008)(966005)(66476007)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cUFkVkpuM3NUdSt5Qk84cEhSVGNvT3FGQmFOZWRuN3pTeVhRa3JHMWFwNTdJ?=
- =?utf-8?B?WG1zdmJLSWdDb3hVWjcwOE1WY3pFVTdmbUpodXpseGhBU3ZxSUcwR0RiMHJr?=
- =?utf-8?B?aFREbThEVGpjMWZFRSt0TDYxOHVNSU1sT3ZjWHhxVTJoSVQzN1psaml0V0RJ?=
- =?utf-8?B?QnJMaHNMdEZHZmhVOEhFaDNUaDdqbG95WHhPMk95clZiREJwNXVkZW9kbE9V?=
- =?utf-8?B?ckExTHYwcVJhM2ZCVStUMEhub0ZnMlBOT0JuVE9jVE9KWnlFYmNqTmhrL1lX?=
- =?utf-8?B?d09mYkdVTVAzRGxreUNMVjJYTkd2MlNUdm9sQitEUjFXRGFmcGpmZEJYWGF2?=
- =?utf-8?B?R1JPSFFteHJ0MHJFT01NeS9XL1RZeURKSk52U25uUEt2a0lXbTllU1BNSVd3?=
- =?utf-8?B?R2lMaXZrV3pQRzlHNHRFYzgwbFRiWWNjWlBFNEF5UUZWOEJSVTZ0RDl3enVk?=
- =?utf-8?B?NE5naWdXWjB2Vm1QK1dUWGwzVzYwTUxrWXFLd00vYnBka2xMWDJ6b3FZSXJI?=
- =?utf-8?B?RWVsbVIxK290ZWYrUW1yQXB5VFc1bTZ0L1d3T1BqV000Z0MzdHN1dHdQa2hH?=
- =?utf-8?B?N2M1eXlxZjlMekZubXJ3dmVDUGUyNzZnM1o4eHA1OE5tSk5uL0dxMldtKzdM?=
- =?utf-8?B?S3A0bEFTZ2lXM1BYK1h3bUNyMldqbjFnS3NaM280RThJZnlOTnRSVko3OHgx?=
- =?utf-8?B?NzVTTU8zS0JuSkdqc0ZuSVBiQ1dQaGd2TEpZWG42M3pkODgyZWFsQjFOS1NF?=
- =?utf-8?B?MHpKSzZnZlNvTWF4MzFZU0d0b3VOT0hVR0lhK1pKYXJ0Rkd5UktnYUQrUVJZ?=
- =?utf-8?B?TE01Umd6em9lb3l5anFWSHZSelliNFpsQjRyNW5zcEtVdGNsQWROcGpnVFR0?=
- =?utf-8?B?ZExaQ0xxQXFsWnJQS3RVMENDeWdYMkF5b1hyRVRxVHMyeGgvNUpNMW01endp?=
- =?utf-8?B?VmJWZ3NWRE1venROeU95eS9ncGx3S2c4amhJMnJ6MUFNa1FrT1NxRENJMTBm?=
- =?utf-8?B?MFY5emNoeWFhYlVGUzNyMDBEaElKRml0OEE0M2VwOWxRbmlxUFZEQ0xFMktU?=
- =?utf-8?B?RExUdWpmd2d5UUdBODBQVDRwaUdiTElpdTNDVGU3dkpxYk5KR0ZZNFdjRHU2?=
- =?utf-8?B?WW92Ums0RFUydnlvdldvanNodXZJUS9tZnUrSlhIWFVFVTE1V2EzckhWQVNL?=
- =?utf-8?B?L0t1bHlGYVk4SHYycVB3V2ZNMDhHZUxTbzZrd1JmZVQ0ZC9UTjhEeURyQ2Er?=
- =?utf-8?B?MElGRXdSL1k3S1hWVW54RVh1bHlaOUI1MXZaQXl5WFNPTWk3TWwwYjhzUlQy?=
- =?utf-8?B?Q2hBTGthOEF0d2xNNXBLVjZxaFlsKzRXdmVRaVNDY2ZzcmtqYUk2Qmp2b09y?=
- =?utf-8?B?aEZ2cHh0TGFaZ1J3QkV1Q2U1Y0xtcDFpKzVxQm05T2tCWmVrSXkxYkVBM3BR?=
- =?utf-8?B?LzRLTUpKcEJKQm9rMGU1U1d2RFpueWZEZkx4ZDU3L2dOTWd4cStBZCtZNjhC?=
- =?utf-8?B?YXlCK2J3YU9DaFlQL2tKckMvVjVQR0xnbmdjYkpLaDRXak8yVFczQXljUzVC?=
- =?utf-8?B?MjJsY3pheUtGK2xuTjZha1BJcGhNZlV6S040dSs2aGsrMkIwSXljZE84MkpC?=
- =?utf-8?B?L2lmeVc3c3BMVm53VWFDeXBleWE0aGJ6OWxGanZ3RkxDajgxN2RkYnlXY3ht?=
- =?utf-8?B?NkRyOUg4UkpjRmdrQlVOMlpMNUt4OWk2MHJMd0ozUit5K1p4U0Nmaml4Z29z?=
- =?utf-8?B?OTg3NVpHaVZ6emJMdlRzNWIySjVsa0tyZzBNUzhOdXhQcmJLUGJ0ZjNpeFFi?=
- =?utf-8?B?blR6ZXlidUNKLzFpTGJ4UjlFTnNBZXprRDNsVi9Bck9ZMHIvaUNXNldGZlFG?=
- =?utf-8?B?Q3oxOEFZWmxxVEhBVnlVVmtPbm5XWmJqTjFYcFY3bFNOc2tSUzhpZjB6N0o5?=
- =?utf-8?B?ZFh4d2l2RFJqSVBLYVpvVTRaZHRjZHdpeGtKcEtVMlUxQU14QlhZRzMwTitp?=
- =?utf-8?B?d2RpQmdzMFViRE9GaTl6K09BcjlkUUdsNjJPdjNHQnBMOVpobklELzFPeGIw?=
- =?utf-8?B?TVlabEg0bFVtb1dZSkl2OC8wbkZaTGpqQVd4RXNoSjk2QUxveEZJSlRaTE1K?=
- =?utf-8?Q?LEsZii/Ui0/fDYRyDQ4Umczsz?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B19610D21F9A0E40914B707EAD7D9548@FRAP264.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 8769554a-6108-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1696239975; x=1696844775; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=69vCOCbkUwz9oeuuBbbBSOwYZLNY3NDsjhrUlPfYO9U=;
+        b=hau73OY4R6w49dFV8O/dIfFJXlTNpxDR8/JibBd7RDr0zx7dCWXnJfuQootrJ6UqSt
+         c3cjt5QbGPoKcEFDwp4rRg4waip64xJjWKtTSzIrGePghssYs1uXsM/q/DllKx2HuYVw
+         mFK/BrC+385mO7qGRRa3o9sYulpZyleT4JrWgxDxKza0trLuloXy8KKBw7+ft+71Tajf
+         BgxwyyWfsSP+gdf22O5DFqZvBcQXmwOa6/3Qkom3y7Jd5GyZQzP1DKnrkSpJr9GCBYk2
+         etr5nq4OSusKiI0AUCaZ1Ztc3S6ihxXDIHmJuCWxV+nZlbm/veCF5weGWuT3eHaaD7SO
+         7+UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696239975; x=1696844775;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=69vCOCbkUwz9oeuuBbbBSOwYZLNY3NDsjhrUlPfYO9U=;
+        b=vuSK+5MxHqRobN1rotaC1iLLYmsSVf9Vp+ANz4l9i+KlNiFSZBkh7kJUeLa9c7F4OG
+         PG5a3oQ6Vkg9Fm8Sf3kZ//MYoH/djlw+C/x4wZ3YGwwbt1r+hh2HCs67kzTEGCFHGpne
+         DREjicVpUuNAu5kssuXWQrteRAD1OAKCbZKRWoVoIgVbpSYYlTSXXfdsl/bvWB7H36df
+         nMs9R7VrP5kHUHG8lWEnoQirUimeoyKHsOw4JKnF1/4uyMmGPAgGf9hv4nR+MQtt/EI8
+         JaZ+yBp72+++pdYm1ZqUOki3HTUrYatSknGzP1Oh4ATAPqtYEqC++9vqyT90DWQzI1Fm
+         tQlQ==
+X-Gm-Message-State: AOJu0YxmtLWrADCSIUmTa4f498FVa1y9PAr0/mPwq9bms2sHzwdjp2II
+	oMf+FcVdx+SqUv5SW7GLYe8NRU6E42GsdXIIV6g=
+X-Google-Smtp-Source: AGHT+IHDAcIGo2wPX70l+RnpujvEGDdu8sRrHDxyarR/KDA3V9x71sd8g+R6mToHIuV/YpjpjhrGIN1jAUPtI09jQVc=
+X-Received: by 2002:a5d:60cd:0:b0:317:4ef8:1659 with SMTP id
+ x13-20020a5d60cd000000b003174ef81659mr9347722wrt.28.1696239974727; Mon, 02
+ Oct 2023 02:46:14 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: csgroup.eu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: adfe874a-b6fb-4bb7-ae0f-08dbc3265fb8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2023 09:02:58.4694
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NxPxZfZhpijteIMxVFAWbceSw5KI2eWhoFxz+uH4uLMXCZsIZsxfc038Mh5FhXTNxIsSgItv/DkNOE1ITly8Mf3LyYxtnGop2N1fxfK/P3s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR1P264MB1613
+References: <CA+SAi2tXMupikB2YgEXuq98KnOcqm6zWrk19rNvWTfzf2=ku-w@mail.gmail.com>
+ <dba88398-3aef-4541-a8e8-8fd075c0d40e@xen.org> <CA+SAi2tHLVDj+q8KMD7OuhHoj0sSZ-39qs3Z94WGmL2OA3TM_g@mail.gmail.com>
+ <alpine.DEB.2.22.394.2309281447180.1996340@ubuntu-linux-20-04-desktop> <CA+SAi2vZie+PcKgkAbLxcaimG7strkWot1z4LTpCGLeJxuaT2g@mail.gmail.com>
+In-Reply-To: <CA+SAi2vZie+PcKgkAbLxcaimG7strkWot1z4LTpCGLeJxuaT2g@mail.gmail.com>
+From: Oleg Nikitenko <oleshiiwood@gmail.com>
+Date: Mon, 2 Oct 2023 12:53:17 +0300
+Message-ID: <CA+SAi2u2auZgzQh_s+pFspH1YLN4biCf0K7-V7NGWPZQjGoH0g@mail.gmail.com>
+Subject: Fwd: changing Dom0 data during smc call inside of xen during cache coloring
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+	Carlo Nonato <carlo.nonato@minervasys.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, 
+	Stewart.Hildebrand@amd.com
+Content-Type: multipart/alternative; boundary="00000000000025c65c0606b8a5c7"
 
-DQoNCkxlIDAyLzEwLzIwMjMgw6AgMTA6NDcsIEpvZWwgR3JhbmFkb3MgYSDDqWNyaXTCoDoNCj4g
-T24gVGh1LCBTZXAgMjgsIDIwMjMgYXQgMDQ6MzE6MzBQTSArMDAwMCwgQ2hyaXN0b3BoZSBMZXJv
-eSB3cm90ZToNCg0KPiBJIGZvbGxvd2VkIHRoaXMgdHJhY2UgYW5kIHByb2NfaGFuZGxlciBpcyBj
-b3JyZWN0bHkgZGVmaW5lZCBpbiB0dHlfdGFibGUNCj4gKHN0cnVjdCBjdGxfdGFibGUpIGluIGRy
-aXZlcnMvdHR5L3R0eV9pby5jOnR0eV9pbml0IGFuZCB0aGVyZSBpcyBub3QNCj4gcGF0aCB0aGF0
-IGNoYW5nZXMgdGhlc2UgdmFsdWVzLg0KPiBBZGRpdGlvbmFsbHksIHdlIHRoZW4gZmFpbCB0cnlp
-bmcgdG8gcHJpbnQgaW5zdGVhZCBvZiBjb250aW51aW5nIHdpdGgNCj4gdGhlIGluaXRpYWxpemF0
-aW9uLiBNeSBjb25qZWN0dXJlIGlzIHRoYXQgdGhpcyBtaWdodCBiZSBkdWUgdG8gc29tZXRoaW5n
-DQo+IGRpZmZlcmVudCB0aGFuIHRodCBzeXNjdGwgcmVnaXN0ZXIgY2FsbC4NCj4gDQo+IERvZXMg
-dGhpcyBoYXBwZW4gY29uc2lzdGVubHkgb3IgaXMgdGhpcyBqdXN0IGEgb25lIG9mZiBpc3N1ZT8N
-Cg0KRG9uJ3Qga25vdy4NCg0KPiANCj4gVG8gd2hhdCBicmFuY2ggYXJlIHRoZXNlIHBhdGNoZXMg
-YmVpbmcgYXBwbGllZCB0bz8NCg0KQXMgZmFyIGFzIEkgdW5kZXJzdGFuZCBmcm9tIA0KaHR0cHM6
-Ly9naXRodWIuY29tL2xpbnV4cHBjL2xpbnV4LXNub3dwYXRjaC9jb21taXRzL3Nub3dwYXRjaC8z
-NzUzMTksIA0KaXQncyBiZWluZyBhcHBsaWVkIG9uIA0KaHR0cHM6Ly9naXQua2VybmVsLm9yZy9w
-dWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvcG93ZXJwYy9saW51eC5naXQvY29tbWl0Lz9pZD1kNzc0
-OTc1DQoNCg0KPiANCj4gSSdtIGdvaW5nIHRvIHBvc3QgbXkgVjIgYW5kIGtlZXAgd29ya2luZyBv
-biB0aGlzIGlzc3VlIGlmIGl0IHBvcHMgdXANCj4gYWdhaW4uDQo+IA0KDQpDaHJpc3RvcGhlDQo=
+--00000000000025c65c0606b8a5c7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Stefano,
+Hello Julien,
+
+> OK I see the question is about the Xilinx Xen tree. In the logs below we
+have:
+
+I see. After the correction r2 to r1 CSU got aborted immediately.
+
+(XEN) d0v0 Forwarding AES operation: 3254779951 136bb00000000000 ->
+fffffffffffff000
+Received exception
+MSR: 0x200, EAR: 0x2F, EDR: 0x0, ESR: 0x861
+
+I printed the value which I got after the expression which I provided in
+the 1-st email executed.
+
+So I may conclude that Xilinx's real physical address calculation scheme on
+the xen CC is incorrect.
+
+Could you suggest a correct one ?
+
+Regards,
+Oleg Nikitenko
+
+=D0=BF=D1=82, 29 =D1=81=D0=B5=D0=BD=D1=82. 2023=E2=80=AF=D0=B3. =D0=B2 00:5=
+0, Stefano Stabellini <sstabellini@kernel.org>:
+
+> On Thu, 28 Sep 2023, Oleg Nikitenko wrote:
+> > Hello Julien,
+> >
+> > I am still fighting with xen Cache Coloring with aes.
+> > When I sent a request to hardware aes after xen with CC started I got
+> the mistake in CSU.
+> > When I dumped structure contents on both sides I got the different data=
+.
+> > Xilinx related contact wrote to me.
+> >
+> > When cache coloring is enabled, Dom0 is not 1:1 mapped (guest physical
+> addresses in Dom0 !=3D physical addresses). If the Xilinx drivers in
+> > Linux (xcsudma.c) issue EEMI calls with a guest physical address (for
+> instance the address of a memory buffer allocated by Linux), then
+> > this address is no longer a physical address and would need to be
+> translated. EEMI calls always get forwarded to Xen first, then Xen issues
+> > a corresponding EEMI call to the firmware (see
+> xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi). But Xen is probably
+> passing the EEMI
+> > calls parameters unmodified. Then PMU tries to read the address but
+> since this is not a physical address, it fails. Basically we need to
+> > add code to Xen xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi to
+> translate any guest physical addresses passed as EEMI calls arguments
+> > into physical addresses before making the EEMI call to firmware.
+> >
+> > This is an example patch, which is translating the parameter on registe=
+r
+> x2 for the EEMI call 0xC200002F. I haven't checked the EEMI
+> > protocol for this call but this just an example to show you how to
+> translate parameters.
+> >
+> > diff --git a/xen/arch/arm/platforms/xilinx-eemi.c
+> b/xen/arch/arm/platforms/xilinx-eemi.c index 500c86dc69..bff1b71196 10064=
+4
+> ---
+> > a/xen/arch/arm/platforms/xilinx-eemi.c +++
+> b/xen/arch/arm/platforms/xilinx-eemi.c @@ -409,6 +409,30 @@ bool
+> xilinx_eemi(struct
+> > cpu_user_regs *regs, const uint32_t fid, } goto forward_to_fw;
+> >
+> >  *  case 0xC200002F:
+> >  *  {
+> >  *  uint64_t example_possible_address_param =3D get_user_reg(regs, 2);
+> >  *  uint64_t translated_address =3D
+> mfn_to_maddr(gfn_to_mfn(current->domain,
+> >  *  gaddr_to_gfn(example_possible_address_param)));
+> >  *  translated_address +=3D example_possible_address_param & ~PAGE_MASK=
+; +
+> >  *  arm_smccc_1_1_smc(get_user_reg(regs, 0),
+> >  *  get_user_reg(regs, 1),
+> >  *  translated_address,
+> >  *  get_user_reg(regs, 3),
+> >  *  get_user_reg(regs, 4),
+> >  *  get_user_reg(regs, 5),
+> >  *  get_user_reg(regs, 6),
+> >  *  get_user_reg(regs, 7),
+> >  *  &res); +
+> >  *  set_user_reg(regs, 0, res.a0);
+> >  *  set_user_reg(regs, 1, res.a1);
+> >  *  set_user_reg(regs, 2, res.a2);
+> >  *  set_user_reg(regs, 3, res.a3);
+> >  *  return true;
+> >  *  }
+> >
+> > + default: if ( is_hardware_domain(current->domain) ) goto forward_to_f=
+w;
+> >
+> > The aes request structure contains physical addresses of the source and
+> destination.
+> > These addresses are obtained via two calls dma_alloc_coherent.
+> > The address of this structure is kept at x2 register.
+>
+> OK I see the question is about the Xilinx Xen tree. In the logs below we
+> have:
+>
+> > (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 ->
+> 11432000                                                        log from =
+xen
+>
+> So it looks Linux passed 0 as address in x2, which cannot be right?
+>
+>
+>
+> > I applied the suggested scheme in xen for xilinx_eemi(...) function.
+> >
+> > case 0xC200002F:
+> > {
+> > uint64_t paramaddr =3D get_user_reg(regs, 2);
+>
+> It would seem that this is not read correctly? It should not be zero.
+>
+>
+> > uint64_t phyaddr =3D mfn_to_maddr(gfn_to_mfn(current->domain,
+> gaddr_to_gfn(paramaddr)));
+> > phyaddr +=3D (paramaddr & ~PAGE_MASK);
+> > gprintk(XENLOG_DEBUG, "Forwarding AES operation: %u r2 %lx -> %lx\n",
+> fid, paramaddr, phyaddr);
+> > set_user_reg(regs, 2, phyaddr);
+> > }
+> > goto forward_to_fw;
+> >
+> > As a result I got the same issue as earlier.
+> >
+> > [   17.350086]
+> >
+> zynq_aes_gcm
+> user
+> > log
+> >
+> > [   17.350202] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes
+> @                                                       kernel log from D=
+om0
+> > [   17.353015] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
+> > [   17.358515] zynqmp_aes [0] ffffffc00910d000 2806000
+> firmware:zynqmp-firmware:zynqmp-aes
+> > [   17.366546] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @
+> > [   17.372347] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
+> > [   17.377775] zynqmp_aes [1] ffffffc009115000 42a14000 keytype 1
+> > [   17.383660] zynqmp_aes [2] dump request align 1 ++
+> > [   17.388501] 00 60 80 02 00 00 00 00
+> > [   17.392032] 50 60 80 02 00 00 00 00
+> > [   17.395583] 00 00 00 00 00 00 00 00
+> > [   17.399117] 00 60 80 02 00 00 00 00
+> > [   17.402664] 40 00 00 00 00 00 00 00
+> > [   17.406226] 00 00 00 00 00 00 00 00
+> > [   17.409755] 01 00 00 00 00 00 00 00
+> > [   17.413311] zynqmp_aes [3] dump request --
+> >
+> > (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 ->
+> 11432000                                                        log from =
+xen
+>
+> Here
+>
+>
+> > @ 000042A14000
+> >
+> @
+> csu
+> > log from aes
+> > 04 E4 00 6F 05 E4 00 6F
+> > 06 E4 00 6F 07 E4 00 6F
+> > 10 E4 00 6F 11 E4 00 6F
+> > 12 E4 00 6F 13 E4 00 6F
+> > 14 E4 00 6F 15 E4 00 6F
+> > 16 E4 00 6F 17 E4 00 6F
+> > 18 E4 00 6F 19 E4 00 6F
+> >
+> > ERROR:   pm_aes_engine ### args 6 ret 0 addr 0 42a14000
+> ###                                                                ATF lo=
+g
+> >
+> > So the address of the structure was not changed.
+> > This is the question.
+> > How can I map this address to xen and change physical addresses there ?
+
+--00000000000025c65c0606b8a5c7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr"><div>H=
+ello Stefano,</div><div>Hello Julien,<br></div><div><br></div><div>&gt; OK =
+I see the question is about the Xilinx Xen tree. In the logs below we have:=
+<span><br></span></div><div><span><br></span></div><div><span>I see. After =
+the correction r2 to r1 CSU got aborted immediately.<br></span></div><div><=
+span><br></span></div><div>(XEN) d0v0 Forwarding AES operation: 3254779951 =
+136bb00000000000 -&gt; fffffffffffff000<br>Received exception<br>MSR: 0x200=
+, EAR: 0x2F, EDR: 0x0, ESR: 0x861</div><div><br></div><div>I printed the va=
+lue which I got after the expression which I provided in the 1-st email exe=
+cuted.<br></div><div><br></div><div>So I may conclude that Xilinx&#39;s rea=
+l physical address calculation scheme on the xen CC is incorrect.</div><div=
+><br></div><div>Could you suggest a correct one ?</div><div><br></div><div>=
+Regards,</div><div>Oleg Nikitenko<br></div></div><br><div class=3D"gmail_qu=
+ote"><div dir=3D"ltr" class=3D"gmail_attr">=D0=BF=D1=82, 29 =D1=81=D0=B5=D0=
+=BD=D1=82. 2023=E2=80=AF=D0=B3. =D0=B2 00:50, Stefano Stabellini &lt;<a hre=
+f=3D"mailto:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.or=
+g</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Th=
+u, 28 Sep 2023, Oleg Nikitenko wrote:<br>
+&gt; Hello Julien,<br>
+&gt; <br>
+&gt; I am still fighting with xen Cache Coloring with aes.<br>
+&gt; When I sent a request to hardware aes after xen with CC started I got =
+the mistake in CSU.<br>
+&gt; When I dumped structure contents on both sides I got the different dat=
+a.<br>
+&gt; Xilinx related contact wrote to me.<br>
+&gt; <br>
+&gt; When cache coloring is enabled, Dom0 is not 1:1 mapped (guest physical=
+ addresses in Dom0 !=3D physical addresses). If the Xilinx drivers in<br>
+&gt; Linux (xcsudma.c) issue EEMI calls with a guest physical address (for =
+instance the address of a memory buffer allocated by Linux), then<br>
+&gt; this address is no longer a physical address and would need to be tran=
+slated. EEMI calls always get forwarded to Xen first, then Xen issues<br>
+&gt; a corresponding EEMI call to the firmware (see xen/arch/arm/platforms/=
+xilinx-eemi.c:xilinx_eemi). But Xen is probably passing the EEMI<br>
+&gt; calls parameters unmodified. Then PMU tries to read the address but si=
+nce this is not a physical address, it fails. Basically we need to<br>
+&gt; add code to Xen xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi to tr=
+anslate any guest physical addresses passed as EEMI calls arguments<br>
+&gt; into physical addresses before making the EEMI call to firmware.<br>
+&gt; <br>
+&gt; This is an example patch, which is translating the parameter on regist=
+er x2 for the EEMI call 0xC200002F. I haven&#39;t checked the EEMI<br>
+&gt; protocol for this call but this just an example to show you how to tra=
+nslate parameters.<br>
+&gt; <br>
+&gt; diff --git a/xen/arch/arm/platforms/xilinx-eemi.c b/xen/arch/arm/platf=
+orms/xilinx-eemi.c index 500c86dc69..bff1b71196 100644 ---<br>
+&gt; a/xen/arch/arm/platforms/xilinx-eemi.c +++ b/xen/arch/arm/platforms/xi=
+linx-eemi.c @@ -409,6 +409,30 @@ bool xilinx_eemi(struct<br>
+&gt; cpu_user_regs *regs, const uint32_t fid, } goto forward_to_fw;<br>
+&gt; <br>
+&gt;=C2=A0 *=C2=A0 case 0xC200002F:<br>
+&gt;=C2=A0 *=C2=A0 {<br>
+&gt;=C2=A0 *=C2=A0 uint64_t example_possible_address_param =3D get_user_reg=
+(regs, 2);<br>
+&gt;=C2=A0 *=C2=A0 uint64_t translated_address =3D mfn_to_maddr(gfn_to_mfn(=
+current-&gt;domain,<br>
+&gt;=C2=A0 *=C2=A0 gaddr_to_gfn(example_possible_address_param)));<br>
+&gt;=C2=A0 *=C2=A0 translated_address +=3D example_possible_address_param &=
+amp; ~PAGE_MASK; +<br>
+&gt;=C2=A0 *=C2=A0 arm_smccc_1_1_smc(get_user_reg(regs, 0),<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 1),<br>
+&gt;=C2=A0 *=C2=A0 translated_address,<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 3),<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 4),<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 5),<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 6),<br>
+&gt;=C2=A0 *=C2=A0 get_user_reg(regs, 7),<br>
+&gt;=C2=A0 *=C2=A0 &amp;res); +<br>
+&gt;=C2=A0 *=C2=A0 set_user_reg(regs, 0, res.a0);<br>
+&gt;=C2=A0 *=C2=A0 set_user_reg(regs, 1, res.a1);<br>
+&gt;=C2=A0 *=C2=A0 set_user_reg(regs, 2, res.a2);<br>
+&gt;=C2=A0 *=C2=A0 set_user_reg(regs, 3, res.a3);<br>
+&gt;=C2=A0 *=C2=A0 return true;<br>
+&gt;=C2=A0 *=C2=A0 }<br>
+&gt; <br>
+&gt; + default: if ( is_hardware_domain(current-&gt;domain) ) goto forward_=
+to_fw;<br>
+&gt; <br>
+&gt; The aes request structure contains physical addresses of the source an=
+d destination.<br>
+&gt; These addresses are obtained via two calls dma_alloc_coherent.<br>
+&gt; The address of this structure is kept at x2 register.<br>
+<br>
+OK I see the question is about the Xilinx Xen tree. In the logs below we<br=
+>
+have:<br>
+<br>
+&gt; (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -&gt; 11432000=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 log from xen<br>
+<br>
+So it looks Linux passed 0 as address in x2, which cannot be right?<br>
+<br>
+<br>
+<br>
+&gt; I applied the suggested scheme in xen for xilinx_eemi(...) function.<b=
+r>
+&gt; <br>
+&gt; case 0xC200002F:<br>
+&gt; {<br>
+&gt; uint64_t paramaddr =3D get_user_reg(regs, 2);<br>
+<br>
+It would seem that this is not read correctly? It should not be zero.<br>
+<br>
+<br>
+&gt; uint64_t phyaddr =3D mfn_to_maddr(gfn_to_mfn(current-&gt;domain, gaddr=
+_to_gfn(paramaddr)));<br>
+&gt; phyaddr +=3D (paramaddr &amp; ~PAGE_MASK);<br>
+&gt; gprintk(XENLOG_DEBUG, &quot;Forwarding AES operation: %u r2 %lx -&gt; =
+%lx\n&quot;, fid, paramaddr, phyaddr);<br>
+&gt; set_user_reg(regs, 2, phyaddr);<br>
+&gt; }<br>
+&gt; goto forward_to_fw;<br>
+&gt; <br>
+&gt; As a result I got the same issue as earlier.<br>
+&gt; <br>
+&gt; [ =C2=A0 17.350086]<br>
+&gt; zynq_aes_gcm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 user<br>
+&gt; log<br>
+&gt; <br>
+&gt; [ =C2=A0 17.350202] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 kernel log from Dom0<br>
+&gt; [ =C2=A0 17.353015] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@<br>
+&gt; [ =C2=A0 17.358515] zynqmp_aes [0] ffffffc00910d000 2806000 firmware:z=
+ynqmp-firmware:zynqmp-aes<br>
+&gt; [ =C2=A0 17.366546] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @<=
+br>
+&gt; [ =C2=A0 17.372347] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@<br>
+&gt; [ =C2=A0 17.377775] zynqmp_aes [1] ffffffc009115000 42a14000 keytype 1=
+<br>
+&gt; [ =C2=A0 17.383660] zynqmp_aes [2] dump request align 1 ++<br>
+&gt; [ =C2=A0 17.388501] 00 60 80 02 00 00 00 00<br>
+&gt; [ =C2=A0 17.392032] 50 60 80 02 00 00 00 00<br>
+&gt; [ =C2=A0 17.395583] 00 00 00 00 00 00 00 00<br>
+&gt; [ =C2=A0 17.399117] 00 60 80 02 00 00 00 00<br>
+&gt; [ =C2=A0 17.402664] 40 00 00 00 00 00 00 00<br>
+&gt; [ =C2=A0 17.406226] 00 00 00 00 00 00 00 00<br>
+&gt; [ =C2=A0 17.409755] 01 00 00 00 00 00 00 00<br>
+&gt; [ =C2=A0 17.413311] zynqmp_aes [3] dump request --<br>
+&gt; <br>
+&gt; (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -&gt; 11432000=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 log from xen<br>
+<br>
+Here<br>
+<br>
+<br>
+&gt; @ 000042A14000<br>
+&gt; @=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 csu<br>
+&gt; log from aes<br>
+&gt; 04 E4 00 6F 05 E4 00 6F<br>
+&gt; 06 E4 00 6F 07 E4 00 6F<br>
+&gt; 10 E4 00 6F 11 E4 00 6F<br>
+&gt; 12 E4 00 6F 13 E4 00 6F<br>
+&gt; 14 E4 00 6F 15 E4 00 6F<br>
+&gt; 16 E4 00 6F 17 E4 00 6F<br>
+&gt; 18 E4 00 6F 19 E4 00 6F<br>
+&gt; <br>
+&gt; ERROR: =C2=A0 pm_aes_engine ### args 6 ret 0 addr 0 42a14000 ###=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AT=
+F log<br>
+&gt; <br>
+&gt; So the address of the structure was not changed.<br>
+&gt; This is the question.=C2=A0<br>
+&gt; How can I map this address to xen and change physical addresses there =
+?</blockquote></div>
+</div></div>
+
+--00000000000025c65c0606b8a5c7--
 
