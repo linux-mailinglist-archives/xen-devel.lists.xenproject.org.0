@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6412C7B5D48
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 00:45:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611825.951433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF377B5D49
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 00:46:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611828.951443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRfD-0002FE-4D; Mon, 02 Oct 2023 22:45:19 +0000
+	id 1qnRgE-0002mv-Cj; Mon, 02 Oct 2023 22:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611825.951433; Mon, 02 Oct 2023 22:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 611828.951443; Mon, 02 Oct 2023 22:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRfD-0002Cq-0n; Mon, 02 Oct 2023 22:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 611825;
- Mon, 02 Oct 2023 22:45:18 +0000
+	id 1qnRgE-0002kH-9L; Mon, 02 Oct 2023 22:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 611828;
+ Mon, 02 Oct 2023 22:46:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oggk=FQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qnRfC-0002Ca-0L
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 22:45:18 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1qnRgD-0002k7-2C
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 22:46:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b3642ae-6175-11ee-9b0d-b553b5be7939;
- Tue, 03 Oct 2023 00:45:16 +0200 (CEST)
+ id 8008c4d9-6175-11ee-9b0d-b553b5be7939;
+ Tue, 03 Oct 2023 00:46:19 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id C96AAB81691;
- Mon,  2 Oct 2023 22:45:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF41C433C7;
- Mon,  2 Oct 2023 22:45:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CBEFD60C70;
+ Mon,  2 Oct 2023 22:46:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D054C433C7;
+ Mon,  2 Oct 2023 22:46:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,41 +41,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b3642ae-6175-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 8008c4d9-6175-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696286715;
-	bh=0Xv1fg9Yr06kGBm0qoZ9sfFqEhxPHz8ust+2mU10Q3I=;
+	s=k20201202; t=1696286777;
+	bh=a2jOghW5Dystax6iLCr7AUgEBj8Airf3he862yNnUqs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=X0cjgwL1einGfXTMB138NchZNaSCZ95xno9PXeXSiORCr0nzAzqTsDN9R/lwoVw9U
-	 C+HqeSz0xDOf1rOXu3wNK3ptg+8wZc8tZFTbvAuER1GFItaN5IYs0pRQCmMh64D/xO
-	 D+FSpBvZclx1S+oP+X0x+B9f5DjQ0tciEqxEGWjAPcNdq9+yG2ER02h+3BO8mIVnaQ
-	 XZzzWCKfs/8jwrexHcxH1XHgagkAxCSGMNTa0BRpQkpSTjQXLnLZrHqJFdQZW3qYHl
-	 OVaHVQG8m2Xk2GGvNSukPXaj4cN9MZSgh9EAwBHfLfsz9L+qiHqNaww1p9mqtqycnu
-	 GnSgycMlya+Sw==
-Date: Mon, 2 Oct 2023 15:45:12 -0700 (PDT)
+	b=DPbWwcgYAuKvkRU4jAGFOZssDx5jFHVWRgQJHMbT2j9TDOQHYMFky7WZ0k2SkdAqW
+	 h+D9TZagak1BGHZy51WRKm5Qd9Bo7izJsUWVk0V8C9m0AO4tNePClckTUl4KH1SShL
+	 J1YFLyZfrsgksTuM341l9MAiCk3J5Db1YpyIyCcq4+VHzum4CYItRrFBDvlahiND7G
+	 czIPma5vhfLuMcGUxTxFEnPYh28JIJEaHupP0T6THds+yMjbztzgSv7By1RqtZNaO+
+	 /0HOmZFf/mF1Bd2hreAOOLxQVcOVycoPc/GkvfqBpiFUA+RWwPzWNvYftV6VF8SzeC
+	 tU0VbHr+OUx2Q==
+Date: Mon, 2 Oct 2023 15:46:14 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Henry Wang <henry.wang@arm.com>
-Subject: Re: [XEN PATCH] xen/irq: address violations of MISRA C:2012 Rule
- 8.2
-In-Reply-To: <fc077d4dba9c37d9d81cea5d184e59f00c3cdcd4.1696242264.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310021545060.2348112@ubuntu-linux-20-04-desktop>
-References: <fc077d4dba9c37d9d81cea5d184e59f00c3cdcd4.1696242264.git.federico.serafini@bugseng.com>
+    Wei Liu <wl@xen.org>, Henry Wang <henry.wang@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] x86/paging: address a violation of MISRA C:2012 Rule
+ 8.3
+In-Reply-To: <5a304ffd4fbdd0d5809dc68b857410bbc02f32a0.1696252375.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2310021546070.2348112@ubuntu-linux-20-04-desktop>
+References: <5a304ffd4fbdd0d5809dc68b857410bbc02f32a0.1696252375.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 2 Oct 2023, Federico Serafini wrote:
-> Add missing parameter names. No functional change.
+> Make function declaration and definition consistent.
+> No functional change.
 > 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
