@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6812C7B5A06
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 20:30:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611765.951313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F09F7B5B2A
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 21:23:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611772.951324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnNfW-00050u-IK; Mon, 02 Oct 2023 18:29:22 +0000
+	id 1qnOV2-0004Bd-Ib; Mon, 02 Oct 2023 19:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611765.951313; Mon, 02 Oct 2023 18:29:22 +0000
+Received: by outflank-mailman (output) from mailman id 611772.951324; Mon, 02 Oct 2023 19:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnNfW-0004zC-Eq; Mon, 02 Oct 2023 18:29:22 +0000
-Received: by outflank-mailman (input) for mailman id 611765;
- Mon, 02 Oct 2023 18:29:20 +0000
+	id 1qnOV2-00048L-ER; Mon, 02 Oct 2023 19:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 611772;
+ Mon, 02 Oct 2023 19:22:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qnNfU-0004z2-AM; Mon, 02 Oct 2023 18:29:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qnOV0-00047x-AD
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 19:22:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qnNfU-0005ZI-2s; Mon, 02 Oct 2023 18:29:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qnNfT-0002ry-Lv; Mon, 02 Oct 2023 18:29:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qnNfT-0006mT-LW; Mon, 02 Oct 2023 18:29:19 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qnOUz-0006zq-S4; Mon, 02 Oct 2023 19:22:33 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qnOUz-0004My-JN; Mon, 02 Oct 2023 19:22:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +39,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/ed9fAA0zsNFAIjZ3gJq64il8vNM3rU9XtUj+E4t22U=; b=jvG+pwyNcSDA+7T4WIgHKGyKTr
-	NkDpFUNWlwz7KLfZSXY99PphmZrLeJVAwPKqeBC/DO/RLWQ4rjpEil7aaaEFe4cjBOIb09/Z/1nhk
-	YWM+l419eQa5F6y44VaYoe8yXhSW7gOwqWcz+N31GOGdnzmlJCb8C7D7qdEMr7x1oi/E=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183240-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Zxuxpkm2mZT6UO+QJ1HonwiTXm2XB1J66CWYrWwAcTg=; b=F3LVbWX48HplJIxQnDSZlaBpTt
+	PX8Tb3O7FLrwvI+0bhTgkb202uktJJnDdG9fGNB8PP9UiO08M6+Lfq0FAt4Pk43vEQ+jbcj9Zh9MM
+	ok5z4YTxIGQMYPF4mEUyz1m4qOS6MQjABj6UCLfN624eHFyb/RFzfERmgfVVpNsIi6Ho=;
+Message-ID: <c3cf8e91-cf68-410d-8640-09fce6d20e9b@xen.org>
+Date: Mon, 2 Oct 2023 20:22:31 +0100
 MIME-Version: 1.0
-Subject: [xtf test] 183240: all pass - PUSHED
-X-Osstest-Versions-This:
-    xtf=3c0b315d79eb67846d99060e51989ff62bb33464
-X-Osstest-Versions-That:
-    xtf=cec23a34c03ffcf12d68d35f0e1d7f9ae85ab49c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 02 Oct 2023 18:29:19 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen on AWS EC2 Graviton 2 metal instances (c6g.metal)
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ "Driscoll, Dan" <dan.driscoll@siemens.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "arvind.raghuraman@siemens.com" <arvind.raghuraman@siemens.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "rahul.singh@arm.com" <rahul.singh@arm.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>
+References: <DM6PR07MB43168B0D4DEA80BF2474B9D89AC3A@DM6PR07MB4316.namprd07.prod.outlook.com>
+ <ed3ea203-4244-4bbe-a9e0-ac8882ecc83c@xen.org>
+ <DM6PR07MB4316E030CEF6D6E27ACD58819AC0A@DM6PR07MB4316.namprd07.prod.outlook.com>
+ <alpine.DEB.2.22.394.2309291321570.2348112@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2309291321570.2348112@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 183240 xtf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183240/
+Hi Stefano,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xtf                  3c0b315d79eb67846d99060e51989ff62bb33464
-baseline version:
- xtf                  cec23a34c03ffcf12d68d35f0e1d7f9ae85ab49c
+On 29/09/2023 21:29, Stefano Stabellini wrote:
+> I am very glad you managed to solve the issue!
+> 
+> It is always difficult to know what is the right thing to do when the
+> firmware provides wrong or noncompliant information.
 
-Last test of basis   182389  2023-08-18 20:10:53 Z   44 days
-Testing same since   183240  2023-10-02 17:14:27 Z    0 days    1 attempts
+I am a bit confused why you think the firmware is wrong here. From ACPI 
+spec (ACPI 6.5, section 5.2.25):
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+"GSIV for the secure EL1 timer. This value is optional, as an operating 
+system executing in the nonsecure world (EL2 or EL1), will ignore the 
+content of these fields."
 
-jobs:
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-amd64-pvops                                            pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
+So the expectation is that Xen should not read the value. In Xen, we 
+decided to read it because we want to know which PPIs exists in order to 
+find an unallocated one for the event channel.
 
+> One on hand a panic
+> can help debug a potentially broken firmware configuration. On the other
+> hand the panic can cause problems to users that just want to boot Xen.
+> Unfortunately due to the complexity of ACPI, issues like this one are
+> not uncommon.
+> 
+> In this specific case, given that we don't actually use
+> TIMER_PHYS_SECURE_PPI (we do use all the others: TIMER_HYP_PPI,
+> TIMER_VIRT_PPI and TIMER_PHYS_NONSECURE_PPI) then I think we could
+> safely remove the BUG at vtimer.c:75.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+IIRC, MISRA has a rule for checking return value. If it doesn't, then I 
+would at least query why you are suggesting to remove the BUG() but 
+still keep the call. Surely, if a function returns an error, we need to 
+investigate why the error is returned? And if the TIME_PHYS_SECURE_PPI 
+is really not used, then why should the call be kept?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+As I wrote above, the goal of those calls was to ensure that all the PPI 
+described in the firmware tables were recorded so we can find a free PPI 
+for the event channel.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+vgic_reserve_virq() fails because the PPI is already reserved. I 
+actually wonder which other path reserves it? The reason in asking it is 
+because for some field, 0 is used to mark the interrupt is not used 
+exists (see below for the PPI timer). So maybe we forgot to add some 
+check somewhere else. The other possible reason is the PPI might be 
+shared (I couldn't find anything in the spec that it cannot be) and 
+vgic_reserve_virq() doesn't deal with it right now.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Now regarding whether the PPI is used. AFAICT, the secure timer PPI is 
+still present in the firmware tables (ACPI and DT) passed to dom0. So 
+strictly speaking we want to ensure the PPI value is reserved.
 
+That said, the ACPI spec suggests that the value will be ignored by the 
+guest. The Device-Tree binding doesn't have such statement, but I 
+suspect this may be the same. So it should be ok to skip reserving the 
+PPI and therefore allow the event channel interrupt to use if it is not 
+reserved by someone else.
 
-Pushing revision :
+Cheers,
 
-To xenbits.xen.org:/home/xen/git/xtf.git
-   cec23a3..3c0b315  3c0b315d79eb67846d99060e51989ff62bb33464 -> xen-tested-master
+> On Fri, 29 Sep 2023, Driscoll, Dan wrote:
+>> All,
+>>
+>>          Just an FYI - using the debug guidance from Julien on Graviton 2, we have successfully been able to boot Xen and 3 Linux VMs on a Graviton 2 c6g.metal instance.
+>>
+>>          The problem turned out to be that the ACPI table containing the arch timer interrupt vectors had an issue - the result was that the secure physical timer IRQ was getting set to a value of 0 which resulted in Xen panicking at vtimer.c:75 and stop booting the system.  The quick work-around for this was to just hard-code this IRQ to 29 which is the "typical" PPI assigned for this interrupt (and I suspect it isn't even used, so kind of a don't care).  This fixed the problem and we encountered no other issues.
+>>
+>>          Out of curiosity, is this problem we found here one that has been seen before?  I guess I could argue that the ACPI tables are incorrect and should provide a valid PPI number for the secure physical timer, but I could also argue that Xen shouldn't panic if this value is 0 and should maybe replace with a "suitable" value and continue booting since it really is not used?  I can provide more details as well as the patch used to work around this issue - we are using Xen 4.16.1 BTW.
+>>
+>>          Much appreciated for the support and help here... as we progress in our work in this domain, we might have some more questions but, for right now, it appears that things are working properly with the limited testing we conducted.
+>>
+>> Thanks,
+>> Dan
+>>
+>>> -----Original Message-----
+>>> From: Julien Grall <julien@xen.org>
+>>> Sent: Wednesday, September 27, 2023 7:59 AM
+>>> To: Driscoll, Dan (DI SW CAS ES TO) <dan.driscoll@siemens.com>; xen-
+>>> devel@lists.xenproject.org
+>>> Cc: Stefano Stabellini <sstabellini@kernel.org>; Raghuraman, Arvind (DI SW CAS
+>>> ES) <arvind.raghuraman@siemens.com>; Bertrand Marquis
+>>> <Bertrand.Marquis@arm.com>; rahul.singh@arm.com; Luca Fancellu
+>>> <Luca.Fancellu@arm.com>
+>>> Subject: Re: Xen on AWS EC2 Graviton 2 metal instances (c6g.metal)
+>>>
+>>> Hi Dan,
+>>>
+>>> Thanks for the report.
+>>>
+>>> On 26/09/2023 20:41, Driscoll, Dan wrote:
+>>>>      First off - sorry for the very long email, but there are a lot of details related
+>>> to this topic and I figured more details might be better than less but I could be
+>>> wrong here....
+>>>>
+>>>>      Within Siemens Embedded, we have been doing some prototyping using
+>>> Xen for some upcoming customer related work - this email thread attempts to
+>>> explain what has been done here and our analysis of the problems we are having.
+>>>>
+>>>>      We have done some initial prototyping to get Xen running on an AWS
+>>> Graviton 2 instance using an EC2 Arm64 "metal" instance (c6g.metal - no AWS
+>>> hypervisor) and ran into some problems during this prototyping.
+>>>>
+>>>>      Since the Edge Workload Abstraction and Orchestration Layer (EWAOL)
+>>> that is part of SOAFEE already has some enablement of Xen in various
+>>> environments (including an Arm64 server environment), we used this as a starting
+>>> point.
+>>>>
+>>>>      We were able to successfully bring up Xen and a Yocto dom0 and
+>>>> multiple domu Yocto guests on an Arm AVA server (AVA Developer
+>>>> Platform - 32 core Neoverse N1 server) following documented steps with
+>>>> some minimal configuration changes (we simply extended the
+>>>> configuration to include 3 Linux guests):
+>>>> https://ewao/
+>>>> l.docs.arm.com%2Fen%2Fkirkstone-
+>>> dev%2Fmanual%2Fbuild_system.html%23bui
+>>>> ld-
+>>> system&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce
+>>>>
+>>> 45b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7C63
+>>> 831416
+>>>>
+>>> 3551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV
+>>> 2luMzI
+>>>>
+>>> iLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=TfGY5InUn
+>>> BnfUO0z
+>>>> ato7l%2Fa5IIAek%2FOip%2FdNMxuXEgM%3D&reserved=0
+>>>>
+>>>>      So, this specific EWAOL support has all the proper bitbake layers to
+>>> generate images for both bare-metal (Linux running natively) and a virtualization
+>>> build (using Xen) for AVA and also a Neoverse N1 System Development Platform
+>>> (N1SDP), but we only verified this on AVA.
+>>>> c6g.medium
+>>>>      AWS also has support for EWAOL on Graviton 2, but the only supported
+>>>> configuration is a bare-metal configuration (Linux running natively)
+>>>> and the virtualization build hasn't been implemented in the bitbake
+>>>> layers in their repo - here is the URL for information / instructions
+>>>> on this support:
+>>>> https://gith/
+>>>> ub.com%2Faws4embeddedlinux%2Fmeta-aws-
+>>> ewaol&data=05%7C01%7Cdan.driscol
+>>>>
+>>> l%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38ae3bcd95794f
+>>> d4a
+>>>>
+>>> ddab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnknown%7CTWFp
+>>> bGZsb3d8e
+>>>>
+>>> yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7
+>>> C30
+>>>>
+>>> 00%7C%7C%7C&sdata=rPcqfn9w9C9cS81Ee5HpyupEBD%2BqDY18dvPm0N6tB
+>>> Mk%3D&res
+>>>> erved=0
+>>>>
+>>> https://docs.aws.am/
+>>> azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fgrub.html&data=05%7C01%
+>>> 7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38a
+>>> e3bcd95794fd4addab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnk
+>>> nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h
+>>> aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZwLDw%2B3vOtaVJwg%
+>>> 2B7kgHXJcE8yuu%2F7TNewmE2Yn4AiQ%3D&reserved=0
+>>>>      As part of our effort to bring this up, we did a VERY minimal patch to the
+>>> repo used for the AWS EWAOL to generate a virtualization build (attached meta-
+>>> aws-ewaol.patch).  The resultant build of the AWS EWAOL support with this patch
+>>> applied does result in Xen being built as well as a dom0 Yocto kernel, but there is
+>>> definitely missing support to properly build everything for this virtualization layer.
+>>> Following the instructions for meta-aws-ewaol,  we generated an AMI and started
+>>> an EC2 instance with this AMI (c6g.metal type).  The resultant image does boot,
+>>> but it boots into the dom0 Linux kernel with problems recorded in the boot log
+>>> related to Xen (see dom0-linux-boot.txt).
+>>>>
+>>>>          Looking more closely at the EFI partition, it was clear that systemd-boot
+>>> was being used and it was set-up to boot the dom0 Linux kernel and not boot into
+>>> Xen - the Xen EFI images were not present in the EFI partition and obviously no
+>>> launch entries existed for Xen.  To rectify this, the Xen EFI image that were built as
+>>> part of the AWS EWAOL build mentioned above where placed in the EFI partition,
+>>> along with a Xen config file that provided the dom0 Linux kernel image details.  A
+>>> new entry was added into the EFI image for Xen and the launch conf file was
+>>> updated to boot Xen instead of dom0 Linux.  This resulted in the EC2 instance
+>>> becoming "bricked" and no longer accessible.
+>>>>
+>>>>          Details on the EFI related content and changes we made are captured in
+>>> the meta-aws-ewaol-efi-boot-changes.txt file attached above.
+>>>>
+>>>>          The next step was comparing the AVA Xen output that was working and we
+>>> noticed a few differences - the AVA build did enable ACPI and UNSUPPORTED
+>>> kconfig settings whereas the AWS Xen build did not.  So, we tried again to bring up
+>>> another EC2 metal instance using the same AMI as before and utilized the AVA
+>>> Xen EFI image instead and same Xen config file.  The result was the same - a
+>>> "bricked" instance.
+>>>>
+>>>>          We will likely try to use the entire AVA flow on AWS Graviton next as it is
+>>> using GRUB 2 instead of systemd-boot and we hope to maybe extend or enable
+>>> some of the debug output during boot.  The AWS EC2 instances have a "serial
+>>> console", but we have yet to see any output on this console prior to Linux boot logs
+>>> - no success in getting EC2 serial output during EFI booting.
+>>>
+>>> That's interesting. The documentation for AWS [1] suggests that the logs from boot
+>>> should be seen. They even have a page for troubleshooting using GRUB [2].
+>>>
+>>> I just launched a c6g.metal and I could access the serial console but then it didn't
+>>> work across reboot.
+>>>
+>>> I have tried a c6g.medium and the serial was working across reboot (I could see
+>>> some logs). So I wonder whether the serial console is there is a missing
+>>> configuration for baremetal?
+>>>
+>>>>
+>>>>          We have had a call and some email exchanges with AWS on this topic
+>>> (Luke Harvey, Jeremy Dahan, Robert DeOliveira, and Azim Siddique) and they said
+>>> there have been multiple virtualization solutions successfully booted on Graviton 2
+>>> metal instances, so they felt that Xen should be useable once we figured out
+>>> configuration / boot details.  The provided some guidance how we might go about
+>>> some more exploration here, but nothing really specific to supporting Xen.
+>>>
+>>> To be honest, without a properly working serial console, it is going to be very
+>>> difficult to debug any issue in Xen.
+>>>
+>>> Right now, it is unclear whether Xen has output anything. If we can confirm the
+>>> serial console has intended and then are still no logs, then I would suggest to
+>>> enable earlyprintk in Xen. For your Graviton2, I think the following lines in
+>>> xen/.config should do the trick:
+>>>
+>>> CONFIG_DEBUG=y
+>>> CONFIG_EARLY_UART_CHOICE_PL011=y
+>>> CONFIG_EARLY_UART_PL011=y
+>>> CONFIG_EARLY_PRINTK=y
+>>> CONFIG_EARLY_UART_BASE_ADDRESS=0x83e00000
+>>> CONFIG_EARLY_UART_PL011_BAUD_RATE=115200
+>>>
+>>>>
+>>>>          I have attached the following files for reference:
+>>>>
+>>>>      * meta-aws-ewaol.patch - patch to AWS EWAOL repo found at
+>>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%25
+>>> 2Faws4embeddedlinux%2Fmeta-aws-
+>>> ewaol&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45
+>>> b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7C6383
+>>> 14163551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ
+>>> QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata
+>>> =rPcqfn9w9C9cS81Ee5HpyupEBD%2BqDY18dvPm0N6tBMk%3D&reserved=0
+>>>>      * meta-aws-ewaol-efi-boot-changes.txt - Description of EFI related
+>>> changes made to AWS EWAOL EFI partition in attempt to boot Xen
+>>>>      * ava.xen.config - config file for Xen build for AVA using EWAOL
+>>> virtualization build
+>>>>      * aws.xen.config - config file for Xen build for AWS using EWAOL
+>>> virtualization build
+>>>>      * xen-4.16.1.cfg - Xen config file placed in root of EFI boot
+>>>> partition alongside xen-4.16.1.efi image
+>>>
+>>> May I ask why you are using 4.16.1 rather than 4.17? In general I would
+>>> recommend to use the latest stable version or even a staging (the on-going
+>>> development branch) for bring-up because we don't always backport everything to
+>>> stable branch. So a bug may have been fixed in newer revision.
+>>>
+>>> That said, skimming through the logs, I couldn't spot any patches that may help on
+>>> Graviton 2.
+>>>
+>>> Best regards,
+>>>
+>>> [1]
+>>> https://docs.aws.am/
+>>> azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fec2-serial-
+>>> console.html&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc
+>>> 43ce45b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7
+>>> C638314163551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
+>>> AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&
+>>> sdata=%2BQF9rA7KVEGbGJZIX0lhCv0du4oKR5632Eff2EoC2PY%3D&reserved=0
+>>> [2]
+>>> https://docs.aws.am/
+>>> azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fgrub.html&data=05%7C01%
+>>> 7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38a
+>>> e3bcd95794fd4addab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnk
+>>> nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h
+>>> aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZwLDw%2B3vOtaVJwg%
+>>> 2B7kgHXJcE8yuu%2F7TNewmE2Yn4AiQ%3D&reserved=0
+>>>
+>>>>
+>>>> Dan Driscoll
+>>>> Distinguished Engineer
+>>>> Siemens DISW - Embedded Platform Solutions
+>>>
+>>> --
+>>> Julien Grall
+>>
+
+-- 
+Julien Grall
 
