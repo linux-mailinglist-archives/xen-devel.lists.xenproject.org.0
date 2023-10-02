@@ -2,32 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F1A47B4D79
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 10:45:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611221.950696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA757B4D77
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 10:45:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611219.950686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnEYS-0000PU-He; Mon, 02 Oct 2023 08:45:28 +0000
+	id 1qnEYA-0008VL-9A; Mon, 02 Oct 2023 08:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611221.950696; Mon, 02 Oct 2023 08:45:28 +0000
+Received: by outflank-mailman (output) from mailman id 611219.950686; Mon, 02 Oct 2023 08:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnEYS-0000ND-E5; Mon, 02 Oct 2023 08:45:28 +0000
-Received: by outflank-mailman (input) for mailman id 611221;
- Mon, 02 Oct 2023 08:45:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qnEYR-0000Mc-0A
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 08:45:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qnEYQ-0007SB-O6; Mon, 02 Oct 2023 08:45:26 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qnEYQ-0005ni-Hd; Mon, 02 Oct 2023 08:45:26 +0000
+	id 1qnEYA-0008Sq-6D; Mon, 02 Oct 2023 08:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 611219;
+ Mon, 02 Oct 2023 08:45:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qeMD=FQ=samsung.com=j.granados@srs-se1.protection.inumbo.net>)
+ id 1qnEY8-0008Si-DY
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 08:45:09 +0000
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc1b7dae-60ff-11ee-878e-cb3800f73035;
+ Mon, 02 Oct 2023 10:45:06 +0200 (CEST)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20231002084505euoutp01fb9e35bc49f515d59e33424780696c7e~KPe7KjgFR0323303233euoutp01u;
+ Mon,  2 Oct 2023 08:45:05 +0000 (GMT)
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20231002084505eucas1p115a2ab283972a79272c9757322300ea8~KPe6yvJRk0202102021eucas1p1y;
+ Mon,  2 Oct 2023 08:45:05 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 01.57.11320.0138A156; Mon,  2
+ Oct 2023 09:45:04 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20231002084504eucas1p2e863940ef31a9248d26fbdac6e2f10bd~KPe6NrvJh2499424994eucas1p26;
+ Mon,  2 Oct 2023 08:45:04 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20231002084504eusmtrp2355d41d9c4268753d9081165e45db786~KPe6MOGC-1131111311eusmtrp2J;
+ Mon,  2 Oct 2023 08:45:04 +0000 (GMT)
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id B4.7B.25043.0138A156; Mon,  2
+ Oct 2023 09:45:04 +0100 (BST)
+Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20231002084504eusmtip28840686475f95888ee0878a6362b3046~KPe52TrE52171321713eusmtip2Q;
+ Mon,  2 Oct 2023 08:45:04 +0000 (GMT)
+Received: from localhost (106.110.32.133) by CAMSVWEXC02.scsc.local
+ (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Mon, 2 Oct 2023 09:45:03 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +65,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=iW4QaHGyzxiCNehmVBHSpm/7yzIWTi2J7pCzG0InZcw=; b=LESsLM7VcQAJGe8rZuSAOrFULQ
-	X01wiUdq/Xq5h1ZRkeVP6iqS5kdvfx8fL3/13djmZlhsEYknt5HpRgLvY0s2HT15olkNS8c7aC0Ej
-	yoIcbyUzqE9CiYZUawVDzUO33HrZJvp8Z73enrJ6NbnB8eBXoGq3kLg2gBf25sPfZgJQ=;
-Message-ID: <170236c7-6410-42c2-acf3-8e8cc5b7086d@xen.org>
-Date: Mon, 2 Oct 2023 09:45:24 +0100
+X-Inumbo-ID: fc1b7dae-60ff-11ee-878e-cb3800f73035
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20231002084505euoutp01fb9e35bc49f515d59e33424780696c7e~KPe7KjgFR0323303233euoutp01u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1696236305;
+	bh=MfG6uvtWqwYS3hUjD7i3Vm3Qw+seaAzqjsgKpcpPTXc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=MQkPj/YYZojQfQ+LNVfnzf8jz246t0mrUSsC2ovXHcIZ1h/jCmZQNU6FJUOa2rdt4
+	 flqjb07+Br/pbjes8R7Xwkc+qgANdNQpKwNTvvUoXPCh7jmyR68DpZYMygCBuqoBtS
+	 GcHZmQYQrKxKkAIdZrRktzAyGOCWPDDRKQwf9J2U=
+X-AuditID: cbfec7f4-97dff70000022c38-05-651a8310756d
+Date: Mon, 2 Oct 2023 10:47:18 +0200
+From: Joel Granados <j.granados@samsung.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+CC: Luis Chamberlain <mcgrof@kernel.org>, "willy@infradead.org"
+	<willy@infradead.org>, "josh@joshtriplett.org" <josh@joshtriplett.org>, Kees
+	Cook <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>,
+	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Greg
+	Kroah-Hartman <gregkh@linuxfoundation.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Jiri Slaby <jirislaby@kernel.org>, "James
+ E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
+	<martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Sudip
+	Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+	Romanovsky <leon@kernel.org>, Corey Minyard <minyard@acm.org>, Theodore Ts'o
+	<tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern
+	<dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Robin Holt <robinmholt@gmail.com>, Steve Wahl
+	<steve.wahl@hpe.com>, Russ Weight <russell.h.weight@intel.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>, "K. Y. Srinivasan"
+	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jani Nikula
+	<jani.nikula@linux.intel.com>, Joonas Lahtinen
+	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
+	<airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"openipmi-developer@lists.sourceforge.net"
+	<openipmi-developer@lists.sourceforge.net>, "linuxppc-dev@lists.ozlabs.org"
+	<linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [PATCH 00/15] sysctl: Remove sentinel elements from drivers
+Message-ID: <20231002084718.bmme7yi4xfs7sw4b@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [for-4.18] Re: [XEN v2] xen: arm: procinfo.h: Fixed a typo
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org, jgrall@amazon.com
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com,
- Henry Wang <Henry.Wang@arm.com>
-References: <20230928121243.2636484-1-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230928121243.2636484-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="22qnx6bxaciji5uu"
+Content-Disposition: inline
+In-Reply-To: <5fadd85e-f2d7-878c-b709-3523e89dd93a@csgroup.eu>
+X-Originating-IP: [106.110.32.133]
+X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
+	CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
+X-Brightmail-Tracker: H4sIAAAAAAAAA2VTe1BUdRSe372Xexdq9S4g/lrRMdKcEDel1GOiouPktabGhpwpGaUdvIEl
+	i+6CkUghLm95LC9xFVlEHkKtCBsKIThoCwTxGFAegRChpGDSyAqys2tsF8uZ/vvOd77vnPP9
+	cUSk4xAjFR1QhPBKhfygG+1AVRqftq1iT0j51c2TAI3d5wmwpBkZ6E8bZeBC428EPKvUkHC2
+	TU1BrbocQW329zR0mR7RoK+OJuCucZiBE/mXaLh9hYMzqRUEFHVeQjB0SwrneyoJOJ3diOBs
+	ryf8meMK1/Jm5+mCoSUxCNork+1gpPQHBjJmCkjI1EzQ0Fl9lobY3GoE9+qTKEjsvkpDS34S
+	A+Ypqx0UNVgJ6Em9iyAhJRaBUecC02azHdQMjSB40jyOILNQBjmTmSQUj+eQUKe9zUDB6WIS
+	GoosNJTq/aAu4zsSrjdnzFLWoxB98ikDN8r7CDBPzy6eMqQT3uu4zq73OfNMGuLORHZQnKm3
+	leAMF3sJrr+gCnHXnugorko7wHC68lCuuvo4w1UUu3P5NfcJzhK/jusb28SVl8TT3HRxCrlr
+	6R4Hr/38wQNHeOWbmz9zCDSc60aHbq4OS42/TkeisRUJyF6E2bfxCZOVTEAOIke2GOGGKTMt
+	FJMIX44um+s8Rri/WcM8tww/S0JCowjh+2VJdv+q7tU9mPNXIHzyj6xZv0hEscvw5NB6m5tm
+	PXDbeP8/tDPriZPHeJucZGOd8EBZJ7JpnFgOp95vJ21YzK7HEwUFdgKW4KbTI5QNk2wYHsy8
+	Q9jmkOwiXGQV2Wh7djNWx6ZTwqFu2DSeZCfgCPyzoY+w7cJs2svYrL7O2LyY3Y4Ng8sFjRN+
+	0GCYC+mKn1XlzunTEa6zTjBCUYpw4XETIag2YnXXyJxjK+7IzULC0Hm456FEuHMeTqs8RQq0
+	GMfFOArq13HpnXEqFb2mfSGZ9oVk2v+SCbQM92Rm0P+jV+LCvDFSwJuwXv+I0iGmBC3kQ1VB
+	AbzKU8F/JVPJg1ShigCZf3BQOZp9vGZrw+RVVPTgL1k9IkSoHi2bNQ+XlbYjKaUIVvBuzuKY
+	dhfeUbxf/vVRXhnspww9yKvq0SIR5bZQvHJTk78jGyAP4b/k+UO88nmXENlLIwnxEunh3o5V
+	b21tVe9dYPbtSFg+Y14TERVwZktMSP+WTrwrLGrHpOmbiys8pkJkn2gIX7fwtRrNsPoc1+/7
+	YUrigihJ1u753nEf7xNJc53fyDHmpe0ZMvqEy7r1HU2v/hTlWlhvkesf+xvsp0v2Sn6/tS1w
+	wm/tYl8XH3BqceYVfbqlA8nF4RFxXWHvemQOfuAdueGY5HM/L2n+4oygvTtHR+FyzkR+gHJi
+	525J+A6Xldy+jaeWaX6psQ62Zh8+ZtFW1Orny5dEfnshSmzxufHjw8JP+frROJ/phyaPV7xf
+	am074nvknWkq1mtxVcI2o6X81ysbhr94T7e2yXzzo5hCd78RPOxGqQLla9xJpUr+Nx9hMbLz
+	BAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA2VTe0xTdxT2d2+5LWTMK+3wBnDDhkwmrFKg5eAAx2ay60zcmNnMBsoaveEx
+	2rKWOmQzYQPGS6C8HBTIilCLsIE8BwTBIQMUFRDlYRhBBBYGEwwPga6wYllmsv++33e+7zsn
+	J+fHwW2MhB0nTBbFKGSSCD5hxerZ6Bp7k4yzY9wGZl+G7qFLGBizOtkwmvUHG0q7H2Gw2ZCJ
+	Q2FvPAta42sQtOb9TMD95XkCKpsTMJjqnGBDXEkVAYO/0FCgrsVAP1CFYPyBHVwabsAgP68b
+	QeGIOzwpcoBrxaY8rRxup0qhryHdAiYr6tmQs67DITdzgYCB5kICEn9sRjDdnsaC1KFGAm6X
+	pLHB8GzDAvRdGxgMq6cQpGQkIujU2sKqwWABLeOTCFZ65hDkXhZA0VIuDmVzRTi0aQbZoMsv
+	w6FLbySgojIY2nJ+wuF6T46J2oiBhAtrbLhR8xADw6qp8bO6bOxtMT1w/yhtWM9CdEFsP4te
+	HrmL0XVXRjB6VNeE6GsrWhbdpPmdTWtrVHRz87dsurZsP13SMoPRxmQx/XDWl64pTybo1bIM
+	/EPHzwQ+CrkqinEMlSujfPmBQnAXCL1B4O7pLRB6eJ086C7iH/DzOcNEhJ1lFAf8PheEVq2P
+	EpHtbtG5PYsWsWhmXwqy5FCkJzWxmYZSkBXHhtQharp5w8JccKCqlx5sYy7192AKYRY9RdS4
+	UbftqEXU3JNl04PDYZFO1NK415aBIF2p3rlRfIvmke5U+iyzJcfJRC51L6kK39JwSZpSz/Q9
+	x9akF7Wg01mYMx8hypjaQpgLu6ib+ZOsLYyTZ6nH6+PPe+GkPaXf4GzRlqQfFZ+YzTIPyqeW
+	59K2hz5PLRqnkRpxNS8kaV5I0vyXZKZdqab6UeJ/tAt1uXgWN2NfqrJynqVF7HLEY1RKaYhU
+	6S5QSqRKlSxEcFourUGm22/oXKtrRFf+fCpoRxgHtSMnk3PiakUfsmPJ5DKGz7P+vs+WsbE+
+	IzkXwyjkwQpVBKNsRyLTEjNxu1dOy00fSRYVLBS7iYSeYm83kbfYg7/b+khkksSGDJFEMV8w
+	TCSj+NeHcSztYjH9W9kfkfr0PX5ueR3f3VWNBrbtPrQpOKGuj3k96MJQ6FfczYJXlyX1roIf
+	hk7Jbr3n7DlwPHP+xHTMEcmenR1T2r3Bp97o5jpHRyf3hld+snLxuqjWumFl0ceWOb82WWwr
+	2xE/3BjlXNqZsc/VOS/6TseNcIeg9GxuXGwp73hB7OOgq0W1rRWiozzxrhzvPteWAPuLko/L
+	HKuzNAn2Bec8/KXawvCcQN5v9+q+GRODzKl0YW/FMatsf3VTmp79dXWpR+uUf/etwxFeh8rf
+	ef81r7z6nccMSXXJsZYu3Ck0c/LO4TG3sIORZTv+CunnVf6Kqz4N6OcPudh+EBIwLHy3P+Cl
+	m1/yWcpQiXA/rlBK/gG5K7+SkAQAAA==
+X-CMS-MailID: 20231002084504eucas1p2e863940ef31a9248d26fbdac6e2f10bd
+X-Msg-Generator: CA
+X-RootMTR: 20230928163139eucas1p261a3b6b6cc62bafd5ace2771926911c2
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20230928163139eucas1p261a3b6b6cc62bafd5ace2771926911c2
+References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
+	<CGME20230928163139eucas1p261a3b6b6cc62bafd5ace2771926911c2@eucas1p2.samsung.com>
+	<5fadd85e-f2d7-878c-b709-3523e89dd93a@csgroup.eu>
 
-Hi,
+--22qnx6bxaciji5uu
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Adding Henry to release ack the patch.
+On Thu, Sep 28, 2023 at 04:31:30PM +0000, Christophe Leroy wrote:
+>=20
+>=20
+> Le 28/09/2023 =E0 15:21, Joel Granados via B4 Relay a =E9crit=A0:
+> > From: Joel Granados <j.granados@samsung.com>
+>=20
+> Automatic test fails on powerpc, see=20
+> https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20230928-jag-sysc=
+tl_remove_empty_elem_drivers-v1-15-e59120fca9f9@samsung.com/
+=46rom this I got to this URL
+https://github.com/linuxppc/linux-snowpatch/actions/runs/6339718136/job/172=
+21399242
+and saw this message "sysctl table check failed: dev/tty/ No proc_handler".
+This means that we hit the check for entry->proc_handler in
+sysctl_check_table.
 
-Cheers,
+>=20
+> Kernel attempted to read user page (1a111316) - exploit attempt? (uid: 0)
+> BUG: Unable to handle kernel data access on read at 0x1a111316
+> Faulting instruction address: 0xc0545338
+> Oops: Kernel access of bad area, sig: 11 [#1]
+> BE PAGE_SIZE=3D4K PowerPC 44x Platform
+> Modules linked in:
+> CPU: 0 PID: 1 Comm: swapper Not tainted 6.5.0-rc6-gdef13277bacb #1
+> Hardware name: amcc,bamboo 440GR Rev. B 0x422218d3 PowerPC 44x Platform
+> NIP:  c0545338 LR: c0548468 CTR: ffffffff
+> REGS: c084fae0 TRAP: 0300   Not tainted  (6.5.0-rc6-gdef13277bacb)
+> MSR:  00021000 <CE,ME>  CR: 84004288  XER: 00000000
+> DEAR: 1a111316 ESR: 00000000
+> GPR00: c0548468 c084fbd0 c0888000 c084fc99 00000000 c084fc7c 1a110316=20
+> 000affff
+> GPR08: ffffffff c084fd18 1a111316 04ffffff 22000282 00000000 c00027c0=20
+> 00000000
+> GPR16: 00000000 00000000 c0040000 c003d544 00000001 c003eb2c 096023d4=20
+> 00000000
+> GPR24: c0636502 c0636502 c084fc74 c0588510 c084fc68 c084fc7c c084fc99=20
+> 00000002
+> NIP [c0545338] string+0x78/0x148
+> LR [c0548468] vsnprintf+0x3d8/0x824
+> Call Trace:
+> [c084fbd0] [c084fc7c] 0xc084fc7c (unreliable)
+> [c084fbe0] [c0548468] vsnprintf+0x3d8/0x824
+> [c084fc30] [c0072dec] vprintk_store+0x17c/0x4c8
+> [c084fcc0] [c007322c] vprintk_emit+0xf4/0x2a0
+> [c084fd00] [c0073d04] _printk+0x60/0x88
+> [c084fd40] [c01ab63c] sysctl_err+0x78/0xa4
+> [c084fd80] [c01ab404] __register_sysctl_table+0x6a0/0x6c4
+> [c084fde0] [c06a585c] __register_sysctl_init+0x30/0x78
+> [c084fe00] [c06a8cc8] tty_init+0x44/0x168
+> [c084fe30] [c00023c4] do_one_initcall+0x64/0x2a0
+> [c084fea0] [c068f060] kernel_init_freeable+0x184/0x230
+> [c084fee0] [c00027e4] kernel_init+0x24/0x124
+> [c084ff00] [c000f1fc] ret_from_kernel_user_thread+0x14/0x1c
+I followed this trace and proc_handler is correctly defined in tty_table
+(struct ctl_table) in drivers/tty/tty_io.c:tty_init and there is not
+path that changes these values.
+Additionally, we then fail trying to print instead of continuing with
+the initialization. My conjecture is that this might be due to something
+different than tht sysctl register call.
 
-On 28/09/2023 13:12, Ayan Kumar Halder wrote:
-> Change VPCU to vCPU.
-> Also add a space before '*/'.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> Acked-by: Julien Grall <jgrall@amazon.com>
-> ---
-> 
-> Changes from -
-> 
-> v1 - 1. Change VCPU --> vCPU.
-> 2. Add a space before '*/'.
-> 
->   xen/arch/arm/include/asm/procinfo.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/procinfo.h b/xen/arch/arm/include/asm/procinfo.h
-> index 02be56e348..3a05f27784 100644
-> --- a/xen/arch/arm/include/asm/procinfo.h
-> +++ b/xen/arch/arm/include/asm/procinfo.h
-> @@ -24,7 +24,7 @@
->   #include <xen/sched.h>
->   
->   struct processor {
-> -    /* Initialize specific processor register for the new VPCU*/
-> +    /* Initialize specific processor register for the new vCPU */
->       void (*vcpu_initialise)(struct vcpu *v);
->   };
->   
+Does this happen consistenly or is this just a one off issue?
 
--- 
-Julien Grall
+To what branch are these patches being applied to?
+
+I'm going to post my V2 and keep working on this issue if it pops up
+again.
+
+Thx for the report
+
+Best
+
+> --- interrupt: 0 at 0x0
+> NIP:  00000000 LR: 00000000 CTR: 00000000
+> REGS: c084ff10 TRAP: 0000   Not tainted  (6.5.0-rc6-gdef13277bacb)
+> MSR:  00000000 <>  CR: 00000000  XER: 00000000
+>=20
+> GPR00: 00000000 00000000 00000000 00000000 00000000 00000000 00000000=20
+> 00000000
+> GPR08: 00000000 00000000 00000000 00000000 00000000 00000000 00000000=20
+> 00000000
+> GPR16: 00000000 00000000 00000000 00000000 00000000 00000000 00000000=20
+> 00000000
+> GPR24: 00000000 00000000 00000000 00000000 00000000 00000000 00000000=20
+> 00000000
+> NIP [00000000] 0x0
+> LR [00000000] 0x0
+> --- interrupt: 0
+> Code: 91610008 90e1000c 4bffd0b5 80010014 38210010 7c0803a6 4e800020=20
+> 409d0008 99230000 38630001 38840001 4240ffd0 <7d2a20ae> 7f851840=20
+> 5528063e 2c080000
+> ---[ end trace 0000000000000000 ]---
+>=20
+> note: swapper[1] exited with irqs disabled
+> Kernel panic - not syncing: Attempted to kill init! exitcode=3D0x0000000b
+>=20
+>=20
+> >=20
+> > What?
+> > These commits remove the sentinel element (last empty element) from the
+> > sysctl arrays of all the files under the "drivers/" directory that use a
+> > sysctl array for registration. The merging of the preparation patches
+> > (in https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.o=
+rg/)
+> > to mainline allows us to just remove sentinel elements without changing
+> > behavior (more info here [1]).
+<--- snip --->
+> >   drivers/macintosh/mac_hid.c                   |  3 +-
+> >   drivers/md/md.c                               |  3 +-
+> >   drivers/misc/sgi-xp/xpc_main.c                |  6 ++--
+> >   drivers/net/vrf.c                             |  3 +-
+> >   drivers/parport/procfs.c                      | 42 ++++++++++++------=
+---------
+> >   drivers/scsi/scsi_sysctl.c                    |  3 +-
+> >   drivers/scsi/sg.c                             |  3 +-
+> >   drivers/tty/tty_io.c                          |  3 +-
+> >   drivers/xen/balloon.c                         |  3 +-
+> >   18 files changed, 36 insertions(+), 60 deletions(-)
+> > ---
+> > base-commit: 0e945134b680040b8613e962f586d91b6d40292d
+> > change-id: 20230927-jag-sysctl_remove_empty_elem_drivers-f034962a0d8c
+> >=20
+> > Best regards,
+
+--=20
+
+Joel Granados
+
+--22qnx6bxaciji5uu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmUag40ACgkQupfNUreW
+QU+k6Qv/eD1tR528WiSAoTELGGsaAFMefu4D6RODiEV+j4aejsVFiiZQtvCnuDld
+Q7eZa99m0YuSFUId6C/idLOSE3ts/RGQVjAcK3+Xre1NgBEuDZvQXUW73NswWc0K
+D/5nBlOV4wruseOy1EpqK9kZW/lQj8ndfezX/HImXDh04rS7f8o7THOTqH+odhzr
+Lh63Jj6oSjGemd/L6y4TfjwVRNIQIsuY5YYQas4AqLpIna3aceEz6v3YSbeh8uCu
+BuBVHVEO61MMhqXJiIQR3frh8Vl+PxVqNeroKsUoxdcJkJPBDMLk0bS+D7ZZkPyM
+SYN9Z4q/LPZCgtnwa4gIqbFtG1xlSRYN2GZB0WtfGn2s52Ap1mFTsAjsChieI/gO
+W/xzMyZYKnKi+amN1ZY9rF8xefnGw3Nxfec83YOxL1TKux3nYjS1s8qiunYh6qfp
+p2LoIi7PGK4LC3C38mNdYCZPHdCzg1y1jqWGDt37odmd7awNTjbuk2dmzcaf+8Gt
+0zl7OZ7E
+=RwMQ
+-----END PGP SIGNATURE-----
+
+--22qnx6bxaciji5uu--
 
