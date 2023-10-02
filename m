@@ -2,33 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6081B7B5111
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 13:21:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611444.950999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455E27B51B0
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Oct 2023 13:48:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611450.951009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnGyl-0004Sx-Bc; Mon, 02 Oct 2023 11:20:47 +0000
+	id 1qnHOO-0006OT-De; Mon, 02 Oct 2023 11:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611444.950999; Mon, 02 Oct 2023 11:20:47 +0000
+Received: by outflank-mailman (output) from mailman id 611450.951009; Mon, 02 Oct 2023 11:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnGyl-0004QS-8E; Mon, 02 Oct 2023 11:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 611444;
- Mon, 02 Oct 2023 11:20:45 +0000
+	id 1qnHOO-0006MZ-Al; Mon, 02 Oct 2023 11:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 611450;
+ Mon, 02 Oct 2023 11:47:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TWvZ=FQ=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qnGyj-0004QK-JX
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 11:20:45 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b994ac30-6115-11ee-9b0d-b553b5be7939;
- Mon, 02 Oct 2023 13:20:43 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2c189dabcc3so75744151fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Oct 2023 04:20:43 -0700 (PDT)
+ <SRS0=QbpY=FQ=citrix.com=prvs=63281d1e1=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qnHON-0006MT-6U
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 11:47:15 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6aef7cd0-6119-11ee-9b0d-b553b5be7939;
+ Mon, 02 Oct 2023 13:47:11 +0200 (CEST)
+Received: from mail-bn7nam10lp2106.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.106])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 02 Oct 2023 07:46:57 -0400
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com (2603:10b6:303:123::8)
+ by MW4PR03MB6459.namprd03.prod.outlook.com (2603:10b6:303:122::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.27; Mon, 2 Oct
+ 2023 11:46:54 +0000
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::ddbc:172e:c4a3:ec6f]) by MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::ddbc:172e:c4a3:ec6f%4]) with mapi id 15.20.6813.035; Mon, 2 Oct 2023
+ 11:46:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,152 +49,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b994ac30-6115-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 6aef7cd0-6119-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1696247231;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=ieuroTw4FFYN+pH0Yq7+Tt8TfdgLmV4LD6YchShgtBc=;
+  b=hEx4ZAgszoyj9Auvc725Hd6Q5NwEclnkAsmv/1pcrduwQJACkyCCnSJi
+   jf0nLve8Ko9faIepwOlgfM86K7M5Em3/tm9Cap6OqhrFf33z/ZTSdhxLA
+   uQYO2rrFlbzXTFkf8wIuY0EF5aHjfIq31Wn1I8yfZ1n2EdwjIhr7o9jZZ
+   Q=;
+X-CSE-ConnectionGUID: kTuM8rIDSKiYeJneobkJIw==
+X-CSE-MsgGUID: QefoW56iRzSdhOBg0QNRGQ==
+X-IronPort-RemoteIP: 104.47.70.106
+X-IronPort-MID: 127129894
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:VGYouqyxJt1MafeLK/96t+ezxyrEfRIJ4+MujC+fZmUNrF6WrkUPx
+ mBLDG2OaamCZmGgeo8gbY2w9EMF7JfUmtNmTwE6/CAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjPzOHvykTrecZkidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8EgHUMja4mtC5QVmPaoT5TcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWJy6
+ NlIMhEhVTOCtu+Uxr+8QOpOp9t2eaEHPKtH0p1h5RfwKK9+BLrlHODN79Ie2yosjMdTG/qYf
+ 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvDCVlVQvuFTuGIO9ltiiX8Jak1zev
+ mvb12/4HgsbJJqUzj/tHneE37WQxHmqCNNOfFG+3sdnjlqsmzISMg8tWVuci/bhs2iEdOsKf
+ iT4/QJr98De7neDVcLhVhe1pHqFuB80WNdKFeA+rgaXxcL84QyUG2wFRT5pc8E9uYk9QjlC/
+ k+EmZblCCJitJWRSGmB7fGEoDWqIy8XIGQeIygeQmMt4cTnoYw1pgLCSJBkCqHdptf4Ay3qy
+ jaG6i03nawOjNUj3r++u1vAhlqEuZzhXgMzoALNUQqN9R90aoejYMqz9VHR4PJELYCYZlCEs
+ D4PnM320QwVJZSElSjISuNSGrisvq6BKGeF2QApGIQ9/TOw/XLlZZpX/Dx1OEZuNIADZCPtZ
+ 0jQ/whW4fe/IUeXUEO+WKrpY+xC8EQqPY2Nuiz8BjaWXqVMSQ==
+IronPort-HdrOrdr: A9a23:O0Gcb6upgQjiWtEv/2QW3lJK7skDWdV00zEX/kB9WHVpm62j+/
+ xG+c5x6faaslkssR0b9+xoQZPwJE80l6QU3WBhB9aftWDd0QPDQb2KhrGSoAEIdReOjtJ15O
+ NNdLV/Fc21LXUSt7eA3OG0eexQp+Vu/MqT9IXjJ30Gd3APV0i41XYeNu9MKDwOeDV7
+X-Talos-CUID: 9a23:W1OzE21mENATxGrqvm3WCrxfGfw4Vy3H7VvrAE6JBERvRbqfSn2x5/Yx
+X-Talos-MUID: 9a23:hADO0wiLHWIAda7mNjWWzsMpDcpm5JvzVkE3g64Ku+6uOnRJHQ2ytWHi
+X-IronPort-AV: E=Sophos;i="6.03,194,1694750400"; 
+   d="scan'208";a="127129894"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qyw6z1hWb+I32FbmB6vCLHmvtkryraEgFqirKwe8pMUqNLOlUXxT74mObvbu24fUNqQ6H4PFvapQ9HIwiRuN9h9ZSrovyzH+ci4If9pXlPVd18cF3kdo2lxerQ+lCZDIHYuF8nR4x2M2PmqSWeEFf3zE7njvSfEf5oWPVgLMU5CdELkguHWH/UuYr7ZyRDIA/dMElJvtsA34lQ7/mk3O8H9mvg7e9jA3/Su4fdOcqDtS7w8/zQumPX1mAX9zU8EAN5QvasMZSU5AwLrTvXsr0rNraQiCz/zKEV1TEbo9gU2o2V38CL9pGv0eqlQJc15hRfh2AXWXbxsFcV/W6rLu2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x6ITXp0TzCTokxYzzck5rBzSqDm/s87w5+WFgz8Ixb4=;
+ b=Vb3negxzrV+LT/C7ENMVuS5V+s+3j4zBNxyR7MsSxzDZejz/frNEuxY07C8ug6WsuzONzHRm+ab/1WY9kQLL8cRquRz09t6OFNRrGA3p7ba4ldlfsggH1hXIjmuRv/Dl30aEawny2MD8F2b86UQKxY4aVSHps+Bawh3nTJgCrDMup0uzU2a3DdyjL8hEAJJiG6yCIheBKB2RvFWi6+W8sp+Hhb5e4hOeiFHIJu5bqqLl5+fryMtBZGnIDkDALbmdxRxUIWGzROLCZQeN/4ApSu02gCiH1eaaJ4AwzoFIk+hcX2qaIUzkO6ogJq/GI/72lBzN9WD6kgC94dycfh3ihw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1696245643; x=1696850443; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Nb7pXKnAfq4Zi0cVJR6AhJQFddioHrZZX5ql/vD72U=;
-        b=NxLmnLKKj/ti5wzyTyNT/5fXfe9n3OUzVegZfcWx8ry7nJYMoAaGuTE3RyW2FjNIDu
-         jJGZH98SU71yFmN9mNH6XpI/BzrYkWkR/ezXqGHqvvVWBnHsZpdTusbIzCq0kcxemv2d
-         eNCdI2QhrG/i9nDiDLbh2d78X1MOw1GNdSTkA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696245643; x=1696850443;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4Nb7pXKnAfq4Zi0cVJR6AhJQFddioHrZZX5ql/vD72U=;
-        b=oTZSEL6jz6Rp4HgKQg21JQdphATZmjk5UQI0Im3+q05lrRVs1/mFJJPMRwwMXzD1pH
-         7s7q4g0sB36DZN5Qh52zO97gHnL/2t/heuUosSASwZVpSeDqEC/mKmMzayFZQWoB3AEr
-         1LIfUeGLeIEHVs1w7wgYg0Ahdz20ikJcATPqNEMkcHYoGpcUl4jRkuU9GWQ2wBq0LarT
-         YPKzrQiqg99+4vj4TbLxwOE5SzANsxYpXT9jg6MwT0MLve8GCuHNJtQil+YUjlZhpGNf
-         PpoHs3LGE8U2cvlY+H2ZwA45Y1V6+NZ8V2LeOo0AN5tESHRG85T0+sLVWkKI7XWqK7CT
-         fhKg==
-X-Gm-Message-State: AOJu0Yxi5jMOYh6WpDhB/SUium8VjOVXxAnILemdhktWX9e6pKToRXF/
-	nOvhkhbuw6ZvsRrcLc7sahUVmr+T/dVXmE4Dd2oC3g==
-X-Google-Smtp-Source: AGHT+IGf/mwMiJ/MJuT8LubdHogEmzRyID+lAoQ+mXHCRoh8gin5bJrFWEkeSqkaHfVyLjLCqYBLAiGPvm9LgEobpeg=
-X-Received: by 2002:a2e:8ecb:0:b0:2c1:6ede:de20 with SMTP id
- e11-20020a2e8ecb000000b002c16edede20mr8824000ljl.6.1696245642555; Mon, 02 Oct
- 2023 04:20:42 -0700 (PDT)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x6ITXp0TzCTokxYzzck5rBzSqDm/s87w5+WFgz8Ixb4=;
+ b=UHFbS5bj43lSCeCQcCGqnEBzB0ipkwFZqD9bpGnLPzIhLfQrirUC2ctGBTHvZ/SP3qkBQkbRSWORLulgIUzDykC1E8U57d5jeo13fl4XBdXgGggQfFtRlYc5Te4razBkSrL3aQxvm+vhvPNwYkTAaXnFS00VcsKL2TzDVxPKD3A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 2 Oct 2023 13:46:47 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+	andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+	bertrand.marquis@arm.com, wl@xen.org,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: Re: [PATCH v3] SUPPORT: downgrade Physical CPU Hotplug to
+ Experimental
+Message-ID: <ZRqtp9jxha_p1gQr@MacBookPdeRoger>
+References: <20230927232004.1981595-1-sstabellini@kernel.org>
+ <ZRU6A2wDSVEEHGbK@MacBookPdeRoger>
+ <e1cc81b4-d990-b995-a24a-ba80c1e970ba@suse.com>
+ <ZRVMo6Uf7occc0Zs@MacBookPdeRoger>
+ <alpine.DEB.2.22.394.2309281346160.1996340@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.22.394.2309281346160.1996340@ubuntu-linux-20-04-desktop>
+X-ClientProxiedBy: LO2P265CA0206.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9e::26) To MW4PR03MB6428.namprd03.prod.outlook.com
+ (2603:10b6:303:123::8)
 MIME-Version: 1.0
-References: <CA+zSX=Z904nF0yD1grRZc1miEOhdTHqAd4j-S1j8GY+1bo9COw@mail.gmail.com>
- <ZRivEkG8Ox213H2A@itl-email>
-In-Reply-To: <ZRivEkG8Ox213H2A@itl-email>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 2 Oct 2023 12:20:31 +0100
-Message-ID: <CA+zSX=Zy0C_XMmMUxxk5TF88L0cXwFHihQdYDxaY+tMuTm3GQQ@mail.gmail.com>
-Subject: Re: Sketch of an idea for handling the "mixed workload" problem
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6428:EE_|MW4PR03MB6459:EE_
+X-MS-Office365-Filtering-Correlation-Id: a54ad27b-0060-4da4-a784-08dbc33d4540
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xXDllXF6DMSy/9qni4gZlQeSeSn2NFpsneVK5LvkIkFloIc5m1IC0lznXAzIeAwSQgIsnpU5nJXJM0B3s5at45rAyAIsI1reNhOEchtIPZJgSN2T5IQT+Yr+2Q7NmFE6/jL7Vps4KIkwAlgE0BG4h0LVxmPN4KfxtiE2Lf4rev8IpRpZYiy6o/4ua5wUk06GcX1hweh+GexcCGhx7qGTqDdUUHZJ0GMkETSWJHY+OczAt4onPYe7umh8YT0QZH/uTRLhboWwEFwwOFvMP42S76zUGhf8E6XD6pR4o8E7dLD0rJdQxmQhuc8ehwdnakXCnuCpMVgXb40RfNXZ+iNV0MIGsZPXTORYHQJvahv03ROu3wRzYhEfQV0DJgzhK3osBQwmurVjgsg8q3V67jdPR6WA4O3NR32ip0J8V8/ox9VpMKRNpysDN/1aoMUhE8RbOQ96ao4Kxdt/JgzmHrey4Z42LBb+101SY54AO+q0RyJu46rG0hP1F0Tn04S9hTkdvVJKsYmYQBK7T8TgxMmAMU5OrAhE9/PhoWaIEfxyXOf9celSWg6TmkKJYcFXb76O
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6428.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(136003)(39860400002)(376002)(366004)(396003)(346002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(54906003)(6916009)(316002)(41300700001)(9686003)(53546011)(26005)(86362001)(6512007)(6506007)(6486002)(478600001)(85182001)(6666004)(38100700002)(82960400001)(66556008)(66476007)(33716001)(66946007)(2906002)(4326008)(8936002)(8676002)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q0dzaGhBNWVJcTAyZ2RHcy9jM3UzTStlVXQyL0pvYTZNZXV6ZFNra2p0T0ZH?=
+ =?utf-8?B?aDhmSTl6K2ZpUzcrRmNDeXU1Y3d4WlY0Q3FBMU5reEhwd3NWQW1sYXQ3ditq?=
+ =?utf-8?B?UkRPekpuT2pBbXdRREt4TS9BUHg4cktwNXl1Vm1Scy9ROXNmM082VGlRZHBM?=
+ =?utf-8?B?YWpxK1o2ZVlBQlJZbzdFZWowMG10NEY2cnRoQmltVlF6eDh4Znl0WmR1N1lW?=
+ =?utf-8?B?SEI0T0o3ZnNwbE93dzllbk1DcDhqQkRtcjFtMUR1dXdoUk93Um91MWZpcGEy?=
+ =?utf-8?B?eFpiL0wwMjRwUGxiR0UzZjJEREJwNThMOVpTaVRCQVhoYmNHZEFRblhUcmZN?=
+ =?utf-8?B?T1YyWFJpWFlXQ3l6UXphYzJ3b1g4ZFMwUmhhcFVSeDVsbVViOXdtTjNjT2tC?=
+ =?utf-8?B?VDRNM2JQV3QrWjlZeXoxemZ5NzhVaVZzMHgzcW5NSHIxSGhuWm4zVkYyd0l6?=
+ =?utf-8?B?bHFlMUhDSXhLNTRWdTZtM21tTXhVamZMOUxZMHZXdkY3VTZPNEZrSzJJVG9E?=
+ =?utf-8?B?bXdIY2RwMUNIY3RaVStZM2llN2hFOFlNU3JUMnlhTjI0WGtoTEFDQXFlelRW?=
+ =?utf-8?B?ekdLN1QreTB4OUJqaFdWWGpDQVNNVDdNTTJZV0FRWFlTQVlucmcwTGl6RHNo?=
+ =?utf-8?B?d1lGRTVGcTZkcTIwT0NkNzhGd3gzay9VQ1UyVzNRdHlFdEFFZkp3eEJDSzlG?=
+ =?utf-8?B?RFc3SE42MjkxUy8rYkJla1BGT1hYTjVabDhncDFqV2psSTlkOEFjVm1LTFRO?=
+ =?utf-8?B?TkZPRC9zU3dDWHVCaElGVkNmdU1EVG05NFR3Q0U0Qk9BSU1FbDdDNkJIRUU3?=
+ =?utf-8?B?ek5XbUVBT3FMSXlTSzdzM21rekV2SFVsWkxpSVZJR1JiY1hWUEFWSVVBZVho?=
+ =?utf-8?B?OXVXUzFmTVJ0cnJheDNDYWRpeG5KNGlFNGFxNkZFbzZ2M2NTemlXYnIxNkM2?=
+ =?utf-8?B?VS92MnVQR3NObFV1N2dwS09LUzAzWUNCRVNMVEw2SmFiaUh3ZFlWMzUwbGJR?=
+ =?utf-8?B?dkVJUStvWHArRG5GSzhJeWRhbi9CeUVZL2tpSnJMVUJBaVJlMlZiaW5ieTIv?=
+ =?utf-8?B?VCtxVlA3ZVVDd0pKVkc3MlNMQWRjdmJpZnNGMVIwalZkTEpHOWtpT0d3bHVT?=
+ =?utf-8?B?dytIUEZVMTVxbzR5WXBhbjBZQzJkcFBuK2szSnUzSFJGUVA5ajB0ZGxHemRM?=
+ =?utf-8?B?dW9GU0tSdFRkSStGdCtlQndXd2xyRENucjlBaVQza0JXcm5IRnFOMlFlR0h6?=
+ =?utf-8?B?ZnRlN0puelg4eXhXSkhGU1FmWGJqekxUcVRPbU93Q1BXWmJpZmQ3WUdqUFBj?=
+ =?utf-8?B?WnhRQVcwVW1jTkhBaHJ6K1piUERXblp4NGpsRlhEUW9ROXN2VWkrZHZ6MU13?=
+ =?utf-8?B?Y3FuRkhCRG1DeHU5cXY3c1IzZFlGSHUwOWh6S0tpc0wzb0tPQjYzTjVxYnN5?=
+ =?utf-8?B?b3JCSGlOaFk0UHJyZFZ3QkNpd0xNaE01N1M4ZXBRejFsQWJUQW1XWXl1R2pE?=
+ =?utf-8?B?emhHMncxUHRrYXh2MitOWTIzQWdYRjQ1V01KYUdpNERlNnV3Y3JnTmxmWXo5?=
+ =?utf-8?B?cWtKQStXdGVWV0g5d0JDaVZXVm5EVEJSaWZRbnVlalR2NWNwaHVIMGNEdFVh?=
+ =?utf-8?B?alcyYlYxbmFRcG5HVnhnd1J4VCtZUlJsQStMOUsrOWRubmJ2alBISEF0MDVq?=
+ =?utf-8?B?MHhVOTN1K0dzczZ0b0djL1oxcktKQm1PdzVqQkZKMmhmb1d0MVlCWGE1cU84?=
+ =?utf-8?B?KzZycWZ6Y0p4RkI2U2NFcUhrcTliUHFtNkVLZDMwaWUvRkFNY1RVTEIzbXhP?=
+ =?utf-8?B?SWRRK0pKWWRGMjgvVTJxWkd0ZWVOZ0NLRzFkbGVLeVJVNWJTVUd2UWFwS1Fv?=
+ =?utf-8?B?clZnMHltQmFjckh1OHBza3FITUpDL3UyKzYyMUJBRXJJdFVFZDM1S25LeGV6?=
+ =?utf-8?B?aWJmRVVRRUVqczYzbGp5dmNxdFh6WnpSaERpNnVHenFPNG8yN3NhMS9qZlUr?=
+ =?utf-8?B?NUtBUHNMNHRrZEVQL1h6Sm9MTXdxWklieHhpYzVkVFVqNW9jZlZQWVhFUXVB?=
+ =?utf-8?B?a29OM3lSV2Z0TTd0bTJyalh6ZE16MGo5VlVndE9wMVZCZkhnTzBKeXk3ZnQw?=
+ =?utf-8?B?TFlidVdpSktBR1lzejBZdENmajc4dW13SWJoSWpTNHY2b3lKcVRtTmgvcTdt?=
+ =?utf-8?B?Y2c9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	DSJz/dnyT3W23/WQt2iV4KGkfhksNvHFf/WHklIGLtO7sdr4UIH/kuYMCD7IiZhaqu4WaE/bvCavFAbK7ad8zJqVo7j+9nfdjkldoW6+mKWskXaaWWiNJme0xFeX/sq1OVuWPORZ672mOq3ZnA4T0WHLeYFZyetJW06z/k+tmpBY1130ljuhG0Xmf3M1jP9Er2p7Dz92K+d7VzYgRDxfNHr9Rvl57dCmjhKLSNjtqLknzW5X5swYlqyB4PUB+GhZGHMkbqZoCk94eKkzQ/t3TDxJfSjUhPUCxhwhcfMNVjvCAKbBdkfWZ4f0YFgvRVos5UPJrss5Vh76L1e7SVcWFZ8S/AgYxCNjdPKIeU1QSGMnWp5DDqv02lGHg1FZI/6V0SXwAZou6Z3Q1gnEcaIjhrSCNH+rt1OG0l0rwodt6agC3m3TN0Gzw5IC1PnDEyM4z3ZliSZ+k04Xa8JQGxSCSPDOyMHUp5KTIWvMMCs4jICykB6sFqzRvwAJVEbInzqsok9PL1hoZX+prcq8O4iCuhYc1Rnlja+DzVDh1wKVAp2aG0hlJQn3jmjzUZsxaqa5wMv2ZkQm/Vqx6cILwPRjht0U6Hbc82CH9mbNmHzCNrA3+rbn6OihOP0ehB5jeiiBkQs2/BlRHtbqD/XScKtGFnTnusZhOms4O+Wmn74pWdc37C9qnkMCFJuWEF8ZfoT5FSB2meHtVhB4RI/fM4B4+6deJIM4An2foeorH7/8RhdI4AJ8fBs0UFUkD8C3ECAtOoIIiB1+DM6byT+difZooVoRf1bxw09538HSq5RCaidCzUIgV9nfgB79MyTvR+d+cVMHk/eebVYbWC+aKbYH+pTdIUMI3ShUUweEVkdeLHlqh8CtsIONF4Bc/B3Ni7ar9gfFnPgdrLlPw92PhE5Qyg==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a54ad27b-0060-4da4-a784-08dbc33d4540
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6428.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2023 11:46:54.1015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w2v8v/VT8Tbcxzj0sgKWBKfrwZJucV+YdzO+BKlvDYKGx9fYp6sOkG/YPjE/oGZLG8V8W+dl3DozO+f2dz/N7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6459
 
-On Sun, Oct 1, 2023 at 12:28=E2=80=AFAM Demi Marie Obenour
-<demi@invisiblethingslab.com> wrote:
->
-> On Fri, Sep 29, 2023 at 05:42:16PM +0100, George Dunlap wrote:
-> > The basic credit2 algorithm goes something like this:
-> >
-> > 1. All vcpus start with the same number of credits; about 10ms worth
-> > if everyone has the same weight
->
-> > 2. vcpus burn credits as they consume cpu, based on the relative
-> > weights: higher weights burn slower, lower weights burn faster
-> >
-> > 3. At any given point in time, the runnable vcpu with the highest
-> > credit is allowed to run
-> >
-> > 4. When the "next runnable vcpu" on a runqueue is negative, credit is
-> > reset: everyone gets another 10ms, and can carry over at most 2ms of
-> > credit over the reset.
->
-> One relevant aspect of Qubes OS is that it is very very heavily
-> oversubscribed: having more VMs running than physical CPUs is (at least
-> in my usage) not uncommon, and each of those VMs will typically have at
-> least two vCPUs.  With a credit of 10ms and 36 vCPUs, I could easily see
-> a vCPU not being allowed to execute for 200ms or more.  For audio or
-> video, workloads, this is a disaster.
->
-> 10ms is a LOT for desktop workloads or for anyone who cares about
-> latency.  At 60Hz it is 3/5 of a frame, and with a 120Hz monitor and a
-> heavily contended system frame drops are guaranteed.
+On Thu, Sep 28, 2023 at 01:48:59PM -0700, Stefano Stabellini wrote:
+> On Thu, 28 Sep 2023, Roger Pau Monné wrote:
+> > On Thu, Sep 28, 2023 at 11:32:22AM +0200, Jan Beulich wrote:
+> > > On 28.09.2023 10:32, Roger Pau Monné wrote:
+> > > > On Wed, Sep 27, 2023 at 04:20:04PM -0700, Stefano Stabellini wrote:
+> > > >> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > >>
+> > > >> The feature is not commonly used, and we don't have hardware to test it,
+> > > >> not in OSSTest, not in Gitlab, and not even ad-hoc manually by community
+> > > >> members. We could use QEMU to test it, but even that it is known not to
+> > > >> work.
+> > > > 
+> > > > I think this last sentence is ambiguous.  QEMU ACPI CPU hotplug
+> > > > implementation does work AFAIK, it's Xen implementation of ACPI
+> > > > hotplug that explodes (or so I've been told).  I would drop or reword
+> > > > the "but even that it is known not to work." part of the sentence.
+> > > 
+> > > Maybe simply add "... on our end"?
+> > 
+> > WFM.
+> 
+> Just to be clear we are going for:
+> 
+> "The feature is not commonly used, and we don't have hardware to test it,
+> not in OSSTest, not in Gitlab, and not even ad-hoc manually by community
+> members. We could use QEMU to test it, but even that it is known not to
+> work on our end."
+> 
+> Can the change be done on commit?
 
-You'd probably benefit from understanding better how the various
-algorithms actually work.  I'm sorry I don't have any really good
-"virtualization scheduling for dummies" resources; the best I have is
-a few talks I gave on the subject; e.g.:
+LGTM.
 
-https://www.youtube.com/watch?v=3DC3jjvkr6fgQ
+Feel free to add my Reviewed-by: Roger Pau Monné
+<roger.pau@citrix.com>.
 
-For one, when I say "oversubscribed", I don't mean "vcpus / pcpus"; I
-mean "requested vcpu execution time / vcpus".  If you have 18 vcpus on
-a single pcpu, and all of them *on an empty system* would have run at
-5%, you're totally fine.  If you have 18 vcpus on a single pcpu, and
-all of them on an empty system would have averaged 100%, there's only
-so much the scheduler can do to avoid problems.
-
-Secondly, while on credit1 a vcpu is allowed to run for 10ms without
-stopping (and then must wait for 18x that time to get the same credit
-back, if there are 18 other vcpus running on that same pcpu), this is
-not the case for credit2.  The exact calculation can be found in
-xen/common/sched/credit2.c:sched2_runtime(), but generally here's the
-general algorithm from the comment:
-
-/* General algorithm:
- * 1) Run until snext's credit will be 0.
- * 2) But if someone is waiting, run until snext's credit is equal
- *    to his.
- * 3) But, if we are capped, never run more than our budget.
- * 4) And never run longer than MAX_TIMER or shorter than MIN_TIMER or
- *    the ratelimit time.
- */
-
-Default MIN_TIMER is 500us, and is configurable via sysctl; default
-MAX_TIMER is... hmm, I'm pretty sure this started out as 2ms, but now
-it seems to be 10ms.  Looks like this was changed in da92ec5bd1 ("xen:
-credit2: "relax" CSCHED2_MAX_TIMER") in 2016.  (MAX_TIMER isn't
-configurable, but arguably it should be; and making it configurable
-should just be a matter of duplicating the logic around MIN_TIMER.)
-
-That's not yet the last word though: If a VM that was a sleep wakes
-up, and it has credit than the running vcpu, then it will generally
-preempt that cpu.
-
-All that to say, that it should be very rare for a cpu to run for a
-full 10ms under credit2.
-
-> > Other ways we could consider putting a vcpu into a boosted state (some
-> > discussed on Matrix or emails linked from Matrix):
-> > * Xen is about to preempt, but finds that the vcpu interrupts are
-> > blocked (this sort of overlaps with the "when we deliver an interrupt"
-> > one)
->
-> This is also a good heuristic for "vCPU owns a spinlock", which is
-> definitely a bad time to preempt.
-
-Not all spinlocks disable IRQs, but certainly some do.
-
-> > Getting the defaults right might take some thinking.  If you set the
-> > default "boost credit ratio" to 25% and the "default boost interval"
-> > to 500ms, then you'd basically have five "boosts" per scheduling
-> > window.  The window depends on how active other vcpus are, but if it's
-> > longer than 20ms your system is too overloaded.
->
-> An interval of 500ms seems rather long to me.  Did you mean 500=CE=BCs?
-
-Yes, I did mean 500us, sorry.
-
-I'll respond to the other suggestions later.
-
-> > Demi, what kinds of interrupt counts are you getting for your VM?
->
-> I didn't measure it, but I can check the next time I am on a video call
-> or doing audio recoring.
-
-Running xentrace would be really interesting too; those are another
-good way to nerd-snipe me. :-)
-
- -George
+Thanks.
 
