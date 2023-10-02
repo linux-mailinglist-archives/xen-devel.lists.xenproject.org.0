@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A027B5D42
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 00:42:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611815.951413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E502D7B5D44
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 00:43:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611819.951422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRcL-0000J7-F5; Mon, 02 Oct 2023 22:42:21 +0000
+	id 1qnRd0-0001Rp-Mb; Mon, 02 Oct 2023 22:43:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611815.951413; Mon, 02 Oct 2023 22:42:21 +0000
+Received: by outflank-mailman (output) from mailman id 611819.951422; Mon, 02 Oct 2023 22:43:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRcL-0000GD-Bv; Mon, 02 Oct 2023 22:42:21 +0000
-Received: by outflank-mailman (input) for mailman id 611815;
- Mon, 02 Oct 2023 22:42:19 +0000
+	id 1qnRd0-0001PL-Jq; Mon, 02 Oct 2023 22:43:02 +0000
+Received: by outflank-mailman (input) for mailman id 611819;
+ Mon, 02 Oct 2023 22:43:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oggk=FQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qnRcJ-0000DW-OH
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 22:42:19 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1qnRcy-0001P9-OA
+ for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 22:43:00 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f11210c1-6174-11ee-98d2-6d05b1d4d9a1;
- Tue, 03 Oct 2023 00:42:18 +0200 (CEST)
+ id 088dda61-6175-11ee-98d2-6d05b1d4d9a1;
+ Tue, 03 Oct 2023 00:42:59 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 24D9FB81689;
- Mon,  2 Oct 2023 22:42:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74F9C433C7;
- Mon,  2 Oct 2023 22:42:15 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 53A20CE104D;
+ Mon,  2 Oct 2023 22:42:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAD7C433C7;
+ Mon,  2 Oct 2023 22:42:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,80 +41,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f11210c1-6174-11ee-98d2-6d05b1d4d9a1
+X-Inumbo-ID: 088dda61-6175-11ee-98d2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696286537;
-	bh=g/yK6WM2t3/zk3Udh2EdT7dh3d86N78skG3nkkI7brg=;
+	s=k20201202; t=1696286573;
+	bh=pLofm0+nX2ucZmJlrhodyVyFxCYFlphWF5PLjMEe/S0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=BU2DTtf1mISQ7ACB9jxd1IwHr/1iig3PP/bjwZxC7QtIwFE27rQxHyhg5WtEZrIkc
-	 ixwzgGL84L2BIh9YQAIjFIeliYptRSyJUHFy3jK39RuAyhrj/uMd0FrrVO/ltplIcm
-	 gVnkkrx8nTqLgAUECN4ZiJrYFUyfw3qS4bTVUkJyfCQYVCjGATWowRANzgrVt7sAAP
-	 /Pn+bN/9wt7KvAosmWrC1qY5LWre2r3pAVy/Qq61tefsqpTYqNbQ6zbwdnNhtOUawJ
-	 e7R8dRGWZyElJ47dupMMCPa362yHq3ZrMumavnlIVqakUTkEJQLyFcRlROcuITjNSi
-	 tnuOCt4iK9Q3w==
-Date: Mon, 2 Oct 2023 15:42:14 -0700 (PDT)
+	b=UL3PV1Tb4JtV3C1+WF27dZrL5ZeTNf5JMsjHS325rj2AQNzGASDM5xEfbwFF5T9SR
+	 QKV/ZPeRPn7JstFgOzTR2fBPCKjNs1FUHTluAZmGT17Pxwz3pCTcWvQeTVMW8jTW4a
+	 xHiAfnOxWBqhXrRZMh/9M7My3MHlFcAzcPIpc3OUAgfqfiFX4nNIz6PWvIfcRBd2ZL
+	 rmJHUjCMZxPlX6HCRUi+FmO0eA3hojwflEMhahBjoy9/k0wuTLZhnbtd4+MoncAYHT
+	 XknBm4i578BzUwrfB6NFyxPNHMPRWjITImrDtAO+1z3Uiz1Q0f7T+qImUyfOz8UBEg
+	 LV40Rsl3O1Jrg==
+Date: Mon, 2 Oct 2023 15:42:50 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
     consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
-    roger.pau@citrix.com, Henry.Wang@arm.com, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 4/7] x86/grant: switch included header to make
- declarations visible
-In-Reply-To: <ec3179df569d3e2b392360539bddfb3adc726a5e.1696232393.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310021541230.2348112@ubuntu-linux-20-04-desktop>
-References: <cover.1696232393.git.nicola.vetrini@bugseng.com> <ec3179df569d3e2b392360539bddfb3adc726a5e.1696232393.git.nicola.vetrini@bugseng.com>
+    roger.pau@citrix.com, Henry.Wang@arm.com, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 6/7] xen/console: make function static inline
+In-Reply-To: <c4f778440688a1e1f81cc149aca8dd5248895f68.1696232393.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2310021542430.2348112@ubuntu-linux-20-04-desktop>
+References: <cover.1696232393.git.nicola.vetrini@bugseng.com> <c4f778440688a1e1f81cc149aca8dd5248895f68.1696232393.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 2 Oct 2023, Nicola Vetrini wrote:
-> The declarations for {create,replace}_grant_p2m_mapping are
-> not visible when these functions are defined, therefore the right
-> header needs to be included to allow them to be visible.
+> The definition of 'consoled_guest_tx' can be static inline,
+> thereby fixing a violation of MISRA C:2012 Rule 8.4.
 > 
+> Fixes: 5ef49f185c2d ("x86/pv-shim: shadow PV console's page for L2 DomU")
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
->  xen/arch/x86/hvm/grant_table.c             | 3 +--
->  xen/arch/x86/include/asm/hvm/grant_table.h | 2 ++
->  2 files changed, 3 insertions(+), 2 deletions(-)
+>  xen/include/xen/consoled.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/xen/arch/x86/hvm/grant_table.c b/xen/arch/x86/hvm/grant_table.c
-> index 30d51d54a949..afe449d8882c 100644
-> --- a/xen/arch/x86/hvm/grant_table.c
-> +++ b/xen/arch/x86/hvm/grant_table.c
-> @@ -9,8 +9,7 @@
+> diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
+> index fd5d220a8aca..e943d8d48f7b 100644
+> --- a/xen/include/xen/consoled.h
+> +++ b/xen/include/xen/consoled.h
+> @@ -12,7 +12,7 @@ size_t consoled_guest_tx(char c);
 >  
->  #include <xen/types.h>
+>  #else
 >  
-> -#include <public/grant_table.h>
-> -
-> +#include <asm/hvm/grant_table.h>
->  #include <asm/p2m.h>
-
-This makes sense...
-
-
->  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
-> diff --git a/xen/arch/x86/include/asm/hvm/grant_table.h b/xen/arch/x86/include/asm/hvm/grant_table.h
-> index 33c1da1a25f3..576aeb50adf4 100644
-> --- a/xen/arch/x86/include/asm/hvm/grant_table.h
-> +++ b/xen/arch/x86/include/asm/hvm/grant_table.h
-> @@ -10,6 +10,8 @@
->  #ifndef __X86_HVM_GRANT_TABLE_H__
->  #define __X86_HVM_GRANT_TABLE_H__
+> -size_t consoled_guest_tx(char c) { return 0; }
+> +static inline size_t consoled_guest_tx(char c) { return 0; }
 >  
-> +#include <asm/paging.h>
-
-... but I don't understand this one. It doesn't look like
-asm/hvm/grant_table.h actually needs asm/paging.h ? Maybe it should be
-included in xen/arch/x86/hvm/grant_table.c instead ?
-
-
->  #ifdef CONFIG_HVM
->  
->  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
+>  #endif /* !CONFIG_PV_SHIM */
+>  #endif /* __XEN_CONSOLED_H__ */
 > -- 
 > 2.34.1
 > 
