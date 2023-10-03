@@ -2,35 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51C747B5D82
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 01:04:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611837.951453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 090CA7B5E05
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 02:15:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611849.951463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRx1-0008IM-Qg; Mon, 02 Oct 2023 23:03:43 +0000
+	id 1qnT2Y-0007Q4-Vo; Tue, 03 Oct 2023 00:13:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611837.951453; Mon, 02 Oct 2023 23:03:43 +0000
+Received: by outflank-mailman (output) from mailman id 611849.951463; Tue, 03 Oct 2023 00:13:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnRx1-0008FG-N2; Mon, 02 Oct 2023 23:03:43 +0000
-Received: by outflank-mailman (input) for mailman id 611837;
- Mon, 02 Oct 2023 23:03:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qnT2Y-0007OD-SP; Tue, 03 Oct 2023 00:13:30 +0000
+Received: by outflank-mailman (input) for mailman id 611849;
+ Tue, 03 Oct 2023 00:13:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oggk=FQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qnRx0-0008Em-Iz
- for xen-devel@lists.xenproject.org; Mon, 02 Oct 2023 23:03:42 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eccfda4d-6177-11ee-98d2-6d05b1d4d9a1;
- Tue, 03 Oct 2023 01:03:41 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C9DABCE0E97;
- Mon,  2 Oct 2023 23:03:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C52C433C8;
- Mon,  2 Oct 2023 23:03:34 +0000 (UTC)
+ <SRS0=vfA/=FR=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1qnT2W-0007O7-He
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 00:13:28 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20613.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::613])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a9d8f49d-6181-11ee-9b0d-b553b5be7939;
+ Tue, 03 Oct 2023 02:13:23 +0200 (CEST)
+Received: from CYXPR03CA0065.namprd03.prod.outlook.com (2603:10b6:930:d1::7)
+ by BY5PR12MB4902.namprd12.prod.outlook.com (2603:10b6:a03:1dd::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.31; Tue, 3 Oct
+ 2023 00:13:15 +0000
+Received: from CY4PEPF0000E9D1.namprd03.prod.outlook.com
+ (2603:10b6:930:d1:cafe::5) by CYXPR03CA0065.outlook.office365.com
+ (2603:10b6:930:d1::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.31 via Frontend
+ Transport; Tue, 3 Oct 2023 00:13:15 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D1.mail.protection.outlook.com (10.167.241.144) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.22 via Frontend Transport; Tue, 3 Oct 2023 00:13:15 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 2 Oct
+ 2023 19:13:14 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 2 Oct
+ 2023 17:13:14 -0700
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Mon, 2 Oct 2023 19:13:13 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,415 +64,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eccfda4d-6177-11ee-98d2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696287816;
-	bh=/W1Zq9dl11xNiN53Zuc49WHlT7+g1AWnxWBM96epfQk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uAGDsE5hsOk5roaNe44UGCoFOKfoWuPQe1AfrHzR5NsvkL6XTN6VK54Mg3JXbEdeJ
-	 90tfu8TpQcRb715Y6CJDj5MCKkmXXQpfLCgT9gojndribbcLKAmSktUv7v00+7QzfY
-	 Ymez3gCCSlAYXeK4jm6+JS9HmX7N5nXy/xJO62Rie+sVCiu4I/dGf8HltJk1VUpDXq
-	 pYLd7lzglT9h/yPTTaUFG6IBYZmSssoxcuBSUeXMot8d9i9TT7wk17O1k1WWPUEXgH
-	 guMah/xWarjC8qsYran/Tp9boaE0gDEVtouQJGdb8ZnM4TU8CrmsGVQVlcc+bbQDL/
-	 V+w6LLR5dtDaw==
-Date: Mon, 2 Oct 2023 16:03:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
+X-Inumbo-ID: a9d8f49d-6181-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Nq1/GqMx0W+nO/U2PoV4bP6LOfqEwjW67nGhokTE17j7IiMPHVOfJ5fVitCW8tIpW9ueeN1r5glsQmOG3Z+wNn2cqNVm93dXBDK5+HVsECIhzsj3+osx+0olce0jxf/3Z+ZhYf7n3pfD6jfpOWA34F3V39K9epQK0ZQEpUIjW5UXf3smJKFGZWKeLJXVxUff4wtY5pu3tn7a2B9r7FUnGGQ4Ge5avAgaEr+YWKxk+2JunECFL1J67h9dQF6IP1eoG0cvRwU0ZZXYan9zuXp3Bm8XExzap2zkEL9QjdxY4qxl3lNo1/ia1u1BWm7DGB2pgfKX9dbKbkGHKeSTlGNxCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QdLFeTxLo1Ul3ngYgX4cJ1iUENIMverQEqTwlc21QJM=;
+ b=Tk8UUX2hp016yEHE5w2lx4T0XcsJvtu68C7fTFtmes8L1tE1OEPII6kiavJSM3Y75wdmtrk6As+bTwUVZvtA7FKoWq24q/HnKYD7l/BSfy6k8aT5WSw3HuwuSczuMLBwBTTSQWCmr1C9t0FG7iLy7HVLvF3bugW0HJuXnrhR7caYAUBC5wvGmfZr7K/Fj9gF0U2eV19Q2R5qgBNQcnQ3FCJKEVbV4oUYsrbvG+7/69cpb2lsZXDZbuWoTDrcXWs2wu3XH1Sz0LNRkEnvz0+Sv3DpyGtJWzvIXvTLguLqnjKNFkummrnI8PHIHcRYvUOYVVFlYqNZ1rTsIpcd4NtL3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QdLFeTxLo1Ul3ngYgX4cJ1iUENIMverQEqTwlc21QJM=;
+ b=rMbBGZKenwIHKpBDj4QOJ2PdYDJ7Y7eg9zZZstk1FLbY4FTd0vtLMqkooqkXglaSnegMZmpWYJO+I7WwseJn8scup8D4yYxGzHiKPH2hbk9NIiXXkb54Qjl000DZoS7P617ePp+bxUxThYkuinMt/YF2zbgQR1iFg083vm8bQRQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Mon, 2 Oct 2023 17:13:08 -0700
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "Driscoll, Dan" <dan.driscoll@siemens.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "arvind.raghuraman@siemens.com" <arvind.raghuraman@siemens.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "rahul.singh@arm.com" <rahul.singh@arm.com>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>
-Subject: Re: Xen on AWS EC2 Graviton 2 metal instances (c6g.metal)
-In-Reply-To: <c3cf8e91-cf68-410d-8640-09fce6d20e9b@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2310021554520.2348112@ubuntu-linux-20-04-desktop>
-References: <DM6PR07MB43168B0D4DEA80BF2474B9D89AC3A@DM6PR07MB4316.namprd07.prod.outlook.com> <ed3ea203-4244-4bbe-a9e0-ac8882ecc83c@xen.org> <DM6PR07MB4316E030CEF6D6E27ACD58819AC0A@DM6PR07MB4316.namprd07.prod.outlook.com> <alpine.DEB.2.22.394.2309291321570.2348112@ubuntu-linux-20-04-desktop>
- <c3cf8e91-cf68-410d-8640-09fce6d20e9b@xen.org>
+To: Oleg Nikitenko <oleshiiwood@gmail.com>
+CC: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>, "Carlo
+ Nonato" <carlo.nonato@minervasys.tech>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, <Stewart.Hildebrand@amd.com>
+Subject: Re: Fwd: changing Dom0 data during smc call inside of xen during
+ cache coloring
+In-Reply-To: <CA+SAi2u2auZgzQh_s+pFspH1YLN4biCf0K7-V7NGWPZQjGoH0g@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2310021608180.2348112@ubuntu-linux-20-04-desktop>
+References: <CA+SAi2tXMupikB2YgEXuq98KnOcqm6zWrk19rNvWTfzf2=ku-w@mail.gmail.com> <dba88398-3aef-4541-a8e8-8fd075c0d40e@xen.org> <CA+SAi2tHLVDj+q8KMD7OuhHoj0sSZ-39qs3Z94WGmL2OA3TM_g@mail.gmail.com> <alpine.DEB.2.22.394.2309281447180.1996340@ubuntu-linux-20-04-desktop>
+ <CA+SAi2vZie+PcKgkAbLxcaimG7strkWot1z4LTpCGLeJxuaT2g@mail.gmail.com> <CA+SAi2u2auZgzQh_s+pFspH1YLN4biCf0K7-V7NGWPZQjGoH0g@mail.gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed;
+	boundary="8323329-1903153407-1696288286=:2348112"
+Content-ID: <alpine.DEB.2.22.394.2310021709380.2348112@ubuntu-linux-20-04-desktop>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D1:EE_|BY5PR12MB4902:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1090cd55-9eee-4b13-5c7f-08dbc3a589d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mPySJLB0aXL0eWZSsfwIvxXJvHThGHHAR9KLbI0nlbH41eWLt5TcDa6ZjUzzPpdmLnecz3N3CuRroW+LV9fpm5bBZdi6LFe4TQmEy6Pis4ftZAxqINmp4fycoffEHoHVHbirLUKa8Lez9qqSCAuW9X4K6SMPikh3P0q+rMF+fKNjg72JLrl1g6fFn17gZrbsHtVjjdSHEOL9L9PBo39r/sHhWPevmkTRBP8gptHkNCcrqxmQqHYpFLZ7RUoTheX9Hrg3/fxXHaaXJKmXBSjWp3I7lyCoDCCkP6/Jgrrsf05QsIJb6ECBW9SN2+RAzYikWQACQ6SaE8UZNCo7b0cNRbcCMmJ5vINRWG5+AcZNXwAbMMBsum+wLhJdhmDxjDSmNcC4xjcZes8rbxKRMzJ8S8Z8jDqUvaSMNBC/Q6gIkLBBZY08sU7kQyTdRpIUkkkilQgTA+yVhRHN2mrUoEe/O1xRpIyjN4W7FYKYrtNVRbnH7Svf7mNiE9pm/QmxapYpunQexy+c1tesbpn75fUKjyicwBi3kC20mutpL/WuDrGrf/F80JFy4Rs+YVpa8V1omIFQ1pME0rDMnwg44eA9orYxVHagO3OWMSF72wvQwqLVahROk6zXpnbzUerOJ10YOpeZWOdBsteUsZg1hChm4+FqfgYG/JOpFc7pn47YhSQMLqi4/w8KvlUU6aua1P/10vjlh9EbEjcrVzP9GItAews0NWJG8oIW0m8u2gMqPD+XGm0bcy2TC21ZIDo6tBO2HnbpscEjXSWwLQ4S0yhXUw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(7916004)(4636009)(346002)(396003)(376002)(136003)(39860400002)(230922051799003)(82310400011)(451199024)(186009)(64100799003)(1800799009)(36840700001)(46966006)(40470700004)(6916009)(70586007)(70206006)(316002)(2906002)(54906003)(9686003)(5660300002)(478600001)(4326008)(44832011)(26005)(426003)(336012)(83380400001)(8676002)(6666004)(8936002)(33964004)(356005)(47076005)(36860700001)(41300700001)(82740400003)(86362001)(33716001)(40460700003)(81166007)(40480700001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2023 00:13:15.1182
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1090cd55-9eee-4b13-5c7f-08dbc3a589d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4902
 
-On Mon, 2 Oct 2023, Julien Grall wrote:
-> On 29/09/2023 21:29, Stefano Stabellini wrote:
-> > I am very glad you managed to solve the issue!
-> > 
-> > It is always difficult to know what is the right thing to do when the
-> > firmware provides wrong or noncompliant information.
+--8323329-1903153407-1696288286=:2348112
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2310021709381.2348112@ubuntu-linux-20-04-desktop>
+
+Hi Oleg,
+
+You are getting this output:
+
+> (XEN) d0v0 Forwarding AES operation: 3254779951 136bb00000000000 -> fffffffffffff000
+
+Which means that the guest physical address is 0x136bb00000000000 and
+the translated physical address is 0xfffffffffffff000. It generates an
+error so you are asking if 0xfffffffffffff000 is incorrect because the
+translation is incorrect.
+
+This is possible. However, I think it is more likely that
+0x136bb000_00000000 is incorrect. This an extremely high address. Could
+it be wrong?
+
+Can you check against your device tree that 0x136bb000_00000000
+corresponds to memory? Or something valid?
+
+Cheers,
+
+Stefano
+
+
+On Mon, 2 Oct 2023, Oleg Nikitenko wrote:
+> Hello Stefano,
+> Hello Julien,
 > 
-> I am a bit confused why you think the firmware is wrong here. From ACPI spec
-> (ACPI 6.5, section 5.2.25):
+> > OK I see the question is about the Xilinx Xen tree. In the logs below we have:
 > 
-> "GSIV for the secure EL1 timer. This value is optional, as an operating system
-> executing in the nonsecure world (EL2 or EL1), will ignore the content of
-> these fields."
-
-Thanks for looking into it -- I didn't investigate the issue, I was just
-assuming that the table was incomplete due to the zero value.
-
-
-> So the expectation is that Xen should not read the value. In Xen, we decided
-> to read it because we want to know which PPIs exists in order to find an
-> unallocated one for the event channel.
->
-> > One on hand a panic
-> > can help debug a potentially broken firmware configuration. On the other
-> > hand the panic can cause problems to users that just want to boot Xen.
-> > Unfortunately due to the complexity of ACPI, issues like this one are
-> > not uncommon.
-> > 
-> > In this specific case, given that we don't actually use
-> > TIMER_PHYS_SECURE_PPI (we do use all the others: TIMER_HYP_PPI,
-> > TIMER_VIRT_PPI and TIMER_PHYS_NONSECURE_PPI) then I think we could
-> > safely remove the BUG at vtimer.c:75.
+> I see. After the correction r2 to r1 CSU got aborted immediately.
 > 
-> IIRC, MISRA has a rule for checking return value.
-
-Yes it does, rule 17.7, likely to be adopted
-
-
-> If it doesn't, then I would
-> at least query why you are suggesting to remove the BUG() but still keep the
-> call. Surely, if a function returns an error, we need to investigate why the
-> error is returned? And if the TIME_PHYS_SECURE_PPI is really not used, then
-> why should the call be kept?
->
-> As I wrote above, the goal of those calls was to ensure that all the PPI
-> described in the firmware tables were recorded so we can find a free PPI for
-> the event channel.
+> (XEN) d0v0 Forwarding AES operation: 3254779951 136bb00000000000 -> fffffffffffff000
+> Received exception
+> MSR: 0x200, EAR: 0x2F, EDR: 0x0, ESR: 0x861
 > 
-> vgic_reserve_virq() fails because the PPI is already reserved. I actually
-> wonder which other path reserves it? The reason in asking it is because for
-> some field, 0 is used to mark the interrupt is not used exists (see below for
-> the PPI timer). So maybe we forgot to add some check somewhere else. The other
-> possible reason is the PPI might be shared (I couldn't find anything in the
-> spec that it cannot be) and vgic_reserve_virq() doesn't deal with it right
-> now.
-
-Good point. That would be interesting to know
-
-
-> Now regarding whether the PPI is used. AFAICT, the secure timer PPI is still
-> present in the firmware tables (ACPI and DT) passed to dom0. So strictly
-> speaking we want to ensure the PPI value is reserved.
+> I printed the value which I got after the expression which I provided in the 1-st email executed.
 > 
-> That said, the ACPI spec suggests that the value will be ignored by the guest.
-> The Device-Tree binding doesn't have such statement, but I suspect this may be
-> the same. So it should be ok to skip reserving the PPI and therefore allow the
-> event channel interrupt to use if it is not reserved by someone else.
-
-You looked into this more deeply then I did. Your suggestion makes sense
-to me.
-
-
-> Cheers,
+> So I may conclude that Xilinx's real physical address calculation scheme on the xen CC is incorrect.
 > 
-> > On Fri, 29 Sep 2023, Driscoll, Dan wrote:
-> > > All,
-> > > 
-> > >          Just an FYI - using the debug guidance from Julien on Graviton 2,
-> > > we have successfully been able to boot Xen and 3 Linux VMs on a Graviton 2
-> > > c6g.metal instance.
-> > > 
-> > >          The problem turned out to be that the ACPI table containing the
-> > > arch timer interrupt vectors had an issue - the result was that the secure
-> > > physical timer IRQ was getting set to a value of 0 which resulted in Xen
-> > > panicking at vtimer.c:75 and stop booting the system.  The quick
-> > > work-around for this was to just hard-code this IRQ to 29 which is the
-> > > "typical" PPI assigned for this interrupt (and I suspect it isn't even
-> > > used, so kind of a don't care).  This fixed the problem and we encountered
-> > > no other issues.
-> > > 
-> > >          Out of curiosity, is this problem we found here one that has been
-> > > seen before?  I guess I could argue that the ACPI tables are incorrect and
-> > > should provide a valid PPI number for the secure physical timer, but I
-> > > could also argue that Xen shouldn't panic if this value is 0 and should
-> > > maybe replace with a "suitable" value and continue booting since it really
-> > > is not used?  I can provide more details as well as the patch used to work
-> > > around this issue - we are using Xen 4.16.1 BTW.
-> > > 
-> > >          Much appreciated for the support and help here... as we progress
-> > > in our work in this domain, we might have some more questions but, for
-> > > right now, it appears that things are working properly with the limited
-> > > testing we conducted.
-> > > 
-> > > Thanks,
-> > > Dan
-> > > 
-> > > > -----Original Message-----
-> > > > From: Julien Grall <julien@xen.org>
-> > > > Sent: Wednesday, September 27, 2023 7:59 AM
-> > > > To: Driscoll, Dan (DI SW CAS ES TO) <dan.driscoll@siemens.com>; xen-
-> > > > devel@lists.xenproject.org
-> > > > Cc: Stefano Stabellini <sstabellini@kernel.org>; Raghuraman, Arvind (DI
-> > > > SW CAS
-> > > > ES) <arvind.raghuraman@siemens.com>; Bertrand Marquis
-> > > > <Bertrand.Marquis@arm.com>; rahul.singh@arm.com; Luca Fancellu
-> > > > <Luca.Fancellu@arm.com>
-> > > > Subject: Re: Xen on AWS EC2 Graviton 2 metal instances (c6g.metal)
-> > > > 
-> > > > Hi Dan,
-> > > > 
-> > > > Thanks for the report.
-> > > > 
-> > > > On 26/09/2023 20:41, Driscoll, Dan wrote:
-> > > > >      First off - sorry for the very long email, but there are a lot of
-> > > > > details related
-> > > > to this topic and I figured more details might be better than less but I
-> > > > could be
-> > > > wrong here....
-> > > > > 
-> > > > >      Within Siemens Embedded, we have been doing some prototyping
-> > > > > using
-> > > > Xen for some upcoming customer related work - this email thread attempts
-> > > > to
-> > > > explain what has been done here and our analysis of the problems we are
-> > > > having.
-> > > > > 
-> > > > >      We have done some initial prototyping to get Xen running on an
-> > > > > AWS
-> > > > Graviton 2 instance using an EC2 Arm64 "metal" instance (c6g.metal - no
-> > > > AWS
-> > > > hypervisor) and ran into some problems during this prototyping.
-> > > > > 
-> > > > >      Since the Edge Workload Abstraction and Orchestration Layer
-> > > > > (EWAOL)
-> > > > that is part of SOAFEE already has some enablement of Xen in various
-> > > > environments (including an Arm64 server environment), we used this as a
-> > > > starting
-> > > > point.
-> > > > > 
-> > > > >      We were able to successfully bring up Xen and a Yocto dom0 and
-> > > > > multiple domu Yocto guests on an Arm AVA server (AVA Developer
-> > > > > Platform - 32 core Neoverse N1 server) following documented steps with
-> > > > > some minimal configuration changes (we simply extended the
-> > > > > configuration to include 3 Linux guests):
-> > > > > https://ewao/
-> > > > > l.docs.arm.com%2Fen%2Fkirkstone-
-> > > > dev%2Fmanual%2Fbuild_system.html%23bui
-> > > > > ld-
-> > > > system&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce
-> > > > > 
-> > > > 45b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7C63
-> > > > 831416
-> > > > > 
-> > > > 3551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV
-> > > > 2luMzI
-> > > > > 
-> > > > iLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=TfGY5InUn
-> > > > BnfUO0z
-> > > > > ato7l%2Fa5IIAek%2FOip%2FdNMxuXEgM%3D&reserved=0
-> > > > > 
-> > > > >      So, this specific EWAOL support has all the proper bitbake layers
-> > > > > to
-> > > > generate images for both bare-metal (Linux running natively) and a
-> > > > virtualization
-> > > > build (using Xen) for AVA and also a Neoverse N1 System Development
-> > > > Platform
-> > > > (N1SDP), but we only verified this on AVA.
-> > > > > c6g.medium
-> > > > >      AWS also has support for EWAOL on Graviton 2, but the only
-> > > > > supported
-> > > > > configuration is a bare-metal configuration (Linux running natively)
-> > > > > and the virtualization build hasn't been implemented in the bitbake
-> > > > > layers in their repo - here is the URL for information / instructions
-> > > > > on this support:
-> > > > > https://gith/
-> > > > > ub.com%2Faws4embeddedlinux%2Fmeta-aws-
-> > > > ewaol&data=05%7C01%7Cdan.driscol
-> > > > > 
-> > > > l%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38ae3bcd95794f
-> > > > d4a
-> > > > > 
-> > > > ddab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnknown%7CTWFp
-> > > > bGZsb3d8e
-> > > > > 
-> > > > yJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7
-> > > > C30
-> > > > > 
-> > > > 00%7C%7C%7C&sdata=rPcqfn9w9C9cS81Ee5HpyupEBD%2BqDY18dvPm0N6tB
-> > > > Mk%3D&res
-> > > > > erved=0
-> > > > > 
-> > > > https://docs.aws.am/
-> > > > azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fgrub.html&data=05%7C01%
-> > > > 7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38a
-> > > > e3bcd95794fd4addab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnk
-> > > > nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h
-> > > > aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZwLDw%2B3vOtaVJwg%
-> > > > 2B7kgHXJcE8yuu%2F7TNewmE2Yn4AiQ%3D&reserved=0
-> > > > >      As part of our effort to bring this up, we did a VERY minimal
-> > > > > patch to the
-> > > > repo used for the AWS EWAOL to generate a virtualization build (attached
-> > > > meta-
-> > > > aws-ewaol.patch).  The resultant build of the AWS EWAOL support with
-> > > > this patch
-> > > > applied does result in Xen being built as well as a dom0 Yocto kernel,
-> > > > but there is
-> > > > definitely missing support to properly build everything for this
-> > > > virtualization layer.
-> > > > Following the instructions for meta-aws-ewaol,  we generated an AMI and
-> > > > started
-> > > > an EC2 instance with this AMI (c6g.metal type).  The resultant image
-> > > > does boot,
-> > > > but it boots into the dom0 Linux kernel with problems recorded in the
-> > > > boot log
-> > > > related to Xen (see dom0-linux-boot.txt).
-> > > > > 
-> > > > >          Looking more closely at the EFI partition, it was clear that
-> > > > > systemd-boot
-> > > > was being used and it was set-up to boot the dom0 Linux kernel and not
-> > > > boot into
-> > > > Xen - the Xen EFI images were not present in the EFI partition and
-> > > > obviously no
-> > > > launch entries existed for Xen.  To rectify this, the Xen EFI image that
-> > > > were built as
-> > > > part of the AWS EWAOL build mentioned above where placed in the EFI
-> > > > partition,
-> > > > along with a Xen config file that provided the dom0 Linux kernel image
-> > > > details.  A
-> > > > new entry was added into the EFI image for Xen and the launch conf file
-> > > > was
-> > > > updated to boot Xen instead of dom0 Linux.  This resulted in the EC2
-> > > > instance
-> > > > becoming "bricked" and no longer accessible.
-> > > > > 
-> > > > >          Details on the EFI related content and changes we made are
-> > > > > captured in
-> > > > the meta-aws-ewaol-efi-boot-changes.txt file attached above.
-> > > > > 
-> > > > >          The next step was comparing the AVA Xen output that was
-> > > > > working and we
-> > > > noticed a few differences - the AVA build did enable ACPI and
-> > > > UNSUPPORTED
-> > > > kconfig settings whereas the AWS Xen build did not.  So, we tried again
-> > > > to bring up
-> > > > another EC2 metal instance using the same AMI as before and utilized the
-> > > > AVA
-> > > > Xen EFI image instead and same Xen config file.  The result was the same
-> > > > - a
-> > > > "bricked" instance.
-> > > > > 
-> > > > >          We will likely try to use the entire AVA flow on AWS Graviton
-> > > > > next as it is
-> > > > using GRUB 2 instead of systemd-boot and we hope to maybe extend or
-> > > > enable
-> > > > some of the debug output during boot.  The AWS EC2 instances have a
-> > > > "serial
-> > > > console", but we have yet to see any output on this console prior to
-> > > > Linux boot logs
-> > > > - no success in getting EC2 serial output during EFI booting.
-> > > > 
-> > > > That's interesting. The documentation for AWS [1] suggests that the logs
-> > > > from boot
-> > > > should be seen. They even have a page for troubleshooting using GRUB
-> > > > [2].
-> > > > 
-> > > > I just launched a c6g.metal and I could access the serial console but
-> > > > then it didn't
-> > > > work across reboot.
-> > > > 
-> > > > I have tried a c6g.medium and the serial was working across reboot (I
-> > > > could see
-> > > > some logs). So I wonder whether the serial console is there is a missing
-> > > > configuration for baremetal?
-> > > > 
-> > > > > 
-> > > > >          We have had a call and some email exchanges with AWS on this
-> > > > > topic
-> > > > (Luke Harvey, Jeremy Dahan, Robert DeOliveira, and Azim Siddique) and
-> > > > they said
-> > > > there have been multiple virtualization solutions successfully booted on
-> > > > Graviton 2
-> > > > metal instances, so they felt that Xen should be useable once we figured
-> > > > out
-> > > > configuration / boot details.  The provided some guidance how we might
-> > > > go about
-> > > > some more exploration here, but nothing really specific to supporting
-> > > > Xen.
-> > > > 
-> > > > To be honest, without a properly working serial console, it is going to
-> > > > be very
-> > > > difficult to debug any issue in Xen.
-> > > > 
-> > > > Right now, it is unclear whether Xen has output anything. If we can
-> > > > confirm the
-> > > > serial console has intended and then are still no logs, then I would
-> > > > suggest to
-> > > > enable earlyprintk in Xen. For your Graviton2, I think the following
-> > > > lines in
-> > > > xen/.config should do the trick:
-> > > > 
-> > > > CONFIG_DEBUG=y
-> > > > CONFIG_EARLY_UART_CHOICE_PL011=y
-> > > > CONFIG_EARLY_UART_PL011=y
-> > > > CONFIG_EARLY_PRINTK=y
-> > > > CONFIG_EARLY_UART_BASE_ADDRESS=0x83e00000
-> > > > CONFIG_EARLY_UART_PL011_BAUD_RATE=115200
-> > > > 
-> > > > > 
-> > > > >          I have attached the following files for reference:
-> > > > > 
-> > > > >      * meta-aws-ewaol.patch - patch to AWS EWAOL repo found at
-> > > > https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%25
-> > > > 2Faws4embeddedlinux%2Fmeta-aws-
-> > > > ewaol&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45
-> > > > b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7C6383
-> > > > 14163551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJ
-> > > > QIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata
-> > > > =rPcqfn9w9C9cS81Ee5HpyupEBD%2BqDY18dvPm0N6tBMk%3D&reserved=0
-> > > > >      * meta-aws-ewaol-efi-boot-changes.txt - Description of EFI
-> > > > > related
-> > > > changes made to AWS EWAOL EFI partition in attempt to boot Xen
-> > > > >      * ava.xen.config - config file for Xen build for AVA using EWAOL
-> > > > virtualization build
-> > > > >      * aws.xen.config - config file for Xen build for AWS using EWAOL
-> > > > virtualization build
-> > > > >      * xen-4.16.1.cfg - Xen config file placed in root of EFI boot
-> > > > > partition alongside xen-4.16.1.efi image
-> > > > 
-> > > > May I ask why you are using 4.16.1 rather than 4.17? In general I would
-> > > > recommend to use the latest stable version or even a staging (the
-> > > > on-going
-> > > > development branch) for bring-up because we don't always backport
-> > > > everything to
-> > > > stable branch. So a bug may have been fixed in newer revision.
-> > > > 
-> > > > That said, skimming through the logs, I couldn't spot any patches that
-> > > > may help on
-> > > > Graviton 2.
-> > > > 
-> > > > Best regards,
-> > > > 
-> > > > [1]
-> > > > https://docs.aws.am/
-> > > > azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fec2-serial-
-> > > > console.html&data=05%7C01%7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc
-> > > > 43ce45b908dbbf598a6d%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7
-> > > > C638314163551872035%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMD
-> > > > AiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&
-> > > > sdata=%2BQF9rA7KVEGbGJZIX0lhCv0du4oKR5632Eff2EoC2PY%3D&reserved=0
-> > > > [2]
-> > > > https://docs.aws.am/
-> > > > azon.com%2FAWSEC2%2Flatest%2FUserGuide%2Fgrub.html&data=05%7C01%
-> > > > 7Cdan.driscoll%40siemens.com%7Cc7c8b262cbfc43ce45b908dbbf598a6d%7C38a
-> > > > e3bcd95794fd4addab42e1495d55a%7C1%7C0%7C638314163551872035%7CUnk
-> > > > nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h
-> > > > aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZwLDw%2B3vOtaVJwg%
-> > > > 2B7kgHXJcE8yuu%2F7TNewmE2Yn4AiQ%3D&reserved=0
-> > > > 
-> > > > > 
-> > > > > Dan Driscoll
-> > > > > Distinguished Engineer
-> > > > > Siemens DISW - Embedded Platform Solutions
-> > > > 
-> > > > --
-> > > > Julien Grall
-> > > 
+> Could you suggest a correct one ?
 > 
-> -- 
-> Julien Grall
+> Regards,
+> Oleg Nikitenko
 > 
+> пт, 29 сент. 2023 г. в 00:50, Stefano Stabellini <sstabellini@kernel.org>:
+>       On Thu, 28 Sep 2023, Oleg Nikitenko wrote:
+>       > Hello Julien,
+>       >
+>       > I am still fighting with xen Cache Coloring with aes.
+>       > When I sent a request to hardware aes after xen with CC started I got the mistake in CSU.
+>       > When I dumped structure contents on both sides I got the different data.
+>       > Xilinx related contact wrote to me.
+>       >
+>       > When cache coloring is enabled, Dom0 is not 1:1 mapped (guest physical addresses in Dom0 != physical addresses). If the
+>       Xilinx drivers in
+>       > Linux (xcsudma.c) issue EEMI calls with a guest physical address (for instance the address of a memory buffer allocated by
+>       Linux), then
+>       > this address is no longer a physical address and would need to be translated. EEMI calls always get forwarded to Xen first,
+>       then Xen issues
+>       > a corresponding EEMI call to the firmware (see xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi). But Xen is probably passing
+>       the EEMI
+>       > calls parameters unmodified. Then PMU tries to read the address but since this is not a physical address, it fails. Basically
+>       we need to
+>       > add code to Xen xen/arch/arm/platforms/xilinx-eemi.c:xilinx_eemi to translate any guest physical addresses passed as EEMI
+>       calls arguments
+>       > into physical addresses before making the EEMI call to firmware.
+>       >
+>       > This is an example patch, which is translating the parameter on register x2 for the EEMI call 0xC200002F. I haven't checked
+>       the EEMI
+>       > protocol for this call but this just an example to show you how to translate parameters.
+>       >
+>       > diff --git a/xen/arch/arm/platforms/xilinx-eemi.c b/xen/arch/arm/platforms/xilinx-eemi.c index 500c86dc69..bff1b71196 100644
+>       ---
+>       > a/xen/arch/arm/platforms/xilinx-eemi.c +++ b/xen/arch/arm/platforms/xilinx-eemi.c @@ -409,6 +409,30 @@ bool
+>       xilinx_eemi(struct
+>       > cpu_user_regs *regs, const uint32_t fid, } goto forward_to_fw;
+>       >
+>       >  *  case 0xC200002F:
+>       >  *  {
+>       >  *  uint64_t example_possible_address_param = get_user_reg(regs, 2);
+>       >  *  uint64_t translated_address = mfn_to_maddr(gfn_to_mfn(current->domain,
+>       >  *  gaddr_to_gfn(example_possible_address_param)));
+>       >  *  translated_address += example_possible_address_param & ~PAGE_MASK; +
+>       >  *  arm_smccc_1_1_smc(get_user_reg(regs, 0),
+>       >  *  get_user_reg(regs, 1),
+>       >  *  translated_address,
+>       >  *  get_user_reg(regs, 3),
+>       >  *  get_user_reg(regs, 4),
+>       >  *  get_user_reg(regs, 5),
+>       >  *  get_user_reg(regs, 6),
+>       >  *  get_user_reg(regs, 7),
+>       >  *  &res); +
+>       >  *  set_user_reg(regs, 0, res.a0);
+>       >  *  set_user_reg(regs, 1, res.a1);
+>       >  *  set_user_reg(regs, 2, res.a2);
+>       >  *  set_user_reg(regs, 3, res.a3);
+>       >  *  return true;
+>       >  *  }
+>       >
+>       > + default: if ( is_hardware_domain(current->domain) ) goto forward_to_fw;
+>       >
+>       > The aes request structure contains physical addresses of the source and destination.
+>       > These addresses are obtained via two calls dma_alloc_coherent.
+>       > The address of this structure is kept at x2 register.
+> 
+>       OK I see the question is about the Xilinx Xen tree. In the logs below we
+>       have:
+> 
+>       > (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -> 11432000                                                        log
+>       from xen
+> 
+>       So it looks Linux passed 0 as address in x2, which cannot be right?
+> 
+> 
+> 
+>       > I applied the suggested scheme in xen for xilinx_eemi(...) function.
+>       >
+>       > case 0xC200002F:
+>       > {
+>       > uint64_t paramaddr = get_user_reg(regs, 2);
+> 
+>       It would seem that this is not read correctly? It should not be zero.
+> 
+> 
+>       > uint64_t phyaddr = mfn_to_maddr(gfn_to_mfn(current->domain, gaddr_to_gfn(paramaddr)));
+>       > phyaddr += (paramaddr & ~PAGE_MASK);
+>       > gprintk(XENLOG_DEBUG, "Forwarding AES operation: %u r2 %lx -> %lx\n", fid, paramaddr, phyaddr);
+>       > set_user_reg(regs, 2, phyaddr);
+>       > }
+>       > goto forward_to_fw;
+>       >
+>       > As a result I got the same issue as earlier.
+>       >
+>       > [   17.350086]
+>       >
+>       zynq_aes_gcm                                                                                                                       
+>       user
+>       > log
+>       >
+>       > [   17.350202] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @                                                       kernel
+>       log from Dom0
+>       > [   17.353015] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
+>       > [   17.358515] zynqmp_aes [0] ffffffc00910d000 2806000 firmware:zynqmp-firmware:zynqmp-aes
+>       > [   17.366546] @ dma_alloc firmware:zynqmp-firmware:zynqmp-aes @
+>       > [   17.372347] @@@ firmware:zynqmp-firmware:zynqmp-aes 0 @@@
+>       > [   17.377775] zynqmp_aes [1] ffffffc009115000 42a14000 keytype 1
+>       > [   17.383660] zynqmp_aes [2] dump request align 1 ++
+>       > [   17.388501] 00 60 80 02 00 00 00 00
+>       > [   17.392032] 50 60 80 02 00 00 00 00
+>       > [   17.395583] 00 00 00 00 00 00 00 00
+>       > [   17.399117] 00 60 80 02 00 00 00 00
+>       > [   17.402664] 40 00 00 00 00 00 00 00
+>       > [   17.406226] 00 00 00 00 00 00 00 00
+>       > [   17.409755] 01 00 00 00 00 00 00 00
+>       > [   17.413311] zynqmp_aes [3] dump request --
+>       >
+>       > (XEN) d0v1 Forwarding AES operation: 3254779951 r2 0 -> 11432000                                                        log
+>       from xen
+> 
+>       Here
+> 
+> 
+>       > @ 000042A14000
+>       >
+>       @                                                                                                                                     
+>       csu
+>       > log from aes
+>       > 04 E4 00 6F 05 E4 00 6F
+>       > 06 E4 00 6F 07 E4 00 6F
+>       > 10 E4 00 6F 11 E4 00 6F
+>       > 12 E4 00 6F 13 E4 00 6F
+>       > 14 E4 00 6F 15 E4 00 6F
+>       > 16 E4 00 6F 17 E4 00 6F
+>       > 18 E4 00 6F 19 E4 00 6F
+>       >
+>       > ERROR:   pm_aes_engine ### args 6 ret 0 addr 0 42a14000 ###                                                               
+>       ATF log
+>       >
+>       > So the address of the structure was not changed.
+>       > This is the question. 
+>       > How can I map this address to xen and change physical addresses there ?
+> 
+> 
+> 
+--8323329-1903153407-1696288286=:2348112--
 
