@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D11FB7B72A0
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 22:42:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612352.952259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68B137B72A4
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 22:44:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612357.952270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnmDS-0007OW-5e; Tue, 03 Oct 2023 20:42:02 +0000
+	id 1qnmF1-0000hS-Gq; Tue, 03 Oct 2023 20:43:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612352.952259; Tue, 03 Oct 2023 20:42:02 +0000
+Received: by outflank-mailman (output) from mailman id 612357.952270; Tue, 03 Oct 2023 20:43:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnmDS-0007LV-34; Tue, 03 Oct 2023 20:42:02 +0000
-Received: by outflank-mailman (input) for mailman id 612352;
- Tue, 03 Oct 2023 20:42:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qnmF1-0000eh-Dj; Tue, 03 Oct 2023 20:43:39 +0000
+Received: by outflank-mailman (input) for mailman id 612357;
+ Tue, 03 Oct 2023 20:43:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BPao=FR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qnmDR-0007LP-1h
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 20:42:01 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4af9828d-622d-11ee-9b0d-b553b5be7939;
- Tue, 03 Oct 2023 22:41:58 +0200 (CEST)
+ id 1qnmEz-0000eY-Jo
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 20:43:37 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 863a43d7-622d-11ee-98d2-6d05b1d4d9a1;
+ Tue, 03 Oct 2023 22:43:36 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2ADA7CE1877;
- Tue,  3 Oct 2023 20:41:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9833C433C8;
- Tue,  3 Oct 2023 20:41:49 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id BD08CB81C0C;
+ Tue,  3 Oct 2023 20:43:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37921C433C8;
+ Tue,  3 Oct 2023 20:43:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,101 +41,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4af9828d-622d-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 863a43d7-622d-11ee-98d2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696365711;
-	bh=uQS55In3SF3nroA+vqGoCwxIEXAeslUxH7X1AtLmYR8=;
+	s=k20201202; t=1696365815;
+	bh=OOJ8HydREvvAOPW5YurzwyTzOt6pMdWz4Zxnt+LUhlY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dW/FOnu08BgKC9OxlalGmxPYOHtIN3rbGQsnS57vAX5tOsCZ/sI4+bd7lgLucDJLd
-	 QjAdpXzMwGIxyomxdA28oBW6RwF0/6Wo46LdSRUQPLeKlrQ6sxyUWQBKCd16zqfmxa
-	 COmCTzetdUlgVBNw89uYyKjTNO95uwGMx1+7bnhXqKuHwoEULZ7J8uLbKDCA0uvVTO
-	 HueLRu/gdCK6qO3da0L2QMyKcb6goigOnwsf4KDFAbCkBGdyZJG+UzDGGcnG9uAgut
-	 RYcAxcycudrigQa+tSeRKzC6VWZIXtCm5e1MfOcf/t2lD8ccBZ8xj66ND2ZvRrDEeJ
-	 RiO8gh1n30Iyw==
-Date: Tue, 3 Oct 2023 13:41:48 -0700 (PDT)
+	b=fRWmjs+7WFdMRYVa9NA4xmVTF3WLC7xHl1RCtLWAcP2udtcsFYfb7QhtQzwWHIQ7j
+	 cstvMI+5+/OdSpt9K8bwaDdXZG9StQZGtZ1geGLV3v4XPtw4+zFmfioC/sK87GqRHl
+	 Ap2PYx5rI4gx5XrFE78bhxVaaE4G5a2O58RxVTpKjoagqS1XpS4LuzPjksPpVfqi5p
+	 kp59uGN+7z+L6YSkcYztY/hc9qJzxYQ7JgPoI+bwBMfERfRmMDiIeSZdvESIYBEsmP
+	 ED23LuSk0ael3ESdLa3w3bxs/EGyijLmVwjR/ks51kOPgfVPzfXP6OsMcCYHED8TOR
+	 pH2PvZdQc0wTQ==
+Date: Tue, 3 Oct 2023 13:43:32 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
-    roger.pau@citrix.com, Henry.Wang@arm.com, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 4/7] x86/grant: switch included header to make
- declarations visible
-In-Reply-To: <7dcb6b040d0fab33553dac18e9080465@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310031341240.2348112@ubuntu-linux-20-04-desktop>
-References: <cover.1696232393.git.nicola.vetrini@bugseng.com> <ec3179df569d3e2b392360539bddfb3adc726a5e.1696232393.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2310021541230.2348112@ubuntu-linux-20-04-desktop>
- <7dcb6b040d0fab33553dac18e9080465@bugseng.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Henry Wang <henry.wang@arm.com>
+Subject: Re: [XEN PATCH] automation/eclair: add deviations for MISRA C:2012
+ Rule 10.1
+In-Reply-To: <83f4f9df2459f22690e6df98a43b3602c22bf27b.1696319475.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2310031343170.2348112@ubuntu-linux-20-04-desktop>
+References: <83f4f9df2459f22690e6df98a43b3602c22bf27b.1696319475.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 3 Oct 2023, Nicola Vetrini wrote:
-> On 03/10/2023 00:42, Stefano Stabellini wrote:
-> > On Mon, 2 Oct 2023, Nicola Vetrini wrote:
-> > > The declarations for {create,replace}_grant_p2m_mapping are
-> > > not visible when these functions are defined, therefore the right
-> > > header needs to be included to allow them to be visible.
-> > > 
-> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > ---
-> > >  xen/arch/x86/hvm/grant_table.c             | 3 +--
-> > >  xen/arch/x86/include/asm/hvm/grant_table.h | 2 ++
-> > >  2 files changed, 3 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/xen/arch/x86/hvm/grant_table.c
-> > > b/xen/arch/x86/hvm/grant_table.c
-> > > index 30d51d54a949..afe449d8882c 100644
-> > > --- a/xen/arch/x86/hvm/grant_table.c
-> > > +++ b/xen/arch/x86/hvm/grant_table.c
-> > > @@ -9,8 +9,7 @@
-> > > 
-> > >  #include <xen/types.h>
-> > > 
-> > > -#include <public/grant_table.h>
-> > > -
-> > > +#include <asm/hvm/grant_table.h>
-> > >  #include <asm/p2m.h>
-> > 
-> > This makes sense...
-> > 
-> > 
-> > >  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
-> > > diff --git a/xen/arch/x86/include/asm/hvm/grant_table.h
-> > > b/xen/arch/x86/include/asm/hvm/grant_table.h
-> > > index 33c1da1a25f3..576aeb50adf4 100644
-> > > --- a/xen/arch/x86/include/asm/hvm/grant_table.h
-> > > +++ b/xen/arch/x86/include/asm/hvm/grant_table.h
-> > > @@ -10,6 +10,8 @@
-> > >  #ifndef __X86_HVM_GRANT_TABLE_H__
-> > >  #define __X86_HVM_GRANT_TABLE_H__
-> > > 
-> > > +#include <asm/paging.h>
-> > 
-> > ... but I don't understand this one. It doesn't look like
-> > asm/hvm/grant_table.h actually needs asm/paging.h ? Maybe it should be
-> > included in xen/arch/x86/hvm/grant_table.c instead ?
-> > 
-> > 
-> > >  #ifdef CONFIG_HVM
-> > > 
-> > >  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
-> > > --
-> > > 2.34.1
-> > > 
+On Tue, 3 Oct 2023, Federico Serafini wrote:
+> Update the configuration of ECLAIR to deviate some violations of Rule
+> 10.1 in accordance with docs/misra/rules.rst.
 > 
-> See this thread [1] for more context. There was no response, so I went for the
-> route that
-> made more sense to me. I guess you could say that only <xen/mm-frame.h> is
-> actually needed
-> to get a definition of mfn_t, but I put <asm/paging.h> as in the
-> <asm/grant_table.h> header.
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> [1]
-> https://lore.kernel.org/xen-devel/a4b6710b66ed05292388ac6882b940ec@bugseng.com/
-
-I didn't realize it was for mfn_t. In that case it makes sense.
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index d8170106b4..241aad6393 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -274,6 +274,18 @@ still non-negative."
+>  -config=MC3R1.R10.1,etypes+={safe, "stmt(operator(logical)||node(conditional_operator||binary_conditional_operator))", "dst_type(ebool||boolean)"}
+>  -doc_end
+>  
+> +-doc_begin="XEN only supports architectures where signed integers are representend using two's complement and all the XEN developers are aware of this."
+> +-config=MC3R1.R10.1,etypes+={safe,
+> +  "stmt(operator(and||or||xor||not||and_assign||or_assign||xor_assign))",
+> +  "any()"}
+> +-doc_end
+> +
+> +-doc_begin="See Section \"4.5 Integers\" of \"GCC_MANUAL\", where it says that \"Signed `>>' acts on negative numbers by sign extension. As an extension to the C language, GCC does not use the latitude given in C99 and C11 only to treat certain aspects of signed `<<' as undefined. However, -fsanitize=shift (and -fsanitize=undefined) will diagnose such cases. They are also diagnosed where constant expressions are required.\""
+> +-config=MC3R1.R10.1,etypes+={safe,
+> +  "stmt(operator(shl||shr||shl_assign||shr_assign))",
+> +  "any()"}
+> +-doc_end
+> +
+>  ### Set 3 ###
+>  
+>  #
+> -- 
+> 2.34.1
+> 
 
