@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E20B7B6CA3
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 17:08:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612250.952096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 761B77B6CB0
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 17:11:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612255.952106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qngza-00087t-Rr; Tue, 03 Oct 2023 15:07:22 +0000
+	id 1qnh3W-00017J-Cs; Tue, 03 Oct 2023 15:11:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612250.952096; Tue, 03 Oct 2023 15:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 612255.952106; Tue, 03 Oct 2023 15:11:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qngza-00085b-PK; Tue, 03 Oct 2023 15:07:22 +0000
-Received: by outflank-mailman (input) for mailman id 612250;
- Tue, 03 Oct 2023 15:07:21 +0000
+	id 1qnh3W-00014X-A6; Tue, 03 Oct 2023 15:11:26 +0000
+Received: by outflank-mailman (input) for mailman id 612255;
+ Tue, 03 Oct 2023 15:11:24 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qngzZ-00085V-1G
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 15:07:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qnh3U-00014N-Sh; Tue, 03 Oct 2023 15:11:24 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qngzX-0003BU-Sl; Tue, 03 Oct 2023 15:07:19 +0000
-Received: from [15.248.2.158] (helo=[10.24.67.42])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qngzX-0005sd-Kn; Tue, 03 Oct 2023 15:07:19 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qnh3U-0003GP-Pe; Tue, 03 Oct 2023 15:11:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qnh3U-0002LM-Dm; Tue, 03 Oct 2023 15:11:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qnh3U-0006Fi-DL; Tue, 03 Oct 2023 15:11:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,137 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9l5Ln8SF3Zh/g+DWAF7vPzP+Q7benGJL16V18HNYNRI=; b=OzJJUr0J4hkNpxmlmIspuSdouh
-	/N9z4iuN5W/jgmVJoFNv8as9K9lMUS6L91XIO/BGtSLD1TJH0IJdKziAxNaEY+20vyTaTZJooRBH4
-	9uXiITMcsoSMjBm82lqrb3shj2G8lR5IWCoJ1+YAawUhtNSY9HjwnltDfIVXjk6IkhUM=;
-Message-ID: <8ee8d70b-5b69-4834-b7e3-572e96effa5c@xen.org>
-Date: Tue, 3 Oct 2023 16:07:17 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/10] x86/mem-sharing: copy GADDR based shared guest
- areas
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-Cc: xen-devel@lists.xenproject.org, henry.wang@arm.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20231002151127.71020-1-roger.pau@citrix.com>
- <20231002151127.71020-7-roger.pau@citrix.com>
- <CABfawhnHg3KrGP-hp4_Q8GvSf2nVSVSyK24HKqAGuWp_AtD8-A@mail.gmail.com>
- <ZRwlXls8xRyc8AX4@MacBookPdeRoger>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ZRwlXls8xRyc8AX4@MacBookPdeRoger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sYROMHZw78Vb3aXYzMt+n+OhfhyVvUH3bi+KvOwSQiQ=; b=gB0w13b6Ax3QsATRPJeJBNcdAM
+	+wgYFWAtBtOeyHJKWxk39sWEsvXKjyde+AxH08ieblznsMhL4QsCVODYr/poSHMIE1ysQjCS9dx2c
+	iWPurs3sgTSZeLXng1NmmSKefbmsInibpfiBKU4jLJENOakXQJAZ1EZr3M1IMbE1h1O4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183246-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 183246: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=85e893a836f59ee7cffdd86bfbb04c714433d0aa
+X-Osstest-Versions-That:
+    libvirt=5c47ac65513a7649ebbff33536401a8d0f9b0766
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 03 Oct 2023 15:11:24 +0000
 
-Hi Roger,
+flight 183246 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183246/
 
-On 03/10/2023 15:29, Roger Pau Monné wrote:
-> On Tue, Oct 03, 2023 at 09:53:11AM -0400, Tamas K Lengyel wrote:
+Failures :-/ but no regressions.
 
-Tamas, somehow your e-mails don't show up in my inbox (even if I am 
-CCed) or even on lore.kernel.org/xen-devel. It is not even in my SPAM 
-folder.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183231
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183231
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183231
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
->> On Mon, Oct 2, 2023 at 11:13 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
->>>
->>> From: Jan Beulich <jbeulich@suse.com>
->>>
->>> In preparation of the introduction of new vCPU operations allowing to
->>> register the respective areas (one of the two is x86-specific) by
->>> guest-physical address, add the necessary fork handling (with the
->>> backing function yet to be filled in).
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> Changes since v4:
->>>   - Rely on map_guest_area() to populate the child p2m if necessary.
->>> ---
->>>   xen/arch/x86/mm/mem_sharing.c | 31 +++++++++++++++++++++++++++++++
->>>   xen/common/domain.c           |  7 +++++++
->>>   2 files changed, 38 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
->>> index 5f8f1fb4d871..99cf001fd70f 100644
->>> --- a/xen/arch/x86/mm/mem_sharing.c
->>> +++ b/xen/arch/x86/mm/mem_sharing.c
->>> @@ -1641,6 +1641,24 @@ static void copy_vcpu_nonreg_state(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
->>>       hvm_set_nonreg_state(cd_vcpu, &nrs);
->>>   }
->>>
->>> +static int copy_guest_area(struct guest_area *cd_area,
->>> +                           const struct guest_area *d_area,
->>> +                           struct vcpu *cd_vcpu,
->>> +                           const struct domain *d)
->>> +{
->>> +    unsigned int offset;
->>> +
->>> +    /* Check if no area to map, or already mapped. */
->>> +    if ( !d_area->pg || cd_area->pg )
->>> +        return 0;
->>> +
->>> +    offset = PAGE_OFFSET(d_area->map);
->>> +    return map_guest_area(cd_vcpu, gfn_to_gaddr(
->>> +                                       mfn_to_gfn(d, page_to_mfn(d_area->pg))) +
->>> +                                   offset,
->>> +                          PAGE_SIZE - offset, cd_area, NULL);
->>> +}
->>> +
->>>   static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
->>>   {
->>>       struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
->>> @@ -1709,6 +1727,16 @@ static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
->>>                   return ret;
->>>           }
->>>
->>> +        /* Same for the (physically registered) runstate and time info areas. */
->>> +        ret = copy_guest_area(&cd_vcpu->runstate_guest_area,
->>> +                              &d_vcpu->runstate_guest_area, cd_vcpu, d);
->>> +        if ( ret )
->>> +            return ret;
->>> +        ret = copy_guest_area(&cd_vcpu->arch.time_guest_area,
->>> +                              &d_vcpu->arch.time_guest_area, cd_vcpu, d);
->>> +        if ( ret )
->>> +            return ret;
->>> +
->>>           ret = copy_vpmu(d_vcpu, cd_vcpu);
->>>           if ( ret )
->>>               return ret;
->>> @@ -1950,7 +1978,10 @@ int mem_sharing_fork_reset(struct domain *d, bool reset_state,
->>>
->>>    state:
->>>       if ( reset_state )
->>> +    {
->>>           rc = copy_settings(d, pd);
->>> +        /* TBD: What to do here with -ERESTART? */
->>
->> There is no situation where we get an -ERESTART here currently. Is
->> map_guest_area expected to run into situations where it fails with
->> that rc?
-> 
-> Yes, there's a spin_trylock() call that will result in
-> map_guest_area() returning -ERESTART.
-> 
->> If yes we might need a lock in place so we can block until it
->> can succeed.
-> 
-> I'm not sure whether returning -ERESTART can actually happen in
-> map_guest_area() for the fork case: the child domain is still paused
-> at this point, so there can't be concurrent guest hypercalls that
-> would also cause the domain hypercall_deadlock_mutex to be acquired.
+version targeted for testing:
+ libvirt              85e893a836f59ee7cffdd86bfbb04c714433d0aa
+baseline version:
+ libvirt              5c47ac65513a7649ebbff33536401a8d0f9b0766
 
-hypercall_deadlock_mutex is also acquired by domctls. So, I believe, 
--ERESTART could be returned if the toolstack is also issuing domclt 
-right at the same time as forking.
+Last test of basis   183231  2023-10-01 04:28:44 Z    2 days
+Testing same since   183246  2023-10-03 04:20:44 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  김인수 <simmon@nplob.com>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   5c47ac6551..85e893a836  85e893a836f59ee7cffdd86bfbb04c714433d0aa -> xen-tested-master
 
