@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D177B621E
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:06:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611981.951833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403507B61EF
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:01:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611913.951713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUG-00073r-SB; Tue, 03 Oct 2023 07:06:32 +0000
+	id 1qnZOi-0007hy-8W; Tue, 03 Oct 2023 07:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611981.951833; Tue, 03 Oct 2023 07:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 611913.951713; Tue, 03 Oct 2023 07:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUG-0006zn-MT; Tue, 03 Oct 2023 07:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 611981;
- Tue, 03 Oct 2023 07:06:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XwHy=FR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qnZJI-00047B-9q
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 06:55:12 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6c9cd54-61b9-11ee-9b0d-b553b5be7939;
- Tue, 03 Oct 2023 08:55:03 +0200 (CEST)
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2023 23:54:54 -0700
-Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga005.fm.intel.com with ESMTP; 02 Oct 2023 23:54:53 -0700
+	id 1qnZOi-0007fJ-5w; Tue, 03 Oct 2023 07:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 611913;
+ Tue, 03 Oct 2023 07:00:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g4lE=FR=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qnZOg-0007fD-QI
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 07:00:46 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92c8bd04-61ba-11ee-98d2-6d05b1d4d9a1;
+ Tue, 03 Oct 2023 09:00:45 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id A05994EE0737;
+ Tue,  3 Oct 2023 09:00:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,179 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6c9cd54-61b9-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1696316103; x=1727852103;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=eEbBoWC5xFSRvZAlegSoACai1Gg5zcI498qdyjosTZg=;
-  b=HK422Sr4RTtrYJqO+T3eQni0+x2u+6BNWSqFIKwJGNFHrdqTbay7Xg8N
-   0rNPHXD4iEyLMR+mkzhEetDNBbbb5u+Q4q5wdFPnx+pXSj3aR0mjbfE2S
-   ghje3bBKjHO+9QshbJ2JEPJ3XpwTifgfJAj4OFDg31iBPwGDxLuyftzRm
-   Ou9iOBVLKvSPDB1jWOCX33EOI7+GoFNyjB2J5EPg8fy8HJ9ToBIZnYzo8
-   x63SS+bGQ//4b5V60J1X+AZE8WLOOybVkkPElx1Jgjd/pwxMkjZ8bI0v+
-   B8ukw+ytoqHsNTPGAhtLilZHY+04UqAGCPV1+nVUAfIrK9lnVkEeC3i5o
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="367858375"
-X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="367858375"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="1081901031"
-X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="1081901031"
-From: Xin Li <xin3.li@intel.com>
-To: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Cc: tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	luto@kernel.org,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	peterz@infradead.org,
-	jgross@suse.com,
-	ravi.v.shankar@intel.com,
-	mhiramat@kernel.org,
-	andrew.cooper3@citrix.com,
-	jiangshanlai@gmail.com,
-	nik.borisov@suse.com
-Subject: [PATCH v12 37/37] x86/fred: Invoke FRED initialization code to enable FRED
-Date: Mon,  2 Oct 2023 23:24:58 -0700
-Message-Id: <20231003062458.23552-38-xin3.li@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231003062458.23552-1-xin3.li@intel.com>
-References: <20231003062458.23552-1-xin3.li@intel.com>
+X-Inumbo-ID: 92c8bd04-61ba-11ee-98d2-6d05b1d4d9a1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 03 Oct 2023 09:00:44 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Henry.Wang@arm.com, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 4/7] x86/grant: switch included header to make
+ declarations visible
+In-Reply-To: <alpine.DEB.2.22.394.2310021541230.2348112@ubuntu-linux-20-04-desktop>
+References: <cover.1696232393.git.nicola.vetrini@bugseng.com>
+ <ec3179df569d3e2b392360539bddfb3adc726a5e.1696232393.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310021541230.2348112@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <7dcb6b040d0fab33553dac18e9080465@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
+On 03/10/2023 00:42, Stefano Stabellini wrote:
+> On Mon, 2 Oct 2023, Nicola Vetrini wrote:
+>> The declarations for {create,replace}_grant_p2m_mapping are
+>> not visible when these functions are defined, therefore the right
+>> header needs to be included to allow them to be visible.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>>  xen/arch/x86/hvm/grant_table.c             | 3 +--
+>>  xen/arch/x86/include/asm/hvm/grant_table.h | 2 ++
+>>  2 files changed, 3 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/xen/arch/x86/hvm/grant_table.c 
+>> b/xen/arch/x86/hvm/grant_table.c
+>> index 30d51d54a949..afe449d8882c 100644
+>> --- a/xen/arch/x86/hvm/grant_table.c
+>> +++ b/xen/arch/x86/hvm/grant_table.c
+>> @@ -9,8 +9,7 @@
+>> 
+>>  #include <xen/types.h>
+>> 
+>> -#include <public/grant_table.h>
+>> -
+>> +#include <asm/hvm/grant_table.h>
+>>  #include <asm/p2m.h>
+> 
+> This makes sense...
+> 
+> 
+>>  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
+>> diff --git a/xen/arch/x86/include/asm/hvm/grant_table.h 
+>> b/xen/arch/x86/include/asm/hvm/grant_table.h
+>> index 33c1da1a25f3..576aeb50adf4 100644
+>> --- a/xen/arch/x86/include/asm/hvm/grant_table.h
+>> +++ b/xen/arch/x86/include/asm/hvm/grant_table.h
+>> @@ -10,6 +10,8 @@
+>>  #ifndef __X86_HVM_GRANT_TABLE_H__
+>>  #define __X86_HVM_GRANT_TABLE_H__
+>> 
+>> +#include <asm/paging.h>
+> 
+> ... but I don't understand this one. It doesn't look like
+> asm/hvm/grant_table.h actually needs asm/paging.h ? Maybe it should be
+> included in xen/arch/x86/hvm/grant_table.c instead ?
+> 
+> 
+>>  #ifdef CONFIG_HVM
+>> 
+>>  int create_grant_p2m_mapping(uint64_t addr, mfn_t frame,
+>> --
+>> 2.34.1
+>> 
 
-Let cpu_init_exception_handling() call cpu_init_fred_exceptions() to
-initialize FRED. However if FRED is unavailable or disabled, it falls
-back to set up TSS IST and initialize IDT.
+See this thread [1] for more context. There was no response, so I went 
+for the route that
+made more sense to me. I guess you could say that only <xen/mm-frame.h> 
+is actually needed
+to get a definition of mfn_t, but I put <asm/paging.h> as in the 
+<asm/grant_table.h> header.
 
-Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-Co-developed-by: Xin Li <xin3.li@intel.com>
-Tested-by: Shan Kang <shan.kang@intel.com>
-Signed-off-by: Xin Li <xin3.li@intel.com>
----
+[1] 
+https://lore.kernel.org/xen-devel/a4b6710b66ed05292388ac6882b940ec@bugseng.com/
 
-Changes since v10:
-* No need to invalidate SYSCALL and SYSENTER MSRs (Thomas Gleixner).
-
-Changes since v8:
-* Move this patch after all required changes are in place (Thomas
-  Gleixner).
----
- arch/x86/kernel/cpu/common.c | 22 +++++++++++++++++-----
- arch/x86/kernel/irqinit.c    |  7 ++++++-
- arch/x86/kernel/traps.c      |  5 ++++-
- 3 files changed, 27 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 69f9bdab19a9..b103cfad0520 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -61,6 +61,7 @@
- #include <asm/microcode.h>
- #include <asm/intel-family.h>
- #include <asm/cpu_device_id.h>
-+#include <asm/fred.h>
- #include <asm/uv/uv.h>
- #include <asm/ia32.h>
- #include <asm/set_memory.h>
-@@ -2119,7 +2120,15 @@ void syscall_init(void)
- 	/* The default user and kernel segments */
- 	wrmsr(MSR_STAR, 0, (__USER32_CS << 16) | __KERNEL_CS);
- 
--	idt_syscall_init();
-+	/*
-+	 * Except the IA32_STAR MSR, there is NO need to setup SYSCALL and
-+	 * SYSENTER MSRs for FRED, because FRED uses the ring 3 FRED
-+	 * entrypoint for SYSCALL and SYSENTER, and ERETU is the only legit
-+	 * instruction to return to ring 3 (both sysexit and sysret cause
-+	 * #UD when FRED is enabled).
-+	 */
-+	if (!cpu_feature_enabled(X86_FEATURE_FRED))
-+		idt_syscall_init();
- }
- 
- #else	/* CONFIG_X86_64 */
-@@ -2235,8 +2244,9 @@ void cpu_init_exception_handling(void)
- 	/* paranoid_entry() gets the CPU number from the GDT */
- 	setup_getcpu(cpu);
- 
--	/* IST vectors need TSS to be set up. */
--	tss_setup_ist(tss);
-+	/* For IDT mode, IST vectors need to be set in TSS. */
-+	if (!cpu_feature_enabled(X86_FEATURE_FRED))
-+		tss_setup_ist(tss);
- 	tss_setup_io_bitmap(tss);
- 	set_tss_desc(cpu, &get_cpu_entry_area(cpu)->tss.x86_tss);
- 
-@@ -2245,8 +2255,10 @@ void cpu_init_exception_handling(void)
- 	/* GHCB needs to be setup to handle #VC. */
- 	setup_ghcb();
- 
--	/* Finally load the IDT */
--	load_current_idt();
-+	if (cpu_feature_enabled(X86_FEATURE_FRED))
-+		cpu_init_fred_exceptions();
-+	else
-+		load_current_idt();
- }
- 
- /*
-diff --git a/arch/x86/kernel/irqinit.c b/arch/x86/kernel/irqinit.c
-index c683666876f1..f79c5edc0b89 100644
---- a/arch/x86/kernel/irqinit.c
-+++ b/arch/x86/kernel/irqinit.c
-@@ -28,6 +28,7 @@
- #include <asm/setup.h>
- #include <asm/i8259.h>
- #include <asm/traps.h>
-+#include <asm/fred.h>
- #include <asm/prom.h>
- 
- /*
-@@ -96,7 +97,11 @@ void __init native_init_IRQ(void)
- 	/* Execute any quirks before the call gates are initialised: */
- 	x86_init.irqs.pre_vector_init();
- 
--	idt_setup_apic_and_irq_gates();
-+	if (cpu_feature_enabled(X86_FEATURE_FRED))
-+		fred_complete_exception_setup();
-+	else
-+		idt_setup_apic_and_irq_gates();
-+
- 	lapic_assign_system_vectors();
- 
- 	if (!acpi_ioapic && !of_ioapic && nr_legacy_irqs()) {
-diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
-index 848c85208a57..0ee78a30e14a 100644
---- a/arch/x86/kernel/traps.c
-+++ b/arch/x86/kernel/traps.c
-@@ -1411,7 +1411,10 @@ void __init trap_init(void)
- 
- 	/* Initialize TSS before setting up traps so ISTs work */
- 	cpu_init_exception_handling();
-+
- 	/* Setup traps as cpu_init() might #GP */
--	idt_setup_traps();
-+	if (!cpu_feature_enabled(X86_FEATURE_FRED))
-+		idt_setup_traps();
-+
- 	cpu_init();
- }
 -- 
-2.34.1
-
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
