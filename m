@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118C17B725E
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 22:12:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612338.952229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6AB57B7278
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 22:27:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612342.952241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnlk0-00089m-91; Tue, 03 Oct 2023 20:11:36 +0000
+	id 1qnlyg-0003Jv-Ir; Tue, 03 Oct 2023 20:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612338.952229; Tue, 03 Oct 2023 20:11:36 +0000
+Received: by outflank-mailman (output) from mailman id 612342.952241; Tue, 03 Oct 2023 20:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnlk0-00087N-6N; Tue, 03 Oct 2023 20:11:36 +0000
-Received: by outflank-mailman (input) for mailman id 612338;
- Tue, 03 Oct 2023 20:11:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qnljy-00087H-Q5
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 20:11:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qnljw-0003EW-Ji; Tue, 03 Oct 2023 20:11:32 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qnljw-0001Gs-ED; Tue, 03 Oct 2023 20:11:32 +0000
+	id 1qnlyg-0003Gv-F1; Tue, 03 Oct 2023 20:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 612342;
+ Tue, 03 Oct 2023 20:26:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=USMC=FR=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1qnlye-0003Gp-8r
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 20:26:44 +0000
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28f2e0a9-622b-11ee-98d2-6d05b1d4d9a1;
+ Tue, 03 Oct 2023 22:26:42 +0200 (CEST)
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
+ [209.85.219.177]) by mx.zohomail.com
+ with SMTPS id 1696364796038774.0653044161322;
+ Tue, 3 Oct 2023 13:26:36 -0700 (PDT)
+Received: by mail-yb1-f177.google.com with SMTP id
+ 3f1490d57ef6-d865685f515so197146276.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Oct 2023 13:26:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +43,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=FZHSBhwaw/7up2rbPrgSyb9vC3q0WpMuvPWFoF5w8kU=; b=NIV3H97Bjv3hHeq2CHxBNby2kZ
-	trB4dvbNxCpC863I8PgTCJX68DUWayudDYWEx/r2WCpHlGdqE/s/bTWgbFFcI3ujpJIa3Yk55/Yxp
-	tT4hVpmgFH4MeO3ePv2k2G8/jFNafXVIFC0DH9VrbptJHiAvlUwDBpB6+G1X97Da74O8=;
-Message-ID: <257cb1d3-e5b6-45cc-9b61-4710991693fb@xen.org>
-Date: Tue, 3 Oct 2023 21:11:30 +0100
+X-Inumbo-ID: 28f2e0a9-622b-11ee-98d2-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; t=1696364798; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OGItTpy/Z4/F2CpucYNowFuiAoltFlLFP6xBkzZ0l4RP7JcE2owVqgH1O8ij1WWINbna0nWrM4DhrLtqeAHKoq2It4veg9n53NgfJJMFTr+aKFBg089tbnaPZyNgeLrYAvHf8zgjjbXWE9OpR19d3qrQmRCaC3xfJuhRxLSXZ/Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1696364798; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=PlJGpjgUFMIPaggujCT0JPVq7amItrPnzF/7gSJVLcg=; 
+	b=iOyt9c7v0Wr82E9ZJ3ieH99KSE6o172SyC+RSbm/QYUtlCul9Iplg6qKz8Zd71NYypn38kskACAs5pLsPU5iQNF8ni4PTGm0Z/aDGDnD3qsqAPEr0bHNXQTqAZrnjRBlRYSi3/uu0j0jYeBA3LR9ekZSSRP2EZ0Fkq4euOjRe0U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1696364798;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=PlJGpjgUFMIPaggujCT0JPVq7amItrPnzF/7gSJVLcg=;
+	b=RZ0ngUnFxvzZkj9KNw/7nZc8+nZzakMDp0p7W4rbWWNAIp2DKRVMaEgGkZO3JUze
+	6goZb4SH2F8rT8PekDp2rXlB7fHfSVXJMStLo+t5eWfqDrsxdwMm/ATptvdE9xtK3L9
+	WH4f1pcx7v3uyBdCoP00OxPHZ8SCpBwKdBGj6WWw=
+X-Gm-Message-State: AOJu0Yyqm7dQRhJ6VIgXA094/n6tMfxDctb4Z98mCke+7mwoT2JO53au
+	QAMAGPo58RXGV8a2Ax5xuyXlWgIWwDvPt/8EfC8=
+X-Google-Smtp-Source: AGHT+IE4jnpH7xqV1mIA9Ca4jQTwmjdfzOsGZPm4EH1N/Ubjymuy38aIGxobh30keR4q8f3zE13mAZrWYe8S82cQn0o=
+X-Received: by 2002:a25:9906:0:b0:d86:4342:290 with SMTP id
+ z6-20020a259906000000b00d8643420290mr217963ybn.21.1696364795076; Tue, 03 Oct
+ 2023 13:26:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] arm/dom0less: put dom0less feature code in a
- separate module
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230927140133.631192-1-luca.fancellu@arm.com>
- <20230927140133.631192-4-luca.fancellu@arm.com>
- <alpine.DEB.2.22.394.2309281726440.1996340@ubuntu-linux-20-04-desktop>
- <725342EA-730F-4961-88A4-43EC0CBAD5BA@arm.com>
- <alpine.DEB.2.22.394.2309291242570.2348112@ubuntu-linux-20-04-desktop>
- <bc2a043a-9836-429b-88bb-6bedda5343bf@xen.org>
- <38AD4AA5-D038-4114-A614-80BF91FB51FB@arm.com>
- <alpine.DEB.2.22.394.2310021512210.2348112@ubuntu-linux-20-04-desktop>
- <0348B5FA-D65C-4D70-99A4-47398BD4266C@arm.com>
- <dc16dc72-4a35-457d-b019-2351e3051c32@amd.com>
- <alpine.DEB.2.22.394.2310031242560.2348112@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2310031242560.2348112@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20231002151127.71020-1-roger.pau@citrix.com> <20231002151127.71020-7-roger.pau@citrix.com>
+ <CABfawhnHg3KrGP-hp4_Q8GvSf2nVSVSyK24HKqAGuWp_AtD8-A@mail.gmail.com>
+ <ZRwlXls8xRyc8AX4@MacBookPdeRoger> <8ee8d70b-5b69-4834-b7e3-572e96effa5c@xen.org>
+In-Reply-To: <8ee8d70b-5b69-4834-b7e3-572e96effa5c@xen.org>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Tue, 3 Oct 2023 16:25:58 -0400
+X-Gmail-Original-Message-ID: <CABfawhn0vH6rS8-SJQJVZtto2HA61By1bCG3w9bJMJR3x+rXsg@mail.gmail.com>
+Message-ID: <CABfawhn0vH6rS8-SJQJVZtto2HA61By1bCG3w9bJMJR3x+rXsg@mail.gmail.com>
+Subject: Re: [PATCH v5 06/10] x86/mem-sharing: copy GADDR based shared guest areas
+To: Julien Grall <julien@xen.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org, henry.wang@arm.com, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+On Tue, Oct 3, 2023 at 11:07=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
+:
+>
+> Hi Roger,
+>
+> On 03/10/2023 15:29, Roger Pau Monn=C3=A9 wrote:
+> > On Tue, Oct 03, 2023 at 09:53:11AM -0400, Tamas K Lengyel wrote:
+>
+> Tamas, somehow your e-mails don't show up in my inbox (even if I am
+> CCed) or even on lore.kernel.org/xen-devel. It is not even in my SPAM
+> folder.
 
-On 03/10/2023 20:52, Stefano Stabellini wrote:
-> On Tue, 3 Oct 2023, Michal Orzel wrote:
->> On 03/10/2023 09:44, Luca Fancellu wrote:
->>> Given that the status after the move to common of the above functions is not very clean, I’ve decided to don’t do that,
->>> however if you are fine with it, I can do the modification and who is going to work further on the subject can consolidate
->>> and make them build for other architecture.
->>>
->> Another option would be to hold off for a while until work on hyperlaunch/RISCV dom0less starts to better understand the needs,
->> concepts and to avoid multiple code movement which results in a horrible history. I know this is not nice but I can tell you that
->> I had to stop working on some features like FLASK with dom0less, static domids for dom0less domUs, because according to the hyperlaunch design,
->> this will need to be common. With hyperlaunch, everything starts with the domain configuration that is supposed to be arch neutral, so
->> until this is done, it's difficult to do anything in this area.
-> 
-> This is not good. In an ideal world, Hyperlaunch shouldn't block
-> progress for dom0less. We shouldn't have to wait many months to make
-> progress on FLASK with dom0less, static domids for dom0less domUs, etc.
-> because of potential Hyperlaunch implications.
+Thanks, I've switched mailservers, hopefully that resolves the issue.
 
-It depends what are the implications. If it means that the bindings will 
-change a release after. Then I think we should instead work on 
-standardizing Hyperlaunch (or whichever name we decide to use) earlier 
-so our users can rely on the interface for multiple revisions.
+>
+> >> On Mon, Oct 2, 2023 at 11:13=E2=80=AFAM Roger Pau Monne <roger.pau@cit=
+rix.com> wrote:
+> >>>
+> >>> From: Jan Beulich <jbeulich@suse.com>
+> >>>
+> >>> In preparation of the introduction of new vCPU operations allowing to
+> >>> register the respective areas (one of the two is x86-specific) by
+> >>> guest-physical address, add the necessary fork handling (with the
+> >>> backing function yet to be filled in).
+> >>>
+> >>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >>> ---
+> >>> Changes since v4:
+> >>>   - Rely on map_guest_area() to populate the child p2m if necessary.
+> >>> ---
+> >>>   xen/arch/x86/mm/mem_sharing.c | 31 +++++++++++++++++++++++++++++++
+> >>>   xen/common/domain.c           |  7 +++++++
+> >>>   2 files changed, 38 insertions(+)
+> >>>
+> >>> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_shar=
+ing.c
+> >>> index 5f8f1fb4d871..99cf001fd70f 100644
+> >>> --- a/xen/arch/x86/mm/mem_sharing.c
+> >>> +++ b/xen/arch/x86/mm/mem_sharing.c
+> >>> @@ -1641,6 +1641,24 @@ static void copy_vcpu_nonreg_state(struct vcpu=
+ *d_vcpu, struct vcpu *cd_vcpu)
+> >>>       hvm_set_nonreg_state(cd_vcpu, &nrs);
+> >>>   }
+> >>>
+> >>> +static int copy_guest_area(struct guest_area *cd_area,
+> >>> +                           const struct guest_area *d_area,
+> >>> +                           struct vcpu *cd_vcpu,
+> >>> +                           const struct domain *d)
+> >>> +{
+> >>> +    unsigned int offset;
+> >>> +
+> >>> +    /* Check if no area to map, or already mapped. */
+> >>> +    if ( !d_area->pg || cd_area->pg )
+> >>> +        return 0;
+> >>> +
+> >>> +    offset =3D PAGE_OFFSET(d_area->map);
+> >>> +    return map_guest_area(cd_vcpu, gfn_to_gaddr(
+> >>> +                                       mfn_to_gfn(d, page_to_mfn(d_a=
+rea->pg))) +
+> >>> +                                   offset,
+> >>> +                          PAGE_SIZE - offset, cd_area, NULL);
+> >>> +}
+> >>> +
+> >>>   static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
+> >>>   {
+> >>>       struct vpmu_struct *d_vpmu =3D vcpu_vpmu(d_vcpu);
+> >>> @@ -1709,6 +1727,16 @@ static int copy_vcpu_settings(struct domain *c=
+d, const struct domain *d)
+> >>>                   return ret;
+> >>>           }
+> >>>
+> >>> +        /* Same for the (physically registered) runstate and time in=
+fo areas. */
+> >>> +        ret =3D copy_guest_area(&cd_vcpu->runstate_guest_area,
+> >>> +                              &d_vcpu->runstate_guest_area, cd_vcpu,=
+ d);
+> >>> +        if ( ret )
+> >>> +            return ret;
+> >>> +        ret =3D copy_guest_area(&cd_vcpu->arch.time_guest_area,
+> >>> +                              &d_vcpu->arch.time_guest_area, cd_vcpu=
+, d);
+> >>> +        if ( ret )
+> >>> +            return ret;
+> >>> +
+> >>>           ret =3D copy_vpmu(d_vcpu, cd_vcpu);
+> >>>           if ( ret )
+> >>>               return ret;
+> >>> @@ -1950,7 +1978,10 @@ int mem_sharing_fork_reset(struct domain *d, b=
+ool reset_state,
+> >>>
+> >>>    state:
+> >>>       if ( reset_state )
+> >>> +    {
+> >>>           rc =3D copy_settings(d, pd);
+> >>> +        /* TBD: What to do here with -ERESTART? */
+> >>
+> >> There is no situation where we get an -ERESTART here currently. Is
+> >> map_guest_area expected to run into situations where it fails with
+> >> that rc?
+> >
+> > Yes, there's a spin_trylock() call that will result in
+> > map_guest_area() returning -ERESTART.
+> >
+> >> If yes we might need a lock in place so we can block until it
+> >> can succeed.
+> >
+> > I'm not sure whether returning -ERESTART can actually happen in
+> > map_guest_area() for the fork case: the child domain is still paused
+> > at this point, so there can't be concurrent guest hypercalls that
+> > would also cause the domain hypercall_deadlock_mutex to be acquired.
 
-We could of course decide to maintain both interfaces. But this means 
-more maintenance work which could have been avoided by fast tracking 
-Hyperlaunch (it is not like we don't know it is coming...).
+Perhaps turning it into an ASSERT(rc !=3D -ERESTART) is the way to go at
+this point. If we run into any cases where it trips we can reason it
+out.
 
-> In my option a delay of few weeks might be OK; we should be reasonable.
-> But a delay of few months is not. Cosidering review times, release
-> schedules etc. it could become a very significant delay. >
-> Also, hyperlaunch contributors are not familiar with dom0less and are
-> not familiar with arm. (This is so true that they have their own
-> reimplementation of the parser.) I think the dom0less separation / code
-> movement is better done by us in the arm community because we know the
-> code far better.
+> hypercall_deadlock_mutex is also acquired by domctls. So, I believe,
+> -ERESTART could be returned if the toolstack is also issuing domclt
+> right at the same time as forking.
 
-I think we need both the arm and hyperlaunch community to work together 
-(see more below).
+That's not a concern in this path, only toolstack can start the reset
+so we can assume it can coordinate not to have another toolstack
+messing with the fork at the same time.
 
-> 
-> So I think Luca's suggestion above is in the right direction. I would
-> follow Luca's suggestion with only one difference: I would keep
-> prepare_dtb_domU in the arm code, together with make_gicv*_domU_node and
-> make_vpl011_uart_node. I would move the rest to common.
-
-Luca's pointed out that some function (such as construct_domU) would 
-contain reference to Arm specific code. So with your proposal, I am 
-under the impression that we would move code that would then end up to 
-be moved again in a few months time. So it is defeating your goal (even 
-though the movement will hopefully be smaller).
-
-As I wrote above, I don't think the Arm community alone is in the 
-position to decide what should be in common and what should be in arch 
-specific. We need the hyperlaunch community to agree on their approach 
-so we can know which split makes sense. This is similar to the on-going 
-MMU split to cater the MPU. We looked the MPU code to decide of the best 
-split.
-
-A potential approach would be to look at the RISC-V implementation of 
-dom0less and see the common parts. But then we are going in the the 
-scope creep you mention earlier.
-
-So overall, I feel that Lucas' approach is better until Hyperlaunch gain 
-momentum.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks,
+Tamas
 
