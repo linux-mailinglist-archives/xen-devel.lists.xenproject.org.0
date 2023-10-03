@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D891A7B6221
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:06:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.611984.951853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB3B7B6223
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:06:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.611991.951873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUI-0007cL-Go; Tue, 03 Oct 2023 07:06:34 +0000
+	id 1qnZUW-0000Pf-3s; Tue, 03 Oct 2023 07:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 611984.951853; Tue, 03 Oct 2023 07:06:34 +0000
+Received: by outflank-mailman (output) from mailman id 611991.951873; Tue, 03 Oct 2023 07:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUI-0007XG-DH; Tue, 03 Oct 2023 07:06:34 +0000
-Received: by outflank-mailman (input) for mailman id 611984;
- Tue, 03 Oct 2023 07:06:32 +0000
+	id 1qnZUW-0000LI-0U; Tue, 03 Oct 2023 07:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 611991;
+ Tue, 03 Oct 2023 07:06:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XwHy=FR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qnZJ5-00047B-7n
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 06:54:59 +0000
+ id 1qnZJ6-00047B-7x
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 06:55:00 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c26548a4-61b9-11ee-9b0d-b553b5be7939;
+ id c27dbca9-61b9-11ee-9b0d-b553b5be7939;
  Tue, 03 Oct 2023 08:54:55 +0200 (CEST)
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c26548a4-61b9-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: c27dbca9-61b9-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1696316095; x=1727852095;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=WI4PNmnQNqWbUIJ+xrhdRHV/OU0QAbzmppTdHG3/yfg=;
-  b=btXgqEUB33NwcnpmJ1gd5Ji3DRMWZqr1aeUc6hYutRJgrbhpbVJwI0sN
-   4RN0ZhV+UTEp4y7tUXfICBjdO9xYrRVT/AnoTZOqoAyjbAEVVhUJgvsoq
-   7vqPeHlhOWeOoQABfDWex14tV+Yos6gBs6XNXqUuZyizYPC1hAfBhsUHk
-   p4L/dRyRd8JuKpVAgsDXuX5jwj8xin1LxqpykB536oHNizTQLTEZvsSev
-   NIiKYv5bwHGS1cQxaKiLhx0QbCadH7t91mgARK+EJurIGlaHFu23voWyb
-   lht/NxC5aYHm52ivw+cwsnUcxlcOgy8s3M/0SCT3GrX4rUvbo2rcvXfyx
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="367858213"
+  bh=FcZc1QeKj2isPTwOBVaGNTy+si5WeOaciLFU4yv7EQo=;
+  b=BbKo73uHCaX15YH0ctt3j322eQ06JhpfZQ9/5Fo1y90aTmJYBxMPrsAw
+   x4rXECJjPlD/a8Q4auFabXlgoYUoi2bqHOOclKOYIurqsamqinrSCAvLZ
+   1UenzrzHzPbWTDn7zV6lwGKGKmyNqpDh0VRaHTKNS91CDwy0ZXk2XeeGp
+   tdXHK76RYOmAsMCvrb1sy21gSIEw3vLTYRCXEsp2ywOh50teYPo9fcaBs
+   6O185UvWGaGw4OH3Q5IEY0NHPpX2TFB1iZFu+MddI3SjgMEO37jKeTe8/
+   tUreHJbPP2s3uDF/9mzsu2G1MabltB2rs8rSYeZOCScx+fXy607C1D/25
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="367858230"
 X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="367858213"
+   d="scan'208";a="367858230"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="1081900979"
+X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="1081900982"
 X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="1081900979"
+   d="scan'208";a="1081900982"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -85,9 +85,9 @@ Cc: tglx@linutronix.de,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com
-Subject: [PATCH v12 25/37] x86/fred: Add a debug fault entry stub for FRED
-Date: Mon,  2 Oct 2023 23:24:46 -0700
-Message-Id: <20231003062458.23552-26-xin3.li@intel.com>
+Subject: [PATCH v12 26/37] x86/fred: Add a NMI entry stub for FRED
+Date: Mon,  2 Oct 2023 23:24:47 -0700
+Message-Id: <20231003062458.23552-27-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231003062458.23552-1-xin3.li@intel.com>
 References: <20231003062458.23552-1-xin3.li@intel.com>
@@ -96,129 +96,65 @@ Content-Transfer-Encoding: 8bit
 
 From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-When occurred on different ring level, i.e., from user or kernel context,
-#DB needs to be handled on different stack: User #DB on current task
-stack, while kernel #DB on a dedicated stack. This is exactly how FRED
-event delivery invokes an exception handler: ring 3 event on level 0
-stack, i.e., current task stack; ring 0 event on the #DB dedicated stack
-specified in the IA32_FRED_STKLVLS MSR. So unlike IDT, the FRED debug
-exception entry stub doesn't do stack switch.
+On a FRED system, NMIs nest both with themselves and faults, transient
+information is saved into the stack frame, and NMI unblocking only
+happens when the stack frame indicates that so should happen.
 
-On a FRED system, the debug trap status information (DR6) is passed on
-the stack, to avoid the problem of transient state. Furthermore, FRED
-transitions avoid a lot of ugly corner cases the handling of which can,
-and should be, skipped.
-
-The FRED debug trap status information saved on the stack differs from
-DR6 in both stickiness and polarity; it is exactly in the format which
-debug_read_clear_dr6() returns for the IDT entry points.
+Thus, the NMI entry stub for FRED is really quite small...
 
 Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
+ arch/x86/kernel/nmi.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-Changes since v9:
-* Disable #DB to avoid endless recursion and stack overflow when a
-  watchpoint/breakpoint is set in the code path which is executed by
-  #DB handler (Thomas Gleixner).
-
-Changes since v1:
-* call irqentry_nmi_{enter,exit}() in both IDT and FRED debug fault kernel
-  handler (Peter Zijlstra).
----
- arch/x86/kernel/traps.c | 43 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/kernel/traps.c b/arch/x86/kernel/traps.c
-index c876f1d36a81..848c85208a57 100644
---- a/arch/x86/kernel/traps.c
-+++ b/arch/x86/kernel/traps.c
-@@ -50,6 +50,7 @@
- #include <asm/ftrace.h>
- #include <asm/traps.h>
- #include <asm/desc.h>
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index a0c551846b35..58843fdf5cd0 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -34,6 +34,7 @@
+ #include <asm/cache.h>
+ #include <asm/nospec-branch.h>
+ #include <asm/sev.h>
 +#include <asm/fred.h>
- #include <asm/fpu/api.h>
- #include <asm/cpu.h>
- #include <asm/cpu_entry_area.h>
-@@ -934,8 +935,7 @@ static bool notify_debug(struct pt_regs *regs, unsigned long *dr6)
- 	return false;
- }
  
--static __always_inline void exc_debug_kernel(struct pt_regs *regs,
--					     unsigned long dr6)
-+static noinstr void exc_debug_kernel(struct pt_regs *regs, unsigned long dr6)
- {
- 	/*
- 	 * Disable breakpoints during exception handling; recursive exceptions
-@@ -947,6 +947,11 @@ static __always_inline void exc_debug_kernel(struct pt_regs *regs,
- 	 *
- 	 * Entry text is excluded for HW_BP_X and cpu_entry_area, which
- 	 * includes the entry stack is excluded for everything.
-+	 *
-+	 * For FRED, nested #DB should just work fine. But when a watchpoint or
-+	 * breakpoint is set in the code path which is executed by #DB handler,
-+	 * it results in an endless recursion and stack overflow. Thus we stay
-+	 * with the IDT approach, i.e., save DR7 and disable #DB.
- 	 */
- 	unsigned long dr7 = local_db_save();
- 	irqentry_state_t irq_state = irqentry_nmi_enter(regs);
-@@ -976,7 +981,8 @@ static __always_inline void exc_debug_kernel(struct pt_regs *regs,
- 	 * Catch SYSENTER with TF set and clear DR_STEP. If this hit a
- 	 * watchpoint at the same time then that will still be handled.
- 	 */
--	if ((dr6 & DR_STEP) && is_sysenter_singlestep(regs))
-+	if (!cpu_feature_enabled(X86_FEATURE_FRED) &&
-+	    (dr6 & DR_STEP) && is_sysenter_singlestep(regs))
- 		dr6 &= ~DR_STEP;
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/nmi.h>
+@@ -643,6 +644,33 @@ void nmi_backtrace_stall_check(const struct cpumask *btp)
  
- 	/*
-@@ -1008,8 +1014,7 @@ static __always_inline void exc_debug_kernel(struct pt_regs *regs,
- 	local_db_restore(dr7);
- }
+ #endif
  
--static __always_inline void exc_debug_user(struct pt_regs *regs,
--					   unsigned long dr6)
-+static noinstr void exc_debug_user(struct pt_regs *regs, unsigned long dr6)
- {
- 	bool icebp;
- 
-@@ -1093,6 +1098,34 @@ DEFINE_IDTENTRY_DEBUG_USER(exc_debug)
- {
- 	exc_debug_user(regs, debug_read_clear_dr6());
- }
-+
 +#ifdef CONFIG_X86_FRED
 +/*
-+ * When occurred on different ring level, i.e., from user or kernel
-+ * context, #DB needs to be handled on different stack: User #DB on
-+ * current task stack, while kernel #DB on a dedicated stack.
++ * With FRED, CR2/DR6 is pushed to #PF/#DB stack frame during FRED
++ * event delivery, i.e., there is no problem of transient states.
++ * And NMI unblocking only happens when the stack frame indicates
++ * that so should happen.
 + *
-+ * This is exactly how FRED event delivery invokes an exception
-+ * handler: ring 3 event on level 0 stack, i.e., current task stack;
-+ * ring 0 event on the #DB dedicated stack specified in the
-+ * IA32_FRED_STKLVLS MSR. So unlike IDT, the FRED debug exception
-+ * entry stub doesn't do stack switch.
++ * Thus, the NMI entry stub for FRED is really straightforward and
++ * as simple as most exception handlers. As such, #DB is allowed
++ * during NMI handling.
 + */
-+DEFINE_FREDENTRY_DEBUG(exc_debug)
++DEFINE_FREDENTRY_NMI(exc_nmi)
 +{
-+	/*
-+	 * FRED #DB stores DR6 on the stack in the format which
-+	 * debug_read_clear_dr6() returns for the IDT entry points.
-+	 */
-+	unsigned long dr6 = fred_event_data(regs);
++	irqentry_state_t irq_state;
 +
-+	if (user_mode(regs))
-+		exc_debug_user(regs, dr6);
-+	else
-+		exc_debug_kernel(regs, dr6);
++	if (IS_ENABLED(CONFIG_SMP) && arch_cpu_is_offline(smp_processor_id()))
++		return;
++
++	irq_state = irqentry_nmi_enter(regs);
++
++	inc_irq_stat(__nmi_count);
++	default_do_nmi(regs);
++
++	irqentry_nmi_exit(regs, irq_state);
 +}
-+#endif /* CONFIG_X86_FRED */
++#endif
 +
- #else
- /* 32 bit does not have separate entry points. */
- DEFINE_IDTENTRY_RAW(exc_debug)
+ void stop_nmi(void)
+ {
+ 	ignore_nmis++;
 -- 
 2.34.1
 
