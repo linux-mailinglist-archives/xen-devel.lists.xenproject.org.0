@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E327B65EA
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 11:52:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612167.952012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB237B65F9
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 12:00:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612171.952023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnc3o-0004TO-Pr; Tue, 03 Oct 2023 09:51:24 +0000
+	id 1qncCE-0007fP-JN; Tue, 03 Oct 2023 10:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612167.952012; Tue, 03 Oct 2023 09:51:24 +0000
+Received: by outflank-mailman (output) from mailman id 612171.952023; Tue, 03 Oct 2023 10:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnc3o-0004Rb-Mh; Tue, 03 Oct 2023 09:51:24 +0000
-Received: by outflank-mailman (input) for mailman id 612167;
- Tue, 03 Oct 2023 09:51:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qncCE-0007co-GB; Tue, 03 Oct 2023 10:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 612171;
+ Tue, 03 Oct 2023 10:00:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=btf1=FR=gmail.com=oleshiiwood@srs-se1.protection.inumbo.net>)
- id 1qnc3n-0004RV-Gx
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 09:51:23 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68634e49-61d2-11ee-98d2-6d05b1d4d9a1;
- Tue, 03 Oct 2023 11:51:21 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3231d67aff2so769491f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Oct 2023 02:51:21 -0700 (PDT)
+ <SRS0=8l/u=FR=gmail.com=bagasdotme@srs-se1.protection.inumbo.net>)
+ id 1qncCC-0007Mp-Tf
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 10:00:04 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c8b5b60-61d3-11ee-9b0d-b553b5be7939;
+ Tue, 03 Oct 2023 11:59:59 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-1c5bf7871dcso5302995ad.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Oct 2023 02:59:59 -0700 (PDT)
+Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
+ u9-20020a17090341c900b001c1f161949fsm1088243ple.96.2023.10.03.02.59.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Oct 2023 02:59:57 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id CEF7581193F1; Tue,  3 Oct 2023 16:59:52 +0700 (WIB)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,255 +46,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68634e49-61d2-11ee-98d2-6d05b1d4d9a1
+X-Inumbo-ID: 9c8b5b60-61d3-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696326681; x=1696931481; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=kCOO9vY4XeJYNxX3kPm0MdrbKKjAfl65XKCcU6PCuP0=;
-        b=chNb0gYI78FlHQzejJtbYnEMi2ow0l7ki9NVx5q9Ahy/o82xefUF2FprXHJ4N33kq3
-         Wp972sRI+9WY+9KTBLGtZxgWgtj8YEGOXHRX3BttmKfN4N1dMTAJKRFpGumJOVmV6Uyk
-         u3F91h69SsE1h+ljyVxX5+2kQC9gp8H9Ln1sbagKjo2T2mp7d7y69aOJWvmLLhumQ4yW
-         5a09hcAPLcpCf+DxpgpJ3hPRtfP7EHlWVylgxxXhNGjgTShiVNJgPIj34qDwREbsnqio
-         MaqB6ppygY/ZB73A6LriX/m8GNa0HXbmOFLitpTTaFyZvtByQEAmE+X3JtQptAFQoNim
-         Kpyw==
+        d=gmail.com; s=20230601; t=1696327198; x=1696931998; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7mfj166RZXa6+OGlC23mV90s8HoMj5oVIl7zgyFgTFU=;
+        b=TnjMjR1ktrtPVmc6EflUmbO6ZIKIVDai9UG4VeaPyaj2SqztSRKggb43C5bTdZu0PM
+         kCl++kZ0MB1G0KaYv8zyFw7EzYyLa330Z79ekfmoB6PmTAstrLEwQiINiTN1gZOHgBFm
+         FKhZRn0Epv+ZFOxmZjxuyx43wuoQ36M2403MhwLHNRaw+iFfzZKvKQ667RwabgB6gvB1
+         5IDtrLEAnYGejlTbGOFfA13r+h8MuIzPhqDtQzmDonmNj8OPTkpwPFPHTA0sKPsz/G0Y
+         suTMQsG50d8LemB7FBUJBuNy21izdR3iCeKqEBELoYWAnoZN9H+x7GPY7F0M5SOvAHey
+         WX+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696326681; x=1696931481;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kCOO9vY4XeJYNxX3kPm0MdrbKKjAfl65XKCcU6PCuP0=;
-        b=F8EPgLRkHeeaDdH4SsRJy1XU4JV7GKgkoWbVru6Fi5/0Y0evVhNboB5SbkwFB/1ZbN
-         ai4tND/jjWCLeLJVWKgkgZhK5/dhO1cyDArn3ye+whAREoqHNJB2Q6iiESwJGW/AcLGf
-         +ceD+UeEFj9vI9zt2Wu8GWjzzZ2UGmSxrj4dGDjzEkHd7ddyb/JDADKUgspQbf/ujcZC
-         AySKCZGlVmdZ7G2CdLgCy+BOSMkmhYZFO4Bq5wRPmW7QNqouza0Ewv7kiPsET9Yld4ml
-         aSBd8oJ8anCTuoyN7tV4HGvk4Gov6hK2Q6KNoJTrksrByv+tmRrTn7t+zAZkXLWNmS0l
-         FTDw==
-X-Gm-Message-State: AOJu0YwZ3ydUxkZCrXjxdem3VSA2SSmJsSiZeYb0thduahXnGdMq2T+s
-	FOkDgvlJin8srWJf/szesKdzctdUbtR3DvHj9Cc=
-X-Google-Smtp-Source: AGHT+IH0+bW6g+AzyDzknhCAt12bkHn/92N8A1hsO/aSxJuqakP7jL5ZbcsQHZzV6lRtauS9A5r8Q4QJnauJRyphb80=
-X-Received: by 2002:a5d:6888:0:b0:314:ca7:f30b with SMTP id
- h8-20020a5d6888000000b003140ca7f30bmr12102066wru.54.1696326680887; Tue, 03
- Oct 2023 02:51:20 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696327198; x=1696931998;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7mfj166RZXa6+OGlC23mV90s8HoMj5oVIl7zgyFgTFU=;
+        b=Hw4wtsEyTMPTJUy7xgytXNt+zl10Ne88e1DSNdTsbFFwf8VSMKgF/qDfi+H1QoqrTS
+         PHQeSwD6QCbT82NEpODJG/9L9bOA2svqDQlICaLofzVY9C1TEgahP7WvnpRle0QTwtCU
+         CACQN8KpzJVuR/CwyTfhWLYfRj5CMEkhq78+KWOCW2BDEnqKDUa638TXyzjbGmG3XRTh
+         4U2tLyx4et9tl7jOOXA86PL8c1s3NaECBRBANMFWJUlI+Nfq9nBbV85UjliB63RcJxbA
+         9C71E5yAO69W7vZ74dU7I8nIi/V6u9gVHrGyeCO1m1E40o6MLmH0k2LODc3i4nruLm45
+         cw5g==
+X-Gm-Message-State: AOJu0Yzd6/QsuPOHfgh7X/4vXHH/yz7idCthWNXHQjEBdC/JV5tMDM01
+	/DXckM9Ps2WfdnynZnLNM+4Ecl8kso0=
+X-Google-Smtp-Source: AGHT+IEcFB0/Nf7z2acAywtjf22FDYWrA9IDkrD58mbuzHGOwLkPwm0grCEuAMx9zkt09wQq3hfj/Q==
+X-Received: by 2002:a17:902:d2cb:b0:1c4:fae:bf28 with SMTP id n11-20020a170902d2cb00b001c40faebf28mr14401254plc.32.1696327197979;
+        Tue, 03 Oct 2023 02:59:57 -0700 (PDT)
+Date: Tue, 3 Oct 2023 16:59:52 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Xin Li <xin3.li@intel.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	luto@kernel.org, pbonzini@redhat.com, seanjc@google.com,
+	peterz@infradead.org, jgross@suse.com, ravi.v.shankar@intel.com,
+	mhiramat@kernel.org, andrew.cooper3@citrix.com,
+	jiangshanlai@gmail.com, nik.borisov@suse.com
+Subject: Re: [PATCH v12 06/37] Documentation/x86/64: Add a documentation for
+ FRED
+Message-ID: <ZRvmGNRZ4IvmguAY@debian.me>
+References: <20231003062458.23552-1-xin3.li@intel.com>
+ <20231003062458.23552-7-xin3.li@intel.com>
 MIME-Version: 1.0
-References: <CA+SAi2tXMupikB2YgEXuq98KnOcqm6zWrk19rNvWTfzf2=ku-w@mail.gmail.com>
- <dba88398-3aef-4541-a8e8-8fd075c0d40e@xen.org> <CA+SAi2tHLVDj+q8KMD7OuhHoj0sSZ-39qs3Z94WGmL2OA3TM_g@mail.gmail.com>
- <alpine.DEB.2.22.394.2309281447180.1996340@ubuntu-linux-20-04-desktop>
- <CA+SAi2vZie+PcKgkAbLxcaimG7strkWot1z4LTpCGLeJxuaT2g@mail.gmail.com>
- <CA+SAi2u2auZgzQh_s+pFspH1YLN4biCf0K7-V7NGWPZQjGoH0g@mail.gmail.com>
- <alpine.DEB.2.22.394.2310021608180.2348112@ubuntu-linux-20-04-desktop>
- <c101624b-96a3-30a4-b3a9-344dad5e8fa5@amd.com> <fe7c359e-60e0-41fb-7d39-93a8d6772073@amd.com>
-In-Reply-To: <fe7c359e-60e0-41fb-7d39-93a8d6772073@amd.com>
-From: Oleg Nikitenko <oleshiiwood@gmail.com>
-Date: Tue, 3 Oct 2023 12:58:25 +0300
-Message-ID: <CA+SAi2uATXEWiBPJq06TCk=gdmjjn_fKzwNuGhf1SVUXRXcnpw@mail.gmail.com>
-Subject: Re: Fwd: changing Dom0 data during smc call inside of xen during
- cache coloring
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>, Julien Grall <julien@xen.org>, 
-	xen-devel@lists.xenproject.org, Carlo Nonato <carlo.nonato@minervasys.tech>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Stewart.Hildebrand@amd.com
-Content-Type: multipart/alternative; boundary="0000000000003cc5090606ccd5ff"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LN8xCBDRRuLQePIA"
+Content-Disposition: inline
+In-Reply-To: <20231003062458.23552-7-xin3.li@intel.com>
 
---0000000000003cc5090606ccd5ff
-Content-Type: text/plain; charset="UTF-8"
+
+--LN8xCBDRRuLQePIA
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello Michal,
-Hello Stefano,
+On Mon, Oct 02, 2023 at 11:24:27PM -0700, Xin Li wrote:
+> diff --git a/Documentation/arch/x86/x86_64/fred.rst b/Documentation/arch/=
+x86/x86_64/fred.rst
+> new file mode 100644
+> index 000000000000..9f57e7b91f7e
+> --- /dev/null
+> +++ b/Documentation/arch/x86/x86_64/fred.rst
+> @@ -0,0 +1,96 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +Flexible Return and Event Delivery (FRED)
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Overview
+> +=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The FRED architecture defines simple new transitions that change
+> +privilege level (ring transitions). The FRED architecture was
+> +designed with the following goals:
+> +
+> +1) Improve overall performance and response time by replacing event
+> +   delivery through the interrupt descriptor table (IDT event
+> +   delivery) and event return by the IRET instruction with lower
+> +   latency transitions.
+> +
+> +2) Improve software robustness by ensuring that event delivery
+> +   establishes the full supervisor context and that event return
+> +   establishes the full user context.
+> +
+> +The new transitions defined by the FRED architecture are FRED event
+> +delivery and, for returning from events, two FRED return instructions.
+> +FRED event delivery can effect a transition from ring 3 to ring 0, but
+> +it is used also to deliver events incident to ring 0. One FRED
+> +instruction (ERETU) effects a return from ring 0 to ring 3, while the
+> +other (ERETS) returns while remaining in ring 0. Collectively, FRED
+> +event delivery and the FRED return instructions are FRED transitions.
+> +
+> +In addition to these transitions, the FRED architecture defines a new
+> +instruction (LKGS) for managing the state of the GS segment register.
+> +The LKGS instruction can be used by 64-bit operating systems that do
+> +not use the new FRED transitions.
+> +
+> +Furthermore, the FRED architecture is easy to extend for future CPU
+> +architectures.
+> +
+> +Software based event dispatching
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +FRED operates differently from IDT in terms of event handling. Instead
+> +of directly dispatching an event to its handler based on the event
+> +vector, FRED requires the software to dispatch an event to its handler
+> +based on both the event's type and vector. Therefore, an event dispatch
+> +framework must be implemented to facilitate the event-to-handler
+> +dispatch process. The FRED event dispatch framework takes control
+> +once an event is delivered, and employs a two-level dispatch.
+> +
+> +The first level dispatching is event type based, and the second level
+> +dispatching is event vector based.
+> +
+> +Full supervisor/user context
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+> +
+> +FRED event delivery atomically save and restore full supervisor/user
+> +context upon event delivery and return. Thus it avoids the problem of
+> +transient states due to %cr2 and/or %dr6, and it is no longer needed
+> +to handle all the ugly corner cases caused by half baked entry states.
+> +
+> +FRED allows explicit unblock of NMI with new event return instructions
+> +ERETS/ERETU, avoiding the mess caused by IRET which unconditionally
+> +unblocks NMI, e.g., when an exception happens during NMI handling.
+> +
+> +FRED always restores the full value of %rsp, thus ESPFIX is no longer
+> +needed when FRED is enabled.
+> +
+> +LKGS
+> +=3D=3D=3D=3D
+> +
+> +LKGS behaves like the MOV to GS instruction except that it loads the
+> +base address into the IA32_KERNEL_GS_BASE MSR instead of the GS
+> +segment=E2=80=99s descriptor cache. With LKGS, it ends up with avoiding
+> +mucking with kernel GS, i.e., an operating system can always operate
+> +with its own GS base address.
+> +
+> +Because FRED event delivery from ring 3 and ERETU both swap the value
+> +of the GS base address and that of the IA32_KERNEL_GS_BASE MSR, plus
+> +the introduction of LKGS instruction, the SWAPGS instruction is no
+> +longer needed when FRED is enabled, thus is disallowed (#UD).
+> +
+> +Stack levels
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +4 stack levels 0~3 are introduced to replace the nonreentrant IST for
+> +event handling, and each stack level should be configured to use a
+> +dedicated stack.
+> +
+> +The current stack level could be unchanged or go higher upon FRED
+> +event delivery. If unchanged, the CPU keeps using the current event
+> +stack. If higher, the CPU switches to a new event stack specified by
+> +the MSR of the new stack level, i.e., MSR_IA32_FRED_RSP[123].
+> +
+> +Only execution of a FRED return instruction ERET[US], could lower the
+> +current stack level, causing the CPU to switch back to the stack it was
+> +on before a previous event delivery that promoted the stack level.
 
-Thanks Michal. Your receipt worked.
+LGTM, thanks!
 
-Regards,
-Oleg Nikitenko
+Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
+--=20
+An old man doll... just what I always wanted! - Clara
 
-=D0=B2=D1=82, 3 =D0=BE=D0=BA=D1=82. 2023=E2=80=AF=D0=B3. =D0=B2 10:33, Mich=
-al Orzel <michal.orzel@amd.com>:
+--LN8xCBDRRuLQePIA
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
->
-> On 03/10/2023 09:28, Michal Orzel wrote:
-> >
-> >
-> > Hi Oleg, Stefano
-> >
-> > On 03/10/2023 02:13, Stefano Stabellini wrote:
-> >> Hi Oleg,
-> >>
-> >> You are getting this output:
-> >>
-> >>> (XEN) d0v0 Forwarding AES operation: 3254779951 136bb00000000000 ->
-> fffffffffffff000
-> >>
-> >> Which means that the guest physical address is 0x136bb00000000000 and
-> >> the translated physical address is 0xfffffffffffff000. It generates an
-> >> error so you are asking if 0xfffffffffffff000 is incorrect because the
-> >> translation is incorrect.
-> >>
-> >> This is possible. However, I think it is more likely that
-> >> 0x136bb000_00000000 is incorrect. This an extremely high address. Coul=
-d
-> >> it be wrong?
-> >
-> > I think the issue is due to a different way of forming the r1 register
-> for this particular EEMI call:
-> >
-> > Take a look at the PM AES function from Linux:
-> >
-> https://github.com/Xilinx/linux-xlnx/blob/master/drivers/firmware/xilinx/=
-zynqmp.c#L1975
-> > and EEMI call invocation:
-> >
-> https://github.com/Xilinx/linux-xlnx/blob/master/drivers/firmware/xilinx/=
-zynqmp.c#L390
-> >
-> > The register passed as r1 is formed a bit differently than "normally".
-> FWICS:
-> >  - the upper 32 bits of address are stored in the lower 32 bits of r1
-> register.
-> >  - the lower 32 bits of address are stored in the upper 32 bits of r1
-> register.
-> >
-> > That is why you are getting a very high address in r1
-> 0x136bb000_00000000.
-> >
-> > Please, try to do the following (not tested):
-> >
-> > case 0xC200002F:
-> > {
-> >     register_t gaddr, new_gaddr;
-> >     paddr_t maddr;
-> >
-> >     gaddr =3D ((register_t)get_user_reg(regs, 1) << 32) |
-> (get_user_reg(regs, 1) >> 32);
-> >     maddr =3D mfn_to_maddr(gfn_to_mfn(current->domain,
-> gaddr_to_gfn(gaddr)));
-> >
-> >     /* Most probably not needed given dma_alloc_coherent use */
-> >     maddr +=3D gaddr &~ PAGE_MASK;
-> >
-> >     /* Convert back to required format */
-> >     new_gaddr =3D ((register_t)maddr << 32) | (maddr >> 32);
-> >
-> >     arm_smccc_1_1_smc(get_user_reg(regs, 0),
-> >             get_user_reg(regs, 1),
-> >             new_gaddr,
-> Wrong placement. This should be for register 1 and not 2, so:
->     arm_smccc_1_1_smc(get_user_reg(regs, 0),
->             new_gaddr,
->             get_user_reg(regs, 2),
->             get_user_reg(regs, 3),
->             get_user_reg(regs, 4),
->             get_user_reg(regs, 5),
->             get_user_reg(regs, 6),
->             get_user_reg(regs, 7),
->             &res);
->
-> ~Michal
->
+-----BEGIN PGP SIGNATURE-----
 
---0000000000003cc5090606ccd5ff
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZRvmEwAKCRD2uYlJVVFO
+o5qOAQDw8M+2297q5X5j+JlTjJmKURsOh0vN4+TkT6xGTw1/oAEA7lexKTaNoRJm
+dwxTvxrQ6FWCfYMKDNZLsLpxSIwB3AQ=
+=e3m/
+-----END PGP SIGNATURE-----
 
-<div dir=3D"ltr"><div>Hello Michal,</div><div>Hello Stefano,</div><div><br>=
-</div><div>Thanks Michal. Your receipt worked.</div><div><br></div><div>Reg=
-ards,</div><div>Oleg Nikitenko<br></div><div><br></div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=D0=B2=D1=82, 3 =D0=
-=BE=D0=BA=D1=82. 2023=E2=80=AF=D0=B3. =D0=B2 10:33, Michal Orzel &lt;<a hre=
-f=3D"mailto:michal.orzel@amd.com">michal.orzel@amd.com</a>&gt;:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-On 03/10/2023 09:28, Michal Orzel wrote:<br>
-&gt; <br>
-&gt; <br>
-&gt; Hi Oleg, Stefano<br>
-&gt; <br>
-&gt; On 03/10/2023 02:13, Stefano Stabellini wrote:<br>
-&gt;&gt; Hi Oleg,<br>
-&gt;&gt;<br>
-&gt;&gt; You are getting this output:<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; (XEN) d0v0 Forwarding AES operation: 3254779951 136bb000000000=
-00 -&gt; fffffffffffff000<br>
-&gt;&gt;<br>
-&gt;&gt; Which means that the guest physical address is 0x136bb00000000000 =
-and<br>
-&gt;&gt; the translated physical address is 0xfffffffffffff000. It generate=
-s an<br>
-&gt;&gt; error so you are asking if 0xfffffffffffff000 is incorrect because=
- the<br>
-&gt;&gt; translation is incorrect.<br>
-&gt;&gt;<br>
-&gt;&gt; This is possible. However, I think it is more likely that<br>
-&gt;&gt; 0x136bb000_00000000 is incorrect. This an extremely high address. =
-Could<br>
-&gt;&gt; it be wrong?<br>
-&gt; <br>
-&gt; I think the issue is due to a different way of forming the r1 register=
- for this particular EEMI call:<br>
-&gt; <br>
-&gt; Take a look at the PM AES function from Linux:<br>
-&gt; <a href=3D"https://github.com/Xilinx/linux-xlnx/blob/master/drivers/fi=
-rmware/xilinx/zynqmp.c#L1975" rel=3D"noreferrer" target=3D"_blank">https://=
-github.com/Xilinx/linux-xlnx/blob/master/drivers/firmware/xilinx/zynqmp.c#L=
-1975</a><br>
-&gt; and EEMI call invocation:<br>
-&gt; <a href=3D"https://github.com/Xilinx/linux-xlnx/blob/master/drivers/fi=
-rmware/xilinx/zynqmp.c#L390" rel=3D"noreferrer" target=3D"_blank">https://g=
-ithub.com/Xilinx/linux-xlnx/blob/master/drivers/firmware/xilinx/zynqmp.c#L3=
-90</a><br>
-&gt; <br>
-&gt; The register passed as r1 is formed a bit differently than &quot;norma=
-lly&quot;. FWICS:<br>
-&gt;=C2=A0 - the upper 32 bits of address are stored in the lower 32 bits o=
-f r1 register.<br>
-&gt;=C2=A0 - the lower 32 bits of address are stored in the upper 32 bits o=
-f r1 register.<br>
-&gt; <br>
-&gt; That is why you are getting a very high address in r1 0x136bb000_00000=
-000.<br>
-&gt; <br>
-&gt; Please, try to do the following (not tested):<br>
-&gt; <br>
-&gt; case 0xC200002F:<br>
-&gt; {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0register_t gaddr, new_gaddr;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0paddr_t maddr;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0gaddr =3D ((register_t)get_user_reg(regs, 1) &lt;&l=
-t; 32) | (get_user_reg(regs, 1) &gt;&gt; 32);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0maddr =3D mfn_to_maddr(gfn_to_mfn(current-&gt;domai=
-n, gaddr_to_gfn(gaddr)));<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0/* Most probably not needed given dma_alloc_coheren=
-t use */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0maddr +=3D gaddr &amp;~ PAGE_MASK;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0/* Convert back to required format */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0new_gaddr =3D ((register_t)maddr &lt;&lt; 32) | (ma=
-ddr &gt;&gt; 32);<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0arm_smccc_1_1_smc(get_user_reg(regs, 0),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0get_user_reg(regs, 1),<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0new_gaddr,<br>
-Wrong placement. This should be for register 1 and not 2, so:<br>
-=C2=A0 =C2=A0 arm_smccc_1_1_smc(get_user_reg(regs, 0),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 new_gaddr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 2),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 3),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 4),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 5),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 6),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_user_reg(regs, 7),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;res);<br>
-<br>
-~Michal<br>
-</blockquote></div>
-
---0000000000003cc5090606ccd5ff--
+--LN8xCBDRRuLQePIA--
 
