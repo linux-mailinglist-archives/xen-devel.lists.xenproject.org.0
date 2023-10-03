@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71E597B6225
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:07:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612004.951892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 097E17B6227
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 09:07:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612026.951902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUe-0001aD-Sx; Tue, 03 Oct 2023 07:06:56 +0000
+	id 1qnZUv-00039w-5m; Tue, 03 Oct 2023 07:07:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612004.951892; Tue, 03 Oct 2023 07:06:56 +0000
+Received: by outflank-mailman (output) from mailman id 612026.951902; Tue, 03 Oct 2023 07:07:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnZUe-0001XS-Ol; Tue, 03 Oct 2023 07:06:56 +0000
-Received: by outflank-mailman (input) for mailman id 612004;
- Tue, 03 Oct 2023 07:06:54 +0000
+	id 1qnZUv-00036t-2a; Tue, 03 Oct 2023 07:07:13 +0000
+Received: by outflank-mailman (input) for mailman id 612026;
+ Tue, 03 Oct 2023 07:07:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XwHy=FR=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1qnZJC-00047B-95
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 06:55:06 +0000
+ id 1qnZJD-00047B-93
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 06:55:07 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c53ed50d-61b9-11ee-9b0d-b553b5be7939;
+ id c54e2815-61b9-11ee-9b0d-b553b5be7939;
  Tue, 03 Oct 2023 08:55:00 +0200 (CEST)
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2023 23:54:51 -0700
+ 02 Oct 2023 23:54:52 -0700
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga005.fm.intel.com with ESMTP; 02 Oct 2023 23:54:50 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 02 Oct 2023 23:54:51 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c53ed50d-61b9-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: c54e2815-61b9-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1696316100; x=1727852100;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/UldAmuJEnsflYS2+cyLAQ4E+J1yAKX8pToUnF0eneI=;
-  b=AxM3ClgOBxtrGOMWVpzjvmsA3Dg4oD8RXQ8GLcMX+h/icwju5qHpfXGO
-   c8NpR2wG5dXU7hbTQDbAiJnzq2DSSZnyZ+6oFH4UveYw2xJ4qm/H0bzAh
-   qUa1UmM6sR7l0iLeXPskJEmQ6vge4oUKryiIG56eenSA9uMZUWGcKa9NE
-   hAPHGO2Wajae0ZYrscKpuoe0HGuvhsC+KiVuNJMC7XntdCmUXTU7AsSP8
-   rsHiPfEH2ll+P/jKtAUjE6Jtt69QopY8WjG12meJvvFf7B4Upj8TYWS2F
-   2vjwA4Im10W2mAMvblnVT7ooAKd9cehJZB/4RAjtaOTaqbpzW9wazd0Al
+  bh=iqw0fwZbm5MXnC5p2WwXxWszbZfX0cXRwVyOWjiGl08=;
+  b=LbortXIxiEVSl+5nVT9lrkvj+77CAgKsa4s9jUzkNV2MVQb5kMnV6/ll
+   GuL5i9xDDwFOqeSVVa3zIY7HfW+Z+JJ/OFzVO4kxSn/RHRFJg0KZpCaU2
+   MRdlkpIK0Cto+86smiN+D+K70dwCFvFz6gn2Ow4uJzxOE7S8Vqhl7PhZ5
+   kPDz99+ZWPJXkpHAvywCpdU+PV+gMii0nu8u2PWWHmpLj5Z4FEdHkl3e4
+   pw/sVbI8rl5lK6w28NUTjXx1sKSq5rM8T03cGdeUq3j30nMUa4WjTjTSh
+   4pk17gfk0CIlReZTnrdJ7pF5ME88wM9sSQDJ7DA1XVwUKT4CNPVqDaZBI
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="367858305"
+X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="367858318"
 X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="367858305"
+   d="scan'208";a="367858318"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="1081901004"
+X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="1081901008"
 X-IronPort-AV: E=Sophos;i="6.03,196,1694761200"; 
-   d="scan'208";a="1081901004"
+   d="scan'208";a="1081901008"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -85,83 +85,214 @@ Cc: tglx@linutronix.de,
 	andrew.cooper3@citrix.com,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com
-Subject: [PATCH v12 32/37] x86/entry/calling: Allow PUSH_AND_CLEAR_REGS being used beyond actual entry code
-Date: Mon,  2 Oct 2023 23:24:53 -0700
-Message-Id: <20231003062458.23552-33-xin3.li@intel.com>
+Subject: [PATCH v12 33/37] x86/entry: Add fred_entry_from_kvm() for VMX to handle IRQ/NMI
+Date: Mon,  2 Oct 2023 23:24:54 -0700
+Message-Id: <20231003062458.23552-34-xin3.li@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231003062458.23552-1-xin3.li@intel.com>
 References: <20231003062458.23552-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+In IRQ/NMI induced VM exits, KVM VMX needs to execute the respective
+handlers, which requires the software to create a FRED stack frame,
+and use it to invoke the handlers. Add fred_irq_entry_from_kvm() for
+this job.
 
-PUSH_AND_CLEAR_REGS could be used besides actual entry code; in that case
-%rbp shouldn't be cleared (otherwise the frame pointer is destroyed) and
-UNWIND_HINT shouldn't be added.
+Export fred_entry_from_kvm() because VMX can be compiled as a module.
 
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Suggested-by: Sean Christopherson <seanjc@google.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- arch/x86/entry/calling.h | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/entry/calling.h b/arch/x86/entry/calling.h
-index f6907627172b..eb57c023d5df 100644
---- a/arch/x86/entry/calling.h
-+++ b/arch/x86/entry/calling.h
-@@ -65,7 +65,7 @@ For 32-bit we have the following conventions - kernel is built with
-  * for assembly code:
+Changes since v10:
+* Better explain the reason why no need to check current stack level
+  (Paolo Bonzini).
+
+Changes since v9:
+* Shove the whole thing into arch/x86/entry/entry_64_fred.S for invoking
+  external_interrupt() and fred_exc_nmi() (Sean Christopherson).
+* Correct and improve a few comments (Sean Christopherson).
+* Merge the two IRQ/NMI asm entries into one as it's fine to invoke
+  noinstr code from regular code (Thomas Gleixner).
+* Setup the long mode and NMI flags in the augmented SS field of FRED
+  stack frame in C instead of asm (Thomas Gleixner).
+* Add UNWIND_HINT_{SAVE,RESTORE} to get rid of the warning: "objtool:
+  asm_fred_entry_from_kvm+0x0: unreachable instruction" (Peter Zijlstra).
+
+Changes since v8:
+* Add a new macro VMX_DO_FRED_EVENT_IRQOFF for FRED instead of
+  refactoring VMX_DO_EVENT_IRQOFF (Sean Christopherson).
+* Do NOT use a trampoline, just LEA+PUSH the return RIP, PUSH the error
+  code, and jump to the FRED kernel entry point for NMI or call
+  external_interrupt() for IRQs (Sean Christopherson).
+* Call external_interrupt() only when FRED is enabled, and convert the
+  non-FRED handling to external_interrupt() after FRED lands (Sean
+  Christopherson).
+---
+ arch/x86/entry/entry_64_fred.S | 76 ++++++++++++++++++++++++++++++++++
+ arch/x86/entry/entry_fred.c    | 14 +++++++
+ arch/x86/include/asm/fred.h    | 18 ++++++++
+ 3 files changed, 108 insertions(+)
+
+diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
+index d1c2fc4af8ae..9917b4ea1543 100644
+--- a/arch/x86/entry/entry_64_fred.S
++++ b/arch/x86/entry/entry_64_fred.S
+@@ -4,7 +4,9 @@
   */
  
--.macro PUSH_REGS rdx=%rdx rcx=%rcx rax=%rax save_ret=0
-+.macro PUSH_REGS rdx=%rdx rcx=%rcx rax=%rax save_ret=0 unwind_hint=1
- 	.if \save_ret
- 	pushq	%rsi		/* pt_regs->si */
- 	movq	8(%rsp), %rsi	/* temporarily store the return address in %rsi */
-@@ -87,14 +87,17 @@ For 32-bit we have the following conventions - kernel is built with
- 	pushq	%r13		/* pt_regs->r13 */
- 	pushq	%r14		/* pt_regs->r14 */
- 	pushq	%r15		/* pt_regs->r15 */
+ #include <asm/asm.h>
++#include <asm/export.h>
+ #include <asm/fred.h>
++#include <asm/segment.h>
+ 
+ #include "calling.h"
+ 
+@@ -54,3 +56,77 @@ SYM_CODE_START_NOALIGN(asm_fred_entrypoint_kernel)
+ 	FRED_EXIT
+ 	ERETS
+ SYM_CODE_END(asm_fred_entrypoint_kernel)
 +
-+	.if \unwind_hint
- 	UNWIND_HINT_REGS
-+	.endif
++#if IS_ENABLED(CONFIG_KVM_INTEL)
++SYM_FUNC_START(asm_fred_entry_from_kvm)
++	push %rbp
++	mov %rsp, %rbp
++
++	UNWIND_HINT_SAVE
++
++	/*
++	 * Both IRQ and NMI from VMX can be handled on current task stack
++	 * because there is no need to protect from reentrancy and the call
++	 * stack leading to this helper is effectively constant and shallow
++	 * (relatively speaking). Do the same when FRED is active, i.e., no
++	 * need to check current stack level for a stack switch.
++	 *
++	 * Emulate the FRED-defined redzone and stack alignment.
++	 */
++	sub $(FRED_CONFIG_REDZONE_AMOUNT << 6), %rsp
++	and $FRED_STACK_FRAME_RSP_MASK, %rsp
++
++	/*
++	 * Start to push a FRED stack frame, which is always 64 bytes:
++	 *
++	 * +--------+-----------------+
++	 * | Bytes  | Usage           |
++	 * +--------+-----------------+
++	 * | 63:56  | Reserved        |
++	 * | 55:48  | Event Data      |
++	 * | 47:40  | SS + Event Info |
++	 * | 39:32  | RSP             |
++	 * | 31:24  | RFLAGS          |
++	 * | 23:16  | CS + Aux Info   |
++	 * |  15:8  | RIP             |
++	 * |   7:0  | Error Code      |
++	 * +--------+-----------------+
++	 */
++	push $0				/* Reserved, must be 0 */
++	push $0				/* Event data, 0 for IRQ/NMI */
++	push %rdi			/* fred_ss handed in by the caller */
++	push %rbp
++	pushf
++	mov $__KERNEL_CS, %rax
++	push %rax
++
++	/*
++	 * Unlike the IDT event delivery, FRED _always_ pushes an error code
++	 * after pushing the return RIP, thus the CALL instruction CANNOT be
++	 * used here to push the return RIP, otherwise there is no chance to
++	 * push an error code before invoking the IRQ/NMI handler.
++	 *
++	 * Use LEA to get the return RIP and push it, then push an error code.
++	 */
++	lea 1f(%rip), %rax
++	push %rax				/* Return RIP */
++	push $0					/* Error code, 0 for IRQ/NMI */
++
++	PUSH_AND_CLEAR_REGS clear_bp=0 unwind_hint=0
++	movq %rsp, %rdi				/* %rdi -> pt_regs */
++	call __fred_entry_from_kvm		/* Call the C entry point */
++	POP_REGS
++	ERETS
++1:
++	/*
++	 * Objtool doesn't understand what ERETS does, this hint tells it that
++	 * yes, we'll reach here and with what stack state. A save/restore pair
++	 * isn't strictly needed, but it's the simplest form.
++	 */
++	UNWIND_HINT_RESTORE
++	pop %rbp
++	RET
++
++SYM_FUNC_END(asm_fred_entry_from_kvm)
++EXPORT_SYMBOL_GPL(asm_fred_entry_from_kvm);
++#endif
+diff --git a/arch/x86/entry/entry_fred.c b/arch/x86/entry/entry_fred.c
+index e80e3efbc057..3e33a4ab4624 100644
+--- a/arch/x86/entry/entry_fred.c
++++ b/arch/x86/entry/entry_fred.c
+@@ -242,3 +242,17 @@ __visible noinstr void fred_entry_from_kernel(struct pt_regs *regs)
+ 		return fred_bad_type(regs, error_code);
+ 	}
+ }
++
++#if IS_ENABLED(CONFIG_KVM_INTEL)
++__visible noinstr void __fred_entry_from_kvm(struct pt_regs *regs)
++{
++	switch (regs->fred_ss.type) {
++	case EVENT_TYPE_EXTINT:
++		return fred_extint(regs);
++	case EVENT_TYPE_NMI:
++		return fred_exc_nmi(regs);
++	default:
++		WARN_ON_ONCE(1);
++	}
++}
++#endif
+diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
+index 16a64ffecbf8..2fa9f34e5c95 100644
+--- a/arch/x86/include/asm/fred.h
++++ b/arch/x86/include/asm/fred.h
+@@ -9,6 +9,7 @@
+ #include <linux/const.h>
  
- 	.if \save_ret
- 	pushq	%rsi		/* return address on top of stack */
- 	.endif
- .endm
+ #include <asm/asm.h>
++#include <asm/trapnr.h>
  
--.macro CLEAR_REGS
-+.macro CLEAR_REGS clear_bp=1
- 	/*
- 	 * Sanitize registers of values that a speculation attack might
- 	 * otherwise want to exploit. The lower registers are likely clobbered
-@@ -109,7 +112,9 @@ For 32-bit we have the following conventions - kernel is built with
- 	xorl	%r10d, %r10d	/* nospec r10 */
- 	xorl	%r11d, %r11d	/* nospec r11 */
- 	xorl	%ebx,  %ebx	/* nospec rbx */
-+	.if \clear_bp
- 	xorl	%ebp,  %ebp	/* nospec rbp */
-+	.endif
- 	xorl	%r12d, %r12d	/* nospec r12 */
- 	xorl	%r13d, %r13d	/* nospec r13 */
- 	xorl	%r14d, %r14d	/* nospec r14 */
-@@ -117,9 +122,9 @@ For 32-bit we have the following conventions - kernel is built with
+ /*
+  * FRED event return instruction opcodes for ERET{S,U}; supported in
+@@ -62,12 +63,29 @@ static __always_inline unsigned long fred_event_data(struct pt_regs *regs)
  
- .endm
+ void asm_fred_entrypoint_user(void);
+ void asm_fred_entrypoint_kernel(void);
++void asm_fred_entry_from_kvm(struct fred_ss);
  
--.macro PUSH_AND_CLEAR_REGS rdx=%rdx rcx=%rcx rax=%rax save_ret=0
--	PUSH_REGS rdx=\rdx, rcx=\rcx, rax=\rax, save_ret=\save_ret
--	CLEAR_REGS
-+.macro PUSH_AND_CLEAR_REGS rdx=%rdx rcx=%rcx rax=%rax save_ret=0 clear_bp=1 unwind_hint=1
-+	PUSH_REGS rdx=\rdx, rcx=\rcx, rax=\rax, save_ret=\save_ret unwind_hint=\unwind_hint
-+	CLEAR_REGS clear_bp=\clear_bp
- .endm
+ __visible void fred_entry_from_user(struct pt_regs *regs);
+ __visible void fred_entry_from_kernel(struct pt_regs *regs);
++__visible void __fred_entry_from_kvm(struct pt_regs *regs);
++
++/* Can be called from noinstr code, thus __always_inline */
++static __always_inline void fred_entry_from_kvm(unsigned int type, unsigned int vector)
++{
++	struct fred_ss ss = {
++		.ss     =__KERNEL_DS,
++		.type   = type,
++		.vector = vector,
++		.nmi    = type == EVENT_TYPE_NMI,
++		.lm     = 1,
++	};
++
++	asm_fred_entry_from_kvm(ss);
++}
  
- .macro POP_REGS pop_rdi=1
+ #else /* CONFIG_X86_FRED */
+ static __always_inline unsigned long fred_event_data(struct pt_regs *regs) { return 0; }
++static __always_inline void fred_entry_from_kvm(unsigned int type, unsigned int vector) { }
+ #endif /* CONFIG_X86_FRED */
+ #endif /* !__ASSEMBLY__ */
+ 
 -- 
 2.34.1
 
