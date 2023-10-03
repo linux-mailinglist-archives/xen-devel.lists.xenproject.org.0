@@ -2,42 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 570D37B6406
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 10:27:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612153.951993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A377B649B
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Oct 2023 10:46:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612161.952002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnajx-0001R9-Hu; Tue, 03 Oct 2023 08:26:49 +0000
+	id 1qnb2B-0008Hd-01; Tue, 03 Oct 2023 08:45:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612153.951993; Tue, 03 Oct 2023 08:26:49 +0000
+Received: by outflank-mailman (output) from mailman id 612161.952002; Tue, 03 Oct 2023 08:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qnajx-0001ON-Ea; Tue, 03 Oct 2023 08:26:49 +0000
-Received: by outflank-mailman (input) for mailman id 612153;
- Tue, 03 Oct 2023 08:26:47 +0000
+	id 1qnb2A-0008F9-TH; Tue, 03 Oct 2023 08:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 612161;
+ Tue, 03 Oct 2023 08:45:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/VM=FR=citrix.com=prvs=63394bc6a=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qnaju-0001N6-MS
- for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 08:26:47 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95186ffe-61c6-11ee-98d2-6d05b1d4d9a1;
- Tue, 03 Oct 2023 10:26:44 +0200 (CEST)
-Received: from mail-bn7nam10lp2106.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.106])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 03 Oct 2023 04:26:37 -0400
-Received: from MW4PR03MB6428.namprd03.prod.outlook.com (2603:10b6:303:123::8)
- by SN4PR03MB6783.namprd03.prod.outlook.com (2603:10b6:806:216::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.31; Tue, 3 Oct
- 2023 08:26:34 +0000
-Received: from MW4PR03MB6428.namprd03.prod.outlook.com
- ([fe80::ddbc:172e:c4a3:ec6f]) by MW4PR03MB6428.namprd03.prod.outlook.com
- ([fe80::ddbc:172e:c4a3:ec6f%4]) with mapi id 15.20.6813.035; Tue, 3 Oct 2023
- 08:26:34 +0000
+ <SRS0=Ly7j=FR=samsung.com=j.granados@srs-se1.protection.inumbo.net>)
+ id 1qnb29-0008BH-LQ
+ for xen-devel@lists.xenproject.org; Tue, 03 Oct 2023 08:45:38 +0000
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37ee0da4-61c9-11ee-98d2-6d05b1d4d9a1;
+ Tue, 03 Oct 2023 10:45:36 +0200 (CEST)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20231003084534euoutp02d3766c81a6f9a4371503d95d11327ab1~KjIoTk90b0307303073euoutp02m;
+ Tue,  3 Oct 2023 08:45:34 +0000 (GMT)
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20231003084529eucas1p17c63898bf432159da3eaaba9b7b6f86d~KjIjtXWA41008410084eucas1p1w;
+ Tue,  3 Oct 2023 08:45:29 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 83.01.11320.9A4DB156; Tue,  3
+ Oct 2023 09:45:29 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20231003084528eucas1p172b5a744b37bf5aa4d6028a7a008f8f3~KjIjC-MdF1432014320eucas1p1e;
+ Tue,  3 Oct 2023 08:45:28 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20231003084528eusmtrp2259166a349da7be7d0a696cf9bc05b33~KjIjBJitX1344313443eusmtrp2P;
+ Tue,  3 Oct 2023 08:45:28 +0000 (GMT)
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id BB.D4.10549.8A4DB156; Tue,  3
+ Oct 2023 09:45:28 +0100 (BST)
+Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20231003084528eusmtip1fb4b1d3ca9e1b33f0519e7023f40cef0~KjIiriNZS2921429214eusmtip1p;
+ Tue,  3 Oct 2023 08:45:28 +0000 (GMT)
+Received: from localhost (106.210.248.115) by CAMSVWEXC02.scsc.local
+ (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Tue, 3 Oct 2023 09:45:27 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,231 +65,423 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95186ffe-61c6-11ee-98d2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1696321604;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=7aVMZh3PbYLvdJHVasYoDgNmDBlRMTNgar8j4z/JXTY=;
-  b=M1wNSasgJ6aEdnSKg/mWFxThQoIM5BL0XWckVJlj0r6p56Hb+B0xVuWE
-   6bNXJKbA2YCW/HNIQZyx2BAJ2WUuFcG1piSaMITLbP71WXD99bYmkzzVL
-   dteF2DJ0eNulFa0DUm0doT0zqXB7vbXUrCFkvUP4wqmGPnMyo4VmJ0K03
-   g=;
-X-CSE-ConnectionGUID: cbLU7tF1S0GpBJLpBDm2ig==
-X-CSE-MsgGUID: Q6SebWtSQ0+xOA61PevlPg==
-X-IronPort-RemoteIP: 104.47.70.106
-X-IronPort-MID: 127220768
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:4ReRKq/ABrOrRK9tazkKDrUDFn+TJUtcMsCJ2f8bNWPcYEJGY0x3y
- WpLWm+Cb/iNMGX0fowjad+3o0kH7MODyt5jHgVq/yE8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ks01BjOkGlA5AdnPagQ5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklF/
- 9gldywjNyvbqPqc4pajYMVp3MUseZyD0IM34hmMzBn/JNN/GdXpZfqP4tVVmjAtmspJAPDSI
- dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTeLilUpjtABM/KMEjCObd9SkUuC4
- HrP4kzyAw0ANczZwj2Amp6prraVwnmhAN1MRNVU8NZT3maezFMPMyROFkuciKfgskOgX+pQf
- hl8Fi0G6PJaGFaQZtT9Uhj7sHOClhtBQ5xbFOhSwBGAzO/Y7hiUAkAATyVdc5o2uckuXzso2
- 1SV2dTzClRHq6aJQHiQ8rOVqzKaOiUPK2IGIygeQmMt4cTnoYw1pgLCSJBkCqHdptf4Ay3qy
- jaG6i03nawOjNUj3r++u1vAhlqEmJ/NSQIk4xTNaUis5Ah5eY2NapSh7B7Q6vMoBIGdQ1qat
- X4Igf+C/fsOBpGAki+KaOgVFbTv7PGAWAAwmnZqFpglsj6rpHiqeNkI5CkkfR83dMEZZTXuf
- Unf/xtL44NeN2eraqkxZJ+tD8Mtzu7rEtGNuu3oU+eiq6NZLGevlByCr2bLt4wxuCDASZ0CB
- Ko=
-IronPort-HdrOrdr: A9a23:I0bPWasnCFw0xYBQGkn2Ec957skCHIAji2hC6mlwRA09TyXGra
- 2TdaUgvyMc1gx7ZJhBo7+90We7MBbhHLpOkPEs1NaZLXDbUQ6TQL2KgrGD/9SNIVycygcZ79
- YaT0EcMqyNMbEZt7ec3ODQKb9Jrri6GeKT9IHjJh9WPHxXgspbnmNE42igYy9LrF4sP+tCKH
- PQ3LsxmxOQPVAsKuirDHgMWObO4/XNiZLdeBYDQzI39QWUijusybjiVzyVxA0XXT9jyaortT
- GtqX2z2oyT99WAjjPM3W7a6Jpb3PPn19t4HcSJzuQFNzn2jQ6sRYJ5H5mPpio8ru2D4Esj1P
- PMvxAjFcJu7G65RBD8nTLdny3blBo+4X7rzlGVxVPlvMzCXTo/T+5Mn5hQfBf141cp+IgU6t
- MD40up875sST/QliX04NbFEzlsi0qPuHIn1coelWZWX4cyYKJY6aYf4ERWOpEdGz+S0vFQLM
- BeSOXnoNpGe1KTaH7U+kFp3dyXR3w2WiyLR0AT0/bloQR+rTRc9Q811cYflnAP+NYWUJ9f/d
- nJNaxuifVnUtIWRbgVPpZPfeKHTkj2BT7cOmObJlrqUIsdPWjWlpLx6LIpoMm3ZZ0zyocokp
- ipaiIViYcLQTOuNSSy5uwKzviUK1/NHggFi/suqqSRg4eMCoYCaka4ORITe8jJmYRtPiSUYY
- f3BHtsOY6TEYLfI/c34+TAYegtFZA/arxhhj9pYSP7nuv7bqvXi8f8TNH/YJLQLBdMYBKOPp
- JEZkm4GPl9
-X-Talos-CUID: 9a23:yMeHlGBCrLlSh7n6EyJt0HNLBu58SSXy1F3yB1eSJWMzSbLAHA==
-X-Talos-MUID: 9a23:eyKSkAZ+/OX0S+BTjmHXiTtdKPxRu+e+L2lTyK0Lpc28Onkl
-X-IronPort-AV: E=Sophos;i="6.03,196,1694750400"; 
-   d="scan'208";a="127220768"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PfFl7JXDILhKzSQixv0rZgxIk3xeVmMB7OsFPyfWuPnlLoEGZBEr5mtkqyjAJBJDmPOrmjpUx5G5Fd4uL3CIsTvxN/zTa3DGcqLmg/GVadEMf+n9vUq8F3L2GIQ0xiJCgny+0ykUJ9PiQKKwfIAft5yrQgSz8EOTT9e1vL7mGrlYeGhzLaJU3lFGFYitthOT6FsnYNAnwngYCKWBBKjQQDdex2doWn5eAxhO4ptzHPsTrk+oe7dQ9ZEE5S79mt2AO5tP5dwaVbEHROoxLjSaWHjVoKGK/w4pI5h3xEyrjjY1LQNKYm9pNt96jf/MlHEr6rGK+sajuFs6qVq5IzHNgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s4SEbSUeX0wxdf1TuoUu0dy7VlBty+SBa7e7DTPIhds=;
- b=c3ZlkX0P6zosEn7uc2wei5hgqJ5dta7DwXG+Er45nx/CY747PjZsDNZDjJu+rWhc0Zh0Y6FFLCRGe+PLNzLbrg3xQFnE8AlmOJlQC74335mcFYkfCnVv2tUhBtG2qsX8b3bsIvbTXTczhToMqnFUodyiTNc7Y/dnWixkt0jt4pZcqbwSVX4osQDF3huhhpVXo4SSag5Z05lDc64gVd5FsfFMbcTQMwvSO3Sd+S0CvWYx/e+zIDYVR6B1yAKJ8J8sq22xzJ1jZDfelTU8lyODswMYBk7qpS3MjcimhDy/hbIhgXMtNcyajnS0R79KePg/qvf7dGIc6jNcLNEM1Opfjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s4SEbSUeX0wxdf1TuoUu0dy7VlBty+SBa7e7DTPIhds=;
- b=vFZK3m8MkF1mKWqBCWpdhUbdUhoUB3JrP5T8zhJlnAF4HVMRqCOxGMwKqagpIop1pf/VGSufXOM6kePRACytf5oxUcNHvExK6jYBsMKN4TX5727IT/Q7pWLuI4JAPjrIRA3J/Y5egpC+3WJOz3/AYNxZxvBG7aq3lHfwBS60pEM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 3 Oct 2023 10:26:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: Issue with shared information page on Xen/ARM 4.17
-Message-ID: <ZRvQNKyYpLDVTs0i@MacBookPdeRoger>
-References: <ZRY7Ls3p6M6pakMq@mattapan.m5p.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ZRY7Ls3p6M6pakMq@mattapan.m5p.com>
-X-ClientProxiedBy: LO4P302CA0010.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::18) To MW4PR03MB6428.namprd03.prod.outlook.com
- (2603:10b6:303:123::8)
+X-Inumbo-ID: 37ee0da4-61c9-11ee-98d2-6d05b1d4d9a1
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20231003084534euoutp02d3766c81a6f9a4371503d95d11327ab1~KjIoTk90b0307303073euoutp02m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1696322734;
+	bh=O9E7ceDNyRwXJ2xGZgRki4b16kn1UdOkC9S8733H0+Q=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=q/PAqxicyIL14ZnJRAF5TyZhsBkX76tWzXB1ID9EbQz7XUIupSeiR86qJJf5vhoPP
+	 BL7cuUOl+jHVlKjvlobtUhDdK7wgOGhEzSc3f5P+PsqkxPA8WgtV5Cucu//KbMH3Uh
+	 bKF5wvkeRwc/Peu9I3nElFhegXa8tV8fwH0otB9s=
+X-AuditID: cbfec7f4-993ff70000022c38-3f-651bd4a97e7d
+Date: Tue, 3 Oct 2023 10:47:49 +0200
+From: Joel Granados <j.granados@samsung.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+CC: Luis Chamberlain <mcgrof@kernel.org>, "willy@infradead.org"
+	<willy@infradead.org>, "josh@joshtriplett.org" <josh@joshtriplett.org>, Kees
+	Cook <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>,
+	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Greg
+	Kroah-Hartman <gregkh@linuxfoundation.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Jiri Slaby <jirislaby@kernel.org>, "James
+ E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
+	<martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Sudip
+	Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+	Romanovsky <leon@kernel.org>, Corey Minyard <minyard@acm.org>, Theodore Ts'o
+	<tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>, David Ahern
+	<dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Robin Holt <robinmholt@gmail.com>, Steve Wahl
+	<steve.wahl@hpe.com>, Russ Weight <russell.h.weight@intel.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>, "K. Y. Srinivasan"
+	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jani Nikula
+	<jani.nikula@linux.intel.com>, Joonas Lahtinen
+	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
+	<airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"openipmi-developer@lists.sourceforge.net"
+	<openipmi-developer@lists.sourceforge.net>, "linuxppc-dev@lists.ozlabs.org"
+	<linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [PATCH v2 00/15] sysctl: Remove sentinel elements from drivers
+Message-ID: <20231003084749.4xxi4z64hgq5a5lw@localhost>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR03MB6428:EE_|SN4PR03MB6783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3093d4b0-a579-406e-f64c-08dbc3ea745f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	O89z5S3CT+ke/P4+caMjF9ZXhXTbhHvOiK73pwHDuhUr1CHN5DQe5mW2x3sQwGWsGHHPpz5/s1j7pM1ghX8Vo6VIMqrqcRJhQfT9IayO7YlcD21JZYRW/3LBovN++rlk3e6D2j4PniAQBkydLO1ZolXGvotTGRJZR1YjMCh0avTvI1mUrnQtCSiLKoqwoMR19/jAfhGC0oSUABfGfEfwdLtfZFY5UbAJnWK3JqWkyzNmmngwz1sFbzx8KQYNRrKjiHjTHtpBETieT1JJ4p9nyikbB9B425kPJii7b+w8+DBQsVArMN5HYaF87Xdl2vWYOk+Wle7BIo5o+3S8HKoKUuEIQhhbkK7u/SO9l3DX3HUNBcSaZ0TZbIZWtrDZUTfOXpidwf6RSbZ9d3p6uPGuWIthQq5M9vT7k35THLqeIkdF5ThRhU4/R9HIndWD1/L5qkRl7o59cacSFs7e6QUKPEjaGAN4hBvR/Nmeu2XyD2oJjHK5srfWIwNuCEi6I91x2zkbuFM2ZXVLIFMIxWk17dy8mGj1zluhZ54ToGQ94A/Z0+JQRNxA87Oje6IQoQk3
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6428.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(366004)(346002)(136003)(396003)(39860400002)(376002)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(2906002)(66899024)(86362001)(6512007)(9686003)(26005)(6666004)(478600001)(6506007)(6486002)(85182001)(83380400001)(82960400001)(38100700002)(33716001)(316002)(66556008)(8936002)(66946007)(66476007)(5660300002)(54906003)(41300700001)(8676002)(4326008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2cxR0VGTUE1UWVYb1ZhRFJ6N1dtTldmVEhJbHRHQXJPMk1oTXNsb0pUc2dF?=
- =?utf-8?B?Z2p3ck9jaXRmOWNzYnlBTjNXQjRPaThienl1S2RjOVp0WTVFZ0VYWjd4cWhm?=
- =?utf-8?B?cnVrVDMwdUxPbTllampOcnpaZFZ3WHU1UXJnNFhXRjlaTS94VlJ1ZmZYUloz?=
- =?utf-8?B?UVU5dTNZT2g5MXQ2MmtyQm9ibU4yVm5DcmZwNk1KRlZ0eWw0Rzcrci9CWVZ6?=
- =?utf-8?B?L1J0Uk1ZVUo3TEt3NWRhTGFDc0N4eTFIajI1R3U5ZHlGUjZRd2hWLzFOeUtE?=
- =?utf-8?B?UHJsL0ZlWmNqMTJZWnE0UWZRNnRONFAvTGpUOW1DeUpjS25tWWNZZmNud0g1?=
- =?utf-8?B?OThmR1J3RVdwZFFEcUgveXpCbE5DUUQvaU9IdkNzRXJCV3czeTZuVDlRaU1Z?=
- =?utf-8?B?dUJ5clMxTHZpS3RIdzUvRHhza3UzUDAvdGJ0aTg5UHFOdnlicGk0L3BwV1ZD?=
- =?utf-8?B?ZWFpQUtJOXRiNGVwL2RJQTJ4YnZrZDA3YWZzR2ExRk43NFlPbG4wL3FLZkVT?=
- =?utf-8?B?bXpCR2ZTSVVxQTVnTDduaUpYUTNyQlBOT29NTEx2Qmh4Q0hNbC83RjY3YllO?=
- =?utf-8?B?TFlmMUxKVmZhOVhFeEJrTTdNa0ZjUjFXVXFXOUR0ZlU2eFQ2ZnBJTFNJN0g4?=
- =?utf-8?B?MFZ4MFZBUHk0UGJxbzJmVDhQVXY2WkVFbUNpYkVUOE1HUGx1UkpPZmN3OHU0?=
- =?utf-8?B?RnN2UStyaDVPUVUvcWJqZmpjS05raTZiVGM4OEtmM3pkcHcvcmVVbnNFOUI3?=
- =?utf-8?B?V0xBUFJMdmNRdjZTTW1GY0RiL09pMkJlbVFNU2RMZkZOclFsVXYrdm4zWGFy?=
- =?utf-8?B?aWYrR2VOKzg3dEdvSHByejVmY01PcTU4M3FwMmduRlBkeDhwNmV2VXFuTWQr?=
- =?utf-8?B?Y1NuQTJXUzFEMzhxcXlvck9RTW5IcTE4blRkSjM4V1REeTZ5OG5zaVhhZ3pj?=
- =?utf-8?B?dWxEdThnWG55WXJhYWMrRXBleHE0d25lYTVSZzRGS0lLdlFJK0QrTmVQOERH?=
- =?utf-8?B?T2ZOazkwVnNpZjc1UzhPaUVMbUl5VE8xQXdtd2Jad1FCSzJwd1QxSEdDVUhx?=
- =?utf-8?B?ZDVwWC83Ym9xVGpmdWI1OTdSY2ZkeFlJNStteVF5QkNubFlGekVlclB0cGhN?=
- =?utf-8?B?eGNhNENtcVV4UzhpQmtWSExmRnE4NkRKV3FKWUp0R0xQcGxYSnF1YUdPLzhC?=
- =?utf-8?B?bG9pYnVlbzNDTmVSWUxjRUNsaWhrM0ZjMTBXOGQ4eC8wNVpsdmQwT3RwZGVj?=
- =?utf-8?B?dFdSTE96RXF3Y2VNRjNudHY2ajA0TDFLb3hQQUxFdVlPVkdJY0xocnlTTlFY?=
- =?utf-8?B?ek5tWWVpaHdHSWNYL1JISkI2b00yQTFmdTJJSTNKMUcxVGE2V1pEblYyVkx3?=
- =?utf-8?B?NUJiS2RYcXdmVmdZVDAzRDg3WlNObCs1enRyZTBlNlFPREhpdUVrbzBKZXpX?=
- =?utf-8?B?dnpYd3g3Yk16QytBb2FEZUFrdzNPMDRDalhBTklvWmJXSkMrSzNkcHpUUVVS?=
- =?utf-8?B?Q3N0YkgvaEJldThZUHJOL3ppZC9xU1B0a1k2Y3IyekdVK0h6SXZsdmw5RlFF?=
- =?utf-8?B?NTRTVHhjalpsTENFSUhhRmxwSHZVVHVxamRpUmFIZ1VDTm55SnMvR2FiS3Yx?=
- =?utf-8?B?RTJ2Ymd5QWIrbDRXdE5KbHNRdU44SEkwd2Rpb0FOcjN3MmRVSVR6MDVBQmVW?=
- =?utf-8?B?TG9xRTJ3UGlOZTRVejVCRnRlaS8xbk9YYUNmSUFNSjB1Y2R5MnpuVnFQN2xQ?=
- =?utf-8?B?UjV3bUUvb0ZuaWsvQ1BHOGN5R3lRcHlJMkFPOXJ0bTllSGZvRmMyV1ZCQ1I0?=
- =?utf-8?B?S216M3ZlYTJzc2w1TlA3QjNkWW9iTXpkK0J1VEFZUnhNMWEyQnBOdk80VWJW?=
- =?utf-8?B?VmF0ZXpFeldrYk1KRkdwWDIvd3MweUs0UmRnc2NZOHFQcENTSG9NeVJOdWRL?=
- =?utf-8?B?YnRUT2pqVDJCWnBnNytGQ29sVUNPRHA2TnZGRzZxM0xKaEM4Z1NZeXJPa0Jp?=
- =?utf-8?B?OEdSWm1xd0FhWkJac2FIT2s3YVJXZDJ6eEJ2OG1yaTByejRDUzcrai8rUEsx?=
- =?utf-8?B?WE1hZWRRVmJqL0ZLa3BpMDNtRnJPbVNNdVd3bzZobTZhVWJmc3doK1VrYy9O?=
- =?utf-8?B?TmRxZlk2VHByOHp3Z1hyYlF0UTc4NEhaSDBKbjh2SVgyVnd2M2RTZlpYWlhh?=
- =?utf-8?B?WEE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	zpJi0uHKQOV55pOHshHHRO2Px2x81YIl9PUwe3tzrh8a7okbmZPtfrN+GWQrA77tr3TyCeo2b1aljqBQzoHVS7vDM00ex6veerQwwhEQ8C6SXX58jZR3xHAWlVnLJYE2sYN6esZOFjRPNJXW0f/Sp2r06ndfiw8XSs4qsd4HQdM8CHobuVxlcm9FPf1BbMgeObU08J/TE96HjZZ0RpaIbcQLsO2fmruV1y5emE9V+jdqO1WQYIUTTbqQVuSl28j2sXOFKj4FaRznColT2WqM4gcyi+FeyhYjlDC8h6jDsnulaVyM33RcWh8KBayD850jPrOPCoF5PLiRU++pt4qgjW42bNj6ynReFGvuiJ7ny+iQFRFvCfz+PeDhQtO6P4dXRdaZU0xBdeO1FE0xjbmCiqHsXL+EU66VIehBM8ZBz+hwSuI8uytM3RRlxotpNS3yuRKTZvf962D8MYREHj1jrWtBzcRQB+eVuWlc8bv60Q8zlwStfI3ITNWMtGE3gd3Vv4D916ZtdnXjBnPgZE9J69JfaME6HrUMLpqBzu/zLWKUV2xMZvbDl+QljmvzUtpW1ALsmBjUrPphtAZMrbBL/Hs0p9FMIam0GLMWMBg8sb/SwYKYX6isEUVeVXmYDlPU1of2KHKJLcOBE1VDa5A1hnnbaJLIdRVLHdQiFSVn0Y3iebBf5Y4+iIZV2ayFgfB9MupBYBvH11eAVAxul9lS3LGY1fzsrbwByQk2isfDaIO+tH9zz1shrEVEpiP8nJTc6XKrPB1WA3qBFBD1aQEGbN+oWChXWV2dv2BGoPBt1KoFX3tnU5938lQXY7l+2KaCh2UcwpWbP3sN9OrwTCRRz/hwTBMxa0WxqQS7hX5GKzaZ7Pa9g+lZFyzE/jmMQWLq0DGAt06APLRZly+3IIt7Fw==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3093d4b0-a579-406e-f64c-08dbc3ea745f
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6428.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2023 08:26:34.6738
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BO7Ak5KLeyvIGMbBfIYAS25d0MMCxM2VGuZVNNnZCtGRd1wR17E2P4hq7mdArl++9vQLjEdnJsT+OMSx63mBXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR03MB6783
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="fnnv6en4biooyeg3"
+Content-Disposition: inline
+In-Reply-To: <64fd22df-616e-9f5a-26fb-44c4b3423b0c@csgroup.eu>
+X-Originating-IP: [106.210.248.115]
+X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
+	CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
+X-Brightmail-Tracker: H4sIAAAAAAAAA2VTa0wUVxjtndmdWTZiBrTldjHBAGlaUCqU6NciVFPbTOSHplhDjQlSHUAK
+	i90FpRpbsCAFledCYXnIe1dWQHGhsIIIRh6CCmXLAkJFXlagivKWsJZ1aGvSf+ec+33n3HOT
+	KyItH9ES0VFpKCeT+gbZUmJBVdPivc2X9NbcFkW9GbQY8glYTm6ioT/5MQ2FLY8IeFWVRELW
+	/SgB3IiqQHAjvZQC/ewzCsp00QSMNg3R8FNBOQXdv7KQmXiNAFVXOYLB3yWQ31NFQEZ6C4Ks
+	Xhd4mr0B6vJW/HJDoP1cMHRUxQthRFNJg+JlEQmpSVMUdOmyKIi5qEMw1nhBAOcM1RS0F1yg
+	YWneKARVs5GAnsRRBHEJMQiact+BhaUlIdQOjiCYa5tEkFrsBNkzqSSoJ7NJqFd201CUoSah
+	WbVMgabMB+oVl0m42aZYkYwnIfr8Ig23KvoIWFpYCZ7XphA7trJdek926WUyYjMjOgXsbO89
+	gtVe6iXY/qIaxNbN5QrYGuUAzeZWhLE6XSTNXlM7sAW1Twh2OXYr2zfhzlaUxFLsgjqB3Lvx
+	gHj7ES7o6HFO9qHHIXHApKoSHTP4h8eMDRERSOMZh8xEmHHF2mg1HYfEIktGjXBa6QzFkxmE
+	U7qeC3kyjXBnT98KEb1eMeZwvK5CeLxhivx3qHLq8aqXFuHetCrCFCJg7HFF1CWhCVPMJnx/
+	sp80Oa1nXHD8xGsnkolZhweudCHTzDrGExvyS2gTNme24RdxM0IeW+DWjBGBCZNMOJ6u0xEm
+	H5KxxiqjyCSbMR5YuZxE8N3scEfWBMXj0/iOto8wZWHm7Brc9meqkD/YhXMGH67idXi8WUvz
+	eAN+VXNxdSEF4XrjFM0TDcLFkbOrEW44Sj+yurETj0c0Iv6N1uKevyz4i67FyVW/kLxsjn8+
+	a8lPv4c1f0wKEpGd8o1qyjeqKf+rxstOuCdVQf1PdsTFeRMkj91xWdkzQS6iS5AVFyYP9ufk
+	LlLuhJPcN1geJvV3OhwSXIFWfl6bsXmmGqnGnzs1IkKEGpH9yvLQFU0HkgikIVLOdr35/tsS
+	ztL8iO/3JzlZiI8sLIiTNyJrkcDWytzRvfWwJePvG8p9y3HHONk/p4TITBJB2KQ36LcvdNbG
+	OKwZdr3nfvvJ3sBZ+202sv7vxO1+p0uqP3H7zKP8B6+W+cCDz2sNdn6fZzz49LfY+soagy58
+	4ITj1znHTyzm3xkVx/q4LfeJD14lUzbtsXZtuBpR2P8F0fKC8vnqmPehc6cix76xUA8Gjc13
+	a0/d+lK4+WaSnzxn95hiy4H3C4ebrid/cKH7cuTDM+3R3tfsF70epHUOlzZaXH+2s9obHBZ1
+	75brd7UMOMd42NKtT68+vXv9vIU4SJ86FrqxK2/yxwNv3Q/oK5F+VD+8z2vHdGZ1gVbi6hH6
+	NluU4dy77B067p7WUXrm44RWZXzpnuEgG5aW2Mhe3A3c57VoNbffViAP8HV2IGVy378BjDSm
+	zPQEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA2VTaUxcVRj1vje8N4whfQLiE1pDp6Rpqw4My/Cxiv3jM5BooqENpuLYvkKV
+	YXCGqZWkLAoBBtqyGhgW2feyDDDsUKcUUEiLZd8qLZst2E3KWkYHpqYm/jv3fGf5cnMvFzfd
+	Jiy554JDWVmwOIhP8Dj9ut6Zd8uGrVi7tpQD0DdWgMFOSg8J0ylLJBT13cXgb00yDtm3ojnQ
+	Ga1G0JlxlYDhZ48IqG6NwWCh5x4JPxTWEDDaxEBWUj0GpUM1CGZHLKFgXINBZkYfguwJe3iY
+	sx868vV5eVIYSJDAoOayEcxXNpKQtlWMQ3ryYwKGWrMJiP2pFcGi9hIHEsaaCRgovETC9rrO
+	CEp7dRiMJy0gUF6JRdCTZwEb29tG0D47j2CtfwVBeokAclbTcShbycGhSzVKQnFmGQ69pTsE
+	VFb7Q1daFQ7X+tP0lC4MYhI3SbiunsRge0NfvN6QinmJmKFhb2Z7KwUxWZG/cZhnEzcxpqF8
+	AmOmi1sQ07GWx2FaVDMkk6dWMK2tUSRTX3aMKWy/jzE78SJmctmDUVfEE8xG2RX8Y2s/gbtM
+	qghlrQOl8lAP/mdCsBcIXUBg7+giEDo4n3K1d+LberqfYYPOnWdltp5fCAI37wyikJGACwN1
+	jSgSlXsrEZdLU460LpdVIh7XlCpG9MZKPqZExnp+P123OmJkwGb081ElYRA9QfS1rjIjw6EB
+	0VNFneSuikPZ0Oro8j0HQb1D31qZxncbzCl7+vLyXgNOxZrRt+Nq8F2NGeVNjxVU7HlNKGf6
+	qXL1RehdREepGo0Mg9foXzLnObtBOHWeLo3/1gCt6FIdd1dhTHnSqp3kF0sfogezlwkDvkj/
+	tbOIkpCZ6j9BqpdBqpdBuwpcv3NL4zTxP/ptuiR/GTdgD7q6+hEnD5EVyJxVyCUBErlQIBdL
+	5IrgAMFpqUSN9C9f07NZ34xyHzwRaBHGRVpko3feq60cRJacYGkwyzc38b1hyZqanBF/F8bK
+	pP4yRRAr1yIn/R0m45avn5bqv1FwqL9QZOckdBS52Dm5iBz4b5h8GBInNqUCxKHs1ywbwsr+
+	9WFcY8tI7JM20fMYt4zD9qKgE0Ve37T41bY/CGgeb9uSqC68CYeNj1wNz2rhSS3IwF717Emf
+	I1RcRcRx17Aml/Vac87En6n7zBP8ruf7L9BRB6W87tRXN+9/MPa0zzPxx9+74OivWUu8RAtl
+	yacfeTicfLjjZjd6Ft0Mesx5v+OritBo525tfEh1nfXRgkh/m7nYtxbCJ7+XFnOH3Zcm3rNT
+	t0586S7RqDd9DwysTdnOBMJcxufiyhSm1HaGPLjSdUh0NvdG/hwesbUk9/FavMMzjSjELTQ/
+	n4oE56m6ELfbM0rtQR/qxB9eM2b7/Hw7Liq40Si8iTWzS6k67ljVTbm+YiWNTdPwOfJAsfAY
+	LpOL/wHYFGJwjgQAAA==
+X-CMS-MailID: 20231003084528eucas1p172b5a744b37bf5aa4d6028a7a008f8f3
+X-Msg-Generator: CA
+X-RootMTR: 20231002122730eucas1p17643da82bb9aa655b35c3562446ad395
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20231002122730eucas1p17643da82bb9aa655b35c3562446ad395
+References: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
+	<CGME20231002122730eucas1p17643da82bb9aa655b35c3562446ad395@eucas1p1.samsung.com>
+	<64fd22df-616e-9f5a-26fb-44c4b3423b0c@csgroup.eu>
 
-On Thu, Sep 28, 2023 at 07:49:18PM -0700, Elliott Mitchell wrote:
-> I'm trying to get FreeBSD/ARM operational on Xen/ARM.  Current issue is
-> the changes with the handling of the shared information page appear to
-> have broken things for me.
-> 
-> With a pre-4.17 build of Xen/ARM things worked fine.  Yet with a build
-> of the 4.17 release, mapping the shared information page doesn't work.
+--fnnv6en4biooyeg3
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is due to 71320946d5edf AFAICT.
+On Mon, Oct 02, 2023 at 12:27:18PM +0000, Christophe Leroy wrote:
+>=20
+>=20
+> Le 02/10/2023 =E0 10:55, Joel Granados via B4 Relay a =E9crit=A0:
+> > From: Joel Granados <j.granados@samsung.com>
+> >=20
+<--- snip --->
+> >          - The "yesall" config saves 2432 bytes [4]
+> >          - The "tiny" config saves 64 bytes [5]
+> >      * memory usage:
+> >          In this case there were no bytes saved because I do not have a=
+ny
+> >          of the drivers in the patch. To measure it comment the printk =
+in
+> >          `new_dir` and uncomment the if conditional in `new_links` [3].
+> >=20
+> > ---
+> > Changes in v2:
+> > - Left the dangling comma in the ctl_table arrays.
+> > - Link to v1: https://lore.kernel.org/r/20230928-jag-sysctl_remove_empt=
+y_elem_drivers-v1-0-e59120fca9f9@samsung.com
+> >=20
+> > Comments/feedback greatly appreciated
+>=20
+> Same problem on powerpc CI tests, all boot target failed, most of them=20
+> with similar OOPS, see=20
+> https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20231002-jag-sysc=
+tl_remove_empty_elem_drivers-v2-15-02dd0d46f71e@samsung.com/
+I found the culprit!. Here you are rebasing on top of v6.5.0-rc6 "INFO:
+Looking for kernel version: 6.5.0-rc6-gbf2ac4d7d596". The error makes
+sense becuase in that version we have not introduced the stopping
+criteria based on the ctl_table array size, so the loop continues
+looking for an empty sentinel past valid memory (and does not find it).
+The ctl_table check catches it but then fails to do a proper error
+because we have already tried to access invalid memory. The solution
+here is to make sure to rebase in on top of the latest rc in v6.6.
 
-> I'm using Tianocore as the first stage loader.  This continues to work
-> fine.  The build is using tag "edk2-stable202211", commit fff6d81270.
-> While Tianocore does map the shared information page, my reading of their
-> source is that it properly unmaps the page and therefore shouldn't cause
-> trouble.
-> 
-> Notes on the actual call is gpfn was 0x0000000000040072.  This is outside
-> the recommended address range, but my understanding is this is supposed
-> to be okay.
-> 
-> The return code is -16, which is EBUSY.
-> 
-> Ideas?
+>=20
+> What is strange is that I pushed your series into my github account, and=
+=20
+> got no failure, see https://github.com/chleroy/linux/actions/runs/6378951=
+278
+And here it works because you use the latest rc : "INFO: Looking for
+kernel version: 6.6.0-rc3-g23d4b5db743c"
 
-I think the issue is that you are mapping the shared info page over a
-guest RAM page, and in order to do that you would fist need to create
-a hole and then map the shared info page.  IOW: the issue is not with
-edk2 not having unmapped the page, but with FreeBSD trying to map the
-shared_info over a RAM page instead of a hole in the p2m.  x86
-behavior is different here, and does allow mapping the shared_info
-page over a RAM gfn (by first removing the backing RAM page on the
-gfn).
+>=20
+> Christophe
+>=20
+> >=20
+> > Best
+> >=20
+> > Joel
+> >=20
+> > [1]
+> > We are able to remove a sentinel table without behavioral change by
+> > introducing a table_size argument in the same place where procname is
+> > checked for NULL. The idea is for it to keep stopping when it hits
+> > ->procname =3D=3D NULL, while the sentinel is still present. And when t=
+he
+> > sentinel is removed, it will stop on the table_size. You can go to
+> > (https://lore.kernel.org/all/20230809105006.1198165-1-j.granados@samsun=
+g.com/)
+> > for more information.
+> >=20
+> > [2]
+> > Links Related to the ctl_table sentinel removal:
+> > * Good summary from Luis sent with the "pull request" for the
+> >    preparation patches.
+> >    https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.or=
+g/
+> > * Another very good summary from Luis.
+> >    https://lore.kernel.org/all/ZMFizKFkVxUFtSqa@bombadil.infradead.org/
+> > * This is a patch set that replaces register_sysctl_table with register=
+_sysctl
+> >    https://lore.kernel.org/all/20230302204612.782387-1-mcgrof@kernel.or=
+g/
+> > * Patch set to deprecate register_sysctl_paths()
+> >    https://lore.kernel.org/all/20230302202826.776286-1-mcgrof@kernel.or=
+g/
+> > * Here there is an explicit expectation for the removal of the sentinel=
+ element.
+> >    https://lore.kernel.org/all/20230321130908.6972-1-frank.li@vivo.com
+> > * The "ARRAY_SIZE" approach was mentioned (proposed?) in this thread
+> >    https://lore.kernel.org/all/20220220060626.15885-1-tangmeng@uniontec=
+h.com
+> >=20
+> > [3]
+> > To measure the in memory savings apply this on top of this patchset.
+> >=20
+> > "
+> > diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+> > index c88854df0b62..e0073a627bac 100644
+> > --- a/fs/proc/proc_sysctl.c
+> > +++ b/fs/proc/proc_sysctl.c
+> > @@ -976,6 +976,8 @@ static struct ctl_dir *new_dir(struct ctl_table_set=
+ *set,
+> >          table[0].procname =3D new_name;
+> >          table[0].mode =3D S_IFDIR|S_IRUGO|S_IXUGO;
+> >          init_header(&new->header, set->dir.header.root, set, node, tab=
+le, 1);
+> > +       // Counts additional sentinel used for each new dir.
+> > +       printk("%ld sysctl saved mem kzalloc \n", sizeof(struct ctl_tab=
+le));
+> >=20
+> >          return new;
+> >   }
+> > @@ -1199,6 +1201,9 @@ static struct ctl_table_header *new_links(struct =
+ctl_dir *dir, struct ctl_table_
+> >                  link_name +=3D len;
+> >                  link++;
+> >          }
+> > +       // Counts additional sentinel used for each new registration
+> > +       //if ((head->ctl_table + head->ctl_table_size)->procname)
+> > +               printk("%ld sysctl saved mem kzalloc \n", sizeof(struct=
+ ctl_table));
+> >          init_header(links, dir->header.root, dir->header.set, node, li=
+nk_table,
+> >                      head->ctl_table_size);
+> >          links->nreg =3D nr_entries;
+> > "
+> > and then run the following bash script in the kernel:
+> >=20
+> > accum=3D0
+> > for n in $(dmesg | grep kzalloc | awk '{print $3}') ; do
+> >      echo $n
+> >      accum=3D$(calc "$accum + $n")
+> > done
+> > echo $accum
+> >=20
+> > [4]
+> > add/remove: 0/0 grow/shrink: 0/21 up/down: 0/-2432 (-2432)
+> > Function                                     old     new   delta
+> > xpc_sys_xpc_hb                               192     128     -64
+> > xpc_sys_xpc                                  128      64     -64
+> > vrf_table                                    128      64     -64
+> > ucma_ctl_table                               128      64     -64
+> > tty_table                                    192     128     -64
+> > sg_sysctls                                   128      64     -64
+> > scsi_table                                   128      64     -64
+> > random_table                                 448     384     -64
+> > raid_table                                   192     128     -64
+> > oa_table                                     192     128     -64
+> > mac_hid_files                                256     192     -64
+> > iwcm_ctl_table                               128      64     -64
+> > ipmi_table                                   128      64     -64
+> > hv_ctl_table                                 128      64     -64
+> > hpet_table                                   128      64     -64
+> > firmware_config_table                        192     128     -64
+> > cdrom_table                                  448     384     -64
+> > balloon_table                                128      64     -64
+> > parport_sysctl_template                      912     720    -192
+> > parport_default_sysctl_table                 584     136    -448
+> > parport_device_sysctl_template               776     136    -640
+> > Total: Before=3D429940038, After=3D429937606, chg -0.00%
+> >=20
+> > [5]
+> > add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-64 (-64)
+> > Function                                     old     new   delta
+> > random_table                                 448     384     -64
+> > Total: Before=3D1885527, After=3D1885463, chg -0.00%
+> >=20
+> > [6] https://lore.kernel.org/all/20230913-jag-sysctl_remove_empty_elem_a=
+rch-v2-0-d1bd13a29bae@samsung.com/
+> >=20
+> > Signed-off-by: Joel Granados <j.granados@samsung.com>
+> >=20
+> > To: Luis Chamberlain <mcgrof@kernel.org>
+> > To: willy@infradead.org
+> > To: josh@joshtriplett.org
+> > To: Kees Cook <keescook@chromium.org>
+> > To: Phillip Potter <phil@philpotter.co.uk>
+> > To: Clemens Ladisch <clemens@ladisch.de>
+> > To: Arnd Bergmann <arnd@arndb.de>
+> > To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > To: Juergen Gross <jgross@suse.com>
+> > To: Stefano Stabellini <sstabellini@kernel.org>
+> > To: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > To: Jiri Slaby <jirislaby@kernel.org>
+> > To: "James E.J. Bottomley" <jejb@linux.ibm.com>
+> > To: "Martin K. Petersen" <martin.petersen@oracle.com>
+> > To: Doug Gilbert <dgilbert@interlog.com>
+> > To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+> > To: Jason Gunthorpe <jgg@ziepe.ca>
+> > To: Leon Romanovsky <leon@kernel.org>
+> > To: Corey Minyard <minyard@acm.org>
+> > To: Theodore Ts'o <tytso@mit.edu>
+> > To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+> > To: David Ahern <dsahern@kernel.org>
+> > To: "David S. Miller" <davem@davemloft.net>
+> > To: Eric Dumazet <edumazet@google.com>
+> > To: Jakub Kicinski <kuba@kernel.org>
+> > To: Paolo Abeni <pabeni@redhat.com>
+> > To: Robin Holt <robinmholt@gmail.com>
+> > To: Steve Wahl <steve.wahl@hpe.com>
+> > To: Russ Weight <russell.h.weight@intel.com>
+> > To: "Rafael J. Wysocki" <rafael@kernel.org>
+> > To: Song Liu <song@kernel.org>
+> > To: "K. Y. Srinivasan" <kys@microsoft.com>
+> > To: Haiyang Zhang <haiyangz@microsoft.com>
+> > To: Wei Liu <wei.liu@kernel.org>
+> > To: Dexuan Cui <decui@microsoft.com>
+> > To: Jani Nikula <jani.nikula@linux.intel.com>
+> > To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> > To: David Airlie <airlied@gmail.com>
+> > To: Daniel Vetter <daniel@ffwll.ch>
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: xen-devel@lists.xenproject.org
+> > Cc: linux-serial@vger.kernel.org
+> > Cc: linux-scsi@vger.kernel.org
+> > Cc: linuxppc-dev@lists.ozlabs.org
+> > Cc: linux-rdma@vger.kernel.org
+> > Cc: openipmi-developer@lists.sourceforge.net
+> > Cc: netdev@vger.kernel.org
+> > Cc: linux-raid@vger.kernel.org
+> > Cc: linux-hyperv@vger.kernel.org
+> > Cc: intel-gfx@lists.freedesktop.org
+> > Cc: dri-devel@lists.freedesktop.org
+> >=20
+> > ---
+> >=20
+> > ---
+> > Joel Granados (15):
+> >        cdrom: Remove now superfluous sentinel element from ctl_table ar=
+ray
+> >        hpet: Remove now superfluous sentinel element from ctl_table arr=
+ay
+> >        xen: Remove now superfluous sentinel element from ctl_table array
+> >        tty: Remove now superfluous sentinel element from ctl_table array
+> >        scsi: Remove now superfluous sentinel element from ctl_table arr=
+ay
+> >        parport: Remove the now superfluous sentinel element from ctl_ta=
+ble array
+> >        macintosh: Remove the now superfluous sentinel element from ctl_=
+table array
+> >        infiniband: Remove the now superfluous sentinel element from ctl=
+_table array
+> >        char-misc: Remove the now superfluous sentinel element from ctl_=
+table array
+> >        vrf: Remove the now superfluous sentinel element from ctl_table =
+array
+> >        sgi-xp: Remove the now superfluous sentinel element from ctl_tab=
+le array
+> >        fw loader: Remove the now superfluous sentinel element from ctl_=
+table array
+> >        raid: Remove now superfluous sentinel element from ctl_table arr=
+ay
+> >        Drivers: hv: Remove now superfluous sentinel element from ctl_ta=
+ble array
+> >        intel drm: Remove now superfluous sentinel element from ctl_tabl=
+e array
+> >=20
+> >   drivers/base/firmware_loader/fallback_table.c |  1 -
+> >   drivers/cdrom/cdrom.c                         |  1 -
+> >   drivers/char/hpet.c                           |  1 -
+> >   drivers/char/ipmi/ipmi_poweroff.c             |  1 -
+> >   drivers/char/random.c                         |  1 -
+> >   drivers/gpu/drm/i915/i915_perf.c              |  1 -
+> >   drivers/hv/hv_common.c                        |  1 -
+> >   drivers/infiniband/core/iwcm.c                |  1 -
+> >   drivers/infiniband/core/ucma.c                |  1 -
+> >   drivers/macintosh/mac_hid.c                   |  1 -
+> >   drivers/md/md.c                               |  1 -
+> >   drivers/misc/sgi-xp/xpc_main.c                |  2 --
+> >   drivers/net/vrf.c                             |  1 -
+> >   drivers/parport/procfs.c                      | 28 +++++++++++-------=
+---------
+> >   drivers/scsi/scsi_sysctl.c                    |  1 -
+> >   drivers/scsi/sg.c                             |  1 -
+> >   drivers/tty/tty_io.c                          |  1 -
+> >   drivers/xen/balloon.c                         |  1 -
+> >   18 files changed, 11 insertions(+), 35 deletions(-)
+> > ---
+> > base-commit: 0e945134b680040b8613e962f586d91b6d40292d
+> > change-id: 20230927-jag-sysctl_remove_empty_elem_drivers-f034962a0d8c
+> >=20
+> > Best regards,
 
-Ideally we would like to use an unpopulated gfn, but doing so is not
-trivial right now, as the point where the shared_info page is mapped
-we don't yet have an easy way to account for unpopulated regions.
+--=20
 
-My suggestion would be to do something like:
+Joel Granados
 
-diff --git a/sys/x86/xen/hvm.c b/sys/x86/xen/hvm.c
-index 4122daeaf600..7251bc69ae15 100644
---- a/sys/x86/xen/hvm.c
-+++ b/sys/x86/xen/hvm.c
-@@ -194,18 +194,20 @@ xen_hvm_init_shared_info_page(void)
- {
- 	struct xen_add_to_physmap xatp;
- 
--	if (xen_pv_domain()) {
--		/*
--		 * Already setup in the PV case, shared_info is passed inside
--		 * of the start_info struct at start of day.
--		 */
--		return;
--	}
--
- 	if (HYPERVISOR_shared_info == NULL) {
-+		struct xen_remove_from_physmap rm = {
-+			.domid = DOMID_SELF,
-+		};
-+		int rc;
-+
- 		HYPERVISOR_shared_info = malloc(PAGE_SIZE, M_XENHVM, M_NOWAIT);
- 		if (HYPERVISOR_shared_info == NULL)
- 			panic("Unable to allocate Xen shared info page");
-+
-+		rm.gpfn = vtophys(HYPERVISOR_shared_info) >> PAGE_SHIFT;
-+		rc = HYPERVISOR_memory_op(XENMEM_remove_from_physmap, &rm);
-+		if (rc != 0)
-+			printf("Failed to remove shared_info GFN: %d\n", rc);
- 	}
- 
- 	xatp.domid = DOMID_SELF;
+--fnnv6en4biooyeg3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-But in the long term we should see about initializing the shared_info
-page as part of xenpv_attach().
+-----BEGIN PGP SIGNATURE-----
 
-Regards, Roger.
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmUb1TMACgkQupfNUreW
+QU+dSwv/VdmQFmwGJjil1rJHyE+Sc/SnIzc2236zL26xGDgEbQ5tSma2ncYbXdL4
+nIY2i4Z9kQshrOjHGUx911wqp3BpmOkRtWDCSjn5uDIKCZ2ZjtNvRaYn10/iahkc
+606iTKcJXw2XkjU6j7DqorK+iBQ7Dy6glPHp0vKbS6wxFAVsH/IubN/jhiEgK6qA
+Q8Iv2LbaECMpNl5fvrI8Gze2IPEWCSv9ZoUFGUt1ARzsCpCQHbAG3fGYJStQk6tM
+w5G0yNVOOLjBjYtXxn4ZkZEwRcnpQ5cvI10GdCP5XtGGcK1qEBgpJqaU1pwraZCW
+0zhvgLRVFHuJZCpLoqJscGGNZq3aUNky/gOAoKOdoh9n1magAhx2Q8VXuNDO7P0c
+peGouYGzJPLDuxYqWXV5qJ+5sAd0L1upStkDSOWEq9plxYTbdcdU/ej77mZrwJcu
+sQOWoEt3YL+G3pPRDQzJDEGIijra1TI9FPTIbbuHEwQKpyWoFP+EKAFDrQosXWyn
+sCovmRlT
+=9d/Z
+-----END PGP SIGNATURE-----
+
+--fnnv6en4biooyeg3--
 
