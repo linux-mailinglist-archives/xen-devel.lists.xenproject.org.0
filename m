@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DED7B884F
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 20:14:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612739.952807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55297B8B37
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 20:49:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612747.952816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo6OO-00080I-84; Wed, 04 Oct 2023 18:14:40 +0000
+	id 1qo6um-0006Zr-Pw; Wed, 04 Oct 2023 18:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612739.952807; Wed, 04 Oct 2023 18:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 612747.952816; Wed, 04 Oct 2023 18:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo6OO-0007yc-4m; Wed, 04 Oct 2023 18:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 612739;
- Wed, 04 Oct 2023 18:14:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qo6um-0006XN-NB; Wed, 04 Oct 2023 18:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 612747;
+ Wed, 04 Oct 2023 18:48:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo6OM-0007yS-LY; Wed, 04 Oct 2023 18:14:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo6OM-0002hO-Fe; Wed, 04 Oct 2023 18:14:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo6OM-0000Qw-0J; Wed, 04 Oct 2023 18:14:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qo6OL-0003a6-W6; Wed, 04 Oct 2023 18:14:37 +0000
+ (envelope-from <SRS0=+RGk=FS=kernel.org=kuba@srs-se1.protection.inumbo.net>)
+ id 1qo6ul-0006XD-Kk
+ for xen-devel@lists.xenproject.org; Wed, 04 Oct 2023 18:48:07 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c966a3a-62e6-11ee-98d3-6d05b1d4d9a1;
+ Wed, 04 Oct 2023 20:48:05 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B1E8ECE1E5B;
+ Wed,  4 Oct 2023 18:48:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A765AC433C7;
+ Wed,  4 Oct 2023 18:47:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=k7UGRqZoCqYqcOFb2QyLzj1/5VyidAWYBm+4qoxSFcE=; b=3qqRGAiyteZCw+sYcqo+vvNJkJ
-	9Zq724Cq79OlvHHyqA7eVWT0JqSI6mXoat8xVQuTJDI3lmzYIQuFGDjy19fQ/w3zQy+jV9099A+LC
-	3r86hf+tS0GWCsaBGZXNz7l7uQsEcEyb+ONIaS6bjbNUpTa4xTQSYxeHB6Wg3nKF45mQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183263-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8c966a3a-62e6-11ee-98d3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696445280;
+	bh=iOe3yiBqvNEzyZE58IbaBP55/gzFuPI3U1iKp4mINDQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=NGOLugBfED2lS0FBXQFyKEL2ddul/Oqd9Nh90VHghzHJ/sSYTuOAeXIcSQ7Vx32UD
+	 oJisuVjQdO5S8CbdNIvwBCO7E4RLjWlbUeNJAHemewZmRNFh96kHuhjbNlRsiZyeJm
+	 QOaaz5n/1oBJ6KiYbZ//G521IxNREIT2U+ArAdCi/boRRfJIAh3ijsfuCkS0WEi1Ht
+	 cTuEOROzfLRXuIEm1oC7plr3cWAzeqOcEJHCU4Tx3+eW1SxU1VPqv2/PBbaPhito1E
+	 1WbxiIOJ08/Dn1Sbi/9x2qSPWpan49G6P0vKwpc02GF+9aYMDZETk72fp9t8CcJ9xE
+	 xzXer6Q/TP7mg==
+Date: Wed, 4 Oct 2023 11:47:58 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: David Kahurani <k.kahurani@gmail.com>
+Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ wei.liu@kernel.org, paul@xen.org
+Subject: Re: [PATCH] net/xen-netback: Break build if netback slots >
+ max_skbs + 1
+Message-ID: <20231004114758.44944e5d@kernel.org>
+In-Reply-To: <20230927082918.197030-1-k.kahurani@gmail.com>
+References: <20230927082918.197030-1-k.kahurani@gmail.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 183263: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d073a545119140070c83e4b2b249bf0448c6f89e
-X-Osstest-Versions-That:
-    ovmf=1497c4b074946f3ad9d46ddbb6d655c951e23ae8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 04 Oct 2023 18:14:37 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-flight 183263 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183263/
+On Wed, 27 Sep 2023 11:29:18 +0300 David Kahurani wrote:
+> If XEN_NETBK_LEGACY_SLOTS_MAX and MAX_SKB_FRAGS have a difference of
+> more than 1, with MAX_SKB_FRAGS being the lesser value, it opens up a
+> path for null-dereference. It was also noted that some distributions
+> were modifying upstream behaviour in that direction which necessitates
+> this patch.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d073a545119140070c83e4b2b249bf0448c6f89e
-baseline version:
- ovmf                 1497c4b074946f3ad9d46ddbb6d655c951e23ae8
+MAX_SKB_FRAGS can now be set via Kconfig, this allows us to create
+larger super-packets. Can XEN_NETBK_LEGACY_SLOTS_MAX be made relative
+to MAX_SKB_FRAGS, or does the number have to match between guest and
+host? Option #2 would be to add a Kconfig dependency for the driver
+to make sure high MAX_SKB_FRAGS is incompatible with it.
 
-Last test of basis   183250  2023-10-03 12:10:44 Z    1 days
-Testing same since   183263  2023-10-04 16:12:23 Z    0 days    1 attempts
+Breaking the build will make build bots very sad.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   1497c4b074..d073a54511  d073a545119140070c83e4b2b249bf0448c6f89e -> xen-tested-master
+We'll also need a Fixes tag, I presume this is a fix?
+-- 
+pw-bot: cr
 
