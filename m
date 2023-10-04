@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3520D7B82E4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 16:57:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612634.952637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D5037B82E6
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 16:57:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612635.952646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo3Im-0003Cl-VK; Wed, 04 Oct 2023 14:56:40 +0000
+	id 1qo3Iq-0003SX-6y; Wed, 04 Oct 2023 14:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612634.952637; Wed, 04 Oct 2023 14:56:40 +0000
+Received: by outflank-mailman (output) from mailman id 612635.952646; Wed, 04 Oct 2023 14:56:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo3Im-0003AL-Rf; Wed, 04 Oct 2023 14:56:40 +0000
-Received: by outflank-mailman (input) for mailman id 612634;
- Wed, 04 Oct 2023 14:56:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qo3Iq-0003Ph-3p; Wed, 04 Oct 2023 14:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 612635;
+ Wed, 04 Oct 2023 14:56:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HSqs=FS=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qo3Il-0003AF-G7
- for xen-devel@lists.xenproject.org; Wed, 04 Oct 2023 14:56:39 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20630.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3544d93f-62c6-11ee-9b0d-b553b5be7939;
- Wed, 04 Oct 2023 16:56:34 +0200 (CEST)
-Received: from MN2PR04CA0024.namprd04.prod.outlook.com (2603:10b6:208:d4::37)
- by LV8PR12MB9229.namprd12.prod.outlook.com (2603:10b6:408:191::14)
+ id 1qo3Ip-0003A6-1D
+ for xen-devel@lists.xenproject.org; Wed, 04 Oct 2023 14:56:43 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20630.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39cfd221-62c6-11ee-98d3-6d05b1d4d9a1;
+ Wed, 04 Oct 2023 16:56:42 +0200 (CEST)
+Received: from MN2PR06CA0016.namprd06.prod.outlook.com (2603:10b6:208:23d::21)
+ by PH8PR12MB7028.namprd12.prod.outlook.com (2603:10b6:510:1bf::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Wed, 4 Oct
- 2023 14:56:29 +0000
-Received: from BL02EPF0001A103.namprd05.prod.outlook.com
- (2603:10b6:208:d4:cafe::94) by MN2PR04CA0024.outlook.office365.com
- (2603:10b6:208:d4::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.25 via Frontend
- Transport; Wed, 4 Oct 2023 14:56:29 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.29; Wed, 4 Oct
+ 2023 14:56:38 +0000
+Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
+ (2603:10b6:208:23d:cafe::40) by MN2PR06CA0016.outlook.office365.com
+ (2603:10b6:208:23d::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33 via Frontend
+ Transport; Wed, 4 Oct 2023 14:56:38 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 14:56:29 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6838.14 via Frontend Transport; Wed, 4 Oct 2023 14:56:38 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 09:56:28 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 09:56:37 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
- 2023 09:56:28 -0500
+ 2023 09:56:37 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 4 Oct 2023 09:56:26 -0500
+ Transport; Wed, 4 Oct 2023 09:56:36 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,134 +63,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3544d93f-62c6-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 39cfd221-62c6-11ee-98d3-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D4KmqHseMDiIxsG1qxvzROZfJTBZxAGyRKfZnn/eyC4DSbu6pJUV+/nAVwPvXJmyHqm+hXlMvxjJAfhdOWfYBshwC0XPUIGyERbwjHfCkp8PElwYe2A73/i1LtEuIthyMdWzPQOI0JPU+taNpDGbmov5HjyfhT06ooJ57n2300jNx4H7uAtwEAIFHDkp1BAiuqCwfw5jgSEXCTjMdo41M4gW0R2+qO6zd8Z+uWbqxmhBbP33dr2z0/NIGMx/QCOsw/0s14E0VTOjHPhqCfWLUIdb1l/81t8IFTR3kS4u3Vso6yN/3tgOT/D+GQuYcWtWjrTf7DTEJFF+s1yd0Txw8A==
+ b=RcbYzwZHnoD+k53KhGZAdxWRj6gNkyIXmxxvKxZrkj73ns5LPmMmnuRvHTd/zYt5JDS278LBCrU0UdCPw0K9oDG/GjuUalihoyfX8yhNLex3/LkhuMw/K+uvxWsmoKL5I/rR1eP6miokM5c7xW0rPwS7OHBEocZSj5B8/4QClMmUpmk3+L4zF2OYTprI0Dj9/yKfGqDeV+G+BXjQYTvLQOed/7utGSmmhBjKg0iqSycPQQzPDydi3t3xi8+HtvIvKX3nq0AgUiixs/dSmENLKJIC/XGAMRYJ7uM5f7DkhzeHhNts7rRxMSlMmQiLDw2fRJtth1Bxu/mLn1u9WJB6JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wEUt5fOpn0QSdkaoxvId8LR2Py41khPzJUpC7Sxq+wo=;
- b=CB4QsHx8EWc36REaC14Ucn60hJZQz1eT0SJejUFJbg/8du6F+ETbgtjmYi1EPbuCOTyx1zmHgeXOruBqtIHaHn6el7fw31rxJgir3fBoS7z39D30XwyeyBHZjaPxlLmeUFWQvs8Sf+QjvqGJfyxCAjOnuJcUJr9s3nUVVmViZ1ppr/TxKu/e8ut/h/eQ+pA6UVBrBtsy9K+tW7+vJv7V4C4eoAosH/XBFQfRaUqclKaxhnl9eBnel8505K0fdPPwhAsBnMEWI1GKU94fZ8/N0O7wI4QBAtyLmh9j1NpNHU/QulwEGE52wCpmAkLDHO9j486pEGe8qmY+nBy+Ve/Tiw==
+ bh=r5240fKG5hTdjcdqqDr0qDzDhspiWQ9+ulXYYN4kHfg=;
+ b=YSkVCqJEX4shC03ReXzIwW08wzMzf9jR1LFQAXVse5bZ5th3L9Zdd203eGvxTCHOqPaigBS66YnxHGukb8aifIv76/IUsv1JSKM988UOE/h1elKbW6+0Aw8hxVJH8OhfyI/YyF9lSShxZHO31g9p2hq4aNrX6sJnowkzd/ZvNUOpZq47nhs8tN8rQNKZqffh0EJNwAvZSsaKhcNgow4/TwXYfdOuwHypbtdD9E+OqD7k16eTEsai5zmaCNzjZ+wjxbC4J/Qc7k7axdLfBzTDZIkDV7Nl9CueSI+luKH5Ex7WTCBGsPmF2Av0oPLz//MIlJRK7GyWOFXTzMm+t5Heqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wEUt5fOpn0QSdkaoxvId8LR2Py41khPzJUpC7Sxq+wo=;
- b=b8RO9PirdOKePf9D79pnsTA2F0+stG2Dw9+6ogjd0WEAmiHfae2/TVteOXQVTVHwdathWjvr7QT/jbGNFP/GoF1C12iEQIaJAGBGjmzhPU89CBLX2zUrHx6dHpPKzepZrGWydmDUIKSBuo8IxLwoYtDlwZAafa+cSAFtfkf5nvg=
+ bh=r5240fKG5hTdjcdqqDr0qDzDhspiWQ9+ulXYYN4kHfg=;
+ b=LdJeKG8AIxTQW/PVPvE8mGQAZuk28neKyqaBKOmbGFdOBrE+iulbuLqRAR5BHg78zDHb2LRBLRdzFLdkawfwxXd3pjGuG6voo2ZhN0hLbyXHouPjTC8h93Yvp29+RZHDhkHL/CUNp0Lx0ERehIoUJdUJDWTj1hKxJqgdeBl2nrc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Rahul Singh
-	<rahul.singh@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v5 0/9] SMMU handling for PCIe Passthrough on ARM
-Date: Wed, 4 Oct 2023 10:55:44 -0400
-Message-ID: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
+	Michal Orzel <michal.orzel@amd.com>
+Subject: [PATCH v5 1/9] xen/arm: don't pass iommu properties to hwdom for iommu-map
+Date: Wed, 4 Oct 2023 10:55:45 -0400
+Message-ID: <20231004145604.1085358-2-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
+References: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|LV8PR12MB9229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1abb790f-40a6-45cc-1b92-08dbc4ea172a
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|PH8PR12MB7028:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02c7348a-a5a0-4eb4-416a-08dbc4ea1c6c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Yby3dhV31KRu64czKPR2kEm95pdAo9MCqTGLPl6SLEvIO0dRlYQ/ceIb7oSQjp4fA/Spw4KPVO2nBpmMNCR67wOCemszMsVRmNaTasCsa94I2aOTMiStwPj+GNQqAFXh1XxGBf+xP0jjUoFeT/sIJaMsKbs8Z9enz0R28VmksGUPu7iK+jYKQR5Y8p1B8WYTjECbHvkH9R/OFtSChwmVlx3vVrLeX2Bh2NrWCRLsS5Lgtqt/7pauysdl1uXFVwFSoy+Nny6sf3Chju9TXis4w+/gE/CM+YhmtekUoBBaYJzypvHQkCkEVimq6P3U0oG+9Z11q8N4hy8bBAlRguHZgxIiTrxZLl3id47vgDqESNSTSOYi6SY2biNX9B6vuPzkvN2f4y+EqdXbVOKJ2375PjcqkIq++MZBGc+A9oZGmB/LwIIKVzLogGfQeXWXZIblFYfr8flTGwxgS3n35QMuXCH3YHvVfHtGbJ/wgBHl8zr/5jvsz1a0YQWTrB0gtDTyyW/c29F1CSd+KN2VnfXEKfUiRhDdJikwLN9hJPGQBH/PTcdOKV0Hw2hbVDURkY+E244qUSVVnTq9Uqtr/q6xJF0dl7pjCfSxJldcIF1PRqhJwP7KVoaPhvhgbigWaECwJz4uK+s1SrlPG1kT1ms4q3iDuU+1LxX+2XNGKWiBDNwJRiVVbQw2qaEvN+kq2C4/g1oO60B9Xr+bpvhN7TrHbapN0h85Sux4x1xqa6bkt2egiVSDefT8DloFzQpo7Xts
+	TSQZI9tFww1+FZxV9J9PZATFYKdGe54UnezLiVluLrVV8JICZSniVGFu6fsCc5vhW0lW7uz2csS6TSDsTY4ninFPEPTw1OEXa2Tzn8oUq08jWkfKZULskEL+zSr7q9kcWgmygRYCOzCQ8aNlS5se5aIlM3d08fYbFngtLhjfcuXbh6Ymhn32/Upmyeww0tS4dPusginR8napWGeFCva+w2BnacvEvVAUr9wkssJ1hZkQwiuaJ20Oneeg8Fzq8JvI2eFe9X9LKgwairjD4ISaVX8iJBJDQWJJSxi8ApI7GCExvoEnkNU+uaYIPzZHNEV3PJQGJnksRbW6LVJm5ZXBvB8tQ/E1bZJPFDg3MADEMNva3F9eWeQC3QKGBraSgQnbkeHrCr1ZclWfqHCJveCIdp4yGLyKKQDlu3a0RuBJoSpGyk+dCHo5ml+Lo7UY/l1Rl2uNO4/t/0bRF5JkLTEGC7/85Xr1Y29mczcBoyreFNtk4pXcfQyoAs62VHeAzOiEg9MNpz3UAlHPS4dErAjYk4xdJhXa1we60nFq1eBrgXWaIh+DSYXSrCKln3gcovRVSPgCaoEz/izs/6RqLgEdiqvM+XTQUmdfcIutLaH4gcoLHYfIgSwYYFhK/GZBbMiRFMuf+IGhbJVPV/d1VpTqbYn79TsqeS/MXH3EbxQX4v2Y8j+3TU/QF09M6Mx98Z5PRz/s4BBMNAhd9jYbC8WbzJLsBiNifjlbPFAvmqNfaRjNF5Diyo276A93Cw66ls0E6VFp9Wry6Brsp4PTAVsQmA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(396003)(346002)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(40460700003)(478600001)(966005)(1076003)(2616005)(36756003)(336012)(26005)(356005)(426003)(86362001)(82740400003)(83380400001)(36860700001)(40480700001)(47076005)(81166007)(6666004)(6916009)(70586007)(316002)(54906003)(41300700001)(70206006)(7416002)(5660300002)(8936002)(44832011)(8676002)(4326008)(2906002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(376002)(39860400002)(346002)(230922051799003)(186009)(82310400011)(1800799009)(64100799003)(451199024)(40470700004)(46966006)(36840700001)(82740400003)(1076003)(40480700001)(40460700003)(36756003)(2616005)(6666004)(356005)(81166007)(336012)(426003)(26005)(36860700001)(2906002)(4326008)(86362001)(8676002)(5660300002)(8936002)(41300700001)(6916009)(316002)(44832011)(54906003)(70586007)(478600001)(47076005)(966005)(70206006)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 14:56:29.2615
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 14:56:38.0836
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1abb790f-40a6-45cc-1b92-08dbc4ea172a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02c7348a-a5a0-4eb4-416a-08dbc4ea1c6c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A103.namprd05.prod.outlook.com
+	BL6PEPF0001AB74.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7028
 
-This series introduces SMMU handling for PCIe passthrough on ARM. These patches
-and should be able to be upstreamed independently from the vPCI series [1]. See
-[2] for notes about test cases.
+A device tree node for a PCIe root controller may have an iommu-map property [1]
+with a phandle reference to the SMMU node, but not necessarily an iommus
+property. In this case, we want to treat it the same as we currently handle
+devices with an iommus property: don't pass the iommu related properties to
+hwdom.
 
-[1] https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html
-[2] https://lists.xenproject.org/archives/html/xen-devel/2023-06/msg01135.html
+[1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
 
+Reported-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
 v4->v5:
-* drop ("xen/arm: Improve readability of check for registered devices")
-* drop ("xen/arm: Move is_protected flag to struct device")
-* add ("xen/arm: don't pass iommu properties to hwdom for iommu-map")
-* add ("xen/arm: Fix mapping for PCI bridge mmio region")
-* revert ("xen/arm: Add cmdline boot option "pci-passthrough = <boolean>"")
-* add ("xen/arm: Map ITS doorbell register to IOMMU page tables.")
-* fix test case #1 with PCI device in dom0
+* new patch
+---
+ xen/arch/arm/domain_build.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-v3->v4:
-* split a change from ("xen/arm: Move is_protected flag to struct device") into
-  a new separate patch
-* see individual patches for further details
-
-v2->v3:
-* drop "pci/arm: Use iommu_add_dt_pci_device()"
-* drop "RFC: pci/arm: don't do iommu call for phantom functions"
-* move invocation of sideband ID mapping function to add_device()
-  platform_ops/iommu_ops hook
-
-v1->v2:
-* phantom device handling
-* shuffle around iommu_add_dt_pci_device()
-
-Oleksandr Andrushchenko (1):
-  xen/arm: smmuv2: Add PCI devices support for SMMUv2
-
-Oleksandr Tyshchenko (2):
-  iommu/arm: Add iommu_dt_xlate()
-  iommu/arm: Introduce iommu_add_dt_pci_sideband_ids API
-
-Rahul Singh (4):
-  xen/arm: smmuv3: Add PCI devices support for SMMUv3
-  xen/arm: Fix mapping for PCI bridge mmio region
-  Revert "xen/arm: Add cmdline boot option "pci-passthrough =
-    <boolean>""
-  xen/arm: Map ITS doorbell register to IOMMU page tables.
-
-Stewart Hildebrand (2):
-  xen/arm: don't pass iommu properties to hwdom for iommu-map
-  iommu/arm: iommu_add_dt_pci_sideband_ids phantom handling
-
- docs/misc/xen-command-line.pandoc     |   7 -
- xen/arch/arm/device.c                 |   2 +-
- xen/arch/arm/domain_build.c           |   6 +-
- xen/arch/arm/include/asm/pci.h        |  12 --
- xen/arch/arm/pci/pci.c                |  12 --
- xen/arch/arm/vgic-v3-its.c            |  12 ++
- xen/arch/x86/include/asm/pci.h        |   6 -
- xen/common/device_tree.c              |  91 ++++++++++++
- xen/drivers/passthrough/arm/smmu-v3.c | 126 +++++++++++++++--
- xen/drivers/passthrough/arm/smmu.c    | 194 ++++++++++++++++++++++----
- xen/drivers/passthrough/device_tree.c |  97 ++++++++++---
- xen/drivers/pci/physdev.c             |   6 -
- xen/include/xen/device_tree.h         |  23 +++
- xen/include/xen/iommu.h               |  26 +++-
- 14 files changed, 515 insertions(+), 105 deletions(-)
-
-
-base-commit: 3d2d9e90224c4f430a7ee1190fd3b871b99b0ba0
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 24c9019cc43c..7da254709d17 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1135,6 +1135,8 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+      * should be skipped.
+      */
+     iommu_node = dt_parse_phandle(node, "iommus", 0);
++    if ( !iommu_node )
++        iommu_node = dt_parse_phandle(node, "iommu-map", 1);
+     if ( iommu_node && device_get_class(iommu_node) != DEVICE_IOMMU )
+         iommu_node = NULL;
+ 
 -- 
 2.42.0
 
