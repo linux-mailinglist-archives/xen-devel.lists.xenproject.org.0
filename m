@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED987B830E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 16:59:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612655.952697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861667B83E2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Oct 2023 17:42:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612697.952747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo3LI-0006Wk-2i; Wed, 04 Oct 2023 14:59:16 +0000
+	id 1qo40E-0004Ue-PP; Wed, 04 Oct 2023 15:41:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612655.952697; Wed, 04 Oct 2023 14:59:16 +0000
+Received: by outflank-mailman (output) from mailman id 612697.952747; Wed, 04 Oct 2023 15:41:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qo3LH-0006Uq-W8; Wed, 04 Oct 2023 14:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 612655;
- Wed, 04 Oct 2023 14:59:14 +0000
+	id 1qo40E-0004Rq-M5; Wed, 04 Oct 2023 15:41:34 +0000
+Received: by outflank-mailman (input) for mailman id 612697;
+ Wed, 04 Oct 2023 15:41:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo3LG-0006Ue-8i; Wed, 04 Oct 2023 14:59:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qo40D-0004Rh-TN
+ for xen-devel@lists.xenproject.org; Wed, 04 Oct 2023 15:41:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo3LF-0005cC-W8; Wed, 04 Oct 2023 14:59:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qo3LF-0004RV-Jn; Wed, 04 Oct 2023 14:59:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qo3LF-0005od-JH; Wed, 04 Oct 2023 14:59:13 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qo40D-0006jH-9d; Wed, 04 Oct 2023 15:41:33 +0000
+Received: from [15.248.2.150] (helo=[10.24.67.38])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qo40D-0001g0-3g; Wed, 04 Oct 2023 15:41:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/mkY+LOOtf2sDLk5fsSUKVVhsHb8ZhUkmrN/a+7wyEA=; b=dJoHEeoOmqx+YQaLGHG4pOqXhF
-	t1HcV+J5p7nMnTxPZYevSnWl6Na7O7tiSVJp86DZasoMwu6yNsiVBbJh0JHIh+kY2SH+NyGTmHL2j
-	2na529Bqs9wKECkH0gafcuYpXRpnqAjKZTtxufvWhZyalO+tkujvBGqiMu14pNZ9KcQY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183260-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=USryev3r0pVojqfcVSenieL0a1SEmW95Au1bA7n5dis=; b=HulH0VMGmF7s9EEYTA9ttQkEPc
+	x5NdmKUaWJiZn2RuUhTVy4fRJ98BrG3RzdZ4BhrZKyRVUQ6pGEwlvVXWTuN5sli8erM6CjL5lj5OF
+	xqcoYxW5FQvQnPL2G5u4C7K8I7wvuSCEmyHH4iCvnXyd02LJD7yTZCdWKW8aBhoIPHD8=;
+Message-ID: <f419a108-f594-4a00-9445-e1c072777379@xen.org>
+Date: Wed, 4 Oct 2023 16:41:31 +0100
 MIME-Version: 1.0
-Subject: [libvirt test] 183260: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=f7b7c17dfa85171514cb57e0d310e49017de6532
-X-Osstest-Versions-That:
-    libvirt=85e893a836f59ee7cffdd86bfbb04c714433d0aa
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 04 Oct 2023 14:59:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm/ioreq: clean data field in ioreq struct on read
+ operations
+Content-Language: en-GB
+To: Andrii Chepurnyi <Andrii_Chepurnyi@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "andrii.chepurnyi82@gmail.com" <andrii.chepurnyi82@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231003131923.2289867-1-andrii_chepurnyi@epam.com>
+ <27044e68-4a49-4f1d-b8a9-174810efb5fe@xen.org>
+ <ec7089d1-0111-1e34-900b-b5c40dcb41d2@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ec7089d1-0111-1e34-900b-b5c40dcb41d2@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 183260 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183260/
+On 04/10/2023 09:42, Andrii Chepurnyi wrote:
+> Hello,
 
-Failures :-/ but no regressions.
+Hi,
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183246
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183246
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183246
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+> On 10/3/23 16:49, Julien Grall wrote:
+>> Hi,
+>>
+>> On 03/10/2023 14:19, Andrii Chepurnyi wrote:
+>>> For read operations, there's a potential issue when the data field
+>>> of the ioreq struct is partially updated in the response. To address
+>>> this, zero data field during read operations. This modification
+>>> serves as a safeguard against implementations that may inadvertently
+>>> partially update the data field in response to read requests.
+>>> For instance, consider an 8-bit read operation. In such cases, QEMU,
+>>> returns the same content of the data field with only 8 bits of
+>>> updated data.
+>>
+>> Do you have a pointer to the code?
+> 
+> First of all, using the term "user-space" with respect to this problem
+> was a mistake from my side.
+> 
+> In general, my use case is to run u-boot with virtio-blk inside the
+> guest domain.
+> I.e. setup configuration(hardware renesas gen3 kingfisher board):  Dom0,
+> DomD ( QEMU as backend) and running u-boot in DomA with virtio-blk.
+> The problem appeared inside the u-boot code :
 
-version targeted for testing:
- libvirt              f7b7c17dfa85171514cb57e0d310e49017de6532
-baseline version:
- libvirt              85e893a836f59ee7cffdd86bfbb04c714433d0aa
+I was asking a pointer to the code in the Device Emulator (QEMU in your 
+case). I am confident the code is correct in U-boot, because when using 
+'w0', the unused bits are meant to be set to zero (per the Arm Arm). But 
+I am curious to know why QEMU is not doing it.
 
-Last test of basis   183246  2023-10-03 04:20:44 Z    1 days
-Testing same since   183260  2023-10-04 04:20:30 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Martin Kletzander <mkletzan@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   85e893a836..f7b7c17dfa  f7b7c17dfa85171514cb57e0d310e49017de6532 -> xen-tested-master
+-- 
+Julien Grall
 
