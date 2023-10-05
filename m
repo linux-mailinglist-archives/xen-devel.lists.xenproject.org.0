@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3CF27BA403
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 18:04:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613059.953327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FEFA7BA4F2
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 18:13:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613065.953336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoQp5-0000dX-7e; Thu, 05 Oct 2023 16:03:35 +0000
+	id 1qoQy0-00030e-2q; Thu, 05 Oct 2023 16:12:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613059.953327; Thu, 05 Oct 2023 16:03:35 +0000
+Received: by outflank-mailman (output) from mailman id 613065.953336; Thu, 05 Oct 2023 16:12:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoQp5-0000bN-4B; Thu, 05 Oct 2023 16:03:35 +0000
-Received: by outflank-mailman (input) for mailman id 613059;
- Thu, 05 Oct 2023 16:03:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qoQxz-0002yr-WE; Thu, 05 Oct 2023 16:12:48 +0000
+Received: by outflank-mailman (input) for mailman id 613065;
+ Thu, 05 Oct 2023 16:12:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oPqq=FT=kernel.org=kuba@srs-se1.protection.inumbo.net>)
- id 1qoQp3-0000bD-6T
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 16:03:33 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba49d398-6398-11ee-9b0d-b553b5be7939;
- Thu, 05 Oct 2023 18:03:31 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 49D02B82515;
- Thu,  5 Oct 2023 16:03:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702F6C433C8;
- Thu,  5 Oct 2023 16:03:29 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qoQxy-0002yh-1L; Thu, 05 Oct 2023 16:12:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qoQxx-0001aQ-Mh; Thu, 05 Oct 2023 16:12:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qoQxx-0005t7-3X; Thu, 05 Oct 2023 16:12:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qoQxx-0004X8-2z; Thu, 05 Oct 2023 16:12:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba49d398-6398-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696521809;
-	bh=JnZVC2wJ3fKcjdODT+BG4eYptEYlKbfXzSVnEr9a20U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Ts6Rx3A2Il1thlCLn+UTX+hJm4/xqTA68R0jdddsYcl12k/Q9/V7KNV/X36sda5Rr
-	 5XZW8uY7QYFY9whY6I9P/HowW89AubeyFHsvdHD80sTITTsBVj0AjHSK10j+HVQs8h
-	 2UhuOZBiBvicj6elJs8xT6paaw8jzCDc+buv0y0J/4DVhi90Vn5qq1z7m4uCfjxdze
-	 dUyy2ALi+p8E4gyUj2s/9hl+y3A1QlLseHqhEcDqHVljniWlVQIfG73ktygqqVtyWM
-	 10jwrPDvqBiGwwgwASTqiSoigS9irq9GZ/hgUkdVTcsghrh+iOYBnsoYDeL5JgC7v1
-	 +GIbgWAozi7Vw==
-Date: Thu, 5 Oct 2023 09:03:28 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: David Kahurani <k.kahurani@gmail.com>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- netdev@vger.kernel.org, wei.liu@kernel.org, paul@xen.org
-Subject: Re: [PATCH] net/xen-netback: Break build if netback slots >
- max_skbs + 1
-Message-ID: <20231005090328.73e87e71@kernel.org>
-In-Reply-To: <CAAZOf27_Cy8jaJBnjKV7YgyaKO2WohYrxcftV5BdOdm66g_Apw@mail.gmail.com>
-References: <20230927082918.197030-1-k.kahurani@gmail.com>
-	<20231004114758.44944e5d@kernel.org>
-	<CAAZOf27_Cy8jaJBnjKV7YgyaKO2WohYrxcftV5BdOdm66g_Apw@mail.gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DFj7tfQAx0IRZSl0PGh46HH1/hlB6gwomipnBUAbMQU=; b=vDU4lnaDl6vXF7X+90yIh64wn0
+	ZOkxobjfetcXm76IQ788wPWP5/mu5/WrCInuGHcojt+6GPCrYBZFPOrufI3Q/QsqHXPs4sOniCdoP
+	NkzxMLvrs7tG9PXt48MGr0v570EJ21l2RhfzciGQLfItrlYtuz/28TgdaEXkPwh0Kk7E=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183269-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 183269: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=70f09acda44a540e1800449f723e4182dff8fd3c
+X-Osstest-Versions-That:
+    libvirt=f7b7c17dfa85171514cb57e0d310e49017de6532
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 05 Oct 2023 16:12:45 +0000
 
-On Thu, 5 Oct 2023 18:39:51 +0300 David Kahurani wrote:
-> > MAX_SKB_FRAGS can now be set via Kconfig, this allows us to create
-> > larger super-packets. Can XEN_NETBK_LEGACY_SLOTS_MAX be made relative
-> > to MAX_SKB_FRAGS, or does the number have to match between guest and
-> > host?  
-> 
-> Historically, netback driver allows for a maximum of 18 fragments.
-> With recent changes, it also relies on the assumption that the
-> difference between MAX_SKB_FRAGS and XEN_NETBK_LEGACY_SLOTS_MAX is one
-> and MAX_SKB_FRAGS is the lesser value.
-> 
-> Now, look at Ubuntu kernel for instance( a change has been made and,
-> presumably, with good reason so we have reason to assume that the
-> change will persist in future releases).
-> 
-> /* To allow 64K frame to be packed as single skb without frag_list we
->  * require 64K/PAGE_SIZE pages plus 1 additional page to allow for
->  * buffers which do not start on a page boundary.
->  *
->  * Since GRO uses frags we allocate at least 16 regardless of page
->  * size.
->  */
-> #if (65536/PAGE_SIZE + 1) < 16
-> #define MAX_SKB_FRAGS 16UL
-> #else
-> #define MAX_SKB_FRAGS (65536/PAGE_SIZE + 1)
-> #endif
-> 
-> So, MAX_SKB_FRAGS can sometimes be 16. This is exactly what we're
-> trying to avoid with this patch. I host running with this change is
-> vulnerable to attack by the guest(though, this will only happen when
-> PAGE_SIZE > 4096).
+flight 183269 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183269/
 
-My bad, you're protecting from the inverse condition than I thought.
+Failures :-/ but no regressions.
 
-But to be clear the code you're quoting (the defines for MAX_SKB_FRAGS)
-are what has been there upstream forever until 3948b059 was merged.
-Not 100% sure why 3948b059 switched the min from 16 to 17, I think it
-was just to keep consistency between builds.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183260
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183260
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183260
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-If this change gets backported to 6.1 stable it will break ppc build
-of stable, right? Since ppc has 64k pages.
+version targeted for testing:
+ libvirt              70f09acda44a540e1800449f723e4182dff8fd3c
+baseline version:
+ libvirt              f7b7c17dfa85171514cb57e0d310e49017de6532
+
+Last test of basis   183260  2023-10-04 04:20:30 Z    1 days
+Testing same since   183269  2023-10-05 04:20:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ján Tomko <jtomko@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   f7b7c17dfa..70f09acda4  70f09acda44a540e1800449f723e4182dff8fd3c -> xen-tested-master
 
