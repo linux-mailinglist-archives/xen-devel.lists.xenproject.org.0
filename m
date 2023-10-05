@@ -2,56 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E637BAB59
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 22:17:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613118.953427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C267BABA5
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 22:53:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613123.953437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoUlH-0006cF-NK; Thu, 05 Oct 2023 20:15:55 +0000
+	id 1qoVKf-0005Rh-Di; Thu, 05 Oct 2023 20:52:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613118.953427; Thu, 05 Oct 2023 20:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 613123.953437; Thu, 05 Oct 2023 20:52:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoUlH-0006aZ-Kc; Thu, 05 Oct 2023 20:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 613118;
- Thu, 05 Oct 2023 20:15:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qoVKf-0005P8-Ax; Thu, 05 Oct 2023 20:52:29 +0000
+Received: by outflank-mailman (input) for mailman id 613123;
+ Thu, 05 Oct 2023 20:52:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dokh=FT=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1qoUlG-0006aP-1j
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 20:15:54 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20630.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa927bf7-63bb-11ee-98d3-6d05b1d4d9a1;
- Thu, 05 Oct 2023 22:15:51 +0200 (CEST)
-Received: from BLAPR03CA0011.namprd03.prod.outlook.com (2603:10b6:208:32b::16)
- by MN0PR12MB5835.namprd12.prod.outlook.com (2603:10b6:208:37a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.25; Thu, 5 Oct
- 2023 20:15:46 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:32b:cafe::a7) by BLAPR03CA0011.outlook.office365.com
- (2603:10b6:208:32b::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.26 via Frontend
- Transport; Thu, 5 Oct 2023 20:15:46 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Thu, 5 Oct 2023 20:15:46 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 15:15:45 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 13:15:45 -0700
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Thu, 5 Oct 2023 15:15:44 -0500
+ <SRS0=0G7T=FT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qoVKd-0005P2-TD
+ for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 20:52:27 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 16203d40-63c1-11ee-9b0d-b553b5be7939;
+ Thu, 05 Oct 2023 22:52:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 5880AB826BB;
+ Thu,  5 Oct 2023 20:52:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0A1C433C7;
+ Thu,  5 Oct 2023 20:52:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,84 +42,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa927bf7-63bb-11ee-98d3-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PtKWOtOOnEJpzA7agCnMpXdsR75gH3aF9H8ZAYh0f3/gkeE7b673Nu1YvTBRL8Jgekd384pnC0QwExRvw2SXJbz3/u8cD+gkUMFN0c6YzQriM+RqYapkhEysF18Oi6L2eApEVXSYtNUIlWUWXbGDiqU0CyJxjsE/V1Yv2iPoPZ0P8uWffFLTbX/NF5RpH20+8TrfhhKY0GjN6VuFEzIxZPLWh0UmkwOB90jzzkEzjK+Fdsu96dU0mOXZaR8KJM6tSyJpKrVl3Vy6v1vN3o97on4O/33ZGFQjuoSWtrX5z0Tyvg/UEa7UF7nmAARxDILgQs6JRgeZiaM24bqexgGh0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bFWJtjr1R4ZmXhaAM0FGC4gDS8Tum3//rC6Eut+RLyw=;
- b=WDKkUyv/5PR7KYt0bELCiInUVenlwGplEYRF6Us7p+dxmb7vt/T6eGzq5HbNuPBo150eQgA/mxipoZkEJ92FFH8PEwMWUaBE3AxU51oUm5+WqsksMS84Uy5tdlaNBjjvdT3ejhsO1qNdVttRaTMO0DnZl1ISNasBpcZjZ8dUQkfD3y8xfZjTMGI5nsYObHo6wjszQiQ2KRtRqqozmeI+GBM0tYtF/xDqn5YCu28uFGr6+EZubxFXbAvnGGlZC54SIgOjrFR4a7YpIYt53ixMxzG/0GMx7ALk24x3ARuCbwA5IfXjDSrbfL7rxhqX3ckSFU837Ko3ESo+cUORUOGkyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bFWJtjr1R4ZmXhaAM0FGC4gDS8Tum3//rC6Eut+RLyw=;
- b=3oLB4kLtaA7lRBIg7QgaQvk3nYFZSUPZU1The9UQKlBPDsoGqS02AXVzaSjAG5+K5I+6vzpMNsPClRykYitFT6US3mUBwAlwNib0gsW1WTQIJ9FA36aARphqbPoQsPZEDoXVKWU3wTRagyzzAOb5PEJmp5WjIyfp68K5Ih7ZiWk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <edaa4c87-9e7e-485f-aa77-e330dcafa344@amd.com>
-Date: Thu, 5 Oct 2023 22:15:38 +0200
+X-Inumbo-ID: 16203d40-63c1-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696539143;
+	bh=9n3s0NZZpZTeGiyOiXFjR0ymqO/dZKYjdTrkqa0Y7N4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gx30C2jKzOuzORrLhRenTmLVzhF7U/b7GFWeodRsgJI/2i5K5iYXW1Dfu3Z5i82s2
+	 Nh9p1GJJoy7dailGCBRcRxzpd6QQRYQc8i2qf9iW/e+h+q9vYHBjdyEL1gUIVsNtXv
+	 kHnOXACOS7oUD1rw0vdQBVL+FaSiYFN/PdV3EYJkobnk8SyQPEDHdwRJ9L+1Vn82xF
+	 ZNT2MMFMj0JuQ4d1Udh8HgqE/OY8tPuwlP1hx1aI9A21tirpPuKqOSlrnwmCtTfWHu
+	 HyhLdoo55lcBXr/rooR62NaKFzeY4kjkCMEiBvJa4sV7yJLMP6dUJ1X8tc3c/KG/Wt
+	 S6Z9R9PSKqZuA==
+Date: Thu, 5 Oct 2023 13:52:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: Issue with shared information page on Xen/ARM 4.17
+In-Reply-To: <ZR6A5LP1FKFAgJRv@MacBookPdeRoger>
+Message-ID: <alpine.DEB.2.22.394.2310051352160.2348112@ubuntu-linux-20-04-desktop>
+References: <ZRxpC7ukhiYvzz5m@mattapan.m5p.com> <ZR0erl_OSkNgIQjx@MacBookPdeRoger> <c0b67401-dfe5-475f-8640-b66ac32a80fb@xen.org> <ZR1gM19i6-vBaXh7@MacBookPdeRoger> <b00500ae-76b1-441c-8154-bcdd897734dc@xen.org> <ZR1rBP_49Y2V8VF6@MacBookPdeRoger>
+ <fe94dcd2-4429-48df-8ebd-59563d43796a@xen.org> <ZR18dlMAbCwEOeH4@MacBookPdeRoger> <f8242725-7ee0-4fca-a608-d234f8f3b564@xen.org> <alpine.DEB.2.22.394.2310041509170.2348112@ubuntu-linux-20-04-desktop> <ZR6A5LP1FKFAgJRv@MacBookPdeRoger>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: vtimer: Don't read/use the secure physical timer
- interrupt for ACPI
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: <Henry.Wang@arm.com>, <dan.driscoll@siemens.com>,
-	<arvind.raghuraman@siemens.com>, Julien Grall <jgrall@amazon.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231005165454.18143-1-julien@xen.org>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231005165454.18143-1-julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|MN0PR12MB5835:EE_
-X-MS-Office365-Filtering-Correlation-Id: f357ad08-44b2-4541-3d6b-08dbc5dfdc1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Sccq+u3ToQKYS0p4Ed3v6TI7sVsI7xZO9qI+FoB/KVoRskRX8GnVonvkDwh7RqF5eqrVLdMUOn0YJ003trj3gAlxM+CXCIsJS331bwYDdIoYTNmBCWzLi0Q89RKckSVnjDrxyUwhMAGnbbRTyFNBdAfEbfKNJeWiTd5maex8cfBFTSiQDm98PjQgHJbD0XvJCwOE79uXwv8TgGhhzZ5ENo5u+Km2mvpE8Yj7P+jHBlZNTRpzMsn1RY4XeSdUzBxQ/sEZMrvSKT80JoGMEWTqvBima+ZqdmYJIzVS/VEYspbmg6dLAKzNpUmmHKDxNPOhORarGQY9yy5ecZLfte07Kxdu2I25rgvBf/UWeD12RI7sskOdufPUryNj5nbZdnLME3oV0QLz99lnsjShFzQcpWVYT9ncq7XgDqpMD9Fvb4hU1bJGwotf7ZEwxa1lfG9ZsGOAhv3d+DZU3odtt3chEfGucntKv8TwNNNTrTLS5RdaWcT0cQyA5LuwMPhY8qsRwBbJf3+4lQCDYQwVcwBgOKvuyRFiJdhAfLipXdPJlswBxKxTLT9OxqyqkJpN/SpSoPacgeClwTKA0NAZBuKJFsLB0os9hBgXz0rcRsR8T7QnjgryjxvvumGMy8qjdClF1ZQVpJQXEkQ8hdEbyxPcwOsgb9e6+9z1jRXRiCzCOAAB2UtjBG5hIJBrtA8Ex3Om50UUpknfOISpY9NGylPokT24Ffj/oMNtFas99zu5+N+rCvcmAsMHg0nPbGb1Mwxg06VXCBc7PA1p2i+s2ERwHJkTt728zcUja4dcNpoDNQAZ+cxcTk2XwEgwZxv+M8qF
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(186009)(82310400011)(1800799009)(64100799003)(451199024)(46966006)(40470700004)(36840700001)(2906002)(40460700003)(36860700001)(6666004)(82740400003)(31696002)(53546011)(316002)(110136005)(86362001)(54906003)(16576012)(426003)(336012)(47076005)(81166007)(356005)(26005)(478600001)(8936002)(41300700001)(4744005)(70206006)(40480700001)(70586007)(36756003)(44832011)(8676002)(5660300002)(4326008)(31686004)(2616005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 20:15:46.3830
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f357ad08-44b2-4541-3d6b-08dbc5dfdc1a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5835
+Content-Type: multipart/mixed; BOUNDARY="8323329-1133245002-1696538928=:2348112"
+Content-ID: <alpine.DEB.2.22.394.2310051348570.2348112@ubuntu-linux-20-04-desktop>
 
-Hi Julien,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 05/10/2023 18:54, Julien Grall wrote:
-> 
-> 
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> Per ACPI 6.5 section 5.2.25 ("Generic Timer Description Table (GTDT)"),
-> the fields "Secure EL1 Timer GSIV/Flags" are optional and an OS running
-> in non-secure world is meant to ignore the values.
-> 
-> However, Xen is trying to reserve the value. When booting on Graviton
-> 2 metal instances, this would result to crash a boot because the
-> value is 0 which is already reserved (I haven't checked for which device).
-Per my understanding it is not reserved by any device.
-0 means SGI and for SGIs we pre-reserve the bits in allocated_irqs at the very start.
+--8323329-1133245002-1696538928=:2348112
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2310051348571.2348112@ubuntu-linux-20-04-desktop>
 
-~Michal
+On Thu, 5 Oct 2023, Roger Pau Monné wrote:
+> On Wed, Oct 04, 2023 at 03:52:54PM -0700, Stefano Stabellini wrote:
+> > On Wed, 4 Oct 2023, Julien Grall wrote:
+> > > > > If we want to handle such firmware, I think it would be better if we
+> > > > > provide
+> > > > > an hypercall that would return the GFN where it is currently mapped.
+> > > > 
+> > > > Sure, but such hypercall would be racy, as by the time the gfn is
+> > > > returned the value could be stale.  Adding a replacing and non
+> > > > replacing XENMEM_add_to_physmap variations would IMO be better.
+> > > > 
+> > > > Anyway, I don't maintain this, so it's up to you.
+> > > 
+> > > Bertrand/Stefano, any opinions?
+> > 
+> > I think we should fix EDK2 to unmap the shared info in all cases as
+> > that's simpler and the best implementation. What's the value of keeping
+> > the mapping around when the OS can't find it? Unless you have an idea on
+> > how the OS could find the location of the existing EDK2 shared info
+> > mapping.
+> 
+> Indeed, edk2 should unmap the page, and we should fix that.
+> 
+> > 
+> > It is important not to have 2 different behaviors for the same hypercall
+> > on ARM and x86, especially when the hypercall looks arch-neutral and an
+> > operating system would reasonably expect to use it in common code.
+> > Having different behaviors on ARM/x86 is more error prone than having a
+> > less-than-ideal hypercall implementation.
+> > 
+> > I agree with Julien that the ARM behavior is the right behavior. Can we
+> > change the x86 implementation to match ARM somehow?
+> 
+> I'm afraid I don't see how.  edk2 is supported on x86, and hence we
+> cannot simply make a change to the hypervisor that would render all
+> current versions of edk2 unusable.
+> 
+> > If we do, I guess we would end up breaking legacy EDK2?
+> 
+> Breaking plain edk2, as there's no version of edk2 that currently does
+> the unmapping?
+> 
+> > Is really the only choice to change the ARM implementation to match the
+> > x86 implementation?
+> 
+> Unless we want x86 and Arm to diverge in behavior.
+> 
+> I do think the arm behavior is more sane, but I don't think we can
+> make that change on x86 and simply render all existing versions of
+> edk2 unusable.
+
+Right, but maybe we can come up with a deprecation period?
+
+Especially considering that this is for domU firmware (not host
+firmware), and domU firmware is often (not always, but often) provided
+by Xen (Xen in the sense of xen.git and Xen packages). First we fix EDK2
+upstream and we update the EDK2 build in xen.git. Then we give it a
+couple of releases, then we change the x86 hypercall behavior?
+
+In the meantime we could print a warning in Xen DEBUG builds when the
+hypercall is called and there is one existing mapping?
+--8323329-1133245002-1696538928=:2348112--
 
