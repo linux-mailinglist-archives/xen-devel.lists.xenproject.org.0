@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12FC27B9D3E
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 15:14:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613000.953237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD057B9D41
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 15:16:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613005.953247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoOBV-0001aD-6q; Thu, 05 Oct 2023 13:14:33 +0000
+	id 1qoOCu-0002sa-FS; Thu, 05 Oct 2023 13:16:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613000.953237; Thu, 05 Oct 2023 13:14:33 +0000
+Received: by outflank-mailman (output) from mailman id 613005.953247; Thu, 05 Oct 2023 13:16:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoOBV-0001Xo-2v; Thu, 05 Oct 2023 13:14:33 +0000
-Received: by outflank-mailman (input) for mailman id 613000;
- Thu, 05 Oct 2023 13:14:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qoOBU-0001WQ-7L
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 13:14:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qoOBT-0004v2-CB; Thu, 05 Oct 2023 13:14:31 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qoOBT-0004py-78; Thu, 05 Oct 2023 13:14:31 +0000
+	id 1qoOCu-0002qT-Cs; Thu, 05 Oct 2023 13:16:00 +0000
+Received: by outflank-mailman (input) for mailman id 613005;
+ Thu, 05 Oct 2023 13:15:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1p51=FT=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1qoOCt-0002cO-LH
+ for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 13:15:59 +0000
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 521d6232-6381-11ee-98d3-6d05b1d4d9a1;
+ Thu, 05 Oct 2023 15:15:58 +0200 (CEST)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170]) by mx.zohomail.com
+ with SMTPS id 1696511746699396.4257657955326;
+ Thu, 5 Oct 2023 06:15:46 -0700 (PDT)
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-d894b8b9b7cso885052276.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Oct 2023 06:15:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +43,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=0NUDjTMUIUw9t/FQGYX2pQ+4MbibLpRsLQcfg/dCTok=; b=x8FqhLv447boKeeCL1VArxJj0c
-	pviFI8R2d3zktgTS05APPhaSsD4PDUJHmon9P8ewS2znzOPBm0pUv6gOKLEZv7GbvJxW6vDK+gvdz
-	FHRnv8FIiulaLiZROt+zprI2gloG9vCT810NxOz9cacHcABSY3/tIY5YwhBAPUNVEY9E=;
-Message-ID: <36603672-b371-46ef-be1e-ab67278f6fe3@xen.org>
-Date: Thu, 5 Oct 2023 14:14:29 +0100
+X-Inumbo-ID: 521d6232-6381-11ee-98d3-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; t=1696511748; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=An7ttbDzNmkY5y1soA0g8CsYiYjvOq+cFvrFMlsuHXmMl+z0ryKFZWBQcSa6fJEh5QwB59WFuBINyO+Btz2H05y/kBTTDyh0kMXkgbwpcO6bJsl4LfBdvkIyKoxeiflKcHZeOKBitf/Oq/CSlxvRRCjEWd9/CvKZZ7HMSQDN3p8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1696511748; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=p1clsHo+k2GMkpiZif3stSb3kd9ZvVYXWBel3VMSWWo=; 
+	b=GkOxLjrl5npXsWQ7JQxudsHgwOdn88V3s0yRHU52LZiXaywGDyY9rxVD1hWFxdFHmytOeD+DPr+7yVJhXH8tK5IUCeE7kraEw8JBNqSBJWWrRh/r4Hd7S7q/ybaP9pmlEcktaMLzEBXEYkw2tAGuASeV8uJnQ4UUZv9IVSJJpqA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1696511748;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=p1clsHo+k2GMkpiZif3stSb3kd9ZvVYXWBel3VMSWWo=;
+	b=Bcmu1ysq8HWvioQYoA2h1A4f0fEszPqLUYyoIH0b+s6URvREyXqoKD1hr9BnqsiD
+	WatmPyOnxKIBMGJntJMdnfXIJJ6JFf9aHDu7l/EAZXW2ZnvSHJExrYyuljgLvd+imyX
+	cuEuu5O2sq8q499w++AYG5mSa4IoYXt3fqfzjTRY=
+X-Gm-Message-State: AOJu0YyqODvtvbQ87ogEQx/r6kAGiNqtA0dN7R0aXsKO1D/fzmUNwSbt
+	RRVLPEcgeodjPPRKdQg3JHx0rsGMMTgSRJWrm5A=
+X-Google-Smtp-Source: AGHT+IF9aZIWfSsM1ECaGkR88iiVc4D96mWmNcvQDhcPki19s2CjVnrjHvH2fgqXpEd/9/5t8l6czkl1RBSA35JoW90=
+X-Received: by 2002:a25:ac8e:0:b0:d4a:499d:a881 with SMTP id
+ x14-20020a25ac8e000000b00d4a499da881mr807036ybi.9.1696511745797; Thu, 05 Oct
+ 2023 06:15:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.18] MAINTAINERS: Make Bob Eschleman a reviewer
-Content-Language: en-GB
-To: George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
-Cc: Bob Eshleman <bobby.eshleman@gmail.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Henry Wang <Henry.Wang@arm.com>
-References: <20231005090727.19235-1-george.dunlap@cloud.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231005090727.19235-1-george.dunlap@cloud.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20231002151127.71020-1-roger.pau@citrix.com> <20231002151127.71020-2-roger.pau@citrix.com>
+In-Reply-To: <20231002151127.71020-2-roger.pau@citrix.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 5 Oct 2023 09:15:09 -0400
+X-Gmail-Original-Message-ID: <CABfawh=rvmm1wpBKU-HWumpjPcndP0ZDztop-ah=50U2Z2Ye_A@mail.gmail.com>
+Message-ID: <CABfawh=rvmm1wpBKU-HWumpjPcndP0ZDztop-ah=50U2Z2Ye_A@mail.gmail.com>
+Subject: Re: [PATCH v5 01/10] mem_sharing/fork: do not attempt to populate
+ vcpu_info page
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, henry.wang@arm.com, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi George,
+On Mon, Oct 2, 2023 at 11:12=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
+om> wrote:
+>
+> Instead let map_vcpu_info() and it's call to get_page_from_gfn()
+> populate the page in the child as needed.  Also remove the bogus
+> copy_domain_page(): should be placed before the call to map_vcpu_info(),
+> as the later can update the contents of the vcpu_info page.
+>
+> Note that this eliminates a bug in copy_vcpu_settings(): The function did
+> allocate a new page regardless of the GFN already having a mapping, thus =
+in
+> particular breaking the case of two vCPU-s having their info areas on the=
+ same
+> page.
+>
+> Fixes: 41548c5472a3 ('mem_sharing: VM forking')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-On 05/10/2023 10:07, George Dunlap wrote:
-> Following a conversation with Bob Eschleman, it was agreed that
-> Bobby would prefer to return to being a Reviewer.
+Re-sending due to mailserver issues:
 
-Ideally, we would want Bobby confirm on the ML (this could be a simpler 
-Acked-by). In any case...
-
-> 
-> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
-
-... if you need an ack from another committers:
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
 
