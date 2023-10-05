@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4B667B9C69
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 12:08:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612939.953127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4B37B9C7D
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 12:25:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612943.953137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoLGT-0000Aw-Vj; Thu, 05 Oct 2023 10:07:29 +0000
+	id 1qoLXl-0004T2-DN; Thu, 05 Oct 2023 10:25:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612939.953127; Thu, 05 Oct 2023 10:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 612943.953137; Thu, 05 Oct 2023 10:25:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoLGT-000080-Rn; Thu, 05 Oct 2023 10:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 612939;
- Thu, 05 Oct 2023 10:07:28 +0000
+	id 1qoLXl-0004Py-8q; Thu, 05 Oct 2023 10:25:21 +0000
+Received: by outflank-mailman (input) for mailman id 612943;
+ Thu, 05 Oct 2023 10:25:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gGTv=FT=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1qoLGS-00007u-Ee
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 10:07:28 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
+ id 1qoLXk-0004Gs-2S
+ for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 10:25:20 +0000
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [2607:f8b0:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc1b17b3-6366-11ee-98d3-6d05b1d4d9a1;
- Thu, 05 Oct 2023 12:07:27 +0200 (CEST)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-1c752caeaa6so5682125ad.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Oct 2023 03:07:27 -0700 (PDT)
+ id 7b39377f-6369-11ee-98d3-6d05b1d4d9a1;
+ Thu, 05 Oct 2023 12:25:19 +0200 (CEST)
+Received: by mail-pf1-x42b.google.com with SMTP id
+ d2e1a72fcca58-690f7d73a3aso702158b3a.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Oct 2023 03:25:19 -0700 (PDT)
 Received: from localhost ([122.172.81.92]) by smtp.gmail.com with ESMTPSA id
- p20-20020a170902ead400b001c3e732b8dbsm1244304pld.168.2023.10.05.03.07.24
+ j4-20020a170902c3c400b001c61bde04a7sm1269088plj.276.2023.10.05.03.25.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Oct 2023 03:07:24 -0700 (PDT)
+ Thu, 05 Oct 2023 03:25:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,66 +44,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc1b17b3-6366-11ee-98d3-6d05b1d4d9a1
+X-Inumbo-ID: 7b39377f-6369-11ee-98d3-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696500445; x=1697105245; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=uLWFeSVond74tkZOqvEba086Qve4qLpMCCHqTH1lxBk=;
-        b=SGmr7NGyBcRXDYfn4/vgQfOl4/kN1FPrwBB+54XxaI3/3w+77POppNpr1EW/slxM4w
-         GK7LjNZcPoFj2WikBpckyOPx9ztiiG2LJUmJLhttDcNB1hj9nZc4QCk1mtBClHdNN1oW
-         BtjD9N5KPtKSzDw4pH9/LkM7NeWj5UaL95751kvnEB+3m/7Hr+vxoXaqroULZaBaCwJn
-         aSKdsusqOhkLQo4IOYKct50GnJuZNeTG8sg/lCj5jfBsNGoW7rHxEFp/tFovmEx6XcVU
-         Muve8Kz5Dl5wViUtDejlxvGyPhGVwj6YVo6OLnKIthO2b9goc1qp0Utpx+a6wOb3dTTM
-         YfKQ==
+        d=linaro.org; s=google; t=1696501518; x=1697106318; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KWho0skhSMaRa5vCqQiBImFsTWWtuPWOPJgKv2q/8Qk=;
+        b=pz7NtXOeyoTP3hDCZCboEBB9YefOnXoAzTfbJnj5jvl29izUmZe/vSzre70PPG0JzX
+         an3ISZwuZjkEe4ot/byITdMqL+K5EqfTMzBFrScXs0ibevtpV6Kq5zTsIYRGT8OGPNpU
+         ZeQQ7AcHpvD3CMUEscruvpnKcHm3lQ7axxbTdGbYTkOZgzVON/5MWFZgScFUIyRWbW+5
+         p+BfhSEr9rtxzOf7393VD+kg7pTJIdK9xvRKkPoOf4NAca7d+5LM2BEPeZDns/F5Gn/p
+         DhCVWDF+7hhW6jWzoAm3jSWlq+2O6rfzmFN1T/l1/F/p3V2XWbKzahX6DsNdaFkr1Ain
+         beQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696500445; x=1697105245;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uLWFeSVond74tkZOqvEba086Qve4qLpMCCHqTH1lxBk=;
-        b=h/yFvwd3z4gK4Qkv7sbq8w0/ilPh62Q6ieJrPkL0APGCGgweE9pDbBmQPGFKy9M6xC
-         6FJ18STzzoTSiz/npdu0g/tKW3tQufEyzVxcevg1dOUBTKsGsnV5+E+NOgbtEFYJ4A+v
-         Tr8Xc3/b4OmRZ+SCLiFMDN6RJl1SAILQjy4NksbsoFwfUCUi9FbPGxUIaYGnMPpU119q
-         v+Ll28z4AG0+7xSI1vR+8kSL19ThBo8Ue+JzEgEeWQG7AHoe2tCwlsJzQwbZWpazP/pG
-         DiG3owfnfzVfnlKB64eW9VOQJLK1WzPKvJ2WA85U2ynJpSxucdDJhDSMbi4KqLCgdzlj
-         X7pg==
-X-Gm-Message-State: AOJu0Yx9Xb2Dq+f0+HWrKzmcIxHupQ+inVcnAVoSBqYCqJqa96Bg4n8r
-	B+o7GALLTl8BLbiuaLZXUod/Tw==
-X-Google-Smtp-Source: AGHT+IHDCQEsjSU/8o8lSlZdriKzqJWmPSyvLf2DgrNbq7AdX5GK/V8t/tO5R5jRak2/UJfY8QjkJQ==
-X-Received: by 2002:a17:902:7d92:b0:1c3:2ee6:3802 with SMTP id a18-20020a1709027d9200b001c32ee63802mr3845036plm.47.1696500445611;
-        Thu, 05 Oct 2023 03:07:25 -0700 (PDT)
-Date: Thu, 5 Oct 2023 15:37:23 +0530
+        d=1e100.net; s=20230601; t=1696501518; x=1697106318;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KWho0skhSMaRa5vCqQiBImFsTWWtuPWOPJgKv2q/8Qk=;
+        b=TCVCLy1sNtzdWcvT7BCsfnHzkHhLWlj/crcq0Nzg4h2fSTSnyrPTv9eHFAPmdV9wNq
+         edvN8Nun6ukgxlYiz5e/wJXnjKmH3DZCl9EviuV3TvpE9Bb82O6M73pdkCR5/kLOhb2Y
+         x5EQ9WAfXHKWRlkiSS9HG/bUEe8AnQUPGkrBM+1oUtFi3b2r877K8fB+JLYoeb1c3VDo
+         5e8QJIxeSlSfEnDdMW1Mx2I07G2QVPy3rY321Z7HIpX19XhfYZ3b+L/WriYlNAWnf5EA
+         pWjwyhA2tUPQ/2AZcL4h7pOGurkIIhv5RttNudAOpmk6IM+9y8/2F6uqcl66eCK+FNCY
+         FOTw==
+X-Gm-Message-State: AOJu0Yx0aoP9q1kIF4e0KLlH3/VB+PyGfEVIwGGXaaWmjK4gWpgfRVNG
+	cbprnuN00AgB0lFbwdburGr6Jg==
+X-Google-Smtp-Source: AGHT+IFlvWBBJ3Zh3r7swaT7Jp7XiXCsFpaOJuViBtve0Y9fYaexTcbODWL0r8ZJ90UPDzLaoMipNA==
+X-Received: by 2002:a05:6a20:3d1b:b0:12e:4d86:c017 with SMTP id y27-20020a056a203d1b00b0012e4d86c017mr5640315pzi.10.1696501517838;
+        Thu, 05 Oct 2023 03:25:17 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+To: Juergen Gross <jgross@suse.com>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	stratos-dev@op-lists.linaro.org,
 	Erik Schilling <erik.schilling@linaro.org>,
 	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen: privcmd: Add support for ioeventfd
-Message-ID: <20231005100723.krikk4oauyb4nm2d@vireshk-i7>
-References: <cover.1693311370.git.viresh.kumar@linaro.org>
- <52b07a3861a34fb0deb6251bae8bd885815c6944.1693311370.git.viresh.kumar@linaro.org>
- <fb79fa9a-e91c-4bb7-8aee-c384b99df953@suse.com>
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH V2 0/2] xen: privcmd: Add ioeventfd support
+Date: Thu,  5 Oct 2023 15:55:10 +0530
+Message-Id: <cover.1696500578.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb79fa9a-e91c-4bb7-8aee-c384b99df953@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On 29-09-23, 07:46, Juergen Gross wrote:
-> This is populated from a __u64 field. Maybe make it uint64_t?
+Hello,
 
-Checkpatch warns about this, will use u64 instead.
+Now that irqfd support (backend to guest interrupt) is already merged, this
+series solves the other part of the problem, i.e. ioeventfd (guest to backend
+interrupt).
 
-CHECK: Prefer kernel type 'u64' over 'uint64_t'
-#124: FILE: drivers/xen/privcmd.c:1097:
-+	uint64_t addr;
+More details inside the commits.
+
+--
+Viresh
+
+V1->V2:
+- Increment irq_info refcnt only for valid info.
+- Use u64 type for addr.
+- Add comments for use of barriers.
+- Use spin lock instead of mutex as we need to use them in irq handler.
+- Add a warning when kioreq is getting freed and ioeventfds list isn't empty.
+- Use struct_size().
+- Validate number of vcpus as well.
+
+Viresh Kumar (2):
+  xen: evtchn: Allow shared registration of IRQ handers
+  xen: privcmd: Add support for ioeventfd
+
+ drivers/xen/Kconfig               |   8 +-
+ drivers/xen/events/events_base.c  |   3 +-
+ drivers/xen/evtchn.c              |   2 +-
+ drivers/xen/privcmd.c             | 398 +++++++++++++++++++++++++++++-
+ include/uapi/xen/privcmd.h        |  18 ++
+ include/xen/interface/hvm/ioreq.h |  51 ++++
+ 6 files changed, 472 insertions(+), 8 deletions(-)
+ create mode 100644 include/xen/interface/hvm/ioreq.h
 
 -- 
-viresh
+2.31.1.272.g89b43f80a514
+
 
