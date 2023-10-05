@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8C677B9BE7
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 10:46:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.612885.953032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D64C47B9BF3
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 10:54:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.612898.953057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoJzU-0001uQ-2k; Thu, 05 Oct 2023 08:45:52 +0000
+	id 1qoK7r-0004Zi-3p; Thu, 05 Oct 2023 08:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 612885.953032; Thu, 05 Oct 2023 08:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 612898.953057; Thu, 05 Oct 2023 08:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoJzT-0001pM-UD; Thu, 05 Oct 2023 08:45:51 +0000
-Received: by outflank-mailman (input) for mailman id 612885;
- Thu, 05 Oct 2023 08:45:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XA9v=FT=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qoJzS-0001nQ-5v
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 08:45:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 955a36f4-635b-11ee-98d3-6d05b1d4d9a1;
- Thu, 05 Oct 2023 10:45:49 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 9D8734EE073A;
- Thu,  5 Oct 2023 10:45:48 +0200 (CEST)
+	id 1qoK7r-0004We-0e; Thu, 05 Oct 2023 08:54:31 +0000
+Received: by outflank-mailman (input) for mailman id 612898;
+ Thu, 05 Oct 2023 08:54:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qoK7p-0004WY-JB
+ for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 08:54:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qoK7o-000765-5F; Thu, 05 Oct 2023 08:54:28 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qoK7n-0001W9-Ux; Thu, 05 Oct 2023 08:54:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,55 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 955a36f4-635b-11ee-98d3-6d05b1d4d9a1
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-4.19 2/2] xen/spinlock: fix use of 0 as a null pointer constant
-Date: Thu,  5 Oct 2023 10:45:20 +0200
-Message-Id: <44395904e6cca0cc83a9d01abbc50047ecba961e.1696494834.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1696494834.git.nicola.vetrini@bugseng.com>
-References: <cover.1696494834.git.nicola.vetrini@bugseng.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ojfqp12KWo82cHajhFCiUWMhKH9QWKEvENq+6a4GJzg=; b=p41JGdKwvWOvzpYgUhf2fZ/fq6
+	Z+/8XVvMxUokoMSU1OrfRgotpGFO6fgfVVaU2GSwL+OUtVjoNvHzhhngj+Vq9QYjHuoN35Tl61fSG
+	HvxteTISoVVwTNtS2b0b1eWBwXmi2H+IJgE9YrnCZs3FzibVU9pXbFDjGeVyNPIQ5124=;
+Message-ID: <b740572e-df22-449b-8c90-a155292b2e69@xen.org>
+Date: Thu, 5 Oct 2023 09:54:26 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Issue with shared information page on Xen/ARM 4.17
+Content-Language: en-GB
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <ZRvQNKyYpLDVTs0i@MacBookPdeRoger>
+ <ZRxpC7ukhiYvzz5m@mattapan.m5p.com> <ZR0erl_OSkNgIQjx@MacBookPdeRoger>
+ <c0b67401-dfe5-475f-8640-b66ac32a80fb@xen.org>
+ <ZR1gM19i6-vBaXh7@MacBookPdeRoger>
+ <b00500ae-76b1-441c-8154-bcdd897734dc@xen.org>
+ <ZR1rBP_49Y2V8VF6@MacBookPdeRoger>
+ <fe94dcd2-4429-48df-8ebd-59563d43796a@xen.org>
+ <ZR18dlMAbCwEOeH4@MacBookPdeRoger>
+ <f8242725-7ee0-4fca-a608-d234f8f3b564@xen.org>
+ <ZR3VidifMWdjDQcv@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ZR3VidifMWdjDQcv@mattapan.m5p.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The constant 0 is used as a null pointer constant, in
-violation of MISRA C:2012 Rule 11.9, in builds with
-CONFIG_DEBUG_LOCK_PROFILE defined.
+On 04/10/2023 22:13, Elliott Mitchell wrote:
+>>> I understand the situation is different on Arm vs x86, so if
+>>> edk2 is not supported on arm I guess it doesn't matter much whether
+>>> it's broken.  It would be a much worse issue on x86 where edk2 is
+>>> supported.
+>>
+>> AFAIK, we have CI for x86 on EDK2 but we don't on Arm.
+> 
+> What is the current status of this?  I'm unsure whether it was an extra
+> patch done by Debian, but "edk2-stable202211"/fff6d81270 doesn't work
+> with Xen/Qemu.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Release builds should not be impacted by this
----
- xen/include/xen/spinlock.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I don't know what's the status for x86. But for Arm, there are nothing. 
+And as I pointed out in my previous answer this is unlikely to change 
+until someone invest time in EDK2 on Xen on Arm.
 
-diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index e7a1c1aa8988..16d933ae7ebe 100644
---- a/xen/include/xen/spinlock.h
-+++ b/xen/include/xen/spinlock.h
-@@ -94,7 +94,7 @@ struct lock_profile_qhead {
-     int32_t                   idx;     /* index for printout */
- };
- 
--#define _LOCK_PROFILE(name) { 0, #name, &name, 0, 0, 0, 0, 0 }
-+#define _LOCK_PROFILE(name) { NULL, #name, &name, 0, 0, 0, 0, 0 }
- #define _LOCK_PROFILE_PTR(name)                                               \
-     static struct lock_profile * const __lock_profile_##name                  \
-     __used_section(".lockprofile.data") =                                     \
+If there are patches sent on the ML, then I am happy to attempt to 
+review them. But I am afraid, I am not going to have time to try to find 
+and fix all the issues when using EDK2 in Arm guests.
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
