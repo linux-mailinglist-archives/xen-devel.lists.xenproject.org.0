@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1647E7BA8E8
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 20:18:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613095.953408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC9F7BA9A4
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Oct 2023 20:59:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613114.953417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoSub-0005cW-Tp; Thu, 05 Oct 2023 18:17:25 +0000
+	id 1qoTYl-00070L-6k; Thu, 05 Oct 2023 18:58:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613095.953408; Thu, 05 Oct 2023 18:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 613114.953417; Thu, 05 Oct 2023 18:58:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoSub-0005Yq-Q0; Thu, 05 Oct 2023 18:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 613095;
- Thu, 05 Oct 2023 18:17:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qoTYl-0006x1-3Y; Thu, 05 Oct 2023 18:58:55 +0000
+Received: by outflank-mailman (input) for mailman id 613114;
+ Thu, 05 Oct 2023 18:58:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JwJB=FT=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qoSua-0005Wp-CX
- for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 18:17:24 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060a.outbound.protection.outlook.com
- [2a01:111:f400:7e88::60a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c15a3f7-63ab-11ee-9b0d-b553b5be7939;
- Thu, 05 Oct 2023 20:17:21 +0200 (CEST)
-Received: from DM6PR02CA0102.namprd02.prod.outlook.com (2603:10b6:5:1f4::43)
- by SJ0PR12MB6926.namprd12.prod.outlook.com (2603:10b6:a03:485::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.22; Thu, 5 Oct
- 2023 18:17:17 +0000
-Received: from DS1PEPF00017095.namprd03.prod.outlook.com
- (2603:10b6:5:1f4:cafe::15) by DM6PR02CA0102.outlook.office365.com
- (2603:10b6:5:1f4::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.33 via Frontend
- Transport; Thu, 5 Oct 2023 18:17:16 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017095.mail.protection.outlook.com (10.167.17.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.14 via Frontend Transport; Thu, 5 Oct 2023 18:17:16 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 13:17:16 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 11:17:15 -0700
-Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Thu, 5 Oct 2023 13:17:14 -0500
+ <SRS0=mY76=FT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qoTYj-0006w4-Ir
+ for xen-devel@lists.xenproject.org; Thu, 05 Oct 2023 18:58:53 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3932bf1c-63b1-11ee-98d3-6d05b1d4d9a1;
+ Thu, 05 Oct 2023 20:58:51 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-323168869daso1317830f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Oct 2023 11:58:52 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ y17-20020a5d6151000000b0031f82743e25sm2392982wrt.67.2023.10.05.11.58.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Oct 2023 11:58:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,315 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c15a3f7-63ab-11ee-9b0d-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hqup0mrfddn+Vuc+pEEWS4oIkm26XNUReLwqQz/u7LX0s8P6pvqT/MeZQsFbuzhYf2aB0dSMgkUlo3l7USR55mPn3pxt0m+Z67EytKnEJwotGCVkC7Tq1n3QxZBqMwa3SXgX5Q3A54tMUE2jbAIQ1zu1cBKGDgmYr2Aeb2HIAKEKOAjwDa+YgFkbHpx3Nb+mKrbGikfL0daNGtd7NY4r3KNmsC2QvVipWEklWW0M47W9eyF+BjF8lSnBnY3qQtvdUZEBvmw7SneO5qfKLeQJ2CWMsq4fMoeLNOSl7OXSqXfVynlOGuqhH7+2CGLijYEWNZSL2Vp5/p6/plzoD45QCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=drk4vNje31iUchZYqFtsf2J08S9ncFF0JR2CCRunqKc=;
- b=MTkyB3AtXkIDi3JnFrqi+G9xLYA5yrxuuE4kSTWdJ9OiBqDlHhYEy0Y2ilIwz7JEPO58xok1OpG18koiTRaYY5GoYsy9kqHuTMyiXBnvaayut+4dV0EE75qo1LCSk4ifAuMylfnG1AZB2IC9wqn2JegeDITRySx5NZALNy2loo6cGmy8Nzq2J1qTojh4ZIcfUPxBQQ66kNIVpCwpWTpkGRLOxTx3p3VRnz03i6TlgdDAs5yIiPpaRi4SllLvRbeEs7yQ2jJrJ6OUV8mS996PPUP5WNVBEKR7HgvCdITxf0CvFW8lITkD/AccebizF++5YVQqogDMhDp8T+7LA6k6Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nongnu.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=drk4vNje31iUchZYqFtsf2J08S9ncFF0JR2CCRunqKc=;
- b=kzMbfV3GX2sHZrgvom2ILxlASZiXBA94YO+3eHzSz2Su2ygr7vg8Zjup1TggzAcxdNhp9DlAgqSxxrrBdCCy4KfMHqyoJG3/Cm+ngqs3Up9sJI+Mtp6vGyssupfNhkSfOaqTyEo1aKlKsd3CO1tuRsieRE4BphlNaFayEkulzmA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Vikram Garhwal <vikram.garhwal@amd.com>
-To: <qemu-devel@nongnu.org>
-CC: <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, Vikram Garhwal
-	<vikram.garhwal@amd.com>, Anthony Perard <anthony.perard@citrix.com>, "Paul
- Durrant" <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, Peter Xu
-	<peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>, "open list:X86
- Xen CPUs" <xen-devel@lists.xenproject.org>
-Subject: [QEMU][PATCH v1 6/7] xen: add map and unmap callbacks for grant region
-Date: Thu, 5 Oct 2023 11:16:28 -0700
-Message-ID: <20231005181629.4046-7-vikram.garhwal@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20231005181629.4046-1-vikram.garhwal@amd.com>
-References: <20231005181629.4046-1-vikram.garhwal@amd.com>
+X-Inumbo-ID: 3932bf1c-63b1-11ee-98d3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1696532331; x=1697137131; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NUvzy2QXL43QsYHWb7CyR5rWFH2Ox3pxbiimOpqgg3w=;
+        b=RI1H6wmIxbwOHIEZNpNO1bTucFVvENNu9pj5XnwXqQR6zqVrHPArDKj7CZJlri0sr+
+         jpWYd32sZ8XRR9trmiKuXFu9rZDaSld1MJ7HQE4rWQIo2OqGBoBhuMeOnejGHjG3CzA6
+         0mnD205M+3YnF+TLNTiyPcPsb0XFSETIYh0O4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696532331; x=1697137131;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NUvzy2QXL43QsYHWb7CyR5rWFH2Ox3pxbiimOpqgg3w=;
+        b=JfL4lDfVuMWLtZdam2FbBfsMdfkRso7Ao3nZH3523k0Kli+6mCPM0JFm1QcTVGNpDd
+         3A2iE4wxt1s3AbZuUeNmCDqjvzA7m3Y1YqTxEPVjHyWX4ZwQhWannH2Tzo9Ge8+hGuh6
+         bx9tf9CGZrGP2caokaLKTfVxjfXymfPbOQltxAp7Vxlel6z9ClqTA6shOcKyNzBCAZqu
+         aOxZ6yGohFiSH8lYIwUf3ACFS8jnWxEGB0aFgf095/h/nddN/ajGHn8XxRKNXoT4ZrXN
+         wzxpSal/vyc7dtmjvOUNQ02R7tLmybk0kH/u9gVo593Fr5j4TTnRF4wNeXDkmvzydtU/
+         GqxA==
+X-Gm-Message-State: AOJu0YwqSTTMtyVEeoalvhxVkWm5U08UAgUudWVTeWZrUu70o1kn5EAL
+	orjL1Oapcx0phOQSBDE9gjxKej2GuHtm1oJxJShsdA==
+X-Google-Smtp-Source: AGHT+IFOEQQeKNJgqEXa8J+4ey4i182D7xcOGOuq+v1DKaxLyuY10MG8jbbjUYUjx6DRfq+eYyJ0Ug==
+X-Received: by 2002:adf:e80f:0:b0:31f:fb02:4dcd with SMTP id o15-20020adfe80f000000b0031ffb024dcdmr5391779wrm.4.1696532331586;
+        Thu, 05 Oct 2023 11:58:51 -0700 (PDT)
+Message-ID: <ff8994eb-968d-4bbb-a960-e5ca78ef658e@citrix.com>
+Date: Thu, 5 Oct 2023 19:58:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017095:EE_|SJ0PR12MB6926:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30a38abe-ecbe-4f11-23a0-08dbc5cf4e4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	13hZQItJ3wOE6AIoodsgUmW+M/rtsUY0ODjSk1x/J+BzeR0LZMSQwxItLngYiad3yxklbD0QrTteqog/WtRygm7ptMr491gLDGIuqanNRALRrD5Wkbhy6ofI73HKABsvwRWb7r40aVWiTR/C9JVt8biBKgL5SKyDxjqKoQHV9AHYPvYXm0mAfYbEP+FpMCkKRE/QOZdiNSqpdZmmX6HrthkIlxX+/prFayDsl70aiDZLT+Oh+xMWH7SMycQUhkQ4pRZh0e6uph3ym/hQ2D6Fhv88MoQXHAMaWFs/MD+nanC6knRejipnhMAQU6s7GHkmzYGthDc7ZkBbJHS0Mm+0WkjCzNj34wlkkxZvKV88S3m+G5j2tP/TmNTj0h9uND9FGqS6imm4IfZmoS4wEeeBZqJHQpcmpS4oBrEUJSAKyuuMnPYg2YGd+lLkFKPR+lowtqBaKQOjdvz5enGWsJXJd5VokH47QFib/ont/1vzCobovUibJq0f6nETPcVOjwHcylvt378/56Qks4JZP1SCXzaCNvSB+T1fV609ziTBYACrtVCFOO5bzGky4EpFYvDeqYHPcIfs4nAIKUI/uPESaEtYXJWv6Wm7i+jR+7H+fDvdjTDVtfejSL2ny6Sy/2JsyYvrE7D8VHwVEPWxK4HNLHY6Bf0BQZnPImTVDHsAL+UhAqKYbvlhbmFhZ8pZgJy/qlld/SfrnY27hqoMflXPReCmzw7n5mTctYs/AhgKwex/0VAR7RlDZQ1ksaimMosPviTYB0NFCn0TB49jVoC0RQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(230922051799003)(186009)(1800799009)(451199024)(82310400011)(64100799003)(36840700001)(40470700004)(46966006)(44832011)(2616005)(5660300002)(1076003)(40480700001)(81166007)(40460700003)(356005)(82740400003)(316002)(6666004)(47076005)(478600001)(86362001)(6916009)(36756003)(36860700001)(70206006)(54906003)(83380400001)(7416002)(70586007)(2906002)(41300700001)(26005)(336012)(426003)(8936002)(8676002)(4326008)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2023 18:17:16.4921
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30a38abe-ecbe-4f11-23a0-08dbc5cf4e4e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017095.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6926
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [CRITICAL for 4.18] Re: [PATCH v5 00/10] runstate/time area
+ registration by (guest) physical address
+Content-Language: en-GB
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+ henry.wang@arm.com
+Cc: Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20231002151127.71020-1-roger.pau@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20231002151127.71020-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Juergen Gross <jgross@suse.com>
+I see this series has been committed.  But it's broken in a really
+fundamental way.
 
-Add the callbacks for mapping/unmapping guest memory via grants to the
-special grant memory region.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
----
- hw/xen/xen-mapcache.c | 167 +++++++++++++++++++++++++++++++++++++++++-
- softmmu/physmem.c     |  11 ++-
- 2 files changed, 173 insertions(+), 5 deletions(-)
+This is a new extension with persistent side effects to an existing part
+of the guest ABI.
 
-diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-index 8a61c7dde6..52844a6a9d 100644
---- a/hw/xen/xen-mapcache.c
-+++ b/hw/xen/xen-mapcache.c
-@@ -9,6 +9,8 @@
-  */
- 
- #include "qemu/osdep.h"
-+#include "qemu/queue.h"
-+#include "qemu/thread.h"
- #include "qemu/units.h"
- #include "qemu/error-report.h"
- 
-@@ -23,6 +25,8 @@
- #include "sysemu/xen-mapcache.h"
- #include "trace.h"
- 
-+#include <xenevtchn.h>
-+#include <xengnttab.h>
- 
- //#define MAPCACHE_DEBUG
- 
-@@ -385,7 +389,7 @@ uint8_t *xen_map_cache(hwaddr phys_addr, hwaddr size,
-     return p;
- }
- 
--ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
-+static ram_addr_t xen_ram_addr_from_mapcache_try(void *ptr)
- {
-     MapCacheEntry *entry = NULL;
-     MapCacheRev *reventry;
-@@ -594,10 +598,170 @@ uint8_t *xen_replace_cache_entry(hwaddr old_phys_addr,
-     return p;
- }
- 
-+struct XENMappedGrantRegion {
-+    void *addr;
-+    unsigned int pages;
-+    unsigned int refs;
-+    unsigned int prot;
-+    uint32_t idx;
-+    QLIST_ENTRY(XENMappedGrantRegion) list;
-+};
-+
-+static xengnttab_handle *xen_region_gnttabdev;
-+static QLIST_HEAD(GrantRegionList, XENMappedGrantRegion) xen_grant_mappings =
-+    QLIST_HEAD_INITIALIZER(xen_grant_mappings);
-+static QemuMutex xen_map_mutex;
-+
-+static void *xen_map_grant_dyn(MemoryRegion **mr, hwaddr addr, hwaddr *plen,
-+                               bool is_write, MemTxAttrs attrs)
-+{
-+    unsigned int page_off = addr & (XC_PAGE_SIZE - 1);
-+    unsigned int i;
-+    unsigned int nrefs = (page_off + *plen + XC_PAGE_SIZE - 1) >> XC_PAGE_SHIFT;
-+    uint32_t ref = (addr - XEN_GRANT_ADDR_OFF) >> XC_PAGE_SHIFT;
-+    uint32_t *refs = NULL;
-+    unsigned int prot = PROT_READ;
-+    struct XENMappedGrantRegion *mgr = NULL;
-+
-+    if (is_write) {
-+        prot |= PROT_WRITE;
-+    }
-+
-+    qemu_mutex_lock(&xen_map_mutex);
-+
-+    QLIST_FOREACH(mgr, &xen_grant_mappings, list) {
-+        if (mgr->idx == ref &&
-+            mgr->pages == nrefs &&
-+            (mgr->prot & prot) == prot) {
-+            break;
-+        }
-+    }
-+    if (!mgr) {
-+        mgr = g_new(struct XENMappedGrantRegion, 1);
-+
-+        if (nrefs == 1) {
-+            refs = &ref;
-+        } else {
-+            refs = g_new(uint32_t, nrefs);
-+            for (i = 0; i < nrefs; i++) {
-+                refs[i] = ref + i;
-+            }
-+        }
-+        mgr->addr = xengnttab_map_domain_grant_refs(xen_region_gnttabdev, nrefs,
-+                                                    xen_domid, refs, prot);
-+        if (mgr->addr) {
-+            mgr->pages = nrefs;
-+            mgr->refs = 1;
-+            mgr->prot = prot;
-+            mgr->idx = ref;
-+
-+            QLIST_INSERT_HEAD(&xen_grant_mappings, mgr, list);
-+        } else {
-+            g_free(mgr);
-+            mgr = NULL;
-+        }
-+    } else {
-+        mgr->refs++;
-+    }
-+
-+    qemu_mutex_unlock(&xen_map_mutex);
-+
-+    if (nrefs > 1) {
-+        g_free(refs);
-+    }
-+
-+    return mgr ? mgr->addr + page_off : NULL;
-+}
-+
-+static void xen_unmap_grant_dyn(MemoryRegion *mr, void *buffer, ram_addr_t addr,
-+                                hwaddr len, bool is_write, hwaddr access_len)
-+{
-+    unsigned int page_off = (unsigned long)buffer & (XC_PAGE_SIZE - 1);
-+    unsigned int nrefs = (page_off + len + XC_PAGE_SIZE - 1) >> XC_PAGE_SHIFT;
-+    unsigned int prot = PROT_READ;
-+    struct XENMappedGrantRegion *mgr = NULL;
-+
-+    if (is_write) {
-+        prot |= PROT_WRITE;
-+    }
-+
-+    qemu_mutex_lock(&xen_map_mutex);
-+
-+    QLIST_FOREACH(mgr, &xen_grant_mappings, list) {
-+        if (mgr->addr == buffer - page_off &&
-+            mgr->pages == nrefs &&
-+            (mgr->prot & prot) == prot) {
-+            break;
-+        }
-+    }
-+    if (mgr) {
-+        mgr->refs--;
-+        if (!mgr->refs) {
-+            xengnttab_unmap(xen_region_gnttabdev, mgr->addr, nrefs);
-+
-+            QLIST_REMOVE(mgr, list);
-+            g_free(mgr);
-+        }
-+    } else {
-+        error_report("xen_unmap_grant_dyn() trying to unmap unknown buffer");
-+    }
-+
-+    qemu_mutex_unlock(&xen_map_mutex);
-+}
-+
-+static ram_addr_t xen_ram_addr_from_grant_cache(void *ptr)
-+{
-+    unsigned int page_off = (unsigned long)ptr & (XC_PAGE_SIZE - 1);
-+    struct XENMappedGrantRegion *mgr = NULL;
-+    ram_addr_t raddr = RAM_ADDR_INVALID;
-+
-+    qemu_mutex_lock(&xen_map_mutex);
-+
-+    QLIST_FOREACH(mgr, &xen_grant_mappings, list) {
-+        if (mgr->addr == ptr - page_off) {
-+            break;
-+        }
-+    }
-+
-+    if (mgr) {
-+        raddr = (mgr->idx << XC_PAGE_SHIFT) + page_off + XEN_GRANT_ADDR_OFF;
-+    }
-+
-+    qemu_mutex_unlock(&xen_map_mutex);
-+
-+    return raddr;
-+}
-+
-+ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
-+{
-+    ram_addr_t raddr;
-+
-+    raddr = xen_ram_addr_from_mapcache_try(ptr);
-+    if (raddr == RAM_ADDR_INVALID) {
-+        raddr = xen_ram_addr_from_grant_cache(ptr);
-+    }
-+
-+    return raddr;
-+}
-+
-+static const struct MemoryRegionOps xen_grant_mr_ops = {
-+    .map = xen_map_grant_dyn,
-+    .unmap = xen_unmap_grant_dyn,
-+    .endianness = DEVICE_LITTLE_ENDIAN,
-+};
-+
- MemoryRegion *xen_init_grant_ram(void)
- {
-     RAMBlock *block;
- 
-+    qemu_mutex_init(&xen_map_mutex);
-+
-+    xen_region_gnttabdev = xengnttab_open(NULL, 0);
-+    if (xen_region_gnttabdev == NULL) {
-+        fprintf(stderr, "can't open gnttab device\n");
-+        return NULL;
-+    }
-+
-     memory_region_init(&ram_grants, NULL, "xen.grants",
-                        XEN_MAX_VIRTIO_GRANTS * XC_PAGE_SIZE);
-     block = g_malloc0(sizeof(*block));
-@@ -612,6 +776,7 @@ MemoryRegion *xen_init_grant_ram(void)
-     ram_grants.ram_block = block;
-     ram_grants.ram = true;
-     ram_grants.terminates = true;
-+    ram_grants.ops = &xen_grant_mr_ops;
-     ram_block_add_list(block);
-     memory_region_add_subregion(get_system_memory(), XEN_GRANT_ADDR_OFF,
-                                 &ram_grants);
-diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-index 5f425bea1c..e5346386db 100644
---- a/softmmu/physmem.c
-+++ b/softmmu/physmem.c
-@@ -2250,13 +2250,16 @@ RAMBlock *qemu_ram_block_from_host(void *ptr, bool round_offset,
- 
-     if (xen_enabled()) {
-         ram_addr_t ram_addr;
-+
-         RCU_READ_LOCK_GUARD();
-         ram_addr = xen_ram_addr_from_mapcache(ptr);
--        block = qemu_get_ram_block(ram_addr);
--        if (block) {
--            *offset = ram_addr - block->offset;
-+        if (ram_addr != RAM_ADDR_INVALID) {
-+            block = qemu_get_ram_block(ram_addr);
-+            if (block) {
-+                *offset = ram_addr - block->offset;
-+            }
-+            return block;
-         }
--        return block;
-     }
- 
-     RCU_READ_LOCK_GUARD();
--- 
-2.17.1
+Yet there doesn't appear to be any enumeration that the interface is
+available to begin with.  Requiring the guest to probe subops, and
+having no way to disable it on a per-domain basis is unacceptable, and
+has exploded on us more times than I care to count in security fixes
+alone, and that doesn't even cover the issues Amazon have reported over
+the years.
 
+
+Henry: Blocker for 4.18.   The absolutely bare minimum necessary to
+avoid reversion is some kind of positive enumeration that the two new
+hypercalls are available.
+
+Otherwise I will be #if 0'ing out the new hypercalls before this ABI
+mistake gets set in stone.
+
+
+If this were x86-only it would need to be a CPUID flag, but it will need
+to be something arch-agnostic in this case.  The series should not have
+come without a proper per-domain control and toolstack integration, but
+everything else can be retrofitted in an emergency.
+
+And on a related note, where is the documentation describing this new
+feature?  Some tests perhaps, or any single implementation of the guest
+side interface?
+
+This is engineering principles so basic that they do go without saying.
+
+~Andrew
 
