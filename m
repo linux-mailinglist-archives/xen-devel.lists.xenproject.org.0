@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 082487BBF9D
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 21:12:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613817.954603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F03947BBFA6
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 21:17:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613820.954613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoqEw-0004sh-RE; Fri, 06 Oct 2023 19:11:58 +0000
+	id 1qoqJf-00060H-CN; Fri, 06 Oct 2023 19:16:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613817.954603; Fri, 06 Oct 2023 19:11:58 +0000
+Received: by outflank-mailman (output) from mailman id 613820.954613; Fri, 06 Oct 2023 19:16:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qoqEw-0004qK-Ny; Fri, 06 Oct 2023 19:11:58 +0000
-Received: by outflank-mailman (input) for mailman id 613817;
- Fri, 06 Oct 2023 19:11:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qoqJf-0005xB-9O; Fri, 06 Oct 2023 19:16:51 +0000
+Received: by outflank-mailman (input) for mailman id 613820;
+ Fri, 06 Oct 2023 19:16:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vVKM=FU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qoqEv-0004pT-4i
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 19:11:57 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 365c951b-647c-11ee-9b0d-b553b5be7939;
- Fri, 06 Oct 2023 21:11:54 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4064867903cso23852405e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 12:11:54 -0700 (PDT)
+ id 1qoqJd-0005x5-D6
+ for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 19:16:49 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3cb82c3-647c-11ee-98d3-6d05b1d4d9a1;
+ Fri, 06 Oct 2023 21:16:48 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3296a998234so763256f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 12:16:45 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- 4-20020a05600c248400b004060f0a0fd5sm4322441wms.13.2023.10.06.12.11.53
+ i2-20020a05600c290200b004063d8b43e7sm6581346wmd.48.2023.10.06.12.16.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 12:11:53 -0700 (PDT)
+ Fri, 06 Oct 2023 12:16:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 365c951b-647c-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: e3cb82c3-647c-11ee-98d3-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696619514; x=1697224314; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1696619805; x=1697224605; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ez9g6FQqqxK8S2+enxf0z3E6o1Msn8EaPo9dyZSLJR0=;
-        b=KCG2lbNsEffbMcvkpTB2ucLM4WzLRHgzppndNxiUJqX2fv8SWDWDSaHbqwRhUMVUto
-         OxNnMKUoS4Hfje+2mUbSNxcl5L3Try8Z5SOLC13+/+SXK6B/YPooP1HOtnhdzOt5NtTl
-         qdPquwa8E8gj5rWFYkwigtDqzqvzO51WtODiM=
+        bh=3N799plwAKl43IUROs4CjB73sQd3BitVoqMx6z7lmZ0=;
+        b=Eh0ZlPKqS/iRX4Xjd6NuSIVQU3/Znf4t8DX5pcwBBTTkbGN+hj1k4y1Wf7fjLXJLuU
+         OwNOtPQmzWeCSK5N1XC9okZNe47R+8VDr7R9m5GH7QOdZjetkpEeUOiX+nMZKZ7w9BUw
+         riTHdMS4G1J5xXTk7gPVgj30y7l2djmyXdCJk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696619514; x=1697224314;
+        d=1e100.net; s=20230601; t=1696619805; x=1697224605;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ez9g6FQqqxK8S2+enxf0z3E6o1Msn8EaPo9dyZSLJR0=;
-        b=khDn/6QZ1pl1ssUyJgczbl6wclrG+PiTP+3xKyYKzcdOMpb6j2TTKUPjA20cgFPsab
-         X9rQFQbJrRjmid6/GEpSyTzmizdDlazsicAZXyN1TK3+HYjYjmG8gYo894IqD8/4zFV+
-         Y0eJlG8+mu99stuE9xcZZ5EU/Iu8YnVNF5vLekx3JRmVaIfHAgibKQgPm4ZT4PLQ9qHh
-         JAPDYrJPOb/amuOkW167I+96YuCYcWxldcyjhJFrzhOA2nJ/ztGcX0WOt1+h2p/37aFq
-         PhAIiXyqpbjLZxv0ans6NnHU0Ko6nIT0JH/vpnRO5oawkYjmDtQ9n3JqjdLiexpNpUgf
-         mOFA==
-X-Gm-Message-State: AOJu0YxUkldKKBrwlIByV2quCSUhtIYvMmnsNqG1093XYppYOaCMollf
-	QnYCro3sicgGeeEXfYWoYTC48A==
-X-Google-Smtp-Source: AGHT+IFR5c60KJPYTNqTHa7JN/bm4EWNdYh9BkfL9dvSg96zdRwiScYPxEShD0dg7wm1WVH3u5NQMA==
-X-Received: by 2002:a7b:cc8f:0:b0:406:4a32:52fc with SMTP id p15-20020a7bcc8f000000b004064a3252fcmr8521516wma.21.1696619514171;
-        Fri, 06 Oct 2023 12:11:54 -0700 (PDT)
-Message-ID: <85bd4923-a710-43eb-a8e1-04d757b0ee78@citrix.com>
-Date: Fri, 6 Oct 2023 20:11:53 +0100
+        bh=3N799plwAKl43IUROs4CjB73sQd3BitVoqMx6z7lmZ0=;
+        b=VguTZrn0PuPvha27Ol0fzNrVeuxa0gdnEIRmjpFVpHsdPZpO6YmuWzBO+nOhNuvhpj
+         HMgTx7ZtM40TBFGQ3/+86H6LfXZMJ514rDWNRlmEnVH7UQhIEJBqFyd5KYa2CDLoeWGb
+         4npE2VIOhw8d+9h9TMKAfPQMExHHA0P63u8pKb2blNybeNFZQzKaZTNgcrfjDETeGcYJ
+         ZsfRcBLQ7p7/mcxLPrV2esyZGkDShxBNzucRlg4K51fXug9udsF1xcSTvWoViObg249m
+         cJ/0CqNKdAWp46A0LfaOxTP7t395DUvOS5QvVRECyMZ5vTitYAFDzD1O06rccZ7v/cSG
+         MjAQ==
+X-Gm-Message-State: AOJu0YwlbYnvYYZ3NuXTNWLm5VqLCLlw5vPeENJ9xsdn1bRMHJaPaGaV
+	3q6HQuFusAJW9So6iv7zhu6kiw==
+X-Google-Smtp-Source: AGHT+IHrFWFA2DXG7NyKf0L/ORfstFqvBfd+qzBCx3ycFT5MnjOh2X7LEjS6PuRe7Et80cvQy6AJWw==
+X-Received: by 2002:adf:ec82:0:b0:321:65f3:4100 with SMTP id z2-20020adfec82000000b0032165f34100mr8330996wrn.7.1696619805164;
+        Fri, 06 Oct 2023 12:16:45 -0700 (PDT)
+Message-ID: <7762a894-62e0-4e78-a292-8d4b033c38d2@citrix.com>
+Date: Fri, 6 Oct 2023 20:16:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: andrew.cooper3@citrix.com
-Subject: Re: [XEN PATCH 7/9] x86/mce: Move MC_NCLASSES into the enum
- mctelem_class
+Subject: Re: [XEN PATCH][for-4.19 2/2] xen/spinlock: fix use of 0 as a null
+ pointer constant
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- roger.pau@citrix.com, Wei Liu <wl@xen.org>
-References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
- <08293d72e236a7a6aec0305bc3f901a6636747ab.1696514677.git.nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ jbeulich@suse.com, roger.pau@citrix.com,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <cover.1696494834.git.nicola.vetrini@bugseng.com>
+ <44395904e6cca0cc83a9d01abbc50047ecba961e.1696494834.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310051806570.2348112@ubuntu-linux-20-04-desktop>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -131,25 +134,21 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <08293d72e236a7a6aec0305bc3f901a6636747ab.1696514677.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2310051806570.2348112@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/10/2023 9:26 am, Nicola Vetrini wrote:
-> The definition of MC_NCLASSES contained a violation of MISRA C:2012
-> Rule 10.1, therefore by moving it as an enumeration constant resolves the
-> violation and makes it more resilient to possible additions to that enum.
->
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 06/10/2023 2:07 am, Stefano Stabellini wrote:
+> On Thu, 5 Oct 2023, Nicola Vetrini wrote:
+>> The constant 0 is used as a null pointer constant, in
+>> violation of MISRA C:2012 Rule 11.9, in builds with
+>> CONFIG_DEBUG_LOCK_PROFILE defined.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-I've started my normal for-next branch around releases, and included
-this patch.
-
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/for-next
-
-I'll keep the rebased and add it to 4.19 when the tree re-opens.
+I've picked this up for 4.19.  It's trivial and not liable to conflict
+with other work.
 
 ~Andrew
 
