@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13F27BB9D3
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 15:55:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613635.954294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6CF57BB9D4
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 15:55:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613639.954303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qolHT-0005yt-R8; Fri, 06 Oct 2023 13:54:15 +0000
+	id 1qolIl-0006Vy-4t; Fri, 06 Oct 2023 13:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613635.954294; Fri, 06 Oct 2023 13:54:15 +0000
+Received: by outflank-mailman (output) from mailman id 613639.954303; Fri, 06 Oct 2023 13:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qolHT-0005x5-OO; Fri, 06 Oct 2023 13:54:15 +0000
-Received: by outflank-mailman (input) for mailman id 613635;
- Fri, 06 Oct 2023 13:54:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+U/E=FU=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1qolHR-0005wz-TH
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 13:54:14 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2eb3dfc-644f-11ee-9b0d-b553b5be7939;
- Fri, 06 Oct 2023 15:54:10 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3214cdb4b27so2048079f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 06:54:10 -0700 (PDT)
-Received: from localhost.localdomain
- (cpc92320-cmbg19-2-0-cust35.5-4.cable.virginm.net. [82.13.64.36])
- by smtp.gmail.com with ESMTPSA id
- g7-20020a056000118700b003143c9beeaesm1716813wrx.44.2023.10.06.06.54.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Oct 2023 06:54:08 -0700 (PDT)
+	id 1qolIl-0006TS-1u; Fri, 06 Oct 2023 13:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 613639;
+ Fri, 06 Oct 2023 13:55:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qolIj-0006T0-WE; Fri, 06 Oct 2023 13:55:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qolIj-00087N-OQ; Fri, 06 Oct 2023 13:55:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qolIj-0002dQ-Bh; Fri, 06 Oct 2023 13:55:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qolIj-0003zd-BG; Fri, 06 Oct 2023 13:55:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,96 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2eb3dfc-644f-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696600449; x=1697205249; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pdVnJ3LbpA+IOpEvZoVsmn1JP9gqoux810A5+xViGDc=;
-        b=wXNPFxHBLQasaACYS103WA7SYQZTEU/Vcn7jd9RXGFlRuF0edq9g3/KumQTewEx94g
-         00r0W7VvaRs9KMRulcNsF32ny6+Oj7WBAx81axQdOk+/5THfKp6DgKrz9quyer1tGBIq
-         g4/Fbor8oymVPAgwwYCrmmRgFFMabZuV4qsIk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696600449; x=1697205249;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pdVnJ3LbpA+IOpEvZoVsmn1JP9gqoux810A5+xViGDc=;
-        b=sYszjhdMQ0STgFRB97NZTCQSyrpchx4OBXenUKPi/GeTYXOPSupEDLCwnqLz6qmTyl
-         MbwDyKAH3feu039kbnUu21DZPLY2JvKQ43GLm7zlvikEX3179JfiTe4a0rA2Dr+S4o1r
-         Ab1S4j0s9DjsDmSE6feq6sIAhaxPCqmWPACBzu10aU4lLMggfxF9EPcI9LxZibRZkrMW
-         2h9AXwvQxoQV2v2YE0oLnJgnufdUhHzk62yQyeqFsTz1m8wNn7lm2s+Brt0UhsOW/Lje
-         z8fBpdZhR1zbq2cAyLBqIsUxijGYjoDh3KTHULHF+udpCe7kVe3FPN4GMkvdc12WhYfj
-         7L2Q==
-X-Gm-Message-State: AOJu0YzsC23/N+19QI75K77q/zY1Cv6EHLcaTeGjJSWSDOb3+L/1Vm8T
-	29Fvu4dqytlNpu8yMwmscJT1IcPKWaUkG0bB4Y0=
-X-Google-Smtp-Source: AGHT+IH6jRkG2r2yOB28nP4pAJfzl0dKSxJmwlCqN7Srbc6W6hIPYBJfewY7vjlW1IGhVBa85apRrA==
-X-Received: by 2002:adf:cc8a:0:b0:319:82c9:8e7d with SMTP id p10-20020adfcc8a000000b0031982c98e7dmr7597360wrj.31.1696600449187;
-        Fri, 06 Oct 2023 06:54:09 -0700 (PDT)
-From: Anthony PERARD <anthony.perard@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=mVtFESCcNLyIszPGHap5iynFVgw0OF8GkspOQvYeNfA=; b=Rd6pRA8Ur5GamT/CZtsw0iSnno
+	0sl0WlOU+gtiYUftkiAPPEQNkCrpW0Jdt6UjCEPDhibUZVfHBll8l4yVCz+AgbmUncSSbVj838Hrt
+	n8URoxAGRq0GvE2fSElrCICIfkfldAzffgJVt8Xsepxaa3uOtIy+44FPZb4lpUrWMAN4=;
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH] get_maintainer: Add THE REST for sections with reviewers only
-Date: Fri,  6 Oct 2023 14:54:06 +0100
-Message-Id: <20231006135406.52750-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
+Message-ID: <osstest-183283-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 183283: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=7cbd8c42305735375b60abf8abc47838a7a050d4
+X-Osstest-Versions-That:
+    libvirt=70f09acda44a540e1800449f723e4182dff8fd3c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 Oct 2023 13:55:33 +0000
 
-Sometime, a contributer would like to be CCed on part of the changes,
-and it could happen that we end-up with a section that doesn't have
-any maintainer, but a Ack from a maintainer would still be needed.
+flight 183283 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183283/
 
-Rework get_maintainer so if there's no maintainers beside THE REST, it
-doesn't drop THE REST emails.
+Failures :-/ but no regressions.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183269
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183269
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183269
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-Notes:
-    Soon, the RISCV section might be the first (I think) section without
-    maintainer and without been nested in another section other than THE
-    REST.
-    
-    Tests by checking that the following comnands returns the expected emails.
-    ./scripts/get_maintainer.pl -f tools/libs/Makefile
-    ./scripts/get_maintainer.pl -f xen/arch/riscv/Makefile
-    ./scripts/get_maintainer.pl -f xen/arch/arm/Makefile
-    
-    An extra '--sections' argument list all sections, including THE REST.
+version targeted for testing:
+ libvirt              7cbd8c42305735375b60abf8abc47838a7a050d4
+baseline version:
+ libvirt              70f09acda44a540e1800449f723e4182dff8fd3c
 
- scripts/get_maintainer.pl | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Last test of basis   183269  2023-10-05 04:20:30 Z    1 days
+Testing same since   183283  2023-10-06 04:23:21 Z    0 days    1 attempts
 
-diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
-index cf629cdf3c..533d0df72a 100755
---- a/scripts/get_maintainer.pl
-+++ b/scripts/get_maintainer.pl
-@@ -732,8 +732,15 @@ sub get_maintainers {
-         my @email_new;
-         my $do_replace = 0;
-         foreach my $email (@email_to) {
--            if ($email->[1] ne 'supporter:THE REST') {
-+            # Replace @email_to list with a list which drop "THE REST" if
-+            # there's a role other than "reviewer", that is if there's a
-+            # maintainer/supporter in a section other than THE REST.
-+            if ($email->[1] ne 'supporter:THE REST' and $email->[1] ne 'reviewer') {
-                 $do_replace = 1;
-+            }
-+            # Prepare a new list without "THE REST", to be used if $do_replace
-+            # is true.
-+            if ($email->[1] ne 'supporter:THE REST') {
-                 push @email_new, $email;
-             }
-         }
--- 
-Anthony PERARD
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   70f09acda4..7cbd8c4230  7cbd8c42305735375b60abf8abc47838a7a050d4 -> xen-tested-master
 
