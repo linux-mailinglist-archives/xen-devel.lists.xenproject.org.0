@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD4F7BBCDF
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 18:36:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613757.954520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1307BBD8B
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 19:17:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613761.954529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qonnw-0003rj-6G; Fri, 06 Oct 2023 16:35:56 +0000
+	id 1qooQm-00022V-4q; Fri, 06 Oct 2023 17:16:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613757.954520; Fri, 06 Oct 2023 16:35:56 +0000
+Received: by outflank-mailman (output) from mailman id 613761.954529; Fri, 06 Oct 2023 17:16:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qonnw-0003pd-2S; Fri, 06 Oct 2023 16:35:56 +0000
-Received: by outflank-mailman (input) for mailman id 613757;
- Fri, 06 Oct 2023 16:35:55 +0000
+	id 1qooQm-00020B-1s; Fri, 06 Oct 2023 17:16:04 +0000
+Received: by outflank-mailman (input) for mailman id 613761;
+ Fri, 06 Oct 2023 17:16:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vVKM=FU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qonnv-0003pT-3D
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 16:35:55 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1qooQl-000205-6V
+ for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 17:16:03 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a57a633-6466-11ee-9b0d-b553b5be7939;
- Fri, 06 Oct 2023 18:35:53 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40684f53bfcso21214835e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 09:35:53 -0700 (PDT)
+ id 0459ce24-646c-11ee-9b0d-b553b5be7939;
+ Fri, 06 Oct 2023 19:15:58 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-406618d080eso22470485e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- y24-20020a7bcd98000000b004064741f855sm4050337wmj.47.2023.10.06.09.35.51
+ p15-20020a7bcc8f000000b003fee6e170f9sm4135382wma.45.2023.10.06.10.15.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 09:35:52 -0700 (PDT)
+ Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a57a633-6466-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 0459ce24-646c-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696610152; x=1697214952; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mse9fEALa2K/SkaQlfmLnl2odXahkEBxlqPmS4z+I7s=;
-        b=mN5oMzOGvzaHOJh3pF6dfW4nKFScq7xIFfADKHssjL0q4eRYkwNNhLs9ECd/dufxG1
-         YPdeeAbad6M33C+mDfvadFMGdme2Qj/Olu7sny5TvylVLqBZqatQYfa7BVf5q+X3B2E6
-         wJEFuBy4A9CCg81Xt+iUXF1NFq6kiIMEgj01o=
+        d=citrix.com; s=google; t=1696612558; x=1697217358; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pNWvy7BHUD/YMjuNX6o/apal2zMJkBxILDvNWBBy4uo=;
+        b=vZxUoUOjW6Ad5Hq92bpDG+IOfQCcCr2aNtYOYD4mjGRYvXWVS4A8DaWZkQbRTvOHDx
+         9Bf/4ONu96dnt6uhMOP6vtiKWxQn0Dfddc8EayEzlx+cXtOJx0Ekm/aba6DMnpFyegUm
+         RPXDVasYINt2Zc55lYParyc7oxqwGaNLwVusY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696610152; x=1697214952;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Mse9fEALa2K/SkaQlfmLnl2odXahkEBxlqPmS4z+I7s=;
-        b=sp6x77rEms73Iwdr7BliyeBd7nb+6CqpXQRk41cAApLzJvVFJzQu4+bXz//HByN355
-         a5VVUSCHox2Sp2V+4yT7OpwPFDGeNk4QIkPC6suaSjyhGVu+QxIMjtsqPQnqTWK7+rbC
-         dzoXrgD+xhXX8/n18Fep8n/vJaVrI/tB2GCFMHjqSLrH1c496A1pQwP+9cPYkdwvb5xw
-         CIi13fxh82bilDwSfpSJDhHS0cP3LtLiGW12pyajKXAYStnaQkGyCC1hTXbi8uT6PgLD
-         3ABZIJN2ju1IFB3AAKkn8SOoxEMATcczJznyfYjX63fWlsNkXRyuD8JeuLf9GlAU2RWx
-         sW1Q==
-X-Gm-Message-State: AOJu0YzRzA9ON77hkcl1aI5iHT55a4/mGxKsrwwnIDYMhNIH/7accyxt
-	+pEoDSveblfg4Iiwe16+IKYTbA==
-X-Google-Smtp-Source: AGHT+IHMZ5Ybq0LocD7iKi/g/0ZdnIKUxo9ZbiiFNPGyIv44IcWio+FUmQbX4klcGuQOUg3Yg1BqtQ==
-X-Received: by 2002:a05:600c:214f:b0:405:3251:47a1 with SMTP id v15-20020a05600c214f00b00405325147a1mr8100976wml.40.1696610152390;
-        Fri, 06 Oct 2023 09:35:52 -0700 (PDT)
-Message-ID: <fadc9eb9-152b-4956-8809-1188a706eac6@citrix.com>
-Date: Fri, 6 Oct 2023 17:35:51 +0100
+        d=1e100.net; s=20230601; t=1696612558; x=1697217358;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pNWvy7BHUD/YMjuNX6o/apal2zMJkBxILDvNWBBy4uo=;
+        b=EnwPfA+3rtNy9+Br25h6H5GRxYMkojIkXD1DbQykeyJbfftIKeixtkH6Z2k9zicjj/
+         MzPrerhkM+6VBq6pJToX0eLmQtDLjJM1POhMw+ZzaGqpJlWAfY2zAGZYU+/F2irpfmyr
+         GSUo3RhPR7nWyfFlT0d9RehmXa3Eo04WGLJObZ+S8L5SucoGAxa7LoEq1+BH1Edu18OY
+         2JuZMK6VN6+141LFTB0HZ7qcG8j7ObDkDX97TZNNlQ5B0n1ghAWuZ8RbKtMHxuftYP/a
+         Saj7Plb2pGh9kR8pcTtvN4BnbyqnpJOzdHeiXFJQwy4UywSxmMq2IG5MQgeBfmynHV6M
+         JIAw==
+X-Gm-Message-State: AOJu0YxfJlKgVVlHZPKN7QYURYpFRicMwIlfE9d++FecL8tBVvwiB5cs
+	Tan+Ay5Oc2zjShtewG71F1D2Tw==
+X-Google-Smtp-Source: AGHT+IE2QeMtyOwYh3IXa7wqYU8Zrfr8W7YutlN5yhjnIvKdZoayYCLGHKahsem1DeKtARmpQJ4gcA==
+X-Received: by 2002:a7b:cbd5:0:b0:403:9b7:a720 with SMTP id n21-20020a7bcbd5000000b0040309b7a720mr8452647wmi.1.1696612558298;
+        Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
+Message-ID: <063309b4-d66f-47f4-ba9e-c709ad1ab31e@citrix.com>
+Date: Fri, 6 Oct 2023 18:15:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: andrew.cooper3@citrix.com
-Subject: Re: [XEN PATCH][for-4.19 1/9] xen/include: add macro LOWEST_POW2
+Subject: Re: [PATCH] tools/xenpvboot: remove as unable to convert to Python 3
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>
-References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
- <d27f52eaaa62ec4ebb9ce8b6cf243779d341367d.1696514677.git.nicola.vetrini@bugseng.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20231006145046.98450-1-roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -133,28 +127,46 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d27f52eaaa62ec4ebb9ce8b6cf243779d341367d.1696514677.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <20231006145046.98450-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/10/2023 9:26 am, Nicola Vetrini wrote:
-> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
-> index d0caae7db298..bb9a1c9a53d0 100644
-> --- a/xen/include/xen/macros.h
-> +++ b/xen/include/xen/macros.h
-> @@ -8,8 +8,10 @@
->  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
->  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+On 06/10/2023 3:50 pm, Roger Pau Monne wrote:
+> diff --git a/tools/misc/Makefile b/tools/misc/Makefile
+> index 233a7948c050..9938bc235968 100644
+> --- a/tools/misc/Makefile
+> +++ b/tools/misc/Makefile
+> @@ -36,11 +36,8 @@ INSTALL_SBIN                   += xen-livepatch
+>  INSTALL_SBIN                   += xen-diag
+>  INSTALL_SBIN += $(INSTALL_SBIN-y)
 >  
-> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
-> +#define LOWEST_POW2(x) ((x) & -(x))
+> -# Everything to be installed in a private bin/
+> -INSTALL_PRIVBIN                += xenpvnetboot
+> -
+>  # Everything to be installed
+> -TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN) $(INSTALL_PRIVBIN)
+> +TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN)
+>  
+>  # Everything which only needs copying to install
+>  TARGETS_COPY += xencov_split
 
-Naming wise, LOWEST_BIT() please.
+FYI.
 
-The fact it's a power of two is incidental, and POW2 is ambiguous,
-because it includes interpretations such as "calculate the lowest power
-of two greater than x".
+Just out of context here is one more reference.  I've folded in the
+following hunk.
+
+diff --git a/tools/misc/Makefile b/tools/misc/Makefile
+index 9938bc235968..66d0d6b09029 100644
+--- a/tools/misc/Makefile
++++ b/tools/misc/Makefile
+@@ -41,7 +41,6 @@ TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN)
+ 
+ # Everything which only needs copying to install
+ TARGETS_COPY += xencov_split
+-TARGETS_COPY += xenpvnetboot
+ 
+ # Everything which needs to be built
+ TARGETS := $(filter-out $(TARGETS_COPY),$(TARGETS_ALL))
 
 ~Andrew
 
