@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D877BBC44
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 18:02:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613744.954501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CCB27BBC48
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 18:04:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613748.954510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qonGv-0004ni-2U; Fri, 06 Oct 2023 16:01:49 +0000
+	id 1qonJ3-0005UF-J1; Fri, 06 Oct 2023 16:04:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613744.954501; Fri, 06 Oct 2023 16:01:49 +0000
+Received: by outflank-mailman (output) from mailman id 613748.954510; Fri, 06 Oct 2023 16:04:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qonGu-0004kM-Ua; Fri, 06 Oct 2023 16:01:48 +0000
-Received: by outflank-mailman (input) for mailman id 613744;
- Fri, 06 Oct 2023 16:01:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vVKM=FU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qonGt-0004kG-Gu
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 16:01:47 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5d4567c-6461-11ee-98d3-6d05b1d4d9a1;
- Fri, 06 Oct 2023 18:01:45 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40651a726acso20828325e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 09:01:45 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ay20-20020a05600c1e1400b0040640073d25sm4088608wmb.16.2023.10.06.09.01.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 09:01:44 -0700 (PDT)
+	id 1qonJ3-0005S8-Fl; Fri, 06 Oct 2023 16:04:01 +0000
+Received: by outflank-mailman (input) for mailman id 613748;
+ Fri, 06 Oct 2023 16:04:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qonJ2-0005Rw-3l; Fri, 06 Oct 2023 16:04:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qonJ1-0003IU-Nh; Fri, 06 Oct 2023 16:03:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qonJ1-0005g9-E2; Fri, 06 Oct 2023 16:03:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qonJ1-0004DT-Dd; Fri, 06 Oct 2023 16:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +42,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5d4567c-6461-11ee-98d3-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696608105; x=1697212905; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Oz3hj6YbxS7+NsoIRQ5kUSI4xOf4m7CXOGyEthgsV8U=;
-        b=FIZmcTHrOARBf4j/si5/0X2mRY1zxvm+PNkub7nQGyPWcvjLYdcOqg04+u2kct/B8l
-         xZ8HxUX6NechtFqDO6ijs3aEthq0M+Nkxijuu/EGbHlruhue/youtXdr5zsnp+GQZRDT
-         vgf49JqwKDH4HQJhec1PeroDEVDdriw69CKeQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696608105; x=1697212905;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Oz3hj6YbxS7+NsoIRQ5kUSI4xOf4m7CXOGyEthgsV8U=;
-        b=iwPNG/WSbN4bMkR3S/h2KjU0bcm0ZmFu/AA3SXjw1BGOrBuwUjmy81KXfb7tJ3/1Mu
-         audZDBibMJtuJ4VjVZ0opimVORUxBHFCiDt+FWCk0HHkESe9hGYMr34Q+6BFbKgjv689
-         epoOgagWkM4pxxMWeWOiX2JBHeu/8CbTQc2UXyBFjBwOlgS0fY9uE8fsQnfkfriCE6kf
-         vQjlsu0nAPk/Rn3ER1bpyQW+D0AD0yTgmolY/Rn006pJxtJOuWXqYpHZT8sjV2xOZjfb
-         m3dzO8KlyMec4sCKnrIuxonc6Dwu+fkaBJyjpUzJH7eTv8M3096UQQ+7yYemZt1ArnqO
-         Jp6w==
-X-Gm-Message-State: AOJu0YyKa0blOLwv7XqbCyq+Yc52GnB2qt0FqMeiPTjKdixuukfjD85Y
-	2BhgCpKgIR2zhre1cpY0xevIRA==
-X-Google-Smtp-Source: AGHT+IGCw/BGyrDkJ6zO6xd5GEX5tZJL+x+v08ooQGglKuEmnoMd2M8YZy7yjI4JdgJywWP9KyIOxQ==
-X-Received: by 2002:a05:600c:2044:b0:402:e68f:8896 with SMTP id p4-20020a05600c204400b00402e68f8896mr8166321wmg.0.1696608104666;
-        Fri, 06 Oct 2023 09:01:44 -0700 (PDT)
-Message-ID: <b95fa9cd-2534-4d7a-9843-2bc71695655d@citrix.com>
-Date: Fri, 6 Oct 2023 17:01:43 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH for-4.18 v5] xen/pdx: Make CONFIG_PDX_COMPRESSION a common
- Kconfig option
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Julien Grall <jgrall@amazon.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Henry Wang <Henry.Wang@arm.com>, George Dunlap
- <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20231006144405.1078260-1-andrew.cooper3@citrix.com>
- <efc2b22e-6650-4c1f-b4cf-9971d4d08b49@xen.org>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <efc2b22e-6650-4c1f-b4cf-9971d4d08b49@xen.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=5xTuarejL/BiU/ZTlc9+YnIVGMNkJ6s96n9fAxX6XXQ=; b=bFK7MF/sJcGPgJrQ/QZa289P3O
+	T0CnSRMB9oMX0jwaYfW9RKrF4u0AuEkDmpaLecAEbx9R9X6DjANf2Bl7J3NkholeJclPZkfJdYBbk
+	KlvVAVJX0bKkM7IIg2itNVoo8AFkYZ57myc4Isw1DQW48ce2UwpR9DmIqWy3S2Eco9Ow=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183291-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183291: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=295514ff7550626de4fb5e43b51deb25d9331cd5
+X-Osstest-Versions-That:
+    xen=02c98966360b76052779b0186784437af88f301e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 Oct 2023 16:03:59 +0000
 
-On 06/10/2023 4:09 pm, Julien Grall wrote:
-> 
-> 
-> On 06/10/2023 15:44, Andrew Cooper wrote:
->> From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>
->> Adds a new compile-time flag to allow disabling PDX compression and
->> compiles out compression-related code/data. It also shorts the pdx<->pfn
->> conversion macros and creates stubs for masking functions.
->>
->> While at it, removes the old arch-defined CONFIG_HAS_PDX flag. 
->> Despite the
->> illusion of choice, it was not optional.
->>
->> There are ARM and PPC platforms with sparse RAM banks - leave compression
->> active by default there.  OTOH, there are no known production x86
->> systems with
->> sparse RAM banks, so disable compression.  This decision can be
->> revisited if
->> such a platform comes along.
-> 
-> (Process remarks rather than the code itself)
-> 
-> Jan is away this week so I want to make sure this doesn't go in without
-> him having a say.
-> 
-> While I don't particularly care about the approach taken for x86, Jan
-> voiced concerned with this approach and so far I didn't see any
-> conclusion. If there is any, then please point me to them.
-> 
-> For the record, the objections from Jan are in [1]. If we want to ignore
-> them, then I think we need a vote. Possibly only from the x86 folks (?).
+flight 183291 xen-unstable-smoke real [real]
+flight 183295 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183291/
+http://logs.test-lab.xenproject.org/osstest/logs/183295/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl         18 guest-start/debian.repeat fail REGR. vs. 183270
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  295514ff7550626de4fb5e43b51deb25d9331cd5
+baseline version:
+ xen                  02c98966360b76052779b0186784437af88f301e
+
+Last test of basis   183270  2023-10-05 13:03:52 Z    1 days
+Testing same since   183272  2023-10-05 16:00:24 Z    1 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-What do you think the 2 x86 maintainer tags on this patch in this exact
-form, following far too much wasted time already, represents.  The vote
-has already concluded.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-~Andrew
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 295514ff7550626de4fb5e43b51deb25d9331cd5
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:27 2023 +0200
+
+    common: convert vCPU info area registration
+    
+    Switch to using map_guest_area(). Noteworthy differences from
+    map_vcpu_info():
+    - remote vCPU-s are paused rather than checked for being down (which in
+      principle can change right after the check),
+    - the domain lock is taken for a much smaller region,
+    - the error code for an attempt to re-register the area is now -EBUSY,
+    - we could in principle permit de-registration when no area was
+      previously registered (which would permit "probing", if necessary for
+      anything).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 60e544a8c58fdc720de05f6a721178f9516436d1
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:26 2023 +0200
+
+    x86: introduce GADDR based secondary time area registration alternative
+    
+    The registration by virtual/linear address has downsides: The access is
+    expensive for HVM/PVH domains. Furthermore for 64-bit PV domains the area
+    is inaccessible (and hence cannot be updated by Xen) when in guest-user
+    mode.
+    
+    Introduce a new vCPU operation allowing to register the secondary time
+    area by guest-physical address.
+    
+    An at least theoretical downside to using physically registered areas is
+    that PV then won't see dirty (and perhaps also accessed) bits set in its
+    respective page table entries.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit d5df44275e7af690ef18b56cc58762ce33a37149
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:25 2023 +0200
+
+    domain: introduce GADDR based runstate area registration alternative
+    
+    The registration by virtual/linear address has downsides: At least on
+    x86 the access is expensive for HVM/PVH domains. Furthermore for 64-bit
+    PV domains the area is inaccessible (and hence cannot be updated by Xen)
+    when in guest-user mode.
+    
+    Introduce a new vCPU operation allowing to register the runstate area by
+    guest-physical address.
+    
+    An at least theoretical downside to using physically registered areas is
+    that PV then won't see dirty (and perhaps also accessed) bits set in its
+    respective page table entries.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit eadc288cbb0ddc432ff8c9c639fb25b7538325de
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:24 2023 +0200
+
+    domain: map/unmap GADDR based shared guest areas
+    
+    The registration by virtual/linear address has downsides: At least on
+    x86 the access is expensive for HVM/PVH domains. Furthermore for 64-bit
+    PV domains the areas are inaccessible (and hence cannot be updated by
+    Xen) when in guest-user mode, and for HVM guests they may be
+    inaccessible when Meltdown mitigations are in place. (There are yet
+    more issues.)
+    
+    In preparation of the introduction of new vCPU operations allowing to
+    register the respective areas (one of the two is x86-specific) by
+    guest-physical address, flesh out the map/unmap functions.
+    
+    Noteworthy differences from map_vcpu_info():
+    - areas can be registered more than once (and de-registered),
+    - remote vCPU-s are paused rather than checked for being down (which in
+      principle can change right after the check),
+    - the domain lock is taken for a much smaller region.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit c4dde71e3e6961f817e2a574ce4918041cb30fb9
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Oct 4 15:53:31 2023 +0200
+
+    x86/mem-sharing: copy GADDR based shared guest areas
+    
+    In preparation of the introduction of new vCPU operations allowing to
+    register the respective areas (one of the two is x86-specific) by
+    guest-physical address, add the necessary fork handling (with the
+    backing function yet to be filled in).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit c2e285ea0e6dea9cc6f4578e49d76075a153baa0
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:22 2023 +0200
+
+    x86: update GADDR based secondary time area
+    
+    Before adding a new vCPU operation to register the secondary time area
+    by guest-physical address, add code to actually keep such areas up-to-
+    date.
+    
+    Note that pages aren't marked dirty when written to (matching the
+    handling of space mapped by map_vcpu_info()), on the basis that the
+    registrations are lost anyway across migration (or would need re-
+    populating at the target for transparent migration). Plus the contents
+    of the areas in question have to be deemed volatile in the first place
+    (so saving a "most recent" value is pretty meaningless even for e.g.
+    snapshotting).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit e1ddb822ca2e3c332d42d508e2a5fbd7be018815
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:21 2023 +0200
+
+    domain: update GADDR based runstate guest area
+    
+    Before adding a new vCPU operation to register the runstate area by
+    guest-physical address, add code to actually keep such areas up-to-date.
+    
+    Note that updating of the area will be done exclusively following the
+    model enabled by VMASST_TYPE_runstate_update_flag for virtual-address
+    based registered areas.
+    
+    Note further that pages aren't marked dirty when written to (matching
+    the handling of space mapped by map_vcpu_info()), on the basis that the
+    registrations are lost anyway across migration (or would need re-
+    populating at the target for transparent migration). Plus the contents
+    of the areas in question have to be deemed volatile in the first place
+    (so saving a "most recent" value is pretty meaningless even for e.g.
+    snapshotting).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit c4630e316240508f3fb619678adc4cfb47bf13d2
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:20 2023 +0200
+
+    domain: GADDR based shared guest area registration alternative - teardown
+    
+    In preparation of the introduction of new vCPU operations allowing to
+    register the respective areas (one of the two is x86-specific) by
+    guest-physical address, add the necessary domain cleanup hooks.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 826da6e30cf37a22b3f32dba33477856125df91b
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Oct 2 17:11:19 2023 +0200
+
+    x86/shim: zap runstate and time area handles during shutdown
+    
+    While likely the guest would just re-register the same areas after
+    a possible resume, let's not take this for granted and avoid the risk of
+    otherwise corrupting guest memory.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 9a499a84a2724757ad59b684e7858dfb60521290
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Mon Oct 2 17:11:18 2023 +0200
+
+    mem_sharing/fork: do not attempt to populate vcpu_info page
+    
+    Instead let map_vcpu_info() and it's call to get_page_from_gfn()
+    populate the page in the child as needed.  Also remove the bogus
+    copy_domain_page(): should be placed before the call to map_vcpu_info(),
+    as the later can update the contents of the vcpu_info page.
+    
+    Note that this eliminates a bug in copy_vcpu_settings(): The function did
+    allocate a new page regardless of the GFN already having a mapping, thus in
+    particular breaking the case of two vCPU-s having their info areas on the same
+    page.
+    
+    Fixes: 41548c5472a3 ('mem_sharing: VM forking')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+(qemu changes not included)
 
