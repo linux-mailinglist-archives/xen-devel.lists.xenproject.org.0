@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1307BBD8B
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 19:17:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613761.954529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203997BBE29
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 19:57:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613793.954562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qooQm-00022V-4q; Fri, 06 Oct 2023 17:16:04 +0000
+	id 1qop4c-0000bO-Lx; Fri, 06 Oct 2023 17:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613761.954529; Fri, 06 Oct 2023 17:16:04 +0000
+Received: by outflank-mailman (output) from mailman id 613793.954562; Fri, 06 Oct 2023 17:57:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qooQm-00020B-1s; Fri, 06 Oct 2023 17:16:04 +0000
-Received: by outflank-mailman (input) for mailman id 613761;
- Fri, 06 Oct 2023 17:16:03 +0000
+	id 1qop4c-0000Zh-J6; Fri, 06 Oct 2023 17:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 613793;
+ Fri, 06 Oct 2023 17:57:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vVKM=FU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qooQl-000205-6V
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 17:16:03 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1qop4a-0000ZV-AT
+ for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 17:57:12 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0459ce24-646c-11ee-9b0d-b553b5be7939;
- Fri, 06 Oct 2023 19:15:58 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-406618d080eso22470485e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
+ id c561ddec-6471-11ee-9b0d-b553b5be7939;
+ Fri, 06 Oct 2023 19:57:10 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-31427ddd3fbso2328077f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Oct 2023 10:57:10 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- p15-20020a7bcc8f000000b003fee6e170f9sm4135382wma.45.2023.10.06.10.15.57
+ i14-20020a05600c354e00b004068de50c64sm4103236wmq.46.2023.10.06.10.57.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
+ Fri, 06 Oct 2023 10:57:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0459ce24-646c-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: c561ddec-6471-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696612558; x=1697217358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pNWvy7BHUD/YMjuNX6o/apal2zMJkBxILDvNWBBy4uo=;
-        b=vZxUoUOjW6Ad5Hq92bpDG+IOfQCcCr2aNtYOYD4mjGRYvXWVS4A8DaWZkQbRTvOHDx
-         9Bf/4ONu96dnt6uhMOP6vtiKWxQn0Dfddc8EayEzlx+cXtOJx0Ekm/aba6DMnpFyegUm
-         RPXDVasYINt2Zc55lYParyc7oxqwGaNLwVusY=
+        d=citrix.com; s=google; t=1696615029; x=1697219829; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cTLquPLV/NW4dTlK3IWqIvCdSwrVNdf8Cd7ENbWYK1Y=;
+        b=IsocByg0zNW3vQh3OD2g0bNEqJOc4Af81zMycv9IFOcRnY8QgeKDYTm73PwYrPCnwk
+         yGhlsQhhEqFBUc4kYXAqRJ8Yx06jleKPWrvN8TsOo77Z77fmnh3oH16O60WtIVuOmnaX
+         qaloyWwz4bw1myalXhau+V6WVeQO7qCsDXiDQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696612558; x=1697217358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pNWvy7BHUD/YMjuNX6o/apal2zMJkBxILDvNWBBy4uo=;
-        b=EnwPfA+3rtNy9+Br25h6H5GRxYMkojIkXD1DbQykeyJbfftIKeixtkH6Z2k9zicjj/
-         MzPrerhkM+6VBq6pJToX0eLmQtDLjJM1POhMw+ZzaGqpJlWAfY2zAGZYU+/F2irpfmyr
-         GSUo3RhPR7nWyfFlT0d9RehmXa3Eo04WGLJObZ+S8L5SucoGAxa7LoEq1+BH1Edu18OY
-         2JuZMK6VN6+141LFTB0HZ7qcG8j7ObDkDX97TZNNlQ5B0n1ghAWuZ8RbKtMHxuftYP/a
-         Saj7Plb2pGh9kR8pcTtvN4BnbyqnpJOzdHeiXFJQwy4UywSxmMq2IG5MQgeBfmynHV6M
-         JIAw==
-X-Gm-Message-State: AOJu0YxfJlKgVVlHZPKN7QYURYpFRicMwIlfE9d++FecL8tBVvwiB5cs
-	Tan+Ay5Oc2zjShtewG71F1D2Tw==
-X-Google-Smtp-Source: AGHT+IE2QeMtyOwYh3IXa7wqYU8Zrfr8W7YutlN5yhjnIvKdZoayYCLGHKahsem1DeKtARmpQJ4gcA==
-X-Received: by 2002:a7b:cbd5:0:b0:403:9b7:a720 with SMTP id n21-20020a7bcbd5000000b0040309b7a720mr8452647wmi.1.1696612558298;
-        Fri, 06 Oct 2023 10:15:58 -0700 (PDT)
-Message-ID: <063309b4-d66f-47f4-ba9e-c709ad1ab31e@citrix.com>
-Date: Fri, 6 Oct 2023 18:15:57 +0100
+        d=1e100.net; s=20230601; t=1696615029; x=1697219829;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cTLquPLV/NW4dTlK3IWqIvCdSwrVNdf8Cd7ENbWYK1Y=;
+        b=H+CTlgxkDs00CzdFnjt2iPqiq8nG6KhOrQ/K0H22jhaNfmdJT/MbL9CNv7TMUORs0e
+         SBjyEeqcTfDtGs5AZAo5yMv6a1TEeQ4vEf+346yTNAklpi3nGPnDCZOD/IfPmhxjUoOl
+         /NAyYxjn+kPNYPmMaz4ClVh1qsNy0PMulnymp/673Uu4JnE4sh0QPJ/dHrogDFCZ7sN/
+         7rtQ6iJScXe2qFI7H6tRSQeF/wcqjBme2U9bpYDEm45WrgGViZ1lrTwucD7lzxMhccpJ
+         0oSTmIkGBZCQi+ygUFDh2FUcXfoEl+uizZqAF6W0bJ4ywvW9WCzYQinefeAD3tEK1FhE
+         enDg==
+X-Gm-Message-State: AOJu0Yx60vS68Bxd8aMXgZr45TJdl4/CVz4k9rBi2qRuUByhz0KzlDfK
+	67kheJxCaCXczvcnr3kBp8TvHw==
+X-Google-Smtp-Source: AGHT+IF4jM3Qr8xMgKwA/pNmRLuyuCvS3NdguTr4xQhPuZSZse08fyH97eicHEJYVGIjqFzlM+EvNA==
+X-Received: by 2002:a05:6000:1102:b0:323:37af:c7c7 with SMTP id z2-20020a056000110200b0032337afc7c7mr7987262wrw.69.1696615029579;
+        Fri, 06 Oct 2023 10:57:09 -0700 (PDT)
+Message-ID: <91d900b5-1298-4bb3-bd3d-6a829819a030@citrix.com>
+Date: Fri, 6 Oct 2023 18:57:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xenpvboot: remove as unable to convert to Python 3
-Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
- Community Manager <community.manager@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20231006145046.98450-1-roger.pau@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH 5/9] x86/cpu-policy: address violations of MISRA C
+ Rule 10.1
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
+ roger.pau@citrix.com, Wei Liu <wl@xen.org>
+References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
+ <463572d126a7700e5e90ef3a49104bd4b8c1c389.1696514677.git.nicola.vetrini@bugseng.com>
+Content-Language: en-GB
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -127,46 +131,71 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231006145046.98450-1-roger.pau@citrix.com>
+In-Reply-To: <463572d126a7700e5e90ef3a49104bd4b8c1c389.1696514677.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/10/2023 3:50 pm, Roger Pau Monne wrote:
-> diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-> index 233a7948c050..9938bc235968 100644
-> --- a/tools/misc/Makefile
-> +++ b/tools/misc/Makefile
-> @@ -36,11 +36,8 @@ INSTALL_SBIN                   += xen-livepatch
->  INSTALL_SBIN                   += xen-diag
->  INSTALL_SBIN += $(INSTALL_SBIN-y)
+On 06/10/2023 9:26 am, Nicola Vetrini wrote:
+> The COUNT_LEAVES macro is introduced to avoid using an essentially
+> boolean value in a subtraction.
+>
+> No functional change.
+>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  xen/include/xen/lib/x86/cpu-policy.h | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+>
+> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+> index bab3eecda6c1..700993cc67e8 100644
+> --- a/xen/include/xen/lib/x86/cpu-policy.h
+> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+> @@ -95,17 +95,18 @@ const char *x86_cpuid_vendor_to_str(unsigned int vendor);
+>  #define CPUID_GUEST_NR_EXTD       MAX(CPUID_GUEST_NR_EXTD_INTEL, \
+>                                        CPUID_GUEST_NR_EXTD_AMD)
 >  
-> -# Everything to be installed in a private bin/
-> -INSTALL_PRIVBIN                += xenpvnetboot
-> -
->  # Everything to be installed
-> -TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN) $(INSTALL_PRIVBIN)
-> +TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN)
->  
->  # Everything which only needs copying to install
->  TARGETS_COPY += xencov_split
+> +#define COUNT_LEAVES(X) ((X) - ((X) ? 1 : 0))
+>  /*
+>   * Maximum number of leaves a struct cpu_policy turns into when serialised for
+>   * interaction with the toolstack.  (Sum of all leaves in each union, less the
+>   * entries in basic which sub-unions hang off of.)
+>   */
+> -#define CPUID_MAX_SERIALISED_LEAVES                     \
+> -    (CPUID_GUEST_NR_BASIC +                             \
+> -     CPUID_GUEST_NR_FEAT   - !!CPUID_GUEST_NR_FEAT +    \
+> -     CPUID_GUEST_NR_CACHE  - !!CPUID_GUEST_NR_CACHE +   \
+> -     CPUID_GUEST_NR_TOPO   - !!CPUID_GUEST_NR_TOPO +    \
+> -     CPUID_GUEST_NR_XSTATE - !!CPUID_GUEST_NR_XSTATE +  \
+> +#define CPUID_MAX_SERIALISED_LEAVES         \
+> +    (CPUID_GUEST_NR_BASIC +                 \
+> +     COUNT_LEAVES(CPUID_GUEST_NR_FEAT) +    \
+> +     COUNT_LEAVES(CPUID_GUEST_NR_CACHE) +   \
+> +     COUNT_LEAVES(CPUID_GUEST_NR_TOPO) +    \
+> +     COUNT_LEAVES(CPUID_GUEST_NR_XSTATE) +  \
+>       CPUID_GUEST_NR_EXTD + 2 /* hv_limit and hv2_limit */ )
 
-FYI.
+This may not have been a MISRA-approved calculation, but encapsulating
+it like this breaks any ability to follow what's going on.
 
-Just out of context here is one more reference.  I've folded in the
-following hunk.
+CPUID data in x86 is mostly a sparse 1-D array (BASIC, EXTD, HV blocks),
+but a couple of elements in the BASIC array have arrays themselves.
 
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 9938bc235968..66d0d6b09029 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -41,7 +41,6 @@ TARGETS_ALL := $(INSTALL_BIN) $(INSTALL_SBIN)
- 
- # Everything which only needs copying to install
- TARGETS_COPY += xencov_split
--TARGETS_COPY += xenpvnetboot
- 
- # Everything which needs to be built
- TARGETS := $(filter-out $(TARGETS_COPY),$(TARGETS_ALL))
+The struct is laid out for O(1) access, so you can't just say
+sizeof(struct) / sizeof(element).  The BASIC array has elements (0x4,
+0x7, 0xb, 0xd) which hold no data because there's actually an array
+elsewhere containing all the data.
+
+So logically, it's:
+
+(BASIC + (FEAT - 1) + (CACHE - 1) + (TOPO - 1) + (XSTATE - 1)) + EXTD + 2
+
+And in practice I'd far rather express it with a plain -1 than a -
+!!NR_, if the latter isn't an option.
+
+Presumably MISRA would be happy with that?
+
+If so, I can submit a patch.  There's also a typo in that the comment
+that wants fixing.
 
 ~Andrew
 
