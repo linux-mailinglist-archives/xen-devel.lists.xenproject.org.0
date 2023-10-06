@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B28617BB4B4
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 12:02:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.613465.953982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAEB27BB4D0
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Oct 2023 12:08:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.613472.953992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qohfI-0003kP-2Z; Fri, 06 Oct 2023 10:02:36 +0000
+	id 1qohkj-0004iC-R0; Fri, 06 Oct 2023 10:08:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 613465.953982; Fri, 06 Oct 2023 10:02:36 +0000
+Received: by outflank-mailman (output) from mailman id 613472.953992; Fri, 06 Oct 2023 10:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qohfH-0003iL-Uo; Fri, 06 Oct 2023 10:02:35 +0000
-Received: by outflank-mailman (input) for mailman id 613465;
- Fri, 06 Oct 2023 10:02:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bl8M=FU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qohfF-0003iE-RJ
- for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 10:02:33 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76ec9b65-642f-11ee-9b0d-b553b5be7939;
- Fri, 06 Oct 2023 12:02:31 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 821C14EE0738;
- Fri,  6 Oct 2023 12:02:31 +0200 (CEST)
+	id 1qohkj-0004fV-Mb; Fri, 06 Oct 2023 10:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 613472;
+ Fri, 06 Oct 2023 10:08:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qohki-0004fP-72
+ for xen-devel@lists.xenproject.org; Fri, 06 Oct 2023 10:08:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qohkh-0002we-1U; Fri, 06 Oct 2023 10:08:11 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qohkg-0006FO-Pf; Fri, 06 Oct 2023 10:08:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76ec9b65-642f-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=O7HRV5tEZilDlCcLT9m+UxgRAYcNiS/Zg5AwRdXqy9Y=; b=Zi9oiIUxi6ZTHMDVDZKbIfbugL
+	PcjfhDWBO6vLFT/vJCXrk5H7kuQnrAk0fnc6R9CDc7iPfTRGDWXKQs7Noc4LTMaN0ju0vUo7otLRO
+	tnZDUctYK+ORctR2nzzmXt9o7ZwV0SjF3imOizXOr4fAZnBymNrPEsbSqw6QSC0LzaSY=;
+Message-ID: <3880a214-ece2-4654-a94e-04f2e1d02353@xen.org>
+Date: Fri, 6 Oct 2023 11:08:09 +0100
 MIME-Version: 1.0
-Date: Fri, 06 Oct 2023 12:02:31 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>, Doug
- Goldstein <cardoe@cardoe.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>
-Subject: Re: [XEN PATCH][for-4.19 1/9] xen/include: add macro LOWEST_POW2
-In-Reply-To: <6102db25-2fd6-49fa-be66-ec2b627b019b@xen.org>
-References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
- <d27f52eaaa62ec4ebb9ce8b6cf243779d341367d.1696514677.git.nicola.vetrini@bugseng.com>
- <6102db25-2fd6-49fa-be66-ec2b627b019b@xen.org>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <0197ecdcc5869dddecc98907f67ba0f1@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] domain: fix misaligned unmap address in
+ unmap_guest_area()
+Content-Language: en-GB
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20231006091353.96367-1-roger.pau@citrix.com>
+ <20231006091353.96367-2-roger.pau@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231006091353.96367-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 06/10/2023 11:29, Julien Grall wrote:
-> Hi,
-> 
-> On 06/10/2023 09:26, Nicola Vetrini wrote:
->> The purpose of this macro is to encapsulate the well-known expression
->> 'x & -x', that in 2's complement architectures on unsigned integers 
->> will
->> give 2^ffs(x), where ffs(x) is the position of the lowest set bit in 
->> x.
->> 
->> A deviation for ECLAIR is also introduced.
-> 
-> Can you explain why this is a deviation in ECLAIR rather than one with
-> /* SAF-* */ (or whichever name we decide to rename to)? Is this
-> because the code is correct from MISRA perspective but the tool is
-> confused?
-> 
+Hi Roger,
 
-The code does violate Rule 10.1 (a unary minus applied to an unsigned 
-value is
-deemed inappropriate by MISRA), but rather than changing a whole lot of 
-places where this
-construct is used (mainly in x86 code), the reasoning is that it makes 
-more sense to isolate
-it and justify its presence by the fact that on 2's complement 
-architectures the result is
-indeed correct.
+On 06/10/2023 10:13, Roger Pau Monne wrote:
+> unmap_domain_page_global() expects the provided address to be page aligned, or
+> else some of the called functions will trigger assertions, like
+> modify_xen_mappings() on x86 or destroy_xen_mappings() on Arm.
+> 
+> The following assert has been reported by osstest arm 32bit tests:
+> 
+> (XEN) Assertion 'IS_ALIGNED(s, PAGE_SIZE)' failed at arch/arm/mm.c:1243
+> (XEN) ----[ Xen-4.18-rc  arm32  debug=y  Not tainted ]----
+> (XEN) CPU:    0
+> (XEN) PC:     00271a38 destroy_xen_mappings+0x50/0x5c
+> [...]
+> (XEN) Xen call trace:
+> (XEN)    [<00271a38>] destroy_xen_mappings+0x50/0x5c (PC)
+> (XEN)    [<00235aa8>] vunmap+0x30/0x1a0 (LR)
+> (XEN)    [<0026ad88>] unmap_domain_page_global+0x10/0x20
+> (XEN)    [<00208e38>] unmap_guest_area+0x90/0xec
+> (XEN)    [<00208f98>] domain_kill+0x104/0x180
+> (XEN)    [<00239e3c>] do_domctl+0x8ac/0x14fc
+> (XEN)    [<0027ae34>] do_trap_guest_sync+0x570/0x66c
+> (XEN)    [<002019f0>] arch/arm/arm32/entry.o#return_from_trap+0/0x4
+> 
+> Fixes: eadc288cbb0d ('domain: map/unmap GADDR based shared guest areas')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> unmap_domain_page_global() and vunmap() should likely have the same alignment
+> asserts, as not all paths lead to detecting the misalignment of the provided
+> linear address.  Will do a separate patch.
 
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->>   automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
->>   xen/include/xen/macros.h                         | 6 ++++--
->>   2 files changed, 10 insertions(+), 2 deletions(-)
->> 
->> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
->> b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> index d8170106b449..016164643105 100644
->> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->> @@ -274,6 +274,12 @@ still non-negative."
->>   -config=MC3R1.R10.1,etypes+={safe, 
->> "stmt(operator(logical)||node(conditional_operator||binary_conditional_operator))", 
->> "dst_type(ebool||boolean)"}
->>   -doc_end
->>   +-doc_begin="The macro LOWEST_POW2 encapsulates a well-known pattern 
->> to obtain the value
->> +2^ffs(x) for unsigned integers on two's complement architectures
->> +(all the architectures supported by Xen satisfy this requirement)."
->> +-config=MC3R1.R10.1,reports+={safe, 
->> "any_area(any_loc(any_exp(macro(^LOWEST_POW2$))))"}
->> +-doc_end
->> +
->>   ### Set 3 ###
->>     #
->> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
->> index d0caae7db298..bb9a1c9a53d0 100644
->> --- a/xen/include/xen/macros.h
->> +++ b/xen/include/xen/macros.h
->> @@ -8,8 +8,10 @@
->>   #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
->>   #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
->>   -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
->> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
->> +#define LOWEST_POW2(x) ((x) & -(x))
->> +
->> +#define MASK_EXTR(v, m) (((v) & (m)) / LOWEST_POW2(m))
->> +#define MASK_INSR(v, m) (((v) * LOWEST_POW2(m)) & (m))
->>     #define count_args_(dot, a1, a2, a3, a4, a5, a6, a7, a8, x, ...) x
->>   #define count_args(args...) \
+unmap_domain_page() seems to be able to deal with unaligned pointer. And 
+supporting unaligned pointer in vunmap()/unmap_domain_page_global() 
+would simplifyy call to those functions.
+
+So I would consider to deal with the alignment rather than adding 
+ASSERT() in the two functions. destroy_xen_mappings() and 
+modify_xen_mappings() should stay as-is though.
+
+Anyway, I don't think this is a 4.18 material.
+
+> ---
+>   xen/common/domain.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index b8281d7cff9d..2dcc64e659cc 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1634,7 +1634,7 @@ void unmap_guest_area(struct vcpu *v, struct guest_area *area)
+>   
+>       if ( pg )
+>       {
+> -        unmap_domain_page_global(map);
+> +        unmap_domain_page_global((void *)((unsigned long)map & PAGE_MASK));
+
+Looking at the code, I can't find where 'map' may have become unaligned. 
+Do you have a pointer?
+
+Depending on the answer, the call in map_guest_area() may also need some 
+adjustment.
+
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
