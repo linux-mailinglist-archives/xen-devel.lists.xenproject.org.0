@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F07D7BDCDB
+	by mail.lfdr.de (Postfix) with ESMTPS id 000C37BDCDD
 	for <lists+xen-devel@lfdr.de>; Mon,  9 Oct 2023 14:52:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.614359.955369 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.614360.955375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qppjh-0007An-D2; Mon, 09 Oct 2023 12:51:49 +0000
+	id 1qppjh-0007GI-Ld; Mon, 09 Oct 2023 12:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 614359.955369; Mon, 09 Oct 2023 12:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 614360.955375; Mon, 09 Oct 2023 12:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qppjh-00078w-92; Mon, 09 Oct 2023 12:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 614359;
+	id 1qppjh-0007BN-HT; Mon, 09 Oct 2023 12:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 614360;
  Mon, 09 Oct 2023 12:51:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nTJG=FX=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1qppjf-00078l-Tm
- for xen-devel@lists.xenproject.org; Mon, 09 Oct 2023 12:51:47 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1qppjg-00078l-HL
+ for xen-devel@lists.xenproject.org; Mon, 09 Oct 2023 12:51:48 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9adc7897-66a2-11ee-98d3-6d05b1d4d9a1;
+ id 9b0f8110-66a2-11ee-98d3-6d05b1d4d9a1;
  Mon, 09 Oct 2023 14:51:46 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-313e742a787so2652804f8f.1
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3231d6504e1so4169940f8f.2
  for <xen-devel@lists.xenproject.org>; Mon, 09 Oct 2023 05:51:46 -0700 (PDT)
 Received: from georged-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
@@ -45,46 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9adc7897-66a2-11ee-98d3-6d05b1d4d9a1
+X-Inumbo-ID: 9b0f8110-66a2-11ee-98d3-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1696855905; x=1697460705; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WP8vXvNB2nz+9RrTuxTPylfUNyGiJI34/c05e47LP0Q=;
-        b=DaXpOcXIMrmriEtb6+fCAgRWlyl9d3XW6866MWeKTm6WYXK2+D1rs+VPaD+hXWqgzf
-         qBI+ohXUo85sa60QpYSAfIrvctF9ScRSgiKYN5s4PCYDCR+b34L/dp0vQrpJ82xSbslA
-         8POObYE9wZ/9sYUtnbK6RZVDq9luNGieDGFe4=
+        d=cloud.com; s=cloud; t=1696855906; x=1697460706; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6stkbuoMjurJJxIep2GjOtQsiPgi52HYjGuQHL8XeTA=;
+        b=UkwUn+FIuR+viR52eNz1ac04R4sbTeOiJyacIMZ4XTIkFtKpfF6OFY2BvzCCi2nZ4K
+         4cdLS3GE4lL+BtbmnkQayh3EG+0h5MlL6G0YefndyYQfu+s253UQa6L5va9AIFwhLymI
+         0/GEQrAOlwLUOaPQ6ewFiZJyGHd3jS4ubhI5I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696855905; x=1697460705;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WP8vXvNB2nz+9RrTuxTPylfUNyGiJI34/c05e47LP0Q=;
-        b=Q2/Knv7qUx/StnBfLCDr3kWqZmNJ+L0xymz503QOIhX4s+pgQ0HzXoUFNSKkHGAxen
-         7FsOEH6E5IB7w4Wt47SP+pi2/6T1gptfdRAIfutxRzBoCzooqmNma6pNZBH5Z3L6YVU4
-         FQx+/j8NgjqBuOYWuIH1pS6GMVwhWTsZkuaSbeTVIFYSSE8EugemxfEUzdzYkyVTo0ET
-         AI1M8ePevDRmFEpvOfrEv9Rml9fI6wsPOsk4bOs2yzLQvCX5lg13SaGC2TByxSRn6e74
-         7vABQzltaWgB7Ghjbq0tstqAYSMb8w4ayoSwP9zAXhOgdOxvlwBhA29nTQRrK0PJQWGD
-         gMqw==
-X-Gm-Message-State: AOJu0YynuxKLsSqacMUmpySDy3ENyVoJqxMs8cFdR88gEBwAIF0cYChR
-	8GpA81hub7AGL+MQZQrRXaEr3oLefyQIsHpUm5c=
-X-Google-Smtp-Source: AGHT+IHifaENnhwP4o8Lwd6f6H2t+N+EjdW8I/OAgl92qyJPbDMNBUEMdUqtmx1tFRzPjiU/NC9ZNQ==
-X-Received: by 2002:a5d:658e:0:b0:329:6b53:2c82 with SMTP id q14-20020a5d658e000000b003296b532c82mr7243303wru.31.1696855905626;
-        Mon, 09 Oct 2023 05:51:45 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696855906; x=1697460706;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6stkbuoMjurJJxIep2GjOtQsiPgi52HYjGuQHL8XeTA=;
+        b=hWTGRbPc1WXA1Jjy+tkdnk39Wxn1Bg+2uqI5SPxEkKdtb4dT+0hxhLe8GB4YWWHSMI
+         Gbm2v3NHadNubN+u1F5KZ2JgbiE9/VDx84aJDZt3+TuzVt+IOIFJXgpe8z2Q5uWTld02
+         RlFam3QEVl3ZVYzHaaYE8AK3MKJ85UWUY3HJb2Uf2SxGITHDo0nZvsDB/MmBBgR4kMMV
+         tSlxJFYo86DwybE2sT84OGvvV+34WcpAJ5fKCg3oySkg3e39bUHH221RxTEyGIA/0nri
+         UEEA/10NKLvVEucOWZuocbNUGYUZnFNLShBWpqV+/yXEA4qlZ6vi3HF2rJC6I3qj19o2
+         vCpg==
+X-Gm-Message-State: AOJu0YxdbuprtNlDIZX7wbm+i0AuGYT/o3Hj5SOy2w9loNblAiyqtq48
+	43aqkqXdZeenGzPpG5Df+J//9G8JFRgad66rYmI=
+X-Google-Smtp-Source: AGHT+IHlGUQPPC9qfmT0Qyh34OC4lfMNEfG2cjBVEKz0WNNE916f49D85GHpAAladmXXCTSP3Uq15Q==
+X-Received: by 2002:a5d:4cc3:0:b0:31f:e761:d47c with SMTP id c3-20020a5d4cc3000000b0031fe761d47cmr13041144wrt.32.1696855906074;
+        Mon, 09 Oct 2023 05:51:46 -0700 (PDT)
 From: George Dunlap <george.dunlap@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
-	Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH for-4.18 0/5] xenalyze: Miscellaneous fixes
-Date: Mon,  9 Oct 2023 13:51:32 +0100
-Message-Id: <20231009125137.1329146-1-george.dunlap@cloud.com>
+	Henry Wang <Henry.Wang@arm.com>,
+	George Dunlap <george.dunlap@cloud.com>,
+	Anthony Perard <anthony.perard@cloud.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Xenia Ragiodakou <xenia.ragiadakou@amd.com>
+Subject: [PATCH for-4.18 1/5] xenalyze: Only accumulate data from one vmexit without a handler
+Date: Mon,  9 Oct 2023 13:51:33 +0100
+Message-Id: <20231009125137.1329146-2-george.dunlap@cloud.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231009125137.1329146-1-george.dunlap@cloud.com>
+References: <20231009125137.1329146-1-george.dunlap@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-None of these are critical; but they're also in a fairly low
-criticality part of the code.  I'd be fine with either putting them in
-now or waiting until 4.19.
+If a vmentry/exit arc unexpectedly doesn't have a handler, we throw an
+error, and then log the information under HVM event 0; thus those
+particular traces within the vmexit reason will have stats gathered,
+and will show up with "(no handler)".  This is useful in the event
+that there are unusual paths through the hypervisor which don't have
+trace points.
 
+However, if there are more than one of these, then although we detect and warn
+that this is happening, we subsequently continue to stuff data about all exits
+into that one exit, even though we only show it in one place.
+
+Instead, refator things to only allow a single exit reason to be
+accumulated into any given event.
+
+Also put a comment explaining what's going on, and how to fix it.
+
+Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+---
+Release justification: This is a bug fix; a minor one, but also in a
+non-critical part of the code.
+
+CC: Anthony Perard <anthony.perard@cloud.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Xenia Ragiodakou <xenia.ragiadakou@amd.com>
+---
+ tools/xentrace/xenalyze.c | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
+index 4cb67062c9..1359e096f9 100644
+--- a/tools/xentrace/xenalyze.c
++++ b/tools/xentrace/xenalyze.c
+@@ -4652,6 +4652,19 @@ void hvm_generic_postprocess(struct hvm_data *h)
+                       ? "[clipped]"
+                       : h->exit_reason_name[h->exit_reason]);
+             warned[h->exit_reason]=1;
++
++            /* 
++             * NB that we don't return here; the result will be that `evt`
++             * will be "0", and there will be a "(no handler)" entry for the
++             * given VMEXIT.
++             * 
++             * This does mean that if two different exits have no HVM
++             * handlers, that only the first one will accumulate data;
++             * if accumulating a separate "(no handler)" data for more
++             * than one exit reason is needed, we'll have to make Yet
++             * Another Array.  But for now, since we try to avoid
++             * it happening, just tolerate it.
++             */ 
+         }
+     }
+ 
+@@ -4664,18 +4677,19 @@ void hvm_generic_postprocess(struct hvm_data *h)
+     }
+ 
+     if(opt.summary_info) {
+-        update_cycles(&h->summary.generic[evt],
+-                       h->arc_cycles);
+-
+         /* NB that h->exit_reason may be 0, so we offset by 1 */
+         if ( registered[evt] )
+         {
+             static unsigned warned[HVM_EXIT_REASON_MAX] = { 0 };
+-            if ( registered[evt] != h->exit_reason+1 && !warned[h->exit_reason])
++            if ( registered[evt] != h->exit_reason+1 )
+             {
+-                fprintf(warn, "%s: HVM evt %lx in %x and %x!\n",
+-                        __func__, evt, registered[evt]-1, h->exit_reason);
+-                warned[h->exit_reason]=1;
++                if ( !warned[h->exit_reason] )
++                {
++                    fprintf(warn, "%s: HVM evt %lx in %x and %x!\n",
++                            __func__, evt, registered[evt]-1, h->exit_reason);
++                    warned[h->exit_reason]=1;
++                }
++                return;
+             }
+         }
+         else
+@@ -4686,7 +4700,11 @@ void hvm_generic_postprocess(struct hvm_data *h)
+                         __func__, ret);
+             registered[evt]=h->exit_reason+1;
+         }
+-        /* HLT checked at hvm_vmexit_close() */
++
++        update_cycles(&h->summary.generic[evt],
++                       h->arc_cycles);
++
++       /* HLT checked at hvm_vmexit_close() */
+     }
+ }
+ 
+-- 
+2.25.1
 
 
