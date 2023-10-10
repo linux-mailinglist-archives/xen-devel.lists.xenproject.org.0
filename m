@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21B97C4408
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 00:28:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615174.956425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BECB7C441A
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 00:30:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615178.956434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqLCu-00033t-JE; Tue, 10 Oct 2023 22:28:04 +0000
+	id 1qqLF8-0004Uj-Ui; Tue, 10 Oct 2023 22:30:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615174.956425; Tue, 10 Oct 2023 22:28:04 +0000
+Received: by outflank-mailman (output) from mailman id 615178.956434; Tue, 10 Oct 2023 22:30:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqLCu-00030p-Fp; Tue, 10 Oct 2023 22:28:04 +0000
-Received: by outflank-mailman (input) for mailman id 615174;
- Tue, 10 Oct 2023 22:28:03 +0000
+	id 1qqLF8-0004SN-Ru; Tue, 10 Oct 2023 22:30:22 +0000
+Received: by outflank-mailman (input) for mailman id 615178;
+ Tue, 10 Oct 2023 22:30:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z25Z=FY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qqLCt-00030g-7H
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 22:28:03 +0000
+ id 1qqLF7-0004SH-I9
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 22:30:21 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45e32c60-67bc-11ee-98d3-6d05b1d4d9a1;
- Wed, 11 Oct 2023 00:28:02 +0200 (CEST)
+ id 987f2229-67bc-11ee-98d3-6d05b1d4d9a1;
+ Wed, 11 Oct 2023 00:30:20 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 8D110B81ECB;
- Tue, 10 Oct 2023 22:28:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C263C433C7;
- Tue, 10 Oct 2023 22:27:59 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 24947B81EC1;
+ Tue, 10 Oct 2023 22:30:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B271BC433C8;
+ Tue, 10 Oct 2023 22:30:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,166 +41,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45e32c60-67bc-11ee-98d3-6d05b1d4d9a1
+X-Inumbo-ID: 987f2229-67bc-11ee-98d3-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696976880;
-	bh=e+HZNmLS0K4X4liZmJjbHTv3fJqFyyy4yzgkfzwMgbc=;
+	s=k20201202; t=1696977019;
+	bh=4KQ+fP5Z+CodzlHTsTZqTxQVs/IEOqNvqb0CVWSQekc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NavhYgUiuE/hX4gn+rffJ1aVZV0xVzEMjqOwH61IEp7P3z91tubJpEPM0sQWm4le+
-	 /uS9jNPiLf6o7/arqvVbi0lGctjoGiTGc5MPoFo7bJtjiof1dznJZBZng/8bybAOI4
-	 GzivDGx4mRcCF7UznJbbOISIJJ4MErwomxnZ9c49AB2zXaQ3+qKxlsDlzIdpAqMzGJ
-	 WFh89D4fw8XLi3iFAZWcLkTbe1rbdVFWFRAQ6dVXORtithuI/GNS4DxwKZg+giCs6D
-	 ARR7hDIej62k13CaH/XZWt08ebJ3g3hAp5RzjGvNF8VAyn5GESHQnMYcNnnc1RoVVb
-	 OEU88BCZvUdEQ==
-Date: Tue, 10 Oct 2023 15:27:57 -0700 (PDT)
+	b=GmfCVSlzk9e0UsMxOdl0ZvIqU62/6FixIEi5DYFJ6SccekSiUV3pKzTd7wh6mFRgQ
+	 D+VJlt3Ugakyiv2bZ31JbgDjYzNkDfSyX1UBZKPJNtBqxIoM3u72lMsuEhw/9j3phf
+	 +zm8W1cD8vIirL4NDWBj3PdH1qyoWjZN294YV0Ttac24bkoujVRv5kb8wqyxH8WuWI
+	 k+77To7i+CX8yLMmYwC/uuIQy+kSyghoOsm2WbyYjDiRzwAtv66vak8trCe8Ge6tJF
+	 LsJVCd9EQ4JoPuwD7QxaWmO/8KWGx3nR6NO+R2r3SfsbIkL5OAHFpJzbCqkUWg5QPv
+	 WdaastnJSLzVQ==
+Date: Tue, 10 Oct 2023 15:30:16 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
-    roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Henry.Wang@arm.com
-Subject: Re: [XEN PATCH][for-4.19 v2 2/2] docs/misra: add deviations.rst to
- document additional deviations.
-In-Reply-To: <a5635fc5e51518c205d776ac8a9600ba@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310101524080.3431292@ubuntu-linux-20-04-desktop>
-References: <cover.1696865051.git.nicola.vetrini@bugseng.com> <ccda90b6be8f6977cff14ae65749ffc7fa429c3c.1696865051.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2310091811190.3431292@ubuntu-linux-20-04-desktop>
- <a5635fc5e51518c205d776ac8a9600ba@bugseng.com>
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, qemu-devel@nongnu.org, 
+    Juergen Gross <jgross@suse.com>, 
+    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+    "Michael S. Tsirkin" <mst@redhat.com>, 
+    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+    Paolo Bonzini <pbonzini@redhat.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Eduardo Habkost <eduardo@habkost.net>, Peter Xu <peterx@redhat.com>, 
+    David Hildenbrand <david@redhat.com>, 
+    =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, 
+    "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [QEMU][PATCH v1 2/7] xen: add pseudo RAM region for grant
+ mappings
+In-Reply-To: <ZSXBPlQF1Y2Gx5P1@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2310101529280.3431292@ubuntu-linux-20-04-desktop>
+References: <20231005181629.4046-1-vikram.garhwal@amd.com> <20231005181629.4046-3-vikram.garhwal@amd.com> <alpine.DEB.2.22.394.2310091653270.3431292@ubuntu-linux-20-04-desktop> <ZSXBPlQF1Y2Gx5P1@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 10 Oct 2023, Nicola Vetrini wrote:
-> On 10/10/2023 03:19, Stefano Stabellini wrote:
-> > +Henry
-> > 
-> > On Mon, 9 Oct 2023, Nicola Vetrini wrote:
-> > > This file contains the deviation that are not marked by
-> > > a deviation comment, as specified in
-> > > docs/misra/documenting-violations.rst.
+On Tue, 10 Oct 2023, Vikram Garhwal wrote:
+> On Mon, Oct 09, 2023 at 05:02:14PM -0700, Stefano Stabellini wrote:
+> > On Thu, 5 Oct 2023, Vikram Garhwal wrote:
+> > > From: Juergen Gross <jgross@suse.com>
 > > > 
-> > > Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> > > Add a memory region which can be used to automatically map granted
+> > > memory. It is starting at 0x8000000000000000ULL in order to be able to
+> > > distinguish it from normal RAM.
+> > > 
+> > > For this reason the xen.ram memory region is expanded, which has no
+> > > further impact as it is used just as a container of the real RAM
+> > > regions and now the grant region.
+> > > 
+> > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
 > > 
-> > This is great! Thank you so much!
-> > 
-> > I have a few questions below but even as-is it is way better than
-> > nothing. I think we should add this for 4.18
+> > This patch doesn't apply to staging anymore
+> Will re-base it. I rebased it against master branch.
 > > 
 > > 
 > > > ---
-> > >  docs/index.rst            |   1 +
-> > >  docs/misra/deviations.rst | 240 ++++++++++++++++++++++++++++++++++++++
-> > >  docs/misra/rules.rst      |   2 +-
-> > >  3 files changed, 242 insertions(+), 1 deletion(-)
-> > >  create mode 100644 docs/misra/deviations.rst
+> > >  hw/i386/xen/xen-hvm.c           |  3 ++
+> > >  hw/xen/xen-hvm-common.c         |  4 +--
+> > >  hw/xen/xen-mapcache.c           | 27 ++++++++++++++
+> > >  include/exec/ram_addr.h         |  1 +
+> > >  include/hw/xen/xen-hvm-common.h |  2 ++
+> > >  include/hw/xen/xen_pvdev.h      |  3 ++
+> > >  include/sysemu/xen-mapcache.h   |  3 ++
+> > >  softmmu/physmem.c               | 62 +++++++++++++++++++++------------
+> > >  8 files changed, 80 insertions(+), 25 deletions(-)
 > > > 
-> > > diff --git a/docs/index.rst b/docs/index.rst
-> > > index 2c47cfa999f2..f3f779f89ce5 100644
-> > > --- a/docs/index.rst
-> > > +++ b/docs/index.rst
-> > > @@ -63,6 +63,7 @@ Xen hypervisor code.
-> > >     :maxdepth: 2
-> > > 
-> > >     misra/rules
-> > > +   misra/deviations
-> > > 
-> > > 
-> > >  Miscellanea
-> > > diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> > > new file mode 100644
-> > > index 000000000000..19743e34ce03
-> > > --- /dev/null
-> > > +++ b/docs/misra/deviations.rst
-> > > @@ -0,0 +1,240 @@
-> > > +.. SPDX-License-Identifier: CC-BY-4.0
+> > > diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+> > > index f42621e674..67a55558a6 100644
+> > > --- a/hw/i386/xen/xen-hvm.c
+> > > +++ b/hw/i386/xen/xen-hvm.c
+> > > @@ -172,6 +172,9 @@ static void xen_ram_init(PCMachineState *pcms,
+> > >                                   x86ms->above_4g_mem_size);
+> > >          memory_region_add_subregion(sysmem, 0x100000000ULL, &ram_hi);
+> > >      }
 > > > +
-> > > +MISRA C deviations for Xen
-> > > +==========================
+> > > +    /* Add grant mappings as a pseudo RAM region. */
+> > > +    ram_grants = *xen_init_grant_ram();
+> > >  }
+> > >  
+> > >  static XenPhysmap *get_physmapping(hwaddr start_addr, ram_addr_t size)
+> > > diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+> > > index 565dc39c8f..b7255977a5 100644
+> > > --- a/hw/xen/xen-hvm-common.c
+> > > +++ b/hw/xen/xen-hvm-common.c
+> > > @@ -9,7 +9,7 @@
+> > >  #include "hw/boards.h"
+> > >  #include "hw/xen/arch_hvm.h"
+> > >  
+> > > -MemoryRegion ram_memory;
+> > > +MemoryRegion ram_memory, ram_grants;
+> > >  
+> > >  void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
+> > >                     Error **errp)
+> > > @@ -26,7 +26,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
+> > >          return;
+> > >      }
+> > >  
+> > > -    if (mr == &ram_memory) {
+> > > +    if (mr == &ram_memory || mr == &ram_grants) {
+> > >          return;
+> > >      }
+> > >  
+> > > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> > > index f7d974677d..8115c44c00 100644
+> > > --- a/hw/xen/xen-mapcache.c
+> > > +++ b/hw/xen/xen-mapcache.c
+> > > @@ -14,7 +14,9 @@
+> > >  
+> > >  #include <sys/resource.h>
+> > >  
+> > > +#include "hw/xen/xen-hvm-common.h"
+> > >  #include "hw/xen/xen_native.h"
+> > > +#include "hw/xen/xen_pvdev.h"
+> > >  #include "qemu/bitmap.h"
+> > >  
+> > >  #include "sysemu/runstate.h"
+> > > @@ -597,3 +599,28 @@ uint8_t *xen_replace_cache_entry(hwaddr old_phys_addr,
+> > >      mapcache_unlock();
+> > >      return p;
+> > >  }
 > > > +
-> > > +The following is the list of MISRA C:2012 deviations for the Xen codebase
-> > > that
-> > > +are not covered by a `SAF-x-safe` or `SAF-x-false-positive-<tool>`
-> > > comment, as
-> > > +specified in docs/misra/documenting-violations.rst; the lack of
-> > > +such comments is usually due to the excessive clutter they would bring to
-> > > the
-> > > +codebase or the impossibility to express such a deviation (e.g., if it's
-> > > +composed of several conditions).
+> > > +MemoryRegion *xen_init_grant_ram(void)
+> > > +{
+> > > +    RAMBlock *block;
 > > > +
-> > > +Deviations related to MISRA C:2012 Directives:
-> > > +----------------------------------------------
+> > > +    memory_region_init(&ram_grants, NULL, "xen.grants",
+> > > +                       XEN_MAX_VIRTIO_GRANTS * XC_PAGE_SIZE);
+> > > +    block = g_malloc0(sizeof(*block));
+> > > +    block->mr = &ram_grants;
+> > > +    block->used_length = XEN_MAX_VIRTIO_GRANTS * XC_PAGE_SIZE;
+> > > +    block->max_length = XEN_MAX_VIRTIO_GRANTS * XC_PAGE_SIZE;
+> > > +    block->fd = -1;
+> > > +    block->page_size = XC_PAGE_SIZE;
+> > > +    block->host = (void *)XEN_GRANT_ADDR_OFF;
+> > > +    block->offset = XEN_GRANT_ADDR_OFF;
+> > > +    block->flags = RAM_PREALLOC;
+> > > +    ram_grants.ram_block = block;
+> > > +    ram_grants.ram = true;
+> > > +    ram_grants.terminates = true;
+> > > +    ram_block_add_list(block);
+> > > +    memory_region_add_subregion(get_system_memory(), XEN_GRANT_ADDR_OFF,
+> > > +                                &ram_grants);
 > > > +
-> > > +.. list-table::
-> > > +   :header-rows: 1
-> > > +
-> > > +   * - Directive identifier
-> > > +     - Justification
-> > > +     - Notes
-> > > +
-> > > +   * - D4.3
-> > > +     - Accepted for the ARM64 codebase
-> > > +     - Tagged as `disapplied` for ECLAIR on any other violation report.
+> > > +    return &ram_grants;
 > > 
-> > This mean it has been applied for ARM64 but not x86, right?
-> > 
-> > 
+> > It doesn't look like xen_init_grant_ram has anything to do with the
+> > mapcache. It should be in another file. Maybe ./hw/xen/xen-hvm-common.c
+> > or ./hw/i386/xen/xen-hvm.c (but this is x86 specific and we need grants
+> > on ARM too)
+> Do you mean to move all grant related functions? As moving this alone will not
+> be sufficient. There are lot of new grant related function added in later patches.
 > 
-> Yes.
+> I am okay with moving all to xen-hvm-common.c
 > 
-> > > +   * - D4.3
-> > > +     - The inline asm in 'xen/arch/arm/arm64/lib/bitops.c' is tightly
-> > > coupled
-> > > +       with the surronding C code that acts as a wrapper, so it has been
-> > > decided
-> > > +       not to add an additional encapsulation layer.
-> > > +     - Tagged as `deliberate` for ECLAIR.
-> > > +
-> > > +Deviations related to MISRA C:2012 Rules:
-> > > +-----------------------------------------
-> > > +
-> > > +.. list-table::
-> > > +   :header-rows: 1
-> > > +
-> > > +   * - Rule identifier
-> > > +     - Justification
-> > > +     - Notes
-> > > +
-> > > +   * - R2.1
-> > > +     - The compiler implementation guarantees that the unreachable code
-> > > is
-> > > +       removed. Constant expressions and unreachable branches of if and
-> > > switch
-> > > +       statements are expected.
-> > > +     - Tagged as `safe` for ECLAIR.
-> > > +
-> > > +   * - R2.1
-> > > +     - Some functions are intended not to be referenced.
-> > > +     - Tagged as `deliberate` for ECLAIR.
-> > 
-> > What does it mean "some functions" in this case? Should we list which
-> > functions?
-> > 
+> Following code movement will happen in this case:
+> 1. All grant related static function to xen-hvm-common.c.
+>     xen_ram_addr_from_grant_cache(), xen_ram_addr_from_mapcache(),
+>     xen_map_grant_dyn(), xen_unmap_grant_dyn and xen_init_grant_ram().
+> 2. Remove static from xen_ram_addr_from_mapcache_try().
 > 
-> Well, there are a lot, typically resulting from build configurations that do
-> not
-> use them, or because they are used only in asm code. I can mention these
-> reasons in the
-> document, to make it easier to understand.
+> Does these changes looks good?
 
-Yes, I think we need to clarify further this point, because saying "Some
-functions" doesn't help the reader understand:
-- whether all functions can be not referenced
-- which subset of functions can be not referenced
-
-How to distinguish between? How do we know whether a certain patch is
-violating the rule or not?
-
-If there is a clear list of functions that can be not referenced, then
-we should list them here. If there is a methodology we can use to
-distinguish between them (e.g. functions called from asm only) then we
-can write the methodology here. Either way it is fine as long as the
-criteria to know if it is OK if a function is not referenced is clear.
+After reading all the patches, I think it is also OK to leave the code
+here.
 
