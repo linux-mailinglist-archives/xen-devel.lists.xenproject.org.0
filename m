@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C6E7C005E
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 17:28:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615100.956294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89E687C0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 18:01:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615106.956303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqEdd-0006OS-3N; Tue, 10 Oct 2023 15:27:13 +0000
+	id 1qqFAb-000882-LU; Tue, 10 Oct 2023 16:01:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615100.956294; Tue, 10 Oct 2023 15:27:13 +0000
+Received: by outflank-mailman (output) from mailman id 615106.956303; Tue, 10 Oct 2023 16:01:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqEdd-0006Lj-0B; Tue, 10 Oct 2023 15:27:13 +0000
-Received: by outflank-mailman (input) for mailman id 615100;
- Tue, 10 Oct 2023 15:27:10 +0000
+	id 1qqFAb-00085Y-Iu; Tue, 10 Oct 2023 16:01:17 +0000
+Received: by outflank-mailman (input) for mailman id 615106;
+ Tue, 10 Oct 2023 16:01:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Phjn=FY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1qqEda-0006Ld-KB
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 15:27:10 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78e3d9e5-6781-11ee-98d3-6d05b1d4d9a1;
- Tue, 10 Oct 2023 17:27:08 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id AE2DC5C00D6;
- Tue, 10 Oct 2023 11:27:06 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 10 Oct 2023 11:27:06 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Oct 2023 11:27:05 -0400 (EDT)
+ <SRS0=LWWS=FY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qqFAa-00085S-1k
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 16:01:16 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3cda1dce-6786-11ee-98d3-6d05b1d4d9a1;
+ Tue, 10 Oct 2023 18:01:14 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-50573e85ee0so6976931e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 09:01:13 -0700 (PDT)
+Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
+ by smtp.gmail.com with ESMTPSA id
+ vq2-20020a05620a558200b0076f058f5834sm4430898qkn.61.2023.10.10.09.01.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Oct 2023 09:01:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,147 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78e3d9e5-6781-11ee-98d3-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1696951626; x=1697038026; bh=EWuTQUZrHYAty7+hic0E/Wo96JiZ+s+YocD
-	ALHROmKU=; b=LJAp0wbmUnKyehflqNkCM4Dsi1p0vMhLOlzQ0/1ybq4FYcDxIBx
-	LVRPfivFGLVFuBV3JDRQMgRLoEjY0cLf3jQMIyS6qupA7ZnEgdYV89iD7dz3gCTR
-	jiPkc+GQmZ9zn2NddBwYixVMQ4Vn9pWgBWzePqeymGaZhNUgtcAG5AgyaKYw1FTD
-	S5NAx2yQ31u34ITZV5h1B6qH8VgGZvPZxfZdyytfae1gWYrY/NkAIv6nwH6/tPhl
-	56NeT8WDtcGm/wpVbzvoTQ4pO8DUDOlDNzfYBYxbUETK3ecQd/AYiOT9+S0Q8IMB
-	i/E8R5aomVvQt2U1iYEFE1K2z+o6sGmcvow==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1696951626; x=1697038026; bh=EWuTQUZrHYAty
-	7+hic0E/Wo96JiZ+s+YocDALHROmKU=; b=diYc6WLp2JQIjDAXR25KoW0B3dMzd
-	+s9XOPQqdnotJ8Hqoo7ZbXcUCEj7nEnVXS3M8cszxapTnMPIy8vqPmr0R+ioWxSZ
-	XTABbE79UPq57pxtPFa8aRCOWOYiXsFG7Ilt/L2YMacHVKJSDL96wE13EqayfPYw
-	+R30Qc2u3lSwjZ6HKnBiL7TP4rAq27KBa8QzjPBJ88pZJzMDNmYxrpDriLAiE5TF
-	cz2kchMUAnwwit37fAT0kUZQAtHWm11Du3/pMERZ83a9Pt3JaHy7QbXGlAgULmpp
-	uasZVPNlsPwSvG8UuGkO0vh0sv3RN4da+tis0llUGnGIgI/vZAdXVR6lg==
-X-ME-Sender: <xms:Sm0lZQubFBdfoyETH2M6ukjcZl2MZ9Qh8wwNgxXbO9FeuwbtZVV_8A>
-    <xme:Sm0lZdcBLBeLQEtxnhAVtzsANXlEwrXK_u56c7cdmzc5i91expD1dS900w_UdulQr
-    9zRcqVmLOlZ3Q>
-X-ME-Received: <xmr:Sm0lZbxK-ILXyobf0Uwk7mRy2ibU3hRhkulXOhw3eyBptipFWiM29TOPMP1bziCT_il7SrpJNtskW0qpg9SjRr7ujAn65CbFAN8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrheehgdekjecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Sm0lZTMmEAkW-Jyfb78tohEB1PzxcmdcIdyC9a49qo1pudBj-PWHVA>
-    <xmx:Sm0lZQ_aeQvcv_utkn0Iv3lvGkYJuF3lDc9c_i3_dPyP2Qg69Vht7w>
-    <xmx:Sm0lZbXuheU8vmtV8W1AL3pO4CdQCMFFM5TJoODP0cffkqQWtAcKYQ>
-    <xmx:Sm0lZSJ6Grvg-WiFS5ldVfshMjcUFUujx4mQcbyGrqALbf6UNnvGVg>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 10 Oct 2023 17:27:03 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Javi Merino <javi.merino@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v1] tools/python: Add python3 compatibility
-Message-ID: <ZSVtR1ct4Hik4XM8@mail-itl>
-References: <efb10e537e37df1995dd8f87c28a8eb64ec9b61e.1696947009.git.javi.merino@cloud.com>
+X-Inumbo-ID: 3cda1dce-6786-11ee-98d3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1696953673; x=1697558473; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UHTZ9PlEqk/tERxHhu/YAlyn2gDLSPNHlACUpmODSx8=;
+        b=HyFc5ugJppU8bGrcaPfc8hbKtqEs3m5Z5s771QzaNdsCuTSnXlcWHVHlnhhm4f2yQ0
+         TToXlFXMG56v+qGXxuNa51Cy/ky7a47lM+fpK6fuQoyHLNUF9OJhaZrl5GjCwnuYrJ3q
+         w7DY4TFibLNma1yQWtZlIr5k+fZ367ufNZWX4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696953673; x=1697558473;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UHTZ9PlEqk/tERxHhu/YAlyn2gDLSPNHlACUpmODSx8=;
+        b=Ok3aDcZ9SDxKDVF7RBB4ujlC4eRkOirngJG0Tt9oziLyBU6XduqOZEgxiRTsVoVrqY
+         rfmYYVsPQQOR7oLmvul1Lrop0Tho0zxatfF8rTvBshP6JdZdQ5GQjjzhh6voKWDyDLJ0
+         7eUmSsBvpKo1TPkzfh76B2g8acHSVUPtklvxvynq0gjtCiLiajUMOVdcTVU2mowm4KQ9
+         6r+w0E1IZcAoAq0tTtvSb7J4vupCmUVCwOknlcGJo44mDE0mkz3aPv3pRUgvABRfPn+F
+         mJV38HDhqy8Exb+bC+v6+jYUwz8+FWpF6KPBJh2PdQS9K/VrJp/ojdnF9vy50o7tVGAX
+         kxZA==
+X-Gm-Message-State: AOJu0YwEb4GxuGQi3DESUeBHr5JnQW/jvQTc0KZKYRyx75HhQXube9yj
+	a/pVjhEwH7UtmbH0G2Kego37xQ==
+X-Google-Smtp-Source: AGHT+IEVLtpP5vdooZSC5LSoSdCYD5TiU9Zhe23nooPO28EWnC1lUxgtnNguIk1B+PjYA7Vwkwu2Gw==
+X-Received: by 2002:a05:6512:3da0:b0:500:7c51:4684 with SMTP id k32-20020a0565123da000b005007c514684mr19933334lfv.56.1696953673430;
+        Tue, 10 Oct 2023 09:01:13 -0700 (PDT)
+Message-ID: <9ee8d16c-d34c-45c2-b5f7-53725bdc01c8@citrix.com>
+Date: Wed, 11 Oct 2023 00:00:46 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="XrEe8fIA8+tO70cE"
-Content-Disposition: inline
-In-Reply-To: <efb10e537e37df1995dd8f87c28a8eb64ec9b61e.1696947009.git.javi.merino@cloud.com>
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH 9/9] xen/compat: address Rule 10.1 for macros
+ CHECK_SIZE
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ jbeulich@suse.com, roger.pau@citrix.com,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
+ <7edf60c0e7bd0680d8b8f8d3aec1264ee5a43878.1696514677.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310091749380.3431292@ubuntu-linux-20-04-desktop>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <alpine.DEB.2.22.394.2310091749380.3431292@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 10/10/2023 9:02 am, Stefano Stabellini wrote:
+> On Fri, 6 Oct 2023, Nicola Vetrini wrote:
+>> The essential type of the result of an inequality operator is
+>> essentially boolean, therefore it shouldn't be used as an argument of
+>> the multiplication operator, which expects an integer.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>>  xen/include/xen/compat.h | 10 ++++++----
+>>  1 file changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/include/xen/compat.h b/xen/include/xen/compat.h
+>> index f2ce5bb3580a..5ffee6a9fed1 100644
+>> --- a/xen/include/xen/compat.h
+>> +++ b/xen/include/xen/compat.h
+>> @@ -151,12 +151,14 @@ CHECK_NAME_(k, n, T)(k xen_ ## n *x, \
+>>      return x == c; \
+>>  }
+>>  
+>> +#define SIZE_NEQUAL(a, b) \
+>> +    (sizeof(a) != sizeof(b) ? 1 : 0)
+>>  #define CHECK_SIZE(name) \
+>> -    typedef int CHECK_NAME(name, S)[1 - (sizeof(xen_ ## name ## _t) != \
+>> -                                         sizeof(compat_ ## name ## _t)) * 2]
+>> +    typedef int CHECK_NAME(name, S)[1 - (SIZE_NEQUAL(xen_ ## name ## _t, \
+>> +                                                     compat_ ## name ## _t)) * 2]
+>>  #define CHECK_SIZE_(k, n) \
+>> -    typedef int CHECK_NAME_(k, n, S)[1 - (sizeof(k xen_ ## n) != \
+>> -                                          sizeof(k compat_ ## n)) * 2]
+>> +    typedef int CHECK_NAME_(k, n, S)[1 - (SIZE_NEQUAL(k xen_ ## n, \
+>> +                                                      k compat_ ## n)) * 2]
+> I think this style is easier to read but I'll let the x86 maintainers
+> decide
+>
+>     typedef int CHECK_NAME(name, S)[(sizeof(xen_ ## name ## _t) == \
+>                                      sizeof(compat_ ## name ## _t)) ? 1 : -1]
+>
+> Also am I reading this correctly that we are using -1 as array index? I
+> must have made a calculation mistake?
 
---XrEe8fIA8+tO70cE
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Oct 2023 17:27:03 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Javi Merino <javi.merino@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v1] tools/python: Add python3 compatibility
+This is a NIH BUILD_BUG_ON().  It should be rewritten as
 
-On Tue, Oct 10, 2023 at 03:18:45PM +0100, Javi Merino wrote:
-> Most of the work for python3 compatibility was done in
-> 1430c5a8cad4 (tools/python: Python 3 compatibility, 2019-12-18).  This
-> just adds a few builtins needed for python3.
->=20
-> Resolves: xen-project/xen#156
->=20
-> Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> ---
->=20
-> I haven't tested it.
->=20
->  README                                     | 1 +
->  tools/python/scripts/convert-legacy-stream | 3 +++
->  2 files changed, 4 insertions(+)
->=20
-> diff --git a/README b/README
-> index 855db01d36..44ed88c392 100644
-> --- a/README
-> +++ b/README
-> @@ -51,6 +51,7 @@ provided by your OS distributor:
->      * POSIX compatible awk
->      * Development install of zlib (e.g., zlib-dev)
->      * Development install of Python 2.7 or later (e.g., python-dev)
-> +      - If using Python 2.7, you also need the future module.  This is n=
-ot needed for Python 3.
->      * Development install of curses (e.g., libncurses-dev)
->      * Development install of openssl (e.g., openssl-dev)
->      * Development install of x11 (e.g. xorg-x11-dev)
-> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
-ripts/convert-legacy-stream
-> index 7fe375a668..26a66c50fc 100755
-> --- a/tools/python/scripts/convert-legacy-stream
-> +++ b/tools/python/scripts/convert-legacy-stream
-> @@ -8,6 +8,9 @@ Convert a legacy migration stream to a v2 stream.
->  from __future__ import print_function
->  from __future__ import division
-> =20
-> +from builtins import zip
-> +from builtins import range
-> +from builtins import object
+BUILD_BUG_ON(sizeof(xen ...) != sizeof(compat ...));
 
-In which python version it's needed? The thing about builtins is they
-are available without explicit import.
+which will use _Static_assert() in modern compilers.
 
->  import sys
->  import os, os.path
->  import syslog
-> --=20
-> 2.42.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---XrEe8fIA8+tO70cE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmUlbUcACgkQ24/THMrX
-1ywoTAgAmFUC4ImQoWXVAkUdUym0pvzujiWGRzQSjcZJB+HJ1TZc/phOOWKeSrC5
-bz09Xq8RxmsMGk9374a0rShXCOOM83Y24tMMV+HIVk8nHGzViPCsvqqyXQ49Ek+k
-c3Yz5muKzMLJhaY5RcjxwEYzZ4J4BNBn6P1vMDE+rPi91BW4U9zhMtd41Zl9KUBY
-3a/Fubqf1hyowHBA6c4+7YzJDdgTw1T49/efCM/TFFeHCfVJDX3dTVWxxsi43Ycq
-FJxvcdIroHwGfHefGp9B4rZ8a8PyQmIz7aapQEKnQbJ1uUD89qrxc1x5xV9UgugJ
-A2Iqt+nsy44dTykFL26e4heYsLxo8w==
-=i62F
------END PGP SIGNATURE-----
-
---XrEe8fIA8+tO70cE--
+~Andrew
 
