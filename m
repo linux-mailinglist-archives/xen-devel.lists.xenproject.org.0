@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C137E7C017C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 18:21:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615117.956324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C85B7C01C3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 18:35:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615123.956334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqFT4-0005Tw-JJ; Tue, 10 Oct 2023 16:20:22 +0000
+	id 1qqFgv-0008Pa-QK; Tue, 10 Oct 2023 16:34:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615117.956324; Tue, 10 Oct 2023 16:20:22 +0000
+Received: by outflank-mailman (output) from mailman id 615123.956334; Tue, 10 Oct 2023 16:34:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqFT4-0005Rc-Ge; Tue, 10 Oct 2023 16:20:22 +0000
-Received: by outflank-mailman (input) for mailman id 615117;
- Tue, 10 Oct 2023 16:20:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qqFgv-0008NF-MD; Tue, 10 Oct 2023 16:34:41 +0000
+Received: by outflank-mailman (input) for mailman id 615123;
+ Tue, 10 Oct 2023 16:34:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LWWS=FY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qqFT2-0005RV-IR
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 16:20:20 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7860493-6788-11ee-98d3-6d05b1d4d9a1;
- Tue, 10 Oct 2023 18:20:19 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-5045cb9c091so7835874e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 09:20:19 -0700 (PDT)
+ id 1qqFgu-0008N9-6n
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 16:34:40 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e69bd988-678a-11ee-9b0d-b553b5be7939;
+ Tue, 10 Oct 2023 18:34:36 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-405505b07dfso118165e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 09:34:36 -0700 (PDT)
 Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
  by smtp.gmail.com with ESMTPSA id
- i9-20020a0cf109000000b006263a9e7c63sm4774537qvl.104.2023.10.10.09.20.08
+ i1-20020a37c201000000b007742c2ad7dfsm4449226qkm.73.2023.10.10.09.34.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Oct 2023 09:20:18 -0700 (PDT)
+ Tue, 10 Oct 2023 09:34:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7860493-6788-11ee-98d3-6d05b1d4d9a1
+X-Inumbo-ID: e69bd988-678a-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1696954819; x=1697559619; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1696955676; x=1697560476; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ocmqPnCH1euRR+x2wtSAYcjqZS/z+3j2pYf7NC0IzoQ=;
-        b=jyRMHBay0Q7BDlAeOMmBUSAqEDFG3nOhtQciNbCcuN5cCWJzEgnNhEszhcaLvaq6t7
-         WPh7MhDwL9EeHGaXMFfb4GpbGZ0YNQpNAxebs/EOdmSA0DxIVRH7Rg9e21diqCJWw/05
-         KQX/Jr4Iu3Q21p3cvV4hf8YJVd8E7OIbCxBFo=
+        bh=/jsbBaWWysUZHibfyXWsBmxBdGQg70Lnk7x5g9N02Pk=;
+        b=Puoo1FEbbOIf+9wxWbm4OSalhqdIl5N9bqBEywxdGv5Y1vrZTRw/72y021nJy7zU0d
+         FtCi/p5JJMBOKDW0xkldCT1fk8LkwZds25V+1/4VuWbu8fyxNoeaIdREypQVtV4yt65m
+         cB8+gcI3OCjT5QWILqjD1VsYSGKylebORZLe8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696954819; x=1697559619;
+        d=1e100.net; s=20230601; t=1696955676; x=1697560476;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ocmqPnCH1euRR+x2wtSAYcjqZS/z+3j2pYf7NC0IzoQ=;
-        b=ah4r/YsetVkAhG5V5/mV63oe41TOTTn2pAMF6Is3srdHfPzkTC/zt88fK3/Vs0BlJh
-         ZEm2ddy0OjBqnLHgFFERRsPjXxeBMZPf4LmpGRxBEotUECReTT2COIXSpE4Rh1GeGYv6
-         ujtUfLChsqbu3XBMz5fTma71GdP49gg4TpuDIVDeeISwurHn6WZaUC/kyr9Dv3Akerwo
-         T40y/YGT0SRRcbozrx2m5Em+vfFnX+OMdEi4N6MPjefKmxYWWkWwWFc6/AqOcDcXMadE
-         1AzVjciZKJ0FEBwF563OuoFcNOuwWXIk9RTvJKvbP6UY0JMeqRJwqn0S4GDJ/bwJCVdh
-         BCNw==
-X-Gm-Message-State: AOJu0YzM2cwAzo44LOcm/buXargf3RFi6G8VVePxd6KcAQ8QyWuRewUq
-	CRM3voDM5g+O/WxDN7STtpcRlQ==
-X-Google-Smtp-Source: AGHT+IE4TbubEjbDXfNvK4oSEemwBI685hvrvpqqf0qWXjLg9jiKG7h8rJ0iWlZZMxiqofUpJQ7HbA==
-X-Received: by 2002:ac2:4da7:0:b0:500:daec:2817 with SMTP id h7-20020ac24da7000000b00500daec2817mr14367575lfe.54.1696954818731;
-        Tue, 10 Oct 2023 09:20:18 -0700 (PDT)
-Message-ID: <221aee01-d244-4441-b1c5-e8e39fbcb16a@citrix.com>
-Date: Wed, 11 Oct 2023 00:19:58 +0800
+        bh=/jsbBaWWysUZHibfyXWsBmxBdGQg70Lnk7x5g9N02Pk=;
+        b=kVR86o4ptwnIz74Z1DQfrEoMQGP+449LC31XZTNfwJfqwo2uFvmGF8fDfcQhfhCKzM
+         lloBfP7/UP6JSZz/rc2fr/Oml+XBmDbvXShXSREUWRWAmfDUSiIzUSO6Rzd8jU/OT2pF
+         qFp/Etw+KYBannIljemI8cBbn1uqKMSowymR8zeafZw+QNOGDsuUs9u87mngbb8iHHE1
+         LqC4hzVQckRRzfBUcmnQ4mkwWcpTJJUcRK8P5Jd/l7KGxmehgnO4y/M19VZFeORpTg+j
+         hfmyIKxH1RsS7FAPArVJeDhBHzaqCrtR3FzMHThznH/yTrZgENxvazYEkb/yQx8JRMtX
+         vp+A==
+X-Gm-Message-State: AOJu0YzWhb1ZjU6I0wBEqoJFcRf60bL3dTAaZ9MrIpR2PFPVv6nGIK0M
+	19WQhgwVE4PI/Hq3O6diFjZ7bQ==
+X-Google-Smtp-Source: AGHT+IErYi8sc/P/FOYwsCSnLXpJZ6IriiNqjZgK9/kj3EboV/LzIQarudfTaw40waWLDecZSf2Fzw==
+X-Received: by 2002:adf:e80d:0:b0:31d:db2d:27c6 with SMTP id o13-20020adfe80d000000b0031ddb2d27c6mr12986460wrm.30.1696955676310;
+        Tue, 10 Oct 2023 09:34:36 -0700 (PDT)
+Message-ID: <2ef1f6b6-9b50-4e77-abad-fa046eb2ca0a@citrix.com>
+Date: Wed, 11 Oct 2023 00:34:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH 9/9] xen/compat: address Rule 10.1 for macros
- CHECK_SIZE
+Subject: Re: [XEN PATCH v1] tools/python: Add python3 compatibility
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- jbeulich@suse.com, roger.pau@citrix.com,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>
-References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
- <7edf60c0e7bd0680d8b8f8d3aec1264ee5a43878.1696514677.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2310091749380.3431292@ubuntu-linux-20-04-desktop>
- <9ee8d16c-d34c-45c2-b5f7-53725bdc01c8@citrix.com>
- <b40d9faac462c21e91392017b81bc68c@bugseng.com>
+To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <efb10e537e37df1995dd8f87c28a8eb64ec9b61e.1696947009.git.javi.merino@cloud.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -136,76 +128,57 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b40d9faac462c21e91392017b81bc68c@bugseng.com>
+In-Reply-To: <efb10e537e37df1995dd8f87c28a8eb64ec9b61e.1696947009.git.javi.merino@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/10/2023 12:06 am, Nicola Vetrini wrote:
-> On 10/10/2023 18:00, Andrew Cooper wrote:
->> On 10/10/2023 9:02 am, Stefano Stabellini wrote:
->>> On Fri, 6 Oct 2023, Nicola Vetrini wrote:
->>>> The essential type of the result of an inequality operator is
->>>> essentially boolean, therefore it shouldn't be used as an argument of
->>>> the multiplication operator, which expects an integer.
->>>>
->>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>> ---
->>>>  xen/include/xen/compat.h | 10 ++++++----
->>>>  1 file changed, 6 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/xen/include/xen/compat.h b/xen/include/xen/compat.h
->>>> index f2ce5bb3580a..5ffee6a9fed1 100644
->>>> --- a/xen/include/xen/compat.h
->>>> +++ b/xen/include/xen/compat.h
->>>> @@ -151,12 +151,14 @@ CHECK_NAME_(k, n, T)(k xen_ ## n *x, \
->>>>      return x == c; \
->>>>  }
->>>>
->>>> +#define SIZE_NEQUAL(a, b) \
->>>> +    (sizeof(a) != sizeof(b) ? 1 : 0)
->>>>  #define CHECK_SIZE(name) \
->>>> -    typedef int CHECK_NAME(name, S)[1 - (sizeof(xen_ ## name ##
->>>> _t) != \
->>>> -                                         sizeof(compat_ ## name ##
->>>> _t)) * 2]
->>>> +    typedef int CHECK_NAME(name, S)[1 - (SIZE_NEQUAL(xen_ ## name
->>>> ## _t, \
->>>> +                                                     compat_ ##
->>>> name ## _t)) * 2]
->>>>  #define CHECK_SIZE_(k, n) \
->>>> -    typedef int CHECK_NAME_(k, n, S)[1 - (sizeof(k xen_ ## n) != \
->>>> -                                          sizeof(k compat_ ## n))
->>>> * 2]
->>>> +    typedef int CHECK_NAME_(k, n, S)[1 - (SIZE_NEQUAL(k xen_ ## n, \
->>>> +                                                      k compat_ ##
->>>> n)) * 2]
->>> I think this style is easier to read but I'll let the x86 maintainers
->>> decide
->>>
->>>     typedef int CHECK_NAME(name, S)[(sizeof(xen_ ## name ## _t) == \
->>>                                      sizeof(compat_ ## name ## _t))
->>> ? 1 : -1]
->>>
->>> Also am I reading this correctly that we are using -1 as array index? I
->>> must have made a calculation mistake?
->>
->> This is a NIH BUILD_BUG_ON().  It should be rewritten as
->>
->> BUILD_BUG_ON(sizeof(xen ...) != sizeof(compat ...));
->>
->> which will use _Static_assert() in modern compilers.
->>
->> ~Andrew
+On 10/10/2023 10:18 pm, Javi Merino wrote:
+> Most of the work for python3 compatibility was done in
+> 1430c5a8cad4 (tools/python: Python 3 compatibility, 2019-12-18).  This
+> just adds a few builtins needed for python3.
 >
-> Ok, thanks.
+> Resolves: xen-project/xen#156
 >
+> Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> ---
+>
+> I haven't tested it.
+>
+>  README                                     | 1 +
+>  tools/python/scripts/convert-legacy-stream | 3 +++
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/README b/README
+> index 855db01d36..44ed88c392 100644
+> --- a/README
+> +++ b/README
+> @@ -51,6 +51,7 @@ provided by your OS distributor:
+>      * POSIX compatible awk
+>      * Development install of zlib (e.g., zlib-dev)
+>      * Development install of Python 2.7 or later (e.g., python-dev)
+> +      - If using Python 2.7, you also need the future module.  This is not needed for Python 3.
+>      * Development install of curses (e.g., libncurses-dev)
+>      * Development install of openssl (e.g., openssl-dev)
+>      * Development install of x11 (e.g. xorg-x11-dev)
+> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/scripts/convert-legacy-stream
+> index 7fe375a668..26a66c50fc 100755
+> --- a/tools/python/scripts/convert-legacy-stream
+> +++ b/tools/python/scripts/convert-legacy-stream
+> @@ -8,6 +8,9 @@ Convert a legacy migration stream to a v2 stream.
+>  from __future__ import print_function
+>  from __future__ import division
+>  
+> +from builtins import zip
+> +from builtins import range
+> +from builtins import object
 
-I'm going to go out on a limb and say that every other pattern that
-looks like this probably wants converting to a BUILD_BUG_ON().
+It can't be object because most other scripts use it just fine in py2
+and py3.
 
-This code quite possibly predates the introduction of BUILD_BUG_ON(),
-but we want to end up using BUILD_BUG_ON() everywhere because it's the
-construct that uses _Static_assert() wherever possible.
+There's only one single use of zip and range in this script, and range
+is clearly fine (although it wants to be xrange() on py2 and we do
+opencode that places), so I'm guessing the problem is with zip(), but
+it's not exactly clear why?
 
 ~Andrew
 
