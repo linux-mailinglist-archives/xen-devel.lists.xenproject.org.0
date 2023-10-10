@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBAF7BFF32
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 16:27:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615067.956234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20EA97BFF6F
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 16:40:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615077.956244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqDh7-0003Go-H3; Tue, 10 Oct 2023 14:26:45 +0000
+	id 1qqDtm-0006R4-NK; Tue, 10 Oct 2023 14:39:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615067.956234; Tue, 10 Oct 2023 14:26:45 +0000
+Received: by outflank-mailman (output) from mailman id 615077.956244; Tue, 10 Oct 2023 14:39:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqDh7-0003Dl-DX; Tue, 10 Oct 2023 14:26:45 +0000
-Received: by outflank-mailman (input) for mailman id 615067;
- Tue, 10 Oct 2023 14:26:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wBiT=FY=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1qqDh5-0002hy-UR
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 14:26:43 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 0792d664-6779-11ee-9b0d-b553b5be7939;
- Tue, 10 Oct 2023 16:26:41 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 614DBC15;
- Tue, 10 Oct 2023 07:27:21 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C85E93F762;
- Tue, 10 Oct 2023 07:26:39 -0700 (PDT)
+	id 1qqDtm-0006PN-KD; Tue, 10 Oct 2023 14:39:50 +0000
+Received: by outflank-mailman (input) for mailman id 615077;
+ Tue, 10 Oct 2023 14:39:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qqDtl-0006PH-7d
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 14:39:49 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qqDtk-0003b4-Vb; Tue, 10 Oct 2023 14:39:48 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[10.95.104.160]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qqDtk-0007Rz-P0; Tue, 10 Oct 2023 14:39:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,56 +39,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0792d664-6779-11ee-9b0d-b553b5be7939
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wei Liu <wei.liu@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org,
-	netdev@vger.kernel.org,
-	Rahul Singh <rahul.singh@arm.com>
-Subject: [PATCH 1/1] xen-netback: add software timestamp capabilities
-Date: Tue, 10 Oct 2023 15:26:30 +0100
-Message-Id: <20231010142630.984585-2-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231010142630.984585-1-luca.fancellu@arm.com>
-References: <20231010142630.984585-1-luca.fancellu@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Gn+PXlKkr9bLmBg/Rq5v0W9MnQmb7tahUjtLRIWRdr8=; b=PzT+iaRkB960+ccJCY40jFN7M8
+	LscD1HNTkOldCEazfWSYYqMoz2d/JiRW8IVqzrJDtsVIvAUwopwTl6fnCj2l607bsR1vvOrnFHRFL
+	as4rkty5hPhS/CH/BvZ4OIgH1t3q7oSzBgoX93xouUjbsFJr+EAgaOe3ZwlHawpG6Mm4=;
+Message-ID: <18f2879b-a4cb-43bc-9c70-7141200e331d@xen.org>
+Date: Tue, 10 Oct 2023 15:39:46 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] get_maintainer: Add THE REST for sections with
+ reviewers only
+Content-Language: en-GB
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20231006135406.52750-1-anthony.perard@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231006135406.52750-1-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add software timestamp capabilities to the xen-netback driver
-by advertising it on the struct ethtool_ops and calling
-skb_tx_timestamp before passing the buffer to the queue.
+Hi Anthony,
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- drivers/net/xen-netback/interface.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On 06/10/2023 14:54, Anthony PERARD wrote:
+> Sometime, a contributer would like to be CCed on part of the changes,
+> and it could happen that we end-up with a section that doesn't have
+> any maintainer, but a Ack from a maintainer would still be needed.
+> 
+> Rework get_maintainer so if there's no maintainers beside THE REST, it
+> doesn't drop THE REST emails.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index f3f2c07423a6..b71158967123 100644
---- a/drivers/net/xen-netback/interface.c
-+++ b/drivers/net/xen-netback/interface.c
-@@ -254,6 +254,9 @@ xenvif_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	if (vif->hash.alg == XEN_NETIF_CTRL_HASH_ALGORITHM_NONE)
- 		skb_clear_hash(skb);
- 
-+	/* timestamp packet in software */
-+	skb_tx_timestamp(skb);
-+
- 	if (!xenvif_rx_queue_tail(queue, skb))
- 		goto drop;
- 
-@@ -460,7 +463,7 @@ static void xenvif_get_strings(struct net_device *dev, u32 stringset, u8 * data)
- 
- static const struct ethtool_ops xenvif_ethtool_ops = {
- 	.get_link	= ethtool_op_get_link,
--
-+	.get_ts_info 	= ethtool_op_get_ts_info,
- 	.get_sset_count = xenvif_get_sset_count,
- 	.get_ethtool_stats = xenvif_get_ethtool_stats,
- 	.get_strings = xenvif_get_strings,
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
