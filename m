@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15E87BFF8F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 16:48:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615083.956263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1D237C000C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 17:12:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615094.956284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqE1l-0001x9-No; Tue, 10 Oct 2023 14:48:05 +0000
+	id 1qqEOR-0001AD-Q8; Tue, 10 Oct 2023 15:11:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615083.956263; Tue, 10 Oct 2023 14:48:05 +0000
+Received: by outflank-mailman (output) from mailman id 615094.956284; Tue, 10 Oct 2023 15:11:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqE1l-0001un-Kz; Tue, 10 Oct 2023 14:48:05 +0000
-Received: by outflank-mailman (input) for mailman id 615083;
- Tue, 10 Oct 2023 14:48:04 +0000
+	id 1qqEOR-00017d-N9; Tue, 10 Oct 2023 15:11:31 +0000
+Received: by outflank-mailman (input) for mailman id 615094;
+ Tue, 10 Oct 2023 15:11:30 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qqE1k-0001tL-Qk
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 14:48:04 +0000
+ (envelope-from <julien@xen.org>) id 1qqEOQ-000161-5y
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 15:11:30 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qqE1k-0003m0-FK; Tue, 10 Oct 2023 14:48:04 +0000
+ id 1qqEOP-0004Oi-Sj; Tue, 10 Oct 2023 15:11:29 +0000
 Received: from 54-240-197-231.amazon.com ([54.240.197.231]
  helo=[10.95.104.160]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qqE1k-0007ns-98; Tue, 10 Oct 2023 14:48:04 +0000
+ id 1qqEOP-0000fC-MO; Tue, 10 Oct 2023 15:11:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +40,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=RVmbal3jyL4QGGCUAZHhC5+aj9yI6a+eoQxd4HidfUQ=; b=Zbawy6HoSkam7/6YUhB/T7MtbE
-	63HYpH4+8V3ZGvoydgFs3XBNoV2nyvkABK1NEWU4VWH/mdO2n/OaRN2DEjqfRFqp1p6M8YdpPuyBV
-	hIqu9twtVO1N1B6r4SptesH2alZ4zqtr9QOnoZh/McUa0xT0RIcqFnCotlQlcPfWDCiE=;
-Message-ID: <4894d46e-97ab-434f-b637-d516db6564ea@xen.org>
-Date: Tue, 10 Oct 2023 15:48:02 +0100
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=4Obq61kJUFEKTX7z8R6Sb7CT6aqwi9qgd/DZcaOpdsk=; b=T/4MdGXKEQBvGB7oq2BTKSV8/Z
+	Oaaut1IoXt1GfLvRCNP2iQG3+Xl5hOYZ/8YzOwo3iBmwubbaiHHpLjLutn3RgvuLFbSDo6a00l+hN
+	OGT2jxeAScs/0ZRl9pPBZ03SwxZ2DfXVQfLgHddl+sk3xD8rrQ/r1s/G7hscZ9ikLRFo=;
+Message-ID: <d4418f19-940f-4839-bcce-cbdad8d2ca81@xen.org>
+Date: Tue, 10 Oct 2023 16:11:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Validate generic timer frequency
+Subject: Re: [PATCH v7 1/8] xen/arm: Split page table related code to mmu/pt.c
 Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20230928123435.2802-1-michal.orzel@amd.com>
- <d406c4c6-07f7-442f-8bef-8ba42308ae93@xen.org>
-In-Reply-To: <d406c4c6-07f7-442f-8bef-8ba42308ae93@xen.org>
+ Penny Zheng <penny.zheng@arm.com>
+References: <20231009010313.3668423-1-Henry.Wang@arm.com>
+ <20231009010313.3668423-2-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231009010313.3668423-2-Henry.Wang@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-(+ Henry)
+Hi Henry,
 
-Hi Michal,
-
-On 29/09/2023 08:38, Julien Grall wrote:
-> Hi Michal,
+On 09/10/2023 02:03, Henry Wang wrote:
+> The extraction of MMU related code is the basis of MPU support.
+> This commit starts this work by firstly splitting the page table
+> related code to mmu/pt.c, so that we will not end up with again
+> massive mm.c files.
 > 
-> On 28/09/2023 13:34, Michal Orzel wrote:
->> Generic timer dt node property "clock-frequency" (refer Linux dt binding
->> Documentation/devicetree/bindings/timer/arm,arch_timer.yaml) is used to
->> override the incorrect value set by firmware in CNTFRQ_EL0. If the value
->> of this property is 0 (i.e. by mistake), Xen would continue to work and
->> use the value from the sysreg instead. The logic is thus incorrect and
->> results in inconsistency when creating timer node for domUs:
->>   - libxl domUs: clock_frequency member of struct xen_arch_domainconfig
->>     is set to 0 and libxl ignores setting the "clock-frequency" property,
->>   - dom0less domUs: "clock-frequency" property is taken from dt_host and
->>     thus set to 0.
->>
->> Property "clock-frequency" is used to override the value from sysreg,
->> so if it is also invalid, there is nothing we can do and we shall panic
->> to let user know about incorrect setting. Going even further, we operate
->> under assumption that the frequency must be at least 1KHz (i.e. cpu_khz
->> not 0) in order for Xen to boot. Therefore, introduce a new helper
->> validate_timer_frequency() to verify this assumption and use it to check
->> the frequency obtained either from dt property or from sysreg.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Introduce a mmu specific directory and setup the Makefiles for it.
+> Move the page table related functions and macros from arch/arm/mm.c
+> to arch/arm/mmu/pt.c.
 > 
-> Acked-by: Julien Grall <jgrall@amazon.com>
+> Take the opportunity to fix the in-code comment coding styles when
+> possible, and drop the unnecessary #include headers in the original
+> arch/arm/mm.c.
+> 
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
-Going through the list of pending patches, I noticed Henry wasn't CCed. 
-Is this patch intended for Xen 4.18? If so, can you provide some 
-reasoning why would want it?
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
 
