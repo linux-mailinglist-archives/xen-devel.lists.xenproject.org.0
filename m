@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C527BFBDA
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 14:55:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615044.956193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5147BFFD1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Oct 2023 16:56:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615087.956274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqCGT-0000fO-1u; Tue, 10 Oct 2023 12:55:09 +0000
+	id 1qqE8u-00052x-Fa; Tue, 10 Oct 2023 14:55:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615044.956193; Tue, 10 Oct 2023 12:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 615087.956274; Tue, 10 Oct 2023 14:55:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqCGS-0000cd-VR; Tue, 10 Oct 2023 12:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 615044;
- Tue, 10 Oct 2023 12:55:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qqE8u-0004zl-Ck; Tue, 10 Oct 2023 14:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 615087;
+ Tue, 10 Oct 2023 14:55:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c+X1=FY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qqCGR-0000bM-3J
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 12:55:07 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b7292c8-676c-11ee-9b0d-b553b5be7939;
- Tue, 10 Oct 2023 14:55:04 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 62B094EE0737;
- Tue, 10 Oct 2023 14:55:04 +0200 (CEST)
+ <SRS0=/YEo=FY=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
+ id 1qqE8t-0004xB-FB
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 14:55:27 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0badcce0-677d-11ee-98d3-6d05b1d4d9a1;
+ Tue, 10 Oct 2023 16:55:26 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-32c9f2ce71aso740316f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 07:55:26 -0700 (PDT)
+Received: from EMEAENG6DZjqCfH.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ v6-20020adff686000000b0031980294e9fsm12775002wrp.116.2023.10.10.07.55.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Oct 2023 07:55:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +46,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b7292c8-676c-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 0badcce0-677d-11ee-98d3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1696949725; x=1697554525; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=r/l4Hsd/Zof8XSfDIbZDzjkef1XTJ9Kr+1vkL+sFLQM=;
+        b=Q5moYrswcvASRy3TA9pBOBEqJ8/SNUuJ4aTmdhYLGyZUHOHhUoZ0gzACYJWgcZ/siB
+         gPlWzK7+ZaOo8f0Hfy8471dFJYFIjtsZo89d71vPa/y+CH5oNRIrhnMhTk7k+L8wntKP
+         KgmOvM0L3mDzP0637xiICFwIS8v4N/bDR7jq0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696949725; x=1697554525;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=r/l4Hsd/Zof8XSfDIbZDzjkef1XTJ9Kr+1vkL+sFLQM=;
+        b=MuPhiKWh5vRjcsdnQ288PuCoNDb0Za3m5zQ7bavnmC/5qvwyk1ZjjRR+7u85/nzVss
+         n1IbDY0TZkkkn6fQMlfvpZw5McVO/DYAKsHAPZlY0mL+kkUE9/3spPO2zrN2kxG0AMjL
+         Fopb7qX8FnOUuq8uCpg3vp1987BXP6471/FeCGYML4QBhDWOJkXxKp7+5bbGQOeXysZS
+         bq0wnNpM5kEQgSUu5sDS06vXsZ92xv7AkO5mkDJyn2XUqCbd/KqJeOAWXbmbnCxzuEQq
+         p81/EGGOjt1NgZWNCRnkvygkTwPJ9KKLsamBNNPuCP69Z5B/GOPsWsST/jOBo+aXUc76
+         fCnA==
+X-Gm-Message-State: AOJu0YzTZ/rTTACQ8HF/QmrnWmRsd42OvLgfOlFReqStcteuxw6Fmh+J
+	V8//986dKfJceRTRXvOJKrc1rxiL/DNJhQx42o0=
+X-Google-Smtp-Source: AGHT+IFMZcWAdQN3V33WEkI3iCxJ1rYjWGcgsUpmWqS6G1/Buep7GTvH6PcW2k1K9PF+1FGe2i5ONA==
+X-Received: by 2002:adf:f005:0:b0:326:c623:3bbf with SMTP id j5-20020adff005000000b00326c6233bbfmr17284164wro.26.1696949725329;
+        Tue, 10 Oct 2023 07:55:25 -0700 (PDT)
+From: Javi Merino <javi.merino@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Javi Merino <javi.merino@cloud.com>
+Subject: [XEN PATCH v1] tools/python: Add python3 compatibility
+Date: Tue, 10 Oct 2023 15:18:45 +0100
+Message-ID: <efb10e537e37df1995dd8f87c28a8eb64ec9b61e.1696947009.git.javi.merino@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Date: Tue, 10 Oct 2023 14:55:04 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, Paul
- Durrant <paul@xen.org>, George Dunlap <george.dunlap@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: Re: [XEN PATCH][for-4.19 8/9] xen/types: address Rule 10.1 for
- DECLARE_BITMAP use
-In-Reply-To: <22895e24-b051-447a-b944-6ff173b0a790@xen.org>
-References: <cover.1696514677.git.nicola.vetrini@bugseng.com>
- <9642dcb4ab51ec9eaeedf16056fbcd946a3efbea.1696514677.git.nicola.vetrini@bugseng.com>
- <80101145-1958-457a-8c80-cae816ae74aa@xen.org>
- <4b144869407871011c538af48b311c31@bugseng.com>
- <354c6138-509e-4106-9a27-3c75c85b85e5@xen.org>
- <alpine.DEB.2.22.394.2310061746190.3431292@ubuntu-linux-20-04-desktop>
- <d90524b8-70ee-457e-8d6a-9e69f135b81d@xen.org>
- <alpine.DEB.2.22.394.2310091803060.3431292@ubuntu-linux-20-04-desktop>
- <f9a24504-97e7-4a2e-8601-8e4672b45f88@xen.org>
- <eda6269602e89abf5bd1e23cc81d0528@bugseng.com>
- <bcc81d48-fafb-417a-a609-d6e0c17daf99@xen.org>
- <22895e24-b051-447a-b944-6ff173b0a790@xen.org>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <dbe64dec40acdb0944fc42f3983ace31@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/10/2023 14:15, Julien Grall wrote:
-> On 10/10/2023 13:13, Julien Grall wrote:
->> 
->> 
->> On 10/10/2023 13:07, Nicola Vetrini wrote:
->>> 
->>>>>>> 
->>>>>>> I agree on everything Julien's wrote and I was about to suggest 
->>>>>>> to use a
->>>>>>> SAF comment to suppress the warning because it is clearer than a 
->>>>>>> int
->>>>>>> cast.
->>>>>>> 
->>>>>>> But then I realized that even if BITS_TO_LONGS was fixed, 
->>>>>>> wouldn't still
->>>>>>> we have a problem because IOMMU_FEAT_count is an enum?
->>>>>>> 
->>>>>>> Is it the case that IOMMU_FEAT_count would have to be cast 
->>>>>>> regardless,
->>>>>>> either to int or unsigned int or whatever to be used in 
->>>>>>> DECLARE_BITMAP?
->>>>>>> 
->>>>>>> 
->>>>>>> So we have 2 problems here: one problem is DECLARE_BITMAP taking 
->>>>>>> int
->>>>>>> instead of unsigned int, and another problem is IOMMU_FEAT_count 
->>>>>>> being
->>>>>>> an enum.
->>>>>>> 
->>>>>>> If I got it right, then I would go with the cast to int (like 
->>>>>>> done in
->>>>>>> this patch) with a decent comment on top of it.
->>>>>> 
->>>>>> I might be missing something here. But why should we use cast 
->>>>>> rather than /*
->>>>>> SAF-X */ just above? I would have expected we wanted to highlight 
->>>>>> the
->>>>>> violation rather than hiding it.
->>>>> 
->>>>> My understanding is that the cast is required when converting an 
->>>>> enum
->>>>> type to an integer type and vice versa. The idea is that we 
->>>>> shouldn't do
->>>>> implicit conversions as they are error prone, only explicit 
->>>>> conversions
->>>>> are allowed between enum and integers.
->>>> 
->>>> We have a lot of places in Xen using implicit conversion from enum 
->>>> to
->>>> integer (for instance in the P2M code for p2m_type_t). Does ECLAIR
->>>> report all of them? If not, then why?
->>>> 
->>> 
->>> Can you give some pointers as to where this enum is used in 
->>> arithmetic operations?
->> 
->> I can't think of any right now.
-> 
-> Obviously, right after I pressed send, I remember of one in
-> __acpi_map_table() (x86 code).
-> 
-> FIX_ACPI_END is an enum, assigned to an 'int' and then used in 
-> arithmetics.
-> 
-> Cheers,
+Most of the work for python3 compatibility was done in
+1430c5a8cad4 (tools/python: Python 3 compatibility, 2019-12-18).  This
+just adds a few builtins needed for python3.
 
-A couple of remarks:
-- that file is part of the exclude-list.json, therefore it's not bound 
-to be MISRA compliant
-   right now;
-- assignment to a different essential type category is dealt with by 
-Rule 10.3
-   (The value of an expression shall not be assigned to an object with a 
-narrower
-    essential type or of a different essential type category), so perhaps
-   Luca's script does indeed capture it with gcc compilation flags.
+Resolves: xen-project/xen#156
 
-Aside from this, if you feel that a deviation comment is a better 
-choice, I'm ok with
-dealing with it in this way.
+Signed-off-by: Javi Merino <javi.merino@cloud.com>
+---
 
+I haven't tested it.
+
+ README                                     | 1 +
+ tools/python/scripts/convert-legacy-stream | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/README b/README
+index 855db01d36..44ed88c392 100644
+--- a/README
++++ b/README
+@@ -51,6 +51,7 @@ provided by your OS distributor:
+     * POSIX compatible awk
+     * Development install of zlib (e.g., zlib-dev)
+     * Development install of Python 2.7 or later (e.g., python-dev)
++      - If using Python 2.7, you also need the future module.  This is not needed for Python 3.
+     * Development install of curses (e.g., libncurses-dev)
+     * Development install of openssl (e.g., openssl-dev)
+     * Development install of x11 (e.g. xorg-x11-dev)
+diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/scripts/convert-legacy-stream
+index 7fe375a668..26a66c50fc 100755
+--- a/tools/python/scripts/convert-legacy-stream
++++ b/tools/python/scripts/convert-legacy-stream
+@@ -8,6 +8,9 @@ Convert a legacy migration stream to a v2 stream.
+ from __future__ import print_function
+ from __future__ import division
+ 
++from builtins import zip
++from builtins import range
++from builtins import object
+ import sys
+ import os, os.path
+ import syslog
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.42.0
+
 
