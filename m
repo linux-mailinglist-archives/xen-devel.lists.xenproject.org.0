@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C1D17C43BD
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 00:24:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615166.956403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5C87C43F7
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 00:27:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615171.956414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqL8h-0001pR-RA; Tue, 10 Oct 2023 22:23:43 +0000
+	id 1qqLBY-0002Va-8X; Tue, 10 Oct 2023 22:26:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615166.956403; Tue, 10 Oct 2023 22:23:43 +0000
+Received: by outflank-mailman (output) from mailman id 615171.956414; Tue, 10 Oct 2023 22:26:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqL8h-0001nF-Np; Tue, 10 Oct 2023 22:23:43 +0000
-Received: by outflank-mailman (input) for mailman id 615166;
- Tue, 10 Oct 2023 22:23:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qqLBY-0002Tt-50; Tue, 10 Oct 2023 22:26:40 +0000
+Received: by outflank-mailman (input) for mailman id 615171;
+ Tue, 10 Oct 2023 22:26:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z25Z=FY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qqL8g-0001n9-5X
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 22:23:42 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a827e2ae-67bb-11ee-9b0d-b553b5be7939;
- Wed, 11 Oct 2023 00:23:39 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4CFDACE1E58;
- Tue, 10 Oct 2023 22:23:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21574C433C7;
- Tue, 10 Oct 2023 22:23:32 +0000 (UTC)
+ <SRS0=XImq=FY=infradead.org=mcgrof@srs-se1.protection.inumbo.net>)
+ id 1qqLBV-0002TV-U4
+ for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 22:26:38 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [2607:7c80:54:3::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 124ef577-67bc-11ee-98d3-6d05b1d4d9a1;
+ Wed, 11 Oct 2023 00:26:36 +0200 (CEST)
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
+ Hat Linux)) id 1qqLAv-00EFvQ-2z; Tue, 10 Oct 2023 22:26:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,119 +38,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a827e2ae-67bb-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696976613;
-	bh=+dX7i/pzKBCNzRfkTTQ5+O9/SrrEZZMaoBuluMgh9GQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=hX/D9ErWpR+yVP3hnPvudiyPJdBWaxF9HeeNYOkUeL6O4dnaHP6NhlYz8hoKMmF3o
-	 ONoz1tr4mfBWah39JLMBSFkNR9/uce5sN8cgYgkusWnfdWBjI2tSE9gn03G7+eBWVM
-	 A1kmUA42JsCwki7OhKo5R8AREX5Pk9+898uEmdRe921+aMU7SGGt4AQZ58ZNyHLNhe
-	 4XEkWIGDL/2ygqxNjvx1XWs4KH5O/CNLLb2UUoFdmuR0ZC14nttghJ5oTosO3YZ909
-	 dsgp5gk9F4OBF96aLkLsQCFarIjFBjo1EUSm269Bu+MukvzbSsINaDMspz6D10C8pK
-	 Md9/OO7X6MmRA==
-Date: Tue, 10 Oct 2023 15:23:30 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, consulting@bugseng.com, 
-    roger.pau@citrix.com, dfaggioli@suse.com
-Subject: Re: Rule 10.1 violations in perfc_incra and PERFCOUNTER_ARRAY
-In-Reply-To: <771624f5199fe76ce266a00d0c649428@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310101515070.3431292@ubuntu-linux-20-04-desktop>
-References: <5cfaaaceb163af3244981b020ed55f3f@bugseng.com> <alpine.DEB.2.22.394.2310091838510.3431292@ubuntu-linux-20-04-desktop> <771624f5199fe76ce266a00d0c649428@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 124ef577-67bc-11ee-98d3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Jt7zMqKrLNJ4K7VS3w7XNGV+SpqUurU0PXBkkxalgKc=; b=1PL/j3Yl0CuSo7Wvorcy1SBbas
+	I+6DqkyUbYtUIZ9pkGSDQa8ByQS3UkqTwbfjdaotfSES7NdqYqgxx29fk4+tzLW3FRROafO4ZtsvZ
+	l+W8U6dorpda5yasc9Kqeau3Zz3sh/qCL49nsyxtkbllVRGWd6OzS9TccFLxGNwC4uVawQz8L4W7d
+	AcCH9bEiJX5jVmwx9rhI9AetmVYQ337XpotHrDcgLYa0oedh5OhdR8LhKPPVwrBxYyGTxqsN2NJUq
+	t3JisqYnKbp3RUciBZn8l5IbE1O6D3K7GhlblXGtYAWbn3INUlqHRA26oYGxooXJSmeyHUHhjfGWo
+	wvcm+phA==;
+Date: Tue, 10 Oct 2023 15:26:01 -0700
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: j.granados@samsung.com
+Cc: willy@infradead.org, josh@joshtriplett.org,
+	Kees Cook <keescook@chromium.org>,
+	Phillip Potter <phil@philpotter.co.uk>,
+	Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Doug Gilbert <dgilbert@interlog.com>,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
+	Russ Weight <russell.h.weight@intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-serial@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-rdma@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, netdev@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 00/15] sysctl: Remove sentinel elements from drivers
+Message-ID: <ZSXPeVDv6FfKiTp5@bombadil.infradead.org>
+References: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
+Sender: Luis Chamberlain <mcgrof@infradead.org>
 
-On Tue, 10 Oct 2023, Nicola Vetrini wrote:
-> On 10/10/2023 03:56, Stefano Stabellini wrote:
-> > On Fri, 6 Oct 2023, Nicola Vetrini wrote:
-> > > Given the following macros in <xen/perfc.h> and
-> > > 
-> > > #define perfc_incra(x,y)                                                \
-> > >     ( (y) <= PERFC_LAST_ ## x - PERFC_ ## x ?                           \
-> > > 	 ++this_cpu(perfcounters)[PERFC_ ## x + (y)] : 0 )
-> > > 
-> > > and the following violation
-> > > 
-> > > xen/arch/arm/traps.c:1407.5-1407.32:
-> > >   reference to enum constant `PERFC_hypercalls' has essential type `enum
-> > > perfcounter'
-> > >   and standard type `int'
-> > >  <preprocessed xen/arch/arm/traps.c>:11606.29-11606.44: preprocessed
-> > > tokens
-> > >  <scratch space>:137.1-137.16: expanded from macro `PERFC_'
-> > >  xen/include/xen/perfc.h:69.35-69.45: expanded from macro `perfc_incra'
-> > > xen/arch/arm/traps.c:1407.5-1407.32:
-> > >   `+' addition operator expects a number or a character
-> > >  <preprocessed xen/arch/arm/traps.c>:11606.46: preprocessed tokens
-> > >  xen/include/xen/perfc.h:69.47: expanded from macro `perfc_incra'
-> > > 
-> > > the difference between enumerated values is forbidden by the Rule. In the
-> > > coding standard's
-> > > interpretation, named enums are unordered list of symbols, which can only
-> > > be
-> > > compared for
-> > > equality.
-> > > There are a few possible paths forward:
-> > > 
-> > > 1. use means different from named enums to generate these constants (such
-> > > as
-> > > #define-s or
-> > >    constants integers);
-> > 
-> > This is a viable option
-> > 
-> > 
-> > > 2. explicitly deviate subtraction of enums, therefore defining an explicit
-> > > ordering on
-> > >    enumerated values;
-> > 
-> > I would prefer to avoid a project-wide deviation, because I think in
-> > general it is a good rule to have. If we go with a deviation, I think it
-> > would be better to deviate PERFCOUNTER or perfc.h specifically. This is
-> > a file that changes very rarely. We could make the case that this is
-> > safe with GCC (most probably is) and this case was reviewed carefully
-> > and doesn't change often (3 changes in the last 10 yeas).
-> > 
-> > 
-> > > 3. use an unnamed enum, effectively considering the enumerated values as
-> > > plain
-> > > integers.
-> > >    This does not violate the Rule.
-> > 
-> > What do you mean by unname enum?
-> 
-> e.g.
-> 
-> enum {
-> #include <xen/perfc_defn.h>
-> 	NUM_PERFCOUNTERS
-> };
-> 
-> instead of
-> 
-> enum perfcounter {
-> #include <xen/perfc_defn.h>
-> 	NUM_PERFCOUNTERS
-> };
+On Mon, Oct 02, 2023 at 10:55:17AM +0200, Joel Granados via B4 Relay wrote:
+> Changes in v2:
+> - Left the dangling comma in the ctl_table arrays.
+> - Link to v1: https://lore.kernel.org/r/20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com
 
+Thanks! Pushed onto sysctl-next for wider testing.
 
-I think this should be easy to do in this case. I gave it a quick try
-and it seems to still build successfully. It could be the best way
-forward for this instance.
-
-
-However in general I am confused why unnamed enum can do comparisons
-between members and named enums cannot. What is the reason? In any case,
-I think we should clarify this detail in the notes section of
-docs/misra/rules.rst, because I don't think it was clear to anyone that
-there is a difference in behavior between named and unnamed enums.
+  Luis
 
