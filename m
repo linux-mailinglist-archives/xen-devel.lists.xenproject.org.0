@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8787C7C559A
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB4D7C5599
 	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 15:40:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615513.956791 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.615515.956800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqZQp-0002bu-0B; Wed, 11 Oct 2023 13:39:23 +0000
+	id 1qqZRJ-00032m-9C; Wed, 11 Oct 2023 13:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615513.956791; Wed, 11 Oct 2023 13:39:22 +0000
+Received: by outflank-mailman (output) from mailman id 615515.956800; Wed, 11 Oct 2023 13:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqZQo-0002Yu-TT; Wed, 11 Oct 2023 13:39:22 +0000
-Received: by outflank-mailman (input) for mailman id 615513;
- Wed, 11 Oct 2023 13:39:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qqZRJ-000300-5u; Wed, 11 Oct 2023 13:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 615515;
+ Wed, 11 Oct 2023 13:39:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kH0+=FZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qqZQn-0002Yn-ML
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 13:39:21 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93bbbe1b-683b-11ee-9b0d-b553b5be7939;
- Wed, 11 Oct 2023 15:39:18 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5041335fb9cso8721656e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 06:39:18 -0700 (PDT)
+ id 1qqZRH-0002qx-FS
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 13:39:51 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a701973a-683b-11ee-98d4-6d05b1d4d9a1;
+ Wed, 11 Oct 2023 15:39:51 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5043a01ee20so8361933e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 06:39:51 -0700 (PDT)
 Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
  by smtp.gmail.com with ESMTPSA id
- az14-20020a05620a170e00b0077731466526sm948868qkb.70.2023.10.11.06.39.12
+ s13-20020a0ce30d000000b0063d038df3f3sm5695728qvl.52.2023.10.11.06.39.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Oct 2023 06:39:17 -0700 (PDT)
+ Wed, 11 Oct 2023 06:39:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,35 +45,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93bbbe1b-683b-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: a701973a-683b-11ee-98d4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697031558; x=1697636358; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1697031590; x=1697636390; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
         bh=kfpurETULtVfAqI3559s+GjLE0vHRUSyFH46jt1MhRI=;
-        b=JAJ0AYiO1ZNmBjV1kAleMKwEaILL8yknHqLJZlQ7sn0jKbtU1WMENiLi1VvumvtgPW
-         aXwCY6FzwKzwgS9Av3gOPbq0Y2R8OPRW4gZoXkBuGUE431H8NzzOVCk56PZixZDW/T9x
-         z6wUlw3//ri6RD8ZQRNsS4bWzNIi/ViS1C2K4=
+        b=Ijrm2pBURsdoFQwMg0ocVKNkrh/uegWektu5OodmTDw8RB8GQpw3W8TdPP4jFrusyA
+         8bE/44sFr3e2tamSd7XYOp5GH8l44Tz6h0GbgjZoUH3rULP/UqU/Jo84Lbzgm1BjRJWN
+         XvSUXI+pRG5z1JcEPXUFgXB4AD9x4W7nOlmsE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697031558; x=1697636358;
+        d=1e100.net; s=20230601; t=1697031590; x=1697636390;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
         bh=kfpurETULtVfAqI3559s+GjLE0vHRUSyFH46jt1MhRI=;
-        b=Tdy/pUOQOW9rcTJqpWj41i0amIflL8oViFH7AXX+G3R8UvaGA2PZvApAm3OhZR05b2
-         fqcgA2iG2QgevfFct6ALhlZQ1kciCxbPHaLxgz/cKodnxkNdIl19MvnCbWcn2B6ZurfJ
-         /Ltft1PM9iI3K6IBG6QDGCNhUqEqPo7Wsx4tjX7gqEK6QHtrqri7m+uOzuSP/7fjPgY4
-         8SQGxdhnGHu5V1dqtLQcWuBche9MmgNME5XzWGzDjKIQ/eEUx28FQIqdAE3H0ZdeacvN
-         9Z/k8zOZNBzzfctwT3M8lxnHUew3ktvPKNBWJqh2hRpBx1J+L2BHF8YOuMyEMN0xJ108
-         u8Tw==
-X-Gm-Message-State: AOJu0YyD2Bdj5ZMvmlRN7jKDE9TeLEpaJDheLg5y3dFUaDS7zALvpop0
-	X2mpMnWJHWTjfBnZaJrXVGkclQ==
-X-Google-Smtp-Source: AGHT+IFxDjK6XuKeK7GQ09H9H+cbzAcscsjyDhCEr1Ae55/h4azLXQPljGjOlQMbxh0yH/YEQXrF8g==
-X-Received: by 2002:a05:6512:31c3:b0:500:8022:3dc7 with SMTP id j3-20020a05651231c300b0050080223dc7mr20839876lfe.10.1697031558001;
-        Wed, 11 Oct 2023 06:39:18 -0700 (PDT)
-Message-ID: <a541f02a-e28a-439c-97f6-6f97cc8a2dcd@citrix.com>
-Date: Wed, 11 Oct 2023 21:39:16 +0800
+        b=kd8oo14mwBFVfW2PkCeXqK5DzdnqsImvFLol4jgpAeM+B2TJl8VaolnwHNiZmAI68b
+         CYos7TyVOtFnDC3XdqFDelM9g54RCblpUGa4mblYn0d3Bl73aKZ39VmDVAmSSmb8R2mU
+         ApuRez7hAs43JM8esYqFBkID+w0A4LlXf7LQsY+Jd9ywICg0t4ql5paccvCkx/wuAA2S
+         RBb3T4LWVdenWD8pMVPRStsdSbgSEzOKrExXn5zzk0mSeiRUOsfQThFA9Z6Gjp7iE4E3
+         c+UnFxA9ijKw4AeFveNgxKdmtIsq2Zl5iB/uLXzNjvL77GR4uWXtNWgOdoAZAiSsrId8
+         m8Gw==
+X-Gm-Message-State: AOJu0YyQANKCkNmLTCs05NtDFD9pY1+jfcPHDFlTXlDBrNw/RJhskV6k
+	aBmMNh03E8MkfCt0GA7mtIwOiw==
+X-Google-Smtp-Source: AGHT+IFMAWLAI/5SaZKd+Suf83SeLDl5rliwWddpYWgNR2jrG4tY91i5+rLbgIa9/ZUI0qlolHUxTg==
+X-Received: by 2002:a19:6705:0:b0:503:eae:4896 with SMTP id b5-20020a196705000000b005030eae4896mr16183278lfc.39.1697031590714;
+        Wed, 11 Oct 2023 06:39:50 -0700 (PDT)
+Message-ID: <d5507808-fb01-43b8-9393-ba287fcbb240@citrix.com>
+Date: Wed, 11 Oct 2023 21:39:45 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.18] tools/pygrub: Fix pygrub's --entry flag for
