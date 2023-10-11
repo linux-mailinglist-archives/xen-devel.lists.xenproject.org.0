@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F4F77C54CA
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 15:06:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615502.956771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A363A7C552B
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 15:23:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615508.956781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqYub-0003N6-2S; Wed, 11 Oct 2023 13:06:05 +0000
+	id 1qqZAj-0007Zb-Ey; Wed, 11 Oct 2023 13:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615502.956771; Wed, 11 Oct 2023 13:06:05 +0000
+Received: by outflank-mailman (output) from mailman id 615508.956781; Wed, 11 Oct 2023 13:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqYua-0003KZ-VS; Wed, 11 Oct 2023 13:06:04 +0000
-Received: by outflank-mailman (input) for mailman id 615502;
- Wed, 11 Oct 2023 13:06:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qqZAj-0007Wx-BM; Wed, 11 Oct 2023 13:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 615508;
+ Wed, 11 Oct 2023 13:22:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uJaT=FZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qqYuY-0003KB-Tp
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 13:06:02 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed2b343b-6836-11ee-9b0d-b553b5be7939;
- Wed, 11 Oct 2023 15:06:01 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id C011B4EE0747;
- Wed, 11 Oct 2023 15:06:00 +0200 (CEST)
+ <SRS0=3gNM=FZ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qqZAh-0007Wq-Cj
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 13:22:43 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 41d9dae3-6839-11ee-98d4-6d05b1d4d9a1;
+ Wed, 11 Oct 2023 15:22:42 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-533d31a8523so12125259a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 06:22:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +40,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed2b343b-6836-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 41d9dae3-6839-11ee-98d4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1697030562; x=1697635362; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gwj/RqxGPkzuOtK1UNPuFzJw65gTRa5z9/nkxrTcS64=;
+        b=UGevgIhq6TZq/6Pd3xbJqHUVfpaGdo+MQKia7crn9JTAYD8TNMeEPAqQXgslGMi/QY
+         IgKjFRFTsRm2wZH8y8jUIopjgR8J2vBPm7QK8z3VFuRvSnGA7k+O0oyPCjCn2p+hdOkZ
+         t8K798Wx+VuPBA6FCB5DjZAAJqshkkPUiXXoU2OH8oda/4/yGjcSzqKAZ5ydp7vmUGNs
+         YtNfZ7E1CH4u2zoTMiVgnAdnZTrZ8KjuFf3gP2ywgr6/6HFu7nDus+KX8VfBtOrzwhHX
+         zw2wi2PG8iYDOiVKpot1uTuAzfQA9xivjrzzJMW753gh0gAsHy5mP8Hm9aRYCb/BcUcF
+         Dxyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697030562; x=1697635362;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gwj/RqxGPkzuOtK1UNPuFzJw65gTRa5z9/nkxrTcS64=;
+        b=B8DVihdqfqnHQFokCTKQ1q/3mqChbzuDP3KywaZutnp+ocXjP05SL+ddwsPObh0pce
+         yhHredrJb4okm8QYIfJm+jpmyeM86GPIvStfHy7Rp4aITrPQgKWK7zroFfLnccPRGVqW
+         j5V3V54UJcXvSrn/+Sqh1z6InikVe0VNsNg4nULeqnmnKarmtUIqhU38XJhwBK9eosXC
+         0/7YBa+ubo6C7la295yN7lwbIGLlVuGA3QHmgT1D91Ecq0WCqOI1lju8lcJ/CDVzmq05
+         jRZV09RpB8J696pMC8XjyBszrykVxKhq6MRq8oZwXa8/YdmyhgZjHS287+I6wChEFTga
+         GLxQ==
+X-Gm-Message-State: AOJu0YylqFH0nNlKGa46V6TfeTw54IPOt5N+iDHLF6BWUkmYtC/ThtHn
+	+2i5GNJSwIdkLFSCeuRHyJHszuSt+SFixEUmvgE=
+X-Google-Smtp-Source: AGHT+IFjwPBdU24OWt+9rcNzyGAp61bEypdrM0CvK15jqMZomnmNG0qOl212jrCcTf9kSexYP8Ppu/QQjvKHxhdmt1k=
+X-Received: by 2002:a05:6402:60e:b0:523:33eb:1103 with SMTP id
+ n14-20020a056402060e00b0052333eb1103mr19266775edv.14.1697030561468; Wed, 11
+ Oct 2023 06:22:41 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 11 Oct 2023 15:06:00 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>
-Subject: Re: [XEN PATCH][for-4.19] xen/include: make enum perfcounter
- anonymous
-In-Reply-To: <d739fefde6f142cec10899ed2c5eb81f91618bf0.1697028983.git.nicola.vetrini@bugseng.com>
-References: <d739fefde6f142cec10899ed2c5eb81f91618bf0.1697028983.git.nicola.vetrini@bugseng.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <43412e2e1c5c4bce181cb624e4201aa9@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <ZSRMosLuJJS5Y/io@work>
+In-Reply-To: <ZSRMosLuJJS5Y/io@work>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 11 Oct 2023 09:22:29 -0400
+Message-ID: <CAKf6xpu4vQSKFykwygcCtnnJtcQbgVTuaNvAwDLeV8cZAectHg@mail.gmail.com>
+Subject: Re: [PATCH][next] xen/xenbus: Add __counted_by for struct read_buffer
+ and use struct_size()
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/10/2023 15:03, Nicola Vetrini wrote:
-> Using enumerators declared in a named enum, such as the one modified,
-> as operands to arithmetic operators is not allowed by MISRA C:2012 Rule 
-> 10.1.
-> The enumerators of an anonymous enum can be used instead.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> This violation manifeststs itself, for instance, in all uses of macro
-> 'perfc_incra' from xen/include/xen/perfc.h, because the expansion
-> contains an arithmetic operation on two enum constants from enum 
-> perfcounter.
-> 
-> ( (*nr) <= PERFC_LAST_hypercalls - PERFC_hypercalls ?  [...]
-> 
-> ---
->  docs/misra/rules.rst    | 3 +++
->  xen/include/xen/perfc.h | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 3139ca7ae6dd..26c3ff819948 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -341,6 +341,9 @@ maintainers if you want to suggest a change.
->             compilers' extensions)
->           - Implicit conversions to boolean for conditionals (?: if 
-> while
->             for) and logical operators (! || &&)
-> +         - The essential type model allows the constants defined by 
-> anonymous
-> +           enums (e.g., enum { A, B, C }) to be used as operands to 
-> arithmetic
-> +           operators, as they have a signed essential type.
-> 
->     * - `Rule 10.2
-> <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_10_02.c>`_
->       - Required
-> diff --git a/xen/include/xen/perfc.h b/xen/include/xen/perfc.h
-> index 7c5ce537bd02..96022c07481e 100644
-> --- a/xen/include/xen/perfc.h
-> +++ b/xen/include/xen/perfc.h
-> @@ -39,7 +39,7 @@
->  #define PERFSTATUS       PERFCOUNTER
->  #define PERFSTATUS_ARRAY PERFCOUNTER_ARRAY
-> 
-> -enum perfcounter {
-> +enum {
->  #include <xen/perfc_defn.h>
->  	NUM_PERFCOUNTERS
->  };
-> --
-> 2.34.1
+On Mon, Oct 9, 2023 at 2:55=E2=80=AFPM Gustavo A. R. Silva
+<gustavoars@kernel.org> wrote:
+>
+> Prepare for the coming implementation by GCC and Clang of the __counted_b=
+y
+> attribute. Flexible array members annotated with __counted_by can have
+> their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
+> array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+> functions).
+>
+> While there, use struct_size() helper, instead of the open-coded
+> version, to calculate the size for the allocation of the whole
+> flexible structure, including of course, the flexible-array member.
+>
+> This code was found with the help of Coccinelle, and audited and
+> fixed manually.
+>
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-See [1] for a discussion on the possible alternatives to this approach.
-
-[1] https://marc.info/?l=xen-devel&m=169658364229813
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
