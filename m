@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065707C4B45
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 09:09:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615232.956522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C68BA7C4BFA
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 09:35:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615239.956532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqTKn-0001d2-Ur; Wed, 11 Oct 2023 07:08:45 +0000
+	id 1qqTjG-0005u6-RD; Wed, 11 Oct 2023 07:34:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615232.956522; Wed, 11 Oct 2023 07:08:45 +0000
+Received: by outflank-mailman (output) from mailman id 615239.956532; Wed, 11 Oct 2023 07:34:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqTKn-0001bM-RX; Wed, 11 Oct 2023 07:08:45 +0000
-Received: by outflank-mailman (input) for mailman id 615232;
- Wed, 11 Oct 2023 07:08:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqTKm-0001aw-Qt; Wed, 11 Oct 2023 07:08:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqTKm-0002j5-Ne; Wed, 11 Oct 2023 07:08:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqTKm-0004dK-7M; Wed, 11 Oct 2023 07:08:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qqTKm-0001tI-6r; Wed, 11 Oct 2023 07:08:44 +0000
+	id 1qqTjG-0005rG-O6; Wed, 11 Oct 2023 07:34:02 +0000
+Received: by outflank-mailman (input) for mailman id 615239;
+ Wed, 11 Oct 2023 07:34:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uJaT=FZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qqTjE-0005qq-QQ
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 07:34:00 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a2aca85-6808-11ee-98d4-6d05b1d4d9a1;
+ Wed, 11 Oct 2023 09:33:59 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id CCCC54EE0743;
+ Wed, 11 Oct 2023 09:33:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yACvoybEooIoe9Knzy0LETJdUtunrQcQcE4UnsGvy6s=; b=VYHU6QiGBzYZhp8wtmX6d0f6EV
-	JFMdG0agdQDlX+7xsK++Qct2IR58+Sa252jwy+DkmqqDUWbw+acdbicmbinlSkjUaj1X7jjBt29uV
-	eZoVo0QV1Me5KV1KHDZK61u2Iv+BrIp/BUcKMnZ3JZB6N/Oc1GFC5S2yIILfJ8QR/7AQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183339-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8a2aca85-6808-11ee-98d4-6d05b1d4d9a1
 MIME-Version: 1.0
-Subject: [ovmf test] 183339: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=95c9f470ca6eab23bfd016bd438f932d7263d395
-X-Osstest-Versions-That:
-    ovmf=137f799aaed91e592700e0488067292495b7ea7e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 Oct 2023 07:08:44 +0000
-
-flight 183339 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183339/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 95c9f470ca6eab23bfd016bd438f932d7263d395
-baseline version:
- ovmf                 137f799aaed91e592700e0488067292495b7ea7e
-
-Last test of basis   183326  2023-10-09 08:42:21 Z    1 days
-Testing same since   183339  2023-10-11 05:10:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@amd.com>
-  Nhi Pham <nhi@os.amperecomputing.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Date: Wed, 11 Oct 2023 09:33:57 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
+ <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ consulting@bugseng.com, roger.pau@citrix.com, dfaggioli@suse.com
+Subject: Re: Rule 10.1 violations in perfc_incra and PERFCOUNTER_ARRAY
+In-Reply-To: <alpine.DEB.2.22.394.2310101515070.3431292@ubuntu-linux-20-04-desktop>
+References: <5cfaaaceb163af3244981b020ed55f3f@bugseng.com>
+ <alpine.DEB.2.22.394.2310091838510.3431292@ubuntu-linux-20-04-desktop>
+ <771624f5199fe76ce266a00d0c649428@bugseng.com>
+ <alpine.DEB.2.22.394.2310101515070.3431292@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <6a909c948a7faa3fe1ec2069e5dc649d@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>> > > 3. use an unnamed enum, effectively considering the enumerated values as
+>> > > plain
+>> > > integers.
+>> > >    This does not violate the Rule.
+>> >
+>> > What do you mean by unname enum?
+>> 
+>> e.g.
+>> 
+>> enum {
+>> #include <xen/perfc_defn.h>
+>> 	NUM_PERFCOUNTERS
+>> };
+>> 
+>> instead of
+>> 
+>> enum perfcounter {
+>> #include <xen/perfc_defn.h>
+>> 	NUM_PERFCOUNTERS
+>> };
+> 
+> 
+> I think this should be easy to do in this case. I gave it a quick try
+> and it seems to still build successfully. It could be the best way
+> forward for this instance.
+> 
+> 
+> However in general I am confused why unnamed enum can do comparisons
+> between members and named enums cannot. What is the reason? In any 
+> case,
+> I think we should clarify this detail in the notes section of
+> docs/misra/rules.rst, because I don't think it was clear to anyone that
+> there is a difference in behavior between named and unnamed enums.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+MISRA regards unnamed enums as nothing more than bags of constants that 
+may or may not
+be related. Such enumeration constants always have a signed essential 
+type and also the
+anonymous enum type cannot be used, for instance, in the definition of 
+new types, as
+opposed to a named "enum x {}" that introduces an essential type 
+"enum<x>".
+I'll send a patch and document the difference.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   137f799aae..95c9f470ca  95c9f470ca6eab23bfd016bd438f932d7263d395 -> xen-tested-master
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
