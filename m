@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A467A7C491F
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 07:15:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615053.956491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951917C4B05
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 08:55:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615219.956502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqRXt-0002g8-Cq; Wed, 11 Oct 2023 05:14:09 +0000
+	id 1qqT71-0007L7-DD; Wed, 11 Oct 2023 06:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615053.956491; Wed, 11 Oct 2023 05:14:09 +0000
+Received: by outflank-mailman (output) from mailman id 615219.956502; Wed, 11 Oct 2023 06:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqRXt-0002e1-9a; Wed, 11 Oct 2023 05:14:09 +0000
-Received: by outflank-mailman (input) for mailman id 615053;
- Tue, 10 Oct 2023 13:22:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qqT71-0007Hl-AA; Wed, 11 Oct 2023 06:54:31 +0000
+Received: by outflank-mailman (input) for mailman id 615219;
+ Wed, 11 Oct 2023 06:54:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oemd=FY=linaro.org=bill.mills@srs-se1.protection.inumbo.net>)
- id 1qqCgr-00073B-QB
- for xen-devel@lists.xenproject.org; Tue, 10 Oct 2023 13:22:25 +0000
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [2607:f8b0:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c3c562d-6770-11ee-98d3-6d05b1d4d9a1;
- Tue, 10 Oct 2023 15:22:24 +0200 (CEST)
-Received: by mail-oi1-x229.google.com with SMTP id
- 5614622812f47-3ae55c2e12bso4102941b6e.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 06:22:24 -0700 (PDT)
-Received: from [192.168.2.7] (pool-108-31-156-225.washdc.fios.verizon.net.
- [108.31.156.225]) by smtp.gmail.com with ESMTPSA id
- r5-20020ac85205000000b004181aa90b46sm4492961qtn.89.2023.10.10.06.22.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Oct 2023 06:22:22 -0700 (PDT)
+ <SRS0=BiMa=FZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1qqT6z-0007Hd-Ta
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 06:54:30 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 04091429-6803-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 08:54:25 +0200 (CEST)
+Received: from SJ0PR03CA0255.namprd03.prod.outlook.com (2603:10b6:a03:3a0::20)
+ by CY5PR12MB6550.namprd12.prod.outlook.com (2603:10b6:930:42::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.37; Wed, 11 Oct
+ 2023 06:54:22 +0000
+Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::a6) by SJ0PR03CA0255.outlook.office365.com
+ (2603:10b6:a03:3a0::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.41 via Frontend
+ Transport; Wed, 11 Oct 2023 06:54:22 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6838.22 via Frontend Transport; Wed, 11 Oct 2023 06:54:21 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 11 Oct
+ 2023 01:54:20 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 11 Oct
+ 2023 01:54:20 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Wed, 11 Oct 2023 01:54:19 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +63,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c3c562d-6770-11ee-98d3-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696944143; x=1697548943; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kFYaphee/OWYJ27akU61ySL2pcyi+L0fBa4hg4/3zoY=;
-        b=c1igc+MBwY+ZeIgdnNdAKPPgcxB4GRg5Xk8bMFV1TzEMGbJgE+IXH5SGAhd3ItQikx
-         nNYT5oGRTVaysCErHXSmElZF3H1YiQ8Rz/cdWA/7DqsW60Ph+7ZN43dex1eNL83xPx42
-         9R5leJ9qGAtbI/my71JfRAN+dFs4RzaPBXgQf2oCUJqTkb4wwLZCLGYw+LAf213oAzVZ
-         Yn+6hMMvebCTWI53r00BtP+N5yT/EKvWIJv/f+fy416ojvRCVu5MQMAwwpkHvE1SsOfo
-         8QIPMbiF6S7/znYSkZYtv//IwNFgh7jMRRDokfcGUsD9+VfdKECe0T2bSsrL2GUdOvdd
-         YmFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696944143; x=1697548943;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kFYaphee/OWYJ27akU61ySL2pcyi+L0fBa4hg4/3zoY=;
-        b=GcQUOt8AWISUBmMRn/+9ykZifIwULerOrRx7CP/0iPLlxYHzu+38j3GrPDz7qMk0hB
-         OwTn4Xf0Wk7eGipv4vnWathXuR5P86f3BYF6j0O1q5b7kPSX/PsmqVzFRVUKfdd4q4k+
-         fCQR8E3at7zdEftWgQv/YQOwHNan1E5oepY1mOpARSN2RhOsCCrf85jacEOLE/+DRHLL
-         soAqYL8upWeiM4fVFBFM695yPx81XgjIMbWJY7rioqTtUNgGpQYkgljtO+Lu/0HoyKR9
-         aTAPdFV9y3OnLTrKQVmlw3KSBlP6fZHGcfrwq+1adr88KIDHpZ7cuqZypvR3R2EZLdN3
-         5qxg==
-X-Gm-Message-State: AOJu0YxwYfgYq2SERGoqiBGyDWbc1Gjx6Js9tNhJJLIrCFia9+1Wvw+X
-	Xn/RtfskwFwnV1wwWq0WiwInnQ==
-X-Google-Smtp-Source: AGHT+IGt5DfbIAyyFbvDL1031BwHE+134NWp0GPw9ZXRVvuTrzv7JENSrRl2NlkoylidPQmariFEOw==
-X-Received: by 2002:aca:1c18:0:b0:3ae:5c89:dcc2 with SMTP id c24-20020aca1c18000000b003ae5c89dcc2mr19889308oic.34.1696944142863;
-        Tue, 10 Oct 2023 06:22:22 -0700 (PDT)
-Message-ID: <920a671c-1927-4086-950f-db8e3293a989@linaro.org>
-Date: Tue, 10 Oct 2023 09:22:21 -0400
+X-Inumbo-ID: 04091429-6803-11ee-9b0d-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Jz2hobgeXMtJhgpIaKO2JVLxwV9aDcCEnjZnb2QyGUkp1QqxuqyKH+7dv925kgs7/37QAhrRJ6ySZH4D4picUMENrKs3GPmg98Z7Bb/z7b3WtCk2YV+MLy63vJsE/07sQsMMXwlpu942U3EimYIq0KqFITQEKvoI+jb4ZXJNbEramHvAWwNnnF+iwywA8kaEGCAuT/3gt+izXhrqzX84/1ocPuypOrD7ig/wT7ldKQ4mZ+IaEWYmsjyeVpTrQo0/tbd48ctjr7u16mh+yk3YxQ4cuYsgZpw+dWdHMXL4nXVS8zmDJSYHWHFuP94Q4c2OztRvf3iaj7BuulLFHygOcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pP0Hy1gwjMcPU/hEs2ED01hHsHpiu72y//2bD4YicHI=;
+ b=gLXAoBAGcxMOGlCsDeDs6Rkg1FgBhbiSq/UqRyYAyeRfHGQQAPgkj3JzYxLb/sAkwuG6jsi16Dy/itX4dPFDlhrLgOyKyroZpEJCuHeza5U9dTaaXs1SKRlTL+IW2JvK1Sh6HM2WJqHFmoWyhVRSMDQPd93tahD1LOHGHeTiQIEzX+GNHoZTFhMyNzggaZTPQjjN/SRVkixzmRjs2bnB+PlKITDXWLamN2KEsKqJxT+Wmvb4eYI+q4skPSTIOp/Rps2SgYoRLhRL2VYqKZgBxLOpiQWWtPWVQ83br/w69X+ffYP5hyKmAi/bm/kS7xf936thtKmV3V0vyk6NCyq5Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pP0Hy1gwjMcPU/hEs2ED01hHsHpiu72y//2bD4YicHI=;
+ b=nJcpd1FXmesmSZ2q9jw7oSq2bjyJpbJ58dc8RoKZQ/33uG88eY83vsn6w9J69VPI9QKbP6wP1JK9hcwbLI0rvsP+yUDDRkjQqyGSpNV0X0a4QBGFLgrhvyn1IT6NLOQiX6PBgfYZB3PX7iERbopR9+z5lM1QSHrSeDXhAopDFpI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <75bb3d92-af1c-4165-8ebd-1c17590361cb@amd.com>
+Date: Wed, 11 Oct 2023 08:54:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Stratos-dev] [PATCH V3 2/2] xen: privcmd: Add support for
- ioeventfd
+Subject: Re: [PATCH] xen/arm: Validate generic timer frequency
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Henry Wang <Henry.Wang@arm.com>
+References: <20230928123435.2802-1-michal.orzel@amd.com>
+ <d406c4c6-07f7-442f-8bef-8ba42308ae93@xen.org>
+ <4894d46e-97ab-434f-b637-d516db6564ea@xen.org>
 Content-Language: en-US
-To: Viresh Kumar <viresh.kumar@linaro.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: stratos-dev@op-lists.linaro.org,
- Erik Schilling <erik.schilling@linaro.org>,
- Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <cover.1696850733.git.viresh.kumar@linaro.org>
- <957de2a53dde99a653b47af9c95bc17692870294.1696850733.git.viresh.kumar@linaro.org>
-From: Bill Mills <bill.mills@linaro.org>
-In-Reply-To: <957de2a53dde99a653b47af9c95bc17692870294.1696850733.git.viresh.kumar@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <4894d46e-97ab-434f-b637-d516db6564ea@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|CY5PR12MB6550:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fa4f18c-0973-4076-63b5-08dbca26e5b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vOKQ0CK47o2DODqAjf4jHrAhypNYqMipoD9owPnDyD3pik5cGlNN3t9wEEb4jGMgyYGdVhW9vvIp+17h6Obx99HamH9LZouz2LByK6U47q/XOouZdGq8VFDVYvpGkD4M+Il/S3D4iRuXlwQsUshHia71l4GLo6Wki1wVywHHDsawAjOdV0Qx3usPjwY4fqGgF53G9odYCFZZs1+uYsLXVqWkvTXcsfXSNcHgP5oKRgRQY2T9+pMqoeK6riCH5xajxdngPC4C7m7MnDqg9iYTsgIiH8bMNHYTpoTdTHvwMFr9EJXhx6V4ASoSlNhdMn4sBHAoEuXqIifaIB37nmsusv80qVMlxygH2XGWuDV39tMjwuuAEhwEJX4V6b4GIQMr1P2vpO4/gCxaJYQrV+vN6Id6F2hE5MA+zzmZpKLgPz5E+G8ybiSAstejCclH2Y8J8f5F94MWpiRA7enwE853j0r7vl6bzXFVdlYf75I1k+t/1lkuA8fVQkQcttp+NhX0DsQ2Tpaskx3Mf1SW63zXY28ACPryh1HmKjJNSiF3Yqm6Oby0tFlydluwd9/5dlI9+jlwyNXFbN4h+fxoEeU1WoEUCadt0ayzamrTqIQKYDWDJ4rTO+MCqwii3RgWdBDPGE91Eg63iF6LWjUMQOSPokpzzI2SV72PRfn2ZpYamHrzmPbClXMDdDQmMP3ehzu8zXOWcKGixVjC7Hz7XG0LFhRLgGYRUsZuAO9zHmTWXJ2TObn2vmvvsiuxljgtf9uU2pUtu44b+Ps/n4sGpJkTsE9frOgLb+239MeIuAfWyMONnOFvhnh3pO2EpajOsO6uG3W4SfhEvSIxO3EVj3AtlQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(230922051799003)(451199024)(82310400011)(186009)(1800799009)(64100799003)(36840700001)(46966006)(40470700004)(82740400003)(53546011)(2616005)(426003)(478600001)(15650500001)(336012)(31696002)(47076005)(2906002)(70206006)(8676002)(16576012)(5660300002)(110136005)(70586007)(54906003)(4326008)(8936002)(83380400001)(26005)(40460700003)(36860700001)(44832011)(356005)(36756003)(86362001)(40480700001)(316002)(81166007)(41300700001)(6666004)(31686004)(41533002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2023 06:54:21.3219
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fa4f18c-0973-4076-63b5-08dbca26e5b7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000044F2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6550
 
-Hi Viresh,
+Hi Julien, Henry,
 
-On 10/9/23 7:29 AM, Viresh Kumar via Stratos-dev wrote:
-> Virtio guests send VIRTIO_MMIO_QUEUE_NOTIFY notification when they need
-> to notify the backend of an update to the status of the virtqueue. The
-> backend or another entity, polls the MMIO address for updates to know
-> when the notification is sent.
+On 10/10/2023 16:48, Julien Grall wrote:
 > 
-> It works well if the backend does this polling by itself. But as we move
-> towards generic backend implementations, we end up implementing this in
-> a separate user-space program.
 > 
-> Generally, the Virtio backends are implemented to work with the Eventfd
-> based mechanism. In order to make such backends work with Xen, another
-> software layer needs to do the polling and send an event via eventfd to
-> the backend once the notification from guest is received. This results
-> in an extra context switch.
+> (+ Henry)
 > 
-> This is not a new problem in Linux though. It is present with other
-> hypervisors like KVM, etc. as well. The generic solution implemented in
-> the kernel for them is to provide an IOCTL call to pass the address to
-> poll and eventfd, which lets the kernel take care of polling and raise
-> an event on the eventfd, instead of handling this in user space (which
-> involves an extra context switch).
+> Hi Michal,
 > 
-> This patch adds similar support for xen.
+> On 29/09/2023 08:38, Julien Grall wrote:
+>> Hi Michal,
+>>
+>> On 28/09/2023 13:34, Michal Orzel wrote:
+>>> Generic timer dt node property "clock-frequency" (refer Linux dt binding
+>>> Documentation/devicetree/bindings/timer/arm,arch_timer.yaml) is used to
+>>> override the incorrect value set by firmware in CNTFRQ_EL0. If the value
+>>> of this property is 0 (i.e. by mistake), Xen would continue to work and
+>>> use the value from the sysreg instead. The logic is thus incorrect and
+>>> results in inconsistency when creating timer node for domUs:
+>>>   - libxl domUs: clock_frequency member of struct xen_arch_domainconfig
+>>>     is set to 0 and libxl ignores setting the "clock-frequency" property,
+>>>   - dom0less domUs: "clock-frequency" property is taken from dt_host and
+>>>     thus set to 0.
+>>>
+>>> Property "clock-frequency" is used to override the value from sysreg,
+>>> so if it is also invalid, there is nothing we can do and we shall panic
+>>> to let user know about incorrect setting. Going even further, we operate
+>>> under assumption that the frequency must be at least 1KHz (i.e. cpu_khz
+>>> not 0) in order for Xen to boot. Therefore, introduce a new helper
+>>> validate_timer_frequency() to verify this assumption and use it to check
+>>> the frequency obtained either from dt property or from sysreg.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>
+>> Acked-by: Julien Grall <jgrall@amazon.com>
 > 
-> Inspired by existing implementations for KVM, etc..
-> 
-> This also copies ioreq.h header file (only struct ioreq and related
-> macros) from Xen's source tree (Top commit 5d84f07fe6bf ("xen/pci: drop
-> remaining uses of bool_t")).
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->   drivers/xen/Kconfig               |   8 +-
->   drivers/xen/privcmd.c             | 405 +++++++++++++++++++++++++++++-
->   include/uapi/xen/privcmd.h        |  18 ++
->   include/xen/interface/hvm/ioreq.h |  51 ++++
->   4 files changed, 476 insertions(+), 6 deletions(-)
->   create mode 100644 include/xen/interface/hvm/ioreq.h
-> 
-> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-> index d43153fec18e..d5989871dd5d 100644
-> --- a/drivers/xen/Kconfig
-> +++ b/drivers/xen/Kconfig
-> @@ -269,12 +269,12 @@ config XEN_PRIVCMD
->   	  disaggregated Xen setups this driver might be needed for other
->   	  domains, too.
->   
-> -config XEN_PRIVCMD_IRQFD
-> -	bool "Xen irqfd support"
-> +config XEN_PRIVCMD_EVENTFD
-> +	bool "Xen Ioeventfd and irqfd support"
+> Going through the list of pending patches, I noticed Henry wasn't CCed.
+> Is this patch intended for Xen 4.18? If so, can you provide some
+> reasoning why would want it?
+Strictly speaking, lack of "for-4.18" prefix indicates that I did not particularly aim for 4.18.
+However, I find it useful, so I will leave it up to Henry to decide if we want that or not.
 
-You certainly know about kernel policies better than I but why the 
-CONGIG_ name change?
+Benefits:
+- fixes the invalid logic the consequence of which might result in inconsistency when booting
+  the same OS as libxl domU and dom0less domU.
+- prevents spreading out the error condition (i.e. rate < 1KHZ) that can lead to e.g. Xen inability to schedule,
+  by panicing with proper msg
+Risks:
+- early init code, no critical path, in case of an error, panic returned with proper msg - no risks AFAICT
 
-With this change all downstream distros need to find this and re-enable 
-it if they want to keep a working Xen system.
-
-I presume the kernel can still work in the old way and not use your new 
-mode correct?
-
-I would certainly change the description but I wonder about keeping the 
-CONFIG_ name the same.
-
-No issue if I am obviously wrong and this is done all the time.
-
-Thanks,
-Bill
+~Michal
 
