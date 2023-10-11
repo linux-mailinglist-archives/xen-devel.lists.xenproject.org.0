@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BFF7C4F26
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 11:37:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615431.956640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE247C4F54
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 11:46:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615438.956651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqVdp-000689-1D; Wed, 11 Oct 2023 09:36:33 +0000
+	id 1qqVmc-0000Fc-U2; Wed, 11 Oct 2023 09:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615431.956640; Wed, 11 Oct 2023 09:36:33 +0000
+Received: by outflank-mailman (output) from mailman id 615438.956651; Wed, 11 Oct 2023 09:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqVdo-00065d-Ua; Wed, 11 Oct 2023 09:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 615431;
- Wed, 11 Oct 2023 09:36:32 +0000
+	id 1qqVmc-0000Cy-RS; Wed, 11 Oct 2023 09:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 615438;
+ Wed, 11 Oct 2023 09:45:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqVdo-00065T-DB; Wed, 11 Oct 2023 09:36:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qqVmb-0000Cq-4f
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 09:45:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqVdo-0007V1-AL; Wed, 11 Oct 2023 09:36:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqVdo-0003o0-0R; Wed, 11 Oct 2023 09:36:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qqVdn-0002qS-V4; Wed, 11 Oct 2023 09:36:31 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qqVmZ-0007hi-PH; Wed, 11 Oct 2023 09:45:35 +0000
+Received: from [15.248.2.150] (helo=[10.24.67.30])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qqVmZ-0004wB-FZ; Wed, 11 Oct 2023 09:45:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,276 +39,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rIwCOA0pJI3AE5S/yng7Fhg3Ot4pIJcENh/0G+CrS2c=; b=XLTfEt/1IRboE4HojYlpCZBE+c
-	ETaDwmFCBBwNG+rrKOcAM/7GBe/tLGgILXUDjh6oAkEfoJsLV6xxDfg8/E/qTPQtByIVCgCv3NkrP
-	WP7HneLUh2A7qyD3MEwJPrzPQP4hRc+0xkzz5609o+Nq5MrYuIEIozlm+2u/zBPmI5P4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183334-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KqkX7hNFU1cPH+MlhfSSscJDa+ihYFBMCxDs64JFw10=; b=HJIxkXdjbvPB+lPlo3emT6gWq2
+	CeLb/BZEVX+eex9ByCLdBke4vtZOda0xCb6WKyWIk6ShSP++14pktnrCjr6lz2Gt8BDD9SygFjI3x
+	WOJhjvhT06+JYeUBDxUvCIbv3hAwufN6wQvdKZK6WYYbwKty/DCFqvUa0Dh/cz5iucQQ=;
+Message-ID: <80f4df2b-a8b2-4494-94e0-47de55c01597@xen.org>
+Date: Wed, 11 Oct 2023 10:45:32 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 183334: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-arm64-libvirt:libvirt-build:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=1c8b86a3799f7e5be903c3f49fcdaee29fd385b5
-X-Osstest-Versions-That:
-    linux=94f6f0550c625fab1f373bb86a6669b45e9748b3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 Oct 2023 09:36:31 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen: Add SAF deviations for MISRA C:2012 Rule 7.1
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "michal.orzel@amd.com" <michal.orzel@amd.com>,
+ "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Henry Wang <Henry.Wang@arm.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <338d8e574db943a86c7605e4c6d9a299d45f067d.1696347345.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310031345190.2348112@ubuntu-linux-20-04-desktop>
+ <e1736215-52ba-4737-9da3-8f1ba7e832a6@citrix.com>
+ <DB96C095-5FAF-40A1-9CA8-002291AA1933@arm.com>
+ <2894008e8f612296da84267346ae4240@bugseng.com>
+ <B00BC78B-E707-4043-A0B4-D320C6717472@arm.com>
+ <alpine.DEB.2.22.394.2310041625170.2348112@ubuntu-linux-20-04-desktop>
+ <9DD525D9-DB6D-4888-9266-FB45906A0E0F@arm.com>
+ <alpine.DEB.2.22.394.2310051756360.2348112@ubuntu-linux-20-04-desktop>
+ <C2DDFAB5-D943-4A24-9C14-AF35BE2A7C90@arm.com>
+ <alpine.DEB.2.22.394.2310061741130.3431292@ubuntu-linux-20-04-desktop>
+ <1ceb5aa0-d374-4357-964f-1341468d542e@xen.org>
+ <alpine.DEB.2.22.394.2310091251080.3431292@ubuntu-linux-20-04-desktop>
+ <8c3d7933-c139-49dd-8c62-2d4543176f8f@xen.org>
+ <alpine.DEB.2.22.394.2310101635280.3431292@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2310101635280.3431292@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 183334 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183334/
+Hi Stefano,
 
-Regressions :-(
+On 11/10/2023 00:39, Stefano Stabellini wrote:
+> On Tue, 10 Oct 2023, Julien Grall wrote:
+>> Hi Stefano,
+>>
+>> On 09/10/2023 23:19, Stefano Stabellini wrote:
+>>>>
+>>>> I am not sure this is better. This is a long line to read. But this is a
+>>>> personal opinion.
+>>>>
+>>>> On the technical side, can we easily teach a tool to format this kind of
+>>>> exception? If not, then this should not be an exception we should
+>>>> implement.
+>>>
+>>> I am not sure I understand what you mean by "can we easily teach a tool
+>>> to format this kind of exception". Do you mean whether we can teach a
+>>> tool to interpret a multiline statement as a single statement?
+>>
+>> Sorry for the wording was not clear. I was referring to tools formatting the
+>> code (e.g. clang-format). Hopefully, at some point, we will finally have a way
+>> to automatically format the code. So we need a coding style that can be easily
+>> be checked.
+>>
+>> It is not clear to me whether your proposed exception would work. We may have
+>> to allow longer lines (and this has drawback).
+> 
+> Yes, that's a good point. It will probably be an issue with clang-format.
+> 
+> 
+>>> /* cppcheck tag */
+>>> line1
+>>> /* cppcheck tag */
+>>> line2
+>>> /* cppcheck tag */
+>>> line3
+>>>
+>>> and that would end up changing the line numbers in the source files so
+>>> the cppcheck report wouldn't match with the original line numbers any
+>>> longer
+>>
+>> Would cppcheck accepts tag at the end of the line? If so, the following would
+>> not modify the line count:
+>>
+>> /* cppcheck tag */
+>> line1 /* added cppcheck tag */
+>> line2 /* added cppcheck tag */
+>> line3 /* added cppcheck tag */
+> 
+> Luca answered to a similar, more generic, question a few days ago about
+> Coverity: https://marc.info/?l=xen-devel&m=169657904027210
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 183322
+Interesting.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 183322
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183322
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183322
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183322
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183322
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183322
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183322
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183322
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+> 
+> So even if we get cppcheck to work like that, we would lose Coverity
+> support.
 
-version targeted for testing:
- linux                1c8b86a3799f7e5be903c3f49fcdaee29fd385b5
-baseline version:
- linux                94f6f0550c625fab1f373bb86a6669b45e9748b3
+I think my suggestion was probably misunderstood. So let me clarify it. 
+To cover multi-line, we could write the following in Xen:
 
-Last test of basis   183322  2023-10-09 01:11:16 Z    2 days
-Testing same since   183334  2023-10-10 19:11:59 Z    0 days    1 attempts
+/* cppcheck tag next-3-lines */
+line 1
+line 2
+line 3
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Bee <knaerzche@gmail.com>
-  Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-  Antoine Gennart <gennartan@disroot.org>
-  Anup Patel <apatel@ventanamicro.com>
-  Balamurugan C <balamurugan.c@intel.com>
-  Bard Liao <yung-chuan.liao@linux.intel.com>
-  Ben Wolsieffer <ben.wolsieffer@hefring.com>
-  Biju Das <biju.das.jz@bp.renesas.com>
-  Christos Skevis <xristos.thes@gmail.com>
-  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-  Conor Dooley <conor.dooley@microchip.com>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Fabio Estevam <festevam@denx.de>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Juergen Gross <jgross@suse.com>
-  Kailang Yang <kailang@realtek.com>
-  Konrad Dybcio <konrad.dybcio@linaro.org>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Lorenzo Pieralisi <lpieralisi@kernel.org>
-  Marc Zyngier <maz@kernel.org>
-  Mark Brown <broonie@kernel.org>
-  Mathias Krause <minipli@grsecurity.net>
-  Matthias Reichl <hias@horus.com>
-  Miquel Raynal <miquel.raynal@bootlin.com>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  Olaf Hering <olaf@aepfle.de>
-  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-  Saurabh Sengar <ssengar@linux.microsoft.com>
-  Shengjiu Wang <shengjiu.wang@nxp.com>
-  Shradha Gupta <shradhagupta@linux.microsoft.com>
-  Stefan Binding <sbinding@opensource.cirrus.com>
-  Sumit Garg <sumit.garg@linaro.org>
-  Sven Frotscher <sven.frotscher@gmail.com>
-  Takashi Iwai <tiwai@suse.de>
-  Thomas Gleixner <tglx@linutronix.de>
-  Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-  Wei Liu <wei.liu@kernel.org>
-  WhaleChang <whalechang@google.com>
-  Zhang Shurong <zhang_shurong@foxmail.com>
+AFAIU Eclair supports multi-line, so the tag would be transformed to 
+there internal solution. For CPPCheck, this could be transformed to:
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+/* cppcheck tag next-3 lines */
+line 1 /* generated cppcheck tag */
+line 2 /* generated cppcheck tag */
+line 3 /* generated cppcheck tag */
 
+Now, I understand that coverity doesn't support any of the two format. 
+So the only solution would be to add the comment before each line which 
+would impact the line numbers. This is not great, but I think this is 
+acceptable as the context would likely help to find where this is coming 
+from.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Cheers,
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1271 lines long.)
+-- 
+Julien Grall
 
