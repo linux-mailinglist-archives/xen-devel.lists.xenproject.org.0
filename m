@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CBCE7C56E5
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 16:32:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615529.956821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07C3F7C57A1
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 17:00:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615535.956830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqaFN-0008KC-Cf; Wed, 11 Oct 2023 14:31:37 +0000
+	id 1qqahE-0006xa-Kn; Wed, 11 Oct 2023 15:00:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615529.956821; Wed, 11 Oct 2023 14:31:37 +0000
+Received: by outflank-mailman (output) from mailman id 615535.956830; Wed, 11 Oct 2023 15:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqaFN-0008Gy-9a; Wed, 11 Oct 2023 14:31:37 +0000
-Received: by outflank-mailman (input) for mailman id 615529;
- Wed, 11 Oct 2023 14:31:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qqahE-0006vl-HU; Wed, 11 Oct 2023 15:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 615535;
+ Wed, 11 Oct 2023 15:00:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LxTT=FZ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qqaFM-0008Gs-2p
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 14:31:36 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0e0ea12-6842-11ee-98d4-6d05b1d4d9a1;
- Wed, 11 Oct 2023 16:31:34 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2c3ca6ff5a7so59162961fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 07:31:34 -0700 (PDT)
-Received: from [192.168.201.133] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- c16-20020a05651c015000b002c129687a0dsm2987067ljd.24.2023.10.11.07.31.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Oct 2023 07:31:33 -0700 (PDT)
+ <SRS0=uJaT=FZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qqahD-0006vM-EQ
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 15:00:23 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5c06a26-6846-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 17:00:20 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id DB1294EE0744;
+ Wed, 11 Oct 2023 17:00:19 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e0ea12-6842-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697034694; x=1697639494; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Uy+cQGevffhSCu1fHZjFWwnYU61VIhdWG/60Aet6oMA=;
-        b=GDNyLWEPNvz1aJFUUjBfin925h3a1eV81vuhPcFtqqsTEmPXAQeYeFQXtoU63HycFO
-         Dgp7eNIiPFqrKjl/qjTuueevZ4tfxdRRfEl9HhFr0sRIIfqlP5eZrDGfbATNGhnEvh7d
-         Mu9KSbThFBcw1McHNLWiHwsuDMVB9r4dTIBITJ5grGWhtfbRBbHk7qMEesH9y4eS1mN7
-         uFZEH17zIgoQfiVOUspQ1vIg/2jaldKnxnQCgJ/ldQRb0uxdc49NBjKQHva4HIuwQndu
-         RJltJCAaR4+Dti225ylH+XUQexfx34GIrGdCopaWYPwN0G85YFlFP81Q73/36isjVcce
-         0yHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697034694; x=1697639494;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Uy+cQGevffhSCu1fHZjFWwnYU61VIhdWG/60Aet6oMA=;
-        b=Obp62yH69E6yX9zD05bdXnOzyDh+dJpUwno5WwGcCoghBiuZJm34PTt50e5QeqYArR
-         dRfCHjlNVKJxqkE6+5LwfwQACwh2zQKMnIOqBnla3bgVy5nWE6oxHiWNR36GqCibG6p+
-         w6R01PKlYi6MvXHkdo7bpCG7rtBbqERjT0CZCR5CtKumVrhPxVb7fYpe9xNrp5utp5Ep
-         92c3aRnNKALW8t4ORdsIzNAqQs0Z9kYLOUZYM/l/8DDWEkzdQ4DlOUxujQPx3W66dHfU
-         RhsUSfRrN2T012gWzlWr58mV4Tg5tbomdIX82R9/8OHhP3AwlaKvjgoghed/L4WROO5R
-         E2Rg==
-X-Gm-Message-State: AOJu0YxkzLL2tWiziF2IpoP+BtWcyTSs/IEaTWLzElxYLNh5wJnFTKA6
-	/dHt4/5XM2NuuKWYbnuXZAw=
-X-Google-Smtp-Source: AGHT+IEvAHKd2KB5e4BMk9CReso47upR5We5yviZEr+la92H21ZeP52nWJ6flFi2FP2OHmi68AlDGw==
-X-Received: by 2002:a2e:985a:0:b0:2bc:dcc2:b186 with SMTP id e26-20020a2e985a000000b002bcdcc2b186mr17361878ljj.36.1697034693680;
-        Wed, 11 Oct 2023 07:31:33 -0700 (PDT)
-Message-ID: <678f854879fdebe458dfed4fc3d587a34d159927.camel@gmail.com>
-Subject: Re: [PATCH for-4.18 v5] xen/pdx: Make CONFIG_PDX_COMPRESSION a
- common Kconfig option
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>, Julien Grall
- <jgrall@amazon.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>,  Shawn Anastasio
- <sanastasio@raptorengineering.com>, Henry Wang <Henry.Wang@arm.com>, George
- Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien
- Grall <julien@xen.org>
-Date: Wed, 11 Oct 2023 17:31:32 +0300
-In-Reply-To: <a2ed825d-2bdf-46a5-a1d4-b43a84ad43a5@citrix.com>
-References: <20231006144405.1078260-1-andrew.cooper3@citrix.com>
-	 <45df1c3a44fcd4ebf87a30ada34141d6ebd9ccab.camel@gmail.com>
-	 <a2ed825d-2bdf-46a5-a1d4-b43a84ad43a5@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+X-Inumbo-ID: e5c06a26-6846-11ee-9b0d-b553b5be7939
 MIME-Version: 1.0
+Date: Wed, 11 Oct 2023 17:00:19 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, George
+ Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Henry.Wang@arm.com
+Subject: Re: [XEN PATCH][for-4.19 v2 2/2] docs/misra: add deviations.rst to
+ document additional deviations.
+In-Reply-To: <781c9b5c-1301-4a23-8c13-fba62c844b03@xen.org>
+References: <cover.1696865051.git.nicola.vetrini@bugseng.com>
+ <ccda90b6be8f6977cff14ae65749ffc7fa429c3c.1696865051.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310091811190.3431292@ubuntu-linux-20-04-desktop>
+ <a5635fc5e51518c205d776ac8a9600ba@bugseng.com>
+ <alpine.DEB.2.22.394.2310101524080.3431292@ubuntu-linux-20-04-desktop>
+ <781c9b5c-1301-4a23-8c13-fba62c844b03@xen.org>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <186af6b6c1b34fc9088a5fb226ff2482@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2023-10-10 at 16:52 +0800, Andrew Cooper wrote:
-> On 10/10/2023 3:58 pm, Oleksii wrote:
-> > > Oleksii: I've not touched RISCV yet, because I don't know how the
-> > > platforms
-> > > typically look.=C2=A0 I'm happy to default it active in RISCV too if
-> > > that's the
-> > > right thing to do.
-> > We are still waiting for a platform with hypervisor extension
-> > support
-> > but I am using PDX in my Xen's repo.
->=20
-> Yes, but are you using that because Xen wouldn't build without it, or
-> because it's necessary for RISC-V platforms?
-You are right I am using it because before this patch Xen can't be
-built without PDX.
-This is not necessary for RISC-V. At least platform I know they don't
-use sparse RAM banks.
 
->=20
-> This patch fixes the problem where PDX had the illusion of being
-> necessary, but was actually mandatory.
->=20
-> ~Andrew
+>>>>> +
+>>>>> +   * - R2.1
+>>>>> +     - The compiler implementation guarantees that the unreachable 
+>>>>> code
+>>>>> is
+>>>>> +       removed. Constant expressions and unreachable branches of 
+>>>>> if and
+>>>>> switch
+>>>>> +       statements are expected.
+>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>> +
+>>>>> +   * - R2.1
+>>>>> +     - Some functions are intended not to be referenced.
+>>>>> +     - Tagged as `deliberate` for ECLAIR.
+>>>> 
+>>>> What does it mean "some functions" in this case? Should we list 
+>>>> which
+>>>> functions?
+>>>> 
+>>> 
+>>> Well, there are a lot, typically resulting from build configurations 
+>>> that do
+>>> not
+>>> use them, or because they are used only in asm code. I can mention 
+>>> these
+>>> reasons in the
+>>> document, to make it easier to understand.
+>> 
+>> Yes, I think we need to clarify further this point, because saying 
+>> "Some
+>> functions" doesn't help the reader understand:
+>> - whether all functions can be not referenced
+>> - which subset of functions can be not referenced
+>> 
+>> How to distinguish between? How do we know whether a certain patch is
+>> violating the rule or not?
+>> 
+>> If there is a clear list of functions that can be not referenced, then
+>> we should list them here. If there is a methodology we can use to
+>> distinguish between them (e.g. functions called from asm only) then we
+>> can write the methodology here. Either way it is fine as long as the
+>> criteria to know if it is OK if a function is not referenced is clear.
+> 
+> Aren't they more or less the one we tagged with SAF-1-safe because
+> there were no prototype? If so, we could use the same tags.
+> 
+> We could introduce an extra tags for the others. An alternative would
+> be to add an attribute (e.g. asmcall) to mark each function used by
+> assembly.
+> 
+> Cheers,
 
-~ Oleksii
+Both suggestion do have some value. As it is, it's not distinguishable 
+what causes a
+function to be unreferenced in a certain analysis config. However:
+
+- functions only used by asm code can be specified in the ECLAIR config 
+so that they will
+   have an extra fake reference as far as the checker is concerned. I can 
+do that on a
+   separate patch and list them in deviations.rst. An attribute seems a 
+good way to signal the
+   intention.
+- Functions that have no reference only in the current analysis should 
+have their declaration
+   #ifdef-ed out in the configurations where they are not used, in an 
+ideal world.
+- Truly unreferenced functions should be removed, or justified
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
