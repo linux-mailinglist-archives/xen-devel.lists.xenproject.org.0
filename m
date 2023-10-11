@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C04207C5234
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 13:35:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615455.956681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0C87C52D2
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 14:02:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615461.956691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqXUI-0006yG-JB; Wed, 11 Oct 2023 11:34:50 +0000
+	id 1qqXu4-0004Qh-Ow; Wed, 11 Oct 2023 12:01:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615455.956681; Wed, 11 Oct 2023 11:34:50 +0000
+Received: by outflank-mailman (output) from mailman id 615461.956691; Wed, 11 Oct 2023 12:01:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqXUI-0006wZ-FG; Wed, 11 Oct 2023 11:34:50 +0000
-Received: by outflank-mailman (input) for mailman id 615455;
- Wed, 11 Oct 2023 11:34:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0pcp=FZ=casper.srs.infradead.org=BATV+eeba7f64cef51ed8f8b7+7353+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qqXUG-0006wP-5X
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 11:34:49 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d44496d-682a-11ee-98d4-6d05b1d4d9a1;
- Wed, 11 Oct 2023 13:34:47 +0200 (CEST)
-Received: from [2001:8b0:10b:5:2db5:a8b2:de2d:f60d]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qqXTs-00AVuY-K4; Wed, 11 Oct 2023 11:34:24 +0000
+	id 1qqXu4-0004N2-LL; Wed, 11 Oct 2023 12:01:28 +0000
+Received: by outflank-mailman (input) for mailman id 615461;
+ Wed, 11 Oct 2023 12:01:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qqXu3-0004Mw-K2
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 12:01:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qqXu1-0003Db-OR; Wed, 11 Oct 2023 12:01:25 +0000
+Received: from [15.248.2.150] (helo=[10.24.67.30])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qqXu1-00025n-I5; Wed, 11 Oct 2023 12:01:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,206 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d44496d-682a-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:In-Reply-To:
-	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
-	Content-ID:Content-Description:References;
-	bh=f8B+mxfNayXzkgEgXQaWm5HvvwTooL47q1fv0wQwAsM=; b=PC5/+lll1suW0lUn2OywXWXO2C
-	4PA9iW5TzcNSLaqNJe5svptNVG4jQguplHLnznhQbpSXbRHBwkm+aM+TaeqV0japKYUjbwJJYOOtJ
-	XbuxCE2ROH9PWBa/6J8smdBJFGyIWet/QGUk9utLTDRn7S1FMhb5WAMdSJ9ZANRe0gEi2U9N0DbgO
-	fJ2ywtGsX6yQtWKilx+4+drh8hcDgVNbTPQCV1ZsKftwDMXQh5Vak25YSAep9epqLRyh7aEHE/z7d
-	2R1iSG4f7TCSOTboD9AzICqJsuBjwRTXWRqPdpYTGChSfu0k8vHorqYy1Oh1ZBCztB4McrjiV7Qzj
-	EIlBuxRA==;
-Message-ID: <b4e8835566bc6e9becc4f8adea7bb3c6cc558db2.camel@infradead.org>
-Subject: Re: [Xen-devel] [PATCH] x86/sm{e, a}p: do not enable SMEP/SMAP in
- PV shim by default on AMD
-From: David Woodhouse <dwmw2@infradead.org>
-To: andrew.cooper3@citrix.com
-Cc: George.Dunlap@eu.citrix.com, ian.jackson@eu.citrix.com, 
- igor.druzhinin@citrix.com, jbeulich@suse.com, julien@xen.org, 
- konrad.wilk@oracle.com, roger.pau@citrix.com, sstabellini@kernel.org,
- wl@xen.org,  xen-devel@lists.xenproject.org
-Date: Wed, 11 Oct 2023 12:34:22 +0100
-In-Reply-To: <40176a33-924e-8e81-7231-1b8df8b5e69f@citrix.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-8t49VxOnUfk1P0Zn2TUb"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=qqSP0ZTyDWrQsgxJ8GyxwYNDpNcZ6BVSzay1NGqucfc=; b=YUTsaQHf27wfDE9yEjHSDBizlQ
+	Am830N9rAgStFbvetylJLy5yC6WiOtDXHdryW/3lmb8D9nDgQ92qHp/xsFWtG3Dk4hm0iK01LTvCZ
+	fqFcXNgS1A8M3xu7P4UDp0gw/t2RTY6JQK7iRKRMEOSYaI37NLytD9m2VfHUeFgHMwFI=;
+Message-ID: <66ac185e-eace-4933-b48a-e2fe035fcb8b@xen.org>
+Date: Wed, 11 Oct 2023 13:01:22 +0100
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen: Add SAF deviations for MISRA C:2012 Rule 7.1
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "michal.orzel@amd.com" <michal.orzel@amd.com>,
+ "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Henry Wang <Henry.Wang@arm.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <338d8e574db943a86c7605e4c6d9a299d45f067d.1696347345.git.nicola.vetrini@bugseng.com>
+ <e1736215-52ba-4737-9da3-8f1ba7e832a6@citrix.com>
+ <DB96C095-5FAF-40A1-9CA8-002291AA1933@arm.com>
+ <2894008e8f612296da84267346ae4240@bugseng.com>
+ <B00BC78B-E707-4043-A0B4-D320C6717472@arm.com>
+ <alpine.DEB.2.22.394.2310041625170.2348112@ubuntu-linux-20-04-desktop>
+ <9DD525D9-DB6D-4888-9266-FB45906A0E0F@arm.com>
+ <alpine.DEB.2.22.394.2310051756360.2348112@ubuntu-linux-20-04-desktop>
+ <C2DDFAB5-D943-4A24-9C14-AF35BE2A7C90@arm.com>
+ <alpine.DEB.2.22.394.2310061741130.3431292@ubuntu-linux-20-04-desktop>
+ <1ceb5aa0-d374-4357-964f-1341468d542e@xen.org>
+ <alpine.DEB.2.22.394.2310091251080.3431292@ubuntu-linux-20-04-desktop>
+ <8c3d7933-c139-49dd-8c62-2d4543176f8f@xen.org>
+ <alpine.DEB.2.22.394.2310101635280.3431292@ubuntu-linux-20-04-desktop>
+ <80f4df2b-a8b2-4494-94e0-47de55c01597@xen.org>
+ <1766b5f3-490c-4bbe-902c-3970c28041a7@xen.org>
+ <6BB62AEF-FCE1-412C-87DD-479319623092@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <6BB62AEF-FCE1-412C-87DD-479319623092@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---=-8t49VxOnUfk1P0Zn2TUb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
->=20
-> On 16/01/2020 16:00, Igor Druzhinin wrote:
-> > Due to AMD and Hygon being unable to selectively trap CR4 bit modificat=
-ions
-> > running 32-bit PV guest inside PV shim comes with significant performan=
-ce
-> > hit. Moreover, for SMEP in particular every time CR4.SMEP changes on co=
-ntext
-> > switch to/from 32-bit PV guest, it gets trapped by L0 Xen which then
-> > tries to perform global TLB invalidation for PV shim domain. This usual=
-ly
-> > results in eventual hang of a PV shim with at least several vCPUs.
-> >
-> > Since the overall security risk is generally lower for shim Xen as it b=
-eing
-> > there more of a defense-in-depth mechanism, choose to disable SMEP/SMAP=
- in
-> > it by default on AMD and Hygon unless a user chose otherwise.
-> >
-> > Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> > ---
-> > I'm a little bit on the fence with this one. We're having the same issu=
-e with
-> > general nested virt but I'm not inclined to trade security for a user i=
-n
-> > general case. Disabling it by default for PV shim only seems rather ino=
-cuous
-> > due to the use case restricion. I'd like to hear more opinions.
->=20
-> So everyone on the list is up to date with the discussion we had IRL.
->=20
-> SMEP/SMAP are defence in depth measures.  We support running on hardware
-> without these features, and the overall result is the same, security wise=
-.
->=20
-> In the PV Shim case, there is only a single guest and nothing
-> interesting in Xen, data wise.  We specifically do not have the risk of
-> sideways data leakage from other guests to be worried about.
->=20
-> We do however care for performance, and not taking a VMExit on every
-> SYSCALL/Interrupt/Exception makes a massive difference overall.
+On 11/10/2023 11:53, Luca Fancellu wrote:
+> 
+>>>>
+>>>> Luca answered to a similar, more generic, question a few days ago about
+>>>> Coverity: https://marc.info/?l=xen-devel&m=169657904027210
+>>> Interesting.
+>>>>
+>>>> So even if we get cppcheck to work like that, we would lose Coverity
+>>>> support.
+>>> I think my suggestion was probably misunderstood. So let me clarify it. To cover multi-line, we could write the following in Xen:
+>>> /* cppcheck tag next-3-lines */
+>>> line 1
+>>> line 2
+>>> line 3
+>>> AFAIU Eclair supports multi-line, so the tag would be transformed to there internal solution. For CPPCheck, this could be transformed to:
+>>> /* cppcheck tag next-3 lines */
+>>> line 1 /* generated cppcheck tag */
+>>> line 2 /* generated cppcheck tag */
+>>> line 3 /* generated cppcheck tag */
+>>> Now, I understand that coverity doesn't support any of the two format. So the only solution would be to add the comment before each line which would impact the line numbers. This is not great, but I think this is acceptable as the context would likely help to find where this is coming from.
+>>
+>> Just to clarify, here I meant that for coverity, a script before the scan could convert to the multi-line version. So the line change only impact Coverity.
+> 
+> Hi Julien,
+> 
+> We’ve tried to avoid that because when the tool insert lines, the resultant report would give wrong lines numbers if any violation is reported after the
+> insertion points. So there will be a mismatch between the codebase and the report findings from some point on in the file.
 
-FWIW when running the shim under KVM even on Intel, constantly frobbing
-the CR4.SMEP bit still performs awfully.
+I know. Stefano already pointed that out. But as I wrote, I don't think 
+this is a big problem as it only affecte one tool (Coverity) and one 
+would still be able to find the exact place based on the context.
 
-(Yes, we should make KVM pass that bit through to its guest on Intel
-hardware, just as Xen does when it's the HVM host. cf.
-https://lore.kernel.org/kvm/7fba6d8fc3de0bcb86bf629a4f5b0217552fe999.camel@=
-infradead.org/T/#m39a117e90f29fc862b78ec1441b761459e7be86a
-)
+Cheers,
 
-But why does the shim even need to turn it off when switching to the
-guest context? Its guest isn't running in supervisor mode so surely it
-doesn't *matter* whether SMEP is enabled or not? Why not just leave it
-on at all times?
-
---=-8t49VxOnUfk1P0Zn2TUb
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDExMTEzNDIyWjAvBgkqhkiG9w0BCQQxIgQgYGaHB/RJ
-Xp7EHEW0iXVIORyCmlYoLRUBWaN8c9w2AUwwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAQnhrVmWntsgZDLEGazFLBXYBkMcwdktxG
-i2pH4EKIHvNmU79Ba9XERmGN2j/tKcGTHGImllPDZ2DjN9Sme57TGg6LRkPeaf40HHQWexGpInZt
-2OpQV+LCoQybfRJ7DG30kSS2wIaJm3vcZcWpm1rD4bJtT4o3b61r1CSCQwEO7H6uYwrSRElHmJRS
-mfXtzOrSEkc43EjKCF2uLpa8k0aheAOpxjwTnP6az4BMIDvb2COA32/LbIRmxVDgLf3NxQbi/U5E
-T/LDNU7LPJvFdYdDV5RKX4WR7PpclxoNfPhPKQKZT8tgpg8pvAmbDEVX3L0nViprYfa/DNXf4Xgk
-a2CpyhmGOtsxX3fHk3HbIfpUHs38is4Sg2GoSJCEmciTqriucADhjTxjUsYzTFO2mrM5/iMHiZ1m
-RTYPw+vI1D8FDm2vDFdN2adw9DFAarKrylAAOExMcDP2uYCDRxMt7h4eglNsolQoTK/mj6woYs5w
-gpu8aWv6g/bcL6sw9m0AmZi+o8ux3cr2XynriipGdk9W3u+1fXAKGpd24H7NzqJXidnsiw1sX6YV
-2qeylw3pnfYbaTeQn4rHMIGtulNWd90eBw7sZeb3d79Iz090ulobjpYU5HugQ9wOPb9HDTfcpl79
-IcPQzwJHQ1u10jmBXR+jceYEk+4tNmiPGSPg7LPhXAAAAAAAAA==
-
-
---=-8t49VxOnUfk1P0Zn2TUb--
+-- 
+Julien Grall
 
