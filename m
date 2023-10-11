@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E0C87C52D2
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 14:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615461.956691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88A6C7C53DA
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 14:26:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615466.956701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqXu4-0004Qh-Ow; Wed, 11 Oct 2023 12:01:28 +0000
+	id 1qqYHc-0000dN-Ly; Wed, 11 Oct 2023 12:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615461.956691; Wed, 11 Oct 2023 12:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 615466.956701; Wed, 11 Oct 2023 12:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqXu4-0004N2-LL; Wed, 11 Oct 2023 12:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 615461;
- Wed, 11 Oct 2023 12:01:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qqXu3-0004Mw-K2
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 12:01:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qqXu1-0003Db-OR; Wed, 11 Oct 2023 12:01:25 +0000
-Received: from [15.248.2.150] (helo=[10.24.67.30])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qqXu1-00025n-I5; Wed, 11 Oct 2023 12:01:25 +0000
+	id 1qqYHc-0000ab-IS; Wed, 11 Oct 2023 12:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 615466;
+ Wed, 11 Oct 2023 12:25:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6si3=FZ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1qqYHa-0000a2-NX
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 12:25:46 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c3d659c-6831-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 14:25:43 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3247cefa13aso6150593f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 05:25:43 -0700 (PDT)
+Received: from EMEAENGAAD19049.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ m15-20020adfe94f000000b0031984b370f2sm15346400wrn.47.2023.10.11.05.25.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Oct 2023 05:25:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,90 +46,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=qqSP0ZTyDWrQsgxJ8GyxwYNDpNcZ6BVSzay1NGqucfc=; b=YUTsaQHf27wfDE9yEjHSDBizlQ
-	Am830N9rAgStFbvetylJLy5yC6WiOtDXHdryW/3lmb8D9nDgQ92qHp/xsFWtG3Dk4hm0iK01LTvCZ
-	fqFcXNgS1A8M3xu7P4UDp0gw/t2RTY6JQK7iRKRMEOSYaI37NLytD9m2VfHUeFgHMwFI=;
-Message-ID: <66ac185e-eace-4933-b48a-e2fe035fcb8b@xen.org>
-Date: Wed, 11 Oct 2023 13:01:22 +0100
+X-Inumbo-ID: 4c3d659c-6831-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1697027143; x=1697631943; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GP3SHDxG32NUcbGPIwJuxNha0yXtAXfsBO5VDAb7fXE=;
+        b=hxnx7rRnheEYyg/O1uvIeeq+Z5VlKhuwYv4RckbmiiyqcvRLoC19u4lAmRqm7zf/Pw
+         xEoHMs6uUxfW0cjBInCeIhyPUws/R8kjmmTilh9BAhPtL1lml9vOvw5ilnlnqdSPmmrh
+         SH9Wsxm/9PWK3eatjr1WyF9GnkVRuXtEYgpv8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697027143; x=1697631943;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GP3SHDxG32NUcbGPIwJuxNha0yXtAXfsBO5VDAb7fXE=;
+        b=fSQo9LApPcFn1tHr7THDiShxktrCC2BQBLxBNkjETQ6iIrdsD8rljXK5LuqhhjxqWU
+         yRdUjCGxLHzOfOjE1uGVesz7vDPIMlYiAmH7nO/5RCxm9Zr7UqqIy627y14AVtwwouw0
+         WA9sd4DJldLtbDNCgIVBgiu5Y3UGj5Z7c0GrGO6vpwk6J7/d2V7Tb4So05uO6Wp0ubYe
+         LTYNoM8M43Zr8dG8hPiquQRd9c5KJJKUSZt+PMegQwmvQ3EymtmZYx0i5JetlN0+JC9E
+         pgkUC4YdzNmG80YTczuMNZzafWR5AafKZfomLQoi9YT4qJfJN4anFVufSTZ2lgBMhMeN
+         YZZw==
+X-Gm-Message-State: AOJu0YxNBQFp70FLj8BPHd0ksgXJeINVOf2Y+iRlmoWGuy6y9MP3RW0U
+	DsZt7KKtijrfLfJTMcLFaMZKoOQOgnTnBYq2xBQ=
+X-Google-Smtp-Source: AGHT+IFFv7S0SNFFTbZOS99pcL5n9UBnSJV6Q8VKAXEEfdoCyH888FhZrJTyXke8fL88B+hL13jn4A==
+X-Received: by 2002:adf:a4da:0:b0:32d:7615:372b with SMTP id h26-20020adfa4da000000b0032d7615372bmr2804384wrb.12.1697027142918;
+        Wed, 11 Oct 2023 05:25:42 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/pygrub: Fix pygrub's --entry flag for python3
+Date: Wed, 11 Oct 2023 13:25:20 +0100
+Message-Id: <20231011122520.1826-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen: Add SAF deviations for MISRA C:2012 Rule 7.1
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- "michal.orzel@amd.com" <michal.orzel@amd.com>,
- "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Henry Wang <Henry.Wang@arm.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <338d8e574db943a86c7605e4c6d9a299d45f067d.1696347345.git.nicola.vetrini@bugseng.com>
- <e1736215-52ba-4737-9da3-8f1ba7e832a6@citrix.com>
- <DB96C095-5FAF-40A1-9CA8-002291AA1933@arm.com>
- <2894008e8f612296da84267346ae4240@bugseng.com>
- <B00BC78B-E707-4043-A0B4-D320C6717472@arm.com>
- <alpine.DEB.2.22.394.2310041625170.2348112@ubuntu-linux-20-04-desktop>
- <9DD525D9-DB6D-4888-9266-FB45906A0E0F@arm.com>
- <alpine.DEB.2.22.394.2310051756360.2348112@ubuntu-linux-20-04-desktop>
- <C2DDFAB5-D943-4A24-9C14-AF35BE2A7C90@arm.com>
- <alpine.DEB.2.22.394.2310061741130.3431292@ubuntu-linux-20-04-desktop>
- <1ceb5aa0-d374-4357-964f-1341468d542e@xen.org>
- <alpine.DEB.2.22.394.2310091251080.3431292@ubuntu-linux-20-04-desktop>
- <8c3d7933-c139-49dd-8c62-2d4543176f8f@xen.org>
- <alpine.DEB.2.22.394.2310101635280.3431292@ubuntu-linux-20-04-desktop>
- <80f4df2b-a8b2-4494-94e0-47de55c01597@xen.org>
- <1766b5f3-490c-4bbe-902c-3970c28041a7@xen.org>
- <6BB62AEF-FCE1-412C-87DD-479319623092@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <6BB62AEF-FCE1-412C-87DD-479319623092@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+string.atoi() has been deprecated since Python 2.0, has a big scary warning
+in the python2.7 docs and is absent from python3 altogether. int() does the
+same thing and is compatible with both.
 
+See https://docs.python.org/2/library/string.html#string.atoi:
 
-On 11/10/2023 11:53, Luca Fancellu wrote:
-> 
->>>>
->>>> Luca answered to a similar, more generic, question a few days ago about
->>>> Coverity: https://marc.info/?l=xen-devel&m=169657904027210
->>> Interesting.
->>>>
->>>> So even if we get cppcheck to work like that, we would lose Coverity
->>>> support.
->>> I think my suggestion was probably misunderstood. So let me clarify it. To cover multi-line, we could write the following in Xen:
->>> /* cppcheck tag next-3-lines */
->>> line 1
->>> line 2
->>> line 3
->>> AFAIU Eclair supports multi-line, so the tag would be transformed to there internal solution. For CPPCheck, this could be transformed to:
->>> /* cppcheck tag next-3 lines */
->>> line 1 /* generated cppcheck tag */
->>> line 2 /* generated cppcheck tag */
->>> line 3 /* generated cppcheck tag */
->>> Now, I understand that coverity doesn't support any of the two format. So the only solution would be to add the comment before each line which would impact the line numbers. This is not great, but I think this is acceptable as the context would likely help to find where this is coming from.
->>
->> Just to clarify, here I meant that for coverity, a script before the scan could convert to the multi-line version. So the line change only impact Coverity.
-> 
-> Hi Julien,
-> 
-> We’ve tried to avoid that because when the tool insert lines, the resultant report would give wrong lines numbers if any violation is reported after the
-> insertion points. So there will be a mismatch between the codebase and the report findings from some point on in the file.
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+ tools/pygrub/src/pygrub | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I know. Stefano already pointed that out. But as I wrote, I don't think 
-this is a big problem as it only affecte one tool (Coverity) and one 
-would still be able to find the exact place based on the context.
-
-Cheers,
-
+diff --git a/tools/pygrub/src/pygrub b/tools/pygrub/src/pygrub
+index dcdfc04ff0..541e562327 100755
+--- a/tools/pygrub/src/pygrub
++++ b/tools/pygrub/src/pygrub
+@@ -731,7 +731,7 @@ class Grub:
+ def get_entry_idx(cf, entry):
+     # first, see if the given entry is numeric
+     try:
+-        idx = string.atoi(entry)
++        idx = int(entry)
+         return idx
+     except ValueError:
+         pass
 -- 
-Julien Grall
+2.34.1
+
 
