@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24C77C45CE
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 02:02:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615193.956454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55517C45F1
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 02:16:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615198.956464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqMfu-0003sJ-Ev; Wed, 11 Oct 2023 00:02:06 +0000
+	id 1qqMt5-0006jE-K1; Wed, 11 Oct 2023 00:15:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615193.956454; Wed, 11 Oct 2023 00:02:06 +0000
+Received: by outflank-mailman (output) from mailman id 615198.956464; Wed, 11 Oct 2023 00:15:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqMfu-0003qK-BN; Wed, 11 Oct 2023 00:02:06 +0000
-Received: by outflank-mailman (input) for mailman id 615193;
- Wed, 11 Oct 2023 00:02:04 +0000
+	id 1qqMt5-0006gP-Gn; Wed, 11 Oct 2023 00:15:43 +0000
+Received: by outflank-mailman (input) for mailman id 615198;
+ Wed, 11 Oct 2023 00:15:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+0Cd=FZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qqMfs-0003qE-14
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 00:02:04 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ <SRS0=kH0+=FZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qqMt4-0006gH-2j
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 00:15:42 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 66388176-67c9-11ee-9b0d-b553b5be7939;
- Wed, 11 Oct 2023 02:02:01 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0278ECE20D3;
- Wed, 11 Oct 2023 00:01:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C52C433C9;
- Wed, 11 Oct 2023 00:01:54 +0000 (UTC)
+ id 4ee2e46b-67cb-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 02:15:39 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-503f39d3236so7520855e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Oct 2023 17:15:39 -0700 (PDT)
+Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
+ by smtp.gmail.com with ESMTPSA id
+ p17-20020a0ccb91000000b006360931c12fsm5181770qvk.96.2023.10.10.17.15.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Oct 2023 17:15:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,73 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66388176-67c9-11ee-9b0d-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696982516;
-	bh=Sy2P5+wuKWwt0VBUDtSdgFFzlPfxvcmlOkyzBB1w7t4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tQqEvNzPrlva2hDYExPf9ot6F8jdVliOCBA2FB+2v7C0Ztx9cpxoCX24h/6NFZNxl
-	 tqzhoDYPD53yFNrRobw43NFF1nQjxaxwE8INrlB7DFVVvqABfxyrhsq+J26WLujnW0
-	 +PD6U3eI1m3mg45LFyYg6KT+4/L/5oHkJ6mizLyWJlaOddkVEU0cFUdnZJdYuoiWW4
-	 0X7mpSKfSL8+ht9rtFGMowXR/SdUffTntBFV4jeyv7F16V8aXsSSnDdClHJ5tkMUi7
-	 RNOlEt8snQ3gACU5S9WfUpCi9D8iEBUnNdjb2JK85IHHxBnmGfh9pXfe8RXG2u9b0D
-	 3sP61PNC7FCMg==
-Date: Tue, 10 Oct 2023 17:01:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>, julien@xen.org
-cc: Xen-devel <xen-devel@lists.xenproject.org>, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: MISRA C:2012 D4.11 caution on staging
-In-Reply-To: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310101658030.3431292@ubuntu-linux-20-04-desktop>
-References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 4ee2e46b-67cb-11ee-9b0d-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1696983339; x=1697588139; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pLT0/rMMPFRyDfeOiS42yioPV7d2bLcG4DlRfEiQdek=;
+        b=Mcs1DrRxU/G9PVUfFWUjiYdqcOkk3cFtvtxZy4xJZXsu8k2exzfpVfcZUO2vhSCJSG
+         c1VIWXRQaxj10wumWQRMaYWbVR1rBPLW8F6iiAHDZlVJ1v9cUCZE9micFqynpjNp1Ge1
+         ZMzTRBPFYIXj7hx/xJ7UAYEd0/MCtbhJsfHV8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696983339; x=1697588139;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pLT0/rMMPFRyDfeOiS42yioPV7d2bLcG4DlRfEiQdek=;
+        b=sW9NFw6hWjtdcWClQGQRkeFBnCtW8odP0bg0vSiPvTDuD5ZIUzd4kDm14DaPS/zRLk
+         cTCsxvTlLxYDbU4QW9kucieNIJdJFmsnfMLCWFsW+g3VwsCikAUWhHmilC3guoKsZPT5
+         HNSqurRGvwf9nHNuqswYydPMXh4tQockbDT+R20pyV+3iGgoD3wXs3F8pN7trydWId3b
+         oJAvmczHC9vnrU3uviipQfsUA2YmmUOLwWunwfuTq1UgB8RY2kSIr4bqRs/qoKdRhsc4
+         f8XSNajLcsrSZKHrPbabMnVYa4Ult44aJzUW9lCYrKcvvJ6s9vV6ZH0tP6u80WVXCmKw
+         AKSQ==
+X-Gm-Message-State: AOJu0YyDs/KPvxwfFz9NtqvUfE0Zqi5KGFYKIxKbP53M9DzPoeUyTkZZ
+	gDcLKIsRv2RHB7c7CjtXLFUqPg==
+X-Google-Smtp-Source: AGHT+IG1BvRiW9LxgtX4mcAUcoQ41LXd5V4IRIZ8yHJcPwfLv6enmPLMKuhC4U9huQMcqQI1cg2Ymw==
+X-Received: by 2002:a19:8c5a:0:b0:504:7f2e:9391 with SMTP id i26-20020a198c5a000000b005047f2e9391mr15361359lfj.34.1696983338711;
+        Tue, 10 Oct 2023 17:15:38 -0700 (PDT)
+Message-ID: <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com>
+Date: Wed, 11 Oct 2023 08:15:28 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: MISRA C:2012 D4.11 caution on staging
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, roger.pau@citrix.com,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hey Julien, please double-check what I am writing below
-
-
-On Tue, 10 Oct 2023, Nicola Vetrini wrote:
+On 10/10/2023 5:31 pm, Nicola Vetrini wrote:
 > Hi,
-> 
-> as you can see from [1], there's a MISRA C guideline, D4.11, that is supposed
-> to be clean
+>
+> as you can see from [1], there's a MISRA C guideline, D4.11, that is
+> supposed to be clean
 > (i.e., have no reports), but has a caution on an argument to memcpy
-> (the second argument might be null according to the checker, given a set of
-> assumptions on
-> the control flow). To access the report just click on the second link in the
-> log, which should take you to a webpage with a list of
-> MISRA guidelines. Click on D4.11 and you'll see the full report, which I
-> pasted below for convenience.
-> 
-> If the finding is genuine, then some countermeasure needs to be taken against
-> this
-> possible bug, otherwise it needs to be motivated why the field config->handle
-> can't
+> (the second argument might be null according to the checker, given a
+> set of assumptions on
+> the control flow). To access the report just click on the second link
+> in the log, which should take you to a webpage with a list of
+> MISRA guidelines. Click on D4.11 and you'll see the full report, which
+> I pasted below for convenience.
+>
+> If the finding is genuine, then some countermeasure needs to be taken
+> against this
+> possible bug, otherwise it needs to be motivated why the field
+> config->handle can't
 > be null at that point.
-> The finding is likely the result of an improvement made to the checker,
-> because the first
-> analysis I can see that spots it happened when rc1 has been tagged, but that
-> commit does not
+> The finding is likely the result of an improvement made to the
+> checker, because the first
+> analysis I can see that spots it happened when rc1 has been tagged,
+> but that commit does not
 > touch the involved files.
-> 
+>
 > [1] https://gitlab.com/xen-project/xen/-/jobs/5251222578
-> 
->  caution for MC3R1.D4.11 untagged
-> xen/common/domain.c:758.27-758.40:
-> [59] null pointer passed as 2nd argument to memory copy function
 
+That's a false positive, but I'm not entirely surprised that the checker
+struggled to see it.
 
-This looks like a genuine issue: in domain_create, config->handle could
-be uninitialized. For example, domain_create can be called
-from xen/arch/arm/domain_build.c:create_domUs, passing &d_cfg, and I
-don't see where we initialize d_cfg.handle.
+First,
 
-This was just by code inspection. Julien, did I miss anything?
+ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
+
+All system domains (domid >= 0x7ff0, inc IDLE) pass a NULL config.  All
+other domains pass a real config.
+
+Next,
+
+/* DOMID_{XEN,IO,etc} (other than IDLE) are sufficiently constructed. */
+if ( is_system_domain(d) && !is_idle_domain(d) )
+    return d;
+
+So at this point we only have the IDLE domain and real domains.
+
+And finally, the complained-about construct is inside an:
+
+if ( !is_idle_domain(d) )
+    ...
+
+hence config cannot be NULL, but only because of the way in which
+is_{system,idle}_domain() interact.
+
+~Andrew
 
