@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60467C59B0
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 18:57:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615565.956883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF77F7C5A36
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 19:27:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615577.956894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqcWA-00007U-6Z; Wed, 11 Oct 2023 16:57:06 +0000
+	id 1qqcyH-00079T-DP; Wed, 11 Oct 2023 17:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615565.956883; Wed, 11 Oct 2023 16:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 615577.956894; Wed, 11 Oct 2023 17:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqcWA-0008WU-3l; Wed, 11 Oct 2023 16:57:06 +0000
-Received: by outflank-mailman (input) for mailman id 615565;
- Wed, 11 Oct 2023 16:57:04 +0000
+	id 1qqcyH-00076u-A1; Wed, 11 Oct 2023 17:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 615577;
+ Wed, 11 Oct 2023 17:26:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kH0+=FZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qqcW8-0008W7-11
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 16:57:04 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1qqcyF-00076o-Va
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 17:26:08 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32d925be-6857-11ee-9b0d-b553b5be7939;
- Wed, 11 Oct 2023 18:57:02 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2c17de836fbso162531fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 09:57:02 -0700 (PDT)
+ id 423bbb67-685b-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 19:26:05 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-32d895584f1so62783f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 10:26:05 -0700 (PDT)
 Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
  by smtp.gmail.com with ESMTPSA id
- v9-20020ae9e309000000b0076d25b11b62sm5351684qkf.38.2023.10.11.09.56.54
+ v11-20020a05620a122b00b0076f1d8b1c2dsm5374145qkj.12.2023.10.11.10.25.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Oct 2023 09:57:00 -0700 (PDT)
+ Wed, 11 Oct 2023 10:26:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32d925be-6857-11ee-9b0d-b553b5be7939
+X-Inumbo-ID: 423bbb67-685b-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697043421; x=1697648221; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1697045165; x=1697649965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8QYwJlwxuuE4Ot80Y1Jemfy6h9yw2BCbj8PTmbeMBZg=;
-        b=fUrB1iW42G4ps21Bf1nO3+QUSBOAaO3iI9026NyxZ51SVFvikbVWUR/bS4nsmuBO/j
-         cIbhml2VpbDVKHAjHSensBEUryL6r+tusL8sOo7OBY0DIBs1Q4um3TDIZ9wtfvwEXOdW
-         Rpj87JvIl7R7TDdsxoUyoWce0Fp2tFjtYWrc4=
+        bh=5gyKLlUWTo58NTyJJebTqmA9nB4F1DDX20ll7GjMIkw=;
+        b=ucBzTesqn8WSiyoRWhY2aCCugDOZdUZsaFucsMSn9WNwI2x+DwLeTayLVVk7hlBKnd
+         w2yDP/gUsUXEnfIWnDxJEvNOHN6dXZIQWggcdn0N7Zw9nWTyI520aYAZdWGmdIhAP5Tp
+         LA1/7k005fF9DFCyAobWU4pPtSHa+l3o1YrYI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697043421; x=1697648221;
+        d=1e100.net; s=20230601; t=1697045165; x=1697649965;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8QYwJlwxuuE4Ot80Y1Jemfy6h9yw2BCbj8PTmbeMBZg=;
-        b=pkQoblsG8G1Qkd3VVP1RvhAm/fgioevr8JdVmUDFtWZBxqQ6Usj1xLSs4F5wGa14gp
-         Ax1FVREsczuJdmb3n/lqV3iOpysMp5KUHZuTcxwUuIAGzQxzYuOmxRaIYhwhLMvc80n7
-         dIHZUcZBt2Jrn+9XTTNeC7p7JrdJOyC/QXejj4snABSoFqHvIXYOw2K6mESmVTpNck8/
-         g6yiwPjOV5s3y9zv7iDPfZ5bR3VYctZKdV82i8PiV4mVPiOpjEwNjb2hfgKVgypVN4JW
-         oYA8Gqt8PMphvp6731qoH2R0lYCBUD5EhLoi+4XXge5vZClpzT/aH/Q/aaNJKT9MIcQ+
-         B37g==
-X-Gm-Message-State: AOJu0Yz8Jkd3uG/TMOu2Enbi6dayOI1n8pjRZ98pjoQ79IrROHbrvZsa
-	rFRVbFBS24LgotPAEmpCm0roag==
-X-Google-Smtp-Source: AGHT+IHOrPn2aO5XPlLbqJRQdLUY/ZJDOm0A53lGi55anUynHmIaxgoxioL7z8F2I+HNFkWU6RUGbg==
-X-Received: by 2002:a2e:9ed9:0:b0:2c0:20c4:925a with SMTP id h25-20020a2e9ed9000000b002c020c4925amr15839564ljk.26.1697043421440;
-        Wed, 11 Oct 2023 09:57:01 -0700 (PDT)
-Message-ID: <9c728576-16e0-4d72-9019-d6f5fe8f033b@citrix.com>
-Date: Thu, 12 Oct 2023 00:56:52 +0800
+        bh=5gyKLlUWTo58NTyJJebTqmA9nB4F1DDX20ll7GjMIkw=;
+        b=XmH24kJx2B2Ne6zR5+KW5f4Es6DWUgk5exUq2ExbRViZX8ab29SmrSt4Q8b/VFfjZj
+         8q6tIp7hKnm7/Xl53Qi10dJMlqXwZE5r5Rev0et0PTvbdBY9ehq9QFNMLl2L0FE3CiM+
+         70s9cDsEPEnNN11aHiNTDpEfWpu4f31+1AWaRVEnntyg4D+FGZHxX8XiyG28vojtNjRu
+         Ly6jvSIYO+VajiZfrNYVsqvfAnSr73ry/UtB9a2zKjZz5br2rK75aBeZ5pJhcEkocDhh
+         VQRqzDZOMCXWv45us9xWeCKWCqY1S6vQvztkf2G7qoFI43KP/mrfiP0aWa7f4nVCOS2W
+         n6ag==
+X-Gm-Message-State: AOJu0YyQ4Ba/uVLrj23vfPNVVhAaLL1Y7Ic+QfQxsKZHV0Xz71+/bp8V
+	ZNuEHtBtJnAYqxw/h+AAKA2noQ==
+X-Google-Smtp-Source: AGHT+IFilWf2UlvwgKEEfEoiokIB+8ZhCFmga1kvbmqh8HlYE5KCqrbKs31cUc2aOwsi7b6MW97MMg==
+X-Received: by 2002:a5d:60d1:0:b0:31f:d8ba:c997 with SMTP id x17-20020a5d60d1000000b0031fd8bac997mr18788121wrt.41.1697045165184;
+        Wed, 11 Oct 2023 10:26:05 -0700 (PDT)
+Message-ID: <6963c159-e4e3-4035-afcf-a823b0271042@citrix.com>
+Date: Thu, 12 Oct 2023 01:25:59 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: andrew.cooper3@citrix.com
-Subject: Re: [XEN PATCH][for-4.19 v2 1/1] xen: introduce a deviation for Rule
- 11.9
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH for-4.18 v5] xen/pdx: Make CONFIG_PDX_COMPRESSION a common
+ Kconfig option
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>
-References: <cover.1696948320.git.nicola.vetrini@bugseng.com>
- <c684c36402e6740472fa91d73436ca5790e5e109.1696948320.git.nicola.vetrini@bugseng.com>
+To: Oleksii <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Julien Grall <jgrall@amazon.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Henry Wang <Henry.Wang@arm.com>, George Dunlap
+ <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
+References: <20231006144405.1078260-1-andrew.cooper3@citrix.com>
+ <45df1c3a44fcd4ebf87a30ada34141d6ebd9ccab.camel@gmail.com>
+ <a2ed825d-2bdf-46a5-a1d4-b43a84ad43a5@citrix.com>
+ <678f854879fdebe458dfed4fc3d587a34d159927.camel@gmail.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -134,40 +137,33 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c684c36402e6740472fa91d73436ca5790e5e109.1696948320.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <678f854879fdebe458dfed4fc3d587a34d159927.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/10/2023 8:46 pm, Nicola Vetrini wrote:
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index ee7aed0609d2..1b00e4e3e9b7 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -199,6 +199,11 @@ Deviations related to MISRA C:2012 Rules:
->         See automation/eclair_analysis/deviations.ecl for the full explanation.
->       - Tagged as `safe` for ECLAIR.
->  
-> +   * - R11.9
-> +     - __ACCESS_ONCE uses a 0 as a null pointer constant to check if a type is
-> +       scalar, therefore its usage for this purpose is allowed.
-> +     - Tagged as `deliberate` for ECLAIR.
+On 11/10/2023 10:31 pm, Oleksii wrote:
+> On Tue, 2023-10-10 at 16:52 +0800, Andrew Cooper wrote:
+>> On 10/10/2023 3:58 pm, Oleksii wrote:
+>>>> Oleksii: I've not touched RISCV yet, because I don't know how the
+>>>> platforms
+>>>> typically look.  I'm happy to default it active in RISCV too if
+>>>> that's the
+>>>> right thing to do.
+>>> We are still waiting for a platform with hypervisor extension
+>>> support
+>>> but I am using PDX in my Xen's repo.
+>> Yes, but are you using that because Xen wouldn't build without it, or
+>> because it's necessary for RISC-V platforms?
+> You are right I am using it because before this patch Xen can't be
+> built without PDX.
+> This is not necessary for RISC-V. At least platform I know they don't
+> use sparse RAM banks.
 
-Really?
+Ok thanks.  I'll leave the code as is, but tweak the commit message to
+include RISC-V alongside x86.
 
-#define __ACCESS_ONCE(x)
-    (void)(typeof(x))0; /* Scalar typecheck. */
-
-That's not a pointer.
-
-If someone were to pass in an x who's type was pointer-to-object, then
-yes it is technically a NULL pointer constant for long enough for the
-build to error out.
-
-What justification is Eclair using to suggest that it is a pointer?
-
-If you really really want to shut things up, it doesn't need to be 0 -
-it could be 1 or any other integer, but this honestly feels like a bug
-in Eclair to me.
+And as already noted, we can always revisit the decision in the future
+if things change.
 
 ~Andrew
 
