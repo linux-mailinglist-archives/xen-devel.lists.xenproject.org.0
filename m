@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96F337C598A
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 18:49:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615559.956873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60467C59B0
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Oct 2023 18:57:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615565.956883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqcNq-00065K-BQ; Wed, 11 Oct 2023 16:48:30 +0000
+	id 1qqcWA-00007U-6Z; Wed, 11 Oct 2023 16:57:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615559.956873; Wed, 11 Oct 2023 16:48:30 +0000
+Received: by outflank-mailman (output) from mailman id 615565.956883; Wed, 11 Oct 2023 16:57:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqcNq-00063e-8Y; Wed, 11 Oct 2023 16:48:30 +0000
-Received: by outflank-mailman (input) for mailman id 615559;
- Wed, 11 Oct 2023 16:48:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qqcWA-0008WU-3l; Wed, 11 Oct 2023 16:57:06 +0000
+Received: by outflank-mailman (input) for mailman id 615565;
+ Wed, 11 Oct 2023 16:57:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kH0+=FZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qqcNo-000638-Jl
- for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 16:48:28 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffed2a68-6855-11ee-98d4-6d05b1d4d9a1;
- Wed, 11 Oct 2023 18:48:27 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2c296e6543fso88176711fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 09:48:27 -0700 (PDT)
+ id 1qqcW8-0008W7-11
+ for xen-devel@lists.xenproject.org; Wed, 11 Oct 2023 16:57:04 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32d925be-6857-11ee-9b0d-b553b5be7939;
+ Wed, 11 Oct 2023 18:57:02 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2c17de836fbso162531fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Oct 2023 09:57:02 -0700 (PDT)
 Received: from [0.0.0.0] ([2001:41d0:8:52b7::])
  by smtp.gmail.com with ESMTPSA id
- q27-20020a05620a039b00b007757eb88172sm5370815qkm.21.2023.10.11.09.48.23
+ v9-20020ae9e309000000b0076d25b11b62sm5351684qkf.38.2023.10.11.09.56.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Oct 2023 09:48:26 -0700 (PDT)
+ Wed, 11 Oct 2023 09:57:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffed2a68-6855-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 32d925be-6857-11ee-9b0d-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697042906; x=1697647706; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+        d=citrix.com; s=google; t=1697043421; x=1697648221; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ceoI1sTR3pRmfE/RaxQckdQ+apnIEv8XYOouIIgthgc=;
-        b=vWqfU06BRYRhDdOQtc1rfa5/aR0fMkCM/vR8FHFXzkrLa9AFZyN6GKnRxPDHWKT9nb
-         nX2UH+6ovJHPkEhumc7iC3mjtZAerqIw0JaGBRnIHlhr1OScxKkJ+fphJPYMdzY2/I+K
-         trwMnAf3YWPafD69SJ1FsPspXD4Zipfczdb1Y=
+        bh=8QYwJlwxuuE4Ot80Y1Jemfy6h9yw2BCbj8PTmbeMBZg=;
+        b=fUrB1iW42G4ps21Bf1nO3+QUSBOAaO3iI9026NyxZ51SVFvikbVWUR/bS4nsmuBO/j
+         cIbhml2VpbDVKHAjHSensBEUryL6r+tusL8sOo7OBY0DIBs1Q4um3TDIZ9wtfvwEXOdW
+         Rpj87JvIl7R7TDdsxoUyoWce0Fp2tFjtYWrc4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697042906; x=1697647706;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1697043421; x=1697648221;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ceoI1sTR3pRmfE/RaxQckdQ+apnIEv8XYOouIIgthgc=;
-        b=M2BpJo5Icj12d/o25c5VJDD2T5W7GdQmuiPObjQ08MzTOG5ow54446WX1fO6MgS1Em
-         K2W5RzazrBKdNhkpQFZGgKI/oA3+K0gBuj3g9RNnBj6sLMjbav/7iqzAMx/W4gblhNqa
-         TDySQH/Do+iriaoJyke1NgTkblppVIrqLJWm//+S3l3mN8dBLHtZtei57W6+npwToalk
-         G9FdZGyhI1cwley0bcBYGUlBIre8s5n5VYb4VtRAKvWeYzweBaHf/b4R/3+78WxzpoVR
-         IphOGiHu1UETzF8YEkHb2ghbeLkQB7FYlC27RQKMHklWJkjqQptu1iq46Ezoj2pYSPE5
-         ifvw==
-X-Gm-Message-State: AOJu0YycCNQ3CUL3zWzxRjNrDx2gc7wB5/oJ598P8cRkQJtBdZeq6Ta3
-	oXqEPB0UjtZM1WajOoaMJmpEHA==
-X-Google-Smtp-Source: AGHT+IGMeO2feXd8rf0Uwq9x5awP9rouVSen+EhPnchbalo3fTBUUKkYvwtP7EXpGRLjruS0/EcD4Q==
-X-Received: by 2002:a2e:830c:0:b0:2c0:33be:3530 with SMTP id a12-20020a2e830c000000b002c033be3530mr16452496ljh.45.1697042906519;
-        Wed, 11 Oct 2023 09:48:26 -0700 (PDT)
-Message-ID: <75e8aca0-1e2f-4c19-9fee-20bb4e4ae00f@citrix.com>
-Date: Thu, 12 Oct 2023 00:48:20 +0800
+        bh=8QYwJlwxuuE4Ot80Y1Jemfy6h9yw2BCbj8PTmbeMBZg=;
+        b=pkQoblsG8G1Qkd3VVP1RvhAm/fgioevr8JdVmUDFtWZBxqQ6Usj1xLSs4F5wGa14gp
+         Ax1FVREsczuJdmb3n/lqV3iOpysMp5KUHZuTcxwUuIAGzQxzYuOmxRaIYhwhLMvc80n7
+         dIHZUcZBt2Jrn+9XTTNeC7p7JrdJOyC/QXejj4snABSoFqHvIXYOw2K6mESmVTpNck8/
+         g6yiwPjOV5s3y9zv7iDPfZ5bR3VYctZKdV82i8PiV4mVPiOpjEwNjb2hfgKVgypVN4JW
+         oYA8Gqt8PMphvp6731qoH2R0lYCBUD5EhLoi+4XXge5vZClpzT/aH/Q/aaNJKT9MIcQ+
+         B37g==
+X-Gm-Message-State: AOJu0Yz8Jkd3uG/TMOu2Enbi6dayOI1n8pjRZ98pjoQ79IrROHbrvZsa
+	rFRVbFBS24LgotPAEmpCm0roag==
+X-Google-Smtp-Source: AGHT+IHOrPn2aO5XPlLbqJRQdLUY/ZJDOm0A53lGi55anUynHmIaxgoxioL7z8F2I+HNFkWU6RUGbg==
+X-Received: by 2002:a2e:9ed9:0:b0:2c0:20c4:925a with SMTP id h25-20020a2e9ed9000000b002c020c4925amr15839564ljk.26.1697043421440;
+        Wed, 11 Oct 2023 09:57:01 -0700 (PDT)
+Message-ID: <9c728576-16e0-4d72-9019-d6f5fe8f033b@citrix.com>
+Date: Thu, 12 Oct 2023 00:56:52 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/pvh: fix identity mapping of low 1MB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20231011153756.16714-1-roger.pau@citrix.com>
+From: andrew.cooper3@citrix.com
+Subject: Re: [XEN PATCH][for-4.19 v2 1/1] xen: introduce a deviation for Rule
+ 11.9
 Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
+ roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <cover.1696948320.git.nicola.vetrini@bugseng.com>
+ <c684c36402e6740472fa91d73436ca5790e5e109.1696948320.git.nicola.vetrini@bugseng.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -127,68 +134,40 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231011153756.16714-1-roger.pau@citrix.com>
+In-Reply-To: <c684c36402e6740472fa91d73436ca5790e5e109.1696948320.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/10/2023 11:37 pm, Roger Pau Monne wrote:
-> The mapping of memory regions below the 1MB mark was all done by the PVH dom0
-> builder code, thus completely avoiding that region in the arch-specific IOMMU
-> hardware domain initialization code.
+On 11/10/2023 8:46 pm, Nicola Vetrini wrote:
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index ee7aed0609d2..1b00e4e3e9b7 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -199,6 +199,11 @@ Deviations related to MISRA C:2012 Rules:
+>         See automation/eclair_analysis/deviations.ecl for the full explanation.
+>       - Tagged as `safe` for ECLAIR.
+>  
+> +   * - R11.9
+> +     - __ACCESS_ONCE uses a 0 as a null pointer constant to check if a type is
+> +       scalar, therefore its usage for this purpose is allowed.
+> +     - Tagged as `deliberate` for ECLAIR.
 
-This took a while to parse.  I think it would be clearer to say "builder
-code, causing the region to be avoided by the arch ..."
+Really?
 
->   That lead to the IOMMU being enabled
-> without reserved regions in the low 1MB identity mapped in the p2m for PVH
-> hardware domains.  Firmware with missing RMRR/IVMD ranges that would otherwise
-> be located in the low 1MB would transiently trigger IOMMU faults until the p2m
-> is populated by the PVH dom0 builder:
+#define __ACCESS_ONCE(x)
+    (void)(typeof(x))0; /* Scalar typecheck. */
 
-"Firmware which happens to be missing RMRR/IVMD ranges describing E820
-reserved regions in the low 1MB would ..." ?
+That's not a pointer.
 
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.1 d0 addr 00000000000eb380 flags 0x20 RW
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.1 d0 addr 00000000000eb340 flags 0
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.2 d0 addr 00000000000ea1c0 flags 0
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:14.5 d0 addr 00000000000eb480 flags 0x20 RW
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:12.0 d0 addr 00000000000eb080 flags 0x20 RW
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:14.5 d0 addr 00000000000eb400 flags 0
-> AMD-Vi: IO_PAGE_FAULT: 0000:00:12.0 d0 addr 00000000000eb040 flags 0
->
-> Mostly remove the special handling of the low 1MB done by the PVH dom0 builder,
-> leaving just the data copy between RAM regions.  Otherwise rely on the IOMMU
-> arch init code to create any identity mappings for reserved regions in such
-> range (like it already does for all reserved regions).
+If someone were to pass in an x who's type was pointer-to-object, then
+yes it is technically a NULL pointer constant for long enough for the
+build to error out.
 
-"in such ranges", or in this case "in that range" would be better.  Also
-"for reserved regions elsewhere" IMO.
+What justification is Eclair using to suggest that it is a pointer?
 
-Just to confirm, we're saying our default treatment of identity mapping
-e820 reserved regions into the IOMMU is masking (or not) a missing
-RMRR/IVMD entry?
-
->
-> Note there's a small difference in behavior, as holes in the low 1MB will no
-> longer be identity mapped to the p2m.
->
-> Fixes: 6b4f6a31ace1 ('x86/PVH: de-duplicate mappings for first Mb of Dom0 memory')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-I suppose you intended to mark this for 4.18 as you CC'd Henry, and also
-send it for x86 (CC added)?
-
-I'm tempted to commit it based on the diffstat alone.  How do we still
-have so much junk code like this lying around breaking things...
-
-Anyway - it's a clear improvement.
-
-But a question first.  Is this from debugging the XSA-442 fallout?  If
-so, it's probably worth mentioning the hardware we saw this on (which
-IIRC was fairly old AMD), and that XSA-442 unmasked a pre-existing bug. 
-And we think it's USB/PS2 emulation?
-
-Thanks,
+If you really really want to shut things up, it doesn't need to be 0 -
+it could be 1 or any other integer, but this honestly feels like a bug
+in Eclair to me.
 
 ~Andrew
 
