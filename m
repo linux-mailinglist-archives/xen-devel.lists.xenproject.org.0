@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE687C7173
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEB17C7172
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 17:29:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615843.957372 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.615845.957391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqxcY-0007bm-Fq; Thu, 12 Oct 2023 15:29:06 +0000
+	id 1qqxcb-00085z-6G; Thu, 12 Oct 2023 15:29:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615843.957372; Thu, 12 Oct 2023 15:29:06 +0000
+Received: by outflank-mailman (output) from mailman id 615845.957391; Thu, 12 Oct 2023 15:29:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqxcY-0007Xp-C3; Thu, 12 Oct 2023 15:29:06 +0000
-Received: by outflank-mailman (input) for mailman id 615843;
- Thu, 12 Oct 2023 15:29:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qqxcb-000829-08; Thu, 12 Oct 2023 15:29:09 +0000
+Received: by outflank-mailman (input) for mailman id 615845;
+ Thu, 12 Oct 2023 15:29:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oWZW=F2=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qqxcX-0006QI-6e
- for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 15:29:05 +0000
+ id 1qqxcZ-0006QC-0H
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 15:29:07 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 13b50218-6914-11ee-98d4-6d05b1d4d9a1;
- Thu, 12 Oct 2023 17:29:04 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1429e5d5-6914-11ee-9b0e-b553b5be7939;
+ Thu, 12 Oct 2023 17:29:05 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id EC4F64EE0749;
- Thu, 12 Oct 2023 17:29:03 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id A206E4EE074B;
+ Thu, 12 Oct 2023 17:29:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13b50218-6914-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 1429e5d5-6914-11ee-9b0e-b553b5be7939
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -52,43 +52,57 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-next v2 5/8] x86/io_apic: address violation of MISRA C:2012 Rule 10.1
-Date: Thu, 12 Oct 2023 17:28:49 +0200
-Message-Id: <1fe7602b48cabb7710025f6b4e32e9b99a1faacd.1697123806.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH][for-next v2 6/8] x86/mce: Move MC_NCLASSES into the enum mctelem_class
+Date: Thu, 12 Oct 2023 17:28:50 +0200
+Message-Id: <6622a2ec7079f86b73ae420e1e840d3d35ffb3a0.1697123806.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1697123806.git.nicola.vetrini@bugseng.com>
 References: <cover.1697123806.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The definition of IO_APIC_BASE contains a sum of an essentially enum
-value (FIX_IO_APIC_BASE_0) that is positive with an index that, in all
-instances, is unsigned, therefore the former is cast to unsigned, so that
-the operands are of the same essential type.
+The definition of MC_NCLASSES contained a violation of MISRA C:2012
+Rule 10.1, therefore by moving it as an enumeration constant resolves the
+violation and makes it more resilient to possible additions to that enum.
 
-No functional change.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/x86/include/asm/io_apic.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Note that the use of an enum constant as operand to [ ] and != is allowed
+by the Rule.
+---
+ xen/arch/x86/cpu/mcheck/mctelem.c | 2 --
+ xen/arch/x86/cpu/mcheck/mctelem.h | 5 +++--
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/io_apic.h b/xen/arch/x86/include/asm/io_apic.h
-index a7e4c9e146de..a0fc50d601fe 100644
---- a/xen/arch/x86/include/asm/io_apic.h
-+++ b/xen/arch/x86/include/asm/io_apic.h
-@@ -14,9 +14,10 @@
-  * Copyright (C) 1997, 1998, 1999, 2000 Ingo Molnar
-  */
+diff --git a/xen/arch/x86/cpu/mcheck/mctelem.c b/xen/arch/x86/cpu/mcheck/mctelem.c
+index 329ac20faf96..77a4d1d5ff48 100644
+--- a/xen/arch/x86/cpu/mcheck/mctelem.c
++++ b/xen/arch/x86/cpu/mcheck/mctelem.c
+@@ -64,8 +64,6 @@ struct mctelem_ent {
  
--#define IO_APIC_BASE(idx)                                               \
--    ((volatile uint32_t *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + (idx))    \
--                           + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
-+#define IO_APIC_BASE(idx)                                     \
-+    ((volatile uint32_t *)                                    \
-+     (__fix_to_virt((unsigned int)FIX_IO_APIC_BASE_0 + (idx)) \
-+      + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
+ #define MC_NENT (MC_URGENT_NENT + MC_NONURGENT_NENT)
  
- #define IO_APIC_ID(idx) (mp_ioapics[idx].mpc_apicid)
+-#define	MC_NCLASSES		(MC_NONURGENT + 1)
+-
+ #define	COOKIE2MCTE(c)		((struct mctelem_ent *)(c))
+ #define	MCTE2COOKIE(tep)	((mctelem_cookie_t)(tep))
  
+diff --git a/xen/arch/x86/cpu/mcheck/mctelem.h b/xen/arch/x86/cpu/mcheck/mctelem.h
+index d4eba53ae0e5..21b251847bc0 100644
+--- a/xen/arch/x86/cpu/mcheck/mctelem.h
++++ b/xen/arch/x86/cpu/mcheck/mctelem.h
+@@ -55,8 +55,9 @@
+ typedef struct mctelem_cookie *mctelem_cookie_t;
+ 
+ typedef enum mctelem_class {
+-	MC_URGENT,
+-	MC_NONURGENT
++    MC_URGENT,
++    MC_NONURGENT,
++    MC_NCLASSES
+ } mctelem_class_t;
+ 
+ extern void mctelem_init(unsigned int);
 -- 
 2.34.1
 
