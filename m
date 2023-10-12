@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FB2E7C733A
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 18:40:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615939.957507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015407C74BF
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 19:27:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615947.957516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqyjI-0002Qs-BI; Thu, 12 Oct 2023 16:40:08 +0000
+	id 1qqzRw-0001VZ-MM; Thu, 12 Oct 2023 17:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615939.957507; Thu, 12 Oct 2023 16:40:08 +0000
+Received: by outflank-mailman (output) from mailman id 615947.957516; Thu, 12 Oct 2023 17:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqyjI-0002NU-7g; Thu, 12 Oct 2023 16:40:08 +0000
-Received: by outflank-mailman (input) for mailman id 615939;
- Thu, 12 Oct 2023 16:40:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqyjG-0002N1-En; Thu, 12 Oct 2023 16:40:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqyjG-0003pw-Bz; Thu, 12 Oct 2023 16:40:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qqyjF-0004I9-Vy; Thu, 12 Oct 2023 16:40:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qqyjF-0003Vt-VY; Thu, 12 Oct 2023 16:40:05 +0000
+	id 1qqzRw-0001Tn-J7; Thu, 12 Oct 2023 17:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 615947;
+ Thu, 12 Oct 2023 17:26:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K032=F2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1qqzRv-0001Tc-LX
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 17:26:15 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7162da70-6924-11ee-98d4-6d05b1d4d9a1;
+ Thu, 12 Oct 2023 19:26:13 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-9ad810be221so195758866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Oct 2023 10:26:13 -0700 (PDT)
+Received: from EMEAENGAAD19049.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ c27-20020a17090603db00b009829d2e892csm11522697eja.15.2023.10.12.10.26.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Oct 2023 10:26:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +46,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rEUQyYVfqsD34QYBsLldDlvKAClUMhMljrVdTuzD3Bg=; b=jfoh4jDY030MQm9lywXhwpBbld
-	7bGNxhjy+Sk2ib4f5gSJpyIxGEeXas/Tdvlp6h9s5IyJX9hyb95zQrFS1eJIrA8Lmzheu6tuiEApL
-	bBSCz+2HzPdCHc+5bqCvLgJPcHJGRj/CNerxTk1e40eOHDvFTZ6BUeGXvbsqIW/77Rck=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183351-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7162da70-6924-11ee-98d4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1697131573; x=1697736373; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IsShQqItdUAwhDe8vQUoiwqJuVenLNYiRZwU25mI/Xg=;
+        b=avsqImvwpe68CJpMFIdpjzZEZzolzbleHLmCRvpUJMAgefKyL0PRI21MVbnDJV9JJZ
+         ZI7cNC1YXsqw6qf9Dga1+g5/1Lc+uSqqW5hlViqBwO3FbHFyarS4mLXGM4EOKJLxPKjK
+         rUY0XHqUQ3G0ZORkFw4Yp/rCVVPyUnuKJqfWM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697131573; x=1697736373;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IsShQqItdUAwhDe8vQUoiwqJuVenLNYiRZwU25mI/Xg=;
+        b=QnwqdAvPOEOWJYnAFWhmSP97NYmMFXgmO1Hx466yaWmcYRkZr5z2JLgi0SAtPI/zHv
+         P92Ddz8bOWZFty/cyCeArpB36p2z207/xMlyYKV8mF9Sd2BCBpx49Ps6VPRyG5XCcvCg
+         UBOWaBD1rdffy0laHyQjjLfgQLh8RW8vQqipaSwGi9tRvBnW2NY61s53bcYRBliHwouS
+         i6MKSk+nBzgp8YehdNzrs6duH7P2CippHlRNdvlzGNEyT/h8sX79/iAA+akjA9d2QIND
+         8ERpC8qJgkGLiYafpaOwEclJpeRZbB+iISWwESw6SnNBxHTtZ+MABfYGnibw/BzrPEDb
+         SVjQ==
+X-Gm-Message-State: AOJu0Yyi1hsSylNXdFrTSy1tcUUH65jOrSj+MYD7jclR0+4fLq0CBu8T
+	BDr3botTIC1hZXuJzwN6vQlp2550cWsamxjR3Po=
+X-Google-Smtp-Source: AGHT+IFTVJsJAm6naNKXyiX5c2mFJkV4lk+63Z6lPWEM2vseu03boGDXe8Vcm4Aa0ugQWdawYpF75g==
+X-Received: by 2002:a17:906:318f:b0:9a1:b05a:c07c with SMTP id 15-20020a170906318f00b009a1b05ac07cmr20588428ejy.55.1697131573061;
+        Thu, 12 Oct 2023 10:26:13 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Henry Wang <Henry.Wang@arm.com>
+Subject: [for-4.18][PATCH 0/2] Fix AMD erratum #1485 on AMD Zen4
+Date: Thu, 12 Oct 2023 18:25:59 +0100
+Message-Id: <20231012172601.22600-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [libvirt test] 183351: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=8eb09a2bb984f3550cc87074e57841b86be39601
-X-Osstest-Versions-That:
-    libvirt=bb673117d5823030a47dda70712bafbf62fe302a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 12 Oct 2023 16:40:05 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 183351 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183351/
+This patch should make it to 4.18, as it prevents random crashes on AMD
+Zen4 running outdated microcode.
 
-Failures :-/ but no regressions.
+Under certain conditions Zen4 may corrupt its own code stream when SMT is
+enabled and STIBP is not. The Linux thread in which this was highlighted is
+in patch2's commit message.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183338
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183338
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183338
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+NOTE: Still running in CI as of now, but tested locally. Pipeline here.
+    https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines/1034895039
 
-version targeted for testing:
- libvirt              8eb09a2bb984f3550cc87074e57841b86be39601
-baseline version:
- libvirt              bb673117d5823030a47dda70712bafbf62fe302a
+Patch 1: is just a minor refactor to ensure we don't get microarchitectures
+         of different families mixed up now that we have 3 different
+         families involved (Fam17h, Fam18h and Fam19h)
+Patch 2: The actual fix. It involves setting a bit in an MSR if it's a non
+         virtualized zen4. It's not a direct copy of the Linux patch, as we
+         have started using macros to find out microarchitectures from
+         CPUID bits, rather than relying on models.
 
-Last test of basis   183338  2023-10-11 04:20:42 Z    1 days
-Testing same since   183351  2023-10-12 04:18:45 Z    0 days    1 attempts
+Alejandro Vallejo (2):
+  xen/x86: Add family guards to the is_zen[12]_uarch() macros
+  x86/amd: Prevent potentially fetching wrong instruction bytes on Zen4
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Erik Skultety <eskultet@redhat.com>
-  Sergey Mironov <mironov@fintech.ru>
+ xen/arch/x86/cpu/amd.c               | 16 +++++++++++++---
+ xen/arch/x86/include/asm/amd.h       | 17 +++++++++++++----
+ xen/arch/x86/include/asm/msr-index.h |  2 ++
+ xen/arch/x86/spec_ctrl.c             |  3 ---
+ 4 files changed, 28 insertions(+), 10 deletions(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+-- 
+2.34.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   bb673117d5..8eb09a2bb9  8eb09a2bb984f3550cc87074e57841b86be39601 -> xen-tested-master
 
