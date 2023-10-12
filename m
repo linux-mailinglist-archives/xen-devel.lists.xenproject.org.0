@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D4B7C7849
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 23:00:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616030.957706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E46F87C7855
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 23:03:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616034.957715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr2md-0007Y5-LN; Thu, 12 Oct 2023 20:59:51 +0000
+	id 1qr2pj-0000Zq-2g; Thu, 12 Oct 2023 21:03:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616030.957706; Thu, 12 Oct 2023 20:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 616034.957715; Thu, 12 Oct 2023 21:03:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr2md-0007Vm-Ib; Thu, 12 Oct 2023 20:59:51 +0000
-Received: by outflank-mailman (input) for mailman id 616030;
- Thu, 12 Oct 2023 20:59:50 +0000
+	id 1qr2pj-0000Xx-04; Thu, 12 Oct 2023 21:03:03 +0000
+Received: by outflank-mailman (input) for mailman id 616034;
+ Thu, 12 Oct 2023 21:03:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qqh1=F2=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
- id 1qr2mc-0007Vg-Iv
- for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 20:59:50 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ (envelope-from <SRS0=WWXW=F2=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1qr2ph-0000XL-40
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 21:03:01 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48102159-6942-11ee-98d4-6d05b1d4d9a1;
- Thu, 12 Oct 2023 22:59:49 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-53e08e439c7so2054165a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Oct 2023 13:59:49 -0700 (PDT)
+ id b838391b-6942-11ee-98d4-6d05b1d4d9a1;
+ Thu, 12 Oct 2023 23:02:59 +0200 (CEST)
+Received: from [127.0.0.1] ([98.35.210.218]) (authenticated bits=0)
+ by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 39CL2DY81845907
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Thu, 12 Oct 2023 14:02:14 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,76 +40,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48102159-6942-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697144389; x=1697749189; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BCC/dYmMqHRaR4te/Bo8/FimzrWr4aPFE83miAoEsEU=;
-        b=YTywEXS+wJB510pw7GQB5ZrFxkHoagAuwj7V/2piluDXQJOHnrfAeJ7exHlROFP4g7
-         rKugHh7XnK4T3FaRaFTXuHbJiFeHrDvMj3SX/98OTEyO8BC6Tuo+FUgJ1G5FbjGYKdrL
-         aR+zI8cLHE2LGTXjs9p1vr751bIBHVf3Am1Sdg5osKc7o5Ri8jpMdRTYb0KloYFXG77Z
-         QnsXumZwBTNHhX3xiERzCqVWEBpka4NzOywmpwEv+UxnsVverPB6s+Yqo2jQov6EP+cz
-         kpZPuAx4wnnC0zh9Pe8qD6h6XxoR/cFG2qYcjh+CM+0cJvUz3SoH+x/uhT2eTENALgtR
-         dfeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697144389; x=1697749189;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BCC/dYmMqHRaR4te/Bo8/FimzrWr4aPFE83miAoEsEU=;
-        b=R98TcwNOwSUCGKDEkQeHl7bYa8Vzs718NWwApI3j002VLjmxy02IG3kGXGUYfJi0xn
-         +EwfSX8cQACVyU7anU56QEqFal1LDg8FACS0kXgYWaPVA1Ey5Qh1dRJ+T/r+QMWRqvCG
-         qWGkBflDvQHuC0/RJPW6TZpVbe5XQB2gi4bjFj3v5xdjNsRcD/86k/p/1OC+/FsnQ/Rx
-         JTY7lQDRckqVOUBD+poa1j+G56D2PU6FOS4e16JytUYJsRzv1ArWi4tc8zo9iuZJQlMv
-         uVRxM/65SAMdQL+Hvuedt4Naz+BAYVeWv4J9N7v1xS82n81EAA9VEk86WCeMYZr0ZZ/5
-         m07A==
-X-Gm-Message-State: AOJu0YwO/ZBcuqE7+h1lhAVNimXw1xPUDJX5nZva38LDSY1Z8cPXUmNU
-	QeCycEb36smi8XQnGdyFM0x2mrt6jqrGC76uFXQ=
-X-Google-Smtp-Source: AGHT+IHZwMvd2wgWbNi1gGdYLOSduJ0nYCAO57TK6PS6Rx2dIRYj1pM6S3C+nzgoUWkC0bS4WzGbE3OYqm4XYpZhvuY=
-X-Received: by 2002:a05:6402:520b:b0:53d:9471:76b3 with SMTP id
- s11-20020a056402520b00b0053d947176b3mr8876672edd.7.1697144388617; Thu, 12 Oct
- 2023 13:59:48 -0700 (PDT)
+X-Inumbo-ID: b838391b-6942-11ee-98d4-6d05b1d4d9a1
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 39CL2DY81845907
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2023091101; t=1697144534;
+	bh=q56mKPoe4hCxwoHF+UPZpSu/qOZ6GuzzYRQj/W6qKCs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=uoN1e+CWPrYLHNeCHmC78rmN/Tob+gntiRqFoOwTBRqEh9KrJdCjalO/kvA0QD+fN
+	 wCl6Ge6HJhiPgP4DJj5Dk9FDZIPTpvRK8hTskB9YQYsnv5gxGAcqpwyxthjxQbaNcp
+	 E6RGaifNOmFDqhxsmibHsRJ9ijNffFwZ1H1K87m+WHgy42c3fbwGI/pw3rEhtsfaCk
+	 Ugvc1FujWuPyYTIlbr3/FaAGEgJAzsdOQ8bAu52hUVVdkB+xCyGHR8sr02hBTqLVOn
+	 XGgTgAPBxf4axQuTOOEnl6sYQtcyR73+VRMKPk+1/bgBJfD08b8jJh6/PQy4EqeqGb
+	 uINQxOccjTjoA==
+Date: Thu, 12 Oct 2023 14:02:12 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Uros Bizjak <ubizjak@gmail.com>, x86@kernel.org,
+        xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Peter Zijlstra <peterz@infradead.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/4=5D_x86/percpu=3A_Use_explicit_se?= =?US-ASCII?Q?gment_registers_in_lib/cmpxchg=7B8=2C16=7Db=5Femu=2ES?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20231012161237.114733-2-ubizjak@gmail.com>
+References: <20231012161237.114733-1-ubizjak@gmail.com> <20231012161237.114733-2-ubizjak@gmail.com>
+Message-ID: <E2A4E3BD-10C1-43F7-AD6D-1037C7106F8B@zytor.com>
 MIME-Version: 1.0
-References: <20231012201743.292149-1-ubizjak@gmail.com> <3af8dcec-66ec-4bd4-b7bf-4bc6f5f3c70f@intel.com>
-In-Reply-To: <3af8dcec-66ec-4bd4-b7bf-4bc6f5f3c70f@intel.com>
-From: Uros Bizjak <ubizjak@gmail.com>
-Date: Thu, 12 Oct 2023 22:59:37 +0200
-Message-ID: <CAFULd4byzHyoz4xM1gL_T1wFkNE-ab8K4upXfPirxM9PdX5JWg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] Introduce %rip-relative addressing to PER_CPU_VAR macro
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: x86@kernel.org, xen-devel@lists.xenproject.org, 
-	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 12, 2023 at 10:53=E2=80=AFPM Dave Hansen <dave.hansen@intel.com=
-> wrote:
+On October 12, 2023 9:10:36 AM PDT, Uros Bizjak <ubizjak@gmail=2Ecom> wrote=
+:
+>PER_CPU_VAR macro is intended to be applied to a symbol, it is not
+>intended to be used as a selector between %fs and %gs segment
+>registers for general operands=2E
 >
-> On 10/12/23 13:12, Uros Bizjak wrote:
-> > The last patch introduces (%rip) suffix and uses it for x86_64 target,
-> > resulting in a small code size decrease: text data bss dec hex filename
-> > 25510677 4386685 808388 30705750 1d48856 vmlinux-new.o 25510629 4386685
-> > 808388 30705702 1d48826 vmlinux-old.o
+>The address to these emulation functions is passed in a register, so
+>use explicit segment registers to access percpu variable instead=2E
 >
-> I feel like I'm missing some of the motivation here.
+>Also add a missing function comment to this_cpu_cmpxchg8b_emu=2E
 >
-> 50 bytes is great and all, but it isn't without the cost of changing
-> some rules and introducing potential PER_CPU_ARG() vs. PER_CPU_VAR()
-> confusion.
+>No functional changes intended=2E
 >
-> Are there some other side benefits?  What else does this enable?
+>Cc: Thomas Gleixner <tglx@linutronix=2Ede>
+>Cc: Ingo Molnar <mingo@redhat=2Ecom>
+>Cc: Borislav Petkov <bp@alien8=2Ede>
+>Cc: Dave Hansen <dave=2Ehansen@linux=2Eintel=2Ecom>
+>Cc: "H=2E Peter Anvin" <hpa@zytor=2Ecom>
+>Cc: Peter Zijlstra <peterz@infradead=2Eorg>
+>Signed-off-by: Uros Bizjak <ubizjak@gmail=2Ecom>
+>---
+> arch/x86/lib/cmpxchg16b_emu=2ES | 12 ++++++------
+> arch/x86/lib/cmpxchg8b_emu=2ES  | 30 +++++++++++++++++++++---------
+> 2 files changed, 27 insertions(+), 15 deletions(-)
+>
+>diff --git a/arch/x86/lib/cmpxchg16b_emu=2ES b/arch/x86/lib/cmpxchg16b_em=
+u=2ES
+>index 6962df315793=2E=2E2bd8b89bce75 100644
+>--- a/arch/x86/lib/cmpxchg16b_emu=2ES
+>+++ b/arch/x86/lib/cmpxchg16b_emu=2ES
+>@@ -23,14 +23,14 @@ SYM_FUNC_START(this_cpu_cmpxchg16b_emu)
+> 	cli
+>=20
+> 	/* if (*ptr =3D=3D old) */
+>-	cmpq	PER_CPU_VAR(0(%rsi)), %rax
+>+	cmpq	%gs:(%rsi), %rax
+> 	jne	=2ELnot_same
+>-	cmpq	PER_CPU_VAR(8(%rsi)), %rdx
+>+	cmpq	%gs:8(%rsi), %rdx
+> 	jne	=2ELnot_same
+>=20
+> 	/* *ptr =3D new */
+>-	movq	%rbx, PER_CPU_VAR(0(%rsi))
+>-	movq	%rcx, PER_CPU_VAR(8(%rsi))
+>+	movq	%rbx, %gs:(%rsi)
+>+	movq	%rcx, %gs:8(%rsi)
+>=20
+> 	/* set ZF in EFLAGS to indicate success */
+> 	orl	$X86_EFLAGS_ZF, (%rsp)
+>@@ -42,8 +42,8 @@ SYM_FUNC_START(this_cpu_cmpxchg16b_emu)
+> 	/* *ptr !=3D old */
+>=20
+> 	/* old =3D *ptr */
+>-	movq	PER_CPU_VAR(0(%rsi)), %rax
+>-	movq	PER_CPU_VAR(8(%rsi)), %rdx
+>+	movq	%gs:(%rsi), %rax
+>+	movq	%gs:8(%rsi), %rdx
+>=20
+> 	/* clear ZF in EFLAGS to indicate failure */
+> 	andl	$(~X86_EFLAGS_ZF), (%rsp)
+>diff --git a/arch/x86/lib/cmpxchg8b_emu=2ES b/arch/x86/lib/cmpxchg8b_emu=
+=2ES
+>index 49805257b125=2E=2Eb7d68d5e2d31 100644
+>--- a/arch/x86/lib/cmpxchg8b_emu=2ES
+>+++ b/arch/x86/lib/cmpxchg8b_emu=2ES
+>@@ -24,12 +24,12 @@ SYM_FUNC_START(cmpxchg8b_emu)
+> 	pushfl
+> 	cli
+>=20
+>-	cmpl	0(%esi), %eax
+>+	cmpl	(%esi), %eax
+> 	jne	=2ELnot_same
+> 	cmpl	4(%esi), %edx
+> 	jne	=2ELnot_same
+>=20
+>-	movl	%ebx, 0(%esi)
+>+	movl	%ebx, (%esi)
+> 	movl	%ecx, 4(%esi)
+>=20
+> 	orl	$X86_EFLAGS_ZF, (%esp)
+>@@ -38,7 +38,7 @@ SYM_FUNC_START(cmpxchg8b_emu)
+> 	RET
+>=20
+> =2ELnot_same:
+>-	movl	0(%esi), %eax
+>+	movl	(%esi), %eax
+> 	movl	4(%esi), %edx
+>=20
+> 	andl	$(~X86_EFLAGS_ZF), (%esp)
+>@@ -53,18 +53,30 @@ EXPORT_SYMBOL(cmpxchg8b_emu)
+>=20
+> #ifndef CONFIG_UML
+>=20
+>+/*
+>+ * Emulate 'cmpxchg8b %fs:(%esi)'
+>+ *
+>+ * Inputs:
+>+ * %esi : memory location to compare
+>+ * %eax : low 32 bits of old value
+>+ * %edx : high 32 bits of old value
+>+ * %ebx : low 32 bits of new value
+>+ * %ecx : high 32 bits of new value
+>+ *
+>+ * Notably this is not LOCK prefixed and is not safe against NMIs
+>+ */
+> SYM_FUNC_START(this_cpu_cmpxchg8b_emu)
+>=20
+> 	pushfl
+> 	cli
+>=20
+>-	cmpl	PER_CPU_VAR(0(%esi)), %eax
+>+	cmpl	%fs:(%esi), %eax
+> 	jne	=2ELnot_same2
+>-	cmpl	PER_CPU_VAR(4(%esi)), %edx
+>+	cmpl	%fs:4(%esi), %edx
+> 	jne	=2ELnot_same2
+>=20
+>-	movl	%ebx, PER_CPU_VAR(0(%esi))
+>-	movl	%ecx, PER_CPU_VAR(4(%esi))
+>+	movl	%ebx, %fs:(%esi)
+>+	movl	%ecx, %fs:4(%esi)
+>=20
+> 	orl	$X86_EFLAGS_ZF, (%esp)
+>=20
+>@@ -72,8 +84,8 @@ SYM_FUNC_START(this_cpu_cmpxchg8b_emu)
+> 	RET
+>=20
+> =2ELnot_same2:
+>-	movl	PER_CPU_VAR(0(%esi)), %eax
+>-	movl	PER_CPU_VAR(4(%esi)), %edx
+>+	movl	%fs:(%esi), %eax
+>+	movl	%fs:4(%esi), %edx
+>=20
+> 	andl	$(~X86_EFLAGS_ZF), (%esp)
+>=20
 
-These changes are necessary to build the kernel as Position
-Independent Executable (PIE) on x86_64 [1]. And since I was working in
-percpu area I thought that it was worth implementing them.
-
-[1] https://lore.kernel.org/lkml/cover.1682673542.git.houwenlong.hwl@antgro=
-up.com/
-
-Uros.
+%fs??
 
