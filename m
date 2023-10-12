@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE357C6C2C
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 13:23:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.615766.957179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 088417C6E1A
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Oct 2023 14:28:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.615775.957189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqtm9-0004SX-28; Thu, 12 Oct 2023 11:22:45 +0000
+	id 1qqumR-0004SA-Ka; Thu, 12 Oct 2023 12:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 615766.957179; Thu, 12 Oct 2023 11:22:45 +0000
+Received: by outflank-mailman (output) from mailman id 615775.957189; Thu, 12 Oct 2023 12:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qqtm8-0004Qk-Vs; Thu, 12 Oct 2023 11:22:44 +0000
-Received: by outflank-mailman (input) for mailman id 615766;
- Thu, 12 Oct 2023 11:22:43 +0000
+	id 1qqumR-0004Pq-Hv; Thu, 12 Oct 2023 12:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 615775;
+ Thu, 12 Oct 2023 12:27:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5AQY=F2=bounce.vates.tech=bounce-md_30504962.6527d700.v1-a3ec0086e1894dbd854b4fb55797cba4@srs-se1.protection.inumbo.net>)
- id 1qqtm7-0004Qe-Rd
- for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 11:22:43 +0000
-Received: from mail177-2.suw61.mandrillapp.com
- (mail177-2.suw61.mandrillapp.com [198.2.177.2])
+ <SRS0=oWZW=F2=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qqumP-0004Pk-QR
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 12:27:05 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7f0485c-68f1-11ee-9b0e-b553b5be7939;
- Thu, 12 Oct 2023 13:22:41 +0200 (CEST)
-Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail177-2.suw61.mandrillapp.com (Mailchimp) with ESMTP id 4S5nL82hvqzS62KcF
- for <xen-devel@lists.xenproject.org>; Thu, 12 Oct 2023 11:22:40 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- a3ec0086e1894dbd854b4fb55797cba4; Thu, 12 Oct 2023 11:22:40 +0000
+ id a5341635-68fa-11ee-9b0e-b553b5be7939;
+ Thu, 12 Oct 2023 14:27:02 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 8124D4EE0739;
+ Thu, 12 Oct 2023 14:27:01 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,55 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7f0485c-68f1-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
-	s=mandrill; t=1697109760; x=1697370260; i=yann.dirson@vates.fr;
-	bh=LDsl5IRKLm1e1gRX2ek5+bGwRs6jKWWm8waJS7mahQ0=;
-	h=From:Subject:Message-Id:To:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=dug7DYzsBThINaGNDJ/aUc3RJSJ5EsVr2KHNUwsF8fMQG+sKB0gxRqSJBsKSgJUL8
-	 BcY/zNOIclq+cW08GVgMtppScaiZ1vkoi1NRmHD7GA5GQCZdI8TUdlFQC14X4iTQ5q
-	 UTGchtNFNVbDxmemH6Q9i7BcvL7jRqjtAxXEF8fk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
- i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1697109760; h=from :
- subject : message-id : to : date : mime-version : content-type :
- content-transfer-encoding : from : x-mandrill-user : list-unsubscribe;
- bh=LDsl5IRKLm1e1gRX2ek5+bGwRs6jKWWm8waJS7mahQ0=;
- b=o9ej47QP1Ax2fw0Nh/lFfRdKYSFj6YiMaavcg2rgaRlMU46l8s7YTFI7Pd0BZd5c0BfUa
- EGtIo5CtTea69bVl+JpnRa63K+XFNEMxifx1+wPvt8tzwdV+D62iYrtKRCvXFrSe5cqO6YX
- +jXUPZopaDzbRUE4/hepxn9BmnGG2ng=
-From: Yann Dirson <yann.dirson@vates.fr>
-Subject: =?utf-8?Q?Rust=20Xen=20Guest=20Agent?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 3c3d82e7-ce49-4348-9fa1-d1b52dc338c1
-X-Bm-Transport-Timestamp: 1697109759551
-Message-Id: <a4ec7881-3c14-4f4e-ac29-d625a452b034@vates.fr>
-To: xen-devel@lists.xenproject.org
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a3ec0086e1894dbd854b4fb55797cba4?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20231012:md
-Date: Thu, 12 Oct 2023 11:22:40 +0000
+X-Inumbo-ID: a5341635-68fa-11ee-9b0e-b553b5be7939
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 12 Oct 2023 14:27:01 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: andrew.cooper3@citrix.com
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, jbeulich@suse.com, roger.pau@citrix.com, Simone
+ Ballarin <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [XEN PATCH][for-4.19 v2 1/1] xen: introduce a deviation for Rule
+ 11.9
+In-Reply-To: <9c728576-16e0-4d72-9019-d6f5fe8f033b@citrix.com>
+References: <cover.1696948320.git.nicola.vetrini@bugseng.com>
+ <c684c36402e6740472fa91d73436ca5790e5e109.1696948320.git.nicola.vetrini@bugseng.com>
+ <9c728576-16e0-4d72-9019-d6f5fe8f033b@citrix.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <1747011c199a19b458079e04d49f9c45@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-A new pre-release of our guest agent prototype written in Rust is 
-available, numbered 0.2.0 [1].  Identified issues and work to be done 
-are tracked in Gitlab issue tracker [3].
+On 11/10/2023 18:56, andrew.cooper3@citrix.com wrote:
+> On 11/10/2023 8:46 pm, Nicola Vetrini wrote:
+>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+>> index ee7aed0609d2..1b00e4e3e9b7 100644
+>> --- a/docs/misra/deviations.rst
+>> +++ b/docs/misra/deviations.rst
+>> @@ -199,6 +199,11 @@ Deviations related to MISRA C:2012 Rules:
+>>         See automation/eclair_analysis/deviations.ecl for the full 
+>> explanation.
+>>       - Tagged as `safe` for ECLAIR.
+>> 
+>> +   * - R11.9
+>> +     - __ACCESS_ONCE uses a 0 as a null pointer constant to check if 
+>> a type is
+>> +       scalar, therefore its usage for this purpose is allowed.
+>> +     - Tagged as `deliberate` for ECLAIR.
+> 
+> Really?
+> 
+> #define __ACCESS_ONCE(x)
+>     (void)(typeof(x))0; /* Scalar typecheck. */
+> 
+> That's not a pointer.
+> 
+> If someone were to pass in an x who's type was pointer-to-object, then
+> yes it is technically a NULL pointer constant for long enough for the
+> build to error out.
+> 
+> What justification is Eclair using to suggest that it is a pointer?
+> 
+> If you really really want to shut things up, it doesn't need to be 0 -
+> it could be 1 or any other integer, but this honestly feels like a bug
+> in Eclair to me.
+> 
+> ~Andrew
 
-More details can be found in this blog post [2].
+The non-compliant uses found by the checker were due to function 
+pointers
+e.g.
 
-As always, feedback will be greatly appreciated!
+void (*fp)(int i);
 
+violation for rule MC3R1.R11.9: (required) The macro `NULL' shall be the 
+only permitted form of integer null pointer constant. (untagged)
+p.c:12.3-12.7: (MACRO) Loc #1 [culprit: non-compliant use of null 
+pointer constant]
+   A(fp) = NULL;
+   <~~~>
+p.c:6.8-6.19: for #1 [culprit: expanded from macro `_A']
+  (void)(typeof(X))0; \
+        <~~~~~~~~~~>
+p.c:9.16-9.20: for #1 [culprit: expanded from macro `A']
+#define A(X) (*_A(X))
+                <~~~>
 
-[1] https://gitlab.com/xen-project/xen-guest-agent/-/releases/0.2.0
-[2] https://xcp-ng.org/blog/2023/10/12/updates-on-the-rust-guest-tools/
-[3] https://gitlab.com/xen-project/xen-guest-agent/-/issues
+These uses do not cause a build fail, and we deemed this usage of 0 to 
+be correct
+(a neutral value that would allow __ACCESS_ONCE to support any type of 
+argument).
+While perhaps some other value does have the same property (e.g., 1), we 
+felt that it was
+okay to let 0 remain there.
 
-
-Yann Dirson | Vates Platform Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-web: https://vates.tech
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
