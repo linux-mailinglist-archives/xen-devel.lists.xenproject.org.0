@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29207C794B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 00:10:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616067.957797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AE27C7950
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 00:10:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616075.957885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr3s3-0001Wr-9t; Thu, 12 Oct 2023 22:09:31 +0000
+	id 1qr3sB-00041R-P8; Thu, 12 Oct 2023 22:09:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616067.957797; Thu, 12 Oct 2023 22:09:31 +0000
+Received: by outflank-mailman (output) from mailman id 616075.957885; Thu, 12 Oct 2023 22:09:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr3s3-0001Nj-2b; Thu, 12 Oct 2023 22:09:31 +0000
-Received: by outflank-mailman (input) for mailman id 616067;
- Thu, 12 Oct 2023 22:09:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qr3sB-0003w9-Fw; Thu, 12 Oct 2023 22:09:39 +0000
+Received: by outflank-mailman (input) for mailman id 616075;
+ Thu, 12 Oct 2023 22:09:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Hhgq=F2=epam.com=prvs=4649fa389a=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1qr3s0-00016s-O7
- for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 22:09:28 +0000
+ id 1qr3s9-00016v-2U
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 22:09:37 +0000
 Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00298d58-694c-11ee-9b0e-b553b5be7939;
- Fri, 13 Oct 2023 00:09:24 +0200 (CEST)
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0694ae73-694c-11ee-98d4-6d05b1d4d9a1;
+ Fri, 13 Oct 2023 00:09:35 +0200 (CEST)
 Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
  by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39CKqml8008371; Thu, 12 Oct 2023 22:09:21 GMT
+ 39CKqml5008371; Thu, 12 Oct 2023 22:09:19 GMT
 Received: from eur01-db5-obe.outbound.protection.outlook.com
  (mail-db5eur01lp2050.outbound.protection.outlook.com [104.47.2.50])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3tpr7cr8dp-6
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3tpr7cr8dp-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Oct 2023 22:09:21 +0000
+ Thu, 12 Oct 2023 22:09:19 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
  by DBAPR03MB6376.eurprd03.prod.outlook.com (2603:10a6:10:193::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.45; Thu, 12 Oct
- 2023 22:09:16 +0000
+ 2023 22:09:15 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::f606:63f7:5875:6076]) by VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::f606:63f7:5875:6076%4]) with mapi id 15.20.6863.043; Thu, 12 Oct 2023
- 22:09:16 +0000
+ 22:09:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,37 +53,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00298d58-694c-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0694ae73-694c-11ee-98d4-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HCUez6HIdfcr1Yr7xZFa4YnP3Ck7kWtx5ZCufd0F5z3GXbzU6+Q1IwHRPPkYhzGc1lpaSBnKITIkZc5vV5eiEv3rnZddrCf+9IS0n7/bxs5CfozBM9+TXfd+BHTUnaoBqmfC8phIs1dsn2eMgOJ8DcARhaH+vCJE64ESfJaHfOHdfUk4XpZmn5ovfxg8Q0FRR9nHbxfo08EiFhCHlu+CY/TKhWE2wwvoEebj+lCUXJHj4vDfTjc1wFjkVXYX5+Cq9Ox0gjaXwbKhwSFhd5Lm6Z454e7DzgffXlD/y30wRVB6WL9KsDtKubpkt7pZsCCH///eirgb071Ej1t1WxUfkw==
+ b=UXISerJCozR/cSwWSnZVN/L+9TPx2Rzj4hJ/5MfQZS9Mtij8+zqQQ/Ulb+5kz9ycTTTC5E+fZ6T/32gd8OvFZgqLUpSmn2rWK/Ag6o/QqUpey52nbcLFVKShUNOTrC9ZNX2pcTBUmz6vXlzaSbl/gpt/208IXIk5aMiFCeqIy0WzgXYhvG9DncC18g2LV9uZIIhX4kXDBpzaVtGr2lgsnQT6PV31cgIax3fmORGBpeeanKD8Wm5uRVg07H3HYmGzjfTp6cX7B10FvmU63REt5veCHJtJUdMrOV5Hl/qetV//w1pOxVmJuGJOqp1f+Hd+ctG0RDX6pStzHC+ITIjrvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3qmsepwPT5LEYBRF5H3XVtxBcmvh8BkH9lW5MHLqJWE=;
- b=N8Nw+usgSJRHJVFyRTs4mfN5DxrFxBpFMGeMcWVhpbFMXdXP31sOFzVz0g6xUqdlsMw/urL2vPOXa3L3eqgg/XwZrdhzW7EH9VLuE9JkgBYAH3SxG+mCx8JVxJ9OovZWhUV9lt88ZRt89o54KSEgamCHaytB3vr7M41Ctje3aQa8CSkWmHClYYaeXn2KYCA+VOq0h648DAAFTlzdDQrEkpKxmwBcXuXtnEr1HqxbxpHJrLq/MwJSkzh/SnOOOawLGVLzS3ub1w9cwf65MkkChtASC2qWgs7yrK+RLbQXQbq3eXXIQ71h5zoHIFu78wsaaVdrV/ySRd4zwnDyN7BMjA==
+ bh=mKMPqeeqAlF1usHbA+jD7EzzRAsY3Lp/fUoH9/LNTBQ=;
+ b=N8a6gYJ7S6sOVVs6/KN0tpX4sFbJYPhiZPgwRURtmP34r6FmFEmY4E3ZVy2OeRnx1qE317DEBTtOSFW9SlWpb8H8na6Ht35IlLnQ+AnUpRV2V8AXkgZzvPTjyHE+LBWdR4g3VV/jNH/0ku5dtg3JlQDGB4B3inA/t1uPWOYB3RUZW8vgROI3X+zbUQF72wrwS0uAPFyM1gECI8z363ip4OwR1ATONba4U1LcPBDSIJYNo5C+EP2Tg5qqawY6g3og6Mp4o4/up3QzshHbCZ7nu4raW4HoL8rOTuLkZFCvhJPWT0Mh8mtb3As6qaw+avbnJ1qaoxL3COCkLWShZqFcVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3qmsepwPT5LEYBRF5H3XVtxBcmvh8BkH9lW5MHLqJWE=;
- b=bsJ+IMRouNrG9vZQ3Pub+bkrb1CdKlZG3BpzrbYNXBnDBjdRU73CSCb0XrAw6WqiTF+lARHviht/CfdrrxPTLMPg2hzddStp8Y0RgE+1nZgPqPfqrHDrAvL8F1dnVPUXn+aQAmOJO6PncvGSK1T8ikr42lFtLQaWclGx/89TDU2aGzCoJBYfAAyj2ouDg7mG+5vIO6sWRHJ/Bxf3loEoQai6M+zDa5S0ztp5TCPrGyxVwycgMcKVywpwyGh5tVJBuYXvgCQQ/rCO8clkS5kLR+E/Nlo8Wj+H8ErL5qCguRuT3j8VGruz2vC2KILE3doQNaRsV9+0K3YgdFwzoE+ZKg==
+ bh=mKMPqeeqAlF1usHbA+jD7EzzRAsY3Lp/fUoH9/LNTBQ=;
+ b=B6TKsS8Q7pFbjbb/rI8gVx1rx4CHgfALbJVTqKkmyCXCgjt093jxFpUFQP4I6IZnBShg0yExtaRP+b5nvqEduPuKyOZ4k79HBaZdQEUfHGqfUORQU6YqnQMAvTAswzUZ4Qn9vEzonFAY1BtFcVKyHja0ZTe+Xzo8+xv1sCTnsLnCFxWQWeAgPMTmTr1rfTJ/Fnq49Z8KU/VSUCTduizJCV6KLMZLGeiZU2buEFM2Mz7MS6wG5SpXUSZ7JDKersmEyYsECrGIhDwAcSEOshSm4ddafkU3R9FtP0afUHnERQEx9kvzh3HYvjHwKafUeTXacOUPRvaiMgqXBBJEZHQYJg==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>,
-        Jan Beulich <jbeulich@suse.com>, Paul
- Durrant <paul@xen.org>,
-        =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v10 05/17] vpci: add hooks for PCI device assign/de-assign
-Thread-Topic: [PATCH v10 05/17] vpci: add hooks for PCI device
- assign/de-assign
-Thread-Index: AQHZ/Vi9fq+uOYreoU2R3lof3/0hww==
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>,
+        Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+        Paul Durrant <paul@xen.org>,
+        =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
+        Kevin Tian
+	<kevin.tian@intel.com>
+Subject: [PATCH v10 02/17] pci: introduce per-domain PCI rwlock
+Thread-Topic: [PATCH v10 02/17] pci: introduce per-domain PCI rwlock
+Thread-Index: AQHZ/Vi8UBjbIJy6YEm3bNbn9ygUkA==
 Date: Thu, 12 Oct 2023 22:09:15 +0000
-Message-ID: <20231012220854.2736994-6-volodymyr_babchuk@epam.com>
+Message-ID: <20231012220854.2736994-3-volodymyr_babchuk@epam.com>
 References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
 In-Reply-To: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
 Accept-Language: en-US
@@ -93,293 +95,244 @@ X-MS-TNEF-Correlator:
 x-mailer: git-send-email 2.42.0
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DBAPR03MB6376:EE_
-x-ms-office365-filtering-correlation-id: cf61ec12-f889-4405-110e-08dbcb6fe03c
+x-ms-office365-filtering-correlation-id: 66e37b67-8e0a-4acb-e154-08dbcb6fdf86
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- qu9pTc5w0Ntn2RomDq8KEVzcM+p2XK18Gtxpt76OEIK4kbpUgS8Y3srZBY95pZuNCVVH6RaZRQHtredepyPK5sOR1Rs74CB/IMzl+cx6g7fRW2yIg51qpyAYoTyx33RGbgFm+X1AbuZbd4m48ZXaD6oLt5GLTDXWf+5nreJSKhe+AaUwzNTwo0+wXFLekeLo5KhtWJm2QOuN9ozVBTEmfh7GycuNgG42OCf/5DGqhf+hsp4TA5Nwf1ZkhenPU1dIr3zqW0kq5mmPbk/Arw0dx3vmhrRXft71uf2G0erjUJBb7akEBdoYEfozPWhC9CV1E8NL3FvRhjjO+U9X/0oEy3dLQUv3hlX8UC0CSfUeRPvLVCNy5PZIA89yUClx2cogJlw8+yuDZ6C6rWJ4S77Tw5fH+8X++oTAOSIZlD+noLWgBOE5CfzrQP0XNr5JzA7546fKuzQtGnxGOSp6e2Ak4OqoKfXBicxh5JpGBpZz+BnruS9GzyuloxKv0QByBGH7id0idxhSx53ZMkoE7MrxT2k095nnj8TngUmm7CCUAzLjtiSTyk0GHCmicci3QtKxQsgGI6Zjc8B74uaOCZYL08UxllNmjcuUMT2u7jjKGZpv4gSzEa9DxtzxKPb10xAq
+ CKd8MLleDT85CFN7KIFs/VrYxxMKc9ul7g+aJs7LWbaof7T1wkfU1RdjoIYbXL1aW5l2UJKHOeL7t0cwPe5CElKu2SwhgYYeUhzKgxWmAF9OxyAwmHVzSL+iMSNUyFGAk3ybZHGg+W/6xNpQVjhuDbc9QmMGPBcLnWuFqvAMNd6CMkM5IZY/qlAv+3WJcRZIxiikhtNvGzYf7jGCaCG17K3dX6p35o7+Itn/oEKyDVg7QvDhEzX/K3fbCZc6mc//CWKJotZyJC3YpQRFgTmT/OXfJKePJiJxEcDt0E5XiUjq0q6PlxEoJvdMhdE+E2F/3l4tVmWJxoBuZyKpyryokeyUA5rFm8CDLUJHPNUDJT8/DbNHsftZIt4m8PhyY6d0yf4eoo+Fgl0GAlrAQfWn6GnvCijcuwF3Ocx+ytaZ4ABJ2D/LseuElzEzn2DzKsbCc60k75LLzqkjAFdYNVCTfQxA4HI0kgh8WvwgvOlZ+FQAtAxQDj1KaUzT0p9jxBUcFw4NsYHJJl/STgflgZrVpfSG9FnyGd8Tw5QR57lJ3g4ceBGzJdj2tman03EXVz13PazVcXT0RH95gHgq3S1cWbaii8AnupLFCZxv8L2v/eZxdkkuwvwzXOE+jzlj+BFI
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(396003)(346002)(366004)(136003)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(107886003)(2616005)(71200400001)(26005)(6512007)(6506007)(55236004)(36756003)(86362001)(38100700002)(38070700005)(122000001)(1076003)(83380400001)(91956017)(41300700001)(64756008)(316002)(76116006)(54906003)(66946007)(66446008)(6916009)(66556008)(66476007)(2906002)(8936002)(5660300002)(8676002)(4326008)(6486002)(478600001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(396003)(346002)(366004)(136003)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(2616005)(71200400001)(26005)(6512007)(6506007)(55236004)(36756003)(86362001)(38100700002)(38070700005)(122000001)(1076003)(83380400001)(7416002)(91956017)(41300700001)(64756008)(316002)(76116006)(54906003)(66946007)(66446008)(6916009)(66556008)(66476007)(2906002)(8936002)(5660300002)(8676002)(4326008)(6486002)(478600001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?3Pj47ZPJX0bsHYz6M+r4sGBWeJE4qa0wCHPbthmG6vHAwYWyhWBNBKXp41?=
- =?iso-8859-1?Q?aH7jDcOVfFoIt1sV1Hj5qNCkRIt8vJkHQ8Jcg0PF36PfnNts2gAzwa8Van?=
- =?iso-8859-1?Q?dEpimYJpD68A7IhtioyKIoI1wTTU4nydak6NM+JTaReiCbQIEXrkkUMbCb?=
- =?iso-8859-1?Q?B34OFgW9PNPX+iB05ppNoNfeTi3uwE7GnncQ3/GTydD1I0D7ZlBt+AbD9O?=
- =?iso-8859-1?Q?pSQ3FZbhT3rRlaKBmBF5hGDbEXoNUi/Ck3B4Z6a0pat2HcTrNUVhxlg35O?=
- =?iso-8859-1?Q?rUQqpHn8ofmhOm0yXR21GmLho8EkARzQMNvBhciaQFUUsNhYaYBDxZf/Bd?=
- =?iso-8859-1?Q?2Uxb8idF8I0uZjrCR88zUzQ1q2rBCG7gtNrOPzA/CSq2f7hpmU/1jxbtr6?=
- =?iso-8859-1?Q?5IIp3UMwefIe93+nqqD1HfACTvc8c3zhkIcZHPDiTBydDL/5WVIo3x4DfA?=
- =?iso-8859-1?Q?Y1Upo3+46Xg0Akx7YmDSEl7mYnNV1bvZv3lvD84wa2LKzNR09/i2NtA2sO?=
- =?iso-8859-1?Q?uiHynWGZlovP8R9Z/zxS+MNXlonPrzdooLMwNmdvqbdeGgy2YyWKS/S/YX?=
- =?iso-8859-1?Q?VjNG6PwACLdoOwTVX9Z+El6j/quQJXfCpnw9xodwItMbu45o06N7WdRHr/?=
- =?iso-8859-1?Q?tS1KLWmnHetKZls7csdO0nJNrArZ3N1S1vAOe+M+/U84TmT7Q7mbRZXzph?=
- =?iso-8859-1?Q?V7FWIY+8uZP1qjidwXaNINWQooF4tm13Ho5W0C4aZ2PnotppurJZMPhusL?=
- =?iso-8859-1?Q?F9a/E1nSUdRIInZfNn5vhF1YWO+wDH9UI5VUSjn/UlCrsXRp6czTvFO0aC?=
- =?iso-8859-1?Q?4GSf6IoHmL2TDcDMDwdKfN2ZG/LmniahpmVNBufE7p84ggnJEPu5FqjSo+?=
- =?iso-8859-1?Q?Osf0KyTeKtrNS4fgGC8AmTy4cUXA7lIMRUUh0AbpsD5qQmyBIzS9ju8NxU?=
- =?iso-8859-1?Q?NjzXd7xd6etc7oXhEwrpYF3qUknRWzK41TNOmBDEyUv6i9UMe5elkiJIkL?=
- =?iso-8859-1?Q?j6wSRm0MiBZ8iz5fxg86oEHVTHxlp2W0HunugkZqQa+dxFCPBIpKOkyGY9?=
- =?iso-8859-1?Q?ry1B3pfjjz0epHyWE55RC6CkHPjl2u1qjCCZSdluwahBPwCkbTWkzGtKq0?=
- =?iso-8859-1?Q?thUyTq0QozUmeOjRPRlHix0EzEOrHxWi4BUfsPQa3NKhxJfaYS2F3FKyQl?=
- =?iso-8859-1?Q?ojXlldBIFK6MP7ixShyLXt6g+u/YW4F93yttQphA5iu9A6x5o9zCuJT/c/?=
- =?iso-8859-1?Q?qGEV9LAIT6cQ63AJ1dTs+/swMHCnUprXL3feh+LIh69S+lL4PUipm2i5c8?=
- =?iso-8859-1?Q?e2X9FNPQ0nM2Cn43tRFCKvQt+LB+0jTYJ+oGunRMuLI8loEwIBLyhjUMGw?=
- =?iso-8859-1?Q?yYRwShfvS7PxAwYU1HhYQVkMX7RlH2wXPz8/TC3kMevuk3IfsyuldXBsAF?=
- =?iso-8859-1?Q?QzILH+7W0vR7cahW8WoK/ilPmYlmIRHQce8QUObH8YFeTJZzQxJo00GYrd?=
- =?iso-8859-1?Q?83lXcY54s3mnp1xbCQ7hzfqoDQSqoazrM8+bsgvzVp1jW1IsO/ORd3GrjH?=
- =?iso-8859-1?Q?Zt3iAp3R3hteXx/nboBPuaIqfICryJRNrR5XRD3obkDJM5BI2TR0IB7AC7?=
- =?iso-8859-1?Q?pyPc8cmVYRAeYK9QkKDGWOkKP2rG5qEUJmlcGsumI1dJk5PPxnvA3GGg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ =?utf-8?B?aEQvL2Roa0xpZEQybHFGc2paQ0liaURFMDV5dkMxMUlPK1V6bzQ0TUhneGhz?=
+ =?utf-8?B?c1ZaLzNCcTFBcDAzOHlIT2JXNk05cFluemVsT0NDdmN2d1JxYy9tbVdFa1J4?=
+ =?utf-8?B?eStpa1BYQUxJNnN5UkdpUmp4cVJib1VNK3p0ckc3NlAvRUV6cUFDM0o3UjJS?=
+ =?utf-8?B?dFBZQlVSYXptaFYxaUdqUXhYOXo0TVIrWjNOTEVUaERkSGRPV1VqT0MvRktN?=
+ =?utf-8?B?MFZsbnkyK2FkVW1tK2tRWS9ITGI2WDZHT2dkVXZkOVRHSlZ3WkpqRTBaT2RH?=
+ =?utf-8?B?MkRia1B4QmZqMWg2cGZSRXFvNE1HWEtUSllocXhJV1RnZFF6aXo0YVVTcHFl?=
+ =?utf-8?B?TENOMjcvckxkZ21aV0IyQmQ4Tnh0eVdZWGZmM3V1MmUybVJRZitNa2VKODgy?=
+ =?utf-8?B?T3JQbWgrdGdIL0tETnowNm9TaHVxOFdnalI4dCtSblFOWnRKbWVvQm40Mysw?=
+ =?utf-8?B?WXhwODIzVnpDSDNxekY4aHlWSm82dzVGQjdENkRmdndYTURKekhNajJjL0Ji?=
+ =?utf-8?B?MEY5RWJIUG54S3M4M3RKNUhIeHZhOU9peDBZN3B6YnFhUkZnVUIySXU5U04v?=
+ =?utf-8?B?amdKQWRtZGd0NFlub1lXQjl6V0lKaHoybC9iRmlPMC9XL2JUMVQ1cVRDdEVG?=
+ =?utf-8?B?ZUt4OW1TcnArYS84WTZZdE1vNmJsc1dGazFqaGdaOTRzcjllcUVUNHRoV2NV?=
+ =?utf-8?B?UkYxYnptT1JWSmlJN0NMQTFxN2RjMHNTbUV5VSsrL3VkbTZTdml2dEpHT2xZ?=
+ =?utf-8?B?Uk1tQkViVU96TGQwakRLRi9vOGJqU3pXVWUyWkZ2ZXg4WVdrUXMvT3YzdCt6?=
+ =?utf-8?B?bnVvY1JzbEpkbitWWmZXbFkrMHlxaUg1MnpLS1lXUUhpbmJaZjk3RU02bDFh?=
+ =?utf-8?B?Q0xmeWhTM3hRaHNzUnQ0cnNEMElybHNEbjgvbjl0L0x4Z2RTYzdJd3c1WkVC?=
+ =?utf-8?B?WnpCT3BJU05QbHJpYnQyQ2R0dXBGRkI2andRcmQ3aW1lQUVuemdhL0VKbWRj?=
+ =?utf-8?B?dWduNkVwWkFmL1NqZVlxM3dCNlh1NkRTdC9hSWlTbjR4MHdqckJUcFhlb3h0?=
+ =?utf-8?B?c1MyTzZmcVVDRlMyNmFER01Ia0pJV0hJeTFWNFNYRFl1SmRNNEZTZ1RjNW9n?=
+ =?utf-8?B?RFoydm1NdUxZLzZUUTZWNVpkNjFFWUdDTmdIR2tFVk9Od1hPM2NSYVVEbzAr?=
+ =?utf-8?B?cVduTFJlRm5KYTFuN1FvZ2FhdFh6KzlZUWVqdWxtRkwwNHR2RmJtOXN5ZVVU?=
+ =?utf-8?B?SlEyQTBFSHBSNWZ4N1hkb3dpc0d4VW84WHJNbXhLSzBiTnBZTGRoemhRQjZP?=
+ =?utf-8?B?SGp1SXBqUmViMlBwbm9zUWk1cWR3S1p0dDBxWndXWlEzVVpqQjVNdG9ML2xt?=
+ =?utf-8?B?cHB3VXhIRkZNRnQwOG9PQzZEMnhKSWpnK2Q4ZlVvd21UWWlZMVdJV2tkbU5o?=
+ =?utf-8?B?SUZzSHlNWGJrY3EyVmxyZ1BVdnkrMzJ4bzJSc08xL1cvcGtQUTJhbVphWGJu?=
+ =?utf-8?B?THUraWpqZ1p6SHEram0vU0xOaTBlczZjSUE4Wkx3VG1tZ0NueW83WE04WVo1?=
+ =?utf-8?B?TjJRaUxwTnlUcHpJWXVKNC9RbTJTdk9NQWVId3JiSjdySGlFSGNjZW42aXcy?=
+ =?utf-8?B?dDcvNHhPSVJkdTRxWHpwVVVtTlFDNk5tbHpvemZZMnZrNElEa3E4Rmo5VEx4?=
+ =?utf-8?B?T1VYdXBWUyt6dHQyMDFPMVFrdkMza0s2Ymk0TkFNUms1bGdWTWxjMWp2aEJD?=
+ =?utf-8?B?cEMvUU9FM3pxVVB5RmdVR1BObno0UVRHN1NJTWFDV1pnM3FxbjZSL3lvMXJI?=
+ =?utf-8?B?ejNjMm5YeVhjZy9EV0tQcXBEdUpCR1hTT0JxTWFvbDlXZzdsNitmVGdZUGR1?=
+ =?utf-8?B?NnJJbDBERlJnR3pnWG04cTdMVTlEOTdQbFpGQjQ1RHdzRFZPSW5EUTRWYUcv?=
+ =?utf-8?B?cG1INld6S3lXcVVOUFVESlllYXcrOTFZbmw1L1ZOWVRNNXpFUDJ4S1dsUmpz?=
+ =?utf-8?B?TFpkVDlZR21OaEpvK1djSTVYQUt0Qnl1K3JpaVBGTFp0YkMvK3orb0RjNWUx?=
+ =?utf-8?B?U0pNdmtldGp1TEZNVE9Da1VLZHFQcGN4TG9DL3VGOE1EVTFXcXNQYlV2dm5h?=
+ =?utf-8?B?cWtiS2xHTS9wUG9abFlJWnpvME5uSnBCTjVLdklBR3Z0dTMvRzhETjVIS2ZL?=
+ =?utf-8?B?Z0E9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <DACAF7B5EFEC064597A3B5E3444922C1@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf61ec12-f889-4405-110e-08dbcb6fe03c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2023 22:09:15.9960
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66e37b67-8e0a-4acb-e154-08dbcb6fdf86
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2023 22:09:15.1897
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AIAFc4iL0q9YIslbonRlXVRU1pNguMnvCgzJ07rAgBenojzNTT7UcMvzPiUv2SPliGZ9/dXvhkLC7HdVgZKLal8iNfjKe2GtUGY/EJE+ZZ0=
+X-MS-Exchange-CrossTenant-userprincipalname: ax9t6PRfM1NWgQR+g8sQK1eHftN+s5NKCNACQY0wFqzIxx3j4UVDorCtKLU052VCFbJgccOln4irUyZAOvTlyC4xNZlu2eSlfF+/ovVBUuQ=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR03MB6376
-X-Proofpoint-GUID: xPGnu4w1kRYsw0G2gEzggBmRHh7JGbMm
-X-Proofpoint-ORIG-GUID: xPGnu4w1kRYsw0G2gEzggBmRHh7JGbMm
+X-Proofpoint-GUID: mEd38r7guj_3gAoyQaBuv4MEc-YoAHxc
+X-Proofpoint-ORIG-GUID: mEd38r7guj_3gAoyQaBuv4MEc-YoAHxc
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-12_14,2023-10-12_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 adultscore=0 spamscore=0
  mlxscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0 mlxlogscore=803
+ impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0 mlxlogscore=999
  phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2309180000 definitions=main-2310120186
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-
-When a PCI device gets assigned/de-assigned we need to
-initialize/de-initialize vPCI state for the device.
-
-Also, rename vpci_add_handlers() to vpci_assign_device() and
-vpci_remove_device() to vpci_deassign_device() to better reflect role
-of the functions.
-
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
----
-
-In v10:
-- removed HAS_VPCI_GUEST_SUPPORT checks
-- HAS_VPCI_GUEST_SUPPORT config option (in Kconfig) as it is not used
-  anywhere
-In v9:
-- removed previous  vpci_[de]assign_device function and renamed
-  existing handlers
-- dropped attempts to handle errors in assign_device() function
-- do not call vpci_assign_device for dom_io
-- use d instead of pdev->domain
-- use IS_ENABLED macro
-In v8:
-- removed vpci_deassign_device
-In v6:
-- do not pass struct domain to vpci_{assign|deassign}_device as
-  pdev->domain can be used
-- do not leave the device assigned (pdev->domain =3D=3D new domain) in case
-  vpci_assign_device fails: try to de-assign and if this also fails, then
-  crash the domain
-In v5:
-- do not split code into run_vpci_init
-- do not check for is_system_domain in vpci_{de}assign_device
-- do not use vpci_remove_device_handlers_locked and re-allocate
-  pdev->vpci completely
-- make vpci_deassign_device void
-In v4:
- - de-assign vPCI from the previous domain on device assignment
- - do not remove handlers in vpci_assign_device as those must not
-   exist at that point
-In v3:
- - remove toolstack roll-back description from the commit message
-   as error are to be handled with proper cleanup in Xen itself
- - remove __must_check
- - remove redundant rc check while assigning devices
- - fix redundant CONFIG_HAS_VPCI check for CONFIG_HAS_VPCI_GUEST_SUPPORT
- - use REGISTER_VPCI_INIT machinery to run required steps on device
-   init/assign: add run_vpci_init helper
-In v2:
-- define CONFIG_HAS_VPCI_GUEST_SUPPORT so dead code is not compiled
-  for x86
-In v1:
- - constify struct pci_dev where possible
- - do not open code is_system_domain()
- - extended the commit message
----
- xen/drivers/passthrough/pci.c | 20 ++++++++++++++++----
- xen/drivers/vpci/header.c     |  2 +-
- xen/drivers/vpci/vpci.c       |  6 +++---
- xen/include/xen/vpci.h        | 10 +++++-----
- 4 files changed, 25 insertions(+), 13 deletions(-)
-
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 182da45acb..b7926a291c 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -755,7 +755,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-          * For devices not discovered by Xen during boot, add vPCI handler=
-s
-          * when Dom0 first informs Xen about such devices.
-          */
--        ret =3D vpci_add_handlers(pdev);
-+        ret =3D vpci_assign_device(pdev);
-         if ( ret )
-         {
-             list_del(&pdev->domain_list);
-@@ -769,7 +769,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-         if ( ret )
-         {
-             write_lock(&hardware_domain->pci_lock);
--            vpci_remove_device(pdev);
-+            vpci_deassign_device(pdev);
-             list_del(&pdev->domain_list);
-             write_unlock(&hardware_domain->pci_lock);
-             pdev->domain =3D NULL;
-@@ -817,7 +817,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
-     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-         if ( pdev->bus =3D=3D bus && pdev->devfn =3D=3D devfn )
-         {
--            vpci_remove_device(pdev);
-+            vpci_deassign_device(pdev);
-             pci_cleanup_msi(pdev);
-             ret =3D iommu_remove_device(pdev);
-             if ( pdev->domain )
-@@ -875,6 +875,10 @@ static int deassign_device(struct domain *d, uint16_t =
-seg, uint8_t bus,
-             goto out;
-     }
-=20
-+    write_lock(&d->pci_lock);
-+    vpci_deassign_device(pdev);
-+    write_unlock(&d->pci_lock);
-+
-     devfn =3D pdev->devfn;
-     ret =3D iommu_call(hd->platform_ops, reassign_device, d, target, devfn=
-,
-                      pci_to_dev(pdev));
-@@ -1146,7 +1150,7 @@ static void __hwdom_init setup_one_hwdom_device(const=
- struct setup_hwdom *ctxt,
-               PCI_SLOT(devfn) =3D=3D PCI_SLOT(pdev->devfn) );
-=20
-     write_lock(&ctxt->d->pci_lock);
--    err =3D vpci_add_handlers(pdev);
-+    err =3D vpci_assign_device(pdev);
-     write_unlock(&ctxt->d->pci_lock);
-     if ( err )
-         printk(XENLOG_ERR "setup of vPCI for d%d failed: %d\n",
-@@ -1476,6 +1480,10 @@ static int assign_device(struct domain *d, u16 seg, =
-u8 bus, u8 devfn, u32 flag)
-     if ( pdev->broken && d !=3D hardware_domain && d !=3D dom_io )
-         goto done;
-=20
-+    write_lock(&pdev->domain->pci_lock);
-+    vpci_deassign_device(pdev);
-+    write_unlock(&pdev->domain->pci_lock);
-+
-     rc =3D pdev_msix_assign(d, pdev);
-     if ( rc )
-         goto done;
-@@ -1502,6 +1510,10 @@ static int assign_device(struct domain *d, u16 seg, =
-u8 bus, u8 devfn, u32 flag)
-                         pci_to_dev(pdev), flag);
-     }
-=20
-+    write_lock(&d->pci_lock);
-+    rc =3D vpci_assign_device(pdev);
-+    write_unlock(&d->pci_lock);
-+
-  done:
-     if ( rc )
-         printk(XENLOG_G_WARNING "%pd: assign (%pp) failed (%d)\n",
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index a52e52db96..176fe16b9f 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -190,7 +190,7 @@ bool vpci_process_pending(struct vcpu *v)
-              * killed in order to avoid leaking stale p2m mappings on
-              * failure.
-              */
--            vpci_remove_device(v->vpci.pdev);
-+            vpci_deassign_device(v->vpci.pdev);
-         write_unlock(&v->domain->pci_lock);
-     }
-=20
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 724987e981..b20bee2b0b 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -36,7 +36,7 @@ extern vpci_register_init_t *const __start_vpci_array[];
- extern vpci_register_init_t *const __end_vpci_array[];
- #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
-=20
--void vpci_remove_device(struct pci_dev *pdev)
-+void vpci_deassign_device(struct pci_dev *pdev)
- {
-     ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-=20
-@@ -69,7 +69,7 @@ void vpci_remove_device(struct pci_dev *pdev)
-     pdev->vpci =3D NULL;
- }
-=20
--int vpci_add_handlers(struct pci_dev *pdev)
-+int vpci_assign_device(struct pci_dev *pdev)
- {
-     unsigned int i;
-     const unsigned long *ro_map;
-@@ -103,7 +103,7 @@ int vpci_add_handlers(struct pci_dev *pdev)
-     }
-=20
-     if ( rc )
--        vpci_remove_device(pdev);
-+        vpci_deassign_device(pdev);
-=20
-     return rc;
- }
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index d743d96a10..75cfb532ee 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -25,11 +25,11 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
-   static vpci_register_init_t *const x##_entry  \
-                __used_section(".data.vpci." p) =3D x
-=20
--/* Add vPCI handlers to device. */
--int __must_check vpci_add_handlers(struct pci_dev *pdev);
-+/* Assign vPCI to device by adding handlers to device. */
-+int __must_check vpci_assign_device(struct pci_dev *pdev);
-=20
- /* Remove all handlers and free vpci related structures. */
--void vpci_remove_device(struct pci_dev *pdev);
-+void vpci_deassign_device(struct pci_dev *pdev);
-=20
- /* Add/remove a register handler. */
- int __must_check vpci_add_register(struct vpci *vpci,
-@@ -235,12 +235,12 @@ bool vpci_ecam_read(pci_sbdf_t sbdf, unsigned int reg=
-, unsigned int len,
- #else /* !CONFIG_HAS_VPCI */
- struct vpci_vcpu {};
-=20
--static inline int vpci_add_handlers(struct pci_dev *pdev)
-+static inline int vpci_assign_device(struct pci_dev *pdev)
- {
-     return 0;
- }
-=20
--static inline void vpci_remove_device(struct pci_dev *pdev) { }
-+static inline void vpci_deassign_device(struct pci_dev *pdev) { }
-=20
- static inline void vpci_dump_msi(void) { }
-=20
---=20
-2.42.0
+QWRkIHBlci1kb21haW4gZC0+cGNpX2xvY2sgdGhhdCBwcm90ZWN0cyBhY2Nlc3MgdG8NCmQtPnBk
+ZXZfbGlzdC4gUHVycG9zZSBvZiB0aGlzIGxvY2sgaXMgdG8gZ2l2ZSBndWFyYW50ZWVzIHRvIFZQ
+Q0kgY29kZQ0KdGhhdCB1bmRlcmx5aW5nIHBkZXYgd2lsbCBub3QgZGlzYXBwZWFyIHVuZGVyIGZl
+ZXQuIFRoaXMgaXMgYSBydy1sb2NrLA0KYnV0IHRoaXMgcGF0Y2ggYWRkcyBvbmx5IHdyaXRlX2xv
+Y2soKXMuIFRoZXJlIHdpbGwgYmUgcmVhZF9sb2NrKCkNCnVzZXJzIGluIHRoZSBuZXh0IHBhdGNo
+ZXMuDQoNClRoaXMgbG9jayBzaG91bGQgYmUgdGFrZW4gaW4gd3JpdGUgbW9kZSBldmVyeSB0aW1l
+IGQtPnBkZXZfbGlzdCBpcw0KYWx0ZXJlZC4gQWxsIHdyaXRlIGFjY2Vzc2VzIGFsc28gc2hvdWxk
+IGJlIHByb3RlY3RlZCBieSBwY2lkZXZzX2xvY2soKQ0KYXMgd2VsbC4gSWRlYSBpcyB0aGF0IGFu
+eSB1c2VyIHRoYXQgd2FudHMgcmVhZCBhY2Nlc3MgdG8gdGhlIGxpc3Qgb3INCnRvIHRoZSBkZXZp
+Y2VzIHN0b3JlZCBpbiB0aGUgbGlzdCBzaG91bGQgdXNlIGVpdGhlciB0aGlzIG5ldw0KZC0+cGNp
+X2xvY2sgb3Igb2xkIHBjaWRldnNfbG9jaygpLiBVc2FnZSBvZiBhbnkgb2YgdGhpcyB0d28gbG9j
+a3Mgd2lsbA0KZW5zdXJlIG9ubHkgdGhhdCBwZGV2IG9mIGludGVyZXN0IHdpbGwgbm90IGRpc2Fw
+cGVhciBmcm9tIHVuZGVyIGZlZXQNCmFuZCB0aGF0IHRoZSBwZGV2IHN0aWxsIHdpbGwgYmUgYXNz
+aWduZWQgdG8gdGhlIHNhbWUgZG9tYWluLiBPZg0KY291cnNlLCBhbnkgbmV3IHVzZXJzIHNob3Vs
+ZCB1c2UgcGNpZGV2c19sb2NrKCkgd2hlbiBpdCBpcw0KYXBwcm9wcmlhdGUgKGUuZy4gd2hlbiBh
+Y2Nlc3NpbmcgYW55IG90aGVyIHN0YXRlIHRoYXQgaXMgcHJvdGVjdGVkIGJ5DQp0aGUgc2FpZCBs
+b2NrKS4gSW4gY2FzZSBib3RoIHRoZSBuZXdseSBpbnRyb2R1Y2VkIHBlci1kb21haW4gcndsb2Nr
+DQphbmQgdGhlIHBjaWRldnMgbG9jayBpcyB0YWtlbiwgdGhlIGxhdGVyIG11c3QgYmUgYWNxdWly
+ZWQgZmlyc3QuDQoNClN1Z2dlc3RlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNp
+dHJpeC5jb20+DQpTdWdnZXN0ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4N
+ClNpZ25lZC1vZmYtYnk6IFZvbG9keW15ciBCYWJjaHVrIDx2b2xvZHlteXJfYmFiY2h1a0BlcGFt
+LmNvbT4NCg0KLS0tDQoNCkNoYW5nZXMgaW4gdjEwOg0KIC0gcGRldi0+ZG9tYWluIGlzIGFzc2ln
+bmVkIGFmdGVyIHJlbW92aW5nIGZyb20gc291cmNlIGRvbWFpbiBidXQNCiAgIGJlZm9yZSBhZGRp
+bmcgdG8gdGFyZ2V0IGRvbWFpbiBpbiByZWFzc2lnbl9kZXZpY2UoKSBmdW5jdGlvbnMuDQoNCkNo
+YW5nZXMgaW4gdjk6DQogLSByZXR1cm5lZCBiYWNrICJwZGV2LT5kb21haW4gPSB0YXJnZXQ7IiBp
+biBBTUQgSU9NTVUgY29kZQ0KIC0gdXNlZCAic291cmNlIiBpbnN0ZWFkIG9mIHBkZXYtPmRvbWFp
+biBpbiBJT01NVSBmdW5jdGlvbnMNCiAtIGFkZGVkIGNvbW1lbnQgYWJvdXQgbG9jayBvcmRlcmlu
+ZyBpbiB0aGUgY29tbWl0IG1lc3NhZ2UNCiAtIHJlZHVjZWQgbG9ja2VkIHJlZ2lvbnMNCiAtIG1p
+bm9yIGNoYW5nZXMgbm9uLWZ1bmN0aW9uYWwgY2hhbmdlcyBpbiB2YXJpb3VzIHBsYWNlcw0KDQpD
+aGFuZ2VzIGluIHY4Og0KIC0gTmV3IHBhdGNoDQoNCkNoYW5nZXMgaW4gdjggdnMgUkZDOg0KIC0g
+UmVtb3ZlZCBhbGwgcmVhZF9sb2NrcyBhZnRlciBkaXNjdXNzaW9uIHdpdGggUm9nZXIgaW4gI3hl
+bmRldmVsDQogLSBwY2lfcmVsZWFzZV9kZXZpY2VzKCkgbm93IHJldHVybnMgdGhlIGZpcnN0IGVy
+cm9yIGNvZGUNCiAtIGV4dGVuZGVkIGNvbW1pdCBtZXNzYWdlDQogLSBhZGRlZCBtaXNzaW5nIGxv
+Y2sgaW4gcGNpX3JlbW92ZV9kZXZpY2UoKQ0KIC0gZXh0ZW5kZWQgbG9ja2VkIHJlZ2lvbiBpbiBw
+Y2lfYWRkX2RldmljZSgpIHRvIHByb3RlY3QgbGlzdF9kZWwoKSBjYWxscw0KLS0tDQogeGVuL2Nv
+bW1vbi9kb21haW4uYyAgICAgICAgICAgICAgICAgICAgICAgICB8ICAxICsNCiB4ZW4vZHJpdmVy
+cy9wYXNzdGhyb3VnaC9hbWQvcGNpX2FtZF9pb21tdS5jIHwgIDkgKystDQogeGVuL2RyaXZlcnMv
+cGFzc3Rocm91Z2gvcGNpLmMgICAgICAgICAgICAgICB8IDcxICsrKysrKysrKysrKysrKysrLS0t
+LQ0KIHhlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9pb21tdS5jICAgICAgICAgfCAgOSArKy0N
+CiB4ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaCAgICAgICAgICAgICAgICAgICAgIHwgIDEgKw0KIDUg
+ZmlsZXMgY2hhbmdlZCwgNzggaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pDQoNCmRpZmYg
+LS1naXQgYS94ZW4vY29tbW9uL2RvbWFpbi5jIGIveGVuL2NvbW1vbi9kb21haW4uYw0KaW5kZXgg
+OGY5YWIwMWMwYy4uNzg1YzY5ZTQ4YiAxMDA2NDQNCi0tLSBhL3hlbi9jb21tb24vZG9tYWluLmMN
+CisrKyBiL3hlbi9jb21tb24vZG9tYWluLmMNCkBAIC02NTEsNiArNjUxLDcgQEAgc3RydWN0IGRv
+bWFpbiAqZG9tYWluX2NyZWF0ZShkb21pZF90IGRvbWlkLA0KIA0KICNpZmRlZiBDT05GSUdfSEFT
+X1BDSQ0KICAgICBJTklUX0xJU1RfSEVBRCgmZC0+cGRldl9saXN0KTsNCisgICAgcndsb2NrX2lu
+aXQoJmQtPnBjaV9sb2NrKTsNCiAjZW5kaWYNCiANCiAgICAgLyogQWxsIGVycm9yIHBhdGhzIGNh
+biBkZXBlbmQgb24gdGhlIGFib3ZlIHNldHVwLiAqLw0KZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJz
+L3Bhc3N0aHJvdWdoL2FtZC9wY2lfYW1kX2lvbW11LmMgYi94ZW4vZHJpdmVycy9wYXNzdGhyb3Vn
+aC9hbWQvcGNpX2FtZF9pb21tdS5jDQppbmRleCA4MzZjMjRiMDJlLi4zNmE2MTdiZWQ0IDEwMDY0
+NA0KLS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1kL3BjaV9hbWRfaW9tbXUuYw0KKysr
+IGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1kL3BjaV9hbWRfaW9tbXUuYw0KQEAgLTQ3Niw4
+ICs0NzYsMTUgQEAgc3RhdGljIGludCBjZl9jaGVjayByZWFzc2lnbl9kZXZpY2UoDQogDQogICAg
+IGlmICggZGV2Zm4gPT0gcGRldi0+ZGV2Zm4gJiYgcGRldi0+ZG9tYWluICE9IHRhcmdldCApDQog
+ICAgIHsNCi0gICAgICAgIGxpc3RfbW92ZSgmcGRldi0+ZG9tYWluX2xpc3QsICZ0YXJnZXQtPnBk
+ZXZfbGlzdCk7DQorICAgICAgICB3cml0ZV9sb2NrKCZzb3VyY2UtPnBjaV9sb2NrKTsNCisgICAg
+ICAgIGxpc3RfZGVsKCZwZGV2LT5kb21haW5fbGlzdCk7DQorICAgICAgICB3cml0ZV91bmxvY2so
+JnNvdXJjZS0+cGNpX2xvY2spOw0KKw0KICAgICAgICAgcGRldi0+ZG9tYWluID0gdGFyZ2V0Ow0K
+Kw0KKyAgICAgICAgd3JpdGVfbG9jaygmdGFyZ2V0LT5wY2lfbG9jayk7DQorICAgICAgICBsaXN0
+X2FkZCgmcGRldi0+ZG9tYWluX2xpc3QsICZ0YXJnZXQtPnBkZXZfbGlzdCk7DQorICAgICAgICB3
+cml0ZV91bmxvY2soJnRhcmdldC0+cGNpX2xvY2spOw0KICAgICB9DQogDQogICAgIC8qDQpkaWZm
+IC0tZ2l0IGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvcGNpLmMgYi94ZW4vZHJpdmVycy9wYXNz
+dGhyb3VnaC9wY2kuYw0KaW5kZXggMDRkMDBjN2MzNy4uYjhhZDRmYTA3YyAxMDA2NDQNCi0tLSBh
+L3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3BjaS5jDQorKysgYi94ZW4vZHJpdmVycy9wYXNzdGhy
+b3VnaC9wY2kuYw0KQEAgLTQ1Myw3ICs0NTMsOSBAQCBzdGF0aWMgdm9pZCBfX2luaXQgX3BjaV9o
+aWRlX2RldmljZShzdHJ1Y3QgcGNpX2RldiAqcGRldikNCiAgICAgaWYgKCBwZGV2LT5kb21haW4g
+KQ0KICAgICAgICAgcmV0dXJuOw0KICAgICBwZGV2LT5kb21haW4gPSBkb21feGVuOw0KKyAgICB3
+cml0ZV9sb2NrKCZkb21feGVuLT5wY2lfbG9jayk7DQogICAgIGxpc3RfYWRkKCZwZGV2LT5kb21h
+aW5fbGlzdCwgJmRvbV94ZW4tPnBkZXZfbGlzdCk7DQorICAgIHdyaXRlX3VubG9jaygmZG9tX3hl
+bi0+cGNpX2xvY2spOw0KIH0NCiANCiBpbnQgX19pbml0IHBjaV9oaWRlX2RldmljZSh1bnNpZ25l
+ZCBpbnQgc2VnLCB1bnNpZ25lZCBpbnQgYnVzLA0KQEAgLTc0Niw3ICs3NDgsOSBAQCBpbnQgcGNp
+X2FkZF9kZXZpY2UodTE2IHNlZywgdTggYnVzLCB1OCBkZXZmbiwNCiAgICAgaWYgKCAhcGRldi0+
+ZG9tYWluICkNCiAgICAgew0KICAgICAgICAgcGRldi0+ZG9tYWluID0gaGFyZHdhcmVfZG9tYWlu
+Ow0KKyAgICAgICAgd3JpdGVfbG9jaygmaGFyZHdhcmVfZG9tYWluLT5wY2lfbG9jayk7DQogICAg
+ICAgICBsaXN0X2FkZCgmcGRldi0+ZG9tYWluX2xpc3QsICZoYXJkd2FyZV9kb21haW4tPnBkZXZf
+bGlzdCk7DQorICAgICAgICB3cml0ZV91bmxvY2soJmhhcmR3YXJlX2RvbWFpbi0+cGNpX2xvY2sp
+Ow0KIA0KICAgICAgICAgLyoNCiAgICAgICAgICAqIEZvciBkZXZpY2VzIG5vdCBkaXNjb3ZlcmVk
+IGJ5IFhlbiBkdXJpbmcgYm9vdCwgYWRkIHZQQ0kgaGFuZGxlcnMNCkBAIC03NTYsNyArNzYwLDkg
+QEAgaW50IHBjaV9hZGRfZGV2aWNlKHUxNiBzZWcsIHU4IGJ1cywgdTggZGV2Zm4sDQogICAgICAg
+ICBpZiAoIHJldCApDQogICAgICAgICB7DQogICAgICAgICAgICAgcHJpbnRrKFhFTkxPR19FUlIg
+IlNldHVwIG9mIHZQQ0kgZmFpbGVkOiAlZFxuIiwgcmV0KTsNCisgICAgICAgICAgICB3cml0ZV9s
+b2NrKCZoYXJkd2FyZV9kb21haW4tPnBjaV9sb2NrKTsNCiAgICAgICAgICAgICBsaXN0X2RlbCgm
+cGRldi0+ZG9tYWluX2xpc3QpOw0KKyAgICAgICAgICAgIHdyaXRlX3VubG9jaygmaGFyZHdhcmVf
+ZG9tYWluLT5wY2lfbG9jayk7DQogICAgICAgICAgICAgcGRldi0+ZG9tYWluID0gTlVMTDsNCiAg
+ICAgICAgICAgICBnb3RvIG91dDsNCiAgICAgICAgIH0NCkBAIC03NjQsNyArNzcwLDkgQEAgaW50
+IHBjaV9hZGRfZGV2aWNlKHUxNiBzZWcsIHU4IGJ1cywgdTggZGV2Zm4sDQogICAgICAgICBpZiAo
+IHJldCApDQogICAgICAgICB7DQogICAgICAgICAgICAgdnBjaV9yZW1vdmVfZGV2aWNlKHBkZXYp
+Ow0KKyAgICAgICAgICAgIHdyaXRlX2xvY2soJmhhcmR3YXJlX2RvbWFpbi0+cGNpX2xvY2spOw0K
+ICAgICAgICAgICAgIGxpc3RfZGVsKCZwZGV2LT5kb21haW5fbGlzdCk7DQorICAgICAgICAgICAg
+d3JpdGVfdW5sb2NrKCZoYXJkd2FyZV9kb21haW4tPnBjaV9sb2NrKTsNCiAgICAgICAgICAgICBw
+ZGV2LT5kb21haW4gPSBOVUxMOw0KICAgICAgICAgICAgIGdvdG8gb3V0Ow0KICAgICAgICAgfQ0K
+QEAgLTgxNCw3ICs4MjIsMTEgQEAgaW50IHBjaV9yZW1vdmVfZGV2aWNlKHUxNiBzZWcsIHU4IGJ1
+cywgdTggZGV2Zm4pDQogICAgICAgICAgICAgcGNpX2NsZWFudXBfbXNpKHBkZXYpOw0KICAgICAg
+ICAgICAgIHJldCA9IGlvbW11X3JlbW92ZV9kZXZpY2UocGRldik7DQogICAgICAgICAgICAgaWYg
+KCBwZGV2LT5kb21haW4gKQ0KKyAgICAgICAgICAgIHsNCisgICAgICAgICAgICAgICAgd3JpdGVf
+bG9jaygmcGRldi0+ZG9tYWluLT5wY2lfbG9jayk7DQogICAgICAgICAgICAgICAgIGxpc3RfZGVs
+KCZwZGV2LT5kb21haW5fbGlzdCk7DQorICAgICAgICAgICAgICAgIHdyaXRlX3VubG9jaygmcGRl
+di0+ZG9tYWluLT5wY2lfbG9jayk7DQorICAgICAgICAgICAgfQ0KICAgICAgICAgICAgIHByaW50
+ayhYRU5MT0dfREVCVUcgIlBDSSByZW1vdmUgZGV2aWNlICVwcFxuIiwgJnBkZXYtPnNiZGYpOw0K
+ICAgICAgICAgICAgIGZyZWVfcGRldihwc2VnLCBwZGV2KTsNCiAgICAgICAgICAgICBicmVhazsN
+CkBAIC04ODUsMjYgKzg5Nyw2MSBAQCBzdGF0aWMgaW50IGRlYXNzaWduX2RldmljZShzdHJ1Y3Qg
+ZG9tYWluICpkLCB1aW50MTZfdCBzZWcsIHVpbnQ4X3QgYnVzLA0KIA0KIGludCBwY2lfcmVsZWFz
+ZV9kZXZpY2VzKHN0cnVjdCBkb21haW4gKmQpDQogew0KLSAgICBzdHJ1Y3QgcGNpX2RldiAqcGRl
+diwgKnRtcDsNCi0gICAgdTggYnVzLCBkZXZmbjsNCi0gICAgaW50IHJldDsNCisgICAgaW50IGNv
+bWJpbmVkX3JldDsNCisgICAgTElTVF9IRUFEKGZhaWxlZF9wZGV2cyk7DQogDQogICAgIHBjaWRl
+dnNfbG9jaygpOw0KLSAgICByZXQgPSBhcmNoX3BjaV9jbGVhbl9waXJxcyhkKTsNCi0gICAgaWYg
+KCByZXQgKQ0KKw0KKyAgICBjb21iaW5lZF9yZXQgPSBhcmNoX3BjaV9jbGVhbl9waXJxcyhkKTsN
+CisgICAgaWYgKCBjb21iaW5lZF9yZXQgKQ0KICAgICB7DQogICAgICAgICBwY2lkZXZzX3VubG9j
+aygpOw0KLSAgICAgICAgcmV0dXJuIHJldDsNCisgICAgICAgIHJldHVybiBjb21iaW5lZF9yZXQ7
+DQogICAgIH0NCi0gICAgbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlICggcGRldiwgdG1wLCAmZC0+
+cGRldl9saXN0LCBkb21haW5fbGlzdCApDQorDQorICAgIHdyaXRlX2xvY2soJmQtPnBjaV9sb2Nr
+KTsNCisNCisgICAgd2hpbGUgKCAhbGlzdF9lbXB0eSgmZC0+cGRldl9saXN0KSApDQogICAgIHsN
+Ci0gICAgICAgIGJ1cyA9IHBkZXYtPmJ1czsNCi0gICAgICAgIGRldmZuID0gcGRldi0+ZGV2Zm47
+DQotICAgICAgICByZXQgPSBkZWFzc2lnbl9kZXZpY2UoZCwgcGRldi0+c2VnLCBidXMsIGRldmZu
+KSA/OiByZXQ7DQorICAgICAgICBzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IGxpc3RfZmlyc3RfZW50
+cnkoJmQtPnBkZXZfbGlzdCwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBzdHJ1Y3QgcGNpX2RldiwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBkb21haW5fbGlzdCk7DQorICAgICAgICB1aW50MTZfdCBzZWcg
+PSBwZGV2LT5zZWc7DQorICAgICAgICB1aW50OF90IGJ1cyA9IHBkZXYtPmJ1czsNCisgICAgICAg
+IHVpbnQ4X3QgZGV2Zm4gPSBwZGV2LT5kZXZmbjsNCisgICAgICAgIGludCByZXQ7DQorDQorICAg
+ICAgICB3cml0ZV91bmxvY2soJmQtPnBjaV9sb2NrKTsNCisgICAgICAgIHJldCA9IGRlYXNzaWdu
+X2RldmljZShkLCBzZWcsIGJ1cywgZGV2Zm4pOw0KKyAgICAgICAgd3JpdGVfbG9jaygmZC0+cGNp
+X2xvY2spOw0KKyAgICAgICAgaWYgKCByZXQgKQ0KKyAgICAgICAgew0KKyAgICAgICAgICAgIGNv
+bnN0IHN0cnVjdCBwY2lfZGV2ICp0bXA7DQorDQorICAgICAgICAgICAgLyoNCisgICAgICAgICAg
+ICAgKiBXZSBuZWVkIHRvIGNoZWNrIGlmIGRlYXNzaWduX2RldmljZSgpIGxlZnQgb3VyIHBkZXYg
+aW4NCisgICAgICAgICAgICAgKiBkb21haW4ncyBsaXN0LiBBcyB3ZSBkcm9wcGVkIHRoZSBsb2Nr
+LCB3ZSBjYW4ndCBiZSBzdXJlDQorICAgICAgICAgICAgICogdGhhdCBsaXN0IHdhc24ndCBwZXJt
+dXRhdGVkIGluIHNvbWUgcmFuZG9tIHdheSwgc28gd2UNCisgICAgICAgICAgICAgKiBuZWVkIHRv
+IHRyYXZlcnNlIHRoZSB3aG9sZSBsaXN0Lg0KKyAgICAgICAgICAgICAqLw0KKyAgICAgICAgICAg
+IGZvcl9lYWNoX3BkZXYgKCBkLCB0bXAgKQ0KKyAgICAgICAgICAgIHsNCisgICAgICAgICAgICAg
+ICAgaWYgKCB0bXAgPT0gcGRldiApDQorICAgICAgICAgICAgICAgIHsNCisgICAgICAgICAgICAg
+ICAgICAgIGxpc3RfbW92ZV90YWlsKCZwZGV2LT5kb21haW5fbGlzdCwgJmZhaWxlZF9wZGV2cyk7
+DQorICAgICAgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAgICAgICAgICAgfQ0KKyAgICAg
+ICAgICAgIH0NCisNCisgICAgICAgICAgICBjb21iaW5lZF9yZXQgPSBjb21iaW5lZF9yZXQgPzog
+cmV0Ow0KKyAgICAgICAgfQ0KICAgICB9DQorDQorICAgIGxpc3Rfc3BsaWNlKCZmYWlsZWRfcGRl
+dnMsICZkLT5wZGV2X2xpc3QpOw0KKyAgICB3cml0ZV91bmxvY2soJmQtPnBjaV9sb2NrKTsNCiAg
+ICAgcGNpZGV2c191bmxvY2soKTsNCiANCi0gICAgcmV0dXJuIHJldDsNCisgICAgcmV0dXJuIGNv
+bWJpbmVkX3JldDsNCiB9DQogDQogI2RlZmluZSBQQ0lfQ0xBU1NfQlJJREdFX0hPU1QgICAgMHgw
+NjAwDQpAQCAtMTEyNCw3ICsxMTcxLDkgQEAgc3RhdGljIGludCBfX2h3ZG9tX2luaXQgY2ZfY2hl
+Y2sgX3NldHVwX2h3ZG9tX3BjaV9kZXZpY2VzKA0KICAgICAgICAgICAgIGlmICggIXBkZXYtPmRv
+bWFpbiApDQogICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgICBwZGV2LT5kb21haW4gPSBj
+dHh0LT5kOw0KKyAgICAgICAgICAgICAgICB3cml0ZV9sb2NrKCZjdHh0LT5kLT5wY2lfbG9jayk7
+DQogICAgICAgICAgICAgICAgIGxpc3RfYWRkKCZwZGV2LT5kb21haW5fbGlzdCwgJmN0eHQtPmQt
+PnBkZXZfbGlzdCk7DQorICAgICAgICAgICAgICAgIHdyaXRlX3VubG9jaygmY3R4dC0+ZC0+cGNp
+X2xvY2spOw0KICAgICAgICAgICAgICAgICBzZXR1cF9vbmVfaHdkb21fZGV2aWNlKGN0eHQsIHBk
+ZXYpOw0KICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICBlbHNlIGlmICggcGRldi0+ZG9tYWlu
+ID09IGRvbV94ZW4gKQ0KZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9p
+b21tdS5jIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2lvbW11LmMNCmluZGV4IGQzNGM5
+OGQ5YzcuLmNkYjEyMjU1NzggMTAwNjQ0DQotLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92
+dGQvaW9tbXUuYw0KKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2lvbW11LmMNCkBA
+IC0yODA2LDggKzI4MDYsMTUgQEAgc3RhdGljIGludCBjZl9jaGVjayByZWFzc2lnbl9kZXZpY2Vf
+b3duZXJzaGlwKA0KIA0KICAgICBpZiAoIGRldmZuID09IHBkZXYtPmRldmZuICYmIHBkZXYtPmRv
+bWFpbiAhPSB0YXJnZXQgKQ0KICAgICB7DQotICAgICAgICBsaXN0X21vdmUoJnBkZXYtPmRvbWFp
+bl9saXN0LCAmdGFyZ2V0LT5wZGV2X2xpc3QpOw0KKyAgICAgICAgd3JpdGVfbG9jaygmc291cmNl
+LT5wY2lfbG9jayk7DQorICAgICAgICBsaXN0X2RlbCgmcGRldi0+ZG9tYWluX2xpc3QpOw0KKyAg
+ICAgICAgd3JpdGVfdW5sb2NrKCZzb3VyY2UtPnBjaV9sb2NrKTsNCisNCiAgICAgICAgIHBkZXYt
+PmRvbWFpbiA9IHRhcmdldDsNCisNCisgICAgICAgIHdyaXRlX2xvY2soJnRhcmdldC0+cGNpX2xv
+Y2spOw0KKyAgICAgICAgbGlzdF9hZGQoJnBkZXYtPmRvbWFpbl9saXN0LCAmdGFyZ2V0LT5wZGV2
+X2xpc3QpOw0KKyAgICAgICAgd3JpdGVfdW5sb2NrKCZ0YXJnZXQtPnBjaV9sb2NrKTsNCiAgICAg
+fQ0KIA0KICAgICBpZiAoICFoYXNfYXJjaF9wZGV2cyhzb3VyY2UpICkNCmRpZmYgLS1naXQgYS94
+ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaCBiL3hlbi9pbmNsdWRlL3hlbi9zY2hlZC5oDQppbmRleCAz
+NjA5ZWY4OGM0Li41NzM5MWU3NGI2IDEwMDY0NA0KLS0tIGEveGVuL2luY2x1ZGUveGVuL3NjaGVk
+LmgNCisrKyBiL3hlbi9pbmNsdWRlL3hlbi9zY2hlZC5oDQpAQCAtNDYxLDYgKzQ2MSw3IEBAIHN0
+cnVjdCBkb21haW4NCiANCiAjaWZkZWYgQ09ORklHX0hBU19QQ0kNCiAgICAgc3RydWN0IGxpc3Rf
+aGVhZCBwZGV2X2xpc3Q7DQorICAgIHJ3bG9ja190IHBjaV9sb2NrOw0KICNlbmRpZg0KIA0KICNp
+ZmRlZiBDT05GSUdfSEFTX1BBU1NUSFJPVUdIDQotLSANCjIuNDIuMA0K
 
