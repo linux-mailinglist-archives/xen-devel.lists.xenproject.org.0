@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1917C79E0
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 00:36:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616159.957957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B1647C79EC
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 00:45:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616168.957966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr4Hs-0003Ds-Am; Thu, 12 Oct 2023 22:36:12 +0000
+	id 1qr4QD-0006Ta-7d; Thu, 12 Oct 2023 22:44:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616159.957957; Thu, 12 Oct 2023 22:36:12 +0000
+Received: by outflank-mailman (output) from mailman id 616168.957966; Thu, 12 Oct 2023 22:44:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qr4Hs-0003AU-6x; Thu, 12 Oct 2023 22:36:12 +0000
-Received: by outflank-mailman (input) for mailman id 616159;
- Thu, 12 Oct 2023 22:36:10 +0000
+	id 1qr4QD-0006Qz-3v; Thu, 12 Oct 2023 22:44:49 +0000
+Received: by outflank-mailman (input) for mailman id 616168;
+ Thu, 12 Oct 2023 22:44:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A/p7=F2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qr4Hq-0003A5-CN
- for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 22:36:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qqh1=F2=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
+ id 1qr4QB-0006Qt-2j
+ for xen-devel@lists.xenproject.org; Thu, 12 Oct 2023 22:44:47 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc42183d-694f-11ee-98d4-6d05b1d4d9a1;
- Fri, 13 Oct 2023 00:36:08 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0999C61F86;
- Thu, 12 Oct 2023 22:36:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC3FC433C8;
- Thu, 12 Oct 2023 22:36:05 +0000 (UTC)
+ id f1127031-6950-11ee-98d4-6d05b1d4d9a1;
+ Fri, 13 Oct 2023 00:44:46 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-53db360294fso2785403a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Oct 2023 15:44:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,125 +40,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc42183d-694f-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697150166;
-	bh=YrJgAq64dFlspBEjwgwqX1JVs6u8zVTFJ02hRDZ853Q=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jgOFlsN4Egg8hR4qGVPM8dHitlNtZOUnP8dasUfdmVmhHwihQ+kAlisgjQfsv0j/e
-	 EzUAx7KDJFcckr1IjjjunhirD6KMhpcFl2LHtYKLydzOukrVNOdi2UVChBLjIw8fyE
-	 8qykAtThaVvKDK25n3I8nyLE83EoFU8eANLuvatwmpxwH8v61ApFITlpuOYRjLGhHj
-	 JuFFdkKL4FY9Hki/Of9YnlYga3CdkTa6Ke3VqyLjydbs9F8bUi8z+p3YheXQQbVoB9
-	 qJSdZGiijruyGxRXeqJVW70nIdtAg/QjWAXslkaWRMIA/w20bYC2xCSZ2H612CoZ9w
-	 69Xx43vsa/kOg==
-Date: Thu, 12 Oct 2023 15:36:03 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: George Dunlap <george.dunlap@cloud.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Henry Wang <Henry.Wang@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, "jgross@suse.com" <jgross@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    "community.manager@xenproject.org" <community.manager@xenproject.org>
-Subject: Re: Xen 4.18 release: Reminder about code freeze
-In-Reply-To: <CA+zSX=ZbeUFrfAUJShooJFJ+d89f4xdXfJJ9HoJKRh4UStkTFQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2310121535580.3431292@ubuntu-linux-20-04-desktop>
-References: <AS8PR08MB7991D1099E32CC9F03B0E0F692FCA@AS8PR08MB7991.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2309271603590.1403502@ubuntu-linux-20-04-desktop> <a31ce6cb-6234-5e7f-5cd4-ed190f029811@citrix.com> <alpine.DEB.2.22.394.2309271658500.1403502@ubuntu-linux-20-04-desktop>
- <CA+zSX=ZbeUFrfAUJShooJFJ+d89f4xdXfJJ9HoJKRh4UStkTFQ@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: f1127031-6950-11ee-98d4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1697150685; x=1697755485; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mUJJKm9lDcsKSbt0Gh9bMyGUZpKtFWFjgv7jiH7IfeI=;
+        b=ZhVfYW0QoU5XKh7Q3rU+FB/+8/skV8WygZyV1JI/dZbOz6B8li9RAt/jVrnudMv7KQ
+         tQngEPXiOKR1jqhTuLA3Z6OhYe6Pas4arBsj/O3N95zGZG1iCza0oumstqhLmDPDpSJJ
+         1VFSeMNXdZUgNFwTxJ5Uz6lJl6Z9R0HdIwSKmtL9jqTh4lwRhCID0w4/G462oRMczWz/
+         KlA70zrFxZa0il0jFrtioDio79TYDRmMxY+I/N1fZQlHbvaguQZpP2JjmVOgo7/Dve8V
+         S1l04OUmxf+lHU6Hqsthi2C/FybafqIqId50AlXny6/KU5lQs+8hFVNjvt+0VH4gHcTt
+         4bjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697150685; x=1697755485;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mUJJKm9lDcsKSbt0Gh9bMyGUZpKtFWFjgv7jiH7IfeI=;
+        b=Ri0NelrkE/Z4byNgRdoH0nsXhm7yGcLhSXR7kznwCvQ8PRWPZS7NyiBWfpfJWqyUsx
+         JyTSA6mM4mSzV58C6ARIWijP2B57gLqdr+ngwPdyJhIf8xjpVrT0h0Qg/pwhORyQiP+q
+         jexVr79VQwxHeHE8DrhEKF36veQigwX2a9NXQdreMfo+C/MHHEh8CqPFQWRQDFsfB6n5
+         p2pczjKKDWJQ2jfuZCGfttVKiwLI8rXu4zWmvywsW/lmWk/X/fdI8j2akiqnVIakP16p
+         gaRrGC/8nGhK4UDbFP88wuXph8kdCZJFr9m1bWBMuQfRCCjVKeD90EujyMpvwl4JpjEA
+         GwAg==
+X-Gm-Message-State: AOJu0YznneBt61S4s5CXGzZV5VEBKKgSOkYu3+7MQKXQvAiW6xmHJp6+
+	WFhoLshyQ3RLiVVZdTKtEbLT+lP2aSXGUhP+ypc=
+X-Google-Smtp-Source: AGHT+IFyYAt1/XqbFKonx4X0m+I/iV1wGqc3tYFtJONQ1BAT6fF9nLfX+r3BSk6hrxlKs3nNElJ86qvizT+DQ06Y4ys=
+X-Received: by 2002:a05:6402:350f:b0:53e:1f6:fa24 with SMTP id
+ b15-20020a056402350f00b0053e01f6fa24mr3460608edd.20.1697150683614; Thu, 12
+ Oct 2023 15:44:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20231012201743.292149-1-ubizjak@gmail.com> <3af8dcec-66ec-4bd4-b7bf-4bc6f5f3c70f@intel.com>
+ <CAFULd4byzHyoz4xM1gL_T1wFkNE-ab8K4upXfPirxM9PdX5JWg@mail.gmail.com>
+ <5722e74b-6fc6-4d6e-be25-069ea6385990@zytor.com> <CAFULd4afhj-kJwneh7wz0sExWqOmPicG4fcfF++_fUMHpoNbXA@mail.gmail.com>
+ <5694b2bd-de40-45c0-8b38-ac01bc11798a@zytor.com>
+In-Reply-To: <5694b2bd-de40-45c0-8b38-ac01bc11798a@zytor.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Fri, 13 Oct 2023 00:44:32 +0200
+Message-ID: <CAFULd4YUD_7x5=j1MBB9mcS6rRm9zdmZ33SyjaTArScLVMv2KA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] Introduce %rip-relative addressing to PER_CPU_VAR macro
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Dave Hansen <dave.hansen@intel.com>, x86@kernel.org, xen-devel@lists.xenproject.org, 
+	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 12 Oct 2023, George Dunlap wrote:
-> > > Stop tinkering in the hope that it hides the problem.  You're only
-> > > making it harder to fix properly.
+On Thu, Oct 12, 2023 at 11:22=E2=80=AFPM H. Peter Anvin <hpa@zytor.com> wro=
+te:
+>
+> On 10/12/23 14:17, Uros Bizjak wrote:
+> >>
+> >> Are you PIC-adjusting the percpu variables as well?
 > >
-> > Making it harder to fix properly would be a valid reason not to commit
-> > the (maybe partial) fix. But looking at the fix again:
+> > After this patch (and after fixing percpu_stable_op to use "a" operand
+> > modifier on GCC), the only *one* remaining absolute reference to
+> > percpu variable remain in xen-head.S, where:
 > >
-> > diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-> > index a6cd199fdc..9cd6678015 100644
-> > --- a/tools/xenstored/domain.c
-> > +++ b/tools/xenstored/domain.c
-> > @@ -989,6 +989,7 @@ static struct domain *introduce_domain(const void *ctx,
-> >                 talloc_steal(domain->conn, domain);
+> >      movq    $INIT_PER_CPU_VAR(fixed_percpu_data),%rax
 > >
-> >                 if (!restore) {
-> > +                       domain_conn_reset(domain);
-> >                         /* Notify the domain that xenstore is available */
-> >                         interface->connection = XENSTORE_CONNECTED;
-> >                         xenevtchn_notify(xce_handle, domain->port);
-> > @@ -1031,8 +1032,6 @@ int do_introduce(const void *ctx, struct connection *conn,
-> >         if (!domain)
-> >                 return errno;
+> > should be changed to use leaq.
 > >
-> > -       domain_conn_reset(domain);
-> > -
-> >         send_ack(conn, XS_INTRODUCE);
+> > All others should then be (%rip)-relative.
 > >
-> > It is a 1-line movement. Textually small. Easy to understand and to
-> > revert. It doesn't seem to be making things harder to fix? We could
-> > revert it any time if a better fix is offered.
-> >
-> > Maybe we could have a XXX note in the commit message or in-code
-> > comment?
-> 
-> It moves a line from one function (do_domain_introduce()) into a
-> completely different function (introduce_domain()), nested inside two
-> if() statements; with no analysis on how the change will impact
-> things.
+>
+> I mean, the symbols themselves are relative, not absolute?
 
-I am not the original author of the patch, and I am not the maintainer
-of the code, so I don't feel I have the qualifications to give you the
-answers you are seeking. Julien as author of the patch and xenstore
-reviewer might be in a better position to answer. Or Juergen as xenstore
-maintainer.
+The reference to the symbol is relative to the segment register, but
+absolute to the location of the instruction. If the executable changes
+location, then instruction moves around  and reference is not valid
+anymore. (%rip)-relative reference compensate for changed location of
+the instruction.
 
-From what I can see the patch is correct.
-
-We are removing a call to domain_conn_reset in do_introduce.
-We are adding a call to domain_conn_reset in introduce_domain, which is
-called right before in introduce_domain. Yes there are 2 if statements
-but the domain_conn_reset is added in the right location: the
-non-already-introduced non-restore code path.
-
-
-> Are there any paths through do_domain_introduce() that now *won't* get
-> a domain_conn_reset() call?  Is that OK?
-
-Yes, the already-introduced and the restore code paths. The operations in
-the already-introduced or the restore code paths seem simple enough not
-to require a domain_conn_reset. Julien and Juergen should confirm.
-
-
-> Is introduce_domain() called in other places?  Will those places now
-> get extra domain_conn_reset() calls they weren't expecting?  Is that
-> OK?
-
-introduce_domain is called by dom0_init, but I am guessing that dom0 is
-already-introduced so it wouldn't get an extra domain_conn_reset. Julien
-and Jurgen should confirm.
-
-
-> I mean, it certainly seems strange to set the state to CONNECTED, send
-> off an event channel, and then after that delete all watches /
-> transactions / buffered data and so on; but we need at least a basic
-> understanding of what's going on to know that this change isn't going
-> to break comething.
-> 
-> Not knowing much about the xenstore protocol: In the
-> (!domain->introduced) case, will there be anything to actually delete?
->  It seems like it would only be necessary / useful on the
-> (domain->introduced) case.
-
-Doesn't it seem weird to you that we set a connection to CONNECTED,
-notify the domain that it is ready to go, and only *after* that we reset
-the connection to zero?
-
-What happens if a domain starts using the connection as soon as it
-receives the event channel notification and before domain_conn_reset is
-called?
+Uros.
 
