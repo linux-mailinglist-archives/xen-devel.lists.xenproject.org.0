@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66A507C8C9E
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 19:55:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616807.959094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 326DE7C8CB1
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 20:02:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616828.959120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrMNL-00083c-NF; Fri, 13 Oct 2023 17:55:03 +0000
+	id 1qrMUa-0002mJ-PQ; Fri, 13 Oct 2023 18:02:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616807.959094; Fri, 13 Oct 2023 17:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 616828.959120; Fri, 13 Oct 2023 18:02:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrMNL-00080u-JU; Fri, 13 Oct 2023 17:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 616807;
- Fri, 13 Oct 2023 17:55:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qrMUa-0002jm-Lm; Fri, 13 Oct 2023 18:02:32 +0000
+Received: by outflank-mailman (input) for mailman id 616828;
+ Fri, 13 Oct 2023 18:02:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HwK+=F3=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qrMNJ-00080l-Ua
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 17:55:02 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20609.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::609])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a025eb53-69f1-11ee-98d4-6d05b1d4d9a1;
- Fri, 13 Oct 2023 19:55:00 +0200 (CEST)
-Received: from MW4PR04CA0174.namprd04.prod.outlook.com (2603:10b6:303:85::29)
- by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.44; Fri, 13 Oct
- 2023 17:54:55 +0000
-Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:303:85:cafe::e4) by MW4PR04CA0174.outlook.office365.com
- (2603:10b6:303:85::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.28 via Frontend
- Transport; Fri, 13 Oct 2023 17:54:55 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6838.22 via Frontend Transport; Fri, 13 Oct 2023 17:54:50 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 13 Oct
- 2023 12:54:49 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 13 Oct
- 2023 10:54:49 -0700
-Received: from [172.20.57.36] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Fri, 13 Oct 2023 12:54:48 -0500
+ <SRS0=m8jO=F3=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qrMUZ-0002Qe-AV
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 18:02:31 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab1a49ed-69f2-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 20:02:28 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 136298285872;
+ Fri, 13 Oct 2023 13:02:26 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id PI_oVbjcUtEa; Fri, 13 Oct 2023 13:02:24 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id C86948285873;
+ Fri, 13 Oct 2023 13:02:24 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id NMKuVHpuZ5lo; Fri, 13 Oct 2023 13:02:24 -0500 (CDT)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 54E9B8285872;
+ Fri, 13 Oct 2023 13:02:24 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,112 +51,295 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a025eb53-69f1-11ee-98d4-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IqUvKYONHodB9y1O2kMHo1wWl7W1dq37uBXw42+Vqo3PHIEKUPcn3l4vdVrqkYnYG33LkPVjrMUrN6vMfed7cBq0elgRgySB9oMdSQHYFumZ5U1jEx5b3ZdO9KiGNflk3eAPvaDF1nIi1IXB7ojHa0yToq3YijSkSTyQdrqd7XFmS0kbeb1tpTlpbZkQCArNyD/ccJKZaL4r9opYMKWOBFl2q+O8Z3rd8hKnVV1koxvHYj0zmXXAAaBdfzmmry9GjLwH+234il4Htod905LDDvZU4D7wipNScqPliQ/jtItdHY1J1hXcFUCBak4I1f4Mz0e3f3wojgtHIHkmfX7EmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k1FO6rl2PQi7Hyf06Kdf1tfP1smy/xGo16oVHG8vb54=;
- b=k/2ZRIaYB8ovl6QEZ7m5pTEpwRLhcEbcCpgG4uES6iEOB0SntFLxhfDDUvURFgih9jeCthjNwF+WhgaF1MSlkrKsboo3UJHrxh/6z3wkzWwbShhDcw0/cGzMm+D3yVcGVeLCO4hOCay0YRBFFzrC2ZxS5aGLU2Or5nRUSD6qMGX68xQCrAaaXaMr4A3QFKMaeJDzG9xLsjy897ITxtCVg3/e6A/jv8U8Yb7oHvYeh/fjWPMQxpXBqzvnk9/rVmI4O6J298jEoD8C4WI8h2DGlzJnXFQU6weqf+UBPaMkSa7Z2xHoH3wjE1a17d1Hsrjaw9GzX1nEo2YhQrjqqtrfaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k1FO6rl2PQi7Hyf06Kdf1tfP1smy/xGo16oVHG8vb54=;
- b=t4iKqeHXF/3rNPtQBGxPjU5VJl8zAsUMisryBEi7jEMtzPRAeIfYwUnxmSdRQ1OwL5WnshlN4BrOkaJXaNILv+zO80Fq6lalItGOQ9olU59TlUmySXjw7x0VbsUgen9lg/e3m7t6fp0uVBvaWOa++LE/WZD/SulVcHoKnJPXpi0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <73c3c6ff-20e8-4ec4-a159-b60e6b906dfb@amd.com>
-Date: Fri, 13 Oct 2023 13:54:56 -0400
+X-Inumbo-ID: ab1a49ed-69f2-11ee-9b0e-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com C86948285873
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1697220144; bh=7x52lhRkK5RTtU9gooS/8hNq4NSdl0hDvp7rkSUAytA=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=h3tUwy9eyi5tb+AQ4P+m7g+3KzzT+3Bi8YYZYqeo81L1O1k0h9XUS2GyDmUyPoKZ9
+	 yjkkWAxUatya3/2JJuGC7EdmAPqJb91ZbKkI72//qryZfQuZPGWwsOOKoCyPxPho43
+	 OKt1k9CmpFj0Cq/3KT+mG2pDMinF9VJNumSD9F7k=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <68edd4ec-bb9c-7138-9d67-9180d3251e15@raptorengineering.com>
+Date: Fri, 13 Oct 2023 13:02:23 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 09/17] rangeset: add rangeset_empty() function
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH 3/3] xen/ppc: Implement a basic exception handler
 Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-10-volodymyr_babchuk@epam.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20231012220854.2736994-10-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Jan Beulich <jbeulich@suse.com>
+References: <cover.1695942864.git.sanastasio@raptorengineering.com>
+ <edbe94f5ba1db05beb36fef6589b6a79a30c4a7c.1695942864.git.sanastasio@raptorengineering.com>
+ <bfeb8d21-66ae-4bc4-99d7-33fd9ede266e@citrix.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <bfeb8d21-66ae-4bc4-99d7-33fd9ede266e@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|PH7PR12MB8825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b521065-5faa-4933-3281-08dbcc1581a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	R6RJFfjmyiw1EQHN96wskdhlEud5TpuT1OTrtKBy0oGd8Gb3JnMAI03KstWBufeJV7kdUMSB4Tme30RpZh7STsGvnq0lA/1AmwKkFkcFFpbDrB1y33LMiK+iaH76nqC3PE2Tp8Va30a35uAGQJvnLBTWQbc+yPFoA3M57DUUFXAAW/E1/7aCPFv/F2s2BP1T5oAeWct+oBSkfmT23/GzxUmdB9Mygtlq1BOfJpcTy+KbtTOO1moWe87Eovxy1DrNqDQq3rTzcU7zz2zGCAQkseBOGPp9ekeCJyTj39GZouasFq3RxixxbTZtFGAUPhuCmE2sda3GxkwPglSwBTI5dWvBOGHwpL/Je1noX6fkuCAcQJDzC9dNkRpY/tZIXpT7luAqcHtXJKaYf5C/E4tymqw8JFMUH6yC8ma8++5LEqnKGKW5KUTUXNPH1CI0LVQz8LzlI9R/KyDKTNNgYqjiRSuDoWrD4oeIfnk8uAKnxDYVy9+ceAfg8/McEqlHe5osiqB6AWxU/Z3qRJk9BnyAmvjiwioaHDnAJIVVPVVtmFWS5iIcaQpLeoCpsKTlJ/fIrFGIpVHYbOh23PVY0Q0AEpUhFs+xRK8KgURvKRQNYI4B1wSU7C8D+sTdAO1WeocBxAZ/3/V6kx+qbZDo6WWplqQ7ixJCCeGBp080Q2eCK0X6UFReSyzYmJ5Ap3xHEI6ULBdUj9A5KN4m80prab+2kIMGtKDyEbMmNEjmFqMVHxBx5KM8kQ9mjR2lR8mbb8En5CUBxRneh06cp33SCqT8DoFZzr3C05BfOXnurgve2Ag=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(451199024)(82310400011)(186009)(64100799003)(1800799009)(40470700004)(46966006)(36840700001)(81166007)(356005)(82740400003)(40460700003)(44832011)(5660300002)(6666004)(40480700001)(2906002)(53546011)(70586007)(31696002)(86362001)(83380400001)(16576012)(36860700001)(316002)(36756003)(54906003)(70206006)(426003)(26005)(336012)(110136005)(2616005)(47076005)(478600001)(31686004)(8676002)(8936002)(4326008)(41300700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2023 17:54:50.9977
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b521065-5faa-4933-3281-08dbcc1581a0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000989EB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
 
-On 10/12/23 18:09, Volodymyr Babchuk wrote:
-> This function can be used when user wants to remove all rangeset
-> entries but do not want to destroy rangeset itself.
+On 9/29/23 4:48 AM, Andrew Cooper wrote:
+> On 29/09/2023 12:19 am, Shawn Anastasio wrote:
+>> Implement a basic exception handler that dumps the CPU state to the
+>> console, as well as the code required to set the correct exception
+>> vector table's base address in setup.c.
+>>
+>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>> ---
+>>  xen/arch/ppc/include/asm/processor.h |  31 +++++++
+>>  xen/arch/ppc/ppc64/Makefile          |   2 +
+>>  xen/arch/ppc/ppc64/asm-offsets.c     |   1 +
+>>  xen/arch/ppc/ppc64/exceptions-asm.S  | 122 +++++++++++++++++++++++++++
+>>  xen/arch/ppc/ppc64/exceptions.c      | 102 ++++++++++++++++++++++
+>>  xen/arch/ppc/setup.c                 |  11 +++
+>>  6 files changed, 269 insertions(+)
+>>  create mode 100644 xen/arch/ppc/ppc64/exceptions-asm.S
+>>  create mode 100644 xen/arch/ppc/ppc64/exceptions.c
+>>
+>> diff --git a/xen/arch/ppc/include/asm/processor.h b/xen/arch/ppc/include/asm/processor.h
+>> index d3dd943c20..a01b62b8a4 100644
+>> --- a/xen/arch/ppc/include/asm/processor.h
+>> +++ b/xen/arch/ppc/include/asm/processor.h
+>> @@ -103,6 +103,37 @@
+>>  #define PVR_BE        0x0070
+>>  #define PVR_PA6T      0x0090
+>>  
+>> +/* Exception Definitions */
+>> +#define EXC_SYSTEM_RESET    0x0100 /* System Reset Interrupt */
+>> +#define EXC_MACHINE_CHECK   0x0200 /* Machine Check Interrupt */
+>> +#define EXC_DATA_STORAGE    0x0300 /* Data Storage Interrupt */
+>> +#define EXC_DATA_SEGMENT    0x0380 /* Data Segment Interrupt */
+>> +#define EXC_INSN_STORAGE    0x0400 /* Instruction Storage Interrupt */
+>> +#define EXC_INSN_SEGMENT    0x0480 /* Instruction Segment Interrupt */
+>> +#define EXC_EXTERNAL        0x0500 /* External Interrupt */
+>> +#define EXC_ALIGNMENT       0x0600 /* Alignment Interrupt */
+>> +#define EXC_PROGRAM         0x0700 /* Program Interrupt */
+>> +#define EXC_FPU_UNAVAIL     0x0800 /* Floating-Point Unavailable Interrupt */
+>> +#define EXC_DECREMENTER     0x0900 /* Decrementer Interrupt */
+>> +#define EXC_H_DECREMENTER   0x0980 /* Hypervisor Decrementer Interrupt */
+>> +#define EXC_PRIV_DOORBELL   0x0A00 /* Directed Privileged Doorbell Interrupt */
+>> +#define EXC_SYSTEM_CALL     0x0C00 /* System Call Interrupt */
+>> +#define EXC_TRACE           0x0D00 /* Trace Interrupt */
+>> +#define EXC_H_DATA_STORAGE  0x0E00 /* Hypervisor Data Storage Interrupt */
+>> +#define EXC_H_INSN_STORAGE  0x0E20 /* Hypervisor Instruction Storage Interrupt */
+>> +#define EXC_H_EMUL_ASST     0x0E40 /* Hypervisor Emulation Assistance Interrupt */
+>> +#define EXC_H_MAINTENANCE   0x0E60 /* Hypervisor Maintenance Interrupt */
+>> +#define EXC_H_DOORBELL      0x0E80 /* Directed Hypervisor Doorbell Interrupt */
+>> +#define EXC_H_VIRT          0x0EA0 /* Hypervisor Virtualization Interrupt */
+>> +#define EXC_PERF_MON        0x0F00 /* Performance Monitor Interrupt */
+>> +#define EXC_VECTOR_UNAVAIL  0x0F20 /* Vector Unavailable Interrupt */
+>> +#define EXC_VSX_UNAVAIL     0x0F40 /* VSX Unavailable Interrupt */
+>> +#define EXC_FACIL_UNAVAIL   0x0F60 /* Facility Unavailable Interrupt */
+>> +#define EXC_H_FACIL_UNAVAIL 0x0F80 /* Hypervisor Facility Unavailable Interrupt */
+>> +
+>> +/* Base address of interrupt vector table when LPCR[AIL]=3 */
+>> +#define AIL_VECTOR_BASE _AC(0xc000000000004000, UL)
+>> +
+>>  #ifndef __ASSEMBLY__
+>>  
+>>  #include <xen/types.h>
+>> diff --git a/xen/arch/ppc/ppc64/Makefile b/xen/arch/ppc/ppc64/Makefile
+>> index 5b88355bb2..914bb21c40 100644
+>> --- a/xen/arch/ppc/ppc64/Makefile
+>> +++ b/xen/arch/ppc/ppc64/Makefile
+>> @@ -1,2 +1,4 @@
+>> +obj-y += exceptions.o
+>> +obj-y += exceptions-asm.o
+>>  obj-y += head.o
+>>  obj-y += opal-calls.o
+>> diff --git a/xen/arch/ppc/ppc64/asm-offsets.c b/xen/arch/ppc/ppc64/asm-offsets.c
+>> index c15c1bf136..634d7260e3 100644
+>> --- a/xen/arch/ppc/ppc64/asm-offsets.c
+>> +++ b/xen/arch/ppc/ppc64/asm-offsets.c
+>> @@ -46,6 +46,7 @@ void __dummy__(void)
+>>      OFFSET(UREGS_dsisr, struct cpu_user_regs, dsisr);
+>>      OFFSET(UREGS_cr, struct cpu_user_regs, cr);
+>>      OFFSET(UREGS_fpscr, struct cpu_user_regs, fpscr);
+>> +    OFFSET(UREGS_entry_vector, struct cpu_user_regs, entry_vector);
+>>      DEFINE(UREGS_sizeof, sizeof(struct cpu_user_regs));
+>>  
+>>      OFFSET(OPAL_base, struct opal, base);
+>> diff --git a/xen/arch/ppc/ppc64/exceptions-asm.S b/xen/arch/ppc/ppc64/exceptions-asm.S
+>> new file mode 100644
+>> index 0000000000..877df97c9b
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/exceptions-asm.S
+>> @@ -0,0 +1,122 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +
+>> +#include <asm/asm-defns.h>
+>> +#include <asm/processor.h>
+>> +
+>> +    /* Helper to dump CPU state to struct cpu_user_regs pointed to by r1. */
+>> +ENTRY(exception_common)
+>> +    /* Save GPRs 1-31 */
+>> +    SAVE_GPRS(1, 31, %r1)
+>> +
+>> +    /* Save LR, CTR, CR */
+>> +    mflr    %r0
+>> +    std     %r0, UREGS_lr(%r1)
+>> +    mfctr   %r0
+>> +    std     %r0, UREGS_ctr(%r1)
+>> +    mfcr    %r0
+>> +    stw     %r0, UREGS_cr(%r1) /* 32-bit */
+>> +
+>> +    /* Save Exception Registers */
+>> +    mfsrr0  %r0
+>> +    std     %r0, UREGS_pc(%r1)
+>> +    mfsrr1  %r0
+>> +    std     %r0, UREGS_msr(%r1)
+>> +    mfdsisr %r0
+>> +    stw     %r0, UREGS_dsisr(%r1) /* 32-bit */
+>> +    mfdar   %r0
+>> +    std     %r0, UREGS_dar(%r1)
+>> +    li      %r0, -1 /* OS's SRR0/SRR1 have been clobbered */
+>> +    std     %r0, UREGS_srr0(%r1)
+>> +    std     %r0, UREGS_srr1(%r1)
+>> +
+>> +    /* Setup TOC and a stack frame then call C exception handler */
+>> +    mr      %r3, %r1
+>> +    bcl     20, 31, 1f
+>> +1:  mflr    %r12
+>> +    addis   %r2, %r12, .TOC.-1b@ha
+>> +    addi    %r2, %r2, .TOC.-1b@l
+>> +
+>> +    li      %r0, 0
+>> +    stdu    %r0, -STACK_FRAME_OVERHEAD(%r1)
+>> +    bl      exception_handler
+>> +
+>> +    .size exception_common, . - exception_common
+>> +    .type exception_common, %function
+>> +
+>> +    /* Same as exception_common, but for exceptions that set HSRR{0,1} */
+>> +ENTRY(h_exception_common)
+>> +    /* Save GPRs 1-31 */
+>> +    SAVE_GPRS(1, 31, %r1)
+>> +
+>> +    /* Save LR, CTR, CR */
+>> +    mflr    %r0
+>> +    std     %r0, UREGS_lr(%r1)
+>> +    mfctr   %r0
+>> +    std     %r0, UREGS_ctr(%r1)
+>> +    mfcr    %r0
+>> +    stw     %r0, UREGS_cr(%r1) /* 32-bit */
+>> +
+>> +    /* Save Exception Registers */
+>> +    mfhsrr0 %r0
+>> +    std     %r0, UREGS_pc(%r1)
+>> +    mfhsrr1 %r0
+>> +    std     %r0, UREGS_msr(%r1)
+>> +    mfsrr0  %r0
+>> +    std     %r0, UREGS_srr0(%r1)
+>> +    mfsrr1  %r0
+>> +    std     %r0, UREGS_srr1(%r1)
+>> +    mfdsisr %r0
+>> +    stw     %r0, UREGS_dsisr(%r1) /* 32-bit */
+>> +    mfdar   %r0
+>> +    std     %r0, UREGS_dar(%r1)
+>> +
+>> +    /* Setup TOC and a stack frame then call C exception handler */
+>> +    mr      %r3, %r1
+>> +    bcl     20, 31, 1f
+>> +1:  mflr    %r12
+>> +    addis   %r2, %r12, .TOC.-1b@ha
+>> +    addi    %r2, %r2, .TOC.-1b@l
+>> +
+>> +    li      %r0, 0
+>> +    stdu    %r0, -STACK_FRAME_OVERHEAD(%r1)
+>> +    bl      exception_handler
+>> +
+>> +    .size h_exception_common, . - h_exception_common
+>> +    .type h_exception_common, %function
 > 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> These two are almost identical, and differ only by the handling of
+> srr{0,1} as far as I can tell.
 > 
-> ---
+> Is that just because the handler is fatal, or are they likely to stay
+> this similar longterm?
 > 
-> Changes in v10:
+> One thing you could do, which would remove the duplicated logic
+> constructing cpu_regs would be
 > 
->  - New in v10. The function is used in "vpci/header: handle p2m range sets per BAR"
-> ---
->  xen/common/rangeset.c      | 9 +++++++--
->  xen/include/xen/rangeset.h | 3 ++-
->  2 files changed, 9 insertions(+), 3 deletions(-)
+> exception_common_ssr
+>     mfsrr0  %r0
+>     std     %r0, UREGS_srr0(%r1)
+>     mfsrr1  %r0
+>     std     %r0, UREGS_srr1(%r1)
+>     b exception_common
 > 
-> diff --git a/xen/common/rangeset.c b/xen/common/rangeset.c
-> index 35c3420885..420275669e 100644
-> --- a/xen/common/rangeset.c
-> +++ b/xen/common/rangeset.c
-> @@ -448,8 +448,7 @@ struct rangeset *rangeset_new(
->      return r;
->  }
+> exception_common_clobber_ssr
+>     li      %r0, -1 /* OS's SRR0/SRR1 have been clobbered */
+>     std     %r0, UREGS_srr0(%r1)
+>     std     %r0, UREGS_srr1(%r1)
+>     b exception_common
 > 
-> -void rangeset_destroy(
-> -    struct rangeset *r)
-> +void rangeset_empty(struct rangeset *r)
->  {
->      struct range *x;
-> 
-> @@ -465,6 +464,12 @@ void rangeset_destroy(
-> 
->      while ( (x = first_range(r)) != NULL )
->          destroy_range(r, x);
-> +}
-> +
-> +void rangeset_destroy(
-> +    struct rangeset *r)
-> +{
-> +    rangeset_empty(r);
-> 
->      xfree(r);
->  }
+> but this only works if the internal differences aren't going to get larger.
+>
 
-I think the list_del(&r->rangeset_list) operation (and associated locking and NULL check) shouldn't be moved to the new rangeset_empty() function, it should stay in rangeset_destroy().
+I anticipate that these two will end up diverging further in the
+medium-to-long term, so if you'd accept it I'd rather keep them separate
+initially.
+
+>> +
+>> +/*
+>> + * Declare an ISR for the provided exception that jumps to `continue`
+>> + */
+>> +#define DEFINE_ISR(name, exc, continue)                                        \
+>> +    . = (AIL_VECTOR_BASE - EXCEPTION_VECTORS_START) + (exc);                   \
+>> +    ENTRY(name)                                                                \
+>> +    /* TODO: switch stack */                                                   \
+>> +    /* Reserve space for struct cpu_user_regs */                               \
+>> +    subi    %r1, %r1, UREGS_sizeof;                                            \
+>> +    /* Save r0 immediately so we can use it as scratch space */                \
+>> +    SAVE_GPR(0, %r1);                                                          \
+>> +    /* Save exception vector number */                                         \
+>> +    li      %r0, (exc);                                                        \
+>> +    std     %r0, UREGS_entry_vector(%r1);                                      \
+>> +    /* Branch to common code */                                                \
+>> +    b       (continue);                                                        \
+>> +    .size name, . - name;                                                      \
+>> +    .type name, %function;
+> 
+> This will be much nicer as an ASM macro rather than a preprocessor macro.
+> 
+> .macro ISR name, exc, handler
+>     ...
+> .endm
+> 
+> Everything inside can stay the same, but no need for ; or \, and a few
+> newlines go a long way for readability.
+>
+
+Fair enough, will do.
+
+> 
+>> +
+>> +    .section .text.exceptions, "ax", %progbits
+>> +
+>> +DEFINE_ISR(exc_sysreset, EXC_SYSTEM_RESET, exception_common)
+>> +DEFINE_ISR(exc_mcheck, EXC_MACHINE_CHECK, exception_common)
+>> +DEFINE_ISR(exc_dstore, EXC_DATA_STORAGE, exception_common)
+>> +DEFINE_ISR(exc_dsegment, EXC_DATA_SEGMENT, exception_common)
+>> +DEFINE_ISR(exc_istore, EXC_INSN_STORAGE, exception_common)
+>> +DEFINE_ISR(exc_isegment, EXC_INSN_SEGMENT, exception_common)
+>> +DEFINE_ISR(exc_extern, EXC_EXTERNAL, exception_common)
+>> +DEFINE_ISR(exc_align, EXC_ALIGNMENT, exception_common)
+>> +DEFINE_ISR(exc_program, EXC_PROGRAM, exception_common)
+>> +DEFINE_ISR(exc_fpu, EXC_FPU_UNAVAIL, exception_common)
+>> +DEFINE_ISR(exc_dec, EXC_DECREMENTER, exception_common)
+>> +DEFINE_ISR(exc_h_dec, EXC_H_DECREMENTER, h_exception_common)
+>> +/* EXC_PRIV_DOORBELL ... EXC_TRACE */
+>> +DEFINE_ISR(exc_h_dstore, EXC_H_DATA_STORAGE, h_exception_common)
+>> +DEFINE_ISR(exc_h_istore, EXC_H_INSN_STORAGE, h_exception_common)
+> 
+> It also makes this less cluttered, and I'd recommend tabulating it too.
+>
+
+Ditto.
+
+> ~Andrew
+
+Thanks,
+Shawn
 
