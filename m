@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAEB47C8D02
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 20:21:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616864.959169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3257C8D06
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 20:22:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616868.959180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrMlU-0001ES-Al; Fri, 13 Oct 2023 18:20:00 +0000
+	id 1qrMnu-0002eJ-NT; Fri, 13 Oct 2023 18:22:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616864.959169; Fri, 13 Oct 2023 18:20:00 +0000
+Received: by outflank-mailman (output) from mailman id 616868.959180; Fri, 13 Oct 2023 18:22:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrMlU-0001CN-7a; Fri, 13 Oct 2023 18:20:00 +0000
-Received: by outflank-mailman (input) for mailman id 616864;
- Fri, 13 Oct 2023 18:19:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AMJ7=F3=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qrMlS-0001CA-6w
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 18:19:58 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c9177f4-69f5-11ee-9b0e-b553b5be7939;
- Fri, 13 Oct 2023 20:19:56 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-53e04b17132so3686578a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 11:19:56 -0700 (PDT)
+	id 1qrMnu-0002bY-K3; Fri, 13 Oct 2023 18:22:30 +0000
+Received: by outflank-mailman (input) for mailman id 616868;
+ Fri, 13 Oct 2023 18:22:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qrMns-0002bQ-PO
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 18:22:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qrMns-0000ps-DL; Fri, 13 Oct 2023 18:22:28 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qrMns-0000hy-80; Fri, 13 Oct 2023 18:22:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,236 +39,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c9177f4-69f5-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697221196; x=1697825996; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e0exkzigYjCynzbnJQu8JnrQ0VCvKe1L1o155nHPvIQ=;
-        b=d4o+WjgNfS75iFK4SW5pCVEOumhIrbs2uTZ+AkgbaqHZXvGG3ARJw1XutCz7G2uTTN
-         xlG4+B74V2aZVsLFauyICXx6eXEuvqYGaoIX+5t0qfDjI6jFRVL8itwvaQqSnyAqMS+H
-         1PLKCWVvW5Z1xmd6dQcHr90yMM99Ix26QCpHqOLIKRimHJTRXIAm7JF+/NB6B0Zo1Oxc
-         QZHXjauN8liEK0hsNDHTZNtZ+aHmkzAJEoFz1oxpcGIGO84OQQkSFCQNffylT8Q7KeWf
-         sNVULzFDzLB5SaqzlWuFE5U7nGfDS3l/FUfvu4FDF7Cu5rG1rvuBj0yM0OfFLg4wLW+q
-         y5gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697221196; x=1697825996;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=e0exkzigYjCynzbnJQu8JnrQ0VCvKe1L1o155nHPvIQ=;
-        b=tKTUxC3iAVz7zjxesrRS+M57s/KCtVkMKtf5eqyOu4zTVRFTgc9aQlN2Eb5i++E0Rk
-         AZzGh2r+ObM5vyQju6WN+nTKLuZlMuiAp8rxrE6IfuFVpHV2uAXYs5I30maWvE1kDd+9
-         EKda+RDQVzEbcofI8OLkdD1p6HZEWFAKoIm7WzO17IzgLbvcNpvifJ5pf7CAGTVVdz0E
-         9XljIq3u8C4B6v3PoRsT6dXyFAifizwf2SG1XDU3JMs/sev/8x0cuIZN+hzFEytaba1k
-         afOMxy55+plJztTsMBkzQyTC9A4AMUiEaW7vxFo5hZA1RCu6Ua5dFLjd+yUY+nXYyvn9
-         jZSg==
-X-Gm-Message-State: AOJu0YxTJ0hcLKq06XQdNOvGuTHYpohq9pRIb+0NCqnOQOzCPtLhPvqP
-	jZbHJG/mYPAez7KkZiO2zyEMhyiSZ3LPH/a3jaI=
-X-Google-Smtp-Source: AGHT+IFbNiIX6/ULO8X8yCSIGnQtzYCarr/gXTjiNPfLhOCE4S5Pa/TiD8MBt0ZVpqRWb9UkYXbpAZR/Ltl2qGwUn8o=
-X-Received: by 2002:a05:6402:f1c:b0:53d:e990:b8dc with SMTP id
- i28-20020a0564020f1c00b0053de990b8dcmr7329570eda.3.1697221195690; Fri, 13 Oct
- 2023 11:19:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=lGI2UamTnNm9RiDcOaFhPJTmjQIxWc3TJQ8Ym2NEcGE=; b=k4VRNQnCY1KITT/YY6Fk7FxijW
+	x6+778OhZVcjetWL8gihIrV8cf099fDl7utEXYrpMBFpWQMoR0Dxyxp8dscieLu/2GJcrOYneDQor
+	Qzz7O8o0/PUM57RXg6beNjZhfXLi7CRtomoXDM3j5sWfDkz0iNJvoo+ZieCYjLJuJqX4=;
+Message-ID: <af6a376c-a224-45d7-9972-d69ee44239d6@xen.org>
+Date: Fri, 13 Oct 2023 19:22:26 +0100
 MIME-Version: 1.0
-References: <20231010173924.44167-1-jandryuk@gmail.com> <9cda7031-286f-42e6-a23f-80c284931696@intel.com>
-In-Reply-To: <9cda7031-286f-42e6-a23f-80c284931696@intel.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 13 Oct 2023 14:19:43 -0400
-Message-ID: <CAKf6xpt1UdvJw7YZ5K6TBes_kXUv+7qm+gGW98=hPTu2p53eEg@mail.gmail.com>
-Subject: Re: [PATCH v3] acpi/processor: sanitize _OSC/_PDC capabilities for
- Xen dom0
-To: "Wilczynski, Michal" <michal.wilczynski@intel.com>
-Cc: Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Roger Pau Monne <roger.pau@citrix.com>, 
-	stable@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 8/8] xen/arm: mmu: move MMU specific P2M code to
+ mmu/p2m.{c,h}
+Content-Language: en-GB
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Penny Zheng <penny.zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <20231009010313.3668423-1-Henry.Wang@arm.com>
+ <20231009010313.3668423-9-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231009010313.3668423-9-Henry.Wang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks for taking a look, Michal.
+Hi Henry,
 
-On Fri, Oct 13, 2023 at 12:17=E2=80=AFPM Wilczynski, Michal
-<michal.wilczynski@intel.com> wrote:
->
-> Hi,
->
-> On 10/10/2023 7:39 PM, Jason Andryuk wrote:
-> > From: Roger Pau Monne <roger.pau@citrix.com>
-> >
-> > The Processor capability bits notify ACPI of the OS capabilities, and
-> > so ACPI can adjust the return of other Processor methods taking the OS
-> > capabilities into account.
-> >
-> > When Linux is running as a Xen dom0, the hypervisor is the entity
-> > in charge of processor power management, and hence Xen needs to make
-> > sure the capabilities reported by _OSC/_PDC match the capabilities of
-> > the driver in Xen.
-> >
-> > Introduce a small helper to sanitize the buffer when running as Xen
-> > dom0.
-> >
-> > When Xen supports HWP, this serves as the equivalent of commit
-> > a21211672c9a ("ACPI / processor: Request native thermal interrupt
-> > handling via _OSC") to avoid SMM crashes.  Xen will set bit
-> > ACPI_PROC_CAP_COLLAB_PROC_PERF (bit 12) in the capability bits and the
-> > _OSC/_PDC call will apply it.
-> >
-> > [ jandryuk: Mention Xen HWP's need.  Support _OSC & _PDC ]
-> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> > v3:
-> > Move xen_sanitize_pdc() call to arch_acpi_set_proc_cap_bits() to cover
-> > _OSC and _PDC.
-> > drivers/xen/pcpu.c is CONFIG_DOM0 && CONFIG_X86
-> >
-> > v2:
-> > Move local variables in acpi_processor_eval_pdc() to reuse in both cond=
-itions.
-> > ---
-> >  arch/x86/include/asm/acpi.h           | 13 +++++++++++++
-> >  arch/x86/include/asm/xen/hypervisor.h |  9 +++++++++
-> >  drivers/xen/pcpu.c                    | 21 +++++++++++++++++++++
-> >  3 files changed, 43 insertions(+)
-> >
-> > diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
-> > index c8a7fc23f63c..cc8d1669d6e8 100644
-> > --- a/arch/x86/include/asm/acpi.h
-> > +++ b/arch/x86/include/asm/acpi.h
-> > @@ -16,6 +16,9 @@
-> >  #include <asm/x86_init.h>
-> >  #include <asm/cpufeature.h>
-> >  #include <asm/irq_vectors.h>
-> > +#include <asm/xen/hypervisor.h>
-> > +
-> > +#include <xen/xen.h>
-> >
-> >  #ifdef CONFIG_ACPI_APEI
-> >  # include <asm/pgtable_types.h>
-> > @@ -127,6 +130,16 @@ static inline void arch_acpi_set_proc_cap_bits(u32=
- *cap)
-> >       if (!cpu_has(c, X86_FEATURE_MWAIT) ||
-> >           boot_option_idle_override =3D=3D IDLE_NOMWAIT)
-> >               *cap &=3D ~(ACPI_PROC_CAP_C_C1_FFH | ACPI_PROC_CAP_C_C2C3=
-_FFH);
-> > +
-> > +     if (xen_initial_domain()) {
-> > +             /*
-> > +              * When Linux is running as Xen dom0, the hypervisor is t=
-he
-> > +              * entity in charge of the processor power management, an=
-d so
-> > +              * Xen needs to check the OS capabilities reported in the=
- _PDC
->
-> I would argue the phrasing here is unfortunate - it's not really _PDC buf=
-fer anymore,
-> it's more processor capabilities buffer [1]. Your phrasing would indicate=
- that this
-> buffer is somehow _PDC specific.
+On 09/10/2023 02:03, Henry Wang wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
+> 
+> Current P2M implementation is designed for MMU system only.
+> We move the MMU-specific codes into mmu/p2m.c, and only keep generic
+> codes in p2m.c, like VMID allocator, etc. We also move MMU-specific
+> definitions and declarations to mmu/p2m.h, such as p2m_tlb_flush_sync().
+> Also expose previously static functions p2m_vmid_allocator_init(),
+> p2m_alloc_vmid(), and setup_virt_paging_one() for further MPU usage.
+> 
+> With the code movement, global variable max_vmid is used in multiple
+> files instead of a single file (and will be used in MPU P2M
+> implementation), declare it in the header and remove the "static" of
+> this variable.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 
-Ok.
+Some remarks about some of the code not moved:
+  * struct p2m_domain: The bulk of the fields seems to be MMU specific. 
+So depending on the number of common fields we either want to split or 
+move the structure to p2m_domain. I would be ok to wait until the MPU 
+code is present.
+  * p2m_type_t: It is not yet clear how this will apply to the MPU. I am 
+ok to wait before moving it.
+  * p2m_cache_flush_range(): I expect the code will need some change 
+because you may get large chunk of memory for the MPU.
+  * p2m_set_way_flush()/p2m_toggle_cache(): This was a giant hack to 
+support cache flush operations via set/way. To make it efficient, we 
+track the pages that have been touched and only flush them. For the MPU, 
+this would not work. Can we attempt to not emulate the instructions?
 
-> BTW this file is x86 specific code - are you sure it's appropriate to inv=
-olve Xen
-> hypervisor here ? I understand this case if x86 specific, but still.
+> ---
+> v7:
+> - No change.
+> v6:
+> - Also move relinquish_p2m_mapping() to mmu/p2m.c, make
+>    __p2m_set_entry() static.
+> - Also move p2m_clear_root_pages() and p2m_flush_vm() to mmu/p2m.c.
+> - Don't add #ifdef CONFIG_MMU to the p2m_tlb_flush_sync() in
+>    p2m_write_unlock(), this need further discussion.
+> - Correct typo in commit message.
+> v5:
+> - No change
+> v4:
+> - Rework the patch to drop the unnecessary changes.
+> - Rework the commit msg a bit.
+> v3:
+> - remove MPU stubs
+> - adapt to the introduction of new directories: mmu/
+> v2:
+> - new commit
+> ---
+>   xen/arch/arm/include/asm/mmu/p2m.h |   18 +
+>   xen/arch/arm/include/asm/p2m.h     |   26 +-
+>   xen/arch/arm/mmu/Makefile          |    1 +
+>   xen/arch/arm/mmu/p2m.c             | 1736 ++++++++++++++++++++++++++
+>   xen/arch/arm/p2m.c                 | 1837 +---------------------------
+>   5 files changed, 1832 insertions(+), 1786 deletions(-)
+>   create mode 100644 xen/arch/arm/include/asm/mmu/p2m.h
+>   create mode 100644 xen/arch/arm/mmu/p2m.c
+> 
+> diff --git a/xen/arch/arm/include/asm/mmu/p2m.h b/xen/arch/arm/include/asm/mmu/p2m.h
+> new file mode 100644
+> index 0000000000..f829e325ce
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/mmu/p2m.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#ifndef __ARM_MMU_P2M_H__
+> +#define __ARM_MMU_P2M_H__
+> +
+> +struct p2m_domain;
+> +void p2m_force_tlb_flush_sync(struct p2m_domain *p2m);
+> +void p2m_tlb_flush_sync(struct p2m_domain *p2m);
+> +
+> +#endif /* __ARM_MMU_P2M_H__ */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+> index 940495d42b..a9622dac9a 100644
+> --- a/xen/arch/arm/include/asm/p2m.h
+> +++ b/xen/arch/arm/include/asm/p2m.h
+> @@ -19,6 +19,22 @@ extern unsigned int p2m_root_level;
+>   #define P2M_ROOT_ORDER    p2m_root_order
 
-The Xen hypercall is x86-specific.  I see
-`arch_acpi_set_proc_cap_bits()` as a hook to set arch-specific bits.
-Looking at Xen/x86 as the arch, it makes sense.  The other option
-would be a Xen conditional back in the acpi code.  Keeping it with the
-x86 code therefore made more sense to me.
+You seem to use P2M_ROOT_ORDER to allocate p2m->root in arm/p2m.c. 
+However, as I mentioned before, I don't think the defintion of p2m->root 
+is suitable for the MPU. I think the two functions using p2m->root 
+should be moved in mmu/p2m.c and P2M_ROOT_ORDER should be moved in 
+mmu/p2m.h.
 
-> > +              * buffer matches what the hypervisor driver supports.
-> > +              */
-> > +             xen_sanitize_pdc(cap);
->
-> Same here as in [1], I would call this function xen_sanitize_proc_cap_buf=
-fer(),
-> or something along those lines for better readability and correctness.
+>   #define P2M_ROOT_LEVEL p2m_root_level
 
-Ok.
+P2M_ROOT_LEVEL doesn't seem to make sense for the MPU. The only use in 
+arch/arm/p2m.c seems to be in dump_p2m_lookup() which is calling an MMU 
+specific function. So I think this wants to be moved in the MMU code.
 
-> > +     }
-> >  }
-> >
-> >  static inline bool acpi_has_cpu_in_madt(void)
-> > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/a=
-sm/xen/hypervisor.h
-> > index 7048dfacc04b..c6c2f174fa30 100644
-> > --- a/arch/x86/include/asm/xen/hypervisor.h
-> > +++ b/arch/x86/include/asm/xen/hypervisor.h
-> > @@ -100,4 +100,13 @@ static inline void leave_lazy(enum xen_lazy_mode m=
-ode)
-> >
-> >  enum xen_lazy_mode xen_get_lazy_mode(void);
-> >
-> > +#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI)
-> > +void xen_sanitize_pdc(uint32_t *buf);
-> > +#else
-> > +static inline void xen_sanitize_pdc(uint32_t *buf)
-> > +{
-> > +     BUG();
-> > +}
-> > +#endif
-> > +
-> >  #endif /* _ASM_X86_XEN_HYPERVISOR_H */
-> > diff --git a/drivers/xen/pcpu.c b/drivers/xen/pcpu.c
-> > index b3e3d1bb37f3..859bb6027105 100644
-> > --- a/drivers/xen/pcpu.c
-> > +++ b/drivers/xen/pcpu.c
-> > @@ -47,6 +47,9 @@
-> >  #include <asm/xen/hypervisor.h>
-> >  #include <asm/xen/hypercall.h>
-> >
-> > +#ifdef CONFIG_ACPI
-> > +#include <acpi/processor.h>
-> > +#endif
-> >
-> >  /*
-> >   * @cpu_id: Xen physical cpu logic number
-> > @@ -400,4 +403,22 @@ bool __init xen_processor_present(uint32_t acpi_id=
-)
-> >
-> >       return online;
-> >  }
-> > +
-> > +void xen_sanitize_pdc(uint32_t *cap)
-> > +{
-> > +     struct xen_platform_op op =3D {
-> > +             .cmd                    =3D XENPF_set_processor_pminfo,
-> > +             .u.set_pminfo.id        =3D -1,
-> > +             .u.set_pminfo.type      =3D XEN_PM_PDC,
->
-> It would probably be best to rename this constant as well so it's
-> not misleading.
+>   
+> +#define MAX_VMID_8_BIT  (1UL << 8)
+> +#define MAX_VMID_16_BIT (1UL << 16)
+> +
+> +#define INVALID_VMID 0 /* VMID 0 is reserved */
+> +
+> +#ifdef CONFIG_ARM_64
+> +extern unsigned int max_vmid;
+> +/* VMID is by default 8 bit width on AArch64 */
+> +#define MAX_VMID       max_vmid
+> +#else
+> +/* VMID is always 8 bit width on AArch32 */
+> +#define MAX_VMID        MAX_VMID_8_BIT
+> +#endif
+> +
+> +#define P2M_ROOT_PAGES    (1<<P2M_ROOT_ORDER)
 
-That is a Xen constant, so we can't change it.
+See above.
 
-> > +     };
-> > +     u32 buf[3] =3D { ACPI_PDC_REVISION_ID, 1, *cap };
-> > +     int ret;
-> > +
-> > +     set_xen_guest_handle(op.u.set_pminfo.pdc, buf);
-> > +     ret =3D HYPERVISOR_platform_op(&op);
-> > +     if (ret)
-> > +             pr_info("sanitize of _PDC buffer bits from Xen failed: %d=
-\n",
-> > +                     ret);
->
-> Shouldn't an error be pr_err ?
+Also NIT, I would suggest to take the opportunity to use 1U and add 
+space before/after <<.
 
-Sure.
+> +
+>   struct domain;
+>   
+>   extern void memory_type_changed(struct domain *);
+> @@ -156,6 +172,10 @@ typedef enum {
+>   #endif
+>   #include <xen/p2m-common.h>
+>   
+> +#ifdef CONFIG_MMU
+> +#include <asm/mmu/p2m.h>
+> +#endif
+> +
+>   static inline bool arch_acquire_resource_check(struct domain *d)
+>   {
+>       /*
+> @@ -180,7 +200,11 @@ void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
+>    */
+>   void p2m_restrict_ipa_bits(unsigned int ipa_bits);
+>   
+> +void p2m_vmid_allocator_init(void);
+> +int p2m_alloc_vmid(struct domain *d);
+> +
+>   /* Second stage paging setup, to be called on all CPUs */
+> +void setup_virt_paging_one(void *data);
 
-> > +     *cap =3D buf[2];
-> > +}
-> >  #endif
+I don't much like the idea to export setup_virt_paging_one(). Could we 
+instead move cpu_virt_paging_callback() & co to mmu/p2m.c?
 
-Thanks,
-Jason
+Cheers,
+
+-- 
+Julien Grall
 
