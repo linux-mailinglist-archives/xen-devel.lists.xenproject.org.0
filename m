@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C697C8075
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 10:37:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616272.958176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0DA7C8074
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 10:37:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616274.958184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrDez-0006v8-Kc; Fri, 13 Oct 2023 08:36:41 +0000
+	id 1qrDf0-00074g-31; Fri, 13 Oct 2023 08:36:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616272.958176; Fri, 13 Oct 2023 08:36:41 +0000
+Received: by outflank-mailman (output) from mailman id 616274.958184; Fri, 13 Oct 2023 08:36:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrDez-0006tD-Gw; Fri, 13 Oct 2023 08:36:41 +0000
-Received: by outflank-mailman (input) for mailman id 616272;
- Fri, 13 Oct 2023 07:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qrDez-000702-V0; Fri, 13 Oct 2023 08:36:41 +0000
+Received: by outflank-mailman (input) for mailman id 616274;
+ Fri, 13 Oct 2023 07:58:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XgWV=F3=linaro.org=manos.pitsidianakis@srs-se1.protection.inumbo.net>)
- id 1qrCvt-0007kB-Js
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 07:50:05 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1deec9d2-699d-11ee-98d4-6d05b1d4d9a1;
- Fri, 13 Oct 2023 09:50:03 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-32d9cb5e0fcso303325f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 00:50:03 -0700 (PDT)
-Received: from localhost.localdomain (adsl-170.109.242.226.tellas.gr.
- [109.242.226.170]) by smtp.gmail.com with ESMTPSA id
- m8-20020adfa3c8000000b0032d7fde2d3csm7990663wrb.79.2023.10.13.00.50.00
+ id 1qrD3q-0008Gq-J2
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 07:58:18 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 429e3d25-699e-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 09:58:14 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4060b623e64so11590945e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 00:58:14 -0700 (PDT)
+Received: from localhost.localdomain (adsl-26.37.6.0.tellas.gr. [37.6.0.26])
+ by smtp.gmail.com with ESMTPSA id
+ a10-20020a05600c224a00b003fe23b10fdfsm1798183wmm.36.2023.10.13.00.58.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 00:50:01 -0700 (PDT)
+ Fri, 13 Oct 2023 00:58:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1deec9d2-699d-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 429e3d25-699e-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697183402; x=1697788202; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1697183893; x=1697788693; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
         bh=26XmJrmy0yeQL+itGkgyNTL5y2J9dMpEXdNv7ZAQr48=;
-        b=p26l4A/9yUK5wumCFays9rPgUf/TiralCk/phmEbNeb3mScEWQl41pRu0D3Y0Z3Piq
-         BnWgb0Wtoemh/DXStkA337AKjYUYRPcrEvvlGePn8opGtQv5h7AEePUXWvLEPBqLWlWd
-         FR5KmAwqJo7n6pEQViE9OZvSvTmEy1K1IfE9oq64um4HdDbprtIYxthDfE5GvigpxwY4
-         xPY28h3i4WWKQ2ngWkbzxSVJN95XY2P3RlFiFyrwRq2DzFrtKgbxlT5XBJKGkXAtb7la
-         6J/i4Qk61sL/j0zP9DGQ5+a+8X/3FGMdek1p4ZcThLQj5R/bL2ew50gfEo3ygyBf8p+4
-         OkCg==
+        b=UzzgpqjUAziURuzBdATclQTFJ7iw7K5yPuZYWlgsNZDsunCjVQoR2EvDkq82pE7ZsR
+         xguGljJkveodqpTGkCBGErhG/F8tOhlvLgiajEpQKHHV4zaVaEALKTUV9RjchsYNU8K2
+         x3LREiAJQkclbpvChwWHsU2XTZZB6gXmk0y9Z70E2xk+UUaWQ4FhQJLOeUDgu/kSI4Wq
+         rgie6mMzvQZv/U7zf37it57zYJ2QCR4FXvnRv5dWsXDbt4gTrn5OT21KRQq/9dj9tx9t
+         Q4QjJAYkcWhHbYfNBJRr1+gYMw7DDY6JXiOmOpbmlwvSJWA2mfoJUvqYQjIVkUXfsA/h
+         ZwYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697183402; x=1697788202;
+        d=1e100.net; s=20230601; t=1697183893; x=1697788693;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
         bh=26XmJrmy0yeQL+itGkgyNTL5y2J9dMpEXdNv7ZAQr48=;
-        b=VM/IbRlcEYtubrk2hge8uqz0sn5gpwdFCDxa0BpN6+m+rdEalM0b8WD5Z5xnkBbspd
-         f3uQM/+foshRMG4Lugh/2P42nmlKcaHVzfL6a9PKzzSSr/krGB45hu8dfrgLWud3Yfif
-         n75MntpwLQNa3IzW5Qm3dWpizSTlgxpuCM8BqRUxm7tdGWQtLEfkxnAoCZwtm9f2HqT9
-         hPvsQk+7MwI6DxrjFv4IBQO4geBH3+aYjmgNrSto9mplfYsdXYzzWPuKtjiDCpHWK1d7
-         H551g/xWA9IhENLuOIRcufbbGHcpl2Z8IJHBsP7WgdX/KSFOFcBvtJtLn7I/xyTbc+nF
-         nw4w==
-X-Gm-Message-State: AOJu0YxZGBsZ/IQ5Mw+TE93RLk6bHYy7qWIgWxu8Bj0n0Y7eNGwAleZR
-	8WZuH61Lvns3/se5j/PD5SVaBA==
-X-Google-Smtp-Source: AGHT+IHdoGGAG25v0WJIlopAPK8Dh3SBQ6vjOxKN6Ku5gCGq6sdeWzk2pycoVg3b+dKn51+ZMoacMw==
-X-Received: by 2002:a05:6000:c09:b0:32d:a022:855a with SMTP id dn9-20020a0560000c0900b0032da022855amr264291wrb.20.1697183402328;
-        Fri, 13 Oct 2023 00:50:02 -0700 (PDT)
+        b=bFw4NiX72RSmSS38MCYNFNGL5kDz1INhOgriXfmag8VBU0mY30DK13TEa1a0YiV/AK
+         vmzr/ddixIKYKrII9Ej3ArWWBKnmMLwXWwCi7MCEwYcQ75wIpkxMBAZWIPbHr+ef0uEv
+         ujHO4JwVmU18lx1cb/Hu6Iy3FfzF2QMSmC+PLxYqGd6P3KZ/uegLk6iaIqI9UarWT290
+         pVWqXmbHfCalj+bWVDk79MrwnwvB8Zl9E3/M5V3IT1Qv/waU611zzA0f34XjmDLBiPg/
+         QZiUx89j52DyToMTCDQADbABI4FEFcPI0wWBzw6KjHMO9KUKwKx7RKGvzgi0JYbrSY1a
+         d9HA==
+X-Gm-Message-State: AOJu0YyaruxzDgS9SC4+Giio1PxIkgroSCSfcwmOYz9afwBlTCAq5Bhd
+	Jy/XCslKnF0WnPOw/uTsURsvlQ==
+X-Google-Smtp-Source: AGHT+IFPp/vslpqtiq6MhCP5bCFD2mV7aQKOj1sYJ7qIAvuG33PUl/ItLll0JRAfcAt73agowriq2w==
+X-Received: by 2002:a05:600c:450a:b0:401:c7ec:b930 with SMTP id t10-20020a05600c450a00b00401c7ecb930mr18118050wmo.10.1697183893283;
+        Fri, 13 Oct 2023 00:58:13 -0700 (PDT)
 From: Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>
-To: qemu-devel@nongnu.org,
-	qemu-arm@nongnu.org,
-	qemu-block@nongnu.org
+To: qemu-devel@nongnu.org
 Cc: Emmanouil Pitsidianakis <manos.pitsidianakis@linaro.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
 	Kevin Wolf <kwolf@redhat.com>,
 	Hanna Reitz <hreitz@redhat.com>,
 	Alistair Francis <alistair@alistair23.me>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	qemu-block@nongnu.org (open list:virtio-blk),
 	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [RFC PATCH 08/78] hw/block: add fallthrough pseudo-keyword
-Date: Fri, 13 Oct 2023 10:47:12 +0300
-Message-Id: <23f52f392ad16af6ae923fae526b7c13daf2a0e2.1697183082.git.manos.pitsidianakis@linaro.org>
+Subject: [RFC PATCH v2 08/78] hw/block: add fallthrough pseudo-keyword
+Date: Fri, 13 Oct 2023 10:56:35 +0300
+Message-Id: <23f52f392ad16af6ae923fae526b7c13daf2a0e2.1697183699.git.manos.pitsidianakis@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1697183081.git.manos.pitsidianakis@linaro.org>
-References: <cover.1697183081.git.manos.pitsidianakis@linaro.org>
+In-Reply-To: <cover.1697183699.git.manos.pitsidianakis@linaro.org>
+References: <cover.1697183699.git.manos.pitsidianakis@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
