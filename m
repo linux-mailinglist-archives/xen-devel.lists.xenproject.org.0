@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099907C8893
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 17:25:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616677.958920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA527C88A5
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 17:29:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616687.958933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrK2I-0005ed-Do; Fri, 13 Oct 2023 15:25:10 +0000
+	id 1qrK5S-0000sU-Mr; Fri, 13 Oct 2023 15:28:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616677.958920; Fri, 13 Oct 2023 15:25:10 +0000
+Received: by outflank-mailman (output) from mailman id 616687.958933; Fri, 13 Oct 2023 15:28:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrK2I-0005Zq-6E; Fri, 13 Oct 2023 15:25:10 +0000
-Received: by outflank-mailman (input) for mailman id 616677;
- Fri, 13 Oct 2023 15:25:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1cw9=F3=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qrK2G-0002kj-64
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 15:25:08 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0359cd3-69dc-11ee-9b0e-b553b5be7939;
- Fri, 13 Oct 2023 17:25:06 +0200 (CEST)
-Received: from Dell.bugseng.com (unknown [37.161.222.93])
- by support.bugseng.com (Postfix) with ESMTPSA id 6E65A4EE0744;
- Fri, 13 Oct 2023 17:25:05 +0200 (CEST)
+	id 1qrK5S-0000q6-KI; Fri, 13 Oct 2023 15:28:26 +0000
+Received: by outflank-mailman (input) for mailman id 616687;
+ Fri, 13 Oct 2023 15:28:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qrK5R-0000q0-0C
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 15:28:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qrK5O-0004Ez-BW; Fri, 13 Oct 2023 15:28:22 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qrK5O-0004O5-4A; Fri, 13 Oct 2023 15:28:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,58 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0359cd3-69dc-11ee-9b0e-b553b5be7939
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Julien Grall <julien@xen.org>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Henry Wang <henry.wang@arm.com>
-Subject: [XEN PATCH 10/10] arm/smmu: address violation of MISRA C:2012 Rule 8.2
-Date: Fri, 13 Oct 2023 17:24:40 +0200
-Message-Id: <199886f6ba1f2d5701eabd080b4f9723fc28f4b9.1697207038.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1697207038.git.federico.serafini@bugseng.com>
-References: <cover.1697207038.git.federico.serafini@bugseng.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KdoR4VgpIspwk1J70XxI7xPNsXvg1T7DV4p+aJWDUqA=; b=05t5HIWEJ5747uBeswTrEeFqE+
+	9JVtcEEncl+TebHuBJKerUW+ZG1TL4Ch238GrD/pwI2l1yLXshIvElcpvel9Fq1nSnc9EkDPv1JBg
+	ZEx30QIoqx/AgVKbrUoQ7feU7kxmxvd+bFdbrSTPYoSAGRfhcDFlKcvV0kwMA3BA7zHs=;
+Message-ID: <c679186f-4c8b-4ade-8563-9b988296935d@xen.org>
+Date: Fri, 13 Oct 2023 16:28:20 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen 4.18 release: Reminder about code freeze
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@cloud.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Henry Wang
+ <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ "community.manager@xenproject.org" <community.manager@xenproject.org>
+References: <AS8PR08MB7991D1099E32CC9F03B0E0F692FCA@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2309271603590.1403502@ubuntu-linux-20-04-desktop>
+ <a31ce6cb-6234-5e7f-5cd4-ed190f029811@citrix.com>
+ <alpine.DEB.2.22.394.2309271658500.1403502@ubuntu-linux-20-04-desktop>
+ <CA+zSX=ZbeUFrfAUJShooJFJ+d89f4xdXfJJ9HoJKRh4UStkTFQ@mail.gmail.com>
+ <alpine.DEB.2.22.394.2310121535580.3431292@ubuntu-linux-20-04-desktop>
+ <CA+zSX=Y5dMVFM6dVNgBRHxKc0C1e5WGgweQ0FaXXCfAFGH1aPA@mail.gmail.com>
+ <a93839b8-932a-4634-9549-081df950afb2@xen.org>
+ <5390a035-f0e8-498c-b059-b9eca3a5c6ac@suse.com>
+ <e76d5b41-5057-4ebe-affd-ae1a158071a1@xen.org>
+ <d75c138f-df88-4e7e-9084-533aafdcd982@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <d75c138f-df88-4e7e-9084-533aafdcd982@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add missing parameter names, no functional change.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
- xen/drivers/passthrough/arm/smmu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 71799064f8..11fc1d22ef 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -277,8 +277,8 @@ static void iommu_group_put(struct iommu_group *group)
- }
- 
- static void iommu_group_set_iommudata(struct iommu_group *group,
--				      struct arm_smmu_master_cfg *cfg,
--				      void (*releasefn)(void *))
-+                                      struct arm_smmu_master_cfg *cfg,
-+                                      void (*releasefn)(void *data))
- {
- 	/* TODO: Store the releasefn for the PCI */
- 	ASSERT(releasefn == NULL);
-@@ -2082,7 +2082,7 @@ static int arm_smmu_add_device(struct device *dev)
- 	struct arm_smmu_device *smmu;
- 	struct arm_smmu_master_cfg *cfg;
- 	struct iommu_group *group;
--	void (*releasefn)(void *) = NULL;
-+	void (*releasefn)(void *data) = NULL;
- 	int ret;
- 
- 	smmu = find_smmu_for_device(dev);
+On 13/10/2023 16:04, Juergen Gross wrote:
+> On 13.10.23 16:51, Julien Grall wrote:
+> A dom0less domU doesn't have that negotiation with xenstored, as 
+> xenstored just
+> uses the pre-defined grant for looking at the ring page. For the domU 
+> there is
+> no way to tell that xenstored has initialized the ring page (it is not 
+> the domU
+> to do the initialization, as the XS_INTRODUCE might be sent before the domU
+> even starts running), other than the "connected" indicator in the page 
+> itself.
+
+Thanks for the informaiton. So dom0 needs to send a command in order to 
+know if Xenstored is up. This is the part I find odd and the event 
+channel notification could have help to harmonize that part (not the 
+ring page setup).
+
+Anyway, I seem the only one to think that and I don't have a use-case so 
+far. So I will not push for it.
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
