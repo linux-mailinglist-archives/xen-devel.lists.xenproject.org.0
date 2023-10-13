@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F247E7C8859
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 17:11:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616651.958804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8611D7C886A
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 17:16:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616656.958814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrJos-0006pH-LR; Fri, 13 Oct 2023 15:11:18 +0000
+	id 1qrJtm-00088M-8k; Fri, 13 Oct 2023 15:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616651.958804; Fri, 13 Oct 2023 15:11:18 +0000
+Received: by outflank-mailman (output) from mailman id 616656.958814; Fri, 13 Oct 2023 15:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrJos-0006nb-Im; Fri, 13 Oct 2023 15:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 616651;
- Fri, 13 Oct 2023 15:11:17 +0000
+	id 1qrJtm-00085N-5K; Fri, 13 Oct 2023 15:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 616656;
+ Fri, 13 Oct 2023 15:16:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RqNf=F3=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qrJor-0006nV-CF
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 15:11:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=36VQ=F3=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1qrJtk-00084y-1j
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 15:16:20 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0819e8c-69da-11ee-9b0e-b553b5be7939;
- Fri, 13 Oct 2023 17:11:15 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 837084EE073A;
- Fri, 13 Oct 2023 17:11:14 +0200 (CEST)
+ id 7509b59d-69db-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 17:16:17 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2c50ec238aeso2250181fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 08:16:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,145 +40,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0819e8c-69da-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 7509b59d-69db-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1697210177; x=1697814977; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CjgHocVG2VLG8jjlLiA86XtRg3vIMvwgoUhrGW7Ocq0=;
+        b=OGlTUQzZ1EfQpLYWhM0PyqEtgwsc85PLRAI4xu1pMa9x+Ajx/x6p8omX8kHMikPOEx
+         2PCNxEkuDMZJ45HhbUbpMy36HPWp4essU0GsY7v6x2g2OaZ8dYMAwMKf4TGgvgw1h1O1
+         7XrrFX/ARFv6yHNv6LQXbTXUZ40WVkheW6lX4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697210177; x=1697814977;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CjgHocVG2VLG8jjlLiA86XtRg3vIMvwgoUhrGW7Ocq0=;
+        b=PpBv7gfKm3evrGANLjHLsAAVpmohGZcP3FPKtxxtCSKKJI1PLHIuUktaeZOlE9dVEk
+         ov9e29+db02tVFY/ySd64gzu9rZoPPU/1waY/1vQiu47rSAq/7MdLkXC1zqlwdj2zwCg
+         vzVSm/M7CHhpwKIruFDvoXtbZtkX9cBg2xvg15h8lEkW07gTMtsvoxbvwhitc4lRDY2L
+         eihjtunJ78ZMhEFunUe5SdhC8zg/Qd/LXtLleoOQP3w/7u0vWiIXCszVKDDNxRzFD5aN
+         YIdUmigeffqFlEpSMgW30I5Dl2JuTzIl1pXiVoZWOVk+r80DpFXv9X0mAK273LAJuCUK
+         /woA==
+X-Gm-Message-State: AOJu0Yza/PC8jQL1E+Tiok0Z6lrg4TT8yurZdHfNjvd7+arBqA9VmuJV
+	phdGTXE3n1Ve4UilMMft8xZHidyc6u3xNeeBslkobg==
+X-Google-Smtp-Source: AGHT+IFG60R97vNpnEMDndRql6UdS2/547n24QJBM7U2ykiolHvrsk+RCjGk3uA4Ux/NvOPpbc4Kql7nYFSlBrRbtSY=
+X-Received: by 2002:a2e:a40f:0:b0:2bf:fab9:db28 with SMTP id
+ p15-20020a2ea40f000000b002bffab9db28mr22914529ljn.6.1697210177237; Fri, 13
+ Oct 2023 08:16:17 -0700 (PDT)
 MIME-Version: 1.0
-Date: Fri, 13 Oct 2023 17:11:14 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
- <xen-devel@lists.xenproject.org>, consulting@bugseng.com, Stefano Stabellini
- <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: MISRA C:2012 D4.11 caution on staging
-In-Reply-To: <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
-References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
- <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com>
- <baa73fa24385b39bc6e82c4ccb08bd13@bugseng.com>
- <26f09702-9340-41ae-afcc-808becb67876@citrix.com>
- <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+References: <AS8PR08MB7991D1099E32CC9F03B0E0F692FCA@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2309271603590.1403502@ubuntu-linux-20-04-desktop>
+ <a31ce6cb-6234-5e7f-5cd4-ed190f029811@citrix.com> <alpine.DEB.2.22.394.2309271658500.1403502@ubuntu-linux-20-04-desktop>
+ <CA+zSX=ZbeUFrfAUJShooJFJ+d89f4xdXfJJ9HoJKRh4UStkTFQ@mail.gmail.com>
+ <alpine.DEB.2.22.394.2310121535580.3431292@ubuntu-linux-20-04-desktop>
+ <CA+zSX=Y5dMVFM6dVNgBRHxKc0C1e5WGgweQ0FaXXCfAFGH1aPA@mail.gmail.com>
+ <a93839b8-932a-4634-9549-081df950afb2@xen.org> <5390a035-f0e8-498c-b059-b9eca3a5c6ac@suse.com>
+ <e76d5b41-5057-4ebe-affd-ae1a158071a1@xen.org> <d75c138f-df88-4e7e-9084-533aafdcd982@suse.com>
+In-Reply-To: <d75c138f-df88-4e7e-9084-533aafdcd982@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 13 Oct 2023 16:16:05 +0100
+Message-ID: <CA+zSX=bLbYhL7KRKpqfwoO=CRtEkT1bKMLo0Fu5nna0w_==NRA@mail.gmail.com>
+Subject: Re: Xen 4.18 release: Reminder about code freeze
+To: Juergen Gross <jgross@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Henry Wang <Henry.Wang@arm.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Anthony PERARD <anthony.perard@citrix.com>, 
+	"community.manager@xenproject.org" <community.manager@xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/10/2023 11:27, Julien Grall wrote:
-> Hi Andrew,
-> 
-> On 11/10/2023 08:51, Andrew Cooper wrote:
->> On 11/10/2023 3:47 pm, Nicola Vetrini wrote:
->>> On 11/10/2023 02:15, Andrew Cooper wrote:
->>>> On 10/10/2023 5:31 pm, Nicola Vetrini wrote:
->>>>> Hi,
->>>>> 
->>>>> as you can see from [1], there's a MISRA C guideline, D4.11, that 
->>>>> is
->>>>> supposed to be clean
->>>>> (i.e., have no reports), but has a caution on an argument to memcpy
->>>>> (the second argument might be null according to the checker, given 
->>>>> a
->>>>> set of assumptions on
->>>>> the control flow). To access the report just click on the second 
->>>>> link
->>>>> in the log, which should take you to a webpage with a list of
->>>>> MISRA guidelines. Click on D4.11 and you'll see the full report, 
->>>>> which
->>>>> I pasted below for convenience.
->>>>> 
->>>>> If the finding is genuine, then some countermeasure needs to be 
->>>>> taken
->>>>> against this
->>>>> possible bug, otherwise it needs to be motivated why the field
->>>>> config->handle can't
->>>>> be null at that point.
->>>>> The finding is likely the result of an improvement made to the
->>>>> checker, because the first
->>>>> analysis I can see that spots it happened when rc1 has been tagged,
->>>>> but that commit does not
->>>>> touch the involved files.
->>>>> 
->>>>> [1] https://gitlab.com/xen-project/xen/-/jobs/5251222578
->>>> 
->>>> That's a false positive, but I'm not entirely surprised that the 
->>>> checker
->>>> struggled to see it.
->>>> 
->>>> First,
->>>> 
->>>> ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
->>>> 
->>>> All system domains (domid >= 0x7ff0, inc IDLE) pass a NULL config.  
->>>> All
->>>> other domains pass a real config.
->>>> 
->>>> Next,
->>>> 
->>>> /* DOMID_{XEN,IO,etc} (other than IDLE) are sufficiently 
->>>> constructed. */
->>>> if ( is_system_domain(d) && !is_idle_domain(d) )
->>>>      return d;
->>>> 
->>>> So at this point we only have the IDLE domain and real domains.
->>>> 
->>>> And finally, the complained-about construct is inside an:
->>>> 
->>>> if ( !is_idle_domain(d) )
->>>>      ...
->>>> 
->>>> hence config cannot be NULL, but only because of the way in which
->>>> is_{system,idle}_domain() interact.
->>>> 
->>>> ~Andrew
->>> 
->>> Ok. I think this should be documented as a false positive using the
->>> comment deviation mechanism
->>> in the false-positive-eclair.json file (once a name for the prefix is
->>> settled on in the
->>> other thread).
->>> 
->> 
->> Yeah - I was expecting that.
->> 
->> This code is mid-cleanup (in my copious free time, so not for several
->> releases now...) but even when it is rearranged sufficiently for IDLE 
->> to
->> have an earlier exit, I still wouldn't expect a static analyser to be
->> able to recognise this as being safe.
-> 
-> Looking through the analysis, I think Eclair properly detect the IDLE
-> domain. But it thinks the domain ID has changed mid function (see my
-> other reply to Stefano).
-> 
-> So we can return early for the IDLE domain, then this should silence
-> Eclair. That said, it is unclear to me why it thinks the domain_id can
-> change...
-> 
+On Fri, Oct 13, 2023 at 4:04=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
+te:
+> >>> Technically, dom0 has exactly the same problem as dom0less domains it=
+ boots
+> >>> before Xenstored is running and therefore it may need to know when it=
+ is
+> >>> ready to receive commands.
+> >>
+> >> Umm, no, not really.
+> >>
+> >> The main difference between dom0 and a dom0less domU is, that xenstore=
+d
+> >> introduces dom0 by itself via a call of dom0_init(), while the dom0les=
+s
+> >> domUs get introduced by Xen tools in case a dom0 is coming up later. A=
+nd
+> >> that XS_INTRODUCE will clobber any ring page contents, while a call of
+> >> dom0_init() won't do that.
+> >>
+> >> Dom0 (especially the kernel) is fine to start filling the ring page wi=
+th
+> >> requests even before xenstored is running. It just shouldn't expect to
+> >> receive any responses right away.
+> > I am not sure what you mean by fine. You will see hang notifications if
+> > Xenstored is not started in time. Isn't why we decided to go with a dif=
+ferent
+> > way for dom0less?
+>
+> The main difference is that dom0 tells xenstored the connection parameter=
+s for
+> itself, so dom0 _knows_ that the ring page is setup correctly when xensto=
+red
+> starts looking at it (it is dom0 which needs to do the ring page init).
+>
+> A dom0less domU doesn't have that negotiation with xenstored, as xenstore=
+d just
+> uses the pre-defined grant for looking at the ring page. For the domU the=
+re is
+> no way to tell that xenstored has initialized the ring page (it is not th=
+e domU
+> to do the initialization, as the XS_INTRODUCE might be sent before the do=
+mU
+> even starts running), other than the "connected" indicator in the page it=
+self.
 
-Well, the implementation of the directive has best-effort precision, 
-therefore false positives
-like this one are possible. Since Andrew argued that the path is indeed 
-safe, I think
-it's best to deviate this as such, since other minimal changes could 
-also make this one
-resurface in the future.
+Any thoughts on my patch?  From your description, it sounds like maybe
+it should be in the right direction, although it's currently missing
+memory barriers.
 
-> A simple way to fix it would be to have a local boolean that will be
-> used in place of is_idle_domain(d). This should help Eclair to detect
-> that a domain cannot change its ID in the middle of domain
-> construction.
-> 
-> Cheers,
-
-I think only conditions are checked to get the possible code paths, to 
-have a reasonable
-tradeoff between speed and analysis precision. Therefore, it's quite 
-possible that it would
-give the same caution.
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+ -George
 
