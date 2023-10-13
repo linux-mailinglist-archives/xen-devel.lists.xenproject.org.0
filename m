@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F377C870E
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 15:41:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616574.958689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09D847C874E
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 16:02:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616579.958698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrIPU-0000bA-F2; Fri, 13 Oct 2023 13:41:00 +0000
+	id 1qrIj4-0005JU-29; Fri, 13 Oct 2023 14:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616574.958689; Fri, 13 Oct 2023 13:41:00 +0000
+Received: by outflank-mailman (output) from mailman id 616579.958698; Fri, 13 Oct 2023 14:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrIPU-0000Yp-Bq; Fri, 13 Oct 2023 13:41:00 +0000
-Received: by outflank-mailman (input) for mailman id 616574;
- Fri, 13 Oct 2023 13:40:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qrIj3-0005H6-Vg; Fri, 13 Oct 2023 14:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 616579;
+ Fri, 13 Oct 2023 14:01:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pfqf=F3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qrIPS-0000Yi-Qs
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 13:40:58 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23a3df60-69ce-11ee-98d4-6d05b1d4d9a1;
- Fri, 13 Oct 2023 15:40:57 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-5041bb9ce51so2675049e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 06:40:57 -0700 (PDT)
-Received: from [172.31.7.9] (pdaddca5b.chibnt01.ap.so-net.ne.jp.
- [218.221.202.91]) by smtp.gmail.com with ESMTPSA id
- y3-20020a62b503000000b0068fd653321esm13534654pfe.58.2023.10.13.06.40.54
+ id 1qrIj2-0005H0-Mp
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 14:01:12 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3d61ff1-69d0-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 16:01:06 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40776b20031so1191235e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Oct 2023 07:01:06 -0700 (PDT)
+Received: from [172.31.7.9] ([203.12.200.210])
+ by smtp.gmail.com with ESMTPSA id
+ w21-20020a637b15000000b005ab281d0777sm1284718pgc.20.2023.10.13.07.01.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Oct 2023 06:40:56 -0700 (PDT)
+ Fri, 13 Oct 2023 07:01:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23a3df60-69ce-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: f3d61ff1-69d0-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697204457; x=1697809257; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=59iK16ERZY8Qnot9jaf1f8Q6bpx+HgU58/9jt0fKX4A=;
-        b=QlR86ug503PvmKzEi9Un7HN2Bre2ZSnjzNaTzHGJadWEbB/78tQgMlDEihvRACtd/9
-         VeCZpux4VDiXVYNHmyu2jicyC/BUA9oHfbQ8h15ZY7DlTeLvQ3u5RULwD5G5XgL7Ab8p
-         Y/AzUU6sK3/iHGJHqC2M+ULWIiYpTGFB5WnsU=
+        d=citrix.com; s=google; t=1697205665; x=1697810465; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=tPy4WG2QrODKRJx5QUTwOBSRILtPZ0qEBU+tg92VtXk=;
+        b=Hly2ht//eRxcSVMK//xBuyoJKJK1Pc+qVBY7CA7QusOBrYK9owPUIxz4VcNZvcwjS0
+         +xcTmc+DHbK6E6Rv7xcWL1KL7xJ2JD6mbUc/6QYad1yRwyc+aBm8BwxHhx03JFmTMqNa
+         19lzgfJ9tSrD/xDivhUdgDxStjEjaJ2o5grWI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697204457; x=1697809257;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=59iK16ERZY8Qnot9jaf1f8Q6bpx+HgU58/9jt0fKX4A=;
-        b=CZJRrzIUivSmryoJKCQZPSE/t/HU8iwtq/FUTCiQ092BJridCoNsHSuTm1fz+U6lEe
-         2gQV7UbPw4f2Kp7X4X7giInMj01/fG81X8JBQNf3m26ma/ZwB3isIIB/w4bgcMPx1EHP
-         qpToRwMsivb1NEAztMW2pT9dBxpCNEhovpLrPUdjWNcJJOzYCxRO4GDwvqNKzsvdhRM2
-         zIeTijjhcMX1bBeKJBijxbZfjyUEFkslzWlkzcyFz1XwRNCJG8s2XZMXLsPUAXTU0JVs
-         QyhvcvqQ/Fu1yyyWNvN5GsvejNpslENoO5IjIL5tSJ/1OoudjYeI4hPdLp9JddHm6lkn
-         OAnA==
-X-Gm-Message-State: AOJu0YxgVG7895UEEvhBnhMOrtTcAVYHQ1J/130d+xSD3y4fgLZ5TksK
-	hdDfjcz1RIiML8evu/yraHPPCA==
-X-Google-Smtp-Source: AGHT+IGKO6oxN7zg8oVrEFTJWaQtTNWQwL9Raq09FSICitU5xf4hhLcwlcnxCIRGIUgonkYcMSuGEA==
-X-Received: by 2002:ac2:4290:0:b0:503:38fe:4590 with SMTP id m16-20020ac24290000000b0050338fe4590mr19760521lfh.60.1697204457309;
-        Fri, 13 Oct 2023 06:40:57 -0700 (PDT)
-Message-ID: <42d8ac8d-522e-424a-b002-9a0508f318da@citrix.com>
-Date: Fri, 13 Oct 2023 21:40:52 +0800
+        d=1e100.net; s=20230601; t=1697205665; x=1697810465;
+        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tPy4WG2QrODKRJx5QUTwOBSRILtPZ0qEBU+tg92VtXk=;
+        b=Mawujbprc1jCDoxEBn8YSo8BCByOn36atjNo5oEcFSU8awphFzwlQnz4JryRaprMKz
+         CK+zpw/H9GKPdCM896NV6bBEGwvosrFwYdp/BRgma8xxdEhPqCmL0UKeiEiZt9umwy2D
+         vN82JFOf4Be5UzCax+A0VdJZ8ynfFbyTO2T4xAOLtYNef4bEMOQBlZu0f3gf0HbeXwUt
+         dJwl9+O5DjgsK555AqvNyBTi764+giH3CcdYnhmLYSwJikAHT59m5U/mLoQfa68y7ryy
+         VRVYC0waqSjI6dnqqBGHTNszEj8xtNh22H1QlFDFOgPPx+RB7/TiU0DlwL/GBuVBnTmQ
+         D+9A==
+X-Gm-Message-State: AOJu0YwYkt1SN35qmhNRYu9R6NtxAxe/R7mobY5pr9dbEgqhZckeua0b
+	6EctkvhgZPJN+wQkQIF0KXWtFA==
+X-Google-Smtp-Source: AGHT+IHDBj9T5u58AlMAxr6q3OZrKkzVU5INMxZZyJu5coijatvYlHjaRfu95baT93pYuI673b1NhQ==
+X-Received: by 2002:adf:fcd2:0:b0:32d:8505:b9d7 with SMTP id f18-20020adffcd2000000b0032d8505b9d7mr7019329wrs.43.1697205665580;
+        Fri, 13 Oct 2023 07:01:05 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------D4buNF50ZyVCR0nELFIpUXHb"
+Message-ID: <383027d6-d405-4935-a5a9-1d11e8dd8e44@citrix.com>
+Date: Fri, 13 Oct 2023 22:00:58 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [for-4.18][PATCH v2] x86/amd: Address AMD erratum #1485
+Subject: Re: [for-4.18][PATCH 1/2] xen/x86: Add family guards to the
+ is_zen[12]_uarch() macros
 Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>
-References: <20231013131846.175702-1-alejandro.vallejo@cloud.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <20231012172601.22600-1-alejandro.vallejo@cloud.com>
+ <20231012172601.22600-2-alejandro.vallejo@cloud.com>
+ <06c4df56-8118-4f11-843a-7e4ae81f2464@citrix.com>
+ <652928c3.170a0220.37d5e.7636@mx.google.com> <ZSkrohpG69OU8M8y@macbook>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -128,42 +134,95 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231013131846.175702-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <ZSkrohpG69OU8M8y@macbook>
+
+This is a multi-part message in MIME format.
+--------------D4buNF50ZyVCR0nELFIpUXHb
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/10/2023 9:18 pm, Alejandro Vallejo wrote:
-> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-> index 4f27187f92..085c4772d7 100644
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -1167,6 +1167,14 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
->  	if (c->x86 == 0x10)
->  		__clear_bit(X86_FEATURE_MONITOR, c->x86_capability);
->  
-> +	/* Fix for AMD erratum #1485 */
-> +	if (!cpu_has_hypervisor && c->x86 == 0x19 && is_zen4_uarch()) {
-> +		rdmsrl(MSR_AMD64_BP_CFG, value);
-> +		#define ZEN4_BP_CFG_SHARED_BTB_FIX (1ull << 5)
-> +		wrmsrl(MSR_AMD64_BP_CFG,
-> +		       value | ZEN4_BP_CFG_SHARED_BTB_FIX);
+On 13/10/2023 7:36 pm, Roger Pau Monné wrote:
+> On Fri, Oct 13, 2023 at 12:23:43PM +0100, Alejandro Vallejo wrote:
+>>>> diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
+>>>> index d862cb7972..5a40bcc2ba 100644
+>>>> --- a/xen/arch/x86/include/asm/amd.h
+>>>> +++ b/xen/arch/x86/include/asm/amd.h
+>>>> @@ -145,11 +145,12 @@
+>>>>   * Hygon (Fam18h) but without simple model number rules.  Instead, use STIBP
+>>>>   * as a heuristic that distinguishes the two.
+>>>>   *
+>>>> - * The caller is required to perform the appropriate vendor/family checks
+>>>> - * first.
+>>>> + * The caller is required to perform the appropriate vendor check first.
+>>>>   */
+>>>> -#define is_zen1_uarch() (!boot_cpu_has(X86_FEATURE_AMD_STIBP))
+>>>> -#define is_zen2_uarch()   boot_cpu_has(X86_FEATURE_AMD_STIBP)
+>>>> +#define is_zen1_uarch() ((boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) && \
+>>>> +                         !boot_cpu_has(X86_FEATURE_AMD_STIBP))
+>>>> +#define is_zen2_uarch() (boot_cpu_data.x86 == 0x17 && \
+>>>> +                         boot_cpu_has(X86_FEATURE_AMD_STIBP))
+>>> What leads you to believe there aren't Hygon Zen2's ?
+>> The same argument that a Hygon zen2 supports STIBP. Having seen neither HW
+>> nor docs all that's left is divination skills :)
 
-A #define indented like that is weird.  I tend to either opencode it
-directly in the "value |" expression, or have a local variable called
-chickenbit.
-
-This will surely be a core scope MSR rather than thread scope, at which
-point it the write ought to be conditional on seeing the chickenbit
-clear (hence needing to refer to the value at least twice, so use a
-local variable).
-
-It probably also wants a note about non-atomic RMW, and how it's safe in
-practice.  (See the Zenbleed comment).
-
-Otherwise, LGTM.
-
-As this is just cribbing from an existing example, I'm happy to adjust
-on commit, but it's probably better to double check in the PPR and retest.
+Hygon reported/fixed Zen2 uarch issues in Xen.  Something clearly exists.
 
 ~Andrew
+--------------D4buNF50ZyVCR0nELFIpUXHb
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 13/10/2023 7:36 pm, Roger Pau Monné
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:ZSkrohpG69OU8M8y@macbook">
+      <pre class="moz-quote-pre" wrap="">On Fri, Oct 13, 2023 at 12:23:43PM +0100, Alejandro Vallejo wrote:<span
+      style="white-space: pre-wrap">
+</span></pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
+index d862cb7972..5a40bcc2ba 100644
+--- a/xen/arch/x86/include/asm/amd.h
++++ b/xen/arch/x86/include/asm/amd.h
+@@ -145,11 +145,12 @@
+  * Hygon (Fam18h) but without simple model number rules.  Instead, use STIBP
+  * as a heuristic that distinguishes the two.
+  *
+- * The caller is required to perform the appropriate vendor/family checks
+- * first.
++ * The caller is required to perform the appropriate vendor check first.
+  */
+-#define is_zen1_uarch() (!boot_cpu_has(X86_FEATURE_AMD_STIBP))
+-#define is_zen2_uarch()   boot_cpu_has(X86_FEATURE_AMD_STIBP)
++#define is_zen1_uarch() ((boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) &amp;&amp; \
++                         !boot_cpu_has(X86_FEATURE_AMD_STIBP))
++#define is_zen2_uarch() (boot_cpu_data.x86 == 0x17 &amp;&amp; \
++                         boot_cpu_has(X86_FEATURE_AMD_STIBP))
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">
+What leads you to believe there aren't Hygon Zen2's ?
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">The same argument that a Hygon zen2 supports STIBP. Having seen neither HW
+nor docs all that's left is divination skills :)</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+    Hygon reported/fixed Zen2 uarch issues in Xen.  Something clearly
+    exists.<br>
+    <br>
+    ~Andrew<br>
+  </body>
+</html>
+
+--------------D4buNF50ZyVCR0nELFIpUXHb--
 
