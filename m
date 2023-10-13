@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6AAB7C8032
+	by mail.lfdr.de (Postfix) with ESMTPS id D674E7C8033
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 10:27:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616281.958146 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.616285.958155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrDUi-00042L-86; Fri, 13 Oct 2023 08:26:04 +0000
+	id 1qrDVY-0004UI-GH; Fri, 13 Oct 2023 08:26:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616281.958146; Fri, 13 Oct 2023 08:26:04 +0000
+Received: by outflank-mailman (output) from mailman id 616285.958155; Fri, 13 Oct 2023 08:26:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrDUi-0003zu-57; Fri, 13 Oct 2023 08:26:04 +0000
-Received: by outflank-mailman (input) for mailman id 616281;
- Fri, 13 Oct 2023 08:26:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qrDUg-0003zo-A9
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 08:26:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qrDUf-0002A1-K8; Fri, 13 Oct 2023 08:26:01 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qrDUf-0001Z6-AK; Fri, 13 Oct 2023 08:26:01 +0000
+	id 1qrDVY-0004Rk-Di; Fri, 13 Oct 2023 08:26:56 +0000
+Received: by outflank-mailman (input) for mailman id 616285;
+ Fri, 13 Oct 2023 08:26:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RqNf=F3=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qrDVW-0004RX-Tg
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 08:26:54 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 426f38ee-69a2-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 10:26:51 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 2FB894EE073A;
+ Fri, 13 Oct 2023 10:26:51 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +39,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mciXo5VSHN4Y2AwqDeq6JGM6fOrgiK8JupZgrwn+T6E=; b=o15wgXsl5EKVaTM0AW6Ehg9PuD
-	EF4yyY+48ro7vKwqVDGFGMyO8rAK5A+h0yzE3H1v5JzqWZ6e90ZXL0r9+4/193GEuSH5dQe3jmrJN
-	puADxfpB+CiqHr5M9gyYoUA5XHTby5r01ma5BNU+6n8FFYQo6zrgM8Cj94ZZQF/w/5PU=;
-Message-ID: <f62ad310-0f9a-4b28-9592-023d6a98c0dd@xen.org>
-Date: Fri, 13 Oct 2023 09:25:58 +0100
+X-Inumbo-ID: 426f38ee-69a2-11ee-9b0e-b553b5be7939
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH][for-next][for-4.19 v2 1/8] xen/include: add macro
- LOWEST_BIT
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-References: <cover.1697123806.git.nicola.vetrini@bugseng.com>
- <bb0ba44f8a3944c22a1c7cf19196c7060e8adb4b.1697123806.git.nicola.vetrini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bb0ba44f8a3944c22a1c7cf19196c7060e8adb4b.1697123806.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Fri, 13 Oct 2023 10:26:51 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>, Wei Liu
+ <wl@xen.org>, Henry.Wang@arm.com
+Subject: Re: [XEN PATCH][for-4.19 v2 2/2] docs/misra: add deviations.rst to
+ document additional deviations.
+In-Reply-To: <alpine.DEB.2.22.394.2310121606110.3431292@ubuntu-linux-20-04-desktop>
+References: <cover.1696865051.git.nicola.vetrini@bugseng.com>
+ <ccda90b6be8f6977cff14ae65749ffc7fa429c3c.1696865051.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2310091811190.3431292@ubuntu-linux-20-04-desktop>
+ <a5635fc5e51518c205d776ac8a9600ba@bugseng.com>
+ <alpine.DEB.2.22.394.2310101524080.3431292@ubuntu-linux-20-04-desktop>
+ <781c9b5c-1301-4a23-8c13-fba62c844b03@xen.org>
+ <186af6b6c1b34fc9088a5fb226ff2482@bugseng.com>
+ <9fc7241a16ca8b1db9bf788d4125fe16@bugseng.com>
+ <alpine.DEB.2.22.394.2310121606110.3431292@ubuntu-linux-20-04-desktop>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <77b4aa52476d9a1984370f561689db49@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Nicola,
-
-On 12/10/2023 16:28, Nicola Vetrini wrote:
-> The purpose of this macro is to encapsulate the well-known expression
-> 'x & -x', that in 2's complement architectures on unsigned integers will
-> give 2^ffs(x), where ffs(x) is the position of the lowest set bit in x.
-
-In the commit message it is clear that the macro will return the lowest 
-set bit. But...
-
+On 13/10/2023 01:14, Stefano Stabellini wrote:
+> On Wed, 11 Oct 2023, Nicola Vetrini wrote:
+>> On 11/10/2023 17:00, Nicola Vetrini wrote:
+>> > > > > > > +
+>> > > > > > > +   * - R2.1
+>> > > > > > > +     - The compiler implementation guarantees that the
+>> > > > > > > unreachable code
+>> > > > > > > is
+>> > > > > > > +       removed. Constant expressions and unreachable branches of
+>> > > > > > > if and
+>> > > > > > > switch
+>> > > > > > > +       statements are expected.
+>> > > > > > > +     - Tagged as `safe` for ECLAIR.
+>> > > > > > > +
+>> > > > > > > +   * - R2.1
+>> > > > > > > +     - Some functions are intended not to be referenced.
+>> > > > > > > +     - Tagged as `deliberate` for ECLAIR.
+>> > > > > >
+>> > > > > > What does it mean "some functions" in this case? Should we list
+>> > > > > > which
+>> > > > > > functions?
+>> > > > > >
+>> > > > >
+>> > > > > Well, there are a lot, typically resulting from build configurations
+>> > > > > that do
+>> > > > > not
+>> > > > > use them, or because they are used only in asm code. I can mention
+>> > > > > these
+>> > > > > reasons in the
+>> > > > > document, to make it easier to understand.
+>> > > >
+>> > > > Yes, I think we need to clarify further this point, because saying "Some
+>> > > > functions" doesn't help the reader understand:
+>> > > > - whether all functions can be not referenced
+>> > > > - which subset of functions can be not referenced
+>> > > >
+>> > > > How to distinguish between? How do we know whether a certain patch is
+>> > > > violating the rule or not?
+>> > > >
+>> > > > If there is a clear list of functions that can be not referenced, then
+>> > > > we should list them here. If there is a methodology we can use to
+>> > > > distinguish between them (e.g. functions called from asm only) then we
+>> > > > can write the methodology here. Either way it is fine as long as the
+>> > > > criteria to know if it is OK if a function is not referenced is clear.
+>> > >
+>> > > Aren't they more or less the one we tagged with SAF-1-safe because
+>> > > there were no prototype? If so, we could use the same tags.
+>> > >
+>> > > We could introduce an extra tags for the others. An alternative would
+>> > > be to add an attribute (e.g. asmcall) to mark each function used by
+>> > > assembly.
+>> > >
+>> > > Cheers,
+>> >
+>> > Both suggestion do have some value. As it is, it's not distinguishable
+>> > what causes a
+>> > function to be unreferenced in a certain analysis config. However:
+>> >
+>> > - functions only used by asm code can be specified in the ECLAIR
+>> > config so that they will
+>> >   have an extra fake reference as far as the checker is concerned. I
+>> > can do that on a
+>> >   separate patch and list them in deviations.rst. An attribute seems a
+>> > good way to signal the
+>> >   intention.
+>> > - Functions that have no reference only in the current analysis should
+>> > have their declaration
+>> >   #ifdef-ed out in the configurations where they are not used, in an
+>> > ideal world.
+>> > - Truly unreferenced functions should be removed, or justified
+>> 
+>> Especially the last two appear somewhat tricky to disentangle, as they 
+>> do
+>> require knowledge of
+>> possible code paths.
 > 
-> A deviation for ECLAIR is also introduced.
+> First let me premise that if we are unsure on how to proceed on this 
+> you
+> can resend this patch series without this item ("Some functions are
+> intended not to be referenced"), so at least the rest can go in now.
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Changes in v2:
-> - rename to LOWEST_BIT
-> ---
->   automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
->   xen/include/xen/macros.h                         | 6 ++++--
->   2 files changed, 10 insertions(+), 2 deletions(-)
+> On this specific point, I think we should only make clear and
+> unmistakable statements. For instance, I think it is OK to say that all
+> the functions only used by asm code are exceptions (ideally they would
+> have a asmcall tag as Julien suggested) because that is deterministic.
 > 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index d8170106b449..b8e1155ee49d 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -274,6 +274,12 @@ still non-negative."
->   -config=MC3R1.R10.1,etypes+={safe, "stmt(operator(logical)||node(conditional_operator||binary_conditional_operator))", "dst_type(ebool||boolean)"}
->   -doc_end
+> Functions that have no references in a specific kconfig configuration
+> should have their definition #ifdef'ed (not necessarily the
+> declaration, I think we have already clarified that it is OK to have a
+> declaration without definition.)
 > 
-> +-doc_begin="The macro LOWEST_BIT encapsulates a well-known pattern to obtain the value
-> +2^ffs(x) for unsigned integers on two's complement architectures
-> +(all the architectures supported by Xen satisfy this requirement)."
-> +-config=MC3R1.R10.1,reports+={safe, "any_area(any_loc(any_exp(macro(^LOWEST_BIT$))))"}
-> +-doc_end
-> +
->   ### Set 3 ###
+> Truly unreferenced functions should be removed.
 > 
->   #
-> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
-> index d0caae7db298..af47179d1056 100644
-> --- a/xen/include/xen/macros.h
-> +++ b/xen/include/xen/macros.h
-> @@ -8,8 +8,10 @@
->   #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
->   #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
-> 
-> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
-> +#define LOWEST_BIT(x) ((x) & -(x))
+> In conclusion, I think we should only have "functions only called from
+> asm code" as a deviation here.
 
-... this is not reflected in the name of the macro. So it is not obvious 
-if it will return the lowest bit set or clear.
-
-Can you at least add a comment on top explaining what it returns? 
-Something like:
-
-/* Return the lowest bit set */
-
-Cheers,
+I agree on leaving this out of the patch for now.
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
