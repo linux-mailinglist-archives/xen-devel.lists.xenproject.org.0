@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74CE87C8330
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 12:36:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.616413.958416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9C77C8335
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Oct 2023 12:36:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.616414.958426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrFWj-0003QD-IP; Fri, 13 Oct 2023 10:36:17 +0000
+	id 1qrFWp-0003m7-Qm; Fri, 13 Oct 2023 10:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 616413.958416; Fri, 13 Oct 2023 10:36:17 +0000
+Received: by outflank-mailman (output) from mailman id 616414.958426; Fri, 13 Oct 2023 10:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qrFWj-0003Nq-F2; Fri, 13 Oct 2023 10:36:17 +0000
-Received: by outflank-mailman (input) for mailman id 616413;
- Fri, 13 Oct 2023 10:36:15 +0000
+	id 1qrFWp-0003jw-Mq; Fri, 13 Oct 2023 10:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 616414;
+ Fri, 13 Oct 2023 10:36:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U36v=F3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qrFWh-0002pr-PO
- for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 10:36:15 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1qrFWo-0002pr-4E
+ for xen-devel@lists.xenproject.org; Fri, 13 Oct 2023 10:36:22 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 553286f6-69b4-11ee-9b0e-b553b5be7939;
- Fri, 13 Oct 2023 12:36:14 +0200 (CEST)
+ id 58aaaf90-69b4-11ee-9b0e-b553b5be7939;
+ Fri, 13 Oct 2023 12:36:19 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B66BF1F37E;
- Fri, 13 Oct 2023 10:36:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 950EE219DA;
+ Fri, 13 Oct 2023 10:36:19 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72EA7138EF;
- Fri, 13 Oct 2023 10:36:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 230B4138EF;
+ Fri, 13 Oct 2023 10:36:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id g9q5Gp0dKWUpNgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 13 Oct 2023 10:36:13 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id +BpUB6MdKWU1NgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 13 Oct 2023 10:36:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,35 +51,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 553286f6-69b4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 58aaaf90-69b4-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1697193373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1697193379; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=klB1BPybU60Z69KLLAN7OEkcpRKvUZOAtBgC/BqL140=;
-	b=Tf/SZchrgUjKSv/FG/Pj5RLnHcRYvnxpZpfTwPj/QRb+hpEtwgcKJNCB3l3BF+svXXQs6W
-	BNvUv42W2/KEKxm6hUpCBoQ+HMiS34VoX4JYnpXGwtYnDN2h7+XHWE3X3oFmCLyWPUW63k
-	uM4qmoPBY5PXr1exeT/aO4IlDbki94o=
+	bh=X9Vcgu3G9bkAar/yzz+yHGmlnPOtJ9HGD+jys7FSIrY=;
+	b=XHEuMN/enQAv/jgw/ewVrsZ1zbgTetZJpyrSH4MuNcGucIB5gPNBCmF6ZkJ7WiiC2+u/gl
+	Zw35SIoyGxgAtvDCYnpkB1rgojK/6R5GXt/Sr1JY5lZBqqNjhjeFhNyhvzIMTFUNe6T0RT
+	imbxTIYBfpP5fOsF4WfaPanN1MHy63A=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: javi.merino@cloud.com,
 	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 07/13] xen/spinlock: make struct lock_profile rspinlock_t aware
-Date: Fri, 13 Oct 2023 11:42:18 +0200
-Message-Id: <20231013094224.7060-8-jgross@suse.com>
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>
+Subject: [PATCH v2 08/13] xen/spinlock: add explicit non-recursive locking functions
+Date: Fri, 13 Oct 2023 11:42:19 +0200
+Message-Id: <20231013094224.7060-9-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231013094224.7060-1-jgross@suse.com>
 References: <20231013094224.7060-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
 X-Spam-Score: -6.10
@@ -96,7 +103,7 @@ X-Spamd-Result: default: False [-6.10 / 50.00];
 	 NEURAL_HAM_LONG(-3.00)[-1.000];
 	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 RCPT_COUNT_SEVEN(0.00)[9];
+	 RCPT_COUNT_TWELVE(0.00)[16];
 	 MID_CONTAINS_FROM(1.00)[];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
@@ -105,90 +112,554 @@ X-Spamd-Result: default: False [-6.10 / 50.00];
 	 BAYES_HAM(-3.00)[100.00%]
 X-Spam-Flag: NO
 
-Struct lock_profile contains a pointer to the spinlock it is associated
-with. Prepare support of differing spinlock_t and rspinlock_t types by
-adding a type indicator of the pointer. Use the highest bit of the
-block_cnt member for this indicator in order to not grow the struct
-while hurting only the slow path with slightly less performant code.
+In order to prepare a type-safe recursive spinlock structure, add
+explicitly non-recursive locking functions to be used for non-recursive
+locking of spinlocks, which are used recursively, too.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
-- new patch
+- rename functions (Jan Beulich)
+- get rid of !! in pcidevs_locked() (Jan Beulich)
 ---
- xen/common/spinlock.c      | 26 +++++++++++++++++++-------
- xen/include/xen/spinlock.h | 10 ++++++++--
- 2 files changed, 27 insertions(+), 9 deletions(-)
+ xen/arch/arm/mm.c             |  4 ++--
+ xen/arch/x86/domain.c         | 12 ++++++------
+ xen/arch/x86/mm.c             | 12 ++++++------
+ xen/arch/x86/mm/mem_sharing.c |  8 ++++----
+ xen/arch/x86/mm/p2m-pod.c     |  4 ++--
+ xen/arch/x86/mm/p2m.c         |  4 ++--
+ xen/arch/x86/tboot.c          |  4 ++--
+ xen/common/domctl.c           |  4 ++--
+ xen/common/grant_table.c      | 10 +++++-----
+ xen/common/memory.c           |  4 ++--
+ xen/common/numa.c             |  4 ++--
+ xen/common/page_alloc.c       | 16 ++++++++--------
+ xen/drivers/char/console.c    | 16 ++++++++--------
+ xen/include/xen/spinlock.h    | 24 +++++++++++++++++++-----
+ 14 files changed, 70 insertions(+), 56 deletions(-)
 
-diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 3b1d1fd8d5..7b8e842eba 100644
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -538,19 +538,31 @@ static void spinlock_profile_iterate(lock_profile_subfunc *sub, void *par)
- static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
-     int32_t type, int32_t idx, void *par)
- {
--    struct spinlock *lock = data->lock;
-+    unsigned int cpu;
-+    uint32_t lockval;
-+
-+    if ( data->is_rlock )
-+    {
-+        cpu = data->rlock->debug.cpu;
-+        lockval = data->rlock->tickets.head_tail;
-+    }
-+    else
-+    {
-+        cpu = data->lock->debug.cpu;
-+        lockval = data->lock->tickets.head_tail;
-+    }
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index c34cc94c90..c3a822b834 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1317,7 +1317,7 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+     if ( page_get_owner(page) == d )
+         return;
  
-     printk("%s ", lock_profile_ancs[type].name);
-     if ( type != LOCKPROF_TYPE_GLOBAL )
-         printk("%d ", idx);
--    printk("%s: addr=%p, lockval=%08x, ", data->name, lock,
--           lock->tickets.head_tail);
--    if ( lock->debug.cpu == SPINLOCK_NO_CPU )
-+    printk("%s: addr=%p, lockval=%08x, ", data->name, data->lock, lockval);
-+    if ( cpu == SPINLOCK_NO_CPU )
-         printk("not locked\n");
-     else
--        printk("cpu=%d\n", lock->debug.cpu);
--    printk("  lock:%" PRId64 "(%" PRI_stime "), block:%" PRId64 "(%" PRI_stime ")\n",
--           data->lock_cnt, data->time_hold, data->block_cnt, data->time_block);
-+        printk("cpu=%u\n", cpu);
-+    printk("  lock:%" PRIu64 "(%" PRI_stime "), block:%" PRIu64 "(%" PRI_stime ")\n",
-+           data->lock_cnt, data->time_hold, (uint64_t)data->block_cnt,
-+           data->time_block);
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     /*
+      * The incremented type count pins as writable or read-only.
+@@ -1348,7 +1348,7 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+         page_list_add_tail(page, &d->xenpage_list);
+     }
+ 
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
  }
  
- void cf_check spinlock_profile_printall(unsigned char key)
+ int xenmem_add_to_physmap_one(
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 57dd5deeb5..feb0678967 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -212,7 +212,7 @@ void dump_pageframe_info(struct domain *d)
+     {
+         unsigned long total[MASK_EXTR(PGT_type_mask, PGT_type_mask) + 1] = {};
+ 
+-        spin_lock(&d->page_alloc_lock);
++        nrspin_lock(&d->page_alloc_lock);
+         page_list_for_each ( page, &d->page_list )
+         {
+             unsigned int index = MASK_EXTR(page->u.inuse.type_info,
+@@ -231,13 +231,13 @@ void dump_pageframe_info(struct domain *d)
+                    _p(mfn_x(page_to_mfn(page))),
+                    page->count_info, page->u.inuse.type_info);
+         }
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+     }
+ 
+     if ( is_hvm_domain(d) )
+         p2m_pod_dump_data(d);
+ 
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     page_list_for_each ( page, &d->xenpage_list )
+     {
+@@ -253,7 +253,7 @@ void dump_pageframe_info(struct domain *d)
+                page->count_info, page->u.inuse.type_info);
+     }
+ 
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+ }
+ 
+ void update_guest_memory_policy(struct vcpu *v,
+@@ -2439,10 +2439,10 @@ int domain_relinquish_resources(struct domain *d)
+             d->arch.auto_unmask = 0;
+         }
+ 
+-        spin_lock(&d->page_alloc_lock);
++        nrspin_lock(&d->page_alloc_lock);
+         page_list_splice(&d->arch.relmem_list, &d->page_list);
+         INIT_PAGE_LIST_HEAD(&d->arch.relmem_list);
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+ 
+     PROGRESS(xen):
+ 
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 39544bd9f9..34682c1795 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -482,7 +482,7 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+ 
+     set_gpfn_from_mfn(mfn_x(page_to_mfn(page)), INVALID_M2P_ENTRY);
+ 
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     /* The incremented type count pins as writable or read-only. */
+     page->u.inuse.type_info =
+@@ -502,7 +502,7 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+         page_list_add_tail(page, &d->xenpage_list);
+     }
+ 
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+ }
+ 
+ void make_cr3(struct vcpu *v, mfn_t mfn)
+@@ -3584,11 +3584,11 @@ long do_mmuext_op(
+             {
+                 bool drop_ref;
+ 
+-                spin_lock(&pg_owner->page_alloc_lock);
++                nrspin_lock(&pg_owner->page_alloc_lock);
+                 drop_ref = (pg_owner->is_dying &&
+                             test_and_clear_bit(_PGT_pinned,
+                                                &page->u.inuse.type_info));
+-                spin_unlock(&pg_owner->page_alloc_lock);
++                nrspin_unlock(&pg_owner->page_alloc_lock);
+                 if ( drop_ref )
+                 {
+         pin_drop:
+@@ -4411,7 +4411,7 @@ int steal_page(
+      * that it might be upon return from alloc_domheap_pages with
+      * MEMF_no_owner set.
+      */
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     BUG_ON(page->u.inuse.type_info & (PGT_count_mask | PGT_locked |
+                                       PGT_pinned));
+@@ -4423,7 +4423,7 @@ int steal_page(
+     if ( !(memflags & MEMF_no_refcount) && !domain_adjust_tot_pages(d, -1) )
+         drop_dom_ref = true;
+ 
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+ 
+     if ( unlikely(drop_dom_ref) )
+         put_domain(d);
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index 146f61f354..73a82c4f78 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -746,11 +746,11 @@ static int page_make_private(struct domain *d, struct page_info *page)
+     if ( !get_page(page, dom_cow) )
+         return -EINVAL;
+ 
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     if ( d->is_dying )
+     {
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+         put_page(page);
+         return -EBUSY;
+     }
+@@ -758,7 +758,7 @@ static int page_make_private(struct domain *d, struct page_info *page)
+     expected_type = (PGT_shared_page | PGT_validated | PGT_locked | 2);
+     if ( page->u.inuse.type_info != expected_type )
+     {
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+         put_page(page);
+         return -EEXIST;
+     }
+@@ -775,7 +775,7 @@ static int page_make_private(struct domain *d, struct page_info *page)
+     if ( domain_adjust_tot_pages(d, 1) == 1 )
+         get_knownalive_domain(d);
+     page_list_add_tail(page, &d->page_list);
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+ 
+     put_page(page);
+ 
+diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
+index 9969eb45fa..5361c2c5b1 100644
+--- a/xen/arch/x86/mm/p2m-pod.c
++++ b/xen/arch/x86/mm/p2m-pod.c
+@@ -27,7 +27,7 @@
+ static inline void lock_page_alloc(struct p2m_domain *p2m)
+ {
+     page_alloc_mm_pre_lock(p2m->domain);
+-    spin_lock(&(p2m->domain->page_alloc_lock));
++    nrspin_lock(&(p2m->domain->page_alloc_lock));
+     page_alloc_mm_post_lock(p2m->domain,
+                             p2m->domain->arch.page_alloc_unlock_level);
+ }
+@@ -35,7 +35,7 @@ static inline void lock_page_alloc(struct p2m_domain *p2m)
+ static inline void unlock_page_alloc(struct p2m_domain *p2m)
+ {
+     page_alloc_mm_unlock(p2m->domain->arch.page_alloc_unlock_level);
+-    spin_unlock(&(p2m->domain->page_alloc_lock));
++    nrspin_unlock(&(p2m->domain->page_alloc_lock));
+ }
+ 
+ /*
+diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+index 0983bd71d9..f78c46bda2 100644
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -2225,7 +2225,7 @@ void audit_p2m(struct domain *d,
+ 
+     /* Audit part two: walk the domain's page allocation list, checking
+      * the m2p entries. */
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+     page_list_for_each ( page, &d->page_list )
+     {
+         mfn = mfn_x(page_to_mfn(page));
+@@ -2277,7 +2277,7 @@ void audit_p2m(struct domain *d,
+         P2M_PRINTK("OK: mfn=%#lx, gfn=%#lx, p2mfn=%#lx\n",
+                        mfn, gfn, mfn_x(p2mfn));
+     }
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+ 
+     pod_unlock(p2m);
+     p2m_unlock(p2m);
+diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+index 86c4c22cac..5b33a1bf9d 100644
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -205,14 +205,14 @@ static void tboot_gen_domain_integrity(const uint8_t key[TB_KEY_SIZE],
+             continue;
+         printk("MACing Domain %u\n", d->domain_id);
+ 
+-        spin_lock(&d->page_alloc_lock);
++        nrspin_lock(&d->page_alloc_lock);
+         page_list_for_each(page, &d->page_list)
+         {
+             void *pg = __map_domain_page(page);
+             vmac_update(pg, PAGE_SIZE, &ctx);
+             unmap_domain_page(pg);
+         }
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+ 
+         if ( is_iommu_enabled(d) && is_vtd )
+         {
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 505e29c0dc..3733f60f6a 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -621,14 +621,14 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+     {
+         uint64_t new_max = op->u.max_mem.max_memkb >> (PAGE_SHIFT - 10);
+ 
+-        spin_lock(&d->page_alloc_lock);
++        nrspin_lock(&d->page_alloc_lock);
+         /*
+          * NB. We removed a check that new_max >= current tot_pages; this means
+          * that the domain will now be allowed to "ratchet" down to new_max. In
+          * the meantime, while tot > max, all new allocations are disallowed.
+          */
+         d->max_pages = min(new_max, (uint64_t)(typeof(d->max_pages))-1);
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+         break;
+     }
+ 
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index 89b7811c51..8145974d3a 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -2376,7 +2376,7 @@ gnttab_transfer(
+             mfn = page_to_mfn(page);
+         }
+ 
+-        spin_lock(&e->page_alloc_lock);
++        nrspin_lock(&e->page_alloc_lock);
+ 
+         /*
+          * Check that 'e' will accept the page and has reservation
+@@ -2387,7 +2387,7 @@ gnttab_transfer(
+              unlikely(domain_tot_pages(e) >= e->max_pages) ||
+              unlikely(!(e->tot_pages + 1)) )
+         {
+-            spin_unlock(&e->page_alloc_lock);
++            nrspin_unlock(&e->page_alloc_lock);
+ 
+             if ( e->is_dying )
+                 gdprintk(XENLOG_INFO, "Transferee d%d is dying\n",
+@@ -2411,7 +2411,7 @@ gnttab_transfer(
+          * safely drop the lock and re-aquire it later to add page to the
+          * pagelist.
+          */
+-        spin_unlock(&e->page_alloc_lock);
++        nrspin_unlock(&e->page_alloc_lock);
+         okay = gnttab_prepare_for_transfer(e, d, gop.ref);
+ 
+         /*
+@@ -2427,9 +2427,9 @@ gnttab_transfer(
+              * Need to grab this again to safely free our "reserved"
+              * page in the page total
+              */
+-            spin_lock(&e->page_alloc_lock);
++            nrspin_lock(&e->page_alloc_lock);
+             drop_dom_ref = !domain_adjust_tot_pages(e, -1);
+-            spin_unlock(&e->page_alloc_lock);
++            nrspin_unlock(&e->page_alloc_lock);
+ 
+             if ( okay /* i.e. e->is_dying due to the surrounding if() */ )
+                 gdprintk(XENLOG_INFO, "Transferee d%d is now dying\n",
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index fa165ebc14..f6a4dc17ee 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -770,10 +770,10 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+                               (1UL << in_chunk_order)) -
+                              (j * (1UL << exch.out.extent_order)));
+ 
+-                spin_lock(&d->page_alloc_lock);
++                nrspin_lock(&d->page_alloc_lock);
+                 drop_dom_ref = (dec_count &&
+                                 !domain_adjust_tot_pages(d, -dec_count));
+-                spin_unlock(&d->page_alloc_lock);
++                nrspin_unlock(&d->page_alloc_lock);
+ 
+                 if ( drop_dom_ref )
+                     put_domain(d);
+diff --git a/xen/common/numa.c b/xen/common/numa.c
+index f454c4d894..47b1d0b5a8 100644
+--- a/xen/common/numa.c
++++ b/xen/common/numa.c
+@@ -718,13 +718,13 @@ static void cf_check dump_numa(unsigned char key)
+ 
+         memset(page_num_node, 0, sizeof(page_num_node));
+ 
+-        spin_lock(&d->page_alloc_lock);
++        nrspin_lock(&d->page_alloc_lock);
+         page_list_for_each ( page, &d->page_list )
+         {
+             i = page_to_nid(page);
+             page_num_node[i]++;
+         }
+-        spin_unlock(&d->page_alloc_lock);
++        nrspin_unlock(&d->page_alloc_lock);
+ 
+         for_each_online_node ( i )
+             printk("    Node %u: %u\n", i, page_num_node[i]);
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 8c6a3d9274..a25c00a7d4 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -515,7 +515,7 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
+      * must always take the global heap_lock rather than only in the much
+      * rarer case that d->outstanding_pages is non-zero
+      */
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+     spin_lock(&heap_lock);
+ 
+     /* pages==0 means "unset" the claim. */
+@@ -561,7 +561,7 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
+ 
+ out:
+     spin_unlock(&heap_lock);
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+     return ret;
+ }
+ 
+@@ -2343,7 +2343,7 @@ int assign_pages(
+     int rc = 0;
+     unsigned int i;
+ 
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+ 
+     if ( unlikely(d->is_dying) )
+     {
+@@ -2425,7 +2425,7 @@ int assign_pages(
+     }
+ 
+  out:
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+     return rc;
+ }
+ 
+@@ -2906,9 +2906,9 @@ mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
+     ASSERT_ALLOC_CONTEXT();
+ 
+     /* Acquire a page from reserved page list(resv_page_list). */
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+     page = page_list_remove_head(&d->resv_page_list);
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+     if ( unlikely(!page) )
+         return INVALID_MFN;
+ 
+@@ -2927,9 +2927,9 @@ mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
+      */
+     unprepare_staticmem_pages(page, 1, false);
+  fail:
+-    spin_lock(&d->page_alloc_lock);
++    nrspin_lock(&d->page_alloc_lock);
+     page_list_add_tail(page, &d->resv_page_list);
+-    spin_unlock(&d->page_alloc_lock);
++    nrspin_unlock(&d->page_alloc_lock);
+     return INVALID_MFN;
+ }
+ #endif
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 360c2afbf3..d5d8b6cd77 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -369,9 +369,9 @@ long read_console_ring(struct xen_sysctl_readconsole *op)
+ 
+     if ( op->clear )
+     {
+-        spin_lock_irq(&console_lock);
++        nrspin_lock_irq(&console_lock);
+         conringc = p - c > conring_size ? p - conring_size : c;
+-        spin_unlock_irq(&console_lock);
++        nrspin_unlock_irq(&console_lock);
+     }
+ 
+     op->count = sofar;
+@@ -630,7 +630,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+         if ( is_hardware_domain(cd) )
+         {
+             /* Use direct console output as it could be interactive */
+-            spin_lock_irq(&console_lock);
++            nrspin_lock_irq(&console_lock);
+ 
+             console_serial_puts(kbuf, kcount);
+             video_puts(kbuf, kcount);
+@@ -651,7 +651,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+                 tasklet_schedule(&notify_dom0_con_ring_tasklet);
+             }
+ 
+-            spin_unlock_irq(&console_lock);
++            nrspin_unlock_irq(&console_lock);
+         }
+         else
+         {
+@@ -1018,9 +1018,9 @@ void __init console_init_preirq(void)
+     pv_console_set_rx_handler(serial_rx);
+ 
+     /* HELLO WORLD --- start-of-day banner text. */
+-    spin_lock(&console_lock);
++    nrspin_lock(&console_lock);
+     __putstr(xen_banner());
+-    spin_unlock(&console_lock);
++    nrspin_unlock(&console_lock);
+     printk("Xen version %d.%d%s (%s@%s) (%s) %s %s\n",
+            xen_major_version(), xen_minor_version(), xen_extra_version(),
+            xen_compile_by(), xen_compile_domain(), xen_compiler(),
+@@ -1057,13 +1057,13 @@ void __init console_init_ring(void)
+     }
+     opt_conring_size = PAGE_SIZE << order;
+ 
+-    spin_lock_irqsave(&console_lock, flags);
++    nrspin_lock_irqsave(&console_lock, flags);
+     for ( i = conringc ; i != conringp; i++ )
+         ring[i & (opt_conring_size - 1)] = conring[i & (conring_size - 1)];
+     conring = ring;
+     smp_wmb(); /* Allow users of console_force_unlock() to see larger buffer. */
+     conring_size = opt_conring_size;
+-    spin_unlock_irqrestore(&console_lock, flags);
++    nrspin_unlock_irqrestore(&console_lock, flags);
+ 
+     printk("Allocated console ring of %u KiB.\n", opt_conring_size >> 10);
+ }
 diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index 53f0f72ac4..5ada9dce3d 100644
+index 5ada9dce3d..12764bcddf 100644
 --- a/xen/include/xen/spinlock.h
 +++ b/xen/include/xen/spinlock.h
-@@ -76,13 +76,19 @@ union lock_debug { };
- */
+@@ -101,6 +101,8 @@ struct lock_profile_qhead {
+ };
  
- struct spinlock;
-+/* Temporary hack until a dedicated struct rspinlock is existing. */
-+#define rspinlock spinlock
+ #define _LOCK_PROFILE(lockname) { .name = #lockname, .lock = &lockname, }
++#define _RLOCK_PROFILE(lockname) { .name = #lockname, .rlock = &lockname,     \
++    .is_rlock = 1, }
+ #define _LOCK_PROFILE_PTR(name)                                               \
+     static struct lock_profile * const __lock_profile_##name                  \
+     __used_section(".lockprofile.data") =                                     \
+@@ -117,10 +119,10 @@ struct lock_profile_qhead {
+     _LOCK_PROFILE_PTR(l)
+ #define DEFINE_RSPINLOCK(l)                                                   \
+     rspinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                \
+-    static struct lock_profile __lock_profile_data_##l = _LOCK_PROFILE(l);    \
++    static struct lock_profile __lock_profile_data_##l = _RLOCK_PROFILE(l);   \
+     _LOCK_PROFILE_PTR(l)
  
- struct lock_profile {
-     struct lock_profile *next;       /* forward link */
-     const char          *name;       /* lock name */
--    struct spinlock     *lock;       /* the lock itself */
-+    union {
-+        struct spinlock *lock;       /* the lock itself */
-+        struct rspinlock *rlock;     /* the recursive lock itself */
-+    };
-     uint64_t            lock_cnt;    /* # of complete locking ops */
--    uint64_t            block_cnt;   /* # of complete wait for lock */
-+    uint64_t            block_cnt:63; /* # of complete wait for lock */
-+    uint64_t            is_rlock:1;  /* use rlock pointer */
-     s_time_t            time_hold;   /* cumulated lock time */
-     s_time_t            time_block;  /* cumulated wait time */
-     s_time_t            time_locked; /* system time of last locking */
+-#define __spin_lock_init_prof(s, l, locktype)                                 \
++#define __spin_lock_init_prof(s, l, lockptr, locktype, isr)                   \
+     do {                                                                      \
+         struct lock_profile *prof;                                            \
+         prof = xzalloc(struct lock_profile);                                  \
+@@ -133,13 +135,16 @@ struct lock_profile_qhead {
+             break;                                                            \
+         }                                                                     \
+         prof->name = #l;                                                      \
+-        prof->lock = &(s)->l;                                                 \
++        prof->lockptr = &(s)->l;                                              \
++        prof->is_rlock = isr;                                                 \
+         prof->next = (s)->profile_head.elem_q;                                \
+         (s)->profile_head.elem_q = prof;                                      \
+     } while( 0 )
+ 
+-#define spin_lock_init_prof(s, l) __spin_lock_init_prof(s, l, spinlock_t)
+-#define rspin_lock_init_prof(s, l) __spin_lock_init_prof(s, l, rspinlock_t)
++#define spin_lock_init_prof(s, l)                                             \
++    __spin_lock_init_prof(s, l, lock, spinlock_t, 0)
++#define rspin_lock_init_prof(s, l)                                            \
++    __spin_lock_init_prof(s, l, rlock, rspinlock_t, 1)
+ 
+ void _lock_profile_register_struct(
+     int32_t type, struct lock_profile_qhead *qhead, int32_t idx);
+@@ -174,6 +179,7 @@ struct lock_profile_qhead { };
+ 
+ #endif
+ 
++
+ typedef union {
+     uint32_t head_tail;
+     struct {
+@@ -261,4 +267,12 @@ void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags);
+ /* Ensure a lock is quiescent between two critical operations. */
+ #define spin_barrier(l)               _spin_barrier(l)
+ 
++#define nrspin_trylock(l)    spin_trylock(l)
++#define nrspin_lock(l)       spin_lock(l)
++#define nrspin_unlock(l)     spin_unlock(l)
++#define nrspin_lock_irq(l)   spin_lock_irq(l)
++#define nrspin_unlock_irq(l) spin_unlock_irq(l)
++#define nrspin_lock_irqsave(l, f)      spin_lock_irqsave(l, f)
++#define nrspin_unlock_irqrestore(l, f) spin_unlock_irqrestore(l, f)
++
+ #endif /* __SPINLOCK_H__ */
 -- 
 2.35.3
 
