@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8337CB19C
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 19:53:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617907.961008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C6547CB218
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 20:06:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617913.961017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsRl7-0008Md-0F; Mon, 16 Oct 2023 17:52:05 +0000
+	id 1qsRyp-0003Jh-7x; Mon, 16 Oct 2023 18:06:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617907.961008; Mon, 16 Oct 2023 17:52:04 +0000
+Received: by outflank-mailman (output) from mailman id 617913.961017; Mon, 16 Oct 2023 18:06:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsRl6-0008Jy-Tk; Mon, 16 Oct 2023 17:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 617907;
- Mon, 16 Oct 2023 17:52:03 +0000
+	id 1qsRyp-0003Gn-4p; Mon, 16 Oct 2023 18:06:15 +0000
+Received: by outflank-mailman (input) for mailman id 617913;
+ Mon, 16 Oct 2023 18:06:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsRl5-0008Jo-JX; Mon, 16 Oct 2023 17:52:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qsRyn-0003Gc-Dm
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 18:06:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsRl5-0001Pi-D1; Mon, 16 Oct 2023 17:52:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsRl5-0000BI-17; Mon, 16 Oct 2023 17:52:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qsRl5-0007ni-0V; Mon, 16 Oct 2023 17:52:03 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qsRym-0001xD-Se; Mon, 16 Oct 2023 18:06:12 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.9.197]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qsRym-0007tM-Ki; Mon, 16 Oct 2023 18:06:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=NeZlea87m6rcxuNVL1myo0ECEVdalVjuwSFXZhweRbs=; b=BxU0xHfIexSUrF97hmh86hTvQ1
-	Hq/XmnhvssECbjPWqjf6oOj1qqIrXhHQMnfpDxbEOXyzLU6ZqMlkd05RNQSWfAET+z25qhOsrceNO
-	slO8uwQHnKY5XzKDGGGk1IgJ7lkWEz/yVX76Y3N0p70e6BZqzw2880GANjiFAQKWx8VE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183385-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=5P/40Bq5YWzrrk2qX2c5Ek3vRZ+gZ9KfNykKxfsXKSU=; b=vwx2iAjTQt5+q3uCuSDIntE8rS
+	9cz/CmVSbqxpYzBBh5LmFWnTJEtWM8kcWOOtQ3K9agtZ9qWsOaFF0JN5eMK4bu4qqUIKuvD+lTeK5
+	xTprC9RNP9tFtNvPAYfOpdy85wMeEOQ4xOj23iFyX9hd4qBTLtIHfqjhVAuLXtI14l9o=;
+Message-ID: <5ddb6398-f2a3-4bcb-8808-bad653b6c3cd@xen.org>
+Date: Mon, 16 Oct 2023 19:06:10 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183385: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=618826f67306c32b2799e84ded9a8203f4109ccf
-X-Osstest-Versions-That:
-    xen=6432228fb5808150d3c5c14affb3d46af81b3878
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 Oct 2023 17:52:03 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: MISRA C:2012 D4.11 caution on staging
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, consulting@bugseng.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
+ <jbeulich@suse.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>
+References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
+ <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com>
+ <baa73fa24385b39bc6e82c4ccb08bd13@bugseng.com>
+ <26f09702-9340-41ae-afcc-808becb67876@citrix.com>
+ <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
+ <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 183385 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183385/
+Hi Nicola,
 
-Failures :-/ but no regressions.
+On 13/10/2023 16:11, Nicola Vetrini wrote:
+> On 13/10/2023 11:27, Julien Grall wrote:
+>> Hi Andrew,
+>>
+>> On 11/10/2023 08:51, Andrew Cooper wrote:
+>>> On 11/10/2023 3:47 pm, Nicola Vetrini wrote:
+>>>> On 11/10/2023 02:15, Andrew Cooper wrote:
+>>>>> On 10/10/2023 5:31 pm, Nicola Vetrini wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> as you can see from [1], there's a MISRA C guideline, D4.11, that is
+>>>>>> supposed to be clean
+>>>>>> (i.e., have no reports), but has a caution on an argument to memcpy
+>>>>>> (the second argument might be null according to the checker, given a
+>>>>>> set of assumptions on
+>>>>>> the control flow). To access the report just click on the second link
+>>>>>> in the log, which should take you to a webpage with a list of
+>>>>>> MISRA guidelines. Click on D4.11 and you'll see the full report, 
+>>>>>> which
+>>>>>> I pasted below for convenience.
+>>>>>>
+>>>>>> If the finding is genuine, then some countermeasure needs to be taken
+>>>>>> against this
+>>>>>> possible bug, otherwise it needs to be motivated why the field
+>>>>>> config->handle can't
+>>>>>> be null at that point.
+>>>>>> The finding is likely the result of an improvement made to the
+>>>>>> checker, because the first
+>>>>>> analysis I can see that spots it happened when rc1 has been tagged,
+>>>>>> but that commit does not
+>>>>>> touch the involved files.
+>>>>>>
+>>>>>> [1] https://gitlab.com/xen-project/xen/-/jobs/5251222578
+>>>>>
+>>>>> That's a false positive, but I'm not entirely surprised that the 
+>>>>> checker
+>>>>> struggled to see it.
+>>>>>
+>>>>> First,
+>>>>>
+>>>>> ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
+>>>>>
+>>>>> All system domains (domid >= 0x7ff0, inc IDLE) pass a NULL config. All
+>>>>> other domains pass a real config.
+>>>>>
+>>>>> Next,
+>>>>>
+>>>>> /* DOMID_{XEN,IO,etc} (other than IDLE) are sufficiently 
+>>>>> constructed. */
+>>>>> if ( is_system_domain(d) && !is_idle_domain(d) )
+>>>>>      return d;
+>>>>>
+>>>>> So at this point we only have the IDLE domain and real domains.
+>>>>>
+>>>>> And finally, the complained-about construct is inside an:
+>>>>>
+>>>>> if ( !is_idle_domain(d) )
+>>>>>      ...
+>>>>>
+>>>>> hence config cannot be NULL, but only because of the way in which
+>>>>> is_{system,idle}_domain() interact.
+>>>>>
+>>>>> ~Andrew
+>>>>
+>>>> Ok. I think this should be documented as a false positive using the
+>>>> comment deviation mechanism
+>>>> in the false-positive-eclair.json file (once a name for the prefix is
+>>>> settled on in the
+>>>> other thread).
+>>>>
+>>>
+>>> Yeah - I was expecting that.
+>>>
+>>> This code is mid-cleanup (in my copious free time, so not for several
+>>> releases now...) but even when it is rearranged sufficiently for IDLE to
+>>> have an earlier exit, I still wouldn't expect a static analyser to be
+>>> able to recognise this as being safe.
+>>
+>> Looking through the analysis, I think Eclair properly detect the IDLE
+>> domain. But it thinks the domain ID has changed mid function (see my
+>> other reply to Stefano).
+>>
+>> So we can return early for the IDLE domain, then this should silence
+>> Eclair. That said, it is unclear to me why it thinks the domain_id can
+>> change...
+>>
+> 
+> Well, the implementation of the directive has best-effort precision, 
+> therefore false positives
+> like this one are possible. Since Andrew argued that the path is indeed 
+> safe, I think
+> it's best to deviate this as such, since other minimal changes could 
+> also make this one
+> resurface in the future.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+If Eclair always reported the false positive, then I would have agree 
+that deviating would make sense. But you said this was due to an 
+improvement in the checker.
 
-version targeted for testing:
- xen                  618826f67306c32b2799e84ded9a8203f4109ccf
-baseline version:
- xen                  6432228fb5808150d3c5c14affb3d46af81b3878
+I expect improvement in the checker to reduce the number of false 
+positive, not introducing new ones. So I think we need to understand 
+what changed.
 
-Last test of basis   183382  2023-10-16 10:03:41 Z    0 days
-Testing same since   183385  2023-10-16 14:00:28 Z    0 days    1 attempts
+> 
+>> A simple way to fix it would be to have a local boolean that will be
+>> used in place of is_idle_domain(d). This should help Eclair to detect
+>> that a domain cannot change its ID in the middle of domain
+>> construction.
+>>
+>> Cheers,
+> 
+> I think only conditions are checked to get the possible code paths, to 
+> have a reasonable
+> tradeoff between speed and analysis precision. Therefore, it's quite 
+> possible that it would
+> give the same caution.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  George Dunlap <george.dunlap@cloud.com>
-  Julien Grall <jgrall@amazon.com>
+What I want to avoid is adding a SAF-* every time there are an update to 
+Eclair that reports more false positive. This will make the code more 
+difficult to read.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Instead, it would be best to find a way to help Eclair to detect this is 
+not an issue and also improve readability. Would the following help Eclair?
 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 30c227967345..ab16124eabd6 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -671,6 +671,8 @@ struct domain *domain_create(domid_t domid,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+      if ( !is_idle_domain(d) )
+      {
++        ASSERT(config);
++
+          watchdog_domain_init(d);
+          init_status |= INIT_watchdog;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6432228fb5..618826f673  618826f67306c32b2799e84ded9a8203f4109ccf -> smoke
+-- 
+Julien Grall
 
