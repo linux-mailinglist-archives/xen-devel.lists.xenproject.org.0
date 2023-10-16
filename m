@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8170B7CA564
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 12:31:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617437.959998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8926B7CA606
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 12:50:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617443.960008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsKsd-0007XU-0x; Mon, 16 Oct 2023 10:31:23 +0000
+	id 1qsLAE-0003Ny-L5; Mon, 16 Oct 2023 10:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617437.959998; Mon, 16 Oct 2023 10:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 617443.960008; Mon, 16 Oct 2023 10:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsKsc-0007V6-Tp; Mon, 16 Oct 2023 10:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 617437;
- Mon, 16 Oct 2023 10:31:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qsLAE-0003Lr-HV; Mon, 16 Oct 2023 10:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 617443;
+ Mon, 16 Oct 2023 10:49:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BBjo=F6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qsKsa-0007V0-No
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 10:31:20 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe12::620])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24e79c4e-6c0f-11ee-98d4-6d05b1d4d9a1;
- Mon, 16 Oct 2023 12:31:19 +0200 (CEST)
+ id 1qsLAD-0003Ll-O9
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 10:49:33 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20601.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af80cc8b-6c11-11ee-9b0e-b553b5be7939;
+ Mon, 16 Oct 2023 12:49:31 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB8533.eurprd04.prod.outlook.com (2603:10a6:10:2d4::21)
+ by DB8PR04MB6777.eurprd04.prod.outlook.com (2603:10a6:10:11f::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.45; Mon, 16 Oct
- 2023 10:31:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
+ 2023 10:49:29 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
- 10:31:17 +0000
+ 10:49:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,190 +47,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24e79c4e-6c0f-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: af80cc8b-6c11-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FL/QUoYMQX4npJs8LwS3qCC97MnB6Mh5IBkZzmy43GzOKnzy+WNHCpS89WJ15cCrYh1FkGyIaWR6YVE1Lpn+Vk7xya7t81L1Je4uU1gLCaNJrAwPl8kNFNpWFsQOlvV3ZVRqsKYvqAyZfd+b5Q6L9FLyYo6Z3S8G76hlmgUxZ6CJ4NCLd5PjWADAkZxD/UreIqGQdp/rc1eyVb5ofQmmy82v6Cj/bQOA2gs8+eprJcD6o7rpEhdxvL6f6PQ161yXDc/77JP2+lizmM20+P9IdDPGG/KiaKafW1NBQFen/a3Xnu9/zOjbxEf0HMZ4VqEkreh2zQvRAux7vrPeXe5O1A==
+ b=O/EFzjuZpx4qfVEgdJmOZx97aDuXHYLIYYFLdEZnN+o/r+gOUXnl6tRuz7hooelozoJhXDBXVo+5nUvfsyTjtpctRq6UKsCvqIM3Dgodge6A0Z1bBF6FE9AyWb8or4cLj/0vbvmO17ssVZ9cAeMbtJx/1Lousewpi5CYjDjoYbyddVgkEC+/pgoQM77tr03fZHknbXOF1Btohb2eFis0qJ7DuqYIFowAMRpkPAVML+HYZXDjcXawYbDMZROUCD6omJ5qV9hEAMNll3tD03BKwea1S8WV6GzDvB1tqXILY9V4VYy8zX+2WVKkCwhdWhVafzdDuXPjKkykTR/5SoujZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5xL7NgskNlhPvjFU53Y4pH7PuxroT1j8KRsy7yCVCFs=;
- b=NWA7rwfbr0vTNpUBkNufLWxDf/Sq3oO5GIrj+r1WPp+C3KYj9hVpsosQTMitalDTPR8+bX5Woa7dP/7v0IzZns5FULAlHDPQbQL02mCuD8A8JBVmUUevQs+o3OlARBadv58VhAv1UxwnvR0RP9S6mN4kBdsPIydezU2RiOyTXwjzJ7feZ0fkGyhg3x6c7Hj330QaK3uaSGY2Iglv//DouDpjNXCv+6xU8fd7iWOQFlXYX6rWZ6I5i+aQ3OrpPfIV6t72nbI+SVICEN79HzJMdWHRsf4EC9mS1jNVv6fr5FLaRzC8UtuuczfWS2MVcDv7p/RnRhm17eYAsljD9h/igA==
+ bh=KieaivFCrsQZt8Mzc9qnnNvQ9GIXF/5GduHkXKvmgYk=;
+ b=Lp0cNOLEzgq5EvyITVGPb8eHxDO3W4q1y5lrymFksYS53Rp/3yvtKnna8qQCXJgFVEWVcGbItYMNbFtCJDjhCRqJUtJmbzaywFipd56Fr0g1/jg/mB6uL0LjNEZ7MGB/EzjAkzns4nuUl+vb76/MqlXrSR6XMRv+EQDlSMT4H8qHTEh6gLtG3H2QASYwiMqWBhg98aQvZbaxwWg8AhhE/htZTlfDh1t2TtXq6XNNXGne7z/Mx0pRL5ppelC2ma20CCGEuVvxIcF1EWFXKABcXbhAYa6/IXShSw02en5xTyQJAQMJ5TfWZH5uuf0lSsRLow8UdJ8EEwxp+sF9WdtUyg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5xL7NgskNlhPvjFU53Y4pH7PuxroT1j8KRsy7yCVCFs=;
- b=WrAjm9XEjPmEQY2LiqFfgTDVoh6hKDWxQlq03W80n2kmpoAcA+fFzdp4GOmTTNlUlgsqjagNV2/SmTzOG7UhgDFWv/lbzjrrD6tH2+Z//6sY61uJaEYPKN0ioSlcG7vQ+EYM2NlIeu8kUosEGIhafM5IgeI+ce3B02wGvEfgEdkmb28xEhVafVJzxwc/RW1StoM3NifwGrSGUSunxVow9aB+LSVe5duYVBaFcHMWvuxBCb/wwJDi29O0kaabs7cMQ6HKOpNhBtCUbzaXI1RyXJs20g658xV35fHeXyQoZ4tyXjGpBNrPEjp42I+ia18kUROj8HoaYQ1unlNFw2oYQQ==
+ bh=KieaivFCrsQZt8Mzc9qnnNvQ9GIXF/5GduHkXKvmgYk=;
+ b=od70wAWfwreyoy8AyG0uZtS0/QMjB29gaoiavazYg12zmJjuldu4DA2UHdZTOgqWvCJY2vvmkod+MAOaAxFve/qRUoZaVSI0DafJ5B/t2crurf5+3jOmk/bOvhO4PC1norNl6gZEhVNMtc2YlOnj/roRAhnAQR+cEuZlaSegJNOAUCTXiA+w+0WaDKQtnUxJ7aXs9WoTDumrJ7uG0A5dKO63eGKIIIoHoVHmEG8MRA4e/gQ+dg6jcm2/p4kTo5/HG5w3SNPc9plOBRWkDzCNXxhj+/GTmA+VMori63eX+OKVQgMfReX+JqfBdZF7b/Kbh/u0pvAhoTgKDaaEQaxB2Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b9547bf1-2882-e470-b272-9a4a31a1ffce@suse.com>
-Date: Mon, 16 Oct 2023 12:31:15 +0200
+Message-ID: <71abd99d-7ef9-09db-9c1e-6b1c55188a6b@suse.com>
+Date: Mon, 16 Oct 2023 12:49:26 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [XEN PATCH] xen/types: address Rule 10.1 for macro BITS_TO_LONGS
+Subject: Re: SAF-x-safe rename
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <b3aaaf5265c7e7ce6228ba2146f57aaae09f55e6.1693899008.git.nicola.vetrini@bugseng.com>
- <6495ba58bda01eae1f4baa46096424eb@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, "julien@xen.org"
+ <julien@xen.org>, "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <alpine.DEB.2.22.394.2310041633080.2348112@ubuntu-linux-20-04-desktop>
+ <9CF5DF50-B857-4B1D-A210-E6355492CC3B@arm.com>
+ <75d160be-4a8c-48c7-a972-201d78f0bdf0@citrix.com>
+ <50198a73-2f0c-4cf1-9173-86a8158b425b@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <6495ba58bda01eae1f4baa46096424eb@bugseng.com>
+In-Reply-To: <50198a73-2f0c-4cf1-9173-86a8158b425b@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0200.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ad::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0078.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6481ef51-37c0-4308-1c5e-08dbce3307bc
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB8PR04MB6777:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22b4d3e6-f151-4554-4e1e-08dbce359257
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gxt2gMzFrcOwV/cvAEXQaXTLBGxsOs1n2ivucUHqxp3x0h/G4u9VtBATMV8e8Arkhi3WkV2ThmcbK9CLgVwNfpayGjcJJ95F36eHTenfGPlv7sgTdBvrqpTfsCDuIte+QMPAa8o+IJHSzXjIlKBycJl4IKE/cy8QXzh6uxjrdT0owo0u7su9L7/ByPmu1FJhinqMC0BZ0O100zrMV4KgR0vxA7nNwM+QhxxBTyYKEQdMcTgToWf8pxtWZZ80axftYkK7IWpSf7yVeQ20kmjBwh17icDka2admDvZ0dux0cynULHvbBBpjsvlH2aSGHIet1h8As0sCAT1vOntiPhJYaEUmnL3b6/aBQ3Lq3Dbvgyy3bNkC2hqwD7bLMNRbPlP4suXF/NdfiM5pZkvWtHOkFQpyaa7O6Z84YSFIXry/yqhTPzxn8lSNbU1aTXzBhVfb6tuz63v26CaYN7irFO0aXu3rWz7+YR7e34qzDcNBcF7RfiWRcbTd2qMGQ04rtVB0o2dP9jw6lC30JLx7ZG16TNiY4Z0kYNAMmGGkU3nIuTBSnsEZg3M7qfzQ7M0q1moPCXhLD6tsH82sQSp8sGtA28LDnvbxIHRkw8Ry9btGAG3ZSBWj2UJDVhcTBvcBNiMVLEM50yveETB7o8D7Cf9Ww==
+	e4EA0IQkgN2xyFJdPGKSBaeWnRoHf1eik1y6nvcGYMIXHm1swKYvVz8DDA1bb+hQJHFfNgPGWdL6mOHdAt0CLu8BB4Ma7U0Tj6k9MMkm571JPJxWuiZ5RY9rpH6AqNM8U6ywO7ljw8Jh397SZniQbyIH3XcbgbHWMqEHzbsY0y2IbvES6rsBAjzhqr8k19KG6l3hIifkbvUsaang/AaY/eBzh1AJQb1dKkldwobMpHZ4z1r6xwV65rVhXRjpPfAbi9uT4WXvpo0VQlOmHASiUT1LDdky+o8Lpg/1t8UpgcAcTN3Zaw4HaPpZujZwlbWuwc188hK1ZGATHtkx0tliVRV5gfH56JIkeFPQ3jaBwksSMKRkX4AgsQBZjmIhxWe983PVRxAiYM3spNWEcbKx28jkO9Bcq6f9hrLMq9LlAaiBDU1+qMLdXRwWfuYdWFHhYCCj24ZKCkP+/+ShuWvHeg+PxouloSqjiXmCBa6ZwLZxUZFT5tbcBszlRoN/TUkf+W7x9sPAj26nLp3Xhqpn9tPq1X/6ESgs8TCxJmAaKDgLtEehGKkKmbVldV+JclqVDpAO8FRvSc4HvVhW1PuXEDMvFbStoC8eIiD6/z7x35KeMnNpQd4XRR1xMbSd9o4fFjriNWOiUPteYB3pzcQFZg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39850400004)(136003)(396003)(346002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(5660300002)(7416002)(478600001)(2906002)(6486002)(31696002)(41300700001)(4326008)(8676002)(8936002)(66476007)(6916009)(66946007)(54906003)(66556008)(83380400001)(36756003)(316002)(6506007)(2616005)(26005)(31686004)(6512007)(53546011)(38100700002)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(376002)(39860400002)(136003)(366004)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(26005)(2616005)(8676002)(8936002)(4326008)(66899024)(5660300002)(38100700002)(31686004)(83380400001)(41300700001)(478600001)(31696002)(86362001)(6486002)(966005)(110136005)(2906002)(316002)(6512007)(6506007)(53546011)(66946007)(36756003)(66556008)(66476007)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TXRZZm10OVdNRDlSbTRBVDhkUUExMW90Q0NNSisvWjdNVmJ1NDFyZzdIN1Uz?=
- =?utf-8?B?RzlOZnBKL04rRU9ub3lFSUgycnoxSS8yVGtlZU1kRzdNR0IrZnVYZVVUOFFD?=
- =?utf-8?B?ZWt5SllIWUxZUGtZNnRUTk9MVTJqKzZwb3VVc20yU0RsM09WWEU1RmJSZWQr?=
- =?utf-8?B?SWViMmNreGowZVhKY0JVTGl2WUJ2amFuQlFQNUJiSmcyNitySGVuSFY0RERV?=
- =?utf-8?B?TnVsSGdNR1QxbWlSbWJIOU9WZ0JKeElMNzRiMmovUWdUVmNGR1QrUXRwblFQ?=
- =?utf-8?B?ajhSQytGdWVnSjBob3NZblFsVzVyZmZMN2ZLWUp2bU12K0JZMksyTVFST0pQ?=
- =?utf-8?B?UCtlcmxTa2tLbUZQQU5oY3ZGdE43OGhITFdQMWtVaEhRWkRqNHdKZDhnckRv?=
- =?utf-8?B?cGxhVnRLdDBZdTlTVW9LNzlLMWQxK1AwVi9zVzFWZU83TmQ5THR5TEtRK0FR?=
- =?utf-8?B?b2dxUlUyTllINlhrTEQ0dkhmYUlETWRJSkJCajg5STQ0RGRvU0JqTnQwbHRl?=
- =?utf-8?B?Nld5cFhHUTRGaDVPck53eXJZd0N3LzZvL3Bna3QrWWxjV0d2aTMvM1J0WDBC?=
- =?utf-8?B?MU5ndmFuL2pLVWlxKytSV3JNb3dRU1JNRTkxTFhyVzlSQVdzTndJRVFIdmlR?=
- =?utf-8?B?bmF1T2Fsd3RGTG5wY3UvRU4xR1pBby9ITDA5VmQ2UTQ2K3lpbCsydDA0SC84?=
- =?utf-8?B?Q3U0dlhUQ2tHUUxpZjBqcG51ZFVUTTdWTzN6WWZicER0SzhHWGJIT2c1SHo4?=
- =?utf-8?B?WlJERmE1VWVEdWxiNlI5ZVVaZExkeXZtUDMzZDdjY28xazBqRWE1c21CS1Nt?=
- =?utf-8?B?OXNXUi9ucCsxS2FiQi9GWm53aTVQNGQyOGxmcVpSTHF4Qy9FclJydWJSR3Rz?=
- =?utf-8?B?a3RQNVR0TmJueC8wSDByT0twcnBHMUQwcHR2RU1zQXBVc0k5T0FIczVzd0hw?=
- =?utf-8?B?aFh1bTZ2OE85TVlsS0NJK2UwRUs3RXdkTmlLRVIxdmZxdHd3d1dKUlo0V3k0?=
- =?utf-8?B?MkN5bGJtZ3BIdExlTUptdmRvMUJ2ZFpJYkQ5aGhHZUVmSVZzVkNXQkx4dDkx?=
- =?utf-8?B?TDBvZWNpUlJKUDFBcmd2bStUMHkvSTUyVktHK0J2cVhpTHJSdlJBbVJsSDJn?=
- =?utf-8?B?Nnh1R0EzenQ4OGs3Y0Y0dU8xR3lFcTNOV2dCWlJiR0l3QW9DQkdIYkpZVFAz?=
- =?utf-8?B?N0VwU2djLzM5Ri9xK2gzVkxpSTNNemx1cnZVamgvMXZiV29sZVZuaTc0dnh0?=
- =?utf-8?B?WHV4M0ZwTUZvMlBsbTdCVm9EcTdYOWUwQS8rMHFQbUJOcVNCMzRPdzM1S25R?=
- =?utf-8?B?RnJhQ3Q4eVROMklxZE5peXluNjNMN0doZ21FSE9jNC9tZ1JFYm81SUtSV1pR?=
- =?utf-8?B?cUZNSUNpK3poMTVvZHp0RVQvaDg2NEhSWnVrT010T1YwLzNFeG5yMDkxQXZq?=
- =?utf-8?B?cGxTS3FCcFVnamdib2RoZjlMb1kwUEg4Yk9WUkRVT3pWNEY0QWxSeWZtczlK?=
- =?utf-8?B?eUdUWFRqT3gvWmtveExnbHk3WWJKa2tqbVpNQUloZ0YvdlhFRmdxZUhwZk0w?=
- =?utf-8?B?eHdWcE9nc0dzc0ozeUlpdmpQSy9ESmlrMGhjTXNUSGxLTyttUHhlbCtDSXBp?=
- =?utf-8?B?Vy9xQ1A1SkdnN2hDTmp3SWtKSFVWRFlWclJaaUZkKytFcmJ5YU5kMTUxUGNQ?=
- =?utf-8?B?VU1LRGxIT0ExWlZzcWlyWmZ4K3U5Q1kxaElEU3JYTlhCUm5kVnk4VzBqOHFv?=
- =?utf-8?B?dXNoSWE3ckNLSGpzT3BYTVh4K1k5dC9oYmlHR3RIaGNkb1RTNTkxcVlTMUt4?=
- =?utf-8?B?cjVGU2hqb3VHTHhKUUxZWmtDSU9qU21BeG5iV0FVUGQxSG1hSGxzMG1tNlAw?=
- =?utf-8?B?aERBbnNUVGUyWGdxT2MyeHVtd3ZCUkI4d2Z1LzJ6RmFrTkN2d3d1UU9qKzkr?=
- =?utf-8?B?S0taUUFvWVhhYlFMSkVxYXdVTWFIMGY3L25LYjlDelFGbmp6NnYxbm1DbWdz?=
- =?utf-8?B?enJnRjJ1dUpwcFcra25BbUJmVU81aGV3L3ZRaWptMmdaeW5CKzhSUVNnUFl2?=
- =?utf-8?B?SU5YS0JTZFJsVzd3NUUxaEIvaURleUxtUko2Ry9NM2p6SWVOQVE5c212MEdQ?=
- =?utf-8?Q?59UpZbVZbVvPtRqymkyKacxmr?=
+	=?utf-8?B?RE1kT3dLelhwM2twVjNyc1VSWVRVd1RnRTBJdVc4RXBLNzFCOGpSWi8yTE9X?=
+ =?utf-8?B?c2ZkOEhLSG13U2ZvaCtWTllybzBzWVNqQUlIRWRFZXlvYjdQUm5STmtwY01s?=
+ =?utf-8?B?MDFPbWVQTFV5ejIram1jQW1TZExWOHllTmhsTmk4U3Y3bmpKRWMrRm9XQUZy?=
+ =?utf-8?B?b3FhZkgzdTEvY0FOSkFudmI2b0U1VVQ4SmlleFg0QkplZHhYdmd2Qk9VeHZr?=
+ =?utf-8?B?blJNMU5Dci9xZVZFTm9id2QxVThEenBiamZTcTNlZDE2TFRvSEJpS3p6aVg4?=
+ =?utf-8?B?Q3JqaUJxVXZZc0MyUDJyS3BGU0FmRnY0QWRxcEt3azAzWGZZUHdUdkZiRUN0?=
+ =?utf-8?B?WUF5ZHBmNXZSYTZ2YWt4SjB4VU1qNGVSMFhCRDFYMjB4ZGNGc2pvV04xMU0w?=
+ =?utf-8?B?R1QrUHQxNkVHbzVvcysrczlVd1VrLzFCM3NUeHhISC9qN2NzY0dCeE0xRWhB?=
+ =?utf-8?B?SkRqcjNQYTBqOHE4OXk0QVhTc0VReWw2TGN5dlZUd09lam1kZ3hmKzNoM3N2?=
+ =?utf-8?B?U1BLVjNEMzJldVNRdzNiM3Iva1JmbXJuMGNvZHpBcnBSdXBlWmNNd2hwTVl2?=
+ =?utf-8?B?MjlZbUNlaTYzVnBQV2x5d0hvZEd1WHNtYzNYZUZ2VlNuY0ZvK0QwRnF2R1lz?=
+ =?utf-8?B?aVVyRjlNdmJtSDkzQVQxZkU1T21CZDM0ZVF6ek5KVGN2U2RBQmFoc3l0TGJy?=
+ =?utf-8?B?Q2FiMlJwWmNHVUFIY2JNK3BQZForTitpSGFXYXo0T0o1Q3lYWUU0YlM5OU02?=
+ =?utf-8?B?TWRtYm1IazZ2RVdYQml0c0lkbjBVcGsvZks0S05WQkFjMlJVbHR0VjlpK2pj?=
+ =?utf-8?B?aVFoaUZ1bmNUREFtV1lmb1FQOTdhQlVQWTJzWjIxOGFkb25Yd2JndWZFUlk2?=
+ =?utf-8?B?L3JwbVo0RUdja3BYMDRRZUtYdG5XK092bHVTL0ZKVmxLWjRGcXFFdytxS1FC?=
+ =?utf-8?B?RzhEOStMT1o0VGdVd0xsZ0MzdVBSMDJHbVorL2hhRHdFS3djZFVOZ1JNaWZv?=
+ =?utf-8?B?TDZOT2NjbGtUS0Y1RUF5ZktPcHp4VE9aSEozSlQrS0ZWTlhVL2cxSE1iQnVN?=
+ =?utf-8?B?eFU0Z1FJWG9QdzVhZ3VTam00Wmg3WkdCeWphSGRoUm85OHV0R0t2Vkx5NHZ5?=
+ =?utf-8?B?elBzUEdwcXZPNldmcWxSUUpnR2h1NUlKK21kZWhQQ3Fha1VuemFsSXY5Q2dY?=
+ =?utf-8?B?VWFVQkVydEY5cGpOMVlGdmdKTkUrZ3FyK2Z6WTl1MVZ3ZjJ1TTZScEJKSmFS?=
+ =?utf-8?B?ckYzMGtNdDZZbUIxdzZTaUtpamtzWVNwQmlLdlFSUUYxREpHakFOYWd5K05h?=
+ =?utf-8?B?SHc1NUlVVzZyQ2pHRjVXdVYyMXdsVEZDVUdPb1k0U0t1a3ZNTFJZM25sd2tw?=
+ =?utf-8?B?YmJTNkVRUk44cGhaMlJFWmNicU5HRkI3cENqNW1JNW82ckJCdFdFY2pYMHF2?=
+ =?utf-8?B?ZjkrbGt6djZzY2dqRkxXT0EyNktxVThHenBSVjN2bk81eVhTUHd3bVBNZkxz?=
+ =?utf-8?B?NHdNTGNIbzloYThtZlFFUXZka1V1bjYzbWJ2ZkZHYUw5eE56Z3NkZUYyVEVl?=
+ =?utf-8?B?eCtzNzZ4cGpnYXRkWER6MDJ1MkkxOC9wZitBVGxKOGtQUExFY0RRU1RZSFVI?=
+ =?utf-8?B?WVFIZ1NyTGllV0FMeVJSVnd3WGdmTnlFMXU1RjdwVTU3cmxjay80M0hGdWFT?=
+ =?utf-8?B?TXNsL3U3RmwxVU5BUHdBZE9tazkrMHZoR000ZEd3YlpNUUh4d1M5QVJLR3FD?=
+ =?utf-8?B?UU4xeWFEUzVXRHVYMTBXVnNzYmZPNlZTUE9rOTBGNTg3OHEzQko1Y1M2QnM2?=
+ =?utf-8?B?ZHI1S2RLMEpuWFRSamlGL1VxY1ErWjUyMVl3ZnBjRDNza2ZUT3R5Mm9FWDdo?=
+ =?utf-8?B?Z3VKSzNwTzdxSDQ1c2U2TFIvckUzYmY1RzU4dk5nMFR1TDVRY1ZGcUZyNUJy?=
+ =?utf-8?B?U3RzWmdwamRFWFVMZ3RFNk5QRE1lWDV1dVduVlQwSUZuNjN2VktsWEphQXl0?=
+ =?utf-8?B?bW9jcEhSU1JSdEEvZC9QS2Fid1FKa3BKNFMycjZNbm1HTkJvU1lZWExIeUtE?=
+ =?utf-8?B?QlRJay9mZSs0dWRHL3hVWVZLTHdMNDUvMDFXaWVrTzBrRnVLV1RQRW4xTElB?=
+ =?utf-8?Q?zxe4iHVYMLjUYefbN7XZnGwJB?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6481ef51-37c0-4308-1c5e-08dbce3307bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22b4d3e6-f151-4554-4e1e-08dbce359257
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 10:31:17.2475
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 10:49:28.7745
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 26lS+R+eSb7UijniK9pcZPItDZjQYZZUuYtajV6jHj538GnGkq/QelemAJYqvEGBGuCZfQtLC4ppDLqLmR+BYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8533
+X-MS-Exchange-CrossTenant-UserPrincipalName: F+ZzgTqrgOWCPqI6Ps+B/S/ArcmnK3iYQPO/tDaP836Xj0HbPtzHlV3WUCjiIwwfpeoWTxxQMrEu10I6VJzbvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6777
 
-On 04.10.2023 15:23, Nicola Vetrini wrote:
-> On 05/09/2023 09:31, Nicola Vetrini wrote:
->> Given its use in the declaration
->> 'DECLARE_BITMAP(features, IOMMU_FEAT_count)' the argument
->> 'bits' has essential type 'enum iommu_feature', which is not
->> allowed by the Rule as an operand to the addition operator.
->> Given that its value can be represented by a signed integer,
->> the explicit cast resolves the violation.
+On 06.10.2023 00:01, Andrew Cooper wrote:
+> On 05/10/2023 10:38 pm, andrew.cooper3@citrix.com wrote:
+>> On 05/10/2023 8:43 am, Luca Fancellu wrote:
+>>>> On 5 Oct 2023, at 00:46, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>>>
+>>>> Hi MISRA C working group (Jan, Roger, Andrew, Julien, Bertrand, George)
+>>>>
+>>>> in a recent thread Andrew pointed out that the SAF-2-safe tag is
+>>>> confusing and requested a rename:
+>>>> https://marc.info/?l=xen-devel&m=169634970821202
+>>>>
+>>>> As documented by docs/misra/documenting-violations.rst:
+>>>>
+>>>> - SAF-X-safe: This tag means that the next line of code contains a finding, but
+>>>>   the non compliance to the checker is analysed and demonstrated to be safe.
+>>>> - SAF-X-false-positive-<tool>: This tag means that the next line of code
+>>>>   contains a finding, but the finding is a bug of the tool.
+>>>>
+>>>>
+>>>> Today we have already 28 instances of SAF tags in the Xen codebase.
+>>>>
+>>>>
+>>>> Andrew suggested "ANALYSIS" instead of SAF so I would imagine:
+>>>> - ANALYSIS-X-safe
+>>>> - ANALYSIS-X-false-positive-<tool>
+>>>>
+>>>> If we really want a rename I suggest to rename SAF to SAFE:
+>>>> - SAFE-X-safe
+>>>> - SAFE-X-false-positive-<tool>
+>>>>
+>>>> Or maybe MISRA:
+>>>> - MISRA-X-safe
+>>>> - MISRA-X-false-positive-<tool>
+>>>>
+>>>> But I actually prefer to keep the tag as it is today.
+>>> We chose a generic name instead of MISRA because the tag can potentially suppress findings
+>>> of any checker, including MISRA checker.
+>>>
+>>> If SAF-* is confusing, what about FUSA-* ?
+>>>
+>>> Anyway I’m thinking that every name we could come up will be confusing at first, improving the
+>>> documentation would mitigate it (by improving I mean to improve the fruition of it, for example a
+>>> Read the docs documentation has the search bar, a quick copy paste of SAF- would make the
+>>> documenting-violations page visible.)
 >>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->>  xen/include/xen/types.h | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> No - this is a problem *because* changing the documentation doesn't
+>> help.   (To be clear, updating the documentation is fine, but irrelevant
+>> here.)
 >>
->> diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
->> index aea259db1ef2..2ff8f243908d 100644
->> --- a/xen/include/xen/types.h
->> +++ b/xen/include/xen/types.h
->> @@ -23,7 +23,7 @@ typedef signed long ssize_t;
->>  typedef __PTRDIFF_TYPE__ ptrdiff_t;
 >>
->>  #define BITS_TO_LONGS(bits) \
->> -    (((bits)+BITS_PER_LONG-1)/BITS_PER_LONG)
->> +    (((int)(bits)+BITS_PER_LONG-1)/BITS_PER_LONG)
->>  #define DECLARE_BITMAP(name,bits) \
->>      unsigned long name[BITS_TO_LONGS(bits)]
-> 
-> Revisiting this thread after a while: I did some digging and changing 
-> the essential type of
-> BITS_TO_LONGS to unsigned
-> 
-> #define BYTES_PER_LONG (_AC(1, U) << LONG_BYTEORDER)
-> #define BITS_PER_LONG (BYTES_PER_LONG << 3)
-> [...]
-> #define BITS_TO_LONGS(bits) \
->      (((bits) + BITS_PER_LONG - 1U) / BITS_PER_LONG)
-> #define DECLARE_BITMAP(name,bits) \
->      unsigned long name[BITS_TO_LONGS(bits)]
-> 
-> leads to a whole lot of issues due to the extensive usage of these 
-> macros
-> (BITS_TO_LONGS, BITS_PER_LONG) in comparisons with e.g. the macros 
-> min/max.
-> The comments made in this series to the patch do have value (e.g. 
-> BITS_TO_LONGS should be
-> expected to have only a positive argument), but ultimately the changes 
-> required in order to
-> do this and respect all other constraints (either in the form of MISRA 
-> rules or gcc warnings)
-> is far too broad to be tackled by a single patch.
-> 
-> Notable examples of such consequences:
-> 
-> There is a build error due to -Werror because of a pointer comparison at 
-> line 469 of common/numa.c:
-> i = min(PADDR_BITS, BITS_PER_LONG - 1);
-> where
-> #define PADDR_BITS              52
-> 
-> if x86's PADDR_BITS becomes unsigned, then other issues arise, such as:
-> 
-> xenheap_bits = min(flsl(mfn + 1) - 1 + PAGE_SHIFT, PADDR_BITS);
-> 
-> here the type of flsl is int, so either flsl should become unsigned too, 
-> or the second
-> argument should be suitably modified.
+>> These are annotations in code.  They need to be:
+>>
+>> 1) Short (obviously)
+>> 2) Clear to someone who isn't you (the collective us of this group)
+>> reading the code.
+>> 3) Non-intrusive, so as not to get in the way of the code.
+>>
+>> and they must be all three.  This was even a principle given at the
+>> start of the MISRA work that we would not be deteriorating the quality
+>> of the code just to comply.
+>>
+>> Point 3 is other thread about end-of-line, or block regions.  Lets leave
+>> that there because it's really a metadata transformation problem
+>> constrained by where the comments can acceptably go.
+>>
+>>
+>> Point 2 is the issue here, and "SAF-$N-safe" scores very highly on the
+>> WTF-o-meter *even* for people who know that it's something related to MISRA.
+>>
+>> Seriously it looks like someone couldn't spell, and everyone else went
+>> with it (reflects poorly on everyone else).
+>>
+>> And yes, I know it's an initialisation for something, but it's not even
+>> an industry standard term - it's a contraction of an intentionally
+>> generic phrase, with substantial irony on an early MISRA call where
+>> there was uncertainly between people as to what it even stood for.
+>>
+>> These are the thoughts running through the minds of people reading the
+>> code when they don't understand what they're looking at.
+>>
+>>
+>> Annotations for other static analysers intentionally use their own name
+>> so they're googleable.
+>>
+>> Guess what SAF googles for?  Sustainable Aviation Fuel, or Specialist
+>> Automotive Finance.
+>>
+>> Fine, lets be more specific.  How about "Xen SAF" ?  Nope...
+>>
+>> "Did you mean to search for:
+>> Xen SAVE Xen SAN Xen VIF Xenstaff"
+>>
+>>
+>> Despite many of the search results referencing patches, or rendered
+>> documents out of docs/, not a single one of them gets
+>> documenting-violations.rst in any form, where the single definition of
+>> this term is hiding in a paragraph which spends 90% of it's volume
+>> describing a monotonically increasing number.
+>>
+>> Seriously, ChatGPT would struggle to make shit this good up.
+>>
+>>
+>> The thing we tag with *must* be trivially recognisable as an analysis
+>> tag in order for others to be able to read the code.  Therefore, it
+>> needs to be an actual full world (hence the ANALYSIS suggestion), or an
+>> industry standard term (where MISRA does qualify).
 
-If PADDR_BITS was to gain a U suffix, I expect PAGE_SHIFT ought to as
-well. Which would address the compiler complaint, but of course would
-then still leave the left hand expression not aligned with Misra's
-essential type system.
+ANALYSIS imo gets in conflict with 1) above, considering that permitting
+line length violations was already brought up with the shorter SAF-*.
 
-> In the end, the modification that solves a lot of violations (due to 
-> this being inside an header, though it's a single place to be modified) 
-> is this:
-> 
-> DECLARE_BITMAP(features, (int)IOMMU_FEAT_count)
-> 
-> If, as it has been argued, BITS_TO_LONGS really needs to become 
-> unsigned, then a more general
-> rethinking of the types involved needs to happen.
+>> I don't exactly what it is - something else might turn out to be even
+>> better, but it is very important to be not this, for everyone else to
+>> have an easy time reading the code.
+>>
+>>
+>> And reasoning along that line...  What's wrong with just /* octal-ok */
+>> or /* womble-permitted */ so it's also apparent in context what the
+>> contentious issue might be and why it might be mitigated?
 
-Well, yes, just that we'll need to find ways to make the changes gradually,
-not all in one go. Even if not admitted to originally, I think it was
-pretty clear that the Misra effort would lead to such.
+When the numbering scheme was discussed, I was asking why a shorthand
+for the issue to deal with (kind of a tag) can't be used. I don't
+recall any arguments, but here we are. One issue with something like
+just /* octal-ok */ is that it's not sufficiently reliably machine-
+parseable; that's aiui where the desire of the SAF (or whatever else)
+prefix came from.
+
+>> The mechanics behind the scenes is just a trivial text replacement, and
+>> the tagging scheme does not have to uniform obfuscated identifier for
+>> that to work.
+> 
+> Or, as has been pointed out to me in private, even
+> 
+> /* RULE-$N-safe */
+> 
+> would be an improvement because it's clearly related to some set of
+> guidelines.
+
+Both MISRA and RULE are Misra-specific; RULE, if you mean it to be
+followed by the rule number, would even be Misra version specific.
 
 Jan
 
