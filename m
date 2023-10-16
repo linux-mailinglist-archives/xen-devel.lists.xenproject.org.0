@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D907CAA86
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 15:54:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617610.960358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7A327CAA87
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 15:55:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617611.960368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsO3H-0006ig-Mk; Mon, 16 Oct 2023 13:54:35 +0000
+	id 1qsO3M-00070F-0k; Mon, 16 Oct 2023 13:54:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617610.960358; Mon, 16 Oct 2023 13:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 617611.960368; Mon, 16 Oct 2023 13:54:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsO3H-0006eq-Ih; Mon, 16 Oct 2023 13:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 617610;
- Mon, 16 Oct 2023 13:54:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RUhr=F6=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qsO3F-0006ej-UV
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 13:54:33 +0000
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [2607:f8b0:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 881a50c8-6c2b-11ee-98d4-6d05b1d4d9a1;
- Mon, 16 Oct 2023 15:54:32 +0200 (CEST)
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-6ba54c3ed97so1807220b3a.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Oct 2023 06:54:32 -0700 (PDT)
-Received: from leoy-huanghe.lan ([98.98.49.160])
- by smtp.gmail.com with ESMTPSA id
- s68-20020a625e47000000b006be0b0fc83asm2466772pfb.125.2023.10.16.06.54.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Oct 2023 06:54:30 -0700 (PDT)
+	id 1qsO3L-0006yG-TY; Mon, 16 Oct 2023 13:54:39 +0000
+Received: by outflank-mailman (input) for mailman id 617611;
+ Mon, 16 Oct 2023 13:54:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qsO3K-0006wE-0o
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 13:54:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qsO3J-0003LD-J3; Mon, 16 Oct 2023 13:54:37 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qsO3J-0000Ub-Dl; Mon, 16 Oct 2023 13:54:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,80 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 881a50c8-6c2b-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697464471; x=1698069271; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=n2W2Sl9fNt1XcXfOZDPJL3Xceq/89J+CNdFTnWlpqOU=;
-        b=ZZQqIxKK/8i1Yw8GAk5xzVR9lK+CYiCXVTHy9w1K+c+G7pFopTCSCIJKghqGC79UeS
-         opFBi1nfmaFjED3o9xDdaLej6V5yNdSdgavGUW7m0twOb0+I9GRXU9rLjbVDmdkWN8iV
-         OcAQnuBGjtK5dguLhs0qAyW6pNB9lRLf1sPc5bUe+C3V0Ggn2rna/mHFXp+ebk30pbYx
-         KomUjt/H9vd1hN6dwyq+3d9825t7AZJcFxnj+iHtPsyXdGjefr2NjtUqnac+qWQ6KqxO
-         y1ufkUjZRbfjRvbW7SbQvP86RTtxk0lIeCdCvW57KCrhQ1myQbvSMSS4oXtIP+zNuEbY
-         JoGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697464471; x=1698069271;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n2W2Sl9fNt1XcXfOZDPJL3Xceq/89J+CNdFTnWlpqOU=;
-        b=vGnI1Ns5iRM6fOIBB09CbF+FB82BJ9BKByo1RzcbNtRlk8CQ6LK78y2Ygpj8Qm6xHP
-         lbvZ9/nkliORog8o/bRdAayd7r++CtNMZ7Ne7yPsO6HACpfdwqzP3M9eZHlq8sY2ehFn
-         tCWHlm9z6KNcKtGFLupeaggOuXWcuk3+suH8ZU1rQKxSWHHXZWJH0sUtQQ17CzV8ACYV
-         xMLNBLpPGMoNaF3guCx2ZE5ZbCAXgF+6DfpAJArt7nDhnyfeQ7DQ0m8w2LE9q3qmbHTA
-         UEV02CiAg1Zx4EBh6Q2pVQ9R1AKb2qCGxhW0tQY/+qxCO28d76ln0ON6FNCc4RVnpIar
-         4HGg==
-X-Gm-Message-State: AOJu0YxnJ980uR3U1p6ik6HHH3NWUPrC1tRflhVespMYmpufsAVNV+cS
-	2HXC8RXnLRJCyLQC3YvmIrk3yPgXPN4uyZydyEuuKA==
-X-Google-Smtp-Source: AGHT+IGUYIrqhb0n+/TtByZJegHy7Pl8STvGAzaySzWq86BwG2GYaCPsRFXJqG6MA3A+Y6Whj7MGOA==
-X-Received: by 2002:a05:6a00:138e:b0:6be:62e:d5bc with SMTP id t14-20020a056a00138e00b006be062ed5bcmr4697550pfg.3.1697464471182;
-        Mon, 16 Oct 2023 06:54:31 -0700 (PDT)
-Date: Mon, 16 Oct 2023 21:54:27 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=WpNBQUJSRh5nvPiBxRIrchR6LkqJ4ocfYJ049kFNAvE=; b=z5fiK+v22LXphV7FsFzXlZuhXp
+	kAKb85Hv+9yUceQx5uo1p9XgD2gQQ2eZ0Nv1zy2OTt1eI8r1NB9vPPSA4mpqyim4TOp56MengbtHw
+	mijgea/uEMhMuNIbg1m9YoTnXbPUeb/6ronb4IbQy00TLyr5qwf77Zh8EpxPhNLNXprg=;
+Message-ID: <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org>
+Date: Mon, 16 Oct 2023 14:54:35 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-Message-ID: <20231016135427.GI928468@leoy-huanghe.lan>
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>, Leo Yan <leo.yan@linaro.org>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alexey Klimov <alexey.klimov@linaro.org>
 References: <20231013122658.1270506-1-leo.yan@linaro.org>
  <20231013122658.1270506-3-leo.yan@linaro.org>
- <83ABBD09-D994-4DA3-8F10-15D87BCC2CF1@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <83ABBD09-D994-4DA3-8F10-15D87BCC2CF1@arm.com>
+ <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 16, 2023 at 01:40:26PM +0000, Bertrand Marquis wrote:
 
-[...]
 
-> > This patch enlarges identity map space to 10TB, allowing module loading
-> > within the range of [0x0 .. 0x000009ff_ffff_ffff].
-> > 
-> > Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
-> 
-> I agree with Michal here, this is not a fix so this should be removed (can be done
-> on commit).
+On 16/10/2023 09:44, Michal Orzel wrote:
+> Hi,
 
-This is fine for me.
+Hi,
 
-I'd like to confirm with maintainers that should I spin a new patch
-set to remove the fix tag?  Or maintainers could help to remove it
-when pick up this patch set.
+> On 13/10/2023 14:26, Leo Yan wrote:
+>>
+>>
+>> On ADLink AVA platform (Ampere Altra SoC with 32 Arm Neoverse N1 cores),
+>> the physical memory regions are:
+>>
+>>    DRAM memory regions:
+>>      Node[0] Region[0]: 0x000080000000 - 0x0000ffffffff
+>>      Node[0] Region[1]: 0x080000000000 - 0x08007fffffff
+>>      Node[0] Region[2]: 0x080100000000 - 0x0807ffffffff
+>>
+>> The UEFI loads Xen hypervisor and DTB into the high memory, the kernel
+>> and ramdisk images are loaded into the low memory space:
+>>
+>>    (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
+>>    (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device Tree
+>>    (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
+>>    (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
+>>
+>> In this case, the Xen binary is loaded above 8TB, which exceeds the
+>> maximum supported identity map space of 2TB in Xen. Consequently, the
+>> system fails to boot.
+>>
+>> This patch enlarges identity map space to 10TB, allowing module loading
+>> within the range of [0x0 .. 0x000009ff_ffff_ffff].
+>>
+>> Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
+> I don't think a fixes tag applies here given that 2TB was just a number we believed is enough
+> and all of this is platform dependent.
+> This can be dropped on commit if committer agrees
+Xen may have booted on that platform before hand. So this would be 
+considered a regression and therefore a tag would be warrant.
 
-And thanks for review, Michal and Bertrand.
+AFAICT, the commit is only present on the upcoming 4.18. So the question 
+is whether Xen 4.17 booted out-of-the-box on ADLink? If the answer is 
+yes, then we need to add a Fixes tag. But the correct one would be
 
-Leo
+﻿1c78d76b67e1 ("xen/arm64: mm: Introduce helpers to 
+prepare/enable/disable the identity mapping").
 
-> > Reported-by: Alexey Klimov <alexey.klimov@linaro.org>
-> > Signed-off-by: Leo Yan <leo.yan@linaro.org>
-> 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> 
-> Cheers
-> Bertrand
+We would also need to consider it as a candidate for Xen 4.18 because we 
+would regress boot on ADLink.
+
+Cheers,
+
+-- 
+Julien Grall
 
