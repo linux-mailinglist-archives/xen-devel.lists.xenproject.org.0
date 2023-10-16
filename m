@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6607CAD3F
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 17:20:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617759.960784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C55E7CAD7E
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 17:28:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617779.960818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsPNh-0004Qm-Ib; Mon, 16 Oct 2023 15:19:45 +0000
+	id 1qsPV6-0004lo-BH; Mon, 16 Oct 2023 15:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617759.960784; Mon, 16 Oct 2023 15:19:45 +0000
+Received: by outflank-mailman (output) from mailman id 617779.960818; Mon, 16 Oct 2023 15:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsPNh-0004G2-1D; Mon, 16 Oct 2023 15:19:45 +0000
-Received: by outflank-mailman (input) for mailman id 617759;
- Mon, 16 Oct 2023 15:19:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XUCO=F6=desiato.srs.infradead.org=BATV+1bdf71eab2d76d13073e+7358+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qsPNe-0001wj-6E
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 15:19:42 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c36a377-6c37-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 17:19:39 +0200 (CEST)
-Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qsPNB-0067AL-2I; Mon, 16 Oct 2023 15:19:15 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qsPNC-0005nr-0V; Mon, 16 Oct 2023 16:19:14 +0100
+	id 1qsPV6-0004jG-7s; Mon, 16 Oct 2023 15:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 617779;
+ Mon, 16 Oct 2023 15:27:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BBjo=F6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qsPV4-0004jA-OA
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 15:27:22 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2073.outbound.protection.outlook.com [40.107.7.73])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f599a3b-6c38-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 17:27:21 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB8638.eurprd04.prod.outlook.com (2603:10a6:102:21d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
+ 2023 15:26:51 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
+ 15:26:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,538 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 6c36a377-6c37-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=jwGGWJD+aiNhUio6yXXYsQeQjFRX090/8s/pV5DcAPo=; b=nTtN6JRD/EBeLKEvbsufzqlbru
-	I5Y17CMSysfhnozFHuM9sbPyu6B7o38BvbjJP7YM/huwOwOmM7M69ztifXBKwRAx+0BFBQu/nSafh
-	6D5Hv2f20ZHCxPY1qUHqQNx+EwO6SpBTNfmcTAyTvyd32h7REGSMT09J1UCxPWmSpYcunHlREOgEd
-	mD1QhZbOwWNsw7Vpi9yQCxYy7YACIbopBij9Slp+QO4r7TG6Lj3YYB2qbVh0D0Bvjuwr2tU41hUkj
-	RLpPFgm1NjcggUm8/3qf7afu4o64ishMZRotMptZIwIKC3APG/f9sfEVPIPSyV+gM5OK+VgVgnszX
-	cORGT8mw==;
-From: David Woodhouse <dwmw2@infradead.org>
-To: qemu-devel@nongnu.org
-Cc: Kevin Wolf <kwolf@redhat.com>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	qemu-block@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	kvm@vger.kernel.org
-Subject: [PATCH 12/12] hw/xen: add support for Xen primary console in emulated mode
-Date: Mon, 16 Oct 2023 16:19:09 +0100
-Message-Id: <20231016151909.22133-13-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231016151909.22133-1-dwmw2@infradead.org>
-References: <20231016151909.22133-1-dwmw2@infradead.org>
-MIME-Version: 1.0
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 7f599a3b-6c38-11ee-98d4-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SRxERr2jXMhJDDtyw1JIYSsXs2Z8gHpmtKC4uwUZ8LYNgGkjKOVQkRUSBDRWtlJOu5+8dVxs812iz5VIErNekBSXRmXwzT0Z4w970y5LAEAns/5KF+OfiITJG+BDkFK1ubtoKv1ewJBsvhnt8pdmtlgpBvXyKRRfeY3iZNAMYvVRtFYpF3oNGJcrKneuXzsYYgtndpEkBcSZ4GYJzNY0fsNeNVfW67QL0hvgVG3Q4kycr7PaFBplcmWvPh2R3q+Fe8HDWVdCejIYFy2aqo4lSD9ItIWCexDKx0thh8gGcJeP0C96mXcCLO+y5EAgzb49fzVY5hhllCOaFXHCvuXh9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YNFF5l0WFjxRRCJamkZRiGvDRuEwmtqhh7uCkOdO294=;
+ b=gaQc/ojQBLgRoXTECLF2fjIXkRnt2T14UuVYVp4tkeqln1ft+vrPP/Rz6UXV/H+SlIf/YAua3ftAgbZwGO9NNgKdLJU4bAjhzDxARgUATWz+CDvuUSjAD/1cavhQ03ppP+YkwtQ5g1yLNOGWL6v+KPBWFOVU7tdpedAk0FdM5L9OUDGF57lpRfuv61AwET56dP/RwRLTK9sgGU2lU8K6Ah8cNjR+k3hbWA4uErFNVv5QYmwMlTxhnaYOOrCXxXgUGo0k1i2mc9k138V05wKQsWdzMWvFoc5Be5VgyQILRTBv/gz88vZp+Wt7DVQoqJd/hL10TU7J/Khw4+ti6NTPFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YNFF5l0WFjxRRCJamkZRiGvDRuEwmtqhh7uCkOdO294=;
+ b=COZ6oes39ac8gJvr+PXLpMRIoAdlkWDJsW3YP/iUpGq+v/PTvZYYqKsrD1LmWuCwk7zjJn2PkUOOAqI3cP2rOGH6eoYi/ALICqFLfklBVdBB99G/azng3vW9YukoIYoX1uKlv2B9Vd2Bc6lK/QFvRcbeBxScPHsFSTz/iwURxcolHaWZXpFdHSa8pvZ4EFByGrK62z8xjOHdrWQHcDR5cy3E0E6S5Nninx/USPz4xNVszXP8VDVFZ02hAmni7rrzu6DWZmLkiVFwB9vfGKbl8Wl/9/3ZVWCyqyjqRa5/t4z7PuRof0lfIXhlNC9m1XAjz3i2YzxFZsLDKv+R2W+Mog==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <d7cd7a02-b960-384e-4af2-f70b425e5ad1@suse.com>
+Date: Mon, 16 Oct 2023 17:26:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [XEN PATCH v3] xen/mm: address violations of MISRA C:2012 Rules
+ 8.2 and 8.3
+Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Henry Wang <henry.wang@arm.com>, xen-devel@lists.xenproject.org
+References: <eedcfeb8d1c81527b7e18fcc0eca252577f00035.1696344012.git.federico.serafini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <eedcfeb8d1c81527b7e18fcc0eca252577f00035.1696344012.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0160.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8638:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0a98853-5761-498f-6779-08dbce5c51c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	gAQDfRb5R82A3HuMZXLDygv9OauVnA8MxQ5Kerprn+yTUZWdD2petCCkcqeZnfZbXHB+qAqD0lRtqbZywTRnHJHbCse5q7XdM58Boi+b2p/2ciFk1QipBrIeGKW/niX2Fojg+oN3SO+A+s+7I9+UglgLHMS1+syYpEyyDUj6PAP7lmF6BCUWIukeeS/rKU5A9EVxN/TM5qqe9jlaIE2BDi35+cTOGTro7CAvrRxf581x2Y3/3zLujpmUJWoA1LwIt/K5Hi0jG1+Gib129Qm1cwAm9eWYMkSxKT8n0K1QmjHv/ZMRdKwaFLQcR6N3XNiZ+ACqpXUcVXlI7hibsNTBay/VoPb9h+aRjy3p3HEg5mP1+JYonHD5+PftjWQqej25hmLOhpH2q4Cxs6cTzBEtwGY9c0bCJu+ZZqdiBVIzAyBMvZFso0wL4ZcF3WzJns+s2roo4P/z9oHNiVo7eNQLxl/cRtHu0evkGr2OJApU40fmasNjhHVOMVvf39ZsT88c8QtvDrvL+8xtbNt22WFuayS9DPaVm7v+S4Ak0PItGB7HFCuglXqTxat6ZwJ9czVuHPE4sbwHc+O36HGKgESs8HnlsHgZwN3pt4Ab7Pvp1oijsz0cYYQkqkjhLUQf2xxH6iI3u5XC1LyfDF9Jai+GRw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(346002)(136003)(39860400002)(376002)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(31686004)(6486002)(36756003)(38100700002)(83380400001)(6512007)(26005)(6506007)(66946007)(66556008)(54906003)(66476007)(6916009)(316002)(478600001)(2616005)(53546011)(2906002)(41300700001)(7416002)(86362001)(31696002)(5660300002)(8936002)(8676002)(4326008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NytHWGU5UXBDeC84bWVZb2c2STF6S0VueDlpL0hMSUxzRXZ6M2FrSjlmNStG?=
+ =?utf-8?B?anVTYXdFMWgvczhpaS9sc3QrVjBZVTZMUEJLWTFNbkVrUjQvb0t2ZSt3ekE1?=
+ =?utf-8?B?OGtGbWpIc25RZlJEYmttUGxSOE1tM3ZGc1lOTW9CM3pMZGRHQmVSNSttV05B?=
+ =?utf-8?B?ME8yQlNhdy9pcU5VZ0syckxyOFVkWUkrekM3ZUNGS1ZaamFtbGFZd3prYmta?=
+ =?utf-8?B?V1lHdEM5a3htRkFjSW1mZnVrZ0lHT2lkWGYrMDAwSG1LLytyUE51Q0RWK3JN?=
+ =?utf-8?B?UXdXa3I4cUM1Z0s4akRtNXRaNE5PY2FhQXVtSURFZWpOS0RmYVlYY2RZcGta?=
+ =?utf-8?B?QWhpcExoaWFxQWxMcC8vdnphNklIWUxDZVNCSkR3RThBRXBQNVhyUHNXdER3?=
+ =?utf-8?B?UDRWbGQrTjRxcW1MdXB1RVNUaUQxTnZ5alo5YnE3L3crbldQNFNzNWZNY1E0?=
+ =?utf-8?B?Q3RFNm16ak9wTUJQcUh6UStTMnlaZitoSkZ3M2twR3VQNkp6WVhiRlpDcFQv?=
+ =?utf-8?B?Y1VlQW1jT0xYRDV6WnJJVDdnZ0NHeHFpYmlqV29WdC8yYlRVUWVOMDU1c1pa?=
+ =?utf-8?B?TElqaTRRS3YyWS9aMzZaVktIM3l3cHZyemRqNWh3RnVMeVhNcDVjYytNN2o2?=
+ =?utf-8?B?WTUyKzNrQVNxMGp1ZGNZT0IrOUtpc2NGTWxyNkpYUEg2UjZOOTI5WTZ6SU41?=
+ =?utf-8?B?a3M2MjgyQ1d6akhJMTFSSjNGNzBrL0pGWEtiWTJGc3p5OEVKaXl1SWFGdnNN?=
+ =?utf-8?B?Ukk3SjNNN1YwVVRwazRKOTVQV2NmbUhRdHFIREJRYkNxQklCTXU4Tlo2STNS?=
+ =?utf-8?B?bG9BcFlNc2dqVGF0b29tdi91SGEyUGdkdzFVRFZCYTRuSzlWRVNuWGo1YVZG?=
+ =?utf-8?B?UFIzWUV0b1htZ1JmS1YxbUoyYmh2c2N0Q1FOWDVOVFNSVVVXMGRzUVZYSEFC?=
+ =?utf-8?B?cTVXUW5KMWQyeHRJM0d6cmkvTGpBeS9GT3Zib201Q2NhUmlneXlTM09ubHBZ?=
+ =?utf-8?B?SXFHN0dNemduSVFSc3pOZ1dDc1JvWnl3WVpaOGw0YTMzdXV2V0NxblM2YVl6?=
+ =?utf-8?B?Y0F4bjRDOFU2VUxBMHVpTU5lcDJBTENHOWVxTUZkTmVUWEY0eFozZW8ySEd6?=
+ =?utf-8?B?VE1jQ0pjUU51dWN4VjM0S2pwbTFsSjRiQTI3dUVrTUlYZ2x0d25MdWJGNzJp?=
+ =?utf-8?B?SE5lNTArOUMxVTE1YkZmSnJRRkFob2xwZU5aUGVtZXdFc21ZWjUrVnN3YUh3?=
+ =?utf-8?B?LzN6ODlZcldrMWhBRGtqS1Ewdnl0R1oycHpkSVhUbHkranZSSm5GdFFuVjBH?=
+ =?utf-8?B?ejVieWVXeUVOYjVNNWxsZ3Y1cFVLTTRFdVdTck0xaEgrbjJBekN0WjVnT1Bz?=
+ =?utf-8?B?NnNOUXFUbGgyeGx3U0owUnBPemtwRVBQYjdscyt6ZUNtVTZ3dThhSUZCYTlV?=
+ =?utf-8?B?YkpiVmpXWkxQaFlyTG5vQmhxL253am9UWk9zQVRXOTNlY1NyUXdkZlU5VSth?=
+ =?utf-8?B?Q25sS1AvREhGMXNEbFhMajlvVUtCSE5HTm42bUhtZVUzZWc5OE5UU3BpY1Jk?=
+ =?utf-8?B?bGtMSGFCdk1KYkFQcFZNKy9naFZFeGNvcXhKQTRZN3hVZUY5VTM2ZnJGR1hW?=
+ =?utf-8?B?dHl4NlBONTZ5RGcveis1QTk3NlkxL05zSWhRbGZ4WmE5Z1pBeTRUeFN0Q3Qv?=
+ =?utf-8?B?TkZ3cXpkQWk1blpzU3Z2MjFWQitTNDVzTC94aElHc1JXcytvSU9UNzZCY1Fr?=
+ =?utf-8?B?RTdaM05WTXlZZHp1MGtJcURFVWU2ZlpWZGozK3dnUk4wdnZqZW9qOWlCM1dx?=
+ =?utf-8?B?aEpnNG5nN0FiNzVqWW9henZmWGNyRHN5SUpaU0JPb0hkU0ZScWtDTW5yVVJm?=
+ =?utf-8?B?Y3ZKcXFydnNVU1Y5VExQQjR0T2w5NzVCL0hDcngrbDQvZkJmMXBFZzUzOVhF?=
+ =?utf-8?B?emh5WGZPMGkwWWMvdGpXbWF1TlB5YnNKYkZsc3d3TjI3REdSYmVNOWR6K044?=
+ =?utf-8?B?SEFhNnA0eXpTcEtGdWd1OUNpWGJSdlVMek9lS2M3WFBCN0tuelYzS0gvVWVa?=
+ =?utf-8?B?RVhVUnd6SlluS0FCd2lOUlhsNW9xK0EySzJVN0llSEFGUGErMXZPWjljWmhJ?=
+ =?utf-8?Q?Cakcpq6c4fJ64Dgi1AY2y2Tgi?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0a98853-5761-498f-6779-08dbce5c51c8
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 15:26:50.9572
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: m2UGeZ3oHcZJNzrRiBgnOHtY5d/U0G61/uDAJ6eOW9cY/hp7rTuRvdlMzOX9Ek3XUecFK5M/EeqhZG2E99B23Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8638
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+On 03.10.2023 17:24, Federico Serafini wrote:
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -5901,17 +5901,17 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+>   * a problem.
+>   */
+>  void init_or_livepatch modify_xen_mappings_lite(
+> -    unsigned long s, unsigned long e, unsigned int _nf)
+> +    unsigned long s, unsigned long e, unsigned int nf)
+>  {
+> -    unsigned long v = s, fm, nf;
+> +    unsigned long v = s, fm, flags;
 
-The primary console is special because the toolstack maps a page at a
-fixed GFN and also allocates the guest-side event channel. Add support
-for that in emulated mode, so that we can have a primary console.
+While it looks correct, I consider this an unacceptably dangerous
+change: What if by the time this is to be committed some new use of
+the local "nf" appears, without resulting in fuzz while applying the
+patch? Imo this needs doing in two steps: First nf -> flags, then
+_nf -> nf.
 
-Add a *very* rudimentary stub of foriegnmem ops for emulated mode, which
-supports literally nothing except a single-page mapping of the console
-page. This might as well have been a hack in the xen_console driver, but
-this way at least the special-casing is kept within the Xen emulation
-code, and it gives us a hook for a more complete implementation if/when
-we ever do need one.
+Furthermore since you alter the local variable, is there any reason
+not to also change it to be "unsigned int", matching the function
+argument it's set from?
 
-Now at last we can boot the Xen PV shim and run PV kernels in QEMU.
+Yet then - can't we just delete "nf" and rename "_nf" to "nf"? The
+function parameter is only used in
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- hw/char/xen_console.c             |  12 ++-
- hw/i386/kvm/meson.build           |   1 +
- hw/i386/kvm/trace-events          |   2 +
- hw/i386/kvm/xen-stubs.c           |   5 +
- hw/i386/kvm/xen_gnttab.c          |  32 +++++-
- hw/i386/kvm/xen_primary_console.c | 167 ++++++++++++++++++++++++++++++
- hw/i386/kvm/xen_primary_console.h |  22 ++++
- hw/i386/kvm/xen_xenstore.c        |   9 ++
- target/i386/kvm/xen-emu.c         |  23 +++-
- 9 files changed, 266 insertions(+), 7 deletions(-)
- create mode 100644 hw/i386/kvm/xen_primary_console.c
- create mode 100644 hw/i386/kvm/xen_primary_console.h
+    nf = put_pte_flags(_nf & FLAGS_MASK);
 
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index 1a0f5ed3e1..dfc4be0aa1 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -32,6 +32,7 @@
- #include "hw/qdev-properties.h"
- #include "hw/qdev-properties-system.h"
- #include "hw/xen/interface/io/console.h"
-+#include "hw/i386/kvm/xen_primary_console.h"
- #include "trace.h"
- 
- struct buffer {
-@@ -334,8 +335,8 @@ static char *xen_console_get_name(XenDevice *xendev, Error **errp)
-     XenConsole *con = XEN_CONSOLE_DEVICE(xendev);
- 
-     if (con->dev == -1) {
-+        int idx = (xen_mode == XEN_EMULATE) ? 0 : 1;
-         char name[11];
--        int idx = 1;
- 
-         /* Theoretically we could go up to INT_MAX here but that's overkill */
-         while (idx < 100) {
-@@ -386,10 +387,13 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
-      * be mapped directly as foreignmem (not a grant ref), and the guest port
-      * was allocated *for* the guest by the toolstack. The guest gets these
-      * through HVMOP_get_param and can use the console long before it's got
--     * XenStore up and running. We cannot create those for a Xen guest.
-+     * XenStore up and running. We cannot create those for a true Xen guest,
-+     * but we can for Xen emulation.
-      */
-     if (!con->dev) {
--        if (xen_device_frontend_scanf(xendev, "ring-ref", "%u", &u) != 1 ||
-+        if (xen_mode == XEN_EMULATE) {
-+            xen_primary_console_create();
-+        } else if (xen_device_frontend_scanf(xendev, "ring-ref", "%u", &u) != 1 ||
-             xen_device_frontend_scanf(xendev, "port", "%u", &u) != 1) {
-             error_setg(errp, "cannot create primary Xen console");
-             return;
-@@ -404,7 +408,7 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
-     }
- 
-     /* No normal PV driver initialization for the primary console */
--    if (!con->dev) {
-+    if (!con->dev && xen_mode != XEN_EMULATE) {
-         xen_console_connect(xendev, errp);
-     }
- }
-diff --git a/hw/i386/kvm/meson.build b/hw/i386/kvm/meson.build
-index ab143d6474..a4a2e23c06 100644
---- a/hw/i386/kvm/meson.build
-+++ b/hw/i386/kvm/meson.build
-@@ -9,6 +9,7 @@ i386_kvm_ss.add(when: 'CONFIG_XEN_EMU', if_true: files(
-   'xen_evtchn.c',
-   'xen_gnttab.c',
-   'xen_xenstore.c',
-+  'xen_primary_console.c',
-   'xenstore_impl.c',
-   ))
- 
-diff --git a/hw/i386/kvm/trace-events b/hw/i386/kvm/trace-events
-index e4c82de6f3..67bf7f174e 100644
---- a/hw/i386/kvm/trace-events
-+++ b/hw/i386/kvm/trace-events
-@@ -18,3 +18,5 @@ xenstore_watch(const char *path, const char *token) "path %s token %s"
- xenstore_unwatch(const char *path, const char *token) "path %s token %s"
- xenstore_reset_watches(void) ""
- xenstore_watch_event(const char *path, const char *token) "path %s token %s"
-+xen_primary_console_create(void) ""
-+xen_primary_console_reset(int port) "port %u"
-diff --git a/hw/i386/kvm/xen-stubs.c b/hw/i386/kvm/xen-stubs.c
-index ae406e0b02..10068970fe 100644
---- a/hw/i386/kvm/xen-stubs.c
-+++ b/hw/i386/kvm/xen-stubs.c
-@@ -15,6 +15,7 @@
- #include "qapi/qapi-commands-misc-target.h"
- 
- #include "xen_evtchn.h"
-+#include "xen_primary_console.h"
- 
- void xen_evtchn_snoop_msi(PCIDevice *dev, bool is_msix, unsigned int vector,
-                           uint64_t addr, uint32_t data, bool is_masked)
-@@ -30,6 +31,10 @@ bool xen_evtchn_deliver_pirq_msi(uint64_t address, uint32_t data)
-     return false;
- }
- 
-+void xen_primary_console_create(void)
-+{
-+}
-+
- #ifdef TARGET_I386
- EvtchnInfoList *qmp_xen_event_list(Error **errp)
- {
-diff --git a/hw/i386/kvm/xen_gnttab.c b/hw/i386/kvm/xen_gnttab.c
-index 21c30e3659..ea201cd582 100644
---- a/hw/i386/kvm/xen_gnttab.c
-+++ b/hw/i386/kvm/xen_gnttab.c
-@@ -25,6 +25,7 @@
- #include "hw/xen/xen_backend_ops.h"
- #include "xen_overlay.h"
- #include "xen_gnttab.h"
-+#include "xen_primary_console.h"
- 
- #include "sysemu/kvm.h"
- #include "sysemu/kvm_xen.h"
-@@ -38,6 +39,7 @@ OBJECT_DECLARE_SIMPLE_TYPE(XenGnttabState, XEN_GNTTAB)
- #define ENTRIES_PER_FRAME_V1 (XEN_PAGE_SIZE / sizeof(grant_entry_v1_t))
- 
- static struct gnttab_backend_ops emu_gnttab_backend_ops;
-+static struct foreignmem_backend_ops emu_foreignmem_backend_ops;
- 
- struct XenGnttabState {
-     /*< private >*/
-@@ -100,6 +102,7 @@ static void xen_gnttab_realize(DeviceState *dev, Error **errp)
-     s->map_track = g_new0(uint8_t, s->max_frames * ENTRIES_PER_FRAME_V1);
- 
-     xen_gnttab_ops = &emu_gnttab_backend_ops;
-+    xen_foreignmem_ops = &emu_foreignmem_backend_ops;
- }
- 
- static int xen_gnttab_post_load(void *opaque, int version_id)
-@@ -524,6 +527,29 @@ static struct gnttab_backend_ops emu_gnttab_backend_ops = {
-     .unmap = xen_be_gnttab_unmap,
- };
- 
-+/* Dummy implementation of foriegnmem; just enough for console */
-+static void *xen_be_foreignmem_map(uint32_t dom, void *addr, int prot,
-+                                   size_t pages, xen_pfn_t *pfns,
-+                                   int *errs)
-+{
-+    if (dom == xen_domid && !addr && pages == 1 &&
-+        pfns[0] == xen_primary_console_get_pfn()) {
-+        return xen_primary_console_get_map();
-+    }
-+
-+    return NULL;
-+}
-+
-+static int xen_be_foreignmem_unmap(void *addr, size_t pages)
-+{
-+    return 0;
-+}
-+
-+static struct foreignmem_backend_ops emu_foreignmem_backend_ops = {
-+    .map = xen_be_foreignmem_map,
-+    .unmap = xen_be_foreignmem_unmap,
-+};
-+
- int xen_gnttab_reset(void)
- {
-     XenGnttabState *s = xen_gnttab_singleton;
-@@ -537,10 +563,14 @@ int xen_gnttab_reset(void)
-     s->nr_frames = 0;
- 
-     memset(s->entries.v1, 0, XEN_PAGE_SIZE * s->max_frames);
--
-     s->entries.v1[GNTTAB_RESERVED_XENSTORE].flags = GTF_permit_access;
-     s->entries.v1[GNTTAB_RESERVED_XENSTORE].frame = XEN_SPECIAL_PFN(XENSTORE);
- 
-+    if (xen_primary_console_get_pfn()) {
-+        s->entries.v1[GNTTAB_RESERVED_CONSOLE].flags = GTF_permit_access;
-+        s->entries.v1[GNTTAB_RESERVED_CONSOLE].frame = XEN_SPECIAL_PFN(CONSOLE);
-+    }
-+
-     memset(s->map_track, 0, s->max_frames * ENTRIES_PER_FRAME_V1);
- 
-     return 0;
-diff --git a/hw/i386/kvm/xen_primary_console.c b/hw/i386/kvm/xen_primary_console.c
-new file mode 100644
-index 0000000000..0aa1c16ad6
---- /dev/null
-+++ b/hw/i386/kvm/xen_primary_console.c
-@@ -0,0 +1,167 @@
-+/*
-+ * QEMU Xen emulation: Primary console support
-+ *
-+ * Copyright © 2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-+ *
-+ * Authors: David Woodhouse <dwmw2@infradead.org>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
-+
-+#include "qemu/osdep.h"
-+
-+#include "qapi/error.h"
-+
-+#include "hw/sysbus.h"
-+#include "hw/xen/xen.h"
-+#include "hw/xen/xen_backend_ops.h"
-+#include "xen_evtchn.h"
-+#include "xen_overlay.h"
-+#include "xen_primary_console.h"
-+
-+#include "sysemu/kvm.h"
-+#include "sysemu/kvm_xen.h"
-+
-+#include "trace.h"
-+
-+#include "hw/xen/interface/event_channel.h"
-+#include "hw/xen/interface/grant_table.h"
-+
-+#define TYPE_XEN_PRIMARY_CONSOLE "xen-primary-console"
-+OBJECT_DECLARE_SIMPLE_TYPE(XenPrimaryConsoleState, XEN_PRIMARY_CONSOLE)
-+
-+struct XenPrimaryConsoleState {
-+    /*< private >*/
-+    SysBusDevice busdev;
-+    /*< public >*/
-+
-+    MemoryRegion console_page;
-+    void *cp;
-+
-+    evtchn_port_t guest_port;
-+    evtchn_port_t be_port;
-+
-+    struct xengntdev_handle *gt;
-+    void *granted_xs;
-+};
-+
-+struct XenPrimaryConsoleState *xen_primary_console_singleton;
-+
-+static void xen_primary_console_realize(DeviceState *dev, Error **errp)
-+{
-+    XenPrimaryConsoleState *s = XEN_PRIMARY_CONSOLE(dev);
-+
-+    if (xen_mode != XEN_EMULATE) {
-+        error_setg(errp, "Xen primary console support is for Xen emulation");
-+        return;
-+    }
-+
-+    memory_region_init_ram(&s->console_page, OBJECT(dev), "xen:console_page",
-+                           XEN_PAGE_SIZE, &error_abort);
-+    memory_region_set_enabled(&s->console_page, true);
-+    s->cp = memory_region_get_ram_ptr(&s->console_page);
-+    memset(s->cp, 0, XEN_PAGE_SIZE);
-+
-+    /* We can't map it this early as KVM isn't ready */
-+    xen_primary_console_singleton = s;
-+}
-+
-+static void xen_primary_console_class_init(ObjectClass *klass, void *data)
-+{
-+    DeviceClass *dc = DEVICE_CLASS(klass);
-+
-+    dc->realize = xen_primary_console_realize;
-+}
-+
-+static const TypeInfo xen_primary_console_info = {
-+    .name          = TYPE_XEN_PRIMARY_CONSOLE,
-+    .parent        = TYPE_SYS_BUS_DEVICE,
-+    .instance_size = sizeof(XenPrimaryConsoleState),
-+    .class_init    = xen_primary_console_class_init,
-+};
-+
-+
-+void xen_primary_console_create(void)
-+{
-+    DeviceState *dev = sysbus_create_simple(TYPE_XEN_PRIMARY_CONSOLE, -1, NULL);
-+
-+    trace_xen_primary_console_create();
-+
-+    xen_primary_console_singleton = XEN_PRIMARY_CONSOLE(dev);
-+
-+    /*
-+     * Defer the init (xen_primary_console_reset()) until KVM is set up and the
-+     * overlay page can be mapped.
-+     */
-+}
-+
-+static void xen_primary_console_register_types(void)
-+{
-+    type_register_static(&xen_primary_console_info);
-+}
-+
-+type_init(xen_primary_console_register_types)
-+
-+uint16_t xen_primary_console_get_port(void)
-+{
-+    XenPrimaryConsoleState *s = xen_primary_console_singleton;
-+    if (!s) {
-+        return 0;
-+    }
-+    return s->guest_port;
-+}
-+
-+uint64_t xen_primary_console_get_pfn(void)
-+{
-+    XenPrimaryConsoleState *s = xen_primary_console_singleton;
-+    if (!s) {
-+        return 0;
-+    }
-+    return XEN_SPECIAL_PFN(CONSOLE);
-+}
-+
-+void *xen_primary_console_get_map(void)
-+{
-+    XenPrimaryConsoleState *s = xen_primary_console_singleton;
-+    if (!s) {
-+        return 0;
-+    }
-+    return s->cp;
-+}
-+
-+static void alloc_guest_port(XenPrimaryConsoleState *s)
-+{
-+    struct evtchn_alloc_unbound alloc = {
-+        .dom = DOMID_SELF,
-+        .remote_dom = DOMID_QEMU,
-+    };
-+
-+    if (!xen_evtchn_alloc_unbound_op(&alloc)) {
-+        s->guest_port = alloc.port;
-+    }
-+}
-+
-+int xen_primary_console_reset(void)
-+{
-+    XenPrimaryConsoleState *s = xen_primary_console_singleton;
-+    if (!s) {
-+        return 0;
-+    }
-+
-+    if (!memory_region_is_mapped(&s->console_page)) {
-+        uint64_t gpa = XEN_SPECIAL_PFN(CONSOLE) << TARGET_PAGE_BITS;
-+        xen_overlay_do_map_page(&s->console_page, gpa);
-+    }
-+
-+    alloc_guest_port(s);
-+
-+    trace_xen_primary_console_reset(s->guest_port);
-+
-+    s->gt = qemu_xen_gnttab_open();
-+    uint32_t xs_gntref = GNTTAB_RESERVED_CONSOLE;
-+    s->granted_xs = qemu_xen_gnttab_map_refs(s->gt, 1, xen_domid, &xs_gntref,
-+                                             PROT_READ | PROT_WRITE);
-+
-+    return 0;
-+}
-diff --git a/hw/i386/kvm/xen_primary_console.h b/hw/i386/kvm/xen_primary_console.h
-new file mode 100644
-index 0000000000..dd4922f3f4
---- /dev/null
-+++ b/hw/i386/kvm/xen_primary_console.h
-@@ -0,0 +1,22 @@
-+/*
-+ * QEMU Xen emulation: Primary console support
-+ *
-+ * Copyright © 2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-+ *
-+ * Authors: David Woodhouse <dwmw2@infradead.org>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
-+
-+#ifndef QEMU_XEN_PRIMARY_CONSOLE_H
-+#define QEMU_XEN_PRIMARY_CONSOLE_H
-+
-+void xen_primary_console_create(void);
-+int xen_primary_console_reset(void);
-+
-+uint16_t xen_primary_console_get_port(void);
-+uint64_t xen_primary_console_get_pfn(void);
-+void *xen_primary_console_get_map(void);
-+
-+#endif /* QEMU_XEN_PRIMARY_CONSOLE_H */
-diff --git a/hw/i386/kvm/xen_xenstore.c b/hw/i386/kvm/xen_xenstore.c
-index 3300e0614a..9f8946e0ce 100644
---- a/hw/i386/kvm/xen_xenstore.c
-+++ b/hw/i386/kvm/xen_xenstore.c
-@@ -25,6 +25,7 @@
- #include "hw/xen/xen_backend_ops.h"
- #include "xen_overlay.h"
- #include "xen_evtchn.h"
-+#include "xen_primary_console.h"
- #include "xen_xenstore.h"
- 
- #include "sysemu/kvm.h"
-@@ -1432,6 +1433,7 @@ static void alloc_guest_port(XenXenstoreState *s)
- int xen_xenstore_reset(void)
- {
-     XenXenstoreState *s = xen_xenstore_singleton;
-+    int console_port;
-     GList *perms;
-     int err;
- 
-@@ -1467,6 +1469,13 @@ int xen_xenstore_reset(void)
-     relpath_printf(s, perms, "store/ring-ref", "%lu", XEN_SPECIAL_PFN(XENSTORE));
-     relpath_printf(s, perms, "store/port", "%u", s->be_port);
- 
-+    console_port = xen_primary_console_get_port();
-+    if (console_port) {
-+        relpath_printf(s, perms, "console/ring-ref", "%lu", XEN_SPECIAL_PFN(CONSOLE));
-+        relpath_printf(s, perms, "console/port", "%u", console_port);
-+        relpath_printf(s, perms, "console/state", "%u", XenbusStateInitialised);
-+    }
-+
-     g_list_free_full(perms, g_free);
- 
-     /*
-diff --git a/target/i386/kvm/xen-emu.c b/target/i386/kvm/xen-emu.c
-index 477e93cd92..9f57786e95 100644
---- a/target/i386/kvm/xen-emu.c
-+++ b/target/i386/kvm/xen-emu.c
-@@ -28,6 +28,7 @@
- #include "hw/i386/kvm/xen_overlay.h"
- #include "hw/i386/kvm/xen_evtchn.h"
- #include "hw/i386/kvm/xen_gnttab.h"
-+#include "hw/i386/kvm/xen_primary_console.h"
- #include "hw/i386/kvm/xen_xenstore.h"
- 
- #include "hw/xen/interface/version.h"
-@@ -182,7 +183,8 @@ int kvm_xen_init(KVMState *s, uint32_t hypercall_msr)
-         return ret;
-     }
- 
--    /* The page couldn't be overlaid until KVM was initialized */
-+    /* The pages couldn't be overlaid until KVM was initialized */
-+    xen_primary_console_reset();
-     xen_xenstore_reset();
- 
-     return 0;
-@@ -811,11 +813,23 @@ static bool handle_get_param(struct kvm_xen_exit *exit, X86CPU *cpu,
-     case HVM_PARAM_STORE_EVTCHN:
-         hp.value = xen_xenstore_get_port();
-         break;
-+    case HVM_PARAM_CONSOLE_PFN:
-+        hp.value = xen_primary_console_get_pfn();
-+        if (!hp.value) {
-+            err = -EINVAL;
-+        }
-+        break;
-+    case HVM_PARAM_CONSOLE_EVTCHN:
-+        hp.value = xen_primary_console_get_port();
-+        if (!hp.value) {
-+            err = -EINVAL;
-+        }
-+        break;
-     default:
-         return false;
-     }
- 
--    if (kvm_copy_to_gva(cs, arg, &hp, sizeof(hp))) {
-+    if (!err && kvm_copy_to_gva(cs, arg, &hp, sizeof(hp))) {
-         err = -EFAULT;
-     }
- out:
-@@ -1426,6 +1440,11 @@ int kvm_xen_soft_reset(void)
-         return err;
-     }
- 
-+    err = xen_primary_console_reset();
-+    if (err) {
-+        return err;
-+    }
-+
-     err = xen_xenstore_reset();
-     if (err) {
-         return err;
--- 
-2.40.1
-
+Jan
 
