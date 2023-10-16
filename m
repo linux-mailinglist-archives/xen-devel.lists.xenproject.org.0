@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24377CAF12
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 18:23:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617862.960928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8C607CAF15
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 18:25:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617869.960938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsQN3-000794-3s; Mon, 16 Oct 2023 16:23:09 +0000
+	id 1qsQOr-0008QY-G9; Mon, 16 Oct 2023 16:25:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617862.960928; Mon, 16 Oct 2023 16:23:09 +0000
+Received: by outflank-mailman (output) from mailman id 617869.960938; Mon, 16 Oct 2023 16:25:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsQN3-00076z-16; Mon, 16 Oct 2023 16:23:09 +0000
-Received: by outflank-mailman (input) for mailman id 617862;
- Mon, 16 Oct 2023 16:23:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qsQN1-00076a-NV
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 16:23:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qsQN0-0007nC-JS; Mon, 16 Oct 2023 16:23:06 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=[192.168.9.197]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qsQN0-000794-At; Mon, 16 Oct 2023 16:23:06 +0000
+	id 1qsQOr-0008Md-CR; Mon, 16 Oct 2023 16:25:01 +0000
+Received: by outflank-mailman (input) for mailman id 617869;
+ Mon, 16 Oct 2023 16:24:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fDQ6=F6=citrix.com=prvs=646b7f3c5=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qsQOp-0008I7-A6
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 16:24:59 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a096ab6-6c40-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 18:24:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,158 +36,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cPp0j4hD4ZQAkeb330gMs/tZVDgrYE61d8i4CM5Id0o=; b=5LLcfTJWG2UunjF6ac0fiEc0zB
-	ayqKi85xfYnbkStU+VGlUlK3CRNUmbGqASPaiiiQtfpN3xm3VwATaOTwEJaFSQQ42yS7cntcYDEMZ
-	QxzbJnqNndiv3d2dnFhZb/eldaDqQQakRJxPCvT4hYFsGKi4WgQORINff//WNSUb6Nkk=;
-Message-ID: <3bdf8745-ee34-4deb-be5e-5493fc202ade@xen.org>
-Date: Mon, 16 Oct 2023 17:23:03 +0100
+X-Inumbo-ID: 8a096ab6-6c40-11ee-98d4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1697473497;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=E8wbjDHabY5D/w/rdgUdQWa9yTs1C8lznXVUosJwlwA=;
+  b=JdhFWE/AVVCPN77v3YbLAyxPXR4m3C17Kn9tTDbcUA9mgTtfbZPVjmcQ
+   RdAGIowQLT2t5GmCCeKOsrUXm7ElBNI6LInS8Lfw9oRt96wOfKVdZeE+p
+   JmZWJ1fWTHqUgTbZ6l2BtZUVNZXqnp4vxFJvCtod3T7nACl2oSIYxWqNR
+   o=;
+X-CSE-ConnectionGUID: yzlbLRSHSoK8GKn78rkUIQ==
+X-CSE-MsgGUID: kaHAD0lkQNW0mX7KsF/kmA==
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 126162428
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:H1YPRK06Eqp0XnEYC/bD5R5xkn2cJEfYwER7XKvMYLTBsI5bpzAGn
+ DYaWDuObPiOYWvyLdl3aorn90IO7ZPQz9ViQQRvpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb83uDgNyo4GlD5wRnO6gS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfEHNK/
+ 9giExA2aTPTqMGwn+KhSdRNv5F2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
+ ZNfMGc+KkuYC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTH5sMwBzE/
+ DKuE2LRARg6HfDHzTm81E30g9+QvjjVH4EXPejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHslgUHR9NaHuk+6QeM4qnZ+QCUAi4DVDEpQMMinN87Q3otz
+ FDht9H0AT1itpWFRHTb8a2bxRuQEyUIKW4JZQcfUBAIpdLkpekbjB3VSc14OLWoldCzEjb1q
+ xiqoS4klvMshMgE/6yh+BbMhDfEm3TSZldrvEONBDvjt14oItH9D2C11bTFxedSKIy9dGKhh
+ 38ny+e96r9eF5KwtRXYFY3hA4qVC+a53Cz02AA+QMV7qGz8oxZPbqgKvmsjeBkB3tIsPG+xO
+ RCN42u98bcJZBOXgblLj5Vd4ijA5ZDnEMzsUPecRNdHaZgZmOSvp3o2OxD4M4wAiiERfUAD1
+ XSzK5zE4Y4yU/gP8dZPb751PUUX7i4/33jPYpvw0g6q17GTDFbMF+ZaawrTM7hpvPzbyOkwz
+ zq4H5LRoyizrcWkOnWHmWLtBQxiwYcH6WDe9JUMK7/rzvtOE2A9Ef7BqY4cl3het/0NzI/gp
+ yjtMnK0PXKj3RUr3y3WMCE8AF4uNL4jxU8G0dsEZw3ygSl6Ot/zsc/ytfIfJNEayQCq9tYsJ
+ 9FtRilKKq0npujvk9jFUaTAkQ==
+IronPort-HdrOrdr: A9a23:2XXDa68c8gXw9j8g10Vuk+C9I+orL9Y04lQ7vn2ZKCYlEfBw8v
+ rFoB1173PJYVoqOE3I++rgBEDwex7hHPdOiOF7AV7IZmfbUQWTQ71f0Q==
+X-Talos-CUID: 9a23:8LE142GHlV/FUEUXqmJ25koePvoeUkba7yf/AEnnWXxqdZysHAo=
+X-Talos-MUID: 9a23:78BYJgo1c+JNfjfV82AezzJrFO5Eu6CtMWYyyZA25OqfG2tzPh7I2Q==
+X-IronPort-AV: E=Sophos;i="6.03,229,1694750400"; 
+   d="scan'208";a="126162428"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, Henry Wang
+	<Henry.Wang@arm.com>
+Subject: [PATCH for-4.18] docs/sphinx: Lifecycle of a domid
+Date: Mon, 16 Oct 2023 17:24:50 +0100
+Message-ID: <20231016162450.1286178-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>,
- Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- "leo.yan@linaro.org" <leo.yan@linaro.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rahul Singh <Rahul.Singh@arm.com>, Henry Wang <Henry.Wang@arm.com>
-References: <20231013122658.1270506-1-leo.yan@linaro.org>
- <20231013122658.1270506-3-leo.yan@linaro.org>
- <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com>
- <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org>
- <8BCB97B4-CBDD-43D9-B0F8-7F637B8BE559@arm.com>
- <4B2BD200-5D3E-49D5-BF13-65B769AD4B90@arm.com>
- <CANgGJDqHu0CB=zzZqda18giLYDkL3My+gT592GLO-b9HsF2A4g@mail.gmail.com>
- <d3952200-9edb-4de0-94e3-c00c571a10b9@xen.org>
- <794B0D71-70A7-4546-98E0-EC01573E0D89@arm.com>
- <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
- <E9128690-2C1E-47D8-AD94-682C4318E082@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <E9128690-2C1E-47D8-AD94-682C4318E082@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
+CC: Henry Wang <Henry.Wang@arm.com>
 
+Rendered form:
+  https://andrewcoop-xen.readthedocs.io/en/docs-devel/hypervisor-guide/domid-lifecycle.html
 
-On 16/10/2023 16:39, Bertrand Marquis wrote:
-> 
-> 
->> On 16 Oct 2023, at 17:31, Julien Grall <julien@xen.org> wrote:
->>
->>
->>
->> On 16/10/2023 16:07, Bertrand Marquis wrote:
->>> Hi,
->>>> On 16 Oct 2023, at 16:46, Julien Grall <julien@xen.org> wrote:
->>>>
->>>> CC Henry
->>>>
->>>> Hi Alexey,
->>>>
->>>> On 16/10/2023 15:24, Alexey Klimov wrote:
->>>>> On Mon, 16 Oct 2023 at 15:13, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>>> On 16 Oct 2023, at 15:00, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
->>>>>>>
->>>>>>> Hi
->>>>>>>
->>>>>>> +Luca and Rahul
->>>>>>>
->>>>>>>> On 16 Oct 2023, at 15:54, Julien Grall <julien@xen.org> wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>>
->>>>>>>> On 16/10/2023 09:44, Michal Orzel wrote:
->>>>>>>>> Hi,
->>>>>>>>
->>>>>>>> Hi,
->>>>>>>>
->>>>>>>>> On 13/10/2023 14:26, Leo Yan wrote:
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> On ADLink AVA platform (Ampere Altra SoC with 32 Arm Neoverse N1 cores),
->>>>>>>>>> the physical memory regions are:
->>>>>>>>>>
->>>>>>>>>>   DRAM memory regions:
->>>>>>>>>>     Node[0] Region[0]: 0x000080000000 - 0x0000ffffffff
->>>>>>>>>>     Node[0] Region[1]: 0x080000000000 - 0x08007fffffff
->>>>>>>>>>     Node[0] Region[2]: 0x080100000000 - 0x0807ffffffff
->>>>>>>>>>
->>>>>>>>>> The UEFI loads Xen hypervisor and DTB into the high memory, the kernel
->>>>>>>>>> and ramdisk images are loaded into the low memory space:
->>>>>>>>>>
->>>>>>>>>>   (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
->>>>>>>>>>   (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device Tree
->>>>>>>>>>   (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
->>>>>>>>>>   (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
->>>>>>>>>>
->>>>>>>>>> In this case, the Xen binary is loaded above 8TB, which exceeds the
->>>>>>>>>> maximum supported identity map space of 2TB in Xen. Consequently, the
->>>>>>>>>> system fails to boot.
->>>>>>>>>>
->>>>>>>>>> This patch enlarges identity map space to 10TB, allowing module loading
->>>>>>>>>> within the range of [0x0 .. 0x000009ff_ffff_ffff].
->>>>>>>>>>
->>>>>>>>>> Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
->>>>>>>>> I don't think a fixes tag applies here given that 2TB was just a number we believed is enough
->>>>>>>>> and all of this is platform dependent.
->>>>>>>>> This can be dropped on commit if committer agrees
->>>>>>>> Xen may have booted on that platform before hand. So this would be considered a regression and therefore a tag would be warrant.
->>>>>>>>
->>>>>>>> AFAICT, the commit is only present on the upcoming 4.18. So the question is whether Xen 4.17 booted out-of-the-box on ADLink? If the answer is yes, then we need to add a Fixes tag. But the correct one would be
->>>>>>>>
->>>>>>>
->>>>>>> @Rahul or Luca: could you give an answer here ?
->>>>>>> I know you used Xen on an AVA platform but was it booting out of the box ?
->>>>>>
->>>>>> I can’t say for Xen 4.17, but our nightly job has run successfully on AVA for the commit 730406ab81094115d9fb5ca00ba8d53cec1279b3
->>>>>> (docs/misra: add deviations.rst to document additional deviations.)
->>>>>>
->>>>>> We are not applying any patch for it to run on AVA.
->>>>> Most likely it is because your UEFI/BIOS firmware is 2.x, for instance
->>>>> 2.04.100.07.
->>>>> This fix if for AVA machine with older UEFI firmware 1.07.300.03.
->>>>
->>>> OOI, why not updating your firmware? I was expecting that it would also contain other critical fixes.
->>>>
->>>> With this in mind, I am now more in two mind to ask to merge this patch in Xen 4.18. On one hand, I understand it will help to boot on AVA machine with an older firmware. But on the other hand this is changing the memory layout quite late in the release. The risk seems limited because Xen is not loaded at the top of the virtual address space (there is the directmap afterwards).
->>>>
->>>> Henry (as the release manager) and others, any opinions?
->>> With the new information, I think it should be stated that it is fixing an issue on AVA platforms using an old firmware and platforms with and up-to-date firmware are not impacted.
->>> It is an important information to keep in mind that this is not a fix to be backported for example (and for me the fixes tag should not be kept).
->>
->> IMHO, the fixes tag should not be based solely on the AVA platform. It should be based on whether this could sensibly affect others. Right now, there is nothing that would indicate either way.
->>
->> And therefore a Fixes tag is sensible. This doesn't mean I would want to backport it right now (note that only 4.18 is affected). But this could change in the future if we get another report (post-4.18) on a platform where there are no other workaround.
->>
->> Stefano any opinions?
->>
->>> On whether or not it should go in the release, I am not quite sure that making a change in the layout at that stage is a good idea unless it is fixing a critical issue (which is not the case here).
->>> So i would vote no but not go against if someone argue to have it in.
->>
->> I agree with your statement with the information we have today. But it could become a critical issue if another platform is hit by the same issue and have no other workaround.
-> 
-> I am more seeing this as adding support for platforms with a topology that was not supported until now (because it was not encountered) rather than fixing a bug which is why i find it a bit odd to say that it is fixing some issue. But definitely this is an opinion and nothing that i could argue on :-)
+I'm not sure why it's using the alibaster theme and not RTD theme, but I
+don't have time to debug that further at this point.
 
-This is a valid point. The problem is SUPPORT.md doesn't say anything 
-about new HW. So in theory, if it works out-of-the-box on Xen 4.17, then 
-one could expect that it should work on 4.18.
+This was written mostly while sat waiting for flights in Nanjing and Beijing.
 
-I can see why the owner of the platform may consider it critical. But I 
-can see why the community may say it is not important.
+If while reading this you spot a hole, congratulations.  There are holes which
+need fixing...
+---
+ docs/glossary.rst                         |   9 ++
+ docs/hypervisor-guide/domid-lifecycle.rst | 164 ++++++++++++++++++++++
+ docs/hypervisor-guide/index.rst           |   1 +
+ 3 files changed, 174 insertions(+)
+ create mode 100644 docs/hypervisor-guide/domid-lifecycle.rst
 
-This is not an easy one to solve because we don't exactly know all the 
-use-cases where Xen is used. We only know the public ones.
+diff --git a/docs/glossary.rst b/docs/glossary.rst
+index 8ddbdab160a1..1fd1de0f0e97 100644
+--- a/docs/glossary.rst
++++ b/docs/glossary.rst
+@@ -50,3 +50,12 @@ Glossary
+ 
+      By default it gets all devices, including all disks and network cards, so
+      is responsible for multiplexing guest I/O.
++
++   system domain
++     Abstractions within Xen that are modelled in a similar way to regular
++     :term:`domains<domain>`.  E.g. When there's no work to do, Xen schedules
++     ``DOMID_IDLE`` to put the CPU into a lower power state.
++
++     System domains have :term:`domids<domid>` and are referenced by
++     privileged software for certain control operations, but they do not run
++     guest code.
+diff --git a/docs/hypervisor-guide/domid-lifecycle.rst b/docs/hypervisor-guide/domid-lifecycle.rst
+new file mode 100644
+index 000000000000..d405a321f3c7
+--- /dev/null
++++ b/docs/hypervisor-guide/domid-lifecycle.rst
+@@ -0,0 +1,164 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Lifecycle of a domid
++====================
++
++Overview
++--------
++
++A :term:`domid` is Xen's numeric identifier for a :term:`domain`.  In any
++operational Xen system, there are one or more domains running.
++
++Domids are 16-bit integers.  Regular domids start from 0, but there are some
++special identifiers, e.g. ``DOMID_SELF``, and :term:`system domains<system
++domain>`, e.g. ``DOMID_IDLE`` starting from 0x7ff0.  Therefore, a Xen system
++can run a maximum of 32k domains concurrently.
++
++.. note::
++
++   Despite being exposed in the domid ABI, the system domains are internal to
++   Xen and do not have lifecycles like regular domains.  Therefore, they are
++   not discussed further in this document.
++
++At system boot, Xen will construct one or more domains.  Kernels and
++configuration for these domains must be provided by the bootloader, or at
++Xen's compile time for more highly integrated solutions.
++
++Correct functioning of the domain lifecycle involves ``xenstored``, and some
++privileged entity which has bound the ``VIRQ_DOM_EXC`` global event channel.
++
++.. note::
++
++   While not a strict requirement for these to be the same entity, it is
++   ``xenstored`` which typically has ``VIRQ_DOM_EXC`` bound.  This document is
++   written assuming the common case.
++
++Creation
++--------
++
++Within Xen, the ``domain_create()`` function is used to allocate and perform
++bare minimum construction of a domain.  The :term:`control domain` accesses
++this functionality via the ``DOMCTL_createdomain`` hypercall.
++
++The final action that ``domain_create()`` performs before returning
++successfully is to enter the new domain into the domlist.  This makes the
++domain "visible" within Xen, allowing the new domid to be successfully
++referenced by other hypercalls.
++
++At this point, the domain exists as far as Xen is concerned, but not usefully
++as a VM yet.  The toolstack performs further construction activities;
++allocating vCPUs, RAM, copying in the initial executable code, etc.  Domains
++are automatically created with one "pause" reference count held, meaning that
++it is not eligible for scheduling.
++
++When the toolstack has finished VM construction, it send an ``XS_INTRODUCE``
++command to ``xenstored``.  This instructs ``xenstored`` to connect to the
++guest's xenstore ring, and fire the ``@introduceDomain`` watch.  The firing of
++this watch is the signal to all other components which care that a new VM has
++appeared and is about to start running.
++
++When the ``XS_INTRODUCE`` command returns successfully, the final action the
++toolstack performs is to unpause the guest, using the ``DOMCTL_unpausedomain``
++hypercall.  This drops the "pause" reference the domain was originally created
++with, meaning that the vCPU(s) are eligible for scheduling and the domain will
++start executing its first instruction.
++
++.. note::
++
++   It is common for vCPUs other than 0 to be left in an offline state, to be
++   started by actions within the VM.
++
++Termination
++-----------
++
++The VM runs for a period of time, but eventually stops.  It can stop for a
++number of reasons, including:
++
++ * Directly at the guest kernel's request, via the ``SCHEDOP_shutdown``
++   hypercall.  The hypercall also includes the reason for the shutdown,
++   e.g. ``poweroff``, ``reboot`` or ``crash``.
++
++ * Indirectly from certain states.  E.g. executing a ``HLT`` instruction with
++   interrupts disabled is interpreted as a shutdown request as it is a common
++   code pattern for fatal error handling when no better options are available.
++
++ * Indirectly from fatal exceptions.  In some states, execution is unable to
++   continue, e.g. Triple Fault on x86.
++
++ * Directly from the device model, via the ``DMOP_remote_shutdown`` hypercall.
++   E.g. On x86, the 0xcf9 IO port is commonly used to perform platform
++   poweroff, reset or sleep transitions.
++
++ * Directly from the toolstack.  The toolstack is capable of initiating
++   cleanup directly, e.g. ``xl destroy``.  This is typically an administration
++   action of last resort to clean up a domain which malfunctioned but not
++   terminated properly.
++
++ * Directly from Xen.  Some error handling ends up using ``domain_crash()``
++   when Xen doesn't think it can safely continue running the VM.
++
++Whatever the reason for termination, Xen ends up calling ``domain_shutdown()``
++to set the shutdown reason and deschedule all vCPUs.  Xen also fires the
++``VIRQ_DOM_EXC`` event channel, which is a signal to ``xenstored``.
++
++Upon receiving ``VIRQ_DOM_EXC``, ``xenstored`` re-scans all domains using the
++``SYSCTL_getdomaininfolist`` hypercall.  If any domain has changed state from
++running to shut down, ``xenstored`` fires the ``@releaseDomain`` watch.  The
++firing of this watch is the signal to all other components which care that a
++VM has stopped.
++
++.. note::
++
++   Xen does not treat reboot differently to poweroff; both statuses are
++   forwarded to the toolstack.  It is up to the toolstack to restart the VM,
++   which is typically done by constructing a new domain.
++
++.. note::
++
++   Some shutdowns may not result in the cleanup of a domain.  ``suspend`` for
++   example can be used for snapshotting, and the VM resumes execution in the
++   same domain/domid.  Therefore, a domain can cycle several times between
++   running and "shut down" before moving into the destruction phase.
++
++Destruction
++-----------
++
++The domain object in Xen is reference counted, and survives until all
++references are dropped.
++
++The ``@releaseDomain`` watch is to inform all entities that hold a reference
++on the domain to clean up.  This may include:
++
++ * Paravirtual driver backends having a grant map of the shared ring with the
++   frontend.
++ * A device model with a map of the IOREQ page(s).
++
++The toolstack also has work to do in response to ``@releaseDomain``.  It must
++issue the ``DOMCTL_destroydomain`` hypercall.  This hypercall can take minutes
++of wall-clock time to complete for large domains as, amongst other things, it
++is freeing the domain's RAM back to the system.
++
++The actions triggered by the ``@releaseDomain`` watch are asynchronous.  There
++is no guarantee as to the order in which actions start, or which action is the
++final one to complete.  However, the toolstack can achieve some ordering by
++delaying the ``DOMCTL_destroydomain`` hypercall if necessary.
++
++Freeing
++-------
++
++When the final reference on the domain object is dropped, Xen will remove the
++domain from the domlist.  This means the domid is no longer visible in Xen,
++and no longer able to be referenced by other hypercalls.
++
++Xen then schedules the object for deletion at some point after any concurrent
++hypercalls referencing the domain have completed.
++
++When the object is finally cleaned up, Xen fires the ``VIRQ_DOM_EXC`` event
++channel again, causing ``xenstored`` to rescan an notice that the domain has
++ceased to exist.  It fires the ``@releaseDomain`` watch a second time to
++signal to any components which care that the domain has gone away.
++
++E.g. The second ``@releaseDomain`` is commonly used by paravirtual driver
++backends to shut themselves down.
++
++At this point, the toolstack can reuse the domid for a new domain.
+diff --git a/docs/hypervisor-guide/index.rst b/docs/hypervisor-guide/index.rst
+index e4393b06975b..af88bcef8313 100644
+--- a/docs/hypervisor-guide/index.rst
++++ b/docs/hypervisor-guide/index.rst
+@@ -6,6 +6,7 @@ Hypervisor documentation
+ .. toctree::
+    :maxdepth: 2
+ 
++   domid-lifecycle
+    code-coverage
+ 
+    x86/index
 
-Cheers,
-
+base-commit: dc9d9aa62ddeb14abd5672690d30789829f58f7e
+prerequisite-patch-id: 832bdc9a23500d426b4fe11237ae7f6614f2369c
 -- 
-Julien Grall
+2.30.2
+
 
