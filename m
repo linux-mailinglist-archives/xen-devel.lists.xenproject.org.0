@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 401E17CA82C
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 14:39:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617511.960148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A5D27CA84B
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 14:45:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617518.960158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsMsr-0002Gn-Nf; Mon, 16 Oct 2023 12:39:45 +0000
+	id 1qsMxh-00054G-9I; Mon, 16 Oct 2023 12:44:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617511.960148; Mon, 16 Oct 2023 12:39:45 +0000
+Received: by outflank-mailman (output) from mailman id 617518.960158; Mon, 16 Oct 2023 12:44:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsMsr-0002DR-KL; Mon, 16 Oct 2023 12:39:45 +0000
-Received: by outflank-mailman (input) for mailman id 617511;
- Mon, 16 Oct 2023 12:39:44 +0000
+	id 1qsMxh-00051k-6D; Mon, 16 Oct 2023 12:44:45 +0000
+Received: by outflank-mailman (input) for mailman id 617518;
+ Mon, 16 Oct 2023 12:44:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4t3W=F6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qsMsq-0001w4-7a
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 12:39:44 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 141992d8-6c21-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 14:39:42 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8A9E31FEC3;
- Mon, 16 Oct 2023 12:39:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 10C4A133B7;
- Mon, 16 Oct 2023 12:39:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id X2unAg0vLWUOIwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 12:39:41 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/fZZ=F6=citrix.com=prvs=646b5f8ff=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qsMxf-00051a-6B
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 12:44:43 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c4633894-6c21-11ee-9b0e-b553b5be7939;
+ Mon, 16 Oct 2023 14:44:40 +0200 (CEST)
+Received: from mail-bn8nam12lp2168.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 Oct 2023 08:44:36 -0400
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com (2603:10b6:303:123::8)
+ by BL1PR03MB6152.namprd03.prod.outlook.com (2603:10b6:208:319::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
+ 2023 12:44:32 +0000
+Received: from MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::831e:28d1:34dc:f518]) by MW4PR03MB6428.namprd03.prod.outlook.com
+ ([fe80::831e:28d1:34dc:f518%5]) with mapi id 15.20.6863.032; Mon, 16 Oct 2023
+ 12:44:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,287 +49,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 141992d8-6c21-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1697459981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8SktsBRaT0WfP83H70+6Aqz0kX9lsT33YwrE6d/KceQ=;
-	b=N4wpk7aAyeNFzfnqlFZnD5T5ki5WxOFAsKYEGnFWLfbXb7gcmbPvuEdzYPhBtjgKyaOcO5
-	1wx1NUfjNcvNwxJTVloX5rxoNuWoj08b3ECu2ssEtCLsupwvmttATlTiKHNHOehFwOcfZT
-	CLgJQ5hCzCledWX+XbhY3+pyDhP+hfI=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux-foundation.org,
-	kvm@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <akaher@vmware.com>,
-	Alexey Makhalov <amakhalov@vmware.com>,
-	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH v2 1/4] x86/paravirt: move some functions and defines to alternative
-Date: Mon, 16 Oct 2023 14:39:30 +0200
-Message-Id: <20231016123933.17284-2-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20231016123933.17284-1-jgross@suse.com>
-References: <20231016123933.17284-1-jgross@suse.com>
+X-Inumbo-ID: c4633894-6c21-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1697460280;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=6XraHbviahjomvp/YvQCj3qJrnKbz6q2Bx5IgdEk+G0=;
+  b=LHJMceZb1UMuCn2zc2Lo9hocW4eKTO6l8za5rviG/ghKS4jZuwp2Ow/m
+   Xw3TRQc2oYgMLK81L19qXC2Hp0OfQPDYRuH2TqKeqQMXSeqQKbrIf/9XT
+   inTr4cgsc76l/zdnGa6w8kUlWWVpy0PdZg+HJvWsW8AFqc6unwira5qdv
+   0=;
+X-CSE-ConnectionGUID: Tlqp4NIVT6Wdgm0PAb7tSQ==
+X-CSE-MsgGUID: oQiAVn+mTfmXvtC4YQCqiQ==
+X-IronPort-RemoteIP: 104.47.55.168
+X-IronPort-MID: 125567345
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:lDT4Qa3WBt8Z7EAZR/bD5Qlwkn2cJEfYwER7XKvMYLTBsI5bp2QAz
+ zAdXmzXbq3cZGGnfNh+PY/i9E1SvJKGmtAyGQI/pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb83uDgNyo4GlD5wRnO6gS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfPWVX7
+ aA+CQ4xMC+PiOfu+JuxFfVXv5F2RCXrFNt3VnBI6xj8VKxja7aTBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvi6KklwZPLvFabI5fvSQQspYhACAr
+ 3/u9GXlGBAKcteYzFJp91r13LKSw3ygBN96+LuQ8cdrqWOVhWkvBhgmS0eQ/ciAoVe/YocKQ
+ 6AT0m90xUQoz2SpRNTgWxyzoFafowURHdFXFoUSyAyL0LuS3A+fCUANVDsHY9sj3Oc0WDgr2
+ 1mhj97vQzt1v9W9UmmB/72ZqTezPyk9LmIYYyIACwwf7LHLv4Ubnh/JCNF5H8adntDzXD393
+ T2OhCw/nKkIy94G0b2h+lLKiC7qoYLGJjPZ/S3SV2Ohqwl/NIisYtXy7UCBtKgQaoGEUlOGo
+ X4I3dCE6/wDBo2MkyrLR/gRGLau5LCONzi0bUNTIqTNPg+FoxaLFb28KhknTKu1Gq7ooQPUX
+ XI=
+IronPort-HdrOrdr: A9a23:yUGHXKt+quwYFvamkPlAZsXI7skDjNV00zEX/kB9WHVpm6yj+v
+ xG+85rsSMc6QxhPU3I/OrrBEDuexzhHPJOj7X5Xo3SPjUO2lHJEGgK1+KLrwEIcxeUygc379
+ YCT0ERMrzN5VgRt7eG3OG7eexQvOVuJsqT9JjjJ3QGd3AVV0l5hT0JbTpyiidNNXJ77ZxSLu
+ v72uN34wCOVF4wdcqBCnwMT4H41qf2fMKPW29+O/Y/gjP+9Q+V1A==
+X-Talos-CUID: 9a23:jiflxW1LcRylo6E6v0UXCLxfJsQ8aiH77UnsfXC0BmMxcJSfFkOrwfYx
+X-Talos-MUID: =?us-ascii?q?9a23=3AKVmv6g/aBsDn4+yrufoq+xyQf8BR4o2QDgMIrZs?=
+ =?us-ascii?q?Di9eYHnBBAhyEjQ3iFw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.03,229,1694750400"; 
+   d="scan'208";a="125567345"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eWtallO9Et7Jaycphxzk5WPsfV2zOVKryZ8gxvNonCfh4+NaVIqwt9ODeliQc6j80iuz/cUJDjphefIRx99nKT0sK1MA+JLoTmLR9mAT957S4gKdws2orV03k6I6WdXkVrQS3OPan6bpaV4Anjl+1HEBG0b9RoLm5I4ay9bysw9hkB0dKkyoWjaKSIN7+jUZ25LfKn4KhSCAFAXt1DP1ZCygr1RN7wfowyh+QfdojN3UgMmpnQVgTRCwdolHmNP9UXEmhsuuPguWgSov7QpofvAVNtGgjNblWosGp/m7fRhvqObVo6uvMvgmeZmR77WXDYQk5fnj73GcjKi75zNM8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LzKPBiwIo3gncxI6c/W5XVQRYmsaYfOt39nGJp8DiAY=;
+ b=Oihl6JbSQ60PplmcQ1QR4dnhJYFmdUc9mWQc/vFRboIQWi0a6LsrnIyet+5m5xP8qh425y+zhNvEEzebntsP9thLUWk9pccgcHXUcTvy1crL3zE42PjGGlyzFWJBeVPOqhJZSq4pSnrAlwdCq4mDguylUnxVyCeUX1DQCVAQI7WJBKo1DpPYV/SmIcLwPnlT6SmVjZzWDRwDIVjEhNxvw9Wsh3TeM6TbSIB9iuXmfPG/45+WQ+7KiSaPjR0wlX3l1/E5s+0lCRoRCKJt/+d4vO44aBcUFVmwCXZiyXBZy0+sWQZTlm3hpjDy9wFvntz+B2NAX3ih/FDu5nkgOReV3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LzKPBiwIo3gncxI6c/W5XVQRYmsaYfOt39nGJp8DiAY=;
+ b=Xjchx625Vke4T+bVsXXy+IkgRLepBjqHyTJ49CUU7GuBCpgB3tyu7z5nhYVb9hQ96YkYszMiCyfpcPRy0zxawRd8x8JLD8untL90SDuKfPh4k8PzIXvaBXu4POpqiCQQHvCTyyC5AuQgTCe0oSDcHOSxq+H3MpSBbKOKzTbvw2M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 16 Oct 2023 14:44:25 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Henry Wang <Henry.Wang@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/2] domain: fix misaligned unmap address in
+ {,un}map_guest_area()
+Message-ID: <ZS0wKWr8yjwwdpk8@macbook>
+References: <20231006130059.97700-1-roger.pau@citrix.com>
+ <20231006130059.97700-2-roger.pau@citrix.com>
+ <6442445a-458d-3ccd-057c-f8d2ac208232@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <6442445a-458d-3ccd-057c-f8d2ac208232@suse.com>
+X-ClientProxiedBy: LO3P265CA0033.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:387::16) To MW4PR03MB6428.namprd03.prod.outlook.com
+ (2603:10b6:303:123::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -0.09
-X-Spamd-Result: default: False [-0.09 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 R_MISSING_CHARSET(2.50)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 BROKEN_CONTENT_TYPE(1.50)[];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.99)[-0.990];
-	 NEURAL_SPAM_LONG(3.00)[1.000];
-	 RCPT_COUNT_TWELVE(0.00)[19];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6428:EE_|BL1PR03MB6152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3589a695-db67-4b53-62f2-08dbce45a529
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	IEu3lKEGjNwQto79XO4TmSSC0z6BZLwTy9KHblG4ogHSU47enL/xAAk08g2eLkw75G2yCVwBjoMMaTyUR52X+eIaCeaqoOFw5mpoaFrg++UYEF+KKWe2B88krLUO6W8eJJVdp+pWTwJZKp7NYc0BEV7CrKrxz7r61u/OzjsiJ53ekZv1xRg/AIOPGP7QwYE5rFquSxlfeoYdpxKjbYsR1GtcwYrPXMgZW+pyDDB5PuAM25pE0hZ01Jx/9ausiy4EOlKawT5R40H7MomT3IY5Udb6mCQibaeZZNvMsQLEqqh3UxVOdtsvgqKaln1P/Dh8puUeeogpXeni4daXdMqCIt4Y5zZoAaHrmZ1klKebJY6BnkOEtMKBrwmRfqX5rS4FjHp+2CNgv6tmvgWkv2PFzdnKR46xM8lnGh7IAFz2v4qsiKXJpPBEgqlNPfESpq8rD6+wmef76HUhkrEiL+k/rYKbpR8zhtm0M+nSo7pQq/3UcVbhL/dJeKlKilA9mqVlKEuqaEKTIO8h2tWEg43okXhWgbYZswvShlGscofzRQdmnKLF88sm8MP4vbkphMtt
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6428.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(136003)(346002)(376002)(366004)(39860400002)(396003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(6916009)(316002)(66946007)(66476007)(54906003)(66556008)(26005)(85182001)(83380400001)(9686003)(6512007)(82960400001)(38100700002)(86362001)(478600001)(33716001)(6486002)(6666004)(6506007)(41300700001)(5660300002)(2906002)(8676002)(4326008)(8936002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TlFrZ2RPK1RpTTVIWTdiLzJTbkc1bDFhOXJPc0dJc1A5UVU2Q3RiUHUvWC9Y?=
+ =?utf-8?B?L3NGSzFUMmd3Y1JIbzJDUStjUWV0SUZNZ3ZmUEJSTHpuNnVYOVFoTGlEUXN1?=
+ =?utf-8?B?aThsYWJWWTJpYmxGc2w3aUtIeHQySUdveS9nUTB5OG1maTNtT0FmRlYwS3lG?=
+ =?utf-8?B?WGltb2ZPRE1Hb2lFWE41OUd3Wkdzdk8vcWYzUzhDSDJPRFFRdk5UR3d6MkZK?=
+ =?utf-8?B?ckNkUUpSY3ljQUhGNmFQdGxSbU92NndSdDR5RHhGaXJsSnV5ZVlHS3k1eGFt?=
+ =?utf-8?B?T3Z1bHUyNDlnVUJjZk5kaEFpQk1QUzNpWTZ6Vm96c3NwTmJyS3FyZXgzcE5Z?=
+ =?utf-8?B?aHlqTHRsNmlxYmRSRlNpNUZtUGtnT1FzWFpiRE9xcEFVWXZKZlo2bWpxWGx6?=
+ =?utf-8?B?eVZFaDBicjNSUEZXMUJvNlRoSGN5bVNZNEJwWjZ5TlNDd0lxaUs5M0pPTkJG?=
+ =?utf-8?B?WDA3WE9pQ1plSWVGU0kvOTNTSUNCUlJpblFTNW9MMnN2UGJ1Tm0yb1JBdTQ0?=
+ =?utf-8?B?b0ZOWENlSW1KZW1PVSs5c2RkRTY4WkhZckVUaENYRUxCaWxHek5CUXpjN2Ri?=
+ =?utf-8?B?a2ZzNkg3TUh4WTJLeEZ2bjgwcHpoMUszR0FIQzJUVEZGa2t2aTJTdzNFN05h?=
+ =?utf-8?B?bGdWMVJGanVpNUFYcGVhU2x1b0MxZnlnNlhYemxTdDJpUDJ3eWZPSHZQZ1p2?=
+ =?utf-8?B?RkpVdkUrZFlSUjJDUUVtU2JQZ3p6OFVaazhNQlRUN1k2RlM2N1lrZzlvZnVi?=
+ =?utf-8?B?RFgrQkwzZ1J5cTUvemhsLzBmVFRpWkQvRGFNRU5LSnhZbzV1SWNnTURpNlpG?=
+ =?utf-8?B?dXRqU243Zm1UQVJJVjRaeDA1ZHJaR1cwTXdEaUplZ2psY1JJMHMzdjFvV2Vq?=
+ =?utf-8?B?WWkvT3NOTHdEVW5vdGdPd0oxandYZWhtMzQ4RVdoRHN5ZlAycW9UTUJlZ2Fj?=
+ =?utf-8?B?eE81SHFTUXR1eUtxQi9XbTlDNHcvSnJWN0Nyc1RUSXpsWFgwUnk2UHpFazRW?=
+ =?utf-8?B?aFphNkNKQTN5OW91WTRlVDJKNFhJR1RrSGxJa1Y0T2FGVFpFM2xJM2MwWnFR?=
+ =?utf-8?B?V1NiVVIzbk1IUXpaSVJONGJrdDFDd28yb24raVhaZG9GcndiV2Z5SVRTYURh?=
+ =?utf-8?B?QUxsN0tKSEtxVStLa3M1MzNCT3pLaHZmR3BDb3g1b0RZSElNOWlPZkVmWlBK?=
+ =?utf-8?B?bVozdjM4MnhkVWdWSFRnZXpUWGlpdG9XV1BJenVwMS9FMWxnU1l0dFZmS3h2?=
+ =?utf-8?B?SVJSYmk1WnVtaWNHVTIxOFF2L3NlUC8vQlNkSkd5Qm9URmM5SnBENlJJaUd6?=
+ =?utf-8?B?NnZCM1NpbEt4Y0RQTDRqYkhtQi85U29iTVJ1K01IMmprWHlvUW1HNFNKQTJT?=
+ =?utf-8?B?TzJvTFlFaWtmbHVpemhlK0FkMDNneU1reXZqRmdUZko4anBKUVpUdm5nSHVR?=
+ =?utf-8?B?NHIvcVpVT1hXZHdQdmV1R2NLWE1PMUFCcFVLYWtCR3BDZFMvZTN6b2RieTVO?=
+ =?utf-8?B?ZnYveUpjelpqbXBGcVIrdm9qTEtvaDY4UktOWGhwTGExSXl1UW1zc1lWVnFz?=
+ =?utf-8?B?eWg5VjEvaG0wZStZNHB2NVdsNHliTnVUOVJ4T2JDc1FvWFlzSElNLzljSWl6?=
+ =?utf-8?B?YThmOVArVytZTUpWL1JpRzg1OVlBOW0rM3FYUERMNm4xMGRYNjREUXNYdXZD?=
+ =?utf-8?B?ZHEybXVDdXg4ZWo1ekJPL1VjUVMrQkNJTGQyS0w5d3hYYVZHR3gzWUEzNjVN?=
+ =?utf-8?B?RWt3YVg2VWlVTmcyOTJEcWlLa3M0ZHNDTXVqbHRVblVaNkZuZjhxcDNaZjVk?=
+ =?utf-8?B?NWx2ZXBiRklpc0hLaGlTamJuTWJIVkxheFVGRGJob3ZselpDUVRkdUVCOGMz?=
+ =?utf-8?B?TDJvcEI2Y1ZvcG9Pd3llaEIwK3o1Q0s3cTBKK1VlTHZ0RHBrUmhkQVJBdHhN?=
+ =?utf-8?B?ZGlBbCtxNkJ0Wml4c1hObDdncXlzOURSaDNLcDlGendHNmxobStwZThuUWlo?=
+ =?utf-8?B?Lys2WGlKQTNMdGhKYmFxU0xsQVhmR3VRc1gxVTNmdzRSVVpITEthSDJHdkdi?=
+ =?utf-8?B?dTI4VlQ4VFBtaEZCaFZvdFhoZDlIWkdabm5RWGI2ZUVSRkM1cmxoN1ZaWFlu?=
+ =?utf-8?Q?5WEqBJ1qZ4ub3qjO8uJCfBoNQ?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ahThfwDEL3eRMgl2BGD/tB5CV+D9lnqVbPb5JfeMUlq9i0pAJ0cVsoq8ZDoeFI6sliWZYlprnAMtJ3O6y/pG06TWKTOB3FJLNvP+QyjWQaHW54M9xqKrnYxahpGVK7iaAn8UhFkcNNI7JfFISClI86idT6UYu317wGHOW99/j3OkPbvUNzt/4D4APH6sxul9mMFS+rlBXW6MihzjZf37mzp4r3T9rdyB5CkXvh5Rn2mZWtPhxuAJO48YyapddrAg6462VqRnk2a9hGmYHuzt/mGMUs6xTLKvh9Kw+65GLHYkYZLE7egX8DGlDCqmVw9H6M5aV7u57U9krTNBzZ0saC3tafs2f764jl29wwddT0Al4617R51iGAa1Viv4IykL47Pd7S0OHgqDO/axvsdqlBZx4r6kU7XEWdWz8XP2WyUdHj0Np8HWIsn61dZsi9rNo2IPc6P+UaKoYcJiL4d4aQ7v1wooaeR/TObtGO0k/Hnalc31JTibroK3nG21mHC5IpsRxywXab50u9YqKnxbydphQmHN7BCjJWeI05gkB3nNTXkTj1gNPELugYuFxiIaZioHVRVNDF/ET1jXw7N+r44rE/sIl/y/g3mImskavuxrVBRkI/IE0KjQIa5yy2EDxBnmhAzgBfDo8FrkgM9bUPQ/B9+Td6NbmGY2Tn5Z0jkxnWhhX6Yt5Om/nmACdAYT2nCilB8i+5/qD0RFd3jH+AOWKFzinlqkIzJDG7IDpdmnz6Ek9MghfcmL9RcIzwgvSQ4RE8hEHp+BmkhR7BeQG2ddhCKxklwtXMhSsBFWZAJxeG4FeNR4Qr1OMDkTgv3OJcqoH970Ik6RkxH4Rl5nmqsrfPgTTEg6rBVLMtM64uUFZu2a3s9hzOkSkioqA6Jx
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3589a695-db67-4b53-62f2-08dbce45a529
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6428.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 12:44:32.4371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R3X+HYi/plMb6YFT0Z2WJIXI4gQErbiX+1e6dW52qM7McKj5obSftk+XsD7Pq0um0kRrbNJUALCfzoz9pY1heg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6152
 
-As a preparation for replacing paravirt patching completely by
-alternative patching, move some backend functions and #defines to
-alternative code and header.
+On Mon, Oct 16, 2023 at 02:30:12PM +0200, Jan Beulich wrote:
+> On 06.10.2023 15:00, Roger Pau Monne wrote:> --- a/xen/common/domain.c
+> > +++ b/xen/common/domain.c
+> > @@ -1601,7 +1601,7 @@ int map_guest_area(struct vcpu *v, paddr_t gaddr, unsigned int size,
+> >   unmap:
+> >      if ( pg )
+> >      {
+> > -        unmap_domain_page_global(map);
+> > +        unmap_domain_page_global((void *)((unsigned long)map & PAGE_MASK));
+> >          put_page_and_type(pg);
+> >      }
+> >  
+> > @@ -1634,7 +1634,7 @@ void unmap_guest_area(struct vcpu *v, struct guest_area *area)
+> >  
+> >      if ( pg )
+> >      {
+> > -        unmap_domain_page_global(map);
+> > +        unmap_domain_page_global((void *)((unsigned long)map & PAGE_MASK));
+> >          put_page_and_type(pg);
+> >      }
+> >  }
+> 
+> On v1 in a reply to Julien you talk of "limiting misuse" by not relaxing
+> expecations in Arm's backing code, but I wonder what kind of misuse you
+> think about. Aiui there's no strong need to insist on page aligned input,
+> and relaxing things there may simplify code elsewhere as well.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- arch/x86/include/asm/alternative.h        | 16 ++++++++++++
- arch/x86/include/asm/paravirt.h           | 12 ---------
- arch/x86/include/asm/paravirt_types.h     |  4 +--
- arch/x86/include/asm/qspinlock_paravirt.h |  4 +--
- arch/x86/kernel/alternative.c             | 10 ++++++++
- arch/x86/kernel/kvm.c                     |  4 +--
- arch/x86/kernel/paravirt.c                | 30 +++++++----------------
- arch/x86/xen/irq.c                        |  2 +-
- 8 files changed, 41 insertions(+), 41 deletions(-)
+destroy_xen_mappings() both on Arm and x86 will trigger asserts if the
+passed address is not page aligned.  I do think it makes sense to call
+unmap_domain_page_global() with page-aligned addresses, as that could
+help detect bogus callers or corrupted data passed as input.
 
-diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/alternative.h
-index 9c4da699e11a..67e50bd40bb8 100644
---- a/arch/x86/include/asm/alternative.h
-+++ b/arch/x86/include/asm/alternative.h
-@@ -330,6 +330,22 @@ static inline int alternatives_text_reserved(void *start, void *end)
-  */
- #define ASM_NO_INPUT_CLOBBER(clbr...) "i" (0) : clbr
- 
-+/* Macro for creating assembler functions avoiding any C magic. */
-+#define DEFINE_ASM_FUNC(func, instr, sec)		\
-+	asm (".pushsection " #sec ", \"ax\"\n"		\
-+	     ".global " #func "\n\t"			\
-+	     ".type " #func ", @function\n\t"		\
-+	     ASM_FUNC_ALIGN "\n"			\
-+	     #func ":\n\t"				\
-+	     ASM_ENDBR					\
-+	     instr "\n\t"				\
-+	     ASM_RET					\
-+	     ".size " #func ", . - " #func "\n\t"	\
-+	     ".popsection")
-+
-+void x86_BUG(void);
-+void x86_nop(void);
-+
- #else /* __ASSEMBLY__ */
- 
- #ifdef CONFIG_SMP
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 6c8ff12140ae..ed5c7342f2ef 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -726,18 +726,6 @@ static __always_inline unsigned long arch_local_irq_save(void)
- #undef PVOP_VCALL4
- #undef PVOP_CALL4
- 
--#define DEFINE_PARAVIRT_ASM(func, instr, sec)		\
--	asm (".pushsection " #sec ", \"ax\"\n"		\
--	     ".global " #func "\n\t"			\
--	     ".type " #func ", @function\n\t"		\
--	     ASM_FUNC_ALIGN "\n"			\
--	     #func ":\n\t"				\
--	     ASM_ENDBR					\
--	     instr "\n\t"				\
--	     ASM_RET					\
--	     ".size " #func ", . - " #func "\n\t"	\
--	     ".popsection")
--
- extern void default_banner(void);
- void native_pv_lock_init(void) __init;
- 
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 772d03487520..9f84dc074f88 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -542,8 +542,6 @@ int paravirt_disable_iospace(void);
- 	__PVOP_VCALL(op, PVOP_CALL_ARG1(arg1), PVOP_CALL_ARG2(arg2),	\
- 		     PVOP_CALL_ARG3(arg3), PVOP_CALL_ARG4(arg4))
- 
--void _paravirt_nop(void);
--void paravirt_BUG(void);
- unsigned long paravirt_ret0(void);
- #ifdef CONFIG_PARAVIRT_XXL
- u64 _paravirt_ident_64(u64);
-@@ -553,7 +551,7 @@ void pv_native_irq_enable(void);
- unsigned long pv_native_read_cr2(void);
- #endif
- 
--#define paravirt_nop	((void *)_paravirt_nop)
-+#define paravirt_nop	((void *)x86_nop)
- 
- extern struct paravirt_patch_site __parainstructions[],
- 	__parainstructions_end[];
-diff --git a/arch/x86/include/asm/qspinlock_paravirt.h b/arch/x86/include/asm/qspinlock_paravirt.h
-index 85b6e3609cb9..ef9697f20129 100644
---- a/arch/x86/include/asm/qspinlock_paravirt.h
-+++ b/arch/x86/include/asm/qspinlock_paravirt.h
-@@ -56,8 +56,8 @@ __PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock_slowpath, ".spinlock.text");
- 	"pop    %rdx\n\t"						\
- 	FRAME_END
- 
--DEFINE_PARAVIRT_ASM(__raw_callee_save___pv_queued_spin_unlock,
--		    PV_UNLOCK_ASM, .spinlock.text);
-+DEFINE_ASM_FUNC(__raw_callee_save___pv_queued_spin_unlock,
-+		PV_UNLOCK_ASM, .spinlock.text);
- 
- #else /* CONFIG_64BIT */
- 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 73be3931e4f0..1c8dd8e05f3f 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -385,6 +385,16 @@ apply_relocation(u8 *buf, size_t len, u8 *dest, u8 *src, size_t src_len)
- 	}
- }
- 
-+/* Low-level backend functions usable from alternative code replacements. */
-+DEFINE_ASM_FUNC(x86_nop, "", .entry.text);
-+EXPORT_SYMBOL_GPL(x86_nop);
-+
-+noinstr void x86_BUG(void)
-+{
-+	BUG();
-+}
-+EXPORT_SYMBOL_GPL(x86_BUG);
-+
- /*
-  * Replace instructions with better alternatives for this CPU type. This runs
-  * before SMP is initialized to avoid SMP problems with self modifying code.
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index b8ab9ee5896c..4ca59dccc15a 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -803,8 +803,8 @@ extern bool __raw_callee_save___kvm_vcpu_is_preempted(long);
-  "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "+steal_time(%rax)\n\t" \
-  "setne  %al\n\t"
- 
--DEFINE_PARAVIRT_ASM(__raw_callee_save___kvm_vcpu_is_preempted,
--		    PV_VCPU_PREEMPTED_ASM, .text);
-+DEFINE_ASM_FUNC(__raw_callee_save___kvm_vcpu_is_preempted,
-+		PV_VCPU_PREEMPTED_ASM, .text);
- #endif
- 
- static void __init kvm_guest_init(void)
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 97f1436c1a20..32792b033de2 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -34,14 +34,8 @@
- #include <asm/io_bitmap.h>
- #include <asm/gsseg.h>
- 
--/*
-- * nop stub, which must not clobber anything *including the stack* to
-- * avoid confusing the entry prologues.
-- */
--DEFINE_PARAVIRT_ASM(_paravirt_nop, "", .entry.text);
--
- /* stub always returning 0. */
--DEFINE_PARAVIRT_ASM(paravirt_ret0, "xor %eax,%eax", .entry.text);
-+DEFINE_ASM_FUNC(paravirt_ret0, "xor %eax,%eax", .entry.text);
- 
- void __init default_banner(void)
- {
-@@ -49,12 +43,6 @@ void __init default_banner(void)
- 	       pv_info.name);
- }
- 
--/* Undefined instruction for dealing with missing ops pointers. */
--noinstr void paravirt_BUG(void)
--{
--	BUG();
--}
--
- static unsigned paravirt_patch_call(void *insn_buff, const void *target,
- 				    unsigned long addr, unsigned len)
- {
-@@ -64,11 +52,11 @@ static unsigned paravirt_patch_call(void *insn_buff, const void *target,
- }
- 
- #ifdef CONFIG_PARAVIRT_XXL
--DEFINE_PARAVIRT_ASM(_paravirt_ident_64, "mov %rdi, %rax", .text);
--DEFINE_PARAVIRT_ASM(pv_native_save_fl, "pushf; pop %rax", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_irq_disable, "cli", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_irq_enable, "sti", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
-+DEFINE_ASM_FUNC(_paravirt_ident_64, "mov %rdi, %rax", .text);
-+DEFINE_ASM_FUNC(pv_native_save_fl, "pushf; pop %rax", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_irq_disable, "cli", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_irq_enable, "sti", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
- #endif
- 
- DEFINE_STATIC_KEY_TRUE(virt_spin_lock_key);
-@@ -96,9 +84,9 @@ unsigned int paravirt_patch(u8 type, void *insn_buff, unsigned long addr,
- 	unsigned ret;
- 
- 	if (opfunc == NULL)
--		/* If there's no function, patch it with paravirt_BUG() */
--		ret = paravirt_patch_call(insn_buff, paravirt_BUG, addr, len);
--	else if (opfunc == _paravirt_nop)
-+		/* If there's no function, patch it with x86_BUG() */
-+		ret = paravirt_patch_call(insn_buff, x86_BUG, addr, len);
-+	else if (opfunc == x86_nop)
- 		ret = 0;
- 	else
- 		/* Otherwise call the function. */
-diff --git a/arch/x86/xen/irq.c b/arch/x86/xen/irq.c
-index 6092fea7d651..5d132f5a5d7d 100644
---- a/arch/x86/xen/irq.c
-+++ b/arch/x86/xen/irq.c
-@@ -45,7 +45,7 @@ static const typeof(pv_ops) xen_irq_ops __initconst = {
- 		/* Initial interrupt flag handling only called while interrupts off. */
- 		.save_fl = __PV_IS_CALLEE_SAVE(paravirt_ret0),
- 		.irq_disable = __PV_IS_CALLEE_SAVE(paravirt_nop),
--		.irq_enable = __PV_IS_CALLEE_SAVE(paravirt_BUG),
-+		.irq_enable = __PV_IS_CALLEE_SAVE(x86_BUG),
- 
- 		.safe_halt = xen_safe_halt,
- 		.halt = xen_halt,
--- 
-2.35.3
+IMO an assert for page aligned input address should be placed at
+vunmap() in order to not get differing expectations on input address
+being page aligned or not whether destroy_xen_mappings() or
+map_pages_to_xen() is used.  map_pages_to_xen() doesn't require
+page-aligned virtual addresses as input.
 
+Roger.
 
