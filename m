@@ -2,29 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C607CAF15
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 18:25:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617869.960938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87BB97CAF3E
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 18:31:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617874.960947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsQOr-0008QY-G9; Mon, 16 Oct 2023 16:25:01 +0000
+	id 1qsQU9-000440-26; Mon, 16 Oct 2023 16:30:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617869.960938; Mon, 16 Oct 2023 16:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 617874.960947; Mon, 16 Oct 2023 16:30:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsQOr-0008Md-CR; Mon, 16 Oct 2023 16:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 617869;
- Mon, 16 Oct 2023 16:24:59 +0000
+	id 1qsQU8-00041H-Vj; Mon, 16 Oct 2023 16:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 617874;
+ Mon, 16 Oct 2023 16:30:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fDQ6=F6=citrix.com=prvs=646b7f3c5=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qsQOp-0008I7-A6
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 16:24:59 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a096ab6-6c40-11ee-98d4-6d05b1d4d9a1;
- Mon, 16 Oct 2023 18:24:57 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BBjo=F6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qsQU8-00041B-78
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 16:30:28 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4ffd316a-6c41-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 18:30:26 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM8PR04MB7363.eurprd04.prod.outlook.com (2603:10a6:20b:1c7::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
+ 2023 16:30:24 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
+ 16:30:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,296 +47,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a096ab6-6c40-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1697473497;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=E8wbjDHabY5D/w/rdgUdQWa9yTs1C8lznXVUosJwlwA=;
-  b=JdhFWE/AVVCPN77v3YbLAyxPXR4m3C17Kn9tTDbcUA9mgTtfbZPVjmcQ
-   RdAGIowQLT2t5GmCCeKOsrUXm7ElBNI6LInS8Lfw9oRt96wOfKVdZeE+p
-   JmZWJ1fWTHqUgTbZ6l2BtZUVNZXqnp4vxFJvCtod3T7nACl2oSIYxWqNR
-   o=;
-X-CSE-ConnectionGUID: yzlbLRSHSoK8GKn78rkUIQ==
-X-CSE-MsgGUID: kaHAD0lkQNW0mX7KsF/kmA==
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 126162428
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:H1YPRK06Eqp0XnEYC/bD5R5xkn2cJEfYwER7XKvMYLTBsI5bpzAGn
- DYaWDuObPiOYWvyLdl3aorn90IO7ZPQz9ViQQRvpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8teTb83uDgNyo4GlD5wRnO6gS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfEHNK/
- 9giExA2aTPTqMGwn+KhSdRNv5F2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGc+KkuYC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTH5sMwBzE/
- DKuE2LRARg6HfDHzTm81E30g9+QvjjVH4EXPejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHslgUHR9NaHuk+6QeM4qnZ+QCUAi4DVDEpQMMinN87Q3otz
- FDht9H0AT1itpWFRHTb8a2bxRuQEyUIKW4JZQcfUBAIpdLkpekbjB3VSc14OLWoldCzEjb1q
- xiqoS4klvMshMgE/6yh+BbMhDfEm3TSZldrvEONBDvjt14oItH9D2C11bTFxedSKIy9dGKhh
- 38ny+e96r9eF5KwtRXYFY3hA4qVC+a53Cz02AA+QMV7qGz8oxZPbqgKvmsjeBkB3tIsPG+xO
- RCN42u98bcJZBOXgblLj5Vd4ijA5ZDnEMzsUPecRNdHaZgZmOSvp3o2OxD4M4wAiiERfUAD1
- XSzK5zE4Y4yU/gP8dZPb751PUUX7i4/33jPYpvw0g6q17GTDFbMF+ZaawrTM7hpvPzbyOkwz
- zq4H5LRoyizrcWkOnWHmWLtBQxiwYcH6WDe9JUMK7/rzvtOE2A9Ef7BqY4cl3het/0NzI/gp
- yjtMnK0PXKj3RUr3y3WMCE8AF4uNL4jxU8G0dsEZw3ygSl6Ot/zsc/ytfIfJNEayQCq9tYsJ
- 9FtRilKKq0npujvk9jFUaTAkQ==
-IronPort-HdrOrdr: A9a23:2XXDa68c8gXw9j8g10Vuk+C9I+orL9Y04lQ7vn2ZKCYlEfBw8v
- rFoB1173PJYVoqOE3I++rgBEDwex7hHPdOiOF7AV7IZmfbUQWTQ71f0Q==
-X-Talos-CUID: 9a23:8LE142GHlV/FUEUXqmJ25koePvoeUkba7yf/AEnnWXxqdZysHAo=
-X-Talos-MUID: 9a23:78BYJgo1c+JNfjfV82AezzJrFO5Eu6CtMWYyyZA25OqfG2tzPh7I2Q==
-X-IronPort-AV: E=Sophos;i="6.03,229,1694750400"; 
-   d="scan'208";a="126162428"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, Henry Wang
-	<Henry.Wang@arm.com>
-Subject: [PATCH for-4.18] docs/sphinx: Lifecycle of a domid
-Date: Mon, 16 Oct 2023 17:24:50 +0100
-Message-ID: <20231016162450.1286178-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 4ffd316a-6c41-11ee-98d4-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jOYxYYGs4jQnCdrP0RbglGI44FBo9V68yymQBc7WGrr/lIuX47RG/j56gEgoZuYjn6sR7plW4U1r6CzU90zmfr1U2HmUFdTAqialnMaJDMiINIHs/9slXT74T1Mpy0ZhXxnFgBK4R08mmiaQeYsAKQea3tF66IH/hmbgjanD/bsu/Y8rR3Ob7hVSdeIg6JBYbtm4dY3IZ/V4kBLlyJoR5XJ/EjqDkVocKYyOZdEeXgAQXBokeiQJWH/EgUL2640cR8gMMN+2xDuGtevTAEhQxATd0KFAXWAAWPP5sslrzqaWg5XJG4XLY+oiiW4brm84Hi9RlUjXDinYmlrGvotVBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v2DvKHWFgJ3dnr3loMFhHQayiithKGZo61d1xtOTSMs=;
+ b=ATfHZShmrkKlcnDmLn9858OrGBK+hGBXmbpEMuySorQeyg3DWn2lXwwg3obXam1lad4i3QX7yPl4FcJXPPBTzTHK1CW5AnM23MMEufdjfqbwg9wlfVd52IL7IywnuPjbi1Ed7InqV4YGzd0TKT2msN2r7xs//byurb6kvItSn77StwnJVQou2G838KBd1bCf5WXqNP8c9S9mAcT4GHShbOlxnBSYPXHBZ61GBPq5CCxKNoT0iUDtRHeLXRqpwsrj/e+aWhnzCKYDAG/4UtN0WQXTyP+/rbe4i/Jbk+ISjzFL8O6rvsqt7ttyWnWUK5Q7oNIpe3fpSPddfK12xavjjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v2DvKHWFgJ3dnr3loMFhHQayiithKGZo61d1xtOTSMs=;
+ b=BKa9LuBM0HzIENbDll/yWS6hWV1l6J4TrPWqHOy/QNYUr+4d2ALlmLs/OKtf5ber/Pht+c5NeIqmTO/Ca7kN6Y7OmCF6sQlBjYmQ7gQfDvBo8IMw0/mF3rxgIZ3w+vM/B9iiMzVvOwe4RlOrffPhRpjt1LON1sIib015O2NC/okgOwhCf3+RZUc6bKRlN2BQphrFVdX0Gm5NajqBy20muekQu7/BEZvhop5teqWSTw5EePczuRrZW40npazPuWmkpQq/4Wai2JMxEftJ4j9/zL+oCFsMtSvZK3FT4Jt44BsMi4dbstWnM3+CXKRSmQbx/dGkUmFVN4kP0UvWiOJTUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <08286993-6a83-b928-6398-e129397927a0@suse.com>
+Date: Mon, 16 Oct 2023 18:30:21 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [XEN PATCH][for-next][for-4.19 v2 1/8] xen/include: add macro
+ LOWEST_BIT
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1697123806.git.nicola.vetrini@bugseng.com>
+ <bb0ba44f8a3944c22a1c7cf19196c7060e8adb4b.1697123806.git.nicola.vetrini@bugseng.com>
+ <93408661-721b-c4b3-d504-e65142bbdaea@suse.com>
+ <42ee4de54f6d9bd80fb50db3545cbaf4@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <42ee4de54f6d9bd80fb50db3545cbaf4@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0079.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM8PR04MB7363:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fd20a04-c19a-4b99-215f-08dbce653298
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	MUXL7Jqr6v98ZtLV1f5BuGf+rftTm70TPvHHN5khCf/OFMygF+p2hKioQ3zvEN9FzxPWv5Xneqw1F1sWu9lfCnw1WTOOgpWROaGBh83WqKWupON+h70WswENMQA0Bu8BBGLhx8tMZ/25n9LL6n++jU5gvzn6WC2bfWTllqSiZxuW1spA98tE2vGVph1VrKBMc6FDEBJdEwfeckCTaLR4Y+UdRODtP40uuoLtTjdO96clWehM5gMqwI5pvLEjzRNJc5Yw136Gy/W/AdDWPq97etl6OJ4cr1UwmvcR5Xozu6OJkJv5G+hMSjp6PUDlm7QCxEMvm0UrSEu71OSfCM0WPWaC1xZZ32I848QZegFByO5qYwimtXLdv722dBvfgvLvoxX6Gzm6q74NR5vKBr75lifktW9W7hHPxglrt61Xn1dSS/7rvRJd1zTxh6+Xnims4474WmoxGmVZZOSJvX/7aiCh+c3wR5luOcUBvlbBgMBf368ShKwjRSMFaZw0TChlQilIH15GD+wxgBudt2aYDogkO3CjrK20v6s/9NZUEhss+SkJ1ovXFhTBtgA3jwHD9Z23cPM4pKH86/ZznXvCeU04VOiH6yHQ5K40mN1jLgPSCcVXqKytrqhpgQOrcp2VF6d5x7WfpG1VrgKOXOtsRA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(39860400002)(366004)(346002)(136003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(2616005)(6512007)(7416002)(66946007)(66556008)(66476007)(8676002)(4326008)(54906003)(8936002)(316002)(6916009)(6666004)(41300700001)(6506007)(53546011)(5660300002)(478600001)(2906002)(6486002)(38100700002)(31696002)(86362001)(36756003)(31686004)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3NyREUrOTB6THRuUlJYazZMbk9mS0QxU3pVbzhGUUM4aGxrR05JWndCMXdN?=
+ =?utf-8?B?dUVYL2tCQkhWdW9uNXQ5ODNlMFRCUmkvWnZ6WXdxZ25tZW5pbU1YNkdodXVa?=
+ =?utf-8?B?VFBWNGJpRGtwQThsR0JYRjRUM0MyQnk1RHJjQkhyS3ZwTnBPYitoUWNnMTBk?=
+ =?utf-8?B?RDhoS2k0ampOa3cwbGtEOWRjNlVJR3VmY1BKVnpPaTVGamJpYTREcE9FRHc2?=
+ =?utf-8?B?QW8zYkdacVdJdExzMWpCcVJjNURKZmtTV240cEpYNTczY2N5RCtRVGMyVldS?=
+ =?utf-8?B?aHlRNU4wWUR2UWVMRUk3VEF3cGV6WVlWczljR2pIanhLUGNhYUVSNTQ3RjA4?=
+ =?utf-8?B?SkhiNDV0NUkyeU1oQTdNYW1EV0JtcjlWckFIb3dVTHhaTG9SaTNjemdTdUtI?=
+ =?utf-8?B?VEpMRm5PVmNYeTVHR09CNDBrVEJ1aHE2QkwvWlcxRmZFT2kyZnpvbjdUQ1ZH?=
+ =?utf-8?B?QzJrMVJBdTdNZDJUZkhzblI1cU9SVDZpVkVWTGs4bVR5YnJKUkFobmZJSy9T?=
+ =?utf-8?B?VGt0SkgwWnVlL0VGeWpyMWRCRG5VQzZTbWFSck1SN0tOTFowbGlhcFc3WVR1?=
+ =?utf-8?B?WG82QnN5aVVhazNOQkNjYU1xamsrbGJrUUp5RHBSTlNqUllVYkZuQ01rajhE?=
+ =?utf-8?B?MzQybmEyU1gzMWFlS09kOFY1Qk5wTWoycFQrdUhlS3pnREtjWlpRT2RuRUhx?=
+ =?utf-8?B?QmhFOHdNS0U5MFIxdVo0QTdKNXptLzZLRW5FcXQxZVFJNlRhYzJ4clo1dWpY?=
+ =?utf-8?B?U29tbXMyTXhDSjIvbytkTVRrZWd3NldiQnJzUWsxeENudndoREtBMVdPejE5?=
+ =?utf-8?B?ZmNPTFdneFpnL2JYVEl5NnBnUVcyRzJ4SHRId24yenZ2czcwQm1Pa2ljMS95?=
+ =?utf-8?B?MjFKM3A2SU1HRTlabzI5Ti93UENIRzFXTEMxQmdaWFVVZlJiYk9ETWhuTTZL?=
+ =?utf-8?B?QklkVU16YldFYVhLWDJuQUpYOHArYjNlMDhtVmNWaFpSZjV2TnhBLzJuQWVu?=
+ =?utf-8?B?R1hwa0FCMDRwV1pXbWM4eFZKb25BQVFRSEZmdldQdGViZ0V2bnVVbkNYQ2V1?=
+ =?utf-8?B?MXBsNUJBZ21XQytMaktndDB5cnR2cE1EdWxLNWJPZTM3Zkd6STdUWEVXU2Nu?=
+ =?utf-8?B?WldkTFlzaTNLTEJOWk91NkhYUmZqWkQ2bi94b1BVSk55SklZMEtEcHZVRklM?=
+ =?utf-8?B?QWhRY2d3M21oMndtWW9Yak5CcWRMZ2ZHZzZDYmw3R2ZhUCtJbitwM1VwOEp4?=
+ =?utf-8?B?N3ZnMjdQN0wyVjRTM2pkTEFpSU9TTDNSNDhHdmtXMUhZMFdycXB5TGtCbDFQ?=
+ =?utf-8?B?d1NzQU9oTHZrTWFnOExENGdsZ2JhaVd4VmRXSDg0bldpN09qbVljaHdqTm1i?=
+ =?utf-8?B?REcxQkVZUHhTYTFJSzVYaG1BYnByQVVwck9hNXlPRVFmSklISGg3dWJDbXA0?=
+ =?utf-8?B?c0ViaEM2VmEvY3Z5dEo2dHU4Y2dwOHZVb2grTmF0ZkVISndCYjFPNHdDT0s5?=
+ =?utf-8?B?bmNuZ2NrS2NaTGVQTUpuT2svTkVEN1ZORit3WmMwc0pDVG5HRHBaSnZqK3Ry?=
+ =?utf-8?B?UFF4Z3h3ZjVOZnh0QUFkaDZJR2VxQ3ZLbmxxK0pWUFE2WEs3Q2NScTYzMnF1?=
+ =?utf-8?B?eklqVDNwMmNBU1JWQ1dTWkxRMkx0WElTNGp3WjRRd1lyQmlpanc3bi9KSUxw?=
+ =?utf-8?B?ZS9pL2dvREp2emF0Tzd5czRNajFZTjJBVFZ1ekV1ZEZjVXozK2xQNC9hUXpT?=
+ =?utf-8?B?WEtjcDI3YnpOSll4MXRHNjRxL284aG1uUHE4TXdCUlpUeEQ1aU5QY3NXUTcx?=
+ =?utf-8?B?Q3MvdTRnWjVnWEdKb1V1dmhrR3dBT3U1azEzS0RlWmxkZG9rMFhnQ3Ixaktm?=
+ =?utf-8?B?Zm1tZXBKK0E2YmlYLzZqRTFXOGlLVWJrR0ZmWEI2dGQxcFpTUXQ0VUsvNWJv?=
+ =?utf-8?B?NnlYSTM3NHMvb3pIWVBJc3QrUnQrV1ZiMmhlYXFLTko2UFFSY2hKbG4wWnZz?=
+ =?utf-8?B?aDBDUWZNbGhmbWRtdjQxa3hiSHJkZmlTeEZmOWtNN2oyRHRlbVJCTWRkdTVn?=
+ =?utf-8?B?aGx4a3lhSmxGUUtoMDA4cUVIcllNa2VLTm9sR0xMRDd0VjhET3lpMGU2Vy9Q?=
+ =?utf-8?Q?tgaUTiKBssTm0tbFZSVqiTKKD?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd20a04-c19a-4b99-215f-08dbce653298
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 16:30:24.0336
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 70giWG/U5xw8g43gSH22ab9uOwoWaRb026uxbM5Llv7lVSpnjofkogDZuEwCv1ZB6/N4vlz2RrmQV8fhfaTq6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7363
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: George Dunlap <George.Dunlap@eu.citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Juergen Gross <jgross@suse.com>
-CC: Henry Wang <Henry.Wang@arm.com>
+On 16.10.2023 18:17, Nicola Vetrini wrote:
+> On 16/10/2023 17:33, Jan Beulich wrote:
+>> On 12.10.2023 17:28, Nicola Vetrini wrote:
+>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> @@ -274,6 +274,12 @@ still non-negative."
+>>>  -config=MC3R1.R10.1,etypes+={safe, 
+>>> "stmt(operator(logical)||node(conditional_operator||binary_conditional_operator))", 
+>>> "dst_type(ebool||boolean)"}
+>>>  -doc_end
+>>>
+>>> +-doc_begin="The macro LOWEST_BIT encapsulates a well-known pattern to 
+>>> obtain the value
+>>> +2^ffs(x) for unsigned integers on two's complement architectures
+>>> +(all the architectures supported by Xen satisfy this requirement)."
+>>> +-config=MC3R1.R10.1,reports+={safe, 
+>>> "any_area(any_loc(any_exp(macro(^LOWEST_BIT$))))"}
+>>> +-doc_end
+>>
+>> Why is this added here rather than by ...
+>>
+>>> --- a/xen/include/xen/macros.h
+>>> +++ b/xen/include/xen/macros.h
+>>> @@ -8,8 +8,10 @@
+>>>  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
+>>>  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+>>>
+>>> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
+>>> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
+>>
+>> a SAF-<n>-safe comment here?
+>>
+> 
+> One reason is that now that violations only belonging to tool 
+> configurations
+> and similar are documented in docs/misra/deviations.rst (committed in 
+> Stefano's
+> branch for-4.19 [1]).
 
-Rendered form:
-  https://andrewcoop-xen.readthedocs.io/en/docs-devel/hypervisor-guide/domid-lifecycle.html
+But tool configuration means every analysis tool needs configuring
+separately. That's why the comment tagging scheme was decided to be
+preferred, iirc.
 
-I'm not sure why it's using the alibaster theme and not RTD theme, but I
-don't have time to debug that further at this point.
+> Also, there were disagreements on the SAF naming 
+> scheme, and
+> patches like those would not be accepted at the moment.
 
-This was written mostly while sat waiting for flights in Nanjing and Beijing.
+Well, that needs resolving. The naming there shouldn't lead to patches
+being accepted that later may need redoing.
 
-If while reading this you spot a hole, congratulations.  There are holes which
-need fixing...
----
- docs/glossary.rst                         |   9 ++
- docs/hypervisor-guide/domid-lifecycle.rst | 164 ++++++++++++++++++++++
- docs/hypervisor-guide/index.rst           |   1 +
- 3 files changed, 174 insertions(+)
- create mode 100644 docs/hypervisor-guide/domid-lifecycle.rst
-
-diff --git a/docs/glossary.rst b/docs/glossary.rst
-index 8ddbdab160a1..1fd1de0f0e97 100644
---- a/docs/glossary.rst
-+++ b/docs/glossary.rst
-@@ -50,3 +50,12 @@ Glossary
- 
-      By default it gets all devices, including all disks and network cards, so
-      is responsible for multiplexing guest I/O.
-+
-+   system domain
-+     Abstractions within Xen that are modelled in a similar way to regular
-+     :term:`domains<domain>`.  E.g. When there's no work to do, Xen schedules
-+     ``DOMID_IDLE`` to put the CPU into a lower power state.
-+
-+     System domains have :term:`domids<domid>` and are referenced by
-+     privileged software for certain control operations, but they do not run
-+     guest code.
-diff --git a/docs/hypervisor-guide/domid-lifecycle.rst b/docs/hypervisor-guide/domid-lifecycle.rst
-new file mode 100644
-index 000000000000..d405a321f3c7
---- /dev/null
-+++ b/docs/hypervisor-guide/domid-lifecycle.rst
-@@ -0,0 +1,164 @@
-+.. SPDX-License-Identifier: CC-BY-4.0
-+
-+Lifecycle of a domid
-+====================
-+
-+Overview
-+--------
-+
-+A :term:`domid` is Xen's numeric identifier for a :term:`domain`.  In any
-+operational Xen system, there are one or more domains running.
-+
-+Domids are 16-bit integers.  Regular domids start from 0, but there are some
-+special identifiers, e.g. ``DOMID_SELF``, and :term:`system domains<system
-+domain>`, e.g. ``DOMID_IDLE`` starting from 0x7ff0.  Therefore, a Xen system
-+can run a maximum of 32k domains concurrently.
-+
-+.. note::
-+
-+   Despite being exposed in the domid ABI, the system domains are internal to
-+   Xen and do not have lifecycles like regular domains.  Therefore, they are
-+   not discussed further in this document.
-+
-+At system boot, Xen will construct one or more domains.  Kernels and
-+configuration for these domains must be provided by the bootloader, or at
-+Xen's compile time for more highly integrated solutions.
-+
-+Correct functioning of the domain lifecycle involves ``xenstored``, and some
-+privileged entity which has bound the ``VIRQ_DOM_EXC`` global event channel.
-+
-+.. note::
-+
-+   While not a strict requirement for these to be the same entity, it is
-+   ``xenstored`` which typically has ``VIRQ_DOM_EXC`` bound.  This document is
-+   written assuming the common case.
-+
-+Creation
-+--------
-+
-+Within Xen, the ``domain_create()`` function is used to allocate and perform
-+bare minimum construction of a domain.  The :term:`control domain` accesses
-+this functionality via the ``DOMCTL_createdomain`` hypercall.
-+
-+The final action that ``domain_create()`` performs before returning
-+successfully is to enter the new domain into the domlist.  This makes the
-+domain "visible" within Xen, allowing the new domid to be successfully
-+referenced by other hypercalls.
-+
-+At this point, the domain exists as far as Xen is concerned, but not usefully
-+as a VM yet.  The toolstack performs further construction activities;
-+allocating vCPUs, RAM, copying in the initial executable code, etc.  Domains
-+are automatically created with one "pause" reference count held, meaning that
-+it is not eligible for scheduling.
-+
-+When the toolstack has finished VM construction, it send an ``XS_INTRODUCE``
-+command to ``xenstored``.  This instructs ``xenstored`` to connect to the
-+guest's xenstore ring, and fire the ``@introduceDomain`` watch.  The firing of
-+this watch is the signal to all other components which care that a new VM has
-+appeared and is about to start running.
-+
-+When the ``XS_INTRODUCE`` command returns successfully, the final action the
-+toolstack performs is to unpause the guest, using the ``DOMCTL_unpausedomain``
-+hypercall.  This drops the "pause" reference the domain was originally created
-+with, meaning that the vCPU(s) are eligible for scheduling and the domain will
-+start executing its first instruction.
-+
-+.. note::
-+
-+   It is common for vCPUs other than 0 to be left in an offline state, to be
-+   started by actions within the VM.
-+
-+Termination
-+-----------
-+
-+The VM runs for a period of time, but eventually stops.  It can stop for a
-+number of reasons, including:
-+
-+ * Directly at the guest kernel's request, via the ``SCHEDOP_shutdown``
-+   hypercall.  The hypercall also includes the reason for the shutdown,
-+   e.g. ``poweroff``, ``reboot`` or ``crash``.
-+
-+ * Indirectly from certain states.  E.g. executing a ``HLT`` instruction with
-+   interrupts disabled is interpreted as a shutdown request as it is a common
-+   code pattern for fatal error handling when no better options are available.
-+
-+ * Indirectly from fatal exceptions.  In some states, execution is unable to
-+   continue, e.g. Triple Fault on x86.
-+
-+ * Directly from the device model, via the ``DMOP_remote_shutdown`` hypercall.
-+   E.g. On x86, the 0xcf9 IO port is commonly used to perform platform
-+   poweroff, reset or sleep transitions.
-+
-+ * Directly from the toolstack.  The toolstack is capable of initiating
-+   cleanup directly, e.g. ``xl destroy``.  This is typically an administration
-+   action of last resort to clean up a domain which malfunctioned but not
-+   terminated properly.
-+
-+ * Directly from Xen.  Some error handling ends up using ``domain_crash()``
-+   when Xen doesn't think it can safely continue running the VM.
-+
-+Whatever the reason for termination, Xen ends up calling ``domain_shutdown()``
-+to set the shutdown reason and deschedule all vCPUs.  Xen also fires the
-+``VIRQ_DOM_EXC`` event channel, which is a signal to ``xenstored``.
-+
-+Upon receiving ``VIRQ_DOM_EXC``, ``xenstored`` re-scans all domains using the
-+``SYSCTL_getdomaininfolist`` hypercall.  If any domain has changed state from
-+running to shut down, ``xenstored`` fires the ``@releaseDomain`` watch.  The
-+firing of this watch is the signal to all other components which care that a
-+VM has stopped.
-+
-+.. note::
-+
-+   Xen does not treat reboot differently to poweroff; both statuses are
-+   forwarded to the toolstack.  It is up to the toolstack to restart the VM,
-+   which is typically done by constructing a new domain.
-+
-+.. note::
-+
-+   Some shutdowns may not result in the cleanup of a domain.  ``suspend`` for
-+   example can be used for snapshotting, and the VM resumes execution in the
-+   same domain/domid.  Therefore, a domain can cycle several times between
-+   running and "shut down" before moving into the destruction phase.
-+
-+Destruction
-+-----------
-+
-+The domain object in Xen is reference counted, and survives until all
-+references are dropped.
-+
-+The ``@releaseDomain`` watch is to inform all entities that hold a reference
-+on the domain to clean up.  This may include:
-+
-+ * Paravirtual driver backends having a grant map of the shared ring with the
-+   frontend.
-+ * A device model with a map of the IOREQ page(s).
-+
-+The toolstack also has work to do in response to ``@releaseDomain``.  It must
-+issue the ``DOMCTL_destroydomain`` hypercall.  This hypercall can take minutes
-+of wall-clock time to complete for large domains as, amongst other things, it
-+is freeing the domain's RAM back to the system.
-+
-+The actions triggered by the ``@releaseDomain`` watch are asynchronous.  There
-+is no guarantee as to the order in which actions start, or which action is the
-+final one to complete.  However, the toolstack can achieve some ordering by
-+delaying the ``DOMCTL_destroydomain`` hypercall if necessary.
-+
-+Freeing
-+-------
-+
-+When the final reference on the domain object is dropped, Xen will remove the
-+domain from the domlist.  This means the domid is no longer visible in Xen,
-+and no longer able to be referenced by other hypercalls.
-+
-+Xen then schedules the object for deletion at some point after any concurrent
-+hypercalls referencing the domain have completed.
-+
-+When the object is finally cleaned up, Xen fires the ``VIRQ_DOM_EXC`` event
-+channel again, causing ``xenstored`` to rescan an notice that the domain has
-+ceased to exist.  It fires the ``@releaseDomain`` watch a second time to
-+signal to any components which care that the domain has gone away.
-+
-+E.g. The second ``@releaseDomain`` is commonly used by paravirtual driver
-+backends to shut themselves down.
-+
-+At this point, the toolstack can reuse the domid for a new domain.
-diff --git a/docs/hypervisor-guide/index.rst b/docs/hypervisor-guide/index.rst
-index e4393b06975b..af88bcef8313 100644
---- a/docs/hypervisor-guide/index.rst
-+++ b/docs/hypervisor-guide/index.rst
-@@ -6,6 +6,7 @@ Hypervisor documentation
- .. toctree::
-    :maxdepth: 2
- 
-+   domid-lifecycle
-    code-coverage
- 
-    x86/index
-
-base-commit: dc9d9aa62ddeb14abd5672690d30789829f58f7e
-prerequisite-patch-id: 832bdc9a23500d426b4fe11237ae7f6614f2369c
--- 
-2.30.2
-
+Jan
 
