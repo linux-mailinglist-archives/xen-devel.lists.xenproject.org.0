@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CFB7CA033
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:13:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617279.959767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0B5D7CA045
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617284.959778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHnD-0005At-Kt; Mon, 16 Oct 2023 07:13:35 +0000
+	id 1qsHoQ-0006sh-2J; Mon, 16 Oct 2023 07:14:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617279.959767; Mon, 16 Oct 2023 07:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 617284.959778; Mon, 16 Oct 2023 07:14:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHnD-000587-IE; Mon, 16 Oct 2023 07:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 617279;
- Mon, 16 Oct 2023 07:13:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qsHoP-0006pt-VE; Mon, 16 Oct 2023 07:14:49 +0000
+Received: by outflank-mailman (input) for mailman id 617284;
+ Mon, 16 Oct 2023 07:14:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4t3W=F6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qsHnC-00056J-5q
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:13:34 +0000
+ id 1qsHoP-0006oQ-68
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:14:49 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 833d4ad6-6bf3-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 09:13:32 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b0c9ba26-6bf3-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 09:14:48 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ED0F921BDA;
- Mon, 16 Oct 2023 07:13:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9DC912189D;
+ Mon, 16 Oct 2023 07:14:47 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F32E138EF;
- Mon, 16 Oct 2023 07:13:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48E23138EF;
+ Mon, 16 Oct 2023 07:14:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oyaNIZriLGViWwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 07:13:30 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id AFzkD+fiLGViWwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 07:14:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,21 +51,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 833d4ad6-6bf3-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: b0c9ba26-6bf3-11ee-98d4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1697440410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1697440487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=jcr2pDzYHZNy1Dda0U8UKlceiaygu42ICVwNg5qTdP4=;
-	b=HkoSc49ltxf8lbg2XOBGuFdQttxATY7y6c5S9nwDNSGGNwyHrceLUR1NLN1Swm1OtEBUsy
-	+obXwR7iM7tCx5/UFxB33ouYMFHJw53hJ4JsyPKBLLgFt6WzxcaAzvx9viHA/MCeyTT5IB
-	iKHibz8YrlQhtqpoKgMZtHlCOcJdXzw=
-Message-ID: <ca0690eb-1f3b-4508-9cf2-079b5ad12e26@suse.com>
-Date: Mon, 16 Oct 2023 09:13:29 +0200
+	bh=9RV5EOYE82h5D1LodXaROCEgPixc3iudjmyw72L3/EU=;
+	b=ZVgdv41vCxEoBVhY71R2aYC4jXeWYlnq1Tc5UWgdKkyraeayWt8sch0pjIIZV74P/ooBv9
+	TOz99V+CcAEMOSuGi/fVK+HXbbIbqnNUn7uEuS4+SyW8m1rUTaTvMVlMfO4J0xQ8MzwtgV
+	Z5in2J0fy5xnsfQ5B5QL7N3haw3lZ0A=
+Message-ID: <b129e6f5-ad9d-4267-b058-29a64f8f1d59@suse.com>
+Date: Mon, 16 Oct 2023 09:14:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 1/4] xen: Make struct privcmd_irqfd's layout
- architecture independent
+Subject: Re: [PATCH V4 2/4] xen: irqfd: Use _IOW instead of the internal
+ _IOC() macro
 Content-Language: en-US
 To: Viresh Kumar <viresh.kumar@linaro.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -78,7 +78,7 @@ Cc: Vincent Guittot <vincent.guittot@linaro.org>,
  <arnd@kernel.org>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org
 References: <cover.1697439990.git.viresh.kumar@linaro.org>
- <a4ef0d4a68fc858b34a81fd3f9877d9b6898eb77.1697439990.git.viresh.kumar@linaro.org>
+ <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -103,22 +103,22 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <a4ef0d4a68fc858b34a81fd3f9877d9b6898eb77.1697439990.git.viresh.kumar@linaro.org>
+In-Reply-To: <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------7bLopMXjoU08ZRDMZp9FmC0c"
+ boundary="------------n0sbYyoOiB064uMBvwL0o0bX"
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -5.43
-X-Spamd-Result: default: False [-5.43 / 50.00];
+X-Spam-Score: -5.53
+X-Spamd-Result: default: False [-5.53 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 XM_UA_NO_VERSION(0.01)[];
 	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-2.44)[97.42%];
+	 BAYES_HAM(-2.54)[97.92%];
 	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	 HAS_ATTACHMENT(0.00)[];
 	 REPLY(-4.00)[];
@@ -138,8 +138,8 @@ X-Spamd-Result: default: False [-5.43 / 50.00];
 X-Spam-Flag: NO
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7bLopMXjoU08ZRDMZp9FmC0c
-Content-Type: multipart/mixed; boundary="------------umSM8HtNLj3BsM5giQwzqchk";
+--------------n0sbYyoOiB064uMBvwL0o0bX
+Content-Type: multipart/mixed; boundary="------------3c4sbr2bWNEY8AMM31TgXWIA";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>,
@@ -152,35 +152,33 @@ Cc: Vincent Guittot <vincent.guittot@linaro.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, Arnd Bergmann
  <arnd@kernel.org>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org
-Message-ID: <ca0690eb-1f3b-4508-9cf2-079b5ad12e26@suse.com>
-Subject: Re: [PATCH V4 1/4] xen: Make struct privcmd_irqfd's layout
- architecture independent
+Message-ID: <b129e6f5-ad9d-4267-b058-29a64f8f1d59@suse.com>
+Subject: Re: [PATCH V4 2/4] xen: irqfd: Use _IOW instead of the internal
+ _IOC() macro
 References: <cover.1697439990.git.viresh.kumar@linaro.org>
- <a4ef0d4a68fc858b34a81fd3f9877d9b6898eb77.1697439990.git.viresh.kumar@linaro.org>
-In-Reply-To: <a4ef0d4a68fc858b34a81fd3f9877d9b6898eb77.1697439990.git.viresh.kumar@linaro.org>
+ <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
+In-Reply-To: <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
 
---------------umSM8HtNLj3BsM5giQwzqchk
-Content-Type: multipart/mixed; boundary="------------hUjQwV6LWjai1LUbmHHPvEqX"
+--------------3c4sbr2bWNEY8AMM31TgXWIA
+Content-Type: multipart/mixed; boundary="------------u5hf43i9OIE4dk0EanBjly00"
 
---------------hUjQwV6LWjai1LUbmHHPvEqX
+--------------u5hf43i9OIE4dk0EanBjly00
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTYuMTAuMjMgMDk6MTEsIFZpcmVzaCBLdW1hciB3cm90ZToNCj4gVXNpbmcgaW5kaXJl
-Y3QgcG9pbnRlcnMgaW4gYW4gaW9jdGwgY29tbWFuZCBhcmd1bWVudCBtZWFucyB0aGF0IHRo
-ZQ0KPiBsYXlvdXQgaXMgYXJjaGl0ZWN0dXJlIHNwZWNpZmljLCBpbiBwYXJ0aWN1bGFyIHdl
-IGNhbid0IHVzZSB0aGUgc2FtZSBvbmUNCj4gZnJvbSAzMi1iaXQgY29tcGF0IHRhc2tzLiBU
-aGUgZ2VuZXJhbCByZWNvbW1lbmRhdGlvbiBpcyB0byBoYXZlIF9fdTY0DQo+IG1lbWJlcnMg
-YW5kIHVzZSB1NjRfdG9fdXNlcl9wdHIoKSB0byBhY2Nlc3MgaXQgZnJvbSB0aGUga2VybmVs
-IGlmIHdlIGFyZQ0KPiB1bmFibGUgdG8gYXZvaWQgdGhlIHBvaW50ZXJzIGFsdG9nZXRoZXIu
-DQo+IA0KPiBGaXhlczogZjg5NDFlNmM0YzcxICgieGVuOiBwcml2Y21kOiBBZGQgc3VwcG9y
-dCBmb3IgaXJxZmQiKQ0KPiBSZXBvcnRlZC1ieTogQXJuZCBCZXJnbWFubiA8YXJuZEBrZXJu
-ZWwub3JnPg0KPiBDbG9zZXM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yNjhhMjAz
-MS02M2I4LTRjN2QtYjFlNS04YWI4M2NhODBiNGFAYXBwLmZhc3RtYWlsLmNvbS8NCj4gU2ln
-bmVkLW9mZi1ieTogVmlyZXNoIEt1bWFyIDx2aXJlc2gua3VtYXJAbGluYXJvLm9yZz4NCg0K
-UmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVy
-Z2VuDQoNCg==
---------------hUjQwV6LWjai1LUbmHHPvEqX
+T24gMTYuMTAuMjMgMDk6MTEsIFZpcmVzaCBLdW1hciB3cm90ZToNCj4gX0lPQygpIGFuIGlu
+dGVybmFsIGhlbHBlciB0aGF0IHdlIHNob3VsZCBub3QgdXNlIGluIGRyaXZlciBjb2RlLiAg
+SW4NCj4gcGFydGljdWxhciwgd2UgZ290IHRoZSBkYXRhIGRpcmVjdGlvbiB3cm9uZyBoZXJl
+LCB3aGljaCBicmVha3MgYSBudW1iZXINCj4gb2YgdG9vbHMsIGFzIGhhdmluZyAiX0lPQ19O
+T05FIiBzaG91bGQgbmV2ZXIgYmUgcGFpcmVkIHdpdGggYSBub256ZXJvDQo+IHNpemUuDQo+
+IA0KPiBVc2UgX0lPVygpIGluc3RlYWQuDQo+IA0KPiBGaXhlczogZjg5NDFlNmM0YzcxICgi
+eGVuOiBwcml2Y21kOiBBZGQgc3VwcG9ydCBmb3IgaXJxZmQiKQ0KPiBSZXBvcnRlZC1ieTog
+QXJuZCBCZXJnbWFubiA8YXJuZEBrZXJuZWwub3JnPg0KPiBDbG9zZXM6IGh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2FsbC8yNjhhMjAzMS02M2I4LTRjN2QtYjFlNS04YWI4M2NhODBiNGFA
+YXBwLmZhc3RtYWlsLmNvbS8NCj4gU2lnbmVkLW9mZi1ieTogVmlyZXNoIEt1bWFyIDx2aXJl
+c2gua3VtYXJAbGluYXJvLm9yZz4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpn
+cm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
+--------------u5hf43i9OIE4dk0EanBjly00
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -238,25 +236,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------hUjQwV6LWjai1LUbmHHPvEqX--
+--------------u5hf43i9OIE4dk0EanBjly00--
 
---------------umSM8HtNLj3BsM5giQwzqchk--
+--------------3c4sbr2bWNEY8AMM31TgXWIA--
 
---------------7bLopMXjoU08ZRDMZp9FmC0c
+--------------n0sbYyoOiB064uMBvwL0o0bX
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUs4poFAwAAAAAACgkQsN6d1ii/Ey9K
-wgf/TbpWKyNtveS6quHg7N2m6zlLWaudPfTwKyHTKSNBnwL6drVyRBWCy4nCqHkVG47Mwki8jgdV
-XfNGx4EEfGM+tSxjJJRMt4ZqVSD1GV5cnXO0n97jzqx+4PkdK5iscLDkSOJK6MvxjXQ0toxITqzq
-U65b0zVBY7ZUY65Je4PKBCjzqh5swFN245ZD5lWkV8skCXn/U6YKT29zDtO1AP7HavNg9uTglVC/
-zxU8ncWxtduLJzfnV3ebVJ5/tTRTeFr6mE99ciKlWf888xJPLDzY3HKh/LwEFahxSFNOU2J7VEfi
-twLH75i/6Y6L1mYpzCq65Z7AkW7IeEj30xE290p8rQ==
-=zwoM
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUs4ucFAwAAAAAACgkQsN6d1ii/Ey9k
+1gf+INzKloKYASmfPT/8yL2yNeDVSIwawTnadF5jsAIxiaLc8Ve8J2Pdv50mIhDjSC82IkkkH18M
+AkM7xn12IYN8s0jPKBqncRu9YNOv7yw3OBTbLMiTUQ7C12WQ3l4tNGLIkAjc1TkAVWrnT/mvTMWN
+2XLP694ja6BX9wgJvhj0qQKlX1J8UJKYtYR8g0Mt0R0x08PmcmWOyG8ufqMOq0KAme2gSUHYdZeL
+vdbDe9YT8qM2QMHsVrDls333A6MoQzcC+ArCvoCFEdrxGldyUcdRUovwywI5otxtRsUAa4X1jimD
+Ykpx11I9KTT+UiHsUWwX8kt+1P2kamGU8Th8G0wCJQ==
+=WgOI
 -----END PGP SIGNATURE-----
 
---------------7bLopMXjoU08ZRDMZp9FmC0c--
+--------------n0sbYyoOiB064uMBvwL0o0bX--
 
