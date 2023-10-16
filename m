@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C554C7CB4E1
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 22:47:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617937.961068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B8C97CB69E
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 00:36:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617941.961077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsUUx-0007v1-NW; Mon, 16 Oct 2023 20:47:35 +0000
+	id 1qsWAZ-0006pW-AD; Mon, 16 Oct 2023 22:34:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617937.961068; Mon, 16 Oct 2023 20:47:35 +0000
+Received: by outflank-mailman (output) from mailman id 617941.961077; Mon, 16 Oct 2023 22:34:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsUUx-0007s1-KC; Mon, 16 Oct 2023 20:47:35 +0000
-Received: by outflank-mailman (input) for mailman id 617937;
- Mon, 16 Oct 2023 20:47:34 +0000
+	id 1qsWAZ-0006nW-7M; Mon, 16 Oct 2023 22:34:39 +0000
+Received: by outflank-mailman (input) for mailman id 617941;
+ Mon, 16 Oct 2023 22:34:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1uuB=F6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qsUUw-0007rv-HO
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 20:47:34 +0000
+ id 1qsWAX-0006nO-7f
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 22:34:37 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3aebfbbe-6c65-11ee-98d4-6d05b1d4d9a1;
- Mon, 16 Oct 2023 22:47:33 +0200 (CEST)
+ id 2e8510df-6c74-11ee-98d4-6d05b1d4d9a1;
+ Tue, 17 Oct 2023 00:34:35 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id CEF9FB81A26;
- Mon, 16 Oct 2023 20:47:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCA3C433C7;
- Mon, 16 Oct 2023 20:47:30 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 7C2DAB81AEE;
+ Mon, 16 Oct 2023 22:34:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A83EC433C8;
+ Mon, 16 Oct 2023 22:34:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,90 +41,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3aebfbbe-6c65-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 2e8510df-6c74-11ee-98d4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697489251;
-	bh=AtvmNXLpZkq947hg5ZDiQBdrLP7YpyYBPUXA9+Pywmw=;
+	s=k20201202; t=1697495673;
+	bh=bImQRXh6hTgsqHnM/V6XBLHSVhduPUEOgfs4Oqyvprw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=icvgZFh3WU27PXsxZALamPFs1cwHg3jliIG0IHvlRT4D5aYnf0j44P1Ya+yoA3/kE
-	 5tQV3sXxlnj90Hc5bzGGCjRCFJ/hc+7X2t0ciSK1DTGlzHfsao5XbDO8t0IIXfxLYL
-	 ctzNR7kR/hXnW1XXz09UBX873nbkdSIc4vSLf+bpgmybKC4nu0Ar0KR1xd/ESh1xSs
-	 FOS26IbGxoOiFIDGyPRjPs9NVTbx7Ahh5GuMlUP1EtFEAXxZG6qhIMw3dyzN4lQIPj
-	 kYEjzaCkelm8cK9aYez8hnbbv0TBAxDI8/pK8mgqp+TYdz+mtjQx59ycqrKokr/KYe
-	 nuCTdqhu2sGnw==
-Date: Mon, 16 Oct 2023 13:47:28 -0700 (PDT)
+	b=AaFjZYIh3Z5doAOWD82b7nhAbRDYY9Dw5r4ZETXeMb0h8xHT+p7Gwp2jypoV5GFKy
+	 xKTaRN73owm4XzMtUfenEnhjJhkRqsgpHKHo+wSQwh6jgXiMQe/iSNOh52O/OYN6uY
+	 x7zcni8gcPAJtbrUv0i2OLvL4bV3z0ssUZgH8uEJPt2KPpWyC5kdFONilfLGJhgnrf
+	 lxcz15MU0NK0AFdlTcBHcyUdg6L6D2SUuNmL5osL7DNNHT/LYCafriuG4PSSpL8I+l
+	 BuLQ7oei+t9tHCMNs9liNMMmG/eX3j5woR4xOPHAYyx5PalwtqC6n0ov5VHSceCegb
+	 arFWLXsxMvW2g==
+Date: Mon, 16 Oct 2023 15:34:30 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Julien Grall <julien@xen.org>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    "consulting@bugseng.com" <consulting@bugseng.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [XEN PATCH 10/10] arm/smmu: address violation of MISRA C:2012
- Rule 8.2
-In-Reply-To: <92C52E39-729F-40AE-A02F-556C8EE471CB@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2310161338540.965337@ubuntu-linux-20-04-desktop>
-References: <cover.1697207038.git.federico.serafini@bugseng.com> <199886f6ba1f2d5701eabd080b4f9723fc28f4b9.1697207038.git.federico.serafini@bugseng.com> <39d3f8e0-61cf-4b8d-84f1-a5087ba8ead4@xen.org> <D3320838-1E67-4339-A3D4-A3E60FBC4117@arm.com>
- <c9a7f059-4cf5-4a75-b231-573c4fe29b37@xen.org> <92C52E39-729F-40AE-A02F-556C8EE471CB@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
+    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 3/7] x86: add deviation comments for asm-only
+ functions
+In-Reply-To: <741e81bc-050c-a773-e622-997b6c0b8335@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2310161520180.965337@ubuntu-linux-20-04-desktop>
+References: <cover.1696833629.git.nicola.vetrini@bugseng.com> <6476706490cc15406bcf3377a57b7c4a303c4901.1696833629.git.nicola.vetrini@bugseng.com> <741e81bc-050c-a773-e622-997b6c0b8335@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 16 Oct 2023, Bertrand Marquis wrote:
-> > On 16 Oct 2023, at 15:38, Julien Grall <julien@xen.org> wrote:
+On Mon, 16 Oct 2023, Jan Beulich wrote:
+> On 09.10.2023 08:54, Nicola Vetrini wrote:
+> > As stated in rules.rst, functions used only in asm code
+> > are allowed to have no prior declaration visible when being
+> > defined, hence these functions are deviated.
+> > This also fixes violations of MISRA C:2012 Rule 8.4.
 > > 
-> > 
-> > 
-> > On 16/10/2023 14:31, Bertrand Marquis wrote:
-> >> Hi Julien,
-> > 
-> > Hi Bertrand,
-> > 
-> >>> On 16 Oct 2023, at 11:07, Julien Grall <julien@xen.org> wrote:
-> >>> 
-> >>> Hi,
-> >>> 
-> >>> On 13/10/2023 16:24, Federico Serafini wrote:
-> >>>> Add missing parameter names, no functional change.
-> >>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> >>>> ---
-> >>>>  xen/drivers/passthrough/arm/smmu.c | 6 +++---
-> >>> 
-> >>> This file is using the Linux coding style because it is imported from Linux. I was under the impression we would exclude such file for now.
-> >>> 
-> >>> Looking at exclude-list.json, it doesn't seem to be present. I think this patch should be replaced with adding a line in execlude-list.json.
-> >> I think that during one of the discussions we said that this file already deviated quite a lot from the status in Linux and we wanted to turn it to Xen coding style in the future hence it is not listed in the exclude file.
-> > AFAIK the SMMUv{1, 2} code didn't deviate very much from Linux. I can't tell about the SMMUv3.
+> > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > ---
+> >  xen/arch/x86/hvm/svm/intr.c      | 1 +
+> >  xen/arch/x86/hvm/svm/nestedsvm.c | 1 +
+> >  xen/arch/x86/hvm/svm/svm.c       | 2 ++
 > 
-> True that i had the v3 code in mind, we might not want to do that for v1/2 you are right.
-> 
-> > 
-> >> At the end having a working smmu might be critical in a safety context so it will make sense to also check this part of xen.
-> > I don't buy this argument right now. We have files in exclude-lists.json that I would consider critical for Xen to run (e.g. common/bitmap.c, common/libfdt). So if you want to use this argument then we need to move critical components of Xen out of the exclusion list.
-> 
-> I am sure we will at some point for runtime code but we cannot do everything on the first shot.
-> I was not meaning to do that now but that it is something to consider.
+> Once again - why are you not also adjusting the respective VMX code?
+> Iirc it was agreed long ago that scans should be extended to cover as
+> much of the code base as possible.
 
-Things that are in exclude-lists.json are source files that come from
-other projects and also change very rarely. The argument that we don't
-do MISRA C on the files in exclude-lists.json, it is not because those
-files are unimportant, but because they change only once every many
-years.
 
-Of course the least we rely on exclude-lists.json the better.
+Let me summarize here our past discussions on the subject to make sure 
+we are all aligned.
 
-For smmu.c, looking at the git history I think it is more actively
-worked on than other files such as lib/rbtree.c or common/bitmap.c.
-Given that backports from Linux to smmu.c are not straightforward anyway
-(please correct me if I am wrong) then I think we should not add smmu.c
-to exclude-lists.json and do MISRA for smmu.c.
+With my AMD hat on, of course we want to work with the upstream
+community as much as possible and improve the overall codebase. But it
+is not a goal for AMD to improve Intel-specific drivers (VMX and
+others). Our safety configuration for Xen, including the public ECLAIR
+instance currently sponsored by AMD, only includes SVM files, not VMX
+files. MISRA compliance costs time and effort; this was done both
+because of lack of interest in VMX and also as a cost saving measure.
 
-On the other hand, if we think that doing MISRA for smmu.c is going to
-make backports a lot harder, and we think that we want to do backports
-"often" (every year or every couple of years) then maybe we shouldn't do
-MISRA for smmu.c after all.
+Upon maintainer's request we can expand the scope of individual patches.
+For example, AMD is not interested in ARM32 either, but in the past we
+did address certain MISRA C issues on ARM32 too, if nothing else for
+consistency of the code base. It comes down to a compromise what we
+should do for consistency of the codebase versus addressing things that
+makes sense for AMD business. For sure we could work on a few violations
+affecting Intel drivers, but overall I don't think AMD could be asked to
+make Intel drivers MISRA compliant.
+
+
+In addition to the above, we also discussed during one of the past MISRA
+C working group meetings to have larger-than-usual ECLAIR scans. ECLAIR
+takes a couple of hours to run, so it is a good idea to restrict its
+configuration in the usual runs. However, at least once a week maybe on
+a Sunday, it would be good to run a comprehensive scan including
+components that are not currently targeted for safety. This would help
+us detect regressions and in general spot potential bugs.
+
+As part of this larger-than-usual ECLAIR scan we could certainly
+include Intel drivers as well as other things currently unsupported.
+
+
+Now, concrete action items. Nicola, I think we should look into having a
+larger-than-usual ECLAIR scan every week which includes all of Intel
+files and in general as much as possible of the codebase.
+
+Jan, for this specific patch, I don't think we have the scan including
+Intel vmx files yet. Nicola please correct me if I am wrong. So Nicola
+wouldn't be able to easily expand this patch to also cover Intel vmx
+violations of this rule because we don't have the list of violations
+affecting those files. 
 
