@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAED67CA026
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:12:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617260.959727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969277CA028
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:12:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617259.959718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHlX-0002Pf-CQ; Mon, 16 Oct 2023 07:11:51 +0000
+	id 1qsHlV-0002AP-4Y; Mon, 16 Oct 2023 07:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617260.959727; Mon, 16 Oct 2023 07:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 617259.959718; Mon, 16 Oct 2023 07:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHlX-0002Mt-8m; Mon, 16 Oct 2023 07:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 617260;
- Mon, 16 Oct 2023 07:11:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qsHlV-000282-10; Mon, 16 Oct 2023 07:11:49 +0000
+Received: by outflank-mailman (input) for mailman id 617259;
+ Mon, 16 Oct 2023 07:11:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hqiJ=F6=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1qsHlV-000281-08
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:11:49 +0000
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [2607:f8b0:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41c6bd0a-6bf3-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 09:11:43 +0200 (CEST)
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-578e33b6fb7so2409141a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Oct 2023 00:11:42 -0700 (PDT)
+ id 1qsHlT-00027t-Ch
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:11:47 +0000
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [2607:f8b0:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43ba3fe1-6bf3-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 09:11:46 +0200 (CEST)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-1ca215cc713so6663515ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Oct 2023 00:11:46 -0700 (PDT)
 Received: from localhost ([122.172.80.14]) by smtp.gmail.com with ESMTPSA id
- lb18-20020a17090b4a5200b002636dfcc6f5sm4069757pjb.3.2023.10.16.00.11.40
+ o11-20020a170902778b00b001b9dab0397bsm7770391pll.29.2023.10.16.00.11.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Oct 2023 00:11:40 -0700 (PDT)
+ Mon, 16 Oct 2023 00:11:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,39 +44,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41c6bd0a-6bf3-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 43ba3fe1-6bf3-11ee-98d4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697440301; x=1698045101; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=d9BgW3N7fBm3L3q4onC3IgvyssbSs3COoJlmjYvy67c=;
-        b=jConirPWhXO5zfbTdR4kGgqwO/C966C7xHwTqDS22mpuoO3uHML9yio38tL2VVHy/N
-         d70gGsOcVIUmBTK5NW9hUoeErLAKwuGCQnojLtMmZy1JxhBaIhwno646Jt2qxI5lgbIg
-         ZSWCMzfSZ6KEWbzfsdEraal5oY4r7J6OmC5lC4tme7k8AzTzWamp0pkO3ZHcSPIZ+u21
-         dKQ20AIhjb1W6f/v6oDtM3/Ie+97r32ussLE1qkTFU3WBBz8VPGGI84fZlSlo42XYaG3
-         Bf2giFVKyyR1kxDC+pTCqIqH9jaApa/kG7zJ7yYHmqfH9toOhrD/2SzwoyhIW3p7u9NM
-         oldw==
+        d=linaro.org; s=google; t=1697440305; x=1698045105; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1YLGlADbqxnWAYarOFVSTI3AQVPhPYl3xWfz7Wse3mA=;
+        b=i8OU2YsRZiUe/QeaDM+n3c+EfkOvGesFncybGHI1SVztgATQpR4O7s91/PFComTpyu
+         i+XFinS+l77MeiVkF4Jp6TQ7DZzPBMM29wp0d0UUIXMbROKdAqa8Mo8lDc+iySaaLN7W
+         3RbCf1v5N4nnv4+T5c6utRpmSAjgs0stdvrQVWWRh8Ml3hsHBsNqjMRdRPXwNzArveXz
+         emYaIIM3NQZeyo+qumGR2RGgXEpTDMqPRKwzbzE8YsCjFmom1czFo6nUo01/P/9JE/Gz
+         bVCAiSj0rtzYCHpg336xhr1GeBZwSPnvpjARC5AQB217WZBSW72wxhWyHlGbhTSVXD4s
+         RKEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697440301; x=1698045101;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=d9BgW3N7fBm3L3q4onC3IgvyssbSs3COoJlmjYvy67c=;
-        b=ipk3P36ZGROWXKIUd0TMEf5UYBQDQ8jcfLDAFyA9r5UsgUmGKpMMk3zCgW+wgfx6Iz
-         +wl04xGu0seIKGn8F++2r7PC+mQbI3GsGu1TOBby2NyeFsGRc7mnLpPF23e7PP6p0Mys
-         74oNzQ0JkbvCu1QfqjoJzUeB7VMU1IA6w19wfpd3h3A6rrzhMizFuv81ZbjxbVW2tBRn
-         Ikl0UbO0UrBLHqwlZUE4zOGEfe/DJ5WDP86C3whzeJj/V+0FOEsD40xzcL/ty8aBYLhU
-         76Da4iVCrVEUP3zoYB7oSv1JM4SniSY11euS2W7H0ZkpGzx66s9VmFfoiHxXtuFTuBRn
-         auSQ==
-X-Gm-Message-State: AOJu0YwOGNlfy4MAYT+iLDB7gSxldBbgZu9/0j52gcNfJZQ9dnFFkadg
-	kf9SPzX5/E3M5ZZpKdne1wotvA==
-X-Google-Smtp-Source: AGHT+IEIs6XIz4BcgrL6UjHqZ7eccrdQBeHu6/iJs/nkUOuVV60OXfEgZzK/h9q3JanneEdJ0Z+E/A==
-X-Received: by 2002:a05:6a20:244f:b0:152:be08:b013 with SMTP id t15-20020a056a20244f00b00152be08b013mr34042875pzc.42.1697440301401;
-        Mon, 16 Oct 2023 00:11:41 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1697440305; x=1698045105;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1YLGlADbqxnWAYarOFVSTI3AQVPhPYl3xWfz7Wse3mA=;
+        b=U+Kw9JJivDB8YG+kxZNJcNCF8kzjaKTlCkW0lam0Wo/cB5BdiuVe3YqGwCq+99GD7m
+         u1SZqEH+qznmkCsxOsxV71qgLxiduMJ3/O0cd+amWr1g6AnXwczqAPuGDsmKADj+ke0L
+         q47P07CLyJkQ8KaOQzrsELM7r3tvoRgAWnk7hXYqYp/PDAAZ06iimjMs6lxmnLJfYQGJ
+         dJAlMW9osZyU2JPtYyf5nQOZOxl91G71Oe9NQMcU1bYBR30+h1Y0S8Vyr8eBLFJ6sorb
+         EGb+XPmEyjXoEZo3+XMmpbT2JTpBf4GaTUmoY+w6cuXVuFft8xQmN4y+tzDbymwEMLyn
+         xJ9Q==
+X-Gm-Message-State: AOJu0YyjhediDCHkOQ1RIIgSee3x8s6huZL64VD6rySjzqd9slA+fTC6
+	Ut0Ak6arUVeAsh8p7joVoKQdnA==
+X-Google-Smtp-Source: AGHT+IFiZfXVWLAwWVoc8OY1PxB2vC251spWed6E+sNY8zWNiPL3CrOKRidkLrTNfWcwaUPdKETYTg==
+X-Received: by 2002:a17:902:ec8c:b0:1c9:b187:4d84 with SMTP id x12-20020a170902ec8c00b001c9b1874d84mr18099691plg.14.1697440304700;
+        Mon, 16 Oct 2023 00:11:44 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Viresh Kumar <viresh.kumar@linaro.org>
 Cc: Vincent Guittot <vincent.guittot@linaro.org>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -85,65 +86,58 @@ Cc: Vincent Guittot <vincent.guittot@linaro.org>,
 	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
 	Arnd Bergmann <arnd@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH V4 0/4] xen: privcmd: Add ioeventfd and fix irqfd support
-Date: Mon, 16 Oct 2023 12:41:23 +0530
-Message-Id: <cover.1697439990.git.viresh.kumar@linaro.org>
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH V4 1/4] xen: Make struct privcmd_irqfd's layout architecture independent
+Date: Mon, 16 Oct 2023 12:41:24 +0530
+Message-Id: <a4ef0d4a68fc858b34a81fd3f9877d9b6898eb77.1697439990.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
+In-Reply-To: <cover.1697439990.git.viresh.kumar@linaro.org>
+References: <cover.1697439990.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+Using indirect pointers in an ioctl command argument means that the
+layout is architecture specific, in particular we can't use the same one
+from 32-bit compat tasks. The general recommendation is to have __u64
+members and use u64_to_user_ptr() to access it from the kernel if we are
+unable to avoid the pointers altogether.
 
-Now that irqfd support (backend to guest interrupt) is already merged, this
-series solves the other part of the problem, i.e. ioeventfd (guest to
-backend interrupt).
+Fixes: f8941e6c4c71 ("xen: privcmd: Add support for irqfd")
+Reported-by: Arnd Bergmann <arnd@kernel.org>
+Closes: https://lore.kernel.org/all/268a2031-63b8-4c7d-b1e5-8ab83ca80b4a@app.fastmail.com/
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ drivers/xen/privcmd.c      | 2 +-
+ include/uapi/xen/privcmd.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-More details inside the commits.
-
-Arnd reported few issues with the ioctl macro usage and argument's layout, fixed
-them for irqfd too, which was added recently.
-
---
-Viresh
-
-V3->V4:
-- Use __u64 for indirect pointers in an ioctl command's arguments.
-- Use u64_to_user_ptr() in kernel driver to access the same.
-- Use _IOW() macro instead of the internal one: _IOC().
-
-V2->V3:
-- Remove explicit barriers and depend on spin lock instead to take care of it.
-- Move check for empty ioeventfds list to privcmd_ioeventfd_deassign(), which
-  could earlier call ioreq_free() even when the list wasn't empty and so we
-  returned without printing a warning in v1 earlier. V2 implemented it
-  incorrectly.
-
-V1->V2:
-- Increment irq_info refcnt only for valid info.
-- Use u64 type for addr.
-- Add comments for use of barriers.
-- Use spin lock instead of mutex as we need to use them in irq handler.
-- Add a warning when kioreq is getting freed and ioeventfds list isn't empty.
-- Use struct_size().
-- Validate number of vcpus as well.
-
-Viresh Kumar (4):
-  xen: Make struct privcmd_irqfd's layout architecture independent
-  xen: irqfd: Use _IOW instead of the internal _IOC() macro
-  xen: evtchn: Allow shared registration of IRQ handers
-  xen: privcmd: Add support for ioeventfd
-
- drivers/xen/Kconfig               |   8 +-
- drivers/xen/events/events_base.c  |   3 +-
- drivers/xen/evtchn.c              |   2 +-
- drivers/xen/privcmd.c             | 407 +++++++++++++++++++++++++++++-
- include/uapi/xen/privcmd.h        |  22 +-
- include/xen/interface/hvm/ioreq.h |  51 ++++
- 6 files changed, 482 insertions(+), 11 deletions(-)
- create mode 100644 include/xen/interface/hvm/ioreq.h
-
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index 120af57999fc..5095bd1abea5 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -935,7 +935,7 @@ static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
+ 		return -ENOMEM;
+ 	dm_op = kirqfd + 1;
+ 
+-	if (copy_from_user(dm_op, irqfd->dm_op, irqfd->size)) {
++	if (copy_from_user(dm_op, u64_to_user_ptr(irqfd->dm_op), irqfd->size)) {
+ 		ret = -EFAULT;
+ 		goto error_kfree;
+ 	}
+diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
+index 375718ba4ab6..b143fafce84d 100644
+--- a/include/uapi/xen/privcmd.h
++++ b/include/uapi/xen/privcmd.h
+@@ -102,7 +102,7 @@ struct privcmd_mmap_resource {
+ #define PRIVCMD_IRQFD_FLAG_DEASSIGN (1 << 0)
+ 
+ struct privcmd_irqfd {
+-	void __user *dm_op;
++	__u64 dm_op;
+ 	__u32 size; /* Size of structure pointed by dm_op */
+ 	__u32 fd;
+ 	__u32 flags;
 -- 
 2.31.1.272.g89b43f80a514
 
