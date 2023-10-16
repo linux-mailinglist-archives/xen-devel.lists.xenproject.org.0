@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8DFF7CAAF3
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 16:06:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617640.960428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 344B17CAAF4
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 16:07:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617644.960438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsOF7-0005IE-FQ; Mon, 16 Oct 2023 14:06:49 +0000
+	id 1qsOFl-0005iC-OA; Mon, 16 Oct 2023 14:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617640.960428; Mon, 16 Oct 2023 14:06:49 +0000
+Received: by outflank-mailman (output) from mailman id 617644.960438; Mon, 16 Oct 2023 14:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsOF7-0005FZ-Cq; Mon, 16 Oct 2023 14:06:49 +0000
-Received: by outflank-mailman (input) for mailman id 617640;
- Mon, 16 Oct 2023 14:06:48 +0000
+	id 1qsOFl-0005fP-Kx; Mon, 16 Oct 2023 14:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 617644;
+ Mon, 16 Oct 2023 14:07:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fs62=F6=linaro.org=alexey.klimov@srs-se1.protection.inumbo.net>)
- id 1qsOF5-0005FT-U7
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 14:06:47 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BBjo=F6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qsOFk-0005FT-Nf
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 14:07:28 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0630.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d3e24c0-6c2d-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 16:06:46 +0200 (CEST)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1e993765c1bso2954401fac.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Oct 2023 07:06:45 -0700 (PDT)
+ id 5614c3d5-6c2d-11ee-9b0e-b553b5be7939;
+ Mon, 16 Oct 2023 16:07:27 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB8698.eurprd04.prod.outlook.com (2603:10a6:20b:43d::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
+ 2023 14:07:24 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
+ 14:07:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,100 +47,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d3e24c0-6c2d-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697465204; x=1698070004; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=YlrDDMvSnCexOzkkcOVcxaNWiO/8qMFwor3XZuHncqM=;
-        b=RyQJBjullz4P7bj0yVsK9XFdNnnS3wmLsxVgtB+v2V4cwtrrsrYGGefsZLgjTq6meT
-         rMgQ0OqyD8kj5y9WSoPtTaljb+Ge6f2uxQi8+IDQJ+r0pxxmGF0FTxr4lF0BUw8r9Ha/
-         ZBdoC42cEOLlY1XNpyJp7IYdSLeuUEc/9hOj4Ds7rJ3FNLeTZX3IPdzqxm4DwEkmGWUv
-         B1gM/NbbyEkgetLAtPoxinAvaKVVIc8nmCPdDdbkqOTFNJLZqucQBtDcOdPquFAqgAph
-         zv1UowPSFo+6qU44IpiJMekqg2/Cqjx1WG2mVTaOFQg9RoEJosNY1VlNHLILHYTcIcvz
-         KEsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697465204; x=1698070004;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YlrDDMvSnCexOzkkcOVcxaNWiO/8qMFwor3XZuHncqM=;
-        b=G95Asdrwx64nuZ8LHHlCY/42IvmBF+X9IfehDB3kfCl1k1TXjtAdr3bK1t1WREkRR/
-         55TXe5UYWiKfyPOSMiSv/RbypOM7k6mdTPc1lnYVCIw7fuN0/ysdl5XMVUVnYwnZkfnP
-         K8Ea1juv5z3ARIZJwaLo4IjYk3FfIw2jne9irgljfIzw1DYurXJsz/rQwyMAA7q/zdDf
-         kGs9IjlNDZAyROQaUenB2Lb45Zcd5hrVItHyn75lG/htnW0OBxIFtxJzRE/iS+jV/gf0
-         O5fm8z+8ZX37k7DPeJyqegd8lM60MbTs7ZOkXR/L2wMbe4DeTc0Ye+PZHH/9tYwDCQP0
-         tELw==
-X-Gm-Message-State: AOJu0YyqXUpVr17SxkGX3lINhprlixoiLFnKjNGAEMFUUUTk5j2+vhLx
-	8tylDFhVrABcU4WUFjVqoXNGccUu64ZDhNomVB2gkA==
-X-Google-Smtp-Source: AGHT+IG3kXmd9x3/nQuvqxPxXOv16jsUJ6Xl/prJjRKD8kuFy6DtcRQBWl2vIgbujzUGsic9OJzDMFtS52h/K966/cU=
-X-Received: by 2002:a05:6870:4e0b:b0:1e9:938e:5fc6 with SMTP id
- pl11-20020a0568704e0b00b001e9938e5fc6mr15704066oab.57.1697465204487; Mon, 16
- Oct 2023 07:06:44 -0700 (PDT)
+X-Inumbo-ID: 5614c3d5-6c2d-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dFpWuq9uh5Q7rzkdfW+hgy+gVBdft7OtKzG3qLUvw1fPSeejFzQrOZXa+UBP3DGlACYIODSveF8mKOaQHaqcEDVJ9Br65XxRnwPFmXghdR4MTd8Ft+6IkffTPJ0kfTjr7lo0n8zMJguLYD0f+wBC05LkMTD+ZgvJI++1sKB0pe0Cm5RRkDo/weXdB9rmn5oTOnAA1O3zVQvMcf+ap92752ZSkDaGW/U9cxjTySPVpaozncadegTU7aX8bmz5lqxym2fH7CR34elzrDDRpYiLoNPRVMM+tJ4RU3z9sT7LI6fgKOAleI70xMf8mnpoxt/BzpW47AVSCAQ7cF9aEBZwVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DC/iZACq1IhtCC9ycmUVHwFInpLVgtKuBqW7FqktnrU=;
+ b=U4M+iR+Rd2pcWmCNzgLdZndeb/iGuf4Vbn5gQxp9CUbrWpS1VwkHTEqEqhkklyii+GJz/tWSnzxN4u3NBW7de+0GSH4fzmQsyefTmrorR/TE3I1N0XZsf0p7KMKqZl1SU/7IT1qfK2C/CfSfKQ3Jq/qT3oqpG7oSmdC7ETkFrr8dPOKL8p1V8eh75nYAtx3sNd2iYnEEgXCI3o9RsuRgHDATrxUCblynIJSE7sq1FiycpxTkqQlw3mlhmJGfSnqSnufrtdONx2Tv26YaN4JOnvnj6KMcOL088teb7uxRN5InCJt4hvxuozf8mz+rLfcN2K4rRWohgCrko+TXyZszOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DC/iZACq1IhtCC9ycmUVHwFInpLVgtKuBqW7FqktnrU=;
+ b=Vw7NONb61YDNINwhwbHIN0/IgwIIWyXE/ENMeXpvCMVafJ35twdU+JGbIH/B0jAK/0Edne5aBJGofJN7QmEH3AIibOjsmB50fuzC8he7QnNIaWz4F4cPJ23Sjm2oJPSG/KOzygQ2R1h9sLcaHZ6OIn3+XTqbqUNc8f+ECKELklHzEnpZmLnRwSDbeig6sI3POX05YHezPgg1FOMj2iQiiaWyCpIzFWnj0buBRsDYanQpt512MoCJ+0hTl+ZQvozPoQwGO0UCQfP1lWNWHGtW5Sd0lFHEb7rabfQXqsUSvMjrigv0VMIvw6UhkV6cNwrP5/Smnw/+DKw5ZrU5Ywd/sQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <879e6934-93b3-e260-770a-966cf8bcd2f8@suse.com>
+Date: Mon, 16 Oct 2023 16:07:22 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH for-4.18 v2] x86/pvh: fix identity mapping of low 1MB
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20231013085654.2789-1-roger.pau@citrix.com>
+ <9aaae72b-fdcc-b48b-1155-e1cb0401d7d1@suse.com> <ZS0_zPxGLwfsuVvX@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZS0_zPxGLwfsuVvX@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0088.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::16) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-References: <20231013122658.1270506-1-leo.yan@linaro.org> <20231013122658.1270506-3-leo.yan@linaro.org>
- <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com> <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org>
-In-Reply-To: <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org>
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Mon, 16 Oct 2023 15:06:33 +0100
-Message-ID: <CANgGJDpLwxy8wgGFw0j3GziY+igw9Vj-FQrZPN3gF3XMhmCi+A@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-To: Julien Grall <julien@xen.org>
-Cc: Michal Orzel <michal.orzel@amd.com>, Leo Yan <leo.yan@linaro.org>, 
-	xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41301884-2182-455b-f649-08dbce5138bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	13uo8AxoqhBFAEYyHzpBuJkAbjRSELlRrhPfw77Im7yjzterGHchC9meYJWXOjiQeD35OehmWgxvQOy7uJCTOBjKibdUIUYFWXaTS2sU/lsY56PFx/FIKWuTliVTvMiQNqEcVoPlDV2N0zxOXLXXbSNk+G3oSEZ+471sK/VNJACgAalcGAndUHYKDBPOLUCMeepyo4fKBwetXi1nR4/rF8E3AMYj1MeyWbGakhyjAiOXb5BLXMZTt9Pv6hMT17AkoM3c9LOaOE3w3PGWpAENRmhfRuS0PEkd6W6WtQt7IJyjcWVZzMmNyQwxrtiu6yLuzUo26L3dGbpt7wNA7DjVocS62D6ianAlf7JhqnqVF4t5cUDWiUV/aS9waU9VpCk9ZEAYrOu0m96CZZncpzBcq0B/RhogAdlxzSEi5YGHghgymUAMNP7dCco7wEd2LsOjFPFE1/niiG4KcSATMmXGp6KphsL1xBK6XRzapwb0tbmPlIcclRFclXWMShWGgAMi2D1upjTJAeekSEjN3+TSZsqyK0difBRw+ThxxJNXXD2i023YPZiH1mC6vmHGQCfWvph8Ogf7p1NtVNRuabSg5pYNhXfz8ZDou4xMwA5GScH97hljolWFGmHk8fVXxSo6UkmFYXlI00/+DlK8bcs9hw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39850400004)(396003)(376002)(366004)(346002)(136003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(2616005)(83380400001)(6512007)(54906003)(66556008)(66476007)(66946007)(8676002)(4326008)(316002)(8936002)(6916009)(53546011)(41300700001)(6506007)(5660300002)(478600001)(2906002)(6486002)(38100700002)(86362001)(31696002)(36756003)(31686004)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDhYMHQyUTFKWGJ1MjRSYldrNSt2VmY1d29ZNmtrN1FKRkg1VW1McmMxWWJh?=
+ =?utf-8?B?WTBlNU1Pc2dwL1hKS3lGV3FZNlVyR2FnU21YS0VBZ2drcWxIVzNGL2dtTi9F?=
+ =?utf-8?B?L0g2OUIweGZDaG5Ca0NrNEpZLzJpd0F0THdtVmpuZ0oxTjd4cGh6ZVAyVnc0?=
+ =?utf-8?B?WFVqSElKQ2ZwQnhqVDBIVVArM2IyTm5wU1c0YVk5Tll6Nk5Hajlvc0VLbmg0?=
+ =?utf-8?B?OG9yUHZ0b25vMzQzakRsVHEvMzhSVHVmNForeHBVcUQ3N3hNRk93OUJLc1I1?=
+ =?utf-8?B?QXY1T2RXQ0F2SzM1SzFibkd3d0RxWlo0Qjc2MzBucUN1OEJ4QVZNT3hqN2RH?=
+ =?utf-8?B?MThtVm9ucWtFd09iSWVJbVBHSWN3S0NBaG9WM3hBd3ZHQmhQY3FxV3pmblZX?=
+ =?utf-8?B?UG80NzJpaXlZM1k5Zk0wd25xVlVaTmxlMlVvYXZmMUxvZGh5bG1UZm1JYUwz?=
+ =?utf-8?B?QmZTZXBhRmhCVjhkWXFaSTY2MmxBdWtxR2w4Q2NxSjlFSDJYWEFJcUpLZ2hU?=
+ =?utf-8?B?SUhPMGQveElGOEpmT0FHTGdsNkxrOU02S2MzWTAyVWJIRnlUbUt2RWdZMlM3?=
+ =?utf-8?B?THJJeXlteU1PL0pOaGp6KzV2MEUxalVEbldaU0tVL1VRUUxGckJqNTFmOTJy?=
+ =?utf-8?B?aDVyM0MwOW1aVTQ0WmFoT1NBTzdNLzc5eFZkdjM2S3pzZUd0WlFrYks0RWJp?=
+ =?utf-8?B?R0JkSS9UUXF4cjNSaDlEbUltUGRqcXhhUGhYSHprMjJWYzVhcExNbWJGM3M5?=
+ =?utf-8?B?QzlLeGNBQnlJQTVSN2pCRmJXQU5CTE5KNGwzR3UvQ3NDTTVCZnQ1T3hKaGhr?=
+ =?utf-8?B?dEEzRU9MT1dHOUlYQ1p3Z09ScFFPSWx2WElYWXNYZ1FxR2p3aUNzTFJWUEFN?=
+ =?utf-8?B?M0hZWHdURWZ6ZHZ6OFNyczgzTHM2KzNycllMRzVKOGcrK1JTZDZmd2MrVldG?=
+ =?utf-8?B?RzNIM1hSbC9YbThvWHNzQWtlS2x3QklhL2JsYmpETU1LWHVVTW1iL3RaaUlC?=
+ =?utf-8?B?SUUrUDBQVEtqdTYvOWhKR1ovUTdXQTdlNlZwdThjdzV4c0hIdE8rWW1pNjdz?=
+ =?utf-8?B?ZE8vMmY2UXcxMVpGNndxLzkvdlBjTnlsVjV0K21YeG5FZlVDYUNKRTczU1lK?=
+ =?utf-8?B?bXQ3eTBjN1dGbUwxVzFxdkVHRlJ5NjVqdXNuNE4zMjlZUERkcDdrNk1SdGtZ?=
+ =?utf-8?B?aXE4MHdobGd5VzNMRy8wU3IrNjNveldvZUFvQnpKNndzQ0F0aWRWVW5MMU1T?=
+ =?utf-8?B?blFVbzBnTmlkeUVYUmNXaWUvMGdIVVNOcVhaQjFYRHhSakk5Q1hhT2M5dWVa?=
+ =?utf-8?B?ZUt5aWN1bUNtR2lEdEdjNTZOUTVjVmZ4WTRTRllnYTlvYWlTdFpJUzZ3Nlpj?=
+ =?utf-8?B?TXRBb3FoSThUeDNuRmh4L1poNXdmaW8rVGxsbzUwU2M5SEMyLzdrTE4vazNZ?=
+ =?utf-8?B?WFB2UElaRjFzSjg2MEU1TXcvSXFoVklaTHlqeFROa1NSV0duaHY1U3MxYXNn?=
+ =?utf-8?B?TEZYRGxIMUVnSDdlaG01L1ArMEV0YUZLUnczR1VYTDVHK3M0enJrWWtybjcw?=
+ =?utf-8?B?SXhPaDkxaExDellhSGprWHpkOUltTm9QdEFMTEw2cjBXWTFNbkdCdkVpeUMv?=
+ =?utf-8?B?UUVmN011dUN5U1JpTG9nL1FDa0VST0NhazRUQlJnVjkvSFRGaHM4SUhQSHFR?=
+ =?utf-8?B?dVdqR3Vxd2V1a2xaQ0dWSDdtbTJlWnZ6clB4WDhDdVorZVA4d1FkZ3VRbHdY?=
+ =?utf-8?B?WEE4VUVNMHh2emJGZGRZeHZVeEQ1c3pkNnJWZmt2dFU3SURYTndEYkdIelVO?=
+ =?utf-8?B?OFpFK1JHL0ZQc1JsREN5WXBnd0ZFRXNVZThCNG1BNVBPTXUyaGczUXFnQlIy?=
+ =?utf-8?B?bm50Nkp6YzQ5Tm5ZbnpQbFlNMjU4VkhjSUVwT2szWm8zR0RpQ3h3NVZGck85?=
+ =?utf-8?B?MFUzQWc4b1dGTHF2Qno5MmdQcnR5SEFRM1ZxbmZjMHd3UldObUtKb3ZtNmZ6?=
+ =?utf-8?B?WDUxZ2huK2xCMGRtTkc4ZEZHK1hUT3FXZkhBTTRNeWozOGt3R3F1UURyN1Zq?=
+ =?utf-8?B?V0kyQ0tnaFR6QVV4c3lsR1RIM3NTTkhzT1g0VTY0TnZyT0RUdE40RW5DcW5C?=
+ =?utf-8?Q?7nUhfEMURwcTpt/biR6oomIeG?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41301884-2182-455b-f649-08dbce5138bd
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 14:07:24.3752
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0nnB8cb8ivdg7UVvGF/t6RUxmdIEtk4eytrsKmS0c4KkEoKV6hBhAwfVmONdOXu9VDJhMtcZ2vwhPh3u6M3yOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8698
 
-On Mon, 16 Oct 2023 at 14:54, Julien Grall <julien@xen.org> wrote:
->
->
->
-> On 16/10/2023 09:44, Michal Orzel wrote:
-> > Hi,
->
-> Hi,
->
-> > On 13/10/2023 14:26, Leo Yan wrote:
-> >>
-> >>
-> >> On ADLink AVA platform (Ampere Altra SoC with 32 Arm Neoverse N1 cores),
-> >> the physical memory regions are:
-> >>
-> >>    DRAM memory regions:
-> >>      Node[0] Region[0]: 0x000080000000 - 0x0000ffffffff
-> >>      Node[0] Region[1]: 0x080000000000 - 0x08007fffffff
-> >>      Node[0] Region[2]: 0x080100000000 - 0x0807ffffffff
-> >>
-> >> The UEFI loads Xen hypervisor and DTB into the high memory, the kernel
-> >> and ramdisk images are loaded into the low memory space:
-> >>
-> >>    (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
-> >>    (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device Tree
-> >>    (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
-> >>    (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
-> >>
-> >> In this case, the Xen binary is loaded above 8TB, which exceeds the
-> >> maximum supported identity map space of 2TB in Xen. Consequently, the
-> >> system fails to boot.
-> >>
-> >> This patch enlarges identity map space to 10TB, allowing module loading
-> >> within the range of [0x0 .. 0x000009ff_ffff_ffff].
-> >>
-> >> Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable")
-> > I don't think a fixes tag applies here given that 2TB was just a number we believed is enough
-> > and all of this is platform dependent.
-> > This can be dropped on commit if committer agrees
-> Xen may have booted on that platform before hand. So this would be
-> considered a regression and therefore a tag would be warrant.
->
-> AFAICT, the commit is only present on the upcoming 4.18. So the question
-> is whether Xen 4.17 booted out-of-the-box on ADLink? If the answer is
-> yes, then we need to add a Fixes tag. But the correct one would be
+On 16.10.2023 15:51, Roger Pau Monné wrote:
+> On Mon, Oct 16, 2023 at 03:32:54PM +0200, Jan Beulich wrote:
+>> On 13.10.2023 10:56, Roger Pau Monne wrote:
+>>> The mapping of memory regions below the 1MB mark was all done by the PVH dom0
+>>> builder code, causing the region to be avoided by the arch specific IOMMU
+>>> hardware domain initialization code.  That lead to the IOMMU being enabled
+>>> without reserved regions in the low 1MB identity mapped in the p2m for PVH
+>>> hardware domains.  Firmware which happens to be missing RMRR/IVMD ranges
+>>> describing E820 reserved regions in the low 1MB would transiently trigger IOMMU
+>>> faults until the p2m is populated by the PVH dom0 builder:
+>>>
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.1 d0 addr 00000000000eb380 flags 0x20 RW
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.1 d0 addr 00000000000eb340 flags 0
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:13.2 d0 addr 00000000000ea1c0 flags 0
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:14.5 d0 addr 00000000000eb480 flags 0x20 RW
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:12.0 d0 addr 00000000000eb080 flags 0x20 RW
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:14.5 d0 addr 00000000000eb400 flags 0
+>>> AMD-Vi: IO_PAGE_FAULT: 0000:00:12.0 d0 addr 00000000000eb040 flags 0
+>>>
+>>> Those errors have been observed on the osstest pinot{0,1} boxes (AMD Fam15h
+>>> Opteron(tm) Processor 3350 HE).
+>>>
+>>> Mostly remove the special handling of the low 1MB done by the PVH dom0 builder,
+>>> leaving just the data copy between RAM regions.  Otherwise rely on the IOMMU
+>>> arch init code to create any identity mappings for reserved regions in that
+>>> range (like it already does for reserved regions elsewhere).
+>>>
+>>> Note there's a small difference in behavior, as holes in the low 1MB will no
+>>> longer be identity mapped to the p2m.
+>>
+>> I certainly like the simplification, but I'm concerned by this: The BDA
+>> is not normally reserved, yet may want accessing by Dom0 (to see the real
+>> machine contents). We do access that first page of memory ourselves, so
+>> I expect OSes may do so as well (even if the specific aspect I'm thinking
+>> of - the warm/cold reboot field - is under Xen's control).
+> 
+> The BDA on the systems I've checked falls into a RAM area on the
+> memory map, but if you think it can be problematic I could arrange for
+> arch_iommu_hwdom_init() to also identity map holes in the low 1MB.
 
-Yes. The upstream xen 4.17 booted fine and the mentioned commit was
-found during bisect, so it is introduced regression.
-I'd personally say that "Fixes" tag is needed here.
+Hmm, this again is a case where I'd wish CPU and IOMMU mappings could
+be different. I don't see reasons to try I/O to such holes, but I can
+see reasons for CPU accesses (of more or less probing kind).
 
-Thanks,
-Alexey
+> Keep in mind this is only for PVH, it won't affect PV.
+
+Of course.
+
+Jan
 
