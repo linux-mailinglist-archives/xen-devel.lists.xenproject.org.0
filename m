@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B5D7CA045
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:15:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617284.959778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E2BD7CA063
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 09:18:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617288.959788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHoQ-0006sh-2J; Mon, 16 Oct 2023 07:14:50 +0000
+	id 1qsHrM-0007hp-Fb; Mon, 16 Oct 2023 07:17:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617284.959778; Mon, 16 Oct 2023 07:14:50 +0000
+Received: by outflank-mailman (output) from mailman id 617288.959788; Mon, 16 Oct 2023 07:17:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsHoP-0006pt-VE; Mon, 16 Oct 2023 07:14:49 +0000
-Received: by outflank-mailman (input) for mailman id 617284;
- Mon, 16 Oct 2023 07:14:49 +0000
+	id 1qsHrM-0007f0-C9; Mon, 16 Oct 2023 07:17:52 +0000
+Received: by outflank-mailman (input) for mailman id 617288;
+ Mon, 16 Oct 2023 07:17:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4t3W=F6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qsHoP-0006oQ-68
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:14:49 +0000
+ id 1qsHrL-0007es-Af
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 07:17:51 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0c9ba26-6bf3-11ee-98d4-6d05b1d4d9a1;
- Mon, 16 Oct 2023 09:14:48 +0200 (CEST)
+ id 1d23dd3e-6bf4-11ee-98d4-6d05b1d4d9a1;
+ Mon, 16 Oct 2023 09:17:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9DC912189D;
- Mon, 16 Oct 2023 07:14:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 856AE21BD8;
+ Mon, 16 Oct 2023 07:17:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48E23138EF;
- Mon, 16 Oct 2023 07:14:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2C2E9138EF;
+ Mon, 16 Oct 2023 07:17:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AFzkD+fiLGViWwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 07:14:47 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id q8TLCJ3jLGVsXQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 07:17:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,21 +51,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0c9ba26-6bf3-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 1d23dd3e-6bf4-11ee-98d4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1697440487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1697440669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9RV5EOYE82h5D1LodXaROCEgPixc3iudjmyw72L3/EU=;
-	b=ZVgdv41vCxEoBVhY71R2aYC4jXeWYlnq1Tc5UWgdKkyraeayWt8sch0pjIIZV74P/ooBv9
-	TOz99V+CcAEMOSuGi/fVK+HXbbIbqnNUn7uEuS4+SyW8m1rUTaTvMVlMfO4J0xQ8MzwtgV
-	Z5in2J0fy5xnsfQ5B5QL7N3haw3lZ0A=
-Message-ID: <b129e6f5-ad9d-4267-b058-29a64f8f1d59@suse.com>
-Date: Mon, 16 Oct 2023 09:14:46 +0200
+	bh=nfISWVpeuW/iV5R79FAnU+RItCcz5hFDD2ufVTIvwTc=;
+	b=HjmzQCbLH2l3AOciNe4vczJeCQUSqDCqkip8eDU5VDeORChyfGHXCfuOqcelBl/1qiB0Gf
+	2GeFY0yJ0If0y4Hss7d6+CBKf8qcxGsS0qCvwoYQpcYvP0v4hBzLaoqr40rx5q0UR3V2RV
+	m5zMRnC3KQdOxN283Lcl1NLl2vu8RH0=
+Message-ID: <109e682d-c257-47b9-9d95-ba927cae46db@suse.com>
+Date: Mon, 16 Oct 2023 09:17:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 2/4] xen: irqfd: Use _IOW instead of the internal
- _IOC() macro
+Subject: Re: [PATCH V4 3/4] xen: evtchn: Allow shared registration of IRQ
+ handers
 Content-Language: en-US
 To: Viresh Kumar <viresh.kumar@linaro.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -78,7 +78,7 @@ Cc: Vincent Guittot <vincent.guittot@linaro.org>,
  <arnd@kernel.org>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org
 References: <cover.1697439990.git.viresh.kumar@linaro.org>
- <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
+ <99b1edfd3147c6b5d22a5139dab5861e767dc34a.1697439990.git.viresh.kumar@linaro.org>
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
@@ -103,22 +103,22 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
+In-Reply-To: <99b1edfd3147c6b5d22a5139dab5861e767dc34a.1697439990.git.viresh.kumar@linaro.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------n0sbYyoOiB064uMBvwL0o0bX"
+ boundary="------------0DeSbFPoopNZI4BfBlhMslIu"
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
-X-Spam-Score: -5.53
-X-Spamd-Result: default: False [-5.53 / 50.00];
+X-Spam-Score: -2.99
+X-Spamd-Result: default: False [-2.99 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 XM_UA_NO_VERSION(0.01)[];
 	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-2.54)[97.92%];
+	 BAYES_HAM(-0.00)[15.78%];
 	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	 HAS_ATTACHMENT(0.00)[];
 	 REPLY(-4.00)[];
@@ -138,8 +138,8 @@ X-Spamd-Result: default: False [-5.53 / 50.00];
 X-Spam-Flag: NO
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------n0sbYyoOiB064uMBvwL0o0bX
-Content-Type: multipart/mixed; boundary="------------3c4sbr2bWNEY8AMM31TgXWIA";
+--------------0DeSbFPoopNZI4BfBlhMslIu
+Content-Type: multipart/mixed; boundary="------------12lMWqCZzejQlSAfuifK0UmU";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>,
@@ -152,33 +152,37 @@ Cc: Vincent Guittot <vincent.guittot@linaro.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, Arnd Bergmann
  <arnd@kernel.org>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org
-Message-ID: <b129e6f5-ad9d-4267-b058-29a64f8f1d59@suse.com>
-Subject: Re: [PATCH V4 2/4] xen: irqfd: Use _IOW instead of the internal
- _IOC() macro
+Message-ID: <109e682d-c257-47b9-9d95-ba927cae46db@suse.com>
+Subject: Re: [PATCH V4 3/4] xen: evtchn: Allow shared registration of IRQ
+ handers
 References: <cover.1697439990.git.viresh.kumar@linaro.org>
- <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
-In-Reply-To: <599ca6f1b9dd2f0e6247ea37bee3ea6827404b6d.1697439990.git.viresh.kumar@linaro.org>
+ <99b1edfd3147c6b5d22a5139dab5861e767dc34a.1697439990.git.viresh.kumar@linaro.org>
+In-Reply-To: <99b1edfd3147c6b5d22a5139dab5861e767dc34a.1697439990.git.viresh.kumar@linaro.org>
 
---------------3c4sbr2bWNEY8AMM31TgXWIA
-Content-Type: multipart/mixed; boundary="------------u5hf43i9OIE4dk0EanBjly00"
+--------------12lMWqCZzejQlSAfuifK0UmU
+Content-Type: multipart/mixed; boundary="------------TPBbdZfrM7mOno7xHWeOz5zO"
 
---------------u5hf43i9OIE4dk0EanBjly00
+--------------TPBbdZfrM7mOno7xHWeOz5zO
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTYuMTAuMjMgMDk6MTEsIFZpcmVzaCBLdW1hciB3cm90ZToNCj4gX0lPQygpIGFuIGlu
-dGVybmFsIGhlbHBlciB0aGF0IHdlIHNob3VsZCBub3QgdXNlIGluIGRyaXZlciBjb2RlLiAg
-SW4NCj4gcGFydGljdWxhciwgd2UgZ290IHRoZSBkYXRhIGRpcmVjdGlvbiB3cm9uZyBoZXJl
-LCB3aGljaCBicmVha3MgYSBudW1iZXINCj4gb2YgdG9vbHMsIGFzIGhhdmluZyAiX0lPQ19O
-T05FIiBzaG91bGQgbmV2ZXIgYmUgcGFpcmVkIHdpdGggYSBub256ZXJvDQo+IHNpemUuDQo+
-IA0KPiBVc2UgX0lPVygpIGluc3RlYWQuDQo+IA0KPiBGaXhlczogZjg5NDFlNmM0YzcxICgi
-eGVuOiBwcml2Y21kOiBBZGQgc3VwcG9ydCBmb3IgaXJxZmQiKQ0KPiBSZXBvcnRlZC1ieTog
-QXJuZCBCZXJnbWFubiA8YXJuZEBrZXJuZWwub3JnPg0KPiBDbG9zZXM6IGh0dHBzOi8vbG9y
-ZS5rZXJuZWwub3JnL2FsbC8yNjhhMjAzMS02M2I4LTRjN2QtYjFlNS04YWI4M2NhODBiNGFA
-YXBwLmZhc3RtYWlsLmNvbS8NCj4gU2lnbmVkLW9mZi1ieTogVmlyZXNoIEt1bWFyIDx2aXJl
-c2gua3VtYXJAbGluYXJvLm9yZz4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpn
-cm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------u5hf43i9OIE4dk0EanBjly00
+T24gMTYuMTAuMjMgMDk6MTEsIFZpcmVzaCBLdW1hciB3cm90ZToNCj4gQ3VycmVudGx5IHRo
+ZSBoYW5kbGluZyBvZiBldmVudHMgaXMgc3VwcG9ydGVkIGVpdGhlciBpbiB0aGUga2VybmVs
+IG9yDQo+IHVzZXJzcGFjZSwgYnV0IG5vdCBib3RoLg0KPiANCj4gSW4gb3JkZXIgdG8gc3Vw
+cG9ydCBmYXN0IGRlbGl2ZXJ5IG9mIGludGVycnVwdHMgZnJvbSB0aGUgZ3Vlc3QgdG8gdGhl
+DQo+IGJhY2tlbmQsIHdlIG5lZWQgdG8gaGFuZGxlIHRoZSBRdWV1ZSBub3RpZnkgcGFydCBv
+ZiBWaXJ0aW8gcHJvdG9jb2wgaW4NCj4ga2VybmVsIGFuZCB0aGUgcmVzdCBpbiB1c2Vyc3Bh
+Y2UuDQo+IA0KPiBVcGRhdGUgdGhlIGludGVycnVwdCBoYW5kbGVyIHJlZ2lzdHJhdGlvbiBm
+bGFnIHRvIElSUUZfU0hBUkVEIGZvciBldmVudA0KPiBjaGFubmVscywgd2hpY2ggd291bGQg
+YWxsb3cgbXVsdGlwbGUgZW50aXRpZXMgdG8gYmluZCB0aGVpciBpbnRlcnJ1cHQNCj4gaGFu
+ZGxlciBmb3IgdGhlIHNhbWUgZXZlbnQgY2hhbm5lbCBwb3J0Lg0KPiANCj4gQWxzbyBpbmNy
+ZW1lbnQgdGhlIHJlZmVyZW5jZSBjb3VudCBvZiBpcnFfaW5mbyB3aGVuIG11bHRpcGxlIGVu
+dGl0aWVzDQo+IHRyeSB0byBiaW5kIGV2ZW50IGNoYW5uZWwgdG8gaXJxY2hpcCwgc28gdGhl
+IHVuYmluZGluZyBoYXBwZW5zIG9ubHkNCj4gYWZ0ZXIgYWxsIHRoZSB1c2VycyBhcmUgZ29u
+ZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFZpcmVzaCBLdW1hciA8dmlyZXNoLmt1bWFyQGxp
+bmFyby5vcmc+DQoNClJldmlld2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5j
+b20+DQoNCg0KSnVlcmdlbg0KDQo=
+--------------TPBbdZfrM7mOno7xHWeOz5zO
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -236,25 +240,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------u5hf43i9OIE4dk0EanBjly00--
+--------------TPBbdZfrM7mOno7xHWeOz5zO--
 
---------------3c4sbr2bWNEY8AMM31TgXWIA--
+--------------12lMWqCZzejQlSAfuifK0UmU--
 
---------------n0sbYyoOiB064uMBvwL0o0bX
+--------------0DeSbFPoopNZI4BfBlhMslIu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUs4ucFAwAAAAAACgkQsN6d1ii/Ey9k
-1gf+INzKloKYASmfPT/8yL2yNeDVSIwawTnadF5jsAIxiaLc8Ve8J2Pdv50mIhDjSC82IkkkH18M
-AkM7xn12IYN8s0jPKBqncRu9YNOv7yw3OBTbLMiTUQ7C12WQ3l4tNGLIkAjc1TkAVWrnT/mvTMWN
-2XLP694ja6BX9wgJvhj0qQKlX1J8UJKYtYR8g0Mt0R0x08PmcmWOyG8ufqMOq0KAme2gSUHYdZeL
-vdbDe9YT8qM2QMHsVrDls333A6MoQzcC+ArCvoCFEdrxGldyUcdRUovwywI5otxtRsUAa4X1jimD
-Ykpx11I9KTT+UiHsUWwX8kt+1P2kamGU8Th8G0wCJQ==
-=WgOI
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUs45wFAwAAAAAACgkQsN6d1ii/Ey8D
+4Qf+IyXSq23XkKbZqP/f0IXxWnicHRScYES+yc35JU8u4sEBTtNpOTMJSB9KBPutPhKGXb1/pIIr
+kTvVLQiwicqgsD0padwBGAeMG82mHLTGa8bvhqMwa8xfB42h6s4RAgSZjwM9vFcTq0IMIKjvJecB
+OmlFLlhV/9etmBEfzgBXc5u6Ycek05JSaENrnz0BscU9x9D/JzDF0pqImo0aJ7E+lC/D/R2cHJCh
+Fdnkn+FIEkDjPJOmUlEM0Khbq9a0XCNLsC6vK40sonL6ob7qujVFLu2NHdNJ4dGTRuonuau2LL7g
+JG6GWENuko3sW4LKUTdYXtJ3rxy4HA7jMqNreWvDSA==
+=Bmkd
 -----END PGP SIGNATURE-----
 
---------------n0sbYyoOiB064uMBvwL0o0bX--
+--------------0DeSbFPoopNZI4BfBlhMslIu--
 
