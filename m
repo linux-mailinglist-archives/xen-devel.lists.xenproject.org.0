@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87D027CA81B
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 14:36:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617506.960129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237BD7CA828
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Oct 2023 14:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617510.960137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsMp8-0001PC-SE; Mon, 16 Oct 2023 12:35:54 +0000
+	id 1qsMsm-0001yY-9X; Mon, 16 Oct 2023 12:39:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617506.960129; Mon, 16 Oct 2023 12:35:54 +0000
+Received: by outflank-mailman (output) from mailman id 617510.960137; Mon, 16 Oct 2023 12:39:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsMp8-0001Lx-OM; Mon, 16 Oct 2023 12:35:54 +0000
-Received: by outflank-mailman (input) for mailman id 617506;
- Mon, 16 Oct 2023 12:35:52 +0000
+	id 1qsMsm-0001wE-6k; Mon, 16 Oct 2023 12:39:40 +0000
+Received: by outflank-mailman (input) for mailman id 617510;
+ Mon, 16 Oct 2023 12:39:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BBjo=F6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qsMp6-0001Lp-Jo
- for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 12:35:52 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on062f.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::62f])
+ (envelope-from <SRS0=4t3W=F6=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qsMsl-0001w4-6z
+ for xen-devel@lists.xenproject.org; Mon, 16 Oct 2023 12:39:39 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89cb1c18-6c20-11ee-9b0e-b553b5be7939;
- Mon, 16 Oct 2023 14:35:50 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB8PR04MB6988.eurprd04.prod.outlook.com (2603:10a6:10:117::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Mon, 16 Oct
- 2023 12:35:47 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Mon, 16 Oct 2023
- 12:35:47 +0000
+ id 1108a001-6c21-11ee-9b0e-b553b5be7939;
+ Mon, 16 Oct 2023 14:39:37 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9FCDA1F37F;
+ Mon, 16 Oct 2023 12:39:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27145133B7;
+ Mon, 16 Oct 2023 12:39:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8jQZCAcvLWX4IgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 16 Oct 2023 12:39:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,152 +51,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89cb1c18-6c20-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nByIPNJ27kR9BtSw6+6jV9148FL6UE/4w3pQQBghtO5qaEmPUBeE1lXUl+xha8TMSiChE0fBAxYpcxyESLBTB/V15vpZGvODISSM/wY4ww+xlsRo57E2QYbVnywy2APP1JBmack2KRZ1J5l5MctzUzjwPgeupBEKdkoh8yZGxV3k6XrXwd/1QVGNp/NuN0V33pi0APx/dzOqYC0ovTSGVqdlRa5dKZ4DnNefup6oMfZ6C5onPhAsibIIJct7JFBCi0oLgjWZNMPC/j85mJ7hmXWM6lCHoPkbdQSmglcDeW99+0D56VjIf8dP189c9Wrp91r2FlxSAlkgxk7xuhe4bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yS7xizA2dbSBOpRHubJVA2Plwu/kvzCbYjhbSqt4PMU=;
- b=TcLOGMj48HgbFXwjc7FxVpDeEeayi0eoo5WOMTTH9HOkXEkB72BK4Co4SEL+Ys8vS5/QFKXMY6+MF4m2sOfTKrUHy5C8LHuXSJ8vIVFq2nEkWnWLELz7fPsSep6BGe30NG4yFazknTmFPICnFM6+oK6C25MHs9oMQD/DeUNHiug7c5BPsNQmza6O3xSj2zVZPOTPNYhQ4nPF/VxwGTFat60hVS7BS3shycg4zhAcu/zPcMx2D4QYNver5d/KD2IoRvC4TcTfMFiwXfhmQxKtpE0g7KJyHMallxgC3WpgaL8IfCluAp1EmoAXpkUDUfdse6zBmrWIlNVvNJGjlyAdsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yS7xizA2dbSBOpRHubJVA2Plwu/kvzCbYjhbSqt4PMU=;
- b=Xp8Or4MvKhQCNZxLkigPmHkrw3EVFOGFkcUmXEFuGHwdi0iWFs2sqFMMSIG01DEOY6KaspjFmar13f2AVgCmTW08L8vKRtugu8o8stRej88JnuCPDnAS4dDG2Xv8FFU/Xv5EPT6of+S3d6o5/cu3v+8yEQLnGa4GOquZP9eJrHWrQSKqU855ikptwVSdmL1LweIkTcerYSYdMysPl7EvSWTc+EHozw9maXvBKPuxz8Nlx6iDpcj1lI+OYLoKTrq05sPlcFlojVBEgT4S8s4HeS8PljHqIh7rX7AO+NiAa5033E4kvXbXJssSTWcPub+kKjUakRQUl61mJLum8663Yw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b8c03b77-d4bf-3be7-2090-e76e6849b085@suse.com>
-Date: Mon, 16 Oct 2023 14:35:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v2 2/2] domain: expose newly introduced hypercalls as
- XENFEAT
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Henry Wang <Henry.Wang@arm.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20231006130059.97700-1-roger.pau@citrix.com>
- <20231006130059.97700-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20231006130059.97700-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::16) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 1108a001-6c21-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1697459975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=TrHQ0ELhL7iWzaPXNchammsXfJ1VpjNzr9oy6lA6Krc=;
+	b=YzXXQasXeVaCM4rll76gJ/cRr0gpD70UiJXXyCcxaVKzwc9L4AXNbvBrVwebwOapoEgD/V
+	kOvKYPLYE1drK+oaVua+5/yuA0E3o3tYXm/4BGroCwxVwrDXMIXbHrdl6BnhOJf4Kxonoe
+	BdcUCorSEAPEtsoXqKVKuI5f9GWDvX4=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	virtualization@lists.linux-foundation.org,
+	kvm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ajay Kaher <akaher@vmware.com>,
+	Alexey Makhalov <amakhalov@vmware.com>,
+	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 0/4] x86/paravirt: Get rid of paravirt patching
+Date: Mon, 16 Oct 2023 14:39:29 +0200
+Message-Id: <20231016123933.17284-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB8PR04MB6988:EE_
-X-MS-Office365-Filtering-Correlation-Id: b834a813-05b1-4e88-2ea9-08dbce446c35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	DTaAK2i+JJiKmK2fZVRwMIG1hIm3c5iItsTlkXgV7x0eiN2i8hK+i6tt8M0iX7bL4lTXTJJFJO4N/XO7ZIRf6mBkcBL9zihRHGnS1Ts/6u1VWXm+gtn5EZwCby1pzWtUY7eeUmBcT13fwkJ5DtngSFUTuKNBEHqZsNjxEFBFuzsdiAeeOwROtD2E5R4m0obZcNbXEhylxuy6l6R9XbGI8+P8Anu9vOY0aDO2PHlGmLdrlLE2hSND5eMEYgP3wOJuvHOQSLOB8nexriGocipRXFFaPbdi+FTLBM4HKzEloGZfxfEOiNC9KSKdx4hx6WX2Jz1SSILWSDWUAYuzdUiuj0hbs/E4HFVCnZ4pNwqeEGAwGNlge2vrFL2V0IdBMk620D6B55+JBSP+K1E1tcckV8xj7AssSw/CkN4D5GKKIF+S64UvhGi3DHp3OrKisJHskPucPIjKEqRppZfl2OiWIJTbumg9W21xy9GSIHxbe8qs4bqHUD8be4Su7DwZukJEQ+g/nl7X9kK0l/AzzGSuPhjCnYUiwCtU5LfpCQxdJDnTMpqB4B/ZQ8+s1nevWWDiiNuxRMLes9anAj2L6sz7Fylo5nYUETjPc1b79XDJzKHZpEUbrzm4tLZ6RtvfNHcApikMmwaQ++BNfDixcQycSg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(396003)(136003)(39860400002)(346002)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(26005)(2616005)(8676002)(8936002)(4326008)(5660300002)(38100700002)(83380400001)(31686004)(41300700001)(478600001)(31696002)(86362001)(6486002)(2906002)(316002)(6666004)(6506007)(6512007)(53546011)(66946007)(36756003)(66556008)(66476007)(54906003)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUFRUmZOVXFpbkFUTGpVTVFYWjVuZmZ2T2kzdDBxMnR3QlE2VFdiTXA4NnNF?=
- =?utf-8?B?b2hmN0srMGgwcWsxY2YrVVdJQUpvdzBRZVRUVHBHVGpQZ1ZMK3J3SWV6UmE3?=
- =?utf-8?B?V1d3S2ZITStaRDAzeHgza0pHM0pDQ2FSa3dQUU1jcVNidlN3UGxxTWdNT0Fz?=
- =?utf-8?B?STJ4ZlFpUVE5TFFOcGFha004NTBkUWpKS0szRTF3SnAzd1htdlExMGlOZjRE?=
- =?utf-8?B?UHJQT1krYVo5Tit6cFk4ejQxSWRLSnE1dEZHYzAxMDJWK29kdEZGb2tVMGFM?=
- =?utf-8?B?T2k2bTRkbUt4ZkJkdWpjeXcvN0F4dThsWkYzeXpGOTZCZmpxQnlIV2dRUXJ1?=
- =?utf-8?B?TThXajV3aWZDSTQ3dkg5all5YWplSjRxMEJocHZueHhYaGpJVWIvRjFRelZJ?=
- =?utf-8?B?ZEZzYmFmS1ZiYkZ6RE9wbmRvc1pPZ1hRYmxqa2RxZ2pUZXAyQ2Y3cmZyWnhy?=
- =?utf-8?B?R2dEb2VNa2hMZEpiOUFyVmhtMU15emE0SC9yemVUSm5VZlIvRzBESXJ1UE9z?=
- =?utf-8?B?MGdaKzJTUW5rSGE1ZTAxcWZ6ZEdOQ0hpVE55RXhyamp5c1QxMFZqaEhPd3Bi?=
- =?utf-8?B?MU5oOE1qU2dYNmFLWXhyS3lXV09jVGNRSVd4Y2F6ZUhzVVd6TG1jVEluNHBq?=
- =?utf-8?B?NUxZd29sc0RsazhIM2tOc1Y4OG9GWktoKzU5RURMVlhQd2RsajZ3blRzeDZG?=
- =?utf-8?B?OFMyYzJUOEVDd3dUNTZPbGdtMmVDd1dQd3JQYXhYcE85QU92QVpFcmx0Z0Rr?=
- =?utf-8?B?eFA0elY4dmgwWWh5YWdIdkxueFV1YXVaZ2svSi9ZQlZxV05YWWRqVm43ZW9r?=
- =?utf-8?B?TnhEaDhTQU1CZHBnMjZZOTlUa2JySnZsRWg3ODJramNGMHdja0RraGtSclJ4?=
- =?utf-8?B?QjI0TXd2MFZQMW9XK2w0anRRVUNCWmNrWEFsMFJpZXZpRS9VckpXdGd3dk9S?=
- =?utf-8?B?S3UvVGRXRzA1TmxORWxZQmhGYUk1ODhTK3ZjcER3WlZLNXNVVEVFdGVHSE1w?=
- =?utf-8?B?V3RxU2Z0cTJhY29KQkNlY3BaWEV4UVA5b1RESkRyYmFaTHJrd3RhRk4yWm5V?=
- =?utf-8?B?aXJhcFZhNWpUR3JBVENFdWJOMUZBUnNvekRreGtzaGFMWVFHUkhqVDZ1NkRx?=
- =?utf-8?B?eXRxOE0yU01kRDJCUFdkUzVCaG53WnNKbFhjb1ZTMTc0QnpiRHZDMEY4TFZU?=
- =?utf-8?B?VGxiVmpNM1F5WGVCRTVNd21NV2gwamRzSFpSS2lURTMyUHkvZ0g4NzlwQVhX?=
- =?utf-8?B?alI4VXphSHNUU3ZVd3dqaGxRamxrT25mVy9XNzZIMlNJMnBZZVQzTnB0SHlw?=
- =?utf-8?B?Q2VaaERxUkM2VktacXZNUXBqdHQ1NE1INU5xVzNhanJqbkorS0g1aE5KdHdZ?=
- =?utf-8?B?enM3Qm1Nd1pNblcxM3E3U2ZsNEgvYTM3K3lOelk5VkVnNUpoQ3ZnR3ZKNjlh?=
- =?utf-8?B?YTc2WFA0bGxjbXE2RlcwWEJXSU04bk5TOXU1cldQdDU2azBadXg5QVUzdVF5?=
- =?utf-8?B?OEliQ0xJbmpRNjU2ZW1uNUhYSmdNenQyQ0hCYWpXc044N1BYVjFXZ2lFcFVi?=
- =?utf-8?B?ZW94VmY3QTBnM3B2SjZXTE1NZTVGbEw0MFpCYVZ5WDVKUEZvV3BIdEpMamJa?=
- =?utf-8?B?bEVVa1pRMTBOUUdpYTFRWTVVVjkwY050aFA2ZVplaERpdXBMSHRsUG0yQ3F0?=
- =?utf-8?B?ME4xTEt1VzBpZVVZV3poUy9BV1hnQm50R1V6OE9teHgwaHFmZGdmME1nOXFW?=
- =?utf-8?B?NjFNaXJnQWhlV21WNmpJTmg3RnFVTjNqUXF6VzdhZXNUZjhNem04ZVUyUEdq?=
- =?utf-8?B?WHE1ekR3bFdKdTNjNHFWU2lSVlJRTUpiM3cyVU9hWitwTm1aT3kxR01Yc0ky?=
- =?utf-8?B?anBBc3JHVE1sTStPYWtFK3dDTk1SdzkzWUhpUFFSVEUwUzZxdXg5T21UcEov?=
- =?utf-8?B?SUJtYnIvRUhaeDB6cHl0WTF0eExxcU9hME9sblBRVVd5Y1dwdU8vbmhkZDRS?=
- =?utf-8?B?MUlVeWw4NituMjVuR05lbzhWNFMrMXYrckJrYm9RZ2RZNGZtZ0FjbkF2NVFQ?=
- =?utf-8?B?SkpiazZTWnFIencrREx6RmdlR2dHT3B2S2kvYURORldIczQzeWpoMFVvYzEz?=
- =?utf-8?Q?c/KLCCtfScoOv1d+NobCm8O8E?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b834a813-05b1-4e88-2ea9-08dbce446c35
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2023 12:35:47.2758
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TKTROpKyXG1c+28e21RyRD1TDK5Q9jfrN95KCJuN75BwEcQ3V1nBKUjoHtlQoT5zMDkPXeK0WRUZjLLIahSFsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6988
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: ****
+X-Spam-Score: 4.05
+X-Spamd-Result: default: False [4.05 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.85)[-0.851];
+	 NEURAL_SPAM_LONG(3.00)[1.000];
+	 RCPT_COUNT_TWELVE(0.00)[18];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Spam-Flag: NO
 
-On 06.10.2023 15:00, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -1580,6 +1580,10 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->          struct vcpu_register_time_memory_area area;
->  
-> +        rc = -ENOSYS;
-> +        if ( 0 /* TODO: Dom's XENFEAT_vcpu_time_phys_area setting */ )
-> +            break;
-> +
->          rc = -EFAULT;
->          if ( copy_from_guest(&area.addr.p, arg, 1) )
->              break;
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -1998,6 +1998,10 @@ long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->          struct vcpu_register_runstate_memory_area area;
->  
-> +        rc = -ENOSYS;
-> +        if ( 0 /* TODO: Dom's XENFEAT_runstate_phys_area setting */ )
-> +            break;
-> +
->          rc = -EFAULT;
->          if ( copy_from_guest(&area.addr.p, arg, 1) )
->              break;
+This is a small series getting rid of paravirt patching by switching
+completely to alternative patching for the same functionality.
 
-ENOSYS is not correct here. EPERM, EACCES, or EOPNOTSUPP would all be more
-correct.
+The basic idea is to add the capability to switch from indirect to
+direct calls via a special alternative patching option.
 
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -607,7 +607,11 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          switch ( fi.submap_idx )
->          {
->          case 0:
-> -            fi.submap = (1U << XENFEAT_memory_op_vnode_supported);
-> +            fi.submap = (1U << XENFEAT_memory_op_vnode_supported) |
-> +#ifdef CONFIG_X86
-> +                        (1U << XENFEAT_vcpu_time_phys_area) |
-> +#endif
-> +                        (1U << XENFEAT_runstate_phys_area);
+This removes _some_ of the paravirt macro maze, but most of it needs
+to stay due to the need of hiding the call instructions from the
+compiler in order to avoid needless register save/restore.
 
-No provisions here for the "disabled for this domain" case?
+What is going away is the nasty stacking of alternative and paravirt
+patching and (of course) the special .parainstructions linker section.
 
-Jan
+I have tested the series on bare metal and as Xen PV domain to still
+work.
+
+Note that objtool might need some changes to cope with the new
+indirect call patching mechanism. Additionally some paravirt handling
+can probably be removed from it.
+
+Changes in V2:
+- split last patch into 2
+- rebase of patch 2 as suggested by Peter
+- addressed Peter's comments for patch 3
+
+Juergen Gross (4):
+  x86/paravirt: move some functions and defines to alternative
+  x86/alternative: add indirect call patching
+  x86/paravirt: switch mixed paravirt/alternative calls to alternative_2
+  x86/paravirt: remove no longer needed paravirt patching code
+
+ arch/x86/include/asm/alternative.h        |  26 ++++-
+ arch/x86/include/asm/paravirt.h           |  79 +++++----------
+ arch/x86/include/asm/paravirt_types.h     |  73 +++-----------
+ arch/x86/include/asm/qspinlock_paravirt.h |   4 +-
+ arch/x86/include/asm/text-patching.h      |  12 ---
+ arch/x86/kernel/alternative.c             | 116 ++++++++++------------
+ arch/x86/kernel/callthunks.c              |  17 ++--
+ arch/x86/kernel/kvm.c                     |   4 +-
+ arch/x86/kernel/module.c                  |  20 +---
+ arch/x86/kernel/paravirt.c                |  54 ++--------
+ arch/x86/kernel/vmlinux.lds.S             |  13 ---
+ arch/x86/tools/relocs.c                   |   2 +-
+ arch/x86/xen/irq.c                        |   2 +-
+ 13 files changed, 137 insertions(+), 285 deletions(-)
+
+-- 
+2.35.3
+
 
