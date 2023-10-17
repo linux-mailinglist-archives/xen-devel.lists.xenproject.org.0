@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17B07CCA21
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 19:48:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618317.961815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 518777CCA4D
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 20:04:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618321.961825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qso9t-0005ie-JX; Tue, 17 Oct 2023 17:47:09 +0000
+	id 1qsoPa-0000SN-2V; Tue, 17 Oct 2023 18:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618317.961815; Tue, 17 Oct 2023 17:47:09 +0000
+Received: by outflank-mailman (output) from mailman id 618321.961825; Tue, 17 Oct 2023 18:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qso9t-0005go-Fe; Tue, 17 Oct 2023 17:47:09 +0000
-Received: by outflank-mailman (input) for mailman id 618317;
- Tue, 17 Oct 2023 17:47:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qsoPZ-0000Pr-Vs; Tue, 17 Oct 2023 18:03:21 +0000
+Received: by outflank-mailman (input) for mailman id 618321;
+ Tue, 17 Oct 2023 18:03:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QnrG=F7=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1qso9s-0005gi-Ap
- for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 17:47:08 +0000
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2edfe77e-6d15-11ee-9b0e-b553b5be7939;
- Tue, 17 Oct 2023 19:47:04 +0200 (CEST)
-Received: from [192.168.2.39] (109-252-153-31.dynamic.spd-mgts.ru
- [109.252.153.31])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 354A166030BF;
- Tue, 17 Oct 2023 18:47:02 +0100 (BST)
+ <SRS0=qm1H=F7=casper.srs.infradead.org=BATV+e442e50539a6073fd887+7359+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qsoPX-0000Pl-VR
+ for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 18:03:20 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7320e3ba-6d17-11ee-98d4-6d05b1d4d9a1;
+ Tue, 17 Oct 2023 20:03:18 +0200 (CEST)
+Received: from [2001:8b0:10b:5:b9aa:f92b:5d4c:b38]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qsoP6-00DlaR-Uz; Tue, 17 Oct 2023 18:02:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +41,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2edfe77e-6d15-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1697564824;
-	bh=7IsusT1dT12JlmsWi9fTD4lUiRDuxbrgFdaEhWCoJCc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HqEcLArg8mFxNxd6e0qNpQnrW/kTfGv9MFOTfihiBbA4ALKaa60aAYs3U45zbolVk
-	 YZBWCy2RzPd0CCq39L0nUWRED41AUzcenQJs0SLWp/8sMxKvG3wzCrfMotL7TIjhHx
-	 PfAAOxs1mBQT1tBn4LDjAGjjJ/zKIshrSX56s7RdU4JQDxBEa4RBMse8ZUOXPA+CEp
-	 KKqgQTl8Sk3bx92mT0elWyVa62zHIGtw3x5RjEaKMXwoXtakNcx0pMJOthySgvsbJR
-	 Sax8j8eAxAXSkrsq5A7dO3VqkY6InDoi3sCEAxkzQuCMNH6MCnCXjCYrI13PBB6KpP
-	 7BQEV+XKTyAwg==
-Message-ID: <1d902287-2ebf-fe0a-ccbd-bf671c04eddf@collabora.com>
-Date: Tue, 17 Oct 2023 20:46:59 +0300
+X-Inumbo-ID: 7320e3ba-6d17-11ee-98d4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8Z/G+xXxoqLc1oVYvgSvXAHrzhv9Z4bWUcJP/KnzsOE=; b=jwjtHEO2FKTFm8J9ww6LrJT+yt
+	E/BOdsexhcXeJ5Y4jTgFUTtdgkU/NNVjdzbYPj4hqgtlN2LJuF2ZUbsyTgRTE0FkwkVuvVNoGzofY
+	ZkQcWnhDs9/uMYcNWCdqn9VDMr1GpRCpFjgTZj/mX5pdztpw8V/lSONKCz00mQg1MqUQrH2Y94rQ0
+	MYe3lZKolFLW9KROvwLV17SURXmGPMD/x15Jw6vKjp4qK42+kdRQeJYuoUX5dgc+pB9uOF1j4FwBE
+	ZzU8LhU+/IXnfq/uH6LBtr+Hwt8riZtIgILaZlsQ92jVBkzmYMiNJQiztEwXGU8QxspAuMOFakbx9
+	d28vqLJA==;
+Message-ID: <ffbe26420b1bcc4ccecb110143d3856603b67d54.camel@infradead.org>
+Subject: Re: [PATCH 11/12] hw/xen: automatically assign device index to
+ block devices
+From: David Woodhouse <dwmw2@infradead.org>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,  Paolo
+ Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>,  Eduardo Habkost <eduardo@habkost.net>,
+ Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org, 
+ xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Date: Tue, 17 Oct 2023 19:02:52 +0100
+In-Reply-To: <ZS5gQL+KZjxOmUsk@redhat.com>
+References: <20231016151909.22133-1-dwmw2@infradead.org>
+	 <20231016151909.22133-12-dwmw2@infradead.org> <ZS5gQL+KZjxOmUsk@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-g8ymWje5yQdoPBf4P1zh"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [QEMU PATCH v5 05/13] virtio-gpu: Configure context init for
- virglrenderer
-Content-Language: en-US
-To: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
-Cc: Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Akihiko Odaki <akihiko.odaki@daynix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- qemu-devel@nongnu.org, xen-devel@lists.xenproject.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Albert Esteve <aesteve@redhat.com>, ernunes@redhat.com,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
- Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>
-References: <20230915111130.24064-1-ray.huang@amd.com>
- <20230915111130.24064-6-ray.huang@amd.com>
- <16520a76-7177-f97c-049b-302d8baea616@collabora.com>
- <ZSU6pqcyBxTPTcwc@redhat.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <ZSU6pqcyBxTPTcwc@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 10/10/23 14:51, Daniel P. Berrangé wrote:
-> On Tue, Oct 10, 2023 at 02:41:22PM +0300, Dmitry Osipenko wrote:
->> On 9/15/23 14:11, Huang Rui wrote:
->>> Configure context init feature flag for virglrenderer.
->>>
->>> Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>
->>> V4 -> V5:
->>>     - Inverted patch 5 and 6 because we should configure
->>>       HAVE_VIRGL_CONTEXT_INIT firstly. (Philippe)
->>>
->>>  meson.build | 4 ++++
->>>  1 file changed, 4 insertions(+)
->>>
->>> diff --git a/meson.build b/meson.build
->>> index 98e68ef0b1..ff20d3c249 100644
->>> --- a/meson.build
->>> +++ b/meson.build
->>> @@ -1068,6 +1068,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
->>>                                         prefix: '#include <virglrenderer.h>',
->>>                                         dependencies: virgl))
->>>    endif
->>> +  config_host_data.set('HAVE_VIRGL_CONTEXT_INIT',
->>> +                       cc.has_function('virgl_renderer_context_create_with_flags',
->>> +                                       prefix: '#include <virglrenderer.h>',
->>> +                                       dependencies: virgl))
->> The "cc.has_function" doesn't work properly with PKG_CONFIG_PATH. It ignores the the given pkg and uses system includes. Antonio was aware about that problem [1].
->>
->> [1] https://gitlab.freedesktop.org/Fahien/qemu/-/commit/ea1c252a707940983ccce71e92a292b49496bfcd
->>
->> Given that virglrenderer 1.0 has been released couple weeks ago,
->> can we make the v1.0 a mandatory requirement for qemu and remove
->> all the ifdefs? I doubt that anyone is going to test newer qemu
->> using older libviglrenderer, all that ifdef code will be bitrotting.
-> 
-> We cannot do that. If is is only weeks old, no distro will
-> have virglrenderer 1.0 present. QEMU has a defined set of
-> platforms that it targets compatibility with:
-> 
->   https://www.qemu.org/docs/master/about/build-platforms.html
-> 
-> For newly added functionality we can set the min version to
-> something newer than the oldest QEMU target platform.
-> 
-> For existing functionality though, we must not regress wrt
-> the currently supported set of target platforms. So we can
-> only bump the min version to that present in the oldest
-> platform we target.
 
-Well, then alternatively we could specify supported libvirglrender
-features based on the lib version to avoid those pkgconfig+meson troubles.
+--=-g8ymWje5yQdoPBf4P1zh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Best regards,
-Dmitry
+On Tue, 2023-10-17 at 12:21 +0200, Kevin Wolf wrote:
+> Am 16.10.2023 um 17:19 hat David Woodhouse geschrieben:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > There's no need to force the user to assign a vdev. We can automaticall=
+y
+> > assign one, starting at xvda and searching until we find the first disk
+> > name that's unused.
+> >=20
+> > This means we can now allow '-drive if=3Dxen,file=3Dxxx' to work withou=
+t an
+> > explicit separate -driver argument, just like if=3Dvirtio.
+> >=20
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+>=20
+> > @@ -34,6 +34,31 @@ static char *xen_block_get_name(XenDevice *xendev, E=
+rror **errp)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 XenBlockDevice *blockdev =3D XEN_BLOCK_DEVICE(=
+xendev);
+> > =C2=A0=C2=A0=C2=A0=C2=A0 XenBlockVdev *vdev =3D &blockdev->props.vdev;
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0 if (blockdev->props.vdev.type =3D=3D XEN_BLOCK_VDEV=
+_TYPE_INVALID) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char name[11];
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int disk =3D 0;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long idx;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Find an unoccupied devic=
+e name */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 while (disk < (1 << 20)) {
+>=20
+> I like your optimism that we can handle a million disks. :-)
 
+Heh, yeah. Given that there *is* a limit, setting it lower seemed a bit
+arbitrary.
+
+For consoles I picked 100 instead of letting it go all the way to
+INT_MAX, and in a patch set soon to be posted I'll do the same for the
+xen-net-device as I convert it.
+
+Even with a limit of 100, having that many devices *WITHOUT SPECIFYING
+WHICH ONE IS WHICH* seems a bit many!
+
+FWIW I've changed it to check for the existence of the *frontend* nodes
+(the ones which are visible to the guest). Currently it checks for the
+backend nodes, but those might be in different places.
+
+> I haven't reviewed the Xen part in detail, but the patch looks fine on
+> the block layer side.
+>=20
+> Acked-by: Kevin Wolf <kwolf@redhat.com>
+
+Thanks.
+
+--=-g8ymWje5yQdoPBf4P1zh
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDE3MTgwMjUyWjAvBgkqhkiG9w0BCQQxIgQgVSVJiyFQ
+d5ahEA1aic++FkG4S7+GBim/tfSkLZxZ/Ocwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBkaaX42hxtUsGcZwvSgdormRawhFeK3Uuf
+QvYrmT6E6CijbxldljD3rx2Dm7ZMxoeZUPYnvCmLAEsCgAGv5jcW0hpAsITdIabeDwaLKD8cItiV
+kjdJkcqNqqPArhJ/ubrkR8+UMbTFIANCKK0y+F4ARok6nesCUIp5swPx2IwOJ5i2lA7HEU/y3cUW
+Utu3ts6Ugq6mFSsre1jDKooHiNGq63d8sWP1N5u79ypSQbs/j+T4qgpgCVMsutDs32uabkZWk4Cl
+Pq2Y0prcEsU8iTHfrzwEow69U1Va2jGfBR7C6I3aObevxo9BwXbgyDd+SPQfoBQRDGFGQxqUgcTL
+DcBQY2ka6VLLxKl2DS4ncb9BUgy2S9quMqIKaKec9ofPYyiOJMqAWU9VGT8hKAGcul6RqR2s4KJI
+X7oHoqRuzp+wu8PrM1q02RucQcHrJC2cFsXzBy66BtiEkpmnqEbTft9MO5a2mtyenngZZOhKnSLJ
+vtkMk+2DxtAAIwYMzXxHtMSkef8xp6VtIR8ocLsfM/r/5l17garKSq9QxnHwndhWlPkDXxvarNle
+tajs9XtaTtWi1B/mLOTEGE1vTPa2fx9eBlBC7KubxQsjGpmB9ue/rOiAOf9aCc3g7WEvIvCTrd2M
+5zMO592J78sP33uBsTnm22N2HKoQCwMacSV0dVBifQAAAAAAAA==
+
+
+--=-g8ymWje5yQdoPBf4P1zh--
 
