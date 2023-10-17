@@ -2,35 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 077047CB7E3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 03:14:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.617987.961183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BB47CB7E4
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 03:14:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.617992.961192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsYek-0000oV-Du; Tue, 17 Oct 2023 01:13:58 +0000
+	id 1qsYfQ-0001hF-Mv; Tue, 17 Oct 2023 01:14:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 617987.961183; Tue, 17 Oct 2023 01:13:58 +0000
+Received: by outflank-mailman (output) from mailman id 617992.961192; Tue, 17 Oct 2023 01:14:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsYek-0000l7-BA; Tue, 17 Oct 2023 01:13:58 +0000
-Received: by outflank-mailman (input) for mailman id 617987;
- Tue, 17 Oct 2023 01:13:57 +0000
+	id 1qsYfQ-0001eP-Jm; Tue, 17 Oct 2023 01:14:40 +0000
+Received: by outflank-mailman (input) for mailman id 617992;
+ Tue, 17 Oct 2023 01:14:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dFgi=F7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qsYej-0000ji-40
- for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 01:13:57 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ <SRS0=qhkS=F7=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1qsYfP-0000ji-N0
+ for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 01:14:39 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2060b.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::60b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 709bd737-6c8a-11ee-9b0e-b553b5be7939;
- Tue, 17 Oct 2023 03:13:54 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 458EFB81ADA;
- Tue, 17 Oct 2023 01:13:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A869C433C8;
- Tue, 17 Oct 2023 01:13:50 +0000 (UTC)
+ id 8883c935-6c8a-11ee-9b0e-b553b5be7939;
+ Tue, 17 Oct 2023 03:14:35 +0200 (CEST)
+Received: from AS9PR07CA0054.eurprd07.prod.outlook.com (2603:10a6:20b:46b::13)
+ by AS8PR08MB9954.eurprd08.prod.outlook.com (2603:10a6:20b:638::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
+ 2023 01:14:31 +0000
+Received: from AM7EUR03FT063.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46b:cafe::74) by AS9PR07CA0054.outlook.office365.com
+ (2603:10a6:20b:46b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.18 via Frontend
+ Transport; Tue, 17 Oct 2023 01:14:31 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT063.mail.protection.outlook.com (100.127.140.221) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6907.20 via Frontend Transport; Tue, 17 Oct 2023 01:14:30 +0000
+Received: ("Tessian outbound d219f9a4f5c9:v211");
+ Tue, 17 Oct 2023 01:14:30 +0000
+Received: from 6df375bc8753.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 4043F12C-6567-448B-956A-FCD60F7C6EDC.1; 
+ Tue, 17 Oct 2023 01:14:24 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6df375bc8753.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 17 Oct 2023 01:14:24 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by GV1PR08MB7380.eurprd08.prod.outlook.com (2603:10a6:150:24::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 17 Oct
+ 2023 01:14:22 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::e1f8:1b40:67d1:6f41]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::e1f8:1b40:67d1:6f41%4]) with mapi id 15.20.6886.034; Tue, 17 Oct 2023
+ 01:14:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,188 +72,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 709bd737-6c8a-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697505231;
-	bh=V/Ng7ucBmPhpwpbJgTU+w5kM8Pn5PEutAqugiGXSP4A=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ql3zXJN6iRW2cOUdIKyLa5PDw2ZsZfEHsGKX3zKHclOCrada85p7eyruHaWVUN3cc
-	 +L46G6LhN+9DbbCJzQYcRT95pLkAzQM4gSWf+Kom4jUZYx4C9jKMZTtWOW99FlS48s
-	 GcR1g/VpWAAfRGd6vpnbuBsTeRfa92ewaG5UbvPo8t+tFqe09DWoYECeB/N+lxIz11
-	 ErcBSD1iFauC0xbE7PfvKVO1p0L7w+7RdE2UhrkrPi+3TUoZgqLjTfDQ34bKzQU9QL
-	 GC7XmaVfr9r1EvvAN7ptfFMG55paPj6pCNxiIn1pee6/uohhPjmWWw59lKy0wIrim/
-	 8AeefKfu2tJRA==
-Date: Mon, 16 Oct 2023 18:13:46 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "julien@xen.org" <julien@xen.org>, 
-    "george.dunlap@citrix.com" <george.dunlap@citrix.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: SAF-x-safe rename
-In-Reply-To: <71abd99d-7ef9-09db-9c1e-6b1c55188a6b@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2310161813010.965337@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2310041633080.2348112@ubuntu-linux-20-04-desktop> <9CF5DF50-B857-4B1D-A210-E6355492CC3B@arm.com> <75d160be-4a8c-48c7-a972-201d78f0bdf0@citrix.com> <50198a73-2f0c-4cf1-9173-86a8158b425b@citrix.com>
- <71abd99d-7ef9-09db-9c1e-6b1c55188a6b@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 8883c935-6c8a-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7cowd0ncFKjvWfwsNYKO8XD1DItcTWeYZVLf8QqI864=;
+ b=yMdTtG1WGXUUpkVebTvHpBJDq8AyNlzQ3ZqIQ+Hb7wmVF551SJuIcEBHIFsXmC89ya0UD3udhT4jiPwyrBGKtDNn8DLZJDyAL3LDuWlcsCTZkCifWFD8MpyFwfaDskdigwUrjsUHoo+F+9YUa5Qn8gapekESsog7abeIGyodHig=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 76654382fd94d443
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FDnO5D3Ib/p04FKyNsa/Cl+WhqxRf0Z0Qu8P8r5NbjJjHYz6pDirpTfo61PyCeD2JBkLl2L3WS9xE6WKv/mU4x3pQKEazwtcdpXPqDlfTQE0pm3ZZzbHrYZSYsrif3z9S8OTSaI5mZoHenCIiESRqYfTL5mCdwBcz56YAQwbLlq+NVsaVjdr9s8f7lUutlP8dyS/9rbYe62fGy46+ltiy5ojHgECJOgNrUgMD50H+IfphLtogEQ4d+nfsOBY2vbF9+I7544gfKHXF6Lthaqh+CtLWP1tz5vUTy19EczPvVlb+CVVE9WPTnZTKugkbF5EOBH2SgNbekCX79ACsSvKRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7cowd0ncFKjvWfwsNYKO8XD1DItcTWeYZVLf8QqI864=;
+ b=jsYoCpHwwia2Nq+jI+7oni3O93s1koFvVORsxFn8y/HBkicsiGa002Gevv7ypSq6X7pHPSIiIba9vHUTtzdcS6YAw14jILi22iRaCRfXGo8XdGwMuNGQI8XtaYOn/t7R9DWgdIH0D5O0rLBIARopejj82tBxyf7eqc49Qs2F58hyWYK8ETrgl216mjPY68aRK3pL1OT3YPpfAQRoIjXUjpeTkEx/kjZF4QcdnnLv/kGKnxwz10QMGqBQgAfEc63jwpdNSwrsJI9wAhCA2tekjG1ZHI1PXmXIeNRRiRZ9SM0kuRgw+MJ6ctTEVyOaHKUck3MpHMgWWcSaaiJU91TWPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7cowd0ncFKjvWfwsNYKO8XD1DItcTWeYZVLf8QqI864=;
+ b=yMdTtG1WGXUUpkVebTvHpBJDq8AyNlzQ3ZqIQ+Hb7wmVF551SJuIcEBHIFsXmC89ya0UD3udhT4jiPwyrBGKtDNn8DLZJDyAL3LDuWlcsCTZkCifWFD8MpyFwfaDskdigwUrjsUHoo+F+9YUa5Qn8gapekESsog7abeIGyodHig=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>, Xen-users
+	<xen-users@lists.xenproject.org>, "xen-announce@lists.xenproject.org"
+	<xen-announce@lists.xenproject.org>
+CC: Community Manager <community.manager@xenproject.org>
+Subject: Xen 4.18 rc3
+Thread-Topic: Xen 4.18 rc3
+Thread-Index: AQHaAJdC+jR+lkuHjEaiAi7ivmmoQg==
+Date: Tue, 17 Oct 2023 01:14:22 +0000
+Message-ID: <9D3774C3-16CA-4F37-B9E9-470BE98D8C76@arm.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.700.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|GV1PR08MB7380:EE_|AM7EUR03FT063:EE_|AS8PR08MB9954:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8885c79-6dc2-4ed4-17d4-08dbceae6a79
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 7xWGcWawEZ9/R9p6MxbN4n1/DxQLBSwRrv8ckfAKnJW9vCW/AiaViihCRVDKdT7+6d42zmNO9hWuOhdmUV+3viE4/5Jsw/4AHJaTJ0f6+nQ2XEEWoU/GTjGxgefnKOMwoUTiIoB61Q25JCmX0Se3dyomUpqrXbPX20ziqGmxSL8TN9M/3HpmmQEQO82zR6Df9fwjT8yGeSI9pzp9GLqimtIrI5hDxCxV3sEOamZnAZwHYE9jeojhzfMxH6RNQxe8ZcoY/JcRAlmuWDQLtaNhfWUqGWkIbvNay0raFj9Owfs96VWnvGSMBP2uqmZnQ+FQx73MdIt1aaQpznSLF1EslanVRfaPoxHSkgKeU3VPIgv6pBGzsHpMKqFb17Lb2VtAuZNYonjFNuh1QMIk/fPNYarrp3LiJHZ/0Hr79glvbqzacTaGFPNdFi8DMZV25osJf/u7IN68/b0DXHGzN7qpzJlVdf+4K8P2h3weCNYQHk15hCMJAfJB9K5CMNXpFpRmkoGYs/Z33oGqRhenojoCuZLj8H9JMEqDaCY9wOFhWC50DkmYK1M9Ww/NXN9PEgiI7bcjG0oFo3iu/SJ5Cc9k72/K62PMPflFMW77tkrt1eiUiylmv4RAQw1a2A/Yhfib
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(136003)(346002)(366004)(396003)(230922051799003)(64100799003)(1800799009)(186009)(451199024)(478600001)(66476007)(966005)(91956017)(6486002)(66556008)(110136005)(76116006)(66946007)(64756008)(66446008)(71200400001)(26005)(6506007)(41300700001)(2616005)(6512007)(8936002)(8676002)(7116003)(2906002)(4326008)(4744005)(5660300002)(38070700005)(36756003)(33656002)(122000001)(86362001)(83380400001)(38100700002)(316002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9D5FB088339BC04693732B2F9B8D4642@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1145807480-1697505231=:965337"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7380
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d1c31631-4f4a-44a6-a304-08dbceae6553
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	dAix/eiytP6VbK+XFkiIIt9H/9JrqnlesmAssWw967X6wDpjlrUbWLiwryp2shDwd2epJMceDW036iZhxhOFk523V+Fo9ib94RBnLgBI6p5TrSN2I1Bu2/1vdvRsk7dlg3ZZtd2kJ2bckIHZuLJ6+Jp3BB35hhQdI2/IHX10QbWMFlHJI3Xds/mBogL+6fH3NqHF/jZAxEieTOiYumIAqEP/UOVF09Mce3vEsjZ6v74oC+Mg/mE3xvtPk427hKVNh0S9Oqc/94LK4EjPrHib/OaAkPoAZ00F/0ogvqqwCUfvzjFY/Zd7fl6edaj0we7Ta+MXuiZMvXqjXq7faYNSxlR8aQkt/HO9+spwdwSaACtKjvylD52sLf5EbdNcnyYdDdW8MZOiuX3ybn4Cr6qAvP/4UC37df4/XzxYmuBYtXFMCQwx+GzjhqCFR6Bv1TSw90Oxdcki/nHl+XVvF8CqqkdEXxh+MNXSxRAMBvI9AhXImxMfY4tayS4eNH3fdYf9MturbvIf07GJ2PAZz9cEdqft5RT/5mt3WlXkR94W5auupLYK1Qa4Lwgj8IRwmtcr8KGlGNMOk1+n5GxFBtTo7WVLboB6Wxn1Igi7oeDntUL+bHQhDTkyEosUoO7Ondcd8xqaNKeLCOhAKav8aU9dE16IT21sJaw1qYKoG/T462QlVM0bssUPDs0m+Wk3eIQpUkNuh5n1hoFkbZwAZ3BrW6BTJL+VZZw/CyiVYjiFxvc=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(1800799009)(82310400011)(186009)(64100799003)(451199024)(40470700004)(46966006)(36840700001)(86362001)(40480700001)(36756003)(33656002)(40460700003)(316002)(110136005)(70586007)(70206006)(450100002)(82740400003)(81166007)(356005)(83380400001)(36860700001)(47076005)(336012)(2616005)(26005)(6512007)(6506007)(4744005)(2906002)(6486002)(8936002)(966005)(478600001)(41300700001)(5660300002)(7116003)(8676002)(4326008);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 01:14:30.7915
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8885c79-6dc2-4ed4-17d4-08dbceae6a79
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9954
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi all,
 
---8323329-1145807480-1697505231=:965337
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Xen 4.18 rc3 is tagged. You can check that out from xen.git:
 
-On Mon, 16 Oct 2023, Jan Beulich wrote:
-> On 06.10.2023 00:01, Andrew Cooper wrote:
-> > On 05/10/2023 10:38 pm, andrew.cooper3@citrix.com wrote:
-> >> On 05/10/2023 8:43 am, Luca Fancellu wrote:
-> >>>> On 5 Oct 2023, at 00:46, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>>>
-> >>>> Hi MISRA C working group (Jan, Roger, Andrew, Julien, Bertrand, George)
-> >>>>
-> >>>> in a recent thread Andrew pointed out that the SAF-2-safe tag is
-> >>>> confusing and requested a rename:
-> >>>> https://marc.info/?l=xen-devel&m=169634970821202
-> >>>>
-> >>>> As documented by docs/misra/documenting-violations.rst:
-> >>>>
-> >>>> - SAF-X-safe: This tag means that the next line of code contains a finding, but
-> >>>>   the non compliance to the checker is analysed and demonstrated to be safe.
-> >>>> - SAF-X-false-positive-<tool>: This tag means that the next line of code
-> >>>>   contains a finding, but the finding is a bug of the tool.
-> >>>>
-> >>>>
-> >>>> Today we have already 28 instances of SAF tags in the Xen codebase.
-> >>>>
-> >>>>
-> >>>> Andrew suggested "ANALYSIS" instead of SAF so I would imagine:
-> >>>> - ANALYSIS-X-safe
-> >>>> - ANALYSIS-X-false-positive-<tool>
-> >>>>
-> >>>> If we really want a rename I suggest to rename SAF to SAFE:
-> >>>> - SAFE-X-safe
-> >>>> - SAFE-X-false-positive-<tool>
-> >>>>
-> >>>> Or maybe MISRA:
-> >>>> - MISRA-X-safe
-> >>>> - MISRA-X-false-positive-<tool>
-> >>>>
-> >>>> But I actually prefer to keep the tag as it is today.
-> >>> We chose a generic name instead of MISRA because the tag can potentially suppress findings
-> >>> of any checker, including MISRA checker.
-> >>>
-> >>> If SAF-* is confusing, what about FUSA-* ?
-> >>>
-> >>> Anyway I’m thinking that every name we could come up will be confusing at first, improving the
-> >>> documentation would mitigate it (by improving I mean to improve the fruition of it, for example a
-> >>> Read the docs documentation has the search bar, a quick copy paste of SAF- would make the
-> >>> documenting-violations page visible.)
-> >>
-> >> No - this is a problem *because* changing the documentation doesn't
-> >> help.   (To be clear, updating the documentation is fine, but irrelevant
-> >> here.)
-> >>
-> >>
-> >> These are annotations in code.  They need to be:
-> >>
-> >> 1) Short (obviously)
-> >> 2) Clear to someone who isn't you (the collective us of this group)
-> >> reading the code.
-> >> 3) Non-intrusive, so as not to get in the way of the code.
-> >>
-> >> and they must be all three.  This was even a principle given at the
-> >> start of the MISRA work that we would not be deteriorating the quality
-> >> of the code just to comply.
-> >>
-> >> Point 3 is other thread about end-of-line, or block regions.  Lets leave
-> >> that there because it's really a metadata transformation problem
-> >> constrained by where the comments can acceptably go.
-> >>
-> >>
-> >> Point 2 is the issue here, and "SAF-$N-safe" scores very highly on the
-> >> WTF-o-meter *even* for people who know that it's something related to MISRA.
-> >>
-> >> Seriously it looks like someone couldn't spell, and everyone else went
-> >> with it (reflects poorly on everyone else).
-> >>
-> >> And yes, I know it's an initialisation for something, but it's not even
-> >> an industry standard term - it's a contraction of an intentionally
-> >> generic phrase, with substantial irony on an early MISRA call where
-> >> there was uncertainly between people as to what it even stood for.
-> >>
-> >> These are the thoughts running through the minds of people reading the
-> >> code when they don't understand what they're looking at.
-> >>
-> >>
-> >> Annotations for other static analysers intentionally use their own name
-> >> so they're googleable.
-> >>
-> >> Guess what SAF googles for?  Sustainable Aviation Fuel, or Specialist
-> >> Automotive Finance.
-> >>
-> >> Fine, lets be more specific.  How about "Xen SAF" ?  Nope...
-> >>
-> >> "Did you mean to search for:
-> >> Xen SAVE Xen SAN Xen VIF Xenstaff"
-> >>
-> >>
-> >> Despite many of the search results referencing patches, or rendered
-> >> documents out of docs/, not a single one of them gets
-> >> documenting-violations.rst in any form, where the single definition of
-> >> this term is hiding in a paragraph which spends 90% of it's volume
-> >> describing a monotonically increasing number.
-> >>
-> >> Seriously, ChatGPT would struggle to make shit this good up.
-> >>
-> >>
-> >> The thing we tag with *must* be trivially recognisable as an analysis
-> >> tag in order for others to be able to read the code.  Therefore, it
-> >> needs to be an actual full world (hence the ANALYSIS suggestion), or an
-> >> industry standard term (where MISRA does qualify).
-> 
-> ANALYSIS imo gets in conflict with 1) above, considering that permitting
-> line length violations was already brought up with the shorter SAF-*.
-> 
-> >> I don't exactly what it is - something else might turn out to be even
-> >> better, but it is very important to be not this, for everyone else to
-> >> have an easy time reading the code.
-> >>
-> >>
-> >> And reasoning along that line...  What's wrong with just /* octal-ok */
-> >> or /* womble-permitted */ so it's also apparent in context what the
-> >> contentious issue might be and why it might be mitigated?
-> 
-> When the numbering scheme was discussed, I was asking why a shorthand
-> for the issue to deal with (kind of a tag) can't be used. I don't
-> recall any arguments, but here we are. One issue with something like
-> just /* octal-ok */ is that it's not sufficiently reliably machine-
-> parseable; that's aiui where the desire of the SAF (or whatever else)
-> prefix came from.
-> 
-> >> The mechanics behind the scenes is just a trivial text replacement, and
-> >> the tagging scheme does not have to uniform obfuscated identifier for
-> >> that to work.
-> > 
-> > Or, as has been pointed out to me in private, even
-> > 
-> > /* RULE-$N-safe */
-> > 
-> > would be an improvement because it's clearly related to some set of
-> > guidelines.
-> 
-> Both MISRA and RULE are Misra-specific; RULE, if you mean it to be
-> followed by the rule number, would even be Misra version specific.
+git://xenbits.xen.org/xen.git 4.18.0-rc3
 
-Please everyone fill in your preference here in advance of tomorrow's
-MISRA C meeting so we can discuss the results live:
-https://cryptpad.fr/form/#/2/form/view/kwflzAkvxhxF5U5Kv9O6QiQ5LEuCmHZlJhnNda7jk2g/
---8323329-1145807480-1697505231=:965337--
+For your convenience there is also a tarball at:
+https://downloads.xenproject.org/release/xen/4.18.0-rc3/xen-4.18.0-rc3.tar.=
+gz
+
+And the signature is at:
+https://downloads.xenproject.org/release/xen/4.18.0-rc3/xen-4.18.0-rc3.tar.=
+gz.sig
+
+Please send bug reports and test reports to xen-devel@lists.xenproject.org.
+When sending bug reports, please CC relevant maintainers and me
+(Henry.Wang@arm.com).
+
+Kind regards,
+Henry
 
