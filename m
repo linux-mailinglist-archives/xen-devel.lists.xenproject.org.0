@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C04B7CCCCD
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 22:00:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618352.961905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 542127CCD58
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 22:04:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618356.961916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsqDP-0000IR-Jq; Tue, 17 Oct 2023 19:58:55 +0000
+	id 1qsqII-00029P-7b; Tue, 17 Oct 2023 20:03:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618352.961905; Tue, 17 Oct 2023 19:58:55 +0000
+Received: by outflank-mailman (output) from mailman id 618356.961916; Tue, 17 Oct 2023 20:03:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsqDP-0000Fc-HE; Tue, 17 Oct 2023 19:58:55 +0000
-Received: by outflank-mailman (input) for mailman id 618352;
- Tue, 17 Oct 2023 19:58:54 +0000
+	id 1qsqII-000263-4L; Tue, 17 Oct 2023 20:03:58 +0000
+Received: by outflank-mailman (input) for mailman id 618356;
+ Tue, 17 Oct 2023 20:03:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dFgi=F7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qsqDO-0000FU-6z
- for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 19:58:54 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ <SRS0=GJo3=F7=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
+ id 1qsqIG-00025x-Us
+ for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 20:03:57 +0000
+Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 966241ab-6d27-11ee-9b0e-b553b5be7939;
- Tue, 17 Oct 2023 21:58:50 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id A7F8DCE1CF6;
- Tue, 17 Oct 2023 19:58:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C84C433C7;
- Tue, 17 Oct 2023 19:58:42 +0000 (UTC)
+ id 4b8a8ca4-6d28-11ee-9b0e-b553b5be7939;
+ Tue, 17 Oct 2023 22:03:53 +0200 (CEST)
+Received: from [2a00:23c4:8bb0:3200:407d:a65c:9fb4:b9b4]
+ by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
+ id 1qsqI1-0001Wa-Ei; Tue, 17 Oct 2023 21:03:45 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,175 +40,349 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 966241ab-6d27-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697572723;
-	bh=PP7AX4Pq9aIcZ9xC5nXuuSDj/kmLE8PT+8RSDCw6ZsI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=odGh0r2g6YoZ5CMd8LV8sRLohVIwtPQHPgchP5P7te6Aj/13KnTTVhbNXmTZr/Kk/
-	 086u+/nd/Q0K0uM0AqihATAokIrkMCNzDVBWb9e4nQmSfwNIn8hXp49qwpSXwWf3r6
-	 +M+hkvKUe3p/eUiSS1K19Dn0hSI0gq428mjmOltVshXyL7I93nGm96pEB9HT0v4tXh
-	 Y1NQyVUO2Hqp0WWGHinLU47+vy4QKvQXIYQIfWRi/F5GIX7SGUF++fB3lHTl+WzQya
-	 AT69MUmcsnN14xUkEtNjat//U6HTSKm8NRGFHFkwj7ShmOrtbBi9af5OPIyLECn8AJ
-	 Wx48Pp/J9v1Xg==
-Date: Tue, 17 Oct 2023 12:58:41 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Alexey Klimov <alexey.klimov@linaro.org>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-    "leo.yan@linaro.org" <leo.yan@linaro.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>, Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-In-Reply-To: <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2310171258330.965337@ubuntu-linux-20-04-desktop>
-References: <20231013122658.1270506-1-leo.yan@linaro.org> <20231013122658.1270506-3-leo.yan@linaro.org> <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com> <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org> <8BCB97B4-CBDD-43D9-B0F8-7F637B8BE559@arm.com>
- <4B2BD200-5D3E-49D5-BF13-65B769AD4B90@arm.com> <CANgGJDqHu0CB=zzZqda18giLYDkL3My+gT592GLO-b9HsF2A4g@mail.gmail.com> <d3952200-9edb-4de0-94e3-c00c571a10b9@xen.org> <794B0D71-70A7-4546-98E0-EC01573E0D89@arm.com>
- <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 4b8a8ca4-6d28-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:MIME-Version:Date:Message-ID:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Uuyqiv3nZGm9IgxXvUvISIuIpnNbmO1i/BKyCpPauZg=; b=SCBq71hxcx9gsL/i0Hywr5DGoe
+	8HuzyWolFaLTXsz9p8YsZLFxURbHTVaif2UzYOLac+fvlDzcQn12XQMXDQ3JV9uvBR+xrtx+KvhGN
+	ZOK4i8HOYwbZX440K+YUEVIIxcBUDUuRy5GjnRi0onQ6Ynghp3dkLEwMNdqLSuRVzivYKQ9+MgKXm
+	XJFRPZPh9Qpr24cSW5hL940CkCim9Kpr7Pl+necms61nFfCnWtNtceMv0ol9xNX7syQYagONk7cH/
+	2w9Ok524668xVApbQHdIHll7kZ4hM4380k8UywivT+9WTXACbFx1y108nWCwaRcNdAqDK12FqzWG0
+	hVXdE9hpwbPSXwKjlJv7mtkSokoqoJ8Qhk6yXxqUvH8mHtxrV40YH1Y+ci3Tkl6DtwYwNDSFdALF7
+	wC9I9tldydlDRrgfkKyQelCriuKEx7g0RnHy6COLnTSOwLKuipGi/gqKQvzYLkqq69cOgA9QSqxat
+	WGhSLlgc/6uChPV1swcjBOtN1N97P/Rn7h6Zkz17Y2xrlfJ+xfYGTI6ZQpHM7PDb/5CmN+AQSvrv6
+	5aCAS4xsJamZGBUYo1vewJEeSwf8b1Lnq9B8xesSPKjxN5cwpNolAiFYS2vD1Yw2ij4gybSBAvhZZ
+	TwJQxep0sD9INMZX4KVZV2AoNkgSuuxM5pcPb+b7U=;
+Message-ID: <b8e0311c-242e-4447-937c-70b43d4d255b@ilande.co.uk>
+Date: Tue, 17 Oct 2023 21:03:42 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-551337818-1697572723=:965337"
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, qemu-ppc@nongnu.org,
+ Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Song Gao <gaosong@loongson.cn>, Gerd Hoffmann <kraxel@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>
+References: <20231017131251.43708-1-philmd@linaro.org>
+From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+Autocrypt: addr=mark.cave-ayland@ilande.co.uk; keydata=
+ xsBNBFQJuzwBCADAYvxrwUh1p/PvUlNFwKosVtVHHplgWi5p29t58QlOUkceZG0DBYSNqk93
+ 3JzBTbtd4JfFcSupo6MNNOrCzdCbCjZ64ik8ycaUOSzK2tKbeQLEXzXoaDL1Y7vuVO7nL9bG
+ E5Ru3wkhCFc7SkoypIoAUqz8EtiB6T89/D9TDEyjdXUacc53R5gu8wEWiMg5MQQuGwzbQy9n
+ PFI+mXC7AaEUqBVc2lBQVpAYXkN0EyqNNT12UfDLdxaxaFpUAE2pCa2LTyo5vn5hEW+i3VdN
+ PkmjyPvL6DdY03fvC01PyY8zaw+UI94QqjlrDisHpUH40IUPpC/NB0LwzL2aQOMkzT2NABEB
+ AAHNME1hcmsgQ2F2ZS1BeWxhbmQgPG1hcmsuY2F2ZS1heWxhbmRAaWxhbmRlLmNvLnVrPsLA
+ eAQTAQIAIgUCVAm7PAIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQW8LFb64PMh9f
+ NAgAuc3ObOEY8NbZko72AGrg2tWKdybcMVITxmcor4hb9155o/OWcA4IDbeATR6cfiDL/oxU
+ mcmtXVgPqOwtW3NYAKr5g/FrZZ3uluQ2mtNYAyTFeALy8YF7N3yhs7LOcpbFP7tEbkSzoXNG
+ z8iYMiYtKwttt40WaheWuRs0ZOLbs6yoczZBDhna3Nj0LA3GpeJKlaV03O4umjKJgACP1c/q
+ T2Pkg+FCBHHFP454+waqojHp4OCBo6HyK+8I4wJRa9Z0EFqXIu8lTDYoggeX0Xd6bWeCFHK3
+ DhD0/Xi/kegSW33unsp8oVcM4kcFxTkpBgj39dB4KwAUznhTJR0zUHf63M7ATQRUCbs8AQgA
+ y7kyevA4bpetM/EjtuqQX4U05MBhEz/2SFkX6IaGtTG2NNw5wbcAfhOIuNNBYbw6ExuaJ3um
+ 2uLseHnudmvN4VSJ5Hfbd8rhqoMmmO71szgT/ZD9MEe2KHzBdmhmhxJdp+zQNivy215j6H27
+ 14mbC2dia7ktwP1rxPIX1OOfQwPuqlkmYPuVwZP19S4EYnCELOrnJ0m56tZLn5Zj+1jZX9Co
+ YbNLMa28qsktYJ4oU4jtn6V79H+/zpERZAHmH40IRXdR3hA+Ye7iC/ZpWzT2VSDlPbGY9Yja
+ Sp7w2347L5G+LLbAfaVoejHlfy/msPeehUcuKjAdBLoEhSPYzzdvEQARAQABwsBfBBgBAgAJ
+ BQJUCbs8AhsMAAoJEFvCxW+uDzIfabYIAJXmBepHJpvCPiMNEQJNJ2ZSzSjhic84LTMWMbJ+
+ opQgr5cb8SPQyyb508fc8b4uD8ejlF/cdbbBNktp3BXsHlO5BrmcABgxSP8HYYNsX0n9kERv
+ NMToU0oiBuAaX7O/0K9+BW+3+PGMwiu5ml0cwDqljxfVN0dUBZnQ8kZpLsY+WDrIHmQWjtH+
+ Ir6VauZs5Gp25XLrL6bh/SL8aK0BX6y79m5nhfKI1/6qtzHAjtMAjqy8ChPvOqVVVqmGUzFg
+ KPsrrIoklWcYHXPyMLj9afispPVR8e0tMKvxzFBWzrWX1mzljbBlnV2n8BIwVXWNbgwpHSsj
+ imgcU9TTGC5qd9g=
+In-Reply-To: <20231017131251.43708-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a00:23c4:8bb0:3200:407d:a65c:9fb4:b9b4
+X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	mail.default.ilande.bv.iomart.io
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
+	URIBL_BLOCKED,URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.2
+Subject: Re: [PATCH] ui/input: Constify QemuInputHandler structure
+X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
+X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 17/10/2023 14:12, Philippe Mathieu-Daudé wrote:
 
---8323329-551337818-1697572723=:965337
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 15 Oct 2023, Julien Grall wrote:
-> On 16/10/2023 16:07, Bertrand Marquis wrote:
-> > > On 16 Oct 2023, at 16:46, Julien Grall <julien@xen.org> wrote:
-> > > CC Henry
-> > > 
-> > > Hi Alexey,
-> > > 
-> > > On 16/10/2023 15:24, Alexey Klimov wrote:
-> > > > On Mon, 16 Oct 2023 at 15:13, Luca Fancellu <Luca.Fancellu@arm.com>
-> > > > wrote:
-> > > > > 
-> > > > > 
-> > > > > 
-> > > > > > On 16 Oct 2023, at 15:00, Bertrand Marquis
-> > > > > > <Bertrand.Marquis@arm.com> wrote:
-> > > > > > 
-> > > > > > Hi
-> > > > > > 
-> > > > > > +Luca and Rahul
-> > > > > > 
-> > > > > > > On 16 Oct 2023, at 15:54, Julien Grall <julien@xen.org> wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 16/10/2023 09:44, Michal Orzel wrote:
-> > > > > > > > Hi,
-> > > > > > > 
-> > > > > > > Hi,
-> > > > > > > 
-> > > > > > > > On 13/10/2023 14:26, Leo Yan wrote:
-> > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > On ADLink AVA platform (Ampere Altra SoC with 32 Arm Neoverse
-> > > > > > > > > N1 cores),
-> > > > > > > > > the physical memory regions are:
-> > > > > > > > > 
-> > > > > > > > >   DRAM memory regions:
-> > > > > > > > >     Node[0] Region[0]: 0x000080000000 - 0x0000ffffffff
-> > > > > > > > >     Node[0] Region[1]: 0x080000000000 - 0x08007fffffff
-> > > > > > > > >     Node[0] Region[2]: 0x080100000000 - 0x0807ffffffff
-> > > > > > > > > 
-> > > > > > > > > The UEFI loads Xen hypervisor and DTB into the high memory,
-> > > > > > > > > the kernel
-> > > > > > > > > and ramdisk images are loaded into the low memory space:
-> > > > > > > > > 
-> > > > > > > > >   (XEN) MODULE[0]: 00000807f6df0000 - 00000807f6f3e000 Xen
-> > > > > > > > >   (XEN) MODULE[1]: 00000807f8054000 - 00000807f8056000 Device
-> > > > > > > > > Tree
-> > > > > > > > >   (XEN) MODULE[2]: 00000000fa834000 - 00000000fc5de1d5 Ramdisk
-> > > > > > > > >   (XEN) MODULE[3]: 00000000fc5df000 - 00000000ffb3f810 Kernel
-> > > > > > > > > 
-> > > > > > > > > In this case, the Xen binary is loaded above 8TB, which
-> > > > > > > > > exceeds the
-> > > > > > > > > maximum supported identity map space of 2TB in Xen.
-> > > > > > > > > Consequently, the
-> > > > > > > > > system fails to boot.
-> > > > > > > > > 
-> > > > > > > > > This patch enlarges identity map space to 10TB, allowing
-> > > > > > > > > module loading
-> > > > > > > > > within the range of [0x0 .. 0x000009ff_ffff_ffff].
-> > > > > > > > > 
-> > > > > > > > > Fixes: 1c78d76b67 ("xen/arm64: mm: Introduce helpers to
-> > > > > > > > > prepare/enable/disable")
-> > > > > > > > I don't think a fixes tag applies here given that 2TB was just a
-> > > > > > > > number we believed is enough
-> > > > > > > > and all of this is platform dependent.
-> > > > > > > > This can be dropped on commit if committer agrees
-> > > > > > > Xen may have booted on that platform before hand. So this would be
-> > > > > > > considered a regression and therefore a tag would be warrant.
-> > > > > > > 
-> > > > > > > AFAICT, the commit is only present on the upcoming 4.18. So the
-> > > > > > > question is whether Xen 4.17 booted out-of-the-box on ADLink? If
-> > > > > > > the answer is yes, then we need to add a Fixes tag. But the
-> > > > > > > correct one would be
-> > > > > > > 
-> > > > > > 
-> > > > > > @Rahul or Luca: could you give an answer here ?
-> > > > > > I know you used Xen on an AVA platform but was it booting out of the
-> > > > > > box ?
-> > > > > 
-> > > > > I can’t say for Xen 4.17, but our nightly job has run successfully on
-> > > > > AVA for the commit 730406ab81094115d9fb5ca00ba8d53cec1279b3
-> > > > > (docs/misra: add deviations.rst to document additional deviations.)
-> > > > > 
-> > > > > We are not applying any patch for it to run on AVA.
-> > > > Most likely it is because your UEFI/BIOS firmware is 2.x, for instance
-> > > > 2.04.100.07.
-> > > > This fix if for AVA machine with older UEFI firmware 1.07.300.03.
-> > > 
-> > > OOI, why not updating your firmware? I was expecting that it would also
-> > > contain other critical fixes.
-> > > 
-> > > With this in mind, I am now more in two mind to ask to merge this patch in
-> > > Xen 4.18. On one hand, I understand it will help to boot on AVA machine
-> > > with an older firmware. But on the other hand this is changing the memory
-> > > layout quite late in the release. The risk seems limited because Xen is
-> > > not loaded at the top of the virtual address space (there is the directmap
-> > > afterwards).
-> > > 
-> > > Henry (as the release manager) and others, any opinions?
-> > 
-> > With the new information, I think it should be stated that it is fixing an
-> > issue on AVA platforms using an old firmware and platforms with and
-> > up-to-date firmware are not impacted.
-> > It is an important information to keep in mind that this is not a fix to be
-> > backported for example (and for me the fixes tag should not be kept).
+> Access to QemuInputHandlerState::handler are read-only.
 > 
-> IMHO, the fixes tag should not be based solely on the AVA platform. It should
-> be based on whether this could sensibly affect others. Right now, there is
-> nothing that would indicate either way.
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   include/hw/virtio/virtio-input.h | 2 +-
+>   include/ui/input.h               | 2 +-
+>   chardev/msmouse.c                | 2 +-
+>   chardev/wctablet.c               | 2 +-
+>   hw/char/escc.c                   | 2 +-
+>   hw/display/xenfb.c               | 6 +++---
+>   hw/input/adb-kbd.c               | 2 +-
+>   hw/input/hid.c                   | 6 +++---
+>   hw/input/ps2.c                   | 4 ++--
+>   hw/input/virtio-input-hid.c      | 8 ++++----
+>   ui/input-legacy.c                | 2 +-
+>   ui/input.c                       | 4 ++--
+>   ui/vdagent.c                     | 2 +-
+>   13 files changed, 22 insertions(+), 22 deletions(-)
 > 
-> And therefore a Fixes tag is sensible. This doesn't mean I would want to
-> backport it right now (note that only 4.18 is affected). But this could change
-> in the future if we get another report (post-4.18) on a platform where there
-> are no other workaround.
-> 
-> Stefano any opinions?
+> diff --git a/include/hw/virtio/virtio-input.h b/include/hw/virtio/virtio-input.h
+> index 08f1591424..a6c9703644 100644
+> --- a/include/hw/virtio/virtio-input.h
+> +++ b/include/hw/virtio/virtio-input.h
+> @@ -84,7 +84,7 @@ struct VirtIOInputHID {
+>       VirtIOInput                       parent_obj;
+>       char                              *display;
+>       uint32_t                          head;
+> -    QemuInputHandler                  *handler;
+> +    const QemuInputHandler            *handler;
+>       QemuInputHandlerState             *hs;
+>       int                               ledstate;
+>       bool                              wheel_axis;
+> diff --git a/include/ui/input.h b/include/ui/input.h
+> index 24d8e4579e..8f9aac562e 100644
+> --- a/include/ui/input.h
+> +++ b/include/ui/input.h
+> @@ -30,7 +30,7 @@ struct QemuInputHandler {
+>   };
+>   
+>   QemuInputHandlerState *qemu_input_handler_register(DeviceState *dev,
+> -                                                   QemuInputHandler *handler);
+> +                                            const QemuInputHandler *handler);
+>   void qemu_input_handler_activate(QemuInputHandlerState *s);
+>   void qemu_input_handler_deactivate(QemuInputHandlerState *s);
+>   void qemu_input_handler_unregister(QemuInputHandlerState *s);
+> diff --git a/chardev/msmouse.c b/chardev/msmouse.c
+> index ab8fe981d6..a774c397b4 100644
+> --- a/chardev/msmouse.c
+> +++ b/chardev/msmouse.c
+> @@ -171,7 +171,7 @@ static int msmouse_chr_write(struct Chardev *s, const uint8_t *buf, int len)
+>       return len;
+>   }
+>   
+> -static QemuInputHandler msmouse_handler = {
+> +static const QemuInputHandler msmouse_handler = {
+>       .name  = "QEMU Microsoft Mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_REL,
+>       .event = msmouse_input_event,
+> diff --git a/chardev/wctablet.c b/chardev/wctablet.c
+> index 43bdf6b608..f4008bf35b 100644
+> --- a/chardev/wctablet.c
+> +++ b/chardev/wctablet.c
+> @@ -178,7 +178,7 @@ static void wctablet_input_sync(DeviceState *dev)
+>       }
+>   }
+>   
+> -static QemuInputHandler wctablet_handler = {
+> +static const QemuInputHandler wctablet_handler = {
+>       .name  = "QEMU Wacom Pen Tablet",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_ABS,
+>       .event = wctablet_input_event,
+> diff --git a/hw/char/escc.c b/hw/char/escc.c
+> index 4be66053c1..48b30ee760 100644
+> --- a/hw/char/escc.c
+> +++ b/hw/char/escc.c
+> @@ -845,7 +845,7 @@ static void sunkbd_handle_event(DeviceState *dev, QemuConsole *src,
+>       put_queue(s, keycode);
+>   }
+>   
+> -static QemuInputHandler sunkbd_handler = {
+> +static const QemuInputHandler sunkbd_handler = {
+>       .name  = "sun keyboard",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = sunkbd_handle_event,
+> diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
+> index 0074a9b6f8..b2130a0d70 100644
+> --- a/hw/display/xenfb.c
+> +++ b/hw/display/xenfb.c
+> @@ -321,20 +321,20 @@ static void xenfb_mouse_sync(DeviceState *dev)
+>       xenfb->wheel = 0;
+>   }
+>   
+> -static QemuInputHandler xenfb_keyboard = {
+> +static const QemuInputHandler xenfb_keyboard = {
+>       .name  = "Xen PV Keyboard",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = xenfb_key_event,
+>   };
+>   
+> -static QemuInputHandler xenfb_abs_mouse = {
+> +static const QemuInputHandler xenfb_abs_mouse = {
+>       .name  = "Xen PV Mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_ABS,
+>       .event = xenfb_mouse_event,
+>       .sync  = xenfb_mouse_sync,
+>   };
+>   
+> -static QemuInputHandler xenfb_rel_mouse = {
+> +static const QemuInputHandler xenfb_rel_mouse = {
+>       .name  = "Xen PV Mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_REL,
+>       .event = xenfb_mouse_event,
+> diff --git a/hw/input/adb-kbd.c b/hw/input/adb-kbd.c
+> index a9088c910c..e21edf9acd 100644
+> --- a/hw/input/adb-kbd.c
+> +++ b/hw/input/adb-kbd.c
+> @@ -355,7 +355,7 @@ static void adb_kbd_reset(DeviceState *dev)
+>       s->count = 0;
+>   }
+>   
+> -static QemuInputHandler adb_keyboard_handler = {
+> +static const QemuInputHandler adb_keyboard_handler = {
+>       .name  = "QEMU ADB Keyboard",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = adb_keyboard_event,
+> diff --git a/hw/input/hid.c b/hw/input/hid.c
+> index a9c7dd1ce1..b8e85374ca 100644
+> --- a/hw/input/hid.c
+> +++ b/hw/input/hid.c
+> @@ -510,20 +510,20 @@ void hid_free(HIDState *hs)
+>       hid_del_idle_timer(hs);
+>   }
+>   
+> -static QemuInputHandler hid_keyboard_handler = {
+> +static const QemuInputHandler hid_keyboard_handler = {
+>       .name  = "QEMU HID Keyboard",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = hid_keyboard_event,
+>   };
+>   
+> -static QemuInputHandler hid_mouse_handler = {
+> +static const QemuInputHandler hid_mouse_handler = {
+>       .name  = "QEMU HID Mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_REL,
+>       .event = hid_pointer_event,
+>       .sync  = hid_pointer_sync,
+>   };
+>   
+> -static QemuInputHandler hid_tablet_handler = {
+> +static const QemuInputHandler hid_tablet_handler = {
+>       .name  = "QEMU HID Tablet",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_ABS,
+>       .event = hid_pointer_event,
+> diff --git a/hw/input/ps2.c b/hw/input/ps2.c
+> index 45af76a837..c8fd23cf36 100644
+> --- a/hw/input/ps2.c
+> +++ b/hw/input/ps2.c
+> @@ -1231,7 +1231,7 @@ static const VMStateDescription vmstate_ps2_mouse = {
+>       }
+>   };
+>   
+> -static QemuInputHandler ps2_keyboard_handler = {
+> +static const QemuInputHandler ps2_keyboard_handler = {
+>       .name  = "QEMU PS/2 Keyboard",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = ps2_keyboard_event,
+> @@ -1242,7 +1242,7 @@ static void ps2_kbd_realize(DeviceState *dev, Error **errp)
+>       qemu_input_handler_register(dev, &ps2_keyboard_handler);
+>   }
+>   
+> -static QemuInputHandler ps2_mouse_handler = {
+> +static const QemuInputHandler ps2_mouse_handler = {
+>       .name  = "QEMU PS/2 Mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_REL,
+>       .event = ps2_mouse_event,
+> diff --git a/hw/input/virtio-input-hid.c b/hw/input/virtio-input-hid.c
+> index 7053ad72d4..45e4d4c75d 100644
+> --- a/hw/input/virtio-input-hid.c
+> +++ b/hw/input/virtio-input-hid.c
+> @@ -265,7 +265,7 @@ static const TypeInfo virtio_input_hid_info = {
+>   
+>   /* ----------------------------------------------------------------- */
+>   
+> -static QemuInputHandler virtio_keyboard_handler = {
+> +static const QemuInputHandler virtio_keyboard_handler = {
+>       .name  = VIRTIO_ID_NAME_KEYBOARD,
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = virtio_input_handle_event,
+> @@ -322,7 +322,7 @@ static const TypeInfo virtio_keyboard_info = {
+>   
+>   /* ----------------------------------------------------------------- */
+>   
+> -static QemuInputHandler virtio_mouse_handler = {
+> +static const QemuInputHandler virtio_mouse_handler = {
+>       .name  = VIRTIO_ID_NAME_MOUSE,
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_REL,
+>       .event = virtio_input_handle_event,
+> @@ -416,7 +416,7 @@ static const TypeInfo virtio_mouse_info = {
+>   
+>   /* ----------------------------------------------------------------- */
+>   
+> -static QemuInputHandler virtio_tablet_handler = {
+> +static const QemuInputHandler virtio_tablet_handler = {
+>       .name  = VIRTIO_ID_NAME_TABLET,
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_ABS,
+>       .event = virtio_input_handle_event,
+> @@ -541,7 +541,7 @@ static const TypeInfo virtio_tablet_info = {
+>   
+>   /* ----------------------------------------------------------------- */
+>   
+> -static QemuInputHandler virtio_multitouch_handler = {
+> +static const QemuInputHandler virtio_multitouch_handler = {
+>       .name  = VIRTIO_ID_NAME_MULTITOUCH,
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_MTT,
+>       .event = virtio_input_handle_event,
+> diff --git a/ui/input-legacy.c b/ui/input-legacy.c
+> index 46ea74e44d..210ae5eaca 100644
+> --- a/ui/input-legacy.c
+> +++ b/ui/input-legacy.c
+> @@ -127,7 +127,7 @@ static void legacy_kbd_event(DeviceState *dev, QemuConsole *src,
+>       }
+>   }
+>   
+> -static QemuInputHandler legacy_kbd_handler = {
+> +static const QemuInputHandler legacy_kbd_handler = {
+>       .name  = "legacy-kbd",
+>       .mask  = INPUT_EVENT_MASK_KEY,
+>       .event = legacy_kbd_event,
+> diff --git a/ui/input.c b/ui/input.c
+> index cbe8573c5c..dc745860f4 100644
+> --- a/ui/input.c
+> +++ b/ui/input.c
+> @@ -10,7 +10,7 @@
+>   
+>   struct QemuInputHandlerState {
+>       DeviceState       *dev;
+> -    QemuInputHandler  *handler;
+> +    const QemuInputHandler *handler;
+>       int               id;
+>       int               events;
+>       QemuConsole       *con;
+> @@ -46,7 +46,7 @@ static uint32_t queue_count;
+>   static uint32_t queue_limit = 1024;
+>   
+>   QemuInputHandlerState *qemu_input_handler_register(DeviceState *dev,
+> -                                                   QemuInputHandler *handler)
+> +                                            const QemuInputHandler *handler)
+>   {
+>       QemuInputHandlerState *s = g_new0(QemuInputHandlerState, 1);
+>       static int id = 1;
+> diff --git a/ui/vdagent.c b/ui/vdagent.c
+> index 00d36a8677..706d6d97bd 100644
+> --- a/ui/vdagent.c
+> +++ b/ui/vdagent.c
+> @@ -297,7 +297,7 @@ static void vdagent_pointer_sync(DeviceState *dev)
+>       }
+>   }
+>   
+> -static QemuInputHandler vdagent_mouse_handler = {
+> +static const QemuInputHandler vdagent_mouse_handler = {
+>       .name  = "vdagent mouse",
+>       .mask  = INPUT_EVENT_MASK_BTN | INPUT_EVENT_MASK_ABS,
+>       .event = vdagent_pointer_event,
 
-The Fixes tag carries useful information but the problem is that it is
-typically used for identifying backports and this is not a backport (at
-least today we would not consider it a backport).
+Looks mostly harmless to me:
 
-So I would provide the same information but without using the Fixes tag.
-For instance: "This commit fixes an issue that was introduced by XXX
-because of YYY and only affects the AVA platform with not up-to-date
-firmware".
+Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
 
-That way, we avoid the risk of someone taking all the applicable commits
-with a Fixes tag and backporting them without thinking twice about it.
-But we still have the information in the git log.
---8323329-551337818-1697572723=:965337--
+
+ATB,
+
+Mark.
+
 
