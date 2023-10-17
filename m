@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 522B37CC1E5
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 13:38:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618218.961624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC0B77CC3AD
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 14:54:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618241.961636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsiO1-0007va-Vq; Tue, 17 Oct 2023 11:37:21 +0000
+	id 1qsjYg-0004BH-Lv; Tue, 17 Oct 2023 12:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618218.961624; Tue, 17 Oct 2023 11:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 618241.961636; Tue, 17 Oct 2023 12:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qsiO1-0007v2-Sz; Tue, 17 Oct 2023 11:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 618218;
- Tue, 17 Oct 2023 11:37:20 +0000
+	id 1qsjYg-00047v-Ix; Tue, 17 Oct 2023 12:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 618241;
+ Tue, 17 Oct 2023 12:52:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsiO0-0007uZ-DB; Tue, 17 Oct 2023 11:37:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qsjYf-00047p-0g
+ for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 12:52:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsiO0-0002Zf-C1; Tue, 17 Oct 2023 11:37:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qsiNz-0000Zy-Uy; Tue, 17 Oct 2023 11:37:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qsiNz-00081w-UQ; Tue, 17 Oct 2023 11:37:19 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qsjYe-0004Bu-FG; Tue, 17 Oct 2023 12:52:24 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qsjYe-000569-4z; Tue, 17 Oct 2023 12:52:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0S8lKr3shvjkTuonvUogOxgWjpmBRGIB2yDcPUjghDs=; b=6firpnnx7JrlqzMydcXyPqdCo3
-	O/JrDZlNZC1skjOmG8j4f91UkqSH5uTD+jf6z6SczLAAdR9W7lZPy9acIJWiphz2K0eQQht7hJKs9
-	ERD4DFvy2XU5BQO1MvnVBhw04lPkyE9hzrRyNJBZw8aUqoYaR6LQiCqDzNBM9kJIi36s=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=MknmP2wGrjGZswt9B/XD/+18BWa0iXBTx/DOGz518es=; b=0VjuO+
+	LCVBaB1uWH4aQ5H6z50Z9e0Kjr33nbMDweemQeeQZxj1uZpToHiEWCJCUPjmwlNvf6qRtCWfMj7yW
+	pUolvCV/euEdspZd5j7r+4k68YHt4eDBUK+C2NOO8cWspdPeIjdKEc5FCjnffbbivlFxc211jOb7/
+	NpdvHavTib8=;
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183396-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: ayan.kumar.halder@amd.com,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [for-4.19] xen/arm64: head: only use the macro load_paddr() in the MMU code
+Date: Tue, 17 Oct 2023 13:52:19 +0100
+Message-Id: <20231017125219.76626-1-julien@xen.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183396: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7114bbfc8424ee467c6c8c82f077764ca4fa799b
-X-Osstest-Versions-That:
-    xen=0ce2ee7a16f2886c32b3f070bba3172f4a577aa4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 17 Oct 2023 11:37:19 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 183396 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183396/
+The macro load_paddr() requires to know the offset between the
+physical location of Xen and the virtual location.
 
-Failures :-/ but no regressions.
+When using the MPU, x20 will always be 0. Rather than wasting
+a register for a compile-time constant value, it would be best if
+we can avoid using load_paddr() altogher in the common head.S code.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The current use of load_paddr() are equivalent to adr_l() because
+the MMU is off.
 
-version targeted for testing:
- xen                  7114bbfc8424ee467c6c8c82f077764ca4fa799b
-baseline version:
- xen                  0ce2ee7a16f2886c32b3f070bba3172f4a577aa4
+All the use of load_paddr() in arm64/head.S are now replaced with
+adr_l(). With that, load_paddr() can now be moved in arm64/mmu/head.S.
 
-Last test of basis   183389  2023-10-16 18:03:55 Z    0 days
-Testing same since   183396  2023-10-17 08:05:24 Z    0 days    1 attempts
+For now, x20 is still unconditionally set. But this could change
+in the future if needed.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Jan Beulich <jbeulich@suse.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
+Signed-off-by: Julien Grall <julien@xen.org>
+---
+ xen/arch/arm/arm64/head.S               | 4 ++--
+ xen/arch/arm/arm64/mmu/head.S           | 6 ++++++
+ xen/arch/arm/include/asm/arm64/macros.h | 6 ------
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 4ad85dcf58d2..8dbd3300d89f 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -259,7 +259,7 @@ real_start_efi:
+ 
+         /* Using the DTB in the .dtb section? */
+ .ifnes CONFIG_DTB_FILE,""
+-        load_paddr x21, _sdtb
++        adr_l x21, _sdtb
+ .endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+@@ -301,7 +301,7 @@ GLOBAL(init_secondary)
+         bic   x24, x0, x13           /* Mask out flags to get CPU ID */
+ 
+         /* Wait here until __cpu_up is ready to handle the CPU */
+-        load_paddr x0, smp_up_cpu
++        adr_l x0, smp_up_cpu
+         dsb   sy
+ 2:      ldr   x1, [x0]
+         cmp   x1, x24
+diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+index 88075ef08334..412b28e649a4 100644
+--- a/xen/arch/arm/arm64/mmu/head.S
++++ b/xen/arch/arm/arm64/mmu/head.S
+@@ -19,6 +19,12 @@
+ #define XEN_FIRST_SLOT      first_table_offset(XEN_VIRT_START)
+ #define XEN_SECOND_SLOT     second_table_offset(XEN_VIRT_START)
+ 
++/* Load the physical address of a symbol into xb */
++.macro load_paddr xb, sym
++        ldr \xb, =\sym
++        add \xb, \xb, x20
++.endm
++
+ /*
+  * Flush local TLBs
+  *
+diff --git a/xen/arch/arm/include/asm/arm64/macros.h b/xen/arch/arm/include/asm/arm64/macros.h
+index 99c401fcafa9..fb9a0602494d 100644
+--- a/xen/arch/arm/include/asm/arm64/macros.h
++++ b/xen/arch/arm/include/asm/arm64/macros.h
+@@ -62,12 +62,6 @@
+         add  \dst, \dst, :lo12:\sym
+ .endm
+ 
+-/* Load the physical address of a symbol into xb */
+-.macro load_paddr xb, sym
+-        ldr \xb, =\sym
+-        add \xb, \xb, x20
+-.endm
+-
+ /*
+  * Register aliases.
+  */
+-- 
+2.40.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   0ce2ee7a16..7114bbfc84  7114bbfc8424ee467c6c8c82f077764ca4fa799b -> smoke
 
