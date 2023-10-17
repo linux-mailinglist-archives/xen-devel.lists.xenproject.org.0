@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8807CBCC6
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 09:51:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618085.961358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F897CBCE4
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Oct 2023 09:55:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618091.961368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qseqp-0006Hp-R1; Tue, 17 Oct 2023 07:50:51 +0000
+	id 1qsevM-00085Z-DH; Tue, 17 Oct 2023 07:55:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618085.961358; Tue, 17 Oct 2023 07:50:51 +0000
+Received: by outflank-mailman (output) from mailman id 618091.961368; Tue, 17 Oct 2023 07:55:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qseqp-0006Fo-M8; Tue, 17 Oct 2023 07:50:51 +0000
-Received: by outflank-mailman (input) for mailman id 618085;
- Tue, 17 Oct 2023 07:50:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sbBI=F7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qseqn-0006Fi-I8
- for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 07:50:49 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e161751b-6cc1-11ee-9b0e-b553b5be7939;
- Tue, 17 Oct 2023 09:50:46 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-408002b5b9fso1501945e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 17 Oct 2023 00:50:47 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- c9-20020a05600c0ac900b004068de50c64sm1119758wmr.46.2023.10.17.00.50.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Oct 2023 00:50:46 -0700 (PDT)
+	id 1qsevM-00083A-AY; Tue, 17 Oct 2023 07:55:32 +0000
+Received: by outflank-mailman (input) for mailman id 618091;
+ Tue, 17 Oct 2023 07:55:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ibp0=F7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qsevL-000834-Ok
+ for xen-devel@lists.xenproject.org; Tue, 17 Oct 2023 07:55:31 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20617.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::617])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8acd0e59-6cc2-11ee-98d4-6d05b1d4d9a1;
+ Tue, 17 Oct 2023 09:55:30 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB8195.eurprd04.prod.outlook.com (2603:10a6:20b:3b7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Tue, 17 Oct
+ 2023 07:55:27 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%6]) with mapi id 15.20.6886.034; Tue, 17 Oct 2023
+ 07:55:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +47,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e161751b-6cc1-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697529046; x=1698133846; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=c4zthoi5w/HWjFfQYHvTAcQFznol6KOTUn6i1rW0S+c=;
-        b=uAvS4nefET0NBY8VAa9PU9ThOiC2axMVVShidnuxkPO1DE9fL9ZyiRYc3mN+x2KLVf
-         R8ceaKrO6NAcKBmJ2SSjxBfB0WpmB+gV+qjKYO5PxaGTvHJvmrZgD7nWBr3R0GxYF8ZJ
-         WsXg1QVpX8lDPGjOgQUuR6JKzOcIhhgUxoUtY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697529046; x=1698133846;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=c4zthoi5w/HWjFfQYHvTAcQFznol6KOTUn6i1rW0S+c=;
-        b=pH8i1+8gUr8XPbKjcWnVGa/qOcg0LxyKi0wan5nujO+OCWqCoPc3D7o41aaSbEBU4X
-         czFntScgQrT8ZvBG9KdsMCUuAodbwnOZF3wUhyUBgcKLec5JG5AYByUGGXGGyCp/C0k0
-         EjqEDHe1lIDgWVQF6xplNibokNE1mr7a/1ZfogTSQ7i1UjWS0BtVS5k1nlcwZmgd4Haw
-         CSg8rR4h0nW0H1oIN2kwn3tt4ebDNj7IEwpnCvYptthYbl55aTzA9lMpbcdjKZmJChqm
-         bjnX30z8i06euNCb+OsKnXoapeHx5/CjnyaWS85IEXp33/nk680Juz8MKnnnf1JDEpla
-         m/BQ==
-X-Gm-Message-State: AOJu0YxcCpxV7ILYUTvxYAH426JLJxSTrpY2LQ5X9yRAqI3nEN+g5T/h
-	DU5NxcnVIvY5alad/ouvaarOQw==
-X-Google-Smtp-Source: AGHT+IGDUXWV6iH4Sn+Zm4PxB9ev5iAP7ti3jxnpyhED59VyDAT4zN7y5dLMMCL+Rl828vnkNOdEGw==
-X-Received: by 2002:a05:600c:1d96:b0:407:5b54:bb13 with SMTP id p22-20020a05600c1d9600b004075b54bb13mr1084990wms.37.1697529046380;
-        Tue, 17 Oct 2023 00:50:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------9lT9NO8JjQ8S0V7aohEOKWEr"
-Message-ID: <ac366b7c-497f-4a9e-873d-a961970c4ad8@citrix.com>
-Date: Tue, 17 Oct 2023 08:50:45 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v3] x86/amd: Address AMD erratum #1485
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231013153801.188324-1-alejandro.vallejo@cloud.com>
- <ca7a8bad-4d6f-1da4-b48d-7acbb5db401e@suse.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <ca7a8bad-4d6f-1da4-b48d-7acbb5db401e@suse.com>
-
-This is a multi-part message in MIME format.
---------------9lT9NO8JjQ8S0V7aohEOKWEr
+X-Inumbo-ID: 8acd0e59-6cc2-11ee-98d4-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QLXQ2xCaKZQOyhgIbYAM6WnE6H+eeHvb0puMB8nWNzr61b15CARRTs63uU6Pivi/Aex2TjUqdB/RKAS6lYy5Z0ir4XTQ2ehgrdq4SukAsW207EjKU4gY/GvAW0kgPIX4W1DwK5rNkgK+rvM4w4Z0GG3bo9M/67gsh2cZC4adF4YeFs4UCAx2WMdaFpl8PuLpd5zVTwWKk8q+kJV1rYo8K53zHWTQkArFKyuxBfBGVR3pmIQJBfOiihmmc+wn+Q5CzfnaJWufVMBpyL2c6iboFn5IK2TnA1qcnLJwTQW/OUHwyyA17XdqXeNmdwkQe1dQIX9IZuMAra/I9SPpsrFfWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=trJuyNf7n8cKQRPlwXajr0ncixVPL+MpA4VljwB7Iuk=;
+ b=e8k9v+MsD8Goc4ed8/6Ow7GVasrE7Sx3qVZDCcJmsuOG8G8Lg+2FvliZYB7nGz2QK16X+JUJk2oYWUqwh5AksZvgUkHa551TFa5dDzxgw9BfLqUzd41BV6rYiBoLWggASrdtqQ91/5MWz1vRUsaeDAySkeSUSmRJsSCkEjN+PdjTVDkYPi/yDE4QZf4ET/2tPvB4996RDmU5ECMeg5B45rCTUEBea2y+PaKpnbvqJFw2SpwODFhQFbFQO5BNyxtqHWGmPQPEEugM7PE3IoFcsPXOWUAHKuzgE+1iMVFyyjfSjq+FXOtXK2Znhz6wmhd9ymwwe9Y86D1EcV4B1D+uhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=trJuyNf7n8cKQRPlwXajr0ncixVPL+MpA4VljwB7Iuk=;
+ b=zij8/F3HN0ruyVy62F06SD8KsReJQlW5WWmw7SJoRRstJA9cZdVMmmqaxLK2o3A4dJFiH4iDYr4M+H48uBPbc3ye4DTSZGuMjulPHql1rf0y+duatPWVMiY4qGblrhhO/EYO7q4IovNUuImWTjUajgSuxMKll8NNRfd57JTSNUcOPOILgTJ97mHC9gU/Q/HSIyTMue9Nxs81BoJDg45aKFCjChwv2z8C5eoJe5Q/5Lu6Eq77K6TYpy/4KIzpWHj06toY1Lke5XZrrveB3E/dzu2RuwMF9scSr/qtZHctQnkcEjFpurPVwm/yHeGH11lKYMZEanDLcGEBW0wXuJBbLg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <af22de04-f29e-9c13-b618-54cc867f0f81@suse.com>
+Date: Tue, 17 Oct 2023 09:55:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v8 1/4] x86/microcode: WARN->INFO for the "no ucode
+ loading" log message
+Content-Language: en-US
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230830155326.10199-1-alejandro.vallejo@cloud.com>
+ <20230830155326.10199-2-alejandro.vallejo@cloud.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230830155326.10199-2-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0010.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::20)
+ To DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 395eac6c-a317-4f7d-560f-08dbcee66d5b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	P+SOjbnOkyCXzeQ81xS0FSsVsrSBKDORfOC282r4oTrWQbp6c+Ddm7vYTE4+96JS19VhtfcmgzW7DSeVL++goerzwfitnmQZz2nerPwAC1R066WW1zv+t3iXqfI5xBr84hROqjobYvcy4BRbgHChRcaYqrLdwSAuxRA1a5s18z319lZYDS/kTY1GoAczNGcma22z/cIhZn9V4J5XyjVtZ6rS8IRczjVgtnYlPrZKshddVRi3oeEcoLCgLJzeeiN6kz2JVHB1SxO/3q/ylT733DxuWy/7kKbl4iBN9ADvhyJw4nlCyHuBmYRAaA9H+jI+rMg3sUHQJ+DdBOaFEbLE5PPoTZfe3oaByqNRK7RfwZ6dJ/vW6E0JqeicxcFzvXexwhlFojYaAYvpgUhI9eMLRTS+ZadxLIjYrmAeLl7e3G+JToQ7b3RJMRtBAvdx1T01XZdUgbdFmUSzbuOtO4dk62h8fY/6Jhl+v0uvZKhNg5wUwJvA8xIz2CEK66OGkWc3MK/rtUEtrY1SIdQVJZTu4YHuPVBOIGCohIo2yqbVj/VsXkGmWyGrc2r10JXJyihYsYEPjM4333vu/vfKF7RBFiRN1w+wKiu1BftMJwCpMDdFY3BUfX4DNKgKeIQFw97bLu3gmwAS8O3qCMjziemSpw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(136003)(39860400002)(346002)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(6506007)(31686004)(478600001)(6486002)(66556008)(66946007)(66476007)(54906003)(6916009)(83380400001)(86362001)(38100700002)(31696002)(2616005)(6512007)(26005)(53546011)(41300700001)(36756003)(5660300002)(8936002)(4326008)(316002)(2906002)(4744005)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M1JOVDJGVDZMbS9OVkxXMkVBNDFHenRJUHVCL2Vwa3Q2T1NsbWtqUy9ZSWtM?=
+ =?utf-8?B?cUwrNlkxbVVNcTRhVGRNaHFmU2diaXI3NUkyQjhFbFlBaktDZnI2aHNWdXV4?=
+ =?utf-8?B?d1d0M01BaEc2SW5uZkNIN2hZM0ZLR0h2VWttN0d6UVN2Q2lGcmlJTHllK1B6?=
+ =?utf-8?B?TXNRL3ZvNEdYdEhobjFYU0lPd2hGbDFUS2J1cTRkcHpwbFYrRE9xd0RNS3NV?=
+ =?utf-8?B?OE1rdjVBNDlkS3psVVBqQmVqWjYwMU9yRWw0cHA0Z2xJS1NEYitWK3BiREt0?=
+ =?utf-8?B?eHpQR1RVNU1rOHlVQ04zVm5YRHVENGZYaWdsZFl4aGUzQ3NZa0RsREdtUXpI?=
+ =?utf-8?B?amlYRXVEaUJZVnBZRHFuMnQ5ZlZwaUh3RDdmVEE2V0RuTXgvekN4L0RQTGZM?=
+ =?utf-8?B?WEcyeC9yOHQ3ZURVd1A4OEFiaVpLaFNRSWhPOFRybGhUVERodEtMZFJZaFdJ?=
+ =?utf-8?B?VytXV3JGVmR6K285bER5aFNsZXNhV0xjSEpSQmk3NU1IWEdqK0FIZU53VXIy?=
+ =?utf-8?B?SENjRDZLbHM4eXhBcG9WVE96cC80Z3prMUdOU2g4WFNQRVNCOXhxOXVBSDFK?=
+ =?utf-8?B?Yitnc1ZWNkoreTY3NWErSGQ3enVJZ3lMT015bXQ2bGhDdE9ULy9PQWFqZ1Iw?=
+ =?utf-8?B?MUFXV2lXS1RnRVBubXJUd29Ha0ZLU2I4T25GT1dRY3duNWQ2STRSSHBkZTJL?=
+ =?utf-8?B?dWFxdEV3WnMwYkdJcUljZVhsOHhoLzFXcjROSDFCTU85NTl3UHhTQmdmUGRL?=
+ =?utf-8?B?a1lDNTlSUGk0dS9oanpVTEZGZXByaEtzMjNaSlJCWERjSGpyUWo4VzBINmtM?=
+ =?utf-8?B?Mmc5TURxcHVlZWllTzZuUXhkOGhnV1FVMW1QOXpScWR1d3o4NHUyeVRwQVFO?=
+ =?utf-8?B?MjhsQ0J1QjhCa3JpVDY3c0ZMQi9xOUhhcUhWV1BlZU9HMko3TnVSZ3NuQTNF?=
+ =?utf-8?B?Y1hRRzRCQ1VRUVh1R243b0lwOVora29WS1lhV0NHTUlDaDFpelNrVy9yRkVY?=
+ =?utf-8?B?ekFLSGJzUE5xczlUcVpkc2M3OU9VU09YbU1CVGdPbE9zazAyT3pIZVZKRzIz?=
+ =?utf-8?B?QlpSVlk1T05wSk5NcldzQW14RzcrOWhDd1JKUDQrcktlc3pCejRraThHcVlv?=
+ =?utf-8?B?SUw0VC9razJsM0hmZDBFYWp3RmxKWU1NaURtRDlPZlVJb1dXSlgyUjlldTY0?=
+ =?utf-8?B?eCtQcXNveTNXNWtzLzYvR1dBUERHZW9iKzA4UXY1TWp2b2U4eTZWVTBJL1FP?=
+ =?utf-8?B?c0hoMXFkdkp1NUVNTFhhc0h6ckM2Y3RZekFCMEFIQ0xkT1BVZFJFS29mdGQx?=
+ =?utf-8?B?SHpSTGE1MHFvUDFLSVZraG1JelRKbDMwVS94ZVRKTUtybHM0bGJMYlY4dElx?=
+ =?utf-8?B?SEExeHpxOVluYnowUFBMNi9IbWw3SC85eWs3d3YyVFdjNlJNbzZtcWprWXBI?=
+ =?utf-8?B?aUdmMjlMNGxaWVQ2VGpBUUh5Y2d6N3FSaU5XMklmYXZuSFhzQzJKSFhtbGJ0?=
+ =?utf-8?B?ekRPcGFwb1RoQi9QZUtBcTM5cXVrNEFySVJSWkdadzhrTHNaRk1Vc1FsVHBW?=
+ =?utf-8?B?TnlDVThuenNBb29tWVdJTWRHTUJXUE9VTzcySDRlUys2YituSnREOEZMc2hH?=
+ =?utf-8?B?d1lqRTI2TjJxWFh3KzhhaG5PWTM3Um5jdnRNVjRJOXkrYzQrUGFXY0RwV0px?=
+ =?utf-8?B?dFRLNE1mNGFSRnFkNFNmcWtQRXY1ZEZlNFBCVGR5azJDTEF5SFJSNld1NEY4?=
+ =?utf-8?B?L3R4bFE2MWlFRExJRXdHQng4RHpEcm9xZGlMY24wQXJ5SWVub3Ztb3NHcWNR?=
+ =?utf-8?B?d0hmWE1Tc0g4NkxSUFVySkpTeStvaFoySm9nVC9weWcvRUZrcHNKUHM3WkJN?=
+ =?utf-8?B?c3orTmg0Q0NnajlhUGhVZ3pEVk5GZEZMOG5sbkxsRzFWT1I1ak5ETHFvNGJD?=
+ =?utf-8?B?NVlxYi9jT3hPYllPdG44eGZGR25aTXd6YXVWeWFuTkk3MVFnak9JZG0xaFl0?=
+ =?utf-8?B?THk0aldmUDF1S2pVV0V6OVhDT1N0RnpXancwTmdlSU44a3Q5aERPRVdkQzVp?=
+ =?utf-8?B?RlFKYTIxRFNua3QyN0tmeUMyNzdrc2dQYkFmZlVVeVRFcGtsOUxiZlI1SGRk?=
+ =?utf-8?Q?vD7oI//9P9jqnA7dVWrGONtUO?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 395eac6c-a317-4f7d-560f-08dbcee66d5b
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2023 07:55:27.7201
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vYZTjq9kGMltHLbfZY3vrn9ZB+unnA1DL4L6pH1uA4Wyp5YftfKb8rZo0HFa+XSteDpBPcOtNUvhN7XRE2E0jA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8195
 
-On 17/10/2023 8:44 am, Jan Beulich wrote:
-> On 13.10.2023 17:38, Alejandro Vallejo wrote:
->> Fix adapted off Linux's mailing list:
->>   https://lore.kernel.org/lkml/D99589F4-BC5D-430B-87B2-72C20370CF57@exactcode.com/T/#u
-> Why reference the bug report when there's a proper commit (f454b18e07f5) now?
-> Plus in any event a short summary of the erratum would help if put right here
-> (without needing to look up any documents or follow any links).
+On 30.08.2023 17:53, Alejandro Vallejo wrote:
+> Currently there's a printk statement triggered when no ucode loading
+> facilities are discovered. This statement should have severity INFO rather
+> than WARNING because it's not reporting anything wrong. Warnings ought
+> to be reserved for recoverable system errors.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-That is not public information yet.  The erratum number alone is the
-best we can do at this juncture.
->> --- a/xen/arch/x86/cpu/amd.c
->> +++ b/xen/arch/x86/cpu/amd.c
->> @@ -1004,6 +1004,28 @@ static void cf_check zen2_disable_c6(void *arg)
->>  	wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
->>  }
->>  
->> +static void amd_check_erratum_1485(void)
->> +{
->> +	uint64_t val, chickenbit = (1 << 5);
-> Linux gives the bit a name. Any reason you don't?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-There are multiple different names depending on where you look, and none
-are particularly relevant here.
 
-~Andrew
---------------9lT9NO8JjQ8S0V7aohEOKWEr
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 17/10/2023 8:44 am, Jan Beulich
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:ca7a8bad-4d6f-1da4-b48d-7acbb5db401e@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 13.10.2023 17:38, Alejandro Vallejo wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Fix adapted off Linux's mailing list:
-  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/lkml/D99589F4-BC5D-430B-87B2-72C20370CF57@exactcode.com/T/#u">https://lore.kernel.org/lkml/D99589F4-BC5D-430B-87B2-72C20370CF57@exactcode.com/T/#u</a>
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Why reference the bug report when there's a proper commit (f454b18e07f5) now?
-Plus in any event a short summary of the erratum would help if put right here
-(without needing to look up any documents or follow any links).</pre>
-    </blockquote>
-    <br>
-    That is not public information yet.  The erratum number alone is the
-    best we can do at this juncture.<br>
-    <span style="white-space: pre-wrap">
-
-</span>
-    <blockquote type="cite"
-      cite="mid:ca7a8bad-4d6f-1da4-b48d-7acbb5db401e@suse.com">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">--- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -1004,6 +1004,28 @@ static void cf_check zen2_disable_c6(void *arg)
- 	wrmsrl(MSR_AMD_CSTATE_CFG, val &amp; mask);
- }
- 
-+static void amd_check_erratum_1485(void)
-+{
-+	uint64_t val, chickenbit = (1 &lt;&lt; 5);
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Linux gives the bit a name. Any reason you don't?</pre>
-    </blockquote>
-    <br>
-    There are multiple different names depending on where you look, and
-    none are particularly relevant here.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------9lT9NO8JjQ8S0V7aohEOKWEr--
 
