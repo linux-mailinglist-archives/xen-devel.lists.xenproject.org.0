@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D120F7CEA04
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 23:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618777.962862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B104E7CEA0B
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 23:34:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618779.962872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtE8G-0001ew-Oo; Wed, 18 Oct 2023 21:31:12 +0000
+	id 1qtEB4-0002jE-6G; Wed, 18 Oct 2023 21:34:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618777.962862; Wed, 18 Oct 2023 21:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 618779.962872; Wed, 18 Oct 2023 21:34:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtE8G-0001cf-ME; Wed, 18 Oct 2023 21:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 618777;
- Wed, 18 Oct 2023 21:31:11 +0000
+	id 1qtEB4-0002gx-3c; Wed, 18 Oct 2023 21:34:06 +0000
+Received: by outflank-mailman (input) for mailman id 618779;
+ Wed, 18 Oct 2023 21:34:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UegX=GA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qtE8E-0001cX-VO
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 21:31:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qtEB3-0002gr-HO
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 21:34:05 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4978ab3-6dfd-11ee-9b0e-b553b5be7939;
- Wed, 18 Oct 2023 23:31:06 +0200 (CEST)
+ id 0ee709f9-6dfe-11ee-9b0e-b553b5be7939;
+ Wed, 18 Oct 2023 23:34:03 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B108B61913;
- Wed, 18 Oct 2023 21:31:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE75C433C8;
- Wed, 18 Oct 2023 21:31:03 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 025A4B824F2;
+ Wed, 18 Oct 2023 21:34:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712B8C433C9;
+ Wed, 18 Oct 2023 21:34:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,75 +41,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4978ab3-6dfd-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0ee709f9-6dfe-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697664664;
-	bh=Tcrt9UaD9foHfBbXD3JjKAml/N4h4zdhfLvPd3jPAww=;
+	s=k20201202; t=1697664841;
+	bh=KKToORkeAunBLIUb9aGIEg3cdBo+lRrOpTqAmZxc/y0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=umcsGkPbXII4Wi4rMraA+Yn6ay1X7rbiWn0Uz7A46Zc+fNC8aL4DGi2M17VsqNpxn
-	 vndUv99Ck/fvcCEqTW2RtIsyDZ7aB8NFUc+h9wzl1oXa3jmuaTQxcd3i34IcBmHtFc
-	 gpTSOPsF56IrmYSl+IzNobK4x4pKBIqljpnhmndfd7MBnavPxz0sMFjuW4FiIoXWwA
-	 FO7zusKTlvV7XAufTV+q3i+eJcbcr7WhkduQX9xYCWSnZBVBsjtSxfpMYJNNEol0q7
-	 ib7hh6Dy5MbmM4p718wzsn9QZxnllyugA5Qmyh/uQY8gZY4v+aQWGLDmxBHOVHKjzV
-	 q+Qg50lIgpvHA==
-Date: Wed, 18 Oct 2023 14:31:01 -0700 (PDT)
+	b=t/froSH3q0lBom9fE53eG4vtTPoCzipal3BmD1h4FBx8lMyc4v+UV1NaK83FUR+Nu
+	 yMCK1dtPo1RYkm24OicQ6egxluaKnIwwqCgTj89pu/h7agkjz0qm4d0chppcglMt7F
+	 fbFWCMW1pZo9pNdgPffkH903jU8uS47JGuWEuYsZIWQqPvHNGXZ/NZAFqdDrJOAlcR
+	 xRx7fHVGk/ZGUu/AL1ZI+GJ1wf1uAegz2Z3zAvdrEW+U8KTaFNbx+4xieZv4iHyYeH
+	 UKpHGjYucNpH/LJOfGKkTi5zHm13ZvQuTA3oTPCjezWTku4PFBYriO5Ak6PCzi7mqv
+	 tWcTgF9EpEw2Q==
+Date: Wed, 18 Oct 2023 14:33:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    George Dunlap <george.dunlap@cloud.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, jgross@suse.com, 
-    julien@xen.org, wl@xen.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] cxenstored: wait until after reset to notify dom0less
- domains
-In-Reply-To: <55f70f98-4a84-401c-f9a4-3cb50ca1418c@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2310181430550.965337@ubuntu-linux-20-04-desktop>
-References: <20231013230624.1007969-1-sstabellini@kernel.org> <55f70f98-4a84-401c-f9a4-3cb50ca1418c@suse.com>
+To: Julien Grall <julien@xen.org>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, consulting@bugseng.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, roger.pau@citrix.com, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: MISRA C:2012 D4.11 caution on staging
+In-Reply-To: <1aaea648-b156-4297-b290-9c7b7a5010fd@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2310181433140.965337@ubuntu-linux-20-04-desktop>
+References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com> <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com> <baa73fa24385b39bc6e82c4ccb08bd13@bugseng.com> <26f09702-9340-41ae-afcc-808becb67876@citrix.com> <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
+ <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com> <5ddb6398-f2a3-4bcb-8808-bad653b6c3cd@xen.org> <c4f4f1fc-b20a-c08f-9782-9ce06f6dd868@suse.com> <3573c8c2-1a9c-444c-a542-539b16f689f2@xen.org> <8c25bfd7768d6b290362f56a8b8d44d9@bugseng.com>
+ <c47528e7-e202-4b5b-85ae-3bb0d1d0b608@xen.org> <87b5936151ace813d9dc9592ee35f86e@bugseng.com> <1aaea648-b156-4297-b290-9c7b7a5010fd@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 17 Oct 2023, Jan Beulich wrote:
+On Wed, 18 Oct 2023, Julien Grall wrote:
+> On 18/10/2023 13:52, Nicola Vetrini wrote:
+> > On 18/10/2023 14:38, Julien Grall wrote:
+> > > Hi Nicola,
+> > > 
+> > > On 18/10/2023 13:30, Nicola Vetrini wrote:
+> > > > On 17/10/2023 15:28, Julien Grall wrote:
+> > > > I tested this, and the report is prevented by the ASSERT. It's up to the
+> > > > maintainers to
+> > > > decide how do you want to proceed: my suggestion is deviating it,
+> > > 
+> > > It is not clear to me what would you deviate. Can you clarify?
+> > > 
+> > > Cheers,
+> > 
+> > The memcpy call, as in:
+> > 
+> > /* SAF-x-false-positive-eclair */
+> > memcpy(d->handle, config->handle, sizeof(d->handle));
 > 
-> On 14.10.2023 01:06, Stefano Stabellini wrote:
-> > From: George Dunlap <george.dunlap@cloud.com>
-> > 
-> > Commit fc2b57c9a ("xenstored: send an evtchn notification on
-> > introduce_domain") introduced the sending of an event channel to the
-> > guest when first introduced, so that dom0less domains waiting for the
-> > connection would know that xenstore was ready to use.
-> > 
-> > Unfortunately, it was introduced in introduce_domain(), which 1) is
-> > called by other functions, where such functionality is unneeded, and
-> > 2) after the main XS_INTRODUCE call, calls domain_conn_reset().  This
-> > introduces a race condition, whereby if xenstored is delayed, a domain
-> > can wake up, send messages to the buffer, only to have them deleted by
-> > xenstore before finishing its processing of the XS_INTRODUCE message.
-> > 
-> > Move the connect-and-notfy call into do_introduce() instead, after the
-> > domain_conn_rest(); predicated on the state being in the
-> > XENSTORE_RECONNECT state.
-> > 
-> > (We don't need to check for "restoring", since that value is always
-> > passed as "false" from do_domain_introduce()).
-> > 
-> > Also take the opportunity to add a missing wmb barrier after resetting
-> > the indexes of the ring in domain_conn_reset.
-> > 
-> > This change will also remove an extra event channel notification for
-> > dom0 (because the notification is now done by do_introduce which is not
-> > called for dom0.) The extra dom0 event channel notification was only
-> > introduced by fc2b57c9a and was never present before. It is not needed
-> > because dom0 is the one to tell xenstored the connection parameters, so
-> > dom0 has to know that the ring page is setup correctly by the time
-> > xenstored starts looking at it. It is dom0 that performs the ring page
-> > init.
-> > 
-> > Signed-off-by: George Dunlap <george.dunlap@cloud.com>
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> I am not in favor of this deviation. It could be a false positive today, but
+> it may not be in the future.
 > 
-> Should this have had a Fixes: tag thus marking it to pick up for
-> backport?
+> I much prefer the ASSERT() version or the rework.
 
-Sorry this was committed already
+Just to be clear about the next steps, Nicola are you OK with sending a
+patch with the ASSERT or would you prefer Julien or someone else to do
+it?
 
