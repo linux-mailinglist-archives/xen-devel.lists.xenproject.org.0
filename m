@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A167CDC8F
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 15:03:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618557.962334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3D67CDCF0
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 15:15:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618560.962345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt6CB-0003Mz-8M; Wed, 18 Oct 2023 13:02:43 +0000
+	id 1qt6Nx-0006Ox-AZ; Wed, 18 Oct 2023 13:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618557.962334; Wed, 18 Oct 2023 13:02:43 +0000
+Received: by outflank-mailman (output) from mailman id 618560.962345; Wed, 18 Oct 2023 13:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt6CB-0003Kq-5j; Wed, 18 Oct 2023 13:02:43 +0000
-Received: by outflank-mailman (input) for mailman id 618557;
- Wed, 18 Oct 2023 13:02:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qt6C9-0003Kk-W9
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 13:02:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qt6C8-00062f-CS; Wed, 18 Oct 2023 13:02:40 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=[192.168.7.230]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qt6C8-00057p-4Q; Wed, 18 Oct 2023 13:02:40 +0000
+	id 1qt6Nx-0006NF-6x; Wed, 18 Oct 2023 13:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 618560;
+ Wed, 18 Oct 2023 13:14:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MOie=GA=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qt6Nv-0006N9-BP
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 13:14:51 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50c0155c-6db8-11ee-9b0e-b553b5be7939;
+ Wed, 18 Oct 2023 15:14:49 +0200 (CEST)
+Received: from Dell.bugseng.com (unknown [37.161.127.233])
+ by support.bugseng.com (Postfix) with ESMTPSA id E96784EE0739;
+ Wed, 18 Oct 2023 15:14:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +39,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=K4XRwzZNGDricRLKmCYNfv1BzdfS1J1o7rRHHv2QCuM=; b=un0mf8dpqIjlzxc91qaIjXTqPp
-	yL1HrTNhbjWLfN6KtaH1TvpB45U1t8pnyk5+FHdllcLSVciHTL/ZTTu2RBwP9j19YFo0Nx1ZFewxL
-	1BVdfW6zw9ahEB+xeGGFaSWMN48X/MPzCYzxNVQkWc1CwMzLkDXhA9S2SjfjUPk0zJ+8=;
-Message-ID: <1aaea648-b156-4297-b290-9c7b7a5010fd@xen.org>
-Date: Wed, 18 Oct 2023 14:02:37 +0100
+X-Inumbo-ID: 50c0155c-6db8-11ee-9b0e-b553b5be7939
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [XEN PATCH v2] arm/gic: add missing parameter names and uniform function declarations
+Date: Wed, 18 Oct 2023 15:14:39 +0200
+Message-Id: <f22122c2b82f704dff17a455877c213940b54cc7.1697633691.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: MISRA C:2012 D4.11 caution on staging
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, roger.pau@citrix.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
- <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com>
- <baa73fa24385b39bc6e82c4ccb08bd13@bugseng.com>
- <26f09702-9340-41ae-afcc-808becb67876@citrix.com>
- <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
- <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com>
- <5ddb6398-f2a3-4bcb-8808-bad653b6c3cd@xen.org>
- <c4f4f1fc-b20a-c08f-9782-9ce06f6dd868@suse.com>
- <3573c8c2-1a9c-444c-a542-539b16f689f2@xen.org>
- <8c25bfd7768d6b290362f56a8b8d44d9@bugseng.com>
- <c47528e7-e202-4b5b-85ae-3bb0d1d0b608@xen.org>
- <87b5936151ace813d9dc9592ee35f86e@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <87b5936151ace813d9dc9592ee35f86e@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Add missing parameter names and remove inconsistencies between GICv3
+and GICv2. No functional change.
 
-On 18/10/2023 13:52, Nicola Vetrini wrote:
-> On 18/10/2023 14:38, Julien Grall wrote:
->> Hi Nicola,
->>
->> On 18/10/2023 13:30, Nicola Vetrini wrote:
->>> On 17/10/2023 15:28, Julien Grall wrote:
->>> I tested this, and the report is prevented by the ASSERT. It's up to 
->>> the maintainers to
->>> decide how do you want to proceed: my suggestion is deviating it,
->>
->> It is not clear to me what would you deviate. Can you clarify?
->>
->> Cheers,
-> 
-> The memcpy call, as in:
-> 
-> /* SAF-x-false-positive-eclair */
-> memcpy(d->handle, config->handle, sizeof(d->handle));
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+Changes in v2:
+- switched parameter names of gicv3_write_lr().
+---
+ xen/arch/arm/gic-v3.c          | 22 +++++++++++-----------
+ xen/arch/arm/include/asm/gic.h | 12 ++++++------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
 
-I am not in favor of this deviation. It could be a false positive today, 
-but it may not be in the future.
-
-I much prefer the ASSERT() version or the rework.
-
-Cheers,
-
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 95e4f020fe..172ff8c005 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1086,29 +1086,29 @@ static void gicv3_read_lr(int lr, struct gic_lr *lr_reg)
+     }
+ }
+ 
+-static void gicv3_write_lr(int lr_reg, const struct gic_lr *lr)
++static void gicv3_write_lr(int lr, const struct gic_lr *lr_reg)
+ {
+     uint64_t lrv = 0;
+     const enum gic_version vgic_version = current->domain->arch.vgic.version;
+ 
+ 
+-    lrv = ( ((u64)(lr->virq & ICH_LR_VIRTUAL_MASK)  << ICH_LR_VIRTUAL_SHIFT) |
+-        ((u64)(lr->priority & ICH_LR_PRIORITY_MASK) << ICH_LR_PRIORITY_SHIFT) );
++    lrv = ( ((u64)(lr_reg->virq & ICH_LR_VIRTUAL_MASK)  << ICH_LR_VIRTUAL_SHIFT) |
++        ((u64)(lr_reg->priority & ICH_LR_PRIORITY_MASK) << ICH_LR_PRIORITY_SHIFT) );
+ 
+-    if ( lr->active )
++    if ( lr_reg->active )
+         lrv |= ICH_LR_STATE_ACTIVE;
+ 
+-    if ( lr->pending )
++    if ( lr_reg->pending )
+         lrv |= ICH_LR_STATE_PENDING;
+ 
+-    if ( lr->hw_status )
++    if ( lr_reg->hw_status )
+     {
+         lrv |= ICH_LR_HW;
+-        lrv |= (uint64_t)lr->hw.pirq << ICH_LR_PHYSICAL_SHIFT;
++        lrv |= (uint64_t)lr_reg->hw.pirq << ICH_LR_PHYSICAL_SHIFT;
+     }
+     else
+     {
+-        if ( lr->virt.eoi )
++        if ( lr_reg->virt.eoi )
+             lrv |= ICH_LR_MAINTENANCE_IRQ;
+         /* Source is only set in GICv2 compatible mode */
+         if ( vgic_version == GIC_V2 )
+@@ -1117,8 +1117,8 @@ static void gicv3_write_lr(int lr_reg, const struct gic_lr *lr)
+              * Source is only valid for SGIs, the caller should make
+              * sure the field virt.source is always 0 for non-SGI.
+              */
+-            ASSERT(!lr->virt.source || lr->virq < NR_GIC_SGI);
+-            lrv |= (uint64_t)lr->virt.source << ICH_LR_CPUID_SHIFT;
++            ASSERT(!lr_reg->virt.source || lr_reg->virq < NR_GIC_SGI);
++            lrv |= (uint64_t)lr_reg->virt.source << ICH_LR_CPUID_SHIFT;
+         }
+     }
+ 
+@@ -1129,7 +1129,7 @@ static void gicv3_write_lr(int lr_reg, const struct gic_lr *lr)
+     if ( vgic_version == GIC_V3 )
+         lrv |= ICH_LR_GRP1;
+ 
+-    gicv3_ich_write_lr(lr_reg, lrv);
++    gicv3_ich_write_lr(lr, lrv);
+ }
+ 
+ static void gicv3_hcr_status(uint32_t flag, bool status)
+diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
+index f1ef347edc..03f209529b 100644
+--- a/xen/arch/arm/include/asm/gic.h
++++ b/xen/arch/arm/include/asm/gic.h
+@@ -246,7 +246,7 @@ void gic_set_irq_type(struct irq_desc *desc, unsigned int type);
+ 
+ /* Program the GIC to route an interrupt */
+ extern void gic_route_irq_to_xen(struct irq_desc *desc, unsigned int priority);
+-extern int gic_route_irq_to_guest(struct domain *, unsigned int virq,
++extern int gic_route_irq_to_guest(struct domain *d, unsigned int virq,
+                                   struct irq_desc *desc,
+                                   unsigned int priority);
+ 
+@@ -330,11 +330,11 @@ struct gic_hw_operations {
+     /* Initialize the GIC and the boot CPU */
+     int (*init)(void);
+     /* Save GIC registers */
+-    void (*save_state)(struct vcpu *);
++    void (*save_state)(struct vcpu *v);
+     /* Restore GIC registers */
+-    void (*restore_state)(const struct vcpu *);
++    void (*restore_state)(const struct vcpu *v);
+     /* Dump GIC LR register information */
+-    void (*dump_state)(const struct vcpu *);
++    void (*dump_state)(const struct vcpu *v);
+ 
+     /* hw_irq_controller to enable/disable/eoi host irq */
+     hw_irq_controller *gic_host_irq_type;
+@@ -369,9 +369,9 @@ struct gic_hw_operations {
+     /* Clear LR register */
+     void (*clear_lr)(int lr);
+     /* Read LR register and populate gic_lr structure */
+-    void (*read_lr)(int lr, struct gic_lr *);
++    void (*read_lr)(int lr, struct gic_lr *lr_reg);
+     /* Write LR register from gic_lr structure */
+-    void (*write_lr)(int lr, const struct gic_lr *);
++    void (*write_lr)(int lr, const struct gic_lr *lr_reg);
+     /* Read VMCR priority */
+     unsigned int (*read_vmcr_priority)(void);
+     /* Read APRn register */
 -- 
-Julien Grall
+2.34.1
+
 
