@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5EB7CD714
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 10:54:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618450.962110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 800067CD7A3
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 11:16:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618459.962124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt2Jv-00074J-O4; Wed, 18 Oct 2023 08:54:27 +0000
+	id 1qt2eD-0002ou-GN; Wed, 18 Oct 2023 09:15:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618450.962110; Wed, 18 Oct 2023 08:54:27 +0000
+Received: by outflank-mailman (output) from mailman id 618459.962124; Wed, 18 Oct 2023 09:15:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt2Jv-00071k-LU; Wed, 18 Oct 2023 08:54:27 +0000
-Received: by outflank-mailman (input) for mailman id 618450;
- Wed, 18 Oct 2023 08:54:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4j4C=GA=citrix.com=prvs=648c180f0=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qt2Jt-00071c-Sn
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 08:54:26 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eddf55cc-6d93-11ee-98d4-6d05b1d4d9a1;
- Wed, 18 Oct 2023 10:54:24 +0200 (CEST)
-Received: from mail-dm6nam10lp2100.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.100])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 18 Oct 2023 04:54:19 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SJ0PR03MB5487.namprd03.prod.outlook.com (2603:10b6:a03:284::8)
+	id 1qt2eD-0002m7-DM; Wed, 18 Oct 2023 09:15:25 +0000
+Received: by outflank-mailman (input) for mailman id 618459;
+ Wed, 18 Oct 2023 09:15:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EezS=GA=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qt2eB-0002lr-8b
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 09:15:23 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2059.outbound.protection.outlook.com [40.107.7.59])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc8e32f7-6d96-11ee-9b0e-b553b5be7939;
+ Wed, 18 Oct 2023 11:15:21 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB8381.eurprd04.prod.outlook.com (2603:10a6:20b:3b5::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Wed, 18 Oct
- 2023 08:54:17 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::17e3:6cff:b087:fc64]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::17e3:6cff:b087:fc64%4]) with mapi id 15.20.6886.034; Wed, 18 Oct 2023
- 08:54:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.34; Wed, 18 Oct
+ 2023 09:14:52 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%7]) with mapi id 15.20.6907.022; Wed, 18 Oct 2023
+ 09:14:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,256 +46,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eddf55cc-6d93-11ee-98d4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1697619264;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=8++SR9oHWyHFtkBBpz0rUi4XWRaGPqfEb3q/5OOaljY=;
-  b=E5cYK0Rr/sebSuyEHf22FrIw5o8Gw5UJ2r6LWFCTx1iiTWQAwtYgy77+
-   7XaLF57xmkg+ifdGawCMYcxoxLojx2lmEGHhSh3nvijG0FSSiF4FmChIy
-   gLg9LrfXwdov8ZG9GtB3eGajsAUDwgjEF7G9l43Qs1DCxXRQDCSzyjtHc
-   w=;
-X-CSE-ConnectionGUID: BYuF5mc3RneWSmQcqUDsqQ==
-X-CSE-MsgGUID: MaZoInQET2al6rY+YU4RrA==
-X-IronPort-RemoteIP: 104.47.58.100
-X-IronPort-MID: 125918281
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:WymQJKrivjQPjL6UDcSZfvhPB4teBmLcZBIvgKrLsJaIsI4StFCzt
- garIBmOa6nYN2GhfthzPYyx80gA75fUytZkGgNv+S5hQykR8ZuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbOCYmYpA1Y8FE/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GhwUmAWP6gR5waGzilNVfrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXABo8cz7egunt+rS2ddJpv886EeXwJbpK7xmMzRmBZRonabbqZvySoPN9gnI3jM0IGuvCb
- c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3jeiraYKNEjCJbZw9ckKwv
- GXJ8n6/GhgHHNee1SCE4jSngeqncSbTAdhPReTorK4z6LGV7kkaOho3U2KWnaOwjhCkapFuF
- hAu4AN7+MDe82TuFLERRSaQonSJoxodUNp4CPAh5UeGza+8ywWUGGkCCCJAYdoOtckqSDhs3
- ViM9/vJCDp1ofuqQHSS3r6OqHW5Pi19BX8PY2oIQBUI5/HnoZovlVTfQ9B7Cqm3g9bpXzbqz
- Fi3QDMWgrwSiYsH0vu99FWe2za0/MGRFkgy+xndWX+j4kVhfom5aoe06F/dq/FdMIKeSVrHt
- 38B8ySD0N0z4Vi2vHTlaI0w8HuBvp5p7BW0bYZTIqQc
-IronPort-HdrOrdr: A9a23:RbWwNqllndkLsWZZHXR6pGcXFgLpDfI73DAbv31ZSRFFG/Fw8P
- rPoB1773LJYVMqMxsdcL+7Scq9qAznhPtICOUqUYtKPzOW2ldATrsC0WKK+VSJJ8SUzIBgPM
- lbHJSWAeeAaWRHsQ==
-X-Talos-CUID: =?us-ascii?q?9a23=3AX64VQmlVi/4sasMFR623Y+NUMijXOVfs0VmNJkT?=
- =?us-ascii?q?jM2Bkd4aQcFSJxY9/ivM7zg=3D=3D?=
-X-Talos-MUID: 9a23:sRynsAXtW+fOibPq/BrltjZDMv5F3/6nDB4XoNY3hpW+LwUlbg==
-X-IronPort-AV: E=Sophos;i="6.03,234,1694750400"; 
-   d="scan'208";a="125918281"
+X-Inumbo-ID: dc8e32f7-6d96-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=brsYO5iSjNBEKiGCRbgPKFzkmPjArELZQh4vRg9uVuxn+ZSTWvCHEFG35ChEOTLcaJTsyoW1PH5h5tN7mPQpJN8OSRam2EKaVwVJaHpB2UwEsCL1Xf5yap1qMP0/5ttO4uWUPqQ+SaZcl8yRUS5T8t7ftyuMnVX7Ywt1FychnRxCGrWXSQUSk4ZYy053+3BwzMEXTTA3gfLEKdHa7jWy5lrpvxoroEzYIKRFNVdT1AmAacHh5/0QjqrWTyvjSzT+4gHyB+55SkNUvjhR8plwzIfRDG+vSJxr6CaI7gkYpOI1SJWFI/BHAdG0zHEau+g3U01EOBAG6r644i4YC+co5w==
+ b=lrqYr3QRDC+NqcKXfmmXX8QOjHfla2xfuZCj5yTjtwrIiswUp1C4Zb0ZRerNX1qtlWxL7TxPM+wvV1XcAfNOEgEPawNgC4b+NKl3taVq8LwhxrccTQPwhlHf+mVo2aewkmpCtF3eBe4l0yzXNRj8eI+Fc51yfEKIROATNZXqGJKI+xjAIH0qIfW3obJMCK16vIG5PXwOyUbVCjj9PkPiy6OjwORZHHBg8/oYOuEqhivVfTN1oxyHDJePArivrDwMC8RTzuMpW9NRj609BuJDqnHmAF58TFT3uEzz3OUA49DPyrFdFS9FWMMWo7yYZ7MDSnXc76my70IxUelvNNJIEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5QtnMTXqwQJ4DM3MhvYcr94JiggEW7nNKuuL9H3pcis=;
- b=V/MsaH5bmLjxGkgZ2X3I6CAvenJkqqhfeJwhK6D+AEcCloaAptor1UVx+/PdNIq1QVqeJBhRrs9KMqvRZQ/4F5ev3pbdsUQY7KNpFegMVNYjP+VNMV7lqmDGBnWYdSKbSKJ32lPKxDsG6FPlCh90pFqXg2W0R9C4wxA0VxAV5Xw9DQkecm+Hzup5bKvV/N7SgagQWe9l50sdWTwKUACvAE3G5nHBccdT0kgSNdwJ6zvvAH1qKJD7oOrJxX4mI04jHtdCB2Ky5lBZBw8IAL+/T80vSTDPp1tmRQtzm8cDhcwZywpUwuZ0WOlojuc819qXYXldZskKwvfJvVUfWhUclA==
+ bh=i/d9klQd5LsNya+up6vzr0ff+wdYeA6/XnAet6JRZuk=;
+ b=dhxhS1p4MqzWAXWxh0I4pRkYl8qHxg7kc0MNXhSZP1oRAAVdbUJviL4xR+O2nXbWTTbvki++/hA2Z46vOsZcfihMs3rRo5cm6Pp2vPPFODTaTo/bVCEifPjjO2Qltu9HYCUDkXZN5x1HqPdu80REDw1h8qtTYIg2axM2JuEaQrsMAVX9fCYsjUp9EtD02G3PtIQ1O7y4J00B3XmzOQkOGtxtj59Z10LpsYP+E4627yvK6kj7WxwVwTLVQ3fJuaf51koVvlFYzizvh6bcRhvWc5NrtWcHqKEUIb0CDDDzRMeCiA7U0OP2Usf9djsEzVmhXl8XzbwFQeTE9gDp1ziyeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5QtnMTXqwQJ4DM3MhvYcr94JiggEW7nNKuuL9H3pcis=;
- b=dn8xNlTTZlBGGKTmDImxlu+oYAYXvjxp1HVIIlJswkt05cpyWUT/pi4aqtHSALUj0SmsEl/JVvS9tsePYdY2AvWuHej/lrqSquDb0wCm/EHJfe1o6uwo4pt4f1ZMDoAvYYHZEcqyKtR4W7+I+EEtdHY15y6pId6leuGZdo3jvU0=
+ bh=i/d9klQd5LsNya+up6vzr0ff+wdYeA6/XnAet6JRZuk=;
+ b=MMdKbN1c4aw/gLscFuBDJRtPbohhwmotAW3wklfDNnHb8AnTyMw+xzgQ4PKtDcJbThgPYswV219Y6glWBvV9neuK4OxG1oZfHZeGVnskPCzfwowuVV42H4wKwH1pWNsMUUoZlqp3NHYXunm/imciH7TvwEhIxPDUOUEn6wDD8mnSsf47XyafmGEyx5r6QkVzjV5ofrq92c8Nkc0dtTg8VA1p9DAzaeRgEHEetDTvhwOAsB9umTWwGAq11Jm4ZhmyQf1n8k+ww0ptMKUg4Bvou7bmOLCZoSexkuR7gWlBGYMBmefJ0tvi729FZ7lYfVhyLv9xZYGdQ+rCzVia5g5grw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 18 Oct 2023 10:54:11 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, Henry Wang <Henry.Wang@arm.com>,
-	xen-devel@lists.xenproject.org
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <16f079c9-4da0-8cc9-b7da-2c00995ab34b@suse.com>
+Date: Wed, 18 Oct 2023 11:14:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
 Subject: Re: [PATCH for-4.18] iommu/vt-d: use max supported AGAW
-Message-ID: <ZS-dM2TFYefJ272h@macbook>
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Henry Wang <Henry.Wang@arm.com>,
+ xen-devel@lists.xenproject.org
 References: <20231017130943.18111-1-roger.pau@citrix.com>
- <c6e38ef6-87ef-d1f0-720f-4db6d307f667@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c6e38ef6-87ef-d1f0-720f-4db6d307f667@suse.com>
-X-ClientProxiedBy: LO4P123CA0166.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18a::9) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ <c6e38ef6-87ef-d1f0-720f-4db6d307f667@suse.com> <ZS-dM2TFYefJ272h@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZS-dM2TFYefJ272h@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0087.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB5487:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc1284f8-3225-4038-f72d-08dbcfb7cfb9
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8381:EE_
+X-MS-Office365-Filtering-Correlation-Id: e514c96a-7557-46bd-fc60-08dbcfbaaf66
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	f8io70FW7CUqrH4yhZVHdPHqiuSzEGQH6DT/MwObomPyfCgG4AYCbHFPkh52UpBQqkrrXwC/xnn2rnkSFca4ugrBAkOvYOVpoy/YGoi5yB0KOVClEmETwstNHxwRExeIV3NH/XkqNff7h/DBs8UF6PyB9HKiGrjfVC4+FWg6WuYrXop/Rv8TjIhKCXv5sK3eaZ97Dmh2EMPwymRIzb71nVMN3jvgC/bkkS0ypqayfFR3AGIuB2RLBlK6TwPW97pFUwf6fR174DaK7RPeTlNax/zpo/1Zg8wdT4tcel6Uvo5KUOQKC/DV9ncpY49hjOU3tmSddPlpLO7Xjsd7v976B6YjktN89bahacC8fuGsZNlZ2EAkhij09rhZQ0JT5pHCXsuo2xqXfSSeds80U3pxo71nix6TWZxgtG76ClyuFAczUvnwHgZ//UirK7+RjjhEzw8G1SImYPATyc7HNesNISRy4EW2aLZNphE7ASUh+cWS+AR3WWid1Udg+y7qIUy+w+jYKrbiEx43bBjBnEcn0ri6CPgV9bq0y5bU0CSGaL4ypYkrq5YX91pWMfOFokHq
+	X8SKSKuKrZItTqbqee1tn4q/r44E6R5p3jDHMMhflJoLFRz8BmtLWQCKWU9KGKxkcN4jgoVcDwBMAJR8L5PlPRZRRvV7hV1nE+Xd7vnSrSu7E6Qd6VmHeKAKy1l6TeK0rPWderl0tBeEmwS67tFLCPrCgTg6jUyMjmKbWR8QgSMmgFGi+at0akfNbRfxDryZB72iKG39F1ul+0CcEaZicYJnarsBMb13xR1AFciCvrFX3qYUWUacK83yKandozo8oY8jzBJMaZkCjGW6xwtBmeODxU3z5UrNx8daoEvzCLKCWiOEF7TU0dsOS7GkkEKXinJu1IWI23dOEA1SrMDGFf3CttHhnArFxy8bDdSg+0h8IcrTTwexGEIFUzB1wtsJraSBeYmbbj5YdlrsAxIT9dRa4TgqsQt33LGvSKnwVQ3iUW0hYHO32m8I1QaPx1/22jQkiKXtQdjMJn9SnW/NwoR4j5688Dc/e+W1oeDqKPdTMy+1h2wAQfCO6/tnyLnrmNuwNyrcrfUraV9nye//MHNYYLBZ8AxVk69Y0j+ICDcVcgpu9x+pQWFLPm/+wre7KFwGqDwbXbapFVVYDc1eYKYLw/PXRv5ZwMYLCm6NuH3DFC4hb9R+jyWUZp31n2GPi+XPl66ofh/Npru2iVvOHA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(136003)(396003)(376002)(39860400002)(366004)(346002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(26005)(6666004)(9686003)(53546011)(6512007)(6506007)(6486002)(41300700001)(8676002)(83380400001)(2906002)(8936002)(4326008)(66556008)(5660300002)(316002)(66946007)(54906003)(6916009)(66476007)(38100700002)(478600001)(82960400001)(85182001)(86362001)(33716001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(136003)(346002)(396003)(376002)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(8676002)(66899024)(8936002)(5660300002)(4326008)(31696002)(41300700001)(2906002)(86362001)(36756003)(26005)(38100700002)(6506007)(2616005)(478600001)(83380400001)(6512007)(53546011)(31686004)(66946007)(54906003)(66556008)(6486002)(66476007)(316002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bXdEdTFPbkVYVTlVV1NTZWx2eTVkeVdjS2d0T29XdEJvTitDRE1Wbit6V3Vv?=
- =?utf-8?B?VEgxeWRKSElJeTExcGZpYnA5MDFoNEtoUk8zUnBFODN6U29vQXlGT2dSclJF?=
- =?utf-8?B?Q1MwNHliZzBuWE5RUFo0M3kyYldzbStJWUh4cHJEUTAvUTF4RVlHb2xTN2dM?=
- =?utf-8?B?cktLYnM1ZDkrQ2F0aTIxbklVN2hpZkMrVXRST2ttMjB4TUkyOFNtSGVVYjhK?=
- =?utf-8?B?bE82UEVrOUx0dkErLzlsd09qZ3JqVzMwMzZVYjZGUnIveHNiVlBtTTI0VjBB?=
- =?utf-8?B?SEJkcnRJcEc2NkdjU20wRTlEanJBSWo2K0dWSGtjWWhIUWE2S2pkTlMyckhD?=
- =?utf-8?B?YXVHUmJJeUYvZzVsb1M0Q08xNFkxOFg0NjlOZlFOb1ZnZGdsZVJaVENYNWJ5?=
- =?utf-8?B?SmFsREZ5cDczRjRYdzZleUZtcDIvZ1VRT1l5b29kME1uYVFmZGNETGdid1Ev?=
- =?utf-8?B?SWR2dUZWZml2cTcwVVZGOU9sUENMSStNL2pGS08xWkhwbkczdU1sTVdrWkFr?=
- =?utf-8?B?eVRjVjRrOGNYTEpFVW5Ec0JQVDRaWU15SzduMS8wTzVFWWcvZmJIY3N4a1oz?=
- =?utf-8?B?UXl6Wk1yZFVRSUpFMm9aOG1hcmdKVTBGQS9xQitkdndUNjR2QTNiSkNyVzZL?=
- =?utf-8?B?NkVVNzB3bWZHcitsNzNpVnd3anR4Y000cndydGV4bWkxazQ5RmQveWNGc2ZT?=
- =?utf-8?B?amJHRVZTbEZocGF5NDI3UVZ2bEtZRFpqeXFjWnlUQnV1ZjVoRjhuL3dMUmEy?=
- =?utf-8?B?R2VWSDVSN0tid1lRU1NjNkhtdlBlYm53OHZtd0UyVGI5M0JiUzJRSmNScStq?=
- =?utf-8?B?NEpxOTlURUoyUnRZREpac01nSFlBSzg4WjZhcFY2ekJZYjR6QUFndnVDci92?=
- =?utf-8?B?bGVUT1ArYXd3dkdaMnArUEw3Wk1SMmQ5V1k5N3VwSWVGT1dpMS9IZEhwRG1Z?=
- =?utf-8?B?RlRJZE4zcDNyN291aUFLMitmNGhpUElMVmhja0FhVDBWMmNaS2tXazJ0SGgv?=
- =?utf-8?B?VWYvZDFQREFrdVExVXRjNlZReXBtbGpURnhvZ3B0a212eWlzNUdpTkdhc3FI?=
- =?utf-8?B?eXZ0dU40TWsycnh4UkkwV3dqVlNxMmNVQUFna2RzUXlUNXVzK2xXa2JPdVY1?=
- =?utf-8?B?azh4YWRqbCtTWE54bDdtWG1pZGVQVmQ2eGJZeDM3Nm9vNGQ1bkdJekxXZ2Nn?=
- =?utf-8?B?UnU2V014ak9FRjJuZWhxTFdPVHJ4UUNyUklDNC9SS3BsK2ZUZXdvNVlYWURW?=
- =?utf-8?B?NTFyV3R6TnM5YjZoUjVEd3RDRy9xaU1XT0c0YnRWZ25qSll2Mmp3RDZzekFw?=
- =?utf-8?B?QUhmMTNLWmF4SUJ5UER0VmpvcjBBaTBCbWR3bFZROS9FekVYU0FwVDd0cDVP?=
- =?utf-8?B?ZFA0THBaUFlCT285Ymd1eXNFcWlVL04yN05sYStpeXE0Nm01WkJ5NEpMUmtv?=
- =?utf-8?B?SmVsM2xQZEVEQjBQQkRkM1FJMEt2MTQ4R1Y5MTM1Y0d4eEdCcFhyZ0hSdjky?=
- =?utf-8?B?azVIZ1ZNemdhSVR4MWI4UXYzT1lmUmh5dFlNQ2NvZmpJYWcrUXBlVDZiUlFD?=
- =?utf-8?B?UDN2bkRvSVl1bmVpTHFSRjZZK1dHb3FQcUdvS2xoTG5RRGpxK2swQnBqcGk2?=
- =?utf-8?B?a0xSL3NMdEkwV2FCQTNtTjFNa3BqVE4wQm5RRzJwU25kVk1udVJsTGlTdjBx?=
- =?utf-8?B?aXQwcHdNU2lraUl5QndjSDNwc2pkQ1VOZzNTTnQySUYzNlQ4NUJmTmtjUmw3?=
- =?utf-8?B?UUtTckNYeUxUdFJDOS94QVhMVE13WnR0TnhLWGpmb0dGT2xQVjk4QUlqUHZ3?=
- =?utf-8?B?Vm9LK3d3OWx0ZkpkMVhiZHhaN2FML2pibld5QlBodE9ldHlNUkdINEt5cGlC?=
- =?utf-8?B?a1c0NTlwRFg0aW5nWnNyRldxcU9IWC85T0JDd2RtcDFlWmdLRmdYRnZINGhK?=
- =?utf-8?B?YXE2Z28wNWJ0R1AxVnkzMzhSb0tYZWY0NFNyRGprK0g3Ni9lWURoKy9WN0VZ?=
- =?utf-8?B?UUdTM1lEOUhIVkwvTTRVbUttREhaQTlvbk1YS2V0ZEphclpYYU5ZY2NQQjdu?=
- =?utf-8?B?WnhLbzNlKy9sdHBPZWVEa2NyNXE1RGptb2ZFYkgxMnRlU3NVOHZoRjc2MXN2?=
- =?utf-8?Q?CuMA1L8a3I30r1rQRVdFw65tZ?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	tXVLnrSuzYYE9SswO5D7nIUwu4B3CHgrFMUn1b0EcWPW8KR/OB1xiCKGnJIrivVzLcr1eqeGuS9pirzG3bOb/V3uP3AXCSnnZXFJM0ShPwjoYvEmG7MQZb+44hH3VrabcK1TRub0qVB5VkzXvuwMNQNaZ3FUP2F3IweGO6ayd3afS6QZLqkWTZ6C5fi+4cwt5pymi05OBAh42G7yGQtc6I64nPpLHGqXzjrlJDsCkyNcaQpVZQKg/U1cF/9lxawDdI2I4MsvZf7AF0DqPC6WlQprliGpIYmZda8ZNOF6UKzJEB4bXMZPwsHLVdslWK2HADIkOKB7nKoi9TG59/zj+injYMCYIGUBlIw202oiBYZBBTawqHicRfDZ6iu47MdsSUQbLnrGNwdrH1s6AqJvmk4YpWX+hMrrMu1iYz6Bbs548ivuiZNYjMU+8/AYXP/RsJ0OIs00GmI3pbO3PaY2jS0QFXntypkqBksEqsBcple01uTZ7SZPxRBA0w/KfqpuCS+WBjz4dIEYbeEHQIM1FYO9tAs2WfYAYtvSuKz5EniHOBegnD6F6SbdN+OLexkCORSyUj6PZdUZyA4wJLSOzNjf4XQyZxdrl9GepllzIAxzUhsRzCFtsXCXi47bIIlK9iM5LBDy0dixtBxmyiikT10hoyAmS/WzasFLIDjXoOsA7RBVegoJlPEVrVzPyt1shuPL2X9T+q8/gL8hxqAuzLtoz+kqOiOPiwNO8w61p987j/9uAps4OwCYZrXhPNEMgpmw5CdmEvg8N0CSeh2+PGnQw80e9Fy1wdlXZ5ZvHdQl0BuBdji+/FfJ3ZlKavW5RNGDqVJvisO/eassMQAOKxxm0geUAsE9F6ldAsodNBU=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc1284f8-3225-4038-f72d-08dbcfb7cfb9
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+	=?utf-8?B?WksrNHVtNm5USldjVUxCcVdxeVQ2K3JOZ1JwUzNrWXVzZXQyM0FIVVRFUzdV?=
+ =?utf-8?B?Y2tzM0t3QWNLUjMrcjVZeFZYNlRZcS9MZFNvb3pBdlk4djk1eFpXMGhuMU83?=
+ =?utf-8?B?Ymp3Ly85OGFDRjhCOXl4UWY1dmwvOVFTV0FZWnMzK2lrVzZudWJDSzlobXlN?=
+ =?utf-8?B?K3o1NTBaeHRhcFdEc2NNTm00SGZXazJ3SW5PdkFjZ2UyRUhlUHphd01RZWUz?=
+ =?utf-8?B?ejQ3VzVhaEtvdkpoTU1UcWNaUmtTZi9tbzlRbzZzSlM0KzF5VjdiNEM0WFNn?=
+ =?utf-8?B?aXVabytLcUp0OEZjMkk4YS9rUEFLeEhpVGQ0VFg1WHpyZmhKRXpHNHpRNWcw?=
+ =?utf-8?B?bEFYeFAwRGlta1M1OC9YdVViTkFZcklnalFhS1E2QW92Tzk3TXRsMmQ4UVhs?=
+ =?utf-8?B?ZFBqZk9yNWRsREpvZ0FteE9pTWpoclpZUUJydWdKZ0RqcVZJMEY2NUtYQXNH?=
+ =?utf-8?B?TjdkM1J2Vk11S1VCUG1kaGc1WlFhZytJODlCaElPSVBpMWZXWWJlalhTVG1u?=
+ =?utf-8?B?bCs0czhmOHZFdUVtbEUxZFM2YjV3QzQyN0hKRFFMb0U3TDBrVURkOXY3bTVl?=
+ =?utf-8?B?aklINVQ2dnN2YWhQN2lreVRiUjhWZU1rZGM0L2ZNWlNwLzJhcmZGcFF1cjBz?=
+ =?utf-8?B?QnNrcDZndGFHL1ZpVmVyZkxra0lwNkFHOVJhNGg1akgxLzNEV3RqMzF0dXBW?=
+ =?utf-8?B?cDZrazdZNHM1cm1qcXZLSzRzYUNPUFlkNWpselhGUVdUQkNFL01oVG95UVhK?=
+ =?utf-8?B?OG1nSHJEbmdSMnNldUZYR3RpYUltRng0TUh1cW5tUGVNQnVvWkw3cWdkdzFW?=
+ =?utf-8?B?RGtwbXQ0amphNng4cyszWlpmR1ZTcUsxS3JUaGE2RzJpZ0doUUFWMXRlMFdL?=
+ =?utf-8?B?cnpkUzNOVmJCZWI3RVBUU3hUN1VrT0tTcUJOdlBTaTNvcTV4MCtiem9wazlB?=
+ =?utf-8?B?MnpVWjZwVTIxRVh0MkhYYlNkamtVc1hyc2ZMVG5yeEZUQ1hzS2l5eFVzVFcw?=
+ =?utf-8?B?ME5HdlR1Y21xMHV2eGRrcHk4bHFTL2RsNG1pWDZ5c0o3VjJodVZHUnBpTzlM?=
+ =?utf-8?B?RUtnN0E2aFhyMEwrZkhWZWxLTVVJaklreGJCSlI5VERFanQ3bWtwNzByOHBZ?=
+ =?utf-8?B?TGpXUGJVMXpTRzFEWGF4THlEdUVZcCttY3g2UWVOejZuTi8vMGpLbjN6em5h?=
+ =?utf-8?B?Z1diVUpwTkVzS1FIMnh6dktVbERodDF4NXdPaDNrVzFQaVF5ZGRLNXVPakN0?=
+ =?utf-8?B?Szg2SnB2N0laU3RYOU82c3YwM3l2azZ0K3dRSlU5OExBYXFvZWxmT3hHQUg3?=
+ =?utf-8?B?c2dwbkp5dEg3dWgzS2pIN0o4KzZ1QTJmQUxwazk1eklGODkrM1ZDalE5dnR0?=
+ =?utf-8?B?Z0RITjl3dHRxWU45Kys5SFJLVWYveTk5NTFGa0c1Z29PS1ZJYzhMWGZheVpr?=
+ =?utf-8?B?alZCOGJVVklHMnVNdWV3dGFVcnE0UGRZN2NXUlRjRHdpWDlTejNaQ1BpRGFG?=
+ =?utf-8?B?OHlVY1djQnlNYXJ5UUEyeEtVSnpLaHJZaXVOalZ1UmZ6UDJjcjQxcERTK1ZH?=
+ =?utf-8?B?Ny91d1p1blBoMnAvcVRyMHVRWU1jTmNYa0FjN0tPakR0WFJKd2wzYWlwUUIy?=
+ =?utf-8?B?ajBDdW92NnhBMnhDUUd6SENGVE1jdjErZ0hzTDBwTVlVbCthVVp0QWlYb1Jr?=
+ =?utf-8?B?N1VxOXZjTllSWm1DVFdYMnAyNFdQKzJPR0N4eWJqdUdrbFpXVVBwTmU4a3M2?=
+ =?utf-8?B?cllldUMrZmUzT1BhNXhEQnE2bFo2bnllbmpQajMrQ3FEMHpFZUVQWDJZWnhN?=
+ =?utf-8?B?OHB3MWJvV3BXQVNzWTVSd1FTWTFWeFRLanFRbFhEZWI5VkVRRHRMZHlrakta?=
+ =?utf-8?B?cDdBVjFDV1NuOVVnWjBOeVpGc0laeVVVQ0w1WDMxT2lUZ1VZaVAwM1BrSTl4?=
+ =?utf-8?B?aU9uYUpkcmRFd2xtaFlhdWcrdzNwVTYxRFRwWFZvblltNXQ4Wm1NcXd5WmhG?=
+ =?utf-8?B?emNxdkdwbWF2UktoR3hEU2VSTktJWkFwSGJKZG5rQXRUZVFHK2ZzS0ZtV2pV?=
+ =?utf-8?B?aXVQY1k3VjhaeSs3M0JSOWtodjJrT2VKLzY1amwzUmlCZzN4a0hLZ2xOR3Nu?=
+ =?utf-8?Q?f5i8g51NSBD2TcNs0So+F6f2i?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e514c96a-7557-46bd-fc60-08dbcfbaaf66
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 08:54:17.7085
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 09:14:51.7854
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JAu19gdR4yf2IVRpxwhk9FDySBfmszZH3LFLOYT/E5Rsu6i1x4nt6EsEMRZP+p03IQtm9qwzIiTcSGT12hDV0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5487
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ys/XCH1q5PSYE+nXDDeQ1+iitQ68D4zRowbJ6XewzQuE/AwxUClRwzEa5h6ej7DsZFs699D2V95Hibs9S0bR3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8381
 
-On Wed, Oct 18, 2023 at 09:54:15AM +0200, Jan Beulich wrote:
-> On 17.10.2023 15:09, Roger Pau Monne wrote:
-> > SAGAW is a bitmap field, with bits 1 and 2 signaling support for AGAW 1 and
-> > AGAW 2 respectively.  According to the Intel VT-d specification, an IOMMU might
-> > support multiple AGAW values.
-> > 
-> > The AGAW value for each device is set in the device context entry, however
-> > there's a caveat related to the value the field supports depending on the
-> > translation type:
-> > 
-> > "When the Translation-type (T) field indicates pass-through (010b) or
-> > guest-mode (100b or 101b), this field must be programmed to indicate the
-> > largest AGAW value supported by hardware."
+On 18.10.2023 10:54, Roger Pau Monné wrote:
+> On Wed, Oct 18, 2023 at 09:54:15AM +0200, Jan Beulich wrote:
+>> Taking together perhaps:
+>> - nr_pt_levels needs setting to the larger of 3 and 4, depending on what
+>>   hardware supports, for use in non-pass-through entries,
+>> - a new max_pt_levels field needs setting to what would result from your
+>>   code change above, for use in pass-through entries,
 > 
-> Considering SAGAW=3 was reserved in earlier versions, and considering SAGAW=4
-> and higher continue to be reserved, how is one to write forward-compatible
-> code? (In retrospect I think this is what mislead me to wrongly use
-> find_first_set_bit().)
+> It needs to be a per-IOMMU field, as I would assume IOMMUs can have
+> different page table level support on the same system?
 
-Oh, my spec copy still has SAGAW=3 reserved, only bits 1 and 2 of
-SAGAW are not reserved.
+Right, hence why I also said "field".
 
-> Furthermore, which version of the spec are you looking at? The newest public
-> one I found is 4.1 (-016), which only mentions pass-through, and only as a
-> 2-bit quantity. (Doesn't matter much for the purposes of the actual code
-> change, but still.)
-
-It's an old version, 2.4 from June 2016.  I've now picked up the last
-4.1 version.  I indeed see the changes you mention, so will update the
-commit message accordingly to pick the wording from the new spec
-version (even if we don't care about the guest-mode.
-
-I'm kind of confused by the removal of the guest-modes, but we didn't
-use those anyway.
-
-> > Of the translation types listed above Xen only uses pass-through (010b), and
-> > hence we need to make sure the context entry AGAW field is set appropriately,
-> > or else the IOMMU will report invalid context entry errors.
-> > 
-> > To do so calculate the IOMMU supported page table levels based on the last bit
-> > set in the SAGAW field, instead of the first one.  This also allows making use
-> > of the widest address width supported by the IOMMU, in case multiple AGAWs are
-> > supported.
+>> - min_pt_levels could then remain as is,
+>> - for the moment we ignore the forward-compatibility aspect, until the
+>>   underlying principle has been clarified by Intel.
+>>
+>> A possible further complication then is that we will end up switching
+>> context entries between different AW values. That's not an issue when
+>> we use CMPXCHG16B or transiently clear the present bit, but our best
+>> effort fallback would likely be of security concern then.
 > 
-> To truly achieve that (with the 5-level spec), ...
-> 
-> > --- a/xen/drivers/passthrough/vtd/iommu.c
-> > +++ b/xen/drivers/passthrough/vtd/iommu.c
-> > @@ -1328,7 +1328,7 @@ int __init iommu_alloc(struct acpi_drhd_unit *drhd)
-> >      /* Calculate number of pagetable levels: 3 or 4. */
-> >      sagaw = cap_sagaw(iommu->cap);
-> >      if ( sagaw & 6 )
-> > -        agaw = find_first_set_bit(sagaw & 6);
-> > +        agaw = fls(sagaw & 6) - 1;
-> 
-> ... the mask here needs widening to 0xe. But see my forward-compatibility
-> remark above: It may need widening even further. Yet I'm not sure our code
-> is uniformly ready to handle levels > 4.
+> We would need to update the AW context entry field unconditionally in
+> domain_context_mapping_one().
 
-Hard to tell, I'm not sure we have a system with SAGAW bit 3 set to
-test with, will have to check.
+Plus (just so it's not missed) purge the corresponding assertion.
 
-> As a result I think we need to
-> further alter the use of context_set_address_width(): We don't necessarily
-> want to use the maximum value with CONTEXT_TT_{DEV_IOTLB,MULTI_LEVEL}.
-> Specifically I don't think we want to use levels=5 (aw=3) there, until
-> such time that we support 5-level page tables (which as it looks right now
-> may well end up being never).
-> 
-> Furthermore just out of context we have
-> 
->     iommu->nr_pt_levels = agaw_to_level(agaw);
->     if ( min_pt_levels > iommu->nr_pt_levels )
->         min_pt_levels = iommu->nr_pt_levels;
-> 
-> With fls() instead of find_first_set_bit() this won't be correct anymore.
+> Hm, it's likely more change than what I was expecting to perform at
+> this point in the release, but I guess we cannot ignore the fact that
+> SAGAW might now have bit 3 set and hence passthrough mode is broken on
+> such systems.
 
-I think this is correct as a long as the context entry address width
-field is forced to iommu->nr_pt_levels.  min_pt_levels needs to
-reflect the minimal paging level used by any IOMMU on the system, even
-if smaller page table levels are supported by the IOMMUs those are not
-relevant given the unconditional setting of iommu->nr_pt_levels in the
-context entry.
+Ideally yes. Of course for the immediate purpose we might go with the
+smaller change, but then with the description mentioning (and
+justifying) the omission. If there are 5-level IOMMUs in the wild, I'm
+afraid that wouldn't be a (good) option though. Otoh people shouldn't
+be using hwdom-pass-through mode in the first place ...
 
-> Yet looking at the sole use (and depending on the resolution of the other
-> issue) it may be a mere matter of renaming the variable to properly
-> reflect its purpose.
-> 
-> Taking together perhaps:
-> - nr_pt_levels needs setting to the larger of 3 and 4, depending on what
->   hardware supports, for use in non-pass-through entries,
-> - a new max_pt_levels field needs setting to what would result from your
->   code change above, for use in pass-through entries,
-
-It needs to be a per-IOMMU field, as I would assume IOMMUs can have
-different page table level support on the same system?
-
-> - min_pt_levels could then remain as is,
-> - for the moment we ignore the forward-compatibility aspect, until the
->   underlying principle has been clarified by Intel.
-> 
-> A possible further complication then is that we will end up switching
-> context entries between different AW values. That's not an issue when
-> we use CMPXCHG16B or transiently clear the present bit, but our best
-> effort fallback would likely be of security concern then.
-
-We would need to update the AW context entry field unconditionally in
-domain_context_mapping_one().
-
-Hm, it's likely more change than what I was expecting to perform at
-this point in the release, but I guess we cannot ignore the fact that
-SAGAW might now have bit 3 set and hence passthrough mode is broken on
-such systems.
-
-Thanks, Roger.
+Jan
 
