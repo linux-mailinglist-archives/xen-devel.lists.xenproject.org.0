@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3D87CEB0F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 00:17:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618788.962892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F11D7CEB1C
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 00:23:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618796.962913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtEqK-0001pK-FS; Wed, 18 Oct 2023 22:16:44 +0000
+	id 1qtEwj-0003tT-GV; Wed, 18 Oct 2023 22:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618788.962892; Wed, 18 Oct 2023 22:16:44 +0000
+Received: by outflank-mailman (output) from mailman id 618796.962913; Wed, 18 Oct 2023 22:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtEqK-0001mZ-Cx; Wed, 18 Oct 2023 22:16:44 +0000
-Received: by outflank-mailman (input) for mailman id 618788;
- Wed, 18 Oct 2023 22:16:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1DIN=GA=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1qtEqI-0001mD-9z
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 22:16:42 +0000
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 015cc59d-6e04-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 00:16:39 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 0B2763200A7F;
- Wed, 18 Oct 2023 18:16:35 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Wed, 18 Oct 2023 18:16:36 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 18 Oct 2023 18:16:34 -0400 (EDT)
+	id 1qtEwj-0003r3-Ct; Wed, 18 Oct 2023 22:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 618796;
+ Wed, 18 Oct 2023 22:23:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtEwh-0003qt-Jz; Wed, 18 Oct 2023 22:23:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtEwh-0003Gx-EX; Wed, 18 Oct 2023 22:23:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtEwh-0004Ed-3B; Wed, 18 Oct 2023 22:23:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtEwh-0000f9-2o; Wed, 18 Oct 2023 22:23:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,144 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 015cc59d-6e04-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1697667395; x=1697753795; bh=gqt7w3BtC5yBlDumOlLKLClmvzl6B4YY55b
-	AtjOMMCo=; b=S84qF8bjDzfBXCNi5IBi6wptrLkIu7Wy1GpJgA0THLC6MdEm1NU
-	qRNCLXDJb/GIOQfnNK3/M5ndkrrci97YR1ZKY5ddAKWLn17Zyuq0I/8TOoowSSy7
-	bcoFYUx6q9+Z2WSpcGC0LaJF/7HWPHs3Avej8api8mU9CevzSX1DMOgOCS8+Jn5/
-	ArC14S6n1tPAKc4vkGI048nGkLgRl65Tu1Z5q48ltnopCG2uhlAUbBuWE65Tj6vW
-	Q6VaOcraFHdLQNCOM8ckNKbU2RrV9Vazq8YQDVMSxEMefHMHggXUoC304LUgRQS9
-	XcpkNvrbcq9ZulHcJ4T6JWg8uydralYUdqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1697667395; x=1697753795; bh=gqt7w3BtC5yBl
-	DumOlLKLClmvzl6B4YY55bAtjOMMCo=; b=LduNQjsAmMLZvd3g+2/tmxl40Lw9C
-	rmHfxtUOAc37Lk+jKY27moqqbNH4nybqxaTZ9Fc67ab2Mn/XjydnN7RDkQ7yqLlU
-	Fg3hffXflbhzF+wSnaMfGX2fAXqfmSOlGLz15KSlNaaT6yapLBqe3n0ygjzu+Tzg
-	q5Jerp7Cl33fK3sV0Gk2EmNE0m3+OYuIY7TxFROTaF1Enc0nv5glPf/tkYhxTXo7
-	kSzvSgQ8QtKTwKBQOVanCLRSzEsoUkoFpTQzVT+ikRMoId5FRv/55+auP5TVn6F8
-	UVKg8yf/tKf/TNIJTakSe48iIvS9tGLbGWoX2JWsdnmtGkXTc1IGx82XQ==
-X-ME-Sender: <xms:Q1kwZTG3TAT9SiY1lzLpflhdzLmfeuwFgoLews5Zjb96_YcY_kvvbw>
-    <xme:Q1kwZQUiYmjwqzzSwgzkrdrj8cXn4fHNoQfs3mU4DsjFVQRvnhYEQF-k-8BjZ9jjA
-    8IA9D9Qa_quqw>
-X-ME-Received: <xmr:Q1kwZVJSVUa9AKVJHihKOvpzK6T-Lg0DiQBZQ7J2ApONHatOib3fqY_E53JrgzEv5fU0ya6lejgzWJD2mBj4gPAYbBBI6f8r7fs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrjeehgddtkecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevueej
-    teegleelteduueevhfetgfffjeevtddvgfeiveehteehleegueelvdejveenucffohhmrg
-    hinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:Q1kwZRElxd48Jye_IbQ8ZRscjy4TWOjTi-Lq8t0vQCtK7HgjD296aQ>
-    <xmx:Q1kwZZXSLR_QkK1x2q9i2gufNKQrOO6jhSxIkTqnWEryPCUW8WDnhA>
-    <xmx:Q1kwZcMj90nKVuRh4ScIR6XPIIM-tVqX9-pKNVHArrHxV1gbis8SbA>
-    <xmx:Q1kwZWi9BjJfQm77agGD4Nq5ccR_F78WU1-dOmOMWQum4zy55AYYmw>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 19 Oct 2023 00:16:31 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Henry Wang <Henry.Wang@arm.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 2/5] automation: hide timeout countdown in log
-Message-ID: <ZTBZQGS91FfSeClt@mail-itl>
-References: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com>
- <126f25fd791aa1f3e32463e600c59967504e19b6.1696557834.git-series.marmarek@invisiblethingslab.com>
- <9bcd8476-2a3f-43a3-8576-1e31d0df4bd3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=aNdzaBqGdtf9R++Of2jbWWLQb2WYPx+HcKsusS71cfI=; b=w+C5WsI0gIhKWAGIdeQB9mDFjE
+	iho7K5DTfQVkqy76K99aKCCxK64mPYI+rLCZ9c/lmdYgCvV8570/kNjZSbSvSrNlH2bcXkVNyZvgX
+	rcw8/jxKK5jfVlG+SbowFBSCV6DLgqAokrxNt6NXMeAzB8EvuixEpmdpGADxQ3wYD574=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183420-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ry7Y1FzsF4tVHVJM"
-Content-Disposition: inline
-In-Reply-To: <9bcd8476-2a3f-43a3-8576-1e31d0df4bd3@citrix.com>
+Subject: [ovmf test] 183420: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b75d9f556d6f290a4037064a2b934f5a3396328c
+X-Osstest-Versions-That:
+    ovmf=7fe49887c4d227e585d5aa5530ee8a8d79d5fa1e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 18 Oct 2023 22:23:19 +0000
+
+flight 183420 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183420/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b75d9f556d6f290a4037064a2b934f5a3396328c
+baseline version:
+ ovmf                 7fe49887c4d227e585d5aa5530ee8a8d79d5fa1e
+
+Last test of basis   183417  2023-10-18 17:42:23 Z    0 days
+Testing same since   183420  2023-10-18 20:10:44 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Yuwei Chen <yuwei.chen@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
---ry7Y1FzsF4tVHVJM
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Oct 2023 00:16:31 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Henry Wang <Henry.Wang@arm.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 2/5] automation: hide timeout countdown in log
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Wed, Oct 18, 2023 at 06:45:03PM +0100, Andrew Cooper wrote:
-> On 06/10/2023 3:05 am, Marek Marczykowski-G=C3=B3recki wrote:
-> > grep+sleep message every 1s makes job log unnecessary hard to read.
-> >
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > I know I can download serial log file, but that's 3 more clicks...
-> > ---
-> >  automation/scripts/qubes-x86-64.sh | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
-bes-x86-64.sh
-> > index 1e84e40a4afc..5464d10fc343 100755
-> > --- a/automation/scripts/qubes-x86-64.sh
-> > +++ b/automation/scripts/qubes-x86-64.sh
-> > @@ -222,10 +222,12 @@ if [ -n "$wait_and_wakeup" ]; then
-> >      ssh $CONTROLLER wake
-> >  fi
-> > =20
-> > +set +x
-> >  until grep "^Welcome to Alpine Linux" smoke.serial || [ $timeout -le 0=
- ]; do
-> >      sleep 1;
-> >      : $((--timeout))
-> >  done
-> > +set -x
-> > =20
-> >  tail -n 100 smoke.serial
-> > =20
->=20
-> This wants repeating in dom0_check=3D when looking for "Welcome to Alpine"
-> in guest-domU.log because the scrool is still visible in
->=20
-> https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/5235487317
->=20
-> Happy to fix on commit, as this is the only comment I have on the series.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Fine with me, thanks!
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> Alternatively, would it be worth writing a "wait_until $msg $file"
-> function to abstract this away?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Can refactor it later, maybe when adding more tests.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Pushing revision :
 
---ry7Y1FzsF4tVHVJM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmUwWUAACgkQ24/THMrX
-1yxtFwf/fUxQGg2TSO0t3Rkj7VkhGb2lCoL2G9uLCUGKTIdkSGdIDL22hrlbabPl
-tFag0fKUmypvq6H7mEyiWIB0jxf+lhS6qu5JEG0avNoGo6KCwSy5zn4MvCwLrn1p
-uH9CCWJge7BHfeqRdiC7O43Zacm7K6auELHzKiokGO9Y1e6ACvYLoPqA7sqarm9w
-u4dLju4/YiRhAuxnQKOMgMez+xkIdZwYenKqZpnQ+/S4kBj0iW6/+G8jTRXbbf1b
-i/2/ktc4OYNdHAZTtI5rT0n6cbsO35enEWXFbz2yoemqZu7ShgTw/cC6l/3jbiwU
-sxzk7i+ZI0INae8oojfCCb2WEwgVLw==
-=bnaM
------END PGP SIGNATURE-----
-
---ry7Y1FzsF4tVHVJM--
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7fe49887c4..b75d9f556d  b75d9f556d6f290a4037064a2b934f5a3396328c -> xen-tested-master
 
