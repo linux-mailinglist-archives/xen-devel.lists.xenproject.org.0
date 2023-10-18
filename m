@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AC1F7CD9F1
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 12:59:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618502.962214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E427CDA24
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 13:17:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618507.962225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt4Gh-00070P-1w; Wed, 18 Oct 2023 10:59:15 +0000
+	id 1qt4Xd-00030m-Cs; Wed, 18 Oct 2023 11:16:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618502.962214; Wed, 18 Oct 2023 10:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 618507.962225; Wed, 18 Oct 2023 11:16:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt4Gg-0006yJ-VT; Wed, 18 Oct 2023 10:59:14 +0000
-Received: by outflank-mailman (input) for mailman id 618502;
- Wed, 18 Oct 2023 10:59:13 +0000
+	id 1qt4Xd-0002xq-9J; Wed, 18 Oct 2023 11:16:45 +0000
+Received: by outflank-mailman (input) for mailman id 618507;
+ Wed, 18 Oct 2023 11:16:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qt4Gf-0006xg-Gj
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 10:59:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qt4Xb-0002xg-LP; Wed, 18 Oct 2023 11:16:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qt4Gc-0003Ap-U0; Wed, 18 Oct 2023 10:59:10 +0000
-Received: from [15.248.2.150] (helo=[10.24.67.30])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qt4Gc-000860-Il; Wed, 18 Oct 2023 10:59:10 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qt4Xb-0003dv-I6; Wed, 18 Oct 2023 11:16:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qt4Xb-0000UD-51; Wed, 18 Oct 2023 11:16:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qt4Xb-0005xp-4d; Wed, 18 Oct 2023 11:16:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=isAQ5/Et135JphEaW7zI4z2AreMYK1m3a1vIxTAk9lI=; b=tfMOZ8LAunt5E4w2qEPgzytGoX
-	csFDonuX9GmL883xEEsoIDYMruSrM/PjyQujbOm/vWJ2g0pQX+vFrKz4vy3+yHclQL/N3RU/EXHBu
-	ouWZpJv9zAqoBXFQpLkv3+jyWljy3dbpeFnpF6emDuGRcQJ7bBasYtaAR3NTTGBJ9sE8=;
-Message-ID: <4fc83e61-1e57-4f75-b017-7045842165e5@xen.org>
-Date: Wed, 18 Oct 2023 11:59:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qvFTXT0gVnZcRd23U1lRx7zacq/75X7Vno87RqFZG/c=; b=QgcD8MwJM9YcbZ3h8U8NcFZj1A
+	4oisG3o3hRQruAJfs60JvuCvMeYig3da1JGiGkYCNWLLRqfLkAKg8VJtR+ZekFyHDH+uMSFNPRbh9
+	hWhLf+fBBpkvme5K0K8TrHDG/zCOG98doWJMBPvCFTvfV1eLWTgjOBsrtiMhqEWqmZRE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183410-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Alexey Klimov <alexey.klimov@linaro.org>,
- Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- "leo.yan@linaro.org" <leo.yan@linaro.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rahul Singh <Rahul.Singh@arm.com>, Henry Wang <Henry.Wang@arm.com>
-References: <20231013122658.1270506-1-leo.yan@linaro.org>
- <20231013122658.1270506-3-leo.yan@linaro.org>
- <169101f8-0475-45b1-b2c2-60dadd88d3f0@amd.com>
- <5a5e960b-e6fd-4617-b33a-10cf07f5bb52@xen.org>
- <8BCB97B4-CBDD-43D9-B0F8-7F637B8BE559@arm.com>
- <4B2BD200-5D3E-49D5-BF13-65B769AD4B90@arm.com>
- <CANgGJDqHu0CB=zzZqda18giLYDkL3My+gT592GLO-b9HsF2A4g@mail.gmail.com>
- <d3952200-9edb-4de0-94e3-c00c571a10b9@xen.org>
- <794B0D71-70A7-4546-98E0-EC01573E0D89@arm.com>
- <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
- <alpine.DEB.2.22.394.2310171258330.965337@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2310171258330.965337@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183410: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=01e1bc28943a6bd66830e8af56665dc9e4647a08
+X-Osstest-Versions-That:
+    ovmf=772ec92577a8c786b6c9f8643fa60f1cf893bcd9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 18 Oct 2023 11:16:43 +0000
 
-Hi Stefano,
+flight 183410 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183410/
 
-On 17/10/2023 20:58, Stefano Stabellini wrote:
->> And therefore a Fixes tag is sensible. This doesn't mean I would want to
->> backport it right now (note that only 4.18 is affected). But this could change
->> in the future if we get another report (post-4.18) on a platform where there
->> are no other workaround.
->>
->> Stefano any opinions?
-> 
-> The Fixes tag carries useful information but the problem is that it is
-> typically used for identifying backports and this is not a backport (at
-> least today we would not consider it a backport).
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 01e1bc28943a6bd66830e8af56665dc9e4647a08
+baseline version:
+ ovmf                 772ec92577a8c786b6c9f8643fa60f1cf893bcd9
 
-Below the definition of Fixes tag (from  process/sending-patches.pandoc):
+Last test of basis   183397  2023-10-17 08:10:41 Z    1 days
+Testing same since   183410  2023-10-18 09:10:48 Z    0 days    1 attempts
 
-If your patch fixes a bug in a specific commit, e.g. you found an issue 
-using ``git bisect``, please use the `Fixes:` tag with the first 12 
-characters of the commit id, and the one line summary.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeff Brasen via groups.io <jbrasen=nvidia.com@groups.io>
 
-This doesn't say anything about backport. In fact, we introduced a 
-separate tag for that (see Backport).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-> 
-> So I would provide the same information but without using the Fixes tag.
-> For instance: "This commit fixes an issue that was introduced by XXX
-> because of YYY and only affects the AVA platform with not up-to-date
-> firmware".
 
-The part after 'and' is misleading. So far we had a report only on AVA 
-platform but this doesn't mean it couldn't happen on other HW. The same 
-is true with the new limit.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-So this wants to be:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-"and so far we only had a report for the AVA platform when using UEFI 
-older than vX."
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->
-> That way, we avoid the risk of someone taking all the applicable commits
-> with a Fixes tag and backporting them without thinking twice about it.
-> But we still have the information in the git log.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I don't really see the problem for someone to mistakenly backport this 
-patch. In fact, this could potentially save them a lot of debugging if 
-it happens that Xen is loaded above 2TB.
 
-Anyway, both Bertrand and you seems to be against the Fixes tag here. So 
-I can compromise with the "This commit fixes...". However, can Bertrand 
-or you update process/send-patches.pandoc so it is clear for a 
-contributor when they should add Fixes tag (which BTW I still disagree 
-with but if the majority agrees, then I will not nack)?
+Pushing revision :
 
-Regarding this patch itself, Stefano can you queue to your branch for-4.19?
-
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   772ec92577..01e1bc2894  01e1bc28943a6bd66830e8af56665dc9e4647a08 -> xen-tested-master
 
