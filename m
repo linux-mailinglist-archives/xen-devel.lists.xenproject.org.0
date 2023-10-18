@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5A07CE531
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 19:45:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618750.962798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E14B97CE536
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 19:47:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618757.962814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtAbT-0000eu-Qt; Wed, 18 Oct 2023 17:45:07 +0000
+	id 1qtAd4-0002EV-Ac; Wed, 18 Oct 2023 17:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618750.962798; Wed, 18 Oct 2023 17:45:07 +0000
+Received: by outflank-mailman (output) from mailman id 618757.962814; Wed, 18 Oct 2023 17:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtAbT-0000Y8-NA; Wed, 18 Oct 2023 17:45:07 +0000
-Received: by outflank-mailman (input) for mailman id 618750;
- Wed, 18 Oct 2023 17:45:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qtAd4-0002BA-7I; Wed, 18 Oct 2023 17:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 618757;
+ Wed, 18 Oct 2023 17:46:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w+tR=GA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qtAbS-0000WG-BD
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 17:45:06 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12062357-6dde-11ee-98d4-6d05b1d4d9a1;
- Wed, 18 Oct 2023 19:45:05 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-538e8eca9c1so12096272a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 18 Oct 2023 10:45:04 -0700 (PDT)
+ id 1qtAd3-0002Ay-0k
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 17:46:45 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c7364a5-6dde-11ee-9b0e-b553b5be7939;
+ Wed, 18 Oct 2023 19:46:42 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-53f3609550bso2653822a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v1-20020a50d081000000b0053dae8a5e1csm3183420edd.8.2023.10.18.10.45.04
+ v1-20020a50d081000000b0053dae8a5e1csm3183420edd.8.2023.10.18.10.46.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Oct 2023 10:45:04 -0700 (PDT)
+ Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12062357-6dde-11ee-98d4-6d05b1d4d9a1
+X-Inumbo-ID: 4c7364a5-6dde-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697651104; x=1698255904; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1697651202; x=1698256002; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uJvCwJDX/Ak20ZHNA0TrJJjgnf6WjJi0yzb0r3jrG5U=;
-        b=lP7UrSvjFEyqZRTFEJnXkfFjPeDPxKBIgNeueoA7Ue73BqkufEwmV6erYO8CFvg+0V
-         6cpwSc55HxYQaKGLjCIA0p8BEwOfnCWR66sjh/CX1lz0joK0Eo6eGdqwk3i1oBwkYOrx
-         9JXkai5w52K14EUDewWWdqpxV5ObN9yid3uW4=
+        bh=1k/joMOnoHEv32+c5LZ6M6FYeKOckcoaiG9s8VUTz/o=;
+        b=bPVGSov9szOWjCPUIbipQRkRAMLh4DMyN/Vm+0xzNSBQa8/V1x6UBygYl3CfoJnLTX
+         O1eJjk1FykwHqCDkSLqX5yBTPv0EaFE99NRELm2981vpDToFfbVliEA50/bbQ5MIAEAX
+         agDVxhaHPzeKhnWb4qckwqOfqhDkp8Sp0c2WA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697651104; x=1698255904;
+        d=1e100.net; s=20230601; t=1697651202; x=1698256002;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uJvCwJDX/Ak20ZHNA0TrJJjgnf6WjJi0yzb0r3jrG5U=;
-        b=OcmYa3qMw+YJi/DcyZtsV4V6D3ZU5YpCDbFT6ay42ad187L9iGp4Bj9BtcZISw3bOj
-         OSplo1RjcKGp8cttx2BEBDItuwwDYNccKFx6UNpCUsKMJrz1byhi6GQVMzwV1cRrMLQs
-         Zc1kF51lW6O+sB+y6dYvJF3Tlno8xnG+Cx/RT1fTvuQ4EnEx4VFClNJW3r5KUZIG4MgD
-         Mfo75xIE3j8w4wZQdE2aeS+CGstEdlZWy5JhEBH7j+q7tm9039P4v1YPax3PK6XEhnEO
-         JbFqHW5vsxTA8YgiVTsBVPW8dgTeIcE4a55LtajKfAbOnT/aiRIF6KYQ7piEHtdbrj8s
-         nfmQ==
-X-Gm-Message-State: AOJu0Yz29/WEV8S+plc9CICHkdEwNUERxSWp5RsJe49QtiZ4ttoL3nJv
-	XOIoostRhsTxIDZdgVRiuNl20Q==
-X-Google-Smtp-Source: AGHT+IEtiopXbX3S9tV1m45nPLkP41qGvbsDx1yOpqUDcrPdm3yXuj3/+RXn9MW7Nt4sd7QT8opiug==
-X-Received: by 2002:a50:cc9c:0:b0:53e:6a4e:1f91 with SMTP id q28-20020a50cc9c000000b0053e6a4e1f91mr5044228edi.7.1697651104410;
-        Wed, 18 Oct 2023 10:45:04 -0700 (PDT)
-Message-ID: <9bcd8476-2a3f-43a3-8576-1e31d0df4bd3@citrix.com>
-Date: Wed, 18 Oct 2023 18:45:03 +0100
+        bh=1k/joMOnoHEv32+c5LZ6M6FYeKOckcoaiG9s8VUTz/o=;
+        b=qkOpWpmEVUQDG/X080v+V+CrtrciAfe6Pf1cUm42NvVEprvdjP/FezT6D1myx21XT/
+         eRGWxjLLGGOGCAPgoZZ+nSu5MCRu5jdfE7zorfLeij5RtSzyDEvVCaQdF0AcGNSSaTb+
+         hWUuGs1P3sJI11SPlNqvVf6B9uJ87jGGR73weBcSUeOWEUvsxh0TbCUlxbJJsErQwxsh
+         P8KHDlmksQhMf/Ii2uZsuztUje7v7cPGO+SZIgOOsszNJAIsyrsd+YWcDfpZsOrNpB5w
+         x4ZdSI/YoTqHmMZu77CZ+qa9BkKv/jYu0a01VRiRsu8oF4JGvIpWKxraE/wh7AfWrLSo
+         TIag==
+X-Gm-Message-State: AOJu0Yx6q3PVRoAl9AXII3bdiwXBBGvewFfcnzUoKnS81E5v7jIvNDsD
+	FoMXfqJ/jYy/ECYhJKucKeG6bopKUuxfgIvaYO4q9Q==
+X-Google-Smtp-Source: AGHT+IFGrLQyfGqUfZKQQm+bmQvj0OjcOMYQnNxslaK/edejdXQ/c8dKguHQYv6nuTM0C1AsqOlKlw==
+X-Received: by 2002:a50:cc99:0:b0:53e:8e2e:2b8f with SMTP id q25-20020a50cc99000000b0053e8e2e2b8fmr4746584edi.9.1697651202452;
+        Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
+Message-ID: <12f20d5a-3306-441b-823e-cdfb7008ec5d@citrix.com>
+Date: Wed, 18 Oct 2023 18:46:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] automation: hide timeout countdown in log
+Subject: Re: [PATCH for-4.18 0/5] automation: cleanup hardware based tests
 Content-Language: en-GB
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>, Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com>
- <126f25fd791aa1f3e32463e600c59967504e19b6.1696557834.git-series.marmarek@invisiblethingslab.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,47 +127,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <126f25fd791aa1f3e32463e600c59967504e19b6.1696557834.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 06/10/2023 3:05 am, Marek Marczykowski-Górecki wrote:
-> grep+sleep message every 1s makes job log unnecessary hard to read.
+> While working on tests for MSI-X, I did few cleanups of hw-based gitlab tests,
+> greatly reducing false positive messages in the test output.
 >
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> I know I can download serial log file, but that's 3 more clicks...
-> ---
->  automation/scripts/qubes-x86-64.sh | 2 ++
->  1 file changed, 2 insertions(+)
+> After applying this series, the tests-artifacts/alpine/3.18 container needs to
+> be rebuilt.
+> Test run with container rebuilt (on my repo):
+> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1027467761
 >
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index 1e84e40a4afc..5464d10fc343 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -222,10 +222,12 @@ if [ -n "$wait_and_wakeup" ]; then
->      ssh $CONTROLLER wake
->  fi
->  
-> +set +x
->  until grep "^Welcome to Alpine Linux" smoke.serial || [ $timeout -le 0 ]; do
->      sleep 1;
->      : $((--timeout))
->  done
-> +set -x
->  
->  tail -n 100 smoke.serial
->  
+> Cc-ing Henry for release ack.
+> ---
+> Cc: Henry Wang <Henry.Wang@arm.com>
+> Cc:  Doug Goldstein <cardoe@cardoe.com>
+> Cc:  Stefano Stabellini <sstabellini@kernel.org>
+>
+> Marek Marczykowski-Górecki (5):
+>   automation: include real-time view of the domU console log too
+>   automation: hide timeout countdown in log
+>   automation: cleanup test alpine install
+>   automation: improve checking for MSI/MSI-X in PCI passthrough tests
+>   automation: extract QEMU log in relevant hardware tests
 
-This wants repeating in dom0_check= when looking for "Welcome to Alpine"
-in guest-domU.log because the scrool is still visible in
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/5235487317
-
-Happy to fix on commit, as this is the only comment I have on the series.
-
-Alternatively, would it be worth writing a "wait_until $msg $file"
-function to abstract this away?
-
-~Andrew
+Henry - this will be a good improvement to take.  It's only the test
+logic, with Gitlab being happy with the result.
 
