@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BDDB7CEB59
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 00:33:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618801.962922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF3FB7CEB61
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 00:36:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618804.962933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtF5P-00061S-9k; Wed, 18 Oct 2023 22:32:19 +0000
+	id 1qtF91-0007KJ-P5; Wed, 18 Oct 2023 22:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618801.962922; Wed, 18 Oct 2023 22:32:19 +0000
+Received: by outflank-mailman (output) from mailman id 618804.962933; Wed, 18 Oct 2023 22:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtF5P-0005zP-6y; Wed, 18 Oct 2023 22:32:19 +0000
-Received: by outflank-mailman (input) for mailman id 618801;
- Wed, 18 Oct 2023 22:32:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qtF91-0007I6-Lo; Wed, 18 Oct 2023 22:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 618804;
+ Wed, 18 Oct 2023 22:36:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UegX=GA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qtF5O-0005zJ-3w
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 22:32:18 +0000
+ id 1qtF90-0007I0-8B
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 22:36:02 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30750227-6e06-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 00:32:16 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5af3879-6e06-11ee-9b0e-b553b5be7939;
+ Thu, 19 Oct 2023 00:36:00 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F0051619C6;
- Wed, 18 Oct 2023 22:32:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D12C433C7;
- Wed, 18 Oct 2023 22:32:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CBE03619D9;
+ Wed, 18 Oct 2023 22:35:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41E6C433C9;
+ Wed, 18 Oct 2023 22:35:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +41,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30750227-6e06-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: b5af3879-6e06-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697668334;
-	bh=I3Kcl5qlOaegW/RoLIpvqbFfjhN3swj3h8MX7XHiWsw=;
+	s=k20201202; t=1697668558;
+	bh=uPtmfO+EA78Azp7vtbI+izY8X0dFEvOREDQqVMr1mp8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZbFW8Cg4f1RbXxYgnVJRumUIi42dVSSsb50khKHRXBH8uiXM82J+VHuF6tvgc4M00
-	 2RfVUG97QjKagRkrvJwD9t2oRLSWw+ywXYGLrmwzizTH5PYHQ3i+JvRMnrNBp+qwbZ
-	 HrK1ktV/ebk/tHGu50HCxAoQS5W127fDV/yP6GSXFg4RlyvQTjtyYAFiooSD7lDI2i
-	 bvbV46Xbc0GBssp/jeqSLaYdvYlN7jRgtio8IwoHXjg70kAHoyXgEVf9j1CiCCvQmP
-	 YDJ3xEo8I4Pwo1Nj7Bp2Q9JgFsNi/bTDpSjF1w67ELNylWyO3Pi9ov3PWhCGCBttHV
-	 Xk9utckAGt76w==
-Date: Wed, 18 Oct 2023 15:32:12 -0700 (PDT)
+	b=tVDQVRpaUJ611ucsoAg2/Z/7MU0gME6UEAsw4fpsn9QDWf0RNzfG6+akgw1TnXZd6
+	 11U5NwObAdI6B028SK80spZ8xwHAeyycY1jUUkZn5YL2hx8oy6V0hO9FzDNw01Zg97
+	 2sKTsccBYNdrkadatRzYIZDz7uSKOrVd2tQpuE8eMM+SYuGQtgG/5NyfEY+CjhvRP7
+	 2w5dqdKMF/pY4Sk/dU/QgxgASMn+QQYF3J66bxRI3DxBwmFC36Km5sSm5V/pXKR+q7
+	 PTBCFQ+BbbnJbeSXZzuHgLHoHlm9jSwuh1jQXFF6s29WTWXdCAufzHRY0X+un7llJu
+	 05BXzYTUtt5mw==
+Date: Wed, 18 Oct 2023 15:35:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    xen-devel@lists.xenproject.org, Henry Wang <Henry.Wang@arm.com>, 
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
     Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.18 0/5] automation: cleanup hardware based tests
-In-Reply-To: <12f20d5a-3306-441b-823e-cdfb7008ec5d@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2310181531200.965337@ubuntu-linux-20-04-desktop>
-References: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com> <12f20d5a-3306-441b-823e-cdfb7008ec5d@citrix.com>
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH][for-4.19 v3] xen: address violations of Rule 11.9
+In-Reply-To: <d760ef0c088dc15ecc411b83640735123444f887.1697636446.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2310181535480.965337@ubuntu-linux-20-04-desktop>
+References: <d760ef0c088dc15ecc411b83640735123444f887.1697636446.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-983667875-1697668294=:965337"
-Content-ID: <alpine.DEB.2.22.394.2310181531390.965337@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-983667875-1697668294=:965337
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2310181531391.965337@ubuntu-linux-20-04-desktop>
-
-On Wed, 18 Oct 2023, Andrew Cooper wrote:
-> On 06/10/2023 3:05 am, Marek Marczykowski-Górecki wrote:
-> > While working on tests for MSI-X, I did few cleanups of hw-based gitlab tests,
-> > greatly reducing false positive messages in the test output.
-> >
-> > After applying this series, the tests-artifacts/alpine/3.18 container needs to
-> > be rebuilt.
-> > Test run with container rebuilt (on my repo):
-> > https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1027467761
-> >
-> > Cc-ing Henry for release ack.
-> > ---
-> > Cc: Henry Wang <Henry.Wang@arm.com>
-> > Cc:  Doug Goldstein <cardoe@cardoe.com>
-> > Cc:  Stefano Stabellini <sstabellini@kernel.org>
-> >
-> > Marek Marczykowski-Górecki (5):
-> >   automation: include real-time view of the domU console log too
-> >   automation: hide timeout countdown in log
-> >   automation: cleanup test alpine install
-> >   automation: improve checking for MSI/MSI-X in PCI passthrough tests
-> >   automation: extract QEMU log in relevant hardware tests
+On Wed, 18 Oct 2023, Nicola Vetrini wrote:
+> The constant 0 is used instead of NULL in '__ACCESS_ONCE' as a
+> compile-time check to detect non-scalar types; its usage for this
+> purpose is deviated.
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Furthermore, the 'typeof_field' macro is introduced as a general way
+> to access the type of a struct member without declaring a variable
+> of struct type. Both this macro and 'sizeof_field' are moved to
+> 'xen/macros.h'.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-
-> Henry - this will be a good improvement to take.  It's only the test
-> logic, with Gitlab being happy with the result.
-
-I'll leave it to Henry.
-
-Andrew, if/when you end up committing the series, please also update the
-container,
---8323329-983667875-1697668294=:965337--
 
