@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 471257CDF4A
+	by mail.lfdr.de (Postfix) with ESMTPS id 503B17CDF4B
 	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 16:19:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618595.962445 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.618597.962456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt7Nz-0005Wx-8D; Wed, 18 Oct 2023 14:18:59 +0000
+	id 1qt7Nz-0005jQ-Sf; Wed, 18 Oct 2023 14:18:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618595.962445; Wed, 18 Oct 2023 14:18:59 +0000
+Received: by outflank-mailman (output) from mailman id 618597.962456; Wed, 18 Oct 2023 14:18:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qt7Nz-0005U5-21; Wed, 18 Oct 2023 14:18:59 +0000
-Received: by outflank-mailman (input) for mailman id 618595;
- Wed, 18 Oct 2023 14:18:57 +0000
+	id 1qt7Nz-0005eA-OA; Wed, 18 Oct 2023 14:18:59 +0000
+Received: by outflank-mailman (input) for mailman id 618597;
+ Wed, 18 Oct 2023 14:18:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7etD=GA=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1qt7Nx-0004vw-B0
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 14:18:57 +0000
+ id 1qt7Ny-0004vw-BC
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 14:18:58 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44dd416c-6dc1-11ee-9b0e-b553b5be7939;
- Wed, 18 Oct 2023 16:18:54 +0200 (CEST)
+ id 4527c161-6dc1-11ee-9b0e-b553b5be7939;
+ Wed, 18 Oct 2023 16:18:55 +0200 (CEST)
 Received: from beta.station (net-188-218-250-245.cust.vodafonedsl.it
  [188.218.250.245])
- by support.bugseng.com (Postfix) with ESMTPSA id 4169E4EE0740;
+ by support.bugseng.com (Postfix) with ESMTPSA id A47764EE0743;
  Wed, 18 Oct 2023 16:18:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -40,122 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44dd416c-6dc1-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 4527c161-6dc1-11ee-9b0e-b553b5be7939
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	sstabellini@kernel.org,
 	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH 1/4] xen/arm: address violations of MISRA C:2012 Rule 13.1
-Date: Wed, 18 Oct 2023 16:18:48 +0200
-Message-Id: <31a926a09dfcef43d13a402fd3b235aeba48009d.1697638210.git.simone.ballarin@bugseng.com>
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 2/4] automation/eclair: add deviations and call properties.
+Date: Wed, 18 Oct 2023 16:18:49 +0200
+Message-Id: <8f426cc761c734d457a74416dd5b83fd10128c26.1697638210.git.simone.ballarin@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1697638210.git.simone.ballarin@bugseng.com>
 References: <cover.1697638210.git.simone.ballarin@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rule 13.1: Initializer lists shall not contain persistent side effects
+Deviate violations of MISRA C:2012 Rule 13.1 caused by
+functions vcpu_runnable and __bad_atomic_size. These functions
+contain side-effects such as debugging logs, assertions and
+failures that cannot cause unexpected behaviors.
 
-This patch moves expressions with side-effects into new variables before
-the initializer lists.
-
-Function calls do not necessarily have side-effects, in these cases the
-GCC pure or const attributes are added when possible.
-
-No functional changes.
+Add "noeffect" call property to functions read_u.*_atomic and
+get_cycles.
 
 Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-
 ---
-Function attributes pure and const do not need to be added as GCC
-attributes, they can be added using ECLAIR configurations.
----
- xen/arch/arm/device.c              |  6 +++---
- xen/arch/arm/guestcopy.c           | 12 ++++++++----
- xen/arch/arm/include/asm/current.h |  2 +-
- 3 files changed, 12 insertions(+), 8 deletions(-)
+ .../eclair_analysis/ECLAIR/call_properties.ecl      | 10 ++++++++++
+ automation/eclair_analysis/ECLAIR/deviations.ecl    | 13 +++++++++++++
+ docs/misra/deviations.rst                           | 11 +++++++++++
+ 3 files changed, 34 insertions(+)
 
-diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-index 1f631d3274..e9be078415 100644
---- a/xen/arch/arm/device.c
-+++ b/xen/arch/arm/device.c
-@@ -319,6 +319,8 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
-     int res;
-     paddr_t addr, size;
-     bool own_device = !dt_device_for_passthrough(dev);
-+    bool dev_is_hostbridge = is_pci_passthrough_enabled() &&
-+                             device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE;
-     /*
-      * We want to avoid mapping the MMIO in dom0 for the following cases:
-      *   - The device is owned by dom0 (i.e. it has been flagged for
-@@ -329,9 +331,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
-     struct map_range_data mr_data = {
-         .d = d,
-         .p2mt = p2mt,
--        .skip_mapping = !own_device ||
--                        (is_pci_passthrough_enabled() &&
--                        (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
-+        .skip_mapping = !own_device || dev_is_hostbridge,
-         .iomem_ranges = iomem_ranges,
-         .irq_ranges = irq_ranges
-     };
-diff --git a/xen/arch/arm/guestcopy.c b/xen/arch/arm/guestcopy.c
-index 6716b03561..3ec6743bf6 100644
---- a/xen/arch/arm/guestcopy.c
-+++ b/xen/arch/arm/guestcopy.c
-@@ -109,27 +109,31 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
+diff --git a/automation/eclair_analysis/ECLAIR/call_properties.ecl b/automation/eclair_analysis/ECLAIR/call_properties.ecl
+index 3f7794bf8b..f410a6aa58 100644
+--- a/automation/eclair_analysis/ECLAIR/call_properties.ecl
++++ b/automation/eclair_analysis/ECLAIR/call_properties.ecl
+@@ -104,3 +104,13 @@ Furthermore, their uses do initialize the involved variables as needed by futher
+ -call_properties+={"macro(^(__)?(raw_)?copy_from_(paddr|guest|compat)(_offset)?$)", {"pointee_write(1=always)", "pointee_read(1=never)", "taken()"}}
+ -call_properties+={"macro(^(__)?copy_to_(guest|compat)(_offset)?$)", {"pointee_write(2=always)", "pointee_read(2=never)", "taken()"}}
+ -doc_end
++
++-doc_begin="Functions generated by build_atomic_read cannot be considered pure
++since the input pointer is volatile."
++-call_properties+={"^read_u(8|16|32|64|int)_atomic.*$", {"noeffect"}}
++-doc_end
++
++-doc_begin="get_cycles does not perform visible side-effects "
++-call_property+={"name(get_cycles)", {"noeffect"}}
++-doc_end
++
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index fa56e5c00a..b80ccea7bc 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -233,6 +233,19 @@ this."
+ -config=MC3R1.R10.1,etypes+={safe,
+   "stmt(operator(and||or||xor||not||and_assign||or_assign||xor_assign))",
+   "any()"}
++#
++# Series 13.
++#
++
++-doc_begin="Function __bad_atomic_size is intended to generate a linkage error
++if invoked. Calling it in intentionally unreachable switch cases is safe even
++in a initializer list."
++-config=MC3R1.R13.1,reports+={safe, "first_area(^.*__bad_atomic_size.*$)"}
++-doc_end
++
++-doc_begin="Function vcpu_runnable contains pragmas and other side-effects for
++debugging purposes, their invocation is safe even in a initializer list."
++-config=MC3R1.R13.1,reports+={safe, "first_area(^.*vcpu_runnable.*$)"}
+ -doc_end
  
- unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
- {
-+    struct vcpu *current_vcpu = current;
-     return copy_guest((void *)from, (vaddr_t)to, len,
--                      GVA_INFO(current), COPY_to_guest | COPY_linear);
-+                      GVA_INFO(current_vcpu), COPY_to_guest | COPY_linear);
- }
+ -doc_begin="See Section \"4.5 Integers\" of \"GCC_MANUAL\", where it says that
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 8511a18925..2fcdb8da58 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -192,6 +192,17 @@ Deviations related to MISRA C:2012 Rules:
+        See automation/eclair_analysis/deviations.ecl for the full explanation.
+      - Tagged as `safe` for ECLAIR.
  
- unsigned long raw_copy_to_guest_flush_dcache(void *to, const void *from,
-                                              unsigned int len)
- {
--    return copy_guest((void *)from, (vaddr_t)to, len, GVA_INFO(current),
-+    struct vcpu *current_vcpu = current;
-+    return copy_guest((void *)from, (vaddr_t)to, len, GVA_INFO(current_vcpu),
-                       COPY_to_guest | COPY_flush_dcache | COPY_linear);
- }
- 
- unsigned long raw_clear_guest(void *to, unsigned int len)
- {
--    return copy_guest(NULL, (vaddr_t)to, len, GVA_INFO(current),
-+    struct vcpu *current_vcpu = current;
-+    return copy_guest(NULL, (vaddr_t)to, len, GVA_INFO(current_vcpu),
-                       COPY_to_guest | COPY_linear);
- }
- 
- unsigned long raw_copy_from_guest(void *to, const void __user *from,
-                                   unsigned int len)
- {
--    return copy_guest(to, (vaddr_t)from, len, GVA_INFO(current),
-+    struct vcpu *current_vcpu = current;
-+    return copy_guest(to, (vaddr_t)from, len, GVA_INFO(current_vcpu),
-                       COPY_from_guest | COPY_linear);
- }
- 
-diff --git a/xen/arch/arm/include/asm/current.h b/xen/arch/arm/include/asm/current.h
-index 6973eeb1d1..a66e28fefb 100644
---- a/xen/arch/arm/include/asm/current.h
-+++ b/xen/arch/arm/include/asm/current.h
-@@ -28,7 +28,7 @@ struct cpu_info {
-     uint32_t flags;
- };
- 
--static inline struct cpu_info *get_cpu_info(void)
-+static inline __attribute_pure__ struct cpu_info *get_cpu_info(void)
- {
- #ifdef __clang__
-     unsigned long sp;
++   * - R13.1
++     - Function __bad_atomic_size is intended to generate a linkage error if
++       invoked. Calling it in intentionally unreachable switch cases is
++       safe even in a initializer list.
++     - Tagged as `safe` for ECLAIR.
++
++   * - R13.1
++     - Function vcpu_runnable contains pragmas and other side-effects for
++       debugging purposes, their invocation is safe even in a initializer list.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R13.5
+      - All developers and reviewers can be safely assumed to be well aware of
+        the short-circuit evaluation strategy for logical operators.
 -- 
 2.34.1
 
