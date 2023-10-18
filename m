@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2677CE40D
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 19:14:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618742.962783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9967CE532
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 19:45:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618749.962793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtA7S-0002AF-A1; Wed, 18 Oct 2023 17:14:06 +0000
+	id 1qtAbT-0000Y6-Iw; Wed, 18 Oct 2023 17:45:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618742.962783; Wed, 18 Oct 2023 17:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 618749.962793; Wed, 18 Oct 2023 17:45:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtA7S-00027n-6K; Wed, 18 Oct 2023 17:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 618742;
- Wed, 18 Oct 2023 17:14:04 +0000
+	id 1qtAbT-0000WR-FB; Wed, 18 Oct 2023 17:45:07 +0000
+Received: by outflank-mailman (input) for mailman id 618749;
+ Wed, 18 Oct 2023 17:45:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtA7Q-00025p-Ha; Wed, 18 Oct 2023 17:14:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1qtAbS-0000WF-1f
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 17:45:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtA7Q-0004PK-Fw; Wed, 18 Oct 2023 17:14:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtA7Q-0001VY-85; Wed, 18 Oct 2023 17:14:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qtA7Q-0002zQ-7Z; Wed, 18 Oct 2023 17:14:04 +0000
+ (envelope-from <julien@xen.org>)
+ id 1qtAbR-00055O-2z; Wed, 18 Oct 2023 17:45:05 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.7.230]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qtAbQ-0005h8-SR; Wed, 18 Oct 2023 17:45:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +39,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kBUmkPrBojB0W4v4I2RvhZaD7MTCJN10FgwmJ5OdfVE=; b=crYSRj7NP+kJLcToSDRz5+xqde
-	s4n0RxYc6NEYjRflYdJfxvrFN5RVW4EAHxWPCNN5PHKSZLKtKOYHVuKIQIYjD0G9uXomCTgUca/hl
-	cNM0EkE09rOFoMUGGRIin2GoD/FLXcc4UK+TFzVwRgv9lk+2PEz0fC4ouBNo1HueR/LE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183414-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=grIjnEs9T2fYVEjEE3hhNPs3a72qdlxtwlOzI/S8vjA=; b=S2/LWDj9O3bkNUBxRjsn/HMsqf
+	c0S8AFHRLuJgDyL+q6e9ktM8nSkf6vjfjTkXWH+uQMz1oCq6Ae67XbVPt7YtlUnfi4Kr2zGADiG82
+	1TDJqQvBTUBLmtglOLAB7wTmD1XDfV06xy2fa5tpoLTwD+Tp7QlMp/hfPSh9q8En0Pgk=;
+Message-ID: <6d2388f4-dc05-43bc-aaf7-43ac204fdc57@xen.org>
+Date: Wed, 18 Oct 2023 18:45:02 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 183414: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=747a08eae26bda91c53d232d3bd65946183693d0
-X-Osstest-Versions-That:
-    ovmf=01e1bc28943a6bd66830e8af56665dc9e4647a08
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Oct 2023 17:14:04 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 10/10] arm/smmu: address violation of MISRA C:2012
+ Rule 8.2
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ Rahul Singh <Rahul.Singh@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <cover.1697207038.git.federico.serafini@bugseng.com>
+ <199886f6ba1f2d5701eabd080b4f9723fc28f4b9.1697207038.git.federico.serafini@bugseng.com>
+ <39d3f8e0-61cf-4b8d-84f1-a5087ba8ead4@xen.org>
+ <D3320838-1E67-4339-A3D4-A3E60FBC4117@arm.com>
+ <c9a7f059-4cf5-4a75-b231-573c4fe29b37@xen.org>
+ <92C52E39-729F-40AE-A02F-556C8EE471CB@arm.com>
+ <alpine.DEB.2.22.394.2310161338540.965337@ubuntu-linux-20-04-desktop>
+ <4718460e-756a-40fe-ba1b-7f32a1432b51@xen.org>
+ <alpine.DEB.2.22.394.2310171750170.965337@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2310171750170.965337@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 183414 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183414/
+Hi Stefano,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 747a08eae26bda91c53d232d3bd65946183693d0
-baseline version:
- ovmf                 01e1bc28943a6bd66830e8af56665dc9e4647a08
+On 18/10/2023 01:55, Stefano Stabellini wrote:
+> On Tue, 17 Oct 2023, Julien Grall wrote:
+>> Hi Stefano,
+>>
+>> On 16/10/2023 21:47, Stefano Stabellini wrote:
+>>> On Mon, 16 Oct 2023, Bertrand Marquis wrote:
+>>>>> On 16 Oct 2023, at 15:38, Julien Grall <julien@xen.org> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 16/10/2023 14:31, Bertrand Marquis wrote:
+>>>>>> Hi Julien,
+>>>>>
+>>>>> Hi Bertrand,
+>>>>>
+>>>>>>> On 16 Oct 2023, at 11:07, Julien Grall <julien@xen.org> wrote:
+>>>>>>>
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> On 13/10/2023 16:24, Federico Serafini wrote:
+>>>>>>>> Add missing parameter names, no functional change.
+>>>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>>>> ---
+>>>>>>>>    xen/drivers/passthrough/arm/smmu.c | 6 +++---
+>>>>>>>
+>>>>>>> This file is using the Linux coding style because it is imported
+>>>>>>> from Linux. I was under the impression we would exclude such file
+>>>>>>> for now.
+>>>>>>>
+>>>>>>> Looking at exclude-list.json, it doesn't seem to be present. I think
+>>>>>>> this patch should be replaced with adding a line in
+>>>>>>> execlude-list.json.
+>>>>>> I think that during one of the discussions we said that this file
+>>>>>> already deviated quite a lot from the status in Linux and we wanted to
+>>>>>> turn it to Xen coding style in the future hence it is not listed in
+>>>>>> the exclude file.
+>>>>> AFAIK the SMMUv{1, 2} code didn't deviate very much from Linux. I can't
+>>>>> tell about the SMMUv3.
+>>>>
+>>>> True that i had the v3 code in mind, we might not want to do that for v1/2
+>>>> you are right.
+>>>>
+>>>>>
+>>>>>> At the end having a working smmu might be critical in a safety context
+>>>>>> so it will make sense to also check this part of xen.
+>>>>> I don't buy this argument right now. We have files in exclude-lists.json
+>>>>> that I would consider critical for Xen to run (e.g. common/bitmap.c,
+>>>>> common/libfdt). So if you want to use this argument then we need to move
+>>>>> critical components of Xen out of the exclusion list.
+>>>>
+>>>> I am sure we will at some point for runtime code but we cannot do
+>>>> everything on the first shot.
+>>>> I was not meaning to do that now but that it is something to consider.
+>>>
+>>> Things that are in exclude-lists.json are source files that come from
+>>> other projects and also change very rarely. The argument that we don't
+>>> do MISRA C on the files in exclude-lists.json, it is not because those
+>>> files are unimportant, but because they change only once every many
+>>> years.
+>>
+>> Interesting. I would have thought this would be a condition to do MISRA as the
+>> cost to port a patch would increase a bit but this is one time cost every many
+>> years. Whereas code like the SMMU are still actively developped. And in
+>> particular for SMMUv2 we tried to stick close to Linux to help backport. So
+>> this would be a reason to initially exclude it from MISRA.
+>>
+>>>
+>>> Of course the least we rely on exclude-lists.json the better.
+>>>
+>>> For smmu.c, looking at the git history I think it is more actively
+>>> worked on than other files such as lib/rbtree.c or common/bitmap.c.
+>>> Given that backports from Linux to smmu.c are not straightforward anyway
+>>> (please correct me if I am wrong) then I think we should not add smmu.c
+>>> to exclude-lists.json and do MISRA for smmu.c.
+>>
+>> I haven't done any recently. But if they are already not straightforward, then
+>> adding MISRA on top is not really to make it better. So I think if you want to
+>> do MISRA for the SMMU, then we need to fully convert it to Xen and abandon the
+>> idea to backport from Linux.
+>>
+>> This would also make the code looks nicer as at the moment this contains
+>> wrapper just to stay as close as possible to Linux.
+> 
+> You have a good point. If we do MISRA for the SMMU then we might as well
+> fully convert the file to Xen. As a clarification, we can still look at
+> the fixes on the Linux driver and "port" security fixes and other key
+> patches such as workarounds for broken specific SMMU versions, but for
+> sure we wouldn't want to backport a new feature of the driver or code
+> refactoring / code improvements of the driver. But that probably is
+> already the case today?
 
-Last test of basis   183410  2023-10-18 09:10:48 Z    0 days
-Testing same since   183414  2023-10-18 15:13:54 Z    0 days    1 attempts
+Most likely yes, some features might be useful to backport. The main one 
+I can think of is not sharing the stage-2 page-tables as there might be 
+some issue to allow the CPU to access the GICv3 ITS doorbell (so it 
+would have to be only mapped in the IOMMU page-tables).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Nickle Wang <nicklew@nvidia.com>
+The other one is stage-1 support.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Anyway, it is not clear whether we could use the same implementation as 
+Linux.
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   01e1bc2894..747a08eae2  747a08eae26bda91c53d232d3bd65946183693d0 -> xen-tested-master
+-- 
+Julien Grall
 
