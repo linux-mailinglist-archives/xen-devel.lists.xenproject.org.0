@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14B97CE536
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 19:47:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618757.962814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3ED17CE5CB
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Oct 2023 20:01:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618762.962822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtAd4-0002EV-Ac; Wed, 18 Oct 2023 17:46:46 +0000
+	id 1qtAqe-0005uY-Fx; Wed, 18 Oct 2023 18:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618757.962814; Wed, 18 Oct 2023 17:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 618762.962822; Wed, 18 Oct 2023 18:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtAd4-0002BA-7I; Wed, 18 Oct 2023 17:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 618757;
- Wed, 18 Oct 2023 17:46:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w+tR=GA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qtAd3-0002Ay-0k
- for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 17:46:45 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c7364a5-6dde-11ee-9b0e-b553b5be7939;
- Wed, 18 Oct 2023 19:46:42 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-53f3609550bso2653822a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v1-20020a50d081000000b0053dae8a5e1csm3183420edd.8.2023.10.18.10.46.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
+	id 1qtAqe-0005s0-DF; Wed, 18 Oct 2023 18:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 618762;
+ Wed, 18 Oct 2023 18:00:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qtAqd-0005ru-Fw
+ for xen-devel@lists.xenproject.org; Wed, 18 Oct 2023 18:00:47 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qtAqa-0005Vp-Qu; Wed, 18 Oct 2023 18:00:44 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=[192.168.7.230]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qtAqa-0006Gh-IC; Wed, 18 Oct 2023 18:00:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +39,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c7364a5-6dde-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1697651202; x=1698256002; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1k/joMOnoHEv32+c5LZ6M6FYeKOckcoaiG9s8VUTz/o=;
-        b=bPVGSov9szOWjCPUIbipQRkRAMLh4DMyN/Vm+0xzNSBQa8/V1x6UBygYl3CfoJnLTX
-         O1eJjk1FykwHqCDkSLqX5yBTPv0EaFE99NRELm2981vpDToFfbVliEA50/bbQ5MIAEAX
-         agDVxhaHPzeKhnWb4qckwqOfqhDkp8Sp0c2WA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697651202; x=1698256002;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1k/joMOnoHEv32+c5LZ6M6FYeKOckcoaiG9s8VUTz/o=;
-        b=qkOpWpmEVUQDG/X080v+V+CrtrciAfe6Pf1cUm42NvVEprvdjP/FezT6D1myx21XT/
-         eRGWxjLLGGOGCAPgoZZ+nSu5MCRu5jdfE7zorfLeij5RtSzyDEvVCaQdF0AcGNSSaTb+
-         hWUuGs1P3sJI11SPlNqvVf6B9uJ87jGGR73weBcSUeOWEUvsxh0TbCUlxbJJsErQwxsh
-         P8KHDlmksQhMf/Ii2uZsuztUje7v7cPGO+SZIgOOsszNJAIsyrsd+YWcDfpZsOrNpB5w
-         x4ZdSI/YoTqHmMZu77CZ+qa9BkKv/jYu0a01VRiRsu8oF4JGvIpWKxraE/wh7AfWrLSo
-         TIag==
-X-Gm-Message-State: AOJu0Yx6q3PVRoAl9AXII3bdiwXBBGvewFfcnzUoKnS81E5v7jIvNDsD
-	FoMXfqJ/jYy/ECYhJKucKeG6bopKUuxfgIvaYO4q9Q==
-X-Google-Smtp-Source: AGHT+IFGrLQyfGqUfZKQQm+bmQvj0OjcOMYQnNxslaK/edejdXQ/c8dKguHQYv6nuTM0C1AsqOlKlw==
-X-Received: by 2002:a50:cc99:0:b0:53e:8e2e:2b8f with SMTP id q25-20020a50cc99000000b0053e8e2e2b8fmr4746584edi.9.1697651202452;
-        Wed, 18 Oct 2023 10:46:42 -0700 (PDT)
-Message-ID: <12f20d5a-3306-441b-823e-cdfb7008ec5d@citrix.com>
-Date: Wed, 18 Oct 2023 18:46:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=dZmFyEtccW/jCB1bZ7BhiKX1cYYgHp86OWJlkIjoF9E=; b=5AEw94U3sXnuNac7choBZU9Nm6
+	DcHY4DoiTf7kinuyBEtCjHKH8FVEd4QcMS7IJZmCYzCRjk17QbrhhbcD2v+3GuUrBp79i4LS5Qwnj
+	d5yO5IntHYagqZIJtG7MhkjOOiN3PAtp4A6x74oS66P2d+MzLjXrXs/AkNXVQ+aX7sf0=;
+Message-ID: <f2b51b47-fdeb-45a6-92c7-5b21da1855fe@xen.org>
+Date: Wed, 18 Oct 2023 19:00:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.18 0/5] automation: cleanup hardware based tests
+Subject: Re: [PATCH] console: make input work again for pv-shim
 Content-Language: en-GB
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <cover.550599c54c91da4f8417fde358992e75bf8163c0.1696557834.git-series.marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Henry Wang <Henry.Wang@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+ Manuel Bouyer <bouyer@antioche.eu.org>
+References: <ed275abf-351f-5237-7e19-a3856f6d4272@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ed275abf-351f-5237-7e19-a3856f6d4272@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/10/2023 3:05 am, Marek Marczykowski-Górecki wrote:
-> While working on tests for MSI-X, I did few cleanups of hw-based gitlab tests,
-> greatly reducing false positive messages in the test output.
->
-> After applying this series, the tests-artifacts/alpine/3.18 container needs to
-> be rebuilt.
-> Test run with container rebuilt (on my repo):
-> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1027467761
->
-> Cc-ing Henry for release ack.
-> ---
-> Cc: Henry Wang <Henry.Wang@arm.com>
-> Cc:  Doug Goldstein <cardoe@cardoe.com>
-> Cc:  Stefano Stabellini <sstabellini@kernel.org>
->
-> Marek Marczykowski-Górecki (5):
->   automation: include real-time view of the domU console log too
->   automation: hide timeout countdown in log
->   automation: cleanup test alpine install
->   automation: improve checking for MSI/MSI-X in PCI passthrough tests
->   automation: extract QEMU log in relevant hardware tests
+Hi Jan,
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 18/10/2023 15:58, Jan Beulich wrote:
+> From: Manuel Bouyer <bouyer@antioche.eu.org>
+> 
+> The use of rcu_lock_domain_by_id() right in switch_serial_input() makes
+> assumptions about domain IDs which don't hold when in shim mode: The
+> sole (initial) domain there has a non-zero ID. Obtain the real domain ID
+> in that case (generalized as get_initial_domain_id() returns zero when
+> not in shim mode).
+> 
+> Note that console_input_domain() isn't altered, for not being used when
+> in shim mode (or more generally on x86).
 
-Henry - this will be a good improvement to take.  It's only the test
-logic, with Gitlab being happy with the result.
+I think it would be worth to either add a comment in 
+console_input_domain() and/or #ifdef the code. In any case...
+
+> 
+> Fixes: c2581c58bec9 ("xen/console: skip switching serial input to non existing domains")
+> Signed-off-by: Manuel Bouyer <bouyer@antioche.eu.org>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+...
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+
+Also, should we consider it for xen 4.18? (I notice there is no for-4.18 
+tag).
+
+Cheers,
+
+-- 
+Julien Grall
 
