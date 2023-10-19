@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C6D7CECEB
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 02:45:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.618848.963053 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51CD27CECFF
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 02:55:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.618852.963062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtH9c-00062o-C4; Thu, 19 Oct 2023 00:44:48 +0000
+	id 1qtHJ3-0008Cw-BZ; Thu, 19 Oct 2023 00:54:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 618848.963053; Thu, 19 Oct 2023 00:44:48 +0000
+Received: by outflank-mailman (output) from mailman id 618852.963062; Thu, 19 Oct 2023 00:54:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtH9c-000619-92; Thu, 19 Oct 2023 00:44:48 +0000
-Received: by outflank-mailman (input) for mailman id 618848;
- Thu, 19 Oct 2023 00:44:47 +0000
+	id 1qtHJ3-0008Al-8p; Thu, 19 Oct 2023 00:54:33 +0000
+Received: by outflank-mailman (input) for mailman id 618852;
+ Thu, 19 Oct 2023 00:54:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IZCy=GB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qtH9b-000611-6U
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 00:44:47 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1qtHJ1-000897-Gx
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 00:54:31 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b25db5a8-6e18-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 02:44:45 +0200 (CEST)
+ id 0f279688-6e1a-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 02:54:29 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EF29A61834;
- Thu, 19 Oct 2023 00:44:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8C5C433C8;
- Thu, 19 Oct 2023 00:44:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 7C6B8B8255C;
+ Thu, 19 Oct 2023 00:54:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B6AC433C7;
+ Thu, 19 Oct 2023 00:54:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,134 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b25db5a8-6e18-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 0f279688-6e1a-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697676283;
-	bh=PeTLuMSmaYIZQoAQIcRGN4lVwV5A8yg3crHxqS1yjZ8=;
+	s=k20201202; t=1697676868;
+	bh=uKeNYQwAKnp5SXyY7crlpoaPoKUENkes0QvlVqflHrk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ToRTojp+gmW+Wy7pu0DeebJxn0Ru34+h6VzaclsBayNEnlnhnxt1tPKrGsKUXVIDG
-	 yuAnCneYVPVc2lOHM4dHyG56DVAI/AXBdg+e2jDLmoxVx+UmpKunoytzQtieBFurpG
-	 LC7+Tn5h1TIJyZ80izD8zz3ymYcDZPljfTUE6mYH8cxzqChQVnCRBs9N43h/KF+hcu
-	 H2b26gHCG2+bnwGv3Lzgfijn3dVBEpcw7TeplLWaPPPwQP8NmheXo2ebPNoEKaADdZ
-	 ezJ+VYCyJUncoOdCdPnFWNKjVuFnWb1kf9fHa0O8BoOt38/D6xr5Fmr1MxAMjLagZM
-	 f1V51nbUlumTw==
-Date: Wed, 18 Oct 2023 17:44:40 -0700 (PDT)
+	b=gGtKMMlyIcJawus6ev0aPtJ5HDR9c6Gqxi2EpUGAkVvE0wY5J5Zs3eof/TvEs2pdE
+	 c3fDn+VLdiXxD/N2meCG0Owtb0vrfBd3xFGVega8AMcoKSKOwvPSYq4DNoQOYsLCR+
+	 43t/4G95A0ibcncy1RhOzSV2FFmSijLKaXQmKo9qgI0nPx6s0dQoL/zvWnrVPW+j4z
+	 9VpesuSb40MCtRLfh2LGZVFtz29ybI6O7xnBrhqaWJ58UbYSEK7FqkJ3ZAMPsLE+VM
+	 +O9fwX+DKtbp5UtooQxQeik6yg05Y7ttw17tymaVB3C+XDuKnzd0XzkwWpBXWqP12L
+	 4kVVFK5+wUCjg==
+Date: Wed, 18 Oct 2023 17:54:25 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+To: andrew.cooper3@citrix.com
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, roger.pau@citrix.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
     Doug Goldstein <cardoe@cardoe.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
-In-Reply-To: <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop>
-References: <cover.1694510856.git.simone.ballarin@bugseng.com> <b62205a1-885b-ea4e-3ce2-7ad58cfc938d@suse.com> <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com> <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com> <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
- <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com> <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop> <725f5193-c8d3-1bc8-cd62-2a2b1b5ecc01@suse.com> <alpine.DEB.2.22.394.2310171709310.965337@ubuntu-linux-20-04-desktop>
- <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com>
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH][for-4.19 v3] xen: address violations of Rule 11.9
+In-Reply-To: <35abc556-2f66-4498-b567-87e6a3216d50@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2310181745300.965337@ubuntu-linux-20-04-desktop>
+References: <d760ef0c088dc15ecc411b83640735123444f887.1697636446.git.nicola.vetrini@bugseng.com> <35abc556-2f66-4498-b567-87e6a3216d50@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1979245646-1697676384=:965337"
+Content-ID: <alpine.DEB.2.22.394.2310181746290.965337@ubuntu-linux-20-04-desktop>
 
-On Wed, 18 Oct 2023, Jan Beulich wrote:
-> On 18.10.2023 02:48, Stefano Stabellini wrote:
-> > On Mon, 16 Oct 2023, Jan Beulich wrote:
-> >> On 29.09.2023 00:24, Stefano Stabellini wrote:
-> >>> If it is not a MISRA requirement, then I think we should go for the path
-> >>> of least resistance and try to make the smallest amount of changes
-> >>> overall, which seems to be:
-> >>
-> >> ... "least resistance" won't gain us much, as hardly any guards don't
-> >> start with an underscore.
-> >>
-> >>> - for xen/include/blah.h, __BLAH_H__
-> >>> - for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
-> >>> - for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
-> >>
-> >> There are no headers in xen/include/. For (e.g.) xen/include/xen/ we
-> >> may go with XEN_BLAH_H; whether ASM prefixes are needed I'm not sure;
-> >> we could go with just ARM_BLAH_H and X86_BLAH_H?
-> >>
-> >> The primary question though is (imo) how to deal with private headers,
-> >> such that the risk of name collisions is as small as possible.
-> > 
-> > Looking at concrete examples under xen/include/xen:
-> > xen/include/xen/mm.h __XEN_MM_H__
-> > xen/include/xen/dm.h __XEN_DM_H__
-> > xen/include/xen/hypfs.h __XEN_HYPFS_H__
-> > 
-> > So I think we should do for consistency:
-> > xen/include/xen/blah.h __XEN_BLAH_H__
-> > 
-> > Even if we know the leading underscore are undesirable, in this case I
-> > would prefer consistency.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1979245646-1697676384=:965337
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2310181746291.965337@ubuntu-linux-20-04-desktop>
+
+On Thu, 19 Oct 2023, andrew.cooper3@citrix.com wrote:
+> On 18/10/2023 2:42 pm, Nicola Vetrini wrote:
+> > diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> > index ee7aed0609d2..1b00e4e3e9b7 100644
+> > --- a/docs/misra/deviations.rst
+> > +++ b/docs/misra/deviations.rst
+> > @@ -199,6 +199,11 @@ Deviations related to MISRA C:2012 Rules:
+> >         See automation/eclair_analysis/deviations.ecl for the full explanation.
+> >       - Tagged as `safe` for ECLAIR.
+> >  
+> > +   * - R11.9
+> > +     - __ACCESS_ONCE uses a 0 as a null pointer constant to check if a type is
+> > +       scalar, therefore its usage for this purpose is allowed.
 > 
-> I'm kind of okay with that. FTAOD - here and below you mean to make this
-> one explicit first exception from the "no new leading underscores" goal,
-> for newly added headers?
-
-Yes. The reason is for consistency with the existing header files.
-
-
-> > On the other hand looking at ARM examples:
-> > xen/arch/arm/include/asm/traps.h __ASM_ARM_TRAPS__
-> > xen/arch/arm/include/asm/time.h __ARM_TIME_H__
-> > xen/arch/arm/include/asm/sysregs.h __ASM_ARM_SYSREGS_H
-> > xen/arch/arm/include/asm/io.h _ASM_IO_H
-> > 
-> > And also looking at x86 examples:
-> > xen/arch/x86/include/asm/paging.h _XEN_PAGING_H
-> > xen/arch/x86/include/asm/p2m.h _XEN_ASM_X86_P2M_H
-> > xen/arch/x86/include/asm/io.h _ASM_IO_H
-> > 
-> > Thet are very inconsistent.
-> > 
-> > 
-> > So for ARM and X86 headers I think we are free to pick anything we want,
-> > including your suggested ARM_BLAH_H and X86_BLAH_H. Those are fine by
-> > me.
+> This is still deeply misleading.
 > 
-> To be honest, I'd prefer a global underlying pattern, i.e. if common
-> headers are "fine" to use leading underscores for guards, arch header
-> should, too.
-
-I am OK with that too. We could go with:
-__ASM_ARM_BLAH_H__
-__ASM_X86_BLAH_H__
-
-I used "ASM" to make it easier to differentiate with the private headers
-below. Also the version without "ASM" would work but it would only
-differ with the private headers in terms of leading underscores. I
-thought that also having "ASM" would help readability and help avoid
-confusion.
-
-
-> > For private headers such as:
-> > xen/arch/arm/vuart.h __ARCH_ARM_VUART_H__
-> > xen/arch/arm/decode.h __ARCH_ARM_DECODE_H_
-> > xen/arch/x86/mm/p2m.h __ARCH_MM_P2M_H__
-> > xen/arch/x86/hvm/viridian/private.h X86_HVM_VIRIDIAN_PRIVATE_H
-> > 
-> > More similar but still inconsistent. I would go with ARCH_ARM_BLAH_H and
-> > ARCH_X86_BLAH_H for new headers.
+> There is an integer, which happens to be 0 but could be anything, used
+> for a compile time typecheck[1].  In some cases this may be interpreted
+> as a pointer constant, and is permitted for this purpose.
 > 
-> I'm afraid I don't like this, as deeper paths would lead to unwieldy
-> guard names. If we continue to use double-underscore prefixed names
-> in common and arch headers, why don't we demand no leading underscores
-> and no path-derived prefixes in private headers? That'll avoid any
-> collisions between the two groups.
+> ~Andrew
+> 
+> [1] I know I wrote scalar typecheck in the comment, but I suspect that
+> what I actually meant was non-compound-type typecheck.
 
-OK, so for private headers:
+To help Nicola find the right wording do you have a concrete suggestion
+for the text to use?
 
-ARM_BLAH_H
-X86_BLAH_H
+Reading your reply, I am guessing it would be:
 
-What that work for you?
+* - R11.9
+  - __ACCESS_ONCE uses an integer, which happens to be zero, as a
+    non-compound-type typecheck. The typecheck uses a cast. The usage of
+    zero or other integers for this purpose is allowed.
+
+Andrew, please confirm? Nicola, please also confirm that this version of
+the text would be suitable for an assessor.
+--8323329-1979245646-1697676384=:965337--
 
