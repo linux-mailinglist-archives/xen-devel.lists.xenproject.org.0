@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E5E7CFE50
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:41:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619420.964488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264207CFE4C
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:41:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619414.964443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8s-0008EZ-0e; Thu, 19 Oct 2023 15:40:58 +0000
+	id 1qtV8o-0007BN-7Y; Thu, 19 Oct 2023 15:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619420.964488; Thu, 19 Oct 2023 15:40:57 +0000
+Received: by outflank-mailman (output) from mailman id 619414.964443; Thu, 19 Oct 2023 15:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8r-00081o-MZ; Thu, 19 Oct 2023 15:40:57 +0000
-Received: by outflank-mailman (input) for mailman id 619420;
- Thu, 19 Oct 2023 15:40:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qtV8o-0007A5-2X; Thu, 19 Oct 2023 15:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 619414;
+ Thu, 19 Oct 2023 15:40:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m+UH=GB=desiato.srs.infradead.org=BATV+298c059cf2aa39b7dc34+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtV8o-0006dc-To
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:54 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1ce9956-6e95-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 17:40:51 +0200 (CEST)
+ <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qtV8m-0005v1-7J
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:52 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0bd07f6-6e95-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 17:40:49 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qtV8M-009yCl-2Y; Thu, 19 Oct 2023 15:40:27 +0000
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qtV8M-007osh-9t; Thu, 19 Oct 2023 15:40:26 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qtV8L-000Ptt-2u; Thu, 19 Oct 2023 16:40:25 +0100
+ Linux)) id 1qtV8L-000Pty-36; Thu, 19 Oct 2023 16:40:25 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e1ce9956-6e95-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: e0bd07f6-6e95-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=hy2YuY0dWcf+Lr7etZHB++T3clcBvefTeZ93BBNCjCM=; b=DmYBdYN03plLfc9Z3a7Lig0nJS
-	chnqFUJQtb1XZqAyZrsfM2mUTXC5PcfxZrq5zSrXl+lX6RKF4oHzTono8UUQK3c+YMIa+HnC3lfci
-	wi9+B/rKkt09RsCvw0Bu21ZQJVXPp1+W6r8Xh5psyRFJoQDLcdlq3DSdw70ihNk9cHBPAwUgU/Zjs
-	e4i22xctxwNK/haxM82vmxAcPxHGGy6RtaK2LO8sEocYde64fM423I6YsWQbsO02lH649k3cjpvNQ
-	vM+kXLeT+o3P2w7JAyJ0oxgD/5bFr7LDzuaxudCx9YNoV3lkbsgasNcMGA5qD3B5CZtpS5Ov/GrXi
-	oCWeFxiA==;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=hLazHzQr9WU4aKDL3e0cHQ8ZFMzJwP9pBwOEG+7+DoA=; b=mZVHuHGu2yiNHmYQ6lAmxyEZjN
+	e6NSylNjif4ob9D4TnTQeVnUE1lTePYhEsdCI7J46anemdWJCMzjBGU6ztQsfxcdTtlyQER8zRAze
+	sar13P2OM77RUpnRMfNomAGWXl77C3jfsJp+nY6jQeLnkhjLNP3Ey6o5ZGnxbcOnVTPrOyQMvyh6T
+	icRvk0TzuJG1NIKoOMC1qdQLWJGsko7VHDIPJlICHOsG9ds8BfY7FtUgZwd0noA9uaOhkrfYLU7KL
+	uyx63lcS6ETtZjPM4GkmV5/0HG4jDqF3shYhUhWy4stZZ7T/33VQ0O7W0wJg46U63S8BjjpCZMzZD
+	qY8yAUEA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>,
@@ -76,48 +76,65 @@ Cc: Kevin Wolf <kwolf@redhat.com>,
 	kvm@vger.kernel.org,
 	Bernhard Beschow <shentey@gmail.com>,
 	Joel Upham <jupham125@gmail.com>
-Subject: [PATCH v2 04/24] hw/xen: don't clear map_track[] in xen_gnttab_reset()
-Date: Thu, 19 Oct 2023 16:40:00 +0100
-Message-Id: <20231019154020.99080-5-dwmw2@infradead.org>
+Subject: [PATCH v2 05/24] hw/xen: fix XenStore watch delivery to guest
+Date: Thu, 19 Oct 2023 16:40:01 +0100
+Message-Id: <20231019154020.99080-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231019154020.99080-1-dwmw2@infradead.org>
 References: <20231019154020.99080-1-dwmw2@infradead.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The refcounts actually correspond to 'active_ref' structures stored in a
-GHashTable per "user" on the backend side (mostly, per XenDevice).
+When fire_watch_cb() found the response buffer empty, it would call
+deliver_watch() to generate the XS_WATCH_EVENT message in the response
+buffer and send an event channel notification to the guest… without
+actually *copying* the response buffer into the ring. So there was
+nothing for the guest to see. The pending response didn't actually get
+processed into the ring until the guest next triggered some activity
+from its side.
 
-If we zero map_track[] on reset, then when the backend drivers get torn
-down and release their mapping we hit the assert(s->map_track[ref] != 0)
-in gnt_unref().
+Add the missing call to put_rsp().
 
-So leave them in place. Each backend driver will disconnect and reconnect
-as the guest comes back up again and reconnects, and it all works out OK
-in the end as the old refs get dropped.
+It might have been slightly nicer to call xen_xenstore_event() here,
+which would *almost* have worked. Except for the fact that it calls
+xen_be_evtchn_pending() to check that it really does have an event
+pending (and clear the eventfd for next time). And under Xen it's
+defined that setting that fd to O_NONBLOCK isn't guaranteed to work,
+so the emu implementation follows suit.
 
-Fixes: de26b2619789 ("hw/xen: Implement soft reset for emulated gnttab")
+This fixes Xen device hot-unplug.
+
+Fixes: 0254c4d19df ("hw/xen: Add xenstore wire implementation and implementation stubs")
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/i386/kvm/xen_gnttab.c | 2 --
- 1 file changed, 2 deletions(-)
+ hw/i386/kvm/xen_xenstore.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/hw/i386/kvm/xen_gnttab.c b/hw/i386/kvm/xen_gnttab.c
-index 21c30e3659..839ec920a1 100644
---- a/hw/i386/kvm/xen_gnttab.c
-+++ b/hw/i386/kvm/xen_gnttab.c
-@@ -541,7 +541,5 @@ int xen_gnttab_reset(void)
-     s->entries.v1[GNTTAB_RESERVED_XENSTORE].flags = GTF_permit_access;
-     s->entries.v1[GNTTAB_RESERVED_XENSTORE].frame = XEN_SPECIAL_PFN(XENSTORE);
- 
--    memset(s->map_track, 0, s->max_frames * ENTRIES_PER_FRAME_V1);
--
-     return 0;
+diff --git a/hw/i386/kvm/xen_xenstore.c b/hw/i386/kvm/xen_xenstore.c
+index 660d0b72f9..82a215058a 100644
+--- a/hw/i386/kvm/xen_xenstore.c
++++ b/hw/i386/kvm/xen_xenstore.c
+@@ -1357,10 +1357,12 @@ static void fire_watch_cb(void *opaque, const char *path, const char *token)
+     } else {
+         deliver_watch(s, path, token);
+         /*
+-         * If the message was queued because there was already ring activity,
+-         * no need to wake the guest. But if not, we need to send the evtchn.
++         * Attempt to queue the message into the actual ring, and send
++         * the event channel notification if any bytes are copied.
+          */
+-        xen_be_evtchn_notify(s->eh, s->be_port);
++        if (put_rsp(s) > 0) {
++            xen_be_evtchn_notify(s->eh, s->be_port);
++        }
+     }
  }
+ 
 -- 
 2.40.1
 
