@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402CE7CFF4D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 18:20:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619522.964733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46D427CFF60
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 18:21:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619524.964742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVkY-0000ka-5H; Thu, 19 Oct 2023 16:19:54 +0000
+	id 1qtVmI-00032I-Et; Thu, 19 Oct 2023 16:21:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619522.964733; Thu, 19 Oct 2023 16:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 619524.964742; Thu, 19 Oct 2023 16:21:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVkY-0000i0-1B; Thu, 19 Oct 2023 16:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 619522;
- Thu, 19 Oct 2023 16:19:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qtVmI-0002zy-C7; Thu, 19 Oct 2023 16:21:42 +0000
+Received: by outflank-mailman (input) for mailman id 619524;
+ Thu, 19 Oct 2023 16:21:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IZCy=GB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qtVkX-0000hu-AG
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 16:19:53 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 53cb7124-6e9b-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 18:19:51 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 53AB8CE2C62;
- Thu, 19 Oct 2023 16:19:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E106AC433C7;
- Thu, 19 Oct 2023 16:19:44 +0000 (UTC)
+ <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qtVmH-0002zq-8W
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 16:21:41 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 936ca045-6e9b-11ee-9b0e-b553b5be7939;
+ Thu, 19 Oct 2023 18:21:37 +0200 (CEST)
+Received: from [2001:8b0:10b:5:583b:153f:ff9:f813]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qtVmA-0081qO-LG; Thu, 19 Oct 2023 16:21:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,155 +41,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53cb7124-6e9b-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697732386;
-	bh=5ff8IyMm44pEyUVsyvPOzCu4VkXWd+IomOI7ZLX2Pp4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gHyFy7pgWsgRDFbHe6SbatjGOCalNgthpOJzzHyGvlx/wi3ptAxVYo28xl8vJMIS7
-	 userMBq7+GEqBlhFkF1BkwB4WJLWiWSRKdwmRaf7JHMPyMhzvWt+XlMNJ0ysC+qqY8
-	 3E+WXtfGgzVT7MTSkfu1LlVODcqSh52C5vPDiWlM04gnj5ZYR+DUF236iqVU/vcbsf
-	 tbyS9hWZLmIL+5jePJrz7x9zStVuT0OZcvAEN8WQ5aCH+YHxaIewM03yYSN3JrZ/et
-	 gNvOCJN1Mrms6ZJ+rOqK+IHTG7AfktpwBJeJjL5zKDgoyLihtlg9eqDlCe899V2MGP
-	 je+3oV9LBLL6Q==
-Date: Thu, 19 Oct 2023 09:19:43 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
-In-Reply-To: <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2310190915590.1945130@ubuntu-linux-20-04-desktop>
-References: <cover.1694510856.git.simone.ballarin@bugseng.com> <b62205a1-885b-ea4e-3ce2-7ad58cfc938d@suse.com> <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com> <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com> <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
- <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com> <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop> <725f5193-c8d3-1bc8-cd62-2a2b1b5ecc01@suse.com> <alpine.DEB.2.22.394.2310171709310.965337@ubuntu-linux-20-04-desktop>
- <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com> <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop> <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 936ca045-6e9b-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
+	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=8/aCv9ZvI17YL8PRWe77kWCnwdWP8QE7b1K0f1aRw9M=; b=T0+Uqjj2wl7h6PtyV7BLUeHTEn
+	sQMxM4qOnd+jVKg9Kjr8AKEpGF6wQmivHDuwC4AB883Uuplm5wh6OCKpHQnJPYiE3jFQwEQgxxfVu
+	+9Cz7XQQTycItZ3RKufDu+4c4AHfcYDGQll+r1coQGH/cdmDKKPvrrCefBWR45Idi9hZ5JgDYeehH
+	MhI5U8W98VI3owqpb8p7vLfcAto90/l6myXIU04f7Q2HS4NiFuoKk7plbAFdmQBx8F+BELTDYFnZY
+	D5UDem0r5F1Dn9BYcswGjuUaRh9Y3Mo1Ogoyf4X5KeKwaOFL/mpB04X6iVNs56vRQl3X/QDJNZSR1
+	ezKNRwtw==;
+Message-ID: <de07d56188f13e222ddaa1b963c20f8d7d61350e.camel@infradead.org>
+Subject: [PATCH] ns16550c: avoid crash in ns16550_endboot in PV shim mode
+From: David Woodhouse <dwmw2@infradead.org>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	 <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	 <wl@xen.org>
+Date: Thu, 19 Oct 2023 17:21:33 +0100
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-IB4aNmT/qGBPAd3gX8/a"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, 19 Oct 2023, Jan Beulich wrote:
-> On 19.10.2023 02:44, Stefano Stabellini wrote:
-> > On Wed, 18 Oct 2023, Jan Beulich wrote:
-> >> On 18.10.2023 02:48, Stefano Stabellini wrote:
-> >>> On Mon, 16 Oct 2023, Jan Beulich wrote:
-> >>>> On 29.09.2023 00:24, Stefano Stabellini wrote:
-> >>>>> If it is not a MISRA requirement, then I think we should go for the path
-> >>>>> of least resistance and try to make the smallest amount of changes
-> >>>>> overall, which seems to be:
-> >>>>
-> >>>> ... "least resistance" won't gain us much, as hardly any guards don't
-> >>>> start with an underscore.
-> >>>>
-> >>>>> - for xen/include/blah.h, __BLAH_H__
-> >>>>> - for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
-> >>>>> - for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
-> >>>>
-> >>>> There are no headers in xen/include/. For (e.g.) xen/include/xen/ we
-> >>>> may go with XEN_BLAH_H; whether ASM prefixes are needed I'm not sure;
-> >>>> we could go with just ARM_BLAH_H and X86_BLAH_H?
-> >>>>
-> >>>> The primary question though is (imo) how to deal with private headers,
-> >>>> such that the risk of name collisions is as small as possible.
-> >>>
-> >>> Looking at concrete examples under xen/include/xen:
-> >>> xen/include/xen/mm.h __XEN_MM_H__
-> >>> xen/include/xen/dm.h __XEN_DM_H__
-> >>> xen/include/xen/hypfs.h __XEN_HYPFS_H__
-> >>>
-> >>> So I think we should do for consistency:
-> >>> xen/include/xen/blah.h __XEN_BLAH_H__
-> >>>
-> >>> Even if we know the leading underscore are undesirable, in this case I
-> >>> would prefer consistency.
-> >>
-> >> I'm kind of okay with that. FTAOD - here and below you mean to make this
-> >> one explicit first exception from the "no new leading underscores" goal,
-> >> for newly added headers?
-> > 
-> > Yes. The reason is for consistency with the existing header files.
-> > 
-> > 
-> >>> On the other hand looking at ARM examples:
-> >>> xen/arch/arm/include/asm/traps.h __ASM_ARM_TRAPS__
-> >>> xen/arch/arm/include/asm/time.h __ARM_TIME_H__
-> >>> xen/arch/arm/include/asm/sysregs.h __ASM_ARM_SYSREGS_H
-> >>> xen/arch/arm/include/asm/io.h _ASM_IO_H
-> >>>
-> >>> And also looking at x86 examples:
-> >>> xen/arch/x86/include/asm/paging.h _XEN_PAGING_H
-> >>> xen/arch/x86/include/asm/p2m.h _XEN_ASM_X86_P2M_H
-> >>> xen/arch/x86/include/asm/io.h _ASM_IO_H
-> >>>
-> >>> Thet are very inconsistent.
-> >>>
-> >>>
-> >>> So for ARM and X86 headers I think we are free to pick anything we want,
-> >>> including your suggested ARM_BLAH_H and X86_BLAH_H. Those are fine by
-> >>> me.
-> >>
-> >> To be honest, I'd prefer a global underlying pattern, i.e. if common
-> >> headers are "fine" to use leading underscores for guards, arch header
-> >> should, too.
-> > 
-> > I am OK with that too. We could go with:
-> > __ASM_ARM_BLAH_H__
-> > __ASM_X86_BLAH_H__
-> > 
-> > I used "ASM" to make it easier to differentiate with the private headers
-> > below. Also the version without "ASM" would work but it would only
-> > differ with the private headers in terms of leading underscores. I
-> > thought that also having "ASM" would help readability and help avoid
-> > confusion.
-> > 
-> > 
-> >>> For private headers such as:
-> >>> xen/arch/arm/vuart.h __ARCH_ARM_VUART_H__
-> >>> xen/arch/arm/decode.h __ARCH_ARM_DECODE_H_
-> >>> xen/arch/x86/mm/p2m.h __ARCH_MM_P2M_H__
-> >>> xen/arch/x86/hvm/viridian/private.h X86_HVM_VIRIDIAN_PRIVATE_H
-> >>>
-> >>> More similar but still inconsistent. I would go with ARCH_ARM_BLAH_H and
-> >>> ARCH_X86_BLAH_H for new headers.
-> >>
-> >> I'm afraid I don't like this, as deeper paths would lead to unwieldy
-> >> guard names. If we continue to use double-underscore prefixed names
-> >> in common and arch headers, why don't we demand no leading underscores
-> >> and no path-derived prefixes in private headers? That'll avoid any
-> >> collisions between the two groups.
-> > 
-> > OK, so for private headers:
-> > 
-> > ARM_BLAH_H
-> > X86_BLAH_H
-> > 
-> > What that work for you?
-> 
-> What are the ARM_ and X86_ prefixes supposed to indicate here? Or to ask
-> differently, how would you see e.g. common/decompress.h's guard named?
 
-I meant that:
+--=-IB4aNmT/qGBPAd3gX8/a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-xen/arch/arm/blah.h would use ARM_BLAH_H
-xen/arch/x86/blah.h would use X86_BLAH_H
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-You have a good question on something like xen/common/decompress.h and
-xen/common/event_channel.h.  What do you think about:
+In shim mode there is no hardware_domain. Dereferencing the pointer
+doesn't end well.
 
-COMMON_BLAH_H, so specifically COMMON_DECOMPRESS_H
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+This is about as far as I got in my abortive attempt to use the PV shim
+without an actual PV console being provided by the HVM hosting
+environment. It still doesn't pass the guest's console through to
+serial; that only seems to shim to an actual PV console.
 
-otherwise:
+ xen/drivers/char/ns16550.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-XEN_BLAH_H, so specifically XEN_DECOMPRESS_H
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 28ddedd50d..0818f5578c 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -586,6 +586,8 @@ static void __init cf_check ns16550_endboot(struct seri=
+al_port *port)
+=20
+     if ( uart->remapped_io_base )
+         return;
++    if (!hardware_domain)
++        return;
+     rv =3D ioports_deny_access(hardware_domain, uart->io_base, uart->io_ba=
+se + 7);
+     if ( rv !=3D 0 )
+         BUG();
+--=20
+2.34.1
 
-I prefer COMMON_BLAH_H but I think both versions are OK.
+
+
+--=-IB4aNmT/qGBPAd3gX8/a
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDE5MTYyMTMzWjAvBgkqhkiG9w0BCQQxIgQgf0TVc2iB
+fnzn0cKNis8ils8mQlF+bAWGzUghUmBiY1Iwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA8rT6lO5KJfAY7rEv6YfBPIkLSzxPtNA6Y
+RYjqi5LDJnusV2Qve49eEeKp5KSxAFLPBt8PpT/LIvlhLOwWbSBxLhpmokyNnElQLm4Tsg14oZr6
+1P8iBZDgI6Wf8yMGb/jec8Mv1chy3h+nxM0nvIkAODr12QM7jNZ0pxUGAIlyoxVERuqlPwOHaevL
+UcHc/yEZoL2rTDBjZOFX2wEa8qKSQxjJIrQmcl3gbfJR+3CrexVgG5EKWvLhbkrDAfpLVjBKJ6YW
+/kqEgULtXfbJ0IMqyHmICFS9bqOgLNERxCZycppAp5DHJhfcElaA84n4zPM4zjycJ5Yk3Q+ahjQJ
+kLeMkJreORuxFoW9r61Y4YcSmwLlv/K0mQecR/uX7rDxOwn/hxoRX1Q6SEIwiC3NCHWIH43fFqRr
+XJeCdeQfw1/TmqNozvxSgCmUbj7BRXuXXzv+nnRA07u2qF3ImfUPUTV347/AycXBgYbCq8SC1BJ6
+ZheZ/KSxbHiWvZEh6togb+PuERF+OaEr6WDBBlnSAYL7YyfcLVvaoIVHK32myJLeWNImRLr0pYge
+ssF8Flw6Lz/s88ZWh3Lt1y44ehrOY3dhJtB8n+q+fh4syayu1oxtLKKOaGHgUm0EGRxTg8aNEy4b
+gv+xqD82gKK3ZwTLsz14wRATTrNu7w2JOlPPlCiixQAAAAAAAA==
+
+
+--=-IB4aNmT/qGBPAd3gX8/a--
 
