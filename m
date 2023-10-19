@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70EF7CFCDF
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 16:36:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619397.964372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFA8C7CFD2A
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 16:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619402.964383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtU7X-0001fU-JU; Thu, 19 Oct 2023 14:35:31 +0000
+	id 1qtUFb-0003mf-C4; Thu, 19 Oct 2023 14:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619397.964372; Thu, 19 Oct 2023 14:35:31 +0000
+Received: by outflank-mailman (output) from mailman id 619402.964383; Thu, 19 Oct 2023 14:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtU7X-0001d5-Gr; Thu, 19 Oct 2023 14:35:31 +0000
-Received: by outflank-mailman (input) for mailman id 619397;
- Thu, 19 Oct 2023 14:35:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cQIi=GB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qtU7W-0001cy-BT
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 14:35:30 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf63922d-6e8c-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 16:35:28 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id E69814EE073D;
- Thu, 19 Oct 2023 16:35:27 +0200 (CEST)
+	id 1qtUFb-0003kO-9A; Thu, 19 Oct 2023 14:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 619402;
+ Thu, 19 Oct 2023 14:43:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtUFa-0003kE-5R; Thu, 19 Oct 2023 14:43:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtUFa-0002XS-3m; Thu, 19 Oct 2023 14:43:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtUFZ-0002Zl-Qt; Thu, 19 Oct 2023 14:43:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtUFZ-0003s9-QR; Thu, 19 Oct 2023 14:43:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf63922d-6e8c-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eUKV9M948qd7y5aCnq5t0oiWLL9VsC73xhdVwcL2Z1w=; b=Et/ACrCo9LWQe736wcNyz2tIQi
+	vWGMhtBrqfwLOVzT60jpk922V2ju54VW6kt+r+2PCUx8iTLMVqYAspWxTZ68lg3Xpk54MLQb7Lq4G
+	DZbmv+B/YtdcVf+5ZrUhWo5PLW3cukUzI+SQlxjquI6b+AugdMtQL9sCheixG9YzLFd4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183428-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Thu, 19 Oct 2023 16:35:27 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19 v2 8/8] xen/compat: use BUILD_BUG_ON in
- CHECK_SIZE macros
-In-Reply-To: <8546127f-9945-0175-4e11-e187233e13cb@suse.com>
-References: <cover.1697123806.git.nicola.vetrini@bugseng.com>
- <6138e02935236afd51a5db98d3527e5e2602468d.1697123806.git.nicola.vetrini@bugseng.com>
- <8546127f-9945-0175-4e11-e187233e13cb@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <4e0c7d27b73fd00e8574547eff2a8da6@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183428: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=8abbf6d87e68aa6634d63a5e3920ca44e331ddfa
+X-Osstest-Versions-That:
+    ovmf=b75d9f556d6f290a4037064a2b934f5a3396328c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 Oct 2023 14:43:49 +0000
 
-On 17/10/2023 08:09, Jan Beulich wrote:
-> On 12.10.2023 17:28, Nicola Vetrini wrote:
->> BUILD_BUG_ON is the preferred way to induce a build error
->> upon statically determined incorrect conditions.
->> 
->> This also fixes a MISRA C:2012 Rule 10.1 violation in the
->> previous formulation.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> Hmm, looking back it's indeed not clear why I didn't use BUILD_BUG_ON() 
-> right
-> away. Perhaps just to avoid inline functions when things can be done 
-> without.
-> And/or because originally the macros were intended to be usable in 
-> function
-> bodies, not (just) at file scope. However, ...
-> 
->> --- a/xen/include/xen/compat.h
->> +++ b/xen/include/xen/compat.h
->> @@ -151,12 +151,20 @@ CHECK_NAME_(k, n, T)(k xen_ ## n *x, \
->>      return x == c; \
->>  }
->> 
->> -#define CHECK_SIZE(name) \
->> -    typedef int CHECK_NAME(name, S)[1 - (sizeof(xen_ ## name ## _t) 
->> != \
->> -                                         sizeof(compat_ ## name ## 
->> _t)) * 2]
->> +#define CHECK_SIZE(name)                                  \
->> +static inline void __maybe_unused CHECK_SIZE_##name(void) \
->> +{                                                         \
->> +    typedef int CHECK_NAME(name, S)[1];                   \
-> 
-> ... what's this and ...
-> 
->> +    BUILD_BUG_ON(sizeof(xen_ ## name ## _t) !=            \
->> +                 sizeof(compat_ ## name ## _t));          \
->> +}
->>  #define CHECK_SIZE_(k, n) \
->> -    typedef int CHECK_NAME_(k, n, S)[1 - (sizeof(k xen_ ## n) != \
->> -                                          sizeof(k compat_ ## n)) * 
->> 2]
->> +static inline void __maybe_unused CHECK_SIZE_##k_##n(void) \
->> +{                                                          \
->> +    typedef int CHECK_NAME_(k, n, S)[1];                   \
-> 
-> ... this needed for? The types aren't used anywhere afaict.
-> 
-> Jan
-> 
->> +    BUILD_BUG_ON(sizeof(k xen_ ## n) !=                    \
->> +                 sizeof(k compat_ ## n));                  \
->> +}
->> 
->>  #define CHECK_FIELD_COMMON(name, t, f) \
->>  static inline int __maybe_unused name(xen_ ## t ## _t *x, compat_ ## 
->> t ## _t *c) \
+flight 183428 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183428/
 
-You're probably right. I was wondering the same thing when replacing the 
-code with
-BUILD_BUG_ON.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 8abbf6d87e68aa6634d63a5e3920ca44e331ddfa
+baseline version:
+ ovmf                 b75d9f556d6f290a4037064a2b934f5a3396328c
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Last test of basis   183420  2023-10-18 20:10:44 Z    0 days
+Testing same since   183428  2023-10-19 12:42:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   b75d9f556d..8abbf6d87e  8abbf6d87e68aa6634d63a5e3920ca44e331ddfa -> xen-tested-master
 
