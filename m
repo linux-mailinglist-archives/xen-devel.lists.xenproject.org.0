@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6E67CFE4F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:41:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619424.964526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D192D7CFE45
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:41:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619411.964408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8w-0000w5-Gk; Thu, 19 Oct 2023 15:41:02 +0000
+	id 1qtV8l-0006Fp-4M; Thu, 19 Oct 2023 15:40:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619424.964526; Thu, 19 Oct 2023 15:41:02 +0000
+Received: by outflank-mailman (output) from mailman id 619411.964408; Thu, 19 Oct 2023 15:40:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8w-0000Zm-00; Thu, 19 Oct 2023 15:41:02 +0000
-Received: by outflank-mailman (input) for mailman id 619424;
- Thu, 19 Oct 2023 15:40:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qtV8l-0006Cm-01; Thu, 19 Oct 2023 15:40:51 +0000
+Received: by outflank-mailman (input) for mailman id 619411;
+ Thu, 19 Oct 2023 15:40:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=m+UH=GB=desiato.srs.infradead.org=BATV+298c059cf2aa39b7dc34+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtV8q-0006dc-Rx
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:56 +0000
+ id 1qtV8j-0005v1-B6
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:49 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e25ba781-6e95-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 17:40:52 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dfe454f7-6e95-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 17:40:48 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qtV8M-009yCh-2Y; Thu, 19 Oct 2023 15:40:27 +0000
+ id 1qtV8M-009yCk-2Y; Thu, 19 Oct 2023 15:40:27 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qtV8L-000Ptk-2O; Thu, 19 Oct 2023 16:40:25 +0100
+ Linux)) id 1qtV8L-000Pto-2c; Thu, 19 Oct 2023 16:40:25 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e25ba781-6e95-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: dfe454f7-6e95-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=2nqUTV3vUpOx9clV41PRsXO9Zf0sXlL57tnkVmGApug=; b=IxYegd780SmdgDUUbQTnWSd/ai
-	wuPPAJoA515FdGO8tU1vSZrNsyj+Eu6YIkOsX/w4u33wqDnGK/ZwF1FZAXaacLiotME7DJPR6U/Jt
-	OuDfbp0EviQEM+jKnxB2735BGSNGjQPB5fQO0QhthLqzSiUxPJRE6nEg1YISAF7SGMMqZmiK5VeSg
-	dzR41WsF4hHTtOF4Yx+UDPvs6VQbtX5ykHz8fZztlFt0rXHlMPaiXHGv2MgylP5snh0qflWdWsndn
-	GcidSGgVKwpcNJ7umDEr2Y0Ng2MicE/qap/rao+XOsK2w46sGJSmaj6tItgKWDiX6XExPu+61OUBD
-	r/Ld6nOw==;
+	bh=yj3bQOsvlVS+cuxN5wPLkNEIrT6cixfjryf2/rFkYPo=; b=apmrUQjys+v5rup9nz+m2AM5cJ
+	2Y2A05kFFcMK4lO0kAHJWQYvJuY7yW0Mbcd6xBkSdi7dZE8UYfHwT+MsBjpnPbxyw76XY0z6pWZIQ
+	/Xbt2G1fOgOADjjv0bJg895NrBPYCnkgVjKTWWOXLkLH7it8HqWs9l/FFJgQ/mUgEiAcalOp8D8Wy
+	qH7vnVOom93dI6oaB21y/lpt2E7eoveScrTU88jzuNmmhGwUA3Tinnyl0/mIZt9MdWKMLq3ME3d3a
+	hd4UWY3+BnlXQGAEpOmqrAsqGKgxLgM6NjTY7kgwl4SAKcduwn8Pjydd4w/+pVV6+TRVb9aodRCJm
+	9DCTuMag==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>,
@@ -76,9 +76,9 @@ Cc: Kevin Wolf <kwolf@redhat.com>,
 	kvm@vger.kernel.org,
 	Bernhard Beschow <shentey@gmail.com>,
 	Joel Upham <jupham125@gmail.com>
-Subject: [PATCH v2 02/24] i386/xen: fix per-vCPU upcall vector for Xen emulation
-Date: Thu, 19 Oct 2023 16:39:58 +0100
-Message-Id: <20231019154020.99080-3-dwmw2@infradead.org>
+Subject: [PATCH v2 03/24] hw/xen: select kernel mode for per-vCPU event channel upcall vector
+Date: Thu, 19 Oct 2023 16:39:59 +0100
+Message-Id: <20231019154020.99080-4-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231019154020.99080-1-dwmw2@infradead.org>
 References: <20231019154020.99080-1-dwmw2@infradead.org>
@@ -89,43 +89,87 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The per-vCPU upcall vector support had two problems. Firstly it was
-using the wrong hypercall argument and would always return -EFAULT.
-And secondly it was using the wrong ioctl() to pass the vector to
-the kernel and thus the *kernel* would always return -EINVAL.
+A guest which has configured the per-vCPU upcall vector may set the
+HVM_PARAM_CALLBACK_IRQ param to fairly much anything other than zero.
 
-Linux doesn't (yet) use this mode so it went without decent testing
-for a while.
+For example, Linux v6.0+ after commit b1c3497e604 ("x86/xen: Add support
+for HVMOP_set_evtchn_upcall_vector") will just do this after setting the
+vector:
 
-Fixes: 105b47fdf2d0 ("i386/xen: implement HVMOP_set_evtchn_upcall_vector")
+       /* Trick toolstack to think we are enlightened. */
+       if (!cpu)
+               rc = xen_set_callback_via(1);
+
+That's explicitly setting the delivery to GSI#1, but it's supposed to be
+overridden by the per-vCPU vector setting. This mostly works in Qemu
+*except* for the logic to enable the in-kernel handling of event channels,
+which falsely determines that the kernel cannot accelerate GSI delivery
+in this case.
+
+Add a kvm_xen_has_vcpu_callback_vector() to report whether vCPU#0 has
+the vector set, and use that in xen_evtchn_set_callback_param() to
+enable the kernel acceleration features even when the param *appears*
+to be set to target a GSI.
+
+Preserve the Xen behaviour that when HVM_PARAM_CALLBACK_IRQ is set to
+*zero* the event channel delivery is disabled completely. (Which is
+what that bizarre guest behaviour is working round in the first place.)
+
+Fixes: 91cce756179 ("hw/xen: Add xen_evtchn device for event channel emulation")
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- target/i386/kvm/xen-emu.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ hw/i386/kvm/xen_evtchn.c  | 6 ++++++
+ include/sysemu/kvm_xen.h  | 1 +
+ target/i386/kvm/xen-emu.c | 7 +++++++
+ 3 files changed, 14 insertions(+)
 
+diff --git a/hw/i386/kvm/xen_evtchn.c b/hw/i386/kvm/xen_evtchn.c
+index a731738411..3d6f4b4a0a 100644
+--- a/hw/i386/kvm/xen_evtchn.c
++++ b/hw/i386/kvm/xen_evtchn.c
+@@ -490,6 +490,12 @@ int xen_evtchn_set_callback_param(uint64_t param)
+         break;
+     }
+ 
++    /* If the guest has set a per-vCPU callback vector, prefer that. */
++    if (gsi && kvm_xen_has_vcpu_callback_vector()) {
++        in_kernel = kvm_xen_has_cap(EVTCHN_SEND);
++        gsi = 0;
++    }
++
+     if (!ret) {
+         /* If vector delivery was turned *off* then tell the kernel */
+         if ((s->callback_param >> CALLBACK_VIA_TYPE_SHIFT) ==
+diff --git a/include/sysemu/kvm_xen.h b/include/sysemu/kvm_xen.h
+index 595abfbe40..961c702c4e 100644
+--- a/include/sysemu/kvm_xen.h
++++ b/include/sysemu/kvm_xen.h
+@@ -22,6 +22,7 @@
+ int kvm_xen_soft_reset(void);
+ uint32_t kvm_xen_get_caps(void);
+ void *kvm_xen_get_vcpu_info_hva(uint32_t vcpu_id);
++bool kvm_xen_has_vcpu_callback_vector(void);
+ void kvm_xen_inject_vcpu_callback_vector(uint32_t vcpu_id, int type);
+ void kvm_xen_set_callback_asserted(void);
+ int kvm_xen_set_vcpu_virq(uint32_t vcpu_id, uint16_t virq, uint16_t port);
 diff --git a/target/i386/kvm/xen-emu.c b/target/i386/kvm/xen-emu.c
-index 0055441b2e..619240398a 100644
+index 619240398a..3ba636b09a 100644
 --- a/target/i386/kvm/xen-emu.c
 +++ b/target/i386/kvm/xen-emu.c
-@@ -306,7 +306,7 @@ static int kvm_xen_set_vcpu_callback_vector(CPUState *cs)
- 
-     trace_kvm_xen_set_vcpu_callback(cs->cpu_index, vector);
- 
--    return kvm_vcpu_ioctl(cs, KVM_XEN_HVM_SET_ATTR, &xva);
-+    return kvm_vcpu_ioctl(cs, KVM_XEN_VCPU_SET_ATTR, &xva);
+@@ -424,6 +424,13 @@ void kvm_xen_set_callback_asserted(void)
+     }
  }
  
- static void do_set_vcpu_callback_vector(CPUState *cs, run_on_cpu_data data)
-@@ -849,8 +849,7 @@ static bool kvm_xen_hcall_hvm_op(struct kvm_xen_exit *exit, X86CPU *cpu,
-     int ret = -ENOSYS;
-     switch (cmd) {
-     case HVMOP_set_evtchn_upcall_vector:
--        ret = kvm_xen_hcall_evtchn_upcall_vector(exit, cpu,
--                                                 exit->u.hcall.params[0]);
-+        ret = kvm_xen_hcall_evtchn_upcall_vector(exit, cpu, arg);
-         break;
- 
-     case HVMOP_pagetable_dying:
++bool kvm_xen_has_vcpu_callback_vector(void)
++{
++    CPUState *cs = qemu_get_cpu(0);
++
++    return cs && !!X86_CPU(cs)->env.xen_vcpu_callback_vector;
++}
++
+ void kvm_xen_inject_vcpu_callback_vector(uint32_t vcpu_id, int type)
+ {
+     CPUState *cs = qemu_get_cpu(vcpu_id);
 -- 
 2.40.1
 
