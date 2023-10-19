@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D427CFF60
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 18:21:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619524.964742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 539AD7CFF86
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 18:27:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619529.964753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVmI-00032I-Et; Thu, 19 Oct 2023 16:21:42 +0000
+	id 1qtVr9-0008H2-WE; Thu, 19 Oct 2023 16:26:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619524.964742; Thu, 19 Oct 2023 16:21:42 +0000
+Received: by outflank-mailman (output) from mailman id 619529.964753; Thu, 19 Oct 2023 16:26:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVmI-0002zy-C7; Thu, 19 Oct 2023 16:21:42 +0000
-Received: by outflank-mailman (input) for mailman id 619524;
- Thu, 19 Oct 2023 16:21:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qtVr9-0008Eg-Sh; Thu, 19 Oct 2023 16:26:43 +0000
+Received: by outflank-mailman (input) for mailman id 619529;
+ Thu, 19 Oct 2023 16:26:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtVmH-0002zq-8W
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 16:21:41 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 936ca045-6e9b-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 18:21:37 +0200 (CEST)
-Received: from [2001:8b0:10b:5:583b:153f:ff9:f813]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qtVmA-0081qO-LG; Thu, 19 Oct 2023 16:21:34 +0000
+ <SRS0=IZCy=GB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qtVr8-0008DC-35
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 16:26:42 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4815393f-6e9c-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 18:26:40 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3226261558;
+ Thu, 19 Oct 2023 16:26:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25972C433C8;
+ Thu, 19 Oct 2023 16:26:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,183 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 936ca045-6e9b-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=8/aCv9ZvI17YL8PRWe77kWCnwdWP8QE7b1K0f1aRw9M=; b=T0+Uqjj2wl7h6PtyV7BLUeHTEn
-	sQMxM4qOnd+jVKg9Kjr8AKEpGF6wQmivHDuwC4AB883Uuplm5wh6OCKpHQnJPYiE3jFQwEQgxxfVu
-	+9Cz7XQQTycItZ3RKufDu+4c4AHfcYDGQll+r1coQGH/cdmDKKPvrrCefBWR45Idi9hZ5JgDYeehH
-	MhI5U8W98VI3owqpb8p7vLfcAto90/l6myXIU04f7Q2HS4NiFuoKk7plbAFdmQBx8F+BELTDYFnZY
-	D5UDem0r5F1Dn9BYcswGjuUaRh9Y3Mo1Ogoyf4X5KeKwaOFL/mpB04X6iVNs56vRQl3X/QDJNZSR1
-	ezKNRwtw==;
-Message-ID: <de07d56188f13e222ddaa1b963c20f8d7d61350e.camel@infradead.org>
-Subject: [PATCH] ns16550c: avoid crash in ns16550_endboot in PV shim mode
-From: David Woodhouse <dwmw2@infradead.org>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	 <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	 <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	 <wl@xen.org>
-Date: Thu, 19 Oct 2023 17:21:33 +0100
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-IB4aNmT/qGBPAd3gX8/a"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 4815393f-6e9c-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1697732798;
+	bh=nyApptNkWd+CPREbFSCN0nP5KYXfmJxqXafHn0SVEU0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ZUfU+Piq68rAua6BGR4XULI9LSx+cw1XAPupDW/SR+8njOFsg1qjR03E7R4T5kzk2
+	 xbJqfspWnDLlm2n3mR4fzPfYTehLA2JxrWjcB6Ym8/W+YWik/oarkUDUsR54xG+Ktp
+	 PL/w8Nr3UHw8kBkgSfT06MPsodA1R9tIq5i7dU7J5IhYnZzTjc2b9Jd8uehE7tHjKu
+	 AVcwxuiByJgJWIGJ5H9INrjrayBMHIg84vSA2XQHCSBWmUOTAltb9YVGecPcpuQI+Q
+	 u4X/ZLtMxD5t77rLOxbgLQQiPFxIdeqEt4DqkeVzb4aH5ozTq/YJPk22EV7GTO9798
+	 0A1qdSbvAxJmg==
+Date: Thu, 19 Oct 2023 09:26:35 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Federico Serafini <federico.serafini@bugseng.com>, consulting@bugseng.com, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+    Shawn Anastasio <sanastasio@raptorengineering.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Henry Wang <henry.wang@arm.com>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v3] xen/mm: address violations of MISRA C:2012 Rules
+ 8.2 and 8.3
+In-Reply-To: <30e35f13-d2d0-eaf3-9660-c508655b84ce@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2310190921020.1945130@ubuntu-linux-20-04-desktop>
+References: <eedcfeb8d1c81527b7e18fcc0eca252577f00035.1696344012.git.federico.serafini@bugseng.com> <d7cd7a02-b960-384e-4af2-f70b425e5ad1@suse.com> <alpine.DEB.2.22.394.2310181543030.965337@ubuntu-linux-20-04-desktop>
+ <30e35f13-d2d0-eaf3-9660-c508655b84ce@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 19 Oct 2023, Jan Beulich wrote:
+> On 19.10.2023 00:43, Stefano Stabellini wrote:
+> > On Mon, 16 Oct 2023, Jan Beulich wrote:
+> >> On 03.10.2023 17:24, Federico Serafini wrote:
+> >>> --- a/xen/arch/x86/mm.c
+> >>> +++ b/xen/arch/x86/mm.c
+> >>> @@ -5901,17 +5901,17 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+> >>>   * a problem.
+> >>>   */
+> >>>  void init_or_livepatch modify_xen_mappings_lite(
+> >>> -    unsigned long s, unsigned long e, unsigned int _nf)
+> >>> +    unsigned long s, unsigned long e, unsigned int nf)
+> >>>  {
+> >>> -    unsigned long v = s, fm, nf;
+> >>> +    unsigned long v = s, fm, flags;
+> >>
+> >> While it looks correct, I consider this an unacceptably dangerous
+> >> change: What if by the time this is to be committed some new use of
+> >> the local "nf" appears, without resulting in fuzz while applying the
+> >> patch? Imo this needs doing in two steps: First nf -> flags, then
+> >> _nf -> nf.
+> > 
+> > Wouldn't it be sufficient for the committer to pay special attention
+> > when committing this patch? We are in code freeze anyway, the rate of
+> > changes affecting staging is low.
+> 
+> Any kind of risk excludes a patch from being a 4.18 candidate, imo.
+
+I agree on that. I think it is best to commit it for 4.19 when the tree
+opens.
 
 
---=-IB4aNmT/qGBPAd3gX8/a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> That was the case in early RCs already, and is even more so now. Paying
+> special attention is generally a possibility, yet may I remind you that
+> committing in general is intended to be a purely mechanical operation?
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+Sure, and I am not asking for a general process change. I am only
+suggesting that this specific concern on this patch is best solved in
+the simplest way: by a committer making sure the patch is correct on
+commit. It is meant to save time for everyone.
 
-In shim mode there is no hardware_domain. Dereferencing the pointer
-doesn't end well.
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
-This is about as far as I got in my abortive attempt to use the PV shim
-without an actual PV console being provided by the HVM hosting
-environment. It still doesn't pass the guest's console through to
-serial; that only seems to shim to an actual PV console.
-
- xen/drivers/char/ns16550.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 28ddedd50d..0818f5578c 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -586,6 +586,8 @@ static void __init cf_check ns16550_endboot(struct seri=
-al_port *port)
-=20
-     if ( uart->remapped_io_base )
-         return;
-+    if (!hardware_domain)
-+        return;
-     rv =3D ioports_deny_access(hardware_domain, uart->io_base, uart->io_ba=
-se + 7);
-     if ( rv !=3D 0 )
-         BUG();
---=20
-2.34.1
-
-
-
---=-IB4aNmT/qGBPAd3gX8/a
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDE5MTYyMTMzWjAvBgkqhkiG9w0BCQQxIgQgf0TVc2iB
-fnzn0cKNis8ils8mQlF+bAWGzUghUmBiY1Iwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA8rT6lO5KJfAY7rEv6YfBPIkLSzxPtNA6Y
-RYjqi5LDJnusV2Qve49eEeKp5KSxAFLPBt8PpT/LIvlhLOwWbSBxLhpmokyNnElQLm4Tsg14oZr6
-1P8iBZDgI6Wf8yMGb/jec8Mv1chy3h+nxM0nvIkAODr12QM7jNZ0pxUGAIlyoxVERuqlPwOHaevL
-UcHc/yEZoL2rTDBjZOFX2wEa8qKSQxjJIrQmcl3gbfJR+3CrexVgG5EKWvLhbkrDAfpLVjBKJ6YW
-/kqEgULtXfbJ0IMqyHmICFS9bqOgLNERxCZycppAp5DHJhfcElaA84n4zPM4zjycJ5Yk3Q+ahjQJ
-kLeMkJreORuxFoW9r61Y4YcSmwLlv/K0mQecR/uX7rDxOwn/hxoRX1Q6SEIwiC3NCHWIH43fFqRr
-XJeCdeQfw1/TmqNozvxSgCmUbj7BRXuXXzv+nnRA07u2qF3ImfUPUTV347/AycXBgYbCq8SC1BJ6
-ZheZ/KSxbHiWvZEh6togb+PuERF+OaEr6WDBBlnSAYL7YyfcLVvaoIVHK32myJLeWNImRLr0pYge
-ssF8Flw6Lz/s88ZWh3Lt1y44ehrOY3dhJtB8n+q+fh4syayu1oxtLKKOaGHgUm0EGRxTg8aNEy4b
-gv+xqD82gKK3ZwTLsz14wRATTrNu7w2JOlPPlCiixQAAAAAAAA==
-
-
---=-IB4aNmT/qGBPAd3gX8/a--
+Jan, if you are OK with it, we could just trust you to commit it the
+right away as the earliest opportunity.
 
