@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262177CF61E
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 13:05:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619191.963874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4BF7CF619
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 13:05:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619188.963854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtQqJ-0003mQ-2J; Thu, 19 Oct 2023 11:05:31 +0000
+	id 1qtQpq-00031H-Fa; Thu, 19 Oct 2023 11:05:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619191.963874; Thu, 19 Oct 2023 11:05:31 +0000
+Received: by outflank-mailman (output) from mailman id 619188.963854; Thu, 19 Oct 2023 11:05:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtQqI-0003j6-Ua; Thu, 19 Oct 2023 11:05:30 +0000
-Received: by outflank-mailman (input) for mailman id 619191;
- Thu, 19 Oct 2023 11:05:29 +0000
+	id 1qtQpq-0002xy-Cq; Thu, 19 Oct 2023 11:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 619188;
+ Thu, 19 Oct 2023 11:05:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=g4nO=GB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qtQqH-0002xs-2H
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 11:05:29 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2050.outbound.protection.outlook.com [40.107.7.50])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cQIi=GB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qtQpo-0002xs-W0
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 11:05:00 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6941029d-6e6f-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 13:05:28 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM7PR04MB7016.eurprd04.prod.outlook.com (2603:10a6:20b:11e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.22; Thu, 19 Oct
- 2023 11:04:58 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d9c0:d907:4d2d:15b3%7]) with mapi id 15.20.6907.022; Thu, 19 Oct 2023
- 11:04:58 +0000
+ id 581d8bfe-6e6f-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 13:04:59 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 83A5F4EE073D;
+ Thu, 19 Oct 2023 13:04:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,127 +39,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6941029d-6e6f-11ee-98d5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lFc7e5FSZ/8UQH3PvWFOaL71Y3Q+l5oj0beh5TCqwHFWg04A12N1eXEzi6i3i8326RbtX/zoDPbm5nDFogg3Cc5TyYGXL0v8SDL9Q7QKxjqunBwGvTrGetve/7CotHUa2scuPAVs2MxW+H+dpiQj45ZdkuXmFV8DmsYxBmJjIf5JlyCaMR5/6KxJSAAvtb0hGmRRx7OedLDBJOGEN5q5NzpPHvjThroQWXigOYSURRCo41hIQeca4v++L18+El+QjvHyjc1IMUU0FbylNffHhPfbh6/aPCmbJYKhEFdbknG4/8GNV1zTQs32xl8B/IMfxnP524ZFKqrXJLFt1cHh9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zl6czcccU3Je0a7T59b25S4OQslclU2No1euv4l2XDQ=;
- b=mTPr0ofhrm6mjJA8uX2T6nqcquVEJXCHf6HqbW8p6pvW/HhE9OaLho44ttcAIndx5UwCV5ZWrs4euGUHwxjKoABywxflhSj6URajqZoyQkd02aEIAgq1O3aMJl06vt8uaK2mGWUnP78n1P4Fou6seHWRKQWJOsquzOokOsOBI7NCbkwrI5m9YEAWL459Or5krQK3/Cx7jgYRpfxZCP8f234Symhnz303UuhZJOttbPXwlfkXSgJ6Z+pR0yA01R1jDIVXa70iqwaCDoZcHKCDRLZ3QOjycD7kG6iDtvBlFAeAwe0NaXktUWBcC0nD6ftDiyE7bGdxYNb3iTik2JzkLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zl6czcccU3Je0a7T59b25S4OQslclU2No1euv4l2XDQ=;
- b=LIt547Oz4Ah+rUGCg5r5JdUrtktoqlWEWrhatkFdocvTGaoZ0PAL1YVmQ4NLHPXO7kzCydgFO4OOTFoy6BLQuqR0MQrTEVrPLOhCThEFVBrKnLc1B2iDEzprZQcED0bxoD2aw1OOeXhzcp/8cLpjRb/69rfECOF9m+s8bdh5dg7t+6hC1sJYdZxG57t9PklNRRC3/XcpmbyV9xLSx0dtwnoaSPuiLGM9XcSVfpoZEQR/HTClYd59VEDfOD5BZirwk2p46jleTnBjiVRJUw6lV05W2X11HD+py/If12BhMjwEES8hie4gJMo9aSkqpnWsF/BOyecVZz2gePrVixKYhg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <95b6cdcf-2ceb-6b38-3318-afbd3b985a68@suse.com>
-Date: Thu, 19 Oct 2023 13:04:50 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v1 19/29] xen/asm-generic: introduce stub header hardirq.h
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
- <cb76190d2b0b056c6733c1f5cfc941d0201f6490.1694702259.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <cb76190d2b0b056c6733c1f5cfc941d0201f6490.1694702259.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0040.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f3::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 581d8bfe-6e6f-11ee-98d5-6d05b1d4d9a1
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH][for-4.19 v2] xen: Add SAF deviations for MISRA C:2012 Rule 7.1
+Date: Thu, 19 Oct 2023 13:04:54 +0200
+Message-Id: <a9c52c943380f2c35f0a6ccab8215c03e87c99dc.1697712857.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM7PR04MB7016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a1555c9-fa70-458f-344a-08dbd0933b94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	IUhTGJ2/dOkDzh1gv02IXfWTrrtnANkhI820c72a2SiCQmaRYESJSgxRh6m2qX77jN1lytgmNVuUHhCZNcgxsiBFJN17Asbm8qC0Mtc8qx3Dt1zLA82ll3eDBjRFKGDud+uX5qQS3VHTEhSKVly679530pS2P86aGeTQGLGrYR7kZJyhnOgkaUEgL6yDN0La8QCUPhMkhZ8IiyDgnqSQVU01aopAZRY70aG/4pQHVM4qqgUW/8EqgLdLPDZ88J4rFmYxQCFA8PwFsJHVjip0xl3fayu0UE9rzVuaNm8Zy5pz7QKBXnkBAoUmrrd2m2ItGnGbmhfPKkFGZDDKL2MT9JnjZIdxHIBpnQewOTZHT8xOtwUvT/77K1lmm9f87MnvXw/J6q8zCr4EUYoR1LpmuZ7pleF2wCPtPqzsLdVLcQowvRzQt14zinPwH9ENdzu+j+rUSNU6DkwbpQcGVvyko/bCepJFv56deJztFpVRHNuBTOUKqQnmoeSSiXMLIkW35fUpRp2zsW/6wyZtGHZyWJCkTvxKMg/rH3Q/BpbQPyFFu1z5KNb/rzY38C64SflHeYUDLPKjDSuQb1hxYvnQKIdLU6WRx2VFqFoBtYrzI6bObvRw/6WEYkmMv7PSz+RGqEgVyo6NBnHVz9nDZZDfmDBFmV2VZmW6R4Zes3LKDjw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(396003)(366004)(346002)(39860400002)(230922051799003)(451199024)(1800799009)(186009)(64100799003)(6486002)(4326008)(8676002)(8936002)(4744005)(31696002)(38100700002)(2616005)(86362001)(478600001)(53546011)(5660300002)(6506007)(41300700001)(26005)(54906003)(2906002)(66476007)(6666004)(6512007)(66946007)(316002)(31686004)(66556008)(36756003)(6916009)(41533002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c3RoVEwwY0YvaWdERWNFMXI5c0JyVmhtU2U1bGNxNjhOVlMvKzhOZGo1VEo3?=
- =?utf-8?B?bFI0VUh3Q0hXZUpsbWJkNnFxam9sRTFOZFlvcVA5cW5lQVFGcmVJbWlmSUUr?=
- =?utf-8?B?eEpoOFFzOGZzNGF4WnJpWVZ4Ym1va3J5VkJiOHREWDRVdXZQcTEyOUVlLzgw?=
- =?utf-8?B?WEZzc2QvQzR2Rk1CV096QWFyRnIrTTJHcGdWYmgwL3N5TjZvb3Z2RDI5eHF2?=
- =?utf-8?B?VG9mTGtXbFpuNDhBTzB4VnU5aGo5bzdEQ1JKMC8wNnI2TDlIR1NLeEVqQXdr?=
- =?utf-8?B?ZVFLcHMvdUtlUEM4dkk4ZnFsQmxYRVQ0Y3A1TTJZb0I3KzNxRGROL2tBcFd5?=
- =?utf-8?B?VzkzUjlEUWRJclIyYSt2TSsvRFY0UWhwclVFWG8zU09LLy8zVkttdE1PL2hH?=
- =?utf-8?B?YVJ0L0JYSUN4b1piT2hrcjVDU21keitsVWlWRzRlL05RN3Q4eWVrSjVLcEpH?=
- =?utf-8?B?a01yWUlBLzRsNnFzbWNodGIyMWRDVzErSjBFQlVRTWdYQlZ3SzZzakRVeWVq?=
- =?utf-8?B?VG80aHRKRENFVmlkcGRmclU0SEwwaVNoYW1RbXlXcXJXT2dzdFdraGkwK3NY?=
- =?utf-8?B?a0dLL3Aza3lZUDVSWTNKL3Y2d0lSUW1QTncwL0VkU2kvb1ZXMG1yby9rVm9S?=
- =?utf-8?B?US9nOTJ5OEJhVFJBbEQzT0pvM0J2dWhkS2lXQWZXUnc4RlFTVHFZYzJVczk0?=
- =?utf-8?B?YzlMSUlHd24wb1lvL2hNV2Uxem01bUhTQ3h0TC9jS1V2WUt2SURVSFNZaCtL?=
- =?utf-8?B?N0Fva0ozS2JIL2RJMk5RM2Uxa3FGUTR2RFMraTZDQUZXMlJUODdtQjl5ekFD?=
- =?utf-8?B?RVlPUEI4VnMrbVFuL0JZQURTaWpRWEJDelUzUlFvbUxORmNWV0VmV1ZweWp2?=
- =?utf-8?B?TVlneWRyVFo0SmZhcjdLRTZ5VDFObXhYcGd2MjU1NU1DbDZmZWpKTUk3ODVS?=
- =?utf-8?B?T1FpV0k1U0xPcTA4dXp3aFFSNE1LdUtHSkxrcUdsNFdlS0ZpZkx3YnBXeHZo?=
- =?utf-8?B?dHZhUE9EbHZ5b0wwZ3MzMmJYWi9jeUZKMzdWZURRRWJHMU1LTlk3andXQkxI?=
- =?utf-8?B?RXlVWXhpb29KSkFabTh5NGtRanAvMWZFWjc2Vk9kSVlzWWp2UnVnOFU4dGla?=
- =?utf-8?B?d0VqNk1xUU1GWHErcnJwZW5aWkN3eC8xYlJNNWdONmp3SUtianRzNjVSYWZQ?=
- =?utf-8?B?djAyczBtaW0valRMRS9PaGxXS1huYjJTelBSTXJuZmJJWUdSVmdGNGREWXdI?=
- =?utf-8?B?OXViNzRYbGJOalYwc0RHVUNUK3VJYzlvQm1iOVEwMmJwcDlJMW1YMTZvdU5y?=
- =?utf-8?B?S292KzJJMlZsQm9mR0JWckFDcllzTkRhRTU0aFhGNjE1dFhSVkVvenVZOU14?=
- =?utf-8?B?TjJITDdOMnRUSG9CMkE4eUZpWXdZVm1la05HUERIbkd6cWNlMGZnMjR6aEo1?=
- =?utf-8?B?dWJrVzZyU1BBdTkxbytzVkhsbEorZVhlWUw5ZUg1U0h5d05tVHhZSU5jZmdZ?=
- =?utf-8?B?VWdXd042TXp5VldmMG1yNldmMkg5WDNmdXc1dEMyNFFQeU05VzVUd280b1B1?=
- =?utf-8?B?Z2NwOFRsS0lFQ2JjQkR2TkJGUTBkTmxXelk4NGJqYnRpRkNFQ3gxM0FIdTRm?=
- =?utf-8?B?THhIZktGV0xzS1NFUHUvbDYxVi9Od01CcGh3SW9JM0JjaENLdzVBWXdDbUJk?=
- =?utf-8?B?L1QvUi82TVQ2WkdCNmxuMDhuWDJ2SE1HYmdXdElrRktYb2JKc2ZTOUtDNzRF?=
- =?utf-8?B?VWNjb1VaV0RPazVzbTd0V0tGMU1uZE5MczNOM0ZhTmdOOVRQcUloeWtsRXhk?=
- =?utf-8?B?Qm1ZeDl4RXlpQ20vWktJQ1gwRXh2S1RTUFNqeUhpSHhwbitBL2oxSk93R0VD?=
- =?utf-8?B?WnpkN0hxa1BvQldXeHZpYXMwK0I1VkZKSEluOTArTkpWTEljVHN2M1VqcGhZ?=
- =?utf-8?B?QVkvckNSTzFjRCtqQjRHY04xWVhhMTRDMmNmU2lRdUJTd0d0Z210SGF4Ymhl?=
- =?utf-8?B?azVZMTZnU05ndUtWV3lldDRWT0RrVEhHMGJWV2hnYnZxZm13Wkx2c3VQeHpP?=
- =?utf-8?B?ZTNmeWFmOTc3NGZETWpZNDdzL0E1ejhmbnRYWGNKMFJCdkZDbVVvUXdnU2cx?=
- =?utf-8?Q?a9tc3xky2k4qMAGb6mQykSHtV?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a1555c9-fa70-458f-344a-08dbd0933b94
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 11:04:58.3868
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ri9c/JWu+1tOiVp1LjG0chK0v7lSDgj7nznUVxt62XURrunMlnU3ZwpnU2Qe7f2FOL4t4p7gB4CxVf63zt7bSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7016
+Content-Transfer-Encoding: 8bit
 
-On 14.09.2023 16:56, Oleksii Kurochko wrote:
-> The patch introduces header stub necessry for full Xen build.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+As specified in rules.rst, these constants can be used
+in the code. Suitable deviations records are added in deviations.rst
 
-I agree this one can be generalized from Arm's, but ...
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- replace some SAF deviations with configurations
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++----
+ docs/misra/deviations.rst                        | 6 ++++++
+ docs/misra/safe.json                             | 8 ++++++++
+ xen/common/inflate.c                             | 4 ++--
+ 4 files changed, 20 insertions(+), 6 deletions(-)
 
-> --- /dev/null
-> +++ b/xen/include/asm-generic/hardirq.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef __ASM_GENERIC_HARDIRQ_H
-> +#define __ASM_GENERIC_HARDIRQ_H
-> +
-> +#include <xen/smp.h>
-> +
-> +typedef struct {
-> +        unsigned long __softirq_pending;
-> +        unsigned int __local_irq_count;
-> +} __cacheline_aligned irq_cpustat_t;
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index fa56e5c00a27..3bf8e8b8fdec 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -85,10 +85,10 @@ conform to the directive."
+ # Series 7.
+ #
 
-... where is __cacheline_aligned going to come from without inclusion
-of xen/cache.h (as Arm has it)?
+--doc_begin="Usage of the following constants is safe, since they are given as-is
+-in the inflate algorithm specification and there is therefore no risk of them
+-being interpreted as decimal constants."
+--config=MC3R1.R7.1,literals={safe, "^0(007|37|070|213|236|300|321|330|331|332|333|334|335|337|371)$"}
++-doc_begin="Octal constants used as arguments to macro INSTR_ENC or MASK_EXTR
++can be used, because they appear as is in specifications, manuals, and
++algorithm descriptions."
++-config=MC3R1.R7.1,reports+={safe, "any_area(any_loc(any_exp(macro(^(INSTR_ENC|MASK_EXTR)$))))"}
+ -doc_end
 
-Jan
+ -doc_begin="Violations in files that maintainers have asked to not modify in the
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 8511a189253b..f26eb371f3e4 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -90,6 +90,12 @@ Deviations related to MISRA C:2012 Rules:
+          - __emulate_2op and __emulate_2op_nobyte
+          - read_debugreg and write_debugreg
+
++   * - R7.1
++     - It is safe to use certain octal constants the way they are defined in
++       specifications, manuals, and algorithm descriptions as arguments to
++       macros 'INSTR_ENC' and 'MASK_EXTR'.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R7.2
+      - Violations caused by __HYPERVISOR_VIRT_START are related to the
+        particular use of it done in xen_mk_ulong.
+diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+index 39c5c056c7d4..7ea47344ffcc 100644
+--- a/docs/misra/safe.json
++++ b/docs/misra/safe.json
+@@ -20,6 +20,14 @@
+         },
+         {
+             "id": "SAF-2-safe",
++            "analyser": {
++                "eclair": "MC3R1.R7.1"
++            },
++            "name": "Rule 7.1: constants defined in specifications, manuals, and algorithm descriptions",
++            "text": "It is safe to use certain octal constants the way they are defined in specifications, manuals, and algorithm descriptions."
++        },
++        {
++            "id": "SAF-3-safe",
+             "analyser": {},
+             "name": "Sentinel",
+             "text": "Next ID to be used"
+diff --git a/xen/common/inflate.c b/xen/common/inflate.c
+index 8fa4b96d12a3..be6a9115187e 100644
+--- a/xen/common/inflate.c
++++ b/xen/common/inflate.c
+@@ -1201,8 +1201,8 @@ static int __init gunzip(void)
+     magic[1] = NEXTBYTE();
+     method   = NEXTBYTE();
+
+-    if (magic[0] != 037 ||
+-        ((magic[1] != 0213) && (magic[1] != 0236))) {
++    /* SAF-2-safe */
++    if (magic[0] != 037 || ((magic[1] != 0213) && (magic[1] != 0236))) {
+         error("bad gzip magic numbers");
+         return -1;
+     }
+--
+2.34.1
 
