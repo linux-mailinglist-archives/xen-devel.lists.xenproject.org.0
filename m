@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CA37CFE80
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:43:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619442.964603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6160F7CFE85
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:44:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619467.964617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVBd-0001qa-Bi; Thu, 19 Oct 2023 15:43:49 +0000
+	id 1qtVC8-0002yr-Pc; Thu, 19 Oct 2023 15:44:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619442.964603; Thu, 19 Oct 2023 15:43:49 +0000
+Received: by outflank-mailman (output) from mailman id 619467.964617; Thu, 19 Oct 2023 15:44:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtVBd-0001nc-8C; Thu, 19 Oct 2023 15:43:49 +0000
-Received: by outflank-mailman (input) for mailman id 619442;
- Thu, 19 Oct 2023 15:43:47 +0000
+	id 1qtVC8-0002v6-ME; Thu, 19 Oct 2023 15:44:20 +0000
+Received: by outflank-mailman (input) for mailman id 619467;
+ Thu, 19 Oct 2023 15:44:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtV8s-0005v1-8J
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:58 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=m+UH=GB=desiato.srs.infradead.org=BATV+298c059cf2aa39b7dc34+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qtV90-0005v1-Mh
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:41:06 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e57cd846-6e95-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 17:40:57 +0200 (CEST)
+ id ea8fe925-6e95-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 17:41:06 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qtV8N-007ot2-OQ; Thu, 19 Oct 2023 15:40:27 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qtV8O-009yD6-0Q; Thu, 19 Oct 2023 15:40:28 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qtV8N-000PvA-1E; Thu, 19 Oct 2023 16:40:27 +0100
+ Linux)) id 1qtV8N-000PvL-1Y; Thu, 19 Oct 2023 16:40:27 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e57cd846-6e95-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: ea8fe925-6e95-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=jF67pHzxnrAWKEiszZxt5RKIgpusteGMnWw5yDJqImc=; b=imohxcfvgtCWq+2zIFKG49ThyV
-	XP3T0mbUzGafIoUgVEIf2465cbSeAm78X1hwmUxQahR16j7YiaU4r0Gk2qVLKbmHzaZVMBYb+A+UH
-	19tWH9EOZYj7xm2ZyAHOAU+Oyb5chRdqPvM9ERgCQWIpvyTuq2IBluPudM0rAaGlDAMqZjkEli+RS
-	YpRi2jDv2eTzGGsc+5wCfgmtOS5HAHxT9wM80mUGHemr5aAQ/ItWqmoFJ6HYSwsPZlMEWszuVQlDt
-	2DjW5zMibQLcUhji1knXOysxeWn2uzpvR108GmHMt2vpyQopheQTAB7sN5iR1UN0GQOFkwVEIS3f9
-	R4Td0/QQ==;
+	bh=y4cEjsiuJ1bFNsoLeKKWM6n6686E9X1lvqONj/DtYQs=; b=ifFdukRbinWhGVDRnq/A05lFVT
+	yRMvPZCaOprjgEjxSzFGvZEXWNAslFz/v02nsuwTcuGbTuoe87lOE+zeMrgTwkG6/h9ig70OqPSqR
+	bfdxd1veEzZP6xazI37SnE2yFKvo6BmAmxHOmfpgbJmQmWgzAQikS/3Je7XInblKRqN2rQnABpZHM
+	r6ALLY85CZBVonboM/IQU97amb2vBzbP0DXpc2lJwPkZcqFZXjSKQiiYdRPktO9GOD47jey1wR1Gi
+	rH6C+2aLVVFDSEG1nrVG8whrh/Ri6ARPVyH8y1tnjL8ebe/pBpT+chEH4dy2J8n9B7uVQcA/77gtS
+	3Q+CFtuA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>,
@@ -76,53 +76,130 @@ Cc: Kevin Wolf <kwolf@redhat.com>,
 	kvm@vger.kernel.org,
 	Bernhard Beschow <shentey@gmail.com>,
 	Joel Upham <jupham125@gmail.com>
-Subject: [PATCH v2 22/24] tests/avocado: switch to using xen-net-device for Xen guest tests
-Date: Thu, 19 Oct 2023 16:40:18 +0100
-Message-Id: <20231019154020.99080-23-dwmw2@infradead.org>
+Subject: [PATCH v2 23/24] xen-platform: unplug AHCI disks
+Date: Thu, 19 Oct 2023 16:40:19 +0100
+Message-Id: <20231019154020.99080-24-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231019154020.99080-1-dwmw2@infradead.org>
 References: <20231019154020.99080-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Fix the filename in the MAINTAINERS file too.
+To support Xen guests using the Q35 chipset, the unplug protocol needs
+to also remove AHCI disks.
+
+Make pci_xen_ide_unplug() more generic, iterating over the children
+of the PCI device and destroying the "ide-hd" devices. That works the
+same for both AHCI and IDE, as does the detection of the primary disk
+as unit 0 on the bus named "ide.0".
+
+Then pci_xen_ide_unplug() can be used for both AHCI and IDE devices.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- MAINTAINERS                    | 2 +-
- tests/avocado/kvm_xen_guest.py | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ hw/i386/xen/xen_platform.c | 68 +++++++++++++++++++++++++-------------
+ 1 file changed, 45 insertions(+), 23 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9bd4fe378d..d74043d8a9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -476,7 +476,7 @@ S: Supported
- F: include/sysemu/kvm_xen.h
- F: target/i386/kvm/xen*
- F: hw/i386/kvm/xen*
--F: tests/avocado/xen_guest.py
-+F: tests/avocado/kvm_xen_guest.py
+diff --git a/hw/i386/xen/xen_platform.c b/hw/i386/xen/xen_platform.c
+index e2dd1b536a..ef7d3fc05f 100644
+--- a/hw/i386/xen/xen_platform.c
++++ b/hw/i386/xen/xen_platform.c
+@@ -169,39 +169,60 @@ static void pci_unplug_nics(PCIBus *bus)
+  *
+  * [1] https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/misc/hvm-emulated-unplug.pandoc
+  */
+-static void pci_xen_ide_unplug(PCIDevice *d, bool aux)
++struct ide_unplug_state {
++    bool aux;
++    int nr_unplugged;
++};
++
++static int ide_dev_unplug(DeviceState *dev, void *_st)
+ {
+-    DeviceState *dev = DEVICE(d);
+-    PCIIDEState *pci_ide;
+-    int i;
++    struct ide_unplug_state *st = _st;
+     IDEDevice *idedev;
+     IDEBus *idebus;
+     BlockBackend *blk;
++    int unit;
++
++    idedev = IDE_DEVICE(object_dynamic_cast(OBJECT(dev), "ide-hd"));
++    if (!idedev) {
++        return 0;
++    }
  
- Guest CPU Cores (other accelerators)
- ------------------------------------
-diff --git a/tests/avocado/kvm_xen_guest.py b/tests/avocado/kvm_xen_guest.py
-index 5391283113..f098028eeb 100644
---- a/tests/avocado/kvm_xen_guest.py
-+++ b/tests/avocado/kvm_xen_guest.py
-@@ -61,7 +61,7 @@ def run_and_check(self):
-                          '-append', self.kernel_params,
-                          '-drive',  f"file={self.rootfs},if=none,format=raw,id=drv0",
-                          '-device', 'xen-disk,drive=drv0,vdev=xvda',
--                         '-device', 'virtio-net-pci,netdev=unet',
-+                         '-device', 'xen-net-device,netdev=unet',
-                          '-netdev', 'user,id=unet,hostfwd=:127.0.0.1:0-:22')
+-    pci_ide = PCI_IDE(dev);
++    idebus = IDE_BUS(qdev_get_parent_bus(dev));
  
-         try:
+-    for (i = aux ? 1 : 0; i < 4; i++) {
+-        idebus = &pci_ide->bus[i / 2];
+-        blk = idebus->ifs[i % 2].blk;
++    unit = (idedev == idebus->slave);
++    assert(unit || idedev == idebus->master);
+ 
+-        if (blk && idebus->ifs[i % 2].drive_kind != IDE_CD) {
+-            if (!(i % 2)) {
+-                idedev = idebus->master;
+-            } else {
+-                idedev = idebus->slave;
+-            }
++    if (st->aux && !unit && !strcmp(BUS(idebus)->name, "ide.0")) {
++        return 0;
++    }
+ 
+-            blk_drain(blk);
+-            blk_flush(blk);
++    blk = idebus->ifs[unit].blk;
++    if (blk) {
++        blk_drain(blk);
++        blk_flush(blk);
+ 
+-            blk_detach_dev(blk, DEVICE(idedev));
+-            idebus->ifs[i % 2].blk = NULL;
+-            idedev->conf.blk = NULL;
+-            monitor_remove_blk(blk);
+-            blk_unref(blk);
+-        }
++        blk_detach_dev(blk, DEVICE(idedev));
++        idebus->ifs[unit].blk = NULL;
++        idedev->conf.blk = NULL;
++        monitor_remove_blk(blk);
++        blk_unref(blk);
++    }
++
++    object_unparent(OBJECT(dev));
++    st->nr_unplugged++;
++
++    return 0;
++}
++
++static void pci_xen_ide_unplug(PCIDevice *d, bool aux)
++{
++    struct ide_unplug_state st = { aux, 0 };
++    DeviceState *dev = DEVICE(d);
++
++    qdev_walk_children(dev, NULL, NULL, ide_dev_unplug, NULL, &st);
++    if (st.nr_unplugged) {
++        pci_device_reset(d);
+     }
+-    pci_device_reset(d);
+ }
+ 
+ static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
+@@ -216,6 +237,7 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
+ 
+     switch (pci_get_word(d->config + PCI_CLASS_DEVICE)) {
+     case PCI_CLASS_STORAGE_IDE:
++    case PCI_CLASS_STORAGE_SATA:
+         pci_xen_ide_unplug(d, aux);
+         break;
+ 
 -- 
 2.40.1
 
