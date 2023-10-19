@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1F47CFE43
+	by mail.lfdr.de (Postfix) with ESMTPS id D18F27CFE44
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 17:41:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619415.964449 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.619425.964533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8o-0007Jv-Mx; Thu, 19 Oct 2023 15:40:54 +0000
+	id 1qtV8x-00017o-Ea; Thu, 19 Oct 2023 15:41:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619415.964449; Thu, 19 Oct 2023 15:40:54 +0000
+Received: by outflank-mailman (output) from mailman id 619425.964533; Thu, 19 Oct 2023 15:41:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtV8o-0007Bb-Eo; Thu, 19 Oct 2023 15:40:54 +0000
-Received: by outflank-mailman (input) for mailman id 619415;
- Thu, 19 Oct 2023 15:40:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qtV8w-0000ty-RM; Thu, 19 Oct 2023 15:41:02 +0000
+Received: by outflank-mailman (input) for mailman id 619425;
+ Thu, 19 Oct 2023 15:40:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtV8n-0005v1-7M
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:53 +0000
+ id 1qtV8r-0006dc-Va
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 15:40:57 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e12af5ed-6e95-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 17:40:50 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3ac646c-6e95-11ee-9b0e-b553b5be7939;
+ Thu, 19 Oct 2023 17:40:54 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qtV8N-007ost-6Z; Thu, 19 Oct 2023 15:40:27 +0000
+ id 1qtV8N-007osu-Ka; Thu, 19 Oct 2023 15:40:27 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qtV8M-000Puj-2e; Thu, 19 Oct 2023 16:40:26 +0100
+ Linux)) id 1qtV8M-000Pun-2t; Thu, 19 Oct 2023 16:40:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e12af5ed-6e95-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: e3ac646c-6e95-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=bY7G6BllzrJN3vFK/Y7G+K3RXXQYNifA9f7cWw91v+w=; b=MWiT9XbJDhi9ujm0tGvm22upP7
-	te/lmQ/hmveZzn0ycVjWqixFGMKT6/5fU6uvVcMql6gSfMbgWZLlU7jwp9ryFUBA7uH56p+hVjjco
-	0AZoYkc+YKjxkHCN455FCa166iJ2BrpMdVUOsH/51ZvwultlVsVlL27jQtCS6+ycQutWfSv92YIn8
-	7ztLveVVi78j4kpc/qu9EyXLlAdscdGLg+mFl9+MTP4eKRjsKTd0Wr4JMvc3B3VT382bsQWkXT3pd
-	P8bP7vqrqozgMjgfKrnxvHZI95genVjq6SQ4008ksTv9EPtTYLWgSGCSZ6RMS3gPObuzgRGF6D9zW
-	4qnfXlBg==;
+	bh=ASyx27ABg/WdxWXFMwdeXHtm2HUFOe8n8pbrbgV+R1U=; b=Q+6ncjmIFo7hTNy+ZtPc79xrDg
+	U0NPXNlvZPU1d6HeGintbbtqvIYEobGpIB0sVq48i90OOnNVC0x5hreYF3WC+S7oFhdU/13C0cLWM
+	UrhTnsczsHoP4H+j6SHuGqaEn2fGYbMjx7xUkY9vRx883FDUmsO01FIdAmlwBby8fb35TEO/07CkS
+	4au4CXHmp+EBgIGBx39jcVmNxzfU0dKzcCq80PArVikh/em2Z8PYOnQPSUv2S0RwM2XY7x4eVYYGR
+	wbhOd/4VV4zgWXwR8ewuYpktTU6ZEdD0hc2QTnjpwZ4IEaguUj3sAUgXLdwxiyp7sVTNcpGVQwFAF
+	xn1VjjWw==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>,
@@ -76,9 +76,9 @@ Cc: Kevin Wolf <kwolf@redhat.com>,
 	kvm@vger.kernel.org,
 	Bernhard Beschow <shentey@gmail.com>,
 	Joel Upham <jupham125@gmail.com>
-Subject: [PATCH v2 16/24] hw/xen: handle soft reset for primary console
-Date: Thu, 19 Oct 2023 16:40:12 +0100
-Message-Id: <20231019154020.99080-17-dwmw2@infradead.org>
+Subject: [PATCH v2 17/24] hw/xen: only remove peers of PCI NICs on unplug
+Date: Thu, 19 Oct 2023 16:40:13 +0100
+Message-Id: <20231019154020.99080-18-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231019154020.99080-1-dwmw2@infradead.org>
 References: <20231019154020.99080-1-dwmw2@infradead.org>
@@ -89,120 +89,35 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-On soft reset, the prinary console event channel needs to be rebound to
-the backend port (in the xen-console driver). We could put that into the
-xen-console driver itself, but it's slightly less ugly to keep it within
-the KVM/Xen code, by stashing the backend port# on event channel reset
-and then rebinding in the primary console reset when it has to recreate
-the guest port anyway.
+When the Xen guest asks to unplug *emulated* NICs, it's kind of unhelpful
+also to unplug the peer of the *Xen* PV NIC.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/i386/kvm/xen_evtchn.c          |  9 +++++++++
- hw/i386/kvm/xen_primary_console.c | 29 ++++++++++++++++++++++++++++-
- hw/i386/kvm/xen_primary_console.h |  1 +
- 3 files changed, 38 insertions(+), 1 deletion(-)
+ hw/i386/xen/xen_platform.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/hw/i386/kvm/xen_evtchn.c b/hw/i386/kvm/xen_evtchn.c
-index d72dca6591..ce4da6d37a 100644
---- a/hw/i386/kvm/xen_evtchn.c
-+++ b/hw/i386/kvm/xen_evtchn.c
-@@ -40,6 +40,7 @@
- #include "xen_evtchn.h"
- #include "xen_overlay.h"
- #include "xen_xenstore.h"
-+#include "xen_primary_console.h"
- 
- #include "sysemu/kvm.h"
- #include "sysemu/kvm_xen.h"
-@@ -1098,6 +1099,7 @@ int xen_evtchn_soft_reset(void)
+diff --git a/hw/i386/xen/xen_platform.c b/hw/i386/xen/xen_platform.c
+index 17457ff3de..e2dd1b536a 100644
+--- a/hw/i386/xen/xen_platform.c
++++ b/hw/i386/xen/xen_platform.c
+@@ -140,9 +140,14 @@ static void unplug_nic(PCIBus *b, PCIDevice *d, void *o)
+ /* Remove the peer of the NIC device. Normally, this would be a tap device. */
+ static void del_nic_peer(NICState *nic, void *opaque)
  {
-     XenEvtchnState *s = xen_evtchn_singleton;
-     bool flush_kvm_routes;
-+    uint16_t con_port = xen_primary_console_get_port();
-     int i;
- 
-     if (!s) {
-@@ -1108,6 +1110,13 @@ int xen_evtchn_soft_reset(void)
- 
-     qemu_mutex_lock(&s->port_lock);
- 
-+    if (con_port) {
-+        XenEvtchnPort *p = &s->port_table[con_port];
-+        if (p->type == EVTCHNSTAT_interdomain) {
-+            xen_primary_console_set_be_port(p->u.interdomain.port);
-+        }
-+    }
+-    NetClientState *nc;
++    NetClientState *nc = qemu_get_queue(nic);
++    ObjectClass *klass = module_object_class_by_name(nc->model);
 +
-     for (i = 0; i < s->nr_ports; i++) {
-         close_port(s, i, &flush_kvm_routes);
-     }
-diff --git a/hw/i386/kvm/xen_primary_console.c b/hw/i386/kvm/xen_primary_console.c
-index 0aa1c16ad6..5e6e085ac7 100644
---- a/hw/i386/kvm/xen_primary_console.c
-+++ b/hw/i386/kvm/xen_primary_console.c
-@@ -112,6 +112,15 @@ uint16_t xen_primary_console_get_port(void)
-     return s->guest_port;
++    /* Only delete peers of PCI NICs that we're about to delete */
++    if (!klass || !object_class_dynamic_cast(klass, TYPE_PCI_DEVICE)) {
++        return;
++    }
+ 
+-    nc = qemu_get_queue(nic);
+     if (nc->peer)
+         qemu_del_net_client(nc->peer);
  }
- 
-+void xen_primary_console_set_be_port(uint16_t port)
-+{
-+    XenPrimaryConsoleState *s = xen_primary_console_singleton;
-+    if (s) {
-+        printf("be port set to %d\n", port);
-+        s->be_port = port;
-+    }
-+}
-+
- uint64_t xen_primary_console_get_pfn(void)
- {
-     XenPrimaryConsoleState *s = xen_primary_console_singleton;
-@@ -142,6 +151,20 @@ static void alloc_guest_port(XenPrimaryConsoleState *s)
-     }
- }
- 
-+static void rebind_guest_port(XenPrimaryConsoleState *s)
-+{
-+    struct evtchn_bind_interdomain inter = {
-+        .remote_dom = DOMID_QEMU,
-+        .remote_port = s->be_port,
-+    };
-+
-+    if (!xen_evtchn_bind_interdomain_op(&inter)) {
-+        s->guest_port = inter.local_port;
-+    }
-+
-+    s->be_port = 0;
-+}
-+
- int xen_primary_console_reset(void)
- {
-     XenPrimaryConsoleState *s = xen_primary_console_singleton;
-@@ -154,7 +177,11 @@ int xen_primary_console_reset(void)
-         xen_overlay_do_map_page(&s->console_page, gpa);
-     }
- 
--    alloc_guest_port(s);
-+    if (s->be_port) {
-+        rebind_guest_port(s);
-+    } else {
-+        alloc_guest_port(s);
-+    }
- 
-     trace_xen_primary_console_reset(s->guest_port);
- 
-diff --git a/hw/i386/kvm/xen_primary_console.h b/hw/i386/kvm/xen_primary_console.h
-index dd4922f3f4..7e2989ea0d 100644
---- a/hw/i386/kvm/xen_primary_console.h
-+++ b/hw/i386/kvm/xen_primary_console.h
-@@ -16,6 +16,7 @@ void xen_primary_console_create(void);
- int xen_primary_console_reset(void);
- 
- uint16_t xen_primary_console_get_port(void);
-+void xen_primary_console_set_be_port(uint16_t port);
- uint64_t xen_primary_console_get_pfn(void);
- void *xen_primary_console_get_map(void);
- 
 -- 
 2.40.1
 
