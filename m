@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967DE7CF7A1
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 13:56:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619269.964092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 709B97CF806
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 14:04:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619286.964103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtRcs-0003fC-Vg; Thu, 19 Oct 2023 11:55:42 +0000
+	id 1qtRkp-0006Iz-5Y; Thu, 19 Oct 2023 12:03:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619269.964092; Thu, 19 Oct 2023 11:55:42 +0000
+Received: by outflank-mailman (output) from mailman id 619286.964103; Thu, 19 Oct 2023 12:03:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtRcs-0003cd-T2; Thu, 19 Oct 2023 11:55:42 +0000
-Received: by outflank-mailman (input) for mailman id 619269;
- Thu, 19 Oct 2023 11:55:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3zlj=GB=redhat.com=vkuznets@srs-se1.protection.inumbo.net>)
- id 1qtRcs-0003bI-Cf
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 11:55:42 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bf48134-6e76-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 13:55:40 +0200 (CEST)
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-664-ay8NE0scO6G0bw8Nglbr3A-1; Thu, 19 Oct 2023 07:55:35 -0400
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-9b274cc9636so581907366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Oct 2023 04:55:35 -0700 (PDT)
-Received: from fedora (g2.ign.cz. [91.219.240.8])
- by smtp.gmail.com with ESMTPSA id
- hb6-20020a170906b88600b009b8dbdd5203sm3372788ejb.107.2023.10.19.04.55.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Oct 2023 04:55:33 -0700 (PDT)
+	id 1qtRkp-0006Gh-2V; Thu, 19 Oct 2023 12:03:55 +0000
+Received: by outflank-mailman (input) for mailman id 619286;
+ Thu, 19 Oct 2023 12:03:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yz61=GB=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qtRkn-0006Gb-AO
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 12:03:53 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91d1c613-6e77-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 14:03:52 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 091FD21A59;
+ Thu, 19 Oct 2023 12:03:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D7E5F139C2;
+ Thu, 19 Oct 2023 12:03:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id axZzMiYbMWW5MQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 19 Oct 2023 12:03:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,222 +51,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bf48134-6e76-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1697716538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JG4lTBZAdQNjQdsOUJfgsaU+O9WpyXKgw/EAl16ov/Y=;
-	b=RiLxNvb5Wa+ha85fC89PqckV5ObzJVzT1TZvrtKCAub0rsofHbHyBSWp/uQk8XyyFKCy1n
-	pNoYeUhscd4mIq9Q5Nn0duvBXcaZEnnF6K7k3nyjz2LoeyBhvNvfgAJRSXppP+XSTyVZzw
-	8NTfBOgIea7mj/SKFqW8SgnvgyeVMo0=
-X-MC-Unique: ay8NE0scO6G0bw8Nglbr3A-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697716534; x=1698321334;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JG4lTBZAdQNjQdsOUJfgsaU+O9WpyXKgw/EAl16ov/Y=;
-        b=PM8OWvDNO2LbT5bZk+/DNdewaDaHytkYteLA9K7JMRERUZ0GKolm7M0Q76Mp/1bwOo
-         /JJpZ+W5mz6rtrk3fPjW+g6TcCC4XxAELwmrm+TJRndwzb6NCp29KniBFCOnrubZ7uRc
-         aaApwtEHq8NmIj7nGph/FqlrpkzP+L0jrbprP1qVqSOEm2brDs3zoF4eKz342voRdpsG
-         HKs0tlLGpeDkMD31FHluF8SJVvVbnX/q22HAI+Ah/pN1oxcT6CNRyHAExjtsvepz3tla
-         Oa+hZeOkrV1Rq0o3oI6uE64FQoQUSxdzOWHrP7GIXQlhukUaznPlpg27s8q+xrYPijdU
-         IMag==
-X-Gm-Message-State: AOJu0YxfE2lGF5UFSgpqmOa9G8sLD+Dx8ExHlFlSh1BP8aczWvy9+Oq+
-	LBWToC/wxfvDL3fjM5p2R2iO89AI+GkF03hrE0tennnfzRNw0YFU3vYdUHtbD7nrj1UnaJDPFlj
-	Qx2S3+NxXYnkbMDfiui1vk1E3gr4=
-X-Received: by 2002:a17:907:7f0f:b0:9c4:d19:4a6a with SMTP id qf15-20020a1709077f0f00b009c40d194a6amr1860677ejc.53.1697716534555;
-        Thu, 19 Oct 2023 04:55:34 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG9mIPgfvn9ZU7nuvj7xbGgy8xMbs+UZxNrZmJKG1kLP0WAJ1c7LQRgVQvXQZF9O5leQxJekQ==
-X-Received: by 2002:a17:907:7f0f:b0:9c4:d19:4a6a with SMTP id qf15-20020a1709077f0f00b009c40d194a6amr1860648ejc.53.1697716534168;
-        Thu, 19 Oct 2023 04:55:34 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Dongli Zhang <dongli.zhang@oracle.com>, x86@kernel.org,
- virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
- pv-drivers@vmware.com, xen-devel@lists.xenproject.org,
- linux-hyperv@vger.kernel.org
-Cc: jgross@suse.com, akaher@vmware.com, amakhalov@vmware.com,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, pbonzini@redhat.com,
- wanpengli@tencent.com, peterz@infradead.org, seanjc@google.com,
- dwmw2@infradead.org, joe.jin@oracle.com, boris.ostrovsky@oracle.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/1] x86/paravirt: introduce param to disable pv
- sched_clock
-In-Reply-To: <20231018221123.136403-1-dongli.zhang@oracle.com>
-References: <20231018221123.136403-1-dongli.zhang@oracle.com>
-Date: Thu, 19 Oct 2023 13:55:32 +0200
-Message-ID: <87ttqm6d3f.fsf@redhat.com>
+X-Inumbo-ID: 91d1c613-6e77-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1697717031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9h5B858bAWry/8oNBNcVnj0nixdWb98VmSWHQtHhdlw=;
+	b=Fs5Xl3nIP5xoaHrqs94xKN3yPTXYvdzkNrPaQquJu3cGtQjIXESAc6q7KFapcr848ZMsFS
+	QwOW8UkjHiljf+Rf6kmpxhiY2WdtNfpg7TeaKpc3csyAKum2Mil61w1HY+w35KJy5U8jh6
+	07mYNiBKnC8SpOdudlhxbyFlov4erm8=
+Message-ID: <9a82244d-6d6b-4676-8050-a4aeb0747071@suse.com>
+Date: Thu, 19 Oct 2023 14:03:50 +0200
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/sched: fix sched_move_domain()
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
+References: <20231019112314.22665-1-jgross@suse.com>
+ <F1CDF477-9003-45F9-83E8-2122413AB514@arm.com>
+ <1f8183eb-65cc-41b6-bd91-d1075757b366@suse.com>
+ <83E6DCF6-926C-43A6-94D2-EB3B2C444309@arm.com>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <83E6DCF6-926C-43A6-94D2-EB3B2C444309@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------kiI4HuJ8YBLu9qlyVV32ofvf"
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -8.99
+X-Spamd-Result: default: False [-8.99 / 50.00];
+	 ARC_NA(0.00)[];
+	 TO_DN_EQ_ADDR_SOME(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	 HAS_ATTACHMENT(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-1.00)[-1.000];
+	 MIME_BASE64_TEXT(0.10)[];
+	 SIGNED_PGP(-2.00)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[];
+	 MIME_UNKNOWN(0.10)[application/pgp-keys]
+X-Spam-Flag: NO
 
-Dongli Zhang <dongli.zhang@oracle.com> writes:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------kiI4HuJ8YBLu9qlyVV32ofvf
+Content-Type: multipart/mixed; boundary="------------0z0As0vBNDnK3NLKJ031PDF7";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <9a82244d-6d6b-4676-8050-a4aeb0747071@suse.com>
+Subject: Re: [PATCH] xen/sched: fix sched_move_domain()
+References: <20231019112314.22665-1-jgross@suse.com>
+ <F1CDF477-9003-45F9-83E8-2122413AB514@arm.com>
+ <1f8183eb-65cc-41b6-bd91-d1075757b366@suse.com>
+ <83E6DCF6-926C-43A6-94D2-EB3B2C444309@arm.com>
+In-Reply-To: <83E6DCF6-926C-43A6-94D2-EB3B2C444309@arm.com>
 
-> As mentioned in the linux kernel development document, "sched_clock() is
-> used for scheduling and timestamping". While there is a default native
-> implementation, many paravirtualizations have their own implementations.
->
-> About KVM, it uses kvm_sched_clock_read() and there is no way to only
-> disable KVM's sched_clock. The "no-kvmclock" may disable all
-> paravirtualized kvmclock features.
->
->  94 static inline void kvm_sched_clock_init(bool stable)
->  95 {
->  96         if (!stable)
->  97                 clear_sched_clock_stable();
->  98         kvm_sched_clock_offset = kvm_clock_read();
->  99         paravirt_set_sched_clock(kvm_sched_clock_read);
-> 100
-> 101         pr_info("kvm-clock: using sched offset of %llu cycles",
-> 102                 kvm_sched_clock_offset);
-> 103
-> 104         BUILD_BUG_ON(sizeof(kvm_sched_clock_offset) >
-> 105                 sizeof(((struct pvclock_vcpu_time_info *)NULL)->system_time));
-> 106 }
->
-> There is known issue that kvmclock may drift during vCPU hotplug [1].
-> Although a temporary fix is available [2], we may need a way to disable pv
-> sched_clock. Nowadays, the TSC is more stable and has less performance
-> overhead than kvmclock.
->
-> This is to propose to introduce a global param to disable pv sched_clock
-> for all paravirtualizations.
->
-> Please suggest and comment if other options are better:
->
-> 1. Global param (this RFC patch).
->
-> 2. The kvmclock specific param (e.g., "no-vmw-sched-clock" in vmware).
->
-> Indeed I like the 2nd method.
->
-> 3. Enforce native sched_clock only when TSC is invariant (hyper-v method).
->
-> 4. Remove and cleanup pv sched_clock, and always use pv_sched_clock() for
-> all (suggested by Peter Zijlstra in [3]). Some paravirtualizations may
-> want to keep the pv sched_clock.
+--------------0z0As0vBNDnK3NLKJ031PDF7
+Content-Type: multipart/mixed; boundary="------------bI7h4ETJgGYHVzgaq1f9116L"
 
-Normally, it should be up to the hypervisor to tell the guest which
-clock to use, i.e. if TSC is reliable or not. Let me put my question
-this way: if TSC on the particular host is good for everything, why
-does the hypervisor advertises 'kvmclock' to its guests? If for some
-'historical reasons' we can't revoke features we can always introduce a
-new PV feature bit saying that TSC is preferred.
+--------------bI7h4ETJgGYHVzgaq1f9116L
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-1) Global param doesn't sound like a good idea to me: chances are that
-people will be setting it on their guest images to workaround problems
-on one hypervisor (or, rather, on one public cloud which is too lazy to
-fix their hypervisor) while simultaneously creating problems on another.
+T24gMTkuMTAuMjMgMTM6NDksIEhlbnJ5IFdhbmcgd3JvdGU6DQo+IEhpIEp1ZXJnZW4sDQo+
+IA0KPj4gT24gT2N0IDE5LCAyMDIzLCBhdCAxOTozOCwgSnVlcmdlbiBHcm9zcyA8amdyb3Nz
+QHN1c2UuY29tPiB3cm90ZToNCj4+DQo+PiBPbiAxOS4xMC4yMyAxMzozMSwgSGVucnkgV2Fu
+ZyB3cm90ZToNCj4+PiBIaSBKdWVyZ2VuLA0KPj4+PiBPbiBPY3QgMTksIDIwMjMsIGF0IDE5
+OjIzLCBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+IHdyb3RlOg0KPj4+Pg0KPj4+
+PiBXaGVuIG1vdmluZyBhIGRvbWFpbiBvdXQgb2YgYSBjcHVwb29sIHJ1bm5pbmcgd2l0aCB0
+aGUgY3JlZGl0Mg0KPj4+PiBzY2hlZHVsZXIgYW5kIGhhdmluZyBtdWx0aXBsZSBydW4tcXVl
+dWVzLCB0aGUgZm9sbG93aW5nIEFTU0VSVCgpIGNhbg0KPj4+PiBiZSBvYnNlcnZlZDoNCj4+
+Pj4NCj4+Pj4gKFhFTikgWGVuIGNhbGwgdHJhY2U6DQo+Pj4+IChYRU4pICAgIFs8ZmZmZjgy
+ZDA0MDIzYTcwMD5dIFIgY3JlZGl0Mi5jI2NzY2hlZDJfdW5pdF9yZW1vdmUrMHhlMy8weGU3
+DQo+Pj4+IChYRU4pICAgIFs8ZmZmZjgyZDA0MDI0NmFkYj5dIFMgc2NoZWRfbW92ZV9kb21h
+aW4rMHgyZjMvMHg1YjENCj4+Pj4gKFhFTikgICAgWzxmZmZmODJkMDQwMjM0Y2Y3Pl0gUyBj
+cHVwb29sLmMjY3B1cG9vbF9tb3ZlX2RvbWFpbl9sb2NrZWQrMHgxZC8weDNiDQo+Pj4+IChY
+RU4pICAgIFs8ZmZmZjgyZDA0MDIzNjAyNT5dIFMgY3B1cG9vbF9tb3ZlX2RvbWFpbisweDI0
+LzB4MzUNCj4+Pj4gKFhFTikgICAgWzxmZmZmODJkMDQwMjA2NTEzPl0gUyBkb21haW5fa2ls
+bCsweGE1LzB4MTE2DQo+Pj4+IChYRU4pICAgIFs8ZmZmZjgyZDA0MDIzMmIxMj5dIFMgZG9f
+ZG9tY3RsKzB4ZTVmLzB4MTk1MQ0KPj4+PiAoWEVOKSAgICBbPGZmZmY4MmQwNDAyMjc2YmE+
+XSBTIHRpbWVyLmMjdGltZXJfbG9jaysweDY5LzB4MTQzDQo+Pj4+IChYRU4pICAgIFs8ZmZm
+ZjgyZDA0MDJkYzcxYj5dIFMgcHZfaHlwZXJjYWxsKzB4NDRlLzB4NGE5DQo+Pj4+IChYRU4p
+ICAgIFs8ZmZmZjgyZDA0MDIwMTJiNz5dIFMgbHN0YXJfZW50ZXIrMHgxMzcvMHgxNDANCj4+
+Pj4gKFhFTikNCj4+Pj4gKFhFTikNCj4+Pj4gKFhFTikgKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKg0KPj4+PiAoWEVOKSBQYW5pYyBvbiBDUFUgMToNCj4+Pj4g
+KFhFTikgQXNzZXJ0aW9uICdzdmMtPnJxZCA9PSBjMnJxZChzY2hlZF91bml0X21hc3Rlcih1
+bml0KSknIGZhaWxlZCBhdCBjb21tb24vc2NoZWQvY3JlZGl0Mi5jOjExNTkNCj4+Pj4gKFhF
+TikgKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKg0KPj4+Pg0KPj4+
+PiBUaGlzIGlzIGhhcHBlbmluZyBhcyBzY2hlZF9tb3ZlX2RvbWFpbigpIGlzIHNldHRpbmcg
+YSBkaWZmZXJlbnQgY3B1DQo+Pj4+IGZvciBhIHNjaGVkdWxpbmcgdW5pdCB3aXRob3V0IHRl
+bGxpbmcgdGhlIHNjaGVkdWxlci4gV2hlbiB0aGlzIHVuaXQgaXMNCj4+Pj4gcmVtb3ZlZCBm
+cm9tIHRoZSBzY2hlZHVsZXIsIHRoZSBBU1NFUlQoKSB3aWxsIHRyaWdnZXIuDQo+Pj4+DQo+
+Pj4+IEluIG5vbi1kZWJ1ZyBidWlsZHMgdGhlIHJlc3VsdCBpcyB1c3VhbGx5IGEgY2xvYmJl
+cmVkIHBvaW50ZXIsIGxlYWRpbmcNCj4+Pj4gdG8gYW5vdGhlciBjcmFzaCBhIHNob3J0IHRp
+bWUgbGF0ZXIuDQo+Pj4+DQo+Pj4+IEZpeCB0aGF0IGJ5IHN3YXBwaW5nIHRoZSB0d28gaW52
+b2x2ZWQgYWN0aW9ucyAoc2V0dGluZyBhbm90aGVyIGNwdSBhbmQNCj4+Pj4gcmVtb3Zpbmcg
+dGhlIHVuaXQgZnJvbSB0aGUgc2NoZWR1bGVyKS4NCj4+Pj4NCj4+Pj4gQ2M6IEhlbnJ5IFdh
+bmcgPEhlbnJ5LldhbmdAYXJtLmNvbT4NCj4+PiBFbW1tLCBJIHRoaW5rIF4gdGhpcyBDQyBp
+cyBiZXR0ZXIgdG8gbWUgbW92ZWQgdG8gdGhlIHNjaXNzb3JzIGxpbmUsIG90aGVyd2lzZQ0K
+Pj4+IGlmIHRoaXMgcGF0Y2ggaXMgY29tbWl0dGVkLCB0aGlzIGxpbmUgd2lsbCBiZSBzaG93
+biBpbiB0aGUgY29tbWl0IG1lc3NhZ2UuLi4NCj4+Pj4gRml4ZXM6IDcwZmFkYzQxNjM1YiAo
+Inhlbi9jcHVwb29sOiBzdXBwb3J0IG1vdmluZyBkb21haW4gYmV0d2VlbiBjcHVwb29scyB3
+aXRoIGRpZmZlcmVudCBncmFudWxhcml0eSIpDQo+Pj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJn
+ZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+IFRoaXMgZml4ZXMg
+YSByZWdyZXNzaW9uIGludHJvZHVjZWQgaW4gWGVuIDQuMTUuIFRoZSBmaXggaXMgdmVyeSBz
+aW1wbGUNCj4+Pj4gYW5kIGl0IHdpbGwgYWZmZWN0IG9ubHkgY29uZmlndXJhdGlvbnMgd2l0
+aCBtdWx0aXBsZSBjcHVwb29scy4gSSB0aGluaw0KPj4+PiB3aGV0aGVyIHRvIGluY2x1ZGUg
+aXQgaW4gNC4xOCBzaG91bGQgYmUgZGVjaWRlZCBieSB0aGUgcmVsZWFzZSBtYW5hZ2VyDQo+
+Pj4+IGJhc2VkIG9uIHRoZSBjdXJyZW50IHN0YXRlIG9mIHRoZSByZWxlYXNlIChJIHRoaW5r
+IEkgd291bGRuJ3QgaGF2ZQ0KPj4+PiBhZGRlZCBpdCB0aGF0IGxhdGUgaW4gdGhlIHJlbGVh
+c2Ugd2hpbGUgYmVpbmcgdGhlIHJlbGVhc2UgbWFuYWdlcikuDQo+Pj4gVGhhbmtzIGZvciB0
+aGUgcmVtaW5kZXIgOikNCj4+PiBQbGVhc2UgY29ycmVjdCBtZSBpZiBJIGFtIHdyb25nLCBp
+ZiB0aGlzIGlzIGZpeGluZyB0aGUgcmVncmVzc2lvbiBpbnRyb2R1Y2VkIGluDQo+Pj4gNC4x
+NSwgc2hvdWxkbuKAmXQgdGhpcyBwYXRjaCBiZWluZyBiYWNrcG9ydGVkIHRvIDQuMTUsIDQu
+MTYsIDQuMTcgYW5kIHNvb24NCj4+PiA0LjE4PyBTbyBob25lc3RseSBJIHRoaW5rIGF0IGxl
+YXN0IGZvciA0LjE4IGVpdGhlciBhZGQgdGhpcyBwYXRjaCBub3cgb3INCj4+PiBsYXRlciB3
+b27igJl0IG1ha2UgbXVjaCBkaWZmZXJlbmNl4oCmSSBhbSBvayBlaXRoZXIgd2F5IEkgZ3Vl
+c3MuDQo+Pg0KPj4gWW91IGFyZSByaWdodCwgdGhlIHBhdGNoIG5lZWRzIHRvIGJlIGJhY2tw
+b3J0ZWQuDQo+Pg0KPj4gT1RPSCBub2JvZHkgbm90aWNlZCB0aGUgcmVncmVzc2lvbiB1bnRp
+bCBhIGZldyBkYXlzIGFnby4gU28gZGVsYXlpbmcgdGhlIGZpeA0KPj4gZm9yIGEgZmV3IHdl
+ZWtzIHdvdWxkIHByb2JhYmx5IG5vdCBodXJ0IHRvbyBtYW55IHBlb3BsZS4NCj4gDQo+IEkg
+YW0gcGxhbm5pbmcgdG8gYnJhbmNoIG5leHQgd2Vlaywgc28gSSB3b3VsZCBzYXkgdGhpcyBw
+YXRjaCBwcm9iYWJseSB3aWxsIGJlDQo+IGRlbGF5ZWQgbWF4IDEgd2VlayBJIGd1ZXNzLg0K
+PiANCj4+IEVhY2ggcGF0Y2ggY2hhbmdpbmcNCj4+IGNvZGUgaXMgYSByaXNrIHRvIGludHJv
+ZHVjZSBhbm90aGVyIHJlZ3Jlc3Npb24sIHNvIGl0cyB5b3VyIGRlY2lzaW9uIHdoZXRoZXIN
+Cj4+IHlvdSB3YW50IHRvIHRha2UgdGhpcyByaXNrLiBFc3BlY2lhbGx5IGNoYW5nZXMgbGlr
+ZSB0aGlzIG9uZSB0b3VjaGluZyB0aGUNCj4+IGNvcmUgc2NoZWR1bGluZyBjb2RlIGFsd2F5
+cyBoYXZlIGEgbGF0ZW50IHJpc2sgdG8gb3BlbiB1cCBhIHNtYWxsIHJhY2Ugd2luZG93DQo+
+PiAodGhpcyBjb3VsZCBiZSBzYWlkIGZvciB0aGUgb3JpZ2luYWwgcGF0Y2ggSSdtIGZpeGlu
+ZyBoZXJlLCB0b28gOi0pICkuDQo+IA0KPiBUaGF0IHNhaWQsIGdpdmVuIHRoZSBmYWN0IHRo
+YXQgdGhpcyBwYXRjaCBpcyBmaXhpbmcgYSByZWdyZXNzaW9uIHllYXJzIGFnbyBhbmQNCj4g
+d2lsbCBiZSBiYWNrcG9ydGVkIHRvIHRoZSBzdGFibGUgcmVsZWFzZXMsIEkgYW0gbW9yZSBs
+ZWFuaW5nIHRvd2FyZHMgbWVyZ2luZw0KPiB0aGlzIHBhdGNoIHdoZW4gdGhlIHRyZWUgcmVv
+cGVucyAodW5sZXNzIG90aGVycyBzdHJvbmdseSBvYmplY3QpLCBzbyB0aGF0IHRoaXMNCj4g
+cGF0Y2ggd2lsbCBnZXQgdGhlIG9wcG9ydHVuaXR5IHRvIGJlIHRlc3RlZCBwcm9wZXJseSwg
+YW5kIHdlIHdvbuKAmXQgdGFrZSB0b28gbXVjaA0KPiByaXNrIHRvIGRlbGF5IHRoZSA0LjE4
+IHJlbGVhc2UuIEFsc28gdGhpcyBkZWNpc2lvbiBpcyBjb25zaXN0ZW50IHdpdGggeW91ciAo
+YW4NCj4gZXggcmVsZWFzZSBtYW5hZ2VyKSBhYm92ZSB3b3JkcyBpbiB0aGUgc2Npc3NvcnMg
+bGluZSA6KQ0KPiANCj4gSG9wZWZ1bGx5IHlvdSB3aWxsIGFsc28gYmUgb2sgd2l0aCB0aGF0
+Lg0KDQpPZiBjb3Vyc2UgSSBhbS4NCg0KDQpKdWVyZ2VuDQo=
+--------------bI7h4ETJgGYHVzgaq1f9116L
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-2) KVM specific parameter can work, but as KVM's sched_clock is the same
-as kvmclock, I'm not convinced it actually makes sense to separate the
-two. Like if sched_clock is known to be bad but TSC is good, why do we
-need to use PV clock at all? Having a parameter for debugging purposes
-may be OK though...
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-3) This is Hyper-V specific, you can see that it uses a dedicated PV bit
-(HV_ACCESS_TSC_INVARIANT) and not the architectural
-CPUID.80000007H:EDX[8]. I'm not sure we can blindly trust the later on
-all hypervisors.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-4) Personally, I'm not sure that relying on 'TSC is crap' detection is
-100% reliable. I can imagine cases when we can't detect that fact that
-while synchronized across CPUs and not going backwards, it is, for
-example, ticking with an unstable frequency and PV sched clock is
-supposed to give the right correction (all of them are rdtsc() based
-anyways, aren't they?).
+--------------bI7h4ETJgGYHVzgaq1f9116L--
 
->
-> To introduce a param may be easier to backport to old kernel version.
->
-> References:
-> [1] https://lore.kernel.org/all/20230926230649.67852-1-dongli.zhang@oracle.com/
-> [2] https://lore.kernel.org/all/20231018195638.1898375-1-seanjc@google.com/
-> [3] https://lore.kernel.org/all/20231002211651.GA3774@noisy.programming.kicks-ass.net/
->
-> Thank you very much for the suggestion!
->
-> Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
-> ---
->  arch/x86/include/asm/paravirt.h |  2 +-
->  arch/x86/kernel/kvmclock.c      | 12 +++++++-----
->  arch/x86/kernel/paravirt.c      | 18 +++++++++++++++++-
->  3 files changed, 25 insertions(+), 7 deletions(-)
->
-> diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-> index 6c8ff12140ae..f36edf608b6b 100644
-> --- a/arch/x86/include/asm/paravirt.h
-> +++ b/arch/x86/include/asm/paravirt.h
-> @@ -24,7 +24,7 @@ u64 dummy_sched_clock(void);
->  DECLARE_STATIC_CALL(pv_steal_clock, dummy_steal_clock);
->  DECLARE_STATIC_CALL(pv_sched_clock, dummy_sched_clock);
->  
-> -void paravirt_set_sched_clock(u64 (*func)(void));
-> +int paravirt_set_sched_clock(u64 (*func)(void));
->  
->  static __always_inline u64 paravirt_sched_clock(void)
->  {
-> diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-> index fb8f52149be9..0b8bf5677d44 100644
-> --- a/arch/x86/kernel/kvmclock.c
-> +++ b/arch/x86/kernel/kvmclock.c
-> @@ -93,13 +93,15 @@ static noinstr u64 kvm_sched_clock_read(void)
->  
->  static inline void kvm_sched_clock_init(bool stable)
->  {
-> -	if (!stable)
-> -		clear_sched_clock_stable();
->  	kvm_sched_clock_offset = kvm_clock_read();
-> -	paravirt_set_sched_clock(kvm_sched_clock_read);
->  
-> -	pr_info("kvm-clock: using sched offset of %llu cycles",
-> -		kvm_sched_clock_offset);
-> +	if (!paravirt_set_sched_clock(kvm_sched_clock_read)) {
-> +		if (!stable)
-> +			clear_sched_clock_stable();
-> +
-> +		pr_info("kvm-clock: using sched offset of %llu cycles",
-> +			kvm_sched_clock_offset);
-> +	}
->  
->  	BUILD_BUG_ON(sizeof(kvm_sched_clock_offset) >
->  		sizeof(((struct pvclock_vcpu_time_info *)NULL)->system_time));
-> diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-> index 97f1436c1a20..2cfef94317b0 100644
-> --- a/arch/x86/kernel/paravirt.c
-> +++ b/arch/x86/kernel/paravirt.c
-> @@ -118,9 +118,25 @@ static u64 native_steal_clock(int cpu)
->  DEFINE_STATIC_CALL(pv_steal_clock, native_steal_clock);
->  DEFINE_STATIC_CALL(pv_sched_clock, native_sched_clock);
->  
-> -void paravirt_set_sched_clock(u64 (*func)(void))
-> +static bool no_pv_sched_clock;
-> +
-> +static int __init parse_no_pv_sched_clock(char *arg)
-> +{
-> +	no_pv_sched_clock = true;
-> +	return 0;
-> +}
-> +early_param("no_pv_sched_clock", parse_no_pv_sched_clock);
-> +
-> +int paravirt_set_sched_clock(u64 (*func)(void))
->  {
-> +	if (no_pv_sched_clock) {
-> +		pr_info("sched_clock: not configurable\n");
-> +		return -EPERM;
-> +	}
-> +
->  	static_call_update(pv_sched_clock, func);
-> +
-> +	return 0;
->  }
->  
->  /* These are in entry.S */
+--------------0z0As0vBNDnK3NLKJ031PDF7--
 
--- 
-Vitaly
+--------------kiI4HuJ8YBLu9qlyVV32ofvf
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmUxGyYFAwAAAAAACgkQsN6d1ii/Ey/w
+AggAlF+a4p48ui81LgS//JXeDf8WwhBcZcqKYEavv8g0gaUxPlUry16Ul9zwfq+pgZ8OXDL33YU+
+/CDv6u0Ha/9utnfBCp2H9ersYkjy1FDknoPZvUUpPjjFtdfb7EveiGU/E+orPxA53wynL8FRKxit
+naNjIC8JIIYyo97ZPTIwWhOn+JJEDNsHnVdMGd1FJIQ9+Qu/Spf3wYBg8uQRRD2AVYIhvwUps9ak
+kelxhWNpeHfF9ktRc3LxZLmBQxhBf8GJhYyviEUrGkaJw/cENtv0haBAh2EuPt7zOIRhkuXnoWdT
+hsyNGAeD1yqygc+kF8qXe1NRliqPsqcfC6lxfkbZTQ==
+=TDX5
+-----END PGP SIGNATURE-----
+
+--------------kiI4HuJ8YBLu9qlyVV32ofvf--
 
