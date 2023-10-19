@@ -2,34 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61FD17CF91C
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 14:38:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619307.964163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D4E7CF963
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 14:52:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619311.964173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtSHe-0007L7-Rc; Thu, 19 Oct 2023 12:37:50 +0000
+	id 1qtSV1-0006Jm-71; Thu, 19 Oct 2023 12:51:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619307.964163; Thu, 19 Oct 2023 12:37:50 +0000
+Received: by outflank-mailman (output) from mailman id 619311.964173; Thu, 19 Oct 2023 12:51:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtSHe-0007J0-Oo; Thu, 19 Oct 2023 12:37:50 +0000
-Received: by outflank-mailman (input) for mailman id 619307;
- Thu, 19 Oct 2023 12:37:48 +0000
+	id 1qtSV1-0006Gd-4C; Thu, 19 Oct 2023 12:51:39 +0000
+Received: by outflank-mailman (input) for mailman id 619311;
+ Thu, 19 Oct 2023 12:51:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9Lg=GB=casper.srs.infradead.org=BATV+06ae5fa416ae820d9d5a+7361+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtSHa-0007He-Jk
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 12:37:48 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=8dTy=GB=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1qtSUz-0006GX-Vl
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 12:51:38 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20626.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::626])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d9b5a29-6e7c-11ee-98d5-6d05b1d4d9a1;
- Thu, 19 Oct 2023 14:37:45 +0200 (CEST)
-Received: from [2001:8b0:10b:5:583b:153f:ff9:f813]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qtSHL-0072lR-8h; Thu, 19 Oct 2023 12:37:31 +0000
+ id 3c8c83d3-6e7e-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 14:51:35 +0200 (CEST)
+Received: from DUZPR01CA0228.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b4::23) by PAXPR08MB7442.eurprd08.prod.outlook.com
+ (2603:10a6:102:2b8::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Thu, 19 Oct
+ 2023 12:51:33 +0000
+Received: from DB1PEPF0003922F.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b4:cafe::6d) by DUZPR01CA0228.outlook.office365.com
+ (2603:10a6:10:4b4::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.25 via Frontend
+ Transport; Thu, 19 Oct 2023 12:51:33 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB1PEPF0003922F.mail.protection.outlook.com (10.167.8.102) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6907.20 via Frontend Transport; Thu, 19 Oct 2023 12:51:32 +0000
+Received: ("Tessian outbound 028b72acc2da:v215");
+ Thu, 19 Oct 2023 12:51:32 +0000
+Received: from d0606dacfd85.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 72E21672-BEBF-4DF2-947E-59BA9D24C121.1; 
+ Thu, 19 Oct 2023 12:50:57 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d0606dacfd85.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 19 Oct 2023 12:50:57 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by DU5PR08MB10823.eurprd08.prod.outlook.com (2603:10a6:10:528::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Thu, 19 Oct
+ 2023 12:50:55 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::501a:489c:410b:338]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::501a:489c:410b:338%7]) with mapi id 15.20.6886.034; Thu, 19 Oct 2023
+ 12:50:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,307 +72,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d9b5a29-6e7c-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=M8ZtQJm4spIcwBKs1cE9Y+VmbG/oqkYGXqzc+V9etOI=; b=WFM6+SLBj+2VN8uhQkj80V/C8y
-	jNzHTXoblAEqfqoQUfCIAusdxj0aGNCOD03ubmu3UmcnXNebuI4KpQCF1udwMmIlYWe26n+KgfebG
-	ve5jfzhtp6rDQNIneQJPIjhwHa+4xvCoIYHlV1Ism1R8mI8WSpbZ7nl4WAKWau/19Ih6N9El941LB
-	g5FfivmRTOric36GQa6WlnV8TacAshTMJ/MCq+gn3lE9VxSGUMXxR3R9LyhzkNLKc0PzrnRfwlxRe
-	LrHfH33lL3hXakfPivQ90UIuEaR42ILflh2zGAA6E/WrEWr6kMbqvvg+IDu5vJARSHTsbvZPO409I
-	5Z/NKrGQ==;
-Message-ID: <bad8f05b72710e436d01555704139839415249d6.camel@infradead.org>
-Subject: Re: [PATCH v1 20/23] xen platform: unplug ahci object
-From: David Woodhouse <dwmw2@infradead.org>
-To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org, Joel Upham
-	 <jupham125@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
- <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, "Michael S.
- Tsirkin" <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson
- <richard.henderson@linaro.org>,  Eduardo Habkost <eduardo@habkost.net>,
- xen-devel@lists.xenproject.org
-Date: Thu, 19 Oct 2023 13:37:30 +0100
-In-Reply-To: <CB4239A2-8502-406A-A594-3065C0D3B104@gmail.com>
-References: <cover.1687278381.git.jupham125@gmail.com>
-	 <9b8183903cbf20db4e2f0dafda9e0ed271a86a8e.1687278381.git.jupham125@gmail.com>
-	 <CB4239A2-8502-406A-A594-3065C0D3B104@gmail.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-bRDKDojRd76wga/45xFW"
-User-Agent: Evolution 3.44.4-0ubuntu2 
-MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-bRDKDojRd76wga/45xFW
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2023-06-22 at 05:40 +0000, Bernhard Beschow wrote:
-> Am 20. Juni 2023 17:24:54 UTC schrieb Joel Upham <jupham125@gmail.com>:
-> > This will unplug the ahci device when the Xen driver calls for an unplu=
-g.
-> > This has been tested to work in linux and Windows guests.
-> > When q35 is detected, we will remove the ahci controller
-> > with the hard disks.=C2=A0 In the libxl config, cdrom devices
-> > are put on a seperate ahci controller. This allows for 6 cdrom
-> > devices to be added, and 6 qemu hard disks.
->=20
-> Does this also work with KVM Xen emulation? If so, the QEMU manual
-> should be updated accordingly in this patch since it explicitly rules
-> out Q35 due to missing AHCI unplug:
-> https://gitlab.com/qemu-project/qemu/-/blob/stable-8.0/docs/system/i386/x=
-en.rst?plain=3D1&ref_type=3Dheads#L51
-
-No, it doesn't work.=C2=A0Those assumptions about the topology and which
-disk/cdrom devices are attached to which AHCI device on which PCI bus,
-are not valid in the general case. So if I boot an HVM guest thus...
-
- $ qemu-system-x86_64 -M q35 -m 1g -display none -serial mon:stdio \
-     --accel kvm,xen-version=3D0x40011,kernel-irqchip=3Dsplit \
-     -drive file=3D${GUEST_IMAGE},if=3Dxen=C2=A0\
-     -drive file=3D${GUEST_IMAGE},file.locking=3Doff,if=3Dide
-
-... it still sees the AHCI disk when it boots:
-
-[root@localhost ~]# cat /proc/partitions=20
-major minor  #blocks  name
-
- 202        0   20971520 xvda
- 202        1   18874368 xvda1
- 202        2    2096128 xvda2
-   8        0   20971520 sda
-   8        1   18874368 sda1
-   8        2    2096128 sda2
-  11        0    1048575 sr0
-[root@localhost ~]# lspci
-00:00.0 Host bridge: Intel Corporation 82G33/G31/P35/P31 Express DRAM Contr=
-oller
-00:01.0 Unassigned class [ff80]: XenSource, Inc. Xen Platform Device (rev 0=
-1)
-00:02.0 VGA compatible controller: Device 1234:1111 (rev 02)
-00:1f.0 ISA bridge: Intel Corporation 82801IB (ICH9) LPC Interface Controll=
-er (rev 02)
-00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH (ICH9R/DO/DH) 6 po=
-rt SATA Controller [AHCI mode] (rev 02)
-00:1f.3 SMBus: Intel Corporation 82801I (ICH9 Family) SMBus Controller (rev=
- 02)
-
-We probably do need to iterate over the children of the PCI device and
-selectively destroy them. Which can be the *same* for IDE and AHCI.
-Patch below.
-
-It would be slightly more natural to do ide_dev_unplug() with an
-'if (!idedev) return;' but I've done it this way to keep the
-indentation the same, and thus highlight that it's just using the
-existing blk unplug magic. I kind of hate that we *need* that magic,
-shouldn't object_unparent() Just Work=E2=84=A2 and unwire everything?
-(It *doesn't*; qemu later crashes. But I think it *should*).
-
-As I'm literally about to hit send on this, I realise I messed up the
-'aux' logic. But as a proof of concept for this approach, this works OK
-for both pc and q35 machines with Xen emulation tested as in the above
-command line. Feel free to use it as you see fit, to which end:
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-
---- a/hw/i386/xen/xen_platform.c
-+++ b/hw/i386/xen/xen_platform.c
-@@ -169,37 +169,49 @@ static void pci_unplug_nics(PCIBus *bus)
-  *
-  * [1] https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Ddocs/misc/=
-hvm-emulated-unplug.pandoc
-  */
--static void pci_xen_ide_unplug(PCIDevice *d, bool aux)
-+static int ide_dev_unplug(DeviceState *dev, void *opaque)
- {
--    DeviceState *dev =3D DEVICE(d);
--    PCIIDEState *pci_ide;
--    int i;
-     IDEDevice *idedev;
-     IDEBus *idebus;
-     BlockBackend *blk;
-+    int unit;
-=20
--    pci_ide =3D PCI_IDE(dev);
--
--    for (i =3D aux ? 1 : 0; i < 4; i++) {
--        idebus =3D &pci_ide->bus[i / 2];
--        blk =3D idebus->ifs[i % 2].blk;
-+    idedev =3D IDE_DEVICE(object_dynamic_cast(OBJECT(dev), "ide-hd"));
-+    if (idedev) {
-+        idebus =3D IDE_BUS(qdev_get_parent_bus(dev));
-=20
--        if (blk && idebus->ifs[i % 2].drive_kind !=3D IDE_CD) {
--            if (!(i % 2)) {
--                idedev =3D idebus->master;
--            } else {
--                idedev =3D idebus->slave;
--            }
-+        unit =3D (idedev =3D=3D idebus->slave);
-+        assert(unit || idedev =3D=3D idebus->master);
-=20
-+        blk =3D idebus->ifs[unit].blk;
-+        if (blk) {
-             blk_drain(blk);
-             blk_flush(blk);
-=20
-             blk_detach_dev(blk, DEVICE(idedev));
--            idebus->ifs[i % 2].blk =3D NULL;
-+            idebus->ifs[unit].blk =3D NULL;
-             idedev->conf.blk =3D NULL;
-             monitor_remove_blk(blk);
-             blk_unref(blk);
-         }
-+
-+        object_unparent(OBJECT(dev));
-+    }
-+
-+    return 0;
-+}
-+
-+static void pci_xen_ide_unplug(PCIDevice *d, bool aux)
-+{
-+    DeviceState *dev =3D DEVICE(d);
-+
-+    if (!aux) {
-+        IDEBus *idebus =3D IDE_BUS(qdev_get_child_bus(DEVICE(dev), "ide.0"=
-));
-+        if (idebus && idebus->master) {
-+            ide_dev_unplug(DEVICE(idebus->master), NULL);
-+        }
-+    } else {
-+        qdev_walk_children(dev, NULL, NULL, ide_dev_unplug, NULL, NULL);
-     }
-     pci_device_reset(d);
- }
-@@ -216,6 +228,7 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, void =
-*opaque)
-=20
-     switch (pci_get_word(d->config + PCI_CLASS_DEVICE)) {
-     case PCI_CLASS_STORAGE_IDE:
-+    case PCI_CLASS_STORAGE_SATA:
-         pci_xen_ide_unplug(d, aux);
-         break;
-=20
---=20
-2.34.1
-
-
-
---=-bRDKDojRd76wga/45xFW
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
+X-Inumbo-ID: 3c8c83d3-6e7e-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZE/IJLidMeOmhxNxkKOUN2tRTqP/zSdl32jB1XGwoFI=;
+ b=qNSxiLxSXOqHohni5F3eh8oyQqeHomQmdg7fhTUBb36Kxuw2dKi2C92GwFgmRnBBV8C3qH05dK0R5in0Bx87f1eH3//K2cgCeP6JELRcJIklD9KiiE8KMvyiztnx4YXtIvPTnmorJWEM2N4roOdyspYqodWNDIikxX9yctUFtNM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 70ece8a6e7edcf12
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jxW0Yhi2R+utCwZfBieRTtwmDrBQHv0rpXppvR5GRK+sZU4idn4TcBvhCjTmJrlUgcfvFrT8fqV9WWMBNepXTfh1UwkVy5SLVYrXyiCr74W22VCEMlvcT/pM+CyDNDqsg7Woj3oi6R8Ztm2qYnJ5I5ZFxgEHDpoZG/mTgYIHdgyROhrhvCp/KWt8nTntkM30e7a27ykZvm3a9y1bQD/ixQChfjq9284DYACeHR8wcWiiNzyVs+Hlx1XMe9qcYwKNcG4u/QTa4FbYBuLYWJUpg36/vl5M6SlKfuv9uiPgjGLlLctq+0jGjKUJRRFI97/+jxGcZPFCHd+AWQuP+yJgYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZE/IJLidMeOmhxNxkKOUN2tRTqP/zSdl32jB1XGwoFI=;
+ b=Bhn4TylplhTSe7f3no5nARHkxqnADq/2VdHEJbLY4T3PbbTr9AgirmEtLDg/0UzhsW3LzADc4/VP0ydBCwNVNoCC8LwpCpr+6ZvbDVN2TsFpkVbmAW0+uyFohYio3lfM+eGd2+wr5fdeJRcj4F39ZUcU45dWViEOEiEdUDk5oARELLgoYJuVMLsyUb5O1R0i/EFmX134k00+2+jMRTUSeEhIcwgPk3ko6rIvqa8gUxIFkPlaoxCUPaYZWvZoWurOzPNT5nHm83AakXW6XMyQsp9CazIvVuc7vy5I8UdyXeAHOGscj2jindgyzVWyU09LvmafL9tKTyVrS6V6jEU49g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZE/IJLidMeOmhxNxkKOUN2tRTqP/zSdl32jB1XGwoFI=;
+ b=qNSxiLxSXOqHohni5F3eh8oyQqeHomQmdg7fhTUBb36Kxuw2dKi2C92GwFgmRnBBV8C3qH05dK0R5in0Bx87f1eH3//K2cgCeP6JELRcJIklD9KiiE8KMvyiztnx4YXtIvPTnmorJWEM2N4roOdyspYqodWNDIikxX9yctUFtNM=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Peter Hoyes
+	<Peter.Hoyes@arm.com>
+Subject: Re: [PATCH] tools/xendomains: Only save/restore/migrate if supported
+ by xenlight
+Thread-Topic: [PATCH] tools/xendomains: Only save/restore/migrate if supported
+ by xenlight
+Thread-Index: AQHaAorkpr2Fw+/rt0uploS+PCDdYw==
+Date: Thu, 19 Oct 2023 12:50:52 +0000
+Message-ID: <6F0D3115-C030-423E-ADBB-ADBB104E7BA3@arm.com>
+References: <20230322135800.3869458-1-peter.hoyes@arm.com>
+In-Reply-To: <20230322135800.3869458-1-peter.hoyes@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.100.2.1.4)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|DU5PR08MB10823:EE_|DB1PEPF0003922F:EE_|PAXPR08MB7442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d1b493f-0375-4452-c394-08dbd0a21efa
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ QbDdY403cFPd59OOioxbF1CpwWyqLnsX03z8BzSw64WZWAqbnGjhcFrxKsD3stNGC1vYzrq4alH2Jp5WBTvenbfgn06eCASRkWI0mW/e/exS2F88X5Em8OKKaw54KNo2Oa70EliRa0pXjtfuIZrMteibhATkR8xFjXr/RNtNv+2mADEEMcqrvp7zvZP+N3r/a63uJ07LevNbq4IVmVUEdENjm+A8S3q8vpad94Ab63wVoIdKVe97NlIX6v8Jj9WAIVCFAe5UCpQDN3pkB8Um15mj0XdSFFu3rfka6OfPN9m1+eGA/1XTLK4EKKeZmqPMaYC6eaNkGHwBw0zEOhLtic6y1xAxFRUIW3AqMq4rsedICK3QN3QFnEZmjhzvN3d3eM05E73LvfmLqRpYmSdfgLg2cC2ukv4BD5LTHW2N2ng+lj1OGypiHqltgi4paCjQlf/ndMv4oetWY/PxAmQQPPT6D1wEGQ+iLe0M8qsuOjPXFXp+CvpEo+Fp/J5KP0+x32h6cDWCV+Mz/V33NsHjINaYvxBiTYOYcg5jHlvdUw8DEUUko+6kumIPZk24BeDEMDPaD5+JSoglNl1QGWBCR8Mn5oW+IEHKox9JQnOnWFrp/xSXYP08PsaIUFF76huhzFATYQuNPCd30bE+lBBB5Q==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(396003)(136003)(366004)(376002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(41300700001)(66476007)(6666004)(66556008)(478600001)(6486002)(66946007)(6916009)(54906003)(966005)(64756008)(76116006)(91956017)(38070700005)(6506007)(26005)(316002)(2616005)(33656002)(4744005)(8676002)(4326008)(8936002)(36756003)(5660300002)(2906002)(122000001)(6512007)(71200400001)(66446008)(83380400001)(86362001)(53546011)(38100700002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AEC064744B972D4DAB3A1E5DAEF61035@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR08MB10823
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF0003922F.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	68b860e6-15bf-48fa-ae43-08dbd0a20705
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	428QAM0ajCxi/R+xYyuXU3Ou6v9ssGAPpp0NHeMc5M+b259DJgcMqC4bWLKOsnHVcko68OhTV7HNgdMZo4g3+or2ToE0wGUTn1yZx5ktGZPwmnSCH/FQRIUHusO9/AZg/604Rm1YrEnNfO21F9hERCmKPjBC0XkSYCTFnNtSfRgrkCO3rhF3Rmb1JvP3qbjoD3aKMmTMmOz5eC2fR8xu3SgV5Aub7I6PE6/RvQukHBhZ3CZohxuNLMG8HaegJVlQnTjEy+F6wISicEacyJ6YPCSchmT/2tVg+ycbXHX1mUIhNDBxd9J9+vH+qLi9qblxHrTP5P0JWFwuTligRubbhnNAwOCQSGGbqsX/iEt6whgo5GUCnLqydx8C+2swY5clPxpWLEINeAyEkxsCGSzUwvyzMdu/bdUN95PvIgLmW+erf8wQGYfDkQsYft/VvuIKbRK2QyBO52yZkKcIeptU4gZS5267OfjGZ7iRA4K+sdLCqcFFYlFsmJrNSLZ1F+hZ9+iy4lL2y5XbogEwvr1KkDKIZ314VCHTRgM9BP4u77x/Hhxg0CHS6iqVXnOnfQu+yqW1+p1JpCOBDyAo25yqKE9fKcBdp7DL+k0qfIPGU+f9SMPj+eh4OfPC//dndlBZKS1wnW1wQbFzrwwP7BWy/bbNFjOstTY2xo99WuATLgfJg3vDkOVquw6n7YjM+j14JIPGCr8JinZXYkZ2/mAqge1qUMmT4fOOQUAyQP0CCok=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(396003)(39860400002)(136003)(230922051799003)(451199024)(82310400011)(1800799009)(186009)(64100799003)(36840700001)(46966006)(40470700004)(40480700001)(4744005)(2906002)(86362001)(4326008)(41300700001)(8676002)(70206006)(8936002)(6862004)(70586007)(40460700003)(5660300002)(36756003)(54906003)(316002)(33656002)(2616005)(356005)(26005)(81166007)(36860700001)(82740400003)(336012)(6512007)(83380400001)(6666004)(6506007)(53546011)(47076005)(966005)(6486002)(478600001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2023 12:51:32.5774
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d1b493f-0375-4452-c394-08dbd0a21efa
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF0003922F.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7442
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDE5MTIzNzMwWjAvBgkqhkiG9w0BCQQxIgQgiRU49FbN
-n1S93DctcGtQGIwrVjDZZhP1gzon/qCa4Rowgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgACTUyOv0W38LyAPRHHXE5r54l0NZkUUyu9
-HrlakIcoRWOSIfpiOhugdJpWjzdRYeGxZpA/LP1HGDcOSOC61mmfp+jrhKTdth1kFPwquPWQW6sI
-zgaWTsY74FsMbNwIgAgyYoQSKHniF8N3sZBTC2QOQD5c8HclVcoFE3Jec19NdHECWhWwTmhWJg27
-224lqu1cnnAJSPWVmy/xQnc4VOg3TvpnaadIv89r2TCz+aP12tPy6XRXtzBTJuq+pi3aH1SjlTUA
-rn/lBqfI6dqmEUzsYWpyKr6jDhw9+8ayTjx4bgEXjjKPR0ccpgrdoxhJyXLgKNXWFGdM9i/YL+UL
-+6/AKM+3Kkv23FzR41pNfnUCgkShh6aiB4ZqsTyp1I0XjQtsUZnmuywqj9f61SytaowY9qdlTQpj
-G3BWzHdj51k2EQyxurVBPc0XpjiXjij8SUl+ZCD/JxhGTQ+zGYDRI9pw3PShjds3YlnTsL12GDXP
-/tkGEived/2CiJILZA9/7gOXOPHlEnw1tELqq2LsAszyYGeYdnb58ov6TwRp1OZPR/+3R/B7wPCl
-dRs+nAmXXegogL5xeP4aU6wimWhI5+2hxMWN6AmVRp5Lk+0MabIQcok/1Wa3qyw0k4QZgK5FpOkn
-xSMlUxii60sJleo47/GujeGje+MbP5LwfUnghwDW2AAAAAAAAA==
-
-
---=-bRDKDojRd76wga/45xFW--
+DQoNCj4gT24gMjIgTWFyIDIwMjMsIGF0IDEzOjU4LCBQZXRlciBIb3llcyA8UGV0ZXIuSG95ZXNA
+YXJtLmNvbT4gd3JvdGU6DQo+IA0KPiBGcm9tOiBQZXRlciBIb3llcyA8UGV0ZXIuSG95ZXNAYXJt
+LmNvbT4NCj4gDQo+IFNhdmluZywgcmVzdG9yaW5nIGFuZCBtaWdyYXRpbmcgZG9tYWlucyBhcmUg
+bm90IGN1cnJlbnRseSBzdXBwb3J0ZWQgb24NCj4gYXJtIGFuZCBhcm02NCBwbGF0Zm9ybXMsIHNv
+IHhlbmRvbWFpbnMgcHJpbnRzIHRoZSB3YXJuaW5nOg0KPiANCj4gIEFuIGVycm9yIG9jY3VycmVk
+IHdoaWxlIHNhdmluZyBkb21haW46DQo+ICBjb21tYW5kIG5vdCBpbXBsZW1lbnRlZA0KPiANCj4g
+d2hlbiBhdHRlbXB0aW5nIHRvIHJ1biBgeGVuZG9tYWlucyBzdG9wYC4gSXQgb3RoZXJ3aXNlIGNv
+bnRpbnVlcyB0byBzaHV0DQo+IGRvd24gdGhlIGRvbWFpbnMgY2xlYW5seSwgd2l0aCB0aGUgdW5z
+dXBwb3J0ZWQgc3RlcHMgc2tpcHBlZC4NCj4gDQo+IFVzZSBgeGwgaGVscGAgdG8gZGV0ZWN0IHdo
+ZXRoZXIgc2F2ZS9yZXN0b3JlL21pZ3JhdGUgaXMgc3VwcG9ydGVkIGJ5IHRoZQ0KPiBwbGF0Zm9y
+bS4gSWYgbm90LCBkbyBub3QgYXR0ZW1wdCB0byBydW4gdGhlIGNvcnJlc3BvbmRpbmcgY29tbWFu
+ZC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFBldGVyIEhveWVzIDxQZXRlci5Ib3llc0Bhcm0uY29t
+Pg0KPiAtLS0NCg0KSGkgQW50aG9ueSwNCg0KUmVnYXJkaW5nIHRoaXMgcGF0Y2gsIGlzIHRoZXJl
+IGFueSB1cGRhdGU/DQoNCknigJltIGFza2luZyBqdXN0IGJlY2F1c2UgaGVyZSBodHRwczovL3Bh
+dGNod29yay5rZXJuZWwub3JnL3Byb2plY3QveGVuLWRldmVsL3BhdGNoLzIwMjMwMzIyMTM1ODAw
+LjM4Njk0NTgtMS1wZXRlci5ob3llc0Bhcm0uY29tLyBpdCBzZWVtcyB5b3Ugd2VyZSB2b2x1bnRl
+ZXJpbmcgdG8gZml4IHRoYXQgaW4gYW5vdGhlciB3YXkuDQoNCkNoZWVycywNCkx1Y2ENCg0KDQo=
 
