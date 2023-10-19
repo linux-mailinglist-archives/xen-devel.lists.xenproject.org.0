@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7415F7CF4CE
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 12:11:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619077.963661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96BB27CF4E5
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 12:16:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619083.963690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtQ09-00006O-0d; Thu, 19 Oct 2023 10:11:37 +0000
+	id 1qtQ56-0002VP-Uh; Thu, 19 Oct 2023 10:16:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619077.963661; Thu, 19 Oct 2023 10:11:36 +0000
+Received: by outflank-mailman (output) from mailman id 619083.963690; Thu, 19 Oct 2023 10:16:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtQ08-0008VL-TQ; Thu, 19 Oct 2023 10:11:36 +0000
-Received: by outflank-mailman (input) for mailman id 619077;
- Thu, 19 Oct 2023 10:11:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qtQ07-0008VA-QR
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 10:11:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qtQ07-0003kl-3g; Thu, 19 Oct 2023 10:11:35 +0000
-Received: from [15.248.3.1] (helo=[10.24.67.33])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qtQ06-00061W-TY; Thu, 19 Oct 2023 10:11:35 +0000
+	id 1qtQ56-0002Tg-Qu; Thu, 19 Oct 2023 10:16:44 +0000
+Received: by outflank-mailman (input) for mailman id 619083;
+ Thu, 19 Oct 2023 10:16:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CTk7=GB=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1qtQ55-00025d-QV
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 10:16:43 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98978c5a-6e68-11ee-9b0e-b553b5be7939;
+ Thu, 19 Oct 2023 12:16:41 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-523100882f2so12803155a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Oct 2023 03:16:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,144 +40,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YGB9CJL1cQyyft3uKtTkeRUczYjJ7235rsCDSQl2Of8=; b=P8KKAAw6TF3UFw4Zzs9D/pkJUO
-	8DF+Fkx/hXuvUs6X+Q5XzUBCxi6fPeqckpeOfXPtt51QrlLJ3zlbAcXM/aAHHTpNCM+Ul5cIKiXzx
-	9C7OWmyIvC4KBpGUJJA74XQFicgPDGnhCM+pMu3mhDDDNXEyhlSScxUcwTuCFjeoZWY4=;
-Message-ID: <15923aaf-c005-45fb-8bb4-50d2e0995f18@xen.org>
-Date: Thu, 19 Oct 2023 11:11:33 +0100
+X-Inumbo-ID: 98978c5a-6e68-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1697710600; x=1698315400; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6AjigDeSar34ErFT+otJ+m8rjpOHadAzLwS+oaAnvCY=;
+        b=HHKmkjsWo80HATRU5e7cMCfiZA53T63HUcKHDLjFbYCzXJGq7m2v4gcnPnyRj269Im
+         8nz0HA32Vt88iuSLtrPVk13nVtJLDhfA7R3aaE73LoeRA+uMkLoUr9B5DXGXwuERO+vf
+         rEOEhQ0qaLXBRXoqmCiCQe8HOdjTLGt7MBeIM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697710600; x=1698315400;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6AjigDeSar34ErFT+otJ+m8rjpOHadAzLwS+oaAnvCY=;
+        b=VJf7RE6TYOp2O3x2muL6OOXJ/f5L/6YCVSU/hNVrfYr1quNq4ltacJTFdSdBOqqLUT
+         8Mt5QBbq2dHQshstnFXgdPDESqJJ4BWviQIrQzrR6sCOW3ohkw/9ZPWjrDW9+eIsKjHM
+         V3sy3rJxpZFVAy2TpIywmj3SFt04TvzTyFLagLhGBI/KRqepaKhNvmNtuCX800lp7+dO
+         jFGQN+IML3S/6fnl30N8A4GFCoOo4oXDdfO8MQdM/MG4oWGEEx/Fj1XLhvqcE/rkVdFT
+         G5N5qp5D05SxdAKPQpOEfwMomOz3AugNJSDIqv0tKzOpB5M8uHzEQPKyQGBoxpHstVmz
+         nQ/A==
+X-Gm-Message-State: AOJu0YzlBhtRp7y9qPj80Z2HYpyz9VzdbQx9amIJejIJAcd85FmmX8pq
+	uOwTs228Hl8rtknekyfiaOjiNPLL/HntrKrgC+nowiNVKFfGBxNhjr4=
+X-Google-Smtp-Source: AGHT+IGkhjtGeejJJXMobzWb8aDwbkhmdt0fccQfKjtPA+9Qmy4+eum2npX7W/Nrsu3NEWJ4IK5D9UjOZU83G7f/B6M=
+X-Received: by 2002:a05:6402:274f:b0:52c:b469:bafd with SMTP id
+ z15-20020a056402274f00b0052cb469bafdmr1333529edd.41.1697710600332; Thu, 19
+ Oct 2023 03:16:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/4] xen/arm: address violations of MISRA C:2012 Rule
- 13.1
-Content-Language: en-GB
-To: Simone Ballarin <simone.ballarin@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1697638210.git.simone.ballarin@bugseng.com>
- <31a926a09dfcef43d13a402fd3b235aeba48009d.1697638210.git.simone.ballarin@bugseng.com>
- <41d82896-5471-4eaa-8bdd-a192e28d5546@xen.org>
- <3de5e340-30bb-44aa-affd-89f343ed1fa1@bugseng.com>
- <7066a646-711c-4dce-f3c0-effb6ae91a39@xen.org>
- <67782815-7803-4ef5-80f4-db6181f7a6e2@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <67782815-7803-4ef5-80f4-db6181f7a6e2@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Thu, 19 Oct 2023 11:16:05 +0100
+Message-ID: <CAO-mL=zPB6DPC-6mh9u3WSJkirDKLRNDVHWnRvqCaemZfT8Yvg@mail.gmail.com>
+Subject: Documentation survey results
+To: xen-devel@lists.xenproject.org, xen-announce@lists.xenproject.org, 
+	xen-users@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000043bdcc06080f0d33"
 
-Hi,
+--00000000000043bdcc06080f0d33
+Content-Type: text/plain; charset="UTF-8"
 
-On 19/10/2023 09:43, Simone Ballarin wrote:
-> On 19/10/23 10:19, Julien Grall wrote:
->> Hi Simone,
->>
->> On 19/10/2023 08:34, Simone Ballarin wrote:
->>> On 18/10/23 17:03, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 18/10/2023 15:18, Simone Ballarin wrote:
->>>>> Rule 13.1: Initializer lists shall not contain persistent side effects
->>>>>
->>>>> This patch moves expressions with side-effects into new variables 
->>>>> before
->>>>> the initializer lists.
->>>>
->>>> Looking at the code, I feel the commit message should be a bit more 
->>>> verbose because they are no apparent side-effects.
->>>>
->>>>>
->>>>> Function calls do not necessarily have side-effects, in these cases 
->>>>> the
->>>>> GCC pure or const attributes are added when possible.
->>>>
->>>> You are only adding pure in this patch.
->>>>
->>>>>
->>>>> No functional changes.
->>>>>
->>>>> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
->>>>>
->>>>> ---
->>>>> Function attributes pure and const do not need to be added as GCC
->>>>> attributes, they can be added using ECLAIR configurations.
->>>>> ---
->>>>>   xen/arch/arm/device.c              |  6 +++---
->>>>>   xen/arch/arm/guestcopy.c           | 12 ++++++++----
->>>>>   xen/arch/arm/include/asm/current.h |  2 +-
->>>>>   3 files changed, 12 insertions(+), 8 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
->>>>> index 1f631d3274..e9be078415 100644
->>>>> --- a/xen/arch/arm/device.c
->>>>> +++ b/xen/arch/arm/device.c
->>>>> @@ -319,6 +319,8 @@ int handle_device(struct domain *d, struct 
->>>>> dt_device_node *dev, p2m_type_t p2mt,
->>>>>       int res;
->>>>>       paddr_t addr, size;
->>>>>       bool own_device = !dt_device_for_passthrough(dev);
->>>>> +    bool dev_is_hostbridge = is_pci_passthrough_enabled() &&
->>>>> +                             device_get_class(dev) == 
->>>>> DEVICE_PCI_HOSTBRIDGE;
->>>>
->>>> The commit message suggests that the code is moved because there are 
->>>> side-effects. But none of them should have any side-effects.
->>>>
->>>
->>> device_get_class contains an 'ASSERT(dev != NULL)' which is definitely
->>> a side-effect.
->>
->> Just to confirm my understanding, the side-effect here would be the 
->> fact that it traps and then panic(). IOW, if the trap was 
->> hypothetically replaced by a while (1), then it would not be an issue. 
->> is it correct? >
-> 
-> No, it isn't. A infinite loop is a side effect.
+Hi everyone,
 
-I am not sure why. There are no change of state here.
+First and foremost, thank you for your time in providing valuable feedback
+on our current documentation in The Xen Project.
 
-> 
->> I can see two solutions:
->>    1) Remove the ASSERT(). It is only here to make the NULL 
->> dereference obvious in debug build. That said, the stack trace for a 
->> NULL dereference would still be as clear.
-> 
-> Removing the ASSERT just to make MISRA happy does not sound good to me.
+This survey has now concluded, and I am happy to share the results with you.
+Please find attached the full survey results here
+<https://cryptpad.fr/file/#/2/file/9dhImqlBHovRuYMe-m8Eh3jO/>.
 
-I didn't suggest the ASSERT() just ot make MISRA happy. I suggested it 
-because it has no value here (we still have stack track if there are any 
-issue).
+*Summary:*
 
-> 
->>    2) Replace the ASSERT with a proper check if ( !dev ) return 
->> DEVICE_UNKONWN. AFAIU, we would not be able to add a 
->> ASSERT_UNREACHABLE() because this would be again a perceived side-effect.
->>
-> 
-> Replacing it with a proper check can be a solution, but I still prefer 
-> to add a deviation or move the invocation outside the initializer list.
+   - We've received valuable suggestions for enhancing Xen documentation,
+   including keeping it up-to-date, adding step-by-step tutorials, providing
+   debugging guides, and diving deeper into architectural aspects.
+   - Users recommend platforms like Doxygen, Sphinx, and GitLab for
+   efficient documentation management. Incorporating visual aids and practical
+   guides is emphasized for better user engagement.
+   - A total of 35 participants gave feedback, with the majority having at
+   least 2 years of experience and 10 who have been in the project for over
+   10+ years.
+   - The majority of the participants stated they used the Xen project wiki
+   as their primary source for documentation, closely followed by Xen bits,
+   asking the mailing list, Matrix/IRC, and distro documentation. However, one
+   person didn't know we had documentation.
+   - Overall it is clear to see there is a demand for clear and accurate
+   documentation. Although the existing documentation has some benefits, the
+   majority of the community would like to see this improved and changed.
 
-In general, I am not in favor of adding deviation if we can avoid them 
-because the code can changed and therefore either moot the deviation or 
-hide any other issue.
+*Next steps:*
 
-[...]
+There is no single solution that solves all the issues instantaneously.
+However, we have identified the key aspects of updating content, especially
+how-to guides for new users, and simplifying it for everyone to find the
+information they need.
 
-> Yes, sorry I was looking to the wrong definition.
-> In ARM the problem is the presence of a *volatile* ASM.
-> Please take a look here:
-> 
-> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/arm/for-4.19/ARM64-Set2/latest/PROJECT.ecd;/by_service/MC3R1.R13.1.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"fingerprint","inputs":[{"enabled":true,"text":"0da7f0c9aea5491eba343618f965c81f5d7aed3c"}]}}}
+The community manager will be working on identifying different ways to
+ensure users' suggestions are acknowledged and implemented. The next steps
+will be to collaborate closely with the community on updating the content
+and potentially the platform. The improved documentation will likely be
+planned to be a part of the new website for The Xen Project.
 
-Ok. So the problem is the READ_SYSREG(...). Is there a way we can 
-encapsulate the call so we don't need to use your propose trick or 
-deviate at every use of 'current'?
+Many thanks,
+Kelly Choi
 
-Cheers,
+Open Source Community Manager
+XenServer, Cloud Software Group
 
--- 
-Julien Grall
+--00000000000043bdcc06080f0d33
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi everyone,<div><br></div><div>First and foremost, thank =
+you for your time in providing valuable feedback on our current documentati=
+on in=C2=A0The Xen Project.</div><div><br></div><div>This survey has now co=
+ncluded, and I am happy to share the results with you.</div><div>Please fin=
+d attached the <a href=3D"https://cryptpad.fr/file/#/2/file/9dhImqlBHovRuYM=
+e-m8Eh3jO/">full survey results here</a>.</div><div><b><br></b></div><div><=
+b>Summary:</b></div><ul><li>We&#39;ve received valuable suggestions for enh=
+ancing Xen documentation, including keeping it up-to-date, adding step-by-s=
+tep tutorials, providing debugging guides, and diving deeper into architect=
+ural aspects.=C2=A0</li><li>Users recommend platforms like Doxygen, Sphinx,=
+ and GitLab for efficient documentation management. Incorporating visual ai=
+ds and practical guides is emphasized for better user engagement.</li><li>A=
+ total of 35 participants gave feedback, with the majority having at least =
+2 years of experience and 10 who have been in the project for over 10+ year=
+s.</li><li>The majority of the participants stated they used the Xen projec=
+t wiki as their primary source for documentation, closely followed by Xen b=
+its, asking the mailing list, Matrix/IRC, and distro documentation. However=
+, one person didn&#39;t know we had documentation.</li><li>Overall it is cl=
+ear to see there is a demand for clear and accurate documentation. Although=
+ the existing documentation has some benefits, the majority of the communit=
+y would like to see this improved and changed.</li></ul><div><b>Next steps:=
+</b></div><br>There is no single solution that solves all the issues instan=
+taneously. However, we have identified the key aspects of updating content,=
+ especially how-to guides for new users, and simplifying it for everyone to=
+ find the information they need.=C2=A0<div><br></div><div>The community man=
+ager will be working on identifying different ways to ensure users&#39; sug=
+gestions are acknowledged and implemented. The next steps will be to collab=
+orate closely with the community on updating the content and potentially th=
+e platform. The improved documentation will likely be planned to be a part =
+of the new website for The Xen Project.<div><br></div><div>Many thanks,<div=
+><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signatu=
+re"><div dir=3D"ltr"><div>Kelly Choi</div><div><br></div><div><div style=3D=
+"color:rgb(136,136,136)">Open Source Community Manager</div><div style=3D"c=
+olor:rgb(136,136,136)">XenServer, Cloud Software Group</div></div></div></d=
+iv></div></div></div></div>
+
+--00000000000043bdcc06080f0d33--
 
