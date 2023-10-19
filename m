@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DCB77D018F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 20:31:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619550.964813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F4977D01B4
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Oct 2023 20:35:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619553.964823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtXnF-0008SB-1n; Thu, 19 Oct 2023 18:30:49 +0000
+	id 1qtXrV-0001FS-Kw; Thu, 19 Oct 2023 18:35:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619550.964813; Thu, 19 Oct 2023 18:30:49 +0000
+Received: by outflank-mailman (output) from mailman id 619553.964823; Thu, 19 Oct 2023 18:35:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtXnE-0008PK-Ut; Thu, 19 Oct 2023 18:30:48 +0000
-Received: by outflank-mailman (input) for mailman id 619550;
- Thu, 19 Oct 2023 18:30:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qtXrV-0001Ci-IE; Thu, 19 Oct 2023 18:35:13 +0000
+Received: by outflank-mailman (input) for mailman id 619553;
+ Thu, 19 Oct 2023 18:35:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IZCy=GB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qtXnD-0008PE-Tj
- for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 18:30:47 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d9f2842-6ead-11ee-9b0e-b553b5be7939;
- Thu, 19 Oct 2023 20:30:45 +0200 (CEST)
+ id 1qtXrU-0001Ca-6z
+ for xen-devel@lists.xenproject.org; Thu, 19 Oct 2023 18:35:12 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b8cf07e-6eae-11ee-98d5-6d05b1d4d9a1;
+ Thu, 19 Oct 2023 20:35:11 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 7D2B2B82908;
- Thu, 19 Oct 2023 18:30:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6FC7C433C8;
- Thu, 19 Oct 2023 18:30:42 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 678DD60B2D;
+ Thu, 19 Oct 2023 18:35:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9CAC433C8;
+ Thu, 19 Oct 2023 18:35:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,194 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d9f2842-6ead-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 3b8cf07e-6eae-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697740243;
-	bh=aO457Or8c1ECKJgOrWZTx7LWJoQVGcZfvjSWI+Bm0NE=;
+	s=k20201202; t=1697740509;
+	bh=wgzxFF0yD0Toto9DYVX1hvn0/Ak6iljZwsBMYaswPMw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Hmb/bGqCr0p7pDnllo5wqtMi5T9JEPvXxXhxq5XjJR+0a3qLaSph/gcNZFHiBy7+L
-	 jfSd9eN+LzrjzD38KSlghheLYsq0mkmcbYofk3KIjIYkwwDW2bNMQa6rUb4g4BLq6N
-	 ODx2L1cJXgWBhIdpMM1DwsxfNolIIuEfcoMSrF9yjV9gr2pdxNkphFjU/IfLwsJ5eB
-	 YHkuBr/2FAdd+iYt9njf6h0KPWsTlJLE3oc5Qq41Ew1xgyG6AGLgrSm1UXtxgSnrVJ
-	 ZTsQFNeo5vljp4aAIGOaQOGfyluwdqwUxpI+hqQuf2iO1Hihs/uzlH+Kvpfgzcw4jV
-	 JKjqDBOkBxPGw==
-Date: Thu, 19 Oct 2023 11:30:20 -0700 (PDT)
+	b=GXM9TyK02QUulbmoHrav9mRj7kYPjysVmMVTN0+pIHB+h/Go9993tlDgSFN9W2KZl
+	 BHM4VmGwm5E8WE82C8SmZWajzDalq/e0zpFU9e4sNdUI3DU8fcK9u2SDV7tiann8z/
+	 LkJAUawnnYFSbIzfTsPXi4ZCqzOBDLDaFvjjua4jOHKYF/FQehvpnqM51WXazVlkMA
+	 yoDuwOL/i016qRiPilK8merrraKpo2ug2uCNKJlZLB1q19bQlrPXE0Y7KfVHGWkpks
+	 pnv692JNHE2mito7nD1LP4y2Ja031vAtX3uPFtyCR5URQIEeeY0RZKvTavD5ezwDOs
+	 J9ShOsp9nJ+oQ==
+Date: Thu, 19 Oct 2023 11:35:06 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Simone Ballarin <simone.ballarin@bugseng.com>
-cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
-    consulting@bugseng.com, sstabellini@kernel.org, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH 1/4] xen/arm: address violations of MISRA C:2012 Rule
+cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
+    consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>, 
+    Dario Faggioli <dfaggioli@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 4/4] xen: address violations of MISRA C:2012 Rule
  13.1
-In-Reply-To: <d6af702c-9945-4eea-a102-96910be334dc@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2310191128560.2099202@ubuntu-linux-20-04-desktop>
-References: <cover.1697638210.git.simone.ballarin@bugseng.com> <31a926a09dfcef43d13a402fd3b235aeba48009d.1697638210.git.simone.ballarin@bugseng.com> <41d82896-5471-4eaa-8bdd-a192e28d5546@xen.org> <3de5e340-30bb-44aa-affd-89f343ed1fa1@bugseng.com>
- <7066a646-711c-4dce-f3c0-effb6ae91a39@xen.org> <67782815-7803-4ef5-80f4-db6181f7a6e2@bugseng.com> <15923aaf-c005-45fb-8bb4-50d2e0995f18@xen.org> <8734535a-0c00-44b4-8257-64155807b052@bugseng.com> <edc5d2b1-a3bd-44c4-83ea-6ff436fe7346@xen.org>
- <d6af702c-9945-4eea-a102-96910be334dc@bugseng.com>
+In-Reply-To: <fe5084f4-e5f3-4778-87c7-faac2076bde7@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2310191134400.2099202@ubuntu-linux-20-04-desktop>
+References: <cover.1697638210.git.simone.ballarin@bugseng.com> <1e0f12095bcbc82ae3585c9fcf57bec7e324049c.1697638210.git.simone.ballarin@bugseng.com> <alpine.DEB.2.22.394.2310181803351.965337@ubuntu-linux-20-04-desktop> <78a7b73a-fefb-6884-90c5-abad2860a521@suse.com>
+ <27fcfc87-aa8f-4bfb-863a-91a75c763050@bugseng.com> <5c9b851f-6f64-f6bd-970a-63aefdab5b41@suse.com> <fe5084f4-e5f3-4778-87c7-faac2076bde7@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1978348765-1697740243=:2099202"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1978348765-1697740243=:2099202
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 19 Oct 2023, Simone Ballarin wrote:
-> On 19/10/23 14:30, Julien Grall wrote:
-> > Hi,
-> > 
-> > On 19/10/2023 12:10, Simone Ballarin wrote:
-> > > On 19/10/23 12:11, Julien Grall wrote:
-> > > > Hi,
-> > > > 
-> > > > On 19/10/2023 09:43, Simone Ballarin wrote:
-> > > > > On 19/10/23 10:19, Julien Grall wrote:
-> > > > > > Hi Simone,
-> > > > > > 
-> > > > > > On 19/10/2023 08:34, Simone Ballarin wrote:
-> > > > > > > On 18/10/23 17:03, Julien Grall wrote:
-> > > > > > > > Hi,
-> > > > > > > > 
-> > > > > > > > On 18/10/2023 15:18, Simone Ballarin wrote:
-> > > > > > > > > Rule 13.1: Initializer lists shall not contain persistent side
-> > > > > > > > > effects
-> > > > > > > > > 
-> > > > > > > > > This patch moves expressions with side-effects into new
-> > > > > > > > > variables before
-> > > > > > > > > the initializer lists.
-> > > > > > > > 
-> > > > > > > > Looking at the code, I feel the commit message should be a bit
-> > > > > > > > more verbose because they are no apparent side-effects.
-> > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > Function calls do not necessarily have side-effects, in these
-> > > > > > > > > cases the
-> > > > > > > > > GCC pure or const attributes are added when possible.
-> > > > > > > > 
-> > > > > > > > You are only adding pure in this patch.
-> > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > No functional changes.
-> > > > > > > > > 
-> > > > > > > > > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
-> > > > > > > > > 
-> > > > > > > > > ---
-> > > > > > > > > Function attributes pure and const do not need to be added as
-> > > > > > > > > GCC
-> > > > > > > > > attributes, they can be added using ECLAIR configurations.
-> > > > > > > > > ---
-> > > > > > > > >   xen/arch/arm/device.c              |  6 +++---
-> > > > > > > > >   xen/arch/arm/guestcopy.c           | 12 ++++++++----
-> > > > > > > > >   xen/arch/arm/include/asm/current.h |  2 +-
-> > > > > > > > >   3 files changed, 12 insertions(+), 8 deletions(-)
-> > > > > > > > > 
-> > > > > > > > > diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-> > > > > > > > > index 1f631d3274..e9be078415 100644
-> > > > > > > > > --- a/xen/arch/arm/device.c
-> > > > > > > > > +++ b/xen/arch/arm/device.c
-> > > > > > > > > @@ -319,6 +319,8 @@ int handle_device(struct domain *d, struct
-> > > > > > > > > dt_device_node *dev, p2m_type_t p2mt,
-> > > > > > > > >       int res;
-> > > > > > > > >       paddr_t addr, size;
-> > > > > > > > >       bool own_device = !dt_device_for_passthrough(dev);
-> > > > > > > > > +    bool dev_is_hostbridge = is_pci_passthrough_enabled() &&
-> > > > > > > > > +                             device_get_class(dev) ==
-> > > > > > > > > DEVICE_PCI_HOSTBRIDGE;
-> > > > > > > > 
-> > > > > > > > The commit message suggests that the code is moved because there
-> > > > > > > > are side-effects. But none of them should have any side-effects.
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > device_get_class contains an 'ASSERT(dev != NULL)' which is
-> > > > > > > definitely
-> > > > > > > a side-effect.
-> > > > > > 
-> > > > > > Just to confirm my understanding, the side-effect here would be the
-> > > > > > fact that it traps and then panic(). IOW, if the trap was
-> > > > > > hypothetically replaced by a while (1), then it would not be an
-> > > > > > issue. is it correct? >
+> On 19/10/23 13:19, Jan Beulich wrote:
+> > On 19.10.2023 13:12, Simone Ballarin wrote:
+> > > On 19/10/23 11:35, Jan Beulich wrote:
+> > > > On 19.10.2023 03:06, Stefano Stabellini wrote:
+> > > > > On Wed, 18 Oct 2023, Simone Ballarin wrote:
+> > > > > > --- a/xen/common/sched/core.c
+> > > > > > +++ b/xen/common/sched/core.c
+> > > > > > @@ -1504,6 +1504,8 @@ long vcpu_yield(void)
+> > > > > >    {
+> > > > > >        struct vcpu * v=current;
+> > > > > >        spinlock_t *lock;
+> > > > > > +    domid_t domain_id;
+> > > > > > +    int vcpu_id;
+> > > > > >           rcu_read_lock(&sched_res_rculock);
+> > > > > >    @@ -1515,7 +1517,9 @@ long vcpu_yield(void)
+> > > > > >           SCHED_STAT_CRANK(vcpu_yield);
+> > > > > >    -    TRACE_2D(TRC_SCHED_YIELD, current->domain->domain_id,
+> > > > > > current->vcpu_id);
+> > > > > > +    domain_id = current->domain->domain_id;
+> > > > > > +    vcpu_id = current->vcpu_id;
+> > > > > > +    TRACE_2D(TRC_SCHED_YIELD, domain_id, vcpu_id);
 > > > > > 
-> > > > > No, it isn't. A infinite loop is a side effect.
+> > > > > Also here it looks like accessing the current pointer is considered a
+> > > > > side effect. Why? This is a just a global variable that is only
+> > > > > accessed
+> > > > > for reading.
 > > > > 
-> > > > I am not sure why. There are no change of state here.
+> > > > Not exactly. It's a per-CPU variable access on Arm, but involves a
+> > > > function call on x86. Still that function call has no other side
+> > > > effects, but I guess Misra wouldn't honor this.
 > > > > 
-> > > > > 
-> > > > > > I can see two solutions:
-> > > > > >    1) Remove the ASSERT(). It is only here to make the NULL
-> > > > > > dereference obvious in debug build. That said, the stack trace for a
-> > > > > > NULL dereference would still be as clear.
-> > > > > 
-> > > > > Removing the ASSERT just to make MISRA happy does not sound good to
-> > > > > me.
-> > > > 
-> > > > I didn't suggest the ASSERT() just ot make MISRA happy. I suggested it
-> > > > because it has no value here (we still have stack track if there are any
-> > > > issue).
-> > > > 
-> > > > > 
-> > > > > >    2) Replace the ASSERT with a proper check if ( !dev ) return
-> > > > > > DEVICE_UNKONWN. AFAIU, we would not be able to add a
-> > > > > > ASSERT_UNREACHABLE() because this would be again a perceived
-> > > > > > side-effect.
-> > > > > > 
-> > > > > 
-> > > > > Replacing it with a proper check can be a solution, but I still prefer
-> > > > > to add a deviation or move the invocation outside the initializer
-> > > > > list.
-> > > > 
-> > > > In general, I am not in favor of adding deviation if we can avoid them
-> > > > because the code can changed and therefore either moot the deviation or
-> > > > hide any other issue.
-> > > > 
+> > > > I'm afraid though that the suggested change violates rule 2.2, as
+> > > > the two new assignments are dead code when !CONFIG_TRACEBUFFER.
 > > > 
-> > > Ok, I will proceed with option 1.
-> > > 
-> > > > [...]
-> > > > 
-> > > > > Yes, sorry I was looking to the wrong definition.
-> > > > > In ARM the problem is the presence of a *volatile* ASM.
-> > > > > Please take a look here:
-> > > > > 
-> > > > > https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/arm/for-4.19/ARM64-Set2/latest/PROJECT.ecd;/by_service/MC3R1.R13.1.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"fingerprint","inputs":[{"enabled":true,"text":"0da7f0c9aea5491eba343618f965c81f5d7aed3c"}]}}}
-> > > > 
-> > > > Ok. So the problem is the READ_SYSREG(...). Is there a way we can
-> > > > encapsulate the call so we don't need to use your propose trick or
-> > > > deviate at every use of 'current'?
-> > > > 
-> > > 
-> > > The point is that we need to move "READ_SYSREG(TPIDR_EL2)" outside
-> > > the initializer (there are no advantages in wrapping it on a function
-> > > if the function cannot be declared pure).
+> > > I confirm that there is no problem in X86: I will simply propose a patch
+> > > adding __attribute_pure__ to get_cpu_info.
 > > 
-> > I was thinking that maybe it could help to deviate.
+> > I specifically did not suggest that, because I'm afraid the "pure" attribute
+> > may not be used there. Besides this attribute typically being discarded for
+> > inline functions in favor of the compiler's own judgement, it would allow
+> > the compiler to squash multiple invocations. This might even be desirable in
+> > most cases, but would break across a stack pointer change. (In this context
+> > you also need to keep in mind late optimizations done by LTO.)
 > > 
-> > > 
-> > > The proposed solution seems to me the cleanest way do to it. I do not see
-> > > any other acceptable solutions.
-> > 
-> > I have some concern with the proposal (they are most likely matter of
-> > taste).
-> > 
-> > We usually use this trick when 'current' is used multiple time to save
-> > process (using 'current' is not cost free). But in this case, this is
-> > renaming without any apparent benefits.
-> > 
-> > If we wanted to go down this route, then this would likely want a comment.
-> > At which point we should just deviate.
-> > 
-> > I will have a think if there are something else we can do. Could we consider
-> > to not address it for now?
+> > Jan
 > > 
 > 
-> I totally agree.
+> Ok, in this case I will just configure ECLAIR to consider it without effects.
 
-I am wondering if we could deviate "current" because even with the
-implementation using volatile we know it doesn't have "side effects" in
-the sense of changing things for other code outside the function.
---8323329-1978348765-1697740243=:2099202--
+I think that's fine, just remember to either use SAF or document under
+docs/misra/deviations.rst
 
