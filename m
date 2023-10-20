@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AC1C7D0B24
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 11:09:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619732.965290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B17877D0CF8
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 12:15:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619736.965301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtlV5-00030L-Bs; Fri, 20 Oct 2023 09:08:59 +0000
+	id 1qtmWX-0005yf-4A; Fri, 20 Oct 2023 10:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619732.965290; Fri, 20 Oct 2023 09:08:59 +0000
+Received: by outflank-mailman (output) from mailman id 619736.965301; Fri, 20 Oct 2023 10:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtlV5-0002xx-9G; Fri, 20 Oct 2023 09:08:59 +0000
-Received: by outflank-mailman (input) for mailman id 619732;
- Fri, 20 Oct 2023 09:08:58 +0000
+	id 1qtmWX-0005wg-0g; Fri, 20 Oct 2023 10:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 619736;
+ Fri, 20 Oct 2023 10:14:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tdx5=GC=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1qtlV4-0002xr-Aq
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 09:08:58 +0000
-Received: from out0-194.mail.aliyun.com (out0-194.mail.aliyun.com
- [140.205.0.194]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a598ff1-6f28-11ee-98d5-6d05b1d4d9a1;
- Fri, 20 Oct 2023 11:08:55 +0200 (CEST)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.V3aO7cu_1697792930) by smtp.aliyun-inc.com;
- Fri, 20 Oct 2023 17:08:51 +0800
+ <SRS0=SkgR=GC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qtmWV-0005wa-8k
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 10:14:31 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7477e1ec-6f31-11ee-98d5-6d05b1d4d9a1;
+ Fri, 20 Oct 2023 12:14:29 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-507973f3b65so889107e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Oct 2023 03:14:29 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ da11-20020a056402176b00b0053ebe6c1396sm1146976edb.27.2023.10.20.03.14.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Oct 2023 03:14:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,60 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a598ff1-6f28-11ee-98d5-6d05b1d4d9a1
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R401e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047193;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---.V3aO7cu_1697792930;
-From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: "Hou Wenlong" <houwenlong.hwl@antgroup.com>,
-  "Juergen Gross" <jgross@suse.com>,
-  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
-  "Darren Hart" <dvhart@infradead.org>,
-  "Andy Shevchenko" <andy@infradead.org>,
-  "Thomas Gleixner" <tglx@linutronix.de>,
-  "Ingo Molnar" <mingo@redhat.com>,
-  "Borislav Petkov" <bp@alien8.de>,
-  "Dave Hansen" <dave.hansen@linux.intel.com>,
-  "=?UTF-8?B?bWFpbnRhaW5lcjpYODYgQVJDSElURUNUVVJFIDMyLUJJVCBBTkQgNjQtQklU?=" <x86@kernel.org>,
-  "H. Peter Anvin" <hpa@zytor.com>,
-  "=?UTF-8?B?bW9kZXJhdGVkIGxpc3Q6WEVOIEhZUEVSVklTT1IgWDg2?=" <xen-devel@lists.xenproject.org>,
-  "=?UTF-8?B?b3BlbiBsaXN0Olg4NiBQTEFURk9STSBEUklWRVJTIC0gQVJDSA==?=" <platform-driver-x86@vger.kernel.org>
-Subject: [PATCH] x86/xen/pvh: Enable PAE mode for 32-bit guest only when CONFIG_X86_PAE is set
-Date: Fri, 20 Oct 2023 17:08:42 +0800
-Message-Id: <8c5448eeebbba998a7fff9ed9b2f7e7f3e437967.1697792461.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: 7477e1ec-6f31-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1697796869; x=1698401669; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HKAa9TId6lpAXNN80Vmpv2RhG09BT/xEU3AvTHcRAxk=;
+        b=ZO3xKXd00uk7s64wm54oOSOU54kaj7+11BP4Lh/yLFikaBwkkUshjZfAEM4wrsrQxU
+         RIxrUH+r63KNLozgxnoRdfChcTibZdjCRVuJ5xtSXR8QTh77Rer0kAF0lzETyqQ8xyZz
+         RDxkYhAvfD5Cv3pIuFjN1bDCv8Iox7ZawTzf8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697796869; x=1698401669;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HKAa9TId6lpAXNN80Vmpv2RhG09BT/xEU3AvTHcRAxk=;
+        b=MGiVQKNAVgY4BtI2M670N/08XB5gXJ7n2ZbFiGsR62KGdm/61JTyhMT+h14XQuCYTB
+         Yjo6Zb+lwg3K7M3rDACX4kSnJ22vhSxkjqcIzJXguPohhPXtPbl7ksyt6O2BZjpfu9s8
+         cDEDhuf122gV78Ap7ArVR9zvDtNaPSapt7z543DPsEX25aqxOx1B6MmIoqLHXiqFTTu1
+         v3KMP+NHcJQNosj/GQoRkFze4zau7BEW7JlHYSWkXHO4ZV+1iRiepQECa668VwgGcUl/
+         1ELta+4KrYtswYlDZsKwhhZ1VyktInvRiqfTErpwtpddRDGRtp/gIAcxmTr1pXAKYFmU
+         wgRQ==
+X-Gm-Message-State: AOJu0Yx7WPjVC6SrYyLugm/j0GdWcCo8v2EN2o06U0Uw92eWHwhN81GG
+	SoUsc1ihQwE7cvPy9tenP8Fpng==
+X-Google-Smtp-Source: AGHT+IGU2GHKNd1SpRWGd6cpULeQFtbNrvzQXUA8Oqd3Q1xYh9UOTYF+TnPmcsNd0au/I7Z/oBTm5A==
+X-Received: by 2002:a19:7610:0:b0:507:9a55:c463 with SMTP id c16-20020a197610000000b005079a55c463mr967504lff.9.1697796868843;
+        Fri, 20 Oct 2023 03:14:28 -0700 (PDT)
+Message-ID: <14914ea1-2d2b-46e2-9933-2b7414acb7ba@citrix.com>
+Date: Fri, 20 Oct 2023 11:14:27 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] ns16550c: avoid crash in ns16550_endboot in PV shim mode
+Content-Language: en-GB
+To: David Woodhouse <dwmw2@infradead.org>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <de07d56188f13e222ddaa1b963c20f8d7d61350e.camel@infradead.org>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <de07d56188f13e222ddaa1b963c20f8d7d61350e.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The PVH entry is available for 32-bit KVM guests, and 32-bit KVM guests
-do not depend on CONFIG_X86_PAE. However, mk_early_pgtbl_32() builds
-different pagetables depending on whether CONFIG_X86_PAE is set.
-Therefore, enabling PAE mode for 32-bit KVM guests without
-CONFIG_X86_PAE being set would result in a boot failure during CR3
-loading.
+On 19/10/2023 5:21 pm, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> In shim mode there is no hardware_domain. Dereferencing the pointer
+> doesn't end well.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+> This is about as far as I got in my abortive attempt to use the PV shim
+> without an actual PV console being provided by the HVM hosting
+> environment. It still doesn't pass the guest's console through to
+> serial; that only seems to shim to an actual PV console.
 
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
----
- arch/x86/platform/pvh/head.S | 2 ++
- 1 file changed, 2 insertions(+)
+There's no such thing as a Xen VM without a PV console.
 
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index c4365a05ab83..085adb1b2313 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -70,10 +70,12 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 
- 	mov $_pa(early_stack_end), %esp
- 
-+#if defined(CONFIG_X86_64) || defined(CONFIG_X86_PAE)
- 	/* Enable PAE mode. */
- 	mov %cr4, %eax
- 	orl $X86_CR4_PAE, %eax
- 	mov %eax, %cr4
-+#endif
- 
- #ifdef CONFIG_X86_64
- 	/* Enable Long mode. */
--- 
-2.31.1
+And yes, this is an error, but that horse bolted 2 decades ago.
 
+
+It would be nice if having a "real" serial didn't crash like this, but
+PV Shim is specialised to transplant one normal-looking PV guest, and
+the interposition logic is tied to the PV console.
+
+~Andrew
 
