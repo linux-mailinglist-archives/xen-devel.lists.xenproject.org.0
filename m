@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127657D109A
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 15:38:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619792.965447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01FAD7D10D7
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 15:53:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619797.965460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtphT-00041a-N0; Fri, 20 Oct 2023 13:38:03 +0000
+	id 1qtpvY-0007Wr-VF; Fri, 20 Oct 2023 13:52:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619792.965447; Fri, 20 Oct 2023 13:38:03 +0000
+Received: by outflank-mailman (output) from mailman id 619797.965460; Fri, 20 Oct 2023 13:52:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtphT-0003zZ-J9; Fri, 20 Oct 2023 13:38:03 +0000
-Received: by outflank-mailman (input) for mailman id 619792;
- Fri, 20 Oct 2023 13:38:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qtpvY-0007Ty-SW; Fri, 20 Oct 2023 13:52:36 +0000
+Received: by outflank-mailman (input) for mailman id 619797;
+ Fri, 20 Oct 2023 13:52:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fjAU=GC=casper.srs.infradead.org=BATV+5f4592396010e9e3c002+7362+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtphR-0003zR-E8
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 13:38:02 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2256f49-6f4d-11ee-98d5-6d05b1d4d9a1;
- Fri, 20 Oct 2023 15:38:00 +0200 (CEST)
-Received: from [2001:8b0:10b:5:f7e9:453b:fc3b:2f6]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qtphO-00DO51-37; Fri, 20 Oct 2023 13:37:58 +0000
+ <SRS0=mE5s=GC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qtpvX-0007Tn-QB
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 13:52:35 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eafeda73-6f4f-11ee-9b0e-b553b5be7939;
+ Fri, 20 Oct 2023 15:52:33 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9b1ebc80d0aso132318866b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Oct 2023 06:52:33 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ f20-20020a17090660d400b009a1c05bd672sm1519766ejk.127.2023.10.20.06.52.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Oct 2023 06:52:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,197 +45,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2256f49-6f4d-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7gNioTd0sL6hxeyYsRkvDA2DhWTOOi8c83OXvvJSVrg=; b=USIuqejTcN7Ax6QwZFlQ3YhZE7
-	/p9tNiyUqPlt1xIgJJPt3FS1faED72NIg3UNcL06d/EA+6N44tsc6gH2+P0czb2AGAuZ719lU6QX5
-	/UdzoYki2vpek/0xeY0zbEdsLfIWzwoHqMfXwwxNhoD0LsQ+ffc0gA/UbHPuTyJgu3OP3T74SxIBt
-	/4GaTwZTFugI998IEootu6fvcZ2jLy5nAveethuQXtgqIVXkGkiRY9Iw/XUnUJ+7r2SC+q5Udgrnr
-	xyy+3ck3fT4sAtP4oM7H0dk1eq1GJfMJr3pcBGTDmjmYMalF8q4KWwBrCyDx43U8juXBZQobAaKy7
-	KTCmY27Q==;
-Message-ID: <7e1fb34868adfa51f1a48eb8d77f4b92643db85e.camel@infradead.org>
-Subject: Re: [PATCH] ns16550c: avoid crash in ns16550_endboot in PV shim mode
-From: David Woodhouse <dwmw2@infradead.org>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Andrew Cooper
-	 <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap
- <george.dunlap@citrix.com>,  Jan Beulich <jbeulich@suse.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,  Wei Liu
- <wl@xen.org>
-Date: Fri, 20 Oct 2023 14:37:57 +0100
-In-Reply-To: <ZTKAqBILUBNelYCS@macbook>
-References: <de07d56188f13e222ddaa1b963c20f8d7d61350e.camel@infradead.org>
-	 <14914ea1-2d2b-46e2-9933-2b7414acb7ba@citrix.com>
-	 <f1ea054608f4ae38293f89bcd84c6937538f245b.camel@infradead.org>
-	 <f5603457-8bee-40b9-9ea2-d604abe4ee53@citrix.com>
-	 <ZTKAqBILUBNelYCS@macbook>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-r0rpy3iN0pY+V1N+ur8g"
-User-Agent: Evolution 3.44.4-0ubuntu2 
-MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-r0rpy3iN0pY+V1N+ur8g
+X-Inumbo-ID: eafeda73-6f4f-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1697809952; x=1698414752; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=NyC4slBPsVHFA4BVqfJBMjEmAIlbb68sj7NOG4bF0+c=;
+        b=JFV12Aw71OB2h8L8vnTbiv0nToLKDCn0Bk4majSy4kxkYzN/q6fcOLnJdiB/zSq2ZT
+         /PXf7NTxj8q6oOaIy4KrH2FRA0cV2k9Bs3ryvn0M5R63+ePQKzj3WrtgC7pCwDHykAyH
+         7andEU9SIx0Sp3w0S5xxCLD3gVS6BkZEJKlWB/HS4TW2KYbgbhCw9kOyR3ekGICsjD1J
+         qrCJKfU8DPTgg+kOYH5r75BYA7ZhQy6aqsvi6mUHaDItX5iTaYeurB0IJUYYcpV+aUnx
+         tva+MYW5L3VXXLveNXXzGihZ8G+GZkX5N5IHaDHt0hmOGmVAOJoUgM/JgCx/1vSoKOd3
+         9A9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697809952; x=1698414752;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NyC4slBPsVHFA4BVqfJBMjEmAIlbb68sj7NOG4bF0+c=;
+        b=G7Fi9ErrQUeKmR6fzm647JXI3a6Yo8sB83AahikG51whnF47D/OPpR8KZkTpxLUYBn
+         /AdqF13tPsefa2+aNF9sfLg8R1SDNVaE+EV/kEcm2pdVWJTXJWqpTA7qRo88k6C1AhrW
+         sYl9du5O/0qcPb4ZrRu27L4kgtftK9NZej2J7Ym26D6SiwMvZ2b/kjEcQeddjggh8QfF
+         43QAEO494b/cNI4OSg51VRkO3yv9gp7TTq9As+QAtiX75eLKBiSG0acFFWoma9E439io
+         XEZPy2d3JT9+YcCgjB8dobqqs8EEQHp1Rhjr9SsM6RibHmSCkTCeIVh7LB4r3jVKDUNK
+         mbNQ==
+X-Gm-Message-State: AOJu0Yx/IQ0MEvsrtkJs/1JWDhGEv2qVcO3otHmEqGsdlpXHg6BbgVDG
+	zdruKbhzrKG/wnZE5lFWwKk=
+X-Google-Smtp-Source: AGHT+IHBw6l4eo5Mj86YHiMGUQuoyg2D40cOz+uApfy3y5uN6ijwBFK1rkEdhssVh9FMrHjCrflyNg==
+X-Received: by 2002:a17:906:fe4a:b0:9c3:b3cb:29b2 with SMTP id wz10-20020a170906fe4a00b009c3b3cb29b2mr1483819ejb.42.1697809952363;
+        Fri, 20 Oct 2023 06:52:32 -0700 (PDT)
+Message-ID: <ae6b419eac6eaefd65aab36b69e8926032983110.camel@gmail.com>
+Subject: Re: [PATCH v7 0/2] xen/riscv: introduce identity mapping
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
+ JulienGrall <julien@xen.org>
+Date: Fri, 20 Oct 2023 16:52:30 +0300
+In-Reply-To: <059882ea-3e42-f74d-83e6-2f809d0993cb@suse.com>
+References: <cover.1691507564.git.oleksii.kurochko@gmail.com>
+	 <059882ea-3e42-f74d-83e6-2f809d0993cb@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
-On Fri, 2023-10-20 at 15:29 +0200, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Oct 20, 2023 at 02:25:35PM +0100, Andrew Cooper wrote:
-> > On 20/10/2023 11:29 am, David Woodhouse wrote:
-> > > On Fri, 2023-10-20 at 11:14 +0100, Andrew Cooper wrote:
-> > > > On 19/10/2023 5:21 pm, David Woodhouse wrote:
-> > > > > From: David Woodhouse <dwmw@amazon.co.uk>
-> > > > >=20
-> > > > > In shim mode there is no hardware_domain. Dereferencing the point=
-er
-> > > > > doesn't end well.
-> > > > >=20
-> > > > > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > > > > ---
-> > > > > This is about as far as I got in my abortive attempt to use the P=
-V shim
-> > > > > without an actual PV console being provided by the HVM hosting
-> > > > > environment. It still doesn't pass the guest's console through to
-> > > > > serial; that only seems to shim to an actual PV console.
-> > > > There's no such thing as a Xen VM without a PV console.
-> > > Huh? There are literally millions of them.
+On Thu, 2023-10-19 at 12:32 +0200, Jan Beulich wrote:
+> On 08.08.2023 17:14, Oleksii Kurochko wrote:
+> > The patch series introduces things necessary to implement identity
+> > mapping:
+> > =C2=A0 1. Make identity mapping for the entire Xen.
+> > =C2=A0 2. Enable MMU.
+> > =C2=A0 3. Jump to the virtual address world
+> > =C2=A0 4. Remove identity mapping.
 > >=20
-> > I'm very prepared to believe there are millions which don't overtly
-> > malfunction when you don't fill in the HVM Params.=C2=A0
+> > Also current patch series introduces the calculation of physical
+> > offset before
+> > MMU is enabled as access to physical offset will be calculated
+> > wrong after
+> > MMU will be enabled because access to phys_off variable is PC-
+> > relative and
+> > in the case when linker address !=3D load address, it will cause MMU
+> > fault.
 > >=20
-> > Which is very different from saying "there's a way in the Xen guest ABI
-> > to express 'you don't have a PV console' ".
+> > The reason for this patch series can be found here:
+> > https://lore.kernel.org/xen-devel/4e336121-fc0c-b007-bf7b-430352563d55@=
+citrix.com/
+> >=20
+> > ---
+> > Changes in V7:
+> > =C2=A0- use srli instruction to be consistent with slli instruction in
+> > turn_on_mmu()
+> > ---
+> > Changes in V6:
+> > =C2=A0 - Update calc_phys_offset() after rebase.
+> > =C2=A0 - Refactor turn_on_mmu() and a way how an argument of
+> > turn_on_mmu() is
+> > =C2=A0=C2=A0=C2=A0 calculated.
+> > ---
+> > Changes in V5:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the algo of id=
+entity mapping removing.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce IDENT_AREA_=
+SIZE.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce turn_on_mmu=
+() function to enable and switch
+> > from 1:1 mapping.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- fix typo in PGTBL_INI=
+TIAL_COUNT define.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comment ab=
+ove PGTBL_INITIAL_COUNT.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update prototype of c=
+alc_phys_offset(). now it returns
+> > phys_offset.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- declare phys_offset a=
+s static.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- save returned value o=
+f calc_phys_offset to register s2.
+> > ---
+> > Changes in V4:
+> > =C2=A0 - drop patch=C2=A0=C2=A0[PATCH v3 1/3] xen/riscv: add SPDX tag t=
+o config.h
+> > as it was
+> > =C2=A0=C2=A0=C2=A0 merged to staging
+> > =C2=A0 - remove definition of ARRAY_SIZE and ROUNDUP as <xen/macors.h>
+> > was introduced where these macros are located now.
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update definition of =
+PGTBL_INITIAL_COUNT
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the commit mes=
+sage for patch 'xen/riscv: introduce
+> > identity mapping'
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comments i=
+n head.S
+> > =C2=A0 - update the algo of identity mapping removing=20
+> > ---
+> > Changes in V3:
+> > =C2=A0- Update the patch series message.
+> > =C2=A0- The following patches were merged to staging so droped from the
+> > patch series:
+> > =C2=A0=C2=A0 * xen/riscv: add .sbss section to .bss
+> > =C2=A0=C2=A0 * xen/riscv: introduce reset_stack() function
+> > =C2=A0=C2=A0 * xen/riscv: move extern of cpu0_boot_stack to header
+> > =C2=A0=C2=A0 * xen/riscv: add SPDX tags
+> > =C2=A0- move save/restore of a0/a1 registers from patch 4 to patch 2 (
+> > numbers are
+> > =C2=A0=C2=A0 from the previous patch series version )
+> > =C2=A0- add SPDX tag in config.h
+> > =C2=A0- update definition of PGTBL_INITIAL_COUNT taking into account
+> > identity mapping.
+> > =C2=A0- refactor remove_identity_mapping() function.
+> > =C2=A0- add explanatory comments in xen.lds.S and mm.c.
+> > ---
+> > Changes in V2:
+> > =C2=A0- update the patch series message.
+> > =C2=A0- drop patches from the previous version of the patch series:
+> > =C2=A0=C2=A0 * xen/riscv: add __ASSEMBLY__ guards". ( merged )
+> > =C2=A0=C2=A0 * xen/riscv: make sure that identity mapping isn't bigger =
+then
+> > page size
+> > =C2=A0=C2=A0=C2=A0=C2=A0 ( entire Xen is 1:1 mapped so there is no need=
+ for the checks
+> > from the patch )
+> > =C2=A0- add .sbss.* and put it befor .bss* .
+> > =C2=A0- move out reset_stack() to .text section.
+> > =C2=A0- add '__ro_after_init' for phys_offset variable.
+> > =C2=A0- add '__init' for calc_phys_offset().
+> > =C2=A0- declaring variable phys_off as non static as it will be used in
+> > head.S.
+> > =C2=A0- update definition of PGTBL_INITIAL_COUNT and the comment above.
+> > =C2=A0- code style fixes.
+> > =C2=A0- remove id_addrs array becase entire Xen is mapped.
+> > =C2=A0- reverse condition for cycle inside remove_identity_mapping().
+> > =C2=A0- fix page table walk in remove_identity_mapping().
+> > =C2=A0- save hart_id and dtb_addr before call MMU related C functions
+> > =C2=A0- use phys_offset variable instead of doing calcultations to get
+> > phys offset
+> > =C2=A0=C2=A0 in head.S file. ( it can be easily done as entire Xen is 1=
+:1
+> > mapped now )
+> > =C2=A0- declare enable_muu() as __init.
+> > =C2=A0- Update SPDX tags.
+> > =C2=A0- Add Review-By/Suggested-By for some patches.
+> > =C2=A0- code style fixes.
+> >=20
+> > Oleksii Kurochko (2):
+> > =C2=A0 xen/riscv: introduce function for physical offset calculation
+> > =C2=A0 xen/riscv: introduce identity mapping
 >=20
-> FWIW, Linux assumes that either the console page or the event channel
-> being 0 implies no console available [0], so I guess that's the ABI
-> now.
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+Thanks for Ack.
 
-Or if the HVMOP_get_param call returns an error.
+Should be the patch series re-send with Ack after the end of code
+freeze?
 
-> Roger.
->=20
-> [0] https://elixir.bootlin.com/linux/latest/source/drivers/tty/hvc/hvc_xe=
-n.c#L258
-
-I'm not convinced I believe what the comment says there about evtchn 0
-being theoretically valid. I don't believe zero is a valid evtchn#, is
-it?
-
---=-r0rpy3iN0pY+V1N+ur8g
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDIwMTMzNzU3WjAvBgkqhkiG9w0BCQQxIgQg7E332BO2
-qckzFl3P+5wVM+fyvqkWtxP3yRFpT22oNwAwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCEkJdaVltfrpZIdV8y3yT+2XMbNxo3qws8
-6qfp0Qpxq2Jeosy2r8aqOzQcrKeWNxPMogzUkTmC9zoWkAyFCwz/C/pncKwTEgSnfbGSsY+RjRXN
-dtA2zPKfKgHCW+qz5wrq01tgf6oSO/cvLO75odlVadH+ipajbPlIVH+YO8pfeYsckd8KcRklNPzJ
-fhj8qP04KAOuPvriQtThl1YcoCL/wNCcsmjN13rb1k64fZKbCFNZdsi4QZbQL/+pVOP7tWhJSZHR
-wSlr/VYmcMowJ9fOyZREuN+3Yy1KsEbh634dWNnUv26dvdDqaFTxn9X6xoPLCJSZPz/gidDMg+dq
-PGdmweoH8s+ekg0m5SR2m8WEPk+7OIYzhFA625fjxEF0DthotKSgg5lY97po5qQ+eVepWy0HH5zW
-3Z/mS+5W1JPPzUSqwOgONfskKy32njo6+vcI++aEGZaiIvMEpWN1gL60b2wTtufIV49Nz6u4ag/U
-frha486gRMYydNKLJltPTJtYrdjhDYNumuhTL4ka9YvS/I86IoCF3UJ+rnAQ3iBWWGcVC5o4+bT9
-3gl/U3Zah9ityFhC+MiLUUSM3r3co1hqTPQm0UxNFDkfHYaflpjPXAW7laNBIhjx8BQOrQh6TsIg
-5eLZhHgT6pDpObbQzYlWgSe0mJP8KHI7fOtAWdeRaQAAAAAAAA==
-
-
---=-r0rpy3iN0pY+V1N+ur8g--
+~ Oleksii
 
