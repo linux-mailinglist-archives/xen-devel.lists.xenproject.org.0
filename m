@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B795F7D12AC
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 17:29:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619836.965594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E87A97D12AD
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 17:29:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619837.965602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtrQj-0006rG-Rl; Fri, 20 Oct 2023 15:28:53 +0000
+	id 1qtrQm-00079e-5N; Fri, 20 Oct 2023 15:28:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619836.965594; Fri, 20 Oct 2023 15:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 619837.965602; Fri, 20 Oct 2023 15:28:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtrQj-0006nJ-O8; Fri, 20 Oct 2023 15:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 619836;
- Fri, 20 Oct 2023 15:28:52 +0000
+	id 1qtrQm-000769-1o; Fri, 20 Oct 2023 15:28:56 +0000
+Received: by outflank-mailman (input) for mailman id 619837;
+ Fri, 20 Oct 2023 15:28:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SYNS=GC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qtrQi-0006F5-Iv
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 15:28:52 +0000
+ id 1qtrQk-0006F5-00
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 15:28:54 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ecf08ff-6f5d-11ee-9b0e-b553b5be7939;
- Fri, 20 Oct 2023 17:28:51 +0200 (CEST)
+ id 5fb0a006-6f5d-11ee-9b0e-b553b5be7939;
+ Fri, 20 Oct 2023 17:28:52 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 814F64EE0740;
- Fri, 20 Oct 2023 17:28:49 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 03BDC4EE0741;
+ Fri, 20 Oct 2023 17:28:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ecf08ff-6f5d-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 5fb0a006-6f5d-11ee-9b0e-b553b5be7939
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -52,72 +52,52 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-4.19 v3 4/8] x86_64/mm: express macro CNT using LOWEST_BIT
-Date: Fri, 20 Oct 2023 17:28:33 +0200
-Message-Id: <938d39e2885bdef399da5788f85b7749ccfd9654.1697815135.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH][for-4.19 v3 5/8] x86/io_apic: address violation of MISRA C:2012 Rule 10.1
+Date: Fri, 20 Oct 2023 17:28:34 +0200
+Message-Id: <4db1f326a6dec164e2d3536caaedd9038407a6e7.1697815135.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1697815135.git.nicola.vetrini@bugseng.com>
 References: <cover.1697815135.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The various definitions of macro CNT (and the related BUILD_BUG_ON)
-can be rewritten using LOWEST_BIT, encapsulating a violation of
-MISRA C:2012 Rule 10.1.
+The definition of IO_APIC_BASE contains a sum of an essentially enum
+value (FIX_IO_APIC_BASE_0) that is positive with an index that, in all
+instances, is unsigned, therefore the former is cast to unsigned, so that
+the operands are of the same essential type.
+
+No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/arch/x86/x86_64/mm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Eventually __fix_to_virt may become an inline function; in that case,
+it should retain unsigned int as its parameter type.
 
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index c3ebb777144a..0eb7b71124f5 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -351,9 +351,9 @@ static int setup_compat_m2p_table(struct mem_hotadd_info *info)
-                 ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1) );
+Changes in v3:
+- style fix
+- Add missing S-o-b
+---
+ xen/arch/x86/include/asm/io_apic.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/io_apic.h b/xen/arch/x86/include/asm/io_apic.h
+index a7e4c9e146de..206bb961c005 100644
+--- a/xen/arch/x86/include/asm/io_apic.h
++++ b/xen/arch/x86/include/asm/io_apic.h
+@@ -14,9 +14,10 @@
+  * Copyright (C) 1997, 1998, 1999, 2000 Ingo Molnar
+  */
  
- #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
--#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
-+#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
-              sizeof(*compat_machine_to_phys_mapping))
--    BUILD_BUG_ON((sizeof(*frame_table) & -sizeof(*frame_table)) % \
-+    BUILD_BUG_ON(LOWEST_BIT(sizeof(*frame_table)) % \
-                  sizeof(*compat_machine_to_phys_mapping));
+-#define IO_APIC_BASE(idx)                                               \
+-    ((volatile uint32_t *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + (idx))    \
+-                           + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
++#define IO_APIC_BASE(idx)                                         \
++    ((volatile uint32_t *)                                        \
++     (__fix_to_virt((unsigned int)FIX_IO_APIC_BASE_0 + (idx)) +   \
++                    (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
  
-     for ( i = smap; i < emap; i += (1UL << (L2_PAGETABLE_SHIFT - 2)) )
-@@ -410,10 +410,10 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
-     va = RO_MPT_VIRT_START + smap * sizeof(*machine_to_phys_mapping);
+ #define IO_APIC_ID(idx) (mp_ioapics[idx].mpc_apicid)
  
- #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned long))
--#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
-+#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
-              sizeof(*machine_to_phys_mapping))
- 
--    BUILD_BUG_ON((sizeof(*frame_table) & -sizeof(*frame_table)) % \
-+    BUILD_BUG_ON(LOWEST_BIT(sizeof(*frame_table)) % \
-                  sizeof(*machine_to_phys_mapping));
- 
-     i = smap;
-@@ -539,7 +539,7 @@ void __init paging_init(void)
-     mpt_size  = (max_page * BYTES_PER_LONG) + (1UL << L2_PAGETABLE_SHIFT) - 1;
-     mpt_size &= ~((1UL << L2_PAGETABLE_SHIFT) - 1UL);
- #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned long))
--#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
-+#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
-              sizeof(*machine_to_phys_mapping))
-     BUILD_BUG_ON((sizeof(*frame_table) & ~sizeof(*frame_table)) % \
-                  sizeof(*machine_to_phys_mapping));
-@@ -666,7 +666,7 @@ void __init paging_init(void)
-         mpt_size = 0;
- 
- #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
--#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
-+#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
-              sizeof(*compat_machine_to_phys_mapping))
-     BUILD_BUG_ON((sizeof(*frame_table) & ~sizeof(*frame_table)) % \
-                  sizeof(*compat_machine_to_phys_mapping));
 -- 
 2.34.1
 
