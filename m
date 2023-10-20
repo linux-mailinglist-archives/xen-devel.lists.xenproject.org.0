@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E4417D13D4
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 18:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619874.965669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98CD17D145C
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 18:49:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619886.965693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtsA4-0004cH-Hq; Fri, 20 Oct 2023 16:15:44 +0000
+	id 1qtsfF-0004Xe-A9; Fri, 20 Oct 2023 16:47:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619874.965669; Fri, 20 Oct 2023 16:15:44 +0000
+Received: by outflank-mailman (output) from mailman id 619886.965693; Fri, 20 Oct 2023 16:47:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtsA4-0004UZ-Dp; Fri, 20 Oct 2023 16:15:44 +0000
-Received: by outflank-mailman (input) for mailman id 619874;
- Fri, 20 Oct 2023 16:15:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fjAU=GC=casper.srs.infradead.org=BATV+5f4592396010e9e3c002+7362+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qtsA2-0004Dr-WA
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 16:15:42 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e71fc38f-6f63-11ee-9b0e-b553b5be7939;
- Fri, 20 Oct 2023 18:15:36 +0200 (CEST)
-Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qts9u-00E44E-8P; Fri, 20 Oct 2023 16:15:34 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qts9s-001UOc-1F; Fri, 20 Oct 2023 17:15:32 +0100
+	id 1qtsfF-0004WS-5w; Fri, 20 Oct 2023 16:47:57 +0000
+Received: by outflank-mailman (input) for mailman id 619886;
+ Fri, 20 Oct 2023 16:47:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtsfE-0004WI-Ab; Fri, 20 Oct 2023 16:47:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtsfE-0008Ie-6i; Fri, 20 Oct 2023 16:47:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtsfD-0002ad-IA; Fri, 20 Oct 2023 16:47:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qtsfD-0008Sp-Hg; Fri, 20 Oct 2023 16:47:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,154 +41,337 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e71fc38f-6f63-11ee-9b0e-b553b5be7939
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=tKr5NCYEWPmX5deg+2Ptja2Fo3YNlvlkNEh9wJh6ZDg=; b=ERnIsojrkc5WLnr34IDZQWQKrG
-	wFzlSNa4uSGkth0zeh9LHdVk5FXd6R1LgmCBut8RlHh4SGdWnzA22SU/ejGMiigfeW+6R5k7l2fg2
-	0uiPSrmfiUIoAU5Q2qVPTTjT2kI+9So4NYm2If5BnDiMQZk7Rt7YUcegC1ffCiPYVpfP+E6Imy9hV
-	i2YFd5mM2Jc+985Yim+drAaCsJdkxvZKx7L2lWkn8w4S+76vvn2Jy23msUjaZ2EOVxJJfAY6wkfgh
-	GDrxLxeDVf77oL1C2C89fPb2hRzeM7pGCmELvA/wEZqdkqmaffpDBxTbaPsfNHSm8zNZg6XsaeLtV
-	M17Mpk1w==;
-From: David Woodhouse <dwmw2@infradead.org>
-To: Juergen Gross <jgross@suse.com>,
-	xen-devel@lists.xenproject.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Dawei Li <set_pte_at@outlook.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v2 3/3] hvc/xen: fix console unplug
-Date: Fri, 20 Oct 2023 17:15:29 +0100
-Message-Id: <20231020161529.355083-4-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231020161529.355083-1-dwmw2@infradead.org>
-References: <20231020161529.355083-1-dwmw2@infradead.org>
-MIME-Version: 1.0
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3W2cgs7TunpfcgG+CLOLLSfr70s+8sFQ4WHHxGMaLe0=; b=AGC9ElOdKLRhdTHQnAf4+nygUP
+	z9xeXjg5s1XoQ1doO+sTe+fLrj2znmKoJdoT61M8dAbgnm54fHeUF61L+FZzUaYpszqNJ2sUe5bU9
+	M7NceuIL4herNCk+yTyHHd2kmK60sM7Q1XwxyQg/RMaY/19p8m8iVe2J8WxAj8R8sGP4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183440-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+MIME-Version: 1.0
+Subject: [linux-linus test] 183440: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=ce55c22ec8b223a90ff3e084d842f73cfba35588
+X-Osstest-Versions-That:
+    linux=7cf4bea77ab60742c128c2ceb4b1b8078887b823
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 20 Oct 2023 16:47:55 +0000
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+flight 183440 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183440/
 
-On unplug of a Xen console, xencons_disconnect_backend() unconditionally
-calls free_irq() via unbind_from_irqhandler(), causing a warning of
-freeing an already-free IRQ:
+Failures :-/ but no regressions.
 
-(qemu) device_del con1
-[   32.050919] ------------[ cut here ]------------
-[   32.050942] Trying to free already-free IRQ 33
-[   32.050990] WARNING: CPU: 0 PID: 51 at kernel/irq/manage.c:1895 __free_irq+0x1d4/0x330
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183432
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183432
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183432
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183432
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183432
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183432
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183432
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183432
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-It should be using evtchn_put() to tear down the event channel binding,
-and let the Linux IRQ side of it be handled by notifier_del_irq() through
-the HVC code.
+version targeted for testing:
+ linux                ce55c22ec8b223a90ff3e084d842f73cfba35588
+baseline version:
+ linux                7cf4bea77ab60742c128c2ceb4b1b8078887b823
 
-On which topic... xencons_disconnect_backend() should call hvc_remove()
-*first*, rather than tearing down the event channel and grant mapping
-while they are in use. And then the IRQ is guaranteed to be freed by
-the time it's torn down by evtchn_put().
+Last test of basis   183432  2023-10-19 16:10:25 Z    1 days
+Testing same since   183440  2023-10-20 04:54:14 Z    0 days    1 attempts
 
-Since evtchn_put() also closes the actual event channel, avoid calling
-xenbus_free_evtchn() except in the failure path where the IRQ was not
-successfully set up.
+------------------------------------------------------------
+People who touched revisions under test:
+  "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+  Aaron Conole <aconole@redhat.com>
+  Albert Huang <huangjie.albert@bytedance.com>
+  Amir Tzin <amirtz@nvidia.com>
+  Arkadiusz Bokowy <arkadiusz.bokowy@gmail.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Bagas Sanjaya <bagasdotme@gmail.com>
+  Catalin Marinas <catalin.marinas@arm.com>
+  Chris Mason <clm@fb.com>
+  Christian Brauner <brauner@kernel.org>
+  Christoph Paasch <cpaasch@apple.com>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Dan Clash <daclash@linux.microsoft.com>
+  David S. Miller <davem@davemloft.net>
+  Dong Chenchen <dongchenchen2@huawei.com>
+  Dragos Tatulea <dtatulea@nvidia.com>
+  Dust Li <dust.li@linux.alibaba.com>
+  Edward AD <twuufnxlz@gmail.com>
+  Eric Dumazet <edumazet@google.com>
+  Florian Fainelli <florian.fainelli@broadcom.com>
+  Florian Westphal <fw@strlen.de>
+  Gabriel Marcano <gabemarcano@yahoo.com>
+  Gavrilov Ilia <Ilia.Gavrilov@infotecs.ru>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Geliang Tang <geliang.tang@suse.com>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Huacai Chen <chenhuacai@loongson.cn>
+  Icenowy Zheng <uwu@icenowy.me>
+  Ido Schimmel <idosch@nvidia.com>
+  Iulia Tanasescu <iulia.tanasescu@nxp.com>
+  Jacob Keller <jacob.e.keller@intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jakub Sitnicki <jakub@cloudflare.com>
+  Jamal Hadi Salim <jhs@mojatatu.com>
+  Jan Sokolowski <jan.sokolowski@intel.com>
+  Jason Wang <jasowang@redhat.com>
+  Jay Vosburgh <jay.vosburgh@canonical.com>
+  Jesse Brandeburg <jesse.brandeburg@intel.com>
+  Jianbo Liu <jianbol@nvidia.com>
+  Jinjie Ruan <ruanjinjie@huawei.com>
+  Jiri Pirko <jiri@nvidia.com>
+  Jiri Slaby (SUSE) <jirislaby@kernel.org>
+  Jiri Wiesner <jwiesner@suse.de>
+  Johannes Berg <johannes.berg@intel.com>
+  Josua Mayer <josua@solid-run.com>
+  Kees Cook <keescook@chromium.org>
+  kernel test robot <oliver.sang@intel.com>
+  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+  Kory Maincent <kory.maincent@bootlin.com>
+  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+  Kuniyuki Iwashima <kuniyu@amazon.com>
+  Lama Kayal <lkayal@nvidia.com>
+  Lee, Chun-Yi <jlee@suse.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Ma Ke <make_ruc2021@163.com>
+  Maher Sanalla <msanalla@nvidia.com>
+  Manish Chopra <manishc@marvell.com>
+  Mat Martineau <martineau@kernel.org>
+  Mateusz Pacuszka <mateuszx.pacuszka@intel.com>
+  Mateusz Polchlopek <mateusz.polchlopek@intel.com>
+  Matthieu Baerts <matttbe@kernel.org>
+  Max Chou <max.chou@realtek.com>
+  MD Danish Anwar <danishanwar@ti.com>
+  Michal Schmidt <mschmidt@redhat.com>
+  Neal Cardwell <ncardwell@google.com>
+  Niklas Schnelle <schnelle@linux.ibm.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paul Moore <paul@paul-moore.com> (Audit)
+  Pauli Virtanen <pav@iki.fi>
+  Pavel Skripkin <paskripkin@gmail.com>
+  Pedro Tammela <pctammela@mojatatu.com>
+  Phil Sutter <phil@nwl.cc>
+  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
+  Randy Dunlap <rdunlap@infradead.org>
+  Saeed Mahameed <saeedm@nvidia.com>
+  Shailend Chand <shailend@google.com>
+  Shay Drory <shayd@nvidia.com>
+  Shinas Rasheed <srasheed@marvell.com>
+  Simon Horman <horms@kernel.org> # build-tested
+  Sriram Yagnaraman <sriram.yagnaraman@est.tech>
+  Stefan Wahren <wahrenst@gmx.net>
+  Steffen Klassert <steffen.klassert@secunet.com>
+  Su Hui <suhui@nfschina.com>
+  Tianrui Zhao <zhaotianrui@loongson.cn>
+  Tiezhu Yang <yangtiezhu@loongson.cn>
+  Vlad Buslov <vladbu@nvidia.com>
+  Vladimir Oltean <vladimir.oltean@nxp.com>
+  Vlastimil Babka <vbabka@suse.cz>
+  Willem de Bruijn <willemb@google.com>
+  Xingyuan Mo <hdthky0@gmail.com>
+  Yuchung Cheng <ycheng@google.com>
+  Zeng Heng <zengheng4@huawei.com>
+  Zhang Changzhong <zhangchangzhong@huawei.com>
+  Ziqi Zhao <astrajoan@yahoo.com>
+  Ziyang Xuan <william.xuanziyang@huawei.com>
 
-However, calling hvc_remove() at the start of xencons_disconnect_backend()
-still isn't early enough. An unplug request is indicated by the backend
-setting its state to XenbusStateClosing, which triggers a notification
-to xencons_backend_changed(), which... does nothing except set its own
-frontend state directly to XenbusStateClosed without *actually* tearing
-down the HVC device or, you know, making sure it isn't actively in use.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-So the backend sees the guest frontend set its state to XenbusStateClosed
-and stops servicing the interrupt... and the guest spins for ever in the
-domU_write_console() function waiting for the ring to drain.
 
-Fix that one by calling hvc_remove() from xencons_backend_changed() before
-signalling to the backend that it's OK to proceed with the removal.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Tested with 'dd if=/dev/zero of=/dev/hvc1' while telling Qemu to remove
-the console device.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Cc: stable@vger.kernel.org
----
- drivers/tty/hvc/hvc_xen.c | 32 ++++++++++++++++++++++++--------
- 1 file changed, 24 insertions(+), 8 deletions(-)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
-index 4a768b504263..34c01874f45b 100644
---- a/drivers/tty/hvc/hvc_xen.c
-+++ b/drivers/tty/hvc/hvc_xen.c
-@@ -377,18 +377,21 @@ void xen_console_resume(void)
- #ifdef CONFIG_HVC_XEN_FRONTEND
- static void xencons_disconnect_backend(struct xencons_info *info)
- {
--	if (info->irq > 0)
--		unbind_from_irqhandler(info->irq, NULL);
--	info->irq = 0;
-+	if (info->hvc != NULL)
-+		hvc_remove(info->hvc);
-+	info->hvc = NULL;
-+	if (info->irq > 0) {
-+		evtchn_put(info->evtchn);
-+		info->irq = 0;
-+		info->evtchn = 0;
-+	}
-+	/* evtchn_put() will also close it so this is only an error path */
- 	if (info->evtchn > 0)
- 		xenbus_free_evtchn(info->xbdev, info->evtchn);
- 	info->evtchn = 0;
- 	if (info->gntref > 0)
- 		gnttab_free_grant_references(info->gntref);
- 	info->gntref = 0;
--	if (info->hvc != NULL)
--		hvc_remove(info->hvc);
--	info->hvc = NULL;
- }
- 
- static void xencons_free(struct xencons_info *info)
-@@ -553,10 +556,23 @@ static void xencons_backend_changed(struct xenbus_device *dev,
- 		if (dev->state == XenbusStateClosed)
- 			break;
- 		fallthrough;	/* Missed the backend's CLOSING state */
--	case XenbusStateClosing:
-+	case XenbusStateClosing: {
-+		struct xencons_info *info = dev_get_drvdata(&dev->dev);;
-+
-+		/*
-+		 * Don't tear down the evtchn and grant ref before the other
-+		 * end has disconnected, but do stop userspace from trying
-+		 * to use the device before we allow the backend to close.
-+		 */
-+		if (info->hvc) {
-+			hvc_remove(info->hvc);
-+			info->hvc = NULL;
-+		}
-+
- 		xenbus_frontend_closed(dev);
- 		break;
- 	}
-+	}
- }
- 
- static const struct xenbus_device_id xencons_ids[] = {
-@@ -616,7 +632,7 @@ static int __init xen_hvc_init(void)
- 		list_del(&info->list);
- 		spin_unlock_irqrestore(&xencons_lock, flags);
- 		if (info->irq)
--			unbind_from_irqhandler(info->irq, NULL);
-+			evtchn_put(info->evtchn);
- 		kfree(info);
- 		return r;
- 	}
--- 
-2.40.1
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   7cf4bea77ab6..ce55c22ec8b2  ce55c22ec8b223a90ff3e084d842f73cfba35588 -> tested/linux-linus
 
