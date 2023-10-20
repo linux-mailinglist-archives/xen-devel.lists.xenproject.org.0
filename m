@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991917D15FA
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 20:50:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619963.965843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B335A7D16FE
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 22:28:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620434.965853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtuYZ-0004P6-8V; Fri, 20 Oct 2023 18:49:11 +0000
+	id 1qtw5J-0005mT-7x; Fri, 20 Oct 2023 20:27:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619963.965843; Fri, 20 Oct 2023 18:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 620434.965853; Fri, 20 Oct 2023 20:27:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtuYZ-0004Mq-50; Fri, 20 Oct 2023 18:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 619963;
- Fri, 20 Oct 2023 18:49:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtuYX-0004MG-4R; Fri, 20 Oct 2023 18:49:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtuYX-0002n0-3V; Fri, 20 Oct 2023 18:49:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qtuYW-0007X6-P2; Fri, 20 Oct 2023 18:49:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qtuYW-0000qc-OW; Fri, 20 Oct 2023 18:49:08 +0000
+	id 1qtw5J-0005jj-51; Fri, 20 Oct 2023 20:27:05 +0000
+Received: by outflank-mailman (input) for mailman id 620434;
+ Fri, 20 Oct 2023 20:27:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d6HR=GC=citrix.com=prvs=650384eb3=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1qtw5H-0005jd-Lv
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 20:27:03 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03e55955-6f87-11ee-9b0e-b553b5be7939;
+ Fri, 20 Oct 2023 22:26:59 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +36,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=lbZ7b94M5wVZltb/msPCBrVLXgYoH6jimPQY8jUuiIk=; b=HNn/JY4AFuiIiGgjLwCf8mSA+z
-	dBXfgpuLp1YiDqXKTmYVmpGhruh8Z+iTWQU0b+Bfj3wubE4yzAzqJpGtD7b14PJHoSac7gQxIeG0u
-	YKv0Tlnfzs1lEY4lhcBtn+lUPRJsQ8F+vl8guHOR8uXnHEig/4Br1LbPQSL5gsZif8bY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183445-mainreport@xen.org>
+X-Inumbo-ID: 03e55955-6f87-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1697833619;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=dpNHhf1PLHrfMvYwmsb5wJU3HaHS1PzXmQZrVIsAsAg=;
+  b=Gtrj6JB2ez7EP2vdgZDQ3Fnj4oOf5nfwdi17CY/gxn6R56lDSAEka/63
+   7ggUMR+u46+IRbMZQRSPCRVKHHOvbwU6DSEZGUK2wfvmZqAskGZqnCyc2
+   pjF1gUTeOJ4Qdp5FoV4ELIe2h/jjhEdOrcsyLx7xC2fkTckZM+oBhE2e7
+   4=;
+X-CSE-ConnectionGUID: VFknDW17QTKBnFx1+urDdQ==
+X-CSE-MsgGUID: AomJxvRuQtuPSynYheseFA==
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 128996198
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:YJvAFK+hHP6ulIQ8kfnhDrUDqH6TJUtcMsCJ2f8bNWPcYEJGY0x3x
+ jMYCjjSP/7fM2byeY8nOtiy8k5U6J+AzIVjQQdsq308E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ks01BjOkGlA5AdnPaoT5Aa2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklw2
+ /8eBA9UMSm/pMiw7qLiCfR2qsgaeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUWGPEUn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwPzhfJ+
+ DuXrwwVBDkzM9m92SS/70uwm9f0jCXKWI8JGZORo6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiVadNUsucsyRDor/
+ lyEhdXkAXpoqrL9YW2Z3qeZq3W1Iyd9BW0fYS4JSyMV7t+lp5s85i8jVf46TvTz1IesX2itk
+ nbV9EDSmon/k+Y1+aa90W+e3AuQhbLPYB5spRjNcm6cu1YRiJGeW2C41bTKxa8efdnDEwXb5
+ ihsd9u2tr5UUM3T/MCZaKBdROj2uazt3Cj02wYHInU3y9i6F5dPl6ho5zRmLUFueuwJcDTpC
+ KM4kVgKvMENVJdGgLUeXm5QNyjJ5fK6fTgdfqqIBueim7AoHON9wAlgZFSLw0fmm1U2nKc0N
+ P+zKJj9UiZAV/o6lmvqH4/xNIPHIAhklAs/oriqpylLLJLEPCLFIVv7GAfmgh8FAFOs/1yOr
+ oc32zqiwBRDSuzuChTqHXooBQlSdxATXMmuw+QOL7LrH+aTMDx4YxMn6eh6ININcmU8vrqgw
+ 0xRrWcCkAGm2SOddlTTAp2hAZu2NatCQbsAFXREFT6VN7ILOO5DMI93m0MLQIQa
+IronPort-HdrOrdr: A9a23:jArVZqvB8mqv6MBH1+3RtMxP7skDetV00zEX/kB9WHVpmszxra
+ 6TdZMgpHjJYVcqKRUdcL+7WJVoLUmxyXcX2/h1AV7BZniEhILAFugLhuGO/9SJIVyZygc378
+ ZdmsZFZ+EYdWIK7/rH3A==
+X-Talos-CUID: 9a23:3By55WG3/CsiP353qmJZ2k0SNv98LUTh713WDV/hSntzZLGsHAo=
+X-Talos-MUID: 9a23:8zqruQkFlF/fqDXFO12CdnpLM8JK87qUFXkRjK09qs+1NSFrNhm02WE=
+X-IronPort-AV: E=Sophos;i="6.03,239,1694750400"; 
+   d="scan'208";a="128996198"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH for-4.19] xen/xmalloc: XMEM_POOL_POISON improvements
+Date: Fri, 20 Oct 2023 21:26:49 +0100
+Message-ID: <20231020202649.1802700-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 183445: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=c591395f4ab5359c14e783481473685cf432fe75
-X-Osstest-Versions-That:
-    ovmf=bed477d9cf727c1061f1203c5cd61fe1af2e9c19
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 20 Oct 2023 18:49:08 +0000
 
-flight 183445 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183445/
+When in use, the spew:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 c591395f4ab5359c14e783481473685cf432fe75
-baseline version:
- ovmf                 bed477d9cf727c1061f1203c5cd61fe1af2e9c19
+  (XEN) Assertion '!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE, (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE)' failed at common/xmalloc_tlsf.c:246
 
-Last test of basis   183439  2023-10-20 03:42:29 Z    0 days
-Testing same since   183445  2023-10-20 13:10:42 Z    0 days    1 attempts
+is unweidly and meaningless to non-Xen developers.  Therefore:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-  John Chew <yuinyee.chew@starfivetech.com>
+ * Switch to IS_ENABLED().  There's no need for full #ifdef-ary.
+ * Pull memchr_inv() out into the if(), and provide a better error message.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
+Observations from the debugging of:
+  https://github.com/Dasharo/dasharo-issues/issues/488
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+There's a further bug.  XMEM_POOL_POISON can be enabled in release builds,
+where the ASSERT() gets dropped.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+However, upping to a BUG() can't provide any helpful message out to the user.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I tried modifying BUG() to take an optional message, but xen/bug.h needs
+untangling substantially before that will work, and I don't have time right now.
+---
+ xen/common/xmalloc_tlsf.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
+index 349b31cb4cc1..13305cd87c2f 100644
+--- a/xen/common/xmalloc_tlsf.c
++++ b/xen/common/xmalloc_tlsf.c
+@@ -249,11 +249,11 @@ static inline void EXTRACT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl,
+     }
+     b->ptr.free_ptr = (struct free_ptr) {NULL, NULL};
+ 
+-#ifdef CONFIG_XMEM_POOL_POISON
+-    if ( (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
+-        ASSERT(!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
+-                           (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE));
+-#endif /* CONFIG_XMEM_POOL_POISON */
++    if ( IS_ENABLED(CONFIG_XMEM_POOL_POISON) &&
++         (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE &&
++         memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
++                    (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE) )
++        ASSERT(!"XMEM Pool corruption found");
+ }
+ 
+ /**
+@@ -261,11 +261,10 @@ static inline void EXTRACT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl,
+  */
+ static inline void INSERT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl, int sl)
+ {
+-#ifdef CONFIG_XMEM_POOL_POISON
+-    if ( (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
++    if ( IS_ENABLED(CONFIG_XMEM_POOL_POISON) &&
++         (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
+         memset(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
+                (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE);
+-#endif /* CONFIG_XMEM_POOL_POISON */
+ 
+     b->ptr.free_ptr = (struct free_ptr) {NULL, p->matrix[fl][sl]};
+     if ( p->matrix[fl][sl] )
+-- 
+2.30.2
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   bed477d9cf..c591395f4a  c591395f4ab5359c14e783481473685cf432fe75 -> xen-tested-master
 
