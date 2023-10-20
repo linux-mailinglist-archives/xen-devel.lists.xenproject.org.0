@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01FAD7D10D7
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 15:53:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619797.965460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C86477D10E5
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 15:54:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619799.965469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtpvY-0007Wr-VF; Fri, 20 Oct 2023 13:52:36 +0000
+	id 1qtpxD-0008GR-AH; Fri, 20 Oct 2023 13:54:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619797.965460; Fri, 20 Oct 2023 13:52:36 +0000
+Received: by outflank-mailman (output) from mailman id 619799.965469; Fri, 20 Oct 2023 13:54:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtpvY-0007Ty-SW; Fri, 20 Oct 2023 13:52:36 +0000
-Received: by outflank-mailman (input) for mailman id 619797;
- Fri, 20 Oct 2023 13:52:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mE5s=GC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qtpvX-0007Tn-QB
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 13:52:35 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eafeda73-6f4f-11ee-9b0e-b553b5be7939;
- Fri, 20 Oct 2023 15:52:33 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-9b1ebc80d0aso132318866b.0
- for <xen-devel@lists.xenproject.org>; Fri, 20 Oct 2023 06:52:33 -0700 (PDT)
-Received: from [192.168.201.133] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- f20-20020a17090660d400b009a1c05bd672sm1519766ejk.127.2023.10.20.06.52.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Oct 2023 06:52:31 -0700 (PDT)
+	id 1qtpxD-0008Dv-6T; Fri, 20 Oct 2023 13:54:19 +0000
+Received: by outflank-mailman (input) for mailman id 619799;
+ Fri, 20 Oct 2023 13:54:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8lwx=GC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qtpxB-0008Dp-3W
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 13:54:17 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2071.outbound.protection.outlook.com [40.107.13.71])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28420b04-6f50-11ee-98d5-6d05b1d4d9a1;
+ Fri, 20 Oct 2023 15:54:16 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DBBPR04MB7756.eurprd04.prod.outlook.com (2603:10a6:10:1e3::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.8; Fri, 20 Oct
+ 2023 13:53:47 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d9c0:d907:4d2d:15b3%7]) with mapi id 15.20.6907.022; Fri, 20 Oct 2023
+ 13:53:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +46,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eafeda73-6f4f-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697809952; x=1698414752; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=NyC4slBPsVHFA4BVqfJBMjEmAIlbb68sj7NOG4bF0+c=;
-        b=JFV12Aw71OB2h8L8vnTbiv0nToLKDCn0Bk4majSy4kxkYzN/q6fcOLnJdiB/zSq2ZT
-         /PXf7NTxj8q6oOaIy4KrH2FRA0cV2k9Bs3ryvn0M5R63+ePQKzj3WrtgC7pCwDHykAyH
-         7andEU9SIx0Sp3w0S5xxCLD3gVS6BkZEJKlWB/HS4TW2KYbgbhCw9kOyR3ekGICsjD1J
-         qrCJKfU8DPTgg+kOYH5r75BYA7ZhQy6aqsvi6mUHaDItX5iTaYeurB0IJUYYcpV+aUnx
-         tva+MYW5L3VXXLveNXXzGihZ8G+GZkX5N5IHaDHt0hmOGmVAOJoUgM/JgCx/1vSoKOd3
-         9A9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697809952; x=1698414752;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NyC4slBPsVHFA4BVqfJBMjEmAIlbb68sj7NOG4bF0+c=;
-        b=G7Fi9ErrQUeKmR6fzm647JXI3a6Yo8sB83AahikG51whnF47D/OPpR8KZkTpxLUYBn
-         /AdqF13tPsefa2+aNF9sfLg8R1SDNVaE+EV/kEcm2pdVWJTXJWqpTA7qRo88k6C1AhrW
-         sYl9du5O/0qcPb4ZrRu27L4kgtftK9NZej2J7Ym26D6SiwMvZ2b/kjEcQeddjggh8QfF
-         43QAEO494b/cNI4OSg51VRkO3yv9gp7TTq9As+QAtiX75eLKBiSG0acFFWoma9E439io
-         XEZPy2d3JT9+YcCgjB8dobqqs8EEQHp1Rhjr9SsM6RibHmSCkTCeIVh7LB4r3jVKDUNK
-         mbNQ==
-X-Gm-Message-State: AOJu0Yx/IQ0MEvsrtkJs/1JWDhGEv2qVcO3otHmEqGsdlpXHg6BbgVDG
-	zdruKbhzrKG/wnZE5lFWwKk=
-X-Google-Smtp-Source: AGHT+IHBw6l4eo5Mj86YHiMGUQuoyg2D40cOz+uApfy3y5uN6ijwBFK1rkEdhssVh9FMrHjCrflyNg==
-X-Received: by 2002:a17:906:fe4a:b0:9c3:b3cb:29b2 with SMTP id wz10-20020a170906fe4a00b009c3b3cb29b2mr1483819ejb.42.1697809952363;
-        Fri, 20 Oct 2023 06:52:32 -0700 (PDT)
-Message-ID: <ae6b419eac6eaefd65aab36b69e8926032983110.camel@gmail.com>
+X-Inumbo-ID: 28420b04-6f50-11ee-98d5-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UtX6k4an7tlf02kakp9c9/kq4PI/85+Ss9RQT//XQYpShL1CJHxv/q06kDGzMLpqQd9WArYq0Qif0VZWn++0ZeKDdU7lOTAxV74TxCJB3ZX6z04+T/QaBJUOp1M690fzvbHtnLeoam4RuM8nOwA+5ORkU7uDsK4N8SwJDniqIIwjJwIee+CHGSCmKTiz0ENRmcU0Kn23AqA2z+NzeHhpxgrFLWQW4IZxMIhZmtB2/+tyi+btpG0HjzJCgr2AboGFJetKqtHBnriN7BEM2H0uPtgqvx3gE/1S4cJciun4mn5ffaLZ3LlCjZDhJ0KQ9rHujIyfmm39zX1n5rKWLDkxig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7h80mR4IclP8nbrUI/5w0VojkWbxSLN6CE2lJLBXgHs=;
+ b=JmY47kTsZmF3JrKZDJZ14QsZb+K6YpUyM9jICucTC6aWmIY1LMAHDItauc3LilWaIENNQL3Z0YsnFI+qS+/iCm4gApL0sPlQp/xj/yjBSEY3iytU8xWSHqHNMSXT9VTTuNAsCYjzSxCG+eAlsmt2ZiEQFzlpNMT9M+YVxFRTNz1eOfHzeMMVtQ7SW4TQ78JkWbyIF0cUwvZ5hsqgAbe6bn1/cTAgbHBlXFT6Kaq7ahFNbLA+Dw6dRvzKCD45WBbWsSNUPJahc+4xPepbyI1uJOuifhApsVYvyEA9+OrefKUX1sqd3Z+Ozu2XGbxspn/lqX3vkdTAg8kGtLweVkrcZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7h80mR4IclP8nbrUI/5w0VojkWbxSLN6CE2lJLBXgHs=;
+ b=Py4OehQtBTrcR8eRFrGQCmLqK7Myvs0TGkM4fvodnkvyOwOcRhEiqWakHJ6kcdTzgGfAExQUKM/JA09xe/fz/TSG4l/TrlRkkScdXd3ueM+/Xsv6rFkrPTRvuIDfnMqXwsrw/MJZQoR81hOhX7hvUbDmejEzuQA48ndkQqMxtR8XzXW97BxnTrBys2NsI1qO1KzUkolxnReYjthK+ywwbKzAlH5YbPIOhA6UVERXT3Y5Nc6C/Z4hNYtu0/xzRMuVnxq6ew2YkIhbxgeuJEYAeNxUK1+MrdwphbTG85a3VziwRQadyOZYVQBwW+iLnmwV2qrdSLiJ4CcVQRVHdTxJhg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8e9ab120-11a3-40fb-fe3b-165b3b2ef1b3@suse.com>
+Date: Fri, 20 Oct 2023 15:53:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
 Subject: Re: [PATCH v7 0/2] xen/riscv: introduce identity mapping
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
  Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
  JulienGrall <julien@xen.org>
-Date: Fri, 20 Oct 2023 16:52:30 +0300
-In-Reply-To: <059882ea-3e42-f74d-83e6-2f809d0993cb@suse.com>
 References: <cover.1691507564.git.oleksii.kurochko@gmail.com>
-	 <059882ea-3e42-f74d-83e6-2f809d0993cb@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+ <059882ea-3e42-f74d-83e6-2f809d0993cb@suse.com>
+ <ae6b419eac6eaefd65aab36b69e8926032983110.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ae6b419eac6eaefd65aab36b69e8926032983110.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0008.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06ce3763-27f7-49a7-7886-08dbd173fb25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	0HBB/3vCFc77iywOBN65hnt1MZQLSvpUHpKTBm5UsjR5F/16rQudh65PuUdRvKtiQi9L7hI07p2e9xzkEDyOGX41C54P+hLyGgBiYj4z0F0dAY5IneSDtSo3Ya9ctuH4Kg5lT75avnVY+h3StyFqwu6+HmYWVFiiRXgU/hhQlhk55jVQfatO60FKHwyNaxsl1EY2OxwM1uZA3iHqWIALKljWqBMrj9dPaeRlgdRXjiPc19xcH05YxxFmX7v2VBjMMs2IhiNBRL+73/XcpKHWE47RSi3GNr9QrM6pkKBM9jdOcrgn3RIzPRiIZDYNlxQJlExHDmcUoab3U7YXCuurGEIAvSsaOLKGVNxd8FjUz3R78SFz7bP0xWeOMzeZ0Sc+mJ9lQmanYV23N5TSoZUNgfXFF7Gs5hhbo2olv41R94RNluzUlaf9uT1mWfWQ5jMFCxkTuFv8mArTbNaOv1kMDj9FfVohZckDcnNr37j+Qp4NNrTwKx5/bxrINJTCUJ085xoX4BRZY+ZOwE+NKW0gtcvvotg0Hqc0G0GJF7UvGYCEY/bXkaz9XA46LVfXjupkZa0aN4n8agVyt5S3uqn6jmYmMPxzFpY2i8A61Vos9fkaVn1Zv4BGT5ky2hUfbnGfeI5hhFYGPN1n8796rPG6BA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(366004)(396003)(39860400002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(31686004)(41300700001)(5660300002)(316002)(54906003)(6916009)(478600001)(66946007)(66476007)(6486002)(66556008)(4744005)(4001150100001)(6512007)(53546011)(2906002)(4326008)(8936002)(8676002)(6506007)(86362001)(38100700002)(26005)(31696002)(36756003)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cEdTKzQwcXY3SjZVcHFWTjUzZDVaRHhZM2JIT0NwUDRlMjlXWklNelRUL2Nk?=
+ =?utf-8?B?a2J4YTgrZTdwOGYyOFJiVkdCalpDNjNVNXNnOXpKT05KV3NRWlF6bTV4UTdF?=
+ =?utf-8?B?cVBQdUlic1QvSENxTUdnS1ZsZ1NuL3dhbUEzS2l1SFR4OGp5VGhDcXhkY1VG?=
+ =?utf-8?B?UGNva25NZitqdUxNbW5oWE9ZbXdidmpWK2dUMnk4bFhFL0g0SjQwVXhLcjhK?=
+ =?utf-8?B?SzJvRDlsZWpsYTc4NWRGT3pueUdqWjJ4RWJHZlZtVE96MlVvSUFmZjFlTzVS?=
+ =?utf-8?B?UlBpU1VQWFFXdHA5YkFYUi9jb08xeHorYVFDR29rZWJkZmdmLzE2Y05wQVhS?=
+ =?utf-8?B?dGFVUWhzL295RlFOZXhxdlZFZElXa1RNdWg2UUF0NWhwcmhGRllrUnhVVDVk?=
+ =?utf-8?B?NlpjMkpzaWR1UktUMzJXS0pRcXpMakJzV1JXeDBTT0xvWEluV0l0NjdwdWFY?=
+ =?utf-8?B?S25lcHJNTlJnUzFqVXhyVitGTHF5UU5MUjJ0clBjMlk1WUp5M3lVY0xEbW95?=
+ =?utf-8?B?RGpOVXVQWDVJRWYyOGZ1Vm5EZ3hLSDg2bmVmYjdlQmVyS1VMSEVGb1o1Sm1t?=
+ =?utf-8?B?Q0lrNXhCQWlLa2xwTXl2ZzFEeXlvb2dpUXVrUjRBL3JOaFVRSGVuWGUzK1Zv?=
+ =?utf-8?B?NDI2YngrY0lMUUEvUCtIT3BDS2lYcWM4MHZtNFV6OUlnZVowZU1rOHRJRkMw?=
+ =?utf-8?B?UnZnZ0tKbzA3L2N2WmJWNVdqNE43ckVkUEgxNEZ4UndLNXlqQi9iVkZNU1Vn?=
+ =?utf-8?B?TzJWRjBIM1BUNlRLOFRSTUE0WmMwMys0d3B1ZG9VQktQZzNQTWlaUjJGMlJj?=
+ =?utf-8?B?QTM1V2I0VkFVTWRML2k0dDdxTTFoZy82bHlKZmR4NkJoWGhaM2tVNFVYSVpp?=
+ =?utf-8?B?MXBBVDlwNE10dkZteFJ5TnU1NnVtOUFYbUl5UmNKbGM2Vi9Hck05Y3o1aDRJ?=
+ =?utf-8?B?YU1nT3UwejB1bXJYWXVzeHVCeVFjVnVGSkpqalZSMTd2UXJEb0hmTVNhSmVF?=
+ =?utf-8?B?elF5RWlDNXZLSGZoTU1qWkZja3FmdkhmRmZrcG5KWE9QSS94TVg0VVBpVHlC?=
+ =?utf-8?B?OXVGT0VBSnJsSS9OTTZFdHBpdWFVcy82ODZLSjJuSkM0Z2xoeTZtYW1wYzBB?=
+ =?utf-8?B?aGRBZTYrTFprYWRIcVRteTQ0RStrSmZzUWUxWmRWUzNKSFk1dG5zdzlxMDR2?=
+ =?utf-8?B?bjZ5ZTkzeFBSQ0FleUo1NmNOV3dHbmtPZVNDMFBLWmZPbFRzSlh3R3Y4Yndu?=
+ =?utf-8?B?aEYwMVBJWHlUVVZXbDdpRHdSUjhhV0NYTGFBV0NoSUJJcEd1V1RxWlVIdlQ2?=
+ =?utf-8?B?azRDRnBROFhxVmpyTmN4QzdBejlCSStHaW1iRk54elRRdlgzWElZSU82eFIv?=
+ =?utf-8?B?U2I0UEErM0hBa1Rtdy9CYXRKZ0xiT3BIblFOR0Y3U2RKYjRUSlUzeWNrTXl6?=
+ =?utf-8?B?azA3TDRWVmloc1FpaWNrb3djcEdHbkIwTG5KZWg5N0Q2a1BueWdaZlR6UmND?=
+ =?utf-8?B?WFhOekQ0aVAzWDQ2c3ZicHVGVFQrRi9UeFNUdnlwWmVhSDdXeUEyOTNpN2tO?=
+ =?utf-8?B?UisyMlF5UElvbjRwNUd1cUN4MWtIMkRYaTVzSVVPUzBDTUMxV3JOUlUyeTAw?=
+ =?utf-8?B?N3crUkhqYU1OcUVtcXh5VjZxWTZiWVd3K2tZOVJLdzRuUlFNMlk5bW9hU3dv?=
+ =?utf-8?B?ZlA5RE1Fbk5JQnh3YTVCMGpJcUY5by92NnJva21VeXVBR1M5VmFHVFBOOGhB?=
+ =?utf-8?B?Y2ZPS0ZlcmVsRWZNWlEyYVMxY2U0NTdJZlJKQnU3SnBEbk5HVHdZbXE5aHha?=
+ =?utf-8?B?MlM3VHhMTjZ6bkgvY0ZxRFhQN3kwcW1WYThsMTlTUEhuZTdzSmJSQlp3Qjk5?=
+ =?utf-8?B?MUhOSGMwR1dEbEMvT0FEYzVsampnakpKNUZyaVRwK2RTKzdtdXVsMUpiZWJV?=
+ =?utf-8?B?SUxoTHVRU1l1TnkwajZ4aTd6Qkh6RHAydXpIdWpPa0dMRGR4OEd4bzBLRERK?=
+ =?utf-8?B?SjRZdFlKdlRsWU95QVZMQzJLMkNZUjFQWmdSYWtGaFNNYjUwUHRUZ29VK0Mz?=
+ =?utf-8?B?bXhqUC9GNHBRL3FQaDVPZ2V4b1g4WEpMVmlZMHZKZm5KS00rUnl5RlVGZ0pR?=
+ =?utf-8?Q?BwxuYtwIx+44ltFxk50C7YeSJ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06ce3763-27f7-49a7-7886-08dbd173fb25
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 13:53:46.9097
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M3h1SZAF+zeGTV2DWbZ4YCVRqxKhRQPFkIoi+EBvuVIzDHPeHbS7frpz/zwjIXjhf9DLG9rWDXzxxXUVGLcffQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7756
 
-On Thu, 2023-10-19 at 12:32 +0200, Jan Beulich wrote:
-> On 08.08.2023 17:14, Oleksii Kurochko wrote:
-> > The patch series introduces things necessary to implement identity
-> > mapping:
-> > =C2=A0 1. Make identity mapping for the entire Xen.
-> > =C2=A0 2. Enable MMU.
-> > =C2=A0 3. Jump to the virtual address world
-> > =C2=A0 4. Remove identity mapping.
-> >=20
-> > Also current patch series introduces the calculation of physical
-> > offset before
-> > MMU is enabled as access to physical offset will be calculated
-> > wrong after
-> > MMU will be enabled because access to phys_off variable is PC-
-> > relative and
-> > in the case when linker address !=3D load address, it will cause MMU
-> > fault.
-> >=20
-> > The reason for this patch series can be found here:
-> > https://lore.kernel.org/xen-devel/4e336121-fc0c-b007-bf7b-430352563d55@=
-citrix.com/
-> >=20
-> > ---
-> > Changes in V7:
-> > =C2=A0- use srli instruction to be consistent with slli instruction in
-> > turn_on_mmu()
-> > ---
-> > Changes in V6:
-> > =C2=A0 - Update calc_phys_offset() after rebase.
-> > =C2=A0 - Refactor turn_on_mmu() and a way how an argument of
-> > turn_on_mmu() is
-> > =C2=A0=C2=A0=C2=A0 calculated.
-> > ---
-> > Changes in V5:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the algo of id=
-entity mapping removing.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce IDENT_AREA_=
-SIZE.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- introduce turn_on_mmu=
-() function to enable and switch
-> > from 1:1 mapping.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- fix typo in PGTBL_INI=
-TIAL_COUNT define.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comment ab=
-ove PGTBL_INITIAL_COUNT.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update prototype of c=
-alc_phys_offset(). now it returns
-> > phys_offset.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- declare phys_offset a=
-s static.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- save returned value o=
-f calc_phys_offset to register s2.
-> > ---
-> > Changes in V4:
-> > =C2=A0 - drop patch=C2=A0=C2=A0[PATCH v3 1/3] xen/riscv: add SPDX tag t=
-o config.h
-> > as it was
-> > =C2=A0=C2=A0=C2=A0 merged to staging
-> > =C2=A0 - remove definition of ARRAY_SIZE and ROUNDUP as <xen/macors.h>
-> > was introduced where these macros are located now.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update definition of =
-PGTBL_INITIAL_COUNT
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the commit mes=
-sage for patch 'xen/riscv: introduce
-> > identity mapping'
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- update the comments i=
-n head.S
-> > =C2=A0 - update the algo of identity mapping removing=20
-> > ---
-> > Changes in V3:
-> > =C2=A0- Update the patch series message.
-> > =C2=A0- The following patches were merged to staging so droped from the
-> > patch series:
-> > =C2=A0=C2=A0 * xen/riscv: add .sbss section to .bss
-> > =C2=A0=C2=A0 * xen/riscv: introduce reset_stack() function
-> > =C2=A0=C2=A0 * xen/riscv: move extern of cpu0_boot_stack to header
-> > =C2=A0=C2=A0 * xen/riscv: add SPDX tags
-> > =C2=A0- move save/restore of a0/a1 registers from patch 4 to patch 2 (
-> > numbers are
-> > =C2=A0=C2=A0 from the previous patch series version )
-> > =C2=A0- add SPDX tag in config.h
-> > =C2=A0- update definition of PGTBL_INITIAL_COUNT taking into account
-> > identity mapping.
-> > =C2=A0- refactor remove_identity_mapping() function.
-> > =C2=A0- add explanatory comments in xen.lds.S and mm.c.
-> > ---
-> > Changes in V2:
-> > =C2=A0- update the patch series message.
-> > =C2=A0- drop patches from the previous version of the patch series:
-> > =C2=A0=C2=A0 * xen/riscv: add __ASSEMBLY__ guards". ( merged )
-> > =C2=A0=C2=A0 * xen/riscv: make sure that identity mapping isn't bigger =
-then
-> > page size
-> > =C2=A0=C2=A0=C2=A0=C2=A0 ( entire Xen is 1:1 mapped so there is no need=
- for the checks
-> > from the patch )
-> > =C2=A0- add .sbss.* and put it befor .bss* .
-> > =C2=A0- move out reset_stack() to .text section.
-> > =C2=A0- add '__ro_after_init' for phys_offset variable.
-> > =C2=A0- add '__init' for calc_phys_offset().
-> > =C2=A0- declaring variable phys_off as non static as it will be used in
-> > head.S.
-> > =C2=A0- update definition of PGTBL_INITIAL_COUNT and the comment above.
-> > =C2=A0- code style fixes.
-> > =C2=A0- remove id_addrs array becase entire Xen is mapped.
-> > =C2=A0- reverse condition for cycle inside remove_identity_mapping().
-> > =C2=A0- fix page table walk in remove_identity_mapping().
-> > =C2=A0- save hart_id and dtb_addr before call MMU related C functions
-> > =C2=A0- use phys_offset variable instead of doing calcultations to get
-> > phys offset
-> > =C2=A0=C2=A0 in head.S file. ( it can be easily done as entire Xen is 1=
-:1
-> > mapped now )
-> > =C2=A0- declare enable_muu() as __init.
-> > =C2=A0- Update SPDX tags.
-> > =C2=A0- Add Review-By/Suggested-By for some patches.
-> > =C2=A0- code style fixes.
-> >=20
-> > Oleksii Kurochko (2):
-> > =C2=A0 xen/riscv: introduce function for physical offset calculation
-> > =C2=A0 xen/riscv: introduce identity mapping
->=20
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-Thanks for Ack.
+On 20.10.2023 15:52, Oleksii wrote:
+> On Thu, 2023-10-19 at 12:32 +0200, Jan Beulich wrote:
+>> On 08.08.2023 17:14, Oleksii Kurochko wrote:
+>>> Oleksii Kurochko (2):
+>>>   xen/riscv: introduce function for physical offset calculation
+>>>   xen/riscv: introduce identity mapping
+>>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Thanks for Ack.
+> 
+> Should be the patch series re-send with Ack after the end of code
+> freeze?
 
-Should be the patch series re-send with Ack after the end of code
-freeze?
+If what was sent still applies, I don't think there's a need.
 
-~ Oleksii
+Jan
 
