@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DAC7D12A8
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 17:29:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619835.965582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B795F7D12AC
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 17:29:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619836.965594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtrQi-0006Yu-J2; Fri, 20 Oct 2023 15:28:52 +0000
+	id 1qtrQj-0006rG-Rl; Fri, 20 Oct 2023 15:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619835.965582; Fri, 20 Oct 2023 15:28:52 +0000
+Received: by outflank-mailman (output) from mailman id 619836.965594; Fri, 20 Oct 2023 15:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtrQi-0006Wm-F3; Fri, 20 Oct 2023 15:28:52 +0000
-Received: by outflank-mailman (input) for mailman id 619835;
- Fri, 20 Oct 2023 15:28:51 +0000
+	id 1qtrQj-0006nJ-O8; Fri, 20 Oct 2023 15:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 619836;
+ Fri, 20 Oct 2023 15:28:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SYNS=GC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qtrQh-0006F5-1R
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 15:28:51 +0000
+ id 1qtrQi-0006F5-Iv
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 15:28:52 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5df5289a-6f5d-11ee-9b0e-b553b5be7939;
- Fri, 20 Oct 2023 17:28:49 +0200 (CEST)
+ id 5ecf08ff-6f5d-11ee-9b0e-b553b5be7939;
+ Fri, 20 Oct 2023 17:28:51 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id B211E4EE0745;
- Fri, 20 Oct 2023 17:28:47 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 814F64EE0740;
+ Fri, 20 Oct 2023 17:28:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df5289a-6f5d-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 5ecf08ff-6f5d-11ee-9b0e-b553b5be7939
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -51,41 +51,73 @@ Cc: sstabellini@kernel.org,
 	andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-4.19 v3 3/8] xen/pdx: amend definition of PDX_GROUP_COUNT
-Date: Fri, 20 Oct 2023 17:28:32 +0200
-Message-Id: <3e088f3551a8c2058154d09552ca215c94b321ae.1697815135.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH][for-4.19 v3 4/8] x86_64/mm: express macro CNT using LOWEST_BIT
+Date: Fri, 20 Oct 2023 17:28:33 +0200
+Message-Id: <938d39e2885bdef399da5788f85b7749ccfd9654.1697815135.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1697815135.git.nicola.vetrini@bugseng.com>
 References: <cover.1697815135.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The definition of PDX_GROUP_COUNT causes violations of
-MISRA C:2012 Rule 10.1, therefore the problematic part now uses
-the LOWEST_BIT macro, which encapsulates the pattern.
+The various definitions of macro CNT (and the related BUILD_BUG_ON)
+can be rewritten using LOWEST_BIT, encapsulating a violation of
+MISRA C:2012 Rule 10.1.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/include/xen/pdx.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/x86/x86_64/mm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-index f3fbc4273aa4..36d618a8ba7d 100644
---- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -72,7 +72,7 @@
- extern unsigned long max_pdx;
+diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+index c3ebb777144a..0eb7b71124f5 100644
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -351,9 +351,9 @@ static int setup_compat_m2p_table(struct mem_hotadd_info *info)
+                 ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1) );
  
- #define PDX_GROUP_COUNT ((1 << PDX_GROUP_SHIFT) / \
--                         (sizeof(*frame_table) & -sizeof(*frame_table)))
-+                         (LOWEST_BIT(sizeof(*frame_table))))
- extern unsigned long pdx_group_valid[];
+ #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
+-#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
++#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
+              sizeof(*compat_machine_to_phys_mapping))
+-    BUILD_BUG_ON((sizeof(*frame_table) & -sizeof(*frame_table)) % \
++    BUILD_BUG_ON(LOWEST_BIT(sizeof(*frame_table)) % \
+                  sizeof(*compat_machine_to_phys_mapping));
  
- /**
+     for ( i = smap; i < emap; i += (1UL << (L2_PAGETABLE_SHIFT - 2)) )
+@@ -410,10 +410,10 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
+     va = RO_MPT_VIRT_START + smap * sizeof(*machine_to_phys_mapping);
+ 
+ #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned long))
+-#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
++#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
+              sizeof(*machine_to_phys_mapping))
+ 
+-    BUILD_BUG_ON((sizeof(*frame_table) & -sizeof(*frame_table)) % \
++    BUILD_BUG_ON(LOWEST_BIT(sizeof(*frame_table)) % \
+                  sizeof(*machine_to_phys_mapping));
+ 
+     i = smap;
+@@ -539,7 +539,7 @@ void __init paging_init(void)
+     mpt_size  = (max_page * BYTES_PER_LONG) + (1UL << L2_PAGETABLE_SHIFT) - 1;
+     mpt_size &= ~((1UL << L2_PAGETABLE_SHIFT) - 1UL);
+ #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned long))
+-#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
++#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
+              sizeof(*machine_to_phys_mapping))
+     BUILD_BUG_ON((sizeof(*frame_table) & ~sizeof(*frame_table)) % \
+                  sizeof(*machine_to_phys_mapping));
+@@ -666,7 +666,7 @@ void __init paging_init(void)
+         mpt_size = 0;
+ 
+ #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
+-#define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
++#define CNT (LOWEST_BIT(sizeof(*frame_table)) / \
+              sizeof(*compat_machine_to_phys_mapping))
+     BUILD_BUG_ON((sizeof(*frame_table) & ~sizeof(*frame_table)) % \
+                  sizeof(*compat_machine_to_phys_mapping));
 -- 
 2.34.1
 
