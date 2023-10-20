@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD497D0B0B
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 11:01:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619719.965280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AC1C7D0B24
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 11:09:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619732.965290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtlNI-0000l6-KG; Fri, 20 Oct 2023 09:00:56 +0000
+	id 1qtlV5-00030L-Bs; Fri, 20 Oct 2023 09:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619719.965280; Fri, 20 Oct 2023 09:00:56 +0000
+Received: by outflank-mailman (output) from mailman id 619732.965290; Fri, 20 Oct 2023 09:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtlNI-0000iN-GW; Fri, 20 Oct 2023 09:00:56 +0000
-Received: by outflank-mailman (input) for mailman id 619719;
- Fri, 20 Oct 2023 09:00:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qtlV5-0002xx-9G; Fri, 20 Oct 2023 09:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 619732;
+ Fri, 20 Oct 2023 09:08:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0mrC=GC=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qtlNH-0008Vd-Mw
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 09:00:55 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 2c98b9f8-6f27-11ee-9b0e-b553b5be7939;
- Fri, 20 Oct 2023 11:00:54 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 394AF2F4;
- Fri, 20 Oct 2023 02:01:34 -0700 (PDT)
-Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
- [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 62B673F5A1;
- Fri, 20 Oct 2023 02:00:49 -0700 (PDT)
+ <SRS0=tdx5=GC=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
+ id 1qtlV4-0002xr-Aq
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 09:08:58 +0000
+Received: from out0-194.mail.aliyun.com (out0-194.mail.aliyun.com
+ [140.205.0.194]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a598ff1-6f28-11ee-98d5-6d05b1d4d9a1;
+ Fri, 20 Oct 2023 11:08:55 +0200 (CEST)
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.V3aO7cu_1697792930) by smtp.aliyun-inc.com;
+ Fri, 20 Oct 2023 17:08:51 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,58 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c98b9f8-6f27-11ee-9b0e-b553b5be7939
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v2 3/3] CHANGELOG.md: Start new "unstable" section
-Date: Fri, 20 Oct 2023 17:00:23 +0800
-Message-Id: <20231020090023.1298745-4-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231020090023.1298745-1-Henry.Wang@arm.com>
-References: <20231020090023.1298745-1-Henry.Wang@arm.com>
+X-Inumbo-ID: 4a598ff1-6f28-11ee-98d5-6d05b1d4d9a1
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R401e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047193;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---.V3aO7cu_1697792930;
+From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
+To: linux-kernel@vger.kernel.org
+Cc: "Hou Wenlong" <houwenlong.hwl@antgroup.com>,
+  "Juergen Gross" <jgross@suse.com>,
+  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
+  "Darren Hart" <dvhart@infradead.org>,
+  "Andy Shevchenko" <andy@infradead.org>,
+  "Thomas Gleixner" <tglx@linutronix.de>,
+  "Ingo Molnar" <mingo@redhat.com>,
+  "Borislav Petkov" <bp@alien8.de>,
+  "Dave Hansen" <dave.hansen@linux.intel.com>,
+  "=?UTF-8?B?bWFpbnRhaW5lcjpYODYgQVJDSElURUNUVVJFIDMyLUJJVCBBTkQgNjQtQklU?=" <x86@kernel.org>,
+  "H. Peter Anvin" <hpa@zytor.com>,
+  "=?UTF-8?B?bW9kZXJhdGVkIGxpc3Q6WEVOIEhZUEVSVklTT1IgWDg2?=" <xen-devel@lists.xenproject.org>,
+  "=?UTF-8?B?b3BlbiBsaXN0Olg4NiBQTEFURk9STSBEUklWRVJTIC0gQVJDSA==?=" <platform-driver-x86@vger.kernel.org>
+Subject: [PATCH] x86/xen/pvh: Enable PAE mode for 32-bit guest only when CONFIG_X86_PAE is set
+Date: Fri, 20 Oct 2023 17:08:42 +0800
+Message-Id: <8c5448eeebbba998a7fff9ed9b2f7e7f3e437967.1697792461.git.houwenlong.hwl@antgroup.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
----
-v2:
-- Add Stefano's Acked-by tag.
----
- CHANGELOG.md | 8 ++++++++
- 1 file changed, 8 insertions(+)
+The PVH entry is available for 32-bit KVM guests, and 32-bit KVM guests
+do not depend on CONFIG_X86_PAE. However, mk_early_pgtbl_32() builds
+different pagetables depending on whether CONFIG_X86_PAE is set.
+Therefore, enabling PAE mode for 32-bit KVM guests without
+CONFIG_X86_PAE being set would result in a boot failure during CR3
+loading.
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 5857c51ac2..613365ca42 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -4,6 +4,14 @@ Notable changes to Xen will be documented in this file.
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+---
+ arch/x86/platform/pvh/head.S | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index c4365a05ab83..085adb1b2313 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -70,10 +70,12 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
  
- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ 	mov $_pa(early_stack_end), %esp
  
-+## [unstable UNRELEASED](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-+
-+### Changed
-+
-+### Added
-+
-+### Removed
-+
- ## [4.18.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.18.0) - 2023-10-30
++#if defined(CONFIG_X86_64) || defined(CONFIG_X86_PAE)
+ 	/* Enable PAE mode. */
+ 	mov %cr4, %eax
+ 	orl $X86_CR4_PAE, %eax
+ 	mov %eax, %cr4
++#endif
  
- ### Changed
+ #ifdef CONFIG_X86_64
+ 	/* Enable Long mode. */
 -- 
-2.25.1
+2.31.1
 
 
