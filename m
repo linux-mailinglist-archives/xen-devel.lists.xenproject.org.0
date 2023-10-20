@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310C27D1596
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 20:17:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.619927.965813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E267D15F9
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Oct 2023 20:50:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.619936.965832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtu3X-0002fi-Av; Fri, 20 Oct 2023 18:17:07 +0000
+	id 1qtuYO-00041f-0W; Fri, 20 Oct 2023 18:49:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 619927.965813; Fri, 20 Oct 2023 18:17:07 +0000
+Received: by outflank-mailman (output) from mailman id 619936.965832; Fri, 20 Oct 2023 18:48:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qtu3X-0002cm-72; Fri, 20 Oct 2023 18:17:07 +0000
-Received: by outflank-mailman (input) for mailman id 619927;
- Fri, 20 Oct 2023 18:17:06 +0000
+	id 1qtuYN-0003zm-UA; Fri, 20 Oct 2023 18:48:59 +0000
+Received: by outflank-mailman (input) for mailman id 619936;
+ Fri, 20 Oct 2023 18:48:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qtu3V-0002ce-Vw
- for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 18:17:05 +0000
+ (envelope-from <julien@xen.org>) id 1qtuYM-0003zf-A8
+ for xen-devel@lists.xenproject.org; Fri, 20 Oct 2023 18:48:58 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qtu3V-000244-Jx; Fri, 20 Oct 2023 18:17:05 +0000
+ id 1qtuYL-0002mH-Ud; Fri, 20 Oct 2023 18:48:57 +0000
 Received: from [54.239.6.188] (helo=[192.168.205.12])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1qtu3V-0006d7-Bz; Fri, 20 Oct 2023 18:17:05 +0000
+ id 1qtuYL-0007mS-ND; Fri, 20 Oct 2023 18:48:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,96 +42,85 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bAIPwaYn9EI/xmr168E3J+iH0LHDDLju4ouL0s3MhlA=; b=21diqskqfwZtUEVELBOkgvqInY
-	+5pIKDOh6hisKOrJ62zBfPYlDy89SV5ed1d2ESscVrEZMWbe7Q1y+/Dszm9EMdqrrIZr/sJWXlmql
-	vKHrHurMEjBE66dkyMFzB8sqMTME2SIHfjOvcAkhMV8p5CswPBMjJzxw7/PQCDrT/xhM=;
-Message-ID: <7a1bb4f1-4bb1-4592-8ddf-9e97ad4a39f3@xen.org>
-Date: Fri, 20 Oct 2023 19:17:03 +0100
+	bh=BQVRZ4fNAz0vCSTq9xZ9ylTGV0MPdHcNLIKBab3M37Y=; b=GpUtMUxU2oU8nOyp5Cd19HnGyv
+	aaLssJcx5pH7N2vUIGpx9FjeSgcaE9zRtSKet/tE0pB4R2/lNFcXkxv0Kf3m14roaQrBST71kTeuN
+	3DSoqqnf8X649QZJoYqECrBHwqdSPTF2MLEZvncxmOCiDT0aO+5oV/7i2W2qVYTHa85o=;
+Message-ID: <31cdf500-959d-42cb-a1ce-bbee7cb5e251@xen.org>
+Date: Fri, 20 Oct 2023 19:48:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/9] xen/arm: Fix mapping for PCI bridge mmio region
+Subject: Re: [PATCH v5 1/9] xen/arm: don't pass iommu properties to hwdom for
+ iommu-map
 Content-Language: en-GB
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
- <20231004145604.1085358-8-stewart.hildebrand@amd.com>
+ <20231004145604.1085358-2-stewart.hildebrand@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231004145604.1085358-8-stewart.hildebrand@amd.com>
+In-Reply-To: <20231004145604.1085358-2-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Stewart,
+Hi,
 
 On 04/10/2023 15:55, Stewart Hildebrand wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
+> A device tree node for a PCIe root controller may have an iommu-map property [1]
+> with a phandle reference to the SMMU node, but not necessarily an iommus
+> property. In this case, we want to treat it the same as we currently handle
+> devices with an iommus property: don't pass the iommu related properties to
+> hwdom.
 > 
-> Current code skip the mapping for PCI bridge MMIO region to dom0 when
-> pci_passthrough_enabled flag is set. Mapping should be skip when
-> has_vpci(d) is enabled for the domain, as we need to skip the mapping
-> only when VPCI handler are registered for ECAM.
+> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Reported-by: Michal Orzel <michal.orzel@amd.com>
 > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
 > ---
 > v4->v5:
 > * new patch
-
-I am a bit lost. How is this a new patch but...
-
-> * rebase on top of "dynamic node programming using overlay dtbo" series
-> * replace !is_pci_passthrough_enabled() check with !IS_ENABLED(CONFIG_HAS_PCI)
->    instead of removing
-
-... there is a changelog. Did you get the patch from somewhere?
-
 > ---
->   xen/arch/arm/device.c       | 2 +-
->   xen/arch/arm/domain_build.c | 4 ++--
->   2 files changed, 3 insertions(+), 3 deletions(-)
+>   xen/arch/arm/domain_build.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-> index 1f631d327441..4d69c298858d 100644
-> --- a/xen/arch/arm/device.c
-> +++ b/xen/arch/arm/device.c
-> @@ -330,7 +330,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
->           .d = d,
->           .p2mt = p2mt,
->           .skip_mapping = !own_device ||
-> -                        (is_pci_passthrough_enabled() &&
-> +                        (has_vpci(d) &&
->                           (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
->           .iomem_ranges = iomem_ranges,
->           .irq_ranges = irq_ranges
 > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 7da254709d17..2c55528a62d4 100644
+> index 24c9019cc43c..7da254709d17 100644
 > --- a/xen/arch/arm/domain_build.c
 > +++ b/xen/arch/arm/domain_build.c
-> @@ -1064,7 +1064,7 @@ static void __init assign_static_memory_11(struct domain *d,
->   #endif
->   
->   /*
-> - * When PCI passthrough is available we want to keep the
-> + * When HAS_PCI is enabled we want to keep the
->    * "linux,pci-domain" in sync for every host bridge.
->    *
->    * Xen may not have a driver for all the host bridges. So we have
-> @@ -1080,7 +1080,7 @@ static int __init handle_linux_pci_domain(struct kernel_info *kinfo,
->       uint16_t segment;
->       int res;
->   
-> -    if ( !is_pci_passthrough_enabled() )
-> +    if ( !IS_ENABLED(CONFIG_HAS_PCI) )
+> @@ -1135,6 +1135,8 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+>        * should be skipped.
+>        */
+>       iommu_node = dt_parse_phandle(node, "iommus", 0);
+> +    if ( !iommu_node )
+> +        iommu_node = dt_parse_phandle(node, "iommu-map", 1);
+>       if ( iommu_node && device_get_class(iommu_node) != DEVICE_IOMMU )
+>           iommu_node = NULL;
 
-I don't understand why this wants to be HAS_PCI rather than has_vcpi()? 
-This also doesn't seem to be mentioned in the commit message.
+I was looking at the history to understand why we decided to not always 
+hide the properties.
 
->           return 0;
->   
->       if ( !dt_device_type_is_equal(node, "pci") )
+AFAICT, this was mainly to avoid removing the master properties but 
+keeping the IOMMU nodes in the DT. However, in reality, I don't expect 
+the IOMMU to function properly in dom0 (in particular when grants are 
+used for DMA).
+
+Looking at the bindings, it turns out that all the IOMMU using the 
+generic bindigns would contain the property #iommu-cells. So we could 
+remove any device with such property.
+
+This would not work for IOMMU bindings not using the generic one. AFAIK, 
+this is only legacy SMMUv{1,2} binding so we could filter them by 
+compatible.
+
+With that we would unconditionally remove the properties iommu-* and 
+avoid increasing the complexity.
+
+Any thoughts?
 
 Cheers,
 
