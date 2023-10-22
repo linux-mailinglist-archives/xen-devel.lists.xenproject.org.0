@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D2B7D2436
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:08:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620760.966617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B1D7D2437
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:09:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620762.966627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qub0N-000547-79; Sun, 22 Oct 2023 16:08:43 +0000
+	id 1qub0W-0005dh-GB; Sun, 22 Oct 2023 16:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620760.966617; Sun, 22 Oct 2023 16:08:43 +0000
+Received: by outflank-mailman (output) from mailman id 620762.966627; Sun, 22 Oct 2023 16:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qub0N-00050X-3L; Sun, 22 Oct 2023 16:08:43 +0000
-Received: by outflank-mailman (input) for mailman id 620760;
- Sun, 22 Oct 2023 16:08:41 +0000
+	id 1qub0W-0005ao-CE; Sun, 22 Oct 2023 16:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 620762;
+ Sun, 22 Oct 2023 16:08:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RY1I=GE=desiato.srs.infradead.org=BATV+fd6248c3715d1825373b+7364+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1quamf-0006wY-Oi
- for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:33 +0000
+ id 1quamZ-0006wY-Nq
+ for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:27 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47ec7c89-70f3-11ee-98d5-6d05b1d4d9a1;
- Sun, 22 Oct 2023 17:54:28 +0200 (CEST)
+ id 442bdb58-70f3-11ee-98d5-6d05b1d4d9a1;
+ Sun, 22 Oct 2023 17:54:22 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1quakM-00DCn3-0R; Sun, 22 Oct 2023 15:52:34 +0000
+ id 1quakM-00DCn4-0T; Sun, 22 Oct 2023 15:52:45 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1quakK-001qb8-2W; Sun, 22 Oct 2023 16:52:08 +0100
+ Linux)) id 1quakK-001qbC-2o; Sun, 22 Oct 2023 16:52:08 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 47ec7c89-70f3-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 442bdb58-70f3-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=aSG9ptzFZSzDP3PLBh4znK+L7SNawIVOSjaK/AVfxuM=; b=aHFO4AqkbJUOCpJgaMXo89wubf
-	1RzpIUsLumuIgIJyV7SxT3fuvmHTKYBy5cEbCN5Aht/xc+qvQ8yliL3IjJSMn6aphQJ/o2/0M9wSU
-	J0G/UyJ1U9resQCjKRosAIaBtIf72KFquG3Dd03PPPpAbNSNWAPKG2klfUBgSeCD+Xj0oH24U9niC
-	4b6dyxZ60enQu0h3w6QhRMMaWVb11hWjixu+wWqrWxRTc+95KBjZNbMxpMSSlWhyATnTMN1aZkYdP
-	jVXbVRLrFJfZlnDLqFVgercQAUWwxhsQUTyiV0UHjetAhrIKFsZVIBEhPXB19+rq+6Jy3X0ZnWxoh
-	mDtqIJiw==;
+	bh=/KV5xc8ak7d927pW3t3hEXy6twlojUhYJ0gN2lThj4E=; b=oyW5eAI003UeBkAr+yC7rq09K7
+	7y1lq3JJAioHCDKQTcIYp0Ny5pfKA+SAsJ4fbs77gN794kSYsDTCEnRKq//zLly/7iGHJbLHRpJgl
+	ooRofotv85kQedNJoBIa8sJnGoqd8PF5a2OoUTM3ZkOQulGrUAMmyX0O5z1hclEM0H3FtMCdZHcJV
+	AX0npxWvaw06n9ALcITEe+Jm0XB4ETUvSziTHMe6lEcJIK3+29k4EyHYkUUSu07DcYG5z9i++lToD
+	QoEH4xS7YXHQweg23iH42dbRUqyRzEJD9bUc0GouG/pk5yJpKm/hrQvbxxoh14vXn1jb0m0znXQFb
+	WWG83MNQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,9 +118,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 41/45] hw/xtensa/xtfpga: use qemu_create_nic_device()
-Date: Sun, 22 Oct 2023 16:51:56 +0100
-Message-Id: <20231022155200.436340-42-dwmw2@infradead.org>
+Subject: [PATCH 42/45] net: remove qemu_check_nic_model()
+Date: Sun, 22 Oct 2023 16:51:57 +0100
+Message-Id: <20231022155200.436340-43-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231022155200.436340-1-dwmw2@infradead.org>
 References: <20231022155200.436340-1-dwmw2@infradead.org>
@@ -133,38 +133,46 @@ From: David Woodhouse <dwmw@amazon.co.uk>
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/xtensa/xtfpga.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ include/net/net.h |  1 -
+ net/net.c         | 13 -------------
+ 2 files changed, 14 deletions(-)
 
-diff --git a/hw/xtensa/xtfpga.c b/hw/xtensa/xtfpga.c
-index fbad1c83a3..519e461354 100644
---- a/hw/xtensa/xtfpga.c
-+++ b/hw/xtensa/xtfpga.c
-@@ -147,8 +147,10 @@ static void xtfpga_net_init(MemoryRegion *address_space,
-     SysBusDevice *s;
-     MemoryRegion *ram;
+diff --git a/include/net/net.h b/include/net/net.h
+index ce830a47d0..1512650190 100644
+--- a/include/net/net.h
++++ b/include/net/net.h
+@@ -202,7 +202,6 @@ int qemu_set_vnet_le(NetClientState *nc, bool is_le);
+ int qemu_set_vnet_be(NetClientState *nc, bool is_be);
+ void qemu_macaddr_default_if_unset(MACAddr *macaddr);
+ int qemu_show_nic_models(const char *arg, const char *const *models);
+-void qemu_check_nic_model(NICInfo *nd, const char *model);
+ int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+                         const char *default_model);
+ NICInfo *qemu_find_nic_info(const char *typename, bool match_default,
+diff --git a/net/net.c b/net/net.c
+index 23fd716b98..bdb31dcb27 100644
+--- a/net/net.c
++++ b/net/net.c
+@@ -977,19 +977,6 @@ int qemu_show_nic_models(const char *arg, const char *const *models)
+     return 1;
+ }
  
--    dev = qdev_new("open_eth");
--    qdev_set_nic_properties(dev, nd);
-+    dev = qemu_create_nic_device("open_eth", true, NULL);
-+    if (!dev) {
-+        return;
-+    }
- 
-     s = SYS_BUS_DEVICE(dev);
-     sysbus_realize_and_unref(s, &error_fatal);
-@@ -301,10 +303,7 @@ static void xtfpga_init(const XtfpgaBoardDesc *board, MachineState *machine)
-         memory_region_add_subregion(system_memory, board->io[1], io);
-     }
-     xtfpga_fpga_init(system_io, 0x0d020000, freq);
--    if (nd_table[0].used) {
--        xtfpga_net_init(system_io, 0x0d030000, 0x0d030400, 0x0d800000,
--                        extints[1], nd_table);
--    }
-+    xtfpga_net_init(system_io, 0x0d030000, 0x0d030400, 0x0d800000, extints[1]);
- 
-     serial_mm_init(system_io, 0x0d050020, 2, extints[0],
-                    115200, serial_hd(0), DEVICE_NATIVE_ENDIAN);
+-void qemu_check_nic_model(NICInfo *nd, const char *model)
+-{
+-    const char *models[2];
+-
+-    models[0] = model;
+-    models[1] = NULL;
+-
+-    if (qemu_show_nic_models(nd->model, models))
+-        exit(0);
+-    if (qemu_find_nic_model(nd, models, model) < 0)
+-        exit(1);
+-}
+-
+ int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+                         const char *default_model)
+ {
 -- 
 2.40.1
 
