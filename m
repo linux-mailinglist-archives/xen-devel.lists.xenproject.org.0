@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204DE7D243E
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:11:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620789.966666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB70E7D2422
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:05:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620713.966471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qub2g-0001J3-OH; Sun, 22 Oct 2023 16:11:06 +0000
+	id 1quawo-0004eo-K1; Sun, 22 Oct 2023 16:05:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620789.966666; Sun, 22 Oct 2023 16:11:06 +0000
+Received: by outflank-mailman (output) from mailman id 620713.966471; Sun, 22 Oct 2023 16:05:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qub2g-0001Fs-LT; Sun, 22 Oct 2023 16:11:06 +0000
-Received: by outflank-mailman (input) for mailman id 620789;
- Sun, 22 Oct 2023 16:11:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1quawo-0004at-Dt; Sun, 22 Oct 2023 16:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 620713;
+ Sun, 22 Oct 2023 16:05:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RY1I=GE=desiato.srs.infradead.org=BATV+fd6248c3715d1825373b+7364+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1quamY-0007Cq-TU
- for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:26 +0000
+ id 1quamT-0006wY-MV
+ for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:21 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44290cb1-70f3-11ee-9b0e-b553b5be7939;
- Sun, 22 Oct 2023 17:54:22 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 420312c8-70f3-11ee-98d5-6d05b1d4d9a1;
+ Sun, 22 Oct 2023 17:54:18 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1quakK-00DCn1-2s; Sun, 22 Oct 2023 15:52:29 +0000
+ id 1quakM-00DCn2-0R; Sun, 22 Oct 2023 15:52:37 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1quakK-001qac-0C; Sun, 22 Oct 2023 16:52:08 +0100
+ Linux)) id 1quakK-001qb4-2G; Sun, 22 Oct 2023 16:52:08 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 44290cb1-70f3-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 420312c8-70f3-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=U+6sg4mLN1SbL87FQ6lU5ArebVuIAWz70s1SJZ0up+s=; b=C+1jCv8a2E5NH5EGDgCXnwY2uI
-	L87za9N87Dj5WdkL1kX7mBtgJ2qk1muuGfDyjXed1LtX+BLrjSXo8jjwTjH+G1dczB07nFtr3CGVr
-	tIiWv0q15BIPEcQmCuNR7PmVGaT18VcgoaEcngDVtZHbohpy7wHJETwaJ+fDn79uFhvDw63w/0t7j
-	+IFLd7pimtNUSVrSi6B0p1vO3htbTiPzcjS2xUsruZuqwep/+DVqXHCMYKgTwUvA/f7NEaHA3Nap1
-	n2Lqy1WS9hznvu9cKone/O0L3V/0SZJ6r2RIixHJCSCyS5Oiw2/NJAvafSQDg72WLAns//dFir7hV
-	cAO5a46w==;
+	bh=2pDGewIOozNTKyf2OldMVVayi4C1vxF7TkMEapx75UM=; b=Saf3H/Ddo4P2X21+F943q20V9E
+	IH4TqcgjTFsjy6FVNIy55caMRuYY1nRP+BtW/RvvyJgr0UoPbIHZFEwW4uHroFPneBHdJIm2hTJeQ
+	EfgBJ/nEz1ZUf7fJVSAjQ4uW4Zs3vcf9EJReL0aqNSAHD6M5W9PRr+NZqTh6NUN7wp3jiP2XR4ahd
+	oXwXUMPUjXZdIWZ/vpg7DFiR4nLoRJRJaGt7pDSgzTYCF8H9+CQxzcuRd/XUQ7qxCrT7C+gQ+cjHQ
+	VTHNMfJt2Uy7rTARhSrMQ1IsuYak9yrxEIsGUvuzkT92etZY8lfFqZsNNTNOuW4CE24mb5G7+L+hG
+	kTnCqj+g==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,9 +118,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 34/45] hw/microblaze: use qemu_configure_nic_device()
-Date: Sun, 22 Oct 2023 16:51:49 +0100
-Message-Id: <20231022155200.436340-35-dwmw2@infradead.org>
+Subject: [PATCH 40/45] hw/sparc/sun4m: use qemu_configure_nic_device()
+Date: Sun, 22 Oct 2023 16:51:55 +0100
+Message-Id: <20231022155200.436340-41-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231022155200.436340-1-dwmw2@infradead.org>
 References: <20231022155200.436340-1-dwmw2@infradead.org>
@@ -133,46 +133,51 @@ From: David Woodhouse <dwmw@amazon.co.uk>
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/microblaze/petalogix_ml605_mmu.c      | 3 +--
- hw/microblaze/petalogix_s3adsp1800_mmu.c | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ hw/sparc/sun4m.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/hw/microblaze/petalogix_ml605_mmu.c b/hw/microblaze/petalogix_ml605_mmu.c
-index fb7889cf67..0f5fabc32e 100644
---- a/hw/microblaze/petalogix_ml605_mmu.c
-+++ b/hw/microblaze/petalogix_ml605_mmu.c
-@@ -133,7 +133,6 @@ petalogix_ml605_init(MachineState *machine)
-     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
+diff --git a/hw/sparc/sun4m.c b/hw/sparc/sun4m.c
+index 17bf5f2879..259cf2f383 100644
+--- a/hw/sparc/sun4m.c
++++ b/hw/sparc/sun4m.c
+@@ -299,7 +299,7 @@ static void *iommu_init(hwaddr addr, uint32_t version, qemu_irq irq)
  
-     /* axi ethernet and dma initialization. */
--    qemu_check_nic_model(&nd_table[0], "xlnx.axi-ethernet");
-     eth0 = qdev_new("xlnx.axi-ethernet");
-     dma = qdev_new("xlnx.axi-dma");
+ static void *sparc32_dma_init(hwaddr dma_base,
+                               hwaddr esp_base, qemu_irq espdma_irq,
+-                              hwaddr le_base, qemu_irq ledma_irq, NICInfo *nd)
++                              hwaddr le_base, qemu_irq ledma_irq)
+ {
+     DeviceState *dma;
+     ESPDMADeviceState *espdma;
+@@ -320,7 +320,7 @@ static void *sparc32_dma_init(hwaddr dma_base,
  
-@@ -145,7 +144,7 @@ petalogix_ml605_init(MachineState *machine)
-                                   "axistream-connected-target", NULL);
-     cs = object_property_get_link(OBJECT(dma),
-                                   "axistream-control-connected-target", NULL);
--    qdev_set_nic_properties(eth0, &nd_table[0]);
-+    qemu_configure_nic_device(eth0, true, NULL);
-     qdev_prop_set_uint32(eth0, "rxmem", 0x1000);
-     qdev_prop_set_uint32(eth0, "txmem", 0x1000);
-     object_property_set_link(OBJECT(eth0), "axistream-connected", ds,
-diff --git a/hw/microblaze/petalogix_s3adsp1800_mmu.c b/hw/microblaze/petalogix_s3adsp1800_mmu.c
-index 505639c298..dad46bd7f9 100644
---- a/hw/microblaze/petalogix_s3adsp1800_mmu.c
-+++ b/hw/microblaze/petalogix_s3adsp1800_mmu.c
-@@ -114,9 +114,8 @@ petalogix_s3adsp1800_init(MachineState *machine)
-     sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, TIMER_BASEADDR);
-     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
+     lance = SYSBUS_PCNET(object_resolve_path_component(
+                          OBJECT(ledma), "lance"));
+-    qdev_set_nic_properties(DEVICE(lance), nd);
++    qemu_configure_nic_device(DEVICE(lance), true, NULL);
  
--    qemu_check_nic_model(&nd_table[0], "xlnx.xps-ethernetlite");
-     dev = qdev_new("xlnx.xps-ethernetlite");
--    qdev_set_nic_properties(dev, &nd_table[0]);
-+    qemu_configure_nic_device(dev, true, NULL);
-     qdev_prop_set_uint32(dev, "tx-ping-pong", 0);
-     qdev_prop_set_uint32(dev, "rx-ping-pong", 0);
-     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+     sysbus_realize_and_unref(SYS_BUS_DEVICE(dma), &error_fatal);
+     sysbus_mmio_map(SYS_BUS_DEVICE(dma), 0, dma_base);
+@@ -832,7 +832,6 @@ static void sun4m_hw_init(MachineState *machine)
+     unsigned int smp_cpus = machine->smp.cpus;
+     unsigned int max_cpus = machine->smp.max_cpus;
+     HostMemoryBackend *ram_memdev = machine->memdev;
+-    NICInfo *nd = &nd_table[0];
+ 
+     if (machine->ram_size > hwdef->max_mem) {
+         error_report("Too much memory for this machine: %" PRId64 ","
+@@ -893,10 +892,9 @@ static void sun4m_hw_init(MachineState *machine)
+                         hwdef->iommu_pad_base, hwdef->iommu_pad_len);
+     }
+ 
+-    qemu_check_nic_model(nd, TYPE_LANCE);
+     sparc32_dma_init(hwdef->dma_base,
+                      hwdef->esp_base, slavio_irq[18],
+-                     hwdef->le_base, slavio_irq[16], nd);
++                     hwdef->le_base, slavio_irq[16]);
+ 
+     if (graphic_depth != 8 && graphic_depth != 24) {
+         error_report("Unsupported depth: %d", graphic_depth);
 -- 
 2.40.1
 
