@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 729DE7D242B
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:07:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620725.966502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766307D243F
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:11:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620796.966676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quaz8-0006rR-K8; Sun, 22 Oct 2023 16:07:26 +0000
+	id 1qub3G-00029S-0A; Sun, 22 Oct 2023 16:11:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620725.966502; Sun, 22 Oct 2023 16:07:26 +0000
+Received: by outflank-mailman (output) from mailman id 620796.966676; Sun, 22 Oct 2023 16:11:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quaz8-0006mw-CP; Sun, 22 Oct 2023 16:07:26 +0000
-Received: by outflank-mailman (input) for mailman id 620725;
- Sun, 22 Oct 2023 16:07:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qub3F-00027j-Tm; Sun, 22 Oct 2023 16:11:41 +0000
+Received: by outflank-mailman (input) for mailman id 620796;
+ Sun, 22 Oct 2023 16:11:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RY1I=GE=desiato.srs.infradead.org=BATV+fd6248c3715d1825373b+7364+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1quamh-0006wY-PQ
- for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:35 +0000
+ id 1quamd-0007Cq-F8
+ for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:54:31 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49b6402b-70f3-11ee-98d5-6d05b1d4d9a1;
- Sun, 22 Oct 2023 17:54:31 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 483e1329-70f3-11ee-9b0e-b553b5be7939;
+ Sun, 22 Oct 2023 17:54:28 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1quakM-00DCn5-0Q; Sun, 22 Oct 2023 15:52:39 +0000
+ id 1quakM-00DCn6-0P; Sun, 22 Oct 2023 15:52:43 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1quakK-001qbH-32; Sun, 22 Oct 2023 16:52:08 +0100
+ Linux)) id 1quakL-001qbT-0K; Sun, 22 Oct 2023 16:52:09 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 49b6402b-70f3-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 483e1329-70f3-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=NpZyAYhdLYFYjuFEd+xrircOBC9ywdFHvShEvfLcOxk=; b=Zg9moaRUzS1MffcEsROHUUiXlw
-	qGHoyIZXaAQ3AQfKsgZHmpQjhrtYAMgrfol1hNoMz7OcxvwcPtEVQImnR5Yacf/Xb9ygNhQ6O6wsr
-	pNW3RQ2d6PjZKKP1jJ+/vYAqcPSU/QTUHnZYJC67RKgk+13tRroSUTluH5Jc6xgvzMemD7o7v5NFi
-	wFE4kTt5vYG0txjAAZDEFjp7upmFDhmPgXXXT476slUgRV3o2V/0vOQ5s+gcLynBqeYe6NlO0nTGg
-	fBsjGDojdd8Ub9avn/+qsZxntiZ4vTZCsk0fr8uskgB++z5PCPnuq48d9Bbdh4WAfnbUjj1UCKbwT
-	u7J9KRyg==;
+	bh=R0yNrkS6frW1oQZmkTvRWBHiXdaYx7yNfr+oe+nR9G0=; b=Yl+NqLLs1Fpsi7bTrer2mD8J7/
+	0fK/W746uQD3qH+Al5qXrecLeGkQ6NFVzzPH0iYrDQ2QqiqZQGWEBSwT/k/Ukyhkw2ZW3A5KkzCfw
+	kKXFJhRub4AyxX858qHi2hfSmAx4PnTZBqfyU51SpVV34XrZT/m/aFrtrCfPwk+ggYGiDvRnRUWWl
+	G7Jht0AI/58jorLgrkrBQ0BVzX+lVDpc11a7+zGDGs/QRGQXQTLQwtAJU+Tp6nfIcoWrv9VytkfYv
+	tXFsfbEIpYKgC/bArWMRQzALeF4wamM9OLEZY/jLDkZG/T/f90xV0gy6LqcjDpg/XTPNnx6BPJvvL
+	RsAbWdPA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,9 +118,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 43/45] hw/pci: remove pci_nic_init_nofail()
-Date: Sun, 22 Oct 2023 16:51:58 +0100
-Message-Id: <20231022155200.436340-44-dwmw2@infradead.org>
+Subject: [PATCH 45/45] net: make nb_nics and nd_table[] static in net/net.c
+Date: Sun, 22 Oct 2023 16:52:00 +0100
+Message-Id: <20231022155200.436340-46-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231022155200.436340-1-dwmw2@infradead.org>
 References: <20231022155200.436340-1-dwmw2@infradead.org>
@@ -131,111 +131,55 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-This function is no longer used.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/pci/pci.c         | 72 --------------------------------------------
- include/hw/pci/pci.h |  3 --
- 2 files changed, 75 deletions(-)
+ include/net/net.h | 4 ----
+ net/net.c         | 3 +++
+ system/globals.c  | 2 --
+ 3 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 904f189d30..439458374e 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -1860,78 +1860,6 @@ const pci_class_desc *get_class_desc(int class)
-     return desc;
- }
+diff --git a/include/net/net.h b/include/net/net.h
+index 290e604f03..5a38766942 100644
+--- a/include/net/net.h
++++ b/include/net/net.h
+@@ -245,10 +245,6 @@ struct NICInfo {
+     int nvectors;
+ };
  
--/* Initialize a PCI NIC.  */
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr)
--{
--    const char *devaddr = nd->devaddr ? nd->devaddr : default_devaddr;
--    GPtrArray *pci_nic_models;
--    PCIBus *bus;
--    PCIDevice *pci_dev;
--    DeviceState *dev;
--    int devfn;
--    int i;
--    int dom, busnr;
--    unsigned slot;
+-extern int nb_nics;
+-extern NICInfo nd_table[MAX_NICS];
+-extern const char *host_net_devices[];
 -
--    if (nd->model && !strcmp(nd->model, "virtio")) {
--        g_free(nd->model);
--        nd->model = g_strdup("virtio-net-pci");
--    }
--
--    pci_nic_models = qemu_get_nic_models(TYPE_PCI_DEVICE);
--
--    if (qemu_show_nic_models(nd->model, (const char **)pci_nic_models->pdata)) {
--        exit(0);
--    }
--
--    i = qemu_find_nic_model(nd, (const char **)pci_nic_models->pdata,
--                            default_model);
--    if (i < 0) {
--        exit(1);
--    }
--
--    if (!rootbus) {
--        error_report("No primary PCI bus");
--        exit(1);
--    }
--
--    assert(!rootbus->parent_dev);
--
--    if (!devaddr) {
--        devfn = -1;
--        busnr = 0;
--    } else {
--        if (pci_parse_devaddr(devaddr, &dom, &busnr, &slot, NULL) < 0) {
--            error_report("Invalid PCI device address %s for device %s",
--                         devaddr, nd->model);
--            exit(1);
--        }
--
--        if (dom != 0) {
--            error_report("No support for non-zero PCI domains");
--            exit(1);
--        }
--
--        devfn = PCI_DEVFN(slot, 0);
--    }
--
--    bus = pci_find_bus_nr(rootbus, busnr);
--    if (!bus) {
--        error_report("Invalid PCI device address %s for device %s",
--                     devaddr, nd->model);
--        exit(1);
--    }
--
--    pci_dev = pci_new(devfn, nd->model);
--    dev = &pci_dev->qdev;
--    qdev_set_nic_properties(dev, nd);
--    pci_realize_and_unref(pci_dev, bus, &error_fatal);
--    g_ptr_array_free(pci_nic_models, true);
--    return pci_dev;
--}
--
- void pci_init_nic_devices(PCIBus *bus, const char *default_model)
- {
-     qemu_create_nic_bus_devices(&bus->qbus, TYPE_PCI_DEVICE, default_model,
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index 76d3ddab25..7ea36467a5 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -317,9 +317,6 @@ void pci_device_set_intx_routing_notifier(PCIDevice *dev,
-                                           PCIINTxRoutingNotifier notifier);
- void pci_device_reset(PCIDevice *dev);
+ /* from net.c */
+ extern NetClientStateList net_clients;
+ bool netdev_is_modern(const char *optstr);
+diff --git a/net/net.c b/net/net.c
+index ed0d638454..9043566abf 100644
+--- a/net/net.c
++++ b/net/net.c
+@@ -77,6 +77,9 @@ static NetdevQueue nd_queue = QSIMPLEQ_HEAD_INITIALIZER(nd_queue);
  
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr);
- void pci_init_nic_devices(PCIBus *bus, const char *default_model);
- bool pci_init_nic_in_slot(PCIBus *rootbus, const char *default_model,
-                           const char *alias, const char *devaddr);
+ static GHashTable *nic_model_help;
+ 
++static int nb_nics;
++static NICInfo nd_table[MAX_NICS];
++
+ /***********************************************************/
+ /* network device redirectors */
+ 
+diff --git a/system/globals.c b/system/globals.c
+index e83b5428d1..b6d4e72530 100644
+--- a/system/globals.c
++++ b/system/globals.c
+@@ -36,8 +36,6 @@ int display_opengl;
+ const char* keyboard_layout;
+ bool enable_mlock;
+ bool enable_cpu_pm;
+-int nb_nics;
+-NICInfo nd_table[MAX_NICS];
+ int autostart = 1;
+ int vga_interface_type = VGA_NONE;
+ bool vga_interface_created;
 -- 
 2.40.1
 
