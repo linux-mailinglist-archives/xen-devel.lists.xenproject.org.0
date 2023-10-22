@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF187D241B
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:03:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620702.966444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CC5E7D242F
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:08:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620739.966546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quavG-0002yU-Q0; Sun, 22 Oct 2023 16:03:26 +0000
+	id 1quaze-0000sE-Mo; Sun, 22 Oct 2023 16:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620702.966444; Sun, 22 Oct 2023 16:03:26 +0000
+Received: by outflank-mailman (output) from mailman id 620739.966546; Sun, 22 Oct 2023 16:07:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quavG-0002qU-Ly; Sun, 22 Oct 2023 16:03:26 +0000
-Received: by outflank-mailman (input) for mailman id 620702;
- Sun, 22 Oct 2023 16:03:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1quaze-0000qD-J9; Sun, 22 Oct 2023 16:07:58 +0000
+Received: by outflank-mailman (input) for mailman id 620739;
+ Sun, 22 Oct 2023 16:07:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zZR7=GE=casper.srs.infradead.org=BATV+88d8721f4af1339c2fab+7364+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1quam3-0006wY-Kl
- for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:53:55 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33e50b0a-70f3-11ee-98d5-6d05b1d4d9a1;
- Sun, 22 Oct 2023 17:53:54 +0200 (CEST)
+ <SRS0=RY1I=GE=desiato.srs.infradead.org=BATV+fd6248c3715d1825373b+7364+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1quan9-0007Cq-6H
+ for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 15:55:03 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5b0b3ed8-70f3-11ee-9b0e-b553b5be7939;
+ Sun, 22 Oct 2023 17:55:00 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1quakI-008TGL-9l; Sun, 22 Oct 2023 15:52:06 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1quakJ-00DCmq-21; Sun, 22 Oct 2023 15:53:37 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1quakH-001qZ5-32; Sun, 22 Oct 2023 16:52:05 +0100
+ Linux)) id 1quakI-001qZD-0e; Sun, 22 Oct 2023 16:52:06 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 33e50b0a-70f3-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 5b0b3ed8-70f3-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=/SS3XxTtYZBPNCPAcNZJPqZKxgPyT87SCot5d6FzLcg=; b=BWWF1Tj2ZCbw+Xl6/033gmXZ+h
-	Qbn1OwrLbxPN5PvM19w75h6Icum5qoEOCDZJBV3jl545rM5RztpKW3lW/cPlOixSPELghzN8el1fR
-	QDR9o9gJrrMiezrmi3cNZg94OZ0RXgWukT2Vi/XnWaoVlH8IntvKSfC8lHymx5IE0gaUdamHDRBh3
-	h1qvWBwsVasZQgjnQvUSlmQWL38MlDGIjulgv8fP6LpvUTnU58ChCV7MtVxJbobhRJcaFJ85p5fiF
-	ZKsoSQ7HXfmsdR+chBYDgW10xfrlksoh+WvYvQ9EfDLVz3iHINQfjPfGVqXRwEg0M7gH7Sb+/dNpf
-	fBAQq70Q==;
+	bh=zpmWGfDJ4p47YbRsENJiPMvNNVfWBSj9DDCQL7if7Xs=; b=rJQSdHp7neRWdzDMIbjE2Zjypv
+	NjPr8rhGdb3D/xMBkHChvhKzva/Hb0vatOBd4vj+sHprPyL3A2lG26OzZQAMzDGQUYKBqozMOkUW1
+	Jd3tMTeIPV3NuYNI5VfrMGpi2wFnruhQLJLr8kQ5SUsQBiu3pvZNlPPL+vqwzvizOyNk/bFiB3H0g
+	NhH05Um2d33Epcqk2+d8nle+kwoHD8TyASBLJUnxRuc/BILJiNAmL4PNDYzGbflS2jzPO2LTduqKy
+	Yay1jg5/nZ5UdWTxshF6kqD22VbrTA+7eQRI8EY5V0fiRJT7MLBsYAxxCZowr3goq/qL/5+9SpQAA
+	FLB1oMjQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,57 +118,51 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH 13/45] hw/mips/malta: use pci_init_nic_devices()
-Date: Sun, 22 Oct 2023 16:51:28 +0100
-Message-Id: <20231022155200.436340-14-dwmw2@infradead.org>
+Subject: [PATCH 15/45] hw/ppc/prep: use pci_init_nic_devices()
+Date: Sun, 22 Oct 2023 16:51:30 +0100
+Message-Id: <20231022155200.436340-16-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231022155200.436340-1-dwmw2@infradead.org>
 References: <20231022155200.436340-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The Malta board setup code would previously place the first NIC into PCI
-slot 11 if was a PCNet card, and the rest (including the first if it was
-anything other than a PCNet card) would be dynamically assigned.
+Previously, the first PCI NIC would be placed in PCI slot 3 and the rest
+would be dynamically assigned. Even if the user overrode the default NIC
+type and made it something other than PCNet.
 
-Now it will place any PCNet NIC into slot 11, and then anything else will
-be dynamically assigned.
+Now, the first PCNet NIC (that is, anything not explicitly specified
+to be anything different) will go to slot 3 even if it isn't the first
+NIC specified on the commnd line. And anything else will be dynamically
+assigned.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/mips/malta.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ hw/ppc/prep.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/hw/mips/malta.c b/hw/mips/malta.c
-index dac27fad9d..9357cb4c91 100644
---- a/hw/mips/malta.c
-+++ b/hw/mips/malta.c
-@@ -606,18 +606,9 @@ static MaltaFPGAState *malta_fpga_init(MemoryRegion *address_space,
- /* Network support */
- static void network_init(PCIBus *pci_bus)
- {
--    int i;
--
--    for (i = 0; i < nb_nics; i++) {
--        NICInfo *nd = &nd_table[i];
--        const char *default_devaddr = NULL;
--
--        if (i == 0 && (!nd->model || strcmp(nd->model, "pcnet") == 0))
--            /* The malta board has a PCNet card using PCI SLOT 11 */
--            default_devaddr = "0b";
--
--        pci_nic_init_nofail(nd, pci_bus, "pcnet", default_devaddr);
--    }
-+    /* The malta board has a PCNet card using PCI SLOT 11 */
-+    pci_init_nic_in_slot(pci_bus, "pcnet", NULL, "0b");
-+    pci_init_nic_devices(pci_bus, "pcnet");
- }
+diff --git a/hw/ppc/prep.c b/hw/ppc/prep.c
+index 137276bcb9..1a08e74945 100644
+--- a/hw/ppc/prep.c
++++ b/hw/ppc/prep.c
+@@ -336,10 +336,9 @@ static void ibm_40p_init(MachineState *machine)
+         /* XXX: s3-trio at PCI_DEVFN(2, 0) */
+         pci_vga_init(pci_bus);
  
- static void bl_setup_gt64120_jump_kernel(void **p, uint64_t run_addr,
+-        for (i = 0; i < nb_nics; i++) {
+-            pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic,
+-                                i == 0 ? "3" : NULL);
+-        }
++        /* First PCNET device at PCI_DEVFN(3, 0) */
++        pci_init_nic_in_slot(pci_bus, mc->default_nic, NULL, "3");
++        pci_init_nic_devices(pci_bus, mc->default_nic);
+     }
+ 
+     /* Prepare firmware configuration for OpenBIOS */
 -- 
 2.40.1
 
