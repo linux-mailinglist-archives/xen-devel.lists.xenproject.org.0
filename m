@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DC4B7D2DAF
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:10:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621108.967210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3A37D2DB2
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:10:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621106.967191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quqwy-0004re-Iw; Mon, 23 Oct 2023 09:10:16 +0000
+	id 1quqwt-0004J1-2W; Mon, 23 Oct 2023 09:10:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621108.967210; Mon, 23 Oct 2023 09:10:16 +0000
+Received: by outflank-mailman (output) from mailman id 621106.967191; Mon, 23 Oct 2023 09:10:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quqwy-0004og-F1; Mon, 23 Oct 2023 09:10:16 +0000
-Received: by outflank-mailman (input) for mailman id 621108;
- Mon, 23 Oct 2023 09:10:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1quqws-0004GW-Uw; Mon, 23 Oct 2023 09:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 621106;
+ Mon, 23 Oct 2023 09:10:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DOxK=GF=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1quqww-0003eK-N7
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:10:14 +0000
-Received: from out0-198.mail.aliyun.com (out0-198.mail.aliyun.com
- [140.205.0.198]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1fe0707-7183-11ee-9b0e-b553b5be7939;
- Mon, 23 Oct 2023 11:10:12 +0200 (CEST)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.V5qfj3u_1698052197) by smtp.aliyun-inc.com;
- Mon, 23 Oct 2023 17:09:58 +0800
+ <SRS0=gXaf=GF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1quqwr-0004Fu-BF
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:10:09 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f606a1d6-7183-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 11:10:07 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id C02B64EE0740;
+ Mon, 23 Oct 2023 11:10:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,64 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1fe0707-7183-11ee-9b0e-b553b5be7939
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R621e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047194;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---.V5qfj3u_1698052197;
-From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: "Hou Wenlong" <houwenlong.hwl@antgroup.com>,
-  "Juergen Gross" <jgross@suse.com>,
-  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
-  "Darren Hart" <dvhart@infradead.org>,
-  "Andy Shevchenko" <andy@infradead.org>,
-  "Thomas Gleixner" <tglx@linutronix.de>,
-  "Ingo Molnar" <mingo@redhat.com>,
-  "Borislav Petkov" <bp@alien8.de>,
-  "Dave Hansen" <dave.hansen@linux.intel.com>,
-  "=?UTF-8?B?bWFpbnRhaW5lcjpYODYgQVJDSElURUNUVVJFIDMyLUJJVCBBTkQgNjQtQklU?=" <x86@kernel.org>,
-  "H. Peter Anvin" <hpa@zytor.com>,
-  "=?UTF-8?B?bW9kZXJhdGVkIGxpc3Q6WEVOIEhZUEVSVklTT1IgWDg2?=" <xen-devel@lists.xenproject.org>,
-  "=?UTF-8?B?b3BlbiBsaXN0Olg4NiBQTEFURk9STSBEUklWRVJTIC0gQVJDSA==?=" <platform-driver-x86@vger.kernel.org>
-Subject: [PATCH 2/2] x86/xen/pvh: Use fixed_percpu_data to set up GS base
-Date: Mon, 23 Oct 2023 17:09:39 +0800
-Message-Id: <f3943c3bbcdfea836064d3556a979ad6f015c835.1698051454.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1698051454.git.houwenlong.hwl@antgroup.com>
-References: <cover.1698051454.git.houwenlong.hwl@antgroup.com>
+X-Inumbo-ID: f606a1d6-7183-11ee-98d5-6d05b1d4d9a1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 23 Oct 2023 11:10:07 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Simone Ballarin
+ <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH][for-4.19 v2] xen: Add SAF deviations for MISRA C:2012
+ Rule 7.1
+In-Reply-To: <c844b724-0d27-34eb-368c-d6537bd24017@suse.com>
+References: <a9c52c943380f2c35f0a6ccab8215c03e87c99dc.1697712857.git.nicola.vetrini@bugseng.com>
+ <de2b666e-ca48-58d2-73eb-5adc797f818e@suse.com>
+ <d879b8e4689e51131f081edcb3b2abe6@bugseng.com>
+ <dd58e1cb-8f17-986d-f4f9-f39e998e05a0@suse.com>
+ <5b1cd4fba12664f2ef49bcc2eb198e31@bugseng.com>
+ <d83c024b-05a9-5298-9e43-e693675c2da5@suse.com>
+ <6a90edf81f410db8069526228de75d7e@bugseng.com>
+ <7d7ebafa-9751-bd0a-c47a-1894d9edadf5@suse.com>
+ <800b2c809829942210323804b6778c40@bugseng.com>
+ <23f2682f-acc4-20aa-21fc-644a3c1141b5@suse.com>
+ <564217259e2f65e34d3497697bd5f9e5@bugseng.com>
+ <c844b724-0d27-34eb-368c-d6537bd24017@suse.com>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <c43f9f9744ee885db7babb3c818c9ef3@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-startup_64() and startup_xen() both use "fixed_percpu_data" to set up GS
-base. So for consitency, use it too in PVH entry and remove the
-temporary variable "canary".
+On 23/10/2023 10:47, Jan Beulich wrote:
+> On 23.10.2023 10:44, Nicola Vetrini wrote:
+>> 
+>>>>>> 3. an use of MASK_EXTR() in x86/hvm/svm/emulate.c appears, with
+>>>>>> octal
+>>>>>>     constants in the expansion. This will be deviated;
+>>>>> 
+>>>>> This is what I'm concerned of: How do you know up front whether 
+>>>>> such
+>>>>> new
+>>>>> uses want deviating?
+>>>> 
+>>>> I understand you concern now. I can argue that all the macros in 
+>>>> that
+>>>> table have indeed
+>>>> an octal constant in their definition (0 is explicitly allowed by
+>>>> MISRA).
+>>>> This is also specified in the comment above the INSTR_ENC macro
+>>>> definition, therefore any
+>>>> new addition should have an octal the second argument to INSTR_ENC.
+>>> 
+>>> Right, and I previously indicated I agree as far as INSTR_ENC() goes.
+>>> What we appear to continue to disagree about is MASK_EXTR().
+>>> 
+>> 
+>> Yeah, sorry. What about
+>> 
+>> if ( modrm_mod       == MASK_EXTR(instr_modrm, 0300) && /* octal-ok */
+>>       (modrm_reg & 7) == MASK_EXTR(instr_modrm, 0070) && /* octal-ok 
+>> */
+>>       (modrm_rm  & 7) == MASK_EXTR(instr_modrm, 0007) )  /* octal-ok 
+>> */
+>>              return emul_len;
+>> 
+>> It does not really fit in the SAF framework, because the deviation is
+>> still done with a
+>> configuration, but at least it gives some clear indication on how to
+>> introduce an octal
+>> constant in this file.
+> 
+> Well, I don't mind the comment, but is the config change then going to
+> also match (part of) the comment, i.e. key off of not just MASK_EXTR()?
+> 
+> Jan
 
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
----
- arch/x86/platform/pvh/head.S | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Yes, I added that to my reply.
 
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index cee4dadf5344..591ba165215f 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -96,7 +96,7 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 1:
- 	/* Set base address in stack canary descriptor. */
- 	mov $MSR_GS_BASE,%ecx
--	mov $_pa(canary), %eax
-+	mov $_pa(INIT_PER_CPU_VAR(fixed_percpu_data)), %eax
- 	xor %edx, %edx
- 	wrmsr
- 
-@@ -160,8 +160,6 @@ SYM_DATA_START_LOCAL(gdt_start)
- SYM_DATA_END_LABEL(gdt_start, SYM_L_LOCAL, gdt_end)
- 
- 	.balign 16
--SYM_DATA_LOCAL(canary, .fill 48, 1, 0)
--
- SYM_DATA_START_LOCAL(early_stack)
- 	.fill BOOT_STACK_SIZE, 1, 0
- SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
 -- 
-2.31.1
-
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
