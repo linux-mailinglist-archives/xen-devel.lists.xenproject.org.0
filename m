@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A4A7D3871
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 15:51:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621480.967960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9F6E7D38BB
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 16:00:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621484.967970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quvKx-0006Wz-4i; Mon, 23 Oct 2023 13:51:19 +0000
+	id 1quvTf-0001Ls-03; Mon, 23 Oct 2023 14:00:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621480.967960; Mon, 23 Oct 2023 13:51:19 +0000
+Received: by outflank-mailman (output) from mailman id 621484.967970; Mon, 23 Oct 2023 14:00:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quvKx-0006UQ-1g; Mon, 23 Oct 2023 13:51:19 +0000
-Received: by outflank-mailman (input) for mailman id 621480;
- Mon, 23 Oct 2023 13:51:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1quvTe-0001JM-Sq; Mon, 23 Oct 2023 14:00:18 +0000
+Received: by outflank-mailman (input) for mailman id 621484;
+ Mon, 23 Oct 2023 14:00:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1u5b=GF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1quvKu-0006UK-Vd
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 13:51:17 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c2e22b5-71ab-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 15:51:15 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-53b32dca0bfso7006422a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 06:51:15 -0700 (PDT)
+ id 1quvTe-0001JE-2L
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 14:00:18 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7dfcd2b0-71ac-11ee-9b0e-b553b5be7939;
+ Mon, 23 Oct 2023 16:00:15 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-507be298d2aso4826926e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 07:00:15 -0700 (PDT)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h1-20020a50ed81000000b00533dd4d2947sm6361209edr.74.2023.10.23.06.51.14
+ cf15-20020a0564020b8f00b0053deb97e8e6sm6259867edb.28.2023.10.23.07.00.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Oct 2023 06:51:15 -0700 (PDT)
+ Mon, 23 Oct 2023 07:00:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c2e22b5-71ab-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 7dfcd2b0-71ac-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698069075; x=1698673875; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LfP3d7RwZQ+bDCZktxHUTUEmhCH4Zh18JO01+RFvZtc=;
-        b=buZTnVWF8KpYVxyTRtDVccYoVWLEUhSsuEWybD7jjQ01hjyAoSoNYitnh36pZBJyj7
-         0w2bNtboimGzjFKXyxo4ZxNQ1+NiV8swhKq4/B0ASc6GyHp/EBg3l4ehwsbey5pLrR/q
-         snA0rRrQz+7+FyjW1eWCGG/XagnetXrhAMrXw=
+        d=citrix.com; s=google; t=1698069615; x=1698674415; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FlyrrWjnQJjdWtYMlP8MfisOGBi8U+JkBt4Psobz64U=;
+        b=mT7/oj+/VVSvg+3qIIrPnEnDfzmGwrGjxuADW9PmDaP/uQ0h51/Y9AqpNHtNuVKBvk
+         CK1usXLloAmCenqjADtfhvhz5IGUeyod/LL9zWZiN3jTqFeoFfHDcoOArvav5y2jBpqe
+         g3C9U6u0fYpbK12f1GK/N8/3YtK1SXEtu2ZaY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698069075; x=1698673875;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LfP3d7RwZQ+bDCZktxHUTUEmhCH4Zh18JO01+RFvZtc=;
-        b=SwxkTqjzs/Ucqd9td87WjBUUgMShMoOO20B1Xav61bLM48qJkgRiVAganXGg+NEAfh
-         WTmw8VYvMXoBMc/gJ+LUD6EHyckOKSiQYQc+LGVSKVTmBC7LS0Kj0jsVn0jdj4s1ikht
-         hcFtJixhMChEM9cP+v39qMu6bV0Z1hau2QhQN9RDwIkT1iciZAPRnp6Ep0ko92unypwm
-         CwW4HJlgfuVmmk1IB19sGErH25ijBx9Khl63zKFAUq5b6I85j06DnBB+paPlPttS4+MY
-         hqq8kX7A5emkxLHUiB4yjUIzPULjK8CDnTayAUvoheSCVeFVay+rhf9NLdMjeMJVVt0y
-         8bxg==
-X-Gm-Message-State: AOJu0YxrSNt8X8zDS0rWw6zzBwsI+PPEcQcDkuHUx2oRaKzFgM0OhJSO
-	+KLCdeACLppNYOKIc3BDFDA0Ug==
-X-Google-Smtp-Source: AGHT+IGCcaqrboMt1DVOBveGdJGbyJskhjRiZpzXDcCttJjZvzETNwH8qjbDlsAQ3RsM6ekeAWjm4A==
-X-Received: by 2002:a50:fc07:0:b0:53e:5c4d:ba15 with SMTP id i7-20020a50fc07000000b0053e5c4dba15mr11409730edr.8.1698069075375;
-        Mon, 23 Oct 2023 06:51:15 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------L9g0q0jM2cXFw34X30eNjSra"
-Message-ID: <7b28331d-b1d6-4c6b-b299-34de9ba65e0d@citrix.com>
-Date: Mon, 23 Oct 2023 14:51:14 +0100
+        d=1e100.net; s=20230601; t=1698069615; x=1698674415;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FlyrrWjnQJjdWtYMlP8MfisOGBi8U+JkBt4Psobz64U=;
+        b=ZJ2xw3q647WkFCIO5vmP1EXYJPLkg0KmwtSBKgY8Vl//DuP7rySgtyS25J2E912a0f
+         tl+9HxSr1L2WxtgXR63T9s8Jf1LhK0JJ/v9FOzfYaLf7ctyHplD8RSHAt//S+ebMjdVv
+         yRuZiaXioj8dIhqdzh1HKd+wK0OaOeO5/nyL3x0N0K3GikJGjinWM9eeB4bLtNj7tuG0
+         5x5WyeIt3QnhYzM5YQX4Z0b13LC4vfZpRtIxXaU8o/45lKWyBG9n6jH+S97M0qjQnj3j
+         fNnHTQRydXD0nrz7dhH/mX9DpRZ6uEL1BtJFRuS0lfwjHJAeuLtTLSCLA70fUphE8/mS
+         RGgA==
+X-Gm-Message-State: AOJu0YwQkK+/POLP+J0u8ZTkztuJzKn8hkbZ3UdBjC22wY0dHyOjlgLb
+	ApwtCa+YIntoYWV88L+T2LqRMg==
+X-Google-Smtp-Source: AGHT+IH3YjahFUM2tc3b92GcWnly2mNsmMQHJfD4kvFBbKKBYW7FUiJm2k8gqTKosK3LAjN8LrmtfA==
+X-Received: by 2002:a05:6512:3ae:b0:504:3c1f:cbd9 with SMTP id v14-20020a05651203ae00b005043c1fcbd9mr5337549lfp.16.1698069615220;
+        Mon, 23 Oct 2023 07:00:15 -0700 (PDT)
+Message-ID: <00f50e5e-4d3b-4423-8fdd-5bff53fe909c@citrix.com>
+Date: Mon, 23 Oct 2023 15:00:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH 3/4] xen/include: add pure and const attributes
+Subject: Re: [XEN PATCH] x86/p2m: address violations of MISRA C:2012 Rules 8.2
+ and 8.3
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, sstabellini@kernel.org,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1697638210.git.simone.ballarin@bugseng.com>
- <fd5421162a00aa782e0776324ff6497193c1e3d3.1697638210.git.simone.ballarin@bugseng.com>
- <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com>
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <4566d4517cad99e15bfccc3b0c553a19d615fe3c.1698065062.git.federico.serafini@bugseng.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -132,120 +129,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com>
-
-This is a multi-part message in MIME format.
---------------L9g0q0jM2cXFw34X30eNjSra
+In-Reply-To: <4566d4517cad99e15bfccc3b0c553a19d615fe3c.1698065062.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/10/2023 2:34 pm, Jan Beulich wrote:
-> On 18.10.2023 16:18, Simone Ballarin wrote:
->> --- a/xen/include/xen/pdx.h
->> +++ b/xen/include/xen/pdx.h
->> @@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
->>   * @param pdx Page index
->>   * @return Obtained pfn after decompressing the pdx
->>   */
->> -static inline unsigned long pdx_to_pfn(unsigned long pdx)
->> +static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
->>  {
->>      return (pdx & pfn_pdx_bottom_mask) |
->>             ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
-> Taking this as an example for what I've said above: The compiler can't
-> know that the globals used by the functions won't change value. Even
-> within Xen it is only by convention that these variables are assigned
-> their values during boot, and then aren't changed anymore. Which makes
-> me wonder: Did you check carefully that around the time the variables
-> have their values established, no calls to the functions exist (which
-> might then be subject to folding)?
+On 23/10/2023 2:47 pm, Federico Serafini wrote:
+> Add missing parameter name and make function declarations and
+> definitions consistent. No functional change.
+>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-I was actually going to point this out, but hadn't found the words.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-pdx_to_pfn() is not pure.  It violates the requirements for being
-declared pure, in a way that the compiler can see.
-
-Right now, this will cause GCC to ignore the attribute, but who's to say
-that future GCCs don't start emitting a diagnostic (in which case we'd
-have to delete them to make them compile), or start honouring them (at
-which point this logic will start to malfunction around the boot time
-modification to the masks).
-
-
-It is undefined behaviour to intentionally lie to the compiler using
-attributes.  This is intentionally introducing undefined behaviour to
-placate Eclair.
-
-So why are we bending over backwards to remove UB in other areas, but
-deliberately introducing here?  How does that conform with the spirit of
-MISRA?
-
-~Andrew
---------------L9g0q0jM2cXFw34X30eNjSra
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 23/10/2023 2:34 pm, Jan Beulich
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 18.10.2023 16:18, Simone Ballarin wrote:<span
-      style="white-space: pre-wrap">
-</span></pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">--- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
-  * @param pdx Page index
-  * @return Obtained pfn after decompressing the pdx
-  */
--static inline unsigned long pdx_to_pfn(unsigned long pdx)
-+static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
- {
-     return (pdx &amp; pfn_pdx_bottom_mask) |
-            ((pdx &lt;&lt; pfn_pdx_hole_shift) &amp; pfn_top_mask);
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Taking this as an example for what I've said above: The compiler can't
-know that the globals used by the functions won't change value. Even
-within Xen it is only by convention that these variables are assigned
-their values during boot, and then aren't changed anymore. Which makes
-me wonder: Did you check carefully that around the time the variables
-have their values established, no calls to the functions exist (which
-might then be subject to folding)?</pre>
-    </blockquote>
-    <br>
-    I was actually going to point this out, but hadn't found the words.<br>
-    <br>
-    pdx_to_pfn() is not pure.  It violates the requirements for being
-    declared pure, in a way that the compiler can see.<br>
-    <br>
-    Right now, this will cause GCC to ignore the attribute, but who's to
-    say that future GCCs don't start emitting a diagnostic (in which
-    case we'd have to delete them to make them compile), or start
-    honouring them (at which point this logic will start to malfunction
-    around the boot time modification to the masks).<br>
-    <br>
-    <br>
-    It is undefined behaviour to intentionally lie to the compiler using
-    attributes.  This is intentionally introducing undefined behaviour
-    to placate Eclair.<br>
-    <br>
-    So why are we bending over backwards to remove UB in other areas,
-    but deliberately introducing here?  How does that conform with the
-    spirit of MISRA?<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------L9g0q0jM2cXFw34X30eNjSra--
+Queued in for-next.
 
