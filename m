@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D047D7D2860
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 04:14:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620921.966781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6A57D285D
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 04:14:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620923.966800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qukSG-0001WQ-7P; Mon, 23 Oct 2023 02:14:08 +0000
+	id 1qukSK-00023c-Qy; Mon, 23 Oct 2023 02:14:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620921.966781; Mon, 23 Oct 2023 02:14:08 +0000
+Received: by outflank-mailman (output) from mailman id 620923.966800; Mon, 23 Oct 2023 02:14:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qukSG-0001Uh-4h; Mon, 23 Oct 2023 02:14:08 +0000
-Received: by outflank-mailman (input) for mailman id 620921;
- Mon, 23 Oct 2023 02:14:06 +0000
+	id 1qukSK-00021j-Np; Mon, 23 Oct 2023 02:14:12 +0000
+Received: by outflank-mailman (input) for mailman id 620923;
+ Mon, 23 Oct 2023 02:14:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JdWI=GF=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qukSE-0001F1-Qy
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 02:14:06 +0000
+ id 1qukSI-0001F1-PE
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 02:14:10 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d777c8e2-7149-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 04:14:05 +0200 (CEST)
+ id d9e3efe5-7149-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 04:14:10 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE643FEC;
- Sun, 22 Oct 2023 19:14:45 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 161E32F4;
+ Sun, 22 Oct 2023 19:14:50 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D1363F738;
- Sun, 22 Oct 2023 19:14:01 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 393EC3F738;
+ Sun, 22 Oct 2023 19:14:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d777c8e2-7149-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: d9e3efe5-7149-11ee-98d5-6d05b1d4d9a1
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -51,329 +51,202 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Wei Chen <wei.chen@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v8 2/8] xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
-Date: Mon, 23 Oct 2023 10:13:39 +0800
-Message-Id: <20231023021345.1731436-3-Henry.Wang@arm.com>
+Subject: [PATCH v8 3/8] xen/arm: Fold mmu_init_secondary_cpu() to head.S
+Date: Mon, 23 Oct 2023 10:13:40 +0800
+Message-Id: <20231023021345.1731436-4-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231023021345.1731436-1-Henry.Wang@arm.com>
 References: <20231023021345.1731436-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the code related to secondary page table initialization, clear
-boot page tables and the global variable definitions of these boot
-page tables from arch/arm/mm.c to arch/arm/mmu/smpboot.c
+Currently mmu_init_secondary_cpu() only enforces the page table
+should not contain mapping that are both Writable and eXecutables
+after boot. To ease the arch/arm/mm.c split work, fold this function
+to head.S.
 
-Since arm32 global variable cpu0_pgtable will be used by both
-arch/arm/mm.c and arch/arm/mmu/smpboot.c, to avoid exporting this
-variable, change the variable usage in arch/arm/mmu/smpboot.c to
-per_cpu(xen_pgtable, 0).
+For arm32, introduce an assembly macro pt_enforce_wxn. The macro is
+called before secondary CPUs jumping into the C world.
 
-To avoid exposing global variable phys_offset, use virt_to_maddr()
-to calculate init_ttbr for arm64.
-
-Take the opportunity to fix the in-code comment coding styles when
-possible.
+For arm64, set the SCTLR_Axx_ELx_WXN flag right when the MMU is
+enabled. This would avoid the extra TLB flush and SCTLR dance.
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Co-authored-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
 v8:
-- Drop the unnecessary cast in virt_to_maddr((uintptr_t) xen_pgtable);
-- Add Julien's Reviewed-by tag.
+- Change the setting of SCTLR_Axx_ELx_WXN for arm64 to set the
+  flag right when the MMU is enabled.
 v7:
-- Do not export cpu0_pgtable, replace the variable usage in
-  arch/arm/mmu/smpboot.c to per_cpu(xen_pgtable, 0).
-- Also move global variable init_ttbr to arch/arm/mmu/smpboot.c.
-- Use virt_to_maddr() instead of phys_offset to calculate init_ttbr
-  in arm64 implementation of init_secondary_pagetables().
+- No change.
 v6:
-- Rework the original patch "[v5,07/13] xen/arm: Extract MMU-specific
-  code", only split the smpboot related code out in this patch.
+- New patch.
 ---
- xen/arch/arm/mm.c          | 104 -------------------------------
- xen/arch/arm/mmu/Makefile  |   1 +
- xen/arch/arm/mmu/smpboot.c | 124 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 125 insertions(+), 104 deletions(-)
- create mode 100644 xen/arch/arm/mmu/smpboot.c
+ xen/arch/arm/arm32/head.S     | 20 ++++++++++++++++++++
+ xen/arch/arm/arm64/mmu/head.S | 18 +++++++++++-------
+ xen/arch/arm/include/asm/mm.h |  2 --
+ xen/arch/arm/mm.c             |  6 ------
+ xen/arch/arm/smpboot.c        |  2 --
+ 5 files changed, 31 insertions(+), 17 deletions(-)
 
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index 33b038e7e0..39218cf15f 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -83,6 +83,25 @@
+         isb
+ .endm
+ 
++/*
++ * Enforce Xen page-tables do not contain mapping that are both
++ * Writable and eXecutables.
++ *
++ * This should be called on each secondary CPU.
++ */
++.macro pt_enforce_wxn tmp
++        mrc   CP32(\tmp, HSCTLR)
++        orr   \tmp, \tmp, #SCTLR_Axx_ELx_WXN
++        dsb
++        mcr   CP32(\tmp, HSCTLR)
++        /*
++         * The TLBs may cache SCTLR_EL2.WXN. So ensure it is synchronized
++         * before flushing the TLBs.
++         */
++        isb
++        flush_xen_tlb_local \tmp
++.endm
++
+ /*
+  * Common register usage in this file:
+  *   r0  -
+@@ -254,6 +273,7 @@ secondary_switched:
+         /* Use a virtual address to access the UART. */
+         mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
+ #endif
++        pt_enforce_wxn r0
+         PRINT("- Ready -\r\n")
+         /* Jump to C world */
+         mov_w r2, start_secondary
+diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+index 88075ef083..df06cefbbe 100644
+--- a/xen/arch/arm/arm64/mmu/head.S
++++ b/xen/arch/arm/arm64/mmu/head.S
+@@ -264,10 +264,11 @@ ENDPROC(create_page_tables)
+  * Inputs:
+  *   x0 : Physical address of the page tables.
+  *
+- * Clobbers x0 - x4
++ * Clobbers x0 - x6
+  */
+ enable_mmu:
+         mov   x4, x0
++        mov   x5, x1
+         PRINT("- Turning on paging -\r\n")
+ 
+         /*
+@@ -283,6 +284,7 @@ enable_mmu:
+         mrs   x0, SCTLR_EL2
+         orr   x0, x0, #SCTLR_Axx_ELx_M  /* Enable MMU */
+         orr   x0, x0, #SCTLR_Axx_ELx_C  /* Enable D-cache */
++        orr   x0, x0, x5                /* Enable extra flags */
+         dsb   sy                     /* Flush PTE writes and finish reads */
+         msr   SCTLR_EL2, x0          /* now paging is enabled */
+         isb                          /* Now, flush the icache */
+@@ -297,16 +299,17 @@ ENDPROC(enable_mmu)
+  * Inputs:
+  *   lr : Virtual address to return to.
+  *
+- * Clobbers x0 - x5
++ * Clobbers x0 - x6
+  */
+ ENTRY(enable_secondary_cpu_mm)
+-        mov   x5, lr
++        mov   x6, lr
+ 
+         load_paddr x0, init_ttbr
+         ldr   x0, [x0]
+ 
++        mov   x1, #SCTLR_Axx_ELx_WXN        /* Enable WxN from the start */
+         bl    enable_mmu
+-        mov   lr, x5
++        mov   lr, x6
+ 
+         /* Return to the virtual address requested by the caller. */
+         ret
+@@ -320,14 +323,15 @@ ENDPROC(enable_secondary_cpu_mm)
+  * Inputs:
+  *   lr : Virtual address to return to.
+  *
+- * Clobbers x0 - x5
++ * Clobbers x0 - x6
+  */
+ ENTRY(enable_boot_cpu_mm)
+-        mov   x5, lr
++        mov   x6, lr
+ 
+         bl    create_page_tables
+         load_paddr x0, boot_pgtable
+ 
++        mov   x1, #0        /* No extra SCTLR flags */
+         bl    enable_mmu
+ 
+         /*
+@@ -337,7 +341,7 @@ ENTRY(enable_boot_cpu_mm)
+         ldr   x0, =1f
+         br    x0
+ 1:
+-        mov   lr, x5
++        mov   lr, x6
+         /*
+          * The 1:1 map may clash with other parts of the Xen virtual memory
+          * layout. As it is not used anymore, remove it completely to
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index d25e59f828..163d22ecd3 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -214,8 +214,6 @@ extern void remove_early_mappings(void);
+ /* Allocate and initialise pagetables for a secondary CPU. Sets init_ttbr to the
+  * new page table */
+ extern int init_secondary_pagetables(int cpu);
+-/* Switch secondary CPUS to its own pagetables and finalise MMU setup */
+-extern void mmu_init_secondary_cpu(void);
+ /*
+  * For Arm32, set up the direct-mapped xenheap: up to 1GB of contiguous,
+  * always-mapped memory. Base must be 32MB aligned and size a multiple of 32MB.
 diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index fd02493564..b7eb3a6e08 100644
+index b7eb3a6e08..923a90925c 100644
 --- a/xen/arch/arm/mm.c
 +++ b/xen/arch/arm/mm.c
-@@ -27,39 +27,6 @@
- #undef mfn_to_virt
- #define mfn_to_virt(mfn) __mfn_to_virt(mfn_x(mfn))
- 
--/* Static start-of-day pagetables that we use before the allocators
-- * are up. These are used by all CPUs during bringup before switching
-- * to the CPUs own pagetables.
-- *
-- * These pagetables have a very simple structure. They include:
-- *  - XEN_VIRT_SIZE worth of L3 mappings of xen at XEN_VIRT_START, boot_first
-- *    and boot_second are used to populate the tables down to boot_third
-- *    which contains the actual mapping.
-- *  - a 1:1 mapping of xen at its current physical address. This uses a
-- *    section mapping at whichever of boot_{pgtable,first,second}
-- *    covers that physical address.
-- *
-- * For the boot CPU these mappings point to the address where Xen was
-- * loaded by the bootloader. For secondary CPUs they point to the
-- * relocated copy of Xen for the benefit of secondary CPUs.
-- *
-- * In addition to the above for the boot CPU the device-tree is
-- * initially mapped in the boot misc slot. This mapping is not present
-- * for secondary CPUs.
-- *
-- * Finally, if EARLY_PRINTK is enabled then xen_fixmap will be mapped
-- * by the CPU once it has moved off the 1:1 mapping.
-- */
--DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
--#ifdef CONFIG_ARM_64
--DEFINE_BOOT_PAGE_TABLE(boot_first);
--DEFINE_BOOT_PAGE_TABLE(boot_first_id);
--#endif
--DEFINE_BOOT_PAGE_TABLE(boot_second_id);
--DEFINE_BOOT_PAGE_TABLE(boot_third_id);
--DEFINE_BOOT_PAGE_TABLE(boot_second);
--DEFINE_BOOT_PAGE_TABLES(boot_third, XEN_NR_ENTRIES(2));
--
- /* Main runtime page tables */
- 
- /*
-@@ -94,9 +61,6 @@ DEFINE_BOOT_PAGE_TABLE(xen_fixmap);
-  */
- static DEFINE_PAGE_TABLES(xen_xenmap, XEN_NR_ENTRIES(2));
- 
--/* Non-boot CPUs use this to find the correct pagetables. */
--uint64_t init_ttbr;
--
- static paddr_t phys_offset;
- 
- /* Limits of the Xen heap */
-@@ -284,13 +248,6 @@ static void xen_pt_enforce_wnx(void)
-     flush_xen_tlb_local();
- }
- 
--/* Clear a translation table and clean & invalidate the cache */
--static void clear_table(void *table)
--{
--    clear_page(table);
--    clean_and_invalidate_dcache_va_range(table, PAGE_SIZE);
--}
--
- /* Boot-time pagetable setup.
-  * Changes here may need matching changes in head.S */
- void __init setup_pagetables(unsigned long boot_phys_offset)
-@@ -369,67 +326,6 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
+@@ -326,12 +326,6 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
  #endif
  }
  
--static void clear_boot_pagetables(void)
+-/* MMU setup for secondary CPUS (which already have paging enabled) */
+-void mmu_init_secondary_cpu(void)
 -{
--    /*
--     * Clear the copy of the boot pagetables. Each secondary CPU
--     * rebuilds these itself (see head.S).
--     */
--    clear_table(boot_pgtable);
--#ifdef CONFIG_ARM_64
--    clear_table(boot_first);
--    clear_table(boot_first_id);
--#endif
--    clear_table(boot_second);
--    clear_table(boot_third);
+-    xen_pt_enforce_wnx();
 -}
 -
--#ifdef CONFIG_ARM_64
--int init_secondary_pagetables(int cpu)
--{
--    clear_boot_pagetables();
+ #ifdef CONFIG_ARM_32
+ /*
+  * Set up the direct-mapped xenheap:
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index ec76de3cac..beb137d06e 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -361,8 +361,6 @@ void start_secondary(void)
+      */
+     update_system_features(&current_cpu_data);
+ 
+-    mmu_init_secondary_cpu();
 -
--    /* Set init_ttbr for this CPU coming up. All CPus share a single setof
--     * pagetables, but rewrite it each time for consistency with 32 bit. */
--    init_ttbr = (uintptr_t) xen_pgtable + phys_offset;
--    clean_dcache(init_ttbr);
--    return 0;
--}
--#else
--int init_secondary_pagetables(int cpu)
--{
--    lpae_t *first;
--
--    first = alloc_xenheap_page(); /* root == first level on 32-bit 3-level trie */
--
--    if ( !first )
--    {
--        printk("CPU%u: Unable to allocate the first page-table\n", cpu);
--        return -ENOMEM;
--    }
--
--    /* Initialise root pagetable from root of boot tables */
--    memcpy(first, cpu0_pgtable, PAGE_SIZE);
--    per_cpu(xen_pgtable, cpu) = first;
--
--    if ( !init_domheap_mappings(cpu) )
--    {
--        printk("CPU%u: Unable to prepare the domheap page-tables\n", cpu);
--        per_cpu(xen_pgtable, cpu) = NULL;
--        free_xenheap_page(first);
--        return -ENOMEM;
--    }
--
--    clear_boot_pagetables();
--
--    /* Set init_ttbr for this CPU coming up */
--    init_ttbr = __pa(first);
--    clean_dcache(init_ttbr);
--
--    return 0;
--}
--#endif
--
- /* MMU setup for secondary CPUS (which already have paging enabled) */
- void mmu_init_secondary_cpu(void)
- {
-diff --git a/xen/arch/arm/mmu/Makefile b/xen/arch/arm/mmu/Makefile
-index bdfc2e077d..0e82015ee1 100644
---- a/xen/arch/arm/mmu/Makefile
-+++ b/xen/arch/arm/mmu/Makefile
-@@ -1 +1,2 @@
- obj-y += pt.o
-+obj-y += smpboot.o
-diff --git a/xen/arch/arm/mmu/smpboot.c b/xen/arch/arm/mmu/smpboot.c
-new file mode 100644
-index 0000000000..8b6a09f843
---- /dev/null
-+++ b/xen/arch/arm/mmu/smpboot.c
-@@ -0,0 +1,124 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * xen/arch/arm/mmu/smpboot.c
-+ *
-+ * MMU system secondary CPUs MM bringup code.
-+ */
-+
-+#include <xen/domain_page.h>
-+
-+/*
-+ * Static start-of-day pagetables that we use before the allocators
-+ * are up. These are used by all CPUs during bringup before switching
-+ * to the CPUs own pagetables.
-+ *
-+ * These pagetables have a very simple structure. They include:
-+ *  - XEN_VIRT_SIZE worth of L3 mappings of xen at XEN_VIRT_START, boot_first
-+ *    and boot_second are used to populate the tables down to boot_third
-+ *    which contains the actual mapping.
-+ *  - a 1:1 mapping of xen at its current physical address. This uses a
-+ *    section mapping at whichever of boot_{pgtable,first,second}
-+ *    covers that physical address.
-+ *
-+ * For the boot CPU these mappings point to the address where Xen was
-+ * loaded by the bootloader. For secondary CPUs they point to the
-+ * relocated copy of Xen for the benefit of secondary CPUs.
-+ *
-+ * In addition to the above for the boot CPU the device-tree is
-+ * initially mapped in the boot misc slot. This mapping is not present
-+ * for secondary CPUs.
-+ *
-+ * Finally, if EARLY_PRINTK is enabled then xen_fixmap will be mapped
-+ * by the CPU once it has moved off the 1:1 mapping.
-+ */
-+DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
-+#ifdef CONFIG_ARM_64
-+DEFINE_BOOT_PAGE_TABLE(boot_first);
-+DEFINE_BOOT_PAGE_TABLE(boot_first_id);
-+#endif
-+DEFINE_BOOT_PAGE_TABLE(boot_second_id);
-+DEFINE_BOOT_PAGE_TABLE(boot_third_id);
-+DEFINE_BOOT_PAGE_TABLE(boot_second);
-+DEFINE_BOOT_PAGE_TABLES(boot_third, XEN_NR_ENTRIES(2));
-+
-+/* Non-boot CPUs use this to find the correct pagetables. */
-+uint64_t init_ttbr;
-+
-+/* Clear a translation table and clean & invalidate the cache */
-+static void clear_table(void *table)
-+{
-+    clear_page(table);
-+    clean_and_invalidate_dcache_va_range(table, PAGE_SIZE);
-+}
-+
-+static void clear_boot_pagetables(void)
-+{
-+    /*
-+     * Clear the copy of the boot pagetables. Each secondary CPU
-+     * rebuilds these itself (see head.S).
-+     */
-+    clear_table(boot_pgtable);
-+#ifdef CONFIG_ARM_64
-+    clear_table(boot_first);
-+    clear_table(boot_first_id);
-+#endif
-+    clear_table(boot_second);
-+    clear_table(boot_third);
-+}
-+
-+#ifdef CONFIG_ARM_64
-+int init_secondary_pagetables(int cpu)
-+{
-+    clear_boot_pagetables();
-+
-+    /*
-+     * Set init_ttbr for this CPU coming up. All CPUs share a single setof
-+     * pagetables, but rewrite it each time for consistency with 32 bit.
-+     */
-+    init_ttbr = virt_to_maddr(xen_pgtable);
-+    clean_dcache(init_ttbr);
-+    return 0;
-+}
-+#else
-+int init_secondary_pagetables(int cpu)
-+{
-+    lpae_t *first;
-+
-+    first = alloc_xenheap_page(); /* root == first level on 32-bit 3-level trie */
-+
-+    if ( !first )
-+    {
-+        printk("CPU%u: Unable to allocate the first page-table\n", cpu);
-+        return -ENOMEM;
-+    }
-+
-+    /* Initialise root pagetable from root of boot tables */
-+    memcpy(first, per_cpu(xen_pgtable, 0), PAGE_SIZE);
-+    per_cpu(xen_pgtable, cpu) = first;
-+
-+    if ( !init_domheap_mappings(cpu) )
-+    {
-+        printk("CPU%u: Unable to prepare the domheap page-tables\n", cpu);
-+        per_cpu(xen_pgtable, cpu) = NULL;
-+        free_xenheap_page(first);
-+        return -ENOMEM;
-+    }
-+
-+    clear_boot_pagetables();
-+
-+    /* Set init_ttbr for this CPU coming up */
-+    init_ttbr = __pa(first);
-+    clean_dcache(init_ttbr);
-+
-+    return 0;
-+}
-+#endif
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+     gic_init_secondary_cpu();
+ 
+     set_current(idle_vcpu[cpuid]);
 -- 
 2.25.1
 
