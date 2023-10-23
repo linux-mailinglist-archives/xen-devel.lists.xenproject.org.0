@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101AD7D2E0C
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621130.967271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938CC7D2E15
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:22:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621135.967281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qur8H-0001jJ-W5; Mon, 23 Oct 2023 09:21:57 +0000
+	id 1qur8O-0002H2-6h; Mon, 23 Oct 2023 09:22:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621130.967271; Mon, 23 Oct 2023 09:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 621135.967281; Mon, 23 Oct 2023 09:22:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qur8H-0001g9-R9; Mon, 23 Oct 2023 09:21:57 +0000
-Received: by outflank-mailman (input) for mailman id 621130;
- Mon, 23 Oct 2023 09:21:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JdWI=GF=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qur8G-0000os-Jq
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:21:56 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 9b88360a-7185-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 11:21:55 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5D4662F4;
- Mon, 23 Oct 2023 02:22:36 -0700 (PDT)
-Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
- [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7DD123F64C;
- Mon, 23 Oct 2023 02:21:51 -0700 (PDT)
+	id 1qur8O-0002EV-2t; Mon, 23 Oct 2023 09:22:04 +0000
+Received: by outflank-mailman (input) for mailman id 621135;
+ Mon, 23 Oct 2023 09:22:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qur8M-0002CZ-Sh
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:22:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qur8M-0002Vz-Db; Mon, 23 Oct 2023 09:22:02 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qur8M-0006Cg-6n; Mon, 23 Oct 2023 09:22:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,60 +39,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b88360a-7185-11ee-98d5-6d05b1d4d9a1
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v3 4/4] CHANGELOG.md: Start new "unstable" section
-Date: Mon, 23 Oct 2023 17:21:23 +0800
-Message-Id: <20231023092123.1756426-5-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231023092123.1756426-1-Henry.Wang@arm.com>
-References: <20231023092123.1756426-1-Henry.Wang@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=yOVusp4UZHcT+1yGns52uk1ZJbX8ivEMT5/yOQmxTm0=; b=6zBM6+whCh08R6Vs5mtN/5LIKa
+	QJkhyGTcgFH2SABSQ3OwVRfPXp/p+07xTemK5FVO8Grg9nJoQyqN3DkzYebw3EMofKqk1dX7DZE2a
+	Fu6nC4Zo9vwlsxv5fABSr+09tpNRmaCqYCoX18IJcwLQplHYmsKolzbuOAbiI8osFm34=;
+Message-ID: <a54192e0-0871-4735-ac09-7972a3ab69ec@xen.org>
+Date: Mon, 23 Oct 2023 10:21:59 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/9] xen/arm: don't pass iommu properties to hwdom for
+ iommu-map
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
+ <20231004145604.1085358-2-stewart.hildebrand@amd.com>
+ <31cdf500-959d-42cb-a1ce-bbee7cb5e251@xen.org>
+ <755bb8c6-d386-405a-a825-34a0d5ba3816@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <755bb8c6-d386-405a-a825-34a0d5ba3816@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
----
-v3:
-- Also uses "xenproject.org".
-v2:
-- Add Stefano's Acked-by tag.
----
- CHANGELOG.md | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Hi,
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 3ca7969699..721c067309 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -4,6 +4,14 @@ Notable changes to Xen will be documented in this file.
- 
- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- 
-+## [unstable UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-+
-+### Changed
-+
-+### Added
-+
-+### Removed
-+
- ## [4.18.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.18.0) - 2023-XX-XX
- 
- ### Changed
+On 23/10/2023 10:00, Michal Orzel wrote:
+> As for supporting legacy bindings, I think
+> we would be good if we search for #iommu-cells || mmu-masters
+
+For me, it is clear in the device-tree bindings documentation that 
+#iommu-cells will belong to a IOMMU node. It is less clear for 
+mmu-masters, therefore I would rather prefer if we use the compatible to 
+detect legacy bindings.
+
+I am not that concerned to properly remove any nodes using legacy 
+bindings because new platforms should not use it. So we could also keep 
+the existing behavior (i.e. exposing the IOMMU unless it is used by Xen).
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
