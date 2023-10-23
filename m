@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D88D7D2F2A
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:57:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621178.967380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 439CE7D2F33
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:57:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621180.967396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qurg8-00085H-Vu; Mon, 23 Oct 2023 09:56:56 +0000
+	id 1qurgA-0008Mh-IJ; Mon, 23 Oct 2023 09:56:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621178.967380; Mon, 23 Oct 2023 09:56:56 +0000
+Received: by outflank-mailman (output) from mailman id 621180.967396; Mon, 23 Oct 2023 09:56:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qurg8-00082K-Se; Mon, 23 Oct 2023 09:56:56 +0000
-Received: by outflank-mailman (input) for mailman id 621178;
- Mon, 23 Oct 2023 09:56:55 +0000
+	id 1qurgA-0008KK-BZ; Mon, 23 Oct 2023 09:56:58 +0000
+Received: by outflank-mailman (input) for mailman id 621180;
+ Mon, 23 Oct 2023 09:56:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gXaf=GF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qurg7-0007mv-0S
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:56:55 +0000
+ id 1qurg8-0007mv-0l
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:56:56 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e55b34a-718a-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 11:56:53 +0200 (CEST)
+ id 7ed1ce23-718a-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 11:56:54 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id AE2E64EE0745;
- Mon, 23 Oct 2023 11:56:52 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 6F4CA4EE0746;
+ Mon, 23 Oct 2023 11:56:53 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e55b34a-718a-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 7ed1ce23-718a-11ee-98d5-6d05b1d4d9a1
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -51,69 +51,151 @@ Cc: sstabellini@kernel.org,
 	andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-4.19 v4 2/8] x86: add deviations for variables only used in asm code
-Date: Mon, 23 Oct 2023 11:56:39 +0200
-Message-Id: <67ec8b468d6048f7f91590b59430df275b2f5870.1698053876.git.nicola.vetrini@bugseng.com>
+	Wei Liu <wl@xen.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [XEN PATCH][for-4.19 v4 3/8] x86: add deviation comments for  asm-only functions
+Date: Mon, 23 Oct 2023 11:56:40 +0200
+Message-Id: <36d24b3a3e264f0e0b265b4f68d6432a143d64cd.1698053876.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1698053876.git.nicola.vetrini@bugseng.com>
 References: <cover.1698053876.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-To avoid a violation of MISRA C:2012 Rule 8.4, as permitted
-by docs/misra/rules.rst.
+As stated in rules.rst, functions used only in asm code
+are allowed to have no prior declaration visible when being
+defined, hence these functions are deviated.
+This also fixes violations of MISRA C:2012 Rule 8.4.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes in v3:
-- Edited commit message
-- Add two new variables
+- added SAF deviations for vmx counterparts to svm functions.
 ---
- xen/arch/x86/include/asm/asm_defns.h | 1 +
- xen/arch/x86/setup.c                 | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ xen/arch/x86/hvm/svm/intr.c      | 1 +
+ xen/arch/x86/hvm/svm/nestedsvm.c | 1 +
+ xen/arch/x86/hvm/svm/svm.c       | 2 ++
+ xen/arch/x86/hvm/vmx/intr.c      | 1 +
+ xen/arch/x86/hvm/vmx/vmx.c       | 2 ++
+ xen/arch/x86/hvm/vmx/vvmx.c      | 1 +
+ xen/arch/x86/traps.c             | 1 +
+ xen/arch/x86/x86_64/traps.c      | 1 +
+ 8 files changed, 10 insertions(+)
 
-diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
-index baaaccb26e17..a2516de7749b 100644
---- a/xen/arch/x86/include/asm/asm_defns.h
-+++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -31,6 +31,7 @@ asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
-  * gets set up by the containing function.
-  */
- #ifdef CONFIG_FRAME_POINTER
+diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
+index 192e17ebbfbb..bd9dc560bbc6 100644
+--- a/xen/arch/x86/hvm/svm/intr.c
++++ b/xen/arch/x86/hvm/svm/intr.c
+@@ -123,6 +123,7 @@ static void svm_enable_intr_window(struct vcpu *v, struct hvm_intack intack)
+         vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
+ }
+ 
 +/* SAF-1-safe */
- register unsigned long current_stack_pointer asm("rsp");
- # define ASM_CALL_CONSTRAINT , "+r" (current_stack_pointer)
- #else
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 08ba1f95d635..4480f08de718 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -75,6 +75,7 @@ static bool __initdata opt_invpcid = true;
- boolean_param("invpcid", opt_invpcid);
- bool __read_mostly use_invpcid;
+ void svm_intr_assist(void)
+ {
+     struct vcpu *v = current;
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index a09b6abaaeaf..c80d59e0728e 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -1441,6 +1441,7 @@ nestedsvm_vcpu_vmexit(struct vcpu *v, struct cpu_user_regs *regs,
+ }
  
-+/* SAF-1-safe Only used in asm code and within this source file */
- unsigned long __read_mostly cr4_pv32_mask;
- 
- /* **** Linux config option: propagated to domain0. */
-@@ -147,12 +148,13 @@ cpumask_t __read_mostly cpu_present_map;
- unsigned long __read_mostly xen_phys_start;
- 
- char __section(".init.bss.stack_aligned") __aligned(STACK_SIZE)
--    cpu0_stack[STACK_SIZE];
-+    cpu0_stack[STACK_SIZE]; /* SAF-1-safe Only used in asm code and below */
- 
- /* Used by the BSP/AP paths to find the higher half stack mapping to use. */
- void *stack_start = cpu0_stack + STACK_SIZE - sizeof(struct cpu_info);
- 
- /* Used by the boot asm to stash the relocated multiboot info pointer. */
+ /* VCPU switch */
 +/* SAF-1-safe */
- unsigned int __initdata multiboot_ptr;
+ void nsvm_vcpu_switch(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 24c417ca7199..40ba69bcdfa1 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1056,6 +1056,7 @@ static void noreturn cf_check svm_do_resume(void)
+     reset_stack_and_jump(svm_asm_do_resume);
+ }
  
- struct cpuinfo_x86 __read_mostly boot_cpu_data = { 0, 0, 0, 0, -1 };
++/* SAF-1-safe */
+ void svm_vmenter_helper(void)
+ {
+     const struct cpu_user_regs *regs = guest_cpu_user_regs();
+@@ -2586,6 +2587,7 @@ const struct hvm_function_table * __init start_svm(void)
+     return &svm_function_table;
+ }
+ 
++/* SAF-1-safe */
+ void svm_vmexit_handler(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+index fd719c4c01d2..1805aafb086d 100644
+--- a/xen/arch/x86/hvm/vmx/intr.c
++++ b/xen/arch/x86/hvm/vmx/intr.c
+@@ -224,6 +224,7 @@ void vmx_sync_exit_bitmap(struct vcpu *v)
+     }
+ }
+ 
++/* SAF-1-safe */
+ void vmx_intr_assist(void)
+ {
+     struct hvm_intack intack;
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 1edc7f1e919f..0936a263154e 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4035,6 +4035,7 @@ static void undo_nmis_unblocked_by_iret(void)
+               guest_info | VMX_INTR_SHADOW_NMI);
+ }
+ 
++/* SAF-1-safe */
+ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+ {
+     unsigned long exit_qualification, exit_reason, idtv_info, intr_info = 0;
+@@ -4787,6 +4788,7 @@ static void lbr_fixup(void)
+ }
+ 
+ /* Returns false if the vmentry has to be restarted */
++/* SAF-1-safe */
+ bool vmx_vmenter_helper(const struct cpu_user_regs *regs)
+ {
+     struct vcpu *curr = current;
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index 16b0ef82b6c8..99d93b869307 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -1490,6 +1490,7 @@ static void nvmx_eptp_update(void)
+     __vmwrite(EPT_POINTER, get_shadow_eptp(curr));
+ }
+ 
++/* SAF-1-safe */
+ void nvmx_switch_guest(void)
+ {
+     struct vcpu *v = current;
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index e1356f696aba..6af35a468199 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -2265,6 +2265,7 @@ void asm_domain_crash_synchronous(unsigned long addr)
+ }
+ 
+ #ifdef CONFIG_DEBUG
++/* SAF-1-safe */
+ void check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
+ {
+     const unsigned int ist_mask =
+diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
+index e03e80813e36..5963d26d7848 100644
+--- a/xen/arch/x86/x86_64/traps.c
++++ b/xen/arch/x86/x86_64/traps.c
+@@ -266,6 +266,7 @@ void show_page_walk(unsigned long addr)
+            l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
+ }
+ 
++/* SAF-1-safe */
+ void do_double_fault(struct cpu_user_regs *regs)
+ {
+     unsigned int cpu;
 -- 
 2.34.1
 
