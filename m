@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3976D7D33F9
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 13:35:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621389.967819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDCE17D3446
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 13:38:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621394.967830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qutDb-00066G-Jy; Mon, 23 Oct 2023 11:35:35 +0000
+	id 1qutFp-0007ed-0E; Mon, 23 Oct 2023 11:37:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621389.967819; Mon, 23 Oct 2023 11:35:35 +0000
+Received: by outflank-mailman (output) from mailman id 621394.967830; Mon, 23 Oct 2023 11:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qutDb-00063g-HH; Mon, 23 Oct 2023 11:35:35 +0000
-Received: by outflank-mailman (input) for mailman id 621389;
- Mon, 23 Oct 2023 11:35:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qutFo-0007cS-Sp; Mon, 23 Oct 2023 11:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 621394;
+ Mon, 23 Oct 2023 11:37:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7RLV=GF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qutDa-00063L-9d
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 11:35:34 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46ec93fb-7198-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 13:35:33 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-9becde9ea7bso901252166b.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 04:35:33 -0700 (PDT)
+ id 1qutFn-0007b8-ND
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 11:37:51 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9821e904-7198-11ee-9b0e-b553b5be7939;
+ Mon, 23 Oct 2023 13:37:49 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-53f6ccea1eeso4803153a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 04:37:49 -0700 (PDT)
 Received: from [192.168.201.133] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- s20-20020a170906355400b009bf7a4d591csm6667803eja.11.2023.10.23.04.35.32
+ u17-20020a17090657d100b009c5c5c2c59csm6735754ejr.149.2023.10.23.04.37.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Oct 2023 04:35:32 -0700 (PDT)
+ Mon, 23 Oct 2023 04:37:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,72 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46ec93fb-7198-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 9821e904-7198-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698060933; x=1698665733; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1698061069; x=1698665869; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=q9Y4qk5nyjIGLcF5n2zKBWyG3Q+CvSfe+TyiLxxvulg=;
-        b=HPzYDXVSSOqSGhSRflOaefV4x2g+NdrnBLz/2FPdheHi5Gnf5q4qJkGBJmCAFRQdwN
-         CP9V31pNAUtbh9z+hUSOcWH2+L8fswXeZg2CYuPQFAvtMs21MD/iEVqznwubVz8LBPWo
-         ozVOT34YO4TK9EBNvuM8oLrR+K7Etamy/8NKkHdV5Pogvg408GKR3VD+oZirRE3EGQhg
-         xmQwpU7ybkrzunj/EM2c9roSdblvWn8zG3+zi9NSP5pNOg71u5y4IzzlwazDLM0qA9pD
-         E3jVLmEe4OosSTxk97TsgTabIm5bSMSqUyt+kyQDAcv0e9OPGq4lDv5Ab//iegxoCYE9
-         YIfA==
+        bh=IxSLz6EGT+j3MtCXX+y5vLwvJV8Ki3KXMBlVKvh3zUQ=;
+        b=StOPSyhwm7UA6zdPtpo+HinMYihpEYPfgyMsrqT8vN/ePkU9gk2nNyK9rpOizpDHe4
+         2U3AtNbsragKC0hvJxgQSbhrjuvs68M2uX6SPn1w7IfQ8Ie2GHAUse+1HE87VlaeYdnF
+         XmNYApiTpOC0or7ZLg7Z+Avqumim8UyHNcAY9DKqKN3j9YFahmOG4IcKQqzrcUFvX1tp
+         a/LjFUarc4M/aMZFRr68vA0D3XmNzlbmhXf0fIMijJVI2CBGTrc+2Gvy51RZ2E9ZGjgK
+         IPMSfYqej1aa4E9mDyR1uS+zq7MnGvdIiHWOVueY/21J42xSl/gneh4k5vfxvYn1OAKk
+         3B/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698060933; x=1698665733;
+        d=1e100.net; s=20230601; t=1698061069; x=1698665869;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=q9Y4qk5nyjIGLcF5n2zKBWyG3Q+CvSfe+TyiLxxvulg=;
-        b=Y3mE6qP3vYqT/hZoKSjvMYyM6zzFJl1YQ72IGKIHOwbe+xcjFbwmmV5xaemSWtEFNj
-         Qz+GVkrAJDT1N9ChXZbbPRfFvr4A1sfYFUhvXFeD35wXSLNx+ByXnp7DQJCKR1rXwAzh
-         /b06V1ETfCYkjHVjsgH7o2BjRmDEDjapaLZs8gL217IQ2gTFmgANZyPhl9X2+5EU4qQt
-         qcoucUR7DXPFxZjLoTx2s1BQsqN+BvGFHx3Mll9e6ZzIdeeJvC7HJ/o5USvKno2utdqo
-         skZxcJKk9/r/USXICJp64eAmEFdhRkCDY3ParucSLrpc3ru3K6X9ham1wHSUMkYYbZx5
-         hAoA==
-X-Gm-Message-State: AOJu0Yw0pE8BIUZkrRIGS8bZHlNNXxSua2syxaMCBdpiN5GSqelVLfXn
-	mFDdKENZ9zmRLXgG2Y2cQY8=
-X-Google-Smtp-Source: AGHT+IFG6yyuvAR7kq0R65JqIGY/a0wMqSLt3yzNV1kFkRM/uQ4CPp8pDi6zLH5q+ihfO0IbL//Uuw==
-X-Received: by 2002:a17:907:9445:b0:9ae:5f52:a491 with SMTP id dl5-20020a170907944500b009ae5f52a491mr11511424ejc.8.1698060932935;
-        Mon, 23 Oct 2023 04:35:32 -0700 (PDT)
-Message-ID: <9bbc8cc422b8d4362f7e928c9113e74aa45cff82.camel@gmail.com>
-Subject: Re: [PATCH v1 22/29] xen/asm-generic: introduce stub header delay.h
+        bh=IxSLz6EGT+j3MtCXX+y5vLwvJV8Ki3KXMBlVKvh3zUQ=;
+        b=U31TC+sFVgpnrBsGU8gYgceRQVv431vWZt+X5wXMduCj3HM/fw/lPvscmx/m/11XIg
+         HZB9+vMK0CS5aim1+3joXJmRas/MGC6FEmWeObRbe35vuP1VlyRezIBfLQA38z8MOpjE
+         MSgs/GcERV3pfPzpt6Lndnckaf4PHqT3vU8SMJQuI2tSJL10ZthrUjBbdRy5gH572Yl+
+         OB1z7D0stwBjbgumDMXRpmwjf93N5x6EjVlB6JnS26FHGbmeYUM7QxrOM7yiTb35I3NL
+         Zr3cQjQV1d32JOHuyGaDao68NAv2GsBEy6o1X1GSuZ70JpJdAZgniZEBJhxy4RkVD9xH
+         NBhw==
+X-Gm-Message-State: AOJu0YztccY0Lw41uY4fLFEOvSgY/Gu7NCYRivpTrSWpWPaRmZJelynu
+	8GI8ImgcMQjEPFyRpHG0Y798LjmfZjI=
+X-Google-Smtp-Source: AGHT+IEx9maipNzOZzlFBzYS821LtaYJ3Pu8tifGKX5qGp+MnFzmxmFW9+SSUsST+FcwZdxJdOiFtQ==
+X-Received: by 2002:a17:907:9492:b0:9ae:82b4:e306 with SMTP id dm18-20020a170907949200b009ae82b4e306mr7505218ejc.62.1698061069110;
+        Mon, 23 Oct 2023 04:37:49 -0700 (PDT)
+Message-ID: <58817b8b52d4cb810ca3f8aba78d03089894df86.camel@gmail.com>
+Subject: Re: [PATCH v1 26/29] xen/asm-generic: introduce stub header
+ monitor.h
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Mon, 23 Oct 2023 14:35:31 +0300
-In-Reply-To: <73a8d43d-9626-fde3-9e81-a65bb9096712@suse.com>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
+	 <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	xen-devel@lists.xenproject.org
+Date: Mon, 23 Oct 2023 14:37:47 +0300
+In-Reply-To: <99fcc71c-eefc-d004-d4d3-6e0d0e76339d@suse.com>
 References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
-	 <b16677ea84860ae7143339b8c856f0da7f8c2b6c.1694702259.git.oleksii.kurochko@gmail.com>
-	 <73a8d43d-9626-fde3-9e81-a65bb9096712@suse.com>
+	 <a2663ba600f468bc4d6544bb64354a77c86a40b3.1694702259.git.oleksii.kurochko@gmail.com>
+	 <99fcc71c-eefc-d004-d4d3-6e0d0e76339d@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
 
-On Thu, 2023-10-19 at 13:30 +0200, Jan Beulich wrote:
+On Thu, 2023-10-19 at 13:35 +0200, Jan Beulich wrote:
 > On 14.09.2023 16:56, Oleksii Kurochko wrote:
-> > The patch introduces header stub necessry for full Xen build.
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0xen/include/asm-generic/delay.h | 21 +++++++++++++++++++++
-> > =C2=A01 file changed, 21 insertions(+)
-> > =C2=A0create mode 100644 xen/include/asm-generic/delay.h
+> > --- /dev/null
+> > +++ b/xen/include/asm-generic/monitor.h
+> > @@ -0,0 +1,64 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/* SPDX-License-Identifier: GPL-2.0 */
 >=20
-> Besides the implementation below not being acceptable, imo we should
-> do
-> away with asm/delay.h altogether. x86 can rename __udelay() to
-> udelay(),
-> and then the declaration can move to xen/delay.h.
+> ???
+Oh, I'll drop SPDX-License-Identifier: GPL-2.0.
 >=20
-It makes sense. I'll do that.
+> > +/*
+> > + * include/asm-GENERIC/monitor.h
+> > + *
+> > + * Arch-specific monitor_op domctl handler.
+> > + *
+> > + * Copyright (c) 2015 Tamas K Lengyel (tamas@tklengyel.com)
+> > + * Copyright (c) 2016, Bitdefender S.R.L.
+> > + *
+> > + */
+> > +
+> > +#ifndef __ASM_GENERIC_MONITOR_H__
+> > +#define __ASM_GENERIC_MONITOR_H__
+> > +
+> > +#include <xen/sched.h>
+> > +#include <public/domctl.h>
+>=20
+> No need for this, I don't think?
+Yes, I'll drop that too.
+>=20
+> > +static inline
+> > +void arch_monitor_allow_userspace(struct domain *d, bool
+> > allow_userspace)
+> > +{
+> > +}
+> > +
+> > +static inline
+> > +int arch_monitor_domctl_op(struct domain *d, struct
+> > xen_domctl_monitor_op *mop)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific monitor ops on GENERIC. */
+> > +=C2=A0=C2=A0=C2=A0 return -EOPNOTSUPP;
+> > +}
+> > +
+> > +int arch_monitor_domctl_event(struct domain *d,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen_domctl_monitor_op *mop);
+> > +
+> > +static inline
+> > +int arch_monitor_init_domain(struct domain *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific domain initialization on GENERI=
+C. */
+> > +=C2=A0=C2=A0=C2=A0 return 0;
+> > +}
+> > +
+> > +static inline
+> > +void arch_monitor_cleanup_domain(struct domain *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific domain cleanup on GENERIC. */
+> > +}
+> > +
+> > +static inline uint32_t arch_monitor_get_capabilities(struct domain
+> > *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 uint32_t capabilities =3D 0;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 return capabilities;
+>=20
+> Just "return 0"?
+Thanks. I'll update that part.
+
 
 ~ Oleksii
-
 
