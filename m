@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D087D3004
+	by mail.lfdr.de (Postfix) with ESMTPS id 7627D7D3003
 	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 12:34:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621288.967627 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.621289.967636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qusGQ-0006Es-Dt; Mon, 23 Oct 2023 10:34:26 +0000
+	id 1qusGS-0006Tl-Kg; Mon, 23 Oct 2023 10:34:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621288.967627; Mon, 23 Oct 2023 10:34:26 +0000
+Received: by outflank-mailman (output) from mailman id 621289.967636; Mon, 23 Oct 2023 10:34:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qusGQ-0006C2-Am; Mon, 23 Oct 2023 10:34:26 +0000
-Received: by outflank-mailman (input) for mailman id 621288;
- Mon, 23 Oct 2023 10:34:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qusGS-0006Rg-Hb; Mon, 23 Oct 2023 10:34:28 +0000
+Received: by outflank-mailman (input) for mailman id 621289;
+ Mon, 23 Oct 2023 10:34:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gXaf=GF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qusGO-0006Bs-Pa
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 10:34:24 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bbb282b3-718f-11ee-98d5-6d05b1d4d9a1;
+ <SRS0=7RLV=GF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qusGQ-0006Ko-VV
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 10:34:26 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc3d9ca4-718f-11ee-9b0e-b553b5be7939;
  Mon, 23 Oct 2023 12:34:24 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id AA1F64EE0740;
- Mon, 23 Oct 2023 12:34:23 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-507b96095abso4582883e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 03:34:24 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ v25-20020ac25939000000b00507a89ef9bbsm1637783lfi.166.2023.10.23.03.34.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Oct 2023 03:34:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,74 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbb282b3-718f-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: bc3d9ca4-718f-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698057264; x=1698662064; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=TDb4ASx8/jcCu8conPyrxb2iF1ZWlz7syBLytdyVXP4=;
+        b=eN/3kZk3820/9RuOnWgEP/OflLdT2JXys2lVgdkdWBCnQ+MHeiQ+IKPDq+hCMDbDFa
+         z0Tr0ST9HUYMOAAFmv3S3V2goOBxNPpWy9RqfqPz1mHJ1E2ciEGn0swIMS+TA4eTaxCi
+         Xl7VmUBnZabJSFwfTYBN/81bWgr+b0VcA3vId1zbDazW6sxuMzDmazSo/pg0mAG1Cz3a
+         TgEGsGQzrzmCZfRwzUmmficpzDCV2IOXHI8WQGxNsYTThIIvBRLVEGlHJoxy50VMhfH4
+         awDpscNeDtQSeKCRMpIy3tieNoVqgsDLU4hq2KJ0xWB7PWjzkAMIxUEo6iVewCY5Rvzl
+         xRLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698057264; x=1698662064;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TDb4ASx8/jcCu8conPyrxb2iF1ZWlz7syBLytdyVXP4=;
+        b=OHoiJ2ZsBC03v5uMeUeKI80S/gKJl8RRh2/0YrsZMHc9LLKpeSfcw4wM5vTAi1rBFY
+         yEVL21kerPfOQ9c1K1hL/5wo8HSHAJZhony5+63ONPO5WO5TtuquMJzq+41Y8KZhyshr
+         kQtfcIfwj330ov7CFeKy37ar8QWBKuZo8lg8LVmTiLWq8IaIqI+67bNw6dmHsUoYewAa
+         TW/1wxwKE7X9AZc55oAQr0fX1Eqyedd87tBnLqm/WQ1Uqj7AGFDWz8Kbtn0GYUSW1NOh
+         PduYncHZ6bl2dsla0Ev62rieLGrZNMIRJHYHeIDVnCdpfPobiTCY08EfACOa2oXzRPhI
+         ilHg==
+X-Gm-Message-State: AOJu0YzoaGYyX12kZ+J4rxnVE/qGH1S4rwwAvPa2Ex7UkVCsLA+0pPoe
+	qeS07R5sWSBGE+1O1Z7WYJT+L7Ipchs=
+X-Google-Smtp-Source: AGHT+IECeiz17WPHXF766H/+MKkPIS8uEeN5nPXhI/M+UWJhPy0Js6XqiCV8T+Pqrq12Jar/vUaXBw==
+X-Received: by 2002:a05:6512:3b3:b0:507:ab5b:7b6c with SMTP id v19-20020a05651203b300b00507ab5b7b6cmr6066738lfp.36.1698057264267;
+        Mon, 23 Oct 2023 03:34:24 -0700 (PDT)
+Message-ID: <b6078a353be7c02865f2e75dc6149a932d5f9eed.camel@gmail.com>
+Subject: Re: [PATCH v1 08/29] xen/asm-generic: introduce stub hypercall.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 23 Oct 2023 13:34:23 +0300
+In-Reply-To: <f7293722-c708-947f-19ab-6c3b753f6dda@suse.com>
+References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
+	 <bd57ae1fd448b7d2f4188ff705bb5f537ac48521.1694702259.git.oleksii.kurochko@gmail.com>
+	 <f7293722-c708-947f-19ab-6c3b753f6dda@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-Date: Mon, 23 Oct 2023 12:34:23 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Xen-devel
- <xen-devel@lists.xenproject.org>, consulting@bugseng.com, Bertrand Marquis
- <bertrand.marquis@arm.com>, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: MISRA C:2012 D4.11 caution on staging
-In-Reply-To: <alpine.DEB.2.22.394.2310181433140.965337@ubuntu-linux-20-04-desktop>
-References: <7972c20f361126022fa97f6b51ca2d9c@bugseng.com>
- <61f04d4b-34d9-4fd1-a989-56b042b4f3d8@citrix.com>
- <baa73fa24385b39bc6e82c4ccb08bd13@bugseng.com>
- <26f09702-9340-41ae-afcc-808becb67876@citrix.com>
- <75a00257-c062-4d82-9b64-1707ce4566e6@xen.org>
- <594c09e1f8b2e1e8321c2cb862fcb378@bugseng.com>
- <5ddb6398-f2a3-4bcb-8808-bad653b6c3cd@xen.org>
- <c4f4f1fc-b20a-c08f-9782-9ce06f6dd868@suse.com>
- <3573c8c2-1a9c-444c-a542-539b16f689f2@xen.org>
- <8c25bfd7768d6b290362f56a8b8d44d9@bugseng.com>
- <c47528e7-e202-4b5b-85ae-3bb0d1d0b608@xen.org>
- <87b5936151ace813d9dc9592ee35f86e@bugseng.com>
- <1aaea648-b156-4297-b290-9c7b7a5010fd@xen.org>
- <alpine.DEB.2.22.394.2310181433140.965337@ubuntu-linux-20-04-desktop>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <7e4c60d92abd0d44e7cb3b2d195d0e01@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 18/10/2023 23:33, Stefano Stabellini wrote:
-> On Wed, 18 Oct 2023, Julien Grall wrote:
->> On 18/10/2023 13:52, Nicola Vetrini wrote:
->> > On 18/10/2023 14:38, Julien Grall wrote:
->> > > Hi Nicola,
->> > >
->> > > On 18/10/2023 13:30, Nicola Vetrini wrote:
->> > > > On 17/10/2023 15:28, Julien Grall wrote:
->> > > > I tested this, and the report is prevented by the ASSERT. It's up to the
->> > > > maintainers to
->> > > > decide how do you want to proceed: my suggestion is deviating it,
->> > >
->> > > It is not clear to me what would you deviate. Can you clarify?
->> > >
->> > > Cheers,
->> >
->> > The memcpy call, as in:
->> >
->> > /* SAF-x-false-positive-eclair */
->> > memcpy(d->handle, config->handle, sizeof(d->handle));
->> 
->> I am not in favor of this deviation. It could be a false positive 
->> today, but
->> it may not be in the future.
->> 
->> I much prefer the ASSERT() version or the rework.
-> 
-> Just to be clear about the next steps, Nicola are you OK with sending a
-> patch with the ASSERT or would you prefer Julien or someone else to do
-> it?
+On Thu, 2023-10-19 at 11:24 +0200, Jan Beulich wrote:
+> On 14.09.2023 16:56, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/include/asm-generic/hypercall.h
+> > @@ -0,0 +1,14 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +#ifndef __ASM_GENERIC_HYPERCALL_H__
+> > +#define __ASM_GENERIC_HYPERCALL_H__
+> > +
+> > +#endif /* __ASM_GENERIC_HYPERCALL_H__ */
+>=20
+> This lacks the "should not be included directly" guard that x86 and
+> Arm
+> headers have.
+Thanks. I'll add it.
 
-Anyone can pick this up.
-
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+~ Oleksii
 
