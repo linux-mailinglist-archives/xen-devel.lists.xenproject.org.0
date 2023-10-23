@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0267D2EB8
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:43:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621164.967341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C2C7D2ED5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 11:50:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621170.967351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qurTA-0002Jx-2I; Mon, 23 Oct 2023 09:43:32 +0000
+	id 1qurZQ-0004JH-O9; Mon, 23 Oct 2023 09:50:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621164.967341; Mon, 23 Oct 2023 09:43:32 +0000
+Received: by outflank-mailman (output) from mailman id 621170.967351; Mon, 23 Oct 2023 09:50:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qurT9-0002IK-VU; Mon, 23 Oct 2023 09:43:31 +0000
-Received: by outflank-mailman (input) for mailman id 621164;
- Mon, 23 Oct 2023 09:43:30 +0000
+	id 1qurZQ-0004HB-Ju; Mon, 23 Oct 2023 09:50:00 +0000
+Received: by outflank-mailman (input) for mailman id 621170;
+ Mon, 23 Oct 2023 09:49:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F7kl=GF=casper.srs.infradead.org=BATV+91fa634947ba19782c4e+7365+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qurT7-0002IC-MD
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:43:30 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=7RLV=GF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qurZO-0004H5-Mf
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 09:49:58 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9dc55653-7188-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 11:43:27 +0200 (CEST)
-Received: from [31.94.4.150] (helo=[IPv6:::1])
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qurSo-00D2s3-IS; Mon, 23 Oct 2023 09:43:10 +0000
+ id 869aa774-7189-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 11:49:57 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2c16757987fso44728831fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Oct 2023 02:49:57 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h8-20020a2ea488000000b002c27cd20711sm1532745lji.3.2023.10.23.02.49.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Oct 2023 02:49:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,83 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dc55653-7188-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=QJnLNJLIKQ/1yQL84M0rKohbw6CIp8aEbajAdE1XPdk=; b=CUdLWyALBJqmFbDGesKzP61pFX
-	yMyqMvl8eVP0caNQqIuXFssX8lBUzWgpK0Cz1fE8ycmQ7Zc364gqWYFOTEzYFjujFruaRGkPf/g16
-	2GvuZQFH7+oO5B5p06BuB9jm6y2Zb0P3hOi7BsVk8I5q9ZzHdu8NlWI5fNR9PAEQX1FoAvUwcQygR
-	BrsvhK9U4XPB2XlRKtxIRyatSt0Ur8ot4pBTYRH2JCADNdaRtv6ro02JzxVUyyL4XCxYYdUYirxQk
-	sSvo6tPiHXwM1MjlSxzPFY4mccQVObrvA0FIliR8oJ5LExfja1ipELp+yx7XX+ndJ15ku4AvAk9s8
-	aSwfOOyQ==;
-Date: Mon, 23 Oct 2023 10:42:58 +0100
-From: David Woodhouse <dwmw2@infradead.org>
-To: Igor Mammedov <imammedo@redhat.com>
-CC: qemu-devel@nongnu.org, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- =?ISO-8859-1?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Marcelo Tosatti <mtosatti@redhat.com>,
- qemu-block@nongnu.org, xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- =?ISO-8859-1?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_11/12=5D_hw/xen=3A_automaticall?= =?US-ASCII?Q?y_assign_device_index_to_block_devices?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20231023113002.0e83c209@imammedo.users.ipa.redhat.com>
-References: <20231016151909.22133-1-dwmw2@infradead.org> <20231016151909.22133-12-dwmw2@infradead.org> <20231018093239.3d525fd8@imammedo.users.ipa.redhat.com> <3f3487af227dcdce7afb37e8406d5ce8dcdbf55f.camel@infradead.org> <20231023113002.0e83c209@imammedo.users.ipa.redhat.com>
-Message-ID: <8CBFDABE-6BD7-4924-BB69-EF5EAA04A34D@infradead.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+X-Inumbo-ID: 869aa774-7189-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698054597; x=1698659397; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZUec5HQQ2PSukLyXg/hoAoXU+/9nN+IY2Wex/kqK/S8=;
+        b=PEoYkluLHjSe6KgCh+5tPuatump5suqwhjPHZ8U2HRxosX5N6RWT+dLUde5XiQCFkq
+         9a1fBu4o2Rri86wktRjLZITeyw45QvJAzd7uUU58IK0WTbdiuxkcEQfZ1gvE/cSLKrlZ
+         9cB/7ZBdRNdOkIaR+nTMGBZZ3FEY32Y3C+wmCAVVxbEQTz3hCSa72P/wJ/+Djmy/CIMh
+         rn65eQ/I902wzONPkTP4aE3gY8Q3lWWAGiaSOP7YwSS7Ix2deDOn/S85ERpcxgecKTBJ
+         61SEGESU5DdwM9lEYHImqnxwEpW73hsq5RWtZpbCkq4C81M6FjoNKMUBlMuJiakLH7Qo
+         D0Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698054597; x=1698659397;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZUec5HQQ2PSukLyXg/hoAoXU+/9nN+IY2Wex/kqK/S8=;
+        b=asDBntkT67NwVQ/j96Ek2RrvzwUUaLWegRwiAqtjCtTKaWqRwRmkXG5NswlvRFnIkf
+         5aHZGb/34SZYMCWFYBFfPxsrCVOLn7Xnozi0NqlVbzyOzg5JpLOUKbsrVG2Z7qPQHg+h
+         ZsOrUgJYjuZWx1Co287hF4AJJUbCR90xINp7QHak1l5Et9MGFKaGf6j77qwY//JkYMD+
+         FFHXni9Qzt9PCPhKelx27WhY1Bbl85uBDPBhw8wqoQbPbl1buR0zGQbDRmSRaNuJ3pm7
+         sSF3V01LVPNfNw+NJM0AZmZ2KEC9WCeYpaFWoN7kYcd/ZA6fzzXVdDMu9JQQodJ9EZxB
+         gupA==
+X-Gm-Message-State: AOJu0YxDR+ZrpbP5OpWIcB3xB5lQ4CD0AmeD9OMDJowN40AAaeycbwSU
+	x1tRnPhn2s32BZ3SiCRTU7g=
+X-Google-Smtp-Source: AGHT+IGfrBIxdBtldO0DBN8K4McjKWv91BJBT05/D5AskVb7Pt0FbfJTpZ0z0aVQmjmMaykcNwTnsQ==
+X-Received: by 2002:a2e:90d0:0:b0:2c5:ee7:b322 with SMTP id o16-20020a2e90d0000000b002c50ee7b322mr6207788ljg.18.1698054597113;
+        Mon, 23 Oct 2023 02:49:57 -0700 (PDT)
+Message-ID: <3889dd0e2b3bae28d6b74ab72038ad29ac97cab9.camel@gmail.com>
+Subject: Re: [PATCH v1 03/29] xen/asm-generic: introduce stub header
+ cpufeature.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 23 Oct 2023 12:49:55 +0300
+In-Reply-To: <dbc0e6fb-3f25-b4cb-83a2-d7c5f1a9e0a3@suse.com>
+References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
+	 <c89b1a60ee40576a2841c222a2cefc5ae2a301d3.1694702259.git.oleksii.kurochko@gmail.com>
+	 <dbc0e6fb-3f25-b4cb-83a2-d7c5f1a9e0a3@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
+On Thu, 2023-10-19 at 11:11 +0200, Jan Beulich wrote:
+> I'm not convinced an arch can get away without such a header.
+> Certainly
+> RISC-V and PPC can't, with all their ISA extensions that already
+> exist
+> (part of which will want making use of, others may simply want
+> exposing
+> to guests).
+Yes, it looks like you are right. I forgot about a considerable amount
+of ISA.
 
+By this patch series, I tried to move headers to asm-generic to build
+minimal Xen without introducing the stub cpu_nr_siblings(unsigned int
+cpu) for each new arch. But taking into account that likely this header
+will be re-introduced for an arch, there is probably no sense to have
+it in asm-generic.
 
-On 23 October 2023 10:30:02 BST, Igor Mammedov <imammedo@redhat=2Ecom> wro=
-te:
->On Wed, 18 Oct 2023 09:32:47 +0100
->David Woodhouse <dwmw2@infradead=2Eorg> wrote:
->
->> On Wed, 2023-10-18 at 09:32 +0200, Igor Mammedov wrote:
->> > On Mon, 16 Oct 2023 16:19:08 +0100
->> > David Woodhouse <dwmw2@infradead=2Eorg> wrote:
->> >  =20
->> > > From: David Woodhouse <dwmw@amazon=2Eco=2Euk>
->> > >  =20
->> >=20
->> > is this index a user (guest) visible? =20
->>=20
->> Yes=2E It defines what block device (e=2Eg=2E /dev/xvda) the disk appea=
-rs as
->> in the guest=2E In the common case, it literally encodes the Linux
->> major/minor numbers=2E So xvda (major 202) is 0xca00, xvdb is 0xca10 et=
-c=2E
->
->that makes 'index' an implicit ABI and a subject to versioning
->when the way it's assigned changes (i=2Ee=2E one has to use versioned
->machine types to keep older versions working the they used to)=2E
->
->From what I remember it's discouraged to make QEMU invent
->various IDs that are part of ABI (guest or mgmt side)=2E
->Instead it's preferred for mgmt side/user to provide that explicitly=2E
->
->Basically you are trading off manageability/simplicity at QEMU
->level with CLI usability for human user=2E
->I don't care much as long as it is hidden within xen code base,
->but maybe libvirt does=2E
-
-Well, it can still be set explicitly=2E So not so much a "trade-off" as ad=
-ding the option for the user to choose the simple way=2E
-
-Yes, in a way it's an ABI, just like the dynamic assignment of PCI devfn f=
-or network devices added with "-nic"=2E And I think also for virtio block d=
-evices too? And for the ISA ne2000=2E
-
-But it seems unlikely that we'll ever really want to change "the first one=
- is xvda, the second is xvdb=2E=2E=2E=2E"
+~ Oleksii
 
