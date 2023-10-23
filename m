@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE83A7D24A9
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Oct 2023 18:53:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620812.966697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C547D2861
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 04:14:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620920.966770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qubgR-0006Jy-EA; Sun, 22 Oct 2023 16:52:11 +0000
+	id 1qukS8-0001HA-W6; Mon, 23 Oct 2023 02:14:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620812.966697; Sun, 22 Oct 2023 16:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 620920.966770; Mon, 23 Oct 2023 02:14:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qubgR-0006Ha-Ah; Sun, 22 Oct 2023 16:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 620812;
- Sun, 22 Oct 2023 16:52:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qubgP-0006HU-IB
- for xen-devel@lists.xenproject.org; Sun, 22 Oct 2023 16:52:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qubgP-0003lP-8o; Sun, 22 Oct 2023 16:52:09 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qubgO-0005IL-SM; Sun, 22 Oct 2023 16:52:08 +0000
+	id 1qukS8-0001F7-Ta; Mon, 23 Oct 2023 02:14:00 +0000
+Received: by outflank-mailman (input) for mailman id 620920;
+ Mon, 23 Oct 2023 02:13:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JdWI=GF=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1qukS7-0001F1-PM
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 02:13:59 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id d20499e4-7149-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 04:13:57 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD88F2F4;
+ Sun, 22 Oct 2023 19:14:36 -0700 (PDT)
+Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
+ [10.169.190.5])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3E43F3F738;
+ Sun, 22 Oct 2023 19:13:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,117 +43,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4/8BzTvAHH1Kqb9LSb+VGvUpqifptTUQl4x8uOXx/yY=; b=yMImo9GRWGeqKSBlBM8qi99f0e
-	TSNUoSiGui/lggt27k1ki/IURrLxvMe1m/t3jv77ciMDbydBiGNEHNDt3FmtFFmowWYlvMgH+D8jy
-	YrPyIYg+96mgCM+CV67XdKOq/B/t+Hm0tZ0dfCFPj32AndhxcbXDA5WG5sd2d2slXSlI=;
-Message-ID: <2f3180d3-883d-466e-a454-762aa16c9e7a@xen.org>
-Date: Sun, 22 Oct 2023 17:52:04 +0100
+X-Inumbo-ID: d20499e4-7149-11ee-98d5-6d05b1d4d9a1
+From: Henry Wang <Henry.Wang@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
+	Penny Zheng <penny.zheng@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v8 0/8] xen/arm: Split MMU code as the prepration of MPU work
+Date: Mon, 23 Oct 2023 10:13:37 +0800
+Message-Id: <20231023021345.1731436-1-Henry.Wang@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] xen/xmalloc: XMEM_POOL_POISON improvements
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20231020202649.1802700-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231020202649.1802700-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+Based on the discussion in the Xen Summit [1], sending this series out after
+addressing the comments in v7 [2] as the preparation work to add MPU support.
+The series passed the GitLab CI check in [3].
 
-On 20/10/2023 21:26, Andrew Cooper wrote:
-> When in use, the spew:
-> 
->    (XEN) Assertion '!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE, (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE)' failed at common/xmalloc_tlsf.c:246
-> 
-> is unweidly and meaningless to non-Xen developers.  Therefore:
-> 
->   * Switch to IS_ENABLED().  There's no need for full #ifdef-ary.
->   * Pull memchr_inv() out into the if(), and provide a better error message.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Observations from the debugging of:
->    https://github.com/Dasharo/dasharo-issues/issues/488
-> 
-> There's a further bug.  XMEM_POOL_POISON can be enabled in release builds,
-> where the ASSERT() gets dropped.
-> 
-> However, upping to a BUG() can't provide any helpful message out to the user.
-> 
-> I tried modifying BUG() to take an optional message, but xen/bug.h needs
-> untangling substantially before that will work, and I don't have time right now.
+Mostly code movement and function folding, with some of Kconfig and build
+system (mainly Makefiles) adjustment.
 
-Do we actually care about the registers values? If not, we can either use:
+This series is based on:
+bad1ac345b x86: support data operand independent timing mode
 
-printk(...);
-BUG();
+[1] https://lore.kernel.org/xen-devel/AS8PR08MB799122F8B0CB841DED64F4819226A@AS8PR08MB7991.eurprd08.prod.outlook.com/
+[2] https://lore.kernel.org/xen-devel/20231009010313.3668423-1-Henry.Wang@arm.com/
+[3] https://gitlab.com/xen-project/people/henryw/xen/-/pipelines/1045604579
 
-Or
+Henry Wang (6):
+  xen/arm: Split page table related code to mmu/pt.c
+  xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
+  xen/arm: Fold mmu_init_secondary_cpu() to head.S
+  xen/arm: Extract MMU-specific MM code
+  xen/arm: Split MMU-specific setup_mm() and related code out
+  xen/arm: Fold pmap and fixmap into MMU system
 
-panic(...);
+Penny Zheng (2):
+  xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
+  xen/arm: mmu: move MMU specific P2M code to mmu/p2m.{c,h}
 
-This would allow us to use XMEM_POOL_POISON in prod build before BUG() 
-can accept string.
-
-> ---
->   xen/common/xmalloc_tlsf.c | 15 +++++++--------
->   1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
-> index 349b31cb4cc1..13305cd87c2f 100644
-> --- a/xen/common/xmalloc_tlsf.c
-> +++ b/xen/common/xmalloc_tlsf.c
-> @@ -249,11 +249,11 @@ static inline void EXTRACT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl,
->       }
->       b->ptr.free_ptr = (struct free_ptr) {NULL, NULL};
->   
-> -#ifdef CONFIG_XMEM_POOL_POISON
-> -    if ( (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
-> -        ASSERT(!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
-> -                           (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE));
-> -#endif /* CONFIG_XMEM_POOL_POISON */
-> +    if ( IS_ENABLED(CONFIG_XMEM_POOL_POISON) &&
-> +         (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE &&
-> +         memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
-> +                    (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE) )
-> +        ASSERT(!"XMEM Pool corruption found");
->   }
->   
->   /**
-> @@ -261,11 +261,10 @@ static inline void EXTRACT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl,
->    */
->   static inline void INSERT_BLOCK(struct bhdr *b, struct xmem_pool *p, int fl, int sl)
->   {
-> -#ifdef CONFIG_XMEM_POOL_POISON
-> -    if ( (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
-> +    if ( IS_ENABLED(CONFIG_XMEM_POOL_POISON) &&
-> +         (b->size & BLOCK_SIZE_MASK) > MIN_BLOCK_SIZE )
->           memset(b->ptr.buffer + MIN_BLOCK_SIZE, POISON_BYTE,
->                  (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE);
-> -#endif /* CONFIG_XMEM_POOL_POISON */
->   
->       b->ptr.free_ptr = (struct free_ptr) {NULL, p->matrix[fl][sl]};
->       if ( p->matrix[fl][sl] )
-
-
-Cheers,
+ xen/arch/arm/Kconfig               |    2 +-
+ xen/arch/arm/Makefile              |    1 +
+ xen/arch/arm/arm32/Makefile        |    1 +
+ xen/arch/arm/arm32/head.S          |   22 +-
+ xen/arch/arm/arm32/mmu/Makefile    |    1 +
+ xen/arch/arm/arm32/mmu/mm.c        |  301 +++++
+ xen/arch/arm/arm64/Makefile        |    1 -
+ xen/arch/arm/arm64/mmu/Makefile    |    1 +
+ xen/arch/arm/arm64/mmu/head.S      |   18 +-
+ xen/arch/arm/arm64/{ => mmu}/mm.c  |   84 ++
+ xen/arch/arm/domain.c              |   11 +-
+ xen/arch/arm/include/asm/mm.h      |   32 +-
+ xen/arch/arm/include/asm/mmu/mm.h  |   44 +
+ xen/arch/arm/include/asm/mmu/p2m.h |   26 +
+ xen/arch/arm/include/asm/p2m.h     |   32 +-
+ xen/arch/arm/include/asm/page.h    |   15 -
+ xen/arch/arm/include/asm/setup.h   |    5 +
+ xen/arch/arm/kernel.c              |   28 -
+ xen/arch/arm/mm.c                  | 1212 ------------------
+ xen/arch/arm/mmu/Makefile          |    4 +
+ xen/arch/arm/mmu/p2m.c             | 1834 ++++++++++++++++++++++++++
+ xen/arch/arm/mmu/pt.c              |  736 +++++++++++
+ xen/arch/arm/mmu/setup.c           |  376 ++++++
+ xen/arch/arm/mmu/smpboot.c         |  124 ++
+ xen/arch/arm/p2m.c                 | 1909 +---------------------------
+ xen/arch/arm/setup.c               |  324 +----
+ xen/arch/arm/smpboot.c             |    4 +-
+ 27 files changed, 3655 insertions(+), 3493 deletions(-)
+ create mode 100644 xen/arch/arm/arm32/mmu/Makefile
+ create mode 100644 xen/arch/arm/arm32/mmu/mm.c
+ rename xen/arch/arm/arm64/{ => mmu}/mm.c (60%)
+ create mode 100644 xen/arch/arm/include/asm/mmu/mm.h
+ create mode 100644 xen/arch/arm/include/asm/mmu/p2m.h
+ create mode 100644 xen/arch/arm/mmu/Makefile
+ create mode 100644 xen/arch/arm/mmu/p2m.c
+ create mode 100644 xen/arch/arm/mmu/pt.c
+ create mode 100644 xen/arch/arm/mmu/setup.c
+ create mode 100644 xen/arch/arm/mmu/smpboot.c
 
 -- 
-Julien Grall
+2.25.1
+
 
