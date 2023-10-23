@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AA57D3A84
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 17:17:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621542.968111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881477D3AA1
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 17:24:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621547.968120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quwfl-00048H-N1; Mon, 23 Oct 2023 15:16:53 +0000
+	id 1quwmV-0007P1-AO; Mon, 23 Oct 2023 15:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621542.968111; Mon, 23 Oct 2023 15:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 621547.968120; Mon, 23 Oct 2023 15:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1quwfl-00045D-Jg; Mon, 23 Oct 2023 15:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 621542;
- Mon, 23 Oct 2023 15:16:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1quwmV-0007MN-7i; Mon, 23 Oct 2023 15:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 621547;
+ Mon, 23 Oct 2023 15:23:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gXaf=GF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1quwfk-000455-67
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 15:16:52 +0000
+ <SRS0=4wXt=GF=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1quwmU-0007MD-Cg
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 15:23:50 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30c51cb5-71b7-11ee-98d5-6d05b1d4d9a1;
- Mon, 23 Oct 2023 17:16:50 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 58B5C4EE0747;
- Mon, 23 Oct 2023 17:16:50 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28d5b1d3-71b8-11ee-9b0e-b553b5be7939;
+ Mon, 23 Oct 2023 17:23:47 +0200 (CEST)
+Received: from [192.168.1.9] (net-188-218-250-245.cust.vodafonedsl.it
+ [188.218.250.245])
+ by support.bugseng.com (Postfix) with ESMTPSA id 3825F4EE0747;
+ Mon, 23 Oct 2023 17:23:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +40,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30c51cb5-71b7-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 28d5b1d3-71b8-11ee-9b0e-b553b5be7939
+Message-ID: <0032186f-80c7-4dba-b46e-10d4a8e2a8cb@bugseng.com>
+Date: Mon, 23 Oct 2023 17:23:45 +0200
 MIME-Version: 1.0
-Date: Mon, 23 Oct 2023 17:16:50 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, consulting@bugseng.com
-Subject: Re: Refactor arm64/domctl.c 'subarch_do_domctl' to avoid unreachable
- break.
-In-Reply-To: <a63ded4f-09b0-41c8-a9c9-832a12fc9133@xen.org>
-References: <6c118d318d68ea3613d9a0a79d75c0c9@bugseng.com>
- <a63ded4f-09b0-41c8-a9c9-832a12fc9133@xen.org>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <902a34031e0173e1219f084560522d0d@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 3/4] xen/include: add pure and const attributes
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1697638210.git.simone.ballarin@bugseng.com>
+ <fd5421162a00aa782e0776324ff6497193c1e3d3.1697638210.git.simone.ballarin@bugseng.com>
+ <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <89778285-5cba-8fb5-70bc-710b6dd30a10@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 23/10/2023 17:00, Julien Grall wrote:
-> On 23/10/2023 15:51, Nicola Vetrini wrote:
->> Hi,
+On 23/10/23 15:34, Jan Beulich wrote:
+> On 18.10.2023 16:18, Simone Ballarin wrote:
+>> Add const and pure attributes to address reports
+>> of MISRA C:2012 Rule 13.1: Initializer lists shall
+>> not contain persistent side effects
+>>
+>> Add pure attribute to function pdx_to_pfn.
+>> Add const attribute to functions generated by TYPE_SAFE.
+>>
+>> These functions are used in initializer lists: adding
+>> the attributes ensures that no effect will be performed
+>> by them.
 > 
-> Hi Nicola,
-> 
->> while taking care of some patches regarding MISRA C Rule 2.1 (code 
->> shouldn't be unreachable), I
->> came across this function:
->> 
->> long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->>                         XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->> {
->>      switch ( domctl->cmd )
->>      {
->>      case XEN_DOMCTL_set_address_size:
->>          switch ( domctl->u.address_size.size )
->>          {
->>          case 32:
->>              if ( !cpu_has_el1_32 )
->>                  return -EINVAL;
->>              /* SVE is not supported for 32 bit domain */
->>              if ( is_sve_domain(d) )
->>                  return -EINVAL;
->>              return switch_mode(d, DOMAIN_32BIT);
->>          case 64:
->>              return switch_mode(d, DOMAIN_64BIT);
->>          default:
->>              return -EINVAL;
->>          }
->>          break;
->> 
->>      default:
->>          return -ENOSYS;
->>      }
->> }
->> 
->> here the break after the innermost switch is clearly unreachable, but 
->> it's also guarding a possible fallthrough.
->> I can see a couple of solutions to this:
->> 
->> - mark the part after the switch unreachable;
->> - introduce a variable 'long rc' to store the return value, and 
->> consequently rework the control flow of all the switches
->>    (e.g. rc = -EINVAL and similar);
->> - remove the break, but I consider this a risky move, unless -ENOSYS 
->> would be an ok value to be returned if some case
->>    from the switch above does not have a return statement.
-> 
-> - move the nested switch in a separate function, so the code in
-> subarch_do_domctl() can be replaced with:
-> 
-> return set_address_size(...);
-> 
->> 
->> What would be the preferred way of addressing this violation?
-> 
-> I would actually prefer the 4th option I suggested.
-> 
-> Cheers,
+> Adding the attribute does, according to my understanding, ensure nothing
+> The compiler may (but isn't required to) diagnose wrong uses of the
+> attributes, but it may also make use of the attributes (on the
+> declaration) without regard to the attribute potentially being wrongly
+> applied. Since further for inline functions the compiler commonly infers
+> attributes from the expanded code (discarding the attribute), the only
+> thing achieved here is a documentation aspect, I think.
 
-Would you mind sending the patch yourself?
+Yes, you're right. I will rephrase the commit message.
+
+
+> 
+>> --- a/xen/include/xen/pdx.h
+>> +++ b/xen/include/xen/pdx.h
+>> @@ -164,7 +164,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
+>>    * @param pdx Page index
+>>    * @return Obtained pfn after decompressing the pdx
+>>    */
+>> -static inline unsigned long pdx_to_pfn(unsigned long pdx)
+>> +static inline __attribute_pure__ unsigned long pdx_to_pfn(unsigned long pdx)
+>>   {
+>>       return (pdx & pfn_pdx_bottom_mask) |
+>>              ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
+> 
+> Taking this as an example for what I've said above: The compiler can't
+> know that the globals used by the functions won't change value. Even
+> within Xen it is only by convention that these variables are assigned
+> their values during boot, and then aren't changed anymore. Which makes
+> me wonder: Did you check carefully that around the time the variables
+> have their values established, no calls to the functions exist (which
+> might then be subject to folding)?
+
+There is no need to check that, the GCC documentation explicitly says:
+
+However, functions declared with the pure attribute *can safely read any 
+non-volatile objects*, and modify the value of objects in a way that 
+does not affect their return value or the observable state of the program.
+
+https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+
+> Additionally - what about the sibling function pfn_to_pdx()?
+> 
+> Jan
+
+I will add the attribute also to the sibling.
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
