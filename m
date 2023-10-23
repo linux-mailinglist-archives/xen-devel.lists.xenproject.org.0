@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2524E7D2862
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 04:14:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.620928.966820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BCDB7D285E
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Oct 2023 04:14:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.620930.966830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qukSU-0002pc-Hr; Mon, 23 Oct 2023 02:14:22 +0000
+	id 1qukSW-0003Di-QN; Mon, 23 Oct 2023 02:14:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 620928.966820; Mon, 23 Oct 2023 02:14:22 +0000
+Received: by outflank-mailman (output) from mailman id 620930.966830; Mon, 23 Oct 2023 02:14:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qukSU-0002nI-Dp; Mon, 23 Oct 2023 02:14:22 +0000
-Received: by outflank-mailman (input) for mailman id 620928;
- Mon, 23 Oct 2023 02:14:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qukSW-00038U-M7; Mon, 23 Oct 2023 02:14:24 +0000
+Received: by outflank-mailman (input) for mailman id 620930;
+ Mon, 23 Oct 2023 02:14:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JdWI=GF=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qukSS-0001U7-RL
- for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 02:14:20 +0000
+ id 1qukSU-0001F1-Vu
+ for xen-devel@lists.xenproject.org; Mon, 23 Oct 2023 02:14:22 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id decbb2c2-7149-11ee-9b0e-b553b5be7939;
- Mon, 23 Oct 2023 04:14:18 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id e1289e33-7149-11ee-98d5-6d05b1d4d9a1;
+ Mon, 23 Oct 2023 04:14:22 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 403112F4;
- Sun, 22 Oct 2023 19:14:58 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4188C2F4;
+ Sun, 22 Oct 2023 19:15:02 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 62DF43F738;
- Sun, 22 Oct 2023 19:14:14 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 64C103F738;
+ Sun, 22 Oct 2023 19:14:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: decbb2c2-7149-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: e1289e33-7149-11ee-98d5-6d05b1d4d9a1
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -54,840 +54,153 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Penny Zheng <penny.zheng@arm.com>,
 	Wei Chen <wei.chen@arm.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v8 5/8] xen/arm: Split MMU-specific setup_mm() and related code out
-Date: Mon, 23 Oct 2023 10:13:42 +0800
-Message-Id: <20231023021345.1731436-6-Henry.Wang@arm.com>
+Subject: [PATCH v8 6/8] xen/arm: Fold pmap and fixmap into MMU system
+Date: Mon, 23 Oct 2023 10:13:43 +0800
+Message-Id: <20231023021345.1731436-7-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231023021345.1731436-1-Henry.Wang@arm.com>
 References: <20231023021345.1731436-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-setup_mm() is used for Xen to setup memory management subsystem,
-such as boot allocator, direct-mapping, xenheap initialization,
-frametable and static memory pages, at boot time.
+fixmap and pmap are MMU-specific features, so fold them to the
+MMU system. Do the folding for pmap by moving the HAS_PMAP Kconfig
+selection under MMU. Since none of the definitions in asm/fixmap.h
+actually makes sense for the MPU, so do the folding for fixmap by
+limiting the inclusion of asm/fixmap.h for MPU code when necessary.
+To guarantee that, moving the implementation of copy_from_paddr()
+from kernel.c to mmu/setup.c, so that inclusion of asm/fixmap.h in
+the kernel.c can be dropped.
 
-We could inherit some components seamlessly for MPU support, such
-as the setup of boot allocator, whilst we need to implement some
-components differently for MPU, such as xenheap, etc. Also, there
-are some components that is specific to MMU only, for example the
-direct-mapping.
-
-Therefore in this commit, we split the MMU-specific setup_mm() and
-related code out. Since arm32 and arm64 have completely different
-setup_mm() implementation, take the opportunity to split the
-arch-specific setup_mm() to arch-specific files, so that we can
-avoid #ifdef. Also, make init_pdx(), init_staticmem_pages(), and
-populate_boot_allocator() public as these functions are now called
-from two different units, and make setup_mm() public for future MPU
-implementation.
-
-With above code movement, mark setup_directmap_mappings() as static
-because the only caller of this function is now in the same file
-with it. Drop the original setup_directmap_mappings() declaration
-and move the in-code comment on top of the declaration on top of
-the function implementation.
+Take the opportunity to add a missing space before and after '-' in
+"s = paddr & (PAGE_SIZE-1);" of copy_from_paddr().
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
 v8:
-- Reword the commit message about making init_pdx() & co public.
-- Add Julien's Acked-by tag.
+- Add a missing space before/after '-' in "s = paddr & (PAGE_SIZE-1);"
+  of copy_from_paddr(), mention this change in commit message.
+- Add Julien's Reviewed-by tag.
 v7:
 - No change.
 v6:
-- Rework the original patch:
-  [v5,10/13] xen/arm: mmu: move MMU-specific setup_mm to mmu/setup.c
+- Rework original patch:
+  [v5,08/13] xen/arm: Fold pmap and fixmap into MMU system
+  and fold in the original patch:
+  [v5,12/13] xen/arm: mmu: relocate copy_from_paddr() to setup.c
 ---
- xen/arch/arm/arm32/mmu/mm.c       | 278 ++++++++++++++++++++++++-
- xen/arch/arm/arm64/mmu/mm.c       |  51 ++++-
- xen/arch/arm/include/asm/mmu/mm.h |   6 -
- xen/arch/arm/include/asm/setup.h  |   5 +
- xen/arch/arm/setup.c              | 324 +-----------------------------
- 5 files changed, 331 insertions(+), 333 deletions(-)
+ xen/arch/arm/Kconfig     |  2 +-
+ xen/arch/arm/kernel.c    | 28 ----------------------------
+ xen/arch/arm/mmu/setup.c | 27 +++++++++++++++++++++++++++
+ 3 files changed, 28 insertions(+), 29 deletions(-)
 
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index 647baf4a81..94d6cab49c 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -1,14 +1,21 @@
- /* SPDX-License-Identifier: GPL-2.0 */
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 2939db429b..7b5b0c0c05 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -14,7 +14,6 @@ config ARM
+ 	select HAS_ALTERNATIVE
+ 	select HAS_DEVICE_TREE
+ 	select HAS_PASSTHROUGH
+-	select HAS_PMAP
+ 	select HAS_UBSAN
+ 	select IOMMU_FORCE_PT_SHARE
  
- #include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/libfdt/libfdt-xen.h>
-+#include <xen/param.h>
-+#include <xen/pfn.h>
- #include <asm/fixmap.h>
+@@ -60,6 +59,7 @@ config PADDR_BITS
  
-+static unsigned long opt_xenheap_megabytes __initdata;
-+integer_param("xenheap_megabytes", opt_xenheap_megabytes);
-+
- /*
-- * Set up the direct-mapped xenheap:
-- * up to 1GB of contiguous, always-mapped memory.
-+ * Set up the direct-mapped xenheap: up to 1GB of contiguous,
-+ * always-mapped memory. Base must be 32MB aligned and size a multiple of 32MB.
-  */
--void __init setup_directmap_mappings(unsigned long base_mfn,
--                                     unsigned long nr_mfns)
-+static void __init setup_directmap_mappings(unsigned long base_mfn,
-+                                            unsigned long nr_mfns)
- {
-     int rc;
+ config MMU
+ 	def_bool y
++	select HAS_PMAP
  
-@@ -21,6 +28,269 @@ void __init setup_directmap_mappings(unsigned long base_mfn,
-     directmap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
- }
+ source "arch/Kconfig"
  
-+/*
-+ * Returns the end address of the highest region in the range s..e
-+ * with required size and alignment that does not conflict with the
-+ * modules from first_mod to nr_modules.
-+ *
-+ * For non-recursive callers first_mod should normally be 0 (all
-+ * modules and Xen itself) or 1 (all modules but not Xen).
-+ */
-+static paddr_t __init consider_modules(paddr_t s, paddr_t e,
-+                                       uint32_t size, paddr_t align,
-+                                       int first_mod)
-+{
-+    const struct bootmodules *mi = &bootinfo.modules;
-+    int i;
-+    int nr;
-+
-+    s = (s+align-1) & ~(align-1);
-+    e = e & ~(align-1);
-+
-+    if ( s > e ||  e - s < size )
-+        return 0;
-+
-+    /* First check the boot modules */
-+    for ( i = first_mod; i < mi->nr_mods; i++ )
-+    {
-+        paddr_t mod_s = mi->module[i].start;
-+        paddr_t mod_e = mod_s + mi->module[i].size;
-+
-+        if ( s < mod_e && mod_s < e )
-+        {
-+            mod_e = consider_modules(mod_e, e, size, align, i+1);
-+            if ( mod_e )
-+                return mod_e;
-+
-+            return consider_modules(s, mod_s, size, align, i+1);
-+        }
-+    }
-+
-+    /* Now check any fdt reserved areas. */
-+
-+    nr = fdt_num_mem_rsv(device_tree_flattened);
-+
-+    for ( ; i < mi->nr_mods + nr; i++ )
-+    {
-+        paddr_t mod_s, mod_e;
-+
-+        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
-+                                   i - mi->nr_mods,
-+                                   &mod_s, &mod_e ) < 0 )
-+            /* If we can't read it, pretend it doesn't exist... */
-+            continue;
-+
-+        /* fdt_get_mem_rsv_paddr returns length */
-+        mod_e += mod_s;
-+
-+        if ( s < mod_e && mod_s < e )
-+        {
-+            mod_e = consider_modules(mod_e, e, size, align, i+1);
-+            if ( mod_e )
-+                return mod_e;
-+
-+            return consider_modules(s, mod_s, size, align, i+1);
-+        }
-+    }
-+
-+    /*
-+     * i is the current bootmodule we are evaluating, across all
-+     * possible kinds of bootmodules.
-+     *
-+     * When retrieving the corresponding reserved-memory addresses, we
-+     * need to index the bootinfo.reserved_mem bank starting from 0, and
-+     * only counting the reserved-memory modules. Hence, we need to use
-+     * i - nr.
-+     */
-+    nr += mi->nr_mods;
-+    for ( ; i - nr < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        paddr_t r_s = bootinfo.reserved_mem.bank[i - nr].start;
-+        paddr_t r_e = r_s + bootinfo.reserved_mem.bank[i - nr].size;
-+
-+        if ( s < r_e && r_s < e )
-+        {
-+            r_e = consider_modules(r_e, e, size, align, i + 1);
-+            if ( r_e )
-+                return r_e;
-+
-+            return consider_modules(s, r_s, size, align, i + 1);
-+        }
-+    }
-+    return e;
-+}
-+
-+/*
-+ * Find a contiguous region that fits in the static heap region with
-+ * required size and alignment, and return the end address of the region
-+ * if found otherwise 0.
-+ */
-+static paddr_t __init fit_xenheap_in_static_heap(uint32_t size, paddr_t align)
-+{
-+    unsigned int i;
-+    paddr_t end = 0, aligned_start, aligned_end;
-+    paddr_t bank_start, bank_size, bank_end;
-+
-+    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
-+            continue;
-+
-+        bank_start = bootinfo.reserved_mem.bank[i].start;
-+        bank_size = bootinfo.reserved_mem.bank[i].size;
-+        bank_end = bank_start + bank_size;
-+
-+        if ( bank_size < size )
-+            continue;
-+
-+        aligned_end = bank_end & ~(align - 1);
-+        aligned_start = (aligned_end - size) & ~(align - 1);
-+
-+        if ( aligned_start > bank_start )
-+            /*
-+             * Allocate the xenheap as high as possible to keep low-memory
-+             * available (assuming the admin supplied region below 4GB)
-+             * for other use (e.g. domain memory allocation).
-+             */
-+            end = max(end, aligned_end);
-+    }
-+
-+    return end;
-+}
-+
-+void __init setup_mm(void)
-+{
-+    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end, bank_size;
-+    paddr_t static_heap_end = 0, static_heap_size = 0;
-+    unsigned long heap_pages, xenheap_pages, domheap_pages;
-+    unsigned int i;
-+    const uint32_t ctr = READ_CP32(CTR);
-+
-+    if ( !bootinfo.mem.nr_banks )
-+        panic("No memory bank\n");
-+
-+    /* We only supports instruction caches implementing the IVIPT extension. */
-+    if ( ((ctr >> CTR_L1IP_SHIFT) & CTR_L1IP_MASK) == ICACHE_POLICY_AIVIVT )
-+        panic("AIVIVT instruction cache not supported\n");
-+
-+    init_pdx();
-+
-+    ram_start = bootinfo.mem.bank[0].start;
-+    ram_size  = bootinfo.mem.bank[0].size;
-+    ram_end   = ram_start + ram_size;
-+
-+    for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
-+    {
-+        bank_start = bootinfo.mem.bank[i].start;
-+        bank_size = bootinfo.mem.bank[i].size;
-+        bank_end = bank_start + bank_size;
-+
-+        ram_size  = ram_size + bank_size;
-+        ram_start = min(ram_start,bank_start);
-+        ram_end   = max(ram_end,bank_end);
-+    }
-+
-+    total_pages = ram_size >> PAGE_SHIFT;
-+
-+    if ( bootinfo.static_heap )
-+    {
-+        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+        {
-+            if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
-+                continue;
-+
-+            bank_start = bootinfo.reserved_mem.bank[i].start;
-+            bank_size = bootinfo.reserved_mem.bank[i].size;
-+            bank_end = bank_start + bank_size;
-+
-+            static_heap_size += bank_size;
-+            static_heap_end = max(static_heap_end, bank_end);
-+        }
-+
-+        heap_pages = static_heap_size >> PAGE_SHIFT;
-+    }
-+    else
-+        heap_pages = total_pages;
-+
-+    /*
-+     * If the user has not requested otherwise via the command line
-+     * then locate the xenheap using these constraints:
-+     *
-+     *  - must be contiguous
-+     *  - must be 32 MiB aligned
-+     *  - must not include Xen itself or the boot modules
-+     *  - must be at most 1GB or 1/32 the total RAM in the system (or static
-+          heap if enabled) if less
-+     *  - must be at least 32M
-+     *
-+     * We try to allocate the largest xenheap possible within these
-+     * constraints.
-+     */
-+    if ( opt_xenheap_megabytes )
-+        xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
-+    else
-+    {
-+        xenheap_pages = (heap_pages/32 + 0x1fffUL) & ~0x1fffUL;
-+        xenheap_pages = max(xenheap_pages, 32UL<<(20-PAGE_SHIFT));
-+        xenheap_pages = min(xenheap_pages, 1UL<<(30-PAGE_SHIFT));
-+    }
-+
-+    do
-+    {
-+        e = bootinfo.static_heap ?
-+            fit_xenheap_in_static_heap(pfn_to_paddr(xenheap_pages), MB(32)) :
-+            consider_modules(ram_start, ram_end,
-+                             pfn_to_paddr(xenheap_pages),
-+                             32<<20, 0);
-+        if ( e )
-+            break;
-+
-+        xenheap_pages >>= 1;
-+    } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-PAGE_SHIFT) );
-+
-+    if ( ! e )
-+        panic("Not enough space for xenheap\n");
-+
-+    domheap_pages = heap_pages - xenheap_pages;
-+
-+    printk("Xen heap: %"PRIpaddr"-%"PRIpaddr" (%lu pages%s)\n",
-+           e - (pfn_to_paddr(xenheap_pages)), e, xenheap_pages,
-+           opt_xenheap_megabytes ? ", from command-line" : "");
-+    printk("Dom heap: %lu pages\n", domheap_pages);
-+
-+    /*
-+     * We need some memory to allocate the page-tables used for the
-+     * directmap mappings. So populate the boot allocator first.
-+     *
-+     * This requires us to set directmap_mfn_{start, end} first so the
-+     * direct-mapped Xenheap region can be avoided.
-+     */
-+    directmap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
-+    directmap_mfn_end = mfn_add(directmap_mfn_start, xenheap_pages);
-+
-+    populate_boot_allocator();
-+
-+    setup_directmap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
-+
-+    /* Frame table covers all of RAM region, including holes */
-+    setup_frametable_mappings(ram_start, ram_end);
-+    max_page = PFN_DOWN(ram_end);
-+
-+    /*
-+     * The allocators may need to use map_domain_page() (such as for
-+     * scrubbing pages). So we need to prepare the domheap area first.
-+     */
-+    if ( !init_domheap_mappings(smp_processor_id()) )
-+        panic("CPU%u: Unable to prepare the domheap page-tables\n",
-+              smp_processor_id());
-+
-+    /* Add xenheap memory that was not already added to the boot allocator. */
-+    init_xenheap_pages(mfn_to_maddr(directmap_mfn_start),
-+                       mfn_to_maddr(directmap_mfn_end));
-+
-+    init_staticmem_pages();
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index 36073041ed..c0f166a437 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -2,6 +2,7 @@
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 508c54824d..bc3e5bd6f9 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -16,7 +16,6 @@
+ #include <xen/vmap.h>
  
- #include <xen/init.h>
- #include <xen/mm.h>
-+#include <xen/pfn.h>
- 
+ #include <asm/byteorder.h>
+-#include <asm/fixmap.h>
+ #include <asm/kernel.h>
  #include <asm/setup.h>
  
-@@ -152,8 +153,8 @@ void __init switch_ttbr(uint64_t ttbr)
- }
+@@ -41,33 +40,6 @@ struct minimal_dtb_header {
  
- /* Map the region in the directmap area. */
--void __init setup_directmap_mappings(unsigned long base_mfn,
--                                     unsigned long nr_mfns)
-+static void __init setup_directmap_mappings(unsigned long base_mfn,
-+                                            unsigned long nr_mfns)
+ #define DTB_MAGIC 0xd00dfeedU
+ 
+-/**
+- * copy_from_paddr - copy data from a physical address
+- * @dst: destination virtual address
+- * @paddr: source physical address
+- * @len: length to copy
+- */
+-void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
+-{
+-    void *src = (void *)FIXMAP_ADDR(FIXMAP_MISC);
+-
+-    while (len) {
+-        unsigned long l, s;
+-
+-        s = paddr & (PAGE_SIZE-1);
+-        l = min(PAGE_SIZE - s, len);
+-
+-        set_fixmap(FIXMAP_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
+-        memcpy(dst, src + s, l);
+-        clean_dcache_va_range(dst, l);
+-        clear_fixmap(FIXMAP_MISC);
+-
+-        paddr += l;
+-        dst += l;
+-        len -= l;
+-    }
+-}
+-
+ static void __init place_modules(struct kernel_info *info,
+                                  paddr_t kernbase, paddr_t kernend)
  {
-     int rc;
- 
-@@ -188,6 +189,52 @@ void __init setup_directmap_mappings(unsigned long base_mfn,
-         panic("Unable to setup the directmap mappings.\n");
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index c2df976ab2..a5a9b538ff 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -339,6 +339,33 @@ void free_init_memory(void)
+     printk("Freed %ldkB init memory.\n", (long)(__init_end-__init_begin)>>10);
  }
  
-+void __init setup_mm(void)
++/**
++ * copy_from_paddr - copy data from a physical address
++ * @dst: destination virtual address
++ * @paddr: source physical address
++ * @len: length to copy
++ */
++void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
 +{
-+    const struct meminfo *banks = &bootinfo.mem;
-+    paddr_t ram_start = INVALID_PADDR;
-+    paddr_t ram_end = 0;
-+    paddr_t ram_size = 0;
-+    unsigned int i;
++    void *src = (void *)FIXMAP_ADDR(FIXMAP_MISC);
 +
-+    init_pdx();
++    while (len) {
++        unsigned long l, s;
 +
-+    /*
-+     * We need some memory to allocate the page-tables used for the directmap
-+     * mappings. But some regions may contain memory already allocated
-+     * for other uses (e.g. modules, reserved-memory...).
-+     *
-+     * For simplicity, add all the free regions in the boot allocator.
-+     */
-+    populate_boot_allocator();
++        s = paddr & (PAGE_SIZE - 1);
++        l = min(PAGE_SIZE - s, len);
 +
-+    total_pages = 0;
++        set_fixmap(FIXMAP_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
++        memcpy(dst, src + s, l);
++        clean_dcache_va_range(dst, l);
++        clear_fixmap(FIXMAP_MISC);
 +
-+    for ( i = 0; i < banks->nr_banks; i++ )
-+    {
-+        const struct membank *bank = &banks->bank[i];
-+        paddr_t bank_end = bank->start + bank->size;
-+
-+        ram_size = ram_size + bank->size;
-+        ram_start = min(ram_start, bank->start);
-+        ram_end = max(ram_end, bank_end);
-+
-+        setup_directmap_mappings(PFN_DOWN(bank->start),
-+                                 PFN_DOWN(bank->size));
++        paddr += l;
++        dst += l;
++        len -= l;
 +    }
-+
-+    total_pages += ram_size >> PAGE_SHIFT;
-+
-+    directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
-+    directmap_mfn_start = maddr_to_mfn(ram_start);
-+    directmap_mfn_end = maddr_to_mfn(ram_end);
-+
-+    setup_frametable_mappings(ram_start, ram_end);
-+    max_page = PFN_DOWN(ram_end);
-+
-+    init_staticmem_pages();
 +}
 +
  /*
   * Local variables:
   * mode: C
-diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
-index 439ae314fd..c5e03a66bf 100644
---- a/xen/arch/arm/include/asm/mmu/mm.h
-+++ b/xen/arch/arm/include/asm/mmu/mm.h
-@@ -31,12 +31,6 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
- 
- /* Switch to a new root page-tables */
- extern void switch_ttbr(uint64_t ttbr);
--/*
-- * For Arm32, set up the direct-mapped xenheap: up to 1GB of contiguous,
-- * always-mapped memory. Base must be 32MB aligned and size a multiple of 32MB.
-- * For Arm64, map the region in the directmap area.
-- */
--extern void setup_directmap_mappings(unsigned long base_mfn, unsigned long nr_mfns);
- 
- #endif /* __ARM_MMU_MM_H__ */
- 
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index b8866c20f4..863e9b88cd 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -159,6 +159,11 @@ struct bootcmdline *boot_cmdline_find_by_kind(bootmodule_kind kind);
- struct bootcmdline * boot_cmdline_find_by_name(const char *name);
- const char *boot_module_kind_as_string(bootmodule_kind kind);
- 
-+void init_pdx(void);
-+void init_staticmem_pages(void);
-+void populate_boot_allocator(void);
-+void setup_mm(void);
-+
- extern uint32_t hyp_traps_vector[];
- void init_traps(void);
- 
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index db748839d3..5983546e64 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -58,11 +58,6 @@ struct cpuinfo_arm __read_mostly system_cpuinfo;
- bool __read_mostly acpi_disabled;
- #endif
- 
--#ifdef CONFIG_ARM_32
--static unsigned long opt_xenheap_megabytes __initdata;
--integer_param("xenheap_megabytes", opt_xenheap_megabytes);
--#endif
--
- domid_t __read_mostly max_init_domid;
- 
- static __used void init_done(void)
-@@ -547,138 +542,6 @@ static void * __init relocate_fdt(paddr_t dtb_paddr, size_t dtb_size)
-     return fdt;
- }
- 
--#ifdef CONFIG_ARM_32
--/*
-- * Returns the end address of the highest region in the range s..e
-- * with required size and alignment that does not conflict with the
-- * modules from first_mod to nr_modules.
-- *
-- * For non-recursive callers first_mod should normally be 0 (all
-- * modules and Xen itself) or 1 (all modules but not Xen).
-- */
--static paddr_t __init consider_modules(paddr_t s, paddr_t e,
--                                       uint32_t size, paddr_t align,
--                                       int first_mod)
--{
--    const struct bootmodules *mi = &bootinfo.modules;
--    int i;
--    int nr;
--
--    s = (s+align-1) & ~(align-1);
--    e = e & ~(align-1);
--
--    if ( s > e ||  e - s < size )
--        return 0;
--
--    /* First check the boot modules */
--    for ( i = first_mod; i < mi->nr_mods; i++ )
--    {
--        paddr_t mod_s = mi->module[i].start;
--        paddr_t mod_e = mod_s + mi->module[i].size;
--
--        if ( s < mod_e && mod_s < e )
--        {
--            mod_e = consider_modules(mod_e, e, size, align, i+1);
--            if ( mod_e )
--                return mod_e;
--
--            return consider_modules(s, mod_s, size, align, i+1);
--        }
--    }
--
--    /* Now check any fdt reserved areas. */
--
--    nr = fdt_num_mem_rsv(device_tree_flattened);
--
--    for ( ; i < mi->nr_mods + nr; i++ )
--    {
--        paddr_t mod_s, mod_e;
--
--        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
--                                   i - mi->nr_mods,
--                                   &mod_s, &mod_e ) < 0 )
--            /* If we can't read it, pretend it doesn't exist... */
--            continue;
--
--        /* fdt_get_mem_rsv_paddr returns length */
--        mod_e += mod_s;
--
--        if ( s < mod_e && mod_s < e )
--        {
--            mod_e = consider_modules(mod_e, e, size, align, i+1);
--            if ( mod_e )
--                return mod_e;
--
--            return consider_modules(s, mod_s, size, align, i+1);
--        }
--    }
--
--    /*
--     * i is the current bootmodule we are evaluating, across all
--     * possible kinds of bootmodules.
--     *
--     * When retrieving the corresponding reserved-memory addresses, we
--     * need to index the bootinfo.reserved_mem bank starting from 0, and
--     * only counting the reserved-memory modules. Hence, we need to use
--     * i - nr.
--     */
--    nr += mi->nr_mods;
--    for ( ; i - nr < bootinfo.reserved_mem.nr_banks; i++ )
--    {
--        paddr_t r_s = bootinfo.reserved_mem.bank[i - nr].start;
--        paddr_t r_e = r_s + bootinfo.reserved_mem.bank[i - nr].size;
--
--        if ( s < r_e && r_s < e )
--        {
--            r_e = consider_modules(r_e, e, size, align, i + 1);
--            if ( r_e )
--                return r_e;
--
--            return consider_modules(s, r_s, size, align, i + 1);
--        }
--    }
--    return e;
--}
--
--/*
-- * Find a contiguous region that fits in the static heap region with
-- * required size and alignment, and return the end address of the region
-- * if found otherwise 0.
-- */
--static paddr_t __init fit_xenheap_in_static_heap(uint32_t size, paddr_t align)
--{
--    unsigned int i;
--    paddr_t end = 0, aligned_start, aligned_end;
--    paddr_t bank_start, bank_size, bank_end;
--
--    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
--    {
--        if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
--            continue;
--
--        bank_start = bootinfo.reserved_mem.bank[i].start;
--        bank_size = bootinfo.reserved_mem.bank[i].size;
--        bank_end = bank_start + bank_size;
--
--        if ( bank_size < size )
--            continue;
--
--        aligned_end = bank_end & ~(align - 1);
--        aligned_start = (aligned_end - size) & ~(align - 1);
--
--        if ( aligned_start > bank_start )
--            /*
--             * Allocate the xenheap as high as possible to keep low-memory
--             * available (assuming the admin supplied region below 4GB)
--             * for other use (e.g. domain memory allocation).
--             */
--            end = max(end, aligned_end);
--    }
--
--    return end;
--}
--#endif
--
- /*
-  * Return the end of the non-module region starting at s. In other
-  * words return s the start of the next modules after s.
-@@ -713,7 +576,7 @@ static paddr_t __init next_module(paddr_t s, paddr_t *end)
-     return lowest;
- }
- 
--static void __init init_pdx(void)
-+void __init init_pdx(void)
- {
-     paddr_t bank_start, bank_size, bank_end;
- 
-@@ -758,7 +621,7 @@ static void __init init_pdx(void)
- }
- 
- /* Static memory initialization */
--static void __init init_staticmem_pages(void)
-+void __init init_staticmem_pages(void)
- {
- #ifdef CONFIG_STATIC_MEMORY
-     unsigned int bank;
-@@ -792,7 +655,7 @@ static void __init init_staticmem_pages(void)
-  * allocator with the corresponding regions only, but with Xenheap excluded
-  * on arm32.
-  */
--static void __init populate_boot_allocator(void)
-+void __init populate_boot_allocator(void)
- {
-     unsigned int i;
-     const struct meminfo *banks = &bootinfo.mem;
-@@ -861,187 +724,6 @@ static void __init populate_boot_allocator(void)
-     }
- }
- 
--#ifdef CONFIG_ARM_32
--static void __init setup_mm(void)
--{
--    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end, bank_size;
--    paddr_t static_heap_end = 0, static_heap_size = 0;
--    unsigned long heap_pages, xenheap_pages, domheap_pages;
--    unsigned int i;
--    const uint32_t ctr = READ_CP32(CTR);
--
--    if ( !bootinfo.mem.nr_banks )
--        panic("No memory bank\n");
--
--    /* We only supports instruction caches implementing the IVIPT extension. */
--    if ( ((ctr >> CTR_L1IP_SHIFT) & CTR_L1IP_MASK) == ICACHE_POLICY_AIVIVT )
--        panic("AIVIVT instruction cache not supported\n");
--
--    init_pdx();
--
--    ram_start = bootinfo.mem.bank[0].start;
--    ram_size  = bootinfo.mem.bank[0].size;
--    ram_end   = ram_start + ram_size;
--
--    for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
--    {
--        bank_start = bootinfo.mem.bank[i].start;
--        bank_size = bootinfo.mem.bank[i].size;
--        bank_end = bank_start + bank_size;
--
--        ram_size  = ram_size + bank_size;
--        ram_start = min(ram_start,bank_start);
--        ram_end   = max(ram_end,bank_end);
--    }
--
--    total_pages = ram_size >> PAGE_SHIFT;
--
--    if ( bootinfo.static_heap )
--    {
--        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
--        {
--            if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
--                continue;
--
--            bank_start = bootinfo.reserved_mem.bank[i].start;
--            bank_size = bootinfo.reserved_mem.bank[i].size;
--            bank_end = bank_start + bank_size;
--
--            static_heap_size += bank_size;
--            static_heap_end = max(static_heap_end, bank_end);
--        }
--
--        heap_pages = static_heap_size >> PAGE_SHIFT;
--    }
--    else
--        heap_pages = total_pages;
--
--    /*
--     * If the user has not requested otherwise via the command line
--     * then locate the xenheap using these constraints:
--     *
--     *  - must be contiguous
--     *  - must be 32 MiB aligned
--     *  - must not include Xen itself or the boot modules
--     *  - must be at most 1GB or 1/32 the total RAM in the system (or static
--          heap if enabled) if less
--     *  - must be at least 32M
--     *
--     * We try to allocate the largest xenheap possible within these
--     * constraints.
--     */
--    if ( opt_xenheap_megabytes )
--        xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
--    else
--    {
--        xenheap_pages = (heap_pages/32 + 0x1fffUL) & ~0x1fffUL;
--        xenheap_pages = max(xenheap_pages, 32UL<<(20-PAGE_SHIFT));
--        xenheap_pages = min(xenheap_pages, 1UL<<(30-PAGE_SHIFT));
--    }
--
--    do
--    {
--        e = bootinfo.static_heap ?
--            fit_xenheap_in_static_heap(pfn_to_paddr(xenheap_pages), MB(32)) :
--            consider_modules(ram_start, ram_end,
--                             pfn_to_paddr(xenheap_pages),
--                             32<<20, 0);
--        if ( e )
--            break;
--
--        xenheap_pages >>= 1;
--    } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-PAGE_SHIFT) );
--
--    if ( ! e )
--        panic("Not enough space for xenheap\n");
--
--    domheap_pages = heap_pages - xenheap_pages;
--
--    printk("Xen heap: %"PRIpaddr"-%"PRIpaddr" (%lu pages%s)\n",
--           e - (pfn_to_paddr(xenheap_pages)), e, xenheap_pages,
--           opt_xenheap_megabytes ? ", from command-line" : "");
--    printk("Dom heap: %lu pages\n", domheap_pages);
--
--    /*
--     * We need some memory to allocate the page-tables used for the
--     * directmap mappings. So populate the boot allocator first.
--     *
--     * This requires us to set directmap_mfn_{start, end} first so the
--     * direct-mapped Xenheap region can be avoided.
--     */
--    directmap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
--    directmap_mfn_end = mfn_add(directmap_mfn_start, xenheap_pages);
--
--    populate_boot_allocator();
--
--    setup_directmap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
--
--    /* Frame table covers all of RAM region, including holes */
--    setup_frametable_mappings(ram_start, ram_end);
--    max_page = PFN_DOWN(ram_end);
--
--    /*
--     * The allocators may need to use map_domain_page() (such as for
--     * scrubbing pages). So we need to prepare the domheap area first.
--     */
--    if ( !init_domheap_mappings(smp_processor_id()) )
--        panic("CPU%u: Unable to prepare the domheap page-tables\n",
--              smp_processor_id());
--
--    /* Add xenheap memory that was not already added to the boot allocator. */
--    init_xenheap_pages(mfn_to_maddr(directmap_mfn_start),
--                       mfn_to_maddr(directmap_mfn_end));
--
--    init_staticmem_pages();
--}
--#else /* CONFIG_ARM_64 */
--static void __init setup_mm(void)
--{
--    const struct meminfo *banks = &bootinfo.mem;
--    paddr_t ram_start = INVALID_PADDR;
--    paddr_t ram_end = 0;
--    paddr_t ram_size = 0;
--    unsigned int i;
--
--    init_pdx();
--
--    /*
--     * We need some memory to allocate the page-tables used for the directmap
--     * mappings. But some regions may contain memory already allocated
--     * for other uses (e.g. modules, reserved-memory...).
--     *
--     * For simplicity, add all the free regions in the boot allocator.
--     */
--    populate_boot_allocator();
--
--    total_pages = 0;
--
--    for ( i = 0; i < banks->nr_banks; i++ )
--    {
--        const struct membank *bank = &banks->bank[i];
--        paddr_t bank_end = bank->start + bank->size;
--
--        ram_size = ram_size + bank->size;
--        ram_start = min(ram_start, bank->start);
--        ram_end = max(ram_end, bank_end);
--
--        setup_directmap_mappings(PFN_DOWN(bank->start),
--                                 PFN_DOWN(bank->size));
--    }
--
--    total_pages += ram_size >> PAGE_SHIFT;
--
--    directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
--    directmap_mfn_start = maddr_to_mfn(ram_start);
--    directmap_mfn_end = maddr_to_mfn(ram_end);
--
--    setup_frametable_mappings(ram_start, ram_end);
--    max_page = PFN_DOWN(ram_end);
--
--    init_staticmem_pages();
--}
--#endif
--
- static bool __init is_dom0less_mode(void)
- {
-     struct bootmodules *mods = &bootinfo.modules;
 -- 
 2.25.1
 
