@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE917D53F2
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:25:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622027.969101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0285E7D53FE
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:27:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622029.969111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvILi-0003nf-0J; Tue, 24 Oct 2023 14:25:38 +0000
+	id 1qvINN-0004LI-Az; Tue, 24 Oct 2023 14:27:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622027.969101; Tue, 24 Oct 2023 14:25:37 +0000
+Received: by outflank-mailman (output) from mailman id 622029.969111; Tue, 24 Oct 2023 14:27:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvILh-0003lH-Tf; Tue, 24 Oct 2023 14:25:37 +0000
-Received: by outflank-mailman (input) for mailman id 622027;
- Tue, 24 Oct 2023 14:25:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvINN-0004Ig-7t; Tue, 24 Oct 2023 14:27:21 +0000
+Received: by outflank-mailman (input) for mailman id 622029;
+ Tue, 24 Oct 2023 14:27:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=krZT=GG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qvILg-0003lB-21
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:25:36 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0615.outbound.protection.outlook.com
- [2a01:111:f400:fe02::615])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30cb55b5-7279-11ee-9b0e-b553b5be7939;
- Tue, 24 Oct 2023 16:25:33 +0200 (CEST)
+ id 1qvINL-0004IY-Gk
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:27:19 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0609.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::609])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f8486d1-7279-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 16:27:18 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AS5PR04MB9894.eurprd04.prod.outlook.com (2603:10a6:20b:655::15)
+ by PAXPR04MB9254.eurprd04.prod.outlook.com (2603:10a6:102:2bc::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.8; Tue, 24 Oct
- 2023 14:25:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.11; Tue, 24 Oct
+ 2023 14:27:15 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6933.011; Tue, 24 Oct 2023
- 14:25:30 +0000
+ 14:27:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,292 +47,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30cb55b5-7279-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 6f8486d1-7279-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J+FkTU8H5sQR8nA5ZHvW8C8z+RZhe4fGpopK0ydVQ3HAbbOP+utTRTohi9TYLT8RYXiznAMNHdvEdtI9lvYvEY14BIwFUDl5nNyEuSxuMWYK8CxdOYC5ocKQqWwupnvW94wfT/GLv5jAUzHX8XUy3zkxfIhCz3cTAcarq959zyFEvwG0ixusLHbu8nsTtF23ZDkjSbnhheljCBvTA8sQcSo/tTBpWw+HwZZRlflnYV1mgyUTdnAo4PMzW9S3Y5hjOphbivc74WgH0ENuW9CZ4UNQoQ/gevvR2V0z0OLis+1slO1ntWSnSm+u8bhTAIOwVbolNAFX9oIPuUcMjaBQpA==
+ b=aLX1XJWMvI0DI2CrGV11l9vJB37P55ZZbGBlTt9ltLYKSS+3oNdrMPW8Sl/EbQhVsfOscnsQC7NWm/7Zt/LlpQL1NWqYReFGDyE/CBWWFzODdGt2DEOVYRBpXrG3cg9M+3VbdybvPfVNDklaTRGA4PfpW1BJtcfXnGrJbFzQ79YoJds+F0Scc1dMWI6vAVHeoUiC9zBtCcWTIEk2a8ecK5+bnVSS1cGa8X8Ww6lbMQG9KuRV9bbfJE+9pfUMuO4yzPo6vUtoqqd4vkvrgrMmHLPbO6DXJHhb/Bi2D3FtIknQ71YQilGCe/QkUvwo1NXa1tFDe9WocDa0eNHjgxPEMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qq57+vM2516dkts2mV9mBKjzUppZftqK/7jZddFf+gI=;
- b=mpYVyBUm5n1MwiMS1i/V4KBQyZqxCq/Bw11DSDS0oYgsUWqA26LcQWW+E+BNMUCrG5EqMTeheR51o9e7VDVtRi5+g0Vs/OaHgoqH0263TkgNazP04tE/GEgDNaFfXz0nS4txl5H8Fwr07EMojpmN/AiMnhyiTkm9B6p/xTnp2yAGSkXgldSUoFMJ0f+IJxb5Q83T5Mdw5urdwzd8Zybd0fPJCrKNl8eyHFNccvP4FgbQlNmob2UiXLDIKTr9dhdNYrdG9XewBEFUi0o8gbIlDxqM/OOcibfU6zFshyAmjG1xfEW6DvNVvFqDLORVXceK7N/MWKNQV5QmsuxuAYtmyQ==
+ bh=ASSYmQwZBIx1bB8RhQuEVfQxm2TNmLZyuCT0rbjrlSg=;
+ b=EFbNwOILCNkHjK0229MuWdsJPbsAd5H/2fhYpD0H9VaWJJuUo12LrYMt6kVexhoIzFFORsBhs7y0akcMYAeE5leJodVSKPXQBufwrk5FVTAaYCGh2JB7SqBVqGUMcDCK8+uqy/pKmEDuoXXc2G9J8PiWuppuETjM0f47VDg8tVpgarkbR56hLVhyYhyBS0TTKx4L+kJjypZKWswDD8JPLZnonHGBMfsXocSt77xLfrjD6BllXcHOjGqzgwX/k+Ms5OYy1+CggGxZPZ23/L+6sW91pW4BcxWrt9hnTLfPGiuR2wZS5cIj6MWoe1NLOf5XW4iZswzNVNWNWU7srmCXXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qq57+vM2516dkts2mV9mBKjzUppZftqK/7jZddFf+gI=;
- b=H97jeQ55Ln/iEm6k1Q3NmqwWt6dBRueITwTiOBP8wClvSi12hNHxmX2LKeyuKIOKLaZwf4BGxmbEFudiH2v6D5m1wBOOExfnyLVaa1J3z8+iza1x4D5ScWE26SqlSoFReLgkkNuOWKQEJI3LLMZzXZjZZP91fCSIm1u/w2zv2+RmxVYmIdrxI0CR6Tuc9EZ8kAi38zHV6Oy+9GY7BL6grPYg7KZB4JycbuNEqDElN0Ysr10PsMAOeNv1gpSqLFMT4wwJwfAqLjUAVJN4sA7htyidXdFNFVYbAXT7jB1rZzlL2/4NHol9/TIyoIixRprPrl7xU5IR/qDGuwZ6DyZaDA==
+ bh=ASSYmQwZBIx1bB8RhQuEVfQxm2TNmLZyuCT0rbjrlSg=;
+ b=qEY6ZSNJABU4tUOps7twt3lBjg+UoSk+BkBDJowHJXOCxVGfqDHazIGBxVsY9sqYWyLdzY89uOjG/g4trDGn96WuU8HAdxKz05dg28zt4v30MLEXKs7PTUta+RvOaGSI5dL89Xc++t+ARNGgVPQTpel7439zPaMEbee6qragcaHKc0qV8/p1FgIJjcIfi+7dwPKFZMd6V4W4nmY4srUVRet6wJaO4R8JJedcs8AscFFDrQ09cPBuzvOWPd/Y2oU34/oZVxbBeya343PGdRyuSZ6P9uSsgiC0VvGX1HUWQ2pCF9MOnQForAihMl4aw8ZJs+W8kPcEF4TjZPMSW+enmg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c1fa350f-6f49-e2b1-0cda-dec99df415ae@suse.com>
-Date: Tue, 24 Oct 2023 16:25:28 +0200
+Message-ID: <8a6f6793-d0f6-640c-2f3d-11a3b7ce620e@suse.com>
+Date: Tue, 24 Oct 2023 16:27:13 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
+Subject: Re: [XEN PATCH][for-4.19 v4 2/8] x86: add deviations for variables
+ only used in asm code
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1694510856.git.simone.ballarin@bugseng.com>
- <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com>
- <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com>
- <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
- <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
- <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop>
- <725f5193-c8d3-1bc8-cd62-2a2b1b5ecc01@suse.com>
- <alpine.DEB.2.22.394.2310171709310.965337@ubuntu-linux-20-04-desktop>
- <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com>
- <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop>
- <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com>
- <alpine.DEB.2.22.394.2310190915590.1945130@ubuntu-linux-20-04-desktop>
- <6374f0f4-d58f-83ca-6eb3-d5a9fcbac525@suse.com>
- <alpine.DEB.2.22.394.2310201622160.2356865@ubuntu-linux-20-04-desktop>
- <36e6dd08-918c-9791-0dab-ca75d4b98d7e@suse.com>
- <alpine.DEB.2.22.394.2310231346370.3516@ubuntu-linux-20-04-desktop>
- <af4a86bc-40d3-4363-adc8-30981652cd2b@xen.org>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1698053876.git.nicola.vetrini@bugseng.com>
+ <67ec8b468d6048f7f91590b59430df275b2f5870.1698053876.git.nicola.vetrini@bugseng.com>
+ <2aaa0978-e28f-4151-f4ba-f2628f6d4677@suse.com>
+ <ef7f5c65ad0b0129f6b6119b6ad7d506@bugseng.com>
+ <2f3850a7-f2a3-350f-b9b6-be0bde0d1a28@suse.com>
+ <53617132b87450fc385b2f5887bfe65f@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <af4a86bc-40d3-4363-adc8-30981652cd2b@xen.org>
+In-Reply-To: <53617132b87450fc385b2f5887bfe65f@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0075.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::23) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0168.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS5PR04MB9894:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a648bc4-7094-4b9b-421c-08dbd49d133b
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9254:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ac86065-5805-4c7c-bdd3-08dbd49d520d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	hC5eNon6UFrIMcmUt4Eno0M5DxdFJ7uOht+HOQtV9KEHAg261d2aNDcyayQuxxMFEJZ/Y1L+5ECVs08GznCNINhTtnx2NcXOcpZhWyS2xBdT3AiEvGZGrVM5Ts0kLzTd5CgQqO7OcwX9RtFRbH4NoLQ2gUslWPRH7bh6eddXxa3hHFuF9/iAJMtr1YfZAi6bWRiHoxysKmhaoi6Kk1aLYaXOYMfkq7OIU1jm35ApjeeduJVydoe/0HpFm1KujJZm5LrGB2FywQTQdgZoOg9p48sZrpY6HR9cN9XIsVi1rowkGvGEuK40bOAvbcTkVRNd1DNcEnYQMcPeXxHp8nIm8mihwwJVqqwwOKdZ6Gl1K892fKC8KVgfMcqG3R120fXVBj+yYUj18kXXpel07DERFd+3hOdJeHZvoAEj5r0874fA4R5aV2eflUsOv0HLkQdd5Ohqo2a1yLBHpLrpzLYhVj2frm4MuIhVjjl+O0ZGjrvc3t82KvpvrY6bT5j2ee/4izH/7tV6pUjSec3jmgTZFYJS79Ug8vyzUp6IAaVchrulUf7xG9+v1tSvZK2QP7dcRW+uSXk4QfAS7VpjSNx4ZeAymNqts53FTkDWoucvE+z+/fN6lHywIGp2dlwle1eKHW1FfUyGNNfITZ7sgc2Ahw==
+	qV2+eGrVgNJpbP/jdyC1i8bvghODP1kNB7ywdr4Ab5MRD2DgzKK5Pt4G8V31PF/m/RcgW5WRs7qgyoiYZPhsIeDIxAF5F29eD9SUnKbuLWR3xHacz21SqW3Te0tPW8FhmZvdLfrvI/+ztBWBcdweAz+WQj+wEDaeeMNsdrNi/lZDeHpMSn878t/geiuRSrQ8lZTZ0aa/VWxI8HexmGeWkNEcCV1ckZE9DWLmbbeFYrfFQaxEm2zRflWCjh1kginC3vPvi7TedW5OfKcoI1RtfSwgUXlEaWzBs49NHPfnwYuGO9f4AofTf+M4ard9KGt1BZJA+ioRnEbIKcGFxVMQs5JrBaLgQBmcWKJXzs3TQgNZ+Z0qfiQQdzX9wQ+NySB09st8xSESz7HPG+rFvIXsFbMtsqRmjSfGqfkLNhChqpMXvJjlkdId+kWQlmibDuEVXfxhHjo+x5utDcGE2jb4HT75dShfvRExOlDIuokVBwoiSieMJidDc2/OzGyhVtCcJ/uNmxekPGPs5xKzX6dbfD4J0JQb2q8Lf03o3jBuQZ2WtUm2t+wNY/zRBv9Vj8A122wYaMzdKrRyuIQhNYM27LWWDH5XEmcBL6/Zw3bgWf8bAjIj5V6HH+DErcBcHr4DzYmTnr+vV2nPBHcQAYINLg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(366004)(39860400002)(346002)(136003)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(2616005)(6506007)(6512007)(38100700002)(26005)(53546011)(36756003)(66476007)(478600001)(66556008)(66946007)(6486002)(54906003)(31696002)(31686004)(86362001)(83380400001)(316002)(6916009)(8936002)(8676002)(4326008)(41300700001)(5660300002)(66899024)(7416002)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(366004)(39860400002)(136003)(396003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(6512007)(26005)(2616005)(6506007)(53546011)(83380400001)(41300700001)(7416002)(5660300002)(8676002)(4326008)(8936002)(2906002)(6486002)(478600001)(66556008)(316002)(66476007)(66946007)(6916009)(86362001)(38100700002)(31696002)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T2RseVVSbk5mY1pTNXh1bmxBWkNvUlByS2g1NzhJZUE4bnFhaHlhc3FvcUZq?=
- =?utf-8?B?Mit1RDFaMGsxdUhsNUU5bVJLSzJ2OTRLd0MwV0t5cUgxTURvVTRUMzFiSnFX?=
- =?utf-8?B?cFFGS2ZDQ0xPTmRjdUlPem5YTXFpb3JVTy9KbWpkZGZwZTdEZzB0MDFMNkVC?=
- =?utf-8?B?NUtDYVdzSjVEdUZCcm1DSWl1QWcrWFhTK2o0NkJuaHZvNURYQm56UE1BZEZo?=
- =?utf-8?B?VW5Ick51QzQrMUd4akVRZ0hFTGFxOUk2NlRiR0Nyc0pEanFHT3JockdndEJi?=
- =?utf-8?B?dTAwc3hhczIwc09DamdyRW82SzRMRWtwbkxSSHlyK3ZUcWxMSTMwVkFqRUp3?=
- =?utf-8?B?WllSMklaczBzMHlHTXM5UFVnVEhTN3dBYXNacHQzRU9JdzgrNnpSeGFNZXZp?=
- =?utf-8?B?cExPU0Zoc3Q2Vk5GcGhQQmhsdURqcXVrY3MyeW01YjJRWUJ6SGx1REx6cVJQ?=
- =?utf-8?B?QXFocGMyeDJtbStQSmFLai9Jc1Ayb0lldVR5a1VGMDZWTzJyU0w4THlSelk1?=
- =?utf-8?B?R3BKeFhmTjRmdExIZENzcUVHdmZla2ZxSUUvaDhPK3l5Tldyd1BMT3g5M2J3?=
- =?utf-8?B?b0Q0TGNZVTF6aEJaa09qODVVYk5nS1RidGJKVnVOdkJhOU9xSXVQL09MNEg2?=
- =?utf-8?B?S3ZaK1E5VzgrSFFkK2w0VVRNS1dzV0Njd0dqVU9GbTNyaXd6aHRzbVBvbm1X?=
- =?utf-8?B?Uml0aHp1UXdsMzloditmN1ZUS3prS0FLbWxROXFlQUJoZit3RWNRTXNZbkVq?=
- =?utf-8?B?bDFXQjBDZkd3YlY4dHgvU1QxbFp3ZTRBNldST1N5cEVabGlya1lmbDByb05Z?=
- =?utf-8?B?d2g4cnczZjVCc2ZBYlFVclZmS2dQbU8wRExjRDE1Rzh5SnIzcDZRQmFFeHdX?=
- =?utf-8?B?dlZ5UURNNDdoOTE2TS81Mkh3K0FPRjZmTHBpazdZOVVYemt1cUc1N01CM0ZB?=
- =?utf-8?B?UmdSb3MxdWRvQXFIT0lvK2JTdGZqVzd4QVRRWnp0KzhPNmx2bWhPWTRRYTBu?=
- =?utf-8?B?NDhLWGlVenNNeU54RFFObHQ2S2dZclZpTDErWmtUQ1AzMWRaK214WnQza1Fi?=
- =?utf-8?B?dC9vK1JjRU1LZkhmM1MwUTlXVjRjMkY3dWNyUmVJUWFleXZxZXlNL3FVa29k?=
- =?utf-8?B?YW9RMUpId2dNbmtHNTErNXBmTlU3OHlldElzYkhNck9Cdm02YmNZU2hGZUQy?=
- =?utf-8?B?NGJLN0JxRjJSYjR2VEIrR1lrTzlMUTdTbjExM1kxaU9DTU0rMVgyajFnazdy?=
- =?utf-8?B?RVZLQXpQamlObUZyaTR1S3VKeTBFVVRXdEU2TEVWZnBrNTJlZG5jSDMwb1RU?=
- =?utf-8?B?dHpuMEEvVUlEM3NOU0pJdjlWaGtHZXh3dWxwQnBleS9GeEFnNjM3bmJKN0k5?=
- =?utf-8?B?ME9wc1lvQkIrYVNaQXdwMSsveGNURVVacHI4QUhXUVNYUG10dnNYem81c1Vt?=
- =?utf-8?B?RS81aENVU0h0RTVEMjU4NWFqVlZSeG84Z2Vxd1p6UHFEWFZwQVJiMXV5cVVM?=
- =?utf-8?B?UXI4UGhWMmpzRTVLc1dEOUo0Z0Y5R1pROTlGTysrODNpV2dYZ1p2azJpMXor?=
- =?utf-8?B?Y2EzMEloY1pCdkF4bUxsN055SUlhYzk3RzUzUXd3SHJFVCtkZkZSWUw3WVhQ?=
- =?utf-8?B?QlQvbTdLaUM4TElJbmtzNlV1Ynd4Tjg5NnJ0Z0luR2dJWVVJSEpLN0ZLaUNs?=
- =?utf-8?B?TWMyTFVDUk5KbGVGbGZVYnY3bUJoUnpUWFdzbW1remIwYy82UFgxYUJ2Tnpu?=
- =?utf-8?B?bXpSWXlGZ29JUEpRemw4L21DbnpPYWIzMGNmVHBFd0xib3h6a1lQcGd5eVA5?=
- =?utf-8?B?WHV0YVZ0b3d5czJOK21VZkxJS1lma3IxZ05FNVdYdDQ0L1JUM3NjSFNnOU9N?=
- =?utf-8?B?cmMxdVg2dm4yVmtxaDBNVWhBNHJpVDk2OEczNU5FRk9RK2FtMkU3c2lVNHVR?=
- =?utf-8?B?VDhXZWN3VU1MalE2NmdUZ3AyMm1KRlB5eStuQkJ3bUdoNjNPbTJXd1l2bWZP?=
- =?utf-8?B?U2lOUVlmRDY5SU91ckQ1cmU1NytTTXNlakJyN1FlZVR1ZlhXMjQ0NGV0Ukxl?=
- =?utf-8?B?V0pWUytjdzF2aFFnK2g1dXZaQm1YVWtjUkh0aUdaMDVWdHN0OTAxQStiQm1C?=
- =?utf-8?Q?3VyaLI5mdxfoe9lfwKh3B0ybl?=
+	=?utf-8?B?VEtZOENOMFFpTitGTmp6RVQ1TTRNRGpwSG1rcnRDTURDS1oveDliek03WUcx?=
+ =?utf-8?B?SjhZUVlrN1hFbHRvQVVJakxkYitDc3JQMnlaa08xTnVYZkxaOWJ6cytzMWVx?=
+ =?utf-8?B?MWpSdEVPamFMTmFreVd0Ti95dGU3WXJya2JHZjRVSlFaSTNDdkZ5TlRaaGRL?=
+ =?utf-8?B?ZTVFY045aGhsWUV2QmhRRGFhTWRJeEs3TjFaTEpVOE9sK2lWZVhLNG5tZE5s?=
+ =?utf-8?B?Ny9aY2JKdWs0djN5K0k0UTVQb255Zy81SkdwcFVGTkVqa1haSnhrRVF5ZlB1?=
+ =?utf-8?B?Z1FKZEhiS0N6T1YrcFhUZTRhYVltbCtHTFg3cS83enhDTjNZdnRNeUVoVWJE?=
+ =?utf-8?B?c0lZSmo0SnFGRVZqMytBeGVBT1RJTDVMbjhLUFlVdFFVNXF4Tlhwbm5BdVVV?=
+ =?utf-8?B?YkVNREhGKzl3UDJpdllXR3ZaSVVVakhHbkMrUHhGSDQxanpib25MOHhtSEFJ?=
+ =?utf-8?B?Zmx2bkI0ZDlmZXE2cVIwQ244U3duc04wdWRCSWxHVWhXSFlzTmtxYjJkRjBr?=
+ =?utf-8?B?eVdZdm5JOHdOZ3JrVnlKd21MMTF5S01LblUzSWdGd2FFMU5BbW40dVdqRFQ2?=
+ =?utf-8?B?TWE0VHE4VktJM2Zsc3diQkw1bDY3RkNsM1pYaHlodUNxSmJMaytWakJ6bE1R?=
+ =?utf-8?B?YzlrT3huVFFHVmF1aWRBa1VPUG5PYlJpbVhrc0VyQVZsb1BFSkovTFFaUDNF?=
+ =?utf-8?B?RU1SeVd4NmxPT2RMbXVFSHBKSDJzMEw3bVlIR2p6aW5hOUdRWWdieHN3a3ZF?=
+ =?utf-8?B?cW1tM1YyWm16M3IwNWF4dnpQc0o1dnNka05YYTZqQ1FiNFFVNWZpeEJpc2pk?=
+ =?utf-8?B?OGdMTFV4OWpkSGw0cm5rM0o4bWZuNTV6NzN1KzNWVy9Zd3p5MzVSVnpUdmI3?=
+ =?utf-8?B?QkJNK0JQMFI4RFA0M2pnY1g2RGx5Wi9EbXk3QkxRemVpR1BSeTAwU1h5TG1N?=
+ =?utf-8?B?VWxuQXdMVVkxVW1pL1BZUVB6SG8vQ3hvczJtcURTT0V4RXJFendTak1MWU5B?=
+ =?utf-8?B?QjgvaytSVzVsRzh4czduT3FyNUwwOEhEbDB6TWVBdEEvMXJ2amYxWitQb1hi?=
+ =?utf-8?B?MWNRbjZaSHAvK3NiQk9FV0lWQkxRVUJIVUJ4RmdUcml4MUhVSHV6L2ZFOWJ0?=
+ =?utf-8?B?MmNpbVo0UklOYXdoOGMza1ZkNlhlUXh3aW1MbjNMb1YydTRMSFhWZWxSRlRj?=
+ =?utf-8?B?eWpiVW5HWG1CSGg3b2tqa2VuV2ZCb1djaE4reFFiV01oUWNuSDUrZ1NzTnRM?=
+ =?utf-8?B?QWtVbU91eVI5WmtXSXFBNVF1bWNGN2wyUFFFWkhydnZuL1gyaVIzbTV2bmhJ?=
+ =?utf-8?B?MGRnL2ptc3dibEJVanA4R2RFbFUxbWdxWFp2UlRITnA0T0RWbG1ObEViRTVI?=
+ =?utf-8?B?bStqdkdSSTlGUXRHYUVIelAzZ2NUdU1MOG5BYVpsMS85ZGhEZ2tBWGozYXNw?=
+ =?utf-8?B?blVUT29yaWxrY3pvSVJQNFJSWnVVZDJYZExJY2cvTWxwREdIajVKVzVsdThV?=
+ =?utf-8?B?NklnbkNnT2VidVFBVVF2cXY2TTU4K3kyRVY1bmxlWnFLS1AzTC9kTWtJaHFl?=
+ =?utf-8?B?eHhheFJDVGhwb3JIMWd1M0RHWkNyNkpFVHV1ZU1aNE5CMEtOdDMvcUE0OFpz?=
+ =?utf-8?B?M1ZRVHloV1Y4QVdmbHh1MG81KzVHbCtxTCtmMWJxdnlpWkdrdHIzemE4TDhX?=
+ =?utf-8?B?dERqTHc0SE1hT1U2SHRvSDRZUnZjL09KY1lRTW11aDhzbk1LRkFLcytJV2Rp?=
+ =?utf-8?B?a1p4MWt5WGlYQkcyazlxNGtrYmRwWVUyVVZWQVk3WHZsTkdjL0kxakljeGhy?=
+ =?utf-8?B?Ump0WlZFNUVPeHBRQnFiclJCbFBFSFBtRXJWNkljQUxFQnNiT2VrZE1aNFlw?=
+ =?utf-8?B?TzVXWkg4a3cxMVhtcW1kcjdQUTZpZjVSbFJuQU9iclh1emxGUVF1L3E1d3N0?=
+ =?utf-8?B?MXllcVc5TmxablllcnhLbGN3ZGxBMEZBOHZPZ1lhRzIzRzFuZG9xa21Ib0h4?=
+ =?utf-8?B?Z3RFZFoycUFWV3pmWklsRkxhaFpyZ002T3dWeUhsY2QzanY3WmlLc0l1WTRM?=
+ =?utf-8?B?L3ZGZ1FRbjY1c3k0YndVYWNESG9zd2JuQnk3YTIvYXJ3OUs1Y3FlMlBORkVZ?=
+ =?utf-8?Q?OBah1pZZM/go888kLZNELBUMz?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a648bc4-7094-4b9b-421c-08dbd49d133b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ac86065-5805-4c7c-bdd3-08dbd49d520d
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 14:25:30.2106
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 14:27:15.5777
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /CWNOBzAHs9w3hnH6xjqdzK+DoFR4g880cK/8bPbgvaAFJtX1h+MwyKeAwuuCDONRiMyaI7CuERwOIqmuRMHog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9894
+X-MS-Exchange-CrossTenant-UserPrincipalName: opPwASQLBgJmoyWVmJ+yhZCGC1PmXwG9UwDVz8V11ys8s9yMXn3yxaGrXfkQsh4qp/WUGT0Sze+2JFgia5D3sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9254
 
-On 24.10.2023 15:31, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 23/10/2023 21:47, Stefano Stabellini wrote:
->> On Mon, 23 Oct 2023, Jan Beulich wrote:
->>> On 21.10.2023 01:26, Stefano Stabellini wrote:
->>>> On Fri, 20 Oct 2023, Jan Beulich wrote:
->>>>> On 19.10.2023 18:19, Stefano Stabellini wrote:
->>>>>> On Thu, 19 Oct 2023, Jan Beulich wrote:
->>>>>>> On 19.10.2023 02:44, Stefano Stabellini wrote:
->>>>>>>> On Wed, 18 Oct 2023, Jan Beulich wrote:
->>>>>>>>> On 18.10.2023 02:48, Stefano Stabellini wrote:
->>>>>>>>>> On Mon, 16 Oct 2023, Jan Beulich wrote:
->>>>>>>>>>> On 29.09.2023 00:24, Stefano Stabellini wrote:
->>>>>>>>>>>> If it is not a MISRA requirement, then I think we should go for the path
->>>>>>>>>>>> of least resistance and try to make the smallest amount of changes
->>>>>>>>>>>> overall, which seems to be:
->>>>>>>>>>>
->>>>>>>>>>> ... "least resistance" won't gain us much, as hardly any guards don't
->>>>>>>>>>> start with an underscore.
->>>>>>>>>>>
->>>>>>>>>>>> - for xen/include/blah.h, __BLAH_H__
->>>>>>>>>>>> - for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
->>>>>>>>>>>> - for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
->>>>>>>>>>>
->>>>>>>>>>> There are no headers in xen/include/. For (e.g.) xen/include/xen/ we
->>>>>>>>>>> may go with XEN_BLAH_H; whether ASM prefixes are needed I'm not sure;
->>>>>>>>>>> we could go with just ARM_BLAH_H and X86_BLAH_H?
->>>>>>>>>>>
->>>>>>>>>>> The primary question though is (imo) how to deal with private headers,
->>>>>>>>>>> such that the risk of name collisions is as small as possible.
->>>>>>>>>>
->>>>>>>>>> Looking at concrete examples under xen/include/xen:
->>>>>>>>>> xen/include/xen/mm.h __XEN_MM_H__
->>>>>>>>>> xen/include/xen/dm.h __XEN_DM_H__
->>>>>>>>>> xen/include/xen/hypfs.h __XEN_HYPFS_H__
->>>>>>>>>>
->>>>>>>>>> So I think we should do for consistency:
->>>>>>>>>> xen/include/xen/blah.h __XEN_BLAH_H__
->>>>>>>>>>
->>>>>>>>>> Even if we know the leading underscore are undesirable, in this case I
->>>>>>>>>> would prefer consistency.
->>>>>>>>>
->>>>>>>>> I'm kind of okay with that. FTAOD - here and below you mean to make this
->>>>>>>>> one explicit first exception from the "no new leading underscores" goal,
->>>>>>>>> for newly added headers?
->>>>>>>>
->>>>>>>> Yes. The reason is for consistency with the existing header files.
->>>>>>>>
->>>>>>>>
->>>>>>>>>> On the other hand looking at ARM examples:
->>>>>>>>>> xen/arch/arm/include/asm/traps.h __ASM_ARM_TRAPS__
->>>>>>>>>> xen/arch/arm/include/asm/time.h __ARM_TIME_H__
->>>>>>>>>> xen/arch/arm/include/asm/sysregs.h __ASM_ARM_SYSREGS_H
->>>>>>>>>> xen/arch/arm/include/asm/io.h _ASM_IO_H
->>>>>>>>>>
->>>>>>>>>> And also looking at x86 examples:
->>>>>>>>>> xen/arch/x86/include/asm/paging.h _XEN_PAGING_H
->>>>>>>>>> xen/arch/x86/include/asm/p2m.h _XEN_ASM_X86_P2M_H
->>>>>>>>>> xen/arch/x86/include/asm/io.h _ASM_IO_H
->>>>>>>>>>
->>>>>>>>>> Thet are very inconsistent.
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> So for ARM and X86 headers I think we are free to pick anything we want,
->>>>>>>>>> including your suggested ARM_BLAH_H and X86_BLAH_H. Those are fine by
->>>>>>>>>> me.
->>>>>>>>>
->>>>>>>>> To be honest, I'd prefer a global underlying pattern, i.e. if common
->>>>>>>>> headers are "fine" to use leading underscores for guards, arch header
->>>>>>>>> should, too.
->>>>>>>>
->>>>>>>> I am OK with that too. We could go with:
->>>>>>>> __ASM_ARM_BLAH_H__
->>>>>>>> __ASM_X86_BLAH_H__
->>>>>>>>
->>>>>>>> I used "ASM" to make it easier to differentiate with the private headers
->>>>>>>> below. Also the version without "ASM" would work but it would only
->>>>>>>> differ with the private headers in terms of leading underscores. I
->>>>>>>> thought that also having "ASM" would help readability and help avoid
->>>>>>>> confusion.
->>>>>>>>
->>>>>>>>
->>>>>>>>>> For private headers such as:
->>>>>>>>>> xen/arch/arm/vuart.h __ARCH_ARM_VUART_H__
->>>>>>>>>> xen/arch/arm/decode.h __ARCH_ARM_DECODE_H_
->>>>>>>>>> xen/arch/x86/mm/p2m.h __ARCH_MM_P2M_H__
->>>>>>>>>> xen/arch/x86/hvm/viridian/private.h X86_HVM_VIRIDIAN_PRIVATE_H
->>>>>>>>>>
->>>>>>>>>> More similar but still inconsistent. I would go with ARCH_ARM_BLAH_H and
->>>>>>>>>> ARCH_X86_BLAH_H for new headers.
->>>>>>>>>
->>>>>>>>> I'm afraid I don't like this, as deeper paths would lead to unwieldy
->>>>>>>>> guard names. If we continue to use double-underscore prefixed names
->>>>>>>>> in common and arch headers, why don't we demand no leading underscores
->>>>>>>>> and no path-derived prefixes in private headers? That'll avoid any
->>>>>>>>> collisions between the two groups.
->>>>>>>>
->>>>>>>> OK, so for private headers:
->>>>>>>>
->>>>>>>> ARM_BLAH_H
->>>>>>>> X86_BLAH_H
->>>>>>>>
->>>>>>>> What that work for you?
->>>>>>>
->>>>>>> What are the ARM_ and X86_ prefixes supposed to indicate here? Or to ask
->>>>>>> differently, how would you see e.g. common/decompress.h's guard named?
->>>>>>
->>>>>> I meant that:
->>>>>>
->>>>>> xen/arch/arm/blah.h would use ARM_BLAH_H
->>>>>> xen/arch/x86/blah.h would use X86_BLAH_H
->>>>>>
->>>>>> You have a good question on something like xen/common/decompress.h and
->>>>>> xen/common/event_channel.h.  What do you think about:
->>>>>>
->>>>>> COMMON_BLAH_H, so specifically COMMON_DECOMPRESS_H
->>>>>>
->>>>>> otherwise:
->>>>>>
->>>>>> XEN_BLAH_H, so specifically XEN_DECOMPRESS_H
->>>>>>
->>>>>> I prefer COMMON_BLAH_H but I think both versions are OK.
->>>>>
->>>>> IOW you disagree with my earlier "... and no path-derived prefixes",
->>>>> and you prefer e.g. DRIVERS_PASSTHROUGH_VTD_DMAR_H as a consequence?
->>>>> FTAOD my earlier suggestion was simply based on the observation that
->>>>> the deeper the location of a header in the tree, the more unwieldy
->>>>> its guard name would end up being if path prefixes were to be used.
+On 24.10.2023 15:40, Nicola Vetrini wrote:
+> On 24/10/2023 10:12, Jan Beulich wrote:
+>> On 24.10.2023 09:58, Nicola Vetrini wrote:
+>>> On 24/10/2023 09:32, Jan Beulich wrote:
+>>>> On 23.10.2023 11:56, Nicola Vetrini wrote:
+>>>>> --- a/xen/arch/x86/include/asm/asm_defns.h
+>>>>> +++ b/xen/arch/x86/include/asm/asm_defns.h
+>>>>> @@ -31,6 +31,7 @@ asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
+>>>>>   * gets set up by the containing function.
+>>>>>   */
+>>>>>  #ifdef CONFIG_FRAME_POINTER
+>>>>> +/* SAF-1-safe */
+>>>>>  register unsigned long current_stack_pointer asm("rsp");
+>>>>>  # define ASM_CALL_CONSTRAINT , "+r" (current_stack_pointer)
+>>>>>  #else
 >>>>
->>>> I don't have a strong opinion on "path-derived prefixes". I prefer
->>>> consistency and easy-to-figure-out guidelines over shortness.
-> 
-> We adopted the MISRA Rule 5.4 which imposed us a limit (40 for Xen) on 
-> the number of characters for macros. AFAIU, this would apply to guards.
-> 
-> In the example provided by Jan (DRIVERS_PASSTHROUGH_VTD_DMAR_H), this is 
-> already 31 characters. So this is quite close to the limit.
-> 
+>>>> SAF-1-safe is about symbols "used only by asm modules". This doesn't
+>>>> apply
+>>>> to the declaration here.
 >>>>
->>>> The advantage of a path-derived prefix is that it is trivial to figure
->>>> out at first glance. If we can come up with another system that is also
->>>> easy then fine. Do you have a suggestion? If so, sorry I missed it.
 >>>
->>> Well, I kind of implicitly suggested "no path derived prefixes for private
->>> headers", albeit realizing that there's a chance then of guards colliding.
->>> I can't think of a good scheme which would fit all goals (no collisions,
->>> uniformity, and not unduly long).
+>>> The wording could change to "asm code" if that is deemed clearer.
 >>
->> Here I think we would benefit from a third opinion. Julien? Anyone?
+>> Question is what would be meant by "asm code"; "asm modules" is quite
+>> clear.
+>>
 > 
-> Just to confirm, the opinion is only for private headers. You have an 
-> agreement for the rest, is it correct?
-> 
-> If so, then I think we need to have shorter names for guard to avoid 
-> hitting the 40 characters limit. I can't think of a way to have a common 
-> scheme between private and common headers. So I would consider to have a 
-> separate scheme.
-> 
-> I am not sure if you or Jan already proposed an alternative scheme.
+> Well, I don't know. It's up to the community to decide that. It can be 
+> an ad-hoc
+> justification, but I don't see much value in doing so. What do you 
+> propose to get this patch
+> approved (at least on your account)?.
 
-Well, my suggestion was to derive from just the file name (no path
-components) for them. But I pointed out that this may lead to collisions
-when two or more private headers of the same name exist, and a CU ends
-up wanting to include any two of them. Adding in the leaf-most path
-component only might get us far enough to avoid collisions in practice,
-while at the same time not resulting in overly long guard names.
+Drop this change and have Eclair recognize that what we're talking
+about here is just a declaration, not a definition.
 
 Jan
 
