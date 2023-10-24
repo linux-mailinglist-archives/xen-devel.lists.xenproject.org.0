@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617507D5413
+	by mail.lfdr.de (Postfix) with ESMTPS id B34BB7D5414
 	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:31:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622033.969121 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.622034.969127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIRd-0005mb-RY; Tue, 24 Oct 2023 14:31:45 +0000
+	id 1qvIRe-0005vI-85; Tue, 24 Oct 2023 14:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622033.969121; Tue, 24 Oct 2023 14:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 622034.969127; Tue, 24 Oct 2023 14:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIRd-0005ks-Nz; Tue, 24 Oct 2023 14:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 622033;
- Tue, 24 Oct 2023 14:31:44 +0000
+	id 1qvIRe-0005qG-59; Tue, 24 Oct 2023 14:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 622034;
+ Tue, 24 Oct 2023 14:31:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9CvU=GG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qvIRc-0005kh-D9
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:31:44 +0000
+ id 1qvIRd-0005kh-1l
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:31:45 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d584cb5-727a-11ee-98d5-6d05b1d4d9a1;
- Tue, 24 Oct 2023 16:31:43 +0200 (CEST)
+ id 0e27b213-727a-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 16:31:44 +0200 (CEST)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 9E3B54EE0739;
- Tue, 24 Oct 2023 16:31:41 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 296784EE0746;
+ Tue, 24 Oct 2023 16:31:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d584cb5-727a-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 0e27b213-727a-11ee-98d5-6d05b1d4d9a1
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -52,51 +52,104 @@ Cc: sstabellini@kernel.org,
 	roger.pau@citrix.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
 	Wei Liu <wl@xen.org>
-Subject: [RFC 0/4] address violations of MISRA C Rule 9.3
-Date: Tue, 24 Oct 2023 16:31:34 +0200
-Message-Id: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+Subject: [RFC 1/4] x86/ioemul: address MISRA C:2012 Rule 9.3
+Date: Tue, 24 Oct 2023 16:31:35 +0200
+Message-Id: <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series addresses some of the violations of Rule 9.3, which is about
-partially initialized arrays. The resolution strategy proposed in these patches
-uses designated initializers, except in patch 4, allowed by MISRA for
-sparse initialization. The reason why I chose this method is that, given that
-most of the violations are about the 'matches' field of struct
-'struct dmi_system_id', which is a sized array of structs:
+Partially explicitly initalized .matches arrays result in violations
+of Rule 9.3; this is resolved by using designated initializers,
+which is permitted by the Rule.
 
-struct dmi_strmatch matches[4];
+Mechanical changes.
 
-Since the initialization is already partially implicit, using designated
-initalizers is convenient because, if the lenght of the matches array changes,
-no adjustment is needed
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ xen/arch/x86/ioport_emulate.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-Another, stricter, resolution strategy is the following:
-
-             .matches  = {
-                 DMI_MATCH(DMI_BOARD_VENDOR, "Quanta"),
--                DMI_MATCH(DMI_BOARD_NAME,   "30B7"),
-+                DMI_MATCH(DMI_BOARD_NAME,   "30B7"),
-+                {}, {}
-             }
-
-Note that Rule 9.3 is not about array elements that may be uninitialized, but
-the fact of having some explicitly initialized elements and some implicitly
-initialized elements.
-
-Nicola Vetrini (4):
-  x86/ioemul: address MISRA C:2012 Rule 9.3
-  x86/shutdown: address MISRA C:2012 Rule 9.3
-  x86/hvm: quirks: address MISRA C:2012 Rule 9.3
-  amd/iommu: fully initialize array in 'flush_command_buffer'
-
- xen/arch/x86/hvm/quirks.c               |  20 ++--
- xen/arch/x86/ioport_emulate.c           |  32 ++---
- xen/arch/x86/shutdown.c                 | 152 ++++++++++++------------
- xen/drivers/passthrough/amd/iommu_cmd.c |   3 +-
- 4 files changed, 104 insertions(+), 103 deletions(-)
-
+diff --git a/xen/arch/x86/ioport_emulate.c b/xen/arch/x86/ioport_emulate.c
+index 6caeb3d470ce..4f8d5136746d 100644
+--- a/xen/arch/x86/ioport_emulate.c
++++ b/xen/arch/x86/ioport_emulate.c
+@@ -44,57 +44,57 @@ static const struct dmi_system_id __initconstrel ioport_quirks_tbl[] = {
+     {
+         .ident = "HP ProLiant DL3xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL3"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL3"),
+         },
+     },
+     {
+         .ident = "HP ProLiant DL5xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
+         },
+     },
+     {
+         .ident = "HP ProLiant DL7xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL7"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL7"),
+         },
+     },
+     {
+         .ident = "HP ProLiant ML3xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML3"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML3"),
+         },
+     },
+     {
+         .ident = "HP ProLiant ML5xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML5"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML5"),
+         },
+     },
+     {
+         .ident = "HP ProLiant BL2xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL2"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL2"),
+         },
+     },
+     {
+         .ident = "HP ProLiant BL4xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL4"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL4"),
+         },
+     },
+     {
+         .ident = "HP ProLiant BL6xx",
+         .matches = {
+-            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL6"),
++            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
++            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL6"),
+         },
+     },
+     { }
 --
 2.34.1
 
