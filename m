@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D187D51D7
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 15:32:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621966.968980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 741D87D51DB
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 15:33:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621971.968991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvHVz-0005mx-28; Tue, 24 Oct 2023 13:32:11 +0000
+	id 1qvHXQ-0006UH-Hg; Tue, 24 Oct 2023 13:33:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621966.968980; Tue, 24 Oct 2023 13:32:11 +0000
+Received: by outflank-mailman (output) from mailman id 621971.968991; Tue, 24 Oct 2023 13:33:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvHVy-0005kc-VR; Tue, 24 Oct 2023 13:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 621966;
- Tue, 24 Oct 2023 13:32:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qvHVw-0005kI-Sp
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 13:32:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qvHVn-00013e-3W; Tue, 24 Oct 2023 13:31:59 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=[192.168.12.80]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qvHVm-0007w3-Ni; Tue, 24 Oct 2023 13:31:58 +0000
+	id 1qvHXQ-0006RJ-Eg; Tue, 24 Oct 2023 13:33:40 +0000
+Received: by outflank-mailman (input) for mailman id 621971;
+ Tue, 24 Oct 2023 13:33:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Q5Q5=GG=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1qvHXP-0006RD-2H
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 13:33:39 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20601.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef2a8a2e-7271-11ee-9b0e-b553b5be7939;
+ Tue, 24 Oct 2023 15:33:37 +0200 (CEST)
+Received: from DU7PR01CA0023.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50f::20) by AS2PR08MB8336.eurprd08.prod.outlook.com
+ (2603:10a6:20b:558::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.35; Tue, 24 Oct
+ 2023 13:33:29 +0000
+Received: from DB5PEPF00014B9D.eurprd02.prod.outlook.com
+ (2603:10a6:10:50f:cafe::5c) by DU7PR01CA0023.outlook.office365.com
+ (2603:10a6:10:50f::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
+ Transport; Tue, 24 Oct 2023 13:33:29 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5PEPF00014B9D.mail.protection.outlook.com (10.167.8.164) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6933.18 via Frontend Transport; Tue, 24 Oct 2023 13:33:29 +0000
+Received: ("Tessian outbound d1b3e404ba03:v215");
+ Tue, 24 Oct 2023 13:33:29 +0000
+Received: from 60e0430aced0.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ A2554C6F-5796-4E64-BEF2-5167EA875212.1; 
+ Tue, 24 Oct 2023 13:33:22 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 60e0430aced0.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 24 Oct 2023 13:33:22 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by GVXPR08MB10407.eurprd08.prod.outlook.com (2603:10a6:150:159::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Tue, 24 Oct
+ 2023 13:33:20 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::1635:b3e9:e4e7:943d]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::1635:b3e9:e4e7:943d%6]) with mapi id 15.20.6907.025; Tue, 24 Oct 2023
+ 13:33:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,214 +72,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YTo6wsg13uSm1fywF3tBpdXE6+8J7FNp7f7zBjM8rdE=; b=CvZFHK3gQsug2lDmshdDGZ7nSn
-	3WkfDmdo9ZDZvas9+ONzknuTC4GdGtmSGPOYBhn9YcjpTQUu8JwZqX0ASCRcovshqTvft+aE/YHbh
-	CgKUtjW0HS9b1E9bpnva0v20H+iQudcHBCTfoYT4/4jWyTc1u73ZXfG+87cmfbmAV0Do=;
-Message-ID: <af4a86bc-40d3-4363-adc8-30981652cd2b@xen.org>
-Date: Tue, 24 Oct 2023 14:31:56 +0100
+X-Inumbo-ID: ef2a8a2e-7271-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ofgUXmJITgTD8V9BfccIS4sLkKCoGSkXsXvcQDcOxQ=;
+ b=G0upr1zsaHbylSGhPntGmTSxamPt6vbptFtrAaHxGxUrSL2vC0442MipWzCK/CHn00+pzyjFBQ681txtA9Hnn+0TW/oltoOmeL1l5t+GdRsIMrEaiVLYXSeyw1FZAtqXWljHkWF8f/2mQVDBA0n2/3PBxIKhjQTeL0DbW65HbU4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d5d787c55567681f
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VBd7+z82uM+9ATzwJAb7sZ2Z6Fe++pQ19od6Hlh0692XKcKDXBXEi+LRn/1ogxxncMLdBie2y+F0LwFR0KNcleagupExf1FBl2nAfKhohH/kGMa4PC3+fzCfU3OGro1yQXxFLN47qm+4EVtk9Z4U0ZdwldSGoZwdea6uvTAsLeo+k/ZM5orZR/6r/uq5A+3rLSa+5xRGT+iyEZehjEa2cm8f9i3a4g945wGVdDgZwq5jsDiHDdesxZ1lBkOkF0Qk6MBjx1KPDh/Ea0BdYjdsNIhELBdR6uaSSJ+8ILNq4CNhcONCuwVXTnSqmod2H/AVg7cYVjDBfwahLo2DiZpulQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8ofgUXmJITgTD8V9BfccIS4sLkKCoGSkXsXvcQDcOxQ=;
+ b=PQbzMItavEW9OZsSfMA0AqOgXnPFrDyGGsJvo2JA+2pE8vhDrPWiNIvc/RvaJA/NwOXx2TMKT34q0LMA3/yQBOCguCCqDdosu0F4Se58HFytXFBHcF+D0Bpyx8IfRWacFTX39mbnQoYsYseRhagarg+rehPyKt9svQ8o5U08cU8r9l/eMTRKYNkJfJwI0rwqcrg7UeygpJo4CrIBSzKiDnA7U7IribUBqwYqaDE/8w9lYFHnxpQAkPx1MwSoENh1g8djqeeP2ZvZ4c5AAxdKBklvZyldUMsZBkkbDURdvup8pAre4ZYVS7kjWDILCiVM9Ndxyjz+Wz6Ddp0MlkGLSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8ofgUXmJITgTD8V9BfccIS4sLkKCoGSkXsXvcQDcOxQ=;
+ b=G0upr1zsaHbylSGhPntGmTSxamPt6vbptFtrAaHxGxUrSL2vC0442MipWzCK/CHn00+pzyjFBQ681txtA9Hnn+0TW/oltoOmeL1l5t+GdRsIMrEaiVLYXSeyw1FZAtqXWljHkWF8f/2mQVDBA0n2/3PBxIKhjQTeL0DbW65HbU4=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
+ Grall <jgrall@amazon.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH for-4.19] xen/arm64: domctl: Avoid unreachable code in
+ subarch_do_domctl()
+Thread-Topic: [PATCH for-4.19] xen/arm64: domctl: Avoid unreachable code in
+ subarch_do_domctl()
+Thread-Index: AQHaBdnC4y/97Q3UX0qYJDw3uJ9yWrBY8Y4A
+Date: Tue, 24 Oct 2023 13:33:20 +0000
+Message-ID: <12FE5EA7-34F4-4FB4-A822-2AB5FCB0F2C7@arm.com>
+References: <20231023175220.42781-1-julien@xen.org>
+In-Reply-To: <20231023175220.42781-1-julien@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.700.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|GVXPR08MB10407:EE_|DB5PEPF00014B9D:EE_|AS2PR08MB8336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7899dfdb-7dd0-466d-d362-08dbd495cf20
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ oyvLrbBwSTHBicksFNJHVqF7nf33NKSWLjVUmoHuIQFNZcg9Plgj+XRnsOeQHeAhGAG3Q7sV25byh5/eFxjDBD/UqPzoGCu0qiqjEH6u/XrSy4fCp9h24JT7G5OExT95+ot5RMapVd5dq4ocx05ZFTt/ECjZB/56mzVmuiDPy2KCLjoS4PmSexE2J3d+uji5fhqVRtlNpewTiBEgtiqtLT6fZ7LEMBb/4ksEek7CbWKdcUpbAN0AItPz7FrVQd4PkC2sVpM7NTS7/jzhptDx49b8vSYNN3g4cuEhgJM7hDd2u3fyeEZ/c725XUPV0JdN0j7I8dRbLTS986k4s7Hrk0ApteJ4qUANs/GtcikL1EU+7/4E9nJaBM3CjKK/RpUj1hC+fcbfim4r2V6QaFdV/7XvB43fgV/TdH9UcUnGnV/6J8YyPwIjeNUbezkiUmUdJ968zsDzZY6BEigNsYcvSjUldGTWuti4jH/Mg8adqRxZqK7Ygtx9d6YB3vl/kuX5hsvRa9d/qp4kTiGXF8n3cuQ8SCd/yQAu/7fRN9bmPTY8CflNHIUzlq0MUTz2CirQJBISWdAVrpk01aML7xfbeYzTwUsEyPNS+HVPUvu5vIu49CW67BUfjO0K6m0qSweZx5usrXQUto74f1j0QcQHgQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(39860400002)(376002)(366004)(396003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(38070700009)(38100700002)(2906002)(86362001)(36756003)(5660300002)(4326008)(8936002)(8676002)(33656002)(478600001)(71200400001)(6506007)(2616005)(122000001)(66476007)(41300700001)(54906003)(91956017)(66446008)(6916009)(76116006)(66556008)(66946007)(316002)(83380400001)(64756008)(6486002)(6512007)(53546011)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <3A201012162F2A429C54AAAF9150C7B0@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1694510856.git.simone.ballarin@bugseng.com>
- <b62205a1-885b-ea4e-3ce2-7ad58cfc938d@suse.com>
- <f1759081-eb18-4597-82b6-d7d9ee1754ab@bugseng.com>
- <e0ff3307-99ee-7740-bc5f-52dd7f589057@suse.com>
- <c2b10554-673c-4452-a35c-0d2f314e8ad2@bugseng.com>
- <f0cd8400-5e37-6704-75ce-d965540bc2b7@suse.com>
- <alpine.DEB.2.22.394.2309281515570.1996340@ubuntu-linux-20-04-desktop>
- <725f5193-c8d3-1bc8-cd62-2a2b1b5ecc01@suse.com>
- <alpine.DEB.2.22.394.2310171709310.965337@ubuntu-linux-20-04-desktop>
- <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com>
- <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop>
- <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com>
- <alpine.DEB.2.22.394.2310190915590.1945130@ubuntu-linux-20-04-desktop>
- <6374f0f4-d58f-83ca-6eb3-d5a9fcbac525@suse.com>
- <alpine.DEB.2.22.394.2310201622160.2356865@ubuntu-linux-20-04-desktop>
- <36e6dd08-918c-9791-0dab-ca75d4b98d7e@suse.com>
- <alpine.DEB.2.22.394.2310231346370.3516@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2310231346370.3516@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB10407
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5PEPF00014B9D.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	9275af04-b163-4466-d914-08dbd495c9c8
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	lprAqLIjM0A4Txh/j5u3c7J5qDspT9yIRZTJt4Phl5WnsbsEzc5JCjTR5EYdNRL/MlUvqpAvfzjG1ssJQXf4iP9WpXUApoRLH7VgWPw418bxQy9RK9eu0YqCMpi+ZuE+3AUZs9TT4xipScIKIIe/ApfF96Kfcy/nYJ3B94h3ksV+OpmKo16dVCa53vLw1sB1VAuWIsk+TtQvAQWShQjLuzg8Te05qyqoAIF4nkzEXDdcgi+xgPuCstqPJ69EIf8wxWnWeVrIEQpmbeOYTIHBfdl4Dp+E+mTHnS8M/kgrcwFwHOuqX5dsUpvVgEuMcUIpocESt0ECmoWQRnH3d4XFNlNhcYDoc8SLnXPA8J7E1BvfgaRjNBXDUgruqVFFlKtTu7EgxGyaHZmwNhKrNPtbsWvHYwVIphLoydmnc8lC12fAxO0aS108AW/kxlZvGNYXzw6ueYWEb2sAxyogkXWpd0w7PwWhQRmTMPeUe3O4duh9hHOMit9wAVKA8xZ+wLjaw0il1LEjTURtj3FNOFxV6FJmW/RI7zqVRe4ALsO9sE5k0I3YimmubpcEv/lk5lGPCYORVP/SGCdqC/WGn1nTCPVHB1Y7GEupqsfJUd3zw3oceNdqtm3FWfVLpjCiDp0qmNytkgKXSrA4Mee10y/JQoUEH31W/JStjHL3WY8hgOG/j2KJqGtGE2SSgiQYlrvXXHGy0E9WAnyLWh0hmSaOoiJDNg4Zv9z9CK5VJxLYZl7kJUf9b44bsKLOWiUw6VdA
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(346002)(396003)(136003)(230922051799003)(1800799009)(186009)(64100799003)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(47076005)(8936002)(478600001)(6486002)(54906003)(316002)(6862004)(70586007)(4326008)(41300700001)(8676002)(70206006)(5660300002)(40480700001)(2906002)(53546011)(83380400001)(6506007)(107886003)(86362001)(6512007)(81166007)(82740400003)(36860700001)(26005)(36756003)(40460700003)(336012)(356005)(2616005)(33656002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 13:33:29.3307
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7899dfdb-7dd0-466d-d362-08dbd495cf20
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B9D.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8336
 
-Hi Stefano,
+Hi Julien,
 
-On 23/10/2023 21:47, Stefano Stabellini wrote:
-> On Mon, 23 Oct 2023, Jan Beulich wrote:
->> On 21.10.2023 01:26, Stefano Stabellini wrote:
->>> On Fri, 20 Oct 2023, Jan Beulich wrote:
->>>> On 19.10.2023 18:19, Stefano Stabellini wrote:
->>>>> On Thu, 19 Oct 2023, Jan Beulich wrote:
->>>>>> On 19.10.2023 02:44, Stefano Stabellini wrote:
->>>>>>> On Wed, 18 Oct 2023, Jan Beulich wrote:
->>>>>>>> On 18.10.2023 02:48, Stefano Stabellini wrote:
->>>>>>>>> On Mon, 16 Oct 2023, Jan Beulich wrote:
->>>>>>>>>> On 29.09.2023 00:24, Stefano Stabellini wrote:
->>>>>>>>>>> If it is not a MISRA requirement, then I think we should go for the path
->>>>>>>>>>> of least resistance and try to make the smallest amount of changes
->>>>>>>>>>> overall, which seems to be:
->>>>>>>>>>
->>>>>>>>>> ... "least resistance" won't gain us much, as hardly any guards don't
->>>>>>>>>> start with an underscore.
->>>>>>>>>>
->>>>>>>>>>> - for xen/include/blah.h, __BLAH_H__
->>>>>>>>>>> - for xen/arch/arm/asm/include/blah.h, __ASM_ARM_BLAH_H__
->>>>>>>>>>> - for xen/arch/x86/asm/include/blah.h, it is far less consistent, maybe __ASM_X86_BLAH_H__ ?
->>>>>>>>>>
->>>>>>>>>> There are no headers in xen/include/. For (e.g.) xen/include/xen/ we
->>>>>>>>>> may go with XEN_BLAH_H; whether ASM prefixes are needed I'm not sure;
->>>>>>>>>> we could go with just ARM_BLAH_H and X86_BLAH_H?
->>>>>>>>>>
->>>>>>>>>> The primary question though is (imo) how to deal with private headers,
->>>>>>>>>> such that the risk of name collisions is as small as possible.
->>>>>>>>>
->>>>>>>>> Looking at concrete examples under xen/include/xen:
->>>>>>>>> xen/include/xen/mm.h __XEN_MM_H__
->>>>>>>>> xen/include/xen/dm.h __XEN_DM_H__
->>>>>>>>> xen/include/xen/hypfs.h __XEN_HYPFS_H__
->>>>>>>>>
->>>>>>>>> So I think we should do for consistency:
->>>>>>>>> xen/include/xen/blah.h __XEN_BLAH_H__
->>>>>>>>>
->>>>>>>>> Even if we know the leading underscore are undesirable, in this case I
->>>>>>>>> would prefer consistency.
->>>>>>>>
->>>>>>>> I'm kind of okay with that. FTAOD - here and below you mean to make this
->>>>>>>> one explicit first exception from the "no new leading underscores" goal,
->>>>>>>> for newly added headers?
->>>>>>>
->>>>>>> Yes. The reason is for consistency with the existing header files.
->>>>>>>
->>>>>>>
->>>>>>>>> On the other hand looking at ARM examples:
->>>>>>>>> xen/arch/arm/include/asm/traps.h __ASM_ARM_TRAPS__
->>>>>>>>> xen/arch/arm/include/asm/time.h __ARM_TIME_H__
->>>>>>>>> xen/arch/arm/include/asm/sysregs.h __ASM_ARM_SYSREGS_H
->>>>>>>>> xen/arch/arm/include/asm/io.h _ASM_IO_H
->>>>>>>>>
->>>>>>>>> And also looking at x86 examples:
->>>>>>>>> xen/arch/x86/include/asm/paging.h _XEN_PAGING_H
->>>>>>>>> xen/arch/x86/include/asm/p2m.h _XEN_ASM_X86_P2M_H
->>>>>>>>> xen/arch/x86/include/asm/io.h _ASM_IO_H
->>>>>>>>>
->>>>>>>>> Thet are very inconsistent.
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> So for ARM and X86 headers I think we are free to pick anything we want,
->>>>>>>>> including your suggested ARM_BLAH_H and X86_BLAH_H. Those are fine by
->>>>>>>>> me.
->>>>>>>>
->>>>>>>> To be honest, I'd prefer a global underlying pattern, i.e. if common
->>>>>>>> headers are "fine" to use leading underscores for guards, arch header
->>>>>>>> should, too.
->>>>>>>
->>>>>>> I am OK with that too. We could go with:
->>>>>>> __ASM_ARM_BLAH_H__
->>>>>>> __ASM_X86_BLAH_H__
->>>>>>>
->>>>>>> I used "ASM" to make it easier to differentiate with the private headers
->>>>>>> below. Also the version without "ASM" would work but it would only
->>>>>>> differ with the private headers in terms of leading underscores. I
->>>>>>> thought that also having "ASM" would help readability and help avoid
->>>>>>> confusion.
->>>>>>>
->>>>>>>
->>>>>>>>> For private headers such as:
->>>>>>>>> xen/arch/arm/vuart.h __ARCH_ARM_VUART_H__
->>>>>>>>> xen/arch/arm/decode.h __ARCH_ARM_DECODE_H_
->>>>>>>>> xen/arch/x86/mm/p2m.h __ARCH_MM_P2M_H__
->>>>>>>>> xen/arch/x86/hvm/viridian/private.h X86_HVM_VIRIDIAN_PRIVATE_H
->>>>>>>>>
->>>>>>>>> More similar but still inconsistent. I would go with ARCH_ARM_BLAH_H and
->>>>>>>>> ARCH_X86_BLAH_H for new headers.
->>>>>>>>
->>>>>>>> I'm afraid I don't like this, as deeper paths would lead to unwieldy
->>>>>>>> guard names. If we continue to use double-underscore prefixed names
->>>>>>>> in common and arch headers, why don't we demand no leading underscores
->>>>>>>> and no path-derived prefixes in private headers? That'll avoid any
->>>>>>>> collisions between the two groups.
->>>>>>>
->>>>>>> OK, so for private headers:
->>>>>>>
->>>>>>> ARM_BLAH_H
->>>>>>> X86_BLAH_H
->>>>>>>
->>>>>>> What that work for you?
->>>>>>
->>>>>> What are the ARM_ and X86_ prefixes supposed to indicate here? Or to ask
->>>>>> differently, how would you see e.g. common/decompress.h's guard named?
->>>>>
->>>>> I meant that:
->>>>>
->>>>> xen/arch/arm/blah.h would use ARM_BLAH_H
->>>>> xen/arch/x86/blah.h would use X86_BLAH_H
->>>>>
->>>>> You have a good question on something like xen/common/decompress.h and
->>>>> xen/common/event_channel.h.  What do you think about:
->>>>>
->>>>> COMMON_BLAH_H, so specifically COMMON_DECOMPRESS_H
->>>>>
->>>>> otherwise:
->>>>>
->>>>> XEN_BLAH_H, so specifically XEN_DECOMPRESS_H
->>>>>
->>>>> I prefer COMMON_BLAH_H but I think both versions are OK.
->>>>
->>>> IOW you disagree with my earlier "... and no path-derived prefixes",
->>>> and you prefer e.g. DRIVERS_PASSTHROUGH_VTD_DMAR_H as a consequence?
->>>> FTAOD my earlier suggestion was simply based on the observation that
->>>> the deeper the location of a header in the tree, the more unwieldy
->>>> its guard name would end up being if path prefixes were to be used.
->>>
->>> I don't have a strong opinion on "path-derived prefixes". I prefer
->>> consistency and easy-to-figure-out guidelines over shortness.
+> On 23 Oct 2023, at 19:52, Julien Grall <julien@xen.org> wrote:
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> The 'break' the XEN_DOMCTL_set_address_size is unreachable and tools
+> like Eclair will report as a violation of Misra Rule 2.1.
+>=20
+> Furthermore, the nested switch is not very easy to read. So move
+> out the nested switch in a separate function to improve the
+> readability and hopefully address the MISRA violation.
+>=20
+> Reported-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-We adopted the MISRA Rule 5.4 which imposed us a limit (40 for Xen) on 
-the number of characters for macros. AFAIU, this would apply to guards.
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-In the example provided by Jan (DRIVERS_PASSTHROUGH_VTD_DMAR_H), this is 
-already 31 characters. So this is quite close to the limit.
+Cheers
+Bertrand
 
->>>
->>> The advantage of a path-derived prefix is that it is trivial to figure
->>> out at first glance. If we can come up with another system that is also
->>> easy then fine. Do you have a suggestion? If so, sorry I missed it.
->>
->> Well, I kind of implicitly suggested "no path derived prefixes for private
->> headers", albeit realizing that there's a chance then of guards colliding.
->> I can't think of a good scheme which would fit all goals (no collisions,
->> uniformity, and not unduly long).
-> 
-> Here I think we would benefit from a third opinion. Julien? Anyone?
+>=20
+> ---
+>=20
+> Only compiled tested. Waiting for the CI to confirm there is no
+> regression.
+> ---
+> xen/arch/arm/arm64/domctl.c | 34 +++++++++++++++++++---------------
+> 1 file changed, 19 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/arm64/domctl.c b/xen/arch/arm/arm64/domctl.c
+> index 14fc622e9956..8720d126c97d 100644
+> --- a/xen/arch/arm/arm64/domctl.c
+> +++ b/xen/arch/arm/arm64/domctl.c
+> @@ -33,27 +33,31 @@ static long switch_mode(struct domain *d, enum domain=
+_type type)
+>     return 0;
+> }
+>=20
+> +static long set_address_size(struct domain *d, uint32_t address_size)
+> +{
+> +    switch ( address_size )
+> +    {
+> +    case 32:
+> +        if ( !cpu_has_el1_32 )
+> +            return -EINVAL;
+> +        /* SVE is not supported for 32 bit domain */
+> +        if ( is_sve_domain(d) )
+> +            return -EINVAL;
+> +        return switch_mode(d, DOMAIN_32BIT);
+> +    case 64:
+> +        return switch_mode(d, DOMAIN_64BIT);
+> +    default:
+> +        return -EINVAL;
+> +    }
+> +}
+> +
+> long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> {
+>     switch ( domctl->cmd )
+>     {
+>     case XEN_DOMCTL_set_address_size:
+> -        switch ( domctl->u.address_size.size )
+> -        {
+> -        case 32:
+> -            if ( !cpu_has_el1_32 )
+> -                return -EINVAL;
+> -            /* SVE is not supported for 32 bit domain */
+> -            if ( is_sve_domain(d) )
+> -                return -EINVAL;
+> -            return switch_mode(d, DOMAIN_32BIT);
+> -        case 64:
+> -            return switch_mode(d, DOMAIN_64BIT);
+> -        default:
+> -            return -EINVAL;
+> -        }
+> -        break;
+> +        return set_address_size(d, domctl->u.address_size.size);
+>=20
+>     default:
+>         return -ENOSYS;
+> --=20
+> 2.40.1
+>=20
+>=20
 
-Just to confirm, the opinion is only for private headers. You have an 
-agreement for the rest, is it correct?
-
-If so, then I think we need to have shorter names for guard to avoid 
-hitting the 40 characters limit. I can't think of a way to have a common 
-scheme between private and common headers. So I would consider to have a 
-separate scheme.
-
-I am not sure if you or Jan already proposed an alternative scheme.
-
-Cheers,
-
--- 
-Julien Grall
 
