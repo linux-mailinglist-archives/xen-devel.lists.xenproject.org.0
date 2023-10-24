@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588437D5416
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:32:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622037.969162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5317D541C
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:32:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622051.969181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIRm-0006u1-8j; Tue, 24 Oct 2023 14:31:54 +0000
+	id 1qvISG-0000Jv-VU; Tue, 24 Oct 2023 14:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622037.969162; Tue, 24 Oct 2023 14:31:54 +0000
+Received: by outflank-mailman (output) from mailman id 622051.969181; Tue, 24 Oct 2023 14:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIRm-0006q9-4N; Tue, 24 Oct 2023 14:31:54 +0000
-Received: by outflank-mailman (input) for mailman id 622037;
- Tue, 24 Oct 2023 14:31:51 +0000
+	id 1qvISG-0000H3-Rs; Tue, 24 Oct 2023 14:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 622051;
+ Tue, 24 Oct 2023 14:32:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9CvU=GG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qvIRj-0006O8-Fy
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:31:51 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=+b+W=GG=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1qvISE-0006O8-MO
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:32:22 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ff47a84-727a-11ee-9b0e-b553b5be7939;
- Tue, 24 Oct 2023 16:31:47 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id BE6584EE074A;
- Tue, 24 Oct 2023 16:31:46 +0200 (CEST)
+ id 23dc358e-727a-11ee-9b0e-b553b5be7939;
+ Tue, 24 Oct 2023 16:32:21 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40806e4106dso26527565e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 07:32:21 -0700 (PDT)
+Received: from [192.168.6.66] (54-240-197-230.amazon.com. [54.240.197.230])
+ by smtp.gmail.com with ESMTPSA id
+ h12-20020a05600c314c00b004068def185asm2868465wmo.28.2023.10.24.07.32.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Oct 2023 07:32:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,49 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ff47a84-727a-11ee-9b0e-b553b5be7939
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [RFC 4/4] amd/iommu: fully initialize array in 'flush_command_buffer'
-Date: Tue, 24 Oct 2023 16:31:38 +0200
-Message-Id: <b772842fccacc4fb108ff515bdcad6f2877b6b12.1698155925.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1698155925.git.nicola.vetrini@bugseng.com>
-References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+X-Inumbo-ID: 23dc358e-727a-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698157940; x=1698762740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8ASkYfBT83DzI2Y3E+QUpM/rSYztNN2Dn3OWclTYnN8=;
+        b=SUhb0pa/IcwbR8w8MXgxtZtRqx0MarqgbK2211T6c/8o8NjFkgNowl7TVWwCmFSrVq
+         MvtRlayhub5JdqS9UpJWzFM7/kEUQ1ZpYdRaM9a6805jUC4jFLSK40vYfU3iGgmwcxhb
+         mzJxji4NrXEujgmS+nTFL43QiU1IPypH7IpmzwdRxyXupMpX0HTRTyTXdcNhCW0DJLze
+         BQ/rpqMCcGPD0rQZXqmivr1XWKF1KfbgycfiFYUED6HURvjMHAyxp8/VFctMKh3QM2J8
+         DovcOi5t03nd5pIEJ74VLuASRIadjn/KETzp2pqt8c7JoAnXoySOQNmTVGRKLMiaZ/Lh
+         gZlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698157940; x=1698762740;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8ASkYfBT83DzI2Y3E+QUpM/rSYztNN2Dn3OWclTYnN8=;
+        b=adCqAg1OMz7shazZFpMgHhkdDBAGAo54Ziokt3vH8jXnwmMLOkC4n+Ka0RnKTy8Uvn
+         p8yC8PWVmjXnme6FpMw5wGeU/ynYDmqcGiX8r8I+Moj/jA9feL987T99QiA68CDRfeAL
+         DaFIT0r0Euzv+DHBtqiabFgUC4bOZloQQpLRobpd8ySS4TPYn0XL8GwOr/Ii/9tJTxw+
+         FDaTsjYma1AKxJfQmZ3LCmVPKMTm+Dajuh/vaZzvbhmNmZvneM3OmWP6assjTozLk4+G
+         QDNSljlKY+UZ9x8w1eGeDKnn3X+x1EqZrLJXiu5iuIPbMJcI5953jbv8/u28JpxF3NPs
+         A2Uw==
+X-Gm-Message-State: AOJu0Ywp46KrWb3crEP5op4SKkkPJFFf364hOC00rm1BfJ70d0O/rtId
+	Ly7dFV8KYnai7uBOjvogvKfZpww4CB0Oxw==
+X-Google-Smtp-Source: AGHT+IH3S3oghRgfgbsQqo86KSVXvTtoeL3gUJvVrDNxZr+FihJ6lz9hqg6acdcxsulSLEku5uUYmA==
+X-Received: by 2002:a05:600c:154c:b0:408:3634:b81e with SMTP id f12-20020a05600c154c00b004083634b81emr11099647wmg.13.1698157940248;
+        Tue, 24 Oct 2023 07:32:20 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <1408fb32-3d91-4eb2-b0e7-4eba0f449906@xen.org>
+Date: Tue, 24 Oct 2023 15:32:18 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Reply-To: paul@xen.org
+Subject: Re: [PATCH 1/4] hw/xen: only remove peers of PCI NICs on unplug
+Content-Language: en-US
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Jason Wang
+ <jasowang@redhat.com>, xen-devel@lists.xenproject.org
+References: <20231017182545.97973-1-dwmw2@infradead.org>
+ <20231017182545.97973-2-dwmw2@infradead.org>
+Organization: Xen Project
+In-Reply-To: <20231017182545.97973-2-dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fully explicit initialization of the cmd array resolves a violation of
-MISRA C:2012 Rule 9.3.
+On 17/10/2023 19:25, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> When the Xen guest asks to unplug *emulated* NICs, it's kind of unhelpful
+> also to unplug the peer of the *Xen* PV NIC.
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/i386/xen/xen_platform.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/hw/i386/xen/xen_platform.c b/hw/i386/xen/xen_platform.c
+> index 17457ff3de..e2dd1b536a 100644
+> --- a/hw/i386/xen/xen_platform.c
+> +++ b/hw/i386/xen/xen_platform.c
+> @@ -140,9 +140,14 @@ static void unplug_nic(PCIBus *b, PCIDevice *d, void *o)
+>   /* Remove the peer of the NIC device. Normally, this would be a tap device. */
+>   static void del_nic_peer(NICState *nic, void *opaque)
+>   {
+> -    NetClientState *nc;
+> +    NetClientState *nc = qemu_get_queue(nic);
+> +    ObjectClass *klass = module_object_class_by_name(nc->model);
+> +
+> +    /* Only delete peers of PCI NICs that we're about to delete */
+> +    if (!klass || !object_class_dynamic_cast(klass, TYPE_PCI_DEVICE)) {
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- xen/drivers/passthrough/amd/iommu_cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Would it not be better to test for object_class_dynamic_cast(klass, 
+TYPE_XEN_DEVICE)?
 
-diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
-index cb28b36abc38..49b9fcac9410 100644
---- a/xen/drivers/passthrough/amd/iommu_cmd.c
-+++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-@@ -66,7 +66,8 @@ static void flush_command_buffer(struct amd_iommu *iommu,
-                          IOMMU_COMP_WAIT_S_FLAG_MASK),
-         (addr >> 32) | MASK_INSR(IOMMU_CMD_COMPLETION_WAIT,
-                                  IOMMU_CMD_OPCODE_MASK),
--        CMD_COMPLETION_DONE
-+        CMD_COMPLETION_DONE,
-+        0
-     };
-     s_time_t start, timeout;
-     static unsigned int __read_mostly threshold = 1;
---
-2.34.1
+   Paul
+
+> +        return;
+> +    }
+>   
+> -    nc = qemu_get_queue(nic);
+>       if (nc->peer)
+>           qemu_del_net_client(nc->peer);
+>   }
+
 
