@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633C57D56E4
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 17:49:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622138.969401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 193337D56E9
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 17:50:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622140.969410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvJdd-0003x1-PN; Tue, 24 Oct 2023 15:48:13 +0000
+	id 1qvJfP-0005Jy-4v; Tue, 24 Oct 2023 15:50:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622138.969401; Tue, 24 Oct 2023 15:48:13 +0000
+Received: by outflank-mailman (output) from mailman id 622140.969410; Tue, 24 Oct 2023 15:50:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvJdd-0003uL-MI; Tue, 24 Oct 2023 15:48:13 +0000
-Received: by outflank-mailman (input) for mailman id 622138;
- Tue, 24 Oct 2023 15:48:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvJfP-0005H3-11; Tue, 24 Oct 2023 15:50:03 +0000
+Received: by outflank-mailman (input) for mailman id 622140;
+ Tue, 24 Oct 2023 15:50:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jXWl=GG=casper.srs.infradead.org=BATV+e2898748ca55db067849+7366+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qvJdc-0003uF-Tv
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 15:48:12 +0000
+ id 1qvJfN-00050Q-Ru
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 15:50:01 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc67a5da-7284-11ee-98d5-6d05b1d4d9a1;
- Tue, 24 Oct 2023 17:48:11 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fbf95de3-7284-11ee-9b0e-b553b5be7939;
+ Tue, 24 Oct 2023 17:49:58 +0200 (CEST)
 Received: from [2001:8b0:10b:5:758e:a1c4:bc7:e7a7]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qvJdY-003K8n-C5; Tue, 24 Oct 2023 15:48:08 +0000
+ id 1qvJfJ-003KD4-Sz; Tue, 24 Oct 2023 15:49:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,74 +41,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc67a5da-7284-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: fbf95de3-7284-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=hF0c4p5hvtJlVcO6yuxFeCdSSDFo/uFKjooeMtLNdI4=; b=JQce6fTrmbWnEfxPe2EXV1oWgt
-	BRMc1RpriWtp0QAqtzd1NZV21vten4/oUFLt1OKkgLhSC5A/2vUI5C31ZGoSvufpJdsKP9TEd12+5
-	jtP5BOFLAwcEd+lbJfrhVRwxUuOUwrFcmTb0+IWVJk6K4rcfmGpWfnuX8LNTidHDWvH2dcFtKIe7o
-	vniECPVRvDemVexd4nCsOOEWf3GaYxR7hdgb75ZJDrqsz9Fajq7FaCspx1x2lYyGRxs6nlvItQySU
-	qAvIdjsUgCWQp1je2mQy9L3pXMisbwcAdnEs8o0pAi+J7tnMPf2WuJSlYLGB4Npf4VKs+6Rxh2n4F
-	fVeHt6HA==;
-Message-ID: <3124d1d6e9af139a3c7b6dbe2b73a82914d3f559.camel@infradead.org>
-Subject: Re: [PATCH v2 16/24] hw/xen: handle soft reset for primary console
+	bh=48HTOyKjFmW8GGRG6PGs7R76tDJEe6RT7uNcGmrEIFg=; b=M9KSFFQNAm68p1LK1pH5s8fVfi
+	tv/88nXAw/Q/gr58ufi4sa1v3kHsytT1iYU8pMvvdy8v9BYp4OO+7VvHgv3gR/o/LFO4hrMcytMpv
+	3tJ8+FqhzXhHLTqo/1aLRxjzxNjnw6tFAaD7CvjUCNk5OBfvl0IhLlKO01KPgxbLgQfV9KU9HtmJX
+	6oszP7V4m1dIbkyP5BVQbuVsAIlXQ7rrs0dtVtA39W3qGYQP8rdNcxhbbboVMYYFnBg7cIFfw+meb
+	Blb+PfzZ/0lon5hu6HxUjV+hz8D8ZVB+mCRMgejq612e1syI668GMXpmuOUlYRXLmU0YViI20qr66
+	ttEkoKNQ==;
+Message-ID: <42b005d7c03d5b0d47a16c4e025d8c3ec7289e0f.camel@infradead.org>
+Subject: Re: [PATCH 12/12] hw/xen: add support for Xen primary console in
+ emulated mode
 From: David Woodhouse <dwmw2@infradead.org>
 To: paul@xen.org, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, Stefano
  Stabellini <sstabellini@kernel.org>, Anthony Perard
  <anthony.perard@citrix.com>,  =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
- <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Eduardo Habkost
- <eduardo@habkost.net>, "Michael S. Tsirkin" <mst@redhat.com>, Marcel
- Apfelbaum <marcel.apfelbaum@gmail.com>, Jason Wang <jasowang@redhat.com>,
- Marcelo Tosatti <mtosatti@redhat.com>, Cleber Rosa <crosa@redhat.com>,
- Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, Wainer dos
- Santos Moschetta <wainersm@redhat.com>,  Beraldo Leal <bleal@redhat.com>,
- qemu-block@nongnu.org, xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
-  Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
-Date: Tue, 24 Oct 2023 16:48:07 +0100
-In-Reply-To: <8ba01df3-6189-4e1e-a70f-37a2d4dd21ed@xen.org>
-References: <20231019154020.99080-1-dwmw2@infradead.org>
-	 <20231019154020.99080-17-dwmw2@infradead.org>
-	 <8ba01df3-6189-4e1e-a70f-37a2d4dd21ed@xen.org>
+ <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
+ Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org,
+ xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Date: Tue, 24 Oct 2023 16:49:57 +0100
+In-Reply-To: <3f22903b-30f0-40f2-8624-b681d9c7e05d@xen.org>
+References: <20231016151909.22133-1-dwmw2@infradead.org>
+	 <20231016151909.22133-13-dwmw2@infradead.org>
+	 <c18439ca-c9ae-4567-bbcf-dffe6f7b72e3@xen.org>
+	 <3acd078bba2d824f836b20a270c780dc2d031c43.camel@infradead.org>
+	 <3f22903b-30f0-40f2-8624-b681d9c7e05d@xen.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-ld/GGYAo48gNtiZhsk15"
+	boundary="=-ekZgHvjk85CbxFuqU77j"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-ld/GGYAo48gNtiZhsk15
+--=-ekZgHvjk85CbxFuqU77j
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2023-10-24 at 16:44 +0100, Paul Durrant wrote:
-> On 19/10/2023 16:40, David Woodhouse wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
+On Tue, 2023-10-24 at 16:39 +0100, Paul Durrant wrote:
+> On 24/10/2023 16:37, David Woodhouse wrote:
+> > On Tue, 2023-10-24 at 15:20 +0100, Paul Durrant wrote:
+> > > On 16/10/2023 16:19, David Woodhouse wrote:
+> > > > From: David Woodhouse <dwmw@amazon.co.uk>
+> > > >=20
+> > > > The primary console is special because the toolstack maps a page at=
+ a
+> > > > fixed GFN and also allocates the guest-side event channel. Add supp=
+ort
+> > > > for that in emulated mode, so that we can have a primary console.
+> > > >=20
+> > > > Add a *very* rudimentary stub of foriegnmem ops for emulated mode, =
+which
+> > > > supports literally nothing except a single-page mapping of the cons=
+ole
+> > > > page. This might as well have been a hack in the xen_console driver=
+, but
+> > > > this way at least the special-casing is kept within the Xen emulati=
+on
+> > > > code, and it gives us a hook for a more complete implementation if/=
+when
+> > > > we ever do need one.
+> > > >=20
+> > > Why can't you map the console page via the grant table like the xenst=
+ore
+> > > page?
 > >=20
-> > On soft reset, the prinary console event channel needs to be rebound to
-> > the backend port (in the xen-console driver). We could put that into th=
-e
-> > xen-console driver itself, but it's slightly less ugly to keep it withi=
-n
-> > the KVM/Xen code, by stashing the backend port# on event channel reset
-> > and then rebinding in the primary console reset when it has to recreate
-> > the guest port anyway.
+> > I suppose we could, but I didn't really want the generic xen-console
+> > device code having any more of a special case for 'Xen emulation' than
+> > it does already by having to call xen_primary_console_create().
+> >=20
 >=20
-> Does Xen re-bind the primary console on EVTCHNOP_reset? That's news to=
-=20
-> me. I go check.
+> But doesn't is save you the whole foreignmem thing? You can use the=20
+> grant table for primary and secondary consoles.
 
-I spent an unhapp hour trying to work out how Xen actually does any of
-this :)
+Yes. And I could leave the existing foreignmem thing just for the case
+of primary console under true Xen. It's probably not that awful a
+special case, in the end.
 
-In the short term I'm more interested in having soft reset work, than
-an explicit EVTCHNOP_reset. And I can't work out *how*, but we do seem
-to have console again after a kexec in real Xen.
+Then again, I was surprised I didn't *already* have a foreignmem ops
+for the emulated case, and we're probably going to want to continue
+fleshing it out later, so I don't really mind adding it.
 
---=-ld/GGYAo48gNtiZhsk15
+
+--=-ekZgHvjk85CbxFuqU77j
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -200,25 +221,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI0MTU0ODA3WjAvBgkqhkiG9w0BCQQxIgQgU7PO96JK
-evhmxo8tvJH4bbd/vecvpAYa/SJEJt3vhGYwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI0MTU0OTU3WjAvBgkqhkiG9w0BCQQxIgQgK39bCZWh
+VJZee5enIVMmlWFW9gg42ndHUkYCkMRlRH8wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAHApJd92x/O0dYPBjgfgYzUW5ahKZvFlQF
-l4ujw7njxlAaJRXfiR/SPN9te4PkA7LBppLrtJt3qYZN5vqf5rdKDgn27eSpsT5debuWA8JZrtp0
-SZTEbOZtKzK3DZ6Bfo9EFieRCPk+hzHOPofSnlwIQFbTZBoSZNkD2HJ+/UctAzJqfyqCeagXSRTn
-It7SW3lxcgPauTh/7onaT1BzCbtKHfCXCeq2wvRNvu4HUgZamA3UkHJMLgkxOfMSKer1xF3pfn2V
-75Dxh54xiqnCsgIt6ZN3EZ+fb2zca395nNuwEf1M4Nf1KvmqxUA/UIdmHz+oZBO2LrqzgLHoW+o3
-TlByDWH3Et+5qoWvwDibnjiQeaJLm6pGbHPx5lAX2VN3O0O6FwEBn/7jTLCs+1yfT2vUHHR7vSjK
-PX4C8C3tvK4MjJPQeoUJ0wTqals4USElJo03zWbYZHGRv66JiBfEaFdgajAB+elNVgkuJS9AQqOy
-1+FgIQif3M+mbD5pAuNXNqDT4LAHwYx1DAKgkjiKwAGGsSAD0685jY9QijpiKAM32JbCThfLi6WR
-gBpdVj+BpO7mptobWP4nSdgv6ltEqhl2CEs0cSmgfe9ulZEJEkX0sLa/FHWYZ0zWHxmasWnz9wW9
-TpMVjzjoQS0xWG03CFj3Lfrq1Ib5z1W+HtoxxgnJagAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCPts9hD9ACFDOTAK4HEeY3W6yBy/a5Nw+n
+VAvNs+mfUiIjlAjjLdvqYp3TgvLThvCMNVqGGz/7m++lIMePL3YVN6N0NQljvC56I5B5k7Y7vfwW
+0/1DWXq+LE0EA+V524bVF9StWv6mk+VTmDKmhrqslwIGgo2yiyrK8KGFbLPUgpN1jOn7OXCuXjex
+nKHpj2t/xpYW2sx6a5LJM0EjFEyVvO+tedc3Wh96/+N2O6hHGCcnLIur6Lod7yZHefmpg+ukXbYg
+hNRYsUclIKXMlhwKtk7Rr4QItlVwvCv1Lg8jU46TFbvG2Ywm/mm0/1XH42a5Nccq2whK66KCmp0X
+3z+KRJnnZkR+xj7+PpTDLVrdujVnnHjdOVXK3yZe3xPhUa9OmM+8nt35kDeIAAiv6yaO7ioQNtIF
+F57sBReS2FX5Qv82uFXRBDsCq4FdTs527yYOE/K0Bfmlxxo4TSU152C//oJakMgDljTNwCNaLuFJ
+V0gp6m2kPaT4wMoJw0Fv2slT2pkybP7g6cEWMwtaPKarbJ/8VSrwc1rH+Yj/UDvnvCmUogU4VJ+D
+xXF28pcvba+wvV219ha/KDN0E1nSx47e+JbV30bHkDjiUJAl4YUVhr56CN7cSK5pxCq1TnBSp+8+
+eXLH10GkKqXAEWCnbEaPOEPTZjwkX2/nw1uIDcssfwAAAAAAAA==
 
 
---=-ld/GGYAo48gNtiZhsk15--
+--=-ekZgHvjk85CbxFuqU77j--
 
