@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0909C7D4FF1
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:39:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621909.968811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A36097D5013
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:42:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621912.968822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGgM-0007Mw-7V; Tue, 24 Oct 2023 12:38:50 +0000
+	id 1qvGjm-0000LV-O2; Tue, 24 Oct 2023 12:42:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621909.968811; Tue, 24 Oct 2023 12:38:50 +0000
+Received: by outflank-mailman (output) from mailman id 621912.968822; Tue, 24 Oct 2023 12:42:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGgM-0007K9-4b; Tue, 24 Oct 2023 12:38:50 +0000
-Received: by outflank-mailman (input) for mailman id 621909;
- Tue, 24 Oct 2023 12:38:48 +0000
+	id 1qvGjm-0000Ho-KZ; Tue, 24 Oct 2023 12:42:22 +0000
+Received: by outflank-mailman (input) for mailman id 621912;
+ Tue, 24 Oct 2023 12:42:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lhve=GG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1qvGgK-0007K3-PG
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:38:48 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=+b+W=GG=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1qvGjk-0000Hi-T8
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:42:20 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46c6e717-726a-11ee-98d5-6d05b1d4d9a1;
- Tue, 24 Oct 2023 14:38:47 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-507a29c7eefso6603068e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 05:38:47 -0700 (PDT)
-Received: from [192.168.201.133] ([94.75.70.14])
+ id c506ba92-726a-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 14:42:19 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2c50906f941so67157371fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 05:42:19 -0700 (PDT)
+Received: from [192.168.6.66] (54-240-197-230.amazon.com. [54.240.197.230])
  by smtp.gmail.com with ESMTPSA id
- i20-20020a056512341400b00507b0b9145fsm2114206lfr.177.2023.10.24.05.38.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Oct 2023 05:38:46 -0700 (PDT)
+ r9-20020a05600c320900b0040644e699a0sm16610990wmp.45.2023.10.24.05.42.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Oct 2023 05:42:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46c6e717-726a-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: c506ba92-726a-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698151127; x=1698755927; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LmMiDW7+6SN7TaMQM2K79q68rbUeHhcerC6jTnyQZcg=;
-        b=mLY+z5wwc3EEjuOmjiWLgkzkcjc8KFcGrL2T/twtr4SavINPEjhbDcfo6MMdJOhb+Z
-         cykPrcfQMrFNpRkNcriDZaagu9QktCq8nOEMFPHja7FflAFiICWMyOYllOpWpajc5XdD
-         QvnqmDfwj31z4kzOag5AW3w34DnUeNTQmCbZO2MIRZhpr2kvEQdV1VMem0UDKcwbBiIc
-         GyW+AsEhwBOi7pRrfJwMRKXJsOy+062AP0Nmqq7ObM8D1v0DLzmkk37pgB4SonQSGivX
-         NACwQ92e3VyS+2BEoW7+kWmrAvU2ssOI4VBZC4y3ySoxn2JXxsktUu01cmgo48voJJj7
-         kHmw==
+        d=gmail.com; s=20230601; t=1698151339; x=1698756139; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nleuh30f60jeiNJDPgerM6LHIyJSmfHjZNXbgUudLV0=;
+        b=J+KhTXtYUAONI9Z0DJyu2BI0aZUj74/sIDXsfFj5JwZjOdLrWQR+zYFDXlbQFlbFRY
+         U5XGQaUcuxEP28d17kRst9kLIfg27LCJMgxM6zMaAEfKjiW1k/snl4zP7bRpQvepOt9y
+         1teDJbHVc/GV/gljzNSCMx42+/gJe35FvpF6kCAEFW502z8qjcxe1rdA5jzpNl8BHIHW
+         X4wTBaW6oUH8la920D98sK5N0Oi5oeDsdtqO4d9taM/Kz3TWvAMZcMldp7+n42zWcKhH
+         gB4dOyRVUDzhfZZf53764GWa+S7P26R3xM61+e2mX5UZT6e16KI5prXRhHhHPqEzZHfm
+         htnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698151127; x=1698755927;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LmMiDW7+6SN7TaMQM2K79q68rbUeHhcerC6jTnyQZcg=;
-        b=MtGZs8rybRpFglWr96bvDJwODbwUNTwS8cO2+L8lTEjrjw0aT9UFYtpGFWZM+gRdlz
-         +BaXN+5tunqHJ8cPeS2noAWrRbJsHn6IbQsAgBuMWSjjdKW1unnfeamh11UOpuJ9e02a
-         gvi+tpfmQsB5S0UMENznJG7voeHlytOHoXvoK57W/62o87E0lrIeg/ZLQajxidr6d0ID
-         FatVTwza/ObZc9+IV2RsvOPkBnuzbT3RrlLuohEYR2VzxPuFSAKh/g622m4MPIY/jpga
-         7n1xxJ34IF1TO/MrGW6Gab/xY3v4F8urZ78npgEgcjENCeyd1yqPJpZySBtlSrH5bPdb
-         JPyA==
-X-Gm-Message-State: AOJu0YwCXwlsKlfRTUREntjEjSqaoGoS8cblQeQ6c7U9vfOXgp5wxJVq
-	LIPt2HC/P+rDNo+klt7+JlY=
-X-Google-Smtp-Source: AGHT+IGkyIa5m/EZXrE0erN3KoYm0FuSM9HHFEs7cYn8u09WEK9ZWNqMCnAQ2jfuxr8jI2mkJn1RqA==
-X-Received: by 2002:a05:6512:2150:b0:507:a70e:c619 with SMTP id s16-20020a056512215000b00507a70ec619mr4424634lfr.67.1698151127119;
-        Tue, 24 Oct 2023 05:38:47 -0700 (PDT)
-Message-ID: <0345610b7daf219f286ecdd308a6556ee36eed7b.camel@gmail.com>
-Subject: Re: [PATCH v1 12/29] xen/asm-generic: introduce stub header pci.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Tue, 24 Oct 2023 15:38:46 +0300
-In-Reply-To: <b2ed1c50-6e55-7d89-aaa4-e0f23d5b4da8@suse.com>
-References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
-	 <597a482c70fef196e245a5d898ea6314a0c479ca.1694702259.git.oleksii.kurochko@gmail.com>
-	 <d4dca6d7-ac54-beac-26fc-5eaf80783a73@suse.com>
-	 <0da7452e0c62dcdc5a0e1185b9f99cdb3d7393c9.camel@gmail.com>
-	 <b2ed1c50-6e55-7d89-aaa4-e0f23d5b4da8@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+        d=1e100.net; s=20230601; t=1698151339; x=1698756139;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nleuh30f60jeiNJDPgerM6LHIyJSmfHjZNXbgUudLV0=;
+        b=VTAH7lGbxDJGEtyd/1a5zUk9EgoQSE8xnfWjmRyVDB66wSMZnoo4FVSBcjaIsmQWsC
+         HjAqMhKF86HYUMNB9C+ZmYQ2ubE9LjeE4IUQK6NxcK8BF3SIXY5J+JDc2O4R5Q4jnL8H
+         jOJe1RLCCK46b3H15KIsHAdGyqxp4c21GgiQhVJ6eDmUkIh4kKDtL9Mhbk8868+NSG6l
+         J5rrzF0yZsRCm+kqOpjyEncrRG1JCvDpcZ+dbnEDPKPJEzq5tmhxu8/5xYUpQe9xZloH
+         zq6l2qPl4c22n8jhqZAKqcp8l4VrUG5GaxMP4Dctj1WiX1NgIWsvPTsv0177W5ChI85l
+         QHRw==
+X-Gm-Message-State: AOJu0Yxe8hDEJZ3/VFCNjHaJ1GtGlUXFFaeejGCSsNiRnbrYmw2KwomD
+	GcEmlqB2xcuOKedy549F/z4=
+X-Google-Smtp-Source: AGHT+IG7xfJEIBpaao1AVHuot+7nF+K9gT+jAPeV2BLTz6q/or9dTrt+5Pf96dJ2k8c2f9XmlagJlQ==
+X-Received: by 2002:a2e:aa28:0:b0:2be:54b4:ff90 with SMTP id bf40-20020a2eaa28000000b002be54b4ff90mr7826766ljb.53.1698151339104;
+        Tue, 24 Oct 2023 05:42:19 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <5ef43a7c-e535-496d-8a14-bccbadab3bc0@xen.org>
+Date: Tue, 24 Oct 2023 13:42:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: paul@xen.org
+Subject: Re: [PATCH 06/12] hw/xen: add get_frontend_path() method to
+ XenDeviceClass
+Content-Language: en-US
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>, Marcelo Tosatti
+ <mtosatti@redhat.com>, qemu-block@nongnu.org,
+ xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+References: <20231016151909.22133-1-dwmw2@infradead.org>
+ <20231016151909.22133-7-dwmw2@infradead.org>
+Organization: Xen Project
+In-Reply-To: <20231016151909.22133-7-dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2023-10-23 at 13:58 +0200, Jan Beulich wrote:
-> On 23.10.2023 12:50, Oleksii wrote:
-> > On Thu, 2023-10-19 at 11:55 +0200, Jan Beulich wrote:
-> > > While more involved, I still wonder whether xen/pci.h could also
-> > > avoid
-> > > including asm/pci.h when !HAS_PCI. Of course there's more than
-> > > just
-> > > the
-> > > #include which then would need #ifdef-ing out.
-> > It looks like we can get with #ifdef-ing. I'll push a separate
-> > patch
-> > for xen/pci.h.
-> >=20
-> > It will probably need to remove usage of <asm/pci.h> everywhere or
-> > #ifdef-ing it too.
-> > Which option will be better?
->=20
-> What's "everywhere" here? The only non-arch-dependent use I can spot
-> is in xen/pci.h.
-It looks you are right.
+On 16/10/2023 16:19, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> The primary Xen console is special. The guest's side is set up for it by
+> the toolstack automatically and not by the standard PV init sequence.
+> 
+> Accordingly, its *frontend* doesn't appear in …/device/console/0 either;
+> instead it appears under …/console in the guest's XenStore node.
+> 
+> To allow the Xen console driver to override the frontend path for the
+> primary console, add a method to the XenDeviceClass which can be used
+> instead of the standard xen_device_get_frontend_path()
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/xen/xen-bus.c         | 10 +++++++++-
+>   include/hw/xen/xen-bus.h |  2 ++
+>   2 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
+> index ece8ec40cd..cc524ed92c 100644
+> --- a/hw/xen/xen-bus.c
+> +++ b/hw/xen/xen-bus.c
+> @@ -711,8 +711,16 @@ static void xen_device_frontend_create(XenDevice *xendev, Error **errp)
+>   {
+>       ERRP_GUARD();
+>       XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
+> +    XenDeviceClass *xendev_class = XEN_DEVICE_GET_CLASS(xendev);
+>   
+> -    xendev->frontend_path = xen_device_get_frontend_path(xendev);
+> +    if (xendev_class->get_frontend_path) {
+> +        xendev->frontend_path = xendev_class->get_frontend_path(xendev, errp);
+> +        if (!xendev->frontend_path) {
+> +            return;
 
-I wrote everywhere because of "xen/drivers/passthrough/vtd/quirks.c"
-but it is arch-dependent. So  , yes, only xen/pci.h should be updated.
+I think you need to update errp here to note that you are failing to 
+create the frontend.
 
-~ Oleksii
+   Paul
+
+
 
