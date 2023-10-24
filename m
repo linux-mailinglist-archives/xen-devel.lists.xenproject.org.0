@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00EB47D506E
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:56:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621921.968850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1D57D507F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:58:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621925.968861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGxI-0004um-FH; Tue, 24 Oct 2023 12:56:20 +0000
+	id 1qvGzV-0006MV-SX; Tue, 24 Oct 2023 12:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621921.968850; Tue, 24 Oct 2023 12:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 621925.968861; Tue, 24 Oct 2023 12:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGxI-0004sP-Cg; Tue, 24 Oct 2023 12:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 621921;
- Tue, 24 Oct 2023 12:56:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvGzV-0006JA-PZ; Tue, 24 Oct 2023 12:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 621925;
+ Tue, 24 Oct 2023 12:58:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jXWl=GG=casper.srs.infradead.org=BATV+e2898748ca55db067849+7366+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qvGxH-0004sJ-KH
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:56:19 +0000
+ id 1qvGzU-0006J2-Ek
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:58:36 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7c502e4-726c-11ee-9b0e-b553b5be7939;
- Tue, 24 Oct 2023 14:56:16 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0abefdd1-726d-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 14:58:35 +0200 (CEST)
 Received: from [2001:8b0:10b:5:758e:a1c4:bc7:e7a7]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qvGxD-002Zhe-4L; Tue, 24 Oct 2023 12:56:15 +0000
+ id 1qvGzS-002Zqg-1X; Tue, 24 Oct 2023 12:58:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,20 +41,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7c502e4-726c-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0abefdd1-726d-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KIHpOafW3ieHRu7BMjAbXlB7WJxL6xUsJu+2+28+I9c=; b=nVsdDyUFe55lw7AH55Mvd7ePjU
-	GkjtmmYMnUyZ8z4Tbm2JpHwF6vFig+xSYKCsVk8K5APGRgW5mWP05qYZJbUpDhNtIS8zK4UN3VYfZ
-	VntK7WJNtL30Tbgdroy8cfLKB9mXvCaflSBfO8S6cjMZDrY7ge2wz3S40yLz7mgk9DOBy8cLcFpNP
-	5CSdtkwY3/P8pBhDYNE+oGAG8+zRsN2oPPBM0MYffn0B7CPqiXaf2+CC5Gtd4Lzk6io4+25zEMcLO
-	yPew6/GinpRahdetQH/r1OH5lPldxUpY0rg/04aT7bFleFEleeCx7NBkcI5mUnt42OYc5IeemCv+c
-	I+G0qHoQ==;
-Message-ID: <d43b900a6c7987c6832ceeede9b4c5ab65d5bacd.camel@infradead.org>
-Subject: Re: [PATCH 06/12] hw/xen: add get_frontend_path() method to
- XenDeviceClass
+	bh=HRHwTdORAI5uxR2ZSCdt54gI1AdlYa7OoYoyY8rZJLI=; b=ZfRTRqbBFNAFEO8aWPRsrwz1hL
+	fUXzPnDredr9hP6pOK8gtWY5oMLqltqjti1bA3p85ffQZ7i9czHnoEzXs3oNwxZzQxakLsgStF8Kr
+	31AIOytB2Gpb8+D5IeiLa+2qD1StcFvxNltrqXil67AoBqrlENIiKOSNYL/LIPPITnERixmpYPE7D
+	ev9IwTJlIT4AogB/P9pw/d2R4Vvegq9udkowXINuBFYOBikyQDvkcW4GO3+OKxPK/AuCyY2cDlV9i
+	oFqyAN7r6ytHBbG5RacpikPo/JukTltevn27Wdecz1NeZRWYq4LNefATtDEPrwlxbfun1/9FuzruY
+	g6TjgGwQ==;
+Message-ID: <1e1039c0303cba31143ff3d856c6b7c61e6398f2.camel@infradead.org>
+Subject: Re: [PATCH 01/12] i386/xen: fix per-vCPU upcall vector for Xen
+ emulation
 From: David Woodhouse <dwmw2@infradead.org>
 To: paul@xen.org, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, Stefano
@@ -66,59 +66,60 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, Stefano
  <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
  Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org,
  xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-Date: Tue, 24 Oct 2023 13:56:14 +0100
-In-Reply-To: <5ef43a7c-e535-496d-8a14-bccbadab3bc0@xen.org>
+Date: Tue, 24 Oct 2023 13:58:32 +0100
+In-Reply-To: <456aae8e-ea07-4861-a91b-7c7e28d2a22b@xen.org>
 References: <20231016151909.22133-1-dwmw2@infradead.org>
-	 <20231016151909.22133-7-dwmw2@infradead.org>
-	 <5ef43a7c-e535-496d-8a14-bccbadab3bc0@xen.org>
+	 <20231016151909.22133-2-dwmw2@infradead.org>
+	 <456aae8e-ea07-4861-a91b-7c7e28d2a22b@xen.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Q1DBezpZ2dJcIULBrgeD"
+	boundary="=-IqHjjQRQ9f8NUYIPXNDV"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-Q1DBezpZ2dJcIULBrgeD
+--=-IqHjjQRQ9f8NUYIPXNDV
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2023-10-24 at 13:42 +0100, Paul Durrant wrote:
+On Tue, 2023-10-24 at 13:16 +0100, Paul Durrant wrote:
+> On 16/10/2023 16:18, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > The per-vCPU upcall vector support had two problems. Firstly it was
+> > using the wrong hypercall argument and would always return -EFAULT.
+> > And secondly it was using the wrong ioctl() to pass the vector to
+> > the kernel and thus the *kernel* would always return -EINVAL.
+> >=20
+> > Linux doesn't (yet) use this mode so it went without decent testing
+> > for a while.
+> >=20
+> > Fixes: 105b47fdf2d0 ("i386/xen: implement
+> > HVMOP_set_evtchn_upcall_vector")
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > ---
+> > =C2=A0 target/i386/kvm/xen-emu.c | 5 ++---
+> > =C2=A0 1 file changed, 2 insertions(+), 3 deletions(-)
 >=20
-> > --- a/hw/xen/xen-bus.c
-> > +++ b/hw/xen/xen-bus.c
-> > @@ -711,8 +711,16 @@ static void xen_device_frontend_create(XenDevice *=
-xendev, Error **errp)
-> > =C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ERRP_GUARD();
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 XenBus *xenbus =3D XEN_BUS(qdev_ge=
-t_parent_bus(DEVICE(xendev)));
-> > +=C2=A0=C2=A0=C2=A0 XenDeviceClass *xendev_class =3D XEN_DEVICE_GET_CLA=
-SS(xendev);
-> > =C2=A0=C2=A0=20
-> > -=C2=A0=C2=A0=C2=A0 xendev->frontend_path =3D xen_device_get_frontend_p=
-ath(xendev);
-> > +=C2=A0=C2=A0=C2=A0 if (xendev_class->get_frontend_path) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xendev->frontend_path =3D x=
-endev_class->get_frontend_path(xendev, errp);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!xendev->frontend_path)=
- {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
-urn;
->=20
-> I think you need to update errp here to note that you are failing to=20
-> create the frontend.
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-If xendev_class->get_frontend_path returned NULL it will have filled in err=
-p.
+FWIW this patch gained a third "brown paper bag" fix this morning, when
+I finally worked it out:
 
-As a general rule (I'll be doing a bombing run on xen-bus once I get my
-patch queue down into single digits) we should never check 'if (*errp)'
-to check if a function had an error. It should *also* return a success
-or failure indication, and we should cope with errp being NULL.
+@@ -440,7 +440,8 @@ void kvm_xen_inject_vcpu_callback_vector(uint32_t
+vcpu_id, int type)
+          * deliver it as an MSI.
+          */
+         MSIMessage msg =3D {
+-            .address =3D APIC_DEFAULT_ADDRESS | X86_CPU(cs)->apic_id,
++            .address =3D APIC_DEFAULT_ADDRESS |
++                       (X86_CPU(cs)->apic_id << MSI_ADDR_DEST_ID_SHIFT),
+             .data =3D vector | (1UL << MSI_DATA_LEVEL_SHIFT),
+         };
+         kvm_irqchip_send_msi(kvm_state, msg);
 
 
-
---=-Q1DBezpZ2dJcIULBrgeD
+--=-IqHjjQRQ9f8NUYIPXNDV
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -210,25 +211,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI0MTI1NjE0WjAvBgkqhkiG9w0BCQQxIgQgAORed/r7
-yjaxaiKiEh0t0czu2+/5Zim+VBZ04/Jf4WAwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI0MTI1ODMyWjAvBgkqhkiG9w0BCQQxIgQgxJzhPhd3
+s5roVqPHpQuiWss118Vc0c9/z9cZAQHwd20wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB+y0wFouAllrieYiBNX0M1VvbX9fwz8Bws
-7Ki3oasK+xmQUAxH4cIOF2jCfyTc0kbFRwpcbSJE7dMEzWtPfjw8tCG91NMoMeyLnVYHHLhDjddN
-3yipFEmzBvhencdgWnEomo4Rms3qbCP6LRt81zap8jNTBfqetTjHTDxJ00VkS1D021xn4AfWHNI6
-SQhBcSFRDmpw459qGnyOY7aRsMunShf7MzjN5DE69VWiH0yCDAW8vUoNXvj4Sesh8WmW2FhlT6bU
-ij2QD4CsnpY7zxheLmumN2qfcd9YnQ6l3j7x9nsQE/HPH7wrKnKNMIsSdmb8ah2kIkyGc8iGRrI3
-FGt07FJGqlN1ZXSryXOhl6Lv8nsSUnViP3HPJaSs/kOFANsVGQ+3d1SYSCNLhdDhTYLeyXbcT/KM
-mBY1mMpMB/tXpQYTmunEuSH6Vq/xJzt19sd/b/OznKD7inKcqeZXUpKAC6DY604/fNCUsf4FLCZi
-a4zipcZZ9VGSfL+TZClSWH4HGIYPM/Hp8sn0BY+iwLTgN1Prw9O76od5wrGzI5AtPElWsWRKHE+l
-mm+gprL2NH5AawtpW+YG7rcBvE7iqwVEX8O1HQE9bCAjOh/po1rzobLjJYnynSyYCM9p7KRnwBM1
-Ompq+pf6V6YH5Z9nGGcoV4yLfsv3eO4Yqy3+Lrj0VwAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAVYfYR9Q8SSo+AixP6ceWkkU3vuFVJibdH
+7wN8XsWPE9CMtbLtr/OGLPCSD7CiniXj1O3Gz3v9fMDqvWVF5/kL6hC/EmIsZR02cIYcRnXDamkj
+FmRloV33lf2hr1ABH1czVofu8Qnpuqt5p3wLqZo5nDxQ4jnWumaBX35JdCqrkSIMsxUNqqvLnvp6
+lfEI1eJEEuL/C+ZwAytm9toojdrZxLaIL182uw0zVlMdCPrO42XXGhHtvjouvTe78Q6zcvdLdue6
+a+QFlAjH2QyTOjkF/EhhoS6WPX/VWdDRjYiU7AnYH4yFLUbwsy3+BhwXVnJZNwQDXF45IOD+RYlq
+43hPG9veYDXzLjhiAM1mXZgCWSB0loKvrOzkcVPTebGTJmL+LN/iOnjdAhDdJ6k0RUbOtFKqMGZv
+TIICprDidXiMATbwelF0n3Kf8X+Wr5Tnmv5gXGHc1KzlmNG81AAjWQZRtiVzo054gpbEulepWTuv
++5FwoZ99VDVp7Gra+ecT6kULfPKacIqOHzKkCwhMw6YQChGZfWa5jHuPtTwkVr2eviMts7ov/7nL
+hsjxLUKbYCnnZiaPjCrc2O37Qr+Re4luRLFEuJVpMeWXkW3nEU9Kkj7hv2sMNjbrgkCbhxup61bK
+lwFaQk54fUhlPyx7ufrAAU67bPb/2iGegEQFT6xfFgAAAAAAAA==
 
 
---=-Q1DBezpZ2dJcIULBrgeD--
+--=-IqHjjQRQ9f8NUYIPXNDV--
 
