@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C777D4933
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 10:02:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621745.968510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 115157D4938
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 10:04:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621749.968520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvCMN-0003zV-Vm; Tue, 24 Oct 2023 08:01:55 +0000
+	id 1qvCP1-0004hY-Cr; Tue, 24 Oct 2023 08:04:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621745.968510; Tue, 24 Oct 2023 08:01:55 +0000
+Received: by outflank-mailman (output) from mailman id 621749.968520; Tue, 24 Oct 2023 08:04:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvCMN-0003wV-SW; Tue, 24 Oct 2023 08:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 621745;
- Tue, 24 Oct 2023 08:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9CvU=GG=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qvCMM-0003wP-Pt
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 08:01:54 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96890077-7243-11ee-9b0e-b553b5be7939;
- Tue, 24 Oct 2023 10:01:51 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id B24BB4EE0744;
- Tue, 24 Oct 2023 10:01:50 +0200 (CEST)
+	id 1qvCP1-0004fR-8h; Tue, 24 Oct 2023 08:04:39 +0000
+Received: by outflank-mailman (input) for mailman id 621749;
+ Tue, 24 Oct 2023 08:04:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qvCP0-0004fH-26; Tue, 24 Oct 2023 08:04:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qvCOz-0001jK-OP; Tue, 24 Oct 2023 08:04:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qvCOz-0003cv-9t; Tue, 24 Oct 2023 08:04:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qvCOz-0005ov-9H; Tue, 24 Oct 2023 08:04:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,73 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96890077-7243-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UHSO5W9UyeJ15leiNZGzlIdVVnc5DRrRWHZB19LzCrc=; b=rPvtumM8iUegl4rFGa+q5ITMPF
+	EeF3odnVqSBuIhFmu45jDtCjKwfAnJKv7R7tCNVD1B8OteZwRp1BGVFEVcLYjjgRro6oDodQc08rv
+	gD2lyAFoxPN6/Avc77EZmnxROfcTScSrcB3tcmLgMoMkDIXBMAUyPe06SOw7qf/YNO28=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183504-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Tue, 24 Oct 2023 10:01:50 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>, Jun
- Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19 v4 3/8] x86: add deviation comments for
- asm-only functions
-In-Reply-To: <a8370e98-1cb6-8fde-9458-e579047dd607@suse.com>
-References: <cover.1698053876.git.nicola.vetrini@bugseng.com>
- <36d24b3a3e264f0e0b265b4f68d6432a143d64cd.1698053876.git.nicola.vetrini@bugseng.com>
- <a8370e98-1cb6-8fde-9458-e579047dd607@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <2d92ef1f753165e2fa9cc7c04c219217@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183504: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=da73578bf7afee1fdd1abe97eaf733aa1e4bdefe
+X-Osstest-Versions-That:
+    ovmf=2ad52adb6606f89f0c475faa6552fee69c02d082
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 24 Oct 2023 08:04:37 +0000
 
-On 24/10/2023 09:50, Jan Beulich wrote:
-> On 23.10.2023 11:56, Nicola Vetrini wrote:
->> As stated in rules.rst, functions used only in asm code
->> are allowed to have no prior declaration visible when being
->> defined, hence these functions are deviated.
->> This also fixes violations of MISRA C:2012 Rule 8.4.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> ---
->> Changes in v3:
->> - added SAF deviations for vmx counterparts to svm functions.
-> 
-> Same comment regarding the R-b here as for patch 2.
-> 
->> --- a/xen/arch/x86/hvm/svm/intr.c
->> +++ b/xen/arch/x86/hvm/svm/intr.c
->> @@ -123,6 +123,7 @@ static void svm_enable_intr_window(struct vcpu *v, 
->> struct hvm_intack intack)
->>          vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
->>  }
->> 
->> +/* SAF-1-safe */
->>  void svm_intr_assist(void)
->>  {
->>      struct vcpu *v = current;
-> 
-> Linux has the concept of "asmlinkage" for functions interfacing C and
-> assembly. Was it considered to use that - even if expanding to nothing
-> for all present architectures - as a way to annotate affected 
-> definitions
-> in place of the SAF-*-safe comments?
-> 
-> Jan
+flight 183504 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183504/
 
-It was proposed by Julien a while ago (I think it the thread on 
-deviations.rst) to define
-a macro asmcall that expands to nothing, to mark all such functions. 
-Right now, it's not
-strictly necessary (given that there are already some uses of SAF in 
-Stefano's for-4.19 branch.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 da73578bf7afee1fdd1abe97eaf733aa1e4bdefe
+baseline version:
+ ovmf                 2ad52adb6606f89f0c475faa6552fee69c02d082
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Last test of basis   183501  2023-10-23 22:12:16 Z    0 days
+Testing same since   183504  2023-10-24 03:10:51 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Nickle Wang <nicklew@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   2ad52adb66..da73578bf7  da73578bf7afee1fdd1abe97eaf733aa1e4bdefe -> xen-tested-master
 
