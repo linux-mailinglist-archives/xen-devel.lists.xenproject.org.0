@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36097D5013
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:42:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.621912.968822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAA217D5030
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 14:46:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.621916.968831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGjm-0000LV-O2; Tue, 24 Oct 2023 12:42:22 +0000
+	id 1qvGns-0002WX-8r; Tue, 24 Oct 2023 12:46:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 621912.968822; Tue, 24 Oct 2023 12:42:22 +0000
+Received: by outflank-mailman (output) from mailman id 621916.968831; Tue, 24 Oct 2023 12:46:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvGjm-0000Ho-KZ; Tue, 24 Oct 2023 12:42:22 +0000
-Received: by outflank-mailman (input) for mailman id 621912;
- Tue, 24 Oct 2023 12:42:20 +0000
+	id 1qvGns-0002TE-5s; Tue, 24 Oct 2023 12:46:36 +0000
+Received: by outflank-mailman (input) for mailman id 621916;
+ Tue, 24 Oct 2023 12:46:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+b+W=GG=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qvGjk-0000Hi-T8
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:42:20 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ <SRS0=lhve=GG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qvGnq-0002T8-Rf
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 12:46:34 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c506ba92-726a-11ee-98d5-6d05b1d4d9a1;
- Tue, 24 Oct 2023 14:42:19 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2c50906f941so67157371fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 05:42:19 -0700 (PDT)
-Received: from [192.168.6.66] (54-240-197-230.amazon.com. [54.240.197.230])
+ id 5c902687-726b-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 14:46:33 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-507975d34e8so6547429e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 05:46:34 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- r9-20020a05600c320900b0040644e699a0sm16610990wmp.45.2023.10.24.05.42.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Oct 2023 05:42:18 -0700 (PDT)
+ h9-20020a19ca49000000b00507987ff761sm2150621lfj.56.2023.10.24.05.46.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Oct 2023 05:46:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c506ba92-726a-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 5c902687-726b-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698151339; x=1698756139; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nleuh30f60jeiNJDPgerM6LHIyJSmfHjZNXbgUudLV0=;
-        b=J+KhTXtYUAONI9Z0DJyu2BI0aZUj74/sIDXsfFj5JwZjOdLrWQR+zYFDXlbQFlbFRY
-         U5XGQaUcuxEP28d17kRst9kLIfg27LCJMgxM6zMaAEfKjiW1k/snl4zP7bRpQvepOt9y
-         1teDJbHVc/GV/gljzNSCMx42+/gJe35FvpF6kCAEFW502z8qjcxe1rdA5jzpNl8BHIHW
-         X4wTBaW6oUH8la920D98sK5N0Oi5oeDsdtqO4d9taM/Kz3TWvAMZcMldp7+n42zWcKhH
-         gB4dOyRVUDzhfZZf53764GWa+S7P26R3xM61+e2mX5UZT6e16KI5prXRhHhHPqEzZHfm
-         htnA==
+        d=gmail.com; s=20230601; t=1698151593; x=1698756393; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=WNAw0v8mCj9zjTBy9wUVcNuBSK596G4Btplqlv/1d9o=;
+        b=BjvAGi+xLKCuumT42WRUSBJE/qAM6cue7qbwDeq9A0MgTvb5QMhGkbCrZrGCTVr+WR
+         HBiFkidsWszp/vAGYiNt6Dr8KSqJ21zZ8unm2s11Pzpev1iONhyzfKzdc8pqMBfJFEsG
+         rgBV5pOFq3z0QGFAmgzH8MYCvqq0G2R6nw1enbMoqm5CmCPawVxcDehm1aKw1W1itVBU
+         gY3tlLe+Bad+JzpXKpe2pPVgT2THBqvw0kk2p1QaB6X9cMf7sEtq9R8Tn8jjYBGsAxsg
+         qz8OKWd3jHxnY4yzWnoTq1fAlO7/xGupUFFYiaodAFr1zx2f2jLa44nvBt3gv99Pzgsv
+         xkwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698151339; x=1698756139;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nleuh30f60jeiNJDPgerM6LHIyJSmfHjZNXbgUudLV0=;
-        b=VTAH7lGbxDJGEtyd/1a5zUk9EgoQSE8xnfWjmRyVDB66wSMZnoo4FVSBcjaIsmQWsC
-         HjAqMhKF86HYUMNB9C+ZmYQ2ubE9LjeE4IUQK6NxcK8BF3SIXY5J+JDc2O4R5Q4jnL8H
-         jOJe1RLCCK46b3H15KIsHAdGyqxp4c21GgiQhVJ6eDmUkIh4kKDtL9Mhbk8868+NSG6l
-         J5rrzF0yZsRCm+kqOpjyEncrRG1JCvDpcZ+dbnEDPKPJEzq5tmhxu8/5xYUpQe9xZloH
-         zq6l2qPl4c22n8jhqZAKqcp8l4VrUG5GaxMP4Dctj1WiX1NgIWsvPTsv0177W5ChI85l
-         QHRw==
-X-Gm-Message-State: AOJu0Yxe8hDEJZ3/VFCNjHaJ1GtGlUXFFaeejGCSsNiRnbrYmw2KwomD
-	GcEmlqB2xcuOKedy549F/z4=
-X-Google-Smtp-Source: AGHT+IG7xfJEIBpaao1AVHuot+7nF+K9gT+jAPeV2BLTz6q/or9dTrt+5Pf96dJ2k8c2f9XmlagJlQ==
-X-Received: by 2002:a2e:aa28:0:b0:2be:54b4:ff90 with SMTP id bf40-20020a2eaa28000000b002be54b4ff90mr7826766ljb.53.1698151339104;
-        Tue, 24 Oct 2023 05:42:19 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <5ef43a7c-e535-496d-8a14-bccbadab3bc0@xen.org>
-Date: Tue, 24 Oct 2023 13:42:17 +0100
+        d=1e100.net; s=20230601; t=1698151593; x=1698756393;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WNAw0v8mCj9zjTBy9wUVcNuBSK596G4Btplqlv/1d9o=;
+        b=szVEilnEKgzO2jguRlY4o/A48Dx483b6m9zxpJCnDgSMM84udm4HtE0DWmCVyVdvxo
+         /UMtJfv7NdswT7BlpsHTyRz81YBE5QjsHVJcV0JPPCZJpDeHziERFTyDixYZTBC5N66J
+         2R2h8Dm5tvaBuuna1l7ygtt9w4mEmLyMvBW73KAIpIIjG1k3vhLyQOgt+c3q19HodYdH
+         ORZeVU5VwGbkvjJvyMVjkSybXXIgDcA9P4ZNpmmFjCEJ8nb84xkhXyfayQ5IuFF0sD8w
+         QmeCQJ64hy09j1y66fR2HdE3WLpvQchpr3qN2P6vSmwlcshfsMSgC44FOvkx3xyMB/c/
+         BVIQ==
+X-Gm-Message-State: AOJu0Yy1u23DmENJAXA8Gz98W5OHv9SMe/2JzsFPi0pN8ip5j1VsSGFz
+	L9t2SfzktsctokQzAjaVfoQ=
+X-Google-Smtp-Source: AGHT+IFQH+Y8BdmW10j7kk0nDtFw57Uuh6t4ePr0tgtZMjDzIKPazXeKMaKlGGBdA136Vy2CobKB0g==
+X-Received: by 2002:ac2:4adb:0:b0:4f9:54f0:b6db with SMTP id m27-20020ac24adb000000b004f954f0b6dbmr8001486lfp.13.1698151593375;
+        Tue, 24 Oct 2023 05:46:33 -0700 (PDT)
+Message-ID: <141935204e035701468cfaae9ff4310230f26983.camel@gmail.com>
+Subject: Re: [PATCH v1 10/29] xen/asm-generic: introduce stub header iommu.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Tue, 24 Oct 2023 15:46:31 +0300
+In-Reply-To: <176d38b2-eafc-7a78-ee17-0d5e0369cb2a@suse.com>
+References: <cover.1694702259.git.oleksii.kurochko@gmail.com>
+	 <8990c5c77c12333bfa7aba42b66bf7fffee5a096.1694702259.git.oleksii.kurochko@gmail.com>
+	 <65cdbeaa-6766-e5b7-65fb-191da6f59d81@suse.com>
+	 <e1e26fd0a31c7ab14e474d6d7fb16163e8163f2b.camel@gmail.com>
+	 <176d38b2-eafc-7a78-ee17-0d5e0369cb2a@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH 06/12] hw/xen: add get_frontend_path() method to
- XenDeviceClass
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
-Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Marcelo Tosatti
- <mtosatti@redhat.com>, qemu-block@nongnu.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-References: <20231016151909.22133-1-dwmw2@infradead.org>
- <20231016151909.22133-7-dwmw2@infradead.org>
-Organization: Xen Project
-In-Reply-To: <20231016151909.22133-7-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 16/10/2023 16:19, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> The primary Xen console is special. The guest's side is set up for it by
-> the toolstack automatically and not by the standard PV init sequence.
-> 
-> Accordingly, its *frontend* doesn't appear in …/device/console/0 either;
-> instead it appears under …/console in the guest's XenStore node.
-> 
-> To allow the Xen console driver to override the frontend path for the
-> primary console, add a method to the XenDeviceClass which can be used
-> instead of the standard xen_device_get_frontend_path()
-> 
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   hw/xen/xen-bus.c         | 10 +++++++++-
->   include/hw/xen/xen-bus.h |  2 ++
->   2 files changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-> index ece8ec40cd..cc524ed92c 100644
-> --- a/hw/xen/xen-bus.c
-> +++ b/hw/xen/xen-bus.c
-> @@ -711,8 +711,16 @@ static void xen_device_frontend_create(XenDevice *xendev, Error **errp)
->   {
->       ERRP_GUARD();
->       XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
-> +    XenDeviceClass *xendev_class = XEN_DEVICE_GET_CLASS(xendev);
->   
-> -    xendev->frontend_path = xen_device_get_frontend_path(xendev);
-> +    if (xendev_class->get_frontend_path) {
-> +        xendev->frontend_path = xendev_class->get_frontend_path(xendev, errp);
-> +        if (!xendev->frontend_path) {
-> +            return;
+On Mon, 2023-10-23 at 12:47 +0200, Jan Beulich wrote:
+> On 23.10.2023 12:43, Oleksii wrote:
+> > On Thu, 2023-10-19 at 11:44 +0200, Jan Beulich wrote:
+> > > On 14.09.2023 16:56, Oleksii Kurochko wrote:
+> > > > --- /dev/null
+> > > > +++ b/xen/include/asm-generic/iommu.h
+> > > > @@ -0,0 +1,17 @@
+> > > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > > +#ifndef __ASM_GENERIC_IOMMU_H__
+> > > > +#define __ASM_GENERIC_IOMMU_H__
+> > > > +
+> > > > +struct arch_iommu {
+> > > > +};
+> > > > +
+> > > > +#endif /* __ASM_IOMMU_H__ */
+> > > This one's perhaps slightly more "interesting": Yes, we have a
+> > > HAS_PASSTHROUGH Kconfig option, which both Arm and x86 select.
+> > > But it
+> > > is in principle possible to support guests without any kind of
+> > > IOMMU
+> > > (permitting solely emulated and PV devices). In which case what's
+> > > (imo) needed here in addition is
+> > >=20
+> > > #ifdef CONFIG_HAS_PASSTHROUGH
+> > > # error
+> > > #endif
+> > I am not 100% sure but not all platform has support of IOMMU.
+> >=20
+> > And I thought that passthrough it is when a device is fully
+> > committed
+> > to=C2=A0 a guest domain with all MMIO things. So it is a question of
+> > properly mapping MMIO to guest domain. Am I right?
+>=20
+> Yes. And do you expect you will get away with such a stub
+> implementation
+> when you actually start supporting pass-through on RISC-V?
+No, it will be=C2=A0changed. It was added to asm-generic because of the
+build purpose for the full Xen build ( the same header with the same
+content is used for PPC ).
 
-I think you need to update errp here to note that you are failing to 
-create the frontend.
+But yeah, taking into account about device.h header in this patch
+series looks like this patch will be=C2=A0arch-specific.
 
-   Paul
-
-
+~ Oleksii
 
