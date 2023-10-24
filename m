@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BED37D5473
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:54:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622084.969251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 089E57D5482
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:57:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622089.969261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvInB-0002hG-8W; Tue, 24 Oct 2023 14:54:01 +0000
+	id 1qvIpw-0005JV-PZ; Tue, 24 Oct 2023 14:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622084.969251; Tue, 24 Oct 2023 14:54:01 +0000
+Received: by outflank-mailman (output) from mailman id 622089.969261; Tue, 24 Oct 2023 14:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvInB-0002fa-4n; Tue, 24 Oct 2023 14:54:01 +0000
-Received: by outflank-mailman (input) for mailman id 622084;
- Tue, 24 Oct 2023 14:53:59 +0000
+	id 1qvIpw-0005GS-Ma; Tue, 24 Oct 2023 14:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 622089;
+ Tue, 24 Oct 2023 14:56:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JtWs=GG=citrix.com=prvs=654e64a5b=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qvIn8-0002fO-Tl
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:53:59 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 271a1db0-727d-11ee-98d5-6d05b1d4d9a1;
- Tue, 24 Oct 2023 16:53:56 +0200 (CEST)
-Received: from mail-dm6nam12lp2169.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 Oct 2023 10:53:53 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by BLAPR03MB5554.namprd03.prod.outlook.com (2603:10b6:208:290::16)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=krZT=GG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qvIpv-0005Eq-7R
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:56:51 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2078.outbound.protection.outlook.com [40.107.13.78])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8dfa96fe-727d-11ee-98d5-6d05b1d4d9a1;
+ Tue, 24 Oct 2023 16:56:50 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM7PR04MB6775.eurprd04.prod.outlook.com (2603:10a6:20b:102::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Tue, 24 Oct
- 2023 14:53:51 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::acf0:ce2b:1634:5aee]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::acf0:ce2b:1634:5aee%6]) with mapi id 15.20.6933.011; Tue, 24 Oct 2023
- 14:53:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.11; Tue, 24 Oct
+ 2023 14:56:17 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6933.011; Tue, 24 Oct 2023
+ 14:56:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,258 +46,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 271a1db0-727d-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1698159236;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=ydfUgI7OL2QhFNk+VZp7KnOdMneSICIy2rXDdd+Pz4U=;
-  b=Bz5k+/N63Qub/SPTz55CSOjcb3mns2obA0PZFjzKh4AzC56Pu79iwMxd
-   OS/etb7W+tw+Ti5MJ/hdDcCkfIS77hR6LVOqX8dpLuSMHWY6d3VSIaWQp
-   FftaV7PkrowgK0gweFzGWsusgj8j1V36ezzFJZ7Hsk0ixiYilOLadNXNt
-   U=;
-X-CSE-ConnectionGUID: 0UYFrCghSXKYj0Y2MMYeQg==
-X-CSE-MsgGUID: AXtfemz+RGORZBdyY9J6KA==
-X-IronPort-RemoteIP: 104.47.59.169
-X-IronPort-MID: 126493008
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:fo/9WakRB8zU/iY3kiW62BPo5gynJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
- xIYWGvTa6zfamb9f9B0b4618EtQucfRndNlSwU6pHxnQyMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5K+aVA8w5ARkPqkT5gOGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- aQlGR4XRR+DvNKV8bDje7NJo/UuFca+aevzulk4pd3YJdAPZMmZBonvu5pf1jp2gd1SF/HDY
- cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkV03iea8WDbWUoXiqcF9hEGXq
- 3iA523kKhobKMae2XyO9XfEaurnxHmlBNNJTOXonhJsqHSj2mIeDQ9Vb3Scm8uThl+PCvABC
- GVBr0LCqoB3riRHVOLVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQkvsIrQT0h1
- neSgsjkQzdotdW9Vna15rqS6zSoNkAowXQqYCYFSU4J5oflqYRq1BbXFI89Qeiyk8H/Hiz2z
- 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAsDA3Md4owF6lc2S8
-IronPort-HdrOrdr: A9a23:uN7rCqm+EMaMklbT9GXXe99kxDfpDfIV3DAbv31ZSRFFG/Fw9v
- re5cjzsCWftN9/YgBEpTntAtjjfZqYz+8X3WBzB9aftWvdyQ+VxehZhOOI/9SjIU3DH4VmpM
- BdmsZFebvN5JtB4foSIjPULz/t+ra6GWmT69vj8w==
-X-Talos-CUID: =?us-ascii?q?9a23=3AK14pMmtemAJvtjNhWozh9bpw6It9T0zz1lzfI3S?=
- =?us-ascii?q?IKldrEIzPbHqh9Zprxp8=3D?=
-X-Talos-MUID: 9a23:iuSy3QjHlmCVRMJ8RgM+YMMpHfd07amrGgM3vrI8ieOIJB0hGWm+pWHi
-X-IronPort-AV: E=Sophos;i="6.03,248,1694750400"; 
-   d="scan'208";a="126493008"
+X-Inumbo-ID: 8dfa96fe-727d-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dfNVPry+U0fiJJJTQyuu0UoIiU9QvOXtKjlaSmtd4JsX30wPobH+jrvy37dpnKyhFfL5Bxt/guwoc/w7Ikn8E4qvGstG1t5gnvXUz8cBP6FcBJrRVyexvKwIDTRw9lapH4OEMrXbAmC8Bb//BNeOUkmc+eKyLKC+JGmvFYX75XNC22sjpXOxccFsyR+ldJlp7+1YIU5C5NeJu38t4s9UffRrOGsoc7ChpQBTsHOqYcnNFz7cvtTTxtMuCyuijBEOHr+O2ZEEz2XyVwzNmNIYAzcypP+QAlHN3KXdKsu5ikaxIlK8EEAleoaJwE7bikbKwhXYvxkG1kySHI4BC7hbbQ==
+ b=inNbj1/TYFSXZQdDnHCDUqAPChuzM8Cn+pdhotSNFZeQIb05LSsg2nNs7rpWW+6BP675Wxiu/FPiFtEftgyU77USh3u53n9tC1Ed3ni6tuIFabQgve7az2Xe9qWLofiWoKpJlNoB5TucCqOg7eumLiYyVvil/ho0alAU6rBLc7hEtUKvmcnDMp+cp93yr0GyDkb3g5FEnzPJZGv9pk5SVpkLjhZahA97LQzx5+oE0q8GOspetsdZR2OmgxznlAOy16pwMPpC//WPrDrtO+VTrSTx7Z7zMu02P2dR0M0t5ySM/H4+HSM0HTNdzdvtDRjjtneLpkODONEo7/HznpqTMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HSyzWlTE/SNTqD/am7gdAgKLTJRO0Or0pCFadzKOp4=;
- b=Ypc1rfNGqyI/FvpNuBsxstU82QNyv1TW/1Vz96ow/+ME9UQI5vV/GPQQkyGNfFZUUARrkpWcwjzoSnw2/3gz96PHsZqZqKZkqxKitNymykQ1FzD9RC6qLGPDqIlEE7KTOcpzJLFrF1lFe3c/y7RqndlZnjpJ57+WDTrqfVRkE4CowehBwGlB+lOP9IKl3NWgG0ziaLRMwZ6eybba258Fmvo9sYutcNsrzkKVW8VN/7j8AXLAqxAfR6gAmKBMkvVp18tavUxBrzQYSQFbaCw0aEd5VHkoalkLVJL305K2+s+VD/qlWKy7/9c+YuKgUqZeNZnsqJRaHD64xxHG843/hA==
+ bh=rbGcT1DsOGDZZbzoM4yu+8Gw+XJ2neSKl2FpYfLoSEs=;
+ b=cgJ9V9gHR44dyHghzx0OHRmtu2ca23Sj7Hd1RGBU8iahG+Xb591zDDT8jGYOL+eeS4IEHpQnWrMLo5M6OyapvuLr3Gcp3fuvEjWnp41zfZ4I8BWD5SN0phEqwfOTEN7znBHZ2AZ/LSXHkIYA0bq56kyU7olC1iIF58lKI45Bp1baYWu/BoCaOGj5c9nGz6cbGrIhMbxI+rYB7rltDTZlzDOYVjFNN6PgHgx4BeIq1f+FqGWGtW+mq2nmhdXYlPk/wfvi3Rws7YwjvyO3Cg6zbc2fdr1Uwl7nBzY3AJplqWHXhjNkLuMO4CaMwPC1YvlUOl1vrLgdZDS5p2ns07mk7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2HSyzWlTE/SNTqD/am7gdAgKLTJRO0Or0pCFadzKOp4=;
- b=Vj+llzf+eSxBi/bPPbhgeYkMGfiq0Za3ZlYVI/Y+h2/iFXBAm58rNJd1zczD3ZvI2QmrN2HAbr0HaCus/Z6JmBvHKszxGPmYVbX3eRCnk+bO4b5DhLxpybDdOIUGGVeaHnIDYg2Z20keQq+AtR1AgHF6Yqy/dBSd/GK5abCb6ug=
+ bh=rbGcT1DsOGDZZbzoM4yu+8Gw+XJ2neSKl2FpYfLoSEs=;
+ b=ER4lkj6IacJhHBucDoXcjNw4XTcCk6xETuQNO80/fNHWUjfSo4ke9hdU8jI7Al9dYY0s+VjR93TyBHqWRjeBvSBnZFSZJwCkUfb/bpmA0SzPYzeeEFKJSCsNSulgiiMOSV0lwNtkUHm26gU2nbCtrFdk1Zrz8/0/79l/9qIRyU0K7G2FHWPxMf+b7q4Hqxv7F8SKc2hjk2qkDQhiRiogpU98TSvVwiJLdixE3yEBKGaIQthPDBRhSbgeORrGC+Q9TOcBBPPocuhLe/tX3af6C5iR+dUAloMe11EeHZOhrlgMutPSdC6eJ5fghU44hyTnZDScM+KuLA5xMURfsdqv1Q==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3] x86/i8259: do not assume interrupts always target CPU0
-Date: Tue, 24 Oct 2023 16:53:40 +0200
-Message-ID: <20231024145340.49829-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.42.0
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <71bcda90-0351-9487-5b68-89718146bb9a@suse.com>
+Date: Tue, 24 Oct 2023 16:56:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [RFC 2/4] x86/shutdown: address MISRA C:2012 Rule 9.3
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+ <b4781f1a558a32747f1aca53b6da50a2d4b61f1e.1698155925.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <b4781f1a558a32747f1aca53b6da50a2d4b61f1e.1698155925.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0512.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::19) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0182.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ca::12) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BLAPR03MB5554:EE_
-X-MS-Office365-Filtering-Correlation-Id: f14e526a-8521-4765-c1ee-08dbd4a108da
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM7PR04MB6775:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4b10b9f-baea-4286-6e28-08dbd4a16005
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Na2X4/XCue8CHVac4ml/BWdzu6oilBDjSxLrvIxBWNa49ElEfstxgl7dywZsTx0SeLW0S3n4ZHRYsP+ezBsMf3SSJKl1MDlxnxsAOxhre3LYDmJ5vedPlPz5NKBpA4XFCUl2yrEPyLUCTHCVG1SauR2N8caohDacBxZbDtpMSTDnb1WWDXXxw9nZ9/X5UM4L4vXgKH2bPH8L1OAdtQ0JpXz2pSF7eI1+KwXleg5gloI2+mKiGk4vIP3DHqX1OOI93IS4A6woXnHHkJu1SzdyK0ks/Y3lPE14Z+YPIxkryO41DeoymDQe6KLRWw6OetPWymNUjfF844IBh5vG3TTFmDDYcObYVzj/Zki2vP7LcqxWsOeauLSf9JWLHV+X87cpVN5Y5XrYkRwpRZbiZ1MF4GdhzbpDOC+smm+xz70u9jn4tt/1j8Wc2wZb9Kcm/XUb6LwmpsRdZzW8MGd02Pxx5oW6RtSMsqoQE2HNKSR9fsLzx42TkGhWkZJDPcgfusLPxnSMF1tfMcOJYW3cJU10ICC1qehEEgfd0FazVPjoSMrc26BpefG1kswiHvsAgeWX
+	Lj7HJJirc/YDnllXQSzz67OqUFsZOn/170v3YzLHnzd9sIjAI6NrO3+p4B3fLa+a9uDBG7h1v42OC9nRDaPglLKwZ/YupyUnFYt2cKiWudPWnpaKD8KSmnmI19xrHSUbTHeVgaI67L/cgsibKwMRqG5teS4SQRcmmryOu9vrPap1O+U7dBIzmOghzoj/Vl3HMQ7Fy77b1t+krwiP+5Ly2ibMBIWtbuTrFlF2sg/O5r/HDJbospvcr1gMA/IX/KrPugZ/lV7PnkudaSOghpZM72Cw26712rMniY9xRdQ0jrutS6/Keb8QYVL7VjTTXydvJTddhtbERHZA8+/7ErRxexgTGOriGD+eN4uTmRGL98dURk9QdnXcBIBTJ78mKoaUfGg4AqkByBlaUFOekDqB27Td5j2LVZT1Br3S7EtNA23hQev3rhlKLP2L8r33RpwpGOV57E1x6lM25tguVRrILV2wIEHLdzR7JIfJdm5d764tmewmX0FgluthTW7H2o+8MSZ7V9W2WWE9aO1+N/HSW05w9DgL9ppOA71E3bc2631najFmoHd2NfNnv5HWcS04iSPr71+RLKlWh8dK/eHP2qb6QXJo7Cmx9z6EkKN3LfQUA9Q6rk6BV+NGiBmX1sexWTY29YSJOCo81dwzK2BNYw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(346002)(376002)(366004)(396003)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(38100700002)(6512007)(316002)(54906003)(66476007)(66946007)(6916009)(66556008)(2906002)(478600001)(36756003)(86362001)(6486002)(6666004)(82960400001)(6506007)(1076003)(83380400001)(4326008)(8936002)(5660300002)(26005)(41300700001)(2616005)(8676002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(39860400002)(366004)(396003)(346002)(376002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(31686004)(36756003)(6916009)(66946007)(316002)(86362001)(31696002)(66556008)(38100700002)(66476007)(53546011)(83380400001)(26005)(6506007)(2616005)(6512007)(6666004)(6486002)(2906002)(8936002)(7416002)(478600001)(4326008)(5660300002)(8676002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aHgxSkQrN0VQVHJHSjNrR0ducC9OQVZOWkdWL1F3UThsM0tCVW4vRHc3Z2Yy?=
- =?utf-8?B?L1E3NktWdWpJMDRPRGdFeEhEdEZGTkIxT2QveG1TQ2F1RDBSM3RPU0V5V1g0?=
- =?utf-8?B?UlRlSFg3bjNCU0Q3L2plRmpMelpnSkg2by85bkxsa3B5bHR3Q0dQeEJ2eVdU?=
- =?utf-8?B?TjcvdkpLZlEvaEwyVHdwWVUrb3I3YnpGV0xONFh1enRVRE8vRS9YTjNJaWtu?=
- =?utf-8?B?L0tqNmRMSGpxTWw1dUtOa2p5NWhJYUZOT2dXaExSbUtWQUNPUXM3dnFiUUdm?=
- =?utf-8?B?U0s4VzdhcTduaTFpcDVMMTJmNXBtZ3lvZ0FVNUYwMnh4a2ZKcERsS2RTU244?=
- =?utf-8?B?bnJVMnhxeTFhVTk1Wm9NcUxsQlJpc05hdXd5cDJ4b0Rjd3I4ZFpGSldvdXpU?=
- =?utf-8?B?L0xJZ1c2c2RuejBoa0diZ1ZNbXM1aWRuS3dabTV0WktnT1B5d2pjQ1lxM2ZG?=
- =?utf-8?B?Nyt4aERta3RTcDVDUjM5cnZKeDJuUkhTYXhxVkdzOXZZa0t3di9JeHJkQ01N?=
- =?utf-8?B?SUpibjM1c0lyUHpaYUJ2dVU4ZlJ1eEg4dVNXRUdQRFVYMTdRcmVJVzVNb3Iy?=
- =?utf-8?B?cjNqc1hGS0xmdWI0clVDNmZ4RmVKSVRLd3BOVGxta2RmU0lnenRkQmZvMGQ1?=
- =?utf-8?B?QzV0UG5PdkEyM0RGWDVoWDNneEdHT1N3eXhqMHk3a3BKZTRjdFlTbmp6cmNW?=
- =?utf-8?B?YjNPd1E3QkJuTURscnVaWjhDWUQ4cG9DeHVweElGQmJjM1NDVW8xblhOclc0?=
- =?utf-8?B?dHFxQWVDVGNSMDNMSTJsY0FpZVBOcTVmc3ZnckFocklrK0JwUVZkbFlrNS9O?=
- =?utf-8?B?S2h0SE04RVhrS2krdHF3cFpzUndKV0dYYTdqVlFtZWs5RXJ0YVVnVU52L3V3?=
- =?utf-8?B?WE1lNEUrWFVPUXFUMVlIRExMY0R4Yzk2STRBdnVXWEYvYnFDOXJJTVZMd3RB?=
- =?utf-8?B?SnpVbEpOUjhCY05PY3FmeUhpWlJEdFZyc3hMWkxGczhwK0Z1NmwrUVR6UnJG?=
- =?utf-8?B?dmNVSVBLSUovUklRUlM1dXprNmI4MmE1ZjdOdFlLUU5IR1BWT3JoN3Vpc0Zr?=
- =?utf-8?B?UGluTGpzQnlvOVJMYVRLNzJodUg4bWplWW1TNjBiZzV1cFE0K0Q2Z09MZklO?=
- =?utf-8?B?OE13WW9ST3ExdDVOYUR2eE16Z1hmSHNSUmdBcDEybGxkT2xjZFhjNm11TjZD?=
- =?utf-8?B?b2QrT3FqL1U3UCtjSXRuMWp6Nm04ZWZLVW85OE9Qb2FyUmFSRUhZYVFMYlQy?=
- =?utf-8?B?OGRjejBRTnE0aHRWNTJuTXdFK2lRTkoxRk9YY3FPVldCdENmT29TbStuNWU1?=
- =?utf-8?B?R2lUTTlxTHk0TS82RTErM1RwQ1ZjYjZ1V3R6ekRZVU5DMjhJdTVTZVE2Z2xm?=
- =?utf-8?B?Z2ZOc1M5bjRJVjBVSkgyc0lLZDRJYmF1UldvaStEQUNLclROSzNkTEJmeUJQ?=
- =?utf-8?B?YkNrNklybVRGR3l6MmcyS1JLS3FMVWFQdFN5N2N2bVZYTmcvelpObkQwWWJm?=
- =?utf-8?B?UkRTWHg4blh4NWh5V0hVM01WZ2ZKbnhYOWMwVi8vMFdTV0FXK3dCU21MMDR3?=
- =?utf-8?B?dVhUMlZDTXpGWW5VSER6VFJtWHZFSVUrTHVidXFtYm9lV2tNYWtFbHpEbEIr?=
- =?utf-8?B?Ui9aaW4rM3V3RXlrV1lCNTNhSUtnUWJuNEs0K1NWSVFBelFLOFlOWk5HU1V5?=
- =?utf-8?B?UWpMd05mWTh0MDRmVnZhQ29DeVZhMy8rZkN1YS9mdG5hbUgrTDF2TlZ6eTVK?=
- =?utf-8?B?akpNb3plZmZXQU45aS9VWDJ6dm53cExpRGZxejBRWmQ2bVRvUWFKN1doWlVz?=
- =?utf-8?B?bkFwT2Vzd3VncURsTkRmeUsxclVVRGt1TmFDWExia0REWGVNV2UwbkhwSGZY?=
- =?utf-8?B?c0Z0UVBjOVh1dDRpZVRLR3NWVzBoeERsTFFCb0NiL2w2eEd2dnA4TG0xanBO?=
- =?utf-8?B?bERSdjBlY2ZIbk9wYUdNR0VqaGZYbkIxZndvV0Y1UVlFWEpxbFJreHYycFl4?=
- =?utf-8?B?Ti9meGlsYjd2MFhhRFROUnVxOGsvVC9YWVlpM1ZXMFl3QVlXbUhsZ1NzQXkx?=
- =?utf-8?B?UHBveDNNNE5zSmdaVEw3Z2lmb2xFOTVYOVZWUGdFUkRGM0VUdzg0dmNHb05p?=
- =?utf-8?B?Z1I0NE5yQjVaa0lwcVBvL0pzdUJ4WTdTaGpKVDdUSGdlUG01ZGNPTHQxY0xX?=
- =?utf-8?B?aXc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	6iwRBriVZtrHfvEeKHIxjZ5jNu/2AGFMvK9NNYz1OkGQC6YsqZll0Sz0fWGTScHIibynKwXPPC/cmGStMsi37XAdRaTBis0w/hRmh6R2R3Gcj0AeRXHLShSluq1x2C2Pgg1N5YLP5d02dZTO2qclSpl99jlRcRvILpm7H1Cve8CK73E77OAMM0icX2bCz8JNtcySSpu9SGDRNS4pKEsEJaanoYfG7ROyiDnlITG401Av6aGWJaNZMPEHphKWZB+s3PhI9rSV/oAgV39/MeojresrxcZdqOIlmZC6NhBQPypkMtFa9Ba1+rX46wGdTedbj3N4pK/smo+1UdwH9EeQsqsZA30zoVwOmSdh1Ft44PMOetIkmmbKf3sRfZ0rPxJc+PAIoT+mANf0debqIPj8iuYwaz9ON94N97UXT49Ec0OhnQUyaYhYAVg4QJmoDls0GJfGCsOYk4SpwzLoaHMPPCxm8AjvjvVYGKR5T+Id1ndt8iukaxoHMRg48zVuP5fwu/MVuMVogWNP+fFfvrUVqDLDzTlNW0e4+J1ogEJfNhQW6CrdFNnVQ0gdexFL/CDUNier4+JZ0fqZQd5uU6+FECU8jgfCWNF0U4U0UtKCGkbHXyg1S46ofBx8b5PboDBvD33iMbiWIlAxBFaOdRHrWVYvY9DD1tva9NYPS0CrZWwNnHmbUjYoMwB8mtcPv3fGbhk68jRFbwEeW4OzPrU4gzu64eAA2wsUOH9bQkM8oxhago698kOa+vZDpAPpwE2pp7R8qAUWs0P/KnYiBY2WicmeWc57Q0kXXOnWem3QJ+tVZN+WPEXQ6qvhQXzzy+/KCnnMUtDFb0qKFbtUyo8OVA==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f14e526a-8521-4765-c1ee-08dbd4a108da
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+	=?utf-8?B?MUZ2UVBGWjV1NG80cjJDNVEvRklSZkt6WmYwQ2M3ejkvbGdJOC91RDNKMU11?=
+ =?utf-8?B?elVNZnlWVlJBRE1TMWEzZTVKQzh6KytSY3BtVVJtc1FLb2Q2QzJnSWwyc1NC?=
+ =?utf-8?B?NzlZK0ZJU0h1WlNIRkNnR1ZLYllrdGJPYitGQ0liRm9RcjA1QkxiVGdPd2Js?=
+ =?utf-8?B?MG8xeXFSK0JsREZlTUUrR1NrU25JVzg2OXAzZkVMVTFKVHBlUWx5WWQ4TTBE?=
+ =?utf-8?B?dmlqUVJ5clBTamtBcjl6VkU3bkhOc2ppY0I0MXFaOThHc0k4Z0JybzVtL3ln?=
+ =?utf-8?B?NmJjcTRWMDRIVVZaa0l2YWt4dERYaE10MUw3V0dUdTZnbXNWekRMNE9LY2Zj?=
+ =?utf-8?B?VnBLNmFkeW9NZFU1U1Z2OHJqT1hFN1M3SEZwOUV1Y0NFZHJmY2FVMU1tckhP?=
+ =?utf-8?B?WVVLdWR2M2V0ZHdKODlLR3JibkUzbmFpMHFWMFF5cHJvNld1WENuN3RiTnRK?=
+ =?utf-8?B?NnBReVR4clZlV2JhbVBVVVZWbFdNbUFpTkJ5NXoyeWkwV3JCMkJ1dkhqYmFl?=
+ =?utf-8?B?TjZhb1F4SHNqdWROdkhudkc5RGgzTGhteU52SGliV3F5a21oeUxocWlsZGEr?=
+ =?utf-8?B?SnRzZHRGZVBSZGpPcUtYemY5UFYwVWgzMmFZdVBJSDd3VDRhSmpaKzJBMnFL?=
+ =?utf-8?B?ZUVtUHc2Z2FRc2FnTm85d2o5b3NmR0IzL2xDYU11VWhsanp3ak5neWpkb3Fi?=
+ =?utf-8?B?K3hOdys1VENMaUIzckpMVmh4UjdYd3hhNHFHdnVtUnYwbDRhejRoeTBLSFhw?=
+ =?utf-8?B?dEJiVkZIeHE4cnYzamFaMExkSkJrcFR3YVJjRlNNTFA5UE0xbXdaZ25mUFF2?=
+ =?utf-8?B?eFZvKzFYSFhnOEdoR01rNW1reVptWnlzYW4zaFhjY054c2g2Y1J3V0ZJRUND?=
+ =?utf-8?B?ZW9YRFhVVUM0KzZ1OHZCblhJU2swcm5zUFI0aXJuazNuZTNueTZDQXF1YldG?=
+ =?utf-8?B?S1J4RysxdFh0bUdGbWNJOTMxMFFOUm94TkVKOHk2emlsVzI1NWxKTkFpaFph?=
+ =?utf-8?B?OU0vUGRzaGlUWTFQZHowQ0xVcElXanVZc2hScFhaeDFsSGhRU1lMd1YwZmVl?=
+ =?utf-8?B?bDNTei9OTDZ0QjVRMVducXJhYzJmVGtjcjdVTGVHYXVPZGg1d3hzZWQzMHZa?=
+ =?utf-8?B?S2M2b0lZRWdaNTJYTy9sNFZ6RkJMNE4xUFd2WWk2RGZmMXlxc3NVcmcrRkZV?=
+ =?utf-8?B?MVJQREo2VHBrZWdmV1NxcXpCMXkxWXZ0cDZxZktFL0t3b2ZVa2htNTc1K2o2?=
+ =?utf-8?B?U1BZcmg5WnYzVjR4dy9NTkUrejFRd1RhUDNnbmY1T2k3L3lrMytxMGFjekEw?=
+ =?utf-8?B?UUY2ajRBc1doSHZFR1k1U0RTeGxiSWIzTDdDMmlsRHdTTGJXODhWa3duZ2pO?=
+ =?utf-8?B?THNrOEZtSzRwK21SamdxRlJ0cGdJcldiTlVybnZTaVJZNVl3d1JVaXZHVWxW?=
+ =?utf-8?B?R0Y1YUJNSjJDVVJIVFNoOTFyeVhhelR3bVVGQ0QwKzdqSUErTUxZUTBBVTRN?=
+ =?utf-8?B?Y0VYb3o0dnRDeHFMWGJHK0RSSy81QUE1d3E2ckl4VGZiMkJ0SUFUdXZqYW5p?=
+ =?utf-8?B?N2VlcWhWVFV1NDJzM3g4VmZDVGNEOEEwUXFGR0FUODVyaE02M3JROWk4QWJF?=
+ =?utf-8?B?VUFGYUdpb3ZqS2owWlZ3Vk1oODFweXdqREVPMmVVR0ludzdqSTM2anhCZmJn?=
+ =?utf-8?B?aVdCZ0d4UERXR25VNEwxWXd5NW9GQ0FYc1NWRHY2R3Y3aldhaHJLNEs0T1k1?=
+ =?utf-8?B?d09VMWhiUVkzVG5ySGtVbDM1b3EwRkxseXRDMnR6UFU4dnJ4bmxyRW9QeDZw?=
+ =?utf-8?B?ZWYzYWFIUGZNc2ZZT3BsRjlzS1NyNFZib0Z1SDJiYmpxaUNvTVl6V1kyRU5N?=
+ =?utf-8?B?dXp5SDlXM3prVDEzZ204RlU5SklxN2EyalVxZmpEMGhxQ2Z6RldOV0gzczRQ?=
+ =?utf-8?B?dHM0WHVrWEhzZ2IzQ2lmbklmWTlUWVhzMWhBM2U5VUhXazBsVE5NeTJlMHJs?=
+ =?utf-8?B?STFPTUd3aUNLNDlQVXRDQkxURGtaNkc3VG51K1pYdGwyYlMxeDRLWTBCRUFB?=
+ =?utf-8?B?cjZoR1dWSi9nb0c0ZGRqeVNRSEY4Tnp6M3hYSkFEUFVmdzA0V1k1VW5nN2RB?=
+ =?utf-8?Q?TyedYBdm0ZsscBTS7ItGQLrzl?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4b10b9f-baea-4286-6e28-08dbd4a16005
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 14:53:51.0311
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 14:56:16.9911
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gPj6pOJtb5wFTsZR1LolaYklbAi0EOB4Z718ypD24QG5hTva9QSZyCQmEph+pAFbElyiro2f8CZpFC1j43W1Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5554
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z578IIpNvxcGpByMEIv1Z9Y1c7kINeyVVXPIaZek5iPMVyF3RG/ekzzLwRw3zi8A4RIcRQIdXudUpfBvsf8K4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6775
 
-Sporadically we have seen the following during AP bringup on AMD platforms
-only:
+On 24.10.2023 16:31, Nicola Vetrini wrote:
+> @@ -225,8 +225,8 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+>          .ident = "Dell OptiPlex 745",
+>          .matches = {
+>              DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 745"),
+> -            DMI_MATCH(DMI_BOARD_NAME, "0MM599"),
+> +            [0] = DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 745"),
+> +            [1] = DMI_MATCH(DMI_BOARD_NAME, "0MM599")
+>          },
+>      },
+>      {    /* Handle problems with rebooting on Dell Optiplex 745 with 0KW626 */
+> @@ -235,8 +235,8 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+>          .ident = "Dell OptiPlex 745",
+>          .matches = {
+>              DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 745"),
+> -            DMI_MATCH(DMI_BOARD_NAME, "0KW626"),
+> +            [0] = DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 745"),
+> +            [1] = DMI_MATCH(DMI_BOARD_NAME, "0KW626")
+>          },
+>      },
+>      {    /* Handle problems with rebooting on Dell Optiplex 330 with 0KP561 */
+> @@ -245,8 +245,8 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+>          .ident = "Dell OptiPlex 330",
+>          .matches = {
+>              DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 330"),
+> -            DMI_MATCH(DMI_BOARD_NAME, "0KP561"),
+> +            [0] = DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 330"),
+> +            [1] = DMI_MATCH(DMI_BOARD_NAME, "0KP561")
+>          },
+>      },
+>      {    /* Handle problems with rebooting on Dell Optiplex 360 with 0T656F */
+> @@ -255,8 +255,8 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+>          .ident = "Dell OptiPlex 360",
+>          .matches = {
+>              DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 360"),
+> -            DMI_MATCH(DMI_BOARD_NAME, "0T656F"),
+> +            [0] = DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 360"),
+> +            [1] = DMI_MATCH(DMI_BOARD_NAME, "0T656F")
+>          },
+>      },
+>      {    /* Handle problems with rebooting on Dell OptiPlex 760 with 0G919G */
+> @@ -265,8 +265,8 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+>          .ident = "Dell OptiPlex 760",
+>          .matches = {
+>              DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 760"),
+> -            DMI_MATCH(DMI_BOARD_NAME, "0G919G"),
+> +            [0] = DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 760"),
+> +            [1] = DMI_MATCH(DMI_BOARD_NAME, "0G919G")
+>          },
+>      },
+>      {    /* Handle problems with rebooting on Dell 2400's */
 
-microcode: CPU59 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
-microcode: CPU60 updated from revision 0x830104d to 0x830107a, date = 2023-05-17
-CPU60: No irq handler for vector 27 (IRQ -2147483648)
-microcode: CPU61 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
+Well, no, this is what absolutely should not happen: You're breaking
+the code here, but initializing slot 0 twice in multiple instances.
+From looking just at the patch I probably wouldn't have noticed, but
+the "always elements 0 and 1 only" pattern made me "grep -lr", where
+the issue became apparent. Otherwise I was about to suggest we shrink
+array size to just 2 elements.
 
-This is similar to the issue raised on Linux commit 36e9e1eab777e, where they
-observed i8259 (active) vectors getting delivered to CPUs different than 0.
-
-On AMD or Hygon platforms adjust the target CPU mask of i8259 interrupt
-descriptors to contain all possible CPUs, so that APs will reserve the vector
-at startup if any legacy IRQ is still delivered through the i8259.  Note that
-if the IO-APIC takes over those interrupt descriptors the CPU mask will be
-reset.
-
-Spurious i8259 interrupt vectors however (IRQ7 and IRQ15) can be injected even
-when all i8259 pins are masked, and hence would need to be handled on all CPUs.
-
-Continue to reserve PIC vectors on CPU0 only, but do check for such spurious
-interrupts on all CPUs if the vendor is AMD or Hygon.  Note that once the
-vectors get used by devices detecting PIC spurious interrupts will no longer be
-possible, however the device driver should be able to cope with spurious
-interrupts.  Such PIC spurious interrupts occurring when the vector is in use
-by a local APIC routed source will lead to an extra EOI, which might
-unintentionally clear a different vector from ISR.  Note this is already the
-current behavior, so assume it's infrequent enough to not cause real issues.
-
-Finally, adjust the printed message to display the CPU where the spurious
-interrupt has been received, so it looks like:
-
-microcode: CPU1 updated from revision 0x830107a to 0x830107a, date = 2023-05-17
-cpu1: spurious 8259A interrupt: IRQ7
-microcode: CPU2 updated from revision 0x830104d to 0x830107a, date = 2023-05-17
-
-Amends: 3fba06ba9f8b ('x86/IRQ: re-use legacy vector ranges on APs')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Put the AMD vendor checks in do_IRQ() instead of bogus_8259A_irq().
- - Re-indent cpumask_copy() call in init_IRQ().
- - Reword one sentence in the commit message.
-
-Changes since v1:
- - Do not reserved spurious PIC vectors on APs, but still check for spurious
-   PIC interrupts.
- - Reword commit message.
----
- xen/arch/x86/i8259.c | 21 +++++++++++++++++++--
- xen/arch/x86/irq.c   | 11 ++++++++++-
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/i8259.c b/xen/arch/x86/i8259.c
-index ed9f55abe51e..e0fa1f96b4f2 100644
---- a/xen/arch/x86/i8259.c
-+++ b/xen/arch/x86/i8259.c
-@@ -222,7 +222,8 @@ static bool _mask_and_ack_8259A_irq(unsigned int irq)
-         is_real_irq = false;
-         /* Report spurious IRQ, once per IRQ line. */
-         if (!(spurious_irq_mask & irqmask)) {
--            printk("spurious 8259A interrupt: IRQ%d.\n", irq);
-+            printk("cpu%u: spurious 8259A interrupt: IRQ%u\n",
-+                   smp_processor_id(), irq);
-             spurious_irq_mask |= irqmask;
-         }
-         /*
-@@ -349,7 +350,23 @@ void __init init_IRQ(void)
-             continue;
-         desc->handler = &i8259A_irq_type;
-         per_cpu(vector_irq, cpu)[LEGACY_VECTOR(irq)] = irq;
--        cpumask_copy(desc->arch.cpu_mask, cpumask_of(cpu));
-+
-+        /*
-+         * The interrupt affinity logic never targets interrupts to offline
-+         * CPUs, hence it's safe to use cpumask_all here.
-+         *
-+         * Legacy PIC interrupts are only targeted to CPU0, but depending on
-+         * the platform they can be distributed to any online CPU in hardware.
-+         * Note this behavior has only been observed on AMD hardware. In order
-+         * to cope install all active legacy vectors on all CPUs.
-+         *
-+         * IO-APIC will change the destination mask if/when taking ownership of
-+         * the interrupt.
-+         */
-+        cpumask_copy(desc->arch.cpu_mask,
-+                     (boot_cpu_data.x86_vendor &
-+                      (X86_VENDOR_AMD | X86_VENDOR_HYGON) ? &cpumask_all
-+                                                          : cpumask_of(cpu)));
-         desc->arch.vector = LEGACY_VECTOR(irq);
-     }
-     
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index f42ad539dcd5..c31e9b42a567 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -1920,7 +1920,16 @@ void do_IRQ(struct cpu_user_regs *regs)
-                 kind = "";
-             if ( !(vector >= FIRST_LEGACY_VECTOR &&
-                    vector <= LAST_LEGACY_VECTOR &&
--                   !smp_processor_id() &&
-+                   (!smp_processor_id() ||
-+                    /*
-+                     * For AMD/Hygon do spurious PIC interrupt
-+                     * detection on all CPUs, as it has been observed
-+                     * that during unknown circumstances spurious PIC
-+                     * interrupts have been delivered to CPUs
-+                     * different than the BSP.
-+                     */
-+                   (boot_cpu_data.x86_vendor & (X86_VENDOR_AMD |
-+                                                X86_VENDOR_HYGON))) &&
-                    bogus_8259A_irq(vector - FIRST_LEGACY_VECTOR)) )
-             {
-                 printk("CPU%u: No irq handler for vector %02x (IRQ %d%s)\n",
--- 
-2.42.0
-
+Jan
 
