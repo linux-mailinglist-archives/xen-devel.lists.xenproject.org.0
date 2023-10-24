@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F3257D5445
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:48:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622071.969221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6413E7D5447
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Oct 2023 16:49:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622075.969231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIhG-0007tZ-W2; Tue, 24 Oct 2023 14:47:54 +0000
+	id 1qvIiA-0000PP-D3; Tue, 24 Oct 2023 14:48:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622071.969221; Tue, 24 Oct 2023 14:47:54 +0000
+Received: by outflank-mailman (output) from mailman id 622075.969231; Tue, 24 Oct 2023 14:48:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvIhG-0007rj-SY; Tue, 24 Oct 2023 14:47:54 +0000
-Received: by outflank-mailman (input) for mailman id 622071;
- Tue, 24 Oct 2023 14:47:53 +0000
+	id 1qvIiA-0000Mx-AO; Tue, 24 Oct 2023 14:48:50 +0000
+Received: by outflank-mailman (input) for mailman id 622075;
+ Tue, 24 Oct 2023 14:48:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+b+W=GG=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qvIhF-0007rZ-IE
- for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:47:53 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=krZT=GG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qvIi8-0000Mp-UL
+ for xen-devel@lists.xenproject.org; Tue, 24 Oct 2023 14:48:48 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dfbe145-727c-11ee-9b0e-b553b5be7939;
- Tue, 24 Oct 2023 16:47:50 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-32003aae100so3308515f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Oct 2023 07:47:50 -0700 (PDT)
-Received: from [192.168.6.66] (54-240-197-238.amazon.com. [54.240.197.238])
- by smtp.gmail.com with ESMTPSA id
- o6-20020a5d62c6000000b0032196c508e3sm10007458wrv.53.2023.10.24.07.47.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Oct 2023 07:47:49 -0700 (PDT)
+ id 6f630715-727c-11ee-9b0e-b553b5be7939;
+ Tue, 24 Oct 2023 16:48:46 +0200 (CEST)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PA4PR04MB7951.eurprd04.prod.outlook.com (2603:10a6:102:ca::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.9; Tue, 24 Oct
+ 2023 14:48:44 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6933.011; Tue, 24 Oct 2023
+ 14:48:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,736 +47,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dfbe145-727c-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698158870; x=1698763670; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8nIDkXcK1L2pA5qIavXRP+zGfeQrahvnDQA7z6M+ogc=;
-        b=bqrCiANFCC62DP38r5s8fMMowhpH5AKOtuj9RPlZ2xRMsX1z0yTfX/yuHuNJJfMF+G
-         YAzxDSj+2vmB4lc1gpNkkMjQjkUYsw5OD0J4jUDhOTk/2Nrkccq6qYoxEaAmoKIRbdXM
-         izm0Febz0W4NAQXo8HvYotw3NpilhLRV1PJpyc2/a67TOnCyUYq2TwnGMNdTdIet9ytH
-         v2W2XsI4l2gRpoLhzPVUQIhDAtFz06v3PdMwSDGdskHiMDXa6I7LAN9N1p2GyqJ3g0U6
-         nSsrHF4teRuACCh2G1XgdpZScHQh2ApqaAw3EQHLk/9MreaeRjfNFvhG0shsqSXUG2j8
-         Asdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698158870; x=1698763670;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8nIDkXcK1L2pA5qIavXRP+zGfeQrahvnDQA7z6M+ogc=;
-        b=REskEdeFhP3fyNbSalh54eW6KU9otqKCCexqO/K/gPCJIq+ClYTqHOtdfn34aX5fr4
-         fcnD52eVLfk8snCD4R+L7rdfo9IjHqEgIn3xDx0uDavKTFJp3cRhMolKNpdQVn0MZh/t
-         hEIFg6I45DZ13ZXHHd85T+dfP5eJXsjdRxynEXt17Edia0Pt7hVJHPFyHmXkwUw6CyPx
-         /x2fWcPorMIMgI3fmQJ693EHkHV5efhFVn5O7mVLZmV366w/6/DqBRD/CoJDf3s+Mj1Q
-         XeMmVxIlVnwko1CetQZyH3uueJsx+sUOnp36di/BsqYOIfJogbkogcyzF7fDdxplNTqB
-         5M+g==
-X-Gm-Message-State: AOJu0YxRJdzSULbV55qUydaFCFC4oYkHAJ18+g8UqS+9KgKvoRoSTOSM
-	SEKsQEWHyFVobv2bEuXTBDQ=
-X-Google-Smtp-Source: AGHT+IHokB7bxOsKiiCbpn6zP3VDajwGmSFhddjNbyDlX+FWui44aH6ltyKiqVw/F9MOHwgDod1ZZw==
-X-Received: by 2002:adf:a499:0:b0:32d:a3f7:f0dd with SMTP id g25-20020adfa499000000b0032da3f7f0ddmr14062432wrb.25.1698158869738;
-        Tue, 24 Oct 2023 07:47:49 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <53e3e3e3-7bdc-4102-b833-bcacd496a31f@xen.org>
-Date: Tue, 24 Oct 2023 15:47:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH 2/4] hw/xen: update Xen PV NIC to XenDevice model
+X-Inumbo-ID: 6f630715-727c-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A5ucksy5SFTiegWqvatL5o3cwXL0Azg+FJOEY4tNG2/MNMR/ozTXOXDv2oiXROb2J/Pw8EYGs4ihdkUdwSK3gvjoZGQpG0H5NmS4iyNQmpRh8f9cfTTFs6PntaB+w+/ARsMuG8kB5c9njPcfAL/ak0qR/PAx/66dhfUPwq2bI6lJxgxdl0iBaC+C5GYCz9VHRDShj8wq7KD9dxz1/pTmZm/JAcz1DVzr3uWUNUnzP/vFOp3jqKf64uSkz9sFHic+WlF3W+cHgg66PYSoUbVZ2BvOOojpxeH7HodeWNZDMBdTGthltxn0gGI+szo0yXZfFwqQKSKBrXA0v8pOnWqb5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7ImfW75Ej0CJDLxayEutRsb0cgLLbHpD24FhnXr/aTA=;
+ b=lSHtdDtDP8ldyOvCuCl3yMQnt4QWPb5vpYGsiBzKRXDgnGO80RmvI8heh2jA9crKp73ek/GHql5vDZ0G+VtyFKyNTUsO2Exum5jhAMtlYuVUc5YbG66xoaHu/dOIkfWfmg7gHj8k9ZfyoJQqfyllltCWYvobA0BkI+PFTa03mydqQHgePijIJJIKGnLakop2XfLzCBI6HxfT2LUYJvdJX9wUxgGaXwRrJskKT8qEkZsvatdsXnghk10ZOCIM0RNqDUInEH7gXWDmd3NtR73zQaXjY8SL2bkTIZbFa2Toq7TMdR4Ih/ZHbHZaQ38CzkV2GysHU80CyVJAMuCVm2ThKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7ImfW75Ej0CJDLxayEutRsb0cgLLbHpD24FhnXr/aTA=;
+ b=peQy8eaNZZC3FNa94PyRwWpvVbExj5cNhyByE8Q9uGowuK7orUAjUwxdkMhsKqlfhcBQkhKJVcAjE029IJqiIrdi1SZ5vSYzqLYpit2/FA/4cf9/ruumx+eBy6ryoNtAx/lRL+C5kqNed/ySK7zpf3/Y18P9tBM6ODCzPUPpULrPpBSbgOZ9o+VPDnMHHgMAtQid2Q5rHNnvwtjV8OL137xUMAENBat6hwjfhZPyZDl6Q9MAVeysr6OTHnVxQjlzKk6UIfAiGzGUi1WPee8bIm51NV7gOZrW1iFmVYfsBBQ0lqXUA6fuqp6txCEelaWMF8WV5voHNka3TA5KfrjaUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <60e26ad6-7366-2604-e9b2-ed401cee6e73@suse.com>
+Date: Tue, 24 Oct 2023 16:48:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [RFC 1/4] x86/ioemul: address MISRA C:2012 Rule 9.3
 Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Jason Wang
- <jasowang@redhat.com>, xen-devel@lists.xenproject.org
-References: <20231017182545.97973-1-dwmw2@infradead.org>
- <20231017182545.97973-3-dwmw2@infradead.org>
-Organization: Xen Project
-In-Reply-To: <20231017182545.97973-3-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+ <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0240.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b2::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB7951:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1e4adb8-71a9-422c-bec2-08dbd4a05207
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	OeCf8rwEznwwlMSI5v17MBb2CGF+RUIzXtxQC2b2w+YgpNInx9bii7fDXKc4BtTb8dG4LDw4bZhttnETQ7iiHEmUQYR5rtHMzWuESLuhFBtEWltuhUDiu3dEhpA22MZeP1Es9J7wyJvqTrWOUwnm5uudyT2ktHDNoMAMOcxxY0UIIDUrcRScNoJ7Fzf5cR9+2MmRIa9ZK0i4bw5D0xYlaX90SZ+I1fPAuXEpzlvcKpDV1cU2ylregWMBttR7jk3fEj3+nt2YwtZpEQYdU+eGnTXZhAxBSG9SDSha4XFkUpGpCCcRBytMdCO9HLZmRalQiqQQnNZl/YTjLHugNuQ/FLPv5K45PVKXGfr0v2G72/HDyvQmJcWDDbyYnd24I1MmdQ3v1FqTsDk2lhOGIGLwafuFq/Pn5Dq+lOf7dEtUbsIWeSX1xdBkJ04k4ewUYMHRWKR+ij7pjVTGIvIbN/faVeeX7+sx1mvczwQCP2iUZL3F/K6fOe/YCrWN4EoSzA1LDWNtalvit70/vxBJahDeIWcY/XBTgjPTHlF3bvZje8beh1+JiIwsjD5SKgxRHegXuTzKl4smMNaSw6DvHUoIix9brsxfsY6e2j6Uemx5Uo+fhBhlxw3BTad6a8IjQWnbyiHTKsJo2HY8BoqqISs9uA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(396003)(376002)(136003)(366004)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(31686004)(7416002)(2906002)(41300700001)(38100700002)(6506007)(36756003)(2616005)(4326008)(31696002)(6512007)(53546011)(86362001)(26005)(8936002)(478600001)(6486002)(8676002)(5660300002)(66946007)(316002)(66476007)(66556008)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWZmUXZ4Sm15RjRrQTcvY3N1RzkxZFNzbXJ4T3JPMzJnVU41VS9wTkdmdjll?=
+ =?utf-8?B?RlQ4NTRJOUhZK2JGcmJpTUYvampHMWVuaHRWbDA3ajNaVXZkS1IzM3hWTk9M?=
+ =?utf-8?B?QmxPdWJKZXJhL2RncFcrcGxRalhPZS9NeFdQMmRWcmZRQU83MDZyZ1RkZ3NT?=
+ =?utf-8?B?Q0FiSmtjMlc5YmF5Y3dNN2ZkSkVpb203M3htNnZtaGdHN0ROZXBCelFVbllZ?=
+ =?utf-8?B?bVFSVkliT3A2dzlCdUpucUxrMTVpeVpQTnZiQlFjaEpDQlZ6U3VhTzFnNndU?=
+ =?utf-8?B?aXVOQUpIS2kwa21GbUFuMWNjdkJubG82OXBKSkNhdHZuVFI4dkQyRm9KUk1T?=
+ =?utf-8?B?eTFGQWVCMG42V0Yzd1NKZHF0dngvSXNrUVp3cy9QbTB4ZTByaTNGdm1EeTdP?=
+ =?utf-8?B?UUcwc2VJNXFLK0N0Nms2K1FEajJQTVN4WlFqRWF2dXQ4dGd5YUFNVGduZEs1?=
+ =?utf-8?B?M01MVndzV003OFJFM2QvdkJmRU9WbGNWcGN5eG1sNkN2eWp1NUhzdkZOeEJv?=
+ =?utf-8?B?b21YWVZaMmVEZFBWL0VUN3B3Tm83SG5vMVNMRklYVUhEZVY0V2FZMUhlTndF?=
+ =?utf-8?B?cm5Rbi8xTXI5aGFZZS9XczNydnNocHY5aU9sME5BdXBITEpkbFNReG9UUzE2?=
+ =?utf-8?B?OXdDU25CK010WE5VczhmeUxDekNsVG5HbExmUXlxSGVLdmpBT1lZRVM0VnEz?=
+ =?utf-8?B?aER0ZisrenJabEwrcXpSalY4bWRJQ2JQNmd3bHA1dWNkODNSVVkyYUkxZmlx?=
+ =?utf-8?B?VE9SRXdZc292SnFrb3V3SnU4K0RZbit0QXd1TnZVMm1Ldm1rbnd5aEp4eWlt?=
+ =?utf-8?B?ZE9uUEdEZnVIb0xGMTJtbHBDOXp2c3UrNFJKVGVRcDY2NUx0Q25QT2xSMWZG?=
+ =?utf-8?B?dnVZVjhpdGNlYXlmUGhORXpEZzRwdWJ6MVJHdXd1NE9sWWEvS0lOY2ZJWk9W?=
+ =?utf-8?B?QjlNanQvN3AxS1ZkZkFrMUhJbnMvNFNmVEl5L21vN0phcUg1WWJVWDNuazV6?=
+ =?utf-8?B?UjdWU2U5TUJwYWczOC9kcG9kZkJERVFGK3JiTmhnM0w2bVlrNGVlK2pXYjVM?=
+ =?utf-8?B?eDNKbGlUSGNITmRkYzY3TGgycm8vRVpEcHVKaUx6M3JWc3FRNDFsU3lGOExs?=
+ =?utf-8?B?Rm1lMkFRQjJFTUllT1U0WWJNZVVPWlFGKzR0NUozc2tTRkZuUHgrVVQ5YjNw?=
+ =?utf-8?B?aGs3cW5ITU5TbE9SOGp3ekFSOFVxZCsvbFl4bm41aTVPTG5IeS9pbkdUdHI1?=
+ =?utf-8?B?QzNCOFg1aEN4SjMxbk5NTEFYRlNubGFXanppcjRiWWd0QzF4YitZeWQ3V0l1?=
+ =?utf-8?B?U29XNW13YzE3TXFoUkJrMGRUa2ZFcEh5alJ2WTcxN2ZwOWRLUGNGVzRpaGFV?=
+ =?utf-8?B?RS83cU1IaHlOMlZqbDNrbW9kUWJOanYvdi9jYnBqU3IvVkc1WlJPRnlRTWEr?=
+ =?utf-8?B?Z1NWcGt1NXJHQXVZdVB6Z2Q3MisreFZabEpqTGFnNittZlZVVzEvd3JvckQz?=
+ =?utf-8?B?bitYL3REZ3d4d2xpbjhvYWpKdExadFdYY0RpM0Z3MEwvZ2hMajVnQXRNcUpY?=
+ =?utf-8?B?cEVxRmdTZVdMS3dybTJWLzZCUmNQWUcvbHhPc25RVHFvKzFrMUMwZ2t0M094?=
+ =?utf-8?B?THZQbStFUTBJTDFkeGMzb00zeFdPWm1JSTF5aU8xZXZjQXQ2RTkvOGJkYnZj?=
+ =?utf-8?B?YnhkSnV0T1lpTEFaUjFsbGFVeFFuVk40blFRTFVjSE1wSitTdXlYOE9CSE41?=
+ =?utf-8?B?dmNlMi8rVWptelpmWFVIUnFtYlpsMEpmYVc4V3J6cVR6eDRyMlR5L3Z0TFpF?=
+ =?utf-8?B?a3hMeHVNVUlURElsWk9nd0ttdzlwUlJSUjArNjIyZXhLd2h1M1ZTU3RRdVB2?=
+ =?utf-8?B?R29hU0YxbWpnK0ZGS080cWI1MHgyMitKWTNmRWtpNmpRQ0RpU3NNS2Y0bHZX?=
+ =?utf-8?B?Yk9TZ0dzV09qU3ZTSzN3VDhRbnhjYWs1ZWNMSlI2ejhTTzc2VFFlMWdIRk5J?=
+ =?utf-8?B?ZE8rWUVCNTFnaXgyd3lmK0x0Nmk5eVA5WUs5SzhIVDJZTVJvQ2EvRUl4UnB0?=
+ =?utf-8?B?c3c2eWxwNk8rU1pTNmo3R2s4eDFPaWw0UHh6c05NUTRoRUZXOCtiaTdSbjA2?=
+ =?utf-8?Q?1+7we+AzHZ+QKSAPMcxhCOucT?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1e4adb8-71a9-422c-bec2-08dbd4a05207
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2023 14:48:44.0145
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jdY+UiMDkAjSf5BI3mhTo0dC+YwmTPt2XcAiLRejROSo4JeUh2ehU7kRtAUcrxEby57/t/eaOmDP+5FZEKId6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7951
 
-On 17/10/2023 19:25, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
+On 24.10.2023 16:31, Nicola Vetrini wrote:
+> Partially explicitly initalized .matches arrays result in violations
+> of Rule 9.3; this is resolved by using designated initializers,
+> which is permitted by the Rule.
 > 
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   hw/net/meson.build        |   2 +-
->   hw/net/trace-events       |   9 +
->   hw/net/xen_nic.c          | 426 +++++++++++++++++++++++++++++---------
->   hw/xenpv/xen_machine_pv.c |   1 -
->   4 files changed, 342 insertions(+), 96 deletions(-)
+> Mechanical changes.
 > 
-> diff --git a/hw/net/meson.build b/hw/net/meson.build
-> index 2632634df3..f64651c467 100644
-> --- a/hw/net/meson.build
-> +++ b/hw/net/meson.build
-> @@ -1,5 +1,5 @@
->   system_ss.add(when: 'CONFIG_DP8393X', if_true: files('dp8393x.c'))
-> -system_ss.add(when: 'CONFIG_XEN', if_true: files('xen_nic.c'))
-> +system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xen_nic.c'))
->   system_ss.add(when: 'CONFIG_NE2000_COMMON', if_true: files('ne2000.c'))
->   
->   # PCI network cards
-> diff --git a/hw/net/trace-events b/hw/net/trace-events
-> index 3abfd65e5b..ee56acfbce 100644
-> --- a/hw/net/trace-events
-> +++ b/hw/net/trace-events
-> @@ -482,3 +482,12 @@ dp8393x_receive_oversize(int size) "oversize packet, pkt_size is %d"
->   dp8393x_receive_not_netcard(void) "packet not for netcard"
->   dp8393x_receive_packet(int crba) "Receive packet at 0x%"PRIx32
->   dp8393x_receive_write_status(int crba) "Write status at 0x%"PRIx32
-> +
-> +# xen_nic.c
-> +xen_netdev_realize(int idx, const char *info) "idx %u info '%s'"
-> +xen_netdev_unrealize(int idx) "idx %u"
-> +xen_netdev_create(int idx) "idx %u"
-> +xen_netdev_destroy(int idx) "idx %u"
-> +xen_netdev_disconnect(int idx) "idx %u"
-> +xen_netdev_connect(int idx, unsigned int tx, unsigned int rx, int port) "idx %u tx %u rx %u port %u"
-> +xen_netdev_frontend_changed(const char *idx, int state) "idx %s state %d"
-> diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-> index 9bbf6599fc..84914c329c 100644
-> --- a/hw/net/xen_nic.c
-> +++ b/hw/net/xen_nic.c
-> @@ -20,6 +20,11 @@
->    */
->   
->   #include "qemu/osdep.h"
-> +#include "qemu/cutils.h"
-> +#include "qemu/qemu-print.h"
-> +#include "qapi/qmp/qdict.h"
-> +#include "qapi/error.h"
-> +
->   #include <sys/socket.h>
->   #include <sys/ioctl.h>
->   #include <sys/wait.h>
-> @@ -27,18 +32,26 @@
->   #include "net/net.h"
->   #include "net/checksum.h"
->   #include "net/util.h"
-> -#include "hw/xen/xen-legacy-backend.h"
-> +
-> +#include "hw/xen/xen-backend.h"
-> +#include "hw/xen/xen-bus-helper.h"
-> +#include "hw/qdev-properties.h"
-> +#include "hw/qdev-properties-system.h"
->   
->   #include "hw/xen/interface/io/netif.h"
-> +#include "hw/xen/interface/io/xs_wire.h"
-> +
-> +#include "trace.h"
->   
->   /* ------------------------------------------------------------- */
->   
->   struct XenNetDev {
-> -    struct XenLegacyDevice      xendev;  /* must be first */
-> -    char                  *mac;
-> +    struct XenDevice      xendev;  /* must be first */
-> +    XenEventChannel       *event_channel;
-> +    int                   dev;
->       int                   tx_work;
-> -    int                   tx_ring_ref;
-> -    int                   rx_ring_ref;
-> +    unsigned int          tx_ring_ref;
-> +    unsigned int          rx_ring_ref;
->       struct netif_tx_sring *txs;
->       struct netif_rx_sring *rxs;
->       netif_tx_back_ring_t  tx_ring;
-> @@ -47,6 +60,13 @@ struct XenNetDev {
->       NICState              *nic;
->   };
->   
-> +typedef struct XenNetDev XenNetDev;
-> +
-> +#define TYPE_XEN_NET_DEVICE "xen-net-device"
-> +OBJECT_DECLARE_SIMPLE_TYPE(XenNetDev, XEN_NET_DEVICE)
-> +
-> +#define xen_pv_printf(a, n, ...) qemu_printf(__VA_ARGS__)
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Why define this...
+While not overly bad, I'm still not really seeing the improvement.
+Yet aiui changes induced by Misra are supposed to improve things in
+some direction?
 
-> +
->   /* ------------------------------------------------------------- */
->   
->   static void net_tx_response(struct XenNetDev *netdev, netif_tx_request_t *txp, int8_t st)
-> @@ -68,7 +88,8 @@ static void net_tx_response(struct XenNetDev *netdev, netif_tx_request_t *txp, i
->       netdev->tx_ring.rsp_prod_pvt = ++i;
->       RING_PUSH_RESPONSES_AND_CHECK_NOTIFY(&netdev->tx_ring, notify);
->       if (notify) {
-> -        xen_pv_send_notify(&netdev->xendev);
-> +        xen_device_notify_event_channel(XEN_DEVICE(netdev),
-> +                                        netdev->event_channel, NULL);
->       }
->   
->       if (i == netdev->tx_ring.req_cons) {
-> @@ -104,8 +125,9 @@ static void net_tx_error(struct XenNetDev *netdev, netif_tx_request_t *txp, RING
->   #endif
->   }
->   
-> -static void net_tx_packets(struct XenNetDev *netdev)
-> +static bool net_tx_packets(struct XenNetDev *netdev)
->   {
-> +    bool done_something = false;
->       netif_tx_request_t txreq;
->       RING_IDX rc, rp;
->       void *page;
-> @@ -122,6 +144,7 @@ static void net_tx_packets(struct XenNetDev *netdev)
->               }
->               memcpy(&txreq, RING_GET_REQUEST(&netdev->tx_ring, rc), sizeof(txreq));
->               netdev->tx_ring.req_cons = ++rc;
-> +            done_something = true;
->   
->   #if 1
->               /* should not happen in theory, we don't announce the *
-> @@ -151,7 +174,7 @@ static void net_tx_packets(struct XenNetDev *netdev)
->                   continue;
->               }
->   
-> -            xen_pv_printf(&netdev->xendev, 3,
-> +            if (0) qemu_printf(//&netdev->xendev, 3,
+Jan
 
-... and then not use it here? Perhaps the 'if (0)' ugliness can go in 
-the macro too.
-
->                             "tx packet ref %d, off %d, len %d, flags 0x%x%s%s%s%s\n",
->                             txreq.gref, txreq.offset, txreq.size, txreq.flags,
->                             (txreq.flags & NETTXF_csum_blank)     ? " csum_blank"     : "",
-> @@ -159,8 +182,8 @@ static void net_tx_packets(struct XenNetDev *netdev)
->                             (txreq.flags & NETTXF_more_data)      ? " more_data"      : "",
->                             (txreq.flags & NETTXF_extra_info)     ? " extra_info"     : "");
->   
-> -            page = xen_be_map_grant_ref(&netdev->xendev, txreq.gref,
-> -                                        PROT_READ);
-> +            page = xen_device_map_grant_refs(&netdev->xendev, &txreq.gref, 1,
-> +                                             PROT_READ, NULL);
->               if (page == NULL) {
->                   xen_pv_printf(&netdev->xendev, 0,
->                                 "error: tx gref dereference failed (%d)\n",
-> @@ -181,7 +204,8 @@ static void net_tx_packets(struct XenNetDev *netdev)
->                   qemu_send_packet(qemu_get_queue(netdev->nic),
->                                    page + txreq.offset, txreq.size);
->               }
-> -            xen_be_unmap_grant_ref(&netdev->xendev, page, txreq.gref);
-> +            xen_device_unmap_grant_refs(&netdev->xendev, page, &txreq.gref, 1,
-> +                                        NULL);
->               net_tx_response(netdev, &txreq, NETIF_RSP_OKAY);
->           }
->           if (!netdev->tx_work) {
-> @@ -190,6 +214,7 @@ static void net_tx_packets(struct XenNetDev *netdev)
->           netdev->tx_work = 0;
->       }
->       g_free(tmpbuf);
-> +    return done_something;
->   }
->   
->   /* ------------------------------------------------------------- */
-> @@ -212,14 +237,15 @@ static void net_rx_response(struct XenNetDev *netdev,
->           resp->status = (int16_t)st;
->       }
->   
-> -    xen_pv_printf(&netdev->xendev, 3,
-> +    if (0) qemu_printf(//&netdev->xendev, 3,
-
-Same here.
-
->                     "rx response: idx %d, status %d, flags 0x%x\n",
->                     i, resp->status, resp->flags);
->   
->       netdev->rx_ring.rsp_prod_pvt = ++i;
->       RING_PUSH_RESPONSES_AND_CHECK_NOTIFY(&netdev->rx_ring, notify);
->       if (notify) {
-> -        xen_pv_send_notify(&netdev->xendev);
-> +        xen_device_notify_event_channel(XEN_DEVICE(netdev),
-> +                                        netdev->event_channel, NULL);
->       }
->   }
->   
-> @@ -232,7 +258,7 @@ static ssize_t net_rx_packet(NetClientState *nc, const uint8_t *buf, size_t size
->       RING_IDX rc, rp;
->       void *page;
->   
-> -    if (netdev->xendev.be_state != XenbusStateConnected) {
-> +    if (netdev->rx_ring.sring == NULL) {
-
-Why not a straight swap for xen_device_backend_get_state()? Hard to see 
-whether there any hidden side effects of this change otherwise.
-
->           return -1;
->       }
->   
-> @@ -252,7 +278,8 @@ static ssize_t net_rx_packet(NetClientState *nc, const uint8_t *buf, size_t size
->       memcpy(&rxreq, RING_GET_REQUEST(&netdev->rx_ring, rc), sizeof(rxreq));
->       netdev->rx_ring.req_cons = ++rc;
->   
-> -    page = xen_be_map_grant_ref(&netdev->xendev, rxreq.gref, PROT_WRITE);
-> +    page = xen_device_map_grant_refs(&netdev->xendev, &rxreq.gref, 1,
-> +                                     PROT_WRITE, NULL);
->       if (page == NULL) {
->           xen_pv_printf(&netdev->xendev, 0,
->                         "error: rx gref dereference failed (%d)\n",
-> @@ -261,7 +288,7 @@ static ssize_t net_rx_packet(NetClientState *nc, const uint8_t *buf, size_t size
->           return -1;
->       }
->       memcpy(page + NET_IP_ALIGN, buf, size);
-> -    xen_be_unmap_grant_ref(&netdev->xendev, page, rxreq.gref);
-> +    xen_device_unmap_grant_refs(&netdev->xendev, page, &rxreq.gref, 1, NULL);
->       net_rx_response(netdev, &rxreq, NETIF_RSP_OKAY, NET_IP_ALIGN, size, 0);
->   
->       return size;
-> @@ -275,139 +302,350 @@ static NetClientInfo net_xen_info = {
->       .receive = net_rx_packet,
->   };
->   
-> -static int net_init(struct XenLegacyDevice *xendev)
-> +static void xen_netdev_realize(XenDevice *xendev, Error **errp)
->   {
-> -    struct XenNetDev *netdev = container_of(xendev, struct XenNetDev, xendev);
-> +    ERRP_GUARD();
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
->   
-> -    /* read xenstore entries */
-> -    if (netdev->mac == NULL) {
-> -        netdev->mac = xenstore_read_be_str(&netdev->xendev, "mac");
-> -    }
-> +    qemu_macaddr_default_if_unset(&netdev->conf.macaddr);
->   
-> -    /* do we have all we need? */
-> -    if (netdev->mac == NULL) {
-> -        return -1;
-> -    }
-> -
-> -    if (net_parse_macaddr(netdev->conf.macaddr.a, netdev->mac) < 0) {
-> -        return -1;
-> -    }
-> +    xen_device_frontend_printf(xendev, "mac", "%02x:%02x:%02x:%02x:%02x:%02x",
-> +                               netdev->conf.macaddr.a[0],
-> +                               netdev->conf.macaddr.a[1],
-> +                               netdev->conf.macaddr.a[2],
-> +                               netdev->conf.macaddr.a[3],
-> +                               netdev->conf.macaddr.a[4],
-> +                               netdev->conf.macaddr.a[5]);
->   
->       netdev->nic = qemu_new_nic(&net_xen_info, &netdev->conf,
-> -                               "xen", NULL, netdev);
-> +                               object_get_typename(OBJECT(xendev)),
-> +                               DEVICE(xendev)->id, netdev);
->   
-> -    qemu_set_info_str(qemu_get_queue(netdev->nic),
-> -                      "nic: xenbus vif macaddr=%s", netdev->mac);
-> +    qemu_format_nic_info_str(qemu_get_queue(netdev->nic), netdev->conf.macaddr.a);
->   
->       /* fill info */
-> -    xenstore_write_be_int(&netdev->xendev, "feature-rx-copy", 1);
-> -    xenstore_write_be_int(&netdev->xendev, "feature-rx-flip", 0);
-> +    xen_device_backend_printf(xendev, "feature-rx-copy", "%u", 1);
-> +    xen_device_backend_printf(xendev, "feature-rx-flip", "%u", 0);
->   
-> -    return 0;
-> +    trace_xen_netdev_realize(netdev->dev, qemu_get_queue(netdev->nic)->info_str);
->   }
->   
-> -static int net_connect(struct XenLegacyDevice *xendev)
-> +static bool net_event(void *_xendev)
->   {
-> -    struct XenNetDev *netdev = container_of(xendev, struct XenNetDev, xendev);
-> -    int rx_copy;
-> +    XenNetDev *netdev = XEN_NET_DEVICE(_xendev);
-> +    bool done_something;
->   
-> -    if (xenstore_read_fe_int(&netdev->xendev, "tx-ring-ref",
-> -                             &netdev->tx_ring_ref) == -1) {
-> -        return -1;
-> +    done_something = net_tx_packets(netdev);
-> +    qemu_flush_queued_packets(qemu_get_queue(netdev->nic));
-> +    return done_something;
-> +}
-> +
-> +static bool xen_netdev_connect(XenDevice *xendev, Error **errp)
-> +{
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
-> +    unsigned int port, rx_copy;
-> +
-> +    if (xen_device_frontend_scanf(xendev, "tx-ring-ref", "%u",
-> +                                  &netdev->tx_ring_ref) != 1) {
-> +        error_setg(errp, "failed to read tx-ring-ref");
-> +        return false;
->       }
-> -    if (xenstore_read_fe_int(&netdev->xendev, "rx-ring-ref",
-> -                             &netdev->rx_ring_ref) == -1) {
-> -        return 1;
-> +
-> +    if (xen_device_frontend_scanf(xendev, "rx-ring-ref", "%u",
-> +                                  &netdev->rx_ring_ref) != 1) {
-> +        error_setg(errp, "failed to read rx-ring-ref");
-> +        return false;
->       }
-> -    if (xenstore_read_fe_int(&netdev->xendev, "event-channel",
-> -                             &netdev->xendev.remote_port) == -1) {
-> -        return -1;
-> +
-> +    if (xen_device_frontend_scanf(xendev, "event-channel", "%u",
-> +                                  &port) != 1) {
-> +        error_setg(errp, "failed to read event-channel");
-> +        return false;
->       }
->   
-> -    if (xenstore_read_fe_int(&netdev->xendev, "request-rx-copy", &rx_copy) == -1) {
-> +    if (xen_device_frontend_scanf(xendev, "request-rx-copy", "%u",
-> +                                  &rx_copy) != 1) {
->           rx_copy = 0;
->       }
->       if (rx_copy == 0) {
-> -        xen_pv_printf(&netdev->xendev, 0,
-> -                      "frontend doesn't support rx-copy.\n");
-> -        return -1;
-> +        error_setg(errp, "frontend doesn't support rx-copy");
-> +        return false;
->       }
->   
-> -    netdev->txs = xen_be_map_grant_ref(&netdev->xendev,
-> -                                       netdev->tx_ring_ref,
-> -                                       PROT_READ | PROT_WRITE);
-> +    netdev->txs = xen_device_map_grant_refs(xendev,
-> +                                            &netdev->tx_ring_ref, 1,
-> +                                            PROT_READ | PROT_WRITE,
-> +                                            errp);
->       if (!netdev->txs) {
-> -        return -1;
-> +        error_prepend(errp, "failed to map tx grant ref: ");
-> +        return false;
->       }
-> -    netdev->rxs = xen_be_map_grant_ref(&netdev->xendev,
-> -                                       netdev->rx_ring_ref,
-> -                                       PROT_READ | PROT_WRITE);
-> +
-> +    netdev->rxs = xen_device_map_grant_refs(xendev,
-> +                                            &netdev->rx_ring_ref, 1,
-> +                                            PROT_READ | PROT_WRITE,
-> +                                            errp);
->       if (!netdev->rxs) {
-> -        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs,
-> -                               netdev->tx_ring_ref);
-> -        netdev->txs = NULL;
-> -        return -1;
-> +        error_prepend(errp, "failed to map rx grant ref: ");
-> +        return false;
->       }
-> +
->       BACK_RING_INIT(&netdev->tx_ring, netdev->txs, XEN_PAGE_SIZE);
->       BACK_RING_INIT(&netdev->rx_ring, netdev->rxs, XEN_PAGE_SIZE);
->   
-> -    xen_be_bind_evtchn(&netdev->xendev);
-> +    netdev->event_channel = xen_device_bind_event_channel(xendev, port,
-> +                                                          net_event,
-> +                                                          netdev,
-> +                                                          errp);
-> +    if (!netdev->event_channel) {
-> +        return false;
-> +    }
->   
-> -    xen_pv_printf(&netdev->xendev, 1, "ok: tx-ring-ref %d, rx-ring-ref %d, "
-> -                  "remote port %d, local port %d\n",
-> -                  netdev->tx_ring_ref, netdev->rx_ring_ref,
-> -                  netdev->xendev.remote_port, netdev->xendev.local_port);
-> +    trace_xen_netdev_connect(netdev->dev, netdev->tx_ring_ref,
-> +                             netdev->rx_ring_ref, port);
->   
->       net_tx_packets(netdev);
-> -    return 0;
-> +    return true;
->   }
->   
-> -static void net_disconnect(struct XenLegacyDevice *xendev)
-> +static void xen_netdev_disconnect(XenDevice *xendev, Error **errp)
->   {
-> -    struct XenNetDev *netdev = container_of(xendev, struct XenNetDev, xendev);
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
-> +
-> +    trace_xen_netdev_disconnect(netdev->dev);
->   
-> -    xen_pv_unbind_evtchn(&netdev->xendev);
-> +    netdev->tx_ring.sring = NULL;
-> +    netdev->rx_ring.sring = NULL;
->   
-> +    if (netdev->event_channel) {
-> +        xen_device_unbind_event_channel(xendev, netdev->event_channel,
-> +                                        errp);
-> +        netdev->event_channel = NULL;
-> +    }
->       if (netdev->txs) {
-> -        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs,
-> -                               netdev->tx_ring_ref);
-> +        xen_device_unmap_grant_refs(xendev, netdev->txs,
-> +                                    &netdev->tx_ring_ref, 1, errp);
->           netdev->txs = NULL;
->       }
->       if (netdev->rxs) {
-> -        xen_be_unmap_grant_ref(&netdev->xendev, netdev->rxs,
-> -                               netdev->rx_ring_ref);
-> +        xen_device_unmap_grant_refs(xendev, netdev->rxs,
-> +                                    &netdev->rx_ring_ref, 1, errp);
->           netdev->rxs = NULL;
->       }
->   }
->   
-> -static void net_event(struct XenLegacyDevice *xendev)
-> +/* -------------------------------------------------------------------- */
-> +
-> +
-> +static void xen_netdev_frontend_changed(XenDevice *xendev,
-> +                                       enum xenbus_state frontend_state,
-> +                                       Error **errp)
->   {
-> -    struct XenNetDev *netdev = container_of(xendev, struct XenNetDev, xendev);
-> -    net_tx_packets(netdev);
-> -    qemu_flush_queued_packets(qemu_get_queue(netdev->nic));
-> +    ERRP_GUARD();
-> +    enum xenbus_state backend_state = xen_device_backend_get_state(xendev);
-> +
-> +    trace_xen_netdev_frontend_changed(xendev->name, frontend_state);
-> +
-> +    switch (frontend_state) {
-> +    case XenbusStateInitialised:
-
-I don't think that's really a valid state for a network frontend. Linux 
-netback just ignores it.
-
-   Paul
-
-> +    case XenbusStateConnected:
-> +        if (backend_state == XenbusStateConnected) {
-> +            break;
-> +        }
-> +
-> +        xen_netdev_disconnect(xendev, errp);
-> +        if (*errp) {
-> +            break;
-> +        }
-> +
-> +        if (!xen_netdev_connect(xendev, errp)) {
-> +            xen_netdev_disconnect(xendev, NULL);
-> +            xen_device_backend_set_state(xendev, XenbusStateClosing);
-> +            break;
-> +        }
-> +
-> +        xen_device_backend_set_state(xendev, XenbusStateConnected);
-> +        break;
-> +
-> +    case XenbusStateClosing:
-> +        xen_device_backend_set_state(xendev, XenbusStateClosing);
-> +        break;
-> +
-> +    case XenbusStateClosed:
-> +    case XenbusStateUnknown:
-> +        xen_netdev_disconnect(xendev, errp);
-> +        if (*errp) {
-> +            break;
-> +        }
-> +
-> +        xen_device_backend_set_state(xendev, XenbusStateClosed);
-> +        break;
-> +
-> +    default:
-> +        break;
-> +    }
->   }
->   
-> -static int net_free(struct XenLegacyDevice *xendev)
-> +static char *xen_netdev_get_name(XenDevice *xendev, Error **errp)
->   {
-> -    struct XenNetDev *netdev = container_of(xendev, struct XenNetDev, xendev);
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
-> +
-> +    if (netdev->dev == -1) {
-> +        XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
-> +        char fe_path[XENSTORE_ABS_PATH_MAX + 1];
-> +        int idx = (xen_mode == XEN_EMULATE) ? 0 : 1;
-> +        char *value;
-> +
-> +        /* Theoretically we could go up to INT_MAX here but that's overkill */
-> +        while (idx < 100) {
-> +            snprintf(fe_path, sizeof(fe_path),
-> +                     "/local/domain/%u/device/vif/%u",
-> +                     xendev->frontend_id, idx);
-> +            value = qemu_xen_xs_read(xenbus->xsh, XBT_NULL, fe_path, NULL);
-> +            if (!value) {
-> +                if (errno == ENOENT) {
-> +                    netdev->dev = idx;
-> +                    goto found;
-> +                }
-> +                error_setg(errp, "cannot read %s: %s", fe_path,
-> +                           strerror(errno));
-> +                return NULL;
-> +            }
-> +            free(value);
-> +            idx++;
-> +        }
-> +        error_setg(errp, "cannot find device index for netdev device");
-> +        return NULL;
-> +    }
-> + found:
-> +    return g_strdup_printf("%u", netdev->dev);
-> +}
-> +
-> +static void xen_netdev_unrealize(XenDevice *xendev)
-> +{
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
-> +
-> +    trace_xen_netdev_unrealize(netdev->dev);
-> +
-> +    /* Disconnect from the frontend in case this has not already happened */
-> +    xen_netdev_disconnect(xendev, NULL);
->   
->       if (netdev->nic) {
->           qemu_del_nic(netdev->nic);
-> -        netdev->nic = NULL;
->       }
-> -    g_free(netdev->mac);
-> -    netdev->mac = NULL;
-> -    return 0;
->   }
->   
->   /* ------------------------------------------------------------- */
->   
-> -struct XenDevOps xen_netdev_ops = {
-> -    .size       = sizeof(struct XenNetDev),
-> -    .flags      = DEVOPS_FLAG_NEED_GNTDEV,
-> -    .init       = net_init,
-> -    .initialise    = net_connect,
-> -    .event      = net_event,
-> -    .disconnect = net_disconnect,
-> -    .free       = net_free,
-> +static Property xen_netdev_properties[] = {
-> +    DEFINE_NIC_PROPERTIES(XenNetDev, conf),
-> +    DEFINE_PROP_INT32("idx", XenNetDev, dev, -1),
-> +    DEFINE_PROP_END_OF_LIST(),
->   };
-> +
-> +static void xen_netdev_class_init(ObjectClass *class, void *data)
-> +{
-> +    DeviceClass *dev_class = DEVICE_CLASS(class);
-> +    XenDeviceClass *xendev_class = XEN_DEVICE_CLASS(class);
-> +
-> +    xendev_class->backend = "qnet";
-> +    xendev_class->device = "vif";
-> +    xendev_class->get_name = xen_netdev_get_name;
-> +    xendev_class->realize = xen_netdev_realize;
-> +    xendev_class->frontend_changed = xen_netdev_frontend_changed;
-> +    xendev_class->unrealize = xen_netdev_unrealize;
-> +    set_bit(DEVICE_CATEGORY_NETWORK, dev_class->categories);
-> +    dev_class->user_creatable = true;
-> +
-> +    device_class_set_props(dev_class, xen_netdev_properties);
-> +}
-> +
-> +static const TypeInfo xen_net_type_info = {
-> +    .name = TYPE_XEN_NET_DEVICE,
-> +    .parent = TYPE_XEN_DEVICE,
-> +    .instance_size = sizeof(XenNetDev),
-> +    .class_init = xen_netdev_class_init,
-> +};
-> +
-> +static void xen_net_register_types(void)
-> +{
-> +    type_register_static(&xen_net_type_info);
-> +}
-> +
-> +type_init(xen_net_register_types)
-> +
-> +/* Called to instantiate a XenNetDev when the backend is detected. */
-> +static void xen_net_device_create(XenBackendInstance *backend,
-> +                                  QDict *opts, Error **errp)
-> +{
-> +    ERRP_GUARD();
-> +    XenBus *xenbus = xen_backend_get_bus(backend);
-> +    const char *name = xen_backend_get_name(backend);
-> +    XenDevice *xendev = NULL;
-> +    unsigned long number;
-> +    const char *macstr;
-> +    XenNetDev *net;
-> +    MACAddr mac;
-> +
-> +    if (qemu_strtoul(name, NULL, 10, &number) || number >= INT_MAX) {
-> +        error_setg(errp, "failed to parse name '%s'", name);
-> +        goto fail;
-> +    }
-> +
-> +    trace_xen_netdev_create(number);
-> +
-> +    macstr = qdict_get_try_str(opts, "mac");
-> +    if (macstr == NULL) {
-> +        error_setg(errp, "no MAC address found");
-> +        goto fail;
-> +    }
-> +
-> +    if (net_parse_macaddr(mac.a, macstr) < 0) {
-> +        error_setg(errp, "failed to parse MAC address");
-> +        goto fail;
-> +    }
-> +
-> +    xendev = XEN_DEVICE(qdev_new(TYPE_XEN_NET_DEVICE));
-> +    net = XEN_NET_DEVICE(xendev);
-> +
-> +    net->dev = number;
-> +    memcpy(&net->conf.macaddr, &mac, sizeof(mac));
-> +
-> +    if (qdev_realize_and_unref(DEVICE(xendev), BUS(xenbus), errp)) {
-> +        xen_backend_set_device(backend, xendev);
-> +        return;
-> +    }
-> +
-> +    error_prepend(errp, "realization of net device %lu failed: ",
-> +                  number);
-> +
-> + fail:
-> +    if (xendev) {
-> +        object_unparent(OBJECT(xendev));
-> +    }
-> +}
-> +
-> +static void xen_net_device_destroy(XenBackendInstance *backend,
-> +                                       Error **errp)
-> +{
-> +    ERRP_GUARD();
-> +    XenDevice *xendev = xen_backend_get_device(backend);
-> +    XenNetDev *netdev = XEN_NET_DEVICE(xendev);
-> +
-> +    trace_xen_netdev_destroy(netdev->dev);
-> +
-> +    object_unparent(OBJECT(xendev));
-> +}
-> +
-> +static const XenBackendInfo xen_net_backend_info  = {
-> +    .type = "qnet",
-> +    .create = xen_net_device_create,
-> +    .destroy = xen_net_device_destroy,
-> +};
-> +
-> +static void xen_net_register_backend(void)
-> +{
-> +    xen_backend_register(&xen_net_backend_info);
-> +}
-> +
-> +xen_backend_init(xen_net_register_backend);
-> diff --git a/hw/xenpv/xen_machine_pv.c b/hw/xenpv/xen_machine_pv.c
-> index 17cda5ec13..764ca5c4fa 100644
-> --- a/hw/xenpv/xen_machine_pv.c
-> +++ b/hw/xenpv/xen_machine_pv.c
-> @@ -55,7 +55,6 @@ static void xen_init_pv(MachineState *machine)
->       }
->   
->       xen_be_register("vfb", &xen_framebuffer_ops);
-> -    xen_be_register("qnic", &xen_netdev_ops);
->   
->       /* configure framebuffer */
->       if (vga_interface_type == VGA_XENFB) {
+> --- a/xen/arch/x86/ioport_emulate.c
+> +++ b/xen/arch/x86/ioport_emulate.c
+> @@ -44,57 +44,57 @@ static const struct dmi_system_id __initconstrel ioport_quirks_tbl[] = {
+>      {
+>          .ident = "HP ProLiant DL3xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL3"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL3"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant DL5xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant DL7xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL7"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL7"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant ML3xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML3"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML3"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant ML5xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML5"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant ML5"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant BL2xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL2"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL2"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant BL4xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL4"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL4"),
+>          },
+>      },
+>      {
+>          .ident = "HP ProLiant BL6xx",
+>          .matches = {
+> -            DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> -            DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL6"),
+> +            [0] = DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+> +            [1] = DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant BL6"),
+>          },
+>      },
+>      { }
+> --
+> 2.34.1
 
 
