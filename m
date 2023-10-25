@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A847D6FBA
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:51:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622958.970267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F33497D7026
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:55:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623024.970447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvfDR-00008R-V4; Wed, 25 Oct 2023 14:50:37 +0000
+	id 1qvfIL-0003Mr-LQ; Wed, 25 Oct 2023 14:55:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622958.970267; Wed, 25 Oct 2023 14:50:37 +0000
+Received: by outflank-mailman (output) from mailman id 623024.970447; Wed, 25 Oct 2023 14:55:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvfDR-00005p-RB; Wed, 25 Oct 2023 14:50:37 +0000
-Received: by outflank-mailman (input) for mailman id 622958;
- Wed, 25 Oct 2023 14:50:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvfIL-0003Kr-Hy; Wed, 25 Oct 2023 14:55:41 +0000
+Received: by outflank-mailman (input) for mailman id 623024;
+ Wed, 25 Oct 2023 14:55:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kl7N=GH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qvfDP-0008W8-Ta
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 14:50:35 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9e0b77b-7345-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 16:50:34 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id AB2134EE073A;
- Wed, 25 Oct 2023 16:50:33 +0200 (CEST)
+ <SRS0=w7q9=GH=desiato.srs.infradead.org=BATV+fe87d11d956b9f6f1554+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qvfE3-0000WU-E4
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 14:51:15 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f043ff82-7345-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 16:51:12 +0200 (CEST)
+Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qvfDa-00GPM5-1F; Wed, 25 Oct 2023 14:50:51 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1qvfDZ-002dFL-0k; Wed, 25 Oct 2023 15:50:45 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,181 +41,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9e0b77b-7345-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: f043ff82-7345-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=iaeDXSTaoWdCm87GDHXDzDikArDTOfszjp92r6YPQM0=; b=Fpo2lDHmkFJFrEzTxCnYSHMQc+
+	H+POf4RpTDXrqfi7zmTI2kpkXiZEJ/4ikVugJbl/UXMyulJnl8bxTi7gdq+Xlhe/NOsdTz353nXNS
+	skhnTvQvc19bBykXDJLHjeBVQ97kJvOEjCn3zBqYb/BH5rDtwk6NqQC0EyXGhRuEVDofWOrIuQUbH
+	eDXBfUYpNVxLjOjbdUpmFPsWWBCjffiEX876q5ArcW6FdlTHX93HUMDbaBkhxtxYaZxt/fpHXCNkE
+	Ko/NceL/1GypeXooX+xxhcNkWMbOUUaDd3BrGGwo4s3+7LbNRB/e9K7vIixU+dnx+7J2jpuR7mvKp
+	dd1Vd6Hw==;
+From: David Woodhouse <dwmw2@infradead.org>
+To: qemu-devel@nongnu.org
+Cc: Kevin Wolf <kwolf@redhat.com>,
+	Hanna Reitz <hreitz@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Jason Wang <jasowang@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	qemu-block@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	kvm@vger.kernel.org,
+	Bernhard Beschow <shentey@gmail.com>,
+	Joel Upham <jupham125@gmail.com>
+Subject: [PATCH v3 20/28] net: do not delete nics in net_cleanup()
+Date: Wed, 25 Oct 2023 15:50:34 +0100
+Message-Id: <20231025145042.627381-21-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20231025145042.627381-1-dwmw2@infradead.org>
+References: <20231025145042.627381-1-dwmw2@infradead.org>
 MIME-Version: 1.0
-Date: Wed, 25 Oct 2023 16:50:33 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, Simone Ballarin
- <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, George
- Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19 v3 1/8] xen/include: add macro LOWEST_BIT
-In-Reply-To: <dd33e92f-03aa-cf3c-23d7-dcf9cce23c8e@suse.com>
-References: <cover.1697815135.git.nicola.vetrini@bugseng.com>
- <546cf30aa43d6d0687a9a6c6d23b11128e5783e8.1697815135.git.nicola.vetrini@bugseng.com>
- <f504772a-68b4-fbfa-e7d4-8d22992c7944@suse.com>
- <f23a1f95916bd61ddcd5002428d8876c@bugseng.com>
- <6d113a237846c7a41aa083e806f172e7@bugseng.com>
- <5475d9e5-ec1c-7f71-ee77-59ec2e6ee01e@suse.com>
- <alpine.DEB.2.22.394.2310231340320.3516@ubuntu-linux-20-04-desktop>
- <dd33e92f-03aa-cf3c-23d7-dcf9cce23c8e@suse.com>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <2f88afb2383b5fdecf83d311ebe69bb4@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On 24/10/2023 08:14, Jan Beulich wrote:
-> On 23.10.2023 22:44, Stefano Stabellini wrote:
->> On Mon, 23 Oct 2023, Jan Beulich wrote:
->>> On 23.10.2023 15:19, Nicola Vetrini wrote:
->>>> On 23/10/2023 11:19, Nicola Vetrini wrote:
->>>>> On 23/10/2023 09:48, Jan Beulich wrote:
->>>>>> On 20.10.2023 17:28, Nicola Vetrini wrote:
->>>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>>>> @@ -246,6 +246,12 @@ constant expressions are required.\""
->>>>>>>    "any()"}
->>>>>>>  -doc_end
->>>>>>> 
->>>>>>> +-doc_begin="The macro LOWEST_BIT encapsulates a well-known 
->>>>>>> pattern
->>>>>>> to obtain the value
->>>>>>> +2^ffs(x) for unsigned integers on two's complement architectures
->>>>>>> +(all the architectures supported by Xen satisfy this 
->>>>>>> requirement)."
->>>>>>> +-config=MC3R1.R10.1,reports+={safe,
->>>>>>> "any_area(any_loc(any_exp(macro(^LOWEST_BIT$))))"}
->>>>>>> +-doc_end
->>>>>> 
->>>>>> This being deviated this way (rather than by SAF-* comments) wants
->>>>>> justifying in the description. You did reply to my respective
->>>>>> comment on v2, but such then (imo) needs propagating into the 
->>>>>> actual
->>>>>> patch as well.
->>>>>> 
->>>>> 
->>>>> Sure, will do.
->>>>> 
->>>>>>> --- a/docs/misra/deviations.rst
->>>>>>> +++ b/docs/misra/deviations.rst
->>>>>>> @@ -192,6 +192,13 @@ Deviations related to MISRA C:2012 Rules:
->>>>>>>         See automation/eclair_analysis/deviations.ecl for the 
->>>>>>> full
->>>>>>> explanation.
->>>>>>>       - Tagged as `safe` for ECLAIR.
->>>>>>> 
->>>>>>> +   * - R10.1
->>>>>>> +     - The well-known pattern (x & -x) applied to unsigned 
->>>>>>> integer
->>>>>>> values on 2's
->>>>>>> +       complement architectures (i.e., all architectures 
->>>>>>> supported
->>>>>>> by Xen), used
->>>>>>> +       to obtain the value 2^ffs(x), where ffs(x) is the 
->>>>>>> position of
->>>>>>> the first
->>>>>>> +       bit set. If no bits are set, zero is returned.
->>>>>>> +     - Tagged as `safe` for ECLAIR.
->>>>>> 
->>>>>> In such an explanation there shall not be any ambiguity. Here I 
->>>>>> see
->>>>>> an issue with ffs() returning 1-based bit position numbers, which
->>>>>> isn't in line with the use in 2^ffs(x). (Arguably use of ^ itself 
->>>>>> is
->>>>>> also problematic, as that's XOR in C, not POW. I'd suggest 
->>>>>> 2^^ffs(x)
->>>>>> or 2**ffs(x).)
->>>>>> 
->>>>> 
->>>>> Makes sense, I think I'll use an plain english explanation to avoid
->>>>> any confusion
->>>>> about notation.
->>>>> 
->>>>>>> --- a/xen/include/xen/macros.h
->>>>>>> +++ b/xen/include/xen/macros.h
->>>>>>> @@ -8,8 +8,11 @@
->>>>>>>  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
->>>>>>>  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
->>>>>>> 
->>>>>>> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
->>>>>>> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
->>>>>>> +/* Returns the 2^ffs(x) or 0, where ffs(x) is the index of the
->>>>>>> lowest set bit */
->>>>>>> +#define LOWEST_BIT(x) ((x) & -(x))
->>>>>> 
->>>>>> I'm afraid my concern regarding this new macro's name (voiced on 
->>>>>> v2)
->>>>>> hasn't
->>>>>> been addressed (neither verbally nor by finding a more suitable 
->>>>>> name).
->>>>>> 
->>>>>> Jan
->>>>> 
->>>>> I didn't come up with much better names, so I left it as is. Here's 
->>>>> a
->>>>> few ideas:
->>>>> 
->>>>> - LOWEST_SET
->>>>> - MASK_LOWEST_SET
->>>>> - MASK_LOWEST_BIT
->>>>> - MASK_FFS_0
->>>>> - LOWEST_ONE
->>>>> 
->>>>> and also yours, included here for convenience, even though you felt 
->>>>> it
->>>>> was too long:
->>>>> 
->>>>> - ISOLATE_LOW_BIT()
->>>>> 
->>>>> All maintainers from THE REST are CC-ed, so we can see if anyone 
->>>>> has
->>>>> any suggestion.
->>>> 
->>>> There's also LOWEST_BIT_MASK as another possible name.
->>> 
->>> While naming-wise okay to me, it has the same "too long" issue as
->>> ISOLATE_LOW_BIT(). Considering x86, in the BMI ISA extension, has an
->>> insn doing exactly that (BLSI), taking inspiration from its mnemonic
->>> may also be an option.
->> 
->> I don't mean to make things difficult but I prefer LOWEST_BIT or
->> MASK_LOWEST_BIT. It is clear at first glance. BLSI is not as clear,
->> unless you work on the specific ISA with BLSI.
->> 
->> In general, I do appreciate shorter names, but if one option is much
->> clearer than the other, I prefer clarity over shortness.
-> 
-> That's fine with me, but note that neither LOWEST_BIT nor 
-> MASK_LOWEST_BIT
-> really provide the aimed at clarity. The shortest that I could think of
-> that would be derived from that would be LOWEST_SET_BIT_MASK() (albeit
-> even that leaves a bit of ambiguity, thinking about it for a little
-> longer). The main point I'm trying to make that _if_ we need a wrapper
-> macro for this in the first place (note the other thread about macros
-> still requiring deviation comments at all use sites for Eclair), its 
-> name
-> needs to somehow express the precise operation it does (or, like would 
-> be
-> the case for BLSI, make people not recognizing the name go look rather
-> than guess).
-> 
-> Jan
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Ok, I'll send a revised version using MASK_LOWEST_BIT, taking into 
-account also the
-other comments about the explanation on the macro definition
-(which some IDEs even show when hovering on its usage, which could 
-partially address
-the latter concern).
+In net_cleanup() we only need to delete the netdevs, as those may have
+state which outlives Qemu when it exits, and thus may actually need to
+be cleaned up on exit.
 
+The nics, on the other hand, are owned by the device which created them.
+Most devices don't bother to clean up on exit because they don't have
+any state which will outlive Qemu... but XenBus devices do need to clean
+up their nodes in XenStore, and do have an exit handler to delete them.
+
+When the XenBus exit handler destroys the xen-net-device, it attempts
+to delete its nic after net_cleanup() had already done so. And crashes.
+
+Fix this by only deleting netdevs as we walk the list. As the comment
+notes, we can't use QTAILQ_FOREACH_SAFE() as each deletion may remove
+*multiple* entries, including the "safely" saved 'next' pointer. But
+we can store the *previous* entry, since nics are safe.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ net/net.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/net/net.c b/net/net.c
+index c0c0cbe99e..bbe33da176 100644
+--- a/net/net.c
++++ b/net/net.c
+@@ -1499,18 +1499,34 @@ static void net_vm_change_state_handler(void *opaque, bool running,
+ 
+ void net_cleanup(void)
+ {
+-    NetClientState *nc;
++    NetClientState *nc, **p = &QTAILQ_FIRST(&net_clients);
+ 
+     /*cleanup colo compare module for COLO*/
+     colo_compare_cleanup();
+ 
+-    /* We may del multiple entries during qemu_del_net_client(),
+-     * so QTAILQ_FOREACH_SAFE() is also not safe here.
++    /*
++     * Walk the net_clients list and remove the netdevs but *not* any
++     * NET_CLIENT_DRIVER_NIC entries. The latter are owned by the device
++     * model which created them, and in some cases (e.g. xen-net-device)
++     * the device itself may do cleanup at exit and will be upset if we
++     * just delete its NIC from underneath it.
++     *
++     * Since qemu_del_net_client() may delete multiple entries, using
++     * QTAILQ_FOREACH_SAFE() is not safe here. The only safe pointer
++     * to keep as a bookmark is a NET_CLIENT_DRIVER_NIC entry, so keep
++     * 'p' pointing to either the head of the list, or the 'next' field
++     * of the latest NET_CLIENT_DRIVER_NIC, and operate on *p as we walk
++     * the list.
++     *
++     * The 'nc' variable isn't part of the list traversal; it's purely
++     * for convenience as too much '(*p)->' has a tendency to make the
++     * readers' eyes bleed.
+      */
+-    while (!QTAILQ_EMPTY(&net_clients)) {
+-        nc = QTAILQ_FIRST(&net_clients);
++    while (*p) {
++        nc = *p;
+         if (nc->info->type == NET_CLIENT_DRIVER_NIC) {
+-            qemu_del_nic(qemu_get_nic(nc));
++            /* Skip NET_CLIENT_DRIVER_NIC entries */
++            p = &QTAILQ_NEXT(nc, next);
+         } else {
+             qemu_del_net_client(nc);
+         }
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.40.1
+
 
