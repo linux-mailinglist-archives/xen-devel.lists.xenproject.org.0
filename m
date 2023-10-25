@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54457D72EA
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 20:07:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623151.970699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D48B27D7320
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 20:20:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623162.970717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qviHF-0006qB-NC; Wed, 25 Oct 2023 18:06:45 +0000
+	id 1qviUP-0002xI-07; Wed, 25 Oct 2023 18:20:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623151.970699; Wed, 25 Oct 2023 18:06:45 +0000
+Received: by outflank-mailman (output) from mailman id 623162.970717; Wed, 25 Oct 2023 18:20:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qviHF-0006mc-H9; Wed, 25 Oct 2023 18:06:45 +0000
-Received: by outflank-mailman (input) for mailman id 623151;
- Wed, 25 Oct 2023 18:06:44 +0000
+	id 1qviUO-0002ty-TB; Wed, 25 Oct 2023 18:20:20 +0000
+Received: by outflank-mailman (input) for mailman id 623162;
+ Wed, 25 Oct 2023 18:20:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XWkD=GH=citrix.com=prvs=6553ec402=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qviHE-0006Zm-02
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 18:06:44 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f4e719d-7361-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 20:06:42 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BGX2=GH=redhat.com=eblake@srs-se1.protection.inumbo.net>)
+ id 1qviUM-0002ts-Th
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 18:20:18 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 256d4f75-7363-11ee-98d5-6d05b1d4d9a1;
+ Wed, 25 Oct 2023 20:20:17 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-269-MD8IH2-EMh6IsUtGtqLM8Q-1; Wed,
+ 25 Oct 2023 14:20:12 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9DC1E3822E9C;
+ Wed, 25 Oct 2023 18:20:11 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.69])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 71065C1596D;
+ Wed, 25 Oct 2023 18:20:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,171 +51,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f4e719d-7361-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1698257202;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=PrWVaHB2rEiz5xABgTcH+1DhAHUFJoymf4nqaft0ID8=;
-  b=fGtB0hcoK68UbRQaMlQyUE1DsFpUujdrjkZDE5XgNIz+HXHy85dZbjqH
-   W9vARzju+94/QcmDBxROD0X2TAPQvzz/rvRYqn0AdJ0GmdryLbXr+YK/Y
-   d01eBjWM6jURAu/9FP1HcjrDXOASOiiCQNoKe6sDx+vrOfBsbAafduHWD
-   0=;
-X-CSE-ConnectionGUID: o+bZL5mCRnmfqLITOaXR1g==
-X-CSE-MsgGUID: QolnCxsJRMuIgBbPu+rrVQ==
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 126508435
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:qSkReKkKnuX+Mn+4Ehw4dv7o5gyyJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIZDG6Bb6mDM2T8ftgjPY+w9kpQ7ZeBm9QxSlNv+y82RSMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5K+aVA8w5ARkPqkT5gKGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- ftbIgIpMxWoveSzzqufa9VLj/QZdca+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzG+
- zqWoz+kav0cHOWYzTyu4mmOvMrSvCzRUroPV6eiyMc/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
- TehhM/kCzVpt/uOVXuX+7OQrDWzESEQISkJYipsZRsI5djq5ps6gRPGQt9gF7Odh9j5Xzr3x
- li3QDMW3utJy5RRjuPioAGB3GrESoX1ohAd4UbdbEb46yhDYourfqiJ1X/S3cwZI9PMJrWeh
- 0Toi/Ry/chXU8DdznTREbRTdF26z6zbamGC2zaDC7Fkp2z3pSP5FWxFyGsmTHqFJProbtMAj
- KX7kgRL7ZsbB2OwbKl4eOpd4OxxlvC/TLwJuh3OB+eig6SdlyfdpUmCnWbKgwjQfLEEyMnTw
- 6uzf8e2Fmo9Aq961jewTOp1+eZ1l3BnmjmJGMGgn0nPPV+iiJi9E+lt3LymN71R0U95iF+Nr
- 4Y32zWikH2zr9ESkgGIqNVOfDjm3FAwBIzsqtw/S9Nv1jFOQTl7Y9eImO9JRmCQt/gN/gs+1
- i3nCxAwJZuWrSGvFDhmnVg8OOqxAMwu8yNT0O5FFQ/A5kXPqL2HtM83H6bbt5F9nAC/5ZaYl
- 8U4Rvg=
-IronPort-HdrOrdr: A9a23:iTVoFqn2JJEge0IPxMLHY+Q0vFbpDfII3DAbv31ZSRFFG/Fw9v
- re/sjzsCWftN9/YgBCpTntAtj5fZr8z+8T3WByB8bYYOHm0FHYVb2KhLGKq1aBJ8SXzI9gPM
- xbAsxD4bPLfD1HZAXBjDVQ0exM/DBKys+VbJzlvhFQpMhRBZ1I6wd8BkKFHlZtRA9AbKBJbq
- ah2g==
-X-Talos-CUID: 9a23:91mncGAsUnHsp8H6Ey4k/nwwR8UOSHvYwm70AnOfAFZTEbLAHA==
-X-Talos-MUID: =?us-ascii?q?9a23=3A83+6ogy+SBx8lL4nQ1hZ80J0ZFqaqJ2pDEYmgY4?=
- =?us-ascii?q?kgeyZFCNaMQ+Azy6tfLZyfw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.03,250,1694750400"; 
-   d="scan'208";a="126508435"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Alejandro Vallejo
-	<alejandro.vallejo@cloud.com>, Stefano Stabellini
-	<stefano.stabellini@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Subject: [PATCH 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and conditionalise ucode
-Date: Wed, 25 Oct 2023 19:06:30 +0100
-Message-ID: <20231025180630.3230010-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20231025180630.3230010-1-andrew.cooper3@citrix.com>
-References: <20231025180630.3230010-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 256d4f75-7363-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1698258016;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Kbl9Vh12iHFjO5JwnG1NE2HG/x04t0/PepbwFFk28Kc=;
+	b=G2LNUbCMHb9IdymxqJkwPLKWZ6iNo4JMIJGERWEHBpOjuzx5C78DKA0GYRn1Nz/KNzz1GW
+	hHUMYzTa6srEWwNZ0HnpAWRL2gsMf6udVL4f9qe90DhD0PD6j6SeK5ACp+uzWDtZdQ6GXv
+	fgpTCO7PZBk8bfZx1twzi4trokDQRHg=
+X-MC-Unique: MD8IH2-EMh6IsUtGtqLM8Q-1
+Date: Wed, 25 Oct 2023 13:20:07 -0500
+From: Eric Blake <eblake@redhat.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: qemu-devel@nongnu.org, Kevin Wolf <kwolf@redhat.com>, 
+	Hanna Reitz <hreitz@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+	Richard Henderson <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
+	Jason Wang <jasowang@redhat.com>, Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org, 
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org, Bernhard Beschow <shentey@gmail.com>, 
+	Joel Upham <jupham125@gmail.com>
+Subject: Re: [PATCH v3 28/28] docs: update Xen-on-KVM documentation
+Message-ID: <6vbpkrebc7fpypbv2t7jbs7m3suxwbqqykeomzfxpenjj2sogd@rphcppcl4inl>
+References: <20231025145042.627381-1-dwmw2@infradead.org>
+ <20231025145042.627381-29-dwmw2@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231025145042.627381-29-dwmw2@infradead.org>
+User-Agent: NeoMutt/20231006
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.8
 
-We eventually want to be able to build a stripped down Xen for a single
-platform.  Make a start with CONFIG_{AMD,INTEL} (hidden behind EXPERT, but
-available to randconfig), and adjust the microcode logic.
+On Wed, Oct 25, 2023 at 03:50:42PM +0100, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> Add notes about console and network support, and how to launch PV guests.
+> Clean up the disk configuration examples now that that's simpler, and
+> remove the comment about IDE unplug on q35/AHCI now that it's fixed.
+> 
+> Also update stale avocado test filename in MAINTAINERS.
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+> +Xen paravirtual devices
+> +-----------------------
+> +
+> +The Xen PCI platform device is enabled automatically for a Xen guest. This
+> +allows a guest to unplug all emulated devices, in order to use paravirtual
+> +block and network drivers instead.
+> +
+> +Those paravirtual Xen block, network (and console) devices can be created
+> +through the command line, and/or hot-plugged.
+> +
+> +To provide a Xen console device, define a character device and then a device
+> +of type ``xen-console`` to connect to it. For the Xen console equivalent of
+> +the handy ``-serial mon:stdio`` option, for example:
+> +
+> +.. parsed-literal::
+> +   -chardev -chardev stdio,mux=on,id=char0,signal=off -mon char0 \\
+> +   -device xen-console,chardev=char0
 
-No practical change.
+Is -chardev supposed to appear twice here?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-CC: Stefano Stabellini <stefano.stabellini@amd.com>
-CC: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+...
+> +
+> +Booting Xen PV guests
+> +---------------------
+> +
+> +Booting PV guest kernels is possible by using the Xen PV shim (a version of Xen
+> +itself, designed to run inside a Xen HVM guest and provide memory management
+> +services for one guest alone).
+> +
+> +The Xen binary is provided as the ``-kernel`` and the guest kernel itself (or
+> +PV Grub image) as the ``-initrd`` image, which actually just means the first
+> +multiboot "module". For example:
+> +
+> +.. parsed-literal::
+> +
+> +  |qemu_system| --accel kvm,xen-version=0x40011,kernel-irqchip=split \\
+> +       -chardev stdio,id=char0 -device xen-console,chardev=char0 \\
+> +       -display none  -m 1G  -kernel xen -initrd bzImage \\
+> +       -append "pv-shim console=xen,pv -- console=hvc0 root=/dev/xvda1" \\
+> +       -drive file=${GUEST_IMAGE},if=xen
 
-I've intentionally ignored the other vendors for now.  They can be put into
-Kconfig by whomever figures out the actual dependencies between their init
-routines.
+Is the space between -- and console= intentionsl?
 
-CC Stefano/Xenia as I know you want to go down this line, but I don't recall
-patches to this effect yet.
----
- xen/arch/x86/Kconfig                 |  2 ++
- xen/arch/x86/Kconfig.cpu             | 22 ++++++++++++++++++++++
- xen/arch/x86/cpu/microcode/Makefile  |  4 ++--
- xen/arch/x86/cpu/microcode/private.h |  9 +++++++++
- 4 files changed, 35 insertions(+), 2 deletions(-)
- create mode 100644 xen/arch/x86/Kconfig.cpu
-
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index eac77573bd75..d9eacdd7e0fa 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -49,6 +49,8 @@ config HAS_CC_CET_IBT
- 
- menu "Architecture Features"
- 
-+source "arch/x86/Kconfig.cpu"
-+
- source "arch/Kconfig"
- 
- config PV
-diff --git a/xen/arch/x86/Kconfig.cpu b/xen/arch/x86/Kconfig.cpu
-new file mode 100644
-index 000000000000..0ce09b292045
---- /dev/null
-+++ b/xen/arch/x86/Kconfig.cpu
-@@ -0,0 +1,22 @@
-+menu "Supported processor vendors"
-+	visible if EXPERT
-+
-+config AMD
-+	bool "AMD"
-+        default y
-+        help
-+          Detection, tunings and quirks for AMD processors.
-+
-+	  May be turned off in builds targetting other vendors.  Otherwise,
-+	  must be enabled for Xen to work suitably on AMD processors.
-+
-+config INTEL
-+	bool "Intel"
-+        default y
-+        help
-+          Detection, tunings and quirks for Intel processors.
-+
-+	  May be turned off in builds targetting other vendors.  Otherwise,
-+	  must be enabled for Xen to work suitably on Intel processors.
-+
-+endmenu
-diff --git a/xen/arch/x86/cpu/microcode/Makefile b/xen/arch/x86/cpu/microcode/Makefile
-index aae235245b06..30d600544f45 100644
---- a/xen/arch/x86/cpu/microcode/Makefile
-+++ b/xen/arch/x86/cpu/microcode/Makefile
-@@ -1,3 +1,3 @@
--obj-y += amd.o
-+obj-$(CONFIG_AMD) += amd.o
- obj-y += core.o
--obj-y += intel.o
-+obj-$(CONFIG_INTEL) += intel.o
-diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
-index b58611e908aa..da556fe5060a 100644
---- a/xen/arch/x86/cpu/microcode/private.h
-+++ b/xen/arch/x86/cpu/microcode/private.h
-@@ -70,7 +70,16 @@ struct microcode_ops {
-  * support available) and (not) ops->apply_microcode (i.e. read only).
-  * Otherwise, all hooks must be filled in.
-  */
-+#ifdef CONFIG_AMD
- void ucode_probe_amd(struct microcode_ops *ops);
-+#else
-+static inline void ucode_probe_amd(struct microcode_ops *ops) {}
-+#endif
-+
-+#ifdef CONFIG_INTEL
- void ucode_probe_intel(struct microcode_ops *ops);
-+#else
-+static inline void ucode_probe_intel(struct microcode_ops *ops) {}
-+#endif
- 
- #endif /* ASM_X86_MICROCODE_PRIVATE_H */
 -- 
-2.30.2
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
 
 
