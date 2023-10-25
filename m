@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1BD57D6DCD
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 15:58:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622909.970168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6E1F7D6DD1
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 15:58:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622912.970177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qveOC-0007WA-QG; Wed, 25 Oct 2023 13:57:40 +0000
+	id 1qveP5-0008AO-5b; Wed, 25 Oct 2023 13:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622909.970168; Wed, 25 Oct 2023 13:57:40 +0000
+Received: by outflank-mailman (output) from mailman id 622912.970177; Wed, 25 Oct 2023 13:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qveOC-0007TM-MB; Wed, 25 Oct 2023 13:57:40 +0000
-Received: by outflank-mailman (input) for mailman id 622909;
- Wed, 25 Oct 2023 13:57:40 +0000
+	id 1qveP5-00087i-2m; Wed, 25 Oct 2023 13:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 622912;
+ Wed, 25 Oct 2023 13:58:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6q77=GH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qveOB-0007S3-Ve
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 13:57:39 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xaZJ=GH=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1qveP3-000866-Qp
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 13:58:33 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 749f3560-733e-11ee-9b0e-b553b5be7939;
- Wed, 25 Oct 2023 15:57:37 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3100121836;
- Wed, 25 Oct 2023 13:57:37 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B130313524;
- Wed, 25 Oct 2023 13:57:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IiGhKdAeOWWDDgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 25 Oct 2023 13:57:36 +0000
+ id 93f049c9-733e-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 15:58:30 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-533d31a8523so8596939a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 06:58:30 -0700 (PDT)
+Received: from edvint-x-u.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ s14-20020a05640217ce00b0053e625da9absm9504855edy.41.2023.10.25.06.58.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Oct 2023 06:58:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,218 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 749f3560-733e-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1698242257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=op9yBxjmfTO2TmRrohBLDVW1AW/nnwOBB/11f8t5Pkw=;
-	b=QbzIORKE1Mb7Np6unQIplDTAHSHR1BKVqzwrS1EcSdydxo390XalWOG001u6X/LtZBpsCX
-	ftT1fadfov0sJq0IaFqGEHz1tuxT7dxhzkerVUwUtd8mLLJ+DaDnrqXilRnQ+TXLaVN5Wh
-	3Bp8PA6N+vFLaS5BfRaHhgq8ycDa8xM=
-Message-ID: <bc0b5357-1b0d-44ad-a0a2-a8b102328fff@suse.com>
-Date: Wed, 25 Oct 2023 15:57:36 +0200
+X-Inumbo-ID: 93f049c9-733e-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1698242310; x=1698847110; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ktWD0ULeIfObsCztjTRvmpMByXxg4wg0bG8MtDIla98=;
+        b=ken0wcsLxDMDlByKyqVmPL143DPP4Rb29jLHQoT7TrZJYjBlPjKKyAFEDU054b5cAX
+         UxBL2C2xzyvnIHhLIJF5y+vtiG/u7p2I+Arj+tJaq4jDA7W4PQLYKbJ1xymWIF/sc4Ok
+         la61ag6943KIAfeUQvK8a+ERpOKeiiQtRnYk8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698242310; x=1698847110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ktWD0ULeIfObsCztjTRvmpMByXxg4wg0bG8MtDIla98=;
+        b=UW7Z6jZEtTs11ARDCGGZsKkpRseo6hiu17uEazUWzH6Ni38L6zW5b8T2141qzPwbQC
+         ezqWrO6iDfTX8HSl5OGpCvEfD0zpJHswSsfGjgQ1K4/r7oVoOYRigl3U8UhbHionnTI/
+         GuJqXrlYb6vPi6nRbPza23oAsu1muuaYAffz4TI6HwItYAsZtlqH2hKUGIwQDRGA4eW6
+         PnRr6ayR89o5+FJy//tFkma1AtnjJAv8nIVIKxWdO4a9AcJq6MDtrbple6x94Y/ab/ry
+         I4SS24r3A3IXfZhaVU7alLMlLmgYpJlWoZkxFfXgoQAxtI6LQtCI7r966i/0D7TtWflQ
+         WiHw==
+X-Gm-Message-State: AOJu0YzR/qg80VjkdEjzHMNiS7wSOHwehBUGc1tSCNBxbn11+SucLtR0
+	l9YRqtj893QNQi3+nR/jGffGo2uiiQJ1YiWtZYS4MA==
+X-Google-Smtp-Source: AGHT+IFXpXXDVT5c9mtN4o0TBbsxBF1R0REocRMLBpAZn768qkD/gUNToWgjMR2CKsB3qgvdZBfI2Q==
+X-Received: by 2002:a05:6402:1d48:b0:540:cabb:de70 with SMTP id dz8-20020a0564021d4800b00540cabbde70mr1856323edb.38.1698242309808;
+        Wed, 25 Oct 2023 06:58:29 -0700 (PDT)
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
+To: edwin.torok@cloud.com,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] tools/ocaml/Makefile.rules: use correct C flags when compiling OCaml C stubs
+Date: Wed, 25 Oct 2023 14:58:29 +0100
+Message-Id: <fd09742f7c2191be3cdfafbd4c7cccb10eb0e3a2.1698240589.git.edwin.torok@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] x86/paravirt: move some functions and defines to
- alternative
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Ajay Kaher <akaher@vmware.com>, Alexey Makhalov <amakhalov@vmware.com>,
- VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
-References: <20231019091520.14540-1-jgross@suse.com>
- <20231019091520.14540-2-jgross@suse.com>
- <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
- <fde7ffdd-4d12-4821-ac51-e67e65637111@suse.com>
- <20231025134425.GEZTkbua5w0bI2GQlP@fat_crate.local>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20231025134425.GEZTkbua5w0bI2GQlP@fat_crate.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Ok0W2fM900Vcsm3VK2UlpIrY"
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -11.98
-X-Spamd-Result: default: False [-11.98 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-2.99)[99.97%];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 REPLY(-4.00)[];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 MIME_BASE64_TEXT(0.10)[];
-	 RCPT_COUNT_TWELVE(0.00)[18];
-	 SIGNED_PGP(-2.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Ok0W2fM900Vcsm3VK2UlpIrY
-Content-Type: multipart/mixed; boundary="------------jeLaSrUNi1nbqAXS3yUBjjNu";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Ajay Kaher <akaher@vmware.com>, Alexey Makhalov <amakhalov@vmware.com>,
- VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <bc0b5357-1b0d-44ad-a0a2-a8b102328fff@suse.com>
-Subject: Re: [PATCH v3 1/5] x86/paravirt: move some functions and defines to
- alternative
-References: <20231019091520.14540-1-jgross@suse.com>
- <20231019091520.14540-2-jgross@suse.com>
- <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
- <fde7ffdd-4d12-4821-ac51-e67e65637111@suse.com>
- <20231025134425.GEZTkbua5w0bI2GQlP@fat_crate.local>
-In-Reply-To: <20231025134425.GEZTkbua5w0bI2GQlP@fat_crate.local>
+The code currently uses GCC to compile OCaml C stubs directly,
+and although in most cases this works, it is not entirely correct.
 
---------------jeLaSrUNi1nbqAXS3yUBjjNu
-Content-Type: multipart/mixed; boundary="------------1UT8fvV7X7WRPiLzbGiK08dL"
+This will fail if the OCaml runtime has been recompiled to use and link with ASAN for example
+(or other situations where a flag needs to be used consistently in everything that is linked into the same binary).
 
---------------1UT8fvV7X7WRPiLzbGiK08dL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Use the OCaml compiler instead, which knows how to invoke the correct C compiler with the correct flags,
+and append the Xen specific CFLAGS to that instead.
 
-T24gMjUuMTAuMjMgMTU6NDQsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gV2VkLCBP
-Y3QgMjUsIDIwMjMgYXQgMDM6MzE6MDdQTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IFRoZXJlIGlzDQo+Pg0KPj4gI2RlZmluZSBub3AoKSBhc20gdm9sYXRpbGUgKCJub3Ai
-KQ0KPj4NCj4+IGluIGFyY2gveDg2L2luY2x1ZGUvYXNtL3NwZWNpYWxfaW5zbnMuaCBhbHJl
-YWR5Lg0KPiANCj4gVGhlbiBjYWxsIGl0ICJub3BfZnVuYyIgb3Igc28uDQoNCk9rYXkuDQoN
-Cj4gDQo+PiBJdCBtaWdodCBub3QgYmUgbmVlZGVkIG5vdywgYnV0IGFyZSB5b3Ugc3VyZSB3
-ZSB3b24ndCBuZWVkIGl0IGluIGZ1dHVyZT8NCj4gDQo+IE5vLCBJJ20gbm90Lg0KPiANCj4g
-V2hhdCBJJ20gc3VyZSBvZiBpczogc3R1ZmYgc2hvdWxkIGJlIGFkZGVkIHRvIHRoZSBrZXJu
-ZWwgb25seSB3aGVuDQo+IHJlYWxseSBuZWVkZWQuIE5vdCBpbiB0aGUgZXhwZWN0YXRpb24g
-dGhhdCBpdCBtaWdodCBwb3RlbnRpYWxseSBiZQ0KPiBuZWVkZWQgYXQgc29tZSBwb2ludC4N
-Cg0KV2lsbCBkb3VibGUgY2hlY2sgd2hldGhlciBpdCBpcyBuZWVkZWQgbm93Lg0KDQoNCkp1
-ZXJnZW4NCg==
---------------1UT8fvV7X7WRPiLzbGiK08dL
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Drop the explicit -fPIC and -I$(ocamlc -where): these will now be provided by the compiler as needed.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Use -verbose so we see the actuall full C compiler command line invocation done by the OCaml compiler.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Signed-off-by: Edwin Török <edwin.torok@cloud.com>
+---
+ tools/ocaml/Makefile.rules | 2 +-
+ tools/ocaml/common.make    | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
---------------1UT8fvV7X7WRPiLzbGiK08dL--
+diff --git a/tools/ocaml/Makefile.rules b/tools/ocaml/Makefile.rules
+index 0d3c6ac839..74856e2282 100644
+--- a/tools/ocaml/Makefile.rules
++++ b/tools/ocaml/Makefile.rules
+@@ -37,7 +37,7 @@ ALL_OCAML_OBJS ?= $(OBJS)
+ 	$(call quiet-command, $(OCAMLYACC) -q $<,MLYACC,$@)
+ 
+ %.o: %.c
+-	$(call quiet-command, $(CC) $(CFLAGS) -c -o $@ $<,CC,$@)
++	$(call quiet-command, $(OCAMLOPT) -verbose $(addprefix -ccopt ,$(CFLAGS)) -c -o $@ $<,CC,$@)
+ 
+ META: META.in
+ 	sed 's/@VERSION@/$(VERSION)/g' < $< $o
+diff --git a/tools/ocaml/common.make b/tools/ocaml/common.make
+index 0c8a597d5b..629e4b3e66 100644
+--- a/tools/ocaml/common.make
++++ b/tools/ocaml/common.make
+@@ -9,8 +9,6 @@ OCAMLLEX ?= ocamllex
+ OCAMLYACC ?= ocamlyacc
+ OCAMLFIND ?= ocamlfind
+ 
+-CFLAGS += -fPIC -I$(shell ocamlc -where)
+-
+ OCAMLOPTFLAG_G := $(shell $(OCAMLOPT) -h 2>&1 | sed -n 's/^  *\(-g\) .*/\1/p')
+ OCAMLOPTFLAGS = $(OCAMLOPTFLAG_G) -ccopt "$(LDFLAGS)" -dtypes $(OCAMLINCLUDE) -cc $(CC) -w F -warn-error F
+ OCAMLCFLAGS += -g $(OCAMLINCLUDE) -w F -warn-error F
+-- 
+2.41.0
 
---------------jeLaSrUNi1nbqAXS3yUBjjNu--
-
---------------Ok0W2fM900Vcsm3VK2UlpIrY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmU5HtAFAwAAAAAACgkQsN6d1ii/Ey+k
-Swf/UyHA6lq4Z9I3oF6bCg3moJyEFEhp30dYnnIngCdj/QTFJDrnStojLtDF3VFEH+tGVs/WU9gt
-Jd5wUdrPcCnq0LV/itE/eZpNPy5bnlhU60NK1e4noA+0X5FP8CnvlKonWN5sDAys+C5amvvUARFg
-URcHSe2eF9FFJUzmJgHiNMbOib3WNPHuhHezYusZb4IXXF/24DD58xBNcwTu0tsU4sZajYLyVzVN
-+ebBzUnfJF1+qas5l5ZVFOv7+qgNIPgkd6PRkUuBF7PNvgXzvfvSZz/1ocpq5ztnNUMalGhUqMkt
-DU3A3OONRtrdFrowAFWuxs0M+3XRfDUh2RE0MJL+vw==
-=Bh0A
------END PGP SIGNATURE-----
-
---------------Ok0W2fM900Vcsm3VK2UlpIrY--
 
