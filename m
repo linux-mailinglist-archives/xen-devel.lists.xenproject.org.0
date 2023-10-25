@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E619F7D6FB8
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:51:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622965.970307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B087D702F
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:57:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623035.970467 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvfDv-0001PJ-6b; Wed, 25 Oct 2023 14:51:07 +0000
+	id 1qvfJU-0004yC-56; Wed, 25 Oct 2023 14:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622965.970307; Wed, 25 Oct 2023 14:51:07 +0000
+Received: by outflank-mailman (output) from mailman id 623035.970467; Wed, 25 Oct 2023 14:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvfDv-0001N4-1J; Wed, 25 Oct 2023 14:51:07 +0000
-Received: by outflank-mailman (input) for mailman id 622965;
- Wed, 25 Oct 2023 14:51:04 +0000
+	id 1qvfJU-0004vq-1z; Wed, 25 Oct 2023 14:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 623035;
+ Wed, 25 Oct 2023 14:56:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJSz=GH=casper.srs.infradead.org=BATV+85b1c44ac99574f3713d+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qvfDs-0000WU-No
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 14:51:04 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=w7q9=GH=desiato.srs.infradead.org=BATV+fe87d11d956b9f6f1554+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qvfEF-0000WU-EF
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 14:51:27 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9144c93-7345-11ee-9b0e-b553b5be7939;
- Wed, 25 Oct 2023 16:50:59 +0200 (CEST)
+ id f5afbd6d-7345-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 16:51:21 +0200 (CEST)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qvfDY-009Nma-Hc; Wed, 25 Oct 2023 14:50:44 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qvfDZ-00GPLy-00; Wed, 25 Oct 2023 14:50:52 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qvfDY-002dEN-0Y; Wed, 25 Oct 2023 15:50:44 +0100
+ Linux)) id 1qvfDY-002dER-0t; Wed, 25 Oct 2023 15:50:44 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: e9144c93-7345-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: f5afbd6d-7345-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=I7wwUWDSmNrD50IckcuS/vpghKxFsMuU+uj7Ug/+mno=; b=RvDifJ46k3zOQxzO3K8gyXMav9
-	h9wbWdHVLd9gbqWP/b4m/KQeTI2stcYxTPljdDzPt6hb7NbRhR2P0Z4xKNwxtgzxk3N2Igdu5kwqT
-	AXV3Jx/OXlBhdliH0firkNh2O5qAZTR6XHzFMcLDeFRdKJoSGTYLHlhONm24s0uwaH0rDz1Fk/PGw
-	3QtrkBftuCQR9gV2WZxNA4tVN+MG4Zja8lhsVua2l7qFzWDiSaHeANeDiYbCF+WoLyBNRQbkEgsY2
-	OfZjG7o/oJkUjbPK3xppz5WL8MhBsZtqCyEEELWg6Dn7mGtZrcsYl+Wq2DQKqUo4lVF+bNWFOf8G7
-	JSaqrwxg==;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=whwrxQfu34eIg/PcGjcBAI/B4Oo/UALoBhuUlK3a190=; b=KDzGOyRparAnnjvPQuEd8zIi5K
+	k7eb8lLOjHiB0WgXqvHuzQDwCGSF8SeNp3WXmidEbK2bWXOc8w6x3TD6K+UXDO4sPnW2qMxW/v5SM
+	JkSb1Z2JTnWnr0HgbFIP0bx5OGzSEiK94Vb17zrb+YHVm0KZ7bymHP1u6UIhnhK+Bc6wUnU6y7Tcd
+	QiEF0/VJRFk98yveKudVwc1RUon2pG3PxUld5/P+sDKlYT/AT53ZbUp+UowXdbZhIXvkNmCB2PEB1
+	nhKcb/KtHS5HnBx5aIdzj2GaTnYdKhVRfmjK8CnHDLlElncrHUR+DaNttogg600wZhp3rq1/l+3G0
+	urtNKg8g==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>,
@@ -72,45 +72,89 @@ Cc: Kevin Wolf <kwolf@redhat.com>,
 	kvm@vger.kernel.org,
 	Bernhard Beschow <shentey@gmail.com>,
 	Joel Upham <jupham125@gmail.com>
-Subject: [PATCH v3 07/28] hw/xen: use correct default protocol for xen-block on x86
-Date: Wed, 25 Oct 2023 15:50:21 +0100
-Message-Id: <20231025145042.627381-8-dwmw2@infradead.org>
+Subject: [PATCH v3 08/28] i386/xen: Ignore VCPU_SSHOTTMR_future flag in set_singleshot_timer()
+Date: Wed, 25 Oct 2023 15:50:22 +0100
+Message-Id: <20231025145042.627381-9-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231025145042.627381-1-dwmw2@infradead.org>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Even on x86_64 the default protocol is the x86-32 one if the guest doesn't
-specifically ask for x86-64.
+Upstream Xen now ignores this flag¹, since the only guest kernel ever to
+use it was buggy.
 
-Fixes: b6af8926fb85 ("xen: add implementations of xen-block connect and disconnect functions...")
+¹ https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=19c6cbd909
+
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- hw/block/xen-block.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ target/i386/kvm/xen-emu.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index a07cd7eb5d..64470fc579 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -117,7 +117,11 @@ static void xen_block_connect(XenDevice *xendev, Error **errp)
+diff --git a/target/i386/kvm/xen-emu.c b/target/i386/kvm/xen-emu.c
+index 75b2c557b9..1dc9ab0d91 100644
+--- a/target/i386/kvm/xen-emu.c
++++ b/target/i386/kvm/xen-emu.c
+@@ -1077,17 +1077,13 @@ static int vcpuop_stop_periodic_timer(CPUState *target)
+  * Must always be called with xen_timers_lock held.
+  */
+ static int do_set_singleshot_timer(CPUState *cs, uint64_t timeout_abs,
+-                                   bool future, bool linux_wa)
++                                   bool linux_wa)
+ {
+     CPUX86State *env = &X86_CPU(cs)->env;
+     int64_t now = kvm_get_current_ns();
+     int64_t qemu_now = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
+     int64_t delta = timeout_abs - now;
  
-     if (xen_device_frontend_scanf(xendev, "protocol", "%ms",
-                                   &str) != 1) {
--        protocol = BLKIF_PROTOCOL_NATIVE;
-+        /* x86 defaults to the 32-bit protocol even for 64-bit guests. */
-+        if (object_dynamic_cast(OBJECT(qdev_get_machine()), "x86-machine"))
-+            protocol = BLKIF_PROTOCOL_X86_32;
-+        else
-+            protocol = BLKIF_PROTOCOL_NATIVE;
+-    if (future && timeout_abs < now) {
+-        return -ETIME;
+-    }
+-
+     if (linux_wa && unlikely((int64_t)timeout_abs < 0 ||
+                              (delta > 0 && (uint32_t)(delta >> 50) != 0))) {
+         /*
+@@ -1129,9 +1125,13 @@ static int vcpuop_set_singleshot_timer(CPUState *cs, uint64_t arg)
+     }
+ 
+     QEMU_LOCK_GUARD(&X86_CPU(cs)->env.xen_timers_lock);
+-    return do_set_singleshot_timer(cs, sst.timeout_abs_ns,
+-                                   !!(sst.flags & VCPU_SSHOTTMR_future),
+-                                   false);
++
++    /*
++     * We ignore the VCPU_SSHOTTMR_future flag, just as Xen now does.
++     * The only guest that ever used it, got it wrong.
++     * https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=19c6cbd909
++     */
++    return do_set_singleshot_timer(cs, sst.timeout_abs_ns, false);
+ }
+ 
+ static int vcpuop_stop_singleshot_timer(CPUState *cs)
+@@ -1156,7 +1156,7 @@ static bool kvm_xen_hcall_set_timer_op(struct kvm_xen_exit *exit, X86CPU *cpu,
+         err = vcpuop_stop_singleshot_timer(CPU(cpu));
      } else {
-         if (strcmp(str, XEN_IO_PROTO_ABI_X86_32) == 0) {
-             protocol = BLKIF_PROTOCOL_X86_32;
+         QEMU_LOCK_GUARD(&X86_CPU(cpu)->env.xen_timers_lock);
+-        err = do_set_singleshot_timer(CPU(cpu), timeout, false, true);
++        err = do_set_singleshot_timer(CPU(cpu), timeout, true);
+     }
+     exit->u.hcall.result = err;
+     return true;
+@@ -1844,7 +1844,7 @@ int kvm_put_xen_state(CPUState *cs)
+         QEMU_LOCK_GUARD(&env->xen_timers_lock);
+         if (env->xen_singleshot_timer_ns) {
+             ret = do_set_singleshot_timer(cs, env->xen_singleshot_timer_ns,
+-                                    false, false);
++                                          false);
+             if (ret < 0) {
+                 return ret;
+             }
 -- 
 2.40.1
 
