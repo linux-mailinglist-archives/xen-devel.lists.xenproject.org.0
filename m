@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD267D7455
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:30:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623204.970918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F527D7462
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:33:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623250.970987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvja7-0005Ep-5t; Wed, 25 Oct 2023 19:30:19 +0000
+	id 1qvjd4-0004p6-8P; Wed, 25 Oct 2023 19:33:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623204.970918; Wed, 25 Oct 2023 19:30:18 +0000
+Received: by outflank-mailman (output) from mailman id 623250.970987; Wed, 25 Oct 2023 19:33:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvja5-00050G-W7; Wed, 25 Oct 2023 19:30:17 +0000
-Received: by outflank-mailman (input) for mailman id 623204;
- Wed, 25 Oct 2023 19:30:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvjd4-0004nE-4p; Wed, 25 Oct 2023 19:33:22 +0000
+Received: by outflank-mailman (input) for mailman id 623250;
+ Wed, 25 Oct 2023 19:33:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xaZJ=GH=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1qvja0-0000YO-PY
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:30:12 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea6845ae-736c-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 21:30:12 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-9b95622c620so24457066b.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 12:30:12 -0700 (PDT)
+ id 1qvja3-0001Lv-Hr
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:30:15 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eaf13bc0-736c-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 21:30:13 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-9bf86b77a2aso22697366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 12:30:13 -0700 (PDT)
 Received: from edvint-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
  hv6-20020a17090760c600b00985ed2f1584sm10408710ejc.187.2023.10.25.12.30.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Oct 2023 12:30:11 -0700 (PDT)
+ Wed, 25 Oct 2023 12:30:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,33 +45,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea6845ae-736c-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: eaf13bc0-736c-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1698262211; x=1698867011; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1698262212; x=1698867012; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0nnj94eBCueSGzdSoAmtrm7fV0B+qdR+A2YxTRCOPiA=;
-        b=kCbNBmAjp6mYFPR1sBLeqwdtzZ5mHWEvtQAyrVojFttpVpmxiqW8gir9pSjybZNxAl
-         rvQAAOAwuSdbA2f9ZD6+zWRIVaDZMBHn0vQWMLiRwRNYdHWC9hv1dY2JQLdPlXrhpZae
-         EZgzw5eUtJP6+/RT7rxg4JUsnyE+KIHi9hOCE=
+        bh=szWwPrhRVQ5NEr0HTjBSWKJZPscEP7xbO0kPy1jcKl0=;
+        b=BbdPFSkwhGMXJ+3yByYkH2XkVD5zbtBKkFaxJEH31hunMVtG6luBCjF3L0ekOYYkWB
+         t0a4lF4O9SKrNQYUyCnKgM9LEVoUHj78Bf9mJaG5o1ZTex6bB4DLL8A2bQVTh1yWAgxS
+         5RWZB5TFKpPoJjSye5cW85alZNDXiAXHkodBY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698262211; x=1698867011;
+        d=1e100.net; s=20230601; t=1698262212; x=1698867012;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0nnj94eBCueSGzdSoAmtrm7fV0B+qdR+A2YxTRCOPiA=;
-        b=h3Abpx2VuWm6qaR9QWU9nVlw8gdTw6b7hCmSzyxW1Up4wXnxH6ZABzfFROfZGHKeYo
-         WM22GEC+ktvtlNJraryqNGAlMdVQeSseViOO1HjryKBhN8wIad75IoHwJ5AG7JEgl9pg
-         lM1m97kSlyLnL0vQEGWo8RuFKflIxrqE2LiSvRGcdAqqDuJHOFXX8gVjCXKpw/Fd9Ylt
-         oPQ+eEa7W0ApkWrSCLkSYMSrID80vjOzoB/OuoLEHo/0E1ZxXhuPF6J4PbWCLQlkA70T
-         n2Mnwn7xokZOMfH0uoQA/bQf9Ru8leeE6H+5DMfvNeEPBJh30JRm6B4Nk+aLMqEey0ve
-         0V3w==
-X-Gm-Message-State: AOJu0Yy/Eb/jUZvw4khWfmOnAg0BW/6bjvxmK4UnSMNR0aoT1XnhtMUw
-	1Q12qbcZRtEkmuAern6qliNM7Z5QTbG4dpy6YQ0xsA==
-X-Google-Smtp-Source: AGHT+IEpDexz4pu9AN7h/Al6z/4coqxRpbpAap8jC+a2WblgSDzd8wrU1Mnw0oODEMQUOaDbuG4GsA==
-X-Received: by 2002:a17:907:3f85:b0:9be:6ff7:128a with SMTP id hr5-20020a1709073f8500b009be6ff7128amr13011659ejc.67.1698262211740;
-        Wed, 25 Oct 2023 12:30:11 -0700 (PDT)
+        bh=szWwPrhRVQ5NEr0HTjBSWKJZPscEP7xbO0kPy1jcKl0=;
+        b=TPKjtmzJ6MzY2YkRblR+l0q8v/EA45SN0kv98MIr7oGgRl5nSJUhxLONqXSTA8TXS8
+         fU91VVXOabLJehDzqpo6uuUIihWfQ9jHpofOoA92PX5CsDMeqoGv/nhSk3CUh8IaX+Qo
+         13y+Ao2BqsfiUWAhhR8rXmlPgBM526caDxsQVFFDgmJs20/SMoetj8yAp0HxCQojuUK3
+         dfPT0acQ0THcPOhaEYmtB4kty+Ozs7p36F89sbSZVdIlrVMuIfCydjNU0QIFzr6lzrAL
+         /rd5yw0NuWPG2S0ln/ojZRZ8oqTtw+QDsvYeFeEKatyaOJPY8+QQteZSfDKt882R8UKp
+         jZ7Q==
+X-Gm-Message-State: AOJu0Yx6HcugS2kYbqnSVHAwxRHS+XASi7w1i7z29syoAZR8kyeAy0/e
+	fcvYrYAyAeX9DTLyjMjhA7RO0ZiADLDJBCKA5uw8jQ==
+X-Google-Smtp-Source: AGHT+IH1Df6VfyiYXZUnnyFiE2b8zlT9ZC3eG4XHBSndaqVZArI6AToPuwzZbTQJS3WoT53YXNXNeQ==
+X-Received: by 2002:a17:907:3d92:b0:9b2:b71f:83be with SMTP id he18-20020a1709073d9200b009b2b71f83bemr10365431ejc.1.1698262212590;
+        Wed, 25 Oct 2023 12:30:12 -0700 (PDT)
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>,
@@ -81,9 +81,9 @@ Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [RFC PATCH 17/22] x86/PMUv4: IA32_PERF_GLOBAL_{STATUS_SET, INUSE} support
-Date: Wed, 25 Oct 2023 20:29:47 +0100
-Message-Id: <586661cb0604d638972e57de039456c85371ed97.1698261255.git.edwin.torok@cloud.com>
+Subject: [RFC PATCH 18/22] x86/PMUv4: disable intercept for PERF_GLOBAL_STATUS
+Date: Wed, 25 Oct 2023 20:29:48 +0100
+Message-Id: <37b346bcfc47ed514822fd6565f63df57a8c7c5f.1698261255.git.edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1698261255.git.edwin.torok@cloud.com>
 References: <cover.1698261255.git.edwin.torok@cloud.com>
@@ -93,117 +93,86 @@ Content-Transfer-Encoding: 8bit
 
 From: Edwin Török <edvin.torok@citrix.com>
 
-Expose thse MSRs to the guest when PMU version is >= 4.
+Now that we have a way to set PERF_GLOBAL_STATUS by writing to
+PERF_GLOBAL_STATUS_RESET (== PERF_GLOBAL_OVF_CTRL) and
+PERF_GLOBAL_STATUS_SET we do not need to intercept this MSR anymore.
+
+We can save/restore its state when saving/loading vPMU state, and
+otherwise let the guest read it directly.
+
+This is an optimization, perhaps it'd need a flag to disable it for
+debugging purposes.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
- xen/arch/x86/cpu/vpmu_intel.c  | 20 +++++++++++++++++++-
- xen/arch/x86/hvm/vmx/vmx.c     |  5 +++++
- xen/arch/x86/pv/emul-priv-op.c |  5 +++++
- 3 files changed, 29 insertions(+), 1 deletion(-)
+ xen/arch/x86/cpu/vpmu_intel.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
-index 923fe42a0b..5e660af395 100644
+index 5e660af395..59d0b2ca36 100644
 --- a/xen/arch/x86/cpu/vpmu_intel.c
 +++ b/xen/arch/x86/cpu/vpmu_intel.c
-@@ -171,6 +171,8 @@ static int is_core2_vpmu_msr(u32 msr_index, int *type, int *index)
-     case MSR_CORE_PERF_GLOBAL_CTRL:
-     case MSR_CORE_PERF_GLOBAL_STATUS:
-     case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-         *type = MSR_TYPE_GLOBAL;
-         return 1;
+@@ -67,6 +67,7 @@ static bool_t __read_mostly full_width_write;
  
-@@ -545,10 +547,21 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
-         core2_vpmu_cxt->global_status &= ~msr_content;
-         wrmsrl(MSR_CORE_PERF_GLOBAL_OVF_CTRL, msr_content);
-         return 0;
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+        if ( (v->domain->arch.cpuid->basic.pmu_version < 4) ||
-+             (msr_content & global_ovf_ctrl_mask) )
-+            return -EINVAL;
-+        core2_vpmu_cxt->global_status |= msr_content;
-+        wrmsrl(MSR_CORE_PERF_GLOBAL_STATUS_SET, msr_content);
-+        return 0;
-     case MSR_CORE_PERF_GLOBAL_STATUS:
-         gdprintk(XENLOG_INFO, "Can not write readonly MSR: "
-                  "MSR_PERF_GLOBAL_STATUS(0x38E)!\n");
-         return -EINVAL;
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-+        gdprintk(XENLOG_INFO, "Can not write readonly MSR: "
-+                 "MSR_PERF_GLOBAL_INUSE(0x392)!\n");
-+        return -EINVAL;
-     case MSR_IA32_PEBS_ENABLE:
-         if ( vpmu_features & (XENPMU_FEATURE_IPC_ONLY |
-                               XENPMU_FEATURE_ARCH_ONLY) )
-@@ -688,7 +701,8 @@ static int cf_check core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
-         core2_vpmu_cxt = vpmu->context;
-         switch ( msr )
-         {
--        case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-+        case MSR_CORE_PERF_GLOBAL_OVF_CTRL: /* FALLTHROUGH */
-+        case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-             *msr_content = 0;
-             break;
-         case MSR_CORE_PERF_GLOBAL_STATUS:
-@@ -700,6 +714,10 @@ static int cf_check core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
-             else
-                 rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, *msr_content);
-             break;
-+        case MSR_CORE_PERF_GLOBAL_INUSE:
-+            if ( v->domain->arch.cpuid->basic.pmu_version < 4 )
-+                return -EINVAL;
-+            /* FALLTHROUGH */
-         default:
-             rdmsrl(msr, *msr_content);
-         }
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index cd772585fe..af70ed8f30 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3375,6 +3375,8 @@ static int cf_check vmx_msr_read_intercept(
-     case MSR_CORE_PERF_FIXED_CTR_CTRL...MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-     case MSR_IA32_PEBS_ENABLE:
-     case MSR_IA32_DS_AREA:
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-         if ( vpmu_do_rdmsr(msr, msr_content) )
-             goto gp_fault;
-         break;
-@@ -3698,6 +3700,9 @@ static int cf_check vmx_msr_write_intercept(
-     case MSR_IA32_PEBS_ENABLE:
-     case MSR_IA32_DS_AREA:
-          if ( vpmu_do_wrmsr(msr, msr_content) )
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-+         if ( vpmu_do_wrmsr(msr, msr_content) )
-             goto gp_fault;
-         break;
+ /* Number of general-purpose and fixed performance counters */
+ unsigned int __read_mostly arch_pmc_cnt, fixed_pmc_cnt;
++static unsigned int __read_mostly vpmu_version;
  
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 09bfde1060..105485bb1e 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -968,6 +968,9 @@ static int cf_check read_msr(
-     case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL_LAST:
-     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTRn:
-     case MSR_CORE_PERF_FIXED_CTR_CTRL ... MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-+    case MSR_IA32_PEBS_ENABLE:
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-         if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-         {
-             vpmu_msr = true;
-@@ -1148,6 +1151,8 @@ static int cf_check write_msr(
-     case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL_LAST:
-     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTRn:
-     case MSR_CORE_PERF_FIXED_CTR_CTRL ... MSR_CORE_PERF_GLOBAL_OVF_CTRL:
-+    case MSR_CORE_PERF_GLOBAL_STATUS_SET:
-+    case MSR_CORE_PERF_GLOBAL_INUSE:
-         if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-         {
-             vpmu_msr = true;
+ /* Masks used for testing whether and MSR is valid */
+ #define ARCH_CTRL_MASK  (~((1ull << 32) - 1) | (1ull << 21) | ARCH_CNTR_PIN_CONTROL)
+@@ -228,6 +229,9 @@ static void core2_vpmu_set_msr_bitmap(struct vcpu *v)
+ 
+     vmx_clear_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, VMX_MSR_R);
+     vmx_clear_msr_intercept(v, MSR_IA32_DS_AREA, VMX_MSR_R);
++
++    if ( vpmu_version >= 4 )
++        vmx_clear_msr_intercept(v, MSR_CORE_PERF_GLOBAL_STATUS, VMX_MSR_R);
+ }
+ 
+ static void core2_vpmu_unset_msr_bitmap(struct vcpu *v)
+@@ -250,6 +254,9 @@ static void core2_vpmu_unset_msr_bitmap(struct vcpu *v)
+ 
+     vmx_set_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, VMX_MSR_R);
+     vmx_set_msr_intercept(v, MSR_IA32_DS_AREA, VMX_MSR_R);
++
++    if ( vpmu_version >= 4 )
++        vmx_set_msr_intercept(v, MSR_CORE_PERF_GLOBAL_STATUS, VMX_MSR_R);
+ }
+ 
+ static inline void __core2_vpmu_save(struct vcpu *v)
+@@ -268,7 +275,7 @@ static inline void __core2_vpmu_save(struct vcpu *v)
+         rdmsrl(MSR_P6_EVNTSEL(i), xen_pmu_cntr_pair[i].control);
+     }
+ 
+-    if ( !is_hvm_vcpu(v) )
++    if ( !is_hvm_vcpu(v) || vpmu_version >= 4 )
+         rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
+     /* Save MSR to private context to make it fork-friendly */
+     else if ( mem_sharing_enabled(v->domain) )
+@@ -338,6 +345,15 @@ static inline void __core2_vpmu_load(struct vcpu *v)
+     else if ( mem_sharing_is_fork(v->domain) )
+         vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+                             core2_vpmu_cxt->global_ctrl);
++
++    if ( vpmu_version >= 4 ) {
++        const uint64_t global_status = core2_vpmu_cxt->global_status;
++        const uint64_t reset = (~global_status) & global_ovf_ctrl_mask ;
++        if ( reset )
++            wrmsrl(MSR_CORE_PERF_GLOBAL_OVF_CTRL, reset);
++        if ( global_status )
++            wrmsrl(MSR_CORE_PERF_GLOBAL_STATUS_SET, global_status);
++    }
+ }
+ 
+ static int core2_vpmu_verify(struct vcpu *v)
+@@ -917,6 +933,7 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+         printk(XENLOG_INFO "VPMU: PMU version %u is not fully supported. "
+                "Emulating version %d\n", version, VPMU_VERSION_MAX);
+     }
++    vpmu_version = version;
+ 
+     if ( current_cpu_data.x86 != 6 )
+     {
 -- 
 2.41.0
 
