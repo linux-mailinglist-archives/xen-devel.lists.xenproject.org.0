@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D27FC7D7822
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 00:41:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623372.971200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B2B7D7879
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 01:23:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623382.971217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvmZ8-0000Bd-Q1; Wed, 25 Oct 2023 22:41:30 +0000
+	id 1qvnD4-0001Yh-Q8; Wed, 25 Oct 2023 23:22:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623372.971200; Wed, 25 Oct 2023 22:41:30 +0000
+Received: by outflank-mailman (output) from mailman id 623382.971217; Wed, 25 Oct 2023 23:22:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvmZ8-0008UJ-Lc; Wed, 25 Oct 2023 22:41:30 +0000
-Received: by outflank-mailman (input) for mailman id 623372;
- Wed, 25 Oct 2023 22:41:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvnD4-0001WW-MK; Wed, 25 Oct 2023 23:22:46 +0000
+Received: by outflank-mailman (input) for mailman id 623382;
+ Wed, 25 Oct 2023 23:22:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nm7K=GH=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1qvmZ7-0008LH-Rq
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 22:41:29 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1fbf1d8-7387-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 00:41:27 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A874582857E5;
- Wed, 25 Oct 2023 17:41:26 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 5uj40imSKiaj; Wed, 25 Oct 2023 17:41:24 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 8D1838285AFA;
- Wed, 25 Oct 2023 17:41:24 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id AGct8azOHlj8; Wed, 25 Oct 2023 17:41:24 -0500 (CDT)
-Received: from raptor-ewks-026.2lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 20BC08285AB8;
- Wed, 25 Oct 2023 17:41:24 -0500 (CDT)
+ <SRS0=LJSz=GH=casper.srs.infradead.org=BATV+85b1c44ac99574f3713d+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qvnD3-0001WQ-PM
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 23:22:45 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66aa2aa4-738d-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 01:22:44 +0200 (CEST)
+Received: from [2001:8b0:10b:5:5bd0:63a6:23b2:1881]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qvnCo-00BaQG-2c; Wed, 25 Oct 2023 23:22:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,399 +41,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1fbf1d8-7387-11ee-9b0e-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 8D1838285AFA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1698273684; bh=askIAUvrnNxM300C2WKkQJuD2UHz6pYYs2K9R4SJJTQ=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=F5sPMOCrf5F2DNjCgDk5QSCpkqdXfI9pbecR/MIbjShJCpVWMw84ZHhumEVtwLnHu
-	 mRJmANIxQJiicBWkngCw8wp3DcTjbOyIv4bTEE9WLygc3CQW/WzEi3RMbtQDvj7ZSn
-	 nU59Bvjf5I0yVaIsWHdu0IXKfGc9ydsS5uIK0ZwA=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v3 2/2] xen/ppc: Implement a basic exception handler
-Date: Wed, 25 Oct 2023 17:41:04 -0500
-Message-Id: <1d875c978caa4ed0b3d038655a39aa0cb0583565.1698273423.git.sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1698273423.git.sanastasio@raptorengineering.com>
-References: <cover.1698273423.git.sanastasio@raptorengineering.com>
+X-Inumbo-ID: 66aa2aa4-738d-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Hywp//kxabmBhLoPf9bPVzZxrS2G1q+9aoYbZpFBf1M=; b=WaN0SD06nfYFjmYfix+A76J+zz
+	YQyT+iVM2WThChlOuDDqEfqmt4MoBJTB/mEy/4TXaYEW5jfhp34Z7RpQOaCZrl/KTMgaOspab7t6j
+	wKVam5D++ubUNuZXOd4cpVzCYFmFIYhIpazkbUj2nXbZAXTkEpOAEyAWs0IZ0Gj07tsVDuEQr9+uB
+	Y/I/1cOeD5FOtpDwExUHt3L9ushYOQPfZ+yqiuEgKaBWsO6jA4f8xktRXxAWUgli0Aai6Yma7Si17
+	fe9PqCcryiKNctKcQIXhHaG/KlMp04yB9uF1bHiEIx3KxFAo8Mc80+CZeGte8J9OY8PejJ4uMAPVg
+	WTfoxi0w==;
+Message-ID: <f8d6eaf9b5f57184a5f6ec5b6103189b77364e3a.camel@infradead.org>
+Subject: Re: [QEMU][PATCHv2 1/8] xen: when unplugging emulated devices skip
+ virtio devices
+From: David Woodhouse <dwmw2@infradead.org>
+To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org, jgross@suse.com, Anthony Perard
+ <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Paolo Bonzini
+ <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, 
+ Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, "open
+ list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Date: Thu, 26 Oct 2023 00:22:29 +0100
+In-Reply-To: <20231025212422.30371-2-vikram.garhwal@amd.com>
+References: <20231025212422.30371-1-vikram.garhwal@amd.com>
+	 <20231025212422.30371-2-vikram.garhwal@amd.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-oZqrN/73FRiF017WitQ2"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Implement a basic exception handler that dumps the CPU state to the
-console, as well as the code required to set the correct exception
-vector table's base address in setup.c.
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
----
-v3:
-  - Add comment to explain %r1 clobber
-  - Add comment about ISR declaration order
-  - Drop redundant " Interrupt" from exception name strings
+--=-oZqrN/73FRiF017WitQ2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-v2:
-  - Place {h_,}exception_common in .text.exceptions section
-  - Use assembler macro instead of CPP macro for ISR definition
-  - Tabulate ISR definitions
+On Wed, 2023-10-25 at 14:24 -0700, Vikram Garhwal wrote:
+> From: Juergen Gross <jgross@suse.com>
+>=20
+> Virtio devices should never be unplugged at boot time, as they are
+> similar to pci passthrough devices.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
 
- xen/arch/ppc/include/asm/processor.h |  31 +++++++
- xen/arch/ppc/ppc64/Makefile          |   2 +
- xen/arch/ppc/ppc64/asm-offsets.c     |   1 +
- xen/arch/ppc/ppc64/exceptions-asm.S  | 129 +++++++++++++++++++++++++++
- xen/arch/ppc/ppc64/exceptions.c      | 102 +++++++++++++++++++++
- xen/arch/ppc/setup.c                 |  11 +++
- 6 files changed, 276 insertions(+)
- create mode 100644 xen/arch/ppc/ppc64/exceptions-asm.S
- create mode 100644 xen/arch/ppc/ppc64/exceptions.c
+Hm, do your virtio NICs still actually *work* after that? Or are they
+all disconnected from their netdev peers?=20
 
-diff --git a/xen/arch/ppc/include/asm/processor.h b/xen/arch/ppc/include/asm/processor.h
-index d3dd943c20..a01b62b8a4 100644
---- a/xen/arch/ppc/include/asm/processor.h
-+++ b/xen/arch/ppc/include/asm/processor.h
-@@ -103,6 +103,37 @@
- #define PVR_BE        0x0070
- #define PVR_PA6T      0x0090
+I suspect you're going to want a variant of
+https://lore.kernel.org/qemu-devel/20231025145042.627381-19-dwmw2@infradead=
+.org/T/#u
+which also leave the peers of your virtio devices intact?
 
-+/* Exception Definitions */
-+#define EXC_SYSTEM_RESET    0x0100 /* System Reset Interrupt */
-+#define EXC_MACHINE_CHECK   0x0200 /* Machine Check Interrupt */
-+#define EXC_DATA_STORAGE    0x0300 /* Data Storage Interrupt */
-+#define EXC_DATA_SEGMENT    0x0380 /* Data Segment Interrupt */
-+#define EXC_INSN_STORAGE    0x0400 /* Instruction Storage Interrupt */
-+#define EXC_INSN_SEGMENT    0x0480 /* Instruction Segment Interrupt */
-+#define EXC_EXTERNAL        0x0500 /* External Interrupt */
-+#define EXC_ALIGNMENT       0x0600 /* Alignment Interrupt */
-+#define EXC_PROGRAM         0x0700 /* Program Interrupt */
-+#define EXC_FPU_UNAVAIL     0x0800 /* Floating-Point Unavailable Interrupt */
-+#define EXC_DECREMENTER     0x0900 /* Decrementer Interrupt */
-+#define EXC_H_DECREMENTER   0x0980 /* Hypervisor Decrementer Interrupt */
-+#define EXC_PRIV_DOORBELL   0x0A00 /* Directed Privileged Doorbell Interrupt */
-+#define EXC_SYSTEM_CALL     0x0C00 /* System Call Interrupt */
-+#define EXC_TRACE           0x0D00 /* Trace Interrupt */
-+#define EXC_H_DATA_STORAGE  0x0E00 /* Hypervisor Data Storage Interrupt */
-+#define EXC_H_INSN_STORAGE  0x0E20 /* Hypervisor Instruction Storage Interrupt */
-+#define EXC_H_EMUL_ASST     0x0E40 /* Hypervisor Emulation Assistance Interrupt */
-+#define EXC_H_MAINTENANCE   0x0E60 /* Hypervisor Maintenance Interrupt */
-+#define EXC_H_DOORBELL      0x0E80 /* Directed Hypervisor Doorbell Interrupt */
-+#define EXC_H_VIRT          0x0EA0 /* Hypervisor Virtualization Interrupt */
-+#define EXC_PERF_MON        0x0F00 /* Performance Monitor Interrupt */
-+#define EXC_VECTOR_UNAVAIL  0x0F20 /* Vector Unavailable Interrupt */
-+#define EXC_VSX_UNAVAIL     0x0F40 /* VSX Unavailable Interrupt */
-+#define EXC_FACIL_UNAVAIL   0x0F60 /* Facility Unavailable Interrupt */
-+#define EXC_H_FACIL_UNAVAIL 0x0F80 /* Hypervisor Facility Unavailable Interrupt */
-+
-+/* Base address of interrupt vector table when LPCR[AIL]=3 */
-+#define AIL_VECTOR_BASE _AC(0xc000000000004000, UL)
-+
- #ifndef __ASSEMBLY__
+--=-oZqrN/73FRiF017WitQ2
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
- #include <xen/types.h>
-diff --git a/xen/arch/ppc/ppc64/Makefile b/xen/arch/ppc/ppc64/Makefile
-index 5b88355bb2..914bb21c40 100644
---- a/xen/arch/ppc/ppc64/Makefile
-+++ b/xen/arch/ppc/ppc64/Makefile
-@@ -1,2 +1,4 @@
-+obj-y += exceptions.o
-+obj-y += exceptions-asm.o
- obj-y += head.o
- obj-y += opal-calls.o
-diff --git a/xen/arch/ppc/ppc64/asm-offsets.c b/xen/arch/ppc/ppc64/asm-offsets.c
-index c15c1bf136..634d7260e3 100644
---- a/xen/arch/ppc/ppc64/asm-offsets.c
-+++ b/xen/arch/ppc/ppc64/asm-offsets.c
-@@ -46,6 +46,7 @@ void __dummy__(void)
-     OFFSET(UREGS_dsisr, struct cpu_user_regs, dsisr);
-     OFFSET(UREGS_cr, struct cpu_user_regs, cr);
-     OFFSET(UREGS_fpscr, struct cpu_user_regs, fpscr);
-+    OFFSET(UREGS_entry_vector, struct cpu_user_regs, entry_vector);
-     DEFINE(UREGS_sizeof, sizeof(struct cpu_user_regs));
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI1MjMyMjI5WjAvBgkqhkiG9w0BCQQxIgQg+N5V1di/
+kpVs3VFQvPyUODhvqf4FazJRXYUbQCvZtTowgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB1RXBC5LDVbp7KyB5xpyUHZ/vxq13ihMlG
+3lx8EF6sVzPtYTJjbYcyKmWM4UkvFC1K1UPQ32xdb0dCsyJ2k1hc+vIE6OKSPOcwPytmC+OSgxP4
+rT+w9M+IlvyriekXVcEfe90vpNmxESEpBOPzvTdC/V7dTSltUn4qjm+F9V94ijwcR8TDbzHYu3LA
+SpHr1pukO3EHa9QstA1noeGl5r/slhQroT8Jja9XIGVFn8M3SP6q40kEnen5CVwcN3gdEAGawZ6K
+Xy2PYlAnNDPmvBCrEQVNEMgv6I4Ke6DjhwIDwBvbgIJtdzg/jvbHlXtTSR6pMuvzUAbxNJSBIBt5
+DkaWpjPju84yvPmtCe+p7dvQ7h9zZ8Knst42tFCsCU4tt3qUTE39suNNi7PGtBuKVjxPjekKtRpn
+TxyErV/6r037MwUniveO9RSEEAAzHCOc+ckP+4RRvFataG92Cb6t/OTR2EkM65K263Xmn8rpj0Sn
+3/vx8H9+AGiBCHrqrjYB0LbV29Tz2L9zfMMsKoDPb4MNHECAXA9iRsS1cractvkPRBVZ52sjVotd
+27TGdlvWBRVKRReBb8XUcxrU0mtzBfR0p4nbBTL+PT2sXkwg1b2DB9i9mHRomccEa5/SgUtI8bZh
+FwjucAkbkBb1Yoz3a9MxZ+awXF5nmGmsfVVa79k/sAAAAAAAAA==
 
-     OFFSET(OPAL_base, struct opal, base);
-diff --git a/xen/arch/ppc/ppc64/exceptions-asm.S b/xen/arch/ppc/ppc64/exceptions-asm.S
-new file mode 100644
-index 0000000000..f1b14bb860
---- /dev/null
-+++ b/xen/arch/ppc/ppc64/exceptions-asm.S
-@@ -0,0 +1,135 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#include <asm/asm-defns.h>
-+#include <asm/processor.h>
-+
-+    .section .text.exceptions, "ax", %progbits
-+
-+    /* Helper to dump CPU state to struct cpu_user_regs pointed to by r1. */
-+ENTRY(exception_common)
-+    /*
-+     * Save GPRs 1-31. TODO: The value of %r1 has already been modified by the
-+     * ISR, so the value we save isn't the exact value we had on entry.
-+     */
-+    SAVE_GPRS(1, 31, %r1)
-+
-+    /* Save LR, CTR, CR */
-+    mflr    %r0
-+    std     %r0, UREGS_lr(%r1)
-+    mfctr   %r0
-+    std     %r0, UREGS_ctr(%r1)
-+    mfcr    %r0
-+    stw     %r0, UREGS_cr(%r1) /* 32-bit */
-+
-+    /* Save Exception Registers */
-+    mfsrr0  %r0
-+    std     %r0, UREGS_pc(%r1)
-+    mfsrr1  %r0
-+    std     %r0, UREGS_msr(%r1)
-+    mfdsisr %r0
-+    stw     %r0, UREGS_dsisr(%r1) /* 32-bit */
-+    mfdar   %r0
-+    std     %r0, UREGS_dar(%r1)
-+    li      %r0, -1 /* OS's SRR0/SRR1 have been clobbered */
-+    std     %r0, UREGS_srr0(%r1)
-+    std     %r0, UREGS_srr1(%r1)
-+
-+    /* Setup TOC and a stack frame then call C exception handler */
-+    mr      %r3, %r1
-+    bcl     20, 31, 1f
-+1:  mflr    %r12
-+    addis   %r2, %r12, .TOC.-1b@ha
-+    addi    %r2, %r2, .TOC.-1b@l
-+
-+    li      %r0, 0
-+    stdu    %r0, -STACK_FRAME_OVERHEAD(%r1)
-+    bl      exception_handler
-+
-+    .size exception_common, . - exception_common
-+    .type exception_common, %function
-+
-+    /* Same as exception_common, but for exceptions that set HSRR{0,1} */
-+ENTRY(h_exception_common)
-+    /* Save GPRs 1-31 */
-+    SAVE_GPRS(1, 31, %r1)
-+
-+    /* Save LR, CTR, CR */
-+    mflr    %r0
-+    std     %r0, UREGS_lr(%r1)
-+    mfctr   %r0
-+    std     %r0, UREGS_ctr(%r1)
-+    mfcr    %r0
-+    stw     %r0, UREGS_cr(%r1) /* 32-bit */
-+
-+    /* Save Exception Registers */
-+    mfhsrr0 %r0
-+    std     %r0, UREGS_pc(%r1)
-+    mfhsrr1 %r0
-+    std     %r0, UREGS_msr(%r1)
-+    mfsrr0  %r0
-+    std     %r0, UREGS_srr0(%r1)
-+    mfsrr1  %r0
-+    std     %r0, UREGS_srr1(%r1)
-+    mfdsisr %r0
-+    stw     %r0, UREGS_dsisr(%r1) /* 32-bit */
-+    mfdar   %r0
-+    std     %r0, UREGS_dar(%r1)
-+
-+    /* Setup TOC and a stack frame then call C exception handler */
-+    mr      %r3, %r1
-+    bcl     20, 31, 1f
-+1:  mflr    %r12
-+    addis   %r2, %r12, .TOC.-1b@ha
-+    addi    %r2, %r2, .TOC.-1b@l
-+
-+    li      %r0, 0
-+    stdu    %r0, -STACK_FRAME_OVERHEAD(%r1)
-+    bl      exception_handler
-+
-+    .size h_exception_common, . - h_exception_common
-+    .type h_exception_common, %function
-+
-+/*
-+ * Declare an ISR for the provided exception that jumps to the specified handler
-+ */
-+.macro ISR name, exc, handler
-+    . = (AIL_VECTOR_BASE - EXCEPTION_VECTORS_START) + \exc
-+    ENTRY(\name)
-+    /* TODO: switch stack */
-+
-+    /* Reserve space for struct cpu_user_regs */
-+    subi    %r1, %r1, UREGS_sizeof
-+
-+    /* Save r0 immediately so we can use it as scratch space */
-+    SAVE_GPR(0, %r1)
-+
-+    /* Save exception vector number */
-+    li      %r0, \exc
-+    std     %r0, UREGS_entry_vector(%r1)
-+
-+    /* Branch to common code */
-+    b       \handler
-+
-+    .size \name, . - \name
-+    .type \name, %function
-+.endm
-+
-+/*
-+ * Define all ISRs. Note: These must be declared in order from lowest exception
-+ * vector to highest to satisfy the assembler.
-+ */
-+ISR exc_sysreset,   EXC_SYSTEM_RESET,   exception_common
-+ISR exc_mcheck,     EXC_MACHINE_CHECK,  exception_common
-+ISR exc_dstore,     EXC_DATA_STORAGE,   exception_common
-+ISR exc_dsegment,   EXC_DATA_SEGMENT,   exception_common
-+ISR exc_istore,     EXC_INSN_STORAGE,   exception_common
-+ISR exc_isegment,   EXC_INSN_SEGMENT,   exception_common
-+ISR exc_extern,     EXC_EXTERNAL,       exception_common
-+ISR exc_align,      EXC_ALIGNMENT,      exception_common
-+ISR exc_program,    EXC_PROGRAM,        exception_common
-+ISR exc_fpu,        EXC_FPU_UNAVAIL,    exception_common
-+ISR exc_dec,        EXC_DECREMENTER,    exception_common
-+ISR exc_h_dec,      EXC_H_DECREMENTER,  h_exception_common
-+/* EXC_PRIV_DOORBELL ... EXC_TRACE */
-+ISR exc_h_dstore,   EXC_H_DATA_STORAGE, h_exception_common
-+ISR exc_h_istore,   EXC_H_INSN_STORAGE, h_exception_common
-diff --git a/xen/arch/ppc/ppc64/exceptions.c b/xen/arch/ppc/ppc64/exceptions.c
-new file mode 100644
-index 0000000000..c6a11c8639
---- /dev/null
-+++ b/xen/arch/ppc/ppc64/exceptions.c
-@@ -0,0 +1,102 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#include <xen/lib.h>
-+
-+#include <asm/processor.h>
-+
-+static const char *exception_name_from_vec(uint32_t vec)
-+{
-+    switch ( vec )
-+    {
-+    case EXC_SYSTEM_RESET:
-+        return "System Reset";
-+    case EXC_MACHINE_CHECK:
-+        return "Machine Check";
-+    case EXC_DATA_STORAGE:
-+        return "Data Storage";
-+    case EXC_DATA_SEGMENT:
-+        return "Data Segment";
-+    case EXC_INSN_STORAGE:
-+        return "Instruction Storage";
-+    case EXC_INSN_SEGMENT:
-+        return "Instruction Segment";
-+    case EXC_EXTERNAL:
-+        return "External";
-+    case EXC_ALIGNMENT:
-+        return "Alignment";
-+    case EXC_PROGRAM:
-+        return "Program";
-+    case EXC_FPU_UNAVAIL:
-+        return "Floating-Point Unavailable";
-+    case EXC_DECREMENTER:
-+        return "Decrementer";
-+    case EXC_H_DECREMENTER:
-+        return "Hypervisor Decrementer";
-+    case EXC_PRIV_DOORBELL:
-+        return "Directed Privileged Doorbell";
-+    case EXC_SYSTEM_CALL:
-+        return "System Call";
-+    case EXC_TRACE:
-+        return "Trace";
-+    case EXC_H_DATA_STORAGE:
-+        return "Hypervisor Data Storage";
-+    case EXC_H_INSN_STORAGE:
-+        return "Hypervisor Instruction Storage";
-+    case EXC_H_EMUL_ASST:
-+        return "Hypervisor Emulation Assistance";
-+    case EXC_H_MAINTENANCE:
-+        return "Hypervisor Maintenance";
-+    case EXC_H_DOORBELL:
-+        return "Directed Hypervisor Doorbell";
-+    case EXC_H_VIRT:
-+        return "Hypervisor Virtualization";
-+    case EXC_PERF_MON:
-+        return "Performance Monitor";
-+    case EXC_VECTOR_UNAVAIL:
-+        return "Vector Unavailable";
-+    case EXC_VSX_UNAVAIL:
-+        return "VSX Unavailable";
-+    case EXC_FACIL_UNAVAIL:
-+        return "Facility Unavailable";
-+    case EXC_H_FACIL_UNAVAIL:
-+        return "Hypervisor Facility Unavailable";
-+    default:
-+        return "(unknown)";
-+    }
-+}
-+
-+void exception_handler(struct cpu_user_regs *regs)
-+{
-+    /* TODO: this is currently only useful for debugging */
-+
-+    printk("UNRECOVERABLE EXCEPTION: %s (0x%04x)\n\n"
-+           "GPR 0-3   : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 4-7   : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 8-11  : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 12-15 : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 16-19 : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 20-23 : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 24-27 : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n"
-+           "GPR 28-31 : 0x%016lx 0x%016lx 0x%016lx 0x%016lx\n\n",
-+           exception_name_from_vec(regs->entry_vector), regs->entry_vector,
-+           regs->gprs[0], regs->gprs[1], regs->gprs[2], regs->gprs[3],
-+           regs->gprs[4], regs->gprs[5], regs->gprs[6], regs->gprs[7],
-+           regs->gprs[8], regs->gprs[9], regs->gprs[10], regs->gprs[11],
-+           regs->gprs[12], regs->gprs[13], regs->gprs[14], regs->gprs[15],
-+           regs->gprs[16], regs->gprs[17], regs->gprs[18], regs->gprs[19],
-+           regs->gprs[20], regs->gprs[21], regs->gprs[22], regs->gprs[23],
-+           regs->gprs[24], regs->gprs[25], regs->gprs[26], regs->gprs[27],
-+           regs->gprs[28], regs->gprs[29], regs->gprs[30], regs->gprs[31]);
-+    printk("LR        : 0x%016lx\n"
-+           "CTR       : 0x%016lx\n"
-+           "CR        : 0x%08x\n"
-+           "PC        : 0x%016lx\n"
-+           "MSR       : 0x%016lx\n"
-+           "SRR0      : 0x%016lx\n"
-+           "SRR1      : 0x%016lx\n"
-+           "DAR       : 0x%016lx\n"
-+           "DSISR     : 0x%08x\n",
-+           regs->lr, regs->ctr, regs->cr, regs->pc, regs->msr, regs->srr0,
-+           regs->srr1, regs->dar, regs->dsisr);
-+
-+    die();
-+}
-diff --git a/xen/arch/ppc/setup.c b/xen/arch/ppc/setup.c
-index 959c1454a0..101bdd8bb6 100644
---- a/xen/arch/ppc/setup.c
-+++ b/xen/arch/ppc/setup.c
-@@ -11,6 +11,15 @@
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE] __aligned(STACK_SIZE);
 
-+void setup_exceptions(void)
-+{
-+    unsigned long lpcr;
-+
-+    /* Set appropriate interrupt location in LPCR */
-+    lpcr = mfspr(SPRN_LPCR);
-+    mtspr(SPRN_LPCR, lpcr | LPCR_AIL_3);
-+}
-+
- void __init noreturn start_xen(unsigned long r3, unsigned long r4,
-                                unsigned long r5, unsigned long r6,
-                                unsigned long r7)
-@@ -26,6 +35,8 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
-         boot_opal_init((void *)r3);
-     }
-
-+    setup_exceptions();
-+
-     setup_initial_pagetables();
-
-     early_printk("Hello, ppc64le!\n");
---
-2.30.2
-
+--=-oZqrN/73FRiF017WitQ2--
 
