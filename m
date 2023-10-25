@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574447D695C
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 12:45:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622834.970027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9054A7D6A44
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 13:37:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622841.970037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvbNo-0005br-5m; Wed, 25 Oct 2023 10:45:04 +0000
+	id 1qvcBb-00023Z-0o; Wed, 25 Oct 2023 11:36:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622834.970027; Wed, 25 Oct 2023 10:45:04 +0000
+Received: by outflank-mailman (output) from mailman id 622841.970037; Wed, 25 Oct 2023 11:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvbNo-0005ZQ-1V; Wed, 25 Oct 2023 10:45:04 +0000
-Received: by outflank-mailman (input) for mailman id 622834;
- Wed, 25 Oct 2023 10:45:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvcBa-00020V-Tw; Wed, 25 Oct 2023 11:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 622841;
+ Wed, 25 Oct 2023 11:36:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AAMM=GH=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qvbNl-0005Yt-Op
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 10:45:01 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8bf08f65-7323-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 12:45:00 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40859c466efso32740515e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 03:45:00 -0700 (PDT)
-Received: from [192.168.16.6] (54-240-197-232.amazon.com. [54.240.197.232])
- by smtp.gmail.com with ESMTPSA id
- w11-20020a5d608b000000b0032008f99216sm11788843wrt.96.2023.10.25.03.44.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Oct 2023 03:44:59 -0700 (PDT)
+ <SRS0=bQ/a=GH=citrix.com=prvs=655ba0516=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qvcBY-00020M-VV
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 11:36:29 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b96e7521-732a-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 13:36:24 +0200 (CEST)
+Received: from mail-mw2nam10lp2100.outbound.protection.outlook.com (HELO
+ NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.100])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 25 Oct 2023 07:36:14 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by DM6PR03MB5163.namprd03.prod.outlook.com (2603:10b6:5:22b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.16; Wed, 25 Oct
+ 2023 11:36:10 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::acf0:ce2b:1634:5aee]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::acf0:ce2b:1634:5aee%6]) with mapi id 15.20.6933.011; Wed, 25 Oct 2023
+ 11:36:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,207 +49,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bf08f65-7323-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: b96e7521-732a-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1698233784;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=3FkM2wKXjZKjn4m7U1hb3SBilx05HDd5OrFf2UQw+vw=;
+  b=X0KXCywNSBJtTiJBh+U03c02l7ID4opIis7Et1YzFnQxqUkDr5Me4d2T
+   W3gTjnSDzAI4xR4H4LGkCYtYMwhfgPZAb4Lw+CiltEXYS1TsdasbuMShK
+   RZRDo0XTv0/Ndtk80MyplkX3CLb80I2ZIJ0OUZK1ggrtBWJVL0+/fBiOG
+   I=;
+X-CSE-ConnectionGUID: JXLpHJByQJyYyKjCxQktzg==
+X-CSE-MsgGUID: qP4yXWF+RmSXvSQ+4YcCQQ==
+X-IronPort-RemoteIP: 104.47.55.100
+X-IronPort-MID: 129379133
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:jeS1m6LmZS8cjf+XFE+R95QlxSXFcZb7ZxGr2PjKsXjdYENS02QGm
+ mNODDvQa/6IZmuge910aY2y8k8O7ZeHx9ZkTAdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrYwP9TlK6q4mhB5gZjPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5VMUVW1
+ d4yOQkvfyGSpOCd0Iu4Vvtj05FLwMnDZOvzu1lG5BSAVbMDfsqGRK/Ho9hFwD03m8ZCW+7EY
+ NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dqpTGLlGSd05C0WDbRUsaNSshP2F6Ru
+ 0rN/njjAwFcP9uaodaA2iv217SQzHqgA+r+EpWhzqJ7sGK9hVYWMy0IbmL4/ciyoXeHDoc3x
+ 0s8v3BGQbIJ3E6hQ8T5Xha4iGWZpRNaUN1Ve8Uq5QfIxqfK7gKxAmkfUiUHeNEgrNUxRzEhy
+ hmOhdyBLSNrmK2YTzSa7Lj8kN+pES0cLGtHYDBeSwIAuoHnuNtq1kqJSct/GqmoiNGzASv33
+ z2BsCk5gfMUkNIP0KK4u1vAhlpAu6T0c+L83S2PNkrN0++zTNTNi1CAgbQD0ct9EQ==
+IronPort-HdrOrdr: A9a23:nUrXIqwEGc43V0ViKWf9KrPw5b1zdoMgy1knxilNoH1uA66lfq
+ WV98jzuiWYtN98Yh0dcKm7Sde9qBDnhP1ICOsqXItKBzOW3VdARbsKheHfKlvbdBEWndQ86U
+ 4PScZD4dfLfD9HZeGT2njAYq5Qu6j8zImYwcT7x3dpQRoCUdAd0+4AMHfnLqWpLDM2Y6bQLP
+ Knl7V6TpGbCAUqh4CAdx04Y9Q=
+X-Talos-CUID: 9a23:UuTsdGy0xfyCNd7nTFsdBgU2KuQ9Ul/33U7yMn6pKmRCWISWVU2frfY=
+X-Talos-MUID: =?us-ascii?q?9a23=3ArAgZAgxcv87Ml120ttlGLiIJ4TeaqL2WVFE9rrt?=
+ =?us-ascii?q?Fgcy/BTJLAnTBvT+ce7Zyfw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.03,250,1694750400"; 
+   d="scan'208";a="129379133"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QQrigH9L2jJjStuXy7Zb9AI/fdkqqAgm3xq1ibSdotv9033q/PbvFSlYHzwo73G9PeSWwjVstSLMSGPJI/oci5VGrZsULFxKBgeCrz+0XCbijfiyBlx9KrNFjTLjL1mbXAiwwPVxPolG084FfEQFockp2S0znjnnyKqDFsV9CghyBe2PuiHJKh/nC+MgaXBq8rvuX+Q9tI66QM65OU23nnbAAFXNe1U87CmXs5kKcS25MlEOfaFKlSgE0O1bgbf5A2oK/J4kA6jjdQNPGD8JZZGcKgSJVMqiRy45gXUA2CJen2eofg7rtBLHPcEaKPsC7RRHAf8ibn4ZpnEK2rpOsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KD12ehCbqJFJVjDrOF7nv9dUFAjjtzDlwKCwPl9jfvM=;
+ b=YCx9x8I2AUVMY2kZFQr4DR/JSfBUn79vSA5Lcvu2bNgWZal9PGHcxKyzF2B+PlO1EpqSZazXEafQMi6p9qnyHYnkSCpc7hO7sLmaA6je1J3AR8ygO2AlJq/H8qDQ4ZzYmZUjkx/peQmVBBsA/tfHHsUvRlL2bQEykjAIDBPu7uMqCvZmHh4rPvqTVb/JWsTU9Hhr1xL+DaNV6p6VJO9oI1JOUGTJx/opbwLhNKZ2GkVSIbgFFVG6Yxk22fIhVp15WgembzQNHR3lj8fCE2tQgvV+zAVJGdlf7vxTNRLDYtnSVVY15Ozoq5M9c+4oNIuqU4m4lju5XgGi3YtI7vfOYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698230700; x=1698835500; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pAB8Za+YNx8eTSkt0VDDXW7F6lrTKw3K5FZe8J7txp4=;
-        b=m3TBSuW9/FpvFqp7StlyKYQHIdDAevskQlg0712dc1//Z0QcV3E4N5yu7JzPzTD8ZA
-         3hCidX7GOTufa9Gqt2nLsMGe2GVqtUtvP9cG87kWZJXP+KX2iJUfeXbZAu+K918nwKbH
-         5MhZHZNQQSAUU4er66ABzhjD7RM8x0xzj4l9L+NworxFj/qn5JHRRjY0KJxXc9MCtaah
-         Q9jIgCtnIe4ftmBQzeQbU/iBQ68+kgeW2eYay5oioSzfqySm2jO0I4JQeSORt+dFgnNw
-         Ry6uo7bA5us+4Z46N09SQBpzrVV1dauslApqzTvNK+jF3hJbpGHxrKMZjHBCtx1wrJBn
-         5VKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698230700; x=1698835500;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pAB8Za+YNx8eTSkt0VDDXW7F6lrTKw3K5FZe8J7txp4=;
-        b=u7Ektf4wyg7XLtopTddDN0do8ET3daqh+3U7AW6vF6RFmd6NV1wpTijg34kQFEF7Rw
-         F2HsRmJ9EOg8C0pENecX0/cTQ6TqVw7iEuXZtjBWslqZoRsVnUYAw3uuvP6riyXsRDZc
-         0zKoQDFGvhk0PC7NA+wxTFpny60j2zR4nsgoqaG03a6knzVECjC1ty/4OhJPq5WQim+D
-         jllQOdkSPjECAD/wlH7PR0HAJHNZnlZXry9sKbdrHFveoQCV5b8rhuN7ElVtljqNVr/j
-         PXk6FT+0WLNLAuVyqN5dWsuAdBh65DW2udZpysjTlrZMgDcBPd6YfOK+rLwcB3+E56sw
-         ZcZQ==
-X-Gm-Message-State: AOJu0YxQLkzM2JvvCRTVF+jc5xGbFexSmFoPkRQ9SkgUxfoE9QOp2iCT
-	WUJ4VgZMilQ9Z8ysd6Mu810=
-X-Google-Smtp-Source: AGHT+IEgUt177RqiVBjvNSokftEbLh1Zc0sYAnRvYjW/rhP2mAkIVy2gI7R9jgx0ZPOjQniQLKJEdw==
-X-Received: by 2002:a05:600c:45cb:b0:406:5359:769f with SMTP id s11-20020a05600c45cb00b004065359769fmr11217809wmo.0.1698230699486;
-        Wed, 25 Oct 2023 03:44:59 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <bbed0311-c33f-4f84-a08e-0709c55ec151@xen.org>
-Date: Wed, 25 Oct 2023 11:44:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH 12/12] hw/xen: add support for Xen primary console in
- emulated mode
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
-Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Marcelo Tosatti
- <mtosatti@redhat.com>, qemu-block@nongnu.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-References: <20231016151909.22133-1-dwmw2@infradead.org>
- <20231016151909.22133-13-dwmw2@infradead.org>
- <c18439ca-c9ae-4567-bbcf-dffe6f7b72e3@xen.org>
- <3acd078bba2d824f836b20a270c780dc2d031c43.camel@infradead.org>
- <3f22903b-30f0-40f2-8624-b681d9c7e05d@xen.org>
- <42b005d7c03d5b0d47a16c4e025d8c3ec7289e0f.camel@infradead.org>
- <19fc2701-4cd8-4a14-9d45-bfaea37ed2d6@xen.org>
- <efdefcc11e2bd8c0f7e6e914dc9c54ffd65fe733.camel@infradead.org>
- <684d378d-9c71-4a5f-8f0c-3ed6ffc20a70@xen.org>
- <31b160a3f3ce2eda057dafec3cab273a38f1dc0f.camel@infradead.org>
-Organization: Xen Project
-In-Reply-To: <31b160a3f3ce2eda057dafec3cab273a38f1dc0f.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KD12ehCbqJFJVjDrOF7nv9dUFAjjtzDlwKCwPl9jfvM=;
+ b=p1/1L8SpUBH4HhDwnQVTb1YicYEvjnBZfjseUSwQILfG/1D86kaJytbPwYZX8L3hWKOl8f8u0pjx7tKE0mMYE0/f/SGGA1xGWTV+sFEAOIA9CTDTq/8r5ghU2COHKVhjaXO1vQ1rBT8V4gV0tnNhMpj85LiBkUp2meY2eCtAo7I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 25 Oct 2023 13:36:05 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/vRTC: minor adjustment to reads from index port
+Message-ID: <ZTj9pbcqezLLQvjd@macbook>
+References: <39903e79-af15-9017-e470-65124bd60847@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <39903e79-af15-9017-e470-65124bd60847@suse.com>
+X-ClientProxiedBy: MR1P264CA0203.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:57::18) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DM6PR03MB5163:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe845315-4d37-4256-1cad-08dbd54e95ef
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	0tKyNJMutbg0FaBxrxX8wzXOmTTkG2cRFN8AaCB1R599LWaHmLiWAb61yoClkRQvZtqejgJ2nZ/joJ7x4uNzFRSSBXlNEeG8YPujcLvRBuK3N06vwuLYXxVcCjYhLfhxrKc8gWEsqQ2TsDRZngbLaaWR536x5Skmp1F8rkh6p3HMvkKym8+vmvNWPYv03/jfdIGjNmp9qwNheDIoBC5jO4o6jSB7KwFWAfaVwiZdyOkN3VvwCwqP2IH1AQ0+YzIXtEqJHsIrjr8aTq3IXmyRsUoCq1GV4ERu8FgTD9TsmPYDOB48H/8Aopb+84qVtAnN4oLrvjlKV3/4sft8p2WoC9EiBILyF8HPJ5Sg32Ei1XF/T/P7DA6EQ5aNd1QrGw+ORt6mOIavBWUFMSeLafDVEYNq6+jT5NqL7ty6Ozb7c/4nkaOe3MiJ5IBPTW79v5+MIjZmWr6/B8YgLQ4mzO+NMSNBO2TIrE2psczBFfyzxcvOEmJxsVQU8ft6C9wKIoUwGYAA4fP4rXF6s7TKdKDCmD/k4g6sk2bKY2WWiuQRWr3S7kZ6E24dsqQfIwhHpKsr
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(396003)(136003)(346002)(366004)(376002)(39860400002)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(2906002)(33716001)(6486002)(85182001)(82960400001)(41300700001)(8936002)(4326008)(8676002)(83380400001)(26005)(4744005)(5660300002)(66556008)(38100700002)(66946007)(66476007)(6916009)(54906003)(316002)(6512007)(478600001)(6506007)(9686003)(6666004)(86362001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ODUvQklPU3N0amw2Ym9CcngwT1ZGMkFndXFiWVBmV3QxV2VwZkJidkhVSU8x?=
+ =?utf-8?B?Mi8rdUtDZnd2dlJNbEpKdGZ5cWI2WTBaWnRQRndYWkJtTk54NU84UUtHczJW?=
+ =?utf-8?B?SkQvbS8vaWk2UGZmV3VzbVFEbmhKUFhOQ3lhV0Q4Q2Q5UW1adkV2MVc2UU12?=
+ =?utf-8?B?Y3hYTTNDeWZDcmFUYzVMU2QwbWZaZTc2UlBuRFNSMlFpcEIxVHdqUEVKcGV1?=
+ =?utf-8?B?TFRWVDEvdHNIaG9jSklRck5ZaUlSaFNNSE9ncmN1dG5ObU44dURSbHM1ZEtD?=
+ =?utf-8?B?SHlVSTJIbnZkODM0V2d0ZGhva3h5bkUza09vazc3SzhqOXY0d2x2c2lGU0ZV?=
+ =?utf-8?B?MWZGWWFlZjR2ZnY0Um1rL21WMHFRRjZmZW5EakRzcDFaeXM0UFBHNGxZeUJP?=
+ =?utf-8?B?UTcyazF0UlZzaTExNjRGODh1aGlFc1FBNVkyRjdxeWs0U0p1d0FIZ0NZUTFL?=
+ =?utf-8?B?aTFnRUxTVDFzWndJNFlySXdqQ3JtNEp0YjlnaVVHY3g5OVA4aDNsdTZ3ejFp?=
+ =?utf-8?B?TkkwNkpleGsxRXVtLzloa0NWaUxxR2JkS1RJanBtcGV5dk43Y1lGak5Zcmhh?=
+ =?utf-8?B?eGpzL2Jjc0NxV25LZWJKMzl4clgrdDdmQ1hvWjVJTEp0TEd0R2k5Z0luZjEx?=
+ =?utf-8?B?emVoS0xrRXJFdC80eXUrUEUyL1FnRElGUTNHenJEY3ZBMXViTXFxN1EyaDNl?=
+ =?utf-8?B?MWJ0ODZhRVkyKzhLemFXeThTSWVCM1ZNNjNPeVgyeHdrMUY5VDBEMEVnak9P?=
+ =?utf-8?B?bDEwbmxEU2VPZFUwZ1U1SFdoa3FuQk1JUnBycWI2NkVhZk1tR0xEdCtBRVA2?=
+ =?utf-8?B?K2R4cUU5N0J2N0oyMHlxcmJCaFlMc1FJc0E1QmVaVG01dmJHL093QnNtZ2gv?=
+ =?utf-8?B?VmNuL3JMVFNYcjg0bUMvWHg5U2hVZnA4NldVcHF3VlgzdjZCZTAwWFAzSnpn?=
+ =?utf-8?B?REVGMndsUmhWY2VjMkdGSjc2cUlKcE5Pa1VrWlphNnhibmxWcEVVOVZWODBp?=
+ =?utf-8?B?elJhcFBjMkZ6S05oT2p5ci8xTnZzNjZHdjk5am9sQVZDZWZzdk8zNE1udHRl?=
+ =?utf-8?B?YXdZN0d0dnpIbVR3SFc0ekFYbUV2Y1FkYWovb0pnTXErd1J1L2lja0FWNUM5?=
+ =?utf-8?B?N2RtTUQwWjNra2ZjcXIwUkVpUTQyNlo5WHhKVUV0UmhKSHlUZjdxaytPUjB4?=
+ =?utf-8?B?cUcxRk04b1RKbGxYZkdneGZKUVZ6aTFQRjQ2b1FkT3RlZVNQbTU5Q2tQY2Ra?=
+ =?utf-8?B?NHVUTFo4bzF1K1p5L3k3VjB2YlpiSGZDNnd0WTcyTUpSdVNheHdIWmV2N3Jv?=
+ =?utf-8?B?OGN1VHUvUGwydWsvVjRYaUJEZFlHaWgyZ04xWHk3L2lUV2lrWFZFVDhQVm9q?=
+ =?utf-8?B?Uy9mL1VZZWRiVUJsUHFRdG8yeHJIdUtpTmlucDMzV2lJRHRjUVVqVC92a1Jv?=
+ =?utf-8?B?V1FjcXVid2dsNitmb0hhZndXUlQyYnRVSVdrTjFPWkRONmxyQ3ZNZW1oT2hG?=
+ =?utf-8?B?b29tR0tlMGRkdGh0SzF0YnRMcHA3L205L1VheEhXK2lJY0Y5S2ZDWUlReS9T?=
+ =?utf-8?B?NzE0L2gxVEp4WmNXVEY0VFpJZlJ4dnNLTVhxY2NvTks2UzFiU0cxR0dzWnZj?=
+ =?utf-8?B?d1M0dnJoTjZTcHQxYXpyTmIvaHZ4SlFZTFM5ZENkYWllNGdldy9RVXVzU3E1?=
+ =?utf-8?B?YkdjT0RlcENaUzJxY1VPTmx3MkxJcjdaZGEyRWVmWjFZcU92NkdEQlZ2QUVn?=
+ =?utf-8?B?N0RLWjJ4Rmc0cEFqcmRtVjFGWVhjdVcvbk5kMmhJYkQ3SmwzcmlGcE1DeThO?=
+ =?utf-8?B?KytkbHBIYlZBdWVxZnN6eTA0Qnl4WlRNbjZ0N2Z2ZjJ2Z255bWdZNW13WEdD?=
+ =?utf-8?B?N3ZoeS9LQzNtYmJGQy9Weis3OW5VNzJwb2IxRFVFTnYwekEwZVVEdUFsQUhN?=
+ =?utf-8?B?K1BmMDI0YXA5OUdjYjlpYTAvdEpGb1VDY3lESGZ6eHFPZ3A0QmNvVTFqUTl5?=
+ =?utf-8?B?eDhpaXhWNFRvWWZtb3JZY2Z2YlNIdm5kZWN1b2dJSXhSaWhibm8zWTFFUlNj?=
+ =?utf-8?B?czdlV1NwUE5ZNGlMOVh5V0xiTURoVTFUMlEyU1FETllmRkY1ZlUwZ00zNGM1?=
+ =?utf-8?B?cVJtMmpoOXo3YTFLYm5PSFl3bGJlSmRlWVhjSzVHd0hpU0NHRkJSZEE1Nklp?=
+ =?utf-8?B?OGc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ETBaJqBZk8yhPT5jOafnQoyM4GE2jtEJjR+wH5qm+g18gQ5Tz0R0zOvxqqKFGgzUNdKe7CfGCVy59C3Vucnm7AviC/FGhLWNuJu1zdjZT7tbs6zo0BLUrQI8/YgH60htrqBQB8RKCAq5N4sESdl5jT/ZCpmuBxZYEKZJKRyVNka+McSFr+AZmYP3c9lH1HQ2NeOc1BSj0gpNP9dsQAUawfwQ21XkeEmwSAP1MbJp2EQyLbvN4vAPPgJl7RMssjInjRGGHDe4OGnOHQUeTRNYetci/bPwpn+ZVQUMFabUh8bGkft6rLHu7jEuxyeWNXyaf/0B9lXt/I94kXz1DD6AGhnH+OHgAY/Sd9q6jA1Hwy8GUKR5cbPT6j54lr6Te1fIIgptJObdXOa/prV7PnNbUlKkpdtRe0mXvVi9QP0+6+ZvXYo6tqn3J8WbG+wrFr3dGxnrRRKhcYr9Jc5ovrrHyR4hFYylGZCgAwYpd1EehZMHxUn0FWYoGpEo6OY49Hzl/xgPv6mwSFEhQyghpPQo/02BGi78jJ03xjfaSgc71I7Gtlt9KUuQ5KhjaqIay3fK3bK5eFvw8qaAAKYNg+qNc5QTv6Js/sV5dxE4Y2V0F795A80mOQPx+r2lSIEr1SH6/I2uBbWSVs6TpdV6+y/V6BpX+iuqohMujOpyP8r5IKrKANoaNNfbWwMTqDGts6TVY5PSnKT5lxJu0IXbYYJJdiCgd8O3hfkejkx7AMNvREwJGETfmjCy0XVQmunV6nix2bElm/6iSvDUocWpMhutEptTAL5Ry1sv68wheO8pc2OfX6u9SanMVlO7X5+ukjYzcZf2G9VarOn2WQYQIuew0g==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe845315-4d37-4256-1cad-08dbd54e95ef
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2023 11:36:10.3991
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tv2EDZ+9cRLymvvQTdKCFyeyjhpWLv+/XHk+8vM3DXhU1rWEV653HqTKQpKAhb+BLl5qnDfpKjFArK0PEEWO1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5163
 
-On 25/10/2023 10:00, David Woodhouse wrote:
-> On Wed, 2023-10-25 at 09:31 +0100, Paul Durrant wrote:
->> On 24/10/2023 17:34, David Woodhouse wrote:
->>> On Tue, 2023-10-24 at 17:25 +0100, Paul Durrant wrote:
->>>> On 24/10/2023 16:49, David Woodhouse wrote:
->>>>> On Tue, 2023-10-24 at 16:39 +0100, Paul Durrant wrote:
->>>>>> On 24/10/2023 16:37, David Woodhouse wrote:
->>>>>>> On Tue, 2023-10-24 at 15:20 +0100, Paul Durrant wrote:
->>>>>>>> On 16/10/2023 16:19, David Woodhouse wrote:
->>>>>>>>> From: David Woodhouse <dwmw@amazon.co.uk>
->>>>>>>>>
->>>>>>>>> The primary console is special because the toolstack maps a page at a
->>>>>>>>> fixed GFN and also allocates the guest-side event channel. Add support
->>>>>>>>> for that in emulated mode, so that we can have a primary console.
->>>>>>>>>
->>>>>>>>> Add a *very* rudimentary stub of foriegnmem ops for emulated mode, which
->>>>>>>>> supports literally nothing except a single-page mapping of the console
->>>>>>>>> page. This might as well have been a hack in the xen_console driver, but
->>>>>>>>> this way at least the special-casing is kept within the Xen emulation
->>>>>>>>> code, and it gives us a hook for a more complete implementation if/when
->>>>>>>>> we ever do need one.
->>>>>>>>>
->>>>>>>> Why can't you map the console page via the grant table like the xenstore
->>>>>>>> page?
->>>>>>>
->>>>>>> I suppose we could, but I didn't really want the generic xen-console
->>>>>>> device code having any more of a special case for 'Xen emulation' than
->>>>>>> it does already by having to call xen_primary_console_create().
->>>>>>>
->>>>>>
->>>>>> But doesn't is save you the whole foreignmem thing? You can use the
->>>>>> grant table for primary and secondary consoles.
->>>>>
->>>>> Yes. And I could leave the existing foreignmem thing just for the case
->>>>> of primary console under true Xen. It's probably not that awful a
->>>>> special case, in the end.
->>>>>
->>>>> Then again, I was surprised I didn't *already* have a foreignmem ops
->>>>> for the emulated case, and we're probably going to want to continue
->>>>> fleshing it out later, so I don't really mind adding it.
->>>>>
->>>>
->>>> True. We'll need it for some of the other more fun protocols like vkbd
->>>> or fb. Still, I think it'd be nicer to align the xenstore and primary
->>>> console code to look similar and punt the work until then :-)
->>>
->>> I don't think it ends up looking like xenstore either way, does it?
->>> Xenstore is special because it gets to use the original pointer to its
->>> own page.
->>>
->>
->> Not sure what you mean there? A guest can query the PFN for either
->> xenstore or console using HVM params, or it can find them in its own
->> grant table entries 0 or 1.
+On Thu, May 11, 2023 at 01:51:06PM +0200, Jan Beulich wrote:
+> Whether to handle this shouldn't depend on the present value of the
+> index register. Since the handling is done outside of the lock anyway,
+> pull it out into the sole caller and drop the no longer needed function
+> parameter.
 > 
-> The code in our xen_xenstore.c uses its *own* pointer (s->xs) to the
-> MemoryRegion that it created (s->xenstore_page). It is its own backend,
-> as well as doing the "magic" to create the guest-side mapping and event
-> channel.
-> 
-> The difference for the console code is that we actually have a
-> *separation* between the standard backend code in xen_console.c, and
-> the magic frontend parts for the emulated mode.
-> 
-> 
->>
->>> I don't think I want to hack the xen_console code to explicitly call a
->>> xen_console_give_me_your_page() function. If not foreignmem, I think
->>> you were suggesting that we actually call the grant mapping code to get
->>> a pointer to the underlying page, right?
->>
->> I'm suggesting that the page be mapped in the same way that the xenstore
->> backend does:
->>
->> 1462    /*
->>
->> 1463     * We don't actually access the guest's page through the grant, because
->> 1464     * this isn't real Xen, and we can just use the page we gave it in the
->> 1465     * first place. Map the grant anyway, mostly for cosmetic purposes so
->> 1466     * it *looks* like it's in use in the guest-visible grant table.
->> 1467     */
->> 1468    s->gt = qemu_xen_gnttab_open();
->> 1469    uint32_t xs_gntref = GNTTAB_RESERVED_XENSTORE;
->> 1470    s->granted_xs = qemu_xen_gnttab_map_refs(s->gt, 1, xen_domid, &xs_gntref,
->> 1471                                             PROT_READ | PROT_WRITE);
-> 
-> It already *is*. But as with xen_xenstore.c, nothing ever *uses* the
-> s->granted_xs pointer. It's just cosmetic to make the grant table look
-> right.
-> 
-> But that doesn't help the *backend* code. The backend doesn't even know
-> the grant ref#, because the convention we inherited from Xen is that
-> the `ring-ref` in XenStore for the primary console is actually the MFN,
-> to be mapped as foreignmem.
-> 
-> Of course, we *do* know the grant-ref for the primary console, as it's
-> always GNTTAB_RESERVED_CONSOLE. So I suppose we could put a hack into
-> the xen_console backend to map *that* in the case of primary console
-> under emu? In fact that would probably do the right thing even under
-> Xen if we could persuade Xen to make an ioemu primary console?
-> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-That's exactly what I am getting at :-) I don't think we need care about 
-the ring-ref in xenstore for the primary console.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-   Paul
-
-> 
-> 
-> 
-> 
->>>
->>> I could kind of live with that... except that Xen has this ugly
->>> convention that the "ring-ref" frontend node for the primary console
->>> actually has the *MFN* not a grant ref. Which I don't understand since
->>> the toolstack *does* populate the grant table for it (just as it does
->>> for the xenstore page). But we'd have to add a special case exception
->>> to that special case, so that in the emu case it's an actual grant ref
->>> again. I think I prefer just having a stub of foreignmem, TBH.
->>>
->>
->> You're worried about the guest changing the page it uses for the primary
->> console and putting a new one in xenstore? I'd be amazed if that even
->> works on Xen unless the guest is careful to write it into
->> GNTTAB_RESERVED_CONSOLE.
-> 
-> Not worried about the guest changing it. I was mostly just concerned
-> about the xen-console having to have another special case and magically
-> "know" it. But I suppose I can live with it being hard-coded to
-> GNTTAB_RESERVED_CONSOLE. I'll knock that up and see how it makes me
-> feel.
-> 
-> I'm reworking some of that connect/disconnect code anyway, to have the
-> backend tell the primary_console code directly what the backend port#
-> is, so I can remove the soft-reset hacks in xen_evtchn.c entirely.
-
+Thanks, Roger.
 
