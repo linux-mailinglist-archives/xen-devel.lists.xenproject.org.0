@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3567B7D73E0
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:05:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623178.970756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2963C7D741C
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:20:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623184.970767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjC5-0003ta-Ot; Wed, 25 Oct 2023 19:05:29 +0000
+	id 1qvjPZ-0006qs-3J; Wed, 25 Oct 2023 19:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623178.970756; Wed, 25 Oct 2023 19:05:29 +0000
+Received: by outflank-mailman (output) from mailman id 623184.970767; Wed, 25 Oct 2023 19:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjC5-0003r3-M1; Wed, 25 Oct 2023 19:05:29 +0000
-Received: by outflank-mailman (input) for mailman id 623178;
- Wed, 25 Oct 2023 19:05:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvjPZ-0006oB-05; Wed, 25 Oct 2023 19:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 623184;
+ Wed, 25 Oct 2023 19:19:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Lpe5=GH=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qvjC4-0003qx-7W
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:05:28 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe59::620])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 736b066c-7369-11ee-9b0e-b553b5be7939;
- Wed, 25 Oct 2023 21:05:25 +0200 (CEST)
-Received: from BYAPR01CA0028.prod.exchangelabs.com (2603:10b6:a02:80::41) by
- MW6PR12MB8868.namprd12.prod.outlook.com (2603:10b6:303:242::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.29; Wed, 25 Oct
- 2023 19:05:21 +0000
-Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
- (2603:10b6:a02:80:cafe::a2) by BYAPR01CA0028.outlook.office365.com
- (2603:10b6:a02:80::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
- Transport; Wed, 25 Oct 2023 19:05:21 +0000
+ id 1qvjPW-0006o1-QV
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:19:22 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062d.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 64b32b78-736b-11ee-98d5-6d05b1d4d9a1;
+ Wed, 25 Oct 2023 21:19:20 +0200 (CEST)
+Received: from CY5PR15CA0082.namprd15.prod.outlook.com (2603:10b6:930:18::11)
+ by LV3PR12MB9332.namprd12.prod.outlook.com (2603:10b6:408:20f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Wed, 25 Oct
+ 2023 19:19:16 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:930:18:cafe::a7) by CY5PR15CA0082.outlook.office365.com
+ (2603:10b6:930:18::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33 via Frontend
+ Transport; Wed, 25 Oct 2023 19:19:15 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Wed, 25 Oct 2023 19:05:20 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.6933.15 via Frontend Transport; Wed, 25 Oct 2023 19:19:15 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 25 Oct
- 2023 14:05:18 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 25 Oct
- 2023 14:05:18 -0500
+ 2023 14:19:13 -0500
 Received: from [172.30.200.120] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Wed, 25 Oct 2023 14:05:17 -0500
+ Transport; Wed, 25 Oct 2023 14:19:12 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,191 +59,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 736b066c-7369-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 64b32b78-736b-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fjTSg3OVBc5UMNOlZT7CJ+P6WP8Iag2ccSU9UaqGfSVSzibddmQuGqxrOwTPJNoDtjSjj4lKUmYA0ACr3jHmwRM0x9hWXedNOW+NiTDx11GfQLU8x0nPqP1akW/y1/7ryj+a6wN8UjGa2V1wBoTUZiA5hFT5A63OvxANKVCwWzfpDaQUW89xabzTcTHOu2zeh3R00drzaeHr55qBx5XqbBPjFr/b0Usokwmjs7fGGhhs+jc2mtukCFHjcmtakitpx6k82PqKMJXzwIy2Xv8wnZQQhvmo0NwQ8p53RBm1MPPP3DrbteZh0J29Yx23VNfvzeLH1MtpjjILwYjIgvAF8w==
+ b=E3GnuVDhmUhivyLdq2DZSfC4HslZZm19konEXXXlCsB+MVxwp9cK7kpZhSFIVuHZ9U6bB8J6bPCdulZGPXlLX995b+lnmyKMPFNYhj+GMs6YC7j+5mArUi805t9W0ax90+7+6YyjviL1FJozeMBOv4FsY1pe6G7TUfci0MamOUZHT4ClrgkrTzUDmwpfSx+0K8uvdSQYAl4YOD/NPb0hJh/hGMAGLRxGiP5SNUt+0N57etwiF0hcddmKpjrm4ql/NZjiEd3rLeJcV1HFCeVG7CVy50rDaYFnAfcYCkN4DZNBDBcOT1MGAW4uX3hoZqCTlvgu7mByAkFJKcTafY8B5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1GyBg+1e6L/ffFNCJdal9z4iWPu4nC056FUZvUpZPuA=;
- b=N/EYDL0us6zmJ7H4rXPe6sVk2yveggvknbTyRES7qUeW1A5ydEf3WNFyvgA7uoLq30aYsu3SWobbwRYnuAcVGDmAqe+NXwio3G9VMV48w6h/16PMOKnK8c9vyi1Kf4nLSUmP5dSl5IUYRF+tp/YS/eozUzUmi0WAY69HK0h7eGvwrR2AjK1UJrHgaFMY+60ExUWrnt2ZAmvGIM2HK19GI47v9UfhG4WQ7GqSX7mgsY5ADYQFBeNlRMaE+crJOsN1Jyieq6o/hnhlS1jIImbLTrhqk5RxSkymNo1s2uDNkX7ffloN/8hKKQcYU9RVksqTSWGnNqWvSUavhxa9pKDDFw==
+ bh=RASlQHoru4oseIk41rX07mI1o7EkWFyJ2TklU0lx76I=;
+ b=PIYDb9NPgbK1x/1vCri+oPdztCD7O88VzY4vFZ6IeGj0oP6LqYnVhSToOC6upVzdUKYm/4FotOQ/eJrTQ80zpNmWYpmA54FOw4bwkjLNZq7oUFCZ14x14eq6gI1LLZNPwcMfTCG8CTquqU+7j97lTE8f7MH/EHWqTnEQnKUEXK/v5Yk3pCbaInade0/oDNRXOKRtlLxc/vEzd/eUb55IISoCzMp7ye8oEICnO4rmunYKTtMUpi2RFYB9oZqABqhW5sw//Xdq6vj9w3DGF6sNkh/TFN+cIt0a5ZSdIC8mHTG2KKrP549KchzakiQe4z8+zTu1v5qY5+Ceuv2D/kAxKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1GyBg+1e6L/ffFNCJdal9z4iWPu4nC056FUZvUpZPuA=;
- b=2w2dJ/zX4cLtNrys2riotz53NDXSrioFyfXwi33Ep8ZzpVSr+LsDW7zOLT7reoSPwO6H251148pFs2iwYZkQlbyTpSOy8rMcjUY5XQp4hw+0MhZngt5f2WTSmLHAJ8CFsQwu7d6UoZBaJGaYFOgTwac0un6Fh8om0hKlym/Ur34=
+ bh=RASlQHoru4oseIk41rX07mI1o7EkWFyJ2TklU0lx76I=;
+ b=qA9Pe1ZHz5zV2tCBQBh3SggNGHll1lteP49t4GSTovMvufXY2W57G+CmSG9tzRYzIJ+ZSwxCtwpUKvqcSFzVpNU2XWfdjrKB48+e12i6HF1y3rc0fkO62cNwDOawO3vXc/g15MJUVOWvaYiRdDae5APcIw2XNHr1GeWQR+P3cac=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <6fdaea2e-d6c8-4246-bd2b-7c08139e86fa@amd.com>
-Date: Wed, 25 Oct 2023 15:05:16 -0400
+Message-ID: <c563db76-1ed3-4a22-be4c-9d8300907487@amd.com>
+Date: Wed, 25 Oct 2023 15:19:06 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] xen/arm: pci: plumb xen_arch_domainconfig with pci
- info
+Subject: Re: [PATCH v3 3/5] xen/arm: make has_vpci() depend on
+ d->arch.has_vpci
 Content-Language: en-US
 To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+	Rahul Singh <rahul.singh@arm.com>
 References: <20231009195747.889326-1-stewart.hildebrand@amd.com>
- <20231009195747.889326-3-stewart.hildebrand@amd.com>
- <5f69d9de-23af-429f-afa5-4623bedbb3ed@xen.org>
+ <20231009195747.889326-4-stewart.hildebrand@amd.com>
+ <972ac641-9dff-4668-87eb-f48d9d0497c6@xen.org>
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <5f69d9de-23af-429f-afa5-4623bedbb3ed@xen.org>
+In-Reply-To: <972ac641-9dff-4668-87eb-f48d9d0497c6@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|MW6PR12MB8868:EE_
-X-MS-Office365-Filtering-Correlation-Id: d31cb0d6-9fdd-41ef-2d91-08dbd58d55be
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|LV3PR12MB9332:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41e8f723-63d8-4f95-b8cf-08dbd58f46fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	t7Xgkpk3tN44CWC5K0E8VPuvu5ud6n4cgycMPU5LjliAbRoFzpplCyvXxF5fS7DWDk5mUCboYQEw0LJ4vBMq+9DOfQ5L8WTfIl0Fo5vZKoEP2OP1zPg9LD4R3R82KLezf2v2Rf2X8qSjovvT9KoiziT/8aEXpKGeUPw2piz1XVlAoLCbDb1o48L9beVbOS8t80sLrCRIntz8mpnecMgLbaVumzYi5ZaI1755+/kyBb5h/NHfF5hlpwxTIsWAMQoF8Llq9B2lldJhNUaemL039MxBcdFK5caUx4RUOG2Z+YYkCM5/oJklqcxVjCYGY0tymSJZfeMyUOwe8rl0nOv2aB4/QrWWjPR3ye7C+ljIB9D2ZWh+TC3XrB9ZJknnHrEFhXgLdF28bA+qtJme2dFOtlyc4z7HrP/kP1iONhzYD2BCSzqRhOQyDrpSVdLtjqNOXuroKgP//wrYIEII88U7JYk4fCtrCmNkIz0VaaxjsfjLnRyrDj7iRuwmSsei8AvkrRovklvztYXLGkQ9mX0Uif3ybOEbynLpyIahgy/8C3tB9sXI9QTmw5bJCJ+Z2KAIZTb8Dajq6SNq2gt2vpG+Q6pAnAsrarhmTcZH+DoZ0S67HU3PlF3ZM+TcX4XSGwmdeyDFCAn6jgV72PsPDI5oCILOH+YXOB22q3l975zTnvUrJOOxetfMkJc9H7J6S9PUfNCBvnPmUTRvxaE/kU6wzWeR1u6zbvK3ZbsYN0r7DyvCAqaRNsz1Ggh6KQf47DQrnNbHPDYjyrtl5jse3HwujGn8WBDESAFgNFNTjLWvTAi3oa+cRs9xolQBSUuVyNpG
+	qY3LDJnxNeRPj3+hAb+bx7weRuHqioVi0wWc8BikMOm8HEJ0+eeA5aRTtU20XktBKwLYuYf1DQyNGQOtYCRQnS+QJtTbD4samslorsHRO9/PjwLDxaNyjo3MA87CZrebIkm0gfVBom6YDIpBhuZkxiyoeclMOWdcsriX5+2CKvzMNAUODDQ4gJVhAJyZHh0Tbh1D58I6GiwyE06zrJ1/y/Tu/mKCWOBaYYo4dsTkWlsklIreDyTKokOAnzGZO3fsAQNGQeB27lle6uCZVf4fEzeT4HG9U7hOOurm7yfshjTcFlcYvzLgvQRF76ibsBpn2+GX9oA+MmXh9jjSZyCcYkxYI26vx0+tvWfELCZs7SPZQGwUUCTUmXp/IDEvX1pFsnavcowmDYcEKDD4QWXFSwQOHPh7HHTRngRFCqVLXEWedU/EBeHGWX5HIEGtZbAwt3gwHqmH06E5SgMvZQApBHZD+eB2ZZ6tyEW1qFGxzZAz5Eh2JgHk3jUyx81rc1RV5THBADUY3gdz3SSSJnC7kMmOFNPH4IPtxJxvrweC1NoBiVtK7oUzBe3HPJJF/Q+ePG9BdHdL4g049HnOgsapsuXaYWE8ntFEsODA2JwL+8sM/ubjxXV7gGUqPPcdkGk5E1PwzFAsX+3Z095MUY1dtOrxbrWNYYFSyUr7FUyD2sbGDzQPr8GgstDTDG8ugqw4bMHh0JodiseDOgj5v7UYNPSOBSEHX+U+CXMo0ITRJZh38Eos8Slr4s3li1h6nq0NHUEQqmeh02Qvo8CbXExoUCPsNad5Y90HoQV5C5+7uP8hX2duMi/KHEHECb+IRHBh+a5j882l6VafjGPVv4Yfqg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(136003)(396003)(346002)(230922051799003)(1800799009)(186009)(64100799003)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(26005)(31686004)(2906002)(36860700001)(70206006)(41300700001)(44832011)(5660300002)(86362001)(40460700003)(7416002)(31696002)(4326008)(8936002)(8676002)(70586007)(82740400003)(16576012)(478600001)(110136005)(54906003)(81166007)(36756003)(356005)(316002)(83380400001)(2616005)(40480700001)(336012)(426003)(47076005)(53546011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(64100799003)(1800799009)(451199024)(186009)(82310400011)(46966006)(36840700001)(40470700004)(31686004)(478600001)(2906002)(40460700003)(4326008)(5660300002)(8676002)(8936002)(44832011)(40480700001)(36756003)(41300700001)(316002)(70586007)(70206006)(426003)(86362001)(6666004)(966005)(54906003)(16576012)(110136005)(26005)(31696002)(2616005)(82740400003)(336012)(356005)(36860700001)(83380400001)(53546011)(47076005)(81166007)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2023 19:05:20.8064
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2023 19:19:15.0101
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d31cb0d6-9fdd-41ef-2d91-08dbd58d55be
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41e8f723-63d8-4f95-b8cf-08dbd58f46fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015CA.namprd03.prod.outlook.com
+	CY4PEPF0000E9D9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8868
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9332
 
-On 10/20/23 13:25, Julien Grall wrote:
+On 10/20/23 13:29, Julien Grall wrote:
+> Hi,
+> 
 > On 09/10/2023 20:57, Stewart Hildebrand wrote:
->> Add a flag to struct xen_arch_domainconfig to allow specifying at domain
->> creation time whether the domain uses vPCI.
+>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 >>
->> Add a corresponding flag to struct arch_domain to indicate vPCI and set it
->> accordingly.
-> 
-> The new boolean you are adding doesn't seem very arch specific. So could
-> we use a bit in xen_domctl_createdomain.flags?
-
-Right. Yes. Since x86 already has a vpci flag in xen_domctl_createdomain.arch.emulation_flags, I think the way forward is to move the x86 vpci flag to the common xen_domctl_createdomain.flags.
-
-> 
+>> VPCI is disabled on ARM. Make it depend on d->arch.has_vpci to enable the PCI
+>> passthrough support on ARM.
 >>
->> Bump XEN_DOMCTL_INTERFACE_VERSION since we're modifying struct
->> xen_arch_domainconfig.
+>> While here, remove the comment on the preceding line.
 >>
+>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 >> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> 
+> I think this patch should be folded in patch #2. With that the
+> hypervisor part would be properly plumbed as soon as the flag is introduced.
+
+Will do. If moving the vpci flag to xen_domctl_createdomain.flags, there is not much arch specific about has_vpci(d), so I think this could also be moved to a common header, like xen/include/xen/domain.h.
+
+> 
 >> ---
+>> There are two downstreams [1] [2] that have independently made a version this
+>> change, each with different Signed-off-by's. I simply picked one at random for
+>> the Author: field, and added both Signed-off-by lines. Please let me know if
+>> there are any objections.
+>>
 >> v2->v3:
->> * new patch
+>> * use d->arch.has_vpci since plumbing struct arch_domain with a vPCI flag
+>>
+>> v1->v2:
+>> * add is_hardware_domain check. This will need to be removed after the vPCI
+>>    series [3] is merged.
+>>
+>> downstream->v1:
+>> * change to IS_ENABLED(CONFIG_HAS_VPCI) instead of hardcoded to true
+>> * remove the comment on the preceding line
+>>
+>> [1] https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc/-/commit/27be1729ce8128dbe37275ce7946b2fbd2e5a382
+>> [2] https://github.com/xen-troops/xen/commit/bf12185e6fb2e31db0d8e6ea9ccd8a02abadec17
+>> [3] https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html
 >> ---
->>   xen/arch/arm/domain.c             | 10 ++++++++++
->>   xen/arch/arm/include/asm/domain.h |  2 ++
->>   xen/include/public/arch-arm.h     |  4 ++++
->>   xen/include/public/domctl.h       |  2 +-
->>   4 files changed, 17 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index 28e3aaa5e482..9470c28595da 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -687,6 +687,13 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>           return -EINVAL;
->>       }
->>
->> +    if ( (config->arch.pci_flags & XEN_DOMCTL_CONFIG_PCI_VPCI) &&
->> +         !IS_ENABLED(CONFIG_HAS_VPCI) )
->> +    {
->> +        dprintk(XENLOG_INFO, "vPCI support not enabled\n");
->> +        return -EINVAL;
->> +    }
->> +
->>       return 0;
->>   }
->>
->> @@ -737,6 +744,9 @@ int arch_domain_create(struct domain *d,
->>           BUG();
->>       }
->>
->> +    if ( config->arch.pci_flags & XEN_DOMCTL_CONFIG_PCI_VPCI )
->> +        d->arch.has_vpci = true;
->> +
->>       if ( (rc = domain_vgic_register(d, &count)) != 0 )
->>           goto fail;
+>>   xen/arch/arm/include/asm/domain.h | 3 +--
+>>   1 file changed, 1 insertion(+), 2 deletions(-)
 >>
 >> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
->> index 99e798ffff68..0a66ed09a617 100644
+>> index 0a66ed09a617..ebba2c25dceb 100644
 >> --- a/xen/arch/arm/include/asm/domain.h
 >> +++ b/xen/arch/arm/include/asm/domain.h
->> @@ -119,6 +119,8 @@ struct arch_domain
->>       void *tee;
->>   #endif
+>> @@ -300,8 +300,7 @@ static inline void arch_vcpu_block(struct vcpu *v) {}
 >>
->> +    bool has_vpci;
->> +
->>   }  __cacheline_aligned;
+>>   #define arch_vm_assist_valid_mask(d) (1UL << VMASST_TYPE_runstate_update_flag)
 >>
->>   struct arch_vcpu
->> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
->> index 6a4467e8f5d1..5c8424341aad 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -300,6 +300,8 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
->>   #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
->>   #define XEN_DOMCTL_CONFIG_TEE_FFA       2
->>
->> +#define XEN_DOMCTL_CONFIG_PCI_VPCI      (1U << 0)
->> +
->>   struct xen_arch_domainconfig {
->>       /* IN/OUT */
->>       uint8_t gic_version;
->> @@ -323,6 +325,8 @@ struct xen_arch_domainconfig {
->>        *
->>        */
->>       uint32_t clock_frequency;
->> +    /* IN */
->> +    uint8_t pci_flags;
+>> -/* vPCI is not available on Arm */
+>> -#define has_vpci(d)    ({ (void)(d); false; })
+>> +#define has_vpci(d) ( (d)->arch.has_vpci )
 > 
-> Regardless what I wrote above. Do you have any plan for adding more PCI
-> specific flags?
-
-No
-
-> If not, then if you want to keep the flag Arm specific,
-> then I think this should be named pci_flags.
-> 
-> As you add a new field, I believe, you also want to modoify the various
-> language specific bindings (e.g. go, ocaml).
+> Coding style: I don't believe we add space after ( and before ) in this
+> situation.
 
 OK
 
-> 
->>   };
->>   #endif /* __XEN__ || __XEN_TOOLS__ */
->>
->> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->> index a33f9ec32b08..dcd42b3d603d 100644
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -21,7 +21,7 @@
->>   #include "hvm/save.h"
->>   #include "memory.h"
->>
->> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000016
->> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000017
->>
->>   /*
->>    * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
 > 
 > Cheers,
 > 
