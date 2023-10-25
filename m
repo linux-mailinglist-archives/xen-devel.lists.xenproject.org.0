@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59A07D72EB
+	by mail.lfdr.de (Postfix) with ESMTPS id B54457D72EA
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 20:07:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623150.970686 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.623151.970699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qviHD-0006a4-AW; Wed, 25 Oct 2023 18:06:43 +0000
+	id 1qviHF-0006qB-NC; Wed, 25 Oct 2023 18:06:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623150.970686; Wed, 25 Oct 2023 18:06:43 +0000
+Received: by outflank-mailman (output) from mailman id 623151.970699; Wed, 25 Oct 2023 18:06:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qviHD-0006Xi-7t; Wed, 25 Oct 2023 18:06:43 +0000
-Received: by outflank-mailman (input) for mailman id 623150;
- Wed, 25 Oct 2023 18:06:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qviHF-0006mc-H9; Wed, 25 Oct 2023 18:06:45 +0000
+Received: by outflank-mailman (input) for mailman id 623151;
+ Wed, 25 Oct 2023 18:06:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XWkD=GH=citrix.com=prvs=6553ec402=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qviHC-0006Xc-A8
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 18:06:42 +0000
+ id 1qviHE-0006Zm-02
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 18:06:44 +0000
 Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d48b757-7361-11ee-9b0e-b553b5be7939;
- Wed, 25 Oct 2023 20:06:39 +0200 (CEST)
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f4e719d-7361-11ee-98d5-6d05b1d4d9a1;
+ Wed, 25 Oct 2023 20:06:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,51 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d48b757-7361-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 3f4e719d-7361-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1698257199;
+  d=citrix.com; s=securemail; t=1698257202;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dhzaHuLiBOH3Th4mbBAgfvjFhVkx5Tp4CfMsMBCY6ic=;
-  b=eGCEhPSghhUvJgUkhrC06qJpZ7jZqZPprikUrHpjWq9jxJTLkQ/Y3V69
-   ykux8jjWeQ4YbPmPKd601tJQc1MG/u7i6a9sztiQiaRtqAvzL12IUiRum
-   V99oy2kZ9R1Q7BDkCZl4HZAWyVlA3b3kNpv2WxDun8juEg2OpzI2Nq0ze
-   E=;
-X-CSE-ConnectionGUID: rPmFhqRFQHKpTSN13c+maA==
-X-CSE-MsgGUID: gmw5g9YcQEWLi4TS+rOTEg==
+  bh=PrWVaHB2rEiz5xABgTcH+1DhAHUFJoymf4nqaft0ID8=;
+  b=fGtB0hcoK68UbRQaMlQyUE1DsFpUujdrjkZDE5XgNIz+HXHy85dZbjqH
+   W9vARzju+94/QcmDBxROD0X2TAPQvzz/rvRYqn0AdJ0GmdryLbXr+YK/Y
+   d01eBjWM6jURAu/9FP1HcjrDXOASOiiCQNoKe6sDx+vrOfBsbAafduHWD
+   0=;
+X-CSE-ConnectionGUID: o+bZL5mCRnmfqLITOaXR1g==
+X-CSE-MsgGUID: QolnCxsJRMuIgBbPu+rrVQ==
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 126508414
+X-MesageID: 126508435
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:XqcrjKJbvsrrWwVfFE+R45UlxSXFcZb7ZxGr2PjKsXjdYENSgTUOm
- jMWDGCOaKnYZGT1eN8jO4Sx8ExSvcKHytNhGVFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrYwP9TlK6q4mhB5gZjPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5tOWRg9
- eUiBgktTQi/vMTvm7n4T+BF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGspM0yojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXQG5gNzhrB+
- goq+Uz2Bw5HO42uwgOozVat2tP03jncZK8dQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxLncAZi5MbpohrsBebSc22
- 1GAmdSvHiBmurCRTXOb95+dqD/0Mi8QRUcSaCkFRE0f6tbiqY06jRXSZt9mHOi+ididJN3r6
- 2nU9m5k3exV1JNakfrjlbzav96yjoLxSyA1/z/5Z0KG9j9CQtf+bM+t4HGOuJ6sM72lokm9U
- GkswpbPvLpWUcDcykRhU81XQuv1uazt3Cn0xA43Rcd8rVxB7lb5JehtDCdCyFCF2yruURTue
- kbX8ThJ/p5VM2DCgURfONnpVJ1CIUQND73YuhHogjlmOMEZmPevpn0GWKJp9zmFfLIQua8+I
- 4yHVs2nEGwXD69qpBLvGbZNiOBxnH1vnjOOLXwe8/hB+eDADJJyYe5YWGZik8hjtP/UyOkr2
- 4032zS2J+V3D7SlP3i/HX87JlEWN3krba3LRzhsXrfbeGJOQTh9Y8I9NJt9I+SJaYwJzLaXl
- px8M2cEoGfCaYrvdlXTNC05Oe2+NXu9xFpiVRER0Z+T8yBLSe6SAG03LsBfkWUPnAC78cNJc
- g==
-IronPort-HdrOrdr: A9a23:3fn7D68xjamoZFQbgw9uk+D8I+orL9Y04lQ7vn2ZKCYlEPBw8v
- rFoB11726WtN98YgBZpTmgAtjmfZq/z+8P3WERVY3SJTUO0VHAROoD0WKL+Vzd8kbFh4pgPM
- lbAs1D4R7LYWSST/yW3OB1KbkdKaK8gcaVbC7loUtFSQFvZ+V+4xxiCgCde3cGPjV7OQ==
-X-Talos-CUID: 9a23:8Lb5BmBvXv8Xs9b6EzNf8WAUA/oLS13+1EvrBRbjAiVsQZTAHA==
-X-Talos-MUID: =?us-ascii?q?9a23=3AYAuH8Q619+Zt1u/O6fspuh4Lxoxn5rvzBxE8mqw?=
- =?us-ascii?q?rhO2FaRBLeC26sBm4F9o=3D?=
+IronPort-Data: A9a23:qSkReKkKnuX+Mn+4Ehw4dv7o5gyyJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIZDG6Bb6mDM2T8ftgjPY+w9kpQ7ZeBm9QxSlNv+y82RSMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE0p5K+aVA8w5ARkPqkT5gKGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ ftbIgIpMxWoveSzzqufa9VLj/QZdca+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzG+
+ zqWoz+kav0cHOWYzTyu4mmOvMrSvCzRUroPV6eiyMc/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
+ TehhM/kCzVpt/uOVXuX+7OQrDWzESEQISkJYipsZRsI5djq5ps6gRPGQt9gF7Odh9j5Xzr3x
+ li3QDMW3utJy5RRjuPioAGB3GrESoX1ohAd4UbdbEb46yhDYourfqiJ1X/S3cwZI9PMJrWeh
+ 0Toi/Ry/chXU8DdznTREbRTdF26z6zbamGC2zaDC7Fkp2z3pSP5FWxFyGsmTHqFJProbtMAj
+ KX7kgRL7ZsbB2OwbKl4eOpd4OxxlvC/TLwJuh3OB+eig6SdlyfdpUmCnWbKgwjQfLEEyMnTw
+ 6uzf8e2Fmo9Aq961jewTOp1+eZ1l3BnmjmJGMGgn0nPPV+iiJi9E+lt3LymN71R0U95iF+Nr
+ 4Y32zWikH2zr9ESkgGIqNVOfDjm3FAwBIzsqtw/S9Nv1jFOQTl7Y9eImO9JRmCQt/gN/gs+1
+ i3nCxAwJZuWrSGvFDhmnVg8OOqxAMwu8yNT0O5FFQ/A5kXPqL2HtM83H6bbt5F9nAC/5ZaYl
+ 8U4Rvg=
+IronPort-HdrOrdr: A9a23:iTVoFqn2JJEge0IPxMLHY+Q0vFbpDfII3DAbv31ZSRFFG/Fw9v
+ re/sjzsCWftN9/YgBCpTntAtj5fZr8z+8T3WByB8bYYOHm0FHYVb2KhLGKq1aBJ8SXzI9gPM
+ xbAsxD4bPLfD1HZAXBjDVQ0exM/DBKys+VbJzlvhFQpMhRBZ1I6wd8BkKFHlZtRA9AbKBJbq
+ ah2g==
+X-Talos-CUID: 9a23:91mncGAsUnHsp8H6Ey4k/nwwR8UOSHvYwm70AnOfAFZTEbLAHA==
+X-Talos-MUID: =?us-ascii?q?9a23=3A83+6ogy+SBx8lL4nQ1hZ80J0ZFqaqJ2pDEYmgY4?=
+ =?us-ascii?q?kgeyZFCNaMQ+Azy6tfLZyfw=3D=3D?=
 X-IronPort-AV: E=Sophos;i="6.03,250,1694750400"; 
-   d="scan'208";a="126508414"
+   d="scan'208";a="126508435"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -88,9 +89,9 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Alejandro Vallejo
 	<alejandro.vallejo@cloud.com>, Stefano Stabellini
 	<stefano.stabellini@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Subject: [PATCH 1/2] x86/ucode: Move vendor specifics back out of early_microcode_init()
-Date: Wed, 25 Oct 2023 19:06:29 +0100
-Message-ID: <20231025180630.3230010-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and conditionalise ucode
+Date: Wed, 25 Oct 2023 19:06:30 +0100
+Message-ID: <20231025180630.3230010-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20231025180630.3230010-1-andrew.cooper3@citrix.com>
 References: <20231025180630.3230010-1-andrew.cooper3@citrix.com>
@@ -98,16 +99,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-I know it was me who dropped microcode_init_{intel,amd}() in c/s
-dd5f07997f29 ("x86/ucode: Rationalise startup and family/model checks"), but
-times have moved on.  We've gained new conditional support, and a wish to
-compile-time specialise Xen to single platform.
+We eventually want to be able to build a stripped down Xen for a single
+platform.  Make a start with CONFIG_{AMD,INTEL} (hidden behind EXPERT, but
+available to randconfig), and adjust the microcode logic.
 
-(Re)introduce ucode_probe_{amd,intel}() and move the recent vendor specific
-additions back out.  Encode the conditional support state in the NULL-ness of
-hooks as it's already done on other paths.
-
-No functional change.
+No practical change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -118,142 +114,90 @@ CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 CC: Stefano Stabellini <stefano.stabellini@amd.com>
 CC: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
 
-CC Stefano/Xenia as I know you want to go down this line, but I don't recall
-patches in this area yet.
----
- xen/arch/x86/cpu/microcode/amd.c     | 10 +++++++++-
- xen/arch/x86/cpu/microcode/core.c    | 16 +++++-----------
- xen/arch/x86/cpu/microcode/intel.c   | 12 ++++++++++--
- xen/arch/x86/cpu/microcode/private.h | 16 ++++++++++------
- 4 files changed, 34 insertions(+), 20 deletions(-)
+I've intentionally ignored the other vendors for now.  They can be put into
+Kconfig by whomever figures out the actual dependencies between their init
+routines.
 
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 75fc84e445ce..17e68697d5bf 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -434,9 +434,17 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-     return patch;
- }
+CC Stefano/Xenia as I know you want to go down this line, but I don't recall
+patches to this effect yet.
+---
+ xen/arch/x86/Kconfig                 |  2 ++
+ xen/arch/x86/Kconfig.cpu             | 22 ++++++++++++++++++++++
+ xen/arch/x86/cpu/microcode/Makefile  |  4 ++--
+ xen/arch/x86/cpu/microcode/private.h |  9 +++++++++
+ 4 files changed, 35 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/x86/Kconfig.cpu
+
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index eac77573bd75..d9eacdd7e0fa 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -49,6 +49,8 @@ config HAS_CC_CET_IBT
  
--const struct microcode_ops __initconst_cf_clobber amd_ucode_ops = {
-+static const struct microcode_ops __initconst_cf_clobber amd_ucode_ops = {
-     .cpu_request_microcode            = cpu_request_microcode,
-     .collect_cpu_info                 = collect_cpu_info,
-     .apply_microcode                  = apply_microcode,
-     .compare_patch                    = compare_patch,
- };
+ menu "Architecture Features"
+ 
++source "arch/x86/Kconfig.cpu"
 +
-+void __init ucode_probe_amd(struct microcode_ops *ops)
-+{
-+    if ( boot_cpu_data.x86 < 0x10 )
-+        return;
+ source "arch/Kconfig"
+ 
+ config PV
+diff --git a/xen/arch/x86/Kconfig.cpu b/xen/arch/x86/Kconfig.cpu
+new file mode 100644
+index 000000000000..0ce09b292045
+--- /dev/null
++++ b/xen/arch/x86/Kconfig.cpu
+@@ -0,0 +1,22 @@
++menu "Supported processor vendors"
++	visible if EXPERT
 +
-+    *ops = amd_ucode_ops;
-+}
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 65ebeb50deea..09575b19d6dc 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -847,25 +847,19 @@ int __init early_microcode_init(unsigned long *module_map,
- {
-     const struct cpuinfo_x86 *c = &boot_cpu_data;
-     int rc = 0;
--    bool can_load = false;
- 
-     switch ( c->x86_vendor )
-     {
-     case X86_VENDOR_AMD:
--        if ( c->x86 >= 0x10 )
--        {
--            ucode_ops = amd_ucode_ops;
--            can_load = true;
--        }
-+        ucode_probe_amd(&ucode_ops);
-         break;
- 
-     case X86_VENDOR_INTEL:
--        ucode_ops = intel_ucode_ops;
--        can_load = intel_can_load_microcode();
-+        ucode_probe_intel(&ucode_ops);
-         break;
-     }
- 
--    if ( !ucode_ops.apply_microcode )
-+    if ( !ucode_ops.collect_cpu_info )
-     {
-         printk(XENLOG_INFO "Microcode loading not available\n");
-         return -ENODEV;
-@@ -882,10 +876,10 @@ int __init early_microcode_init(unsigned long *module_map,
-      *
-      * Take the hint in either case and ignore the microcode interface.
-      */
--    if ( this_cpu(cpu_sig).rev == ~0 || !can_load )
-+    if ( !ucode_ops.apply_microcode || this_cpu(cpu_sig).rev == ~0 )
-     {
-         printk(XENLOG_INFO "Microcode loading disabled due to: %s\n",
--               can_load ? "rev = ~0" : "HW toggle");
-+               ucode_ops.apply_microcode ? "HW toggle" : "rev = ~0");
-         ucode_ops.apply_microcode = NULL;
-         return -ENODEV;
-     }
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index 060c529a6e5d..96f34b336b21 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -385,7 +385,7 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-     return patch;
- }
- 
--bool __init intel_can_load_microcode(void)
-+static bool __init can_load_microcode(void)
- {
-     uint64_t mcu_ctrl;
- 
-@@ -398,9 +398,17 @@ bool __init intel_can_load_microcode(void)
-     return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
- }
- 
--const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
-+static const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
-     .cpu_request_microcode            = cpu_request_microcode,
-     .collect_cpu_info                 = collect_cpu_info,
-     .apply_microcode                  = apply_microcode,
-     .compare_patch                    = compare_patch,
- };
++config AMD
++	bool "AMD"
++        default y
++        help
++          Detection, tunings and quirks for AMD processors.
 +
-+void __init ucode_probe_intel(struct microcode_ops *ops)
-+{
-+    *ops = intel_ucode_ops;
++	  May be turned off in builds targetting other vendors.  Otherwise,
++	  must be enabled for Xen to work suitably on AMD processors.
 +
-+    if ( !can_load_microcode() )
-+        ops->apply_microcode = NULL;
-+}
++config INTEL
++	bool "Intel"
++        default y
++        help
++          Detection, tunings and quirks for Intel processors.
++
++	  May be turned off in builds targetting other vendors.  Otherwise,
++	  must be enabled for Xen to work suitably on Intel processors.
++
++endmenu
+diff --git a/xen/arch/x86/cpu/microcode/Makefile b/xen/arch/x86/cpu/microcode/Makefile
+index aae235245b06..30d600544f45 100644
+--- a/xen/arch/x86/cpu/microcode/Makefile
++++ b/xen/arch/x86/cpu/microcode/Makefile
+@@ -1,3 +1,3 @@
+-obj-y += amd.o
++obj-$(CONFIG_AMD) += amd.o
+ obj-y += core.o
+-obj-y += intel.o
++obj-$(CONFIG_INTEL) += intel.o
 diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
-index d80787205a5e..b58611e908aa 100644
+index b58611e908aa..da556fe5060a 100644
 --- a/xen/arch/x86/cpu/microcode/private.h
 +++ b/xen/arch/x86/cpu/microcode/private.h
-@@ -60,13 +60,17 @@ struct microcode_ops {
-         const struct microcode_patch *new, const struct microcode_patch *old);
- };
- 
--/**
-- * Checks whether we can perform microcode updates on this Intel system
-+/*
-+ * Microcode loading falls into one of 3 states.
-+ *   - No support at all
-+ *   - Read-only (locked by firmware, or we're virtualised)
-+ *   - Loading available
-  *
-- * @return True iff the microcode update facilities are enabled
-+ * These are encoded by (not) filling in ops->collect_cpu_info (i.e. no
-+ * support available) and (not) ops->apply_microcode (i.e. read only).
-+ * Otherwise, all hooks must be filled in.
+@@ -70,7 +70,16 @@ struct microcode_ops {
+  * support available) and (not) ops->apply_microcode (i.e. read only).
+  * Otherwise, all hooks must be filled in.
   */
--bool intel_can_load_microcode(void);
--
--extern const struct microcode_ops amd_ucode_ops, intel_ucode_ops;
-+void ucode_probe_amd(struct microcode_ops *ops);
-+void ucode_probe_intel(struct microcode_ops *ops);
++#ifdef CONFIG_AMD
+ void ucode_probe_amd(struct microcode_ops *ops);
++#else
++static inline void ucode_probe_amd(struct microcode_ops *ops) {}
++#endif
++
++#ifdef CONFIG_INTEL
+ void ucode_probe_intel(struct microcode_ops *ops);
++#else
++static inline void ucode_probe_intel(struct microcode_ops *ops) {}
++#endif
  
  #endif /* ASM_X86_MICROCODE_PRIVATE_H */
 -- 
