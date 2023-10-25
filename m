@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382AD7D68C1
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 12:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622824.970006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A38AA7D6902
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 12:40:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622828.970017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvbDe-0001Nq-0p; Wed, 25 Oct 2023 10:34:34 +0000
+	id 1qvbIl-0003NO-Iy; Wed, 25 Oct 2023 10:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622824.970006; Wed, 25 Oct 2023 10:34:33 +0000
+Received: by outflank-mailman (output) from mailman id 622828.970017; Wed, 25 Oct 2023 10:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvbDd-0001LH-UQ; Wed, 25 Oct 2023 10:34:33 +0000
-Received: by outflank-mailman (input) for mailman id 622824;
- Wed, 25 Oct 2023 10:34:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvbIl-0003Lj-GC; Wed, 25 Oct 2023 10:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 622828;
+ Wed, 25 Oct 2023 10:39:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KNSz=GH=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1qvbDc-0001Jx-1E
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 10:34:32 +0000
-Received: from mail.alien8.de (mail.alien8.de [2a01:4f9:3051:3f93::2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 146f5a1c-7322-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 12:34:30 +0200 (CEST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BDDE140E01B1; 
- Wed, 25 Oct 2023 10:34:28 +0000 (UTC)
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id QhHASVTCwIga; Wed, 25 Oct 2023 10:34:27 +0000 (UTC)
-Received: from zn.tnic (pd95304da.dip0.t-ipconnect.de [217.83.4.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B3E1740E0196;
- Wed, 25 Oct 2023 10:34:08 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1qvbIj-0003Lc-IY
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 10:39:49 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qvbIi-0006If-TT; Wed, 25 Oct 2023 10:39:48 +0000
+Received: from [15.248.3.4] (helo=[10.24.67.28])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qvbIi-0007Ne-Nw; Wed, 25 Oct 2023 10:39:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,74 +39,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 146f5a1c-7322-11ee-98d5-6d05b1d4d9a1
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1698230067; bh=18/mcvH27y89kOfWgOoc8il6KtQKA9GxDmtXxRzFDWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=THlV6aVyPuO4ttcnuH/sGy+hWth3pFJ07cC8hdq9VyG+NrRs/JloOwG2eT09BBphI
-	 RlM67phHuDDqlYPZj44DIIVVPEP0IbQLF6FlE7kTMwDkM9ucCXtShvRTn3PURoC7+S
-	 71N3Cgs86GC7rspSy0IFg1kiTZX9AXS6TRlmhA8CchZBik8YxcJY2RHS8pQnaEgjcJ
-	 +UDXQ/F6AJ/wmNnWh6fGhA3s0cN1TiXtb3/aP30DNq1EGWpoG5dCVw54fe9CcSnTMw
-	 LkybLkvVkIJGj5Ax2VPWJsFlGPNwXoiUhtOo39O2PdqpH6rx6Z2f7d7lO3heV4q9Oj
-	 jmRV9D25H83khSsp3ccugLurO/iUhzlRD8aGNl2b7PkflskJnrV486d+8EOoJFDWup
-	 H36ii52EzVM/gC1PQheMUv9cNyPpZG3lsIY13i3B1b8uCCh8CwnK05i0M4kqjzyU8A
-	 v7yevDQlwKxc43uw/0QlTAdTA7sQ4CFT3aRpbSthtG4/CGwXlVRbkDEMUGrcMAMNyV
-	 SjhVKhf0madhWha83TWsjxX+DndfcCe06zn2F4TzrpxE0ccnwU5xNm0Ou4wP/w3BGq
-	 l2qJa88fiy1hYv+ux2UZyZustv7joHhOV5ves/f5olzL7HgQaoeDOo9ZaJ3lMal37F
-	 kiycBZsBh5nho7t4msMZd5IY=
-Date: Wed, 25 Oct 2023 12:34:02 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <akaher@vmware.com>,
-	Alexey Makhalov <amakhalov@vmware.com>,
-	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v3 1/5] x86/paravirt: move some functions and defines to
- alternative
-Message-ID: <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
-References: <20231019091520.14540-1-jgross@suse.com>
- <20231019091520.14540-2-jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=W78P4MyRTFC7b6CXC2Kz8bwCP90zRgPvt+jZM1SoPWI=; b=xBoXcavZSvT7uMc4bC2KYMelGg
+	W3Bqo1zHRhM+N8HpZ0mNeYgEvv7/Nc4faHOXUyMkRR2I5GMMUB2W2zHzSji9JZOTrt/aL8+zp+Rej
+	q/9+fued0+HQzkfI5SiJxOvV+/p8VQhyZHtlqJN3LxQ51ObKVyQHa+AcafulXfekKGPY=;
+Message-ID: <3be9d891-4285-4d01-b5fd-fb88e2599ace@xen.org>
+Date: Wed, 25 Oct 2023 11:39:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231019091520.14540-2-jgross@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 1/4] arm/gicv3: Move guest dist base
+Content-Language: en-GB
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1698225630.git.mykyta_poturai@epam.com>
+ <becf4d912d32b6888e040edd0fda4eece6cab66b.1698225630.git.mykyta_poturai@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <becf4d912d32b6888e040edd0fda4eece6cab66b.1698225630.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 19, 2023 at 11:15:16AM +0200, Juergen Gross wrote:
-> +/* Low-level backend functions usable from alternative code replacements. */
-> +DEFINE_ASM_FUNC(x86_nop, "", .entry.text);
-> +EXPORT_SYMBOL_GPL(x86_nop);
+Hi,
 
-This is all x86 code so you don't really need the "x86_" prefix - "nop"
-is perfectly fine.
+On 25/10/2023 11:13, Mykyta Poturai wrote:
+> New vgic code relies on lower address bits to calculate intid from > the address offset. 0x03001000 as DIST_BASE overlaps with
+> VGIC_ADDR_IRQ_MASK when bits_per_irq >= 64, breaking the intid calculation.
+> Move DIST_BASE to a safer location to fix this.
 
-> +noinstr void x86_BUG(void)
-> +{
-> +	BUG();
-> +}
-> +EXPORT_SYMBOL_GPL(x86_BUG);
+I am a bit confused, you are referring to vGICv3 in the title but the 
+commit message is generic enough and vGICv2 already seem to use the 
+macro. In fact, the value for the distributor base is actualy the same 
+as GICv3. So is this a bug for GICv2 as well? If not, can you provide 
+more details why?
 
-That export is needed for?
+Lastly, we can control the address for a guest but not for dom0. So 
+wouldn't it be a problem for dom0 as well? This would mean the code 
+needs to be fixed rather than the guest GICv3 distributor base changed.
 
-Paravirt stuff in modules?
+Cheers,
 
-It builds here without it - I guess I need to do an allmodconfig.
+> 
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+>   xen/include/public/arch-arm.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index a25e87dbda..71fa25b1d4 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -438,7 +438,7 @@ typedef uint64_t xen_callback_t;
+>   #define GUEST_GICC_SIZE   xen_mk_ullong(0x00002000)
+>   
+>   /* vGIC v3 mappings */
+> -#define GUEST_GICV3_GICD_BASE      xen_mk_ullong(0x03001000)
+> +#define GUEST_GICV3_GICD_BASE      xen_mk_ullong(0x03000000)
+>   #define GUEST_GICV3_GICD_SIZE      xen_mk_ullong(0x00010000)
+>   
+>   #define GUEST_GICV3_RDIST_REGIONS  1
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Julien Grall
 
