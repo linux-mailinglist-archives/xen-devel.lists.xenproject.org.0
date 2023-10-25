@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5746F7D745E
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:32:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623228.970978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5557D75C2
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 22:35:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623289.971018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjcK-00048P-Vv; Wed, 25 Oct 2023 19:32:36 +0000
+	id 1qvkZd-0002AT-2v; Wed, 25 Oct 2023 20:33:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623228.970978; Wed, 25 Oct 2023 19:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 623289.971018; Wed, 25 Oct 2023 20:33:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjcK-000458-SI; Wed, 25 Oct 2023 19:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 623228;
- Wed, 25 Oct 2023 19:32:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvkZc-000279-Vc; Wed, 25 Oct 2023 20:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 623289;
+ Wed, 25 Oct 2023 20:33:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lpe5=GH=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qvjcJ-00044H-6G
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:32:35 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062a.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ee90218-736d-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 21:32:34 +0200 (CEST)
-Received: from MN2PR22CA0017.namprd22.prod.outlook.com (2603:10b6:208:238::22)
- by IA1PR12MB6017.namprd12.prod.outlook.com (2603:10b6:208:3d7::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Wed, 25 Oct
- 2023 19:32:28 +0000
-Received: from BL6PEPF0001AB51.namprd04.prod.outlook.com
- (2603:10b6:208:238:cafe::37) by MN2PR22CA0017.outlook.office365.com
- (2603:10b6:208:238::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33 via Frontend
- Transport; Wed, 25 Oct 2023 19:32:28 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB51.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Wed, 25 Oct 2023 19:32:28 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 25 Oct
- 2023 14:32:28 -0500
-Received: from [172.30.200.120] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Wed, 25 Oct 2023 14:32:27 -0500
+ <SRS0=iZwN=GH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qvkZc-00026z-80
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 20:33:52 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cccb7085-7375-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 22:33:48 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-540105dea92so179393a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 13:33:48 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ w12-20020aa7cb4c000000b0053e7809615esm10028874edt.80.2023.10.25.13.33.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Oct 2023 13:33:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,91 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ee90218-736d-11ee-98d5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ISAnZKwR3xHGwsFrWJyMY8yxpGWFuMhmC/ZJ3OkotgXExI6A3JRfljSeSCZ59xePdKgUo0bB8tC2sx6PfiJnkdCiSnPe1SMPOaHd3PAUNMIIIJo9wcX/YvhOdXugI/sj1xIuNTqrESsFUyhi5apFP+fU2AP4ZznA+Ib43nDzItxB5XoTn4gKcqfJZ2w7KgriNXC+0qYHFTSZaS+NES2Gpz/1/60g+QiKbBOqlzf2JBpnFyA+qgT1MlMNlMZ0Pifdd31iLM0Of7jEqo21pO+U4r8JLpCEx7n8Ly2+KJUXXZJ2f1sc4RxjYR6bLZ56WRS3L6gz2EALzlZlNYZqGSd8kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bQm9qLEtiIOT8W5ejlBLBEidgM2aFzVM7WxqrAwHOgo=;
- b=bQAZB5NYsE5IU4qN1RnHlrIRKI3XHxMah4RMyDhcDddCpnjqaDFkpXH5YbKBYeHErRUnj3jjU9lVluMPwuA8V3hhD5YzdGuhjQm9iXWU6dEe+lV218lAH40x9LjfRnuQiwGYYvp2WjFISvxD/rpvIu+gquMjNCSboIQKyl7vYm6NHRTidn9fzYlOXOyDzak4ehRP8d/Bkynsyc726zmndrHrpImdT7sPlKDpNpwgCEhn75qmD/DVnu8leMS7rriGZpdyap/larH3Jcy74WHS9tML3c1HoZKNzcpV4LtAVlVASa/feMBzjah89k37HThDv6l6ilYHfhRsCSOgk2/E1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bQm9qLEtiIOT8W5ejlBLBEidgM2aFzVM7WxqrAwHOgo=;
- b=WreXo00gHjnJRo3Z2r//+1CZsjQca8U2PKxgjjaeeAaK8LGy49mz+B+WIQor2L8NY/xJhvGz8kJjDotz01+3zyCRsrNB4vlrEnUltPX9cuj4+WM9uNjDZ/jK62vaDHIcVChszyYfRHp3rxY9ZvrxDXttsrlwjHe2pmv79VPigfs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <eb2c06fe-6a33-4484-8632-fcf1b26beebe@amd.com>
-Date: Wed, 25 Oct 2023 15:32:26 -0400
+X-Inumbo-ID: cccb7085-7375-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1698266027; x=1698870827; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qqEwLbJ8TurjDqmUH7zFgZUfJwSWLZFMxrJ4HKi5tck=;
+        b=ucXY0U3kKSDHEVWgLnRRw2HEvGoz1EAGelHO2XU5pnXP6tjyfohn2vEkWdBld2wOvK
+         r9CgZ7m2L7dX0CLkKjdT4Heob2Dk/b6G4juWcKms7ZJOjOLobzFZgcesylACX0XHjwZ7
+         hYipb1r1Z+DbcIUoK4xzao700HkCcxWeg27dY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698266027; x=1698870827;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qqEwLbJ8TurjDqmUH7zFgZUfJwSWLZFMxrJ4HKi5tck=;
+        b=O9x/S42uhr6Nm+mpTbPbbTliFaLIupS8tHToWZxzuwGAV+ZLufwodY/IE9+65UvhXk
+         ZzUdBB9HonF2c/dnDtTnKrW9hHPKlSI0EPH3nAP/r7zURmJe2FKx4S/rSUY8EXDyBGi+
+         9jS1CSwKo8+CtvkD46hjMuC+mkojCm6oyr4zF0VCF3sI8xd2BQJQtqLCslzCm/cjtFrC
+         bDxu/f/KNllmdiNn+Uu/l4EK3BVBao+ceC7gAGZ7dFH1r7mvOK0pnCBxEroGq1swc0X1
+         Z5L4ZQoP1dmE4xYdnh3RV/vFlzhmXX6cUTJZ5IasgW+Zd8kPDrcOqAFUIwsb5xWJwyDX
+         8IZQ==
+X-Gm-Message-State: AOJu0Yy0gw2NqQPUbGxgE49OYq9QalUh36rVzPkiJcNzZa8oIY9pW+LB
+	ndEZliP7y6/21Szwe/DdY35yhg==
+X-Google-Smtp-Source: AGHT+IEt/R71+n+6E0sw68/YTnvmELLSfvgok73QF1dvC5GT+zjyHsYyk1Qu7c4QiloiRRfTHyEv3w==
+X-Received: by 2002:a50:c251:0:b0:540:e588:8243 with SMTP id t17-20020a50c251000000b00540e5888243mr2139848edf.20.1698266027567;
+        Wed, 25 Oct 2023 13:33:47 -0700 (PDT)
+Message-ID: <596186ca-53cb-4ccf-b719-95a587018c38@citrix.com>
+Date: Wed, 25 Oct 2023 21:33:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] xen/arm: enable vPCI for dom0
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231009195747.889326-1-stewart.hildebrand@amd.com>
- <20231009195747.889326-5-stewart.hildebrand@amd.com>
- <6b446a2d-ac23-4cb4-ad6a-1a816b497023@xen.org>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <6b446a2d-ac23-4cb4-ad6a-1a816b497023@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB51:EE_|IA1PR12MB6017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d8271ff-52db-45cd-de18-08dbd5911fdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	IFKPd3isR44e8qH5mn77I+I2R7raMt0XBHD6xhQiZJNdicBVWUJgHVFJyS1ivOroOa0rutXFP+6hzRdcjLUBNuoDOMpkvM5xh6+lIU0ddriLG/MwnbFehYBA0oatj4+W/thJZO3EY1FKgmLzcwdkDQTX9EmsRFfmOzAch+E5K7ULLyHS7r3sHDXjc5hKgiiKZ4e+uAGt6LW/BxuOS5BZaPPGh6EWBVPljhRS+0nYJguoQIviOFJyygF6IRYjxaebT1D0EXj9z8QYPnIpY5azQigMRHmwS7SlWeSAbwhHRdF/a1JCsyWmiiQbBHzlZMX2gMXBI2xKNntx1SlxKeA2qQ/lbvls53LlZYv/5Krvtjqwd8mRps8H6nd6GL5nFgqdHkq/hD4X5bsMVJh01V5yGu8S24uPkL4NWlP4Kh6bSWaJefD9iAQalGb123FmPZGg3+56mDMpnZnHBBeJCk9TYfBuMs7eSAtKM69WUCiz2t6UsHCWBG4sQhIeWTcIVCW8RfWRWUtfRbAdafmR2yQ24o+dm/H5Kbmd8rGSVz4JCZ+bOpRXFK7W8XzkRAAmYi52pV38Yty/yZpoQsIFvyZLNno/Q517oqFlluIY5DZ53Is6/DuhM1fXeYQokqBuqtH0RXEyX0FycsqZNq/oIyWrt/E41+gkSl1HOKHxzLM8xJlSGS5zErOkaOfRDQUU+cE0yBbJhLeevVPIHQdJODW5uBTbMr7dOZvks4X3JDCMf7YUlJzvyoTBZMD1ItYETmehSJGjchbIYzliMWwzGFeI05+YXwHXWXclbOBlP8jEH/vToWvg3oCdQ6tgvJFDN5TX
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(230922051799003)(186009)(82310400011)(64100799003)(451199024)(1800799009)(46966006)(36840700001)(40470700004)(40460700003)(40480700001)(54906003)(8936002)(5660300002)(70206006)(70586007)(110136005)(16576012)(41300700001)(86362001)(478600001)(31696002)(316002)(8676002)(36756003)(4326008)(53546011)(44832011)(81166007)(2906002)(36860700001)(426003)(356005)(2616005)(336012)(26005)(47076005)(83380400001)(82740400003)(31686004)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2023 19:32:28.4327
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d8271ff-52db-45cd-de18-08dbd5911fdf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB51.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6017
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [RFC PATCH 01/22] x86/msr: MSR_PLATFORM_INFO shouldn't claim that
+ turbo is programmable
+Content-Language: en-GB
+To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <cover.1698261255.git.edwin.torok@cloud.com>
+ <17a99e1da838a2edeeffa5a988e22c6fcb31406b.1698261255.git.edwin.torok@cloud.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <17a99e1da838a2edeeffa5a988e22c6fcb31406b.1698261255.git.edwin.torok@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/20/23 13:33, Julien Grall wrote:
-> Hi Stewart,
-> 
-> On 09/10/2023 20:57, Stewart Hildebrand wrote:
->> Set the pci flags in xen_arch_domainconfig to enable vPCI for dom0.
->>
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->> ---
->> Julien had a suggestion to make this conditional on pci_passthrough_enabled [1].
->> However, in v5 of the PCI ARM SMMU series [2], we propose removing the
->> pci_passthrough_enabled flag. If pci_passthrough_enabled is gone, the conditions
->> under which vPCI should be enabled for dom0 aren't entirely clear to me (other
->> than CONFIG_HAS_VPCI=y).
-> 
-> I think it should be based on whether Xen detected a PCI hostbridge in
-> system. I haven't looked which variable/function could be used in Xen
-> for this purpose.
+On 25/10/2023 8:29 pm, Edwin Török wrote:
+> From: Edwin Török <edvin.torok@citrix.com>
+>
+> Xen forbids writes to the various turbo control MSRs, however MSR_PLATFORM_INFO claims that these MSRs are writable.
+> Override MSR_PLATFORM_INFO bits to indicate lack of support.
+>
+> See Intel SDM Volume 4, 2.17.6 "MSRs Introduced in the Intel Xeon Scaslable Processor Family",
+> which describes that MSR_PLATFORM_INFO.[28] = 1 implies that MSR_TURBO_RATIO_LIMIT is R/W,
+> and similarly bit 29 for TDP control, and bit 30 for MSR_TEMPERATURE_TARGET.
+>
+> These bits were not all present on earlier processors, however where missing the bits were reserved,
+> and when present they are always present in the same bits.
+>
+> (Curiously bit 31 that Xen uses is not documented anywhere in this manual but a separate one).
+>
+> Backport: 4.0+
+>
+> Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 
-We can slightly tweak pci_host_iterate_bridges_and_count() and use that.
-Also, a full revert of the pci_passthrough_enabled flag over in the SMMU series probably wasn't the best approach, so I'll add pci_passthrough_enabled into the mix too.
+p->platform_info never has any bit other than cpuid_faulting set in it. 
+We still don't even report the proper raw value, because we don't (yet)
+have clean MSR derivation logic.
 
-> 
-> Cheers,
-> 
-> -- 
-> Julien Grall
+I'm confused as to how you managed to find these set.  Even back in Xen
+4.13, PLATFORM_INFO was covered by the msr_policy (later merged into
+cpu_policy).  Furthermore, even patch 3 oughtn't to have such an effect.
+
+Sadly, the whole of this MSR is model specific.  Vol4 2.17 is only for
+one SKX/CLX/ICX/SPR.  Technically its wrong to treat the cpuid_faulting
+in the way we do, but it is enumerated separately, and we intentionally
+don't have an Intel check because we need to emulate CPUID faulting on
+AMD hardware to make PVShim work.
+
+~Andrew
 
