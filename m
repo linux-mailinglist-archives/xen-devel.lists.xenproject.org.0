@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377A17D67F9
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 12:13:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622791.969957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 804ED7D67FC
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 12:14:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622802.969977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvatJ-00019B-5e; Wed, 25 Oct 2023 10:13:33 +0000
+	id 1qvau5-00039I-Sh; Wed, 25 Oct 2023 10:14:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622791.969957; Wed, 25 Oct 2023 10:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 622802.969977; Wed, 25 Oct 2023 10:14:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvatJ-000174-0a; Wed, 25 Oct 2023 10:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 622791;
- Wed, 25 Oct 2023 10:13:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvau5-00036f-Nw; Wed, 25 Oct 2023 10:14:21 +0000
+Received: by outflank-mailman (input) for mailman id 622802;
+ Wed, 25 Oct 2023 10:14:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TDEh=GH=epam.com=prvs=46626b3b1e=mykyta_poturai@srs-se1.protection.inumbo.net>)
- id 1qvatH-0008QC-4A
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 10:13:31 +0000
+ id 1qvau4-00035s-0W
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 10:14:20 +0000
 Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22d2d317-731f-11ee-9b0e-b553b5be7939;
- Wed, 25 Oct 2023 12:13:27 +0200 (CEST)
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40e5ab53-731f-11ee-98d5-6d05b1d4d9a1;
+ Wed, 25 Oct 2023 12:14:17 +0200 (CEST)
 Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
  by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39P6fZXo019492; Wed, 25 Oct 2023 10:13:11 GMT
+ 39P6fZXm019492; Wed, 25 Oct 2023 10:13:09 GMT
 Received: from eur04-db3-obe.outbound.protection.outlook.com
  (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3txjfcj00w-2
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3txjfcj00w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Oct 2023 10:13:10 +0000
+ Wed, 25 Oct 2023 10:13:08 +0000
 Received: from VI1PR03MB3758.eurprd03.prod.outlook.com (2603:10a6:803:33::29)
  by PAVPR03MB9229.eurprd03.prod.outlook.com (2603:10a6:102:32a::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.29; Wed, 25 Oct
- 2023 10:13:04 +0000
+ 2023 10:13:03 +0000
 Received: from VI1PR03MB3758.eurprd03.prod.outlook.com
  ([fe80::eecf:7ef0:b4b5:fc42]) by VI1PR03MB3758.eurprd03.prod.outlook.com
  ([fe80::eecf:7ef0:b4b5:fc42%4]) with mapi id 15.20.6907.032; Wed, 25 Oct 2023
- 10:13:04 +0000
+ 10:13:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22d2d317-731f-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 40e5ab53-731f-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cJ/s+vwZEosIM9HcGBTK9ncyjsIgJuhyILTZOku4KohGD70Ii2ZAJ8YgxZjwFTVcC9+cq5yxRXjDGzHZ+27bNPzTpnTFaJYNN+SQTILp3vy0JAQVxyGU7pjO76HgWduI/wxRp8ly6sbcvK23jRZcBbuo7cKFaKRl3nbcFy/KxlbfB5Dojvn4We7moIcEzKkN+kGeaMPnQTdcotryia7kSC8Y8MmYQaKF7XHhHAMkbkEDdmcYCZvdy48+WurcMXA2yUXjTCkhXUO8bdAOIhzx6+ZuleEE/NzS67KHndN1EopxREvzMvXvhNO8ey4b4lPqtyRF90bAAKYeYXmQkiSt4g==
+ b=DnDPM11Of16DeACkBDn+h0yunzvXfhcvMOQiRoOaJfH2Df9OJNYtRmdoE0uR2R7qgpkmp+QDn/nQ/rFsyuz6TwVuKAQij+ZP46xj1QbAXF49UVDiXkUd4Ah5p9ROmAL17CHYOOe80JAerqqNwRlVEAjGleJ0po2u9Z0wKZ0etH3oqZ2sYd9KTIlNayYfHgWcrQh+cB0tcp6VqWtDlQrKh11KrIfru1m5U94prBF+RkEvHL5GxI7acmYZQfhXc8AcTcW6S4VzNyZ9P6P+XcEBLP5OaP2xt64sGC2Qk0pl6aQsbmMV9aHox5TpNWB725l2AchegXqD/UwhyFKJnIRTxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=idh2l0lCB+ZtXO+X71x2VXJKcfF7jtJl8qoNF4TpP6Y=;
- b=Crub1awhPIDemH0utATXrhZlD9qTVRvziH/xnzf/OU76FLAs8/0rlLBlNBMYXJmSHINZJ6zwEq6HUZte8xXvGogf2K/EkD8zlFIK0gJPvwkKsDByrKNvmNHaEfAqFXrWGBDYy3XTxrf0WiP9jWOLSMIGqtiXt9EL9biIvdTnoxvWHK619PEGdvCU5lrRayGkZ9b5TEyruoqoJzVnWYg9RmDqbrjBhWOcPUkQI7FqQtMfPp5jWQOy8TyZAWLWbunUBk/UnyBOZBTSwT2m3WtPiFLxEwGRfrIokmUKX7WeMxzBQwacPCRRKeORqcSvxYsb8kiWoXx3byEkdBqKtm3/yA==
+ bh=xTYEkPoJAbuG/asQRALcXJvaTc2lqBFDVLfqmc8UUZw=;
+ b=kNNnswN107PBg/tsBCcNmuDuDEPEsG6fUcULbb48ZEsL6O3pDdADPe7MJBEAN6VIZ1pXjVmBLNuOuzHRThFjlLxLqhbxPIOIv2SyYjQwJvBqEDUrgtOXNvG+1pnNBOBeErFVAsE8i6IuhIU492KxRUCLhik5B+6oEarbSc7/nHiqaE6rrxSlYl5EA97VguvL4FtEu7n43SBhj98lzy2sTZyZJ8PSvou7jGmrtDVDr6zOXi4SHwCp6hO6uk8DisuU7y8dipe3aURxnrMSAncH/F4qn5QDHGcl9AKQVD9XEElUrDUwaDUgF5UmQsk1BzruB6CZSE5+x7cCCgVWq9dNEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=idh2l0lCB+ZtXO+X71x2VXJKcfF7jtJl8qoNF4TpP6Y=;
- b=j4yG0CYeqpkF1KlJo00YadTqDLsjSRI6let5px7Xrtl6QTAYHLfp5eug8WMeC9kFpBpl0lGjMo+Xur9KcBbMnf/ONQhHkwoAafSfn5WtCSXMfbHfdVgkbdOHkL208rdGtSgj9ns6iIdvcOO1uLNpe3plymSxa4zmMu64lOwOsVb8EvX66oQ/BVzF7u3Nx7XJPVAPKwwsLbbpOb7Z80TUx3yJG5N2K9zM/NvxZjJLComRsqFD5ozXGzQrva1vT9f78JESaRBcDqf8Etw19KAdatcxsDL83vkRL5S5wRGavR+gJgdfLRqfVslX97nbVdcbxDdkcqYdf701iKVGGXebxA==
+ bh=xTYEkPoJAbuG/asQRALcXJvaTc2lqBFDVLfqmc8UUZw=;
+ b=XS3dfR0IBYvEPA2ZVaTuR5oQcpXpdnuhYBGubNQEDCoxKAM766QL9+sOTqQjPD0HPcU8n5kXgOKNn/4aabHtXVUWXpr6i8BKGWpeKAfvVpQW2SSUlLw35omsBrCsRRlHx5GKexYPhLHOkNXFNBm4lgu2dpV3n0OieYHR+u3zr5ZiEv5flSC6sg1cQLhylFGwV0VfCbAu3Pl1L9MSZGYtWA6JKDweRzRsyEi/7IpLkZABUKI65+Fym/xjSRn6Usw8YpjYTs4NAdfartEiKXQ/6PdZ/PTs7kh8RlB2RaSbeqLJ08IzAkeX6CXAIBWFoZhxqyto3S4xlLnS/l4tgseWhA==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
@@ -77,12 +77,12 @@ CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
         Bertrand Marquis
 	<bertrand.marquis@arm.com>,
         Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH 4/4] arm/new vgic: Add ITS support to NEW_VGIC
-Thread-Topic: [XEN PATCH 4/4] arm/new vgic: Add ITS support to NEW_VGIC
-Thread-Index: AQHaByvXavefleIylUux0UehXzD5Xg==
+Subject: [XEN PATCH 3/4] arm/new vgic: Add GICv3 support for NEW VGIC
+Thread-Topic: [XEN PATCH 3/4] arm/new vgic: Add GICv3 support for NEW VGIC
+Thread-Index: AQHaByvWJmV5C4KQO0yIb07J1Qv6yw==
 Date: Wed, 25 Oct 2023 10:13:03 +0000
 Message-ID: 
- <b0b41f2065002e4cf7795ebfbf9f84624c2f150d.1698225630.git.mykyta_poturai@epam.com>
+ <102d39655bec312490acd5abda966b66e6962da7.1698225630.git.mykyta_poturai@epam.com>
 References: <cover.1698225630.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1698225630.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -91,44 +91,44 @@ X-MS-Has-Attach:
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB3758:EE_|PAVPR03MB9229:EE_
-x-ms-office365-filtering-correlation-id: 1de5ebee-d208-4147-1ba1-08dbd542fa04
+x-ms-office365-filtering-correlation-id: d76c6731-f42e-41a0-3458-08dbd542f99b
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- V9ewMx8Bmi6Gua1s91TiPumIC41YZ/1+qC2eab//2Jh9E2+c7tQ2gLrK33tlChSc0oGR/hsePa9z+E4xWzQPx56eNnQQuMOEYSjXzS7uokeVOz9cpNv3Tgrc49Fw9p1zz5t5GK/ZqiWAkwYme4kKddFQjkci3kpmLbuAWXL20xoBbJHAnwNJQaXi6B88pQUMwsNEfMEjhSxKQrF1xvSsSQQ9k0K1gWofDxY3tplI6auQ9S20n9dGXOnlE4hKXS75AW0eR1HmnlkVMr67wr7yEFwbe48RZuOMB6jTg75U81fJ6VxtGwYKClQ9nUT6SwGyItbBIM2VL91gTcUy2MvnDfM8K7Pru2ZHZ2ikAZCr0pHVw/7wyvcWulCkgHJ43CByMQqkrAOr7aWZ6p0JMhsc00iI5LRSybz7kD3gt1Jgw22jssnlWDq5jHGQmu1eQkwPNAaUhn98nJb8RDwR0O5S1nfT82UuMZLnSkvCbld3xWvLwXcCsHoDpq+MetSyzUbe6b7sHyrCihgd4ZeFN3QC7IKXP5VTN7fONDdaR5fir3+Nqhat5R3Mq8cE/r4iHRYZ/cxIMbhhnqHzZpjl4rL/blVcQFNjsVd77hu241YFzqBVBxfbckQGWwFTRgqBwfHzt2TIMadfRRheZ6OZp1+cWQ==
+ PvvXhPQXG9Vi1SkBJ3cQNccK3sdJI6RLkiM5Jb436UkL57VFMduYEn+oHCJKK+9X1oQ5EoSo9nicZytlc9oqlfVBY5iu6yNzl2tUUZYccX//gk+tnZBTcVPyJcTZjroKL3EFqyaxMobZObT2dkY6f0/HvI46RlFjWftRdO/p1TdZHB9PdU6M9jdd6LSqicxKmEjuxMBCZcCb8pcC9vKezCa7riZ3572BkI0cImJaOECWmP39x4J3grG7Hs/RIgrP3q6ZA9WhuAtNyzHGBuhf89oqUPOIltrnkeJcRl2i7GAU84/EJfjggyWw/RJ+wXRqOVvIfa7brZmMieZ+x3sMlwTfzLXZvqQmPAxg1+U9PEDXWt2hCGE62fb7zhRvE45oyE27RA7VceIbfa+psQHBHyEHOTOQSSUT182n3rsuwXQjrswhdBrjBpHbbFHLhM+dZjl/PLlGakR1UTp86w1D3Lm2HB3NHo96dO0fVuQZsBlcinmf1T+swC3OP1ab7/Jb1TWEfOsaT19vxfs0CKTJX7q+rEvsPbRbf+7JOwXBjTSgaWNAYVXa2Ac6X4dJH4TOmu+qkiftTq6omUdI9jhkcBLumzrAvRQrl7ijYeg42TbPYSJTQTWKCLtMwvVDJTwSCVO562qABtRyQzcDlQ9wDQ==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3758.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(396003)(39860400002)(366004)(376002)(230922051799003)(64100799003)(1800799009)(186009)(451199024)(38070700009)(26005)(66899024)(38100700002)(2906002)(30864003)(41300700001)(86362001)(5660300002)(122000001)(8676002)(8936002)(36756003)(4326008)(2616005)(478600001)(6916009)(66556008)(107886003)(71200400001)(6506007)(64756008)(54906003)(91956017)(316002)(66476007)(76116006)(66946007)(66446008)(83380400001)(966005)(6486002)(6512007)(2004002)(559001)(579004)(309714004);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3758.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(396003)(39860400002)(366004)(376002)(230922051799003)(64100799003)(1800799009)(186009)(451199024)(38070700009)(26005)(66899024)(38100700002)(2906002)(30864003)(41300700001)(86362001)(5660300002)(122000001)(8676002)(8936002)(36756003)(4326008)(2616005)(478600001)(6916009)(66556008)(107886003)(71200400001)(6506007)(64756008)(54906003)(91956017)(316002)(66476007)(76116006)(66946007)(66446008)(83380400001)(6486002)(6512007)(2004002)(559001)(579004)(309714004);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?OWvUR6s74fJ82mYzLjRIZLo1eGI3ZxLoHtnldELvAm5DMjPE/MJwg891xn?=
- =?iso-8859-1?Q?gl1K3Y1/7wCTO/SrMDBWwUbELyAcJHUeqzCWLeWcO+5yILibKqSdaM/ibK?=
- =?iso-8859-1?Q?Ms2cvGVCZaC3aF6lWC8ztz4nEy131lv7LSTnej8eFzt5rl9EPuMg+9YtQa?=
- =?iso-8859-1?Q?Y58rM2O5J82sQIsER23XMdj0w+TI+NLZuxy3/Fp/Fv0KLDD4IdqA/0e0zJ?=
- =?iso-8859-1?Q?iHNfvd6hk+wQEF00y5DkEx9PdZNs8/UZf9GKA/I+1h4rRohySWcJml3jr9?=
- =?iso-8859-1?Q?tZjoX9Ka+Xtwj6Ekc7nLNJlqI7zKWsFUc5KlIErNyEs1uTFAEONbIu5hcU?=
- =?iso-8859-1?Q?azGO5KtouxRBlNLxzBsx4v3Iv9Pfddg+pxkLkNX1pZZ8U5iTfRlm2tWH0Y?=
- =?iso-8859-1?Q?uXma2Xw0nwsOrXt6R4scVVbkNiWqji9AUE0tsAm89TftdgsERhDQovz67B?=
- =?iso-8859-1?Q?zMn34VmwH6MOfd+nv0Dwnzj3sCpfeuXtayUJ6UFJ4HSbdvCCLMUm0/gRAm?=
- =?iso-8859-1?Q?BhXSRWSEz379dLzCEFSgB/nXuWkpg9N/DOss0XOXxtN/us4z45DlmKdLvJ?=
- =?iso-8859-1?Q?pgaZNuDfkqrVyRczhWXQL1mNZJdkhSsFjNHKyRSaLmMoiuS82BBoewMbqo?=
- =?iso-8859-1?Q?7FildrAomaZQtARIdUKwrA8NMVcHXEct2Tx2ZBIZqlg8MNEF+WzWbdHcyz?=
- =?iso-8859-1?Q?+FQhTu3TLkWCjrrZy9LJ25yzlyKYYXudfqXWd6oJTDV/68dsgpuhY+R0t4?=
- =?iso-8859-1?Q?6pu38s/0Tb+oAIEQEAde/7iM9SPc7fkI5IbtCK3qrG6Lvt/j94W4ppVny1?=
- =?iso-8859-1?Q?WOnwSr1XcZTsT9oniHHXg4IqvYeNHAUGZLaeK7zUuKKFJFHjeKyJNc+iS/?=
- =?iso-8859-1?Q?mwfTz5jEv6E0fqssYYpY9IvrNxUFYcVIxEzWWuruBJvnTnQRc140G/y/k1?=
- =?iso-8859-1?Q?WI6KO94BGKc6tCYL11HLGMccWZcHjXImb0BJx0S2UZ7cBP5Kre6Q5lFBH2?=
- =?iso-8859-1?Q?xNCB1c1HFr+aMnkPrTPUjA4zezJLV6Vw1hjmEqv9DvfeBVjX1GzViiU6rT?=
- =?iso-8859-1?Q?/ESwar1NHo7GEX0Lk5SrjNSHEOnpKEF8/6duSBM19JmVTpN/Oibiww0buW?=
- =?iso-8859-1?Q?h1Z3AV3oY+z3qDUKAGwQFNZ6ylhYASli+sylRFQAOwqL8WR+jqkH8LIqke?=
- =?iso-8859-1?Q?DShxfZ3+dmvUtP2g8RpRixeiMc4k/7hFeHSMFl4WLJ0i5lnqnvcbfzFGAf?=
- =?iso-8859-1?Q?LQLH4M8Dd9i3sRiygzPKoWgg5a8+C/lYkcN4mxB29UQW/vIojBywkURiJD?=
- =?iso-8859-1?Q?+OSk1cC6bAoEFzaDOBmDHWHbzz2k2U80WuOTosypczUARGguNXEZJfGKga?=
- =?iso-8859-1?Q?+kcYP5Heo3mYMLJ4zelkRUzQgS+749pYhhPV6IEHa1lrQB6MiToAhK8mPc?=
- =?iso-8859-1?Q?budBJJZARank9tnxIW2G/B25njcRolbjtGb7b73gAqxxSJrDfrl72v1XfE?=
- =?iso-8859-1?Q?JOdFaBATqI9lTkjQupPa2G4XLqGcJbozohGRq1CWDUkUfdZLt5D9THeB90?=
- =?iso-8859-1?Q?wKkTbIudGxuqZoInqNuT9TFB2E4zbJ+uJmDm0klJ4+OjAG/acfCHRyqzdr?=
- =?iso-8859-1?Q?A4S+FBhi0KPRLCgWqzgKqXT9Tn1xTtFA/J0+AVZqEQCxdbIRwjnzyYSA?=
+ =?iso-8859-1?Q?zmbMJ0ZRORs/WsnH81ub5/3aIRqiQlnB01H5TfJtuIBIpEq8Pl9eEcauIT?=
+ =?iso-8859-1?Q?lfXAyepHlpqi95YiLOkuO916MG9XD98a3fH/FQhHSxZ0kI1fuk6Z6kDwrY?=
+ =?iso-8859-1?Q?z9j9tI/BvxkTXyPXsUr7+2QQRb7EsU/A46KUBXSB3twB6J03eEswxtkE8h?=
+ =?iso-8859-1?Q?KYnJ8UXI1msg2jVch2aibwdFPyRGn6lHOLZjwzDdyrz3zNLmkzxOjnt776?=
+ =?iso-8859-1?Q?O+sG8qomgLD4tssO0WJ2KZLFuhQZWhTHxGVkQqZ7emFNL3HuOLMQnNuCLZ?=
+ =?iso-8859-1?Q?EMrA3Gop5O2lQGOXj69uQlWjYCZIPfqLH8RbAffjHxaozntY55hAhig4Zl?=
+ =?iso-8859-1?Q?Qzrq++PRUw9+1SH9R9g/9+PHomTE44x83cChif/IdDIUooe8FQN4QWrsWw?=
+ =?iso-8859-1?Q?qI3qCKh9/Cn0GS9TVRDB1nTtUQr7lMxoAKf+jLLWKgYa2HFT2Q+2cGRZ2f?=
+ =?iso-8859-1?Q?ZzsTsqC3kXP+NYySysbY41+rXO4wCsEzdkZqELNLVock5MAxtmO7jJfPLs?=
+ =?iso-8859-1?Q?EcQZw2ik7HOwtD+fElO4Yxl7MFQ6ZpzFzrJSZGoBtDCCokC11g1Hpfzpd+?=
+ =?iso-8859-1?Q?D9euneafEMn0BiKWNngcuQFj+pdjrZGyBrD11E2TEhf8MB+wMdDkW/LrS5?=
+ =?iso-8859-1?Q?MxNoI2DXAJH4jNHl5AeCcxPCd++E3tfuwhAXgItpwFmvi/oPbNSbGogaD5?=
+ =?iso-8859-1?Q?j/GtyXYBVB+nCeUPEgxfKXsYFTCW+zUf1JV0TBc7wiglaLjNIhznV9WIJ+?=
+ =?iso-8859-1?Q?khSTqEguJCKUU6B1WJPv34bcd6u0QxRI8dHTdJwyIWhbwW/Q8PhwUQ7clk?=
+ =?iso-8859-1?Q?i1PQLHXq1QTDEtjuwO2og5ol2fSHhYpQtaSF/CGHcr/i4an84JwxJgYy43?=
+ =?iso-8859-1?Q?n4IhQKE5ViLinqfkyoJLG54T/3oD35fsUgseZLOw63dun9QffAz7cmuEb4?=
+ =?iso-8859-1?Q?oOKiqghtNlVyoqGrNesVyg1bcRn8IpzPMMF/yJtHI1LvkZGgTamYXC6xK9?=
+ =?iso-8859-1?Q?lMv4x0w8cvR1QVgb63CEYcD87N/if9QlUHICjksuksYX9Hfgv+HF0sToLZ?=
+ =?iso-8859-1?Q?ZLme9D69lDdODGIpcA4x6wlBwKx0PMLXBbCvsQ0YkzryqByOckDkzorook?=
+ =?iso-8859-1?Q?/Mz9TkT4O4M2ZM79RkSnB831CF6P1spI2vjf/It0Md8d7PqSvKhFQ7HiPx?=
+ =?iso-8859-1?Q?EcPfZ4a08TaGwZsUovcENm0MZzMrjJ0Zz3ZHhuYxl4i6K+30NHLILT5rOX?=
+ =?iso-8859-1?Q?pf6RqUIZZBWOpUnpEXH3gpP7nx2KAK4GQFMYjhSqkF5QE2l661bX57WdYM?=
+ =?iso-8859-1?Q?yOUKMVDuzUGfakC1uPUY/C88eXIXtTKtYc/ZempLyShPOvHsQuCxXz7Vji?=
+ =?iso-8859-1?Q?aR1O/4RuA0SY3dmhdT5nwCDcbWLtIHA/KoWhD8gsqduzd9DY2kJ8Wlo3sC?=
+ =?iso-8859-1?Q?N0B/AYwVJoHPEx+K1YSF5MhLmW4AbGyfheprl4AJhC1XHveFmO5nHn/nlK?=
+ =?iso-8859-1?Q?iLTx9qQovdRqr/IS8gOkWkZ0VvegeC5cf9OS1SBGpUXO1Soif4pqBR1E3M?=
+ =?iso-8859-1?Q?EP1Qtl9A0guVF3qKFh+cQuIATv1brfpt2I0GoOZZhPsTxONSnhmGDlAlT5?=
+ =?iso-8859-1?Q?BYfQBKvPJRASpteZdwm73PP8heYKUwRUH1duaWvPOAfFFQg4yuoYVENw?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -136,16 +136,16 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3758.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1de5ebee-d208-4147-1ba1-08dbd542fa04
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Oct 2023 10:13:03.5843
+X-MS-Exchange-CrossTenant-Network-Message-Id: d76c6731-f42e-41a0-3458-08dbd542f99b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Oct 2023 10:13:03.2795
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cT/yykq1j+lh4YUzi3FjuTXyOLvENEdtqetRTJ0fz3fx1VLEfIm6ti39vn9a5DsGrR1kLrWxg1Gb6BbCoJ3vgw==
+X-MS-Exchange-CrossTenant-userprincipalname: h9+wM9NfzOizcIZAWm95NhRO/GPUDdFcQHqU+5p48bGG8qv18tk3lzMO+PVoUCyjeCPoILOwEiIoyOKpASqwYQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR03MB9229
-X-Proofpoint-GUID: HRZIsRywgudgJ4OoH3_ofhjPmdbq9aMG
-X-Proofpoint-ORIG-GUID: HRZIsRywgudgJ4OoH3_ofhjPmdbq9aMG
+X-Proofpoint-GUID: JBhHpW5f4GafiXVQFX2POkb4ofQQz0YR
+X-Proofpoint-ORIG-GUID: JBhHpW5f4GafiXVQFX2POkb4ofQQz0YR
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-25_01,2023-10-24_01,2023-05-22_02
@@ -155,501 +155,1392 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malware
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2310170001
  definitions=main-2310250086
 
-Add GICv3 ITS support for NEW VGIC. The code is ported from the Kernel
-version 6.0. The code is adapted to Xen's coding style and hooked up
-with Xen's interfaces. The code is adapted to Xen coding style and
-conventions.
-For this version ITS is supported only for hardware domains.
+Add support for basic GICv3 functionality to new vgic. The code is
+ported from Kernel version 6.0. The distributor, redistributor and
+CPU interface are ported and hooked up to the XEN interfaces.
+The code is adapted to Xen coding style and conventions.
 
-Remove unsupported flag from config HAS_ITS and add NEW_VGIC dependency.
+Remove !NEW_VGIC dependency from GIC_V3 config.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/Kconfig                  |    4 +-
- xen/arch/arm/gic-v3-its.c             |   28 +
- xen/arch/arm/gic-v3-lpi.c             |   11 +
- xen/arch/arm/include/asm/gic_v3_its.h |   82 ++
- xen/arch/arm/include/asm/new_vgic.h   |   64 +
- xen/arch/arm/vgic/Makefile            |    1 +
- xen/arch/arm/vgic/vgic-init.c         |    7 +
- xen/arch/arm/vgic/vgic-its.c          | 1945 +++++++++++++++++++++++++
- xen/arch/arm/vgic/vgic-mmio-v3.c      |   93 +-
- xen/arch/arm/vgic/vgic-mmio.c         |    6 +
- xen/arch/arm/vgic/vgic-mmio.h         |   11 +
- 11 files changed, 2247 insertions(+), 5 deletions(-)
- create mode 100644 xen/arch/arm/vgic/vgic-its.c
+ xen/arch/arm/Kconfig                   |   1 -
+ xen/arch/arm/domain_build.c            |  23 +-
+ xen/arch/arm/gic-v3.c                  |   9 +
+ xen/arch/arm/include/asm/gic_v3_defs.h |  13 +-
+ xen/arch/arm/include/asm/new_vgic.h    |  32 +-
+ xen/arch/arm/vgic/Makefile             |   2 +
+ xen/arch/arm/vgic/vgic-init.c          |  12 +-
+ xen/arch/arm/vgic/vgic-mmio-v3.c       | 940 +++++++++++++++++++++++++
+ xen/arch/arm/vgic/vgic-mmio.c          |  18 +
+ xen/arch/arm/vgic/vgic-mmio.h          |  10 +
+ xen/arch/arm/vgic/vgic-v3.c            | 383 ++++++++++
+ xen/arch/arm/vgic/vgic.c               |  60 +-
+ xen/arch/arm/vgic/vgic.h               |  48 +-
+ 13 files changed, 1523 insertions(+), 28 deletions(-)
+ create mode 100644 xen/arch/arm/vgic/vgic-mmio-v3.c
+ create mode 100644 xen/arch/arm/vgic/vgic-v3.c
 
 diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index c91011bc15..ba60cdc513 100644
+index 2939db429b..c91011bc15 100644
 --- a/xen/arch/arm/Kconfig
 +++ b/xen/arch/arm/Kconfig
-@@ -90,8 +90,8 @@ config GICV3
- 	  If unsure, use the default setting.
+@@ -82,7 +82,6 @@ config ARM_EFI
 =20
- config HAS_ITS
--        bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORT=
-ED
--        depends on GICV3 && !NEW_VGIC && !ARM_32
-+        bool "GICv3 ITS MSI controller support"
-+        depends on GICV3 && NEW_VGIC && !ARM_32
-=20
- config OVERLAY_DTB
- 	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
-diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-index 8afcd9783b..482e11e835 100644
---- a/xen/arch/arm/gic-v3-its.c
-+++ b/xen/arch/arm/gic-v3-its.c
-@@ -47,7 +47,9 @@ struct its_device {
-     uint32_t guest_devid;
-     uint32_t eventids;                  /* Number of event IDs (MSIs) */
-     uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
- */
-+#ifndef CONFIG_NEW_VGIC
-     struct pending_irq *pend_irqs;      /* One struct per event */
-+#endif
- };
-=20
- bool gicv3_its_host_has_its(void)
-@@ -531,7 +533,9 @@ static int remove_mapped_guest_device(struct its_device=
- *dev)
-                dev->host_devid);
-=20
-     xfree(dev->itt_addr);
-+#ifndef CONFIG_NEW_VGIC
-     xfree(dev->pend_irqs);
-+#endif
-     xfree(dev->host_lpi_blocks);
-     xfree(dev);
-=20
-@@ -704,9 +708,11 @@ int gicv3_its_map_guest_device(struct domain *d,
-      * See the mailing list discussion for some background:
-      * https://lists.xen.org/archives/html/xen-devel/2017-03/msg03645.html
-      */
-+#ifndef CONFIG_NEW_VGIC
-     dev->pend_irqs =3D xzalloc_array(struct pending_irq, nr_events);
-     if ( !dev->pend_irqs )
-         goto out_unlock;
+ config GICV3
+ 	bool "GICv3 driver"
+-	depends on !NEW_VGIC
+ 	default n if ARM_32
+ 	default y if ARM_64
+ 	---help---
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 49792dd590..a4c97aa0bf 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2549,7 +2549,12 @@ static int __init make_gicv3_domU_node(struct kernel=
+_info *kinfo)
+     int res =3D 0;
+     __be32 *reg, *cells;
+     const struct domain *d =3D kinfo->d;
+-    unsigned int i, len =3D 0;
++    unsigned int len =3D 0;
++#ifdef CONFIG_NEW_VGIC
++    struct vgic_redist_region *rdreg;
++#else
++    unsigned int i;
 +#endif
 =20
-     dev->host_lpi_blocks =3D xzalloc_array(uint32_t, nr_events);
-     if ( !dev->host_lpi_blocks )
-@@ -772,7 +778,9 @@ out_unlock:
- out:
-     if ( dev )
-     {
-+#ifndef CONFIG_NEW_VGIC
-         xfree(dev->pend_irqs);
-+#endif
-         xfree(dev->host_lpi_blocks);
-     }
-     xfree(itt_addr);
-@@ -809,6 +817,7 @@ static struct its_device *get_its_device(struct domain =
-*d, paddr_t vdoorbell,
-     return NULL;
- }
+     res =3D domain_fdt_begin_node(fdt, "interrupt-controller",
+                                 vgic_dist_base(&d->arch.vgic));
+@@ -2572,9 +2577,14 @@ static int __init make_gicv3_domU_node(struct kernel=
+_info *kinfo)
+     if ( res )
+         return res;
 =20
-+#ifndef CONFIG_NEW_VGIC
- static struct pending_irq *get_event_pending_irq(struct domain *d,
-                                                  paddr_t vdoorbell_address=
+-    /* reg specifies all re-distributors and Distributor. */
++#ifdef CONFIG_NEW_VGIC
++    len +=3D (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++            vgic_v3_max_rdist_count(d) * sizeof(__be32);
++#else
+     len =3D (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
+           (d->arch.vgic.nr_regions + 1) * sizeof(__be32);
++#endif
++    /* reg specifies all re-distributors and Distributor. */
+     reg =3D xmalloc_bytes(len);
+     if ( reg =3D=3D NULL )
+         return -ENOMEM;
+@@ -2583,12 +2593,19 @@ static int __init make_gicv3_domU_node(struct kerne=
+l_info *kinfo)
+     dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_C=
+ELLS,
+                        vgic_dist_base(&d->arch.vgic), GUEST_GICV3_GICD_SIZ=
+E);
+=20
++#ifdef CONFIG_NEW_VGIC
++    list_for_each_entry(rdreg, &d->arch.vgic.rd_regions, list)
++        dt_child_set_range(&cells,
++                            GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELL=
+S,
++                            rdreg->base,
++                            rdreg->count * VGIC_V3_REDIST_SIZE);
++#else
+     for ( i =3D 0; i < d->arch.vgic.nr_regions; i++ )
+         dt_child_set_range(&cells,
+                            GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS=
 ,
-                                                  uint32_t vdevid,
-@@ -831,7 +840,25 @@ static struct pending_irq *get_event_pending_irq(struc=
-t domain *d,
-=20
-     return pirq;
- }
+                            d->arch.vgic.rdist_regions[i].base,
+                            d->arch.vgic.rdist_regions[i].size);
+-
 +#endif
-+
-+uint32_t gicv3_its_get_host_lpi(struct domain *d, paddr_t vdoorbell_addres=
-s,
-+                                     uint32_t vdevid, uint32_t eventid)
-+{
-+    struct its_device *dev;
-+    uint32_t host_lpi =3D INVALID_LPI;
-+
-+    spin_lock(&d->arch.vgic.its_devices_lock);
-+    dev =3D get_its_device(d, vdoorbell_address, vdevid);
-+    if ( dev )
-+        host_lpi =3D dev->host_lpi_blocks[eventid / LPI_BLOCK] +
-+                   (eventid % LPI_BLOCK);
-+
-+    spin_unlock(&d->arch.vgic.its_devices_lock);
-+    return host_lpi;
-+}
-=20
-+#ifndef CONFIG_NEW_VGIC
- struct pending_irq *gicv3_its_get_event_pending_irq(struct domain *d,
-                                                     paddr_t vdoorbell_addr=
-ess,
-                                                     uint32_t vdevid,
-@@ -883,6 +910,7 @@ struct pending_irq *gicv3_assign_guest_event(struct dom=
+     res =3D fdt_property(fdt, "reg", reg, len);
+     xfree(reg);
+     if (res)
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 95e4f020fe..cab3f2d943 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1280,8 +1280,13 @@ static int gicv3_make_hwdom_dt_node(const struct dom=
 ain *d,
+     if ( res )
+         return res;
 =20
-     return pirq;
- }
-+#endif /* !CONFIG_NEW_VGIC */
++#ifdef CONFIG_NEW_VGIC
++    res =3D fdt_property_cell(fdt, "#redistributor-regions",
++                            vgic_v3_max_rdist_count(d));
++#else
+     res =3D fdt_property_cell(fdt, "#redistributor-regions",
+                             d->arch.vgic.nr_regions);
++#endif
+     if ( res )
+         return res;
 =20
- int gicv3_its_deny_access(struct domain *d)
- {
-diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-index eb0a5535e4..e973e37c0a 100644
---- a/xen/arch/arm/gic-v3-lpi.c
-+++ b/xen/arch/arm/gic-v3-lpi.c
-@@ -135,16 +135,27 @@ void vgic_vcpu_inject_lpi(struct domain *d, unsigned =
-int virq)
-      * the time. We cannot properly protect this with the current locking
-      * scheme, but the future per-IRQ lock will solve this problem.
+@@ -1293,7 +1298,11 @@ static int gicv3_make_hwdom_dt_node(const struct dom=
+ain *d,
+      * The hardware domain may not use all the regions. So only copy
+      * what is necessary.
       */
 +#ifdef CONFIG_NEW_VGIC
-+    struct vgic_irq *p =3D vgic_get_irq(d, d->vcpu[0], virq);
++    new_len =3D new_len * (vgic_v3_max_rdist_count(d) + 1);
 +#else
-     struct pending_irq *p =3D irq_to_pending(d->vcpu[0], virq);
+     new_len =3D new_len * (d->arch.vgic.nr_regions + 1);
 +#endif
-     unsigned int vcpu_id;
 =20
-     if ( !p )
-         return;
+     hw_reg =3D dt_get_property(gic, "reg", &len);
+     if ( !hw_reg )
+diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/=
+asm/gic_v3_defs.h
+index 227533868f..e4e4696de3 100644
+--- a/xen/arch/arm/include/asm/gic_v3_defs.h
++++ b/xen/arch/arm/include/asm/gic_v3_defs.h
+@@ -25,6 +25,7 @@
+  * Common GICD registers are defined in gic.h
+  */
 =20
-+#ifdef CONFIG_NEW_VGIC
-+    vcpu_id =3D ACCESS_ONCE(p->target_vcpu->vcpu_id);
-+#else
-     vcpu_id =3D ACCESS_ONCE(p->lpi_vcpu_id);
-+#endif
-     if ( vcpu_id >=3D d->max_vcpus )
-           return;
++#define GICD_TYPER2                  (0x00C)
+ #define GICD_STATUSR                 (0x010)
+ #define GICD_SETSPI_NSR              (0x040)
+ #define GICD_CLRSPI_NSR              (0x048)
+@@ -35,6 +36,7 @@
+ #define GICD_IROUTER                 (0x6000)
+ #define GICD_IROUTER32               (0x6100)
+ #define GICD_IROUTER1019             (0x7FD8)
++#define GICD_IDREGS                  (0xFFD0)
+ #define GICD_PIDR2                   (0xFFE8)
 =20
-+#ifdef CONFIG_NEW_VGIC
-+    vgic_put_irq(d, p);
-+#endif
-     vgic_inject_irq(d, d->vcpu[vcpu_id], virq, true);
- }
+ /* Common between GICD_PIDR2 and GICR_PIDR2 */
+@@ -56,6 +58,7 @@
+ #define GICD_TYPE_LPIS               (1U << 17)
 =20
-diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
-sm/gic_v3_its.h
-index c24d4752d0..cbfd854af6 100644
---- a/xen/arch/arm/include/asm/gic_v3_its.h
-+++ b/xen/arch/arm/include/asm/gic_v3_its.h
-@@ -35,7 +35,17 @@
- #define GITS_BASER5                     0x128
- #define GITS_BASER6                     0x130
- #define GITS_BASER7                     0x138
-+#define GITS_IDREGS_BASE                0xffd0
-+#define GITS_PIDR0                      0xffe0
-+#define GITS_PIDR1                      0xffe4
- #define GITS_PIDR2                      GICR_PIDR2
-+#define GITS_PIDR4                      0xffd0
-+#define GITS_CIDR0                      0xfff0
-+#define GITS_CIDR1                      0xfff4
-+#define GITS_CIDR2                      0xfff8
-+#define GITS_CIDR3                      0xfffc
-+
-+#define GITS_TRANSLATER                 0x10040
+ #define GICD_CTLR_RWP                (1UL << 31)
++#define GICD_CTLR_DS                 (1U << 6)
+ #define GICD_CTLR_ARE_NS             (1U << 4)
+ #define GICD_CTLR_ENABLE_G1A         (1U << 1)
+ #define GICD_CTLR_ENABLE_G1          (1U << 0)
+@@ -89,6 +92,7 @@
+ #define GICR_INVLPIR                 (0x00A0)
+ #define GICR_INVALLR                 (0x00B0)
+ #define GICR_SYNCR                   (0x00C0)
++#define GICR_IDREGS                  GICD_IDREGS
+ #define GICR_PIDR2                   GICD_PIDR2
 =20
- /* Register bits */
- #define GITS_VALID_BIT                  BIT(63, UL)
-@@ -49,6 +59,11 @@
- #define GITS_TYPER_DEVICE_ID_BITS(r)    ((((r) & GITS_TYPER_DEVIDS_MASK) >=
-> \
-                                                  GITS_TYPER_DEVIDS_SHIFT) =
-+ 1)
+ /* GICR for SGI's & PPI's */
+@@ -108,6 +112,9 @@
+ #define GICR_NSACR                   (0x0E00)
 =20
-+#define GITS_IIDR_REV_SHIFT             12
-+#define GITS_IIDR_REV_MASK              (0xf << GITS_IIDR_REV_SHIFT)
-+#define GITS_IIDR_REV(r)                (((r) >> GITS_IIDR_REV_SHIFT) & 0x=
-f)
-+#define GITS_IIDR_PRODUCTID_SHIFT       24
-+
- #define GITS_TYPER_IDBITS_SHIFT         8
- #define GITS_TYPER_IDBITS_MASK          (0x1fUL << GITS_TYPER_IDBITS_SHIFT=
-)
- #define GITS_TYPER_EVENT_ID_BITS(r)     ((((r) & GITS_TYPER_IDBITS_MASK) >=
-> \
-@@ -60,10 +75,12 @@
-                                                  GITS_TYPER_ITT_SIZE_SHIFT=
-) + 1)
- #define GITS_TYPER_PHYSICAL             (1U << 0)
+ #define GICR_CTLR_ENABLE_LPIS        (1U << 0)
++#define GICR_CTLR_CES                (1UL << 1)
++#define GICR_CTLR_IR                 (1UL << 2)
++#define GICR_CTLR_RWP                (1UL << 3)
 =20
-+#define GITS_BASER_VALID                (1ULL << 63)
- #define GITS_BASER_INDIRECT             BIT(62, UL)
- #define GITS_BASER_INNER_CACHEABILITY_SHIFT        59
- #define GITS_BASER_TYPE_SHIFT           56
- #define GITS_BASER_TYPE_MASK            (7ULL << GITS_BASER_TYPE_SHIFT)
-+#define GITS_BASER_TYPE(r)              (((r) >> GITS_BASER_TYPE_SHIFT) & =
-7)
- #define GITS_BASER_OUTER_CACHEABILITY_SHIFT        53
- #define GITS_BASER_TYPE_NONE            0UL
- #define GITS_BASER_TYPE_DEVICE          1UL
-@@ -76,6 +93,7 @@
- #define GITS_BASER_ENTRY_SIZE_SHIFT     48
- #define GITS_BASER_ENTRY_SIZE(reg)                                       \
-                         ((((reg) >> GITS_BASER_ENTRY_SIZE_SHIFT) & 0x1f) +=
- 1)
-+#define GITS_BASER_ENTRY_SIZE_MASK      GENMASK_ULL(52, 48)
- #define GITS_BASER_SHAREABILITY_SHIFT   10
- #define GITS_BASER_PAGE_SIZE_SHIFT      8
- #define GITS_BASER_SIZE_MASK            0xff
-@@ -83,7 +101,48 @@
- #define GITS_BASER_OUTER_CACHEABILITY_MASK   (0x7ULL << GITS_BASER_OUTER_C=
-ACHEABILITY_SHIFT)
- #define GITS_BASER_INNER_CACHEABILITY_MASK   (0x7ULL << GITS_BASER_INNER_C=
-ACHEABILITY_SHIFT)
+ #define GICR_TYPER_PLPIS             (1U << 0)
+ #define GICR_TYPER_VLPIS             (1U << 1)
+@@ -131,7 +138,11 @@
+ #define GIC_BASER_NonShareable       0ULL
+ #define GIC_BASER_InnerShareable     1ULL
+ #define GIC_BASER_OuterShareable     2ULL
++#define GIC_BASER_SHAREABILITY_MASK  3ULL
 =20
-+#define GIC_PAGE_SIZE_4K                0ULL
-+#define GIC_PAGE_SIZE_16K               1ULL
-+#define GIC_PAGE_SIZE_64K               2ULL
-+#define GIC_PAGE_SIZE_MASK              3ULL
-+
-+#define __GITS_BASER_PSZ(sz)            \
-+    (GIC_PAGE_SIZE_ ## sz << GITS_BASER_PAGE_SIZE_SHIFT)
-+#define GITS_BASER_PAGE_SIZE_4K         __GITS_BASER_PSZ(4K)
-+#define GITS_BASER_PAGE_SIZE_16K        __GITS_BASER_PSZ(16K)
-+#define GITS_BASER_PAGE_SIZE_64K        __GITS_BASER_PSZ(64K)
-+#define GITS_BASER_PAGE_SIZE_MASK       __GITS_BASER_PSZ(MASK)
-+
-+#define GITS_BASER_NR_PAGES(r)         (((r) & 0xff) + 1)
-+
-+#define GITS_BASER_PHYS_52_to_48(phys)					\
-+	(((phys) & GENMASK_ULL(47, 16)) | (((phys) >> 48) & 0xf) << 12)
-+#define GITS_BASER_ADDR_48_to_52(baser)					\
-+	(((baser) & GENMASK_ULL(47, 16)) | (((baser) >> 12) & 0xf) << 48)
-+
-+#define GIC_BASER_CACHEABILITY(reg, inner_outer, type)			\
-+	(GIC_BASER_CACHE_##type << reg##_##inner_outer##_CACHEABILITY_SHIFT)
-+
-+#define GIC_BASER_SHAREABILITY(reg, type)				\
-+	(GIC_BASER_##type << reg##_SHAREABILITY_SHIFT)
-+
- #define GITS_CBASER_SIZE_MASK           0xff
-+#define GITS_CBASER_VALID               (1ULL << 63)
-+#define GITS_CBASER_SHAREABILITY_SHIFT  (10)
-+#define GITS_CBASER_INNER_CACHEABILITY_SHIFT    (59)
-+#define GITS_CBASER_OUTER_CACHEABILITY_SHIFT    (53)
-+#define GITS_CBASER_SHAREABILITY_MASK					\
-+	GIC_BASER_SHAREABILITY(GITS_CBASER, SHAREABILITY_MASK)
-+#define GITS_CBASER_INNER_CACHEABILITY_MASK				\
-+	GIC_BASER_CACHEABILITY(GITS_CBASER, INNER, MASK)
-+#define GITS_CBASER_OUTER_CACHEABILITY_MASK				\
-+	GIC_BASER_CACHEABILITY(GITS_CBASER, OUTER, MASK)
-+#define GITS_CBASER_CACHEABILITY_MASK GITS_CBASER_INNER_CACHEABILITY_MASK
-+
-+#define GITS_CBASER_InnerShareable					\
-+	GIC_BASER_SHAREABILITY(GITS_CBASER, InnerShareable)
-+
-+#define GITS_CBASER_ADDRESS(cbaser)	((cbaser) & GENMASK_ULL(51, 12))
++#define GICR_PROPBASER_IDBITS_MASK   (0x1f)
++#define GICR_PROPBASER_ADDRESS(x)    ((x) & GENMASK_ULL(51, 12))
++#define GICR_PENDBASER_ADDRESS(x)    ((x) & GENMASK_ULL(51, 16))
+ #define GICR_PROPBASER_OUTER_CACHEABILITY_SHIFT         56
+ #define GICR_PROPBASER_OUTER_CACHEABILITY_MASK               \
+         (7ULL << GICR_PROPBASER_OUTER_CACHEABILITY_SHIFT)
+@@ -200,7 +211,7 @@
+ #define ICH_SGI_IRQ_SHIFT            24
+ #define ICH_SGI_IRQ_MASK             0xf
+ #define ICH_SGI_TARGETLIST_MASK      0xffff
+-#define ICH_SGI_AFFx_MASK            0xff
++#define ICH_SGI_AFFx_MASK            0xffULL
+ #define ICH_SGI_AFFINITY_LEVEL(x)    (16 * (x))
 =20
- /* ITS command definitions */
- #define ITS_CMD_SIZE                    32
-@@ -101,8 +160,29 @@
- #define GITS_CMD_MOVALL                 0x0e
- #define GITS_CMD_DISCARD                0x0f
-=20
-+/*
-+ * ITS error numbers
-+ */
-+#define E_ITS_MOVI_UNMAPPED_INTERRUPT       0x010107
-+#define E_ITS_MOVI_UNMAPPED_COLLECTION      0x010109
-+#define E_ITS_INT_UNMAPPED_INTERRUPT        0x010307
-+#define E_ITS_CLEAR_UNMAPPED_INTERRUPT      0x010507
-+#define E_ITS_MAPD_DEVICE_OOR               0x010801
-+#define E_ITS_MAPD_ITTSIZE_OOR              0x010802
-+#define E_ITS_MAPC_PROCNUM_OOR              0x010902
-+#define E_ITS_MAPC_COLLECTION_OOR           0x010903
-+#define E_ITS_MAPTI_UNMAPPED_DEVICE         0x010a04
-+#define E_ITS_MAPTI_ID_OOR                  0x010a05
-+#define E_ITS_MAPTI_PHYSICALID_OOR          0x010a06
-+#define E_ITS_INV_UNMAPPED_INTERRUPT        0x010c07
-+#define E_ITS_INVALL_UNMAPPED_COLLECTION    0x010d09
-+#define E_ITS_MOVALL_PROCNUM_OOR            0x010e01
-+#define E_ITS_DISCARD_UNMAPPED_INTERRUPT    0x010f07
-+
- #define ITS_DOORBELL_OFFSET             0x10040
- #define GICV3_ITS_SIZE                  SZ_128K
-+#define ITS_TRANSLATION_OFFSET          0x10000
-+#define GIC_ENCODE_SZ(n, w) (((unsigned long)(n) - 1) & GENMASK_ULL(((w) -=
- 1), 0))
-=20
- #include <xen/device_tree.h>
- #include <xen/rbtree.h>
-@@ -196,6 +276,8 @@ struct pending_irq *gicv3_assign_guest_event(struct dom=
-ain *d,
-                                              uint32_t virt_lpi);
- void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
-                                  uint32_t virt_lpi);
-+uint32_t gicv3_its_get_host_lpi(struct domain *d, paddr_t vdoorbell_addres=
-s,
-+                                     uint32_t vdevid, uint32_t eventid);
-=20
- #else
-=20
+ struct rdist_region {
 diff --git a/xen/arch/arm/include/asm/new_vgic.h b/xen/arch/arm/include/asm=
 /new_vgic.h
-index ed728652de..017ceac2db 100644
+index 1e76213893..ed728652de 100644
 --- a/xen/arch/arm/include/asm/new_vgic.h
 +++ b/xen/arch/arm/include/asm/new_vgic.h
-@@ -21,6 +21,8 @@
+@@ -21,6 +21,9 @@
  #include <xen/list.h>
  #include <xen/mm.h>
  #include <xen/spinlock.h>
-+#include <xen/rbtree.h>
-+
- #define INTERRUPT_ID_BITS_SPIS  10
- #define INTERRUPT_ID_BITS_ITS   16
- #define VGIC_PRI_BITS           5
-@@ -36,6 +38,7 @@
++#define INTERRUPT_ID_BITS_SPIS  10
++#define INTERRUPT_ID_BITS_ITS   16
++#define VGIC_PRI_BITS           5
+=20
+ #define VGIC_V3_MAX_CPUS        255
+ #define VGIC_V2_MAX_CPUS        8
+@@ -31,6 +34,8 @@
+ #define VGIC_MAX_SPI            1019
+ #define VGIC_MAX_RESERVED       1023
  #define VGIC_MIN_LPI            8192
- #define VGIC_V3_DIST_SIZE       SZ_64K
- #define VGIC_V3_REDIST_SIZE     (2 * SZ_64K)
-+#define VGIC_V3_ITS_SIZE        (2 * SZ_64K)
++#define VGIC_V3_DIST_SIZE       SZ_64K
++#define VGIC_V3_REDIST_SIZE     (2 * SZ_64K)
 =20
  #define irq_is_ppi(irq) ((irq) >=3D VGIC_NR_SGIS && (irq) < VGIC_NR_PRIVAT=
 E_IRQS)
  #define irq_is_spi(irq) ((irq) >=3D VGIC_NR_PRIVATE_IRQS && \
-@@ -97,6 +100,7 @@ struct vgic_irq {
- enum iodev_type {
-     IODEV_DIST,
+@@ -94,6 +99,14 @@ enum iodev_type {
      IODEV_REDIST,
-+    IODEV_ITS,
  };
 =20
- struct vgic_redist_region {
-@@ -113,6 +117,35 @@ struct vgic_io_device {
-     const struct vgic_register_region *regions;
-     enum iodev_type iodev_type;
-     unsigned int nr_regions;
-+    struct vgic_its *its;
++struct vgic_redist_region {
++    uint32_t index;
++    paddr_t base;
++    uint32_t count; /* number of redistributors or 0 if single region */
++    uint32_t free_index; /* index of the next free redistributor */
++    struct list_head list;
 +};
 +
-+struct vgic_its {
-+    /* The base address of the ITS control register frame */
-+    paddr_t vgic_its_base;
-+
-+    bool enabled;
-+    struct vgic_io_device iodev;
-+    struct domain *domain;
-+
-+    /* These registers correspond to GITS_BASER{0,1} */
-+    u64 baser_device_table;
-+    u64 baser_coll_table;
-+
-+    /* Protects the command queue */
-+    struct spinlock cmd_lock;
-+    u64 cbaser;
-+    u32 creadr;
-+    u32 cwriter;
-+
-+    /* migration ABI revision in use */
-+    u32 abi_rev;
-+
-+    /* Protects the device and collection lists */
-+    struct spinlock its_lock;
-+    struct list_head device_list;
-+    struct list_head collection_list;
-+    paddr_t doorbell_address;
- };
-=20
- struct vgic_dist {
-@@ -148,6 +181,7 @@ struct vgic_dist {
-     struct vgic_io_device   dist_iodev;
-=20
-     bool                has_its;
-+    struct vgic_its     *its;
-=20
-     /*
-      * Contains the attributes and gpa of the LPI configuration table.
-@@ -156,11 +190,16 @@ struct vgic_dist {
-      * GICv3 spec: 6.1.2 "LPI Configuration tables"
+ struct vgic_io_device {
+     gfn_t base_fn;
+     struct vcpu *redist_vcpu;
+@@ -121,11 +134,7 @@ struct vgic_dist {
+         /* either a GICv2 CPU interface */
+         paddr_t         cbase;
+         /* or a number of GICv3 redistributor regions */
+-        struct
+-        {
+-            paddr_t     vgic_redist_base;
+-            paddr_t     vgic_redist_free_offset;
+-        };
++        struct list_head rd_regions;
+     };
+     paddr_t             csize; /* CPU interface size */
+     paddr_t             vbase; /* virtual CPU interface base address */
+@@ -174,6 +183,9 @@ struct vgic_cpu {
+      * parts of the redistributor.
       */
-     uint64_t            propbaser;
-+    struct rb_root      its_devices; /* Devices mapped to an ITS */
-+    spinlock_t          its_devices_lock; /* Protects the its_devices tree=
- */
+     struct vgic_io_device   rd_iodev;
++    struct vgic_redist_region *rdreg;
++    uint32_t rdreg_index;
++    atomic_t syncr_busy;
+     struct vgic_io_device   sgi_iodev;
 =20
-     /* Protects the lpi_list and the count value below. */
-     spinlock_t          lpi_list_lock;
-     struct list_head    lpi_list_head;
-     unsigned int        lpi_list_count;
+     /* Contains the attributes and gpa of the LPI pending tables. */
+@@ -186,6 +198,9 @@ struct vgic_cpu {
+=20
+     /* Cache guest interrupt ID bits */
+     uint32_t num_id_bits;
 +
-+	/* LPI translation cache */
-+	struct list_head	lpi_translation_cache;
++    /* GICR_CTLR.{ENABLE_LPIS,RWP} */
++    atomic_t ctlr;
  };
 =20
- struct vgic_cpu {
-@@ -220,6 +259,31 @@ unsigned int vgic_v3_max_rdist_count(const struct doma=
-in *d);
- void vgic_flush_pending_lpis(struct vcpu *vcpu);
- #endif
+ static inline paddr_t vgic_cpu_base(const struct vgic_dist *vgic)
+@@ -198,6 +213,13 @@ static inline paddr_t vgic_dist_base(const struct vgic=
+_dist *vgic)
+     return vgic->dbase;
+ }
 =20
-+#ifdef CONFIG_HAS_ITS
-+void vgic_its_invalidate_cache(struct domain *d);
-+void vgic_enable_lpis(struct vcpu *vcpu);
-+int vgic_its_inv_lpi(struct domain *d, struct vgic_irq *irq);
-+int vgic_its_invall(struct vcpu *vcpu);
-+#else
-+static inline void vgic_its_invalidate_cache(struct domain *d)
-+{
-+}
-+
-+static inline void vgic_enable_lpis(struct vcpu *vcpu)
-+{
-+}
-+
-+static inline int vgic_its_inv_lpi(struct domain *d, struct vgic_irq *irq)
-+{
-+    return 0;
-+}
-+
-+static inline int vgic_its_invall(struct vcpu *vcpu)
-+{
-+    return 0;
-+}
++#ifdef CONFIG_GICV3
++struct vgic_redist_region *vgic_v3_rdist_free_slot(struct list_head *rd_re=
+gions);
++int vgic_v3_set_redist_base(struct domain *d, u32 index, u64 addr, u32 cou=
+nt);
++unsigned int vgic_v3_max_rdist_count(const struct domain *d);
++void vgic_flush_pending_lpis(struct vcpu *vcpu);
 +#endif
 +
  #endif /* __ASM_ARM_NEW_VGIC_H */
 =20
  /*
 diff --git a/xen/arch/arm/vgic/Makefile b/xen/arch/arm/vgic/Makefile
-index 019bfe3d07..195d2019f9 100644
+index 806826948e..019bfe3d07 100644
 --- a/xen/arch/arm/vgic/Makefile
 +++ b/xen/arch/arm/vgic/Makefile
-@@ -5,3 +5,4 @@ obj-y +=3D vgic-mmio-v2.o
- obj-$(CONFIG_GICV3) +=3D vgic-v3.o
- obj-$(CONFIG_GICV3) +=3D vgic-mmio-v3.o
+@@ -2,4 +2,6 @@ obj-y +=3D vgic.o
+ obj-y +=3D vgic-v2.o
+ obj-y +=3D vgic-mmio.o
+ obj-y +=3D vgic-mmio-v2.o
++obj-$(CONFIG_GICV3) +=3D vgic-v3.o
++obj-$(CONFIG_GICV3) +=3D vgic-mmio-v3.o
  obj-y +=3D vgic-init.o
-+obj-$(CONFIG_HAS_ITS) +=3D vgic-its.o
 diff --git a/xen/arch/arm/vgic/vgic-init.c b/xen/arch/arm/vgic/vgic-init.c
-index be35cc33ec..2ebeadac1e 100644
+index f8d7d3a226..be35cc33ec 100644
 --- a/xen/arch/arm/vgic/vgic-init.c
 +++ b/xen/arch/arm/vgic/vgic-init.c
-@@ -18,6 +18,7 @@
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <asm/new_vgic.h>
-+#include <asm/gic_v3_its.h>
-=20
- #include "vgic.h"
-=20
-@@ -173,8 +174,14 @@ int domain_vgic_init(struct domain *d, unsigned int nr=
-_spis)
+@@ -107,14 +107,18 @@ int domain_vgic_register(struct domain *d, unsigned i=
+nt *mmio_count)
+     {
+     case GIC_V2:
+         *mmio_count =3D 1;
++        d->arch.vgic.cbase =3D VGIC_ADDR_UNDEF;
+         break;
++    case GIC_V3:
++        *mmio_count =3D 2;
++        INIT_LIST_HEAD(&d->arch.vgic.rd_regions);
++        break;
++
+     default:
+         BUG();
      }
 =20
-     INIT_LIST_HEAD(&dist->lpi_list_head);
-+    INIT_LIST_HEAD(&dist->lpi_translation_cache);
-+    dist->lpi_list_count=3D0;
-     spin_lock_init(&dist->lpi_list_lock);
+     d->arch.vgic.dbase =3D VGIC_ADDR_UNDEF;
+-    d->arch.vgic.cbase =3D VGIC_ADDR_UNDEF;
+-    d->arch.vgic.vgic_redist_base =3D VGIC_ADDR_UNDEF;
 =20
-+    ret =3D vgic_v3_its_init_domain(d);
-+    if ( ret )
-+        return ret;
-+
+     return 0;
+ }
+@@ -174,7 +178,7 @@ int domain_vgic_init(struct domain *d, unsigned int nr_=
+spis)
      if ( dist->version =3D=3D GIC_V2 )
          ret =3D vgic_v2_map_resources(d);
      else
-diff --git a/xen/arch/arm/vgic/vgic-its.c b/xen/arch/arm/vgic/vgic-its.c
+-        ret =3D -ENXIO;
++        ret =3D vgic_v3_map_resources(d);
+=20
+     if ( ret )
+         return ret;
+@@ -207,7 +211,7 @@ int vcpu_vgic_init(struct vcpu *v)
+     if ( gic_hw_version() =3D=3D GIC_V2 )
+         vgic_v2_enable(v);
+     else
+-        ret =3D -ENXIO;
++        vgic_v3_enable(v);
+=20
+     return ret;
+ }
+diff --git a/xen/arch/arm/vgic/vgic-mmio-v3.c b/xen/arch/arm/vgic/vgic-mmio=
+-v3.c
 new file mode 100644
-index 0000000000..82c1e78ba2
+index 0000000000..4ec6d910af
 --- /dev/null
-+++ b/xen/arch/arm/vgic/vgic-its.c
-@@ -0,0 +1,1945 @@
++++ b/xen/arch/arm/vgic/vgic-mmio-v3.c
+@@ -0,0 +1,940 @@
++/*
++ * VGICv3 MMIO handling functions
++ * Imported from Linux ("new" KVM VGIC) and heavily adapted to Xen.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#include <xen/bitops.h>
++#include <xen/sched.h>
++#include <xen/sizes.h>
++#include <asm/new_vgic.h>
++#include <asm/gic_v3_defs.h>
++#include <asm/gic_v3_its.h>
++#include <asm/vreg.h>
++
++#include "asm/domain.h"
++#include "asm/types.h"
++#include "vgic.h"
++#include "vgic-mmio.h"
++
++bool vgic_has_its(struct domain *d)
++{
++    struct vgic_dist *dist =3D &d->arch.vgic;
++
++    if ( dist->version !=3D GIC_V3 )
++        return false;
++
++    return dist->has_its;
++}
++
++struct vcpu *mpidr_to_vcpu(struct domain *d, unsigned long mpidr)
++{
++    struct vcpu *vcpu;
++
++    mpidr &=3D MPIDR_HWID_MASK;
++    for_each_vcpu(d, vcpu)
++    {
++        if ( mpidr =3D=3D vcpuid_to_vaffinity(vcpu->vcpu_id) )
++            return vcpu;
++    }
++    return NULL;
++}
++
++/* extract @num bytes at @offset bytes offset in data */
++unsigned long extract_bytes(uint64_t data, unsigned int offset,
++                            unsigned int num)
++{
++    return (data >> (offset * 8)) & GENMASK_ULL(num * 8 - 1, 0);
++}
++
++uint64_t update_64bit_reg(u64 reg, unsigned int offset, unsigned int len,
++                          unsigned long val)
++{
++    int lower =3D (offset & 4) * 8;
++    int upper =3D lower + 8 * len - 1;
++
++    reg &=3D ~GENMASK_ULL(upper, lower);
++    val &=3D GENMASK_ULL(len * 8 - 1, 0);
++
++    return reg | ((u64)val << lower);
++}
++
++static int match_mpidr(u64 sgi_aff, u16 sgi_cpu_mask, struct vcpu *vcpu)
++{
++    unsigned long affinity;
++    int level0;
++
++    /*
++     * Split the current VCPU's MPIDR into affinity level 0 and the
++     * rest as this is what we have to compare against.
++     */
++    affinity =3D vcpuid_to_vaffinity(vcpu->vcpu_id);
++    level0   =3D MPIDR_AFFINITY_LEVEL(affinity, 0);
++    affinity &=3D ~MPIDR_LEVEL_MASK;
++
++    /* bail out if the upper three levels don't match */
++    if ( sgi_aff !=3D affinity )
++        return -1;
++
++    /* Is this VCPU's bit set in the mask ? */
++    if ( !(sgi_cpu_mask & BIT(level0, ULL)) )
++        return -1;
++
++    return level0;
++}
++
++#define SGI_AFFINITY_LEVEL(reg, level)                                    =
+     \
++    ((((reg) & (ICH_SGI_AFFx_MASK << ICH_SGI_AFFINITY_LEVEL(level))) >>   =
+     \
++      ICH_SGI_AFFINITY_LEVEL(level))                                      =
+     \
++     << MPIDR_LEVEL_SHIFT(level))
++
++static bool vgic_v3_emulate_sgi1r(struct cpu_user_regs *regs, uint64_t *r,
++                                  bool read)
++{
++    struct domain *d  =3D current->domain;
++    struct vcpu *vcpu =3D current;
++    struct vcpu *c_vcpu;
++    u16 target_cpus;
++    u64 mpidr;
++    int sgi;
++    int vcpu_id =3D vcpu->vcpu_id;
++    bool broadcast;
++    unsigned long flags;
++
++    if ( read )
++    {
++        gdprintk(XENLOG_WARNING, "Reading SGI1R_EL1 - WO register\n");
++        return false;
++    }
++
++    sgi         =3D (*r >> ICH_SGI_IRQ_SHIFT) & ICH_SGI_IRQ_MASK;
++    broadcast   =3D *r & BIT(ICH_SGI_IRQMODE_SHIFT, ULL);
++    target_cpus =3D (*r & ICH_SGI_TARGETLIST_MASK);
++
++    mpidr       =3D SGI_AFFINITY_LEVEL(*r, 3);
++    mpidr |=3D SGI_AFFINITY_LEVEL(*r, 2);
++    mpidr |=3D SGI_AFFINITY_LEVEL(*r, 1);
++
++    /*
++     * We iterate over all VCPUs to find the MPIDRs matching the request.
++     * If we have handled one CPU, we clear its bit to detect early
++     * if we are already finished. This avoids iterating through all
++     * VCPUs when most of the times we just signal a single VCPU.
++     */
++    for_each_vcpu(d, c_vcpu)
++    {
++        struct vgic_irq *irq;
++
++        /* Exit early if we have dealt with all requested CPUs */
++        if ( !broadcast && target_cpus =3D=3D 0 )
++            break;
++
++        /* Don't signal the calling VCPU */
++        if ( broadcast && c_vcpu->vcpu_id =3D=3D vcpu_id )
++            continue;
++
++        if ( !broadcast )
++        {
++            int level0;
++
++            level0 =3D match_mpidr(mpidr, target_cpus, c_vcpu);
++            if ( level0 =3D=3D -1 )
++                continue;
++
++            /* remove this matching VCPU from the mask */
++            target_cpus &=3D ~BIT(level0, UL);
++        }
++
++        irq =3D vgic_get_irq(vcpu->domain, c_vcpu, sgi);
++
++        spin_lock_irqsave(&irq->irq_lock, flags);
++
++        if ( !irq->hw )
++        {
++            irq->pending_latch =3D true;
++            vgic_queue_irq_unlock(vcpu->domain, irq, flags);
++        }
++        else
++        {
++            printk(XENLOG_ERR "HW SGIs are not implemented\n");
++            BUG();
++            spin_unlock_irqrestore(&irq->irq_lock, flags);
++        }
++
++        vgic_put_irq(vcpu->domain, irq);
++    }
++
++    return true;
++}
++
++static bool vgic_v3_emulate_sysreg(struct cpu_user_regs *regs, union hsr h=
+sr)
++{
++    struct hsr_sysreg sysreg =3D hsr.sysreg;
++
++    ASSERT(hsr.ec =3D=3D HSR_EC_SYSREG);
++
++    if ( sysreg.read )
++        perfc_incr(vgic_sysreg_reads);
++    else
++        perfc_incr(vgic_sysreg_writes);
++
++    switch ( hsr.bits & HSR_SYSREG_REGS_MASK )
++    {
++    case HSR_SYSREG_ICC_SGI1R_EL1:
++        return vreg_emulate_sysreg(regs, hsr, vgic_v3_emulate_sgi1r);
++
++    default:
++        return false;
++    }
++}
++
++bool vgic_v3_emulate_reg(struct cpu_user_regs *regs, union hsr hsr)
++{
++    switch ( hsr.ec )
++    {
++#ifdef CONFIG_ARM_64
++    case HSR_EC_SYSREG:
++        return vgic_v3_emulate_sysreg(regs, hsr);
++#endif
++    case HSR_EC_CP15_64:
++        printk(XENLOG_ERR
++               "vgic_v3_emulate_reg: HSR_EC_CP15_64 not implemented");
++        BUG();
++        break;
++    default:
++        return false;
++    }
++}
++
++/*
++ * The Revision field in the IIDR have the following meanings:
++ *
++ * Revision 2: Interrupt groups are guest-configurable and signaled using
++ *            their configured groups.
++ */
++
++static unsigned long vgic_mmio_read_v3_misc(struct vcpu *vcpu, paddr_t add=
+r,
++                                            unsigned int len)
++{
++    struct vgic_dist *vgic =3D &vcpu->domain->arch.vgic;
++    uint32_t value         =3D 0;
++
++    switch ( addr & 0x0c )
++    {
++    case GICD_CTLR:
++        if ( vgic->enabled )
++            value |=3D GICD_CTLR_ENABLE_G1A;
++        value |=3D GICD_CTLR_ARE_NS | GICD_CTLR_DS;
++        break;
++    case GICD_TYPER:
++        value =3D vgic->nr_spis + VGIC_NR_PRIVATE_IRQS;
++        value =3D (value >> 5) - 1;
++        if ( vgic_has_its(vcpu->domain) )
++        {
++            value |=3D (INTERRUPT_ID_BITS_ITS - 1) << 19;
++            value |=3D GICD_TYPE_LPIS;
++        }
++        else
++        {
++            value |=3D (INTERRUPT_ID_BITS_SPIS - 1) << 19;
++        }
++        break;
++    case GICD_TYPER2:
++        break;
++    case GICD_IIDR:
++        value =3D (PRODUCT_ID_KVM << 24) | (VARIANT_ID_XEN << 16) |
++                (IMPLEMENTER_ARM << 0);
++        break;
++    default:
++        return 0;
++    }
++
++    return value;
++}
++
++static void vgic_mmio_write_v3_misc(struct vcpu *vcpu, paddr_t addr,
++                                    unsigned int len, unsigned long val)
++{
++    struct vgic_dist *dist =3D &vcpu->domain->arch.vgic;
++
++    switch ( addr & 0x0c )
++    {
++    case GICD_CTLR:
++    {
++        bool was_enabled;
++
++        domain_lock(vcpu->domain);
++
++        was_enabled   =3D dist->enabled;
++
++        dist->enabled =3D val & GICD_CTLR_ENABLE_G1A;
++
++        if ( dist->enabled )
++            vgic_kick_vcpus(vcpu->domain);
++
++        domain_unlock(vcpu->domain);
++        break;
++    }
++    case GICD_TYPER:
++    case GICD_TYPER2:
++    case GICD_IIDR:
++        /* This is at best for documentation purposes... */
++        return;
++    }
++}
++
++static unsigned long vgic_mmio_read_irouter(struct vcpu *vcpu, paddr_t add=
+r,
++                                            unsigned int len)
++{
++    int intid            =3D VGIC_ADDR_TO_INTID(addr, 64);
++    struct vgic_irq *irq =3D vgic_get_irq(vcpu->domain, NULL, intid);
++    unsigned long ret    =3D 0;
++
++    if ( !irq )
++        return 0;
++
++    /* The upper word is RAZ for us. */
++    if ( !(addr & 4) )
++        ret =3D extract_bytes(irq->mpidr, addr & 7, len);
++
++    vgic_put_irq(vcpu->domain, irq);
++    return ret;
++}
++
++static void vgic_mmio_write_irouter(struct vcpu *vcpu, paddr_t addr,
++                                    unsigned int len, unsigned long val)
++{
++    int intid =3D VGIC_ADDR_TO_INTID(addr, 64);
++    struct vgic_irq *irq;
++    unsigned long flags;
++
++    /* The upper word is WI for us since we don't implement Aff3. */
++    if ( addr & 4 )
++        return;
++
++    irq =3D vgic_get_irq(vcpu->domain, NULL, intid);
++
++    if ( !irq )
++        return;
++
++    spin_lock_irqsave(&irq->irq_lock, flags);
++
++    /* We only care about and preserve Aff0, Aff1 and Aff2. */
++    irq->mpidr       =3D val & GENMASK(23, 0);
++    irq->target_vcpu =3D mpidr_to_vcpu(vcpu->domain, irq->mpidr);
++
++    spin_unlock_irqrestore(&irq->irq_lock, flags);
++    vgic_put_irq(vcpu->domain, irq);
++}
++
++static bool vgic_mmio_vcpu_rdist_is_last(struct vcpu *vcpu)
++{
++    struct vgic_dist *vgic    =3D &vcpu->domain->arch.vgic;
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++    struct vgic_redist_region *iter, *rdreg =3D vgic_cpu->rdreg;
++
++    if ( !rdreg )
++        return false;
++
++    if ( vgic_cpu->rdreg_index < rdreg->free_index - 1 )
++    {
++        return false;
++    }
++    else if ( rdreg->count && vgic_cpu->rdreg_index =3D=3D (rdreg->count -=
+ 1) )
++    {
++        struct list_head *rd_regions =3D &vgic->rd_regions;
++        paddr_t end =3D rdreg->base + rdreg->count * VGIC_V3_REDIST_SIZE;
++
++        /*
++         * the rdist is the last one of the redist region,
++         * check whether there is no other contiguous rdist region
++         */
++        list_for_each_entry(iter, rd_regions, list)
++        {
++            if ( iter->base =3D=3D end && iter->free_index > 0 )
++                return false;
++        }
++    }
++    return true;
++}
++
++static unsigned long vgic_mmio_read_v3r_typer(struct vcpu *vcpu, paddr_t a=
+ddr,
++                                              unsigned int len)
++{
++    unsigned long mpidr =3D vcpuid_to_vaffinity(vcpu->vcpu_id);
++    int target_vcpu_id  =3D vcpu->vcpu_id;
++    u64 value;
++
++    value =3D (u64)(mpidr & GENMASK(23, 0)) << 32;
++    value |=3D ((target_vcpu_id & 0xffff) << 8);
++
++    if ( vgic_has_its(vcpu->domain) )
++        value |=3D GICR_TYPER_PLPIS;
++
++    if ( vgic_mmio_vcpu_rdist_is_last(vcpu) )
++        value |=3D GICR_TYPER_LAST;
++
++    return extract_bytes(value, addr & 7, len);
++}
++
++static unsigned long vgic_mmio_read_v3r_iidr(struct vcpu *vcpu, paddr_t ad=
+dr,
++                                             unsigned int len)
++{
++    return (PRODUCT_ID_KVM << 24) | (VARIANT_ID_XEN << 16) |
++           (IMPLEMENTER_ARM << 0);
++}
++
++static unsigned long vgic_mmio_read_v3_idregs(struct vcpu *vcpu, paddr_t a=
+ddr,
++                                              unsigned int len)
++{
++    switch ( addr & 0xfff )
++    {
++    case GICD_ICPIDR2:
++        /* report a GICv3 compliant implementation */
++        return 0x3b;
++    }
++
++    return 0;
++}
++
++static unsigned long vgic_mmio_read_v3r_ctlr(struct vcpu *vcpu, paddr_t ad=
+dr,
++                                             unsigned int len)
++{
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++    unsigned long val;
++
++    val =3D atomic_read(&vgic_cpu->ctlr);
++    val |=3D GICR_CTLR_IR | GICR_CTLR_CES;
++
++    return val;
++}
++
++bool vgic_lpis_enabled(struct vcpu *vcpu)
++{
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++
++    return atomic_read(&vgic_cpu->ctlr) =3D=3D GICR_CTLR_ENABLE_LPIS;
++}
++
++/* We want to avoid outer shareable. */
++u64 vgic_sanitise_shareability(u64 field)
++{
++    switch ( field )
++    {
++    case GIC_BASER_OuterShareable:
++        return GIC_BASER_InnerShareable;
++    default:
++        return field;
++    }
++}
++
++/* Avoid any inner non-cacheable mapping. */
++u64 vgic_sanitise_inner_cacheability(u64 field)
++{
++    switch ( field )
++    {
++    case GIC_BASER_CACHE_nCnB:
++    case GIC_BASER_CACHE_nC:
++        return GIC_BASER_CACHE_RaWb;
++    default:
++        return field;
++    }
++}
++
++/* Non-cacheable or same-as-inner are OK. */
++u64 vgic_sanitise_outer_cacheability(u64 field)
++{
++    switch ( field )
++    {
++    case GIC_BASER_CACHE_SameAsInner:
++    case GIC_BASER_CACHE_nC:
++        return field;
++    default:
++        return GIC_BASER_CACHE_SameAsInner;
++    }
++}
++
++u64 vgic_sanitise_field(u64 reg, u64 field_mask, int field_shift,
++                        u64 (*sanitise_fn)(u64))
++{
++    u64 field =3D (reg & field_mask) >> field_shift;
++
++    field     =3D sanitise_fn(field) << field_shift;
++    return (reg & ~field_mask) | field;
++}
++
++#define PROPBASER_RES0_MASK                                               =
+     \
++    (GENMASK_ULL(63, 59) | GENMASK_ULL(55, 52) | GENMASK_ULL(6, 5))
++#define PENDBASER_RES0_MASK                                               =
+     \
++    (BIT(63, ULL) | GENMASK_ULL(61, 59) | GENMASK_ULL(55, 52) |           =
+     \
++     GENMASK_ULL(15, 12) | GENMASK_ULL(6, 0))
++
++static u64 vgic_sanitise_pendbaser(u64 reg)
++{
++    reg =3D vgic_sanitise_field(reg, GICR_PENDBASER_SHAREABILITY_MASK,
++                              GICR_PENDBASER_SHAREABILITY_SHIFT,
++                              vgic_sanitise_shareability);
++    reg =3D vgic_sanitise_field(reg, GICR_PENDBASER_INNER_CACHEABILITY_MAS=
+K,
++                              GICR_PENDBASER_INNER_CACHEABILITY_SHIFT,
++                              vgic_sanitise_inner_cacheability);
++    reg =3D vgic_sanitise_field(reg, GICR_PENDBASER_OUTER_CACHEABILITY_MAS=
+K,
++                              GICR_PENDBASER_OUTER_CACHEABILITY_SHIFT,
++                              vgic_sanitise_outer_cacheability);
++
++    reg &=3D ~PENDBASER_RES0_MASK;
++
++    return reg;
++}
++
++static u64 vgic_sanitise_propbaser(u64 reg)
++{
++    reg =3D vgic_sanitise_field(reg, GICR_PROPBASER_SHAREABILITY_MASK,
++                              GICR_PROPBASER_SHAREABILITY_SHIFT,
++                              vgic_sanitise_shareability);
++    reg =3D vgic_sanitise_field(reg, GICR_PROPBASER_INNER_CACHEABILITY_MAS=
+K,
++                              GICR_PROPBASER_INNER_CACHEABILITY_SHIFT,
++                              vgic_sanitise_inner_cacheability);
++    reg =3D vgic_sanitise_field(reg, GICR_PROPBASER_OUTER_CACHEABILITY_MAS=
+K,
++                              GICR_PROPBASER_OUTER_CACHEABILITY_SHIFT,
++                              vgic_sanitise_outer_cacheability);
++
++    reg &=3D ~PROPBASER_RES0_MASK;
++    return reg;
++}
++
++static unsigned long vgic_mmio_read_propbase(struct vcpu *vcpu, paddr_t ad=
+dr,
++                                             unsigned int len)
++{
++    struct vgic_dist *dist =3D &vcpu->domain->arch.vgic;
++
++    return extract_bytes(dist->propbaser, addr & 7, len);
++}
++
++static void vgic_mmio_write_propbase(struct vcpu *vcpu, paddr_t addr,
++                                     unsigned int len, unsigned long val)
++{
++    struct vgic_dist *dist =3D &vcpu->domain->arch.vgic;
++    u64 old_propbaser, propbaser;
++
++    /* Storing a value with LPIs already enabled is undefined */
++    if ( vgic_lpis_enabled(vcpu) )
++        return;
++
++    do
++    {
++        old_propbaser =3D dist->propbaser;
++        propbaser     =3D old_propbaser;
++        propbaser     =3D update_64bit_reg(propbaser, addr & 4, len, val);
++        propbaser     =3D vgic_sanitise_propbaser(propbaser);
++    } while ( cmpxchg64(&dist->propbaser, old_propbaser, propbaser) !=3D
++              old_propbaser );
++}
++
++static unsigned long vgic_mmio_read_pendbase(struct vcpu *vcpu, paddr_t ad=
+dr,
++                                             unsigned int len)
++{
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++    u64 value                 =3D vgic_cpu->pendbaser;
++
++    value &=3D ~GICR_PENDBASER_PTZ;
++
++    return extract_bytes(value, addr & 7, len);
++}
++
++static void vgic_mmio_write_pendbase(struct vcpu *vcpu, paddr_t addr,
++                                     unsigned int len, unsigned long val)
++{
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++    u64 old_pendbaser, pendbaser;
++
++    /* Storing a value with LPIs already enabled is undefined */
++    if ( vgic_lpis_enabled(vcpu) )
++        return;
++
++    do
++    {
++        old_pendbaser =3D vgic_cpu->pendbaser;
++        pendbaser     =3D old_pendbaser;
++        pendbaser     =3D update_64bit_reg(pendbaser, addr & 4, len, val);
++        pendbaser     =3D vgic_sanitise_pendbaser(pendbaser);
++    } while ( cmpxchg64(&vgic_cpu->pendbaser, old_pendbaser, pendbaser) !=
+=3D
++              old_pendbaser );
++}
++
++static unsigned long vgic_mmio_read_sync(struct vcpu *vcpu, paddr_t addr,
++                                         unsigned int len)
++{
++    return !!atomic_read(&vcpu->arch.vgic.syncr_busy);
++}
++
++static const struct vgic_register_region vgic_v3_dist_registers[] =3D {
++    REGISTER_DESC_WITH_LENGTH(GICD_CTLR,
++        vgic_mmio_read_v3_misc, vgic_mmio_write_v3_misc,
++        16, VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICD_STATUSR,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IGROUPR,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISENABLER,
++        vgic_mmio_read_enable, vgic_mmio_write_senable, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICENABLER,
++        vgic_mmio_read_enable, vgic_mmio_write_cenable, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISPENDR,
++        vgic_mmio_read_pending, vgic_mmio_write_spending, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICPENDR,
++        vgic_mmio_read_pending, vgic_mmio_write_cpending, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISACTIVER,
++        vgic_mmio_read_active, vgic_mmio_write_sactive, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICACTIVER,
++        vgic_mmio_read_active, vgic_mmio_write_cactive,
++        1, VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IPRIORITYR,
++        vgic_mmio_read_priority, vgic_mmio_write_priority,
++        8, VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ITARGETSR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICFGR,
++        vgic_mmio_read_config, vgic_mmio_write_config, 2,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IGRPMODR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IROUTER,
++        vgic_mmio_read_irouter, vgic_mmio_write_irouter, 64,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICD_IDREGS,
++        vgic_mmio_read_v3_idregs, vgic_mmio_write_wi, 48,
++        VGIC_ACCESS_32bit),
++};
++
++static const struct vgic_register_region vgic_v3_rd_registers[] =3D {
++    /* RD_base registers */
++    REGISTER_DESC_WITH_LENGTH(GICR_CTLR,
++        vgic_mmio_read_v3r_ctlr, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_STATUSR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_IIDR,
++        vgic_mmio_read_v3r_iidr, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_TYPER,
++        vgic_mmio_read_v3r_typer, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_WAKER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_PROPBASER,
++        vgic_mmio_read_propbase, vgic_mmio_write_propbase, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_PENDBASER,
++        vgic_mmio_read_pendbase, vgic_mmio_write_pendbase, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_INVLPIR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_INVALLR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_SYNCR,
++        vgic_mmio_read_sync, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_IDREGS,
++        vgic_mmio_read_v3_idregs, vgic_mmio_write_wi, 48,
++        VGIC_ACCESS_32bit),
++    /* SGI_base registers */
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IGROUPR0,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISENABLER0,
++        vgic_mmio_read_enable, vgic_mmio_write_senable, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICENABLER0,
++        vgic_mmio_read_enable, vgic_mmio_write_cenable, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISPENDR0,
++        vgic_mmio_read_pending, vgic_mmio_write_spending, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICPENDR0,
++        vgic_mmio_read_pending, vgic_mmio_write_cpending,4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISACTIVER0,
++        vgic_mmio_read_active, vgic_mmio_write_sactive, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICACTIVER0,
++        vgic_mmio_read_active, vgic_mmio_write_cactive, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IPRIORITYR0,
++        vgic_mmio_read_priority, vgic_mmio_write_priority, 32,
++        VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICFGR0,
++        vgic_mmio_read_config, vgic_mmio_write_config, 8,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IGRPMODR0,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_NSACR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++};
++
++unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *dev)
++{
++    dev->regions    =3D vgic_v3_dist_registers;
++    dev->nr_regions =3D ARRAY_SIZE(vgic_v3_dist_registers);
++
++    return SZ_64K;
++}
++
++/**
++ * vgic_register_redist_iodev - register a single redist iodev
++ * @vcpu:    The VCPU to which the redistributor belongs
++ *
++ * Register a KVM iodev for this VCPU's redistributor using the address
++ * provided.
++ *
++ * Return 0 on success, -ERRNO otherwise.
++ */
++int vgic_register_redist_iodev(struct vcpu *vcpu)
++{
++    struct domain *d              =3D vcpu->domain;
++    struct vgic_dist *vgic        =3D &d->arch.vgic;
++    struct vgic_cpu *vgic_cpu     =3D &vcpu->arch.vgic;
++    struct vgic_io_device *rd_dev =3D &vcpu->arch.vgic.rd_iodev;
++    struct vgic_redist_region *rdreg;
++    paddr_t rd_base;
++
++    /*
++     * We may be creating VCPUs before having set the base address for the
++     * redistributor region, in which case we will come back to this
++     * function for all VCPUs when the base address is set.  Just return
++     * without doing any work for now.
++     */
++    rdreg =3D vgic_v3_rdist_free_slot(&vgic->rd_regions);
++    if ( !rdreg )
++        return 0;
++
++    vgic_cpu->rdreg       =3D rdreg;
++    vgic_cpu->rdreg_index =3D rdreg->free_index;
++
++    rd_base             =3D rdreg->base + rdreg->free_index * VGIC_V3_REDI=
+ST_SIZE;
++
++    rd_dev->base_fn     =3D gaddr_to_gfn(rd_base);
++    rd_dev->iodev_type  =3D IODEV_REDIST;
++    rd_dev->regions     =3D vgic_v3_rd_registers;
++    rd_dev->nr_regions  =3D ARRAY_SIZE(vgic_v3_rd_registers);
++    rd_dev->redist_vcpu =3D vcpu;
++
++    register_mmio_handler(d, &vgic_io_ops, rd_base, VGIC_V3_REDIST_SIZE,
++                          rd_dev);
++
++    rdreg->free_index++;
++    return 0;
++}
++
++static int vgic_register_all_redist_iodevs(struct domain *d)
++{
++    struct vcpu *vcpu;
++    int ret =3D 0;
++
++    for_each_vcpu(d, vcpu)
++    {
++        ret =3D vgic_register_redist_iodev(vcpu);
++        if ( ret )
++            break;
++    }
++
++    if ( ret )
++    {
++        printk(XENLOG_ERR "Failed to register redistributor iodev\n");
++    }
++
++    return ret;
++}
++
++static inline size_t vgic_v3_rd_region_size(struct domain *d,
++                                            struct vgic_redist_region *rdr=
+eg)
++{
++    if ( !rdreg->count )
++        return d->max_vcpus * VGIC_V3_REDIST_SIZE;
++    else
++        return rdreg->count * VGIC_V3_REDIST_SIZE;
++}
++
++/**
++ * vgic_v3_rdist_overlap - check if a region overlaps with any
++ * existing redistributor region
++ *
++ * @kvm: kvm handle
++ * @base: base of the region
++ * @size: size of region
++ *
++ * Return: true if there is an overlap
++ */
++bool vgic_v3_rdist_overlap(struct domain *domain, paddr_t base, size_t siz=
+e)
++{
++    struct vgic_dist *d =3D &domain->arch.vgic;
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, &d->rd_regions, list)
++    {
++        if ( (base + size > rdreg->base) &&
++             (base < rdreg->base + vgic_v3_rd_region_size(domain, rdreg)) =
+)
++            return true;
++    }
++    return false;
++}
++
++static inline bool vgic_dist_overlap(struct domain *domain, paddr_t base,
++                                     size_t size)
++{
++    struct vgic_dist *d =3D &domain->arch.vgic;
++
++    return (base + size > d->dbase) && (base < d->dbase + VGIC_V3_DIST_SIZ=
+E);
++}
++
++struct vgic_redist_region *vgic_v3_rdist_region_from_index(struct domain *=
+d,
++                                                           u32 index)
++{
++    struct list_head *rd_regions =3D &d->arch.vgic.rd_regions;
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, rd_regions, list)
++    {
++        if ( rdreg->index =3D=3D index )
++            return rdreg;
++    }
++    return NULL;
++}
++
++/**
++ * vgic_v3_alloc_redist_region - Allocate a new redistributor region
++ *
++ * Performs various checks before inserting the rdist region in the list.
++ * Those tests depend on whether the size of the rdist region is known
++ * (ie. count !=3D 0). The list is sorted by rdist region index.
++ *
++ * @kvm: kvm handle
++ * @index: redist region index
++ * @base: base of the new rdist region
++ * @count: number of redistributors the region is made of (0 in the old st=
+yle
++ * single region, whose size is induced from the number of vcpus)
++ *
++ * Return 0 on success, < 0 otherwise
++ */
++static int vgic_v3_alloc_redist_region(struct domain *domain, uint32_t ind=
+ex,
++                                       paddr_t base, uint32_t count)
++{
++    struct vgic_dist *d =3D &domain->arch.vgic;
++    struct vgic_redist_region *rdreg;
++    struct list_head *rd_regions =3D &d->rd_regions;
++    int nr_vcpus                 =3D domain->max_vcpus;
++    size_t size                  =3D count ? count * VGIC_V3_REDIST_SIZE
++                                         : nr_vcpus * VGIC_V3_REDIST_SIZE;
++    int ret;
++
++    /* cross the end of memory ? */
++    if ( base + size < base )
++        return -EINVAL;
++
++    if ( list_empty(rd_regions) )
++    {
++        if ( index !=3D 0 )
++            return -EINVAL;
++    }
++    else
++    {
++        rdreg =3D list_last_entry(rd_regions, struct vgic_redist_region, l=
+ist);
++
++        /* Don't mix single region and discrete redist regions */
++        if ( !count && rdreg->count )
++            return -EINVAL;
++
++        if ( !count )
++            return -EEXIST;
++
++        if ( index !=3D rdreg->index + 1 )
++            return -EINVAL;
++    }
++
++    /*
++     * For legacy single-region redistributor regions (!count),
++     * check that the redistributor region does not overlap with the
++     * distributor's address space.
++     */
++    if ( !count && !IS_VGIC_ADDR_UNDEF(d->dbase) &&
++         vgic_dist_overlap(domain, base, size) )
++        return -EINVAL;
++
++    /* collision with any other rdist region? */
++    if ( vgic_v3_rdist_overlap(domain, base, size) )
++        return -EINVAL;
++
++    rdreg =3D xzalloc(struct vgic_redist_region);
++    if ( !rdreg )
++        return -ENOMEM;
++
++    rdreg->base =3D VGIC_ADDR_UNDEF;
++
++    ret         =3D vgic_check_iorange(rdreg->base, base, SZ_64K, size);
++    if ( ret )
++        goto free;
++
++    rdreg->base       =3D base;
++    rdreg->count      =3D count;
++    rdreg->free_index =3D 0;
++    rdreg->index      =3D index;
++
++    list_add_tail(&rdreg->list, rd_regions);
++    return 0;
++free:
++    xfree(rdreg);
++    return ret;
++}
++
++void vgic_v3_free_redist_region(struct vgic_redist_region *rdreg)
++{
++    list_del(&rdreg->list);
++    xfree(rdreg);
++}
++
++int vgic_v3_set_redist_base(struct domain *d, u32 index, u64 addr, u32 cou=
+nt)
++{
++    int ret;
++
++    ret =3D vgic_v3_alloc_redist_region(d, index, addr, count);
++    if ( ret )
++        return ret;
++
++    /*
++     * Register iodevs for each existing VCPU.  Adding more VCPUs
++     * afterwards will register the iodevs when needed.
++     */
++    ret =3D vgic_register_all_redist_iodevs(d);
++    if ( ret )
++    {
++        struct vgic_redist_region *rdreg;
++
++        rdreg =3D vgic_v3_rdist_region_from_index(d, index);
++        vgic_v3_free_redist_region(rdreg);
++        return ret;
++    }
++
++    return 0;
++}
+diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
+index 5d935a7301..a96a7f8d96 100644
+--- a/xen/arch/arm/vgic/vgic-mmio.c
++++ b/xen/arch/arm/vgic/vgic-mmio.c
+@@ -477,6 +477,21 @@ void vgic_mmio_write_config(struct vcpu *vcpu,
+     }
+ }
+=20
++int vgic_check_iorange(paddr_t ioaddr, paddr_t addr, paddr_t alignment,
++                       paddr_t size)
++{
++    if ( !IS_VGIC_ADDR_UNDEF(ioaddr) )
++        return -EEXIST;
++
++    if ( !IS_ALIGNED(addr, alignment) || !IS_ALIGNED(size, alignment) )
++        return -EINVAL;
++
++    if ( addr + size < addr )
++        return -EINVAL;
++
++    return 0;
++}
++
+ static int match_region(const void *key, const void *elt)
+ {
+     const unsigned int offset =3D (unsigned long)key;
+@@ -619,6 +634,9 @@ int vgic_register_dist_iodev(struct domain *d, gfn_t di=
+st_base_fn,
+     case VGIC_V2:
+         len =3D vgic_v2_init_dist_iodev(io_device);
+         break;
++    case VGIC_V3:
++        len =3D vgic_v3_init_dist_iodev(io_device);
++        break;
+     default:
+         BUG();
+     }
+diff --git a/xen/arch/arm/vgic/vgic-mmio.h b/xen/arch/arm/vgic/vgic-mmio.h
+index 3566cf237c..c38ef51e6b 100644
+--- a/xen/arch/arm/vgic/vgic-mmio.h
++++ b/xen/arch/arm/vgic/vgic-mmio.h
+@@ -135,4 +135,14 @@ void vgic_mmio_write_config(struct vcpu *vcpu,
+=20
+ unsigned int vgic_v2_init_dist_iodev(struct vgic_io_device *dev);
+=20
++/* extract @num bytes at @offset bytes offset in data */
++unsigned long extract_bytes(uint64_t data, unsigned int offset,
++			    unsigned int num);
++
++uint64_t update_64bit_reg(u64 reg, unsigned int offset, unsigned int len,
++		     unsigned long val);
++
++int vgic_check_iorange(paddr_t ioaddr, paddr_t addr, paddr_t alignment,
++		       paddr_t size);
++
+ #endif
+diff --git a/xen/arch/arm/vgic/vgic-v3.c b/xen/arch/arm/vgic/vgic-v3.c
+new file mode 100644
+index 0000000000..12963d877e
+--- /dev/null
++++ b/xen/arch/arm/vgic/vgic-v3.c
+@@ -0,0 +1,383 @@
 +/*
 + * Imported from Linux ("new" KVM VGIC) and heavily adapted to Xen.
 + *
@@ -666,2213 +1557,564 @@ index 0000000000..82c1e78ba2
 + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
-+#include <xen/sched.h>
-+#include <xen/guest_access.h>
-+#include <xen/sizes.h>
-+#include <xen/err.h>
-+#include <xen/list_sort.h>
-+#include <asm/page.h>
 +#include <asm/new_vgic.h>
++#include <xen/guest_access.h>
 +#include <asm/gic_v3_defs.h>
 +#include <asm/gic_v3_its.h>
++#include <asm/gic.h>
++#include <xen/sched.h>
++#include <xen/sizes.h>
 +
 +#include "vgic.h"
-+#include "vgic-mmio.h"
 +
-+static int update_lpi_config(struct domain *d, struct vgic_irq *irq,
-+                             struct vcpu *filter_vcpu, bool needs_inv);
++static struct {
++    bool enabled;
++    /* Distributor interface address */
++    paddr_t dbase;
++    /* Re-distributor regions */
++    unsigned int nr_rdist_regions;
++    const struct rdist_region *regions;
++    unsigned int intid_bits; /* Number of interrupt ID bits */
++} vgic_v3_hw_data;
 +
-+/*
-+ * Creates a new (reference to a) struct vgic_irq for a given LPI.
-+ * If this LPI is already mapped on another ITS, we increase its refcount
-+ * and return a pointer to the existing structure.
-+ * If this is a "new" LPI, we allocate and initialize a new struct vgic_ir=
-q.
-+ * This function returns a pointer to the _unlocked_ structure.
-+ */
-+static struct vgic_irq *vgic_add_lpi(struct domain *d, struct vgic_its *it=
-s,
-+                                     u32 intid, u32 devid, u32 eventid,
-+                                     struct vcpu *vcpu)
++void vgic_v3_setup_hw(paddr_t dbase, unsigned int nr_rdist_regions,
++                      const struct rdist_region *regions,
++                      unsigned int intid_bits)
 +{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_irq *irq   =3D vgic_get_irq(d, NULL, intid), *oldirq;
-+    uint32_t host_lpi;
-+    unsigned long flags;
-+    int ret;
-+
-+    /* In this case there is no put, since we keep the reference. */
-+    if ( irq )
-+        return irq;
-+
-+    host_lpi =3D gicv3_its_get_host_lpi(its->domain,
-+                                      its->vgic_its_base + ITS_DOORBELL_OF=
-FSET,
-+                                      devid, eventid);
-+
-+    if ( host_lpi =3D=3D INVALID_LPI )
-+        return ERR_PTR(-EINVAL);
-+
-+    gicv3_lpi_update_host_entry(host_lpi, d->domain_id, intid);
-+
-+    irq =3D xzalloc(struct vgic_irq);
-+
-+    if ( !irq )
-+        return ERR_PTR(-ENOMEM);
-+
-+    memset(irq, 0, sizeof(*irq));
-+
-+    INIT_LIST_HEAD(&irq->lpi_list);
-+    INIT_LIST_HEAD(&irq->ap_list);
-+    spin_lock_init(&irq->irq_lock);
-+
-+    irq->config =3D VGIC_CONFIG_EDGE;
-+    atomic_set(&irq->refcount, 1);
-+    irq->intid       =3D intid;
-+    irq->target_vcpu =3D vcpu;
-+
-+    spin_lock_irqsave(&dist->lpi_list_lock, flags);
-+
-+    /*
-+     * There could be a race with another vgic_add_lpi(), so we need to
-+     * check that we don't add a second list entry with the same LPI.
-+     */
-+    list_for_each_entry(oldirq, &dist->lpi_list_head, lpi_list)
-+    {
-+        if ( oldirq->intid !=3D intid )
-+            continue;
-+
-+        /* Someone was faster with adding this LPI, lets use that. */
-+        gicv3_lpi_update_host_entry(host_lpi, d->domain_id, INVALID_LPI);
-+        irq =3D oldirq;
-+
-+        /*
-+         * This increases the refcount, the caller is expected to
-+         * call vgic_put_irq() on the returned pointer once it's
-+         * finished with the IRQ.
-+         */
-+        vgic_get_irq_kref(irq);
-+
-+        goto out_unlock;
-+    }
-+
-+    list_add_tail(&irq->lpi_list, &dist->lpi_list_head);
-+    dist->lpi_list_count++;
-+
-+out_unlock:
-+    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
-+
-+    /*
-+     * We "cache" the configuration table entries in our struct vgic_irq's=
-.
-+     * However we only have those structs for mapped IRQs, so we read in
-+     * the respective config data from memory here upon mapping the LPI.
-+     *
-+     * Should any of these fail, behave as if we couldn't create the LPI
-+     * by dropping the refcount and returning the error.
-+     */
-+    ret =3D update_lpi_config(d, irq, NULL, false);
-+    if ( ret )
-+    {
-+        vgic_put_irq(d, irq);
-+        gicv3_lpi_update_host_entry(host_lpi, d->domain_id, INVALID_LPI);
-+        return ERR_PTR(ret);
-+    }
-+
-+    ret =3D vgic_v3_lpi_sync_pending_status(d, irq);
-+    if ( ret )
-+    {
-+        vgic_put_irq(d, irq);
-+        gicv3_lpi_update_host_entry(host_lpi, d->domain_id, INVALID_LPI);
-+        return ERR_PTR(ret);
-+    }
-+
-+    return irq;
-+}
-+
-+struct its_device {
-+    struct list_head dev_list;
-+
-+    /* the head for the list of ITTEs */
-+    struct list_head itt_head;
-+    u32 num_eventid_bits;
-+    paddr_t itt_addr;
-+    u32 device_id;
-+};
-+
-+#define COLLECTION_NOT_MAPPED ((u32)~0)
-+
-+struct its_collection {
-+    struct list_head coll_list;
-+
-+    u32 collection_id;
-+    u32 target_addr;
-+};
-+
-+struct its_ite {
-+    struct list_head ite_list;
-+
-+    struct vgic_irq *irq;
-+    struct its_collection *collection;
-+    u32 event_id;
-+};
-+
-+struct vgic_translation_cache_entry {
-+    struct list_head entry;
-+    paddr_t db;
-+    u32 devid;
-+    u32 eventid;
-+    struct vgic_irq *irq;
-+};
-+
-+/**
-+ * struct vgic_its_abi - ITS abi ops and settings
-+ * @cte_esz: collection table entry size
-+ * @dte_esz: device table entry size
-+ * @ite_esz: interrupt translation table entry size
-+ * @save tables: save the ITS tables into guest RAM
-+ * @restore_tables: restore the ITS internal structs from tables
-+ *  stored in guest RAM
-+ * @commit: initialize the registers which expose the ABI settings,
-+ *  especially the entry sizes
-+ */
-+struct vgic_its_abi {
-+    int cte_esz;
-+    int dte_esz;
-+    int ite_esz;
-+};
-+
-+#define ABI_0_ESZ 8
-+#define ESZ_MAX   ABI_0_ESZ
-+
-+static const struct vgic_its_abi its_table_abi_versions[] =3D {
-+    [0] =3D {
-+     .cte_esz =3D ABI_0_ESZ,
-+     .dte_esz =3D ABI_0_ESZ,
-+     .ite_esz =3D ABI_0_ESZ,
-+    },
-+};
-+
-+#define NR_ITS_ABIS ARRAY_SIZE(its_table_abi_versions)
-+
-+static inline const struct vgic_its_abi *vgic_its_get_abi(struct vgic_its =
-*its)
-+{
-+    return &its_table_abi_versions[its->abi_rev];
-+}
-+
-+static int vgic_its_set_abi(struct vgic_its *its, u32 rev)
-+{
-+    its->abi_rev =3D rev;
-+    return 0;
-+}
-+
-+#define its_is_collection_mapped(coll)                                    =
-     \
-+    ((coll) && ((coll)->target_addr !=3D COLLECTION_NOT_MAPPED))
-+
-+#define KVM_MSI_VALID_DEVID (1U << 0)
-+
-+struct xen_msi {
-+    u32 address_lo;
-+    u32 address_hi;
-+    u32 data;
-+    u32 flags;
-+    u32 devid;
-+    u8 pad[12];
-+};
-+
-+/*
-+ * Find and returns a device in the device table for an ITS.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static struct its_device *find_its_device(struct vgic_its *its, u32 device=
-_id)
-+{
-+    struct its_device *device;
-+
-+    list_for_each_entry(device, &its->device_list, dev_list)
-+        if ( device_id =3D=3D device->device_id )
-+            return device;
-+
-+    return NULL;
++    vgic_v3_hw_data.enabled          =3D true;
++    vgic_v3_hw_data.dbase            =3D dbase;
++    vgic_v3_hw_data.nr_rdist_regions =3D nr_rdist_regions;
++    vgic_v3_hw_data.regions          =3D regions;
++    vgic_v3_hw_data.intid_bits       =3D intid_bits;
 +}
 +
 +/*
-+ * Find and returns an interrupt translation table entry (ITTE) for a give=
-n
-+ * Device ID/Event ID pair on an ITS.
-+ * Must be called with the its_lock mutex held.
++ * transfer the content of the LRs back into the corresponding ap_list:
++ * - active bit is transferred as is
++ * - pending bit is
++ *   - transferred as is in case of edge sensitive IRQs
++ *   - set to the line-level (resample time) for level sensitive IRQs
 + */
-+static struct its_ite *find_ite(struct vgic_its *its, u32 device_id,
-+                                u32 event_id)
-+{
-+    struct its_device *device;
-+    struct its_ite *ite;
-+
-+    device =3D find_its_device(its, device_id);
-+    if ( device =3D=3D NULL )
-+        return NULL;
-+
-+    list_for_each_entry(ite, &device->itt_head, ite_list)
-+        if ( ite->event_id =3D=3D event_id )
-+            return ite;
-+
-+    return NULL;
-+}
-+
-+/* To be used as an iterator this macro misses the enclosing parentheses *=
-/
-+#define for_each_lpi_its(dev, ite, its)                                   =
-     \
-+    list_for_each_entry(dev, &(its)->device_list, dev_list)               =
-     \
-+        list_for_each_entry(ite, &(dev)->itt_head, ite_list)
-+
-+#define GIC_LPI_OFFSET              8192
-+
-+#define VITS_TYPER_IDBITS           16
-+#define VITS_TYPER_DEVBITS          16
-+#define VITS_DTE_MAX_DEVID_OFFSET   (BIT(14, UL) - 1)
-+#define VITS_ITE_MAX_EVENTID_OFFSET (BIT(16, UL) - 1)
-+
-+static struct its_collection *find_collection(struct vgic_its *its, int co=
-ll_id)
-+{
-+    struct its_collection *collection;
-+
-+    list_for_each_entry(collection, &its->collection_list, coll_list)
-+    {
-+        if ( coll_id =3D=3D collection->collection_id )
-+            return collection;
-+    }
-+
-+    return NULL;
-+}
-+
-+#define LPI_PROP_ENABLE_BIT(p) ((p)&LPI_PROP_ENABLED)
-+#define LPI_PROP_PRIORITY(p)   ((p)&0xfc)
-+
-+/*
-+ * Reads the configuration data for a given LPI from guest memory and
-+ * updates the fields in struct vgic_irq.
-+ * If filter_vcpu is not NULL, applies only if the IRQ is targeting this
-+ * VCPU. Unconditionally applies if filter_vcpu is NULL.
-+ */
-+static int update_lpi_config(struct domain *d, struct vgic_irq *irq,
-+                             struct vcpu *filter_vcpu, bool needs_inv)
-+{
-+    u64 propbase =3D GICR_PROPBASER_ADDRESS(d->arch.vgic.propbaser);
-+    u8 prop;
-+    int ret;
-+    unsigned long flags;
-+
-+    ret =3D access_guest_memory_by_gpa(d, propbase + irq->intid - GIC_LPI_=
-OFFSET,
-+                                     &prop, 1, false);
-+
-+    if ( ret )
-+        return ret;
-+
-+    spin_lock_irqsave(&irq->irq_lock, flags);
-+
-+    if ( !filter_vcpu || filter_vcpu =3D=3D irq->target_vcpu )
-+    {
-+        irq->priority =3D LPI_PROP_PRIORITY(prop);
-+        irq->enabled  =3D LPI_PROP_ENABLE_BIT(prop);
-+
-+        if ( !irq->hw )
-+        {
-+            vgic_queue_irq_unlock(d, irq, flags);
-+            return 0;
-+        }
-+    }
-+
-+    spin_unlock_irqrestore(&irq->irq_lock, flags);
-+
-+    /* GICv4 style VLPIS are not yet supported */
-+    WARN_ON(irq->hw);
-+
-+    return 0;
-+}
-+
-+/*
-+ * Create a snapshot of the current LPIs targeting @vcpu, so that we can
-+ * enumerate those LPIs without holding any lock.
-+ * Returns their number and puts the kmalloc'ed array into intid_ptr.
-+ */
-+int vgic_copy_lpi_list(struct domain *d, struct vcpu *vcpu, u32 **intid_pt=
-r)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_irq *irq;
-+    unsigned long flags;
-+    u32 *intids;
-+    int irq_count, i =3D 0;
-+
-+    /*
-+     * There is an obvious race between allocating the array and LPIs
-+     * being mapped/unmapped. If we ended up here as a result of a
-+     * command, we're safe (locks are held, preventing another
-+     * command). If coming from another path (such as enabling LPIs),
-+     * we must be careful not to overrun the array.
-+     */
-+    irq_count =3D ACCESS_ONCE(dist->lpi_list_count);
-+    intids    =3D xmalloc_array(u32, irq_count);
-+    if ( !intids )
-+        return -ENOMEM;
-+
-+    spin_lock_irqsave(&dist->lpi_list_lock, flags);
-+    list_for_each_entry(irq, &dist->lpi_list_head, lpi_list)
-+    {
-+        if ( i =3D=3D irq_count )
-+            break;
-+        /* We don't need to "get" the IRQ, as we hold the list lock. */
-+        if ( vcpu && irq->target_vcpu !=3D vcpu )
-+            continue;
-+        intids[i++] =3D irq->intid;
-+    }
-+    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
-+
-+    *intid_ptr =3D intids;
-+    return i;
-+}
-+
-+static int update_affinity(struct vgic_irq *irq, struct vcpu *vcpu)
-+{
-+    int ret =3D 0;
-+    unsigned long flags;
-+
-+    spin_lock_irqsave(&irq->irq_lock, flags);
-+    irq->target_vcpu =3D vcpu;
-+    spin_unlock_irqrestore(&irq->irq_lock, flags);
-+
-+    /* GICv4 style VLPIS are not yet supported */
-+    WARN_ON(irq->hw);
-+
-+    return ret;
-+}
-+
-+/*
-+ * Promotes the ITS view of affinity of an ITTE (which redistributor this =
-LPI
-+ * is targeting) to the VGIC's view, which deals with target VCPUs.
-+ * Needs to be called whenever either the collection for a LPIs has
-+ * changed or the collection itself got retargeted.
-+ */
-+static void update_affinity_ite(struct domain *d, struct its_ite *ite)
-+{
-+    struct vcpu *vcpu;
-+
-+    if ( !its_is_collection_mapped(ite->collection) )
-+        return;
-+
-+    vcpu =3D d->vcpu[ite->collection->target_addr];
-+    update_affinity(ite->irq, vcpu);
-+}
-+
-+/*
-+ * Updates the target VCPU for every LPI targeting this collection.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static void update_affinity_collection(struct domain *d, struct vgic_its *=
-its,
-+                                       struct its_collection *coll)
-+{
-+    struct its_device *device;
-+    struct its_ite *ite;
-+
-+    for_each_lpi_its(device, ite, its)
-+    {
-+        if ( !ite->collection || coll !=3D ite->collection )
-+            continue;
-+
-+        update_affinity_ite(d, ite);
-+    }
-+}
-+
-+void __vgic_put_lpi_locked(struct domain *d, struct vgic_irq *irq)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+
-+    if ( !atomic_dec_and_test(&irq->refcount) )
-+    {
-+        return;
-+    };
-+
-+    list_del(&irq->lpi_list);
-+    dist->lpi_list_count--;
-+
-+    xfree(irq);
-+}
-+
-+static u32 max_lpis_propbaser(u64 propbaser)
-+{
-+    int nr_idbits =3D (propbaser & 0x1f) + 1;
-+
-+    return 1U << min(nr_idbits, INTERRUPT_ID_BITS_ITS);
-+}
-+
-+static struct vgic_irq *__vgic_its_check_cache(struct vgic_dist *dist,
-+                                               paddr_t db, u32 devid,
-+                                               u32 eventid)
-+{
-+    struct vgic_translation_cache_entry *cte, *fcte;
-+
-+    list_for_each_entry(cte, &dist->lpi_translation_cache, entry)
-+    {
-+        /*
-+         * If we hit a NULL entry, there is nothing after this
-+         * point.
-+         */
-+        if ( !cte->irq )
-+            break;
-+
-+        if ( cte->db !=3D db || cte->devid !=3D devid || cte->eventid !=3D=
- eventid )
-+            continue;
-+
-+        /*
-+         * Move this entry to the head, as it is the most
-+         * recently used.
-+         */
-+        fcte =3D list_first_entry(&dist->lpi_translation_cache,
-+                                struct vgic_translation_cache_entry, entry=
-);
-+
-+        if ( fcte->irq !=3D cte->irq )
-+            list_move(&cte->entry, &dist->lpi_translation_cache);
-+
-+        return cte->irq;
-+    }
-+
-+    return NULL;
-+}
-+
-+static void vgic_its_cache_translation(struct domain *d, struct vgic_its *=
-its,
-+                                       u32 devid, u32 eventid,
-+                                       struct vgic_irq *irq)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_translation_cache_entry *cte;
-+    unsigned long flags;
-+    paddr_t db;
-+
-+    /* Do not cache a directly injected interrupt */
-+    if ( irq->hw )
-+        return;
-+
-+    spin_lock_irqsave(&dist->lpi_list_lock, flags);
-+
-+    if ( unlikely(list_empty(&dist->lpi_translation_cache)) )
-+        goto out;
-+
-+    /*
-+     * We could have raced with another CPU caching the same
-+     * translation behind our back, so let's check it is not in
-+     * already
-+     */
-+    db =3D its->vgic_its_base + GITS_TRANSLATER;
-+    if ( __vgic_its_check_cache(dist, db, devid, eventid) )
-+        goto out;
-+
-+    /* Always reuse the last entry (LRU policy) */
-+    cte =3D list_last_entry(&dist->lpi_translation_cache, typeof(*cte), en=
-try);
-+
-+    /*
-+     * Caching the translation implies having an extra reference
-+     * to the interrupt, so drop the potential reference on what
-+     * was in the cache, and increment it on the new interrupt.
-+     */
-+    if ( cte->irq )
-+        __vgic_put_lpi_locked(d, cte->irq);
-+
-+    vgic_get_irq_kref(irq);
-+
-+    cte->db      =3D db;
-+    cte->devid   =3D devid;
-+    cte->eventid =3D eventid;
-+    cte->irq     =3D irq;
-+
-+    /* Move the new translation to the head of the list */
-+    list_move(&cte->entry, &dist->lpi_translation_cache);
-+
-+out:
-+    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
-+}
-+
-+void vgic_its_invalidate_cache(struct domain *d)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_translation_cache_entry *cte;
-+    unsigned long flags;
-+
-+    spin_lock_irqsave(&dist->lpi_list_lock, flags);
-+
-+    list_for_each_entry(cte, &dist->lpi_translation_cache, entry)
-+    {
-+        /*
-+         * If we hit a NULL entry, there is nothing after this
-+         * point.
-+         */
-+        if ( !cte->irq )
-+            break;
-+
-+        __vgic_put_lpi_locked(d, cte->irq);
-+        cte->irq =3D NULL;
-+    }
-+
-+    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
-+}
-+
-+int vgic_its_resolve_lpi(struct domain *d, struct vgic_its *its, u32 devid=
-,
-+                         u32 eventid, struct vgic_irq **irq)
-+{
-+    struct vcpu *vcpu;
-+    struct its_ite *ite;
-+
-+    if ( !its->enabled )
-+        return -EBUSY;
-+
-+    ite =3D find_ite(its, devid, eventid);
-+    if ( !ite || !its_is_collection_mapped(ite->collection) )
-+        return E_ITS_INT_UNMAPPED_INTERRUPT;
-+
-+    vcpu =3D d->vcpu[ite->collection->target_addr];
-+    if ( !vcpu )
-+        return E_ITS_INT_UNMAPPED_INTERRUPT;
-+
-+    if ( !vgic_lpis_enabled(vcpu) )
-+        return -EBUSY;
-+
-+    vgic_its_cache_translation(d, its, devid, eventid, ite->irq);
-+
-+    *irq =3D ite->irq;
-+    return 0;
-+}
-+
-+/*
-+ * Find the target VCPU and the LPI number for a given devid/eventid pair
-+ * and make this IRQ pending, possibly injecting it.
-+ * Must be called with the its_lock mutex held.
-+ * Returns 0 on success, a positive error value for any ITS mapping
-+ * related errors and negative error values for generic errors.
-+ */
-+static int vgic_its_trigger_msi(struct domain *d, struct vgic_its *its,
-+                                u32 devid, u32 eventid)
-+{
-+    struct vgic_irq *irq =3D NULL;
-+    unsigned long flags;
-+    int err;
-+
-+    err =3D vgic_its_resolve_lpi(d, its, devid, eventid, &irq);
-+    if ( err )
-+        return err;
-+
-+    /* GICv4 style VLPIS are not yet supported */
-+    WARN_ON(irq->hw);
-+
-+    spin_lock_irqsave(&irq->irq_lock, flags);
-+    irq->pending_latch =3D true;
-+    vgic_queue_irq_unlock(d, irq, flags);
-+
-+    return 0;
-+}
-+
-+static u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
-+{
-+    return (le64_to_cpu(its_cmd[word]) >> shift) & (BIT(size, ULL) - 1);
-+}
-+
-+/* Requires the its_lock to be held. */
-+static void its_free_ite(struct domain *d, struct its_ite *ite)
-+{
-+    list_del(&ite->ite_list);
-+
-+    /* This put matches the get in vgic_add_lpi. */
-+    if ( ite->irq )
-+    {
-+        /* GICv4 style VLPIS are not yet supported */
-+        WARN_ON(ite->irq->hw);
-+
-+        vgic_put_irq(d, ite->irq);
-+    }
-+
-+    xfree(ite);
-+}
-+
-+/* Must be called with its_lock mutex held */
-+static struct its_ite *vgic_its_alloc_ite(struct its_device *device,
-+                                          struct its_collection *collectio=
-n,
-+                                          u32 event_id)
-+{
-+    struct its_ite *ite;
-+
-+    ite =3D xzalloc(struct its_ite);
-+    if ( !ite )
-+        return ERR_PTR(-ENOMEM);
-+
-+    ite->event_id   =3D event_id;
-+    ite->collection =3D collection;
-+
-+    list_add_tail(&ite->ite_list, &device->itt_head);
-+    return ite;
-+}
-+
-+#define its_cmd_get_command(cmd)     its_cmd_mask_field(cmd, 0, 0, 8)
-+#define its_cmd_get_deviceid(cmd)    its_cmd_mask_field(cmd, 0, 32, 32)
-+#define its_cmd_get_size(cmd)        (its_cmd_mask_field(cmd, 1, 0, 5) + 1=
-)
-+#define its_cmd_get_id(cmd)          its_cmd_mask_field(cmd, 1, 0, 32)
-+#define its_cmd_get_physical_id(cmd) its_cmd_mask_field(cmd, 1, 32, 32)
-+#define its_cmd_get_collection(cmd)  its_cmd_mask_field(cmd, 2, 0, 16)
-+#define its_cmd_get_ittaddr(cmd)     (its_cmd_mask_field(cmd, 2, 8, 44) <<=
- 8)
-+#define its_cmd_get_target_addr(cmd) its_cmd_mask_field(cmd, 2, 16, 32)
-+#define its_cmd_get_validbit(cmd)    its_cmd_mask_field(cmd, 2, 63, 1)
-+
-+/*
-+ * Check whether a guest physical address is owned by it
-+*/
-+static bool __is_visible_gfn_locked(struct vgic_its *its, paddr_t gpa)
-+{
-+    gfn_t gfn =3D gaddr_to_gfn(gpa);
-+    volatile struct domain *d;
-+    struct page_info *page;
-+
-+    page =3D mfn_to_page(gfn_to_mfn(its->domain, gfn));
-+    if ( !page )
-+        return false;
-+
-+    d =3D page_get_owner(page);
-+    if ( !d )
-+        return false;
-+
-+    return d =3D=3D its->domain;
-+}
-+
-+/*
-+ * Check whether an event ID can be stored in the corresponding Interrupt
-+ * Translation Table, which starts at device->itt_addr.
-+ */
-+static bool vgic_its_check_event_id(struct vgic_its *its,
-+                                    struct its_device *device, u32 event_i=
-d)
-+{
-+    const struct vgic_its_abi *abi =3D vgic_its_get_abi(its);
-+    int ite_esz                    =3D abi->ite_esz;
-+    paddr_t gpa;
-+
-+    /* max table size is: BIT_ULL(device->num_eventid_bits) * ite_esz */
-+    if ( event_id >=3D BIT(device->num_eventid_bits, ULL) )
-+        return false;
-+
-+    gpa =3D device->itt_addr + event_id * ite_esz;
-+    return __is_visible_gfn_locked(its, gpa);
-+}
-+
-+/*
-+ * Check whether an ID can be stored into the corresponding guest table.
-+ * For a direct table this is pretty easy, but gets a bit nasty for
-+ * indirect tables. We check whether the resulting guest physical address
-+ * is actually valid (covered by a memslot and guest accessible).
-+ * For this we have to read the respective first level entry.
-+ */
-+static bool vgic_its_check_id(struct vgic_its *its, u64 baser, u32 id,
-+                              paddr_t *eaddr)
-+{
-+    int l1_tbl_size =3D GITS_BASER_NR_PAGES(baser) * SZ_64K;
-+    u64 indirect_ptr, type =3D GITS_BASER_TYPE(baser);
-+    paddr_t base =3D GITS_BASER_ADDR_48_to_52(baser);
-+    int esz      =3D GITS_BASER_ENTRY_SIZE(baser);
-+    int index;
-+
-+    switch ( type )
-+    {
-+    case GITS_BASER_TYPE_DEVICE:
-+        if ( id >=3D BIT(VITS_TYPER_DEVBITS, ULL) )
-+            return false;
-+        break;
-+    case GITS_BASER_TYPE_COLLECTION:
-+        /* as GITS_TYPER.CIL =3D=3D 0, ITS supports 16-bit collection ID *=
-/
-+        if ( id >=3D BIT(16, ULL) )
-+            return false;
-+        break;
-+    default:
-+        return false;
-+    }
-+
-+    if ( !(baser & GITS_BASER_INDIRECT) )
-+    {
-+        paddr_t addr;
-+
-+        if ( id >=3D (l1_tbl_size / esz) )
-+            return false;
-+
-+        addr =3D base + id * esz;
-+
-+        if ( eaddr )
-+            *eaddr =3D addr;
-+
-+        return __is_visible_gfn_locked(its, addr);
-+    }
-+
-+    /* calculate and check the index into the 1st level */
-+    index =3D id / (SZ_64K / esz);
-+    if ( index >=3D (l1_tbl_size / sizeof(u64)) )
-+        return false;
-+
-+    /* Each 1st level entry is represented by a 64-bit value. */
-+    if ( access_guest_memory_by_gpa(its->domain,
-+                                    base + index * sizeof(indirect_ptr),
-+                                    &indirect_ptr, sizeof(indirect_ptr), 0=
-) )
-+        return false;
-+
-+    indirect_ptr =3D le64_to_cpu(indirect_ptr);
-+
-+    /* check the valid bit of the first level entry */
-+    if ( !(indirect_ptr & BIT(63, ULL)) )
-+        return false;
-+
-+    /* Mask the guest physical address and calculate the frame number. */
-+    indirect_ptr &=3D GENMASK_ULL(51, 16);
-+
-+    /* Find the address of the actual entry */
-+    index =3D id % (SZ_64K / esz);
-+    indirect_ptr +=3D index * esz;
-+
-+    if ( eaddr )
-+        *eaddr =3D indirect_ptr;
-+
-+    return __is_visible_gfn_locked(its, indirect_ptr);
-+}
-+
-+/*
-+ * Add a new collection into the ITS collection table.
-+ * Returns 0 on success, and a negative error value for generic errors.
-+ */
-+static int vgic_its_alloc_collection(struct vgic_its *its,
-+                                     struct its_collection **colp, u32 col=
-l_id)
-+{
-+    struct its_collection *collection;
-+
-+    collection =3D xzalloc(struct its_collection);
-+    if ( !collection )
-+        return -ENOMEM;
-+
-+    collection->collection_id =3D coll_id;
-+    collection->target_addr   =3D COLLECTION_NOT_MAPPED;
-+
-+    list_add_tail(&collection->coll_list, &its->collection_list);
-+    *colp =3D collection;
-+
-+    return 0;
-+}
-+
-+static void vgic_its_free_collection(struct vgic_its *its, u32 coll_id)
-+{
-+    struct its_collection *collection;
-+    struct its_device *device;
-+    struct its_ite *ite;
-+
-+    /*
-+     * Clearing the mapping for that collection ID removes the
-+     * entry from the list. If there wasn't any before, we can
-+     * go home early.
-+     */
-+    collection =3D find_collection(its, coll_id);
-+    if ( !collection )
-+        return;
-+
-+    for_each_lpi_its( device, ite, its)
-+        if ( ite->collection && ite->collection->collection_id =3D=3D coll=
-_id )
-+        ite->collection =3D NULL;
-+
-+    list_del(&collection->coll_list);
-+    xfree(collection);
-+}
-+
-+/* Requires the its_lock to be held. */
-+static void vgic_its_free_device(struct domain *d, struct its_device *devi=
-ce)
-+{
-+    struct its_ite *ite, *temp;
-+
-+    /*
-+     * The spec says that unmapping a device with still valid
-+     * ITTEs associated is UNPREDICTABLE. We remove all ITTEs,
-+     * since we cannot leave the memory unreferenced.
-+     */
-+    list_for_each_entry_safe(ite, temp, &device->itt_head, ite_list)
-+        its_free_ite(d, ite);
-+
-+    vgic_its_invalidate_cache(d);
-+
-+    list_del(&device->dev_list);
-+    xfree(device);
-+}
-+
-+/* its lock must be held */
-+static void vgic_its_free_device_list(struct domain *d, struct vgic_its *i=
-ts)
-+{
-+    struct its_device *cur, *temp;
-+
-+    list_for_each_entry_safe(cur, temp, &its->device_list, dev_list)
-+        vgic_its_free_device(d, cur);
-+}
-+
-+/* its lock must be held */
-+static void vgic_its_free_collection_list(struct domain *d,
-+                                          struct vgic_its *its)
-+{
-+    struct its_collection *cur, *temp;
-+
-+    list_for_each_entry_safe(cur, temp, &its->collection_list, coll_list)
-+        vgic_its_free_collection(its, cur->collection_id);
-+}
-+
-+/* Must be called with its_lock mutex held */
-+static struct its_device *vgic_its_alloc_device(struct vgic_its *its,
-+                                                u32 device_id, paddr_t itt=
-_addr,
-+                                                u8 num_eventid_bits)
-+{
-+    struct its_device *device;
-+
-+    device =3D xzalloc(struct its_device);
-+    if ( !device )
-+        return ERR_PTR(-ENOMEM);
-+
-+    device->device_id        =3D device_id;
-+    device->itt_addr         =3D itt_addr;
-+    device->num_eventid_bits =3D num_eventid_bits;
-+    INIT_LIST_HEAD(&device->itt_head);
-+
-+    list_add_tail(&device->dev_list, &its->device_list);
-+    return device;
-+}
-+
-+/*
-+ * MAPD maps or unmaps a device ID to Interrupt Translation Tables (ITTs).
-+ * Must be called with the its_lock mutex held.
-+ */
-+
-+static int vgic_its_cmd_handle_mapd(struct domain *d, struct vgic_its *its=
-,
-+                                    u64 *its_cmd)
-+{
-+    uint32_t guest_devid =3D its_cmd_get_deviceid(its_cmd);
-+    bool valid           =3D its_cmd_get_validbit(its_cmd);
-+    u8 num_eventid_bits  =3D its_cmd_get_size(its_cmd);
-+    paddr_t itt_addr     =3D its_cmd_get_ittaddr(its_cmd);
-+    int ret =3D 0;
-+    struct its_device *device;
-+
-+    if ( !vgic_its_check_id(its, its->baser_device_table, guest_devid, NUL=
-L) )
-+        return E_ITS_MAPD_DEVICE_OOR;
-+
-+    if ( valid && num_eventid_bits > VITS_TYPER_IDBITS )
-+        return E_ITS_MAPD_ITTSIZE_OOR;
-+
-+    device =3D find_its_device(its, guest_devid);
-+
-+    /*
-+     * The spec says that calling MAPD on an already mapped device
-+     * invalidates all cached data for this device. We implement this
-+     * by removing the mapping and re-establishing it.
-+     */
-+    if ( device )
-+        vgic_its_free_device(d, device);
-+    else
-+        device =3D
-+            vgic_its_alloc_device(its, guest_devid, itt_addr, num_eventid_=
-bits);
-+
-+    /*
-+     * There is no easy and clean way for Xen to know the ITS device ID of=
- a
-+     * particular (PCI) device, so we have to rely on the guest telling
-+     * us about it. For *now* we are just using the device ID *Dom0* uses,
-+     * because the driver there has the actual knowledge.
-+     * Eventually this will be replaced with a dedicated hypercall to
-+     * announce pass-through of devices.
-+     */
-+    if ( is_hardware_domain(its->domain) )
-+    {
-+        ret =3D gicv3_its_map_guest_device(its->domain, its->doorbell_addr=
-ess,
-+                                        guest_devid,
-+                                        its->vgic_its_base + ITS_DOORBELL_=
-OFFSET,
-+                                        guest_devid, BIT(num_eventid_bits,=
- UL),
-+                                        valid);
-+    }
-+    if ( ret && valid )
-+        return ret;
-+
-+    return IS_ERR(device) ? PTR_ERR(device) : 0;
-+}
-+
-+/*
-+ * The MAPC command maps collection IDs to redistributors.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_mapc(struct domain *d, struct vgic_its *its=
-,
-+                                    u64 *its_cmd)
-+{
-+    u16 coll_id;
-+    u32 target_addr;
-+    struct its_collection *collection;
-+    bool valid;
-+
-+    valid       =3D its_cmd_get_validbit(its_cmd);
-+    coll_id     =3D its_cmd_get_collection(its_cmd);
-+    target_addr =3D its_cmd_get_target_addr(its_cmd);
-+
-+    if ( target_addr >=3D d->max_vcpus )
-+        return E_ITS_MAPC_PROCNUM_OOR;
-+
-+    if ( !valid )
-+    {
-+        vgic_its_free_collection(its, coll_id);
-+        vgic_its_invalidate_cache(d);
-+    }
-+    else
-+    {
-+        collection =3D find_collection(its, coll_id);
-+
-+        if ( !collection )
-+        {
-+            int ret;
-+
-+            if ( !vgic_its_check_id(its, its->baser_coll_table, coll_id, N=
-ULL) )
-+                return E_ITS_MAPC_COLLECTION_OOR;
-+
-+            ret =3D vgic_its_alloc_collection(its, &collection, coll_id);
-+            if ( ret )
-+                return ret;
-+            collection->target_addr =3D target_addr;
-+        }
-+        else
-+        {
-+            collection->target_addr =3D target_addr;
-+            update_affinity_collection(d, its, collection);
-+        }
-+    }
-+
-+    return 0;
-+}
-+
-+/*
-+ * The MAPTI and MAPI commands map LPIs to ITTEs.
-+ * Must be called with its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_mapi(struct domain *d, struct vgic_its *its=
-,
-+                                    u64 *its_cmd)
-+{
-+    u32 device_id =3D its_cmd_get_deviceid(its_cmd);
-+    u32 event_id  =3D its_cmd_get_id(its_cmd);
-+    u32 coll_id   =3D its_cmd_get_collection(its_cmd);
-+    struct its_ite *ite;
-+    struct vcpu *vcpu =3D NULL;
-+    struct its_device *device;
-+    struct its_collection *collection, *new_coll =3D NULL;
-+    struct vgic_irq *irq;
-+    int lpi_nr;
-+
-+    device =3D find_its_device(its, device_id);
-+    if ( !device )
-+        return E_ITS_MAPTI_UNMAPPED_DEVICE;
-+
-+    if ( !vgic_its_check_event_id(its, device, event_id) )
-+        return E_ITS_MAPTI_ID_OOR;
-+
-+    if ( its_cmd_get_command(its_cmd) =3D=3D GITS_CMD_MAPTI )
-+        lpi_nr =3D its_cmd_get_physical_id(its_cmd);
-+    else
-+        lpi_nr =3D event_id;
-+    if ( lpi_nr < GIC_LPI_OFFSET ||
-+         lpi_nr >=3D max_lpis_propbaser(d->arch.vgic.propbaser) )
-+        return E_ITS_MAPTI_PHYSICALID_OOR;
-+
-+    /* If there is an existing mapping, behavior is UNPREDICTABLE. */
-+    if ( find_ite(its, device_id, event_id) )
-+        return 0;
-+
-+    collection =3D find_collection(its, coll_id);
-+    if ( !collection )
-+    {
-+        int ret;
-+
-+        if ( !vgic_its_check_id(its, its->baser_coll_table, coll_id, NULL)=
- )
-+            return E_ITS_MAPC_COLLECTION_OOR;
-+
-+        ret =3D vgic_its_alloc_collection(its, &collection, coll_id);
-+        if ( ret )
-+            return ret;
-+        new_coll =3D collection;
-+    }
-+
-+    ite =3D vgic_its_alloc_ite(device, collection, event_id);
-+    if ( IS_ERR(ite) )
-+    {
-+        if ( new_coll )
-+            vgic_its_free_collection(its, coll_id);
-+        return PTR_ERR(ite);
-+    }
-+
-+    if ( its_is_collection_mapped(collection) )
-+        vcpu =3D d->vcpu[collection->target_addr];
-+
-+    irq =3D vgic_add_lpi(d, its, lpi_nr, device_id, event_id, vcpu);
-+    if ( IS_ERR(irq) )
-+    {
-+        if ( new_coll )
-+            vgic_its_free_collection(its, coll_id);
-+        its_free_ite(d, ite);
-+        return PTR_ERR(irq);
-+    }
-+    ite->irq =3D irq;
-+
-+    return 0;
-+}
-+
-+/*
-+ * The MOVI command moves an ITTE to a different collection.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_movi(struct domain *d, struct vgic_its *its=
-,
-+                                    u64 *its_cmd)
-+{
-+    u32 device_id =3D its_cmd_get_deviceid(its_cmd);
-+    u32 event_id  =3D its_cmd_get_id(its_cmd);
-+    u32 coll_id   =3D its_cmd_get_collection(its_cmd);
-+    struct vcpu *vcpu;
-+    struct its_ite *ite;
-+    struct its_collection *collection;
-+
-+    ite =3D find_ite(its, device_id, event_id);
-+    if ( !ite )
-+        return E_ITS_MOVI_UNMAPPED_INTERRUPT;
-+
-+    if ( !its_is_collection_mapped(ite->collection) )
-+        return E_ITS_MOVI_UNMAPPED_COLLECTION;
-+
-+    collection =3D find_collection(its, coll_id);
-+    if ( !its_is_collection_mapped(collection) )
-+        return E_ITS_MOVI_UNMAPPED_COLLECTION;
-+
-+    ite->collection =3D collection;
-+    vcpu            =3D d->vcpu[collection->target_addr];
-+
-+    vgic_its_invalidate_cache(d);
-+
-+    return update_affinity(ite->irq, vcpu);
-+}
-+
-+/*
-+ * The DISCARD command frees an Interrupt Translation Table Entry (ITTE).
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_discard(struct domain *d, struct vgic_its *=
-its,
-+                                       u64 *its_cmd)
-+{
-+    u32 device_id =3D its_cmd_get_deviceid(its_cmd);
-+    u32 event_id  =3D its_cmd_get_id(its_cmd);
-+    struct its_ite *ite;
-+
-+    ite =3D find_ite(its, device_id, event_id);
-+    if ( ite && its_is_collection_mapped(ite->collection) )
-+    {
-+        /*
-+         * Though the spec talks about removing the pending state, we
-+         * don't bother here since we clear the ITTE anyway and the
-+         * pending state is a property of the ITTE struct.
-+         */
-+        vgic_its_invalidate_cache(d);
-+
-+        its_free_ite(d, ite);
-+        return 0;
-+    }
-+
-+    return E_ITS_DISCARD_UNMAPPED_INTERRUPT;
-+}
-+
-+/*
-+ * The CLEAR command removes the pending state for a particular LPI.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_clear(struct domain *d, struct vgic_its *it=
-s,
-+                                     u64 *its_cmd)
-+{
-+    u32 device_id =3D its_cmd_get_deviceid(its_cmd);
-+    u32 event_id  =3D its_cmd_get_id(its_cmd);
-+    struct its_ite *ite;
-+
-+    ite =3D find_ite(its, device_id, event_id);
-+    if ( !ite )
-+        return E_ITS_CLEAR_UNMAPPED_INTERRUPT;
-+
-+    ite->irq->pending_latch =3D false;
-+
-+    /* GICv4 style VLPIS are not yet supported */
-+    WARN_ON(ite->irq->hw);
-+
-+    return 0;
-+}
-+
-+/*
-+ * The MOVALL command moves the pending state of all IRQs targeting one
-+ * redistributor to another. We don't hold the pending state in the VCPUs,
-+ * but in the IRQs instead, so there is really not much to do for us here.
-+ * However the spec says that no IRQ must target the old redistributor
-+ * afterwards, so we make sure that no LPI is using the associated target_=
-vcpu.
-+ * This command affects all LPIs in the system that target that redistribu=
-tor.
-+ */
-+static int vgic_its_cmd_handle_movall(struct domain *d, struct vgic_its *i=
-ts,
-+                                      u64 *its_cmd)
-+{
-+    u32 target1_addr =3D its_cmd_get_target_addr(its_cmd);
-+    u32 target2_addr =3D its_cmd_mask_field(its_cmd, 3, 16, 32);
-+    struct vcpu *vcpu1, *vcpu2;
-+    struct vgic_irq *irq;
-+    u32 *intids;
-+    int irq_count, i;
-+
-+    if ( target1_addr >=3D d->max_vcpus || target2_addr >=3D d->max_vcpus =
-)
-+        return E_ITS_MOVALL_PROCNUM_OOR;
-+
-+    if ( target1_addr =3D=3D target2_addr )
-+        return 0;
-+
-+    vcpu1     =3D d->vcpu[target1_addr];
-+    vcpu2     =3D d->vcpu[target2_addr];
-+
-+    irq_count =3D vgic_copy_lpi_list(d, vcpu1, &intids);
-+    if ( irq_count < 0 )
-+        return irq_count;
-+
-+    for ( i =3D 0; i < irq_count; i++ )
-+    {
-+        irq =3D vgic_get_irq(d, NULL, intids[i]);
-+
-+        update_affinity(irq, vcpu2);
-+
-+        vgic_put_irq(d, irq);
-+    }
-+
-+    vgic_its_invalidate_cache(d);
-+
-+    xfree(intids);
-+    return 0;
-+}
-+
-+/*
-+ * The INT command injects the LPI associated with that DevID/EvID pair.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_int(struct domain *d, struct vgic_its *its,
-+                                   u64 *its_cmd)
-+{
-+    u32 msi_data  =3D its_cmd_get_id(its_cmd);
-+    u64 msi_devid =3D its_cmd_get_deviceid(its_cmd);
-+
-+    return vgic_its_trigger_msi(d, its, msi_devid, msi_data);
-+}
-+
-+int vgic_its_inv_lpi(struct domain *d, struct vgic_irq *irq)
-+{
-+    return update_lpi_config(d, irq, NULL, true);
-+}
-+
-+/*
-+ * The INV command syncs the configuration bits from the memory table.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_inv(struct domain *d, struct vgic_its *its,
-+                                   u64 *its_cmd)
-+{
-+    u32 device_id =3D its_cmd_get_deviceid(its_cmd);
-+    u32 event_id  =3D its_cmd_get_id(its_cmd);
-+    struct its_ite *ite;
-+
-+    ite =3D find_ite(its, device_id, event_id);
-+    if ( !ite )
-+        return E_ITS_INV_UNMAPPED_INTERRUPT;
-+
-+    return vgic_its_inv_lpi(d, ite->irq);
-+}
-+
-+/**
-+ * vgic_its_invall - invalidate all LPIs targetting a given vcpu
-+ * @vcpu: the vcpu for which the RD is targetted by an invalidation
-+ *
-+ * Contrary to the INVALL command, this targets a RD instead of a
-+ * collection, and we don't need to hold the its_lock, since no ITS is
-+ * involved here.
-+ */
-+int vgic_its_invall(struct vcpu *vcpu)
-+{
-+    struct domain *d =3D vcpu->domain;
-+    int irq_count, i =3D 0;
-+    u32 *intids;
-+
-+    irq_count =3D vgic_copy_lpi_list(d, vcpu, &intids);
-+    if ( irq_count < 0 )
-+        return irq_count;
-+
-+    for ( i =3D 0; i < irq_count; i++ )
-+    {
-+        struct vgic_irq *irq =3D vgic_get_irq(d, NULL, intids[i]);
-+        if ( !irq )
-+            continue;
-+        update_lpi_config(d, irq, vcpu, false);
-+        vgic_put_irq(d, irq);
-+    }
-+
-+    xfree(intids);
-+    return 0;
-+}
-+
-+/*
-+ * The INVALL command requests flushing of all IRQ data in this collection=
-.
-+ * Find the VCPU mapped to that collection, then iterate over the VM's lis=
-t
-+ * of mapped LPIs and update the configuration for each IRQ which targets
-+ * the specified vcpu. The configuration will be read from the in-memory
-+ * configuration table.
-+ * Must be called with the its_lock mutex held.
-+ */
-+static int vgic_its_cmd_handle_invall(struct domain *d, struct vgic_its *i=
-ts,
-+                                      u64 *its_cmd)
-+{
-+    u32 coll_id =3D its_cmd_get_collection(its_cmd);
-+    struct its_collection *collection;
-+    struct vcpu *vcpu;
-+
-+    collection =3D find_collection(its, coll_id);
-+    if ( !its_is_collection_mapped(collection) )
-+        return E_ITS_INVALL_UNMAPPED_COLLECTION;
-+
-+    vcpu =3D d->vcpu[collection->target_addr];
-+    vgic_its_invall(vcpu);
-+
-+    return 0;
-+}
-+
-+/*
-+ * This function is called with the its_cmd lock held, but the ITS data
-+ * structure lock dropped.
-+ */
-+static int vgic_its_handle_command(struct domain *d, struct vgic_its *its,
-+                                   u64 *its_cmd)
-+{
-+    int ret =3D -ENODEV;
-+
-+    spin_lock(&its->its_lock);
-+    switch ( its_cmd_get_command(its_cmd) )
-+    {
-+    case GITS_CMD_MAPD:
-+        ret =3D vgic_its_cmd_handle_mapd(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_MAPC:
-+        ret =3D vgic_its_cmd_handle_mapc(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_MAPI:
-+        ret =3D vgic_its_cmd_handle_mapi(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_MAPTI:
-+        ret =3D vgic_its_cmd_handle_mapi(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_MOVI:
-+        ret =3D vgic_its_cmd_handle_movi(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_DISCARD:
-+        ret =3D vgic_its_cmd_handle_discard(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_CLEAR:
-+        ret =3D vgic_its_cmd_handle_clear(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_MOVALL:
-+        ret =3D vgic_its_cmd_handle_movall(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_INT:
-+        ret =3D vgic_its_cmd_handle_int(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_INV:
-+        ret =3D vgic_its_cmd_handle_inv(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_INVALL:
-+        ret =3D vgic_its_cmd_handle_invall(d, its, its_cmd);
-+        break;
-+    case GITS_CMD_SYNC:
-+        /* we ignore this command: we are in sync all of the time */
-+        ret =3D 0;
-+        break;
-+    default:
-+        printk("Unknown GITS command\n");
-+        ret =3D -EINVAL;
-+        break;
-+    }
-+    spin_unlock(&its->its_lock);
-+
-+    return ret;
-+}
-+
-+#define ITS_CMD_BUFFER_SIZE(baser) ((((baser)&0xff) + 1) << 12)
-+#define ITS_CMD_SIZE               32
-+#define ITS_CMD_OFFSET(reg)        ((reg)&GENMASK(19, 5))
-+
-+/* Must be called with the cmd_lock held. */
-+static void vgic_its_process_commands(struct domain *d, struct vgic_its *i=
-ts)
-+{
-+    paddr_t cbaser;
-+    u64 cmd_buf[4];
-+
-+    /* Commands are only processed when the ITS is enabled. */
-+    if ( !its->enabled )
-+        return;
-+
-+    cbaser =3D GITS_CBASER_ADDRESS(its->cbaser);
-+
-+    while ( its->cwriter !=3D its->creadr )
-+    {
-+        int ret =3D access_guest_memory_by_gpa(d, cbaser + its->creadr, cm=
-d_buf,
-+                                             ITS_CMD_SIZE, false);
-+        /*
-+         * If kvm_read_guest() fails, this could be due to the guest
-+         * programming a bogus value in CBASER or something else going
-+         * wrong from which we cannot easily recover.
-+         * According to section 6.3.2 in the GICv3 spec we can just
-+         * ignore that command then.
-+         */
-+        if ( !ret )
-+            vgic_its_handle_command(d, its, cmd_buf);
-+
-+        its->creadr +=3D ITS_CMD_SIZE;
-+        if ( its->creadr =3D=3D ITS_CMD_BUFFER_SIZE(its->cbaser) )
-+            its->creadr =3D 0;
-+    }
-+}
-+
-+static unsigned long vgic_mmio_read_its_ctlr(struct domain *d,
-+                                             struct vgic_its *its, paddr_t=
- addr,
-+                                             unsigned int len)
-+{
-+    u32 reg =3D 0;
-+
-+    spin_lock(&its->cmd_lock);
-+    if ( its->creadr =3D=3D its->cwriter )
-+        reg |=3D GITS_CTLR_QUIESCENT;
-+    if ( its->enabled )
-+        reg |=3D GITS_CTLR_ENABLE;
-+    spin_unlock(&its->cmd_lock);
-+
-+    return reg;
-+}
-+
-+static void vgic_mmio_write_its_ctlr(struct domain *d, struct vgic_its *it=
-s,
-+                                     paddr_t addr, unsigned int len,
-+                                     unsigned long val)
-+{
-+    spin_lock(&its->cmd_lock);
-+
-+    /*
-+     * It is UNPREDICTABLE to enable the ITS if any of the CBASER or
-+     * device/collection BASER are invalid
-+     */
-+    if ( !its->enabled && (val & GITS_CTLR_ENABLE) &&
-+         (!(its->baser_device_table & GITS_VALID_BIT) ||
-+          !(its->baser_coll_table & GITS_VALID_BIT) ||
-+          !(its->cbaser & GITS_VALID_BIT)) )
-+        goto out;
-+
-+    its->enabled =3D !!(val & GITS_CTLR_ENABLE);
-+    if ( !its->enabled )
-+        vgic_its_invalidate_cache(d);
-+
-+    /*
-+     * Try to process any pending commands. This function bails out early
-+     * if the ITS is disabled or no commands have been queued.
-+     */
-+    vgic_its_process_commands(d, its);
-+
-+out:
-+    spin_unlock(&its->cmd_lock);
-+}
-+
-+static unsigned long vgic_mmio_read_its_iidr(struct domain *d,
-+                                             struct vgic_its *its, paddr_t=
- addr,
-+                                             unsigned int len)
-+{
-+    u32 val;
-+
-+    val =3D (its->abi_rev << GITS_IIDR_REV_SHIFT) & GITS_IIDR_REV_MASK;
-+    val |=3D (PRODUCT_ID_KVM << GITS_IIDR_PRODUCTID_SHIFT) | IMPLEMENTER_A=
-RM;
-+    return val;
-+}
-+
-+/*
-+ * Sync the pending table pending bit of LPIs targeting @vcpu
-+ * with our own data structures. This relies on the LPI being
-+ * mapped before.
-+ */
-+static int its_sync_lpi_pending_table(struct vcpu *vcpu)
-+{
-+    paddr_t pendbase =3D GICR_PENDBASER_ADDRESS(vcpu->arch.vgic.pendbaser)=
-;
-+    struct vgic_irq *irq;
-+    int last_byte_offset =3D -1;
-+    int ret              =3D 0;
-+    u32 *intids;
-+    int nr_irqs, i;
-+    unsigned long flags;
-+    u8 pendmask;
-+
-+    nr_irqs =3D vgic_copy_lpi_list(vcpu->domain, vcpu, &intids);
-+    if ( nr_irqs < 0 )
-+        return nr_irqs;
-+
-+    for ( i =3D 0; i < nr_irqs; i++ )
-+    {
-+        int byte_offset, bit_nr;
-+
-+        byte_offset =3D intids[i] / BITS_PER_BYTE;
-+        bit_nr      =3D intids[i] % BITS_PER_BYTE;
-+
-+        /*
-+         * For contiguously allocated LPIs chances are we just read
-+         * this very same byte in the last iteration. Reuse that.
-+         */
-+        if ( byte_offset !=3D last_byte_offset )
-+        {
-+            ret =3D access_guest_memory_by_gpa(vcpu->domain,
-+                                             pendbase + byte_offset, &pend=
-mask,
-+                                             1, false);
-+            if ( ret )
-+            {
-+                xfree(intids);
-+                return ret;
-+            }
-+            last_byte_offset =3D byte_offset;
-+        }
-+
-+        irq =3D vgic_get_irq(vcpu->domain, NULL, intids[i]);
-+        spin_lock_irqsave(&irq->irq_lock, flags);
-+        irq->pending_latch =3D pendmask & (1U << bit_nr);
-+        vgic_queue_irq_unlock(vcpu->domain, irq, flags);
-+        vgic_put_irq(vcpu->domain, irq);
-+    }
-+
-+    xfree(intids);
-+
-+    return ret;
-+}
-+
-+static unsigned long vgic_mmio_read_its_typer(struct domain *d,
-+                                              struct vgic_its *its,
-+                                              paddr_t addr, unsigned int l=
-en)
-+{
-+    const struct vgic_its_abi *abi =3D vgic_its_get_abi(its);
-+    u64 reg                        =3D GITS_TYPER_PHYSICAL;
-+
-+    /*
-+     * We use linear CPU numbers for redistributor addressing,
-+     * so GITS_TYPER.PTA is 0.
-+     * Also we force all PROPBASER registers to be the same, so
-+     * CommonLPIAff is 0 as well.
-+     * To avoid memory waste in the guest, we keep the number of IDBits an=
-d
-+     * DevBits low - as least for the time being.
-+     */
-+    reg |=3D GIC_ENCODE_SZ(VITS_TYPER_DEVBITS, 5) << GITS_TYPER_DEVIDS_SHI=
-FT;
-+    reg |=3D GIC_ENCODE_SZ(VITS_TYPER_IDBITS, 5) << GITS_TYPER_IDBITS_SHIF=
-T;
-+    reg |=3D GIC_ENCODE_SZ(abi->ite_esz, 4) << GITS_TYPER_ITT_SIZE_SHIFT;
-+
-+    return extract_bytes(reg, addr & 7, len);
-+}
-+
-+static u64 vgic_sanitise_its_baser(u64 reg)
-+{
-+    reg =3D vgic_sanitise_field(reg, GITS_BASER_SHAREABILITY_MASK,
-+                              GITS_BASER_SHAREABILITY_SHIFT,
-+                              vgic_sanitise_shareability);
-+    reg =3D vgic_sanitise_field(reg, GITS_BASER_INNER_CACHEABILITY_MASK,
-+                              GITS_BASER_INNER_CACHEABILITY_SHIFT,
-+                              vgic_sanitise_inner_cacheability);
-+    reg =3D vgic_sanitise_field(reg, GITS_BASER_OUTER_CACHEABILITY_MASK,
-+                              GITS_BASER_OUTER_CACHEABILITY_SHIFT,
-+                              vgic_sanitise_outer_cacheability);
-+
-+    /* We support only one (ITS) page size: 64K */
-+    reg =3D (reg & ~GITS_BASER_PAGE_SIZE_MASK) | GITS_BASER_PAGE_SIZE_64K;
-+
-+    return reg;
-+}
-+
-+static u64 vgic_sanitise_its_cbaser(u64 reg)
-+{
-+    reg =3D vgic_sanitise_field(reg, GITS_CBASER_SHAREABILITY_MASK,
-+                              GITS_CBASER_SHAREABILITY_SHIFT,
-+                              vgic_sanitise_shareability);
-+    reg =3D vgic_sanitise_field(reg, GITS_CBASER_INNER_CACHEABILITY_MASK,
-+                              GITS_CBASER_INNER_CACHEABILITY_SHIFT,
-+                              vgic_sanitise_inner_cacheability);
-+    reg =3D vgic_sanitise_field(reg, GITS_CBASER_OUTER_CACHEABILITY_MASK,
-+                              GITS_CBASER_OUTER_CACHEABILITY_SHIFT,
-+                              vgic_sanitise_outer_cacheability);
-+
-+    /* Sanitise the physical address to be 64k aligned. */
-+    reg &=3D ~GENMASK_ULL(15, 12);
-+
-+    return reg;
-+}
-+
-+static unsigned long vgic_mmio_read_its_cbaser(struct domain *d,
-+                                               struct vgic_its *its,
-+                                               paddr_t addr, unsigned int =
-len)
-+{
-+    return extract_bytes(its->cbaser, addr & 7, len);
-+}
-+
-+static void vgic_mmio_write_its_cbaser(struct domain *d, struct vgic_its *=
-its,
-+                                       paddr_t addr, unsigned int len,
-+                                       unsigned long val)
-+{
-+    /* When GITS_CTLR.Enable is 1, this register is RO. */
-+    if ( its->enabled )
-+        return;
-+
-+    spin_lock(&its->cmd_lock);
-+    its->cbaser =3D update_64bit_reg(its->cbaser, addr & 7, len, val);
-+    its->cbaser =3D vgic_sanitise_its_cbaser(its->cbaser);
-+    its->creadr =3D 0;
-+    /*
-+     * CWRITER is architecturally UNKNOWN on reset, but we need to reset
-+     * it to CREADR to make sure we start with an empty command buffer.
-+     */
-+    its->cwriter =3D its->creadr;
-+    spin_unlock(&its->cmd_lock);
-+}
-+
-+static unsigned long vgic_mmio_read_its_cwriter(struct domain *d,
-+                                                struct vgic_its *its,
-+                                                paddr_t addr, unsigned int=
- len)
-+{
-+    return extract_bytes(its->cwriter, addr & 0x7, len);
-+}
-+
-+/*
-+ * By writing to CWRITER the guest announces new commands to be processed.
-+ * To avoid any races in the first place, we take the its_cmd lock, which
-+ * protects our ring buffer variables, so that there is only one user
-+ * per ITS handling commands at a given time.
-+ */
-+static void vgic_mmio_write_its_cwriter(struct domain *d, struct vgic_its =
-*its,
-+                                        paddr_t addr, unsigned int len,
-+                                        unsigned long val)
-+{
-+    u64 reg;
-+
-+    if ( !its )
-+        return;
-+
-+    spin_lock(&its->cmd_lock);
-+
-+    reg =3D update_64bit_reg(its->cwriter, addr & 7, len, val);
-+    reg =3D ITS_CMD_OFFSET(reg);
-+    if ( reg >=3D ITS_CMD_BUFFER_SIZE(its->cbaser) )
-+    {
-+        spin_unlock(&its->cmd_lock);
-+        return;
-+    }
-+    its->cwriter =3D reg;
-+
-+    vgic_its_process_commands(d, its);
-+
-+    spin_unlock(&its->cmd_lock);
-+}
-+
-+static unsigned long vgic_mmio_read_its_creadr(struct domain *d,
-+                                               struct vgic_its *its,
-+                                               paddr_t addr, unsigned int =
-len)
-+{
-+    return extract_bytes(its->creadr, addr & 0x7, len);
-+}
-+
-+#define BASER_INDEX(addr) (((addr) / sizeof(u64)) & 0x7)
-+
-+static unsigned long vgic_mmio_read_its_baser(struct domain *d,
-+                                              struct vgic_its *its,
-+                                              paddr_t addr, unsigned int l=
-en)
-+{
-+    uint64_t reg;
-+
-+    switch ( BASER_INDEX(addr) )
-+    {
-+    case 0:
-+        reg =3D its->baser_device_table;
-+        break;
-+    case 1:
-+        reg =3D its->baser_coll_table;
-+        break;
-+    default:
-+        reg =3D 0;
-+        break;
-+    }
-+
-+    return extract_bytes(reg, addr & 7, len);
-+}
-+
-+#define GITS_BASER_RO_MASK (GENMASK_ULL(52, 48) | GENMASK_ULL(58, 56))
-+
-+static void vgic_mmio_write_its_baser(struct domain *d, struct vgic_its *i=
-ts,
-+                                      paddr_t addr, unsigned int len,
-+                                      unsigned long val)
-+{
-+    const struct vgic_its_abi *abi =3D vgic_its_get_abi(its);
-+    u64 entry_size, table_type;
-+    u64 reg, *regptr, clearbits =3D 0;
-+
-+    /* When GITS_CTLR.Enable is 1, we ignore write accesses. */
-+    if ( its->enabled )
-+        return;
-+
-+    switch ( BASER_INDEX(addr) )
-+    {
-+    case 0:
-+        regptr     =3D &its->baser_device_table;
-+        entry_size =3D abi->dte_esz;
-+        table_type =3D GITS_BASER_TYPE_DEVICE;
-+        break;
-+    case 1:
-+        regptr     =3D &its->baser_coll_table;
-+        entry_size =3D abi->cte_esz;
-+        table_type =3D GITS_BASER_TYPE_COLLECTION;
-+        clearbits  =3D GITS_BASER_INDIRECT;
-+        break;
-+    default:
-+        return;
-+    }
-+
-+    reg =3D update_64bit_reg(*regptr, addr & 7, len, val);
-+    reg &=3D ~GITS_BASER_RO_MASK;
-+    reg &=3D ~clearbits;
-+
-+    reg |=3D (entry_size - 1) << GITS_BASER_ENTRY_SIZE_SHIFT;
-+    reg |=3D table_type << GITS_BASER_TYPE_SHIFT;
-+    reg     =3D vgic_sanitise_its_baser(reg);
-+
-+    *regptr =3D reg;
-+
-+    if ( !(reg & GITS_BASER_VALID) )
-+    {
-+        /* Take the its_lock to prevent a race with a save/restore */
-+        spin_lock(&its->its_lock);
-+        switch ( table_type )
-+        {
-+        case GITS_BASER_TYPE_DEVICE:
-+            vgic_its_free_device_list(d, its);
-+            break;
-+        case GITS_BASER_TYPE_COLLECTION:
-+            vgic_its_free_collection_list(d, its);
-+            break;
-+        }
-+        spin_unlock(&its->its_lock);
-+    }
-+}
-+
-+static unsigned long vgic_mmio_read_its_idregs(struct domain *d,
-+                                               struct vgic_its *its,
-+                                               paddr_t addr, unsigned int =
-len)
-+{
-+    switch ( addr & 0xffff )
-+    {
-+    case GITS_PIDR0:
-+        return 0x92; /* part number, bits[7:0] */
-+    case GITS_PIDR1:
-+        return 0xb4; /* part number, bits[11:8] */
-+    case GITS_PIDR2:
-+        return GIC_PIDR2_ARCH_GICv3 | 0x0b;
-+    case GITS_PIDR4:
-+        return 0x40; /* This is a 64K software visible page */
-+    /* The following are the ID registers for (any) GIC. */
-+    case GITS_CIDR0:
-+        return 0x0d;
-+    case GITS_CIDR1:
-+        return 0xf0;
-+    case GITS_CIDR2:
-+        return 0x05;
-+    case GITS_CIDR3:
-+        return 0xb1;
-+    }
-+
-+    return 0;
-+}
-+
-+static void its_mmio_write_wi(struct domain *d, struct vgic_its *its,
-+                              paddr_t addr, unsigned int len, unsigned lon=
-g val)
-+{
-+    /* Ignore */
-+}
-+
-+#define REGISTER_ITS_DESC(off, rd, wr, length, acc)                       =
-     \
-+    {                                                                     =
-     \
-+        .reg_offset =3D off, .len =3D length, .access_flags =3D acc, .its_=
-read =3D rd, \
-+        .its_write =3D wr,                                                =
-       \
-+    }
-+
-+static struct vgic_register_region its_registers[] =3D {
-+    REGISTER_ITS_DESC(GITS_CTLR, vgic_mmio_read_its_ctlr,
-+                      vgic_mmio_write_its_ctlr, 4, VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_IIDR, vgic_mmio_read_its_iidr, its_mmio_write_w=
-i, 4,
-+                      VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_TYPER, vgic_mmio_read_its_typer, its_mmio_write=
-_wi,
-+                      8, VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_CBASER, vgic_mmio_read_its_cbaser,
-+                      vgic_mmio_write_its_cbaser, 8,
-+                      VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_CWRITER, vgic_mmio_read_its_cwriter,
-+                      vgic_mmio_write_its_cwriter, 8,
-+                      VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_CREADR, vgic_mmio_read_its_creadr, its_mmio_wri=
-te_wi,
-+                      8, VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_BASER0, vgic_mmio_read_its_baser,
-+                      vgic_mmio_write_its_baser, 0x40,
-+                      VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-+    REGISTER_ITS_DESC(GITS_IDREGS_BASE, vgic_mmio_read_its_idregs,
-+                      its_mmio_write_wi, 0x30, VGIC_ACCESS_32bit),
-+};
-+
-+/* This is called on setting the LPI enable bit in the redistributor. */
-+void vgic_enable_lpis(struct vcpu *vcpu)
-+{
-+    if ( !(vcpu->arch.vgic.pendbaser & GICR_PENDBASER_PTZ) )
-+        its_sync_lpi_pending_table(vcpu);
-+}
-+
-+static int vgic_register_its_iodev(struct domain *d, struct vgic_its *its,
-+                                   u64 addr)
-+{
-+    struct vgic_io_device *iodev =3D &its->iodev;
-+    int ret                      =3D 0;
-+
-+    if ( !IS_VGIC_ADDR_UNDEF(its->vgic_its_base) )
-+    {
-+        ret =3D -EBUSY;
-+        goto out;
-+    }
-+
-+    its->vgic_its_base    =3D addr;
-+    its->doorbell_address =3D addr + ITS_DOORBELL_OFFSET;
-+    iodev->regions        =3D its_registers;
-+    iodev->nr_regions     =3D ARRAY_SIZE(its_registers);
-+
-+    iodev->base_fn        =3D gaddr_to_gfn(its->vgic_its_base);
-+    iodev->iodev_type     =3D IODEV_ITS;
-+    iodev->its            =3D its;
-+    register_mmio_handler(d, &vgic_io_ops, its->vgic_its_base, VGIC_V3_ITS=
-_SIZE,
-+                          iodev);
-+out:
-+    return ret;
-+}
-+
-+/* Default is 16 cached LPIs per vcpu */
-+#define LPI_DEFAULT_PCPU_CACHE_SIZE 16
-+
-+void vgic_lpi_translation_cache_init(struct domain *d)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    unsigned int sz;
-+    int i;
-+
-+    if ( !list_empty(&dist->lpi_translation_cache) )
-+        return;
-+
-+    sz =3D d->max_vcpus * LPI_DEFAULT_PCPU_CACHE_SIZE;
-+
-+    for ( i =3D 0; i < sz; i++ )
-+    {
-+        struct vgic_translation_cache_entry *cte;
-+
-+        /* An allocation failure is not fatal */
-+        cte =3D xzalloc(struct vgic_translation_cache_entry);
-+        if ( WARN_ON(!cte) )
-+            break;
-+
-+        INIT_LIST_HEAD(&cte->entry);
-+        list_add(&cte->entry, &dist->lpi_translation_cache);
-+    }
-+}
-+
-+void vgic_lpi_translation_cache_destroy(struct domain *d)
-+{
-+    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_translation_cache_entry *cte, *tmp;
-+
-+    vgic_its_invalidate_cache(d);
-+
-+    list_for_each_entry_safe(cte, tmp, &dist->lpi_translation_cache, entry=
-)
-+    {
-+        list_del(&cte->entry);
-+        xfree(cte);
-+    }
-+}
-+
-+#define INITIAL_BASER_VALUE                                               =
-     \
-+    (GIC_BASER_CACHEABILITY(GITS_BASER, INNER, RaWb) |                    =
-     \
-+     GIC_BASER_CACHEABILITY(GITS_BASER, OUTER, SameAsInner) |             =
-     \
-+     GIC_BASER_SHAREABILITY(GITS_BASER, InnerShareable) |                 =
-     \
-+     GITS_BASER_PAGE_SIZE_64K)
-+
-+#define INITIAL_PROPBASER_VALUE                                           =
-     \
-+    (GIC_BASER_CACHEABILITY(GICR_PROPBASER, INNER, RaWb) |                =
-     \
-+     GIC_BASER_CACHEABILITY(GICR_PROPBASER, OUTER, SameAsInner) |         =
-     \
-+     GIC_BASER_SHAREABILITY(GICR_PROPBASER, InnerShareable))
-+
-+static int vgic_its_create(struct domain *d, u64 addr)
-+{
-+    struct vgic_its *its;
-+    const struct vgic_its_abi *abi;
-+
-+    its =3D xzalloc(struct vgic_its);
-+    if ( !its )
-+        return -ENOMEM;
-+
-+    d->arch.vgic.its =3D its;
-+
-+    vgic_lpi_translation_cache_init(d);
-+
-+    spin_lock_init(&its->its_lock);
-+    spin_lock_init(&its->cmd_lock);
-+
-+    its->vgic_its_base =3D VGIC_ADDR_UNDEF;
-+
-+    INIT_LIST_HEAD(&its->device_list);
-+    INIT_LIST_HEAD(&its->collection_list);
-+    spin_lock_init(&d->arch.vgic.its_devices_lock);
-+    d->arch.vgic.its_devices        =3D RB_ROOT;
-+
-+    d->arch.vgic.msis_require_devid =3D true;
-+    d->arch.vgic.has_its            =3D true;
-+    its->enabled                    =3D false;
-+    its->domain                     =3D d;
-+
-+    its->baser_device_table =3D INITIAL_BASER_VALUE | ((u64)GITS_BASER_TYP=
-E_DEVICE
-+                                                     << GITS_BASER_TYPE_SH=
-IFT);
-+    its->baser_coll_table =3D
-+        INITIAL_BASER_VALUE |
-+        ((u64)GITS_BASER_TYPE_COLLECTION << GITS_BASER_TYPE_SHIFT);
-+    d->arch.vgic.propbaser =3D INITIAL_PROPBASER_VALUE;
-+
-+    vgic_register_its_iodev(d, its, addr);
-+
-+    vgic_its_set_abi(its, NR_ITS_ABIS - 1);
-+    abi =3D vgic_its_get_abi(its);
-+    its->baser_coll_table &=3D ~GITS_BASER_ENTRY_SIZE_MASK;
-+    its->baser_device_table &=3D ~GITS_BASER_ENTRY_SIZE_MASK;
-+
-+    its->baser_coll_table |=3D
-+        (GIC_ENCODE_SZ(abi->cte_esz, 5) << GITS_BASER_ENTRY_SIZE_SHIFT);
-+
-+    its->baser_device_table |=3D
-+        (GIC_ENCODE_SZ(abi->dte_esz, 5) << GITS_BASER_ENTRY_SIZE_SHIFT);
-+
-+    its->doorbell_address =3D addr + ITS_DOORBELL_OFFSET;
-+
-+    return 0;
-+}
-+
-+/*
-+ * For a hardware domain, this will iterate over the host ITSes
-+ * and map one virtual ITS per host ITS at the same address.
-+ */
-+int vgic_v3_its_init_domain(struct domain *d)
-+{
-+    int ret;
-+
-+    if ( is_hardware_domain(d) )
-+    {
-+        struct host_its *hw_its;
-+
-+        list_for_each_entry(hw_its, &host_its_list, entry)
-+        {
-+            /*
-+             * For each host ITS create a virtual ITS using the same
-+             * base and thus doorbell address.
-+             * Use the same number of device ID and event ID bits as the h=
-ost.
-+             */
-+            ret =3D vgic_its_create(d, hw_its->addr);
-+            if ( ret )
-+                return ret;
-+            else
-+                d->arch.vgic.has_its =3D true;
-+        }
-+    }
-+
-+    return 0;
-+}
-+
-+void vgic_v3_its_free_domain(struct domain *d)
-+{
-+    struct vgic_its *its =3D d->arch.vgic.its;
-+
-+    spin_lock(&its->its_lock);
-+
-+    vgic_its_free_device_list(d, its);
-+    vgic_its_free_collection_list(d, its);
-+
-+    spin_unlock(&its->its_lock);
-+    xfree(its);
-+    d->arch.vgic.its =3D NULL;
-+}
-diff --git a/xen/arch/arm/vgic/vgic-mmio-v3.c b/xen/arch/arm/vgic/vgic-mmio=
--v3.c
-index 4ec6d910af..ed81761572 100644
---- a/xen/arch/arm/vgic/vgic-mmio-v3.c
-+++ b/xen/arch/arm/vgic/vgic-mmio-v3.c
-@@ -417,6 +417,40 @@ static unsigned long vgic_mmio_read_v3r_ctlr(struct vc=
-pu *vcpu, paddr_t addr,
-     return val;
- }
-=20
-+static void vgic_mmio_write_v3r_ctlr(struct vcpu *vcpu, paddr_t addr,
-+                                     unsigned int len, unsigned long val)
++void vgic_v3_fold_lr_state(struct vcpu *vcpu)
 +{
 +    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
-+    uint32_t ctlr;
++    unsigned int used_lrs     =3D vcpu->arch.vgic.used_lrs;
++    unsigned long flags;
++    unsigned int lr;
 +
-+    if ( !vgic_has_its(vcpu->domain) )
++    if ( !used_lrs ) /* No LRs used, so nothing to sync back here. */
 +        return;
 +
-+    if ( !(val & GICR_CTLR_ENABLE_LPIS) )
++    gic_hw_ops->update_hcr_status(GICH_HCR_UIE, false);
++
++    for ( lr =3D 0; lr < used_lrs; lr++ )
 +    {
++        struct gic_lr lr_val;
++        uint32_t intid;
++        struct vgic_irq *irq;
++        struct irq_desc *desc =3D NULL;
++
++        gic_hw_ops->read_lr(lr, &lr_val);
++
 +        /*
-+		 * Don't disable if RWP is set, as there already an
-+		 * ongoing disable. Funky guest...
-+		 */
-+        ctlr =3D atomic_cmpxchg(&vgic_cpu->ctlr, GICR_CTLR_ENABLE_LPIS,
-+                              GICR_CTLR_RWP);
-+        if ( ctlr !=3D GICR_CTLR_ENABLE_LPIS )
-+            return;
++         * TODO: Possible optimization to avoid reading LRs:
++         * Read the ELRSR to find out which of our LRs have been cleared
++         * by the guest. We just need to know the IRQ number for those, wh=
+ich
++         * we could save in an array when populating the LRs.
++         * This trades one MMIO access (ELRSR) for possibly more than one =
+(LRs),
++         * but requires some more code to save the IRQ number and to handl=
+e
++         * those finished IRQs according to the algorithm below.
++         * We need some numbers to justify this: chances are that we don't
++         * have many LRs in use most of the time, so we might not save muc=
+h.
++         */
++        gic_hw_ops->clear_lr(lr);
 +
-+        vgic_flush_pending_lpis(vcpu);
-+        vgic_its_invalidate_cache(vcpu->domain);
-+        atomic_set(&vgic_cpu->ctlr, 0);
-+    }
-+    else
-+    {
-+        ctlr =3D atomic_cmpxchg(&vgic_cpu->ctlr, 0, GICR_CTLR_ENABLE_LPIS)=
-;
-+        if ( ctlr !=3D 0 )
-+            return;
++        intid =3D lr_val.virq;
++        irq   =3D vgic_get_irq(vcpu->domain, vcpu, intid);
 +
-+        vgic_enable_lpis(vcpu);
-+    }
-+}
++        local_irq_save(flags);
 +
- bool vgic_lpis_enabled(struct vcpu *vcpu)
- {
-     struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
-@@ -575,6 +609,59 @@ static unsigned long vgic_mmio_read_sync(struct vcpu *=
-vcpu, paddr_t addr,
-     return !!atomic_read(&vcpu->arch.vgic.syncr_busy);
- }
-=20
-+static void vgic_set_rdist_busy(struct vcpu *vcpu, bool busy)
-+{
-+    if ( busy )
-+    {
-+        atomic_inc(&vcpu->arch.vgic.syncr_busy);
-+        smp_mb__after_atomic();
-+    }
-+    else
-+    {
-+        smp_mb__before_atomic();
-+        atomic_dec(&vcpu->arch.vgic.syncr_busy);
-+    }
-+}
++        /*
++         * We check this here without taking the lock, because the locking
++         * order forces us to do so. irq->hw is a "write-once" member, so
++         * whenever we read true, the associated hardware IRQ will not go
++         * away anymore.
++         * TODO: rework this if possible, either by using the desc pointer
++         * directly in struct vgic_irq or by changing the locking order.
++         * Especially if we ever drop the assumption above.
++         */
++        if ( irq->hw )
++        {
++            desc =3D irq_to_desc(irq->hwintid);
++            spin_lock(&desc->lock);
++        }
 +
-+static void vgic_mmio_write_invlpi(struct vcpu *vcpu, paddr_t addr,
-+                                   unsigned int len, unsigned long val)
-+{
-+    struct vgic_irq *irq;
++        spin_lock(&irq->irq_lock);
 +
-+    /*
-+	 * If the guest wrote only to the upper 32bit part of the
-+	 * register, drop the write on the floor, as it is only for
-+	 * vPEs (which we don't support for obvious reasons).
-+	 *
-+	 * Also discard the access if LPIs are not enabled.
-+	 */
-+    if ( (addr & 4) || !vgic_lpis_enabled(vcpu) )
-+        return;
++        /*
++         * If a hardware mapped IRQ has been handled for good, we need to
++         * clear the _IRQ_INPROGRESS bit to allow handling of new IRQs.
++         *
++         * TODO: This is probably racy, but is so already in the existing
++         * VGIC. A fix does not seem to be trivial.
++         */
++        if ( irq->hw && !lr_val.active && !lr_val.pending )
++            clear_bit(_IRQ_INPROGRESS, &desc->status);
 +
-+    vgic_set_rdist_busy(vcpu, true);
++        /* Always preserve the active bit */
++        irq->active =3D lr_val.active;
 +
-+    irq =3D vgic_get_irq(vcpu->domain, NULL, val & 0xffffffff);
-+    if ( irq )
-+    {
-+        vgic_its_inv_lpi(vcpu->domain, irq);
++        /* Edge is the only case where we preserve the pending bit */
++        if ( irq->config =3D=3D VGIC_CONFIG_EDGE && lr_val.pending )
++        {
++            irq->pending_latch =3D true;
++
++            if ( vgic_irq_is_sgi(intid) )
++                irq->source |=3D (1U << lr_val.virt.source);
++        }
++
++        /* Clear soft pending state when level irqs have been acked. */
++        if ( irq->config =3D=3D VGIC_CONFIG_LEVEL && !lr_val.pending )
++            irq->pending_latch =3D false;
++
++        /*
++         * Level-triggered mapped IRQs are special because we only
++         * observe rising edges as input to the VGIC.
++         *
++         * If the guest never acked the interrupt we have to sample
++         * the physical line and set the line level, because the
++         * device state could have changed or we simply need to
++         * process the still pending interrupt later.
++         *
++         * If this causes us to lower the level, we have to also clear
++         * the physical active state, since we will otherwise never be
++         * told when the interrupt becomes asserted again.
++         */
++        if ( vgic_irq_is_mapped_level(irq) && lr_val.pending )
++        {
++            ASSERT(irq->hwintid >=3D VGIC_NR_PRIVATE_IRQS);
++
++            irq->line_level =3D gic_read_pending_state(desc);
++
++            if ( !irq->line_level )
++                gic_set_active_state(desc, false);
++        }
++
++        spin_unlock(&irq->irq_lock);
++        if ( desc )
++            spin_unlock(&desc->lock);
++        local_irq_restore(flags);
++
 +        vgic_put_irq(vcpu->domain, irq);
 +    }
 +
-+    vgic_set_rdist_busy(vcpu, false);
++    gic_hw_ops->update_hcr_status(GICH_HCR_EN, false);
++    vgic_cpu->used_lrs =3D 0;
 +}
 +
-+static void vgic_mmio_write_invall(struct vcpu *vcpu, paddr_t addr,
-+                                   unsigned int len, unsigned long val)
++/* Requires the irq to be locked already */
++void vgic_v3_populate_lr(struct vcpu *vcpu, struct vgic_irq *irq, int lr)
 +{
-+    /* See vgic_mmio_write_invlpi() for the early return rationale */
-+    if ( (addr & 4) || !vgic_lpis_enabled(vcpu) )
-+        return;
++    struct gic_lr lr_val =3D { 0 };
 +
-+    vgic_set_rdist_busy(vcpu, true);
-+    vgic_its_invall(vcpu);
-+    vgic_set_rdist_busy(vcpu, false);
++    lr_val.virq          =3D irq->intid;
++
++    if ( irq_is_pending(irq) )
++    {
++        lr_val.pending =3D true;
++
++        if ( irq->config =3D=3D VGIC_CONFIG_EDGE )
++            irq->pending_latch =3D false;
++
++        if ( vgic_irq_is_sgi(irq->intid) &&
++             vcpu->domain->arch.vgic.version =3D=3D VGIC_V2 )
++        {
++            uint32_t src =3D ffs(irq->source);
++
++            BUG_ON(!src);
++            lr_val.virt.source =3D (src - 1);
++            irq->source &=3D ~(1 << (src - 1));
++            if ( irq->source )
++                irq->pending_latch =3D true;
++        }
++    }
++
++    lr_val.active =3D irq->active;
++
++    if ( irq->hw )
++    {
++        lr_val.hw_status =3D true;
++        lr_val.hw.pirq   =3D irq->hwintid;
++        /*
++         * Never set pending+active on a HW interrupt, as the
++         * pending state is kept at the physical distributor
++         * level.
++         */
++        if ( irq->active && irq_is_pending(irq) )
++            lr_val.pending =3D false;
++    }
++    else
++    {
++        if ( irq->config =3D=3D VGIC_CONFIG_LEVEL )
++            lr_val.virt.eoi =3D true;
++    }
++
++    /*
++     * Level-triggered mapped IRQs are special because we only observe
++     * rising edges as input to the VGIC.  We therefore lower the line
++     * level here, so that we can take new virtual IRQs.  See
++     * vgic_v2_fold_lr_state for more info.
++     */
++    if ( vgic_irq_is_mapped_level(irq) && lr_val.pending )
++        irq->line_level =3D false;
++
++    /* The GICv2 LR only holds five bits of priority. */
++    lr_val.priority =3D irq->priority >> 3;
++
++    gic_hw_ops->write_lr(lr, &lr_val);
 +}
 +
- static const struct vgic_register_region vgic_v3_dist_registers[] =3D {
-     REGISTER_DESC_WITH_LENGTH(GICD_CTLR,
-         vgic_mmio_read_v3_misc, vgic_mmio_write_v3_misc,
-@@ -626,7 +713,7 @@ static const struct vgic_register_region vgic_v3_dist_r=
-egisters[] =3D {
- static const struct vgic_register_region vgic_v3_rd_registers[] =3D {
-     /* RD_base registers */
-     REGISTER_DESC_WITH_LENGTH(GICR_CTLR,
--        vgic_mmio_read_v3r_ctlr, vgic_mmio_write_wi, 4,
-+        vgic_mmio_read_v3r_ctlr, vgic_mmio_write_v3r_ctlr, 4,
-         VGIC_ACCESS_32bit),
-     REGISTER_DESC_WITH_LENGTH(GICR_STATUSR,
-         vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
-@@ -647,10 +734,10 @@ static const struct vgic_register_region vgic_v3_rd_r=
-egisters[] =3D {
-         vgic_mmio_read_pendbase, vgic_mmio_write_pendbase, 8,
-         VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-     REGISTER_DESC_WITH_LENGTH(GICR_INVLPIR,
--        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
-+        vgic_mmio_read_raz, vgic_mmio_write_invlpi, 8,
-         VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-     REGISTER_DESC_WITH_LENGTH(GICR_INVALLR,
--        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
-+        vgic_mmio_read_raz, vgic_mmio_write_invall, 8,
-         VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-     REGISTER_DESC_WITH_LENGTH(GICR_SYNCR,
-         vgic_mmio_read_sync, vgic_mmio_write_wi, 4,
-diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
-index a96a7f8d96..e89b579bee 100644
---- a/xen/arch/arm/vgic/vgic-mmio.c
-+++ b/xen/arch/arm/vgic/vgic-mmio.c
-@@ -585,6 +585,9 @@ static int dispatch_mmio_read(struct vcpu *vcpu, mmio_i=
-nfo_t *info,
-     case IODEV_REDIST:
-         data =3D region->read(iodev->redist_vcpu, addr, len);
-         break;
-+    case IODEV_ITS:
-+        data =3D region->its_read(vcpu->domain, iodev->its, addr, len);;
-+        break;
-     }
-=20
-     memcpy(r, &data, len);
-@@ -613,6 +616,9 @@ static int dispatch_mmio_write(struct vcpu *vcpu, mmio_=
-info_t *info,
-     case IODEV_REDIST:
-         region->write(iodev->redist_vcpu, addr, len, data);
-         break;
-+    case IODEV_ITS:
-+        region->its_write(vcpu->domain, iodev->its, addr, len, data);;
-+        break;
-     }
-=20
-     return 1;
-diff --git a/xen/arch/arm/vgic/vgic-mmio.h b/xen/arch/arm/vgic/vgic-mmio.h
-index c38ef51e6b..421f7751d8 100644
---- a/xen/arch/arm/vgic/vgic-mmio.h
-+++ b/xen/arch/arm/vgic/vgic-mmio.h
-@@ -21,10 +21,21 @@ struct vgic_register_region {
-     unsigned int len;
-     unsigned int bits_per_irq;
-     unsigned int access_flags;
++static bool vgic_v3_redist_region_full(struct vgic_redist_region *region)
++{
++    if ( !region->count )
++        return false;
 +
-+    union {
-     unsigned long (*read)(struct vcpu *vcpu, paddr_t addr,
-                           unsigned int len);
-+    unsigned long (*its_read)(struct domain *d, struct vgic_its *its,
-+                    paddr_t addr, unsigned int len);
-+    };
++    return (region->free_index >=3D region->count);
++}
 +
-+    union {
-     void (*write)(struct vcpu *vcpu, paddr_t addr,
-                   unsigned int len, unsigned long val);
-+    void (*its_write)(struct domain *d, struct vgic_its *its,
-+                paddr_t addr, unsigned int len,
-+                unsigned long val);
-+    };
- };
++/**
++ * vgic_v3_rdist_free_slot - Look up registered rdist regions and identify=
+ one
++ * which has free space to put a new rdist region.
++ *
++ * @rd_regions: redistributor region list head
++ *
++ * A redistributor regions maps n redistributors, n =3D region size / (2 x=
+ 64kB).
++ * Stride between redistributors is 0 and regions are filled in the index =
+order.
++ *
++ * Return: the redist region handle, if any, that has space to map a new r=
+dist
++ * region.
++ */
++struct vgic_redist_region *vgic_v3_rdist_free_slot(struct list_head *rd_re=
+gions)
++{
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, rd_regions, list)
++    {
++        if ( !vgic_v3_redist_region_full(rdreg) )
++            return rdreg;
++    }
++    return NULL;
++}
++
++unsigned int vgic_v3_max_rdist_count(const struct domain *d)
++{
++    /*
++     * Normally there is only one GICv3 redistributor region.
++     * The GICv3 DT binding provisions for multiple regions, since there a=
+re
++     * platforms out there which need those (multi-socket systems).
++     * For domain using the host memory layout, we have to live with the M=
+MIO
++     * layout the hardware provides, so we have to copy the multiple regio=
+ns
++     * - as the first region may not provide enough space to hold all
++     * redistributors we need.
++     * All the other domains will get a constructed memory map, so we can =
+go
++     * with the architected single redistributor region.
++     */
++    return domain_use_host_layout(d) ? vgic_v3_hw_data.nr_rdist_regions
++                                     : GUEST_GICV3_RDIST_REGIONS;
++}
++
++int vgic_register_redist_iodev(struct vcpu *vcpu);
++
++void vgic_v3_enable(struct vcpu *vcpu)
++{
++    /* Get the show on the road... */
++    vgic_register_redist_iodev(vcpu);
++    gic_hw_ops->update_hcr_status(GICH_HCR_EN, true);
++}
++
++int vgic_v3_lpi_sync_pending_status(struct domain *d, struct vgic_irq *irq=
+)
++{
++    struct vcpu *vcpu;
++    int byte_offset, bit_nr;
++    paddr_t pendbase, ptr;
++    bool status;
++    u8 val;
++    int ret;
++    unsigned long flags;
++
++retry:
++    vcpu =3D irq->target_vcpu;
++    if ( !vcpu )
++        return 0;
++
++    pendbase    =3D GICR_PENDBASER_ADDRESS(vcpu->arch.vgic.pendbaser);
++
++    byte_offset =3D irq->intid / BITS_PER_BYTE;
++    bit_nr      =3D irq->intid % BITS_PER_BYTE;
++    ptr         =3D pendbase + byte_offset;
++
++    ret         =3D access_guest_memory_by_gpa(d, ptr, &val, 1, false);
++    if ( ret )
++        return ret;
++
++    status =3D val & (1 << bit_nr);
++
++    spin_lock_irqsave(&irq->irq_lock, flags);
++    if ( irq->target_vcpu !=3D vcpu )
++    {
++        spin_unlock_irqrestore(&irq->irq_lock, flags);
++        goto retry;
++    }
++    irq->pending_latch =3D status;
++    vgic_queue_irq_unlock(vcpu->domain, irq, flags);
++
++    if ( status )
++    {
++        /* clear consumed data */
++        val &=3D ~(1 << bit_nr);
++        ret =3D access_guest_memory_by_gpa(d, ptr, &val, 1, true);
++        if ( ret )
++            return ret;
++    }
++    return 0;
++}
++
++int vgic_v3_map_resources(struct domain *d)
++{
++    int rdist_count, i, ret;
++
++    /* Allocate memory for Re-distributor regions */
++    rdist_count =3D vgic_v3_max_rdist_count(d);
++
++    /*
++     * For domain using the host memory layout, it gets the hardware
++     * address.
++     * Other domains get the virtual platform layout.
++     */
++    if ( domain_use_host_layout(d) )
++    {
++        d->arch.vgic.dbase =3D vgic_v3_hw_data.dbase;
++
++        for ( i =3D 0; i < vgic_v3_hw_data.nr_rdist_regions; i++ )
++        {
++            vgic_v3_set_redist_base(d, i, vgic_v3_hw_data.regions[i].base,
++                                    vgic_v3_hw_data.regions[i].size /
++                                        GICV3_GICR_SIZE);
++        }
++    }
++    else
++    {
++        d->arch.vgic.dbase =3D GUEST_GICV3_GICD_BASE;
++
++        /* A single Re-distributor region is mapped for the guest. */
++        BUILD_BUG_ON(GUEST_GICV3_RDIST_REGIONS !=3D 1);
++
++        /* The first redistributor should contain enough space for all CPU=
+s */
++        BUILD_BUG_ON((GUEST_GICV3_GICR0_SIZE / GICV3_GICR_SIZE) <
++                     MAX_VIRT_CPUS);
++        vgic_v3_set_redist_base(d, 0, GUEST_GICV3_GICR0_BASE,
++                                GUEST_GICV3_GICR0_SIZE / GICV3_GICR_SIZE);
++    }
++
++    /* Register mmio handle for the Distributor */
++    ret =3D
++        vgic_register_dist_iodev(d, gaddr_to_gfn(d->arch.vgic.dbase), VGIC=
+_V3);
++
++    d->arch.vgic.ready =3D true;
++
++    return 0;
++}
+diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
+index b9463a5f27..05e6af4384 100644
+--- a/xen/arch/arm/vgic/vgic.c
++++ b/xen/arch/arm/vgic/vgic.c
+@@ -151,6 +151,28 @@ void vgic_put_irq(struct domain *d, struct vgic_irq *i=
+rq)
+     xfree(irq);
+ }
 =20
- extern struct mmio_handler_ops vgic_io_ops;
++void vgic_flush_pending_lpis(struct vcpu *vcpu)
++{
++    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
++    struct vgic_irq *irq, *tmp;
++    unsigned long flags;
++
++    spin_lock_irqsave(&vgic_cpu->ap_list_lock, flags);
++
++    list_for_each_entry_safe(irq, tmp, &vgic_cpu->ap_list_head, ap_list)
++    {
++        if ( irq->intid >=3D VGIC_MIN_LPI )
++        {
++            spin_lock(&irq->irq_lock);
++            list_del(&irq->ap_list);
++            irq->vcpu =3D NULL;
++            spin_unlock(&irq->irq_lock);
++            vgic_put_irq(vcpu->domain, irq);
++        }
++    }
++
++    spin_unlock_irqrestore(&vgic_cpu->ap_list_lock, flags);
++}
+ /**
+  * vgic_target_oracle() - compute the target vcpu for an irq
+  * @irq:    The irq to route. Must be already locked.
+@@ -520,7 +542,14 @@ retry:
+=20
+ static void vgic_fold_lr_state(struct vcpu *vcpu)
+ {
+-    vgic_v2_fold_lr_state(vcpu);
++    if ( vcpu->domain->arch.vgic.version =3D=3D GIC_V2 )
++    {
++        vgic_v2_fold_lr_state(vcpu);
++    }
++    else
++    {
++        vgic_v3_fold_lr_state(vcpu);
++    }
+ }
+=20
+ /* Requires the irq_lock to be held. */
+@@ -529,7 +558,14 @@ static void vgic_populate_lr(struct vcpu *vcpu,
+ {
+     ASSERT(spin_is_locked(&irq->irq_lock));
+=20
+-    vgic_v2_populate_lr(vcpu, irq, lr);
++    if ( vcpu->domain->arch.vgic.version =3D=3D GIC_V2 )
++    {
++        vgic_v2_populate_lr(vcpu, irq, lr);
++    }
++    else
++    {
++        vgic_v3_populate_lr(vcpu, irq, lr);
++    }
+ }
+=20
+ static void vgic_set_underflow(struct vcpu *vcpu)
+@@ -851,9 +887,13 @@ struct irq_desc *vgic_get_hw_irq_desc(struct domain *d=
+, struct vcpu *v,
+=20
+ bool vgic_emulate(struct cpu_user_regs *regs, union hsr hsr)
+ {
+-    ASSERT(current->domain->arch.vgic.version =3D=3D GIC_V3);
+-
+-    return false;
++    switch ( current->domain->arch.vgic.version )
++    {
++    case GIC_V3:
++        return vgic_v3_emulate_reg(regs, hsr);
++    default:
++        return false;
++    }
+ }
+=20
+ /*
+@@ -950,6 +990,8 @@ unsigned int vgic_max_vcpus(unsigned int domctl_vgic_ve=
+rsion)
+     {
+     case XEN_DOMCTL_CONFIG_GIC_V2:
+         return VGIC_V2_MAX_CPUS;
++    case XEN_DOMCTL_CONFIG_GIC_V3:
++        return VGIC_V3_MAX_CPUS;
+=20
+     default:
+         return 0;
+@@ -957,14 +999,6 @@ unsigned int vgic_max_vcpus(unsigned int domctl_vgic_v=
+ersion)
+ }
+=20
+ #ifdef CONFIG_GICV3
+-/* Dummy implementation to allow building without actual vGICv3 support. *=
+/
+-void vgic_v3_setup_hw(paddr_t dbase,
+-                      unsigned int nr_rdist_regions,
+-                      const struct rdist_region *regions,
+-                      unsigned int intid_bits)
+-{
+-    panic("New VGIC implementation does not yet support GICv3\n");
+-}
+ #endif
+=20
+ /*
+diff --git a/xen/arch/arm/vgic/vgic.h b/xen/arch/arm/vgic/vgic.h
+index c6bc3509a5..aca977a5c9 100644
+--- a/xen/arch/arm/vgic/vgic.h
++++ b/xen/arch/arm/vgic/vgic.h
+@@ -68,7 +68,53 @@ int vgic_v2_map_resources(struct domain *d);
+ int vgic_register_dist_iodev(struct domain *d, gfn_t dist_base_fn,
+                              enum vgic_type);
+=20
+-#endif
++#ifdef CONFIG_GICV3
++void vgic_v3_fold_lr_state(struct vcpu *vcpu);
++void vgic_v3_populate_lr(struct vcpu *vcpu, struct vgic_irq *irq, int lr);
++void vgic_v3_enable(struct vcpu *vcpu);
++int vgic_v3_map_resources(struct domain *d);
++bool vgic_v3_emulate_reg(struct cpu_user_regs *regs, union hsr hsr);
++int vgic_v3_lpi_sync_pending_status(struct domain *d, struct vgic_irq *irq=
+);
++bool vgic_lpis_enabled(struct vcpu *vcpu);
++u64 vgic_sanitise_field(u64 reg, u64 field_mask, int field_shift,
++			u64 (*sanitise_fn)(u64));
++u64 vgic_sanitise_shareability(u64 field);
++u64 vgic_sanitise_inner_cacheability(u64 field);
++u64 vgic_sanitise_outer_cacheability(u64 field);
++unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *dev);
++#else
++static inline void vgic_v3_fold_lr_state(struct vcpu *vcpu)
++{
++}
++static inline void vgic_v3_populate_lr(struct vcpu *vcpu, struct vgic_irq =
+*irq, int lr)
++{
++}
++static inline void vgic_v3_enable(struct vcpu *vcpu)
++{
++}
++static inline int vgic_v3_map_resources(struct domain *d)
++{
++    return 0;
++}
++static inline bool vgic_v3_emulate_reg(struct cpu_user_regs *regs, union h=
+sr hsr)
++{
++    return false;
++}
++static inline int vgic_v3_lpi_sync_pending_status(struct domain *d, struct=
+ vgic_irq *irq)
++{
++    return 0;
++}
++static inline bool vgic_lpis_enabled(struct vcpu *vcpu)
++{
++    return false;
++}
++static inline unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *=
+dev)
++{
++    return 0;
++}
++#endif /* CONFIG_GICV3 */
++
++#endif /* __XEN_ARM_VGIC_VGIC_H__ */
+=20
+ /*
+  * Local variables:
 --=20
 2.34.1
 
