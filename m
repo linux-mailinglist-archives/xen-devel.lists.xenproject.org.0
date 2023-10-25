@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCA4F7D744D
+	by mail.lfdr.de (Postfix) with ESMTPS id 627AC7D744A
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:30:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623191.970809 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.623189.970786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjZt-0001q5-6R; Wed, 25 Oct 2023 19:30:05 +0000
+	id 1qvjZp-0000rC-Ab; Wed, 25 Oct 2023 19:30:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623191.970809; Wed, 25 Oct 2023 19:30:05 +0000
+Received: by outflank-mailman (output) from mailman id 623189.970786; Wed, 25 Oct 2023 19:30:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvjZs-0001mj-UP; Wed, 25 Oct 2023 19:30:04 +0000
-Received: by outflank-mailman (input) for mailman id 623191;
- Wed, 25 Oct 2023 19:30:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvjZp-0000nC-6o; Wed, 25 Oct 2023 19:30:01 +0000
+Received: by outflank-mailman (input) for mailman id 623189;
+ Wed, 25 Oct 2023 19:30:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xaZJ=GH=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1qvjZr-0001Lv-5e
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:30:03 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e27fa6c8-736c-11ee-9b0e-b553b5be7939;
+ id 1qvjZo-0000YO-9i
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:30:00 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3020824-736c-11ee-98d5-6d05b1d4d9a1;
  Wed, 25 Oct 2023 21:29:59 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-53e3b8f906fso97551a12.2
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-9c41e95efcbso18816966b.3
  for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 12:29:59 -0700 (PDT)
 Received: from edvint-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- hv6-20020a17090760c600b00985ed2f1584sm10408710ejc.187.2023.10.25.12.29.57
+ hv6-20020a17090760c600b00985ed2f1584sm10408710ejc.187.2023.10.25.12.29.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Oct 2023 12:29:57 -0700 (PDT)
+ Wed, 25 Oct 2023 12:29:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,33 +45,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e27fa6c8-736c-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: e3020824-736c-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1698262198; x=1698866998; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1698262199; x=1698866999; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/A/ZtRiyebqcEugV20RrAicCfJuzgWaLmL2OdhFzID8=;
-        b=iGK4fpP2GLTiW/3k9ajlXfm6NcidMdRUgjNXW4VZKN7sX37tkBbqSujxdpG61O7DKC
-         L+Yec4mpB+7S7V0DTeqYC+FD9L13FYZMAq0kd1L++tuF+RrrmjVgmrlRzouDx9DigsrJ
-         +nsSSLOlGDUof1c4u33KJ68PYJpyumkl0uSBM=
+        bh=JrcsVy0ZByqiAlrS1akx4lL5x1WkgTDXRbWzt5j813o=;
+        b=hVoroQ6tWMxBlKGwSdRt4kMqYqbR41L9fMbrOC3kLOVVzduVp0PFBCQafhMRs3R/y1
+         Vj+zoj3WdYHl2DSk2Y79aQsceDE93GARJbUBsz/DqAuF4YIiSVLpUpvIZd3qLbyZ+2BU
+         cT9TrB04ZmsCv88oBX22OKLnf6Lc5QmvFFYyw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698262198; x=1698866998;
+        d=1e100.net; s=20230601; t=1698262199; x=1698866999;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=/A/ZtRiyebqcEugV20RrAicCfJuzgWaLmL2OdhFzID8=;
-        b=XdybLkpFsGrUYeU/q7csb7GXdz8DottBhECHjgpXJFCjKxu976GOQar77i1+qMC44B
-         g2D0M6gCxBFimHYA/16zQy21qm2+xldOaGlxycekiH7uYS8rdff02/p4CW3AZjLW4yex
-         XkDOSKarJgNsIeLFH6rcAHdjXAs1v8jr79Me2JJS0o8g+uQI41/AuYj0SEOkrqEc7U+z
-         NP6HB0NURNh74bMpDLjTgl69oZwFOBHKxsE3q/P2I0GOjs05BuTXj9DHxNR/8TrVVPBG
-         wxdMXz1d4MGxYCbjSmqUTYdwdpf0pkVVVRn0Fpp+eXuyfUIH7pK9FVFLQDmXgwW+Ti1l
-         lZ3w==
-X-Gm-Message-State: AOJu0YxOF+1q/HmvCTJxbEcMNJ+D6YU/jlzStzu/NY7vGOr8naYZpkan
-	bJvjT71cQLtBNGGbmNdVGZyaG+hg4T2lcuQqP3c6UFSb
-X-Google-Smtp-Source: AGHT+IEzv3+OZXF7rpkTdLtgQRfAeXrM3F1CjoGpIFODMCInYL1OGkCIJ/S/jPBsn4pEyCpibdOo+w==
-X-Received: by 2002:a17:907:720f:b0:9ae:6a60:81a2 with SMTP id dr15-20020a170907720f00b009ae6a6081a2mr11358501ejc.25.1698262198095;
-        Wed, 25 Oct 2023 12:29:58 -0700 (PDT)
+        bh=JrcsVy0ZByqiAlrS1akx4lL5x1WkgTDXRbWzt5j813o=;
+        b=In+GAR6brLj8K0LRnAsGqWb0Id+ol2toIGX0cj1ij7QH99hgPzSIdIbZHaUF/0m3n3
+         kgDm22wbH2R4cnA0TXCDlVVSB+qZjTZQK8NBuYHt5t0O20kTwyzAmH0xiUBpLte0uHoA
+         rFunKuZ9NKh5V5+4jjoqVpZUlgbwTIrAOLb4++6YmGs3s72wkOFPSyh8wnp2u4MJlA62
+         Ib9b0BuCeH6iwHuK1nrMoRBQ6JT+FSHJRdNnhajnvqOafivP0419z5xoxZlsWpyizqaZ
+         /e4xw1/Q/0aSxJsFKu9U0+9UAe2NR36jSp1S3knXqtfVDqlaMe1AV4GlDFlqa7gppm2/
+         DisQ==
+X-Gm-Message-State: AOJu0YxRAZGgPx57uW2usjHYsF3Yq4KEMXOfaXPxlB/UMERPCjnNYkiy
+	hadaxdENcXtBvj6mOEQ7wBiaH4Xe5ezbJZzrPMuBSlNi
+X-Google-Smtp-Source: AGHT+IGKTzxUPC3TG6HAPPdbQQjreKqAMCHWDhPK8X0X8xM75TxTylLa1twuiHYjeQGjKJanjBsI+Q==
+X-Received: by 2002:a17:907:320a:b0:9ba:2a5:75c5 with SMTP id xg10-20020a170907320a00b009ba02a575c5mr12366802ejb.75.1698262199318;
+        Wed, 25 Oct 2023 12:29:59 -0700 (PDT)
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>,
@@ -79,9 +79,9 @@ Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [RFC PATCH 01/22] x86/msr: MSR_PLATFORM_INFO shouldn't claim that turbo is programmable
-Date: Wed, 25 Oct 2023 20:29:31 +0100
-Message-Id: <17a99e1da838a2edeeffa5a988e22c6fcb31406b.1698261255.git.edwin.torok@cloud.com>
+Subject: [RFC PATCH 02/22] x86/msr: implement MSR_SMI_COUNT for Dom0 on Intel
+Date: Wed, 25 Oct 2023 20:29:32 +0100
+Message-Id: <9d950b3c5502b5fb5fad62845b56b15d1bacc2d6.1698261255.git.edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1698261255.git.edwin.torok@cloud.com>
 References: <cover.1698261255.git.edwin.torok@cloud.com>
@@ -91,61 +91,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Edwin Török <edvin.torok@citrix.com>
 
-Xen forbids writes to the various turbo control MSRs, however MSR_PLATFORM_INFO claims that these MSRs are writable.
-Override MSR_PLATFORM_INFO bits to indicate lack of support.
+Dom0 should always be able to read this MSR: it is useful when
+investigating performance issues in production.
+Although the count is Thread scoped, in practice all cores were observed
+to return the same count (perhaps due to implementation details of SMM),
+so do not require the cpu to be pinned in order to read it.
 
-See Intel SDM Volume 4, 2.17.6 "MSRs Introduced in the Intel Xeon Scaslable Processor Family",
-which describes that MSR_PLATFORM_INFO.[28] = 1 implies that MSR_TURBO_RATIO_LIMIT is R/W,
-and similarly bit 29 for TDP control, and bit 30 for MSR_TEMPERATURE_TARGET.
+This MSR exists on Intel since Nehalem.
 
-These bits were not all present on earlier processors, however where missing the bits were reserved,
-and when present they are always present in the same bits.
-
-(Curiously bit 31 that Xen uses is not documented anywhere in this manual but a separate one).
-
-Backport: 4.0+
+Backport: 4.15+
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
- xen/arch/x86/cpu-policy.c            | 8 ++++++++
- xen/include/xen/lib/x86/cpu-policy.h | 5 ++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ xen/arch/x86/include/asm/msr-index.h | 3 +++
+ xen/arch/x86/msr.c                   | 7 +++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 81e574390f..64c8857a61 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -407,6 +407,14 @@ static void __init calculate_host_policy(void)
-     /* 0x000000ce  MSR_INTEL_PLATFORM_INFO */
-     /* probe_cpuid_faulting() sanity checks presence of MISC_FEATURES_ENABLES */
-     p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
-+
-+    /* Xen denies write access to turbo control MSRs, however natively the CPU may support them
-+       and advertise those MSRs as writable by having bits 28 to 30 set to 1 in MSR_PLATFORM_INFO.
-+       Set these bits to 0 to avoid confusing guests on the availability of turbo controls.
-+    */
-+    p->platform_info.programmable_ratio_turbo = 0;
-+    p->platform_info.programmable_tdp_turbo = 0;
-+    p->platform_info.programmable_tj_offset = 0;
- }
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 82a81bd0a2..2853a276ca 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -641,6 +641,9 @@
+ #define MSR_NHL_LBR_SELECT		0x000001c8
+ #define MSR_NHL_LASTBRANCH_TOS		0x000001c9
  
- static void __init guest_common_max_feature_adjustments(uint32_t *fs)
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index bab3eecda6..70479689f2 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -339,7 +339,10 @@ struct cpu_policy
-     union {
-         uint32_t raw;
-         struct {
--            uint32_t :31;
-+            uint32_t :28;
-+            bool programmable_ratio_turbo:1;
-+            bool programmable_tdp_turbo:1;
-+            bool programmable_tj_offset:1;
-             bool cpuid_faulting:1;
-         };
-     } platform_info;
++/* Nehalem and newer other MSRs */
++#define MSR_SMI_COUNT                       0x00000034
++
+ /* Skylake (and newer) last-branch recording */
+ #define MSR_SKL_LASTBRANCH_0_FROM_IP	0x00000680
+ #define MSR_SKL_LASTBRANCH_0_TO_IP	0x000006c0
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index c33dc78cd8..0bf6d263e7 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -139,6 +139,13 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+         *val = msrs->misc_features_enables.raw;
+         break;
+ 
++    case MSR_SMI_COUNT:
++        if ( cp->x86_vendor != X86_VENDOR_INTEL )
++            goto gp_fault;
++        if ( is_hardware_domain(d) && !rdmsr_safe(msr, *val) )
++            break;
++        return X86EMUL_UNHANDLEABLE;
++
+     case MSR_P5_MC_ADDR:
+     case MSR_P5_MC_TYPE:
+     case MSR_IA32_MCG_CAP     ... MSR_IA32_MCG_CTL:      /* 0x179 -> 0x17b */
 -- 
 2.41.0
 
