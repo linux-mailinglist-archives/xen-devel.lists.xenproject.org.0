@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9C87D73AA
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 20:57:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623171.970737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3F07D73CF
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 21:03:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623175.970747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvj3l-0001hx-Ts; Wed, 25 Oct 2023 18:56:53 +0000
+	id 1qvj9Y-0003F7-G8; Wed, 25 Oct 2023 19:02:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623171.970737; Wed, 25 Oct 2023 18:56:53 +0000
+Received: by outflank-mailman (output) from mailman id 623175.970747; Wed, 25 Oct 2023 19:02:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvj3l-0001g3-Pv; Wed, 25 Oct 2023 18:56:53 +0000
-Received: by outflank-mailman (input) for mailman id 623171;
- Wed, 25 Oct 2023 18:56:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvj9Y-0003CN-Ce; Wed, 25 Oct 2023 19:02:52 +0000
+Received: by outflank-mailman (input) for mailman id 623175;
+ Wed, 25 Oct 2023 19:02:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iZwN=GH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qvj3k-0001fx-6D
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 18:56:52 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 417fab26-7368-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 20:56:50 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-538e8eca9c1so43130a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Oct 2023 11:56:50 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- gy5-20020a0564025bc500b0053d9cb67248sm9782173edb.18.2023.10.25.11.56.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Oct 2023 11:56:50 -0700 (PDT)
+ <SRS0=LJSz=GH=casper.srs.infradead.org=BATV+85b1c44ac99574f3713d+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qvj9W-0003CH-RV
+ for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 19:02:50 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1619fb1a-7369-11ee-9b0e-b553b5be7939;
+ Wed, 25 Oct 2023 21:02:47 +0200 (CEST)
+Received: from [2001:8b0:10b:5:5bd0:63a6:23b2:1881]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qvj9E-00AT4n-7V; Wed, 25 Oct 2023 19:02:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,211 +41,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 417fab26-7368-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698260210; x=1698865010; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:references:cc:to:content-language
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=JF5ca7+x0sfEieU/HtiRgSR4K9/JiGdvljdjrfAmMDg=;
-        b=V2x3jDmgzDe6iqpCFj3gUicpfvhoHw+ckCKokgwcyx40SxDJh+yvR856l0mbSBgXyC
-         2QLX7zLVxxsV8qu0ogBWQYLMubefE/Bn7/0ujonHWDyOGKl4xHmJcI6OvWr/2qC+Uvtp
-         DjZ0irDG2U/Jl8nUfARW+P1mPXdcRMJXRbLFY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698260210; x=1698865010;
-        h=in-reply-to:autocrypt:from:references:cc:to:content-language
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JF5ca7+x0sfEieU/HtiRgSR4K9/JiGdvljdjrfAmMDg=;
-        b=tzUY0BENQ47eolal3+Lu0/zCK2Q/ka0bjHNkgfmXC07k8iMyIz1wUN2NiMDJ9aDWQG
-         sXuDJbgQB57FTawiUUjstUAwBlvXQCjk50Fu6Z5oNmRvZcy++DsroXFqLw0aCS/+QsRP
-         3Jnqfww71AaBmvGABwMWwJuDdvdz2f9EmyHkofJMWckdBcmyrDbnYW66ZD28OsP2HHAP
-         SvFW7Pbv3e9RgH6wr9Dthpi5mspqMYpoDTbC7nDBZCyL4GtHkrY/67cEGiSgeAb8+iRl
-         DUwrla3A6q8U56lcVH8Jg08Pbq8U1fvvcZiqXTiMjolQU5soCoMrPDzFLuDWYVAbYoDu
-         MLqg==
-X-Gm-Message-State: AOJu0YzdiCr53bkwLIcvc+HDnioewmnoV7j1D9ZNQr2klAtp+SnK7nJ0
-	iOh/LgGy8yJygI6OYX27rLg8LA==
-X-Google-Smtp-Source: AGHT+IFxH1j7TKw+zrvE7NCB/3vXZZrLnWl0t3N2wKXEX65s3P/uyzFzibytV4tFS6LlcMIDzGoFgw==
-X-Received: by 2002:a05:6402:5188:b0:53e:7eca:5650 with SMTP id q8-20020a056402518800b0053e7eca5650mr14140934edd.13.1698260210346;
-        Wed, 25 Oct 2023 11:56:50 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------FpeNP3Ap5IjP2UdppoSTSNsb"
-Message-ID: <21e8a265-bf5a-464c-86bc-f0fd7b5eb108@citrix.com>
-Date: Wed, 25 Oct 2023 19:56:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: 1619fb1a-7369-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=RNbldFeH9RXvhlMpBkxoU3qDnF569sj7HrRIMA2FfyY=; b=GOLQM5YAVN8ONSWs9Bl6R+Z4Ah
+	yK2FLDGqcaIZ6VnC7cGLY2E2nuNoBWTMLBYZvI3yOPlp/rc+1Zy8aI4k7z/s+KCbHEKWQ8O/EtvPf
+	iCSB/q8wsmSh7Apb+xVZTET359Eib0ftTLVGDZ9RSeyexHId2vBbICP0edzIsKysw6GZ1EEnYgIqd
+	PwnYZiTJdXoU2rhxIIfLWxzZdYFQCZH+2amLL63+0a2NveAd/KbE39TGA7cGoQlbn71ESHSU7ljeY
+	COiALHuWH6uOWxhU1mb0wHFa4opjQzbB09HWKb02vFvmZ7WPRzm4dn6dHy9rgTlRjUcB+94vMnWh3
+	9mCXC32A==;
+Message-ID: <0f7a176064f2b351576ab5d31a3a8e921cca4212.camel@infradead.org>
 Subject: Re: [PATCH v3 28/28] docs: update Xen-on-KVM documentation
-Content-Language: en-GB
-To: David Woodhouse <dwmw2@infradead.org>, Eric Blake <eblake@redhat.com>
-Cc: qemu-devel@nongnu.org, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?=
- <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Jason Wang <jasowang@redhat.com>,
- Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Eric Blake <eblake@redhat.com>
+Cc: qemu-devel@nongnu.org, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
+ <hreitz@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, Anthony
+ Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+ =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>, Paolo
+ Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Jason Wang <jasowang@redhat.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ qemu-block@nongnu.org,  xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, Bernhard Beschow <shentey@gmail.com>, Joel Upham
+ <jupham125@gmail.com>
+Date: Wed, 25 Oct 2023 20:02:31 +0100
+In-Reply-To: <21e8a265-bf5a-464c-86bc-f0fd7b5eb108@citrix.com>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
- <20231025145042.627381-29-dwmw2@infradead.org>
- <6vbpkrebc7fpypbv2t7jbs7m3suxwbqqykeomzfxpenjj2sogd@rphcppcl4inl>
- <4a10a50e5469480a82cb993dedbff10c3d777082.camel@infradead.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <4a10a50e5469480a82cb993dedbff10c3d777082.camel@infradead.org>
+	 <20231025145042.627381-29-dwmw2@infradead.org>
+	 <6vbpkrebc7fpypbv2t7jbs7m3suxwbqqykeomzfxpenjj2sogd@rphcppcl4inl>
+	 <4a10a50e5469480a82cb993dedbff10c3d777082.camel@infradead.org>
+	 <21e8a265-bf5a-464c-86bc-f0fd7b5eb108@citrix.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-Fy7YuKjiqJwaUXFo/l80"
+User-Agent: Evolution 3.44.4-0ubuntu2 
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-This is a multi-part message in MIME format.
---------------FpeNP3Ap5IjP2UdppoSTSNsb
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 25/10/2023 7:26 pm, David Woodhouse wrote:
-> On Wed, 2023-10-25 at 13:20 -0500, Eric Blake wrote:
->> On Wed, Oct 25, 2023 at 03:50:42PM +0100, David Woodhouse wrote:
->>> +
->>> +Booting Xen PV guests
->>> +---------------------
->>> +
->>> +Booting PV guest kernels is possible by using the Xen PV shim (a version of Xen
->>> +itself, designed to run inside a Xen HVM guest and provide memory management
->>> +services for one guest alone).
->>> +
->>> +The Xen binary is provided as the ``-kernel`` and the guest kernel itself (or
->>> +PV Grub image) as the ``-initrd`` image, which actually just means the first
->>> +multiboot "module". For example:
->>> +
->>> +.. parsed-literal::
->>> +
->>> +  |qemu_system| --accel kvm,xen-version=0x40011,kernel-irqchip=split \\
->>> +       -chardev stdio,id=char0 -device xen-console,chardev=char0 \\
->>> +       -display none  -m 1G  -kernel xen -initrd bzImage \\
->>> +       -append "pv-shim console=xen,pv -- console=hvc0 root=/dev/xvda1" \\
->>> +       -drive file=${GUEST_IMAGE},if=xen
->> Is the space between -- and console= intentionsl?
-> Yes, that one is correct. The -- is how you separate Xen's command line
-> (on the left) from the guest kernel command line (on the right).
+--=-Fy7YuKjiqJwaUXFo/l80
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-To expand on this a bit.
+On Wed, 2023-10-25 at 19:56 +0100, Andrew Cooper wrote:
+> On 25/10/2023 7:26 pm, David Woodhouse wrote:
+> =C2=A0
+> > On Wed, 2023-10-25 at 13:20 -0500, Eric Blake wrote:
+> > =C2=A0
+> > > On Wed, Oct 25, 2023 at 03:50:42PM +0100, David Woodhouse wrote:
+> > =C2=A0
+> > > =C2=A0
+> > > > +
+> > > > +Booting Xen PV guests
+> > > > +---------------------
+> > > > +
+> > > > +Booting PV guest kernels is possible by using the Xen PV shim (a v=
+ersion of Xen
+> > > > +itself, designed to run inside a Xen HVM guest and provide memory =
+management
+> > > > +services for one guest alone).
+> > > > +
+> > > > +The Xen binary is provided as the ``-kernel`` and the guest kernel=
+ itself (or
+> > > > +PV Grub image) as the ``-initrd`` image, which actually just means=
+ the first
+> > > > +multiboot "module". For example:
+> > > > +
+> > > > +.. parsed-literal::
+> > > > +
+> > > > +=C2=A0 |qemu_system| --accel kvm,xen-version=3D0x40011,kernel-irqc=
+hip=3Dsplit \\
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -chardev stdio,id=3Dchar0 -de=
+vice xen-console,chardev=3Dchar0 \\
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -display none=C2=A0 -m 1G=C2=
+=A0 -kernel xen -initrd bzImage \\
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -append "pv-shim console=3Dxe=
+n,pv -- console=3Dhvc0 root=3D/dev/xvda1" \\
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -drive file=3D${GUEST_IMAGE},=
+if=3Dxen
+> > > Is the space between -- and console=3D intentionsl?
+> > Yes, that one is correct. The -- is how you separate Xen's command line
+> > (on the left) from the guest kernel command line (on the right).
+> =C2=A0
+> =C2=A0To expand on this a bit.
+> =C2=A0
+> =C2=A0Multiboot1 supports multiple modules but only a single command
+> line.=C2=A0 As one of the modules passed to Xen is the dom0 kernel, we
+> need some way to pass it's command line, hence the " -- ".
+> =C2=A0
+> =C2=A0Multiboot2 and PVH support a command line per module, which is the
+> preferred way to pass the commandlines, given a choice.
+> =C2=A0
 
-Multiboot1 supports multiple modules but only a single command line.  As
-one of the modules passed to Xen is the dom0 kernel, we need some way to
-pass it's command line, hence the " -- ".
+Thanks.
 
-Multiboot2 and PVH support a command line per module, which is the
-preferred way to pass the commandlines, given a choice.
+Indeed, I had *originally* thought I was going to need to implement
+Multiboot2 in qemu in order to boot Shim + PV guest, but it turns out
+we can make it work with just Multiboot1 support.
 
-~Andrew
---------------FpeNP3Ap5IjP2UdppoSTSNsb
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+As long as the guest kernel doesn't want an *actual* initrd, that is ;)
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 25/10/2023 7:26 pm, David Woodhouse
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:4a10a50e5469480a82cb993dedbff10c3d777082.camel@infradead.org">
-      <pre class="moz-quote-pre" wrap="">On Wed, 2023-10-25 at 13:20 -0500, Eric Blake wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On Wed, Oct 25, 2023 at 03:50:42PM +0100, David Woodhouse wrote:<span
-        style="white-space: pre-wrap">
-</span></pre>
-      </blockquote>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">+
-+Booting Xen PV guests
-+---------------------
-+
-+Booting PV guest kernels is possible by using the Xen PV shim (a version of Xen
-+itself, designed to run inside a Xen HVM guest and provide memory management
-+services for one guest alone).
-+
-+The Xen binary is provided as the ``-kernel`` and the guest kernel itself (or
-+PV Grub image) as the ``-initrd`` image, which actually just means the first
-+multiboot "module". For example:
-+
-+.. parsed-literal::
-+
-+  |qemu_system| --accel kvm,xen-version=0x40011,kernel-irqchip=split \\
-+       -chardev stdio,id=char0 -device xen-console,chardev=char0 \\
-+       -display none  -m 1G  -kernel xen -initrd bzImage \\
-+       -append "pv-shim console=xen,pv -- console=hvc0 root=/dev/xvda1" \\
-+       -drive file=${GUEST_IMAGE},if=xen
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Is the space between -- and console= intentionsl?
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Yes, that one is correct. The -- is how you separate Xen's command line
-(on the left) from the guest kernel command line (on the right).</pre>
-    </blockquote>
-    <br>
-    To expand on this a bit.<br>
-    <br>
-    Multiboot1 supports multiple modules but only a single command
-    line.  As one of the modules passed to Xen is the dom0 kernel, we
-    need some way to pass it's command line, hence the " -- ".<br>
-    <br>
-    Multiboot2 and PVH support a command line per module, which is the
-    preferred way to pass the commandlines, given a choice.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
 
---------------FpeNP3Ap5IjP2UdppoSTSNsb--
+--=-Fy7YuKjiqJwaUXFo/l80
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI1MTkwMjMxWjAvBgkqhkiG9w0BCQQxIgQgUuqj1cYj
+QfF6xg6PxqoniLN3SeWIqUBhQkdyhXy4d0Iwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAsFmCHRPHQOvGFW7h8uvsCqx5qgo4ArbjB
+A1VFNFch0q45HUE7kB/HBjV7822gb78w55EZ849mRQJ7cUFgT1On5nwB8kG8wOvTzGjij3IlkaUE
+B7bj4YsbbQh5BQWKVhGyHZZskx7Gg+ZH+x9VncUB6v3a/IvVUB4I+RXmiIs4jHwbIsarRuXC2WjA
+JkgPQdSySsINV6+mQb1GmGbzBx9nRFXQHKs1Qveju2QiI30VhnstwyoOUGDR9IoYtKtaV7pwrHbE
+37O+oGUXaMtLGOuDMByJXBYYyEI5CarR5pAE6PhP3y7oXvh6Gs/ltBYA9zCEBZeT+xThok3VbDci
+MODgoD+HAa8Dr4Ojj2NxRf56HBeaPNJUz2OKYM8CJGO8C90Db6dPzBLKhu2Jq2fD97iRZKjMwsOB
+voyzNjnSoByd0ng24KDNBHzFZ4497MrJd3yYNfxRwt9gXJio+3mCVJGcZN1dqjxKHTOa1pcRkjSo
+VZp35qlFkd6J/JUhaMJ5cSLB/vrVsm3MBl5pp0eWET67fw+MtyXdc44TYBoaiU9JTq04KNBVKRjE
+hbQ/Y4EsYRG8M/6pd2yhrE2tNlI82rGTTmyBnHMfse/Q9zBZ0Pw13FsbgXPEzragEkfgyJ3rw2IQ
+0oriupkx09aNafY+jo5zGJDdJWgu46QDA7cT5mDBMgAAAAAAAA==
+
+
+--=-Fy7YuKjiqJwaUXFo/l80--
 
