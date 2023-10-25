@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BD137D6E5B
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:05:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.622930.970227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6BA07D6E62
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Oct 2023 16:05:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.622934.970237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qveV8-0003tj-RI; Wed, 25 Oct 2023 14:04:50 +0000
+	id 1qveVu-0004ZH-4Y; Wed, 25 Oct 2023 14:05:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 622930.970227; Wed, 25 Oct 2023 14:04:50 +0000
+Received: by outflank-mailman (output) from mailman id 622934.970237; Wed, 25 Oct 2023 14:05:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qveV8-0003qZ-ON; Wed, 25 Oct 2023 14:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 622930;
- Wed, 25 Oct 2023 14:04:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kl7N=GH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qveV7-0003pC-Ai
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 14:04:49 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75217559-733f-11ee-98d5-6d05b1d4d9a1;
- Wed, 25 Oct 2023 16:04:48 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id AE4324EE073A;
- Wed, 25 Oct 2023 16:04:47 +0200 (CEST)
+	id 1qveVu-0004WK-1Z; Wed, 25 Oct 2023 14:05:38 +0000
+Received: by outflank-mailman (input) for mailman id 622934;
+ Wed, 25 Oct 2023 14:05:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qveVs-0004Vw-ID; Wed, 25 Oct 2023 14:05:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qveVs-0002nK-Ah; Wed, 25 Oct 2023 14:05:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1qveVr-0005MH-US; Wed, 25 Oct 2023 14:05:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1qveVr-0005Fx-Tf; Wed, 25 Oct 2023 14:05:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,96 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75217559-733f-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=e2jUspQSdCMRX4UV/V1wgNCaCJKGwwSOy6ao8lYRvBA=; b=OnDry4POM3yoGyqbL058PTD7H0
+	ZfTCwOomDOviEC7esD/1cw/THes7+LR64zjx1qyHLtejza64UYFXcSgXtZsBn0Ko9Qoi5ESJs/heU
+	hDFhR3U8QBroUIw20y05T+6ModeZpF8x4ZJbZj0GTDGfGcyuREuJiXV4qpZE1p+uBGJI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183524-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Wed, 25 Oct 2023 16:04:47 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
- <jbeulich@suse.com>
-Cc: Jan Beulich <jbeulich@suse.com>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>, Jun
- Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19 v4 3/8] x86: add deviation comments for
- asm-only functions
-In-Reply-To: <alpine.DEB.2.22.394.2310241249080.271731@ubuntu-linux-20-04-desktop>
-References: <cover.1698053876.git.nicola.vetrini@bugseng.com>
- <36d24b3a3e264f0e0b265b4f68d6432a143d64cd.1698053876.git.nicola.vetrini@bugseng.com>
- <a8370e98-1cb6-8fde-9458-e579047dd607@suse.com>
- <2d92ef1f753165e2fa9cc7c04c219217@bugseng.com>
- <52422128-156d-5d6c-46b2-261b1c7e85c0@suse.com>
- <734cc13409b44f709649895d76d388e2@bugseng.com>
- <alpine.DEB.2.22.394.2310241249080.271731@ubuntu-linux-20-04-desktop>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <d60e17379fbfdb1288288ee079113a17@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183524: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=1f21e11168dd6a071a92e41ecdffc7cd6e5f3f02
+X-Osstest-Versions-That:
+    ovmf=d85bf54b7f462eb0297351b5f8dfde09adf617fb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 25 Oct 2023 14:05:35 +0000
 
-On 24/10/2023 21:50, Stefano Stabellini wrote:
-> On Tue, 24 Oct 2023, Nicola Vetrini wrote:
->> On 24/10/2023 10:14, Jan Beulich wrote:
->> > On 24.10.2023 10:01, Nicola Vetrini wrote:
->> > > On 24/10/2023 09:50, Jan Beulich wrote:
->> > > > On 23.10.2023 11:56, Nicola Vetrini wrote:
->> > > > > As stated in rules.rst, functions used only in asm code
->> > > > > are allowed to have no prior declaration visible when being
->> > > > > defined, hence these functions are deviated.
->> > > > > This also fixes violations of MISRA C:2012 Rule 8.4.
->> > > > >
->> > > > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> > > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> > > > > ---
->> > > > > Changes in v3:
->> > > > > - added SAF deviations for vmx counterparts to svm functions.
->> > > >
->> > > > Same comment regarding the R-b here as for patch 2.
->> > > >
->> > > > > --- a/xen/arch/x86/hvm/svm/intr.c
->> > > > > +++ b/xen/arch/x86/hvm/svm/intr.c
->> > > > > @@ -123,6 +123,7 @@ static void svm_enable_intr_window(struct vcpu *v,
->> > > > > struct hvm_intack intack)
->> > > > >          vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
->> > > > >  }
->> > > > >
->> > > > > +/* SAF-1-safe */
->> > > > >  void svm_intr_assist(void)
->> > > > >  {
->> > > > >      struct vcpu *v = current;
->> > > >
->> > > > Linux has the concept of "asmlinkage" for functions interfacing C and
->> > > > assembly. Was it considered to use that - even if expanding to nothing
->> > > > for all present architectures - as a way to annotate affected
->> > > > definitions
->> > > > in place of the SAF-*-safe comments?
->> > >
->> > > It was proposed by Julien a while ago (I think it the thread on
->> > > deviations.rst) to define
->> > > a macro asmcall that expands to nothing, to mark all such functions.
->> > > Right now, it's not
->> > > strictly necessary (given that there are already some uses of SAF in
->> > > Stefano's for-4.19 branch.
->> >
->> > Can this then be revisited please before any such reaches staging?
->> >
->> > Jan
->> 
->> I'll let Stefano answer this one.
-> 
-> Yes it can. If Nicola sends new patches I'll make sure to remove the
-> corresponding ones from for-4.19.
-> 
-> Nicola, you might want to send me privately the list of commits to take
-> out from for-4.19.
+flight 183524 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183524/
 
-Actually I checked: the involved SAF comments are already in staging, 
-specifically all
-were part of commit 5a415ef2b24d578d29479e38abda3d5285b9afed
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 1f21e11168dd6a071a92e41ecdffc7cd6e5f3f02
+baseline version:
+ ovmf                 d85bf54b7f462eb0297351b5f8dfde09adf617fb
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Last test of basis   183516  2023-10-24 17:13:56 Z    0 days
+Testing same since   183524  2023-10-25 10:14:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <AbdulLateef.Attar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Ceping Sun <cepingx.sun@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Nickle Wang <nicklew@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d85bf54b7f..1f21e11168  1f21e11168dd6a071a92e41ecdffc7cd6e5f3f02 -> xen-tested-master
 
