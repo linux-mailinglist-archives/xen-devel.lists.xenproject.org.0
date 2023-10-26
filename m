@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B62D77D87AE
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 19:42:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623951.972269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4FE27D887B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 20:41:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623955.972279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw4NP-0001sP-6B; Thu, 26 Oct 2023 17:42:35 +0000
+	id 1qw5Hh-0003jQ-DK; Thu, 26 Oct 2023 18:40:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623951.972269; Thu, 26 Oct 2023 17:42:35 +0000
+Received: by outflank-mailman (output) from mailman id 623955.972279; Thu, 26 Oct 2023 18:40:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw4NP-0001qk-2t; Thu, 26 Oct 2023 17:42:35 +0000
-Received: by outflank-mailman (input) for mailman id 623951;
- Thu, 26 Oct 2023 17:42:33 +0000
+	id 1qw5Hh-0003hk-9A; Thu, 26 Oct 2023 18:40:45 +0000
+Received: by outflank-mailman (input) for mailman id 623955;
+ Thu, 26 Oct 2023 18:40:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ivkI=GI=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1qw4NN-0001qe-UI
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 17:42:33 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0ab02ac8-7427-11ee-98d5-6d05b1d4d9a1;
- Thu, 26 Oct 2023 19:42:32 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40839807e82so7316255e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Oct 2023 10:42:32 -0700 (PDT)
-Received: from smtpclient.apple ([90.243.16.33])
- by smtp.gmail.com with ESMTPSA id
- q9-20020a05600c46c900b004083bc9ac90sm3119104wmo.24.2023.10.26.10.42.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 26 Oct 2023 10:42:32 -0700 (PDT)
+ <SRS0=atUU=GI=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1qw5Hg-0003he-DS
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 18:40:44 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a4dd48c-742f-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 20:40:42 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id A608F82867D9;
+ Thu, 26 Oct 2023 13:40:40 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id GKrOlKkyFSRJ; Thu, 26 Oct 2023 13:40:40 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 13D40828686E;
+ Thu, 26 Oct 2023 13:40:40 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id AUkXFotv5GY5; Thu, 26 Oct 2023 13:40:39 -0500 (CDT)
+Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id 8EA8A82867D9;
+ Thu, 26 Oct 2023 13:40:39 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +51,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ab02ac8-7427-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 2a4dd48c-742f-11ee-98d5-6d05b1d4d9a1
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 13D40828686E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1698342152; x=1698946952; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GRBY+tAoZb/J4M2ctNQ/DZ35UQBlaca1qsKrvfykeKc=;
-        b=SCyOGtGCxMavn6wSxIHfHQ302yt0li07lTrDv5P3q5+ZLTbdduTZb9tLXaU+Hu75EI
-         ACjSKybaaL2lfS5mqB/Y+YqvX9ywJQpqdjzo2YPnY5/NIk2h9YvLCBHe0HdjoTB3mSMM
-         CrR6viPs0HkHio5GBu5c6d+/6zj34ZvnmvlkU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698342152; x=1698946952;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=GRBY+tAoZb/J4M2ctNQ/DZ35UQBlaca1qsKrvfykeKc=;
-        b=Nq9Vd0+7XSusg/SirUrq69X0kqU1prCU8KMPIrQMbtJF1yovKwo3AcG3a8P/GqvUWJ
-         9vehv2jwyTGuBEGHLWxnGnQ/Zlsu5nj0KuK5ppbo/91BunfwVFPis48E11jEpmivrc3r
-         9iVbOSvKtNRRTTzLbdyVlhBA9E0EHjUDP/JXhEIe+36PvLvjHRayYADlbENjDyekbX/X
-         FudMTL68nOpD7o2p3KqSxCsdh6EHo6iE4O4c6vxvMH0BTWLCONzHjx6yTCLoEawmt0se
-         1LfJPo8FX1XnhpSemiGH9S2FX615wX0n2U0+xhg6Ut8XzddaapJx6bbrbsdJkgm4NPtM
-         yKJA==
-X-Gm-Message-State: AOJu0YwjTgY+K/hVIaIue+FhtYAcVfMS3h3EMxTciYTM4BDYLbs2/8dC
-	46Kai+AH/3MxF4sYJX7iH9neyA==
-X-Google-Smtp-Source: AGHT+IFRx/TGnECZAcKm9mY28TMpyzQCkyEktKtfDyKFK9Mkc3Gu08i9d/gKm5gAj79BiPY/T5LO4g==
-X-Received: by 2002:a05:600c:512a:b0:405:19dd:ad82 with SMTP id o42-20020a05600c512a00b0040519ddad82mr562509wms.16.1698342152331;
-        Thu, 26 Oct 2023 10:42:32 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.100.2.1.4\))
-Subject: Re: [PATCH] tools/ocaml/Makefile.rules: use correct C flags when
- compiling OCaml C stubs
-From: Edwin Torok <edwin.torok@cloud.com>
-In-Reply-To: <531503CD-6082-43FE-92AF-FFB9B829B5C5@cloud.com>
-Date: Thu, 26 Oct 2023 18:42:21 +0100
-Cc: =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <5DF59773-9816-42CB-BC89-1CC2EE064CBD@cloud.com>
-References: <fd09742f7c2191be3cdfafbd4c7cccb10eb0e3a2.1698240589.git.edwin.torok@cloud.com>
- <531503CD-6082-43FE-92AF-FFB9B829B5C5@cloud.com>
-To: Christian Lindig <christian.lindig@cloud.com>
-X-Mailer: Apple Mail (2.3774.100.2.1.4)
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1698345640; bh=h4HjbPnCwNrXK1CS8VlcWWEY66J1/tWnBvkHdUy3X8E=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=biCQDRZqXwagJsv+YXvdGi9H2qRPSIYrL3gNRv14JexeoYUoBGM9bskt9k/2QywBU
+	 xJb1zzQW44OGOqjndEaCkXm3IFub7zeZvQDMrlTJXTtMLe4siaapMzW/BAPPqIwqS1
+	 /RsJ+DhpoKjTJXWxsms4gTdyKNkpZqdP/0+DVeeQ=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <b77587ac-0520-18cf-c1da-6ef75867127d@raptorengineering.com>
+Date: Thu, 26 Oct 2023 13:40:38 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v3 2/2] xen/ppc: Implement a basic exception handler
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1698273423.git.sanastasio@raptorengineering.com>
+ <1d875c978caa4ed0b3d038655a39aa0cb0583565.1698273423.git.sanastasio@raptorengineering.com>
+ <6757b3a9-9556-c658-fb01-ce0ff68ab027@suse.com>
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <6757b3a9-9556-c658-fb01-ce0ff68ab027@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 10/26/23 3:03 AM, Jan Beulich wrote:
+> On 26.10.2023 00:41, Shawn Anastasio wrote:
+>> Implement a basic exception handler that dumps the CPU state to the
+>> console, as well as the code required to set the correct exception
+>> vector table's base address in setup.c.
+>>
+>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> 
+> Despite me being unhappy about the disconnect of the constants
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> One further remark/suggestion though (happy to take care of while
+> committing):
+> 
+>> --- /dev/null
+>> +++ b/xen/arch/ppc/ppc64/exceptions-asm.S
+>> @@ -0,0 +1,135 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +
+>> +#include <asm/asm-defns.h>
+>> +#include <asm/processor.h>
+>> +
+>> +    .section .text.exceptions, "ax", %progbits
+>> +
+>> +    /* Helper to dump CPU state to struct cpu_user_regs pointed to by r1. */
+>> +ENTRY(exception_common)
+>> +    /*
+>> +     * Save GPRs 1-31. TODO: The value of %r1 has already been modified by the
+>> +     * ISR, so the value we save isn't the exact value we had on entry.
+>> +     */
+>> +    SAVE_GPRS(1, 31, %r1)
+> 
+> Wouldn't this comment ...
+> 
+>> +    /* Save LR, CTR, CR */
+>> +    mflr    %r0
+>> +    std     %r0, UREGS_lr(%r1)
+>> +    mfctr   %r0
+>> +    std     %r0, UREGS_ctr(%r1)
+>> +    mfcr    %r0
+>> +    stw     %r0, UREGS_cr(%r1) /* 32-bit */
+>> +
+>> +    /* Save Exception Registers */
+>> +    mfsrr0  %r0
+>> +    std     %r0, UREGS_pc(%r1)
+>> +    mfsrr1  %r0
+>> +    std     %r0, UREGS_msr(%r1)
+>> +    mfdsisr %r0
+>> +    stw     %r0, UREGS_dsisr(%r1) /* 32-bit */
+>> +    mfdar   %r0
+>> +    std     %r0, UREGS_dar(%r1)
+>> +    li      %r0, -1 /* OS's SRR0/SRR1 have been clobbered */
+>> +    std     %r0, UREGS_srr0(%r1)
+>> +    std     %r0, UREGS_srr1(%r1)
+>> +
+>> +    /* Setup TOC and a stack frame then call C exception handler */
+>> +    mr      %r3, %r1
+>> +    bcl     20, 31, 1f
+>> +1:  mflr    %r12
+>> +    addis   %r2, %r12, .TOC.-1b@ha
+>> +    addi    %r2, %r2, .TOC.-1b@l
+>> +
+>> +    li      %r0, 0
+>> +    stdu    %r0, -STACK_FRAME_OVERHEAD(%r1)
+>> +    bl      exception_handler
+>> +
+>> +    .size exception_common, . - exception_common
+>> +    .type exception_common, %function
+>> +
+>> +    /* Same as exception_common, but for exceptions that set HSRR{0,1} */
+>> +ENTRY(h_exception_common)
+>> +    /* Save GPRs 1-31 */
+>> +    SAVE_GPRS(1, 31, %r1)
+> 
+> ... better be repeated here?
+>
 
+Sure, if you'd like to make that change during commit that'd be great.
 
-> On 25 Oct 2023, at 15:02, Christian Lindig =
-<christian.lindig@cloud.com> wrote:
->=20
->=20
->=20
->> On 25 Oct 2023, at 14:52, Edwin T=C3=B6r=C3=B6k =
-<edvin.torok@citrix.com> wrote:
->>=20
->> From: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
->>=20
->> The code currently uses GCC to compile OCaml C stubs directly,
->> and although in most cases this works, it is not entirely correct.
->>=20
->> This will fail if the OCaml runtime has been recompiled to use and =
-link with ASAN for example
->> (or other situations where a flag needs to be used consistently in =
-everything that is linked into the same binary).
->>=20
->> Use the OCaml compiler instead, which knows how to invoke the correct =
-C compiler with the correct flags,
->> and append the Xen specific CFLAGS to that instead.
->>=20
->> Drop the explicit -fPIC and -I$(ocamlc -where): these will now be =
-provided by the compiler as needed.
->>=20
->> Use -verbose so we see the actuall full C compiler command line =
-invocation done by the OCaml compiler.
->>=20
->> Signed-off-by: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
->=20
-> Acked-by: Christian Lindig <christian.lindig@cloud.com>
->=20
-> I like using the OCaml compiler to compile stubs as it knows how to =
-handle C files and will invoke the C compiler with the correct flags. =
-However, this is the kind of change that would be good to have tested on =
-all supported platforms. I therefore invite comments from those who =
-maintain the build process.
+> Jan
 
-
-There was a CI failure. I've pushed an updated version of this patch =
-here:
-=
-https://gitlab.com/xen-project/people/edwintorok/xen/-/commit/137ffad324eb=
-82884e7ac6f46f618459d365693e
-
-If it passes the CI this time I'll send out a V2, looks like the -fPIC =
-flag is needed on some platforms and is not automatically added by the =
-OCaml compiler.
-
-
-Best regards,
---Edwin=
+Thanks,
+Shawn
 
