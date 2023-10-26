@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52B2B7D7879
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 01:23:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623382.971217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580F87D7A0D
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 03:18:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623387.971227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvnD4-0001Yh-Q8; Wed, 25 Oct 2023 23:22:46 +0000
+	id 1qvozk-0001W5-Co; Thu, 26 Oct 2023 01:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623382.971217; Wed, 25 Oct 2023 23:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 623387.971227; Thu, 26 Oct 2023 01:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvnD4-0001WW-MK; Wed, 25 Oct 2023 23:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 623382;
- Wed, 25 Oct 2023 23:22:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qvozk-0001TS-9q; Thu, 26 Oct 2023 01:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 623387;
+ Thu, 26 Oct 2023 01:17:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJSz=GH=casper.srs.infradead.org=BATV+85b1c44ac99574f3713d+7367+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qvnD3-0001WQ-PM
- for xen-devel@lists.xenproject.org; Wed, 25 Oct 2023 23:22:45 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66aa2aa4-738d-11ee-98d5-6d05b1d4d9a1;
- Thu, 26 Oct 2023 01:22:44 +0200 (CEST)
-Received: from [2001:8b0:10b:5:5bd0:63a6:23b2:1881]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qvnCo-00BaQG-2c; Wed, 25 Oct 2023 23:22:30 +0000
+ <SRS0=z2QB=GI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qvozi-0001TM-Gh
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 01:17:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d49f842-739d-11ee-9b0e-b553b5be7939;
+ Thu, 26 Oct 2023 03:17:01 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5C02C62461;
+ Thu, 26 Oct 2023 01:17:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4ECC433C7;
+ Thu, 26 Oct 2023 01:16:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,171 +41,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66aa2aa4-738d-11ee-98d5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Hywp//kxabmBhLoPf9bPVzZxrS2G1q+9aoYbZpFBf1M=; b=WaN0SD06nfYFjmYfix+A76J+zz
-	YQyT+iVM2WThChlOuDDqEfqmt4MoBJTB/mEy/4TXaYEW5jfhp34Z7RpQOaCZrl/KTMgaOspab7t6j
-	wKVam5D++ubUNuZXOd4cpVzCYFmFIYhIpazkbUj2nXbZAXTkEpOAEyAWs0IZ0Gj07tsVDuEQr9+uB
-	Y/I/1cOeD5FOtpDwExUHt3L9ushYOQPfZ+yqiuEgKaBWsO6jA4f8xktRXxAWUgli0Aai6Yma7Si17
-	fe9PqCcryiKNctKcQIXhHaG/KlMp04yB9uF1bHiEIx3KxFAo8Mc80+CZeGte8J9OY8PejJ4uMAPVg
-	WTfoxi0w==;
-Message-ID: <f8d6eaf9b5f57184a5f6ec5b6103189b77364e3a.camel@infradead.org>
-Subject: Re: [QEMU][PATCHv2 1/8] xen: when unplugging emulated devices skip
- virtio devices
-From: David Woodhouse <dwmw2@infradead.org>
-To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, jgross@suse.com, Anthony Perard
- <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Paolo Bonzini
- <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, 
- Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
- <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, "open
- list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-Date: Thu, 26 Oct 2023 00:22:29 +0100
-In-Reply-To: <20231025212422.30371-2-vikram.garhwal@amd.com>
-References: <20231025212422.30371-1-vikram.garhwal@amd.com>
-	 <20231025212422.30371-2-vikram.garhwal@amd.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-oZqrN/73FRiF017WitQ2"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 5d49f842-739d-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698283020;
+	bh=rRGZu0zoE846AQrYCuTEVLdxg5WF6CtbSj53VvPXFv8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=HYBRFyiNQpSC++Opv7WY5TKBQ21wk1qPQbBF5jyY7v1XmG41b1lsP0u4KLQPlPnAI
+	 OWxdU2R4qqnC4+BYCWGhG7y56uzOrGhQKhwK7q0MAGirwTQt5idg7TeHVqHRZAvdih
+	 dARjvqm+MVWwMXx0kfX+rK3Ao4md2T6rF5FJPoonwG+EWKnfutuhrs4rfsM6L/Thg0
+	 xvlWa9UwTbQLpDG86PErsUI2ScoiPWfMfOrq8UYMh4xRLRE5tanTxuE+6q4C1ccYxy
+	 uvTpus8GEho1fe0gvLHhbXrg6dDxh5kxRoYnkXn0+8ytKssC26mJEWiJghTSylEDyp
+	 XMgS3S+SPknwQ==
+Date: Wed, 25 Oct 2023 18:16:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org, 
+    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
+    george.dunlap@citrix.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] misra: add R14.4 R21.1 R21.2
+In-Reply-To: <1e2991d7-b7b5-2fdd-38e0-ee1eff607f0e@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2310251759560.271731@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2310231628500.3516@ubuntu-linux-20-04-desktop> <967caedc-3d10-dee4-6614-1b9dcc0c1c66@suse.com> <alpine.DEB.2.22.394.2310241753220.271731@ubuntu-linux-20-04-desktop> <1e2991d7-b7b5-2fdd-38e0-ee1eff607f0e@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=US-ASCII
+
+On Wed, 25 Oct 2023, Jan Beulich wrote:
+> On 25.10.2023 03:15, Stefano Stabellini wrote:
+> > On Tue, 24 Oct 2023, Jan Beulich wrote:
+> >> On 24.10.2023 01:31, Stefano Stabellini wrote:> --- a/docs/misra/rules.rst
+> >>> +++ b/docs/misra/rules.rst
+> >>> @@ -422,6 +422,13 @@ maintainers if you want to suggest a change.
+> >>>  
+> >>>         while(0) and while(1) and alike are allowed.
+> >>>  
+> >>> +   * - `Rule 14.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_04.c>`_
+> >>> +     - Required
+> >>> +     - The controlling expression of an if statement and the controlling
+> >>> +       expression of an iteration-statement shall have essentially
+> >>> +       Boolean type
+> >>> +     - Implicit conversions to boolean are allowed
+> >>
+> >> What, if anything, remains of this rule with this exception?
+> > 
+> > Not much, but there is a difference between following a rule with a
+> > deviation (in this case we allow implicit conversions of integers and
+> > pointers to bool because we claim all Xen developers know how they work)
+> > and not follow the rule at all, at least for the assessors. Also,
+> > anything that doesn't implicitly convert to a boolean is not allowed,
+> > although I guess probably it wouldn't compile either.
+> > 
+> > We could also try to find a better wording to reduce the deviation only
+> > to integer and pointers. Any suggestions?
+> 
+> Since compound types can't be converted anyway, I think only floating
+> point types (and their relatives) remain, which we don't use anyway
+> (and if we did, excepting them as well would only be logical imo). I
+> therefore see little point in making "integers and pointers" explicit.
+> 
+> Instead I wonder if we shouldn't make ourselves honest and say we
+> deviate this rule as a whole.
+
+Yes, I see your point. I think I'll remove Rule 14.4 from the patch and
+put it in the bucket of all the rules deviated as a whole (which we
+should track as a separate rst file but today we don't.)
 
 
---=-oZqrN/73FRiF017WitQ2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> >>> @@ -479,6 +486,24 @@ maintainers if you want to suggest a change.
+> >>>         they are related
+> >>>       -
+> >>>  
+> >>> +   * - `Rule 21.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_01.c>`_
+> >>> +     - Required
+> >>> +     - #define and #undef shall not be used on a reserved identifier or
+> >>> +       reserved macro name
+> >>> +     - No identifiers should start with _BUILTIN to avoid clashes with
+> >>
+> >> DYM "__builtin_"? Also gcc introduces far more than just __builtin_...()
+> >> into the name space.
+> > 
+> > Yes agreed, but in my notes that is the only one I wrote down. I recall
+> > that the complete list is a couple of pages long, I don't think we can
+> > possibly add it here in full and if I recall it is not available in the
+> > GCC documentation. More on this below.
+> > 
+> > 
+> >>> +       GCC reserved identifiers. In general, all identifiers starting with
+> >>> +       an underscore are reserved, and are best avoided.
+> >>
+> >> This isn't precise enough. A leading underscore followed by a lower-case
+> >> letter or a number is okay to use for file-scope symbols. Imo we should
+> >> not aim at removing such uses, but rather encourage more use.
+> > 
+> > More on this below
+> > 
+> > 
+> >> In this context, re-reading some of the C99 spec, I have to realize that
+> >> my commenting on underscore-prefixed macro parameters (but not underscore-
+> >> prefixed locals in macros) was based on ambiguous information in the spec.
+> >> I will try to remember to not comment on such anymore going forward.
+> >>
+> >>> However, Xen
+> >>> +       makes extensive usage of leading underscores in header guards,
+> >>> +       bitwise manipulation functions, and a few other places. They are
+> >>> +       considered safe as checks have been done against the list of
+> >>> +       GCC's reserved identifiers. They don't need to be replaced.
+> >>
+> >> This leaves quite vague what wants and what does not want replacing, nor
+> >> what might be okay to introduce subsequently despite violation this rule.
+> >  
+> > My goals here were to convey the following:
+> > 1) avoid clashes with gcc reserved identifiers
+> > 2) in general try to reduce the usage of leading underscores except for
+> >    known existing locations (header guards, bitwise manipulation
+> >    functions)
+> > 
+> > However, for 1) the problem is that we don't have the full list and for
+> > 2) the problem is that it is too vague.
+> > 
+> > Instead I suggest we do the following:
+> > - we get the full list of gcc reserved identifiers from Roberto and we
+> >   commit it to xen.git as a seprate file under docs/misra
+> 
+> Such a full list can only be compiled for any specific gcc version. Even
+> non-upstream backports by a distro may alter this list.
+> 
+> > - we reference the list here saying one should avoid clashes with those
+> >   identifiers as reserved by gcc
+> 
+> With the list constantly changing (mostly expanding), that's pretty
+> hopeless.
+> 
+> > And if we can find a clear general comment about the usage of leading
+> > underscores in Xen I am happy to add it too (e.g. header guards), but
+> > from MISRA point of view the above is sufficient.
+> 
+> But what we need isn't a description of the status quo, but one of
+> what state we want to (slowly) move to. The status quo anyway is
+> "no pattern, as in the past hardly anyone cared".
 
-On Wed, 2023-10-25 at 14:24 -0700, Vikram Garhwal wrote:
-> From: Juergen Gross <jgross@suse.com>
->=20
-> Virtio devices should never be unplugged at boot time, as they are
-> similar to pci passthrough devices.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+I guess you are suggesting something more like the following, but please
+feel free to suggest your favorite wording (it might be easier for me to
+understand what you mean if you provide a short example).
 
-Hm, do your virtio NICs still actually *work* after that? Or are they
-all disconnected from their netdev peers?=20
-
-I suspect you're going to want a variant of
-https://lore.kernel.org/qemu-devel/20231025145042.627381-19-dwmw2@infradead=
-.org/T/#u
-which also leave the peers of your virtio devices intact?
-
---=-oZqrN/73FRiF017WitQ2
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI1MjMyMjI5WjAvBgkqhkiG9w0BCQQxIgQg+N5V1di/
-kpVs3VFQvPyUODhvqf4FazJRXYUbQCvZtTowgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB1RXBC5LDVbp7KyB5xpyUHZ/vxq13ihMlG
-3lx8EF6sVzPtYTJjbYcyKmWM4UkvFC1K1UPQ32xdb0dCsyJ2k1hc+vIE6OKSPOcwPytmC+OSgxP4
-rT+w9M+IlvyriekXVcEfe90vpNmxESEpBOPzvTdC/V7dTSltUn4qjm+F9V94ijwcR8TDbzHYu3LA
-SpHr1pukO3EHa9QstA1noeGl5r/slhQroT8Jja9XIGVFn8M3SP6q40kEnen5CVwcN3gdEAGawZ6K
-Xy2PYlAnNDPmvBCrEQVNEMgv6I4Ke6DjhwIDwBvbgIJtdzg/jvbHlXtTSR6pMuvzUAbxNJSBIBt5
-DkaWpjPju84yvPmtCe+p7dvQ7h9zZ8Knst42tFCsCU4tt3qUTE39suNNi7PGtBuKVjxPjekKtRpn
-TxyErV/6r037MwUniveO9RSEEAAzHCOc+ckP+4RRvFataG92Cb6t/OTR2EkM65K263Xmn8rpj0Sn
-3/vx8H9+AGiBCHrqrjYB0LbV29Tz2L9zfMMsKoDPb4MNHECAXA9iRsS1cractvkPRBVZ52sjVotd
-27TGdlvWBRVKRReBb8XUcxrU0mtzBfR0p4nbBTL+PT2sXkwg1b2DB9i9mHRomccEa5/SgUtI8bZh
-FwjucAkbkBb1Yoz3a9MxZ+awXF5nmGmsfVVa79k/sAAAAAAAAA==
-
-
---=-oZqrN/73FRiF017WitQ2--
+---
+All identifiers starting with an underscore are reserved and should not
+be used. Today Xen uses many, such as header guards and bitwise
+manipulation functions. Upon analysis it turns out Xen identifiers do
+not clash with the identifiers used by modern GCC, but that is not a
+guarantee that there won't be a naming clash in the future or with
+another compiler. For these reasons we discourage the introduction of
+new reserved identifiers in Xen, and we see it as positive the reduction
+of reserved identifiers. At the same time, certain identifiers starting
+with an underscore are also commonly used in Linux (e.g. __set_bit) and
+we don't think it would be an improvement to rename them.
 
