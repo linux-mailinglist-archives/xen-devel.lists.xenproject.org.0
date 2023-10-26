@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BA27D82CB
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 14:37:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623794.971982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8307D82D2
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 14:39:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623800.971992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvzcR-0004eA-AN; Thu, 26 Oct 2023 12:37:47 +0000
+	id 1qvzeL-0005M2-Oa; Thu, 26 Oct 2023 12:39:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623794.971982; Thu, 26 Oct 2023 12:37:47 +0000
+Received: by outflank-mailman (output) from mailman id 623800.971992; Thu, 26 Oct 2023 12:39:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvzcR-0004bc-71; Thu, 26 Oct 2023 12:37:47 +0000
-Received: by outflank-mailman (input) for mailman id 623794;
- Thu, 26 Oct 2023 12:37:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvzeL-0005Je-Ll; Thu, 26 Oct 2023 12:39:45 +0000
+Received: by outflank-mailman (input) for mailman id 623800;
+ Thu, 26 Oct 2023 12:39:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hFWs=GI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qvzcP-0004bQ-UN
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 12:37:46 +0000
+ id 1qvzeK-0005JY-K2
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 12:39:44 +0000
 Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2073.outbound.protection.outlook.com [40.107.13.73])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 759dbc6d-73fc-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 14:37:44 +0200 (CEST)
+ (mail-he1eur01on2040.outbound.protection.outlook.com [40.107.13.40])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcfb997d-73fc-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 14:39:43 +0200 (CEST)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by PAWPR04MB9935.eurprd04.prod.outlook.com (2603:10a6:102:387::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.22; Thu, 26 Oct
- 2023 12:37:13 +0000
+ 2023 12:39:14 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.008; Thu, 26 Oct 2023
- 12:37:11 +0000
+ 12:39:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,181 +46,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 759dbc6d-73fc-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: bcfb997d-73fc-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oD4us4lWXEemcaWVAZetQsAKHPmbGTZDDt9mvyShngopjfZFS/pcj2UfPRNvY0JNUtu5dHaVKjnU3oP8tO1fjLaMsynUOziPLJJpsSXkdgKEF04bY7IdDsmPXYWOiV53d7S7wsBiPJz0DuU5J2xnSjyIDBr2oaS8reNYrVbsyMnXQoWVpSkxr+PAGkDUhBzlaHg+1YTLLzf3HQ2IxX8jdOsaXKl5JJk4FPrEirK46j09zDaWp1Ai/bZRzfxB8PGnUaGZRBXE2L/Hsnh0I4fOaKKJkz3cxuUdZzbJiQPCaOcZ1g1acbgTP+GpZzq4sgkBhhvcTgiR0lZToJSjdRz8Ng==
+ b=ThYDUZ6nislAfKqu8FinskBEYpVkysYLk+dNvx7zlKKHSGQhbleKt6noTA0933SFTtguoGPP+fGLVtgplzYPBhu37nOzaSbJAvKAGdNnYnrzec5405IB7Civmnfv1rxAyjypbBntAiJmPsEf+Lmo9oIPglfQl3/fxuJIu5eJYNgdJvQd3yJw35HzTeT86lVSLtjwWyuc+Obk1EgwLsr9Gaio0hdOJ/J1c6cybAcdOUUMIhtTLl4LZ4kcx+i489Fg0guhADXvwf8XAE4Z0mmqtz/gG1C2jNep0RSpcQ9gjQMv7+hPB7SI/bHzwBDyMaILutKisQjpXjRlyxsxxAYWFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7BsNwxmn3Vf+ElTPZZquO3BrSJg0FRfqwFU1woJ87Dg=;
- b=C1YzcjcG3DQAX0VBU0NAXOd+mgn50W0HKapqNYPUk3yiT9aVNNW0uETQGjm1P6b+8p6P1KVpr+dwTh0u3exqdNksocmywIDWIoKRYq1C0KTpuaAhcMjqrUoSQQf/7LTUJGqOrd7/LeaGLCwWo8BpArtrJ0ZYMrVGCF2fwqqEtgbBusCHEY7yDwEgVJjNGxCW1k+0B5SNacX90U0hrlCWDpaGFUwRwM0vEHUmqit08QBTLo/v4rL7WUuCTyiIBo5NfUyuNQYeAzIMrq1F85Ryd99F3J7pcmspeAT3A9kN7o8MtP6UwvdynNkcTFWiPPQLLA+PO55C9GDh9n2k71oU8g==
+ bh=mW/rpsuDDMfLZC1kac+VgtyspHC0JL2PsRIaddtjRYQ=;
+ b=FZoKMs0UWlW3u+UWDg/DJlGQS7GH1L8nl1+UUjE1a2798TVwK9UkqMWKg8hZHhLOxFFACXwHbSrvOF/QmUu9vzTTDGCri+WOmjMfxIxmMB4wk2BaVzRif+XL9/9TeV30962nGRbqwlcQ6lH39TL1mzueC18bI9Rs7OV+sY2OHB+Ru0IGlzseLiuP4SRA0W3Dyzt1+1YpR+RdsiD9+wvhBlWAq0ClWt5FUg6XDdjFrb8jK+ed3x0LfT9ItYh8mYnUbhn6vHgaWlNUMawxmE87w+R6i8Va9sVFuN/5dRvoeIfBeqFPgknZcCWQY9s7oY7Uy4aHN6RE0b4sjFXS5f9J4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7BsNwxmn3Vf+ElTPZZquO3BrSJg0FRfqwFU1woJ87Dg=;
- b=Kx2+1VYSm9ZIGwKrIWdYvtpVp7ANU1ssue94Lh84ZzPSbDsgYg2otCVatImiZyBd68wg0Y02tqu+k8mVVLkHwDofh4skwA9GQucEHydsr84l73Lq0E7dY+O/8h/eg9QlZSE2Sh8yatrwmO/TfbvduizTshvRfo1GD93PMQAR+95rdUQaB0vlZesBMaVWR34G3ZpUnzzxy6tckm+D+yexVBfGJDsika3jcLF2YpzttnIYqoChQNyxhq9vZkGD/5XPC2yulFTN6OCEk7+KWSx7ggdpraoTv5fEDm7TC2+4cw/rO4nUP0eaxQssTLqLruBoDpOuO9A8A6oCSQ21VJ5duw==
+ bh=mW/rpsuDDMfLZC1kac+VgtyspHC0JL2PsRIaddtjRYQ=;
+ b=ynBdwNs15jQ/dWspvqxtO/gI/+k8vnrERiQ56clZQNb5Acsi4KHZDiIpESwLSTsVxwe58CbP36SlnI0fuUroJz0A90oYYJ76Hs7/n4CEBXt5shCSKhruv5bdWU/arABlOKtxe6S11MO6xCLJm/gfUShC39aSL2xLPsgUk/1fsFw1vnFoOUq4I2fJwu8sXxBwZNK1UqtyrkfoV7MwDVy5grNRc1/7GRt7ldD4BF1I5tKfndB1SxKcrSaYBVeLcs+E9Hdw9L5b/jUmwTnDDJ6RngosHI6ng0ySMQGHs4ukhi1m/Qe1MFDJECsm3Tvm8sw1DUG0PwiiN1REiD90nVSdRw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1cc98108-3328-94d3-5f8d-ff03c965087e@suse.com>
-Date: Thu, 26 Oct 2023 14:37:09 +0200
+Message-ID: <8cb336ca-41ed-8adc-957a-28b5585c84f1@suse.com>
+Date: Thu, 26 Oct 2023 14:39:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
+Subject: Re: [RFC 1/4] x86/ioemul: address MISRA C:2012 Rule 9.3
 Content-Language: en-US
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
- <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
- <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
- <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
- <c107d63c-25a3-4f17-a5e8-7ec3ccd94ce3@amd.com>
- <c81a8275-ecfd-7598-c119-ed83b156c0e5@suse.com>
- <b5330686-82a0-4d47-9549-2d943ca68c7e@amd.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+ <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com>
+ <60e26ad6-7366-2604-e9b2-ed401cee6e73@suse.com>
+ <alpine.DEB.2.22.394.2310241317030.271731@ubuntu-linux-20-04-desktop>
+ <41562c7a-6260-3104-b2d4-d6fd4df0cffc@suse.com>
+ <4e88d7ab94b9fc73554eee5b78612b63@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b5330686-82a0-4d47-9549-2d943ca68c7e@amd.com>
+In-Reply-To: <4e88d7ab94b9fc73554eee5b78612b63@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0079.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0087.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAWPR04MB9935:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8b74fd9-4754-403a-7941-08dbd620467e
+X-MS-Office365-Filtering-Correlation-Id: 836f4249-a685-480e-576c-08dbd6209017
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	YA7Fo+RzolH8FiwbF7S0oPJ+77RBxYDXekNJpt4B8LbhSPvaIHql5pyj5ZtAJrtji9fYAuaee7PEHykFLfUDpWbEfUqozUaImaSU4FdRhLzHXYPI2/aVwkZhATWT6/ZNznI13gw0cKJ7406ul0KvCIhyhxJozpdGr+xtBfayjAzwKRSfSt6EskFrnN4cA6Z6+vL0a57PxXuw/Dohm0vjgIxLrqOb6gNqV8O4A3CK+Q5JHV7Qy+ZCODOdl/enFpMV9qllotQfgxaaxGNUTulYJVOWA8yeOguWaEyWkM9r8nZ3eRMCz59G8TSTI85s1czhxLX5U3j42Z25mNSDic3FAy1FItlJrlgnBX0ziGntRoM4pC15DHJkiSbAsxmiZVGSoSTyXT6SPT/wnsH8LfJslCFfjTiOM0DQ3ry6J7dYh1SgwFtK+imx9IECZi2qHl9zdW3TjkOFEcOWdyRTvpRGgyMwLxKjMSaRCAUkXjJW/jYUc8o/fd+LzANJRCnaI1tsLkORknwbEMGxnh2VTruSGH+5+HHLTSwXfBsY33L4QZeCUR9zXdqjpNkly1WdGEqmJJc+VaYdFIVvZCTmFRu0sjdraIVgbABzxGzdOlbuDl78fKvCsJvB2Z2qFxF9aMGFXmvKoax3PaAO/vj3foRVuw==
+	F7ckkQD0grCDhLbDYCPC0eN/BsCxI6aPdoqIH1Sre1ayp+bc7K034qeJkvl27AurHhO8QWylN15f8Bt7Arm0uX1ppYLOO/eYGHodrL4b+q8v/3Hux1xy6v/BLRBslP+0nCKfidjYnyvEg9liEt6hEL+PIhCMgVcsh416ysGsTlR2mZtCP6d7nN69ODEPFWKMFpADk3jEa50jBVvmLqiOVyxdji+G3BWtDouUUeQz+VS7u3oHIlLZ6kxQYLss9j3BrOz0JgSAaHAFbEeZ6x9X9nCqQZl5rwcaI5rPeb/BOFUm3gwTlv7sSAklm4exLDF1FIGFMcHmKdmBjLB/qn/Tg4yBrgYC23dvQ1I2XM+VM4EXUr9tX+9kMETpgevJHD9iYAhs2FHlR7nzSFWH/r/D0iiUJHWY7SuUUMM+7kWjFNI/c/rVI8hgxp7pv9Q0DXlqRYGkjCxDpYQ8oPSJYhwAhDW13xmCcZnt9Smw0uLKQ5llgK+bsUH/QCwV73xcqE0i+Iyf8DOw2STtIrFJK2AF5HTTpaG4YNNpTS0W6470lq7vaFmb4tMT4D3G+q/LzkebrGoxN0pYCKmx5+V009dIPhIIBOFUsczgSjxwL64+dLHXQM8KrH7ZwTR3ilfW949s34Jsd3l2LrCdAobeqeP1BQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(376002)(346002)(396003)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(478600001)(53546011)(66899024)(26005)(4326008)(38100700002)(31696002)(8936002)(86362001)(2616005)(8676002)(66476007)(5660300002)(83380400001)(6506007)(41300700001)(2906002)(6512007)(54906003)(66556008)(36756003)(31686004)(6916009)(66946007)(6486002)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(346002)(376002)(366004)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(6486002)(66946007)(6916009)(31686004)(66556008)(36756003)(316002)(53546011)(478600001)(26005)(6506007)(83380400001)(7416002)(5660300002)(54906003)(6512007)(41300700001)(2906002)(38100700002)(4326008)(2616005)(86362001)(66476007)(8676002)(8936002)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aExhSjhHVXUxM2hMVXBUcWRidnZ3WVRMOC9CR0w2MnhLdmdTTUpLcUl6RHJK?=
- =?utf-8?B?QktuZkhCaWcydWlmdGRrNWorUEJIVnRBeU5FWG95RGd4VlMwdW1XeDN0eUp3?=
- =?utf-8?B?KzBlUXZDYTlZbllNOUVqTlVBc3FiNUVzS1EyWERXRmphUWxhbWU3UlhBdyty?=
- =?utf-8?B?OE43S1hwSXJWRGtLYjN0aHpCUjNCeFA0V284a0ZzbldpMDRGTitwNzJiUTBo?=
- =?utf-8?B?RnFVbG9BblZxck1ZdXpqSmRmK2tIVTBMMmlReUY5TmlwTUdsL2lDSFd4UkNv?=
- =?utf-8?B?NnhyY3h3cXIvOHN1Y0xRRVRqc3NsRmZJNUZTZXBDLzFRd1BoN3d6Mk13V1pN?=
- =?utf-8?B?a1o2bkpCeVhiYnFQRXhxSTc0NVFNRkpCdWxaYTFPZzVvbDJRTG5ySmphd0Z1?=
- =?utf-8?B?K240dzdsNjVSc0o2ZDd3bW5EMWo3UEhncnZRZk1ITkd6NGQvajM5Z3oya0lX?=
- =?utf-8?B?VXk0Vnd0NkZJVTl1UDNFcmpIbURQOWE3elR2NTBJUy9wbVJxYmVoZ0tWbGM0?=
- =?utf-8?B?QVhmbnVINGhUbTVqQkdZOVJ3cGVNQnRWSmRpVU9aTXI4ZHlaMzlnNHVkblcy?=
- =?utf-8?B?QmVCZnFUOVBvZ011ZnZ6c3VLOS9EQ08rNGFjSGhRM2tDWVFhTXpDdFdTVXZB?=
- =?utf-8?B?UXd0MkY2NDBZS0RnaGg5cWRDelFtUTBZM1A3T0xzN2FxcklFdFg2OVR3SHV4?=
- =?utf-8?B?MjBpWnFadS9yZVJibDlmOWt2T3BDait6WU5EdW5OMjRITG5vTVBTVVpYYTJz?=
- =?utf-8?B?UjQ5NUMrcW9qY0h6NENMcmtRdllKVmhOMWg2cHdTbXNrU2Npb3FqWStVanZU?=
- =?utf-8?B?U3Q3V0ZyaVlMeDhzcHZycStLcmhUbHkxZHR5K1lLa290TnZBbnRGcGF2M3Aw?=
- =?utf-8?B?M09QOHpleC9tUzJkbkI1RDMyVS9ZeFVhd3diTzFCblZaSVZWajh2WkZNVFNY?=
- =?utf-8?B?ZkFWNXFUQmVCWGFlQ0xJTVRYeEVua01QZjhzTTJJSDJ2cXBXQTBYRWp6UjBJ?=
- =?utf-8?B?K1VqOU1wYlY0V1Z0QUVQNi9XTU1sdFdhd3VKVnlLYXlvODJFNGN6bEdpeXFx?=
- =?utf-8?B?SVR0dlVlamZzZkdBcVBFeEFvcUZDTzF1VVdKWjRYVGE2Z3FKeTNYajJqcXJ2?=
- =?utf-8?B?dUJhOU9pRm9kQS9HRlVSTUJBRURmVnVNaTE1WnhhcGRHaml1elp2UXlGWFR4?=
- =?utf-8?B?WExFVDFvTkRXb2c5R0lqbmtRSCs2Q0lVZE9YWjgrMW1vYVQvenhKeHozUk1p?=
- =?utf-8?B?TTNycVgva1BET3RkaUZPWjEzTDBTenJLc0JralBMOHNtOTlYbnVSTFNVYXBl?=
- =?utf-8?B?UEhlZ1Foc3d2SUlFb3dscWtWQ2VJZzFVejVMdXBRdFNUZmZ5ZmRPNmpiUUZl?=
- =?utf-8?B?TUhuL0loV1NqQkNKaVhycTRENFN2cTB5QTd1TGFnaUVFdXUxQkZpQW1MSlJp?=
- =?utf-8?B?Y3hHWlNLRXBkSCtodFA4aGtUSUVYSjhjR1k1MTJyYVpKNXlRVFBNS0NYYVlY?=
- =?utf-8?B?c3U0NXJiTGhnTTZqZ3VDbFcyeFR1dVd3SngwR2ZlNjFmdERIK0xCOW5ybnJU?=
- =?utf-8?B?MENDbFAzY2xud2lrMnIrY1FlMTVYamRjZlNxKzJLR3NhbFRSTng5WjlEVms3?=
- =?utf-8?B?UU8zdDNRenRyS0RTZHFSZGd6Ymw4cW9za1Q4YUYxVUJ1YUhiK3ZQZm9ObzJM?=
- =?utf-8?B?Si9naFUxM0tTcElVUjlLSFQydkZWT1RUc3ViVEtscTRMM29JMVE2VXg5TDZh?=
- =?utf-8?B?UG5NZXAycXlSMXhtNVdGVEIzQjNJRHFUTnFXeVpRRWJoTjJnUlQwU3Z6MDBG?=
- =?utf-8?B?S0tZdnU2bzcvR1lhK3NBQTNtQ3YwMG5GdnhkNklYYjlRZjNMWURvaU83MFB2?=
- =?utf-8?B?bmo0Z2dBSVdRWlpNQTZmdFJFb3BNT1hoenZzZnE2SkJrb3EyK1YxMTZuWTJF?=
- =?utf-8?B?OFZ3MTZnb0lrdExTV1hkbVBibHNWKy9wSXl3WmJWSVE4SnZxVHByaklLVU9J?=
- =?utf-8?B?TTU3aEVQUFQ0ODZ6aWtvWGlNUnVwaVpPdDdZUmJtNjFaSDhjdVNjRzRRN0lP?=
- =?utf-8?B?a0dKZjFmSHVVMTFIakNNSURtSHFtTkRPZ01HcG90OFNEdUhHS3ZpYVR5YXZa?=
- =?utf-8?Q?/rcottdSv0pdnkgwVXIiPLveL?=
+	=?utf-8?B?N0JyQjlYQ0dydEVSVTRGcU03KzRndkxtRnA5YjdKeXgxVUF0YVFkclZDaDNY?=
+ =?utf-8?B?RHZEMlQ1S2pZRUVsK1FkS3lUOG4rS2lNa1dwRU9SekVCSDJVOU5jeWVqemJX?=
+ =?utf-8?B?S085T1BDMVBLdFd6bjdoeWhwMGV0emRyY05EaVpKaHZFTDN2ZHoxWDNyL2pO?=
+ =?utf-8?B?dzRUc3k3SjdhamhUNDY2enJYUHdsam9PUEo2ZloyRnNlYUtVU2VSMjBVWDA1?=
+ =?utf-8?B?dEdiTEVBUkQrcXBha2JCYTVJN2tUcG5ZcFFYbTJVT0pKckZYQTBhRTAxeWtT?=
+ =?utf-8?B?ZmNVZGljei9NWkRQRXVnd0pSNkg4WjA3dGZsbEZ3K1VMUlV4dFk1L0EvejNn?=
+ =?utf-8?B?NXdncmZPaDN6eDJQTnJncW9FdVRaWk1jSmRzbWVTMlVmRW52OERMd3R0dnBm?=
+ =?utf-8?B?Q3VLY2VoMFI0VHl3ZjM4T1FwTStPSlNpdVdMcXIxazk1N2NpT05BcFdRNG9P?=
+ =?utf-8?B?bTYvRGUzaTkzRk1tbXVBakxrU005WlRWeHBuVWhpNEdCU3R0RkFiSGNQM1ZN?=
+ =?utf-8?B?d2RLaVlUeVNKUDBFN0o5cGdUL095ZDVwMlRJVEtVaWFMSDY2b25lbmc0MGti?=
+ =?utf-8?B?S0cxNC9pS2g4MWJwUnpSTEV5TEhVUlpiWmNKMHlSRDhGUEN4M1UybzRVZml5?=
+ =?utf-8?B?Rm9IWUthMFRBWkFxVWR2bWhnYWZBenZUWUJNSTQyM0JNUzNWM3BvdHZ2NFVY?=
+ =?utf-8?B?cm1PMElyZnhsNTZqVnN6SXZWb1diSzVIRWtNK29Wczk4SUpaWkhHUFZjbTdS?=
+ =?utf-8?B?b2MyMzIyZDhJOThrMUgxTFluMjlhT3VhdFBZTnZLOE5VSnkvc0NmczNZUlgw?=
+ =?utf-8?B?OEx4V1FWSERVMGRQbFdMQTFFbGYzZlBVZVpDaGRBNlRZd09CVmpiQmdEYmI4?=
+ =?utf-8?B?a3NFVXB6SlpyUVJPZXZ3dGJBN0RVLzlYSjBBUVcrS3BqVVhva3NCLzRhdmNL?=
+ =?utf-8?B?aHhUK1dKS280V1IrV3VqWlFMOGlTZ2xBRmhsQTljSDF3MTdNcHlCSnMyT3M5?=
+ =?utf-8?B?UVVxV0R2S3VwaFdReWFCaitiVE95QkJvTzZMREhONG1mUDg0Z0NqRUNaVEVo?=
+ =?utf-8?B?OVN3RXZ6UXUxV2lqNG9vNHRHR1FRa2daWmhPT3J1Y1ExOFdwaFNPS3Q0RFpH?=
+ =?utf-8?B?bUFVbzBNRjAxcmc4eThjVFNpSEpYcGJIdFBiSC9Cb0Jhd3dYd0dHMUVtcnlH?=
+ =?utf-8?B?Ui9aWHB5TXRFK0VJY0ZseDFLT1dxZ01JSG9ydFJmS1lXOW9YRlV6dlJnMmxW?=
+ =?utf-8?B?YUFrcjdCYWdTMUhrM1A1ZzY4M3Q2OEVzUEQvQ1lDbWVCRm5KU1ZUVTFOZ0RV?=
+ =?utf-8?B?cml0aGRHdTgydUtGMDFRa2FMSXlXTFFxeTVxT1M0R1hLWkNsQjhWd2dXUjBo?=
+ =?utf-8?B?MjUvZGxDcUY2ZjhGU1kzOU5SLzE0RVY4SkVNem5QTFJiQm5RcWpVRzFkSU1h?=
+ =?utf-8?B?b0NFWVpBdWlBc200RGsrTEpNdHM5cDZrTGpiY1RLUy91Z3JNNVhjY0ltMTE3?=
+ =?utf-8?B?c1QxalcyODhoT3RubXE5YWJiSVU3RXNMbmlSQXZOOG1rWUZpNjltMWM3VTNi?=
+ =?utf-8?B?WG9PS3VsSUx2UXo4b21SK04xeXY0UkJjelNXYjVFNVhkSFdaMlJ4ZThjVGFG?=
+ =?utf-8?B?MTk4dmY2NFlGbElhcjZKVkZEeWczaXdmR3EvbjlodFd1WmMzazdmZGNHb2RD?=
+ =?utf-8?B?SzdCMloxd2UzZ0VSNjVMSGNFNFVCNzkrQzV6QThYZHpHVjFpZU5XMDFzUml4?=
+ =?utf-8?B?T0ttSXBRbVVEcW00OWsyRDlxZlQ0RjdXRU1BZ3FnUVJ6VWwycFZCakZGS1dP?=
+ =?utf-8?B?OG8xbS9lSVk2QVAvNThZU215VWZpemZxd2VaOHBoejBmRXhvSTMwNWlFcmVz?=
+ =?utf-8?B?TmZhelp2REFWcW5WcVBaanljVFI3YWVYV0twWjRpS1BhdGZqK2UvOGJRVzJ2?=
+ =?utf-8?B?anpTcFFOMDJJSjVMeTBSN085dmZSYWxHR2xyZWhQc2NDSmhkN2U3YWVOOFBM?=
+ =?utf-8?B?K1lTTWNUNUZsdE1pcy9WZnRJampaUVpEMjJyZEM4Y0E1NVFrUWl0MnpCY1Br?=
+ =?utf-8?B?Qm9ZQjh4WW1lK3Nad3QxT2VEZEw3a3hzZW80NC9mWUtXaG5ZZ2pWdThvUUxL?=
+ =?utf-8?Q?WhKMPXZiU7lwKDmSW/g/7xRrI?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8b74fd9-4754-403a-7941-08dbd620467e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 836f4249-a685-480e-576c-08dbd6209017
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 12:37:11.4027
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 12:39:14.8854
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xy8mOBBE+4C+w5Yy0l+lx3F0RYWZ9Ha1wtlGiBAmhLxDIW7g0RLs6Wq/4XofV6s/7pp60P0RUxySBuuZhRV93w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: JIzbh+Z4ndlfjoDdmzF+uMlJSdZ+cb3KEJ9MTAeh/BGLh00BlpTsjgkkT8rVm2mVf8KRMibfYfKTNk7dwCHczA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9935
 
-On 26.10.2023 14:35, Xenia Ragiadakou wrote:
-> 
-> 
-> On 26/10/23 14:51, Jan Beulich wrote:
->> On 26.10.2023 11:46, Xenia Ragiadakou wrote:
->>> On 26/10/23 11:45, Jan Beulich wrote:
->>>> On 26.10.2023 10:34, Xenia Ragiadakou wrote:
->>>>> On 26/10/23 10:35, Jan Beulich wrote:
->>>>>> On 26.10.2023 08:45, Xenia Ragiadakou wrote:
->>>>>>> --- a/xen/arch/x86/hvm/dom0_build.c
->>>>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>>>>>> @@ -518,7 +518,7 @@ static paddr_t __init find_memory(
->>>>>>>             if ( end <= kernel_start || start >= kernel_end )
->>>>>>>                 ; /* No overlap, nothing to do. */
->>>>>>>             /* Deal with the kernel already being loaded in the region. */
->>>>>>> -        else if ( kernel_start - start > end - kernel_end )
->>>>>>> +        else if ( kernel_start + kernel_end > start + end )
->>>>>> What meaning has the sum of the start and end of either range? I can't
->>>>>> figure how comparing those two values will be generally correct / useful.
->>>>>> If the partial-overlap case needs handling in the first place, I think
->>>>>> new conditionals need adding (and the existing one needs constraining to
->>>>>> "kernel range fully contained") to use
->>>>>> - as before, the larger of the non-overlapping ranges at start and end
->>>>>>      if the kernel range is fully contained,
->>>>>> - the tail of the range when the overlap is at the start,
->>>>>> - the head of the range when the overlap is at the end.
->>>>> Yes it is not quite straight forward to understand and is based on the
->>>>> assumption that end > kernel_start and start < kernel_end, due to
->>>>> the first condition failing.
+On 26.10.2023 14:32, Nicola Vetrini wrote:
+> On 25/10/2023 09:56, Jan Beulich wrote:
+>> On 24.10.2023 22:27, Stefano Stabellini wrote:
+>>> On Tue, 24 Oct 2023, Jan Beulich wrote:
+>>>> On 24.10.2023 16:31, Nicola Vetrini wrote:
+>>>>> Partially explicitly initalized .matches arrays result in violations
+>>>>> of Rule 9.3; this is resolved by using designated initializers,
+>>>>> which is permitted by the Rule.
 >>>>>
->>>>> Both cases:
->>>>> (start < kernel_start && end < kernel_end) and
->>>>> (kernel_start - start > end - kernel_end)
->>>>> fall into the condition ( kernel_start + kernel_end > start + end )
+>>>>> Mechanical changes.
 >>>>>
->>>>> And both the cases:
->>>>> (start > kernel_start && end > kernel_end) and
->>>>> (end - kernel_end > kernel_start - start)
->>>>> fall into the condition ( kernel_start + kernel_end < start + end )
->>>>>
->>>>> ... unless of course I miss a case
->>>> Well, mathematically (i.e. ignoring the potential for overflow) the
->>>> original expression and your replacement are identical anyway. But
->>>> overflow needs to be taken into consideration, and hence there is a
->>>> (theoretical only at this point) risk with the replacement expression
->>>> as well. As a result I still think that ...
+>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 >>>>
->>>>>> That said, in the "kernel range fully contained" case it may want
->>>>>> considering to use the tail range if it is large enough, rather than
->>>>>> the larger of the two ranges. In fact when switching to that model, we
->>>>>> ought to be able to get away with one less conditional, as then the
->>>>>> "kernel range fully contained" case doesn't need treating specially.
->>>> ... this alternative approach may want considering (provided we need
->>>> to make a change in the first place, which I continue to be
->>>> unconvinced of).
->>> Hmm, I see your point regarding the overflow.
->>> Given that start < kernel_end and end > kernel_start, this could
->>> be resolved by changing the above condition into:
->>> if ( kernel_end - start > end - kernel_start )
+>>>> While not overly bad, I'm still not really seeing the improvement.
+>>>> Yet aiui changes induced by Misra are supposed to improve things in
+>>>> some direction?
 >>>
->>> Would that work for you?
+>>> I think the improvement is clarity, in the sense that the designated
+>>> initializers make it clearer that the array may be sparsely 
+>>> initialized
+>>> and that the remaining elements should be initialized to zero
+>>> automatically.
 >>
->> That would look quite a bit more natural, yes. But I don't think it covers
->> all cases: What if the E820 range is a proper sub-range of the kernel one?
->> If we consider kernel range crossing E820 region boundaries, we also need
->> to take that possibility into account, I think.
+>> That's as clear from the original code, imo.
 > 
-> You are right, this case is not handled and can lead to either of the 
-> issues mentioned in commit message.
-> Maybe we should check whether end > start before proceeding with 
-> checking the size.
+> There's also this functionally equivalent alternative, with or without 
+> the zeros, which
+> doesn't incur in the risk of mistakenly attempting to initialize the 
+> same element twice,
+> while also giving an explicit cue to the reader that all elements are 
+> truly zero-initialized.
+> 
+>           .matches = {
+>               DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+>               DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
+> +            {0}, {0}
+>           },
 
-It looks like it all boils down to the alternative I did sketch out.
+Adding a dependency on the array actually having 4 elements (while iirc
+we have seen already that we could in principle go down to 3). A change
+of this number would then require touching all these sites, which is
+what we'd like to avoid.
 
 Jan
 
