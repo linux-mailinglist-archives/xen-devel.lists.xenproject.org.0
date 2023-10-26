@@ -2,42 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B8957D840D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 15:58:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623834.972063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659C97D8416
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 15:59:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623838.972073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw0rw-0001Rm-Ov; Thu, 26 Oct 2023 13:57:52 +0000
+	id 1qw0tE-0001yS-2X; Thu, 26 Oct 2023 13:59:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623834.972063; Thu, 26 Oct 2023 13:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 623838.972073; Thu, 26 Oct 2023 13:59:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw0rw-0001Ol-Ln; Thu, 26 Oct 2023 13:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 623834;
- Thu, 26 Oct 2023 13:57:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qw0tD-0001wn-W4; Thu, 26 Oct 2023 13:59:11 +0000
+Received: by outflank-mailman (input) for mailman id 623838;
+ Thu, 26 Oct 2023 13:59:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Iwvv=GI=citrix.com=prvs=656fec104=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qw0rv-0001Of-1U
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 13:57:51 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4aa49a0-7407-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 15:57:48 +0200 (CEST)
-Received: from mail-mw2nam12lp2041.outbound.protection.outlook.com (HELO
- NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.41])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 26 Oct 2023 09:57:43 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by DS7PR03MB5573.namprd03.prod.outlook.com (2603:10b6:5:2d1::19) with
+ <SRS0=jm+b=GI=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1qw0tC-0001wh-M0
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 13:59:10 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061f.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::61f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4eff332-7407-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 15:59:09 +0200 (CEST)
+Received: from DM6PR03CA0067.namprd03.prod.outlook.com (2603:10b6:5:100::44)
+ by CO6PR12MB5410.namprd12.prod.outlook.com (2603:10b6:5:35b::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.16; Thu, 26 Oct
- 2023 13:57:38 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::acf0:ce2b:1634:5aee]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::acf0:ce2b:1634:5aee%6]) with mapi id 15.20.6933.011; Thu, 26 Oct 2023
- 13:57:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.22; Thu, 26 Oct
+ 2023 13:59:05 +0000
+Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
+ (2603:10b6:5:100:cafe::3a) by DM6PR03CA0067.outlook.office365.com
+ (2603:10b6:5:100::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
+ Transport; Thu, 26 Oct 2023 13:59:04 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6933.18 via Frontend Transport; Thu, 26 Oct 2023 13:59:04 +0000
+Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
+ 2023 08:59:02 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,281 +56,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4aa49a0-7407-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1698328668;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=3vxxy1VQ69tIo8KOvUpgvUDKAKDMqkUYkI/Rr5r8afY=;
-  b=CAPnqo97O7fnlN+BM2nAnL1ryRgpH1G2yqWJcJ8ekBoSF/Bvs0n4NVMc
-   MZT+Kod3Det32Slw2gVG1O6qW+OpxbKg7kQvwuHLOHRMk+0iKYNvZ/dB1
-   UWcv7Jz92eLX1L1cO4rW5eIjET7gx/ySO2gG0Ev1YCtR7fuIoUOlF6XCk
-   I=;
-X-CSE-ConnectionGUID: 9Td9a5hFQoSbzgVwrdG/ww==
-X-CSE-MsgGUID: Un1hOfFwSoyZvYn2qd8wog==
-X-IronPort-RemoteIP: 104.47.66.41
-X-IronPort-MID: 125322776
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:7qd4KaJQwgHvB5saFE+R9pQlxSXFcZb7ZxGr2PjKsXjdYENS1TVWy
- 2pNC2DXPP6INmuhKtxxb4/io0tUv8DUytcxQAJlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrYwP9TlK6q4mhB5gZgPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4mPW0f/
- KEYBgkKVRqRiNyp2r6UDfZz05FLwMnDZOvzu1lG5BSAV7MDfsqGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/RppTSKpOBy+OGF3N79YNuFSN8Thk+Fj
- mnH4374ElcRM9n3JT+tqyjx3bWVwnylMG4UPIC+r/5NjnOM/WsCOgMnUwGirammjUHrDrqzL
- GRRoELCt5Ma9kamU938VB2Qu2Ofs1gXXN84O/037kSBx7TZ5y6dB3MYVXhRZdo+rsg0SDc2k
- FiTkLvBGjhHoLCTD3WH+d+pQSiaPCEUKSoHenUCRA5cud37+tlv11TIU8ppF7OzgpvtAzbsz
- juWrS84wbIOkcoM0Kb99lfC696xmqX0oscOzl2/dgqYAslRPuZJu6TABYDn0Mt9
-IronPort-HdrOrdr: A9a23:S3/F+66yOTP2mqk5XAPXwY2BI+orL9Y04lQ7vn2ZKCYlB/Bw8v
- rE8sjzuiWVtN9vYgBdpTntAsi9qBDnhO1ICPcqTNWftWDd0QPDEGgI1/qA/9SPIVyaygZXvZ
- 0QDJSXYLfLYWST5qzBjzVR3LwbreWvweSQoaP78l8odAdtbshbnnVE4sTwKDwJeOGDb6BJZK
- Z1I6B81kudkA8sH6CGL0hAZfHHu9rI0Lr+eHc9dmcawTjLtyqs9Ln5VzOF3hISOgk/vIsKwC
- z+ignk4afmlPm+xnbnpgjuxqUTosLl1txAQOqTjcQPQw+c7DqAVcBaQrifuzJwmsGDgWxa6O
- XkklMbJsFu7HGURG2vvhf3/AHl3F8VmgTf4G7du2Lnvcv6AA03ENBAg4UxSGqi13Yd
-X-Talos-CUID: =?us-ascii?q?9a23=3ARfoRfmu4Q08zqCBrxgd1IegP6It0TnGMxSrQDXa?=
- =?us-ascii?q?/Mmx7R4OKU1O/v7x7xp8=3D?=
-X-Talos-MUID: 9a23:HNxFMQs3uenJ+i/jh82nuTc7NOBmzbuVD1E/j6QA4dCIZTN3NGLI
-X-IronPort-AV: E=Sophos;i="6.03,253,1694750400"; 
-   d="scan'208";a="125322776"
+X-Inumbo-ID: d4eff332-7407-11ee-98d5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kbYlhVWBZKs5Uf8xg9JgHYRe/CUGl+qX/iBKHCotgsb9OXuCnw62I61MmfJXSrEzlibPcvCfbht+7juihErXpMvo/bzlCXrGz1HXJoUwgNkE7QEkWPOkW3qtpsA2jSxy5fk8WnCFx8xyH1wLnP0ZK029HS923gWbcr+WSblHkopKYe16uQXRbFmpUbhjYDmwoH/UWbPJzcoQEQLvvZiYikHpbNpInfeUnFvOQ9bum5FaGfNVAN5wlbHMHS/yLKAEKR6/N1bu6Le6ZO4gdIdEgnldCe062OZ+yhgmuLv0dlwa3JCrzu29nagjNIU/Pg/JBQRapQMiW5BkplkeH4LooA==
+ b=WQq/CZK9fSMAUt9N52hX7y9XCoNg5riw28lo9iPgh5eaJwR/HK9q6LdImWPTy/NKLmcZcYsf1pwHBCc6gams4Pj2mTiNuMHJo8zh5+4QeeMXNWxbEb+3pR5GVU3g2q9Oc8DQpQmVerDJUpwcH7r1yMvAqeW+S3lAv+MbEVOEFjOXxfb0/C67fkenFkJE5mtr8OhmUQvuDRdnklgTJqxye1SYEHh5MaEZClNQjatlRxKRRpPcjlZXUudi1m4UrxDKiNLOxh6m0ejK4XZ3tK9VhALSnenlZAalH0hyETiukXrxcWFExvJkwjDN0kOMs5uFjiAbMHaiRQDUa6crLVh4bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m4aiLF328sgtZU4YVFFM0iAfIXlfGqbGAOhC/j0tCd0=;
- b=LTho1iPEC6O2GcwTArnMg6pKob4+Vos5R/fth1pdeIQ/bWvcjzC5kwS6alG/fSiSXhdz80ybIVwVGk2Pw5ybIDBm0dUCSnVsMgQSmsqur06d4Xh+IYPbAkrqDVLpj4Z9ukM/zT2urABFRmAYuo3SPkuvOG3ZmWAMbJx6mCgYmlLC2M+99F5PKvTeRpAHOGIZz7bP+4JDXHNrcGYJRPcOysccYhaysQRrt9kIIagW0IlmmvjdONRia5gPZ8YmVfGD8mo0B2TvyEkovQnHvx1Zx0Fjt76iNvOVz1Lt2rdid49Wwy2d9PlD2pWzZUjcwW08t3b8gdm7GDqAj+YCHA+5qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=EbtBfkCvMN9jSjxeIme2SvJ1BjQKvBFZ3xQppVQBGTI=;
+ b=SbIfxrjg4+3ag42IVsRMKv8hT9ximdVUYjt7TDi3zwAZ/8P2E7PCMpP+oFCurnCjY13ABKf1MRc3orSehl2ooBXNBs5UqTy6kqwC8d2VdHzsMKuTPhsM2NOw3xalUyw7nC5BJrAi/5KiAQRIIezTlgiSuJ/DK9ZxG6trta+3kRCAnHHW4TINv5SRBJW0R/7SP/0O0+3/VuD+8Bv3JV+66qMg3wsYoxEKKzRk8jWvQeoB3FbquJG4LLtCixHv+9Hmx/suOOVwqMhdjl6F6OsrgXQ1314QL4HltXX+m0cdVVfFpv74iKV5mwXJgnY3KKOg5vrAe2i7i/3jrQ2a64kE6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m4aiLF328sgtZU4YVFFM0iAfIXlfGqbGAOhC/j0tCd0=;
- b=B0i67rpbfN4RpTxnV+C5d3NdMHms8IFprJ5RqUT0HuXKnNmyS1wVUCquuHi9lUv/tXi3lx4lBbYZHxQOZsklEbz2b7EpOkSVkkz9O0ufPsPxMSj/bVY1e7cmt2J9gDNUT8jmYbMzJ4MO5b4SY4+BMrkJab6QQBFj2pweX88ckjc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 26 Oct 2023 15:57:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 5/7] x86: detect PIT aliasing on ports other than 0x4[0-3]
-Message-ID: <ZTpwTrLU4d90lWYm@macbook>
-References: <95129c04-f37c-9e26-e65d-786a1db2f003@suse.com>
- <042f76dd-d189-c40a-baec-68ded32aa797@suse.com>
- <ZTo-tpk64ew4rk1o@macbook>
- <6c3a4243-fef4-129c-8f58-7bc009f886b6@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6c3a4243-fef4-129c-8f58-7bc009f886b6@suse.com>
-X-ClientProxiedBy: MR1P264CA0135.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:51::12) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ bh=EbtBfkCvMN9jSjxeIme2SvJ1BjQKvBFZ3xQppVQBGTI=;
+ b=YsXX27agglHxuQqmhhk/q3YfuLjAC0RKrcNVaOf0ZxTzH2CwUmu3waBiqa4SMiv5q/blER3aeG18MpoMptP8Hd9xQ+RXhy9Bq0RfDAtu7A0oE7JqAvCgrDiptosNi61THY55l/Pryhc78vUWRyfsRq8UHanJs/upgayrjofqTv0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <92ba94d2-9e57-4241-8626-33f06f88e726@amd.com>
+Date: Thu, 26 Oct 2023 16:58:59 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, <xen-devel@lists.xenproject.org>
+References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
+ <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
+ <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
+ <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
+ <c107d63c-25a3-4f17-a5e8-7ec3ccd94ce3@amd.com>
+ <c81a8275-ecfd-7598-c119-ed83b156c0e5@suse.com>
+ <b5330686-82a0-4d47-9549-2d943ca68c7e@amd.com>
+ <1cc98108-3328-94d3-5f8d-ff03c965087e@suse.com>
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+In-Reply-To: <1cc98108-3328-94d3-5f8d-ff03c965087e@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DS7PR03MB5573:EE_
-X-MS-Office365-Filtering-Correlation-Id: e02359f6-583c-4948-2a3f-08dbd62b838f
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|CO6PR12MB5410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e6ab61a-c44d-4cff-4277-08dbd62bb71d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nFghqYjteUy/VGoBkTfn/Oivww0j1aTjahd4BlMQt8EiN2RZtNXaaPjad3thTI+oA/wKGcsVD5kNv/MY1Q7P2Py1DbqYO3JOvC6dmuWW4LNWnwUPKBgAL1G81bbYHNYqQ0l6SozkHGR8IHH6ByWl0SLaaYQHEWVoBr2M+EL1BjQtdSSTl2osX4rZ+d2mf83/plfFAg9+S3sKI+e2c7oaTjgJhu6OINQFH0KAk7XQPhAElqdnU1FvJGQFT9xfIcnxkZ9CXFWxZyatj85o94BVkP6DE4TojXAuVfR60X1/g/Sda87swI90ogcYhjrBiap9YL2a4muhBOQVa+qZAFRGS5gUSg6cg0/DUt+09+HnTEYzOENg898E0qI/0VPN5NLe7zQ0kqt0u45VRR/cxrl5L1OYEA8n8hjee4sEWhZzI8wcMDyc70z8YW3qMGHx/3QlT9wtfiJV83NDGF+Q579PUJznt9ZB8rtPynBB2LHaUkw5869j6MHwupyktvemRhwHxOW71pbQqQTeABPV1ukc7Hxx3fW4507MZgdtfsOEcmLQu5oA0z7QmOH6a90PgPMS
+	5w/6bHWIi7P/jXlarh36FBKKsfZLDmtdyUuRL/j9sBggEeDWQIny22P5Cd6C4lbEUmkqJSfPy0lBWVzh17gf4hcd5q0NhQvCIn9kq7iBLiJfopery86fVY3bImVv7rLS72H6pvlffkr0ch7ZbSLno+FU8CivC0Q87WwOJNmNncw79N7Jb+7mLAbHe+pk9R0a+xhws1PWQCD8PfzKMHzuAyI6urSKmmwZlWejKB/f37qzWPrOLP27FLKYKgFoxp3vLKLxf1nta52kta5NOaYyQxbs2zJrm6eH0AIrMi/poDyM7mK2Zd5Rst+XPS+CmcK1gzOX+/jw9iU5VWOfWNKBCsvCAa0noJPNw+A590IjEBrvA7tY5Us2AhMvUcJD8IzfyqJVSLbVBXJba3pP+veg5fmksgSSWjUgS/PAezf5FAD+2+PszvfwYaYbH4hOKRXQAnYduhkjZjRTf280WgUW2qz0k/YegR/DtxKgWnq7j+r3XVgWnMliV0G9d8xYKQ6EiFqpBmrDVCpHaaEYOJg0EjFsxLXuVAEnD85zt/LmUoZ+sph/mQG0STTE5Gn6sneYAzTrh08oSEBtob4mb76mSFnGBEFoPkAJeB258yRQYBK2rNPrPizyjrdLh/CTDterbvH6EnbnL5FZpTn04Enk5hrmammdQs0Jpb7TshpZs2D5JvxTccyfQOnimB092p86bcs9d1FWYCtmb7yC+llW1Je2dDI9YeY/jqvsty9ksnYcKpfoLMU45IfRYDKDVwv+byzsCcMDw5KFBQM/dPZgRJD/Mcpd95xvM9RYrByG03C4MCSlsaYdt1aWVFcL+WLi
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7916004)(366004)(396003)(376002)(136003)(39860400002)(346002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(478600001)(6486002)(26005)(82960400001)(6666004)(53546011)(6506007)(33716001)(9686003)(6512007)(6916009)(54906003)(66556008)(66476007)(66946007)(38100700002)(316002)(83380400001)(8676002)(8936002)(5660300002)(2906002)(4326008)(41300700001)(85182001)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnRIRndPci9aL2tjSm8wN3lmYWFZOURtQ1N1L0JlTjVqNWZic0lqS1F5SnRj?=
- =?utf-8?B?U2VFbWNhY0s1UnQ3ZzRlOU5hN2FENGtwWGNIMElhQjhLcS9RNGdRZnZZRWN1?=
- =?utf-8?B?bjJhYkNCWXFnbUJwTkVuTWJyK1dmVFJad3hEUVlhNDNUazQ3QUYwZVJjbXh6?=
- =?utf-8?B?K2J2Y3ZUZ2tBUFJxejJzc1p0ZUlFS1g3SGNHcjNNeWIxclk0ZEV2TEFpMStI?=
- =?utf-8?B?VW5SSVc1RU5zV1F2M3dTWDFmRkYwdHZXWFdnYWFuWWVCRC83VHZFbG1sYjk0?=
- =?utf-8?B?aU5SdDJHT1VUd3ZtaWE4VXF3WEtrTnQvU0pRTnBJYmlmbDMreGdUZlQzOGtR?=
- =?utf-8?B?NXcrSk9JYlhkdnR4L3BhcmN1UlNBWEwyb1JDazZRNk5qZWhCSG1xb3A1UTlQ?=
- =?utf-8?B?aHFPdlVhMDBDNi9WU2FObmtKNnZWcE82bHFqUmhKVGplWGM0a0kzMllwTVpM?=
- =?utf-8?B?UTgzbVZQcW5lOGt3OXdaTlk5UXJzOGtocDNPQkJ2UC9DeTB5MEpNOEJXR1VD?=
- =?utf-8?B?OWY0d2dHd1hnNGxuV0lXbWtlUG9kNnlpTlJKa1NlYWJpSi9PQ2hjSnAyUVp2?=
- =?utf-8?B?ZHNqekZLSHJZSDY0cVh2MU50L1RWSGJwOGFVZnFRMGd0MzBaY3dkMEI0YVo5?=
- =?utf-8?B?ak9OY3NLQ1c0NEd1c2FTd0VsMHR1VTlMbXRSMEpOaTFzekcrVmxKelFIeThX?=
- =?utf-8?B?YUtSVkIwQkl1K1FseHJFZVROTitCMTVraVRVSU5EWWRxU0J6dFFwMWhZZlY3?=
- =?utf-8?B?cGQrYjJERVVlZkhUVWE3RVBJVVozQ2VwWGo4MjFDbUtxMUdDZG0wSnlxT1I5?=
- =?utf-8?B?dXNSNDVwYkRqenBHYk81UHJNVHZDdWt6TWdSWTROUktreC9zMDljY2JhK2pV?=
- =?utf-8?B?SDJJYTJOMzdzRlJhV1hrS3dyMDZJMCt3UlM5d3A3SXpkd1JIODFQaytpUGww?=
- =?utf-8?B?dmhNNHdlakJLaUh1VUloSFJ1aWsrd1d2SGF2ZUlyWjR1VTZFUHluakE4OGF2?=
- =?utf-8?B?cXZjcEdSSFRoUVIrc0pqZjgySTZodUFwQzRYaW1tZ3lObDY0M2N0bkpBNjJR?=
- =?utf-8?B?TW5uNVlDNnRkTFJNenhFenNISmlzZVd3eU5ZZE94azdyaWZDTmU4NCtrZjB4?=
- =?utf-8?B?bVA4RUNDQmh2ZXhPc0NkMFU2a2NBaEk4R0ZEZ2IwdWk5TmxlOTFXQjBDa1V1?=
- =?utf-8?B?eTZac0owRlFmWmk5MTd1NWpnTHJuT08yOEpLczlqajZLQ1NpZ2ZjSjc3NTll?=
- =?utf-8?B?Z2lCaUFCL0JGSVZ1WlhqSFQxaHEvcGNjS01nMXBBRmwzY0VEaFVIU0dyVE5B?=
- =?utf-8?B?L3BLS0xjNk4ybUxsOFU4OFh5RHBaODBaNjRtdWhsKzFZZUdaOTVQU3hyQmJu?=
- =?utf-8?B?NG5jWVdybzdySWV0bHZmNC9QbWpBSkMrb3FxUUhDM0psejVOZHZoSUNGbGJp?=
- =?utf-8?B?QU9Yekd4bXl6dUtJNnc4OHpScjloVlJ4UHlxNDBQUEVmSnl5ZEpkWStBMDZu?=
- =?utf-8?B?dWYzYnUzekJraE9BVXBNb0RXY2MvaVI1emFYWXJPRzZhbWpibUxHeUw2VWZZ?=
- =?utf-8?B?M1haWnMwODR6OHNsL2tBeTFNTGRKVlBkcldvM1Urek1TSHg0cC85SlVLelZO?=
- =?utf-8?B?UWFQeVBtODY3ZlBOSkNQMmZGWjBXTy9memhDeHByVThCN1pmRTAzUlRZaW0x?=
- =?utf-8?B?U1M5SzBTZU5GWFFYR1MyeFV1Uk4rMUQvV3N6ZUg2am9JZU5SWXExdGFsZzlT?=
- =?utf-8?B?N1lrQlByd24wSXh6ZHJZZDE5azJld0EyUVhuYVh6aUVmang1Y0lEWmVVYWFi?=
- =?utf-8?B?MnJJYnh0UVRtcThmeWFjM1NYdWNFQ1ZDbS9BUS9rVFVDcHVtWXI2eHdRTHh6?=
- =?utf-8?B?M3FvU1c0Vm1RdEUyYWMzNEc4dHBISk9TOTZMZS9YYmpKeU1GZ0c0bDdKZ0N5?=
- =?utf-8?B?dzVYZnhCbTJ6amJ2YmR1NU1aZDl6YlZSbWFtZG50U3BJT0dJYnpQbVpLcGJX?=
- =?utf-8?B?S1lKSE11eDNtZmZjcVBRNVVwbW1ab1NkOEJsd3B3VVRVb21WbUFqMC9jY0Nq?=
- =?utf-8?B?YmliZ0lKQnJVcitsdEEvWlBJbVVzZktPSlpCdTB3MW5VekZlOW1pZkhyRHAv?=
- =?utf-8?Q?+ZT8l08pdkyC2L8wsWlFkjlby?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	1fygwM9+xXIqXauABNrlIBnm/W5DVwA/ZfYJfsXxAVnWJzwWfQWaCC2q/IJonsoYPZjvHkK0MwqK1GQ12GpuS4nheDcn9QFCmZhzD9EWWmEWanPF0GJ2XxuMZgKdOUDt71f7Jf/lLCBWBsBkIr2RapEip12kqXgLDEPBQnWn1I87GdJSKQoze1zIIH9jwQpoZmYSPmUXmK9gK1a8RJ9TKdX6nkV62UFAkYFaSHkcwYpuumQ2PveaZiD+nG2W2GE21SV9l4ZX+njnTgfGrBBumftrs9Rcof+cHLoRW2aCoAuq8k4q7SG2NAREIakmUHH76o13E8vvCtXk4NnNAy4GhDRLPMQk9pGo83Pddg1rztcF3syLehnfjwYqBMw4IYxuteLwABpktGmNnfUYOnVOORPfrW4FCLqaHoKGVCx7VnAqqdDGSz75bB7LMZ3KEr3pzldloRHimVJeZuWnb337I3ycTl6aS0yLTgL5ft/79QuvSuUWZL2YX+rfl6rSbMbW0LiZx5HV5sosQBYecybS6I0Ss8L+ronOpPHS6ZujM0IXNVX+vrM7vi9xLMyuh4KHoOSKBis213j6mFBlqGlAmGiWesQPfiOCID4RZq4wQoADDq01YjPV0t+hHOsa3aoh9koqO78tmrSpg5AQjt3AGGFbofp49QdUfRVCkeguzJxhEkEUBWXyBGJuV0PDOKyoA8V6AoJOTxXIR+plJ3+MuiFZf2/dZQkRnPCcKmMUOdTvdXZDElubiho+vYgJP3hvt0SN2UEplcNLhCp0tPwBgy09pP15zAPZXvLjRB175YUpKuBeH9ACd4QQuB66sKPcAJLuhbyJ4fL2zJJMnfk1Ig==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e02359f6-583c-4948-2a3f-08dbd62b838f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 13:57:38.6213
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(1800799009)(451199024)(64100799003)(82310400011)(186009)(46966006)(36840700001)(40470700004)(40480700001)(36756003)(31686004)(40460700003)(66899024)(54906003)(70586007)(70206006)(16576012)(86362001)(81166007)(356005)(31696002)(82740400003)(36860700001)(47076005)(83380400001)(426003)(336012)(26005)(16526019)(2616005)(6666004)(53546011)(2906002)(478600001)(316002)(41300700001)(4326008)(6916009)(5660300002)(44832011)(8676002)(8936002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 13:59:04.6361
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qs4v1knJycyxQ6VYE/f4qzqeDDz+agTJf8FhKOy5yJBlj9CggpEdvrI/EgbFSZ2+vAfoWk7zzq7pIzqE1aawrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5573
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e6ab61a-c44d-4cff-4277-08dbd62bb71d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001709A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5410
 
-On Thu, Oct 26, 2023 at 02:31:27PM +0200, Jan Beulich wrote:
-> On 26.10.2023 12:25, Roger Pau Monné wrote:
-> > On Thu, May 11, 2023 at 02:07:12PM +0200, Jan Beulich wrote:
-> >> ... in order to also deny Dom0 access through the alias ports. Without
-> >> this it is only giving the impression of denying access to PIT. Unlike
-> >> for CMOS/RTC, do detection pretty early, to avoid disturbing normal
-> >> operation later on (even if typically we won't use much of the PIT).
-> >>
-> >> Like for CMOS/RTC a fundamental assumption of the probing is that reads
-> >> from the probed alias port won't have side effects (beyond such that PIT
-> >> reads have anyway) in case it does not alias the PIT's.
-> >>
-> >> At to the port 0x61 accesses: Unlike other accesses we do, this masks
-> >> off the top four bits (in addition to the bottom two ones), following
-> >> Intel chipset documentation saying that these (read-only) bits should
-> >> only be written with zero.
-> > 
-> > As said in previous patches, I think this is likely too much risk for
-> > little benefit.  I understand the desire to uniformly deny access to
-> > any ports that allow interaction with devices in use by Xen (or not
-> > allowed to be used by dom0), but there's certainly a risk in
-> > configuring such devices in the way that we do by finding a register
-> > that can be read and written to.
-> > 
-> > I think if anything this alias detection should have a command line
-> > option in order to disable it.
+
+On 26/10/23 15:37, Jan Beulich wrote:
+> On 26.10.2023 14:35, Xenia Ragiadakou wrote:
+>>
+>>
+>> On 26/10/23 14:51, Jan Beulich wrote:
+>>> On 26.10.2023 11:46, Xenia Ragiadakou wrote:
+>>>> On 26/10/23 11:45, Jan Beulich wrote:
+>>>>> On 26.10.2023 10:34, Xenia Ragiadakou wrote:
+>>>>>> On 26/10/23 10:35, Jan Beulich wrote:
+>>>>>>> On 26.10.2023 08:45, Xenia Ragiadakou wrote:
+>>>>>>>> --- a/xen/arch/x86/hvm/dom0_build.c
+>>>>>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>>>>>>>> @@ -518,7 +518,7 @@ static paddr_t __init find_memory(
+>>>>>>>>              if ( end <= kernel_start || start >= kernel_end )
+>>>>>>>>                  ; /* No overlap, nothing to do. */
+>>>>>>>>              /* Deal with the kernel already being loaded in the region. */
+>>>>>>>> -        else if ( kernel_start - start > end - kernel_end )
+>>>>>>>> +        else if ( kernel_start + kernel_end > start + end )
+>>>>>>> What meaning has the sum of the start and end of either range? I can't
+>>>>>>> figure how comparing those two values will be generally correct / useful.
+>>>>>>> If the partial-overlap case needs handling in the first place, I think
+>>>>>>> new conditionals need adding (and the existing one needs constraining to
+>>>>>>> "kernel range fully contained") to use
+>>>>>>> - as before, the larger of the non-overlapping ranges at start and end
+>>>>>>>       if the kernel range is fully contained,
+>>>>>>> - the tail of the range when the overlap is at the start,
+>>>>>>> - the head of the range when the overlap is at the end.
+>>>>>> Yes it is not quite straight forward to understand and is based on the
+>>>>>> assumption that end > kernel_start and start < kernel_end, due to
+>>>>>> the first condition failing.
+>>>>>>
+>>>>>> Both cases:
+>>>>>> (start < kernel_start && end < kernel_end) and
+>>>>>> (kernel_start - start > end - kernel_end)
+>>>>>> fall into the condition ( kernel_start + kernel_end > start + end )
+>>>>>>
+>>>>>> And both the cases:
+>>>>>> (start > kernel_start && end > kernel_end) and
+>>>>>> (end - kernel_end > kernel_start - start)
+>>>>>> fall into the condition ( kernel_start + kernel_end < start + end )
+>>>>>>
+>>>>>> ... unless of course I miss a case
+>>>>> Well, mathematically (i.e. ignoring the potential for overflow) the
+>>>>> original expression and your replacement are identical anyway. But
+>>>>> overflow needs to be taken into consideration, and hence there is a
+>>>>> (theoretical only at this point) risk with the replacement expression
+>>>>> as well. As a result I still think that ...
+>>>>>
+>>>>>>> That said, in the "kernel range fully contained" case it may want
+>>>>>>> considering to use the tail range if it is large enough, rather than
+>>>>>>> the larger of the two ranges. In fact when switching to that model, we
+>>>>>>> ought to be able to get away with one less conditional, as then the
+>>>>>>> "kernel range fully contained" case doesn't need treating specially.
+>>>>> ... this alternative approach may want considering (provided we need
+>>>>> to make a change in the first place, which I continue to be
+>>>>> unconvinced of).
+>>>> Hmm, I see your point regarding the overflow.
+>>>> Given that start < kernel_end and end > kernel_start, this could
+>>>> be resolved by changing the above condition into:
+>>>> if ( kernel_end - start > end - kernel_start )
+>>>>
+>>>> Would that work for you?
+>>>
+>>> That would look quite a bit more natural, yes. But I don't think it covers
+>>> all cases: What if the E820 range is a proper sub-range of the kernel one?
+>>> If we consider kernel range crossing E820 region boundaries, we also need
+>>> to take that possibility into account, I think.
+>>
+>> You are right, this case is not handled and can lead to either of the
+>> issues mentioned in commit message.
+>> Maybe we should check whether end > start before proceeding with
+>> checking the size.
 > 
-> Well, we could have command line options (for each of the RTC/CMOS,
-> PIC, and PIT probing allowing the alias masks to be specified (so we
-> don't need to probe). A value of 1 would uniformly mean "no probing,
-> no aliases" (as all three decode the low bit, so aliasing can happen
-> there). We could further make the default of these variables (yes/no,
-> no actual mask values of course) controllable by a Kconfig setting.
+> It looks like it all boils down to the alternative I did sketch out.
 
-If you want to make this more fine grained, or even allow the user to
-provide custom masks that's all fine, but there's already
-dom0_ioports_disable that allows disabling a list of IO port ranges.
+I 'm not sure I fully understood the alternative.
+Do you mean sth in the lines below?
 
-What I would require is a way to avoid all the probing, so that we
-could return to the previous behavior.
+          if ( end <= kernel_start || start >= kernel_end )
+              ; /* No overlap, nothing to do. */
+          /* Deal with the kernel already being loaded in the region. */
+-        else if ( kernel_start - start > end - kernel_end )
++        else if ( start < kernel_start && end > kernel_end ) {
++            if ( kernel_start - start > end - kernel_end )
++                end = kernel_start;
++            else
++                start = kernel_end;
++        }
++        else if ( start < kernel_start )
+              end = kernel_start;
+-        else
++        else if ( end > kernel_end )
+              start = kernel_end;
++        else
++            continue;
 
-> >> --- a/xen/arch/x86/time.c
-> >> +++ b/xen/arch/x86/time.c
-> >> @@ -425,6 +425,69 @@ static struct platform_timesource __init
-> >>      .resume = resume_pit,
-> >>  };
-> >>  
-> >> +unsigned int __initdata pit_alias_mask;
-> >> +
-> >> +static void __init probe_pit_alias(void)
-> >> +{
-> >> +    unsigned int mask = 0x1c;
-> >> +    uint8_t val = 0;
-> >> +
-> >> +    /*
-> >> +     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
-> >> +     * count is loaded independent of counting being / becoming enabled.  Thus
-> >> +     * we have a 16-bit value fully under our control, to write and then check
-> >> +     * whether we can also read it back unaltered.
-> >> +     */
-> >> +
-> >> +    /* Turn off speaker output and disable channel 2 counting. */
-> >> +    outb(inb(0x61) & 0x0c, 0x61);
-> >> +
-> >> +    outb((2 << 6) | (3 << 4) | (0 << 1), PIT_MODE); /* Mode 0, LSB/MSB. */
-> >> +
-> >> +    do {
-> >> +        uint8_t val2;
-> >> +        unsigned int offs;
-> >> +
-> >> +        outb(val, PIT_CH2);
-> >> +        outb(val ^ 0xff, PIT_CH2);
-> >> +
-> >> +        /* Wait for the Null Count bit to clear. */
-> >> +        do {
-> >> +            /* Latch status. */
-> >> +            outb((3 << 6) | (1 << 5) | (1 << 3), PIT_MODE);
-> >> +
-> >> +            /* Try to make sure we're actually having a PIT here. */
-> >> +            val2 = inb(PIT_CH2);
-> >> +            if ( (val2 & ~(3 << 6)) != ((3 << 4) | (0 << 1)) )
-> >> +                return;
-> >> +        } while ( val2 & (1 << 6) );
-> > 
-> > We should have some kind of timeout here, just in case...
+          if ( end - start >= size )
+              return start;
+
+You wouldn't like to consider this approach?
+
+          if ( end <= kernel_start || start >= kernel_end )
+              ; /* No overlap, nothing to do. */
+          /* Deal with the kernel already being loaded in the region. */
+-        else if ( kernel_start - start > end - kernel_end )
++        else if ( kernel_end - start > end - kernel_start )
+              end = kernel_start;
+          else
+              start = kernel_end;
+
+-        if ( end - start >= size )
++        if ( end > start && end - start >= size )
+              return start;
+      }
+
 > 
-> Hmm, I indeed did consider the need for a timeout here. With what
-> we've done up to here we already assume a functioning PIT, verifying
-> simply as we go. The issue with truly using some form of timeout is
-> the determination of how long to wait at most.
-
-I would likely make it based on iterations, could you get some figures
-on how many iterations it takes for the bit to be clear?
-
-I would think something like 1000 should be enough, but really have no
-idea.
-
-> >> +
-> >> +        /*
-> >> +         * Try to further make sure we're actually having a PIT here.
-> >> +         *
-> >> +         * NB: Deliberately |, not ||, as we always want both reads.
-> >> +         */
-> >> +        val2 = inb(PIT_CH2);
-> >> +        if ( (val2 ^ val) | (inb(PIT_CH2) ^ val ^ 0xff) )
-> >> +            return;
-> >> +
-> >> +        for ( offs = mask & -mask; offs <= mask; offs <<= 1 )
-> >> +        {
-> >> +            if ( !(mask & offs) )
-> >> +                continue;
-> >> +            val2 = inb(PIT_CH2 + offs);
-> >> +            if ( (val2 ^ val) | (inb(PIT_CH2 + offs) ^ val ^ 0xff) )
-> >> +                mask &= ~offs;
-> >> +        }
-> >> +    } while ( mask && (val += 0x0b) );  /* Arbitrary uneven number. */
-> >> +
-> >> +    if ( mask )
-> >> +    {
-> >> +        dprintk(XENLOG_INFO, "PIT aliasing mask: %02x\n", mask);
-> >> +        pit_alias_mask = mask;
-> >> +    }
-> > 
-> > Is it fine to leave counting disabled for channel 2?
-> > 
-> > Shouldn't we restore the previous gate value?
-> 
-> See init_pit(), which also doesn't restore anything. The system is under
-> our control, and we have no other use for channel 2. (I really had
-> restore logic here initially, but then dropped it for said reason.)
-
-It might be used by a PV dom0 (see hwdom_pit_access()), so I wonder
-whether we should try to hand off as Xen found it.
-
-Thanks, Roger.
+> Jan
 
