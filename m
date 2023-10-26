@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96DB07D7EC0
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 10:46:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623602.971592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A0807D7F40
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 11:04:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623608.971603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvvzk-0006ye-VH; Thu, 26 Oct 2023 08:45:36 +0000
+	id 1qvwGg-0003Bg-GD; Thu, 26 Oct 2023 09:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623602.971592; Thu, 26 Oct 2023 08:45:36 +0000
+Received: by outflank-mailman (output) from mailman id 623608.971603; Thu, 26 Oct 2023 09:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvvzk-0006vp-SY; Thu, 26 Oct 2023 08:45:36 +0000
-Received: by outflank-mailman (input) for mailman id 623602;
- Thu, 26 Oct 2023 08:45:34 +0000
+	id 1qvwGg-00039z-Ct; Thu, 26 Oct 2023 09:03:06 +0000
+Received: by outflank-mailman (input) for mailman id 623608;
+ Thu, 26 Oct 2023 09:03:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hFWs=GI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qvvzi-0006uR-PA
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 08:45:34 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2061f.outbound.protection.outlook.com
- [2a01:111:f400:7d00::61f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I5Mm=GI=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1qvwGf-00039t-KO
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 09:03:05 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20617.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::617])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05caf708-73dc-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 10:45:32 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DUZPR04MB9948.eurprd04.prod.outlook.com (2603:10a6:10:4dd::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.36; Thu, 26 Oct
- 2023 08:45:29 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.008; Thu, 26 Oct 2023
- 08:45:29 +0000
+ id 77b34d49-73de-11ee-9b0e-b553b5be7939;
+ Thu, 26 Oct 2023 11:03:03 +0200 (CEST)
+Received: from DS7PR06CA0028.namprd06.prod.outlook.com (2603:10b6:8:54::33) by
+ DS7PR12MB5718.namprd12.prod.outlook.com (2603:10b6:8:71::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6907.33; Thu, 26 Oct 2023 09:03:00 +0000
+Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
+ (2603:10b6:8:54:cafe::88) by DS7PR06CA0028.outlook.office365.com
+ (2603:10b6:8:54::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.35 via Frontend
+ Transport; Thu, 26 Oct 2023 09:03:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6933.18 via Frontend Transport; Thu, 26 Oct 2023 09:02:59 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
+ 2023 04:02:59 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
+ 2023 02:02:59 -0700
+Received: from [10.71.193.58] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Thu, 26 Oct 2023 04:02:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,191 +63,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05caf708-73dc-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 77b34d49-73de-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LFMZGRj4bS4uma+aWeIr+An32lUz3mZD2iotzgEcwt94VbI2fjdn0C5qbjYY40grfcl+hQV31fsaX3ZFl5ZHsNdnNO9xBCPWp1of27k7SDLVjcdPkB5tYu3AqnfxUkp7F0qbjq/O7zTJAWm8NMqcROIQRfsHkwDfDGxbnb/gChK7ydcGZq3nxcOABwUG/anISgW9xLF9x6LPNB6TNnlEbvyPlUAdTF7g/dNp84s9eX9NqrM3C8/Ms8DC8uVC8HOosv+jORLE47EXaX3E98EtfPp+14TesiCJmRANE3vruG0o3t6YX2SdoqPNZsaR2bKVULPFCBvmMo8ZRWzI/ZBi5A==
+ b=FVOtsEwI8nC2zB39uhTClgeJPEq0mcfL8lT/gS2yeKRyoCcWnA9ui4yGTCDmatbsuOY3EmbVCRKydPI8hhIZy+zfDz20FGYsieKfK4i4V1b/zJfT363GY99Ih9mRUcpzRswPV0h7uj4S1ffjNygvahDp1BUA9RzTnbigouA2C43L6Q3ZtMULoA1eCuvU+gGO8PiyBgOlF82YTRZCqnY42XmIBnN8D6eqJpMgXR7OJEPYpKlJeKPW5ZekFzppzzsYT/q9+InXKfW0l9H/3dN6IYJuOjqBgGVv5GR8vU30rzc9hkQRQFDVCnpLVO98lP3HZ/w0bC8vyUhsxnusA87VVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HeL4Ujpyh0Z5eCSBCO4lfs1Cmksi/7P3y4PYo7YxKak=;
- b=jaToB0oe+QA64JPD/39vYVcwciG4Va+mb1XIW8IrwFUc3I0l5K7CQ+IX9kHeMklMCubmoDJrg3NCNNZ7DAyH0I0s+CxKhZtVf01tKMn8YCkfKdPUkOd/llAzUJuIHCeLViCrI5/Ga5imat1m6wy8yfnrwcT0VsphvS2NLOIrfCAeNzjnydYksc5MGAXWdQdaoeZGqvjly6HiYZj/QsilkQWZtxk928AT86kSkfme/hmW92j7Ti+qXkmNbjqnX7e88Bp4D9jRnKKZ8Sy7SvFG3Tq4T/4ZfikQJnRlKAErF15zdidsHYqJ8TLjH0O9ab960mEvHdfoeBhAy6YntkRgKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=sIK2GiO9xi8jpj0JqkeN7ZLEgMP1E9mQ9ocUZONKLPo=;
+ b=QrL686RWQKTNzS4lmDPidW5Lm4ArqQHKcmHeTJK3J8rpRPSLx1HJ/8GsfdwWQ0OBRMk4Q/KqmbaeAu813Ydx4XlX0Eq3N9R4c3KwaBLNo7kFUagKsXLhmmrOlXLixMOTCdaWxczGuajWjdH0byiXwhXcWSm9G/y5Xq6uYVGWI7/Gr9fbub0nnlVu2sD+5dCSySGy+2YJT7BWZrbN7mKZy/J3bDcIkfoCDWAgYHmoNKFYA04EtEESkYY6jigGUcytVAXHzNTP0CTX5aJpV9NsGornHz+zVzQYd1pJ95QFBGgb6lBBGUnPiTH8x7cCvxKrNWjpNxDmov8JCUaJZZWEhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HeL4Ujpyh0Z5eCSBCO4lfs1Cmksi/7P3y4PYo7YxKak=;
- b=Hk/kUwMThaIKgacLI7TJtvAAJ9mlvmr8FYztXL7eToSXs853sTCRiz57MAwLdccq5IZdEHezNPJhNjzfvPlbG4m1O9dA/bL5Sqg8eLjxxtVDzzr9X4ZlJ/lkIrcVlTnEgEchR8kcTCyELk1yhxC2i/v5x3NohC+npHhYyN2J7lFtjXqvWpVJUpSd76agUtO6YLmVgNRvJlca4Bqnt4s0UFfk8UdnG62jKxdNNvhb6yfkSxv3icWaQiydcjx+NB2+0ynnDPfpiTbawK//kbSEKsqTO2cD11QlLPtQd/dQUDkQioSHca1anum1Lhn/LulkLMZHUliFhCKJTbzwjzCe4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
-Date: Thu, 26 Oct 2023 10:45:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
-Content-Language: en-US
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
- <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
- <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0010.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f2::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+ bh=sIK2GiO9xi8jpj0JqkeN7ZLEgMP1E9mQ9ocUZONKLPo=;
+ b=jhvBTZWef9bXnsiNytdbCVpSQpjEbNWcNcAQ5rjrinMYDV+FW/vuE8hWx5qoen7jKZz4+Mtt4BYgXxA79/IznH3ybY5WBARewo9151nfziVU6o4qcdzy9R9hkvNNG+FyH9KljDESqyKPI6t4Jv4JRhqqTKOLY80BR+1E/cHBxtM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <6547ffb8-f8b8-4fe9-8ae1-4451a7e87cfa@amd.com>
+Date: Thu, 26 Oct 2023 11:02:57 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN] xen/arm: arm32: Use adr_l instead of load_paddr for getting
+ address of symbols
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>
+References: <20231025170304.2331922-1-ayan.kumar.halder@amd.com>
+ <6c4c8023-1d6b-426d-9c9d-c45f01c9c5d2@amd.com>
+ <12be1b5e-2bdc-49bc-aeea-3372291ced8a@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <12be1b5e-2bdc-49bc-aeea-3372291ced8a@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DUZPR04MB9948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b4a33a1-effc-498d-65f3-08dbd5ffe815
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|DS7PR12MB5718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27509310-636a-4edc-7eb0-08dbd6025a63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	H5auSD1pimlNse4UdB81TSF6rbGEPgdcAtVIYNwaY/DK1R9eC+y7eV8v2CvPbfSjGas//cj4Xbvlek+sHTMOpkj0zaNKYxG0YbOGeqylCrMOJ2cGX0eIhI4XgmcXsLcso9AEsXLcfIaSU5zrnEJzzx+yDpcfbxdHW23tAhk/OVF9XkEQCU7vseaE+j95i3xuff5hAQp6X/po6CCPgz4ry44oeZWaOuH7tjsbwWhmiXyV9B0Zo6EZiFH86OvzOmK69ZmdkOm/WH1TVWMUK/NdDU6kbOrfEVCWGNVIS6CIHRdFcKRO0hDShx6edynywcJQ2D555XgDESe5udnDiJVukA4N5HmvEWMZaL02GsSvyKcj9MrGiGdjnISU3anaoTucmVOc3oy9EQmQrL4/5FVEqFxd++9eyHvfM4doTpnDFs/0+i8dWbX3J9NFGOMqSpLBTriwUGKqriqMzGIi1/vsmYbi+uWMl0d/gF2FbTKNg/5mEQ+zcub8lCQPcsfYCpIkgMBuV3JZAQtX5P9pFeNtlMvaDU/R1c/LKGNEhjfvN+t2kVTjLcCAdi0yZZhzBy8BsUBT4Tc3yf/bxppST9HN7jCEHAtAdkeOChLzPgGj9VdFF2sQKAWTUUkbKG5g45rn8J6R+BTB/n9vHSJdlJfD8g==
+	NUicH2+uOqCwfxg0HnNZnz5vzlC2iDybntGUg2ZECIbGvpbcPnOKkDXT/xNoEYdo3VfbpLhGvTApo+oeNdNQUMjYdAE7Hs+IK9NbzH5Edmo/gzKq+2+FRWHTzRzwmdFMeG4dzqiiDSquSM9RBgpeI1Dl3ZYNOFc13SE7mLQRv5X84dRwhuJBtPMxp3yd8V69bGykbhPELTWITpBtfv5cjGnT7kTd5qqQktDOZ3jlB7Sd5M8VsXCI6+cXo5yuc1BBoZDLl0LMSPqNWrWTd3qgSciMBnxFQFCaeFg6P0ezoj537u1XWtk7Z53spdSGAePxQQkfQHPtOZ+LY7jBgXxEtwseQa4HIRDTNiwwCk636D45EDTuQg/wfnMnLDiqTbbwJHphcafpbv2VtzrGvo3O2RyZ0qiX9iN4p0Hg1UNvk0j+YjBg4P+twnZu7pZ4YGlBFCuDFn4NDus0nN0Am0KU0gCRaqhHkej8kotDteM5zTR3R2c5wRMIWFuR9BGy+hTJ4BXWYQfJ15DXNXH93FUGc3nIkJAJjLYCWu+dvTLEb8fu5T1AC7spdXE5UzkB1PSVUanezDxqqXCTN47kxycYX59vjhFsLCqsyLErlG7jHR4NrWxjIdnsECI4+HaqFkd1Wja6x6IhtRaANkft3+4/UF7M6FEmsxhQ4dlntvSkHzHAUFTkbBsWSreCgf6XQfqS+gWhW1LVgM90KnwcyORqy5KLEihmGTNKljbrpmGRT+nGF/mNRYz+KZtAtBA1+fkV6jXbNHQwjofq8TjyZ7sTxvfS/8Yd/3EKYJX1Bwwtj0/mgTlm1l0jnBjprRj+DpDr
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(39860400002)(136003)(346002)(366004)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(86362001)(54906003)(316002)(66476007)(8676002)(8936002)(38100700002)(4326008)(53546011)(6506007)(6512007)(2616005)(6486002)(83380400001)(478600001)(66556008)(26005)(41300700001)(2906002)(36756003)(31696002)(5660300002)(31686004)(6916009)(66946007)(66899024)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnJzalVVeDN4dlJHK1U2Vk1QRVRjZ3RpVmxHR1JRVENqWmIyRDJuUGZ0dTdI?=
- =?utf-8?B?dVhKTW9ackM2dVlFNlAxeVd6ckswSHdvNTZHZGV2RG50QVdESUk1c1hCUzdC?=
- =?utf-8?B?Z2QramNZSHAxbjRtbU1ML2RzZWhOeldrV0ZvYzhwNWZQekhiakZjMDNuNXBF?=
- =?utf-8?B?N01ER01HSHdhSjkrbElQdFVjWXpSaUhsbDEvS1Y5TmpMdituVnNMU1ltdXBX?=
- =?utf-8?B?VjJaVVZWblFaaWxoWVZ6RXJQTE9yS211YlQycWhZSmlaNFlNbTN4QUIvNEhx?=
- =?utf-8?B?TUVwUFgzRlZEZU42bFVnSUR3VXlRUTc4bHBkSXZFVEtkRUZxaTJoeU1XZlpU?=
- =?utf-8?B?NnNHWDRCRXJvaWo2WEZMSlJpUlNDei9BNjIzdjV0MFBodmU2MzZvVjUxdEVU?=
- =?utf-8?B?aVRMV3NxMlhHb1RMTG4rQzRWa1FPbzZkbExrcmtya2dJTzZSWHlaNEp3WG1Q?=
- =?utf-8?B?YWxHU2xLc2twZ21XUUc4MUQ4aWZPM1p5NDZMSmlET052bXM5dFl2bTM0ZzBH?=
- =?utf-8?B?UHZUNXhXN0ZWemZWZlpaOWhwOWl0VDVGTVVDYnI4NE8rNXl4eDZ2M2dOcSs3?=
- =?utf-8?B?MTd2SFJnVEZ2MFhwTzRjdG1XcjRSL3o0Wllrd2FRTC93SW5NbXRocjF1Nk42?=
- =?utf-8?B?U29iaUxXbzAySVB3ZExUSTh4M29NazNMOWRtL2E5MklzRGdRSmlVU0c3U3o1?=
- =?utf-8?B?ZVU2SmtVcmtDYWtyM3RBS1V0WGRPaUxVQVZpNE1WcHZlS09ZUU1wYXozendh?=
- =?utf-8?B?bWsyV0daUit2b1ZjNk5DY3BtaWpUMlkrYWtxY3FtSDkxRFRiUkVxZXVYUWEx?=
- =?utf-8?B?YmtZUmlzd0lVc25rRElwWmZBNUZDTDBNM2g1ZlgyMDRKbHYvTDNUQ212VHc2?=
- =?utf-8?B?Z3VBT3puL2xxOTYvVTk0bVRGeE0zWnlCSzJ2VTM2VUZ5Um84THBJeE9uc3o3?=
- =?utf-8?B?R0lTT1lONVg3WWF2N2U1dmpPZ2hBYnJuZDh0WXk5bGJZRGoxRzF2Rk11eVlU?=
- =?utf-8?B?VSt4UEZZbjU4T2I4K2tlY0F5TS9lT0R3RlltZWVlTjNpVXZhY1Zwa1NGR21v?=
- =?utf-8?B?MEU0QUZDWDR2U0JNNWtlaTgvbTI1b0JSazJlVkVMNDRQOW1NQjFIVWc3M2N4?=
- =?utf-8?B?bHoyOVlob1hrMS81THN3OStJWjhDMkVaZysrUlRFK2V4MXUrODhXZ0EwYnh2?=
- =?utf-8?B?dGlaRW1Pc3p3azd6WERFeG5BaXVGZ1FjbllEZXVvVStiN1FkWHIwTWlObk5a?=
- =?utf-8?B?TFAxcldXVy9DQnFqS1pnSkZONUdGYzYvVkFqdmpRcit1TWF3VUNXNVB5K1FY?=
- =?utf-8?B?RVl5bFFwNGFOM1NKMHNBNkZnUzVHTFpOVlQ4R2Z5czVqb0VhSW1xVnZHTENB?=
- =?utf-8?B?cnlBQ0NTakFtMDZBRGZsZnphODhPTjNXMUQ0cXVZQXJ6UXVXa1NVeDVTaWlO?=
- =?utf-8?B?ZklsNzRjRU0rVTVwbGt1ZGtFdDdyQnA2UFpqdUN3ckVkVUo2M0lWcTZJYW5p?=
- =?utf-8?B?U2wvYWhPMmtPanVrQksrVUpXcHM5NUFibHpwcEJDY1V2UENOUmNtd09XTnMw?=
- =?utf-8?B?Q0ZPQXB5M2pRVXZSQjM3Y3VUYlp4a2l2ejdBWWJtWmVlUk9LYkNtWUlVMC9J?=
- =?utf-8?B?dyt3Y29JZFp1MkZicjU5bDFDT0taeE0rcEdPRk1LV0U2OVFkNG1WZW5FZUdX?=
- =?utf-8?B?ZGR3dDBzWjIxd0N1TW93M3hwQzNTSE5jZEhBdnFEUHBINlQ2Umd2ZkNtOWhw?=
- =?utf-8?B?NUtPaGlpenRUeXg5Mk45NkkxSDRKWmcwZFZPTGVBdWF4ZlR2NHRDT0lvaHly?=
- =?utf-8?B?em5jR2lDVXl0VG9VRDBTOHdHZWxIdXFldmVrMkNDa0JNdjFONEI5enNpN0tr?=
- =?utf-8?B?a1NFZUFOdStZaUYxR3lLMGxoRlZ2b1RtdHVwejNoUXJRcy82eDJOSllYOWJK?=
- =?utf-8?B?Q295V01aUWUzcFhBWDRNV1Y3SmJ4QTFZVlZYZHBQSmxPaWZwYzZHR0NxTTFZ?=
- =?utf-8?B?NHlOSFRQdFhTbjQ4VDRENHRwVHphSk5GSWhXRGhXYjJiYzk1c1dXdDlPTDZ0?=
- =?utf-8?B?bUlVaFdLOTY2OUZOUERmeHhucmxhMXJjc1BOVXIwUTcxOTAvRzdqQlRrQmZD?=
- =?utf-8?Q?Q0dnChniUotulEaD5piS5KLu2?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b4a33a1-effc-498d-65f3-08dbd5ffe815
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 08:45:29.1545
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(1800799009)(82310400011)(64100799003)(186009)(451199024)(36840700001)(40470700004)(46966006)(8676002)(70206006)(5660300002)(8936002)(41300700001)(4326008)(44832011)(110136005)(54906003)(2906002)(316002)(86362001)(70586007)(16576012)(36756003)(478600001)(2616005)(31696002)(53546011)(31686004)(36860700001)(26005)(81166007)(40480700001)(47076005)(356005)(426003)(40460700003)(336012)(82740400003)(83380400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 09:02:59.7024
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Wdw+0c8BTfv/a7Gg/aauCpTEzrF9cqHA423KW/iaewACThWbiMYHCdJOLm7F0y3PHwykOTWE4SW8XWeQp8fjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9948
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27509310-636a-4edc-7eb0-08dbd6025a63
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099D4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5718
 
-On 26.10.2023 10:34, Xenia Ragiadakou wrote:
-> On 26/10/23 10:35, Jan Beulich wrote:
->> On 26.10.2023 08:45, Xenia Ragiadakou wrote:
->>> Given that start < kernel_end and end > kernel_start, the logic that
->>> determines the best placement for dom0 initrd and metadata, does not
->>> take into account the two cases below:
->>> (1) start > kernel_start && end > kernel_end
->>> (2) start < kernel_start && end < kernel_end
+Hi Julien,
+
+On 26/10/2023 10:40, Julien Grall wrote:
+> 
+> 
+> Hi,
+> 
+> On 25/10/2023 18:59, Michal Orzel wrote:
+>> Hi Ayan,
+>>
+>> On 25/10/2023 19:03, Ayan Kumar Halder wrote:
+>>> Before the MMU is turned on, the address returned for any symbol will always be
+>>> physical address. Thus, one can use adr_l instead of load_paddr.
 >>>
->>> In case (1), the evaluation will result in end = kernel_start
->>> i.e. end < start, and will load initrd in the middle of the kernel.
->>> In case (2), the evaluation will result in start = kernel_end
->>> i.e. end < start, and will load initrd at kernel_end, that is out
->>> of the memory region under evaluation.
->> I agree there is a problem if the kernel range overlaps but is not fully
->> contained in the E820 range under inspection. I'd like to ask though
->> under what conditions that can happen, as it seems suspicious for the
->> kernel range to span multiple E820 ranges.
+>>> create_table_entry() now takes an extra argument to denote if it is called after
+>>> the mmu is turned on or not.  If it is called with mmu on, then it uses
+>>> load_paddr to get the physical address of the page table symbol.
+>> I wonder if we need this extra complexity.
 > 
-> We tried to boot Zephyr as pvh dom0 and its load address was under 1MB.
+> +1. We used to request the caller to tell whether the MMU is on. But
+> this made the code more complex. So I decided to remove it completely.
 > 
-> I know ... that maybe shouldn't have been permitted at all, but 
-> nevertheless we hit this issue.
-
-How can they expect to have a contiguous, large enough range there?
-
->>> This patch rephrases the if condition to include the above two cases
->>> without affecting the behaviour for the case where
->>> start < kernel_start && end > kernel_end
->>>
->>> Fixes: 73b47eea2104 ('x86/dom0: improve PVH initrd and metadata placement')
->>> Signed-off-by: Xenia Ragiadakou<xenia.ragiadakou@amd.com>
->>> ---
->>>   xen/arch/x86/hvm/dom0_build.c | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
->>> index c7d47d0d4c..5fc2c12f3a 100644
->>> --- a/xen/arch/x86/hvm/dom0_build.c
->>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>> @@ -518,7 +518,7 @@ static paddr_t __init find_memory(
->>>           if ( end <= kernel_start || start >= kernel_end )
->>>               ; /* No overlap, nothing to do. */
->>>           /* Deal with the kernel already being loaded in the region. */
->>> -        else if ( kernel_start - start > end - kernel_end )
->>> +        else if ( kernel_start + kernel_end > start + end )
->> What meaning has the sum of the start and end of either range? I can't
->> figure how comparing those two values will be generally correct / useful.
->> If the partial-overlap case needs handling in the first place, I think
->> new conditionals need adding (and the existing one needs constraining to
->> "kernel range fully contained") to use
->> - as before, the larger of the non-overlapping ranges at start and end
->>    if the kernel range is fully contained,
->> - the tail of the range when the overlap is at the start,
->> - the head of the range when the overlap is at the end.
+>> Can we just remove load_paddr macro completely (I have a plan to do this for arm64 mmu head.S)
+>> and open code it in create_table_entry? I don't think there is any benefit in
+>> having the if/else there to use either load_paddr or adr_l. This function will also go
+>> into arm32 mmu head.S.
 > 
-> Yes it is not quite straight forward to understand and is based on the
-> assumption that end > kernel_start and start < kernel_end, due to
-> the first condition failing.
+> While I was ok (I am not 100% happy) with open-coding load_paddr in
+> arm64, I would rather not do it on Arm32 because I still haven't figured
+> out whether I would need other use (which could not be replaced with
+> adr_l) when fixing the secondary CPU boot code (it is still not
+> compliant with the Arm Arm).
 > 
-> Both cases:
-> (start < kernel_start && end < kernel_end) and
-> (kernel_start - start > end - kernel_end)
-> fall into the condition ( kernel_start + kernel_end > start + end )
-> 
-> And both the cases:
-> (start > kernel_start && end > kernel_end) and
-> (end - kernel_end > kernel_start - start)
-> fall into the condition ( kernel_start + kernel_end < start + end )
-> 
-> ... unless of course I miss a case
+> So the question here is what do we gain by removing load_paddr
+> completely? We still need a register allocate for the offset, and the
+> macro makes it clearer what's the code is about.
+I agree that it might not be super beneficial. My opinion was based on the fact
+that why bother having a macro if it is only used in one place and consists of 2 instructions only.
+That said, I'm fully ok to keep the macro if it improves readability and the only use would be in create_table_entry.
+Then, on an arm32 head.S split, the macro together with function would moved to mmu specific head.S
 
-Well, mathematically (i.e. ignoring the potential for overflow) the
-original expression and your replacement are identical anyway. But
-overflow needs to be taken into consideration, and hence there is a
-(theoretical only at this point) risk with the replacement expression
-as well. As a result I still think that ...
-
->> That said, in the "kernel range fully contained" case it may want
->> considering to use the tail range if it is large enough, rather than
->> the larger of the two ranges. In fact when switching to that model, we
->> ought to be able to get away with one less conditional, as then the
->> "kernel range fully contained" case doesn't need treating specially.
-
-... this alternative approach may want considering (provided we need
-to make a change in the first place, which I continue to be
-unconvinced of).
-
-Jan
+~Michal
 
