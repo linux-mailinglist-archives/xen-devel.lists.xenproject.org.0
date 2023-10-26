@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0EBD7D8BC0
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 00:36:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624031.972398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02B017D8BD5
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 00:51:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624036.972407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw8wK-0001wP-D6; Thu, 26 Oct 2023 22:34:56 +0000
+	id 1qw9Bu-0004mt-JC; Thu, 26 Oct 2023 22:51:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624031.972398; Thu, 26 Oct 2023 22:34:56 +0000
+Received: by outflank-mailman (output) from mailman id 624036.972407; Thu, 26 Oct 2023 22:51:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw8wK-0001tG-AA; Thu, 26 Oct 2023 22:34:56 +0000
-Received: by outflank-mailman (input) for mailman id 624031;
- Thu, 26 Oct 2023 22:34:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qw9Bu-0004kQ-Gc; Thu, 26 Oct 2023 22:51:02 +0000
+Received: by outflank-mailman (input) for mailman id 624036;
+ Thu, 26 Oct 2023 22:51:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z2QB=GI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1qw8wI-0001tA-Cj
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 22:34:54 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df16ef51-744f-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 00:34:49 +0200 (CEST)
+ id 1qw9Bs-0004kK-Gw
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 22:51:00 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 206bd313-7452-11ee-98d5-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 00:50:58 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 66073B816EF;
- Thu, 26 Oct 2023 22:34:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF64C433C8;
- Thu, 26 Oct 2023 22:34:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C9C99636A9;
+ Thu, 26 Oct 2023 22:50:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F1EC433C7;
+ Thu, 26 Oct 2023 22:50:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +41,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df16ef51-744f-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 206bd313-7452-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698359687;
-	bh=Osdx7hfaNFBaK3eeztfPGOHqBfwVnUuPl93jRNhqnVY=;
+	s=k20201202; t=1698360656;
+	bh=p88YY7AX2lwSaN8Z95uq859/EZplpPzZHphm5bShQ2U=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=I8W7llEnX4ngrtyb+hTnTuAZbYvUe9Jj/dOrCoKvNHxSs8G/7zTdToFVkYuCBLd3W
-	 Fmgr0aJGm2sc0ZU7y8ppjIXEJBqzC9GoMW1qrbUzQ5RViIjCMv53T1cAs1+jjCJVnT
-	 jISdIXeCRZ6xVZ2T3YnQXBO21dYpBTmSSUC5LLpi2HbsQ/6Oh8vLzCzxWeyKQG6/UQ
-	 eyyNrasSoWeowheqGHKujpAVLkWfEYopzZhfovtBdt9nI25MYxPHBwRVIxuq1FLV2R
-	 63Kdx5Hx0NSfPGt9z3VrTGRpAw1vHxbDHZGNJgMtHeku5nmMBRRqfvE+XjBodURPNP
-	 z/1ev88bU/R9A==
-Date: Thu, 26 Oct 2023 15:34:45 -0700 (PDT)
+	b=Gw3vvf/dbLthBRRvow1181Dt892nFZZimhUAyLYG48PlpUrGf1Mgb9gkeN9Hj5Xm5
+	 9dpyOybMQwE837/OFaA3ZOtK5+in2X7mdWigOci2cno55w6n4zf1iNyVD824O+y8Xp
+	 xNg3Sp4IipPl5Ya31Q0ugYrXZbqKLVPPnkVmmQoue1zxRoX7pHRRATh+KGpkRBWjYS
+	 y7slpemXybZWDUrTOg6oD2lBIMrPqMtqvXS03unc7rAellYPUBHRmkBCQTBhjztpuo
+	 PVbM7jjis0Mp/jnfJlZAlOtDuLGF4WiyJDCSTBV85ASxdWqlvlG+XYeCD/9DMnvMnp
+	 p60KGDchCUCDQ==
+Date: Thu, 26 Oct 2023 15:50:53 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org, 
-    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-    george.dunlap@citrix.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] misra: add R14.4 R21.1 R21.2
-In-Reply-To: <abd5c802-00c0-eda6-05ef-d10260ddb383@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2310261533050.271731@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2310231628500.3516@ubuntu-linux-20-04-desktop> <967caedc-3d10-dee4-6614-1b9dcc0c1c66@suse.com> <alpine.DEB.2.22.394.2310241753220.271731@ubuntu-linux-20-04-desktop> <1e2991d7-b7b5-2fdd-38e0-ee1eff607f0e@suse.com>
- <alpine.DEB.2.22.394.2310251759560.271731@ubuntu-linux-20-04-desktop> <abd5c802-00c0-eda6-05ef-d10260ddb383@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
+ 4.10
+In-Reply-To: <1ec482ba-e334-3120-dbe5-fc1e5a29f9fe@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2310261550370.271731@ubuntu-linux-20-04-desktop>
+References: <cover.1694510856.git.simone.ballarin@bugseng.com> <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop> <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com> <alpine.DEB.2.22.394.2310190915590.1945130@ubuntu-linux-20-04-desktop>
+ <6374f0f4-d58f-83ca-6eb3-d5a9fcbac525@suse.com> <alpine.DEB.2.22.394.2310201622160.2356865@ubuntu-linux-20-04-desktop> <36e6dd08-918c-9791-0dab-ca75d4b98d7e@suse.com> <alpine.DEB.2.22.394.2310231346370.3516@ubuntu-linux-20-04-desktop>
+ <af4a86bc-40d3-4363-adc8-30981652cd2b@xen.org> <c1fa350f-6f49-e2b1-0cda-dec99df415ae@suse.com> <alpine.DEB.2.22.394.2310241254480.271731@ubuntu-linux-20-04-desktop> <f546b8dc-baa8-c178-12be-70f7c1a8fec8@suse.com> <50b3a500-aa7d-4d3d-8bcf-220f8ee69b0e@xen.org>
+ <f6b207c6-4bc2-e172-428c-a2e3294cc490@suse.com> <1fc2c191-79b7-43fc-9068-5605e741c243@xen.org> <alpine.DEB.2.22.394.2310251408030.271731@ubuntu-linux-20-04-desktop> <1ec482ba-e334-3120-dbe5-fc1e5a29f9fe@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 26 Oct 2023, Jan Beulich wrote:
-> On 26.10.2023 03:16, Stefano Stabellini wrote:
-> > On Wed, 25 Oct 2023, Jan Beulich wrote:
-> >> On 25.10.2023 03:15, Stefano Stabellini wrote:
-> >>> And if we can find a clear general comment about the usage of leading
-> >>> underscores in Xen I am happy to add it too (e.g. header guards), but
-> >>> from MISRA point of view the above is sufficient.
+> On 25.10.2023 23:12, Stefano Stabellini wrote:
+> > On Wed, 25 Oct 2023, Julien Grall wrote:
+> >> On 25/10/2023 17:01, Jan Beulich wrote:
+> >>> On 25.10.2023 17:58, Julien Grall wrote:
+> >>>> On 25/10/2023 09:18, Jan Beulich wrote:
+> >>>>> On 24.10.2023 21:59, Stefano Stabellini wrote:
+> >>>>>> If I understood correctly I am fine with that. To make sure we are all
+> >>>>>> on the same page, can you provide a couple of samples?
+> >>>>>
+> >>>>> Taking the earlier example, instead of DRIVERS_PASSTHROUGH_VTD_DMAR_H it
+> >>>>> would then be VTD_DMAR_H. arch/x86/pv/mm.h would use PV_MM_H, but then
+> >>>>> you can already see that a hypothetical arch/x86/mm.h would use
+> >>>>> X86_MM_H,
+> >>>>> thus colliding with what your proposal would also yield for
+> >>>>> arch/x86/include/asm/mm.h. So maybe private header guards should come
+> >>>>> with e.g. a trailing underscore? Or double underscores as component
+> >>>>> separators, where .../include/... use only single underscores? Or
+> >>>>> headers in arch/*/include/asm/ use ASM_<name>_H (i.e. not making the
+> >>>>> architecture explicit in the guard name, on the grounds that headers
+> >>>>> from multiple architectures shouldn't be included at the same time)?
+> >>>> Thanks for providing some details.  The proposal for private headers
+> >>>> make sense. For arch/.../include/asm/ headers, I would strongly prefer
+> >>>> if we use prefix them with ASM_*.
+> >>>>
+> >>>> As a side note, I am guessing for asm-generic, we would want to use
+> >>>> ASM_GENERIC_* for the guard prefix. Is that correct?
+> >>>
+> >>> That was an assumption I was working from, yes. Could also be just
+> >>> GENERIC_ afaic.
 > >>
-> >> But what we need isn't a description of the status quo, but one of
-> >> what state we want to (slowly) move to. The status quo anyway is
-> >> "no pattern, as in the past hardly anyone cared".
+> >> Thanks for the confirmation. I am fine with either GENERIC_ or ASM_GENERIC_.
 > > 
-> > I guess you are suggesting something more like the following, but please
-> > feel free to suggest your favorite wording (it might be easier for me to
-> > understand what you mean if you provide a short example).
+> > OK. So in summary:
+> > - arch/.../include/asm/ headers would use ASM_<filename>_H
+> > - private headers would use <dir>_<filename>_H
+> > - asm-generic headers would use ASM_GENERIC_<filename>_H
 > > 
-> > ---
-> > All identifiers starting with an underscore are reserved and should not
-> > be used.
+> > If that's agreed, we can move forward with the patch following this
+> > scheme.
 > 
-> Again, no. Identifiers starting with an underscore followed by another
-> underscore or an upper-case letter are reserved. Other identifiers are
-> dedicated for a particular purpose, and are fine to use for (at least)
-> that purpose.
-> 
-> > Today Xen uses many, such as header guards and bitwise
-> > manipulation functions. Upon analysis it turns out Xen identifiers do
-> > not clash with the identifiers used by modern GCC, but that is not a
-> > guarantee that there won't be a naming clash in the future or with
-> > another compiler. For these reasons we discourage the introduction of
-> > new reserved identifiers in Xen, and we see it as positive the reduction
-> > of reserved identifiers. At the same time, certain identifiers starting
-> > with an underscore are also commonly used in Linux (e.g. __set_bit) and
-> > we don't think it would be an improvement to rename them.
-> 
-> Everything else reads okay-ish to me.
+> FTAOD - just as long as <dir> is clarified to mean only the leaf-most
+> directory component (assuming we're still talking about the most
+> recently proposed scheme and we deem the risk of collisions low enough
+> there).
 
-OK, here is the new version
-
-Identifiers starting with an underscore followed by another underscore
-or an upper-case letter are reserved. Today Xen uses many, such as
-header guards and bitwise manipulation functions. Upon analysis it turns
-out Xen identifiers do not clash with the identifiers used by modern
-GCC, but that is not a guarantee that there won't be a naming clash in
-the future or with another compiler.  For these reasons we discourage
-the introduction of new reserved identifiers in Xen, and we see it as
-positive the reduction of reserved identifiers. At the same time,
-certain identifiers starting with an underscore are also commonly used
-in Linux (e.g. __set_bit) and we don't think it would be an improvement
-to rename them.
+Yes, that's what I meant.
 
