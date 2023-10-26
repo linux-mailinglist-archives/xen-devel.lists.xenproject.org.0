@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D897D7D55
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 09:07:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623514.971413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 515307D7D6D
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 09:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623520.971423 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvuSe-0000nf-Cj; Thu, 26 Oct 2023 07:07:20 +0000
+	id 1qvubD-00038S-9V; Thu, 26 Oct 2023 07:16:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623514.971413; Thu, 26 Oct 2023 07:07:20 +0000
+Received: by outflank-mailman (output) from mailman id 623520.971423; Thu, 26 Oct 2023 07:16:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvuSe-0000ll-8G; Thu, 26 Oct 2023 07:07:20 +0000
-Received: by outflank-mailman (input) for mailman id 623514;
- Thu, 26 Oct 2023 07:07:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qvubD-00035P-6j; Thu, 26 Oct 2023 07:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 623520;
+ Thu, 26 Oct 2023 07:16:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hFWs=GI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qvuSc-0000lf-HR
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 07:07:18 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0617.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::617])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b6828a5-73ce-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 09:07:16 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DU2PR04MB8774.eurprd04.prod.outlook.com (2603:10a6:10:2e1::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.8; Thu, 26 Oct
- 2023 07:07:13 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.008; Thu, 26 Oct 2023
- 07:07:13 +0000
+ (envelope-from <SRS0=oM/h=GI=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
+ id 1qvubB-00035J-LV
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 07:16:09 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 88ab6184-73cf-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 09:16:08 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-540fb78363bso872364a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Oct 2023 00:16:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,169 +40,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b6828a5-73ce-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FKm6SHmFajk4NlGOUZVURElxWvS+2hV1qYDmb6IP5NlGrkNgbcZmReXUqv1c3dI7wZ//ampFDrcWLGYGtIUPud3fvTpJ45XBFPXk03M7pHdexkDzSj5OUZ1khpRb4RPntScnxV35dGt30213s1VobzO2LY0N6uF/xUflHAndNZTShSmuyAIQj+9bEgGr2MIHODfme/skvowtZy9HrwXgOvr/KQoU7B52OXxqsnu+t+vQMrvz6d+ANxEwLO25qiCNbWEhHLxE+urBRwq9qrYmYKTobuuSWasDMOV6uBma2z1DxZTFkodS4VKkr1LLMzc29+VKBO37HcnoZur+YsJ2sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GBRVz6NEhbBr4JvDnQvORl+zXPCbp9Jtnxwu6amglvI=;
- b=ALnzgBQERiX2Syo16i1QzZj9T5A99ctO1k4jW87KrrGNUp2hsRybC0m8NsHAPpPzjrOpQIqQ+3jM3Dsz+EAxi1v4PI1zX2MtWrFSargZvIPMA0wpQ9qCvHUhNMt2+eia3TylBi/fRMD/LQMIwPkDBPFvkfqpZsPqRXtDRyH97nAniq3bqoniD/pEug8MJOyt6FmjOE6zgG6HFuSZJ32O7bvOJETegAZSCGMtLp9HOq5bR7ZIKPS1ME3HPrvbJTCEj4l1TwqreEgWRqwGQDonUDVYrADEiH71eqHK8wi9X0qvvGrQDuPtGHft54vYjL5aA0UbIW4KJVVS/XXziFPzbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GBRVz6NEhbBr4JvDnQvORl+zXPCbp9Jtnxwu6amglvI=;
- b=g7xYnQ1oXDGox6aVAZGbmN+IC5pNSlUkIhnCkWLLLirYGwr77lwPViz6p4AEetcdeI4fD95DSaVk5NLtEgyWMa5QsOZxHi1cRmYO1x0XLhvy+7e/pj7lNvyAIe6gMEr/9pZTKZLgcqqx9QEDQ5RLNiGXdM3k6NG2eGYe4GqxrCnqYQ3Q9G1E3rkkYaL1TGSsLo+lR07Xi7/7tvzPbYrrSDIWfrdpTUdv3PLdEJmVjusugl1pUdXt6zUpuXnaZZFiqyuqKzMvZFBO2vjLjd/dIxdGVXSBDASum6HMHQ3OGvqDXDQEo9JPnHvmPi3T1M8M0NBj1w3c3r8D7RZ6XcxQEQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1ec482ba-e334-3120-dbe5-fc1e5a29f9fe@suse.com>
-Date: Thu, 26 Oct 2023 09:07:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [XEN PATCH v2 00/10] address violations of MISRA C:2012 Directive
- 4.10
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <cover.1694510856.git.simone.ballarin@bugseng.com>
- <ead797ed-84cc-fb70-5259-7e11211d049e@suse.com>
- <alpine.DEB.2.22.394.2310181739270.965337@ubuntu-linux-20-04-desktop>
- <e642bc2a-cefa-4ee4-6394-3c10102e8164@suse.com>
- <alpine.DEB.2.22.394.2310190915590.1945130@ubuntu-linux-20-04-desktop>
- <6374f0f4-d58f-83ca-6eb3-d5a9fcbac525@suse.com>
- <alpine.DEB.2.22.394.2310201622160.2356865@ubuntu-linux-20-04-desktop>
- <36e6dd08-918c-9791-0dab-ca75d4b98d7e@suse.com>
- <alpine.DEB.2.22.394.2310231346370.3516@ubuntu-linux-20-04-desktop>
- <af4a86bc-40d3-4363-adc8-30981652cd2b@xen.org>
- <c1fa350f-6f49-e2b1-0cda-dec99df415ae@suse.com>
- <alpine.DEB.2.22.394.2310241254480.271731@ubuntu-linux-20-04-desktop>
- <f546b8dc-baa8-c178-12be-70f7c1a8fec8@suse.com>
- <50b3a500-aa7d-4d3d-8bcf-220f8ee69b0e@xen.org>
- <f6b207c6-4bc2-e172-428c-a2e3294cc490@suse.com>
- <1fc2c191-79b7-43fc-9068-5605e741c243@xen.org>
- <alpine.DEB.2.22.394.2310251408030.271731@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2310251408030.271731@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0206.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ad::15) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 88ab6184-73cf-11ee-98d5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698304568; x=1698909368; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XE9K/zLmyjAI/eqnnXkydpu2Z1qLEJmMy+aUPHF96ls=;
+        b=amMTGUZXUy1faJ4l0gQ/vWQrQCgjd8bujSR1bNB9O3VD22aYCYnh0iP0oio3snNXaX
+         i6+K9NEUeRuxwuhNrBfcrLYt1ySZe9TFVMHHeprwX293ocdcirUoC/whyRK2IdR47bmo
+         77sEAqe++DOc/MJgWomlmyRnR66Mn3Pm00hUmUdhIaJ460G0PsIJn017ZzIA+Fs2YvOw
+         +CA57RlnDHtkwbwErLzkyuzTOolnFZ8xVZ7VfyPwfDdsXhAquGc2GM6V6o0SJW2kcK/x
+         WdaFV6GGR8BE3hmoNDmtDGajEcTlTMQKkOeL/NW4XGQg0CrHcky6GAPzGUUE+SBn6Xbx
+         Vc9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698304568; x=1698909368;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=XE9K/zLmyjAI/eqnnXkydpu2Z1qLEJmMy+aUPHF96ls=;
+        b=Mz848Cuu7eRx697ZnQpCyQvdjJk4J8SlRRCJ2w29O4Ao87khhvqofz5z4p+kGFxmE9
+         wfhjJzATa7i53MliZNdE3dx0L5HIfCPirgYuIGdo1rq97EMfKz2oSipTSfUb0uGGGR4D
+         Rq/Sm9S4/qaAHeofB/90WY7jeZ5dOP4kM/ZGXHKlrxDg7T96oFgSWpTrIVGk1Ko4/y0Z
+         QP8ONv7WegMCi+JFBoOsw7HTABrxvGGWcvyalndGOJsK7a99SWx43YGLuyeLi4kcWBgz
+         S5b4Md1OA+Vr/hcl+yPKDitlb93G3oqIhFWB18LDvMAC/C9TIEtWRcGK7NCSg/jGb6CL
+         aacA==
+X-Gm-Message-State: AOJu0Yz/hZbtmmSEUxZ3ERBq6TFhhVoClF9wcGRXZUq8QSe1W3/y3FxU
+	hBPbU46BsAaADdiMh4U7Lqyjn36WPee+EgAQ0Qo=
+X-Google-Smtp-Source: AGHT+IG7HVWFmDZlQ4OjN9X3Rowm9DAorTwDMoPMqOFZgCZydOHrqviKTR2JkKhHG2vJ57fdE3nal8BE40d17b6TWEc=
+X-Received: by 2002:a50:9ec5:0:b0:540:2a0c:97a2 with SMTP id
+ a63-20020a509ec5000000b005402a0c97a2mr8907566edf.16.1698304567699; Thu, 26
+ Oct 2023 00:16:07 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21ab8f44-0d76-433c-76bd-08dbd5f22dfa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	RkI1eVBJXITRyti4hRYuxtX47B/LP4oKXktTx+yDiJpcJF+OylN6qP4h9O5evunpwiwoahGKsm49fJNgXC+247pXwuqoCVLSTM+67uZdykNwpA2DdqRPnkRicc/HQdSo8Qzg9b7l+BzADmvIgxLolhDp4dXhIfd7UBbClgIGWlZcbg0QGOg/wtAPOl2PZfzlPd5xAxqvgUYkZ848QiiSzM0T1jrmJugdIoPSjKvvLuXTBcE7SgUPKyKMrgTywM8TmfCyT8m5cAq6vE19OC6mSr+M5zWdohNLleKzd4gsMBYJG9LYyaJD6Nz9aqZtAvIcOv+2Zs6uNjmKidPiam5GvEz9gs/iYsifWmFloOY3p+rU77bF3m+6/zyBVSYk/NjtFJmf9/TY/E0jic2L6NPh71lIr4zeauwI74nfdhL6J9TvkhDwgUi2G3LbFzIVNZdlDf3APFcfNgy4IYNLSooUI2j7IQo7jGry+F+PjJeWtN9mBO7UlwabLZ/lTKAkOViwB7u3wOzM2t3285ECkudwfDWAMmMTq7TYP6tu0vz10+SHJOhLdiYk69pkq+4Nh5YTvFWYMzhVdkrFRvaXJ3efwAU3zbYy61C4rvxiMtY3Uwi1EfcejsADfPJ2DO9BhtXLyYGJzcKK5/s/MESVMM9SOw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(366004)(136003)(39860400002)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(83380400001)(2616005)(26005)(38100700002)(41300700001)(36756003)(5660300002)(6486002)(2906002)(7416002)(86362001)(31696002)(478600001)(53546011)(8936002)(8676002)(4326008)(31686004)(66476007)(54906003)(316002)(66556008)(6916009)(6512007)(6506007)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGhsTG9mREswWTFrQ2xvRXM0WG5GL1NNeTFySisySjZHV2RJcEJKVUdjSXZz?=
- =?utf-8?B?TnE5T0xHa0FLMkFXejVOU3BqbTUwRlhwUFVGcFhObVhXZ3BOVGZrN1drVmo0?=
- =?utf-8?B?VjFjV2NPaG9vL2pwTlI1KzRnYUZENFg5NU1GSkJDMndIckZ6VTV3Ri8vZHlh?=
- =?utf-8?B?MTZYZmRleFpoZk5sTHVldHc0OWl1YXdMcEZ2QkQvUnNVUjAzNzRFTXNhcUdI?=
- =?utf-8?B?cXJtcUY2Y1RyaStqMUNOUHk4QkkveUxnUXpWUk5uZjdDRWx4TEMydkVQRXhP?=
- =?utf-8?B?YkZLQXVJb3hrQkdrbUhIZ3R3enk0N3QrMzhaaGpITGNKVkdLclFTU2Fta1RE?=
- =?utf-8?B?MTBCOU9MYW43RFYyZUxBallNU2F2c0xlbVlFSHcvc0RjNzRtSGUwYVBwa1hB?=
- =?utf-8?B?ME1tbSsvcjllNmJHSjlIZlNoWlFLNXBWQnVTdUFCYXNROGwwK0V0MlE2cnI3?=
- =?utf-8?B?dWRsNlJLNXdOSEVDTHJmS29nTXlWSEc1MWwxRzh2TVZlQ2RGSnRER1BhbGFS?=
- =?utf-8?B?Y0NOemFTQy9yQmNONmVnTUQ4bUFGT1Fkb1JadEwrOHNBYU9FaGppaGRDc054?=
- =?utf-8?B?NmltRnJDRVI1dGMxOTk2RW54M1RRcEZvTmVVL3hjWVdaa250QjdBMG95SWox?=
- =?utf-8?B?YlhUK0N3a01KS1hzeVlEOUkvZExGQ1BqclJXZ0dHaEVzSmMyWnZaNENOTndu?=
- =?utf-8?B?ZWRJTGRsTFd6MnZHZmtJTzhuUUNFenB3VTczMGpJbk90RzlTQTJjMndQN3FB?=
- =?utf-8?B?eWVDT29TZFAwZkxGalNQRCtWVzdMM3hoQVRjZUtzTzlMR3R1ZlVmK0IxaXpM?=
- =?utf-8?B?d3Z4K1p0M3c1d0VHWm50ZCtDVzN1aHZ5Y01IZ0tpd3oydmxDUERUTHdSUHl4?=
- =?utf-8?B?Y3pMcnFwaFREZ3d1SFpWMzkva2hWaTNZaTJ3S2VNSEh3ZVhETXZTalBUcmVJ?=
- =?utf-8?B?eFpCempQT0dSWjYyMWdYRUt2UXkrRXRmTnNXNk53VzNva0djRjE1V0pmTFU4?=
- =?utf-8?B?Ujl0YkJxSUg3NXdvK3JFVUlXV29sQjQ5RGhzdlRtYU1kaGFPWlFGd1l6OFNN?=
- =?utf-8?B?bDc5d29RK1RRbTVRL252Rm5wdzZYRnRYMGxHYjVMbFNTQ1djanc0ajFrYzlV?=
- =?utf-8?B?WmpuaXUyY1pBUXk5ZlJLb2VmWU5Pc3cwVm1iaFYwZ3lqMFNGV2dtaTBIZlpt?=
- =?utf-8?B?OEtnajVHN3FsRU8rdjFUWjZPc2hxRURzcExCaDFKYWxiaXVON3FscjhmZG1i?=
- =?utf-8?B?NEhCZnBIM2M4c2JtaXluSWpoRlVBbzU3bnZUc1VkYXo5Q2NOaVhiSjlQMmhX?=
- =?utf-8?B?a2N4Z3pnL3c1ZXhza3FKQThHc3VlLzMxZCtpWWd2cXJIeEZYMGIvVWRNdWtp?=
- =?utf-8?B?SVl0aCtEbmtXNnQ4K3o1eEJCdEJpc28zRWFIU2ttNHBXQWkvWDRrYjJqcUdq?=
- =?utf-8?B?OUlqaURLcGtuVXEva2h6RTB3NzYxR1IyeHdtVndBUjFDaENlcjBidVZ3VnRT?=
- =?utf-8?B?UG8zdDlXQjdmN3BOOEdzSlNjRHAyajJWOVZ0YW80OFRwc1BqeHFxYmZrSFp1?=
- =?utf-8?B?QmF4bStuWFFTbFJKS3hycllyZGpDTU9zL2FkSVkrdksyek82QkVXa0UvRFJz?=
- =?utf-8?B?RTdRQy9sYmJHbU04WjB2Tk5OOWtiMkpXMS9Uak5hbXkvM1B5REVPTE1yV2Fx?=
- =?utf-8?B?UGViRXRPNDM1NUI1aktLQkcvTnNiaG9FZWxEYU1nTTVZaGhaeW43NVRsM2Zu?=
- =?utf-8?B?SklpMTcvamdvVXdxMzNwM1o2UGZpMklvdU1iam9Fd3lNNG4vYVorTmkwM3RS?=
- =?utf-8?B?YlM0cFh2bmNXK2F5WFVXdkRQbE5COUpNeDY0eHgrOEFDZ21Db3djVmxyTURu?=
- =?utf-8?B?TVJFQVpCaGJ0dVAxRkx6b1ZwZzMvbDZ0K2xVbjgxOXlVdGRjd1E3TzZPcHdP?=
- =?utf-8?B?dks3QnJGbisyb3pRdXZpMWJyU0ROMDc5WFZYMHJrdFZIUktRSFBWVEdneSt4?=
- =?utf-8?B?bXhId2ZTMVFkZ2IyWDl4RHp6VEhpYjBCeFc0bEJNN29UR25HaFkzMGxFVlNH?=
- =?utf-8?B?VW9Odmg3dzRtRWJjanMwSDJxT1hXTy8vSHQ0Y1F1d01POEVabzZvS0tKQllq?=
- =?utf-8?Q?WgBoGgYvzlHOEFwGMkhlqbWgQ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21ab8f44-0d76-433c-76bd-08dbd5f22dfa
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 07:07:13.5402
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vOSQtYsPdsyJY1o2XEzEvj6N/jsLBs6V4QI1yL/NwYJRbGhY/NCR+chKjea8kA5GhoLoatPKhrHlsq4nnf+O/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8774
+References: <20231012161237.114733-2-ubizjak@gmail.com> <202310261417.b269d37e-oliver.sang@intel.com>
+In-Reply-To: <202310261417.b269d37e-oliver.sang@intel.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Thu, 26 Oct 2023 09:15:56 +0200
+Message-ID: <CAFULd4ZVBfQEGH0h8v1Br=3DbHteHA9V4u0+m2d5XQPLUu10mA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] x86/percpu: Use explicit segment registers in lib/cmpxchg{8,16}b_emu.S
+To: kernel test robot <oliver.sang@intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25.10.2023 23:12, Stefano Stabellini wrote:
-> On Wed, 25 Oct 2023, Julien Grall wrote:
->> On 25/10/2023 17:01, Jan Beulich wrote:
->>> On 25.10.2023 17:58, Julien Grall wrote:
->>>> On 25/10/2023 09:18, Jan Beulich wrote:
->>>>> On 24.10.2023 21:59, Stefano Stabellini wrote:
->>>>>> If I understood correctly I am fine with that. To make sure we are all
->>>>>> on the same page, can you provide a couple of samples?
->>>>>
->>>>> Taking the earlier example, instead of DRIVERS_PASSTHROUGH_VTD_DMAR_H it
->>>>> would then be VTD_DMAR_H. arch/x86/pv/mm.h would use PV_MM_H, but then
->>>>> you can already see that a hypothetical arch/x86/mm.h would use
->>>>> X86_MM_H,
->>>>> thus colliding with what your proposal would also yield for
->>>>> arch/x86/include/asm/mm.h. So maybe private header guards should come
->>>>> with e.g. a trailing underscore? Or double underscores as component
->>>>> separators, where .../include/... use only single underscores? Or
->>>>> headers in arch/*/include/asm/ use ASM_<name>_H (i.e. not making the
->>>>> architecture explicit in the guard name, on the grounds that headers
->>>>> from multiple architectures shouldn't be included at the same time)?
->>>> Thanks for providing some details.  The proposal for private headers
->>>> make sense. For arch/.../include/asm/ headers, I would strongly prefer
->>>> if we use prefix them with ASM_*.
->>>>
->>>> As a side note, I am guessing for asm-generic, we would want to use
->>>> ASM_GENERIC_* for the guard prefix. Is that correct?
->>>
->>> That was an assumption I was working from, yes. Could also be just
->>> GENERIC_ afaic.
->>
->> Thanks for the confirmation. I am fine with either GENERIC_ or ASM_GENERIC_.
-> 
-> OK. So in summary:
-> - arch/.../include/asm/ headers would use ASM_<filename>_H
-> - private headers would use <dir>_<filename>_H
-> - asm-generic headers would use ASM_GENERIC_<filename>_H
-> 
-> If that's agreed, we can move forward with the patch following this
-> scheme.
+On Thu, Oct 26, 2023 at 9:01=E2=80=AFAM kernel test robot <oliver.sang@inte=
+l.com> wrote:
+>
+>
+>
+> Hello,
+>
+> kernel test robot noticed "general_protection_fault:#[##]" on:
+>
+> commit: 33c7952d925e905f7af1fb7628e48e03f59885da ("[PATCH 1/4] x86/percpu=
+: Use explicit segment registers in lib/cmpxchg{8,16}b_emu.S")
+> url: https://github.com/intel-lab-lkp/linux/commits/Uros-Bizjak/x86-percp=
+u-Use-explicit-segment-registers-in-lib-cmpxchg-8-16-b_emu-S/20231017-11130=
+4
+> base: https://git.kernel.org/cgit/linux/kernel/git/tip/tip.git 92fe9bb77b=
+0c9fade150350fdb0629a662f0923f
+> patch link: https://lore.kernel.org/all/20231012161237.114733-2-ubizjak@g=
+mail.com/
+> patch subject: [PATCH 1/4] x86/percpu: Use explicit segment registers in =
+lib/cmpxchg{8,16}b_emu.S
+>
+> in testcase: boot
+>
+> compiler: gcc-12
+> test machine: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -smp 2 -m 1=
+6G
 
-FTAOD - just as long as <dir> is clarified to mean only the leaf-most
-directory component (assuming we're still talking about the most
-recently proposed scheme and we deem the risk of collisions low enough
-there).
+This problem was fixed in a -v3 version of the patch [1], that was
+committed to the tip/percpu branch and later merged into tip/master.
 
-Jan
+[1] https://lore.kernel.org/lkml/20231017162811.200569-3-ubizjak@gmail.com/
+
+Thanks,
+Uros.
+
+>
+> (please refer to attached dmesg/kmsg for entire log/backtrace)
+>
+>
+> +------------------------------------------+------------+------------+
+> |                                          | 92fe9bb77b | 33c7952d92 |
+> +------------------------------------------+------------+------------+
+> | boot_successes                           | 7          | 0          |
+> | boot_failures                            | 0          | 7          |
+> | general_protection_fault:#[##]           | 0          | 7          |
+> | EIP:this_cpu_cmpxchg8b_emu               | 0          | 7          |
+> | Kernel_panic-not_syncing:Fatal_exception | 0          | 7          |
+> +------------------------------------------+------------+------------+
+>
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
+ion of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <oliver.sang@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202310261417.b269d37e-oliver.san=
+g@intel.com
+>
+>
+> [    0.186570][    T0] stackdepot hash table entries: 65536 (order: 6, 26=
+2144 bytes, linear)
+> [    0.187499][    T0] Initializing HighMem for node 0 (0002ebfe:000bffe0=
+)
+> [    1.727965][    T0] Initializing Movable for node 0 (00000000:00000000=
+)
+> [    1.943274][    T0] Checking if this processor honours the WP bit even=
+ in supervisor mode...Ok.
+> [    1.944313][    T0] Memory: 2896220K/3145208K available (16182K kernel=
+ code, 5537K rwdata, 11756K rodata, 816K init, 9720K bss, 248988K reserved,=
+ 0K cma-reserved, 2379656K highmem)
+> [    1.947172][    T0] general protection fault: 0000 [#1] PREEMPT
+> [    1.947900][    T0] CPU: 0 PID: 0 Comm: swapper Not tainted 6.6.0-rc1-=
+00024-g33c7952d925e #1 8d4b014f9a0a85cc9a3f6a52ed8e88f1e431f74e
+> [    1.949317][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 19=
+96), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+> [ 1.950480][ T0] EIP: this_cpu_cmpxchg8b_emu (kbuild/src/consumer/arch/x8=
+6/lib/cmpxchg8b_emu.S:73)
+> [ 1.951093][ T0] Code: ff ff ff 8d b4 26 00 00 00 00 66 90 83 c6 01 3c 3d=
+ 0f 95 c0 0f b6 c0 83 c0 01 e9 56 ff ff ff bf ff ff ff ff eb a6 cc cc 9c fa=
+ <64> 3b 06 75 13 64 3b 56 04 75 0d 64 89 1e 64 89 4e 04 83 0c 24 40
+> All code
+> =3D=3D=3D=3D=3D=3D=3D=3D
+>    0:   ff                      (bad)
+>    1:   ff                      (bad)
+>    2:   ff 8d b4 26 00 00       decl   0x26b4(%rbp)
+>    8:   00 00                   add    %al,(%rax)
+>    a:   66 90                   xchg   %ax,%ax
+>    c:   83 c6 01                add    $0x1,%esi
+>    f:   3c 3d                   cmp    $0x3d,%al
+>   11:   0f 95 c0                setne  %al
+>   14:   0f b6 c0                movzbl %al,%eax
+>   17:   83 c0 01                add    $0x1,%eax
+>   1a:   e9 56 ff ff ff          jmp    0xffffffffffffff75
+>   1f:   bf ff ff ff ff          mov    $0xffffffff,%edi
+>   24:   eb a6                   jmp    0xffffffffffffffcc
+>   26:   cc                      int3
+>   27:   cc                      int3
+>   28:   9c                      pushf
+>   29:   fa                      cli
+>   2a:*  64 3b 06                cmp    %fs:(%rsi),%eax          <-- trapp=
+ing instruction
+>   2d:   75 13                   jne    0x42
+>   2f:   64 3b 56 04             cmp    %fs:0x4(%rsi),%edx
+>   33:   75 0d                   jne    0x42
+>   35:   64 89 1e                mov    %ebx,%fs:(%rsi)
+>   38:   64 89 4e 04             mov    %ecx,%fs:0x4(%rsi)
+>   3c:   83 0c 24 40             orl    $0x40,(%rsp)
+>
+> Code starting with the faulting instruction
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>    0:   64 3b 06                cmp    %fs:(%rsi),%eax
+>    3:   75 13                   jne    0x18
+>    5:   64 3b 56 04             cmp    %fs:0x4(%rsi),%edx
+>    9:   75 0d                   jne    0x18
+>    b:   64 89 1e                mov    %ebx,%fs:(%rsi)
+>    e:   64 89 4e 04             mov    %ecx,%fs:0x4(%rsi)
+>   12:   83 0c 24 40             orl    $0x40,(%rsp)
+> [    1.953397][    T0] EAX: c3c01100 EBX: c3c01180 ECX: 00000004 EDX: 000=
+00003
+> [    1.954231][    T0] ESI: e52cd090 EDI: e52cd090 EBP: c2b4bf00 ESP: c2b=
+4bec4
+> [    1.955060][    T0] DS: 007b ES: 007b FS: 0000 GS: 0000 SS: 0068 EFLAG=
+S: 00210082
+> [    1.955949][    T0] CR0: 80050033 CR2: ffdeb000 CR3: 031b5000 CR4: 000=
+00090
+> [    1.956783][    T0] DR0: 00000000 DR1: 00000000 DR2: 00000000 DR3: 000=
+00000
+> [    1.957641][    T0] DR6: fffe0ff0 DR7: 00000400
+> [    1.958190][    T0] Call Trace:
+> [ 1.958554][ T0] ? show_regs (kbuild/src/consumer/arch/x86/kernel/dumpsta=
+ck.c:479)
+> [ 1.959026][ T0] ? die_addr (kbuild/src/consumer/arch/x86/kernel/dumpstac=
+k.c:421 kbuild/src/consumer/arch/x86/kernel/dumpstack.c:460)
+> [ 1.959480][ T0] ? exc_general_protection (kbuild/src/consumer/arch/x86/k=
+ernel/traps.c:697 kbuild/src/consumer/arch/x86/kernel/traps.c:642)
+> [ 1.960101][ T0] ? exc_bounds (kbuild/src/consumer/arch/x86/kernel/traps.=
+c:642)
+> [ 1.960579][ T0] ? handle_exception (kbuild/src/consumer/arch/x86/entry/e=
+ntry_32.S:1049)
+>
+>
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20231026/202310261417.b269d37e-ol=
+iver.sang@intel.com
+>
+>
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+>
 
