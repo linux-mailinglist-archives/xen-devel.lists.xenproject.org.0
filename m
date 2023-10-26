@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47557D8191
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 13:11:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623707.971803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5DE7D8195
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 13:12:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623710.971813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvyGJ-00019V-Ih; Thu, 26 Oct 2023 11:10:51 +0000
+	id 1qvyI5-0001hd-TU; Thu, 26 Oct 2023 11:12:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623707.971803; Thu, 26 Oct 2023 11:10:51 +0000
+Received: by outflank-mailman (output) from mailman id 623710.971813; Thu, 26 Oct 2023 11:12:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvyGJ-00016b-FG; Thu, 26 Oct 2023 11:10:51 +0000
-Received: by outflank-mailman (input) for mailman id 623707;
- Thu, 26 Oct 2023 11:10:50 +0000
+	id 1qvyI5-0001fI-QZ; Thu, 26 Oct 2023 11:12:41 +0000
+Received: by outflank-mailman (input) for mailman id 623710;
+ Thu, 26 Oct 2023 11:12:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ziZY=GI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qvyGH-00016V-VM
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 11:10:50 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ <SRS0=v+j7=GI=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qvyI4-0001fC-Ac
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 11:12:40 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20603.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::603])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 509babe9-73f0-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 13:10:47 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-53e08b60febso1111587a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Oct 2023 04:10:47 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- m21-20020a509315000000b0053db1ca293asm11255541eda.19.2023.10.26.04.10.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Oct 2023 04:10:46 -0700 (PDT)
+ id 91edd35c-73f0-11ee-9b0e-b553b5be7939;
+ Thu, 26 Oct 2023 13:12:37 +0200 (CEST)
+Received: from MN2PR10CA0032.namprd10.prod.outlook.com (2603:10b6:208:120::45)
+ by DS7PR12MB5766.namprd12.prod.outlook.com (2603:10b6:8:75::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.25; Thu, 26 Oct
+ 2023 11:12:33 +0000
+Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
+ (2603:10b6:208:120:cafe::5d) by MN2PR10CA0032.outlook.office365.com
+ (2603:10b6:208:120::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19 via Frontend
+ Transport; Thu, 26 Oct 2023 11:12:33 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 11:12:32 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
+ 2023 06:12:31 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via
+ Frontend Transport; Thu, 26 Oct 2023 06:12:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,294 +59,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 509babe9-73f0-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698318647; x=1698923447; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Op1P72r2jBgqKancn4QRMMmpfEjGN//e8mAVY6RS1EA=;
-        b=iHyp/kT2OMK574A1L7BrYxdpWekHLoEI0klwY2aVQF3lwK8G81FssEHsLbKX5bgzZ6
-         EVuXx571N/v0WSpa9Lz0tzNVANcxjjO+cIRsTTNHDwVY76p6zMIx9TQuZJctIRhSkarL
-         dSFGO7wKtadWeC51x1RW2n2CDSk2ioEgIACFM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698318647; x=1698923447;
-        h=in-reply-to:autocrypt:references:cc:to:content-language:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Op1P72r2jBgqKancn4QRMMmpfEjGN//e8mAVY6RS1EA=;
-        b=WVeZIV7cg4nwx2Xqk+DhLafLsVwQBb66aWg/vOpNdjxEvFc/0FUOnN5p/iof2D8EcG
-         vCqaRePaAzTvpDxvCc3OrM8GWHa8YerEnaYxQzUddlGHYkBuReLjsHJVfGZfdd1wIzmJ
-         L2WwdE93KY/rVeRzkhpzl7QOTvxlJP6d2OI/KEyN66vYf3h4isHjHp511hdoTzz5NCln
-         ltB/d49AX728VXdEtmzNwDD3HCKEYOo/s1uiOIsIsSM6ACEcrk27xHWzPREimizkiTbv
-         CEoDGdq4XrT3p2uF1eKFAaCWC4KlOIr80lhr9L1OYP52aOA++eRvv2yinQGunipsAlrM
-         eYvw==
-X-Gm-Message-State: AOJu0YwEtw32bkZJO+cxLyDLVf/gxnoChkzvsZ/piOr1XPfew9+fVLjk
-	ifeYIOiI+IMeVHxo+UcwZk6phA==
-X-Google-Smtp-Source: AGHT+IFRpK0VZydHtX5RqHQzB+nQDoXUjSdHjJuH36VZKmqp+KSv1FvfEdcuWEUtWylMS7xyUNe8tg==
-X-Received: by 2002:a05:6402:520e:b0:53e:7ae7:bc5e with SMTP id s14-20020a056402520e00b0053e7ae7bc5emr13843133edd.3.1698318647197;
-        Thu, 26 Oct 2023 04:10:47 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------10T0lS51W3Nc0Du3Z5dOq6L3"
-Message-ID: <0d67d2c6-1841-4771-9e6e-1a6463c0b443@citrix.com>
-Date: Thu, 26 Oct 2023 12:10:46 +0100
+X-Inumbo-ID: 91edd35c-73f0-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nvFAc0wxZ6J6qzcPFP5+sU7gv0xivSCIBy1B583Yg16dI42AlwWDwvNagLlSlpxiBQNZwbxbQvgmUCPnwrqc+FYAUuqxyXNjVZddprvKsoZaDM6mtGC5YJVOlkC2724coZGZYnGp8gyz2kKF7x0BZ2rwOP5AV3PU7D0hHTclQuTSx1q9BKXnCkjhgl7k3HkpPdZxR/p6Fb+9An+lx1BfVxcMkWo/iqV5fT2byQwg+dP216jPXDV72Pr3S/GVHifNj6ELB9/mfThYnas+ALIXaEKv5zIAGZ7qmsDbqqJqMQtFGdR88s4KiKSR9H6Ic1Z1C6kpqOcj2JCuWU8x4MuJyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bu0XMjhxMP6timxPh7gDT0on9fDPrVaAmCnLeZEdkGk=;
+ b=HRtLOpWKKUMQcRj5TwQ1M5AlTtTQrPjGnYwPHNsoo56/jZINnbuEqbX1/+QggV7p3ICgKFax+KwbEI/fq/Dn2AmQG9MqBMQDtdVy2laHPTypil4z9EtH7sb164k3CdBOx9L2yC9kZm9GLdQgsyB/eRN8bvG3aSWru7udXMqgb2Jf9kDayUv8/dIuWIjBrkfdYqI13q52MRx/ffcca2w1RwFkc+qhxzRohw+7ZAUp3hqBeAQ/n0Wb7vDPBIKgCeBkjDHQtaYPUgDqpDmuBBaxQPoTEgSqb4x/LAiOvF/c4IlhEDD7Zl710deCk9B304kFJtPM+W5+ukuP4iHTtMb+qQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bu0XMjhxMP6timxPh7gDT0on9fDPrVaAmCnLeZEdkGk=;
+ b=OyQTXACynKHO/Lse9cLu26gGXKN+3au3GlQbZAJKe8wjn0Oe8PuP2GrLIIjtwdE8snBN6Fha36Ousnnpa4WFq89IhSR51elQQp32L9SwvJAk1S2tiXI7IBAJxdHUis7RWSr3eY5YVlvpurCfVHjYhAsODpiPmd7cDOkfOjujDNA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
+	<michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN v2] xen/arm: arm32: Use adr_l instead of load_paddr for getting address of symbols
+Date: Thu, 26 Oct 2023 12:12:28 +0100
+Message-ID: <20231026111228.2724962-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and
- conditionalise ucode
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231025180630.3230010-1-andrew.cooper3@citrix.com>
- <20231025180630.3230010-3-andrew.cooper3@citrix.com>
- <85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com>
-
-This is a multi-part message in MIME format.
---------------10T0lS51W3Nc0Du3Z5dOq6L3
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DS7PR12MB5766:EE_
+X-MS-Office365-Filtering-Correlation-Id: 823291fa-515e-49cd-6a86-08dbd6147374
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	M3XcwFTrulEdy7YTVEZiT6LkaI07lQLMHVdwnLVzt5E/Skqu5NYcv0bHFhvUrw8z1/N7yG5o4/GigKjtmskz7c1Xte/UT4E6GW6jfayOmIPmbYmVe2+urmojjfPUgqD46lsMIt2x1nLHHyVwqRyw25/CyTSWGaLPy3HLvFEhSvm6tkIPU1VcLS7k1y8fMTmei+XjHqm13M1zYBGHLqS3xuMswTQC5wBzmezGLWkAtAEbQQ+OyIifqDrk8jVjcJCIyzEvr5Dj6SLbyfYog06E/hl/26EjijchLRUSQllznZJk0P6S2+fFuc76iDqNJZmDQPHqTbg1CJFcNNBCLBDovtdRUCJ4HlqXHrxXDW+UWdB5rm3DS6Ee6L+pO27ODE0ofXWp8BmbI7sanbM48GdcOTk6EsRwp7v1ZAm2SCQn7yXwu15Ywj7m554J2J1hrkFtROywT9lMFGpZBjO01CHNcuZa965SGWYNFOMg8G5/P+/Fbr5LsJF95MQJYKqq9NAg3isgWMn2c4Rqdm9uJrHXbaMimTYHFVXON9kq8TmEkNyPNOW0LXVmMX9+MCDtBk37MdAVE7j9oePKahAz3djo0craWyaC5ZAwaTcDUK+82/nXWpT7jJIFRsLfKIZr5IDT76LgphpIefq/IiK83X0/Ii3+FMkX8K4V7E1zuUUOyyxDxywBJKS/rgxS3o2gZJQElZtJZvJljgZgve+KiOsIENc6KadifQo+Lte8THmzHjyPfeJXkDuk1sBCvO61B78tVIp4nhANZqHCD5WW37m75g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(346002)(136003)(39860400002)(230922051799003)(1800799009)(64100799003)(186009)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(356005)(966005)(70206006)(81166007)(478600001)(316002)(82740400003)(70586007)(6916009)(36756003)(8676002)(103116003)(54906003)(83380400001)(2906002)(47076005)(8936002)(336012)(36860700001)(4326008)(426003)(5660300002)(41300700001)(2616005)(26005)(1076003)(86362001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 11:12:32.7287
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 823291fa-515e-49cd-6a86-08dbd6147374
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5766
 
-On 26/10/2023 8:55 am, Jan Beulich wrote:
-> On 25.10.2023 20:06, Andrew Cooper wrote:
->> We eventually want to be able to build a stripped down Xen for a single
->> platform.  Make a start with CONFIG_{AMD,INTEL} (hidden behind EXPERT, but
->> available to randconfig), and adjust the microcode logic.
-> Linux uses different names for the Kconfig symbols. While I'm unconvinced
-> of the SUP part, I wonder whether we wouldn't better use CPU in the names.
+Before the MMU is turned on, PC uses physical address. Thus, one can use adr_l
+instead of load_paddr to obtain the physical address of a symbol.
 
-I don't see what that gets us, other than a longer name.
+The only exception (for this replacement) is create_table_entry() which is
+called before and after MMU is turned on.
 
-> One immediate question here is how the IOMMU interaction is intended to
-> end up: Do we want to permit either vendor's CPUs with the other vendor's
-> IOMMUs to be usable?
+Also, in lookup_processor_type() "r10" is no longer used. The reason being
+__lookup_processor_type uses adr_l (thus r10 is no longer used to obtain the
+physical address offset).
 
-From a randconfig point of view, yes.  These options are only targetting
-a specific platform, and we can absolutely make that the end user's
-responsibility to describe their platform correctly.
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+Refer https://lists.archive.carbon60.com/xen/devel/682900 for details.
 
+Changes from :-
 
-The more interesting question is perhaps VT-x and SVM, given that VIA
-have shipped VT-x and Hygon have shipped SVM and AMD-Vi.
+v1 :- 1. No need to modify create_table_entry().
+2. Remove "mov   r10, #0 " in lookup_processor_type().
 
-I do specifically want to to integrate the HVM setup better with CPU
-init - KVM dropped an enormous amount of complexity by doing this - but
-I expect we'll end up with VTX and SVM options rather than using
-INTEL/AMD for this.
+ xen/arch/arm/arm32/head.S | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-There is a bit of linkage between EPT/VT-d and NPT/AMD-Vi (in principle
-at least) in the form of HAP/IOMMU pagetable sharing, but as it's "just"
-an exchange of superpage sizes, iommu-pt pointer and height, I think we
-can make an abstraction which doesn't force a vendor match.
->> --- /dev/null
->> +++ b/xen/arch/x86/Kconfig.cpu
->> @@ -0,0 +1,22 @@
->> +menu "Supported processor vendors"
->> +	visible if EXPERT
->> +
->> +config AMD
->> +	bool "AMD"
->> +        default y
->> +        help
->> +          Detection, tunings and quirks for AMD processors.
->> +
->> +	  May be turned off in builds targetting other vendors.  Otherwise,
->> +	  must be enabled for Xen to work suitably on AMD processors.
->> +
->> +config INTEL
->> +	bool "Intel"
->> +        default y
->> +        help
->> +          Detection, tunings and quirks for Intel processors.
->> +
->> +	  May be turned off in builds targetting other vendors.  Otherwise,
->> +	  must be enabled for Xen to work suitably on Intel processors.
->> +
->> +endmenu
-> Nit: Throughout this hunk there's an inconsistency with indentation
-> (hard tabs not used in some places where they ought to be).
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index 33b038e7e0..e0ff46e92f 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -171,7 +171,7 @@ past_zImage:
+ 
+         /* Using the DTB in the .dtb section? */
+ .ifnes CONFIG_DTB_FILE,""
+-        load_paddr r8, _sdtb
++        adr_l r8, _sdtb
+ .endif
+ 
+         /* Initialize the UART if earlyprintk has been enabled. */
+@@ -213,7 +213,7 @@ GLOBAL(init_secondary)
+         mrc   CP32(r1, MPIDR)
+         bic   r7, r1, #(~MPIDR_HWID_MASK) /* Mask out flags to get CPU ID */
+ 
+-        load_paddr r0, smp_up_cpu
++        adr_l r0, smp_up_cpu
+         dsb
+ 2:      ldr   r1, [r0]
+         cmp   r1, r7
+@@ -479,7 +479,7 @@ create_page_tables:
+          * create_table_entry_paddr() will clobber the register storing
+          * the physical address of the table to point to.
+          */
+-        load_paddr r5, boot_third
++        adr_l r5, boot_third
+         mov_w r4, XEN_VIRT_START
+ .rept XEN_NR_ENTRIES(2)
+         mov   r0, r5                        /* r0 := paddr(l3 table) */
+@@ -578,7 +578,7 @@ enable_mmu:
+         flush_xen_tlb_local r0
+ 
+         /* Write Xen's PT's paddr into the HTTBR */
+-        load_paddr r0, boot_pgtable
++        adr_l r0, boot_pgtable
+         mov   r1, #0                 /* r0:r1 is paddr (boot_pagetable) */
+         mcrr  CP64(r0, r1, HTTBR)
+         isb
+@@ -877,7 +877,6 @@ putn:   mov   pc, lr
+ /* This provides a C-API version of __lookup_processor_type */
+ ENTRY(lookup_processor_type)
+         stmfd sp!, {r4, r10, lr}
+-        mov   r10, #0                   /* r10 := offset between virt&phys */
+         bl    __lookup_processor_type
+         mov r0, r1
+         ldmfd sp!, {r4, r10, pc}
+@@ -897,8 +896,8 @@ ENTRY(lookup_processor_type)
+  */
+ __lookup_processor_type:
+         mrc   CP32(r0, MIDR)                /* r0 := our cpu id */
+-        load_paddr r1, __proc_info_start
+-        load_paddr r2, __proc_info_end
++        adr_l r1, __proc_info_start
++        adr_l r2, __proc_info_end
+ 1:      ldr   r3, [r1, #PROCINFO_cpu_mask]
+         and   r4, r0, r3                    /* r4 := our cpu id with mask */
+         ldr   r3, [r1, #PROCINFO_cpu_val]   /* r3 := cpu val in current proc info */
+-- 
+2.25.1
 
-Oh yes, that's unintended.
-
-> Also, depending on the verdict on the aspect mentioned at the top,
-> "processors" may want replacing by "systems" or "platforms" or some
-> such if we mean these to cover more than just the CPUs.
-
-I really don't want to use CPU because that term is overloaded enough
-already.  Maybe it's ok in the overall menu text, but "plaform/system
-vendor" would be the OEMs rather than the processor vendors.
-
-We do have various platform quirks in Xen, but they're almost all DMI or
-PCI based, rather than vendor based.
-
-I could be persuaded to use CPU in the menu, and s/processors/platforms/
-elsewhere.
-
-~Andrew
---------------10T0lS51W3Nc0Du3Z5dOq6L3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 26/10/2023 8:55 am, Jan Beulich
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 25.10.2023 20:06, Andrew Cooper wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">We eventually want to be able to build a stripped down Xen for a single
-platform.  Make a start with CONFIG_{AMD,INTEL} (hidden behind EXPERT, but
-available to randconfig), and adjust the microcode logic.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Linux uses different names for the Kconfig symbols. While I'm unconvinced
-of the SUP part, I wonder whether we wouldn't better use CPU in the names.</pre>
-    </blockquote>
-    <br>
-    I don't see what that gets us, other than a longer name.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com">
-      <pre class="moz-quote-pre" wrap="">One immediate question here is how the IOMMU interaction is intended to
-end up: Do we want to permit either vendor's CPUs with the other vendor's
-IOMMUs to be usable?</pre>
-    </blockquote>
-    <br>
-    From a randconfig point of view, yes.  These options are only
-    targetting a specific platform, and we can absolutely make that the
-    end user's responsibility to describe their platform correctly.<br>
-    <br>
-    <br>
-    The more interesting question is perhaps VT-x and SVM, given that
-    VIA have shipped VT-x and Hygon have shipped SVM and AMD-Vi.<br>
-    <br>
-    I do specifically want to to integrate the HVM setup better with CPU
-    init - KVM dropped an enormous amount of complexity by doing this -
-    but I expect we'll end up with VTX and SVM options rather than using
-    INTEL/AMD for this.<br>
-    <br>
-    There is a bit of linkage between EPT/VT-d and NPT/AMD-Vi (in
-    principle at least) in the form of HAP/IOMMU pagetable sharing, but
-    as it's "just" an exchange of superpage sizes, iommu-pt pointer and
-    height, I think we can make an abstraction which doesn't force a
-    vendor match.<br>
-    <span style="white-space: pre-wrap">
-
-</span>
-    <blockquote type="cite"
-      cite="mid:85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">--- /dev/null
-+++ b/xen/arch/x86/Kconfig.cpu
-@@ -0,0 +1,22 @@
-+menu "Supported processor vendors"
-+	visible if EXPERT
-+
-+config AMD
-+	bool "AMD"
-+        default y
-+        help
-+          Detection, tunings and quirks for AMD processors.
-+
-+	  May be turned off in builds targetting other vendors.  Otherwise,
-+	  must be enabled for Xen to work suitably on AMD processors.
-+
-+config INTEL
-+	bool "Intel"
-+        default y
-+        help
-+          Detection, tunings and quirks for Intel processors.
-+
-+	  May be turned off in builds targetting other vendors.  Otherwise,
-+	  must be enabled for Xen to work suitably on Intel processors.
-+
-+endmenu
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Nit: Throughout this hunk there's an inconsistency with indentation
-(hard tabs not used in some places where they ought to be).</pre>
-    </blockquote>
-    <br>
-    Oh yes, that's unintended.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:85cddaeb-6b75-2f53-940e-0b06396fd1bb@suse.com">
-      <pre class="moz-quote-pre" wrap="">Also, depending on the verdict on the aspect mentioned at the top,
-"processors" may want replacing by "systems" or "platforms" or some
-such if we mean these to cover more than just the CPUs.</pre>
-    </blockquote>
-    <br>
-    I really don't want to use CPU because that term is overloaded
-    enough already.  Maybe it's ok in the overall menu text, but
-    "plaform/system vendor" would be the OEMs rather than the processor
-    vendors.<br>
-    <br>
-    We do have various platform quirks in Xen, but they're almost all
-    DMI or PCI based, rather than vendor based.<br>
-    <br>
-    I could be persuaded to use CPU in the menu, and
-    s/processors/platforms/ elsewhere.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------10T0lS51W3Nc0Du3Z5dOq6L3--
 
