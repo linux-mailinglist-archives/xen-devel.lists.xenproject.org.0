@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D047D7FEF
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 11:47:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623641.971673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D357D802F
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 12:02:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623646.971682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvwxS-0001IV-Cm; Thu, 26 Oct 2023 09:47:18 +0000
+	id 1qvxBG-00059m-MD; Thu, 26 Oct 2023 10:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623641.971673; Thu, 26 Oct 2023 09:47:18 +0000
+Received: by outflank-mailman (output) from mailman id 623646.971682; Thu, 26 Oct 2023 10:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qvwxS-0001G9-8f; Thu, 26 Oct 2023 09:47:18 +0000
-Received: by outflank-mailman (input) for mailman id 623641;
- Thu, 26 Oct 2023 09:47:16 +0000
+	id 1qvxBG-00056U-JT; Thu, 26 Oct 2023 10:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 623646;
+ Thu, 26 Oct 2023 10:01:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jm+b=GI=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
- id 1qvwxQ-0001G3-Kd
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 09:47:16 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20615.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::615])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3162f34-73e4-11ee-9b0e-b553b5be7939;
- Thu, 26 Oct 2023 11:47:13 +0200 (CEST)
-Received: from CY5PR15CA0188.namprd15.prod.outlook.com (2603:10b6:930:82::9)
- by IA0PR12MB7650.namprd12.prod.outlook.com (2603:10b6:208:436::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6886.34; Thu, 26 Oct
- 2023 09:47:08 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:930:82:cafe::79) by CY5PR15CA0188.outlook.office365.com
- (2603:10b6:930:82::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.22 via Frontend
- Transport; Thu, 26 Oct 2023 09:47:08 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.15 via Frontend Transport; Thu, 26 Oct 2023 09:47:07 +0000
-Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 26 Oct
- 2023 04:47:04 -0500
+ <SRS0=3h0U=GI=epam.com=prvs=466334560c=mykyta_poturai@srs-se1.protection.inumbo.net>)
+ id 1qvxBF-00056O-8E
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 10:01:33 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1d88d4c-73e6-11ee-9b0e-b553b5be7939;
+ Thu, 26 Oct 2023 12:01:30 +0200 (CEST)
+Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39Q88Psv030363; Thu, 26 Oct 2023 10:01:23 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2051.outbound.protection.outlook.com [104.47.12.51])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3tyav0hjyp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Oct 2023 10:01:23 +0000
+Received: from VI1PR03MB3758.eurprd03.prod.outlook.com (2603:10a6:803:33::29)
+ by AM9PR03MB7267.eurprd03.prod.outlook.com (2603:10a6:20b:26a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.22; Thu, 26 Oct
+ 2023 10:01:20 +0000
+Received: from VI1PR03MB3758.eurprd03.prod.outlook.com
+ ([fe80::eecf:7ef0:b4b5:fc42]) by VI1PR03MB3758.eurprd03.prod.outlook.com
+ ([fe80::eecf:7ef0:b4b5:fc42%4]) with mapi id 15.20.6907.032; Thu, 26 Oct 2023
+ 10:01:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,321 +53,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3162f34-73e4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: a1d88d4c-73e6-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T9k8vDM6wtvk70wtwaajzoYEzt/TrIGXJrdKj55cqVmwf24VIYOhyboKELmytAlobnXLtjNbyQmMdhwe42NftgNt0HHJ+YB46Pg1EnjlkZ6T9+YkWRSWNMr7n1eiqxG65CzmVolbX9CkjBaAIgxspNllIoLOuR+IaHM/pTTgsSVGHGoPWseDc2QLaRkxmszfehyb9ZCMbyT4aCDUvVVw2E3MbM9ejd4mF2cPMBzJJ25v8bVjWegHv1eqi1j/HWpURIWFdK+bJlXQnV2f4+JkkCWgVk9NNg4Lv5IYQzP/QVzP8W92WhfQuU1Chsx9ylFX+SIldkXJOvab9WOi6RJ4kw==
+ b=YPCEPtU3HYRsK6tSq3Te83o4XFQczCiaHN4HWTjhpeVKX3JZPEoo0rmQlyhEtCjkn/7N+bxIvpupXlD+CVN3Pzyxe4bqqlc1p66sC3ENox7u800Dgcv7baCgagBmE9mI4WX57A3MCIi7dFxuxBOQFb8L2CHiMFAQ1QrRzBFw12uxs/Oy5KG6EeCR3o5L0WDSWQDz74xq1GhTPCK+UApp+1DNjjX4+oKdAorqUPeDbk8dUfhh66SU6+ZJ0VEOE8BYuockdAMvWOIx3eInxXds46DIJPBwu5GimbBhcoJx8NN02zeLsoHJNQg6WGFrkp9fL0HKUYgF5GfiZiXemiqZ+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KpxjwBFCBu4GVbrCVetKq3Zrkk6FRLF+hLzDjDD3LyU=;
- b=g+qpMl60S+rRfiHnFGAYYaaAsnVyC86oEWT/gaMbPgaWYks7+iVNqEFBFXeVAk/1V8lCHNADqbMvSbt2JqmYFlebd8NC2Ki+vClDLO4HtWAF+UEoG9Msb1mL4kDrSJIpMP9UrIg/ppoibxw2qUx5kqURIEtKLyFPW7VPgDsbXM3jlCkiI8luw2wNosL4BWDTYdZ2MBUssAvTwi3Mh8miSBuc/xU2/qa2HTo44V/MxJCfoi8uSfXo+8Fc5ruKhnYjPxqNaik+uVGT7T5PT63KiiccwAVZnxPwnRD8BXvE3Y/ci4VybcA+G6ma+dtw5daJ18pV/2lYn7zSqGp91ScBIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=U9YFE75pw8/VAWAThuBbllni+dqgf/ZdZaW5cUijMn0=;
+ b=C9BuQtvFiYrHXDKvwiwIvSGMxVXKl0Jpw9IjB0z05u/3Pa8TJS4G/ErQ5Rqd8FfhTG1PHdlDiWirORanSpv4hNVsPJCByyBbNhYYxd/r6p7HI6e/mC4+EozfIH+1c0dZIC8IsVwW/MZmlq0ETUyJW/MkuAQUViy+eWiuz/KbrOPwPVtf2/PNn3PzdompGoX9Pgpg1YRippcLqmi8xD+eGQ97uikVBK+AptjoQ4qqhTfOG6u38MXDghLdToXy/Ne1Pz2sIOnsnTK+5IFZMbwclbonTkitwfZZWjcOQNvZe+YvSHG+Ctt6/ZuxysCE37h+wB8jraDIXIFIjCYI4P1Vnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KpxjwBFCBu4GVbrCVetKq3Zrkk6FRLF+hLzDjDD3LyU=;
- b=DIGoEaFVMsFHQGlUtI9W6BLASorzMYugPOD0h4bkKbWvmWbWogi6fTwaVwH3aqOUrkDhomhnK2wkPAJWLsYd6EXWn9SDGj/bA+WfdN6cCa1xrOxWd4X9tYE3YT1D+zre3TljgO5a75dAtYHZBzoxmgu5xfqY6yinleBnXYrzIyk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Content-Type: multipart/alternative;
-	boundary="------------83AJLeVJPG8Yqwo11XIXY4hN"
-Message-ID: <c107d63c-25a3-4f17-a5e8-7ec3ccd94ce3@amd.com>
-Date: Thu, 26 Oct 2023 12:46:57 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
+ bh=U9YFE75pw8/VAWAThuBbllni+dqgf/ZdZaW5cUijMn0=;
+ b=E/wvCrKAmrUJDrR5IDeQ5CWe+wo5C+8PQzGoG1fwU4z9WfssSMukDPX45zqe5ee7fiuP66ztO1AjA6FaKCZ/W1tMlLd7XlkWDaEYF50gt1Hp7AI0R9r8cW1wF59FgWCTjfChKQ2IymDB2gM2Nm3BXwjY6L5QEmN74iCvxcSQPsVaQYrPbA1r2WrxvwSUnSSl2QWPzxjP5XXVjxZWDdO++OPwDDhTlpp0GbiB/PJ1UNsm/FWWjwaJAoUeEVnU9tI/Npl+MsTK4kcGR3UhD8dsf6Bmo7ZlBgqORVPhIb5mTIY+qKbFJkchKNlnOnK14JmVM726iDv8+7iIwEmVkSWwAg==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH 4/4] arm/new vgic: Add ITS support to NEW_VGIC
+Thread-Topic: [XEN PATCH 4/4] arm/new vgic: Add ITS support to NEW_VGIC
+Thread-Index: AQHaByVKOarKe67VpUmvAyf2tK5K3LBaTAOAgAGMbAA=
+Date: Thu, 26 Oct 2023 10:01:19 +0000
+Message-ID: <6c5cb10b-7b61-4690-92b1-9c75a371af4d@epam.com>
+References: <cover.1698225630.git.mykyta_poturai@epam.com>
+ <b0b41f2065002e4cf7795ebfbf9f84624c2f150d.1698225630.git.mykyta_poturai@epam.com>
+ <163d3326-38f2-40b6-a654-60f0221daa6c@xen.org>
+In-Reply-To: <163d3326-38f2-40b6-a654-60f0221daa6c@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
- <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
- <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
- <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
-From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-In-Reply-To: <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|IA0PR12MB7650:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd996a71-63be-4466-7cba-08dbd60884c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8OqyppI3msdKrjyPGcwEvj3+gAk3bRZR3eW6+m2ORqh1UGRU5YDw7UFOeu1EC9uyGlBHzwViLGnhdBv1CleyflVqskopNMyHh4e2DiOmAKfUG19eK8xheRGMx2QT6A2OPSElFKQEGS9XDld3wtUG33Kf7guxwzaLukuoCfl1nqG22iy/PWmJbzb8mJ1J70DS+he4qsnC2pnFGn0Z2lKSU79voBD3bdkLKJ2r4Q1kBnuk+Bt+jjoB6RGohAcFN61NHEeV3n+l9lSFiMhzkKfj/1HkmqhovPh+/Z/0ewR4H1JxZotQWDwRUfBpEdjtynRCrJmkxQm8Vx+yX5sNCNDJ59f7mFnV/Djnw1/w5h0XOS/uiug37XIL4oxKRvWDzXBsHtXVlejG3PRX/vUzKoFEHcgpfqEnHtr0OO+CBqptJnTs214lBfo5RC3aVKP53TiI6aDROuPzIJEUx/b11b5GHSLAatxxD89BfXawZOBy4u0sZ5H81/CJAwSNd1j8bxm+jg18ZfTEAKqBwnnZZQvtIJF1Sidmqe8QL5mfelO+Q0tgzS6ksHYpnM6D4CePL70VOu42SgbX9rzZFjzBP09AIh/OLpbf9Vtw8VScqh6RtcJ9sW/SZzHe4QWHIgwGYV9Fv++VQJEcWxR4v0EWhc6e7OdZ7hXULYlCz6ej7Q4Mg5UQKJIs1Yo/u1nyoLpGxYIM9Whh+c4FglG/wJH4xAVDCRAXDTtJ0zM4NWSWnVTISIDAvNrVs7XbqGt8DbEtajx4HzG/ZI1VlfMHL57Hif1RDKwkoQCeqml0y1echvsA4ZVE+vdUFUW2si102pjjUTiq
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(230922051799003)(82310400011)(451199024)(186009)(1800799009)(64100799003)(36840700001)(40470700004)(46966006)(33964004)(26005)(356005)(31686004)(66899024)(2906002)(36756003)(86362001)(31696002)(5660300002)(4326008)(41300700001)(8936002)(8676002)(40460700003)(70586007)(16526019)(2616005)(53546011)(6666004)(16576012)(6916009)(36860700001)(54906003)(81166007)(82740400003)(316002)(70206006)(478600001)(83380400001)(44832011)(40480700001)(336012)(47076005)(426003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 09:47:07.7999
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3758:EE_|AM9PR03MB7267:EE_
+x-ms-office365-filtering-correlation-id: 14da2412-15c3-436c-735a-08dbd60a80af
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ XT4N5Qr5hGQnBg8xxgd5O8fjCbPbL6SAW4TlyHRyoIx+7+zADaoETyU9dz/uUgs/iWiAMywieUpufyVQhO5WOXF8Z1Mh2aGO0hEbXBhQ932zovJhG0KV1XlJ9A3SA7ZfFUVQJ4jPTC2dVZHKx8H/i1cXhmn5Q6Xktw/O07u2CYSxC9w8wAuqAfEKlBZhkWQIFWm0Hnl+1ZtbtOAUYjMaE4IIGvA92Y3t32HGLvma0uR1TcCDsL07fIjlRLw+tS40fndwM3U/x64v41PTllIFYVzJzcOSbzmqXMettx33AmFPFXFn43rG0SoHXY9JaYR4AN5BnRzrqN7eHyp6BRPfAzeHbbmGmfGFwU5scV/CzG7xROkUqwLNK4yvcQZLJJ9byySZ/zOSm7AJmBBhFcXfg6emeKfGUOWnnMVnGgVDm3QW5ZNIIT1OXPj2LEFVei+DDJzBhzFoyX87OvQWjffiT+5EPOWOBH5uhTnx1RbLWxK+If+vTJobe76B3qzOtYvwfYqKwb/+F2iDxBB5vINIbw40UphvnCNVNyBV8lp1oY8yIGQpQcIZBvaW7tHvhzFnXzFkoGp2sdQnnEcMkyPOY9qXFOLMT9UNJq45mbqrFMJtLXJQdM54gudfG9J97i/cqbd8/wpr422ufR4RAsEhQw==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3758.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(136003)(376002)(346002)(396003)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(38100700002)(2906002)(86362001)(31686004)(31696002)(4744005)(107886003)(5660300002)(2616005)(6512007)(66899024)(41300700001)(122000001)(110136005)(91956017)(36756003)(66556008)(66476007)(66446008)(64756008)(54906003)(66946007)(316002)(76116006)(53546011)(71200400001)(6506007)(38070700009)(6486002)(8676002)(26005)(478600001)(4326008)(8936002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?MHpMeVg2N29xTlU5QkxqUE5jaS8ybUl1bjdGeG54aXhhUFdra0NYMDZIQnA3?=
+ =?utf-8?B?UjgrSXRKdnZET1VFT1dsTWtLTno3dHk2aXFrSjdHaVlJMzh1UFF2MFR2cXlr?=
+ =?utf-8?B?K29EQTVzQzl3SzBqaExKdHVxc1AxQ2szR09abHVQMm5VRll1UnhSNWgyc1Yz?=
+ =?utf-8?B?dFF3dXhzUFNNbEpCanNZMk5GS2o3cTAycUlhY2V2T1FNNGVkK1NqNTh2THgx?=
+ =?utf-8?B?WUNLeGJqWlF5N2lqakVsc1IrNmhZeW9TRU53Z1IzbURFenRyYmp3RSsxYjRr?=
+ =?utf-8?B?ZURUT21zOEdmSzFsbml5RnNpZVhuRThEeUtkT0thVDJIaC84bkIwalB1YnFX?=
+ =?utf-8?B?REU3SGhuMDh4R2NkeVBsZldzTGJpZ3hnWHQ3TkI1VE1rZ09zZGV3TEVocWZM?=
+ =?utf-8?B?Nlh5Nzlsd1BaVThYN0ozMXg5bWZHVDMvL2FaWkFnS2dCdzBaSlMyejBCc1pE?=
+ =?utf-8?B?QkNtblhXTDNJalpOZlBpMHhUQm8wVmtySFlRR1BRbWgyOTA1Mi9MNzI5cGhs?=
+ =?utf-8?B?TkRwSnArb0VaVWFvQmdEeWREb21qc1AvWnVPMUU4SjFKbXAvRzFaajhpMlVR?=
+ =?utf-8?B?L1Vmb01mSzdEanZabE9STndkcFRRSkh0NTROUjBLZUxKVnRHYU04bnA0UFFC?=
+ =?utf-8?B?SXg0MFZ6NGZVRjl5UWZCWGJDa1hhUDhvU0gvZjF4dVlaQS8wU2xQckE1a0Uz?=
+ =?utf-8?B?VnlyeEdOZ05kL01UcUZzL1VkVXNQeE16MEhqdFpONm14Y2xnZEZldlEzMVVL?=
+ =?utf-8?B?SEY3TktpMDBXaDBlYm50Y1NtWk1jdUtEdnJMU3FLM1huSlJwQkF4a25GaVZX?=
+ =?utf-8?B?S0J5MEp3VHZHTDlPSXc5VGxHK2xRa2Z3M05vNklvTit0QjkwUFVEUUNrTUtB?=
+ =?utf-8?B?cVNzWXQ0czN6QzVkZEdTQVQ3V2EzZm83N2UrbExsR3dibzVXdmdjSlBLaThl?=
+ =?utf-8?B?Y1hUU0RtVzYxVlZsZlN5R1ZWR1FWZUR3NGVMUjVMS1dINS9zalNQOFhYeU9F?=
+ =?utf-8?B?NytwNE5aNElWaFpNbkRLOHduVmNYRW1FdnI4bTg5TlVWMkFpa2tvMFFxN1h0?=
+ =?utf-8?B?UTZtUUpMWFJtNGprYmpUUGQyeVVNL2dEaWJCWkNqSnl2cmUwNU90Y0oyRkgy?=
+ =?utf-8?B?eEQxd1JoN0JMa2p6ZGlmWk9ONFpJZEVVbUxnOXpIREFiMEg1YXVmd2RxTWxZ?=
+ =?utf-8?B?N01takV0WVo4TmxmenJ5VlpTcVF2MnhmVGRFcEF3cDFEZFc1OEhwQ0gvWnBL?=
+ =?utf-8?B?ZzY3NjJGZStvY3ZoUlNvMEdveENrbWI1Sklia0l4cmhRcjZnajdLK0FTUVZZ?=
+ =?utf-8?B?ZmlFS0I5YmxnRDdFcHdaVEorSkM4cWUwVlpLalo3WGxLVVRJU3dJVUgzQm9K?=
+ =?utf-8?B?WWJhN3FjeGV1MXhndmhxUlNQY2JyOHUycWlWbTdNTk43MzFDSWVuV25oK25D?=
+ =?utf-8?B?RmVoZkpTb1NhczhPVW16ZTEzM1BZVlpGYU1kTWNFR0xDRGI0M3BNU0NBYXpS?=
+ =?utf-8?B?SkNPUkNjeExtdTc1Nk45YUIvNzA5bURlcmlsS0NUSHkrRXVtMzNjVDYyRm50?=
+ =?utf-8?B?T2lGaXRjRWZPRWVGL1k0aEhwTUNNTWU0QlBBOW9ZS1hwOUViV0FrSnhQOURQ?=
+ =?utf-8?B?WjIzY1VRcE93VE4ra1M4Vk1PSXBDZEhFMVQ5ZkhHS3NZSkRuRDNXc2cvZ3I1?=
+ =?utf-8?B?KzBLY3kycDJ0QVUwcVVyQkY1SlZwSlFncldKc2wyZDEwZGFGTVJoOTRZWkVI?=
+ =?utf-8?B?UGlVUHI3d1dLY1lhTC9tclFjQThlUFlCbE1RQzByU0lQQk9MWW9DZkQ1UWFp?=
+ =?utf-8?B?RWtYUE5KNldoMzFTZEgySUNVcmdKTXBLdi95ajBkTit4SUZ6cUtVMjVOSHJE?=
+ =?utf-8?B?eGxSVXNvVXJtekhGdGRCamtKRVRCNEZiakpFZWJlSXEzL2dBTVhFUms0MWRy?=
+ =?utf-8?B?SWlkRjR6eEFQekw4YlQ2RmRPL2hndHFZVS91R2dSVGJreDJRVEo3TGExUE5F?=
+ =?utf-8?B?ejlzUFV4a0xKMDh4K25vb1J4RGUvM0pxY2FiR1lMcFU3akdQTit2c1NrZHF0?=
+ =?utf-8?B?aGp4V1liSmowUXEvZW1SMmtDTStza0NtdXBLaHlxakc1azV2Qk9XSkwxYnk4?=
+ =?utf-8?B?eVhLeFNqQ0FNZ3NHWkJGVWt1bFlJRDViS3JwZ1hpSEVnREJSakc0N1BoNWxH?=
+ =?utf-8?B?SXc9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <BFFE84629717EE48B880C666D4D957B8@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3758.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14da2412-15c3-436c-735a-08dbd60a80af
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2023 10:01:19.9793
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd996a71-63be-4466-7cba-08dbd60884c9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7650
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AlekU2rPFF3/enjGSUI3n3nHyqCO2y39R3TSxfD3fCQ3am1F/kO/qVMe8sGq1QBYFpKeGR/nBiH+8pa8SjHu4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7267
+X-Proofpoint-ORIG-GUID: F2qvGkae99osNCjh4PxGwTV93SAlBTDx
+X-Proofpoint-GUID: F2qvGkae99osNCjh4PxGwTV93SAlBTDx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-26_07,2023-10-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 adultscore=0
+ spamscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0
+ clxscore=1015 mlxlogscore=731 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2310170001 definitions=main-2310260084
 
---------------83AJLeVJPG8Yqwo11XIXY4hN
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-On 26/10/23 11:45, Jan Beulich wrote:
-
-> On 26.10.2023 10:34, Xenia Ragiadakou wrote:
->> On 26/10/23 10:35, Jan Beulich wrote:
->>> On 26.10.2023 08:45, Xenia Ragiadakou wrote:
->>>> Given that start < kernel_end and end > kernel_start, the logic that
->>>> determines the best placement for dom0 initrd and metadata, does not
->>>> take into account the two cases below:
->>>> (1) start > kernel_start && end > kernel_end
->>>> (2) start < kernel_start && end < kernel_end
->>>>
->>>> In case (1), the evaluation will result in end = kernel_start
->>>> i.e. end < start, and will load initrd in the middle of the kernel.
->>>> In case (2), the evaluation will result in start = kernel_end
->>>> i.e. end < start, and will load initrd at kernel_end, that is out
->>>> of the memory region under evaluation.
->>> I agree there is a problem if the kernel range overlaps but is not fully
->>> contained in the E820 range under inspection. I'd like to ask though
->>> under what conditions that can happen, as it seems suspicious for the
->>> kernel range to span multiple E820 ranges.
->> We tried to boot Zephyr as pvh dom0 and its load address was under 1MB.
->>
->> I know ... that maybe shouldn't have been permitted at all, but
->> nevertheless we hit this issue.
-> How can they expect to have a contiguous, large enough range there?
-Me too I wonder. I don't know, maybe somebody else could shed
-some light on this.
->>>> This patch rephrases the if condition to include the above two cases
->>>> without affecting the behaviour for the case where
->>>> start < kernel_start && end > kernel_end
->>>>
->>>> Fixes: 73b47eea2104 ('x86/dom0: improve PVH initrd and metadata placement')
->>>> Signed-off-by: Xenia Ragiadakou<xenia.ragiadakou@amd.com>
->>>> ---
->>>>    xen/arch/x86/hvm/dom0_build.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
->>>> index c7d47d0d4c..5fc2c12f3a 100644
->>>> --- a/xen/arch/x86/hvm/dom0_build.c
->>>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>>> @@ -518,7 +518,7 @@ static paddr_t __init find_memory(
->>>>            if ( end <= kernel_start || start >= kernel_end )
->>>>                ; /* No overlap, nothing to do. */
->>>>            /* Deal with the kernel already being loaded in the region. */
->>>> -        else if ( kernel_start - start > end - kernel_end )
->>>> +        else if ( kernel_start + kernel_end > start + end )
->>> What meaning has the sum of the start and end of either range? I can't
->>> figure how comparing those two values will be generally correct / useful.
->>> If the partial-overlap case needs handling in the first place, I think
->>> new conditionals need adding (and the existing one needs constraining to
->>> "kernel range fully contained") to use
->>> - as before, the larger of the non-overlapping ranges at start and end
->>>     if the kernel range is fully contained,
->>> - the tail of the range when the overlap is at the start,
->>> - the head of the range when the overlap is at the end.
->> Yes it is not quite straight forward to understand and is based on the
->> assumption that end > kernel_start and start < kernel_end, due to
->> the first condition failing.
->>
->> Both cases:
->> (start < kernel_start && end < kernel_end) and
->> (kernel_start - start > end - kernel_end)
->> fall into the condition ( kernel_start + kernel_end > start + end )
->>
->> And both the cases:
->> (start > kernel_start && end > kernel_end) and
->> (end - kernel_end > kernel_start - start)
->> fall into the condition ( kernel_start + kernel_end < start + end )
->>
->> ... unless of course I miss a case
-> Well, mathematically (i.e. ignoring the potential for overflow) the
-> original expression and your replacement are identical anyway. But
-> overflow needs to be taken into consideration, and hence there is a
-> (theoretical only at this point) risk with the replacement expression
-> as well. As a result I still think that ...
->
->>> That said, in the "kernel range fully contained" case it may want
->>> considering to use the tail range if it is large enough, rather than
->>> the larger of the two ranges. In fact when switching to that model, we
->>> ought to be able to get away with one less conditional, as then the
->>> "kernel range fully contained" case doesn't need treating specially.
-> ... this alternative approach may want considering (provided we need
-> to make a change in the first place, which I continue to be
-> unconvinced of).
-Hmm, I see your point regarding the overflow.
-Given that start < kernel_end and end > kernel_start, this could
-be resolved by changing the above condition into:
-if ( kernel_end - start > end - kernel_start )
-
-Would that work for you?
-
-> Jan
---------------83AJLeVJPG8Yqwo11XIXY4hN
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>On 26/10/23 11:45, Jan Beulich wrote:</p>
-    <blockquote type="cite"
-      cite="mid:809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 26.10.2023 10:34, Xenia Ragiadakou wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On 26/10/23 10:35, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">On 26.10.2023 08:45, Xenia Ragiadakou wrote:
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Given that start &lt; kernel_end and end &gt; kernel_start, the logic that
-determines the best placement for dom0 initrd and metadata, does not
-take into account the two cases below:
-(1) start &gt; kernel_start &amp;&amp; end &gt; kernel_end
-(2) start &lt; kernel_start &amp;&amp; end &lt; kernel_end
-
-In case (1), the evaluation will result in end = kernel_start
-i.e. end &lt; start, and will load initrd in the middle of the kernel.
-In case (2), the evaluation will result in start = kernel_end
-i.e. end &lt; start, and will load initrd at kernel_end, that is out
-of the memory region under evaluation.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I agree there is a problem if the kernel range overlaps but is not fully
-contained in the E820 range under inspection. I'd like to ask though
-under what conditions that can happen, as it seems suspicious for the
-kernel range to span multiple E820 ranges.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-We tried to boot Zephyr as pvh dom0 and its load address was under 1MB.
-
-I know ... that maybe shouldn't have been permitted at all, but 
-nevertheless we hit this issue.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-How can they expect to have a contiguous, large enough range there?</pre>
-    </blockquote>
-    Me too I wonder. I don't know, maybe somebody else could shed<br>
-    some light on this.<span style="white-space: pre-wrap">
-</span><span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite"
-      cite="mid:809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">This patch rephrases the if condition to include the above two cases
-without affecting the behaviour for the case where
-start &lt; kernel_start &amp;&amp; end &gt; kernel_end
-
-Fixes: 73b47eea2104 ('x86/dom0: improve PVH initrd and metadata placement')
-Signed-off-by: Xenia Ragiadakou<a class="moz-txt-link-rfc2396E" href="mailto:xenia.ragiadakou@amd.com">&lt;xenia.ragiadakou@amd.com&gt;</a>
----
-  xen/arch/x86/hvm/dom0_build.c | 2 +-
-  1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index c7d47d0d4c..5fc2c12f3a 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -518,7 +518,7 @@ static paddr_t __init find_memory(
-          if ( end &lt;= kernel_start || start &gt;= kernel_end )
-              ; /* No overlap, nothing to do. */
-          /* Deal with the kernel already being loaded in the region. */
--        else if ( kernel_start - start &gt; end - kernel_end )
-+        else if ( kernel_start + kernel_end &gt; start + end )
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">What meaning has the sum of the start and end of either range? I can't
-figure how comparing those two values will be generally correct / useful.
-If the partial-overlap case needs handling in the first place, I think
-new conditionals need adding (and the existing one needs constraining to
-"kernel range fully contained") to use
-- as before, the larger of the non-overlapping ranges at start and end
-   if the kernel range is fully contained,
-- the tail of the range when the overlap is at the start,
-- the head of the range when the overlap is at the end.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Yes it is not quite straight forward to understand and is based on the
-assumption that end &gt; kernel_start and start &lt; kernel_end, due to
-the first condition failing.
-
-Both cases:
-(start &lt; kernel_start &amp;&amp; end &lt; kernel_end) and
-(kernel_start - start &gt; end - kernel_end)
-fall into the condition ( kernel_start + kernel_end &gt; start + end )
-
-And both the cases:
-(start &gt; kernel_start &amp;&amp; end &gt; kernel_end) and
-(end - kernel_end &gt; kernel_start - start)
-fall into the condition ( kernel_start + kernel_end &lt; start + end )
-
-... unless of course I miss a case
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Well, mathematically (i.e. ignoring the potential for overflow) the
-original expression and your replacement are identical anyway. But
-overflow needs to be taken into consideration, and hence there is a
-(theoretical only at this point) risk with the replacement expression
-as well. As a result I still think that ...
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">That said, in the "kernel range fully contained" case it may want
-considering to use the tail range if it is large enough, rather than
-the larger of the two ranges. In fact when switching to that model, we
-ought to be able to get away with one less conditional, as then the
-"kernel range fully contained" case doesn't need treating specially.
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-... this alternative approach may want considering (provided we need
-to make a change in the first place, which I continue to be
-unconvinced of).</pre>
-    </blockquote>
-    Hmm, I see your point regarding the overflow.<br>
-    Given that start &lt; kernel_end and end &gt; kernel_start, this
-    could<br>
-    be resolved by changing the above condition into:<br>
-    if ( kernel_end - start &gt; end - kernel_start )<span
-    style="white-space: pre-wrap">
-</span>
-    <p><span style="white-space: pre-wrap">Would that work for you?
-</span></p>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite"
-      cite="mid:809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com">
-      <pre class="moz-quote-pre" wrap="">Jan
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------83AJLeVJPG8Yqwo11XIXY4hN--
+SGkgSnVsaWVuLA0KDQoNCk9uIDI1LjEwLjIzIDEzOjIyLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+
+IExvb2tpbmcgYXQgdGhlIGNoYW5nZSwgeW91IG1haW5seSBhZGQgI2lmZGVmIGluIHRoZSBjb2Rl
+LiBUaGUgZ29hbCBvZiANCj4gZ2ljLXYzLWxwaS5jIHdhcyB0byBiZSBhZ25vc3RpYyBmcm9tIHRo
+ZSBkaWZmZXJlbnQgdkdJQy4gU28gcGxlYXNlIA0KPiBhYnN0cmFjdCBpdC4NCg0KDQpXb3VsZCBp
+dCBiZSBva2F5IHRvIGFkZCBzb21ldGhpbmcgbGlrZSAidHlwZWRlZiBzdHJ1Y3QgdmdpY19pcnEg
+DQpwZW5kaW5nX2lycSIgdG8gZGVhbCB3aXRoIHRoZSB0eXBlIGRpZmZlcmVuY2VzIG9yIGlzIGl0
+IGJldHRlciB0byANCmNvbXBsZXRlbHkgbW92ZSB0aGUgY29kZSB0aGF0IG1lbnRpb25zIHRoZW0g
+aW50byB2Z2ljIGZpbGVzPw0KDQoNClJlZ2FyZHMsDQoNCk15a3l0YQ0K
 
