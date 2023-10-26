@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 018667D8623
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 17:46:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.623889.972172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9438B7D86AE
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Oct 2023 18:26:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.623916.972198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw2YD-0002VM-Vx; Thu, 26 Oct 2023 15:45:37 +0000
+	id 1qw3BK-0002hQ-6y; Thu, 26 Oct 2023 16:26:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 623889.972172; Thu, 26 Oct 2023 15:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 623916.972198; Thu, 26 Oct 2023 16:26:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qw2YD-0002SX-TG; Thu, 26 Oct 2023 15:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 623889;
- Thu, 26 Oct 2023 15:45:36 +0000
+	id 1qw3BK-0002ep-3v; Thu, 26 Oct 2023 16:26:02 +0000
+Received: by outflank-mailman (input) for mailman id 623916;
+ Thu, 26 Oct 2023 16:26:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jpsH=GI=casper.srs.infradead.org=BATV+1fb9ca25523a2d41ea1b+7368+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qw2YB-0002SR-Ip
- for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 15:45:36 +0000
+ id 1qw3BI-0002ej-K0
+ for xen-devel@lists.xenproject.org; Thu, 26 Oct 2023 16:26:00 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b308f387-7416-11ee-98d5-6d05b1d4d9a1;
- Thu, 26 Oct 2023 17:45:34 +0200 (CEST)
+ id 5852e590-741c-11ee-98d5-6d05b1d4d9a1;
+ Thu, 26 Oct 2023 18:25:59 +0200 (CEST)
 Received: from [2001:8b0:10b:5:a059:f7a9:933a:2236]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qw2Xy-00Fr28-EJ; Thu, 26 Oct 2023 15:45:22 +0000
+ id 1qw3B1-00G1NV-Az; Thu, 26 Oct 2023 16:25:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,78 +41,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b308f387-7416-11ee-98d5-6d05b1d4d9a1
+X-Inumbo-ID: 5852e590-741c-11ee-98d5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Ob0ALOUwSkJvsjeQfue3SPsi0uVS5RJlogWBcJc0i5s=; b=qXgzwVZjUtJJqHdt99B24lZjvL
-	XiF3KdbkDbgiuPhhp6vPKHcr9tSrKEZiQjvXWVYxuxYiQZNNqFbAdygBJ3ZhERmNHzW1hzwviV5BS
-	lUOp/dRYCpKzHcc3E1bj0FkCYtbIc9tprbcllMVNaKsRCiUDCLNtp9d77GKqohJ2SSvo7KBzv7z3T
-	QL2drCJd3Sc3XFfNR55bbvSDovcuUDe8CA/7yLHtLRnwCeJiHcc1sacF7SkY7qM4b3Oeki2EWMeOZ
-	ohoBaWDF9s8SnvItdBEJyzpLA63Vac1gRuTeuCuGC+T3rzaJTezkWeB2ZloJik/dEHRU4MjyZx/av
-	b638CH0A==;
-Message-ID: <9d7d7fc988fa06d77cb1eca739f82063608dfda6.camel@infradead.org>
-Subject: Re: [QEMU][PATCHv2 1/8] xen: when unplugging emulated devices skip
- virtio devices
+	bh=EYNbuIEJkn75aLk2xuAiI/f/kcobzchr1hyKL8PBhMw=; b=fL3aFzO97U7E4AIrmPh+wLjq1X
+	D14kLIKP0XR29ME9BwAh3gbbR71u99d7kImVXDTWNebVDTfS6gl1k22hegCfEsiV2EYuyOfqQuVAA
+	xO2aE7yu8Rvu+2hgGCZR8Y5x8M/8UYdpBzIJSeJCAtJngA7qBzaOiunU/Wp/hRPvXjUiF14zD9yyw
+	qj6hOR1H7SvGc8SlzwTM338Tu4gyWDx+48XZyTTbcfuHnjBDB72LbkfCwCNvSJsCXeI7ZUqaanUh/
+	YUXJT6ihPeIoWNCZ6PAdSAK7o4Dhw8ucKzhvQBjkyqBksHYr2bAyMl16VRDAFkdkBau1kZsfJRBJj
+	0TORTAgQ==;
+Message-ID: <7ff6cd4ffe20b54dfb6b5b527d3a85ff3870df55.camel@infradead.org>
+Subject: Re: [PATCH v3 28/28] docs: update Xen-on-KVM documentation
 From: David Woodhouse <dwmw2@infradead.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org, 
-	jgross@suse.com, Anthony Perard <anthony.perard@citrix.com>, Paul Durrant
-	 <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson
-	 <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
-	"Michael S. Tsirkin"
-	 <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, "open
-	list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-Date: Thu, 26 Oct 2023 16:45:21 +0100
-In-Reply-To: <alpine.DEB.2.22.394.2310251820510.271731@ubuntu-linux-20-04-desktop>
-References: <20231025212422.30371-1-vikram.garhwal@amd.com>
-	 <20231025212422.30371-2-vikram.garhwal@amd.com>
-	 <f8d6eaf9b5f57184a5f6ec5b6103189b77364e3a.camel@infradead.org>
-	 <alpine.DEB.2.22.394.2310251820510.271731@ubuntu-linux-20-04-desktop>
+To: Kevin Wolf <kwolf@redhat.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Eric Blake <eblake@redhat.com>, qemu-devel@nongnu.org, Hanna Reitz
+ <hreitz@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, Anthony
+ Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+ =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>, Paolo
+ Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Jason Wang <jasowang@redhat.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ qemu-block@nongnu.org,  xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, Bernhard Beschow <shentey@gmail.com>, Joel Upham
+ <jupham125@gmail.com>
+Date: Thu, 26 Oct 2023 17:25:42 +0100
+In-Reply-To: <dfed5bba4882921b2c0fe685c9be4444d7e4bd45.camel@infradead.org>
+References: <20231025145042.627381-1-dwmw2@infradead.org>
+	 <20231025145042.627381-29-dwmw2@infradead.org>
+	 <6vbpkrebc7fpypbv2t7jbs7m3suxwbqqykeomzfxpenjj2sogd@rphcppcl4inl>
+	 <4a10a50e5469480a82cb993dedbff10c3d777082.camel@infradead.org>
+	 <21e8a265-bf5a-464c-86bc-f0fd7b5eb108@citrix.com>
+	 <ZToizYcPjO0Zt52N@redhat.com>
+	 <dfed5bba4882921b2c0fe685c9be4444d7e4bd45.camel@infradead.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Zh8xFnrlW+/8oWRYErtc"
+	boundary="=-SDhuVhGhHCc68PSQ+PYZ"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-Zh8xFnrlW+/8oWRYErtc
+--=-SDhuVhGhHCc68PSQ+PYZ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2023-10-25 at 18:23 -0700, Stefano Stabellini wrote:
-> On Thu, 26 Oct 2023, David Woodhouse wrote:
-> > On Wed, 2023-10-25 at 14:24 -0700, Vikram Garhwal wrote:
-> > > From: Juergen Gross <jgross@suse.com>
-> > >=20
-> > > Virtio devices should never be unplugged at boot time, as they are
-> > > similar to pci passthrough devices.
-> > >=20
-> > > Signed-off-by: Juergen Gross <jgross@suse.com>
-> > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> >=20
-> > Hm, do your virtio NICs still actually *work* after that? Or are they
-> > all disconnected from their netdev peers?=20
-> >=20
-> > I suspect you're going to want a variant of
-> > https://lore.kernel.org/qemu-devel/20231025145042.627381-19-dwmw2@infra=
-dead.org/T/#u
-> > which also leave the peers of your virtio devices intact?
+On Thu, 2023-10-26 at 10:25 +0100, David Woodhouse wrote:
 >=20
-> Hi David, device unplug is an x86-only thing (see the definition of
-> xen_emul_unplug in Linux under arch/x86/xen/platform-pci-unplug.c) I
-> suspect Vikram who is working on ARM hasn't tested it.
+> > So it would have been entirely possible to use -initrd 'bzImage
+> > console=3Dhvc0 root=3D/dev/xvda1' if Xen worked like that.
+>=20
+> Xen does allow that too. I didn't realise our multiboot loader did though=
+.
+>=20
+> So yes, you *can* use=C2=A0 -initrd 'bzImage root=3D/dev/xvda1'.=20
+>=20
+> And you can even load more than one module, it seems. Separate them by
+> commas, so -initrd 'bzImage,initrd.img' should work.
+>=20
+> You can even do both at the same time. If you have commas on the kernel
+> command line, *double* them:
+>=20
+> =C2=A0-initrd 'bzImage root=3D/dev/xvda earlyprintk=3Dxen,,keep,initrd.im=
+g'
+>=20
+> I'll update the documentation accordingly.
 
-Ah, I had assumed there was something else coming along later which
-would make it actually get used.=20
-
-> Vikram, a simple option is to drop this patch if you don't need it.
-
-That works. Although I may revive it in that case.=20
+https://git.infradead.org/users/dwmw2/qemu.git/commitdiff/0b13c0ae39b
 
 
---=-Zh8xFnrlW+/8oWRYErtc
++Booting Xen PV guests
++---------------------
++
++Booting PV guest kernels is possible by using the Xen PV shim (a version o=
+f Xen
++itself, designed to run inside a Xen HVM guest and provide memory manageme=
+nt
++services for one guest alone).
++
++The Xen binary is provided as the ``-kernel`` and the guest kernel itself =
+(or
++PV Grub image) as the ``-initrd`` image, which actually just means the fir=
+st
++multiboot "module". For example:
++
++.. parsed-literal::
++
++  |qemu_system| --accel kvm,xen-version=3D0x40011,kernel-irqchip=3Dsplit \=
+\
++       -chardev stdio,id=3Dchar0 -device xen-console,chardev=3Dchar0 \\
++       -display none  -m 1G  -kernel xen -initrd bzImage \\
++       -append "pv-shim console=3Dxen,pv -- console=3Dhvc0 root=3D/dev/xvd=
+a1" \\
++       -drive file=3D${GUEST_IMAGE},if=3Dxen
++
++The Xen image must be built with the ``CONFIG_XEN_GUEST`` and ``CONFIG_PV_=
+SHIM``
++options, and as of Xen 4.17, Xen's PV shim mode does not support using a s=
+erial
++port; it must have a Xen console or it will panic.
++
++The example above provides the guest kernel command line after a separator
++(" ``--`` ") on the Xen command line, and does not provide the guest kerne=
+l
++with an actual initramfs, which would need to listed as a second multiboot
++module. For more complicated alternatives, see the
++:ref:`documentation <initrd-reference-label>` for the ``-initrd`` option.
++
+
+
+I also fixed up the -initrd documentation so that it actually mentions
+how to quote commas, using a Xen PV launch as an example:
+
+ ``-initrd "file1 arg=3Dfoo,file2"``
+     This syntax is only available with multiboot.
+=20
+-    Use file1 and file2 as modules and pass arg=3Dfoo as parameter to the
+-    first module.
++    Use file1 and file2 as modules and pass ``arg=3Dfoo`` as parameter to =
+the
++    first module. Commas can be provided in module parameters by doubling
++    them on the command line to escape them:
++
++``-initrd "bzImage earlyprintk=3Dxen,,keep root=3D/dev/xvda1,initrd.img"``
++    Multiboot only. Use bzImage as the first module with
++    "``earlyprintk=3Dxen,keep root=3D/dev/xvda1``" as its command line,
++    and initrd.img as the second module.
+
+--=-SDhuVhGhHCc68PSQ+PYZ
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -204,25 +261,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI2MTU0NTIxWjAvBgkqhkiG9w0BCQQxIgQg/a6gD3oR
-29Ahlk3/f12OTgIuysJqEFXO64fwatk1Yxkwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI2MTYyNTQyWjAvBgkqhkiG9w0BCQQxIgQgDqokiZKw
+N4muR7dfd2094dEEoppnw0Krjpb2+JU9UJswgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgB1yYY0fHZ46Wo1+kUOAntA1QkcsOqKJb28
-P/v8wkSIndIvbM+gdOJv9ebbM6ugF49+AFuAOxhhImLlhgKNsg74h/49ixHLlhZCts0Mcg/dwLdb
-Xeu9p57Bydyr8jxQuINLDBybcOS6hiBkR9fWwV5FoJRKOQrCumTPcXtDMzC2hgqe0Uh7gvqPUh8h
-UeT/r3RsCoTuZRp/Os4sHQbvmWyuKHZlc6DnLSqQxKDpM0cxSQB2Hvakhlzx4QP4+V67NA/HxPbk
-XJkAAj4dCw5J8ExHXr3IdKmTvpi3MrFDXrLrLx5gok68EXgcxpsj7sHHu7Q9Fo+Fu+s84b7AGAVk
-B9LdOeXoUvEZAhDYwO1Vgx0M4LgvFY/zRZvOXv6eWrFhU3Wy5B3STccsuNkFwkls9+33oU6XekjI
-iqJuWrmpvYEmBpr9Igx98jPsbTmIaCWnWHJmRjPSY984P02aRbteljfjc5tb34HiZHyOc+ZT54WI
-LWIsf2y1mXIzkusPGFpncJCtKtfwDNR5HGak5rpmbPrX9Wjd8+X7HrQDs0jCtispX2ye95I8s5jh
-S8aOyM0jwRrvhwEqUVZUQOAuBhq0aoWm+caRGo6faJUxJVlF0aQtruUb1msVfeLw5n39mavltjow
-Xb6MLMpL7se5cDSnwQdW/xX/uWFVqOMNAPQ3vD1KvgAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCjqEORMAUbecSHJiVb61/NcY/ZnqeUT/16
+/9R7HFXGKtrHT3UWVkLKBFfA7KBHT/eDAiPAQIzKKs9bgAJl2/lvOx2+3YLbpikgBjELxze8kUY7
+cstlKY46HCa3qVfUEF+jKai06qs3+ivjRVzLnyOCKV4o+wLYCdecG8jC2XhRvz8JAyMSsUFdQXsU
+4h2jqsS00WXLSNzUL0wgNk1DOPOYOb34JguQ1ANhrKYkZto2RPBn0irCrhYlLtnE4eJtFfUDfZmN
+RRICcKvzmpQyWMDNP0HdmfZUGKsQG7vLOVsjN8PEGQ+R7Bkll3WKX4gaRvaU8boP1qo8Nwh8ZaEm
+WKRjC9qq6nBhnHB2tDSNnQKWC1qnCdO0h8hKOL/h0a4ozVhHdXdHCe+cwgBfnvG6EK+A6do2yLuG
+FWrapTAadidSmZtezCEyRS7x6DhlGxgvMeOP1fe0BTUasjK8+YnO5WjKn2mAw1IC971vtcJ22lEb
+Y6KyjEMvU0rwSkhJXER3CK9bKvkuR2YIJGedAN1gSrZCNzdK+xKSARntKEtZLW8P48DafTsKOYGX
+y2ua+qGY9E/1S7XIPenAnVjgO+iAmEg3Jh9xnjjSao5etGhYpGMAzXqJjayZOKN1tr5l+aGWg4TW
+RV3YDXlhU8v3/97OLtFT6ISDScXygtNe0ArjaTdZogAAAAAAAA==
 
 
---=-Zh8xFnrlW+/8oWRYErtc--
+--=-SDhuVhGhHCc68PSQ+PYZ--
 
