@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1588D7D9027
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 09:45:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624271.972697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C727D918C
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 10:30:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624281.972711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwHWV-0003he-Dg; Fri, 27 Oct 2023 07:44:51 +0000
+	id 1qwIDt-0005D2-6D; Fri, 27 Oct 2023 08:29:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624271.972697; Fri, 27 Oct 2023 07:44:51 +0000
+Received: by outflank-mailman (output) from mailman id 624281.972711; Fri, 27 Oct 2023 08:29:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwHWV-0003fJ-B0; Fri, 27 Oct 2023 07:44:51 +0000
-Received: by outflank-mailman (input) for mailman id 624271;
- Fri, 27 Oct 2023 07:44:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qwIDt-00059y-3P; Fri, 27 Oct 2023 08:29:41 +0000
+Received: by outflank-mailman (input) for mailman id 624281;
+ Fri, 27 Oct 2023 08:29:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eEfT=GJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qwHWU-0003fA-E8
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 07:44:50 +0000
+ id 1qwIDq-00059s-QS
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 08:29:38 +0000
 Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
  [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b39764d8-749c-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 09:44:47 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f6b83e62-74a2-11ee-98d6-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 10:29:37 +0200 (CEST)
 Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso14060995e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 00:44:47 -0700 (PDT)
+ 5b1f17b1804b1-4083f61312eso13892135e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 01:29:37 -0700 (PDT)
 Received: from [192.168.10.177] (54-240-197-235.amazon.com. [54.240.197.235])
  by smtp.gmail.com with ESMTPSA id
- g12-20020a05600c310c00b004068e09a70bsm940661wmo.31.2023.10.27.00.44.45
+ h9-20020a05600c314900b0040849ce7116sm4519893wmo.43.2023.10.27.01.29.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Oct 2023 00:44:45 -0700 (PDT)
+ Fri, 27 Oct 2023 01:29:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b39764d8-749c-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: f6b83e62-74a2-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698392687; x=1698997487; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1698395376; x=1699000176; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=weNLTHsNEHd1AKAqcG0eLkMfm7+O04Gb2EjgMXPk2o8=;
-        b=R6VxZV+RTz06jQNzK50uCUYAzPaIb+xWBIqBje3A7t6WglJBgyXTo9keSWE3qH4qTq
-         752mGzPzIZfAbhr0qRpVcskdL+6mXDgxbSlbh3mlBXbrVQQeRt2WM0zW101JHbsQwBo9
-         +N53QXsB7QAE0QhsB6WPrEHnK9oGy70dNaGCioYMmNh+IilM8KQmim8e0hTwDgj6ht2V
-         roghHZZ0idX+azivGsmgkHv1QPDiqR3k9alqu5BGYo6sV2zwGWi6LpU6WB/eURScJnVK
-         O2tOPquOfLwHx8cMHTelArunzb7Jp2fTH3vcCGhohVbP9OGPG2v6R8WvIRHA0n8CFZCg
-         b5+Q==
+        bh=uawWEYvnU1I7SsFfXaVgl6JK99lbvsL15u5TMr7vQn8=;
+        b=K9nyzKXqcS0umrg8ilM4BFAivRhh1Z88D7hH1+6wGaHKPHhzws+dikmLpD10pQIdf7
+         IiLN/ajuXMg1l8HQJH9+L3+fuk35labkMfejSWAUuslNCU1ce+vRgeurODgv3fl2cWJZ
+         +8I8gs4zeQktX8/+1weH7DNGRr9yYooihm0V150Rd0EW3f/Hrgbcg4pgPL+qg79k/ICb
+         YiBe782+Ch2WjobLNHW7hvNI/8+F+On6rTEmCN0qT9NCfd9HkyZG0RFNWtxT9i/aFSLH
+         o8P10Hr/+nYsafyshNEdlD2pJVpJadyKIiI1E3OY4bKS0j7z3uyn4RbZhBIvgi8Bf3hy
+         X+9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698392687; x=1698997487;
+        d=1e100.net; s=20230601; t=1698395376; x=1699000176;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=weNLTHsNEHd1AKAqcG0eLkMfm7+O04Gb2EjgMXPk2o8=;
-        b=QNmNgaVGpeK7ciI1u0oZrtytxs0xxXsHVYUrEi6JvKd7czeGE48zMYWSpAiRSEzgfl
-         qjFGMubY4Xp046nqgDGyVr3KN5mq/Mgt3yZtceQ4GGNl+QK6x9p/OA3dJlU5d9CO4Wbd
-         WduIwHOroUiNw3ad6BZCsd7k9y7A9NI1b3qSaZbrDXtjm3EVlUVzSzryOGWiB/NnOWJ8
-         svNOC0Nu6NbSVLiZ6C7R+jOV4Kzp9W39o2Gxd4VrAQRgzZhPgG0Mfb9B965Nv0ZXHSCf
-         y0z6sdBPisULGYkJV355dUkplbUBOn2CzKTAmOio2zUFlvQIfzV4usKTJb0awYpqGXWP
-         2wsg==
-X-Gm-Message-State: AOJu0YzNe2dB7tyZ+rj+MIphEWbQwgz1s/uiGTKTE7zR8YtTcziUKe0a
-	qc9tJYtHaDtv4pZV3HdGcAM=
-X-Google-Smtp-Source: AGHT+IGfHlZcElg4jlYC+dM2f33yrgLaTa3lKMccWGDiPJqAf0Qf0ppM0UHBxCctTNhgycC9pq53SA==
-X-Received: by 2002:a05:600c:45d3:b0:405:3dd0:6ee9 with SMTP id s19-20020a05600c45d300b004053dd06ee9mr1653222wmo.34.1698392686518;
-        Fri, 27 Oct 2023 00:44:46 -0700 (PDT)
-Message-ID: <d58639b8-09de-4820-88ae-53de0db55f7f@gmail.com>
-Date: Fri, 27 Oct 2023 08:44:44 +0100
+        bh=uawWEYvnU1I7SsFfXaVgl6JK99lbvsL15u5TMr7vQn8=;
+        b=dalNFZdcaBUnmaFS8X8zWL+FCdtEsrFeJiOV7LSvp5MR82IWhiaW3BPXSBTh1LZ9QH
+         dIwLbK0xaagrSfR4TOQZVNlYmLOsVlHBnjYCwEjXl8lhEA/RwdWNok5V1e2BBKDpd4HG
+         iPnKsrrYI2/ksvy+IYerqIYdQ/ivlgjWUJINJ9jg8XnnwHB1uuz9XSQDZ4SVMTJscL7k
+         qpl3vYdqzX3Opow2FLyMrlGBElYBLV1Xvy1qQLPw3YrTPzpMyR4Xh8bL5r8oy+9XM51I
+         9wELn4oYQkrc+Knjlm+Sc6V7hr6g4W2l3MHJYYNrvDRsN34vAZco6q4UcVjjh6lGl8YR
+         plfw==
+X-Gm-Message-State: AOJu0YyezxmGZF+ILGBzCdTfOny9UHLsrkevHD1bYd8zlzTNZWI5/asZ
+	49kiPVCA3aCPXhsy3RNgVyo=
+X-Google-Smtp-Source: AGHT+IEhOFiWCBEfo+wHr0Pp7y4a5kzJHetZXB/E/pRI16RlTXShKDIVxn2mzdbzdHFgDhukzBbnCg==
+X-Received: by 2002:a05:600c:1c06:b0:404:4b6f:d70d with SMTP id j6-20020a05600c1c0600b004044b6fd70dmr1726336wms.17.1698395376081;
+        Fri, 27 Oct 2023 01:29:36 -0700 (PDT)
+Message-ID: <0aabb787-eacf-48d9-83b6-3769c7436cf9@gmail.com>
+Date: Fri, 27 Oct 2023 09:29:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: paul@xen.org
-Subject: Re: [PATCH v3 17/28] hw/xen: add support for Xen primary console in
- emulated mode
+Subject: Re: [PATCH v3 18/28] hw/xen: only remove peers of PCI NICs on unplug
 Content-Language: en-US
 To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
@@ -97,55 +96,23 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
  xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
  Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
- <20231025145042.627381-18-dwmw2@infradead.org>
+ <20231025145042.627381-19-dwmw2@infradead.org>
 From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20231025145042.627381-18-dwmw2@infradead.org>
+In-Reply-To: <20231025145042.627381-19-dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 25/10/2023 15:50, David Woodhouse wrote:
 > From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> The primary console is special because the toolstack maps a page into
-> the guest for its ring, and also allocates the guest-side event channel.
-> The guest's grant table is even primed to export that page using a known
-> grant ref#. Add support for all that in emulated mode, so that we can
-> have a primary console.
-> 
-> For reasons unclear, the backends running under real Xen don't just use
-> a mapping of the well-known GNTTAB_RESERVED_CONSOLE grant ref (which
-> would also be in the ring-ref node in XenStore). Instead, the toolstack
-> sets the ring-ref node of the primary console to the GFN of the guest
-> page. The backend is expected to handle that special case and map it
-> with foreignmem operations instead.
-> 
-> We don't have an implementation of foreignmem ops for emulated Xen mode,
-> so just make it map GNTTAB_RESERVED_CONSOLE instead. This would probably
-> work for real Xen too, but we can't work out how to make real Xen create
-> a primary console of type "ioemu" to make QEMU drive it, so we can't
-> test that; might as well leave it as it is for now under Xen.
-> 
-> Now at last we can boot the Xen PV shim and run PV kernels in QEMU.
+> When the Xen guest asks to unplug *emulated* NICs, it's kind of unhelpful
+> also to unplug the peer of the *Xen* PV NIC.
 > 
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/char/xen_console.c             |  78 ++++++++----
->   hw/i386/kvm/meson.build           |   1 +
->   hw/i386/kvm/trace-events          |   2 +
->   hw/i386/kvm/xen-stubs.c           |   8 ++
->   hw/i386/kvm/xen_gnttab.c          |   7 +-
->   hw/i386/kvm/xen_primary_console.c | 193 ++++++++++++++++++++++++++++++
->   hw/i386/kvm/xen_primary_console.h |  23 ++++
->   hw/i386/kvm/xen_xenstore.c        |  10 ++
->   hw/xen/xen-bus.c                  |   5 +
->   include/hw/xen/xen-bus.h          |   1 +
->   target/i386/kvm/xen-emu.c         |  23 +++-
->   11 files changed, 328 insertions(+), 23 deletions(-)
->   create mode 100644 hw/i386/kvm/xen_primary_console.c
->   create mode 100644 hw/i386/kvm/xen_primary_console.h
+>   hw/i386/xen/xen_platform.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
 > 
 
 Reviewed-by: Paul Durrant <paul@xen.org>
-
-
 
