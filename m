@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180E77D991E
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 14:58:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624371.972901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FF87D98ED
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 14:49:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624373.972890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwMPS-00033L-Gq; Fri, 27 Oct 2023 12:57:54 +0000
+	id 1qwMGc-00010R-LT; Fri, 27 Oct 2023 12:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624371.972901; Fri, 27 Oct 2023 12:57:54 +0000
+Received: by outflank-mailman (output) from mailman id 624373.972890; Fri, 27 Oct 2023 12:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwMPS-00030f-Dc; Fri, 27 Oct 2023 12:57:54 +0000
-Received: by outflank-mailman (input) for mailman id 624371;
- Fri, 27 Oct 2023 12:31:58 +0000
+	id 1qwMGc-0000xa-Ik; Fri, 27 Oct 2023 12:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 624373;
+ Fri, 27 Oct 2023 12:48:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rgxb=GJ=users.sourceforge.jp=ysato@srs-se1.protection.inumbo.net>)
- id 1qwM0M-0007Cv-T6
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 12:31:58 +0000
-Received: from hsmtpd-def.xspmail.jp (hsmtpd-def.xspmail.jp [202.238.198.240])
+ <SRS0=SHDA=GJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qwMGa-0000xU-4x
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 12:48:44 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d02a24ac-74c4-11ee-98d6-6d05b1d4d9a1;
- Fri, 27 Oct 2023 14:31:57 +0200 (CEST)
-Received: from sakura.ysato.name (ik1-413-38519.vs.sakura.ne.jp
- [153.127.30.23])
- by hsmtpd-out-0.asahinet.cluster.xspmail.jp (Halon) with ESMTPA
- id cf9071da-cfc2-430a-aae8-d12cacb28888;
- Fri, 27 Oct 2023 21:31:54 +0900 (JST)
-Received: from SIOS1075.ysato.ml (ZM005235.ppp.dion.ne.jp [222.8.5.235])
- by sakura.ysato.name (Postfix) with ESMTPSA id 755761C0037;
- Fri, 27 Oct 2023 21:31:45 +0900 (JST)
+ id 28e5f9c7-74c7-11ee-98d6-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 14:48:42 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2c5b7764016so12203871fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 05:48:42 -0700 (PDT)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ z11-20020aa7d40b000000b0053e4d1cbc6esm1174637edq.55.2023.10.27.05.48.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Oct 2023 05:48:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d02a24ac-74c4-11ee-98d6-6d05b1d4d9a1
-X-Country-Code: JP
-Date: Fri, 27 Oct 2023 21:31:44 +0900
-Message-ID: <87sf5wi6vj.wl-ysato@users.sourceforge.jp>
-From: Yoshinori Sato <ysato@users.sourceforge.jp>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: qemu-devel@nongnu.org,	Richard Henderson <richard.henderson@linaro.org>,
-	Beniamino Galvani <b.galvani@gmail.com>,	Peter Maydell
- <peter.maydell@linaro.org>,	Strahinja Jankovic
- <strahinja.p.jankovic@gmail.com>,	Niek Linnenbank
- <nieklinnenbank@gmail.com>,	=?ISO-8859-1?Q?C=E9dric?= Le Goater
- <clg@kaod.org>,	Andrew Jeffery <andrew@aj.id.au>,	Joel Stanley
- <joel@jms.id.au>,	Igor Mitsyanko <i.mitsyanko@gmail.com>,	Jean-Christophe
- Dubois <jcd@tribudubois.net>,	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,	Rob Herring
- <robh@kernel.org>,	Subbaraya Sundeep <sundeep.lkml@gmail.com>,	Jan Kiszka
- <jan.kiszka@web.de>,	Tyrone Ting <kfting@nuvoton.com>,	Hao Wu
- <wuhaotsh@google.com>,	Radoslaw Biernacki <rad@semihalf.com>,	Leif Lindholm
- <quic_llindhol@quicinc.com>,	Marcin Juszkiewicz
- <marcin.juszkiewicz@linaro.org>,	"Edgar E. Iglesias"
- <edgar.iglesias@gmail.com>,	Alistair Francis <alistair@alistair23.me>,
-	Helge Deller <deller@gmx.de>,	Paolo Bonzini <pbonzini@redhat.com>,	Eduardo
- Habkost <eduardo@habkost.net>,	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,	Song Gao
- <gaosong@loongson.cn>,	Thomas Huth <huth@tuxfamily.org>,	Laurent Vivier
- <laurent@vivier.eu>,	Huacai Chen <chenhuacai@kernel.org>,	Jiaxun Yang
- <jiaxun.yang@flygoat.com>,	=?ISO-8859-1?Q?Herv=E9?= Poussineau
- <hpoussin@reactos.org>,	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,	Jason Wang <jasowang@redhat.com>,
-	Jia Liu <proljc@gmail.com>,	Stafford Horne <shorne@gmail.com>,	Mark
- Cave-Ayland <mark.cave-ayland@ilande.co.uk>,	Nicholas Piggin
- <npiggin@gmail.com>,	Daniel Henrique Barboza <danielhb413@gmail.com>,	David
- Gibson <david@gibson.dropbear.id.au>,	Harsh Prateek Bora
- <harshpb@linux.ibm.com>,	Bin Meng <bin.meng@windriver.com>,	Palmer Dabbelt
- <palmer@dabbelt.com>,	Weiwei Li <liweiwei@iscas.ac.cn>,	Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>,	David Hildenbrand <david@redhat.com>,	Ilya
- Leoshkevich <iii@linux.ibm.com>,	Halil Pasic <pasic@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,	Eric Farman
- <farman@linux.ibm.com>,	Magnus Damm <magnus.damm@gmail.com>,	Artyom
- Tarasenko <atar4qemu@gmail.com>,	Stefano Stabellini
- <sstabellini@kernel.org>,	Anthony Perard <anthony.perard@citrix.com>,	Paul
- Durrant <paul@xen.org>,	Max Filippov <jcmvbkbc@gmail.com>,
-	qemu-arm@nongnu.org,	qemu-ppc@nongnu.org,	qemu-riscv@nongnu.org,
-	qemu-s390x@nongnu.org,	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 18/45] hw/sh4/r2d: use pci_init_nic_devices()
-In-Reply-To: <20231022155200.436340-19-dwmw2@infradead.org>
-References: <20231022155200.436340-1-dwmw2@infradead.org>
-	<20231022155200.436340-19-dwmw2@infradead.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
- Emacs/28.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+X-Inumbo-ID: 28e5f9c7-74c7-11ee-98d6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1698410922; x=1699015722; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/OYmHso842cNG3tpnPG1jYeaRNeKUNloXejkuAtUOpc=;
+        b=SSXg+1dU9KEV/XRrBBi4V2o4KFmG0tx5ZY+YzkUVhW91t5z9bK/gfpYgcI/HYS9Dl1
+         9tzfpsB4GYl2rki0PiZ4cV4JQ7oWf0TOGss7jH5ah1n4mgJM7uGoO5q7IwPvx96wZLoI
+         f/YbaNjfZ7LMzJFZtaXQpbXZLavfqdmUcj28A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698410922; x=1699015722;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/OYmHso842cNG3tpnPG1jYeaRNeKUNloXejkuAtUOpc=;
+        b=ZfkrH+HdfyMOQJxMLjtu6Irj4sMKRdPN9cubOXHKugxlVrYeBepQ+o6QzxXCJTyjHD
+         vSKJYj23Cu0pm+aYDaCkHIXhm8pq/P1fz+qfrjcB5EWSYu+cBJgY66mec/E6nKfDzINa
+         pLVMNMKOeNPlomg5H5DS4WaioSdsnjHin4o4PN6cnMjfCX10xOTbHkruM6C2dic0OA1W
+         UOhZXSEHTQy0C0b+WPZz/Veai3a8i3ZCSlYtkaC403MDJYeU7aniZysw/EWpSi6Kr6sw
+         K07SfWdlTpw3F8gqa7kFCYx91hgJExcMnIMUKVLpmfAtoghVeOVwAlerujXyaJHAKIno
+         IebA==
+X-Gm-Message-State: AOJu0YzZQfmUjjxvD0EpYOdzvE4IfTp0KmAAVr+H5Y+eGXfs6GWsS9r9
+	pXp8zp7lwke2Muq9hPagdkMaxg==
+X-Google-Smtp-Source: AGHT+IHRKg4bFW47WyR8OLdnqV+VQt1gCdtmpX3tXy9i6dBu1Krjl015EWoib9KzOOQEZLQY0fi5Jg==
+X-Received: by 2002:a05:6512:60e:b0:503:55c:7999 with SMTP id b14-20020a056512060e00b00503055c7999mr1696542lfe.34.1698410922421;
+        Fri, 27 Oct 2023 05:48:42 -0700 (PDT)
+Message-ID: <2cf3c866-c8c6-482e-8b5c-00ed2158b105@citrix.com>
+Date: Fri, 27 Oct 2023 13:48:41 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and
+ conditionalise ucode
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20231026205539.3261811-1-andrew.cooper3@citrix.com>
+ <20231026205539.3261811-3-andrew.cooper3@citrix.com>
+ <70472259-6429-e60f-7cdc-faa50b2d257f@suse.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <70472259-6429-e60f-7cdc-faa50b2d257f@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 23 Oct 2023 00:51:33 +0900,
-David Woodhouse wrote:
-> 
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> Previously, the first PCI NIC would be assigned to slot 2 even if the
-> user override the model and made it something other than an rtl8139
-> which is the default. Everything else would be dynamically assigned.
-> 
-> Now, the first rtl8139 gets slot 2 and everything else is dynamic.
-> 
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Yoshinori Sato <ysato@users.sourceforge.jp>
+On 27/10/2023 8:12 am, Jan Beulich wrote:
+> On 26.10.2023 22:55, Andrew Cooper wrote:
+>> v2:
+>>  * Tweak text
+> What about the indentation issues mentioned in reply to v1?
 
-> ---
->  hw/sh4/r2d.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/hw/sh4/r2d.c b/hw/sh4/r2d.c
-> index 4944994e9c..e9f316a6ce 100644
-> --- a/hw/sh4/r2d.c
-> +++ b/hw/sh4/r2d.c
-> @@ -240,7 +240,6 @@ static void r2d_init(MachineState *machine)
->      MemoryRegion *sdram = g_new(MemoryRegion, 1);
->      qemu_irq *irq;
->      DriveInfo *dinfo;
-> -    int i;
->      DeviceState *dev;
->      SysBusDevice *busdev;
->      MemoryRegion *address_space_mem = get_system_memory();
-> @@ -309,9 +308,8 @@ static void r2d_init(MachineState *machine)
->                            0x555, 0x2aa, 0);
->  
->      /* NIC: rtl8139 on-board, and 2 slots. */
-> -    for (i = 0; i < nb_nics; i++)
-> -        pci_nic_init_nofail(&nd_table[i], pci_bus,
-> -                            mc->default_nic, i == 0 ? "2" : NULL);
-> +    pci_init_nic_in_slot(pci_bus, mc->default_nic, NULL, "2");
-> +    pci_init_nic_devices(pci_bus, mc->default_nic);
->  
->      /* USB keyboard */
->      usb_create_simple(usb_bus_find(-1), "usb-kbd");
-> -- 
-> 2.40.1
-> 
+Bah, slipped my mind.  Sorry.
 
--- 
-Yosinori Sato
+Fixed up locally.
+
+~Andrew
 
