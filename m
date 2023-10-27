@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 703F17D8F75
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 09:16:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624235.972618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97CFA7D8F97
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 09:20:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624239.972628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwH4R-0002Rn-G9; Fri, 27 Oct 2023 07:15:51 +0000
+	id 1qwH8s-0003so-0r; Fri, 27 Oct 2023 07:20:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624235.972618; Fri, 27 Oct 2023 07:15:51 +0000
+Received: by outflank-mailman (output) from mailman id 624239.972628; Fri, 27 Oct 2023 07:20:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwH4R-0002Oa-DH; Fri, 27 Oct 2023 07:15:51 +0000
-Received: by outflank-mailman (input) for mailman id 624235;
- Fri, 27 Oct 2023 07:15:50 +0000
+	id 1qwH8r-0003qC-Ta; Fri, 27 Oct 2023 07:20:25 +0000
+Received: by outflank-mailman (input) for mailman id 624239;
+ Fri, 27 Oct 2023 07:20:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eEfT=GJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qwH4Q-0002OU-2a
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 07:15:50 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1qwH8q-0003q6-4C
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 07:20:24 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6e211bf-7498-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 09:15:48 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-407da05f05aso12945165e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 00:15:48 -0700 (PDT)
-Received: from [192.168.10.177] (54-240-197-235.amazon.com. [54.240.197.235])
+ id 4a4bf348-7499-11ee-9b0e-b553b5be7939;
+ Fri, 27 Oct 2023 09:20:22 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-32d9552d765so1279541f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 00:20:22 -0700 (PDT)
+Received: from [192.168.10.177] (54-240-197-227.amazon.com. [54.240.197.227])
  by smtp.gmail.com with ESMTPSA id
- t20-20020a0560001a5400b0032ddc3b88e9sm1145980wry.0.2023.10.27.00.15.45
+ t13-20020a5d534d000000b0032d9548240fsm1114969wrv.82.2023.10.27.00.20.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Oct 2023 00:15:46 -0700 (PDT)
+ Fri, 27 Oct 2023 00:20:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6e211bf-7498-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 4a4bf348-7499-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698390947; x=1698995747; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1698391221; x=1698996021; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r+vdINcmFGGjA6+x+iJDg46Mk3yJWEt8/WHgQwybeJI=;
-        b=jgxB9DFixxTyEHhJTMvV6PYnZK9irWb/dKfGwZWPuS1WUQjqN365PIp2tR+rKHh1s8
-         S8xXWsbG1bo97wfKUHyo0WDLxVhbZOSBh6MieLqhTs2O+cJK0Xaqfr3Go8cudkQRkCWL
-         Ehjvxz/T6yBM9rDC94gtTJnz+00Wh7HOIZctFrs7hA9wYAFNsbef5MazKtkIxM1bzPw5
-         VNejiICCwjED5bLsM9xhg1bSJVLT0X+4sDjVZnb//RKISz+EM/Dv2ReFn2NArR6t94V2
-         sG74Q1V/Ko3iKdrBrep4avI2hU7mYCSfC0FoWuG/aftwMVnJVtA3CgQ2CivRGEasdky+
-         d5zA==
+        bh=GiaZXgzc6McjQsGUPYikXLbeJ+i8MopBoPjQmhJQfo4=;
+        b=Ptr+S/V5BjHsD6ZW64k0EgHZFM5YRhbN+r+lNZWPPE5E+Fq/+nK04uf63b5c0Zkh63
+         X2Pgz2ETUobqpX/TyKpyoQ8eQDVN9fpJLm2kkmIGsGfW55Hip8Pv6vqzJK696SXCV8DW
+         hIU6VEa5RnMuGIoHdy+hFk099kFlrHQbuGhTeAA805/n9J0zTff5Ha5QmUbxpPJNJQg9
+         du9lcuoKQxvaT+PewLQ9MJtEKheHsG6hHwbHk/+kXMfeK2yZfhj4T6xoSAsJWXGxD75f
+         MAYgh7nRsVXS8AUxxjk8pYKi+VrLJIfbsSmlcTKB9GIL36dj7TYk5iYuWO/MiVOwWAuV
+         PHkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698390947; x=1698995747;
+        d=1e100.net; s=20230601; t=1698391221; x=1698996021;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=r+vdINcmFGGjA6+x+iJDg46Mk3yJWEt8/WHgQwybeJI=;
-        b=xUZdJ1t7uktk6S+CyuvBFa9CSQE5bT2VeFBQSpt9liJvNU7VpumS3mWAdRf+VxHMPO
-         4aVdis/epR4me12hFbwwPSzTV/TfernTwFl799Wk21u/4zBTs2Q+XM5O4p+c/8EGq4hQ
-         s5h+dy/BRAnTAnyICO/cl1QuFkOop1cqmWksmERIhEUrxUkTajJ5FPu5COYewDARJ0/R
-         K8pdRYJKPLTpiVaROpxJU2GA2XQR58YaYoZW4DGhZyp1wGeT7r6/fPPNnHyHgyFVrUii
-         NnGJFgCkided2iGLYkqPZUqnmhW91yfnzQhDBo7HlnnjCfEQ1GF8edCfJoe2j/sMa9fx
-         jEdg==
-X-Gm-Message-State: AOJu0YwWMAv51ysBf47ekweX/YwYlw2aDjmrt1SBpJOhXRgeYXEysgiI
-	0cIahYiHHiCk2uKYNU4wKhM=
-X-Google-Smtp-Source: AGHT+IFLvBaX+jKKJG5b7EuYxKD1+NY+YQPBw4JtamDZDEEoV5ML8tHynkORTdYmyuxI7EF3GYGUzw==
-X-Received: by 2002:adf:efc4:0:b0:32d:a310:cc2e with SMTP id i4-20020adfefc4000000b0032da310cc2emr1551939wrp.34.1698390947261;
-        Fri, 27 Oct 2023 00:15:47 -0700 (PDT)
-Message-ID: <abb048fe-5c73-4d09-8998-e4e54afe47a3@gmail.com>
-Date: Fri, 27 Oct 2023 08:15:44 +0100
+        bh=GiaZXgzc6McjQsGUPYikXLbeJ+i8MopBoPjQmhJQfo4=;
+        b=w16zndyj/vBvqIbs3HXurgUXH/AnoMtF4fIHXUYehrzANnzEqSXCoNRZaGFM9mOEAT
+         pzCQ1EyjcIEEtgZE5miHP1WXIkQ5ih7qUz60CjOyOoPWX/+EueyvWn7G5+gJ6a6tvdED
+         hLT6wjKPWFJ/Ke6+inA8w374zl5Tpi7X2vkWvsotH94CklrM2IyzCwNGBT81bQtX91Oc
+         QvZGNcfaGvn5ALNvt7DKw61Y+zcanrK/bGzHzPeKyYCkgfC4uYQ69nZm9Av6xo83AFuf
+         UB9rTbRj89VTkWoGSv9+ESYHU5eLVaP2HBuU4aTMcjKJRHeTWtaFis1Mt7fmhVTjvFE8
+         kqtg==
+X-Gm-Message-State: AOJu0Yy4SoTJYx9+Tyd3/OxGVQbCQCoezcfRVB83lrTREi4tiMwNbFz0
+	YrO0NAtzmDof0PqPdgcGrIU=
+X-Google-Smtp-Source: AGHT+IF4ESb9Dtm5knfUhlBl2xjFSwSZ+UZKmlwz+qng/KTBk8Cd66OauspRUmQDrVkZd9/qUpk6wg==
+X-Received: by 2002:a5d:4c42:0:b0:31f:a62d:264 with SMTP id n2-20020a5d4c42000000b0031fa62d0264mr1433744wrt.37.1698391221555;
+        Fri, 27 Oct 2023 00:20:21 -0700 (PDT)
+Message-ID: <94b54185-7ae6-48f9-976c-f4213a3643d0@gmail.com>
+Date: Fri, 27 Oct 2023 08:20:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: paul@xen.org
-Subject: Re: [PATCH v3 05/28] hw/xen: fix XenStore watch delivery to guest
+Subject: Re: [PATCH v3 06/28] hw/xen: take iothread mutex in
+ xen_evtchn_reset_op()
 Content-Language: en-US
 To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
@@ -96,39 +97,24 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
  xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
  Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
- <20231025145042.627381-6-dwmw2@infradead.org>
+ <20231025145042.627381-7-dwmw2@infradead.org>
 From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20231025145042.627381-6-dwmw2@infradead.org>
+In-Reply-To: <20231025145042.627381-7-dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 25/10/2023 15:50, David Woodhouse wrote:
 > From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> When fire_watch_cb() found the response buffer empty, it would call
-> deliver_watch() to generate the XS_WATCH_EVENT message in the response
-> buffer and send an event channel notification to the guest… without
-> actually *copying* the response buffer into the ring. So there was
-> nothing for the guest to see. The pending response didn't actually get
-> processed into the ring until the guest next triggered some activity
-> from its side.
+> The xen_evtchn_soft_reset() function requires the iothread mutex, but is
+> also called for the EVTCHNOP_reset hypercall. Ensure the mutex is taken
+> in that case.
 > 
-> Add the missing call to put_rsp().
-> 
-> It might have been slightly nicer to call xen_xenstore_event() here,
-> which would *almost* have worked. Except for the fact that it calls
-> xen_be_evtchn_pending() to check that it really does have an event
-> pending (and clear the eventfd for next time). And under Xen it's
-> defined that setting that fd to O_NONBLOCK isn't guaranteed to work,
-> so the emu implementation follows suit.
-> 
-> This fixes Xen device hot-unplug.
-> 
-> Fixes: 0254c4d19df ("hw/xen: Add xenstore wire implementation and implementation stubs")
+> Fixes: a15b10978fe6 ("hw/xen: Implement EVTCHNOP_reset")
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/i386/kvm/xen_xenstore.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
+>   hw/i386/kvm/xen_evtchn.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
 
 Reviewed-by: Paul Durrant <paul@xen.org>
