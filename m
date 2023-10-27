@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D947D9421
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 11:48:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624323.972811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5E47D943E
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 11:52:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624328.972821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwJRz-0002KG-2I; Fri, 27 Oct 2023 09:48:19 +0000
+	id 1qwJVu-0003mB-Iw; Fri, 27 Oct 2023 09:52:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624323.972811; Fri, 27 Oct 2023 09:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 624328.972821; Fri, 27 Oct 2023 09:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwJRy-0002Hl-Vh; Fri, 27 Oct 2023 09:48:18 +0000
-Received: by outflank-mailman (input) for mailman id 624323;
- Fri, 27 Oct 2023 09:48:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qwJVu-0003iv-Fh; Fri, 27 Oct 2023 09:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 624328;
+ Fri, 27 Oct 2023 09:52:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eEfT=GJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qwJRx-0002Hf-C0
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 09:48:17 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f31731bb-74ad-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 11:48:15 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-32d849cc152so1290048f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 02:48:15 -0700 (PDT)
+ id 1qwJVt-0003in-5m
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 09:52:21 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 851af42d-74ae-11ee-98d6-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 11:52:20 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4084de32db5so15391515e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 02:52:20 -0700 (PDT)
 Received: from [192.168.10.177] (54-240-197-235.amazon.com. [54.240.197.235])
  by smtp.gmail.com with ESMTPSA id
- e9-20020a5d5949000000b00326f5d0ce0asm1389222wri.21.2023.10.27.02.48.13
+ bd6-20020a05600c1f0600b003fee53feab5sm1212290wmb.10.2023.10.27.02.52.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Oct 2023 02:48:14 -0700 (PDT)
+ Fri, 27 Oct 2023 02:52:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f31731bb-74ad-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 851af42d-74ae-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698400095; x=1699004895; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1698400339; x=1699005139; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=30VwI2HQrqCL5YyhF8qmfbeeHlzGfWBEtfc4fCXo8Fs=;
-        b=ghvQJP/cSukx4GztB+T6CP9VyAYjMG5s2K72XcLvs5GNjS5WMn5DNTNAbPhH5y5HFT
-         SrPqyo3pNcC8pC7gkA+NLEE6SXQ9e8dQ9rZ6u24EnLwt8VmkzFxIXjHVUcLHmWl01Qqb
-         TJI8G975AhJmyuzcY9WQMtlceVoHGTBVduTYLV+Jc2KR2GdxXJMAa3YQsUy1RIK3sHuK
-         R28LYqYHuqpM36mBfw4HWmR6zOXzyCjGdUN99nHOKLMWyVeVc9vayWVgyyZv87kSPPwM
-         64Rdmchhj8A5/H48Jy4eLrz8Cfvtt0dyIAKmZG6mDu8W2x49mynNlWpiDKjMXFgl5pDi
-         aZjQ==
+        bh=2yiE3kmnMlzeuIC0wQ9aeOyHGBx7Hm50hNBXLvo1oLI=;
+        b=E9nwJGA8XMHkocVFPjQDyUQNAb6OYL0tDHDayJ67KBUNnYe8dibPp27RMm3SkU2Mbo
+         8vy/j6oVQ/v1ATfG8xgKMpQq2Fjhe2YJYwa90Rnmx+XHcVZ8Prpq/rBd5/fXBh6CQZc1
+         g5cgo9w0Qw6/DIofMjHT1kNCzPOVmmVilzEiSZU1fOb70319c/xxh1vMt0i5t5E8kVN4
+         tCD+70+kNtZxoauwRtAikDPTAnAPvIB4TQCD906SS+07z3wXCd9/ZYaLSP1ZIvOQ3Y6g
+         DhYdXcO0T3k7a0RvJMexwWL2PWuBs169ndE4QkD81h27HFAWyvyYXRvpzZXlkzIk6U6X
+         Ny5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698400095; x=1699004895;
+        d=1e100.net; s=20230601; t=1698400339; x=1699005139;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=30VwI2HQrqCL5YyhF8qmfbeeHlzGfWBEtfc4fCXo8Fs=;
-        b=sFYYsVRlzpO2zYVA7kmjCa9aLDXr88XSL2G5TNaoiNptbi/PFLXWvrwsAQeb3hoZk6
-         J8LuohhS/lkg/XV5ajTckWcNgOlbrUrZth9KcfojdOPs+VWL5KfTwrxBN39trs/HcqWn
-         9jZCdTE1wUVoUGIXnJQQXgIS2ZDMNUQ1AseZXScosCHxO4+BZmSF3IqUqfxUfOUSP2vu
-         DtplF82LwuUk8wuxWi69/wFq/Fnqu1YJKV8i2o2IE7Hu1TkcIGQItAa526li8xeYc9VA
-         mRaeTuEN1QJpibr99aaoAlX4sDvcH2pez569Rz3Vyx+5qx+tE530Yq/Up4lT/CvLnCPd
-         fe5A==
-X-Gm-Message-State: AOJu0YztekjQCrwEckAEjxU0z0tnVPWoaccsBMAfn0x2ctkcyUjvtFRY
-	OyKaWMWPDd0lb6MFQ5ZnNKM=
-X-Google-Smtp-Source: AGHT+IE4PpSyRDRjuLCwnnRqMs4Ez7+O/3yvQMMGSADruwPllbL3a4A8idM4xcMnD9poi1dGJZ1Jjg==
-X-Received: by 2002:a05:6000:1361:b0:32d:9b80:e2c6 with SMTP id q1-20020a056000136100b0032d9b80e2c6mr1636403wrz.26.1698400094647;
-        Fri, 27 Oct 2023 02:48:14 -0700 (PDT)
-Message-ID: <322697f1-c4fe-40ab-88ce-f99f9d1fe4d6@gmail.com>
-Date: Fri, 27 Oct 2023 10:48:13 +0100
+        bh=2yiE3kmnMlzeuIC0wQ9aeOyHGBx7Hm50hNBXLvo1oLI=;
+        b=ZAVBIfwn4jybSwVmAfx00F1XlSJBzqbsk9gRMVWWMgbr4IH4upzl6i90lN+fLIEEhd
+         Pn9aJ8pKRWBndj9NVVX8AO+jTSlSNZRf5f8vFSP+Ka/PvknOw7Qhe3gGD7UecWId0R46
+         qXu+mYEAZ/jZNrhtCbuWx/8LzVpcL0avmSsr9hxDJuU0sBs1Xf4Bs6if2JnVJj+bAjx1
+         ij3rfTb18UvoBSPw2nsHEFmHtfu8Zk86AITE4h7iOlViIgJaZ0oM3hCRoRjh1n8GL6x4
+         f2Dgt0QM/RMEqCXE0VTQ/505xreV8Vrbl1m1lt8jfZbWf0TvSURIONqFo3h4kofFPgJP
+         1kEA==
+X-Gm-Message-State: AOJu0YxGbAdbrZPn2kgRULTwHcq9sv11w2irxpg3s0VGhD202aKCII6E
+	cQB1JjBeNTdCfp3BnmVKbww=
+X-Google-Smtp-Source: AGHT+IEuLWOC6r1FV8oQb3wkYtxJ/Wfx1Om4s2yzSuMliOYSNXtiWemTUbczcZfVgloepcRrPb3iTw==
+X-Received: by 2002:a05:600c:4ecd:b0:403:31a:77b9 with SMTP id g13-20020a05600c4ecd00b00403031a77b9mr1829515wmq.37.1698400339330;
+        Fri, 27 Oct 2023 02:52:19 -0700 (PDT)
+Message-ID: <88aad170-24f2-4ec6-b43c-ac87dde81255@gmail.com>
+Date: Fri, 27 Oct 2023 10:52:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: paul@xen.org
-Subject: Re: [PATCH v3 26/28] hw/i386/pc: use qemu_get_nic_info() and
- pci_init_nic_devices()
+Subject: Re: [PATCH v3 27/28] hw/xen: use qemu_create_nic_bus_devices() to
+ instantiate Xen NICs
 Content-Language: en-US
 To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
@@ -97,29 +97,35 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
  xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
  Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
- <20231025145042.627381-27-dwmw2@infradead.org>
+ <20231025145042.627381-28-dwmw2@infradead.org>
 From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20231025145042.627381-27-dwmw2@infradead.org>
+In-Reply-To: <20231025145042.627381-28-dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 25/10/2023 15:50, David Woodhouse wrote:
 > From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> Eliminate direct access to nd_table[] and nb_nics by processing the the
-> ISA NICs first and then calling pci_init_nic_devices() for the test.
+> When instantiating XenBus itself, for each NIC which is configured with
+> either the model unspecified, or set to to "xen" or "xen-net-device",
+> create a corresponding xen-net-device for it.
 > 
-> It's important to do this *before* the subsequent patch which registers
-> the Xen PV network devices, because the code being remove here didn't
-> check whether nd->instantiated was already set before using each entry.
+> Now we can launch emulated Xen guests with '-nic user', and this fixes
+> the setup for Xen PV guests, which was previously broken in various
+> ways and never actually managed to peer with the netdev.
 > 
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/i386/pc.c                | 21 +++++++++++----------
->   include/hw/net/ne2000-isa.h |  2 --
->   2 files changed, 11 insertions(+), 12 deletions(-)
+>   hw/xen/xen-bus.c                    |  4 ++++
+>   hw/xen/xen_devconfig.c              | 25 -------------------------
+>   hw/xenpv/xen_machine_pv.c           |  9 ---------
+>   include/hw/xen/xen-legacy-backend.h |  1 -
+>   4 files changed, 4 insertions(+), 35 deletions(-)
 > 
 
+Yay! I've been wanting this for years but ETIME.
+
 Reviewed-by: Paul Durrant <paul@xen.org>
+
 
 
