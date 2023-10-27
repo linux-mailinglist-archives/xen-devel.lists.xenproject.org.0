@@ -2,39 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D517D9722
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 14:03:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624356.972870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 111A47D9723
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 14:03:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624358.972880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwLXd-0001Bc-O7; Fri, 27 Oct 2023 12:02:17 +0000
+	id 1qwLYF-0001Zw-0k; Fri, 27 Oct 2023 12:02:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624356.972870; Fri, 27 Oct 2023 12:02:17 +0000
+Received: by outflank-mailman (output) from mailman id 624358.972880; Fri, 27 Oct 2023 12:02:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwLXd-00018z-LR; Fri, 27 Oct 2023 12:02:17 +0000
-Received: by outflank-mailman (input) for mailman id 624356;
- Fri, 27 Oct 2023 12:02:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eU9S=GJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qwLXc-00018r-Ev
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 12:02:16 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2078.outbound.protection.outlook.com [40.107.7.78])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aab012a6-74c0-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 14:02:14 +0200 (CEST)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by GVXPR04MB9779.eurprd04.prod.outlook.com (2603:10a6:150:111::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.11; Fri, 27 Oct
- 2023 12:01:43 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.008; Fri, 27 Oct 2023
- 12:01:42 +0000
+	id 1qwLYE-0001Y3-UB; Fri, 27 Oct 2023 12:02:54 +0000
+Received: by outflank-mailman (input) for mailman id 624358;
+ Fri, 27 Oct 2023 12:02:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AA2W=GJ=casper.srs.infradead.org=BATV+92d2995e4a7c3d3365be+7369+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qwLYD-0001XS-1i
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 12:02:53 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c108017b-74c0-11ee-98d6-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 14:02:52 +0200 (CEST)
+Received: from [2001:8b0:10b:5:a059:f7a9:933a:2236]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qwLY8-003HdW-Af; Fri, 27 Oct 2023 12:02:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,269 +41,379 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aab012a6-74c0-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XRpIGXl2gkvoVGegMCmjREFjEEV1gXU+sUTnLYoF8gLbg/VQ1xpltv3co4VR27uZR5XLypCAtvUQVGfyBqlrwjKDrbXvenyBjtYops0wSrLQ9Dx+JrzhY6uJAdjkrj48v1J7KfltjhBmL2fwmeostUwSzZOxpeb8PVfrG/jE27SubMq15RieyXgNcms92zVyBOhJCy3Z0VxDXijSxv+WiuJbSzC2JihlvZPSVxzpVRfNKo+yJnyXoNJSi0kgPcKigOxBo6xUO9fC0slgkfj/MZUHvFVfmXusxtVGz8S7ilPyFGwzJ7AUUIRQ4ZRIi+gCWF8Gdj7CTkHfwmIotK32mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VsU7jeeWvVCQy2eDHxlahJ2eaccKu+iNVXUXo9mKLaY=;
- b=Za5aWsdJCQpTZvbVtxySXNi0HkpFtKYCVFKZFEHzX8WT/otXU7nc9WUNTb3FYDl3sv7IdsMnPu+b3Caj7it9grZfMPDEpjCwNKOiM0+oCMtGQ6SavSDClWuw42r8BC73MbIoL1mG9QvAfWMznV2yBOmiEZie1Xyy+/t7C4Z1vZxShWT0lPIcdPoDqqSPhURftd0wvOB3vZOEko8BEpNqnEfGXUAntRrSiBqJUW7cUe7WEu69gpTA/O07r41ClMqMpmKunq1Y/ThDUduKQ4bS5QkraHPtReCVLwVKjNMuy/Qscu9/HJ5C0UqWWkXf0vUVgNLA0x3eMDub04OHL4tJnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VsU7jeeWvVCQy2eDHxlahJ2eaccKu+iNVXUXo9mKLaY=;
- b=CDPfe6cvt/z+70i+4uOoRfrejH+V9zDowqjZzpL/xD04tUcZYJf/t+0+GGKtmSWu4yEBYjJAQXbQyrykMp+T+C+5Gvozq/9j3oxlBzYbuZK3hQzGqnkZndqAn2QWOVC5EfuY9CilcpM/k+ociH516NeGSK8eCBUXQYCdfcLYPTijcyIpfc5+Fd9KuqNyoCUgPHTBl8EaEb9zmE35/jA7k0LDkqhAERbr9PN/3ciCCjB6+UAvyWV8NfP8CGF/hqoB+89bRV/oKuJdSTLDKMjlTvB+aIRNdHt9L9VOyWMzGwZZ76PJEZE69jmHtp78ISxf3SY2UFywiGIBQEgV0b65Zw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <486c778c-4a33-703f-2811-27101d10ea9b@suse.com>
-Date: Fri, 27 Oct 2023 14:01:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
-Content-Language: en-US
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
- <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
- <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
- <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
- <c107d63c-25a3-4f17-a5e8-7ec3ccd94ce3@amd.com>
- <c81a8275-ecfd-7598-c119-ed83b156c0e5@suse.com>
- <b5330686-82a0-4d47-9549-2d943ca68c7e@amd.com>
- <1cc98108-3328-94d3-5f8d-ff03c965087e@suse.com>
- <92ba94d2-9e57-4241-8626-33f06f88e726@amd.com>
- <a61926bc-e3e6-e381-45de-be3a4878b6af@suse.com>
- <217d9079-3072-441a-a4ba-4db28c565bc7@amd.com>
- <08ea1b7b-c85f-337a-42c4-520e40b75288@suse.com>
- <987b5b7d-57f8-4d63-bd13-fe662b6cb87f@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <987b5b7d-57f8-4d63-bd13-fe662b6cb87f@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0048.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f0::16) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: c108017b-74c0-11ee-98d6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=xbyOrQ9050h9MAoHON7t0yBFDvlRtikljfzvgpDlS5Q=; b=p+g4Ef6ShSjHTgCd2R9gQAyDRQ
+	JQvbiCt5jRM9oiI9mj42/ecATMUQnKbnY22xn+4EqIIt62sscqJWQhUJ/+yDvB/NeJoNEG7PZ7d0o
+	QfRwS9hT0Zuv20ex9C2a7TZIZNmPvjWqGFTjzF3VHVQArBgJYuuuFkFSUFSE7tab5IViq3ME0jIqc
+	O63DeZXRCnJiUcMEnN6r9N80+U/snK/fnlTE1hCaOSwgDo0TGNXxKw8KwwXyH8tkJxM9hzinF/5D1
+	eB8cOk1QzGbWQ4pAmiSegyR411z/LTRYTeR72mzaiVLL2WrJdLKF91zQyDL99ddRNd5vDMEfub8Mp
+	vwxwvaow==;
+Message-ID: <31acd48a13b3e198a025da1add7d8f7253f262ba.camel@infradead.org>
+Subject: Re: [PATCH v3 13/28] hw/xen: automatically assign device index to
+ block devices
+From: David Woodhouse <dwmw2@infradead.org>
+To: paul@xen.org, qemu-devel@nongnu.org
+Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>,  =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
+ <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Jason Wang <jasowang@redhat.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ qemu-block@nongnu.org,  xen-devel@lists.xenproject.org,
+ kvm@vger.kernel.org, Bernhard Beschow <shentey@gmail.com>, Joel Upham
+ <jupham125@gmail.com>
+Date: Fri, 27 Oct 2023 13:02:45 +0100
+In-Reply-To: <c538ea45-dac7-49f3-ad50-8c3a59755dee@gmail.com>
+References: <20231025145042.627381-1-dwmw2@infradead.org>
+	 <20231025145042.627381-14-dwmw2@infradead.org>
+	 <74e54da5-9c35-485d-a13c-efac3f81dec2@gmail.com>
+	 <f72e2e7feed3ecf17af8ab8442c359eea329ef17.camel@infradead.org>
+	 <9fb67e52-f262-4cf4-91c2-a42411ba21c4@gmail.com>
+	 <b6458e730fd861243f534e33a48a857122e77ed5.camel@infradead.org>
+	 <c538ea45-dac7-49f3-ad50-8c3a59755dee@gmail.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-x8BOGq/ESRm/cDp9nNRD"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|GVXPR04MB9779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35749d1e-0dd4-4549-4367-08dbd6e47c06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZBz4jntoD823ccmardXWvjYstEEwKhh/lUpetIh5k4SGcRcqoVTLfRbRSZqFfGr2blfE0ghmykQTdNMYJJoALsqU1sQaFXr3E6GMegjrjUykGhdgjo9pOzQqszkEOXkKOzUIbqpEkRoylwJujttGM36l31eoK8hH83ZNkvVe640ByIR9/HDraqVCKOFlS1LbwCaAftPMlyenKajApGksYIbQMbXdGT3l4nUFRBZEYyw5T1ewEFej7+PROgqqmScjbxurrdApfF4vE0DPIaDtdBzT2faRwyRLEHPer1dwQFLRNt6gyosFElqGuQJBJHzTlo5WZ3F6Gkl7shmOYx94DI/sf/aZfjWpqvCIpzWEPogd3JSowFGWYwfkfyFmIt7OjMNrpK8f3P4PAeUEA/QW/wTCjug0oJMbMSm0z6OdiMv6hhKUwlZrGtjcx0Nfu0e9VLA9VW5Gn/JudiBPuc9K7PAUPocs3YrZfNmgaEoxLIHQYyj3OSnz84Br82teTaFz+FKr2zX2SqFQNjB0Z0L8k+hXAjtBDsP4AmmxdT8vpoyyGfkS2SL30DVPec7lSsakXbF0rl9sch7vNRaE21pRKrJrmi7rD+/509jcBN5ZBu0+t98IMFkaOrMeJm60vBgQVuAVz0728MZyNDbEV9vTFQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(346002)(376002)(39860400002)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(6512007)(31686004)(8936002)(8676002)(66946007)(316002)(66476007)(66556008)(6916009)(54906003)(4326008)(26005)(66899024)(86362001)(83380400001)(31696002)(2616005)(478600001)(5660300002)(6486002)(6506007)(53546011)(41300700001)(2906002)(36756003)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MlVTV3RTSUlMa211ellidlk4N3hHMDVRYTVSQWdHSWhJZVk1cHdkeEk0WG5k?=
- =?utf-8?B?TkErRm40K1JKTitaazl1dENlVDhyT0Yza0dRYXJFTUZHT2U0RG1tRWZDMlky?=
- =?utf-8?B?alRtMVpncGVQeldlYUIxWDVZeW9UUkRzSXZpdGppbFloNXE4U2tGcTJjWEZ6?=
- =?utf-8?B?dXl0dkZDa1NBL2lsbTFCSmNjTXpwSnVqMXJLaGIzVGJhcktsdGptbVVpVCts?=
- =?utf-8?B?cTVobzlpT2prYlhwSWZiRml4WVZEVjh3QUFvSnVkekc5MW01RWNld3N3Qy82?=
- =?utf-8?B?VllYcW5zTTFmd2N4WVFBUUNSUStYQlJiakgrcDI2T0hleTFhNW50Mlk2NEo0?=
- =?utf-8?B?NC9JZTNNNjU3NFRIQ0FnaGRrNEF6VVBpSk9RWjRoMDdlNVVKSWFTQklIcUNO?=
- =?utf-8?B?ZFJZM0NDNDE0aEl4K1JuUkVPQTJySVlPQlRxaVFlUndidUhaWjdiMDNwSEZM?=
- =?utf-8?B?VDlRdks2d1MveG1VbWdlTXFBdGhwU2R2Nm9yNkQ0Vm9DRS9rSlllVTNUUVpK?=
- =?utf-8?B?R2U4VldtbXBDRTQxdTlMTDY0T2pBblJLQmV4bUhBa2dQRE9sTDdEdUM0WUh1?=
- =?utf-8?B?QU1zSXBjKzVKSVVzWXpmUUVVdEVSaHZCcHJTWjJnRjl6UnZxazhIRUh6N0xJ?=
- =?utf-8?B?cjg5MTJHS0tiQkUvbDM0cjJRUWo2QVBEVTh3NzEzVktXeUpMc1dkdUZoWUpj?=
- =?utf-8?B?bTh1Z0lvNmNDRm5Wb3VkRzRnUWJqZWF6bFVJSnZVUC82QXhZaEwyOCtxbWhs?=
- =?utf-8?B?d0orQ1QwNGdNbUZlMHF3MjU5YlhKTnFGd0dueFRGa3FST21IelljaTlteGkx?=
- =?utf-8?B?WFZSY3Ezc2drWmhXNnVqK2lKbnhnQm1STFp0MlY5YTczNnBHNXZUdVdFaE1U?=
- =?utf-8?B?SVZrajlmcE9QOElTdlJZdzQzYlozeW9wTGlPYW4vOE0rWURBT1hBbVVxK1N0?=
- =?utf-8?B?aUhydHhreS85QWdDTmp2SUNpYzhJdFFHeTVab25ONkt6OVBmdkZGWS9TYVUz?=
- =?utf-8?B?cW5zQ2orUzc4cFZHZ2p5VG53NnEzbk1rUmN0RzdTWmJlV1RmUFRJUGU2Z2tx?=
- =?utf-8?B?dXp0TlRYYlY3clA2UmdPdUhBR08zQWd1VmkzNGlia1JyaDRTZjFocUt1N1Vp?=
- =?utf-8?B?V3VrQllKc1dyK3dnOFRMNTAvdFFHQkFHNjZ4RDF1akg3ZDlGeHRadmdIdEZn?=
- =?utf-8?B?VlZhS2hkOE1aYUNtcTV5cTl1QVhKczNWSnVkZ3NDeTRqQ2RpR3ZIdm9nWVJr?=
- =?utf-8?B?R2dUOStrakNCckVhdmE1TGZ1NU5DNVphc3ExMHBBK0VFNWF5ZTlHVDQ0Rmt1?=
- =?utf-8?B?WkQ1d3E2QngybmNqWWM1MXhQL296b01CeWwxUGMvWmpWSmJQUFVUa0ozMEJG?=
- =?utf-8?B?ZDJhYy9tTEFGRXdrTGl1S04veWpTL2dBdS9MY2dDZWRLcWU1N0duMmtPb3M0?=
- =?utf-8?B?RThTNnBpTTNGUGU4MjZ0eFJRUzN1NThFSk5IQkVTVjZrcU5WMlU5eUEvcmY1?=
- =?utf-8?B?RGY2V3BWeUpDTXF0akNncktOdFpiOGg2OHhMYnB4L21HdXkxczN0ZUx2b0Jo?=
- =?utf-8?B?ZTE0VXFxOHRhUmZ0a3FLWkdBV2VWYWhFNWFSUncrUDZhRHpzRlZOU1J1bEt3?=
- =?utf-8?B?R0w2UGlYNEdNTUlIbEJNTjdwK0tqRFFDbmVIK2pIZVRrcFdCSUF0VS9oNEEv?=
- =?utf-8?B?a08zRXdPajlxRXJFK3dIaktvaisrSE1aQ2wxK0JNSlhOUEZSaUlrLzB5VW5R?=
- =?utf-8?B?M3F3QVZzYXo4S2Vhc3hXZmpTbTZtT0RPbmNZbjV2dWp5QnBObUFoY2VhdVho?=
- =?utf-8?B?QzczbjBjbWJqYUp0Mzlwc0tBR1RtL3FJRnMxL05qQitZK1dvZmxNQWI5OTIz?=
- =?utf-8?B?UEI2TVExaytPVkFpU3FMYVdLQW8yKzVyaW1xVkxlV01QVUZod3RzMm5ORW8w?=
- =?utf-8?B?SUVRZlNYclM4RHlRS2xJV2tDM2tFenlCMDlBdzFlMzR3VFZvSEFqa3hpMGZw?=
- =?utf-8?B?ZGNvR0Q5V1F2M2NYRDhYc0lhZGFVVHorcHJBTFBaMDkxdTRENmVZcUZIQnZk?=
- =?utf-8?B?VjFOYWtQZjhsbDJYUlBpbVBkVlFiL0I2QkZiY3orbERjVno0SmVXNTRaUDh3?=
- =?utf-8?Q?wjv2CzN5NWyrbFqzyCXuWJjH/?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35749d1e-0dd4-4549-4367-08dbd6e47c06
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 12:01:42.7526
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +9lTOovn+JQ9APHbNb3wQYxe2pMDdZrzSwoBB+myYl3oBrT6e/BHuzPPkvL4FDv1cn7sWlzYgIq+SKKkXJwqWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9779
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 27.10.2023 13:18, Xenia Ragiadakou wrote:
-> 
-> On 27/10/23 09:37, Jan Beulich wrote:
->> On 26.10.2023 18:55, Xenia Ragiadakou wrote:
->>>
->>>
->>> On 26/10/23 17:55, Jan Beulich wrote:
->>>> On 26.10.2023 15:58, Xenia Ragiadakou wrote:
->>>>>
->>>>> On 26/10/23 15:37, Jan Beulich wrote:
->>>>>> On 26.10.2023 14:35, Xenia Ragiadakou wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 26/10/23 14:51, Jan Beulich wrote:
->>>>>>>> On 26.10.2023 11:46, Xenia Ragiadakou wrote:
->>>>>>>>> On 26/10/23 11:45, Jan Beulich wrote:
->>>>>>>>>> On 26.10.2023 10:34, Xenia Ragiadakou wrote:
->>>>>>>>>>> On 26/10/23 10:35, Jan Beulich wrote:
->>>>>>>>>>>> On 26.10.2023 08:45, Xenia Ragiadakou wrote:
->>>>>>>>>>>>> --- a/xen/arch/x86/hvm/dom0_build.c
->>>>>>>>>>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>>>>>>>>>>>> @@ -518,7 +518,7 @@ static paddr_t __init find_memory(
->>>>>>>>>>>>>                if ( end <= kernel_start || start >= kernel_end )
->>>>>>>>>>>>>                    ; /* No overlap, nothing to do. */
->>>>>>>>>>>>>                /* Deal with the kernel already being loaded in the region. */
->>>>>>>>>>>>> -        else if ( kernel_start - start > end - kernel_end )
->>>>>>>>>>>>> +        else if ( kernel_start + kernel_end > start + end )
->>>>>>>>>>>> What meaning has the sum of the start and end of either range? I can't
->>>>>>>>>>>> figure how comparing those two values will be generally correct / useful.
->>>>>>>>>>>> If the partial-overlap case needs handling in the first place, I think
->>>>>>>>>>>> new conditionals need adding (and the existing one needs constraining to
->>>>>>>>>>>> "kernel range fully contained") to use
->>>>>>>>>>>> - as before, the larger of the non-overlapping ranges at start and end
->>>>>>>>>>>>         if the kernel range is fully contained,
->>>>>>>>>>>> - the tail of the range when the overlap is at the start,
->>>>>>>>>>>> - the head of the range when the overlap is at the end.
->>>>>>>>>>> Yes it is not quite straight forward to understand and is based on the
->>>>>>>>>>> assumption that end > kernel_start and start < kernel_end, due to
->>>>>>>>>>> the first condition failing.
->>>>>>>>>>>
->>>>>>>>>>> Both cases:
->>>>>>>>>>> (start < kernel_start && end < kernel_end) and
->>>>>>>>>>> (kernel_start - start > end - kernel_end)
->>>>>>>>>>> fall into the condition ( kernel_start + kernel_end > start + end )
->>>>>>>>>>>
->>>>>>>>>>> And both the cases:
->>>>>>>>>>> (start > kernel_start && end > kernel_end) and
->>>>>>>>>>> (end - kernel_end > kernel_start - start)
->>>>>>>>>>> fall into the condition ( kernel_start + kernel_end < start + end )
->>>>>>>>>>>
->>>>>>>>>>> ... unless of course I miss a case
->>>>>>>>>> Well, mathematically (i.e. ignoring the potential for overflow) the
->>>>>>>>>> original expression and your replacement are identical anyway. But
->>>>>>>>>> overflow needs to be taken into consideration, and hence there is a
->>>>>>>>>> (theoretical only at this point) risk with the replacement expression
->>>>>>>>>> as well. As a result I still think that ...
->>>>>>>>>>
->>>>>>>>>>>> That said, in the "kernel range fully contained" case it may want
->>>>>>>>>>>> considering to use the tail range if it is large enough, rather than
->>>>>>>>>>>> the larger of the two ranges. In fact when switching to that model, we
->>>>>>>>>>>> ought to be able to get away with one less conditional, as then the
->>>>>>>>>>>> "kernel range fully contained" case doesn't need treating specially.
->>>>>>>>>> ... this alternative approach may want considering (provided we need
->>>>>>>>>> to make a change in the first place, which I continue to be
->>>>>>>>>> unconvinced of).
->>>>>>>>> Hmm, I see your point regarding the overflow.
->>>>>>>>> Given that start < kernel_end and end > kernel_start, this could
->>>>>>>>> be resolved by changing the above condition into:
->>>>>>>>> if ( kernel_end - start > end - kernel_start )
->>>>>>>>>
->>>>>>>>> Would that work for you?
->>>>>>>>
->>>>>>>> That would look quite a bit more natural, yes. But I don't think it covers
->>>>>>>> all cases: What if the E820 range is a proper sub-range of the kernel one?
->>>>>>>> If we consider kernel range crossing E820 region boundaries, we also need
->>>>>>>> to take that possibility into account, I think.
->>>>>>>
->>>>>>> You are right, this case is not handled and can lead to either of the
->>>>>>> issues mentioned in commit message.
->>>>>>> Maybe we should check whether end > start before proceeding with
->>>>>>> checking the size.
->>>>>>
->>>>>> It looks like it all boils down to the alternative I did sketch out.
->>>>>
->>>>> I 'm not sure I fully understood the alternative.
->>>>> Do you mean sth in the lines below?
->>>>>
->>>>>             if ( end <= kernel_start || start >= kernel_end )
->>>>>                 ; /* No overlap, nothing to do. */
->>>>>             /* Deal with the kernel already being loaded in the region. */
->>>>> -        else if ( kernel_start - start > end - kernel_end )
->>>>> +        else if ( start < kernel_start && end > kernel_end ) {
->>>>> +            if ( kernel_start - start > end - kernel_end )
->>>>> +                end = kernel_start;
->>>>> +            else
->>>>> +                start = kernel_end;
->>>>> +        }
->>>>> +        else if ( start < kernel_start )
->>>>>                 end = kernel_start;
->>>>> -        else
->>>>> +        else if ( end > kernel_end )
->>>>>                 start = kernel_end;
->>>>> +        else
->>>>> +            continue;
->>>>>
->>>>>             if ( end - start >= size )
->>>>>                 return start;
->>>>
->>>> Not exactly, no, because this still takes the size into account only
->>>> in this final if().
->>>>
->>>>> You wouldn't like to consider this approach?
->>>>
->>>> I'm happy to consider any other approach. Just that ...
->>>>
->>>>>             if ( end <= kernel_start || start >= kernel_end )
->>>>>                 ; /* No overlap, nothing to do. */
->>>>>             /* Deal with the kernel already being loaded in the region. */
->>>>> -        else if ( kernel_start - start > end - kernel_end )
->>>>> +        else if ( kernel_end - start > end - kernel_start )
->>>>>                 end = kernel_start;
->>>>>             else
->>>>>                 start = kernel_end;
->>>>>
->>>>> -        if ( end - start >= size )
->>>>> +        if ( end > start && end - start >= size )
->>>>>                 return start;
->>>>>         }
->>>>
->>>> ... I'm afraid this doesn't deal well with the specific case I was
->>>> mentioning: If the E820 region is fully contained in the kernel range,
->>>> it looks to me as if this approach would ignore the E820 altogether,
->>>> since you either move end ahead of start or start past end then. Both
->>>> head and tail regions may be large enough in this case, and if this
->>>> was the only region above 1M, there'd be no other space to fall back
->>>> to.
->>>
->>> Yes, in which case it will fail. This is legitimate.
->>
->> Not really, if there is space available (but just not properly used).
-> 
-> I said so because I noticed that, if, for instance, the loading address 
-> conflicts with a reserved memory region, xen won't attempt to relocate 
-> the kernel (assuming that it is relocatable). It will fail.
 
-Hmm, if so, perhaps yet something else to deal with.
+--=-x8BOGq/ESRm/cDp9nNRD
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->>> Currently, the code proceeds with the dom0 kernel being corrupted.
->>
->> And we agree that this wants fixing.
-> 
-> Ok, and IIUC, using rangeset as per Roger's suggestion, right?
+On Fri, 2023-10-27 at 11:32 +0100, Durrant, Paul wrote:
+> On 27/10/2023 11:25, David Woodhouse wrote:
+> > On Fri, 2023-10-27 at 10:01 +0100, Durrant, Paul wrote:
+> > >=20
+> > > This code is allocating a name automatically so I think the onus is o=
+n
+> > > it not create a needless clash which is likely to have unpredictable
+> > > results depending on what the guest is. Just avoid any aliasing in th=
+e
+> > > first place and things will be fine.
+> >=20
+> >=20
+> > Yeah, fair enough. In which case I'll probably switch to using
+> > xs_directory() and then processing those results to find a free slot,
+> > instead of going out to XenStore for every existence check.
+> >=20
+> > This isn't exactly fast path and I'm prepared to tolerate a little bit
+> > of O(n=C2=B2), but only within reason :)
+>=20
+> Yes, doing an xs_directory() and then using the code=20
+> xen_block_get_vdev() to populate a list of existent disks will be neater.
 
-Going that route would be optimal of course, but I for one wouldn't
-insist.
+diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+index 5011fe9430..9b7d7ef7e1 100644
+--- a/hw/block/xen-block.c
++++ b/hw/block/xen-block.c
+@@ -30,48 +30,105 @@
+ #include "hw/xen/interface/io/xs_wire.h"
+ #include "trace.h"
+=20
+-static char *xen_block_get_name(XenDevice *xendev, Error **errp)
++#define XVDA_MAJOR 202
++#define XVDQ_MAJOR (1<<20)
++#define XVDBGQCV_MAJOR ((1<<21) - 1)
++#define HDA_MAJOR 3
++#define HDC_MAJOR 22
++#define SDA_MAJOR 8
++
++/*
++ * This is fairly arbitrary just to avoid a stupidly sized bitmap, but Lin=
+ux
++ * as of v6.6 only supports up to /dev/xvdfan (disk 4095) anyway.
++ */
++#define MAX_AUTO_VDEV 4096
++
++static int vdev_to_diskno(unsigned int vdev_nr)
+ {
+-    XenBlockDevice *blockdev =3D XEN_BLOCK_DEVICE(xendev);
++    switch (vdev_nr >> 8) {
++    case XVDA_MAJOR:
++    case SDA_MAJOR:
++        return (vdev_nr >> 4) & 0x15;
++
++    case HDA_MAJOR:
++        return (vdev_nr >> 6) & 1;
++
++    case HDC_MAJOR:
++        return ((vdev_nr >> 6) & 1) + 2;
++
++    case XVDQ_MAJOR ... XVDBGQCV_MAJOR:
++        return (vdev_nr >> 8) & 0xfffff;
++
++    default:
++        return -1;
++    }
++}
++
++static bool xen_block_find_free_vdev(XenBlockDevice *blockdev, Error **err=
+p)
++{
++    XenBus *xenbus =3D XEN_BUS(qdev_get_parent_bus(DEVICE(blockdev)));
++    unsigned long used_devs[BITS_TO_LONGS(MAX_AUTO_VDEV)];
+     XenBlockVdev *vdev =3D &blockdev->props.vdev;
++    char fe_path[XENSTORE_ABS_PATH_MAX + 1];
++    char **existing_frontends;
++    unsigned int nr_existing =3D 0;
++    unsigned int vdev_nr;
++    int i, disk =3D 0;
++
++    snprintf(fe_path, sizeof(fe_path), "/local/domain/%u/device/vbd",
++             blockdev->xendev.frontend_id);
++
++    existing_frontends =3D qemu_xen_xs_directory(xenbus->xsh, XBT_NULL, fe=
+_path,
++                                               &nr_existing);
++    if (!existing_frontends && errno !=3D ENOENT) {
++        error_setg_errno(errp, errno, "cannot read %s", fe_path);
++        return false;
++    }
+=20
+-    if (blockdev->props.vdev.type =3D=3D XEN_BLOCK_VDEV_TYPE_INVALID) {
+-        XenBus *xenbus =3D XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
+-        char fe_path[XENSTORE_ABS_PATH_MAX + 1];
+-        char *value;
+-        int disk =3D 0;
+-        unsigned long idx;
+-
+-        /* Find an unoccupied device name */
+-        while (disk < (1 << 20)) {
+-            if (disk < (1 << 4)) {
+-                idx =3D (202 << 8) | (disk << 4);
+-            } else {
+-                idx =3D (1 << 28) | (disk << 8);
+-            }
+-            snprintf(fe_path, sizeof(fe_path),
+-                     "/local/domain/%u/device/vbd/%lu",
+-                     xendev->frontend_id, idx);
+-            value =3D qemu_xen_xs_read(xenbus->xsh, XBT_NULL, fe_path, NUL=
+L);
+-            if (!value) {
+-                if (errno =3D=3D ENOENT) {
+-                    vdev->type =3D XEN_BLOCK_VDEV_TYPE_XVD;
+-                    vdev->partition =3D 0;
+-                    vdev->disk =3D disk;
+-                    vdev->number =3D idx;
+-                    goto found;
+-                }
+-                error_setg(errp, "cannot read %s: %s", fe_path,
+-                           strerror(errno));
+-                return NULL;
+-            }
+-            free(value);
+-            disk++;
++    memset(used_devs, 0, sizeof(used_devs));
++    for (i =3D 0; i < nr_existing; i++) {
++        if (qemu_strtoui(existing_frontends[i], NULL, 10, &vdev_nr)) {
++            free(existing_frontends[i]);
++            continue;
+         }
++
++        free(existing_frontends[i]);
++
++        disk =3D vdev_to_diskno(vdev_nr);
++        if (disk < 0 || disk >=3D MAX_AUTO_VDEV) {
++            continue;
++        }
++
++        set_bit(disk, used_devs);
++    }
++    free(existing_frontends);
++
++    disk =3D find_first_zero_bit(used_devs, MAX_AUTO_VDEV);
++    if (disk =3D=3D MAX_AUTO_VDEV) {
+         error_setg(errp, "cannot find device vdev for block device");
++        return false;
++    }
++
++    vdev->type =3D XEN_BLOCK_VDEV_TYPE_XVD;
++    vdev->partition =3D 0;
++    vdev->disk =3D disk;
++    if (disk < (1 << 4)) {
++        vdev->number =3D (XVDA_MAJOR << 8) | (disk << 4);
++    } else {
++        vdev->number =3D (XVDQ_MAJOR << 8) | (disk << 8);
++    }
++    return true;
++}
++
++static char *xen_block_get_name(XenDevice *xendev, Error **errp)
++{
++    XenBlockDevice *blockdev =3D XEN_BLOCK_DEVICE(xendev);
++    XenBlockVdev *vdev =3D &blockdev->props.vdev;
++
++    if (vdev->type =3D=3D XEN_BLOCK_VDEV_TYPE_INVALID &&
++        !xen_block_find_free_vdev(blockdev, errp)) {
+         return NULL;
+     }
+- found:
+     return g_strdup_printf("%lu", vdev->number);
+ }
+=20
+@@ -520,10 +577,10 @@ static void xen_block_set_vdev(Object *obj, Visitor *=
+v, const char *name,
+     case XEN_BLOCK_VDEV_TYPE_DP:
+     case XEN_BLOCK_VDEV_TYPE_XVD:
+         if (vdev->disk < (1 << 4) && vdev->partition < (1 << 4)) {
+-            vdev->number =3D (202 << 8) | (vdev->disk << 4) |
++            vdev->number =3D (XVDA_MAJOR << 8) | (vdev->disk << 4) |
+                 vdev->partition;
+         } else if (vdev->disk < (1 << 20) && vdev->partition < (1 << 8)) {
+-            vdev->number =3D (1 << 28) | (vdev->disk << 8) |
++            vdev->number =3D (XVDQ_MAJOR << 8) | (vdev->disk << 8) |
+                 vdev->partition;
+         } else {
+             goto invalid;
+@@ -533,10 +590,10 @@ static void xen_block_set_vdev(Object *obj, Visitor *=
+v, const char *name,
+     case XEN_BLOCK_VDEV_TYPE_HD:
+         if ((vdev->disk =3D=3D 0 || vdev->disk =3D=3D 1) &&
+             vdev->partition < (1 << 6)) {
+-            vdev->number =3D (3 << 8) | (vdev->disk << 6) | vdev->partitio=
+n;
++            vdev->number =3D (HDA_MAJOR << 8) | (vdev->disk << 6) | vdev->=
+partition;
+         } else if ((vdev->disk =3D=3D 2 || vdev->disk =3D=3D 3) &&
+                    vdev->partition < (1 << 6)) {
+-            vdev->number =3D (22 << 8) | ((vdev->disk - 2) << 6) |
++            vdev->number =3D (HDC_MAJOR << 8) | ((vdev->disk - 2) << 6) |
+                 vdev->partition;
+         } else {
+             goto invalid;
+@@ -545,7 +602,7 @@ static void xen_block_set_vdev(Object *obj, Visitor *v,=
+ const char *name,
+=20
+     case XEN_BLOCK_VDEV_TYPE_SD:
+         if (vdev->disk < (1 << 4) && vdev->partition < (1 << 4)) {
+-            vdev->number =3D (8 << 8) | (vdev->disk << 4) | vdev->partitio=
+n;
++            vdev->number =3D (SDA_MAJOR << 8) | (vdev->disk << 4) | vdev->=
+partition;
+         } else {
+             goto invalid;
+         }
 
-Jan
+
+--=-x8BOGq/ESRm/cDp9nNRD
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI3MTIwMjQ1WjAvBgkqhkiG9w0BCQQxIgQgy6jZIEVn
+ttaZcN5FM5XBjbNwWd/MX+hlAaS0WhMuzaMwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCMYXqkqgZsdFMHIMkBhqcvK/8acgkyKqTW
+eosVHutNWGf9mmit54r3qRhGCsxZeUex/K6/LeFbgYkw0afPWUsP6+tAQbuBou6UqcHjonpOkJ+0
+8ig9NGJ/R8wS6xWrV9xpipflHil78T2Q6uXiCZjXr7gPtIVFI4rdkxW4WNdhCSt0iVstCUMTTqo1
+wSc22LnCXhRkjwJUb2XnMTpQbQ8D6sEhx/r+aOplZwhDRltkxnW7bcYBHdhiM7P/rCh1pUHcbqV6
+0rAFSL+eSlpTj89hzd/CNNbe17JBwQKZlFj8HWaGocR+F0Vsn3PEkizaDXYFxw5x+gVuQyi4cSiI
+D6U/AJuXA2Pv2gou4klFKYbvQQtQCnG811udwUA4MMVZNw2OrMTqex21MzY+hR3LKWd3onNMb9ZN
+Ap5a6KKkhBhbK6yhQKjoFSg16HEhHNzOsONze92z0L+P82GyjsRlmXgYrdSErW4CBrwgSh28k5gf
+mMakB/GRgGirvgCs/uFv5uXXgeXXcttoq3itZQsf2v/26BneNlMwrdsqSdd5k7jUoRUOTwMVHvw1
+eWIB6USIFRbudKhd9nx5dPMpd1i2wx/DKZHdRFVaVuWvsa1vMdtnjhb+lQrKhao0kDpIzn8TIoOs
+5uQfwiKt7EItb/Gbx/Uc9HY3uuZheckYX/jsyloYyQAAAAAAAA==
+
+
+--=-x8BOGq/ESRm/cDp9nNRD--
 
