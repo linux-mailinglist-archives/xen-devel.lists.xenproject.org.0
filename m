@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E8967D9CAD
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 17:12:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624606.973180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A27D7D9F65
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 20:09:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624613.973192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwOV6-0006tu-0o; Fri, 27 Oct 2023 15:11:52 +0000
+	id 1qwRF8-0000sp-Ic; Fri, 27 Oct 2023 18:07:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624606.973180; Fri, 27 Oct 2023 15:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 624613.973192; Fri, 27 Oct 2023 18:07:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwOV5-0006s0-U2; Fri, 27 Oct 2023 15:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 624606;
- Fri, 27 Oct 2023 15:11:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qwRF8-0000pU-Fj; Fri, 27 Oct 2023 18:07:34 +0000
+Received: by outflank-mailman (input) for mailman id 624613;
+ Fri, 27 Oct 2023 18:07:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bjPi=GJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qwOV4-0006ru-BD
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 15:11:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25f7debd-74db-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 17:11:48 +0200 (CEST)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id D87094EE073E;
- Fri, 27 Oct 2023 17:11:45 +0200 (CEST)
+ <SRS0=cQhv=GJ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1qwRF6-0000pO-V7
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 18:07:33 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20627.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::627])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b112321a-74f3-11ee-98d6-6d05b1d4d9a1;
+ Fri, 27 Oct 2023 20:07:30 +0200 (CEST)
+Received: from CY8P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::15)
+ by IA0PR12MB7652.namprd12.prod.outlook.com (2603:10b6:208:434::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.47; Fri, 27 Oct
+ 2023 18:07:26 +0000
+Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
+ (2603:10b6:930:6b:cafe::d6) by CY8P222CA0022.outlook.office365.com
+ (2603:10b6:930:6b::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24 via Frontend
+ Transport; Fri, 27 Oct 2023 18:07:26 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.145) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6933.19 via Frontend Transport; Fri, 27 Oct 2023 18:07:25 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 27 Oct
+ 2023 13:07:25 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 27 Oct
+ 2023 13:07:24 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via
+ Frontend Transport; Fri, 27 Oct 2023 13:07:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,191 +63,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25f7debd-74db-11ee-9b0e-b553b5be7939
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH][for-4.19 v5] xen: Add deviations for MISRA C:2012 Rule 7.1
-Date: Fri, 27 Oct 2023 17:11:43 +0200
-Message-Id: <0c86b50a796ba2aaab01e30935ed559ab719d33a.1698418578.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: b112321a-74f3-11ee-98d6-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P59YC14NHj4UDf9tMuTJbqdUABQTq1rFJReBnkqg1dC9flHpGTT8HQDjPvkhHNDx6IOI0KUCaK4CsjypnSJ1VolO+XDKncvKK7Tg8djxOE515ikIXXbMA76I4tJ3uIdvyaztvcSyCBcJK7IFBRJEhBDg8M8kCdt0FwMBFegD6nRsiCZl94FB0qaBRNAljKHx/BsM9EsA8PzOqIkee9fN+X6d5ZHvo8yb7iCyMIYBpjDL/BQAAdclL77y0PBA7/E6U/kUHZ7NJNuJKt7C5sqo9rAxksxTH2YoXsxGT0lpzpwNB4wwT5U8pReBtIRRKYGtKeUuj7IAllwfnj4IFgsltQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=83quyAosQOtu5va1SRSOx1l+J26kwo4vlcwl/4hDc3s=;
+ b=KBSFHfiCYV9KPZiukPROlsw0Bgs0x/I0GXpKS/wm6giWWk70/1IJe6bAT354cBkyJC+ULWoIsHKEvyQZ7hsswCakZySzgVkqa6jGFyKE0PHUlWlCPXeSMDM6r8+ALUiXOsX3WbUz3X2urs0fNBYG2xMzZJ+Zga+axb8upMimOSTENElrXb1S8jjgH41XwE6541yPZAUIsJmRkv7KiXFTukJwuT9ltgpk2rH0MNIv8JQVfJhuvGtyhB2ftTeTTCgV1qj4L1tCbkqOKsQfNe5ixg6twgUX5n6VZgMBg38GVDFlievMVwUQvb+ORmyRaZbKXUnvha/66aVCb+lSOu3jBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=83quyAosQOtu5va1SRSOx1l+J26kwo4vlcwl/4hDc3s=;
+ b=joVgM6DXcbWzZOOkrHVn1iFQIsauuLr1gjtg2fgUjlL7K4f6S9gZefXDGgfQm5EEcctyBEn6V2mOILQXH4bqvOH02Oc3xBIBKdUS37q0ZwGwzDZr3J6d0iDcANYTOJaO4ohKLu9NwnDK+YmMZWE5//WcbLCE/f84D6awmerzMqw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
+	<michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [XEN v3] xen/arm32: head: Replace load_paddr with adr_l when they are equivalent
+Date: Fri, 27 Oct 2023 19:07:15 +0100
+Message-ID: <20231027180715.3484439-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|IA0PR12MB7652:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8352d35c-ca49-4801-0274-08dbd7179342
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	HZw8qShpUzfTv8OLCs+bElsonVOTXgbSu5iCRAZa4/wjgTgcbiY9gTQt/vQVOJZ1KHzDtwciJ+kc3K2AjRWfxtHipYzcbXbwEzA6Won5wX2Mp/fvSsAZxS1/YjRM+MuoyF4nKwZWlx7C/s4UgPkv4LR9dAtb7ZSy4R6NV65LXxBertM+77Ndi9Iz1JQbZPqZwCzpzczVIdT+M0n2I7lu7oktacBnf1dE5vITAqQiJzekHtA94k/mbYKYr8ZPGrEVZ/gYMCyk+atXYL3aA7ZgI3ZjrTGh6uvWjakliRG+2QLMlM/AOZpJ3obUDoAixNMyHTwz3xmcMI5MDXXewwq/2T3N6qWIFzRPEkhmq6SsBQV8e+c/D0Gp9kjtiSV/lAHv3CImJIhzjGRThlem0dHryTQbd10cA3zcx91XcG00+427rhy67mwkViRndZx+oufXekT0q7hMj8G38v69J9myjQdnZiGFxvdh54ZGlO+MZ9/eIk5cSeDG5jxqYbJvxtSzEXYD0V8nz8ucZOoe23/BUV5alcobyH0wW+iHm3CbBmIv3ZuVcgiNzknqcUBDuHCnxgr7rB9QWtReGCk0GtOm+9fpoAVMtF+74foNU8D8T5HM8AkpCDQMsxO2ySvJ3804OVuDwPxwTk1afHyk+sql3ktANZhHfPHsOLIUjds+Pf3SXpEQFPENZ25qORN85nsVclYQmLQN1s8K9KNFe8WmOL7H438O/qPMlnIl32CVjsxEEghpE9RWdm3eQZHaJrtaZVpbcqNEGv7vmOKS+i/UOmAyenLqPTcneZ9JMMyvBy2Z7s4QLmf3FY86j7f8Ckop
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(70206006)(40460700003)(86362001)(47076005)(36860700001)(336012)(6666004)(1076003)(54906003)(83380400001)(26005)(4326008)(426003)(316002)(8676002)(478600001)(70586007)(2906002)(5660300002)(966005)(8936002)(356005)(6916009)(81166007)(82740400003)(41300700001)(40480700001)(2616005)(103116003)(36756003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 18:07:25.6603
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8352d35c-ca49-4801-0274-08dbd7179342
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7652
 
-As specified in rules.rst, these constants can be used
-in the code.
+Before the MMU is turned on, PC uses physical address. Thus, one can use adr_l
+instead of load_paddr to obtain the physical address of a symbol.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Changes in v2:
-- replace some SAF deviations with configurations
-Changes in v3:
-- refine configurations and justifications
-Changes in v4:
-- updated deviation record comment.
-Changes in v5:
-- use octal-ok instead of keying the deviation to the file.
----
-Indentation on svm.h has been modified to fit the whole line within
-80 characters
----
- .../eclair_analysis/ECLAIR/deviations.ecl     |  7 ++--
- docs/misra/deviations.rst                     |  7 ++++
- docs/misra/safe.json                          |  8 ++++
- xen/arch/x86/hvm/svm/emulate.c                |  6 +--
- xen/arch/x86/hvm/svm/svm.h                    | 38 +++++++++----------
- xen/common/inflate.c                          |  4 +-
- 6 files changed, 42 insertions(+), 28 deletions(-)
+The only exception (for this replacement) is create_table_entry() which is
+called before and after MMU is turned on.
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index fa56e5c00a27..fabbf9d66330 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -85,10 +85,9 @@ conform to the directive."
- # Series 7.
- #
+Also, in lookup_processor_type() "r10" is no longer used. The reason being
+__lookup_processor_type uses adr_l (thus r10 is no longer used to obtain the
+physical address offset). Consequently, there is no need to save/restore r10.
+
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+Refer https://lists.archive.carbon60.com/xen/devel/682900 for details.
+
+Changes from :-
+
+v1 :- 1. No need to modify create_table_entry().
+2. Remove "mov   r10, #0 " in lookup_processor_type().
+
+v2 :- 1. No need to save/restore r10 in lookup_processor_type().
+2. Update the commit message title.
+
+ xen/arch/arm/arm32/head.S | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index 33b038e7e0..1fcc6f745e 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -171,7 +171,7 @@ past_zImage:
  
---doc_begin="Usage of the following constants is safe, since they are given as-is
--in the inflate algorithm specification and there is therefore no risk of them
--being interpreted as decimal constants."
---config=MC3R1.R7.1,literals={safe, "^0(007|37|070|213|236|300|321|330|331|332|333|334|335|337|371)$"}
-+-doc_begin="It is safe to use certain octal constants the way they are defined
-+in specifications, manuals, and algorithm descriptions."
-+-config=MC3R1.R7.1,reports+={safe, "any_area(any_loc(any_exp(text(^.*octal-ok.*$))))"}
- -doc_end
+         /* Using the DTB in the .dtb section? */
+ .ifnes CONFIG_DTB_FILE,""
+-        load_paddr r8, _sdtb
++        adr_l r8, _sdtb
+ .endif
  
- -doc_begin="Violations in files that maintainers have asked to not modify in the
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 8511a189253b..8aaaa1473fb4 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -90,6 +90,13 @@ Deviations related to MISRA C:2012 Rules:
-          - __emulate_2op and __emulate_2op_nobyte
-          - read_debugreg and write_debugreg
+         /* Initialize the UART if earlyprintk has been enabled. */
+@@ -213,7 +213,7 @@ GLOBAL(init_secondary)
+         mrc   CP32(r1, MPIDR)
+         bic   r7, r1, #(~MPIDR_HWID_MASK) /* Mask out flags to get CPU ID */
  
-+   * - R7.1
-+     - It is safe to use certain octal constants the way they are defined
-+       in specifications, manuals, and algorithm descriptions. Such places
-+       are marked safe with a /\* octal-ok \*/ in-code comment, or with a SAF
-+       comment (see safe.json).
-+     - Tagged as `safe` for ECLAIR.
-+
-    * - R7.2
-      - Violations caused by __HYPERVISOR_VIRT_START are related to the
-        particular use of it done in xen_mk_ulong.
-diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-index 39c5c056c7d4..7ea47344ffcc 100644
---- a/docs/misra/safe.json
-+++ b/docs/misra/safe.json
-@@ -20,6 +20,14 @@
-         },
-         {
-             "id": "SAF-2-safe",
-+            "analyser": {
-+                "eclair": "MC3R1.R7.1"
-+            },
-+            "name": "Rule 7.1: constants defined in specifications, manuals, and algorithm descriptions",
-+            "text": "It is safe to use certain octal constants the way they are defined in specifications, manuals, and algorithm descriptions."
-+        },
-+        {
-+            "id": "SAF-3-safe",
-             "analyser": {},
-             "name": "Sentinel",
-             "text": "Next ID to be used"
-diff --git a/xen/arch/x86/hvm/svm/emulate.c b/xen/arch/x86/hvm/svm/emulate.c
-index aa2c61c433b3..93ac1d3435f9 100644
---- a/xen/arch/x86/hvm/svm/emulate.c
-+++ b/xen/arch/x86/hvm/svm/emulate.c
-@@ -90,9 +90,9 @@ unsigned int svm_get_insn_len(struct vcpu *v, unsigned int instr_enc)
-         if ( !instr_modrm )
-             return emul_len;
+-        load_paddr r0, smp_up_cpu
++        adr_l r0, smp_up_cpu
+         dsb
+ 2:      ldr   r1, [r0]
+         cmp   r1, r7
+@@ -479,7 +479,7 @@ create_page_tables:
+          * create_table_entry_paddr() will clobber the register storing
+          * the physical address of the table to point to.
+          */
+-        load_paddr r5, boot_third
++        adr_l r5, boot_third
+         mov_w r4, XEN_VIRT_START
+ .rept XEN_NR_ENTRIES(2)
+         mov   r0, r5                        /* r0 := paddr(l3 table) */
+@@ -578,7 +578,7 @@ enable_mmu:
+         flush_xen_tlb_local r0
  
--        if ( modrm_mod       == MASK_EXTR(instr_modrm, 0300) &&
--             (modrm_reg & 7) == MASK_EXTR(instr_modrm, 0070) &&
--             (modrm_rm  & 7) == MASK_EXTR(instr_modrm, 0007) )
-+        if ( modrm_mod       == MASK_EXTR(instr_modrm, 0300) && /* octal-ok */
-+             (modrm_reg & 7) == MASK_EXTR(instr_modrm, 0070) && /* octal-ok */
-+             (modrm_rm  & 7) == MASK_EXTR(instr_modrm, 0007) )  /* octal-ok */
-             return emul_len;
-     }
+         /* Write Xen's PT's paddr into the HTTBR */
+-        load_paddr r0, boot_pgtable
++        adr_l r0, boot_pgtable
+         mov   r1, #0                 /* r0:r1 is paddr (boot_pagetable) */
+         mcrr  CP64(r0, r1, HTTBR)
+         isb
+@@ -876,11 +876,10 @@ putn:   mov   pc, lr
  
-diff --git a/xen/arch/x86/hvm/svm/svm.h b/xen/arch/x86/hvm/svm/svm.h
-index d2a781fc3fb5..8dbf37ff4961 100644
---- a/xen/arch/x86/hvm/svm/svm.h
-+++ b/xen/arch/x86/hvm/svm/svm.h
-@@ -53,25 +53,25 @@ static inline void svm_invlpga(unsigned long linear, uint32_t asid)
+ /* This provides a C-API version of __lookup_processor_type */
+ ENTRY(lookup_processor_type)
+-        stmfd sp!, {r4, r10, lr}
+-        mov   r10, #0                   /* r10 := offset between virt&phys */
++        stmfd sp!, {r4, lr}
+         bl    __lookup_processor_type
+         mov r0, r1
+-        ldmfd sp!, {r4, r10, pc}
++        ldmfd sp!, {r4, pc}
+ 
+ /*
+  *  Read processor ID register (CP#15, CR0), and Look up in the linker-built
+@@ -888,8 +887,6 @@ ENTRY(lookup_processor_type)
+  * the __proc_info lists since we aren't running with the MMU on (and therefore,
+  * we are not in correct address space). We have to calculate the offset.
+  *
+- * r10: offset between virt&phys
+- *
+  * Returns:
+  * r0: CPUID
+  * r1: proc_info pointer
+@@ -897,8 +894,8 @@ ENTRY(lookup_processor_type)
   */
- #define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
- 
--#define INSTR_PAUSE       INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
--#define INSTR_INT3        INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
--#define INSTR_ICEBP       INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
--#define INSTR_HLT         INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
--#define INSTR_XSETBV      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321)
--#define INSTR_VMRUN       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330)
--#define INSTR_VMCALL      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331)
--#define INSTR_VMLOAD      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332)
--#define INSTR_VMSAVE      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333)
--#define INSTR_STGI        INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334)
--#define INSTR_CLGI        INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335)
--#define INSTR_INVLPGA     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337)
--#define INSTR_RDTSCP      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0371)
--#define INSTR_INVD        INSTR_ENC(X86EMUL_OPC(0x0f, 0x08), 0)
--#define INSTR_WBINVD      INSTR_ENC(X86EMUL_OPC(0x0f, 0x09), 0)
--#define INSTR_WRMSR       INSTR_ENC(X86EMUL_OPC(0x0f, 0x30), 0)
--#define INSTR_RDTSC       INSTR_ENC(X86EMUL_OPC(0x0f, 0x31), 0)
--#define INSTR_RDMSR       INSTR_ENC(X86EMUL_OPC(0x0f, 0x32), 0)
--#define INSTR_CPUID       INSTR_ENC(X86EMUL_OPC(0x0f, 0xa2), 0)
-+#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
-+#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
-+#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
-+#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
-+#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
-+#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
-+#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
-+#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
-+#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
-+#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
-+#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
-+#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
-+#define INSTR_RDTSCP     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0371) /* octal-ok */
-+#define INSTR_INVD       INSTR_ENC(X86EMUL_OPC(0x0f, 0x08), 0)
-+#define INSTR_WBINVD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x09), 0)
-+#define INSTR_WRMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x30), 0)
-+#define INSTR_RDTSC      INSTR_ENC(X86EMUL_OPC(0x0f, 0x31), 0)
-+#define INSTR_RDMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x32), 0)
-+#define INSTR_CPUID      INSTR_ENC(X86EMUL_OPC(0x0f, 0xa2), 0)
- 
- unsigned int svm_get_insn_len(struct vcpu *v, unsigned int instr_enc);
- unsigned int svm_get_task_switch_insn_len(void);
-diff --git a/xen/common/inflate.c b/xen/common/inflate.c
-index 8fa4b96d12a3..be6a9115187e 100644
---- a/xen/common/inflate.c
-+++ b/xen/common/inflate.c
-@@ -1201,8 +1201,8 @@ static int __init gunzip(void)
-     magic[1] = NEXTBYTE();
-     method   = NEXTBYTE();
- 
--    if (magic[0] != 037 ||
--        ((magic[1] != 0213) && (magic[1] != 0236))) {
-+    /* SAF-2-safe */
-+    if (magic[0] != 037 || ((magic[1] != 0213) && (magic[1] != 0236))) {
-         error("bad gzip magic numbers");
-         return -1;
-     }
+ __lookup_processor_type:
+         mrc   CP32(r0, MIDR)                /* r0 := our cpu id */
+-        load_paddr r1, __proc_info_start
+-        load_paddr r2, __proc_info_end
++        adr_l r1, __proc_info_start
++        adr_l r2, __proc_info_end
+ 1:      ldr   r3, [r1, #PROCINFO_cpu_mask]
+         and   r4, r0, r3                    /* r4 := our cpu id with mask */
+         ldr   r3, [r1, #PROCINFO_cpu_val]   /* r3 := cpu val in current proc info */
 -- 
-2.34.1
+2.25.1
+
 
