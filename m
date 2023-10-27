@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617377D9B05
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 16:19:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624517.973103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4C37D9B4F
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 16:26:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624522.973113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwNfc-0000ic-O9; Fri, 27 Oct 2023 14:18:40 +0000
+	id 1qwNmt-0003Fd-GW; Fri, 27 Oct 2023 14:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624517.973103; Fri, 27 Oct 2023 14:18:40 +0000
+Received: by outflank-mailman (output) from mailman id 624522.973113; Fri, 27 Oct 2023 14:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwNfc-0000ft-L6; Fri, 27 Oct 2023 14:18:40 +0000
-Received: by outflank-mailman (input) for mailman id 624517;
- Fri, 27 Oct 2023 14:18:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qwNmt-0003Dx-CU; Fri, 27 Oct 2023 14:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 624522;
+ Fri, 27 Oct 2023 14:26:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HqTC=GJ=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1qwNfb-0000fn-Nk
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 14:18:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8f03038-74d3-11ee-98d6-6d05b1d4d9a1;
- Fri, 27 Oct 2023 16:18:38 +0200 (CEST)
-Received: from [192.168.1.15] (host-95-247-204-25.retail.telecomitalia.it
- [95.247.204.25])
- by support.bugseng.com (Postfix) with ESMTPSA id 1425E4EE073E;
- Fri, 27 Oct 2023 16:18:38 +0200 (CEST)
+ <SRS0=jK+m=GJ=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1qwNmr-0003Dr-UH
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 14:26:09 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c33dcfc0-74d4-11ee-9b0e-b553b5be7939;
+ Fri, 27 Oct 2023 16:26:05 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-32d9cb5e0fcso1494402f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 07:26:05 -0700 (PDT)
+Received: from localhost.localdomain ([90.243.219.52])
+ by smtp.gmail.com with ESMTPSA id
+ c8-20020adfef48000000b0031fd849e797sm1854974wrp.105.2023.10.27.07.26.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Oct 2023 07:26:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,139 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8f03038-74d3-11ee-98d6-6d05b1d4d9a1
-Message-ID: <4fc39741-40a7-4a60-8cbf-2d23bbf5a238@bugseng.com>
-Date: Fri, 27 Oct 2023 16:18:37 +0200
+X-Inumbo-ID: c33dcfc0-74d4-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1698416764; x=1699021564; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Likxx9/XoscccO6ivXBm/dTGgbdygFlPEOIk/gw8kA=;
+        b=gcp19p4yq6ON/nfqTcrULmgMArDdVDfTSOqJXqGww5lgBNDsCoVyv2KEV0aWlgs7F4
+         Q8IeIjlUbLZYEJUw8m4yrTzadLu++T9zurSbGbk38ekzGB+jhHoj656ucDUEc//M+9eV
+         QUHYSq+GXu85sve34Tc/vd7usu7amd9pQ5CHw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698416764; x=1699021564;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1Likxx9/XoscccO6ivXBm/dTGgbdygFlPEOIk/gw8kA=;
+        b=F21Bdfk2bcd7NRh4Xsahxt/tIg/C0X295h3nlwN/tOZb8Tcu2cFENToevX2c3uH+CE
+         JJFVpG1zBwhBJnI8sI45blL7PykDG1AVTjZGF6jsQn+wlyKzRyNt5IAnO+4DrT4uBC8p
+         Trh2LCiIcWhOEt5BSs9OMW68nxITbMLv65xaCRtLXjR4MaXRGZ5iQxtxEXEfs3LVNe4j
+         1uSrs44A144yat3qmT3iJtXC5MJO4ojRZqMEWrqg3VYo+0R5PmLcUHESUwRWKdGgBdFp
+         60iILMm1RUn7/F/GHnbu327MzdnmXLFLG4u43Jf8VYW2QLu9v91nkBZyIHTNNS/GAPA6
+         um6w==
+X-Gm-Message-State: AOJu0YycqVDZWABMWIHCMb6X45HXHttHCSOCDHatP/sLA5LS7joCLDri
+	I0pt/elBYiQIUeG6/x4JzjocYO4B/dT/TwZ/d0I=
+X-Google-Smtp-Source: AGHT+IE5gVDU+xs1AVhjUkkVbt3cVi9UMxdBFgKZVoYd7/ePWEZF2Nmyqg2kobyWSjj/sXRBgV289Q==
+X-Received: by 2002:adf:ee82:0:b0:32d:a853:af6e with SMTP id b2-20020adfee82000000b0032da853af6emr2351124wro.1.1698416764552;
+        Fri, 27 Oct 2023 07:26:04 -0700 (PDT)
+From: George Dunlap <george.dunlap@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@cloud.com>
+Subject: [PATCH] security-process.pandoc: Statement on issuing XSAs for older versions of Xen
+Date: Fri, 27 Oct 2023 15:26:02 +0100
+Message-ID: <20231027142602.57037-1-george.dunlap@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/set_{c,p}x_pminfo: address violations od MISRA
- C:2012 Rule 8.3
-Content-Language: en-US, it
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <88499ca9a61b59d13d90f6c5f77cbb2e124d850e.1698322083.git.federico.serafini@bugseng.com>
- <beb4255f-76ca-2b09-a953-d02e0f04997e@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <beb4255f-76ca-2b09-a953-d02e0f04997e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/10/23 15:57, Jan Beulich wrote:
-> On 26.10.2023 14:09, Federico Serafini wrote:
->> --- a/xen/drivers/cpufreq/cpufreq.c
->> +++ b/xen/drivers/cpufreq/cpufreq.c
->> @@ -457,14 +457,14 @@ static void print_PPC(unsigned int platform_limit)
->>       printk("\t_PPC: %d\n", platform_limit);
->>   }
->>   
->> -int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *dom0_px_info)
->> +int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
->>   {
->>       int ret=0, cpuid;
->>       struct processor_pminfo *pmpt;
->>       struct processor_performance *pxpt;
->>   
->>       cpuid = get_cpu_id(acpi_id);
->> -    if ( cpuid < 0 || !dom0_px_info)
->> +    if ( ( cpuid < 0 ) || !perf)
-> 
-> I don't see the need for the new pair of parentheses here, but if you
-> add such, please don't violate style.
+We recently had a situation where a security issue was discovered
+which only affected versions of Xen out of security support from an
+upstream perspective.  However, many downstreams (including XenServer
+and SUSE) still had supported products based on the versions affected.
 
-Noted.
+Specify what the security team will do in this situation in the
+future.  As always, the goal here is to be fair and helpful, without
+adding to the workload of the security team.  Inviting downstreams to
+list versions and ranges, as well as expecting them to be involved in
+the patch, gives organizations without representation in the security
+team the opportunity to decide to engage in the security process.  At
+the same time, it puts he onus of determining which products and which
+versions might be affected, as well as the core work of creating and
+testing a patch, on downstreams.
 
-> 
->> @@ -488,21 +488,21 @@ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *dom0_px_in
->>       pmpt->acpi_id = acpi_id;
->>       pmpt->id = cpuid;
->>   
->> -    if ( dom0_px_info->flags & XEN_PX_PCT )
->> +    if ( perf->flags & XEN_PX_PCT )
->>       {
->>           /* space_id check */
->> -        if (dom0_px_info->control_register.space_id !=
->> -            dom0_px_info->status_register.space_id)
->> +        if ( perf->control_register.space_id !=
->> +             perf->status_register.space_id )
->>           {
->>               ret = -EINVAL;
->>               goto out;
->>           }
->>   
->>           memcpy ((void *)&pxpt->control_register,
->> -                (void *)&dom0_px_info->control_register,
->> +                (void *)&perf->control_register,
->>                   sizeof(struct xen_pct_register));
->>           memcpy ((void *)&pxpt->status_register,
->> -                (void *)&dom0_px_info->status_register,
->> +                (void *)&perf->status_register,
->>                   sizeof(struct xen_pct_register));
->>   
->>           if ( cpufreq_verbose )
->> @@ -512,69 +512,67 @@ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *dom0_px_in
->>           }
->>       }
->>   
->> -    if ( dom0_px_info->flags & XEN_PX_PSS )
->> +    if ( perf->flags & XEN_PX_PSS )
->>       {
->>           /* capability check */
->> -        if (dom0_px_info->state_count <= 1)
->> +        if (perf->state_count <= 1)
-> 
-> Since you're adjusting style elsewhere, would you mind adding the missing
-> blanks here as well?
-> 
->>           {
->>               ret = -EINVAL;
->>               goto out;
->>           }
->>   
->>           if ( !(pxpt->states = xmalloc_array(struct xen_processor_px,
->> -                        dom0_px_info->state_count)) )
->> +                                            perf->state_count)) )
->>           {
->>               ret = -ENOMEM;
->>               goto out;
->>           }
->> -        if ( copy_from_guest(pxpt->states, dom0_px_info->states,
->> -                             dom0_px_info->state_count) )
->> +        if ( copy_from_guest(pxpt->states, perf->states, perf->state_count) )
->>           {
->>               ret = -EFAULT;
->>               goto out;
->>           }
->> -        pxpt->state_count = dom0_px_info->state_count;
->> +        pxpt->state_count = perf->state_count;
->>   
->>           if ( cpufreq_verbose )
->>               print_PSS(pxpt->states,pxpt->state_count);
->>       }
->>   
->> -    if ( dom0_px_info->flags & XEN_PX_PSD )
->> +    if ( perf->flags & XEN_PX_PSD )
->>       {
->>           /* check domain coordination */
->> -        if (dom0_px_info->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
->> -            dom0_px_info->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
->> -            dom0_px_info->shared_type != CPUFREQ_SHARED_TYPE_HW)
->> +        if (perf->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
->> +            perf->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
->> +            perf->shared_type != CPUFREQ_SHARED_TYPE_HW)
-> 
-> Same here then?
-> 
-> Jan
+Signed-off-by: George Dunlap <george.dunlap@cloud.com>
+---
+The entire security-process.pandoc file can be found here:
 
-Sure, I'll pay more attention.
+https://gitlab.com/xen-project/people/gdunlap/old-governance
+---
+ security-policy.pandoc | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
+diff --git a/security-policy.pandoc b/security-policy.pandoc
+index 76c25e1..23b6381 100644
+--- a/security-policy.pandoc
++++ b/security-policy.pandoc
+@@ -30,6 +30,20 @@ Vulnerabilities reported against other Xen Project teams will be handled on a
+ best effort basis by the relevant Project Lead together with the Security
+ Response Team.
+ 
++The Xen Project Security Team will issue XSAs, including patches, for
++all upstream versions of the Xen Project Hypervisor currently under
++security support.
++
++It is often the case that downstreams have a longer product support
++lifecycle than upstream Xen provides.  Downstreams are invited to
++inform the security team of the Xen version and support window of
++these products.  If a security issue is discovered which does not
++affect upstream "security supported" versions, but does (or may)
++affect a supported product containing one of these older versions, the
++downstreams will be informed privately.  If at least one of the
++downstreams chooses to participate in the development of a patch, then
++an XSA will be issued according to our normal process.
++
+ Specific process
+ ----------------
+ 
 -- 
-Federico Serafini, M.Sc.
+2.42.0
 
-Software Engineer, BUGSENG (http://bugseng.com)
 
