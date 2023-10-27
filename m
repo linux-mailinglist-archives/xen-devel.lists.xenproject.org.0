@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEDEE7D924D
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 10:42:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624285.972721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835947D9347
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 11:15:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624288.972732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwIQ8-00009K-9i; Fri, 27 Oct 2023 08:42:20 +0000
+	id 1qwISN-0001PJ-Mv; Fri, 27 Oct 2023 08:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624285.972721; Fri, 27 Oct 2023 08:42:20 +0000
+Received: by outflank-mailman (output) from mailman id 624288.972732; Fri, 27 Oct 2023 08:44:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwIQ8-00006h-6Q; Fri, 27 Oct 2023 08:42:20 +0000
-Received: by outflank-mailman (input) for mailman id 624285;
- Fri, 27 Oct 2023 08:42:19 +0000
+	id 1qwISN-0001Ly-Jc; Fri, 27 Oct 2023 08:44:39 +0000
+Received: by outflank-mailman (input) for mailman id 624288;
+ Fri, 27 Oct 2023 08:44:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eEfT=GJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1qwIQ7-00006b-70
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 08:42:19 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1qwISM-0001GX-1M
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 08:44:38 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb4d82e7-74a4-11ee-9b0e-b553b5be7939;
- Fri, 27 Oct 2023 10:42:16 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-32dc9ff4a8fso1159666f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 01:42:16 -0700 (PDT)
+ id 0e77e766-74a5-11ee-9b0e-b553b5be7939;
+ Fri, 27 Oct 2023 10:44:35 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-507e85ebf50so2472410e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Oct 2023 01:44:36 -0700 (PDT)
 Received: from [192.168.10.177] (54-240-197-235.amazon.com. [54.240.197.235])
  by smtp.gmail.com with ESMTPSA id
- q12-20020adffecc000000b0032dc1fc84f2sm1294729wrs.46.2023.10.27.01.42.14
+ o4-20020a5d6704000000b0032dde679398sm1276365wru.8.2023.10.27.01.44.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Oct 2023 01:42:15 -0700 (PDT)
+ Fri, 27 Oct 2023 01:44:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb4d82e7-74a4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0e77e766-74a5-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698396136; x=1699000936; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1698396276; x=1699001076; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=I4YW6v0nwEzTaGHDzniJxz3Wp+GrgF6w84+hb3xLCwk=;
-        b=MC/pq2QQlugdJO0HZmcwD6xCFM+gtUlXsDTTB2ZZlSFiNlW5gbE9m61ztNVe3teQUz
-         55omlF+gROKhoLDvLfeWePsO21gZQsDFPBjTp62DzdFcRjoPSGtRhfCKcY85fWph5gzn
-         E4o63CWEy44jdc0ehgMGz9M7XAsEDAXQfcwAzrpfgO0NJQUH9R5py33UGMvrsXxChu0M
-         wbyLeavn0J0RMTavY5DUs/W95UoNX5tncjak3WIPon75X1w/lzHW5lXMtM8sHJVRMF+x
-         3PNyWeIM+cBkyxAGyhGx+PH8g28gYbKW9MY8RLA2mv3NNK3ku+XYJtfHtPb/Wr4bFmGm
-         Bw3g==
+        bh=tNlTPL/h1q0gctttAApwRF+1wbJdOYFnWGSZhWSB3FY=;
+        b=lDJn4TIsGac7/9FguS4058xlSQ4KoI1EV0esQFHRVnmfkHs71FPaYLWBjlttCbZKfZ
+         J/yo6DLnXqSYRU9oaG6wrIxdTALW7rjjX38PGb24kmQwrmPPZ7bTfJVfc83Ua6b623D7
+         vYRk0HasR0TZfjiib0X0tCbjj6ipxozhKtisPwmY9Py2azwfyWPuU2kxf++M16qCK1PH
+         XoB0tHbRd697YlNjjSQ88BrfkKCoIiCpYk1fR7BiJ70V61ygALnU5TQkyWKgzrTBvJ8u
+         RFBfKGwhsGsjHajVVWQ//2U5+PG0q7EC4SpjphYGII4usutk+eQ2P9J7oHugojcrvuWS
+         jV8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698396136; x=1699000936;
+        d=1e100.net; s=20230601; t=1698396276; x=1699001076;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=I4YW6v0nwEzTaGHDzniJxz3Wp+GrgF6w84+hb3xLCwk=;
-        b=vdYHUcIbtu0jvyd9/PiBhhAkm38aMp9OcVr1BblkNUvgR+ZW9Q8m5TF29asNM3WoFa
-         gR5Kt+pusnW/p91b1tV7VhCoVgW+oyY3S1ktsxw1TpqMv/0LlVJC95KTz/hZpxaxaEdW
-         9CfPUoQsumWKFUWnpaCAC7rfHxxNqvz+oAtxY0MG8J78EozlRpvXVjDKqvQOtiBMxewb
-         AeM3JWelAiqUZzVprY4ZJRYZbR+tZVBWf764bD/P6b3TVL7yuygiJu5mcZ2u6Rh/GCQ1
-         2qvIvqqkQvG9gTttQ50HQyo9oXpkzZDyhu+ip0dyURJfQZsQgRZnwFir2oTbo7ceCkTq
-         PtjA==
-X-Gm-Message-State: AOJu0YxGR49ieAm9MKdVYKw3hJNcasfGwCaYGU8F+3aK+VBmgn+3HkXQ
-	d/a0JQTjCWGENpat9GhWQQA=
-X-Google-Smtp-Source: AGHT+IHYKFjE7/5s/eYCnVaerp95T/CLeSS0gWC6UKfDnf6cIdlOYl4zJ2dW3VoRlx9dX62JxFte9A==
-X-Received: by 2002:a5d:4a4c:0:b0:32d:d2ef:b0c1 with SMTP id v12-20020a5d4a4c000000b0032dd2efb0c1mr1586686wrs.33.1698396135916;
-        Fri, 27 Oct 2023 01:42:15 -0700 (PDT)
-Message-ID: <a0798190-e5da-42fd-af1c-17af48e9fe89@gmail.com>
-Date: Fri, 27 Oct 2023 09:42:13 +0100
+        bh=tNlTPL/h1q0gctttAApwRF+1wbJdOYFnWGSZhWSB3FY=;
+        b=E19MLTeM7s022oZQ65zRr9B/s2X6PTAWWb1aHN3c0zHlfLn6DYFRxEwRPi0lnTiShe
+         th9AGr19rTpFjgu9/WDZ1u+D6zfQ/5AHmXCzWgw0Fs9PsQ5EM7jafeIQ3h1bcsvOKjvT
+         l43x5b1iR7PeSkwKDcrwljP+mtlBi7EDl3cQcugJUgryDOrfMicZ47PBLtmuX0emWez1
+         nnPwhH63ffGe7tCVPc+O4Ky8dr6j89PlkB6y5KZeY9U+9iNFSQxE332JhAUDfe64+Lo1
+         uyO7wZpX29yzlWYt0xKgGdhzgBSoHaQ1puW5xrOJYGu8ZIQ54mvHaXB+VaL47T9iAxx8
+         uZFA==
+X-Gm-Message-State: AOJu0YwK/MhIhsG4yW/Y2NvuYoIl5InK3x0wsebZMCKeyP/KMe7cPicV
+	KhzfiZIARkmKmlYZKwucwPU=
+X-Google-Smtp-Source: AGHT+IGDgLtfXBaR32xR7jkwm7OjIsXKvGrggAwxMX3BfT7FEKsGbWVQFL/Ib+4ohIFSlDse9DRe/w==
+X-Received: by 2002:a19:6d03:0:b0:507:c763:27a5 with SMTP id i3-20020a196d03000000b00507c76327a5mr1182175lfc.62.1698396275565;
+        Fri, 27 Oct 2023 01:44:35 -0700 (PDT)
+Message-ID: <db350375-9bb3-4ae7-bd2b-7bcce9974577@gmail.com>
+Date: Fri, 27 Oct 2023 09:44:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Reply-To: paul@xen.org
-Subject: Re: [PATCH v3 19/28] hw/xen: update Xen PV NIC to XenDevice model
+Subject: Re: [PATCH v3 20/28] net: do not delete nics in net_cleanup()
 Content-Language: en-US
 To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
@@ -96,180 +96,37 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
  xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
  Bernhard Beschow <shentey@gmail.com>, Joel Upham <jupham125@gmail.com>
 References: <20231025145042.627381-1-dwmw2@infradead.org>
- <20231025145042.627381-20-dwmw2@infradead.org>
+ <20231025145042.627381-21-dwmw2@infradead.org>
 From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20231025145042.627381-20-dwmw2@infradead.org>
+In-Reply-To: <20231025145042.627381-21-dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 25/10/2023 15:50, David Woodhouse wrote:
 > From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> This allows us to use Xen PV networking with emulated Xen guests, and to
-> add them on the command line or hotplug.
+> In net_cleanup() we only need to delete the netdevs, as those may have
+> state which outlives Qemu when it exits, and thus may actually need to
+> be cleaned up on exit.
+> 
+> The nics, on the other hand, are owned by the device which created them.
+> Most devices don't bother to clean up on exit because they don't have
+> any state which will outlive Qemu... but XenBus devices do need to clean
+> up their nodes in XenStore, and do have an exit handler to delete them.
+> 
+> When the XenBus exit handler destroys the xen-net-device, it attempts
+> to delete its nic after net_cleanup() had already done so. And crashes.
+> 
+> Fix this by only deleting netdevs as we walk the list. As the comment
+> notes, we can't use QTAILQ_FOREACH_SAFE() as each deletion may remove
+> *multiple* entries, including the "safely" saved 'next' pointer. But
+> we can store the *previous* entry, since nics are safe.
 > 
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/net/meson.build        |   2 +-
->   hw/net/trace-events       |  11 +
->   hw/net/xen_nic.c          | 484 +++++++++++++++++++++++++++++---------
->   hw/xenpv/xen_machine_pv.c |   1 -
->   4 files changed, 381 insertions(+), 117 deletions(-)
+>   net/net.c | 28 ++++++++++++++++++++++------
+>   1 file changed, 22 insertions(+), 6 deletions(-)
 > 
-> diff --git a/hw/net/meson.build b/hw/net/meson.build
-> index 2632634df3..f64651c467 100644
-> --- a/hw/net/meson.build
-> +++ b/hw/net/meson.build
-> @@ -1,5 +1,5 @@
->   system_ss.add(when: 'CONFIG_DP8393X', if_true: files('dp8393x.c'))
-> -system_ss.add(when: 'CONFIG_XEN', if_true: files('xen_nic.c'))
-> +system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xen_nic.c'))
->   system_ss.add(when: 'CONFIG_NE2000_COMMON', if_true: files('ne2000.c'))
->   
->   # PCI network cards
-> diff --git a/hw/net/trace-events b/hw/net/trace-events
-> index 3abfd65e5b..3097742cc0 100644
-> --- a/hw/net/trace-events
-> +++ b/hw/net/trace-events
-> @@ -482,3 +482,14 @@ dp8393x_receive_oversize(int size) "oversize packet, pkt_size is %d"
->   dp8393x_receive_not_netcard(void) "packet not for netcard"
->   dp8393x_receive_packet(int crba) "Receive packet at 0x%"PRIx32
->   dp8393x_receive_write_status(int crba) "Write status at 0x%"PRIx32
-> +
-> +# xen_nic.c
-> +xen_netdev_realize(int dev, const char *info, const char *peer) "vif%u info '%s' peer '%s'"
-> +xen_netdev_unrealize(int dev) "vif%u"
-> +xen_netdev_create(int dev) "vif%u"
-> +xen_netdev_destroy(int dev) "vif%u"
-> +xen_netdev_disconnect(int dev) "vif%u"
-> +xen_netdev_connect(int dev, unsigned int tx, unsigned int rx, int port) "vif%u tx %u rx %u port %u"
-> +xen_netdev_frontend_changed(const char *dev, int state) "vif%s state %d"
-> +xen_netdev_tx(int dev, int ref, int off, int len, unsigned int flags, const char *c, const char *d, const char *m, const char *e) "vif%u ref %u off %u len %u flags 0x%x%s%s%s%s"
-> +xen_netdev_rx(int dev, int idx, int status, int flags) "vif%u idx %d status %d flags 0x%x"
-> diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-> index 9bbf6599fc..af4ba3f1e6 100644
-> --- a/hw/net/xen_nic.c
-> +++ b/hw/net/xen_nic.c
-> @@ -20,6 +20,13 @@
->    */
->   
->   #include "qemu/osdep.h"
-> +#include "qemu/main-loop.h"
-> +#include "qemu/cutils.h"
-> +#include "qemu/log.h"
-> +#include "qemu/qemu-print.h"
-> +#include "qapi/qmp/qdict.h"
-> +#include "qapi/error.h"
-> +
->   #include <sys/socket.h>
->   #include <sys/ioctl.h>
->   #include <sys/wait.h>
-> @@ -27,18 +34,26 @@
->   #include "net/net.h"
->   #include "net/checksum.h"
->   #include "net/util.h"
-> -#include "hw/xen/xen-legacy-backend.h"
-> +
-> +#include "hw/xen/xen-backend.h"
-> +#include "hw/xen/xen-bus-helper.h"
-> +#include "hw/qdev-properties.h"
-> +#include "hw/qdev-properties-system.h"
->   
->   #include "hw/xen/interface/io/netif.h"
-> +#include "hw/xen/interface/io/xs_wire.h"
-> +
-> +#include "trace.h"
->   
->   /* ------------------------------------------------------------- */
->   
->   struct XenNetDev {
-> -    struct XenLegacyDevice      xendev;  /* must be first */
-> -    char                  *mac;
-> +    struct XenDevice      xendev;  /* must be first */
-> +    XenEventChannel       *event_channel;
-> +    int                   dev;
->       int                   tx_work;
-> -    int                   tx_ring_ref;
-> -    int                   rx_ring_ref;
-> +    unsigned int          tx_ring_ref;
-> +    unsigned int          rx_ring_ref;
->       struct netif_tx_sring *txs;
->       struct netif_rx_sring *rxs;
->       netif_tx_back_ring_t  tx_ring;
-> @@ -47,6 +62,11 @@ struct XenNetDev {
->       NICState              *nic;
->   };
->   
-> +typedef struct XenNetDev XenNetDev;
-> +
-> +#define TYPE_XEN_NET_DEVICE "xen-net-device"
-> +OBJECT_DECLARE_SIMPLE_TYPE(XenNetDev, XEN_NET_DEVICE)
-> +
->   /* ------------------------------------------------------------- */
->   
->   static void net_tx_response(struct XenNetDev *netdev, netif_tx_request_t *txp, int8_t st)
-> @@ -68,7 +88,8 @@ static void net_tx_response(struct XenNetDev *netdev, netif_tx_request_t *txp, i
->       netdev->tx_ring.rsp_prod_pvt = ++i;
->       RING_PUSH_RESPONSES_AND_CHECK_NOTIFY(&netdev->tx_ring, notify);
->       if (notify) {
-> -        xen_pv_send_notify(&netdev->xendev);
-> +        xen_device_notify_event_channel(XEN_DEVICE(netdev),
-> +                                        netdev->event_channel, NULL);
->       }
->   
->       if (i == netdev->tx_ring.req_cons) {
-> @@ -104,13 +125,16 @@ static void net_tx_error(struct XenNetDev *netdev, netif_tx_request_t *txp, RING
->   #endif
->   }
->   
-> -static void net_tx_packets(struct XenNetDev *netdev)
-> +static bool net_tx_packets(struct XenNetDev *netdev)
->   {
-> +    bool done_something = false;
->       netif_tx_request_t txreq;
->       RING_IDX rc, rp;
->       void *page;
->       void *tmpbuf = NULL;
->   
-> +    assert(qemu_mutex_iothread_locked());
-> +
->       for (;;) {
->           rc = netdev->tx_ring.req_cons;
->           rp = netdev->tx_ring.sring->req_prod;
-> @@ -122,49 +146,52 @@ static void net_tx_packets(struct XenNetDev *netdev)
->               }
->               memcpy(&txreq, RING_GET_REQUEST(&netdev->tx_ring, rc), sizeof(txreq));
->               netdev->tx_ring.req_cons = ++rc;
-> +            done_something = true;
->   
->   #if 1
->               /* should not happen in theory, we don't announce the *
->                * feature-{sg,gso,whatelse} flags in xenstore (yet?) */
->               if (txreq.flags & NETTXF_extra_info) {
-> -                xen_pv_printf(&netdev->xendev, 0, "FIXME: extra info flag\n");
-> +                qemu_log_mask(LOG_UNIMP, "vif%u: FIXME: extra info flag\n",
-> +                              netdev->dev);
->                   net_tx_error(netdev, &txreq, rc);
->                   continue;
->               }
->               if (txreq.flags & NETTXF_more_data) {
-> -                xen_pv_printf(&netdev->xendev, 0, "FIXME: more data flag\n");
-> +                qemu_log_mask(LOG_UNIMP, "vif%u: FIXME: more data flag\n",
-> +                              netdev->dev);
->                   net_tx_error(netdev, &txreq, rc);
->                   continue;
->               }
->   #endif
-
-I know that this is just translation but the fact the above code is 
-there indicates that you're likely to see problems here. Not supporting 
-extra_info is likely ok as long as RSS, TSO or multicast filtering is 
-not advertized (as the comment says). But lack of support for more_data 
-basically means your frontend needs to send all packets in a single frag 
-(e.g. no header split) so that might bite pretty quickly. I guess it 
-goes to show that no-one has used this code in many many years.
-
-The translation looks ok to me though so...
 
 Reviewed-by: Paul Durrant <paul@xen.org>
 
