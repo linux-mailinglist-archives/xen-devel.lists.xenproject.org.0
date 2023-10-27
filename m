@@ -2,56 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A27D7D9F65
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 20:09:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624613.973192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CCC47DA0A5
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Oct 2023 20:37:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624617.973201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwRF8-0000sp-Ic; Fri, 27 Oct 2023 18:07:34 +0000
+	id 1qwRhj-0004pS-Sv; Fri, 27 Oct 2023 18:37:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624613.973192; Fri, 27 Oct 2023 18:07:34 +0000
+Received: by outflank-mailman (output) from mailman id 624617.973201; Fri, 27 Oct 2023 18:37:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwRF8-0000pU-Fj; Fri, 27 Oct 2023 18:07:34 +0000
-Received: by outflank-mailman (input) for mailman id 624613;
- Fri, 27 Oct 2023 18:07:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qwRhj-0004mu-Pb; Fri, 27 Oct 2023 18:37:07 +0000
+Received: by outflank-mailman (input) for mailman id 624617;
+ Fri, 27 Oct 2023 18:37:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cQhv=GJ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1qwRF6-0000pO-V7
- for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 18:07:33 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20627.outbound.protection.outlook.com
- [2a01:111:f400:7e88::627])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b112321a-74f3-11ee-98d6-6d05b1d4d9a1;
- Fri, 27 Oct 2023 20:07:30 +0200 (CEST)
-Received: from CY8P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::15)
- by IA0PR12MB7652.namprd12.prod.outlook.com (2603:10b6:208:434::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.47; Fri, 27 Oct
- 2023 18:07:26 +0000
-Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
- (2603:10b6:930:6b:cafe::d6) by CY8P222CA0022.outlook.office365.com
- (2603:10b6:930:6b::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24 via Frontend
- Transport; Fri, 27 Oct 2023 18:07:26 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.145) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6933.19 via Frontend Transport; Fri, 27 Oct 2023 18:07:25 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 27 Oct
- 2023 13:07:25 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 27 Oct
- 2023 13:07:24 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via
- Frontend Transport; Fri, 27 Oct 2023 13:07:24 -0500
+ <SRS0=AA2W=GJ=casper.srs.infradead.org=BATV+92d2995e4a7c3d3365be+7369+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1qwRhg-0004mX-Kn
+ for xen-devel@lists.xenproject.org; Fri, 27 Oct 2023 18:37:05 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d0a5ef47-74f7-11ee-9b0e-b553b5be7939;
+ Fri, 27 Oct 2023 20:37:00 +0200 (CEST)
+Received: from [2001:8b0:10b:5:8f9a:f53a:1a74:1a12]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qwRhU-004wDA-1R; Fri, 27 Oct 2023 18:36:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,162 +41,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b112321a-74f3-11ee-98d6-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P59YC14NHj4UDf9tMuTJbqdUABQTq1rFJReBnkqg1dC9flHpGTT8HQDjPvkhHNDx6IOI0KUCaK4CsjypnSJ1VolO+XDKncvKK7Tg8djxOE515ikIXXbMA76I4tJ3uIdvyaztvcSyCBcJK7IFBRJEhBDg8M8kCdt0FwMBFegD6nRsiCZl94FB0qaBRNAljKHx/BsM9EsA8PzOqIkee9fN+X6d5ZHvo8yb7iCyMIYBpjDL/BQAAdclL77y0PBA7/E6U/kUHZ7NJNuJKt7C5sqo9rAxksxTH2YoXsxGT0lpzpwNB4wwT5U8pReBtIRRKYGtKeUuj7IAllwfnj4IFgsltQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=83quyAosQOtu5va1SRSOx1l+J26kwo4vlcwl/4hDc3s=;
- b=KBSFHfiCYV9KPZiukPROlsw0Bgs0x/I0GXpKS/wm6giWWk70/1IJe6bAT354cBkyJC+ULWoIsHKEvyQZ7hsswCakZySzgVkqa6jGFyKE0PHUlWlCPXeSMDM6r8+ALUiXOsX3WbUz3X2urs0fNBYG2xMzZJ+Zga+axb8upMimOSTENElrXb1S8jjgH41XwE6541yPZAUIsJmRkv7KiXFTukJwuT9ltgpk2rH0MNIv8JQVfJhuvGtyhB2ftTeTTCgV1qj4L1tCbkqOKsQfNe5ixg6twgUX5n6VZgMBg38GVDFlievMVwUQvb+ORmyRaZbKXUnvha/66aVCb+lSOu3jBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=83quyAosQOtu5va1SRSOx1l+J26kwo4vlcwl/4hDc3s=;
- b=joVgM6DXcbWzZOOkrHVn1iFQIsauuLr1gjtg2fgUjlL7K4f6S9gZefXDGgfQm5EEcctyBEn6V2mOILQXH4bqvOH02Oc3xBIBKdUS37q0ZwGwzDZr3J6d0iDcANYTOJaO4ohKLu9NwnDK+YmMZWE5//WcbLCE/f84D6awmerzMqw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
-	<michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN v3] xen/arm32: head: Replace load_paddr with adr_l when they are equivalent
-Date: Fri, 27 Oct 2023 19:07:15 +0100
-Message-ID: <20231027180715.3484439-1-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: d0a5ef47-74f7-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
+	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=Vsp70uUjmZBYC/PeJqsr4c3tnhKpPArVAhfeb/JBx+4=; b=A+K0J8f5m4iW6/xEVFkF4+DfCi
+	V9cXPdogqZrwnZutMQIItIsvL/d3R8H+2vyvRMei1SZuOHxhpny5bMDtN1T8Q/6ziIvJJ9V5hPSnX
+	5n6ohNV4mE8zkEC4BcJXuX84C7myQCpEplK0b6FROpc5aNmLN/N/zk8ThUkVZ0+B3dFg9BdUiJsWH
+	KMxzKy+PGNs3LwVX+FyH8X2zlhrtHp5hjPhxzfPGJcMlM7/t9xau91SMFB9C2CxbsOVz8dap2vqw+
+	KEelc7Xm7oRK6iqapER+yAYGnNtszeXUjlU7brEgjTc5BhF+UoCUqMr6iCTLdrIJwxxk6QobZuJwL
+	RPFoBhUg==;
+Message-ID: <a079bba5a0e47d6534b307553fc3772d26ce911b.camel@infradead.org>
+Subject: [PATCH] acpi_idle: use raw_safe_halt() from acpi_idle_play_dead()
+From: David Woodhouse <dwmw2@infradead.org>
+To: linux-acpi <linux-acpi@vger.kernel.org>, linux-kernel
+	 <linux-kernel@vger.kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Juergen Gross <jgross@suse.com>, xen-devel
+ <xen-devel@lists.xenproject.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Waiman Long
+ <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>
+Date: Fri, 27 Oct 2023 19:36:51 +0100
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-m3QW9bQiD6p/UWx5bqvF"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|IA0PR12MB7652:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8352d35c-ca49-4801-0274-08dbd7179342
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	HZw8qShpUzfTv8OLCs+bElsonVOTXgbSu5iCRAZa4/wjgTgcbiY9gTQt/vQVOJZ1KHzDtwciJ+kc3K2AjRWfxtHipYzcbXbwEzA6Won5wX2Mp/fvSsAZxS1/YjRM+MuoyF4nKwZWlx7C/s4UgPkv4LR9dAtb7ZSy4R6NV65LXxBertM+77Ndi9Iz1JQbZPqZwCzpzczVIdT+M0n2I7lu7oktacBnf1dE5vITAqQiJzekHtA94k/mbYKYr8ZPGrEVZ/gYMCyk+atXYL3aA7ZgI3ZjrTGh6uvWjakliRG+2QLMlM/AOZpJ3obUDoAixNMyHTwz3xmcMI5MDXXewwq/2T3N6qWIFzRPEkhmq6SsBQV8e+c/D0Gp9kjtiSV/lAHv3CImJIhzjGRThlem0dHryTQbd10cA3zcx91XcG00+427rhy67mwkViRndZx+oufXekT0q7hMj8G38v69J9myjQdnZiGFxvdh54ZGlO+MZ9/eIk5cSeDG5jxqYbJvxtSzEXYD0V8nz8ucZOoe23/BUV5alcobyH0wW+iHm3CbBmIv3ZuVcgiNzknqcUBDuHCnxgr7rB9QWtReGCk0GtOm+9fpoAVMtF+74foNU8D8T5HM8AkpCDQMsxO2ySvJ3804OVuDwPxwTk1afHyk+sql3ktANZhHfPHsOLIUjds+Pf3SXpEQFPENZ25qORN85nsVclYQmLQN1s8K9KNFe8WmOL7H438O/qPMlnIl32CVjsxEEghpE9RWdm3eQZHaJrtaZVpbcqNEGv7vmOKS+i/UOmAyenLqPTcneZ9JMMyvBy2Z7s4QLmf3FY86j7f8Ckop
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(70206006)(40460700003)(86362001)(47076005)(36860700001)(336012)(6666004)(1076003)(54906003)(83380400001)(26005)(4326008)(426003)(316002)(8676002)(478600001)(70586007)(2906002)(5660300002)(966005)(8936002)(356005)(6916009)(81166007)(82740400003)(41300700001)(40480700001)(2616005)(103116003)(36756003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 18:07:25.6603
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8352d35c-ca49-4801-0274-08dbd7179342
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7652
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Before the MMU is turned on, PC uses physical address. Thus, one can use adr_l
-instead of load_paddr to obtain the physical address of a symbol.
 
-The only exception (for this replacement) is create_table_entry() which is
-called before and after MMU is turned on.
+--=-m3QW9bQiD6p/UWx5bqvF
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Also, in lookup_processor_type() "r10" is no longer used. The reason being
-__lookup_processor_type uses adr_l (thus r10 is no longer used to obtain the
-physical address offset). Consequently, there is no need to save/restore r10.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Xen HVM guests were observed taking triple-faults when attempting to
+online a previously offlined vCPU.
+
+Investigation showed that the fault was coming from a failing call
+to lockdep_assert_irqs_disabled(), in load_current_idt() which was
+too early in the CPU bringup to actually catch the exception and
+report the failure cleanly.
+
+This was a false positive, caused by acpi_idle_play_dead() setting
+the per-cpu hardirqs_enabled flag by calling safe_halt(). Switch it
+to use raw_safe_halt() instead, which doesn't do so.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
-Refer https://lists.archive.carbon60.com/xen/devel/682900 for details.
+We might {also,instead} explicitly set the hardirqs_enabled flag to
+zero when bringing up an AP?
 
-Changes from :-
+ drivers/acpi/processor_idle.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v1 :- 1. No need to modify create_table_entry().
-2. Remove "mov   r10, #0 " in lookup_processor_type().
+diff --git a/drivers/acpi/processor_idle.c b/drivers/acpi/processor_idle.c
+index 3a34a8c425fe..55437f5e0c3a 100644
+--- a/drivers/acpi/processor_idle.c
++++ b/drivers/acpi/processor_idle.c
+@@ -592,7 +592,7 @@ static int acpi_idle_play_dead(struct cpuidle_device *d=
+ev, int index)
+ 	while (1) {
+=20
+ 		if (cx->entry_method =3D=3D ACPI_CSTATE_HALT)
+-			safe_halt();
++			raw_safe_halt();
+ 		else if (cx->entry_method =3D=3D ACPI_CSTATE_SYSTEMIO) {
+ 			io_idle(cx->address);
+ 		} else
+--=20
+2.41.0
 
-v2 :- 1. No need to save/restore r10 in lookup_processor_type().
-2. Update the commit message title.
 
- xen/arch/arm/arm32/head.S | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index 33b038e7e0..1fcc6f745e 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -171,7 +171,7 @@ past_zImage:
- 
-         /* Using the DTB in the .dtb section? */
- .ifnes CONFIG_DTB_FILE,""
--        load_paddr r8, _sdtb
-+        adr_l r8, _sdtb
- .endif
- 
-         /* Initialize the UART if earlyprintk has been enabled. */
-@@ -213,7 +213,7 @@ GLOBAL(init_secondary)
-         mrc   CP32(r1, MPIDR)
-         bic   r7, r1, #(~MPIDR_HWID_MASK) /* Mask out flags to get CPU ID */
- 
--        load_paddr r0, smp_up_cpu
-+        adr_l r0, smp_up_cpu
-         dsb
- 2:      ldr   r1, [r0]
-         cmp   r1, r7
-@@ -479,7 +479,7 @@ create_page_tables:
-          * create_table_entry_paddr() will clobber the register storing
-          * the physical address of the table to point to.
-          */
--        load_paddr r5, boot_third
-+        adr_l r5, boot_third
-         mov_w r4, XEN_VIRT_START
- .rept XEN_NR_ENTRIES(2)
-         mov   r0, r5                        /* r0 := paddr(l3 table) */
-@@ -578,7 +578,7 @@ enable_mmu:
-         flush_xen_tlb_local r0
- 
-         /* Write Xen's PT's paddr into the HTTBR */
--        load_paddr r0, boot_pgtable
-+        adr_l r0, boot_pgtable
-         mov   r1, #0                 /* r0:r1 is paddr (boot_pagetable) */
-         mcrr  CP64(r0, r1, HTTBR)
-         isb
-@@ -876,11 +876,10 @@ putn:   mov   pc, lr
- 
- /* This provides a C-API version of __lookup_processor_type */
- ENTRY(lookup_processor_type)
--        stmfd sp!, {r4, r10, lr}
--        mov   r10, #0                   /* r10 := offset between virt&phys */
-+        stmfd sp!, {r4, lr}
-         bl    __lookup_processor_type
-         mov r0, r1
--        ldmfd sp!, {r4, r10, pc}
-+        ldmfd sp!, {r4, pc}
- 
- /*
-  *  Read processor ID register (CP#15, CR0), and Look up in the linker-built
-@@ -888,8 +887,6 @@ ENTRY(lookup_processor_type)
-  * the __proc_info lists since we aren't running with the MMU on (and therefore,
-  * we are not in correct address space). We have to calculate the offset.
-  *
-- * r10: offset between virt&phys
-- *
-  * Returns:
-  * r0: CPUID
-  * r1: proc_info pointer
-@@ -897,8 +894,8 @@ ENTRY(lookup_processor_type)
-  */
- __lookup_processor_type:
-         mrc   CP32(r0, MIDR)                /* r0 := our cpu id */
--        load_paddr r1, __proc_info_start
--        load_paddr r2, __proc_info_end
-+        adr_l r1, __proc_info_start
-+        adr_l r2, __proc_info_end
- 1:      ldr   r3, [r1, #PROCINFO_cpu_mask]
-         and   r4, r0, r3                    /* r4 := our cpu id with mask */
-         ldr   r3, [r1, #PROCINFO_cpu_val]   /* r3 := cpu val in current proc info */
--- 
-2.25.1
+--=-m3QW9bQiD6p/UWx5bqvF
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDI3MTgzNjUxWjAvBgkqhkiG9w0BCQQxIgQgC/VsPJ2v
+IMZBZFAWAsWdD+ygHEHVB1cu7IxPUg7TFOMwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAkrIkxMEEz62uUqQ4p05Ugy4TG5KWLtJVJ
+GRnLofvWVuhXojcPQhzyUpyptxEh0SIphGt732GcABaXmJOfXjKXDou8acvowv3BUoFDvRAM52IT
+1DkR2w9t9p/WktPVwGdA97n/13JbL2hUz8nDe+GvJTUN2o+ZC5h1XMKrwV76VBr/qFTHx6TVrENG
+NZejL3mgoXZL9X8JxUOHKXIcx3JXbQTD/ZtBJyswlks46Py9byUl4J7MDIgABPTSR6bqZivBSEWh
+V0ZFW9ws9Np4xOforYJZjsZgVDfc7pb2I3HXOIU41qr94T0yJfZ62LBwLSR2LxVVBHNdhxipI8Sw
+o5pomfF1InKgmC+RLVWrvxFhod1Nxbv6j7ymUIO1+2Bh6aepvRBeJeY7NVE9Y2s7SP3sbjIPc11p
+uwyUFGuBKn8uaRfT74I+gp2som2TyAdCElJwFFXgzvekQMYH9me7ob7KVMIqbiQ9nsteY5QEDMYg
+3r0WbsesKV64pdTWOPpMp7M/Exs0RUck2TbURX3QRekV7k5gy2+PeND6WKc6NqnnSRz6LlMbw9af
+WC0jmlt5UYZ2/q0T+4F8kHkP1h2mCI5OfP6ryVoRc39Ft7Wb/e+NyXoxmbDzG2BELmOmoKr5NctH
+uKhd+rkCCgKAGu+CrplVr7YIEHdYxwrJbLLWWJZAEgAAAAAAAA==
+
+
+--=-m3QW9bQiD6p/UWx5bqvF--
 
