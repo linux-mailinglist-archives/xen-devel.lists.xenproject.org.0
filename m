@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A94C47DA76C
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Oct 2023 15:56:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.624755.973379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF427DA79C
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Oct 2023 16:55:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.624761.973388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwjmf-0001lE-Ew; Sat, 28 Oct 2023 13:55:25 +0000
+	id 1qwkhd-0000d2-ME; Sat, 28 Oct 2023 14:54:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624755.973379; Sat, 28 Oct 2023 13:55:25 +0000
+Received: by outflank-mailman (output) from mailman id 624761.973388; Sat, 28 Oct 2023 14:54:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qwjmf-0001ib-CC; Sat, 28 Oct 2023 13:55:25 +0000
-Received: by outflank-mailman (input) for mailman id 624755;
- Sat, 28 Oct 2023 13:55:24 +0000
+	id 1qwkhd-0000ad-JW; Sat, 28 Oct 2023 14:54:17 +0000
+Received: by outflank-mailman (input) for mailman id 624761;
+ Sat, 28 Oct 2023 14:54:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k4Ch=GK=gmail.com=jinoh.kang.kr@srs-se1.protection.inumbo.net>)
- id 1qwjme-0001iV-DK
- for xen-devel@lists.xenproject.org; Sat, 28 Oct 2023 13:55:24 +0000
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [2607:f8b0:4864:20::d33])
+ <SRS0=IE94=GK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qwkhb-0000aC-QQ
+ for xen-devel@lists.xenproject.org; Sat, 28 Oct 2023 14:54:15 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060a.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::60a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1ee8725-7599-11ee-9b0e-b553b5be7939;
- Sat, 28 Oct 2023 15:55:21 +0200 (CEST)
-Received: by mail-io1-xd33.google.com with SMTP id
- ca18e2360f4ac-7a6830df017so89258439f.3
- for <xen-devel@lists.xenproject.org>; Sat, 28 Oct 2023 06:55:20 -0700 (PDT)
-Received: from [10.137.0.57] ([14.33.99.107]) by smtp.gmail.com with ESMTPSA id
- g4-20020aa78744000000b0068e49cb1692sm3003511pfo.1.2023.10.28.06.55.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 28 Oct 2023 06:55:18 -0700 (PDT)
+ id d9ecd789-75a1-11ee-9b0e-b553b5be7939;
+ Sat, 28 Oct 2023 16:54:11 +0200 (CEST)
+Received: from BLAPR03CA0079.namprd03.prod.outlook.com (2603:10b6:208:329::24)
+ by CY8PR12MB8363.namprd12.prod.outlook.com (2603:10b6:930:7a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24; Sat, 28 Oct
+ 2023 14:54:08 +0000
+Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
+ (2603:10b6:208:329:cafe::5) by BLAPR03CA0079.outlook.office365.com
+ (2603:10b6:208:329::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.26 via Frontend
+ Transport; Sat, 28 Oct 2023 14:54:07 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6933.15 via Frontend Transport; Sat, 28 Oct 2023 14:54:07 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Sat, 28 Oct
+ 2023 09:54:07 -0500
+Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Sat, 28 Oct 2023 09:54:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,135 +59,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1ee8725-7599-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698501319; x=1699106119; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ghogzWAM0DlwzHAe5VfGXZuVCvVZ5uQ3sHkg2QNduys=;
-        b=RxYaHHqYhn25p+47YEtoRG4PJ2UsB/Dbnz5HKlkKWJjo5HxU0DpqONAeSNHlOpSwOC
-         5OEMhwV4g1iWY+J44F2QqGd0oGt2V5GbBwxKTEgU94qEr4bw1VB66tM6eWtcRIRFrE2C
-         gEFKmDVatQgKtOkqs821DuzSMjfff2kUknyObKBGeHtHesgyLzFFN3FzE3j6bE0hJu7H
-         AA3x23KaB1d0Kam6MqDWaLjxVHlhF4xWOhjqJXzyTOX8Vs1dn213HQUP27JO8/QoB8Pq
-         fShWFQUxszKRiryfYWGHnklQGrs600Ptd5eKxfV6q+J0aFpxccMbHretB62Ojv9n5I6j
-         8e7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698501319; x=1699106119;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ghogzWAM0DlwzHAe5VfGXZuVCvVZ5uQ3sHkg2QNduys=;
-        b=oj90l1jMttCn/Yc0oYtQdS3mmQL2fO9ypkJVPVXlLPNJPCNpmMiRhPfY5FwJwIzw9m
-         srdI88BSDW2F1FbXdc+zGSQYBAOCjXben4Ov25L2BbFMzIVWx5vYKjtOL7UOl1aZLDNH
-         Q+Zx3MQhXfiUoM0YhB8DA9wlYt/QQNO9xTaaz5Fe5LiA3POMPG0aQ8qDHbOWUldetU8Q
-         t6x+0TkDPR2k4Otzb/zN2vR2pTqw6sTEWRAXrAgjaBoRmAl0W+gZ5ZWKiCUTcqewjZFT
-         mmgJ050UAcLI5CA9FBS0OsCBbWxBJ+3Szz7exnaA/tQUbjYG59+ZEfNMlEANiXFvtR5Z
-         p0jg==
-X-Gm-Message-State: AOJu0YzA4sH7i00YOZ7sRmHVZAd76EGPDafBFzdti5P+B4AFS/jWKrQp
-	Onc7ms4EJSxcJ/+cNUcK7jo=
-X-Google-Smtp-Source: AGHT+IE36nKn7DU2LMBoTIw1oUV7gLSmlyd0tKZnbx+QIk+lt8IHgBuVeoTMv0nCAWIotXRVdvg0DQ==
-X-Received: by 2002:a05:6e02:1846:b0:358:104:677d with SMTP id b6-20020a056e02184600b003580104677dmr7464775ilv.22.1698501319649;
-        Sat, 28 Oct 2023 06:55:19 -0700 (PDT)
-Message-ID: <3b21c98d-bf3c-46e4-a302-fc5b2c6cce3d@gmail.com>
-Date: Sat, 28 Oct 2023 22:55:14 +0900
+X-Inumbo-ID: d9ecd789-75a1-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m3dwHQLkhzxTqM6Pn3CM1dshSUkZeeLm2MmLaxuaWKUAem3vgfFZbOI+THfKayAuRnGIxQy3wyQERXllu29wHnN3yBzSd6fovlZe27PLScAayf9/FWWLSHvMg33dtaIGpTpmVT5+N1JC/6XBteTJjVLCwGJ6/tXZ2jbSVOcGDC1mIgUxhlCzUws0Z8IrJq202WYHwoggKzxpmuMsPjdVpfwa9zlVV00aJOvDG1z8m0X+aSZrQ5PCBrjjq76o8FIdzo6iUIfASUJlTGo0MjM3/Kchof4gTgVVPu2MoSExtfynaO3y2J9Km5qlM4go85uKJWyzQ/ItVAfrjNQj385Ucw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZC3B/ZD83xXgRJuYAFVx9TYHCGNdgcnn/fu4C3+kc3o=;
+ b=SEtuIJf5iIG3McSSwNdKSNTAWBiPpHBaeZKk7ITu0cE8WETYBkAsNvbYIbUABxPD3UlWCOVkShoNXJQDDnOCUXaFfhf36yIonCgd7Fv880abpSXGfPTQn5mo58YDZXsA+DMV1EvJ79M/AFKBCDga49c/xg3FyqCMcG7HKBfBnQC3gdJcO2F8l/HtouAGNCzWnwx9o53tfiUNq8P+pzy4FyYX+rygXIMV9kxchOtCi46OhCResDkS3aFxXA/Rq5BhsQCmaKAy3yTH5r/E7YqZuec+TV0mODy6HqULsAxStFVf7C8DMtpqKmcd9DvWLgzcNpQ180FvzpDUYfhvZsRKrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZC3B/ZD83xXgRJuYAFVx9TYHCGNdgcnn/fu4C3+kc3o=;
+ b=5ujf4vo06bamaN8GR7GVB24oxrLzbsTz6jw036h6UOG161/CHPk9urFaBpy4QbSEoQhZmja0nh6arSdByUsyuMJny57ziHwu1F79xC+TjHGH+JlUsQS7P/+tGWJ+EzbAgjlgxfSBvkylKGo5hsvSGUJXfcI9CPrOAWKHIJI6/ZA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <23a1f0f2-dd1d-4040-be19-41b6e5e53e20@amd.com>
+Date: Sat, 28 Oct 2023 10:54:04 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86: Introduce x86_merge_dr6()
+Subject: Re: [PATCH v3 5/5] [FUTURE] xen/arm: enable vPCI for domUs
+To: Anthony PERARD <anthony.perard@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231009195747.889326-1-stewart.hildebrand@amd.com>
+ <20231009195747.889326-6-stewart.hildebrand@amd.com>
+ <3e1d47e7-4f69-4402-9136-1dee0511915f@perard>
 Content-Language: en-US
-From: Jinoh Kang <jinoh.kang.kr@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230915203628.837732-1-andrew.cooper3@citrix.com>
- <20230915203628.837732-6-andrew.cooper3@citrix.com>
- <943d1d28-08de-3c1a-5a64-6caa98cdba78@suse.com>
- <43428539-4fe0-e2ac-48a0-b2fd9bcc0d1f@citrix.com>
- <f365e11a-9ca7-fb3f-ceae-28da7e1d6779@suse.com>
- <13e3a0e1-42fe-d954-f06e-88526d56e919@gmail.com>
-Autocrypt: addr=jinoh.kang.kr@gmail.com; keydata=
- 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
- txXwl3e8f9MonKqfbRPPNjJzsrnlOhApsBI=
-In-Reply-To: <13e3a0e1-42fe-d954-f06e-88526d56e919@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <3e1d47e7-4f69-4402-9136-1dee0511915f@perard>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|CY8PR12MB8363:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee25fcd8-6918-423d-1b68-08dbd7c5bc95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	yLpTzAKJiZIgE+xs75TKBU8s9eQ8V40kAlCWo1+nKNWqhM0D6ehPRjA/bflTSoWyLJmDQlfFCrtep6srxVZ/J3/JtHJ7lRPxwxhNCSmP91VxKxvW4my+ke7BXeG2oiR56fp3RTgiTrq2GqvIa2rtK2iFTfYSou67cc9A5AzdbC3ZDQbnI+t/mwtHjPwY7zfI5ECAYkag67Bh3wpl3YMlYVs5/1V7ZbJxdG5904FSlGsK6aKOyiviPohOFImGqBn7U2tzGd8JpjDrQjfXCeadCW1qEk2FpdA3iSWWpS8qHZdcSHHcv8lkDH4Pjbs4Om07Z+EePNL1Dkx2+kPrpdtC+xwdaN5UC4kwbaI2GwWXZCtDCYnlEeJzDFgnOzs/RMwNllhoeZkIK60GzfaiRMuGnQopylo7vlbH91leW8hJn0gLWG7qjyNI+VR6LM3acMU2PLr5g4/+4I5yFLJZhoQ2dNR1IP3dYannJS2Nz5PNTF9zwEz6gDz9tELMqQOM4SZpP5rT04A1Sz9QsCVPv6bZlImGQPqDWJidazIHYvZj6L81qM+Qq3tq09YDKX6D8bgcJ8om1mHTkJ7YNyXY7Ylo3eKBrLJ4QGD7ZN7srEW4W8Z0J1dc3YfXwDSiW7Oypq9EmdtOq03QRon9eO6+E0my08VzxYySowO50CL4Djrs/E48oXtZ8TP5D5tysNzQ8/fqa+eHkQIGDDVSpBwAZ7l8K8gMzdH8IP2MrSZLE+Q2i0nI1p76M650VimuSgB8ADdAelo6R7jqtJDgePpE7gd7QHTSFpDkYxHBV/z8KaVLTvs=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(64100799003)(451199024)(82310400011)(1800799009)(186009)(46966006)(40470700004)(36840700001)(5660300002)(31696002)(8936002)(4326008)(36756003)(8676002)(86362001)(44832011)(41300700001)(40480700001)(40460700003)(2906002)(53546011)(2616005)(336012)(26005)(426003)(966005)(83380400001)(478600001)(356005)(81166007)(31686004)(82740400003)(47076005)(36860700001)(70586007)(70206006)(316002)(54906003)(16576012)(6916009)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2023 14:54:07.5006
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee25fcd8-6918-423d-1b68-08dbd7c5bc95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8363
 
-On 9/25/23 19:20, Jinoh Kang wrote:
-> As an outsider's perspective, I think this kind of thing is where selftests
-> really shine.  I got the impression that Xen will need to rely on numerous other
-> platform oddities, the documentation of which are often unavailable.
+On 10/23/23 06:27, Anthony PERARD wrote:
+> On Mon, Oct 09, 2023 at 03:57:44PM -0400, Stewart Hildebrand wrote:
+>> Select HAS_VPCI_GUEST_SUPPORT in Kconfig for enabling vPCI in domUs.
+>>
+>> Set the pci flags in xen_arch_domainconfig to enable vPCI if a pci device has
+>> been specified in the xl domain config file.
+>>
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> ---
+>> As the tag implies, this patch is not intended to be merged (yet).
+>>
+>> Note that CONFIG_HAS_VPCI_GUEST_SUPPORT is not currently used in the upstream
+>> code base. It will be used by the vPCI series [1]. This patch is intended to be
+>> merged as part of the vPCI series. I'll coordinate with Volodymyr to include
+>> this in the vPCI series or resend afterwards. Meanwhile, I'll include it here
+>> until the Kconfig and xen_arch_domainconfig prerequisites have been committed.
+>>
+>> v2->v3:
+>> * set pci flags in toolstack
+>>
+>> v1->v2:
+>> * new patch
+>>
+>> [1] https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html
+>> ---
+>>  tools/libs/light/libxl_arm.c | 3 +++
+>>  xen/arch/arm/Kconfig         | 1 +
 > 
-> Of course, adding a whole new test infrastructure in code freeze is not viable.
-> Maybe I have missed something, but I only see three paths forward here:
-> 
-> 1. Reference the most relevant paragraph in SDM/APM, but don't quote it.
->    Keep the current explanation, and state that the manual is vague anyway.
-> 
-> 2. Acknowledge that SDM/APM is incomplete, and completely abandon the manual
->    as the *authoritative* source of information.  Perhaps embed a sample test
->    program that demonstrates the behavior, if it isn't too long.
-> 
-> 3. Actually assert in runtime that DR6 behaves as expected.
-> 
+> Can we have two different patch? One for the hypervisor, one for the
+> tools.
 
-Just a heads-up; has there been any progress on this part?
+Yes.
 
-Please let me know if you need anything.  I'm happy to help!
+> Or does the both depends on each other, somehow?
 
--- 
-Sincerely,
-Jinoh Kang
+They will both be needed for enabling vPCI in a domU on ARM with assigned PCI device(s).
 
+> 
+> Is guest creation going to fails if we set XEN_DOMCTL_CONFIG_PCI_VPCI
+> without HAS_VPCI_GUEST_SUPPORT ?
+
+No, currently the guest will still run, it just won't be able to probe any assigned PCI devices.
+
+> 
+> Is the guest is going to fail to run, or fail at creation if the
+> hypervisor HAS_VPCI_GUEST_SUPPORT, but we didn't set
+> XEN_DOMCTL_CONFIG_PCI_VPCI?
+
+Assuming num_pcidevs > 0, the guest will be created but fail to boot as it will try to access the vPCI configuration space, but it will trap and panic.
+
+In both cases, I think I can do more on the hypervisor side to check for an invalid configuration and refuse the domain creation with a helpful error message.
+
+In either case, if a user does not try to assign a PCI device (i.e. num_pcidevs == 0), then the guest will run fine.
+
+> 
+> Thanks,
+> 
+> --
+> Anthony PERARD
 
