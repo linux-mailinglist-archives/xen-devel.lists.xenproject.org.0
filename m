@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887177DBDE7
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 17:32:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625299.974474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D387DBDED
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 17:32:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625301.974482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxVBY-000812-Ot; Mon, 30 Oct 2023 16:32:16 +0000
+	id 1qxVBt-0008L4-1B; Mon, 30 Oct 2023 16:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625299.974474; Mon, 30 Oct 2023 16:32:16 +0000
+Received: by outflank-mailman (output) from mailman id 625301.974482; Mon, 30 Oct 2023 16:32:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxVBY-0007xh-LY; Mon, 30 Oct 2023 16:32:16 +0000
-Received: by outflank-mailman (input) for mailman id 625299;
- Mon, 30 Oct 2023 16:32:15 +0000
+	id 1qxVBs-0008J3-UH; Mon, 30 Oct 2023 16:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 625301;
+ Mon, 30 Oct 2023 16:32:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PZGw=GM=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1qxVBX-0007xZ-0a
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 16:32:15 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0a0fe33-7741-11ee-9b0e-b553b5be7939;
- Mon, 30 Oct 2023 17:32:12 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 94CEF5C022C;
- Mon, 30 Oct 2023 12:32:11 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Mon, 30 Oct 2023 12:32:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 30 Oct 2023 12:32:10 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Hhfi=GM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qxVBr-0007xZ-Jy
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 16:32:35 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061b.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::61b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed9fc389-7741-11ee-9b0e-b553b5be7939;
+ Mon, 30 Oct 2023 17:32:33 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by PAXPR04MB8458.eurprd04.prod.outlook.com (2603:10a6:102:1d9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.15; Mon, 30 Oct
+ 2023 16:32:30 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.016; Mon, 30 Oct 2023
+ 16:32:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,148 +47,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0a0fe33-7741-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1698683531; x=1698769931; bh=0OtgsMvHzA1yM+SFXRCisDbGSA/ccSpclUn
-	hLDlxpgk=; b=KTCG9qCWjWJpvcnwYHsWO54MkJnMivtXJgac/TrJsWOqPwuU3Cs
-	QJlF6/qKfZX36dYRVWuEFo9GdhdkeyRXDX6H4cb7oCW5BGJMxAK/KiGtkxMBRF5r
-	0uE/siyC/y8TxHdPfwBR2Zdetq7Q72ezwYhRAlgawWuJk4aJTuZHo20l0mpVoBz7
-	xNKBKa+iXsE1/+ib+q4YW8wAN7yM4izFE6RYDZWG05fA3HoYAL9j+ZXQyR7MJRFG
-	P/kp3rXVuS9iF7Mas/Sm+fNZTJqzOorpkqddkEAqcXFPbji8eckT60/mC79d/ImK
-	+AVbEePVszR8TZTPqSRY5eUFr/lWE7+07RA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1698683531; x=1698769931; bh=0OtgsMvHzA1yM
-	+SFXRCisDbGSA/ccSpclUnhLDlxpgk=; b=CwgiyZhvlQy8GLr0gUS6mwiXdUtRa
-	pFWObJIcZnJsRraeKRFXmYnFrRasLtJ3HZxaihT9wYO553jUFl5nhtcdREgRdg98
-	EIdl7zZaVBA5EFa5O8LW/+k8LiV1ww0jWs9jT3gtsiK0kDLEp9ygbrQ6RUxAj+os
-	ZvnCgu4GmBy4NHGXK+kLvCo7L2j32nLJ8f2kwwgk2TI70pYGpGM74ZQT28FeXFb1
-	YU/67pEp7Zpg52nAUo4HDrr+YSKRgPTR2SzIGCYeSdtAldwByeA2T537jenBHWry
-	HrhaZHf84hID9efyLQEwlHxDmEdr31WqvVg90pGBDh75lKRzc9D6yRLVA==
-X-ME-Sender: <xms:i9o_ZZWhK6z8xbspTfAp6M7bM8lsaFBLxbKUiYOB8ef-Kx9JNtr0og>
-    <xme:i9o_ZZnGEfWmASnbDZZnFQfab3jCHJaBKgtn0Iq5mS1ebECPiUdCSj2NuV3vSkMEK
-    1uMrcAkouQ6kA>
-X-ME-Received: <xmr:i9o_ZVZdawt2OBNwNyW6Id7MovsDCbukTNWVRaq7Ku8f9oDzydd85s6KkB_hlper_5rAiKf_Z5bOeHAn97HTQxn-8Xn8XoJBC8Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedruddttddgkeelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:i9o_ZcVtvTbgtxLB3ptZsvV2y8iuOTjCSoKk-pMfE5O542_2CQLh0A>
-    <xmx:i9o_ZTl_JsNztL98lwcYeXuciNz3iuoevi8Qx_yiJIVBY_GjC0MASg>
-    <xmx:i9o_ZZf9I-UtuMSvqiB6RRqBjXj6mdL9HS-r08GVKoktZkyxAjE7Fg>
-    <xmx:i9o_ZbuMaAl_x_rrukYQ8caDNfnYRHaJq4cjc976Gp-_g-c5IUsscw>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 30 Oct 2023 17:32:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] automation: fix race condition in adl-suspend test
-Message-ID: <ZT/aiFnjW4dOIaiw@mail-itl>
-References: <20231028033404.262729-1-marmarek@invisiblethingslab.com>
- <ZT-WvAye6OlWGLAx@macbook>
+X-Inumbo-ID: ed9fc389-7741-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TkAPsClAeUr9h9H8atMv5DMawEXA6H47L+jy4X7J4J2OpB/G248zzvghYWvcPC7tNsiazkZVfXXawPw6Cv/Pc5z7VecVMBUjtxLRqvheMFdfc88dtBBCVrPivHk9BLwFfdYok0MZNq+FJJVjbqiO1sd1S903Ga+JCOpqRSQJfF5LQyTpcmUbCso1rSTO2i3qnnAhmYke0l0Qa0U92roiyOzM5d+3NtG3vkI8ai4QQra3ElwY4ePrbwY7Om5CiKPEMzo4XEX+0yNgxvgIfAiJwSSGZ5llfO1YvPQLURsMXUDfq5m/WNI/4dnabqH/0oEmilNrJsO7tUnLVCqOnGBZog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XoRRgVAMe+aAXAGhmW4wc+Zar4xu+5zNZP0iuqZ2Zto=;
+ b=GcNBZyNb7jQ/yr8l17bgx31JrIl7EAtlzZeKnqMn0xT3loWjYlTFGjG/z664Gqp0pGwIztYW4UlDGshDV3o+OTpdugYrpZudOugBMOX7ZKJumzGhjxB3fbhhbXgnGyejVgTScdsgnzZNpLhw/DZaK3ThryZyhtZt3vlKMSwH1jWvqw8Q4JwWQDfdtAEwV5Lz0bw+bmsIHyPhV2TRwQkdfHkMhc1foi/o4ZNdE8T20Jc+16/x9F92+iPjnK31vCzZcEGuTAZld+mtxl1c9SHA8Nyh2mECrHhD7AipQ3Z1f5mVk4k9G94TJHUtQ4v1fEbrJi5CIXXFA3ppMyof2d0UFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XoRRgVAMe+aAXAGhmW4wc+Zar4xu+5zNZP0iuqZ2Zto=;
+ b=jTP/EISLjFsbiiGsuGwwmv3Nj20kzbgzZmuD0eYT12GJltN6sp8TjapB+aqqIN/JzqGiPLqbnP2F2/xhAdjq4PaClU6PhVLvUnZp485dkXbAefJssPEELfBZJoZqdDjoIAt6YGTAjHHa9G95DstGdjFn9g1s1TfNqzbywQiG3CV5JN/YXr5qT+UnP0qAXIcnEuEX07VHUQdLkDvQMi+jdFPTWPLpzPw3dpvEsFQylEq6cY6IG9uvJHwJKDgSEsomamZVZuSgOflhc2Ut1v8WvjsV32uoxuZIQfSyZBRs7NIdvq4gqlpk7Qd/nHZdo+1tJFNquRtBuhov2l6WQmNklQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <cd1ed5f9-ca42-7870-233d-e2bc42515dcf@suse.com>
+Date: Mon, 30 Oct 2023 17:32:31 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] x86/x2apic: remove usage of ACPI_FADT_APIC_CLUSTER
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231024102630.47691-1-roger.pau@citrix.com>
+ <77a0297d-3b47-6679-94a3-1463f642aa72@suse.com> <ZT_XgnKC6ORZcyXX@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZT_XgnKC6ORZcyXX@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0305.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="N4zB2EWuPretiURx"
-Content-Disposition: inline
-In-Reply-To: <ZT-WvAye6OlWGLAx@macbook>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB8458:EE_
+X-MS-Office365-Filtering-Correlation-Id: d82928f8-1b3c-4228-9879-08dbd965cfd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	meZu5GIRvNPTZmvIG5fIahERAtU3ptNWaM26X8R99skjFaJHtuPCw8NCdRwg+VADwFr3WH9CvVEyy8qlY7UYBDgY0bryYh/MuBSyMXsz0dC83gTZErQy5fCNzcQwraLUhVJ1MVV+mM2Pd0E+7mkikMdFSTcwpP0ebTDS8AQqUYVBYCfW+RGzCaXAxCFo6xHcHMbepi0gaMfCJmrCYvrXcD4RJFbYbSMdYdVrNNg/ZvCYvNX2IO/8a2DG6zMTYznWOsEkK/20Yg14SHKav7gdsjkxEV9nGxHhSP2G3EZN+xNvZwCqC5fPWcbV9IYJwAyEp8H128TwFPBG9Xo5NWf/OVQABR/EtCrLsvEjSfqF6KTo9IKvYRCdzrGBhud2XAUfB+ib10gHZsdCOhCO2WS9UJ/0Lfm1dk4FLwbO5vRpS9TJnzxRZ3ekc4UQXqEszxm2N1ck49D95BwyO1zWfSni5JBmtXUcfFnuKTzFdLT+vfOKfHAcc7hE5JwpMqsz+py/MJw2hZ+VSyqfq1Bq4hJU2vtuGRcBWqa/0oSf46znIWlYK1YEOY7c3GcaIcAyCVGshhQQrxU5BOs/flWp3vY7ZkkESvl28yyzFB/ppOPtpfaPCh2xfyASmb1EG9ACNCvVxNj7Pg9iBcKU5oqILWqT+w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(38100700002)(2906002)(66556008)(6916009)(54906003)(66946007)(66476007)(316002)(6506007)(53546011)(26005)(6512007)(6486002)(478600001)(2616005)(41300700001)(5660300002)(8936002)(8676002)(4326008)(31696002)(86362001)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Qm1hcHdsY2htcHFEd1Z4MnZwbVhhTU1lYjIzSVlXMjJDRnNHWkZpaCtOaDVQ?=
+ =?utf-8?B?eVlqdlduaDhIeU51SHFxQ0NNc01oWWh5QU1kVUR6Yyt2OHROWEpVZzJEc0Vu?=
+ =?utf-8?B?cE9IMFNxZ3djeFpEZ0lycDRKS1dCR0RSZWpvMkdKV0RaUVpZOS9lNzJsVHFj?=
+ =?utf-8?B?ZGdUcFlpNldkMENxc3JwdlZrT2ZNOFhENFdGUitzUWxjNGlRUTIzYld0MFRN?=
+ =?utf-8?B?T214VUg2TGxacTd3SFdqNHdseGxudXU4Y3pURG9xT3RNbVNacml2U0JLRDR0?=
+ =?utf-8?B?S0RqZDNOOE1aMEYweHplL0VHR2lPK3BCYWl0MnFrczdaNTNxL1NqSFluMWha?=
+ =?utf-8?B?RGRjSmRVRW80Wmt0SFhhNnUySEZuSUNDZzl2a3pPU1ZvQXlpazRzRk5mc2Qw?=
+ =?utf-8?B?aXhIQnFBc1VNNk1QemxaKzRNcFpzd0c0L3I1OVRVK3czeWtlQlh4ZlpUQ1FH?=
+ =?utf-8?B?MGRoTDQxU3RIRWlRSWVBU2EwTmpKTUlTZi92U1Vxa3JZN1BNaHRJRmNjRURm?=
+ =?utf-8?B?VmhqajJBYTZpaGR6NitDMzVEUDdSME0xQmpmcnBxT0wzaVVqbytJcUFpcDhN?=
+ =?utf-8?B?T1lDTlFpaUpycTVEaWNQZmZkOWhyOFpHYXBrN3JtZFpsR1FMYWRadzNoR2M3?=
+ =?utf-8?B?UHhBQ2JsWllzMmhTNTI1Ym5qcGs3eVRxMUxycjFDa0dkTUk5d3FrbkFSU2RU?=
+ =?utf-8?B?dTVPZFA3N0RNL1JzQWwzSlpubDBCSW54QldkUDdUTHEvTzRjQWd5THk2blhV?=
+ =?utf-8?B?K0NhN3dhNEdHSkEwNTR0QXNMQ1Jqc2psUDN1TjY2c3V2dlRkUDFwSS9TWlNF?=
+ =?utf-8?B?RnNyeEtOYzFRRTVneFJEZWVKZnUvL0VEczhxMVN1UDEyWVQ3UmNaUXBaV2x2?=
+ =?utf-8?B?NDRJaFlnM1BZczI5VGtJeVY0eWZKQi9YTnF5Nzc2MHpNQTVNOU1DczZORnRi?=
+ =?utf-8?B?QzR3Sk92dktrZmVyOEhEem5nZklXaU9OTEJxZmNQVDk1ZjR0T0s1M1RKaVJJ?=
+ =?utf-8?B?UUczVzBzdDh3bVFxa1p0d01kSmZBVkNqVHA1SmRWMUU0MlRoUkJQMVJFTHNY?=
+ =?utf-8?B?aGFhNzE5Z3dVQzVQTG43c1Z0ZmN6UGtyWmxDSnhZWStKa2trV0VZQlJUOHRV?=
+ =?utf-8?B?cHM5ZlBSaC9wak9hUVZJTXByZVoyM3E5VVZsS0I2RFVDc0JpOGxldG1jTTVG?=
+ =?utf-8?B?UXBrbWd5ZmNRN3ZYa1ZLNUlsWmY2ZlJKUU5IdVhPTjVidFFPeXh5Z0swWGxL?=
+ =?utf-8?B?WGNIMk4rb3ZjL245dmFNOGkrK1BWeXZSUEdqQm9qYjg1TzlyTnoxUzZxUWZa?=
+ =?utf-8?B?VHQ0Y3MwbGh3TSsvVXFoR2RvcmQ3Tm1maVpKZE1WaUJOSlR3RVNjVThrb3dN?=
+ =?utf-8?B?RHlLUXU0SUMzYUlpS0tTNmllTWYwZlJsYVZsVGlvazRsd3BYbDQrWmhBUUdD?=
+ =?utf-8?B?RFg2Z1N6R25aektVYXhDUVJObkxsUHZ1UjFGOUlsOE1GSktFS3M0UXJ0ZDN1?=
+ =?utf-8?B?aTRYUmZDV2NPK2cvcjN5OXFUeU0rUmZ0L0JJWGVkZVVnTUhCQTBtYklpZ3BM?=
+ =?utf-8?B?OWEzQXZXeE1RVmMzaFE1c255RXZHOWRldm9YVXVRMUtkMDRZajVXNEI0cTlu?=
+ =?utf-8?B?b1E2MG5QT1BFaUNUeHRSc1AxZC9sZDZJVzRsZlVsYkRmQmdSRk5TL1NsNHRP?=
+ =?utf-8?B?ME5NbEx3SkFRTldKT1FkNjhLU3o3YXRmWmU4azhHbDExcXluNFpjMjJ2U24v?=
+ =?utf-8?B?b3RHdzdLOEZLQW9ScUZJaUptbHZJRU9odGVsdEZjV1hrSTVoQVZrUXdlUjVj?=
+ =?utf-8?B?OERWL3h5RnBWZEd3U3Y4a0F3OC8rZks4SDhvc0p0QnBuM3Fha21UUVFic0VO?=
+ =?utf-8?B?ejhRSnFUWUpwUWdTUnlMMEN5TURScFNLZWNVaDg1cVlGeDRjRHRXZGhMdVZl?=
+ =?utf-8?B?Q080RlY2SVFET2VjaWpUOFhuYUVFVEZUejNOYmJuZzE2YkF6bTN2SWdtdW9N?=
+ =?utf-8?B?dmp1MWpCR3h0eGYzUVBBSWp6ZUJKeUtmb2lQMTdqUnNhS1cwbWs0STRJU1Qv?=
+ =?utf-8?B?YnFDMmM3NXh0Mi9YQWYzU0tqS1UyTXRCVER6NEM1aENYZysxWm9kQThJTFA3?=
+ =?utf-8?Q?icnoJ5jncjwKyORnHQHTiwlZC?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d82928f8-1b3c-4228-9879-08dbd965cfd5
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 16:32:30.5969
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KB+Amum7nYVBMtw1zstiRp6f38+d3OFWZitoGlymxlDt6lO3lHg1Hj+dmT+dmpaCzYb6amDjSGtLpXWJvuKRPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8458
 
+On 30.10.2023 17:19, Roger Pau Monné wrote:
+> On Mon, Oct 30, 2023 at 03:13:50PM +0100, Jan Beulich wrote:
+>> On 24.10.2023 12:26, Roger Pau Monne wrote:
+>>> The ACPI FADT APIC_CLUSTER flag mandates that when the interrupt delivery is
+>>> Logical mode APIC must be configured for Cluster destination model.  However in
+>>> apic_x2apic_probe() such flag is incorrectly used to gate whether Physical mode
+>>> can be used.
+>>>
+>>> Since Xen when in x2APIC mode only uses Logical mode together with Cluster
+>>> model completely remove checking for ACPI_FADT_APIC_CLUSTER, as Xen always
+>>> fulfills the requirement signaled by the flag.
+>>
+>> Actually, one remark: The text in the 6.5 spec really only mentions xAPIC
+>> mode, so it's not entirely clear whether the two flags actually have any
+>> meaning for x2APIC mode.
+> 
+> Hm, indeed.  That wants to be in a different fix however.
 
---N4zB2EWuPretiURx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 30 Oct 2023 17:32:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] automation: fix race condition in adl-suspend test
+If any at all - it wouldn't be the first time that when adding x2APIC, editing
+certain places simply didn't happen. If anything needs changing here, of course
+I agree that the further adjustment would want to be a separate change.
 
-On Mon, Oct 30, 2023 at 12:42:52PM +0100, Roger Pau Monn=C3=A9 wrote:
-> On Sat, Oct 28, 2023 at 05:33:57AM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > If system suspends too quickly, the message for the test controller to
-> > wake up the system may be not sent to the console before suspending.
-> > This will cause the test to timeout.
-> >=20
-> > Fix this by waiting a bit after printing the message. The test
-> > controller then resumes the system 30s after the message, so as long as
-> > the delay + suspending takes less time it is okay.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > This is consistent with the observation that sync_console "fixes" the
-> > issue.
-> > ---
-> >  automation/scripts/qubes-x86-64.sh | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
-bes-x86-64.sh
-> > index 26131b082671..a34db96e4585 100755
-> > --- a/automation/scripts/qubes-x86-64.sh
-> > +++ b/automation/scripts/qubes-x86-64.sh
-> > @@ -54,11 +54,11 @@ until grep 'domU started' /var/log/xen/console/gues=
-t-domU.log; do
-> >      sleep 1
-> >  done
-> >  echo \"${wait_and_wakeup}\"
-> > +# let the above message flow to console, then suspend
-> > +sleep 5
->=20
-> Could you use `sync /dev/stdout`?  I guess that might not be enough,
-> since the sync won't be propagated to the hypervisor, and hence even
-> if flushed from Linux, we have no guarantee that the hypervisor has
-> also flushed it.
-
-It seems `sync /dev/stdout` helps too, at least in a limited sample of
-two.
-
-> Xen should flush the buffer when a newline character is found, but I
-> have no idea whether context could return to guest while the buffer is
-> still in the process of being fully flushed.
-
-IIC Xen should flush the console buffer on the suspend path (there is
-console_start_sync() in enter_state()). So, if linux manages to send it
-to Xen in time, all should be good (in theory at least).
-
-> Anyway, adding the extra sync might be good regardless, and keeping
-> the sleep.
-
-Good idea, I'll send v2 with it included.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---N4zB2EWuPretiURx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmU/2ogACgkQ24/THMrX
-1yyfDggAmI7R5YuGcPV57JeI6Z60mW+wA+1cN3+Iwh386ddFKxPmBgufwK1BQ0kZ
-TKOm0ZkCRp/yu7Th5bfyMrixk6Z5ypeC+u7lcqy0mwg85qjqlBTs7bO9/Sx6TzIW
-O0UvHHsFyWzfhGajboEAOxa4Uq/NSk7OIlWCFHzqHWCwpZ7W+YZd41CZNtZBXmy5
-zAVEFzN025xxwAQZf5oI5AqovFRgEofKxH1U0SugyhGyRYHzJ/gcyGgogYap0MaB
-U7bvMfax3KMAdUcgbLaxzC8T8RwXG4txPplXBVGyz7JZvxmsBS/SKcjCtQq1JE4u
-Gia9MWWwduJ/zSxjH6EmwqQR4I13eQ==
-=/Co5
------END PGP SIGNATURE-----
-
---N4zB2EWuPretiURx--
+Jan
 
