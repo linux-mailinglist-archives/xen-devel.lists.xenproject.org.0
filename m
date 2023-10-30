@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA227DBB13
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 14:47:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625122.974062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B35B7DBB4F
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 15:04:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625127.974073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxSc2-0002a6-GW; Mon, 30 Oct 2023 13:47:26 +0000
+	id 1qxSrk-00061p-N6; Mon, 30 Oct 2023 14:03:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625122.974062; Mon, 30 Oct 2023 13:47:26 +0000
+Received: by outflank-mailman (output) from mailman id 625127.974073; Mon, 30 Oct 2023 14:03:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxSc2-0002Y7-Dg; Mon, 30 Oct 2023 13:47:26 +0000
-Received: by outflank-mailman (input) for mailman id 625122;
- Mon, 30 Oct 2023 13:47:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qxSrk-0005zK-KK; Mon, 30 Oct 2023 14:03:40 +0000
+Received: by outflank-mailman (input) for mailman id 625127;
+ Mon, 30 Oct 2023 14:03:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rbZD=GM=casper.srs.infradead.org=BATV+4ee8b3733ecef6be489c+7372+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1qxSc0-0002Wi-TB
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 13:47:25 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d92662ad-772a-11ee-98d6-6d05b1d4d9a1;
- Mon, 30 Oct 2023 14:47:23 +0100 (CET)
-Received: from [2001:8b0:10b:5:9cbc:41e:b3e7:96ad]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1qxSbt-004OiM-DO; Mon, 30 Oct 2023 13:47:17 +0000
+ <SRS0=aFdh=GM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qxSrk-0005zE-3l
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 14:03:40 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f6a9249-772d-11ee-9b0e-b553b5be7939;
+ Mon, 30 Oct 2023 15:03:38 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-507962561adso6556115e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Oct 2023 07:03:38 -0700 (PDT)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ t24-20020ac24c18000000b00504211d2a73sm1451017lfq.230.2023.10.30.07.03.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Oct 2023 07:03:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,216 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d92662ad-772a-11ee-98d6-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JCQyjtHk0/EEYfLuCwexiNgB5kkoXX4jRmIoeXIGGP4=; b=d/CVrXNRXQ7JayAWKHroVhinmu
-	ifaVOC1ckfMPgTJKGCEeBfsZa1IIuq1tzAL5OGvehn/Ohd+2R9J1Sp4THffVhmYmJApHlGPHJfSGb
-	x76x6PJthzWiv3dVV3WzmcSjlJigZ5rnenYKVn4FI/hlUhVWxxZ6JPz/FEFYb86ibC6ztP8H2Tqi4
-	v5TtP1Ogebu6wa869jG0z2nHqxvcmbbTeQT+sDsiDHcjmZaIMlPOzxDE9PuOm+EzwRmm3wUWrR4Eu
-	3owOieN3XgadsadDX49dhJVCnO4v9dK8S3lEnPUlWWYuRF5eLOMWm9zKRDHhtM9ZRre/eYMUg7tjL
-	1UE3qjPA==;
-Message-ID: <62eb30557d70785add8a8146e1d940faabdc54e0.camel@infradead.org>
-Subject: Re: Lockdep show 6.6-rc regression in Xen HVM CPU hotplug
-From: David Woodhouse <dwmw2@infradead.org>
-To: Juergen Gross <jgross@suse.com>, xen-devel
- <xen-devel@lists.xenproject.org>,  paulmck <paulmck@kernel.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Rahul Singh <rahul.singh@arm.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Mon, 30 Oct 2023 13:47:16 +0000
-In-Reply-To: <0a2725ee-a1a8-43e4-b117-f474ffb392a8@suse.com>
-References: <b28fff67f7501e4713af9b8c777f853cc44d6c6f.camel@infradead.org>
-	 <c75a3d53-fc36-46a6-b781-f16e1e5c6226@suse.com>
-	 <662772ec0d43cce9233680d67d7114bc8b0ed48d.camel@infradead.org>
-	 <8e6c144f-f808-4603-8de4-76decc3c2838@suse.com>
-	 <0a2725ee-a1a8-43e4-b117-f474ffb392a8@suse.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Inj5xKw6wBaQM/xH4qeX"
-User-Agent: Evolution 3.44.4-0ubuntu2 
-MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-Inj5xKw6wBaQM/xH4qeX
+X-Inumbo-ID: 1f6a9249-772d-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698674617; x=1699279417; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Et7bLkuUyjr6eBHNiSQU/8YQxesnW4GB9tMYVVUOI5M=;
+        b=YTjOvZYsTjpHmbzq6mkUby/FXAvbl+E1onjd66U/aGi7NezGHNN95SmHiF+xIVzD+O
+         Pl3iD3fBUtN/G5SBkv21s4b1kTVuWwKTJ3QKK9Y3tvAyoQCjcyKVOhoPXqASzzFQUPb3
+         gIl8ecIy0q0uUHBty42lfssO8xZGbpTRkN3GYaJoWGk1L+K+5Q69HbUqLn40mUXIdjpE
+         4TQe4N7XTk0qL3pTeQ85kw5NSrL0gVY6EALq5vVoZItjNMmiJXoTiPPjB/fX0/JGwIhU
+         hWUOWAEZHnhFCJv/2p4SrlmblZO4SaONPYVQQ/knm3reOzrhBq0PrM86oL+fK+YZ/xZY
+         LHiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698674617; x=1699279417;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Et7bLkuUyjr6eBHNiSQU/8YQxesnW4GB9tMYVVUOI5M=;
+        b=UwZbwnI6Np+Lq8BGAzhDwn36lCvv6AZreECUlaVVyDFusEwcbdbV+7/3LkJ3TlW/lh
+         jPkTmtuwyVH0nKNclDNOaSqGKO6j7gwAKBtCItATmIkmBBfF7kyh9VZegzEj14kmqXrS
+         oABTsr8QIQMVWmtElpdCauI2g3pHzN2tnHldqNLtlvutlDpJy5G60x3/FukjrkYf8ZHr
+         Pv5m8xbl0NMB/S7xZx2BKjLGyDCQAqyhixsnKUJk8aOTc653W3BRWv3SEdZbaCMR1Ny4
+         r3khriZrODpGjeGjmOSvvZY3JlHta5ECQa3ZoJgBZZSvLFowdq4p91JuBhGG8iyIvQ7U
+         xW7Q==
+X-Gm-Message-State: AOJu0YyHvzW8fGRkACbp8lpCxPP+PiaqWVcRqodPCjGodhjVzBtYl1wq
+	ZwVM50p5BVPYVAjrq3nWKSs=
+X-Google-Smtp-Source: AGHT+IFafuIln79IsyY8FovSxsN3m14VlgFTSQysbeWGIvM4n+mPlxkaJMg7VqEsrAs/boBxHnTJDQ==
+X-Received: by 2002:ac2:4843:0:b0:507:a823:fac5 with SMTP id 3-20020ac24843000000b00507a823fac5mr7183908lfy.8.1698674617098;
+        Mon, 30 Oct 2023 07:03:37 -0700 (PDT)
+Message-ID: <ab1c73bf5d0661fd35b370b5324d2fcb452024c2.camel@gmail.com>
+Subject: Re: [PATCH] xenoprof: move asm/ include
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	 <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Date: Mon, 30 Oct 2023 16:03:35 +0200
+In-Reply-To: <4fda4793-6fdc-70e6-575d-062f72c8c0dc@suse.com>
+References: <4fda4793-6fdc-70e6-575d-062f72c8c0dc@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
 
-On Tue, 2023-10-24 at 14:08 +0200, Juergen Gross wrote:
-> On 24.10.23 12:41, Juergen Gross wrote:
-> > On 24.10.23 09:43, David Woodhouse wrote:
-> > > On Tue, 2023-10-24 at 08:53 +0200, Juergen Gross wrote:
-> > > >=20
-> > > > I'm puzzled. This path doesn't contain any of the RCU usage I've ad=
-ded in
-> > > > commit 87797fad6cce.
-> > > >=20
-> > > > Are you sure that with just reverting commit 87797fad6cce the issue=
- doesn't
-> > > > manifest anymore? I'd rather expect commit 721255b9826b having caus=
-ed this
-> > > > behavior, just telling from the messages above.
-> > >=20
-> > > Retesting in the cold light of day, yes. Using v6.6-rc5 which is the
-> > > parent commit of the offending 87797fad6cce.
-> > >=20
-> > > I now see this warning at boot time again, which I believe was an
-> > > aspect of what you were trying to fix:
-> > >=20
-> > > [=C2=A0=C2=A0=C2=A0 0.059014] xen:events: Using FIFO-based ABI
-> > > [=C2=A0=C2=A0=C2=A0 0.059029] xen:events: Xen HVM callback vector for=
- event delivery is enabled
-> > > [=C2=A0=C2=A0=C2=A0 0.059227] rcu: srcu_init: Setting srcu_struct siz=
-es based on contention.
-> > > [=C2=A0=C2=A0=C2=A0 0.059296]
-> > > [=C2=A0=C2=A0=C2=A0 0.059297] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > [=C2=A0=C2=A0=C2=A0 0.059298] [ BUG: Invalid wait context ]
-> > > [=C2=A0=C2=A0=C2=A0 0.059299] 6.6.0-rc5 #1374 Not tainted
-> > > [=C2=A0=C2=A0=C2=A0 0.059300] -----------------------------
-> > > [=C2=A0=C2=A0=C2=A0 0.059301] swapper/0/0 is trying to lock:
-> > > [=C2=A0=C2=A0=C2=A0 0.059303] ffffffff8ad595f8 (evtchn_rwlock){....}-=
-{3:3}, at:=20
-> > > xen_evtchn_do_upcall+0x59/0xd0
-> >=20
-> > Indeed.
-> >=20
-> > What I still not get is why the rcu_dereference_check() splat isn't
-> > happening without my patch.
-> >=20
-> > IMHO it should be related to the fact that cpuhp_report_idle_dead()
-> > is trying to send an IPI via xen_send_IPI_one(), which is using
-> > notify_remote_via_irq(), which in turn needs to call irq_get_chip_data(=
-).
-> > This is using the maple-tree since 721255b9826b, which is using
-> > rcu_read_lock().
-> >=20
-> > I can probably change xen_send_IPI_one() to not need irq_get_chip_data(=
-).
+Hi Jan,
+
+On Mon, 2023-10-30 at 14:19 +0100, Jan Beulich wrote:
+> There's no need for xen/xenoprof.h to include the arch header when
+> the
+> respective config option is off. The only compensation needed is for
+> svm.c to explicitly include the arch header instead of the common one
+> (matching what vmx.c and traps.c do).
 >=20
-> David, could you test the attached patch, please? Build tested only.
+> With that Arm's header can be deleted, and neither RISC-V nor PPC
+> will
+> need to introduce one.
+>=20
+> While there also adjust and move the (prior) inclusion of inttypes.h.
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> --- a/xen/arch/arm/include/asm/xenoprof.h
+> +++ /dev/null
+> @@ -1,12 +0,0 @@
+> -#ifndef __ASM_XENOPROF_H__
+> -#define __ASM_XENOPROF_H__
+> -
+> -#endif /* __ASM_XENOPROF_H__ */
+> -/*
+> - * Local variables:
+> - * mode: C
+> - * c-file-style: "BSD"
+> - * c-basic-offset: 4
+> - * indent-tabs-mode: nil
+> - * End:
+> - */
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -12,7 +12,6 @@
+> =C2=A0#include <xen/lib.h>
+> =C2=A0#include <xen/sched.h>
+> =C2=A0#include <xen/trace.h>
+> -#include <xen/xenoprof.h>
+> =C2=A0
+> =C2=A0#include <asm/amd.h>
+> =C2=A0#include <asm/apic.h>
+> @@ -38,6 +37,7 @@
+> =C2=A0#include <asm/processor.h>
+> =C2=A0#include <asm/p2m.h>
+> =C2=A0#include <asm/x86_emulate.h>
+> +#include <asm/xenoprof.h>
+> =C2=A0
+> =C2=A0#include <public/sched.h>
+> =C2=A0
+> --- a/xen/include/xen/xenoprof.h
+> +++ b/xen/include/xen/xenoprof.h
+> @@ -10,15 +10,15 @@
+> =C2=A0#ifndef __XEN_XENOPROF_H__
+> =C2=A0#define __XEN_XENOPROF_H__
+> =C2=A0
+> -#include <xen/inttypes.h>
+> -#include <asm/xenoprof.h>
+> -
+> =C2=A0#define PMU_OWNER_NONE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 0
+> =C2=A0#define PMU_OWNER_XENOPROF=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1
+> =C2=A0#define PMU_OWNER_HVM=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 2
+> =C2=A0
+> =C2=A0#ifdef CONFIG_XENOPROF
+> =C2=A0
+> +#include <xen/stdint.h>
+> +#include <asm/xenoprof.h>
+> +
+> =C2=A0struct domain;
+> =C2=A0struct vcpu;
+> =C2=A0struct cpu_user_regs;
 
-Tested-by: David Woodhouse <dwmw@amazon.co.uk>
+Looks good to me.
 
-(And I think we worked out the reason why your 'replace evtchn_rwlock
-with RCU' patch apparently triggers those other issues is that
-*without* your patch, lockdep fired off a warning and then stopped
-working long before the other issues occur.)
+Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
+~ Oleksii
 
---=-Inj5xKw6wBaQM/xH4qeX
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMDMwMTM0NzE2WjAvBgkqhkiG9w0BCQQxIgQgA9c/CP4J
-aUIFtd9HtwVj2ID27h7BRJO6pJSqVpUuxwgwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA2bPuS/z3RDaGWB3nY/6NyKRbAF1P8IG3j
-PH5B9avTcUZi8TA5a7hK6QGYNulEnBfoAltgk8Eb3dghjf+1oaIEJrEgUoUji580XFA10BQT19qs
-aGFiMb44JGqIO0BRMPYpnHDeBJ/Pozg4C0Yhi6pTGxFN8Z3NEiJin8iocWo6ii3ckoI4x4JlmXOq
-hetCRmq4CJFUwWCaZydoJmx8Qf5HruqVmc1G2M4ekPyOv/xGRFRITvIa/YsY6/JkAZc//Ffuifkj
-gYvsF2v90ldSotKzO83b1Wg9TjDq6ikYXcLPemkc/KXiy5JGjTUNgb2XXsylwr3yhjHYC2j9NcdS
-7gRhEoxV/9fWpn4HKe9cQIdBzjIfYXTebMQ87uoYxT4vdiuN2E8fQl2l8qLB7zTHYadt+2fL3Jkx
-PAlHBA3zRWeVZmg5Qe0kSsdVmtGOrmkeIQNdPwwdmJoS6Vi/rEjyV+GeuOeq6g1UUIj8oI5WRjTc
-5tKKwS6ECw4wl+NGADx0H/jeemkp4QZoR03bvqm5QwLE/PsZ+WCwAcv/vKC60zXqzCStKq4UdNc5
-41yxgPmkDgmP04MamH1A5NxtCc1FNVSUMsS/Adl0SzdSk3lpn4kFLhpYjWKz2E1GQaJ8Fu5COmL5
-T90gV42ErSHMSyPlgL2Og97i3aP//kBlKty8/k8kAQAAAAAAAA==
-
-
---=-Inj5xKw6wBaQM/xH4qeX--
 
