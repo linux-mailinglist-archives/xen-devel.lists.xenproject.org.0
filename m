@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD4F17DB529
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 09:32:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.624969.973782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2F7E7DB554
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 09:41:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.624977.973793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxNgw-0001bM-FL; Mon, 30 Oct 2023 08:32:10 +0000
+	id 1qxNpE-0003Pj-DM; Mon, 30 Oct 2023 08:40:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 624969.973782; Mon, 30 Oct 2023 08:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 624977.973793; Mon, 30 Oct 2023 08:40:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxNgw-0001Z5-Cn; Mon, 30 Oct 2023 08:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 624969;
- Mon, 30 Oct 2023 08:32:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1qxNpE-0003N6-AV; Mon, 30 Oct 2023 08:40:44 +0000
+Received: by outflank-mailman (input) for mailman id 624977;
+ Mon, 30 Oct 2023 08:40:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxNgv-0001Yt-F0; Mon, 30 Oct 2023 08:32:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxNgv-00033h-9d; Mon, 30 Oct 2023 08:32:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxNgv-0000tw-13; Mon, 30 Oct 2023 08:32:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qxNgv-0003GM-0e; Mon, 30 Oct 2023 08:32:09 +0000
+ (envelope-from <SRS0=Hhfi=GM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qxNpC-0003Mf-RM
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 08:40:42 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20623.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::623])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 020bf8ef-7700-11ee-98d6-6d05b1d4d9a1;
+ Mon, 30 Oct 2023 09:40:41 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DB9PR04MB8105.eurprd04.prod.outlook.com (2603:10a6:10:24a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.16; Mon, 30 Oct
+ 2023 08:40:39 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.016; Mon, 30 Oct 2023
+ 08:40:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,293 +47,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ier6R0sXVYmz36jC02KunmppY/0/5Dshfah62YRK1BU=; b=HniqelVP/aPaRKyztTZrvMmmk0
-	P5gTE4sED3umc6jv711fmFfkYs2gL0Wq8f46GH3qxT0bG3OwrBIZj5Q/D2iOjX6mYXYlaw1nMbbw+
-	9/6tlGhkfykToKqMXjwATqyHsJRIIOx4i9K3uAI3ubWjYd2iAOtxG4GYMzMf08A/wrHk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183614-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 020bf8ef-7700-11ee-98d6-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lKHKtSsTcws83mTdyBJQT4tgMCxRkW7etIWB8QsV0rHgPWV0p92J3y3v21sNPEeBl2NS/3AHG+4QVvJpzwrS2aoEo1NFhYczdEKB1vKu6YDwegUik4g+HrjfHhA7Jj11HTNSlHbH01CktmXq3LGCWznT/sy//51MfT7OOQkpvppJbeAHzUBkclhCmw7jOkvQL2dNY8OTzxAGZOPxHo8ZOBBHxZYSsgUux1EXHLmueufVX2woGJP6dllep0OeSZDEnW91py71n+3uDQ3QPK6Dglfbi+mAyJ1bmPNWqlfIA2OAkxmzCTBInzsdHERcnaXIBbXy19C+49JuFFsX/QIUzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4G7FCbPDqWyLnbja5Rlo1osDqVeS5fDDq/yuIpn+tqk=;
+ b=XNoPk0sz6Gfh7TIKC+lUNx6IIQYZGbaCL0gi1NbqJj7xAtyLrYGJHrUnDrY2/kQeEcZKC6dBsvlpSddJRA+9/g8fGzMNzbEi0Bt3PWi5ydUsSnOYaKGiMacQArb3lTN1lCJgSRuVY/k7dNTXXcp2CoSSxLQ52TW3L0XNfbt/Oi9A9t+lFmbCep9bagmaoPWm2h6376BYmoyzt/yIflBABn6geYLirJNpnEMZRGUgY5WZhJqb9HKXqbvd+PWFFpaxG6rUxlK1wctciu7LBZ8XBO/c0hXCNmfmpo1ocA3bglPGB4Eh9xOmSYunX6O1wEmemKG4PssdamR/gl8COaMVTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4G7FCbPDqWyLnbja5Rlo1osDqVeS5fDDq/yuIpn+tqk=;
+ b=GnvQCVlh9eKVEiryvo+UrG4DbWNAcEF9hJhvwb0wtaONUr5CV1IMzXE7Eowc0mwzHSTRUJ/H8eH8pKUBybsOIDqlqsnDYQ5T2dguIw79mCbwmcNzm0uuDiWfyOAt/1jlROfljtVFbbBZ9HcjGitdfx5muHIaFBUboWKTdxCc7Ac/mD/x4gzrvOLSrJM1v41grNsGBqc0va8Ap/0mSHIOkZnE/guBwL9no1XSEa/h6XQocLpi83PZFsh6Zr4tivs4ASHRal7WDpVuIDT329P8j9xrxPpsyXAe8gwL5sqxx32tgj0oK0t8y22+7N/MPBmgC1bzCHZGF35Ohuv3sldB/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <78e56f41-cd55-d4ca-a3ce-f7da87d2b063@suse.com>
+Date: Mon, 30 Oct 2023 09:40:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v2 2/2] x86/Kconfig: Introduce CONFIG_{AMD,INTEL} and
+ conditionalise ucode
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20231026205539.3261811-1-andrew.cooper3@citrix.com>
+ <20231026205539.3261811-3-andrew.cooper3@citrix.com>
+ <70472259-6429-e60f-7cdc-faa50b2d257f@suse.com> <ZTu_WxdWTrthCs4m@macbook>
+ <997218cb-b1d3-4fa8-a098-10849a54c592@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <997218cb-b1d3-4fa8-a098-10849a54c592@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0093.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::7) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Subject: [linux-linus test] 183614: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-xl-credit1:<job status>:broken:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start.2:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:host-install(5):broken:heisenbug
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-saverestore:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=2af9b20dbb39f6ebf9b9b6c090271594627d818e
-X-Osstest-Versions-That:
-    linux=56567a20b22bdbf85c3e55eee3bf2bd23fa2f108
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 30 Oct 2023 08:32:09 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB8105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14b0adf6-0bae-4ff9-d6cd-08dbd923e4da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	eEwMVAt6uIr1PWkySiuR2UDL2I0IrOQ/1oRZKLUevARWwWTd91sKAPNdpsLW6BLiLbHp4agWeZVdd9BVsgsnnxfp2PRvYdU77kWTTKcz+st0NtoqcSyU5WAS7DJTpO0I+RrjcY81bms0y6af2ih+gdXrNrrkP88VAS/jmNyncFk2sNlXOAHnLJuGOofys6vf5PE7nvduUHSTG9bCURX+e6BhGHYYlgU1UeyuUrIHWtt4bkfWeYJbBC+yvdC4lGjVyBXFYkc4sx/ShkinOLk4+fx08At0sAKSID9pfkP4LT1xW9+bWXNYnjINZGrcQsS5a2wYAlbJbtlGccIjQ9TpwBs1m68Hrfxlc7H5azXMysHONCGjN7VlwqjHyzCGRdWRp7Oqd0ZyXTzLjv1eLojid0kNjp11LDZL6AyimvgRYjevylaJn9YQfbMG5rXCsQlgJ7C0PxFfQ/1MH2b1pSjy2bZM2B7dZmH9nM9WEUuraV3ANv63V592azy1dt4SQYQ8ABYXODwXCJ6GEl0jep3Bt5+6dld3Rs+lf1tXnlez+qdcz6AEtcrRSPHIanR6LPHPKMOnVxiWZ2f57inKg9KxPdpm1ww9kIrs9LgtC7q19goZKd8JgoR2ajfoQtgebvOreaOa7EQiDyMzySs1vuv7tQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(366004)(39860400002)(376002)(346002)(136003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(2616005)(26005)(38100700002)(6916009)(316002)(54906003)(66556008)(66946007)(66476007)(2906002)(41300700001)(4326008)(6506007)(8936002)(5660300002)(478600001)(6666004)(53546011)(6512007)(6486002)(8676002)(36756003)(86362001)(31696002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bzYwRUZYQ3d0aTBWSkFkUkNSRjVNa09tc1lhZzNtTnF5Wit5QVlsMW14dVJZ?=
+ =?utf-8?B?TUxGMzVPV2kxNmo5YmRqbXMvUktFUUNCV1lQaEVIZDNDRm1Ua1l6TXg2bDFT?=
+ =?utf-8?B?QnVvcDFnci9kR3ZXQkFFY1RlUVNCYU9jbTAxZnZ0MVRIMllTdFl1N0x6WnhC?=
+ =?utf-8?B?QVZiRGpjZmViNEdjaWJVUVJWUkhaVm1wUG5TeThhRXgrUTY4b2FFWWpUSDFH?=
+ =?utf-8?B?UVVVMjN5Rm9VazBmR3BxQ3FKNC96cFBOdW91QXZhUEhvRHdtVmdSSG8xQ2x3?=
+ =?utf-8?B?QmNmSFp3SXRwQ1Y2Um1aanVETHpRcmpXMnI2bEVaSGpEU2w0aFlDS2pabTdN?=
+ =?utf-8?B?QXk0bkx1dm5McFp6dXpmVGNUakFmOHBoRGQ1MzFSVlNPWkROV3BIU215bEdK?=
+ =?utf-8?B?NHZOMFV5M3o2SUJreGpXeWJaNWNqZzNXZGlNbHFkYXNlSXhMTEY4MUd2b2hZ?=
+ =?utf-8?B?UEkyS3RTTDB0R284UmF2djJQUzBYZlFGN3dUYXdxYjRabWFlbkszTDhrSGUv?=
+ =?utf-8?B?cmh4NWxXZGIyVDdZa2xkK0Z2RUtqTVYwNUNtZWNrTHd5UG1QZk0rR2xSSWgw?=
+ =?utf-8?B?S0xaaUdEQ3R2cWx4SHdUb0pJalZET3BlUHVHbjh5Y0JwcVdmQkdBK09vL0RM?=
+ =?utf-8?B?VC9iN281bTVFY0Q4UnFVbk0yYWd3Y2NSb2FVTS9neHJVSlE1TE9VVnA1OW1G?=
+ =?utf-8?B?V2F4YnVDODJ1Z2VJYklRazZHWllkYTVsdkU4MW5IbkYvdmFBZzA3cmpLdFhw?=
+ =?utf-8?B?cXcydXdTckpmUTBSZmlEdW5tM3p1NWNaUXFHVytmSDRlZ0hQMitjUldQWlE3?=
+ =?utf-8?B?amJqOU9yQ0JKN1VFVGRrTW1MTHZPQWk2WmFaYXlNQTJocFM3Qk5wcW4xUEVJ?=
+ =?utf-8?B?Y0FXd1dtRERJNUExZStidUtMNWZySVpyd3hKOWl6TFpFY0pYQ0FrOGJxV0JM?=
+ =?utf-8?B?QUx6Mll4ZzVEMk1xWWlIQXZ0cEJYVm9NNXhMcGpaS1RUTVIxZTUwYnU1UXQw?=
+ =?utf-8?B?cFdUdHEzYm5xQjNvWGovTFk2d1Z3aVllMDQ0L1BueE9DSW4yS2FLTVFVNzVk?=
+ =?utf-8?B?NVNVWTAyRW1uS1M1M2hOc1NEVXhXTStFcDRUQ1N5M0VvNlhra2RNYU5rZkdu?=
+ =?utf-8?B?RTdoQmllbFAxTW84Zk9wb1psbnl0SzBvRmx0Z0oxUDBRaXRKTDRObTIxOEdC?=
+ =?utf-8?B?SGUwektDajhWaUlZeGtsZzlNVFJIaG1OenRHSG1UMmlUdlZLVzJMSklQSXZo?=
+ =?utf-8?B?VzEwcm9jZ2U3RWUxVjZOZUJRNDc1eVZ6UHk0cEhQNS9YR0hPVnJ2NHlaZ09Q?=
+ =?utf-8?B?VVdsOGhDb2xwa29QWnM5SVN5aDd5UnN4MWZNTGJUeGpkaWR2cHVzdWk0SFRN?=
+ =?utf-8?B?LzB2NTJuMmtqTTYvTXhzcW95SEErR01CK0xuN3JocDFVVjlHcUlkM3B0eXNw?=
+ =?utf-8?B?UThjeVhvZ1JxQzZ4UUlZcnQxaUpYUktOR2xCSUVwZDdpalZBZGpaRVdQR0hG?=
+ =?utf-8?B?TiswNTZ5WlFFYnVTMnprdEExNk1Db3pmWG9IS3VZZzZBNm1EcWNrMDlOenBI?=
+ =?utf-8?B?eVk0QU51aG44c0RsdWV4Z1VHOWpzdVluajNmdG00QXNwL0hyYUVyanRyTitY?=
+ =?utf-8?B?Y3VyaFFnTCtVTk1lZ2thNnZENDU3UW1pR2JMY3M3bmVSMnIvMGY2SWE3VURp?=
+ =?utf-8?B?RUlMbnBpcHo4dnZwVXUrSzJHMW9qeXJuZ3Irekd3NU84VElGY3N0RkdKaWlN?=
+ =?utf-8?B?ZUo5RXc4WE5OSUs0c0x5NU1HTkVzUEtmUWVKY1AwV3Byc1R1UnhwNVIzY05N?=
+ =?utf-8?B?VDU0ZlE0NzN5ejFFOFkwMXRkaDBnaC8wRzBEeTlWb3E1aUtHNlphL0VrK0ZM?=
+ =?utf-8?B?SVN0NEJJMy9oSGZDR0h0U2x1Q05uRlRadU94L2JiSU16czFHL1dpanRDNXlL?=
+ =?utf-8?B?RG9aeWRqdkdXLzFWUWRwZEZNSmt5Vjg5bzFXMHNvNUtFeDJzWGZzcmp0NHFr?=
+ =?utf-8?B?eS8rQ2FjT2F5MTF4aUlhRkl5T3FjNFB0MjJUaWw1bmU1VnNzenlPcXVMaFd6?=
+ =?utf-8?B?Y1ZWMGQ3dWFZTkZ5K2htQ0tZcHl4VDFobkt5Nnl2Z2J4WmNrbGM4OTkvOEN4?=
+ =?utf-8?Q?Jh+bBjYhS+tdYaTaFDggHyelf?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14b0adf6-0bae-4ff9-d6cd-08dbd923e4da
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 08:40:39.1199
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wi2+PMY72XxCRbHuqZlRZSIYBw2pyn/l82Jsmt4c88ob8Q8uSJz+ACGYgWkpNyaSzHGAd1c2yqNLbvaqtn5LfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8105
 
-flight 183614 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183614/
+On 27.10.2023 21:18, Andrew Cooper wrote:
+> On 27/10/2023 2:47 pm, Roger Pau Monné wrote:
+>> On Fri, Oct 27, 2023 at 09:12:40AM +0200, Jan Beulich wrote:
+>>> On 26.10.2023 22:55, Andrew Cooper wrote:
+>>>> We eventually want to be able to build a stripped down Xen for a single
+>>>> platform.  Make a start with CONFIG_{AMD,INTEL} (hidden behind EXPERT, but
+>>>> available to randconfig), and adjust the microcode logic.
+>>>>
+>>>> No practical change.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> ---
+>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>> CC: Wei Liu <wl@xen.org>
+>>>> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>>>> CC: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>> CC: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>>
+>>>> I've intentionally ignored the other vendors for now.  They can be put into
+>>>> Kconfig by whomever figures out the actual dependencies between their init
+>>>> routines.
+>>>>
+>>>> v2:
+>>>>  * Tweak text
+>>> What about the indentation issues mentioned in reply to v1?
+>>>
+>>> As to using un-amended AMD and INTEL - Roger, what's your view here?
+>> I think it would be good to add a suffix, like we do for
+>> {AMD,INTEL}_IOMMU options, and reserve the plain AMD and INTEL options
+>> as platform/system level options that enable both VENDOR_{CPU,IOMMU}
+>> sub options.
+>>
+>> So yes, {INTEL,AMD}_CPU seems a good option.
+> 
+> Really?  You do realise that, unlike the IOMMU names, this is going to
+> be plastered all over the Makefiles and header files?
+> 
+> And it breaks the careful attempt not to use the ambigous term when
+> describing what the symbol means.
 
-Regressions :-(
+I wonder what you mean here: Describing what the symbol means is all
+done in plain text, i.e. independent of the symbol name.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-credit1     <job status>                 broken  in 183608
- test-amd64-amd64-freebsd12-amd64 22 guest-start.2 fail in 183608 REGR. vs. 183570
+> I'll send out a v2.5 so you can see it in context, but I'm going to say
+> straight up - I think this is a mistake.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-credit1  5 host-install(5) broken in 183608 pass in 183614
- test-amd64-amd64-freebsd12-amd64 16 guest-saverestore      fail pass in 183608
+So in the longer run perhaps we want CONFIG_{AMD,INTEL} _and_
+CONFIG_{AMD,INTEL}_CPU? The former mainly to control the defaults of
+CONFIG_{AMD,INTEL}_{CPU,IOMMU} (could also be viewed as kind of a
+shorthand)?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183570
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183570
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183570
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183570
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183570
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183570
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183570
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183570
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                2af9b20dbb39f6ebf9b9b6c090271594627d818e
-baseline version:
- linux                56567a20b22bdbf85c3e55eee3bf2bd23fa2f108
-
-Last test of basis   183570  2023-10-28 12:28:04 Z    1 days
-Testing same since   183608  2023-10-29 08:10:06 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alain Volmat <alain.volmat@foss.st.com>
-  Alessandro Carminati (Red Hat) <alessandro.carminati@gmail.com>
-  Alessandro Carminati <alessandro.carminati@gmail.com>
-  Andi Shyti <andi.shyti@kernel.org>
-  Andrew Jeffery <andrew@codeconstruct.com.au>
-  Andrii Nakryiko <andrii@kernel.org>
-  Christoph Hellwig <hch@lst.de>
-  Conor Dooley <conor.dooley@microchip.com>
-  Dan Carpenter <dan.carpenter@linaro.org>
-  Dave Hansen <dave.hansen@linux.intel.com>
-  David Lazar <dlazar@gmail.com>
-  Dominic Rath <dominic.rath@ibv-augsburg.net>
-  Ekansh Gupta <quic_ekangupt@quicinc.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Herve Codina <herve.codina@bootlin.com>
-  Ingo Molnar <mingo@kernel.org>
-  Jian Zhang <zhangjian.3032@bytedance.com>
-  Jinjie Ruan <ruanjinjie@huawei.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Marc Zyngier <maz@kernel.org>
-  Marco Pagani <marpagan@redhat.com>
-  Marek Szyprowski <m.szyprowski@samsung.com>
-  Masami Hiramatsu (Google) <mhiramat@kernel.org>
-  Maxime Ripard <mripard@kernel.org>
-  O'Griofa, Conall <conall.ogriofa@amd.com>
-  Peng Fan <peng.fan@nxp.com>
-  Peter Colberg <peter.colberg@intel.com>
-  Peter Rosin <peda@axentia.se>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Peter Zijlstra <peterz@infradead.org>
-  Petr Tesarik <petr.tesarik1@huawei-partners.com>
-  Robert Hancock <robert.hancock@calian.com>
-  Russ Weight <russell.h.weight@intel.com>
-  Song Liu <song@kernel.org>
-  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-  Stephen Boyd <sboyd@kernel.org>
-  Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-  Thomas Gleixner <tglx@linutronix.de>
-  Tony Luck <tony.luck@intel.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xu Yilun <yilun.xu@intel.com>
-  Xu Yilun <yilun.xu@linux.intel.com>
-  Yujie Liu <yujie.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-armhf-armhf-xl-credit1 broken
-
-Not pushing.
-
-(No revision log; it would be 1060 lines long.)
+Jan
 
