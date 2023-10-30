@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098FE7DB9AF
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 13:13:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625067.973943 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0D3A7DB9E6
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 13:25:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625071.973953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxR86-0005g8-T3; Mon, 30 Oct 2023 12:12:26 +0000
+	id 1qxRKE-00086g-Vv; Mon, 30 Oct 2023 12:24:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625067.973943; Mon, 30 Oct 2023 12:12:26 +0000
+Received: by outflank-mailman (output) from mailman id 625071.973953; Mon, 30 Oct 2023 12:24:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxR86-0005dz-Q2; Mon, 30 Oct 2023 12:12:26 +0000
-Received: by outflank-mailman (input) for mailman id 625067;
- Mon, 30 Oct 2023 12:12:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qxRKE-00084v-T6; Mon, 30 Oct 2023 12:24:58 +0000
+Received: by outflank-mailman (input) for mailman id 625071;
+ Mon, 30 Oct 2023 12:24:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hhfi=GM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qxR84-0005cM-HS
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 12:12:24 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20616.outbound.protection.outlook.com
- [2a01:111:f400:fe12::616])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94c8c32c-771d-11ee-98d6-6d05b1d4d9a1;
- Mon, 30 Oct 2023 13:12:23 +0100 (CET)
+ id 1qxRKD-00084l-MI
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 12:24:57 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2060a.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::60a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 539ebc85-771f-11ee-9b0e-b553b5be7939;
+ Mon, 30 Oct 2023 13:24:52 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DBBPR04MB7961.eurprd04.prod.outlook.com (2603:10a6:10:1ee::14)
+ by DU2PR04MB9098.eurprd04.prod.outlook.com (2603:10a6:10:2f1::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.19; Mon, 30 Oct
- 2023 12:12:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.15; Mon, 30 Oct
+ 2023 12:24:51 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.016; Mon, 30 Oct 2023
- 12:12:21 +0000
+ 12:24:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,187 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94c8c32c-771d-11ee-98d6-6d05b1d4d9a1
+X-Inumbo-ID: 539ebc85-771f-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UQUzbq941PQiyaaw/9yRR/NICJ8+B1/68fAklNEb/K3JOXlMdLTtgZxMTvbfhBOdYL+hkAWWy8pChaqt+VhB7vDS3xmS61jNLSL5gWL6zjHXCeu4HEEdUrh5EFrUPUfgTYlWJAsjVGjzXZva34120OB6axwVlEs+iVVJcGot9gd8fZAiGSrdqKRvXY+OuB7IG3Z+gGNEIkRFH0NK3bKP8GjFZdwfTaSn4mOKTcdYikJxrKA1VYw/gV/M8Dxsaadgj4QpH7K5Efn8bnhtiqt3sonqY4fqj8eGkBwDNmyshcO0v3O9vmX9hICKptjnolVhyywhcRo1w7K78r65olPcFw==
+ b=br7LOpeyhcU+Qtj+6g4heXvZJjzjxXQN5SRCGg9xE3AJk3GCdPGeF7I+q7YI0K8+7mujaktstH4q0TuW2H5lqitUOQtAon/t8N2dcIiDAmEX4V2X1I8EavEB8Nrob7RVW1g/077wrDvn0HAt2aEWulfH81zT4uK5BORC0MPF1xUjY5CQV4pi9xfPh/glH6Nd3+tjk9GYrSNqWVmoNB896hRUVFvWejrKfxgWgUugtNCRbcEgkxjs1zFK3kqbX5eZ4IRLukWHyRT2KirZIwgk98TzzO2IWamcVt4SwQBiB8ynMjKMLytaX8oUobC/VWPuCYoIRAcs/of5c+Lwp+Tn4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DHxJBS9g4VPvxUGnG/f4KLJN1mHF0ajstqPxa/WEU30=;
- b=a7yRk26TXDCsCB6KppsIhvSjRiRgwVR7zgg+rOx+Xh3qotQ540R3xb5h0x3UucBKXgBtlvzvXomIgN0iqsaTiRzoOm22JeXG7UV94ITf4r3dFx5vQ9QboyZ2Zjdq0nnzCxhTMh+KPqiS04vsMJUTmcCNHpic5oheRRAI7qHOKmUxhngZ9Rgi8Z3HcwL73bpBR/5BSIgwTMSDRuLhnLgNWFUBGVT0nLgfBhIJEmkhp6Hu2FQTLOIK6Xecf+kjnKHTWmr1aKmrMSq00Af9ZAuMxzORRARm7tx0aAOQ4eEecCQuAR/dlKhSlZWaH1I5iyoYpEhXsnQ3QLLxFr5Se/TIdg==
+ bh=bDX9Isc5XNdumdrqiDILuxRZgB8aCLmIm5fofT8spr4=;
+ b=WxjGmFt8Rgy1u0mZjEdaKTINESU7sl5c5lvvDuniFIrPJ2uQr723SJsVqWpW+bhnGraNfgxpZAYVH9rA3P5sH2qgDr5N6/KT1XEqOEFeJrwhoi47A59Uy5YhUsEdsFdx7IFDr+whnWtI+iFwTSiAw+KGf8I31NJk0/PGvDEYH0KXX4sw3CrPkgW+u8N8bwiIX/cbnT6FCtN6mkDajF+2Z/DeTUuLptQXa26IfsL7J2MMwAaJsFighvPmpLa3ARLG7jP33yRv7EdG36B1Em/Wnaw0cqntOpkESbnk9eBsdvRki18jSnmXHu2BcfJy7MnMfwnvcbgwtRwt7u+qKHMdCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DHxJBS9g4VPvxUGnG/f4KLJN1mHF0ajstqPxa/WEU30=;
- b=Atp2ZYxsTKqmyhNjiMe5rbH/vP5j5Ap01uhX8yQmnYwbyR34HMq2TMRR0WHY4aEInAmBqAZUo6QWc2317FBi9G3CFj4ufAl+BgHwK1oQzya50kJ534ScsVVZwT038DMWKtyVFVL/16FX9yPbiXjJ+m9wsoqtPPNXadhT9Q7LOXl81EJaNk0EznFATCEXRoaO7nhhE+b0jJKOP9Z/LDjRzWzU8FhDLta7XFPKYrvEubVcW1xKEhef4RYXhvdoRxHOTrCCvsv3Z8xCIa42qI8s6oLcNeBjrtvKwtP/KrefQg1Y8PxIZ/yxc1FU2pmqwAvLYdHKjZ9/wLzG37dkmXB2KA==
+ bh=bDX9Isc5XNdumdrqiDILuxRZgB8aCLmIm5fofT8spr4=;
+ b=c8M9kRel5NSmjtzwoFg2fHRT65COKcnliu6S7VJ2PjpCwgTtcd9cFwzSwXRmDo8IkBFhoZIFCfxiy5f65SH/3As9XActLCWx5PKcvUnCdyAshJnoYaK2Dt2NHAJziF88CyeRXfZ1/ftoCTA689qxxmVIRdsW3y+8DIytH0mPMk3gborGl0xEXnqATjqV/r/FtQpcAr6XuSsoPOMWxs24Gr+ZgdjZSA/K0S9f1qKIb3RUcMotAalDG5C700rPDGH6fOqc+mqzD9eT3VglzoOxpMgBG+KwRZKC3ie7JjMOTqyXW/2HwJfeHnL5XsNoO2jdYg357F005QHrhQLb7mh99Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e40fba96-87ec-09a7-e095-28637d112e56@suse.com>
-Date: Mon, 30 Oct 2023 13:12:21 +0100
+Message-ID: <d3da9300-781f-9abb-158b-0c82d36228f5@suse.com>
+Date: Mon, 30 Oct 2023 13:24:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH] x86/hvm/dom0: fix PVH initrd and metadata placement
+Subject: Re: [PATCH 4/7] x86: detect PIC aliasing on ports other than
+ 0x[2A][01]
 Content-Language: en-US
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <20231026064543.43369-1-xenia.ragiadakou@amd.com>
- <ac7e9bac-6d74-a5bf-d703-3c5455e581ea@suse.com>
- <7712c60b-4f89-483e-89e4-7ac8f4d0311e@amd.com>
- <809115b1-2a47-583f-2d04-72a5a21ee7da@suse.com>
- <c107d63c-25a3-4f17-a5e8-7ec3ccd94ce3@amd.com>
- <c81a8275-ecfd-7598-c119-ed83b156c0e5@suse.com>
- <b5330686-82a0-4d47-9549-2d943ca68c7e@amd.com>
- <1cc98108-3328-94d3-5f8d-ff03c965087e@suse.com>
- <92ba94d2-9e57-4241-8626-33f06f88e726@amd.com>
- <a61926bc-e3e6-e381-45de-be3a4878b6af@suse.com>
- <217d9079-3072-441a-a4ba-4db28c565bc7@amd.com>
- <08ea1b7b-c85f-337a-42c4-520e40b75288@suse.com>
- <987b5b7d-57f8-4d63-bd13-fe662b6cb87f@amd.com>
- <486c778c-4a33-703f-2811-27101d10ea9b@suse.com>
- <b203d30f-1563-45b6-9469-b25dda8df9a4@amd.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <95129c04-f37c-9e26-e65d-786a1db2f003@suse.com>
+ <27dd8f40-1ea6-1e7e-49c2-31936a17e9d7@suse.com> <ZToksEP1Fg8MscdK@macbook>
+ <86eb1c0d-ac95-247b-16c3-9c4871398082@suse.com> <ZTponIYDYDWRZhzi@macbook>
+ <75026813-03fe-3a46-2274-b93e98f62f89@suse.com> <ZTqDjNSBmXeblsud@macbook>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b203d30f-1563-45b6-9469-b25dda8df9a4@amd.com>
+In-Reply-To: <ZTqDjNSBmXeblsud@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0009.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::14) To DU2PR04MB8790.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0121.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7961:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0cbbbdc-9b14-4c7e-2e68-08dbd941774a
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB9098:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef4ecde6-b635-4c9c-f081-08dbd94336a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	VSA1TjHDcaHF5kxHw5cak+W8E5xrtx1RNFGhQz+iPpR+8/KMJsqCe8HtWqniH32kq498xO+h8ujcsflWdiytHEi0Qg7lVVBazll0IctkAq5fE3cQNSsGqQzoAninKDsUDHKK59Su5324HhjZKVuKA4HWMBOJsVdfA7HhdIdseZb1D8abypengQ1B2I0GyjERVY3hWnxeewl3b6dkqy+lxfSKI+hMOFhFxRniVawejVHZ+Uf6+G2+qUqBu7YQlGVisrjL12Lxk3G/tYdM/DcX3RRjKv3OT8fAtRYA/LHVTAdPDiZ/GuGoyXaDB8Nmqk1ZI66JQj2c2zDl/rINy6sDta7wuSv+B/XikhGkLj8qoQec1h4Iz/uVzyy06x0DLH4qxNv7XLSq1IvHk4WsKQ7jlU6J6zwv12sNOmJAmPj9jGjeC0xrbEkvUMzyHpKMtpUWDEPToqc96ZsskaFqixcB9g0I8EuUZultlGe4uK6eBp/Q+4sELwTVzYsKxn7/b9zTNJG2tFNsfnYe6xfPSTooOnhJqJFBzKM1hgqGh415xp/RWemXRQZ6uXbAKuHDiTRPTF+AcfMPZTIJW8rTPHcZ5EmsAB4qAxP0iGc8eSG9yRjnKkkWdCgtx1xbWp8f1ia1Ls3ykaNVNVQS6wRlCY7/8g==
+	GsAbMPhCmQW3Hsy4DDdIAlg5tDvxnX9TnleTqT55jd5GvQDdFWza99L+fySC3aXzc8EvGMOnhO5c5QJxtKp79593Mjr8nrIs0W+yVprAt7Y+z2B1eZzeXzeYVly5fVjsuG+qa7rh3Q4uAKRgryHyr1S7Dl6I3l0oqUxdZTs/qg+K0xjeQ8fqD6A/jJWFSi47avTS9P4d6SRtYNdOjQtUgyKcAgfDs4++efpy7SUyedOA3VVlR14gLb75nUxzaGTaUbOxDu12+6vngEv4usyU6Q8brljLubujXeHO/V2JWUrqCjR8RArX408YufhjS0QN04aSijW5KuJa7y22vhFJUemu8U1q6ABoqHKJo30lPN2Dpa0QIEv/m4MV9WfJp8XKPUfiRbGrsQ2hNPfw0UtcnGuLJsIiVt6cnY7MK7Ok7FTAO4Qun3c7Gg/TTK65KhPY2kKnul3vw5S6vllvBHHC7urKUx9EFhoS83MiBFu1Q/3h4HmLSATR7HKCTsf9XhvTQo2E+7WRdNoHEPDlh8FOWjTkyMDfGro43WyY2/wMhunqOYAqKMDAo2mKpsRnW4D//ReCyLxhztrUZ3a67Vqh+Ui2T4fGhhSd2K0oq/1DK4RYNx2pk57YzOaYIfGUTpqMOBfjzyxSZcfm+ImxWAV+WQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(54906003)(31686004)(66899024)(316002)(83380400001)(36756003)(41300700001)(86362001)(5660300002)(31696002)(2906002)(66946007)(66556008)(26005)(6486002)(38100700002)(478600001)(8936002)(4326008)(8676002)(66476007)(53546011)(6512007)(6916009)(2616005)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(39860400002)(136003)(366004)(346002)(230922051799003)(1800799009)(186009)(64100799003)(451199024)(2906002)(316002)(66476007)(6916009)(66556008)(54906003)(38100700002)(53546011)(6506007)(2616005)(478600001)(966005)(6486002)(66946007)(83380400001)(5660300002)(6512007)(26005)(41300700001)(4326008)(8936002)(8676002)(31696002)(86362001)(36756003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVZUKzVQeUdZd1phR1didWVSY1pjMzFMZ0ZuSXR4Rk1wMWJEeWdBM0tJMlB5?=
- =?utf-8?B?ZXVVemdYM3Q3dzZST042dHM4eno0ZllTTDloR3o0bkljRHhFdE8xOEszTlhs?=
- =?utf-8?B?Y1ZqM1c4aDN5TFYvOTVMQkV6cWFwWmt6YWJzenZPZVZYOSt1QXVmVDdxUmVv?=
- =?utf-8?B?Q3hVK05IaWY4RlJQUEZ3dENrZXRyYzlDaGR4aVJ4eDF1QXdDR0xZTnlUVGxq?=
- =?utf-8?B?L2pJMTRnN3h2UnYwSDRLVTJCc09QVWhtTnBaWVVzUUhwRE4rSjc0MGorcnU0?=
- =?utf-8?B?dGEwd1g1SWhDSkJBbEU1SGFXMHZ5MHpNYjB2bXhLeTBzaWc2VndSOWYvMmhr?=
- =?utf-8?B?V0JreURoVTU3ZXMwUlVkT1Vvai9jSWlnZUIrbThrdFlwZmFUSWJyVjVCb1Ex?=
- =?utf-8?B?VGhyZWVNSVV0RERSSzErMGNmdkJkcjUyaXlpUkFNdTZFTy9BdEZkbzlZRVFj?=
- =?utf-8?B?SU5sa0U3ZDdRWGc5MHFJUndwSW1QcmJWWTdvdnUzb3VUZnhmdEVnejZBb1Vj?=
- =?utf-8?B?aElzcWxLN1BiZHkycFRTWU9pUjR4N1JpUHVvSkNkWnA0RHhIenR5OTlCbXZD?=
- =?utf-8?B?TlNpK091UUxWZkxtWGFQb0t3TjNEallBbmYzSzJyOUE3RzYrVDRteWdXQVlu?=
- =?utf-8?B?NGZzZTNhL2gvdTllSk11anhBOVJla1JDY3ZrMGVEQ2l2ZHhBbWc3Y2pTRjJr?=
- =?utf-8?B?dWhqWmFDc1lzYzJpY1JJSkhHWFpZdEM2ZUEvN0ZPQ1dxUGgxRUplYythaWhU?=
- =?utf-8?B?WnpXS0UveXd6WFFHUkFZTWVRdVY4d3c4NzBJL2FBd3RqTXBIQW1HVFZJeXRW?=
- =?utf-8?B?TGlYakVUL3dSQVZBNnRTZDQyTCtkd3lUUzRMNnd4V2FUV3djRmEvS3lMcXJ3?=
- =?utf-8?B?NEJ0SWhCZlVBT1NXdGlRWXVGRU9sQWpEbGxIZ09CdmY3bzZQUmZRTDVkY2x4?=
- =?utf-8?B?Vm05MmRHUjFEd3UvOU1veXdoRWRubHJxUTJ4cUZRZVk3UmJTbXVOTGF5cTUy?=
- =?utf-8?B?cytiR1o2QlZqdHU3M09uSEY2SzI5SHh5V21vYkJUY0xVWTRXOWhYK1cyeHN6?=
- =?utf-8?B?bHJkQ3YyVHNxbWhyZnlic0VLNHp2RmV2ZHQwKzJrYUJxc1NQL1k3TzV5dGc1?=
- =?utf-8?B?d2szWUhOb3BOMzJwanIwMG1vT2xlTENGa1p3TzkvaUpaNVA1Y1NheDlmc0ty?=
- =?utf-8?B?a0RjRTBzUmtjR1JkRzB1QTMzL3VHU3d2YXBnQnRHdkRHN2ZGNzNIV1F6OVpZ?=
- =?utf-8?B?bnhNb0RpSGpyRE53YjJkUmxuc0Z2V21RNEUvMlJ1MTBlbm82QTBpVWNYUHJu?=
- =?utf-8?B?OGF6SmVzSi9YNWZYMWtqbW5QRzcrcUI3anJXRDRRdGtlMEFpRk5UdDczUjhW?=
- =?utf-8?B?S2twaWZOY3hycHE4R09LTXd1dllzaktsMkFMR00wVW9sSkcxdTlpTWpyclcz?=
- =?utf-8?B?R2NhVWRjRkd2aG5jaytLYXlMZkZUdmJQM2FNM2I0Y0djVisyOWp3TkNlaVhM?=
- =?utf-8?B?REZXcXU2Z043L2N6eExKTkhXWlRRL2xJcTNUSVo1VVUvRjE5UkxRMUp2TWlJ?=
- =?utf-8?B?dk8zeFBHWm1EUC9yc3pHSUpXZWQ0MVlMUDhJUXFYWGtyQ1MzL0Y0Ynl0YVVY?=
- =?utf-8?B?cElSTVl1MjRLYnBRTkxaVmUvL2pwV1BwMEh0aERNc2MxVVdmcldldEt5YjlT?=
- =?utf-8?B?WStMK1dFWGR0aDFFTWdEbTJIOE5PQUZJRHUyQ2dSSnF3R2Y3N0pURkdSaEdG?=
- =?utf-8?B?ek1MY1V4azI5bTFEMGFQaXNCM29vTWFhclNzY3FPa0xSZ0NkcGRSOEhaajlS?=
- =?utf-8?B?VG9JeHhKNnFBTktjRjVwZ0RIWkRnc24rQkIzMHE1d3UzNE41b1N2amJJb0tt?=
- =?utf-8?B?Q3ptaktjbTlhVit3Yno3eGM1aThITkEvTFY3d1NIc2hqdEx2aTZCeG9pZk15?=
- =?utf-8?B?NWhsLytZMXNmZ3dHeWJZMytxZUpUVzh3VGFKbXlkWE5uNjg2aCtQbW9PazFN?=
- =?utf-8?B?cEhTS1hCdSs4SER1RDBuYTRNZE85YWF1aDU0Sk9Ga25EUndzMkxDb1k3SkhS?=
- =?utf-8?B?cG1DVTNmUFNDSjE2Sis5TnlURXMwZENWbkhnWDVSbWg1ZEZiaGhBeGRaZnN6?=
- =?utf-8?Q?cZLUG1x7eoQsYa0ra6WYdjoe9?=
+	=?utf-8?B?cXZuN1llWllmbkpuT0VxdE8veVNuRm4ybFVQVTBrNnpoZXZCZmwydGt4VWtQ?=
+ =?utf-8?B?QmI5bHgwN0k5N01JYzJEb1hsbTRwNjdpc2NUdFQxaG83UlVnamEyN2tWM29x?=
+ =?utf-8?B?TUIvWklvdCtZRGlRK1BtbWJTQ1Q2ZkdpR21ZbXgzemxITCtoUzNtbXFTaGxn?=
+ =?utf-8?B?V292Sm9UYVI5dzhUNVVxak1VYXZ1dEV0aFVlM0llckZ0bUdJbC9ndUh5all4?=
+ =?utf-8?B?QTFIT2gyNFZjYWVpQlRGYy9qVllzOEQxMmZTSzFZemlMR2w5TEhIT0F3bmUv?=
+ =?utf-8?B?VTV3TjAwOVh0eC9hSkdwTWgvQnZRb1M2RmFvbkNHZnBIY040TGlFNDF0TVhx?=
+ =?utf-8?B?Y0FNOXdxRHVyNW9Jbjd4ZlZvWDZIbXQ2am83eGhIZjZ6dElHaktINm1VSmF3?=
+ =?utf-8?B?dnVpNkYrWmNzWVkrd08zMXlmUmNQVmIxbTdIdHdnSFBEV1BSME96cGNCdU1L?=
+ =?utf-8?B?dDZMQVNHR2x2R2QvWi9EY0wrMDR2SXFKUklTbTZNc0s5eGRqU05VM29OeGF3?=
+ =?utf-8?B?WnVPNGxHWmVhdUllMXAreHcvVkVvdnA2WFUxY3ZCa21ySURwOFFJNUJqUVN3?=
+ =?utf-8?B?ajVUZ1BuVUQvZ05kckR1aTFWclNoZkV5bWRBTjh3Tit3VlV3OHBwQlJKWEFJ?=
+ =?utf-8?B?ZWJIbjV5UlFsTjYrUE9Kd3BPS0xsWjVsMDQvd3p2NkhDM0xjMWRhNkZFc3Ro?=
+ =?utf-8?B?SDl6eGhzZ3UycThiVnMwK0QycmVyc1MwZmtDbDBuamNSLzhBdWpnZjZHTWJt?=
+ =?utf-8?B?L3VSNjdleW9VanJxZGF3QU5BbFR5ZG9ZV0xJalVaeWtub3NLYUY1RzhYbktv?=
+ =?utf-8?B?TWRBQ05Sc05DYjFwR21pYkN4OXkwWmZ5QmdKNENjcVVoYUJtL1VpRkd0QXVE?=
+ =?utf-8?B?V3RVL0tFVUZtWC9Pcldyc0lRNWJSVWxxcmljSks2TFduM09kdkIzeWJLZWd5?=
+ =?utf-8?B?SitDM0JiN2JJemtkRVA4SkNyaXhLVEVSSjhkZXNWWUN2aTFBR1BURFB3U21B?=
+ =?utf-8?B?VlZHWUlDOXZGZXVnVzdQTjFCT3RQWkc4eDdRWG9odUtMNTFmdWcrOXlzUDdk?=
+ =?utf-8?B?dXZCSUhkeXFLeUtFNXZWV3ZvRkpzbTlKTkhHc2lJM1EvcWlQcStON2VGYk0y?=
+ =?utf-8?B?OGFiU29EaFpUbGlZR2ppbEtIbWwxM0JOSmlwSjVBMU1GY1UvbDBObCtLV0sw?=
+ =?utf-8?B?Q2ZPT2U0NG15UzJzekZacHI3cWl2MkJvNTgzM3JBNlhHS2toRm9nR2Y4Nk5G?=
+ =?utf-8?B?ZE9HZTgybzRVbUsyOFZGQ0s5WC9OcTVaNHIvR0RVOXQwb2hqeXJnVTEydUpD?=
+ =?utf-8?B?Qnd6dWl1VHRsTlJFRGJGZ0RWVjRUcjhvRW1seSs5ZWU0QkZoMHovbDdOMmRI?=
+ =?utf-8?B?RUpvTjhOeEF0Z1FGd0l1MlhES3duVk9aYXMyT1VTeFNBSzExcGliWlVkRVJk?=
+ =?utf-8?B?ZDFqZko5OVRmaVFDR0ZZNC95d282Z1Bla3p3MW1Cd2w5S3BLN29nVUdCdEU1?=
+ =?utf-8?B?VklJN3VHb050Mmc5ZFN5SllJYzdnZElTRklFWXBOOHAyQ0ZaaEJ0OU5ER2tH?=
+ =?utf-8?B?VVlUYmtoampzdGNJOUZXYlA4TkFNSUptaXNJZWdTM0NDOHdTWEMxTFVkNjg4?=
+ =?utf-8?B?VkZXQlBQNVg0emxSbERhdGd6MHc3S1g2QldkZ2ZJUS90Y0xNRDNLM2ViVHlC?=
+ =?utf-8?B?bmFsWitqQWY4L0NQLzNvK240QTRyTXJhazRFTHBQTW5JTnlJMEptYW9KMlVs?=
+ =?utf-8?B?Si9VeHJuRHFhZlg1YThMY0NPYjViSFhIMG1WVy80SzBFeGlHUXJqOVF0UENU?=
+ =?utf-8?B?Mk9LeStLWlJaZHJQd0d2cFF4dkNxMk00MDdZYmhzWnBxSUlhMVBVazVpODBv?=
+ =?utf-8?B?S2pjUWhoamQraGw2b0ZOcXdXMTlzdDl6bjRnRWY3U0Zpb1ZBMXlaZk5FaFBK?=
+ =?utf-8?B?NS9sS0ZrTFg5QnVuMldsQzRRWDN0ZG5rbXdYVzVwcS9QMm9qYkFSTXRwRGJL?=
+ =?utf-8?B?b1lmVS80dWU1SXh5cTBFdnRyMU5pL0Y5akxmSFN6aUxOR3ozeWZTS0ZrUDNM?=
+ =?utf-8?B?Z1AreFRwNmFTYUtIM0ozY2xleGFTUlZEOU1FMU9GQ0dDRUdZL2o1RWhaZ25R?=
+ =?utf-8?Q?xOeHsohqY8pxYFRqEGeccWOzD?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0cbbbdc-9b14-4c7e-2e68-08dbd941774a
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef4ecde6-b635-4c9c-f081-08dbd94336a2
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 12:12:20.6491
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 12:24:50.9765
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ykNslQQ+Om37dfGqHpR4AeJ7qTy5HLmEC+8+7C4j5kP+kufZzEruwRCLPyorCzZIKusR2gdxQ+D0tytrPWtcgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7961
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Ua4EzjYSh2Kd5B4PB282B+J6VmJJ4a4Um7qgFOjK6EtTeYyLp7S8EU1WX3TqneE7/TinApP1Uh6i8gEHTBCSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9098
 
-On 30.10.2023 08:37, Xenia Ragiadakou wrote:
-> Jan would it be possible to sketch a patch of your suggested solution 
-> because I 'm afraid I have not fully understood it yet and I won't be 
-> able to implement it properly for a v2?
+On 26.10.2023 17:19, Roger Pau Monné wrote:
+> On Thu, Oct 26, 2023 at 05:07:18PM +0200, Jan Beulich wrote:
+>> On 26.10.2023 15:24, Roger Pau Monné wrote:
+>>> On Thu, Oct 26, 2023 at 11:03:42AM +0200, Jan Beulich wrote:
+>>>> On 26.10.2023 10:34, Roger Pau Monné wrote:
+>>>>> On Thu, May 11, 2023 at 02:06:46PM +0200, Jan Beulich wrote:
+>>>>>> ... in order to also deny Dom0 access through the alias ports. Without
+>>>>>> this it is only giving the impression of denying access to both PICs.
+>>>>>> Unlike for CMOS/RTC, do detection very early, to avoid disturbing normal
+>>>>>> operation later on.
+>>>>>>
+>>>>>> Like for CMOS/RTC a fundamental assumption of the probing is that reads
+>>>>>> from the probed alias port won't have side effects in case it does not
+>>>>>> alias the respective PIC's one.
+>>>>>
+>>>>> I'm slightly concerned about this probing.
+>>>>>
+>>>>> Also I'm unsure we can fully isolate the hardware domain like this.
+>>>>> Preventing access to the non-aliased ports is IMO helpful for domains
+>>>>> to realize the PIT is not available, but in any case such accesses
+>>>>> shouldn't happen in the first place, as dom0 must be modified to run
+>>>>> in such mode.
+>>>>
+>>>> That's true for PV Dom0, but not necessarily for PVH. Plus by denying
+>>>> access to the aliases we also guard against bugs in Dom0, if some
+>>>> component thinks there's something else at those ports (as they
+>>>> indeed were used for other purposes by various vendors).
+>>>
+>>> I think it would be safe to add a command line option to disable the
+>>> probing, as we would at least like to avoid it in pvshim mode.  Maybe
+>>> ut would be interesting to make it a Kconfig option so that exclusive
+>>> pvshim Kconfig can avoid all this?
+>>>
+>>> Otherwise it will just make booting the pvshim slower.
+>>
+>> I've taken note to introduce such an option (not sure yet whether just
+>> cmdline or also Kconfig). Still
+>> - Shouldn't we already be bypassing related init logic in shim mode?
+> 
+> Not sure what we bypass in pvshim mode, would be good to double
+> check.
+> 
+>> - A Kconfig option interfacing with PV_SHIM_EXCLUSIVE will collide with
+>>   my patch inverting that option's sense (and renaming it), so it would
+>>   be nice to have that sorted/accepted first (see
+>>   https://lists.xen.org/archives/html/xen-devel/2023-03/msg00040.html).
+> 
+> It being Andrew the one that made the request, I would like to get his
+> opinion on it.  UNCONSTRAINED does seem a bit weird.
 
-While what Roger sent looks to be sufficient, I still thought I'd send
-my variant, which I think yields more overall consistent results. Like
-Roger's this isn't really tested (beyond making sure it builds).
+I agree that the name is odd; I couldn't think of any better one (and
+this already is the result of 3 or 4 rounds of renaming). I'll be more
+than happy to consider other naming suggestions. The main issue with the
+present option is, just to re-state it here, that we have grown negative
+dependencies on it, which is a problem.
+
+However, meanwhile I've realized that we don't really want to tie anything
+here to PV_SHIM_EXCLUSIVE, at least not directly. What we care about is
+whether we _actually_ run in shim mode, i.e. also when a full-fledged
+hypervisor is in use. My plan is now to have said new command line option,
+which - if not specified on the command line - I'd default to !pv_shim.
+
+> Maybe the issue is that PV_SHIM_EXCLUSIVE shouldn't have been a
+> Kconfig option in the first place, and instead a specific Kconfig
+> config file?
+> 
+> Maybe it's not possible to achieve the same using just a Kconfig
+> config file.
+
+I'm afraid I don't understand what you mean by "Kconfig config file". It
+can't really be just another .../Kconfig file somewhere in the tree, as
+it doesn't really matter where an option like this would be defined.
 
 Jan
-
-From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Subject: x86/hvm/dom0: fix PVH initrd and metadata placement
-
-Given that start < kernel_end and end > kernel_start, the logic that
-determines the best placement for dom0 initrd and metadata, does not
-take into account the two cases below:
-(1) start > kernel_start && end > kernel_end
-(2) start < kernel_start && end < kernel_end
-
-In case (1), the evaluation will result in end = kernel_start
-i.e. end < start, and will load initrd in the middle of the kernel.
-In case (2), the evaluation will result in start = kernel_end
-i.e. end < start, and will load initrd at kernel_end, that is out
-of the memory region under evaluation.
-
-This patch reorganizes the conditionals to include so far unconsidered
-cases as well, uniformly returning the lowest available address.
-
-Fixes: 73b47eea2104 ('x86/dom0: improve PVH initrd and metadata placement')
-Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Contrary to my original intentions, with the function preferring lower
-addresses (by walking the E820 table forwards), the new cases also
-return lowest-possible addresses.
----
-v2: Cover further cases of overlap.
-
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -515,16 +515,23 @@ static paddr_t __init find_memory(
- 
-         ASSERT(IS_ALIGNED(start, PAGE_SIZE) && IS_ALIGNED(end, PAGE_SIZE));
- 
-+        /*
-+         * NB: Even better would be to use rangesets to determine a suitable
-+         * range, in particular in case a kernel requests multiple heavily
-+         * discontiguous regions (which right now we fold all into one big
-+         * region).
-+         */
-         if ( end <= kernel_start || start >= kernel_end )
--            ; /* No overlap, nothing to do. */
-+        {
-+            /* No overlap, just check whether the region is large enough. */
-+            if ( end - start >= size )
-+                return start;
-+        }
-         /* Deal with the kernel already being loaded in the region. */
--        else if ( kernel_start - start > end - kernel_end )
--            end = kernel_start;
--        else
--            start = kernel_end;
--
--        if ( end - start >= size )
-+        else if ( kernel_start > start && kernel_start - start >= size )
-             return start;
-+        else if ( kernel_end < end && end - kernel_end >= size )
-+            return kernel_end;
-     }
- 
-     return INVALID_PADDR;
-
 
