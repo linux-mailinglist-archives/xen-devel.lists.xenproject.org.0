@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A657DB9FE
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 13:40:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625075.973962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824B77DBA27
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 13:51:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625079.973973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxRYM-0001la-7O; Mon, 30 Oct 2023 12:39:34 +0000
+	id 1qxRjK-0004hW-9u; Mon, 30 Oct 2023 12:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625075.973962; Mon, 30 Oct 2023 12:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 625079.973973; Mon, 30 Oct 2023 12:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxRYM-0001jT-4R; Mon, 30 Oct 2023 12:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 625075;
- Mon, 30 Oct 2023 12:39:32 +0000
+	id 1qxRjK-0004fr-73; Mon, 30 Oct 2023 12:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 625079;
+ Mon, 30 Oct 2023 12:50:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ec4L=GM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qxRYK-0001jN-Js
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 12:39:32 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=Hhfi=GM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1qxRjI-0004fl-El
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 12:50:52 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::61d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5edcd8ca-7721-11ee-9b0e-b553b5be7939;
- Mon, 30 Oct 2023 13:39:30 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1B056219CD;
- Mon, 30 Oct 2023 12:39:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93B40138EF;
- Mon, 30 Oct 2023 12:39:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZbidIgCkP2UOegAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 30 Oct 2023 12:39:28 +0000
+ id f3e94edd-7722-11ee-9b0e-b553b5be7939;
+ Mon, 30 Oct 2023 13:50:50 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB8339.eurprd04.prod.outlook.com (2603:10a6:20b:3e6::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.18; Mon, 30 Oct
+ 2023 12:50:47 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.016; Mon, 30 Oct 2023
+ 12:50:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,199 +47,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5edcd8ca-7721-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1698669569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Lngqcg+nkjGVgOoPgmcw4oMm+hcyGCopDw1fWfcrD/8=;
-	b=Y5PKASa8dFVmFdnT6aL8z5iuwp4kcS3EeacVeKZUt/f07PMcW/mWWajKWL565n56G1hLov
-	U3bRVzYyDJxOy2KSCtmT9hAXa8+XCMS3GI8vldRR0+Pd4xjCY75XRAmxWZh4LY5qxC+Gu4
-	8j3I9oJ6K0OfNxn6YPbWpfHYe3QPz4g=
-Message-ID: <3b6a8d5d-f766-49fd-aa35-992c5b048bc6@suse.com>
-Date: Mon, 30 Oct 2023 13:39:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] x86/paravirt: move some functions and defines to
- alternative
+X-Inumbo-ID: f3e94edd-7722-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TsK228iAh6aGckWT5+J5l8QJrN1yoqCeWbvz0F5z/E7l8d6bLH1TVsjNyA5UA7deMGRbAKu4vxTaNDg0ZiBAD7aap3r6E4GcJUANJoVsaimk8JMChdF8esc32G3/CdDpbri3oHnVY3B90Dw54hLyHLIXyB2sIX/Dzn4ulfHNsaKrq4gxxlQnWY9qUBaTaa92mZKVWrQTREvNo5UX5X07QdosFNS1m/vXyO8A/Ra+FVdzBFkG4865jGYFhmLfpN8mw+cJidbmxfX7NMln5uDV0OEWzgaRtgN6N0ZJ+A+Xg9oR58ZZvL3sjVwOrvv/p9hBzbkVbIRkgMYSuALQWl6pFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rAHGO6KVerxMhewd1ogEz8HFz1lkwF2+2TWetT93Xvw=;
+ b=Yx/TmSOtEmO6L4BBYnxYoAc4QHZolANfLgmuqaGKEcK8CwZkcSmlFgtjJBxn779ocZcv2fQdVLooF/CoGUf8c6JJUH8y2ihlydR0cWw9uKBFVMk8dsM943xCuC0kxU1Ao/YHyHG+dfAWG2b7lhGOYNYrkXaRLbnt98gudu8thWvC53FgRSH3lMYmZLEhjE0vuwttleuIj5tXHVQLyU118PEiqtLvcjS0X6h+PGLx+KI0hEH6/JC49RjLxxg34wpOpgGPhB2mi8xPy/Ydp6MX3w51eoIOS7n5ONUwsp+4+y1URZLvnySQNEIRPdT3AlJycg6THizX2ztNkq8SrH/OAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rAHGO6KVerxMhewd1ogEz8HFz1lkwF2+2TWetT93Xvw=;
+ b=EjWt3ZffkqTn1nnB+ATQoYb8bA9t/m7Uq9m08Ubyxm3ysrtvmDnKlsM1o7hwtyHiCdy3fBLh0fuMUpk+f6Z/sF1YMEisTO03zlbHRB7F0H+iUfzCnQos8AL4sS2JchSIa5gZBQy2CChDNo0kLYgH8fsSeBfHkkkXBbbFM1eTyMyTCmEtG2TIJUN1XNK6LwQnebz7WSsNIIwNZPOIPu/J30qa0AD+l8vHc/UfB+Ib3UcIoN/97Ui2J6mmzsih/YntIf/rxCsflOhZR7DRhB3eWasDz+CI/bnMsrk7Zrd7utLqtwJbr4fSOnaCEMscN7Re1J59lJ69kelDL7DvKtJmLQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <fc66ff4d-8440-85d0-ac65-940c48d51ff9@suse.com>
+Date: Mon, 30 Oct 2023 13:50:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH 5/7] x86: detect PIT aliasing on ports other than 0x4[0-3]
 Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Ajay Kaher <akaher@vmware.com>, Alexey Makhalov <amakhalov@vmware.com>,
- VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
-References: <20231019091520.14540-1-jgross@suse.com>
- <20231019091520.14540-2-jgross@suse.com>
- <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------CjY5AqY2i0DxVv5xgZzdvcJ0"
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <95129c04-f37c-9e26-e65d-786a1db2f003@suse.com>
+ <042f76dd-d189-c40a-baec-68ded32aa797@suse.com> <ZTo-tpk64ew4rk1o@macbook>
+ <6c3a4243-fef4-129c-8f58-7bc009f886b6@suse.com> <ZTpwTrLU4d90lWYm@macbook>
+ <bbc0d98b-8908-3fdb-ebb9-6cff5caf940c@suse.com> <ZTqCLbFJkAyKCPuc@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZTqCLbFJkAyKCPuc@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0340.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::19) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88d3ce84-4f9b-455b-c15b-08dbd946d64a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	lr+brNkv+HBsQ5zgGDl04IT1tGWcXTGDZwK9aW3sbHcRa4DBVA0Fhg4MmHYc7kgdXB3s6kN2/oCO+qKUePq8dZmtdfzbBybkGKKn/4po0iLHjPCZRBmv1BYrTwYNq1ybCWDKOQx5lHKkRObfDD8/J4DFw/vlWU19Dyrb78Sqzm3XkFtIbRozRpYajROcANS0DNuQwJG42zu6KPijqpYd6rjMXb/eWFHltFI480KryUAEnUfAN5TK/0mCeacRGZSoZfcOhQOijZoobJCLFWHpoG5y4xlyAawMiY1JlXQjx7d0VkVy4m+vmKcNaAptnwYC3NQRELz9Tl4NgTqshbYgFpH/zne6KlLvH4qO3bVK08CbtoneeLjtLJ6hvfB+bAS2k2x8uu2t5ssmCmUUHY9xWGNE0WI6WCxXZKSF8TDG/d8CVc5DE8o/yFQcBkwagiTiKl+4oGL18av0fu9uUmR538scDsQ6UYNan7acqlpITPCvDScBaRwd95ItaI0/LgipeuunAV/j77AJclmd1RVL11ZfYBjl+x7BkFBP1LrxXcl4sduUNZnrePLSF0nkN8Cj59PNIHdsNwRgaIUWHSsRZkMgCbViMAh12lWiOVrGwrMrgfhjrszBdI8ntY37k7MCW0sqb5cBsxd4x1sqwSYB1Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(376002)(346002)(396003)(39860400002)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(5660300002)(41300700001)(2906002)(54906003)(66556008)(66946007)(66476007)(6486002)(8676002)(8936002)(4326008)(478600001)(316002)(6916009)(66899024)(38100700002)(83380400001)(86362001)(53546011)(31696002)(36756003)(31686004)(6506007)(6512007)(26005)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b0ZJN1VFTXM4SG1LTGRTTngrN1J6UVZLOUdESlpiQkdQT3lrQ1ZETG14NitX?=
+ =?utf-8?B?L21SdWpLazhYRFhIb0NCaElCZXVGVXdEN3lwdXdyMy96V0hMbndZWWc1Rmly?=
+ =?utf-8?B?b1dpbXFCU2NoRjg3QjY5ZlQ5ZUVVVE1xRXZtNkh1OGovSHBqV0NaUzNOL1Ns?=
+ =?utf-8?B?SFUrN2UxdVNLdE5XRnFJaG5acDlGMXZuOVo0ZWJIN1o2NnkzUytacUlIRVhH?=
+ =?utf-8?B?Z21MRnNHRkowK1dicjV3WURldzF1eGxVMVBRMkFybWhLR0FWdDFHQk5OQTJW?=
+ =?utf-8?B?aldxNXc1UWlqclhvcXFEWmwxNWQ0Q2docVdwZ01yWDlZM2NmSG1DZk0wVDVP?=
+ =?utf-8?B?QXVtNzBBdzlhWW12VEV3VlVXZXptczJtS1R0a1J0UXVzczg2L3lyY0tYMjI0?=
+ =?utf-8?B?dUVGMTh4VzJ3VVNocnpqTVU2RVVpNk15bGF3MlN0cWJsVHp2dGI2YWZUY1Q2?=
+ =?utf-8?B?Tm83aHk4OTFlMVVOM0NxMzhZYTFacW8zMEtzVFFOcmhEOTh3aVRBNExzdis4?=
+ =?utf-8?B?Z2R1bDE1ZHZVYlY5K2c0c1lzaU9IQ2sycTgwMzI1QUxiVHlndEgxQ3V1YXAr?=
+ =?utf-8?B?bkw5SVFNMHdRUCtHQ1c3eUlNd3JhaDI4ODhYUXkvRGZnTlNxZm1wWlI3YitJ?=
+ =?utf-8?B?VllZamdTdEIzNk50WUE1Wmk1c25QUnRMWnIwd3hDTDB1aExjMWhlUm9JcG4z?=
+ =?utf-8?B?S1pndFk0WjIvczBnVWszRlRrRTJOZDhDTnQvaDk2ekN5bm9qcFhBVEtORXNS?=
+ =?utf-8?B?b3NYZHVhdWZhVHVPZnFOcG9ibW53Y1FMQlduSUEya3p5NjZQNzgydGxRb1Zh?=
+ =?utf-8?B?TVBucHVlMmpLWHZ4TDhZbU1nc2JEaUhwRXdra2ZORkNjbDR1Sjh6NlhoRm9H?=
+ =?utf-8?B?aHNiUzNyZnRYL1hQcXhCR2lJdzdDVXpOdGRyOWRQUjhqTXJjaXY2N2lWS21V?=
+ =?utf-8?B?dklxRW1VSkRFT08yeVpkZTFDWHdBd1loYmV3a2kzcTN5WGhxRzZIeUZ3ZVNG?=
+ =?utf-8?B?USttMi9kZGUvNW16OVp2aEVqQkF2K3czWmNoNXhVWmVxV2F4NDJwUC8zaGY3?=
+ =?utf-8?B?dUN0UDFXblVXQjBuZDdDRFZlNUdsa1ZYWmhRZDdDbTdLMDFvSnRhZk00VXU3?=
+ =?utf-8?B?dGIvVTF3cVI2aHZmejRoOHd3TEt1bGVuby9TUWFCUERoYWFlK05pTUhrOXFi?=
+ =?utf-8?B?SWRHdW9oYnovZTdCUHlBbHNqbVRXV1M0Rzg1b1l2dGlFUi80eGFKamIzZUl3?=
+ =?utf-8?B?b3J4dG82QkFwMG9PQkZhd3Zkd3pEcmVEK2VGbE9ZcHB5Z2JqSm5EZEhIQllq?=
+ =?utf-8?B?bWJFNjl5NnFpK2twRWtXUDNkcVRhWkRNNkdhTFplVmUvRnhUZmEwWUpDb0Fz?=
+ =?utf-8?B?S1NIUVk3dTJYVEJ0Z1hQS2xBL0xuMUtRVE53M3BScXBISTJCYVNmOW4rYk9I?=
+ =?utf-8?B?aFY3M1FURTFrUGYyZ3VuWWZaMzQ0ZkxnZHdIV3R6Um5lSjRBd0duOHl2Qzlh?=
+ =?utf-8?B?bmRqdkxKckM3MmloUzI0cyt6dTlKVzdTN0JTL1RzUW0xMVBxSGhpRTJsRkh0?=
+ =?utf-8?B?Mk9qdDJ3cFp1eWVwdnJIZmRNVGl3TllHZkpTcDlVRXFsMGUvN1lPc1VCTld3?=
+ =?utf-8?B?WlRMbTVGK0l3dzhxb1Q2MDdNR29YSmNLMWsveDdDL2drZVcvMkNzTStoSWQr?=
+ =?utf-8?B?ZWNnSXAvdFBRWmdWRW1la2hEOEpVZ3h3RDQxRGZDRHN1UmdYU2JscWlkbWx5?=
+ =?utf-8?B?VGI5RmtlSUFDb2pyWUZpbFBlM2wvU0RadXpkYVRpR1A1cVR5Qi9zTVU2d3VD?=
+ =?utf-8?B?QThydkkrQXo1c1R0UVVXdnVDOTNxNkpubUFUellybjhTbEJEdHVUMDVuQUty?=
+ =?utf-8?B?YjhHYzBYUVpWeWlmTGlaekc2WnZ0Sm5XejFJa0pqSkRuUThRdVU1VExCck8v?=
+ =?utf-8?B?NTBhekduTHRwLy9RN0xtTVRUUGIwTXJFa2QzTk12WCtpNWFmM1YrRDhlUjNT?=
+ =?utf-8?B?KzNydzBFNnhDTWpRUHlIbGdhdktYcEhiNW9HblVEVmNOSG14M1FXVjI1RXB4?=
+ =?utf-8?B?U2tTVlVqU3NoZDdOdFJIbDhqUmFoRGp1WjJOTFZYemo4OGtkckJZcDZLeGND?=
+ =?utf-8?Q?vX7LKGnibQ1iKamdKXv3QloRS?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88d3ce84-4f9b-455b-c15b-08dbd946d64a
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 12:50:47.0480
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o5WjGI1eVuJVqfVOr0QaYGCnTS4w7SlIe5LPabBbSx87trxPqFzm3XptfQlHh/D2SBy4XW4yhVerXxN58eMRNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8339
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CjY5AqY2i0DxVv5xgZzdvcJ0
-Content-Type: multipart/mixed; boundary="------------WtUeyENtP6GaM0fFvnSU09ev";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Ajay Kaher <akaher@vmware.com>, Alexey Makhalov <amakhalov@vmware.com>,
- VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <3b6a8d5d-f766-49fd-aa35-992c5b048bc6@suse.com>
-Subject: Re: [PATCH v3 1/5] x86/paravirt: move some functions and defines to
- alternative
-References: <20231019091520.14540-1-jgross@suse.com>
- <20231019091520.14540-2-jgross@suse.com>
- <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
-In-Reply-To: <20231025103402.GBZTjvGse9c0utZGO0@fat_crate.local>
+On 26.10.2023 17:13, Roger Pau Monné wrote:
+> On Thu, Oct 26, 2023 at 05:10:41PM +0200, Jan Beulich wrote:
+>> On 26.10.2023 15:57, Roger Pau Monné wrote:
+>>> On Thu, Oct 26, 2023 at 02:31:27PM +0200, Jan Beulich wrote:
+>>>> On 26.10.2023 12:25, Roger Pau Monné wrote:
+>>>>> On Thu, May 11, 2023 at 02:07:12PM +0200, Jan Beulich wrote:
+>>>>>> ... in order to also deny Dom0 access through the alias ports. Without
+>>>>>> this it is only giving the impression of denying access to PIT. Unlike
+>>>>>> for CMOS/RTC, do detection pretty early, to avoid disturbing normal
+>>>>>> operation later on (even if typically we won't use much of the PIT).
+>>>>>>
+>>>>>> Like for CMOS/RTC a fundamental assumption of the probing is that reads
+>>>>>> from the probed alias port won't have side effects (beyond such that PIT
+>>>>>> reads have anyway) in case it does not alias the PIT's.
+>>>>>>
+>>>>>> At to the port 0x61 accesses: Unlike other accesses we do, this masks
+>>>>>> off the top four bits (in addition to the bottom two ones), following
+>>>>>> Intel chipset documentation saying that these (read-only) bits should
+>>>>>> only be written with zero.
+>>>>>
+>>>>> As said in previous patches, I think this is likely too much risk for
+>>>>> little benefit.  I understand the desire to uniformly deny access to
+>>>>> any ports that allow interaction with devices in use by Xen (or not
+>>>>> allowed to be used by dom0), but there's certainly a risk in
+>>>>> configuring such devices in the way that we do by finding a register
+>>>>> that can be read and written to.
+>>>>>
+>>>>> I think if anything this alias detection should have a command line
+>>>>> option in order to disable it.
+>>>>
+>>>> Well, we could have command line options (for each of the RTC/CMOS,
+>>>> PIC, and PIT probing allowing the alias masks to be specified (so we
+>>>> don't need to probe). A value of 1 would uniformly mean "no probing,
+>>>> no aliases" (as all three decode the low bit, so aliasing can happen
+>>>> there). We could further make the default of these variables (yes/no,
+>>>> no actual mask values of course) controllable by a Kconfig setting.
+>>>
+>>> If you want to make this more fine grained, or even allow the user to
+>>> provide custom masks that's all fine, but there's already
+>>> dom0_ioports_disable that allows disabling a list of IO port ranges.
+>>>
+>>> What I would require is a way to avoid all the probing, so that we
+>>> could return to the previous behavior.
+>>>
+>>>>>> --- a/xen/arch/x86/time.c
+>>>>>> +++ b/xen/arch/x86/time.c
+>>>>>> @@ -425,6 +425,69 @@ static struct platform_timesource __init
+>>>>>>      .resume = resume_pit,
+>>>>>>  };
+>>>>>>  
+>>>>>> +unsigned int __initdata pit_alias_mask;
+>>>>>> +
+>>>>>> +static void __init probe_pit_alias(void)
+>>>>>> +{
+>>>>>> +    unsigned int mask = 0x1c;
+>>>>>> +    uint8_t val = 0;
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
+>>>>>> +     * count is loaded independent of counting being / becoming enabled.  Thus
+>>>>>> +     * we have a 16-bit value fully under our control, to write and then check
+>>>>>> +     * whether we can also read it back unaltered.
+>>>>>> +     */
+>>>>>> +
+>>>>>> +    /* Turn off speaker output and disable channel 2 counting. */
+>>>>>> +    outb(inb(0x61) & 0x0c, 0x61);
+>>>>>> +
+>>>>>> +    outb((2 << 6) | (3 << 4) | (0 << 1), PIT_MODE); /* Mode 0, LSB/MSB. */
+>>>>>> +
+>>>>>> +    do {
+>>>>>> +        uint8_t val2;
+>>>>>> +        unsigned int offs;
+>>>>>> +
+>>>>>> +        outb(val, PIT_CH2);
+>>>>>> +        outb(val ^ 0xff, PIT_CH2);
+>>>>>> +
+>>>>>> +        /* Wait for the Null Count bit to clear. */
+>>>>>> +        do {
+>>>>>> +            /* Latch status. */
+>>>>>> +            outb((3 << 6) | (1 << 5) | (1 << 3), PIT_MODE);
+>>>>>> +
+>>>>>> +            /* Try to make sure we're actually having a PIT here. */
+>>>>>> +            val2 = inb(PIT_CH2);
+>>>>>> +            if ( (val2 & ~(3 << 6)) != ((3 << 4) | (0 << 1)) )
+>>>>>> +                return;
+>>>>>> +        } while ( val2 & (1 << 6) );
+>>>>>
+>>>>> We should have some kind of timeout here, just in case...
+>>>>
+>>>> Hmm, I indeed did consider the need for a timeout here. With what
+>>>> we've done up to here we already assume a functioning PIT, verifying
+>>>> simply as we go. The issue with truly using some form of timeout is
+>>>> the determination of how long to wait at most.
+>>>
+>>> I would likely make it based on iterations, could you get some figures
+>>> on how many iterations it takes for the bit to be clear?
+>>>
+>>> I would think something like 1000 should be enough, but really have no
+>>> idea.
+>>
+>> Except that how long a given number of iterations takes is unknown. 1000
+>> may be enough today or on the systems we test, but may not be tomorrow
+>> or on other peoples' systems. Hence why I'm hesitant ...
+> 
+> Hm, but getting stuck in a loop here can't be good either.
 
---------------WtUeyENtP6GaM0fFvnSU09ev
-Content-Type: multipart/mixed; boundary="------------gKgRX3PD6Fey5HM02ylSIZYh"
+I certainly understand that. The command line option I've just added in
+a prereq patch would allow bypassing the probing, but of course I agree
+that we want to avoid hanging here nevertheless (if we can).
 
---------------gKgRX3PD6Fey5HM02ylSIZYh
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>  Let's do
+> it time wise if you prefer, 1s should be more than enough I would
+> think.
 
-T24gMjUuMTAuMjMgMTI6MzQsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gVGh1LCBP
-Y3QgMTksIDIwMjMgYXQgMTE6MTU6MTZBTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+ICsvKiBMb3ctbGV2ZWwgYmFja2VuZCBmdW5jdGlvbnMgdXNhYmxlIGZyb20gYWx0ZXJu
-YXRpdmUgY29kZSByZXBsYWNlbWVudHMuICovDQo+PiArREVGSU5FX0FTTV9GVU5DKHg4Nl9u
-b3AsICIiLCAuZW50cnkudGV4dCk7DQo+PiArRVhQT1JUX1NZTUJPTF9HUEwoeDg2X25vcCk7
-DQo+IA0KPiBUaGlzIGlzIGFsbCB4ODYgY29kZSBzbyB5b3UgZG9uJ3QgcmVhbGx5IG5lZWQg
-dGhlICJ4ODZfIiBwcmVmaXggLSAibm9wIg0KPiBpcyBwZXJmZWN0bHkgZmluZS4NCj4gDQo+
-PiArbm9pbnN0ciB2b2lkIHg4Nl9CVUcodm9pZCkNCj4+ICt7DQo+PiArCUJVRygpOw0KPj4g
-K30NCj4+ICtFWFBPUlRfU1lNQk9MX0dQTCh4ODZfQlVHKTsNCj4gDQo+IFRoYXQgZXhwb3J0
-IGlzIG5lZWRlZCBmb3I/DQo+IA0KPiBQYXJhdmlydCBzdHVmZiBpbiBtb2R1bGVzPw0KPiAN
-Cj4gSXQgYnVpbGRzIGhlcmUgd2l0aG91dCBpdCAtIEkgZ3Vlc3MgSSBuZWVkIHRvIGRvIGFu
-IGFsbG1vZGNvbmZpZy4NCj4gDQoNClR1cm5zIG91dCBpdCBpcyBuZWVkZWQgYWZ0ZXIgYWxs
-LiBXaXRoIHBhdGNoIDQgYXBwbGllZCBJIGdldDoNCg0KRVJST1I6IG1vZHBvc3Q6ICJCVUdf
-ZnVuYyIgW2FyY2gveDg2L2V2ZW50cy9hbWQvcG93ZXIua29dIHVuZGVmaW5lZCENCkVSUk9S
-OiBtb2Rwb3N0OiAiQlVHX2Z1bmMiIFthcmNoL3g4Ni9rZXJuZWwvY3B1L21jZS9tY2UtaW5q
-ZWN0LmtvXSB1bmRlZmluZWQhDQpFUlJPUjogbW9kcG9zdDogIkJVR19mdW5jIiBbYXJjaC94
-ODYva2VybmVsL2NwdWlkLmtvXSB1bmRlZmluZWQhDQpFUlJPUjogbW9kcG9zdDogIkJVR19m
-dW5jIiBbYXJjaC94ODYva3ZtL2t2bS5rb10gdW5kZWZpbmVkIQ0KRVJST1I6IG1vZHBvc3Q6
-ICJCVUdfZnVuYyIgW2FyY2gveDg2L2t2bS9rdm0taW50ZWwua29dIHVuZGVmaW5lZCENCkVS
-Uk9SOiBtb2Rwb3N0OiAiQlVHX2Z1bmMiIFthcmNoL3g4Ni9rdm0va3ZtLWFtZC5rb10gdW5k
-ZWZpbmVkIQ0KRVJST1I6IG1vZHBvc3Q6ICJCVUdfZnVuYyIgW2ZzL25mc2QvbmZzZC5rb10g
-dW5kZWZpbmVkIQ0KRVJST1I6IG1vZHBvc3Q6ICJCVUdfZnVuYyIgW2NyeXB0by9hZXNfdGku
-a29dIHVuZGVmaW5lZCENCkVSUk9SOiBtb2Rwb3N0OiAiQlVHX2Z1bmMiIFtkcml2ZXJzL3Zp
-ZGVvL2ZiZGV2L3V2ZXNhZmIua29dIHVuZGVmaW5lZCENCkVSUk9SOiBtb2Rwb3N0OiAiQlVH
-X2Z1bmMiIFtkcml2ZXJzL3ZpZGVvL3ZnYXN0YXRlLmtvXSB1bmRlZmluZWQhDQoNCg0KSnVl
-cmdlbg0K
---------------gKgRX3PD6Fey5HM02ylSIZYh
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Yet time-wise is also problematic ahead of us having calibrated clocks.
+And using the PIT itself (which runs at a known frequency) doesn't look
+to be a good idea when we mean to deal with the case of a broken PIT,
+or none at all.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------gKgRX3PD6Fey5HM02ylSIZYh--
-
---------------WtUeyENtP6GaM0fFvnSU09ev--
-
---------------CjY5AqY2i0DxVv5xgZzdvcJ0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmU/pAAFAwAAAAAACgkQsN6d1ii/Ey9X
-uQf9HVW5MAezF4sh5DKlZuUi81hLzbrceMI/4mgDEoARnFElG81OLh2+VbeukkopRfKFk83m3iDX
-Nwczt7+A65fKi2X31jD2Qcwk+Roy22HyH3YOVGR8GyrwD+t40pnnA2j+ltwLNwT8NlnQ4sX/Xs54
-/u43Mb372gE+gxQUR6JQq3aHeO+xcYoAvOYOeUn3JGOWoCu/HbQGwAoU6T2Xn5xwdeHTnTRugghs
-DsS8QMJJXxmeTFMVokdeISwUqENxPiGTPyOlhzCxLtHkAQyatGHlUXcuOoE/9LeQ+yjOBa6QO8Zp
-psAtk64ro1/ouewo/0WZUNT9G+g3r8jL2mkMZU5Bww==
-=rD7o
------END PGP SIGNATURE-----
-
---------------CjY5AqY2i0DxVv5xgZzdvcJ0--
+Jan
 
