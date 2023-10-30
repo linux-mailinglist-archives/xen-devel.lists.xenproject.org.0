@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE017DB8F3
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 12:29:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625058.973922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78B8E7DB934
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 12:43:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625062.973932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxQST-0006dC-Db; Mon, 30 Oct 2023 11:29:25 +0000
+	id 1qxQfY-0000xA-I7; Mon, 30 Oct 2023 11:42:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625058.973922; Mon, 30 Oct 2023 11:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 625062.973932; Mon, 30 Oct 2023 11:42:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxQST-0006aj-B0; Mon, 30 Oct 2023 11:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 625058;
- Mon, 30 Oct 2023 11:29:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qxQSR-0006ad-O4
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 11:29:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qxQSQ-0007Ew-9K; Mon, 30 Oct 2023 11:29:22 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qxQSP-0001TW-Vb; Mon, 30 Oct 2023 11:29:22 +0000
+	id 1qxQfY-0000vB-FU; Mon, 30 Oct 2023 11:42:56 +0000
+Received: by outflank-mailman (input) for mailman id 625062;
+ Mon, 30 Oct 2023 11:42:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3VkP=GM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qxQfX-0000v5-1L
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 11:42:55 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 76549aa5-7719-11ee-98d6-6d05b1d4d9a1;
+ Mon, 30 Oct 2023 12:42:53 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-9a58dbd5daeso666241666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Oct 2023 04:42:53 -0700 (PDT)
+Received: from localhost ([213.195.118.109]) by smtp.gmail.com with ESMTPSA id
+ n11-20020a170906b30b00b0099bcdfff7cbsm5767682ejz.160.2023.10.30.04.42.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Oct 2023 04:42:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,50 +44,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jfNWRxjvoAH8O3mgyZy30Z0zXan+pp4ep5ijBXXcR4Q=; b=qUsqBqdtmbkCOBZikFJpIdLLxw
-	l4EQX2aA7u7/FmLaQZzZS811j6sKoN0EkB2DNlFew6Ge61HXVQVMijsr/EPF1zFQ+6eUi62PKk8ER
-	RvL5vJLTgX8BW/3tm7jFzMtpxqPpm59YXAY8zMC8ojRAAl87xvKErcizk5TmRLhxaOjk=;
-Message-ID: <4c5db3e9-cf77-43aa-be7b-df5734104fea@xen.org>
-Date: Mon, 30 Oct 2023 11:29:19 +0000
+X-Inumbo-ID: 76549aa5-7719-11ee-98d6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1698666173; x=1699270973; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5nMxB3pbQgBPe8juaICqu1T0NsV8DywdYSg4UfNXx0s=;
+        b=EQ52sjImeDnpI33I/ot9Bo9f/1Nbgya25J2VBg/+QKB/CqN+AKagXAod943CLaZFK5
+         2Lt0YN1I5zlTs1Fxo2BeAQM/Pe2pMUqa7OfejsFJXIMe9AtPFHG0SWgjgq1SJOb/BzDF
+         i3WP+DxhvAqJz7OHtbuSQcHI1lXwX25OUiego=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698666173; x=1699270973;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5nMxB3pbQgBPe8juaICqu1T0NsV8DywdYSg4UfNXx0s=;
+        b=djMO3P8DUKp1iUjK4uVq4suH0EK5AWT2rmMht25O6GIOAaueoygE6d6Ad/3BtIedgM
+         y0Bcu9/9/DnnuWAb47EMO56AxKI74i4PzTJyG/Akh6KIwN+StoRBJj5S5mwMspcq4mIK
+         Va01gmWv3wmEKK6T44nPo0uM6i0Cq8MFlftcdNIbau7htOiidXwmTGyyzp4YsBP0MdkF
+         iQl4l8N/sjgqZ6LC9jHX7gbhNYVkNAFAZ25LrlDuXQPHFtWhYC2g0JI240pJrz1tnC+Z
+         e86EFOvhSUCkBZ9+RmS+U/HFlHCtCrTmq8ZXDJ7LWrpWElGfsgkySy7UYdr9oCa8vdOM
+         kSug==
+X-Gm-Message-State: AOJu0Yyy0hTO4TSoFLClOs45Fqhp8KlRrh8eNOY9NxWly4KYwV7516TI
+	hqFdb7alrupZoLDBP0fy5w5EJQ==
+X-Google-Smtp-Source: AGHT+IGU6RyWHS4LYCT4Z1yUWWk2LPXTAQUepWVcaox7vvaz9bL41J4JTPL86zLpm75X/Zi8rW+tBQ==
+X-Received: by 2002:a17:907:3fa2:b0:9c6:1143:b73 with SMTP id hr34-20020a1709073fa200b009c611430b73mr8156864ejc.51.1698666173506;
+        Mon, 30 Oct 2023 04:42:53 -0700 (PDT)
+Date: Mon, 30 Oct 2023 12:42:52 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] automation: fix race condition in adl-suspend test
+Message-ID: <ZT-WvAye6OlWGLAx@macbook>
+References: <20231028033404.262729-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH][for-4.19 v5 2/8] x86: add deviation for asm-only
- functions
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
-References: <cover.1698655374.git.nicola.vetrini@bugseng.com>
- <79091a4e450b522aedfdd903ad671e705a933c49.1698655374.git.nicola.vetrini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <79091a4e450b522aedfdd903ad671e705a933c49.1698655374.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231028033404.262729-1-marmarek@invisiblethingslab.com>
 
-Hi Nicola,
+On Sat, Oct 28, 2023 at 05:33:57AM +0200, Marek Marczykowski-Górecki wrote:
+> If system suspends too quickly, the message for the test controller to
+> wake up the system may be not sent to the console before suspending.
+> This will cause the test to timeout.
+> 
+> Fix this by waiting a bit after printing the message. The test
+> controller then resumes the system 30s after the message, so as long as
+> the delay + suspending takes less time it is okay.
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> This is consistent with the observation that sync_console "fixes" the
+> issue.
+> ---
+>  automation/scripts/qubes-x86-64.sh | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index 26131b082671..a34db96e4585 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -54,11 +54,11 @@ until grep 'domU started' /var/log/xen/console/guest-domU.log; do
+>      sleep 1
+>  done
+>  echo \"${wait_and_wakeup}\"
+> +# let the above message flow to console, then suspend
+> +sleep 5
 
-On 30/10/2023 09:11, Nicola Vetrini wrote:
-> As stated in rules.rst, functions used only in asm modules
-> are allowed to have no prior declaration visible when being
-> defined, hence these functions are marked with an
-> 'asmlinkage' macro, which is then deviated for MISRA C:2012
-> Rule 8.4.
+Could you use `sync /dev/stdout`?  I guess that might not be enough,
+since the sync won't be propagated to the hypervisor, and hence even
+if flushed from Linux, we have no guarantee that the hypervisor has
+also flushed it.
 
-AFAIU, this is a replacement of SAF-1. If so, I would like a consistent 
-way to address Rule 8.4. So can you write a patch to replace all the use 
-of SAF-1 with asmlinkage and remove SAF-1?
+Xen should flush the buffer when a newline character is found, but I
+have no idea whether context could return to guest while the buffer is
+still in the process of being fully flushed.
 
-Cheers,
+Anyway, adding the extra sync might be good regardless, and keeping
+the sleep.
 
--- 
-Julien Grall
+Thanks, Roger.
 
