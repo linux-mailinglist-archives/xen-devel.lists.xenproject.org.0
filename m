@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4547DBDC3
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 17:25:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625287.974443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10687DBDCB
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Oct 2023 17:26:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625291.974453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxV4f-0003ri-G3; Mon, 30 Oct 2023 16:25:09 +0000
+	id 1qxV5z-0004wM-Rg; Mon, 30 Oct 2023 16:26:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625287.974443; Mon, 30 Oct 2023 16:25:09 +0000
+Received: by outflank-mailman (output) from mailman id 625291.974453; Mon, 30 Oct 2023 16:26:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxV4f-0003pP-C4; Mon, 30 Oct 2023 16:25:09 +0000
-Received: by outflank-mailman (input) for mailman id 625287;
- Mon, 30 Oct 2023 16:25:07 +0000
+	id 1qxV5z-0004uC-Or; Mon, 30 Oct 2023 16:26:31 +0000
+Received: by outflank-mailman (input) for mailman id 625291;
+ Mon, 30 Oct 2023 16:26:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3VkP=GM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qxV4d-0003o6-Kf
- for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 16:25:07 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1qxV5x-0004u6-O6
+ for xen-devel@lists.xenproject.org; Mon, 30 Oct 2023 16:26:29 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e25f0938-7740-11ee-9b0e-b553b5be7939;
- Mon, 30 Oct 2023 17:25:05 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-9d34b2b51a5so220805966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Oct 2023 09:25:05 -0700 (PDT)
+ id 135bbb14-7741-11ee-9b0e-b553b5be7939;
+ Mon, 30 Oct 2023 17:26:27 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-538e8eca9c1so7536241a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Oct 2023 09:26:27 -0700 (PDT)
 Received: from localhost ([213.195.118.109]) by smtp.gmail.com with ESMTPSA id
- i19-20020a1709063c5300b0098884f86e41sm6147247ejg.123.2023.10.30.09.25.04
+ l2-20020aa7c3c2000000b005407ac82f4csm6237500edr.97.2023.10.30.09.26.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Oct 2023 09:25:04 -0700 (PDT)
+ Mon, 30 Oct 2023 09:26:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,101 +44,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e25f0938-7740-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 135bbb14-7741-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698683105; x=1699287905; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1698683187; x=1699287987; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=99qu0f/IB7zYA48TZXIbF83b7dqXVJSK/aWx+C0Beng=;
-        b=e4lAZLhTBhsyt6cVR0zPxJ+fklDKfMSK5m+xCWWTKujnt5w6CQKHEu1u4D9zUIUawc
-         8ur4kwFJCwkbTrggUmM0Pz/cuXV23dW2lY84HcH/OnbPiqU2LbrrG7S0FkHzdT21pqNP
-         ZNZDbNgOxBCDECPlfOtzblh5e/ldjsAGyAF54=
+        bh=Y2CsJS2Z1go25NNTkqlGOMv00wUBDUayWJEChGx+47s=;
+        b=AzX5RMTusCJqBm5A60Zk90LkSPFN8LBBjNfznn1oVWplWPV+gRh9Fqib2724KHQXp4
+         ursQS/ZLfh9Hq0MvZwHmD4OVGVM1mwVFdWXa1lPnBNbAfH9b31wbz/XsE2Q+o4vdv+qi
+         JJycn4+cR/+yszscTERvFbjJWsgDM/wQLAHYY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698683105; x=1699287905;
+        d=1e100.net; s=20230601; t=1698683187; x=1699287987;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=99qu0f/IB7zYA48TZXIbF83b7dqXVJSK/aWx+C0Beng=;
-        b=YXtK4AeKVRfKUBhgci1UVTzS/Vj8P0XAgCl6gF1iM+sS6JeGx1NXV9xTNr9cejKAfl
-         239/k29HMbbDGH5Bb2PX/OtNQYUjmXkBKIexEZBTm2mHFGNVwZw6dmNvqCMm9Hp+BRMZ
-         2iJeVQ/BPkNEYjzTd79HewfFGxvCF8h5sTuRt8PK7ZXslQpdJwQuA42Wm/+N459PphK6
-         prdBEGe7m3tXiHG4l4MI3cDRr0dY51Ird9MSGmvKAudWFk9K3uDox/8e+cCnt40e/hVt
-         8CclTM/st05TvlpnmIfHxc3lDfN2mEdKfxW7t873Ey6/opGWf3YZpT2KNndrq0g/WeI6
-         qR8g==
-X-Gm-Message-State: AOJu0YwYtIS975B5+07Ya34PyJ94BCoUh/d1tBojZwwRqhXhSzz5c/D6
-	1KIODEhftDH3JzkAwldoxk+UuA==
-X-Google-Smtp-Source: AGHT+IF+ulQiLt/I0+C9yuIca3JQT2irf09AxoI4exEUDd5SJnsL5ZEHKpFZ0Ub2me+qU1O3XmdCig==
-X-Received: by 2002:a17:907:74d:b0:9c6:9342:1459 with SMTP id xc13-20020a170907074d00b009c693421459mr7754388ejb.20.1698683105105;
-        Mon, 30 Oct 2023 09:25:05 -0700 (PDT)
-Date: Mon, 30 Oct 2023 17:25:04 +0100
+        bh=Y2CsJS2Z1go25NNTkqlGOMv00wUBDUayWJEChGx+47s=;
+        b=DcXouABrP+V786IryEI4+cZFrCW6akbYOtBGiedmN8PVtv4MgEK75+EVsLil24xFGM
+         jL6hkGwHPyVldCs67r+c76cGITOdST3iOKV9y2ppyXkSoDy8J7wDVRCeJ1kgk2tjwwvX
+         MlkxMlmhtyEyzs1YDlNHbwsDiqhb1cFUwuZh3NOGCqH4RL5CsHZHJOIDPD8+BITFHjk0
+         o+8Fo7yg/IxdSjqr8IOPxXtvAUti6GR1UHb6UkbvInPg2N8jodXzWc9071uNs8C1SWxG
+         NFc2IVA3vnbkrR6YrHmUUE7VV3jIRuVq8sYRUnmIb+LXvAxysEwCR5nINcc35cw+vAvT
+         mD8g==
+X-Gm-Message-State: AOJu0YxcfRpM8Lzt11Vk3WDOj0d2t/F4STqAkr5W+vElF7K9X8hrQLAa
+	FSmy76/ACC6OZj6x4vInaTkPqg==
+X-Google-Smtp-Source: AGHT+IHGuribpwoBub0/lexlIKKuy2qCNwmwTmw/O0xO9KKo2Dkv1NcvGYzWZN17GliWTsLHxGEr0A==
+X-Received: by 2002:aa7:d351:0:b0:53e:467c:33f1 with SMTP id m17-20020aa7d351000000b0053e467c33f1mr9306436edr.8.1698683187331;
+        Mon, 30 Oct 2023 09:26:27 -0700 (PDT)
+Date: Mon, 30 Oct 2023 17:26:26 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 4/7] x86: detect PIC aliasing on ports other than
- 0x[2A][01]
-Message-ID: <ZT_Y4KmwRld3j1fR@macbook>
-References: <ZToksEP1Fg8MscdK@macbook>
- <86eb1c0d-ac95-247b-16c3-9c4871398082@suse.com>
- <ZTponIYDYDWRZhzi@macbook>
- <75026813-03fe-3a46-2274-b93e98f62f89@suse.com>
- <ZTqDjNSBmXeblsud@macbook>
- <d3da9300-781f-9abb-158b-0c82d36228f5@suse.com>
- <ZT_IP_-X4oLhmcFT@macbook>
- <e4929b28-5608-bba8-9953-270f408e32eb@suse.com>
- <ZT_KbM0tzrn5cWR6@macbook>
- <23a229f8-9987-ead4-995f-a917300ac6ae@suse.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] arch: drop get_processor_id()
+Message-ID: <ZT_ZMv5SJVcZ-9zf@macbook>
+References: <446254b4-8231-f6db-5f18-ed367503454c@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <23a229f8-9987-ead4-995f-a917300ac6ae@suse.com>
+In-Reply-To: <446254b4-8231-f6db-5f18-ed367503454c@suse.com>
 
-On Mon, Oct 30, 2023 at 04:35:41PM +0100, Jan Beulich wrote:
-> On 30.10.2023 16:23, Roger Pau Monné wrote:
-> > On Mon, Oct 30, 2023 at 04:19:22PM +0100, Jan Beulich wrote:
-> >> On 30.10.2023 16:14, Roger Pau Monné wrote:
-> >>> On Mon, Oct 30, 2023 at 01:24:52PM +0100, Jan Beulich wrote:
-> >>>> On 26.10.2023 17:19, Roger Pau Monné wrote:
-> >>>>> Maybe the issue is that PV_SHIM_EXCLUSIVE shouldn't have been a
-> >>>>> Kconfig option in the first place, and instead a specific Kconfig
-> >>>>> config file?
-> >>>>>
-> >>>>> Maybe it's not possible to achieve the same using just a Kconfig
-> >>>>> config file.
-> >>>>
-> >>>> I'm afraid I don't understand what you mean by "Kconfig config file". It
-> >>>> can't really be just another .../Kconfig file somewhere in the tree, as
-> >>>> it doesn't really matter where an option like this would be defined.
-> >>>
-> >>> No, I was thinking of splitting what PV_SHIM_EXCLUSIVE actually
-> >>> implies, for example by adding CONFIG_DOMCTL_HYPERCALLL or
-> >>> CONFIG_PLATFORM_HYPERCALL and re-work the pvshim_defconfig config file
-> >>> based on those, so that we don't end up with negative relations.
-> >>>
-> >>> Note sure all usages of PV_SHIM_EXCLUSIVE can be split in such a way,
-> >>> maybe we would need some compromise.
-> >>
-> >> Wouldn't such a CONFIG_DOMCTL_HYPERCALL then still want to depend on
-> >> !PV_SHIM_EXCLUSIVE, which is the kind of dependency we want to avoid?
-> >> Aiui the two (splitting and inverting) are largely orthogonal aspects.
-> > 
-> > No, CONFIG_DOMCTL_HYPERCALL could be promptless option enabled by
-> > default and disabled by the pvshim_defconfig.
+On Mon, Oct 30, 2023 at 02:29:09PM +0100, Jan Beulich wrote:
+> smp_processor_id() is what we commonly use; there's no need for it to
+> have an alias.
 > 
-> pvshim_defconfig shouldn't play a role here. Anyone configuring a shim
-> build from scratch should also get a consistent set of settings.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Then we might have to expose those more fine grained options.
-
-My sauggestion was to still allow enabling shim mode from by the user,
-but that building a pv-shim exclusive image would require using the
-pvshim_defconfig, to simply avoid exposing a bunch of fine grained
-options that only make sense for pv-shim exclusive builds.
-
-If that's not sensible, we might consider exposing those more fine
-grained options.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks, Roger.
 
