@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942B07DC7FC
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 09:15:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625496.974815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E64C87DC806
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 09:18:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625501.974825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxju3-0008Eb-LF; Tue, 31 Oct 2023 08:15:11 +0000
+	id 1qxjxL-0000Q8-4e; Tue, 31 Oct 2023 08:18:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625496.974815; Tue, 31 Oct 2023 08:15:11 +0000
+Received: by outflank-mailman (output) from mailman id 625501.974825; Tue, 31 Oct 2023 08:18:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxju3-0008CV-If; Tue, 31 Oct 2023 08:15:11 +0000
-Received: by outflank-mailman (input) for mailman id 625496;
- Tue, 31 Oct 2023 08:15:09 +0000
+	id 1qxjxL-0000NV-1m; Tue, 31 Oct 2023 08:18:35 +0000
+Received: by outflank-mailman (input) for mailman id 625501;
+ Tue, 31 Oct 2023 08:18:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TgTD=GN=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1qxju1-0008CP-TB
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 08:15:09 +0000
+ id 1qxjxJ-0000NP-5N
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 08:18:33 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b07bc3c-77c5-11ee-98d6-6d05b1d4d9a1;
- Tue, 31 Oct 2023 09:15:09 +0100 (CET)
+ id 143094f3-77c6-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 09:18:32 +0100 (CET)
 Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 770754EE073A;
- Tue, 31 Oct 2023 09:15:08 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPA id E5FCC4EE073A;
+ Tue, 31 Oct 2023 09:18:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,52 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b07bc3c-77c5-11ee-98d6-6d05b1d4d9a1
+X-Inumbo-ID: 143094f3-77c6-11ee-98d6-6d05b1d4d9a1
 MIME-Version: 1.0
-Date: Tue, 31 Oct 2023 09:15:08 +0100
+Date: Tue, 31 Oct 2023 09:18:31 +0100
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>, Doug
- Goldstein <cardoe@cardoe.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
- <kevin.tian@intel.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Simone Ballarin
+ <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
+ <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
+ <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
 Subject: Re: [XEN PATCH][for-4.19 v5 2/8] x86: add deviation for asm-only
  functions
-In-Reply-To: <alpine.DEB.2.22.394.2310301553280.1625118@ubuntu-linux-20-04-desktop>
+In-Reply-To: <a91fbdc6-1307-dfce-4e5e-351138c49dc6@suse.com>
 References: <cover.1698655374.git.nicola.vetrini@bugseng.com>
  <79091a4e450b522aedfdd903ad671e705a933c49.1698655374.git.nicola.vetrini@bugseng.com>
- <4c5db3e9-cf77-43aa-be7b-df5734104fea@xen.org>
- <alpine.DEB.2.22.394.2310301553280.1625118@ubuntu-linux-20-04-desktop>
-Message-ID: <f246ee1adabdee7abd53f3bcd737fc2b@bugseng.com>
+ <20677a35-37ee-d959-78d5-d8f95f443912@suse.com>
+ <alpine.DEB.2.22.394.2310301557300.1625118@ubuntu-linux-20-04-desktop>
+ <a91fbdc6-1307-dfce-4e5e-351138c49dc6@suse.com>
+Message-ID: <68ae1905f2fd345ea0923b31a3065d79@bugseng.com>
 X-Sender: nicola.vetrini@bugseng.com
 Organization: BUGSENG s.r.l.
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2023-10-30 23:54, Stefano Stabellini wrote:
-> On Mon, 30 Oct 2023, Julien Grall wrote:
->> Hi Nicola,
->> 
->> On 30/10/2023 09:11, Nicola Vetrini wrote:
->> > As stated in rules.rst, functions used only in asm modules
->> > are allowed to have no prior declaration visible when being
->> > defined, hence these functions are marked with an
->> > 'asmlinkage' macro, which is then deviated for MISRA C:2012
->> > Rule 8.4.
->> 
->> AFAIU, this is a replacement of SAF-1. If so, I would like a 
->> consistent way to
->> address Rule 8.4. So can you write a patch to replace all the use of 
->> SAF-1
->> with asmlinkage and remove SAF-1?
-> 
-> +1
+On 2023-10-31 08:50, Jan Beulich wrote:
+> On 31.10.2023 00:02, Stefano Stabellini wrote:
+>> On Mon, 30 Oct 2023, Jan Beulich wrote:
+>>> On 30.10.2023 10:11, Nicola Vetrini wrote:
+>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>> @@ -163,6 +163,15 @@ Therefore the absence of prior declarations is 
+>>>> safe."
+>>>>  -config=MC3R1.R8.4,reports+={safe, 
+>>>> "first_area(any_loc(file(gcov)))"}
+>>>>  -doc_end
+>>>> 
+>>>> +-doc_begin="Recognize the occurrence of current_stack_pointer as a 
+>>>> declaration."
+>>>> +-file_tag+={asm_defns, "^xen/arch/x86/include/asm/asm_defns\\.h$"}
+>>>> +-config=MC3R1.R8.4,declarations+={safe, 
+>>>> "loc(file(asm_defns))&&^current_stack_pointer$"}
+>>>> +-doc_end
+>>>> +
+>>>> +-doc_begin="asmlinkage is a marker to indicate that the function is 
+>>>> only used from asm modules."
+>>>> +-config=MC3R1.R8.4,declarations+={safe,"loc(text(^.*asmlinkage.*$, 
+>>>> -1..0))"}
+>>>> +-doc_end
+>>> 
+>>> In the longer run asmlinkage will want using for functions used 
+>>> either way
+>>> between C and assembly (i.e. C->asm calls as well as asm->C ones). 
+>>> I'd like
+>>> to ask that the text please allow for that (e.g. s/from/to interface 
+>>> with/).
+>>> 
 
-Ok, no problem
+Will do
+
+>>>> --- a/xen/arch/x86/hvm/svm/intr.c
+>>>> +++ b/xen/arch/x86/hvm/svm/intr.c
+>>>> @@ -123,7 +123,7 @@ static void svm_enable_intr_window(struct vcpu 
+>>>> *v, struct hvm_intack intack)
+>>>>          vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
+>>>>  }
+>>>> 
+>>>> -void svm_intr_assist(void)
+>>>> +asmlinkage void svm_intr_assist(void)
+>>> 
+>>> Nit (here and below): Attributes, unless impossible for some specific
+>>> reason, should always go between type and identifier. Not all our 
+>>> code
+>>> is conforming to that, but I think a majority is, and hence you 
+>>> should
+>>> be able to find ample examples (taking e.g. __init).
+>> 
+>> Hi Jan, in general I agree with this principle but I noticed that this
+>> is not the way Linux uses asmlinkage, a couple of examples:
+>> 
+>> asmlinkage void do_page_fault(struct pt_regs *regs);
+>> asmlinkage const sys_call_ptr_t sys_call_table[];
+>> 
+>> Should we go our way or follow Linux on this in terms of code style?
+> 
+> Linux isn't very consistent in attribute placement anyway, and doing it
+> "randomly" relies on the compiler guys never going to tighten what
+> attributes mean dependent on their placement (iirc gcc doc has text to
+> the effect of this possibly changing at any time). Aiui part of the
+> reason why parsing is more relaxed than it should be is that certain
+> attributes cannot be placed unambiguously at their nominally dedicated
+> place.
+> 
+> So my personal view on your question is that we should go our more
+> consistent way.
+> 
+> Jan
+
+Ok.
 
 -- 
 Nicola Vetrini, BSc
