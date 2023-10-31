@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BED887DCDBC
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 14:23:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625714.975274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCB87DCDBD
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 14:23:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625715.975287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxoiJ-00041D-Fs; Tue, 31 Oct 2023 13:23:23 +0000
+	id 1qxoiK-0004Pj-OZ; Tue, 31 Oct 2023 13:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625714.975274; Tue, 31 Oct 2023 13:23:23 +0000
+Received: by outflank-mailman (output) from mailman id 625715.975287; Tue, 31 Oct 2023 13:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxoiJ-0003wE-BX; Tue, 31 Oct 2023 13:23:23 +0000
-Received: by outflank-mailman (input) for mailman id 625714;
- Tue, 31 Oct 2023 13:23:22 +0000
+	id 1qxoiK-0004MH-Kz; Tue, 31 Oct 2023 13:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 625715;
+ Tue, 31 Oct 2023 13:23:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k1/u=GN=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1qxoiI-0003rs-95
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 13:23:22 +0000
+ id 1qxoiJ-0003rs-98
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 13:23:23 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a8173501-77f0-11ee-9b0e-b553b5be7939;
- Tue, 31 Oct 2023 14:23:19 +0100 (CET)
+ id a8ca6b16-77f0-11ee-9b0e-b553b5be7939;
+ Tue, 31 Oct 2023 14:23:20 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6EA2DDA7;
- Tue, 31 Oct 2023 06:24:00 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CA01139F;
+ Tue, 31 Oct 2023 06:24:01 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 428CF3F738;
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E24633F738;
  Tue, 31 Oct 2023 06:23:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,109 +42,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8173501-77f0-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: a8ca6b16-77f0-11ee-9b0e-b553b5be7939
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Subject: [RFC PATCH v2 1/8] cppcheck: rework exclusion_file_list.py code
-Date: Tue, 31 Oct 2023 13:22:57 +0000
-Message-Id: <20231031132304.2573924-2-luca.fancellu@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [RFC PATCH v2 2/8] exclude-list: generalise exclude-list
+Date: Tue, 31 Oct 2023 13:22:58 +0000
+Message-Id: <20231031132304.2573924-3-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231031132304.2573924-1-luca.fancellu@arm.com>
 References: <20231031132304.2573924-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rework the exclusion_file_list.py code to have the function
-load_exclusion_file_list() detached from the xen-analysis.py tool,
-in a way so that other modules can use the function.
-The xen-analysis tool and in particular its module cppcheck_analysis.py
-will use a new function cppcheck_exclusion_file_list().
+Currently exclude-list.json is used by the xen-analysis tool to
+remove from the report (cppcheck for now) violations from the
+files listed in it, however that list can be used by different
+users that might want to exclude some of the files from their
+computation for many reason.
 
-No functional changes are intended.
+So add a new field that can be part of each entry to link
+the tool supposed to consider that exclusion.
+
+Update exclusion_file_list.py to implement the logic and update
+the documentation to reflect this change.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/scripts/xen_analysis/cppcheck_analysis.py |  6 ++--
- .../xen_analysis/exclusion_file_list.py       | 31 ++++++++++---------
- 2 files changed, 19 insertions(+), 18 deletions(-)
+ docs/misra/exclude-list.rst                   | 31 ++++++++++++-------
+ .../xen_analysis/exclusion_file_list.py       | 16 ++++++++--
+ 2 files changed, 33 insertions(+), 14 deletions(-)
 
-diff --git a/xen/scripts/xen_analysis/cppcheck_analysis.py b/xen/scripts/xen_analysis/cppcheck_analysis.py
-index 8dc45e653b79..e54848aa5339 100644
---- a/xen/scripts/xen_analysis/cppcheck_analysis.py
-+++ b/xen/scripts/xen_analysis/cppcheck_analysis.py
-@@ -2,7 +2,8 @@
+diff --git a/docs/misra/exclude-list.rst b/docs/misra/exclude-list.rst
+index c97431a86120..42dbceb82523 100644
+--- a/docs/misra/exclude-list.rst
++++ b/docs/misra/exclude-list.rst
+@@ -1,17 +1,16 @@
+ .. SPDX-License-Identifier: CC-BY-4.0
  
- import os, re, shutil
- from . import settings, utils, cppcheck_report_utils, exclusion_file_list
--from .exclusion_file_list import ExclusionFileListError
-+from .exclusion_file_list import (ExclusionFileListError,
-+                                  cppcheck_exclusion_file_list)
+-Exclude file list for xen-analysis script
+-=========================================
++Exclude file list for xen scripts
++=================================
  
- class GetMakeVarsPhaseError(Exception):
-     pass
-@@ -54,8 +55,7 @@ def __generate_suppression_list(out_file):
-             try:
-                 exclusion_file = \
-                     "{}/docs/misra/exclude-list.json".format(settings.repo_dir)
--                exclusion_list = \
--                    exclusion_file_list.load_exclusion_file_list(exclusion_file)
-+                exclusion_list = cppcheck_exclusion_file_list(exclusion_file)
-             except ExclusionFileListError as e:
-                 raise CppcheckDepsPhaseError(
-                     "Issue with reading file {}: {}".format(exclusion_file, e)
+-The code analysis is performed on the Xen codebase for both MISRA
+-checkers and static analysis checkers, there are some files however that
+-needs to be removed from the findings report for various reasons (e.g.
+-they are imported from external sources, they generate too many false
+-positive results, etc.).
++Different Xen scripts can perform operations on the codebase to check its
++compliance for a set of rules, however Xen contains some files that are taken
++from other projects (e.g. linux) and they can't be updated to ease backporting
++fixes from their source, for this reason the file docs/misra/exclude-list.json
++is kept as a source of all these files that are external to the Xen project.
+ 
+-For this reason the file docs/misra/exclude-list.json is used to exclude every
+-entry listed in that file from the final report.
+-Currently only the cppcheck analysis will use this file.
++Every entry of the file can be linked to different checkers, so that this list
++can be used by multiple scripts selecting only the required entries.
+ 
+ Here is an example of the exclude-list.json file::
+ 
+@@ -20,11 +19,13 @@ Here is an example of the exclude-list.json file::
+ |    "content": [
+ |        {
+ |            "rel_path": "relative/path/from/xen/file",
+-|            "comment": "This file is originated from ..."
++|            "comment": "This file is originated from ...",
++|            "checkers": "xen-analysis"
+ |        },
+ |        {
+ |            "rel_path": "relative/path/from/xen/folder/*",
+-|            "comment": "This folder is a library"
++|            "comment": "This folder is a library",
++|            "checkers": "xen-analysis some-checker"
+ |        },
+ |        {
+ |            "rel_path": "relative/path/from/xen/mem*.c",
+@@ -39,6 +40,12 @@ Here is an explanation of the fields inside an object of the "content" array:
+    match more than one file/folder at the time. This field is mandatory.
+  - comment: an optional comment to explain why the file is removed from the
+    analysis.
++ - checkers: an optional list of checkers that will exclude this entries from
++   their results. This field is optional and when not specified, it means every
++   checker will use that entry.
++   Current implemented values for this field are:
++    - xen-analysis: the xen-analysis.py script exclude this entry for both MISRA
++      and static analysis scan. (Implemented only for Cppcheck tool)
+ 
+ To ease the review and the modifications of the entries, they shall be listed in
+ alphabetical order referring to the rel_path field.
 diff --git a/xen/scripts/xen_analysis/exclusion_file_list.py b/xen/scripts/xen_analysis/exclusion_file_list.py
-index 871e480586bb..79ebd34f55ec 100644
+index 79ebd34f55ec..8b10665a19e8 100644
 --- a/xen/scripts/xen_analysis/exclusion_file_list.py
 +++ b/xen/scripts/xen_analysis/exclusion_file_list.py
-@@ -7,16 +7,24 @@ class ExclusionFileListError(Exception):
-     pass
+@@ -9,7 +9,7 @@ class ExclusionFileListError(Exception):
  
+ def cppcheck_exclusion_file_list(input_file):
+     ret = []
+-    excl_list = load_exclusion_file_list(input_file)
++    excl_list = load_exclusion_file_list(input_file, "xen-analysis")
  
--def __cppcheck_path_exclude_syntax(path):
--    # Prepending * to the relative path to match every path where the Xen
--    # codebase could be
--    path = "*" + path
-+def cppcheck_exclusion_file_list(input_file):
-+    ret = []
-+    excl_list = load_exclusion_file_list(input_file)
-+
-+    for entry in excl_list:
-+        # Prepending * to the relative path to match every path where the Xen
-+        # codebase could be
-+        ret.append("*" + entry[0])
- 
--    return path
-+    return ret
- 
- 
--# Reads the exclusion file list and returns a list of relative path to be
--# excluded.
-+# Reads the exclusion file list and returns an array containing a set where the
-+# first entry is what was listed in the exclusion list file, and the second
-+# entry is the absolute path of the first entry.
-+# If the first entry contained a wildcard '*', the second entry will have an
-+# array of the solved absolute path for that entry.
-+# Returns [('path',[path,path,...]), ('path',[path,path,...]), ...]
- def load_exclusion_file_list(input_file):
+     for entry in excl_list:
+         # Prepending * to the relative path to match every path where the Xen
+@@ -25,7 +25,7 @@ def cppcheck_exclusion_file_list(input_file):
+ # If the first entry contained a wildcard '*', the second entry will have an
+ # array of the solved absolute path for that entry.
+ # Returns [('path',[path,path,...]), ('path',[path,path,...]), ...]
+-def load_exclusion_file_list(input_file):
++def load_exclusion_file_list(input_file, checker=""):
      ret = []
      try:
-@@ -58,13 +66,6 @@ def load_exclusion_file_list(input_file):
-                     .format(path, filepath_object)
-                 )
+         with open(input_file, "rt") as handle:
+@@ -51,6 +51,18 @@ def load_exclusion_file_list(input_file):
+             raise ExclusionFileListError(
+                 "Malformed JSON entry: rel_path field not found!"
+             )
++        # Check the checker field
++        try:
++            entry_checkers = entry['checkers']
++        except KeyError:
++            # If the field doesn't exists, assume that this entry is for every
++            # checker
++            entry_checkers = checker
++
++        # Check if this entry is for the selected checker
++        if checker not in entry_checkers:
++            continue
++
+         abs_path = settings.xen_dir + "/" + path
+         check_path = [abs_path]
  
--        if settings.analysis_tool == "cppcheck":
--            path = __cppcheck_path_exclude_syntax(path)
--        else:
--            raise ExclusionFileListError(
--                "Unimplemented for {}!".format(settings.analysis_tool)
--            )
--
--        ret.append(path)
-+        ret.append((path, check_path))
- 
-     return ret
 -- 
 2.34.1
 
