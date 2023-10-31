@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FCEC7DD1AA
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 17:34:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625972.975808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225427DD4AA
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 18:29:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625977.975818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrge-0007HJ-VV; Tue, 31 Oct 2023 16:33:52 +0000
+	id 1qxsWu-0006QC-Vq; Tue, 31 Oct 2023 17:27:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625972.975808; Tue, 31 Oct 2023 16:33:52 +0000
+Received: by outflank-mailman (output) from mailman id 625977.975818; Tue, 31 Oct 2023 17:27:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrge-0007Ej-S6; Tue, 31 Oct 2023 16:33:52 +0000
-Received: by outflank-mailman (input) for mailman id 625972;
- Tue, 31 Oct 2023 16:33:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qxsWu-0006Nv-S8; Tue, 31 Oct 2023 17:27:52 +0000
+Received: by outflank-mailman (input) for mailman id 625977;
+ Tue, 31 Oct 2023 17:27:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G+CR=GN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qxrgc-0007Ed-SW
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 16:33:51 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43d26ab3-780b-11ee-98d6-6d05b1d4d9a1;
- Tue, 31 Oct 2023 17:33:50 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-53e08e439c7so10072766a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 09:33:47 -0700 (PDT)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- x7-20020a170906710700b009c70b392051sm1221152ejj.100.2023.10.31.09.33.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 09:33:46 -0700 (PDT)
+ <SRS0=HcxJ=GN=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1qxsWs-0006MN-P0
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 17:27:50 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20622.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ceea6c3a-7812-11ee-9b0e-b553b5be7939;
+ Tue, 31 Oct 2023 18:27:48 +0100 (CET)
+Received: from BL0PR01CA0031.prod.exchangelabs.com (2603:10b6:208:71::44) by
+ PH7PR12MB7914.namprd12.prod.outlook.com (2603:10b6:510:27d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29; Tue, 31 Oct
+ 2023 17:27:43 +0000
+Received: from BL02EPF0001A100.namprd03.prod.outlook.com
+ (2603:10b6:208:71:cafe::22) by BL0PR01CA0031.outlook.office365.com
+ (2603:10b6:208:71::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29 via Frontend
+ Transport; Tue, 31 Oct 2023 17:27:43 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Tue, 31 Oct 2023 17:27:42 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 31 Oct
+ 2023 12:27:42 -0500
+Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Tue, 31 Oct 2023 12:27:40 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,101 +59,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43d26ab3-780b-11ee-98d6-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698770027; x=1699374827; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rZtyABM22d8WNiZYCnLutaI+NLhsCfSj4kEzvmz47hw=;
-        b=Vc70jUXSEgvAX5G+Y2NjpYMWvOE9A9tgOfWY+Zssg+QZMCr2et3lp6+Z38rfDH26yx
-         x0Iwtvshy/9Y00joh6YJtahdYgruU3/8VmBxdpMYO7sraIXcGQO/AefrP8bwBRC2k3wn
-         rspVusGA6BfflIq8FKwlKxbKAvMG6+ADimY6Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698770027; x=1699374827;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rZtyABM22d8WNiZYCnLutaI+NLhsCfSj4kEzvmz47hw=;
-        b=EpznpUZIKwwRuGCpvxVrsL8OiAgU3kmSgo4k0460f4D0XVVmMLsyxRoC5iCXUPO+kF
-         7beMq3xc/vfEXnGmr59cjm4CyCZL279wbBzhGPJwZdhRVbMkFYOnsgWEo09ZdCImtpq6
-         xQOKn6Sz9Vef4r1AwLQm7CE2vDQViXRFgWI739Sg29WYM/5jBsDcaOWgp3WlLsaSQ84B
-         4JyXeXStYzZfMRjbzTT4WA9DhrSrLBPb3DMsOfvQ3izsB0bsYn4BO+GLggn+aCjOhWcH
-         R9yBC2+TmbZE7tK8vXnvmh3QgW4BO069DTvQloi0vVNDddGbS7ujao2P6i3AOz/2gnO8
-         tn9A==
-X-Gm-Message-State: AOJu0Yy6FQ6i78wuV7hmnuIwvcxJ0ADsam1VZa87qoyy8PM9mMlM8Ut9
-	pThrrIgzC6HOyVAi9bFYkgThnw==
-X-Google-Smtp-Source: AGHT+IHMm4Nc2zIvsRh7qrAgUPH9KvEEL+Ybbgeay3cbraKNq60msb2HmT3Vn9+XXs6yL79vG8G5cA==
-X-Received: by 2002:a17:907:9494:b0:9bf:4915:22c4 with SMTP id dm20-20020a170907949400b009bf491522c4mr11023456ejc.67.1698770026919;
-        Tue, 31 Oct 2023 09:33:46 -0700 (PDT)
-Date: Tue, 31 Oct 2023 17:33:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/irq: do not insert IRQ_MSI_EMU in emuirq mappings
-Message-ID: <ZUEsabItf_lpvi25@macbook>
-References: <20231031133037.157936-1-xenia.ragiadakou@amd.com>
+X-Inumbo-ID: ceea6c3a-7812-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QMnOs9FyU7Q4M7IAsK5+rNM/hzachtst7bEIMBM2Q30c5XCOSi4BObzY6LETJYxm50046iFSPpBpUEv1zjf4Kzat8TlRysqnG+CbljWpSwF+7DgEXJMnuz5pg/BnMApHlUNfeTWXvgYRZ2um9JV9jf+h7w2VirggJEfHBA3i7f9by6TcEh3U2U+Xxr56z+z2vPk9N5oznV/tvTxznmveklkX+hX4acWBFzZc49vlwFrekLM1e28Dbvdy8USEn8uqHfSzeIf4G5HVD3Dt3N1twN6V3pw25uwCq8babOGnmGMDLJZq+/3c8fTgC1DAYD2mBETlYHTzfK10SjFD4PMgyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q3WEKZwwfu0xIGzDPmizONxm5mXsAo7gSzzbMAxqafk=;
+ b=feylBUbL+qmKM2GvkJrMApeVm7WVvft1MpbguWdy5BxeFN8s8kDwahrShsJeLBD/3x5WK1Te3g4PrSuU6UvKCgo+U5dAXMXkSB/2XVxQj18ILcKXgNa+M4ymyh94DvqeucsdQpnQssQPVpNbkxRd4zBxe1ULnsKJwpeCGpv97Qo7uFdDlvd0rA9UY4DFaFs4I+bTuqfZOP+Vo9F7fQLzqBTGDTzvmbUTB1PiqHLZoR/WRawgCdr52RxFSXV5/HXq1+hg4LhfC6AUPoZZTFlfSVq/LRt0UGRzPsscD9pwkEuN3QpatVrkYCuRIQscp/tf1YIt1m59ETAsgy13NuOvZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q3WEKZwwfu0xIGzDPmizONxm5mXsAo7gSzzbMAxqafk=;
+ b=vz+7el5cXMnEDnpKx0ENPu1u76hdEW7Orw+uIEYqxV+k2qoWo8TQn5Q4gvi5EvAtFJcPsf/lyomxQ3o8hkSXwLclgKR+dPJU4nmznmPuKpTCmYDhcBCDbvoAEgHfUfO0O+PSiL0M+eaX6AjVAuq855v+p4Au2s/hHKpeAdMHuSk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <a3765f1a-a4c6-4e68-818b-f26821b6962f@amd.com>
+Date: Tue, 31 Oct 2023 13:27:39 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231031133037.157936-1-xenia.ragiadakou@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] xen/vpci: move xen_domctl_createdomain vPCI flag
+ to common
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen
+ Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Oleksandr
+ Andrushchenko <oleksandr_andrushchenko@epam.com>, Rahul Singh
+	<rahul.singh@arm.com>, <xen-devel@lists.xenproject.org>
+References: <20231030235240.106998-1-stewart.hildebrand@amd.com>
+ <20231030235240.106998-3-stewart.hildebrand@amd.com>
+ <1c27d0a7-f04d-32ff-05df-4da4c32bebdf@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <1c27d0a7-f04d-32ff-05df-4da4c32bebdf@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|PH7PR12MB7914:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1410a9f-f3dc-4017-6089-08dbda36b0a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	kScFElpUh8GGrJ3bVtsB5yxnCxNmXYp5zU5akV7AH6GWvNRvmK+5Qz7a5TiEjQ7ttWPrbTGrFJnsQkmru2jQRc+crx7qbaM6FKPOvkR2U9+G7oWO/cgFJv/Cp7jPZ+LWqeKEMbkTLPXFw8auV9HJ1Wo0Hp8QkQ3o5rak78gDehZQ+qXmPSVry9eb9lyvBx4G4p32z2OsyV2DuMJB6o1jCa5zbQDebO6J/agUBhwqJYw4fNiHCtPoYx9zxWn0yBa7MO9ta9Mszy9A5pZjuU9ND8kQD4SSNUPbcxCFZtvMlTGwaT1XwXMb64d64cWCXsSJSUmXFVv/462nlzJgiOCg8yTrMAuUIvsk0gUraNawvsczl676HMbpO82OFncmZjmAM7zhrK2ofBcUu6dnWI/9ewNcqyxGDX31ZpJVDG060Q8vUL961hS70xbPigK2N+bRpnbfqvGjTQb/gBcX3SH8UWFKQM6iPLLnf+aThCK05E/SJ30nF0f/eZAfVsDWCvLsDQxorY5XCXNLb7Rf7F+ekxD2vaWeYCD/OgyS5O+CQUrYGCrtz5hE5o8ZMNXqGBT3/zYJp6KOMQ2uGt2NFQPlWLaY7tI65wmvQVAf6cChHcSPeQlSnRbZCZHMQ3fu5rzGer8/JWKtDFp+VjobKJZtHKaPhDxH4V/N9wbeC4TnfLz/FrQrU/5J5ri1u2olmhDxIyJApwJ+EIbaptFHoypQGQQa/Dm/+KVBTbgPC6OBzVIni6+ZGd1TgHNP0Yb/XXbtF/+0/k5Uice8r6WA9CVniGlU0053Toddp90eY8vRyg4=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(82310400011)(64100799003)(1800799009)(186009)(451199024)(36840700001)(40470700004)(46966006)(6916009)(5660300002)(70206006)(70586007)(54906003)(2906002)(16576012)(316002)(7416002)(8676002)(40480700001)(966005)(478600001)(41300700001)(44832011)(8936002)(4326008)(31686004)(53546011)(2616005)(40460700003)(26005)(36860700001)(426003)(336012)(82740400003)(36756003)(86362001)(31696002)(81166007)(356005)(47076005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 17:27:42.9305
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1410a9f-f3dc-4017-6089-08dbda36b0a5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A100.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7914
 
-On Tue, Oct 31, 2023 at 03:30:37PM +0200, Xenia Ragiadakou wrote:
-> Do not use emuirq mappings for MSIs injected by emulated devices.
-> This kind of pirq shares the same emuirq value and is not remapped.
-
-AFAICT adding the extra emuirq mappings is harmless, and just adds
-an extra layer of translation?
-
-Or is this causing issues, but we haven't realized because we don't
-provide emulated devices that use MSI(-X) by default?
-
-> Fixes: 88fccdd11ca0 ('xen: event channel remapping for emulated MSIs')
-> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-> ---
+On 10/31/23 06:56, Jan Beulich wrote:
+> On 31.10.2023 00:52, Stewart Hildebrand wrote:
+>> --- a/xen/arch/arm/domain.c
+>> +++ b/xen/arch/arm/domain.c
+>> @@ -607,7 +607,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>  {
+>>      unsigned int max_vcpus;
+>>      unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
+>> -    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
+>> +    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu |
+>> +                                   XEN_DOMCTL_CDF_vpci);
 > 
-> Question: is there any strong reason why Linux HVM guests still use pirqs?
+> Is the flag (going to be, with the initial work) okay to have for Dom0
+> on Arm?
 
-Baggage I guess.  I've suggested in the past to switch PIRQs off by
-default for HVM, but I had no figures to show how much of a
-performance penalty that would be for passthrough devices.
+Hm. Allowing/enabling vPCI for dom0 on ARM should follow or be part of the PCI passthrough SMMU series [1]. I'll move this change to the next patch ("xen/arm: enable vPCI for dom0") and add a note over there.
 
-My suggestion would be to introduce an xl.cfg option to select the
-availability of PIRQs for HVM guests, and set it to off by default.
-You would also need to make sure that migration (or save/restore)
-works fine, and that incoming guests from previous Xen versions (that
-won't have the option) will result in PIRQs still being enabled.
-
-There's already a XEN_X86_EMU_USE_PIRQ flag in xen_arch_domainconfig,
-so you just need to wire the tools side in order to allow selection by
-users.
+[1] https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg00210.html
 
 > 
->  xen/arch/x86/irq.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>> --- a/xen/arch/x86/domain.c
+>> +++ b/xen/arch/x86/domain.c
+>> @@ -712,7 +712,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>      return 0;
+>>  }
+>>  
+>> -static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>> +static bool emulation_flags_ok(const struct domain *d, uint32_t emflags,
+>> +                               uint32_t cdf)
 > 
-> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-> index f42ad539dc..cdc8dc5a55 100644
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -2684,7 +2684,7 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq)
->      }
->  
->      old_emuirq = domain_pirq_to_emuirq(d, pirq);
-> -    if ( emuirq != IRQ_PT )
-> +    if ( (emuirq != IRQ_PT) && (emuirq != IRQ_MSI_EMU) )
->          old_pirq = domain_emuirq_to_pirq(d, emuirq);
+> While apparently views differ, ./CODING_STYLE wants "unsigned int" to be
+> used for the latter two arguments.
 
-I think you can just use emuirq >= 0, as we then only need the emuirq
-translation for passthrough interrupts, same for the rest of the
-changed conditions.
+OK, I'll change both to unsigned int.
 
-Looking further, the function seems to be useless when called with
-emuirq < 0, and hence it might be better to avoid such calls in the
-first place?
+> 
+>> @@ -722,14 +723,17 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>>      if ( is_hvm_domain(d) )
+>>      {
+>>          if ( is_hardware_domain(d) &&
+>> -             emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+>> +             (!( cdf & XEN_DOMCTL_CDF_vpci ) ||
+> 
+> Nit: Stray blanks inside the inner parentheses.
 
-I have to admit I've always been very confused with the PIRQ logic, so
-it's possible I'm missing some relevant stuff here.
+OK, I'll fix.
 
-Thanks, Roger.
+> 
+>> +              emflags != (X86_EMU_LAPIC | X86_EMU_IOAPIC)) )
+>>              return false;
+>>          if ( !is_hardware_domain(d) &&
+>> -             emflags != (X86_EMU_ALL & ~X86_EMU_VPCI) &&
+>> -             emflags != X86_EMU_LAPIC )
+>> +             ((cdf & XEN_DOMCTL_CDF_vpci) ||
+>> +              (emflags != X86_EMU_ALL &&
+>> +               emflags != X86_EMU_LAPIC)) )
+>>              return false;
+>>      }
+>> -    else if ( emflags != 0 && emflags != X86_EMU_PIT )
+>> +    else if ( (cdf & XEN_DOMCTL_CDF_vpci) ||
+> 
+> Wouldn't this better be enforced in common code?
+
+Yes, I will move it to xen/common/domain.c:sanitise_domain_config().
+
+> 
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -892,10 +892,11 @@ static struct domain *__init create_dom0(const module_t *image,
+>>      {
+>>          dom0_cfg.flags |= (XEN_DOMCTL_CDF_hvm |
+>>                             ((hvm_hap_supported() && !opt_dom0_shadow) ?
+>> -                            XEN_DOMCTL_CDF_hap : 0));
+>> +                            XEN_DOMCTL_CDF_hap : 0) |
+>> +                           XEN_DOMCTL_CDF_vpci);
+> 
+> Less of a change and imo slightly neater as a result would be to simply
+> put the addition on the same line where CDF_hvm already is. But as with
+> many style aspects, views may differ here of course ...
+
+I'll change it.
+
+> 
+> Jan
 
