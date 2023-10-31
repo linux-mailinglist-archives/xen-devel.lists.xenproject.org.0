@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FAE17DCEF0
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 15:24:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625825.975508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F14C7DCF34
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 15:28:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625829.975518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxpeq-0007QJ-Da; Tue, 31 Oct 2023 14:23:52 +0000
+	id 1qxpj3-0000cA-Tr; Tue, 31 Oct 2023 14:28:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625825.975508; Tue, 31 Oct 2023 14:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 625829.975518; Tue, 31 Oct 2023 14:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxpeq-0007Nc-AS; Tue, 31 Oct 2023 14:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 625825;
- Tue, 31 Oct 2023 14:23:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qxpj3-0000Zh-QZ; Tue, 31 Oct 2023 14:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 625829;
+ Tue, 31 Oct 2023 14:28:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G+CR=GN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qxpeo-0007ME-QI
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 14:23:50 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1aaf261e-77f9-11ee-9b0e-b553b5be7939;
- Tue, 31 Oct 2023 15:23:47 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-53db360294fso9790524a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 07:23:47 -0700 (PDT)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- ks24-20020a170906f85800b009ad8acac02asm1070902ejb.172.2023.10.31.07.23.46
+ <SRS0=Rkuq=GN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1qxpj3-0000Zb-0f
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 14:28:13 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8715eaf-77f9-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 15:28:12 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2c5210a1515so82881591fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 07:28:12 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ g36-20020a0565123ba400b005041ce44bbdsm222423lfv.5.2023.10.31.07.28.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 07:23:46 -0700 (PDT)
+ Tue, 31 Oct 2023 07:28:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,86 +44,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aaf261e-77f9-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: b8715eaf-77f9-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698762227; x=1699367027; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rMX24V579WbzUjzdlj5MNjXK8mZtDjR5iub4cTe8J6s=;
-        b=A1LWic0kXdULl0kpIsOxbmIDU9MOm8ahL0vVUyU4jZ0uIUYt7h1zYw1ctd9NyueoQ7
-         5FK+hXjAO9dFAW85HBzmOd6VndID3dWRIv000/qgGpspYjjKcUFmIvaNO2fqT0laCp8J
-         561XsyvY2afGc5aZrfMNnG9xQZJtfc3TYL5jU=
+        d=gmail.com; s=20230601; t=1698762491; x=1699367291; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PeoBK4eZojRJWM9XP3Nhwb/OMadMJxCx1vrYbxWtSFA=;
+        b=mtcRLIQrU6rmL8wFTe6rY8za4nqkYjP2OC/HVVdcaW2b6tYShruiB6OeVbnDxtTirp
+         OOS0RFFIFidymxYnnD+nNy+cPOqDVD/DeFn5Vwy49LNNAReENTAW1VjVxYSkVn9qIzzd
+         Um3bwoduHkfE6hkYVe5JDxMpFQNMIzQ40VzVTATLdb2QhsMJ1h7VEAXfERtbFEUUcFQO
+         RxBRLslEoBACCbk788QyZPlKCJWvl4YXhDPrwQCx9MD26cqXfZD78MrjScTHTB5kuNnF
+         yhK57bpv/0Q7J6BCbfwjpAQz7FdPxFU9DlQOIbE8HUve6uvjNweN+uMcntmPHCLn8Ug8
+         tyOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698762227; x=1699367027;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rMX24V579WbzUjzdlj5MNjXK8mZtDjR5iub4cTe8J6s=;
-        b=l9sl4EHu2f6nmAZttCLamSp1/kSnPmdBi0hy+tomIgirltMACTN2rJRmrFeV++vN9J
-         XrRLghG4H3gNwV5sE9mGiPT9yr5QP0HB29sv1qnAKxAbde3R1IWahdocU8kKSIn9G8jy
-         sOBvYpWC+rWRGmFh2ncmcd0WTXwURwxLcpxas7MGSIryu1Wq+RfR/WU/QmptWm/Hlhno
-         OZ4tSrl5Im7vX0h4p7ucJDql0I6pJkiyTH+dr2cqbDL/7U/gsv9qZdGnc8LuX760gp7C
-         t3KqvIhWruZvyTjfm18tjHB0cgx1qUVCoOXtPXb/Th+ub8qzM32y+kpw/yzXzZZWJpTd
-         KVPw==
-X-Gm-Message-State: AOJu0Yzu4eDWXqJfHvOn8lrldkSQLgVhjcwLG5Z9FguJgxu+EACjXxrz
-	o49LBti3CeyWSERBIadWJNaFyA==
-X-Google-Smtp-Source: AGHT+IFtp+W2sycU6mxoNSWSCApiSli55DoVaHclghqxI4+IJBakIIQojuamqrUZigFGckGN7eRHiA==
-X-Received: by 2002:a17:907:2d2b:b0:9b2:a7db:9662 with SMTP id gs43-20020a1709072d2b00b009b2a7db9662mr12450264ejc.12.1698762226924;
-        Tue, 31 Oct 2023 07:23:46 -0700 (PDT)
-Date: Tue, 31 Oct 2023 15:23:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ayan Kumar Halder <ayankuma@amd.com>
-Cc: xen-devel@lists.xenproject.org, Kelly Choi <kelly.choi@cloud.com>,
+        d=1e100.net; s=20230601; t=1698762491; x=1699367291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PeoBK4eZojRJWM9XP3Nhwb/OMadMJxCx1vrYbxWtSFA=;
+        b=w30w5+XgdaLz0M7QSkhLO9AaOgUSfXNMxiEtxmCgSbqRyJQXq2QHGmWe8YBk3b4m62
+         J+9ZiuFY6kyLSdKqvfMM7kaHH0E7d33j0muQBpnyum2K+VqajDazm/51Yr5mUQt8CJAt
+         j5nokccU9mAwt8iAmKDhVp2w9mBNMI3K442tx4Kk5sXvPO3Mu7rVA28iQLtr+6dzM4N8
+         9MaVOcMAnD1HGAjGTnEp69uzsMZOGSN/P74eXmfNvLbpgxW5bT23xaoayW2aBEtec02x
+         KhnvA6AcjKwd7uxjbtC/2zM30wMExIYYr9jxBaAfQg+Sd4+vcU9uciWUk5DTyLruijyl
+         Jzdw==
+X-Gm-Message-State: AOJu0Yz26neU2ECZWolqahWysiwDFu+D3znJqJL+9kE9Ax6pCzbckcRM
+	i1DmtaTIUsLjemPMoqDwOXoNdeckrnI=
+X-Google-Smtp-Source: AGHT+IHYT4gMQTkO0pLFGTJSIZKpFv0myU3OaygMxvVU64X6bYhV27VdHmt2gn/RuUOnRLr20YIdgg==
+X-Received: by 2002:a05:6512:52c:b0:509:dee:f70c with SMTP id o12-20020a056512052c00b005090deef70cmr7343122lfc.27.1698762490845;
+        Tue, 31 Oct 2023 07:28:10 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
-	"jbeulich@suse.com" <jbeulich@suse.com>,
-	Luca Fancellu <luca.fancellu@arm.com>
-Subject: Re: Cambridge University Talk - 9th November 2023
-Message-ID: <ZUEN8cVbNcR0Mo7R@macbook>
-References: <CAO-mL=xE=-8RjeAOKumLfcSf=wu0OWLK0X1Lz2JMCefBXbnTfA@mail.gmail.com>
- <03347742-c32d-4fc0-8ad3-f87cf71f20f1@amd.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2] xen: remove <asm/delay.h>
+Date: Tue, 31 Oct 2023 16:28:07 +0200
+Message-ID: <3d55bce44bd6ab9973cbe0ea2fc136cc44d35df2.1698759633.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <03347742-c32d-4fc0-8ad3-f87cf71f20f1@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 31, 2023 at 01:05:11PM +0000, Ayan Kumar Halder wrote:
-> Hi Xen Maintainers/developers,
-> 
-> 
-> As part of my talk, I wish to provide some examples of tasks that a newbie
-> can easily pick up and contribute.
-> 
-> This need not be a dedicated project, but something that can be contributed
-> on an ad-hoc basis.
-> 
-> The idea is to get more people interested in Xen project. :)
-> 
-> 
-> I found some examples of this :-
-> 
-> 1. Misra C fixes - Refer "Misra rule 10.3 violations report script" . Luca
-> has provided an awesome script to identify the MISRA violations. This can be
-> used to provide fixes.
+<asm/delay.h> only declares udelay() function so udelay()
+declaration was moved to xen/delay.h.
 
-TBH, I think doing MISRA fixes is not that attractive for a new comer,
-as those are (mostly?) non-functional fixes, but I might be wrong.
+For x86, __udelay() was renamed to udelay() and removed
+inclusion of <asm/delay.h> in x86 code.
 
-> 2. https://wiki.xenproject.org/wiki/Outreach_Program_Projects - I think this
-> page provides some pointers, but I am not sure if this is up to date.
+For ppc, udelay() stub definition was moved to ppc/stubs.c.
 
-I'm not sure how up to date this is.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes in v2:
+ - rebase on top of the latest staging.
+ - add Suggested-by:/Reviewed-by: Jan Beulich <jbeulich@suse.com>.
+ - remove <asm/delay.h> for PPC.
+ - remove changes related to RISC-V's <asm/delay.h> as they've not
+   introduced in staging branch yet.
+---
+ xen/arch/arm/include/asm/delay.h  | 14 --------------
+ xen/arch/ppc/include/asm/delay.h  | 12 ------------
+ xen/arch/ppc/stubs.c              |  7 +++++++
+ xen/arch/x86/cpu/microcode/core.c |  2 +-
+ xen/arch/x86/delay.c              |  2 +-
+ xen/arch/x86/include/asm/delay.h  | 13 -------------
+ xen/include/xen/delay.h           |  2 +-
+ 7 files changed, 10 insertions(+), 42 deletions(-)
+ delete mode 100644 xen/arch/arm/include/asm/delay.h
+ delete mode 100644 xen/arch/ppc/include/asm/delay.h
+ delete mode 100644 xen/arch/x86/include/asm/delay.h
 
-> 
-> Please let me know if there are more of these examples.
+diff --git a/xen/arch/arm/include/asm/delay.h b/xen/arch/arm/include/asm/delay.h
+deleted file mode 100644
+index 042907d9d5..0000000000
+--- a/xen/arch/arm/include/asm/delay.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#ifndef _ARM_DELAY_H
+-#define _ARM_DELAY_H
+-
+-extern void udelay(unsigned long usecs);
+-
+-#endif /* defined(_ARM_DELAY_H) */
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+diff --git a/xen/arch/ppc/include/asm/delay.h b/xen/arch/ppc/include/asm/delay.h
+deleted file mode 100644
+index da6635888b..0000000000
+--- a/xen/arch/ppc/include/asm/delay.h
++++ /dev/null
+@@ -1,12 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-#ifndef __ASM_PPC_DELAY_H__
+-#define __ASM_PPC_DELAY_H__
+-
+-#include <xen/lib.h>
+-
+-static inline void udelay(unsigned long usecs)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+-#endif /* __ASM_PPC_DELAY_H__ */
+diff --git a/xen/arch/ppc/stubs.c b/xen/arch/ppc/stubs.c
+index 4c276b0e39..a96e45626d 100644
+--- a/xen/arch/ppc/stubs.c
++++ b/xen/arch/ppc/stubs.c
+@@ -337,3 +337,10 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+ {
+     BUG_ON("unimplemented");
+ }
++
++/* delay.c */
++
++void udelay(unsigned long usecs)
++{
++    BUG_ON("unimplemented");
++}
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 65ebeb50de..22d5e04552 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -23,6 +23,7 @@
+ 
+ #include <xen/alternative-call.h>
+ #include <xen/cpu.h>
++#include <xen/delay.h>
+ #include <xen/earlycpio.h>
+ #include <xen/err.h>
+ #include <xen/guest_access.h>
+@@ -35,7 +36,6 @@
+ 
+ #include <asm/apic.h>
+ #include <asm/cpu-policy.h>
+-#include <asm/delay.h>
+ #include <asm/nmi.h>
+ #include <asm/processor.h>
+ #include <asm/setup.h>
+diff --git a/xen/arch/x86/delay.c b/xen/arch/x86/delay.c
+index 2662c26272..b3a41881a1 100644
+--- a/xen/arch/x86/delay.c
++++ b/xen/arch/x86/delay.c
+@@ -15,7 +15,7 @@
+ #include <asm/msr.h>
+ #include <asm/processor.h>
+ 
+-void __udelay(unsigned long usecs)
++void udelay(unsigned long usecs)
+ {
+     unsigned long ticks = usecs * (cpu_khz / 1000);
+     unsigned long s, e;
+diff --git a/xen/arch/x86/include/asm/delay.h b/xen/arch/x86/include/asm/delay.h
+deleted file mode 100644
+index 9be2f46590..0000000000
+--- a/xen/arch/x86/include/asm/delay.h
++++ /dev/null
+@@ -1,13 +0,0 @@
+-#ifndef _X86_DELAY_H
+-#define _X86_DELAY_H
+-
+-/*
+- * Copyright (C) 1993 Linus Torvalds
+- *
+- * Delay routines calling functions in arch/i386/lib/delay.c
+- */
+-
+-extern void __udelay(unsigned long usecs);
+-#define udelay(n) __udelay(n)
+-
+-#endif /* defined(_X86_DELAY_H) */
+diff --git a/xen/include/xen/delay.h b/xen/include/xen/delay.h
+index 9150226271..8fd3b8f99f 100644
+--- a/xen/include/xen/delay.h
++++ b/xen/include/xen/delay.h
+@@ -3,7 +3,7 @@
+ 
+ /* Copyright (C) 1993 Linus Torvalds */
+ 
+-#include <asm/delay.h>
++void udelay(unsigned long usecs);
+ 
+ static inline void mdelay(unsigned long msec)
+ {
+-- 
+2.41.0
 
-gitlab contains some:
-
-https://gitlab.com/groups/xen-project/-/issues/?label_name%5B%5D=Difficulty%3A%3A1-GOOD%20FIRST%20ISSUE
-https://gitlab.com/groups/xen-project/-/issues/?label_name%5B%5D=Difficulty%3A%3A1-EASY
-
-Regards, Roger.
 
