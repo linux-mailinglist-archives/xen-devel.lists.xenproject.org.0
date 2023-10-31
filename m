@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C7B7DC91E
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 10:09:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625540.974904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C37A7DC973
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 10:26:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625544.974914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxkjv-0003FF-FO; Tue, 31 Oct 2023 09:08:47 +0000
+	id 1qxl0Q-0006mx-T3; Tue, 31 Oct 2023 09:25:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625540.974904; Tue, 31 Oct 2023 09:08:47 +0000
+Received: by outflank-mailman (output) from mailman id 625544.974914; Tue, 31 Oct 2023 09:25:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxkjv-0003CU-Ci; Tue, 31 Oct 2023 09:08:47 +0000
-Received: by outflank-mailman (input) for mailman id 625540;
- Tue, 31 Oct 2023 09:08:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qxl0Q-0006ki-QN; Tue, 31 Oct 2023 09:25:50 +0000
+Received: by outflank-mailman (input) for mailman id 625544;
+ Tue, 31 Oct 2023 09:25:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G+CR=GN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1qxkju-0003CO-DB
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 09:08:46 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17942795-77cd-11ee-9b0e-b553b5be7939;
- Tue, 31 Oct 2023 10:08:44 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-9d0b4dfd60dso550702966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 02:08:44 -0700 (PDT)
-Received: from localhost ([213.195.118.109]) by smtp.gmail.com with ESMTPSA id
- gv21-20020a170906f11500b009932337747esm608618ejb.86.2023.10.31.02.08.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 02:08:43 -0700 (PDT)
+ <SRS0=EKKP=GN=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1qxl0P-0006kc-Qj
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 09:25:49 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7a03c143-77cf-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 10:25:48 +0100 (CET)
+Received: from Dell.homenet.telecomitalia.it
+ (host-87-7-132-154.retail.telecomitalia.it [87.7.132.154])
+ by support.bugseng.com (Postfix) with ESMTPSA id 96AF04EE073A;
+ Tue, 31 Oct 2023 10:25:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +40,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17942795-77cd-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698743324; x=1699348124; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=YCXNlIfMoyVSdTvk0VtP87TFdeFjDRAbDQq3QIRqV28=;
-        b=UFJwC6kqls7CogrzgskWSgFrApINovD5inJKFbwqQUhudAKhjdBrDGatBNNhok5T8M
-         Z9d1C2zfLKC2J3Z9yqpZ/FV2Az9M62+WyCF2I1GYhXoNASNwI3aNZslQKq4Dr3eoKEf7
-         71231ZmemhijmP4citgsQujtAWTlbaPSJTKvw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698743324; x=1699348124;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YCXNlIfMoyVSdTvk0VtP87TFdeFjDRAbDQq3QIRqV28=;
-        b=lX8/n7x3z7V7/myU5brhyChL4yre3d7Mg+W+pRKmcq/Y6NmXc67qVBucabnrIFB9CT
-         ONdHTgoOvfnCOrZMrUFT1R6JtzsICBkWDFVIy5BmAkZWmrpwUqqJydQDpNAV4EMOwz9w
-         etjEPaoY8koqlRl0gAAmYGbeMcICoATv/HoEzvSTyqfrZJK6tdgUbh644GQuKoP6WHPw
-         sMQUClqhHKqCFtGowGXkYk8TYxiID57sH/LCyeeFuTWHQDLGPpYfqgKy95QCGO30FNZT
-         vpWOkPWiFIsl2s8sSZGRndnKwIafwpKhSm9EbS5IDZUoCv3aCXITLEv54yMkRxCnr5nH
-         DCWQ==
-X-Gm-Message-State: AOJu0YyoLm7ZvwJMOSLIlffwKcw1/2iTckeowgoZM4k2dgVDxuViYKTA
-	eVzAcQwfeLjUMNDiYhe8qMTBNfsth3sihsDHeDs=
-X-Google-Smtp-Source: AGHT+IEaizyXKri5aZftjaAOOF8/6YcPeZ8KlBvJ9Rrjy5qTd9FOKjwvMEyT+GWWzjMMRu3KAPiNYA==
-X-Received: by 2002:a17:907:d311:b0:9d1:a628:3e4f with SMTP id vg17-20020a170907d31100b009d1a6283e4fmr7399900ejc.32.1698743323896;
-        Tue, 31 Oct 2023 02:08:43 -0700 (PDT)
-Date: Tue, 31 Oct 2023 10:08:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/PVH: allow Dom0 ELF parsing to be verbose
-Message-ID: <ZUDEGqGBjKWpwY5e@macbook>
-References: <b297e430-f3e3-97a7-be7d-1debdbcb0119@suse.com>
+X-Inumbo-ID: 7a03c143-77cf-11ee-98d6-6d05b1d4d9a1
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2] xen/domain_page: address violations of MISRA C:2012 Rule 8.3
+Date: Tue, 31 Oct 2023 10:25:41 +0100
+Message-Id: <d70e8e6b00f7b08ed4b360d38113e6a1460ed3ab.1698743361.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b297e430-f3e3-97a7-be7d-1debdbcb0119@suse.com>
 
-On Mon, Oct 30, 2023 at 02:14:44PM +0100, Jan Beulich wrote:
-> VERBOSE had ceased to exist already before the introduction of this ELF
-> parsing code.
-> 
-> Fixes: 62ba982424cb ("x86: parse Dom0 kernel for PVHv2")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Make function defintions and declarations consistent.
+No functional change.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+Changes in v2:
+- use 'ptr' do denote a const void * parameter.
+---
+ xen/arch/arm/domain_page.c    | 10 +++++-----
+ xen/include/xen/domain_page.h | 12 ++++++------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
-Some of the printed information might not be relevant for PVH mode,
-like the 'ELF: addresses:' virt_* fields.
+diff --git a/xen/arch/arm/domain_page.c b/xen/arch/arm/domain_page.c
+index b7c02c9190..3a43601623 100644
+--- a/xen/arch/arm/domain_page.c
++++ b/xen/arch/arm/domain_page.c
+@@ -74,9 +74,9 @@ void *map_domain_page_global(mfn_t mfn)
+     return vmap(&mfn, 1);
+ }
+ 
+-void unmap_domain_page_global(const void *va)
++void unmap_domain_page_global(const void *ptr)
+ {
+-    vunmap(va);
++    vunmap(ptr);
+ }
+ 
+ /* Map a page of domheap memory */
+@@ -149,13 +149,13 @@ void *map_domain_page(mfn_t mfn)
+ }
+ 
+ /* Release a mapping taken with map_domain_page() */
+-void unmap_domain_page(const void *va)
++void unmap_domain_page(const void *ptr)
+ {
+     unsigned long flags;
+     lpae_t *map = this_cpu(xen_dommap);
+-    int slot = ((unsigned long) va - DOMHEAP_VIRT_START) >> SECOND_SHIFT;
++    int slot = ((unsigned long)ptr - DOMHEAP_VIRT_START) >> SECOND_SHIFT;
+ 
+-    if ( !va )
++    if ( !ptr )
+         return;
+ 
+     local_irq_save(flags);
+diff --git a/xen/include/xen/domain_page.h b/xen/include/xen/domain_page.h
+index 0ff5cdd294..e1dd24ae58 100644
+--- a/xen/include/xen/domain_page.h
++++ b/xen/include/xen/domain_page.h
+@@ -29,12 +29,12 @@ void *map_domain_page(mfn_t mfn);
+  * Pass a VA within a page previously mapped in the context of the
+  * currently-executing VCPU via a call to map_domain_page().
+  */
+-void unmap_domain_page(const void *va);
++void unmap_domain_page(const void *ptr);
+ 
+-/* 
++/*
+  * Given a VA from map_domain_page(), return its underlying MFN.
+  */
+-mfn_t domain_page_map_to_mfn(const void *va);
++mfn_t domain_page_map_to_mfn(const void *ptr);
+ 
+ /*
+  * Similar to the above calls, except the mapping is accessible in all
+@@ -42,7 +42,7 @@ mfn_t domain_page_map_to_mfn(const void *va);
+  * mappings can also be unmapped from any context.
+  */
+ void *map_domain_page_global(mfn_t mfn);
+-void unmap_domain_page_global(const void *va);
++void unmap_domain_page_global(const void *ptr);
+ 
+ #define __map_domain_page(pg)        map_domain_page(page_to_mfn(pg))
+ 
+@@ -55,8 +55,8 @@ static inline void *__map_domain_page_global(const struct page_info *pg)
+ 
+ #define map_domain_page(mfn)                __mfn_to_virt(mfn_x(mfn))
+ #define __map_domain_page(pg)               page_to_virt(pg)
+-#define unmap_domain_page(va)               ((void)(va))
+-#define domain_page_map_to_mfn(va)          _mfn(__virt_to_mfn((unsigned long)(va)))
++#define unmap_domain_page(ptr)               ((void)(ptr))
++#define domain_page_map_to_mfn(ptr)          _mfn(__virt_to_mfn((unsigned long)(ptr)))
+ 
+ static inline void *map_domain_page_global(mfn_t mfn)
+ {
+-- 
+2.34.1
 
-Note also that in 62ba982424cb opt_dom0_verbose wasn't available yet,
-that option got introduced a couple of years later by 525ef6584f852.
-
-Maybe it's 679216943f545 that should have also switched the
-elf_set_verbose() in the PVH dom0 builder to use opt_dom0_verbose, at
-the same time that the PV one was switched?
-
-Thanks, Roger.
 
