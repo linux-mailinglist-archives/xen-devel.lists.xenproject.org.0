@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E203A7DD160
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 17:18:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625947.975758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198137DD169
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 17:21:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625951.975768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrQu-0007zR-I4; Tue, 31 Oct 2023 16:17:36 +0000
+	id 1qxrUa-0001Ol-1V; Tue, 31 Oct 2023 16:21:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625947.975758; Tue, 31 Oct 2023 16:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 625951.975768; Tue, 31 Oct 2023 16:21:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrQu-0007wk-Eu; Tue, 31 Oct 2023 16:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 625947;
- Tue, 31 Oct 2023 16:17:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yzb5=GN=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1qxrQt-0007wc-2f
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 16:17:35 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20612.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::612])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fee3d2d1-7808-11ee-9b0e-b553b5be7939;
- Tue, 31 Oct 2023 17:17:32 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB8937.eurprd04.prod.outlook.com (2603:10a6:20b:408::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.17; Tue, 31 Oct
- 2023 16:17:30 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::d924:b650:a2ad:7b25%3]) with mapi id 15.20.6954.016; Tue, 31 Oct 2023
- 16:17:30 +0000
+	id 1qxrUZ-0001Ly-UA; Tue, 31 Oct 2023 16:21:23 +0000
+Received: by outflank-mailman (input) for mailman id 625951;
+ Tue, 31 Oct 2023 16:21:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L368=GN=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
+ id 1qxrUY-0001Lp-37
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 16:21:22 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86cd4364-7809-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 17:21:21 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-32dc918d454so3723779f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 09:21:21 -0700 (PDT)
+Received: from z0rr0-Latitude-7490 ([2a01:e0a:257:8c60:c550:f26a:2ce9:e5df])
+ by smtp.gmail.com with ESMTPSA id
+ n12-20020adfe78c000000b0032f7eaa6e43sm1827110wrm.79.2023.10.31.09.21.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Oct 2023 09:21:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,135 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fee3d2d1-7808-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CPgl5Lk2ewxoZCfeaWuhOrE8R68P2ZVlHQaB6yBRd+wUXbFJHYOu6EUBz6CyJUaivnPDZm3/umT2FYj8PhS3o08FnSXhI03zwoSBgt1Xy3/BVhCjo45ZmBmWZk3nLwXYoeimTPd1RRyUCG0iI7neZbtUrOo7mP4/BZ8jwz98wpYjnfO04eXwQRqnD/j6bzDg3htcd+iYXFPSOhh0vobbP+4ccTtc8VOTpvqP+HL6gx3IVd+ewZd2ORVWhFzXSQD1seoe1Zi0+ddJE631TY+B/a2Y7K9mu/S0408mNWBJcs7wCq+ImVCPk1cYSSMVtUHsr9Y9/IAzFylVWfetrjDVCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bc/QMeuhl6E+g2BUjdQYMNPlwlIAtfBkyk7innooNDg=;
- b=jL+OkJQ2CeERsSXSGOk7HhMYcWhX7XwsR5G9gRGlsZOh2BdcgOYU8HyM+HwDzf2aaAI0IETCcZbJV83hMSELZRe2I638yHW4gP/CX+lp57rFz13JV4KQnuOWXu/nFN7sVqDnTySl4ctzAOpWx5aHx/8eIcD3Mbsx7LMTn6bNtpPwncLVpvRZ++jCntLXv77BOL35Kwvu6NVVO1tdegJQjsKIWVLII2P8hcTPiKT3bFKXyXTt/NusQIWEd6RfiUSldiaRd7icN0+kyMgiph2/Juahw1fF10xrNX4jPZMxTvo+03p6JDz9LziOLzMgHnH6cItlwv3jj1wnmeW9/9JXqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bc/QMeuhl6E+g2BUjdQYMNPlwlIAtfBkyk7innooNDg=;
- b=a9VLOH7WVzWuFBBda6CjlDhTRPINOcrMW++VOs2jTj3W03x9rsaEqSKKh8t1ecjFQQuG49HsqJVXqZGIMEyvxvuT0rGMbay/e8YbZ/XEpWDAmpatHFfqXvPW9id/0kuT7JdWkplX79s5qLFJNH44fFjGU1mNJVS9nLTHzRWTHEO31pUGaMQnTxI/Um5/6gt+Lw8TiXDD3gmDlQDWqqdj0mrEKvnoVeXgrd1KLHSLupewyNtEcmiIBPCR23+AbPhjyuSP6+3xC0JrCebxJide97V7aOWW/dclmFdO9CJ4VjUxFC2EtwLxPkjUEsYqnktWjLhePc27I0HbyuFhiED4rg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <738f6c5f-3d09-a107-5585-f886d5fa149a@suse.com>
-Date: Tue, 31 Oct 2023 17:17:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v4 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <20231030235240.106998-1-stewart.hildebrand@amd.com>
- <20231030235240.106998-5-stewart.hildebrand@amd.com>
- <2f828bd2-e6f8-15b5-b226-33e2b33ebba8@suse.com>
- <784fa30f-cdce-4d0b-97d1-a22ac52aa8c9@xen.org>
- <a31ebacb-b454-4636-8d75-df85d07f3399@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a31ebacb-b454-4636-8d75-df85d07f3399@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0187.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ab::17) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 86cd4364-7809-11ee-98d6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698769280; x=1699374080; darn=lists.xenproject.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:date:from
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PeQFRaFd4HTF0L7uxb3xMd2sfS+FTZ/ZL7BQ1f0mWE4=;
+        b=aerPY4QTrp+4KA8WbhJxGeCZLgV7sKnRm0F9CP6uXCviSJDIX7WaCnhjjuSBEyPb1+
+         t6rxyE2ZD/c8jlOc2zQpV5+sDAtJl0chDSdjwTQ8xds8BtClW6joN/7zkZ7Se2vXVVHq
+         hSa28tVKmqnEKV7EVtSKrYxqtUsui3vfw4oCu2YOKUXA9sMalN5ER8LS3+/5Ii8e194z
+         YmXkuOMj/+BpaCFmoHh9nhx9DGm8rdjQVjYlVyKaxzg1WwlGTJnorGISh3vLlVcQBr+B
+         0ng4Wb14YTTbbJNS2BXOxK4M6LaasWYrSZkF8zuGrDQAQj4e6YsN3RkURSuN853LCLjL
+         +PqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698769280; x=1699374080;
+        h=content-disposition:mime-version:message-id:subject:cc:to:date:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PeQFRaFd4HTF0L7uxb3xMd2sfS+FTZ/ZL7BQ1f0mWE4=;
+        b=Zh6+Rqxhl0SdBe1Bmezg/5aYIC+RAlnHEgT3g2FCZQiHDehIfBpo4zkt6wMBHOwM3b
+         KANSFwLO5U3Kka4OQ7gKa7FuMf27rOUINX2smPDpJX72SXzRUEXlcmJWn5yJcB6dyxMy
+         ncoun8P1Lf4mh7cZedWI5Q3d/sI0LlgsLVjgSahxDhFlBp6jLTUGCHFo/mHa3QNhzBEd
+         lYdKzRDUms5dkx0elQ7W9rDfNkpOdD8+BhyEMP5/oLzJddeMFyORabjjt/bjXMmbeZD9
+         lfbUHXHpYOTwP8LXb5Jv9ppy8NslN1VWYhk5KVuI8G9eMROiQWg7ailOFBRNVhYzfpE7
+         R1tw==
+X-Gm-Message-State: AOJu0Yw5Tx4elhVFV+k2ubK6SsMT0dJvHF6hGSRDwzO7x5nYFKPc6o9p
+	/yqSqDfquMbhqmAkG7VFa1PT8iH/xiELveqh
+X-Google-Smtp-Source: AGHT+IHXb72XDpM1zrO4AkR2LUpchUEahZFWle6AcXUYC+dkKu7QA7+3RDhkbDGYIVEWs9CTY7zHMA==
+X-Received: by 2002:a5d:6c61:0:b0:32f:7d50:62ef with SMTP id r1-20020a5d6c61000000b0032f7d5062efmr7815411wrz.13.1698769279441;
+        Tue, 31 Oct 2023 09:21:19 -0700 (PDT)
+From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+X-Google-Original-From: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
+Date: Tue, 31 Oct 2023 17:21:16 +0100
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Matias Vara <matiasevara@gmail.com>
+Subject: [RFC PATCH v3 0/3] Add a new acquire resource to query vcpu
+ statistics
+Message-ID: <cover.1698589351.git.matias.vara@vates.fr>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8937:EE_
-X-MS-Office365-Filtering-Correlation-Id: d67e8c8a-623a-45f5-10b8-08dbda2ce17a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	LhUYLChm3BvQMCK8HmaZgLiFB82gBRf6UoGucV4iOXYfAGK6fdjWPBjN4+dh4B/yA/vgAOk+EG6QZVz6F4l3RI/j1/Ky34u5hgQjeSTb1lTBG9v5O0MVrCBdELooDc22j5UP1rn04H/DxB7Fum6e6VpvBBdYEVzOvK5vFidbI9gfHtpKd6XF+HUbASRQ6vk2svwpokgfbB9OrWcF3z66doYUkrJxl2ikJwSq/pCu7E0NHCSiiB2oSpOmEgwRugEXhdhSyXVH5pMn0p8S+qyQKJJ8SvoqLDrr4HL/MATbuPBnAA/CnfFpTtuPxSBggfDHS19BsGLc+pZuk/WOBamGXSBjtfDDmtoW+qYukYTJnebuI32w0rziXjgGyE6Qa+tOCPHs+3n0Zg16tFHiLaQMZ53EHmkH3NRf+SbDWyDYmOHN5GE4lMqn9cxciGNn0A7SNM9FGaigThdLf7vo4DrGlF3OQXzkMRvWbEhPwm36xbrGkKq22q/WiSW390S7zkxC/atJkC8k9OKRIY3ncNPM+qE8cBTak6/7gVpKkYUGP+EpeGAxs+2Gle2DmO5rtDrwBpLLnOmYPr2K0FlIfsNp4yMNnQ9LXSOc41AbXWjbzvNi/xZILbSOhGbMBUl5pRp9zS+wlmr+MaJp0Eod/IS5bg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(136003)(346002)(366004)(376002)(39860400002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(41300700001)(4326008)(2906002)(5660300002)(478600001)(6916009)(8936002)(316002)(8676002)(66476007)(66946007)(66556008)(54906003)(6486002)(2616005)(36756003)(31686004)(31696002)(86362001)(38100700002)(26005)(53546011)(6512007)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NzRrcGQ4Q3Npck5Bb0duWG5rL2NuWThuREtTM0lZWklMQVY2L2hwYmkxTHBP?=
- =?utf-8?B?dmpVTmx2VUNpR0xMQk5yUlFPT1NSUFhENldZY2NweGJNK1RSOEFiUkJWcEhy?=
- =?utf-8?B?ZEh5Vnk0WVdhLzZzZFhaVFpTYk5YYjcwM2Z5TmRqY25PREpMRmNwWHltR3pm?=
- =?utf-8?B?NEsyRWRUWFQvZkdHQmlBYjZUSThjWW9vMklKRDltQUMzYnEvTCtHeE9DTEFl?=
- =?utf-8?B?Uk5kTkNxTnNrVTk0SVFlWStkNWFCclRmQVRLNG54eGdyYkNUYWFGRkVYOTgz?=
- =?utf-8?B?RmVHd2RsRnppR0VaY3BNQTBkQm1KcCtPRDdtR1U1dktyRVFzYXpBK2tsZVpM?=
- =?utf-8?B?TUdoempwOGY5aksvZDVabHJwRlFQNGQ1azA4ZEl5OE4xV1Mxa0lvc29jU0JO?=
- =?utf-8?B?WlM2Z1lNdUsxVldHZG9ZaDU0WEg5R1RUbWZGQlAvYVgyNHFiQmZuUjFwOUtQ?=
- =?utf-8?B?T2tSM0NNTmNlVUNFNmpvSCtOZE9XWmYxT1V5MkJxVXNMMlVzUXZJSUVkeVlE?=
- =?utf-8?B?Y1pQb2hmaXFmRnd6TzZzUlRXQ3FrcWRUL3pzbkR6U1k0T2pWRHdQS0hPYUg5?=
- =?utf-8?B?c3ZZNFNNdVdyY1Y0endvdVU5clZHU2pnaFFnNEJoa09zektaSCs5aXNxZW5C?=
- =?utf-8?B?Y3RPZE1aeHFaZ0FHMVpoUTBzNld0b3hFMzNkaFg2OGJQUThIa1hxTkQ5NjdM?=
- =?utf-8?B?Um5WUWRwOW9ZcExRMUdPK3I0a2VFcXVjU0Ywa01nQ0F3ek9wL2xWTUVpeVJM?=
- =?utf-8?B?am5zbk1NaTBodi9EN2h4eDVpUVJJUzh2Qm1QUVI1bnpMZElBb1hkQXpEWDhh?=
- =?utf-8?B?T1VRbkMzM3g4WElPME5vc1hPRFk3QXIvZitQT2ZxZllaaEM3a0x2REt3ZDNX?=
- =?utf-8?B?N1pmK0x3VWI0aTE1N3pMd0NwdVpYNm9tRmI0RG55VFk0aGpmbEhYN3RvVDhx?=
- =?utf-8?B?UWw0UkJNUTB5MlBjQ2paSURYckJieFNUM2hCY0IwTXh6ZFJDUEZRUnVuTzVi?=
- =?utf-8?B?R1VXdVI2ejZsc1VrcVEwb25IR1Z5bk1UMytITkZpZ25DQkY4UmQ3MjJGUmV5?=
- =?utf-8?B?bEg0N3Y5dkRSOUp3Z29LZEQ5cml0OVRueDUyZzlLU3pyU1R2N0pTQ3ZDdW8r?=
- =?utf-8?B?eGY2d3hRQ2xFYVExNEc4d2FVQVJWRXVxZEJIMGFJODNMUGFJdjhPak14c3BG?=
- =?utf-8?B?WlJSNGxCMS9wK2ZIYVhVbEdiTTFSM044aEhFK0ZFSnhFUGZTTVExT2pVT0Q3?=
- =?utf-8?B?Q0lwRDdTMStwZi9ucGkreEdTbjZwQ3BDblA1UWpLaysvVDZpU210RTFkZUI0?=
- =?utf-8?B?OW0zUFhYQjR0dlY0aUNBWHh3NkxuY1lKNmtReXlYbzUwRHZvNHQzdFRwM1p6?=
- =?utf-8?B?T3RrU3hNM3JpWTJqT3NIK3k5Wk0wN2pUa3BhenRUOUJsV2pUUHdBOXJ2WTRQ?=
- =?utf-8?B?U08xTEtBNmVxMEt1RC90RHFBN2JxRWxORHpCbzcySExQOEhFbi8wWVEyMDh6?=
- =?utf-8?B?Y1FwcjhNZmhCK2NpNzJlSmNDdGdRNlp0WG9tMEc0QkY1MGR0aFNwUEowbU0r?=
- =?utf-8?B?YXd1UVRTMzhvSFkxNUgyZ1dGUU4ycC9OR0hEclE2NEcxRW1qai9kSllYMUNn?=
- =?utf-8?B?VWNIUjNDL3ZDMzFzRkpHaVhmaVBpYzlFMkFlOUZCM1BEVnlSLy9zOGVaV3hJ?=
- =?utf-8?B?b0xsY3JRcVFrcWdHOVJITS90cGpyVDJCMGhCQ01vVk9VVytqM0p4dDB4M00y?=
- =?utf-8?B?Szc1OWdTZk4wM3JWTjBvWmZkTm9ra1VraXFpVjAvaG5iWUMrTVprN2NNVEVZ?=
- =?utf-8?B?MzhoNGpWdW5VK2JlOTlHbFhsM25LdDI0UXR4YTQ5eE1VbnEzWXRDTHh2SHNN?=
- =?utf-8?B?djA2c0lvTFFuWmdtMGUydG0zbFFEZ0ROOXhxWjJlUytLdjZXTEtIdEREd283?=
- =?utf-8?B?VUNOdHNMY0dqdlYvZ2V5bDNHYUN4RHV5c2pXcE5DbEFMMkZveE1lYzFjOGg5?=
- =?utf-8?B?bW9FTitVVzkyd2o1NW9JK25rOU5QaUNpQ0NyS25zN0I1T3g2WGNBYzEwOXJJ?=
- =?utf-8?B?OE1kT2JtUUNxZTBPdjUzUmZiVEFmMktzT0phOWloUmFmbGdPVUFSTmpkendY?=
- =?utf-8?Q?o3rhkVtk7d/so08UXMTl6r9/I?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67e8c8a-623a-45f5-10b8-08dbda2ce17a
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 16:17:30.0556
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yg7C5leTT6T9BsVJlUQxSEhbW+k4AudnFKvQaZYoZKQJraf38lhRZGUmHa+FhT2xeWLUFFXSRKRaRLxF/GE1IQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8937
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 31.10.2023 15:15, Stewart Hildebrand wrote:
-> On 10/31/23 09:17, Julien Grall wrote:
->> On 31/10/2023 11:03, Jan Beulich wrote:
->>> On 31.10.2023 00:52, Stewart Hildebrand wrote:
->>>> --- a/xen/drivers/passthrough/pci.c
->>>> +++ b/xen/drivers/passthrough/pci.c
->>>> @@ -1618,6 +1618,16 @@ int iommu_do_pci_domctl(
->>>>           bus = PCI_BUS(machine_sbdf);
->>>>           devfn = PCI_DEVFN(machine_sbdf);
->>>>   +        if ( IS_ENABLED(CONFIG_ARM) &&
->>>> +             !is_hardware_domain(d) &&
->>>> +             !is_system_domain(d) &&
->>>> +             (!IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) || !has_vpci(d)) )
->>>
->>> I don't think you need the explicit ARM check; that's redundant with
->>> checking !HAS_VPCI_GUEST_SUPPORT.
-> 
-> Currently that is true. However, this is allowing for the possibility that we eventually may want to enable PCI passthrough for PVH domU using vPCI (e.g. hyperlaunch, or eliminating qemu backend), in which case we may want to enable CONFIG_HAS_VPCI_GUEST_SUPPORT=y on x86.
+Hello all and apologies for the delay in sending v3,
 
-That's precisely why I'd like to see the ARM check go away here.
+the purpose of this RFC is to get feedback about a new acquire resource that
+exposes vcpu statistics for a given domain. The current mechanism to get those
+statistics is by querying the hypervisor. This mechanism relies on a hypercall
+and holds the domctl spinlock during its execution. When a pv tool like xcp-rrdd
+periodically samples these counters, it ends up affecting other paths that share
+that spinlock. By using acquire resources, the pv tool only requires a few
+hypercalls to set the shared memory region and samples are got without issuing
+any other hypercall. The original idea has been suggested by Andrew Cooper to
+which I have been discussing about how to implement the current PoC. You can
+find the RFC patch series at [1]. The series is rebased on top of stable-4.16.
 
->>> It's also not really clear why you
->>> need to check for the system domain here.
-> 
-> xl pci-assignable-add will assign the device to domIO, which doesn't have vPCI, but it is still a valid assignment. Perhaps an in code comment would be helpful for clarity?
+The current series includes a simple pv tool that shows how this new interface is
+used. This tool maps the counter and periodically samples it.
 
-And/or specifically check for DomIO, not any system domain.
+Any feedback/help would be appreciated.
 
-Jan
+Thanks, Matias.
+
+[1] https://github.com/MatiasVara/xen/commits/feature_vcpu_stats
+
+Changes in v3:
+- use memory layout discussed at
+  https://lists.xenproject.org/archives/html/xen-devel/2023-03/msg00383.html
+ 
+Changes in v2:
+- rework to ensure that consumer fetches consistent data
+
+Changes in v1:
+- rework how the resource is allocated and released
+- rework when the resource is allocated that happens only when the resource is
+  requested 
+- rework the structure shared between the tool and Xen to make it extensible to
+  new counters and declare it in a public header
+
+There are still the following questions:
+   - resource shall be released when there are no more readers otherwise we keep
+     updating it during a hot path
+
+Matias Ezequiel Vara Larsen (3):
+  xen/memory : Add a stats_table resource type
+  x86/mm: Do not validate/devalidate PGT_none type
+  tools/misc: Add xen-vcpus-stats tool
+
+ tools/misc/Makefile          |   6 ++
+ tools/misc/xen-vcpus-stats.c | 132 +++++++++++++++++++++++++++
+ xen/arch/x86/mm.c            |   3 +-
+ xen/common/domain.c          |   1 +
+ xen/common/memory.c          | 167 +++++++++++++++++++++++++++++++++++
+ xen/common/sched/core.c      |  20 +++++
+ xen/include/public/memory.h  |   3 +
+ xen/include/public/vcpu.h    |  27 ++++++
+ xen/include/xen/mm.h         |   2 +
+ xen/include/xen/sched.h      |   5 ++
+ 10 files changed, 365 insertions(+), 1 deletion(-)
+ create mode 100644 tools/misc/xen-vcpus-stats.c
+
+-- 
+2.34.1
+
 
