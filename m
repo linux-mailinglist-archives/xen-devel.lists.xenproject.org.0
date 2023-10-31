@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10F877DD0A1
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 16:35:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625909.975688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE247DD0A4
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 16:37:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625914.975698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxqlm-0006Ud-MN; Tue, 31 Oct 2023 15:35:06 +0000
+	id 1qxqnV-0007pz-3R; Tue, 31 Oct 2023 15:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625909.975688; Tue, 31 Oct 2023 15:35:06 +0000
+Received: by outflank-mailman (output) from mailman id 625914.975698; Tue, 31 Oct 2023 15:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxqlm-0006Ri-JX; Tue, 31 Oct 2023 15:35:06 +0000
-Received: by outflank-mailman (input) for mailman id 625909;
- Tue, 31 Oct 2023 15:35:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DSX0=GN=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1qxqll-0006Ra-HK
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 15:35:05 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 100f256a-7803-11ee-98d6-6d05b1d4d9a1;
- Tue, 31 Oct 2023 16:35:04 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-98377c5d53eso870849866b.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 08:35:04 -0700 (PDT)
+	id 1qxqnU-0007o2-VJ; Tue, 31 Oct 2023 15:36:52 +0000
+Received: by outflank-mailman (input) for mailman id 625914;
+ Tue, 31 Oct 2023 15:36:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qxqnU-0007nu-4R
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 15:36:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qxqnR-00071q-DY; Tue, 31 Oct 2023 15:36:49 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=[192.168.9.249]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qxqnR-0005Mu-6f; Tue, 31 Oct 2023 15:36:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,119 +39,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 100f256a-7803-11ee-98d6-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1698766504; x=1699371304; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=I3KYXxOTKEr4IJ837N0t09kJUWHf+DVsFJvM9qAYdSo=;
-        b=IeUQrl+PPrrdCU1CbxsrX0Q65KsEY/ArGN2O9+9gWyBpY9R1f0CbnNPA//W/SJR9wL
-         Ul1Ft4w8UPHqHOUgyg73yv0HZ8Mb8t96smYeZ7/rJZIt4Q94wepF8Xnvdeafdi4MTccr
-         DiktA4bDns5kLjV3XnDnK6xD+N8mPkB3Q7ENg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698766504; x=1699371304;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=I3KYXxOTKEr4IJ837N0t09kJUWHf+DVsFJvM9qAYdSo=;
-        b=Ak2S4zi2w+HVeLMmKGmYQPHmsBgKiZcjHd3z0c5uTjAFSObPSj5iN0rkVhVxjoHrK3
-         tFmXwMnmlMfvlMJvJQL1x100J1DzyOCG5URBOmCtOizctdYYNEKgayjmzvyJBt+c5IYY
-         K7YLbPAMP3hLrIYsNvqDf1Xbf4dR+8Gd4OnZ1vsx91XVuXjvuIlXJxEVt5HIcbLUlvY7
-         PXI2wZ/ODZp75Na1GvEGudeZ0LZq0RVhHkXYQgFgVPsiB4uDbsDzLY3ak1h/5DxDqK5g
-         yZSm5riswUkoldCpMgso/4FLopSD983WFIhbCDFAKf/zahAAr7g8oVTFtMJCHoJFGXD4
-         6aTQ==
-X-Gm-Message-State: AOJu0Yy3+XnIdYk8M+w3maRJxlTRT9lwAAiwAFM13HiYX6fQvJRLdw+3
-	Lg3QHIKDtGqRksZKJrAM1JTieG9P+f1qFF1QSSsENgGQwx4/8ZAvpUxSjP+0
-X-Google-Smtp-Source: AGHT+IGmDoHoYvC0BjBxs6MQZaPXUH5w4GAeZuvVLlbZ2z5nA2Q99cjrLYvYnUleNBWuJNMmb4oE1y966sD56s8IIhA=
-X-Received: by 2002:a17:906:c150:b0:9bf:63b2:b6f0 with SMTP id
- dp16-20020a170906c15000b009bf63b2b6f0mr10059409ejc.29.1698766503791; Tue, 31
- Oct 2023 08:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=4GfwqLh1nHAjACVFfZQPOO2eTpPBUAVG2Ec+XkQYqbk=; b=VYACEsqcYrY7cJZv1T6usx/0IX
+	CtZvrNJH6lJJVJY+8V5tvgKGSOYxwMdYQN3npUVuyhR4/8Jz6C4ckupzE7RR+ZbuxBevBE5GKFNvm
+	5MbodiLTi8XDKestPz97/aqcSPgiME+X6PtOhpTHQcQIwU+LqHKUqcVFRRYhk9TIdYsU=;
+Message-ID: <2d6c4859-5cca-4cf2-b7f5-1068f0130c99@xen.org>
+Date: Tue, 31 Oct 2023 15:36:45 +0000
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Tue, 31 Oct 2023 08:34:27 -0700
-Message-ID: <CAO-mL=zv5bHvk+2GxDMxYxrqnsm4ORFTcT=rUGO7rQXzJgc4rw@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items for 2 November Community Call @
- 16:00 GMT
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000003f68f060904e63d"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH][for-4.19 v5] xen: Add deviations for MISRA C:2012
+ Rule 7.1
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "michal.orzel@amd.com" <michal.orzel@amd.com>,
+ "xenia.ragiadakou@amd.com" <xenia.ragiadakou@amd.com>,
+ "ayan.kumar.halder@amd.com" <ayan.kumar.halder@amd.com>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+References: <0c86b50a796ba2aaab01e30935ed559ab719d33a.1698418578.git.nicola.vetrini@bugseng.com>
+ <98da41d4-f818-44c7-bd3c-b3e3b224ff0d@xen.org>
+ <alpine.DEB.2.22.394.2310301544460.1625118@ubuntu-linux-20-04-desktop>
+ <ee3c415d-bedd-432e-bf31-6e806b9cf976@xen.org>
+ <DFC25ACE-FFBE-43CF-9CE2-90671D122CEC@arm.com>
+ <2201cad3353f5deb567f929e91e90fd2@bugseng.com>
+ <E0FA2717-D06B-4C51-9E9A-DBD72CE35963@arm.com>
+ <e958d555-3075-467b-b3cf-1e5c6ad78405@xen.org>
+ <F121A82D-3D86-4923-9E6E-C520F57E8DAA@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <F121A82D-3D86-4923-9E6E-C520F57E8DAA@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---00000000000003f68f060904e63d
-Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
 
-Please add your proposed agenda and name next to any items in this *link
-here* <https://cryptpad.fr/pad/#/2/pad/edit/2tlR6HPM95auHBaXHjMXCM8Q/>
+On 31/10/2023 15:32, Luca Fancellu wrote:
+> 
+> 
+>> On 31 Oct 2023, at 15:27, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi,
+>>
+>> On 31/10/2023 15:12, Luca Fancellu wrote:
+>>>> On 31 Oct 2023, at 15:10, Nicola Vetrini <nicola.vetrini@bugseng.com> wrote:
+>>>>
+>>>> On 2023-10-31 15:13, Luca Fancellu wrote:
+>>>>>> On 31 Oct 2023, at 13:27, Julien Grall <julien@xen.org> wrote:
+>>>>>> Hi Stefano,
+>>>>>> On 30/10/2023 22:49, Stefano Stabellini wrote:
+>>>>>>> On Mon, 30 Oct 2023, Julien Grall wrote:
+>>>>>>>> Hi Nicola,
+>>>>>>>> On 27/10/2023 16:11, Nicola Vetrini wrote:
+>>>>>>>>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+>>>>>>>>> index 8511a189253b..8aaaa1473fb4 100644
+>>>>>>>>> --- a/docs/misra/deviations.rst
+>>>>>>>>> +++ b/docs/misra/deviations.rst
+>>>>>>>>> @@ -90,6 +90,13 @@ Deviations related to MISRA C:2012 Rules:
+>>>>>>>>>            - __emulate_2op and __emulate_2op_nobyte
+>>>>>>>>>            - read_debugreg and write_debugreg
+>>>>>>>>>   +   * - R7.1
+>>>>>>>>> +     - It is safe to use certain octal constants the way they are defined
+>>>>>>>>> +       in specifications, manuals, and algorithm descriptions. Such places
+>>>>>>>>> +       are marked safe with a /\* octal-ok \*/ in-code comment, or with a
+>>>>>>>>> SAF
+>>>>>>>>> +       comment (see safe.json).
+>>>>>>>> Reading this, it is unclear to me why we have two ways to deviate the rule
+>>>>>>>> r7.1. And more importantely, how would the developper decide which one to use?
+>>>>>>> I agree with you on this and we were discussing this topic just this
+>>>>>>> morning in the FUSA community call. I think we need a way to do this
+>>>>>>> with the SAF framework:
+>>>>>>> if (some code with violation) /* SAF-xx-safe */
+>>>>>>> This doesn't work today unfortunately. It can only be done this way:
+>>>>>>> /* SAF-xx-safe */
+>>>>>>> if (some code with violation)
+>>>>>>> Which is not always desirable. octal-ok is just an ad-hoc solution for
+>>>>>>> one specific violation but we need a generic way to do this. Luca is
+>>>>>>> investigating possible ways to support the previous format in SAF.
+>>>>>> Why can't we use octal-ok everywhere for now? My point here is to make simple for the developper to know what to use.
+>>>>>>> I think we should take this patch for now and harmonize it once SAF is
+>>>>>>> improved.
+>>>>>> The description of the deviation needs some improvement. To give an example, with the current wording, one could they can use octal-ok everywhere. But above, you are implying that SAF-xx-safe should be
+>>>>>> preferred.
+>>>>>> I would still strongly prefer if we use octal-ok everywhere because this is simple to remember. But if the other are happy to have both SAF-XX and octal-ok, then the description needs to be completely unambiguous and the patch should contain some explanation why we have two different ways to deviate.
+>>>>> Would it be ok to have both, for example: /* SAF-XX-safe octal-ok */
+>>>>> So that the suppression engine do what it should (currently it doesn’t suppress the same line, but we could do something about it) and the developer
+>>>>> has a way to understand what is the violation here without going to the justification database.
+>>>>
+>>>> I guess. It could overflow the 80-char limit in xen/arch/x86/hvm/svm/svm.h, though.
+>>> Yeah, but we could rule out something in code_style to allow only this kind of trailing comments to exceed the 80 chars
+>>
+>> In the past I expressed concerned with this kind of the rule because it is not entirely clear how an automatic formatter will be able to check it.
+>>
+>> Can you clarify whether clang-format would be able to handle your proposed rule?
+> 
+> So, yesterday Bertrand pointed out a StackOverflow thread for this issue and if we use ReflowComments: false we should
+> be able to let the line as it is (not tested).
 
-If there are any action items that have been resolved, please remove them
-from the sheet.
+Wouldn't that prevent reflow for all the comments? If so, I don't think 
+this is we want. Instead, we want to allow reflow for any comments but 
+the one done at the end of the line.
 
-*COMMUNITY CALL INFORMATION*
+Cheers,
 
-*CALL LINK: https://meet.jit.si/XenProjectCommunityCall
-<https://www.google.com/url?q=https://meet.jit.si/XenProjectCommunityCall&sa=D&source=calendar&ust=1699196661201312&usg=AOvVaw1FcogEsMjFSd1Pmi7V0cBc>*
-
-*DATE: 1st Thursday of each month*
-
-*TIME: 16:00 British Time (either BST or GMT)*
-*To allow time to switch between meetings, we will start at 16:05.  Aim to
-join by 16:00 if possible to allocate time for technical difficulties etc. *
-
-*SIGN UP SHEET:* Please add or remove yourself from the sign-up-sheet to be
-CC'd in these emails in this *link here
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/> *
-
-------------------------------------------------------------------------------------------------------------------------------
-
-*Dial-in info and pin can be found here:*
-
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
-
-*Meeting time:*
-
-https://www.timeanddate.com/worldclock/meetingdetails.html?year=2023&month=11&day=2&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-<https://www.timeanddate.com/worldclock/meetingdetails.html?year=2023&month=10&day=5&hour=15&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179>
-Many thanks,
-Kelly Choi
-
-Open Source Community Manager
-XenServer, Cloud Software Group
-
---00000000000003f68f060904e63d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p>Hi all,</p><p>Please add your proposed agenda and name =
-next to any items in this <a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/2=
-tlR6HPM95auHBaXHjMXCM8Q/"><b>link here</b></a>=C2=A0</p><p>If there are any=
- action items that have been resolved, please remove them from the sheet.=
-=C2=A0</p><p><i style=3D""><b>COMMUNITY CALL INFORMATION</b></i></p><p><b>C=
-ALL LINK:=C2=A0<a href=3D"https://www.google.com/url?q=3Dhttps://meet.jit.s=
-i/XenProjectCommunityCall&amp;sa=3DD&amp;source=3Dcalendar&amp;ust=3D169919=
-6661201312&amp;usg=3DAOvVaw1FcogEsMjFSd1Pmi7V0cBc" style=3D"cursor: auto;">=
-https://meet.jit.si/XenProjectCommunityCall</a></b></p><p><b>DATE: 1st Thur=
-sday of each month</b></p><p><b>TIME: 16:00 British Time (either BST or GMT=
-)</b><br><i>To allow time to switch between meetings, we will start at 16:0=
-5.=C2=A0 Aim to join by 16:00 if possible to allocate time for technical di=
-fficulties etc.=C2=A0</i><br></p><p><b>SIGN UP SHEET:</b>=C2=A0Please add o=
-r remove yourself from the sign-up-sheet to be CC&#39;d in these emails in =
-this <b><a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0=
-sRCf+/">link here</a>=C2=A0</b></p><p>-------------------------------------=
----------------------------------------------------------------------------=
---------------</p><p><b>Dial-in info and pin can be found here:</b></p><p><=
-a href=3D"https://meet.jit.si/static/dialInInfo.html?room=3DXenProjectCommu=
-nityCall">https://meet.jit.si/static/dialInInfo.html?room=3DXenProjectCommu=
-nityCall</a></p><p><b>Meeting time:</b></p><p><a href=3D"https://www.timean=
-ddate.com/worldclock/meetingdetails.html?year=3D2023&amp;month=3D10&amp;day=
-=3D5&amp;hour=3D15&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=
-=3D224&amp;p4=3D179" rel=3D"noreferrer" target=3D"_blank">https://www.timea=
-nddate.com/worldclock/meetingdetails.html?year=3D2023&amp;month=3D11&amp;da=
-y=3D2&amp;hour=3D16&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p=
-3=3D224&amp;p4=3D179</a><br></p><div><div dir=3D"ltr" class=3D"gmail_signat=
-ure" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,<=
-/div><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,1=
-36,136)">Open Source Community Manager</div><div style=3D"color:rgb(136,136=
-,136)">XenServer, Cloud Software Group</div></div><div style=3D"color:rgb(1=
-36,136,136)"><br></div></div></div></div></div>
-
---00000000000003f68f060904e63d--
+-- 
+Julien Grall
 
