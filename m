@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75DA7DD6F4
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 21:15:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626003.975868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A666A7DD7DB
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 22:43:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626009.975878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxv86-0000Se-Ip; Tue, 31 Oct 2023 20:14:26 +0000
+	id 1qxwVA-0004sj-RK; Tue, 31 Oct 2023 21:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626003.975868; Tue, 31 Oct 2023 20:14:26 +0000
+Received: by outflank-mailman (output) from mailman id 626009.975878; Tue, 31 Oct 2023 21:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxv86-0000PH-FH; Tue, 31 Oct 2023 20:14:26 +0000
-Received: by outflank-mailman (input) for mailman id 626003;
- Tue, 31 Oct 2023 20:14:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxv84-0000KS-4H; Tue, 31 Oct 2023 20:14:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxv83-0005wc-Vo; Tue, 31 Oct 2023 20:14:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1qxv83-0001fy-MO; Tue, 31 Oct 2023 20:14:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1qxv83-0006JG-Lz; Tue, 31 Oct 2023 20:14:23 +0000
+	id 1qxwVA-0004pR-Oi; Tue, 31 Oct 2023 21:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 626009;
+ Tue, 31 Oct 2023 21:42:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YC+N=GN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qxwV8-0004pL-CQ
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 21:42:18 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a0ab803-7836-11ee-9b0e-b553b5be7939;
+ Tue, 31 Oct 2023 22:42:14 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B863BCE0B33;
+ Tue, 31 Oct 2023 21:42:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B6AC433C7;
+ Tue, 31 Oct 2023 21:42:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +41,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=d8ZacTNYmJPTAYB5uIC0WLZbYLWbr4WDSO7whV7ihs8=; b=xOV+iS4VOIlMWlszNwQECQNrRB
-	pamC90Jsoo0pKXeQ24DMDuoXvfiUNXWhkFbG1/+DZV3MI6aUybJJe5ef+KtGWdNh3GjNFl+FJmeKX
-	+duamY5qcK6JOUofe6VvU/4SMjpyl4N6DWr6Uam0Q4KEoNXCjt35uPk5vcx0EcHvK1Lg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183642-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5a0ab803-7836-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698788529;
+	bh=mI1MR8jy+vjBKrxG8UnQuAIQSUVNiA1NAl7Wzvfucrk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hkEt9qt10y5ue5LZMJYz5Apv7SOG3WoE2tX1zdyKS07CyOAy3+l/LefaLJPlxER4g
+	 zx2HIujMMrwF4Xsd/y+0gRJ+7OPW9kAdN3VlCDoxGASNLSzIg2cFtUe6YFau4DhxOW
+	 xvbvFvCROAnmRSCMpOcuMaSznMtCvzJENfvko80wZIs+vYMxVbhIOUScR6a3aBBgLD
+	 OtuPQFBpWSlwPYsf2jmqzD/hXmioUPzqD/lgrAdA7uHeii7Smvur1Eywu/fZrZyXwr
+	 QdcqksJfAvx8abZWXBodAuCrcZ+dZuEMX2gcDEw9edmpXrGsI521eblpR7AVGPQcCx
+	 dPFh7qFII/JEw==
+Date: Tue, 31 Oct 2023 14:41:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH][for-4.19 v5] xen: Add deviations for MISRA C:2012
+ Rule 7.1
+In-Reply-To: <ee3c415d-bedd-432e-bf31-6e806b9cf976@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2310311441530.1795129@ubuntu-linux-20-04-desktop>
+References: <0c86b50a796ba2aaab01e30935ed559ab719d33a.1698418578.git.nicola.vetrini@bugseng.com> <98da41d4-f818-44c7-bd3c-b3e3b224ff0d@xen.org> <alpine.DEB.2.22.394.2310301544460.1625118@ubuntu-linux-20-04-desktop>
+ <ee3c415d-bedd-432e-bf31-6e806b9cf976@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183642: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7befef87cc9b1bb8ca15d866ce1ecd9165ccb58c
-X-Osstest-Versions-That:
-    xen=9659b2a6d73b14620e187f9c626a09323853c459
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Oct 2023 20:14:23 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 183642 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183642/
+On Tue, 30 Oct 2023, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 30/10/2023 22:49, Stefano Stabellini wrote:
+> > On Mon, 30 Oct 2023, Julien Grall wrote:
+> > > Hi Nicola,
+> > > 
+> > > On 27/10/2023 16:11, Nicola Vetrini wrote:
+> > > > diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> > > > index 8511a189253b..8aaaa1473fb4 100644
+> > > > --- a/docs/misra/deviations.rst
+> > > > +++ b/docs/misra/deviations.rst
+> > > > @@ -90,6 +90,13 @@ Deviations related to MISRA C:2012 Rules:
+> > > >             - __emulate_2op and __emulate_2op_nobyte
+> > > >             - read_debugreg and write_debugreg
+> > > >    +   * - R7.1
+> > > > +     - It is safe to use certain octal constants the way they are
+> > > > defined
+> > > > +       in specifications, manuals, and algorithm descriptions. Such
+> > > > places
+> > > > +       are marked safe with a /\* octal-ok \*/ in-code comment, or with
+> > > > a
+> > > > SAF
+> > > > +       comment (see safe.json).
+> > > 
+> > > Reading this, it is unclear to me why we have two ways to deviate the rule
+> > > r7.1. And more importantely, how would the developper decide which one to
+> > > use?
+> > 
+> > I agree with you on this and we were discussing this topic just this
+> > morning in the FUSA community call. I think we need a way to do this
+> > with the SAF framework:
+> > 
+> > if (some code with violation) /* SAF-xx-safe */
+> > 
+> > This doesn't work today unfortunately. It can only be done this way:
+> > 
+> > /* SAF-xx-safe */
+> > if (some code with violation)
+> > 
+> > Which is not always desirable. octal-ok is just an ad-hoc solution for
+> > one specific violation but we need a generic way to do this. Luca is
+> > investigating possible ways to support the previous format in SAF.
+> 
+> Why can't we use octal-ok everywhere for now?
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  7befef87cc9b1bb8ca15d866ce1ecd9165ccb58c
-baseline version:
- xen                  9659b2a6d73b14620e187f9c626a09323853c459
-
-Last test of basis   183618  2023-10-30 10:00:39 Z    1 days
-Testing same since   183642  2023-10-31 17:00:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Henry Wang <Henry.Wang@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I think this is a good option for now, yes
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> My point here is to make simple for the developper to know what to use.
+>
+> > 
+> > I think we should take this patch for now and harmonize it once SAF is
+> > improved.
+> 
+> The description of the deviation needs some improvement.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
++1
 
 
-Pushing revision :
+> To give an example,
+> with the current wording, one could they can use octal-ok everywhere. But
+> above, you are implying that SAF-xx-safe should be
+> preferred.
+> 
+> I would still strongly prefer if we use octal-ok everywhere because this is
+> simple to remember. But if the other are happy to have both SAF-XX and
+> octal-ok, then the description needs to be completely unambiguous and the
+> patch should contain some explanation why we have two different ways to
+> deviate.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   9659b2a6d7..7befef87cc  7befef87cc9b1bb8ca15d866ce1ecd9165ccb58c -> smoke
+I think we could say "octal-ok" only and not mention SAF. As you can see
+from the other messages we still have work to do on SAF to be able to
+use it the way we would like to use it.
 
