@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967ED7DD175
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 17:22:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625961.975798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCEC7DD1AA
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 17:34:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625972.975808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrVi-0002vu-UJ; Tue, 31 Oct 2023 16:22:34 +0000
+	id 1qxrge-0007HJ-VV; Tue, 31 Oct 2023 16:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625961.975798; Tue, 31 Oct 2023 16:22:34 +0000
+Received: by outflank-mailman (output) from mailman id 625972.975808; Tue, 31 Oct 2023 16:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxrVi-0002st-Qk; Tue, 31 Oct 2023 16:22:34 +0000
-Received: by outflank-mailman (input) for mailman id 625961;
- Tue, 31 Oct 2023 16:22:33 +0000
+	id 1qxrge-0007Ej-S6; Tue, 31 Oct 2023 16:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 625972;
+ Tue, 31 Oct 2023 16:33:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L368=GN=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
- id 1qxrVh-0001Lp-Qy
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 16:22:33 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ <SRS0=G+CR=GN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1qxrgc-0007Ed-SW
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 16:33:51 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1f996a4-7809-11ee-98d6-6d05b1d4d9a1;
- Tue, 31 Oct 2023 17:22:33 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2c5071165d5so35532461fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 09:22:33 -0700 (PDT)
-Received: from z0rr0-Latitude-7490 ([2a01:e0a:257:8c60:c550:f26a:2ce9:e5df])
- by smtp.gmail.com with ESMTPSA id
- u19-20020a05600c211300b004083a105f27sm2109641wml.26.2023.10.31.09.22.30
+ id 43d26ab3-780b-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 17:33:50 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-53e08e439c7so10072766a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 09:33:47 -0700 (PDT)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ x7-20020a170906710700b009c70b392051sm1221152ejj.100.2023.10.31.09.33.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 09:22:31 -0700 (PDT)
+ Tue, 31 Oct 2023 09:33:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,241 +44,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1f996a4-7809-11ee-98d6-6d05b1d4d9a1
+X-Inumbo-ID: 43d26ab3-780b-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698769352; x=1699374152; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1698770027; x=1699374827; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PbqnLiaYM/qismUJagY8WtP0Lsbpjpo6BS+NyjPaSIU=;
-        b=fscKq6j1jJEXF/t8ZpM9tk4zKTRcuBq15xwTz1OAquiMWoUkRsAkjkejJKVHcfyVvE
-         eHAtAHbpZib47z/07BAt4rdjLWK1WzcFDePXDpVwlUWex4h7XXfEEapMH8DqG8UL5js5
-         GYrYrscnjpQq8fAALAqtsrBLEmpi9Mzp2o9WmcaynqhNlODc/SrFvLNV/5laPvvrAVPq
-         N5rqFds4ApY6JkPliwyctvoI2qy6hYgiBHj3ozwE4/aebomN6aE73SgzxFaDFWuP/m8O
-         FpKeVVQiiu4Cg+cDSmvTq/ZpFgrNBFRCCqE/jhbWVwR0Q9u8zS7qez4y4JAuy9W9N7kQ
-         dT5g==
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rZtyABM22d8WNiZYCnLutaI+NLhsCfSj4kEzvmz47hw=;
+        b=Vc70jUXSEgvAX5G+Y2NjpYMWvOE9A9tgOfWY+Zssg+QZMCr2et3lp6+Z38rfDH26yx
+         x0Iwtvshy/9Y00joh6YJtahdYgruU3/8VmBxdpMYO7sraIXcGQO/AefrP8bwBRC2k3wn
+         rspVusGA6BfflIq8FKwlKxbKAvMG6+ADimY6Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698769352; x=1699374152;
+        d=1e100.net; s=20230601; t=1698770027; x=1699374827;
         h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PbqnLiaYM/qismUJagY8WtP0Lsbpjpo6BS+NyjPaSIU=;
-        b=GkJ5uLSdOlZJqzcsuj90cacO8FdShcaRhNBJOEmIjWeYIXOWM6IMNxbKzghmBC52QP
-         rCmt/Lifxa8umFkyp7asqYsW1hKD8m7P0yvGiNJBBMygV/O9iRono5rOxbk/b6W5o2wv
-         Lnh3+RtAPdNVKsOjs05slQQB+xuKwjQifijXzxXPeKpzb+eWdB7D49CCRP4TIjnUJFmp
-         VUho5PU9doG4HAQ40QCFKEeIjzDKBMBa+MzF6ckKl1y1OsRoNj4HvEkuT1hF9V1lbdsb
-         8nh4MWsCIRtBj6MetRGT/p41EawKxPqhF9JDwtBHZwvKlVfbs9Zdk/NnTfkcmSIcpNMy
-         MDGg==
-X-Gm-Message-State: AOJu0YwSIQvMKiS8VCEGzc3tqDksj7GunV58iHzrzskIRBP7wXDagawJ
-	k2Dm/OfzyTtiQx44uEIW+amq8WXvxz4XmeVr
-X-Google-Smtp-Source: AGHT+IGSvsYd/SVhWLFgXMVDqjMg9M0hSRTbFDOwVZLmzTBli4r6lzkSaUK5NcTio5bvQkfaXGDC/g==
-X-Received: by 2002:a2e:9b18:0:b0:2c5:17c0:cd53 with SMTP id u24-20020a2e9b18000000b002c517c0cd53mr10890709lji.42.1698769351846;
-        Tue, 31 Oct 2023 09:22:31 -0700 (PDT)
-From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-X-Google-Original-From: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
-Date: Tue, 31 Oct 2023 17:22:29 +0100
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	Matias Vara <matiasevara@gmail.com>
-Subject: [RFC PATCH v3 3/3] tools/misc: Add xen-vcpus-stats tool
-Message-ID: <3c11b71e824c1b68c8799dcafeb45098bd932149.1698589351.git.matias.vara@vates.fr>
-References: <cover.1698589351.git.matias.vara@vates.fr>
+        bh=rZtyABM22d8WNiZYCnLutaI+NLhsCfSj4kEzvmz47hw=;
+        b=EpznpUZIKwwRuGCpvxVrsL8OiAgU3kmSgo4k0460f4D0XVVmMLsyxRoC5iCXUPO+kF
+         7beMq3xc/vfEXnGmr59cjm4CyCZL279wbBzhGPJwZdhRVbMkFYOnsgWEo09ZdCImtpq6
+         xQOKn6Sz9Vef4r1AwLQm7CE2vDQViXRFgWI739Sg29WYM/5jBsDcaOWgp3WlLsaSQ84B
+         4JyXeXStYzZfMRjbzTT4WA9DhrSrLBPb3DMsOfvQ3izsB0bsYn4BO+GLggn+aCjOhWcH
+         R9yBC2+TmbZE7tK8vXnvmh3QgW4BO069DTvQloi0vVNDddGbS7ujao2P6i3AOz/2gnO8
+         tn9A==
+X-Gm-Message-State: AOJu0Yy6FQ6i78wuV7hmnuIwvcxJ0ADsam1VZa87qoyy8PM9mMlM8Ut9
+	pThrrIgzC6HOyVAi9bFYkgThnw==
+X-Google-Smtp-Source: AGHT+IHMm4Nc2zIvsRh7qrAgUPH9KvEEL+Ybbgeay3cbraKNq60msb2HmT3Vn9+XXs6yL79vG8G5cA==
+X-Received: by 2002:a17:907:9494:b0:9bf:4915:22c4 with SMTP id dm20-20020a170907949400b009bf491522c4mr11023456ejc.67.1698770026919;
+        Tue, 31 Oct 2023 09:33:46 -0700 (PDT)
+Date: Tue, 31 Oct 2023 17:33:45 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/irq: do not insert IRQ_MSI_EMU in emuirq mappings
+Message-ID: <ZUEsabItf_lpvi25@macbook>
+References: <20231031133037.157936-1-xenia.ragiadakou@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <cover.1698589351.git.matias.vara@vates.fr>
+In-Reply-To: <20231031133037.157936-1-xenia.ragiadakou@amd.com>
 
-Add a demonstration tool that uses the stats_table resource to
-query vcpus' RUNSTATE_running counter for a DomU.
+On Tue, Oct 31, 2023 at 03:30:37PM +0200, Xenia Ragiadakou wrote:
+> Do not use emuirq mappings for MSIs injected by emulated devices.
+> This kind of pirq shares the same emuirq value and is not remapped.
 
-Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
----
-Changes in v3:
-- use memory layout as discussed at
-  https://lists.xenproject.org/archives/html/xen-devel/2023-03/msg00383.html
-- use virt_*()
-- issue xenforeignmemory_close()
+AFAICT adding the extra emuirq mappings is harmless, and just adds
+an extra layer of translation?
 
-Changes in v2:
-- use period instead of frec
-- rely on version to ensure reading is coherent 
+Or is this causing issues, but we haven't realized because we don't
+provide emulated devices that use MSI(-X) by default?
 
-Changes in v1:
-- change the name of the tool to xen-vcpus-stats
-- set command line parameters in the same order that are passed
-- remove header libs.h
-- build by default
-- remove errno, strerrno, "\n", and identation
-- use errx when errno is not needed
-- address better the number of pages requested and error msgs
-- use the shared_vcpustatspage_t structure
-- use the correct frame id when requesting the resource
----
- tools/misc/Makefile          |   6 ++
- tools/misc/xen-vcpus-stats.c | 132 +++++++++++++++++++++++++++++++++++
- 2 files changed, 138 insertions(+)
- create mode 100644 tools/misc/xen-vcpus-stats.c
+> Fixes: 88fccdd11ca0 ('xen: event channel remapping for emulated MSIs')
+> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+> ---
+> 
+> Question: is there any strong reason why Linux HVM guests still use pirqs?
 
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 8b9558b93f..9c7cb50483 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -51,6 +51,7 @@ TARGETS_COPY += xenpvnetboot
- 
- # Everything which needs to be built
- TARGETS_BUILD := $(filter-out $(TARGETS_COPY),$(TARGETS_ALL))
-+TARGETS_BUILD += xen-vcpus-stats
- 
- # ... including build-only targets
- TARGETS_BUILD += $(TARGETS_BUILD-y)
-@@ -139,4 +140,9 @@ xencov: xencov.o
- xen-ucode: xen-ucode.o
- 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
- 
-+xen-vcpus-stats.o: CFLAGS += $(CFLAGS_libxenforeginmemory)
-+
-+xen-vcpus-stats: xen-vcpus-stats.o
-+	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(LDLIBS_libxenforeignmemory) $(APPEND_LDFLAGS)
-+
- -include $(DEPS_INCLUDE)
-diff --git a/tools/misc/xen-vcpus-stats.c b/tools/misc/xen-vcpus-stats.c
-new file mode 100644
-index 0000000000..f277b6ce8f
---- /dev/null
-+++ b/tools/misc/xen-vcpus-stats.c
-@@ -0,0 +1,132 @@
-+#include <err.h>
-+#include <errno.h>
-+#include <error.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <signal.h>
-+
-+#include <xenctrl.h>
-+#include <xenforeignmemory.h>
-+#include <xen/vcpu.h>
-+
-+/*
-+ * Note that virt_*() is used when ordering is required between the hypevisor
-+ * and the tool domain. This tool is meant to be arch-agnostic so add the
-+ * corresponding barrier for each architecture.
-+ *
-+ */
-+#if defined(__x86_64__)
-+#define barrier() asm volatile("" ::: "memory")
-+#define virt_rmb() barrier()
-+#elif defined(__aarch64__)
-+#define dmb(opt) asm volatile("dmb " #opt : : : "memory")
-+#define virt_rmb() dmb(ishld)
-+#else
-+#error Please fill in barrier macros
-+#endif
-+
-+static sig_atomic_t interrupted;
-+static void close_handler(int signum)
-+{
-+    interrupted = 1;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+    xenforeignmemory_handle *fh;
-+    xenforeignmemory_resource_handle *res;
-+    size_t size;
-+    int rc, domid, period, vcpu;
-+    xen_vcpu_shmemstats_t *info_shmem;
-+    xen_shared_vcpustats_t *info;
-+    struct sigaction act;
-+    uint32_t seq;
-+    uint64_t value;
-+
-+    if ( argc != 4 )
-+    {
-+        fprintf(stderr, "Usage: %s <domid> <vcpu> <period>\n", argv[0]);
-+        return 1;
-+    }
-+
-+    domid = atoi(argv[1]);
-+    vcpu = atoi(argv[2]);
-+    period = atoi(argv[3]);
-+
-+    act.sa_handler = close_handler;
-+    act.sa_flags = 0;
-+    sigemptyset(&act.sa_mask);
-+    sigaction(SIGHUP,  &act, NULL);
-+    sigaction(SIGTERM, &act, NULL);
-+    sigaction(SIGINT,  &act, NULL);
-+    sigaction(SIGALRM, &act, NULL);
-+
-+    fh = xenforeignmemory_open(NULL, 0);
-+
-+    if ( !fh )
-+        err(1, "xenforeignmemory_open");
-+
-+    rc = xenforeignmemory_resource_size(
-+        fh, domid, XENMEM_resource_stats_table,
-+        XENMEM_resource_stats_table_id_vcpustats, &size);
-+
-+    if ( rc )
-+        err(1, "Fail: Get size");
-+
-+    res = xenforeignmemory_map_resource(
-+        fh, domid, XENMEM_resource_stats_table,
-+        XENMEM_resource_stats_table_id_vcpustats, 0, size >> XC_PAGE_SHIFT,
-+        (void **)&info_shmem, PROT_READ, 0);
-+
-+    if ( !res )
-+        err(1, "Fail: Map");
-+
-+    if ( info_shmem->magic != VCPU_STATS_MAGIC )
-+    {
-+        fprintf(stderr, "Wrong magic number\n");
-+        return 1;
-+    }
-+
-+    if ( offsetof(struct vcpu_stats, runstate_running_time) > info_shmem->size )
-+    {
-+        fprintf(stderr, "The counter is not produced\n");
-+        return 1;
-+    }
-+
-+    info = (xen_shared_vcpustats_t*)((void*)info_shmem
-+                                     + info_shmem->offset
-+                                     + info_shmem->size * vcpu);
-+
-+    if ( info->runstate_running_time & ((uint64_t)1 << 63) )
-+    {
-+        fprintf(stderr, "The counter is inactived or has overflowed\n");
-+        return 1;
-+    }
-+
-+    while ( !interrupted )
-+    {
-+        sleep(period);
-+        do {
-+            seq = info[vcpu].seq;
-+            virt_rmb();
-+            value = info[vcpu].runstate_running_time;
-+            virt_rmb();
-+        } while ( (info[vcpu].seq & 1) ||
-+                  (seq != info[vcpu].seq) );
-+        if ( value & ((uint64_t)1 << 63) )
-+            break;
-+        printf("running_vcpu_time[%d]: %ld\n", vcpu, value);
-+    }
-+
-+    rc = xenforeignmemory_unmap_resource(fh, res);
-+    if ( rc )
-+        err(1, "Fail: Unmap");
-+
-+    rc = xenforeignmemory_close(fh);
-+    if ( rc )
-+        err(1, "Fail: Close");
-+
-+    return 0;
-+}
--- 
-2.34.1
+Baggage I guess.  I've suggested in the past to switch PIRQs off by
+default for HVM, but I had no figures to show how much of a
+performance penalty that would be for passthrough devices.
 
+My suggestion would be to introduce an xl.cfg option to select the
+availability of PIRQs for HVM guests, and set it to off by default.
+You would also need to make sure that migration (or save/restore)
+works fine, and that incoming guests from previous Xen versions (that
+won't have the option) will result in PIRQs still being enabled.
+
+There's already a XEN_X86_EMU_USE_PIRQ flag in xen_arch_domainconfig,
+so you just need to wire the tools side in order to allow selection by
+users.
+
+> 
+>  xen/arch/x86/irq.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index f42ad539dc..cdc8dc5a55 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -2684,7 +2684,7 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq)
+>      }
+>  
+>      old_emuirq = domain_pirq_to_emuirq(d, pirq);
+> -    if ( emuirq != IRQ_PT )
+> +    if ( (emuirq != IRQ_PT) && (emuirq != IRQ_MSI_EMU) )
+>          old_pirq = domain_emuirq_to_pirq(d, emuirq);
+
+I think you can just use emuirq >= 0, as we then only need the emuirq
+translation for passthrough interrupts, same for the rest of the
+changed conditions.
+
+Looking further, the function seems to be useless when called with
+emuirq < 0, and hence it might be better to avoid such calls in the
+first place?
+
+I have to admit I've always been very confused with the PIRQ logic, so
+it's possible I'm missing some relevant stuff here.
+
+Thanks, Roger.
 
