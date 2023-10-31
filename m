@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 852267DCDD2
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 14:29:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.625755.975368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92FA97DCDE4
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Oct 2023 14:31:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.625759.975377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxons-0002Ea-35; Tue, 31 Oct 2023 13:29:08 +0000
+	id 1qxopv-0003os-EN; Tue, 31 Oct 2023 13:31:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 625755.975368; Tue, 31 Oct 2023 13:29:08 +0000
+Received: by outflank-mailman (output) from mailman id 625759.975377; Tue, 31 Oct 2023 13:31:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qxons-0002Cp-0Q; Tue, 31 Oct 2023 13:29:08 +0000
-Received: by outflank-mailman (input) for mailman id 625755;
- Tue, 31 Oct 2023 13:29:07 +0000
+	id 1qxopv-0003mO-Bk; Tue, 31 Oct 2023 13:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 625759;
+ Tue, 31 Oct 2023 13:31:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9ZX9=GN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qxonq-0002Ce-PW
- for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 13:29:07 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=ZpMf=GN=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1qxopu-0003mI-Et
+ for xen-devel@lists.xenproject.org; Tue, 31 Oct 2023 13:31:14 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76a2bf96-77f1-11ee-98d6-6d05b1d4d9a1;
- Tue, 31 Oct 2023 14:29:05 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-543456dbd7bso3364735a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Oct 2023 06:29:05 -0700 (PDT)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v9-20020a17090606c900b0098f33157e7dsm966099ejb.82.2023.10.31.06.29.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Oct 2023 06:29:05 -0700 (PDT)
+ id c24c3b7e-77f1-11ee-98d6-6d05b1d4d9a1;
+ Tue, 31 Oct 2023 14:31:13 +0100 (CET)
+Received: from CH2PR18CA0036.namprd18.prod.outlook.com (2603:10b6:610:55::16)
+ by BL1PR12MB5802.namprd12.prod.outlook.com (2603:10b6:208:392::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29; Tue, 31 Oct
+ 2023 13:31:08 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:610:55:cafe::87) by CH2PR18CA0036.outlook.office365.com
+ (2603:10b6:610:55::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29 via Frontend
+ Transport; Tue, 31 Oct 2023 13:31:08 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6954.19 via Frontend Transport; Tue, 31 Oct 2023 13:31:07 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 31 Oct
+ 2023 08:31:06 -0500
+Received: from 10.0.2.15 (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Tue, 31 Oct 2023 08:31:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +59,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76a2bf96-77f1-11ee-98d6-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1698758945; x=1699363745; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SESIl4yPE28uydcwvtFMGtgo6QmA5t82nHkuCo96gYA=;
-        b=FfYduoW9CsW336srf/DDZHcO0my+9f44uCD6mJKY2gUYf1R1jh3yZyr+AUiXDJV5vQ
-         Jib5kBj14ODiumioyF9RVPmLTYguKwmC54wnkDCviCC92imsD1+x977oHXVSn1Sbvp0s
-         ovPQXiH6LoQgpMxZpA2DNLHeXY40vYNnq3J8M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698758945; x=1699363745;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :content-language:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SESIl4yPE28uydcwvtFMGtgo6QmA5t82nHkuCo96gYA=;
-        b=vCDz8fIMNopkNRtaoEihqSQGRsnGWzBqbXdQkcBIs8PrZzDpjRMHSXZyecXwVVCjTw
-         B91PH34zFl/NtAERRU4EY07iJhHHOlL+cr1NgFCVgpsVuQK5l4bQtGRZRIZ11r9tAlRa
-         rpWgD713pC1ti2+ZsO4+LNhVEO22IdQalURJtwLVZGAxPX9+AfPYdTFaE10km56dag+N
-         kgT7tKmjD3IOOXKERLR/0AzgCxPrJGImT3qGNgqWET3ZCi0WPxZNUJ+C4wfTjomUOc3/
-         PB9/Gf9w0JDGFJ71rZlDGUtwCTt8oKRfoaNPtRcb8GUZZ2uJQFkUQHn2R3rufWP8V5vI
-         Xk/g==
-X-Gm-Message-State: AOJu0YwvVgImOpHXsSXKdoZkdBgOsx+PgpLCDzTsKJYrc5IMsDqrVBGn
-	arUZkiKvQWUb3xt9Meagxsa5Wg==
-X-Google-Smtp-Source: AGHT+IEqnSUyQuv+zIzq1/P1cMtVi5ElbDQqS5kdGyhKc/KMBr/U5a3td+lk7QMstm7dKK29YI+M/w==
-X-Received: by 2002:a17:906:a184:b0:9ae:50ec:bd81 with SMTP id s4-20020a170906a18400b009ae50ecbd81mr2427099ejy.21.1698758945265;
-        Tue, 31 Oct 2023 06:29:05 -0700 (PDT)
-Message-ID: <6f2544e0-3976-4d05-982f-9406acbb207a@citrix.com>
-Date: Tue, 31 Oct 2023 13:29:04 +0000
+X-Inumbo-ID: c24c3b7e-77f1-11ee-98d6-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XHbXwyVAS6hxjYDnCYh6drtCNELAG0hNJ9KPD9f5yNCJ7UanHlw+R7Od0uQyJdiAZn178CSv1vJZHXEM49rxN9q/4lcj4jS2b6XaoCHf1tQLqLtTEXw968zm5JnhJMbrY84ROY3bRJgTtRm2Co+zilVxEujuOj5W9qTKwRH9nMMbBIRq+DW0pkTpO5Xpa/scqwUT3uFW1Q3Tz25xIvCw4iHMtbUDZA6kTMHrG40ZFY89Ab8cR0HTJL6popDf7IseerUIhWsq/IFuJlkaglxJ4laZY+JEBRkXK1pvsiUqaBG2Mxbg8MaUUN80sWqhXz5b3lB5hBixJTeCCrug5/GTGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9Ke8d4plNGJuIwSSfw+nKl5cBA307t6eSU88RthCIEY=;
+ b=e8GL2dMJqKOFoJOI8nwOmxzm/06p1DfP+IKX5k15++30qG+fsLeG2ZUQUSu5znQJt9BNBP93MaYtb0MPxHP+yYkQovyG8a39age1zdFZLRi0mibTIAnCiE30RFflBE1mzwSYYPnMjNMcwYZ5mT5LdfDB24O+3h3Z02awHyJsFFAfnce3sdjn0SMvIRKvC8OYX0EJtRBso2jPCGB9vpGaFitI10xnrr1+oTXv/iThlVJxcR1+QVbUQQg2OY0bi8p2G9QH2XJvvdmLF9U5cIhnwXnRXX3SdIyGudn5eceEq2/e/c45mozm+tBVjpis1W8I9WmTx8iceR/WD/rJa9gJXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Ke8d4plNGJuIwSSfw+nKl5cBA307t6eSU88RthCIEY=;
+ b=W9kTUoMzqirDJoAdTAlhunIS01m6xXU6TZBGAlXBhVO8/MUJ3KorGw4rj6WVVmKDBvAyQeeUyjGmNRt3j0VFDUMhXse/GCJb9gZz9cJJBA1vEI8zrqgI6tw19WSOWXmwwXvWgyRfspd1e3+0k/U7rcqRjInLekSjF/xfM6SJ6Q0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH] x86/irq: do not insert IRQ_MSI_EMU in emuirq mappings
+Date: Tue, 31 Oct 2023 15:30:37 +0200
+Message-ID: <20231031133037.157936-1-xenia.ragiadakou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH for-4.18] docs: Fix IOMMU command line docs some more
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Henry Wang <Henry.Wang@arm.com>
-References: <20231031120215.3307356-1-andrew.cooper3@citrix.com>
- <ZUDx67jQrGQcy68-@macbook>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <ZUDx67jQrGQcy68-@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|BL1PR12MB5802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 458000a9-794d-4a97-8ddb-08dbda15a3a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/bL15/L8L9JHe2dVf1MLfNvrSRUfDwASHzC7aUq+uAtaVUlsmI6iJWSqG+9mCliK+HS3PLKhOVZrB5Gv2W3ADe8qZaZ4NNoi2nxw3LC0tQau/leRM8QQoKQ1iitEd+pkufc8zZf5P4z/dzftBVrisTtda6iQsOgLE3KpF3NjFTUbcXn+KzHmibEuLyeXL43ejp3tY18pE5NlsKuechsShT3Dfp48/fcvq8iJ4nw9BxnTuM/ynOy7vHIms98/RGSnsxEjnzRzD+GT70rwj/83IxqRkQUAN79qL8PKeoKw6chpMRZbMxzRw6U71/A6NS9xKzxWRTCYLelOsmin7LRh8/KUEiJZkkQbWxQ3l7SpWPVCCtGU69PhP/ZX7nr2+83c3epy7y4lIqYeW9EPNL29XBFGZ7w9xhFVtc4eaJAyVT6VscJE45tBQ+kK8wTM9x2LNZnelBrNDtvJ8Oa9nhn3svZyRCs4P6X6bnhoh/rIc4n9tgbu6gjfNKqvvM9MLjtPGunZHC+yBKhnSgK6iF/VttsNuoiUW0ViJUbUbi1036lQQ/0DP7G+X++oMCcqMB4BsghevcnQOgU4UGYyAxLu4x/r/6uT00HrxPAhMnzuJmttJ3h5lt2dmwxHumlAZoCHudQWe+C3Tuzxj7uZCzS5qQQ9EZUxypZOO6ENSio0ALfMuiL4epVTUvnfy3wnJjvT49CAPQDzcSoQxrysadMVDvldpI+TYp27tXc0nSsYWpEzII2krQFR2VwR+VC7W4QAjVywN/lXqFtWM1uOoRYZnA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(396003)(346002)(39860400002)(376002)(230922051799003)(82310400011)(64100799003)(1800799009)(186009)(451199024)(40470700004)(46966006)(36840700001)(70206006)(70586007)(316002)(54906003)(6916009)(16576012)(2906002)(5660300002)(8676002)(40480700001)(41300700001)(478600001)(44832011)(4326008)(8936002)(6666004)(40460700003)(2616005)(1076003)(26005)(83380400001)(36860700001)(336012)(426003)(82740400003)(36756003)(86362001)(356005)(81166007)(47076005)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2023 13:31:07.6652
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 458000a9-794d-4a97-8ddb-08dbda15a3a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5802
 
-On 31/10/2023 12:24 pm, Roger Pau Monné wrote:
-> On Tue, Oct 31, 2023 at 12:02:15PM +0000, Andrew Cooper wrote:
->> Make the command line docs match the actual implementation, and state that the
->> default behaviour is selected at compile time.
->>
->> Fixes: 980d6acf1517 ("IOMMU: make DMA containment of quarantined devices optional")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> CC: Henry Wang <Henry.Wang@arm.com>
->> ---
->>  docs/misc/xen-command-line.pandoc | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
->> index 6b07d0f3a17f..9a19a04157cb 100644
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -1480,7 +1480,8 @@ detection of systems known to misbehave upon accesses to that port.
->>  > Default: `new` unless directed-EOI is supported
->>  
->>  ### iommu
->> -    = List of [ <bool>, verbose, debug, force, required, quarantine[=scratch-page],
->> +    = List of [ <bool>, verbose, debug, force, required,
->> +                quarantine=<bool>|scratch-page,
-> I think this should be quarantine=[<bool>|scratch-page], as just using
-> iommu=quarantine is a valid syntax and will enable basic quarantine.
-> IOW: the bool or scratch-page parameters are optional.
+Do not use emuirq mappings for MSIs injected by emulated devices.
+This kind of pirq shares the same emuirq value and is not remapped.
 
-=<bool> already has that meaning, and this is the form we use elsewhere.
+Fixes: 88fccdd11ca0 ('xen: event channel remapping for emulated MSIs')
+Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+---
 
->
->>                  sharept, superpages, intremap, intpost, crash-disable,
->>                  snoop, qinval, igfx, amd-iommu-perdev-intremap,
->>                  dom0-{passthrough,strict} ]
->> @@ -1519,7 +1520,8 @@ boolean (e.g. `iommu=no`) can override this and leave the IOMMUs disabled.
->>      successfully.
->>  
->>  *   The `quarantine` option can be used to control Xen's behavior when
->> -    de-assigning devices from guests.
->> +    de-assigning devices from guests.  The default behaviour is chosen at
->> +    compile time, and is one of `CONFIG_IOMMU_QUARANTINE_{NONE,BASIC,SCRATCH_PAGE}`.
-> Do we also want to state that the current build time default is BASIC
-> if the user hasn't selected otherwise?
+Question: is there any strong reason why Linux HVM guests still use pirqs?
 
-This is an instruction to look at the .config file and see which it is.
+ xen/arch/x86/irq.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-The exceptional case of someone doing a build from clean isn't
-particularly interesting.  Not least because they will be prompted for
-it and given the choices.
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index f42ad539dc..cdc8dc5a55 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -2684,7 +2684,7 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq)
+     }
+ 
+     old_emuirq = domain_pirq_to_emuirq(d, pirq);
+-    if ( emuirq != IRQ_PT )
++    if ( (emuirq != IRQ_PT) && (emuirq != IRQ_MSI_EMU) )
+         old_pirq = domain_emuirq_to_pirq(d, emuirq);
+ 
+     if ( (old_emuirq != IRQ_UNBOUND && (old_emuirq != emuirq) ) ||
+@@ -2699,8 +2699,8 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq)
+     if ( !info )
+         return -ENOMEM;
+ 
+-    /* do not store emuirq mappings for pt devices */
+-    if ( emuirq != IRQ_PT )
++    /* do not store emuirq mappings for pt devices and emulated MSIs */
++    if ( (emuirq != IRQ_PT) && (emuirq != IRQ_MSI_EMU) )
+     {
+         int err = radix_tree_insert(&d->arch.hvm.emuirq_pirq, emuirq,
+                                     radix_tree_int_to_ptr(pirq));
+@@ -2753,7 +2753,7 @@ int unmap_domain_pirq_emuirq(struct domain *d, int pirq)
+         info->arch.hvm.emuirq = IRQ_UNBOUND;
+         pirq_cleanup_check(info, d);
+     }
+-    if ( emuirq != IRQ_PT )
++    if ( (emuirq != IRQ_PT) && (emuirq != IRQ_MSI_EMU) )
+         radix_tree_delete(&d->arch.hvm.emuirq_pirq, emuirq);
+ 
+  done:
+-- 
+2.34.1
 
-~Andrew
 
