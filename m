@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19FB77DDE34
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:14:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626178.976171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FB07DDE35
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626180.976182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7Iz-0002uZ-LP; Wed, 01 Nov 2023 09:14:29 +0000
+	id 1qy7K1-0003ot-VL; Wed, 01 Nov 2023 09:15:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626178.976171; Wed, 01 Nov 2023 09:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 626180.976182; Wed, 01 Nov 2023 09:15:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7Iz-0002se-Ig; Wed, 01 Nov 2023 09:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 626178;
- Wed, 01 Nov 2023 09:14:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1qy7Ix-0002rO-9u
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:14:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qy7Iv-0003yV-1H; Wed, 01 Nov 2023 09:14:25 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1qy7Iu-0006zs-Rh; Wed, 01 Nov 2023 09:14:24 +0000
+	id 1qy7K1-0003m3-SC; Wed, 01 Nov 2023 09:15:33 +0000
+Received: by outflank-mailman (input) for mailman id 626180;
+ Wed, 01 Nov 2023 09:15:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QJn5=GO=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1qy7K0-0003lq-OZ
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:15:32 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 33992dea-7897-11ee-9b0e-b553b5be7939;
+ Wed, 01 Nov 2023 10:15:29 +0100 (CET)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 593FA4EE0741;
+ Wed,  1 Nov 2023 10:15:27 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=IJy7ohh2P80trrurzNDpJ9gaIXCG3I2f9gcqC5joIvw=; b=T/L2zBp6/xhQ3p33R3NIKcOJEA
-	tX1A69g5VIQyu9a9AxRRibPY8T6IE2G6ATGYrYWtPJIrZHhKL/K1w8knJt/8lJomYCfkdmjKSgu6s
-	e10U588u9facBkGyv8eT6pmBnWRoc1svZZsCYI7cTUMg8S5DoQfNMPnCZU0tRLGQHsLM=;
-Message-ID: <ad8c3c99-135c-425c-a0e9-f74c6cadbc78@xen.org>
-Date: Wed, 1 Nov 2023 09:14:22 +0000
+X-Inumbo-ID: 33992dea-7897-11ee-9b0e-b553b5be7939
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [XEN PATCH][for-4.19 v6 0/8] Fix or deviate various instances of missing declarations
+Date: Wed,  1 Nov 2023 10:15:15 +0100
+Message-Id: <cover.1698829473.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: exynos-mixer 14450000.mixer: [drm:exynos_drm_register_dma]
- *ERROR* Device 14450000.mixer lacks support for IOMMU
-Content-Language: en-GB
-To: Chuck Zmudzinski <brchuckz@netscape.net>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Mario Marietto <marietto2008@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-References: <CA+1FSiip1U0_EskJNgV3pSZPTCNOiTbpHosRLsy-6t1QQGd8Dw@mail.gmail.com>
- <alpine.DEB.2.22.394.2310311557520.1795129@ubuntu-linux-20-04-desktop>
- <CA+1FSih0hORYZf6Hfmf=nY4jkHPvFSgGfc1tJfzN6smnKxcsxA@mail.gmail.com>
- <alpine.DEB.2.22.394.2310311625260.1795129@ubuntu-linux-20-04-desktop>
- <d7d353b6-8d98-4bfa-8f45-1cb56fcea1f8@netscape.net>
- <08d50d8e-00bc-4bd0-be64-49639028eca8@xen.org>
- <5b3f5d86-1499-4dbb-934e-2006a3dc108e@netscape.net>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5b3f5d86-1499-4dbb-934e-2006a3dc108e@netscape.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The patches in this series aim to fix or deviate various instances where a
+function or variable do not have a declaration visible when such entity is
+defined (in violation of MISRA C:2012 Rule 8.4).
+An exception listed under docs/misra/rules.rst allows asm-only functions and
+variables to be exempted, while the other instances are either changed
+(e.g., making them static) or a missing header inclusion is added.
 
+Nicola Vetrini (8):
+  xen: modify or add declarations for variables where needed
+  x86: add deviation for asm-only functions
+  x86: add asmlinkage macro to variables only used in asm code
+  x86/grant: switch included header to make declarations visible
+  x86/vm_event: add missing include for hvm_vm_event_do_resume
+  xen/console: remove stub definition in consoled.h
+  x86/mem_access: make function static
+  docs/misra: exclude three more files
 
-On 01/11/2023 08:45, Chuck Zmudzinski wrote:
-> On 11/1/2023 4:27 AM, Julien Grall wrote:
->> Hi,
->>
->> @Stefano, as you pointed out, there is already a thread on xen-users for
->> this discussion. Could we use this thread for any discussion? This would
->> make easier to follow.
->>
->> Some high level comment below.
-> 
-> I agree to keep the discussion here and not at other places.
-
-I was meant to suggest the other thread :). But either is fine with me. 
-I just want to avoid avoid multiple seperate threads for the discussion.
-
-> 
-> I just want to add that the best results for Xen dom0 so far are
-> by implementing Marek's suggestion to disable these two settings
-> in the 6.1.59 kernel config, but leaving everything else the same,
-> including keeping the EXYNOS_IOMMU support enabled:
-That's good news! I would be interested to hear how this works once you 
-start to have PV backend in dom0 (I expect that the IOMMU will get 
-confused with grant mapping).
-
-Also, do you plan to passthrough any of the devices protected by IOMMU?
-
-> 
-> # CONFIG_DRM_EXYNOS_MIXER is not set
-> 
-> Disabling the mixer also makes this unavailable:
-> 
-> # CONFIG_HDMI
-> 
-> With this change, the GPU is working well enough to allow the display
-> manager and an X11 session to run normally on the built-in display of the
-> Chromebook. The Wifi also works well.
-
-I saw your other answer about the Wifi not working when the IOMMU is not 
-used. I was about to reply there, but instead I will do it here.
-
-TBH, I am quite surprised this is the case. The only difference with 
-baremetal would be the RAM regions. Do you know if the Wifi dongle only 
-accept certain physical address?
-
-Cheers,
+ automation/eclair_analysis/ECLAIR/deviations.ecl |  9 +++++++++
+ docs/misra/deviations.rst                        |  6 ++++++
+ docs/misra/exclude-list.json                     | 12 ++++++++++++
+ xen/arch/arm/include/asm/setup.h                 |  3 +++
+ xen/arch/arm/include/asm/smp.h                   |  3 +++
+ xen/arch/arm/platform_hypercall.c                |  2 +-
+ xen/arch/x86/cpu/mcheck/mce.c                    |  7 ++++---
+ xen/arch/x86/hvm/grant_table.c                   |  3 +--
+ xen/arch/x86/hvm/svm/intr.c                      |  2 +-
+ xen/arch/x86/hvm/svm/nestedsvm.c                 |  2 +-
+ xen/arch/x86/hvm/svm/svm.c                       |  4 ++--
+ xen/arch/x86/hvm/vm_event.c                      |  1 +
+ xen/arch/x86/hvm/vmx/intr.c                      |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c                       |  4 ++--
+ xen/arch/x86/hvm/vmx/vvmx.c                      |  2 +-
+ xen/arch/x86/include/asm/hvm/grant_table.h       |  2 ++
+ xen/arch/x86/irq.c                               |  2 +-
+ xen/arch/x86/mm/mem_access.c                     |  6 +++---
+ xen/arch/x86/setup.c                             |  8 +++++---
+ xen/arch/x86/traps.c                             |  2 +-
+ xen/arch/x86/x86_64/traps.c                      |  2 +-
+ xen/include/xen/compiler.h                       |  5 +++++
+ xen/include/xen/consoled.h                       |  7 -------
+ xen/include/xen/symbols.h                        |  1 +
+ 24 files changed, 67 insertions(+), 30 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
 
