@@ -2,52 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10F857DE73B
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 22:08:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626654.977091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F057DE8C6
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Nov 2023 00:12:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626660.977101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyIRS-0004Yb-40; Wed, 01 Nov 2023 21:07:58 +0000
+	id 1qyKMD-0007iH-RY; Wed, 01 Nov 2023 23:10:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626654.977091; Wed, 01 Nov 2023 21:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 626660.977101; Wed, 01 Nov 2023 23:10:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyIRS-0004Vs-0u; Wed, 01 Nov 2023 21:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 626654;
- Wed, 01 Nov 2023 21:07:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qyKMD-0007gb-N9; Wed, 01 Nov 2023 23:10:41 +0000
+Received: by outflank-mailman (input) for mailman id 626660;
+ Wed, 01 Nov 2023 23:10:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UCHO=GO=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1qyIRQ-0004Vm-BX
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 21:07:56 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20600.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b8a0a4d7-78fa-11ee-9b0e-b553b5be7939;
- Wed, 01 Nov 2023 22:07:53 +0100 (CET)
-Received: from DM5PR08CA0025.namprd08.prod.outlook.com (2603:10b6:4:60::14) by
- SA1PR12MB7319.namprd12.prod.outlook.com (2603:10b6:806:2b5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Wed, 1 Nov
- 2023 21:07:48 +0000
-Received: from CY4PEPF0000FCC4.namprd03.prod.outlook.com
- (2603:10b6:4:60:cafe::c9) by DM5PR08CA0025.outlook.office365.com
- (2603:10b6:4:60::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
- Transport; Wed, 1 Nov 2023 21:07:48 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000FCC4.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 21:07:47 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Wed, 1 Nov
- 2023 16:07:46 -0500
-Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Wed, 1 Nov 2023 16:07:45 -0500
+ <SRS0=r+92=GO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1qyKMC-0007gV-DU
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 23:10:40 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ddcfb800-790b-11ee-98d6-6d05b1d4d9a1;
+ Thu, 02 Nov 2023 00:10:38 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 298AB6121A;
+ Wed,  1 Nov 2023 23:10:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2299C433C7;
+ Wed,  1 Nov 2023 23:10:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,109 +42,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8a0a4d7-78fa-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NnqNDVOJHo9nyT5TWxoEv3b3BqC7Cdc4DDbPKis+fWyBRSwlrNp+7avdhwy3K4RrGujfNStm2qT68mLQEFRU7eAZMXhhAhnEHCBeZFW1AqHmIRXVfhGCnFSa+l71PJhFwRNyO3/IbG6IBp7pYWa563QYMP0CD9ZpMOp080/faITGGPZbpbHDPpHyQsd/EaleHfP2Q6akWMY4cRVdBQIQpezaiZZeXZALNI5F59DTPT/ZP3AwcisTUcVGOfSKLG+/hYMkD2NlQieW9cVmn8NW6rg3VVstf5r9rdLKKZWA3I9LcUp1rXZ+7hJR9/DM60qWV3FTcXBV4vdizdMzAVErlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Moa0axuF7omkDierUjBunbHH6SOVyOt/e+07ff+jXW8=;
- b=cYfJnGIffe1bg5gm0rMfDLu/SksgTkACSpjf/LCF7p0RBM/cBjLuztMTsCIvCw+lIvaGML3q5P3K3G3sf9pyjnJHQzt6FmB3Qbt4b1daKTpgEPkBwQo6YyVGouo4haVPGuPd2345wUQx1U2l82NbRtFBgt/Uy/Ji8rzFnFKcp9UYGQueCFZVo8d5Lbeg5KW2q4G+TJe8348563uCh0XoKUUOAAv9GLu1nZZ6qzdikkBr9SnPpB3ZsDYFPP+/8p+oTkOcu3U8mBAZN7M4c1Os2fRzhTatGwi6kQCpAC7fkV41Z172+LeQreMqpZneF7I8UIV38+Y2kuo86EI0tVfqzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nongnu.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Moa0axuF7omkDierUjBunbHH6SOVyOt/e+07ff+jXW8=;
- b=ITfdo05dO4E37SNkOBKGGGxkvio+2lm4/kJS1/lscm9QhCEFI2/Lh4ujBFFSM7f0TnPhlpZpNtSS9xMfSIFRl5b1hX+eyLPKSlabxAT1zvYRA7B3N6+5Zcvq2LnELbelJa1fhlXeuWK8lVdwCyyFYVkaHW4UtZMgKQb5zjXVsL0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Vikram Garhwal <vikram.garhwal@amd.com>
-To: <qemu-devel@nongnu.org>
-CC: <sstabellini@kernel.org>, <vikram.garhwal@amd.com>, Peter Maydell
-	<peter.maydell@linaro.org>, Anthony Perard <anthony.perard@citrix.com>, "Paul
- Durrant" <paul@xen.org>, "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
-	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-Subject: [QEMU][PATCH v1] Xen: Fix xen_set_irq() and xendevicemodel_set_irq_level()
-Date: Wed, 1 Nov 2023 14:07:23 -0700
-Message-ID: <20231101210724.27263-1-vikram.garhwal@amd.com>
-X-Mailer: git-send-email 2.17.1
+X-Inumbo-ID: ddcfb800-790b-11ee-98d6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698880235;
+	bh=CKfgrSCorUUu5HIq1LEXvdZDzHMfXWmulyih12KkFsQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=i8xNC+yul3uiH1i7GSfENZEOS1yjoplt+7GdZ+RU2k0dobQZ0CRbiq41d/eTPHbfv
+	 2kzJP0TPq8jk9VrgNZZ+xwR7M4mx/NIDH1T84NbIahGcNowGBi2sOkilHFQucUe7CU
+	 sEhaXnf2vt400lXDfO7/1QtycDQVR17LeA5rpCTkHVQrpY5CLppC+e3ponmWUBuGJk
+	 YInESeuxxsDw3hgI+sozKkw55AqMtDyEBOoS0dHCzXhI9JyMxvag3k9aXAMXjY++he
+	 HfBhmq4OradXXgSYgsdd4/uoeGKfeRZQbFzahIUEe9p21RgemqGPQMcy9a9otpQSgJ
+	 wRk19uRJpmfSw==
+Date: Wed, 1 Nov 2023 16:10:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
+    roger.pau@citrix.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, 
+    Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [XEN PATCH][for-4.19 v6 2/8] x86: add deviation for asm-only
+ functions
+In-Reply-To: <a1b5c3b273145c35535fed3647bf850d9ae5db7f.1698829473.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311011609360.2125691@ubuntu-linux-20-04-desktop>
+References: <cover.1698829473.git.nicola.vetrini@bugseng.com> <a1b5c3b273145c35535fed3647bf850d9ae5db7f.1698829473.git.nicola.vetrini@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC4:EE_|SA1PR12MB7319:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61a46221-23b1-4320-e7fe-08dbdb1e99d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	1FjwNtzkfSY35JT5UXB11fIvap/I6B8BCWkMfj6c0bwcb/JAOUbUMwKWGe4j0BKYt+U82cDMDVQxWXrT9ebv2C1FvsX8tC2OZJPYQwHCxy7Z8D/lOmArAo0BQV4eQrKpuj+QuBzB/tm8px4LDbgnwnfyUIfHQ4X7lrRKf+e6akxr/2sxoZ+y7HPUONNS3aj7xZWjzUZVy81tdcAarrn6UNMJxl4tP4D3dHSj3m0wxbbqqp5sWu+sicWAtbFfyqYSNvGTbfIr3ZCEVA7ZU+Kqtx+7RIoyjM/xTT49mEm+bBJ1J3gQKqWDRMh1v6Gt7hExyaVAuBZSP2iZHfoB5dFZ4EPORwFAK8DOiJUvFTHomxFTvhXe+eI+PeyAFxYcRLQ1ezQfMd/MsWyt4tPkXZGUnw4dD/JMhkYH9tQWRITWWnu1v8RKaIr/SDa4rcU91+x6Jm8f4qQSWbI5k+RtZafyxsoFe4REhBHJKhxi0PzMixaz3K7IJcB2bGx5F73s7OAaPfHpeVZOxwq+VKUc8t3Ic5qnlqX40syKwwwCeSVBqI0NSPVTOiUInMriPtHZScJlgwiCZNgsrkQuHBH7ICRksAa5iGUEZcyact1KST0NAyZvsbcRlI0YiMrlATCOCtwL/X+w64/NRTocxSZJE8xpVKcueKgAHOaliK2XHhLhcTLdEoJgWluTiEwRo98qA3bf7kq62NrNnREuS/Op0mfozfTCANqzuy1QYULhwN3wFHpvoVsnwG8S+BVanY6BiIg1bqtt3q5nCBYVzqnOPR3R0A==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(39860400002)(136003)(346002)(230922051799003)(64100799003)(186009)(82310400011)(1800799009)(451199024)(36840700001)(46966006)(40470700004)(8676002)(4326008)(8936002)(44832011)(1076003)(6916009)(54906003)(316002)(478600001)(26005)(41300700001)(6666004)(5660300002)(336012)(2616005)(426003)(2906002)(83380400001)(40480700001)(36860700001)(47076005)(70586007)(70206006)(82740400003)(356005)(81166007)(86362001)(40460700003)(36756003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 21:07:47.6482
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61a46221-23b1-4320-e7fe-08dbdb1e99d2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCC4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7319
+Content-Type: text/plain; charset=US-ASCII
 
-Remove '=' from 'if CONFIG_XEN_CTRL_INTERFACE_VERSION <= 41500'.
-Because xendevicemodel_set_irq_level() was introduced in 4.15 version.
+On Wed, 1 Nov 2023, Nicola Vetrini wrote:
+> As stated in rules.rst, functions used only in asm modules
+> are allowed to have no prior declaration visible when being
+> defined, hence these functions are marked with an
+> 'asmlinkage' macro, which is then deviated for MISRA C:2012
+> Rule 8.4.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> Changes in v3:
+> - added SAF deviations for vmx counterparts to svm functions.
+> Changes in v5:
+> - drop SAF deviations in favour of the pseudo-attribute asmlinkage
+> Changes in v6:
+> - conditioned asmlinkage definition to make it overridable;
+> - move the pseudo-attribute after the return type
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 9 +++++++++
+>  docs/misra/deviations.rst                        | 6 ++++++
+>  xen/arch/x86/hvm/svm/intr.c                      | 2 +-
+>  xen/arch/x86/hvm/svm/nestedsvm.c                 | 2 +-
+>  xen/arch/x86/hvm/svm/svm.c                       | 4 ++--
+>  xen/arch/x86/hvm/vmx/intr.c                      | 2 +-
+>  xen/arch/x86/hvm/vmx/vmx.c                       | 4 ++--
+>  xen/arch/x86/hvm/vmx/vvmx.c                      | 2 +-
+>  xen/arch/x86/traps.c                             | 2 +-
+>  xen/arch/x86/x86_64/traps.c                      | 2 +-
+>  xen/include/xen/compiler.h                       | 5 +++++
+>  11 files changed, 30 insertions(+), 10 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index fa56e5c00a27..06619ecf7e8d 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -163,6 +163,15 @@ Therefore the absence of prior declarations is safe."
+>  -config=MC3R1.R8.4,reports+={safe, "first_area(any_loc(file(gcov)))"}
+>  -doc_end
+>  
+> +-doc_begin="Recognize the occurrence of current_stack_pointer as a declaration."
+> +-file_tag+={asm_defns, "^xen/arch/x86/include/asm/asm_defns\\.h$"}
+> +-config=MC3R1.R8.4,declarations+={safe, "loc(file(asm_defns))&&^current_stack_pointer$"}
+> +-doc_end
+> +
+> +-doc_begin="asmlinkage is a marker to indicate that the function is only used to interface with asm modules."
+> +-config=MC3R1.R8.4,declarations+={safe,"loc(text(^(?s).*asmlinkage.*$, -1..0))"}
+> +-doc_end
+> +
+>  -doc_begin="The following variables are compiled in multiple translation units
+>  belonging to different executables and therefore are safe."
+>  -config=MC3R1.R8.6,declarations+={safe, "name(current_stack_pointer||bsearch||sort)"}
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 8511a189253b..d468da2f5ce9 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -133,6 +133,12 @@ Deviations related to MISRA C:2012 Rules:
+>         configuration. Therefore, the absence of prior declarations is safe.
+>       - Tagged as `safe` for ECLAIR.
+>  
+> +   * - R8.4
+> +     - Functions and variables used only by asm modules are either marked with
+> +       the `asmlinkage` macro or with a SAF-1-safe textual deviation
+> +       (see safe.json).
+> +     - Tagged as `safe` for ECLAIR.
 
-Also, update xendevicemodel_set_irq_level() to return -1 for older versions.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
----
- hw/arm/xen_arm.c            | 4 +++-
- include/hw/xen/xen_native.h | 4 ++--
- 2 files changed, 5 insertions(+), 3 deletions(-)
+If Julien prefers a different wording I could modify on commit as needed
 
-diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
-index f83b983ec5..a5631529d0 100644
---- a/hw/arm/xen_arm.c
-+++ b/hw/arm/xen_arm.c
-@@ -75,7 +75,9 @@ static MemoryRegion ram_lo, ram_hi;
- 
- static void xen_set_irq(void *opaque, int irq, int level)
- {
--    xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level);
-+    if (xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level)) {
-+        error_report("xendevicemodel_set_irq_level failed");
-+    }
- }
- 
- static void xen_create_virtio_mmio_devices(XenArmState *xam)
-diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
-index 5d2718261f..6f09c48823 100644
---- a/include/hw/xen/xen_native.h
-+++ b/include/hw/xen/xen_native.h
-@@ -523,12 +523,12 @@ static inline int xen_set_ioreq_server_state(domid_t dom,
-                                                  enable);
- }
- 
--#if CONFIG_XEN_CTRL_INTERFACE_VERSION <= 41500
-+#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 41500
- static inline int xendevicemodel_set_irq_level(xendevicemodel_handle *dmod,
-                                                domid_t domid, uint32_t irq,
-                                                unsigned int level)
- {
--    return 0;
-+    return -1;
- }
- #endif
- 
--- 
-2.17.1
 
+>     * - R8.6
+>       - The following variables are compiled in multiple translation units
+>         belonging to different executables and therefore are safe.
+> diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
+> index 192e17ebbfbb..4805c5567213 100644
+> --- a/xen/arch/x86/hvm/svm/intr.c
+> +++ b/xen/arch/x86/hvm/svm/intr.c
+> @@ -123,7 +123,7 @@ static void svm_enable_intr_window(struct vcpu *v, struct hvm_intack intack)
+>          vmcb, general1_intercepts | GENERAL1_INTERCEPT_VINTR);
+>  }
+>  
+> -void svm_intr_assist(void)
+> +void asmlinkage svm_intr_assist(void)
+>  {
+>      struct vcpu *v = current;
+>      struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
+> diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+> index a09b6abaaeaf..fc7658d67d4e 100644
+> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+> @@ -1441,7 +1441,7 @@ nestedsvm_vcpu_vmexit(struct vcpu *v, struct cpu_user_regs *regs,
+>  }
+>  
+>  /* VCPU switch */
+> -void nsvm_vcpu_switch(void)
+> +void asmlinkage nsvm_vcpu_switch(void)
+>  {
+>      struct cpu_user_regs *regs = guest_cpu_user_regs();
+>      struct vcpu *v = current;
+> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+> index 24c417ca7199..cb8abe7a0066 100644
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -1056,7 +1056,7 @@ static void noreturn cf_check svm_do_resume(void)
+>      reset_stack_and_jump(svm_asm_do_resume);
+>  }
+>  
+> -void svm_vmenter_helper(void)
+> +void asmlinkage svm_vmenter_helper(void)
+>  {
+>      const struct cpu_user_regs *regs = guest_cpu_user_regs();
+>      struct vcpu *curr = current;
+> @@ -2586,7 +2586,7 @@ const struct hvm_function_table * __init start_svm(void)
+>      return &svm_function_table;
+>  }
+>  
+> -void svm_vmexit_handler(void)
+> +void asmlinkage svm_vmexit_handler(void)
+>  {
+>      struct cpu_user_regs *regs = guest_cpu_user_regs();
+>      uint64_t exit_reason;
+> diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+> index fd719c4c01d2..8beeaab1517b 100644
+> --- a/xen/arch/x86/hvm/vmx/intr.c
+> +++ b/xen/arch/x86/hvm/vmx/intr.c
+> @@ -224,7 +224,7 @@ void vmx_sync_exit_bitmap(struct vcpu *v)
+>      }
+>  }
+>  
+> -void vmx_intr_assist(void)
+> +void asmlinkage vmx_intr_assist(void)
+>  {
+>      struct hvm_intack intack;
+>      struct vcpu *v = current;
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index 1edc7f1e919f..f5739b3aa5a1 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -4035,7 +4035,7 @@ static void undo_nmis_unblocked_by_iret(void)
+>                guest_info | VMX_INTR_SHADOW_NMI);
+>  }
+>  
+> -void vmx_vmexit_handler(struct cpu_user_regs *regs)
+> +void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
+>  {
+>      unsigned long exit_qualification, exit_reason, idtv_info, intr_info = 0;
+>      unsigned int vector = 0;
+> @@ -4787,7 +4787,7 @@ static void lbr_fixup(void)
+>  }
+>  
+>  /* Returns false if the vmentry has to be restarted */
+> -bool vmx_vmenter_helper(const struct cpu_user_regs *regs)
+> +bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
+>  {
+>      struct vcpu *curr = current;
+>      struct domain *currd = curr->domain;
+> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+> index 16b0ef82b6c8..a28803987af6 100644
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -1490,7 +1490,7 @@ static void nvmx_eptp_update(void)
+>      __vmwrite(EPT_POINTER, get_shadow_eptp(curr));
+>  }
+>  
+> -void nvmx_switch_guest(void)
+> +void asmlinkage nvmx_switch_guest(void)
+>  {
+>      struct vcpu *v = current;
+>      struct nestedvcpu *nvcpu = &vcpu_nestedhvm(v);
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index e1356f696aba..6393467b06fd 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -2265,7 +2265,7 @@ void asm_domain_crash_synchronous(unsigned long addr)
+>  }
+>  
+>  #ifdef CONFIG_DEBUG
+> -void check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
+> +void asmlinkage check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
+>  {
+>      const unsigned int ist_mask =
+>          (1U << X86_EXC_NMI) | (1U << X86_EXC_DB) |
+> diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
+> index e03e80813e36..668605e5bc67 100644
+> --- a/xen/arch/x86/x86_64/traps.c
+> +++ b/xen/arch/x86/x86_64/traps.c
+> @@ -266,7 +266,7 @@ void show_page_walk(unsigned long addr)
+>             l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
+>  }
+>  
+> -void do_double_fault(struct cpu_user_regs *regs)
+> +void asmlinkage do_double_fault(struct cpu_user_regs *regs)
+>  {
+>      unsigned int cpu;
+>      unsigned long crs[8];
+> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+> index dd99e573083f..94e2d6080d93 100644
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -159,6 +159,11 @@
+>  # define ASM_FLAG_OUT(yes, no) no
+>  #endif
+>  
+> +/* Mark a function or variable as being used only to interface with asm */
+> +#ifndef asmlinkage
+> +#define asmlinkage
+> +#endif
+> +
+>  /*
+>   * NB: we need to disable the gcc-compat warnings for clang in some places or
+>   * else it will complain with: "'break' is bound to loop, GCC binds it to
+> -- 
+> 2.34.1
+> 
 
