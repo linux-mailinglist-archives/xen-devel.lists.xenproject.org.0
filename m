@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 244087DE657
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 20:21:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626619.977025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCA1E7DE65A
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 20:22:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626627.977054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyGm6-00058c-3k; Wed, 01 Nov 2023 19:21:10 +0000
+	id 1qyGmg-0006RK-Up; Wed, 01 Nov 2023 19:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626619.977025; Wed, 01 Nov 2023 19:21:10 +0000
+Received: by outflank-mailman (output) from mailman id 626627.977054; Wed, 01 Nov 2023 19:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyGm6-00055s-0V; Wed, 01 Nov 2023 19:21:10 +0000
-Received: by outflank-mailman (input) for mailman id 626619;
- Wed, 01 Nov 2023 19:21:08 +0000
+	id 1qyGmg-0006OD-S6; Wed, 01 Nov 2023 19:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 626627;
+ Wed, 01 Nov 2023 19:21:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uHih=GO=citrix.com=prvs=662d42e6f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1qyGm4-000558-Pk
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 19:21:08 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc8cf3de-78eb-11ee-9b0e-b553b5be7939;
- Wed, 01 Nov 2023 20:21:05 +0100 (CET)
+ <SRS0=R8ij=GO=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qyGme-000558-RR
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 19:21:44 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3dc3a3a-78eb-11ee-9b0e-b553b5be7939;
+ Wed, 01 Nov 2023 20:21:43 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5431614d90eso202267a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Nov 2023 12:21:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,213 +40,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc8cf3de-78eb-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1698866465;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=dAjtVuXr4bnN1ScuGLWOR+3Nub1lnq5/xnQrcyf0VXU=;
-  b=B8J4zAhQjdhHtjHVyAMuMFwn5xTfC6gBscj10/gwkXn6sojNin7u8nLo
-   yqSAnr1MzLx/5F7Lp/cg0pARDJ5SJ+5RxIYpGcWStev1rZnyEH2OVLGPX
-   l4ZRDO+7zCTAkWSLgctNz7GDpXRhc/Ns/bh5I21eLgOc7s53FT7ik3zfD
-   o=;
-X-CSE-ConnectionGUID: PJy6mrjzSPeeXLTAFYLeTg==
-X-CSE-MsgGUID: Q3wW79OkSSmHYeywlHBNNw==
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 127288895
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:cjzQnKnDAytAOavKIVUO9u/o5gxxJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIeC26EPfnfYDagc9ElYd6zpEMB6JDSmtMyQAs/qi1mEyMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5K+aVA8w5ARkPqkS5AaGzBH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- cQ6OW4IdBKRvNq7zYKfdsBCt+AuEMa+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzH/
- DKWrzWkav0cHOXE1gXao1WvvdTKvRL2SZ0WNJee0OE/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JRCO076RulxezZ6A3fGy0YST1Qb5ovv4k0XVQC9
- HWEgtfoDjxHq6CORDSW8bL8hSy2ETgYKykFfyBsZQkY5Z/lqYI6jBPKR/5iFrK4ipv+HjSY6
- zOHsik4wakShMgj1qOn8FSBiDWpzrDVRws8/S3LXWao6AxoaYrjbIutgXDA7fdGJa6URVLHo
- T0YnMuP66YHBtePjESwrP4lRe/zoazfaXuF3A8pQMFJGymRF2CLRaJBvjRkJlVSCssJSRvVS
- WHinQ5t68oGVJe1VpObc75dGuxzk/mwRY29DqqEBjZdSsIvLlPZpkmCcWbVjzi3zhV2+U0qE
- c7DKZ7EMJoMNUhwINNarc821qUiwmgF3XnSQ5/gp/hM+eHFPCHMIVvp3UHnUwzY0E9niF+Om
- zqnH5HWoyizqcWnCsUtzaYdLEoRMV8wDo3spspce4are1Q3SDF/UKGPn+N4K+SJepi5cc+Ro
- BmAtrJwkQek2xUr1y3RApycVF8fdckm9i9qVcDdFV2px2Iice6S0UvrTLNuJeNP3LU6nZZJo
- wwtJ53o7gJnFm6WpFzwrPDV8ORfSfhcrVjeYXX+PWRuI8IIqs6g0oaMQzYDPRImVkKf3fbSa
- ZX6vu8HafLvnzhfMfs=
-IronPort-HdrOrdr: A9a23:Da7T7qpVQNxya6sukAye3eQaV5odeYIsimQD101hICG9vPbo8P
- xG+85rrSMc6QxhIU3I/OrqBEDuex/hHPJOjrX5Xo3SPzUO2lHIEGgK1+KLqVDd8kvFh4xgPM
- xbHZSWZueAaWRSvILX5xS5DsZl4PTvytHPuQ6n9RdQpNhRGsRd0zs=
-X-Talos-CUID: 9a23:fQHlF2671YPEkamuqNsszGwFRMU/cG/m9HrdE2uEIEhYbLCpRgrF
-X-Talos-MUID: 9a23:3qGD/grZ5bFoSQhqmzUezwg5K/g3soOtM3sIsaQLqtaAFQZWHSjI2Q==
-X-IronPort-AV: E=Sophos;i="6.03,269,1694750400"; 
-   d="scan'208";a="127288895"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Reima ISHII
-	<ishiir@g.ecc.u-tokyo.ac.jp>, Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>, "Takahiro
- Shinagawa" <shina@ecc.u-tokyo.ac.jp>
-Subject: [PATCH 2/2] x86/vmx: Disallow the use of inactivity states
-Date: Wed, 1 Nov 2023 19:20:58 +0000
-Message-ID: <20231101192058.3419310-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20231101192058.3419310-1-andrew.cooper3@citrix.com>
-References: <20231101192058.3419310-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: e3dc3a3a-78eb-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698866502; x=1699471302; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PM6NSJbEOt/BWPfPXXP/ZRQsx7UC5F6txXiOpzlIsus=;
+        b=jh6NYUwqd4xqHVByD39ukbUai0yy3b+pP0JYzddCDk1zygr1bCn6YVjwcItF7VrZ3+
+         lWqQofIh54leW4jwTitSNry6d4q/MJDPAhl8l/HoSlC0Dxlg0HoqjToJYKVEmk0o94H2
+         eKzIzYBya0XbrqjgNEKvE48oXYqwELqFFnXjGPJflgx+BYNh1Wlt3HaxP3qfvVotJxW/
+         Xemax0QHKlULbEsCxRReXRh5c3kP0D0fKGp8Zoym1XwQICL/vnt2B1ld4hza1TDi6SXj
+         iuPzQpaF0Yu9vO4brfh4RMEID9cUx1P2YrSBm1r+XeDYGdUMb7/BYck0oHD5Xx3RMB3i
+         LeHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698866502; x=1699471302;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PM6NSJbEOt/BWPfPXXP/ZRQsx7UC5F6txXiOpzlIsus=;
+        b=RsS/7RNQZzwB+8pkMwcA6StTB1g6WBKYWbZHnzmuU+SrANgWV9b7lrxjwO8RtBqh/+
+         sTBHXkDfjQOam5CmAVU9bJ72xB+bmhNshPND+D2sSKW7VFR+K5SJepT1n40dTOG8xELP
+         DChLFMzyNOVVmbhrpp9rUMvNLUecoRm0Jen0i5UwIWkKQeQXBslEXLb+pSSuuq8F5286
+         6MJHZlUBHFFW9xW3HXZI6RuYMPDlQSFGxEVuv2Ua4e46yu6GEyqYXirxP0mGwv7xFrHG
+         vjYgQmYQy4U1suJqAeC0JUmQWaHVWKNs4mEgdSKdDjXeiEZdq1/O2L8LMtOwYAZVA8aT
+         YNNA==
+X-Gm-Message-State: AOJu0YxHycWerCtpbVb67l9+fHDrFpg3UwOP6hvIzGx48DUgN46qfkdF
+	RvDyLc9mRgpn4ifwfEjd6NAkR/a7hmGTa2Hw24LugH2AxIM=
+X-Google-Smtp-Source: AGHT+IHEcOa31KFeqYTGei+JGVgjKavwUcDjmUd7n6zhdQJX9pieWlPPP2XGb2hfQ4Fnd1xeUkXZf+su5NhZA5x1TV0=
+X-Received: by 2002:a50:8d12:0:b0:543:5886:71c3 with SMTP id
+ s18-20020a508d12000000b00543588671c3mr5141648eds.25.1698866502340; Wed, 01
+ Nov 2023 12:21:42 -0700 (PDT)
 MIME-Version: 1.0
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-4-jgross@suse.com>
+In-Reply-To: <20231101093325.30302-4-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 1 Nov 2023 15:21:29 -0400
+Message-ID: <CAKf6xptkUPBSTsij=CAWaiYxTCtGH4zpZWiLuvb=teX3i_sjrA@mail.gmail.com>
+Subject: Re: [PATCH 03/29] tools/xenlogd: connect to frontend
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Right now, vvmx will blindly copy L12's ACTIVITY_STATE into the L02 VMCS and
-enter the vCPU.  Luckily for us, nested-virt is explicitly unsupported for
-security bugs.
+On Wed, Nov 1, 2023 at 5:34=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> Add the code for connecting to frontends to xenlogd.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-The inactivity states are HLT, SHUTDOWN and WAIT-FOR-SIPI, and as noted by the
-SDM in Vol3 27.7 "Special Features of VM Entry":
+> diff --git a/tools/xenlogd/xenlogd.c b/tools/xenlogd/xenlogd.c
+> index 792d1026a3..da0a09a122 100644
+> --- a/tools/xenlogd/xenlogd.c
+> +++ b/tools/xenlogd/xenlogd.c
 
-  If VM entry ends with the logical processor in an inactive activity state,
-  the VM entry generates any special bus cycle that is normally generated when
-  that activity state is entered from the active state.
+> +static void connect_device(device *device)
+> +{
+> +    unsigned int val;
+> +    xenevtchn_port_or_error_t evtchn;
+1.> +
+> +    val =3D read_frontend_node_uint(device, "version", 0);
+> +    if ( val !=3D 1 )
+> +        return connect_err(device, "frontend specifies illegal version")=
+;
+> +    val =3D read_frontend_node_uint(device, "num-rings", 0);
+> +    if ( val !=3D 1 )
+> +        return connect_err(device, "frontend specifies illegal ring numb=
+er");
 
-Also,
+Linux uses 2 rings (XEN_9PFS_NUM_RINGS), and it doesn't connect when
+max-rings is less than that.
 
-  Some activity states unconditionally block certain events.
+max_rings =3D xenbus_read_unsigned(dev->otherend, "max-rings", 0);
+if (max_rings < XEN_9PFS_NUM_RINGS)
+    return -EINVAL;
 
-I.e. A VMEntry with ACTIVITY=SHUTDOWN will initiate a platform reset, while a
-VMEntry with ACTIVITY=WAIT-FOR-SIPI will really block everything other than
-SIPIs.
+new_device() writes max-rings as 1.  So this works for mini-os, but
+not Linux.  I'm not requesting you to change it - just noting it.
 
-Both of these activity states are for the TXT ACM to use, not for regular
-hypervisors, and Xen doesn't support dropping the HLT intercept either.
+> +
+> +    val =3D read_frontend_node_uint(device, "event-channel-0", 0);
+> +    if ( val =3D=3D 0 )
+> +        return connect_err(device, "frontend specifies illegal evtchn");
+> +    evtchn =3D xenevtchn_bind_interdomain(xe, device->domid, val);
+> +    if ( evtchn < 0 )
+> +        return connect_err(device, "could not bind to event channel");
+> +    device->evtchn =3D evtchn;
+> +
+> +    val =3D read_frontend_node_uint(device, "ring-ref0", 0);
+> +    if ( val =3D=3D 0 )
+> +        return connect_err(device, "frontend specifies illegal grant for=
+ ring");
+> +    device->intf =3D xengnttab_map_grant_ref(xg, device->domid, val,
+> +                                           PROT_READ | PROT_WRITE);
+> +    if ( !device->intf )
+> +        return connect_err(device, "could not map interface page");
+> +    device->ring_order =3D device->intf->ring_order;
+> +    if ( device->ring_order > 9 || device->ring_order < 1 )
+> +        return connect_err(device, "frontend specifies illegal ring orde=
+r");
+> +    device->ring_size =3D XEN_FLEX_RING_SIZE(device->ring_order);
+> +    device->data.in =3D xengnttab_map_domain_grant_refs(xg,
+> +                                                      1 << device->ring_=
+order,
+> +                                                      device->domid,
+> +                                                      device->intf->ref,
+> +                                                      PROT_READ | PROT_W=
+RITE);
+> +    if ( !device->data.in )
+> +        return connect_err(device, "could not map ring pages");
+> +    device->data.out =3D device->data.in + device->ring_size;
+> +
+> +    if ( pthread_create(&device->thread, NULL, io_thread, device) )
+> +       return connect_err(device, "could not start I/O thread");
+> +    device->thread_active =3D true;
+> +
+> +    write_backend_state(device, XenbusStateConnected);
+> +}
+> +
 
-There are two paths in Xen which operate on ACTIVITY_STATE.
+> @@ -122,6 +669,11 @@ int main(int argc, char *argv[])
+>      int syslog_mask =3D LOG_MASK(LOG_WARNING) | LOG_MASK(LOG_ERR) |
+>                        LOG_MASK(LOG_CRIT) | LOG_MASK(LOG_ALERT) |
+>                        LOG_MASK(LOG_EMERG);
+> +    char **watch;
+> +    struct pollfd p[2] =3D {
+> +        { .events =3D POLLIN, .revents =3D POLLIN },
 
-1) The vmx_{get,set}_nonreg_state() helpers for VM-Fork.
+Are you intentionally setting revents to enter the loop initially?
+Shouldn't the watch registration trigger it to fire anyway?
 
-   As regular VMs can't use any inactivity states, this is just duplicating
-   the 0 from construct_vmcs().  Drop the field, leaving a comment as to why
-   it is skipped.
+> +        { .events =3D POLLIN }
+> +    };
+>
+>      umask(027);
+>      if ( getenv("XENLOGD_VERBOSE") )
+> @@ -134,9 +686,26 @@ int main(int argc, char *argv[])
+>
+>      xen_connect();
+>
+> +    if ( !xs_watch(xs, "backend/xen_9pfs", "main") )
+> +        do_err("xs_watch() in main thread failed");
+> +    p[0].fd =3D xs_fileno(xs);
+> +    p[1].fd =3D xenevtchn_fd(xe);
+> +
+> +    scan_backend();
+> +
+>      while ( !stop_me )
+>      {
+> -        sleep(60);
+> +        while ( (p[0].revents & POLLIN) &&
+> +                (watch =3D xs_check_watch(xs)) !=3D NULL )
+> +        {
+> +            handle_watch(watch[XS_WATCH_PATH], watch[XS_WATCH_TOKEN]);
+> +            free(watch);
+> +        }
+> +
+> +        if ( p[1].revents & POLLIN )
+> +            handle_event();
+> +
+> +        poll(p, 2, 10000);
 
-2) Nested virt, because of ACTIVITY_STATE in vmcs_gstate_field[].
+Can you just use an infinite timeout and rely on the signal
+interrupting the system call?
 
-   Explicitly hide the inactivity states in the guest's view of MSR_VMX_MISC,
-   and remove ACTIVITY_STATE from vmcs_gstate_field[].
-
-   In virtual_vmentry(), we should trigger a VMEntry failure for the use of
-   any inactivity states, but there's no support for that in the code at all
-   so leave a TODO for when we finally start working on nested-virt in
-   earnest.
-
-Reported-by: Reima ISHII <ishiir@g.ecc.u-tokyo.ac.jp>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Jun Nakajima <jun.nakajima@intel.com>
-CC: Kevin Tian <kevin.tian@intel.com>
-CC: Tamas K Lengyel <tamas@tklengyel.com>
-CC: Reima ISHII <ishiir@g.ecc.u-tokyo.ac.jp>
-CC: Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>
-
-Note, entirely untested.
----
- xen/arch/x86/hvm/vmx/vmx.c              | 2 --
- xen/arch/x86/hvm/vmx/vvmx.c             | 9 +++++++--
- xen/arch/x86/include/asm/hvm/hvm.h      | 5 ++++-
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 1 +
- 4 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index d26920d03bbc..a35fb23b0ece 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -1543,7 +1543,6 @@ static void cf_check vmx_get_nonreg_state(struct vcpu *v,
- {
-     vmx_vmcs_enter(v);
- 
--    __vmread(GUEST_ACTIVITY_STATE, &nrs->vmx.activity_state);
-     __vmread(GUEST_INTERRUPTIBILITY_INFO, &nrs->vmx.interruptibility_info);
-     __vmread(GUEST_PENDING_DBG_EXCEPTIONS, &nrs->vmx.pending_dbg);
- 
-@@ -1558,7 +1557,6 @@ static void cf_check vmx_set_nonreg_state(struct vcpu *v,
- {
-     vmx_vmcs_enter(v);
- 
--    __vmwrite(GUEST_ACTIVITY_STATE, nrs->vmx.activity_state);
-     __vmwrite(GUEST_INTERRUPTIBILITY_INFO, nrs->vmx.interruptibility_info);
-     __vmwrite(GUEST_PENDING_DBG_EXCEPTIONS, nrs->vmx.pending_dbg);
- 
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index 16b0ef82b6c8..fd0ae3916656 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -899,7 +899,10 @@ static const u16 vmcs_gstate_field[] = {
-     GUEST_LDTR_AR_BYTES,
-     GUEST_TR_AR_BYTES,
-     GUEST_INTERRUPTIBILITY_INFO,
-+    /*
-+     * ACTIVITY_STATE is handled specially.
-     GUEST_ACTIVITY_STATE,
-+     */
-     GUEST_SYSENTER_CS,
-     GUEST_PREEMPTION_TIMER,
-     /* natural */
-@@ -1200,6 +1203,8 @@ static void virtual_vmentry(struct cpu_user_regs *regs)
-     nvcpu->nv_vmentry_pending = 0;
-     nvcpu->nv_vmswitch_in_progress = 1;
- 
-+    /* TODO: Fail VMentry for GUEST_ACTIVITY_STATE != 0 */
-+
-     /*
-      * EFER handling:
-      * hvm_set_efer won't work if CR0.PG = 1, so we change the value
-@@ -2316,8 +2321,8 @@ int nvmx_msr_read_intercept(unsigned int msr, u64 *msr_content)
-         data = hvm_cr4_guest_valid_bits(d);
-         break;
-     case MSR_IA32_VMX_MISC:
--        /* Do not support CR3-target feature now */
--        data = host_data & ~VMX_MISC_CR3_TARGET;
-+        /* Do not support CR3-targets or activity states. */
-+        data = host_data & ~(VMX_MISC_CR3_TARGET | VMX_MISC_ACTIVITY_MASK);
-         break;
-     case MSR_IA32_VMX_EPT_VPID_CAP:
-         data = nept_get_ept_vpid_cap();
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 6d53713fc3a9..caeb8ef4f596 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -78,7 +78,10 @@ enum hvm_intblk {
- struct hvm_vcpu_nonreg_state {
-     union {
-         struct {
--            uint64_t activity_state;
-+            /*
-+             * ACTIVITY_STATE is part of VT-x's Non-Register state, but we
-+             * don't support the use of any inactivity states.
-+             */
-             uint64_t interruptibility_info;
-             uint64_t pending_dbg;
-             uint64_t interrupt_status;
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-index d07fcb2bc929..8de9977eb354 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -277,6 +277,7 @@ extern u32 vmx_secondary_exec_control;
- #define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 0x80000000000ULL
- extern u64 vmx_ept_vpid_cap;
- 
-+#define VMX_MISC_ACTIVITY_MASK                  0x000001c0
- #define VMX_MISC_PROC_TRACE                     0x00004000
- #define VMX_MISC_CR3_TARGET                     0x01ff0000
- #define VMX_MISC_VMWRITE_ALL                    0x20000000
--- 
-2.30.2
-
+Regards,
+Jason
 
