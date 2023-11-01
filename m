@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F257DDEA5
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:45:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626284.976412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF177DDEA4
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:43:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626281.976401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7mZ-0005e8-NV; Wed, 01 Nov 2023 09:45:03 +0000
+	id 1qy7lA-0004sx-Dt; Wed, 01 Nov 2023 09:43:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626284.976412; Wed, 01 Nov 2023 09:45:03 +0000
+Received: by outflank-mailman (output) from mailman id 626281.976401; Wed, 01 Nov 2023 09:43:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7mZ-0005cR-Kc; Wed, 01 Nov 2023 09:45:03 +0000
-Received: by outflank-mailman (input) for mailman id 626284;
- Wed, 01 Nov 2023 09:45:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qy7lA-0004rG-B6; Wed, 01 Nov 2023 09:43:36 +0000
+Received: by outflank-mailman (input) for mailman id 626281;
+ Wed, 01 Nov 2023 09:43:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qFMy=GO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qy7dY-0005sN-B4
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:35:44 +0000
+ id 1qy7dc-0005E0-SC
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:35:48 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 069ec3a6-789a-11ee-9b0e-b553b5be7939;
- Wed, 01 Nov 2023 10:35:42 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09ffa01c-789a-11ee-98d6-6d05b1d4d9a1;
+ Wed, 01 Nov 2023 10:35:48 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8D7911F74A;
- Wed,  1 Nov 2023 09:35:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2A5291F74A;
+ Wed,  1 Nov 2023 09:35:48 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6359013460;
- Wed,  1 Nov 2023 09:35:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2EC813460;
+ Wed,  1 Nov 2023 09:35:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BLzeFu4bQmWVCQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 01 Nov 2023 09:35:42 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id Nw32OfMbQmWbCQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 01 Nov 2023 09:35:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,125 +51,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 069ec3a6-789a-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 09ffa01c-789a-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1698831342; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1698831348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9rPMG1ixXzf2IlhhL0e9vKDBwC7X+7yW2VUn/FHK77E=;
-	b=MadOtAbpasQPT2UQvChyyZIE/nnC/GeBOEC1jTkR6TzwzKHoqkVynqAQ2Lku8WndMgos2c
-	/6Mo6jTOOebpyEu29GYd5k7pssWFMe2KhCYMe95cX8qlZsJ06C/MtVXwPKA3KByELVOxLH
-	REO/4aH7P4DMV7mjQfg8hD2QpStUnyM=
+	bh=Tql+TwCFijc3h7ziLqKYIH9oAU5Ll8hidyNHEMqapi8=;
+	b=tf7oOnno8VcyQjNgDDdCvapvHU1C0OEkpFM44RMBVHYVi3DFKOdHulwj2aNhbBqjE7xo0c
+	kscb0hjhSIhvKNK7RAvnL5424iCWY0XQMWLx5e2l9C3vzGs+QcSdArdpyPe5laET9Tbfan
+	DFu5CcbwESWCvybaaspba7xiwzmO5+s=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 24/29] tools/xenstored: map stubdom interface
-Date: Wed,  1 Nov 2023 10:33:20 +0100
-Message-Id: <20231101093325.30302-25-jgross@suse.com>
+Subject: [PATCH 25/29] tools/xenstored: mount 9pfs device in stubdom
+Date: Wed,  1 Nov 2023 10:33:21 +0100
+Message-Id: <20231101093325.30302-26-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231101093325.30302-1-jgross@suse.com>
 References: <20231101093325.30302-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When running as stubdom, map the stubdom's Xenstore ring page in order
-to support using the 9pfs frontend.
+Mount the 9pfs device in stubdom enabling it to use files.
+
+This has to happen in a worker thread in order to allow the main thread
+handling the required Xenstore accesses in parallel.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstored/core.c   |  2 ++
- tools/xenstored/domain.c | 27 ++++++++++++++++++++++++++-
- tools/xenstored/domain.h |  1 +
- 3 files changed, 29 insertions(+), 1 deletion(-)
+ tools/xenstored/core.h   |  5 +++++
+ tools/xenstored/domain.c |  2 ++
+ tools/xenstored/minios.c | 35 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 42 insertions(+)
 
-diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
-index 42a848e098..1764b1af4e 100644
---- a/tools/xenstored/core.c
-+++ b/tools/xenstored/core.c
-@@ -3003,6 +3003,8 @@ int main(int argc, char *argv[])
- 		lu_read_state();
- #endif
+diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
+index f7a27a4131..48ff659ec5 100644
+--- a/tools/xenstored/core.h
++++ b/tools/xenstored/core.h
+@@ -35,6 +35,8 @@
+ #include "list.h"
+ #include "hashtable.h"
  
-+	stubdom_init();
++#define XENSTORE_LIB_DIR	XEN_LIB_DIR "/xenstore"
 +
- 	check_store();
+ #ifndef O_CLOEXEC
+ #define O_CLOEXEC 0
+ /* O_CLOEXEC support is needed for Live Update in the daemon case. */
+@@ -385,6 +387,9 @@ static inline bool domain_is_unprivileged(const struct connection *conn)
  
- 	/* Get ready to listen to the tools. */
+ /* Return the event channel used by xenbus. */
+ evtchn_port_t get_xenbus_evtchn(void);
++#ifdef __MINIOS__
++void mount_9pfs(void);
++#endif
+ 
+ /* Write out the pidfile */
+ void write_pidfile(const char *pidfile);
 diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-index fa17f68618..162b87b460 100644
+index 162b87b460..4263c1360f 100644
 --- a/tools/xenstored/domain.c
 +++ b/tools/xenstored/domain.c
-@@ -37,6 +37,10 @@
- #include <xenctrl.h>
+@@ -1236,6 +1236,8 @@ void stubdom_init(void)
+ 		barf_perror("Failed to initialize stubdom");
+ 
+ 	xenevtchn_notify(xce_handle, stubdom->port);
++
++	mount_9pfs();
+ #endif
+ }
+ 
+diff --git a/tools/xenstored/minios.c b/tools/xenstored/minios.c
+index 0779efbf91..e5a3684df6 100644
+--- a/tools/xenstored/minios.c
++++ b/tools/xenstored/minios.c
+@@ -19,6 +19,14 @@
+ #include <sys/mman.h>
+ #include "core.h"
  #include <xen/grant_table.h>
- 
-+#ifdef __MINIOS__
++#include <mini-os/9pfront.h>
++#include <mini-os/sched.h>
 +#include <mini-os/xenbus.h>
-+#endif
++#include <mini-os/xmalloc.h>
 +
- static xc_interface **xc_handle;
- xengnttab_handle **xgt_handle;
- static evtchn_port_t virq_port;
-@@ -500,6 +504,11 @@ static void *map_interface(domid_t domid)
- 	if (domid == xenbus_master_domid())
- 		return xenbus_map();
++#define P9_STATE_PATH	"device/9pfs/0/state"
++
++static void *p9_device;
  
-+#ifdef __MINIOS__
-+	if (domid == stub_domid)
-+		return xenstore_buf;
-+#endif
-+
- 	return xengnttab_map_grant_ref(*xgt_handle, domid,
- 				       GNTTAB_RESERVED_XENSTORE,
- 				       PROT_READ|PROT_WRITE);
-@@ -509,7 +518,7 @@ static void unmap_interface(domid_t domid, void *interface)
+ void write_pidfile(const char *pidfile)
  {
- 	if (domid == xenbus_master_domid())
- 		unmap_xenbus(interface);
--	else
-+	else if (domid != stub_domid)
- 		xengnttab_unmap(*xgt_handle, interface, 1);
+@@ -54,3 +62,30 @@ void unmap_xenbus(void *interface)
+ 	xengnttab_unmap(*xgt_handle, interface, 1);
  }
  
-@@ -1214,6 +1223,22 @@ void dom0_init(void)
- 	xenevtchn_notify(xce_handle, dom0->port);
- }
- 
-+void stubdom_init(void)
++static void mount_thread(void *p)
 +{
-+#ifdef __MINIOS__
-+	struct domain *stubdom;
++	xenbus_event_queue events = NULL;
++	char *err;
++	char *dummy;
 +
-+	if (stub_domid < 0)
-+		return;
++	free(xenbus_watch_path_token(XBT_NIL, P9_STATE_PATH, "9pfs", &events));
 +
-+	stubdom = introduce_domain(NULL, stub_domid, xenbus_evtchn, false);
-+	if (!stubdom)
-+		barf_perror("Failed to initialize stubdom");
++	for (;;) {
++		xenbus_wait_for_watch(&events);
++		err = xenbus_read(XBT_NIL, P9_STATE_PATH, &dummy);
++		if (!err)
++			break;
++		free(err);
++	}
 +
-+	xenevtchn_notify(xce_handle, stubdom->port);
-+#endif
++	free(dummy);
++
++	free(xenbus_unwatch_path_token(XBT_NIL, P9_STATE_PATH, "9pfs"));
++
++	p9_device = init_9pfront(0, XENSTORE_LIB_DIR);
 +}
 +
- static unsigned int domhash_fn(const void *k)
- {
- 	return *(const unsigned int *)k;
-diff --git a/tools/xenstored/domain.h b/tools/xenstored/domain.h
-index 6c00540311..49c60c56bf 100644
---- a/tools/xenstored/domain.h
-+++ b/tools/xenstored/domain.h
-@@ -85,6 +85,7 @@ int do_reset_watches(const void *ctx, struct connection *conn,
- void domain_static_init(void);
- void domain_init(int evtfd);
- void dom0_init(void);
-+void stubdom_init(void);
- void domain_deinit(void);
- void ignore_connection(struct connection *conn, unsigned int err);
- 
++void mount_9pfs(void)
++{
++	create_thread("mount-9pfs", mount_thread, NULL);
++}
 -- 
 2.35.3
 
