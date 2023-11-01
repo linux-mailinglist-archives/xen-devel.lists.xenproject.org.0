@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479CA7DDEC8
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:54:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626350.976582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33E6C7DDECA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:54:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626357.976602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7vg-00010d-Mi; Wed, 01 Nov 2023 09:54:28 +0000
+	id 1qy7vw-0002F9-FK; Wed, 01 Nov 2023 09:54:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626350.976582; Wed, 01 Nov 2023 09:54:28 +0000
+Received: by outflank-mailman (output) from mailman id 626357.976602; Wed, 01 Nov 2023 09:54:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7vg-0000xa-Ik; Wed, 01 Nov 2023 09:54:28 +0000
-Received: by outflank-mailman (input) for mailman id 626350;
- Wed, 01 Nov 2023 09:54:27 +0000
+	id 1qy7vw-0002Ck-C8; Wed, 01 Nov 2023 09:54:44 +0000
+Received: by outflank-mailman (input) for mailman id 626357;
+ Wed, 01 Nov 2023 09:54:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qFMy=GO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1qy7bv-0005E0-2e
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:34:03 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1qy7c0-0005E0-LA
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:34:08 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cae43050-7899-11ee-98d6-6d05b1d4d9a1;
- Wed, 01 Nov 2023 10:34:02 +0100 (CET)
+ id ce330d39-7899-11ee-98d6-6d05b1d4d9a1;
+ Wed, 01 Nov 2023 10:34:08 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4774421846;
- Wed,  1 Nov 2023 09:34:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CCAC721846;
+ Wed,  1 Nov 2023 09:34:07 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2327213460;
- Wed,  1 Nov 2023 09:34:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A8A4513460;
+ Wed,  1 Nov 2023 09:34:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 374jB4obQmXQCAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 01 Nov 2023 09:34:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id DT/6J48bQmXfCAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 01 Nov 2023 09:34:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,277 +51,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cae43050-7899-11ee-98d6-6d05b1d4d9a1
+X-Inumbo-ID: ce330d39-7899-11ee-98d6-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1698831242; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1698831247; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kBmsQtp57emfLwa80o+3o5PurxmvQSyXJw17w10lPio=;
-	b=oNIkwTdSrd7eakjTUaDxm9TYv5We1x+YcQXJJIeeR03V6ONKrS5/fLnvZnRlcgvlND6g2Q
-	2iHw+fm//VaXvm1Z8Ox5MDINx+T16ZtMrRlpwqrOK54oleoyUR9eXFPwJSMs7bZ5BFiJ4J
-	Oe1A2gu7l4ufezW0fyfPRAG5+p70X1g=
+	bh=clPD8bKrjSItRh9+J5fvt9orEmlHmagPq1GlV/FwboY=;
+	b=D9zW62sR92TOA5HFFrtOsYmlL7GuRQ/rDUKePCyhjT1JNbadVW38EdE/kU/aKfH4t3VnLt
+	abq5QUf/XX4358xfp4zwFWDK2UIhGDqZvlc/Le4idc0kx/9ehwPKBGBOyy6UWX2ZyMJ7aO
+	86Ean3ncbL739Wv611m+LwA+2+3gKmE=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 06/29] tools/xenlogd: add 9pfs version request support
-Date: Wed,  1 Nov 2023 10:33:02 +0100
-Message-Id: <20231101093325.30302-7-jgross@suse.com>
+Subject: [PATCH 07/29] tools/xenlogd: add 9pfs attach request support
+Date: Wed,  1 Nov 2023 10:33:03 +0100
+Message-Id: <20231101093325.30302-8-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231101093325.30302-1-jgross@suse.com>
 References: <20231101093325.30302-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the version request of the 9pfs protocol. For the version use the
-"9P2000.u" variant, as it is supported by Mini-OS and Linux.
+Add the attach request of the 9pfs protocol. This introduces the "fid"
+scheme of the 9pfs protocol.
 
-For the request parsing add all format items needed even in future in
-order to avoid code churn for those additions later.
+As this will be needed later, use a dedicated memory allocation
+function in alloc_fid().
+
+For filling the qid data take the approach from the qemu 9pfs backend
+implementation.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenlogd/io.c | 202 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 202 insertions(+)
+ tools/xenlogd/io.c      | 128 ++++++++++++++++++++++++++++++++++++++++
+ tools/xenlogd/xenlogd.c |   1 +
+ tools/xenlogd/xenlogd.h |  11 ++++
+ 3 files changed, 140 insertions(+)
 
 diff --git a/tools/xenlogd/io.c b/tools/xenlogd/io.c
-index 5a06f72338..f35520018f 100644
+index f35520018f..fa825c9f39 100644
 --- a/tools/xenlogd/io.c
 +++ b/tools/xenlogd/io.c
-@@ -22,8 +22,12 @@
- #include "xenlogd.h"
+@@ -16,6 +16,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <sys/types.h>
++#include <sys/stat.h>
+ #include <xenctrl.h>           /* For cpu barriers. */
+ #include <xen-tools/common-macros.h>
+ 
+@@ -23,6 +25,7 @@
  
  /* P9 protocol commands (response is either cmd+1 or P9_CMD_ERROR). */
-+#define P9_CMD_VERSION    100
+ #define P9_CMD_VERSION    100
++#define P9_CMD_ATTACH     104
  #define P9_CMD_ERROR      107
  
-+#define P9_MIN_MSIZE      2048
-+#define P9_VERSION        "9P2000.u"
-+
- struct p9_qid {
-     uint8_t type;
- #define QID_TYPE_DIR      0x80
-@@ -267,6 +271,169 @@ static unsigned int add_string(device *device, const char *str,
-     return ret;
+ #define P9_MIN_MSIZE      2048
+@@ -434,6 +437,92 @@ static int fill_data(device *device, const char *fmt, ...)
+     return pars;
  }
  
-+static bool chk_data(device *device, void *data, unsigned int len)
++static struct p9_fid *find_fid(device *device, unsigned int fid)
 +{
-+    struct p9_header *hdr = device->buffer;
++    struct p9_fid *fidp;
 +
-+    if ( data + len <= device->buffer + hdr->size )
-+        return true;
++    XEN_TAILQ_FOREACH(fidp, &device->fids, list)
++    {
++        if ( fidp->fid == fid )
++            return fidp;
++    }
 +
-+    errno = E2BIG;
-+
-+    return false;
++    return NULL;
 +}
 +
-+static bool fill_data_elem(void **par, void **array, unsigned int *array_sz,
-+                           unsigned int elem_sz, void *data)
++static struct p9_fid *alloc_fid_mem(device *device, unsigned int fid,
++                                    const char *path)
 +{
-+    if ( *array_sz && !*array )
-+    {
-+        *array = calloc(*array_sz, elem_sz);
-+        if ( !*array )
-+            return false;
-+        *par = *array;
-+    }
++    struct p9_fid *fidp;
++    size_t pathlen;
 +
-+    memcpy(*par, data, elem_sz);
++    pathlen = strlen(device->host_path) + strlen(path) + 1;
++    fidp = calloc(sizeof(*fidp) + pathlen, 1);
++    if ( !fidp )
++        return NULL;
 +
-+    if ( *array_sz )
-+    {
-+        *par += elem_sz;
-+        *array_sz -= 1;
-+    }
++    fidp->fid = fid;
++    snprintf(fidp->path, pathlen, "%s%s", device->host_path, path);
 +
-+    return true;
++    return fidp;
 +}
 +
-+/*
-+ * Fill variables with request data.
-+ * fmt is a sequence of format characters. Supported characters are:
-+ * a: an array (2 bytes number of elements + the following format as elements)
-+ *    The number of elements is stored in the first unsigned int parameter, the
-+ *    next parameter is a pointer to an array of elements as denoted by the next
-+ *    format character. The array is allocated dynamically.
-+ * b: 1 byte unsigned integer
-+ *    The value is stored in the next parameter with type uint8_t.
-+ * D: Data blob (4 byte length + <length> bytes)
-+ *    2 parameters are consumed, first an unsigned int for the length, then a
-+ *    pointer to the first uint8_t value.
-+ *    No array support.
-+ * L: 8 byte unsigned integer
-+ *    The value is stored in the next parameter with type uint64_t.
-+ * S: String (2 byte length + <length> characters)
-+ *    The 0-terminated string is stored in device->str + off, off is stored in
-+ *    the next parameter with type unsigned int.
-+ * U: 4 byte unsigned integer
-+ *    The value is stored in the next parameter with type uint32_t.
-+ *
-+ * Return value: number of filled variables, errno will be set in case of
-+ *   error.
-+ */
-+static int fill_data(device *device, const char *fmt, ...)
++static struct p9_fid *alloc_fid(device *device, unsigned int fid,
++                                const char *path)
 +{
-+    struct p9_header *hdr = device->buffer;
-+    void *data = hdr + 1;
-+    void *par;
-+    unsigned int pars = 0;
-+    const char *f;
-+    va_list ap;
-+    unsigned int len;
-+    unsigned int str_off;
-+    unsigned int array_sz = 0;
-+    void **array = NULL;
++    struct p9_fid *fidp;
 +
-+    va_start(ap, fmt);
-+
-+    for ( f = fmt; *f; f++ )
++    if ( find_fid(device, fid) )
 +    {
-+        if ( !array_sz )
-+            par = va_arg(ap, void *);
-+
-+        switch ( *f )
-+        {
-+        case 'a':
-+            f++;
-+            if ( !*f || array_sz )
-+                fmt_err(fmt);
-+            if ( !chk_data(device, data, sizeof(uint16_t)) )
-+                return pars;
-+            array_sz = *(__packed uint16_t *)data;
-+            data += sizeof(uint16_t);
-+            *(unsigned int *)par = array_sz;
-+            array = va_arg(ap, void **);
-+            *array = NULL;
-+            break;
-+
-+        case 'b':
-+            if ( !chk_data(device, data, sizeof(uint8_t)) )
-+                return pars;
-+            if ( !fill_data_elem(&par, array, &array_sz, sizeof(uint8_t),
-+                                 data) )
-+                return pars;
-+            data += sizeof(uint8_t);
-+            break;
-+
-+        case 'D':
-+            if ( array_sz )
-+                fmt_err(fmt);
-+            if ( !chk_data(device, data, sizeof(uint32_t)) )
-+                return pars;
-+            len = *(__packed uint32_t *)data;
-+            data += sizeof(uint32_t);
-+            *(unsigned int *)par = len;
-+            par = va_arg(ap, void *);
-+            if ( !chk_data(device, data, len) )
-+                return pars;
-+            memcpy(par, data, len);
-+            data += len;
-+            break;
-+
-+        case 'L':
-+            if ( !chk_data(device, data, sizeof(uint64_t)) )
-+                return pars;
-+            if ( !fill_data_elem(&par, array, &array_sz, sizeof(uint64_t),
-+                                 data) )
-+                return pars;
-+            data += sizeof(uint64_t);
-+            break;
-+
-+        case 'S':
-+            if ( !chk_data(device, data, sizeof(uint16_t)) )
-+                return pars;
-+            len = *(__packed uint16_t *)data;
-+            data += sizeof(uint16_t);
-+            if ( !chk_data(device, data, len) )
-+                return pars;
-+            str_off = add_string(device, data, len);
-+            if ( str_off == ~0 )
-+                return pars;
-+            if ( !fill_data_elem(&par, array, &array_sz, sizeof(unsigned int),
-+                                 &str_off) )
-+                return pars;
-+            data += len;
-+            break;
-+
-+        case 'U':
-+            if ( !chk_data(device, data, sizeof(uint32_t)) )
-+                return pars;
-+            if ( !fill_data_elem(&par, array, &array_sz, sizeof(uint32_t),
-+                                 data) )
-+                return pars;
-+            data += sizeof(uint32_t);
-+            break;
-+
-+        default:
-+            fmt_err(fmt);
-+        }
-+
-+        if ( array_sz )
-+            f--;
-+        pars++;
++        errno = EBADFD;
++        return NULL;
 +    }
 +
-+    return pars;
++    if ( device->n_fids >= device->max_open_files )
++    {
++        errno = EMFILE;
++        return NULL;
++    }
++
++    fidp = alloc_fid_mem(device, fid, path);
++    if ( !fidp )
++        return NULL;
++
++    XEN_TAILQ_INSERT_HEAD(&device->fids, fidp, list);
++    device->n_fids++;
++
++    return fidp;
++}
++
++static void free_fid(device *device, struct p9_fid *fidp)
++{
++    if ( !fidp )
++        return;
++
++    device->n_fids--;
++    XEN_TAILQ_REMOVE(&device->fids, fidp, list);
++    free(fidp);
++}
++
++static int fill_qid(const char *path, struct p9_qid *qid, struct stat *stbuf)
++{
++    struct stat st;
++
++    if ( !stbuf )
++    {
++        if ( stat(path, &st) )
++            return errno;
++
++        stbuf = &st;
++    }
++
++    qid->type = S_ISDIR(stbuf->st_mode) ? QID_TYPE_DIR : 0;
++    qid->version = stbuf->st_mtime ^ (stbuf->st_size << 8);
++    qid->path = stbuf->st_ino;
++
++    return 0;
 +}
 +
  static void p9_error(device *device, uint16_t tag, uint32_t err)
  {
      unsigned int erroff;
-@@ -278,6 +445,37 @@ static void p9_error(device *device, uint16_t tag, uint32_t err)
-                 &err);
+@@ -476,6 +565,41 @@ static void p9_version(device *device, struct p9_header *hdr)
+                 version);
  }
  
-+static void p9_version(device *device, struct p9_header *hdr)
++static void p9_attach(device *device, struct p9_header *hdr)
 +{
-+    uint32_t max_size;
-+    unsigned int off;
-+    char *version;
++    uint32_t fid;
++    uint32_t dummy_u32;
++    unsigned int dummy_uint;
++    struct p9_qid qid;
 +    int ret;
 +
-+    ret = fill_data(device, "US", &max_size, &off);
-+    if ( ret != 2 )
++    ret = fill_data(device, "UUSSU", &fid, &dummy_u32, &dummy_uint, &dummy_uint,
++                    &dummy_u32);
++    if ( ret != 5 )
 +    {
 +        p9_error(device, hdr->tag, errno);
 +        return;
 +    }
 +
-+    if ( max_size < P9_MIN_MSIZE )
++    device->root_fid = alloc_fid(device, fid, "");
++    if ( !device->root_fid )
 +    {
-+        p9_error(device, hdr->tag, EMSGSIZE);
++        p9_error(device, hdr->tag, errno);
 +        return;
 +    }
 +
-+    if ( max_size < device->max_size )
-+        device->max_size = max_size;
++    ret = fill_qid(device->host_path, &qid, NULL);
++    if ( ret )
++    {
++        free_fid(device, device->root_fid);
++        device->root_fid = NULL;
++        p9_error(device, hdr->tag, ret);
++        return;
++    }
 +
-+    version = device->str + off;
-+    if ( strcmp(version, P9_VERSION) )
-+        version = "unknown";
-+
-+    fill_buffer(device, hdr->cmd + 1, hdr->tag, "US", &device->max_size,
-+                version);
++    fill_buffer(device, hdr->cmd + 1, hdr->tag, "Q", &qid);
 +}
 +
  void *io_thread(void *arg)
  {
      device *device = arg;
-@@ -333,6 +531,10 @@ void *io_thread(void *arg)
+@@ -535,6 +659,10 @@ void *io_thread(void *arg)
+                 p9_version(device, &hdr);
+                 break;
  
-             switch ( hdr.cmd )
-             {
-+            case P9_CMD_VERSION:
-+                p9_version(device, &hdr);
++            case P9_CMD_ATTACH:
++                p9_attach(device, &hdr);
 +                break;
 +
              default:
                  syslog(LOG_DEBUG, "%u.%u sent unhandled command %u\n",
                         device->domid, device->devid, hdr.cmd);
+diff --git a/tools/xenlogd/xenlogd.c b/tools/xenlogd/xenlogd.c
+index da0a09a122..d2de7bfbf2 100644
+--- a/tools/xenlogd/xenlogd.c
++++ b/tools/xenlogd/xenlogd.c
+@@ -274,6 +274,7 @@ static device *new_device(unsigned int domid, unsigned int devid)
+ 
+     pthread_cond_init(&device->cond, NULL);
+     pthread_mutex_init(&device->mutex, NULL);
++    XEN_TAILQ_INIT(&device->fids);
+ 
+     val = read_backend_node(device, "security_model");
+     if ( !val || strcmp(val, "none") )
+diff --git a/tools/xenlogd/xenlogd.h b/tools/xenlogd/xenlogd.h
+index c10c6aa9e5..bd2a283ccb 100644
+--- a/tools/xenlogd/xenlogd.h
++++ b/tools/xenlogd/xenlogd.h
+@@ -19,6 +19,12 @@ struct p9_header {
+     uint16_t tag;
+ } __attribute__((packed));
+ 
++struct p9_fid {
++    XEN_TAILQ_ENTRY(struct p9_fid) list;
++    unsigned int fid;
++    char path[];
++};
++
+ typedef struct device device;
+ struct device {
+     /* Admin data. */
+@@ -60,6 +66,11 @@ struct device {
+     char *str;              /* String work space. */
+     unsigned int str_size;  /* Size of *str. */
+     unsigned int str_used;  /* Currently used size of *str. */
++
++    /* File system handling. */
++    XEN_TAILQ_HEAD(fidhead, struct p9_fid) fids;
++    struct p9_fid *root_fid;
++    unsigned int n_fids;
+ };
+ 
+ extern xenevtchn_handle *xe;
 -- 
 2.35.3
 
