@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2547E7DDE37
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:16:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626185.976192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 216637DDE5C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 10:25:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626192.976202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7Kt-0004Zr-BD; Wed, 01 Nov 2023 09:16:27 +0000
+	id 1qy7TN-0006XK-63; Wed, 01 Nov 2023 09:25:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626185.976192; Wed, 01 Nov 2023 09:16:27 +0000
+Received: by outflank-mailman (output) from mailman id 626192.976202; Wed, 01 Nov 2023 09:25:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy7Kt-0004XZ-8F; Wed, 01 Nov 2023 09:16:27 +0000
-Received: by outflank-mailman (input) for mailman id 626185;
- Wed, 01 Nov 2023 09:16:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1qy7TN-0006Vf-2S; Wed, 01 Nov 2023 09:25:13 +0000
+Received: by outflank-mailman (input) for mailman id 626192;
+ Wed, 01 Nov 2023 09:25:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z8cj=GO=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1qy7Ks-0004XN-2Y
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:16:26 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5492357e-7897-11ee-98d6-6d05b1d4d9a1;
- Wed, 01 Nov 2023 10:16:25 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40859dee28cso50900135e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Nov 2023 02:16:25 -0700 (PDT)
+ <SRS0=4cZ7=GO=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1qy7TL-0006VZ-Ok
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 09:25:11 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cd9c3ec-7898-11ee-9b0e-b553b5be7939;
+ Wed, 01 Nov 2023 10:25:09 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-32db188e254so4398208f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Nov 2023 02:25:09 -0700 (PDT)
 Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s26-20020adfa29a000000b003232380ffd5sm3595894wra.106.2023.11.01.02.16.23
+ v7-20020a5d6107000000b0032da49e18fasm3665450wrt.23.2023.11.01.02.25.08
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 Nov 2023 02:16:24 -0700 (PDT)
+ Wed, 01 Nov 2023 02:25:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5492357e-7897-11ee-98d6-6d05b1d4d9a1
+X-Inumbo-ID: 8cd9c3ec-7898-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1698830184; x=1699434984; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1698830709; x=1699435509; darn=lists.xenproject.org;
         h=to:references:message-id:content-transfer-encoding:cc:date
          :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KZs7Y4zGvAWTj8U3RHw5HeGotBqtrQCezqYt8W+ln7M=;
-        b=I9WlFaUMO2bqeaXXR32QlT+T7Vfzuoc8TDf8tgy9XdoEHNbDga6B4YE6CZuCWSmFfp
-         KYiqzB300YrDR3qGPD0l3LFDdiDhItioFY7Bpwn8S49MVkS8SQNt/TZO4S2M6DTZDMGX
-         jg2ucHPT2X+t8L2rbJ7SX/bAPs7WG2Tb5579I=
+        bh=ZzZEhREAwlJcPojly8EStzKRFf+8Id9IQlGRUuni3EA=;
+        b=gyjaiF2gQz9o6N2zc9EqKPZlTXlf/AU7P6zvJCs6/dTeYot5HaUnY2U3L8eo+H0NU/
+         YA2pNLeZy8hyU3x/YCZvdiPxkiZc0T+w0OJpQ6EjMfVXEKa0dKCXWqvdfd5TuXae8dd5
+         abr5W2O8jCsiJpLSwpB8j313AIxebD/O6Cc3o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698830184; x=1699434984;
+        d=1e100.net; s=20230601; t=1698830709; x=1699435509;
         h=to:references:message-id:content-transfer-encoding:cc:date
          :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=KZs7Y4zGvAWTj8U3RHw5HeGotBqtrQCezqYt8W+ln7M=;
-        b=djNV5QcnVS0xC448Km+4pIfKkgfNLcuJI1Ne+SNJl/TdiYJ14bHXbf0Ck70PAvCzRY
-         22959J1T+EmM63YR1aZSKKNBSJQVRln3DUvNIU2COCkHngg0d9zgXCSE7XvJTniwhmZY
-         qcwDlH/EBbmOmTdMkPgHKSPzKaS3zalCVosRN+J2PYHUQXcrziSkGZRwmwWC4Y0X4WGk
-         oeOijbcvdt2GHQIR6iks+GCyAANu3ZLKV3ODpChipha1+qW0ERUJIdGMoib6bVD5Kuu7
-         FByUx7Z+X5kN3Wn/hzW4zs7X+NvKwx4+DffHapGOOMWF4o/NfitqviF8RUC/G+uQmEXD
-         5WFQ==
-X-Gm-Message-State: AOJu0YwiHCi16eUDgc474XgfLTkT/6fBdFXkDXCp8PFQRWzOp4EKPJMj
-	QRSc7ZOPTHhfDCfmd7nuFoCmGg==
-X-Google-Smtp-Source: AGHT+IFTTE0o22gChz8IwH5TXgf4st6BF811Cb/E6DKPsFi81TYyeyvRyxhMaywYEqGPIx3hOx+MJQ==
-X-Received: by 2002:a5d:4a0c:0:b0:32d:a3ee:6f73 with SMTP id m12-20020a5d4a0c000000b0032da3ee6f73mr10095775wrq.42.1698830184398;
-        Wed, 01 Nov 2023 02:16:24 -0700 (PDT)
+        bh=ZzZEhREAwlJcPojly8EStzKRFf+8Id9IQlGRUuni3EA=;
+        b=Aob2CjWGabvCc68HycbVDIny1N5BsPn2yzZEBb+TwQ/RfYwYJluSjnmnrosBuzSH4+
+         Wh5JGbUozn8MtSHREFKctMlWRidCHXVr45j7qtcklSQUB5BVXO+iUpZlK1CuQOdmiY1j
+         fqBdFmgiCwSRCOKe4d1BqtfvEvyjWP0QoiIvZUvhhdsbxADIZ8+CpviCsyYWm5wfadum
+         MpgWl6lj4jaoDECEEG5RHFB5zqLrPrXo8W4WmspuVPJxN609JnnVetJlhjnUhCUk8pYD
+         AAAA1gpba4AIOuGtZ8aQGkQRJuhBZxJEwo4zwjxX1VsclrgfzCej4JNvhFs0Op46l3Dm
+         sUSQ==
+X-Gm-Message-State: AOJu0YwxYiPCSx2d1q6nNgJD6o17SI0dlreUXT7gbY/LiTjTAy9fK4hh
+	/UwWIk71k7iMQFtnNQQefDzZow==
+X-Google-Smtp-Source: AGHT+IF5effs5dM+sbAW5iV8s6e5BK4fLf+eakIhy1McclStEk0y71tqqfkSrVt13zM5YCl+JXoQkA==
+X-Received: by 2002:a5d:43c3:0:b0:32d:a476:5285 with SMTP id v3-20020a5d43c3000000b0032da4765285mr10972089wrr.31.1698830709099;
+        Wed, 01 Nov 2023 02:25:09 -0700 (PDT)
 Content-Type: text/plain;
 	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.100.2.1.4\))
-Subject: Re: [RFC PATCH 02/22] x86/msr: implement MSR_SMI_COUNT for Dom0 on
- Intel
-From: Edwin Torok <edwin.torok@cloud.com>
-In-Reply-To: <2a2927b0-460b-eb52-54e1-3777dae66d11@suse.com>
-Date: Wed, 1 Nov 2023 09:16:13 +0000
-Cc: =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.3\))
+Subject: Re: [PATCH v4 0/5] Kconfig for PCI passthrough on ARM
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <20231030235240.106998-1-stewart.hildebrand@amd.com>
+Date: Wed, 1 Nov 2023 09:25:07 +0000
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>,
+ Edwin Torok <edwin.torok@cloud.com>
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <C5202D3F-A109-42E9-8BB2-54FD4E9BC25D@cloud.com>
-References: <cover.1698261255.git.edwin.torok@cloud.com>
- <9d950b3c5502b5fb5fad62845b56b15d1bacc2d6.1698261255.git.edwin.torok@cloud.com>
- <6fc915a9-4415-3337-3b3d-cef0e9f735c1@suse.com>
- <E50DC831-A8A6-468C-9CF1-C60F6695304A@cloud.com>
- <2a2927b0-460b-eb52-54e1-3777dae66d11@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: Apple Mail (2.3774.100.2.1.4)
+Message-Id: <AF82D7D3-7745-475E-97C6-54016D40980D@cloud.com>
+References: <20231030235240.106998-1-stewart.hildebrand@amd.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.3)
 
 
 
-> On 31 Oct 2023, at 09:57, Jan Beulich <jbeulich@suse.com> wrote:
+> On 30 Oct 2023, at 23:52, Stewart Hildebrand =
+<stewart.hildebrand@amd.com> wrote:
 >=20
-> On 31.10.2023 10:42, Edwin Torok wrote:
->>> On 30 Oct 2023, at 16:20, Jan Beulich <jbeulich@suse.com> wrote:
->>> On 25.10.2023 21:29, Edwin T=C3=B6r=C3=B6k wrote:
->>>> Dom0 should always be able to read this MSR: it is useful when
->>>> investigating performance issues in production.
->>>=20
->>> While I'm not outright opposed, I'm also not convinced. At the very =
-least
->>> ...
->>>=20
->>>> Although the count is Thread scoped, in practice all cores were =
-observed
->>>> to return the same count (perhaps due to implementation details of =
-SMM),
->>>> so do not require the cpu to be pinned in order to read it.
->>>=20
->>> ... this, even if matching your observations, is going to be =
-properly
->>> misleading in case counts end up diverging.
->>>=20
->>>> This MSR exists on Intel since Nehalem.
->>>>=20
->>>> Backport: 4.15+
->>>=20
->>> If this was a backporting candidate, I think a Fixes: tag would need
->>> to indicate what's being fixed here.
->>=20
->>=20
->> I used the Backport tag to indicate what is the oldest release that =
-it is backportable to.
->> IIRC the choices were:
->> * 4.0+ for issues that were present for a long time (didn't look =
-further back than that in history), so there isn't any particular commit =
-that introduces the problem, it was like that from the very beginning, =
-i.e. not a regression.
->>=20
->> * 4.13+ for issues affecting only new CPU support (I think that is =
-the release that added Icelake support). I can attempt to find the =
-commit that added Icelake support and mark them as Fixes: that commit =
-(although there might be several of them)
->>=20
->> * 4.15+ for bugs introduced by the default read-write msr changes
->>=20
->>=20
->>> Otherwise this is merely a new
->>> feature.
->>>=20
->>=20
->> Prior to the default rdwrmsr changes it was possible to read any MSR, =
-so I consider it a bug that after the default rdwrmsr changes you can no =
-longer do that, it takes away a valuable debugging tool.
+> There are multiple series in development/review [1], [2] that will =
+benefit from
+> having a Kconfig option for PCI passthrough on ARM. Hence I have sent =
+this
+> series independent from any other series.
 >=20
-> As said elsewhere, making MSRs generally inaccessible was a deliberate =
-change.
-> I don't think any of us x86 maintainers has so far considered that as =
-introducing
-> a bug. MSRs being accessible as a debugging tool may be worthwhile to =
-have as an
-> optional feature (see my suggestion elsewhere as to a possible way to =
-approach
-> this), but I don't think this can be taken as an indication that we =
-should revert
-> back to "blind" exposure.
+> v3->v4:
+> * rename ("xen/arm: pci: plumb xen_arch_domainconfig with pci info")
+>  to ("xen/vpci: move xen_domctl_createdomain vPCI flag to common")
+> * fold ("xen/arm: make has_vpci() depend on d->arch.has_vpci")
+>  into ("xen/vpci: move xen_domctl_createdomain vPCI flag to common")
+> * split ("xen/arm: enable vPCI for domUs") into separate hypervisor =
+and
+>  tools patches
+>=20
+> v2->v3:
+> * add ("xen/arm: pci: plumb xen_arch_domainconfig with pci info")
+> * rename ("xen/arm: make has_vpci depend on CONFIG_HAS_VPCI")
+>      to ("xen/arm: make has_vpci() depend on d->arch.has_vpci")
+> * add ("xen/arm: enable vPCI for dom0")
+>=20
+> v1->v2:
+> * add ("[FUTURE] xen/arm: enable vPCI for domUs")
+>=20
+> [1] =
+https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html=
+
+> [2] =
+https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg00210.html=
+
+>=20
+> Rahul Singh (1):
+>  xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig option
+>=20
+> Stewart Hildebrand (4):
+>  xen/vpci: move xen_domctl_createdomain vPCI flag to common
+>  xen/arm: enable vPCI for dom0
+>  [FUTURE] xen/arm: enable vPCI for domUs
+>  [FUTURE] tools/arm: enable vPCI for domUs
+>=20
+> tools/libs/light/libxl_arm.c       |  3 +++
+> tools/libs/light/libxl_x86.c       |  5 ++++-
+> tools/ocaml/libs/xc/xenctrl.ml     |  2 +-
+> tools/ocaml/libs/xc/xenctrl.mli    |  2 +-
+> tools/python/xen/lowlevel/xc/xc.c  |  5 ++++-
+> xen/arch/arm/Kconfig               | 10 ++++++++++
+> xen/arch/arm/domain.c              |  3 ++-
+> xen/arch/arm/domain_build.c        |  6 ++++++
+> xen/arch/arm/include/asm/domain.h  |  3 ---
+> xen/arch/arm/include/asm/pci.h     |  9 +++++++++
+> xen/arch/arm/pci/pci-host-common.c | 11 ++++++++---
+> xen/arch/arm/vpci.c                |  8 ++++++++
+> xen/arch/x86/domain.c              | 16 ++++++++++------
+> xen/arch/x86/include/asm/domain.h  |  6 +-----
+> xen/arch/x86/setup.c               |  5 +++--
+> xen/common/domain.c                | 10 +++++++++-
+> xen/drivers/passthrough/pci.c      | 10 ++++++++++
+> xen/include/public/arch-x86/xen.h  |  5 +----
+> xen/include/public/domctl.h        |  7 +++++--
+> xen/include/xen/domain.h           |  2 ++
+> 20 files changed, 97 insertions(+), 31 deletions(-)
+>=20
+>=20
+> base-commit: 9659b2a6d73b14620e187f9c626a09323853c459
+> --=20
+> 2.42.0
 >=20
 
 
-This particular patch (unlike the other one that is more general for all =
-MSRs) is about one specific MSR, and makes it accessible to Dom0 only in =
-a read-only way.
-That is very different from blindly exposing it to all guests.
-Anyway let me get something ready for master first, and then =
-distributions that package Xen can decide whether to backport this patch =
-or not, I'll replace Backport: 4.X with Backportable: 4.X (and add a =
-Fixes: line) to indicate that this patch is recommended to be backported =
-(for anyone who uses that version of Xen in production).
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
 
-[I'm not saying that this patch is complete, as you've indicated there =
-is more work required to make it work correctly wrt to pinning vs =
-non-pinning, and I'll try to require a pinned Dom0 core in my next =
-version]
 
-Best regards,
---Edwin
+The changes for the OCaml part are incremental; is someone using the =
+OCaml bindings on ARM seriously?=20
+
+=E2=80=94 C=
 
