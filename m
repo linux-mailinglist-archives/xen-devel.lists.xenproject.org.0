@@ -2,65 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B0A67DDAC6
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 02:59:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.626057.975978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE4C7DDB27
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Nov 2023 03:51:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.626061.975988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy0VS-0003kW-1E; Wed, 01 Nov 2023 01:58:54 +0000
+	id 1qy1Jd-0002mH-A0; Wed, 01 Nov 2023 02:50:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 626057.975978; Wed, 01 Nov 2023 01:58:54 +0000
+Received: by outflank-mailman (output) from mailman id 626061.975988; Wed, 01 Nov 2023 02:50:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qy0VR-0003i5-UT; Wed, 01 Nov 2023 01:58:53 +0000
-Received: by outflank-mailman (input) for mailman id 626057;
- Wed, 01 Nov 2023 01:58:53 +0000
+	id 1qy1Jd-0002kK-56; Wed, 01 Nov 2023 02:50:45 +0000
+Received: by outflank-mailman (input) for mailman id 626061;
+ Wed, 01 Nov 2023 02:50:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7wFu=GO=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1qy0VQ-0003hz-W9
- for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 01:58:53 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2060f.outbound.protection.outlook.com
- [2a01:111:f400:fe16::60f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HZ0A=GO=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1qy1Jb-0002kE-2M
+ for xen-devel@lists.xenproject.org; Wed, 01 Nov 2023 02:50:43 +0000
+Received: from sonic312-25.consmr.mail.gq1.yahoo.com
+ (sonic312-25.consmr.mail.gq1.yahoo.com [98.137.69.206])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32c7c0c0-785a-11ee-9b0e-b553b5be7939;
- Wed, 01 Nov 2023 02:58:49 +0100 (CET)
-Received: from AM6PR01CA0067.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:e0::44) by PAXPR08MB7468.eurprd08.prod.outlook.com
- (2603:10a6:102:2b6::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Wed, 1 Nov
- 2023 01:58:44 +0000
-Received: from AMS0EPF000001A5.eurprd05.prod.outlook.com
- (2603:10a6:20b:e0:cafe::93) by AM6PR01CA0067.outlook.office365.com
- (2603:10a6:20b:e0::44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29 via Frontend
- Transport; Wed, 1 Nov 2023 01:58:44 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AMS0EPF000001A5.mail.protection.outlook.com (10.167.16.232) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 01:58:42 +0000
-Received: ("Tessian outbound 26ee1d40577c:v228");
- Wed, 01 Nov 2023 01:58:42 +0000
-Received: from 1d50ed93793d.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A4B378C3-D5BB-4D5C-BFDC-8572699E076A.1; 
- Wed, 01 Nov 2023 01:58:30 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1d50ed93793d.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 01 Nov 2023 01:58:30 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by AS4PR08MB7532.eurprd08.prod.outlook.com (2603:10a6:20b:4fb::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19; Wed, 1 Nov
- 2023 01:58:27 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::ae6e:f96c:f2f3:efc9]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::ae6e:f96c:f2f3:efc9%4]) with mapi id 15.20.6933.028; Wed, 1 Nov 2023
- 01:58:27 +0000
+ id 6f575419-7861-11ee-9b0e-b553b5be7939;
+ Wed, 01 Nov 2023 03:50:38 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic312.consmr.mail.gq1.yahoo.com with HTTP; Wed, 1 Nov 2023 02:50:36 +0000
+Received: by hermes--production-ne1-56df75844-r9tmt (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 013fa52567108109ef0e6cc6ef79cd9f; 
+ Wed, 01 Nov 2023 02:50:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,179 +42,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32c7c0c0-785a-11ee-9b0e-b553b5be7939
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=G7NB9oYTKqIezzSWB+4Jv2HYYmy7WYERwM3P3v2RVPrZeeiBj6ICce6GeMHgAtx80HWI3AaMAXTIrZCXxtxcywr6jOHNVLUCo70i3LwxNcyUuSoU1RtDJTvLtoJmKymX+pr0S1n9X/qUiU33EsRNCE5DuWrPhNN5xDBp2Wnhn8OkXu4lw0crHndIh71S5696p1J3Y5W4yncz0uAlZuXiYBgvx5JAznGVc0lA6krVp91PGlBukOXrOHq0N6FUz/y1BQyul3V16ORM7uoWM3zs/ry59UJW3O65JeVGdFwNm3vkwsE8ob3G90Gde5CP+bwjsgaCXBaOm5++wVfTKjukcQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6KCbIKvw7NtC/SYBt4hbAUM1pSPcvUI4IQb0RDApCGs=;
- b=Oqaf2IO3jQNO5xj/Y9iAJA9n7B0pUac9GkFFdIHNZzvBIvOK8AdBFWgTdUnk5qTJpVuh5aKMdF3c8D5CLySY+wWint57wdU8F16mNh+IpXBs/6Vvi/eOiZ6qA2petbcCKyX1caWoxl3uaIrnivBYpExIXg0qG+0IUGT/9OJRIiI4jBaYdav98PmILnBPVOz85bVpgW8ZYseiJ+h/NJx+rT4tgiAqGjhAKwFVYedDNwFOWlpRDEbZGcPjqbQar4aWRFvhIziEtz26L2GrdgiR58RZw30En29dd4LwJkjKmGzjPSrM4P57mgJeHMOBHh9sO2m48QYK8+YaUGKYFJH8eQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6KCbIKvw7NtC/SYBt4hbAUM1pSPcvUI4IQb0RDApCGs=;
- b=BzJ1TwxQt0BK3lQhO5CuX1Cv6AXC+Jir1ObIy7ln7VXSN/cwx0viNGlz/AxJ505jHetoqNcFGEAXMN/rbm62WA8CZFhdyrAFf09PKT5ysgQkPEe+cs8J5dKFIcgJIDKq4KN/wo7WqafL0hU7N9OFyOG/632MhY8I8jt5m/JYGOk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 8a01f275641caf6b
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UQlzgUPeNyjilR7wm8I4zlzocv1A4kRRiTyJPxjHBFNRbymML2T4qTOyE1/Li40RscVFzwik5VTsJq+GSpxp0LUalQ7H4bsLapsbLvfErRDumM53TceRpyOVyHIlwFlB1rG7gKsmCzDWNX0MRsHjrLbLlexguZHQMewOTCkJmft+mWyHbxQ3NRcxEyks5QAH37bZEtTQkO7uRMpND1zcPVmnzKhP8VVuv7BVgOuuW3uOCi9YRiH7FATwca5qeb5nThbVM6qBPilPRtXMvb03GhC4el9TgW7giGmqK4ynCCFA+XSz4WvK240ZyIiuFIsnCrXxu/y9u/kDGsxAYTVkBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6KCbIKvw7NtC/SYBt4hbAUM1pSPcvUI4IQb0RDApCGs=;
- b=jeCz4wRSKaRmW8LPvb/VPTm/C6ykZvm1WGvPudo0bi3dwSqFIjBkluqpTz5/JMTu4qeD5DHIub7PQ46RXrdVty3dCzshohbRE8aLsULX7YP4AH9N1nm+NNXJtBma9WXVs7rnVsOm7P7EzFudNhITgD6DPkLlmbaz39LrFUucwzT8RBQx+NF9tIFw7+KBMElhmXbxghR+XIXoYEU/rw0APUxogoI2iesdyMicFbSS/HzMHqABUlfRQ2bwuziUK0HOpg6QsbJ9KEUkAtnVLePmABVbOg3J1PAN6PoqVPmoQf3ilyq1m3BgnWjrbdhb5wKSv19EiB0Po+VRrNrD6NQrzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6KCbIKvw7NtC/SYBt4hbAUM1pSPcvUI4IQb0RDApCGs=;
- b=BzJ1TwxQt0BK3lQhO5CuX1Cv6AXC+Jir1ObIy7ln7VXSN/cwx0viNGlz/AxJ505jHetoqNcFGEAXMN/rbm62WA8CZFhdyrAFf09PKT5ysgQkPEe+cs8J5dKFIcgJIDKq4KN/wo7WqafL0hU7N9OFyOG/632MhY8I8jt5m/JYGOk=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei
- Chen <Wei.Chen@arm.com>, Penny Zheng <Penny.Zheng@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Julien Grall <jgrall@amazon.com>, Ayan Kumar
- Halder <ayan.kumar.halder@amd.com>
-Subject: Re: [PATCH v8 3/8] xen/arm: Fold mmu_init_secondary_cpu() to head.S
-Thread-Topic: [PATCH v8 3/8] xen/arm: Fold mmu_init_secondary_cpu() to head.S
-Thread-Index: AQHaBVagUvAeq6Jj0E+dI1rvNGdSyLBkRaEAgAB9cwA=
-Date: Wed, 1 Nov 2023 01:58:27 +0000
-Message-ID: <D25CD22C-F529-41F7-93AB-43BEB7157B8C@arm.com>
-References: <20231023021345.1731436-1-Henry.Wang@arm.com>
- <20231023021345.1731436-4-Henry.Wang@arm.com>
- <f098a07d-fa19-4b40-bfac-7b121524382a@xen.org>
-In-Reply-To: <f098a07d-fa19-4b40-bfac-7b121524382a@xen.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.700.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|AS4PR08MB7532:EE_|AMS0EPF000001A5:EE_|PAXPR08MB7468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67a34b28-a68f-462f-9dd2-08dbda7e1310
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- +cCWJccZTok+R15R9NPshwNkaKvT/ZMkkh2e3rs1mdtYvs0t9RhVz49r427P13I/h8b4EKnY2ZEA1csooGfc3n/NyIlckDC0099juhBTM4IV7JNfqS3Vh1YT9RcBEYPThX54xcnNabxmN73ApOYzFG5EsY+om8Lpv70wharRft5l67bZ+p+EFUjp1jdEqs31Ha53lvuNmC3G5QrZb2bpaZOufJYBUdZFJFMNTgCFkd9wb9ZuzsjG4ob91A2KNQcPvCH25s5kxtiEvowOwvOU6exLwdHsdpCK0hXy+WWV+ywGJ6BxYEyFDMadfX+HxoTxO5IYv8Jgijl7zkFaAcOZVQmQZnVtfHpb8uD8Ip/Ca7eC+hIxUq4UJuCn6vGY5+EP629T/FI2oB03gquV9Jemb9GShj5YrkGHDyQwSkmGFgqBJRsji6OFbXPyihZVJVVP+YFIIoXH9dobzoiHlyFlO67k/UpG72XgZLwAPXT9VcoOiPIeLdZDBHhHljjLLjfnZtikbdnsGbAUC6YHaoN8Wo8022MZATTN+Vq33bccVRwCjnVjZdU/AHlBcshYthiYiFs/1JQEA0ky0dGj6x86b8Q7J3wCUXYs83bfJs2z7sLqCQ0HIx1VgKY6sWX/vtq11OB+/CVUe/5WmCctOudgGSoB3Jllu1EVvqmtgjd2tUlmDIuNPKvydJotGOQGe6vW
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(136003)(396003)(366004)(39860400002)(230922051799003)(64100799003)(1800799009)(451199024)(186009)(66899024)(26005)(2616005)(6512007)(38070700009)(36756003)(33656002)(86362001)(122000001)(38100700002)(2906002)(83380400001)(5660300002)(53546011)(71200400001)(478600001)(6506007)(4326008)(8676002)(6916009)(8936002)(54906003)(66946007)(316002)(66476007)(66446008)(64756008)(66556008)(91956017)(41300700001)(76116006)(6486002)(966005)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <63700F5631B0514CA443ED487EC7F970@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 6f575419-7861-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1698807036; bh=A4kfhwIUJkyFCf/M/+KoSTmAJsJ6d9+Z7HofM+HJNOg=; h=Date:Subject:To:References:From:Cc:In-Reply-To:From:Subject:Reply-To; b=APSVPC2IkCim0+Mm8Bl8sBkT+V+7cNFyiQFTd9kLKVFBjzTEKATQqM6nVPkAF5ES2lQicv2cuFGSUqGuIjOavsdhu7Ak2748TAYs/i8wc7x7DxyXQizCSPpvDm4imnOxJOB3Rln3YOiNgqyuzAcei3+FJcjlzAYDBeDHU/ZOC1hA6/xcSYci+OI9NUiAyLek+ScdxQR1QaN/u0Yj6o11/hns1UL498+y35kw5rvLfKiS2lNa8dTwx3iMl9G8rkS0O736vu6rNZXHSumS/bzzphg9U/8kcRnGnjj0wy+zvWJ4Wd5iVEPqJXVNybPfvNHbwbX+4XfKOTe19ydpr9gHXQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1698807036; bh=pgiJyujpGhL1AtVW1FLFtgcKLcPsXYyh/IHbWMw6rmq=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=LNEonZYh0wL5r66x5TFaTxJafwabJAr/u55CLAWWIdgO2mI5Kposc/vhXyNXzksqj6d2ZRZzJ3a0T7vQwTIUWr55LRP489K4IV4QXdjkmCcaPlYQdMyRIecv08sA9PVXWJ2PRbL7geNvnF8FZPGlcM+xcpHoIX3IoMx5vRztDngKPzFfebaeW3Tv9irT9Iw5BSZLd1G2xfsvNbqdVaBAFkIZ4gFumqCJ6OL275V9ZbTxNmtzJYHFKtBy1Isg+gSFbw4h8p+5O81Fwrnb21c3Ph/Z+sn3bccrfKanBZehARCvqvAyTkncPp4treqkDEzq4NSRwmy7HZtQ6X2+emDP/g==
+X-YMail-OSG: 9yY1KuMVM1kFujj0V2YOGTb1LAQGlWOnO5Y6pkH0fG.lGyVTJGVOFAW34sHmWtg
+ uWLcBoiz9FOJa5ssUQPgeEOsDtv57Urd5YcfjGW.3hz1CU9Mx_9ZGtdMjAjXcy7.UauxZiPzVZzA
+ 2g3_bNabX0AXxKdsfamAxo9HmghoGhA4ZPME7_.1Wmy5NyGLpHxDrAoDLQSOZ5BaeUJTGrPXlDmQ
+ OoKqpnWi.l96HY3FElL.V5zA0jJTctjLrE0A.SoFjRiuc4W04nKiGxujVMj2uZCYYjpmnKZes0Y2
+ 1sxzrQn5RpDgSfmHiaPPjxnsAbgMgN7YWL1yHI5PQwDoCQ9buMOO0MWWCAtxIQNvheZXGY6cpEPI
+ UiZ0S2ueV83Zem8coq0YvEPsgd7BpP7ryPwBwtPqLG_r_F0znfQfRCnSfe4CCBH6BkFmk8kk2Ws5
+ hM1WlWVTKwNkiVSxTsSOJny20jK12um44EbW8dopwgYkEIEDk6BAfbmUsT6RH.yR0mb1439rP3vg
+ Xa0TA2QO0R_mAvBoleUVphig.t_mjoA2F6KE1w169cZqeJbTp9erD.BDdyMks6CtQjgmRHbjyuJP
+ ZKrTz8gaMnF4qFqT.7.GGMJtj3VDgvC1L5FM.fP8Vknzu4Zkj8xu4K0uCqXKSZDIZp2IMAohWr1_
+ fCKvmWJ8Jtlnld8QmpcxeFEQcblDC0cwu15.lnhu2rlcjYHDAmE3HoLwXPu.0F32TsZY89RORJBP
+ A.4phfCO2UPzl3KVfMIAdFk1wmgmZtZWt8iNYuy8flxkUbOkwPjS36C8onD5NoGVuicZ4mxfPbma
+ EI1jlNJyNdHfyZuTUb5nlWDK2xwOMBTWZO4yXN4i7b9Nz6TlYMkgDF.pHFM105OYmGKwAA3A0P6N
+ so3FI.FXToVu8vwKrNZSxDKt4xm9QDuid6_XyHfXS3..S0v19ALZ_0mfS1P.bUf2UrynKVRJzvu7
+ B.b8ErnSmG10gaHtfOSNTB0btUFckYfxJ0Ii6YwOKvE4SyAM4V8nv9ynpUmpWFgjKxz6Kcx1atV.
+ URHr1BuiV_9xQaG4JDtemed6djKhh1kRGEtuoOzuTeuYb5RZRdNY9nasnYSdVYQ.wlNjcznJHwof
+ 8m6958z_AVr2AtkTlxBzzuL51sDus_lOOM9cX_KK3ZEolTuPcdy5E5crhe545CRZf7jq4xUK6jfq
+ U9GASefEHgqqbeyfiqIWM0.hlCq4PaGpq6QBal29pFSytXrz_rN.0oWAnFLtqu3zkZZ3jMLEsvuv
+ hDgA_WbKuXpLRFU.X3H0fqHR6f0IVbEQOdCXEg5BFtF0hEbBhS43v5IVUDi2UCDw_.SePIht4oL.
+ w5c9Q8g0N7tnsPNcIlsVS.ZlTlRM6q3CJmryIuZkx9tPXIfznbP9zOA4ZD.OBJ3OQ2dbcgMZ6kij
+ T4YI0oBuoREyqKAk4ulG7gkSFLH_Wljk9Fx8SmJ7QTBI4BCeKtqFuKG4bTi9SstJ2Qv1FR_EBb7W
+ 2Vw.YPDSa_8j6S8QQp46GuBKfHXQF6SGyz6XRfzXGylKmlZJrPNzt0HuUqk.oAt.j75vuwFD.Ecs
+ QD1IV3jMraMHdtHBGL4jda8sGmM9gtM5V.9u0bDLwm8krYOssfnwICR4KLzw__zJSNBA4MrvuJrE
+ gQ5Nh6ihoWMA3Sz244BluqbnCS620CaVl.pp67YDaaVz44vfd66qrCi1kFvYUZyweEVKYgaGGkNb
+ B6W4G11qv7_6GuOo6SVIHzOsXDEgm4L2_TpM.hq9_PFp5C0PZrdX79K0qqxE206zrKv7PUTjte_N
+ VTX0fS7qUppJZst3Qrv6lCPV0kW.TVQqmYaGkkwueRnY.Clzk_HxmCF5Myn4mCA7P1ALoAw95ngD
+ GvME4aewLS7JLpM0u1MP8gvVT4gHzZZmtWmNkdaD_b8EcO5EOIhtAtT4GtErs0lBd9RRvdoNjbii
+ Ujm_1ViLKDg9hGkH2HAoDEsYyHkUfKs72M7_ycwiulsUwtCocSJoRiPzz.nmC9LF7nr5cMTzgmgJ
+ iivCtiDBp9_HifoXTjJpbnq9J.wb8xXJxHVcV0RR_ZoBB4Jv.T4S321ajxACr_MXYLuAGcz.XWYb
+ KmUkVpiWraKV0Yne2JXYwYo__x40OTUrz1LNi.5iVQYm.ZZ.gpUuWl_2O4qq7m8N52Vc6QnaDwPV
+ ug2zlqIDJM9RPr7gnMQCIHK_ctVfoQI6qCxosj.S4o10niwMnoKmWPkZAVc2pUdAZwljHnej.edJ
+ ku9TTPL0riOD1nfsYow--
+X-Sonic-MF: <brchuckz@aim.com>
+X-Sonic-ID: 6798214f-177d-43a2-8ef3-89c3414a7b0d
+Message-ID: <d7d353b6-8d98-4bfa-8f45-1cb56fcea1f8@netscape.net>
+Date: Tue, 31 Oct 2023 22:50:34 -0400
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7532
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001A5.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9b0e392f-ac5d-474d-7d1d-08dbda7e0a06
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rve9SqmAP6AsNuSIZZHO1MtBipqnAr6k0hEfkxkyk5kfiwioOqj9KfI9PUB1aUC9mX8hRF8si2ZqXFxxQoOhT2mj0uoU81M7rtHFTFXjOSm+C7+z8iX5zKEwNL+JX/1C/lMHBQmTzR4b1qw88KEbKkVDSu8P1/u/PoMB2gT3X7BRFoFoZL+BlJdz/2z5YJ8Be9F5lXlLXc7zyooUoUi/6/002+be/EWJXsOMd2gLWkn0Rpd40oCfF/L9DeuNgtV6G0molypfehdBzPX+52eut3HEPJxMoKKoC7J2x6NalHws/khtFXlMfoX/FzcDiNlizz+M9+AewjLZKuL6BwN5REKSPBLP8RDWc2C7W85C503IkMboJZxuAdjyIzpMv5xoPlBsKYcfyBpMYjirIJKaiHCBdF3VgkLyWin1QiBBELdW5yMBotlXbluEFVFa/fXFywtgIR+Vbr/VGH11grBzNT9xf99r6QKqq6xdvcNzjHSZLTLsGqmttd02k2Rgq/FH44fKEp4GgZIomsVWkv77eg3SGAT+NY2snzZ+7po4lXw/GuEvS5GKi9nee4jiaaooDdJvx6jq8YaH16A+Nyx6tA8yH3sxgiLBRWS+HMRffCHSxuhNvfybazxv+dOio1LwhgMEhIzV0LqyOLYKsjI5PcK2LOpkdj+ZftHemiBtEwTgoHC4GAmNQNhxOwfvJFD26HcvFuFoUOFp7IYQPbtwbi20NOBCIKx7PtcAXQO+alL9/II/JnQrc22oLlmUCDne497oVdAcyPUff4+WQlRHvQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(136003)(376002)(39860400002)(396003)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(82310400011)(46966006)(36840700001)(40470700004)(40460700003)(40480700001)(2616005)(6512007)(26005)(53546011)(478600001)(6506007)(336012)(47076005)(36860700001)(83380400001)(2906002)(5660300002)(41300700001)(70586007)(70206006)(966005)(6486002)(4326008)(6862004)(8676002)(316002)(8936002)(54906003)(81166007)(82740400003)(356005)(86362001)(33656002)(36756003)(66899024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 01:58:42.2866
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67a34b28-a68f-462f-9dd2-08dbda7e1310
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001A5.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7468
+User-Agent: Mozilla Thunderbird
+Subject: Re: exynos-mixer 14450000.mixer: [drm:exynos_drm_register_dma]
+ *ERROR* Device 14450000.mixer lacks support for IOMMU
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <CA+1FSiip1U0_EskJNgV3pSZPTCNOiTbpHosRLsy-6t1QQGd8Dw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2310311557520.1795129@ubuntu-linux-20-04-desktop>
+ <CA+1FSih0hORYZf6Hfmf=nY4jkHPvFSgGfc1tJfzN6smnKxcsxA@mail.gmail.com>
+ <alpine.DEB.2.22.394.2310311625260.1795129@ubuntu-linux-20-04-desktop>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: Mario Marietto <marietto2008@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <alpine.DEB.2.22.394.2310311625260.1795129@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.21890 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-SGkgSnVsaWVuLA0KDQo+IE9uIE5vdiAxLCAyMDIzLCBhdCAwMjoyOSwgSnVsaWVuIEdyYWxsIDxq
-dWxpZW5AeGVuLm9yZz4gd3JvdGU6DQo+IA0KPiBIaSBIZW5yeSwNCj4gDQo+ICtBeWFuDQo+IA0K
-PiBPbiAyMy8xMC8yMDIzIDAzOjEzLCBIZW5yeSBXYW5nIHdyb3RlOg0KPj4gQ3VycmVudGx5IG1t
-dV9pbml0X3NlY29uZGFyeV9jcHUoKSBvbmx5IGVuZm9yY2VzIHRoZSBwYWdlIHRhYmxlDQo+PiBz
-aG91bGQgbm90IGNvbnRhaW4gbWFwcGluZyB0aGF0IGFyZSBib3RoIFdyaXRhYmxlIGFuZCBlWGVj
-dXRhYmxlcw0KPj4gYWZ0ZXIgYm9vdC4gVG8gZWFzZSB0aGUgYXJjaC9hcm0vbW0uYyBzcGxpdCB3
-b3JrLCBmb2xkIHRoaXMgZnVuY3Rpb24NCj4+IHRvIGhlYWQuUy4NCj4+IEZvciBhcm0zMiwgaW50
-cm9kdWNlIGFuIGFzc2VtYmx5IG1hY3JvIHB0X2VuZm9yY2Vfd3huLiBUaGUgbWFjcm8gaXMNCj4+
-IGNhbGxlZCBiZWZvcmUgc2Vjb25kYXJ5IENQVXMganVtcGluZyBpbnRvIHRoZSBDIHdvcmxkLg0K
-Pj4gRm9yIGFybTY0LCBzZXQgdGhlIFNDVExSX0F4eF9FTHhfV1hOIGZsYWcgcmlnaHQgd2hlbiB0
-aGUgTU1VIGlzDQo+PiBlbmFibGVkLiBUaGlzIHdvdWxkIGF2b2lkIHRoZSBleHRyYSBUTEIgZmx1
-c2ggYW5kIFNDVExSIGRhbmNlLg0KPiANCj4gRm9yIGEgcmFuZG9tIHJlYWRlciwgaXQgaXMgbm90
-IGNsZWFyIHdoeSB5b3UgY2FuJ3Qgc2V0IFduWCBlYXJseSBmb3IgYXJtMzIgYXMgd2VsbC4gSSB0
-aGluayBpdCB3b3VsZCBoZWxwZnVsIHRvIGV4cGxhaW4gdGhlIGRpZmZlcmVuY2UuIEkuZS4gYXQg
-dGhlIHBvaW50IHRoZSBNTVUgaXMgZW5hYmxlZCwgdGhlIHBhZ2UtdGFibGVzIG1heSBzdGlsbCBj
-b250YWluIG1hcHBpbmcgd2hpY2ggYXJlIHdyaXRhYmxlIGFuZCBleGVjdXRhYmxlLg0KDQpTb3Vu
-ZHMgZ29vZCwgSSB3aWxsIGFkZCB0aGUgc3VnZ2VzdGVkIHNlbnRlbmNlLg0KDQo+PiAgLmVuZG0N
-Cj4+ICArLyoNCj4+ICsgKiBFbmZvcmNlIFhlbiBwYWdlLXRhYmxlcyBkbyBub3QgY29udGFpbiBt
-YXBwaW5nIHRoYXQgYXJlIGJvdGgNCj4+ICsgKiBXcml0YWJsZSBhbmQgZVhlY3V0YWJsZXMuDQo+
-PiArICoNCj4+ICsgKiBUaGlzIHNob3VsZCBiZSBjYWxsZWQgb24gZWFjaCBzZWNvbmRhcnkgQ1BV
-Lg0KPj4gKyAqLw0KPj4gKy5tYWNybyBwdF9lbmZvcmNlX3d4biB0bXANCj4+ICsgICAgICAgIG1y
-YyAgIENQMzIoXHRtcCwgSFNDVExSKQ0KPj4gKyAgICAgICAgb3JyICAgXHRtcCwgXHRtcCwgI1ND
-VExSX0F4eF9FTHhfV1hODQo+PiArICAgICAgICBkc2INCj4+ICsgICAgICAgIG1jciAgIENQMzIo
-XHRtcCwgSFNDVExSKQ0KPj4gKyAgICAgICAgLyoNCj4+ICsgICAgICAgICAqIFRoZSBUTEJzIG1h
-eSBjYWNoZSBTQ1RMUl9FTDIuV1hOLiBTbyBlbnN1cmUgaXQgaXMgc3luY2hyb25pemVkDQo+PiAr
-ICAgICAgICAgKiBiZWZvcmUgZmx1c2hpbmcgdGhlIFRMQnMuDQo+PiArICAgICAgICAgKi8NCj4+
-ICsgICAgICAgIGlzYg0KPj4gKyAgICAgICAgZmx1c2hfeGVuX3RsYl9sb2NhbCBcdG1wDQo+PiAr
-LmVuZG0NCj4+ICsNCj4+ICAvKg0KPj4gICAqIENvbW1vbiByZWdpc3RlciB1c2FnZSBpbiB0aGlz
-IGZpbGU6DQo+PiAgICogICByMCAgLQ0KPj4gQEAgLTI1NCw2ICsyNzMsNyBAQCBzZWNvbmRhcnlf
-c3dpdGNoZWQ6DQo+PiAgICAgICAgICAvKiBVc2UgYSB2aXJ0dWFsIGFkZHJlc3MgdG8gYWNjZXNz
-IHRoZSBVQVJULiAqLw0KPj4gICAgICAgICAgbW92X3cgcjExLCBFQVJMWV9VQVJUX1ZJUlRVQUxf
-QUREUkVTUw0KPj4gICNlbmRpZg0KPj4gKyAgICAgICAgcHRfZW5mb3JjZV93eG4gcjANCj4gDQo+
-IEZyb20gcmVjZW50IGRpc2N1c3Npb24gb24gSVJDLCBBeWFuIHJlbWluZGVkIG1lIHRoaXMgcGF0
-Y2ggWzFdLiBJZGVhbGx5LCBJIHdvdWxkIHdhbnQgdG8gcHJpbnQgYSBtZXNzYWdlIGp1c3QgYmVm
-b3JlIHRvIGluZGljYXRlIHRoYXQgdGhlIGJpdCBpcyBzZXQuIEJ1dCBJIHVuZGVyc3RhbmQgdGhh
-dCB0aGlzIHdvdWxkIG5lZWQgdG8gYmUgZHJvcHBwZWQgaW4gQXlhbiByZXdvcmsgYXMgd2UgZG9u
-J3QgeWV0IHN1cHBvcnQgZWFybHkgcHJpbnRrIGluIGVuYWJsZV9tbXUoKS4NCj4gDQo+IFdoaWxl
-IGRlYnVnZ2luZyBhbiBNTVUgaXNzdWUgb24gQXJtMzIsIEkgd3JvdGUgYSBwYXRjaCB0byBzcHJp
-bmtsZSBwcmludHMgaW4gdGhlIGVuYWJsZV9tbXUoKSBjb2RlLiBJIHdpbGwgY2xlYW4tdXAgdGhl
-IHBhdGNoIGFuZCBzZW5kIGl0Lg0KDQpKdXN0IHRvIG1ha2Ugc3VyZSwgeW91ciBwYXRjaCBpcyBm
-b3IgYm90aCBBcm0zMiBhbmQgQXJtNjQsIGlzIG15IHVuZGVyc3RhbmRpbmcgY29ycmVjdD8NCklm
-IGl0IGlzIG9ubHkgZm9yIEFybTMyLCBkbyB5b3UgbmVlZCBtZSBhZGRpbmcgdGhlIHByaW50IGZv
-ciBBcm02NCBhcyB3ZWxsIGluIHRoaXMgcGF0Y2g/DQoNCj4gSSB3aWxsIGFkZCBhIHByaW50IGF0
-IHRoYXQgcG9pbnQuIE1lYW53aGlsZSwgSSB3b3VsZCBtb3ZlIHRoZSBjYWxsIGEgZmV3IGxpbmVz
-IGFib3ZlPyBUaGlzIHdpbGwgYWxsb3cgQXlhbiB0byBkcm9wIFsxXS4NCg0KWWVhaCBJIHdpbGwg
-aW5jbHVkZSBBeWFu4oCZcyBjaGFuZ2UgaW4gdGhpcyBwYXRjaCBhbmQgYWRkIGhpcyBzaWduLW9m
-Zi4NCg0KPj4gICAgICAgICAgUFJJTlQoIi0gUmVhZHkgLVxyXG4iKQ0KPj4gICAgICAgICAgLyog
-SnVtcCB0byBDIHdvcmxkICovDQo+PiAgICAgICAgICBtb3ZfdyByMiwgc3RhcnRfc2Vjb25kYXJ5
-DQo+PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2FybTY0L21tdS9oZWFkLlMgYi94ZW4vYXJj
-aC9hcm0vYXJtNjQvbW11L2hlYWQuUw0KPj4gaW5kZXggODgwNzVlZjA4My4uZGYwNmNlZmJiZSAx
-MDA2NDQNCj4+IC0tLSBhL3hlbi9hcmNoL2FybS9hcm02NC9tbXUvaGVhZC5TDQo+PiArKysgYi94
-ZW4vYXJjaC9hcm0vYXJtNjQvbW11L2hlYWQuUw0KPj4gQEAgLTI2NCwxMCArMjY0LDExIEBAIEVO
-RFBST0MoY3JlYXRlX3BhZ2VfdGFibGVzKQ0KPj4gICAqIElucHV0czoNCj4+ICAgKiAgIHgwIDog
-UGh5c2ljYWwgYWRkcmVzcyBvZiB0aGUgcGFnZSB0YWJsZXMuDQo+IA0KPiBUaGUgaW5wdXRzIGxp
-c3Qgc2hvdWxkIGJlIHVwZGF0ZWQgdG8gbWVudGlvbiB3aGF0IHgxIG1lYW5zLg0KDQpJIHdpbGwg
-dXNlIOKAnHgxOiBFeHRyYSBmbGFncyBvZiB0aGUgU0NUTFIu4oCdIGlmIHRoaXMgbG9va3MgZ29v
-ZCB0byB5b3UuDQoNCj4+ICAgKg0KPj4gLSAqIENsb2JiZXJzIHgwIC0geDQNCj4+ICsgKiBDbG9i
-YmVycyB4MCAtIHg2DQo+IA0KPiBCZWxvdywgeW91IG9ubHkgc2VlbSB0byBpbnRyb2R1Y2UgeDUu
-IFNvIHNob3VsZG4ndCB0aGlzIGJlOiAiQ2xvYmJlcnMgeDAgLSB4NSI/DQoNCkhtbW0geWVzIHlv
-dSBhcmUgY29ycmVjdCwgSSBibGluZGx5IGNvcGllZCB0aGUgY29kZSBmcm9tIFsyXS4gU29ycnkg
-Zm9yIHRoZSBtZXNzLCBJIHdpbGwNCmNvcnJlY3QgaXQgaW4gdjkuDQoNCj4gQ2hlZXJzLA0KPiAN
-Cj4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIzMDkxMTEzNTk0Mi43OTEyMDYt
-Mi1heWFuLmt1bWFyLmhhbGRlckBhbWQuY29tLw0KDQpbMl0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcveGVuLWRldmVsLzRkN2E5ODQ5LTg5OTAtOGRkZC0zNTMxLTkzZjRlMmUyNjJiMUB4ZW4ub3Jn
-Lw0KDQpLaW5kIHJlZ2FyZHMsDQpIZW5yeQ0KDQo+IA0KPiAtLSANCj4gSnVsaWVuIEdyYWxsDQoN
-Cg==
+On 10/31/2023 7:45 PM, Stefano Stabellini wrote:
+> Unfortunately there is no easy solution.
+> 
+> Do you know the version of the SMMU available on the platform? 
+
+I am trying to discern, but I doubt we have v3 because we are
+working on a very old chromebook from 2012, and I am finding
+patches for smmv3 in Linux not starting until 2015. It is good to
+know about this option, though, for future work we might do on newer
+devices.
+
+> If it is a SMMUv3 you can try to use the nested SMMU patch series to
+> enable a virtual SMMU in Dom0: https://marc.info/?l=xen-devel&m=166991020831005
+> That way, Xen can use the SMMU to protect VMs, and Dom0 can also use the
+> SMMU for its own purposes at the same time.
+> 
+> Alternatively, you can dig into the details of the exynos-drm driver to
+> see what exactly is the dependency on the IOMMU framework in Linux and
+> remove the dependency. Unfortunately none of us in this thread are
+> expert on exynos-drm so it would be difficult to advise on how to do
+> that. For example, I don't know how you could debug the x11 problem you
+> described because I don't typically work with x11 or with the exynos. If
+> there is an open source mailing list for exynos-drm development they
+> might be able to advise on how to remove the IOMMU dependency there.
+
+We have received this message from Marek Szyprowski of Samsung:
+
+https://lore.kernel.org/lkml/7a71e348-f892-4fd4-8857-b72f35ab5134@samsung.com/
+
+Marek recommends this patch to possibly help with this issue:
+
+https://github.com/torvalds/linux/commit/bbc4d205d93f52ee18dfa7858d51489c0506547f
+
+and also these kernel config settings:
+
+On 10/31/2023 8:08 AM, Marek Szyprowski wrote:
+> If not, then as a temporary workaround please disable 
+> CONFIG_DRM_EXYNOS_MIXER and CONFIG_DRM_EXYNOS_HDMI in your kernel config 
+> and check what will happen (You will lose the HDMI output, but maybe 
+> this won't a big issue).
+
+Mario and I have preliminary evidence that applying both of Marek's
+recommendations to the 6.1.59 kernel have improved the situation to
+the point where now the Chromebook can run X.org on Xen. We are doing
+further tests to see how Marek's patch and/or the kernel config settings
+to disable the mixer and the HDMI affect the behavior of the GPU in dom0
+on Xen.
+
+> 
+> The final option, which is a gross hack, would be to let Dom0 use the
+> IOMMU for its own gain. Xen doesn't use the IOMMU. If you do that you
+> lose freedom from interference between the VMs and you cannot run driver
+> domains or directly assign devices to DomUs. But if you are running a
+> research project you might be OK with that. To get it to work, you need
+> to hack Xen so that it remaps the IOMMU to Dom0 to let Dom0 program it
+> directly. The attached patch (untested) would be a place to start. You
+> also need to pass iommu=false to the Xen command line to prevent Xen
+> from using the iommu itself.
+
+I am interested to investigate if only the mixer and the HDMI is causing
+the trouble. Based on what you are telling me about Xen not exposing the
+IOMMU to dom0, I don't fully understand the original log messages I was
+getting when I followed Julien's suggestion to find the symbols associated
+with each address in the original message, and those seemed to indicate that
+the exynos_drm device was using the IOMMU in dom0, but the mixer was not,
+and the fact that they both were not using the IOMMU is what caused the
+test to fail and Linux refuse to initialize the GPU on dom0, whereas on
+bare metal, the logs indicated both the exynos mixer, which I think is a
+sub device of the exynos_drm, and the exynos_drm, use the IOMMU on bare
+metal.
+
+I also found this patch which suggests if we can get the devices to work
+we will be compromising the security and isolation between guests:
+
+https://patchwork.kernel.org/project/linux-arm-kernel/patch/20190301192017.39770-1-dianders@chromium.org/
+
+There are plenty of unanswered questions here in my mind,
+
+Cheers,
+
+Chuck
+
+> 
+> Cheers,
+> 
+> Stefano
+> 
+> 
+> On Wed, 1 Nov 2023, Mario Marietto wrote:
+>> I'm aware of the presence of that post. I'm working on the same
+>> project with the guy who explained the problem. Unfortunately,the
+>> solution proposed does not work well. Xen is working,but the screen is
+>> still black.
+>> 
+>> On Wed, Nov 1, 2023 at 12:04 AM Stefano Stabellini
+>> <sstabellini@kernel.org> wrote:
+>> >
+>> > Hi Mario,
+>> >
+>> > I am adding xen-devel and a couple of other Xen maintainers that might
+>> > know how to help make progress on this issues.
+>> >
+>> > Replies inline below.
+>> >
+>> >
+>> > On Tue, 31 Oct 2023, Mario Marietto wrote:
+>> > > Hello,
+>> > >
+>> > > We are a team of linux enthusiasts who are trying to boot Xen on a
+>> > > Samsung XE303C12 Chromebook aka "snow"
+>> > > following the suggestions in the slide show presentation here:
+>> > >
+>> > > https://www.slideshare.net/xen_com_mgr/xpds16-porting-xen-on-arm-to-a-new-soc-julien-grall-arm
+>> > >
+>> > > This device uses an exynos5250 SOC dual core 1.7 GHz with 2 MB RAM, it is
+>> > > a Samsung armv7 chip with virtualization extensions.
+>> > >
+>> > > In particular, we have it working fairly well both on the bare metal with
+>> > > a recent 6.1.59 Linux LTS kernel and also with a recent 5.4.257 LTS
+>> > > kernel with KVM, the older LTS kernel version is used to test KVM because
+>> > > support for KVM on arm v7 was removed from Linux around kernel version
+>> > > 5.7. So we know we have the hypervisor mode enabled because we were able
+>> > > to use it with KVM.
+>> > >
+>> > > For Xen, we are using the latest Debian build of Xen 4.17 for the Debian
+>> > > armhf architecture:
+>> > >
+>> > > (XEN) Xen version 4.17.2-pre (Debian 4.17.1+2-gb773c48e36-1)
+>> > > (pkg-xen-devel@xxxxxxxxxxxxxxx
+>> > > xxxxxxxx) (arm-linux-gnueabihf-gcc (Debian
+>> > > 12.2.0-14) 12.2.0) debug=n Thu May 18 19:26:30 UTC 2023
+>> > >
+>> > > The Linux kernel is a custom build that adds the Xen config kernel
+>> > > options (CONFIG_XEN_DOM0, etc) on top of a kernel that works well on the
+>> > > same Chromebook model on the bare metal. I can provide the config options
+>> > > of the kernel that was used if that is helpful.
+>> > >
+>> > > Our method of booting is to have u-boot boot the Xen hypervisor and load
+>> > > the device tree after adding the dom0 to the otherwise unaltered device
+>> > > tree from the Linux kernel using u-boot fdt commands to add a /chosen
+>> > > node, as described on the Xen wiki and in the pages linked from there. We
+>> > > have also tried adding and loading an initrd.img using the device tree
+>> > > /chosen node but that made no difference in our tests.
+>> > >
+>> > > We actually have the Linux LTS kernel version 6.1.59 working as dom0 with
+>> > > Xen using the same version of u-boot that we used for KVM, but with a big
+>> > > problem.
+>> > >
+>> > > The problem we see is that when booting the 6.1.59 kernel version as dom0
+>> > > with Xen, the screen is totally dark and the only way to access the
+>> > > system is remotely through ssh. Logs indicate most everything else is
+>> > > working, such as the wifi card so we can access it remotely via ssh and a
+>> > > USB optical mouse lights up when connected so USB is also working.
+>> > > Obviously, the disk is also working. The Chromebook is configured to boot
+>> > > from the device's SD card slot by turning on Chrome OS developer mode
+>> > > options to enable booting from the SD card slot.
+>> > >
+>> > > The mystery is that when booting the exact same 6.1.59 kernel on the bare
+>> > > metal instead of booting it as dom0 on Xen, it boots up with full access
+>> > > to the screen and we can interact with the system using the X.org windows
+>> > > system. But booting as dom0 with Xen, the screen is totally dark and the
+>> > > only access we have to the system is through the network via ssh. Also,
+>> > > when booting the 5.4.257 kernel with KVM in hypervisor mode, the screen
+>> > > works and we can interact with the system through the X.org windows
+>> > > system.
+>> > >
+>> > > Exploring the log file,we have seen the errors below :
+>> > >
+>> > >
+>> > > With Xen (or in bare metal):
+>> > >
+>> > > devuan-bunsen kernel: [drm] Exynos DRM: using 14400000.fimd device for
+>> > > DMA mapping operations
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: bound 14400000.fimd (ops
+>> > > 0xc0d96354)
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: bound 14450000.mixer (ops
+>> > > 0xc0d97554)
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: bound
+>> > > 145b0000.dp-controller (ops 0xc0d97278)
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: bound 14530000.hdmi (ops
+>> > > 0xc0d97bd0)
+>> > > ...
+>> > > devuan-bunsen kernel: Console: switching to colour frame buffer device 170x48
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: [drm] fb0: exynosdrmfb
+>> > > frame buffer device
+>> > > devuan-bunsen kernel: [drm] Initialized exynos 1.1.0 20180330 for
+>> > > exynos-drm on minor 0
+>> > >
+>> > > In this case,the kernel is able to use the exynos-drm kernel to start
+>> > > the fb0 device. But with Xen we get this error with exynos-drm:
+>> > >
+>> > > devuan-bunsen kernel: [drm] Exynos DRM: using 14400000.fimd device for
+>> > > DMA mapping operations
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: bound 14400000.fimd (ops
+>> > > 0xc0d96354)
+>> > > devuan-bunsen kernel: exynos-mixer 14450000.mixer:
+>> > > [drm:exynos_drm_register_dma] *ERROR* Device 14450000.mixer lacks
+>> > > support for IOMMU
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: failed to bind
+>> > > 14450000.mixer (ops 0xc0d97554): -22
+>> > > devuan-bunsen kernel: exynos-drm exynos-drm: adev bind failed: -22
+>> > > devuan-bunsen kernel: exynos-dp: probe of 145b0000.dp-controller
+>> > > failed with error -22
+>> > >
+>> > >
+>> > > Any ideas why booting the same Linux kernel that results in a working
+>> > > X.org display on the bare metal instead as dom0 on Xen would cause the
+>> > > display to remain dark, but most other basic functions would work, such
+>> > > as network, disk, and USB ? thanks.
+>> >
+>> > I think the issue is that Linux 6.1.59 is using the IOMMU to get the GPU
+>> > to work. When running on top of Xen, the IOMMU is not available to
+>> > Linux. That's because the IOMMU is used by Xen to enforce protection
+>> > between VMs.
+>> >
+>> > It might help to rebuild Linux without IOMMU support (remove the driver
+>> > from the kconfig) so that Linux cannot attempt to use the IOMMU.
+>> >
+>> > Also see
+>> > https://marc.info/?l=xen-users&m=169844593525492
+
 
