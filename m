@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7495A7E09A1
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 20:49:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627337.978331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD627E09A2
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 20:50:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627343.978341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qz09z-0004So-5c; Fri, 03 Nov 2023 19:48:51 +0000
+	id 1qz0BP-0005tB-Dt; Fri, 03 Nov 2023 19:50:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627337.978331; Fri, 03 Nov 2023 19:48:51 +0000
+Received: by outflank-mailman (output) from mailman id 627343.978341; Fri, 03 Nov 2023 19:50:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qz09z-0004R8-1q; Fri, 03 Nov 2023 19:48:51 +0000
-Received: by outflank-mailman (input) for mailman id 627337;
- Fri, 03 Nov 2023 19:48:49 +0000
+	id 1qz0BP-0005qq-B6; Fri, 03 Nov 2023 19:50:19 +0000
+Received: by outflank-mailman (input) for mailman id 627343;
+ Fri, 03 Nov 2023 19:50:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wEjK=GQ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qz09x-0004Qy-L7
- for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 19:48:49 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=va+T=GQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qz0BO-0005qk-1V
+ for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 19:50:18 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 019c7857-7a82-11ee-98d8-6d05b1d4d9a1;
- Fri, 03 Nov 2023 20:48:48 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-542d654d03cso3945956a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 03 Nov 2023 12:48:48 -0700 (PDT)
+ id 361490e7-7a82-11ee-98d8-6d05b1d4d9a1;
+ Fri, 03 Nov 2023 20:50:17 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-32f7bd27c2aso1635269f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Nov 2023 12:50:17 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
+ by smtp.gmail.com with ESMTPSA id
+ f16-20020adff450000000b0032fb7b4f191sm2256009wrp.91.2023.11.03.12.50.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Nov 2023 12:50:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,130 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 019c7857-7a82-11ee-98d8-6d05b1d4d9a1
+X-Inumbo-ID: 361490e7-7a82-11ee-98d8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699040928; x=1699645728; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VZQCaLuQc2CvuSffKn1ajRC9RT5dWlLDAI6PwcajCHw=;
-        b=QqtXS6Mgqm4SiiqzoZJsOpJgczgkKg2xC1K1wV9zto9X/3LSZsTNci91f3E1WqzPmi
-         e51IhdKzF0X5hqZVJKPH9Ik1ERaLXfRVWajb9aiAs2AQIVhOF/ZoZnq6RROrLxrE3Ynu
-         VkKd7HIlaveJLoI7CgG934mwKRxAJmBHC2+yHybkJSlRbHB4vbDOkSsquqfOSp8TwAq3
-         0jDzrd7qiYDQRFef9rXS/eV5MGEQp/sK0JeDqQ7L2iB4xBEhp2iBk3DjRLZhQaaV3dk6
-         N/sTxY94p4RNImYZWXCf3t53U2M5hPZGVqxyj90p8DZRpUgdzoRAOaMg3ciAbexXh6Ka
-         mYUQ==
+        d=tibco.com; s=googleworkspace; t=1699041016; x=1699645816; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Dw1KxyFf/ZyRIX2bXOtGfCz+sH1TNbRRmAYCq3USUCs=;
+        b=iAughmNQaRXWO9gyEyLKUJmsbmWi4WPdDsLD+iYg9XKhnV6Jr+E0Vi2Z+UANa9n/Bl
+         yU5pRGOp4ar6g4AOMydadcXbEKqlK/iosLrfrGeJxL/D4heQMw0CABiQmhgK2VO6vYpT
+         /q3B72OIVDU9fXoqQ32GZsXHGPH0VdS6HJ59elldEWvENoXYFMuhv6E4+irVMV4sWLP0
+         +7iQ4TOBMRAdSu0dhKDEomiwiyocA9lxbbCpznize0t7FR95nzK8+7bmUlK873Q7xt8b
+         SCFAqb7BqFoCztPVmkQgyr2kBl44bn7dIxRLrtbmFeMLBZMsB3v5lDm8aLnAwJZmNPqW
+         Vd7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699040928; x=1699645728;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VZQCaLuQc2CvuSffKn1ajRC9RT5dWlLDAI6PwcajCHw=;
-        b=OyZE2k7gyqPMoE6V0zkv0VC9gYEBkrrryosg4FI5O7kjl60zD8EK+qfzCSwq+11hui
-         5X8Z9Efyvsl7rPxs50OeJGSgzhBMbMdP5nHLNze8YcTdlwHcRV9rTh7H7wNTy2TMgOgP
-         e/eGFnPWj2F0UfTNPNHXde3APQsKxLLtSfEKPqNPJTpMs+xy9fQNYiqCt33C+18+zpBN
-         rJtN7hFAnb22xzJsFk8bQ55+4SW+BYDBZNZKqFD6+2cEoAwhgNkELFijbFhPUjdPCpbB
-         OLGVWvwR4CVST+yR86+fLJtmSECrbSxqMxA54ouXTDKifhzJ65RvpYslnxytyL408eCD
-         JtGg==
-X-Gm-Message-State: AOJu0YyvLLLREukF+S9oeHhQN358PkymtJzyv//DRWuB64xlS3WfuVdj
-	YQWH1AwUHQudAFxREw5CC0W4Mq1H29oBM5yNbGieKsWK+hU=
-X-Google-Smtp-Source: AGHT+IFyXOf3cCQGY239oLHAgDAQ322v9xv1Ta7EsCeYQ2QLrFqRPniOMEb8ZTZrkiu6xjY6QnCmXOhhVsREahpHUnw=
-X-Received: by 2002:a50:bac8:0:b0:543:7f7d:4a3f with SMTP id
- x66-20020a50bac8000000b005437f7d4a3fmr9991006ede.30.1699040927986; Fri, 03
- Nov 2023 12:48:47 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1699041016; x=1699645816;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Dw1KxyFf/ZyRIX2bXOtGfCz+sH1TNbRRmAYCq3USUCs=;
+        b=eWNsrdzix9NBg3T37ulXdwobyye6k4CJYnnJ6BjpymmEtYREHqS/qtc48wWQ5atHzy
+         36O+U5QSbMLTHNpgh/ADpa59I6t6Tf0ruRb6Vx71VV/WryRfUgTQ78yPk2p6OHgrrIqM
+         pTyrzPsMQ/Qlw529hkAmJXsg/sd2ZgTFPnX4yTzrO3k8hckxz/voBAqAk1cw2AgQ4F/b
+         aurNfUQyEZfK07FzESCDbtQFy4aVQtaHnCHKtKmw+AH2B6AXJU8fa5Xem993P+F6IRrk
+         u8YWE4JckO5b8sV2bI4ihOK3n1kQMo0L/iZRkgaYjFzr2jrBqa0Bo/ECAZf/mzolzR3U
+         AEsg==
+X-Gm-Message-State: AOJu0YxlHUNUWbzxhJw02hywal+HIawItUEaCyCxxd0/ExQvI2K0ON0z
+	2X0Z8vAbs6aoq6nIvaymCP0E2g==
+X-Google-Smtp-Source: AGHT+IHFtYClmcesLpQQF8aL3m3IwdclJsueLsVRRvARObYqMdN3IK/kJGVdJ40JjNLUu61LnBAbfQ==
+X-Received: by 2002:adf:e0d0:0:b0:32d:81fe:7104 with SMTP id m16-20020adfe0d0000000b0032d81fe7104mr15292943wri.63.1699041016254;
+        Fri, 03 Nov 2023 12:50:16 -0700 (PDT)
+Message-ID: <e4d1a87f-fdf3-4461-b212-1ed28c93019b@tibco.com>
+Date: Fri, 3 Nov 2023 19:50:15 +0000
 MIME-Version: 1.0
-References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-9-jgross@suse.com>
-In-Reply-To: <20231101093325.30302-9-jgross@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 3 Nov 2023 15:48:35 -0400
-Message-ID: <CAKf6xptRA6N8ymdgqPS_c+LjBFgN9NmmJAuJx3+vCV8GGkaw6Q@mail.gmail.com>
-Subject: Re: [PATCH 08/29] tools/xenlogd: add 9pfs walk request support
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.18 0/2] golang: Binding fixes
+Content-Language: en-GB
+To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>, George Dunlap
+ <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Xen Security <security@xen.org>
+References: <20231103194551.64448-1-jandryuk@gmail.com>
+From: Andrew Cooper <andcooper@tibco.com>
+In-Reply-To: <20231103194551.64448-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 1, 2023 at 6:09=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
-e:
+On 03/11/2023 7:45 pm, Jason Andryuk wrote:
+> These two patches refresh the bindings which have gone a little stale.
+> I used two separate patches since the XSA-443 one may want backporting.
 >
-> Add the walk request of the 9pfs protocol.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  tools/xenlogd/io.c      | 138 ++++++++++++++++++++++++++++++++++++++++
->  tools/xenlogd/xenlogd.h |   1 +
->  2 files changed, 139 insertions(+)
->
-> diff --git a/tools/xenlogd/io.c b/tools/xenlogd/io.c
-> index fa825c9f39..778e1dc2c9 100644
-> --- a/tools/xenlogd/io.c
-> +++ b/tools/xenlogd/io.c
+> Jason Andryuk (2):
+>   golang: Fixup binding for Arm FF-A
+>   golang: Fix bindings after XSA-443
 
-> @@ -600,6 +616,124 @@ static void p9_attach(device *device, struct p9_hea=
-der *hdr)
->      fill_buffer(device, hdr->cmd + 1, hdr->tag, "Q", &qid);
->  }
->
-> +static void p9_walk(device *device, struct p9_header *hdr)
-> +{
-> +    uint32_t fid;
-> +    uint32_t newfid;
-> +    struct p9_fid *fidp;
-> +    struct p9_qid *qids =3D NULL;
-> +    unsigned int n_names =3D 0;
-> +    unsigned int *names =3D NULL;
-> +    unsigned int walked =3D 0;
-> +    unsigned int i;
-> +    char *path =3D NULL;
-> +    unsigned int path_len;
-> +    int ret;
-> +
-> +    ret =3D fill_data(device, "UUaS", &fid, &newfid, &n_names, &names);
-> +    if ( n_names > P9_WALK_MAXELEM )
-> +    {
-> +        p9_error(device, hdr->tag, EINVAL);
-> +        goto out;
-> +    }
-> +    if ( ret !=3D 3 + n_names )
-> +    {
-> +        p9_error(device, hdr->tag, errno);
-> +        goto out;
-> +    }
-> +
-> +    fidp =3D find_fid(device, fid);
-> +    if ( !fidp )
-> +    {
-> +        p9_error(device, hdr->tag, ENOENT);
-> +        goto out;
-> +    }
-> +    if ( fidp->opened )
-> +    {
-> +        p9_error(device, hdr->tag, EINVAL);
-> +        goto out;
-> +    }
+Bah - the security team did mess up there.
 
-https://ericvh.github.io/9p-rfc/rfc9p2000.html#anchor33
-"""
-The fid must represent a directory unless zero path name elements are speci=
-fied.
-"""
-and
-"""
-For the first elementwise walk to succeed, the file identified by fid
-must be a directory, and the implied user of the request must have
-permission to search the directory (see intro(5)). Subsequent
-elementwise walks have equivalent restrictions applied to the implicit
-fid that results from the preceding elementwise walk.
-"""
+Also, we very clearly need the Golang bindings to be a blocking build
+test in GitlabCI to avoid repeats of this in the future.
 
-Maybe a dir check should be added?  However, it doesn't look like QEMU
-does this check.  Seems like it is implicitly checked by the path
-concatenation, so it may be fine as-is.
+I'm tempted to the Gitlab change ought to be for-4.18 too.  Henry, thoughts?
 
-If you think it's ok as-is:
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-
-Regards,
-Jason
+~Andrew
 
