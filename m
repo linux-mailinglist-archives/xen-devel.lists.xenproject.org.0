@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ABB07DFDC7
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 02:40:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627033.977879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6DC7DFDC8
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 02:42:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627039.977893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyj91-0004uX-5K; Fri, 03 Nov 2023 01:38:43 +0000
+	id 1qyjCt-0006P9-Lu; Fri, 03 Nov 2023 01:42:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627033.977879; Fri, 03 Nov 2023 01:38:43 +0000
+Received: by outflank-mailman (output) from mailman id 627039.977893; Fri, 03 Nov 2023 01:42:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qyj91-0004sZ-1o; Fri, 03 Nov 2023 01:38:43 +0000
-Received: by outflank-mailman (input) for mailman id 627033;
- Fri, 03 Nov 2023 01:38:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1qyjCt-0006MG-JI; Fri, 03 Nov 2023 01:42:43 +0000
+Received: by outflank-mailman (input) for mailman id 627039;
+ Fri, 03 Nov 2023 01:42:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ed2V=GQ=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1qyj8z-0004s4-QY
- for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 01:38:41 +0000
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b49ca1c4-79e9-11ee-9b0e-b553b5be7939;
- Fri, 03 Nov 2023 02:38:38 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id AB19D2014F;
- Fri,  3 Nov 2023 02:38:35 +0100 (CET)
-Received: from sonata.ens-lyon.org ([127.0.0.1])
- by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id IkvMV_u2jOa6; Fri,  3 Nov 2023 02:38:35 +0100 (CET)
-Received: from begin.home (aamiens-653-1-111-57.w83-192.abo.wanadoo.fr
- [83.192.234.57])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id EC0DC20147;
- Fri,  3 Nov 2023 02:38:34 +0100 (CET)
-Received: from samy by begin.home with local (Exim 4.97-RC3)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1qyj8s-00000000WKd-2IkE; Fri, 03 Nov 2023 02:38:34 +0100
+ <SRS0=wEjK=GQ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1qyjCs-0006MA-NZ
+ for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 01:42:42 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47072ed0-79ea-11ee-98d7-6d05b1d4d9a1;
+ Fri, 03 Nov 2023 02:42:41 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-53e2308198eso2659417a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Nov 2023 18:42:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,62 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b49ca1c4-79e9-11ee-9b0e-b553b5be7939
-Date: Fri, 3 Nov 2023 02:38:34 +0100
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	wl@xen.org
-Subject: Re: [PATCH 1/2] Mini-OS: link kernel separately
-Message-ID: <20231103013834.rtx3f4udl65hc5zd@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org, wl@xen.org
-References: <20231101153551.11733-1-jgross@suse.com>
- <20231101153551.11733-2-jgross@suse.com>
+X-Inumbo-ID: 47072ed0-79ea-11ee-98d7-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698975761; x=1699580561; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j6S6moRFxcwEt/aWKWcecyTl87JrHJdjfXdVy+KY5ks=;
+        b=Hv4HJjPwYuOTXR+AHn1wr/9/y8it9dv5Z8EbmY2LWiKETE3ajhP7VDd8xRpgZDBwJb
+         MiaOpPOYW0dT1DVlDdeqnKNHSj8QMQq8Y/iV4JujHSVgTDUBDrRxqB7zjUcu0PmwDMth
+         H6HNYd6MgKl/wj0NrjGmeHt41MuqfIP4MXEDQvsuC4q4esPFGV41CSX0Arsdy36sE91t
+         ayRy9TAsWOuE3PTC1GnM2f8Q21bG5kTmzXYmy2vBi6bXDVO/0J8ERDBwuWkOwwMhojcW
+         OjheOlf5KIjBlHFBKgL/dXYJ3hd1m/o4Qa6v3jhzdw+TmivjMxxcWaJnTmOEyZvhXmnK
+         WNdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698975761; x=1699580561;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=j6S6moRFxcwEt/aWKWcecyTl87JrHJdjfXdVy+KY5ks=;
+        b=D8VyDnspFLQFccWfFm13Li0Dsas5ePnG4qQ6K8tZMhDMry7Z0qzSnwr3Z9gNbNCJB1
+         +f2a9NXu8QHZzDks+3KxUFxruP4dvgrn8tPclvdOPVQqG7rG89n+C1gWEbtzTnsjQ+ty
+         iEpJ9u/TqtHTHXDZ7j/5q3VYmcad3S2OQh6cwGygmiT4DjSx3zer/41RauZax8H6hoda
+         jah4rszfwdaJ/dEpz/oOMqzQtGw/epAVjN8YsvPlG6dlgVpxHw0Femv/8bFVMb3rywLQ
+         RPzXUbfbg4uOBD7szx8SfVVlJWZYx+gZ2O3r3pLWTs/bTR8APnirIzl5Z7TUYD109icB
+         40Sg==
+X-Gm-Message-State: AOJu0Yw6Id9Hg7j8gFQVGjBtmMw4MLMt3f4sqMCFkbBQZHEYlTHEASoH
+	IvWPsChELakuoprEI1KwLlODI++L8YV4CdTTfCA=
+X-Google-Smtp-Source: AGHT+IH/RMDuS0RSONPu0TdYz0dMW8TwE1sPNukKwwofLVl4AtZMFqyw9c2bW1R2F4+/bkhs8WK6VA/3LfhymdLKXSg=
+X-Received: by 2002:aa7:d941:0:b0:531:a63:cf25 with SMTP id
+ l1-20020aa7d941000000b005310a63cf25mr16400765eds.33.1698975760988; Thu, 02
+ Nov 2023 18:42:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231101153551.11733-2-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-4-jgross@suse.com>
+ <CAKf6xptkUPBSTsij=CAWaiYxTCtGH4zpZWiLuvb=teX3i_sjrA@mail.gmail.com> <30b8cb38-ecc8-4d4e-bf18-512e893de153@suse.com>
+In-Reply-To: <30b8cb38-ecc8-4d4e-bf18-512e893de153@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 2 Nov 2023 21:42:29 -0400
+Message-ID: <CAKf6xpumCFYor9uE8Km2M24vvpko4RmA+Vm-qRdLoFLCkxmhfw@mail.gmail.com>
+Subject: Re: [PATCH 03/29] tools/xenlogd: connect to frontend
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Juergen Gross, le mer. 01 nov. 2023 16:35:50 +0100, a ecrit:
-> Add an additional link step with linking all Mini-OS kernel binaries
-> into a single object file.
-> 
-> This is done in preparation of hiding Mini-OS internal symbols before
-> linking the kernel with libraries and an application.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On Thu, Nov 2, 2023 at 4:23=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> On 01.11.23 20:21, Jason Andryuk wrote:
+> > On Wed, Nov 1, 2023 at 5:34=E2=80=AFAM Juergen Gross <jgross@suse.com> =
+wrote:
+> >>
+> >> Add the code for connecting to frontends to xenlogd.
+> >>
+> >> Signed-off-by: Juergen Gross <jgross@suse.com>
+> >
+> >> diff --git a/tools/xenlogd/xenlogd.c b/tools/xenlogd/xenlogd.c
+> >> index 792d1026a3..da0a09a122 100644
+> >> --- a/tools/xenlogd/xenlogd.c
+> >> +++ b/tools/xenlogd/xenlogd.c
+> >
+> >> +static void connect_device(device *device)
+> >> +{
+> >> +    unsigned int val;
+> >> +    xenevtchn_port_or_error_t evtchn;
+> > 1.> +
+> >> +    val =3D read_frontend_node_uint(device, "version", 0);
+> >> +    if ( val !=3D 1 )
+> >> +        return connect_err(device, "frontend specifies illegal versio=
+n");
+> >> +    val =3D read_frontend_node_uint(device, "num-rings", 0);
+> >> +    if ( val !=3D 1 )
+> >> +        return connect_err(device, "frontend specifies illegal ring n=
+umber");
+> >
+> > Linux uses 2 rings (XEN_9PFS_NUM_RINGS), and it doesn't connect when
+> > max-rings is less than that.
+> >
+> > max_rings =3D xenbus_read_unsigned(dev->otherend, "max-rings", 0);
+> > if (max_rings < XEN_9PFS_NUM_RINGS)
+> >      return -EINVAL;
+> >
+> > new_device() writes max-rings as 1.  So this works for mini-os, but
+> > not Linux.  I'm not requesting you to change it - just noting it.
+>
+> Thanks for the note. I'll change it to allow more rings.
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+I'm happy to work on Linux compatibility as a follow up, if you just
+want to focus on your Mini-OS use case.
 
-thanks!
-
-> ---
->  Makefile | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Makefile b/Makefile
-> index 7ee181a2..85c6db75 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -164,8 +164,11 @@ endif
->  $(OBJ_DIR)/arch/x86/minios-x86%.lds:  arch/x86/minios-x86.lds.S
->  	$(CPP) $(ASFLAGS) -P $< -o $@
->  
-> -$(OBJ_DIR)/$(TARGET): $(OBJS) $(APP_O) arch_lib $(OBJ_DIR)/$(TARGET_ARCH_DIR)/minios-$(MINIOS_TARGET_ARCH).lds
-> -	$(LD) -r $(LDFLAGS) $(HEAD_OBJ) $(APP_O) $(OBJS) $(LDARCHLIB) $(LDLIBS) -o $@.o
-> +$(OBJ_DIR)/$(TARGET)-kern.o: $(OBJS) arch_lib $(OBJ_DIR)/$(TARGET_ARCH_DIR)/minios-$(MINIOS_TARGET_ARCH).lds
-> +	$(LD) -r $(LDFLAGS) $(HEAD_OBJ) $(OBJS) $(LDARCHLIB) -o $@
-> +
-> +$(OBJ_DIR)/$(TARGET): $(OBJ_DIR)/$(TARGET)-kern.o $(APP_O)
-> +	$(LD) -r $(LDFLAGS) $(OBJ_DIR)/$(TARGET)-kern.o $(APP_O) $(LDLIBS) -o $@.o
->  	$(OBJCOPY) -w -G $(GLOBAL_PREFIX)* -G _start $@.o $@.o
->  	$(LD) $(LDFLAGS) $(LDFLAGS_FINAL) $@.o $(EXTRA_OBJS) -o $@-debug
->  	strip -s $@-debug -o $@
-> -- 
-> 2.35.3
-> 
+Regards,
+Jason
 
