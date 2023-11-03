@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 794017E05AE
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 16:39:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627226.978154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D94E7E05B5
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Nov 2023 16:45:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627233.978165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qywGj-0003l3-VF; Fri, 03 Nov 2023 15:39:33 +0000
+	id 1qywLa-0005WW-Hs; Fri, 03 Nov 2023 15:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627226.978154; Fri, 03 Nov 2023 15:39:33 +0000
+Received: by outflank-mailman (output) from mailman id 627233.978165; Fri, 03 Nov 2023 15:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qywGj-0003iM-SD; Fri, 03 Nov 2023 15:39:33 +0000
-Received: by outflank-mailman (input) for mailman id 627226;
- Fri, 03 Nov 2023 15:39:32 +0000
+	id 1qywLa-0005U5-EF; Fri, 03 Nov 2023 15:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 627233;
+ Fri, 03 Nov 2023 15:44:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AOuS=GQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1qywGh-0003i7-Rv
- for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 15:39:32 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20603.outbound.protection.outlook.com
- [2a01:111:f400:7e8c::603])
+ <SRS0=va+T=GQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1qywLY-0005Tz-F6
+ for xen-devel@lists.xenproject.org; Fri, 03 Nov 2023 15:44:32 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2cc5f90b-7a5f-11ee-98d8-6d05b1d4d9a1;
- Fri, 03 Nov 2023 16:39:30 +0100 (CET)
-Received: from DS7PR03CA0075.namprd03.prod.outlook.com (2603:10b6:5:3bb::20)
- by PH7PR12MB7428.namprd12.prod.outlook.com (2603:10b6:510:203::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.21; Fri, 3 Nov
- 2023 15:39:25 +0000
-Received: from DS1PEPF00017096.namprd05.prod.outlook.com
- (2603:10b6:5:3bb:cafe::3c) by DS7PR03CA0075.outlook.office365.com
- (2603:10b6:5:3bb::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.22 via Frontend
- Transport; Fri, 3 Nov 2023 15:39:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6954.19 via Frontend Transport; Fri, 3 Nov 2023 15:39:25 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 3 Nov
- 2023 10:39:25 -0500
-Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Fri, 3 Nov 2023 10:39:23 -0500
+ id e11e0dbd-7a5f-11ee-98d8-6d05b1d4d9a1;
+ Fri, 03 Nov 2023 16:44:31 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40837ebba42so14339085e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Nov 2023 08:44:31 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
+ by smtp.gmail.com with ESMTPSA id
+ j28-20020a05600c1c1c00b003fe15ac0934sm6211931wms.1.2023.11.03.08.44.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Nov 2023 08:44:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,120 +45,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cc5f90b-7a5f-11ee-98d8-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hueivS4yX5fMJ4myFGzTAFehGkKaP0HfQ5ZWZ3gXjFYdXADrj09dslHa1FqDiWqjb1NexHCx8uRoLziI97PJZEuuErF+JDJpjQSsmLQwNfWKxq/kqVk9Wo8ycxk0SS+Whn1Vy3R3xrTgBMKnv06VWFuAxqFzZZXMOI7l5jM20I0AhXZLWYZLLYfriVgUJkiLMQA2UPfojgp23DnSGIf1Vunals9CrW+iAKNOag5X7HzmDRcSCzz+ugqc60LuHt53AaeX5zZsiHD5/ywiZyeqPsUgpOYeLUdFrFHdYN8FvCzy6eLVdNLoMSHd7rBBMe+9PAX1QByM/B/FAZt4zIZ+XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GKNexmUa3jn9+hTtdgPh/NPObG01v0Fc/Xv7Cqhhkfk=;
- b=KuEHzGMO5rqNjDqDDqnHZRc+eGfWHohYvRrC11zIWnTerM6f8+M6mJu7OWG1oXosc9lggSZRRLiExv4mQh/d4NkkloXIkCnfYFXhCITGda3YO/hAbiimivdQ8/u8sAZ+wJ53O07CkN/N+P0/HZUf+ANJPj8LoSpVzq83iKCR61DFm2BXDp0LWMkWHBU33MFVIRPXE3xePiVtnJTAluYVxixurq1/u5d42PRn6N3yTZ+eY9AC2rGa31hu4I89P76B3EGWjrdJXaSD6/i9c4VnaKYz41vDpsjAbcu/U2eUyMg4juLhGcEqWoB9WPbZxaY7OYoRd0mquNhmYq839Gg0FQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GKNexmUa3jn9+hTtdgPh/NPObG01v0Fc/Xv7Cqhhkfk=;
- b=reR7WKyOS8AO635sjxBR8WlmCBYwmQk/7nv4zz84lNXQsf01fYBP+u/wf/4F0OFu7b9AbPazvA4e22D6W6Y355ZHyql2h3ykCIBkwPFmGnTP/vweeC0O5sZYEv8oLC9GXUNEkAL+NDgxsBNWkvVSxOasIxxJoTyIob121hJQirc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <cc409ec3-bf77-4f47-bff5-ee9c0d2bc83e@amd.com>
-Date: Fri, 3 Nov 2023 11:39:23 -0400
+X-Inumbo-ID: e11e0dbd-7a5f-11ee-98d8-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1699026271; x=1699631071; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=R8MvfRrJRSHNjMGe6FAfum5u6PJqLvR1bBU5o8D0Q3A=;
+        b=b0Pr2rp0EBFfeIsAdMMl56A5qz1sidWZlA7GiHMHLpHi92sE1req7oC2vDIQbFHPzY
+         YWZeb29ZjSRa+nOu6xASZsraU/z3lc0vdDT20yqruZMD/IDRy/HC1ESc0+aiZgoeH8rx
+         Ca672uLqJZ7ii6FODb/p89ISMdoNw3y+PPTa8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699026271; x=1699631071;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :content-language:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=R8MvfRrJRSHNjMGe6FAfum5u6PJqLvR1bBU5o8D0Q3A=;
+        b=ADnJbgJHbqcCQoJATFoucG9rLnZwkcR0Sw3nlBqN//Gfm5dVSUNEx8J0h5Wka8ghZE
+         +zvClY6SJvFOwHBN9iaT55EL1H00a8gGBWOQMLOGXYlcZC3J1QPFzzkOlfw5inRVSK2v
+         HrC5ZZeqM+jscdASH9fng7niNKrvhDCQntZS6imgCEnJjpZzfk9URgC9dS9WJrLssXns
+         buuJ+iYI2nD1Xz0h6nMnXHikO0xTdvJfIAZNWIWAxqJ2As08LR4C31BzD6VS0rZBGR5S
+         yei2R+mCo7HzbwuYovt7yOcwJSoz0GtdKBsyDwHxXBl43aLjr5uefRSeZH5pmg9WYlli
+         g+OQ==
+X-Gm-Message-State: AOJu0YyPQc5VVa7NIwkpUf9a6VOmo7Ah8EjiYOxD6qnfmCNGzkjHea8E
+	4eqmCQrPDxgU5SVQsqyjQDP+uw==
+X-Google-Smtp-Source: AGHT+IFY4AiCPvaG4UdukUBM1+C10YO5JpcDfa1IceSD9hfxiYbugdV0+v99DNnM8V67tkNQELp9oQ==
+X-Received: by 2002:a05:600c:3041:b0:409:703c:b9b1 with SMTP id n1-20020a05600c304100b00409703cb9b1mr1696448wmh.40.1699026270776;
+        Fri, 03 Nov 2023 08:44:30 -0700 (PDT)
+Message-ID: <ce44f81a-5dae-4c24-9ed2-f3cdffb78129@citrix.com>
+Date: Fri, 3 Nov 2023 15:44:30 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 03/17] vpci: use per-domain PCI lock to protect vpci
- structure
-Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-4-volodymyr_babchuk@epam.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20231012220854.2736994-4-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|PH7PR12MB7428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c429b08-c3ee-4578-023e-08dbdc830f35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	LN1MMm9MIteIwEXPyuTvWgTvHIe484Fcn1GOZBU3mYW+JCqAxUC8rvgs+jL0c8sZWrLDeNxupyd4VKO73VGnKF3qK293orW3vdD03fk5k00EVI7Q3Hy1/Ey+d/DSFHURd6RCwAflXmZp0w2JMhmIJ15HuG4M/7mFt20ZI4PnmjnZfKRynG7XW9rdjUayND4ZCQrW9Yjq8tGxr4pP4eStM3hutKD8nFNHKHvtemxyCGaZ1Q6fNdg9vVUE/60Knw1fLIPMhEaq4y3qYGK0KNe4rlxkX6vkRqHYQpWlGhPvI/Jui4RoIWkMb9krostVbLgE1wS+NqxZJS4YfoSE0u6ksW5fNL98bmTtwqvB2eZhwEG6qPn3RJAJ74EMQLzfvgM8kBTt4ULmA4l6HyLooyJo2K4fNaiAtnqg1dN0Ot8hFoobZavudpj9uQldL0A3nvcAFlQRn/ZNSO/GRmIXwnOgm1QdSc4iFSxlD/2B/a4+Y3Gz6kp9uOeTCu5mtBdcMmvIwDqmv+67XVCkrn+6dhub6tsyyE6t6Q42uOU3V/tvp7R2An+a5DNhyq9VfP3tIk+jpTnvGtIaqDbEv+Q2jb4qmHwLFzoizBz+PZRCpnsjn5/fpGpIi2MqYmMUaL9ZQMpK/V25HwjTRpsZAL8MyCUnPBdkEcnsOFmIvC04YaJup53+7S2X7xbg1q4Uidci7r56baPsPpEigr420pFvzsq/M/zi+2OCTfR9BOep4F0rfqQL/A7M2Kcrj5XotmsdiPboHliQop+PffrC/HP4k0E7Z+J92yLbAuuFGoLN8OoUkhY=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(396003)(39860400002)(376002)(230922051799003)(82310400011)(64100799003)(186009)(1800799009)(451199024)(36840700001)(46966006)(40470700004)(31686004)(2616005)(26005)(40480700001)(40460700003)(36756003)(31696002)(81166007)(86362001)(82740400003)(356005)(83380400001)(426003)(7416002)(47076005)(5660300002)(336012)(53546011)(2906002)(36860700001)(478600001)(4326008)(54906003)(16576012)(8676002)(316002)(8936002)(110136005)(70586007)(70206006)(44832011)(41300700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2023 15:39:25.6234
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c429b08-c3ee-4578-023e-08dbdc830f35
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017096.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7428
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3] x86/x2apic: introduce a mixed physical/cluster mode
+Content-Language: en-GB
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Henry Wang <Henry.Wang@arm.com>,
+ Community Manager <community.manager@xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20231103144537.90914-1-roger.pau@citrix.com>
+ <93fc77ad-8696-4d83-b916-e47f883ac366@citrix.com> <ZUUS-fzShqxOs5IO@macbook>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZUUS-fzShqxOs5IO@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/12/23 18:09, Volodymyr Babchuk wrote:
-> 6. We are removing multiple ASSERT(pcidevs_locked()) instances because
-> they are too strict now: they should be corrected to
-> ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock)), but problem is
-> that mentioned instances does not have access to the domain
-> pointer and it is not feasible to pass a domain pointer to a function
-> just for debugging purposes.
+On 03/11/2023 3:34 pm, Roger Pau Monné wrote:
+> On Fri, Nov 03, 2023 at 03:10:18PM +0000, Andrew Cooper wrote:
+>> On 03/11/2023 2:45 pm, Roger Pau Monne wrote:
+>>> when sending those, as multiple CPUs can be targeted with a single ICR register
+>>> write.
+>>>
+>>> A simple test calling flush_tlb_all() 10000 times in a tight loop on a 96 CPU
+>>> box gives the following average figures:
+>>>
+>>> Physical mode: 26617931ns
+>>> Mixed mode:    23865337ns
+>>>
+>>> So ~10% improvement versus plain Physical mode.  Note that Xen uses Cluster
+>>> mode by default, and hence is already using the fastest way for IPI delivery at
+>>> the cost of reducing the amount of vectors available system-wide.
+>> 96 looks suspiciously like an Intel number.  In nothing else, you ought
+>> to say which CPU is it, because microarchitecture matters.  By any
+>> chance can we try this on one of the Bergamos, to give us a datapoint at
+>> 512?
+> Let me see if I can grab the only one that's not broken.
+>
+> Those figures are from an Intel IceLake IIRC.  Cluster mode is the
+> default, so this change shouldn't effect the performance of builds
+> that use the default settings.
 
-...
+"shouldn't" being the operative word.
 
-> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
-> index 20275260b3..466725d8ca 100644
-> --- a/xen/arch/x86/msi.c
-> +++ b/xen/arch/x86/msi.c
-> @@ -988,8 +988,6 @@ static int __pci_enable_msi(struct msi_info *msi, struct msi_desc **desc,
->  {
->      struct msi_desc *old_desc;
-> 
-> -    ASSERT(pcidevs_locked());
-> -
->      if ( !pdev )
->          return -ENODEV;
+You're presenting evidence to try and convince the reader that the
+reasoning is correct.
 
-I know it is mentioned in the commit message, so the ASSERT removal above may be okay. However, just to mention it: as we are passing pdev to this function now, we can access the domain pointer here. So the ASSERT can be turned into (after the !pdev check):
+Therefore, it is important to confirm your assumptions, and that means
+measuring and reporting all 3.
 
-    ASSERT(pcidevs_locked() || rw_is_locked(&pdev->domain->pci_lock));
+Part of the analysis should say "we expected mixed and cluster to be the
+same, and the results show that".
 
-In which case pdev->domain != NULL might also want to be checked.
+And obviously, if mixed and cluster are wildly different, then we take a
+step back and think harder.
+>>> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+>>> index eac77573bd75..cd9286f295e5 100644
+>>> --- a/xen/arch/x86/Kconfig
+>>> +++ b/xen/arch/x86/Kconfig
+>>> @@ -228,11 +228,18 @@ config XEN_ALIGN_2M
+>>>  
+>>>  endchoice
+>>>  
+>>> -config X2APIC_PHYSICAL
+>>> -	bool "x2APIC Physical Destination mode"
+>>> +choice
+>>> +	prompt "x2APIC Destination mode"
+>> "x2APIC Driver default" is going to be more meaningful to a non-expert
+>> reading this menu entry, IMO.
+> I will leave the helps as-is.
+Yeah, the help text is fine.  It's just the title itself.
 
-> 
-> @@ -1043,8 +1041,6 @@ static int __pci_enable_msix(struct msi_info *msi, struct msi_desc **desc,
->  {
->      struct msi_desc *old_desc;
-> 
-> -    ASSERT(pcidevs_locked());
-> -
->      if ( !pdev || !pdev->msix )
->          return -ENODEV;
+>
+>>> +};
+>>> +
+>>>  static int cf_check update_clusterinfo(
+>>>      struct notifier_block *nfb, unsigned long action, void *hcpu)
+>>>  {
+>>> @@ -220,38 +248,56 @@ static struct notifier_block x2apic_cpu_nfb = {
+>>>  static int8_t __initdata x2apic_phys = -1;
+>>>  boolean_param("x2apic_phys", x2apic_phys);
+>>>  
+>>> +enum {
+>>> +   unset, physical, cluster, mixed
+>>> +} static __initdata x2apic_mode = unset;
+>>> +
+>>> +static int __init parse_x2apic_mode(const char *s)
+>> cf_check
+> I'm probably confused, but other users of custom_param() do have the
+> cf_check attribute, see parse_spec_ctrl() for example.
 
-Same here.
+Yes, and this function needs one but is missing it.
 
-> 
-> @@ -1154,8 +1150,6 @@ int pci_prepare_msix(u16 seg, u8 bus, u8 devfn, bool off)
->  int pci_enable_msi(struct msi_info *msi, struct msi_desc **desc,
->                    struct pci_dev *pdev)
->  {
-> -    ASSERT(pcidevs_locked());
-> -
->      if ( !use_msi )
->          return -EPERM;
-> 
+cf_check equates to "This function needs an ENDBR", which it does
+because it's invoked by function pointer.
+
+It likely doesn't expode on a CET-active machine because this logic runs
+prior to turning CET-IBT on, and you'll only get a build error in the
+buster-ibt pipeline which has a still-unupstreamed GCC patch.
+
+~Andrew
 
