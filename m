@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C7F7E19D1
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 06:57:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627754.978584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C605F7E19DB
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 07:02:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627759.978594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzsbK-0000cS-No; Mon, 06 Nov 2023 05:56:42 +0000
+	id 1qzsgN-0002A2-9o; Mon, 06 Nov 2023 06:01:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627754.978584; Mon, 06 Nov 2023 05:56:42 +0000
+Received: by outflank-mailman (output) from mailman id 627759.978594; Mon, 06 Nov 2023 06:01:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzsbK-0000aH-Jy; Mon, 06 Nov 2023 05:56:42 +0000
-Received: by outflank-mailman (input) for mailman id 627754;
- Mon, 06 Nov 2023 05:56:41 +0000
+	id 1qzsgN-00027r-6Q; Mon, 06 Nov 2023 06:01:55 +0000
+Received: by outflank-mailman (input) for mailman id 627759;
+ Mon, 06 Nov 2023 06:01:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KAaQ=GT=infradead.org=rdunlap@srs-se1.protection.inumbo.net>)
- id 1qzsbI-0000a7-O9
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 05:56:41 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=czoR=GT=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1qzsgK-00027l-Uj
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 06:01:53 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f015abb-7c69-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 06:56:37 +0100 (CET)
-Received: from [50.53.46.231] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qzsb9-00FujY-22; Mon, 06 Nov 2023 05:56:31 +0000
+ id fa341c2b-7c69-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 07:01:50 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 387E11F38A;
+ Mon,  6 Nov 2023 06:01:50 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F31CD138E5;
+ Mon,  6 Nov 2023 06:01:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OMJ/OU2BSGUwGwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Nov 2023 06:01:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +51,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f015abb-7c69-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=DEejfhwXImBiGzcbo0qc6ToTtzflXskyiDMdckWzU8I=; b=PWMNNTxSQGk/qq9CDWArWxt9Aw
-	NeJuj0uChyLTovkvhyvvv9nN4CBgl8mrchIDbn1D0hrPLkGm3jec2SYlJLFm7n60kGFDy8lPMP88L
-	LEUTm3uYGuxebm4fFEpl76VJnd2d4/XmdQqnc+8scNJqTBQuHV5pznMunbMIsqu1UgJQrcHCiJga0
-	m9FeJVV8GfDOO/R9pZpN5Q6KERVviEKStJYVg0QQ52KYPHdc2tEDWLK2klKIoj22pEB/DmOpFLRAM
-	O8l/UeBa0hsjA0ovKK6SplIlS0zHNVZ+V3V8WVYFiOMIEiWI4Toxh0xs7TIWVp5gse0m4m5SjbRLP
-	nTEapITw==;
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	kernel test robot <lkp@intel.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/shbuf: eliminate 17 kernel-doc warnings
-Date: Sun,  5 Nov 2023 21:56:31 -0800
-Message-ID: <20231106055631.21520-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.42.0
+X-Inumbo-ID: fa341c2b-7c69-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1699250510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=59AgskFfJ8ZDRPe+nQZ2XM1bfbKYKiz35XjQTuOu/Zw=;
+	b=MXJFkreefWbeg/7dVomv8ynJTGiELxW2PTqU/zoIffSwkqYUyAUBaYt2e2H2w3NLaWSVkw
+	FRUolBcw83bDfTvO8fqmNRi1fOyeDZ+61oZVT69x97OO1XqmsHI+GU3RB3m/4hTP0aJtws
+	msRbk9+9FD/+aM9FMJ3tijj0b0QcrwI=
+Message-ID: <d1e40b11-e585-4df7-aecf-ca5c862338ae@suse.com>
+Date: Mon, 6 Nov 2023 07:01:49 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/shbuf: eliminate 17 kernel-doc warnings
+Content-Language: en-US
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: kernel test robot <lkp@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20231106055631.21520-1-rdunlap@infradead.org>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20231106055631.21520-1-rdunlap@infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------UUpw9yy9c4JGcQKVp2RbrEDO"
 
-Don't use kernel-doc markers ("/**") for comments that are not in
-kernel-doc format. This prevents multiple kernel-doc warnings:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------UUpw9yy9c4JGcQKVp2RbrEDO
+Content-Type: multipart/mixed; boundary="------------N0DbgYE4B0YGZ36ABGARpjtb";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: kernel test robot <lkp@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <d1e40b11-e585-4df7-aecf-ca5c862338ae@suse.com>
+Subject: Re: [PATCH] xen/shbuf: eliminate 17 kernel-doc warnings
+References: <20231106055631.21520-1-rdunlap@infradead.org>
+In-Reply-To: <20231106055631.21520-1-rdunlap@infradead.org>
 
-xen-front-pgdir-shbuf.c:25: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * This structure represents the structure of a shared page
-xen-front-pgdir-shbuf.c:37: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Shared buffer ops which are differently implemented
-xen-front-pgdir-shbuf.c:65: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Get granted reference to the very first page of the
-xen-front-pgdir-shbuf.c:85: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Map granted references of the shared buffer.
-xen-front-pgdir-shbuf.c:106: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Unmap granted references of the shared buffer.
-xen-front-pgdir-shbuf.c:127: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Free all the resources of the shared buffer.
-xen-front-pgdir-shbuf.c:154: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Get the number of pages the page directory consumes itself.
-xen-front-pgdir-shbuf.c:164: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Calculate the number of grant references needed to share the buffer
-xen-front-pgdir-shbuf.c:176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Calculate the number of grant references needed to share the buffer
-xen-front-pgdir-shbuf.c:194: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Unmap the buffer previously mapped with grant references
-xen-front-pgdir-shbuf.c:242: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Map the buffer with grant references provided by the backend.
-xen-front-pgdir-shbuf.c:324: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Fill page directory with grant references to the pages of the
-xen-front-pgdir-shbuf.c:354: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Fill page directory with grant references to the pages of the
-xen-front-pgdir-shbuf.c:393: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Grant references to the frontend's buffer pages.
-xen-front-pgdir-shbuf.c:422: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Grant all the references needed to share the buffer.
-xen-front-pgdir-shbuf.c:470: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Allocate all required structures to mange shared buffer.
-xen-front-pgdir-shbuf.c:510: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * Allocate a new instance of a shared buffer.
+--------------N0DbgYE4B0YGZ36ABGARpjtb
+Content-Type: multipart/mixed; boundary="------------60Cv0cm9ZBk9hDt0b9Pj0UoR"
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: lore.kernel.org/r/202311060203.yQrpPZhm-lkp@intel.com
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org
----
- drivers/xen/xen-front-pgdir-shbuf.c |   34 +++++++++++++-------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
+--------------60Cv0cm9ZBk9hDt0b9Pj0UoR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff -- a/drivers/xen/xen-front-pgdir-shbuf.c b/drivers/xen/xen-front-pgdir-shbuf.c
---- a/drivers/xen/xen-front-pgdir-shbuf.c
-+++ b/drivers/xen/xen-front-pgdir-shbuf.c
-@@ -21,7 +21,7 @@
- 
- #include <xen/xen-front-pgdir-shbuf.h>
- 
--/**
-+/*
-  * This structure represents the structure of a shared page
-  * that contains grant references to the pages of the shared
-  * buffer. This structure is common to many Xen para-virtualized
-@@ -33,7 +33,7 @@ struct xen_page_directory {
- 	grant_ref_t gref[]; /* Variable length */
- };
- 
--/**
-+/*
-  * Shared buffer ops which are differently implemented
-  * depending on the allocation mode, e.g. if the buffer
-  * is allocated by the corresponding backend or frontend.
-@@ -61,7 +61,7 @@ struct xen_front_pgdir_shbuf_ops {
- 	int (*unmap)(struct xen_front_pgdir_shbuf *buf);
- };
- 
--/**
-+/*
-  * Get granted reference to the very first page of the
-  * page directory. Usually this is passed to the backend,
-  * so it can find/fill the grant references to the buffer's
-@@ -81,7 +81,7 @@ xen_front_pgdir_shbuf_get_dir_start(stru
- }
- EXPORT_SYMBOL_GPL(xen_front_pgdir_shbuf_get_dir_start);
- 
--/**
-+/*
-  * Map granted references of the shared buffer.
-  *
-  * Depending on the shared buffer mode of allocation
-@@ -102,7 +102,7 @@ int xen_front_pgdir_shbuf_map(struct xen
- }
- EXPORT_SYMBOL_GPL(xen_front_pgdir_shbuf_map);
- 
--/**
-+/*
-  * Unmap granted references of the shared buffer.
-  *
-  * Depending on the shared buffer mode of allocation
-@@ -123,7 +123,7 @@ int xen_front_pgdir_shbuf_unmap(struct x
- }
- EXPORT_SYMBOL_GPL(xen_front_pgdir_shbuf_unmap);
- 
--/**
-+/*
-  * Free all the resources of the shared buffer.
-  *
-  * \param buf shared buffer which resources to be freed.
-@@ -150,7 +150,7 @@ EXPORT_SYMBOL_GPL(xen_front_pgdir_shbuf_
- 				 offsetof(struct xen_page_directory, \
- 					  gref)) / sizeof(grant_ref_t))
- 
--/**
-+/*
-  * Get the number of pages the page directory consumes itself.
-  *
-  * \param buf shared buffer.
-@@ -160,7 +160,7 @@ static int get_num_pages_dir(struct xen_
- 	return DIV_ROUND_UP(buf->num_pages, XEN_NUM_GREFS_PER_PAGE);
- }
- 
--/**
-+/*
-  * Calculate the number of grant references needed to share the buffer
-  * and its pages when backend allocates the buffer.
-  *
-@@ -172,7 +172,7 @@ static void backend_calc_num_grefs(struc
- 	buf->num_grefs = get_num_pages_dir(buf);
- }
- 
--/**
-+/*
-  * Calculate the number of grant references needed to share the buffer
-  * and its pages when frontend allocates the buffer.
-  *
-@@ -190,7 +190,7 @@ static void guest_calc_num_grefs(struct
- #define xen_page_to_vaddr(page) \
- 	((uintptr_t)pfn_to_kaddr(page_to_xen_pfn(page)))
- 
--/**
-+/*
-  * Unmap the buffer previously mapped with grant references
-  * provided by the backend.
-  *
-@@ -238,7 +238,7 @@ static int backend_unmap(struct xen_fron
- 	return ret;
- }
- 
--/**
-+/*
-  * Map the buffer with grant references provided by the backend.
-  *
-  * \param buf shared buffer.
-@@ -320,7 +320,7 @@ static int backend_map(struct xen_front_
- 	return ret;
- }
- 
--/**
-+/*
-  * Fill page directory with grant references to the pages of the
-  * page directory itself.
-  *
-@@ -350,7 +350,7 @@ static void backend_fill_page_dir(struct
- 	page_dir->gref_dir_next_page = XEN_GREF_LIST_END;
- }
- 
--/**
-+/*
-  * Fill page directory with grant references to the pages of the
-  * page directory and the buffer we share with the backend.
-  *
-@@ -389,7 +389,7 @@ static void guest_fill_page_dir(struct x
- 	}
- }
- 
--/**
-+/*
-  * Grant references to the frontend's buffer pages.
-  *
-  * These will be shared with the backend, so it can
-@@ -418,7 +418,7 @@ static int guest_grant_refs_for_buffer(s
- 	return 0;
- }
- 
--/**
-+/*
-  * Grant all the references needed to share the buffer.
-  *
-  * Grant references to the page directory pages and, if
-@@ -466,7 +466,7 @@ static int grant_references(struct xen_f
- 	return 0;
- }
- 
--/**
-+/*
-  * Allocate all required structures to mange shared buffer.
-  *
-  * \param buf shared buffer.
-@@ -506,7 +506,7 @@ static const struct xen_front_pgdir_shbu
- 	.grant_refs_for_buffer = guest_grant_refs_for_buffer,
- };
- 
--/**
-+/*
-  * Allocate a new instance of a shared buffer.
-  *
-  * \param cfg configuration to be used while allocating a new shared buffer.
+T24gMDYuMTEuMjMgMDY6NTYsIFJhbmR5IER1bmxhcCB3cm90ZToNCj4gRG9uJ3QgdXNlIGtl
+cm5lbC1kb2MgbWFya2VycyAoIi8qKiIpIGZvciBjb21tZW50cyB0aGF0IGFyZSBub3QgaW4N
+Cj4ga2VybmVsLWRvYyBmb3JtYXQuIFRoaXMgcHJldmVudHMgbXVsdGlwbGUga2VybmVsLWRv
+YyB3YXJuaW5nczoNCj4gDQo+IHhlbi1mcm9udC1wZ2Rpci1zaGJ1Zi5jOjI1OiB3YXJuaW5n
+OiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBpc24ndCBhIGtlcm5lbC1k
+b2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUva2VybmVsLWRvYy5y
+c3QNCj4gICAqIFRoaXMgc3RydWN0dXJlIHJlcHJlc2VudHMgdGhlIHN0cnVjdHVyZSBvZiBh
+IHNoYXJlZCBwYWdlDQo+IHhlbi1mcm9udC1wZ2Rpci1zaGJ1Zi5jOjM3OiB3YXJuaW5nOiBU
+aGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBpc24ndCBhIGtlcm5lbC1kb2Mg
+Y29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUva2VybmVsLWRvYy5yc3QN
+Cj4gICAqIFNoYXJlZCBidWZmZXIgb3BzIHdoaWNoIGFyZSBkaWZmZXJlbnRseSBpbXBsZW1l
+bnRlZA0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYuYzo2NTogd2FybmluZzogVGhpcyBjb21t
+ZW50IHN0YXJ0cyB3aXRoICcvKionLCBidXQgaXNuJ3QgYSBrZXJuZWwtZG9jIGNvbW1lbnQu
+IFJlZmVyIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL2tlcm5lbC1kb2MucnN0DQo+ICAgKiBH
+ZXQgZ3JhbnRlZCByZWZlcmVuY2UgdG8gdGhlIHZlcnkgZmlyc3QgcGFnZSBvZiB0aGUNCj4g
+eGVuLWZyb250LXBnZGlyLXNoYnVmLmM6ODU6IHdhcm5pbmc6IFRoaXMgY29tbWVudCBzdGFy
+dHMgd2l0aCAnLyoqJywgYnV0IGlzbid0IGEga2VybmVsLWRvYyBjb21tZW50LiBSZWZlciBE
+b2N1bWVudGF0aW9uL2RvYy1ndWlkZS9rZXJuZWwtZG9jLnJzdA0KPiAgICogTWFwIGdyYW50
+ZWQgcmVmZXJlbmNlcyBvZiB0aGUgc2hhcmVkIGJ1ZmZlci4NCj4geGVuLWZyb250LXBnZGly
+LXNoYnVmLmM6MTA2OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKics
+IGJ1dCBpc24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9k
+b2MtZ3VpZGUva2VybmVsLWRvYy5yc3QNCj4gICAqIFVubWFwIGdyYW50ZWQgcmVmZXJlbmNl
+cyBvZiB0aGUgc2hhcmVkIGJ1ZmZlci4NCj4geGVuLWZyb250LXBnZGlyLXNoYnVmLmM6MTI3
+OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBpc24ndCBh
+IGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUva2Vy
+bmVsLWRvYy5yc3QNCj4gICAqIEZyZWUgYWxsIHRoZSByZXNvdXJjZXMgb2YgdGhlIHNoYXJl
+ZCBidWZmZXIuDQo+IHhlbi1mcm9udC1wZ2Rpci1zaGJ1Zi5jOjE1NDogd2FybmluZzogVGhp
+cyBjb21tZW50IHN0YXJ0cyB3aXRoICcvKionLCBidXQgaXNuJ3QgYSBrZXJuZWwtZG9jIGNv
+bW1lbnQuIFJlZmVyIERvY3VtZW50YXRpb24vZG9jLWd1aWRlL2tlcm5lbC1kb2MucnN0DQo+
+ICAgKiBHZXQgdGhlIG51bWJlciBvZiBwYWdlcyB0aGUgcGFnZSBkaXJlY3RvcnkgY29uc3Vt
+ZXMgaXRzZWxmLg0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYuYzoxNjQ6IHdhcm5pbmc6IFRo
+aXMgY29tbWVudCBzdGFydHMgd2l0aCAnLyoqJywgYnV0IGlzbid0IGEga2VybmVsLWRvYyBj
+b21tZW50LiBSZWZlciBEb2N1bWVudGF0aW9uL2RvYy1ndWlkZS9rZXJuZWwtZG9jLnJzdA0K
+PiAgICogQ2FsY3VsYXRlIHRoZSBudW1iZXIgb2YgZ3JhbnQgcmVmZXJlbmNlcyBuZWVkZWQg
+dG8gc2hhcmUgdGhlIGJ1ZmZlcg0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYuYzoxNzY6IHdh
+cm5pbmc6IFRoaXMgY29tbWVudCBzdGFydHMgd2l0aCAnLyoqJywgYnV0IGlzbid0IGEga2Vy
+bmVsLWRvYyBjb21tZW50LiBSZWZlciBEb2N1bWVudGF0aW9uL2RvYy1ndWlkZS9rZXJuZWwt
+ZG9jLnJzdA0KPiAgICogQ2FsY3VsYXRlIHRoZSBudW1iZXIgb2YgZ3JhbnQgcmVmZXJlbmNl
+cyBuZWVkZWQgdG8gc2hhcmUgdGhlIGJ1ZmZlcg0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYu
+YzoxOTQ6IHdhcm5pbmc6IFRoaXMgY29tbWVudCBzdGFydHMgd2l0aCAnLyoqJywgYnV0IGlz
+bid0IGEga2VybmVsLWRvYyBjb21tZW50LiBSZWZlciBEb2N1bWVudGF0aW9uL2RvYy1ndWlk
+ZS9rZXJuZWwtZG9jLnJzdA0KPiAgICogVW5tYXAgdGhlIGJ1ZmZlciBwcmV2aW91c2x5IG1h
+cHBlZCB3aXRoIGdyYW50IHJlZmVyZW5jZXMNCj4geGVuLWZyb250LXBnZGlyLXNoYnVmLmM6
+MjQyOiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBpc24n
+dCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUv
+a2VybmVsLWRvYy5yc3QNCj4gICAqIE1hcCB0aGUgYnVmZmVyIHdpdGggZ3JhbnQgcmVmZXJl
+bmNlcyBwcm92aWRlZCBieSB0aGUgYmFja2VuZC4NCj4geGVuLWZyb250LXBnZGlyLXNoYnVm
+LmM6MzI0OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBp
+c24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3Vp
+ZGUva2VybmVsLWRvYy5yc3QNCj4gICAqIEZpbGwgcGFnZSBkaXJlY3Rvcnkgd2l0aCBncmFu
+dCByZWZlcmVuY2VzIHRvIHRoZSBwYWdlcyBvZiB0aGUNCj4geGVuLWZyb250LXBnZGlyLXNo
+YnVmLmM6MzU0OiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1
+dCBpc24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2Mt
+Z3VpZGUva2VybmVsLWRvYy5yc3QNCj4gICAqIEZpbGwgcGFnZSBkaXJlY3Rvcnkgd2l0aCBn
+cmFudCByZWZlcmVuY2VzIHRvIHRoZSBwYWdlcyBvZiB0aGUNCj4geGVuLWZyb250LXBnZGly
+LXNoYnVmLmM6MzkzOiB3YXJuaW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKics
+IGJ1dCBpc24ndCBhIGtlcm5lbC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9k
+b2MtZ3VpZGUva2VybmVsLWRvYy5yc3QNCj4gICAqIEdyYW50IHJlZmVyZW5jZXMgdG8gdGhl
+IGZyb250ZW5kJ3MgYnVmZmVyIHBhZ2VzLg0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYuYzo0
+MjI6IHdhcm5pbmc6IFRoaXMgY29tbWVudCBzdGFydHMgd2l0aCAnLyoqJywgYnV0IGlzbid0
+IGEga2VybmVsLWRvYyBjb21tZW50LiBSZWZlciBEb2N1bWVudGF0aW9uL2RvYy1ndWlkZS9r
+ZXJuZWwtZG9jLnJzdA0KPiAgICogR3JhbnQgYWxsIHRoZSByZWZlcmVuY2VzIG5lZWRlZCB0
+byBzaGFyZSB0aGUgYnVmZmVyLg0KPiB4ZW4tZnJvbnQtcGdkaXItc2hidWYuYzo0NzA6IHdh
+cm5pbmc6IFRoaXMgY29tbWVudCBzdGFydHMgd2l0aCAnLyoqJywgYnV0IGlzbid0IGEga2Vy
+bmVsLWRvYyBjb21tZW50LiBSZWZlciBEb2N1bWVudGF0aW9uL2RvYy1ndWlkZS9rZXJuZWwt
+ZG9jLnJzdA0KPiAgICogQWxsb2NhdGUgYWxsIHJlcXVpcmVkIHN0cnVjdHVyZXMgdG8gbWFu
+Z2Ugc2hhcmVkIGJ1ZmZlci4NCj4geGVuLWZyb250LXBnZGlyLXNoYnVmLmM6NTEwOiB3YXJu
+aW5nOiBUaGlzIGNvbW1lbnQgc3RhcnRzIHdpdGggJy8qKicsIGJ1dCBpc24ndCBhIGtlcm5l
+bC1kb2MgY29tbWVudC4gUmVmZXIgRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUva2VybmVsLWRv
+Yy5yc3QNCj4gICAqIEFsbG9jYXRlIGEgbmV3IGluc3RhbmNlIG9mIGEgc2hhcmVkIGJ1ZmZl
+ci4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRl
+YWQub3JnPg0KPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgPGxrcEBpbnRlbC5j
+b20+DQo+IENsb3NlczogbG9yZS5rZXJuZWwub3JnL3IvMjAyMzExMDYwMjAzLnlRcnBQWmht
+LWxrcEBpbnRlbC5jb20NCj4gQ2M6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4N
+Cj4gQ2M6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4NCj4g
+Q2M6IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5rb0BlcGFtLmNv
+bT4NCj4gQ2M6IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KDQpBY2tlZC1ieTog
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg0K
+--------------60Cv0cm9ZBk9hDt0b9Pj0UoR
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------60Cv0cm9ZBk9hDt0b9Pj0UoR--
+
+--------------N0DbgYE4B0YGZ36ABGARpjtb--
+
+--------------UUpw9yy9c4JGcQKVp2RbrEDO
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVIgU0FAwAAAAAACgkQsN6d1ii/Ey+i
+WQf/THFpWAJlimlbD2vVGFcxCTmUxGz4pEZqI1sWzovjT9tK7XA8irY3PNiCWqmDbgZ9HUxHCgVY
+v4aXHovhXjkUC3xSVgzqLM/QRHh0rrKvxy+KJEN06O7TGzBf1UYgAxrkVtvOZAZmojdocWV3MLWf
+Zi+UqkmQBGBJOoC48o90/ebSl+B6qVT2w99uSEKEajqYMWFfrzlnPqspt6XgfWrAsA6KnQMHrz5d
+6WzQmUkpan4WbaKocskW0gyNwK5up+sqKb6Qd4LNlIXPueu2UJQadN7JysStoQbx3outhdSs14/g
+RRu7rB5pi/dHXBALR1tmI01G7c4PlwwlG5I4zTw9Hg==
+=1NYV
+-----END PGP SIGNATURE-----
+
+--------------UUpw9yy9c4JGcQKVp2RbrEDO--
 
