@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998DE7E22E9
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 14:06:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627969.978928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC84F7E23C1
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 14:14:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627975.978938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzzJD-0005U1-9e; Mon, 06 Nov 2023 13:06:27 +0000
+	id 1qzzQS-0007uT-WC; Mon, 06 Nov 2023 13:13:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627969.978928; Mon, 06 Nov 2023 13:06:27 +0000
+Received: by outflank-mailman (output) from mailman id 627975.978938; Mon, 06 Nov 2023 13:13:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzzJD-0005R8-6W; Mon, 06 Nov 2023 13:06:27 +0000
-Received: by outflank-mailman (input) for mailman id 627969;
- Mon, 06 Nov 2023 13:06:25 +0000
+	id 1qzzQS-0007sb-TR; Mon, 06 Nov 2023 13:13:56 +0000
+Received: by outflank-mailman (input) for mailman id 627975;
+ Mon, 06 Nov 2023 13:13:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H3DI=GT=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1qzzJB-0005R2-Hn
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 13:06:25 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=9eGT=GT=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1qzzQR-0007sV-8c
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 13:13:55 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 492ee84d-7ca5-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 14:06:23 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-53dd752685fso7391355a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 05:06:23 -0800 (PST)
+ id 5537c8d7-7ca6-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 14:13:53 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40842752c6eso34315405e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 05:13:53 -0800 (PST)
+Received: from EMEAENGAAD19049. ([2.223.46.215])
+ by smtp.gmail.com with ESMTPSA id
+ s11-20020a5d424b000000b0032da40fd7bdsm9494981wrr.24.2023.11.06.05.13.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Nov 2023 05:13:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,64 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 492ee84d-7ca5-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 5537c8d7-7ca6-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699275983; x=1699880783; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ELRYQZKkES8PTQajV1im084C0bW7XyWkpmhDM0jUfTU=;
-        b=W09cL3V/uiWvBO7V+TkOL/qbBkOZxEWBp8ZcF4ikGt2UrprPkKq4iqJFqUazB1065q
-         py6Pi+x1+FmznehJJNTztGIzP+d37CyttntyJvW71nbCF1NcVjktQi2kxdKiLXbHd0hU
-         jOvruTjlk1/wixSLymV0FSeULVIngAqvrsN8oXWDNG1xHnIxWiukkYmCCZhTyBALKYzI
-         Qxb1lz4hE2tt09VKj+bQY2UxqkpalAVCmiGenUXC33HteGqAL1kCxqaQnWPHidSlvZ6u
-         vk2gM/P6CTBcRU/HtETdfFPsXj0V+h3T5cYvhodLq/ZEGZ76LglC1I3EykFGlCXBWsb7
-         743g==
+        d=cloud.com; s=cloud; t=1699276433; x=1699881233; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HaCRG8hXKyMFUUQ6QvwCzf6vguymuIrfLBnLAzsuP7A=;
+        b=PcqEfSeiPBGBS3wAHR73LYHhm96uzrLP1XJxWrks9zpCA0yM/k+BrYS+ZLRN1i2olR
+         LoF1NAjtWonHtcHlz/08fSImQDs7pQnveoowNVFl9nCgSdVzee+Xpm3wfc/ps12cuBzZ
+         8pxDTE+0QOV+aVkMuW4GNzL+l6eeiQ/8fhmQk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699275983; x=1699880783;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ELRYQZKkES8PTQajV1im084C0bW7XyWkpmhDM0jUfTU=;
-        b=Nxnv/U/9RXLko5hTHepKWBILGSQ3uMJBMxZaSrQ9RN0Y806yq7wjPSik7tYP4/tkop
-         ePMzuk49RKdzIlXHR5EvTNmPQZoDootSGMaJ0d2jS1cFHZpmB1zizEPGXEhCPOwCV7PX
-         M0EnV0lveroh29edH1B0QZRan3xdy89ij+vUb3/5w/WkuJO80ikPjukrpEgVhIT0e+r2
-         NMzygpc4ZPI1KA92oRnJZeUurOlYY+gV6XwSvWKjcOLugoPws2Gr0sjdetETg8Xj2qoQ
-         M15xZc3G3AR4c9JsXEi4e/EQ7cu1EcHU3wTiwPQxwqvUGbF90TTW4u8b0+EOvC1oLPAZ
-         NhRA==
-X-Gm-Message-State: AOJu0YxAZhZr7co9PrOk0xQUCFeowTNHo8b6Nrz83VsPfbKNqVanK8eC
-	EYlFuW/snrXHVNmJ2aFpnCHl54elO3gQ1dsOMBU=
-X-Google-Smtp-Source: AGHT+IGKRYnJx9F2q8PDQIovQUudvOOu8CTr0zwmAsx0InVEfC+g3qc1rJwXkRY6t8PySnCfDerGGj4kyrLKz7LDCSU=
-X-Received: by 2002:aa7:c994:0:b0:53e:f321:e6fd with SMTP id
- c20-20020aa7c994000000b0053ef321e6fdmr24406363edt.9.1699275983073; Mon, 06
- Nov 2023 05:06:23 -0800 (PST)
+        d=1e100.net; s=20230601; t=1699276433; x=1699881233;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HaCRG8hXKyMFUUQ6QvwCzf6vguymuIrfLBnLAzsuP7A=;
+        b=KMz2kqHMxxk8q7BtMLNAgc69d/sWdh2NjkA/goK5C5q2NKWTZn0QsUf/CYOCZtMPeY
+         2R1ZLyEh1QFElPPfIu/r3k34+nRtujRB4bSxGxuke+WxNRNehBYUs1YvwDynvAqAzNr7
+         BPhr4gJLxlOaugw681kPqBgD37fzwZelIb/Xc/kolrwMKTHNHlvKlTYjeZuth2uqbgV+
+         OoNsmnFqRs29JqwXjL6Xh09yOe8ZPwuMmJ/hjf23/bBOFFfT/ADJzT+cux2OWPWGR3tP
+         LKq0CynwRAOesl9Wgsbx9214BK/fUWF2jLP7MQ8s3spWk2iWn19YISnesH33OklICYVj
+         a6dA==
+X-Gm-Message-State: AOJu0Yx1nFZBnpXf/XJ1fzxhWZpFwt8mAH0N4got4qqDYTKLYGlMyLeG
+	ck7ATJLN4Xbo6hHqYng3VUW9w+hn1NfKTbGH4qo=
+X-Google-Smtp-Source: AGHT+IFnnO7ZMp2xlLL8u09LAlFKBAOWMJ2lgVzuiXewHR42+uVaRLPY4I3dE5ERPjP0rtMxSrwbyw==
+X-Received: by 2002:a5d:4a4c:0:b0:32d:d2ef:b0c1 with SMTP id v12-20020a5d4a4c000000b0032dd2efb0c1mr21390340wrs.33.1699276432721;
+        Mon, 06 Nov 2023 05:13:52 -0800 (PST)
+Message-ID: <6548e690.5d0a0220.b4d80.fa60@mx.google.com>
+X-Google-Original-Message-ID: <ZUjmjgxYntDlN28q@EMEAENGAAD19049.>
+Date: Mon, 6 Nov 2023 13:13:50 +0000
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Andrew Cooper <andcooper@tibco.com>
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] tools: Remove all DECLARE_* op macros in xc
+References: <20231106081946.1055-1-alejandro.vallejo@cloud.com>
+ <20231106115852.31df968d.olaf@aepfle.de>
+ <3620b635-0014-4def-b4c6-aadf099b0410@tibco.com>
 MIME-Version: 1.0
-References: <20231103194551.64448-1-jandryuk@gmail.com> <ZUjf1bZrlH8nsX-j@macbook>
-In-Reply-To: <ZUjf1bZrlH8nsX-j@macbook>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 6 Nov 2023 08:06:11 -0500
-Message-ID: <CAKf6xpuostm4JZZ_QT_5R_TA6QqFdq9ZzEfMWAhQANROA3_7Qg@mail.gmail.com>
-Subject: Re: [PATCH for-4.18 0/2] golang: Binding fixes
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Henry Wang <Henry.Wang@arm.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3620b635-0014-4def-b4c6-aadf099b0410@tibco.com>
 
-On Mon, Nov 6, 2023 at 7:45=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau@citr=
-ix.com> wrote:
->
-> On Fri, Nov 03, 2023 at 03:45:49PM -0400, Jason Andryuk wrote:
-> > These two patches refresh the bindings which have gone a little stale.
-> > I used two separate patches since the XSA-443 one may want backporting.
->
-> The XSA-443 one is only relevant for unstable and 4.18.  Stable
-> branches at the time of the XSA didn't get those fields added as it
-> would break the API.
+On Mon, Nov 06, 2023 at 11:29:57AM +0000, Andrew Cooper wrote:
+> On 06/11/2023 10:58 am, Olaf Hering wrote:
+> > Mon,  6 Nov 2023 08:19:46 +0000 Alejandro Vallejo <alejandro.vallejo@cloud.com>:
+> >
+> >> +    struct xen_sysctl sysctl = {0};
+> > What is that zero doing here? I think a plain {} will do it as well.
+> 
+> Indeed.  It needs to be {} and not {0} to compile on some obsolete but
+> still supported versions of GCC.
+> 
+> ~Andrew
+I tried to find out what you're talking about and all I could find was:
 
-Oh, good.  Thanks for confirming, Roger.
+  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=36750
 
-Regards,
-Jason
+I'm guessing we are already inhibiting that warning because grepping for
+{0} shows a bunch of uses of this pattern both in toolstack and the
+hypervisor. If this breaks something it's already broken.
+
+Either way, sure. Let me re-generate the diff. I have strong philosophical
+objections to keeping support for >10yo toolchains in detriment of >20yo
+standards, but I'll just save the rant for another day.
+
+Cheers,
+Alejandro
 
