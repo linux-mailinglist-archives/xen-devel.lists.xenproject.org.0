@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F417E26CC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 15:28:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628035.979048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A587E26CB
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 15:28:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628033.979038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r00aW-0005tT-4t; Mon, 06 Nov 2023 14:28:24 +0000
+	id 1r00aD-0005Ym-Pu; Mon, 06 Nov 2023 14:28:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628035.979048; Mon, 06 Nov 2023 14:28:24 +0000
+Received: by outflank-mailman (output) from mailman id 628033.979038; Mon, 06 Nov 2023 14:28:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r00aW-0005qx-20; Mon, 06 Nov 2023 14:28:24 +0000
-Received: by outflank-mailman (input) for mailman id 628035;
- Mon, 06 Nov 2023 14:28:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ruOg=GT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r00aU-0005qR-7z
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 14:28:22 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb514086-7cb0-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 15:28:19 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50939d39d0fso5895688e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 06:28:19 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- h16-20020a05600004d000b0032dbf99bf4fsm9748253wri.89.2023.11.06.06.28.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 06:28:17 -0800 (PST)
+	id 1r00aD-0005Vz-MJ; Mon, 06 Nov 2023 14:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 628033;
+ Mon, 06 Nov 2023 14:28:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fhP7=GT=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1r00aB-0005Vt-Pu
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 14:28:03 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02on20617.outbound.protection.outlook.com
+ [2a01:111:f400:fe12::617])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1310af8-7cb0-11ee-98da-6d05b1d4d9a1;
+ Mon, 06 Nov 2023 15:28:02 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DBBPR04MB7548.eurprd04.prod.outlook.com (2603:10a6:10:20c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.16; Mon, 6 Nov
+ 2023 14:28:01 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.6977.016; Mon, 6 Nov 2023
+ 14:28:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,375 +47,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb514086-7cb0-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699280898; x=1699885698; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9bggPV/g63AZVzvaMXpD354U5ftKOCvH5qww65SI6YY=;
-        b=l3g6Dq4vynhq+gGj4e5e4nH3LK+qruFwplPJAiy/DfQHm513i2EzSQoZIDg5bPSPpi
-         ECLrGFlXzdd5bw4R8Iraul0eXr9+bfVRaI+HSD0o8v05LVQHGe3Iip50qn+Vy0dzLGVH
-         Vxz5s98bGiYKmYjauhOiVYm9VfA6D5cyE1oCw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699280898; x=1699885698;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9bggPV/g63AZVzvaMXpD354U5ftKOCvH5qww65SI6YY=;
-        b=BBbPqqx5FnYp/XlKJnI5dyd7grMBcDi5krxgn6Y03ZO2JhCzCWhDvhxAE2Y89MpMm2
-         oWbMK8sskzCH0NnuW/wSCV+JAMtPBxi1uEZJeAMZMeUlQ6m5AmCzQ0FyPERxEWC51yxH
-         xAjk9w4h8rXKol/uXwKULv63Tp6YvBs+2ojiePk4L2oZd7lT5Q819guM/bSfEEjuCt4R
-         5mg99FO1PH2TR+GtXpcK+0rLj8E0AkZBav3+U33w1+NaIWylrOviAkuFDy6GT4Oa6XJl
-         o4eSg8AIV9aMsE6n8kTYgTtniATnzZ6Ruhz4fZFObyh7gaoC3Tk8vRjxeW2DKpPXVubd
-         3ZKQ==
-X-Gm-Message-State: AOJu0Yzq8oD1mVQ8poktNVic5FIDCBzw3DMLBK1ujAnjnRecMDpoY2l8
-	cw2GbUaY7ovZg8NxhrYP0TV+xEUDt9/8rsVlWDw=
-X-Google-Smtp-Source: AGHT+IEI8jt9waQPm9QfY5EF4YHvv2xk2jebXW61g4Rqv3tkCs3fQNNBAb+wxzQPJEZqKjVGVSsLjg==
-X-Received: by 2002:a05:6512:4845:b0:500:acf1:b432 with SMTP id ep5-20020a056512484500b00500acf1b432mr23568668lfb.63.1699280898163;
-        Mon, 06 Nov 2023 06:28:18 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v4] x86/x2apic: introduce a mixed physical/cluster mode
-Date: Mon,  6 Nov 2023 15:27:39 +0100
-Message-ID: <20231106142739.19650-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.42.0
-MIME-Version: 1.0
+X-Inumbo-ID: b1310af8-7cb0-11ee-98da-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J9x9sB4TV7IReacBntZ9W6hHLZIA7xCWXJEzgpdl/eRFNGYku5bgolIc2wZF9MzFq32Gn1rNymf/9m512+ljJoLY7roNf5I+cDcXojSD3PJ+tx5jzUX13evRsAg34GuWTuY1ldZu/lOezCotzQyyJhFwiC/3vcfGfv8cyIZRyfF6aWZ6U0Gg2aMH7D/sghIhHlQG5gUwe2A2jkRWyDe/C62KbrwO9SWGteBG4D7stV+AzhnY22jdBUd6Kx6EKXP992PIVKfGMXqCZzreQNU9QAFav8Q6FXZSGtTr2sO8SpC+PjxJHtKudkWp4V7b3VNnZN26yMNoxrPFurcMYwN/PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zbzF92ZsPyTGKT4HUFdTx0UvVSW1J+2BxcYu8QUCqyQ=;
+ b=fE3RJ9rqTCCFHzRhbBgHEFxA4JtNo1AJAShYzfiStEouHRKMpTfEV2UJSx/TE7jNAhAp0Gk22gV/SRfVmZXra2P2vJ4hyp/rNqVp22pH2Pwh9RJWGyopUsibyXbOt023f8mtrN2zx1VQkPxfzgZe81SAv5+X8ZOPxHrD0MUgLNQEqeL+z+Nd2yg91AJF5zaBVnbNonVGuYmo+YdqTcOimrsvXn1oV10Xbz+LMbUp5BOvQSI0XZXsz6NjyIS+ihQfOWwV8nxGTI46Ilrpt2/5xeERUBa4kIDj++QL512cuRIUr/keCzQCSVECatNiVXy7O+9DQxh9PaBZnBD4FPc4Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zbzF92ZsPyTGKT4HUFdTx0UvVSW1J+2BxcYu8QUCqyQ=;
+ b=OAjA7wFbM8doV3bxafLyM0UJ2HycY9Duvn15WjUi89HYffS0DporuGWaaKEHU8gevSANmY84i2Vu0gjnndmKJ/B9sxFT7Amg/PRbgx6CoI1YlWICx1KMaBJpWM59oxA0r5ohUbFflLk/6VK1IVfjgwS4utP2GmaTrG3zLGt7W3h6PtSM+ayLzrrF/NtL6daFISPSNPul1xQI4/N9Ra125W+O+eIqZt1MaAC6y9g5D4Zvf9xNRvQesqUOYdbgssiacF5cPHTkcfvmkbF2jH/G1tJERP0tdI7BAMifzg90Y3+NjSHMe1vxjt6EQc9aFavc8EuWga11BJZwACrqd6IpPA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <fc56aa7c-9931-cadf-53cd-0f1f482a953d@suse.com>
+Date: Mon, 6 Nov 2023 15:27:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [XEN PATCH][for-4.19 v4] xen: address violations of Rule 11.9
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <b8a82daf5862287bda9545d7e672ce98e49004a2.1697701358.git.nicola.vetrini@bugseng.com>
+ <fe9f04781ea1ad9bc5f9b92bf58cd09b@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <fe9f04781ea1ad9bc5f9b92bf58cd09b@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0109.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7548:EE_
+X-MS-Office365-Filtering-Correlation-Id: 435601de-3537-4c61-59c0-08dbded49484
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	cS7mxcHBsHwzmar9UKZQADwOi4VWOOSQ/6Q9GxuNDzbiihln0eCdtSe8E78HjE41mTRIWEGHvymzcBv8z6Lx4BzAZ8JfNKevX/kRAeh2mZbfD9WToaWhNXtTA1JI3sNE1LFSWL/TA1y6uLOJxsKhWJeif2BxQ8cRYb/5AGA+38Dg1C6LrhAeYGXuekTWSlovbMeBj0gAGbYYu3BkJlZeM4mYaC/rd3h8F1EqYnVy7YCnGuM5tdF2gc8Iv7Enke1xYhyvj7V9z6VBp0viJNVXJ4XkDlwfX/6cxf8EEk3pDSBSwHgzS67OeONyhxfYlpHw4vDUJFFPn8zwfay7iuqJEvW5lUyHSNWJ85bVykrSTi+YgfJkZ50LimKF9eFQKD0qtqPndDXpmK9vST87unBCivFtW4PBGEKkGYwC3AFhqIdaquoxgCJjTa66QsX5L8AYvcl3cd3enZqjU9elvekZvRE0fwY2u/t8k6MniWyG0R5X4nFT5+w4kxP6zgSnRbc29M7jtktJB0rWrbocaBRYqsB2YKGxWKb9vs3p0HnkM2NFmD4otGJ/6O6fz4gtyTqwG4l1Br/VeAS92qO766Pjlrji1amnX16gQg8Lbgol6t3AcUtrMtY3ZvD9PvFkPKQcodMzTYjHTfenGCE7R70Zsw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(136003)(39860400002)(396003)(366004)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(36756003)(31686004)(31696002)(86362001)(38100700002)(6512007)(53546011)(6506007)(2616005)(26005)(6486002)(316002)(8676002)(66946007)(6916009)(66476007)(66556008)(83380400001)(4326008)(54906003)(8936002)(478600001)(2906002)(7416002)(4001150100001)(5660300002)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MXBRSGFBVzdnT0NDSWpUbHRoNVRpYzdtSXdMdC9sVXk2TTJsak1ibGtiTlA0?=
+ =?utf-8?B?TzRDTTVjWnJpTWdNcEpISUgzOUZ0WmZUYWljSGtRSWxwdlBWZi9PU0FNbkh1?=
+ =?utf-8?B?RkhkWENLUk9kUzh1TUZjWE9FWjRwK0d5RmZWYklNRnpEOEZEOFhKSUs2blZj?=
+ =?utf-8?B?YVZmR2VhTFJ4V0FsajFQdktORjNzWDhhd3NZUEc0Rm5ZbERoMW1JRHJoYlJG?=
+ =?utf-8?B?dXVsTi8yMVBtaHExR3h3eUFLbDNEUmVWcVBoTWQ5SGlqeFo1TEdsSlFVRDFW?=
+ =?utf-8?B?bll4T1B1U01XSHZSc2NxSloxbkFhYmJvV3o0ZERnc2tuMHVpTkRBT0pFOFVG?=
+ =?utf-8?B?aTlXMytVWlFhU21pTld6T2RadjMyUjUrRjB4SnpMVUVSMDYvbVM4WFlCQk1N?=
+ =?utf-8?B?bzFVWC9NVk9EWU1kdmMwMXJmRVZuaVRkb0YzVmIyaUlaU2srd0JaUzlaanlH?=
+ =?utf-8?B?elpuNDU2cExSZXpZS25kamhFUjBheHNHbHdrdk5TejVBQUZrNjFWSWQ4ZHBL?=
+ =?utf-8?B?engyU0VDYUlmSGVZUWdvSHVxM1N2WHNXb0tyK2d1Rkh6Ykw3SGVWZXovTzZB?=
+ =?utf-8?B?KzJQU2Q3VmRoOWNnb2xveEtHeHAvRCtFUSsxK3B6a2wreTBGUDdFamppSjdr?=
+ =?utf-8?B?VFV5SzNDS2tkbFFhNVg5THJqZmRBaThCODQ5L05IVlpWMFRwRVpGVXlqMGlV?=
+ =?utf-8?B?OTVNc21nenRvRUY3VUgyNW5VM2dtOFhSY0NZc0dnS3dlek1oT3cvR1FIRjNZ?=
+ =?utf-8?B?eUREekszVC83UzBJQ0M3Z3RvNm9LdGFKY2l2T0RuSlRJSDY5c3lKTncycmha?=
+ =?utf-8?B?MWhGRnJqUk5UOFc5ZFVOeEJ3UXB4VFRyczZhbnJsYlArTlBqZlVIelJjUnAz?=
+ =?utf-8?B?WFpnRkk0bnVXWUFIK2FtZFhsby9rQ3hJaThKTnQ1MXFMTkt6Q3lKK0hOVk5t?=
+ =?utf-8?B?WldraVdFR0JCcGpUVFE3YUlVMGZrdEJJV1lmS3dYUEhpNnZmRk9rdTZ4SC9w?=
+ =?utf-8?B?VE4yY3ZYbDNwZ2hkZy9vVWwrNUs1SjVvQzAwSGtlM3ZOOHZSZjQxSW14dUl4?=
+ =?utf-8?B?a1FQMDNDcXdsblRGbjNVNnVlaUYyZDNPcG5NYzJMdm1xR2RJZVFRenY3cFVa?=
+ =?utf-8?B?Y3ErUHVKaDBsZDVjMUVCWXVEK2tHREplWmY4UnFwWHM4MTZhOTI4eXJrTm9E?=
+ =?utf-8?B?UzJtRzZZamRMR2s3RHVYZzBQckxVNy9WemZyQTBydjA3cnZlYUNVV2JoNVA3?=
+ =?utf-8?B?VVAzOEcxeXFJREJkeXhkZlRQMDlucWMwZFBUT1hUdTdabEEyY2pWQlN2NjhL?=
+ =?utf-8?B?VC9hWGtROEREY1JjcERxbW9tYWNmVXNhWFdxY1RlU09RRHZmNG1qUUh0QytE?=
+ =?utf-8?B?b3VhWGZNWGdUV2dKQ2Vab2dFWkZwVmo0MXExTkhqNjJna2pCSUVka2FpV25j?=
+ =?utf-8?B?SGQ4OHYvVTFCQnZ4WGRvTXZHRzV3K0ZkVzZ1bnlUN0VkUHRFUmtHYTJJTHkz?=
+ =?utf-8?B?Q0NFcjZNSSt0TnQzMGFudnNTbkJYQU41MVF1VXVjbThIZEFGeCs5RnBCVjFO?=
+ =?utf-8?B?R2J0K2twNktnY3d4c0o2cDhOdkl6T2dXMGEyRDlxM0ZucWZRZ20rRXpaZjRJ?=
+ =?utf-8?B?UEFyV2pQdG1BTTdxUm9naFRnYUQvaW5xa2pQa3FPdlEzMEtnZWNZOUQ0Rzdp?=
+ =?utf-8?B?MGgzdlhpM05oYm0vS1ZOaEJDcTQ4SHRPR1JRbWFlVzZuTHRManp4eEdHYXdu?=
+ =?utf-8?B?MzVXLzRyQ1o2dlE4aTVZbGhnRGVIditBWG5NRVRkU0d0amFqZ3FrbXZuY0sr?=
+ =?utf-8?B?cnl6UlIxRlRLSnJIQnpiSUNMbDljU0NmZmxZTDFTd3pUSnZ4MEpCckdGVG5B?=
+ =?utf-8?B?SjREbXBWMWZwQXRFY3d0T1BBWGdRNHFTazNDNjU2WjQwcmg4MmhvUi93TmhT?=
+ =?utf-8?B?aGxtVTNiY0RIK1dEa2oyYllGRyt3LytWR040WnpyNVFDSERoSWZQZzhXN3RB?=
+ =?utf-8?B?QitDN3NScVMyUkJHWlZuWnh6VkFhS0xCcnhmWitYdlNEK29CRmFxQTE5dFVi?=
+ =?utf-8?B?SWQ4MjJGK3VwWnlvM09rUU51bnVmYXR4dFl1bUd3Qmh1MGFPS0k3bjhtY2Jz?=
+ =?utf-8?Q?3ymLSV8zsfTBH4i5VmzQEZc6k?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 435601de-3537-4c61-59c0-08dbded49484
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 14:28:01.0651
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +g4k2bDizePw7Q3glDjxqDIoKMNvaU3W7ymCotGk2HqZMKDxeT3mfthQWuPSjJldeSPiw/u2tdwETe2rDmUDdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7548
 
-The current implementation of x2APIC requires to either use Cluster Logical or
-Physical mode for all interrupts.  However the selection of Physical vs Logical
-is not done at APIC setup, an APIC can be addressed both in Physical or Logical
-destination modes concurrently.
+On 06.11.2023 15:24, Nicola Vetrini wrote:
+> On 2023-10-19 09:55, Nicola Vetrini wrote:
+>> The constant 0 is used instead of NULL in '__ACCESS_ONCE' as a
+>> compile-time check to detect non-scalar types; its usage for this
+>> purpose is deviated.
+>>
+>> Furthermore, the 'typeof_field' macro is introduced as a general way
+>> to access the type of a struct member without declaring a variable
+>> of struct type. Both this macro and 'sizeof_field' are moved to
+>> 'xen/macros.h'.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>> ---
+>> Changes in v2:
+>> - added entry in deviations.rst
+>> Changes in v3:
+>> - dropped access_field
+>> - moved macro to macros.h
+>> ---
+>> Changes in v4:
+>> - Amend deviation record.
+>> ---
+> 
+> This patch has received some R-by-s, but no acks at the moment.
+> Perhaps at least one is needed to get this into 4.19?
 
-Introduce a new x2APIC mode called Mixed, which uses Logical Cluster mode for
-IPIs, and Physical mode for external interrupts, thus attempting to use the
-best method for each interrupt type.
+I didn't think it does, and I have it marked as ready to go in. But
+from an earlier email from Stefano I inferred that it might be
+preferable to commit larger sets of Misra changes only once the tree
+is fully open again.
 
-Using Physical mode for external interrupts allows more vectors to be used, and
-interrupt balancing to be more accurate.
-
-Using Logical Cluster mode for IPIs allows fewer accesses to the ICR register
-when sending those, as multiple CPUs can be targeted with a single ICR register
-write.
-
-A simple test calling flush_tlb_all() 10000 times on a tight loop on AMD EPYC
-9754 with 512 CPUs gives the following figures in nano seconds:
-
-x mixed
-+ phys
-* cluster
-    N           Min           Max        Median           Avg        Stddev
-x  25 3.5131328e+08 3.5716441e+08 3.5410987e+08 3.5432659e+08     1566737.4
-+  12  1.231082e+09  1.238824e+09 1.2370528e+09 1.2357981e+09     2853892.9
-Difference at 95.0% confidence
-	8.81472e+08 +/- 1.46849e+06
-	248.774% +/- 0.96566%
-	(Student's t, pooled s = 2.05985e+06)
-*  11 3.5099276e+08 3.5561459e+08 3.5461234e+08 3.5415668e+08     1415071.9
-No difference proven at 95.0% confidence
-
-So Mixed has no difference when compared to Cluster mode, and Physical mode is
-248% slower when compared to either Mixed or Cluster modes with a 95%
-confidence.
-
-Note that Xen uses Cluster mode by default, and hence is already using the
-fastest way for IPI delivery at the cost of reducing the amount of vectors
-available system-wide.
-
-Make the newly introduced mode the default one.
-
-Note the printing of the APIC addressing mode done in connect_bsp_APIC() has
-been removed, as with the newly introduced mixed mode this would require more
-fine grained printing, or else would be incorrect.  The addressing mode can
-already be derived from the APIC driver in use, which is printed by different
-helpers.
-
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v3:
- - Rename Kconfig option.
- - Cosmetic code fixes.
- - Return negative error from parse_x2apic_mode().
- - Add cf_check attribute to cmdline parsing hook.
- - Add more figures re the performance difference.
-
-Changes since v2:
- - Split comment regarding usage of genapic fields.
- - Remove the printing of the APIC addressing mode in connect_bsp_APIC().
-
-Changes since v1:
- - Add change log entry.
- - Fix indentation and usage of tristate in Kconfig.
- - Adjust comment regarding hooks used by external interrupts in
-   apic_x2apic_mixed.
----
- CHANGELOG.md                      |  3 +
- docs/misc/xen-command-line.pandoc | 12 ++++
- xen/arch/x86/Kconfig              | 35 +++++++++--
- xen/arch/x86/apic.c               |  6 +-
- xen/arch/x86/genapic/x2apic.c     | 98 +++++++++++++++++++++++--------
- 5 files changed, 119 insertions(+), 35 deletions(-)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index b184dde8b15f..c341c9d0bf5d 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- ### Changed
- 
- ### Added
-+ - On x86:
-+   - Introduce a new x2APIC driver that uses Cluster Logical addressing mode
-+     for IPIs and Physical addressing mode for external interrupts.
- 
- ### Removed
- 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 9a19a04157cb..8e65f8bd18bf 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2804,6 +2804,15 @@ the watchdog.
- 
- Permit use of x2apic setup for SMP environments.
- 
-+### x2apic-mode (x86)
-+> `= physical | cluster | mixed`
-+
-+> Default: `physical` if **FADT** mandates physical mode, otherwise set at
-+>          build time by CONFIG_X2APIC_{PHYSICAL,LOGICAL,MIXED}.
-+
-+In the case that x2apic is in use, this option switches between modes to
-+address APICs in the system as interrupt destinations.
-+
- ### x2apic_phys (x86)
- > `= <boolean>`
- 
-@@ -2814,6 +2823,9 @@ In the case that x2apic is in use, this option switches between physical and
- clustered mode.  The default, given no hint from the **FADT**, is cluster
- mode.
- 
-+**WARNING: `x2apic_phys` is deprecated and superseded by `x2apic-mode`.
-+The latter takes precedence if both are set.**
-+
- ### xenheap_megabytes (arm32)
- > `= <size>`
- 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index eac77573bd75..1acdffc51c22 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -228,11 +228,18 @@ config XEN_ALIGN_2M
- 
- endchoice
- 
--config X2APIC_PHYSICAL
--	bool "x2APIC Physical Destination mode"
-+choice
-+	prompt "x2APIC Driver default"
-+	default X2APIC_MIXED
- 	help
--	  Use x2APIC Physical Destination mode by default when available.
-+	  Select APIC addressing when x2APIC is enabled.
-+
-+	  The default mode is mixed which should provide the best aspects
-+	  of both physical and cluster modes.
- 
-+config X2APIC_PHYSICAL
-+	bool "Physical Destination mode"
-+	help
- 	  When using this mode APICs are addressed using the Physical
- 	  Destination mode, which allows using all dynamic vectors on each
- 	  CPU independently.
-@@ -242,9 +249,27 @@ config X2APIC_PHYSICAL
- 	  destination inter processor interrupts (IPIs) slightly slower than
- 	  Logical Destination mode.
- 
--	  The mode when this option is not selected is Logical Destination.
-+config X2APIC_CLUSTER
-+	bool "Cluster Destination mode"
-+	help
-+	  When using this mode APICs are addressed using the Cluster Logical
-+	  Destination mode.
-+
-+	  Cluster Destination has the benefit of sending IPIs faster since
-+	  multiple APICs can be targeted as destinations of a single IPI.
-+	  However the vector space is shared between all CPUs on the cluster,
-+	  and hence using this mode reduces the number of available vectors
-+	  when compared to Physical mode.
- 
--	  If unsure, say N.
-+config X2APIC_MIXED
-+	bool "Mixed Destination mode"
-+	help
-+	  When using this mode APICs are addressed using the Cluster Logical
-+	  Destination mode for IPIs and Physical mode for external interrupts.
-+
-+	  Should provide the best of both modes.
-+
-+endchoice
- 
- config GUEST
- 	bool
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index f1264ce7ed1e..6acdd0ec1468 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -229,11 +229,7 @@ void __init connect_bsp_APIC(void)
-         outb(0x01, 0x23);
-     }
- 
--    printk("Enabling APIC mode:  %s.  Using %d I/O APICs\n",
--           !INT_DEST_MODE ? "Physical"
--                          : init_apic_ldr == init_apic_ldr_flat ? "Flat"
--                                                                : "Clustered",
--           nr_ioapics);
-+    printk("Enabling APIC mode.  Using %d I/O APICs\n", nr_ioapics);
-     enable_apic_mode();
- }
- 
-diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
-index 707deef98c27..b88c7a96fe3e 100644
---- a/xen/arch/x86/genapic/x2apic.c
-+++ b/xen/arch/x86/genapic/x2apic.c
-@@ -180,6 +180,36 @@ static const struct genapic __initconstrel apic_x2apic_cluster = {
-     .send_IPI_self = send_IPI_self_x2apic
- };
- 
-+/*
-+ * Mixed x2APIC mode: use physical for external (device) interrupts, and
-+ * cluster for inter processor interrupts.  Such mode has the benefits of not
-+ * sharing the vector space with all CPUs on the cluster, while still allowing
-+ * IPIs to be more efficiently delivered by not having to perform an ICR write
-+ * for each target CPU.
-+ */
-+static const struct genapic __initconstrel apic_x2apic_mixed = {
-+    APIC_INIT("x2apic_mixed", NULL),
-+
-+    /*
-+     * The following fields are exclusively used by external interrupts and
-+     * hence are set to use Physical destination mode handlers.
-+     */
-+    .int_delivery_mode = dest_Fixed,
-+    .int_dest_mode = 0 /* physical delivery */,
-+    .vector_allocation_cpumask = vector_allocation_cpumask_phys,
-+    .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-+
-+    /*
-+     * The following fields are exclusively used by IPIs and hence are set to
-+     * use Cluster Logical destination mode handlers.  Note that init_apic_ldr
-+     * is not used by IPIs, but the per-CPU fields it initializes are only used
-+     * by the IPI hooks.
-+     */
-+    .init_apic_ldr = init_apic_ldr_x2apic_cluster,
-+    .send_IPI_mask = send_IPI_mask_x2apic_cluster,
-+    .send_IPI_self = send_IPI_self_x2apic,
-+};
-+
- static int cf_check update_clusterinfo(
-     struct notifier_block *nfb, unsigned long action, void *hcpu)
- {
-@@ -220,38 +250,56 @@ static struct notifier_block x2apic_cpu_nfb = {
- static int8_t __initdata x2apic_phys = -1;
- boolean_param("x2apic_phys", x2apic_phys);
- 
-+enum {
-+   unset, physical, cluster, mixed
-+} static __initdata x2apic_mode = unset;
-+
-+static int __init cf_check parse_x2apic_mode(const char *s)
-+{
-+    if ( !cmdline_strcmp(s, "physical") )
-+        x2apic_mode = physical;
-+    else if ( !cmdline_strcmp(s, "cluster") )
-+        x2apic_mode = cluster;
-+    else if ( !cmdline_strcmp(s, "mixed") )
-+        x2apic_mode = mixed;
-+    else
-+        return -EINVAL;
-+
-+    return 0;
-+}
-+custom_param("x2apic-mode", parse_x2apic_mode);
-+
- const struct genapic *__init apic_x2apic_probe(void)
- {
--    if ( x2apic_phys < 0 )
-+    /* Honour the legacy cmdline setting if it's the only one provided. */
-+    if ( x2apic_mode == unset && x2apic_phys >= 0 )
-+        x2apic_mode = x2apic_phys ? physical : cluster;
-+
-+    if ( x2apic_mode == unset )
-     {
--        /*
--         * Force physical mode if there's no (full) interrupt remapping support:
--         * The ID in clustered mode requires a 32 bit destination field due to
--         * the usage of the high 16 bits to hold the cluster ID.
--         */
--        x2apic_phys = iommu_intremap != iommu_intremap_full ||
--                      (acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL) ||
--                      IS_ENABLED(CONFIG_X2APIC_PHYSICAL);
--    }
--    else if ( !x2apic_phys )
--        switch ( iommu_intremap )
-+        if ( acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL )
-         {
--        case iommu_intremap_off:
--        case iommu_intremap_restricted:
--            printk("WARNING: x2APIC cluster mode is not supported %s interrupt remapping -"
--                   " forcing phys mode\n",
--                   iommu_intremap == iommu_intremap_off ? "without"
--                                                        : "with restricted");
--            x2apic_phys = true;
--            break;
--
--        case iommu_intremap_full:
--            break;
-+            printk(XENLOG_INFO "ACPI FADT forcing x2APIC physical mode\n");
-+            x2apic_mode = physical;
-         }
-+        else
-+            x2apic_mode = IS_ENABLED(CONFIG_X2APIC_MIXED) ? mixed
-+                          : (IS_ENABLED(CONFIG_X2APIC_PHYSICAL) ? physical
-+                                                                : cluster);
-+    }
- 
--    if ( x2apic_phys )
-+    if ( x2apic_mode == physical )
-         return &apic_x2apic_phys;
- 
-+    if ( x2apic_mode == cluster && iommu_intremap != iommu_intremap_full )
-+    {
-+        printk("WARNING: x2APIC cluster mode is not supported %s interrupt remapping -"
-+               " forcing mixed mode\n",
-+               iommu_intremap == iommu_intremap_off ? "without"
-+                                                    : "with restricted");
-+        x2apic_mode = mixed;
-+    }
-+
-     if ( !this_cpu(cluster_cpus) )
-     {
-         update_clusterinfo(NULL, CPU_UP_PREPARE,
-@@ -260,7 +308,7 @@ const struct genapic *__init apic_x2apic_probe(void)
-         register_cpu_notifier(&x2apic_cpu_nfb);
-     }
- 
--    return &apic_x2apic_cluster;
-+    return x2apic_mode == cluster ? &apic_x2apic_cluster : &apic_x2apic_mixed;
- }
- 
- void __init check_x2apic_preenabled(void)
--- 
-2.42.0
-
+Jan
 
