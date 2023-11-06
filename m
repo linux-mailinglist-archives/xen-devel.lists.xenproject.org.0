@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C557E2DA9
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:08:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628395.979868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C83247E2D9A
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:06:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628364.979792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05tq-0004cS-Al; Mon, 06 Nov 2023 20:08:42 +0000
+	id 1r05rj-0008Mt-6w; Mon, 06 Nov 2023 20:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628395.979868; Mon, 06 Nov 2023 20:08:42 +0000
+Received: by outflank-mailman (output) from mailman id 628364.979792; Mon, 06 Nov 2023 20:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05tq-0004Yw-3E; Mon, 06 Nov 2023 20:08:42 +0000
-Received: by outflank-mailman (input) for mailman id 628395;
- Mon, 06 Nov 2023 20:08:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r05rj-0008JL-1t; Mon, 06 Nov 2023 20:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 628364;
+ Mon, 06 Nov 2023 20:06:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OHvK=GT=casper.srs.infradead.org=BATV+7ad6dfa9aff48d363c6b+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r05hZ-00024f-Qw
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:56:01 +0000
+ id 1r05hK-0001Ig-Eh
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:46 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e79ebd2-7cde-11ee-98da-6d05b1d4d9a1;
- Mon, 06 Nov 2023 20:55:54 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76e35812-7cde-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 20:55:41 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r05fb-007taR-5p; Mon, 06 Nov 2023 19:53:59 +0000
+ id 1r05fb-007taU-BN; Mon, 06 Nov 2023 19:54:00 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1r05fb-001GO5-1B; Mon, 06 Nov 2023 19:53:59 +0000
+ Hat Linux)) id 1r05fb-001GOC-1Y; Mon, 06 Nov 2023 19:53:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 7e79ebd2-7cde-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 76e35812-7cde-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=6GcIfEqXlcnmmpl6cCrOJJoCYIHAK8lem5JXl9qMtnE=; b=QgCulFrknk++puvIc8xv05TqtR
-	ADnGU4Ge42C6n3KqRuee9qIvAs4ZgXlXooWWLWMPSbZ/lpLi9+wE9xe6GVO/4BsLlBskszEcJDK6u
-	b3d3S2TxMQMhgXjUfJSAK3IwaTpeS/1SRYzaDnHN9cZiwTGqPEWhM1EqUxQvMij3D08njv1hf5zLa
-	E/lM25PmshZs8n2z0u4s3k7l0k1+QXsNOATEHgXW/QoH3JjQt3ZgoUN3i4Gchyr+zQsq5GJvdqmij
-	X3sRfxM531p1pPRUzK4tX06o2kILA2Ha9sZbaHB9lPivmaGLCN9QJ0WqbYR+xL7WDMzqWR4T7rmwY
-	KJ2AyMOQ==;
+	bh=b/4LHUVwE3s/LELrt+0ER1ploJUp0OvQT5xXzN2r1Zo=; b=wO03cTdGV6iCEdBG6L0F1cccO1
+	QHSGg+nUHOXWPBZvM1na4u5Vn0DxTDkX6KPZkAonJt+d1Enf6ARbK0irjKYcgE98PDTHSUsp+ae/e
+	MErCOIrLehEAU9XtYb3Ab96/YhbXt3+WrtEkFl5fDCZxg/VCp9C3VZW5tF7f85QBmOHVtBUVdNmpK
+	MK0pvW0U+32sS60xeuqo6zB/MXVPkPcUmCAiu+qqQaHx9c0O4ngdT8NYhPcp8QuvyqAFFNrFJlyvV
+	TYhStPSHFu1/IJCYuapswv/aXPQwANpELKGmLssVZJgBYzav2I6TFCsFx087/9NOnZIHS82EV6YJy
+	Q2HkysFQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,9 +118,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH for-8.3 v2 22/46] hw/arm/aspeed: use qemu_configure_nic_device()
-Date: Mon,  6 Nov 2023 19:49:27 +0000
-Message-ID: <20231106195352.301038-23-dwmw2@infradead.org>
+Subject: [PATCH for-8.3 v2 23/46] hw/arm/exynos4: use qemu_create_nic_device()
+Date: Mon,  6 Nov 2023 19:49:28 +0000
+Message-ID: <20231106195352.301038-24-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231106195352.301038-1-dwmw2@infradead.org>
 References: <20231106195352.301038-1-dwmw2@infradead.org>
@@ -133,36 +133,26 @@ From: David Woodhouse <dwmw@amazon.co.uk>
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/arm/aspeed.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ hw/arm/exynos4_boards.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
-index cc59176563..bed5e4f40b 100644
---- a/hw/arm/aspeed.c
-+++ b/hw/arm/aspeed.c
-@@ -356,7 +356,6 @@ static void aspeed_machine_init(MachineState *machine)
-     AspeedMachineClass *amc = ASPEED_MACHINE_GET_CLASS(machine);
-     AspeedSoCClass *sc;
-     int i;
--    NICInfo *nd = &nd_table[0];
+diff --git a/hw/arm/exynos4_boards.c b/hw/arm/exynos4_boards.c
+index b0e13eb4f0..003992189b 100644
+--- a/hw/arm/exynos4_boards.c
++++ b/hw/arm/exynos4_boards.c
+@@ -76,10 +76,8 @@ static void lan9215_init(uint32_t base, qemu_irq irq)
+     SysBusDevice *s;
  
-     bmc->soc = ASPEED_SOC(object_new(amc->soc_name));
-     object_property_add_child(OBJECT(machine), "soc", OBJECT(bmc->soc));
-@@ -371,10 +370,10 @@ static void aspeed_machine_init(MachineState *machine)
-                              &error_fatal);
- 
-     for (i = 0; i < sc->macs_num; i++) {
--        if ((amc->macs_mask & (1 << i)) && nd->used) {
--            qemu_check_nic_model(nd, TYPE_FTGMAC100);
--            qdev_set_nic_properties(DEVICE(&bmc->soc->ftgmac100[i]), nd);
--            nd++;
-+        if ((amc->macs_mask & (1 << i)) &&
-+            !qemu_configure_nic_device(DEVICE(&bmc->soc->ftgmac100[i]),
-+                                       true, NULL)) {
-+            break; /* No configs left; stop asking */
-         }
-     }
- 
+     /* This should be a 9215 but the 9118 is close enough */
+-    if (nd_table[0].used) {
+-        qemu_check_nic_model(&nd_table[0], "lan9118");
+-        dev = qdev_new(TYPE_LAN9118);
+-        qdev_set_nic_properties(dev, &nd_table[0]);
++    dev = qemu_create_nic_device(TYPE_LAN9118, true, NULL);
++    if (dev) {
+         qdev_prop_set_uint32(dev, "mode_16bit", 1);
+         s = SYS_BUS_DEVICE(dev);
+         sysbus_realize_and_unref(s, &error_fatal);
 -- 
 2.41.0
 
