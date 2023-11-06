@@ -2,32 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23747E2ABC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 18:12:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628228.979448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD797E2ABF
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 18:12:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628232.979458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r038d-0001jl-CC; Mon, 06 Nov 2023 17:11:47 +0000
+	id 1r039U-0002Ia-Ld; Mon, 06 Nov 2023 17:12:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628228.979448; Mon, 06 Nov 2023 17:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 628232.979458; Mon, 06 Nov 2023 17:12:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r038d-0001i4-8f; Mon, 06 Nov 2023 17:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 628228;
- Mon, 06 Nov 2023 17:11:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r038b-0001hu-IX
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 17:11:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r038b-0007Ji-1B; Mon, 06 Nov 2023 17:11:45 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=[192.168.14.214]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r038a-0002cA-Ry; Mon, 06 Nov 2023 17:11:44 +0000
+	id 1r039U-0002FH-I5; Mon, 06 Nov 2023 17:12:40 +0000
+Received: by outflank-mailman (input) for mailman id 628232;
+ Mon, 06 Nov 2023 17:12:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z8vV=GT=redhat.com=mpatocka@srs-se1.protection.inumbo.net>)
+ id 1r039S-0002En-G0
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 17:12:38 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id adebd26b-7cc7-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 18:12:36 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-632-_45CrAGuNjOuxKLbB7FT_Q-1; Mon,
+ 06 Nov 2023 12:12:31 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 674ED3821568;
+ Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
+Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
+ [10.11.5.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 47C5D1121308;
+ Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
+Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
+ from userid 12668)
+ id 3227530C72A7; Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
+ 2E33F3FD16; Mon,  6 Nov 2023 18:12:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,168 +58,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/tlXdg1zsTQDxNrnksF8yi1uUeG7Q24OPNiDvP4b4bU=; b=E4hkHYuJexe9W2drNZHVcgYWVc
-	HPiiG8Bw1tVGudijs9Qqi+LZVqWQD7MXykafaiRmA4/0qixnGbMnuXNfhJzmNAevDEEdk8mtVbuRG
-	xMBctjUSRRTVVvUSnGZt/xjhofX4QY1HVdxUwz7iMl0wGsqTTYWxpOZ5IB8iUSTHuWVY=;
-Message-ID: <342f045a-0291-4f4b-9e89-db0b208a8ae1@xen.org>
-Date: Mon, 6 Nov 2023 17:11:42 +0000
+X-Inumbo-ID: adebd26b-7cc7-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1699290755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xtsXGyrCZBmUJfCxzrPKMMdVxxHur1sL8JecsuLgwa0=;
+	b=Y+0xfMr2o5tCEnJaHnfqd7QUVxuT1ZZgxZs+imYKxly0YcZ/DEkMftE2YZBB7d0m3kIAZ/
+	S8Pfphv0I1F7+uesArUFqzAuOaUh7tDy4ZR8RlcdyjQHab+0zecKpDpdK8Eia1QhtST6Md
+	wWpQ9XED4ohq9YgBOEgLsuISksliftA=
+X-MC-Unique: _45CrAGuNjOuxKLbB7FT_Q-1
+Date: Mon, 6 Nov 2023 18:12:30 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Mike Snitzer <snitzer@kernel.org>
+cc: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, iommu@lists.linux.dev, 
+    Marek Marczykowski-G'orecki <marmarek@invisiblethingslab.com>, 
+    Jens Axboe <axboe@fb.com>, Sagi Grimberg <sagi@grimberg.me>, 
+    Jan Kara <jack@suse.cz>, Vlastimil Babka <vbabka@suse.cz>, 
+    Andrew Morton <akpm@linux-foundation.org>, 
+    Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@suse.com>, 
+    stable@vger.kernel.org, regressions@lists.linux.dev, 
+    Alasdair Kergon <agk@redhat.com>, dm-devel@lists.linux.dev, 
+    linux-mm@kvack.org
+Subject: [PATCH v2] swiotlb-xen: provide the "max_mapping_size" method
+In-Reply-To: <ZUkGpblDX637QV9y@redhat.com>
+Message-ID: <151bef41-e817-aea9-675-a35fdac4ed@redhat.com>
+References: <3cb4133c-b6db-9187-a678-11ed8c9456e@redhat.com> <ZUUctamEFtAlSnSV@mail-itl> <ZUUlqJoS6_1IznzT@kbusch-mbp.dhcp.thefacebook.com> <ZUVYT1Xp4+hFT27W@mail-itl> <ZUV3TApYYoh_oiRR@kbusch-mbp.dhcp.thefacebook.com> <11a9886d-316c-edcd-d6da-24ad0b9a2b4@redhat.com>
+ <ZUZOKitOAqqKiJ4n@kbusch-mbp.dhcp.thefacebook.com> <20231106071008.GB17022@lst.de> <928b5df7-fada-cf2f-6f6a-257a84547c3@redhat.com> <ZUkDUXDF6g4P86F3@kbusch-mbp.dhcp.thefacebook.com> <ZUkGpblDX637QV9y@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/arm32: head: Introduce
- enable_{boot,secondary}_cpu_mm()
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, bertrand.marquis@arm.com, michal.orzel@arm.com,
- henry.wang@arm.com, Volodymyr_Babchuk@epam.com
-References: <20231103173436.3912488-1-ayan.kumar.halder@amd.com>
- <20231103173436.3912488-2-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231103173436.3912488-2-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; BOUNDARY="185210117-1837111149-1699290694=:1497320"
+Content-ID: <478c056-3a19-eb50-34da-911cf13fc558@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 
-Hi Ayan,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 03/11/2023 17:34, Ayan Kumar Halder wrote:
-> All the MMU related functionality have been clubbed together in
-> enable_boot_cpu_mm() for booting primary cpu and enable_secondary_cpu_mm() for
-> booting secondary cpus.
-> This is done in preparation for moving the code related to MMU in MMU specific
-> file and in order to support non MMU cpus in future.
-> 
-> This is based on d2f8df5b3ede commit.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changes from :-
-> 
-> v1 - 1. Added a proper commit message.
-> 2. Some style and other fixes suggested in v1.
-> 
->   xen/arch/arm/arm32/head.S | 89 +++++++++++++++++++++++++++++----------
->   1 file changed, 67 insertions(+), 22 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-> index 2d7e690bf5..7004443798 100644
-> --- a/xen/arch/arm/arm32/head.S
-> +++ b/xen/arch/arm/arm32/head.S
-> @@ -201,13 +201,11 @@ past_zImage:
->   
->           bl    check_cpu_mode
->           bl    cpu_init
-> -        bl    create_page_tables
->   
-> -        /* Address in the runtime mapping to jump to after the MMU is enabled */
->           mov_w lr, primary_switched
-> -        b     enable_mmu
-> +        b     enable_boot_cpu_mm
-> +
->   primary_switched:
-> -        bl    setup_fixmap
->   #ifdef CONFIG_EARLY_PRINTK
->           /* Use a virtual address to access the UART. */
->           mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
-> @@ -249,27 +247,11 @@ GLOBAL(init_secondary)
->   #endif
->           bl    check_cpu_mode
->           bl    cpu_init
-> -        bl    create_page_tables
->   
-> -        /* Address in the runtime mapping to jump to after the MMU is enabled */
->           mov_w lr, secondary_switched
-> -        b     enable_mmu
-> -secondary_switched:
-> -        /*
-> -         * Non-boot CPUs need to move on to the proper pagetables, which were
-> -         * setup in prepare_secondary_mm.
-> -         *
-> -         * XXX: This is not compliant with the Arm Arm.
-> -         */
-> -        mov_w r4, init_ttbr          /* VA of HTTBR value stashed by CPU 0 */
-> -        ldrd  r4, r5, [r4]           /* Actual value */
-> -        dsb
-> -        mcrr  CP64(r4, r5, HTTBR)
-> -        dsb
-> -        isb
-> -        flush_xen_tlb_local r0
-> -        pt_enforce_wxn r0
-> +        b     enable_secondary_cpu_mm
->   
-> +secondary_switched:
->   #ifdef CONFIG_EARLY_PRINTK
->           /* Use a virtual address to access the UART. */
->           mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
-> @@ -692,6 +674,69 @@ ready_to_switch:
->           mov   pc, lr
->   ENDPROC(switch_to_runtime_mapping)
->   
-> +/*
-> + * Enable mm (turn on the data cache and the MMU) for secondary CPUs.
-> + * The function will return to the virtual address provided in LR (e.g. the
-> + * runtime mapping).
-> + *
-> + * Inputs:
-> + *   lr : Virtual address to return to.
-> + *
-> + * Clobbers r0 - r6
+--185210117-1837111149-1699290694=:1497320
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+Content-ID: <4468b751-727c-3ffb-15cc-683422283a27@redhat.com>
 
-r12 will also be set. I think you want to mention it (may be not in 
-clobbers) with its purpose within the function as it is less obvious 
-than r6.
+From: Keith Busch <kbusch@kernel.org>
 
-> + */
-> +enable_secondary_cpu_mm:
-> +        mov   r6, lr
-> +
-> +        bl    create_page_tables
-> +
-> +        /* Address in the runtime mapping to jump to after the MMU is enabled */
-> +        mov_w lr, 1f
-> +        b     enable_mmu
-> +1:
-> +        /*
-> +         * Non-boot CPUs need to move on to the proper pagetables, which were
-> +         * setup in prepare_secondary_mm.
-> +         *
-> +         * XXX: This is not compliant with the Arm Arm.
-> +         */
-> +        mov_w r4, init_ttbr          /* VA of HTTBR value stashed by CPU 0 */
-> +        ldrd  r4, r5, [r4]           /* Actual value */
-> +        dsb
-> +        mcrr  CP64(r4, r5, HTTBR)
-> +        dsb
-> +        isb
-> +        flush_xen_tlb_local r0
-> +        pt_enforce_wxn r0
-> +
-> +        /* Return to the virtual address requested by the caller. */
-> +        mov   pc, r6
-> +ENDPROC(enable_secondary_cpu_mm)
-> +
-> +/*
-> + * Enable mm (turn on the data cache and the MMU) for the boot CPU.
-> + * The function will return to the virtual address provided in LR (e.g. the
-> + * runtime mapping).
-> + *
-> + * Inputs:
-> + *   lr : Virtual address to return to.
-> + *
-> + * Clobbers r0 - r6
+There's a bug that when using the XEN hypervisor with bios with large
+multi-page bio vectors on NVMe, the kernel deadlocks [1].
 
-Same here.
+The deadlocks are caused by inability to map a large bio vector -
+dma_map_sgtable always returns an error, this gets propagated to the block
+layer as BLK_STS_RESOURCE and the block layer retries the request
+indefinitely.
 
+XEN uses the swiotlb framework to map discontiguous pages into contiguous
+runs that are submitted to the PCIe device. The swiotlb framework has a
+limitation on the length of a mapping - this needs to be announced with
+the max_mapping_size method to make sure that the hardware drivers do not
+create larger mappings.
 
-With that and Michal's comment addressed:
+Without max_mapping_size, the NVMe block driver would create large
+mappings that overrun the maximum mapping size.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Link: https://lore.kernel.org/stable/ZTNH0qtmint%2FzLJZ@mail-itl/ [1]
+Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Cc: stable@vger.kernel.org
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Cheers,
+---
+ drivers/xen/swiotlb-xen.c |    1 +
+ 1 file changed, 1 insertion(+)
 
--- 
-Julien Grall
+Index: linux-stable/drivers/xen/swiotlb-xen.c
+===================================================================
+--- linux-stable.orig/drivers/xen/swiotlb-xen.c	2023-11-03 17:57:18.000000000 +0100
++++ linux-stable/drivers/xen/swiotlb-xen.c	2023-11-06 15:30:59.000000000 +0100
+@@ -405,4 +405,5 @@ const struct dma_map_ops xen_swiotlb_dma
+ 	.get_sgtable = dma_common_get_sgtable,
+ 	.alloc_pages = dma_common_alloc_pages,
+ 	.free_pages = dma_common_free_pages,
++	.max_mapping_size = swiotlb_max_mapping_size,
+ };
+--185210117-1837111149-1699290694=:1497320--
+
 
