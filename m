@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2EE17E2610
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 14:50:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627994.978967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E987E2616
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 14:52:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627997.978977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzzzD-00010D-At; Mon, 06 Nov 2023 13:49:51 +0000
+	id 1r001S-0002OI-Mo; Mon, 06 Nov 2023 13:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627994.978967; Mon, 06 Nov 2023 13:49:51 +0000
+Received: by outflank-mailman (output) from mailman id 627997.978977; Mon, 06 Nov 2023 13:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzzzD-0000yE-8G; Mon, 06 Nov 2023 13:49:51 +0000
-Received: by outflank-mailman (input) for mailman id 627994;
- Mon, 06 Nov 2023 13:49:49 +0000
+	id 1r001S-0002Ld-KB; Mon, 06 Nov 2023 13:52:10 +0000
+Received: by outflank-mailman (input) for mailman id 627997;
+ Mon, 06 Nov 2023 13:52:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gUrR=GT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1qzzzB-0000y7-9a
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 13:49:49 +0000
+ id 1r001R-0002LX-28
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 13:52:09 +0000
 Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
  [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58ff4e33-7cab-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 14:49:47 +0100 (CET)
+ id ac7397f9-7cab-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 14:52:07 +0100 (CET)
 Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4081ccf69dcso32447145e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 05:49:47 -0800 (PST)
+ 5b1f17b1804b1-4083cd3917eso34529595e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 05:52:07 -0800 (PST)
 Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- y8-20020a5d4708000000b0032d2f09d991sm9515572wrq.33.2023.11.06.05.49.45
+ h19-20020a05600c30d300b004063c9f68f2sm12085344wmn.26.2023.11.06.05.52.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Nov 2023 05:49:46 -0800 (PST)
+ Mon, 06 Nov 2023 05:52:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58ff4e33-7cab-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: ac7397f9-7cab-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699278586; x=1699883386; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1699278726; x=1699883526; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sd6fb91Q4Xr6NPHBENxTqPWK3ZF161HQkHkpMYoAkWM=;
-        b=lIqkfUptXp7HkI/uzFIYZdHi8KThe1xLxguNFfXsphlDJQOsNoNR/a5PGI2gThPhP3
-         OuG/IZ0dZqQUZ3xMAkCGtE/jiV4ikclnD8J45Gzi4tmcfynid5nCDrOa46JnbC1JlwKR
-         C8aMGwWPvYAcO97r7X2Y2/O6MPjWXblqYCgv8=
+        bh=O32cHMpdyaCz5LOPRe7uLWNtRlMxmfU4hBpS+Ae/FCI=;
+        b=LhrD3zZd40xGkFTbLPYgmsMvONc+FXTx+JaW9a1MxnvKAZwYoHvsSNSUjUV9EMrOaJ
+         UjSGaS3N4dLJi0xtX7KOWC/uEgWiW9TqVL76HwZ2Fy9XrRMlcxS0m3Jz5kbDy8+s/5Yv
+         5WTjNiZQPVbOPkPkgcgGrXvfawOdJrRQDTqtM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699278586; x=1699883386;
+        d=1e100.net; s=20230601; t=1699278726; x=1699883526;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sd6fb91Q4Xr6NPHBENxTqPWK3ZF161HQkHkpMYoAkWM=;
-        b=YTbM0Or5mGauAqWLC3USpBiBQcZOCG+MqgcUrx2hbjWp2V/MbzydeTywb2GRoG8dUP
-         xujBLuQmNfYGkt2ZGQ5B1/euGUUKpHlz5/fq0ASK1gzrwIyKNqPTjYbugaF1qdno1FsP
-         YZgbgw86R+6XmxO+CYJN7EiUWeKyxDoC3v7UiM+H1q3UYZwm7DpkgRJSoDazy1YcaVKZ
-         QhdQiqnNIVw5tvPgXeraOMbHZVkd5WrlJHN09qsdKgm5ELCxEytnoSmblBpu+5QZgwOL
-         MUZ76mlrDWpLQ3mRfBJx0apcJfDowl6aojX6/0+Cug8s2couubrqkIB96SvaVeT98+UN
-         aP2w==
-X-Gm-Message-State: AOJu0YxQCMNbSu5mCwm/FSV+w/6yJL1oKK2LHkcyBwAfRl1cgPARfKUT
-	erZ3swhhWq/f8RC2yhla5mlurA==
-X-Google-Smtp-Source: AGHT+IFIzXnjUrh+hbK3S1dvl7bEXmLeca8XFcy80K0H7Tck0RYiBN9h0uW9e4zuzD2DsRY48XuhVg==
-X-Received: by 2002:a05:6000:1e98:b0:32f:64f2:815 with SMTP id dd24-20020a0560001e9800b0032f64f20815mr8140416wrb.33.1699278586592;
-        Mon, 06 Nov 2023 05:49:46 -0800 (PST)
-Message-ID: <1e5e8d65-c625-49b7-aecf-8526bca9f174@citrix.com>
-Date: Mon, 6 Nov 2023 13:49:45 +0000
+        bh=O32cHMpdyaCz5LOPRe7uLWNtRlMxmfU4hBpS+Ae/FCI=;
+        b=mUQfpdYJZDq4yQUK46dEF8BlpLIl8SWx+2rggk0o9WGOGz54q8lbV7HB2TFcLgwIxD
+         5dSBzXjBoy9dVU1E+22m+ybsJWinnkWAjmY6yzKW1FfUaL1+Ff1LMKNXxsTdEL+5mC0K
+         iiMzDkeG8WqOlLPlVqgzFgPEpbR2Q9CQZZ6rPtV7T7+a7Z0pGp8weFjZU5hkHOoIZibu
+         UoqiIIYokIDKGdA119PRpyh9YQpwXoYP1wdcoKYqR3p5n5yH7iiAjQHQ00nW/ZLb4ev/
+         hbaiawPCgPv4MvVaQPcFNvICundOR7FSubc0uqYTVi7s3YkglxpL6/3AawxZHnWJjZfM
+         PKPg==
+X-Gm-Message-State: AOJu0Yy/OWWrYMTTLtYDM+ECRdwS5HyohQaSU5B6ho4L8HI99198T+CN
+	h/GacUCaV9/Q10aH0FOxCx6MdA==
+X-Google-Smtp-Source: AGHT+IFRIJJnS6INwHLdDLvL+iK9jG2mVGnXOQei+CLPHVVj94iCTskJQXoAHVlSbwYA8ahhGKi1xw==
+X-Received: by 2002:a05:600c:4f44:b0:408:389d:c22e with SMTP id m4-20020a05600c4f4400b00408389dc22emr24384256wmq.25.1699278726701;
+        Mon, 06 Nov 2023 05:52:06 -0800 (PST)
+Message-ID: <e13a9138-9415-4009-a427-8367013152e2@citrix.com>
+Date: Mon, 6 Nov 2023 13:52:06 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tools: Remove all DECLARE_* op macros in xc
+Subject: Re: [PATCH for-4.18 0/2] golang: Binding fixes
 Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, xen-devel@dornerworks.com
-Cc: Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20231106132529.21248-1-alejandro.vallejo@cloud.com>
+To: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Xen Security <security@xen.org>
+References: <20231103194551.64448-1-jandryuk@gmail.com>
+ <e4d1a87f-fdf3-4461-b212-1ed28c93019b@tibco.com>
+ <CE0D9014-BD9A-45C5-90EA-94EF780D5100@arm.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,19 +131,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231106132529.21248-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <CE0D9014-BD9A-45C5-90EA-94EF780D5100@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/11/2023 1:25 pm, Alejandro Vallejo wrote:
-> These macros were hiding that the ops are not zero-initialized by the
-> toolstack. This is needlessly opaque for something so simple, so this patch
-> removes them and replaces them with explicit zero-initialising versions.
+On 06/11/2023 5:38 am, Henry Wang wrote:
+> Hi Andrew,
 >
-> The patch also removes PHYSDEV_OP from there, as that seems to be an old
-> dead macro.
->
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> On Nov 4, 2023, at 03:50, Andrew Cooper <andcooper@tibco.com> wrote:
+>>
+>> [andcooper@tibco.com appears similar to someone who previously sent you email, but may not be that person. Learn why this could be a risk at https://aka.ms/LearnAboutSenderIdentification ]
+> (+Your work email address since this reply somehow ended up with my filter,
+> I found this email a bit later, sorry for the late reply.)
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+sigh.
+
+It seems a Thunderbird update has clobbered my configuration, and for
+reasons of the corporate merger, @tibco is still our probably accounts.
+
+I'll see about fixing up.
+
+~Andrew
 
