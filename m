@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D13A67E2D4D
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 20:55:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628294.979653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA1D7E2D46
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 20:55:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628286.979587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05hL-000485-Ry; Mon, 06 Nov 2023 19:55:47 +0000
+	id 1r05hE-0002RM-CP; Mon, 06 Nov 2023 19:55:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628294.979653; Mon, 06 Nov 2023 19:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 628286.979587; Mon, 06 Nov 2023 19:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05hK-0003ru-VV; Mon, 06 Nov 2023 19:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 628294;
- Mon, 06 Nov 2023 19:55:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r05hE-0002Oh-7J; Mon, 06 Nov 2023 19:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 628286;
+ Mon, 06 Nov 2023 19:55:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OHvK=GT=casper.srs.infradead.org=BATV+7ad6dfa9aff48d363c6b+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r05hG-0001Ig-CV
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:42 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75c66d7b-7cde-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 20:55:39 +0100 (CET)
+ <SRS0=nwd5=GT=desiato.srs.infradead.org=BATV+aa7b7dce24b49c47a83c+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r05hC-00024f-0b
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:38 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7409c60c-7cde-11ee-98da-6d05b1d4d9a1;
+ Mon, 06 Nov 2023 20:55:36 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r05fa-007taP-Qm; Mon, 06 Nov 2023 19:53:59 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1r05fb-00AkFw-2j; Mon, 06 Nov 2023 19:54:07 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1r05fb-001GNs-08; Mon, 06 Nov 2023 19:53:59 +0000
+ Hat Linux)) id 1r05fb-001GNw-0V; Mon, 06 Nov 2023 19:53:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 75c66d7b-7cde-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 7409c60c-7cde-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=53sT3CeDc9xXHXsxnlVgayDW0vZ6KE0BHHmNTnQfdBU=; b=HCwjrtiiJKiyFyU3x/NClKXi9b
-	xvqGzELhrV7zmvpEhf70Qpc4Dv6Bo5o9kSmwVqFA/llaL/c2omY3KrJD96KvgRTOK8UqFxoTc5vLU
-	HYxEf0aCK3PtGeFMO2Vkokgksqk9hPvQseo+afAp3kFPYf0yPdwUqzW346DhK6YVcENrldih7xm7x
-	x0xgLqtgoOLOOlb6WY9heOhN98STW7gpFvgVWOUeuI8AQIfC+OyhKGIejtt0Vqq8iefPcJVNVp9lD
-	lTBFgycuq+gi7+El6wIselkcLZRb9qGT/Z8QbjzGdnywxijjdBfaJ27zt09wtODTP4FCDxXeJWoxH
-	ecMm0sOQ==;
+	bh=uwihplmHUI41+5Uemb4Oxlu9ois5VtdRK79kjClcmBs=; b=ZtXf0/NC/hpWVyDiZ8ZZZvEhOG
+	vRqsNRJjXJnjcOuf3xSWtMMEMyf5hZKuDu8F6/7Taq4jiNqTen6jhjJl79f06fauEuhh2qltX2d2T
+	Kec7AtpGoQ+0Ho+6jtOZaIXGX7XZKImOUjQU5IAdaWKA7WxCCywTkUaGdnzlNBq9d47zklDFrWV+B
+	LmxmLnAzOeZHk4NIASLzhWyKSEy4vAoCLEodkruh+njQ3nkKtJRoo3HQo4M1l1S14R+OfVhpFyhp+
+	wHk9E7GCr9WA+gEXQwS8FfSBNMDo9WuXXVesVeKC9YC9eXrK4Bb3TG5nrokqbdyovtwudnwBJobHu
+	D+BVgLhQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,72 +118,39 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH for-8.3 v2 19/46] hw/sparc64/sun4u: use pci_init_nic_devices()
-Date: Mon,  6 Nov 2023 19:49:24 +0000
-Message-ID: <20231106195352.301038-20-dwmw2@infradead.org>
+Subject: [PATCH for-8.3 v2 20/46] hw/xtensa/virt: use pci_init_nic_devices()
+Date: Mon,  6 Nov 2023 19:49:25 +0000
+Message-ID: <20231106195352.301038-21-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231106195352.301038-1-dwmw2@infradead.org>
 References: <20231106195352.301038-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The first sunhme NIC gets placed a function 1 on slot 1 of PCI bus A,
-and the rest are dynamically assigned on PCI bus B.
-
-Previously, any PCI NIC would get the special treatment purely by
-virtue of being first in the list.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/sparc64/sun4u.c | 27 ++++++++-------------------
- 1 file changed, 8 insertions(+), 19 deletions(-)
+ hw/xtensa/virt.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/hw/sparc64/sun4u.c b/hw/sparc64/sun4u.c
-index c871170378..be06278f7d 100644
---- a/hw/sparc64/sun4u.c
-+++ b/hw/sparc64/sun4u.c
-@@ -642,29 +642,18 @@ static void sun4uv_init(MemoryRegion *address_space_mem,
+diff --git a/hw/xtensa/virt.c b/hw/xtensa/virt.c
+index a6cf646e99..5310a88861 100644
+--- a/hw/xtensa/virt.c
++++ b/hw/xtensa/virt.c
+@@ -102,9 +102,7 @@ static void create_pcie(MachineState *ms, CPUXtensaState *env, int irq_base,
  
-     memset(&macaddr, 0, sizeof(MACAddr));
-     onboard_nic = false;
--    for (i = 0; i < nb_nics; i++) {
--        PCIBus *bus;
--        nd = &nd_table[i];
--
--        if (!nd->model || strcmp(nd->model, mc->default_nic) == 0) {
--            if (!onboard_nic) {
--                pci_dev = pci_new_multifunction(PCI_DEVFN(1, 1), mc->default_nic);
--                bus = pci_busA;
--                memcpy(&macaddr, &nd->macaddr.a, sizeof(MACAddr));
--                onboard_nic = true;
--            } else {
--                pci_dev = pci_new(-1, mc->default_nic);
--                bus = pci_busB;
--            }
--        } else {
--            pci_dev = pci_new(-1, nd->model);
--            bus = pci_busB;
+     pci = PCI_HOST_BRIDGE(dev);
+     if (pci->bus) {
+-        for (i = 0; i < nb_nics; i++) {
+-            pci_nic_init_nofail(&nd_table[i], pci->bus, mc->default_nic, NULL);
 -        }
- 
-+    nd = qemu_find_nic_info(mc->default_nic, true, NULL);
-+    if (nd) {
-+        pci_dev = pci_new_multifunction(PCI_DEVFN(1, 1), mc->default_nic);
-         dev = &pci_dev->qdev;
-         qdev_set_nic_properties(dev, nd);
--        pci_realize_and_unref(pci_dev, bus, &error_fatal);
-+        pci_realize_and_unref(pci_dev, pci_busA, &error_fatal);
-+
-+        memcpy(&macaddr, &nd->macaddr.a, sizeof(MACAddr));
-+        onboard_nic = true;
++        pci_init_nic_devices(pci->bus, mc->default_nic);
      }
-+    pci_init_nic_devices(pci_busB, mc->default_nic);
+ }
  
-     /* If we don't have an onboard NIC, grab a default MAC address so that
-      * we have a valid machine id */
 -- 
 2.41.0
 
