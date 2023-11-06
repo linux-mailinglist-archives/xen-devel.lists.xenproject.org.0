@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E7327E2D90
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:06:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628356.979778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC62E7E2D44
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 20:55:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628285.979578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05r6-0007Te-KA; Mon, 06 Nov 2023 20:05:52 +0000
+	id 1r05hC-00029d-3b; Mon, 06 Nov 2023 19:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628356.979778; Mon, 06 Nov 2023 20:05:52 +0000
+Received: by outflank-mailman (output) from mailman id 628285.979578; Mon, 06 Nov 2023 19:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05r6-0007Qh-Gd; Mon, 06 Nov 2023 20:05:52 +0000
-Received: by outflank-mailman (input) for mailman id 628356;
- Mon, 06 Nov 2023 20:05:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r05hC-000250-0A; Mon, 06 Nov 2023 19:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 628285;
+ Mon, 06 Nov 2023 19:55:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OHvK=GT=casper.srs.infradead.org=BATV+7ad6dfa9aff48d363c6b+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r05hO-00024f-Oi
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:50 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77cf3edf-7cde-11ee-98da-6d05b1d4d9a1;
- Mon, 06 Nov 2023 20:55:43 +0100 (CET)
+ <SRS0=nwd5=GT=desiato.srs.infradead.org=BATV+aa7b7dce24b49c47a83c+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r05hA-0001Ig-SV
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:36 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72382b58-7cde-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 20:55:33 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r05fc-007tah-BC; Mon, 06 Nov 2023 19:54:01 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1r05fc-00AkG9-37; Mon, 06 Nov 2023 19:54:02 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1r05fc-001GP5-1u; Mon, 06 Nov 2023 19:54:00 +0000
+ Hat Linux)) id 1r05fc-001GP9-28; Mon, 06 Nov 2023 19:54:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 77cf3edf-7cde-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 72382b58-7cde-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=L5VhMhMWWBNBbH2l848PbF3Scoxc1bNY0ufdNZIbk1U=; b=iGwdZ+aCxnLlfra+boD9l6BbR5
-	ZecLaYSnhd2Mj6VGcRr5cKFp3OHC4upiyzuowHAzrNm+l9PPjYHAkA4bsuk85Y4nKk52kzr3+zyEd
-	WnS0EyMGlN6ZDfyfDTmHT/OpldPg+ZJbZZPEcHW5jilZh/O9C382WNiPYOg9DNJ13rHwCLDxJFCPm
-	Y+L4+sh6q+geRp+KAezyv3Z+Nb5xjuNyuOBLWRC7q+PqKSiqxSUwzaBCQGXmBFP4ccIZe+YhY+YYX
-	TdkNjwVq2/Gm1+kB1qfNHER9XVHZDiq28bZA9sEfSnKDxSIznvYI5NHm4VScCILsu+ZnzaauwqDEy
-	7knI7PNw==;
+	bh=tlzAB3Jn/UWpyGkQsCC1RyHcWVov5/+PrTpxS04M0Yo=; b=fJHIzraBFvJZJ10z0UlO4aRJj/
+	hLvbp2Pve7Xl/DpKD8kAP6iuZkpDARbSazchWV2nc8WqXdLkAOWPBJ0Lk2e0/a8XPsBH9lHjQ/UxI
+	91IUnUT/jAODNLORFQq3LjMM2DWg996OBIWOvaGuxcMBiO5MW3/2MyaUIyygth+ZSHoLJTT5t1sFp
+	7g2rLRKqjSHzUjNaZaNsp87VNFib/Q0gk5yTJofnKN6v6uK31fS+rGaz43y/oPF/HTQjJW3s6KBI4
+	15d2ynXpAj+ssIMKEXqKfSBFkmHyIhsnEh+1qqeYiDOyf9x7nzgrzX1GgO43DYk68838vdbnaEMLA
+	bi3Jrljw==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,63 +118,67 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH for-8.3 v2 35/46] hw/mips/mipssim: use qemu_create_nic_device()
-Date: Mon,  6 Nov 2023 19:49:40 +0000
-Message-ID: <20231106195352.301038-36-dwmw2@infradead.org>
+Subject: [PATCH for-8.3 v2 36/46] hw/mips/jazz: use qemu_find_nic_info()
+Date: Mon,  6 Nov 2023 19:49:41 +0000
+Message-ID: <20231106195352.301038-37-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231106195352.301038-1-dwmw2@infradead.org>
 References: <20231106195352.301038-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The MIPS SIM platform instantiates its NIC only if a corresponding
-configuration exists for it. Use qemu_create_nic_device() function for
-that.
+Extract the MAC address from the NICInfo, or generate one explicitly if
+there was no corresponding NIC configuration, to put it in the PROM.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/mips/mipssim.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ hw/mips/jazz.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/hw/mips/mipssim.c b/hw/mips/mipssim.c
-index 4f743f37eb..d930526fd6 100644
---- a/hw/mips/mipssim.c
-+++ b/hw/mips/mipssim.c
-@@ -110,13 +110,15 @@ static void main_cpu_reset(void *opaque)
-     }
- }
+diff --git a/hw/mips/jazz.c b/hw/mips/jazz.c
+index d33a76ad4d..39a82fc2be 100644
+--- a/hw/mips/jazz.c
++++ b/hw/mips/jazz.c
+@@ -113,15 +113,19 @@ static const MemoryRegionOps dma_dummy_ops = {
+     .endianness = DEVICE_NATIVE_ENDIAN,
+ };
  
--static void mipsnet_init(int base, qemu_irq irq, NICInfo *nd)
-+static void mipsnet_init(int base, qemu_irq irq)
+-static void mips_jazz_init_net(NICInfo *nd, IOMMUMemoryRegion *rc4030_dma_mr,
++static void mips_jazz_init_net(IOMMUMemoryRegion *rc4030_dma_mr,
+                                DeviceState *rc4030, MemoryRegion *dp8393x_prom)
  {
      DeviceState *dev;
-     SysBusDevice *s;
+     SysBusDevice *sysbus;
+     int checksum, i;
+     uint8_t *prom;
++    NICInfo *nd;
  
--    dev = qdev_new("mipsnet");
--    qdev_set_nic_properties(dev, nd);
-+    dev = qemu_create_nic_device("mipsnet", true, NULL);
-+    if (!dev) {
+-    qemu_check_nic_model(nd, "dp83932");
++    nd = qemu_find_nic_info("dp8393x", true, "dp82932");
++    if (!nd) {
 +        return;
 +    }
  
-     s = SYS_BUS_DEVICE(dev);
-     sysbus_realize_and_unref(s, &error_fatal);
-@@ -217,9 +219,8 @@ mips_mipssim_init(MachineState *machine)
-                       sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0));
+     dev = qdev_new("dp8393x");
+     qdev_set_nic_properties(dev, nd);
+@@ -316,12 +320,7 @@ static void mips_jazz_init(MachineState *machine,
      }
  
--    if (nd_table[0].used)
--        /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
--        mipsnet_init(0x4200, env->irq[2], &nd_table[0]);
-+    /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
-+    mipsnet_init(0x4200, env->irq[2]);
- }
+     /* Network controller */
+-    if (nb_nics == 1) {
+-        mips_jazz_init_net(&nd_table[0], rc4030_dma_mr, rc4030, dp8393x_prom);
+-    } else if (nb_nics > 1) {
+-        error_report("This machine only supports one NIC");
+-        exit(1);
+-    }
++    mips_jazz_init_net(rc4030_dma_mr, rc4030, dp8393x_prom);
  
- static void mips_mipssim_machine_init(MachineClass *mc)
+     /* SCSI adapter */
+     dev = qdev_new(TYPE_SYSBUS_ESP);
 -- 
 2.41.0
 
