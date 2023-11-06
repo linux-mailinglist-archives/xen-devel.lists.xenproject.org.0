@@ -2,51 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FD797E2ABF
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 18:12:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628232.979458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565187E2ADA
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 18:20:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628240.979468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r039U-0002Ia-Ld; Mon, 06 Nov 2023 17:12:40 +0000
+	id 1r03Gy-0005VH-IA; Mon, 06 Nov 2023 17:20:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628232.979458; Mon, 06 Nov 2023 17:12:40 +0000
+Received: by outflank-mailman (output) from mailman id 628240.979468; Mon, 06 Nov 2023 17:20:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r039U-0002FH-I5; Mon, 06 Nov 2023 17:12:40 +0000
-Received: by outflank-mailman (input) for mailman id 628232;
- Mon, 06 Nov 2023 17:12:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z8vV=GT=redhat.com=mpatocka@srs-se1.protection.inumbo.net>)
- id 1r039S-0002En-G0
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 17:12:38 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id adebd26b-7cc7-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 18:12:36 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-632-_45CrAGuNjOuxKLbB7FT_Q-1; Mon,
- 06 Nov 2023 12:12:31 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 674ED3821568;
- Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
-Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
- [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 47C5D1121308;
- Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
-Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
- from userid 12668)
- id 3227530C72A7; Mon,  6 Nov 2023 17:12:30 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- 2E33F3FD16; Mon,  6 Nov 2023 18:12:30 +0100 (CET)
+	id 1r03Gy-0005Sq-F3; Mon, 06 Nov 2023 17:20:24 +0000
+Received: by outflank-mailman (input) for mailman id 628240;
+ Mon, 06 Nov 2023 17:20:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r03Gx-0005Sk-9X
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 17:20:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r03Gw-0007UL-SK; Mon, 06 Nov 2023 17:20:22 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.14.214]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r03Gw-0002oo-KR; Mon, 06 Nov 2023 17:20:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,91 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adebd26b-7cc7-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1699290755;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xtsXGyrCZBmUJfCxzrPKMMdVxxHur1sL8JecsuLgwa0=;
-	b=Y+0xfMr2o5tCEnJaHnfqd7QUVxuT1ZZgxZs+imYKxly0YcZ/DEkMftE2YZBB7d0m3kIAZ/
-	S8Pfphv0I1F7+uesArUFqzAuOaUh7tDy4ZR8RlcdyjQHab+0zecKpDpdK8Eia1QhtST6Md
-	wWpQ9XED4ohq9YgBOEgLsuISksliftA=
-X-MC-Unique: _45CrAGuNjOuxKLbB7FT_Q-1
-Date: Mon, 6 Nov 2023 18:12:30 +0100 (CET)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Mike Snitzer <snitzer@kernel.org>
-cc: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, iommu@lists.linux.dev, 
-    Marek Marczykowski-G'orecki <marmarek@invisiblethingslab.com>, 
-    Jens Axboe <axboe@fb.com>, Sagi Grimberg <sagi@grimberg.me>, 
-    Jan Kara <jack@suse.cz>, Vlastimil Babka <vbabka@suse.cz>, 
-    Andrew Morton <akpm@linux-foundation.org>, 
-    Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@suse.com>, 
-    stable@vger.kernel.org, regressions@lists.linux.dev, 
-    Alasdair Kergon <agk@redhat.com>, dm-devel@lists.linux.dev, 
-    linux-mm@kvack.org
-Subject: [PATCH v2] swiotlb-xen: provide the "max_mapping_size" method
-In-Reply-To: <ZUkGpblDX637QV9y@redhat.com>
-Message-ID: <151bef41-e817-aea9-675-a35fdac4ed@redhat.com>
-References: <3cb4133c-b6db-9187-a678-11ed8c9456e@redhat.com> <ZUUctamEFtAlSnSV@mail-itl> <ZUUlqJoS6_1IznzT@kbusch-mbp.dhcp.thefacebook.com> <ZUVYT1Xp4+hFT27W@mail-itl> <ZUV3TApYYoh_oiRR@kbusch-mbp.dhcp.thefacebook.com> <11a9886d-316c-edcd-d6da-24ad0b9a2b4@redhat.com>
- <ZUZOKitOAqqKiJ4n@kbusch-mbp.dhcp.thefacebook.com> <20231106071008.GB17022@lst.de> <928b5df7-fada-cf2f-6f6a-257a84547c3@redhat.com> <ZUkDUXDF6g4P86F3@kbusch-mbp.dhcp.thefacebook.com> <ZUkGpblDX637QV9y@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=IDnGh/AYMoQD8T3di00ptgrEEFC0VvzvYfbGbs9gsqU=; b=zgX4jg35fhz95gl0i5F3UkB86K
+	JZJcifjKvBDZXZW+at9SUMeiIGh7aCxJUQTXOtWndoktpdaPqHPhDF8olnIb0Boy4pUehU3u4SB4Q
+	0qPeX9F3iZAW6j0WaCN1JH9jtpIJgnPN+ahOpVpkmjd+nBgT9NQdwcgQlLXcGM7BP/Hs=;
+Message-ID: <63c5c386-ccff-4688-a335-3983129392b8@xen.org>
+Date: Mon, 6 Nov 2023 17:20:20 +0000
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="185210117-1837111149-1699290694=:1497320"
-Content-ID: <478c056-3a19-eb50-34da-911cf13fc558@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] xen/arm32: head Split and move MMU-specific head.S
+ to mmu/head.S
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, bertrand.marquis@arm.com, michal.orzel@arm.com,
+ henry.wang@arm.com, Volodymyr_Babchuk@epam.com
+References: <20231103173436.3912488-1-ayan.kumar.halder@amd.com>
+ <20231103173436.3912488-3-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231103173436.3912488-3-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Ayan,
 
---185210117-1837111149-1699290694=:1497320
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-Content-ID: <4468b751-727c-3ffb-15cc-683422283a27@redhat.com>
+On 03/11/2023 17:34, Ayan Kumar Halder wrote:
+> The MMU specific code in head.S will not be used on MPU systems.
+> Instead of introducing more #ifdefs which will bring complexity
+> to the code, move MMU related code to mmu/head.S and keep common
+> code in head.S. Two notes while moving:
+>   - As "fail" in original head.S is very simple and this name is too
+>     easy to be conflicted, duplicate it in mmu/head.S instead of
+>     exporting it.
+>   - Use ENTRY() for enable_secondary_cpu_mm, enable_boot_cpu_mm and
+>     setup_fixmap as they will be used externally.
+> 
+> Also move the assembly macros shared by head.S and mmu/head.S to
+> macros.h.
+> 
+> Note that, only the first 4KB of Xen image will be mapped as identity
+> (PA == VA). At the moment, Xen guarantees this by having everything
+> that needs to be used in the identity mapping in .text.header section
+> of head.S, and the size will be checked by _idmap_start and _idmap_end
+> at link time if this fits in 4KB. Since we are introducing a new head.S
+> in this patch, although we can add .text.header to the new file to
+> guarantee all identity map code still in the first 4KB. However, the
+> order of these two files on this 4KB depends on the build toolchains.
+> Hence, introduce a new section named .text.idmap in the region between
+> _idmap_start and _idmap_end. And in Xen linker script, we force the
+> .text.idmap contents to linked after .text.header. This will ensure
+> code of head.S always be at the top of Xen binary.
+This paragraph doesn't make much sense as you don't introduce 
+.text.idmap. Instead, you piggy back on a previous commit. So I would 
+suggest to delete it.
 
-From: Keith Busch <kbusch@kernel.org>
+[...]
 
-There's a bug that when using the XEN hypervisor with bios with large
-multi-page bio vectors on NVMe, the kernel deadlocks [1].
+> +.macro create_mapping_entry, ptbl, virt, phys, type=PT_MEM_L3
+> +        mov_w r2, XEN_PT_LPAE_ENTRY_MASK
+> +        lsr   r1, \virt, #THIRD_SHIFT
+> +        and   r1, r1, r2             /* r1 := slot in \tlb */
+> +        lsl   r1, r1, #3             /* r1 := slot offset in \tlb */
+> +
+> +        lsr   r4, \phys, #THIRD_SHIFT
+> +        lsl   r4, r4, #THIRD_SHIFT   /* r4 := PAGE_ALIGNED(phys) */
+> +
+> +        movw  r2, #\type             /* r2:r3 := right for section PT */
+> +        orr   r2, r2, r4             /*          + PAGE_ALIGNED(phys) */
+> +        mov   r3, #0
+> +
+> +        adr_l r4, \ptbl
+> +
+> +        strd  r2, r3, [r4, r1]
+> +.endm
 
-The deadlocks are caused by inability to map a large bio vector -
-dma_map_sgtable always returns an error, this gets propagated to the block
-layer as BLK_STS_RESOURCE and the block layer retries the request
-indefinitely.
+Newline here please.
 
-XEN uses the swiotlb framework to map discontiguous pages into contiguous
-runs that are submitted to the PCIe device. The swiotlb framework has a
-limitation on the length of a mapping - this needs to be announced with
-the max_mapping_size method to make sure that the hardware drivers do not
-create larger mappings.
+> +.section .text.idmap, "ax", %progbits
 
-Without max_mapping_size, the NVMe block driver would create large
-mappings that overrun the maximum mapping size.
+Cheers,
 
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Link: https://lore.kernel.org/stable/ZTNH0qtmint%2FzLJZ@mail-itl/ [1]
-Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-
----
- drivers/xen/swiotlb-xen.c |    1 +
- 1 file changed, 1 insertion(+)
-
-Index: linux-stable/drivers/xen/swiotlb-xen.c
-===================================================================
---- linux-stable.orig/drivers/xen/swiotlb-xen.c	2023-11-03 17:57:18.000000000 +0100
-+++ linux-stable/drivers/xen/swiotlb-xen.c	2023-11-06 15:30:59.000000000 +0100
-@@ -405,4 +405,5 @@ const struct dma_map_ops xen_swiotlb_dma
- 	.get_sgtable = dma_common_get_sgtable,
- 	.alloc_pages = dma_common_alloc_pages,
- 	.free_pages = dma_common_free_pages,
-+	.max_mapping_size = swiotlb_max_mapping_size,
- };
---185210117-1837111149-1699290694=:1497320--
-
+-- 
+Julien Grall
 
