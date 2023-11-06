@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F1FC7E2DB6
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:10:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628433.979949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E6B7E2D3E
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 20:53:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628278.979538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05vA-0002H5-MT; Mon, 06 Nov 2023 20:10:04 +0000
+	id 1r05f3-0008QT-Q5; Mon, 06 Nov 2023 19:53:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628433.979949; Mon, 06 Nov 2023 20:10:04 +0000
+Received: by outflank-mailman (output) from mailman id 628278.979538; Mon, 06 Nov 2023 19:53:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05vA-0002CN-Hh; Mon, 06 Nov 2023 20:10:04 +0000
-Received: by outflank-mailman (input) for mailman id 628433;
- Mon, 06 Nov 2023 20:10:03 +0000
+	id 1r05f3-0008Oi-N8; Mon, 06 Nov 2023 19:53:25 +0000
+Received: by outflank-mailman (input) for mailman id 628278;
+ Mon, 06 Nov 2023 19:53:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OHvK=GT=casper.srs.infradead.org=BATV+7ad6dfa9aff48d363c6b+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r05hQ-00024f-Ot
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:52 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=H3DI=GT=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r05f1-0008OT-Ui
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:53:23 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 785e257f-7cde-11ee-98da-6d05b1d4d9a1;
- Mon, 06 Nov 2023 20:55:44 +0100 (CET)
-Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r05fd-007tb4-AH; Mon, 06 Nov 2023 19:54:02 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1r05fd-001GPy-1n; Mon, 06 Nov 2023 19:54:01 +0000
+ id 2431229d-7cde-11ee-98da-6d05b1d4d9a1;
+ Mon, 06 Nov 2023 20:53:22 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-507bd64814fso6595435e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 11:53:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,146 +39,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 785e257f-7cde-11ee-98da-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=Z8O29x0pWQhZMVbX+dyJJms7pdOJv3y/EsgO2DOPUaY=; b=teESO/RtJYYuQVVx1IuFV0fYHO
-	QYkJ+WGnPXZGnQb1cse22y5yOxa7n7e0Kz9gFUDvPXwOrQ9QSYu4Ovjg0hvBHAzorWNmcxX8W8dC0
-	x87OOZSgAuxGCv05xk2sxU/hWkqL0IJNMWnplS8QUNwg4DDtGsMhPKdCNYRhSn6/w/mEAsw80nSGO
-	Yhpresf2n6tgaRnolyiqGAYkjI4+MQu9W54FKMH8udpcer0iA4y8o8+GsniLtFQBClqEJHf0SN35I
-	Qc3+cijtHnuNn01n3lUiCUsvyaNlcvNMpoPx6tLeT2rU/MhC43rFjcvlYrZ+/d5dzyzaxOxLw8cOS
-	2rB2sH3w==;
-From: David Woodhouse <dwmw2@infradead.org>
-To: qemu-devel@nongnu.org
-Cc: Richard Henderson <richard.henderson@linaro.org>,
-	Beniamino Galvani <b.galvani@gmail.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
-	Niek Linnenbank <nieklinnenbank@gmail.com>,
-	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Joel Stanley <joel@jms.id.au>,
-	Igor Mitsyanko <i.mitsyanko@gmail.com>,
-	Jean-Christophe Dubois <jcd@tribudubois.net>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Subbaraya Sundeep <sundeep.lkml@gmail.com>,
-	Jan Kiszka <jan.kiszka@web.de>,
-	Tyrone Ting <kfting@nuvoton.com>,
-	Hao Wu <wuhaotsh@google.com>,
-	Radoslaw Biernacki <rad@semihalf.com>,
-	Leif Lindholm <quic_llindhol@quicinc.com>,
-	Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Helge Deller <deller@gmx.de>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Song Gao <gaosong@loongson.cn>,
-	Thomas Huth <huth@tuxfamily.org>,
-	Laurent Vivier <laurent@vivier.eu>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	=?UTF-8?q?Herv=C3=A9=20Poussineau?= <hpoussin@reactos.org>,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Jason Wang <jasowang@redhat.com>,
-	Jia Liu <proljc@gmail.com>,
-	Stafford Horne <shorne@gmail.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Bin Meng <bin.meng@windriver.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Weiwei Li <liweiwei@iscas.ac.cn>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	David Hildenbrand <david@redhat.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	qemu-arm@nongnu.org,
-	qemu-ppc@nongnu.org,
-	qemu-riscv@nongnu.org,
-	qemu-s390x@nongnu.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH for-8.3 v2 46/46] net: make nb_nics and nd_table[] static in net/net.c
-Date: Mon,  6 Nov 2023 19:49:51 +0000
-Message-ID: <20231106195352.301038-47-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231106195352.301038-1-dwmw2@infradead.org>
-References: <20231106195352.301038-1-dwmw2@infradead.org>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 2431229d-7cde-11ee-98da-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699300402; x=1699905202; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dypKsM/okWu/oQXIO+rsol5GgpxF+vS+NW0YmoY6b7k=;
+        b=K4sMz3Q+obsD1EbGtJppjgn4lKg5cF5Ab+l+ChxeUX8GW8uX9Z0nflNyJl2r/OXJ9L
+         PLPf0PjH+PPKXb3SqjxMAsHhbWqvEWZKK0XKe5MEE1aw5U7VZrLkVu+9ccfbG6u7UpSV
+         iwRbisXSRJip/xKaxf4jnNUKzff4Ce+5OkDT4LM0/Ntri8DLH4KjJKLy6qRZrXUxKYWN
+         l/4HjKgl6Yk8s7i2iRrUec9GjlKIZGF9WMT80D56BOa02onUwtWb5lR2lJbD/YWHUKGr
+         JDZHlMKXyvppkjyHH1FhiSJGunZRxMLYRrApVxGOkgIIZgePKj/Q62plBcNg7/OfhcF8
+         NiFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699300402; x=1699905202;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dypKsM/okWu/oQXIO+rsol5GgpxF+vS+NW0YmoY6b7k=;
+        b=H47dqBYHvsXYpWetVWJPGFeQ7P8i+1U3n78lqVQT44fESExa/0V8hNcLp5wFcloU9Z
+         J+7fSevrhEak7W43rN0xrUkjekheziLxe2x9knZBE/BYOdM1dtg+H6ned8mF4OUP3Sgv
+         2rUG+tbyBPDc5DeSOyZMKiXnpsOPeo9F9z0pq8TGKhLOB+xZMJuVCRdWewMcxUJwJKK3
+         R48k19dq9JjVSNhoULrQ94a3/P7AG3Djly/exEdzJlrmKVXt6+Qx2ajaHK21jbDFMQb8
+         l4YNDxsX/q53m0qvDgcV5tnF4V/s11wNxeAik8Jjk+FSDYKfawWvk8N8Ec4XMhlL2KrC
+         7+jg==
+X-Gm-Message-State: AOJu0YwELlBeyGj8KpVWnhU1hNHmZbIt3lgFE2VGm/gU9amG6hWACOLy
+	651+59Wn0lMalOB1DREqFMr6AeiPYG0IjJ4YCqriUZVQvmI=
+X-Google-Smtp-Source: AGHT+IGgViUJvrdZSfSKFyD+DiUWJWlCPaOWgrhC9F5rRBPOiZZwCI/SKo+BESiYRqY5BUqDBQnlzANKaL9MX2RxAjk=
+X-Received: by 2002:ac2:5467:0:b0:4fe:8c1d:9e81 with SMTP id
+ e7-20020ac25467000000b004fe8c1d9e81mr21027134lfn.36.1699300401936; Mon, 06
+ Nov 2023 11:53:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-12-jgross@suse.com>
+In-Reply-To: <20231101093325.30302-12-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 6 Nov 2023 14:53:09 -0500
+Message-ID: <CAKf6xpu1-tQCY-DRtr2A7fo5=koKR4SjdKEw5J3EsUcY-8iO9Q@mail.gmail.com>
+Subject: Re: [PATCH 11/29] tools/xenlogd: add 9pfs create request support
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+On Wed, Nov 1, 2023 at 6:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> Add the create request of the 9pfs protocol.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  tools/xenlogd/io.c | 133 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+>
+> diff --git a/tools/xenlogd/io.c b/tools/xenlogd/io.c
+> index 2607095e51..34f137be1b 100644
+> --- a/tools/xenlogd/io.c
+> +++ b/tools/xenlogd/io.c
+> @@ -31,6 +31,7 @@
+>  #define P9_CMD_ERROR      107
+>  #define P9_CMD_WALK       110
+>  #define P9_CMD_OPEN       112
+> +#define P9_CMD_CREATE     114
+>  #define P9_CMD_CLUNK      120
+>
+>  /* P9 protocol open flags. */
+> @@ -41,6 +42,12 @@
+>  #define P9_OTRUNC        0x10   /* or'ed in, truncate file first */
+>  #define P9_OREMOVE       0x40   /* or'ed in, remove file after clunk */
+>
+> +/* P9 protocol create permission masks. */
+> +#define P9_CREATE_PERM_DIR        0x80000000
+> +#define P9_CREATE_PERM_NOTSUPP    0x03b00000   /* link, symlink, ... */
+> +#define P9_CREATE_PERM_DIR_MASK   0777
+> +#define P9_CREATE_PERM_FILE_MASK  0666
+> +
+>  #define P9_MIN_MSIZE      2048
+>  #define P9_VERSION        "9P2000.u"
+>  #define P9_WALK_MAXELEM   16
+> @@ -861,6 +868,128 @@ static void p9_open(device *device, struct p9_heade=
+r *hdr)
+>      fill_buffer(device, hdr->cmd + 1, hdr->tag, "QU", &qid, &iounit);
+>  }
+>
+> +static void p9_create(device *device, struct p9_header *hdr)
+> +{
+> +    uint32_t fid;
+> +    unsigned int name_off;
+> +    uint32_t perm;
+> +    uint8_t mode;
+> +    unsigned int ext_off;
+> +    struct p9_fid *fidp;
+> +    struct p9_fid *new_fidp;
+> +    char *path;
+> +    struct stat st;
+> +    struct p9_qid qid;
+> +    uint32_t iounit;
+> +    int flags;
+> +    int ret;
+> +
+> +    ret =3D fill_data(device, "USUbS", &fid, &name_off, &perm, &mode, &e=
+xt_off);
+> +    if ( ret !=3D 5 )
+> +    {
+> +        p9_error(device, hdr->tag, EINVAL);
+> +        return;
+> +    }
+> +
+> +    if ( !name_ok(device->str + name_off) )
+> +    {
+> +        p9_error(device, hdr->tag, ENOENT);
+> +        return;
+> +    }
+> +
+> +    if ( perm & P9_CREATE_PERM_NOTSUPP )
+> +    {
+> +        p9_error(device, hdr->tag, EINVAL);
+> +        return;
+> +    }
+> +
+> +    fidp =3D find_fid(device, fid);
+> +    if ( !fidp || fidp->opened )
+> +    {
+> +        p9_error(device, hdr->tag, EINVAL);
+> +        return;
+> +    }
+> +
+> +    path =3D malloc(strlen(fidp->path) + strlen(device->str + name_off) =
++ 2 -
+> +                  strlen(device->host_path));
+> +    if ( !path )
+> +    {
+> +        p9_error(device, hdr->tag, ENOMEM);
+> +        return;
+> +    }
+> +    sprintf(path, "%s/%s", fidp->path + strlen(device->host_path),
+> +            device->str + name_off);
+> +    new_fidp =3D alloc_fid_mem(device, fid, path);
+> +    free(path);
+> +    if ( !new_fidp )
+> +    {
+> +        p9_error(device, hdr->tag, ENOMEM);
+> +        return;
+> +    }
+> +
+> +    if ( perm & P9_CREATE_PERM_DIR )
+> +    {
+> +        if ( mode !=3D P9_OREAD )
+> +        {
+> +            p9_error(device, hdr->tag, EINVAL);
+> +            free(new_fidp);
+> +            return;
+> +        }
+> +        if ( mkdir(new_fidp->path, perm & P9_CREATE_PERM_DIR_MASK) < 0 )
+> +        {
+> +            p9_error(device, hdr->tag, errno);
+> +            free(new_fidp);
+> +            return;
+> +        }
+> +
+> +        XEN_TAILQ_REMOVE(&device->fids, fidp, list);
+> +        XEN_TAILQ_INSERT_HEAD(&device->fids, new_fidp, list);
+> +        free(fidp);
+> +        fidp =3D new_fidp;
+> +
+> +        fidp->data =3D opendir(fidp->path);
+> +        if ( !fidp->data )
+> +        {
+> +            p9_error(device, hdr->tag, errno);
+> +            return;
+> +        }
+> +        fidp->fd =3D dirfd(fidp->data);
+> +    }
+> +    else
+> +    {
+> +        flags =3D open_flags_from_mode(mode);
+> +        if ( flags < 0 )
+> +        {
+> +            p9_error(device, hdr->tag, EINVAL);
+> +            free(new_fidp);
+> +            return;
+> +        }
+> +
+> +        XEN_TAILQ_REMOVE(&device->fids, """fidp, list);
+> +        XEN_TAILQ_INSERT_HEAD(&device->fids, new_fidp, list);
+> +        free(fidp);
+> +        fidp =3D new_fidp;
+> +
+> +        fidp->fd =3D creat(fidp->path, flags);
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- include/net/net.h | 4 ----
- net/net.c         | 3 +++
- system/globals.c  | 2 --
- 3 files changed, 3 insertions(+), 6 deletions(-)
+https://ericvh.github.io/9p-rfc/rfc9p2000.html#anchor29
+"""
+The create request asks the file server to create a new file with the
+name supplied, in the directory (dir) represented by fid, and requires
+write permission in the directory. The owner of the file is the
+implied user id of the request, the group of the file is the same as
+dir, and the permissions are the value of
 
-diff --git a/include/net/net.h b/include/net/net.h
-index 290e604f03..5a38766942 100644
---- a/include/net/net.h
-+++ b/include/net/net.h
-@@ -245,10 +245,6 @@ struct NICInfo {
-     int nvectors;
- };
- 
--extern int nb_nics;
--extern NICInfo nd_table[MAX_NICS];
--extern const char *host_net_devices[];
--
- /* from net.c */
- extern NetClientStateList net_clients;
- bool netdev_is_modern(const char *optstr);
-diff --git a/net/net.c b/net/net.c
-index a3532a71a5..957daad58d 100644
---- a/net/net.c
-+++ b/net/net.c
-@@ -77,6 +77,9 @@ static NetdevQueue nd_queue = QSIMPLEQ_HEAD_INITIALIZER(nd_queue);
- 
- static GHashTable *nic_model_help;
- 
-+static int nb_nics;
-+static NICInfo nd_table[MAX_NICS];
-+
- /***********************************************************/
- /* network device redirectors */
- 
-diff --git a/system/globals.c b/system/globals.c
-index e83b5428d1..b6d4e72530 100644
---- a/system/globals.c
-+++ b/system/globals.c
-@@ -36,8 +36,6 @@ int display_opengl;
- const char* keyboard_layout;
- bool enable_mlock;
- bool enable_cpu_pm;
--int nb_nics;
--NICInfo nd_table[MAX_NICS];
- int autostart = 1;
- int vga_interface_type = VGA_NONE;
- bool vga_interface_created;
--- 
-2.41.0
+perm & (~0666 | (dir.perm & 0666))
 
+if a regular file is being created and
+
+perm & (~0777 | (dir.perm & 0777))
+
+if a directory is being created. This means, for example, that if the
+create allows read permission to others, but the containing directory
+does not, then the created file will not allow others to read the
+file.
+"""
+
+So P9_CREATE_PERM_FILE_MASK (which is otherwise unused) should be
+incorporated.  Also the mode and the permissions are handled
+independently:
+"""
+Finally, the newly created file is opened according to mode, and fid
+will represent the newly opened file. Mode is not checked against the
+permissions in perm.
+"""
+
+I think fidp->mode should be set in here somewhere based on mode.  And
+`flags` for creat should be derived from the incoming perms.
+
+Regards,
+Jason
 
