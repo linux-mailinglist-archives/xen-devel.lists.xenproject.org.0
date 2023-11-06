@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7129F7E2DA3
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:08:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628382.979828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC67E2DAA
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:08:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628394.979858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05tA-0002Wt-1a; Mon, 06 Nov 2023 20:08:00 +0000
+	id 1r05to-0004H8-Sb; Mon, 06 Nov 2023 20:08:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628382.979828; Mon, 06 Nov 2023 20:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 628394.979858; Mon, 06 Nov 2023 20:08:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05t9-0002To-V3; Mon, 06 Nov 2023 20:07:59 +0000
-Received: by outflank-mailman (input) for mailman id 628382;
- Mon, 06 Nov 2023 20:07:58 +0000
+	id 1r05to-0004Db-N1; Mon, 06 Nov 2023 20:08:40 +0000
+Received: by outflank-mailman (input) for mailman id 628394;
+ Mon, 06 Nov 2023 20:08:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OHvK=GT=casper.srs.infradead.org=BATV+7ad6dfa9aff48d363c6b+7379+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r05hq-0001Ig-MZ
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:56:18 +0000
+ id 1r05hR-0001Ig-Fi
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:55:53 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b4b9d71-7cde-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 20:56:16 +0100 (CET)
+ id 79fb1c10-7cde-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 20:55:46 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r05fd-007tb0-50; Mon, 06 Nov 2023 19:54:02 +0000
+ id 1r05fd-007tb3-6F; Mon, 06 Nov 2023 19:54:02 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1r05fd-001GPq-1J; Mon, 06 Nov 2023 19:54:01 +0000
+ Hat Linux)) id 1r05fd-001GPu-1Y; Mon, 06 Nov 2023 19:54:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 8b4b9d71-7cde-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 79fb1c10-7cde-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=rm/pmqYI6mjjqqrOLmrc9x1lSoz+dJDC9gj42DRuQk0=; b=cu1GrDIiiNZSYoZ345aCg6DSo1
-	5BMiXQroAAhwpbCaUDnLB8Q0LNaJRZnP9h4Skn+gKHvDif78f/8+MPLyfoivx+ee7LTUdTv/Oznen
-	EjATyhIYuQKLJ/2kh6QnKX82u1VT2V6Hucs8vfcP5FVMnyGZZBKevhKIH/vw60+GjFuZIZrDAr9hu
-	KVnLqlvzYHKCJdpaCa7gregdtGgPPRne6UTtmOza/4qCAVsVHdstYnTd5W3+JtOMBMpYdX8jONzWY
-	aEO3ZNrFD6CM+ckLYrViJ5Ovh0fHLrTcS8q9s7SH3IdQ7qw4ZzIRABEmF00EaBpqNM+lee7i9OlsJ
-	QtTJmxhw==;
+	bh=vZowVkCjMFbp95UJRr5lu+JPxdNb9doXjcXZRlmZdv8=; b=Y/rkI5F0NcvCFoLbktSjr9lD+p
+	JghtzoFzu1jDfHij1/EbcuKd66GBWDMTanBgalqLdoTiZOA/Vs2zIKMhAwjpEWhC+ogI3P5/QnQCW
+	ee3GrAB/elUOQ5ZswbLXnTB04HdYuoyZ0IZ7KB3LfvtHV92kmes+GTH4SFL+BHuFQiu3iKxL3hk09
+	ao5Od0E02mZsu2PxliLHdwYKYf7QvlXUrSJLbvKvuGmlm4k6bho2IPdG20Ysp2YAFS9TM3WOSH94j
+	0W9WhgZJl96jwmHF+1r7uuYiuvxpYSbQ3efgbg4ED59wjEdGIKiLh2g8faL+E72DdJnyM+9+xJoXV
+	9yAC6hug==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -118,9 +118,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH for-8.3 v2 44/46] hw/pci: remove pci_nic_init_nofail()
-Date: Mon,  6 Nov 2023 19:49:49 +0000
-Message-ID: <20231106195352.301038-45-dwmw2@infradead.org>
+Subject: [PATCH for-8.3 v2 45/46] net: remove qemu_show_nic_models(), qemu_find_nic_model()
+Date: Mon,  6 Nov 2023 19:49:50 +0000
+Message-ID: <20231106195352.301038-46-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231106195352.301038-1-dwmw2@infradead.org>
 References: <20231106195352.301038-1-dwmw2@infradead.org>
@@ -131,111 +131,90 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-This function is no longer used.
+These old functions can be removed now too. Let net_param_nic() print
+the full set of network devices directly, and also make it note that a
+list more specific to this platform/config will be available by using
+'-nic model=help' instead.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/pci/pci.c         | 72 --------------------------------------------
- include/hw/pci/pci.h |  3 --
- 2 files changed, 75 deletions(-)
+ include/net/net.h |  3 ---
+ net/net.c         | 39 ++++++---------------------------------
+ 2 files changed, 6 insertions(+), 36 deletions(-)
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 5703266c0b..097609ca54 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -1853,78 +1853,6 @@ const pci_class_desc *get_class_desc(int class)
-     return desc;
+diff --git a/include/net/net.h b/include/net/net.h
+index 1512650190..290e604f03 100644
+--- a/include/net/net.h
++++ b/include/net/net.h
+@@ -201,9 +201,6 @@ void qemu_set_vnet_hdr_len(NetClientState *nc, int len);
+ int qemu_set_vnet_le(NetClientState *nc, bool is_le);
+ int qemu_set_vnet_be(NetClientState *nc, bool is_be);
+ void qemu_macaddr_default_if_unset(MACAddr *macaddr);
+-int qemu_show_nic_models(const char *arg, const char *const *models);
+-int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+-                        const char *default_model);
+ NICInfo *qemu_find_nic_info(const char *typename, bool match_default,
+                             const char *alias);
+ bool qemu_configure_nic_device(DeviceState *dev, bool match_default,
+diff --git a/net/net.c b/net/net.c
+index ffc722069f..a3532a71a5 100644
+--- a/net/net.c
++++ b/net/net.c
+@@ -962,38 +962,6 @@ GPtrArray *qemu_get_nic_models(const char *device_type)
+     return nic_models;
  }
  
--/* Initialize a PCI NIC.  */
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr)
+-int qemu_show_nic_models(const char *arg, const char *const *models)
 -{
--    const char *devaddr = nd->devaddr ? nd->devaddr : default_devaddr;
--    GPtrArray *pci_nic_models;
--    PCIBus *bus;
--    PCIDevice *pci_dev;
--    DeviceState *dev;
--    int devfn;
 -    int i;
--    int dom, busnr;
--    unsigned slot;
 -
--    if (nd->model && !strcmp(nd->model, "virtio")) {
--        g_free(nd->model);
--        nd->model = g_strdup("virtio-net-pci");
+-    if (!arg || !is_help_option(arg)) {
+-        return 0;
 -    }
 -
--    pci_nic_models = qemu_get_nic_models(TYPE_PCI_DEVICE);
--
--    if (qemu_show_nic_models(nd->model, (const char **)pci_nic_models->pdata)) {
--        exit(0);
+-    printf("Available NIC models:\n");
+-    for (i = 0 ; models[i]; i++) {
+-        printf("%s\n", models[i]);
 -    }
--
--    i = qemu_find_nic_model(nd, (const char **)pci_nic_models->pdata,
--                            default_model);
--    if (i < 0) {
--        exit(1);
--    }
--
--    if (!rootbus) {
--        error_report("No primary PCI bus");
--        exit(1);
--    }
--
--    assert(!rootbus->parent_dev);
--
--    if (!devaddr) {
--        devfn = -1;
--        busnr = 0;
--    } else {
--        if (pci_parse_devaddr(devaddr, &dom, &busnr, &slot, NULL) < 0) {
--            error_report("Invalid PCI device address %s for device %s",
--                         devaddr, nd->model);
--            exit(1);
--        }
--
--        if (dom != 0) {
--            error_report("No support for non-zero PCI domains");
--            exit(1);
--        }
--
--        devfn = PCI_DEVFN(slot, 0);
--    }
--
--    bus = pci_find_bus_nr(rootbus, busnr);
--    if (!bus) {
--        error_report("Invalid PCI device address %s for device %s",
--                     devaddr, nd->model);
--        exit(1);
--    }
--
--    pci_dev = pci_new(devfn, nd->model);
--    dev = &pci_dev->qdev;
--    qdev_set_nic_properties(dev, nd);
--    pci_realize_and_unref(pci_dev, bus, &error_fatal);
--    g_ptr_array_free(pci_nic_models, true);
--    return pci_dev;
+-    return 1;
 -}
 -
- void pci_init_nic_devices(PCIBus *bus, const char *default_model)
+-int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+-                        const char *default_model)
+-{
+-    int i;
+-
+-    if (!nd->model)
+-        nd->model = g_strdup(default_model);
+-
+-    for (i = 0 ; models[i]; i++) {
+-        if (strcmp(nd->model, models[i]) == 0)
+-            return i;
+-    }
+-
+-    error_report("Unsupported NIC model: %s", nd->model);
+-    return -1;
+-}
+-
+ static int net_init_nic(const Netdev *netdev, const char *name,
+                         NetClientState *peer, Error **errp)
  {
-     qemu_create_nic_bus_devices(&bus->qbus, TYPE_PCI_DEVICE, default_model,
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index 684d49bdcd..420cfbb5f8 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -314,9 +314,6 @@ void pci_device_set_intx_routing_notifier(PCIDevice *dev,
-                                           PCIINTxRoutingNotifier notifier);
- void pci_device_reset(PCIDevice *dev);
- 
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr);
- void pci_init_nic_devices(PCIBus *bus, const char *default_model);
- bool pci_init_nic_in_slot(PCIBus *rootbus, const char *default_model,
-                           const char *alias, const char *devaddr);
+@@ -1776,9 +1744,14 @@ static int net_param_nic(void *dummy, QemuOpts *opts, Error **errp)
+         }
+         if (is_help_option(type)) {
+             GPtrArray *nic_models = qemu_get_nic_models(TYPE_DEVICE);
++            int i;
+             show_netdevs();
+             printf("\n");
+-            qemu_show_nic_models(type, (const char **)nic_models->pdata);
++            printf("Supported NIC models "
++                   "(use -nic model=help for a filtered list):\n");
++            for (i = 0 ; nic_models->pdata[i]; i++) {
++                printf("%s\n", (char *)nic_models->pdata[i]);
++            }
+             g_ptr_array_free(nic_models, true);
+             exit(0);
+         }
 -- 
 2.41.0
 
