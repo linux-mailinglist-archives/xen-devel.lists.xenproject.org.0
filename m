@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85E6B7E2D3E
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 20:53:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628278.979538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E78247E2E22
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 21:25:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628486.980017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05f3-0008QT-Q5; Mon, 06 Nov 2023 19:53:25 +0000
+	id 1r069R-000493-Ac; Mon, 06 Nov 2023 20:24:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628278.979538; Mon, 06 Nov 2023 19:53:25 +0000
+Received: by outflank-mailman (output) from mailman id 628486.980017; Mon, 06 Nov 2023 20:24:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r05f3-0008Oi-N8; Mon, 06 Nov 2023 19:53:25 +0000
-Received: by outflank-mailman (input) for mailman id 628278;
- Mon, 06 Nov 2023 19:53:23 +0000
+	id 1r069R-000466-7w; Mon, 06 Nov 2023 20:24:49 +0000
+Received: by outflank-mailman (input) for mailman id 628486;
+ Mon, 06 Nov 2023 20:24:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H3DI=GT=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1r05f1-0008OT-Ui
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 19:53:23 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ <SRS0=/fhL=GT=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1r069P-00044m-V8
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 20:24:48 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20614.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::614])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2431229d-7cde-11ee-98da-6d05b1d4d9a1;
- Mon, 06 Nov 2023 20:53:22 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-507bd64814fso6595435e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 11:53:22 -0800 (PST)
+ id 85dddb95-7ce2-11ee-98da-6d05b1d4d9a1;
+ Mon, 06 Nov 2023 21:24:45 +0100 (CET)
+Received: from CYZPR05CA0032.namprd05.prod.outlook.com (2603:10b6:930:a3::14)
+ by CH2PR12MB4326.namprd12.prod.outlook.com (2603:10b6:610:af::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Mon, 6 Nov
+ 2023 20:24:41 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:930:a3:cafe::5) by CYZPR05CA0032.outlook.office365.com
+ (2603:10b6:930:a3::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.16 via Frontend
+ Transport; Mon, 6 Nov 2023 20:24:41 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.210) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Mon, 6 Nov 2023 20:24:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 6 Nov
+ 2023 14:24:40 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 6 Nov
+ 2023 14:24:40 -0600
+Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Mon, 6 Nov 2023 14:24:39 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,228 +63,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2431229d-7cde-11ee-98da-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699300402; x=1699905202; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dypKsM/okWu/oQXIO+rsol5GgpxF+vS+NW0YmoY6b7k=;
-        b=K4sMz3Q+obsD1EbGtJppjgn4lKg5cF5Ab+l+ChxeUX8GW8uX9Z0nflNyJl2r/OXJ9L
-         PLPf0PjH+PPKXb3SqjxMAsHhbWqvEWZKK0XKe5MEE1aw5U7VZrLkVu+9ccfbG6u7UpSV
-         iwRbisXSRJip/xKaxf4jnNUKzff4Ce+5OkDT4LM0/Ntri8DLH4KjJKLy6qRZrXUxKYWN
-         l/4HjKgl6Yk8s7i2iRrUec9GjlKIZGF9WMT80D56BOa02onUwtWb5lR2lJbD/YWHUKGr
-         JDZHlMKXyvppkjyHH1FhiSJGunZRxMLYRrApVxGOkgIIZgePKj/Q62plBcNg7/OfhcF8
-         NiFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699300402; x=1699905202;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dypKsM/okWu/oQXIO+rsol5GgpxF+vS+NW0YmoY6b7k=;
-        b=H47dqBYHvsXYpWetVWJPGFeQ7P8i+1U3n78lqVQT44fESExa/0V8hNcLp5wFcloU9Z
-         J+7fSevrhEak7W43rN0xrUkjekheziLxe2x9knZBE/BYOdM1dtg+H6ned8mF4OUP3Sgv
-         2rUG+tbyBPDc5DeSOyZMKiXnpsOPeo9F9z0pq8TGKhLOB+xZMJuVCRdWewMcxUJwJKK3
-         R48k19dq9JjVSNhoULrQ94a3/P7AG3Djly/exEdzJlrmKVXt6+Qx2ajaHK21jbDFMQb8
-         l4YNDxsX/q53m0qvDgcV5tnF4V/s11wNxeAik8Jjk+FSDYKfawWvk8N8Ec4XMhlL2KrC
-         7+jg==
-X-Gm-Message-State: AOJu0YwELlBeyGj8KpVWnhU1hNHmZbIt3lgFE2VGm/gU9amG6hWACOLy
-	651+59Wn0lMalOB1DREqFMr6AeiPYG0IjJ4YCqriUZVQvmI=
-X-Google-Smtp-Source: AGHT+IGgViUJvrdZSfSKFyD+DiUWJWlCPaOWgrhC9F5rRBPOiZZwCI/SKo+BESiYRqY5BUqDBQnlzANKaL9MX2RxAjk=
-X-Received: by 2002:ac2:5467:0:b0:4fe:8c1d:9e81 with SMTP id
- e7-20020ac25467000000b004fe8c1d9e81mr21027134lfn.36.1699300401936; Mon, 06
- Nov 2023 11:53:21 -0800 (PST)
+X-Inumbo-ID: 85dddb95-7ce2-11ee-98da-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NYnhZk1ABtS9bOI/QjOtzqDXGMlMQ4J+mfGKfg/fIhJu126LOYHsPQtR39EX+dXXlRVw8aDKVFrffMNAvIM9ITAQfuYuiIFGRVI8OaHef9uvM0p21fu+bFeVdK+eO+vJ7d1wLatFHEAyiBDQ2LKq3EXrl1EbHIDH48saYgNHRt8vkEHhZQ0ddK3Nj9GxzdRfG47/qKVZHSwghS33tDVI1gkS/HjVtE1ZMoj9yDdNjU9/MsaLqHJ+dycrx/i/hLjMnwQpRDBY7kM6hHemodXycKxtjmzYbVBr8vSrcSVffXiPKeZkxsT64R6XgasxdcV5x3YVpHyOERoH3I38krQdXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K8iGUZkNGBL474ZwZDGSTdsDCXJ/VRYsDvP6g0IjKuM=;
+ b=h3m+T+VFOflmVs0YI0XjiwYy1XLC+ME+Gnxd3Pkfu2FU6erhYm74BkIlGi0naxxF7+gl97tAOkbAgO7zHVHRnj3CpwCBeayggB2xoPngJGsuYhPx80WxB9Jl+WFGxkaNla65Kw5d944lX5QJrpLO6IzS9WDTKIvDvwLFNEFIy79cI4XkBtsA9/mrge/n8XNRyu8BDtwybiT+7FiJ+baXZDjpsoROD7VJLNVdc2iDlyWzp6tGi85I/oYeUp8U32zMjvbIIsvuba7i7yXjE9jSWAK045D2nvWXmARIuF8wZVVO7ak+tPEsjBRLmW7aRFoNnvFiOqawgOG6XuAX5lNg5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K8iGUZkNGBL474ZwZDGSTdsDCXJ/VRYsDvP6g0IjKuM=;
+ b=BzogQmf3HtDrwGFP2epF47WkupDXdqVocDHosoyf4g8qNXZN+5vYcznrKezSxJa2rQ2WMjKxqn7cFIfd+eGPMM5p+yT6lpJu8Kfc/NU48zucfEBv5aP5S7xHqEiD0MttbJ0Lv0b3AFZgzWAT8euCpBNUhmWqsOCblZflSfl60P0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <256368a6-77a8-464f-a443-3d4185854bf3@amd.com>
+Date: Mon, 6 Nov 2023 15:24:38 -0500
 MIME-Version: 1.0
-References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-12-jgross@suse.com>
-In-Reply-To: <20231101093325.30302-12-jgross@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 6 Nov 2023 14:53:09 -0500
-Message-ID: <CAKf6xpu1-tQCY-DRtr2A7fo5=koKR4SjdKEw5J3EsUcY-8iO9Q@mail.gmail.com>
-Subject: Re: [PATCH 11/29] tools/xenlogd: add 9pfs create request support
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/9] xen/arm: Fix mapping for PCI bridge mmio region
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231004145604.1085358-1-stewart.hildebrand@amd.com>
+ <20231004145604.1085358-8-stewart.hildebrand@amd.com>
+ <7a1bb4f1-4bb1-4592-8ddf-9e97ad4a39f3@xen.org>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <7a1bb4f1-4bb1-4592-8ddf-9e97ad4a39f3@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|CH2PR12MB4326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 499ac964-03a6-42d0-0912-08dbdf06682f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/SPE8Oe6E5F4AHY/ZZN310xj20gUggNNxHBPfFrZ12dQNWH8txED7TSWWcLRs6juOrWFQZHRFMH1oXkby47z9H/8MrgQ3msZszqImy6nj9So1tQH49W1qn8ck9OAOOOLnVsDHBD3BrBlmgftYzlrbSPuwXDs8BV3Dl1UOYmCwMDFIU2HWZXJEv7P/1//WVzztfE4Rw/dPvwdvEme7obGMpopHbsCvoNnIw3rZs0ZHwISkmT0CrWjjM8CwKqBTeyRpZsJqEiop1ltxv0U3WER5BLNkIcp9eTsnweL5P8awqHR+rWQC45U2k7BqDaF9TbRy7tjM52aETyZt5GVLGpBOwmmQ3cX5iyRjj8h3wcRPY8/AlRYLWJNPpKL57pdDOw19nMuxcO5OpVfZaw1bJhccC6REDdukPLiuVdvjbDX43QJUZqj1K1JeHVf0ASCNTeG30Lr0ArPoMKsr10UC2MOEuuqKAwGYHa2kxa69KeksMewZCnwm+Oro/IIblbwexrOeZ8D9LmvZMLhQQeGMa2VmWZwEC5eL4M0mmeLvGFOtUY+XE8kWykovfwTD+Fu2WkAwceAfBpcdsvUHaZM84+1ZFyKh488/sK0KCnfB442C8TsX4Cp67XxZWrezGUy1BPsZl2jWMyU1sH8swXJuCu8DhujxHUMB/XO8IV+h6XntqutueDktS776/8kmHzMHbLIqDHldiyEqu0XlY2VP5i29CtFYT3QMxpiGy7071dSJg9kXAuk1jU9j09wb2Zi2Tv6Mr0DxLdonWec86sNc12C3nAMOL0xZnkq+TlLZvS8F+8=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(376002)(396003)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(82310400011)(46966006)(36840700001)(40470700004)(31686004)(40480700001)(40460700003)(336012)(426003)(53546011)(26005)(41300700001)(47076005)(2616005)(36756003)(81166007)(356005)(82740400003)(31696002)(86362001)(5660300002)(966005)(2906002)(44832011)(36860700001)(83380400001)(4326008)(8936002)(8676002)(70206006)(316002)(16576012)(70586007)(54906003)(478600001)(110136005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2023 20:24:41.2674
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 499ac964-03a6-42d0-0912-08dbdf06682f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4326
 
-On Wed, Nov 1, 2023 at 6:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> Add the create request of the 9pfs protocol.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  tools/xenlogd/io.c | 133 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 133 insertions(+)
->
-> diff --git a/tools/xenlogd/io.c b/tools/xenlogd/io.c
-> index 2607095e51..34f137be1b 100644
-> --- a/tools/xenlogd/io.c
-> +++ b/tools/xenlogd/io.c
-> @@ -31,6 +31,7 @@
->  #define P9_CMD_ERROR      107
->  #define P9_CMD_WALK       110
->  #define P9_CMD_OPEN       112
-> +#define P9_CMD_CREATE     114
->  #define P9_CMD_CLUNK      120
->
->  /* P9 protocol open flags. */
-> @@ -41,6 +42,12 @@
->  #define P9_OTRUNC        0x10   /* or'ed in, truncate file first */
->  #define P9_OREMOVE       0x40   /* or'ed in, remove file after clunk */
->
-> +/* P9 protocol create permission masks. */
-> +#define P9_CREATE_PERM_DIR        0x80000000
-> +#define P9_CREATE_PERM_NOTSUPP    0x03b00000   /* link, symlink, ... */
-> +#define P9_CREATE_PERM_DIR_MASK   0777
-> +#define P9_CREATE_PERM_FILE_MASK  0666
-> +
->  #define P9_MIN_MSIZE      2048
->  #define P9_VERSION        "9P2000.u"
->  #define P9_WALK_MAXELEM   16
-> @@ -861,6 +868,128 @@ static void p9_open(device *device, struct p9_heade=
-r *hdr)
->      fill_buffer(device, hdr->cmd + 1, hdr->tag, "QU", &qid, &iounit);
->  }
->
-> +static void p9_create(device *device, struct p9_header *hdr)
-> +{
-> +    uint32_t fid;
-> +    unsigned int name_off;
-> +    uint32_t perm;
-> +    uint8_t mode;
-> +    unsigned int ext_off;
-> +    struct p9_fid *fidp;
-> +    struct p9_fid *new_fidp;
-> +    char *path;
-> +    struct stat st;
-> +    struct p9_qid qid;
-> +    uint32_t iounit;
-> +    int flags;
-> +    int ret;
-> +
-> +    ret =3D fill_data(device, "USUbS", &fid, &name_off, &perm, &mode, &e=
-xt_off);
-> +    if ( ret !=3D 5 )
-> +    {
-> +        p9_error(device, hdr->tag, EINVAL);
-> +        return;
-> +    }
-> +
-> +    if ( !name_ok(device->str + name_off) )
-> +    {
-> +        p9_error(device, hdr->tag, ENOENT);
-> +        return;
-> +    }
-> +
-> +    if ( perm & P9_CREATE_PERM_NOTSUPP )
-> +    {
-> +        p9_error(device, hdr->tag, EINVAL);
-> +        return;
-> +    }
-> +
-> +    fidp =3D find_fid(device, fid);
-> +    if ( !fidp || fidp->opened )
-> +    {
-> +        p9_error(device, hdr->tag, EINVAL);
-> +        return;
-> +    }
-> +
-> +    path =3D malloc(strlen(fidp->path) + strlen(device->str + name_off) =
-+ 2 -
-> +                  strlen(device->host_path));
-> +    if ( !path )
-> +    {
-> +        p9_error(device, hdr->tag, ENOMEM);
-> +        return;
-> +    }
-> +    sprintf(path, "%s/%s", fidp->path + strlen(device->host_path),
-> +            device->str + name_off);
-> +    new_fidp =3D alloc_fid_mem(device, fid, path);
-> +    free(path);
-> +    if ( !new_fidp )
-> +    {
-> +        p9_error(device, hdr->tag, ENOMEM);
-> +        return;
-> +    }
-> +
-> +    if ( perm & P9_CREATE_PERM_DIR )
-> +    {
-> +        if ( mode !=3D P9_OREAD )
-> +        {
-> +            p9_error(device, hdr->tag, EINVAL);
-> +            free(new_fidp);
-> +            return;
-> +        }
-> +        if ( mkdir(new_fidp->path, perm & P9_CREATE_PERM_DIR_MASK) < 0 )
-> +        {
-> +            p9_error(device, hdr->tag, errno);
-> +            free(new_fidp);
-> +            return;
-> +        }
-> +
-> +        XEN_TAILQ_REMOVE(&device->fids, fidp, list);
-> +        XEN_TAILQ_INSERT_HEAD(&device->fids, new_fidp, list);
-> +        free(fidp);
-> +        fidp =3D new_fidp;
-> +
-> +        fidp->data =3D opendir(fidp->path);
-> +        if ( !fidp->data )
-> +        {
-> +            p9_error(device, hdr->tag, errno);
-> +            return;
-> +        }
-> +        fidp->fd =3D dirfd(fidp->data);
-> +    }
-> +    else
-> +    {
-> +        flags =3D open_flags_from_mode(mode);
-> +        if ( flags < 0 )
-> +        {
-> +            p9_error(device, hdr->tag, EINVAL);
-> +            free(new_fidp);
-> +            return;
-> +        }
-> +
-> +        XEN_TAILQ_REMOVE(&device->fids, """fidp, list);
-> +        XEN_TAILQ_INSERT_HEAD(&device->fids, new_fidp, list);
-> +        free(fidp);
-> +        fidp =3D new_fidp;
-> +
-> +        fidp->fd =3D creat(fidp->path, flags);
+On 10/20/23 14:17, Julien Grall wrote:
+> Hi Stewart,
+> 
+> On 04/10/2023 15:55, Stewart Hildebrand wrote:
+>> From: Rahul Singh <rahul.singh@arm.com>
+>>
+>> Current code skip the mapping for PCI bridge MMIO region to dom0 when
+>> pci_passthrough_enabled flag is set. Mapping should be skip when
+>> has_vpci(d) is enabled for the domain, as we need to skip the mapping
+>> only when VPCI handler are registered for ECAM.
+>>
+>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> ---
+>> v4->v5:
+>> * new patch
+> 
+> I am a bit lost. How is this a new patch but...
+> 
+>> * rebase on top of "dynamic node programming using overlay dtbo" series
+>> * replace !is_pci_passthrough_enabled() check with !IS_ENABLED(CONFIG_HAS_PCI)
+>>    instead of removing
+> 
+> ... there is a changelog. Did you get the patch from somewhere?
 
-https://ericvh.github.io/9p-rfc/rfc9p2000.html#anchor29
-"""
-The create request asks the file server to create a new file with the
-name supplied, in the directory (dir) represented by fid, and requires
-write permission in the directory. The owner of the file is the
-implied user id of the request, the group of the file is the same as
-dir, and the permissions are the value of
+Yes, it was picked up from [1]. The changelog is describing what changed since getting the patch from [1]. I'll clarify this here in the next rev.
 
-perm & (~0666 | (dir.perm & 0666))
+[1] https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg00483.html
 
-if a regular file is being created and
+> 
+>> ---
+>>   xen/arch/arm/device.c       | 2 +-
+>>   xen/arch/arm/domain_build.c | 4 ++--
+>>   2 files changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
+>> index 1f631d327441..4d69c298858d 100644
+>> --- a/xen/arch/arm/device.c
+>> +++ b/xen/arch/arm/device.c
+>> @@ -330,7 +330,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+>>           .d = d,
+>>           .p2mt = p2mt,
+>>           .skip_mapping = !own_device ||
+>> -                        (is_pci_passthrough_enabled() &&
+>> +                        (has_vpci(d) &&
+>>                           (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
+>>           .iomem_ranges = iomem_ranges,
+>>           .irq_ranges = irq_ranges
+>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>> index 7da254709d17..2c55528a62d4 100644
+>> --- a/xen/arch/arm/domain_build.c
+>> +++ b/xen/arch/arm/domain_build.c
+>> @@ -1064,7 +1064,7 @@ static void __init assign_static_memory_11(struct domain *d,
+>>   #endif
+>>
+>>   /*
+>> - * When PCI passthrough is available we want to keep the
+>> + * When HAS_PCI is enabled we want to keep the
+>>    * "linux,pci-domain" in sync for every host bridge.
+>>    *
+>>    * Xen may not have a driver for all the host bridges. So we have
+>> @@ -1080,7 +1080,7 @@ static int __init handle_linux_pci_domain(struct kernel_info *kinfo,
+>>       uint16_t segment;
+>>       int res;
+>>
+>> -    if ( !is_pci_passthrough_enabled() )
+>> +    if ( !IS_ENABLED(CONFIG_HAS_PCI) )
+> 
+> I don't understand why this wants to be HAS_PCI rather than has_vcpi()?
+> This also doesn't seem to be mentioned in the commit message.
 
-perm & (~0777 | (dir.perm & 0777))
+This particular change was essentially preparation for reverting the pci-passthrough option to ensure we didn't break the ability to bisect. Since we will not revert the pci-passthrough option after all, I will drop this change in domain_build.c for the next rev.
 
-if a directory is being created. This means, for example, that if the
-create allows read permission to others, but the containing directory
-does not, then the created file will not allow others to read the
-file.
-"""
-
-So P9_CREATE_PERM_FILE_MASK (which is otherwise unused) should be
-incorporated.  Also the mode and the permissions are handled
-independently:
-"""
-Finally, the newly created file is opened according to mode, and fid
-will represent the newly opened file. Mode is not checked against the
-permissions in perm.
-"""
-
-I think fidp->mode should be set in here somewhere based on mode.  And
-`flags` for creat should be derived from the incoming perms.
-
-Regards,
-Jason
+> 
+>>           return 0;
+>>
+>>       if ( !dt_device_type_is_equal(node, "pci") )
+> 
+> Cheers,
+> 
+> -- 
+> Julien Grall
 
