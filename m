@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D097E1D6B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 10:45:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.627852.978698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F9EA7E1D88
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 10:53:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.627857.978707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzwAo-0006Ed-9Z; Mon, 06 Nov 2023 09:45:34 +0000
+	id 1qzwHq-0007mY-2G; Mon, 06 Nov 2023 09:52:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 627852.978698; Mon, 06 Nov 2023 09:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 627857.978707; Mon, 06 Nov 2023 09:52:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1qzwAo-0006Cx-6J; Mon, 06 Nov 2023 09:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 627852;
- Mon, 06 Nov 2023 09:45:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4FDE=GT=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1qzwAn-0006Cr-0t
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 09:45:33 +0000
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [2607:f8b0:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38b8295b-7c89-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 10:45:30 +0100 (CET)
-Received: by mail-pl1-x62e.google.com with SMTP id
- d9443c01a7336-1cc58219376so38819805ad.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 01:45:30 -0800 (PST)
-Received: from leoy-huanghe.lan ([98.98.115.250])
- by smtp.gmail.com with ESMTPSA id
- z16-20020a170903019000b001b9dab0397bsm5488348plg.29.2023.11.06.01.45.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 01:45:28 -0800 (PST)
+	id 1qzwHp-0007kT-Vf; Mon, 06 Nov 2023 09:52:49 +0000
+Received: by outflank-mailman (input) for mailman id 627857;
+ Mon, 06 Nov 2023 09:52:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1qzwHo-0007kN-3E
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 09:52:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qzwHn-00052W-Fq; Mon, 06 Nov 2023 09:52:47 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1qzwHn-0004nH-9f; Mon, 06 Nov 2023 09:52:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +39,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38b8295b-7c89-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699263929; x=1699868729; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=PbF+1AmPDCX2G8t0HO+WfeoFmwuMIpjHIK0HTaK+N60=;
-        b=SbNb4sbyKTU0WRDavojH/wpzgqL6N0Uh2jenYUx+ssPm27pJAO9iU7dCTBuELwxKoI
-         dXQjW/kULBs67moIFN2aKjlm7SVA/unxk3ra7QWpXhg155fBZ81SGILEJza4kV55+H50
-         bEVHRGeT7Y3ViYPEwjCcOkKjJqzGD45vDkDmVuAHSDFfGqOkO47d51yNSBwuOUehSwEJ
-         cfp5o45nWQzfMDusRx4G4hCkBA+Xhq/kNfgx+XAghuVGVY+LXaq8M8dGNTwp7NstcLri
-         nBvKF0WIhBhzgtW+va6OHGHSUqXBBWwnalw3TUVJ8saQ1XywIL6YFRvfSpZzP+0TS82x
-         RAEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699263929; x=1699868729;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PbF+1AmPDCX2G8t0HO+WfeoFmwuMIpjHIK0HTaK+N60=;
-        b=Qr/qjh9f1WoxI1Unj3FeI0AH9tJD8k0JyQ0gX5x0XR0/CaXSEPfAhdSClOoZYicHku
-         IVMUOji4mnK1e8OYc7ikzebg+QVFtirLZVnlE6fKjyt818i2zOi/MFfJ1eV2gpzZvvdY
-         k1Txh7Kis/0l8Kxe4FTxAKpwMS3HvSt2tNDEYm9prtzewJ/4WCl9kXJqbquCEOc4hp8H
-         nNanKC5wgW/fYregCVOZGvj3wU4ozd0HGZCXfOQtLdKIrwDYJL/7AsBsNtWSaS1Bouja
-         798zFZf/06+kWfdnSwe6UaLhzRS7dAoSl9y0vtUNya8URRK0foxv25N2nAejGtNBEBu4
-         81Mg==
-X-Gm-Message-State: AOJu0YzcSiNys5gzta1+YfMI1YwI37tzlAB5nBcOzZ8p4Mq/cGdoq1xM
-	i6fUJmiEew9u3zyg+LqSt/+sJA==
-X-Google-Smtp-Source: AGHT+IHm+X8j2z1DxsDDoHhnSXLWyU82SvTbxD5brG3rNZ0LSfiOTGf/NFZW2o11kRk2cc/mkgQkxg==
-X-Received: by 2002:a17:903:2945:b0:1b8:90bd:d157 with SMTP id li5-20020a170903294500b001b890bdd157mr28341379plb.26.1699263929150;
-        Mon, 06 Nov 2023 01:45:29 -0800 (PST)
-Date: Mon, 6 Nov 2023 17:45:24 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>,
-	Luca Fancellu <Luca.Fancellu@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Rahul Singh <Rahul.Singh@arm.com>, Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
-Message-ID: <20231106094524.GD90848@leoy-huanghe.lan>
-References: <4B2BD200-5D3E-49D5-BF13-65B769AD4B90@arm.com>
- <CANgGJDqHu0CB=zzZqda18giLYDkL3My+gT592GLO-b9HsF2A4g@mail.gmail.com>
- <d3952200-9edb-4de0-94e3-c00c571a10b9@xen.org>
- <794B0D71-70A7-4546-98E0-EC01573E0D89@arm.com>
- <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
- <alpine.DEB.2.22.394.2310171258330.965337@ubuntu-linux-20-04-desktop>
- <4fc83e61-1e57-4f75-b017-7045842165e5@xen.org>
- <69be876f-4238-4041-a6ff-50f7f6487d5d@xen.org>
- <20231019093559.GA105208@leoy-huanghe.lan>
- <80a5c950-242b-467c-8764-8f06e19dc5d4@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=//ZYwYu36g+6CwoNnXnY06ymeF7+F/xC9kHo5vXQDN4=; b=AjMv8mNr80PYvdAyeJ0FnpqVuZ
+	hX9Kves20ORnJOylVNSHNqmNYlP0RFZG3Ui5SdFkOrSfKFTKqHEcqOhAPhtMSAhMhrVNmjf51+PqK
+	j+EXlwYivTMXyODMXcUykq4HKzcDVbiJCxjf2TthPh9deuZEg/dcyuK5yppKc1kFacdw=;
+Message-ID: <191b5aa4-182f-4b2e-8430-e605de592890@xen.org>
+Date: Mon, 6 Nov 2023 09:52:45 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <80a5c950-242b-467c-8764-8f06e19dc5d4@xen.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen/arm: Skip memory nodes if not enabled
+Content-Language: en-GB
+To: Leo Yan <leo.yan@linaro.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20231013120442.1267488-1-leo.yan@linaro.org>
+ <20231106021742.GA90848@leoy-huanghe.lan>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231106021742.GA90848@leoy-huanghe.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Julien,
 
-On Mon, Nov 06, 2023 at 09:39:24AM +0000, Julien Grall wrote:
 
-[...]
+On 06/11/2023 02:18, Leo Yan wrote:
+> Hi maintainers,
 
-> > I would like to check if here is anything specific I should follow up
-> > on. Based on the discussion in this thread, I've come to the following
-> > conclusions:
-> > 
-> > - Remove the fixes tags;
-> > - Add a description in commit log, something like:
-> >    "Since commit 1c78d76b67e1 ('xen/arm64: mm: Introduce helpers to
-> >     prepare/enable/disable the identity mapping'), Xen will fail to boot
-> >     up if it's loaded in memory above 2TB. This commit fixes the
-> >     regression introduced by that commit."
-> > - Add tages:
-> >    A review tag from Michal Orzel
-> >    A review tag from Bertrand Marquis
-> >    A test tag from Henry Wang
-> > 
-> > Should I repin a new patch set to address the items mentioned above?
+Hi Leo,
+
+> On Fri, Oct 13, 2023 at 08:04:42PM +0800, Leo Yan wrote:
+>> Currently, Xen doesn't check the status property of memory/reserved
+>> memory nodes, which may lead to the following issues:
+>>
+>> - If a memory node has a status "disabled" it implies that it should
+>>    not be used. Xen does not handle the status property for the memory
+>>    node and ends up using it.
+>>
+>> - If a reserved memory node has a status "disabled", it means that this
+>>    region is no longer reserved and can be used, but the "disabled"
+>>    status is not handled by Xen.
+>>
+>>    Xen passes the intact device tree binding of the reserved memory nodes
+>>    to Dom0 and creates a memory node to cover reserved regions. Disabled
+>>    reserved memory nodes are ignored by the Dom0 Linux kernel, thus the
+>>    Dom0 Linux kernel will continue to allocate pages from such a region.
+>>
+>>    On the other hand, since the disabled status is not handled by Xen,
+>>    the disabled reserved memory regions are excluded from the page
+>>    management in Xen which results in Xen being unable to obtain the
+>>    corresponding MFN, in the end, Xen reports error like:
+>>
+>>    (XEN) arch/arm/p2m.c:2202: d0v0: Failing to acquire the MFN 0x1a02dc
+>>
+>> This patch introduces a function device_tree_node_is_available(). If it
+>> detects a memory node is not enabled, Xen will not add the memory region
+>> into the memory lists. In the end, this avoids to generate the memory
+>> node for the disabled memory regions sent to the kernel and the kernel
+>> cannot use the disabled memory nodes any longer.
+>>
+>> Since this patch adds checking device node's status in the
+>> device_tree_get_meminfo() function, except it checks for memory nodes
+>> and reserved memory nodes, it also supports status for static memory
+>> and static heap.
+>>
+>> Suggested-by: Michal Orzel <michal.orzel@amd.com>
+>> Signed-off-by: Leo Yan <leo.yan@linaro.org>
+>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 > 
-> You will also want to update the documentation after
-> "docs/arm: Document where Xen should be loaded in
-> memory"
-
-Will do.
-
-> > Another question is for the 'Release-acked-by' tag.  Henry gave this
-> > tag, but I don't know how to handle it if I need to respin this patch.
-> > Seems to me this is a special tag only for release process, so I don't
-> > need to include it in the new patch, right?
+> Gentle ping.
 > 
-> The release-acked-by tag is only necessary during freeze period if the patch
-> will land in the next release (i.e. 4.18). In this case, your patch will be
-> part of the 4.19, so you can remove the release-acked-by.
+> I don't see this patch is landed in Xen master or staging branch, should
+> anything I need to follow up?
 
-Okay, I will _not_ include release-acked-by tag in the respin.
+The tree has been frozen for the past few weeks for any patches that are 
+not meant for 4.18. We branched for 4.18 last week so staging is now in 
+soft-reopening until 4.18 is released.
 
-> If your patch was targeting 4.19, then it is usually fine to keep the
-> release-acked-by even for the respin. It means that the release manager is
-> happy for the patch to go assuming the patch has all the necessary reviews.
+I am aware of few patches that are ready to be merged. But I haven't yet 
+gone through all of them and merge to 4.19. It will probably be done 
+once 4.18 is released.
 
-Thanks for explaination.
+Cheers,
 
-Leo
+-- 
+Julien Grall
 
