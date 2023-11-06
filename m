@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7804C7E28B6
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 16:31:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628170.979337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CAE67E2928
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Nov 2023 16:54:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628175.979348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r01Yx-0002yy-UU; Mon, 06 Nov 2023 15:30:51 +0000
+	id 1r01vR-0000is-PM; Mon, 06 Nov 2023 15:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628170.979337; Mon, 06 Nov 2023 15:30:51 +0000
+Received: by outflank-mailman (output) from mailman id 628175.979348; Mon, 06 Nov 2023 15:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r01Yx-0002wt-Ro; Mon, 06 Nov 2023 15:30:51 +0000
-Received: by outflank-mailman (input) for mailman id 628170;
- Mon, 06 Nov 2023 15:30:51 +0000
+	id 1r01vR-0000fZ-MG; Mon, 06 Nov 2023 15:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 628175;
+ Mon, 06 Nov 2023 15:54:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=anSp=GT=redhat.com=msnitzer@srs-se1.protection.inumbo.net>)
- id 1r01Yw-0002wm-Vj
- for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 15:30:50 +0000
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 757f98e9-7cb9-11ee-9b0e-b553b5be7939;
- Mon, 06 Nov 2023 16:30:48 +0100 (CET)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-41cc537ed54so29556031cf.2
- for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 07:30:48 -0800 (PST)
-Received: from localhost (pool-68-160-141-91.bstnma.fios.verizon.net.
- [68.160.141.91]) by smtp.gmail.com with ESMTPSA id
- bb29-20020a05622a1b1d00b00418122186ccsm3481815qtb.12.2023.11.06.07.30.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Nov 2023 07:30:46 -0800 (PST)
+ <SRS0=4jw9=GT=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1r01vP-0000eD-NT
+ for xen-devel@lists.xenproject.org; Mon, 06 Nov 2023 15:54:03 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b44b0b6e-7cbc-11ee-9b0e-b553b5be7939;
+ Mon, 06 Nov 2023 16:54:01 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2c5087d19a6so62827431fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Nov 2023 07:54:01 -0800 (PST)
+Received: from [10.95.110.31] (54-240-197-231.amazon.com. [54.240.197.231])
+ by smtp.gmail.com with ESMTPSA id
+ t10-20020a05600c198a00b004064ac107cfsm12608013wmq.39.2023.11.06.07.54.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Nov 2023 07:54:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 757f98e9-7cb9-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: b44b0b6e-7cbc-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699286041; x=1699890841; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Nt6CguaXRq/YZ+PZ3lvfxXKUnqOduWpE0HGPF4W1wY0=;
+        b=ZK0yxLI7mCeOcL1I3KGoX7Cuv617OYEqOhHo67Ryg5ieKg0Csc0QP0GcKRc/7SeO/T
+         t/82rbhwlItQFVfD61rN8HwevA0RSQWd8bXH0fakKD8VvEoAQbEqLr0lyEgmvamEJLsZ
+         /ixtMkoF8Rx65Wufabyhra1aqoeGKuy5w5i9p6SuxyhBiNVzqt2bSwN2/kzhz7nOMMNp
+         v1WRcAmSIAUnnpSnY51CGhFnIC3WPyBzxxSodbwYCRMUquyRX3kgzBvByTWS8EdWNjgl
+         yTfHnTmKIqAJ9huGE/jJr+oeqmSw7DHGCBBMzDp0zJk+gpZt73S/1Ol5OYWS66ZRw2pz
+         EhpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699284647; x=1699889447;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1699286041; x=1699890841;
+        h=content-transfer-encoding:in-reply-to:organization:content-language
+         :references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hrjYpFY8E2oiY2xxYzQ2GUG1YMJAJZ45VGuFmmeRh4c=;
-        b=GLWdG282KOSnvg8TfymEytv/r272E+kA1/OZqwSoOlFQ/aTqsybTUL3zzxlOnSbbPh
-         xKSoH+loN6J/uE9YqHdyzqxyD6HEg5dO31IjmwW6IJ4dEItRIU6pN/6vLATfjvef0ygk
-         XhrrX0IaEoRYemgcE/OEF9oHCcLYjKerKpLZ/mkouiOkWtOPbYZ1VmJpAXDEO6aceBTc
-         BpiL6B6SRJ/le0ENET42cutncjEVWI+I8xJZLAIWzQaTRGvR2BDu6cSMelnlz4CaKFO4
-         fniXA5gO+1cSXobzw7LED4Zl/7ADaAXDeka5cI/2neTZ260U8CgSDiP1iLWKt3yU/bvW
-         VNtA==
-X-Gm-Message-State: AOJu0Yxtmdvj7n4ni4go2fQ62+iByCRbCUZBEYjTaLj6sMQOXfKJoMeM
-	FqUJuCXkRj9r1Y6mNLID06M8
-X-Google-Smtp-Source: AGHT+IEM/+zw76Fcxpj1WquMbJygUaMozC9Wk7yN5zbxmT5CSz4J9onVl5IQCkCNvJJhkdQNmfPFUA==
-X-Received: by 2002:ac8:7d50:0:b0:41c:bbf3:b24b with SMTP id h16-20020ac87d50000000b0041cbbf3b24bmr35421169qtb.27.1699284647197;
-        Mon, 06 Nov 2023 07:30:47 -0800 (PST)
-Date: Mon, 6 Nov 2023 10:30:45 -0500
-From: Mike Snitzer <snitzer@kernel.org>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Mikulas Patocka <mpatocka@redhat.com>, Christoph Hellwig <hch@lst.de>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
-	Marek Marczykowski-G'orecki <marmarek@invisiblethingslab.com>,
-	Jens Axboe <axboe@fb.com>, Sagi Grimberg <sagi@grimberg.me>,
-	Jan Kara <jack@suse.cz>, Vlastimil Babka <vbabka@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Michal Hocko <mhocko@suse.com>, stable@vger.kernel.org,
-	regressions@lists.linux.dev, Alasdair Kergon <agk@redhat.com>,
-	dm-devel@lists.linux.dev, linux-mm@kvack.org
-Subject: Re: swiotlb-xen: provide the "max_mapping_size" method
-Message-ID: <ZUkGpblDX637QV9y@redhat.com>
-References: <3cb4133c-b6db-9187-a678-11ed8c9456e@redhat.com>
- <ZUUctamEFtAlSnSV@mail-itl>
- <ZUUlqJoS6_1IznzT@kbusch-mbp.dhcp.thefacebook.com>
- <ZUVYT1Xp4+hFT27W@mail-itl>
- <ZUV3TApYYoh_oiRR@kbusch-mbp.dhcp.thefacebook.com>
- <11a9886d-316c-edcd-d6da-24ad0b9a2b4@redhat.com>
- <ZUZOKitOAqqKiJ4n@kbusch-mbp.dhcp.thefacebook.com>
- <20231106071008.GB17022@lst.de>
- <928b5df7-fada-cf2f-6f6a-257a84547c3@redhat.com>
- <ZUkDUXDF6g4P86F3@kbusch-mbp.dhcp.thefacebook.com>
+        bh=Nt6CguaXRq/YZ+PZ3lvfxXKUnqOduWpE0HGPF4W1wY0=;
+        b=lnYC6AeP9psW8gFvi7ZOBFjjrK2+YyLoyDzPs9JylCEFO/9DmVGuAGKCIvvTcOqP+f
+         KjooTrX7JGabw5xu8vaqNkIakSI3rSJSZOususpXDdg+U+0zple+LTT6WfB5APlgrv/3
+         KuMJZzSp9wLtWYd79RFGd+kbJxXoy1VQgnxv2NDl5KH+/YABmqo1/u0zBcTYI5yso31U
+         F9Ui3A4eUgM3A6mHckRsifCdIYNTan356Flr9ZlnGQRUBXYv+03IhKdmsvBMymT63Jkd
+         hT/6djnBy/p0hbzzXF8rfjtPJrqUvpKGLmsnNV7epvSfo/jhqNev/G2WO8Wfzi7JuvLJ
+         WeQg==
+X-Gm-Message-State: AOJu0Yz17eNXDlrkvLLGGVg2kyZfZbFBGdJ6j/3QXTnglzjadXA5LshF
+	CCuZGQz/flxYg7WkgOyNPlY=
+X-Google-Smtp-Source: AGHT+IGCoYjqZL7KCS5nKOgoZCWqBe7yFIheTDPrXy3X0fCB+qVxX20b8MuMAQC0/PdVpz/QlzJQHg==
+X-Received: by 2002:a2e:8692:0:b0:2c5:2191:3f35 with SMTP id l18-20020a2e8692000000b002c521913f35mr24457967lji.2.1699286040925;
+        Mon, 06 Nov 2023 07:54:00 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <d8838073-5169-4f84-bc98-912f5afa285b@xen.org>
+Date: Mon, 6 Nov 2023 15:53:56 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZUkDUXDF6g4P86F3@kbusch-mbp.dhcp.thefacebook.com>
+User-Agent: Mozilla Thunderbird
+Reply-To: paul@xen.org
+Subject: Re: [PATCH] xen/pt: Emulate multifunction bit in header type
+To: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, qemu-devel@nongnu.org
+References: <20231103172601.1319375-1-ross.lagerwall@citrix.com>
+Content-Language: en-US
+Organization: Xen Project
+In-Reply-To: <20231103172601.1319375-1-ross.lagerwall@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 06 2023 at 10:16P -0500,
-Keith Busch <kbusch@kernel.org> wrote:
-
-> On Mon, Nov 06, 2023 at 03:59:40PM +0100, Mikulas Patocka wrote:
-> > There's a bug that when using the XEN hypervisor with dm-crypt on NVMe, 
-> > the kernel deadlocks [1].
-> > 
-> > The deadlocks are caused by inability to map a large bio vector -
-> > dma_map_sgtable always returns an error, this gets propagated to the block
-> > layer as BLK_STS_RESOURCE and the block layer retries the request
-> > indefinitely.
-> > 
-> > XEN uses the swiotlb framework to map discontiguous pages into contiguous
-> > runs that are submitted to the PCIe device. The swiotlb framework has a
-> > limitation on the length of a mapping - this needs to be announced with
-> > the max_mapping_size method to make sure that the hardware drivers do not
-> > create larger mappings.
-> > 
-> > Without max_mapping_size, the NVMe block driver would create large
-> > mappings that overrun the maximum mapping size.
-> > 
-> > [1] https://lore.kernel.org/stable/ZTNH0qtmint%2FzLJZ@mail-itl/
+On 03/11/2023 17:26, Ross Lagerwall wrote:
+> The intention of the code appears to have been to unconditionally set
+> the multifunction bit but since the emulation mask is 0x00 it has no
+> effect. Instead, emulate the bit and set it based on the multifunction
+> property of the PCIDevice (which can be set using QAPI).
 > 
-> This should be a "Link:" tag.
+> This allows making passthrough devices appear as functions in a Xen
+> guest.
 > 
-> > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-> > Reported-by: Marek Marczykowski-G'orecki <marmarek@invisiblethingslab.com>
-> > Tested-by: Marek Marczykowski-G'orecki <marmarek@invisiblethingslab.com>
-> > Suggested-by: Keith Busch <kbusch@kernel.org>
-> 
-> I was about to send the same thing. I did a little more than suggest
-> this: it's is the very patch I wrote for testing, minus the redundant
-> nvme bits! But since you already have a commit message for it...
-> 
-> Acked-by: Keith Busch <kbusch@kernel.org>
+> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-No, this patch should be attributed to you Keith.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Mikulas, I like that you ran with getting a fix prepared but please
-update the patch so Keith is the author and use Link: as suggested for
-the v2. Note: you'll still use your Signed-off-by since you had a role
-in getting this patch together (but please move yours to the end of
-the header).
-
-Mike
-
-
-> 
-> > Suggested-by: Christoph Hellwig <hch@lst.de>
-> > Cc: stable@vger.kernel.org
-> > 
-> > ---
-> >  drivers/xen/swiotlb-xen.c |    1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > Index: linux-stable/drivers/xen/swiotlb-xen.c
-> > ===================================================================
-> > --- linux-stable.orig/drivers/xen/swiotlb-xen.c	2023-11-03 17:57:18.000000000 +0100
-> > +++ linux-stable/drivers/xen/swiotlb-xen.c	2023-11-06 15:30:59.000000000 +0100
-> > @@ -405,4 +405,5 @@ const struct dma_map_ops xen_swiotlb_dma
-> >  	.get_sgtable = dma_common_get_sgtable,
-> >  	.alloc_pages = dma_common_alloc_pages,
-> >  	.free_pages = dma_common_free_pages,
-> > +	.max_mapping_size = swiotlb_max_mapping_size,
-> >  };
-> 
 
