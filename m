@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0073C7E3690
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 09:24:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628612.980236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1D37E36BF
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 09:36:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628616.980246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0HN1-0007le-HT; Tue, 07 Nov 2023 08:23:35 +0000
+	id 1r0HZS-0001qt-Ko; Tue, 07 Nov 2023 08:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628612.980236; Tue, 07 Nov 2023 08:23:35 +0000
+Received: by outflank-mailman (output) from mailman id 628616.980246; Tue, 07 Nov 2023 08:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0HN1-0007jb-ET; Tue, 07 Nov 2023 08:23:35 +0000
-Received: by outflank-mailman (input) for mailman id 628612;
- Tue, 07 Nov 2023 08:23:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r0HN0-0007jV-35
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 08:23:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0HMo-0004Z9-Gt; Tue, 07 Nov 2023 08:23:22 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0HMo-0007zC-BS; Tue, 07 Nov 2023 08:23:22 +0000
+	id 1r0HZS-0001of-HM; Tue, 07 Nov 2023 08:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 628616;
+ Tue, 07 Nov 2023 08:36:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=raD6=GU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1r0HZQ-0001oW-CW
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 08:36:24 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba1e10eb-7d48-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 09:36:21 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 86CC84EE0C81;
+ Tue,  7 Nov 2023 09:36:15 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,145 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=FU99nNsSKbOGU3acvMAOLvKB1HfvAXlexL0DEQQJpj0=; b=uqkex9Znoo0hTRbkCy74vrtJ6A
-	NgWVlFySNMOMMsmG2ZSatjPy3gJn6moyB+L3ZW5ggulDrZYBCEr3xFTmDsZVvP0otRqqIoDhkzB7N
-	m7gt0VYmiMiiOiKaUsLk5gPOrRZsUTAMJercLdc9ZjmQ94Wyw9WF3dHD6Ke9m5i/NC14=;
-Message-ID: <3ca89630-1625-46cc-b78b-9b9c073ccea3@xen.org>
-Date: Tue, 7 Nov 2023 08:23:20 +0000
+X-Inumbo-ID: ba1e10eb-7d48-11ee-9b0e-b553b5be7939
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Informal voting proposal
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org,
- committers@xenproject.org
-References: <CAO-mL=zCpobcXHnAGeLL1tOP5dyqyThVri3a=76t_xYDMa+mrA@mail.gmail.com>
- <39e6d4b3-5468-4b91-a030-f36bcce3583d@xen.org>
- <alpine.DEB.2.22.394.2311061254560.3478774@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2311061254560.3478774@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Tue, 07 Nov 2023 09:36:15 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>, Wei Liu
+ <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH][for-4.19] xen: replace occurrences of SAF-1-safe with
+ asmlinkage attribute
+In-Reply-To: <ef60f721-f784-4595-8866-e1c57da7e48f@xen.org>
+References: <334b360fada7177e0b6e074fbdd33e02ce186b8f.1699034672.git.nicola.vetrini@bugseng.com>
+ <ef60f721-f784-4595-8866-e1c57da7e48f@xen.org>
+Message-ID: <bb40675e3372abf264dcd63d0d64d476@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
-
-On 07/11/2023 04:18, Stefano Stabellini wrote:
-> On Mon, 6 Nov 2023, Julien Grall wrote:
->> Hi Kelly,
->>
->> On 06/11/2023 16:40, Kelly Choi wrote:
->>> Hi all,
->>>
->>> As an open-source community, there will always be differences of opinion in
->>> approaches and the way we think. It is imperative, however, that we view
->>> this diversity as a source of strength rather than a hindrance.
->>>
->>> Recent deliberations within our project have led to certain matters being
->>> put on hold due to an inability to reach a consensus. While formal voting
->>> procedures serve their purpose, they can be time-consuming and may not
->>> always lead to meaningful progress.
->>>
->>> Having received agreement from a few maintainers already, I would like to
->>> propose the following:
->>
->> Thanks for the sending the proposal. While I like the idea of informal vote to
->> move faster, I would like to ask some clarifications.
->>
->>> *Informal voting method:*
->>>
->>>      1. Each project should ideally have more than 2 maintainers to
->>>      facilitate impartial discussions. Projects lacking this configuration
->>> will
->>>      be addressed at a later stage.
->>>      2. Anyone in the community is welcome to voice their opinions, ideas,
->>>      and concerns about any patch or contribution.
->>>      3. If members cannot agree, the majority informal vote of the
->>>      maintainers will be the decision that stands. For instance, if, after
->>>      careful consideration of all suggestions and concerns, 2 out of 3
->>>      maintainers endorse a solution within the x86 subsystem, it shall be the
->>>      decision we move forward with.
->>
->> How do you know that all the options have been carefully considered?
+On 2023-11-06 23:57, Julien Grall wrote:
+> Hi Nicola,
 > 
-> I don't think there is a hard rule on this. We follow the discussion on > the list the same way as we do today.
-
-To me the fact we need to write down the informal rules means that 
-something already gone wrong before. So I feel that rules should be 
-unambiguous to avoid any problem afterwards.
-
+> On 03/11/2023 18:05, Nicola Vetrini wrote:
+>> The comment-based justifications for MISRA C:2012 Rule 8.4 are 
+>> replaced
+>> by the asmlinkage pseudo-attribute, for the sake of uniformity.
+>> The deviation with a comment based on the SAF framework is also
+>> mentioned as a last resort.
 > 
-> While I like the informal vote proposal and effectively we have already
-> been following it in many areas of the project, I don't think we should
-> change the current processes from that point of view.
-
-I am confused. Are you suggesting that we should not write down how 
-informal votes works?
-
+> I don't see any reason to keep SAF-1 after this patch. So can this be 
+> removed?
 > 
-> 
->>>      4. Naturally, there may be exceptional circumstances, as such, a formal
->>>      vote may be warranted but should happen only a few times a year for
->>> serious
->>>      cases only.
->> Similarly here, you are suggesting that a formal vote can be called. But it is
->> not super clear what would be the condition it could be used and how it can be
->> called.
-> 
-> The formal vote is basically the same we already have today. It would
-> follow the existing voting rules and guidelines already part of the
-> governance.
 
-Reading through the governance, I couldn't find anywhere indicating in 
-which condition the formal votes can be triggered. Hence my question here.
+In documenting-violations.rst it's stated:
+"Entries in the database shall never be removed, even if they are not 
+used
+anymore in the code (if a patch is removing or modifying the faulty 
+line).
+This is to make sure that numbers are not reused which could lead to 
+conflicts
+with old branches or misleading justifications."
 
->> For instance, per the informal rule, if 2 out of 3 maintainers accept. Then it
->> would be sensible for the patch to be merged as soon as the 5 days windows is
->> closed. Yet the 3rd maintainer technically object it. So could that maintainer
->> request a formal vote? If so, how long do they have?
-> 
-> It is difficult to write down a process that works in all cases, and if
-> we did it would probably end up being slower rather than faster.
-> 
-> In my view if someone doesn't agree with his other co-maintainers and he
-> is outvoted (e.g. 2/3 of the maintainers prefer a different option), the
-> individual is entitled to raise a request for a vote with the
-> committers, which is the same as we already have today.
-> 
-> Ideally a formal vote would be rare, maybe once or twice a year, so I
-> hope we won't need to optimize the formal vote.
+that's why I kept SAF-1 in the safe.json file and added the remark about 
+it
+being a last resort. I am ok with that remark becoming not to use SAF-1 
+in new code
+at all (I probably didn't go back to check your reply when writing the 
+patch).
 
-Ok. So the expectation is that all the maintainers will accept the 
-informal votes in the majority of the cases. If this is not the case, 
-then we will revise the rules. Is that correct?
-
->>>      5. Informal votes can be as easy as 2 out of 3 maintainers providing
->>>      their Acked-by/Reviewed-by tag. Alternatively, Maintainers can call an
->>>      informal vote by simply emailing the thread with "informal vote
->>> proposed,
->>>      option 1 and option 2."
->>>      6. *All maintainers should reply with their vote within 5 working days.*
->>
->> While I understand we want to move fast, this means that a maintainer that is
->> away for PTO would not have the opportunity to answer.
+>> 
+>> Add missing 'xen/compiler.h' #include-s where needed.
+>> 
+>> The text in docs/misra/deviations.rst is modified to reflect this 
+>> change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>>   docs/misra/deviations.rst   |  6 +++---
+>>   xen/arch/arm/cpuerrata.c    |  7 +++----
+>>   xen/arch/arm/setup.c        |  5 ++---
+>>   xen/arch/arm/smpboot.c      |  3 +--
+>>   xen/arch/arm/traps.c        | 21 +++++++--------------
+>>   xen/arch/x86/boot/cmdline.c |  5 +++--
+>>   xen/arch/x86/boot/reloc.c   |  7 ++++---
+>>   xen/arch/x86/extable.c      |  3 +--
+>>   xen/arch/x86/setup.c        |  3 +--
+>>   xen/arch/x86/traps.c        | 27 +++++++++------------------
+>>   xen/common/efi/boot.c       |  5 ++---
+>>   11 files changed, 36 insertions(+), 56 deletions(-)
+>> 
+>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+>> index d468da2f5ce9..ed5d36c08647 100644
+>> --- a/docs/misra/deviations.rst
+>> +++ b/docs/misra/deviations.rst
+>> @@ -134,9 +134,9 @@ Deviations related to MISRA C:2012 Rules:
+>>        - Tagged as `safe` for ECLAIR.
+>>        * - R8.4
+>> -     - Functions and variables used only by asm modules are either 
+>> marked with
+>> -       the `asmlinkage` macro or with a SAF-1-safe textual deviation
+>> -       (see safe.json).
 > 
-> PTO is a bit of a special case because we typically know when one of the
-> maintainers is on PTO. If it is a short PTO and if the vacationing
-> maintainer could have a strong opinion on the subject then it would make
-> sense to wait. If it is a long leave of absence (several weeks or
-> months) then I don't think we can wait.
+> I thought we agreed to a different wording [1]. So is this really based 
+> on last version?
 > 
-> So I think the 5 working days is OK as a rule of thumb, but of course it
-> shouldn't be used to work around objections of a maintainer by waiting
-> for him to go on holiday :-)
-
-Well... It has been done before ;). That's why I think it is important 
-to write down because at least it is not left to interpretation.
-
-Cheers,
+>> +     - Functions and variables used only to interface with asm 
+>> modules should
+>> +       be marked with the `asmlinkage` macro. If that's not possible, 
+>> consider
+>> +       using the SAF-1-safe textual deviation (see safe.json).
+> 
+> See above. Actually, I am a bit surprised that SAF-1 is still mentioned 
+> given that I have now requested multiple that it should be removed and 
+> I haven't yet seen a reason to keep it.
+> 
+> Cheers,
+> 
+> [1] 
+> https://lore.kernel.org/all/b914ac93-2499-4bfd-a60a-51a9f1c170ec@xen.org/
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
