@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86AB17E49F4
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 21:36:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629022.981059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4CC17E49F7
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 21:37:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629027.981070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0SoU-0007PA-DF; Tue, 07 Nov 2023 20:36:42 +0000
+	id 1r0SpL-0007ya-M0; Tue, 07 Nov 2023 20:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629022.981059; Tue, 07 Nov 2023 20:36:42 +0000
+Received: by outflank-mailman (output) from mailman id 629027.981070; Tue, 07 Nov 2023 20:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0SoU-0007Mq-AR; Tue, 07 Nov 2023 20:36:42 +0000
-Received: by outflank-mailman (input) for mailman id 629022;
- Tue, 07 Nov 2023 20:36:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r0SpL-0007wX-IM; Tue, 07 Nov 2023 20:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 629027;
+ Tue, 07 Nov 2023 20:37:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zQVP=GU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1r0SoT-0007Mk-RV
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 20:36:41 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b4f5620-7dad-11ee-98da-6d05b1d4d9a1;
- Tue, 07 Nov 2023 21:36:41 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-507975d34e8so8830414e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 12:36:41 -0800 (PST)
+ <SRS0=FGpL=GU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r0SpK-0007wR-2q
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 20:37:34 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79c7ab7f-7dad-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 21:37:32 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 94C37B818EF;
+ Tue,  7 Nov 2023 20:37:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D47C433C7;
+ Tue,  7 Nov 2023 20:37:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,61 +41,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b4f5620-7dad-11ee-98da-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699389400; x=1699994200; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5UtFnh89Bh8lRzcK4cEy8IYfEXdp9w6zh3nW5sRUOYo=;
-        b=TVWydbTz7v+PCp5p58MUsuwurxyn/OO9anULcseAAOD7RE6fMiueZCqPlsYsds0kpC
-         tmjuyunT15/rvhcHdHoPsRE1UM10Berx0XTd7VZRwXsdCzaWu3r89vNE81+moTxa5/E/
-         VGdQ49cWksiDwObAMdz3+4phNv7zJtkBTM0dehOJLunq1QrD5nV46jLaLhGNVUbnpjU2
-         O4t8KU43moFfXH5RyeaUxAXBPFZiUHmbNS0KS593hlgdSsE8n1/jt5cxn6luKg7IIUKs
-         AdAoVccxG4czY3mKJLXBKgxUsdI6MiTMZ6gdfD8WC5SRt2hji02lCt09rnoAkIhvAqTB
-         Egbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699389400; x=1699994200;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5UtFnh89Bh8lRzcK4cEy8IYfEXdp9w6zh3nW5sRUOYo=;
-        b=pEBBHi3rYB+a5prAPucTguweMUVZIbe/DNgGpk9AvVesOELQOsWOMdkIm1zEMzdgID
-         DdI+PBjovHZy2awLRT4OxGdpc3YTuh1cCe6B3/xb2Jk7VRP/JpiiYgUhV+5H8Tw2PKN0
-         LCZteZm6ja3vzdgy8DpftSapeIcsbb6TqegLHTdi8+42Szk0Js/ihMaQHczgEXJ5A6Nv
-         YYx7D6qdqDO1IFNVUmu+y0MJ/iCrvU7wRy0JDz1hlo9i9gsIntSZC/nL3xuN/e+H1OTA
-         ruyqeBZTAePgVEq5NEfKglqzGEUdNXx10rzonKWc5Lz+asw9OqQc072oXaczHHAyDYMq
-         jwoA==
-X-Gm-Message-State: AOJu0YyJ0/F0cYXumFVwF+UEO72mI1MsuqaYmBdZlZt/QNQpeiuz2NH7
-	MxdlgIYqha+AIfh56JwZtiwNq2LrSqcSvdgg8pUsaUdc
-X-Google-Smtp-Source: AGHT+IFEYjVjfcduufFFz41gcB3ymcFkZUd0UAGkgTpu+LRxIvZG2Xa9hji74oD9G3P2eLzC9vP/FUqFYseOj6ExIek=
-X-Received: by 2002:a05:6512:3e12:b0:509:488b:4de4 with SMTP id
- i18-20020a0565123e1200b00509488b4de4mr17264333lfv.1.1699389400198; Tue, 07
- Nov 2023 12:36:40 -0800 (PST)
+X-Inumbo-ID: 79c7ab7f-7dad-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699389450;
+	bh=/KhwW/iXe2feXEw1E7heYO8MgvgwqAcHL7R+lGzr0Nk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Qq0PIA376ZL4HLILvD7QkxBpeGwb/wAM8U0pBYr65RzZkEOUmizEou4pC3S8o4VLo
+	 JxxxiQL4+J/TtUL1ikvlLg/6RX0l4PaalXFcnGLlItNe4bvdUg8kpAc9U3FdY5a1sh
+	 lk7b0AP0qXCjItq/K0J+SRxFLn8I+k6jWwqaktH1extzQDj4BJ3xkVlrQsn+IhYaLy
+	 hgAKEKxTZnmZEAwXvEwtXXULJIQlbCZGrJoXZWoMucH2wyv3Ef8ln9wy01AOFSwVLy
+	 h3cNWqQ9y/tlasupyptqmIY45phFdP2VkUEiurtRZYDt+v2J6z4sNJo5TeV/UG4fy/
+	 7cCSslY7Y9TaA==
+Date: Tue, 7 Nov 2023 12:37:28 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Federico Serafini <federico.serafini@bugseng.com>, 
+    xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Henry Wang <henry.wang@arm.com>
+Subject: Re: [XEN PATCH 07/10] arm/traps: address a violation of MISRA C:2012
+ Rule 8.2
+In-Reply-To: <18a1bb98-0eb4-4fc9-89e1-b32707cdcf9e@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2311071237090.3478774@ubuntu-linux-20-04-desktop>
+References: <cover.1697207038.git.federico.serafini@bugseng.com> <dbc0e965cd9f93848d27e7ebf0ffcfca05499d58.1697207038.git.federico.serafini@bugseng.com> <7db6d930-8a06-4a1b-b668-94df62972caa@xen.org> <18a1bb98-0eb4-4fc9-89e1-b32707cdcf9e@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-29-jgross@suse.com>
-In-Reply-To: <20231101093325.30302-29-jgross@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 7 Nov 2023 15:36:28 -0500
-Message-ID: <CAKf6xpt05idfAWFHBfjxMYWq=W8v_54c2z_DUM5AraofCC3b4A@mail.gmail.com>
-Subject: Re: [PATCH 28/29] tools/xenstored: support complete log capabilities
- in stubdom
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323329-464047518-1699389450=:3478774"
 
-On Wed, Nov 1, 2023 at 6:49=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> With 9pfs being fully available in Xenstore-stubdom now, there is no
-> reason to not fully support all logging capabilities in stubdom.
->
-> Open the logfile on stubdom only after the 9pfs file system has been
-> mounted.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+--8323329-464047518-1699389450=:3478774
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 7 Nov 2023, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 16/10/2023 10:02, Julien Grall wrote:
+> > Hi,
+> > 
+> > On 13/10/2023 16:24, Federico Serafini wrote:
+> > > Add missing parameter name, no functional change.
+> > > 
+> > > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> > > ---
+> > >   xen/arch/arm/traps.c | 2 +-
+> > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> > > index ce89f16404..5aa14d4707 100644
+> > > --- a/xen/arch/arm/traps.c
+> > > +++ b/xen/arch/arm/traps.c
+> > > @@ -1236,7 +1236,7 @@ int do_bug_frame(const struct cpu_user_regs *regs,
+> > > vaddr_t pc)
+> > >       if ( id == BUGFRAME_run_fn )
+> > >       {
+> > > -        void (*fn)(const struct cpu_user_regs *) = (void
+> > > *)regs->BUG_FN_REG;
+> > > +        void (*fn)(const struct cpu_user_regs *regs) = (void
+> > > *)regs->BUG_FN_REG;
+> > 
+> > Now the line will be over 80 characters. I think we should introduce a
+> > typedef. This would also help in the longer run to validate that the
+> > function passed to run_in_exception_handle() has the expected prototype.
+> 
+> I see this patch was committed in your for-4.19 branch. But this comment was
+> unaddressed. Can you drop the patch because your branch is committed in
+> staging?
+
+I dropped the patch. Federico, please address Julien's feedback.
+--8323329-464047518-1699389450=:3478774--
 
