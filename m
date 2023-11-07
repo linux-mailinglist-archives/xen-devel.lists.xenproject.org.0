@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 270667E47B2
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 18:58:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628961.980939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF8917E4832
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 19:24:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628969.980949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0QKm-0002OD-V5; Tue, 07 Nov 2023 17:57:52 +0000
+	id 1r0Qji-0008BB-Q6; Tue, 07 Nov 2023 18:23:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628961.980939; Tue, 07 Nov 2023 17:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 628969.980949; Tue, 07 Nov 2023 18:23:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0QKm-0002M9-Rl; Tue, 07 Nov 2023 17:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 628961;
- Tue, 07 Nov 2023 17:57:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r0QKl-0002M3-OI
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 17:57:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0QKk-0001uW-RV; Tue, 07 Nov 2023 17:57:50 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.15.180]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0QKk-0007bz-K9; Tue, 07 Nov 2023 17:57:50 +0000
+	id 1r0Qji-000890-N5; Tue, 07 Nov 2023 18:23:38 +0000
+Received: by outflank-mailman (input) for mailman id 628969;
+ Tue, 07 Nov 2023 18:23:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zQVP=GU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r0Qjh-00087c-JF
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 18:23:37 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c3005f89-7d9a-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 19:23:34 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9becde9ea7bso1410815566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 10:23:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +40,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=fS/lDKQ+ZuVGMdcQjvHBJKfxZCHVvRlh860QLiETbXY=; b=29Wy6c2MUhUUeMwHXk5RnPPTvQ
-	U3QhYzZrwhCa7oHCh0wkaShs/QpgML9kkpqNVhcJPkEUtODzpYqqDfXWTERVChc42VtjZTvF+Z835
-	f7bwFsIcUMH4ZeklpMsq2Sw2leLvqVBqd0qNUrw09+m+BSRq6RHGX3ySbZ9J17udy880=;
-Message-ID: <18a1bb98-0eb4-4fc9-89e1-b32707cdcf9e@xen.org>
-Date: Tue, 7 Nov 2023 17:57:48 +0000
+X-Inumbo-ID: c3005f89-7d9a-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699381414; x=1699986214; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A4awz8xlu5gQqeS3oMKh08Lwa8/xNPSu437k7l92JKk=;
+        b=LloKpgpfi/aEH4pTjbbzFgKp9gqTMA3u++NEwY3UjyZgfcEkhW6M2qZJjE+lAu7lbB
+         qDfv7UINCfbjTDrqlRCo3fgA5vyt4+7kqDucCnAHJgQN3VPkearfjPzqDyYS3MfMCD+q
+         /xfGvnuhhhYJIieB+DJOkznoRgQkyej9O3VWWRAQXU+38mlfY7MRwET8oyIu6rvqd4pO
+         D2MI9FvZA4aRZBTeFTzXwAxO9O1o4kzux9SUOp1LDkUpSXMrSqfVrMOEfjumMQZsnFH6
+         pYcdEVr9zoJJh5wx+C0VtxtK24w93Be+J9iiq+4NquKgfA9sUB982F/yM3X8vviBsfbv
+         nGqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699381414; x=1699986214;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=A4awz8xlu5gQqeS3oMKh08Lwa8/xNPSu437k7l92JKk=;
+        b=MCodCZUwT1iukDLXd5leosdCFA3v9AfodRlzA7jyfyt2Ww1Rud1XulqXb9WYRotlHr
+         zTg59jAbo7d8/3L8g/LB4ii6DWAkcVgD8UTDM+loQyI2gE+/SoAQcc8wdNGU3i650zIL
+         /M8TP0sdoXByI5yQufAtI3AzmMmHfELQFi8Oyeq3stA9kNoY8l2Vl62kkvJ0KRDFKg6Q
+         7lw0xeOIj7YbVBveuSUu4RqK0fFK4flHqhLAMY21ZzwF+NUYF3P7XYs5Am3KcunXUHJY
+         n0D0fgM9KobuBKub1SVTQMMBIhUQfqGE8VGOxU8La/AbT6wsm0rGxEuh1ZplhG9+KN0Y
+         SgOQ==
+X-Gm-Message-State: AOJu0YzgOJT62kKvUzIzx5bJLPk/Q5ar5PZda3jwNeSwyCI7L0db5Z4+
+	Kcj3XZnaf+DHO7yYhc0GkTHLGV1L+e7zUtGiI74=
+X-Google-Smtp-Source: AGHT+IEkI1b8Pu7uqla+BuVaP8GwIMagAk2epVkyUrJcrHvrgqztN5jxaYLmd9KxHtl3t8BHw07HdjoG7mpzbQ3VnbM=
+X-Received: by 2002:a17:906:3582:b0:9ae:50ec:bd81 with SMTP id
+ o2-20020a170906358200b009ae50ecbd81mr2858949ejb.21.1699381414013; Tue, 07 Nov
+ 2023 10:23:34 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 07/10] arm/traps: address a violation of MISRA C:2012
- Rule 8.2
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <henry.wang@arm.com>
-References: <cover.1697207038.git.federico.serafini@bugseng.com>
- <dbc0e965cd9f93848d27e7ebf0ffcfca05499d58.1697207038.git.federico.serafini@bugseng.com>
- <7db6d930-8a06-4a1b-b668-94df62972caa@xen.org>
-In-Reply-To: <7db6d930-8a06-4a1b-b668-94df62972caa@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-18-jgross@suse.com>
+In-Reply-To: <20231101093325.30302-18-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 7 Nov 2023 13:23:22 -0500
+Message-ID: <CAKf6xpvbHWwfDOef9GZEg-WEmb+1fZN+Y_BT379UW1Oa8r0dTA@mail.gmail.com>
+Subject: Re: [PATCH 17/29] tools/helpers: allocate xenstore event channel for
+ xenstore stubdom
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+On Wed, Nov 1, 2023 at 5:53=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
+>
+> In order to prepare support of PV frontends in xenstore-stubdom, add
+> allocation of a Xenstore event channel to init-xenstore-domain.c.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-On 16/10/2023 10:02, Julien Grall wrote:
-> Hi,
-> 
-> On 13/10/2023 16:24, Federico Serafini wrote:
->> Add missing parameter name, no functional change.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   xen/arch/arm/traps.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
->> index ce89f16404..5aa14d4707 100644
->> --- a/xen/arch/arm/traps.c
->> +++ b/xen/arch/arm/traps.c
->> @@ -1236,7 +1236,7 @@ int do_bug_frame(const struct cpu_user_regs 
->> *regs, vaddr_t pc)
->>       if ( id == BUGFRAME_run_fn )
->>       {
->> -        void (*fn)(const struct cpu_user_regs *) = (void 
->> *)regs->BUG_FN_REG;
->> +        void (*fn)(const struct cpu_user_regs *regs) = (void 
->> *)regs->BUG_FN_REG;
-> 
-> Now the line will be over 80 characters. I think we should introduce a 
-> typedef. This would also help in the longer run to validate that the 
-> function passed to run_in_exception_handle() has the expected prototype.
-
-I see this patch was committed in your for-4.19 branch. But this comment 
-was unaddressed. Can you drop the patch because your branch is committed 
-in staging?
-
-Cheers,
-
--- 
-Julien Grall
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
