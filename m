@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34CF17E3EE5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 13:44:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628810.980655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FAE87E403F
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 14:41:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628816.980666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0LR9-0001Jb-Pz; Tue, 07 Nov 2023 12:44:07 +0000
+	id 1r0MK6-00085r-Sc; Tue, 07 Nov 2023 13:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628810.980655; Tue, 07 Nov 2023 12:44:07 +0000
+Received: by outflank-mailman (output) from mailman id 628816.980666; Tue, 07 Nov 2023 13:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0LR9-0001Hn-NC; Tue, 07 Nov 2023 12:44:07 +0000
-Received: by outflank-mailman (input) for mailman id 628810;
- Tue, 07 Nov 2023 12:44:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r0LR8-0001Hf-Fr
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 12:44:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0LR7-0002Ql-MW; Tue, 07 Nov 2023 12:44:05 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.15.180]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r0LR7-0005WQ-Gr; Tue, 07 Nov 2023 12:44:05 +0000
+	id 1r0MK6-000837-Pb; Tue, 07 Nov 2023 13:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 628816;
+ Tue, 07 Nov 2023 13:40:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=s63f=GU=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1r0MK5-00082g-Er
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 13:40:53 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 42bbfaa1-7d73-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 14:40:50 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-498-OXJe754lPCaTuJ2nvsmUSQ-1; Tue, 07 Nov 2023 08:40:45 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 381BD8556E9;
+ Tue,  7 Nov 2023 13:40:44 +0000 (UTC)
+Received: from localhost (unknown [10.39.194.130])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 46AA72026D66;
+ Tue,  7 Nov 2023 13:40:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +51,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=oky95MX67gcdvuUE/bTl6AkrRH7y0x0Qc8B1UpR57Mk=; b=VP6nNmBGPkcqSZIoHUaFpqimm2
-	kpv3E4NrWcSAYXivCdB5+21QHDHuC47RUZfGzXRu36/9o2mj7NRlmSPBr0DJlLstq1Ng2JhRZB3ST
-	L0iXwpDlxOUAQ/uOns5pNG5iELCoddakvR5XZeFA2wvcws9yhAty01X38FXe2723olj4=;
-Message-ID: <a95c6666-dbf3-4f1f-9618-b1f31bf47710@xen.org>
-Date: Tue, 7 Nov 2023 12:44:02 +0000
+X-Inumbo-ID: 42bbfaa1-7d73-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1699364448;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NHuO1OojHY7F9rWwEFTdZTm7zhHRCPLRzfq8vCij62c=;
+	b=ioWZukLsTXjaQSOi+Pw08zZybXD3IMgIdw88LWyqWih3lGA4bvR3NiXKte1fagOEmkKpdB
+	aRu+0w7Yp+05fL8ctrTlXbWgDlCNiZJ74KzQcxCkCiDIjdvQzNe263xScTQekcbtYUGQYL
+	yytpxwJc0wflOA7rlBlKrdQ82WwPugE=
+X-MC-Unique: OXJe754lPCaTuJ2nvsmUSQ-1
+Date: Tue, 7 Nov 2023 21:40:40 +0800
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: qemu-devel@nongnu.org, Stefan Hajnoczi <stefanha@redhat.com>,
+	Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Jason Wang <jasowang@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Subject: Re: [PULL 00/15] xenfv.for-upstream queue
+Message-ID: <20231107134040.GA1010741@fedora>
+References: <20231107092149.404842-1-dwmw2@infradead.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/4] automation/eclair: add deviation for certain
- backwards goto
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-References: <cover.1699295113.git.nicola.vetrini@bugseng.com>
- <306ca49d5d63ea0614bbcef470efec9234d1a018.1699295113.git.nicola.vetrini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <306ca49d5d63ea0614bbcef470efec9234d1a018.1699295113.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="GSuJ/hBc0Lx51aih"
+Content-Disposition: inline
+In-Reply-To: <20231107092149.404842-1-dwmw2@infradead.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
 
-Hi Nicola,
 
-On 07/11/2023 10:33, Nicola Vetrini wrote:
-> As explained in the deviation record, code constructs such as
-> "goto retry" and "goto again" are sometimes the best balance between
-> code complexity and the understandability of the control flow
-> by developers; as such, these construct are allowed to deviate
-> from Rule 15.2.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->   automation/eclair_analysis/ECLAIR/deviations.ecl | 10 ++++++++++
->   docs/misra/deviations.rst                        | 10 ++++++++++
->   2 files changed, 20 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index fa56e5c00a27..8b1f622f8f82 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -270,6 +270,16 @@ statements are deliberate"
->   -config=MC3R1.R14.3,statements={deliberate , "wrapped(any(),node(if_stmt))" }
->   -doc_end
->   
-> +#
-> +# Series 15
-> +#
-> +
-> +-doc_begin="The additional complexity introduced in the code by using control flow structures other than backwards goto-s
-> +were deemed not to justify the possible prevention of developer confusion, given the very torough review process estabilished
+--GSuJ/hBc0Lx51aih
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Typoes: s/torough/thorough/ s/estabilished/established/
+Applied, thanks.
 
-> +in the community."
-> +-config=MC3R1.R15.2,reports+={deliberate, "any_area(any_loc(text(^.*goto (again|retry).*$)))"}
-> +-doc_end
-> +
->   #
->   # Series 20.
->   #
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 8511a189253b..7d1e1f0d09b3 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -208,6 +208,16 @@ Deviations related to MISRA C:2012 Rules:
->          statements are deliberate.
->        - Project-wide deviation; tagged as `disapplied` for ECLAIR.
->   
-> +   * - R15.2
-> +     - The possible prevention of developer confusion as a result of using
-> +       control flow structures other than backwards goto-s in some instances was
-> +       deemed not strong enough to justify the additional complexity introduced
-> +       in the code. Such instances are the uses of the following labels:
-> +
-> +       - again
-> +       - retry
+Please update the changelog at https://wiki.qemu.org/ChangeLog/8.2 for any user-visible changes.
 
-Have you investigated the possibility to use SAF-X in the code? If so, 
-what's the problem to use them?
+--GSuJ/hBc0Lx51aih
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Cheers,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Julien Grall
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVKPlgACgkQnKSrs4Gr
+c8go6QgAldelY+trwwwNMAllr73WkdwjqbENy+zeBaBa2FAdn9YSw3bke+1Xwo/M
+i5mzyJahOWqCBm6B8JS3r7ERxhaln3x4jVxxkSBCcLKLh31WAaaPFRLb0WVr6Wqe
+hWQ7dTmOu7V/J2xmpi+FTB4AP4ng5259uWKqsZgsfJvPU+tOsKxscm7ERerOO21A
+IoH+7v+IK8uhN94hWcOXcsJlRY8HxMmigsDRTGjex/NuWuQkOW+iMJqhgyANnr+e
+h1FMvC18NFzynfvr3Gd750fTps7SLhf0eDQUNpIZvPX6P1Trz9KD9DTQcJ9QZpra
+V3L/gTy+FrrDaEEFB8KGtSwyYqSicg==
+=TuL5
+-----END PGP SIGNATURE-----
+
+--GSuJ/hBc0Lx51aih--
+
 
