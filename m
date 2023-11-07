@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E3357E4345
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 16:18:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628875.980776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD4C77E4356
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 16:21:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628879.980786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0NqI-00021Z-5D; Tue, 07 Nov 2023 15:18:14 +0000
+	id 1r0NtD-0003jT-Iv; Tue, 07 Nov 2023 15:21:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628875.980776; Tue, 07 Nov 2023 15:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 628879.980786; Tue, 07 Nov 2023 15:21:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0NqI-0001yx-2e; Tue, 07 Nov 2023 15:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 628875;
- Tue, 07 Nov 2023 15:18:12 +0000
+	id 1r0NtD-0003ga-G4; Tue, 07 Nov 2023 15:21:15 +0000
+Received: by outflank-mailman (input) for mailman id 628879;
+ Tue, 07 Nov 2023 15:21:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QZVA=GU=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1r0NqG-0001xa-Ic
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 15:18:12 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=zQVP=GU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r0NtC-0003gS-D4
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 15:21:14 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc708670-7d80-11ee-9b0e-b553b5be7939;
- Tue, 07 Nov 2023 16:18:10 +0100 (CET)
-Received: from Dell.bugseng.com (unknown [37.163.230.152])
- by support.bugseng.com (Postfix) with ESMTPSA id B35AD4EE0747;
- Tue,  7 Nov 2023 16:18:08 +0100 (CET)
+ id 48fdea95-7d81-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 16:21:12 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-53df747cfe5so10001504a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 07:21:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,180 +40,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc708670-7d80-11ee-9b0e-b553b5be7939
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v3] xen/string: address violations of MISRA C:2012 Rules 8.2 and 8.3
-Date: Tue,  7 Nov 2023 16:18:02 +0100
-Message-Id: <d28ea15aa8d36622548b433d5fb6f19dd521bdfb.1699369270.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 48fdea95-7d81-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699370472; x=1699975272; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3OsLQXgxyFnLft3eanu6Eq7M/x1KdPiNT5ZvR3pqvK4=;
+        b=HcL/FlvylpsEoXCJcvy2prsEdIslvr70MWj7JYQTyxg78/PVw4FxhCJZEPOoP5l09y
+         uIZR5nCsUd5i9Gn2tBHygW9Ku+2n8x7IzXfQYTDIm3lUZ1jOXk3NjJTXg8mYQzne6sfd
+         gBpwDavdc4NRjn71J9tvA+8XgqYDn80WbKtTmQbAfkIoGCWFPGPhrvVs1ByYeS2gRYGC
+         C89MKvw4jzYPogf1bPllwAssBrbpn4cPJjvdV7khoc93S+Ity4PeMVbS+OpbdwFN/IeH
+         xrAlUXzpLY1TUyMkHAkVhp7BopERpVl/HbHi6jqtrqu2gH0NkVeG7Cx5aIdzF1xV86Cq
+         t7fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699370472; x=1699975272;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3OsLQXgxyFnLft3eanu6Eq7M/x1KdPiNT5ZvR3pqvK4=;
+        b=r/zW3pPxiAzFNOqvpcDgBpLDc7IaV3x0cn/jyc1UzmUokf6kJns3tlcf9jDlNBUefN
+         4sM5OYcDbAcGMUD58pshZ4hgyhe1WzBhL/y3cVPtFRCCF+9yzuYm28VOAsBWPjHeIe7Z
+         Ufng7Tlf+HppYV60HuRDXBQ8gozN+1gvJ2iuq6lZ7PxuahexbRjid3DIZC6dSpc2TGxv
+         MhSetWnuuBxObwCDrG44T+MFTPg1domvCF177uDXQm7sc6GFNpzPsG51QaHPWsc5+8pd
+         ZZ0DAPf6A1EK5O/4ZHGBdV7P4rB92wPAfhPs+czGiLIcDToBY4bIOtBGAKjC7k0QSi2z
+         XoEA==
+X-Gm-Message-State: AOJu0Yx5dUo6FXxlUBZAha8GLmoJlh3tLOmNon1pmcFZBjFGhuhjCkaA
+	lzMf4u0wm03izTPTDQMCEw+W8W3Y+cREnLPMdpE=
+X-Google-Smtp-Source: AGHT+IH2E5v1VtRHzjqsWmOypqYBCS103Wol/RfhYnEbc5v/xoq+Vo3QqK+RvtuWxBVn55ZLJPmcIRZ87ddSUe2d5lU=
+X-Received: by 2002:a50:cddd:0:b0:53e:30dc:ef59 with SMTP id
+ h29-20020a50cddd000000b0053e30dcef59mr21603118edj.10.1699370471849; Tue, 07
+ Nov 2023 07:21:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-13-jgross@suse.com>
+ <CAKf6xpt43A6KAsKT_J0CiCnFme2f=OR3tqLgAGWrJE7hhxnHPw@mail.gmail.com>
+ <e931f9bd-cbeb-43c3-98a6-7b3dff3af8d3@suse.com> <CAKf6xpsMBkeg4bZBGnur15C5+h3FPYZv9EGvc2xwPj_2qvVKyQ@mail.gmail.com>
+In-Reply-To: <CAKf6xpsMBkeg4bZBGnur15C5+h3FPYZv9EGvc2xwPj_2qvVKyQ@mail.gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 7 Nov 2023 10:20:59 -0500
+Message-ID: <CAKf6xpvjcR-PwTvGv8tT1rA+PdyUTx-Hv1F82pLEf3WOyAuS6g@mail.gmail.com>
+Subject: Re: [PATCH 12/29] tools/xenlogd: add 9pfs stat request support
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add missing parameter names and make function declarations and
-definitions consistent.
-Mismatches between parameter names "count" and "n" are resolved
-in favor of "n", being the same name used by the C standard.
+On Tue, Nov 7, 2023 at 9:48=E2=80=AFAM Jason Andryuk <jandryuk@gmail.com> w=
+rote:
+>
+> On Tue, Nov 7, 2023 at 9:42=E2=80=AFAM Juergen Gross <jgross@suse.com> wr=
+ote:
+> >
+> > On 07.11.23 15:04, Jason Andryuk wrote:
+> > > On Wed, Nov 1, 2023 at 5:34=E2=80=AFAM Juergen Gross <jgross@suse.com=
+> wrote:
+> > >>
+> > >> Add the stat request of the 9pfs protocol.
+> > >>
+> > >> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-No functional change.
-
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v3:
-  - applied changes discussed in the following thread
-    https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg00318.html
-Changes in v2:
-  - memset() adjusted.
----
- xen/include/xen/string.h | 42 ++++++++++++++++++++--------------------
- xen/lib/memcpy.c         |  6 +++---
- xen/lib/memmove.c        | 12 ++++++------
- xen/lib/memset.c         |  6 +++---
- 4 files changed, 33 insertions(+), 33 deletions(-)
-
-diff --git a/xen/include/xen/string.h b/xen/include/xen/string.h
-index b4d2217a96..bd4a8f48e9 100644
---- a/xen/include/xen/string.h
-+++ b/xen/include/xen/string.h
-@@ -12,27 +12,27 @@
- #define strncpy __xen_has_no_strncpy__
- #define strncat __xen_has_no_strncat__
- 
--size_t strlcpy(char *, const char *, size_t);
--size_t strlcat(char *, const char *, size_t);
--int strcmp(const char *, const char *);
--int strncmp(const char *, const char *, size_t);
--int strcasecmp(const char *, const char *);
--int strncasecmp(const char *, const char *, size_t);
--char *strchr(const char *, int);
--char *strrchr(const char *, int);
--char *strstr(const char *, const char *);
--size_t strlen(const char *);
--size_t strnlen(const char *, size_t);
--char *strpbrk(const char *, const char *);
--char *strsep(char **, const char *);
--size_t strspn(const char *, const char *);
--
--void *memset(void *, int, size_t);
--void *memcpy(void *, const void *, size_t);
--void *memmove(void *, const void *, size_t);
--int memcmp(const void *, const void *, size_t);
--void *memchr(const void *, int, size_t);
--void *memchr_inv(const void *, int, size_t);
-+size_t strlcpy(char *dest, const char *src, size_t size);
-+size_t strlcat(char *dest, const char *src, size_t size);
-+int strcmp(const char *cs, const char *ct);
-+int strncmp(const char *cs, const char *ct, size_t count);
-+int strcasecmp(const char *s1, const char *s2);
-+int strncasecmp(const char *s1, const char *s2, size_t len);
-+char *strchr(const char *s, int c);
-+char *strrchr(const char *s, int c);
-+char *strstr(const char *s1, const char *s2);
-+size_t strlen(const char *s);
-+size_t strnlen(const char *s, size_t count);
-+char *strpbrk(const char *cs,const char *ct);
-+char *strsep(char **s, const char *ct);
-+size_t strspn(const char *s, const char *accept);
-+
-+void *memset(void *s, int c, size_t n);
-+void *memcpy(void *dest, const void *src, size_t n);
-+void *memmove(void *dest, const void *src, size_t n);
-+int memcmp(const void *cs, const void *ct, size_t count);
-+void *memchr(const void *s, int c, size_t n);
-+void *memchr_inv(const void *s, int c, size_t n);
- 
- #include <asm/string.h>
- 
-diff --git a/xen/lib/memcpy.c b/xen/lib/memcpy.c
-index afb322797d..5476121c0d 100644
---- a/xen/lib/memcpy.c
-+++ b/xen/lib/memcpy.c
-@@ -8,16 +8,16 @@
-  * memcpy - Copy one area of memory to another
-  * @dest: Where to copy to
-  * @src: Where to copy from
-- * @count: The size of the area.
-+ * @n: The size of the area.
-  *
-  * You should not use this function to access IO space, use memcpy_toio()
-  * or memcpy_fromio() instead.
-  */
--void *(memcpy)(void *dest, const void *src, size_t count)
-+void *(memcpy)(void *dest, const void *src, size_t n)
- {
- 	char *tmp = (char *) dest, *s = (char *) src;
- 
--	while (count--)
-+	while (n--)
- 		*tmp++ = *s++;
- 
- 	return dest;
-diff --git a/xen/lib/memmove.c b/xen/lib/memmove.c
-index 1ab79dfb28..99804352e6 100644
---- a/xen/lib/memmove.c
-+++ b/xen/lib/memmove.c
-@@ -8,23 +8,23 @@
-  * memmove - Copy one area of memory to another
-  * @dest: Where to copy to
-  * @src: Where to copy from
-- * @count: The size of the area.
-+ * @n: The size of the area.
-  *
-  * Unlike memcpy(), memmove() copes with overlapping areas.
-  */
--void *(memmove)(void *dest, const void *src, size_t count)
-+void *(memmove)(void *dest, const void *src, size_t n)
- {
- 	char *tmp, *s;
- 
- 	if (dest <= src) {
- 		tmp = (char *) dest;
- 		s = (char *) src;
--		while (count--)
-+		while (n--)
- 			*tmp++ = *s++;
- 	} else {
--		tmp = (char *) dest + count;
--		s = (char *) src + count;
--		while (count--)
-+		tmp = (char *) dest + n;
-+		s = (char *) src + n;
-+		while (n--)
- 			*--tmp = *--s;
- 	}
- 
-diff --git a/xen/lib/memset.c b/xen/lib/memset.c
-index e86afafd02..48a072cb51 100644
---- a/xen/lib/memset.c
-+++ b/xen/lib/memset.c
-@@ -8,15 +8,15 @@
-  * memset - Fill a region of memory with the given value
-  * @s: Pointer to the start of the area.
-  * @c: The byte to fill the area with
-- * @count: The size of the area.
-+ * @n: The size of the area.
-  *
-  * Do not use memset() to access IO space, use memset_io() instead.
-  */
--void *(memset)(void *s, int c, size_t count)
-+void *(memset)(void *s, int c, size_t n)
- {
- 	char *xs = (char *) s;
- 
--	while (count--)
-+	while (n--)
- 		*xs++ = c;
- 
- 	return s;
--- 
-2.34.1
-
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
