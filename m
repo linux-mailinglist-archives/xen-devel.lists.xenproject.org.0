@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21BF67E49A0
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 21:15:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629006.981019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA4737E49DF
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 21:33:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629010.981030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0SU4-00019H-11; Tue, 07 Nov 2023 20:15:36 +0000
+	id 1r0Skj-0004ir-DF; Tue, 07 Nov 2023 20:32:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629006.981019; Tue, 07 Nov 2023 20:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 629010.981030; Tue, 07 Nov 2023 20:32:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0SU3-000172-UF; Tue, 07 Nov 2023 20:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 629006;
- Tue, 07 Nov 2023 20:15:35 +0000
+	id 1r0Skj-0004gD-9Z; Tue, 07 Nov 2023 20:32:49 +0000
+Received: by outflank-mailman (input) for mailman id 629010;
+ Tue, 07 Nov 2023 20:32:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q/6F=GU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r0SU3-000149-9z
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 20:15:35 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=zQVP=GU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r0Ski-0004g7-AC
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 20:32:48 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 681f36e1-7daa-11ee-98da-6d05b1d4d9a1;
- Tue, 07 Nov 2023 21:15:34 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-32deb2809daso3613030f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 12:15:34 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- b16-20020adfee90000000b0032da4c98ab2sm3198162wro.35.2023.11.07.12.15.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Nov 2023 12:15:33 -0800 (PST)
+ id cfa73515-7dac-11ee-98da-6d05b1d4d9a1;
+ Tue, 07 Nov 2023 21:32:46 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9d216597f64so940732966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 12:32:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,73 +40,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 681f36e1-7daa-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: cfa73515-7dac-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tibco.com; s=googleworkspace; t=1699388133; x=1699992933; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=i0aom8hb3w3PZh7RgpECDWre/7ojOjLNZRNT7kQsHMc=;
-        b=FM1COSe7Eb+z1cMlNbzMU7NGDaDbOGu9oMYKhigr20m+pwtaINWD6qiwhi8OKTRzyc
-         9V7HxaNazi1IMB1IsYS3AKNsGeH0xqNxYSvD+Kb+fXtoTcZO/oiJjkC6rB4VwVrk70Ij
-         X1qbiL8JFgP214hQ/zW2bxi46gwI6Tr6R8Tz5YgCCRvTbNV0gLCY7Bpqt1qJs/7BKaHq
-         KBJ0ItEIOtJ+Q5WgdK/CG+xFqkieUcH5SciKsY/BxlP4rOG01+ujp1ONuX+bubAISu4Y
-         MsF1fUeSIuCFSMF4F2MENP0vW4cKSXKqBsamHZiXXth2zqv/KYWTeXZ3QW7FpRU1jWwr
-         yYFg==
+        d=gmail.com; s=20230601; t=1699389166; x=1699993966; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m38PUps8ldqcGXeXfhp1gBa/e/TtG/03cwnsr3eLYZc=;
+        b=NUAZQoK2Qq9gcj9wK2inx+12UDKK9dUwmBMVtMnp3oeMJUrPv9zOKBN+DmTHPS5VTr
+         Z6O5B71qJk4S3fwvz2UYMRJghr04MOVb3FQRLpXOuTXbdn9QppZ0uKm0h0kcFsQOh1El
+         X8wgl9ZaS7RSb5MKOXpRvg4EC5xyqI4kMhrv7Xz+F3Ty5EksoY9ffJBCg5zQXsS08DSO
+         My95yTKpN0hXCwbEFkrskL/d007kiV9YWQ1eiFXDVEnVv8xkQRQkO7zDCSsWe2PIhIkl
+         3E+aqxMDKUo6O7b7fEGN2La3ybBWbuBpk46KAHa0kOEn3OkHZTRpGChgOur9632xDI/s
+         337g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699388133; x=1699992933;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=i0aom8hb3w3PZh7RgpECDWre/7ojOjLNZRNT7kQsHMc=;
-        b=ZZKGiVkqoEvBpdhlBTaQ2p/vB6vkb+peqR7jeerRRKClOBiZzeHAbp5WHPbOqyWkjz
-         UJpoTAErSv3kpYFWZ+abhDfq0Y/Xvl/yDrihbo+BcHk8fr7rQ+a+vxJ/vhl/nYYAOwjQ
-         IEoD9mOnj4ui7j6eVceRUW/2FMS/ZV+ecdWcjo+h2QxBxwT1X8Ig/OfMjjw0/EZgJXgx
-         kmkVx8juUUKTsZsexWvRf0l+ihP23bCShgeFzzF+EDAJhDeO7AF22YhcW0ExPDKWkuAX
-         n87DeaKLw9aAxXzFDXgJFNiBMsdforpgrzC08l6+SpSHLINgEYaSEwLPqJjQlq4G6Jc0
-         Nctw==
-X-Gm-Message-State: AOJu0YwMvgAvAbr4+K6tkok6y6rb932v8stQANqVPLWASC/0Fxr8w3FM
-	gzGarLysCRwcGSpj71HOX/GYtjU4o1MqKEXLcuk=
-X-Google-Smtp-Source: AGHT+IEz1ff3yRv4M5mb9taocU6tSbosUvhiLEmhEUf2PX+s2KxtmeWAnn63rCzX0gH/Ktba4Euq8g==
-X-Received: by 2002:a5d:62c9:0:b0:32d:baf4:e572 with SMTP id o9-20020a5d62c9000000b0032dbaf4e572mr22282034wrv.23.1699388133471;
-        Tue, 07 Nov 2023 12:15:33 -0800 (PST)
-Message-ID: <93db0a9e-1d99-4953-9e3f-7ad69f0e78bf@tibco.com>
-Date: Tue, 7 Nov 2023 20:15:32 +0000
+        d=1e100.net; s=20230601; t=1699389166; x=1699993966;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=m38PUps8ldqcGXeXfhp1gBa/e/TtG/03cwnsr3eLYZc=;
+        b=KSks/VBCGbsPTJ5KeAqZj4eU67UC23dSSdcagkd+vNi69+MPBv70pRfEPPgjkW/W5w
+         7JH3csr7QXjgbyFaLPXDPMXkh3gyzuMwJCao9HP0h0JqkAH61jEu1rWcK9gaoxIYZvYp
+         tMgQPjCbpdJZ8KMTz/16nSWyVsM2yB+jOXz9/MG+6DeCJhBtRwGRFz49aywxMmMqca19
+         XrIqFIy5dwSPnV4PqyDHt0DfCoD1fvm/3k7RsUcRzedj4qJQ4P/xcgDqgmJSAbOc6Gvp
+         unOvkp6SVwVnhraJal5sMyrJQtufO+XNTwicGIuriCFX7CCWi/UiLsBAhZDuN/65iR7N
+         v+AQ==
+X-Gm-Message-State: AOJu0YxUXvzmADjGRwuTbJsbBP3JntyKED7rcfmpHzPi5v1QUESHRrkG
+	oqrVMiuJyWWj4I6U26sCPd1taCjile+/lk7CCSY=
+X-Google-Smtp-Source: AGHT+IFo7qHWg8nilM4qvZexkY+717LBLapUZip0cTTlCZ2AhXPc3EGdLXzES+CxnejY4GoYW4Kjk3uuvt/o9NEIadc=
+X-Received: by 2002:a17:907:1c17:b0:9d0:e4a1:2826 with SMTP id
+ nc23-20020a1709071c1700b009d0e4a12826mr17566479ejc.67.1699389166089; Tue, 07
+ Nov 2023 12:32:46 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Support situation for nestedhvm
-Content-Language: en-GB
-To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
-References: <ZUqVnfZTtjb/W5EN@mattapan.m5p.com>
-From: Andrew Cooper <andcooper@tibco.com>
-In-Reply-To: <ZUqVnfZTtjb/W5EN@mattapan.m5p.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20231101093325.30302-1-jgross@suse.com> <20231101093325.30302-26-jgross@suse.com>
+In-Reply-To: <20231101093325.30302-26-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 7 Nov 2023 15:32:34 -0500
+Message-ID: <CAKf6xpv_X1mEM6OmWPfC8tjvzn+ZPEDpVcJ9Q3vUjCvF8sP13w@mail.gmail.com>
+Subject: Re: [PATCH 25/29] tools/xenstored: mount 9pfs device in stubdom
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/11/2023 7:53 pm, Elliott Mitchell wrote:
-> I ran into the nestedhvm via the following path.  I was considering the
-> feasibility of shedding tasks from a desktop onto a server running Xen.
-> I was looking at `man xl.cfg` and noticed "nestedhvm".
+On Wed, Nov 1, 2023 at 7:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
+e:
 >
-> Since one of the tasks the computer handled was running other OSes in
-> fully simulated environments, this seemed to be something I was looking
-> for.  No where did I ever see anything hinting "This configuration option
-> is completely unsupported and risky to use".
+> Mount the 9pfs device in stubdom enabling it to use files.
+>
+> This has to happen in a worker thread in order to allow the main thread
+> handling the required Xenstore accesses in parallel.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-This one is explicitly covered in SUPPORT.md, and has had XSAs out
-against it in the past for being unexpectedly active when it oughtn't to
-have been.
-
-> Things simply started exploding without any warnings.
-
-Things also explode if you try to create a VM with 10x more RAM than you
-have, or if you try `./xenwatchdogd --help`, or `xl debug-keys c`, or
-many other things. 
-
-The xl manpage probably ought to state explicitly that the option is
-experimental, but that the extent of what I'd consider reasonable here.
-
-You can't solve educational matters with technical measures.
-
-~Andrew
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
