@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E977E3B2B
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 12:37:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628790.980616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B69F7E3D49
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 13:27:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628796.980625 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0KNp-0006CC-5d; Tue, 07 Nov 2023 11:36:37 +0000
+	id 1r0LAD-0004J4-To; Tue, 07 Nov 2023 12:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628790.980616; Tue, 07 Nov 2023 11:36:37 +0000
+Received: by outflank-mailman (output) from mailman id 628796.980625; Tue, 07 Nov 2023 12:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0KNp-0006B0-27; Tue, 07 Nov 2023 11:36:37 +0000
-Received: by outflank-mailman (input) for mailman id 628790;
- Tue, 07 Nov 2023 11:36:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r0LAD-0004GP-RF; Tue, 07 Nov 2023 12:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 628796;
+ Tue, 07 Nov 2023 12:26:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q/6F=GU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r0KNo-0006Au-F3
- for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 11:36:36 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e735802e-7d61-11ee-9b0e-b553b5be7939;
- Tue, 07 Nov 2023 12:36:34 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4084e49a5e5so47893165e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Nov 2023 03:36:34 -0800 (PST)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o9-20020a5d62c9000000b0032f7f4d008dsm2124003wrv.20.2023.11.07.03.36.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Nov 2023 03:36:33 -0800 (PST)
+ <SRS0=tjAr=GU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1r0LAC-0004GJ-8B
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 12:26:36 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060c.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::60c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e236d30f-7d68-11ee-98da-6d05b1d4d9a1;
+ Tue, 07 Nov 2023 13:26:33 +0100 (CET)
+Received: from MW4PR04CA0039.namprd04.prod.outlook.com (2603:10b6:303:6a::14)
+ by CH3PR12MB8547.namprd12.prod.outlook.com (2603:10b6:610:164::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.28; Tue, 7 Nov
+ 2023 12:26:27 +0000
+Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
+ (2603:10b6:303:6a:cafe::8f) by MW4PR04CA0039.outlook.office365.com
+ (2603:10b6:303:6a::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29 via Frontend
+ Transport; Tue, 7 Nov 2023 12:26:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Tue, 7 Nov 2023 12:26:26 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 7 Nov
+ 2023 06:26:20 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Tue, 7 Nov 2023 06:26:18 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +59,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e735802e-7d61-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699356993; x=1699961793; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yY6E3RyM71Fz2Angt5R6AEhQwPvJKPknslTj8fpyi4s=;
-        b=qtNkGBdTW06kqYzAupmxHioCU7Bw8z1uxIMfzTEV1rrmKUpP+O/UuQLVKXLblu0M8y
-         OAwxJDelks54wmi4ZTBOKoRVrlr6kHp5EYrlFkWesK4c+9fizH0dXSJ/RVqxrZL67pe+
-         kDvjbp30sD3Pk3PJcQOJjuH4lMmFAIMF9fubM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699356993; x=1699961793;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yY6E3RyM71Fz2Angt5R6AEhQwPvJKPknslTj8fpyi4s=;
-        b=C1z1t++avjf+UKSUXb+w9uwI//JHpGCznWrdaQ9g7X8TRZCojGK78DdmJFLEWQ3Y0a
-         4/jzut4820ow3XaBiAKDE6XOfcwT2dxdhLqIRoSBUNJ2Ws6qy+sLLay/XttX1xOiOwrO
-         E8SHWeWPmV0dxnlNLmEAleQEWN2OMfojdTZq276EQaYnD6wnmkCLudanaRKp3UEG9BIT
-         wTb2lvqGTCE7MCZ8k3v5uBkE4a6UEyvFyGZNktLt+Bg8NOxbr7VKy7Xkrk2AT/7tSEat
-         iQU+gyNO6K3w4F5IbDSrRxg3Y33c+x4lm+U5ueAM08BgwTy8T8lSWhhqK3R0noxcxsvz
-         jJ9Q==
-X-Gm-Message-State: AOJu0Yy0hVPeFE06NNR5+XVVw+JXGxY8P2YifCtab0L0ZtqGxHl44a3f
-	jgowsAITOLuLSNeYQIdHGuZtVQ==
-X-Google-Smtp-Source: AGHT+IH+36hNv5ycqxxABMOxzWF61EykxkW3u3jYv7pb+YDFIWLxMJ+SrEyvLtp954MHIDSB9bM6Qw==
-X-Received: by 2002:a05:6000:154b:b0:32f:917a:db22 with SMTP id 11-20020a056000154b00b0032f917adb22mr18780583wry.53.1699356993477;
-        Tue, 07 Nov 2023 03:36:33 -0800 (PST)
-Message-ID: <8d9c85db-5afd-4299-8f05-e74628c1f67b@citrix.com>
-Date: Tue, 7 Nov 2023 11:36:32 +0000
+X-Inumbo-ID: e236d30f-7d68-11ee-98da-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bzGqBu+BdRAtf89v3gOx2t+sIcgDe6SeCKzi5mkb2YiYN+dOm1gSa5IMKErDyFNdZ/goaZuMkHJWF2ungKLTgOR4qDvYP+g1Oo8QJvM776qmMVxHuRLBN8KkApxHiYDsm4FZ/hU6CGzCIgHuhU549kkPK2Gww0n9hzHSnXkt5uRzxPoffMih/2EXnRqoEP4i7oO/jLc3qVOK4jNrgrTtknofbn4PHnzSiDbiQ7mO5IjHtUSBAgac9GVV9gAvMuWiM1Crzq2fNbB+DxX7vT6Dc+0YFswf7AJjZCljgIX10wt9L3RtIfhxUHbhUwzIYHHNv0JRCt93i9dRqDL/kVxWjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fycM6UXOGr/ZHZk7/mxuor+EWckGMDrxddCO3IDuaB0=;
+ b=KAmTk7OPpZz7NH0T/37RpGZ6t9EBTJkjIv4FI2caoo4BDB1dlfBzjU1Ru3yyZnYFNgyiwvl3VUf5WokX3uO56NyeU1W/y02sxf+lIQsS2g1w7+zhn8x1uXmqP39HKYJUZ3PhSguLMABe0HGZwBlm5dEjzIeyEdvM3paa782XVR5+r+iYkkssPAc2Pc9/ZXp0p6UeneeOx6xlY/1ghutzFNzWB4PnvVhk7dCcgI6lpE+7k4ry7haFF1BZKKOosQh55BiIqB1F3qZ/lzOTWV87SkdYo4TgE/FxgrrsUnoCJwpmsI+N0jZET7w2Ljzu7LBJe61xcS+ujIkL5hm60AG4Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fycM6UXOGr/ZHZk7/mxuor+EWckGMDrxddCO3IDuaB0=;
+ b=kP2gDQUvU90ueeYyW8TWH461ka+cW+AOjak0vft+mPNDiYYHoGeFSWoiUYCtiWLVdxt8uLhdmO/0BdSlN5OSzLPxaUVU+IYzNr5FjgoNSZ1AfSXkGkOVea0RrePKXYLZrfJOC0y0ML+22uisT20uE+zLWICBvjV9I/7YbNZku+M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <6c433d05-24c0-4400-acb2-8dd9d6e7f69f@amd.com>
+Date: Tue, 7 Nov 2023 13:26:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/4] xen/vsprintf: replace backwards jump with loop
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- roger.pau@citrix.com, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-References: <cover.1699295113.git.nicola.vetrini@bugseng.com>
- <9fbc2bcfa1ee019a8ac1cd1a3d29c38b59b8edff.1699295113.git.nicola.vetrini@bugseng.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9fbc2bcfa1ee019a8ac1cd1a3d29c38b59b8edff.1699295113.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 2/2] xen/arm32: head Split and move MMU-specific head.S
+ to mmu/head.S
+Content-Language: en-US
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
+	<michal.orzel@arm.com>, <henry.wang@arm.com>, <Volodymyr_Babchuk@epam.com>
+References: <20231107110217.1827379-1-ayan.kumar.halder@amd.com>
+ <20231107110217.1827379-3-ayan.kumar.halder@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20231107110217.1827379-3-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|CH3PR12MB8547:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83d07e25-7e5d-4745-7aa9-08dbdf8cc35d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	GFaeDg2i/uf5VizRmLYbjMEJTXhkxDRvCj8Eb8G2qfGKkObTut8tFKJrxqYNIbhDdrR76Oj4W90PH2iN82cIhxjo5J9TnpX1BMwYtUsGWJkOzdLyH4VMu1WRxy7XdqbS2bTGYx6+kWmyNUA+k45kEm/6Qn1NZEDRpTudAfV64edT54iWTnDWjyxwS38b6xZ+JESlH9YjcomchKMJuf8oUumFn2B4YU1SJxu1UkFoJhV0Jee+AfwUZD43l0PXM++DnkU6dFlzgeVmlJIG4sZd4rMq317s4fZtIn/pYc94HhVzvVuofAeB/2OBD89xvZgHnhSPHLsDIIniulEUzd6Ady/J6nRFO568nqvC8X19Bqkkz+/K3oNKNz7WI8Bmj8rXAgq5u90SiP1BNku8R6KjE6x4S8tv3bcM98UOUmkgShbGSo5POI6AtnAQ6i1MZdHN94Y1s8CLkBmOIabrrYWaEg2yodayUXZ6YeOULd3jb+UCpZ+BgSs6mU4UHu5yAIjLufM1eZHps33yexfpvEhe/2JQbrWd4ljJ9aa3Je2bDCXqLsfIokMczTJnxJjqNEj5ZZeBVECPjdLywOZUu9REO4MUa7N8zhOMCWoB/lwREVwZdPbQO5SRLCVgvOemydcQNCMRvFzyZLnNoUUwg/LCt0ma3WOR3A8qetG8wCa7RJQ34VxN9LCHqDOIzdaXlorCgeCkTKQuK5K9bkgWFKVHm5uXJILcvl1duoHEYR1GabtqeYDyoLCjzptFvJxFEbSyx27pxqbRNIiwWvQytaWkXult8BFEWq/mlngsNj+T0EphzTwd6PcShPOTPsCbHRrVkCZhRZoNtOfTbuD0fiOt2w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(39860400002)(136003)(346002)(230922051799003)(230273577357003)(230173577357003)(1800799009)(186009)(82310400011)(64100799003)(451199024)(40470700004)(36840700001)(46966006)(47076005)(478600001)(41300700001)(53546011)(2616005)(6666004)(316002)(336012)(426003)(4326008)(8676002)(8936002)(26005)(5660300002)(36860700001)(70586007)(110136005)(70206006)(16576012)(44832011)(54906003)(356005)(81166007)(2906002)(31686004)(86362001)(31696002)(82740400003)(40480700001)(36756003)(40460700003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2023 12:26:26.7281
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83d07e25-7e5d-4745-7aa9-08dbdf8cc35d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000044F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8547
 
-On 07/11/2023 10:33 am, Nicola Vetrini wrote:
-> The backwards goto in the vsnprintf function can be replaced
-> with a loop, thereby fixing a violation of MISRA C:2012 Rule 15.2.
->
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  xen/common/vsprintf.c | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/xen/common/vsprintf.c b/xen/common/vsprintf.c
-> index c49631c0a4d8..603bae44177a 100644
-> --- a/xen/common/vsprintf.c
-> +++ b/xen/common/vsprintf.c
-> @@ -495,6 +495,8 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
->      }
->  
->      for (; *fmt ; ++fmt) {
-> +        bool repeat = true;
+Hi Ayan,
+
+On 07/11/2023 12:02, Ayan Kumar Halder wrote:
+> 
+> 
+> The MMU specific code in head.S will not be used on MPU systems.
+> Instead of introducing more #ifdefs which will bring complexity
+> to the code, move MMU related code to mmu/head.S and keep common
+> code in head.S. Two notes while moving:
+>  - As "fail" in original head.S is very simple and this name is too
+>    easy to be conflicted, duplicate it in mmu/head.S instead of
+>    exporting it.
+>  - Realigned ".macro ret" so that the alignment matches to the other
+>    macros.
+>  - Rename puts to asm_puts, putn to asm_putn (this denotes that the
+>    macros are used within the context of assembly only).
+>  - Use ENTRY() for enable_secondary_cpu_mm, enable_boot_cpu_mm,
+>    setup_fixmap, asm_puts, asm_putn  as they will be used externally.
+> 
+> Also move the assembly macros shared by head.S and mmu/head.S to
+> macros.h.
+> 
+> This is based on 6734327d76be ("xen/arm64: Split and move MMU-specific head.S to mmu/head.S").
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+For now, I won't provide Rb given that the baseline is still under development and not very clear to me.
+
+Just a few remarks:
+
+[...]
+
+> -
+>  #ifdef CONFIG_EARLY_PRINTK
+>  /*
+>   * Initialize the UART. Should only be called on the boot CPU.
+> @@ -912,14 +298,14 @@ ENDPROC(init_uart)
+>   * r11: Early UART base address
+You could follow the arm64 patch and add:
+"Note: This function must be called from assembly."
+to make the usage of this function clear.
+Same for asm_putn.
+
+>   * Clobbers r0-r1
+>   */
+> -puts:
+> +ENTRY(asm_puts)
+>          early_uart_ready r11, r1
+>          ldrb  r1, [r0], #1           /* Load next char */
+>          teq   r1, #0                 /* Exit on nul */
+>          moveq pc, lr
+>          early_uart_transmit r11, r1
+> -        b puts
+> -ENDPROC(puts)
+> +        b asm_puts
+> +ENDPROC(asm_puts)
+> 
+>  /*
+>   * Print a 32-bit number in hex.  Specific to the PL011 UART.
+The second sentence can be dropped. I don't see anything PL011 specific here.
+
+> @@ -927,7 +313,7 @@ ENDPROC(puts)
+>   * r11: Early UART base address
+>   * Clobbers r0-r3
+>   */
+> -putn:
+> +ENTRY(asm_putn)
+>          adr_l r1, hex
+>          mov   r3, #8
+>  1:
+> @@ -939,7 +325,7 @@ putn:
+>          subs  r3, r3, #1
+>          bne   1b
+>          mov   pc, lr
+> -ENDPROC(putn)
+> +ENDPROC(asm_putn)
+> 
+>  RODATA_STR(hex, "0123456789abcdef")
+> 
+> @@ -947,8 +333,8 @@ RODATA_STR(hex, "0123456789abcdef")
+> 
+>  ENTRY(early_puts)
+>  init_uart:
+> -puts:
+> -putn:   mov   pc, lr
+> +asm_puts:
+> +asm_putn:   mov   pc, lr
+Both asm_puts and asm_putn are used only within #ifdef so you can drop the stubs
+
+[...]
+
+> diff --git a/xen/arch/arm/include/asm/arm32/macros.h b/xen/arch/arm/include/asm/arm32/macros.h
+> index a4e20aa520..c6e390cc5f 100644
+> --- a/xen/arch/arm/include/asm/arm32/macros.h
+> +++ b/xen/arch/arm/include/asm/arm32/macros.h
+> @@ -1,8 +1,62 @@
+>  #ifndef __ASM_ARM_ARM32_MACROS_H
+>  #define __ASM_ARM_ARM32_MACROS_H
+> 
+> -    .macro ret
+> +.macro ret
+>          mov     pc, lr
+> -    .endm
+> +.endm
+> 
+> +/*
+> + * Move an immediate constant into a 32-bit register using movw/movt
+> + * instructions.
+> + */
+> +.macro mov_w reg, word
+> +        movw  \reg, #:lower16:\word
+> +        movt  \reg, #:upper16:\word
+> +.endm
 > +
->          if (*fmt != '%') {
->              if (str < end)
->                  *str = *fmt;
-> @@ -504,14 +506,16 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
->  
->          /* process flags */
->          flags = 0;
-> -    repeat:
-> -        ++fmt;          /* this also skips first '%' */
-> -        switch (*fmt) {
-> -        case '-': flags |= LEFT; goto repeat;
-> -        case '+': flags |= PLUS; goto repeat;
-> -        case ' ': flags |= SPACE; goto repeat;
-> -        case '#': flags |= SPECIAL; goto repeat;
-> -        case '0': flags |= ZEROPAD; goto repeat;
-> +        while ( repeat ) {
-> +            ++fmt;          /* this also skips the first '%' */
-> +            switch (*fmt) {
-> +            case '-': flags |= LEFT; break;
-> +            case '+': flags |= PLUS; break;
-> +            case ' ': flags |= SPACE; break;
-> +            case '#': flags |= SPECIAL; break;
-> +            case '0': flags |= ZEROPAD; break;
-> +            default: repeat = false; break;
-> +            }
+> +/*
+> + * Pseudo-op for PC relative adr <reg>, <symbol> where <symbol> is
+> + * within the range +/- 4GB of the PC.
+> + *
+> + * @dst: destination register
+> + * @sym: name of the symbol
+> + */
+> +.macro adr_l, dst, sym
+> +        mov_w \dst, \sym - .Lpc\@
+> +        .set  .Lpc\@, .+ 8          /* PC bias */
+> +        add   \dst, \dst, pc
+> +.endm
+> +
+> +#ifdef CONFIG_EARLY_PRINTK
+> +/*
+> + * Macro to print a string to the UART, if there is one.
+> + *
+> + * Clobbers r0 - r3
+> + */
+> +#define PRINT(_s)           \
+> +        mov   r3, lr       ;\
+> +        adr_l r0, 98f      ;\
+> +        bl    puts         ;\
+This should be a call to asm_puts
 
-I'm firmly against this change.  It takes a simple and clear piece of
-code and replaces it with something harder to follow because you have to
-look elsewhere to figure how the variable works.
-
-Labels with names such as repeat/again/retry are clearly forming a
-loop(ish).
-
-I see in patch 4 that you exempt again/retry.  That list needs to
-include repeat, and this patch wants dropping.
-
-~Andrew
+~Michal
 
