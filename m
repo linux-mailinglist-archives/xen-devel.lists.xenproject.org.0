@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324E17E422A
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 15:56:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.628865.980765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3357E4345
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Nov 2023 16:18:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.628875.980776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0NUi-00051I-Ch; Tue, 07 Nov 2023 14:55:56 +0000
+	id 1r0NqI-00021Z-5D; Tue, 07 Nov 2023 15:18:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 628865.980765; Tue, 07 Nov 2023 14:55:56 +0000
+Received: by outflank-mailman (output) from mailman id 628875.980776; Tue, 07 Nov 2023 15:18:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0NUi-0004ys-9m; Tue, 07 Nov 2023 14:55:56 +0000
-Received: by outflank-mailman (input) for mailman id 628865;
- Tue, 07 Nov 2023 14:55:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r0NUh-0004yi-Hv; Tue, 07 Nov 2023 14:55:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r0NUh-0005bG-7S; Tue, 07 Nov 2023 14:55:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r0NUg-0000Ro-Ph; Tue, 07 Nov 2023 14:55:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1r0NUg-0006ZW-Ol; Tue, 07 Nov 2023 14:55:54 +0000
+	id 1r0NqI-0001yx-2e; Tue, 07 Nov 2023 15:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 628875;
+ Tue, 07 Nov 2023 15:18:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QZVA=GU=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1r0NqG-0001xa-Ic
+ for xen-devel@lists.xenproject.org; Tue, 07 Nov 2023 15:18:12 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc708670-7d80-11ee-9b0e-b553b5be7939;
+ Tue, 07 Nov 2023 16:18:10 +0100 (CET)
+Received: from Dell.bugseng.com (unknown [37.163.230.152])
+ by support.bugseng.com (Postfix) with ESMTPSA id B35AD4EE0747;
+ Tue,  7 Nov 2023 16:18:08 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +39,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ppa1sUKiCmqndPhDS3mmO7Q/x+Mqgbmraqvh6jkvb3g=; b=mSdeIZRcvbnvUxNg16JKmDKEBX
-	I02WtL41KI369qCL28oxhAHRko8jNRrhtmdIrz6Ui/DoJfWcAWfkwAjDixtto1WX/zKBLF1bTc9Bv
-	S4CSNwftB2VObStnkCT9ZcRExcG4u3tR4Fhv7WvpK//zCuAWO/iRis+XrEWcfMVGButg=;
+X-Inumbo-ID: dc708670-7d80-11ee-9b0e-b553b5be7939
+From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183705-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v3] xen/string: address violations of MISRA C:2012 Rules 8.2 and 8.3
+Date: Tue,  7 Nov 2023 16:18:02 +0100
+Message-Id: <d28ea15aa8d36622548b433d5fb6f19dd521bdfb.1699369270.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183705: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=fab51099a1cdb6bfe5127b14a5d41c246ea1a2c7
-X-Osstest-Versions-That:
-    xen=de1cc5102b487e1a4bf321ac138b64c6ce1f0c0a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 07 Nov 2023 14:55:54 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 183705 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183705/
+Add missing parameter names and make function declarations and
+definitions consistent.
+Mismatches between parameter names "count" and "n" are resolved
+in favor of "n", being the same name used by the C standard.
 
-Failures :-/ but no regressions.
+No functional change.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+Changes in v3:
+  - applied changes discussed in the following thread
+    https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg00318.html
+Changes in v2:
+  - memset() adjusted.
+---
+ xen/include/xen/string.h | 42 ++++++++++++++++++++--------------------
+ xen/lib/memcpy.c         |  6 +++---
+ xen/lib/memmove.c        | 12 ++++++------
+ xen/lib/memset.c         |  6 +++---
+ 4 files changed, 33 insertions(+), 33 deletions(-)
 
-version targeted for testing:
- xen                  fab51099a1cdb6bfe5127b14a5d41c246ea1a2c7
-baseline version:
- xen                  de1cc5102b487e1a4bf321ac138b64c6ce1f0c0a
+diff --git a/xen/include/xen/string.h b/xen/include/xen/string.h
+index b4d2217a96..bd4a8f48e9 100644
+--- a/xen/include/xen/string.h
++++ b/xen/include/xen/string.h
+@@ -12,27 +12,27 @@
+ #define strncpy __xen_has_no_strncpy__
+ #define strncat __xen_has_no_strncat__
+ 
+-size_t strlcpy(char *, const char *, size_t);
+-size_t strlcat(char *, const char *, size_t);
+-int strcmp(const char *, const char *);
+-int strncmp(const char *, const char *, size_t);
+-int strcasecmp(const char *, const char *);
+-int strncasecmp(const char *, const char *, size_t);
+-char *strchr(const char *, int);
+-char *strrchr(const char *, int);
+-char *strstr(const char *, const char *);
+-size_t strlen(const char *);
+-size_t strnlen(const char *, size_t);
+-char *strpbrk(const char *, const char *);
+-char *strsep(char **, const char *);
+-size_t strspn(const char *, const char *);
+-
+-void *memset(void *, int, size_t);
+-void *memcpy(void *, const void *, size_t);
+-void *memmove(void *, const void *, size_t);
+-int memcmp(const void *, const void *, size_t);
+-void *memchr(const void *, int, size_t);
+-void *memchr_inv(const void *, int, size_t);
++size_t strlcpy(char *dest, const char *src, size_t size);
++size_t strlcat(char *dest, const char *src, size_t size);
++int strcmp(const char *cs, const char *ct);
++int strncmp(const char *cs, const char *ct, size_t count);
++int strcasecmp(const char *s1, const char *s2);
++int strncasecmp(const char *s1, const char *s2, size_t len);
++char *strchr(const char *s, int c);
++char *strrchr(const char *s, int c);
++char *strstr(const char *s1, const char *s2);
++size_t strlen(const char *s);
++size_t strnlen(const char *s, size_t count);
++char *strpbrk(const char *cs,const char *ct);
++char *strsep(char **s, const char *ct);
++size_t strspn(const char *s, const char *accept);
++
++void *memset(void *s, int c, size_t n);
++void *memcpy(void *dest, const void *src, size_t n);
++void *memmove(void *dest, const void *src, size_t n);
++int memcmp(const void *cs, const void *ct, size_t count);
++void *memchr(const void *s, int c, size_t n);
++void *memchr_inv(const void *s, int c, size_t n);
+ 
+ #include <asm/string.h>
+ 
+diff --git a/xen/lib/memcpy.c b/xen/lib/memcpy.c
+index afb322797d..5476121c0d 100644
+--- a/xen/lib/memcpy.c
++++ b/xen/lib/memcpy.c
+@@ -8,16 +8,16 @@
+  * memcpy - Copy one area of memory to another
+  * @dest: Where to copy to
+  * @src: Where to copy from
+- * @count: The size of the area.
++ * @n: The size of the area.
+  *
+  * You should not use this function to access IO space, use memcpy_toio()
+  * or memcpy_fromio() instead.
+  */
+-void *(memcpy)(void *dest, const void *src, size_t count)
++void *(memcpy)(void *dest, const void *src, size_t n)
+ {
+ 	char *tmp = (char *) dest, *s = (char *) src;
+ 
+-	while (count--)
++	while (n--)
+ 		*tmp++ = *s++;
+ 
+ 	return dest;
+diff --git a/xen/lib/memmove.c b/xen/lib/memmove.c
+index 1ab79dfb28..99804352e6 100644
+--- a/xen/lib/memmove.c
++++ b/xen/lib/memmove.c
+@@ -8,23 +8,23 @@
+  * memmove - Copy one area of memory to another
+  * @dest: Where to copy to
+  * @src: Where to copy from
+- * @count: The size of the area.
++ * @n: The size of the area.
+  *
+  * Unlike memcpy(), memmove() copes with overlapping areas.
+  */
+-void *(memmove)(void *dest, const void *src, size_t count)
++void *(memmove)(void *dest, const void *src, size_t n)
+ {
+ 	char *tmp, *s;
+ 
+ 	if (dest <= src) {
+ 		tmp = (char *) dest;
+ 		s = (char *) src;
+-		while (count--)
++		while (n--)
+ 			*tmp++ = *s++;
+ 	} else {
+-		tmp = (char *) dest + count;
+-		s = (char *) src + count;
+-		while (count--)
++		tmp = (char *) dest + n;
++		s = (char *) src + n;
++		while (n--)
+ 			*--tmp = *--s;
+ 	}
+ 
+diff --git a/xen/lib/memset.c b/xen/lib/memset.c
+index e86afafd02..48a072cb51 100644
+--- a/xen/lib/memset.c
++++ b/xen/lib/memset.c
+@@ -8,15 +8,15 @@
+  * memset - Fill a region of memory with the given value
+  * @s: Pointer to the start of the area.
+  * @c: The byte to fill the area with
+- * @count: The size of the area.
++ * @n: The size of the area.
+  *
+  * Do not use memset() to access IO space, use memset_io() instead.
+  */
+-void *(memset)(void *s, int c, size_t count)
++void *(memset)(void *s, int c, size_t n)
+ {
+ 	char *xs = (char *) s;
+ 
+-	while (count--)
++	while (n--)
+ 		*xs++ = c;
+ 
+ 	return s;
+-- 
+2.34.1
 
-Last test of basis   183697  2023-11-06 23:00:27 Z    0 days
-Testing same since   183705  2023-11-07 11:00:26 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Henry Wang <Henry.Wang@arm.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   de1cc5102b..fab51099a1  fab51099a1cdb6bfe5127b14a5d41c246ea1a2c7 -> smoke
 
