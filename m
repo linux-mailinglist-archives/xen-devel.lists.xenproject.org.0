@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FCC37E5D70
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 19:46:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629409.981656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C714D7E5FEF
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 22:27:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629416.981665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0nYX-0002wI-VL; Wed, 08 Nov 2023 18:45:37 +0000
+	id 1r0q3U-0007sT-8F; Wed, 08 Nov 2023 21:25:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629409.981656; Wed, 08 Nov 2023 18:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 629416.981665; Wed, 08 Nov 2023 21:25:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0nYX-0002ud-Rl; Wed, 08 Nov 2023 18:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 629409;
- Wed, 08 Nov 2023 18:45:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r0q3U-0007pm-5D; Wed, 08 Nov 2023 21:25:44 +0000
+Received: by outflank-mailman (input) for mailman id 629416;
+ Wed, 08 Nov 2023 21:25:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IHnU=GV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r0nYW-0002uX-LC
- for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 18:45:36 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 001f7109-7e67-11ee-9b0e-b553b5be7939;
- Wed, 08 Nov 2023 19:45:34 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2c4fdf94666so95340101fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 08 Nov 2023 10:45:34 -0800 (PST)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o8-20020a05600c510800b00407752f5ab6sm20464357wms.6.2023.11.08.10.45.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Nov 2023 10:45:32 -0800 (PST)
+ <SRS0=EIED=GV=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r0q3T-0007pg-Im
+ for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 21:25:43 +0000
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [2607:f8b0:4864:20::832])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e2fd722-7e7d-11ee-98da-6d05b1d4d9a1;
+ Wed, 08 Nov 2023 22:25:41 +0100 (CET)
+Received: by mail-qt1-x832.google.com with SMTP id
+ d75a77b69052e-41cd4cc515fso1154981cf.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Nov 2023 13:25:41 -0800 (PST)
+Received: from pm2-ws13.praxislan02.com
+ (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
+ [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
+ j14-20020ac85c4e000000b004181138e0c0sm1299644qtj.31.2023.11.08.13.25.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Nov 2023 13:25:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +46,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 001f7109-7e67-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 5e2fd722-7e7d-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699469133; x=1700073933; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qXtXCxod3n2wpFuGzw6gVxbKjKmf8DysxDZDSlRb/3g=;
-        b=oelDGlnyZod53m/PSFrPZlhoXf20ATLk/aaDlOrvXF5dV/D94XHjahFDMa1EeAcVa5
-         F4xfXnw2HOFz7UJp9K/lKXAKS9UPjhLupI2seIXX/d+hSWQaAEE7SmumDsvim3VeMz4v
-         6SmSeymQc7AQRUcK+Diw5cYGeKfzaY4omi+aA=
+        d=gmail.com; s=20230601; t=1699478740; x=1700083540; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RZ7VQVWmywUCJj8m+Y7uBiNQefyfO/uFLoxjMz4m8no=;
+        b=JutHv2t7rYU7EGbsVJYIlV/DcQWaz2GlhonL+g3IkqKS5cKTiin93xuzV1I/iwVWSp
+         OjNnSldo+d6IfZXjJbNmhUDqVjgt3K1G/dPw8v0GZP91heqnlGXqAc6SgwNdpdOEMN9i
+         k8p/WXf/JEb0H6Lg+l682bdD8WAZh9Oh6M6X1dp4XN5n9TgAfJgmvrwQ7KaSNJf7JztR
+         ftrZafHnJRRzF4VX7Fr0hWIWOqA63IF3hisuir8avbVRaN7FUj5CGVPe3SYmrneSf738
+         Gif/482sIZs/M96rhIneJor0UPNZyR1ztpEVL5RR4Ohi4W/oUucBVxV7yjKivoVafPci
+         2pDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699469133; x=1700073933;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qXtXCxod3n2wpFuGzw6gVxbKjKmf8DysxDZDSlRb/3g=;
-        b=ezEhoyXwV+eYGJhtw1BujU7z3e287bksUePHIL1bbx7+TSz7h5qFe/XfKSfgZq7YRY
-         xXjKcFp6bfbQ+jM1IpSudvYK1SIoxzvVAdFldeyZIJD2tG7scg7sfB3qjcBphTFVCwmK
-         vR/+/Yg8EMfBk92BCKSvT1OMITKjDrcnqD2COvYWLEZWoNmwELaVwYDcylAY4L6psp0x
-         G87wikaiZWbu9Is5oxgWBRgGz289plDBur/eyEEKIwdfUZffkzXZhZVjk4Xo1Kh8Pdwv
-         msS0wDKf7Im3aTUuTMLxZHLVSvqxUQ7KLskGUGVF08mwJmSq66a6oxY+Zis0fQNYJ/tA
-         mbrQ==
-X-Gm-Message-State: AOJu0Yy/BtbHnjnAgCFVZ/21y/7nJfsKZLHGNAudoHbsAw9JPK9vvhr3
-	xB1K46Iq4tkYnvoEhjc2u+759A==
-X-Google-Smtp-Source: AGHT+IE1Qwces+o1fNsXFg2vYqaZ3u97PSWgVEXKUr0q7piWfIzuW7nA4jP+E58KuN9EV6bo7kxqWQ==
-X-Received: by 2002:a05:651c:154c:b0:2c5:1eb6:bd1e with SMTP id y12-20020a05651c154c00b002c51eb6bd1emr3568392ljp.43.1699469132907;
-        Wed, 08 Nov 2023 10:45:32 -0800 (PST)
-Message-ID: <bdb7efb1-b8b2-4426-a46d-e8f5afdba0f6@citrix.com>
-Date: Wed, 8 Nov 2023 18:45:32 +0000
+        d=1e100.net; s=20230601; t=1699478740; x=1700083540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RZ7VQVWmywUCJj8m+Y7uBiNQefyfO/uFLoxjMz4m8no=;
+        b=qqrWsQX6l9U3A0H+nK1OAtqf4bzpy/oEuoyPJyAlizN+4gwT0AqTOZMEeIam1V6pfk
+         Cqtp1r9jWDm0xKmTqTSJq/+n38d6PLI0sRaW2y9BWu8PjZUL2z66e50JcQz7JdZyiC9q
+         kx+MTDzFoUZiUP2jYlvi9mnIzTD3AQ5pB2z7KIUzKP9WJiCv8Na2dW0ln6KLgzCXp9Ij
+         BPVD6t+yiVxLhVTALDxEj24iiDFe6DsQe7Jl8qhgff/6aUnwb1Av0hid9c7c8w8dU/ho
+         f6liWl1QzKyJHEpJwqDM9UG0vAboRe9IivfRO8pbI7xbh+VLW9Z2QATykBBG8GZZFbBE
+         S5eg==
+X-Gm-Message-State: AOJu0YzBukt7SzcBQBa02dSZfOsS3j4yJD5j29OAPqpmPNZNRX4Xq7b5
+	clttUT+1IEoxTEs8McN5+Vk=
+X-Google-Smtp-Source: AGHT+IGjh5dBkGk6kw7u8KR2u2/K+crTHBl7T3vYG8QHmAVbTYadRWnd6zJ87hdm9CvDrMW6i+kbAg==
+X-Received: by 2002:a05:622a:170a:b0:418:1084:1e1 with SMTP id h10-20020a05622a170a00b00418108401e1mr3687242qtk.57.1699478740620;
+        Wed, 08 Nov 2023 13:25:40 -0800 (PST)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: michal.wilczynski@intel.com,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	stable@vger.kernel.org,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5] acpi/processor: sanitize _OSC/_PDC capabilities for Xen dom0
+Date: Wed,  8 Nov 2023 16:25:15 -0500
+Message-ID: <20231108212517.72279-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Remaining violations of MISRA Rule 7.4
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen Devel <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Jbeulich <jbeulich@suse.com>,
- Roger Pau <roger.pau@citrix.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- Consulting <consulting@bugseng.com>
-References: <21761f2a6633a08ceb2b70a46013486a@bugseng.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <21761f2a6633a08ceb2b70a46013486a@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08/11/2023 4:24 pm, Nicola Vetrini wrote:
-> Hi everyone,
->
-> I was looking at leftover violations for MISRA Rule 7.4:
-> 'A string literal shall not be assigned to an object unless the
-> object's type
-> is "pointer to const-qualified char" '
->
-> You can see the referenced violations at [1] and [2].
->
-> I think the ones in x86/setup.c can be taken care of either by making
-> an early return
-> from cmdline_cook, given that one caller never supplies a NULL
-> cmdline, while the other
-> properly takes care of the possibility of returning NULL, afaict.
->
->  static char * __init cmdline_cook(char *p, const char *loader_name)
->  {
-> -    p = p ? : "";
-> +    if ( p == NULL )
-> +        return NULL;
->
-> or changing the type of "loader" to const char*
->
->  void __init noreturn __start_xen(unsigned long mbi_p)
->  {
-> -    const char *memmap_type = NULL;
-> -    char *cmdline, *kextra, *loader;
-> +    const char *memmap_type = NULL, *loader = NULL;
-> +    char *cmdline, *kextra;;
->
-> as, as far as I can tell, it's never changed after
->
->     loader = (mbi->flags & MBI_LOADERNAME)
->         ? (char *)__va(mbi->boot_loader_name) : "unknown";
->
-> However, the one in xen/arch/arm/efi/efi-boot.h
->
-> name.s = "xen";
->
-> does not look to have a clear resolution
-> path, therefore I propose to deviate this with a SAF textual
-> deviation, whose justification
-> relies on the fact that the string is never modified afterwards.
->
-> For the one in arm-uart.c from the discussion, I'm testing possible
-> solution with no code
-> changes, but if that doesn't work out, then I'm inclined towards a
-> deviation, as options
-> is never modified afterwards.
->
-> What do you think?
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-I've just rebased and pushed the residual from the past work (although I
-missed the ARM EFI fix.)
+The Processor capability bits notify ACPI of the OS capabilities, and
+so ACPI can adjust the return of other Processor methods taking the OS
+capabilities into account.
 
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=commitdiff;h=0f06bab762f5201f3e00aaaee704c3c01f516b51
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1065699873
+When Linux is running as a Xen dom0, the hypervisor is the entity
+in charge of processor power management, and hence Xen needs to make
+sure the capabilities reported by _OSC/_PDC match the capabilities of
+the driver in Xen.
 
-I'm going to make a firm request that we fix this by activating
--Wwrite-strings Xen wide, because that's by far and away the best way to
-stop regressions creeping back in.
+Introduce a small helper to sanitize the buffer when running as Xen
+dom0.
 
-In start_xen(), basically whatever goes.  All that's doing is processing
-of one command line into another, and your version looks a bit neater
-than mine.
+When Xen supports HWP, this serves as the equivalent of commit
+a21211672c9a ("ACPI / processor: Request native thermal interrupt
+handling via _OSC") to avoid SMM crashes.  Xen will set bit
+ACPI_PROC_CAP_COLLAB_PROC_PERF (bit 12) in the capability bits and the
+_OSC/_PDC call will apply it.
 
-The name.s cases (it's duplicated in x86 and ARM) are more tricky.  The
-compiler warning can be silenced by swapping name.s for name.cs but I
-have no idea whether Eclair can see through that piece of blatent lying.
+[ jandryuk: Mention Xen HWP's need.  Support _OSC & _PDC ]
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Reviewed-by: Michal Wilczynski <michal.wilczynski@intel.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+---
+v5:
+Only update caps on hypercall success - Roger
+Add Juergen & Michal Reviewed-by: - hopefully okay with above change
 
-~Andrew
+v4:
+Use xen_santize_proc_cap_bits() name - Michal
+Rephrase comment - Michal
+
+v3:
+Move xen_sanitize_pdc() call to arch_acpi_set_proc_cap_bits() to cover
+_OSC and _PDC.
+drivers/xen/pcpu.c is CONFIG_DOM0 && CONFIG_X86
+
+v2:
+Move local variables in acpi_processor_eval_pdc() to reuse in both conditions.
+---
+ arch/x86/include/asm/acpi.h           | 14 ++++++++++++++
+ arch/x86/include/asm/xen/hypervisor.h |  9 +++++++++
+ drivers/xen/pcpu.c                    | 22 ++++++++++++++++++++++
+ 3 files changed, 45 insertions(+)
+
+diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
+index c8a7fc23f63c..f896eed4516c 100644
+--- a/arch/x86/include/asm/acpi.h
++++ b/arch/x86/include/asm/acpi.h
+@@ -16,6 +16,9 @@
+ #include <asm/x86_init.h>
+ #include <asm/cpufeature.h>
+ #include <asm/irq_vectors.h>
++#include <asm/xen/hypervisor.h>
++
++#include <xen/xen.h>
+ 
+ #ifdef CONFIG_ACPI_APEI
+ # include <asm/pgtable_types.h>
+@@ -127,6 +130,17 @@ static inline void arch_acpi_set_proc_cap_bits(u32 *cap)
+ 	if (!cpu_has(c, X86_FEATURE_MWAIT) ||
+ 	    boot_option_idle_override == IDLE_NOMWAIT)
+ 		*cap &= ~(ACPI_PROC_CAP_C_C1_FFH | ACPI_PROC_CAP_C_C2C3_FFH);
++
++	if (xen_initial_domain()) {
++		/*
++		 * When Linux is running as Xen dom0, the hypervisor is the
++		 * entity in charge of the processor power management, and so
++		 * Xen needs to check the OS capabilities reported in the
++		 * processor capabilities buffer matches what the hypervisor
++		 * driver supports.
++		 */
++		xen_sanitize_proc_cap_bits(cap);
++	}
+ }
+ 
+ static inline bool acpi_has_cpu_in_madt(void)
+diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+index 7048dfacc04b..a9088250770f 100644
+--- a/arch/x86/include/asm/xen/hypervisor.h
++++ b/arch/x86/include/asm/xen/hypervisor.h
+@@ -100,4 +100,13 @@ static inline void leave_lazy(enum xen_lazy_mode mode)
+ 
+ enum xen_lazy_mode xen_get_lazy_mode(void);
+ 
++#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI)
++void xen_sanitize_proc_cap_bits(uint32_t *buf);
++#else
++static inline void xen_sanitize_proc_cap_bits(uint32_t *buf)
++{
++	BUG();
++}
++#endif
++
+ #endif /* _ASM_X86_XEN_HYPERVISOR_H */
+diff --git a/drivers/xen/pcpu.c b/drivers/xen/pcpu.c
+index b3e3d1bb37f3..508655273145 100644
+--- a/drivers/xen/pcpu.c
++++ b/drivers/xen/pcpu.c
+@@ -47,6 +47,9 @@
+ #include <asm/xen/hypervisor.h>
+ #include <asm/xen/hypercall.h>
+ 
++#ifdef CONFIG_ACPI
++#include <acpi/processor.h>
++#endif
+ 
+ /*
+  * @cpu_id: Xen physical cpu logic number
+@@ -400,4 +403,23 @@ bool __init xen_processor_present(uint32_t acpi_id)
+ 
+ 	return online;
+ }
++
++void xen_sanitize_proc_cap_bits(uint32_t *cap)
++{
++	struct xen_platform_op op = {
++		.cmd			= XENPF_set_processor_pminfo,
++		.u.set_pminfo.id	= -1,
++		.u.set_pminfo.type	= XEN_PM_PDC,
++	};
++	u32 buf[3] = { ACPI_PDC_REVISION_ID, 1, *cap };
++	int ret;
++
++	set_xen_guest_handle(op.u.set_pminfo.pdc, buf);
++	ret = HYPERVISOR_platform_op(&op);
++	if (ret)
++		pr_err("sanitize of _PDC buffer bits from Xen failed: %d\n",
++		       ret);
++	else
++		*cap = buf[2];
++}
+ #endif
+-- 
+2.41.0
+
 
