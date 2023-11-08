@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34CE17E59FF
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 16:28:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629319.981463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFF67E59FE
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 16:28:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629318.981452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0kT8-0002LB-Gj; Wed, 08 Nov 2023 15:27:50 +0000
+	id 1r0kT7-00023j-8m; Wed, 08 Nov 2023 15:27:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629319.981463; Wed, 08 Nov 2023 15:27:50 +0000
+Received: by outflank-mailman (output) from mailman id 629318.981452; Wed, 08 Nov 2023 15:27:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0kT8-0002HY-Cs; Wed, 08 Nov 2023 15:27:50 +0000
-Received: by outflank-mailman (input) for mailman id 629319;
- Wed, 08 Nov 2023 15:27:49 +0000
+	id 1r0kT7-00021u-4W; Wed, 08 Nov 2023 15:27:49 +0000
+Received: by outflank-mailman (input) for mailman id 629318;
+ Wed, 08 Nov 2023 15:27:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L2E1=GV=citrix.com=prvs=669c226bb=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1r0kT6-0001ly-Ug
- for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 15:27:48 +0000
+ id 1r0kT5-0001ly-Rz
+ for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 15:27:47 +0000
 Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
  [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f24f926-7e4b-11ee-98da-6d05b1d4d9a1;
- Wed, 08 Nov 2023 16:27:48 +0100 (CET)
+ id 5ddab65b-7e4b-11ee-98da-6d05b1d4d9a1;
+ Wed, 08 Nov 2023 16:27:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,69 +36,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f24f926-7e4b-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 5ddab65b-7e4b-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1699457268;
+  d=citrix.com; s=securemail; t=1699457267;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7iglAxJ1pea3nVzftE4nEQ94KmXbS9vQNc+FWozJ1fM=;
-  b=QryPlWhFEyCwmMwpQp1maqXmOPz1m6aZ1lAC+iWWq5faeo0B05OgjhIo
-   pzhuxYfqagMYvg6kWT1Di4e6Une2yEfKGwr00Hk7h+GWt6bcSGk8xyoiI
-   1p7TfbQSwpHEYRPRUJvMOJGnZInXznZ8leksAWBR3mHgj3tZv5NOCCYEP
-   0=;
+  bh=U47fe4dzuabd1XFgAOtn7u1DE8NYVen41zChGJGziKI=;
+  b=PBzF73DXN34vnYPjlJOfF/Ze+Sn5Gt+L75REOpo9XIxFDNwtisMI6eqY
+   Xn8qF1yoaVbxiUnKPXj20c/KQi3+H5jVT7hWCJD7y3ljQpBu3cKhkxsKH
+   Gvl2SUUctACm1NDG3Bcuw4ziefjYy2cM12nUNcSsgwTzAlw53pzIlClxk
+   4=;
 X-CSE-ConnectionGUID: O7ec57rRToercaUqjXa8Kg==
-X-CSE-MsgGUID: 9bHeHTWHR0mgSc+U9LIEXQ==
+X-CSE-MsgGUID: 0iuvoY++SsqqxftDbraSTQ==
 Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 127132505
+X-MesageID: 127132502
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:kFSvdKCehBEF9BVW//njw5YqxClBgxIJ4kV8jS/XYbTApDpw3mdVy
- TYaXWyHOPyMYTH1eIh/bYi08UJTsJKDz94yQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48D8kk/nOH+KgYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbCRMsMpvlDs15K6p4WpA7gRnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw3bl6CjwR7
- 8YkLz0XZRm+nuCGyeKYRbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdIL2U3BPjDS0Qn1lM/IZQyhuq3wFL4dCVVsgm9rqsr+WnDigd21dABNfKMIIPTHp8IxhvwS
- mTurm7ZDzEmC/ylkT+KyXnvu77rvA7LYddHfFG/3qEz2wDCroAJMzUGWF3+rfSnh0qWX9NEN
- 1dS6icotbI19kGgUp/6RRLQiFyuswMYWtFQO/Yn8wzLwa3Riy6CHXQNRDNFbN0gtec1SCYs2
- 1vPmMnmbRRwtJWFRHTb8a2bxRuwJCwUIGkqdSICCwwf7LHLpJw4h1TBR9BoHaqxk/X8AzS2y
- DePxAAeirMJnIg03qO01VndhnSnoZ2hc+IuzlyJBCT/tFo/PdP0IdPwgbTG0RpeBKHGQ1Lc4
- 2I+p8+T9usHMIiPpCXdY+pYSdlF+M253C3gbU9HRsdwpmj0pib/LOi88xkkeh01bJxslSvBJ
- R+L410Mvve/KVPzNfcvC79dHfjG2kQJ+T7NfffOZ94GWYBrdQmI50mCjmbLhDiyySDAfUwlU
- Kp3kPpA7l5AUsyLNBLsG48gPUYDn0jSP1/7S5Hh1AiA2rGDfnOTQrptGALQP7FivPnc8FqIq
- Yk32y62J/J3CbKWX8Uq2ddOdg5iwYYTXvgaVPC7hsbce1E7SQnN+tfawK87epwNokimvr6gw
- 51JYWcBkACXrSSeeW23hoVLNOuHsWBX8ShqYkTB/D+AhxAeXGpYxP5FKMJpJOd4qbcLIDwdZ
- 6BtRvhsy89nElzvkwnxp7GkxGC+XHxHXT6zAhc=
-IronPort-HdrOrdr: A9a23:WUTDb6yfMZu241kcLPcgKrPxMegkLtp133Aq2lEZdPULSKClfp
- GV8cjziyWftN9IYgBYpTnyAtj5fZq8z+893WB1B9zMYOCIghrMEGgP1+XfKnjbakvDH41mpO
- 9dmspFebnN5DFB5K7HCUuDYrEdKbG8geSVbIzlr0uFODsaCZ2ImD0JaTpzfHcWeCB2Qb4CUL
- aM7MtOoDStPVwRc8SAH3EAG8TTutHRk5riQBgeQzoq8hOHgz+E4KPzV0Hw5GZVbxp/hZMZtU
- TVmQ3w4auu99m91x/nzmfWq7hGhdf7zdNHJcqUzuwYMC/lhAqEbJloH5eCoDc2iuey70tCqq
- iGnz4Qe+BIr1/BdGC8phXgnyP61iw11nPkwViExVP+vM3QXlsBeod8rLMcViGcx1srvdl63q
- 4O9XmerYBrARTJmzm4z8TUVittilG/rRMZ4KIuZj1kIMQjgY1q3M0iFXBuYdc99eXBmcMa+d
- xVfY/hDTBtABGnhj7izyxSKZeXLw8O91+9MzI/U4WuokRrdHwV9Tpk+OUP2ngH754zUJ9C+q
- DNNblpjqhHSosMYbt6H/ppe7rCNoXhe2O/DIupGyWTKIgXf3bW75Ln6rQ84++nPJQO0ZspgZ
- zEFFdVr3Q7dU7iAdCHmMQjyGG6fEytGTD2js1O7ZlwvbPxALLtLC2YUVgr18+tue8WDMHXU+
- u6fJhWH/jgJ23zHpsh5XyIZ7BCbX0FFMEFsNcyXFyD5srNN43xr+TeNO3eIbL8eAxUKV8Xwk
- FzLAQbCP8wn3xDAEWI/yQ5c0mdBHDCwQ==
-X-Talos-CUID: 9a23:RaCBO2zecgIcOofy5hP6BgUzRc0uLyLH9kvXLlWzAFtwSo2cGXyfrfY=
-X-Talos-MUID: 9a23:2cHz8wVF31nbc/Hq/G7mpDxCCPhI2fyrB3sG0qhXn+ipBRUlbg==
+IronPort-Data: A9a23:ZEL4CaIDtQYfU0cLFE+R6pUlxSXFcZb7ZxGr2PjKsXjdYENS1TJUy
+ DMWCjiBOqqIMGametB2bt7k8EkOuZXRnN9kGgtlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAhk/nOHvylULKs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpKrfrYwP9TlK6q4mhB5wRuPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5QXmxFq
+ KMCEgwKYwqIjt+vwoKyGspj05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGspM0yojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXQGpwOxBvA/
+ Aoq+UyhAwwEM+3cigGe62u8iPPjlznyY74rQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxLnMfUjdLZdgitck3bT8nz
+ FmEm5XuHzMHmKKRYWKQ8PGTtzzaESoIKW4PYwcUQA1D5MPsyKkTgxTVX5BcGai6ptTvHHf7x
+ DXikcQlr+xN14hRjfz9pA2WxW30znTUcuIrziKIU2n4sRlDWImofYeh1EHZ3f8QD4nMGzFto
+ 0M4d9iiAPEmVM/cxXDUHb1RTdlF9N7fbmeA3wQH840JsmT1oSD+J+i89RknfB8xWvvobwMFd
+ 6M6Vel5z5hJNX/iVrdtYoS+EKzGJoC7Toy6D5g4gjdUC6WdlTNrHwk0PiZ8J0i3zCARfVgXY
+ P93i/qEA3cAErhAxzGrXeob2rJD7nlglDKIFcqjn0v6i+X2iJuppVAtaQTmUwzExPrZ+1u9H
+ yh3bKNmNCmzoMWhO3KKoOb/3HgBLGQhBICeliCkXrfrH+aSI0l4U6W56ep4K+RYc1F9yr+gE
+ oeVBhUJlzISRBTvdW23V5yUQOq1As8h9CxkYHdE0JTB8yFLXLtDJZw3L/MfFYTLPsQ5pRKoZ
+ 5Hpo/m9P8k=
+IronPort-HdrOrdr: A9a23:CS1+y6jqBP8XyE0BVh+KQrXs53BQX8d23DAbv31ZSRFFG/FwyP
+ rDoB1L73LJYWgqMk3IwerwQZVoMkmsjaKdgLNhdItKOTOM11dAQ7sSiLcKrwePJ8S6zJ866U
+ 4CSdk3NDSTNykfsS+S2mDRLz9j+qjhzEnBv5ab854Hd2FXgtRbnmVE43GgYy5LrWd9ZKYRJd
+ 653I5qtjCgcXMYYoCSAWQEZfHKo5nmhY/rehkPAj8g8U2rgSmz4LD3PhCE1lNGOgk/i4sKwC
+ zgqUjU96+ju/a0xlv10HLS1Y1fnJ/M28ZOH8uFj+kSM3HJhhyzbIpsdrWetHQeof2p6nwtjN
+ 7Qyi1QdPhb2jf0RCWYsBHt0w7v3HIF8Hn502KVhnPlvIjQWC86I9Apv/MVTjLpr24b+P1s2q
+ NC2GyU87BNCwnboSj779/UEzl3i0uPp2Y4m+J7tQ0SbWJeUs4fkWUsxjIVLH4yJlO71GnhKp
+ gsMCjo3ocZTbpdVQGagoAg+q3oYp15JGb8fqFLgL3u79EepgEE86MVqfZv40so5dYzTYJJ6P
+ /DNbktnLZSTtUOZaY4H+sZR9CrY1a9NS4kHVjiU2gPLpt3Tk7lutry+vE49euqcJsHwN87n4
+ nASkpRsSo3d1j1AcOD0ZVX+lSVKV/NKwjF24Vb/dx0q7f8TL3kPWmKT00vidKpp7EaDtfAU/
+ i+NZpKC7voLHfoG4xOwwriMqMiXkU2QYkQoJI2SliOqsXEJsnjsfHaau/aIP73HTMtSgrEcw
+ g+tfjIVbV9B2yQKw7FaULqKgzQk2TEjOxNLJQ=
+X-Talos-CUID: =?us-ascii?q?9a23=3AH/swPmk5vMOlI+OWDsMy0bAl2WTXOVqCwXyNfFW?=
+ =?us-ascii?q?CNWFkUracdEaSyKo0sMU7zg=3D=3D?=
+X-Talos-MUID: 9a23:8voECgWPTi9aDWfq/GftmS9lBYQr2L+3EVADjbkMocC/CRUlbg==
 X-IronPort-AV: E=Sophos;i="6.03,286,1694750400"; 
-   d="scan'208";a="127132505"
+   d="scan'208";a="127132502"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>, Luca Fancellu <luca.fancellu@arm.com>, Henry Wang
-	<Henry.Wang@arm.com>
-Subject: [PATCH for-4.18 2/3] docs/sphinx: Fix syntax issues in exclude-list.rst
-Date: Wed, 8 Nov 2023 15:27:26 +0000
-Message-ID: <20231108152727.58764-3-andrew.cooper3@citrix.com>
+	<julien@xen.org>, Henry Wang <Henry.Wang@arm.com>
+Subject: [PATCH for-4.18 3/3] docs/sphinx: Fix indexing
+Date: Wed, 8 Nov 2023 15:27:27 +0000
+Message-ID: <20231108152727.58764-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20231108152727.58764-1-andrew.cooper3@citrix.com>
 References: <20231108152727.58764-1-andrew.cooper3@citrix.com>
@@ -108,11 +108,18 @@ Content-Type: text/plain
 
 sphinx-build reports:
 
-  docs/misra/exclude-list.rst:47: WARNING: Unexpected indentation.
-  docs/misra/exclude-list.rst:50: WARNING: Inline emphasis start-string without end-string.
+  docs/designs/launch/hyperlaunch.rst: WARNING: document isn't included in any toctree
+  docs/designs/launch/hyperlaunch-devicetree.rst: WARNING: document isn't included in any toctree
+  docs/misc/xen-makefiles/makefiles.rst: WARNING: document isn't included in any toctree
+  docs/misra/C-language-toolchain.rst: WARNING: document isn't included in any toctree
+  docs/misra/C-runtime-failures.rst: WARNING: document isn't included in any toctree
+  docs/misra/documenting-violations.rst: WARNING: document isn't included in any toctree
+  docs/misra/exclude-list.rst: WARNING: document isn't included in any toctree
+  docs/misra/xen-static-analysis.rst: WARNING: document isn't included in any toctree
 
-Nested lists require newlines as delimiters, and * either needs escaping, or
-put in a literal block.
+Create an up-to-date index.rst in misra/ create an "unsorted docs" section at
+the top level to contain everything else.  They can be re-filed at a later
+date.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -121,29 +128,66 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
-CC: Luca Fancellu <luca.fancellu@arm.com>
 CC: Henry Wang <Henry.Wang@arm.com>
 ---
- docs/misra/exclude-list.rst | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ docs/index.rst       | 13 +++++++------
+ docs/misra/index.rst | 18 ++++++++++++++++++
+ 2 files changed, 25 insertions(+), 6 deletions(-)
+ create mode 100644 docs/misra/index.rst
 
-diff --git a/docs/misra/exclude-list.rst b/docs/misra/exclude-list.rst
-index 42dbceb82523..a63b128c3d27 100644
---- a/docs/misra/exclude-list.rst
-+++ b/docs/misra/exclude-list.rst
-@@ -44,10 +44,11 @@ Here is an explanation of the fields inside an object of the "content" array:
-    their results. This field is optional and when not specified, it means every
-    checker will use that entry.
-    Current implemented values for this field are:
-+
-     - xen-analysis: the xen-analysis.py script exclude this entry for both MISRA
-       and static analysis scan. (Implemented only for Cppcheck tool)
+diff --git a/docs/index.rst b/docs/index.rst
+index f3f779f89ce5..22fdde80590c 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -53,17 +53,18 @@ kind of development environment.
+    hypervisor-guide/index
  
- To ease the review and the modifications of the entries, they shall be listed in
- alphabetical order referring to the rel_path field.
--Excluded folder paths shall end with '/*' in order to match everything on that
-+Excluded folder paths shall end with ``/*`` in order to match everything on that
- folder.
+ 
+-MISRA C coding guidelines
+--------------------------
++Unsorted documents
++------------------
+ 
+-MISRA C rules and directive to be used as coding guidelines when writing
+-Xen hypervisor code.
++Documents in need of some rearranging.
+ 
+ .. toctree::
+    :maxdepth: 2
+ 
+-   misra/rules
+-   misra/deviations
++   designs/launch/hyperlaunch
++   designs/launch/hyperlaunch-devicetree
++   misc/xen-makefiles/makefiles
++   misra/index
+ 
+ 
+ Miscellanea
+diff --git a/docs/misra/index.rst b/docs/misra/index.rst
+new file mode 100644
+index 000000000000..c59730c46d88
+--- /dev/null
++++ b/docs/misra/index.rst
+@@ -0,0 +1,18 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++MISRA C coding guidelines
++=========================
++
++MISRA C rules and directive to be used as coding guidelines when writing
++Xen hypervisor code.
++
++.. toctree::
++   :maxdepth: 2
++
++   rules
++   deviations
++   C-language-toolchain
++   C-runtime-failures
++   documenting-violations
++   exclude-list
++   xen-static-analysis
 -- 
 2.30.2
 
