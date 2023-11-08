@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A477E57FC
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 14:29:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629281.981362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F03C7E57FD
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 14:33:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629285.981371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0ibX-00044u-KO; Wed, 08 Nov 2023 13:28:23 +0000
+	id 1r0igd-0005ue-7d; Wed, 08 Nov 2023 13:33:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629281.981362; Wed, 08 Nov 2023 13:28:23 +0000
+Received: by outflank-mailman (output) from mailman id 629285.981371; Wed, 08 Nov 2023 13:33:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0ibX-00042u-Hj; Wed, 08 Nov 2023 13:28:23 +0000
-Received: by outflank-mailman (input) for mailman id 629281;
- Wed, 08 Nov 2023 13:28:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7seD=GV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1r0ibW-00042o-5j
- for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 13:28:22 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aedcc491-7e3a-11ee-98da-6d05b1d4d9a1;
- Wed, 08 Nov 2023 14:28:20 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id E21E64EE0737;
- Wed,  8 Nov 2023 14:28:19 +0100 (CET)
+	id 1r0igd-0005rp-53; Wed, 08 Nov 2023 13:33:39 +0000
+Received: by outflank-mailman (input) for mailman id 629285;
+ Wed, 08 Nov 2023 13:33:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r0igc-0005qO-0j
+ for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 13:33:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r0igW-0004hF-Bn; Wed, 08 Nov 2023 13:33:32 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[10.95.129.229]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r0igW-0001LN-59; Wed, 08 Nov 2023 13:33:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,31 +39,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aedcc491-7e3a-11ee-98da-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=jt/Bv+/xXl+LzY0bT3TYG/k0I+oxl7EDL++sJsB7i9k=; b=a5bT/tePksTEd9dXxvIn2mvGlm
+	ghxOJh43UuLrQrpXHBb2EKc3oSX5Hl1ASxR3EGScrBVf6KijTzDBI5IjfEY1LoZ1/Io6jcpWAmhPb
+	Eh3HxrlFx8efxJJXeI2WAMkuNu0zZKVDQJvnSBRT7+CxY19ElRGyC/5wpkKmqjtmnPZ0=;
+Message-ID: <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org>
+Date: Wed, 8 Nov 2023 13:33:29 +0000
 MIME-Version: 1.0
-Date: Wed, 08 Nov 2023 14:28:19 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
  tools
-In-Reply-To: <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com>
  <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com>
  <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com>
  <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
-Message-ID: <4a58abb52afed75a748440f1adf9a2ac@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2023-11-08 12:19, Jan Beulich wrote:
+Hi Jan,
+
+On 08/11/2023 11:19, Jan Beulich wrote:
 > On 08.11.2023 12:03, Nicola Vetrini wrote:
 >> On 2023-11-08 09:24, Jan Beulich wrote:
 >>> On 03.11.2023 18:58, Nicola Vetrini wrote:
@@ -72,26 +79,25 @@ On 2023-11-08 12:19, Jan Beulich wrote:
 >>>> of xen/common/domain.c. This ASSERT helps them in
 >>>> detecting that such a condition is not possible
 >>>> and also provides a basic sanity check.
->>> 
+>>>
 >>> I disagree with this being a possible justification for adding such a
 >>> redundant assertion. More detail is needed on what is actually
 >>> (suspected to be) confusing the tool. Plus it also needs explaining
 >>> why (a) adding such an assertion helps and (b) how that's going to
 >>> cover release builds.
->>> 
->> 
+>>>
+>>
 >> How about:
 >> "Static analysis tools may detect a possible null pointer dereference
 >> at line 760 (config->handle) due to config possibly being NULL.
->> 
+>>
 >> However, given that all system domains, including IDLE, have a NULL
 >> config and in the code path leading to the assertion only real domains
 >> (which have a non-NULL config) can be present."
->> 
+>>
 >> On point b): this finding is a false positive, therefore even if the
 >> ASSERT is
->> expanded to effectively a no-op, there is no inherent problem with 
->> Xen's
+>> expanded to effectively a no-op, there is no inherent problem with Xen's
 >> code.
 >> The context in which the patch was suggested [1] hinted at avoiding
 >> inserting in
@@ -99,28 +105,25 @@ On 2023-11-08 12:19, Jan Beulich wrote:
 > 
 > Which I largely agree with. What I don't agree with is adding an
 > assertion which is only papering over the issue, and only in debug
-> builds. So perhaps instead we need a different way of tracking
+> builds.
+
+I expect that the number of issues will increase a lot as soon as we 
+start to analyze production builds.
+
+I don't think it will be a solution to either replace all the ASSERT() 
+with runtime check in all configuration or even...
+
+> So perhaps instead we need a different way of tracking
 > false positives (which need to be tied to specific checker versions
 > anyway).
-> 
 
-Hmm. Is it better in your opinion to write something like:
+... documenting false positive.
 
-if (config == NULL)
-    return ERR_PTR(<some error code>); // or die() or something 
-appropriate
+IMHO, the only viable option would be to have a configuration to keep 
+ASSERT in production build for scanning tools.
 
-this would be a rudimentary handling of the error with some messages 
-detailing that something
-is wrong if a domain has a null config at that point.
-
-To be clear: I'm fine with every way of deviating the construct, but 
-agreeing on an
-alternate mechanism to SAF-x-false-positive would land later than 
-implementing some form
-of error handling, I think.
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
