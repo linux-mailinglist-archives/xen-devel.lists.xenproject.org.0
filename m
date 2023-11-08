@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7D07E59FD
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 16:28:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629316.981431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A497E5A00
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Nov 2023 16:28:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629317.981442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0kSx-0001Yg-N1; Wed, 08 Nov 2023 15:27:39 +0000
+	id 1r0kT5-0001pe-V4; Wed, 08 Nov 2023 15:27:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629316.981431; Wed, 08 Nov 2023 15:27:39 +0000
+Received: by outflank-mailman (output) from mailman id 629317.981442; Wed, 08 Nov 2023 15:27:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r0kSx-0001Wi-KX; Wed, 08 Nov 2023 15:27:39 +0000
-Received: by outflank-mailman (input) for mailman id 629316;
- Wed, 08 Nov 2023 15:27:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r0kT5-0001mh-Rn; Wed, 08 Nov 2023 15:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 629317;
+ Wed, 08 Nov 2023 15:27:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L2E1=GV=citrix.com=prvs=669c226bb=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1r0kSw-0001Wb-6s
- for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 15:27:38 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56a7e1cb-7e4b-11ee-9b0e-b553b5be7939;
- Wed, 08 Nov 2023 16:27:35 +0100 (CET)
+ id 1r0kT3-0001ly-RU
+ for xen-devel@lists.xenproject.org; Wed, 08 Nov 2023 15:27:45 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c0726d3-7e4b-11ee-98da-6d05b1d4d9a1;
+ Wed, 08 Nov 2023 16:27:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,88 +36,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56a7e1cb-7e4b-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 5c0726d3-7e4b-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1699457255;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8dmZtFiM4DRSISiQmMaAqoLtKPz3F8xUc92N3jcjP6A=;
-  b=VzJQ90VLrkf+LLJ6Z7+yYNqRUeyZsNQHDxYcYDj6SqTGMI0p3Mp009m6
-   jSdJusIqrOPsfdnebpzVOjkmOUaBkkcV/Rzj0QdEFcwJvP04At6bR0ePV
-   05lve53ADBQODGUmGQn2v+mpLGDfVjBgF1lFeAcQCJ8Mdk10CUXxUkH6I
-   Y=;
-X-CSE-ConnectionGUID: icGm5HtAQNqgbhgNrzLpjw==
-X-CSE-MsgGUID: Z6hDHVI0RA2G39vjpeSQUA==
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1699457264;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=4qvYJ95Qmj7vNymP0W4t0jy4zi1qzcW9Flfs/fZR3q8=;
+  b=iQJel6izEMc7k9p8Bo8ISf+JVvjxzxXiLkN/HhgbrpLv9a31u9/Zdodj
+   DfqdY+r949jeJm+HBwAdCHoOgT8Ew1r/IrT8bbzrzI/ql5IW3KE2mmMxK
+   rfIqSTydTqz2pAgDiPYgjy2xSMHspYjg4fl0OiD5BuhIw9mhuSJQ2Kflp
+   o=;
+X-CSE-ConnectionGUID: rtGzRFCOSGaJJVEY25MWVw==
+X-CSE-MsgGUID: qPYDbZIdQjeEc228BsiRDw==
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 127913160
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 130706603
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:vcuShKpwMsuHXMdqvIl+FCh1LLFeBmKMZRIvgKrLsJaIsI4StFCzt
- garIBnQaP+NN2LwKtAibI3n8E0A7JSHy4U1GVZq/ykzFyhD8puZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbOCYmYpA1Y8FE/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GhwUmAWP6gR5waHzylNVfrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXADEGQRXep/6f+ZSiReNsieI5Pu3zPpxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSaxFIUPrSn8/x7pX7WxRepEiYuuwc5G/LwRYq+LPsLMDUapqBQsA9ckOw/
- ziZrj2iW09CXDCZ4Qjb8l6MuM6Xpwqhd9lDCr+g+8VTvXTGkwT/DzVJDADm8JFVkHWWS99Zb
- kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8UYwgyQzqvf4y6CG3MJCDVGbbQOr9QqTDYn0
- luImdLBBjF1trCRD3WH+d+8sjeaKSUTa2gYakcsTxYB4tTliJE+iFTIVNkLOKW1lNzuBTbow
- z2Q6iM6jq8QpdUX3r+/9FqBgjXEjpTRVQs0+gX/V3qo9B9kf5WiY5G06F/d9rBLK4PxZl2ct
- 3FClcGY5+0KCYylnTaIBu4KGdmBx/uDKiyavldpELEo7THr8HmmFb28+xkneh0vaJxdP2a0M
- QmM4Wu9+aO/IlOrZoByPqKtIv0M1KfqFdvDTOLwdthRN80ZmBC8wM1+WaKB9zmzwRlwyPxnZ
- cbzndWEVyhAVfo9pNaib6JNieV1m3pWKXb7HMijl3yaPayiiGl5oFvvGHCJdOk9pJicugTT/
- M032yCikE4HD7SWjsU66+cuwbE2wZsTX8ueRzR/LLLrH+afMDhJ5wXt6b0gYZd5uK9ei/3F+
- HqwMmcBlguu3i2dcVXVNyo8AF8KYXqYhStkVRHAwH7xhiN9CWpRxPx3m2QLkUkPq7U4kK8co
- wgtcMScGPVfIgkrCBxEBaQRWLdKLUzx7SrXZnrNXdTKV8I4L+A/0oO+L1SHGehnJnbfiPbSV
- JX5jFyCH8NdGFk5ZCsUAdr2p26MUbEmsLoadyP1zhN7Iy0ALKACx/TNs8IK
-IronPort-HdrOrdr: A9a23:M0IPCq01diR+qLikM5kLGQqjBL4kLtp133Aq2lEZdPRUGvb3qy
- nIpoV+6faUskd2ZJhOo7C90cW7LU80lqQFhLX5X43SPzUO0VHAROoJgLcKqweQfBEWndQ96U
- 4PScdD4aXLfDpHsfo=
-X-Talos-CUID: =?us-ascii?q?9a23=3Aoamj3WjZzR66MDBQXIBZ3efD2DJuc3byySrwP2a?=
- =?us-ascii?q?BL39mQr2ab0WC3LtmjJ87?=
-X-Talos-MUID: =?us-ascii?q?9a23=3ANbBkdA2ZSyBRsvNV6cMa29eR6DUj0fquJGAzsM0?=
- =?us-ascii?q?8kpOrbn1uOS+Qtw2Ka9py?=
+IronPort-Data: A9a23:QpM02643ssFRzzl6B0WWTgxRtMfHchMFZxGqfqrLsTDasY5as4F+v
+ jZKUTuPPa7eZWLzfYt/Poi29UxSvZGDnNVqTgNori1mHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRG/ykTraCY3gtLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9lU355wehBtC5gZlPKkT7AeH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m7
+ +A3OgojRTe4qOuU4oyWe7Mxo/sdM5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmRJUIXUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0MxR7H/
+ jyYpz+R7hcyLeSu5TC3036VhOLilnmhCKgJFYeU6as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZac8AvvsIyQT0s1
+ 3eKksnvCDgpt6eaIVqC8p+EoDX0PjIaRUcAeCsFQA0t89Tl5oYpgXrnRdZ5EbWpicX1FCu2y
+ DSDtisWnKkal8oC3eO6+jjvjyq3o5nVTiY8/gjNQn++9QR9eZKkYIqzr1Pc6J5oDIufVEjHg
+ 3EClOCX9uVIBpaI/BFhW81UQuvvvazcdmSB0BgwR/HN6ghB5Va5Ya9C2h9VA3xGO+QmRxLYO
+ hL2hj1Osco70GSRUUNnX26gI510nPm8TIm9CqG8gslmOMYrKFHdlM16TQvAhzqzzRJEfbQXY
+ M/DKa6R4WAm5bOLJdZcb8way7Yvjhsm32LVSouTI/+PiuHGOyf9pVvoKjKzggEFAECs+l69H
+ y53bZfi9vmmeLSWjtPr2YASN0sWCnMwGIr7rcdaHsbafFs3QzF7U6+OnOl+E2CAo0iyvr6Xl
+ kxRp2cBlQGh7ZE5AV7iho9fhEPHAs8k8CNT0d0ENle0wXkzCbtDH49GH6bbiYIPrbQ5pdYtF
+ qltRil1KqgXItgx02hHPMaVQU0LXEjDuD9iyAL8OmdmIcc+GFGSkjImFyO2nBQz4uOMnZNWi
+ 9WdOsnzG/LvmywK4B7qVc+S
+IronPort-HdrOrdr: A9a23:/7Th4Kish5tsMpDT1NSgRJPAZnBQX8d23DAbv31ZSRFFG/FwyP
+ rDoB1L73LJYWgqMk3IwerwQZVoMkmsjaKdgLNhdItKOTOM11dAQ7sSiLcKrwePJ8S6zJ866U
+ 4CSdk3NDSTNykfsS+S2mDRLz9j+qjhzEnBv5ab854Hd2FXgtRbnmVE43GgYy5LrWd9ZKYRJd
+ 653I5qtjCgcXMYYoCSAWQEZfHKo5nmhY/rehkPAj8g8U2rgSmz4LD3PhCE1lNGOgk/i4sKwC
+ zgqUjU96+ju/a0xlv10HLS1Y1fnJ/M28ZOH8uFj+kSM3HJhhyzbIpsdrWetHQeof2p6nwtjN
+ 7Qyi1QdPhb2jf0RCWYsBHt0w7v3HIF8Hn502KVhnPlvIjQWC86I9Apv/MVTjLpr24b+P1s2q
+ NC2GyU87BNCwnboSj779/UEzl3i0uPp2Y4m+J7tQ0SbWJeUs4fkWUsxjIVLH4yJlO71GnhKp
+ gsMCjo3ocZTbpdVQGagoAg+q3oYp15JGb8fqFLgL3u79EepgEE86MVqfZv40so5dYzTYJJ6P
+ /DNbktnLZSTtUOZaY4H+sZR9CrY1a9NS4kHVjiU2gPLpt3Tk7lutry+vE49euqcJsHwN87n4
+ nASkpRsSo3d1j1AcOD0ZVX+lSVKV/NKwjF24Vb/dx0q7f8TL3kPWmKT00vidKpp7EaDtfAU/
+ i+NZpKC7voLHfoG4xOwwriMqMiXkU2QYkQoJI2SliOqsXEJsnjsfHaau/aIP73HTMtSgrEcw
+ g+tfjIVbV9B2yQKw7FaULqKgzQk2TEjOxNLJQ=
+X-Talos-CUID: 9a23:WVNEam8tKQf6y1QXAgyVv1QINdIfXFb691jZAW2GJFczFZiqd0DFrQ==
+X-Talos-MUID: 9a23:NAZt/gomQvvQj1OOvUcezyhaBeti0YWiMUIAvJ5c4ZmuLi1KFyjI2Q==
 X-IronPort-AV: E=Sophos;i="6.03,286,1694750400"; 
-   d="scan'208";a="127913160"
+   d="scan'208";a="130706603"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
 	<julien@xen.org>, Christopher Clark <christopher.clark@starlab.io>, "Daniel P
- . Smith" <dpsmith@apertussolutions.com>, Luca Fancellu
-	<luca.fancellu@arm.com>, Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH for-4.18 0/3] docs/sphinx: Fix syntax errors and warnings
-Date: Wed, 8 Nov 2023 15:27:24 +0000
-Message-ID: <20231108152727.58764-1-andrew.cooper3@citrix.com>
+ . Smith" <dpsmith@apertussolutions.com>, Henry Wang <Henry.Wang@arm.com>
+Subject: [PATCH for-4.18 1/3] docs/sphinx: Fix syntax issues in hyperlaunch.rst
+Date: Wed, 8 Nov 2023 15:27:25 +0000
+Message-ID: <20231108152727.58764-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20231108152727.58764-1-andrew.cooper3@citrix.com>
+References: <20231108152727.58764-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Given the two mandatory 4.18 fixes, this is the remainder of the work I have
-been threatening to do for a while.  Preferrably for 4.18 too, seeing as this
-gets our Sphinx docs into better shape.
+sphinx-build reports:
 
-I still want to make sphinx problems fatal in gitlab, but that will have to
-wait for now.
+  docs/designs/launch/hyperlaunch.rst:111: WARNING: Title underline too short.
+  docs/designs/launch/hyperlaunch.rst:203: WARNING: Unexpected indentation.
+  docs/designs/launch/hyperlaunch.rst:216: WARNING: Unexpected indentation.
 
-Andrew Cooper (3):
-  docs/sphinx: Fix syntax issues in hyperlaunch.rst
-  docs/sphinx: Fix syntax issues in exclude-list.rst
-  docs/sphinx: Fix indexing
+Nested lists require newlines as delimiters.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Christopher Clark <christopher.clark@starlab.io>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+CC: Henry Wang <Henry.Wang@arm.com>
+---
  docs/designs/launch/hyperlaunch.rst | 19 +++++++++++--------
- docs/index.rst                      | 13 +++++++------
- docs/misra/exclude-list.rst         |  3 ++-
- docs/misra/index.rst                | 18 ++++++++++++++++++
- 4 files changed, 38 insertions(+), 15 deletions(-)
- create mode 100644 docs/misra/index.rst
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
+diff --git a/docs/designs/launch/hyperlaunch.rst b/docs/designs/launch/hyperlaunch.rst
+index 4c138da884cc..3bed36f97637 100644
+--- a/docs/designs/launch/hyperlaunch.rst
++++ b/docs/designs/launch/hyperlaunch.rst
+@@ -108,7 +108,7 @@ both modes of configuration from the same binary and when paired with its XSM
+ flask, provides strong controls that enable fine grained system partitioning.
+ 
+ Hypervisor Launch Landscape
+----------
++---------------------------
+ 
+ This comparison table presents the distinctive capabilities of Hyperlaunch with
+ reference to existing launch configurations currently available in Xen and
+@@ -200,11 +200,13 @@ The benefits of this structure include:
+   domains.
+ * Commonality: Reuses the same logic for initial basic domain building across
+   diverse Xen deployments.
+-	* It aligns the x86 initial domain construction with the existing Arm
+-	  dom0less feature for construction of multiple domains at boot.
+-	* The boot domain implementation may vary significantly with different
+-	  deployment use cases, whereas the hypervisor implementation is
+-	  common.
++
++  * It aligns the x86 initial domain construction with the existing Arm
++    dom0less feature for construction of multiple domains at boot.
++
++  * The boot domain implementation may vary significantly with different
++    deployment use cases, whereas the hypervisor implementation is common.
++
+ * Correctness: Increases confidence in the implementation of domain
+   construction, since it is performed by the hypervisor in well maintained and
+   centrally tested logic.
+@@ -213,8 +215,9 @@ The benefits of this structure include:
+ * Capability: Supports launch of advanced configurations where a sequenced
+   start of multiple domains is required, or multiple domains are involved in
+   startup of the running system configuration
+-	* eg. for PCI passthrough on systems where the toolstack runs in a
+-	  separate domain to the hardware management.
++
++  * eg. for PCI passthrough on systems where the toolstack runs in a separate
++    domain to the hardware management.
+ 
+ Please, see the ‘Hyperlaunch Device Tree’ design document, which describes the
+ configuration module that is provided to the hypervisor by the bootloader.
 -- 
 2.30.2
 
