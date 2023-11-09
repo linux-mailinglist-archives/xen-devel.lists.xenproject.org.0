@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8BF7E6E05
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 16:49:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629735.982126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F407E6E31
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 17:05:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629743.982136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17Hh-0003Nc-Gl; Thu, 09 Nov 2023 15:49:33 +0000
+	id 1r17WC-0007qS-Pm; Thu, 09 Nov 2023 16:04:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629735.982126; Thu, 09 Nov 2023 15:49:33 +0000
+Received: by outflank-mailman (output) from mailman id 629743.982136; Thu, 09 Nov 2023 16:04:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17Hh-0003Lm-Dk; Thu, 09 Nov 2023 15:49:33 +0000
-Received: by outflank-mailman (input) for mailman id 629735;
- Thu, 09 Nov 2023 15:49:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r17WC-0007o9-NB; Thu, 09 Nov 2023 16:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 629743;
+ Thu, 09 Nov 2023 16:04:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r4x0=GW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1r17Hf-0003Le-Ud
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 15:49:31 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 918e25fa-7f17-11ee-9b0e-b553b5be7939;
- Thu, 09 Nov 2023 16:49:29 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2c50906f941so13609051fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 07:49:29 -0800 (PST)
-Received: from l14.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- c5-20020a05600c0a4500b004068de50c64sm2460966wmq.46.2023.11.09.07.49.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Nov 2023 07:49:28 -0800 (PST)
+ <SRS0=lPpZ=GW=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
+ id 1r17WB-0007o3-El
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 16:04:31 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa34c7c3-7f19-11ee-98da-6d05b1d4d9a1;
+ Thu, 09 Nov 2023 17:04:30 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5441ba3e53cso1605600a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 08:04:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +40,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 918e25fa-7f17-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: aa34c7c3-7f19-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699544969; x=1700149769; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dRJNhzLkLjjb96yCsISqW/q7J4bX4Bc7uEC20O5gnrM=;
-        b=JIT02iCM77Fvw0oIxt0npS/2fYB63F62jpaxtp961TTh04SXKWbmVhvCOeYBrQS0ZV
-         mwi2cx/Q1nK4UUln49Sc9Z0s6ne5/rVCY0kWWbO0/OFQ61P233dUAAgIF4QAhLsIBQrP
-         2qyHUVY0eeqWztW/+7QpS5VAulPZ4p98Qvlx8=
+        d=linaro.org; s=google; t=1699545870; x=1700150670; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=wSAaFIMjbOUvTUCnLK9sawHNvp9MFTD1AlmSfBsbXN4=;
+        b=CS3sjdLKbluN7jkuRrYgADK0UUBepbo4xzbPF13Jmpfk/woCR0sxSMEoatK3TTzQ2t
+         2g6wtbF1ofkToChtOfj1ZNANJ03ECraz4X55RsW86vdJkOJxaCd3e62urau/zdhN6GkK
+         18krNsnswh+IFSwez7mAcD0s/5eEIJppjgT02blisKM2CrX+JtyAC9ZDHFdiON/ycmjV
+         P5URuOGcgcQ9Xa3Mp1Xy5G+BcfyqZW3KG/AvUtm0G2xhH4mVbx1vX4gfMI2t6H/5cnUD
+         jVrOYv1TKGEg/Tv9iTWRyoWa0/tCvQUCybqOJv7C1aD8gsjqQsfNDeVSfR/uj9S+fuEe
+         h+Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699544969; x=1700149769;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1699545870; x=1700150670;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dRJNhzLkLjjb96yCsISqW/q7J4bX4Bc7uEC20O5gnrM=;
-        b=wJZhaYVXNFSkjYJbCBlRRyODrB1VmfckadP9Rj1G/y99x9txjdNBFu7cc4HFOI9EOf
-         elcOuP3kurXr8V4UONOyLSle+jV43CgGyOn/LS7n0jblBtBjfDNTeZplu4/Z/9tctAAq
-         v9rsyI3L2IpTOLubP7swsDOxKGwlaBiItcToqD9uIl40Rwqu14eAtkY3r9ro/rvSY5fJ
-         UmyY0DXNHnVw3bAsTQiK12c9b5+/cdmg1SPMHeQc/MVRh3ifffZHfeZNe1nq859dvAN1
-         GryYn8UKMlo0uG8kXZdMBzmfiU/C3Z01ynDaCbv3mmY5MPVeb1hfp34+iN+ms/NU+h5w
-         VmKQ==
-X-Gm-Message-State: AOJu0YxnoKcljWjIaI8rogNvRB/FbxT2pywaK5GxBCKVfgS+xGw8Nf9j
-	eC1EtRzjXjzN0NUL1ggbo9qn28bN8P8isWS/vUc=
-X-Google-Smtp-Source: AGHT+IFMR938SiybZKIT0oJKrx+gvCMiEw+CEKwOvl4PJ4Dj/9ksQbauHGUfy7tld1fUTRFz3t0i3w==
-X-Received: by 2002:a2e:330b:0:b0:2c0:2ef8:9716 with SMTP id d11-20020a2e330b000000b002c02ef89716mr4664997ljc.1.1699544968747;
-        Thu, 09 Nov 2023 07:49:28 -0800 (PST)
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH] CI: Rework RISCV smoke test
-Date: Thu,  9 Nov 2023 15:49:22 +0000
-Message-Id: <20231109154922.49118-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        bh=wSAaFIMjbOUvTUCnLK9sawHNvp9MFTD1AlmSfBsbXN4=;
+        b=Y2treCcVeakGqGDNWc/pPHoTBo90/83nWtmR05uBU23O1KsPlbs4k3+JsX9yMYMw+r
+         TPO3bmtH+QYmtHq/LbIy3hrjye/XBFJlwCXQaGbeRg+FOnO5usf53xm1uh7EZEPCVTE1
+         INVZP9gkB1Uc+C34nljCdMzO5IrK24IidbP6BMoo35dbR1ERLPECNOsxUeDoj47AZYBk
+         uCYU/AM95BOYWKoEU3m569OKOfvVhfb/N1SpvQ68umew/vun1LBY2MKiGoRxMHFnjpDe
+         7T07KhIXVRa+g1zYjm3n5JGuULp46das1JtcVzaAfdsaThtQznsu4+rNsDTM8sj2xUl0
+         zVQQ==
+X-Gm-Message-State: AOJu0YzKG3B7HPENtgT7ZKzhCpIZNF9hLTj+npXoliYm9wrqbfCNgCqI
+	HmEcoBWkm7HiYiZvlb5uOt0JZFzZEfUbRrlJEbJGbQ==
+X-Google-Smtp-Source: AGHT+IH91DbfT5A1++uWQudUX5J7BBSI6b3R6xnaRanCdVuJCpMkLk4MvNet2Fcb+7qsAoDuJOcpeYvli6nDyIDZP9w=
+X-Received: by 2002:a50:d7dc:0:b0:53f:f908:eda8 with SMTP id
+ m28-20020a50d7dc000000b0053ff908eda8mr4372874edj.4.1699545869428; Thu, 09 Nov
+ 2023 08:04:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <1c312ba88e0928527dad6bc2e1b73d8cfe4b7f48.camel@infradead.org>
+In-Reply-To: <1c312ba88e0928527dad6bc2e1b73d8cfe4b7f48.camel@infradead.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 9 Nov 2023 16:04:17 +0000
+Message-ID: <CAFEAcA9oyF1scfpmz-7wYX5j=nGgdG-7uD3nXw3dqhoMi8MHzg@mail.gmail.com>
+Subject: Re: [PATCH] hw/xen: clean up xen_block_find_free_vdev() to avoid
+ Coverity false positive
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, 
+	Hanna Reitz <hreitz@redhat.com>, xen-devel@lists.xenproject.org, qemu-block@nongnu.org
+Content-Type: text/plain; charset="UTF-8"
 
-Currently, the test rely on QEMU and Xen finishing the boot in under
-two seconds. That's both very long and very short. Xen usually managed
-to print "All set up" under a second. Unless for some reason we try to
-run the test on a machine that's busy doing something else.
+On Thu, 9 Nov 2023 at 15:30, David Woodhouse <dwmw2@infradead.org> wrote:
+>
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> Coverity couldn't see that nr_existing was always going to be zero when
+> qemu_xen_xs_directory() returned NULL in the ENOENT case (CID 1523906).
+>
+> Perhaps more to the point, neither could Peter at first glance. Improve
+> the code to hopefully make it clearer to Coverity and human reviewers
+> alike.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>  hw/block/xen-block.c | 24 +++++++++++++++++++++---
+>  1 file changed, 21 insertions(+), 3 deletions(-)
+>
+> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+> index 6d64ede94f..aed1d5c330 100644
+> --- a/hw/block/xen-block.c
+> +++ b/hw/block/xen-block.c
+> @@ -91,9 +91,27 @@ static bool xen_block_find_free_vdev(XenBlockDevice *blockdev, Error **errp)
+>
+>      existing_frontends = qemu_xen_xs_directory(xenbus->xsh, XBT_NULL, fe_path,
+>                                                 &nr_existing);
+> -    if (!existing_frontends && errno != ENOENT) {
+> -        error_setg_errno(errp, errno, "cannot read %s", fe_path);
+> -        return false;
+> +    if (!existing_frontends) {
+> +        if (errno == ENOENT) {
+> +            /*
+> +             * If the frontend directory doesn't exist because there are
+> +             * no existing vbd devices, that's fine. Just ensure that we
+> +             * don't dereference the NULL existing_frontends pointer, by
+> +             * checking that nr_existing is zero so the loop below is not
+> +             * entered.
+> +             *
+> +             * In fact this is redundant since nr_existing is initialized
+> +             * to zero, but setting it again here makes it abundantly clear
+> +             * to Coverity, and to the human reader who doesn't know the
+> +             * semantics of qemu_xen_xs_directory() off the top of their
+> +             * head.
+> +             */
+> +            nr_existing = 0;
 
-Rework the test to exit as soon as Xen is done.
+You could alternatively assert(nr_existing == 0); here, but I
+don't feel strongly about that.
 
-There's two `tail -f`, the first one is there simply to monitor test
-progress in GitLab console. The second one is used to detect the test
-result as soon as QEMU add it to the file. Both `tail` exit as soon as
-QEMU exit.
+> +        } else {
+> +            /* All other errors accessing the frontend directory are fatal. */
+> +            error_setg_errno(errp, errno, "cannot read %s", fe_path);
+> +            return false;
+> +        }
+>      }
+>
+>      memset(used_devs, 0, sizeof(used_devs));
+> --
+> 2.34.1
 
-If QEMU fails at start, and exit early, both `tail` will simply exit,
-resulting in a failure.
-
-If the line we are looking for is never printed, the `timeout` on the
-second `tail` will force the test to exit with an error.
-
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
-
-Notes:
-    The "machine might be busy" bits refere to having a gitlab-runner
-    running two jobs, one been a build with no restriction on CPU resource use.
-    
-    We could use "-daemonize" with "-pidfile" to more easly detect qemu's
-    initialisation failure, but needs "-display none" instead of
-    "-nographic"
-
- automation/scripts/qemu-smoke-riscv64.sh | 32 ++++++++++++++++++------
- 1 file changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
-index 4008191302..ba7b61db8b 100755
---- a/automation/scripts/qemu-smoke-riscv64.sh
-+++ b/automation/scripts/qemu-smoke-riscv64.sh
-@@ -2,19 +2,35 @@
- 
- set -ex
- 
--# Run the test
--rm -f smoke.serial
--set +e
-+# Truncate or create serial output file
-+echo -n > smoke.serial
- 
--timeout -k 1 2 \
-+# cleanup: kill QEMU when the script exit for any reason
-+qemu_pid=
-+cleanup() {
-+    if [ "$qemu_pid" ]; then
-+        kill -s SIGKILL "$qemu_pid"
-+    fi
-+}
-+
-+trap 'cleanup' EXIT
-+
-+# Run the test
- qemu-system-riscv64 \
-     -M virt \
-     -smp 1 \
-     -nographic \
-     -m 2g \
-+    -monitor none \
-+    -chardev file,id=serial-out,path=smoke.serial \
-+    -serial chardev:serial-out \
-     -kernel binaries/xen \
--    |& tee smoke.serial
-+    &
-+qemu_pid=$!
- 
--set -e
--(grep -q "All set up" smoke.serial) || exit 1
--exit 0
-+# Monitor test progression until QEMU exit
-+tail --pid=$qemu_pid -f smoke.serial &
-+
-+# Check boot test result
-+timeout 60 tail --pid=$qemu_pid -f smoke.serial | \
-+    grep -a -q "All set up"
--- 
-Anthony PERARD
-
+thanks
+-- PMM
 
