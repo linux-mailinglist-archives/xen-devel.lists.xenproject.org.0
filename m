@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9422B7E6653
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 10:11:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629536.981852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ABF47E6720
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 10:51:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629541.981862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r113o-0001K1-TV; Thu, 09 Nov 2023 09:10:48 +0000
+	id 1r11gR-0007sj-TP; Thu, 09 Nov 2023 09:50:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629536.981852; Thu, 09 Nov 2023 09:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 629541.981862; Thu, 09 Nov 2023 09:50:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r113o-0001HN-QO; Thu, 09 Nov 2023 09:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 629536;
- Thu, 09 Nov 2023 09:10:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r113n-0001HH-8K
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 09:10:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r113i-0008Bo-Vc; Thu, 09 Nov 2023 09:10:42 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r113i-0004H6-QC; Thu, 09 Nov 2023 09:10:42 +0000
+	id 1r11gR-0007qw-PT; Thu, 09 Nov 2023 09:50:43 +0000
+Received: by outflank-mailman (input) for mailman id 629541;
+ Thu, 09 Nov 2023 09:50:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/VEo=GW=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1r11gQ-0007qq-6R
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 09:50:42 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 70ad1a9c-7ee5-11ee-9b0e-b553b5be7939;
+ Thu, 09 Nov 2023 10:50:39 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2c509f2c46cso8079101fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 01:50:39 -0800 (PST)
+Received: from EMEAENGAAD19049. ([2.223.46.215])
+ by smtp.gmail.com with ESMTPSA id
+ j14-20020a05600c190e00b004094c5d929asm1568171wmq.10.2023.11.09.01.50.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Nov 2023 01:50:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wKrh+XO88IgZ8kjIdXll5Iz0oYrkdXkVXVkXQG/qVq4=; b=sV6xoW6aObM878TQsXKPVv0yLV
-	CFxOYMTqmlI0xiRSTrO62Naj6s4Wb+ULN2Xb5OVEjshNSxpLijY0XPVMLgoHTvaD9QyKYnF5aRvQl
-	WfBo/Bdv+nn8tOkPnfsD3k9+JOIXG/GgKpjr75+pcDWFIpAYrZ/9VyywMoyNP0P9RFO4=;
-Message-ID: <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
-Date: Thu, 9 Nov 2023 09:10:40 +0000
+X-Inumbo-ID: 70ad1a9c-7ee5-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1699523439; x=1700128239; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=3+JlB2tzoow2e5dbXkXApRWSPEVZJ5aCEeltAsDQw7U=;
+        b=MhwNEust3wLUUedczOhwOUGVfC7St1c457FMyo5kaE84yUFQEdUXo5YSrzlzpzeHW1
+         Nwcat6nUAHvCkig+98jxRZQPsqc9MxdDqICQ8rU0ZrHf/sqI0ksio+bQsePIxexQmKXo
+         n9h9M24Mv35Svc2+qQuQ/1mP8rvthX8bkva/Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699523439; x=1700128239;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3+JlB2tzoow2e5dbXkXApRWSPEVZJ5aCEeltAsDQw7U=;
+        b=jrCh3VxA9f42WdZJ1x4r3wkUyWM57T19Qay2GUPY+07GvB6ZdCxI6KLHkoxuhLubpD
+         xzwSqDuWrU7nGvzveH7NsBzjls3qfwJM1it+XCkLE0A03AiHn6AZpqYlCEg7nkPiJcTr
+         xpsi3p+Z8VIOmp+tkB9mlXyx+5WwFD45lqbw0riWHr8gqejhqjGHlsfDdEHUdvUzq++f
+         F5pTuf9KwTx+Y8DKwipcT70bM5O8OzObKpQOaLaRyfPnf+H/b8VOqbcBLZY/8+k4szIt
+         5LsqrQPOp0Ufz4VFRPW1oLaYdNr7lTjbPyp5lVX7Duh/11P6/ZHWQ9Q7YQMsL/dj8DWy
+         V8SA==
+X-Gm-Message-State: AOJu0YytpuT3uApKYvX0BBBnPMU9HRmGwRM3NDNUP4XMetytx9Jm7GNW
+	ag+04sUWFoyIJOXArIwchg3QKw==
+X-Google-Smtp-Source: AGHT+IHfssPFcia6ZxQtRmG3IGhTmL14ungIjeN6MXI9+84ozmKNsg0J/zM6LeP7ClnthI0DuwOobg==
+X-Received: by 2002:a2e:9916:0:b0:2c5:999:de64 with SMTP id v22-20020a2e9916000000b002c50999de64mr3380530lji.16.1699523439383;
+        Thu, 09 Nov 2023 01:50:39 -0800 (PST)
+Message-ID: <654cab6f.050a0220.86158.519b@mx.google.com>
+X-Google-Original-Message-ID: <ZUyrbMrWc8uyIWwY@EMEAENGAAD19049.>
+Date: Thu, 9 Nov 2023 09:50:36 +0000
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Andrew Cooper <andcooper@tibco.com>
+Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Subject: Re: Support situation for nestedhvm
+References: <ZUqVnfZTtjb/W5EN@mattapan.m5p.com>
+ <93db0a9e-1d99-4953-9e3f-7ad69f0e78bf@tibco.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
- tools
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com>
- <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com>
- <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com>
- <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
- <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org>
- <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <93db0a9e-1d99-4953-9e3f-7ad69f0e78bf@tibco.com>
 
-Hi Jan,
+Hi,
 
-On 09/11/2023 07:42, Jan Beulich wrote:
-> On 08.11.2023 14:33, Julien Grall wrote:
->> Hi Jan,
->>
->> On 08/11/2023 11:19, Jan Beulich wrote:
->>> On 08.11.2023 12:03, Nicola Vetrini wrote:
->>>> On 2023-11-08 09:24, Jan Beulich wrote:
->>>>> On 03.11.2023 18:58, Nicola Vetrini wrote:
->>>>>> Static analysis tools may detect a possible null
->>>>>> pointer dereference at line 760 (the memcpy call)
->>>>>> of xen/common/domain.c. This ASSERT helps them in
->>>>>> detecting that such a condition is not possible
->>>>>> and also provides a basic sanity check.
->>>>>
->>>>> I disagree with this being a possible justification for adding such a
->>>>> redundant assertion. More detail is needed on what is actually
->>>>> (suspected to be) confusing the tool. Plus it also needs explaining
->>>>> why (a) adding such an assertion helps and (b) how that's going to
->>>>> cover release builds.
->>>>>
->>>>
->>>> How about:
->>>> "Static analysis tools may detect a possible null pointer dereference
->>>> at line 760 (config->handle) due to config possibly being NULL.
->>>>
->>>> However, given that all system domains, including IDLE, have a NULL
->>>> config and in the code path leading to the assertion only real domains
->>>> (which have a non-NULL config) can be present."
->>>>
->>>> On point b): this finding is a false positive, therefore even if the
->>>> ASSERT is
->>>> expanded to effectively a no-op, there is no inherent problem with Xen's
->>>> code.
->>>> The context in which the patch was suggested [1] hinted at avoiding
->>>> inserting in
->>>> the codebase false positive comments.
->>>
->>> Which I largely agree with. What I don't agree with is adding an
->>> assertion which is only papering over the issue, and only in debug
->>> builds.
->>
->> I expect that the number of issues will increase a lot as soon as we
->> start to analyze production builds.
->>
->> I don't think it will be a solution to either replace all the ASSERT()
->> with runtime check in all configuration or even...
->>
->>> So perhaps instead we need a different way of tracking
->>> false positives (which need to be tied to specific checker versions
->>> anyway).
->>
->> ... documenting false positive.
->>
->> IMHO, the only viable option would be to have a configuration to keep
->> ASSERT in production build for scanning tools.
+On Tue, Nov 07, 2023 at 08:15:32PM +0000, Andrew Cooper wrote:
+> On 07/11/2023 7:53 pm, Elliott Mitchell wrote:
+> > I ran into the nestedhvm via the following path.  I was considering the
+> > feasibility of shedding tasks from a desktop onto a server running Xen.
+> > I was looking at `man xl.cfg` and noticed "nestedhvm".
+> >
+> > Since one of the tasks the computer handled was running other OSes in
+> > fully simulated environments, this seemed to be something I was looking
+> > for.  No where did I ever see anything hinting "This configuration option
+> > is completely unsupported and risky to use".
 > 
-> But wouldn't that then likely mean scanning to be done on builds not also
-> used in production? Would doing so even be permitted when certification
-> is a requirement? Or do you expect such production builds to be used with
-> the assertions left in place (increasing the risk of a crash; recall that
-> assertions themselves may also be wrong, and hence one triggering in rare
-> cases may not really be a reason to bring down the system)?
+> This one is explicitly covered in SUPPORT.md, and has had XSAs out
+> against it in the past for being unexpectedly active when it oughtn't to
+> have been.
+> 
+> > Things simply started exploding without any warnings.
+> 
+> Things also explode if you try to create a VM with 10x more RAM than you
+> have, or if you try `./xenwatchdogd --help`, or `xl debug-keys c`, or
+> many other things. 
+> 
+> The xl manpage probably ought to state explicitly that the option is
+> experimental, but that the extent of what I'd consider reasonable here.
+> 
+> You can't solve educational matters with technical measures.
+> 
+> ~Andrew
+> 
+No, but we can prevent users unexpectedly shooting themselves in the foot.
 
-I will leave Stefano/Nicola to answer from the certification 
-perspective. But I don't really see how we could get away unless we 
-replace most of the ASSERT() with proper runtime check (which may not be 
-desirable for ASSERT()s like this one).
+Elliott's point (as I understood it) was that we could have an
+"experimental" switch, that would warn and error out when experimental
+features are used without it. This is just cfg sugar coating for xl, and
+would improve UX. Cargo uses the same sort of idea in the Rust ecosystem to
+make a clear distinction between unstable features that may change and
+stable ones that are meant to stay and just work.
+
+Having "experimental=nestedhvm,foo" is one option, having "experimental=1"
+be a required flag to enable experimental features is another. Heck, even
+renaming "nestedhvm" to "experimental-nestedhvm" would be an improvement.
+
+```
+   Error: nestedhvm=1 is an unstable experimental feature not encouraged
+          for production purposes. Enable it with experimental-nestedhvm=1
+          instead.
+```
+
+We can't fix it overnight, but we can't make it _very_ clear it's unstable
+to anyone currently using the feature.
 
 Cheers,
-
--- 
-Julien Grall
+Alejandro
 
