@@ -2,38 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A9487E6848
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 11:36:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629606.981917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AD3B7E694B
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 12:11:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629611.981926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r12Og-0001bR-CL; Thu, 09 Nov 2023 10:36:26 +0000
+	id 1r12wR-0008Vu-WF; Thu, 09 Nov 2023 11:11:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629606.981917; Thu, 09 Nov 2023 10:36:26 +0000
+Received: by outflank-mailman (output) from mailman id 629611.981926; Thu, 09 Nov 2023 11:11:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r12Og-0001Z1-9j; Thu, 09 Nov 2023 10:36:26 +0000
-Received: by outflank-mailman (input) for mailman id 629606;
- Thu, 09 Nov 2023 10:36:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r12wR-0008U2-Ta; Thu, 09 Nov 2023 11:11:19 +0000
+Received: by outflank-mailman (input) for mailman id 629611;
+ Thu, 09 Nov 2023 11:11:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VIs+=GW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r12Of-0001Yv-5l
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 10:36:25 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d3a542db-7eeb-11ee-9b0e-b553b5be7939;
- Thu, 09 Nov 2023 11:36:23 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-408002b5b9fso4719715e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 02:36:23 -0800 (PST)
-Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f9-20020a0560001b0900b0032db430fb9bsm7067103wrz.68.2023.11.09.02.36.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Nov 2023 02:36:22 -0800 (PST)
+ <SRS0=E/1w=GW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1r12wQ-0008Tw-ST
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 11:11:19 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7e83::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b3235f89-7ef0-11ee-98da-6d05b1d4d9a1;
+ Thu, 09 Nov 2023 12:11:16 +0100 (CET)
+Received: from BL0PR01CA0004.prod.exchangelabs.com (2603:10b6:208:71::17) by
+ BN9PR12MB5292.namprd12.prod.outlook.com (2603:10b6:408:105::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6977.18; Thu, 9 Nov 2023 11:11:12 +0000
+Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
+ (2603:10b6:208:71:cafe::9f) by BL0PR01CA0004.outlook.office365.com
+ (2603:10b6:208:71::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.19 via Frontend
+ Transport; Thu, 9 Nov 2023 11:11:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6977.16 via Frontend Transport; Thu, 9 Nov 2023 11:11:12 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 9 Nov
+ 2023 05:11:12 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 9 Nov
+ 2023 05:11:11 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Thu, 9 Nov 2023 05:11:10 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +62,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3a542db-7eeb-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tibco.com; s=googleworkspace; t=1699526182; x=1700130982; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BRSyFsRCol+NXRW2UodTFCvElpOsk3hovrVK4jKLsh8=;
-        b=UqOIAVEM5q6FiTIOTdOz3G7BzmCvB322qOFSbFiMWcDQzo6Aps/kQBRVHDe5rq3D48
-         IXvfcy4DFTkmpDBI+F948+WaxjQTHT+2dUwO4I7HsrGinpxom/Nuf/jOxruTPjt/vb9m
-         HTK4C1ZNd/YEhOqfR7i/1OqVsuSF51/saoQ933LRZumDNhsw+B52lYiZB3HaOS3km72p
-         Ge4kAMoNjp+/ji9QhGeFpQbbJz+ajhkdx7h9psS39SKBl1WuIX6AGUgWehdtOpBMRITm
-         fudMRdB8W5Qtoi/yMLoPus2aJR2se9x0cznH2HmOrWfPmh5ExVPV356PVPaNTP8sJiXO
-         LeNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699526182; x=1700130982;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BRSyFsRCol+NXRW2UodTFCvElpOsk3hovrVK4jKLsh8=;
-        b=kTxus6IdGwrm1UIhQ5ne+cy2nuUvwHlsJGpn/CoMTvyBt87cBzBv2JHkpQJSzYq49n
-         e5MQIgTjjKQRO+acfNVBRlqnGl54eZJcN7W/Wr52wU0EGzbOMcKic7eN0pPuiDzif+BZ
-         zxcpaIJwNubc+qkMGde10wsb1E2HcExwFqCt2oV5U1iZOmTI+8PopSihSy7jMeWqArNO
-         W/eRL0ygXWMPw6ADSDj5WXoKG4ChhlsApwcWiNwJJ/ZJ9OyrrMZBbVX+wgq/b1An+Vw2
-         +u+rEy2Ujqwbof3P19mQkNTpmB0nH/t372lRHdkve6PeE2AB0LeWrwparv44YfIlAZNN
-         ZupA==
-X-Gm-Message-State: AOJu0YzGP64zkoBTJBwgExtOZGzVZ5UmIpfYsLphjHvp9MalC7tDOrFw
-	q9W+5Edr6okhMoxY7kXSFAMevg==
-X-Google-Smtp-Source: AGHT+IHjjx1JhOZ+D6nOBOVLzsrfm7XNyzfvThDs/79vQo5/yHYEi2nBPqss9zU0UnOYTGdhFl73Aw==
-X-Received: by 2002:a05:600c:45c9:b0:409:7900:f3ef with SMTP id s9-20020a05600c45c900b004097900f3efmr4013170wmo.38.1699526182270;
-        Thu, 09 Nov 2023 02:36:22 -0800 (PST)
-Message-ID: <cc2e0788-fd03-4c54-b84a-a9bdc2851ef4@tibco.com>
-Date: Thu, 9 Nov 2023 10:36:21 +0000
+X-Inumbo-ID: b3235f89-7ef0-11ee-98da-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YkYcol4Mlzbmfdd+IBKEsPGHci8ePLPLL2knshEKw1Wy5Z/yw0+bt8jzEOZtGI3f1iuItRjynzJGI9r/7/YTUYpX5z3M/Gr4rtp2nyi4Bnl735bm2HN/Iuo6MYkSV0ise41Igiu1K9Jv5ZZ7J18C5DOxrz7Mi1cwOQhfx/mQw4bvehO0Yd7FtZ5w8ie5pqMf4FxKi4sWTfb11s0o3tWuqmFY11ps2q1fXHUUCN9YHpIv0BaeS7Xa7NbH0qABWVx2ejj9ACz7e2JVNLW0CJKkfT5gw86AuNwYPVOLNyPHG0BJzpVH5KvPoeqpTEoG5bA+aYURnkXzNYE3EHAMiDfUYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vFqVLBs/pexFqyC4DGwn0UgQ7Qo1oPTwatjXIllCYx0=;
+ b=OuJW9zZxg/UTdXlv4PrfRZr2qiHe71m05XmpsmOvCYTe18wje9/71RktjmXetGimWEEGtM8bR+1ndMDU4Fy1k2nSSXrE+NLk5jUOwTTcKmVA/NOdeIzvtViX5vDQx+KPTzOQEjYv0iWAPFe6HqVt/LcmEhihofmTqbzeNedLFyECwRmHj5wBAKgg1O+khnnwjddHnZKWx8hF+A62eJGF5T2pDQzKznrV+9c7uQIXQXuCgCKPIMezearhVGLUP3WJhdvo2dpZUV3i4/4UFxQGBLcCwKwW9QHkUwJAjNwty2akPwLRi1ZYiPZd2VMX4ANjZ4glCLwntDctzqpEZ7eUcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vFqVLBs/pexFqyC4DGwn0UgQ7Qo1oPTwatjXIllCYx0=;
+ b=CkPGHXS21yDYaA7KerrfY8uChMg/xs6MrXQ7H+TVLhFV57/Zb/VvH8LLOrxhwbQHBcKGSFUpFgzk7Vx/TP5L99wMZBAGYQyDTvIiJp1fM8vvY+Eyyo9jQXPxQaJDA9KMadtm4at42Z68Bw4AXeZoplwUWIR9MST9mw3PIHJdQPA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <bec276f9-ea9d-4c9f-887c-358a3f7815fd@amd.com>
+Date: Thu, 9 Nov 2023 12:11:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Support situation for nestedhvm
-Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
-References: <ZUqVnfZTtjb/W5EN@mattapan.m5p.com>
- <93db0a9e-1d99-4953-9e3f-7ad69f0e78bf@tibco.com>
- <654cab6f.050a0220.86158.519b@mx.google.com>
-From: Andrew Cooper <andcooper@tibco.com>
-In-Reply-To: <654cab6f.050a0220.86158.519b@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 3/5] arm/dom0less: put dom0less feature code in a
+ separate module
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <20231109090615.3878767-1-luca.fancellu@arm.com>
+ <20231109090615.3878767-4-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20231109090615.3878767-4-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|BN9PR12MB5292:EE_
+X-MS-Office365-Filtering-Correlation-Id: adac805d-53c2-40fd-9ec2-08dbe1149571
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CbrorZHkaKD0LGLfiRFKp1VC6EW+l8zJ6GqBa+piB7pf3Qh1rwOapMVGp3IYO0mhjSBIOs9QcWG4FDNX8J1owcBoPBWZphKllRgCEFtcPRA+Q8Cckpm+T/gnG8kt2/ry+yhA+vt7jqFWyU1qR5u2ceYsioX4HvU/OqRTgbOIm86BfDr6U4fMTlkYbxH6RQDXfv1pgqmFZzG4MF+yjYcTB+TAscSVmwirEIdDO6OkpK3xbX9kxhJ40rG125CWqOYqR1TPN25DbWUzNpSEs7Ept08YI679Ki/y0qYTJ0NCQTA2HgGR+pTgPDVgRfWK8jhc7bRp0eLfytGhY94vfCSem1Zm6UYTXkbn7mhvJUzSI0AQ2vwn35fH/RtauHo83tU/Jcb88BwWgtVE6q9Vo+lQqVPD5GretVaqm1iiHrJ6XwZZkNoc3oIJqQ/XOYviRFQ3FecOp0pmU+VVdwzS7hMxq67Mg8jio3XB/KR5n0YJxmBreoJZsrt6s/5DGDFhDDpHIfLsYccX3EddvyN0FXs8wqgPhy5uhD8SoK2J4q1so4/LQ2f5+qOyJMEFokfk3d3DijDxEWcoLoRp40fQXWKlszUT1G+afvJcclh4BpyLn1DOT9sSO16ZciX4eSwajfyDqTvrnr3n7Fi948acZGXxMf9y+ctnx0C/48aCY3Bf/j2128H3ZjnwFfXWm9nnGNQbPgpf7HOWcVrK4A9hpOUATNX1nBvREJ9ssk2sOvqzeOrA01/O05kWjcpCHx3kJwLl3oIsUV4DFVsaFuBs9I7yRHjOZNrPpjl971tUfFe3xe37Yyya44lARkOq8rAjeZYp/ZUtalGt231J9FF0FVcLuAu6BBCIe0TkXWgIIZggiP8q2363jsEXiXgQvuVP6ZzC
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(136003)(39860400002)(376002)(230922051799003)(230273577357003)(230173577357003)(64100799003)(186009)(1800799009)(451199024)(82310400011)(46966006)(36840700001)(40470700004)(41300700001)(16576012)(36860700001)(83380400001)(82740400003)(356005)(81166007)(110136005)(53546011)(478600001)(54906003)(70206006)(336012)(426003)(70586007)(316002)(26005)(2616005)(5660300002)(2906002)(36756003)(8936002)(4326008)(8676002)(31696002)(86362001)(44832011)(47076005)(31686004)(40480700001)(40460700003)(32563001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2023 11:11:12.5435
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: adac805d-53c2-40fd-9ec2-08dbe1149571
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB54.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5292
 
-On 09/11/2023 9:50 am, Alejandro Vallejo wrote:
-> Hi,
->
-> On Tue, Nov 07, 2023 at 08:15:32PM +0000, Andrew Cooper wrote:
->> On 07/11/2023 7:53 pm, Elliott Mitchell wrote:
->>> I ran into the nestedhvm via the following path.  I was considering the
->>> feasibility of shedding tasks from a desktop onto a server running Xen.
->>> I was looking at `man xl.cfg` and noticed "nestedhvm".
->>>
->>> Since one of the tasks the computer handled was running other OSes in
->>> fully simulated environments, this seemed to be something I was looking
->>> for.  No where did I ever see anything hinting "This configuration option
->>> is completely unsupported and risky to use".
->> This one is explicitly covered in SUPPORT.md, and has had XSAs out
->> against it in the past for being unexpectedly active when it oughtn't to
->> have been.
->>
->>> Things simply started exploding without any warnings.
->> Things also explode if you try to create a VM with 10x more RAM than you
->> have, or if you try `./xenwatchdogd --help`, or `xl debug-keys c`, or
->> many other things. 
->>
->> The xl manpage probably ought to state explicitly that the option is
->> experimental, but that the extent of what I'd consider reasonable here.
->>
->> You can't solve educational matters with technical measures.
->>
->> ~Andrew
->>
-> No, but we can prevent users unexpectedly shooting themselves in the foot.
+Hi Luca,
 
-... and break OSSTest and XenRT while you're at it.
+On 09/11/2023 10:06, Luca Fancellu wrote:
+> 
+> 
+> Currently the dom0less feature code is mostly inside domain_build.c
+> and setup.c, it is a feature that may not be useful to everyone so
+> put the code in a different compilation module in order to make it
+> easier to disable the feature in the future.
+> 
+> Move gic_interrupt_t in domain_build.h to use it with the function
+> declaration, move its comment above the declaration.
+> 
+> The following functions are now visible externally from domain_build
+> because they are used also from the dom0less-build module:
+>  - get_allocation_size
+>  - set_interrupt
+>  - domain_fdt_begin_node
+>  - make_memory_node
+>  - make_resv_memory_node
+This one, despite the name, is strictly related to shmem. Shouldn't we move it to static-shmem?
 
-Like it or not, this knob is behaved in this way for 15 years.  You will
-be doing harm for no benefit by trying to change it.
+>  - make_hypervisor_node
+>  - make_psci_node
+>  - make_cpus_node
+>  - make_timer_node
+>  - handle_device_interrupts
+>  - construct_domain
+>  - process_shm
+>  - allocate_bank_memory
+What about static event channels? Does it make sense to leave it unguarded? Reading the docs,
+it looks like at least one domU needs to be present (dom0-domU or domU-domU). Hovever, looking at the code it should
+be possible for a loopback. That said, I don't really find it useful given that loopback does not really need this feature.
 
-And if you need a cautionary tail on why this is a bad idea generally,
-as well as a background on why I will firmly object to technical
-countermeasures like this, read up on Xen's allow_unsafe command line
-parameter.
+> 
+> The functions allocate_static_memory and assign_static_memory_11
+> are now externally visible, so put their declarations into
+> domain_build.h and move the #else and stub definition in the header
+> as well.
+> 
+> Move is_dom0less_mode from setup.c to dom0less-build.c and make it
+> externally visible.
+> 
+> The function allocate_bank_memory is used only by dom0less code
+> at the moment, but it's been decided to leave it in domain_build.c
+> in case that in the future the dom0 code can use it.
+> 
+> Where spotted, fix code style issues.
+> 
+> No functional change is intended.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> Changes from v2:
+>  - move allocate_bank_memory back in domain_build.c, remove header
+>    from dom0less-build.c.
+I can see you removed the copyright from .c but .h still has it. This also
+applies to other newly introduced files that were subject only to code movement.
 
-~Andrew
+~Michal
 
