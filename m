@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D1ED7E6E69
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 17:16:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629747.982145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08CBF7E6FB7
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 17:53:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629751.982156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17gy-0002XO-M4; Thu, 09 Nov 2023 16:15:40 +0000
+	id 1r18Gp-0003Hh-FY; Thu, 09 Nov 2023 16:52:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629747.982145; Thu, 09 Nov 2023 16:15:40 +0000
+Received: by outflank-mailman (output) from mailman id 629751.982156; Thu, 09 Nov 2023 16:52:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17gy-0002VG-JM; Thu, 09 Nov 2023 16:15:40 +0000
-Received: by outflank-mailman (input) for mailman id 629747;
- Thu, 09 Nov 2023 16:15:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r18Gp-0003EP-Cl; Thu, 09 Nov 2023 16:52:43 +0000
+Received: by outflank-mailman (input) for mailman id 629751;
+ Thu, 09 Nov 2023 16:52:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NrbJ=GW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r17gx-0002VA-Bk
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 16:15:39 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 386b0382-7f1b-11ee-98da-6d05b1d4d9a1;
- Thu, 09 Nov 2023 17:15:38 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-507a3b8b113so1299538e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 08:15:38 -0800 (PST)
-Received: from [192.168.201.133] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- u6-20020a05651206c600b00507aced147esm1098506lff.203.2023.11.09.08.15.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Nov 2023 08:15:36 -0800 (PST)
+ <SRS0=VIs+=GW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r18Gn-0003EJ-GA
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 16:52:41 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6381c82b-7f20-11ee-9b0e-b553b5be7939;
+ Thu, 09 Nov 2023 17:52:38 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4083f613272so8138565e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 08:52:38 -0800 (PST)
+Received: from [10.80.67.28] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ j16-20020a05600c485000b004083bc9ac90sm2557849wmo.24.2023.11.09.08.52.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Nov 2023 08:52:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,151 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 386b0382-7f1b-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 6381c82b-7f20-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699546538; x=1700151338; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=oMj6jHWPONAxjLho5hftQw27Ron7OZWj5Jytnd1rl4Y=;
-        b=iba1ubMr+Ez00rwuQ2Ha0DB6HkldOtWzlB6O326EZR2n1Lu+TLaqjiMkn6jnqY+A5C
-         OQeBYgeRNJBfKlR8NaIZFpV/71ntGkQ5rqmJbr8NYyHQz7AXMTPuYp1/V9piC+erTVWx
-         buHZyjzhXFgbJMSAokPtE7Wkj4kbO0eMUL1PvySbKJ0dqQAt2xjANaKnMgPCd9JKiGCf
-         AYmFWHzFZj3UUDVW71kjU8mYyxj+JXYuyPVx4S/reeUR7DUnFdBspGhIyZV1CR8XKMJS
-         V4VIvVMcqo6WtH/73ceXXv81gifgxC925Od+pFTRIohh8RPCYmVkq/854XXf89dmpby7
-         w8Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699546538; x=1700151338;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=citrix.com; s=google; t=1699548757; x=1700153557; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=oMj6jHWPONAxjLho5hftQw27Ron7OZWj5Jytnd1rl4Y=;
-        b=VoSvATNbe+k56Jznpb9fq4Gv+H9q5oS2PjQPcPNwUwyoxwENTWbLW/DxBSUQAliZ0+
-         IRT+EFqP0E+1F2C3HC/2Oy48Csj1h3IF41B0ZRtTIHwlvhogL2pNb/VMkqR3mg4QdHI/
-         mY0bY3gPzqFgG0bxEAds4DjtDRlxAQQCS6oCf0TtrlxZ5Jk2iXmJF7cCdoc1dUMrB5NZ
-         DUuWur1siS+cGDBauhLoNgoS38iysw28KZOdVKxHS952WZd1/GE44d47jOf0abpOciO/
-         8qmNkk4qUErIjt9fQyakdxY1/GQDF6LRYiuaj62gBJrrJPZM31r6zXFDi3X0ifP3EbjE
-         UGZA==
-X-Gm-Message-State: AOJu0YzcPx1bbUfb3Na8hXOV6IEWeuGpG4p3pBRq56QVIygMWp3B/1e2
-	m0H4lzVM/4sX9EGMrpEWHho=
-X-Google-Smtp-Source: AGHT+IGhjfJN7KdtgU7MXypI3zYkMgPHMqioL2wdLaCxEopxbspNx3XIcfeweE6lnMrOzJcm9WjT9w==
-X-Received: by 2002:a05:6512:3490:b0:509:43ec:dd4c with SMTP id v16-20020a056512349000b0050943ecdd4cmr1641946lfr.3.1699546537420;
-        Thu, 09 Nov 2023 08:15:37 -0800 (PST)
-Message-ID: <65d56dd930b77ac57e2f3a1bfc771fb4bf856eb0.camel@gmail.com>
-Subject: Re: [XEN PATCH] CI: Rework RISCV smoke test
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Anthony PERARD <anthony.perard@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
-	 <sstabellini@kernel.org>
-Date: Thu, 09 Nov 2023 18:15:36 +0200
-In-Reply-To: <20231109154922.49118-1-anthony.perard@citrix.com>
-References: <20231109154922.49118-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+        bh=bK5NvFfO9mlKO3be4CrLQF9zFWSoksdtzD/74oKEuRs=;
+        b=ecWkN/qpCEHGipBOGOm1sR9BJiCfWXYlRScU0LmsMiFDhPTQNs2xzPtr2PlRdyRdUZ
+         KLqIs8FnCbZyXqp+EEk5HTDdLsOsOjPOMyUM7BgMldka8g++KKszrNZL1HJFjSFn4tyS
+         FCOD0VZXzaDjQyyG/6XXILsiPP8NjdAg3hrQ4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699548757; x=1700153557;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bK5NvFfO9mlKO3be4CrLQF9zFWSoksdtzD/74oKEuRs=;
+        b=ZlFxPpVOaLtVY491QHT/3WDnzAMjYNuylVGJYfZ6AucLUPo4TBxX5JoD/p2sK64lFD
+         nJq0n1ppX60kPR2Um2GMXFK966LioT7y/ymqAZaqBhtdtKdqv/YXKFezPGE1Kz5W303B
+         6LpxfVOsMDAHq1P/hqBbNIReONnzfyES+LcKzhUNSjWCN8ng5z3r7loAr8V4c3qQwb+i
+         vmfRHs6sbUCQyOAF8sr/BzOCZv68xs33f81jLfxvctCB2Fcd57DTaaYF0M92PaeKrw7K
+         56376ojDAjkcMKTGBIf2YGYk6/ezKzU9lVhoO0wcTLKTWhOxJiYhsgkeMxMw3eVapf8M
+         XUrQ==
+X-Gm-Message-State: AOJu0YxB3rmiQJrzUl6XTIn61lYO0JAYZDgFwtHmT6um7kkCnmq5s04g
+	h2u+HZzpalyn1Kgj0bVff/PlYg==
+X-Google-Smtp-Source: AGHT+IHnFghzXfjfdetaXpWNm5LxEzNK7uLy/ZoFsK4sbPg7MPBSAUa30MJstgZ6lqiFWjcvnh8djQ==
+X-Received: by 2002:a05:600c:4449:b0:409:6e0e:e948 with SMTP id v9-20020a05600c444900b004096e0ee948mr4969465wmn.1.1699548757527;
+        Thu, 09 Nov 2023 08:52:37 -0800 (PST)
+Message-ID: <7bffd0ff-290f-461c-a0ce-35440b36240a@citrix.com>
+Date: Thu, 9 Nov 2023 16:52:36 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] CI: Rework RISCV smoke test
+Content-Language: en-GB
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20231109154922.49118-1-anthony.perard@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20231109154922.49118-1-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello Anthony,
-
-On Thu, 2023-11-09 at 15:49 +0000, Anthony PERARD wrote:
+On 09/11/2023 3:49 pm, Anthony PERARD wrote:
 > Currently, the test rely on QEMU and Xen finishing the boot in under
-> two seconds. That's both very long and very short. Xen usually
-> managed
-> to print "All set up" under a second. Unless for some reason we try
-> to
+> two seconds. That's both very long and very short. Xen usually managed
+> to print "All set up" under a second. Unless for some reason we try to
 > run the test on a machine that's busy doing something else.
->=20
+>
 > Rework the test to exit as soon as Xen is done.
->=20
+>
 > There's two `tail -f`, the first one is there simply to monitor test
 > progress in GitLab console. The second one is used to detect the test
-> result as soon as QEMU add it to the file. Both `tail` exit as soon
-> as
+> result as soon as QEMU add it to the file. Both `tail` exit as soon as
 > QEMU exit.
->=20
+>
 > If QEMU fails at start, and exit early, both `tail` will simply exit,
 > resulting in a failure.
->=20
+>
 > If the line we are looking for is never printed, the `timeout` on the
 > second `tail` will force the test to exit with an error.
->=20
+>
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->=20
-> Notes:
-> =C2=A0=C2=A0=C2=A0 The "machine might be busy" bits refere to having a gi=
-tlab-runner
-> =C2=A0=C2=A0=C2=A0 running two jobs, one been a build with no restriction=
- on CPU
-> resource use.
-> =C2=A0=C2=A0=C2=A0=20
-> =C2=A0=C2=A0=C2=A0 We could use "-daemonize" with "-pidfile" to more easl=
-y detect
-> qemu's
-> =C2=A0=C2=A0=C2=A0 initialisation failure, but needs "-display none" inst=
-ead of
-> =C2=A0=C2=A0=C2=A0 "-nographic"
->=20
-> =C2=A0automation/scripts/qemu-smoke-riscv64.sh | 32 ++++++++++++++++++---=
--
-> --
-> =C2=A01 file changed, 24 insertions(+), 8 deletions(-)
->=20
-> diff --git a/automation/scripts/qemu-smoke-riscv64.sh
-> b/automation/scripts/qemu-smoke-riscv64.sh
-> index 4008191302..ba7b61db8b 100755
-> --- a/automation/scripts/qemu-smoke-riscv64.sh
-> +++ b/automation/scripts/qemu-smoke-riscv64.sh
-> @@ -2,19 +2,35 @@
-> =C2=A0
-> =C2=A0set -ex
-> =C2=A0
-> -# Run the test
-> -rm -f smoke.serial
-> -set +e
-> +# Truncate or create serial output file
-> +echo -n > smoke.serial
-> =C2=A0
-> -timeout -k 1 2 \
-> +# cleanup: kill QEMU when the script exit for any reason
-> +qemu_pid=3D
-> +cleanup() {
-> +=C2=A0=C2=A0=C2=A0 if [ "$qemu_pid" ]; then
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kill -s SIGKILL "$qemu_pid"
-> +=C2=A0=C2=A0=C2=A0 fi
-> +}
-> +
-> +trap 'cleanup' EXIT
-> +
-> +# Run the test
-> =C2=A0qemu-system-riscv64 \
-> =C2=A0=C2=A0=C2=A0=C2=A0 -M virt \
-> =C2=A0=C2=A0=C2=A0=C2=A0 -smp 1 \
-> =C2=A0=C2=A0=C2=A0=C2=A0 -nographic \
-> =C2=A0=C2=A0=C2=A0=C2=A0 -m 2g \
-> +=C2=A0=C2=A0=C2=A0 -monitor none \
-> +=C2=A0=C2=A0=C2=A0 -chardev file,id=3Dserial-out,path=3Dsmoke.serial \
-> +=C2=A0=C2=A0=C2=A0 -serial chardev:serial-out \
-> =C2=A0=C2=A0=C2=A0=C2=A0 -kernel binaries/xen \
-> -=C2=A0=C2=A0=C2=A0 |& tee smoke.serial
-> +=C2=A0=C2=A0=C2=A0 &
-> +qemu_pid=3D$!
-> =C2=A0
-> -set -e
-> -(grep -q "All set up" smoke.serial) || exit 1
-> -exit 0
-> +# Monitor test progression until QEMU exit
-> +tail --pid=3D$qemu_pid -f smoke.serial &
-> +
-> +# Check boot test result
-> +timeout 60 tail --pid=3D$qemu_pid -f smoke.serial | \
-> +=C2=A0=C2=A0=C2=A0 grep -a -q "All set up"
 
-I am OK with provided changes. Thanks!
+Looks plausible, but all these qemu-smoke scripts are pretty similar,
+and copied from one-another.
 
-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+We should make this change consistently to all testing (there's nothing
+RISC-V specific about why this test is failing on this runner), and it
+would be really nice if we could try to make it a bit more common than
+it currently is.
 
-~ Oleksii
-
+~Andrew
 
