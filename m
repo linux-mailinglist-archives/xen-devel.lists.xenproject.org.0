@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758CB7E6632
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 10:06:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629509.981827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9422B7E6653
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 10:11:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629536.981852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r10zh-0006C1-M4; Thu, 09 Nov 2023 09:06:33 +0000
+	id 1r113o-0001K1-TV; Thu, 09 Nov 2023 09:10:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629509.981827; Thu, 09 Nov 2023 09:06:33 +0000
+Received: by outflank-mailman (output) from mailman id 629536.981852; Thu, 09 Nov 2023 09:10:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r10zh-000665-Hd; Thu, 09 Nov 2023 09:06:33 +0000
-Received: by outflank-mailman (input) for mailman id 629509;
- Thu, 09 Nov 2023 09:06:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T6cS=GW=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1r10zg-0005ED-07
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 09:06:32 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 45d56ead-7edf-11ee-98da-6d05b1d4d9a1;
- Thu, 09 Nov 2023 10:06:31 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 25E951477;
- Thu,  9 Nov 2023 01:07:15 -0800 (PST)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C23FC3F703;
- Thu,  9 Nov 2023 01:06:29 -0800 (PST)
+	id 1r113o-0001HN-QO; Thu, 09 Nov 2023 09:10:48 +0000
+Received: by outflank-mailman (input) for mailman id 629536;
+ Thu, 09 Nov 2023 09:10:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r113n-0001HH-8K
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 09:10:47 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r113i-0008Bo-Vc; Thu, 09 Nov 2023 09:10:42 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r113i-0004H6-QC; Thu, 09 Nov 2023 09:10:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,179 +39,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45d56ead-7edf-11ee-98da-6d05b1d4d9a1
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 5/5] arm/dom0less: introduce Kconfig for dom0less feature
-Date: Thu,  9 Nov 2023 09:06:15 +0000
-Message-Id: <20231109090615.3878767-6-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231109090615.3878767-1-luca.fancellu@arm.com>
-References: <20231109090615.3878767-1-luca.fancellu@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wKrh+XO88IgZ8kjIdXll5Iz0oYrkdXkVXVkXQG/qVq4=; b=sV6xoW6aObM878TQsXKPVv0yLV
+	CFxOYMTqmlI0xiRSTrO62Naj6s4Wb+ULN2Xb5OVEjshNSxpLijY0XPVMLgoHTvaD9QyKYnF5aRvQl
+	WfBo/Bdv+nn8tOkPnfsD3k9+JOIXG/GgKpjr75+pcDWFIpAYrZ/9VyywMoyNP0P9RFO4=;
+Message-ID: <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
+Date: Thu, 9 Nov 2023 09:10:40 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
+ tools
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com>
+ <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com>
+ <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com>
+ <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
+ <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org>
+ <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Introduce a Kconfig for the dom0less feature, enabled by default,
-to be able to choose if the feature should be compiled or not.
+Hi Jan,
 
-Provide static inline stubs when the option is disabled for the
-functions externally visible.
+On 09/11/2023 07:42, Jan Beulich wrote:
+> On 08.11.2023 14:33, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 08/11/2023 11:19, Jan Beulich wrote:
+>>> On 08.11.2023 12:03, Nicola Vetrini wrote:
+>>>> On 2023-11-08 09:24, Jan Beulich wrote:
+>>>>> On 03.11.2023 18:58, Nicola Vetrini wrote:
+>>>>>> Static analysis tools may detect a possible null
+>>>>>> pointer dereference at line 760 (the memcpy call)
+>>>>>> of xen/common/domain.c. This ASSERT helps them in
+>>>>>> detecting that such a condition is not possible
+>>>>>> and also provides a basic sanity check.
+>>>>>
+>>>>> I disagree with this being a possible justification for adding such a
+>>>>> redundant assertion. More detail is needed on what is actually
+>>>>> (suspected to be) confusing the tool. Plus it also needs explaining
+>>>>> why (a) adding such an assertion helps and (b) how that's going to
+>>>>> cover release builds.
+>>>>>
+>>>>
+>>>> How about:
+>>>> "Static analysis tools may detect a possible null pointer dereference
+>>>> at line 760 (config->handle) due to config possibly being NULL.
+>>>>
+>>>> However, given that all system domains, including IDLE, have a NULL
+>>>> config and in the code path leading to the assertion only real domains
+>>>> (which have a non-NULL config) can be present."
+>>>>
+>>>> On point b): this finding is a false positive, therefore even if the
+>>>> ASSERT is
+>>>> expanded to effectively a no-op, there is no inherent problem with Xen's
+>>>> code.
+>>>> The context in which the patch was suggested [1] hinted at avoiding
+>>>> inserting in
+>>>> the codebase false positive comments.
+>>>
+>>> Which I largely agree with. What I don't agree with is adding an
+>>> assertion which is only papering over the issue, and only in debug
+>>> builds.
+>>
+>> I expect that the number of issues will increase a lot as soon as we
+>> start to analyze production builds.
+>>
+>> I don't think it will be a solution to either replace all the ASSERT()
+>> with runtime check in all configuration or even...
+>>
+>>> So perhaps instead we need a different way of tracking
+>>> false positives (which need to be tied to specific checker versions
+>>> anyway).
+>>
+>> ... documenting false positive.
+>>
+>> IMHO, the only viable option would be to have a configuration to keep
+>> ASSERT in production build for scanning tools.
+> 
+> But wouldn't that then likely mean scanning to be done on builds not also
+> used in production? Would doing so even be permitted when certification
+> is a requirement? Or do you expect such production builds to be used with
+> the assertions left in place (increasing the risk of a crash; recall that
+> assertions themselves may also be wrong, and hence one triggering in rare
+> cases may not really be a reason to bring down the system)?
 
-Use the new Kconfig to remove dom0less DT binding from the efi-boot.h
-code when the Kconfig is not enabled, do the same for
-allocate_bank_memory inside domain_build.c that currently is used
-only by dom0less-build.c module, but it's kept there provisioning
-its usage by dom0 code.
+I will leave Stefano/Nicola to answer from the certification 
+perspective. But I don't really see how we could get away unless we 
+replace most of the ASSERT() with proper runtime check (which may not be 
+desirable for ASSERT()s like this one).
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes from v2:
- - protect allocate_bank_memory with the new Kconfig
----
- xen/arch/arm/Kconfig                      |  9 +++++++++
- xen/arch/arm/Makefile                     |  2 +-
- xen/arch/arm/domain_build.c               |  2 ++
- xen/arch/arm/efi/efi-boot.h               |  4 ++++
- xen/arch/arm/include/asm/dom0less-build.h | 12 ++++++++++++
- xen/arch/arm/include/asm/domain_build.h   |  2 ++
- 6 files changed, 30 insertions(+), 1 deletion(-)
+Cheers,
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 0045a3762d86..0399f2faf734 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -88,6 +88,15 @@ config GICV2
- 	  Driver for the ARM Generic Interrupt Controller v2.
- 	  If unsure, say Y
- 
-+config DOM0LESS_BOOT
-+	bool "Dom0less boot support" if EXPERT
-+	depends on ARM
-+	default y
-+	help
-+	  Dom0less boot support enables Xen to create and start domU guests during
-+	  Xen boot without the need of a control domain (Dom0), which could be
-+	  present anyway.
-+
- config GICV3
- 	bool "GICv3 driver"
- 	depends on !NEW_VGIC
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 89ef0c9075b5..5daf8f10114d 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -15,7 +15,7 @@ obj-y += cpufeature.o
- obj-y += decode.o
- obj-y += device.o
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
--obj-y += dom0less-build.init.o
-+obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
- obj-y += domain.o
- obj-y += domain_build.init.o
- obj-$(CONFIG_ARCH_MAP_DOMAIN_PAGE) += domain_page.o
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index c2c17f075450..87eade449006 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -415,6 +415,7 @@ static void __init allocate_memory_11(struct domain *d,
-     }
- }
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
- bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-                                  gfn_t sgfn, paddr_t tot_size)
- {
-@@ -476,6 +477,7 @@ bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
- 
-     return true;
- }
-+#endif
- 
- /*
-  * When PCI passthrough is available we want to keep the
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 1c3640bb65fd..689dc016d081 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -802,6 +802,7 @@ static int __init handle_module_node(const EFI_LOADED_IMAGE *loaded_image,
-     return 1;
- }
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
- /*
-  * This function checks for boot modules under the domU guest domain node
-  * in the DT.
-@@ -849,6 +850,7 @@ static int __init handle_dom0less_domain_node(const EFI_LOADED_IMAGE *loaded_ima
- 
-     return mb_modules_found;
- }
-+#endif
- 
- /*
-  * This function checks for xen domain nodes under the /chosen node for possible
-@@ -876,6 +878,7 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
-     {
-         int ret;
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
-         if ( !fdt_node_check_compatible(fdt_efi, node, "xen,domain") )
-         {
-             /* Found a node with compatible xen,domain; handle this node. */
-@@ -884,6 +887,7 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
-                 return ERROR_DT_MODULE_DOMU;
-         }
-         else
-+#endif
-         {
-             ret = handle_module_node(loaded_image, &dir_handle, node, addr_len,
-                                      size_len, false);
-diff --git a/xen/arch/arm/include/asm/dom0less-build.h b/xen/arch/arm/include/asm/dom0less-build.h
-index d95cb6234b62..859944eece16 100644
---- a/xen/arch/arm/include/asm/dom0less-build.h
-+++ b/xen/arch/arm/include/asm/dom0less-build.h
-@@ -8,9 +8,21 @@
- #ifndef __ARM_DOM0LESS_BUILD_H_
- #define __ARM_DOM0LESS_BUILD_H_
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
-+
- void create_domUs(void);
- bool is_dom0less_mode(void);
- 
-+#else  /* !CONFIG_DOM0LESS_BOOT */
-+
-+static inline void create_domUs(void) {}
-+static inline bool is_dom0less_mode(void)
-+{
-+    return false;
-+}
-+
-+#endif /* CONFIG_DOM0LESS_BOOT */
-+
- #endif  /* __ARM_DOM0LESS_BUILD_H_ */
- 
- /*
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index 13118b5ff956..3950f0276e55 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -6,8 +6,10 @@
- 
- typedef __be32 gic_interrupt_t[3];
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
- bool allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-                           gfn_t sgfn, paddr_t tot_size);
-+#endif
- int construct_domain(struct domain *d, struct kernel_info *kinfo);
- int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
- int make_resv_memory_node(const struct domain *d, void *fdt, int addrcells,
 -- 
-2.34.1
-
+Julien Grall
 
