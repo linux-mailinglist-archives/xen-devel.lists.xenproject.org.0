@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C063A7E7201
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 20:11:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629813.982296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D9B7E721B
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 20:18:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629817.982305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1AQZ-00012c-H2; Thu, 09 Nov 2023 19:10:55 +0000
+	id 1r1AXT-0003l4-6E; Thu, 09 Nov 2023 19:18:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629813.982296; Thu, 09 Nov 2023 19:10:55 +0000
+Received: by outflank-mailman (output) from mailman id 629817.982305; Thu, 09 Nov 2023 19:18:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1AQZ-00010c-D8; Thu, 09 Nov 2023 19:10:55 +0000
-Received: by outflank-mailman (input) for mailman id 629813;
- Thu, 09 Nov 2023 19:10:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r1AXT-0003iP-3g; Thu, 09 Nov 2023 19:18:03 +0000
+Received: by outflank-mailman (input) for mailman id 629817;
+ Thu, 09 Nov 2023 19:18:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OVYC=GW=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r1AQX-00010W-Oy
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 19:10:53 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2d9f22e-7f33-11ee-9b0e-b553b5be7939;
- Thu, 09 Nov 2023 20:10:51 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-53f9af41444so2067884a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 11:10:51 -0800 (PST)
-Received: from [192.168.69.115] ([176.187.199.161])
- by smtp.gmail.com with ESMTPSA id
- d4-20020a056402516400b0052febc781bfsm166756ede.36.2023.11.09.11.10.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Nov 2023 11:10:50 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r1AXR-0003iF-0R; Thu, 09 Nov 2023 19:18:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r1AXQ-0005nx-M1; Thu, 09 Nov 2023 19:18:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r1AXQ-0008VG-8c; Thu, 09 Nov 2023 19:18:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r1AXQ-0000El-8A; Thu, 09 Nov 2023 19:18:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2d9f22e-7f33-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699557051; x=1700161851; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mdoA4bCOHV2xbFNH5vfe2cP2TsA1ItA50LkkszW2hqI=;
-        b=af7ey8rB68S9o8NbiLrXnVkvOdU12nfPscn4YhvwHpyWUru3mOjyO4JPoxS4nv/Vpu
-         kqdvnjUwOpquY6wD7hABdto9s47rbhCDeTohI9mrWq796hZuGOhKYih7FihKCsweGO0j
-         3kDXz7hu3O0gfs1Fommfd23PSn0NwJTS/CusLagIdUYR5lea3CsoAO8yGV4nateoxUrY
-         2RjaCelBQg374hUl0FnI/OQWg1KWfRoKNFVW18c8+78CSUn10viWyCWTNtwTovAdUatQ
-         1NnWWnpwoVeK4qInyd+0oy9JXUdIqmcjmdjxCCVVtJYT19vrPUDEa4xx3D5MoyfMG+3h
-         IDKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699557051; x=1700161851;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mdoA4bCOHV2xbFNH5vfe2cP2TsA1ItA50LkkszW2hqI=;
-        b=ftsgCvLWLQ5Mevs09XYbL5LUHTroxoBt7vxBPU5648zl4njYxvu9CS4/IL+Key3SUc
-         gq2FM31SIjV53EP2jgpB1rLUiGicy4OTntKbB73O59zzzHYwGHDeG6eQV9sjOJObYMNo
-         8UQvWjchAoNisLmZV65PPWmUqFzFCmDYIT6oSpXhHp93DWiv3djKXzzJcpg87QbRFCqn
-         61s4OXWafua97+EB9ScuTl0Sy5SeUmq2iIOvzXMs9tZ2B+iOFQwLoJ7CnL+ew5R+rvUh
-         3oitEC23rXvoO75/2mhKSNM90gyfwWXoD/OyLzGXPVv2RyoritBfln5ZFysPGScGfAar
-         x/ig==
-X-Gm-Message-State: AOJu0YwuBtmMHn0DlHLZOeicaZ7QM0mRqVAW7Ui2dwPZbssPV0S3FbxB
-	mZGKwtHDkgRpVLTBSW4q7EX5HA==
-X-Google-Smtp-Source: AGHT+IGQWLbS6fjT5uskXK5uqeX2dyiUo9uxOjYP+c47qUmCU1v4YNvZ6Y3IS8TXn8wbpntUm+aJhg==
-X-Received: by 2002:a50:9508:0:b0:543:8391:a19a with SMTP id u8-20020a509508000000b005438391a19amr4551354eda.40.1699557051247;
-        Thu, 09 Nov 2023 11:10:51 -0800 (PST)
-Message-ID: <d66214c1-fea9-418d-8497-4a3f2da1e734@linaro.org>
-Date: Thu, 9 Nov 2023 20:10:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] include/hw/xen: Use more inclusive language in comment
-Content-Language: en-US
-To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, qemu-trivial@nongnu.org
-References: <20231109174034.375392-1-thuth@redhat.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20231109174034.375392-1-thuth@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BSUeOV2KartOyiOWxO1GBttrCL31QwjO1TMZawJUDb4=; b=jp+Od+MJAhb0DWhlmVXJ9cPsXL
+	ZGrscMXonP7N/d2NZwHXv1LnChz+oNOky2nJcpruuZMuauy8RxMpUF/qZCtdnolPP6lALLmZu7Ujl
+	6TtohsJAyvfT2+M7KHEGVnxbWysaXnrZ1NttxwmBs42ZuXZb3/00Huaul49P6GXdUVSY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183721-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 183721: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=8a41004643412b59f669876658bd02b8025bec71
+X-Osstest-Versions-That:
+    ovmf=616f0d503707c2e3fbdbc397ccb16a822f584b03
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 09 Nov 2023 19:18:00 +0000
 
-On 9/11/23 18:40, Thomas Huth wrote:
-> Let's improve the wording here.
-> 
-> Signed-off-by: Thomas Huth <thuth@redhat.com>
-> ---
->   include/hw/xen/interface/hvm/params.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+flight 183721 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183721/
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 8a41004643412b59f669876658bd02b8025bec71
+baseline version:
+ ovmf                 616f0d503707c2e3fbdbc397ccb16a822f584b03
+
+Last test of basis   183720  2023-11-09 12:44:23 Z    0 days
+Testing same since   183721  2023-11-09 17:42:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ceping Sun <cepingx.sun@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   616f0d5037..8a41004643  8a41004643412b59f669876658bd02b8025bec71 -> xen-tested-master
 
