@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B04EC7E6DFC
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 16:48:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629730.982116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E8BF7E6E05
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Nov 2023 16:49:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629735.982126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17GL-0002hv-6j; Thu, 09 Nov 2023 15:48:09 +0000
+	id 1r17Hh-0003Nc-Gl; Thu, 09 Nov 2023 15:49:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629730.982116; Thu, 09 Nov 2023 15:48:09 +0000
+Received: by outflank-mailman (output) from mailman id 629735.982126; Thu, 09 Nov 2023 15:49:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r17GL-0002fU-3T; Thu, 09 Nov 2023 15:48:09 +0000
-Received: by outflank-mailman (input) for mailman id 629730;
- Thu, 09 Nov 2023 15:48:07 +0000
+	id 1r17Hh-0003Lm-Dk; Thu, 09 Nov 2023 15:49:33 +0000
+Received: by outflank-mailman (input) for mailman id 629735;
+ Thu, 09 Nov 2023 15:49:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/VEo=GW=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r17GJ-0002co-0D
- for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 15:48:07 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ <SRS0=r4x0=GW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1r17Hf-0003Le-Ud
+ for xen-devel@lists.xenproject.org; Thu, 09 Nov 2023 15:49:31 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ee86532-7f17-11ee-9b0e-b553b5be7939;
- Thu, 09 Nov 2023 16:48:04 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-507bd644a96so1404268e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 07:48:04 -0800 (PST)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ id 918e25fa-7f17-11ee-9b0e-b553b5be7939;
+ Thu, 09 Nov 2023 16:49:29 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2c50906f941so13609051fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Nov 2023 07:49:29 -0800 (PST)
+Received: from l14.citrite.net (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l19-20020a05600c4f1300b0040772138bb7sm2489965wmq.2.2023.11.09.07.48.03
+ c5-20020a05600c0a4500b004068de50c64sm2460966wmq.46.2023.11.09.07.49.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Nov 2023 07:48:03 -0800 (PST)
+ Thu, 09 Nov 2023 07:49:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ee86532-7f17-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 918e25fa-7f17-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1699544884; x=1700149684; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GdGoKsvszk1er7lcMQ58LvUTm+ralEqFHg2PA8LdxCE=;
-        b=DrFVb5aoAboCBFLF8xjuCWm6A+dDf9evboa1vYsSuAc33/PxJijv75SV6sziEHDLte
-         smNQUq7051lRVwf02HPY7kr2lu+p4nIJw4dI/2hHHwDjWk7dqVJ8JBz/GyKqZJoPP0S6
-         RQ2qsj1yXLdSprD19ZcNtMPpxroADpQsxyvIY=
+        d=citrix.com; s=google; t=1699544969; x=1700149769; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dRJNhzLkLjjb96yCsISqW/q7J4bX4Bc7uEC20O5gnrM=;
+        b=JIT02iCM77Fvw0oIxt0npS/2fYB63F62jpaxtp961TTh04SXKWbmVhvCOeYBrQS0ZV
+         mwi2cx/Q1nK4UUln49Sc9Z0s6ne5/rVCY0kWWbO0/OFQ61P233dUAAgIF4QAhLsIBQrP
+         2qyHUVY0eeqWztW/+7QpS5VAulPZ4p98Qvlx8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699544884; x=1700149684;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GdGoKsvszk1er7lcMQ58LvUTm+ralEqFHg2PA8LdxCE=;
-        b=nsm6LX9BJQbvK7gbi1plbJDb/4jlsNnwOovzJCLNtGT5ZGLPQnJ6bkr67VTWAyY2JH
-         5RzILOuEA2ZNvmFmbHzwgKOXCzJDQQU2KRuqXlJw9r3aQ47P7E1ZLJIZ28mLMbI4gKpo
-         5OH3TWYejFymmP6eSIoO55EA2+P97nZZEbtBTM0Mz2dKBFNKefgbEB7WSHmWf5z7D2kj
-         ftzxF56wKYUkt6V/yOMtmEnMxRkoLNOKaz/eLS7adMXtXK16xG+1YanKDP6y541g1cEj
-         4nwYUBV+7uEXYeAWuisAJk1z6UcUzW3Rv0xNRF7f6qha6npxG+V5ZFObFKw420wsGzqB
-         1vxQ==
-X-Gm-Message-State: AOJu0YwN81J9+wrcWFVfF63W+GV96/y3XKNla8IzExYgiNnQQPIT4Yyw
-	FevdUbYmEn+g9gtS+q57mPuhuQ==
-X-Google-Smtp-Source: AGHT+IGKeiI8aPgI1sHfiMXh9ybACJTRaFcogZXVx7uNvt2A89SU0kS4Eh5CrBoMjh70Xw3+vJP0AQ==
-X-Received: by 2002:a19:8c19:0:b0:4ff:9a75:211e with SMTP id o25-20020a198c19000000b004ff9a75211emr1692608lfd.42.1699544884364;
-        Thu, 09 Nov 2023 07:48:04 -0800 (PST)
-Message-ID: <654cff33.050a0220.d1942.a8f1@mx.google.com>
-X-Google-Original-Message-ID: <ZUz/MJjh2b5QUTf1@EMEAENGAAD19049.>
-Date: Thu, 9 Nov 2023 15:48:00 +0000
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Andrew Cooper <andcooper@tibco.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
-Subject: Re: Support situation for nestedhvm
-References: <ZUqVnfZTtjb/W5EN@mattapan.m5p.com>
- <93db0a9e-1d99-4953-9e3f-7ad69f0e78bf@tibco.com>
- <654cab6f.050a0220.86158.519b@mx.google.com>
- <cc2e0788-fd03-4c54-b84a-a9bdc2851ef4@tibco.com>
+        d=1e100.net; s=20230601; t=1699544969; x=1700149769;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dRJNhzLkLjjb96yCsISqW/q7J4bX4Bc7uEC20O5gnrM=;
+        b=wJZhaYVXNFSkjYJbCBlRRyODrB1VmfckadP9Rj1G/y99x9txjdNBFu7cc4HFOI9EOf
+         elcOuP3kurXr8V4UONOyLSle+jV43CgGyOn/LS7n0jblBtBjfDNTeZplu4/Z/9tctAAq
+         v9rsyI3L2IpTOLubP7swsDOxKGwlaBiItcToqD9uIl40Rwqu14eAtkY3r9ro/rvSY5fJ
+         UmyY0DXNHnVw3bAsTQiK12c9b5+/cdmg1SPMHeQc/MVRh3ifffZHfeZNe1nq859dvAN1
+         GryYn8UKMlo0uG8kXZdMBzmfiU/C3Z01ynDaCbv3mmY5MPVeb1hfp34+iN+ms/NU+h5w
+         VmKQ==
+X-Gm-Message-State: AOJu0YxnoKcljWjIaI8rogNvRB/FbxT2pywaK5GxBCKVfgS+xGw8Nf9j
+	eC1EtRzjXjzN0NUL1ggbo9qn28bN8P8isWS/vUc=
+X-Google-Smtp-Source: AGHT+IFMR938SiybZKIT0oJKrx+gvCMiEw+CEKwOvl4PJ4Dj/9ksQbauHGUfy7tld1fUTRFz3t0i3w==
+X-Received: by 2002:a2e:330b:0:b0:2c0:2ef8:9716 with SMTP id d11-20020a2e330b000000b002c02ef89716mr4664997ljc.1.1699544968747;
+        Thu, 09 Nov 2023 07:49:28 -0800 (PST)
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH] CI: Rework RISCV smoke test
+Date: Thu,  9 Nov 2023 15:49:22 +0000
+Message-Id: <20231109154922.49118-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <cc2e0788-fd03-4c54-b84a-a9bdc2851ef4@tibco.com>
 
-On Thu, Nov 09, 2023 at 10:36:21AM +0000, Andrew Cooper wrote:
-> On 09/11/2023 9:50 am, Alejandro Vallejo wrote:
-> > Hi,
-> >
-> > On Tue, Nov 07, 2023 at 08:15:32PM +0000, Andrew Cooper wrote:
-> >> On 07/11/2023 7:53 pm, Elliott Mitchell wrote:
-> >>> I ran into the nestedhvm via the following path.  I was considering the
-> >>> feasibility of shedding tasks from a desktop onto a server running Xen.
-> >>> I was looking at `man xl.cfg` and noticed "nestedhvm".
-> >>>
-> >>> Since one of the tasks the computer handled was running other OSes in
-> >>> fully simulated environments, this seemed to be something I was looking
-> >>> for.  No where did I ever see anything hinting "This configuration option
-> >>> is completely unsupported and risky to use".
-> >> This one is explicitly covered in SUPPORT.md, and has had XSAs out
-> >> against it in the past for being unexpectedly active when it oughtn't to
-> >> have been.
-> >>
-> >>> Things simply started exploding without any warnings.
-> >> Things also explode if you try to create a VM with 10x more RAM than you
-> >> have, or if you try `./xenwatchdogd --help`, or `xl debug-keys c`, or
-> >> many other things. 
-> >>
-> >> The xl manpage probably ought to state explicitly that the option is
-> >> experimental, but that the extent of what I'd consider reasonable here.
-> >>
-> >> You can't solve educational matters with technical measures.
-> >>
-> >> ~Andrew
-> >>
-> > No, but we can prevent users unexpectedly shooting themselves in the foot.
-> 
-> ... and break OSSTest and XenRT while you're at it.
-> 
-> Like it or not, this knob is behaved in this way for 15 years.  You will
-> be doing harm for no benefit by trying to change it.
-Improving UX is a distinctively good benefit. A lot of people on this
-mailing list may be aware of its quirks, but a user shouldn't need to be
-that aware in order to set up a stable system.
+Currently, the test rely on QEMU and Xen finishing the boot in under
+two seconds. That's both very long and very short. Xen usually managed
+to print "All set up" under a second. Unless for some reason we try to
+run the test on a machine that's busy doing something else.
 
-> 
-> And if you need a cautionary tail on why this is a bad idea generally,
-> as well as a background on why I will firmly object to technical
-> countermeasures like this, read up on Xen's allow_unsafe command line
-> parameter.
-> 
-> ~Andrew
-This?
-  https://bugzilla.redhat.com/show_bug.cgi?id=858724
+Rework the test to exit as soon as Xen is done.
 
-If so, that's very different. allow_unsafe caused previously accesible
-remote hosts to become unbootable after an update, leaving anyone with a
-remote host without IPMI interface dead in the water. It's nothing like
-preventing spinning up a VM with a set of features that with high
-likelihood a user doesn't want.
+There's two `tail -f`, the first one is there simply to monitor test
+progress in GitLab console. The second one is used to detect the test
+result as soon as QEMU add it to the file. Both `tail` exit as soon as
+QEMU exit.
 
-Both OSSTest and XenRT can simply adjust their nestedhvm knobs based on a
-simple probing script.
+If QEMU fails at start, and exit early, both `tail` will simply exit,
+resulting in a failure.
 
-Cheers,
-Alejandro
+If the line we are looking for is never printed, the `timeout` on the
+second `tail` will force the test to exit with an error.
+
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+
+Notes:
+    The "machine might be busy" bits refere to having a gitlab-runner
+    running two jobs, one been a build with no restriction on CPU resource use.
+    
+    We could use "-daemonize" with "-pidfile" to more easly detect qemu's
+    initialisation failure, but needs "-display none" instead of
+    "-nographic"
+
+ automation/scripts/qemu-smoke-riscv64.sh | 32 ++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
+
+diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+index 4008191302..ba7b61db8b 100755
+--- a/automation/scripts/qemu-smoke-riscv64.sh
++++ b/automation/scripts/qemu-smoke-riscv64.sh
+@@ -2,19 +2,35 @@
+ 
+ set -ex
+ 
+-# Run the test
+-rm -f smoke.serial
+-set +e
++# Truncate or create serial output file
++echo -n > smoke.serial
+ 
+-timeout -k 1 2 \
++# cleanup: kill QEMU when the script exit for any reason
++qemu_pid=
++cleanup() {
++    if [ "$qemu_pid" ]; then
++        kill -s SIGKILL "$qemu_pid"
++    fi
++}
++
++trap 'cleanup' EXIT
++
++# Run the test
+ qemu-system-riscv64 \
+     -M virt \
+     -smp 1 \
+     -nographic \
+     -m 2g \
++    -monitor none \
++    -chardev file,id=serial-out,path=smoke.serial \
++    -serial chardev:serial-out \
+     -kernel binaries/xen \
+-    |& tee smoke.serial
++    &
++qemu_pid=$!
+ 
+-set -e
+-(grep -q "All set up" smoke.serial) || exit 1
+-exit 0
++# Monitor test progression until QEMU exit
++tail --pid=$qemu_pid -f smoke.serial &
++
++# Check boot test result
++timeout 60 tail --pid=$qemu_pid -f smoke.serial | \
++    grep -a -q "All set up"
+-- 
+Anthony PERARD
+
 
