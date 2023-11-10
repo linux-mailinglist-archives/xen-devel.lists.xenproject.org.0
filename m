@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE5B7E7E0D
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 18:14:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630693.983802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0755A7E7E28
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 18:32:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630701.983813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1V4t-0003nj-Qo; Fri, 10 Nov 2023 17:13:55 +0000
+	id 1r1VMT-0002kB-AV; Fri, 10 Nov 2023 17:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630693.983802; Fri, 10 Nov 2023 17:13:55 +0000
+Received: by outflank-mailman (output) from mailman id 630701.983813; Fri, 10 Nov 2023 17:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1V4t-0003lT-OH; Fri, 10 Nov 2023 17:13:55 +0000
-Received: by outflank-mailman (input) for mailman id 630693;
- Fri, 10 Nov 2023 17:13:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dQp4=GX=gmail.com=firemeteor.guo@srs-se1.protection.inumbo.net>)
- id 1r1V4s-0003k6-Bt
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 17:13:54 +0000
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 858fe123-7fec-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 18:13:53 +0100 (CET)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-5bd306f86a8so1752176a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 09:13:53 -0800 (PST)
+	id 1r1VMT-0002hk-69; Fri, 10 Nov 2023 17:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 630701;
+ Fri, 10 Nov 2023 17:32:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r1VMR-0002gB-GH
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 17:32:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r1VMP-0004ve-9H; Fri, 10 Nov 2023 17:32:01 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[10.95.148.228]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r1VMP-0004BV-0y; Fri, 10 Nov 2023 17:32:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,104 +39,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 858fe123-7fec-11ee-98da-6d05b1d4d9a1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699636431; x=1700241231;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AVi8oTH9zuAkT0OVs00wtfUSou3jOH0w/CTAuMn80J0=;
-        b=WK7d/dnLYIyyFciCXItNb1VEnGQ5JR5zHOh6JKTU/xJxM86+Yo3fqv7Wq6wGQ/kajb
-         HamxoZOdvs8rvNav2SioZCs3LrGSZeXU+qGzwWeLO9QNdTNGu66RIgpAPAOjRwBeyfEn
-         TvHX/aLPOprefCa+tjZ42D9ik/5Es3gMWJkvzW4RSpMeEfcqMPizyM8eAaJsw34Hzs6h
-         BDb84fKOmIvk90J/Rn5XuGsjep5DYAeH/qNSTGBE7RHYoWmfwfu+1KP2oeI+aqls1iI4
-         H7V82r/4LIMMTZSxW4cU5qCffVvNXo1aQVDatpH/0780or5KfKqM3capt9kApKFtcQuf
-         1bBA==
-X-Gm-Message-State: AOJu0YxqQoTx18R8oVnMOmD5oecZB5oITifsZljTiDNe12aqzQXWF0bp
-	5bIVERNW9KH5zxyJu4xbHYzvkkPIrDoitqOKIkN6ASyB90c=
-X-Google-Smtp-Source: AGHT+IG/2BdV8wUptp38EtEZApMenGiiFiVQ2DGv9NI9RBH5FGUbS+juhLxUY6Q6CtUE6VooiVVvJWTAedt1sWwj5Xw=
-X-Received: by 2002:a17:90b:4b84:b0:27e:1ea0:c6fc with SMTP id
- lr4-20020a17090b4b8400b0027e1ea0c6fcmr5365595pjb.6.1699636431319; Fri, 10 Nov
- 2023 09:13:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Do7H+IVkCpHR+LOl9TYx8Sh8Oxj6Tp4sWKImX9dZBMk=; b=cu3NldjPAM8Vq8wNvXojoKhSMP
+	ah2sNvuqk57a6keCNOZDH3KPha6tLcgnfoEom5Qa9S7d2PRNCxzhoyz4c1MOFfY29g6t2JH7D/G3t
+	w1cnq/9c20IdIaDsS9gPw3ngSpmLAdMYUIi3e8nVEiBf02ZZK9uykI61kmzdxdJhY/H4=;
+Message-ID: <adc25dc4-9ba6-41d4-87a0-cf6ad5777b1f@xen.org>
+Date: Fri, 10 Nov 2023 17:31:59 +0000
 MIME-Version: 1.0
-From: "G.R." <firemeteor@users.sourceforge.net>
-Date: Sat, 11 Nov 2023 01:13:39 +0800
-Message-ID: <CAKhsbWYxEjkccdVWhnJdkjdR7zBZ9OjywLfuSC9DDALO2iwXMg@mail.gmail.com>
-Subject: Booting HVM domU through OVMF failed with assertion `rsdp_paddr != 0`
-To: xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 21/29] tools/xenstored: add early_init() function
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <20231110160804.29021-1-jgross@suse.com>
+ <20231110160804.29021-22-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231110160804.29021-22-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi all,
+Hi Juergen,
 
-I'm trying out to boot domU through UEFI path but so far made very
-little progress.
-I'm currently on a self-built XEN 4.16.1 hypervisor version without
-the --enable-ovmf configuration. I attempted a dirty build to generate
-the ovmf.bin firmware. The build succeeds but chery-picking the
-firmware does not give me a working UEFI domU. The VNC simply stays
-blank forever. I could not collect any debug log from it.
+On 10/11/2023 16:07, Juergen Gross wrote:
+> Some xenstored initialization needs to be done in the daemon case only,
+> so split it out into a new early_init() function being a stub in the
+> stubdom case.
 
-I also tried the ovmf package coming with the Debian package but it's
-even worse -- it prevents the domU creation if I point the firmware to
-it.
+It is not entirely clear to me how you decided the split. For example...
 
-The one that looks more promising is the one that I extract from a
-Fedora edk2-ovmf-xen package. This one gives me an VNC screen saying
-"Guest has not initialized the display". But luckily I finally got
-something useful from the debug log.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> V2:
+> - rename function
+> - move patch earlier in the series
+> ---
+>   tools/xenstored/core.c   |  6 +-----
+>   tools/xenstored/core.h   |  3 +++
+>   tools/xenstored/minios.c |  3 +++
+>   tools/xenstored/posix.c  | 11 +++++++++++
+>   4 files changed, 18 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
+> index edd07711db..0c14823fb0 100644
+> --- a/tools/xenstored/core.c
+> +++ b/tools/xenstored/core.c
+> @@ -2933,11 +2933,7 @@ int main(int argc, char *argv[])
+>   	if (optind != argc)
+>   		barf("%s: No arguments desired", argv[0]);
+>   
+> -	reopen_log();
+> -
+> -	/* Make sure xenstored directory exists. */
+> -	/* Errors ignored here, will be reported when we open files */
+> -	mkdir(xenstore_daemon_rundir(), 0755);
+> +	early_init();
+>   
+>   	if (dofork) {
+>   		openlog("xenstored", 0, LOG_DAEMON);
 
-As shown in the quoted log below, OVMF complains about the RSDP
-address not available.
-Any idea what is happening here?
+For stubdom we would not fork, so I would expect the call to openlog() 
+not necessary. Same for the init_pipe() below.
 
-Note that I'm with a self-built XEN binary without --enable-ovmf, plus
-external built ovmf binary. I'm not sure if this combo is supposed to
-work. I'm building a clean XEN 4.17.2 with --enable-ovmf now for a
-comparison.
+> diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
+> index 480b0f5f7b..d0ac587f8f 100644
+> --- a/tools/xenstored/core.h
+> +++ b/tools/xenstored/core.h
+> @@ -35,6 +35,8 @@
+>   #include "list.h"
+>   #include "hashtable.h"
+>   
+> +#define XENSTORE_LIB_DIR	XEN_LIB_DIR "/xenstore"
+> +
+>   #ifndef O_CLOEXEC
+>   #define O_CLOEXEC 0
+>   /* O_CLOEXEC support is needed for Live Update in the daemon case. */
+> @@ -384,6 +386,7 @@ static inline bool domain_is_unprivileged(const struct connection *conn)
+>   
+>   /* Return the event channel used by xenbus. */
+>   evtchn_port_t get_xenbus_evtchn(void);
+> +void early_init(void);
+>   
+>   /* Write out the pidfile */
+>   void write_pidfile(const char *pidfile);
+> diff --git a/tools/xenstored/minios.c b/tools/xenstored/minios.c
+> index 0779efbf91..0cdec3ae51 100644
+> --- a/tools/xenstored/minios.c
+> +++ b/tools/xenstored/minios.c
+> @@ -54,3 +54,6 @@ void unmap_xenbus(void *interface)
+>   	xengnttab_unmap(*xgt_handle, interface, 1);
+>   }
+>   
+> +void early_init(void)
+> +{
+> +}
+> diff --git a/tools/xenstored/posix.c b/tools/xenstored/posix.c
+> index 7e03dd982d..fcb7791bd7 100644
+> --- a/tools/xenstored/posix.c
+> +++ b/tools/xenstored/posix.c
+> @@ -22,6 +22,7 @@
+>   #include <fcntl.h>
+>   #include <stdlib.h>
+>   #include <sys/mman.h>
+> +#include <xen-tools/xenstore-common.h>
+>   
+>   #include "utils.h"
+>   #include "core.h"
+> @@ -157,3 +158,13 @@ void *xenbus_map(void)
+>   
+>   	return addr;
+>   }
+> +
+> +void early_init(void)
+> +{
+> +	reopen_log();
+> +
+> +	/* Make sure xenstored directories exist. */
+> +	/* Errors ignored here, will be reported when we open files */
+> +	mkdir(xenstore_daemon_rundir(), 0755);
+> +	mkdir(XENSTORE_LIB_DIR, 0755);
 
-Thanks,
-Rui
+The addition of the second mkdir() doesn't seem to be explained in the 
+commit message.
 
-OVMF debug log:
-...
-Loading PEIM at 0x000008347C0 EntryPoint=0x00000836849 XenPlatformPei.efi
-Platform PEIM Loaded
-CMOS:
-00: 33 00 30 00 23 00 05 10 11 23 26 02 00 80 00 00
-10: 00 00 00 00 06 80 02 FF FF 00 00 00 00 00 00 00
-20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-30: FF FF 20 00 00 EF 00 20 00 00 00 00 00 04 00 00
-40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-50: 00 00 00 00 00 00 00 00 00 00 00 00 0F 00 00 03
-60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-QemuFwCfgProbe: Supported 0, DMA 0
-Detected Xen version 4.16
-ASSERT /builddir/build/BUILD/edk2-819cfc6b42a6/OvmfPkg/XenPlatformPei/Xen.c(210):
-HVMStartInfo->rsdp_paddr != 0
+Cheers,
 
-domU config:
-name = 'newwin10'
-type="hvm"
-vcpus = '4'
-cpus = "0-4"
-memory = '4096'
-boot = 'n'
-firmware='/usr/lib/xen/boot/OVMF.fd'
-device_model_args_hvm = [
-  # Debug OVMF
-  '-chardev', 'file,id=debugcon,path=/var/log/xen/ovmf.log,',
-  '-device', 'isa-debugcon,iobase=0x402,chardev=debugcon',
-]
-vif = [ 'mac=00:18:3E:51:48:4C,bridge=xenbr0,model=e1000' ]
-on_poweroff = 'destroy'
-on_reboot = 'restart'
-on_crash = 'destroy'
-xen_platform_pci='1'
-viridian='defaults'
-vga="stdvga"
-localtime='1'
-usbdevice='tablet'
-vnc='1'
-vnclisten = '0.0.0.0'
-serial='pty'
+-- 
+Julien Grall
 
