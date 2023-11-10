@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C367E7C5B
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:57:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630301.983074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D086F7E7C56
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:57:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630304.983098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3z-0003Aa-2O; Fri, 10 Nov 2023 12:56:43 +0000
+	id 1r1R41-0003rg-Uz; Fri, 10 Nov 2023 12:56:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630301.983074; Fri, 10 Nov 2023 12:56:42 +0000
+Received: by outflank-mailman (output) from mailman id 630304.983098; Fri, 10 Nov 2023 12:56:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3y-00032y-Q7; Fri, 10 Nov 2023 12:56:42 +0000
-Received: by outflank-mailman (input) for mailman id 630301;
- Fri, 10 Nov 2023 12:56:40 +0000
+	id 1r1R41-0003jW-CV; Fri, 10 Nov 2023 12:56:45 +0000
+Received: by outflank-mailman (input) for mailman id 630304;
+ Fri, 10 Nov 2023 12:56:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sssJ=GX=epam.com=prvs=567869e99b=mykyta_poturai@srs-se1.protection.inumbo.net>)
- id 1r1R3w-0001y0-5s
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:40 +0000
+ id 1r1R3x-0001y0-5v
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:41 +0000
 Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
  [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 944a87f3-7fc8-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 13:56:36 +0100 (CET)
+ id 955dff4d-7fc8-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 13:56:38 +0100 (CET)
 Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
  by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AACIuvf025691; Fri, 10 Nov 2023 12:56:29 GMT
+ 3AACIuvh025691; Fri, 10 Nov 2023 12:56:31 GMT
 Received: from eur04-db3-obe.outbound.protection.outlook.com
  (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3u9j2g0qjw-9
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3u9j2g0qjw-11
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Nov 2023 12:56:29 +0000
+ Fri, 10 Nov 2023 12:56:31 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by DB3PR0302MB9063.eurprd03.prod.outlook.com
  (2603:10a6:10:43d::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29; Fri, 10 Nov
- 2023 12:56:23 +0000
+ 2023 12:56:24 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::f172:7877:386b:8dc0]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::f172:7877:386b:8dc0%6]) with mapi id 15.20.6954.029; Fri, 10 Nov 2023
- 12:56:23 +0000
+ 12:56:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 944a87f3-7fc8-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 955dff4d-7fc8-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CfWAkGtMlpf+k70kdod+hSlaG77s3WKtFAfmUY7+SRh4uDTOIO1e882VPahd9d0D0W2DbfmSMku96lTGZwPzRetAJEllZ4oQ2vvGfbg0ruK+t7FlT1VodsSRq0KOx3z67qBCruAUxkwXRjU/Os92LctSdPKPHdwejRZ90u43APJR6sOSbgIkbCI1a4n4QpjsdGn6icFbQIeg5kILqVeEJv/4KclBhALRZR34PEkZ367Kasr5UzX9J5qrLElTEmF3WuULhkSGi9CxHSXMsYWaA3sjeGtN5DjvwvcA1HnnhCr40pY0mh2/mnsXuBXXqNVobbec++1b9QvKgKrkoFPmLg==
+ b=JqZ15/rfG7fUg7DWQvFcGgAW4ZsygIPMMMMH2NnpQ2QbD9HTg8fSrvTTdXe7jmM+uIQrsZbhrAld4MiDbYfBOLhXKvvITC+X2Za6WHC7pny/cYdb3sh5qqqnS1rSLS0cJf4sYzIjjuVtNYPn0AwpGRE2lbdjg4HySewK7S4qRqmkfKAJ1ihVBbeZa0qx5S7A6jnO3L2F/qULaZm5Vs6gHrabRlrvJvbB4v+P7/lMKdtnF0mTvk2u9ma4M61hwpK6bjSIARan0/8d/qDVkbI/ldB+V6s9AMe6QmPxHs53m30MojvQsDb2v2rzwfPjYUPxjMUMwzECWH7mjtoTRaxOkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oT4KIF2X4Eydop9+7zHu37RhHlwUjuweDeTiWeDTB5Q=;
- b=XKn2tApLn8Pw50DL9kVBH601DNYUDlO4QkE7JkH5WGanzs9hSatY7EFLg8rffozzyqLSsJ/kMfK4macRCxstNbSTVMBtEbTZ6hQWwyazctNnLSmtdhJb7vI6RCF9UXCsV4E23Pd7vZLCClnDZLCaeNwKkOcckn2YdXYDbbmv0UdUIHDfw2d0a57wkCPNpxZFxPPBz/Uf5aqMfLXvUl5snl0udLxaycbOrgLZOxEkvJwbSFdu9Qmh5s/YmAG5taA2ELzboq5c7TqyG8iajoVZ25RPXuz6pfrATHtTCNo/T2jM6SU4bwKldXLrqfUuM4yDflKcZ2JDpqlH3mSgeGEipQ==
+ bh=laODZ4Gs+y5E4svUvsfAqE5Iuee5D06nD4w3sS8JL40=;
+ b=XglTUcfubP67CF3FVgVD//4DcSaDO5sIZ2vcV89JAWCR5gV8bWX9Pr+q4LkhQMt6V2fy1CaoZ4GOtSEcVbOGzOPPDTaplVSacty3sLcboTR1ywLPfhiDs3Qm5MhHQiPLYZolhdie1EJWE+NyDYLzd9uDo8CNmnGxq2reKcBKmmD3ZD8tJR0WY/2G3XwVdyve9Y4NVzFlFwWfbeIt99W1AOoCaKZ3cDWq43Qc7oFg/RnZLtLD62p61sbKwo71W5DzJMECRK/H1h64FrBl+m4GklrrTUthItvtiS/H3HXUAwxPoYS1DzhPWxWq+GofzZJMeuGfG/LrhQ3E89bwAjPx3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oT4KIF2X4Eydop9+7zHu37RhHlwUjuweDeTiWeDTB5Q=;
- b=N3qRtU6qHivrs0BnR/MvM8uvwGpg2/+Nly7HCrbk3lXVXG3cQPKvCJxL0MNnmgquLTF774oldQ0OidcvaRbRdZt6GaMJ9fXCGYlyJ3srkLW2639++AhMLqoYbBaH5gd0xwC9C3eDVXOTk8ulLLdAh9uO7cVJAo+v4pASPNSjoV9N1dl8atnBAonThagygT2c32yy6YIguriENcCP2AFhuA/i0zWJtzhH7/Ph8bwQOaTkGFtzkgp3m4tbFN/uypbcpxmycFyRmADyKJUmsC1WHioXyMPmsTqBBsOyYHAoxxY+zCRAdTscqqPIVHinG7sVIbiYgsSAu6jy50qIgKMHIg==
+ bh=laODZ4Gs+y5E4svUvsfAqE5Iuee5D06nD4w3sS8JL40=;
+ b=fmyaQZ6MGWsRQn9ye21lXhGFq7RqE8A+azUklOujl22FT0T/eD/FZ3/zJey3dT1q0j4n4o+w7DXMcEwVXv+XL53ymLz0dwDmXW2bGZ2Fp6qrAtceB78sNCr5t0ggOKuoL4/5l7jDxmN7rF7YQ/AD2MGO6VfhxiTrEfyvpfFcMouI0IduFbFX1IU3YSw75bkleei2zfNb+zUNOKRdOZX9bXIUD5bzyLfnOQvaIvg9iAP5jng6sxfjmSAkh4azV5+xWBOVZDCtNpEqMNg7IktmugVOooI+ycW+Aa5MuXvHGHHjkNET/jtnVLhLgBORHBcYkoUteyusqwZQoz4dWGsG7g==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
@@ -78,14 +78,14 @@ CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
 	<bertrand.marquis@arm.com>,
         Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
         Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH v2 17/25] arm: new VGIC: its: Read initial LPI pending
- table
-Thread-Topic: [XEN PATCH v2 17/25] arm: new VGIC: its: Read initial LPI
- pending table
-Thread-Index: AQHaE9VNBToaXOI75keIgsngiRNg/A==
-Date: Fri, 10 Nov 2023 12:56:21 +0000
+Subject: [XEN PATCH v2 19/25] arm: new VGIC: its: Add LPI translation cache
+ definition
+Thread-Topic: [XEN PATCH v2 19/25] arm: new VGIC: its: Add LPI translation
+ cache definition
+Thread-Index: AQHaE9VOswsQu2Pw50ypJgIWmh5TYw==
+Date: Fri, 10 Nov 2023 12:56:22 +0000
 Message-ID: 
- <bba7f1c7d135bead3003a862968aa0ba74e50dd8.1699618395.git.mykyta_poturai@epam.com>
+ <8d747db93eb3a2afd4895d8e20b163dcd707bb33.1699618395.git.mykyta_poturai@epam.com>
 References: <cover.1699618395.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1699618395.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -94,45 +94,45 @@ X-MS-Has-Attach:
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|DB3PR0302MB9063:EE_
-x-ms-office365-filtering-correlation-id: b5dd9e00-7382-41a1-026d-08dbe1ec718e
+x-ms-office365-filtering-correlation-id: 81c3897b-eec6-410e-fd19-08dbe1ec7209
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- qspdzKlhaEej6mngsR6+JoOXQMIkJzGW9c5jdi/JoOwAg+BnGitAu4BcQYEkjIn/eQmjfzPPhCqToVUfu54XmXGj9J9pWb7+zmlrL/Iyn0jXJcufuspfKS8EZt035hXwYz8IrgZFhlUyi9HOQnsy/T9U6+1NqKxtmMx9o/sIsVB3VgjnvEheUz21yB6cPN28CXEJQAUVHXXRV8i1gf/ah6l2YS168P94E4rb4FYmWlAXKbrfn0FF54m4y/DhyLuU1KfFM6X/HeFQ1duP+3w8qegPTY+c2vmCsE37T7gWzb0IpiyMZIcxliO6ibI+UmR7FFfVd8InfMojZmUJXLrAroLSyRrRTde0d7qtRZZaaqou0OjukOKRKbfQTBScF50VkxdPdCBAzXoF+hrYXlB8nfjm/5CwuJAvxv8mSlhn6mDuKoi2v2wzUVm2pa+j8+Vqj+RqGEIf0xMxx5Iz4bowva5XhYmtEW6LRAOKDsJmgsfvI03KVEas0PpBR6JNAXIPQ1feP4uHccx7EMwZkY8iT8HkBylbMybOqUZxUIlgQuy2GdopyvhKVM+2UndAt3GWT/w8+7y0WakGbUpWN7BRdf11cBHOkQzgKSf7cK8hpFzrVY7e1HAqfo3FtBjJkzcF
+ 3wmlamY3LNFeJ/yJ9+OnohN32gDRJyW9df1JCS98Cb9XNjuosKkTkeGbCq88Z5h68vc1QaixcqKyWsZxEzQipSd0CgHSCR2r675Pc/3J+myzlahiuh4HgJHWvjH01lykZP5JO1OqoqJbRjOPJzBfDuCcf3MUdPpwkbmLF+78c1zB7oDQ2PdmoGQhhcPfsgpcQYjOGRuKp/C3unlp9YBdB6i+neW3Vrl5f+b+w/AZOgvcwPQCA+wLUyh5MP9HRetjy3m0P9mR4MHUh1a+vbUScGrE+R7/AlOl9VDD5J/g+1bph+gKhsND/Gyfhe3q3mtOFXSBHIsHwNo3xZCJb/G2vOBcOazv6vN0Vp3qcZgMogNpxgBV+hlOepPsdhJYdhWbaMAU9j39VGc5/LU2zquB2IQz0cMiU8xiGjo3ItRSWjEpd3CDMZ+YEObWgyIDBbUZSnVZSZoakWJbMtXLBfPs2ni8WWOmO39R1IejZ5BR7zydZqXiwWCVOFeSUXlM8PNmJ9x8LTcwf2UEYIJhqg671eA1igcR7JrWFF+1O4cRjO9H4kB14LbkZZ4OhGYof4AP2MK3wxn8gaJiuagiIeO02OkhfItFnJHp/y9zbgNMXvAj0+LQCc031ADk/gHdSgLx
 x-forefront-antispam-report: 
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(396003)(366004)(376002)(39860400002)(230922051799003)(451199024)(1800799009)(186009)(64100799003)(66556008)(86362001)(6512007)(6506007)(66946007)(66446008)(36756003)(66476007)(8936002)(76116006)(91956017)(8676002)(71200400001)(38100700002)(4326008)(26005)(5660300002)(6916009)(2616005)(6486002)(64756008)(316002)(478600001)(54906003)(2906002)(122000001)(41300700001)(83380400001)(38070700009);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?hA8wfJymWmvmZ/BduK0KRT6mq0ag2ivKb9PAZNcbrnR6Zo4TI7Yw734hVg?=
- =?iso-8859-1?Q?TBBrE4IwUcsCS5y6zuhvqORpOttzZhgSewqmFiUFizy4IgN+UiMQUXSyRT?=
- =?iso-8859-1?Q?ctVAxvosQ/v1SNdUaAjxX5IumGb+k0IEx2TNJtqqdd3bz4yaVOqVadAznn?=
- =?iso-8859-1?Q?VvJ3s+PdGMZhqdJikQiD9CPYIuld0DCVi981dMbXpfcBaxeP/oHNOV4u74?=
- =?iso-8859-1?Q?Nni0U4GJmfOvKwfGBdLL8n/alqesZBgWvl9u4I7SXBlyW10CksHNNXqRBS?=
- =?iso-8859-1?Q?yswv52Mg0nPnW3p0fEVcuZcECy8T7sNhqKHqbvzRfTU2oLLSenjTb86EIG?=
- =?iso-8859-1?Q?Aa7QYS74JZ00tkJ1bXRCP7y/fXb5rqJsdyGzUUHEApbraBcvsXfG7nfo4C?=
- =?iso-8859-1?Q?D2f7eYas2hMx+uqTV9XcxRzBF04bl9nTsKIv9j4kJiBHapG3mHGhLPeJmE?=
- =?iso-8859-1?Q?6TV/z9HMZZ+2aXyyU5v/B/ugHzlfn+yP00/9BhmkQu6rxKbBGF0aCCmBNV?=
- =?iso-8859-1?Q?GoIZEBTFdOm8pKiC4iGA50LcsU66fz7sEMXln9Ao4gJJs380ElLFTPihyw?=
- =?iso-8859-1?Q?I/jqIQPdk8/cVQFTrjGhAZJVTVTh3pURu+oGSNZjdga7z6i7w+Hlj4HcT9?=
- =?iso-8859-1?Q?H0+YH5V3J1Yr8LTpmLvQroSruWAG9HYqwFBsDiqLLXOiYeBZ+b7kMjgnaE?=
- =?iso-8859-1?Q?b9YkYe4gT01u9v6oATo0cUyU7Fvt5Sfj9Sh5XTiGH2FF08GWlDdY7qmzHK?=
- =?iso-8859-1?Q?mOIvKJfkwaOGMaSjwDit+EeHySbeBH8sR6GgGtUhYgw/0g8TFvlwRsyfiM?=
- =?iso-8859-1?Q?pLenr69BVMiplmu4UMlme/dO+//T9aQPkto0w7XJcl2BMTHWYln/eI7hp+?=
- =?iso-8859-1?Q?NqveHtsFc8V0cjy9JSeVyC8iPz6ibGQGeTTzYuhyFvd4dNo7WM8uF4JgAQ?=
- =?iso-8859-1?Q?5fY50u/MIemeOYc3izjYioHs947pj1n4IdMqeQk8BfVD6M5s3V/vJvPHqk?=
- =?iso-8859-1?Q?GMD82cbcpzAki4FUzg9i9lxyj70fm4U/9wvP7TehKwGfTp5udcEB/R9+X4?=
- =?iso-8859-1?Q?xr8xVY/DG8hyc7iERmYiw9d2koNMoRGhREDXBQcPN/ytBfC7h8wxA8qpEA?=
- =?iso-8859-1?Q?Q9pg3QQ+hpHHi1mAxt3DbNgnVpj7vQMAzWEtOneSAUQ5eR5avdQjDhYu4E?=
- =?iso-8859-1?Q?jHExisls9oDlXe+A/mQNLMDEHQaHJOOB9WintU96q/uOdHEfcr68ZAQkNt?=
- =?iso-8859-1?Q?ruxyTAzlPnhp8HVmKn/uZy+eGApFnklsqfvaqSLQz2g8d7LeVC+TCP+WiI?=
- =?iso-8859-1?Q?S+8hYh3ZRckYddbIkjEykD8YznvO0GBl7/VOnoYJB87RLd2nX4x72MjQQS?=
- =?iso-8859-1?Q?IjAcTr71gFdrqxHaAHG27QedoDyA16vFD3MYW38h7GjE9LOe54PTSZUaGk?=
- =?iso-8859-1?Q?83q0HcoaSz5tQ3/BJFyMATw/Eg5sXz9oVmR558+zCnh//lLDzPyihbBUgh?=
- =?iso-8859-1?Q?9+CFB91UYvpBioywbk5lzkPDy/NrebjgXBnNpK05hIJWpa3nWcoIVr6Fm+?=
- =?iso-8859-1?Q?J5+qmJoZkJxivTOpBt1eraFFlqEShaIogwm3XHZ1pNUAQtlv1PDjUdz6uF?=
- =?iso-8859-1?Q?swIkd4ttxv7oVn0qy+DrCFk70rhEMcQNeJ8eSscx1zHggTOLs/qk1F3g?=
+ =?iso-8859-1?Q?R/riGC6Flf7VgFyhYhrprFxVbRlR5DC2sEkQwjqFyz/I8xqCKMJIZMbQIU?=
+ =?iso-8859-1?Q?VBpiJJcRpHV41U5BkNMFRk1Lk97C0i8jovEn8qKXaU3oPXlBjismK7zEUo?=
+ =?iso-8859-1?Q?hW9CpgHrRaDWQrC/cwocMQArMdmtzuemnoruOWmEDNjkdTDgRRW7BE2bsZ?=
+ =?iso-8859-1?Q?EnWsA2ankLazK8L5v2/miOarBjLOeMh6gToTiIZMsCjambbQkRvVTacGbO?=
+ =?iso-8859-1?Q?HJ0a9UEcaI/xmZw6jvbaJ9GNOs4+10vzq8e6iWHctvk6LPQfgvrGmjAfcO?=
+ =?iso-8859-1?Q?dpfNwV/cBYVFS96R4opmex4rF48nB47RliktO3e7uFVnWb0HREXpmzKk73?=
+ =?iso-8859-1?Q?N308Sa2ARBg1QMVjzQe/ikljoReGFswwqcxAnvo+ASmPTd8AyuZ7ObaeNx?=
+ =?iso-8859-1?Q?TywGzolJRU00bkIZEmQllzu0sKY2guf1sXAQzvTwjDeU18Qmdp59MgZcdj?=
+ =?iso-8859-1?Q?DkvN99V3qTupL5poY9h3t6WfTC9TNr1wUD7clsLx/qJyD94OyZvm4X5rlk?=
+ =?iso-8859-1?Q?CKDV5CTGBDhs7nFY/+K3UKjGQorwTquQuhBCzyTrjJic9r/pn3+Ur9J6sZ?=
+ =?iso-8859-1?Q?Q5mVoCAqVvGfLOspxRjMpCRGsja4MmIC11NnWjKhRc4zdsbYJSuZwl6LW1?=
+ =?iso-8859-1?Q?itXb/fMMv2J/7SJkUcS/QtR5ZjKzqeXM8ELb1SQ4uxYlhM9WphUuYeqnud?=
+ =?iso-8859-1?Q?3Lp7CeCaMAw/1trNAJsy59MVIv2yORaH3JkfwaqQRSfvILJq4oZZwxYa/8?=
+ =?iso-8859-1?Q?v0ELSsHlyeFAKM8LY2KL8UVxvij0VpNgHKc6ra2hd5X9uYvVQ28h1Yvkeh?=
+ =?iso-8859-1?Q?RU3UXghzL2qkf+aaYl/5zZjM/Hfbhx6xLDZHhXICYtmfKWJgdfLG7a4wDX?=
+ =?iso-8859-1?Q?D55o4qnVq5f1GEx2N+uXKEhTQXfXfu7VkhCpchCu/wKomyxK1NGBASyXnl?=
+ =?iso-8859-1?Q?vMzC5B1TSaI0Uek8kbRImfZjQn+FuG/CpxBTwQMrlSudIub3iAyS8iM9k4?=
+ =?iso-8859-1?Q?pDKAYFGLYf02qHmwbQmER7BFUNh5milkpBDOF9t2osNm4SmnYWLj2DFLWK?=
+ =?iso-8859-1?Q?8AAUHBZLEYGfFkAN/3tk3+YbRPVEvt9g532TytIllz6AZAKTEGPfmwofXe?=
+ =?iso-8859-1?Q?1p668FDjiMcv7U3aaI2Gx3vpgSS/0BJmTAKTqINqpz5DzHdPmB1ZfA9VDs?=
+ =?iso-8859-1?Q?xJYAEGLgD3sr0UKEfgT1UBfhlXWfZvMlfTujBmdKUslh04VBJU4c5yh6Yb?=
+ =?iso-8859-1?Q?TKV/7guD0SqsvJkfNH9HC/UKzmhFIuEXBWpHNnSBPJaN2kM3lmRpXWR0hY?=
+ =?iso-8859-1?Q?AdUXtVNJrOsurtX8/8JOa73YdvXlaKLgFM+mesjMXcEjtSYoC3p9CIzqUZ?=
+ =?iso-8859-1?Q?JutJxvuEJn94rIh1GRfhhQHp+J9P5iB6fD9tiYXc4Dy/nZcc5G/crC8xLd?=
+ =?iso-8859-1?Q?bDfPLWVjQ+r/hajQMUScW10rWHhPEJ4LYrDhcWA1Xl0HJy9Y9TplFFK69+?=
+ =?iso-8859-1?Q?wAJMiWrjtu4n7eEcUcWn+kVDwBGhjw36NZlbva/aFG5RqL7Ujj9TGomuTG?=
+ =?iso-8859-1?Q?R8SDdwTNYHPWGV+8XZtAtFzvjhvafqL0mRh20hEmFqBFXGX+55FDKerrOu?=
+ =?iso-8859-1?Q?F3DZnGwju0rDBKnZAMz0McuiOM09NpeyJnlZKW/Ww80E4+osjG6Z9ubg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -140,203 +140,315 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5dd9e00-7382-41a1-026d-08dbe1ec718e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:21.8288
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81c3897b-eec6-410e-fd19-08dbe1ec7209
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:22.5551
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WicZnL+MZxieh5FpgwEWqH7UKJ5CwOi8ItFWFrDpdilXyY9ZlV50lPpdxpppJNbi8nOshByIdztVqSMANYxCPg==
+X-MS-Exchange-CrossTenant-userprincipalname: uNK0bznj8zP6nR6nMReRLu7c8VqlDBFpFryMu5ht1liYiBjHpBkynuHRj+hUMAGEVa0kRQY4ICVU/jOT9bJp5A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0302MB9063
-X-Proofpoint-ORIG-GUID: z-LfJRbTodkl_F9kadJyB6Ea_fHGOMC8
-X-Proofpoint-GUID: z-LfJRbTodkl_F9kadJyB6Ea_fHGOMC8
+X-Proofpoint-ORIG-GUID: bVLGMpNT3R9t2aZ8pVMOFwQdxOhkIXFl
+X-Proofpoint-GUID: bVLGMpNT3R9t2aZ8pVMOFwQdxOhkIXFl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-11-10_09,2023-11-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=999
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=835
  adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
  impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1015
  lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2311060000 definitions=main-2311100106
 
-The LPI pending status for a GICv3 redistributor is held in a table
-in (guest) memory. To achieve reasonable performance, we cache the
-pending bit in our struct vgic_irq. The initial pending state must be
-read from guest memory upon enabling LPIs for this redistributor.
-As we can't access the guest memory while we hold the lpi_list spinlock,
-we create a snapshot of the LPI list and iterate over that.
+Add the basic data structure that expresses an MSI to LPI
+translation as well as the allocation/release hooks.
 
-Based on Linux commit 33d3bc9556a7d by Andre Przywara
+Implement cache invalidation, lookup and storage.
+
+The size of the cache is arbitrarily defined as 16*nr_vcpus.
+
+This is based on Linux commits 24cab82c34aa6f, 7d825fd6eaa7467,
+89489ee9ced8 and 86a7dae884f38 by Marc Zyngier
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/include/asm/new_vgic.h |   5 ++
- xen/arch/arm/vgic/vgic-its.c        | 104 ++++++++++++++++++++++++++++
- 2 files changed, 109 insertions(+)
+ xen/arch/arm/include/asm/new_vgic.h |   3 +
+ xen/arch/arm/vgic/vgic-its.c        | 195 ++++++++++++++++++++++++++++
+ 2 files changed, 198 insertions(+)
 
 diff --git a/xen/arch/arm/include/asm/new_vgic.h b/xen/arch/arm/include/asm=
 /new_vgic.h
-index 3048f39844..d0fd15e154 100644
+index d0fd15e154..b038fb7861 100644
 --- a/xen/arch/arm/include/asm/new_vgic.h
 +++ b/xen/arch/arm/include/asm/new_vgic.h
-@@ -264,12 +264,17 @@ static inline paddr_t vgic_dist_base(const struct vgi=
-c_dist *vgic)
- }
+@@ -212,6 +212,9 @@ struct vgic_dist {
+     spinlock_t          lpi_list_lock;
+     struct list_head    lpi_list_head;
+     unsigned int        lpi_list_count;
++
++    /* LPI translation cache */
++    struct list_head	lpi_translation_cache;
+ };
 =20
- #ifdef CONFIG_HAS_ITS
-+void vgic_enable_lpis(struct vcpu *vcpu);
- struct vgic_its_device *vgic_its_alloc_device(int nr_events);
- void vgic_its_free_device(struct vgic_its_device *its_dev);
- int vgic_its_add_device(struct domain *d, struct vgic_its_device *its_dev)=
-;
- void vgic_its_delete_device(struct domain *d, struct vgic_its_device *its_=
-dev);
- struct vgic_its_device* vgic_its_get_device(struct domain *d, paddr_t vdoo=
-rbell,
-                                          uint32_t vdevid);
-+#else
-+static inline void vgic_enable_lpis(struct vcpu *vcpu)
-+{
-+}
- #endif
-=20
- #endif /* __ASM_ARM_NEW_VGIC_H */
+ struct vgic_cpu {
 diff --git a/xen/arch/arm/vgic/vgic-its.c b/xen/arch/arm/vgic/vgic-its.c
-index 5e94f0144d..af19cf4414 100644
+index 6c726dde3a..48dfa09115 100644
 --- a/xen/arch/arm/vgic/vgic-its.c
 +++ b/xen/arch/arm/vgic/vgic-its.c
-@@ -63,6 +63,47 @@ static struct vgic_its_device *find_its_device(struct vg=
-ic_its *its, u32 device_
- #define VGIC_ITS_TYPER_DEVBITS          16
- #define VGIC_ITS_TYPER_ITE_SIZE         8
+@@ -44,6 +44,14 @@ struct its_ite {
+     u32 event_id;
+ };
 =20
-+/*
-+ * Create a snapshot of the current LPIs targeting @vcpu, so that we can
-+ * enumerate those LPIs without holding any lock.
-+ * Returns their number and puts the kmalloc'ed array into intid_ptr.
-+ */
-+int vgic_copy_lpi_list(struct domain *d, struct vcpu *vcpu, u32 **intid_pt=
-r)
++struct vgic_translation_cache_entry {
++    struct list_head entry;
++    paddr_t db;
++    u32 devid;
++    u32 eventid;
++    struct vgic_irq *irq;
++};
++
+ /*
+  * Find and returns a device in the device table for an ITS.
+  * Must be called with the its_devices_lock mutex held.
+@@ -152,6 +160,144 @@ int vgic_copy_lpi_list(struct domain *d, struct vcpu =
+*vcpu, u32 **intid_ptr)
+     return i;
+ }
+=20
++void __vgic_put_lpi_locked(struct domain *d, struct vgic_irq *irq)
 +{
 +    struct vgic_dist *dist =3D &d->arch.vgic;
-+    struct vgic_irq *irq;
-+    unsigned long flags;
-+    u32 *intids;
-+    int irq_count, i =3D 0;
 +
-+    /*
-+     * There is an obvious race between allocating the array and LPIs
-+     * being mapped/unmapped. If we ended up here as a result of a
-+     * command, we're safe (locks are held, preventing another
-+     * command). If coming from another path (such as enabling LPIs),
-+     * we must be careful not to overrun the array.
-+     */
-+    irq_count =3D ACCESS_ONCE(dist->lpi_list_count);
-+    intids    =3D xmalloc_array(u32, irq_count);
-+    if ( !intids )
-+        return -ENOMEM;
++    if ( !atomic_dec_and_test(&irq->refcount) )
++    {
++        return;
++    };
++
++    list_del(&irq->lpi_list);
++    dist->lpi_list_count--;
++
++    xfree(irq);
++}
++
++static struct vgic_irq *__vgic_its_check_cache(struct vgic_dist *dist,
++                                               paddr_t db, u32 devid,
++                                               u32 eventid)
++{
++    struct vgic_translation_cache_entry *cte, *fcte;
++
++    list_for_each_entry(cte, &dist->lpi_translation_cache, entry)
++    {
++        /*
++         * If we hit a NULL entry, there is nothing after this
++         * point.
++         */
++        if ( !cte->irq )
++            break;
++
++        if ( cte->db !=3D db || cte->devid !=3D devid || cte->eventid !=3D=
+ eventid )
++            continue;
++
++        /*
++         * Move this entry to the head, as it is the most
++         * recently used.
++         */
++        fcte =3D list_first_entry(&dist->lpi_translation_cache,
++                                struct vgic_translation_cache_entry, entry=
+);
++
++        if ( fcte->irq !=3D cte->irq )
++            list_move(&cte->entry, &dist->lpi_translation_cache);
++
++        return cte->irq;
++    }
++
++    return NULL;
++}
++
++static struct vgic_irq *vgic_its_check_cache(struct domain *d, paddr_t db,
++					     u32 devid, u32 eventid)
++{
++	struct vgic_dist *dist =3D &d->arch.vgic;
++	struct vgic_irq *irq;
++
++	spin_lock(&dist->lpi_list_lock);
++	irq =3D __vgic_its_check_cache(dist, db, devid, eventid);
++	spin_unlock(&dist->lpi_list_lock);
++
++	return irq;
++}
++
++static void vgic_its_cache_translation(struct domain *d, struct vgic_its *=
+its,
++                                       u32 devid, u32 eventid,
++                                       struct vgic_irq *irq)
++{
++    struct vgic_dist *dist =3D &d->arch.vgic;
++    struct vgic_translation_cache_entry *cte;
++    unsigned long flags;
++    paddr_t db;
++
++    /* Do not cache a directly injected interrupt */
++    if ( irq->hw )
++        return;
 +
 +    spin_lock_irqsave(&dist->lpi_list_lock, flags);
-+    list_for_each_entry(irq, &dist->lpi_list_head, lpi_list)
-+    {
-+        if ( i =3D=3D irq_count )
-+            break;
-+        /* We don't need to "get" the IRQ, as we hold the list lock. */
-+        if ( vcpu && irq->target_vcpu !=3D vcpu )
-+            continue;
-+        intids[i++] =3D irq->intid;
-+    }
-+    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
 +
-+    *intid_ptr =3D intids;
-+    return i;
++    if ( unlikely(list_empty(&dist->lpi_translation_cache)) )
++        goto out;
++
++    /*
++     * We could have raced with another CPU caching the same
++     * translation behind our back, so let's check it is not in
++     * already
++     */
++    db =3D its->vgic_its_base + GITS_TRANSLATER;
++    if ( __vgic_its_check_cache(dist, db, devid, eventid) )
++        goto out;
++
++    /* Always reuse the last entry (LRU policy) */
++    cte =3D list_last_entry(&dist->lpi_translation_cache, typeof(*cte), en=
+try);
++
++    /*
++     * Caching the translation implies having an extra reference
++     * to the interrupt, so drop the potential reference on what
++     * was in the cache, and increment it on the new interrupt.
++     */
++    if ( cte->irq )
++        __vgic_put_lpi_locked(d, cte->irq);
++
++    vgic_get_irq_kref(irq);
++
++    cte->db      =3D db;
++    cte->devid   =3D devid;
++    cte->eventid =3D eventid;
++    cte->irq     =3D irq;
++
++    /* Move the new translation to the head of the list */
++    list_move(&cte->entry, &dist->lpi_translation_cache);
++
++out:
++    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
++}
++
++void vgic_its_invalidate_cache(struct domain *d)
++{
++    struct vgic_dist *dist =3D &d->arch.vgic;
++    struct vgic_translation_cache_entry *cte;
++    unsigned long flags;
++
++    spin_lock_irqsave(&dist->lpi_list_lock, flags);
++
++    list_for_each_entry(cte, &dist->lpi_translation_cache, entry)
++    {
++        /*
++         * If we hit a NULL entry, there is nothing after this
++         * point.
++         */
++        if ( !cte->irq )
++            break;
++
++        __vgic_put_lpi_locked(d, cte->irq);
++        cte->irq =3D NULL;
++    }
++
++    spin_unlock_irqrestore(&dist->lpi_list_lock, flags);
 +}
 +
  /* Requires the its_lock to be held. */
  static void its_free_ite(struct domain *d, struct its_ite *ite)
  {
-@@ -284,6 +325,62 @@ static unsigned long vgic_mmio_read_its_iidr(struct do=
-main *d,
-     return val;
+@@ -184,6 +330,8 @@ void vgic_its_free_device(struct vgic_its_device *devic=
+e)
+     list_for_each_entry_safe(ite, temp, &device->itt_head, ite_list)
+         its_free_ite(d, ite);
+=20
++    vgic_its_invalidate_cache(d);
++
+     list_del(&device->dev_list);
+     xfree(device);
+ }
+@@ -351,6 +499,8 @@ static void vgic_mmio_write_its_ctlr(struct domain *d, =
+struct vgic_its *its,
+         goto out;
+=20
+     its->enabled =3D !!(val & GITS_CTLR_ENABLE);
++    if ( !its->enabled )
++        vgic_its_invalidate_cache(d);
+=20
+     /*
+      * Try to process any pending commands. This function bails out early
+@@ -742,6 +892,48 @@ out:
+     return ret;
  }
 =20
-+/*
-+ * Sync the pending table pending bit of LPIs targeting @vcpu
-+ * with our own data structures. This relies on the LPI being
-+ * mapped before.
-+ */
-+static int its_sync_lpi_pending_table(struct vcpu *vcpu)
++/* Default is 16 cached LPIs per vcpu */
++#define LPI_DEFAULT_PCPU_CACHE_SIZE 16
++
++void vgic_lpi_translation_cache_init(struct domain *d)
 +{
-+    paddr_t pendbase =3D GICR_PENDBASER_ADDRESS(vcpu->arch.vgic.pendbaser)=
-;
-+    struct vgic_irq *irq;
-+    int last_byte_offset =3D -1;
-+    int ret              =3D 0;
-+    u32 *intids;
-+    int nr_irqs, i;
-+    unsigned long flags;
-+    u8 pendmask;
++    struct vgic_dist *dist =3D &d->arch.vgic;
++    unsigned int sz;
++    int i;
 +
-+    nr_irqs =3D vgic_copy_lpi_list(vcpu->domain, vcpu, &intids);
-+    if ( nr_irqs < 0 )
-+        return nr_irqs;
++    if ( !list_empty(&dist->lpi_translation_cache) )
++        return;
 +
-+    for ( i =3D 0; i < nr_irqs; i++ )
++    sz =3D d->max_vcpus * LPI_DEFAULT_PCPU_CACHE_SIZE;
++
++    for ( i =3D 0; i < sz; i++ )
 +    {
-+        int byte_offset, bit_nr;
++        struct vgic_translation_cache_entry *cte;
 +
-+        byte_offset =3D intids[i] / BITS_PER_BYTE;
-+        bit_nr      =3D intids[i] % BITS_PER_BYTE;
++        /* An allocation failure is not fatal */
++        cte =3D xzalloc(struct vgic_translation_cache_entry);
++        if ( WARN_ON(!cte) )
++            break;
 +
-+        /*
-+         * For contiguously allocated LPIs chances are we just read
-+         * this very same byte in the last iteration. Reuse that.
-+         */
-+        if ( byte_offset !=3D last_byte_offset )
-+        {
-+            ret =3D access_guest_memory_by_gpa(vcpu->domain,
-+                                             pendbase + byte_offset, &pend=
-mask,
-+                                             1, false);
-+            if ( ret )
-+            {
-+                xfree(intids);
-+                return ret;
-+            }
-+            last_byte_offset =3D byte_offset;
-+        }
-+
-+        irq =3D vgic_get_irq(vcpu->domain, NULL, intids[i]);
-+        spin_lock_irqsave(&irq->irq_lock, flags);
-+        irq->pending_latch =3D pendmask & (1U << bit_nr);
-+        vgic_queue_irq_unlock(vcpu->domain, irq, flags);
-+        vgic_put_irq(vcpu->domain, irq);
++        INIT_LIST_HEAD(&cte->entry);
++        list_add(&cte->entry, &dist->lpi_translation_cache);
 +    }
-+
-+    xfree(intids);
-+
-+    return ret;
 +}
 +
- static unsigned long vgic_mmio_read_its_typer(struct domain *d,
-                                               struct vgic_its *its,
-                                               paddr_t addr, unsigned int l=
-en)
-@@ -564,6 +661,13 @@ static struct vgic_register_region its_registers[] =3D=
- {
-                         VGIC_ACCESS_32bit),
- };
-=20
-+/* This is called on setting the LPI enable bit in the redistributor. */
-+void vgic_enable_lpis(struct vcpu *vcpu)
++void vgic_lpi_translation_cache_destroy(struct domain *d)
 +{
-+    if ( !(vcpu->arch.vgic.pendbaser & GICR_PENDBASER_PTZ) )
-+        its_sync_lpi_pending_table(vcpu);
++    struct vgic_dist *dist =3D &d->arch.vgic;
++    struct vgic_translation_cache_entry *cte, *tmp;
++
++    vgic_its_invalidate_cache(d);
++
++    list_for_each_entry_safe(cte, tmp, &dist->lpi_translation_cache, entry=
+)
++    {
++        list_del(&cte->entry);
++        xfree(cte);
++    }
 +}
 +
- static int vgic_register_its_iodev(struct domain *d, struct vgic_its *its,
-                                    u64 addr)
- {
+ #define INITIAL_BASER_VALUE                                               =
+     \
+     (GIC_BASER_CACHEABILITY(GITS_BASER, INNER, RaWb) |                    =
+     \
+      GIC_BASER_CACHEABILITY(GITS_BASER, OUTER, SameAsInner) |             =
+     \
+@@ -763,6 +955,8 @@ static int vgic_its_create(struct domain *d, u64 addr)
+=20
+     d->arch.vgic.its =3D its;
+=20
++    vgic_lpi_translation_cache_init(d);
++
+     spin_lock_init(&its->its_lock);
+     spin_lock_init(&its->cmd_lock);
+=20
+@@ -829,6 +1023,7 @@ void vgic_v3_its_free_domain(struct domain *d)
+=20
+     vgic_its_free_device_list(d, its);
+     vgic_its_free_collection_list(d, its);
++    vgic_lpi_translation_cache_destroy(d);
+=20
+     spin_unlock(&d->arch.vgic.its_devices_lock);
+     spin_unlock(&its->its_lock);
 --=20
 2.34.1
 
