@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CBEA7E8547
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 22:58:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630815.983951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490F77E8555
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 23:13:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630821.983962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1ZVE-0007ZY-Tz; Fri, 10 Nov 2023 21:57:24 +0000
+	id 1r1Zkg-0002VR-8v; Fri, 10 Nov 2023 22:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630815.983951; Fri, 10 Nov 2023 21:57:24 +0000
+Received: by outflank-mailman (output) from mailman id 630821.983962; Fri, 10 Nov 2023 22:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1ZVE-0007XH-Qv; Fri, 10 Nov 2023 21:57:24 +0000
-Received: by outflank-mailman (input) for mailman id 630815;
- Fri, 10 Nov 2023 21:57:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1Zkg-0002Ss-4O; Fri, 10 Nov 2023 22:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 630821;
+ Fri, 10 Nov 2023 22:13:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YK6u=GX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r1ZVD-0007XB-4p
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 21:57:23 +0000
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f740cd3-8014-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 22:57:21 +0100 (CET)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-32fe1a29010so1381020f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 13:57:21 -0800 (PST)
+ id 1r1Zkf-0002Sm-HH
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 22:13:21 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a48c3e6-8016-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 23:13:19 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40a4859b231so5323315e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 14:13:19 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- z8-20020a5d6548000000b0032da75af3easm196746wrv.80.2023.11.10.13.57.14
+ h9-20020a05600c350900b004094d4292aesm530809wmq.18.2023.11.10.14.13.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Nov 2023 13:57:14 -0800 (PST)
+ Fri, 10 Nov 2023 14:13:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f740cd3-8014-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 5a48c3e6-8016-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699653434; x=1700258234; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1699654398; x=1700259198; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9tq+vVFzFQuNPFulMvijWhkTMgOJllrgAQLHZADDbn8=;
-        b=a3UglbkVwl6DuANMstGl8ngOSPnYezYL6sIS0T5OYa2LHoveTE39MaP6glblrkiAbA
-         NK3l11dp9U47QFPIhN0r+1mE871sPzCFCo51MzZWKavjkxjfb7KdWUoGHTfNjTg7SU4t
-         n96mBwsv6ciUvCSSVCzGyDHditIwWa76gU1rs=
+        bh=EM6gouvi/9+cJS403KfZBLMwqeRdBs6ofp44nFKKCp0=;
+        b=NghGfwlC0QirMnglk5b+CjWFaWJvSLwnYAMoJnSBqfrA9uFjNLZSbK99Na32nNeLGS
+         FFZtgylgGQgaGtzht4xnzD27eldvZ4YyaXKTAY/lQ70nv4bcBSFUw8UCXefIb3SlfTus
+         ozqMlwLuCnd81Ve4apb86viMSSvGsquCHM0s4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699653434; x=1700258234;
+        d=1e100.net; s=20230601; t=1699654398; x=1700259198;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9tq+vVFzFQuNPFulMvijWhkTMgOJllrgAQLHZADDbn8=;
-        b=s/ukw5bTXLtOuzN7CpOqAAbIQy/yNXYoweH/jHnUrfYNkXYbY0UbFjxtI7D1b7l3Ct
-         0/01Mz1M1eexvfHVUnTKw6+K9oHAfcExVqtBVR5j1rMynwqmmjHFnEzx+elKtEsuJBNd
-         kmwnqbyFlAOPkctZPagXK8DKgaVM5hfnTSW+zm0Su/Lvxuf2Wy1IgVyKPnUJuJs1aVbD
-         voZL9v5D6cbX6rDUNLKfh/grElmOn49Y2tVfyWIj6sBaVlkoQnKQDvhFbFkhgbV2QmNw
-         vuy641t07D3YM0hFUSeAOcmdTOrjumWBIQ5L3UyyhF/2SrqjKtYGEdhq2/H6LoiRj3xR
-         dfbA==
-X-Gm-Message-State: AOJu0Yw5gNfofNxoTo1XINP9FBnctCfdlcS/WTTY5kcjjxQW+pxm6Eac
-	pya9nw2L470l+4lybbIAYumGDA==
-X-Google-Smtp-Source: AGHT+IF6RgPCbKzN8I8kSLKa/jPUwsttZ5PE9pbgDJQVt6VpOvfV5RuubNVVRsDJIry7cuYVrgy90w==
-X-Received: by 2002:a5d:6d06:0:b0:32d:857c:d51c with SMTP id e6-20020a5d6d06000000b0032d857cd51cmr383345wrq.43.1699653434534;
-        Fri, 10 Nov 2023 13:57:14 -0800 (PST)
-Message-ID: <0a168232-ea32-4aa1-b270-961782fec9dc@citrix.com>
-Date: Fri, 10 Nov 2023 21:57:13 +0000
+        bh=EM6gouvi/9+cJS403KfZBLMwqeRdBs6ofp44nFKKCp0=;
+        b=vbjhWL+kB3gE8MwUSl0ZzehooGtExRzTixFFV89ukQLPkf//g7q3nFp+ffuIS3v/md
+         jhyNlrr8he+CxzLPnAhwECyljXO9F5ppMs2CZ8PYnY2asBDRXc+o2eVNCPBqhmtgma1z
+         /WRUIw7N+n+J6LThZ2777o/1WcfcxdV+1+2mV/gBQdjKwBJX27+NSlqxeFpDWd+kArXy
+         YwRPnxeZJXxcoXyOU1a1xbwZB4Q8wCZM7OaJUnPY91bxUf2edSHBJeYT79BB4VO+VmPA
+         xU4LgjObSN8CPvR7hbtwNNTbWW75Vnaj9s16i7GVwSx5v2BtROlNS8DcUJ/XBtHdCB+4
+         q9xQ==
+X-Gm-Message-State: AOJu0YwuJ5NG32sCr+Q4o3OQ47+DfCgAwIpPfZoPVecnpVVK2PZNnOOw
+	r6+KW3hN506viO0zYg08GQeyiw==
+X-Google-Smtp-Source: AGHT+IHao1u+iWBG6kN+o2PKMIdg6mpEQFFYuzL7X+93GHzjXP64yJ0JBt4E8JWqLPCP88lC4eLGRg==
+X-Received: by 2002:a05:600c:4715:b0:405:1ba2:4fcb with SMTP id v21-20020a05600c471500b004051ba24fcbmr472911wmo.16.1699654398261;
+        Fri, 10 Nov 2023 14:13:18 -0800 (PST)
+Message-ID: <a162733f-859f-41ce-8575-89b0e2cf702e@citrix.com>
+Date: Fri, 10 Nov 2023 22:13:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.18 3/3] docs/sphinx: Fix indexing
+Subject: Re: [PATCH for-4.18] docs: Delete kconfig docs to fix licensing
+ violation
 Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20231108152727.58764-1-andrew.cooper3@citrix.com>
- <20231108152727.58764-4-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2311091601420.3478774@ubuntu-linux-20-04-desktop>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20231108143751.49309-1-andrew.cooper3@citrix.com>
+ <a6f54856-f0e2-a2ef-5cbc-900ed87c5d31@suse.com>
+ <alpine.DEB.2.22.394.2311091558380.3478774@ubuntu-linux-20-04-desktop>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,47 +131,87 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2311091601420.3478774@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2311091558380.3478774@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/11/2023 12:07 am, Stefano Stabellini wrote:
-> On Wed, 8 Nov 2023, Andrew Cooper wrote:
->> diff --git a/docs/index.rst b/docs/index.rst
->> index f3f779f89ce5..22fdde80590c 100644
->> --- a/docs/index.rst
->> +++ b/docs/index.rst
->> @@ -53,17 +53,18 @@ kind of development environment.
->>     hypervisor-guide/index
->>  
->>  
->> -MISRA C coding guidelines
->> --------------------------
->> +Unsorted documents
->> +------------------
->>  
->> -MISRA C rules and directive to be used as coding guidelines when writing
->> -Xen hypervisor code.
->> +Documents in need of some rearranging.
-> I understand the need for an "Unsorted documents", but why taking away
-> "MISRA C coding guidelines" from here?
+On 09/11/2023 11:59 pm, Stefano Stabellini wrote:
+> On Thu, 9 Nov 2023, Jan Beulich wrote:
+>> On 08.11.2023 15:37, Andrew Cooper wrote:
+>>> These 3 Kconfig docs were imported from Linux erroneously.  They are
+>>> GPL-2.0-only in Linux, but have no SPDX tag and were placed in such a way to
+>>> be included by the blanket statement saying that all RST files are CC-BY-4.0.
+>>>
+>>> We should not be carrying a shadow copy of these docs.  They aren't even wired
+>>> into our Sphinx docs, and anyone wanting to refer to Kconfig docs is going to
+>>> look at the Linux docs anyway.  These, and more docs can be found at:
+>>>
+>>>   https://www.kernel.org/doc/html/latest/kbuild/
+>>>
+>>> which also have corrections vs the snapshot we took.
+>> Imo this reference ...
+>>
+>>> Fixes: f80fe2b34f08 ("xen: Update Kconfig to Linux v5.4")
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: George Dunlap <George.Dunlap@citrix.com>
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Wei Liu <wl@xen.org>
+>>> CC: Julien Grall <julien@xen.org>
+>>> CC: Henry Wang <Henry.Wang@arm.com>
+>>> ---
+>>>  docs/misc/kconfig-language.rst       | 701 ---------------------------
+>>>  docs/misc/kconfig-macro-language.rst | 247 ----------
+>>>  docs/misc/kconfig.rst                | 304 ------------
+>>>  3 files changed, 1252 deletions(-)
+>>>  delete mode 100644 docs/misc/kconfig-language.rst
+>>>  delete mode 100644 docs/misc/kconfig-macro-language.rst
+>>>  delete mode 100644 docs/misc/kconfig.rst
+>> ... wants putting into, say, the last of these three files you delete, as
+>> a replacement. I can't spot any other place where we would have such a
+>> reference.
+>>
+>> One problem I see with deleting our shadow copy is that by referring to
+>> Linux'es doc, the wrong impression may arise that whatever new features
+>> they invent we also support. Thoughts? (If nothing else, I'd expect this
+>> aspect to be mentioned / justified in the description.)
+> I think the ideal solution would be to replace the shadow copies with a
+> link to the Linux docs of a specific Linux tag (v5.4), instead of
+> generic Linux master. I am not sure where to place the links though.
 
-You can't have it both here and in index.rst without breaking the indexing.
+I don't personally think we need to keep any other reference around. 
+They're not interesting, because they're not going to be found by anyone
+except those who already know they're there, and won't need to refer to
+them for the kind of content they provide.
 
-Also because in it's current position it breaks the navbar.  MISRA is
-part of the developer guide, and what should be at the toplevel should
-be a general section on safety certification, which cross-references the
-developer guide amongst other things.  Nevertheless it will stay visible
-for now at the top level because of how the toctree.
+Kconfig isn't a fast-moving target, and there's nothing new in Linux vs
+what we've got here.  The only interesting difference between us and
+Linux is the fact we don't use modules, and we didn't even strip that
+out of the shadow copy.
 
-It's in unsorted because I have thrown the index together with the bare
-minimum effort in order to fix Sphinx errors in time for 4.18.
+We do have xen/tools/kconfig/README.source which states where it came from.
 
-This is also why I'm not changing any text.  There is 0 time between now
-and this needing fixing for the release.
-
-Someone else can find some time to polish it - which is far more work
-than just in the index - and we can backport it when its done.
+I could be persuaded to add the following hunk.  What we have isn't
+precisely v5.4 anyway - we've got some reasonable differences in the
+makefile side of things.
 
 ~Andrew
+
+diff --git a/xen/tools/kconfig/README.source
+b/xen/tools/kconfig/README.source
+index 44631f68e8..ac394106b9 100644
+--- a/xen/tools/kconfig/README.source
++++ b/xen/tools/kconfig/README.source
+@@ -5,5 +5,7 @@ in this part of the Xen source tree.
+ 
+ xen/tools/kconfig
+ -----------------
+-The kconfig directory was originally imported from the linux kernel
+-git tree at kernel/git/torvalds/linux.git, path: scripts/kconfig
++The kconfig directory was originally imported from the Linux kernel
++git tree at kernel/git/torvalds/linux.git, path: scripts/kconfig of
++roughly v5.4.  Linux's documentation can be found at:
++https://www.kernel.org/doc/html/latest/kbuild/
+
 
