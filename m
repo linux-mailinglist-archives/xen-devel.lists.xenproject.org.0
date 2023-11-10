@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDD6B7E7646
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 02:03:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629877.982416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED1F7E764F
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 02:05:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629881.982426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Fuj-0007O2-0I; Fri, 10 Nov 2023 01:02:25 +0000
+	id 1r1Fx2-0008P3-H1; Fri, 10 Nov 2023 01:04:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629877.982416; Fri, 10 Nov 2023 01:02:24 +0000
+Received: by outflank-mailman (output) from mailman id 629881.982426; Fri, 10 Nov 2023 01:04:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Fui-0007MN-Tf; Fri, 10 Nov 2023 01:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 629877;
- Fri, 10 Nov 2023 01:02:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r1Fx2-0008Mb-ER; Fri, 10 Nov 2023 01:04:48 +0000
+Received: by outflank-mailman (input) for mailman id 629881;
+ Fri, 10 Nov 2023 01:04:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0VeX=GX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r1Fuh-0007MG-3F
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 01:02:23 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb384b71-7f64-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 02:02:19 +0100 (CET)
+ id 1r1Fx0-0008K0-Cu
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 01:04:46 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2338654f-7f65-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 02:04:45 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C8EBACE13DE;
- Fri, 10 Nov 2023 01:02:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C619C433C7;
- Fri, 10 Nov 2023 01:02:12 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id E8A47B82123;
+ Fri, 10 Nov 2023 01:04:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786B8C433C7;
+ Fri, 10 Nov 2023 01:04:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,107 +41,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb384b71-7f64-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 2338654f-7f65-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699578133;
-	bh=AQwR2iAgNO1XuZyDxWP9CBNSHdaqzT7I19My5p7+CYA=;
+	s=k20201202; t=1699578283;
+	bh=35czjr1yTBqe66A9M/YH9AI2OsyExF6fa3yKsuqHN8E=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AHshLsCXvYkxSGY17hzFzGcdIhIvIjCZ0oqp/iV/9hCv3GXZCPrXKleQrn4hGEXsj
-	 GWUUwltCLmOHxv4N4A+YSNIdQa4x0cTbEDBmrVQLwQ6v9CPY3PDFtzi+9yWgP4YDTz
-	 5gsiJRO1rZsrqX1pxPHu9+zB9TDSv3oR/NTbif7do0YL/BoS/Hf966TskWzIRaqlW+
-	 +VeZa9cbBkl18CWclqC05SrNgAfxzUccKM8P+jjnmi+J+Rx6ay9dDKE3F5fjPoor7s
-	 rdi1AjmZJphbDc1+38Ehukykscby54J7sL9iSmn0mGtLMaNqvm/hZfTzWICC/G9rhZ
-	 R+VEZnm/Ek80w==
-Date: Thu, 9 Nov 2023 17:02:08 -0800 (PST)
+	b=W+KIH7CqgL2dBfMTJzn4p9LdPIoySa8HvwmD9mwkdPMcjZDsI5zO7+uke2MeRG5/K
+	 2oyzmpJOuSXRlX89V2kCYCJiULeOiHo+XlyQQiT1cp1vI2g4HZuk5PfqZbXvS1DpHW
+	 qeGsJEQkxfqQ0goowhsxxwPfWY6JIYK/r6QoXwJ9XleBY1D76zaOXW7oShmwoQNENH
+	 MybEo+45j3Gm7I4vBbIMHjfA89ln9yK+uOswZwA0F2wtxEvFDYneQMMeMvLJ3rP6H+
+	 l6QVJotc3VRuG7nGIecWo4RQUu6of4mhamZen7XcT27/u8x+hR0vm606tuqcbrRIPA
+	 t6ZhmierhEJ4w==
+Date: Thu, 9 Nov 2023 17:04:40 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] CI: Rework RISCV smoke test
-In-Reply-To: <7bffd0ff-290f-461c-a0ce-35440b36240a@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311091657150.3478774@ubuntu-linux-20-04-desktop>
-References: <20231109154922.49118-1-anthony.perard@citrix.com> <7bffd0ff-290f-461c-a0ce-35440b36240a@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, simone.ballarin@bugseng.com, 
+    consulting@bugseng.com, xen-devel@lists.xenproject.org, 
+    andrew.cooper3@citrix.com
+Subject: Re: Failing eclair-ARM64 job
+In-Reply-To: <4be3de5cecb06a9fdd09fc530d3926f0@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311091702530.3478774@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2310311443460.1795129@ubuntu-linux-20-04-desktop> <cedcc2c2dad9b0a75220d676ff6b646a@bugseng.com> <4be3de5cecb06a9fdd09fc530d3926f0@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 9 Nov 2023, Andrew Cooper wrote:
-> On 09/11/2023 3:49 pm, Anthony PERARD wrote:
-> > Currently, the test rely on QEMU and Xen finishing the boot in under
-> > two seconds. That's both very long and very short. Xen usually managed
-> > to print "All set up" under a second. Unless for some reason we try to
-> > run the test on a machine that's busy doing something else.
-> >
-> > Rework the test to exit as soon as Xen is done.
-> >
-> > There's two `tail -f`, the first one is there simply to monitor test
-> > progress in GitLab console. The second one is used to detect the test
-> > result as soon as QEMU add it to the file. Both `tail` exit as soon as
-> > QEMU exit.
-> >
-> > If QEMU fails at start, and exit early, both `tail` will simply exit,
-> > resulting in a failure.
-> >
-> > If the line we are looking for is never printed, the `timeout` on the
-> > second `tail` will force the test to exit with an error.
-> >
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+On Wed, 8 Nov 2023, Nicola Vetrini wrote:
+> On 2023-11-08 09:17, Nicola Vetrini wrote:
+> > Hi Stefano,
+> > 
+> > sorry for the late reply; see my response below.
+> > 
+> > On 2023-10-31 22:47, Stefano Stabellini wrote:
+> > > Hi Simone,
+> > > 
+> > > As you might have noticed, all the eclair-ARM64 jobs have been failing
+> > > recently for the upstream Xen "staging" branch:
+> > > 
+> > > https://gitlab.com/xen-project/xen/-/pipelines/1056527466
+> > > https://gitlab.com/xen-project/xen/-/pipelines/1056520898
+> > > 
+> > > Although eclair-ARM64 is "allow_failure: true" still is the only job
+> > > currently failing and it would be nice to get it fixed, especially as we
+> > > are about to make gitlab-ci pipelines gating.
+> > > 
+> > > Cheers,
+> > > 
+> > > Stefano
+> > 
+> > A patch that is meant to address the issue related to D4.11, which makes the
+> > Arm job always
+> > fail with a report on a clean guideline, has been submitted on the ML:
+> > 
+> > https://lore.kernel.org/xen-devel/3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com/
+> > 
 > 
-> Looks plausible, but all these qemu-smoke scripts are pretty similar,
-> and copied from one-another.
-> 
-> We should make this change consistently to all testing (there's nothing
-> RISC-V specific about why this test is failing on this runner), and it
-> would be really nice if we could try to make it a bit more common than
-> it currently is.
+> This is about the semi-random failures mentioned to Roberto in yesterday's
+> MISRA C meeting.
+> Neither me nor Simone has seem a mail sent from Andrew about such semi-random
+> failures.
 
-One idea you might like is do to the following (this was developed by
-Oleksandr).
+So you are saying there is  no problem with the ECLAIR arm64 job, it is
+just that it is failing on a false-positive violation and we already
+have a tentative fix for that currently under discussion [1]. Once we
+commit the fix, everything will pass?
 
----
-
-# Run the test
-rm -f smoke.serial
-set +e
-export qemu_cmd="./binaries/qemu-system-aarch64 \
-    -machine virtualization=true \
-    -cpu cortex-a57 -machine type=virt \
-    -m 2048 -monitor none -serial stdio \
-    -smp 2 \
-    -no-reboot \
-    -device virtio-net-pci,netdev=n0 \
-    -netdev user,id=n0,tftp=binaries \
-    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-
-export qemu_arg="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-export qemu_log="smoke.serial"
-export LOG_MSG="Run /init as init process"
-timeout -k 1 60 ./automation/scripts/qemu_key.sh
-
-### qemu_key.sh is using "expect", see below. I think we should be able
-### to achieve the same by using expect to close on the expected string
-### (instead of waiting for eof)
-
-#!/usr/bin/expect -f
-
-set timeout -1
-
-log_file -a $env(qemu_log)
-
-match_max 10000
-
-eval spawn $env(qemu_cmd)
-
-expect "=>"
-
-send "$env(qemu_arg)\r"
-
-expect "$env(LOG_MSG)\r"
-
-send "$env(XEN_CMD)\r"
-
-expect eof
+[1]
+https://lore.kernel.org/xen-devel/3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com/
 
