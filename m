@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91127E7DC6
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630609.983634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77507E7DC9
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630610.983638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPH-0005al-Sq; Fri, 10 Nov 2023 16:30:55 +0000
+	id 1r1UPI-0005fR-4v; Fri, 10 Nov 2023 16:30:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630609.983634; Fri, 10 Nov 2023 16:30:55 +0000
+Received: by outflank-mailman (output) from mailman id 630610.983638; Fri, 10 Nov 2023 16:30:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPH-0005XC-M1; Fri, 10 Nov 2023 16:30:55 +0000
-Received: by outflank-mailman (input) for mailman id 630609;
+	id 1r1UPH-0005aV-V2; Fri, 10 Nov 2023 16:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 630610;
  Fri, 10 Nov 2023 16:30:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r1UPG-0005Bj-4D
+ id 1r1UPG-0005EV-Hg
  for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:30:54 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 839d361c-7fe6-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 17:30:52 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9d2d8343dc4so376404966b.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:30:52 -0800 (PST)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84912742-7fe6-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 17:30:53 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-53e07db272cso3664726a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:30:53 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.30.50
+ lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.30.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Nov 2023 08:30:51 -0800 (PST)
+ Fri, 10 Nov 2023 08:30:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +44,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 839d361c-7fe6-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 84912742-7fe6-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699633851; x=1700238651; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1699633853; x=1700238653; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SaO7fIOpmwMvSOOVv+9GugvV3C5eIj3jBG0s6tb0akw=;
-        b=Iofty/ATYBqNhBYTGgAED+JcADJBdVzvhKT+felrbyHR4/q7ZJ2SfS6VgOAYRS2lRa
-         gRQHIJOlIu7Lqk9/GhO17Z1EXD/96HKvvc5NZMpO2iduQDEEbGIHjtqXpRlsJ7lN4qxQ
-         T3p6+k34luKfI26vf6SZqhjPe4PE/GP7nM9L0GdF0ilE9NK1G72DlPgbGOrc9ldh2bWW
-         ByFv/1LewwZoN5nnjyT+uGIbm8Wxsb0N6M+Y37p6aNzrkEpAqNsFN0ZMNVwhUITzSWOL
-         KXgj6lb9enl5mqL705Qb/C2om18+p8GCCRCoFw3zUdOeAYFYVGTxz7Afe/3DqJBLXmo9
-         gpWg==
+        bh=NvsK0oCsBDBGCpZlSufchPSLev4cFlQbwA0TUCOkL1Q=;
+        b=GshP/i/22IMRlwcgpTFKaKppSjDMgRyT3Mj3B6jal3FpXHwn8M/sHvGzPOx/dN38FJ
+         h+PmtUkLoE/8MS5XBZFHx0CwYRkfomUEhfj8Ih5kGuA5U1GMArgICZQnHZbiIcgIum/M
+         xBuRdg1mln8bc/Cm9Rfy7Odb67kiQprkLoNSgahmBm3q85noP5wfNHYYngf0eUhvYWt5
+         uKuZ27zP4paM0rAwyY/MRlgt69EN3jatU/rN3AP+VQmByX8l/mfO8KPRDGM+jf8Uw5pu
+         HOeSoarGBH1F1myrYcf2LIVW1S59FuBZeZXfWHULhZEsHT8hRWwP2u9ZwtEKUfQ6KDvy
+         5/fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699633851; x=1700238651;
+        d=1e100.net; s=20230601; t=1699633853; x=1700238653;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=SaO7fIOpmwMvSOOVv+9GugvV3C5eIj3jBG0s6tb0akw=;
-        b=RhGKCG4twhVyg1M4m/3aXPKrr4mlHox4dN4lBidQQjbfHnGebpq9/R7M1U4TzyfWlB
-         8x1oja4+mKNmrIb2fprgh6KqjApHi+M526pWqjUMS0rWnutRZ1sTKDRPcS/cPV0yNQan
-         HFsbo9LMPEIT1FAFdsxuB+A9JvvK4d84ElrUdEheXSb1RQXwkY1zjFt5KXAZkhfeKIwl
-         bTczLj0mknIfT79JEcIXfyIUIqRpf/qHBot6Jb9byhRVpeZW7iIkb5d4C/tFBlFyiJCp
-         tJPtxnGS3Yusci3aQRghj3NaWDPx48YXX3qak7EHF9B6zg0gtAM2h5fnz1JyyQ4zbq6S
-         mCCA==
-X-Gm-Message-State: AOJu0Yx98NMVZyZ6ZTmDTDkIFHq8enGHEC2EmhK32bKlAi17M0WyvIWt
-	WEWooz99MjdWnVApfuKALr8lOrxBj4U=
-X-Google-Smtp-Source: AGHT+IH+xcDPUGvhxUL7XPfTgnwH6P9VjIpFGNUdCjKDm/hmpQ/KAUx0bbQ/Uy+KxXOw+C6blQJzIg==
-X-Received: by 2002:a17:907:3ea8:b0:9a1:f10d:9746 with SMTP id hs40-20020a1709073ea800b009a1f10d9746mr7048085ejc.20.1699633851469;
-        Fri, 10 Nov 2023 08:30:51 -0800 (PST)
+        bh=NvsK0oCsBDBGCpZlSufchPSLev4cFlQbwA0TUCOkL1Q=;
+        b=G5dRlkvafZm5lRaKjo5/OxhQe+U1IOsgBf5tlHLO2mc8fpmYGrkAlDuqJM6tZNrYGr
+         0VhGcUtkn/Dcu44FgLB+kt7XragEHfUmtn/t3KFEEzXrFNfa0/PoIcZ1RDs0H2LXklG0
+         4XirafzrujDB/EdvwXqLbbriWAeRJZ76xftjIX0l9orXoxI7IM5eTsrU+6fj3GWEPv8H
+         Qflc5sTFZKxZe8vyQG2ILT58EgL9MP3umXBkAEb/A1z9Tcifslk+Ao4MtB1OVFHmKkqh
+         HTO2p7vB9eM/CZRj3AMIXbsqRBndvzG1G9AyDgPBkIosyglnzBdhPE+nKfoedFlih+9f
+         Wipw==
+X-Gm-Message-State: AOJu0YxtASXuTO/SnioOoV428NLXnzM3shx8Rvnuzobw8OrIFtSBsgBs
+	tK2Ji2j2JqW5SM6Lt5rM6tp/MIM+0OI=
+X-Google-Smtp-Source: AGHT+IGEmb3GoHn5xaJzhgOsHzqLSPOVadzTsuSxZDiBhWqg5YlCH3GYzlm7lPaVmwAcLNZonrU41A==
+X-Received: by 2002:a17:907:9287:b0:9be:6ff7:128a with SMTP id bw7-20020a170907928700b009be6ff7128amr6386296ejc.67.1699633852692;
+        Fri, 10 Nov 2023 08:30:52 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v2 01/15] xen/asm-generic: introduce stub header paging.h
-Date: Fri, 10 Nov 2023 18:30:27 +0200
-Message-ID: <c945fd8e0f92e3e325be77009a34aafcc6cc3a0a.1699633310.git.oleksii.kurochko@gmail.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 02/15] xen/asm-generic: introduce generic device.h
+Date: Fri, 10 Nov 2023 18:30:28 +0200
+Message-ID: <f006e36726ecfefe5dad3c13401365c4f7276ccd.1699633310.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch introduces generic paging.h header for Arm, PPC and
-RISC-V.
-
-All mentioned above architectures use hardware virt extensions
-and hardware pagetable extensions thereby it makes sense to set
-paging_mode_translate and paging_mode_external by default.
-
-Also in this patch Arm and PPC architectures are switched to
-generic paging.h header.
+Arm, PPC and RISC-V use the same device.h thereby device.h
+was moved to asm-generic. Arm's device.h was taken as a base with
+the following changes:
+ - #ifdef PCI related things.
+ - #ifdef ACPI related things.
+ - Rename #ifdef guards.
+ - Add SPDX tag.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V2:
-	- evaluate argument of macros
-	- covert macros to true
-	- use proper tabs
-	- switch Arm & PPC to generic paging.h
-	- update commit message
----
- xen/arch/arm/include/asm/Makefile |  1 +
- xen/arch/arm/include/asm/paging.h | 16 ----------------
- xen/arch/ppc/include/asm/Makefile |  1 +
- xen/arch/ppc/include/asm/paging.h |  7 -------
- xen/include/asm-generic/paging.h  | 19 +++++++++++++++++++
- 5 files changed, 21 insertions(+), 23 deletions(-)
- delete mode 100644 xen/arch/arm/include/asm/paging.h
- delete mode 100644 xen/arch/ppc/include/asm/paging.h
- create mode 100644 xen/include/asm-generic/paging.h
+It is still open question if device.h should be in asm-generic. Need more opinions.
 
-diff --git a/xen/arch/arm/include/asm/Makefile b/xen/arch/arm/include/asm/Makefile
-index 821addb0bf..2128bb015f 100644
---- a/xen/arch/arm/include/asm/Makefile
-+++ b/xen/arch/arm/include/asm/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- generic-y += vm_event.h
-+generic-y += paging.h
-diff --git a/xen/arch/arm/include/asm/paging.h b/xen/arch/arm/include/asm/paging.h
-deleted file mode 100644
-index 6d1a000246..0000000000
---- a/xen/arch/arm/include/asm/paging.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--#ifndef _XEN_PAGING_H
--#define _XEN_PAGING_H
--
--#define paging_mode_translate(d)              (1)
--#define paging_mode_external(d)               (1)
--
--#endif /* XEN_PAGING_H */
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
-diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
-index 821addb0bf..2128bb015f 100644
---- a/xen/arch/ppc/include/asm/Makefile
-+++ b/xen/arch/ppc/include/asm/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- generic-y += vm_event.h
-+generic-y += paging.h
-diff --git a/xen/arch/ppc/include/asm/paging.h b/xen/arch/ppc/include/asm/paging.h
-deleted file mode 100644
-index eccacece29..0000000000
---- a/xen/arch/ppc/include/asm/paging.h
-+++ /dev/null
-@@ -1,7 +0,0 @@
--#ifndef __ASM_PPC_PAGING_H__
--#define __ASM_PPC_PAGING_H__
--
--#define paging_mode_translate(d)              (1)
--#define paging_mode_external(d)               (1)
--
--#endif /* __ASM_PPC_PAGING_H__ */
-diff --git a/xen/include/asm-generic/paging.h b/xen/include/asm-generic/paging.h
+Changes in V2:
+	- take ( as common ) device.h from Arm as PPC and RISC-V use it as a base.
+	- #ifdef PCI related things.
+	- #ifdef ACPI related things.
+	- rename DEVICE_GIC to DEVIC_IC.
+	- rename #ifdef guards.
+	- switch Arm and PPC to generic device.h
+	- add SPDX tag
+	- update the commit message
+
+---
+ xen/include/asm-generic/device.h | 140 +++++++++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
+ create mode 100644 xen/include/asm-generic/device.h
+
+diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
 new file mode 100644
-index 0000000000..8df534cfdc
+index 0000000000..5478fc11ca
 --- /dev/null
-+++ b/xen/include/asm-generic/paging.h
-@@ -0,0 +1,19 @@
++++ b/xen/include/asm-generic/device.h
+@@ -0,0 +1,140 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_PAGING_H__
-+#define __ASM_GENERIC_PAGING_H__
++#ifndef __ASM_GENERIC_DEVICE_H__
++#define __ASM_GENERIC_DEVICE_H__
 +
-+#include <xen/stdbool.h>
++enum device_type
++{
++    DEV_DT,
++#ifdef HAS_PCI
++    DEV_PCI,
++#endif
++};
 +
-+#define paging_mode_translate(d)    ((void)(d), true)
-+#define paging_mode_external(d)     ((void)(d), true)
++struct dev_archdata {
++    void *iommu;    /* IOMMU private data */
++};
 +
-+#endif /* __ASM_GENERIC_PAGING_H__ */
++/* struct device - The basic device structure */
++struct device
++{
++    enum device_type type;
++#ifdef CONFIG_HAS_DEVICE_TREE
++    struct dt_device_node *of_node; /* Used by drivers imported from Linux */
++#endif
++    struct dev_archdata archdata;
++    struct iommu_fwspec *iommu_fwspec; /* per-device IOMMU instance data */
++};
++
++typedef struct device device_t;
++
++#include <xen/device_tree.h>
++
++#ifdef HAS_PCI
++#define dev_is_pci(dev) ((dev)->type == DEV_PCI)
++#endif
++
++#define dev_is_dt(dev)  ((dev)->type == DEV_DT)
++
++enum device_class
++{
++    DEVICE_SERIAL,
++    DEVICE_IOMMU,
++    DEVICE_IC,
++#ifdef HAS_PCI
++    DEVICE_PCI_HOSTBRIDGE,
++#endif
++    /* Use for error */
++    DEVICE_UNKNOWN,
++};
++
++struct device_desc {
++    /* Device name */
++    const char *name;
++    /* Device class */
++    enum device_class class;
++    /* List of devices supported by this driver */
++    const struct dt_device_match *dt_match;
++    /*
++     * Device initialization.
++     *
++     * -EAGAIN is used to indicate that device probing is deferred.
++     */
++    int (*init)(struct dt_device_node *dev, const void *data);
++};
++
++#ifdef CONFIG_ACPI
++
++struct acpi_device_desc {
++    /* Device name */
++    const char *name;
++    /* Device class */
++    enum device_class class;
++    /* type of device supported by the driver */
++    const int class_type;
++    /* Device initialization */
++    int (*init)(const void *data);
++};
++
++/**
++ *  acpi_device_init - Initialize a device
++ *  @class: class of the device (serial, network...)
++ *  @data: specific data for initializing the device
++ *
++ *  Return 0 on success.
++ */
++int acpi_device_init(enum device_class class,
++                     const void *data, int class_type);
++
++#endif /* CONFIG_ACPI */
++
++/**
++ *  device_init - Initialize a device
++ *  @dev: device to initialize
++ *  @class: class of the device (serial, network...)
++ *  @data: specific data for initializing the device
++ *
++ *  Return 0 on success.
++ */
++int device_init(struct dt_device_node *dev, enum device_class class,
++                const void *data);
++
++/**
++ * device_get_type - Get the type of the device
++ * @dev: device to match
++ *
++ * Return the device type on success or DEVICE_ANY on failure
++ */
++enum device_class device_get_class(const struct dt_device_node *dev);
++
++#define DT_DEVICE_START(_name, _namestr, _class)                    \
++static const struct device_desc __dev_desc_##_name __used           \
++__section(".dev.info") = {                                          \
++    .name = _namestr,                                               \
++    .class = _class,                                                \
++
++#define DT_DEVICE_END                                               \
++};
++
++#ifdef CONFIG_ACPI
++
++#define ACPI_DEVICE_START(_name, _namestr, _class)                    \
++static const struct acpi_device_desc __dev_desc_##_name __used           \
++__section(".adev.info") = {                       \
++    .name = _namestr,                                               \
++    .class = _class,                                                \
++
++#define ACPI_DEVICE_END                                               \
++};
++
++#endif /* CONFIG_ACPI */
++
++#endif /* __ASM_GENERIC_DEVICE_H__ */
 +
 +/*
 + * Local variables:
