@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8B97E75A9
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 01:07:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629862.982386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47B07E75F4
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 01:30:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.629869.982396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1F3h-0004r5-Qo; Fri, 10 Nov 2023 00:07:37 +0000
+	id 1r1FOq-0000si-I4; Fri, 10 Nov 2023 00:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629862.982386; Fri, 10 Nov 2023 00:07:37 +0000
+Received: by outflank-mailman (output) from mailman id 629869.982396; Fri, 10 Nov 2023 00:29:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1F3h-0004p1-NU; Fri, 10 Nov 2023 00:07:37 +0000
-Received: by outflank-mailman (input) for mailman id 629862;
- Fri, 10 Nov 2023 00:07:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r1FOq-0000qE-Ev; Fri, 10 Nov 2023 00:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 629869;
+ Fri, 10 Nov 2023 00:29:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0VeX=GX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r1F3g-0004os-5W
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 00:07:36 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24be5b62-7f5d-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 01:07:33 +0100 (CET)
+ id 1r1FOo-0000q6-IQ
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 00:29:26 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3013cab7-7f60-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 01:29:21 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8CB43CE13B3;
- Fri, 10 Nov 2023 00:07:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A54C433C8;
- Fri, 10 Nov 2023 00:07:27 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id BBFE0CE1361;
+ Fri, 10 Nov 2023 00:29:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66994C433C8;
+ Fri, 10 Nov 2023 00:29:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,145 +42,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24be5b62-7f5d-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 3013cab7-7f60-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699574848;
-	bh=N2ZUJAHJgw6jo5MqtWqtthaYbCHzuj3b0rdG86kphaM=;
+	s=k20201202; t=1699576152;
+	bh=yaUjg1nbC8QuQzNSKMnWTs4sGgS5aZkxEedxBW5MpsE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VBK+K6oxGzqaaq/33QDluHKps2M/YcqyqQwBKelBh9BlopHm0oHAmQLqCvOyYFjAs
-	 MfedRgjLi/gDbflk8KUASQqQrEXFnsq6hx2uFt+W/9htj0Estb5OIfeD+4NzuBQuSU
-	 jkUcAKa+wpAMPiq7v4gV6akKqTbIm6SRLdY/KOh2eoqzPnTQPn2FFVjjAQEsVDtAMd
-	 r+YiKUVLDzysGdU99pjf6qu1yuEQiPGs2CDClZimDxkX/CvNdb0i7T4LH2JMsHADYr
-	 akD2UZbtC4c+VYqj+8HYrl4zJS6xpYoMAPhbp8WNSqkqI97B8BTm30PKUnUhLEx5QP
-	 o43hVPNHRGT8Q==
-Date: Thu, 9 Nov 2023 16:07:25 -0800 (PST)
+	b=m0ej2oT+BG5ImC3offzq19AiOihE3JWdkozwb1yQBMECcKq0W6Gb9zt8wBDD+y/IB
+	 9ZzqFFTAyd7FL88zZkScsS+P9pXFe0B9EXKdgfzt0Qd0ECt7TBbLmPy8NQfCuMF8T0
+	 pvKmAx1+ipbFHe354AwUevGWU6mfGQ/UxQn6m+1wQfIx3xqMY+JFEKnvZf5xgv6LFS
+	 Rd56RxTxFGYtAaWVGwD8Qn7zlJUh8UfqgjY1qRNGKWgZi9Zs6B8tYEXg2qjRJN0f68
+	 NXiqpjAFtrrkVqBcJsPODV50jI2fWCLzLwduUNr3pdG83n0cIxU3H45StsceKslkxe
+	 RZmrDUDqX8lOQ==
+Date: Thu, 9 Nov 2023 16:29:06 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Julien Grall <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH for-4.18 3/3] docs/sphinx: Fix indexing
-In-Reply-To: <20231108152727.58764-4-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311091601420.3478774@ubuntu-linux-20-04-desktop>
-References: <20231108152727.58764-1-andrew.cooper3@citrix.com> <20231108152727.58764-4-andrew.cooper3@citrix.com>
+To: Julien Grall <julien@xen.org>
+cc: Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+    xen-devel@lists.xenproject.org, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
+ tools
+In-Reply-To: <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2311091614010.3478774@ubuntu-linux-20-04-desktop>
+References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com> <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com> <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com> <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
+ <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org> <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com> <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 8 Nov 2023, Andrew Cooper wrote:
-> sphinx-build reports:
+On Thu, 9 Nov 2023, Julien Grall wrote:
+> On 09/11/2023 07:42, Jan Beulich wrote:
+> > On 08.11.2023 14:33, Julien Grall wrote:
+> > > Hi Jan,
+> > > 
+> > > On 08/11/2023 11:19, Jan Beulich wrote:
+> > > > On 08.11.2023 12:03, Nicola Vetrini wrote:
+> > > > > On 2023-11-08 09:24, Jan Beulich wrote:
+> > > > > > On 03.11.2023 18:58, Nicola Vetrini wrote:
+> > > > > > > Static analysis tools may detect a possible null
+> > > > > > > pointer dereference at line 760 (the memcpy call)
+> > > > > > > of xen/common/domain.c. This ASSERT helps them in
+> > > > > > > detecting that such a condition is not possible
+> > > > > > > and also provides a basic sanity check.
+> > > > > > 
+> > > > > > I disagree with this being a possible justification for adding such
+> > > > > > a
+> > > > > > redundant assertion. More detail is needed on what is actually
+> > > > > > (suspected to be) confusing the tool. Plus it also needs explaining
+> > > > > > why (a) adding such an assertion helps and (b) how that's going to
+> > > > > > cover release builds.
+> > > > > > 
+> > > > > 
+> > > > > How about:
+> > > > > "Static analysis tools may detect a possible null pointer dereference
+> > > > > at line 760 (config->handle) due to config possibly being NULL.
+> > > > > 
+> > > > > However, given that all system domains, including IDLE, have a NULL
+> > > > > config and in the code path leading to the assertion only real domains
+> > > > > (which have a non-NULL config) can be present."
+> > > > > 
+> > > > > On point b): this finding is a false positive, therefore even if the
+> > > > > ASSERT is
+> > > > > expanded to effectively a no-op, there is no inherent problem with
+> > > > > Xen's
+> > > > > code.
+> > > > > The context in which the patch was suggested [1] hinted at avoiding
+> > > > > inserting in
+> > > > > the codebase false positive comments.
+> > > > 
+> > > > Which I largely agree with. What I don't agree with is adding an
+> > > > assertion which is only papering over the issue, and only in debug
+> > > > builds.
+> > > 
+> > > I expect that the number of issues will increase a lot as soon as we
+> > > start to analyze production builds.
+> > > 
+> > > I don't think it will be a solution to either replace all the ASSERT()
+> > > with runtime check in all configuration or even...
+> > > 
+> > > > So perhaps instead we need a different way of tracking
+> > > > false positives (which need to be tied to specific checker versions
+> > > > anyway).
+> > > 
+> > > ... documenting false positive.
+> > > 
+> > > IMHO, the only viable option would be to have a configuration to keep
+> > > ASSERT in production build for scanning tools.
+> > 
+> > But wouldn't that then likely mean scanning to be done on builds not also
+> > used in production? Would doing so even be permitted when certification
+> > is a requirement? Or do you expect such production builds to be used with
+> > the assertions left in place (increasing the risk of a crash; recall that
+> > assertions themselves may also be wrong, and hence one triggering in rare
+> > cases may not really be a reason to bring down the system)?
 > 
->   docs/designs/launch/hyperlaunch.rst: WARNING: document isn't included in any toctree
->   docs/designs/launch/hyperlaunch-devicetree.rst: WARNING: document isn't included in any toctree
->   docs/misc/xen-makefiles/makefiles.rst: WARNING: document isn't included in any toctree
->   docs/misra/C-language-toolchain.rst: WARNING: document isn't included in any toctree
->   docs/misra/C-runtime-failures.rst: WARNING: document isn't included in any toctree
->   docs/misra/documenting-violations.rst: WARNING: document isn't included in any toctree
->   docs/misra/exclude-list.rst: WARNING: document isn't included in any toctree
->   docs/misra/xen-static-analysis.rst: WARNING: document isn't included in any toctree
-> 
-> Create an up-to-date index.rst in misra/ create an "unsorted docs" section at
-> the top level to contain everything else.  They can be re-filed at a later
-> date.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> ---
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Henry Wang <Henry.Wang@arm.com>
-> ---
->  docs/index.rst       | 13 +++++++------
->  docs/misra/index.rst | 18 ++++++++++++++++++
->  2 files changed, 25 insertions(+), 6 deletions(-)
->  create mode 100644 docs/misra/index.rst
-> 
-> diff --git a/docs/index.rst b/docs/index.rst
-> index f3f779f89ce5..22fdde80590c 100644
-> --- a/docs/index.rst
-> +++ b/docs/index.rst
-> @@ -53,17 +53,18 @@ kind of development environment.
->     hypervisor-guide/index
->  
->  
-> -MISRA C coding guidelines
-> --------------------------
-> +Unsorted documents
-> +------------------
->  
-> -MISRA C rules and directive to be used as coding guidelines when writing
-> -Xen hypervisor code.
-> +Documents in need of some rearranging.
+> I will leave Stefano/Nicola to answer from the certification perspective. But
+> I don't really see how we could get away unless we replace most of the
+> ASSERT() with proper runtime check (which may not be desirable for ASSERT()s
+> like this one).
 
-I understand the need for an "Unsorted documents", but why taking away
-"MISRA C coding guidelines" from here? Wouldn't we want:
+For sure we don't want to replace ASSERTs with runtime checks.
 
+Nicola, do we really need the ASSERT to be implemented as a check, or
+would the presence of the ASSERT alone suffice as a tag, the same way we
+would be using /* SAF-xx-safe */ or asmlinkage?
 
-Unsorted documents
-------------------
+If we only need ASSERT as a deviation tag, then production builds vs.
+debug build doesn't matter.
 
-designs/launch/hyperlaunch
-designs/launch/hyperlaunch-devicetree
-misc/xen-makefiles/makefiles
+If ECLAIR actually needs ASSERT to be implemented as a check, could we
+have a special #define to define ASSERT in a special way for static
+analysis tools in production builds? For instance:
 
+#ifdef STATIC_ANALYSIS
+#define ASSERT(p) \
+    do { if ( unlikely(!(p)) ) printk("ASSERT triggered %s:%d", __file__,__LINE__); } while (0)
+#endif
 
-MISRA C coding guidelines
--------------------------
-
-MISRA C rules and directive to be used as coding guidelines when writing
-Xen hypervisor code and related files.
-
-misra/index
-
-
->  .. toctree::
->     :maxdepth: 2
->  
-> -   misra/rules
-> -   misra/deviations
-> +   designs/launch/hyperlaunch
-> +   designs/launch/hyperlaunch-devicetree
-> +   misc/xen-makefiles/makefiles
-> +   misra/index
->  
->  
->  Miscellanea
-> diff --git a/docs/misra/index.rst b/docs/misra/index.rst
-> new file mode 100644
-> index 000000000000..c59730c46d88
-> --- /dev/null
-> +++ b/docs/misra/index.rst
-> @@ -0,0 +1,18 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +MISRA C coding guidelines
-> +=========================
-> +
-> +MISRA C rules and directive to be used as coding guidelines when writing
-> +Xen hypervisor code.
-
-This is fine. I would expand it a bit appending "and related documents":
-
-MISRA C rules and directive to be used as coding guidelines when writing
-Xen hypervisor code and related documents.
-
-
-> +.. toctree::
-> +   :maxdepth: 2
-> +
-> +   rules
-> +   deviations
-> +   C-language-toolchain
-> +   C-runtime-failures
-> +   documenting-violations
-> +   exclude-list
-> +   xen-static-analysis
-> -- 
-> 2.30.2
-> 
+Nicola, would that be enough?
 
