@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F1A67E7DD4
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630623.983761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E627E7DE9
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:55:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630679.983782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPZ-0001Ec-Mh; Fri, 10 Nov 2023 16:31:13 +0000
+	id 1r1UmC-0004uk-1w; Fri, 10 Nov 2023 16:54:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630623.983761; Fri, 10 Nov 2023 16:31:13 +0000
+Received: by outflank-mailman (output) from mailman id 630679.983782; Fri, 10 Nov 2023 16:54:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPZ-00011O-3N; Fri, 10 Nov 2023 16:31:13 +0000
-Received: by outflank-mailman (input) for mailman id 630623;
- Fri, 10 Nov 2023 16:31:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1UmB-0004sS-VX; Fri, 10 Nov 2023 16:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 630679;
+ Fri, 10 Nov 2023 16:54:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r1UPV-0005EV-Dj
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:31:09 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c5d989b-7fe6-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 17:31:07 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-9d2e7726d5bso358955666b.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:31:07 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.31.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Nov 2023 08:31:06 -0800 (PST)
+ <SRS0=rc0j=GX=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1r1UmA-0004r9-8V
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:54:34 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d1c5b749-7fe9-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 17:54:32 +0100 (CET)
+Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
+ [93.36.216.194])
+ by support.bugseng.com (Postfix) with ESMTPSA id 5F25F4EE073A;
+ Fri, 10 Nov 2023 17:54:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +40,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c5d989b-7fe6-11ee-98da-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699633866; x=1700238666; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SHzno6h9uBFGxGvjhFAjFnqQB/yf8OhaKSIoS/xZWz0=;
-        b=nCxnm7Be9I+eYWPZ5Vnhf6sOUXo8jlWhBwSV+mkqMY8WE54bjvOw7vZ0V68mucGaXw
-         Y77CgULLv1e0+NwgH/DlV3+Xs/QiMPpqUFNK0Lwlmya/Hlf54XwPnyvRdPhEDYlxmgGS
-         TFSk5EIEMYYfpF/fOqseMEToM4cK9JfsKwkQJmVFs8nr7zfzCGKZhapc6K6RGV8diOlq
-         gMJlmpQTquE3VGB2xztPBJpFSHOVarPR50BNWqa9fZzyR6WBVEzMcIQuqoqd3jBdzlBy
-         2lCu1nRWZwkiq9e3+pNUJSTAYufoX9zFv0rgTdkwsR73f/6kJ4DR90eX2cDicXdZE1z4
-         uKBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699633866; x=1700238666;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SHzno6h9uBFGxGvjhFAjFnqQB/yf8OhaKSIoS/xZWz0=;
-        b=dUyrQbxVq25118mojwMko0SRSBwgmCJgtx3AkvhaSVY1yFA7PBKG+6bfIPVEdvkZ8X
-         ERpsge/2VJ70A1G7Jn017yNkNeq20D476H93FwGfD5kYrMAtvlH0IyrXG1xbVlteB562
-         meO2sLYgg0n+2Mz8panXW9OSU6xN8xXcmAn3KiFor/3Psrfj7Stj/na9GVpxfmNoTvA3
-         D/fjIE60I+18W7UGnj5WvXQKS3YUJHJ8rAeQdDsmFYztfvtgMiwmfqFljVEskLI8Dagi
-         sehezwVuIHYpPg4KKFOxuOdWFoP9To76YAa+P/udB3Sc7lG0t80QCM/YJZa8BMpwjgI1
-         BWUg==
-X-Gm-Message-State: AOJu0YwE46Co5yhBAnJQ1dx8LJRVHhGdEqlXchyI5uZjDjaFcVse/KUT
-	z08eCXrUb664jClzy4BzDb78GrVOlyU=
-X-Google-Smtp-Source: AGHT+IG6L4ccTy35MbMPwMCMhtXb1QDKZ5Xsp9/zU8x68WGzI1cDUSAZZ7ndinthPI3J5QUO4b3eYg==
-X-Received: by 2002:a17:907:268c:b0:9bd:d7bd:1a52 with SMTP id bn12-20020a170907268c00b009bdd7bd1a52mr6805165ejc.20.1699633866276;
-        Fri, 10 Nov 2023 08:31:06 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 15/15] xen/asm-generic: introduce stub header softirq.h
-Date: Fri, 10 Nov 2023 18:30:41 +0200
-Message-ID: <4eec527706ddeaa91ba1dbb6da723ad3e21c067c.1699633310.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1699633310.git.oleksii.kurochko@gmail.com>
-References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
+X-Inumbo-ID: d1c5b749-7fe9-11ee-9b0e-b553b5be7939
+Message-ID: <1d1baf90-d21f-49b0-91c1-219653aa99ee@bugseng.com>
+Date: Fri, 10 Nov 2023 17:54:23 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] automation/eclair: add a deviation for MISRA C:2012
+ Rule 8.6
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <4de6c01f8af987750e578b3d5733dcd4ca536a9b.1699615143.git.federico.serafini@bugseng.com>
+ <bd82d5d8-5bff-cbfa-2014-8be866892a8e@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <bd82d5d8-5bff-cbfa-2014-8be866892a8e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-<asm/softirq.h> is common between Arm, PPC and RISC-V so it is
-moved to asm-generic.
+On 10/11/23 13:41, Jan Beulich wrote:
+> On 10.11.2023 12:23, Federico Serafini wrote:
+>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> @@ -214,6 +214,15 @@ definition is compiled-out or optimized-out by the compiler)"
+>>   -config=MC3R1.R8.6,reports+={deliberate, "first_area(^.*has no definition$)"}
+>>   -doc_end
+>>   
+>> +-doc_begin="For functions memcpy(), memmove() and memset(), if there are
+>> +multiple definitions, those belong to different archives and the behavior of
+>> +linking is well defined by the toolchain: only one of the definitions will be
+>> +linked in (the first that is encountered searching the archives in the order
+>> +they appear on the command line)."
+>> +-config=MC3R1.R8.6,declarations+={deliberate, "name(memcpy||memmove||memset)"}
+>> +-doc_end
+> 
+> Why would this be limited to mem*()? Anything put into lib.a is going to
+> be treated like that.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in V2:
-    - update the commit message.
----
- xen/include/asm-generic/softirq.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
- create mode 100644 xen/include/asm-generic/softirq.h
+If one day another arch-specific definition for a function will be
+introduced, a violation will appear but that is not necessarily a bad
+thing because it will lead to another check of the compilation scripts
+to ensure objects and archives are linked in the right order.
+However, if in your opinion this will be a waste of time,
+I can propose another deviation based on "xen/lib/*".
 
-diff --git a/xen/include/asm-generic/softirq.h b/xen/include/asm-generic/softirq.h
-new file mode 100644
-index 0000000000..83be855e50
---- /dev/null
-+++ b/xen/include/asm-generic/softirq.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_SOFTIRQ_H__
-+#define __ASM_GENERIC_SOFTIRQ_H__
-+
-+#define NR_ARCH_SOFTIRQS       0
-+
-+#define arch_skip_send_event_check(cpu) 0
-+
-+#endif /* __ASM_GENERIC_SOFTIRQ_H__ */
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+
+> The description also isn't quite accurate: Per-arch mem*() won't be put
+> in archives, but in .o files. Those are always linked in. Anything not
+> otherwise resolved may then be resolved by picking objects from
+> archives (appearing later on the command line, unless specially grouped).
+
+What do you think of the following as justification:
+
+The search procedure for Unix linkers is well defined, see ld(1) manual:
+"The linker will search an archive only once, at the location where it
+is specified on the command line. If the archive defines a symbol which
+was undefined in some object which appeared before the archive on the
+command line, the linker will include the appropriate file(s) from the
+archive."
+In Xen, thanks to the order in which file names appear in the build
+commands, if arch-specific definitions are present, they get always 
+linked in before searching in the lib.a archive resulting from
+"xen/lib".
+
 -- 
-2.41.0
+Federico Serafini, M.Sc.
 
+Software Engineer, BUGSENG (http://bugseng.com)
 
