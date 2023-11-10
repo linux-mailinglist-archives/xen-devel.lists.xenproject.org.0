@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08CEA7E7DC4
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:30:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630605.983613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022F47E7DC5
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630608.983622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UOd-0004gY-8H; Fri, 10 Nov 2023 16:30:15 +0000
+	id 1r1UPF-0005Ji-Fx; Fri, 10 Nov 2023 16:30:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630605.983613; Fri, 10 Nov 2023 16:30:15 +0000
+Received: by outflank-mailman (output) from mailman id 630608.983622; Fri, 10 Nov 2023 16:30:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UOd-0004e8-5C; Fri, 10 Nov 2023 16:30:15 +0000
-Received: by outflank-mailman (input) for mailman id 630605;
- Fri, 10 Nov 2023 16:30:14 +0000
+	id 1r1UPF-0005HT-DJ; Fri, 10 Nov 2023 16:30:53 +0000
+Received: by outflank-mailman (input) for mailman id 630608;
+ Fri, 10 Nov 2023 16:30:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EgQD=GX=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1r1UOc-0004cj-2j
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:30:14 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1r1UPE-0005EV-1P
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:30:52 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6bcf49b1-7fe6-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 17:30:12 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 25C624EE073A;
- Fri, 10 Nov 2023 17:30:12 +0100 (CET)
+ id 830ce735-7fe6-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 17:30:51 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-9e2838bcb5eso369255966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:30:51 -0800 (PST)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.30.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Nov 2023 08:30:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,106 +44,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bcf49b1-7fe6-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 830ce735-7fe6-11ee-98da-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699633850; x=1700238650; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W9FUlYTNGUJY7rnLYdqeUmdVNvJtTbD8WO5gr2xaGSc=;
+        b=QYJrbMwmwjsrInY9dgd1PpinACVeNC9k6V3kLbZrUZnAHDHL46SdbXKsoTt1BGLO49
+         wX6F2fCd+YVfkVBoy0Jo1TIY2lWt7VImiuWaoRxBU6AFLydlTjxW65liPVx0AAoM5Ldg
+         8xKO6XaVHSsTQ2zdRvdlAvlSchX71yIpqPKXHqLFtqCmp76RntfB/gMsRueckRVuWGus
+         4xEa4S2GYYWIQ/qaL/oUYBI9GRDovFU02lYTeHpfzs1leRfdSzMHYaQeC/ImWNn4rSZi
+         5y7yuWusSne+Gu2WApBtE0z0Bpi2kgb2HY5dJ7YemWc6KJwJouLknQxjZcVj1TFrT//s
+         +14Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699633850; x=1700238650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W9FUlYTNGUJY7rnLYdqeUmdVNvJtTbD8WO5gr2xaGSc=;
+        b=S39lJD8MyP+G9Kd02B41pkhLJFhGf62EuNXULXz9fo6q/0QbwSWiGc/5zekR00TGNE
+         hWrZjJeEwLYhWEs664ro0PKuKG+Jq6RoxV/AHrDxtuZUku1SXBPIH4WYU4hU2tfw+lR9
+         e/mWzicu0eYD5NrX5QVNmp5CCvExjUaGxzEzmSE0eC8jnug/IS8sePX9FKLkjyRq44fj
+         8jTg1gbpDKvbM6t5B3WoXXSqaA4+pg5ZiBA+AD0EwdR9jQPsH51YwzgH7x7dO0+9Tz5a
+         lyGPfl0wGzbNr+rmK21gZC7/07COA44xP5zDmnIFwcQ4kyHCBNqjDhOCPnZde2hpOhZ2
+         N+Hg==
+X-Gm-Message-State: AOJu0Yz66yAqqe9RTb4V4+jjGJsv6GlXkErUQNds9uyHUU6V9unebqkT
+	+gH7WsZgGo6Bet1zcD+Qf8j2KcBuEhs=
+X-Google-Smtp-Source: AGHT+IEONU0pR8QMc5PER+93O4A1esnwf19CtIkqGWIu0VtPP22bY/fO+CxurUWy6VS0dlm4EeTFMw==
+X-Received: by 2002:a17:906:dc90:b0:9a1:bd33:4389 with SMTP id cs16-20020a170906dc9000b009a1bd334389mr7527950ejc.74.1699633850288;
+        Fri, 10 Nov 2023 08:30:50 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH v2 00/15] Introduce generic headers
+Date: Fri, 10 Nov 2023 18:30:26 +0200
+Message-ID: <cover.1699633310.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Date: Fri, 10 Nov 2023 17:30:12 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>, Jbeulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Andrew Cooper3
- <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
- <jbeulich@suse.com>, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
- tools
-In-Reply-To: <cffef994-1cba-4ce2-acb5-96e0ddd61064@xen.org>
-References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com>
- <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com>
- <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com>
- <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
- <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org>
- <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
- <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
- <alpine.DEB.2.22.394.2311091614010.3478774@ubuntu-linux-20-04-desktop>
- <cffef994-1cba-4ce2-acb5-96e0ddd61064@xen.org>
-Message-ID: <0ad97e9ff3d703f56b24393e327cac84@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi everyone,
+Some headers are common between several architectures, so the current patch series
+provide them.
 
-I trimmed the thread a bit, to make this more readable.
+Another one reason to have them as generic is a simplification of adding support
+necessary to make a complete Xen build as it was/is being done in the patch series [1]
+and [2].
 
->>>>> IMHO, the only viable option would be to have a configuration to 
->>>>> keep
->>>>> ASSERT in production build for scanning tools.
->>>> 
->>>> But wouldn't that then likely mean scanning to be done on builds not 
->>>> also
->>>> used in production? Would doing so even be permitted when 
->>>> certification
->>>> is a requirement? Or do you expect such production builds to be used 
->>>> with
->>>> the assertions left in place (increasing the risk of a crash; recall 
->>>> that
->>>> assertions themselves may also be wrong, and hence one triggering in 
->>>> rare
->>>> cases may not really be a reason to bring down the system)?
->>> 
->>> I will leave Stefano/Nicola to answer from the certification 
->>> perspective. But
->>> I don't really see how we could get away unless we replace most of 
->>> the
->>> ASSERT() with proper runtime check (which may not be desirable for 
->>> ASSERT()s
->>> like this one).
->> 
->> For sure we don't want to replace ASSERTs with runtime checks.
->> 
->> Nicola, do we really need the ASSERT to be implemented as a check, or
->> would the presence of the ASSERT alone suffice as a tag, the same way 
->> we
->> would be using /* SAF-xx-safe */ or asmlinkage?
->> 
->> If we only need ASSERT as a deviation tag, then production builds vs.
->> debug build doesn't matter.
->> 
->> If ECLAIR actually needs ASSERT to be implemented as a check, could we
->> have a special #define to define ASSERT in a special way for static
->> analysis tools in production builds? For instance:
->> 
->> #ifdef STATIC_ANALYSIS
->> #define ASSERT(p) \
->>      do { if ( unlikely(!(p)) ) printk("ASSERT triggered %s:%d", 
->> __file__,__LINE__); } while (0)
->> #endif
-> 
-> Just to make 100% clear, you are saying that assessor will be happy if 
-> we analyze it with ASSERT enabled but in production we use it wout them 
-> enabled? The assumption here is that they should have *never* been 
-> triggered so they surely should not happen in production.
-> 
-> Cheers,
+Also, instead of providing generic/stub headers, it was used
+"#ifdef CONFIG_* #include <asm/*.h> #endif" instead of providing empty headers.
 
-First of all, Andrew is experimenting with an alternate solution, so we 
-should wait making
-any decision here until he can share the outcome of his findings.
-However, from a certification perspective, the fact that the codebase is 
-tested with
-asserts enabled is a strong enough claim for a justification to be based 
-on an assertion;
-the code path just needs to be exercised by the tests.
-Getting into the business of how to define asserts for static analysis 
-is likely to
-just cause more trouble.
+Some headers are still arguable if they should be in asm-generic, and it wasn't a response so
+I decided to leave headers for now and made some updates for them.
+
+Some patches related to delay.h, pci.h and xenoprof.h were sent as separate patches: [3], [4]
+and [5].
+
+[1] https://lore.kernel.org/xen-devel/cover.1694543103.git.sanastasio@raptorengineering.com/
+[2] https://lore.kernel.org/xen-devel/cover.1692181079.git.oleksii.kurochko@gmail.com/
+[3] https://lore.kernel.org/xen-devel/3d55bce44bd6ab9973cbe0ea2fc136cc44d35df2.1698759633.git.oleksii.kurochko@gmail.com/
+[4] https://lore.kernel.org/xen-devel/314745757996935d8b2ae9919410c1abc0c86ce9.camel@gmail.com/T/#t
+[5] https://gitlab.com/xen-project/xen/-/commit/ad193a79c25ae24f1de5f37900e1da74ab48e8bd
+
+---
+Changes in V2:
+ - Update the commit message of the cover letter.
+ - Drop the following patches because they are arch-specific or was sent as a separate patch:
+   - xen/asm-generic: introduce stub header event.h
+	 - xen/asm-generic: introduce stub header spinlock.h
+	 - [PATCH v1 03/29] xen/asm-generic: introduce stub header cpufeature.h
+	 - [PATCH v1 07/29] xen/asm-generic: introduce stub header guest_atomics.h
+	 - [PATCH v1 10/29] xen/asm-generic: introduce stub header iommu.h
+	 - [PATCH v1 12/29] xen/asm-generic: introduce stub header pci.h because separate patch was sent [5]
+	 - [PATCH v1 14/29] xen/asm-generic: introduce stub header setup.h
+	 - [PATCH v1 15/29] xen/asm-generic: introduce stub header xenoprof.h because of [3].
+	 - [PATCH v1 16/29] xen/asm-generic: introduce stub header flushtlb.h
+	 - [PATCH v1 22/29] xen/asm-generic: introduce stub header delay.h because of [3]
+	 - [PATCH v1 23/29] xen/asm-generic: introduce stub header domain.h
+	 - [PATCH v1 24/29] xen/asm-generic: introduce stub header guest_access.h
+	 - [PATCH v1 25/29] xen/asm-generic: introduce stub header irq.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
+	 - [PATCH v1 28/29] xen/asm-generic: introduce stub header p2m.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
+ - For the rest of the patches please look at changes for each patch separately.
+
+Oleksii Kurochko (15):
+  xen/asm-generic: introduce stub header paging.h
+  xen/asm-generic: introduce generic device.h
+  xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
+  xen/asm-generic: introduce generic hypercall.h
+  xen/asm-generic: introduce generic header iocap.h
+  xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+  xen/asm-generic: introduce stub header <asm/random.h>
+  xen/asm-generic: introduce generic header percpu.h
+  xen/asm-generic: introduce generic header smp.h
+  xen/asm-generic: introduce generalized hardirq.h
+  xen/asm-generic: introduce generic div64.h header
+  xen/asm-generic: introduce generic header altp2m.h
+  xen/asm-generic: introduce stub header monitor.h
+  xen/asm-generic: introduce stub header numa.h
+  xen/asm-generic: introduce stub header softirq.h
+
+ xen/arch/arm/include/asm/Makefile   |   1 +
+ xen/arch/arm/include/asm/paging.h   |  16 ----
+ xen/arch/ppc/include/asm/Makefile   |   1 +
+ xen/arch/ppc/include/asm/paging.h   |   7 --
+ xen/include/asm-generic/altp2m.h    |  34 +++++++
+ xen/include/asm-generic/device.h    | 140 ++++++++++++++++++++++++++++
+ xen/include/asm-generic/div64.h     |  27 ++++++
+ xen/include/asm-generic/hardirq.h   |  29 ++++++
+ xen/include/asm-generic/hypercall.h |  18 ++++
+ xen/include/asm-generic/iocap.h     |  17 ++++
+ xen/include/asm-generic/monitor.h   |  62 ++++++++++++
+ xen/include/asm-generic/numa.h      |  40 ++++++++
+ xen/include/asm-generic/paging.h    |  19 ++++
+ xen/include/asm-generic/percpu.h    |  35 +++++++
+ xen/include/asm-generic/random.h    |  20 ++++
+ xen/include/asm-generic/smp.h       |  28 ++++++
+ xen/include/asm-generic/softirq.h   |  17 ++++
+ xen/include/xen/grant_table.h       |   3 +
+ xen/include/xen/mem_access.h        |   2 +
+ 19 files changed, 493 insertions(+), 23 deletions(-)
+ delete mode 100644 xen/arch/arm/include/asm/paging.h
+ delete mode 100644 xen/arch/ppc/include/asm/paging.h
+ create mode 100644 xen/include/asm-generic/altp2m.h
+ create mode 100644 xen/include/asm-generic/device.h
+ create mode 100644 xen/include/asm-generic/div64.h
+ create mode 100644 xen/include/asm-generic/hardirq.h
+ create mode 100644 xen/include/asm-generic/hypercall.h
+ create mode 100644 xen/include/asm-generic/iocap.h
+ create mode 100644 xen/include/asm-generic/monitor.h
+ create mode 100644 xen/include/asm-generic/numa.h
+ create mode 100644 xen/include/asm-generic/paging.h
+ create mode 100644 xen/include/asm-generic/percpu.h
+ create mode 100644 xen/include/asm-generic/random.h
+ create mode 100644 xen/include/asm-generic/smp.h
+ create mode 100644 xen/include/asm-generic/softirq.h
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.41.0
+
 
