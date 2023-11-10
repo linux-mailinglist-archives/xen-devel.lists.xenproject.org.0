@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE59C7E7AB9
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:23:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630007.982626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED467E7AD4
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:29:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630015.982646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1NjB-0007J3-9i; Fri, 10 Nov 2023 09:23:01 +0000
+	id 1r1Nom-000185-7R; Fri, 10 Nov 2023 09:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630007.982626; Fri, 10 Nov 2023 09:23:01 +0000
+Received: by outflank-mailman (output) from mailman id 630015.982646; Fri, 10 Nov 2023 09:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1NjB-0007GQ-5m; Fri, 10 Nov 2023 09:23:01 +0000
-Received: by outflank-mailman (input) for mailman id 630007;
- Fri, 10 Nov 2023 09:22:59 +0000
+	id 1r1Nom-00015G-4c; Fri, 10 Nov 2023 09:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 630015;
+ Fri, 10 Nov 2023 09:28:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MXa0=GX=casper.srs.infradead.org=BATV+29e7849af3f7cdd1dde9+7383+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r1Nj9-0007GI-Jw
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:22:59 +0000
+ id 1r1Nok-00014x-2y
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:28:46 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc92cc5b-7faa-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 10:22:58 +0100 (CET)
+ id 8b2fa2e5-7fab-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 10:28:45 +0100 (CET)
 Received: from [2001:8b0:10b:5:18d3:34d5:5849:7b74]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r1NhT-00CYyi-2F; Fri, 10 Nov 2023 09:21:15 +0000
+ id 1r1NnY-00CbTG-GE; Fri, 10 Nov 2023 09:27:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,23 +41,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc92cc5b-7faa-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 8b2fa2e5-7fab-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PVOJKFJlFu0ZtmCzArIbpoDlvkbx60MTRGoiIX110N0=; b=r4v/VdEjY28CTfHKcV0pLAIk2q
-	BgpvCiBAk5Tax5InPgSPnwlZouNygZGcusmtkRx79MqrGIWlQtPMf3Wwp2cSm4tE4RPSh8680vuEg
-	EIZ/STIhdv1F+ApEpT62UYh0oqyLVuey/aoYC9xGDw7gSZGn05NBMP3jAWb52ttsCXTo0AEBh16IP
-	N9YlMYOD73OgYHKhvB33iwqlOgttTmxbdVMzRb6jzQriSe5Agh8KMwczOMarbstRxOUWN1eIdh+w9
-	iy3QPUBHefF1xaYjM5CtbytY9bToYKpQDGnOMGsB3QP4BrGh5bOrexsMPTjHyKaeb87AtsJt6/BRi
-	NQjEcXFg==;
-Message-ID: <1899e499bbcfce96640296dd6f88643900e78ce3.camel@infradead.org>
-Subject: Re: [PATCH for-8.3 v2 04/46] hw/pci: add pci_init_nic_devices(),
- pci_init_nic_in_slot()
+	bh=oO9LT3DPNTa4fkoiugIprfdxPX0wXCW4JpFpWpowqbI=; b=luy+1wfXgEor99SuHzUEZO6CAS
+	I1JYZ4rzm6Fp4oXEoecPhckhi6m5rcN+/69GmG2uY4vEKt3sQGLFVfcpkaCzoaWunxtaIYcwZslmp
+	gcDV4rBotUyXhUIwsFOYEE58eyErrwTpSCGbuQb6S4+UqVkRYKXiRSZFsXPoGIm6jJmZMOj013lXn
+	nltEF9q0B/m8YA7o30yy0SVFwLLRCm8dw8c+88Y2YZ/qPKjW2OuaNFIiyr8vTa7zu0KILxzUVNx5o
+	6Q3F+tueA1beApIZyv64zLTTKwdiolCXrjC41WwOZsjffXrzOU6KLVuWM6XfrlSQZWxE4Z1HlXeQm
+	dl6GNp5A==;
+Message-ID: <941df87a4a1173c3498343d84d13a1d82aefd3a0.camel@infradead.org>
+Subject: Re: [PATCH for-8.3 v2 05/46] hw/i386/pc: use qemu_get_nic_info()
+ and pci_init_nic_devices()
 From: David Woodhouse <dwmw2@infradead.org>
 To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
-	qemu-devel@nongnu.org
+ qemu-devel@nongnu.org, Bernhard Beschow <shentey@gmail.com>, Markus
+ Armbruster <armbru@redhat.com>
 Cc: Richard Henderson <richard.henderson@linaro.org>, Beniamino Galvani
  <b.galvani@gmail.com>, Peter Maydell <peter.maydell@linaro.org>, Strahinja
  Jankovic <strahinja.p.jankovic@gmail.com>, Niek Linnenbank
@@ -94,65 +95,123 @@ Cc: Richard Henderson <richard.henderson@linaro.org>, Beniamino Galvani
  <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Max Filippov
  <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org, qemu-ppc@nongnu.org, 
  qemu-riscv@nongnu.org, qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org
-Date: Fri, 10 Nov 2023 09:21:14 +0000
-In-Reply-To: <464bf22d-e9c0-44bf-8d78-4e64eb57c8c1@linaro.org>
+Date: Fri, 10 Nov 2023 09:27:31 +0000
+In-Reply-To: <34e2c0c6-4e04-486a-8e1f-4afdc461a5d4@linaro.org>
 References: <20231106195352.301038-1-dwmw2@infradead.org>
-	 <20231106195352.301038-5-dwmw2@infradead.org>
-	 <464bf22d-e9c0-44bf-8d78-4e64eb57c8c1@linaro.org>
+	 <20231106195352.301038-6-dwmw2@infradead.org>
+	 <34e2c0c6-4e04-486a-8e1f-4afdc461a5d4@linaro.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-jF7GAC0DLUuHciBsiF80"
+	boundary="=-PA5ixZaqSq1wPm2X84kJ"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-jF7GAC0DLUuHciBsiF80
+--=-PA5ixZaqSq1wPm2X84kJ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2023-11-10 at 08:31 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
+On Fri, 2023-11-10 at 08:40 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
+> Hi David,
 >=20
-> > +=C2=A0=C2=A0=C2=A0 pci_dev =3D pci_new(devfn, model);
-> > +=C2=A0=C2=A0=C2=A0 qdev_set_nic_properties(&pci_dev->qdev, nd);
-> > +=C2=A0=C2=A0=C2=A0 pci_realize_and_unref(pci_dev, bus, &error_fatal);
+> +Markus/Bernhard
 >=20
-> Could these functions be used with hotplug devices?
+> On 6/11/23 20:49, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > Eliminate direct access to nd_table[] and nb_nics by processing the the
+> > Xen and ISA NICs first and then calling pci_init_nic_devices() for the
+> > rest.
+> >=20
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > Reviewed-by: Paul Durrant <paul@xen.org>
+> > ---
+> > =C2=A0 hw/i386/pc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 26 ++++++++++++++++----------
+> > =C2=A0 include/hw/net/ne2000-isa.h |=C2=A0 2 --
+> > =C2=A0 2 files changed, 16 insertions(+), 12 deletions(-)
+> >=20
+> > diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+> > index c2bc3fa52d..4078d2d231 100644
+> > --- a/hw/i386/pc.c
+> > +++ b/hw/i386/pc.c
+> > @@ -652,8 +652,11 @@ static void pc_init_ne2k_isa(ISABus *bus, NICInfo =
+*nd)
+> > =C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 static int nb_ne2k =3D 0;
+> > =C2=A0=20
+> > -=C2=A0=C2=A0=C2=A0 if (nb_ne2k =3D=3D NE2000_NB_MAX)
+> > +=C2=A0=C2=A0=C2=A0 if (nb_ne2k =3D=3D NE2000_NB_MAX) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 error_setg(&error_fatal,
 >=20
-> If so we should propagate the error, not make it fatal.
+> In the context of dynamically created machines I'd rather have
+> this function,
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "maximum number of ISA NE2000 devic=
+es exceeded");
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> > +=C2=A0=C2=A0=C2=A0 }
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 isa_ne2000_init(bus, ne2000_io[nb_ne2k],
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ne2000_irq[nb_ne2=
+k], nd);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nb_ne2k++;
+> > @@ -1291,23 +1294,26 @@ void pc_nic_init(PCMachineClass *pcmc, ISABus *=
+isa_bus, PCIBus *pci_bus,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BusState *xen_bus)
+> > =C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MachineClass *mc =3D MACHINE_CLASS(pcmc)=
+;
+> > -=C2=A0=C2=A0=C2=A0 int i;
+> > +=C2=A0=C2=A0=C2=A0 bool default_is_ne2k =3D g_str_equal(mc->default_ni=
+c, TYPE_ISA_NE2000);
+> > +=C2=A0=C2=A0=C2=A0 NICInfo *nd;
+> > =C2=A0=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rom_set_order_override(FW_CFG_ORDER_OVER=
+RIDE_NIC);
+> > -=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < nb_nics; i++) {
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NICInfo *nd =3D &nd_table[i=
+];
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *model =3D nd->m=
+odel ? nd->model : mc->default_nic;
+> > =C2=A0=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (xen_bus && (!nd->model =
+|| g_str_equal(model, "xen-net-device"))) {
+> > +=C2=A0=C2=A0=C2=A0 if (xen_bus) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 while (nc =3D qemu_find_nic=
+_info("xen-net-device", true, NULL)) {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 DeviceState *dev =3D qdev_new("xen-net-device");
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 qdev_set_nic_properties(dev, nd);
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 qdev_realize_and_unref(dev, xen_bus, &error_fatal);
+>=20
+> and this one non-fatal (primarily for API example). But this is pending
+> on a discussion on another thread, see:
+> https://lore.kernel.org/qemu-devel/c1322f3b-2ae2-4ca7-9a76-a2a434dc8315@l=
+inaro.org/
+> so no changed requested so far.
 
-Hm, not sure. Mostly, I'm trying not to change existing behaviour with
-this series (except in carefully noted cases where the minuti=C3=A6 of the
-existing behaviour appear to be both unintended and unimportant, and it
-would be unnecessarily complex to preserve the gratuitous differences
-between the way that platforms have open-coded things).
+Thanks for the reference.
 
-I don't think it makes much sense *even* to use the new
-qemu_configure_nic_device() with hotplug devices. The user might create
-a *netdev* at startup, for later hotplug devices to use. But they
-wouldn't use `-nic` for that, and any devices explicitly added through
-hotplug will have an explicitly specified netdev, won't they?
+I'm happy to make pc_init_ne2k_isa() and even pc_nic_init() take an
+'Error **' argument and use that instead of &error_fatal... and for the
+*caller* to pass &error_fatal for now until/unless that discussion is
+resolved? Not sure it helps much?
 
-I don't think we want to change that model and allow hotplug devices to
-magically get config from -nic on the command line... do we?
+Then again... I do not favour the "my caller cannot *currently*
+handle/propagate an error therefore I won't bother to return one
+coherently" approach. That leads to someone else thinking "my callee
+does not return an error coherently therefore I won't bother to handle
+it", and nothing ever gets fixed.
 
-We even have a warning for the case where NIC configurations are
-provided with -nic but aren't consumed by the time the platform is
-instantiated (although that doesn't *prevent* them from being used
-later by hotplug).
-
-But that's answering your question which was about "these functions".
-
-For *this* particular function, pci_init_nic_in_slot(), it makes even
-less sense to consider hotplug. This is for platforms to handle the
-special cases, like "this board had an RTL8139 in slot 3", and make
-that NIC appear in the appropriate slot. It's done as a special case
-before processing the rest of the NICs which land in dynamically
-assigned slots =E2=80=94 which may even be on a *different* bus, in the cas=
-e of
-sun4u.
+I'll go fix it to take an errp argument.
 
 
---=-jF7GAC0DLUuHciBsiF80
+--=-PA5ixZaqSq1wPm2X84kJ
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -244,25 +303,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEwMDkyMTE0WjAvBgkqhkiG9w0BCQQxIgQgLM611qmK
-37cumtyANrjjuLdD6412xjPvTQ1HbBAHjmYwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEwMDkyNzMxWjAvBgkqhkiG9w0BCQQxIgQgKViPcPHp
+Ywn6K8TDcOwEANHfIwp+5w84tfoqSyOXQwgwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCjpA+OvKqoWwYNUOHEm6Me4lM4p9P4YW9Q
-Y4ECwBwF7J98iaHes7Pb8hMCx7GSgsw1V2CkL2KkZUFPJC7fCBQEx+QW8o1GXQWjwB+3ER00RCOl
-9Q+d95TBp3nYgOlaOL7C9S/Rrwx54MjI+YNZUMwaP5Y//kQvf5HlDxJiBI9Hmr/pTsbUXlOocYcT
-WuDKLO3dlTai+4ZUrUr9IdTgzGjJuZMKNNhSAefUaCeapWeLinzc4To/8LfrEtSM5fVK6dBQQheV
-u/YZhhs3bxVFwchwuvbblzdbsEj+XbodqlwbUBVh897TutgRKlTs9s1FITTdaroC5ZOqULnHnklx
-rDbBcWWumGj2S7AOWHrwqibeMosZ+CDtCxs0fsqsdkdVvbOzUKq5cUOgQhvYLDHaPh13Lpzi6giD
-Mo+tZIEJhU9vnErEKpc+MQNacYYsWplf15/Aukk8r+ViYF50zdYUg+odsBB7+2DJQpvLe/eKk3mj
-qYE0tC8l/C5vvrM2ErpAhpGQ7Y8eBnV8pjCJhAan0gZXeIqGfJBqvXSY/h3XzUGTVTa6DMMUOhhV
-n+vuqJNrNRoPvo4PAxqdyAckOdqHWi6reh3owpH/pt6FKgcjUsbkhm/KVGjWYxxdO00zOo1uvJ5N
-cyXs0re1za9dUuYlKa+f8Ro8FHKQ7/mbiaR8CpIj0AAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAuM4SPZi0m/p2En7ZBhDMPlG2wj3rjCIkn
+DwrnLTDZERqKWfnmYRhPJ8kqmbESz/9jdtGry6vJ5njgLwf/54Q5bX8LlVfKe+gwh55OlRYfbjoR
+kNrmPq9YJwm//LfBqoOTorPwMtjZga0bR7mY/uRfz1v3uJH4f+GZQHLkJsLh3MLNBWJFngN2udB5
+qYU7gvqzj+FRi/pPPfjcj2sePKGwpEML5RSTOZ36nIfWx98IkzghR1ebqaxKkQh+fJAOSgnfXgeZ
+KCZP4/zs44iUa9jsiRRh9x9QB5cX1BmL7UKtp3bsj45kkrkyxjjVatK/KQfM++B4Ly6dcFuRkF7/
+JnT/r7433nly3XAXNMZDsn+Q2pSljwEqVrs3rk2F6hzT0s6RvvmLlsYKnUNFBP1o6qx0IIEh05Gt
+AmDsHuHiJoBuSw5oHw8K2pvmDBN1/fafSZ7rtDWt9T+UWajeJrJwWbhlw5mwX8b2aUTTMKzNx0DV
+Y3X2JcOnBhWMzF4S+69XN6Gvp0XoHpZV4Yopm6Iks4/ROszNICmYIXeFhK1QCQVGmtXESErcDuOm
+00lHRfJdUdmuhkfORWsEpUzPiaji+lMTIPwU4ODS9bs13y2QOmLCdRr5qRDO4sE33zfLVui31y3O
+GWuFKKiLIbFD5WajaIrErPCkUIp5D4IRQnaKIfZLZwAAAAAAAA==
 
 
---=-jF7GAC0DLUuHciBsiF80--
+--=-PA5ixZaqSq1wPm2X84kJ--
 
