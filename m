@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C372F7E7C4E
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:57:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630296.983030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93D367E7C5D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:57:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630313.983186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3w-00029R-05; Fri, 10 Nov 2023 12:56:40 +0000
+	id 1r1R4H-00074t-KU; Fri, 10 Nov 2023 12:57:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630296.983030; Fri, 10 Nov 2023 12:56:39 +0000
+Received: by outflank-mailman (output) from mailman id 630313.983186; Fri, 10 Nov 2023 12:57:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3v-00022z-Sh; Fri, 10 Nov 2023 12:56:39 +0000
-Received: by outflank-mailman (input) for mailman id 630296;
- Fri, 10 Nov 2023 12:56:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1R4F-0006VU-QD; Fri, 10 Nov 2023 12:56:59 +0000
+Received: by outflank-mailman (input) for mailman id 630313;
+ Fri, 10 Nov 2023 12:56:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sssJ=GX=epam.com=prvs=567869e99b=mykyta_poturai@srs-se1.protection.inumbo.net>)
- id 1r1R3t-0001y1-MW
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:37 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93cf96c8-7fc8-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 13:56:35 +0100 (CET)
-Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AACHnNa029602; Fri, 10 Nov 2023 12:56:21 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2104.outbound.protection.outlook.com [104.47.18.104])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3u93ptjrx7-2
+ id 1r1R42-0001y0-6a
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:46 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 96ed9a6d-7fc8-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 13:56:40 +0100 (CET)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AACIeee019156; Fri, 10 Nov 2023 12:56:25 GMT
+Received: from eur01-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2051.outbound.protection.outlook.com [104.47.2.51])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3u9kkyram6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Nov 2023 12:56:21 +0000
+ Fri, 10 Nov 2023 12:56:25 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by AS8PR03MB8783.eurprd03.prod.outlook.com
- (2603:10a6:20b:53c::16) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:102:30d::12) by DB3PR0302MB9063.eurprd03.prod.outlook.com
+ (2603:10a6:10:43d::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29; Fri, 10 Nov
- 2023 12:56:16 +0000
+ 2023 12:56:17 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::f172:7877:386b:8dc0]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::f172:7877:386b:8dc0%6]) with mapi id 15.20.6954.029; Fri, 10 Nov 2023
- 12:56:16 +0000
+ 12:56:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93cf96c8-7fc8-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 96ed9a6d-7fc8-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jdtsONKBPTAQF/pR2X/ZJtWkq4brKn3cvUmnuwV8F13iZA4kgn+TpEVZ70ucl8dSRSbkcWfIcYHdE+0XKI7xh7BeTyncl8Ea+oJworOf/j/SEJ6UKgVfRf3nXVoliIeX2O+zf3yUsrMYJ9MmJXO2uwaaiaqMfn1++eFsc0STD7L+q11qje2g7HIorpq9rtzXaGcy0S0nQ9SCY63lnXzO2w+2r5vgA2A+yOU1/oyxBqTS0OIm5dtQCdasikgWHy/68UBgAY4BcOIS9bSUE0EGx3l43E2McPqHFJ1bIP63suAGU05ZXmuH2SnzI7ON42697xzSSwu7JO36ASZs+3RQAg==
+ b=JsIFmvozHm0rQeX4BQM1f2BEgzG+WHXglKe4qcKEk4v5QaFDxdQlxDqU0GOyktKEBlyMETCTege3Y5a0aFksJZeLds74XrcXQrhYzYqj9xnzz15mkpJFEu3bNf8XzYdshDl5AXnlXafwsYmm28AxusAbZuP3oJSg5DTv1buUeBfHeza/nso9FeMJUkVWVBXeOqOEWYOM/QiVJjb1O4v9krAZSKko9J9syDBgtAs9IxrfCYbW+BtpK0cGacaNgzyIBsMwxgmURd++IyXGMu4tzbTszKSNmX6tnqpHQwutm9WotlchzWb0BCLDpZjeTJLH4xsKEhqMk/Owdtbue+3xrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3pZ3SAQZXGyPa2UCSbq4AipLK56hM+8f7efoATgbaI8=;
- b=h4Uw5UKssbQ0zIhWU8q/ffdt42EwRN37Hd5kVArHwFl/Is6MpzoSlJ5T1O5hV5d1zMHRnWXajfQxZwAnI4I3dQHcYXnKkRQ2e+wsXE9ufruUloKYmhL5e2uZD2aWRNcMomrlld++OBkL5E1fgy7Ncn5fmEp+7hCRhxR0hNHFV5UAIMSNQS1Vx2eBab3JaTcmzONBqEzIdCnp8nZt9z0vPStUgHAskIyUJ9nStMPql9eJ8NMr9ecXi9WxwftiTd6hkzSH+Zts8pkxjh9SAX0CJxkhwJRlIGi+7RXzpy7VWFIBGeqSU2Xgp3dKi1OrWXdLGAZ9gYNB3G6E67SNCumLAA==
+ bh=u2jlDSOb6c9i5jMeBlUZxpDiIGDmoeGu3EM5435sgIM=;
+ b=cPCUTN/VjXCndL+UAznvrUqQmfbvQjBSCgqy7BzcFGJITJPG8erobEqEGrVgFKv+K2/xE0NxNYRGCWby5ttwnDqyL3l1nCehxr1Aa8Eo26zSSkTz9homofmSqoZziNi+1XJHy9GtytzhdyRUouPrLAX7s2eqpszkfk18mMx3Ni1o9pUaqQ1fI+z92ctXz/25b8JNvY1Er2/7kgGl2Fma34j1v3D6Hum395ri3s3Bk1eps8lyPhhhQ2KYBPMP15UExmisqHTDJNXCAdRybAYgno4HGzL3kDkZF2v945mNkaI5EPsAsLZLud1ubEAd6jthHImaSIHxM51kX0DfwqIUsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3pZ3SAQZXGyPa2UCSbq4AipLK56hM+8f7efoATgbaI8=;
- b=WUXKhtEjJpwaD6kGyn/oIIiETCOQX3/xGHNXOrNnVU4novnNBPA6BkJXcrvMEfMtSKYwRnDJCOBfjr37XGSdrw9qmnBKNKfGPt+mGtl0JWOZxS/3NmdnqtcTu4v4BZ36oEaYg547QT3l+JcvdNoIyL2eE6wWaaK+sC5tdUvZ2VHt22lIeOwX+PFnxhdphqhiJQ0lb0pD9e1qEaMgEsfo7IRSR4z2YMsnrAsdABEjuepJxF07uXfilTg7jtMvxGbO0qvk8W7kJRDr1TfhNUWevOanqPmukduauDn+G2x0cxJOVHqdsNtTVIJgC0cs9JZXuXmaeTJ24tELoWBm6tiDyQ==
+ bh=u2jlDSOb6c9i5jMeBlUZxpDiIGDmoeGu3EM5435sgIM=;
+ b=BfD6mW23sBJv10+uDbM3Bgf08lsMbsc2KNUkskxf2K3SOEPLpmjDfTBiTiKWtVY2NauD4rQdIDcGEqrAYV9Xmr479Ux7XA9G772PGmfAzuknSPzJFD0/9MxZwH1CzhR7dD8rdWx++tru9rh4gXgrqsvbLbWiRiEb46/fItTliCsaXscWaaYshR3H+/mjot2ulqb1C6VaowIPpHk8fQGaIJ/06XL/B0nldRr2+GI/KusuTUsV8QgphYblI7u0b//sSihOeIr23dTDIU7rpGA4GuVF4SZAXszOuI/IfccE6NY1bc/Qz4XvSBV8Gb5iH7/1SjMnQH4kNjO3XYYKFc5Ynw==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
@@ -78,12 +78,13 @@ CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
 	<bertrand.marquis@arm.com>,
         Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
         Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH v2 01/25] arm: vgic: its: Decouple HW and virtual ITS
-Thread-Topic: [XEN PATCH v2 01/25] arm: vgic: its: Decouple HW and virtual ITS
-Thread-Index: AQHaE9VKJzT3WLMhY0WmBXZ4tHLu5w==
+Subject: [XEN PATCH v2 03/25] arm: new VGIC: Add GICv3 MMIO handling framework
+Thread-Topic: [XEN PATCH v2 03/25] arm: new VGIC: Add GICv3 MMIO handling
+ framework
+Thread-Index: AQHaE9VLDiAyPu1VFkGDdkAk4XVJMQ==
 Date: Fri, 10 Nov 2023 12:56:16 +0000
 Message-ID: 
- <8907b54a03f07bb1f7d4563839aefefe8f5041e3.1699618395.git.mykyta_poturai@epam.com>
+ <cfd46345ad96a447c0dccc371f074a47ed612259.1699618395.git.mykyta_poturai@epam.com>
 References: <cover.1699618395.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1699618395.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -91,46 +92,46 @@ Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS8PR03MB8783:EE_
-x-ms-office365-filtering-correlation-id: bb7614e5-ee24-4b9d-5a03-08dbe1ec6d1a
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|DB3PR0302MB9063:EE_
+x-ms-office365-filtering-correlation-id: 4df896b0-e089-4403-186a-08dbe1ec6dba
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- d4FOnl8jG6yn3bqdYOqiNWXIC+rcmKc/szbtyzXhLuE75ZMvw/aCp+0NSANa3Wg0BK2UITKvWnJwpxJ2abwBPd6qBeqkE53sbvnLndD8R6d5OtqzXG+BRJYOvif1PseVZlhw/Hp1J6qFrBrNb051Tp0wmg0qn5VGkuziu58OtGyaai94UN3UCu8u+sjZtpOdv5VjSYJ594BMdNfuk9Qfs4Nl93oJDnujmae+O4WyBt9teRLJazPt6HNzRWnEe+rCHYfEbOhOvhG52nVcv96RkqIJcnTzqAoz3MIzaC9Hje2qREyaVJAoS5JVAiODqcSnZmKhYslGEoD+Qpj2HERybagen2qlEBQoPx/9wTznZ+RZ9VB4AwjaxkTt1RuJxoTkLCD/qHVktIAMfjuoWNcjRetuk95Cq4W9Zccy5StLjUO6VC40vHpdHLF+e4ggh6+MM6h6f1LlQPsF+GbMw/RJSJtasY323echsr+deyJhqNLBEau86f5UR2JpxuxRz0LUiUYfmobqpknjWuqPjmTiS6hUmAiptSsnq5YlT22nV9clnWfz6FdaPYU72yPIpurRuZgAKexsj3nbpS5oWGk6gUCipzSkSFzFdBjQr5bgLuFiuWZd7blR8pfA3jrFuif9XHMFOdMYQQnlhoJNAEw6xA==
+ CxnlTOxuaZEk7MAN/We4yQQrEM9waDUvPWoZQMJBkhzvo5mMiMFexr7p8xyl5hmFtdFHr1K8owyi1krK//D3vbV2VeehrwRd7imFpQlWjwCX7icMWXYaLaWv1rbS3BHUDlHsqMDYmsnpv7jNNz+XBMy0aiOcmNj519AOPMh1DXaInEls4CI/X1BAbXHLvrXde1xMTRoHY0jVWNL01Yz9ukJAvEfv9LaHeKvjf3BuheeD6VjrhDPfnLIyy+SElflvgs9I4MR+ph0zsu0EOfuxP0F2Ut5wkWD9R+69CrpNWoKwlR+zWq8tJCuW1a4CoSIh4y+ZrgMBuco6S+YfrQt2uke4b2t6cV2paoxb30afz7kfrV/vZzITZtXkhv7JaOpfxstkF9EdU5oCgYhtX//RtuTHXlLPihUjqTq1XoKt99WV5Dbjhe8Ov1eif1yVt8gaqgcZE6OkoxP/M0OxmoSEar6tWhFnYCnyO4S9c2PuwsS6QepVd4DcTqnDBHFaJPr19ATD4JMoqxtu5fPm7QpnI4khDm3mVgGYYJiS8UBuEQGiCejw4VGywUvh0Ho+YCrN1OmDy7ngf6P+WDOWsFEgpvk1FGCFyd3vYDk2sLh6RI4XGwHpSYllfEn2dC3rLsI9oG5vTbiJtLOL+R9dS0QFqA==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(39860400002)(346002)(366004)(136003)(230173577357003)(230273577357003)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(5660300002)(64756008)(66446008)(66556008)(316002)(66476007)(54906003)(91956017)(76116006)(66946007)(2616005)(6916009)(26005)(4326008)(83380400001)(38070700009)(8676002)(8936002)(122000001)(6512007)(2906002)(6506007)(38100700002)(6486002)(478600001)(41300700001)(966005)(71200400001)(36756003)(86362001)(30864003)(579004);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(396003)(366004)(376002)(39860400002)(230922051799003)(451199024)(1800799009)(186009)(64100799003)(66556008)(86362001)(6512007)(6506007)(66946007)(66446008)(36756003)(66476007)(8936002)(76116006)(91956017)(8676002)(71200400001)(38100700002)(4326008)(30864003)(26005)(5660300002)(6916009)(2616005)(6486002)(64756008)(316002)(478600001)(54906003)(2906002)(122000001)(41300700001)(66899024)(83380400001)(38070700009)(2004002)(579004);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?YIRLGMRYlNJCY8ej/xACHM7Vsql1Tm80CC0lUTZKND3GL2WiAsjuFTadyM?=
- =?iso-8859-1?Q?RZioTF5wLnupZPbOe0qnVoYeWv5UBjjArrOXbK10HWtyWtImwFhI+1R6E0?=
- =?iso-8859-1?Q?c4g0vXdTa9IKpTwgMKCWZoQl48gES32HTX1EDIZFokVZFvZCRXs5XjPN/9?=
- =?iso-8859-1?Q?0tzGj60ZDeEZhh6L0tDF4e9seJp419MYC/XZy/3lf4b2jf+ozLJHzQ9qct?=
- =?iso-8859-1?Q?pD/7XZDgxQmAB3lirvu2biJI8nOSolki/kES5rqGDLPOwwOY8bfbQSeHA+?=
- =?iso-8859-1?Q?0/UWvHXXPEjEvQRnfZzFzOQ1aLuoAbYaboGBTQp9gLrTc5AmN+jSEUJIRD?=
- =?iso-8859-1?Q?GLAGVqxQ/MXMZqnCFl/8DlRMnYBFqJza00FvFF97w1hHPDImtwcifBP6LX?=
- =?iso-8859-1?Q?EvrCvY0ysNEz0Js6k2/bgYeqNywxKN/1N+XV4RVO7+M7uynVgs3aU+0EEt?=
- =?iso-8859-1?Q?3Y2EeWmuhixPcpkLO8z8yDFSbmEC8X/Z57Cla4dt7jsmCTe06HFjWx87JC?=
- =?iso-8859-1?Q?q+/JURsvxKMJ63Js7DtA1bkli/yZ6uEdBO/8NyNLnNKunTadWpPrligoia?=
- =?iso-8859-1?Q?94ncu5Skh5NAiPtXtyGo0A2sc++vm0iSIO3a0EaKL1B2DWe55tQK1NxCJz?=
- =?iso-8859-1?Q?BF8IHNMuwZCqIfcGmndjA7ThlDBN1d0QvwSKQVCT9YodrAESeSke4YwMLv?=
- =?iso-8859-1?Q?7z+5eSob+tv1dqd9hQ+3de3fwTzIpjxH76Ip5+TiXFl8UFAXvg43kpCEff?=
- =?iso-8859-1?Q?ZFJNw/xC0wPa6LWFK3RjQ+kXFZ/FUEL/VbQMqZSYJ9g9RuNFKdq2INTcKI?=
- =?iso-8859-1?Q?QBOQEaHQLnXtFhvsHfK6JVDjLea9DejfTGtv8pBKWo3OPA+nujcmi3Y5Um?=
- =?iso-8859-1?Q?e5sddQRahin4TR1XrxykpJG5yXZ6F6v6+YArk2hpZMRu6JHW3A70W1qBAk?=
- =?iso-8859-1?Q?/B2lojtaKWmLVm5UPiIy6VFJlGBGvgnaADf4bx+V/XqJT5wrNr7+I0ADqS?=
- =?iso-8859-1?Q?zkpNONmRoRsLGxJNYBB2d7fCbF6UhYvwx6QpdpnaJwnlf3PXSXI2eROs42?=
- =?iso-8859-1?Q?BLV645bcH93D3c7NgxGHLFB0mhvIKqAZh4Hg090bNn6+O3lhRBYqVQb5UL?=
- =?iso-8859-1?Q?r4o5BJdHU4D/IoY6Ra4Fwp9zw9CVO502gKwvcih1+ls+zr4uNgzCHwHLWn?=
- =?iso-8859-1?Q?ZEasJk4vwiXoFDT5OLZujanyfxfubs7sHzR5+GNdOaDFN1NiK8OQIC9W5z?=
- =?iso-8859-1?Q?oi0YhyD6XINBHPex9Bq1aHAX6vkPYmEf8EGMIWCHoh4WGnbTu2XiUww6XQ?=
- =?iso-8859-1?Q?ZuRtVmJNFO+2kYfI1evOST1yjwEluYXuvuSOMPdszB+x0gSizyN0QxhDHC?=
- =?iso-8859-1?Q?FHL4Ko5zGv2w4LrIC0SLffnlHOeaeOPY/zv8GmIA3j0T4aO9yFrBGCUQFM?=
- =?iso-8859-1?Q?Ebir9CWv8wFaWqZ/jH/uKJJnBaSp9wC+0YttI6hvolM4WY3roDuxCK4Zr7?=
- =?iso-8859-1?Q?Xtr5rs6Etd8Haew+21bjmY7/hbIFt39V1sdA4XcHSxcppaJ8oG9d+jYxXH?=
- =?iso-8859-1?Q?6d+U/B0CzA8po7fTaCy1b6p2wWv8SshoeXtH4HqPdLhAAs5cc7r/8j3AhQ?=
- =?iso-8859-1?Q?8cHRAQ+EgSOEuc3Dpt0wrPD8uqoD10Uh+eqrB0rQKPFW39DY6sygDdNQ?=
+ =?iso-8859-1?Q?okrUPanjYNzUEkVRWRxgDLm6FPp8+bWsi0U9qpV9Ar4TCzG/GumWZCzcc+?=
+ =?iso-8859-1?Q?8xxuytIiLjydwqyl6eYIykNWFwkHsxpNuJ+vmz8eUi+iU+rrnftn5kkGfG?=
+ =?iso-8859-1?Q?0k50FetzHWbtGBvoJvLerpCLcI08YwbnITgso/abOXMLI7Df6SceJU5nSF?=
+ =?iso-8859-1?Q?o+SEvnfrOqUrbBpjJaIioa5G2o0gJnhszX4ZJPtamKxBwKKdGVG6ZBbpln?=
+ =?iso-8859-1?Q?ESN1fhL9+CG6k4eG2Fr7hUnloUUHiyKjw+1vyxAGyOLTPQzZrZf40IWPwR?=
+ =?iso-8859-1?Q?FND+27Vj1MqCkWXINdk9Banqc8w6YDqKy/35elzgZ7+vZxgGAZC2+fyC1U?=
+ =?iso-8859-1?Q?n7I1hzpPZmeO5mCG3jOIFvqwCWjo0phUtH+SJ46wTAR+vPz+uMiPKdNNEi?=
+ =?iso-8859-1?Q?xo6/GUWvazUD29keIs34jppiZiXBA4+ljktFSayGF3uqSlB5F3s7Pg2si4?=
+ =?iso-8859-1?Q?dore71Ymhnz6ZDic/sP1qKYEqOkrTvenuysCUriaUYH18l5HcZNibnkatI?=
+ =?iso-8859-1?Q?adXHYH0u/OvpoH9P6zlqydSEYzfR10X4VOJG2vAjBVjGjqLRCEYIOFiBy1?=
+ =?iso-8859-1?Q?yQ8UJ4PYrOoTvfrKFdgw6Lw8QNFJrCWJtVt+uAmLN2uFWsO27dptLXTrvL?=
+ =?iso-8859-1?Q?DZxvnRgH9IeBzW4fq/jaBzv/RkyQGKI1MQ8t5pRln55Ii760ieXT7S4ne9?=
+ =?iso-8859-1?Q?I0lmB9socQp64EvUVbVzpBqft+q6ZGBQck7CgGE6KZ0LOdBYOwEfFrZw+v?=
+ =?iso-8859-1?Q?KTD5D4zjB7qj+mVLKkXjM1dYMuAFXp5n3LUW8BEBC90DZkcYreSXw1fPmc?=
+ =?iso-8859-1?Q?tZcOjBiAMBZ+I9wh4QpBmFSx0dEehfFSr1jUp0VSOO0XR3uZEXMQ4CL6ao?=
+ =?iso-8859-1?Q?vFL2XLXw/xjRoEtj0Co7D787K/sIT6nGVV5L3yUnpEczfWVMXTB8FjLTHT?=
+ =?iso-8859-1?Q?b6I802MTo9rNXcqvMXEiJ6BjNnzsD5687zcs6yRJhYvxt3HY1FgN4efndF?=
+ =?iso-8859-1?Q?fxXSNZ+5gfFsCSJFk3bra39PbJrVMwgAxACMKXB72Pv4xx7rmSXs4RXS/M?=
+ =?iso-8859-1?Q?tZiCY6AeHh2f7H8nHKhZ5ClEjNMLv6SIf4LZwNjHqKLmUdD61gFM4tRWto?=
+ =?iso-8859-1?Q?3BDjWX9nR8Ms/5tNBIw3cpAHD1U3sQG/9wicfdyloto0DwL2qDVOD+HNso?=
+ =?iso-8859-1?Q?cswf2vlR5ICPNFHJSuol17+Jin6Y1IrCmhLo0k3MtVC55MvuyGCFtZImO+?=
+ =?iso-8859-1?Q?L7buGcSi807muAUJknlorHAehAnB+H1YfDeu3LjOY02epU27+DtfbrQxTf?=
+ =?iso-8859-1?Q?bE29ZpFDZWdGYzWsWHvWKwJc87Cb0UQnHerCE1144grDQiTrmFu9qPFGvH?=
+ =?iso-8859-1?Q?IIvLesLLGRIaPvWgAEhZnoIbvW9PMaUpnk/2T1oHGo9mcp4vc89dzaLGUA?=
+ =?iso-8859-1?Q?DenUhiI+aMECljG5PGi5iPt9XZiclFNCNyupxQXsGP3oQfikZ76NW+pN9l?=
+ =?iso-8859-1?Q?nQuriBu0FbGfJmKdSPb0/GiFIAnTp/PKo8dsdI8nE8mcmy/Nn+sDQLYCl3?=
+ =?iso-8859-1?Q?gTq4NtfsSqqw3MUR3d4HrzP0HW4gj+gYRuYR5ugFmFytQ8wDnbf3wwFTLB?=
+ =?iso-8859-1?Q?FWpjeJjkJlP+2yzOwMK1mOxxFr9ZXWfwQacl9nQjEseDTWoyB00OdUTg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -138,742 +139,666 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb7614e5-ee24-4b9d-5a03-08dbe1ec6d1a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:16.1645
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4df896b0-e089-4403-186a-08dbe1ec6dba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:16.8564
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8E1uBP2ke6boTsKsMms6w0rNULhHWuZvwbx9AcT8wnvQ/wVRID9TXXM6HJwJ5hND4ZlndvkfFYB6phQmVXf5kA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB8783
-X-Proofpoint-ORIG-GUID: DG_Zy7cMUP2PRH1GvgU_jqcS1RNgOdtS
-X-Proofpoint-GUID: DG_Zy7cMUP2PRH1GvgU_jqcS1RNgOdtS
+X-MS-Exchange-CrossTenant-userprincipalname: kyIKvqhbxIV9/E/TCJqMRl2RtJRjNECQHS/ojQHeTX2iY0eDW8y94CRzkeveSCcgCkLRBoWL6gMrs1BY7cp5yQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0302MB9063
+X-Proofpoint-GUID: fN-zLAFXUvUhOCFYKsTUhp7zIJpitx5j
+X-Proofpoint-ORIG-GUID: fN-zLAFXUvUhOCFYKsTUhp7zIJpitx5j
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-10_09,2023-11-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 phishscore=0
- spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0 mlxlogscore=604
- mlxscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ definitions=2023-11-10_08,2023-11-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0 malwarescore=0
+ suspectscore=0 mlxscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 mlxlogscore=962 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2311060000 definitions=main-2311100106
 
-HW its directly uses struct pending_irq which makes it hard to swich to
-a different VITS implementation if it doesn't use the same structure.
+Create a new file called vgic-mmio-v3.c and describe the GICv3
+distributor and redistributor registers there.
+Also we provide a function to deal with the registration of the
+separate redistributor frames per VCPU and allocation of redistributor
+regions.
 
-Rename struct its_device to struct vgic_its_device and move it to vgic.h,
-so it can be defined by the VITS implementation. Add helper functions to
-allow HW ITS to allocate/free and manage the instances this struct. This
-seems like a sane approach, since the instances are already stored in the
-struct vgic. Also move vgic_vcpu_inject_lpi to the vgic files for the same
-reasons.
+Based on Linux commits:
+ed9b8cefa91695 by Andre Przywara
+1aab6f468c10a1 by Christoffer Dall
+ccc27bf5be7b78 by Eric Auger
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/gic-v3-its.c             | 208 ++++----------------------
- xen/arch/arm/gic-v3-lpi.c             |  20 ---
- xen/arch/arm/include/asm/gic_v3_its.h |   2 +
- xen/arch/arm/include/asm/vgic.h       |  29 ++++
- xen/arch/arm/vgic-v3-its.c            | 206 ++++++++++++++++++++++++-
- 5 files changed, 258 insertions(+), 207 deletions(-)
+ xen/arch/arm/include/asm/gic_v3_defs.h |   2 +
+ xen/arch/arm/include/asm/new_vgic.h    |  18 +-
+ xen/arch/arm/vgic/vgic-init.c          |  10 +-
+ xen/arch/arm/vgic/vgic-mmio-v3.c       | 435 +++++++++++++++++++++++++
+ xen/arch/arm/vgic/vgic-mmio.c          |   3 +
+ xen/arch/arm/vgic/vgic.h               |  15 +
+ 6 files changed, 475 insertions(+), 8 deletions(-)
+ create mode 100644 xen/arch/arm/vgic/vgic-mmio-v3.c
 
-diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-index 8afcd9783b..cc3d82cde1 100644
---- a/xen/arch/arm/gic-v3-its.c
-+++ b/xen/arch/arm/gic-v3-its.c
-@@ -13,7 +13,6 @@
- #include <xen/iocap.h>
- #include <xen/libfdt/libfdt.h>
- #include <xen/mm.h>
--#include <xen/rbtree.h>
- #include <xen/sched.h>
- #include <xen/sizes.h>
- #include <asm/gic.h>
-@@ -30,25 +29,6 @@
-  */
- LIST_HEAD(host_its_list);
+diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/=
+asm/gic_v3_defs.h
+index 227533868f..b7059635d7 100644
+--- a/xen/arch/arm/include/asm/gic_v3_defs.h
++++ b/xen/arch/arm/include/asm/gic_v3_defs.h
+@@ -35,6 +35,7 @@
+ #define GICD_IROUTER                 (0x6000)
+ #define GICD_IROUTER32               (0x6100)
+ #define GICD_IROUTER1019             (0x7FD8)
++#define GICD_IDREGS                  (0xFFD0)
+ #define GICD_PIDR2                   (0xFFE8)
 =20
--/*
-- * Describes a device which is using the ITS and is used by a guest.
-- * Since device IDs are per ITS (in contrast to vLPIs, which are per
-- * guest), we have to differentiate between different virtual ITSes.
-- * We use the doorbell address here, since this is a nice architectural
-- * property of MSIs in general and we can easily get to the base address
-- * of the ITS and look that up.
-- */
--struct its_device {
--    struct rb_node rbnode;
--    struct host_its *hw_its;
--    void *itt_addr;
--    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
--    uint32_t host_devid;
--    uint32_t guest_devid;
--    uint32_t eventids;                  /* Number of event IDs (MSIs) */
--    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
- */
--    struct pending_irq *pend_irqs;      /* One struct per event */
--};
+ /* Common between GICD_PIDR2 and GICR_PIDR2 */
+@@ -89,6 +90,7 @@
+ #define GICR_INVLPIR                 (0x00A0)
+ #define GICR_INVALLR                 (0x00B0)
+ #define GICR_SYNCR                   (0x00C0)
++#define GICR_IDREGS                  GICD_IDREGS
+ #define GICR_PIDR2                   GICD_PIDR2
 =20
- bool gicv3_its_host_has_its(void)
- {
-@@ -509,7 +489,7 @@ static int gicv3_its_init_single_its(struct host_its *h=
-w_its)
-  * TODO: Investigate the interaction when a guest removes a device while
-  * some LPIs are still in flight.
-  */
--static int remove_mapped_guest_device(struct its_device *dev)
-+static int remove_mapped_guest_device(struct vgic_its_device *dev)
- {
-     int ret =3D 0;
-     unsigned int i;
-@@ -530,10 +510,7 @@ static int remove_mapped_guest_device(struct its_devic=
-e *dev)
-         printk(XENLOG_WARNING "Can't unmap host ITS device 0x%x\n",
-                dev->host_devid);
+ /* GICR for SGI's & PPI's */
+diff --git a/xen/arch/arm/include/asm/new_vgic.h b/xen/arch/arm/include/asm=
+/new_vgic.h
+index 1e76213893..11d8f71851 100644
+--- a/xen/arch/arm/include/asm/new_vgic.h
++++ b/xen/arch/arm/include/asm/new_vgic.h
+@@ -31,6 +31,8 @@
+ #define VGIC_MAX_SPI            1019
+ #define VGIC_MAX_RESERVED       1023
+ #define VGIC_MIN_LPI            8192
++#define VGIC_V3_DIST_SIZE       SZ_64K
++#define VGIC_V3_REDIST_SIZE     (2 * SZ_64K)
 =20
--    xfree(dev->itt_addr);
--    xfree(dev->pend_irqs);
--    xfree(dev->host_lpi_blocks);
--    xfree(dev);
-+    vgic_its_free_device(dev);
+ #define irq_is_ppi(irq) ((irq) >=3D VGIC_NR_SGIS && (irq) < VGIC_NR_PRIVAT=
+E_IRQS)
+ #define irq_is_spi(irq) ((irq) >=3D VGIC_NR_PRIVATE_IRQS && \
+@@ -94,6 +96,14 @@ enum iodev_type {
+     IODEV_REDIST,
+ };
+=20
++struct vgic_redist_region {
++    uint32_t index;
++    paddr_t base;
++    uint32_t count; /* number of redistributors or 0 if single region */
++    uint32_t free_index; /* index of the next free redistributor */
++    struct list_head list;
++};
++
+ struct vgic_io_device {
+     gfn_t base_fn;
+     struct vcpu *redist_vcpu;
+@@ -121,11 +131,7 @@ struct vgic_dist {
+         /* either a GICv2 CPU interface */
+         paddr_t         cbase;
+         /* or a number of GICv3 redistributor regions */
+-        struct
+-        {
+-            paddr_t     vgic_redist_base;
+-            paddr_t     vgic_redist_free_offset;
+-        };
++        struct list_head rd_regions;
+     };
+     paddr_t             csize; /* CPU interface size */
+     paddr_t             vbase; /* virtual CPU interface base address */
+@@ -174,6 +180,8 @@ struct vgic_cpu {
+      * parts of the redistributor.
+      */
+     struct vgic_io_device   rd_iodev;
++    struct vgic_redist_region *rdreg;
++    uint32_t rdreg_index;
+     struct vgic_io_device   sgi_iodev;
+=20
+     /* Contains the attributes and gpa of the LPI pending tables. */
+diff --git a/xen/arch/arm/vgic/vgic-init.c b/xen/arch/arm/vgic/vgic-init.c
+index f8d7d3a226..c3b34be192 100644
+--- a/xen/arch/arm/vgic/vgic-init.c
++++ b/xen/arch/arm/vgic/vgic-init.c
+@@ -107,14 +107,18 @@ int domain_vgic_register(struct domain *d, unsigned i=
+nt *mmio_count)
+     {
+     case GIC_V2:
+         *mmio_count =3D 1;
++        d->arch.vgic.cbase =3D VGIC_ADDR_UNDEF;
+         break;
++    case GIC_V3:
++        *mmio_count =3D 2;
++        INIT_LIST_HEAD(&d->arch.vgic.rd_regions);
++        break;
++
+     default:
+         BUG();
+     }
+=20
+     d->arch.vgic.dbase =3D VGIC_ADDR_UNDEF;
+-    d->arch.vgic.cbase =3D VGIC_ADDR_UNDEF;
+-    d->arch.vgic.vgic_redist_base =3D VGIC_ADDR_UNDEF;
 =20
      return 0;
  }
-@@ -551,24 +528,6 @@ static struct host_its *gicv3_its_find_by_doorbell(pad=
-dr_t doorbell_address)
-     return NULL;
- }
-=20
--static int compare_its_guest_devices(struct its_device *dev,
--                                     paddr_t vdoorbell, uint32_t vdevid)
--{
--    if ( dev->guest_doorbell < vdoorbell )
--        return -1;
--
--    if ( dev->guest_doorbell > vdoorbell )
--        return 1;
--
--    if ( dev->guest_devid < vdevid )
--        return -1;
--
--    if ( dev->guest_devid > vdevid )
--        return 1;
--
--    return 0;
--}
--
- /*
-  * On the host ITS @its, map @nr_events consecutive LPIs.
-  * The mapping connects a device @devid and event @eventid pair to LPI @lp=
-i,
-@@ -616,8 +575,7 @@ int gicv3_its_map_guest_device(struct domain *d,
- {
-     void *itt_addr =3D NULL;
-     struct host_its *hw_its;
--    struct its_device *dev =3D NULL;
--    struct rb_node **new =3D &d->arch.vgic.its_devices.rb_node, *parent =
-=3D NULL;
-+    struct vgic_its_device *temp, *dev =3D NULL;
-     int i, ret =3D -ENOENT;      /* "i" must be signed to check for >=3D 0=
- below. */
-=20
-     hw_its =3D gicv3_its_find_by_doorbell(host_doorbell);
-@@ -643,36 +601,22 @@ int gicv3_its_map_guest_device(struct domain *d,
-=20
-     /* check for already existing mappings */
-     spin_lock(&d->arch.vgic.its_devices_lock);
--    while ( *new )
-+    temp =3D vgic_its_get_device(d, guest_doorbell, guest_devid);
-+    if ( temp )
-     {
--        struct its_device *temp;
--        int cmp;
-+        if ( !valid )
-+            vgic_its_delete_device(d, temp);
-=20
--        temp =3D rb_entry(*new, struct its_device, rbnode);
-+        spin_unlock(&d->arch.vgic.its_devices_lock);
-=20
--        parent =3D *new;
--        cmp =3D compare_its_guest_devices(temp, guest_doorbell, guest_devi=
-d);
--        if ( !cmp )
-+        if ( valid )
-         {
--            if ( !valid )
--                rb_erase(&temp->rbnode, &d->arch.vgic.its_devices);
--
--            spin_unlock(&d->arch.vgic.its_devices_lock);
--
--            if ( valid )
--            {
--                printk(XENLOG_G_WARNING "d%d tried to remap guest ITS devi=
-ce 0x%x to host device 0x%x\n",
--                        d->domain_id, guest_devid, host_devid);
--                return -EBUSY;
--            }
--
--            return remove_mapped_guest_device(temp);
-+            printk(XENLOG_G_WARNING "d%d tried to remap guest ITS device 0=
-x%x to host device 0x%x\n",
-+                    d->domain_id, guest_devid, host_devid);
-+            return -EBUSY;
-         }
-=20
--        if ( cmp > 0 )
--            new =3D &((*new)->rb_left);
--        else
--            new =3D &((*new)->rb_right);
-+        return remove_mapped_guest_device(temp);
-     }
-=20
-     if ( !valid )
-@@ -688,7 +632,7 @@ int gicv3_its_map_guest_device(struct domain *d,
-     clean_and_invalidate_dcache_va_range(itt_addr,
-                                          nr_events * hw_its->itte_size);
-=20
--    dev =3D xzalloc(struct its_device);
-+    dev =3D vgic_its_alloc_device(nr_events);
-     if ( !dev )
-         goto out_unlock;
-=20
-@@ -704,13 +648,6 @@ int gicv3_its_map_guest_device(struct domain *d,
-      * See the mailing list discussion for some background:
-      * https://lists.xen.org/archives/html/xen-devel/2017-03/msg03645.html
-      */
--    dev->pend_irqs =3D xzalloc_array(struct pending_irq, nr_events);
--    if ( !dev->pend_irqs )
--        goto out_unlock;
--
--    dev->host_lpi_blocks =3D xzalloc_array(uint32_t, nr_events);
--    if ( !dev->host_lpi_blocks )
--        goto out_unlock;
-=20
-     ret =3D its_send_cmd_mapd(hw_its, host_devid, fls(nr_events - 1),
-                             virt_to_maddr(itt_addr), true);
-@@ -724,8 +661,7 @@ int gicv3_its_map_guest_device(struct domain *d,
-     dev->host_devid =3D host_devid;
-     dev->eventids =3D nr_events;
-=20
--    rb_link_node(&dev->rbnode, parent, new);
--    rb_insert_color(&dev->rbnode, &d->arch.vgic.its_devices);
-+    vgic_its_add_device(d, dev);
-=20
-     spin_unlock(&d->arch.vgic.its_devices_lock);
-=20
-@@ -771,117 +707,27 @@ out_unlock:
-=20
- out:
-     if ( dev )
--    {
--        xfree(dev->pend_irqs);
--        xfree(dev->host_lpi_blocks);
--    }
-+        vgic_its_free_device(dev);
-+
-     xfree(itt_addr);
--    xfree(dev);
+@@ -207,7 +211,7 @@ int vcpu_vgic_init(struct vcpu *v)
+     if ( gic_hw_version() =3D=3D GIC_V2 )
+         vgic_v2_enable(v);
+     else
+-        ret =3D -ENXIO;
++        vgic_register_redist_iodev(v);
 =20
      return ret;
  }
-=20
--/* Must be called with the its_device_lock held. */
--static struct its_device *get_its_device(struct domain *d, paddr_t vdoorbe=
-ll,
--                                         uint32_t vdevid)
--{
--    struct rb_node *node =3D d->arch.vgic.its_devices.rb_node;
--    struct its_device *dev;
--
--    ASSERT(spin_is_locked(&d->arch.vgic.its_devices_lock));
--
--    while (node)
--    {
--        int cmp;
--
--        dev =3D rb_entry(node, struct its_device, rbnode);
--        cmp =3D compare_its_guest_devices(dev, vdoorbell, vdevid);
--
--        if ( !cmp )
--            return dev;
--
--        if ( cmp > 0 )
--            node =3D node->rb_left;
--        else
--            node =3D node->rb_right;
--    }
--
--    return NULL;
--}
--
--static struct pending_irq *get_event_pending_irq(struct domain *d,
--                                                 paddr_t vdoorbell_address=
-,
--                                                 uint32_t vdevid,
--                                                 uint32_t eventid,
--                                                 uint32_t *host_lpi)
--{
--    struct its_device *dev;
--    struct pending_irq *pirq =3D NULL;
--
--    spin_lock(&d->arch.vgic.its_devices_lock);
--    dev =3D get_its_device(d, vdoorbell_address, vdevid);
--    if ( dev && eventid < dev->eventids )
--    {
--        pirq =3D &dev->pend_irqs[eventid];
--        if ( host_lpi )
--            *host_lpi =3D dev->host_lpi_blocks[eventid / LPI_BLOCK] +
--                        (eventid % LPI_BLOCK);
--    }
--    spin_unlock(&d->arch.vgic.its_devices_lock);
--
--    return pirq;
--}
--
--struct pending_irq *gicv3_its_get_event_pending_irq(struct domain *d,
--                                                    paddr_t vdoorbell_addr=
-ess,
--                                                    uint32_t vdevid,
--                                                    uint32_t eventid)
--{
--    return get_event_pending_irq(d, vdoorbell_address, vdevid, eventid, NU=
-LL);
--}
--
--int gicv3_remove_guest_event(struct domain *d, paddr_t vdoorbell_address,
--                             uint32_t vdevid, uint32_t eventid)
-+uint32_t gicv3_its_get_host_lpi(struct domain *d, paddr_t vdoorbell_addres=
-s,
-+                                     uint32_t vdevid, uint32_t eventid)
- {
-+    struct vgic_its_device *dev;
-     uint32_t host_lpi =3D INVALID_LPI;
-=20
--    if ( !get_event_pending_irq(d, vdoorbell_address, vdevid, eventid,
--                                &host_lpi) )
--        return -EINVAL;
--
--    if ( host_lpi =3D=3D INVALID_LPI )
--        return -EINVAL;
--
--    gicv3_lpi_update_host_entry(host_lpi, d->domain_id, INVALID_LPI);
--
--    return 0;
--}
--
--/*
-- * Connects the event ID for an already assigned device to the given VCPU/=
-vLPI
-- * pair. The corresponding physical LPI is already mapped on the host side
-- * (when assigning the physical device to the guest), so we just connect t=
-he
-- * target VCPU/vLPI pair to that interrupt to inject it properly if it fir=
-es.
-- * Returns a pointer to the already allocated struct pending_irq that is
-- * meant to be used by that event.
-- */
--struct pending_irq *gicv3_assign_guest_event(struct domain *d,
--                                             paddr_t vdoorbell_address,
--                                             uint32_t vdevid, uint32_t eve=
-ntid,
--                                             uint32_t virt_lpi)
--{
--    struct pending_irq *pirq;
--    uint32_t host_lpi =3D INVALID_LPI;
--
--    pirq =3D get_event_pending_irq(d, vdoorbell_address, vdevid, eventid,
--                                 &host_lpi);
--
--    if ( !pirq )
--        return NULL;
--
--    gicv3_lpi_update_host_entry(host_lpi, d->domain_id, virt_lpi);
-+    spin_lock(&d->arch.vgic.its_devices_lock);
-+    dev =3D vgic_its_get_device(d, vdoorbell_address, vdevid);
-+    if ( dev )
-+        host_lpi =3D dev->host_lpi_blocks[eventid / LPI_BLOCK] +
-+                   (eventid % LPI_BLOCK);
-=20
--    return pirq;
-+    spin_unlock(&d->arch.vgic.its_devices_lock);
-+    return host_lpi;
- }
-=20
- int gicv3_its_deny_access(struct domain *d)
-diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-index eb0a5535e4..5f73b2b9f2 100644
---- a/xen/arch/arm/gic-v3-lpi.c
-+++ b/xen/arch/arm/gic-v3-lpi.c
-@@ -128,26 +128,6 @@ uint64_t gicv3_get_redist_address(unsigned int cpu, bo=
-ol use_pta)
-         return per_cpu(lpi_redist, cpu).redist_id << 16;
- }
-=20
--void vgic_vcpu_inject_lpi(struct domain *d, unsigned int virq)
--{
--    /*
--     * TODO: this assumes that the struct pending_irq stays valid all of
--     * the time. We cannot properly protect this with the current locking
--     * scheme, but the future per-IRQ lock will solve this problem.
--     */
--    struct pending_irq *p =3D irq_to_pending(d->vcpu[0], virq);
--    unsigned int vcpu_id;
--
--    if ( !p )
--        return;
--
--    vcpu_id =3D ACCESS_ONCE(p->lpi_vcpu_id);
--    if ( vcpu_id >=3D d->max_vcpus )
--          return;
--
--    vgic_inject_irq(d, d->vcpu[vcpu_id], virq, true);
--}
--
- /*
-  * Handle incoming LPIs, which are a bit special, because they are potenti=
-ally
-  * numerous and also only get injected into guests. Treat them specially h=
-ere,
-diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
-sm/gic_v3_its.h
-index c24d4752d0..f61a37a8fa 100644
---- a/xen/arch/arm/include/asm/gic_v3_its.h
-+++ b/xen/arch/arm/include/asm/gic_v3_its.h
-@@ -196,6 +196,8 @@ struct pending_irq *gicv3_assign_guest_event(struct dom=
-ain *d,
-                                              uint32_t virt_lpi);
- void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
-                                  uint32_t virt_lpi);
-+uint32_t gicv3_its_get_host_lpi(struct domain *d, paddr_t vdoorbell_addres=
-s,
-+                                     uint32_t vdevid, uint32_t eventid);
-=20
- #else
-=20
-diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgi=
-c.h
-index 922779ce14..56a3b6f828 100644
---- a/xen/arch/arm/include/asm/vgic.h
-+++ b/xen/arch/arm/include/asm/vgic.h
-@@ -317,6 +317,35 @@ extern bool vgic_migrate_irq(struct vcpu *old, struct =
-vcpu *new, unsigned int ir
- extern void vgic_check_inflight_irqs_pending(struct domain *d, struct vcpu=
- *v,
-                                              unsigned int rank, uint32_t r=
-);
-=20
-+#ifdef CONFIG_HAS_ITS
+diff --git a/xen/arch/arm/vgic/vgic-mmio-v3.c b/xen/arch/arm/vgic/vgic-mmio=
+-v3.c
+new file mode 100644
+index 0000000000..b79a63ce3e
+--- /dev/null
++++ b/xen/arch/arm/vgic/vgic-mmio-v3.c
+@@ -0,0 +1,435 @@
 +/*
-+ * Describes a device which is using the ITS and is used by a guest.
-+ * Since device IDs are per ITS (in contrast to vLPIs, which are per
-+ * guest), we have to differentiate between different virtual ITSes.
-+ * We use the doorbell address here, since this is a nice architectural
-+ * property of MSIs in general and we can easily get to the base address
-+ * of the ITS and look that up.
++ * VGICv3 MMIO handling functions
++ * Imported from Linux ("new" KVM VGIC) and heavily adapted to Xen.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
 + */
-+struct vgic_its_device {
-+    struct rb_node rbnode;
-+    struct host_its *hw_its;
-+    void *itt_addr;
-+    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
-+    uint32_t host_devid;
-+    uint32_t guest_devid;
-+    uint32_t eventids;                  /* Number of event IDs (MSIs) */
-+    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
- */
-+    struct pending_irq *pend_irqs;      /* One struct per event */
++
++#include <xen/bitops.h>
++#include <xen/sched.h>
++#include <xen/sizes.h>
++#include <asm/new_vgic.h>
++#include <asm/gic_v3_defs.h>
++#include <asm/vreg.h>
++
++#include "vgic.h"
++#include "vgic-mmio.h"
++
++static const struct vgic_register_region vgic_v3_dist_registers[] =3D {
++    REGISTER_DESC_WITH_LENGTH(GICD_CTLR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi,
++        16, VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICD_STATUSR,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IGROUPR,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISENABLER,
++        vgic_mmio_read_enable, vgic_mmio_write_senable, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICENABLER,
++        vgic_mmio_read_enable, vgic_mmio_write_cenable, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISPENDR,
++        vgic_mmio_read_pending, vgic_mmio_write_spending, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICPENDR,
++        vgic_mmio_read_pending, vgic_mmio_write_cpending, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ISACTIVER,
++        vgic_mmio_read_active, vgic_mmio_write_sactive, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICACTIVER,
++        vgic_mmio_read_active, vgic_mmio_write_cactive,
++        1, VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IPRIORITYR,
++        vgic_mmio_read_priority, vgic_mmio_write_priority,
++        8, VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ITARGETSR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_ICFGR,
++        vgic_mmio_read_config, vgic_mmio_write_config, 2,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IGRPMODR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 1,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_BITS_PER_IRQ(GICD_IROUTER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 64,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICD_IDREGS,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 48,
++        VGIC_ACCESS_32bit),
 +};
 +
-+struct vgic_its_device *vgic_its_alloc_device(int nr_events);
-+void vgic_its_free_device(struct vgic_its_device *its_dev);
-+int vgic_its_add_device(struct domain *d, struct vgic_its_device *its_dev)=
-;
-+void vgic_its_delete_device(struct domain *d, struct vgic_its_device *its_=
-dev);
-+struct vgic_its_device* vgic_its_get_device(struct domain *d, paddr_t vdoo=
-rbell,
-+                                         uint32_t vdevid);
-+#endif /* CONFIG_HAS_ITS */
++static const struct vgic_register_region vgic_v3_rd_registers[] =3D {
++    /* RD_base registers */
++    REGISTER_DESC_WITH_LENGTH(GICR_CTLR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_STATUSR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_IIDR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_TYPER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_WAKER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_PROPBASER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_PENDBASER,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_INVLPIR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_INVALLR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
++        VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_SYNCR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(GICR_IDREGS,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 48,
++        VGIC_ACCESS_32bit),
++    /* SGI_base registers */
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IGROUPR0,
++        vgic_mmio_read_rao, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISENABLER0,
++        vgic_mmio_read_enable, vgic_mmio_write_senable, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICENABLER0,
++        vgic_mmio_read_enable, vgic_mmio_write_cenable, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISPENDR0,
++        vgic_mmio_read_pending, vgic_mmio_write_spending, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICPENDR0,
++        vgic_mmio_read_pending, vgic_mmio_write_cpending,4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ISACTIVER0,
++        vgic_mmio_read_active, vgic_mmio_write_sactive, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICACTIVER0,
++        vgic_mmio_read_active, vgic_mmio_write_cactive, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IPRIORITYR0,
++        vgic_mmio_read_priority, vgic_mmio_write_priority, 32,
++        VGIC_ACCESS_32bit | VGIC_ACCESS_8bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_ICFGR0,
++        vgic_mmio_read_config, vgic_mmio_write_config, 8,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_IGRPMODR0,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++    REGISTER_DESC_WITH_LENGTH(SZ_64K + GICR_NSACR,
++        vgic_mmio_read_raz, vgic_mmio_write_wi, 4,
++        VGIC_ACCESS_32bit),
++};
 +
- #endif /* !CONFIG_NEW_VGIC */
-=20
- /*** Common VGIC functions used by Xen arch code ****/
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index 05429030b5..0d839f3fa4 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -266,6 +266,200 @@ static bool write_itte(struct virt_its *its, uint32_t=
- devid,
-     return true;
- }
-=20
-+static struct pending_irq *get_event_pending_irq(struct domain *d,
-+                                                 paddr_t vdoorbell_address=
-,
-+                                                 uint32_t vdevid,
-+                                                 uint32_t eventid)
++unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *dev)
 +{
-+    struct vgic_its_device *dev;
-+    struct pending_irq *pirq =3D NULL;
++    dev->regions    =3D vgic_v3_dist_registers;
++    dev->nr_regions =3D ARRAY_SIZE(vgic_v3_dist_registers);
 +
-+    spin_lock(&d->arch.vgic.its_devices_lock);
-+    dev =3D vgic_its_get_device(d, vdoorbell_address, vdevid);
-+    if ( dev && eventid < dev->eventids )
-+        pirq =3D &dev->pend_irqs[eventid];
-+
-+    spin_unlock(&d->arch.vgic.its_devices_lock);
-+
-+    return pirq;
++    return SZ_64K;
 +}
 +
-+static int remove_guest_event(struct domain *d, paddr_t vdoorbell_address,
-+                             uint32_t vdevid, uint32_t eventid)
++static bool vgic_v3_redist_region_full(struct vgic_redist_region *region)
 +{
-+    uint32_t host_lpi =3D INVALID_LPI;
++    if ( !region->count )
++        return false;
 +
-+    host_lpi =3D gicv3_its_get_host_lpi(d, vdoorbell_address, vdevid, even=
-tid);
-+    if ( host_lpi =3D=3D INVALID_LPI )
++    return (region->free_index >=3D region->count);
++}
++
++/**
++ * vgic_v3_rdist_free_slot - Look up registered rdist regions and identify=
+ one
++ * which has free space to put a new rdist region.
++ *
++ * @rd_regions: redistributor region list head
++ *
++ * A redistributor regions maps n redistributors, n =3D region size / (2 x=
+ 64kB).
++ * Stride between redistributors is 0 and regions are filled in the index =
+order.
++ *
++ * Return: the redist region handle, if any, that has space to map a new r=
+dist
++ * region.
++ */
++static struct vgic_redist_region *vgic_v3_rdist_free_slot(struct list_head=
+ *rd_regions)
++{
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, rd_regions, list)
++    {
++        if ( !vgic_v3_redist_region_full(rdreg) )
++            return rdreg;
++    }
++    return NULL;
++}
++
++
++/**
++ * vgic_register_redist_iodev - register a single redist iodev
++ * @vcpu:    The VCPU to which the redistributor belongs
++ *
++ * Register a KVM iodev for this VCPU's redistributor using the address
++ * provided.
++ *
++ * Return 0 on success, -ERRNO otherwise.
++ */
++int vgic_register_redist_iodev(struct vcpu *vcpu)
++{
++    struct domain *d              =3D vcpu->domain;
++    struct vgic_dist *vgic        =3D &d->arch.vgic;
++    struct vgic_cpu *vgic_cpu     =3D &vcpu->arch.vgic;
++    struct vgic_io_device *rd_dev =3D &vcpu->arch.vgic.rd_iodev;
++    struct vgic_redist_region *rdreg;
++    paddr_t rd_base;
++
++    /*
++     * We may be creating VCPUs before having set the base address for the
++     * redistributor region, in which case we will come back to this
++     * function for all VCPUs when the base address is set.  Just return
++     * without doing any work for now.
++     */
++    rdreg =3D vgic_v3_rdist_free_slot(&vgic->rd_regions);
++    if ( !rdreg )
++        return 0;
++
++    vgic_cpu->rdreg       =3D rdreg;
++    vgic_cpu->rdreg_index =3D rdreg->free_index;
++
++    rd_base             =3D rdreg->base + rdreg->free_index * VGIC_V3_REDI=
+ST_SIZE;
++
++    rd_dev->base_fn     =3D gaddr_to_gfn(rd_base);
++    rd_dev->iodev_type  =3D IODEV_REDIST;
++    rd_dev->regions     =3D vgic_v3_rd_registers;
++    rd_dev->nr_regions  =3D ARRAY_SIZE(vgic_v3_rd_registers);
++    rd_dev->redist_vcpu =3D vcpu;
++
++    register_mmio_handler(d, &vgic_io_ops, rd_base, VGIC_V3_REDIST_SIZE,
++                          rd_dev);
++
++    rdreg->free_index++;
++    return 0;
++}
++
++static int vgic_register_all_redist_iodevs(struct domain *d)
++{
++    struct vcpu *vcpu;
++    int ret =3D 0;
++
++    for_each_vcpu(d, vcpu)
++    {
++        ret =3D vgic_register_redist_iodev(vcpu);
++        if ( ret )
++            break;
++    }
++
++    if ( ret )
++    {
++        printk(XENLOG_ERR "Failed to register redistributor iodev\n");
++    }
++
++    return ret;
++}
++
++static inline size_t vgic_v3_rd_region_size(struct domain *d,
++                                            struct vgic_redist_region *rdr=
+eg)
++{
++    if ( !rdreg->count )
++        return d->max_vcpus * VGIC_V3_REDIST_SIZE;
++    else
++        return rdreg->count * VGIC_V3_REDIST_SIZE;
++}
++
++/**
++ * vgic_v3_rdist_overlap - check if a region overlaps with any
++ * existing redistributor region
++ *
++ * @kvm: kvm handle
++ * @base: base of the region
++ * @size: size of region
++ *
++ * Return: true if there is an overlap
++ */
++bool vgic_v3_rdist_overlap(struct domain *domain, paddr_t base, size_t siz=
+e)
++{
++    struct vgic_dist *d =3D &domain->arch.vgic;
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, &d->rd_regions, list)
++    {
++        if ( (base + size > rdreg->base) &&
++             (base < rdreg->base + vgic_v3_rd_region_size(domain, rdreg)) =
+)
++            return true;
++    }
++    return false;
++}
++
++static inline bool vgic_dist_overlap(struct domain *domain, paddr_t base,
++                                     size_t size)
++{
++    struct vgic_dist *d =3D &domain->arch.vgic;
++
++    return (base + size > d->dbase) && (base < d->dbase + VGIC_V3_DIST_SIZ=
+E);
++}
++
++struct vgic_redist_region *vgic_v3_rdist_region_from_index(struct domain *=
+d,
++                                                           u32 index)
++{
++    struct list_head *rd_regions =3D &d->arch.vgic.rd_regions;
++    struct vgic_redist_region *rdreg;
++
++    list_for_each_entry(rdreg, rd_regions, list)
++    {
++        if ( rdreg->index =3D=3D index )
++            return rdreg;
++    }
++    return NULL;
++}
++
++int vgic_check_iorange(paddr_t ioaddr, paddr_t addr, paddr_t alignment,
++                       paddr_t size)
++{
++    if ( !IS_VGIC_ADDR_UNDEF(ioaddr) )
++        return -EEXIST;
++
++    if ( !IS_ALIGNED(addr, alignment) || !IS_ALIGNED(size, alignment) )
 +        return -EINVAL;
 +
-+    gicv3_lpi_update_host_entry(host_lpi, d->domain_id, INVALID_LPI);
++    if ( addr + size < addr )
++        return -EINVAL;
 +
 +    return 0;
 +}
 +
-+/*
-+ * Connects the event ID for an already assigned device to the given VCPU/=
-vLPI
-+ * pair. The corresponding physical LPI is already mapped on the host side
-+ * (when assigning the physical device to the guest), so we just connect t=
-he
-+ * target VCPU/vLPI pair to that interrupt to inject it properly if it fir=
-es.
-+ * Returns a pointer to the already allocated struct pending_irq that is
-+ * meant to be used by that event.
++/**
++ * vgic_v3_alloc_redist_region - Allocate a new redistributor region
++ *
++ * Performs various checks before inserting the rdist region in the list.
++ * Those tests depend on whether the size of the rdist region is known
++ * (ie. count !=3D 0). The list is sorted by rdist region index.
++ *
++ * @kvm: kvm handle
++ * @index: redist region index
++ * @base: base of the new rdist region
++ * @count: number of redistributors the region is made of (0 in the old st=
+yle
++ * single region, whose size is induced from the number of vcpus)
++ *
++ * Return 0 on success, < 0 otherwise
 + */
-+static struct pending_irq *assign_guest_event(struct domain *d,
-+                                             paddr_t vdoorbell_address,
-+                                             uint32_t vdevid, uint32_t eve=
-ntid,
-+                                             uint32_t virt_lpi)
++static int vgic_v3_alloc_redist_region(struct domain *domain, uint32_t ind=
+ex,
++                                       paddr_t base, uint32_t count)
 +{
-+    struct pending_irq *pirq;
-+    uint32_t host_lpi =3D INVALID_LPI;
++    struct vgic_dist *d =3D &domain->arch.vgic;
++    struct vgic_redist_region *rdreg;
++    struct list_head *rd_regions =3D &d->rd_regions;
++    int nr_vcpus                 =3D domain->max_vcpus;
++    size_t size                  =3D count ? count * VGIC_V3_REDIST_SIZE
++                                         : nr_vcpus * VGIC_V3_REDIST_SIZE;
++    int ret;
 +
-+    host_lpi =3D gicv3_its_get_host_lpi(d, vdoorbell_address, vdevid, even=
-tid);
-+    if ( host_lpi =3D=3D INVALID_LPI )
-+        return NULL;
-+    pirq =3D get_event_pending_irq(d, vdoorbell_address, vdevid, eventid);
-+    if ( !pirq )
-+        return NULL;
++    /* cross the end of memory ? */
++    if ( base + size < base )
++        return -EINVAL;
 +
-+    gicv3_lpi_update_host_entry(host_lpi, d->domain_id, virt_lpi);
-+
-+    return pirq;
-+}
-+
-+static int compare_its_guest_devices(struct vgic_its_device *dev,
-+                                     paddr_t vdoorbell, uint32_t vdevid)
-+{
-+    if ( dev->guest_doorbell < vdoorbell )
-+        return -1;
-+
-+    if ( dev->guest_doorbell > vdoorbell )
-+        return 1;
-+
-+    if ( dev->guest_devid < vdevid )
-+        return -1;
-+
-+    if ( dev->guest_devid > vdevid )
-+        return 1;
-+
-+    return 0;
-+}
-+
-+/* Must be called with the its_device_lock held. */
-+struct vgic_its_device *vgic_its_get_device(struct domain *d, paddr_t vdoo=
-rbell,
-+                                         uint32_t vdevid)
-+{
-+    struct rb_node *node =3D d->arch.vgic.its_devices.rb_node;
-+    struct vgic_its_device *dev;
-+
-+    ASSERT(spin_is_locked(&d->arch.vgic.its_devices_lock));
-+
-+    while (node)
++    if ( list_empty(rd_regions) )
 +    {
-+        int cmp;
-+
-+        dev =3D rb_entry(node, struct vgic_its_device, rbnode);
-+        cmp =3D compare_its_guest_devices(dev, vdoorbell, vdevid);
-+
-+        if ( !cmp )
-+            return dev;
-+
-+        if ( cmp > 0 )
-+            node =3D node->rb_left;
-+        else
-+            node =3D node->rb_right;
-+    }
-+
-+    return NULL;
-+}
-+
-+struct vgic_its_device *vgic_its_alloc_device(int nr_events)
-+{
-+    struct vgic_its_device *dev;
-+
-+    dev =3D xzalloc(struct vgic_its_device);
-+    if ( !dev )
-+        goto fail;
-+
-+    dev->pend_irqs =3D xzalloc_array(struct pending_irq, nr_events);
-+    if ( !dev->pend_irqs )
-+        goto fail_pend;
-+
-+    dev->host_lpi_blocks =3D xzalloc_array(uint32_t, nr_events);
-+    if ( !dev->host_lpi_blocks )
-+        goto fail_host_lpi;
-+   =20
-+    return dev;
-+fail_host_lpi:
-+    xfree(dev->pend_irqs);
-+fail_pend:
-+    xfree(dev);
-+fail:
-+    return NULL;
-+}
-+
-+void vgic_its_free_device(struct vgic_its_device *its_dev)
-+{
-+    xfree(its_dev->pend_irqs);
-+    xfree(its_dev->host_lpi_blocks);
-+    xfree(its_dev);
-+}
-+
-+int vgic_its_add_device(struct domain *d, struct vgic_its_device *its_dev)
-+{
-+    struct rb_node **new =3D &d->arch.vgic.its_devices.rb_node, *parent =
-=3D NULL;
-+    while ( *new )
-+    {
-+        struct vgic_its_device *temp;
-+        int cmp;
-+
-+        temp =3D rb_entry(*new, struct vgic_its_device, rbnode);
-+
-+        parent =3D *new;
-+        cmp =3D compare_its_guest_devices(temp, its_dev->guest_doorbell,
-+                                        its_dev->guest_devid);
-+        if ( !cmp )
-+        {
-+            printk(XENLOG_ERR "Trying to add an already existing ITS devic=
-e vdoorbell %lx vdevid %d\n",=20
-+                its_dev->guest_doorbell, its_dev->guest_devid);
++        if ( index !=3D 0 )
 +            return -EINVAL;
-+        }
++    }
++    else
++    {
++        rdreg =3D list_last_entry(rd_regions, struct vgic_redist_region, l=
+ist);
 +
-+        if ( cmp > 0 )
-+            new =3D &((*new)->rb_left);
-+        else
-+            new =3D &((*new)->rb_right);
++        /* Don't mix single region and discrete redist regions */
++        if ( !count && rdreg->count )
++            return -EINVAL;
++
++        if ( !count )
++            return -EEXIST;
++
++        if ( index !=3D rdreg->index + 1 )
++            return -EINVAL;
 +    }
 +
-+    rb_link_node(&its_dev->rbnode, parent, new);
-+    rb_insert_color(&its_dev->rbnode, &d->arch.vgic.its_devices);
++    /*
++     * For legacy single-region redistributor regions (!count),
++     * check that the redistributor region does not overlap with the
++     * distributor's address space.
++     */
++    if ( !count && !IS_VGIC_ADDR_UNDEF(d->dbase) &&
++         vgic_dist_overlap(domain, base, size) )
++        return -EINVAL;
++
++    /* collision with any other rdist region? */
++    if ( vgic_v3_rdist_overlap(domain, base, size) )
++        return -EINVAL;
++
++    rdreg =3D xzalloc(struct vgic_redist_region);
++    if ( !rdreg )
++        return -ENOMEM;
++
++    rdreg->base =3D VGIC_ADDR_UNDEF;
++
++    ret =3D vgic_check_iorange(rdreg->base, base, SZ_64K, size);
++    if ( ret )
++        goto free;
++
++    rdreg->base       =3D base;
++    rdreg->count      =3D count;
++    rdreg->free_index =3D 0;
++    rdreg->index      =3D index;
++
++    list_add_tail(&rdreg->list, rd_regions);
 +    return 0;
++free:
++    xfree(rdreg);
++    return ret;
 +}
 +
-+void vgic_its_delete_device(struct domain *d, struct vgic_its_device *its_=
++void vgic_v3_free_redist_region(struct vgic_redist_region *rdreg)
++{
++    list_del(&rdreg->list);
++    xfree(rdreg);
++}
++
++int vgic_v3_set_redist_base(struct domain *d, u32 index, u64 addr, u32 cou=
+nt)
++{
++    int ret;
++
++    ret =3D vgic_v3_alloc_redist_region(d, index, addr, count);
++    if ( ret )
++        return ret;
++
++    /*
++     * Register iodevs for each existing VCPU.  Adding more VCPUs
++     * afterwards will register the iodevs when needed.
++     */
++    ret =3D vgic_register_all_redist_iodevs(d);
++    if ( ret )
++    {
++        struct vgic_redist_region *rdreg;
++
++        rdreg =3D vgic_v3_rdist_region_from_index(d, index);
++        vgic_v3_free_redist_region(rdreg);
++        return ret;
++    }
++
++    return 0;
++}
+diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
+index 5d935a7301..1c3f861887 100644
+--- a/xen/arch/arm/vgic/vgic-mmio.c
++++ b/xen/arch/arm/vgic/vgic-mmio.c
+@@ -619,6 +619,9 @@ int vgic_register_dist_iodev(struct domain *d, gfn_t di=
+st_base_fn,
+     case VGIC_V2:
+         len =3D vgic_v2_init_dist_iodev(io_device);
+         break;
++    case VGIC_V3:
++        len =3D vgic_v3_init_dist_iodev(io_device);
++        break;
+     default:
+         BUG();
+     }
+diff --git a/xen/arch/arm/vgic/vgic.h b/xen/arch/arm/vgic/vgic.h
+index 2819569f30..a8e3ef5970 100644
+--- a/xen/arch/arm/vgic/vgic.h
++++ b/xen/arch/arm/vgic/vgic.h
+@@ -73,6 +73,9 @@ int vgic_register_dist_iodev(struct domain *d, gfn_t dist=
+_base_fn,
+ #ifdef CONFIG_GICV3
+ void vgic_v3_fold_lr_state(struct vcpu *vcpu);
+ void vgic_v3_populate_lr(struct vcpu *vcpu, struct vgic_irq *irq, int lr);
++unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *dev);
++int vgic_v3_set_redist_base(struct domain *d, u32 index, u64 addr, u32 cou=
+nt);
++int vgic_register_redist_iodev(struct vcpu *vcpu);
+ #else
+ static inline void vgic_v3_fold_lr_state(struct vcpu *vcpu)
+ {
+@@ -80,6 +83,18 @@ static inline void vgic_v3_fold_lr_state(struct vcpu *vc=
+pu)
+ static inline void vgic_v3_populate_lr(struct vcpu *vcpu, struct vgic_irq =
+*irq, int lr)
+ {
+ }
++static inline unsigned int vgic_v3_init_dist_iodev(struct vgic_io_device *=
 dev)
 +{
-+    rb_erase(&its_dev->rbnode, &d->arch.vgic.its_devices);
++    return 0;
 +}
-+
-+void vgic_vcpu_inject_lpi(struct domain *d, unsigned int virq)
++static inline int vgic_v3_set_redist_base(struct domain *d, u32 index, u64=
+ addr, u32 count)
 +{
-+    /*
-+     * TODO: this assumes that the struct pending_irq stays valid all of
-+     * the time. We cannot properly protect this with the current locking
-+     * scheme, but the future per-IRQ lock will solve this problem.
-+     */
-+    struct pending_irq *p =3D irq_to_pending(d->vcpu[0], virq);
-+    unsigned int vcpu_id;
-+
-+    if ( !p )
-+        return;
-+
-+    vcpu_id =3D ACCESS_ONCE(p->lpi_vcpu_id);
-+    if ( vcpu_id >=3D d->max_vcpus )
-+          return;
-+
-+    vgic_inject_irq(d, d->vcpu[vcpu_id], virq, true);
++    return 0;
 +}
-+
- /**************************************
-  * Functions that handle ITS commands *
-  **************************************/
-@@ -349,7 +543,7 @@ static int its_handle_clear(struct virt_its *its, uint6=
-4_t *cmdptr)
-     if ( !read_itte(its, devid, eventid, &vcpu, &vlpi) )
-         goto out_unlock;
++static inline int vgic_register_redist_iodev(struct vcpu *vcpu)
++{
++    return 0;
++}
+ #endif /* CONFIG_GICV3 */
 =20
--    p =3D gicv3_its_get_event_pending_irq(its->d, its->doorbell_address,
-+    p =3D get_event_pending_irq(its->d, its->doorbell_address,
-                                         devid, eventid);
-     /* Protect against an invalid LPI number. */
-     if ( unlikely(!p) )
-@@ -471,7 +665,7 @@ static int its_handle_inv(struct virt_its *its, uint64_=
-t *cmdptr)
-     if ( vlpi =3D=3D INVALID_LPI )
-         goto out_unlock_its;
-=20
--    p =3D gicv3_its_get_event_pending_irq(d, its->doorbell_address,
-+    p =3D get_event_pending_irq(d, its->doorbell_address,
-                                         devid, eventid);
-     if ( unlikely(!p) )
-         goto out_unlock_its;
-@@ -615,7 +809,7 @@ static int its_discard_event(struct virt_its *its,
-     spin_unlock_irqrestore(&vcpu->arch.vgic.lock, flags);
-=20
-     /* Remove the corresponding host LPI entry */
--    return gicv3_remove_guest_event(its->d, its->doorbell_address,
-+    return remove_guest_event(its->d, its->doorbell_address,
-                                     vdevid, vevid);
- }
-=20
-@@ -744,7 +938,7 @@ static int its_handle_mapti(struct virt_its *its, uint6=
-4_t *cmdptr)
-      * determined by the same device ID and event ID on the host side.
-      * This returns us the corresponding, still unused pending_irq.
-      */
--    pirq =3D gicv3_assign_guest_event(its->d, its->doorbell_address,
-+    pirq =3D assign_guest_event(its->d, its->doorbell_address,
-                                     devid, eventid, intid);
-     if ( !pirq )
-         goto out_remove_mapping;
-@@ -785,7 +979,7 @@ static int its_handle_mapti(struct virt_its *its, uint6=
-4_t *cmdptr)
-      * cleanup and return an error here in any case.
-      */
- out_remove_host_entry:
--    gicv3_remove_guest_event(its->d, its->doorbell_address, devid, eventid=
-);
-+    remove_guest_event(its->d, its->doorbell_address, devid, eventid);
-=20
- out_remove_mapping:
-     spin_lock(&its->its_lock);
-@@ -819,7 +1013,7 @@ static int its_handle_movi(struct virt_its *its, uint6=
-4_t *cmdptr)
-     if ( !nvcpu )
-         goto out_unlock;
-=20
--    p =3D gicv3_its_get_event_pending_irq(its->d, its->doorbell_address,
-+    p =3D get_event_pending_irq(its->d, its->doorbell_address,
-                                         devid, eventid);
-     if ( unlikely(!p) )
-         goto out_unlock;
+ #endif /* __XEN_ARM_VGIC_VGIC_H__ */
 --=20
 2.34.1
 
