@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCAED7E7BF0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 12:45:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630248.982961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD38F7E7C24
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:24:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630264.982975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Pwt-0005Yz-0I; Fri, 10 Nov 2023 11:45:19 +0000
+	id 1r1QYF-0008Ji-3n; Fri, 10 Nov 2023 12:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630248.982961; Fri, 10 Nov 2023 11:45:18 +0000
+Received: by outflank-mailman (output) from mailman id 630264.982975; Fri, 10 Nov 2023 12:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Pws-0005XI-T2; Fri, 10 Nov 2023 11:45:18 +0000
-Received: by outflank-mailman (input) for mailman id 630248;
- Fri, 10 Nov 2023 11:45:17 +0000
+	id 1r1QYF-0008HP-0d; Fri, 10 Nov 2023 12:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 630264;
+ Fri, 10 Nov 2023 12:23:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ap16=GX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r1Pn3-0007he-Do
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 11:35:09 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3cT5=GX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r1QYC-0008EJ-V9
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:23:52 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32192935-7fbd-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 12:35:06 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0A2CD1F8BA;
- Fri, 10 Nov 2023 11:35:06 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D240B13398;
- Fri, 10 Nov 2023 11:35:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id JNYFMmkVTmUYBAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 10 Nov 2023 11:35:05 +0000
+ id 00d5b25a-7fc4-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 13:23:50 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2c788f5bf53so12615591fa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 04:23:50 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ 16-20020a05600c021000b004060f0a0fdbsm4928552wmi.41.2023.11.10.04.23.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Nov 2023 04:23:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,60 +44,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32192935-7fbd-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1699616106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pEEtaKVN/DMgZvS8wiA2rruIly8+jtG6pBEpyWM89Hs=;
-	b=iTkromXprVW3/nlojohrUMSkRDHKNbAXjPRqSQgXtZNtgoDrr9+z3Vs3FUuCmFlWEaWOxD
-	NIKEOvNlJcgV421yMkbkpRvLV02NEins8CCiI+/mkuCA+fEg1h722mm7/EcdQlYiTcqKCH
-	if+Qv8+FJKIqYgYb903VLkCAZFzBrk8=
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 5/5] Mini-OS: fix 9pfs response receiving
-Date: Fri, 10 Nov 2023 12:34:35 +0100
-Message-Id: <20231110113435.22609-6-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20231110113435.22609-1-jgross@suse.com>
+X-Inumbo-ID: 00d5b25a-7fc4-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1699619029; x=1700223829; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=d6qsLjLzarjsyj792WOvem3ireyRhFP9cH08JtZTK6c=;
+        b=niclZSPtq7fLL+NsanaU3B9lo9ncM3PTZMJPtrQJBD54iY7Uc5pKWHNFFQ0n5eyOgg
+         ievK1KYIPNUsB75/x2wMdVv0/BbCYVIFMlNcHhZLTtSEnXYeFfvuG2/u+r/r4NFzMOWe
+         V1G7i+f4hZ75xCOybwDRqXnDBKr70/TjpuNXE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699619029; x=1700223829;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d6qsLjLzarjsyj792WOvem3ireyRhFP9cH08JtZTK6c=;
+        b=Ku9YopJTPD50uFMuZ/wZrH5cXpalmX/utxyxbJD/ru5oI+iFJ6GpQcM3n0SNUkRZCK
+         peiS1tqP46z5wTyt5sduSijTnkP/6u4XL9O2ypEkDxHkSrP15XtKQ1mnDV7BXWVlQEwD
+         6ihP+hMhwdQvLxd0tV5WihYd7tLPVpvxgcZEwk8cGIDJn6E/1fx2kXpOOyBTjTxhKR+f
+         RFoKRwFup75ffsFOuGjoXwRW4+1uTXGOKNujRzf2OvfqHzN/MSoIC7XRcDOHtcwu4z81
+         EC11p3FtfNQeSPZ4IsgbDVtZNdumWRJKCEORX0cQdXbvMM4fogUQ6+Dzqe74xpkZVbs3
+         D4xQ==
+X-Gm-Message-State: AOJu0Yzsy+bdilHyQ9+nynM9oHEDiyiO6yR3OKzDRgzHkLrabxSOxZjR
+	N21DKQG6FZEvToTEsKOq0x0vNA==
+X-Google-Smtp-Source: AGHT+IEVMcz88wiybwFGxqthBAENB/4ZAWD9T1MqprzLvhMKOFRNktjF4uG6aJTQhyehTtkPg/SmcQ==
+X-Received: by 2002:a2e:b00c:0:b0:2c5:1037:b54d with SMTP id y12-20020a2eb00c000000b002c51037b54dmr6517610ljk.31.1699619029580;
+        Fri, 10 Nov 2023 04:23:49 -0800 (PST)
+Date: Fri, 10 Nov 2023 12:23:47 +0000
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	samuel.thibault@ens-lyon.org, wl@xen.org
+Subject: Re: [PATCH v2 2/5] Mini-OS: get own domid
+Message-ID: <ZU4g0y-Y6-77sY-C@macbook.local>
 References: <20231110113435.22609-1-jgross@suse.com>
+ <20231110113435.22609-3-jgross@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20231110113435.22609-3-jgross@suse.com>
 
-When copying a 9pfs response chunk from the ring buffer across the
-ring end, the local ring pointer and length field are not updated
-correctly. Fix that.
+On Fri, Nov 10, 2023 at 12:34:32PM +0100, Juergen Gross wrote:
+> Get the own domid via creation of a temporary event channel. There is
+> no "official" way to read the own domid in PV guests, so use the event
+> channel interface to get it:
+> 
+> - allocate an unbound event channel specifying DOMID_SELF for the
+>   other end
+> 
+> - read the event channel status which will contain the own domid in
+>   unbound.dom
+> 
+> - close the event channel
 
-Fixes: 0924fec1de58 ("Mini-OS: add 9pfs transport layer")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- new patch
----
- 9pfront.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Should we look into introducing a way to expose the domid, so that in
+the future we might not need to resort to this workarounds to get the
+domid?
 
-diff --git a/9pfront.c b/9pfront.c
-index 43c7409f..35c5552b 100644
---- a/9pfront.c
-+++ b/9pfront.c
-@@ -386,7 +386,9 @@ static void copy_bufs(unsigned char **buf1, unsigned char **buf2,
-             printk("9pfs: short copy (dropping %u bytes)\n", len - *len1);
-             len = *len1;
-         }
--        memcpy(target, *buf1, *len1);
-+        memcpy(target, *buf1, len);
-+        *buf1 += len;
-+        *len1 -= len;
-     }
- }
- 
--- 
-2.35.3
+Maybe in the PV-specific cpuid leaf?  It's a shame we didn't put it in
+a non-HVM specific leaf when it was made available to HVM for pvshim
+reasons.
 
+Thanks, Roger.
 
