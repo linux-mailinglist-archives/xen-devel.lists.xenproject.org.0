@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554B37E7A6F
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:06:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.629991.982606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3057E7A7D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:13:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630002.982616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1NT8-0002J8-L1; Fri, 10 Nov 2023 09:06:26 +0000
+	id 1r1NZL-0004dk-CU; Fri, 10 Nov 2023 09:12:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 629991.982606; Fri, 10 Nov 2023 09:06:26 +0000
+Received: by outflank-mailman (output) from mailman id 630002.982616; Fri, 10 Nov 2023 09:12:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1NT8-0002Gw-Gx; Fri, 10 Nov 2023 09:06:26 +0000
-Received: by outflank-mailman (input) for mailman id 629991;
- Fri, 10 Nov 2023 09:06:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r1NT6-0002Bc-OH
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:06:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r1NT0-00008n-99; Fri, 10 Nov 2023 09:06:18 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.18.68]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r1NT0-0003XY-1S; Fri, 10 Nov 2023 09:06:18 +0000
+	id 1r1NZL-0004bY-9h; Fri, 10 Nov 2023 09:12:51 +0000
+Received: by outflank-mailman (input) for mailman id 630002;
+ Fri, 10 Nov 2023 09:12:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MXa0=GX=casper.srs.infradead.org=BATV+29e7849af3f7cdd1dde9+7383+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r1NZH-0004bM-Pm
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:12:49 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4d723a47-7fa9-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 10:12:45 +0100 (CET)
+Received: from [2001:8b0:10b:5:18d3:34d5:5849:7b74]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r1NYq-00CWNe-0e; Fri, 10 Nov 2023 09:12:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,137 +41,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wcXnzfBPAMpHbeq7N/cs9o4/hYT3dG2zIckP3SWpz40=; b=pUYZIJjzPX3AeN0xOtKGHP9BrY
-	upROH9Uzhsl9xSDCgzu0ZxcSBHF3wmaqA4Eja66UJ0BBrWNd6GTakoGEa05A9Lwbx9tXiedr7TqNp
-	cfu2/RJUYmpXq1+Mvw3dzJXmS5AGSq0dh9uONZ7xyzGadPzdA0Fw3pxYCR8pDqx1g5vY=;
-Message-ID: <cffef994-1cba-4ce2-acb5-96e0ddd61064@xen.org>
-Date: Fri, 10 Nov 2023 09:06:15 +0000
+X-Inumbo-ID: 4d723a47-7fa9-11ee-98da-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=szkSQPoIKoP5lekOfNB3Z458Rwwk6eknWfne+IEJkEE=; b=Pv2rjFyeMN96myZ5+P3qknMwO3
+	J4/A/Bx2Ch0OSmgI/U1DzLssEEOtbm8tuKLymw4fdG9NbVDLZM4xMfqGYG9YjjtjsPplcw2M7X1dd
+	Q7a+qeDokhWEgvpN0DC71y6xk6fxLS6O5AvW9+jvaj17YjcK3Z0uglHBMbr4G450lTLp4GULIEMjd
+	RoDMW1K5Ou8SvKs6gnzwCZ+8lMnuXUYKHdTqPaSyDCClqrer4u52qAppl/F+mBaSDisKYDEhbA6+5
+	iGENGfDfxT6SkJZ2/QzSK/pH+jzAq0OlVqqTH/igJABIITgjnjUCsM2Oc0LLKL4KpHosXxaHEC2bo
+	hdOmojdQ==;
+Message-ID: <d81446693e0a82201807bc3c1a9d2a307135df72.camel@infradead.org>
+Subject: Re: [PATCH] include/hw/xen: Use more inclusive language in comment
+From: David Woodhouse <dwmw2@infradead.org>
+To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, qemu-trivial@nongnu.org
+Date: Fri, 10 Nov 2023 09:12:20 +0000
+In-Reply-To: <20231109174034.375392-1-thuth@redhat.com>
+References: <20231109174034.375392-1-thuth@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-I7CDt+ABG3lJwgraqKn9"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH][for-4.19] domain: add ASSERT to help static analysis
- tools
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, michal.orzel@amd.com,
- xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <3f163bb58993410183229e72eb1f227057f9b1c7.1699034273.git.nicola.vetrini@bugseng.com>
- <d67ec7e2-a606-ed62-150f-08e3c1c9aabe@suse.com>
- <44df74cb532bfb9642b1c8752ee8c0d6@bugseng.com>
- <2c8c246d-caea-5c8b-4a2a-83248422c48d@suse.com>
- <b407f981-c58c-4272-bc7c-1470a87e2487@xen.org>
- <4b4583f5-4cdb-6be9-20eb-22466b6aef28@suse.com>
- <483f3b34-ebd4-4613-b083-596bebf5ac15@xen.org>
- <alpine.DEB.2.22.394.2311091614010.3478774@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2311091614010.3478774@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Stefano,
 
-On 10/11/2023 00:29, Stefano Stabellini wrote:
-> On Thu, 9 Nov 2023, Julien Grall wrote:
->> On 09/11/2023 07:42, Jan Beulich wrote:
->>> On 08.11.2023 14:33, Julien Grall wrote:
->>>> Hi Jan,
->>>>
->>>> On 08/11/2023 11:19, Jan Beulich wrote:
->>>>> On 08.11.2023 12:03, Nicola Vetrini wrote:
->>>>>> On 2023-11-08 09:24, Jan Beulich wrote:
->>>>>>> On 03.11.2023 18:58, Nicola Vetrini wrote:
->>>>>>>> Static analysis tools may detect a possible null
->>>>>>>> pointer dereference at line 760 (the memcpy call)
->>>>>>>> of xen/common/domain.c. This ASSERT helps them in
->>>>>>>> detecting that such a condition is not possible
->>>>>>>> and also provides a basic sanity check.
->>>>>>>
->>>>>>> I disagree with this being a possible justification for adding such
->>>>>>> a
->>>>>>> redundant assertion. More detail is needed on what is actually
->>>>>>> (suspected to be) confusing the tool. Plus it also needs explaining
->>>>>>> why (a) adding such an assertion helps and (b) how that's going to
->>>>>>> cover release builds.
->>>>>>>
->>>>>>
->>>>>> How about:
->>>>>> "Static analysis tools may detect a possible null pointer dereference
->>>>>> at line 760 (config->handle) due to config possibly being NULL.
->>>>>>
->>>>>> However, given that all system domains, including IDLE, have a NULL
->>>>>> config and in the code path leading to the assertion only real domains
->>>>>> (which have a non-NULL config) can be present."
->>>>>>
->>>>>> On point b): this finding is a false positive, therefore even if the
->>>>>> ASSERT is
->>>>>> expanded to effectively a no-op, there is no inherent problem with
->>>>>> Xen's
->>>>>> code.
->>>>>> The context in which the patch was suggested [1] hinted at avoiding
->>>>>> inserting in
->>>>>> the codebase false positive comments.
->>>>>
->>>>> Which I largely agree with. What I don't agree with is adding an
->>>>> assertion which is only papering over the issue, and only in debug
->>>>> builds.
->>>>
->>>> I expect that the number of issues will increase a lot as soon as we
->>>> start to analyze production builds.
->>>>
->>>> I don't think it will be a solution to either replace all the ASSERT()
->>>> with runtime check in all configuration or even...
->>>>
->>>>> So perhaps instead we need a different way of tracking
->>>>> false positives (which need to be tied to specific checker versions
->>>>> anyway).
->>>>
->>>> ... documenting false positive.
->>>>
->>>> IMHO, the only viable option would be to have a configuration to keep
->>>> ASSERT in production build for scanning tools.
->>>
->>> But wouldn't that then likely mean scanning to be done on builds not also
->>> used in production? Would doing so even be permitted when certification
->>> is a requirement? Or do you expect such production builds to be used with
->>> the assertions left in place (increasing the risk of a crash; recall that
->>> assertions themselves may also be wrong, and hence one triggering in rare
->>> cases may not really be a reason to bring down the system)?
->>
->> I will leave Stefano/Nicola to answer from the certification perspective. But
->> I don't really see how we could get away unless we replace most of the
->> ASSERT() with proper runtime check (which may not be desirable for ASSERT()s
->> like this one).
-> 
-> For sure we don't want to replace ASSERTs with runtime checks.
-> 
-> Nicola, do we really need the ASSERT to be implemented as a check, or
-> would the presence of the ASSERT alone suffice as a tag, the same way we
-> would be using /* SAF-xx-safe */ or asmlinkage?
-> 
-> If we only need ASSERT as a deviation tag, then production builds vs.
-> debug build doesn't matter.
-> 
-> If ECLAIR actually needs ASSERT to be implemented as a check, could we
-> have a special #define to define ASSERT in a special way for static
-> analysis tools in production builds? For instance:
-> 
-> #ifdef STATIC_ANALYSIS
-> #define ASSERT(p) \
->      do { if ( unlikely(!(p)) ) printk("ASSERT triggered %s:%d", __file__,__LINE__); } while (0)
-> #endif
+--=-I7CDt+ABG3lJwgraqKn9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Just to make 100% clear, you are saying that assessor will be happy if 
-we analyze it with ASSERT enabled but in production we use it wout them 
-enabled? The assumption here is that they should have *never* been 
-triggered so they surely should not happen in production.
+On Thu, 2023-11-09 at 18:40 +0100, Thomas Huth wrote:
+> Let's improve the wording here.
+>=20
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
 
-Cheers,
+Absolutely, but please can we change it in Xen first because these
+headers are a direct import.
 
--- 
-Julien Grall
+Acked-by: David Woodhouse <dwmw@amazon.co.uk>
+
+> ---
+> =C2=A0include/hw/xen/interface/hvm/params.h | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/include/hw/xen/interface/hvm/params.h
+> b/include/hw/xen/interface/hvm/params.h
+> index a22b4ed45d..9bcb40284c 100644
+> --- a/include/hw/xen/interface/hvm/params.h
+> +++ b/include/hw/xen/interface/hvm/params.h
+> @@ -255,7 +255,7 @@
+> =C2=A0 * Note that 'mixed' mode has not been evaluated for safety from a
+> =C2=A0 * security perspective.=C2=A0 Before using this mode in a
+> =C2=A0 * security-critical environment, each subop should be evaluated fo=
+r
+> - * safety, with unsafe subops blacklisted in XSM.
+> + * safety, with unsafe subops blocked in XSM.
+> =C2=A0 */
+> =C2=A0#define HVM_PARAM_ALTP2M=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 35
+> =C2=A0#define XEN_ALTP2M_disabled=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0
+
+
+--=-I7CDt+ABG3lJwgraqKn9
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEwMDkxMjIwWjAvBgkqhkiG9w0BCQQxIgQgE585freP
+iaP3/NA96uMrl7A88q81bvZ2+JjcbxRDat4wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCLZXfUD3/Hzdx6qJWlJriNlDpvSuKPvoCh
+WsDqYa0XOHoFAcRrwytQZvsaHoG1beG60lXFifayItczSJWF2dOpADSqd25GdqI3KfteLsI5As0M
+OD6tpLaR41pJixVO3uFWr774BkC4IAGVkC6PZCZIww+dkPEWX4LJcQFoYuebuFOkPK9ai+vrIsuq
+fuKaGrN/9z3U4zdqwLxaSt0hU3007ath7JFqrsP4FY6jY89czXTrrjhZa5ea1mxJ0a5nB6i3Yd75
+aB7kTu2jhaOU+ljK56u/CAlIK6rUEqCCrhqlco7kv/0771Hxf7feIT8DmAmc/prrV2LhCVyXYYen
+GIM2sCiZ5/VlnfadcscGYSX/1iw2H+1LXi9y4q02bEb8Wgt3oiyU1QPFwCp7f1lb8oka7VERmuor
+Kg5yKvx1bTG+4yKjUPaEA7/BB7uYtTvdWrrCLXuHP35z5rZv4OQIlJQcZjMhWSZz9osnybHFodd6
+a2GFGkMnUJuTdsWEUZo7SzV/vzIkNkixgJc6mX0af7tM05K+vUJUmRh13a9froXtjUztvFoOl8i5
+MZBfe6Fp6bCXA8sKnW5R1XdgZCCyNcEUQMuKSDPee5uu5hVdTCaA4DvbVxxWcW1Aib1HhD65gh9d
+p44mX+czucnlkAQem2VUYgv9KifWRDT6G1wXxGLPbgAAAAAAAA==
+
+
+--=-I7CDt+ABG3lJwgraqKn9--
 
