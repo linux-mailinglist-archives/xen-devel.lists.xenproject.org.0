@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6AB7E7DCC
+	by mail.lfdr.de (Postfix) with ESMTPS id 845227E7DCB
 	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630614.983678 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.630613.983673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPM-0006io-MU; Fri, 10 Nov 2023 16:31:00 +0000
+	id 1r1UPM-0006g9-AP; Fri, 10 Nov 2023 16:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630614.983678; Fri, 10 Nov 2023 16:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 630613.983673; Fri, 10 Nov 2023 16:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPM-0006gC-Dp; Fri, 10 Nov 2023 16:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 630614;
+	id 1r1UPM-0006cg-5w; Fri, 10 Nov 2023 16:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 630613;
  Fri, 10 Nov 2023 16:30:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r1UPK-0005Bj-RR
+ id 1r1UPK-0005EV-Hm
  for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:30:58 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 868f9c12-7fe6-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 17:30:57 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-9df8d0c2505so460844666b.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:30:57 -0800 (PST)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8704a76a-7fe6-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 17:30:58 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-53dd752685fso3607992a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:30:58 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.30.55
+ lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.30.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Nov 2023 08:30:55 -0800 (PST)
+ Fri, 10 Nov 2023 08:30:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,91 +44,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 868f9c12-7fe6-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 8704a76a-7fe6-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699633856; x=1700238656; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1699633857; x=1700238657; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i4GiMwFNhic1Of+4qxhqUdq0tdhcqKTYgac+1gBg+Ao=;
-        b=Eek3Yp1oYvkOcYZgMXNZRH8e66YaJ8uj1BMwT007pLJPYI+ujVGloCL6Dgns7W3v4V
-         d5DcqNkSfe3n2Ny/Hy+ye4gfBKX0fYp6woiAq8BXC/WUYm8P/Fh2GpHjQBQasYrIbF6n
-         LkXiM/3rtbT/cXNIIFoLkYN2xajQReyyysu1XLYL/QQoJgPT1evYKSqa++tWFqb57hDR
-         YTXdB1xvdhYsDmXHyrD+zYnqY+seFh3myeGNqZdtyN1wfuHL+dqQijaTg/UJOnZ2G1yv
-         OVPWVoHBQUtfBtorgCslrtzQmxCy7Msh1UqPCFhSglycaFGBHE7DGebrl9dGKk+8+DAv
-         Ijtg==
+        bh=pNlgHH2+ktCzJe/U/s44e1F9wORkNaJQ+ejM+24ZT2k=;
+        b=BbnGrakVKILBjh/mOwz4qPmtfkG8ficEXeOtDADmN7WTc1Zs+om04HjmBe2PqFc5e6
+         yoxzOWevwCE6avUX2cbv7qGvmWxiI2vZHGMvCj1W6pNUlzVItzQp4pxEfdfyBlLz0h6e
+         qhre0BwMrc8HEXkgZ31MwRyq00SuZJ1PCJx90sejmM/azcQTanRuqoSNmY6QeVH6IEXz
+         8GqRfW7L+CCTu41lFJ/CIt7ATTf6sSNdjCeLKGbpd3fZ5Nb4BGgQi+zqNuGp3YRbAyK5
+         x+XG5GbRzqI3FiUDKplF0MnS8oiTqyuWZyNhuD+alT/3TVDCpTQu6zMmvsmNybmXiMF1
+         hhnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699633856; x=1700238656;
+        d=1e100.net; s=20230601; t=1699633857; x=1700238657;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=i4GiMwFNhic1Of+4qxhqUdq0tdhcqKTYgac+1gBg+Ao=;
-        b=DK+UkB6PsFOItd+ZOqnHOybfSRQrI7vEDtD6h7csAA/drIQdwF9yM6kbSn/WvPdgSA
-         aPeqbOOnaNzpwQWV/LE5nPFPClWwHAkW++/rvsKJDq5knwyZZawnWulqzmV5Yql7y3kB
-         swg5jijuyvv/Cb4dJHSLjiFZwK01Ib+uP62HVWhK3gTa/rwlncmIZud7PbdiRDQiyqsf
-         tKgAhoum/dVkjyiwxBW2e+BaLMVyA4e4A78e18t5xuQgBWt2caluCCqaaHLUq76QZzyt
-         c53JrF0DTkq56rOULiimqiDBueg/SkiZsD6jP39zc445/dUT94LmjxbqCV+fyGQAPRic
-         QRSA==
-X-Gm-Message-State: AOJu0Yx506h1Bdr+pSO2lE2WcxJl6xFIJnTlWmZYcUE42B9+kB4sKR+V
-	VTVSaDtRT0SL8UahhkUA8LKYuaHvnfI=
-X-Google-Smtp-Source: AGHT+IFZ7Fmn5+ODTd0Tw/vIffUZN66H0viRuphmcR4vVXFOcYlGklI4ld7L0oE/FWH20ceYuq01qA==
-X-Received: by 2002:a17:906:13d5:b0:9a9:f0e6:904e with SMTP id g21-20020a17090613d500b009a9f0e6904emr2946531ejc.16.1699633856160;
-        Fri, 10 Nov 2023 08:30:56 -0800 (PST)
+        bh=pNlgHH2+ktCzJe/U/s44e1F9wORkNaJQ+ejM+24ZT2k=;
+        b=jkWzxr27Gco+jw0ub0Wvx4sAGWUGnB+hiUs270jn3+xmJ0fXV7e3Z1IwL0nWJztym/
+         5JAae/80uVYPNPFVN0m1vh4PJQPiHfohsYJ3nDkzCQbowUymG3ghQk+AZB7VJs1avIXF
+         w7SgoSpp0MCxnUYJF3DVWnHzSHilI+pN++wokvjY1zdwLJKXFpdPDsLjxsWUPpQP55Ar
+         EnI5xI49x87uXqMqr1KGXFrZhynyOTjnaq8Ag/+tRWEZ27KPVJuMqMlYligKMx8/k5BH
+         FUvo0tRYY4BFUSvlEuu0hljM6u9EMKNn5T+mehKwAQB47BQ3gprjyAs0ziRCaczHeiw9
+         vatw==
+X-Gm-Message-State: AOJu0YxwjvSUXs6GQUjMdJI9bnWKWXkm+1G4I+62+0rC6okD1uXjD4CG
+	k9CQPskmzT7Yt8cZ/DJ2HRtRA0hSZKM=
+X-Google-Smtp-Source: AGHT+IF+CIKmdcaZQJXwuwaB94ORORfT3+rJCuHr5biDpK6t9A50jLiARFhufiMmCQL42I426ZSNUg==
+X-Received: by 2002:a17:907:3606:b0:9b2:982e:339a with SMTP id bk6-20020a170907360600b009b2982e339amr6597509ejc.22.1699633857302;
+        Fri, 10 Nov 2023 08:30:57 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 05/15] xen/asm-generic: introduce generic header iocap.h
-Date: Fri, 10 Nov 2023 18:30:31 +0200
-Message-ID: <6ea2fc1c12fa08e7cc6a47735c4fcd49c48ac4d3.1699633310.git.oleksii.kurochko@gmail.com>
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 06/15] xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+Date: Fri, 10 Nov 2023 18:30:32 +0200
+Message-ID: <7ab8ce9ca633a5a7e5212d0acc62d6e1d4688ca0.1699633310.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iocap.h is common for Arm, PPC and RISC-V architectures thereby
-it was moved to asm-generic.
+ifdefing inclusion of <asm/mem_access.h> in <xen/mem_access.h>
+allows to avoid generation of empty <asm/mem_access.h> header
+for the case when !CONFIG_MEM_ACCESS.
 
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-The same question as with device.h. Should it be in asm-generic?
-
 Changes in V2:
- - update the commit message
+	- add Suggested-by: Jan Beulich <jbeulich@suse.com>
+	- update the commit message
+	- remove <asm-generic/mem_access.h>
 ---
- xen/include/asm-generic/iocap.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
- create mode 100644 xen/include/asm-generic/iocap.h
+ xen/include/xen/mem_access.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/xen/include/asm-generic/iocap.h b/xen/include/asm-generic/iocap.h
-new file mode 100644
-index 0000000000..dd7cb45488
---- /dev/null
-+++ b/xen/include/asm-generic/iocap.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_IOCAP_H__
-+#define __ASM_GENERIC_IOCAP_H__
-+
-+#define cache_flush_permitted(d)                        \
-+    (!rangeset_is_empty((d)->iomem_caps))
-+
-+#endif /* __ASM_GENERIC_IOCAP_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
+index 4e4811680d..87d93b31f6 100644
+--- a/xen/include/xen/mem_access.h
++++ b/xen/include/xen/mem_access.h
+@@ -33,7 +33,9 @@
+  */
+ struct vm_event_st;
+ 
++#ifdef CONFIG_MEM_ACCESS
+ #include <asm/mem_access.h>
++#endif
+ 
+ /*
+  * Additional access types, which are used to further restrict
 -- 
 2.41.0
 
