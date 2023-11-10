@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF507E7DCF
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630618.983722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245DE7E7DCE
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 17:31:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630619.983726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPS-00087w-8O; Fri, 10 Nov 2023 16:31:06 +0000
+	id 1r1UPT-0008Go-1G; Fri, 10 Nov 2023 16:31:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630618.983722; Fri, 10 Nov 2023 16:31:06 +0000
+Received: by outflank-mailman (output) from mailman id 630619.983726; Fri, 10 Nov 2023 16:31:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1UPR-000808-RU; Fri, 10 Nov 2023 16:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 630618;
- Fri, 10 Nov 2023 16:31:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r1UPS-00087c-NF; Fri, 10 Nov 2023 16:31:06 +0000
+Received: by outflank-mailman (input) for mailman id 630619;
+ Fri, 10 Nov 2023 16:31:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r1UPP-0005Bj-H2
+ id 1r1UPP-0005EV-QX
  for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 16:31:03 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89596297-7fe6-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 17:31:02 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-9d10972e63eso363843366b.2
- for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:31:02 -0800 (PST)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a337266-7fe6-11ee-98da-6d05b1d4d9a1;
+ Fri, 10 Nov 2023 17:31:03 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9df8d0c2505so460863966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 08:31:03 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.31.00
+ lv19-20020a170906bc9300b009a9fbeb15f5sm4128966ejb.46.2023.11.10.08.31.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Nov 2023 08:31:00 -0800 (PST)
+ Fri, 10 Nov 2023 08:31:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89596297-7fe6-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 8a337266-7fe6-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699633861; x=1700238661; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1699633862; x=1700238662; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F+9+gnHXJ2k1bhGlVA4uqBRS88NAaQ/Yn9M7Z3WD+Pc=;
-        b=CHQ1SYGEzugavrjNBgqaI5mAQZCLDu1PtoyDbWeZi4qE8WPrcgIuLb4xn7YIDX+4+x
-         NKsheO5rD/+T8VetYuyEpKvEy81csCsEGYEgLlEG3yoOE+vWx773TsltlWFPZMw4inWk
-         m89uPxV3BTYlUlM16/47cF4OJOZ3HMg13uoOFe4qtuRON54DfdJ4cRKzvB1uUWZ7hPWY
-         uI6La+3rpgNUFSDZhlezMWvsqGxTR9iD1g1dZg0FtgcoFxnXj94FcK0nFhcFPCJFaVax
-         UMiToj4aSpAasyoYolS7ylB3NBk3WZub2oi9ipvrloL5g1FrlJdSu7D0RLQxDYgkczxj
-         GtCA==
+        bh=O9cK1yjpDKWQCw8xI+NWHuaVAE4NsCYRJpwmxLZ2MEU=;
+        b=a7G9g0EULeOnzOzKD93sW5vhHxYzKrPIGtTp1bqeZ/THoLlykL5kD+AnX2QA1fEsl7
+         HT6n/LozvHrubdR49GQWQO98TwryUYsrMtBtubEoePbkemiIC3MuZtkPrBZPKpG5G8bw
+         IRCn6NzTcdU9SO1m91Phx+TeswWDqEEmEKHwbB9PvjPW9gwm1urIMU/iW6OZxExLAp9Q
+         AtAJHkyEAZcCTekYbABVhUSyjrEYvRsCYaFop7KIUw07OS9zh5iUlhpaUyVVwHCtcZxv
+         i8FtYiOOwX2ENbxVxaMPeUEIVNr/VRTFW/XwYtwswJ2g0CppgTAcO33NeP2ME5tPpDhz
+         c44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699633861; x=1700238661;
+        d=1e100.net; s=20230601; t=1699633862; x=1700238662;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=F+9+gnHXJ2k1bhGlVA4uqBRS88NAaQ/Yn9M7Z3WD+Pc=;
-        b=rvA3dLWBUv4huuSTR1oVSxy/3T6UmTitlS51JOlD16RAENT7/nOO+qmCAtw80WDsxt
-         R3IIO+RSQ0qzakq5z5q9b5lLpuR4oW1KAvQJjDaOkBe95YR8Zk3xKfZALJx9lKXeGND/
-         xf6qD44uwxTY0lef20T8GpGl+Xc4YyQRnBgXXmQKCN6prm51ENe8Yxst4ARl7ldfLJgc
-         gJCoMbVDgGCW9sjZBq7O33LJ2+LQIumdyLzHr3bHkSv8KOPL2PJ/NX87EYYfDHveEshS
-         XCGRS681HFJUw/vEbbUdGxmlEfMJnEHJYLLd9n+Xanj1kcRXZUlL68bO0GaxvE0YYnVt
-         Khdg==
-X-Gm-Message-State: AOJu0YzP17Nu31nTHTC+9jgbtEMgIcLbNthN/l3EzyIKEXZi0rFT49jH
-	NyAx6naFcYY7/NZY1d1mYNUSq76hfVQ=
-X-Google-Smtp-Source: AGHT+IF74GDtuCLj6a3p2eVzqEK/v9ZfwvG0RlX7aPu6Jr8YEkHkFbbegKQQLi8srL2C2PKE7wOdsA==
-X-Received: by 2002:a17:907:724f:b0:9bd:a65e:b594 with SMTP id ds15-20020a170907724f00b009bda65eb594mr8078571ejc.3.1699633861211;
-        Fri, 10 Nov 2023 08:31:01 -0800 (PST)
+        bh=O9cK1yjpDKWQCw8xI+NWHuaVAE4NsCYRJpwmxLZ2MEU=;
+        b=OD3K6vVNacSJDrxrHbQZQrbuewedskxQcvpNxFup68nKTIGVdNDZb1GhHsSHpoBH06
+         AbMFe5vhqpJmD08nks9XYn+bkFODCA7adEfqBTVTVZLN4KVXhdFh6HOoHZopWaSrnvu9
+         R554Q339YFaLqhlgcUsRK6c0FVRhlAH2/jnZBOBsd8bFhxk13mkodEd0aose1QcJDncP
+         N7qwJdJP7FUSa0PrNCK87z0KAj38cLnAWYz0F9c9UlrR1J0cl+LtZNWLGNiozdAZ+hgD
+         EWGP+poXJz92XiPiHWz8nFKymIRp+XLsAMTS3mWVvHIOGbpKXHhP8ERK6URDp1LuVNn9
+         sRxg==
+X-Gm-Message-State: AOJu0YyzmQVg81i7FplSMzKpxvHso1fdcuCwnDbKG3retBpv5bO0JOoc
+	j4D3CIzkFtE7ZZAb+MBsdjcX4TJMSuQ=
+X-Google-Smtp-Source: AGHT+IGdZf8lmwn9Nhc8WsjdLlVrjitW0A/updKdWdxjrI/StxCwh4MAjzORsIsFJpgwbCyJbTTdYA==
+X-Received: by 2002:a17:907:77d1:b0:9bd:81c3:2a85 with SMTP id kz17-20020a17090777d100b009bd81c32a85mr2614152ejc.32.1699633862171;
+        Fri, 10 Nov 2023 08:31:02 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,54 +83,55 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 10/15] xen/asm-generic: introduce generalized hardirq.h
-Date: Fri, 10 Nov 2023 18:30:36 +0200
-Message-ID: <bfd62969c9b94f59ecab4966af2a7bb6d4f1032d.1699633310.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 11/15] xen/asm-generic: introduce generic div64.h header
+Date: Fri, 10 Nov 2023 18:30:37 +0200
+Message-ID: <e981144f6058a4761912c0f89e48b7053466dd81.1699633310.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-<asm/hardirq.h> is common through archs thereby it is moved
-to asm-generic.
+All archs have the do_div implementation for BITS_PER_LONG == 64
+so do_div64.h is moved to asm-generic.
+
+The patch introduces header stub necessry for full Xen build.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V2:
-	- add #include <xen/cache.h>.
-	- update the commit message
+	- rename base to divisor
+	- add "#if BITS_PER_LONG == 64"
+	- fix code style
 ---
- xen/include/asm-generic/hardirq.h | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
- create mode 100644 xen/include/asm-generic/hardirq.h
+ xen/include/asm-generic/div64.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 xen/include/asm-generic/div64.h
 
-diff --git a/xen/include/asm-generic/hardirq.h b/xen/include/asm-generic/hardirq.h
+diff --git a/xen/include/asm-generic/div64.h b/xen/include/asm-generic/div64.h
 new file mode 100644
-index 0000000000..ddccf460b9
+index 0000000000..068d8a11ad
 --- /dev/null
-+++ b/xen/include/asm-generic/hardirq.h
-@@ -0,0 +1,29 @@
++++ b/xen/include/asm-generic/div64.h
+@@ -0,0 +1,27 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_HARDIRQ_H
-+#define __ASM_GENERIC_HARDIRQ_H
++#ifndef __ASM_GENERIC_DIV64
++#define __ASM_GENERIC_DIV64
 +
-+#include <xen/cache.h>
-+#include <xen/smp.h>
++#include <xen/types.h>
 +
-+typedef struct {
-+        unsigned long __softirq_pending;
-+        unsigned int __local_irq_count;
-+} __cacheline_aligned irq_cpustat_t;
++#if BITS_PER_LONG == 64
 +
-+#include <xen/irq_cpustat.h>    /* Standard mappings for irq_cpustat_t above */
++#define do_div(n, divisor) ({                   \
++    uint32_t divisor_ = (divisor);              \
++    uint32_t rem_ = (uint64_t)(n) % divisor_;   \
++    (n) = (uint64_t)(n) / divisor_;             \
++    rem_;                                       \
++})
 +
-+#define in_irq() (local_irq_count(smp_processor_id()) != 0)
++#endif /* BITS_PER_LONG */
 +
-+#define irq_enter()     (local_irq_count(smp_processor_id())++)
-+#define irq_exit()      (local_irq_count(smp_processor_id())--)
-+
-+#endif /* __ASM_GENERIC_HARDIRQ_H */
++#endif
 +
 +/*
 + * Local variables:
