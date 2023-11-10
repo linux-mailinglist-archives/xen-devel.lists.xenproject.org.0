@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5A57E7ADC
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:31:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630030.982696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0AE7E7ADB
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 10:30:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630029.982686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Nql-0004I2-Ki; Fri, 10 Nov 2023 09:30:51 +0000
+	id 1r1Nqi-0003zW-Bl; Fri, 10 Nov 2023 09:30:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630030.982696; Fri, 10 Nov 2023 09:30:51 +0000
+Received: by outflank-mailman (output) from mailman id 630029.982686; Fri, 10 Nov 2023 09:30:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1Nql-0004G6-H6; Fri, 10 Nov 2023 09:30:51 +0000
-Received: by outflank-mailman (input) for mailman id 630030;
- Fri, 10 Nov 2023 09:30:49 +0000
+	id 1r1Nqi-0003x5-91; Fri, 10 Nov 2023 09:30:48 +0000
+Received: by outflank-mailman (input) for mailman id 630029;
+ Fri, 10 Nov 2023 09:30:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jLlG=GX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r1Nqj-0001XY-Gt
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:30:49 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2058.outbound.protection.outlook.com [40.107.13.58])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Zww5=GX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1r1Nqg-0001XY-Ek
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 09:30:46 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d490e92f-7fab-11ee-9b0e-b553b5be7939;
- Fri, 10 Nov 2023 10:30:47 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by GVXPR04MB9974.eurprd04.prod.outlook.com (2603:10a6:150:11a::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.16; Fri, 10 Nov
- 2023 09:30:19 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7002.010; Fri, 10 Nov 2023
- 09:30:18 +0000
+ id d2c523a1-7fab-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 10:30:44 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-53e2308198eso2954516a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Nov 2023 01:30:44 -0800 (PST)
+Received: from [192.168.201.133] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ bh11-20020a170906a0cb00b0099bd1a78ef5sm3673074ejb.74.2023.11.10.01.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Nov 2023 01:30:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,125 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d490e92f-7fab-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g/1smTd/U5W/l897e/zpPXNFQ/9KyD5+HpvdEJH4zKYvagtLMVt3fcG19zRVPTf0YrV28gbu+3jkPkypwEtyClYTx1tyOBp4qFdAhTQEjMR4aXOeNqa5cYiUz+majaELYrB54fojYOHAPIsJMaJbXtNCwpAkxz3tbR3WvHiyajjIFkDZmF1eXZsoHSvaCsbkkFO/+jmvbVmI7/k8sDfWfcKLOXfMVM9Xt70VXULD99n3RQoH4MgtcNYt2IqyLNYojYTO4ekmXiLJF31/dgqcnQBIBtfOLISqUfJIRYOyi+L7pawea9Q1/gTkUe+1OF2exPb0tXPVH25WBiD2a11eYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IvEW3lHlPjDqZW6RjabtN6gmhKE3xf1ZYztQzCTecSo=;
- b=DMVRjHnJRa0ZNzXrSnBdp0aXbjQ+nx+erMJVyrFnbqtn2eiIOFbITOYxHkgbdfEy03dvdBR7iU532E2Z8fkuCi6BPg/ubwFQ7aG5/GCJDXn5OGTju0HHq4E6Hh7aLx6S5iOrRl3NYdlN37EjedH1lo++H5ZU0jrEhC3bqDhdInCjjX6evXtgYqae3RqTqgiO3BdeVtDOyQQ0AknFGBSCZGRYyrgWRVzmpaWEpSVFxsJp+9oJTJIIQZcrX8+sTWZrQtNCQRu2a0Y4iqzDqzZ1jfY4D5BXm8kyNW9nF0fFGNnHR8U6ZfT/NZFGdscdKjZ2QLE5fmtCOM/GggPZmaeYhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IvEW3lHlPjDqZW6RjabtN6gmhKE3xf1ZYztQzCTecSo=;
- b=tZ5kR+UgL7on0ejo9CTbXtT95VY8kwnbgQFbgMmlZNnQtfCl2dV6e/cpbKtVybD47QSQZR9kbEk+MHL8mbICCM2uJ7QFVtE5epSDQq1hU/fGSM8NcnKgk+qskSK17aeFCPEYwHzX8TSVkMhf4r6SuokfGQMUmQ92s2Sxl6v+QWwCJozJR/pBhBTDLYc/d+jJjGkYXwycWx/tN+fVDO8p8uceC3G1JvZwAbDFWuVZpvWFIzUeJcI69vRF9Oqc7Z7W6gryNPCZxfw40NtShUYCnhGvwHyj19Ma+bLs7/41j7hgpEc1+XI+OU3OCQhMep7myhg/GOE5dZwVPsRtLPDXAA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2ae66eda-3560-2930-4bbb-87345a719f32@suse.com>
-Date: Fri, 10 Nov 2023 10:30:16 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] include/hw/xen: Use more inclusive language in comment
-Content-Language: en-US
-To: Thomas Huth <thuth@redhat.com>
-Cc: xen-devel@lists.xenproject.org, qemu-trivial@nongnu.org,
- Anthony Perard <anthony.perard@citrix.com>, qemu-devel@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
-References: <20231109174034.375392-1-thuth@redhat.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20231109174034.375392-1-thuth@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0222.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: d2c523a1-7fab-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699608643; x=1700213443; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=k97xU64J5vTy/lN5XAno/ceDC32Hc2VjxczYpdq0V9E=;
+        b=JJDItUL0PIeIlE/n/Rs/Aax3GCjXRQCC76dhHtVC0gUF/7XFIFQS/elOgCZ+9gq5cY
+         O4c8KTd/JxdFibx091u61LYtMjN3ZupxsDy8cEq+OjT2tHqfs24zkQYoUcnwjTKkx1S+
+         Cf72GgqztS5PtNyD72mTbosewJW1Wl0GaQo35cP7eox/g/Yi83H/z79KV2VwgMsZfFP1
+         +TfJeLwGVSHNaobNOsmQh6TcY7wYVer2vDzgbb7U6LxdcBuVdWyeSTzR9JHQMG3BnEyM
+         Dr6HCWyfiDuJRtt+7npj14dUoRj/FH14dgiRNji1kuHPObvkcc16Avfj0PYvjN5Epk8z
+         qWdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699608643; x=1700213443;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=k97xU64J5vTy/lN5XAno/ceDC32Hc2VjxczYpdq0V9E=;
+        b=hN+x9yyEThUfxEWxs3q1fSXuwsRncDPspw3dm2GnLDiXnjnMim0XsNoKJ36n9oGugA
+         mKVIkGBNL4V2W/4AUW5pV+T1MKlfMBB/F8FPrxCRW46ZLYAm9+//NKfrLp3gTGhBp4pS
+         9BLr+PAnGQx3rSW18MEnQey+Qr6ENi15bHdpX2k+b+dgSjOWa7by25pD8UPhjRafPykC
+         4c7jJLu6l5GVLPF3x0U4tna5WCeZ252w9eJI5y4wKl5bpAWmbGkB/DdSi36P1XWxlSbX
+         vWzl4zhkoYhC9k0vYPeimZmefCMck5fihwvaBqhw3qIby8jpTzrbaG1/o0zUTiM7vzu1
+         sLTA==
+X-Gm-Message-State: AOJu0Yzc7MxeclzCCnCFvVEIQY+Aoun/x0N+/nhIjIUoP2hEPSprXqzT
+	VlP0fC+pp9L6ZWXu3GK5ffRO1GFXoyE=
+X-Google-Smtp-Source: AGHT+IGzmjVJdcdsnEeSMCIGbu/93thi48QpGa7cwuah868JfRpL+vbvVDHzMRlhqIUpje7R8j/iqw==
+X-Received: by 2002:a17:907:71c8:b0:9e4:198e:6c30 with SMTP id zw8-20020a17090771c800b009e4198e6c30mr3972571ejb.45.1699608643355;
+        Fri, 10 Nov 2023 01:30:43 -0800 (PST)
+Message-ID: <1d89dceb97c82504d4ed66d95f799f0a2e433716.camel@gmail.com>
+Subject: Re: [PATCH] xen: avoid generation of stub <asm/pci.h> header
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,  George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Date: Fri, 10 Nov 2023 11:30:42 +0200
+In-Reply-To: <f3fff005a4f9af419144d768afcf2fd4de3f21a4.1698833709.git.oleksii.kurochko@gmail.com>
+References: 
+	<f3fff005a4f9af419144d768afcf2fd4de3f21a4.1698833709.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|GVXPR04MB9974:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3e3923f-52ca-4884-8217-08dbe1cfa75a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	d5/xI2/rrcWpsxMxR6o0Rn/QFMZhk1/PFwfISIaMi62ypc5dE6E5l7gEoNoo5njvBPXfRu5RAW7L/G4r/NDbmaMSb/10jH0EHjgXbArxthFlru6Uweh9uRK6zHSG8rgyM6VzcU+vko2ItzaBz1JBT0E5BQWXXHFiUyl3Hq92YDnEtDDomVrK6dysQZGXT+OzmcX1gthOu6eDIb0/9SyTAhviYSoxIYREGTY6FnxjcqfQcFXv9X8xVT9oOCAxI76SAj/Sn8TIaABsu07IkgytYnKpqmMEDzyeC20yDQeeueW8c41RWOnhrmM6MrwajMwI8jdnBtqCG5zmmJ6xtl9jUDXWbBqVv9KI4vMQxIISvdAkGy9gr/iRLlxQmROVX/BglH20Ll6K8nvqQmTRdsQE5LgpU5sAzQ7yAp7ggj0zU//1rWLCss7PTmeHuTSPPOlVw11A0bvDtsAhA5lUgaPX0myVyyw4JElcwx1kOI2dy6/UFnxhRgRM8ryvGQLA93sQPcGJw6/L1YD2rD6+kNijqpYv45Y0ColgFojidusoPFkQVIllRO0LiW24oPjF16PTsVY9Fco4fVQOcUGCYhc1fODLNm2xrgxrJl0+75a10rBIhbI2tBggzIg31WrBiF0brM5xFcfKNcOgQQF4UpqSiw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(346002)(366004)(136003)(396003)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(36756003)(31686004)(86362001)(31696002)(38100700002)(53546011)(26005)(6506007)(2616005)(6486002)(316002)(66476007)(8676002)(66946007)(83380400001)(66556008)(8936002)(54906003)(4326008)(6916009)(478600001)(2906002)(5660300002)(6512007)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dmVkS2hBMEJnNGZpNEt2Z1E2NFh0c1FaVlBpRHFPQk96QlZTZnNFdFQ5Q1Zh?=
- =?utf-8?B?Rk1YR05vUEQ2QjRzbzZYVnY1OFpWTmNmazBDbG9paGQ2bDY3RDduTFh4UnRM?=
- =?utf-8?B?VzVnVXZYdWxncXhGeFEyTXhHSzBhaFhNRGhXRmlPNDF5dktVcTdmN2RKT05N?=
- =?utf-8?B?MTFjL3N4dkpZV2hjZTlKS0R6U24wbWp0K2JCYWRVeVJPRHh5NFJxT3AxNWZj?=
- =?utf-8?B?bFFVb245Y2U4TDZ4YVczcVBlU1laaW5pMk5XL0hkSm1RbHZUTDhTemxlUEZP?=
- =?utf-8?B?MHlQOXRKNDBXYnU3U1drcVcrNktIN3RGOERjNEZoN09CTHVFbXo3OTI2OWFM?=
- =?utf-8?B?T0lUT2NxZmVsMEZaWTV5VlVXZHU1elRzTUV6d3E5SnY5SDJDQWc5YzlaZ2sr?=
- =?utf-8?B?U1VHb3hLNEM3ZVEvWFNGVzlSSWIzN2JNYkdYTVUwM203ZUlnbHpGQ2FMNXZp?=
- =?utf-8?B?dWRkSlo5ZlYzdlhmY1FPMlJlTjRNNDA1OU5JRytaN2QzQ3FsZWxqQi9FZS92?=
- =?utf-8?B?ZDBEQ0xSZ2JvaE55c3FIanlsOVJNVkc2VFhONm5jOThrSkFUdld3YjRjVDdr?=
- =?utf-8?B?byswN1RLM0UyWHFKcG9kSFdxTEszSG9IeVFsY0FDVXJTTXRwTU1EbjF4UEt4?=
- =?utf-8?B?QTJ6Vy94dFJMeGtZWTJiQWhxMVFCNHErTHBKWXBuOEJ6Rzc1VkxLckJXbXpq?=
- =?utf-8?B?SkN6ckg3UE1pNXdWSmg3cWNtQmM4RTQzTER6blBDS3FsVm90NnJkSjhuVUxh?=
- =?utf-8?B?clBqR09vSFJkUEUwSGNKTGlhTVNOTEJkMWhaMTl0dkRFVW9SUkc0bTJmQkpN?=
- =?utf-8?B?cGsxMUVQaFJWQmdmVVRhbnQ1eUQ4czExbmtJcXk3dU5hYUNNRHl5emNybUw1?=
- =?utf-8?B?cW82TGdnMGZKMlhWV2c1dGtNenZza1VRcnhlRTFjT2pTdm42dFA2M0NqRnFY?=
- =?utf-8?B?Uy9WSXRHZ0pDN0hDN2hWOGc4N1I4SFBjSVVTUzFUcTM1UTJUcUM1U3VkOEVB?=
- =?utf-8?B?eEx1U2RoM2NjSGxwMk5vQWEwUHdBWWlCWGsvMFBlUm1zdnFMSkhsaHZLNGd3?=
- =?utf-8?B?YWRoT0Uwamg3NlNkR2NYRW9wcGMxOWpjTkJadDJRb2JQYXVQeWV2MXpSRUZL?=
- =?utf-8?B?TVFjbm05dkhQKzBEdTZVMDBZWXBFSk5pb2thSWNVM1F6SUNXYXZKek1PTS9M?=
- =?utf-8?B?UVhIRFl0S0gvVzBJeitnMHdkTTV4eDJRRDZQVlExK0x0bStVdS85NDNiODdP?=
- =?utf-8?B?V1NLUjM2c3V0a25JbC9MOTN6WURtMXdFNk1YamlrcEFNWVNjU3pSZDVidUtR?=
- =?utf-8?B?di9INENVY09lSVdINnFvWDFGY2Q0RVZ6b2tyTGFLVFUyT0pSRkhCeTFVL3B1?=
- =?utf-8?B?U0ljMG5vRDlkWVdEQVNOVVNyejBVa25LL1VRODJuelFKMDN1UUhwdFNRdGxX?=
- =?utf-8?B?R1FxNFJiRlNxd2tQRkhyVDJRTHBFVU0wdE9UWmxuWllHUUNtRTA4WEF6STJX?=
- =?utf-8?B?eVQ3Y0wvTFRUczRTM2xnTmxack1aMUYxTTc5VDRBYWtJSTE1U2JMcWp5MWp1?=
- =?utf-8?B?LytHbkcvbmJUbktuaW56NDZMMytCYXV4YXV0RVlIZUZDanlZNG5zRXAvbEty?=
- =?utf-8?B?OE9zRGJGaWM2K1BRSnhoSG04aHNMS3pxNmY5czRsSHpMdlpQbjJaZ1E2WU1s?=
- =?utf-8?B?SXE4b0R6aUFlaG1ZdXNJWjVQYlppaVEvbzFRMW9neXFIOW5FQ3FRV05xRzVa?=
- =?utf-8?B?dkR5dEJIVmpSKzVQblVUNmp2cVF0S0F4bE16c3VmU09ZT2tBYVRvQWd2dkpX?=
- =?utf-8?B?cVRLSDhoL1dpdHJMZHJaSkNOY09mcGZJdmRhZVRIUVM2L1h4YWZrZ2g3a0p0?=
- =?utf-8?B?RTF6VnZrYmZ4Z0xjS2g2dWdkMWRwZkovNEc5eWZlbXdzeXJ4MmRxai95QWY1?=
- =?utf-8?B?YWQwZlZOSmE3YkhTZ0l5cm9WWFMwamNvUTVxK1NGQWptcDg3OXJuckxjenFp?=
- =?utf-8?B?Y0dhUFpoZHp0NVRmZUFaYUw2aUI3TnZhaHFRVms0UFBvUm5wUFh1bGRrVm1k?=
- =?utf-8?B?RitiS0g5M0x3TUVFSFNXVzhiQ1RFbk1MV2Q4ZlRsUXl4T0pwOVZ4SndUT3B2?=
- =?utf-8?Q?583b0gsY50cBUtiQhcn+RS3m9?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3e3923f-52ca-4884-8217-08dbe1cfa75a
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2023 09:30:18.6388
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K4Rkptm/ieZtSmM50ebRLskeisBlan4OFSpwa5Jx7P7IW8UYJrMyzonyr/uvrOm8nmFtZu+ovCrMju8ybtFVmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9974
 
-On 09.11.2023 18:40, Thomas Huth wrote:
-> --- a/include/hw/xen/interface/hvm/params.h
-> +++ b/include/hw/xen/interface/hvm/params.h
-> @@ -255,7 +255,7 @@
->   * Note that 'mixed' mode has not been evaluated for safety from a
->   * security perspective.  Before using this mode in a
->   * security-critical environment, each subop should be evaluated for
-> - * safety, with unsafe subops blacklisted in XSM.
-> + * safety, with unsafe subops blocked in XSM.
+Hi all,
 
-To avoid another round trip when you send the patch against xen.git, as
-already asked for by others, I'd like to point out that the wording
-change isn't describing things sufficiently similarly: "blocked" reads
-as if XSM would do so all by itself, whereas "blacklisted" has an
-indication that something needs to be done for XSM to behave in the
-intended way. Minimally I'd suggest "suitably blocked via", but perhaps
-yet better wording can be thought of.
+On Wed, 2023-11-01 at 12:15 +0200, Oleksii Kurochko wrote:
+> Platforms which doesn't have HAS_PCI enabled it is needed to
+> have <asm/pci.h>, which contains only an empty definition of
+> struct arch_pci_dev ( except ARM, it introduces several
+> ARM-specific functions ).
+>=20
+> Also, for architectures ( such as PPC or RISC-V ) on initial
+> stages of adding support, it is needed to generate <asm/pci.h>
+> for only define the mentioned above arch_pci_dev structure.
+>=20
+> For the Arm-only stubs ( mentioned in <asm/pci.h> for disabled
+> HAS_PCI and ARM-specific) will be needed
+> to add <asm/pci.h> directly alongside <xen/pci.h>. Only to
+> <arm/domain.c> <asm/pci.h> was added.
+>=20
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> =C2=A0xen/arch/arm/domain_build.c=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0xen/arch/arm/include/asm/pci.h |=C2=A0 7 -------
+> =C2=A0xen/arch/ppc/include/asm/pci.h |=C2=A0 7 -------
+> =C2=A0xen/include/xen/pci.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 11 +++++++++++
+> =C2=A04 files changed, 12 insertions(+), 14 deletions(-)
+> =C2=A0delete mode 100644 xen/arch/ppc/include/asm/pci.h
+>=20
+> diff --git a/xen/arch/arm/domain_build.c
+> b/xen/arch/arm/domain_build.c
+> index 49792dd590..2dd2926b41 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -23,6 +23,7 @@
+> =C2=A0#include <asm/kernel.h>
+> =C2=A0#include <asm/setup.h>
+> =C2=A0#include <asm/tee/tee.h>
+> +#include <asm/pci.h>
+> =C2=A0#include <asm/platform.h>
+> =C2=A0#include <asm/psci.h>
+> =C2=A0#include <asm/setup.h>
+> diff --git a/xen/arch/arm/include/asm/pci.h
+> b/xen/arch/arm/include/asm/pci.h
+> index 8cb46f6b71..7f77226c9b 100644
+> --- a/xen/arch/arm/include/asm/pci.h
+> +++ b/xen/arch/arm/include/asm/pci.h
+> @@ -130,13 +130,6 @@ bool pci_check_bar(const struct pci_dev *pdev,
+> mfn_t start, mfn_t end);
+> =C2=A0
+> =C2=A0#else=C2=A0=C2=A0 /*!CONFIG_HAS_PCI*/
+> =C2=A0
+> -struct arch_pci_dev { };
+> -
+> -static always_inline bool is_pci_passthrough_enabled(void)
+> -{
+> -=C2=A0=C2=A0=C2=A0 return false;
+> -}
+> -
+> =C2=A0struct pci_dev;
+> =C2=A0
+> =C2=A0static inline void arch_pci_init_pdev(struct pci_dev *pdev) {}
+> diff --git a/xen/arch/ppc/include/asm/pci.h
+> b/xen/arch/ppc/include/asm/pci.h
+> deleted file mode 100644
+> index e76c8e5475..0000000000
+> --- a/xen/arch/ppc/include/asm/pci.h
+> +++ /dev/null
+> @@ -1,7 +0,0 @@
+> -#ifndef __ASM_PPC_PCI_H__
+> -#define __ASM_PPC_PCI_H__
+> -
+> -struct arch_pci_dev {
+> -};
+> -
+> -#endif /* __ASM_PPC_PCI_H__ */
+> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+> index 251b8761a8..168ca320ce 100644
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -68,7 +68,18 @@ typedef union {
+> =C2=A0=C2=A0=C2=A0=C2=A0 };
+> =C2=A0} pci_sbdf_t;
+> =C2=A0
+> +#ifdef CONFIG_HAS_PCI
+> =C2=A0#include <asm/pci.h>
+> +#else
+> +
+> +struct arch_pci_dev { };
+> +
+> +static always_inline bool is_pci_passthrough_enabled(void)
+> +{
+> +=C2=A0=C2=A0=C2=A0 return false;
+> +}
+> +
+> +#endif
+> =C2=A0
+> =C2=A0struct pci_dev_info {
+> =C2=A0=C2=A0=C2=A0=C2=A0 /*
 
-Jan
+I forgot to update xen/arch/{arm,ppc}/include/asm/Makefile:
+    generic-y +=3D pci.h
 
-PS: Personally I'm against such avoiding of certain words. Them being
-misused is not really a justification. New wording (perhaps not
-specifically here, but considering the underlying wider theme) is going
-to be misused as well, leading to the need to come up with yet different
-wording, and so on.
+Should I send a new patch version or it can be updated durig merge?
+
+~ Oleksii
+
 
