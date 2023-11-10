@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC4DE7E7C57
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 13:57:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630298.983046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 905C17E7C63
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Nov 2023 14:08:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630368.983234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3w-0002SN-VU; Fri, 10 Nov 2023 12:56:40 +0000
+	id 1r1RFC-0007ur-E3; Fri, 10 Nov 2023 13:08:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630298.983046; Fri, 10 Nov 2023 12:56:40 +0000
+Received: by outflank-mailman (output) from mailman id 630368.983234; Fri, 10 Nov 2023 13:08:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1R3w-0002NV-Oq; Fri, 10 Nov 2023 12:56:40 +0000
-Received: by outflank-mailman (input) for mailman id 630298;
- Fri, 10 Nov 2023 12:56:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1RFC-0007rW-Ap; Fri, 10 Nov 2023 13:08:18 +0000
+Received: by outflank-mailman (input) for mailman id 630368;
+ Fri, 10 Nov 2023 13:08:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sssJ=GX=epam.com=prvs=567869e99b=mykyta_poturai@srs-se1.protection.inumbo.net>)
- id 1r1R3u-0001y1-BP
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:38 +0000
+ id 1r1R43-0001y0-6p
+ for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 12:56:47 +0000
 Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 948ff425-7fc8-11ee-98da-6d05b1d4d9a1;
- Fri, 10 Nov 2023 13:56:36 +0100 (CET)
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97bdc968-7fc8-11ee-9b0e-b553b5be7939;
+ Fri, 10 Nov 2023 13:56:41 +0100 (CET)
 Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
  by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AACHn4n029609; Fri, 10 Nov 2023 12:56:29 GMT
+ 3AACHn4o029609; Fri, 10 Nov 2023 12:56:30 GMT
 Received: from eur05-db8-obe.outbound.protection.outlook.com
  (mail-db8eur05lp2105.outbound.protection.outlook.com [104.47.17.105])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3u93ptjrxk-2
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3u93ptjrxk-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 10 Nov 2023 12:56:29 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 948ff425-7fc8-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 97bdc968-7fc8-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g3XnCIBLRva6oLDOEJO3/1Gx17lxVJrof+SDvS9VuXhSoAdJW233UDT3jEh2GxwJql2rqlmHxe4KhoQdt6lSd9cB6UMYSopihvgCvARICrfr0dUzkp0uvML4pS0oWu4fontCf2WVMtlXEEyg9nWX197/loTN7FNWVTDAG63CqlLGmChcf0Zd8/vrlk3VP3ETwrxjOuJ4DvqGJtFEj0hr4pVOpYvsQmf/AMIIlRo7wh4pB9Q6PTm97kv4bF8yC+u9rtNLuTC0EA3Gjr7yK/VErReKDM7VMmBbipe4Kly9W8ycg6iOplOPfISFqK6DnFgHQFsy4MEe2BdZ/C1lc+MeZQ==
+ b=AWTY9vk7dTTeZkGbBbQCKUseRvHC9ZMktD1o0BlK/YJH3ayxw96emMrTDkldGuUx2dOyLHJFGVSR5tjJreBFhExwBupzEq/3u99RG9C7owTo0MStcw1UF+F8GQ/jHyQVp6qhwzLDlVt2KggiaxuIPREotK590pLb/HsF2/jGF8pmWUwvk5cdvvXga1iGSu3BGJcIyl66dS2H4bkOYUNZfqW/E3k0mIvFLcONGrxk48I6U8TtGPxmvRKf0XcVpy1lqWphLcZmyKH8SqIt26r/klttypGKfGkGQhfuKkrHjQ48IgdLNCtsGY9o05h4tR0YhmebOAqJNpuhE7wWG8tF1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=15Ru6p3LMyODkoJGnBcHsi/MdAVNxVqs6BxYDcJDskw=;
- b=PpSVBVwje95PZVHbr1rKKuj0vqm83mHF0y+zWSFbk9D3WAaL+aCto4eN8Y5BPXAQNHx18nECmyxcPzwl6L2226lcZDbEOPwssMOS8Z8XANZZHGtu/Mf1S/8TclwG4OGkYl1+9x46CQd8oVF3THBoh3M6P8YB9Y0MqeLgyeMHEhrmcJt6KTxv3g7OfFPNPp48i700+s8xwm8+Fwf8gjYO4R4JS+3nFZ85Y46cNKJOyGB5m7qDsWZtxQPemvYIek+wzaAmIl6Bes9lxW2Htcbgoss6brOzNjBugVaGCkHPif30z/EbUCSP9YNQY7o1rARVt/Ep30YlZaaKrqdNFu4I3Q==
+ bh=1TkmTLEQVHA1r1cVFkXW4q/O26dCX6I43k5x/u2XgFQ=;
+ b=mJsCjq1AtracdpTcoMr14WCj8zros1Z1QwBuL+2TRn7YVVgwwmrq2EiONvQyiSMNyPgFyU/801G7465TwJ26hyR+5wNZg4agbvNHqVax5ReA5cPIlohTGSq/QWZlC/iTD6x3MD1+t62/YiqNvqKf3RbxybE/KZ4bDgHtS3yATjDPgVOCi2jx9KmMKRXv+scTnzWmLtUoAfAw81dA+FuGt9X8/X5/7Pz3ghzR8PGCRy1+fe/GT7dahjKuzEev/H1V5yVvaINIpSqj8ypbPEFqLBihJfs0kszhHKpB/xeAATaarFwYQEKwjetzKp3NEog4odNJiPSzPy7BNxYKncawVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=15Ru6p3LMyODkoJGnBcHsi/MdAVNxVqs6BxYDcJDskw=;
- b=BCBuDbVxRHdCgum/mdmDmUDeX1Z3SkJjwpSoOkRFx67FrtUMt7CbIneP8SK5b3jZdGXTLblYNPVYYEX8u2IK0uyxNk4c0aiHDkd8ScDxBNyvdTl2t7HkhjRQqIqmK7++5VFAvC2ZM6NqHPEJkTbivmCzOZl/ZpH4Dlwd07E/KqWwXVtwHfFg8sbdhJtqudJMZu+LoMLZfrv5vl7AApUJD0BMBmeeVS+F+BcpnxWtXfPDGu1rRzJiMWavNiMTlkR2aM4+ibNctct94yQtZxt0jdpfSoc0AQ3HABrDr8V9lpjbSIneWfISJfXIcNdj1ODSG33bBJ+hNkKHEHlXbobb4A==
+ bh=1TkmTLEQVHA1r1cVFkXW4q/O26dCX6I43k5x/u2XgFQ=;
+ b=UeduFmBNRQwvTaHpPaT5TAye0klznATFuJsqpzgiAg/32Z75mOW0BJVZZQ70wbxZr9txK8ZBSUzUNps9fG80npk1Y9UJaU1MxLrL6qtZqQeqHan5SebE7XJ841kLjN0qEs4b8LCY4VAYB+8rlcU4QZTYeoYhr8U5BZetfJCWqyCIr8qx6407E8w/M5ITsK7/auszgpRmu1VO6G9Rp5l+N3IezTWwTPG8PipARD//cDyRli46LlcY9/vIgssfkOqJ7NOYssJeHRMyTNLgsT9W2ybLjG6a3p1/TVgwcX0QNeW3b5YILWlymSh6s9zk19CqxAPubtscXg54th5XEpvFMg==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
@@ -78,14 +78,14 @@ CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
 	<bertrand.marquis@arm.com>,
         Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
         Michal Orzel <michal.orzel@amd.com>
-Subject: [XEN PATCH v2 23/25] arm: new VGIC: its: Enable ITS emulation as a
- virtual MSI controller
-Thread-Topic: [XEN PATCH v2 23/25] arm: new VGIC: its: Enable ITS emulation as
- a virtual MSI controller
-Thread-Index: AQHaE9VPXAWKwT607Ue2PXRr/Vo1Xw==
-Date: Fri, 10 Nov 2023 12:56:23 +0000
+Subject: [XEN PATCH v2 24/25] arm: new VGIC: its: Wire new ITS into the build
+ system
+Thread-Topic: [XEN PATCH v2 24/25] arm: new VGIC: its: Wire new ITS into the
+ build system
+Thread-Index: AQHaE9VPZ7cPBIWT6UCB5x9GhgF0Kw==
+Date: Fri, 10 Nov 2023 12:56:24 +0000
 Message-ID: 
- <bcc29d8c5da6749db370808529d48d790c30b290.1699618395.git.mykyta_poturai@epam.com>
+ <9fb487465f44f84f8d4358900df7e4d4d0bdbfd7.1699618395.git.mykyta_poturai@epam.com>
 References: <cover.1699618395.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1699618395.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -94,45 +94,45 @@ X-MS-Has-Attach:
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AM0PR03MB6244:EE_
-x-ms-office365-filtering-correlation-id: 5eece678-bc2b-41be-a476-08dbe1ec72f3
+x-ms-office365-filtering-correlation-id: 751e9753-3996-4767-05dd-08dbe1ec7315
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- eXztD9PHLeKPg/c2aCQdsr9BZfuaofeVRqwLL+xGLTARw766dkt+rCoKv713AKAWwE+GeewY3ul8H4i8RQdtBUxE9cUprLw3EG4f85hOSecNiuFb+9J7AXLjRIV1CSspnnyWQ+rjWL3Hmc1LpmEWY+OMYD548+VdKDtXXuyiuoyf1+fHLbGwjWTTh9SJpvYTP2UCSx8Iszc8ov7tHiHm0au1LJnzRMglcr6CSfPi1ci4DHonlcD+nYtgrg9VVl8YkfZb/IqPVF6LuCh+nQsZ+UUPADXCgN8GgWvSYf8GhCQq0B3/SfbiFTU0bEHg+WDZPVmtAcaYRPJ6PtwTSzM7g7NHyaZKfoLHt1sj+gqth4ftDyYCY0RN0HitmbeV78gbPFtFMVPFzQa+X17ec8G29A1Bjv5ZvKdfw8M2HqwE/mSynEzSRl95vSjyczN4GkhPCDfzvVENTYVdyBfga4dY0bySHz0EQd1zl5iV2Yv5trnEyFwfdV+bJAlzqFtoEhcpkpnwj5q+1kT4mw8E3cnBsuTt6x8Flq/6ZrftWincUWsp4FpzzuKhw1QVLDDWWbVGs1X497zpdD8j8loZzNoAdulnkuQckDhpuVviR5J4s0c=
+ /tw2qn0NA6QIrHckqs76Ejmc/XeI3GC+h/edAIqRAHgmZjfoHdd383n5EudFUZtG4BLsucIBHrkJAaqDJySf5D9rSHmmoN2bJnkAYt0Svwmzp5BaZlysUGlD7HF7jeuR9yzhPhAzoRdH/5SU0hv7bsyOxhU+8li84qW5kvXuhdrXWva+Za8hbkVmsgi0fvjEQl71o9hXq5ufPAV/c2VWSn8n5zmk4dxN695KUDP3bsA12kOrS4MZHd5CMv1eWBRTWh9ubArsHBwk5LuUEYYMvGPW+s0m/0Qf0BypXkZXGq3O6dYcdUhiGkcVb2HeCwb5MjyiEak1YqX7/TwJyBdD2vAHPYujI1FwclTb7TnVrHEwbVV63luM/ZMBHVph73FjO1S1bqkw4jZYEKGlJVDduRljj2gf81NN3gc+vYMNsajdq7GyUuASZ1VDcTTF+kC9vUi/hE8/TiVxPwk7aY/uJC45uHVFg2r2znlSybOrusWx0dyA1GXFqpN/ibbB0yc/sWX0ZGlHKyTJ8NqdnJ76+ly1uBtN42ZShXek/R55HubuBxo1D81zMDdunouniBdrdI7xdK649NDJxuwitA0Wf9NjPLRG54PhMYcBD6gUGp+FGWesJs7B2v/9PJW2yksL
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(396003)(39860400002)(346002)(136003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(5660300002)(41300700001)(2906002)(83380400001)(26005)(8676002)(4326008)(8936002)(122000001)(54906003)(64756008)(316002)(6916009)(2616005)(38100700002)(76116006)(66556008)(66476007)(91956017)(66446008)(66946007)(38070700009)(6512007)(6506007)(478600001)(6486002)(36756003)(71200400001)(86362001)(6666004);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(396003)(39860400002)(346002)(136003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(5660300002)(41300700001)(2906002)(83380400001)(26005)(8676002)(4326008)(8936002)(122000001)(54906003)(64756008)(316002)(6916009)(2616005)(38100700002)(76116006)(66556008)(66476007)(91956017)(66446008)(66946007)(38070700009)(6512007)(6506007)(478600001)(6486002)(36756003)(71200400001)(86362001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?NkFuv2l6hE0HsbDu2y0BUCxxl8IuuM+BNwgPOp8CfVDTLvA1iX3pUAz/uR?=
- =?iso-8859-1?Q?BEs6yeDsbrDKVguOKOwBcOG0YK8SsBNwoL3ncyVSa9hIt2d934G2gwLkOh?=
- =?iso-8859-1?Q?OP2LAKH5yUDZZU3Fm5VoUzrwIarmcByfaR2bcK0v2qd2FE23yfCP2ooDgD?=
- =?iso-8859-1?Q?bIi5Lgo7qvbXJxekmFdTb1zxmbFhuiQYeW7xywcDcoMrcSLzH6BUaPmuHE?=
- =?iso-8859-1?Q?zKpc6Sy5uvg6iG1P5kjba1aVuBwYp9bFHLQlmqciHTu/+/bO8Ud+bAL3Oa?=
- =?iso-8859-1?Q?oXmFw3U/15z+nSUebTymIZxY8iiOJHELFQ7PS66zPa42TNiBTZXyoQsCP8?=
- =?iso-8859-1?Q?oanFDARnnZJ4JfEOsKYnHnayg1W11V2GBNMq6HlhgaO0uhD3vVBalj50cu?=
- =?iso-8859-1?Q?LzJyRT46SxOFduDEZOZkWB8CxKEpMapA8XEjoxSRSbcj7qCQaywmLzjpYc?=
- =?iso-8859-1?Q?gfE94Sw1ERjs16Vi22+ecd42FuZydoAJG3KZmOZFVIIZy0v5XYrhld75JR?=
- =?iso-8859-1?Q?Qlp+hi6l7DPqi93VZm54fNlRxhRp+Fm/PnQKPswIAhnBCNiGMEC4IdfdqO?=
- =?iso-8859-1?Q?6LXk3ftRy6GSO+16fQ47JsSbqXNSyfXF1HT6BnyzD5yvjr4Z1TL8N5xbJG?=
- =?iso-8859-1?Q?SDYD7oVIu0ygFxb/pbD6z2oRayJW/fS/ByBlPztuMBiJJupDSkII0PIF5z?=
- =?iso-8859-1?Q?VOLZcRw03tE2ctrCXsJsTOaPZx1/Fcx0s33VUdi1hpKPrxT5fWb3Twd5zG?=
- =?iso-8859-1?Q?csxdOFO0Zxc4BHn6upOeYVI25wRwRPxeiOVTs7F4gc8uxmJBW0A0YLfV9I?=
- =?iso-8859-1?Q?6ucCcO1UMSJwLsVnonW6IYMP3//eFsvG237n/3QjqkQsJVwZjman8iukr7?=
- =?iso-8859-1?Q?SIZTx/XIaUS61O49pChllK9XdO3c6ssHVhseHL7GseuJSZyXVYq8ac6X+f?=
- =?iso-8859-1?Q?iT6eJ48sAy2RJfCQW52WDoWAdUNAJ9iIe3gr9eiwVuO0xkmtadXBU5efnn?=
- =?iso-8859-1?Q?vIrau2fbBhdjRq9cz42I5ShyVIpQEueQ6ImXigN8OlZXExjt22gtyCeYIx?=
- =?iso-8859-1?Q?nLRz0/PdJd63rxus3OT1UJcO07FmJfzXVv/o9r0HRV5SuqyrM++R2RqAjJ?=
- =?iso-8859-1?Q?mR4BbY6SK4EVdmZGMZdagIV2B1k6JvRRrEPegh9GBmWAiT2+DaMdYlC6Hd?=
- =?iso-8859-1?Q?uudDVLg+u0ZnYuHUXQeO736TPVnx9nAKA0ZbkLBC2SteRpdWQQKHr74+yo?=
- =?iso-8859-1?Q?7gRhjd/UbXsYBiWQaCrifVmHgWgrij+mEY0E1/tZg7lyOrLDqPJiHt1iSt?=
- =?iso-8859-1?Q?IDi9+2k0FB0ks+zWHP/w3lk1VbvRIO9TfwAm2vsL9ewaMuLYPjmsIU45yL?=
- =?iso-8859-1?Q?TfMBO9PGZF1aGwzw8K+q1NcI5d0BCBv6D8zrMc5ervZ3byE3rnSg3HNiCN?=
- =?iso-8859-1?Q?MD2mhSNd5Nr0Viq74uQPWfrg/Cj+vWJTgOmHFTark9eNZDD0Is5WC9eKqZ?=
- =?iso-8859-1?Q?Yhzq12bZZWI9/gd5OeWtrTm9HuUhZkLXERF8ZyyDr3EQfWQKhejoTxOqNi?=
- =?iso-8859-1?Q?0BppLx2vc/M3N3h9CX/OwtqFn4EfZrtuJVvC1+r98rqSanXL+wS6JYzcba?=
- =?iso-8859-1?Q?YJjFrhUOpOOB8oDxb3GtFKEUvhV30yRMBdIU9ZzfuBKVC61hxISBQiUQ?=
+ =?iso-8859-1?Q?f2wXy2j/0piI09iMfEEUYu9z+8IqqWEkCMiCHCynijzzZieJvF6jEjYX5O?=
+ =?iso-8859-1?Q?sUfga54ZHKRsiVvG+vhr/LyLPypb1Tva688nYJSZ1GK30QCt8Kai6HAiFb?=
+ =?iso-8859-1?Q?4QlcxiDB0EcKQ64p+bPbkaXGbf5CiSjmMYqDUQeWQExv3fDEfi8aodpJli?=
+ =?iso-8859-1?Q?09jn/hDh8+vZd7lIE5P0CfZ8kV+BJf3Dw9FHUdDtTaW3fraY3BwZvFLlSt?=
+ =?iso-8859-1?Q?3vkLbRNOGIpKgcKEWm94x08L7VCW6aGzkeQdPwSUoXfuS0lWgytK4630kW?=
+ =?iso-8859-1?Q?akua5UzxH96L3im2gVmXZ43sciFgqltwPpYnFuGnFR1U5Vc0VFwlJgO4Yq?=
+ =?iso-8859-1?Q?4yLIxau8CxL43ehxhHFp5b1mZJN5j6RpsKThI8ax7IZ6zbrjfagNO8rr8b?=
+ =?iso-8859-1?Q?32v2f5ki8tsQ08nkqJwBlHl/aHdJa3B9WcFIO8Big0ei7S94CWO2Q1/KX2?=
+ =?iso-8859-1?Q?8V+BGVqFXWWZpODpLBqAwN0mii7+gnO2sd9nuZof/RILL/tS7vUKJPNz9P?=
+ =?iso-8859-1?Q?D0lJ+AovVVidOJkDD9eZrF6GS5LCZDxkHD0X/6K7fka2lLWJRmg9OZTelD?=
+ =?iso-8859-1?Q?s3h2gpNyg5ydusrx0NQAluA1xM5jlNsM/53ZK6VekDGT+nQCZs0S4Xja/J?=
+ =?iso-8859-1?Q?O9vf1209z7kFrP6UgALgWVBvVFRffdJM08lwAKgBcP/M31v6zDAkbXB23r?=
+ =?iso-8859-1?Q?gldELiwV5qGQ2VCiSnl2KmNrTyT9BfmR/YUg/mMiaUu2Vl6O2H5FGUSInS?=
+ =?iso-8859-1?Q?g2xULxTiw5h4aQzMfm9V2jrDe1uMQPa+7wdRtFK5GccHDXmYl/IDmDx6Tw?=
+ =?iso-8859-1?Q?357MWqVPzsLbYgR+YiYfk3n8Wui+j1VtZ3uTqREr/SyyfmXfJVsb4ZMzKH?=
+ =?iso-8859-1?Q?KZcuO8PeMXg3cncTSqvrRVITOvu05JW+sSAYK8trsDKty8RLTkFgu2zc4J?=
+ =?iso-8859-1?Q?2Ggh0cohIeh3WwHGmiW3yRt5XE+OFsYLz2yMSFKo+bORq9ze1zesIUJ5/P?=
+ =?iso-8859-1?Q?LLX/0xxuELaTA21Pk806VD6kBpHyCHACwoGjGlHLb1qfd32H1kIu9rSbRV?=
+ =?iso-8859-1?Q?GOdANK0sycfzUSap1wLsf/sj/VgXVdcmoOzE2AYWPTlwZ7s1w3YGS6uR1m?=
+ =?iso-8859-1?Q?5/Z/o5DTZuamU4i6nu+RmFxPkKQrdIYJQh5FTdcJ6nsAw3sruoy1UWEOHP?=
+ =?iso-8859-1?Q?fhj6GLwKkjCqab24MUiHF7WFjghLU9kDrgu/4GhEJxoo9wsGd4ss7aWBzh?=
+ =?iso-8859-1?Q?owkXvXzbrwoXeyizyjIgYRmgO2u5jAS2fXa9kweF+oapgmy8QV+8pQf2sq?=
+ =?iso-8859-1?Q?wNJ0hD6xIrK782ifd5LK0+3r0/rw9Q/tJ22tw5fc863ouLoHO8/Bbax/jY?=
+ =?iso-8859-1?Q?WDzgLbnzutO57TS65lSXIobzhgCyXaelA4TTA+Nwn6SRUGl3n1tNDxIXZR?=
+ =?iso-8859-1?Q?CMgz+tCqGIoe/Kksrr80fPCp9/Z7ecCTusBPOEjfYi4EQP0OsGddygSEXc?=
+ =?iso-8859-1?Q?OVF/xLdDfv/Nuos5s1KrxIE80Dfdl/n9BAVfDfZOn02rhpA8bcPbyABOij?=
+ =?iso-8859-1?Q?timHWR75DBXMt/Pmq3ewZM9rgWWVu7cbdFm607y+NDG/qiUA26ClcJoA5D?=
+ =?iso-8859-1?Q?NpBFAWp6mmjxSFFMmcce5Py7oUw853PVuREmqfPXuXygGwpjD0fkjvAA?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -140,201 +140,60 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eece678-bc2b-41be-a476-08dbe1ec72f3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:23.9501
+X-MS-Exchange-CrossTenant-Network-Message-Id: 751e9753-3996-4767-05dd-08dbe1ec7315
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 12:56:24.2742
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EF7OsO29C2KF9BWTHx2YeT3TgS2LNvtGYdi72AjTNOX3eil/jRJot3vaDmohqq2R0yPv3OPVB5IuBFDcOhDqIg==
+X-MS-Exchange-CrossTenant-userprincipalname: KOpVS5IHZX5Vxbx/IU+eiqApYPqgbHHhIpFn9hEUnoyoVsaGfkMSo/rQwSn3M2Fn072by5r+7KMaeo7oGeQFtQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6244
-X-Proofpoint-ORIG-GUID: 2wucOZ7wNj0rsTgxhzcWowTMjUbQjAJ5
-X-Proofpoint-GUID: 2wucOZ7wNj0rsTgxhzcWowTMjUbQjAJ5
+X-Proofpoint-ORIG-GUID: LGpLdLLlK9UrjPtc8liztQabBI6vERCK
+X-Proofpoint-GUID: LGpLdLLlK9UrjPtc8liztQabBI6vERCK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-11-10_09,2023-11-09_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 phishscore=0
- spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0 mlxlogscore=590
+ spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0 mlxlogscore=667
  mlxscore=0 adultscore=0 priorityscore=1501 malwarescore=0
  lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2311060000 definitions=main-2311100106
 
-Now that all ITS emulation functionality is in place, we advertise
-the ITS device to the guest.
-
-Based on Linux commit 0e4e82f154e38 by Andre Przywara
+Add vgic-its.o to the build system.
+Remove the dependency on !NEW_VGIC from CONFIG_HAS_ITS.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/vgic/vgic-init.c    |  7 +++++
- xen/arch/arm/vgic/vgic-its.c     |  2 +-
- xen/arch/arm/vgic/vgic-mmio-v3.c | 44 ++++++++++++++++++++++++++++++--
- xen/arch/arm/vgic/vgic-mmio.h    |  5 ++++
- 4 files changed, 55 insertions(+), 3 deletions(-)
+ xen/arch/arm/Kconfig       | 4 ++--
+ xen/arch/arm/vgic/Makefile | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/vgic/vgic-init.c b/xen/arch/arm/vgic/vgic-init.c
-index 96f6669d38..fb27e440fc 100644
---- a/xen/arch/arm/vgic/vgic-init.c
-+++ b/xen/arch/arm/vgic/vgic-init.c
-@@ -18,6 +18,7 @@
- #include <xen/lib.h>
- #include <xen/sched.h>
- #include <asm/new_vgic.h>
-+#include <asm/gic_v3_its.h>
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index c91011bc15..d803793b09 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -90,8 +90,8 @@ config GICV3
+ 	  If unsure, use the default setting.
 =20
- #include "vgic.h"
+ config HAS_ITS
+-        bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORT=
+ED
+-        depends on GICV3 && !NEW_VGIC && !ARM_32
++        bool "GICv3 ITS MSI controller support (UNSUPPORTED on old VGIC)" =
+if UNSUPPORTED || NEW_VGIC
++        depends on GICV3 && !ARM_32
 =20
-@@ -173,8 +174,14 @@ int domain_vgic_init(struct domain *d, unsigned int nr=
-_spis)
-     }
-=20
-     INIT_LIST_HEAD(&dist->lpi_list_head);
-+    INIT_LIST_HEAD(&dist->lpi_translation_cache);
-+    dist->lpi_list_count=3D0;
-     spin_lock_init(&dist->lpi_list_lock);
-=20
-+    ret =3D vgic_v3_its_init_domain(d);
-+    if ( ret )
-+        return ret;
-+
-     if ( dist->version =3D=3D GIC_V2 )
-         ret =3D vgic_v2_map_resources(d);
-     else
-diff --git a/xen/arch/arm/vgic/vgic-its.c b/xen/arch/arm/vgic/vgic-its.c
-index 9534b26334..3b097bd0c4 100644
---- a/xen/arch/arm/vgic/vgic-its.c
-+++ b/xen/arch/arm/vgic/vgic-its.c
-@@ -168,7 +168,7 @@ static int update_lpi_config(struct domain *d, struct v=
-gic_irq *irq,
-     return 0;
- }
-=20
--static int vgic_v3_lpi_sync_pending_status(struct domain *d, struct vgic_i=
-rq *irq)
-+int vgic_v3_lpi_sync_pending_status(struct domain *d, struct vgic_irq *irq=
-)
- {
-     struct vcpu *vcpu;
-     int byte_offset, bit_nr;
-diff --git a/xen/arch/arm/vgic/vgic-mmio-v3.c b/xen/arch/arm/vgic/vgic-mmio=
--v3.c
-index 0e3835d38a..84aa8568dc 100644
---- a/xen/arch/arm/vgic/vgic-mmio-v3.c
-+++ b/xen/arch/arm/vgic/vgic-mmio-v3.c
-@@ -29,7 +29,7 @@ bool vgic_has_its(struct domain *d)
-     if ( dist->version !=3D GIC_V3 )
-         return false;
-=20
--    return false;
-+    return dist->has_its;
- }
-=20
- static struct vcpu *mpidr_to_vcpu(struct domain *d, unsigned long mpidr)
-@@ -211,6 +211,29 @@ bool vgic_v3_emulate_reg(struct cpu_user_regs *regs, u=
-nion hsr hsr)
-     }
- }
-=20
-+void vgic_flush_pending_lpis(struct vcpu *vcpu)
-+{
-+    struct vgic_cpu *vgic_cpu =3D &vcpu->arch.vgic;
-+    struct vgic_irq *irq, *tmp;
-+    unsigned long flags;
-+
-+    spin_lock_irqsave(&vgic_cpu->ap_list_lock, flags);
-+
-+    list_for_each_entry_safe(irq, tmp, &vgic_cpu->ap_list_head, ap_list)
-+    {
-+        if ( irq->intid >=3D VGIC_MIN_LPI )
-+        {
-+            spin_lock(&irq->irq_lock);
-+            list_del(&irq->ap_list);
-+            irq->vcpu =3D NULL;
-+            spin_unlock(&irq->irq_lock);
-+            vgic_put_irq(vcpu->domain, irq);
-+        }
-+    }
-+
-+    spin_unlock_irqrestore(&vgic_cpu->ap_list_lock, flags);
-+}
-+
- /*
-  * The Revision field in the IIDR have the following meanings:
-  *
-@@ -234,7 +257,15 @@ static unsigned long vgic_mmio_read_v3_misc(struct vcp=
-u *vcpu, paddr_t addr,
-     case GICD_TYPER:
-         value =3D vgic->nr_spis + VGIC_NR_PRIVATE_IRQS;
-         value =3D (value >> 5) - 1;
--        value |=3D (INTERRUPT_ID_BITS_SPIS - 1) << 19;
-+        if ( vgic_has_its(vcpu->domain) )
-+        {
-+            value |=3D (INTERRUPT_ID_BITS_ITS - 1) << 19;
-+            value |=3D GICD_TYPE_LPIS;
-+        }
-+        else
-+        {
-+            value |=3D (INTERRUPT_ID_BITS_SPIS - 1) << 19;
-+        }
-         break;
-     case GICD_TYPER2:
-         break;
-@@ -365,6 +396,9 @@ static unsigned long vgic_mmio_read_v3r_typer(struct vc=
-pu *vcpu, paddr_t addr,
-     value =3D (u64)(mpidr & GENMASK(23, 0)) << 32;
-     value |=3D ((target_vcpu_id & 0xffff) << 8);
-=20
-+    if ( vgic_has_its(vcpu->domain) )
-+        value |=3D GICR_TYPER_PLPIS;
-+
-     if ( vgic_mmio_vcpu_rdist_is_last(vcpu) )
-         value |=3D GICR_TYPER_LAST;
-=20
-@@ -422,12 +456,18 @@ static void vgic_mmio_write_v3r_ctlr(struct vcpu *vcp=
-u, paddr_t addr,
-                               GICR_CTLR_RWP);
-         if ( ctlr !=3D GICR_CTLR_ENABLE_LPIS )
-             return;
-+
-+        vgic_flush_pending_lpis(vcpu);
-+        vgic_its_invalidate_cache(vcpu->domain);
-+        atomic_set(&vgic_cpu->ctlr, 0);
-     }
-     else
-     {
-         ctlr =3D atomic_cmpxchg(&vgic_cpu->ctlr, 0, GICR_CTLR_ENABLE_LPIS)=
-;
-         if ( ctlr !=3D 0 )
-             return;
-+
-+        vgic_enable_lpis(vcpu);
-     }
- }
-=20
-diff --git a/xen/arch/arm/vgic/vgic-mmio.h b/xen/arch/arm/vgic/vgic-mmio.h
-index 12f4d690f6..32fc7a6ba2 100644
---- a/xen/arch/arm/vgic/vgic-mmio.h
-+++ b/xen/arch/arm/vgic/vgic-mmio.h
-@@ -156,6 +156,7 @@ uint64_t update_64bit_reg(u64 reg, unsigned int offset,=
- unsigned int len,
- #ifdef CONFIG_HAS_ITS
- int vgic_its_inv_lpi(struct domain *d, struct vgic_irq *irq);
- int vgic_its_invall(struct vcpu *vcpu);
-+void vgic_its_invalidate_cache(struct domain *d);
- #else
- static inline int vgic_its_inv_lpi(struct domain *d, struct vgic_irq *irq)
- {
-@@ -166,6 +167,10 @@ static inline int vgic_its_invall(struct vcpu *vcpu)
- {
-     return 0;
- }
-+
-+static inline void vgic_its_invalidate_cache(struct domain *d)
-+{
-+}
- #endif
-=20
- #endif
+ config OVERLAY_DTB
+ 	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
+diff --git a/xen/arch/arm/vgic/Makefile b/xen/arch/arm/vgic/Makefile
+index 21a71d2502..fe6821c724 100644
+--- a/xen/arch/arm/vgic/Makefile
++++ b/xen/arch/arm/vgic/Makefile
+@@ -5,3 +5,4 @@ obj-y +=3D vgic-mmio.o
+ obj-y +=3D vgic-mmio-v2.o
+ obj-$(CONFIG_GICV3) +=3D vgic-mmio-v3.o
+ obj-y +=3D vgic-init.o
++obj-$(CONFIG_HAS_ITS) +=3D vgic-its.o
 --=20
 2.34.1
 
