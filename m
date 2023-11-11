@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 401497E8A68
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 11:57:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630937.984090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95AE37E8A6F
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 12:02:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630941.984101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1lf6-0007oD-72; Sat, 11 Nov 2023 10:56:24 +0000
+	id 1r1lkW-0000s0-RG; Sat, 11 Nov 2023 11:02:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630937.984090; Sat, 11 Nov 2023 10:56:24 +0000
+Received: by outflank-mailman (output) from mailman id 630941.984101; Sat, 11 Nov 2023 11:02:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1lf6-0007le-4L; Sat, 11 Nov 2023 10:56:24 +0000
-Received: by outflank-mailman (input) for mailman id 630937;
- Sat, 11 Nov 2023 10:56:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r1lkW-0000p6-Nm; Sat, 11 Nov 2023 11:02:00 +0000
+Received: by outflank-mailman (input) for mailman id 630941;
+ Sat, 11 Nov 2023 11:01:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sSCd=GY=casper.srs.infradead.org=BATV+506890241e50857960ff+7384+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r1lf3-0007lV-M5
- for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 10:56:22 +0000
+ id 1r1lkV-0000p0-Mi
+ for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 11:01:59 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f016feee-8080-11ee-9b0e-b553b5be7939;
- Sat, 11 Nov 2023 11:56:18 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bad0412a-8081-11ee-98da-6d05b1d4d9a1;
+ Sat, 11 Nov 2023 12:01:58 +0100 (CET)
 Received: from [212.140.138.205] (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r1leY-001UqE-0P; Sat, 11 Nov 2023 10:55:50 +0000
+ id 1r1lkH-001V33-4S; Sat, 11 Nov 2023 11:01:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +40,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f016feee-8080-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: bad0412a-8081-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=DVbTmnWe7Plq4NFZkF0ZqgCXGJvh0pF1VJEUnEsvV+I=; b=Xg4YA6O9z0Q0pIDlzHpyT51KYT
-	vIs/GNb2ohChevcpNbZAup0owD+u9OMgaCD49qGmzEYpM0APnlTBVpa4TuELCqnR8HZTa4VhibH48
-	lBNEPbEit185ivbxcLBLF8b38W+80kfPuim5KF0rCz57SDrdR9t1vN4Uu/fNjf2nKzTXK5/R2Jcqs
-	0exjw6CLcap6dn3aEneR24U7JWBOHdFtqLg3PkzGWroIs5dBqkDTz177xMSMDJ4Ls2V/N0yn8FQjV
-	U4nc+jGX9ajBhgn9bkQF7TFC83gcykn1RtUyWtMr2o8ITkSY6zz6IvlgUMjqEoJlsm2Ds9IpQcTwf
-	ZjSrleqw==;
-Message-ID: <f2f7751a9ea5597e9f7a1417b761fe0802892aa8.camel@infradead.org>
-Subject: Re: [PATCH v1 1/7] xen-block: Do not write frontend nodes
+	bh=+W5t7aWdDIygjJeZx7oXR/ON3CtwyakM74ULTw44Miw=; b=COJe8+oRNzMNGDLpvCCEWqHNtA
+	cscw8Gs5VWvHF38EPT8zLiwiimFa2pgcZkSmuv2XHKfZJ5wojYuGfzg8cb75uwJdxU/qWdnv3nHBS
+	GYaZQYwLnhkLnVok0j6vsmBzEXTsXkmLq9YPMdeFXXUZhFQQUC42XVQZFjFZM+4qWPLRN9DSuSaeP
+	U1Zq7hns/cx9DHUm69NlQLP8B+NojQX8B8kYBI4duPLU1/gqpR68UygQoiYpRsuT5qMok14w2bVx+
+	bcu0Qplqi3+Io4CrHl2TA0G3YfQ95TdWD0wykIEE8xaCnkLX5xDGACJEepw5CumDRxeKkFDx/3n86
+	RnUxoSjQ==;
+Message-ID: <4481f0fe9eb282333fd967b7ece590ead78ccdba.camel@infradead.org>
+Subject: Re: [PATCH v1 3/7] xen: xenstore: add possibility to preserve owner
 From: David Woodhouse <dwmw2@infradead.org>
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "qemu-devel@nongnu.org"
 	 <qemu-devel@nongnu.org>
-Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
- <hreitz@redhat.com>, "open list:X86 Xen CPUs"
- <xen-devel@lists.xenproject.org>, "open list:Block layer core"
- <qemu-block@nongnu.org>
-Date: Sat, 11 Nov 2023 10:55:49 +0000
-In-Reply-To: <20231110204207.2927514-2-volodymyr_babchuk@epam.com>
+Cc: Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,  Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, "open
+ list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Date: Sat, 11 Nov 2023 11:01:45 +0000
+In-Reply-To: <20231110204207.2927514-4-volodymyr_babchuk@epam.com>
 References: <20231110204207.2927514-1-volodymyr_babchuk@epam.com>
-	 <20231110204207.2927514-2-volodymyr_babchuk@epam.com>
+	 <20231110204207.2927514-4-volodymyr_babchuk@epam.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-rYLwzndIgUvuHS/WMu0S"
+	boundary="=-LTEPTZWD+e0HlfEjd1Jp"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-rYLwzndIgUvuHS/WMu0S
+--=-LTEPTZWD+e0HlfEjd1Jp
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2023-11-10 at 20:42 +0000, Volodymyr Babchuk wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Add option to preserve owner when creating an entry in Xen Store. This
+> may be needed in cases when Qemu is working as device model in a
+> domain that is Domain-0, e.g. in driver domain.
 >=20
-> The PV backend running in other than Dom0 domain (non toolstack domain)
-> is not allowed to write frontend nodes. The more, the backend does not
-> need to do that at all, this is purely toolstack/xl devd business.
+> "owner" parameter for qemu_xen_xs_create() function can have special
+> value XS_PRESERVE_OWNER, which will make specific implementation to
+> get original owner of an entry and pass it back to
+> set_permissions() call.
 >=20
-> I do not know for what reason the backend does that here, this is not rea=
-lly
-> needed, probably it is just a leftover and all xen_device_frontend_printf=
-()
-> instances should go away completely.
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-No, this is what allows qemu to create PV devices, as opposed to just
-handle the ones which are created for it by the toolstack.
+I like this, although I'd like it more if XenStore itself offered this
+facility rather than making QEMU do it. Can we make it abundantly clear
+that XS_PRESERVE_OWNER is a QEMU internal thing?
 
-Perhaps we should only create the frontend nodes (and likewise, only
-destroy those and the backend nodes on destruction) in the case where
-the device was instantiated directly by the QEMU command line, and
-refrain from doing so for the devices which were created by the
-toolstack and merely 'discovered' by xen_block_device_create()?
+> =C2=A0hw/i386/kvm/xen_xenstore.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 18=
+ ++++++++++++++++++
+> =C2=A0hw/xen/xen-operations.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 12 ++++++++++++
+> =C2=A0include/hw/xen/xen_backend_ops.h |=C2=A0 2 ++
+> =C2=A03 files changed, 32 insertions(+)
+>=20
+> diff --git a/hw/i386/kvm/xen_xenstore.c b/hw/i386/kvm/xen_xenstore.c
+> index 660d0b72f9..7b894a9884 100644
+> --- a/hw/i386/kvm/xen_xenstore.c
+> +++ b/hw/i386/kvm/xen_xenstore.c
+> @@ -1572,6 +1572,24 @@ static bool xs_be_create(struct qemu_xs_handle *h,=
+ xs_transaction_t t,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return false;
+> =C2=A0=C2=A0=C2=A0=C2=A0 }
+> =C2=A0
+> +=C2=A0=C2=A0=C2=A0 if (owner =3D=3D XS_PRESERVE_OWNER) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GList *perms;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 char letter;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D xs_impl_get_perms(h->=
+impl, 0, t, path, &perms);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 errno=
+ =3D err;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
+n false;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
 
-(Note that we need to look at net and console devices too, now they've
-finally been converted to the 'new' XenBus framework in QEMU 8.2.)
+I guess we get away without a race here because it's all internal and
+we're holding the QEMU iothread mutex? Perhaps assert that?
+
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (sscanf(perms->data, "%c%u=
+", &letter, &owner) !=3D 2) {
+
+I'd be slightly happier if you used parse_perm() from xenstore_impl.c,
+but it's static so I suppose that's fair enough.
+
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 errno=
+ =3D EFAULT;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 g_lis=
+t_free_full(perms, g_free);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
+n false;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 g_list_free_full(perms, g_fre=
+e);
+> +=C2=A0=C2=A0=C2=A0 }
+> +
+> =C2=A0=C2=A0=C2=A0=C2=A0 perms_list =3D g_list_append(perms_list,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xs_perm_as_string(XS_PERM_NONE, own=
+er));
+> =C2=A0=C2=A0=C2=A0=C2=A0 perms_list =3D g_list_append(perms_list,
+> diff --git a/hw/xen/xen-operations.c b/hw/xen/xen-operations.c
+> index e00983ec44..1df59b3c08 100644
+> --- a/hw/xen/xen-operations.c
+> +++ b/hw/xen/xen-operations.c
+> @@ -300,6 +300,18 @@ static bool libxenstore_create(struct qemu_xs_handle=
+ *h, xs_transaction_t t,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return false;
+> =C2=A0=C2=A0=C2=A0=C2=A0 }
+> =C2=A0
+> +=C2=A0=C2=A0=C2=A0 if (owner =3D=3D XS_PRESERVE_OWNER) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xs_permissions *tmp;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int num;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D xs_get_permissions(h-=
+>xsh, 0, path, &num);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (tmp =3D=3D NULL) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
+n false;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 perms_list[0].id =3D tmp[0].i=
+d;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 free(tmp);
+> +=C2=A0=C2=A0=C2=A0 }
+> +
+
+Don't see what saves you from someone else changing it at this point on
+true Xen though. Which is why I'd prefer XenStore to do it natively.
+
+> =C2=A0=C2=A0=C2=A0=C2=A0 return xs_set_permissions(h->xsh, t, path, perms=
+_list,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ARRAY_SIZE(perms_list));
+> =C2=A0}
+> diff --git a/include/hw/xen/xen_backend_ops.h b/include/hw/xen/xen_backen=
+d_ops.h
+> index 90cca85f52..273e414559 100644
+> --- a/include/hw/xen/xen_backend_ops.h
+> +++ b/include/hw/xen/xen_backend_ops.h
+> @@ -266,6 +266,8 @@ typedef uint32_t xs_transaction_t;
+> =C2=A0#define XS_PERM_READ=C2=A0 0x01
+> =C2=A0#define XS_PERM_WRITE 0x02
+> =C2=A0
+> +#define XS_PRESERVE_OWNER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0xFF=
+FE
+> +
+> =C2=A0struct xenstore_backend_ops {
+> =C2=A0=C2=A0=C2=A0=C2=A0 struct qemu_xs_handle *(*open)(void);
+> =C2=A0=C2=A0=C2=A0=C2=A0 void (*close)(struct qemu_xs_handle *h);
 
 
-
---=-rYLwzndIgUvuHS/WMu0S
+--=-LTEPTZWD+e0HlfEjd1Jp
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -196,25 +291,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTExMTA1NTQ5WjAvBgkqhkiG9w0BCQQxIgQgjmUdAimc
-8aYQu3Af90VH3FjvBaObT6MB6wnXSAFtHVUwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTExMTEwMTQ1WjAvBgkqhkiG9w0BCQQxIgQgbe8q9Jjk
+EqEq6PqWTyBLv70/TcrcrSDxvYReh+6vo6Ywgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBYqJxJJSjS284Z03dpRFf10No4jdy4QK0T
-bVLIfSwLjxFNuLI/FuwDBdo38SwssRoSMnEfArPTgZO3lLeIolE7yDgavgOKAqU0NxcLDCiQgsUQ
-bLsOtefLfJYwrZRQPNzq78ozwbi7Prjtlja1wpOLdpoIorsieYVVA/32NkQ8DOumrDNiAE+TpwYX
-RLiPrvKSXGzPYw1lsloiBdFGp/PSCRzn5aoE9bAtIqFLgUL7v67TI78mx1XF0hNQ3cbVm7z/Wfe6
-SKkOkj1J6EjO2pSabRMmyfNoKsGmX7bzF1cR9GLcriroqnqVLSN/EFHM4V9kDvYp6aX+ATT1Ustp
-OnIQlzcp3sNPqiPoOMLYhEaNEYcVpCi1bT43AqhR9TMc4QQ3iBbyzxMpzN7d451zQx95iPHzoj7H
-4tmwxuXeg+xtySNYiFWSBTwvu4fOCUb1SAquMk2PTSb5u08yGd6vdepjHBfDN/3E07KtLcza7qX2
-79o6Mhy8KCwfLQ7pIswRMjbb7iy19wrQ9rFt++i1jN3XOqE4rXC+WVlufd+8yezwotxXpf4Ck+t1
-aw0tu6kbII8MEEEjxIWF3v2nBCfiqs7inzJ7zkA5rKYf55U7BuT2kGJjYUuk5ZnsSvwzEh3iaZ7Y
-KthiznVOXnVPoIyrIwaHxFN3qAN9nFV1mwLIR8+oTQAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCFBCmHTtxTRjdqSBbdZ8RqVQrCsXhC5ZbY
+zdfwvSVP0km3smYV4MIv09gUiUDaBODtAlorbvAVNXD7Iu2lGIx8loBUeY0QgdTgVXAPhpaB4UQM
+L0+wg/r0eOCVi8HcUefGViGYg1aooV2CtHiI8J+bqZN5q5ehyyjXKZLtaa8mJ+DbcFYOB+jrAc8z
+cyicaQkjwL3mlM6NgiwHYx6hKr/1XZqWBd4mc3HvXQXC8qagrAAiatp6sTNWYZYT/u1AOcHbSnDk
+rdNmSIz3UwPx21eQ9esQruzIRU7QuA2PukJ2BJUhngQ3lFwv8PG76VHw3A5NMvWn7oCLe3CFw/ak
+6XBQPqsyKDLyGIImo2opQ5zD5T/pe/xvQXHAnLC5fDS0QUeHHicRKMGT2c46KDQo2LyamhJe2Li6
+AsXuBmUC0ZBUe2J7ke/dVZsWhExZXxkJZgS93Scut+Is2Z2uCpvtGFCKQs/qHEKh2bIvnorWcmVp
+tdfBqUIzzzFYn0p2zD4i2d+sO4oMDRhHl8zVQi8YkWaF4OO2s4it0db4s7TQjLNxfc6fIzDj6Egd
+rGUjyo/Kv5MmBuXocmG60aQPj+bFZjWy9+auhojw21S0XhxsuSm+8y1ylMFPeRnhUnUMIB0GGRqJ
+dq6kyOthwMkewDVA2rRo32inekzxo8hEFfs592tuGwAAAAAAAA==
 
 
---=-rYLwzndIgUvuHS/WMu0S--
+--=-LTEPTZWD+e0HlfEjd1Jp--
 
