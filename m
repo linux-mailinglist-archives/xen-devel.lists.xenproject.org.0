@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2F87E876F
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 02:24:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630853.984020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5389D7E878A
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 02:29:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630857.984031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1cj2-0000wA-3L; Sat, 11 Nov 2023 01:23:52 +0000
+	id 1r1coJ-0001ib-N0; Sat, 11 Nov 2023 01:29:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630853.984020; Sat, 11 Nov 2023 01:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 630857.984031; Sat, 11 Nov 2023 01:29:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1cj2-0000tu-0l; Sat, 11 Nov 2023 01:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 630853;
- Sat, 11 Nov 2023 01:23:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1coJ-0001gH-Jt; Sat, 11 Nov 2023 01:29:19 +0000
+Received: by outflank-mailman (input) for mailman id 630857;
+ Sat, 11 Nov 2023 01:29:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mrjv=GY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r1cj0-0000tn-F9
- for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 01:23:50 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5fc1d27-8030-11ee-98da-6d05b1d4d9a1;
- Sat, 11 Nov 2023 02:23:48 +0100 (CET)
+ id 1r1coI-0001gB-5d
+ for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 01:29:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b97d83a5-8031-11ee-9b0e-b553b5be7939;
+ Sat, 11 Nov 2023 02:29:15 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1B769CE1712;
- Sat, 11 Nov 2023 01:23:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BCEC433C8;
- Sat, 11 Nov 2023 01:23:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 74CB261B4D;
+ Sat, 11 Nov 2023 01:29:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E921C433C7;
+ Sat, 11 Nov 2023 01:29:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,72 +41,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5fc1d27-8030-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: b97d83a5-8031-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699665820;
-	bh=r7KKMfeOi+/NW7ECYa23LukpsKR+JX21zTZ203uYrdQ=;
+	s=k20201202; t=1699666152;
+	bh=Qxuhe2GxH8zg5H2zI06Run0oen8nzBl7b3GfzB6y1vA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GqRhhjXx6x/sKUXg/pGKZN19I3SfTdDUeEG8a5gvOgg7a42QSg3UvBugzmBRcn7mm
-	 2tF4mPYc1ptWNYVxOw10lqOMh9HYAxWWJYwdzG9U6r8FcCRWluGJ+Y/I64hNPtIIdW
-	 UqZ90lgSh0ZAczNVFGvoIvilbX7NZtn4H8xkXwgGP4vpE7roxrqOOBKnJaN+F6Q1Bp
-	 Ds2q/S6NxBmhha3Q/WnVl3GP9SjRFdLD/OBpI4HrgUMw+4KpSw4YWqcSeJfM4DGv3c
-	 /plTJZMZ1h/DWDkZBytfP/0qQWDFMts9OEQV5cQTBhrnQoFnWXs0qjTqkn7ZaT25zG
-	 39CBPjSS/RX9A==
-Date: Fri, 10 Nov 2023 17:23:37 -0800 (PST)
+	b=fa1Qhi7heOHuNVOuoba7govojjnavfwC3AEs14+0HESyrRkCNYSB6QFmt60clCZRq
+	 FUFcVwsfqRkJwB0tELA6Yz7ztsE9u96NHHD/DQocpTnvFx2BqFuvw4I9WuB5HCGzUu
+	 oh9ZJOi0xdfM6jiKqkmYPuIP1hcQaifL4Fm1Fc/YZfNUPICfAwEZv8LCHPj4+BiNSt
+	 LDtsdjZHfuj7Z3lLkld6yPEQc3Nz8GFVIjCjgAmqDYm4Ylh5mA2RiPveRy9usGbVDO
+	 CDwFsiBC4TjEsBj9NL1BsKDf2A8DImzkbjPKSl4Ux/6aeunAcd6/Q94xWUYb2vbRMP
+	 eraSBKqEe1zHA==
+Date: Fri, 10 Nov 2023 17:29:09 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [RFC 1/4] x86/ioemul: address MISRA C:2012 Rule 9.3
-In-Reply-To: <9888aa5c298584c22cf55b13befeaaa6@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311101719120.3478774@ubuntu-linux-20-04-desktop>
-References: <cover.1698155925.git.nicola.vetrini@bugseng.com> <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com> <60e26ad6-7366-2604-e9b2-ed401cee6e73@suse.com> <alpine.DEB.2.22.394.2310241317030.271731@ubuntu-linux-20-04-desktop>
- <41562c7a-6260-3104-b2d4-d6fd4df0cffc@suse.com> <4e88d7ab94b9fc73554eee5b78612b63@bugseng.com> <8cb336ca-41ed-8adc-957a-28b5585c84f1@suse.com> <alpine.DEB.2.22.394.2310271419260.271731@ubuntu-linux-20-04-desktop>
- <9888aa5c298584c22cf55b13befeaaa6@bugseng.com>
+To: Julien Grall <julien@xen.org>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    viryaos-discuss@lists.sourceforge.net, xen-devel@lists.xenproject.org, 
+    brian@woods.art
+Subject: Re: [PATCH] Use hex for bitstream_size as expected by u-boot
+In-Reply-To: <eb5b015c-0697-469b-be87-b933831fc351@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2311101728300.3478774@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2311091740490.3478774@ubuntu-linux-20-04-desktop> <329849be-f2c1-4ca6-8b97-b288d163aeb1@xen.org> <dbab3224-a15b-41b4-9a1f-bef4222f3a9d@amd.com> <50ad4fb5-77c4-44f3-80cf-a2555d595e10@xen.org>
+ <eb5b015c-0697-469b-be87-b933831fc351@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-482275272-1699666151=:3478774"
 
-On Mon, 6 Nov 2023, Nicola Vetrini wrote:
-> > > > There's also this functionally equivalent alternative, with or without
-> > > > the zeros, which
-> > > > doesn't incur in the risk of mistakenly attempting to initialize the
-> > > > same element twice,
-> > > > while also giving an explicit cue to the reader that all elements are
-> > > > truly zero-initialized.
-> > > >
-> > > >           .matches = {
-> > > >               DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
-> > > >               DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
-> > > > +            {0}, {0}
-> > > >           },
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-482275272-1699666151=:3478774
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 10 Nov 2023, Julien Grall wrote:
+> On 10/11/2023 10:08, Julien Grall wrote:
+> > On 10/11/2023 10:01, Michal Orzel wrote:
+> > > Hi Julien,
 > > > 
-> > > Adding a dependency on the array actually having 4 elements (while iirc
-> > > we have seen already that we could in principle go down to 3). A change
-> > > of this number would then require touching all these sites, which is
-> > > what we'd like to avoid.
+> > > On 10/11/2023 10:27, Julien Grall wrote:
+> > > > 
+> > > > 
+> > > > Hi Stefano,
+> > > > 
+> > > > On 10/11/2023 01:44, Stefano Stabellini wrote:
+> > > > > Reported-by: Brian Woods <brian@woods.art>
+> > > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > > > 
+> > > > > diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> > > > > index b284887..6e52da5 100755
+> > > > > --- a/scripts/uboot-script-gen
+> > > > > +++ b/scripts/uboot-script-gen
+> > > > > @@ -790,7 +790,7 @@ bitstream_load_and_config()
+> > > > >            check_file_type "$BITSTREAM" "BIT data"
+> > > > >            bitstream_addr=$memaddr
+> > > > >            load_file $BITSTREAM "fpga_bitstream"
+> > > > > -        bitstream_size=$filesize
+> > > > > +        bitstream_size=`printf "0x%X\n" $filesize`
+> > > > 
+> > > > Looking at [1], there is no indication that the size parameter for "fpga
+> > > > load" should be hexadecimal. At the contrary, all the example I have
+> > > > found seems to use $filesize.
+> > > U-boot expects size to be passed in hex format. You can see it here:
+> > > https://github.com/u-boot/u-boot/blob/master/cmd/fpga.c#L60C20-L60C27
+> > > 
+> > > Also, AFAICT $filesize var that gets updated after image load (e.g. tftpb)
+> > > is in hex format.
 > > 
-> > How often the array needs to change though? Looking at the git history
-> > it doesn't seem the number of elements ever changed. So I think it is a
-> > good tradeoff, and I would go with this type of fix (maybe also at the
-> > other locations mechanically too although I haven't looked at them in
-> > details).
+> > Hmmm, now that you are saying this... I vaguely recall we had some issues in
+> > the past with the size. The format was not consistent across U-boot.
+> > 
+> > Maybe this is the same problem here?
 > 
-> Hi, any updates on this? Considering the opinions expressed above, what would
-> be the path preferred by the community?
+> I had a chat with Michal on Matrix. 'filesize' is a variable internal to the
+> image-builder rather than U-boot. Hence the confusion.
+> 
+> The variable will be set in decimal. So it needs to be converted to
+> hexadecimal. So the code seems to be correct.
+> 
+> That said, I think some clarifications is needed in the commit message to help
+> understanding the code and at least giving a hint whether this code was ever
+> tested (or this was introduced by a follow-up change).
 
-Hi Jan, to bring this discussion to a conclusion, I think we have these
-options:
-
-1) fix these violations by adding {}, {}
-2) fix these violations by adding [0]=xxx,[1]=xxx
-3) deviate these violations by adding /* SAF-safe-xxx */
-4) remove the MISRA rule 9.3 from docs/misra/rules.rst
-
-Let's make a decision. My preference is 1) as we only have ~50
-violations.
+Makes sense, I added an explanation on commit. Passing the parameter as
+hex with 0x should make it work on both old and new versions of u-boot.
+--8323329-482275272-1699666151=:3478774--
 
