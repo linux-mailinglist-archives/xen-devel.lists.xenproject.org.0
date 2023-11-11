@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506417E8AFC
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 14:03:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630970.984131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C0007E8B13
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 14:44:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630977.984142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1nct-0001A1-8C; Sat, 11 Nov 2023 13:02:15 +0000
+	id 1r1oH7-00075h-EA; Sat, 11 Nov 2023 13:43:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630970.984131; Sat, 11 Nov 2023 13:02:15 +0000
+Received: by outflank-mailman (output) from mailman id 630977.984142; Sat, 11 Nov 2023 13:43:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1nct-00017U-4q; Sat, 11 Nov 2023 13:02:15 +0000
-Received: by outflank-mailman (input) for mailman id 630970;
- Sat, 11 Nov 2023 13:02:13 +0000
+	id 1r1oH7-00072j-A6; Sat, 11 Nov 2023 13:43:49 +0000
+Received: by outflank-mailman (input) for mailman id 630977;
+ Sat, 11 Nov 2023 13:43:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OdqC=GY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r1ncr-00017O-9t
- for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 13:02:13 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1r1oH5-00072d-Pw
+ for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 13:43:47 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87607d79-8092-11ee-98da-6d05b1d4d9a1;
- Sat, 11 Nov 2023 14:02:12 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4079ed65582so21801955e9.1
- for <xen-devel@lists.xenproject.org>; Sat, 11 Nov 2023 05:02:12 -0800 (PST)
+ id 55c47938-8098-11ee-98da-6d05b1d4d9a1;
+ Sat, 11 Nov 2023 14:43:46 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-32fb1d757f7so1854771f8f.0
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Nov 2023 05:43:46 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- i12-20020a05600c354c00b004053a6b8c41sm2121212wmq.12.2023.11.11.05.02.10
+ x15-20020adfffcf000000b0031984b370f2sm1510187wrs.47.2023.11.11.05.43.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 11 Nov 2023 05:02:11 -0800 (PST)
+ Sat, 11 Nov 2023 05:43:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87607d79-8092-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 55c47938-8098-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699707731; x=1700312531; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1699710221; x=1700315021; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=TK40/DnAJocUT8Bp+wE1qqmqpbObZXdyY458hJnOjW8=;
-        b=QzrHmAaFc7h/5o7G1Ax0QInn7NtUU0zFLP+PvZdPZpsZ3CE/1mheVPeQhSP9eZjyok
-         BKyrOotAlBXHk4xFioMfYyZV3AaAzknnPbzE3SMeIrAhg7oZEEfBe1zB2hjQcFfGHYhO
-         B+QejN6moQTP0HcKRNjUFwUPnjzS2kkcvVTxw=
+        bh=wCMOyarQCrhFq72XfE2EZ8qcTALBtar3c4iQxZbveYY=;
+        b=DFyQlvq3XXvMiwOigDWH0W3/GGoRJhvydQBksy2/YglOWjOR4AvNcE2mTJKRh9CUNx
+         HOFYpNmSAUl0LO1nMCQsjxDdZEo+ZgwjYX2EFg8ecRG5XfOKyRuhMslyIZMxgOb5NhL9
+         sfIR/L6cW104vJU7Qg3+PNBPBBU5niKSOAeQo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699707731; x=1700312531;
+        d=1e100.net; s=20230601; t=1699710221; x=1700315021;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TK40/DnAJocUT8Bp+wE1qqmqpbObZXdyY458hJnOjW8=;
-        b=RZ73DP6wRTSfZwaR9G+TuEvxRgR+2kQOyL/W6KRWyOrIgy4vtPERm/dRYtPfvM3YwE
-         ErWSRcZsEVORFCuNf6k4T/FOLOYqhkyhGFpVa4f0FsMIMFGvHqK8D9Gbzq8sj/foTd/s
-         gsf9WXHXFnTTUEY32RkIbsH/iExhbfyi5uToCAnLEIfIfcd30JzMWpPzUIR2stzK5rtQ
-         19rRSGW9dGikiXW3/aliHQdzpYE8fZDBig1x6Fud+38E9AZRpwqVeGEe8ghQYMmGJttv
-         B45vCQrQCcuVFzt1Ae9rZg6hF6e2JhJYFlARNRNn2TBDrD8ElzFLJtXQD7qegVkbSk/8
-         XUsg==
-X-Gm-Message-State: AOJu0YzOVwBPXT8B9qek8qxOKX673fHKfE/XSreVFE5YkbDoEn9OzTTZ
-	sY+qiodXqvLwdtSkm/kjETp6hw==
-X-Google-Smtp-Source: AGHT+IGMSOIdkoVslJBW7COPMk/3zktP5wmhPkz74HKc3d7xnBim0NsXk1oSFxutFk7XCbqpx+QW+w==
-X-Received: by 2002:a05:600c:3b13:b0:40a:4c7e:6f37 with SMTP id m19-20020a05600c3b1300b0040a4c7e6f37mr1020286wms.20.1699707731503;
-        Sat, 11 Nov 2023 05:02:11 -0800 (PST)
-Message-ID: <a3d18a04-6ffc-48ce-aa9c-db221c372c94@citrix.com>
-Date: Sat, 11 Nov 2023 13:02:10 +0000
+        bh=wCMOyarQCrhFq72XfE2EZ8qcTALBtar3c4iQxZbveYY=;
+        b=KE2M68fBUrtqtxaMNUPdYg3rh5AeIpV+FoYYIrN4W4/bW1pj4JKkCT9UrV86QE5fBx
+         qJQYcXz0BMGuwfIJ5mVutGcg9uzdXpd28dJGbQYNlwGJ09pBGqxti5V7R3bPMn38cC/W
+         VY5aKty7IFtEAQoN5IH0gTuHSOb4eeWq3mvUB4rkifZe75CEsfBgMvZaH5hYGXHNiNhU
+         AFPRRCA0zruJ7SGoB+SpmEGfJV+WYV4dJ/+uuuR5DjGJRfpd9p9O7yjrTDN7P2ouu2q4
+         Ruxw4JO2R335Y3tYhzitiIGyHHeXsbjVe5uqx0N0WNHXRdNsWe0IUMOCzyZaUJdTVB80
+         ulEA==
+X-Gm-Message-State: AOJu0Yx/Ke8c2wk04/NZdO+n3kisAaGrk8WDHV4S7INxj7Suvl9xpfAI
+	DlJxAe+gOVaK9Q5KcZSCdA7GFw==
+X-Google-Smtp-Source: AGHT+IE+pgMtGKkgQm9qNUTpr9QX4NPL2ky76zI4BNKzRNF1kmX+vTjc+bHfhJxnTg3SVt5cPjk6cg==
+X-Received: by 2002:adf:e7cb:0:b0:309:1532:8287 with SMTP id e11-20020adfe7cb000000b0030915328287mr1489045wrn.19.1699710221317;
+        Sat, 11 Nov 2023 05:43:41 -0800 (PST)
+Message-ID: <db50c864-a429-49af-9762-8bc17d5b0336@citrix.com>
+Date: Sat, 11 Nov 2023 13:43:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.18 3/3] docs/sphinx: Fix indexing
+Subject: Re: [PATCH v1 1/7] xen-block: Do not write frontend nodes
 Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20231108152727.58764-1-andrew.cooper3@citrix.com>
- <20231108152727.58764-4-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2311091601420.3478774@ubuntu-linux-20-04-desktop>
- <0a168232-ea32-4aa1-b270-961782fec9dc@citrix.com>
- <alpine.DEB.2.22.394.2311101546100.3478774@ubuntu-linux-20-04-desktop>
+To: David Woodhouse <dwmw2@infradead.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ "open list:Block layer core" <qemu-block@nongnu.org>
+References: <20231110204207.2927514-1-volodymyr_babchuk@epam.com>
+ <20231110204207.2927514-2-volodymyr_babchuk@epam.com>
+ <f2f7751a9ea5597e9f7a1417b761fe0802892aa8.camel@infradead.org>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -132,60 +134,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2311101546100.3478774@ubuntu-linux-20-04-desktop>
+In-Reply-To: <f2f7751a9ea5597e9f7a1417b761fe0802892aa8.camel@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/11/2023 11:49 pm, Stefano Stabellini wrote:
-> On Fri, 10 Nov 2023, Andrew Cooper wrote:
->> On 10/11/2023 12:07 am, Stefano Stabellini wrote:
->>> On Wed, 8 Nov 2023, Andrew Cooper wrote:
->>>> diff --git a/docs/index.rst b/docs/index.rst
->>>> index f3f779f89ce5..22fdde80590c 100644
->>>> --- a/docs/index.rst
->>>> +++ b/docs/index.rst
->>>> @@ -53,17 +53,18 @@ kind of development environment.
->>>>     hypervisor-guide/index
->>>>  
->>>>  
->>>> -MISRA C coding guidelines
->>>> --------------------------
->>>> +Unsorted documents
->>>> +------------------
->>>>  
->>>> -MISRA C rules and directive to be used as coding guidelines when writing
->>>> -Xen hypervisor code.
->>>> +Documents in need of some rearranging.
->>> I understand the need for an "Unsorted documents", but why taking away
->>> "MISRA C coding guidelines" from here?
->> You can't have it both here and in index.rst without breaking the indexing.
+On 11/11/2023 10:55 am, David Woodhouse wrote:
+> On Fri, 2023-11-10 at 20:42 +0000, Volodymyr Babchuk wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >>
->> Also because in it's current position it breaks the navbar.  MISRA is
->> part of the developer guide, and what should be at the toplevel should
->> be a general section on safety certification, which cross-references the
->> developer guide amongst other things.  Nevertheless it will stay visible
->> for now at the top level because of how the toctree.
+>> The PV backend running in other than Dom0 domain (non toolstack domain)
+>> is not allowed to write frontend nodes. The more, the backend does not
+>> need to do that at all, this is purely toolstack/xl devd business.
 >>
->> It's in unsorted because I have thrown the index together with the bare
->> minimum effort in order to fix Sphinx errors in time for 4.18.
->>
->> This is also why I'm not changing any text.  There is 0 time between now
->> and this needing fixing for the release.
->>
->> Someone else can find some time to polish it - which is far more work
->> than just in the index - and we can backport it when its done.
-> OK. I don't mean to make things difficult so if you don't think it is
-> easy to keep "MISRA C coding guidelines" here in docs/index.rst then so
-> be it. Can you at least add "and related files" to the text in
-> docs/misra/index.rst?
-
-Ok.
-
->  Can be done on commit. Anyway:
+>> I do not know for what reason the backend does that here, this is not really
+>> needed, probably it is just a leftover and all xen_device_frontend_printf()
+>> instances should go away completely.
+> No, this is what allows qemu to create PV devices, as opposed to just
+> handle the ones which are created for it by the toolstack.
 >
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> Perhaps we should only create the frontend nodes (and likewise, only
+> destroy those and the backend nodes on destruction) in the case where
+> the device was instantiated directly by the QEMU command line, and
+> refrain from doing so for the devices which were created by the
+> toolstack and merely 'discovered' by xen_block_device_create()?
+>
+> (Note that we need to look at net and console devices too, now they've
+> finally been converted to the 'new' XenBus framework in QEMU 8.2.)
+>
+>
 
-Thanks.
+Furthermore, the control domain doesn't always have the domid of 0.
+
+If qemu wants/needs to make changes like this, the control domain has to
+arrange for qemu's domain to have appropriate permissions on the nodes.
 
 ~Andrew
 
