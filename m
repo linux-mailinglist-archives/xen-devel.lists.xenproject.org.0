@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D8B7E86AE
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 00:49:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.630835.983980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 688BF7E8962
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Nov 2023 07:04:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.630840.984041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1bFm-0002Cs-EA; Fri, 10 Nov 2023 23:49:34 +0000
+	id 1r1h5B-0000zY-FK; Sat, 11 Nov 2023 06:03:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 630835.983980; Fri, 10 Nov 2023 23:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 630840.984041; Sat, 11 Nov 2023 06:03:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r1bFm-0002Ao-BU; Fri, 10 Nov 2023 23:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 630835;
- Fri, 10 Nov 2023 23:49:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r1h5B-0000x0-BW; Sat, 11 Nov 2023 06:03:01 +0000
+Received: by outflank-mailman (input) for mailman id 630840;
+ Sat, 11 Nov 2023 01:10:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0VeX=GX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r1bFk-0002Ai-LX
- for xen-devel@lists.xenproject.org; Fri, 10 Nov 2023 23:49:32 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9d940ea-8023-11ee-98da-6d05b1d4d9a1;
- Sat, 11 Nov 2023 00:49:31 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B4EF0CE16DE;
- Fri, 10 Nov 2023 23:49:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4834C433C8;
- Fri, 10 Nov 2023 23:49:26 +0000 (UTC)
+ <SRS0=wVGi=GY=proton.me=adresseinconnue@srs-se1.protection.inumbo.net>)
+ id 1r1cW8-0005lG-3t
+ for xen-devel@lists.xenproject.org; Sat, 11 Nov 2023 01:10:33 +0000
+Received: from mail-40138.protonmail.ch (mail-40138.protonmail.ch
+ [185.70.40.138]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1964223a-802f-11ee-9b0e-b553b5be7939;
+ Sat, 11 Nov 2023 02:10:29 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,87 +36,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9d940ea-8023-11ee-98da-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699660168;
-	bh=1All/a8Lap0XJa/MPRanfnfkzMC2g9BumuEPwua10yI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aqbMPzmR9+bFqR6yyuBINjDxhqRLIe1CU5w3bLZ7TCqU7E75OtOpmdG+VR5qlZhhx
-	 nD43g3hhbnwxEon0Jz2JRV/tbXRUNRgKh4fCMbQdanYAsru5WvHklUx1HyCXK/dRE6
-	 AShNanYat9h7kG6PVZ7SLiJjq1kgCB+916ZSp0T2SMkpIIyMupdaYj1NQPZjgYMfxG
-	 2At/lLppnlNJeVAmzQqQwuFha5uDZ5c4h5TH4Zm1to4nNFv8mBUPy9I9EkWvUMuUo3
-	 dnewmVdBDquZkKMNfpKTJ/sOIchMVOqKk23g9WJ1Z12dsOP+Urug4M+d1D/6p2NBJ8
-	 lWCtG5wDEtoKg==
-Date: Fri, 10 Nov 2023 15:49:25 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>, 
-    Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH for-4.18 3/3] docs/sphinx: Fix indexing
-In-Reply-To: <0a168232-ea32-4aa1-b270-961782fec9dc@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311101546100.3478774@ubuntu-linux-20-04-desktop>
-References: <20231108152727.58764-1-andrew.cooper3@citrix.com> <20231108152727.58764-4-andrew.cooper3@citrix.com> <alpine.DEB.2.22.394.2311091601420.3478774@ubuntu-linux-20-04-desktop> <0a168232-ea32-4aa1-b270-961782fec9dc@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 1964223a-802f-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1699665026; x=1699924226;
+	bh=aDMexFQmGPG6u56g0VnujM80HkyA9ltlhNf9uFT+QoI=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=NDfO1+ahS3gZZLJrsxgDr0ni0trRwwuXnzPVvtHRXpy0JwzgsrbaLaZnQ2U3jSgWt
+	 rtSrlDfWl//gaOg3dehDyxD98D1uwPZR2zoxqfWi2wRhVNI1lAo4NnmB5RjIX9Fndu
+	 an/HGzEZSlfo5oNEik0s38EZHmT6tyKkWhLK+GkSUUTlKfggq+WkjgPsK4rVjLN2If
+	 +8dvTKRQzN2Hfgj7ysVvTIr+kDflKkSq02dVPM7TdEeKtcn/HZHd1fUcv6dVlkIO8j
+	 +N+G1NI7yBdQ34VOsfnFzEUdox01F38CIrxZ9xgl6I3ZAd/L4ngGBumv1WTG5UqePD
+	 sySwU7JcvNReA==
+Date: Sat, 11 Nov 2023 01:10:13 +0000
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: adresseinconnue <adresseinconnue@proton.me>
+Subject: Bug report: Qubes 4.2 RC4
+Message-ID: <Sy3bgLQNkkk1ursClxwxZTiZVRZ88NIlc7gspd7nCdFlrqWKGLunFkzrETElI5XTJmq3q6akcY-oGyHcOE-oRHZYx5dTekuh1SuziXaO9zk=@proton.me>
+Feedback-ID: 49686843:user:proton
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-259878124-1699660059=:3478774"
-Content-ID: <alpine.DEB.2.22.394.2311101547580.3478774@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/alternative;
+ boundary="b1_bEnBJz2iQnlCCqk5O5CvkYXUonLRpT2CSkb6i2QI8A"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+This is a multi-part message in MIME format.
 
---8323329-259878124-1699660059=:3478774
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2311101547581.3478774@ubuntu-linux-20-04-desktop>
+--b1_bEnBJz2iQnlCCqk5O5CvkYXUonLRpT2CSkb6i2QI8A
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-On Fri, 10 Nov 2023, Andrew Cooper wrote:
-> On 10/11/2023 12:07 am, Stefano Stabellini wrote:
-> > On Wed, 8 Nov 2023, Andrew Cooper wrote:
-> >> diff --git a/docs/index.rst b/docs/index.rst
-> >> index f3f779f89ce5..22fdde80590c 100644
-> >> --- a/docs/index.rst
-> >> +++ b/docs/index.rst
-> >> @@ -53,17 +53,18 @@ kind of development environment.
-> >>     hypervisor-guide/index
-> >>  
-> >>  
-> >> -MISRA C coding guidelines
-> >> --------------------------
-> >> +Unsorted documents
-> >> +------------------
-> >>  
-> >> -MISRA C rules and directive to be used as coding guidelines when writing
-> >> -Xen hypervisor code.
-> >> +Documents in need of some rearranging.
-> > I understand the need for an "Unsorted documents", but why taking away
-> > "MISRA C coding guidelines" from here?
-> 
-> You can't have it both here and in index.rst without breaking the indexing.
-> 
-> Also because in it's current position it breaks the navbar.  MISRA is
-> part of the developer guide, and what should be at the toplevel should
-> be a general section on safety certification, which cross-references the
-> developer guide amongst other things.  Nevertheless it will stay visible
-> for now at the top level because of how the toctree.
-> 
-> It's in unsorted because I have thrown the index together with the bare
-> minimum effort in order to fix Sphinx errors in time for 4.18.
-> 
-> This is also why I'm not changing any text.  There is 0 time between now
-> and this needing fixing for the release.
-> 
-> Someone else can find some time to polish it - which is far more work
-> than just in the index - and we can backport it when its done.
+SGVsbG8sIEkgaGF2ZSBmaWxlZCBhIGJ1ZyByZXBvcnQgW29uIEdpdEh1Yl0oaHR0cHM6Ly94ZW4t
+ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcpIGFib3V0IG15IFdpRmkgY2FyZC4gVGhlIHJlcG9y
+dCByZWZlcmVuY2VzIGEgdmVyeSBkZXRhaWxlZCBpbml0aWFsIHBvc3Qgb24gdGhlIFF1YmVzIGZv
+cnVtIGFib3V0IHRoZSBzaXR1YXRpb24sIHdoaWNoIHlvdSBjYW4gW2ZpbmQgaGVyZV0oaHR0cHM6
+Ly94ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcpLiBUaGFuayB5b3UgZm9yIGxvb2tpbmcg
+aW50byB0aGlzLg==
 
-OK. I don't mean to make things difficult so if you don't think it is
-easy to keep "MISRA C coding guidelines" here in docs/index.rst then so
-be it. Can you at least add "and related files" to the text in
-docs/misra/index.rst? Can be done on commit. Anyway:
+--b1_bEnBJz2iQnlCCqk5O5CvkYXUonLRpT2CSkb6i2QI8A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-259878124-1699660059=:3478774--
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij5IZWxsbywgSSBoYXZlIGZpbGVkIGEgYnVnIHJlcG9ydCA8YSBocmVmPSJodHRwczovL3hl
+bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIgdGl0bGU9Im9uIEdpdEh1YiI+b24gR2l0SHVi
+PC9hPiBhYm91dCBteSBXaUZpIGNhcmQuIFRoZSByZXBvcnQgcmVmZXJlbmNlcyBhIHZlcnkgZGV0
+YWlsZWQgaW5pdGlhbCBwb3N0IG9uIHRoZSBRdWJlcyBmb3J1bSBhYm91dCB0aGUgc2l0dWF0aW9u
+LCB3aGljaCB5b3UgY2FuIDxhIGhyZWY9Imh0dHBzOi8veGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
+Y3Qub3JnIiB0aXRsZT0iZmluZCBoZXJlIj5maW5kIGhlcmU8L2E+LiBUaGFuayB5b3UgZm9yIGxv
+b2tpbmcgaW50byB0aGlzLjxicj48L2Rpdj4NCg0K
+
+
+--b1_bEnBJz2iQnlCCqk5O5CvkYXUonLRpT2CSkb6i2QI8A--
+
 
