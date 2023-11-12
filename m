@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC697E92E5
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Nov 2023 22:58:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631231.984297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841BB7E92EA
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Nov 2023 23:12:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631235.984307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2ISO-0001AT-Mn; Sun, 12 Nov 2023 21:57:28 +0000
+	id 1r2Igi-0003w2-V9; Sun, 12 Nov 2023 22:12:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631231.984297; Sun, 12 Nov 2023 21:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 631235.984307; Sun, 12 Nov 2023 22:12:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2ISO-00017v-Ic; Sun, 12 Nov 2023 21:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 631231;
- Sun, 12 Nov 2023 21:57:27 +0000
+	id 1r2Igi-0003tH-SF; Sun, 12 Nov 2023 22:12:16 +0000
+Received: by outflank-mailman (input) for mailman id 631235;
+ Sun, 12 Nov 2023 22:12:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E0Na=GZ=casper.srs.infradead.org=BATV+7bd337da54ad26cefb50+7385+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r2ISM-00017I-Nq
- for xen-devel@lists.xenproject.org; Sun, 12 Nov 2023 21:57:27 +0000
+ id 1r2Igh-0003ss-TR
+ for xen-devel@lists.xenproject.org; Sun, 12 Nov 2023 22:12:15 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7658a8b0-81a6-11ee-98da-6d05b1d4d9a1;
- Sun, 12 Nov 2023 22:57:24 +0100 (CET)
-Received: from [52.94.133.139] (helo=edge-m2-r2-104.e-sfo20.amazon.com)
+ id 88ff6c94-81a8-11ee-98da-6d05b1d4d9a1;
+ Sun, 12 Nov 2023 23:12:15 +0100 (CET)
+Received: from [52.94.133.131] (helo=edge-m2-r2-104.e-sfo20.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r2IS4-00ARQA-KZ; Sun, 12 Nov 2023 21:57:09 +0000
+ id 1r2IgL-00AUEI-UO; Sun, 12 Nov 2023 22:11:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,202 +40,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7658a8b0-81a6-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 88ff6c94-81a8-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=BTcIDZBznDruqbRnnQO+1ZhfIAjpPuj5DMa2gMykYBM=; b=Hd0hXnfJt9VQIGQn+Ri/ZpWa9k
-	gllPbFX59w5YTjxCUWW2I6vlm+j5sECEeEWI1DSzJqixyUEGbUEYU0Y76e7Sup0Sz0gZIUtKP6Z37
-	ZU0lQlvTouCV3F98Z9vMGFYB0l1Lu9Nvl0Li3dkuvZSmcmHvZG8G67XN4A9nmJibTnK3jIDaKHxW8
-	HMNlzlPIudJN9DfRfW5kx6ItHv5yj4IEfTKkFjaefiBmjYUL4O3sbg/th5+7gik/MYbMqav23GQN1
-	QyEAgrWzKnBQIdWXj6MG2xkZ+nYQOA22rIb/0mBOnVJR9/PhMFIwLoKqGJmeTdVuW2WTbqQbOksj+
-	8KoouDuA==;
-Message-ID: <916e6f41e2da700375f84a2fda7b85d4b58dfb31.camel@infradead.org>
-Subject: Re: [PATCH v1 2/7] xen-bus: Do not destroy frontend/backend
- directories
+	bh=Ykq+GNFsEI6/oxn9ZxmqIElY9paijDMzv0u2YG91/sU=; b=GO6wh9AeisUQjQ7uVRnlP1p7QZ
+	zrwgZdC/8CRm2cezfsTBTYx9Lh0xgS9J+rOmG/0vdX9mlAzEPnlhGK4j/Ku0Bmo9kUt8UNUwp/qzC
+	TmMuBisrNGXLcIdROvxSI6X0nnPERrSmAr/88es7hO67687G6aNFJfIwvpOUTYrDHzsmjzo2TMQwf
+	dAgOeIV2wwFm7cUju4sWrbEZdPggR9xNQAE9KUoCEdu5/SbGxqVq6VQofqmHkMkcBuTA4MW3MHFvq
+	rnjbegWDp+bqUT9XsrZjVAnPQLeGBasPVjBeGcpVYfpaHaBOpPSjvyijiKYF0hNrnwAkKYWrOKV2A
+	TEc/qHwQ==;
+Message-ID: <6119beefbf169cfa2626acd7201946f3f588fa3e.camel@infradead.org>
+Subject: Re: [PATCH v1 7/7] xen_arm: Add basic virtio-pci support
 From: David Woodhouse <dwmw2@infradead.org>
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "qemu-devel@nongnu.org"
 	 <qemu-devel@nongnu.org>
-Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, "open list:X86 Xen CPUs"
+Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Peter Maydell
+ <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>, "open list:X86 Xen CPUs"
  <xen-devel@lists.xenproject.org>
-Date: Sun, 12 Nov 2023 16:57:07 -0500
-In-Reply-To: <20231110204207.2927514-3-volodymyr_babchuk@epam.com>
+Date: Sun, 12 Nov 2023 17:11:52 -0500
+In-Reply-To: <20231110204207.2927514-8-volodymyr_babchuk@epam.com>
 References: <20231110204207.2927514-1-volodymyr_babchuk@epam.com>
-	 <20231110204207.2927514-3-volodymyr_babchuk@epam.com>
+	 <20231110204207.2927514-8-volodymyr_babchuk@epam.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-UKj3xnW0YeRCF55aheV7"
+	boundary="=-hGXlJScYLLKtirDWwFxG"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-UKj3xnW0YeRCF55aheV7
+--=-hGXlJScYLLKtirDWwFxG
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2023-11-10 at 20:42 +0000, Volodymyr Babchuk wrote:
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >=20
-> The PV backend running in other than Dom0 domain (non toolstack domain)
-> is not allowed to destroy frontend/backend directories. The more,
-> it does not need to do that at all, this is purely toolstack/xl devd
-> business.
->=20
-> I do not know for what reason the backend does that here, this is not rea=
-lly
-> needed, probably it is just a leftover and all xs_node_destroy()
-> instances should go away completely.
+> This patch adds basic virtio-pci support for xen_arm machine.
 
-No, if this is a hot-unplug then the nodes should indeed be deleted.
+Why only xen_arm? Couldn't this be a fairly generic device which can be
+instantiated on x86 too, both for real and emulated Xen guests? And
+riscv/ppc too?
 
-The correct criterion to use is, "did QEMU create this device for
-itself?".
-
-Try the patch below, and then the existence of xendev->backend will
-mean that it's a device that we *discovered* in XenStore (having been
-created by the toolstack), and not a device which QEMU created itself.
-
-Then your patch to which I'm replying, and other parts of the code
-which create the nodes in xen_device_realize() and elsewhere, can use
-'if (xendev->backend)' as the condition for whether to make the changes
-in XenStore.
-
-=46rom 99ab85e8c766d0bb9c3ac556172208db8c69a3d7 Mon Sep 17 00:00:00 2001
-From: David Woodhouse <dwmw@amazon.co.uk>
-Date: Sun, 12 Nov 2023 16:49:21 -0500
-Subject: [PATCH] hw/xen: Set XenBackendInstance in the XenDevice before
- realizing it
-
-This allows a XenDevice implementation to know whether it was created
-by QEMU, or merely discovered in XenStore after the toolstack created
-it. This will allow us to create frontend/backend nodes only when we
-should, rather than unconditionally attempting to overwrite them from
-a driver domain which doesn't have privileges to do so.
-
-As an added benefit, it also means we no longer have to call the
-xen_backend_set_device() function from the device models immediately
-after calling qdev_realize_and_unref(). Even though we could make
-the argument that it's safe to do so, and the pointer to the unreffed
-device *will* actually still be valid, it still made my skin itch to
-look at it.
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- hw/block/xen-block.c         | 3 +--
- hw/char/xen_console.c        | 2 +-
- hw/net/xen_nic.c             | 2 +-
- hw/xen/xen-bus.c             | 4 ++++
- include/hw/xen/xen-backend.h | 2 --
- include/hw/xen/xen-bus.h     | 2 ++
- 6 files changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index 6d64ede94f..c2ac9db4a2 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -1081,13 +1081,12 @@ static void xen_block_device_create(XenBackendInsta=
-nce *backend,
-=20
-     blockdev->iothread =3D iothread;
-     blockdev->drive =3D drive;
-+    xendev->backend =3D backend;
-=20
-     if (!qdev_realize_and_unref(DEVICE(xendev), BUS(xenbus), errp)) {
-         error_prepend(errp, "realization of device %s failed: ", type);
-         goto fail;
-     }
--
--    xen_backend_set_device(backend, xendev);
-     return;
-=20
- fail:
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index 5cbee2f184..bef8a3a621 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -600,8 +600,8 @@ static void xen_console_device_create(XenBackendInstanc=
-e *backend,
-         goto fail;
-     }
-=20
-+    xendev->backend =3D backend;
-     if (qdev_realize_and_unref(DEVICE(xendev), BUS(xenbus), errp)) {
--        xen_backend_set_device(backend, xendev);
-         goto done;
-     }
-=20
-diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-index af4ba3f1e6..afa10c96e8 100644
---- a/hw/net/xen_nic.c
-+++ b/hw/net/xen_nic.c
-@@ -627,8 +627,8 @@ static void xen_net_device_create(XenBackendInstance *b=
-ackend,
-     net->dev =3D number;
-     memcpy(&net->conf.macaddr, &mac, sizeof(mac));
-=20
-+    xendev->backend =3D backend;
-     if (qdev_realize_and_unref(DEVICE(xendev), BUS(xenbus), errp)) {
--        xen_backend_set_device(backend, xendev);
-         return;
-     }
-=20
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index fb82cc33e4..e2c5006bfb 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -1080,6 +1080,10 @@ static void xen_device_realize(DeviceState *dev, Err=
-or **errp)
-         }
-     }
-=20
-+    if (xendev->backend) {
-+        xen_backend_set_device(xendev->backend, xendev);
-+    }
-+
-     xendev->exit.notify =3D xen_device_exit;
-     qemu_add_exit_notifier(&xendev->exit);
-     return;
-diff --git a/include/hw/xen/xen-backend.h b/include/hw/xen/xen-backend.h
-index 0f01631ae7..ea080ba7c9 100644
---- a/include/hw/xen/xen-backend.h
-+++ b/include/hw/xen/xen-backend.h
-@@ -10,8 +10,6 @@
-=20
- #include "hw/xen/xen-bus.h"
-=20
--typedef struct XenBackendInstance XenBackendInstance;
--
- typedef void (*XenBackendDeviceCreate)(XenBackendInstance *backend,
-                                        QDict *opts, Error **errp);
- typedef void (*XenBackendDeviceDestroy)(XenBackendInstance *backend,
-diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 38d40afa37..5e55b984ab 100644
---- a/include/hw/xen/xen-bus.h
-+++ b/include/hw/xen/xen-bus.h
-@@ -14,9 +14,11 @@
- #include "qom/object.h"
-=20
- typedef struct XenEventChannel XenEventChannel;
-+typedef struct XenBackendInstance XenBackendInstance;
-=20
- struct XenDevice {
-     DeviceState qdev;
-+    XenBackendInstance *backend;
-     domid_t frontend_id;
-     char *name;
-     struct qemu_xs_handle *xsh;
---=20
-2.34.1
-
-
-
-
-
-
---=-UKj3xnW0YeRCF55aheV7
+--=-hGXlJScYLLKtirDWwFxG
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -327,25 +177,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEyMjE1NzA3WjAvBgkqhkiG9w0BCQQxIgQg9QpOys93
-RuHPp47yrVmMvi/4tDwYg/0qYrDXA0zjr6Qwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEyMjIxMTUyWjAvBgkqhkiG9w0BCQQxIgQgsmz61MyO
+epJVDvsWo1uNNpV2yHkIFDPEs+I2uTPU20Uwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBHDblCxnWLKjAWbdAgFKDOQqAgpSES7Rvq
-hVAobdWlvdexUcuPVyMU7L7khfmoFOoSLvVgsRsElViN/gBQAXtt74sJl79rbCFPGQby8XKjbfjG
-ZHyB21X/AXgishZ5PN+gKJnWQ6+WXc+ry3U5ngKsdioMrci45FPRvCjYKejF0vr+SWhHkz8HP1Os
-x/0juVofSAcHSiNtFKWwYXPsBmNFYEn4R/4XV++mMtSUS8WVfQj5Bb7DTSSVU3bZq1ae6IPjdpeb
-02iazIY65uBpYNkPMicsZkkpFS7UtBldAxHtnMQKoyM3JNS49mr1KJKlWPsURC8HOZbUDCBXKPpY
-WvZj4GxFdHb0uW8/Yx1ry25zNtzSDJdq5dWosNRhUpfoiMec+aBK8XMxS4vsupC9gIE1wv8jvxe1
-WIG5Ms4Q+7eS30z4vlWbX5WJC0kElSd1gER/yyH9y2UfHSj+SaTvPfAcexQ+N5MzUxpGMqynXuSD
-SC/EhebdMCiYKGr35Tkpnq3UwNt7xXOyGItQP2kBy6fCgtIt5LiJAknjJu7rfRDxzqxfB/5v6SN+
-g4Z4+wyjx0m6Sv/meIGrqS55oYm3psz9j0vwd9OosnHaZf6vWvSqTU2AQolbgck8cbBck9cgmdYP
-PCNAepWHE+/G5gaB002kCklXIJ8jugKNS/hEFqtGWwAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgALtJuH3qg/h0CUc7Vnm+TyqKypvcYGfrd7
+9cH2NB7ubTVJvtWjWCzYc1CnxqcK+Ym3qbkyY5LEjM0+LEZmzNr30cLe3LrjqcWtHgvEYCIGDKJW
+JcfMshePzePLp1uSe6J5euyAw0gReBbk57TXG5/Ecu9cQW4Fp6qp63W+W3nW5Q56pVSvhlK+ZdmH
+TEPVcFy/w0noEDL6JrK9vZWHQ9YIkex6hUv9HpoLDFsRLTDnDfuu1C2vPIiPaG8w6s1t0D4q8VKf
+L0ppfn58DjS6coLQ2SvML+FY+uv3qj9uRQkNgYyzb3TXnjGdyDH415VQwYKSMDPBFmb863bB7RI7
+ggGKVQMdBp/oHzCZqagJug5IkVxszod30Oxa9KQMO1Ndxlk+Ia/3K+AndkzgtSHbOslVE2S1HAun
+X281AKYvre3cYLSoR64CaP27T7B9eDlstnBILL35OtGQmBhds7L7G+3QpubvLJTN1+I9rEKld3GW
+b2rVx6xr9n5gqVqILysHHtG/7iBno6/kW6PQ+pdqXxhrtfFxJvKq23v9EBTq41j0f4RnhmN7D9gR
+S7GKMtRvz1RcNV8V4/Lfe12Jk8cSJywQeAw37SVJyIx1DDjLJXn3Hvfgl+sRMghlO+GEzfesrYt8
+jSPNMkjsRuQLYiHAHKzqkW5lCHgN8k/YQ5ittYdG5QAAAAAAAA==
 
 
---=-UKj3xnW0YeRCF55aheV7--
+--=-hGXlJScYLLKtirDWwFxG--
 
