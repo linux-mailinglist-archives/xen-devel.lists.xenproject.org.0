@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE7B7EA48F
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 21:13:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632005.985845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C89E7EA549
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 22:11:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632010.985854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2dJC-0006wH-Qe; Mon, 13 Nov 2023 20:13:22 +0000
+	id 1r2eCk-00080P-2g; Mon, 13 Nov 2023 21:10:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632005.985845; Mon, 13 Nov 2023 20:13:22 +0000
+Received: by outflank-mailman (output) from mailman id 632010.985854; Mon, 13 Nov 2023 21:10:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2dJC-0006u5-Mk; Mon, 13 Nov 2023 20:13:22 +0000
-Received: by outflank-mailman (input) for mailman id 632005;
- Mon, 13 Nov 2023 20:13:22 +0000
+	id 1r2eCj-0007xk-VY; Mon, 13 Nov 2023 21:10:45 +0000
+Received: by outflank-mailman (input) for mailman id 632010;
+ Mon, 13 Nov 2023 21:10:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lyvv=G2=casper.srs.infradead.org=BATV+4b2d4fa8b3c13737bab4+7386+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r2dJC-0006nm-5u
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 20:13:22 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=GGJv=G2=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1r2eCi-0007xe-9r
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 21:10:44 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20612.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::612])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1789ae05-8261-11ee-98db-6d05b1d4d9a1;
- Mon, 13 Nov 2023 21:13:21 +0100 (CET)
-Received: from [12.186.190.1] (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r2dJ6-00GDjS-EA; Mon, 13 Nov 2023 20:13:16 +0000
+ id 1a0b30e2-8269-11ee-98db-6d05b1d4d9a1;
+ Mon, 13 Nov 2023 22:10:42 +0100 (CET)
+Received: from DS7PR03CA0076.namprd03.prod.outlook.com (2603:10b6:5:3bb::21)
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29; Mon, 13 Nov
+ 2023 21:10:39 +0000
+Received: from DS3PEPF000099D8.namprd04.prod.outlook.com
+ (2603:10b6:5:3bb:cafe::d4) by DS7PR03CA0076.outlook.office365.com
+ (2603:10b6:5:3bb::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31 via Frontend
+ Transport; Mon, 13 Nov 2023 21:10:38 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF000099D8.mail.protection.outlook.com (10.167.17.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7002.17 via Frontend Transport; Mon, 13 Nov 2023 21:10:38 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
+ 2023 15:10:38 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
+ 2023 15:10:38 -0600
+Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Mon, 13 Nov 2023 15:10:36 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,165 +63,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1789ae05-8261-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Eys4c6ESkVcAtapstDFBUzMdz6h/SFYbcWiAQBnVE4U=; b=PXhD/gFGjvozECnPYAjRVU88yL
-	DXfrm9YWh4uivhUSenDPDYyUXXyAS3U8JVfTOOsXCn35lOa1nok12bTwOBf/ucLo1mXoxssAKAZ7+
-	B/3I07Vym1TtQGX+S+D2uvjfsQW5G6sBZ/z+gJ/edAcmMeFpl2E7ln1m5aa90yreep/B/X2/VYhTy
-	S19HRD5Evu6y3zYjAiA53sR9C4OEFcFhBkntMzzPDXoBdIHd7gaHWGcbcXCjDeNO0hN3o9Mx3k0wU
-	H+XCoFg0zBm5Q0s1i+mye/KH6CnS20j4ssfhdmS4LwsRp07qVAd6gdKuPIow0Sk5zX8vXpPJwR5cS
-	SVf020nA==;
-Message-ID: <6e9283128175303ecd9f042f40854a08b14eecea.camel@infradead.org>
-Subject: Re: [PATCH-for-9.0 01/10] sysemu/xen: Forbid using Xen headers in
- user emulation
-From: David Woodhouse <dwmw2@infradead.org>
-To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
-	qemu-devel@nongnu.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Alex =?ISO-8859-1?Q?Benn=E9e?=
- <alex.bennee@linaro.org>, Anthony Perard <anthony.perard@citrix.com>, 
- xen-devel@lists.xenproject.org, Stefano Stabellini
- <sstabellini@kernel.org>,  qemu-block@nongnu.org, Thomas Huth
- <thuth@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>
-Date: Mon, 13 Nov 2023 15:13:12 -0500
-In-Reply-To: <20231113152114.47916-2-philmd@linaro.org>
-References: <20231113152114.47916-1-philmd@linaro.org>
-	 <20231113152114.47916-2-philmd@linaro.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-K3DQCzBX2d3e16nNYhJQ"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 1a0b30e2-8269-11ee-98db-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PmJACO+7ozQUDefe31FRQrwQZaouYUdqUvNLv3OjCDp7v8wBd1FCTRLrNY/4iQP4pUDltS7eP59QwXwJtHfVOLI4CsTGJWf4xFGESEYKCK/0iy583vYZwlRslM9JQbF4E6Htdj1GPskBMUD4jaDY1kdPeQ5ahsEDZF74j2hd0mB35b3/V+yGYj9k+uzMMyTRnsBoqDxZMJXLS+yL+x7cOzIp73zdoO4fHX8F6P/xilhDuAvQgy9yn1+mJfStExet+lZcSsRwnsvTszbsC3vY87mTx7UWj4rrtZ1KkVqLK5YlqDSYzcG31HZXiiboL/fHEvK/IVjcWRPNiOF5mZk20A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z1BwwMCrX3zZeK2ry3Zu5Y5Nz7sZjmcAyzm0oAA1wO0=;
+ b=GW1nxZ9Xx4XD8eFyYP4vl38H8pap2DMk1/jhru3SU1LdjWpXzo5YCymmJUHKil8lO8PKE9jAVeCN7ex1u1nd0v9wSNNWnxOuBPOJxCVB3BT1x0Ln1ptRG8Vk1cH/KU2/a6qSs0vFkQBJr2GODrJoNT9SK2USI6BbS1p17pVv2TU4ToksdOec2tBLE7nPSdn1D0olGx9av1x5zk2urqR346V/pxwZQ6dGZOvtj20MlTyqCOduNIG3PMIJSYviL2+fQXg4K5jVrtYHQUVN+HunvACadrJY289Tt3YO7V7m82Hq56NiculHpfq2EDmM7iPw4qrowWUuQOEI6wEHHfaoNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z1BwwMCrX3zZeK2ry3Zu5Y5Nz7sZjmcAyzm0oAA1wO0=;
+ b=yTL2gq6OD5rOvQa7L5kFBS564B2TV4c3+IRvPIF6GEapUqTwnbsPhigeKGtFGUQv2d3EeHVkP9/h4LBFT0E1L6uEf9jw65RT8X4VEbqPPcTJpbiegCiyHcnwVq08vQBTjVHiE4bGJhowRQG/YvxQI9Q6fI2ZJbdL9SY2/BahSh0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <356283b2-063f-4bd7-b6d4-c45f001f824f@amd.com>
+Date: Mon, 13 Nov 2023 16:10:36 -0500
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-K3DQCzBX2d3e16nNYhJQ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] [FUTURE] xen/arm: enable vPCI for domUs
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Wei
+ Liu" <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
+References: <20231102195938.1254489-1-stewart.hildebrand@amd.com>
+ <20231102195938.1254489-5-stewart.hildebrand@amd.com>
+ <72bb9f75-66a2-1452-40af-a90430cf7eca@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <72bb9f75-66a2-1452-40af-a90430cf7eca@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D8:EE_|IA1PR12MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: dea78db9-432d-48f0-fc1e-08dbe48cfcaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	rLRsQeRPAxVZ5WwRTHTRzmgdcbP9aaJaITLrAYpQ5FCu+O6lk7eUw4D/yQrUFMyIWrDs6mR95uijvcymbIG3Bf61tpI0EEfyiGSHIeuRaw6gusiw1w6wXfNvQF+yXbY9Uxu6iWFgy24b2+GC0VpU5l8pY3h4LR42b5ydLTbkyz87eOECMygDeXQxqRlIX7ODG4WfhUZB0Ffg7nRy+EKc1mqd0gAyIl2NLoMbTifBpuEuKT1OQ976S9sAUDgzhrcRTTWTCwNPTsOPxbjIP60WSv3P/XLwPmVHNw3vaYCmBuqg8I8eUIZZV/FaYkXcfIBaiDnKvoGOJ6TDB6kqEQUZobZ+QI7SB7CYd7MNnmJlk8TZLKDDBVF4hjyoIx+02B9DhKKRPAGNsN6sfXW8JopXHkS/HEZHtLocnSVUJ/bMfWSIXdSmCtMxfX28IUMTp01JzDG8eX7sKl2wO9PJs5ShfhQ78H5aJjOHBJccpLrCDHj4oHEIu9qDEqqmGhRkQac0OX/Fjrf69xQWYdRbZxbov+Ugmr7Oipp+BqFkj3ejIsmcv0fwWsQytvEdcnMOfamMeRj2on3duDsMwdTrEn6BghcyDiGInxQjj9Vf7RbzQ2Nb3zxvzBuT4y4VmZEUbTmREsjoLnF+iyyVarRo2o1CwuLzCL6VX959JP46vZm5U/jDzDbMzpeah3CvObiv5pmOGtvSLrpjtRaR5LnC16Kzezcc4Ii89D0K5OldBjhJNZ+aXyu6g5bFIC1B9WuJZG1mXKD/7bJlWLT4RhkelDTOihgrorZ2Tk8FE5x8sO2Oei6TKjL0TTS+9yjn8yQWziPn
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(376002)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(82310400011)(186009)(1800799009)(40470700004)(36840700001)(46966006)(44832011)(31696002)(40460700003)(4326008)(8676002)(8936002)(36860700001)(26005)(2906002)(5660300002)(2616005)(86362001)(7416002)(82740400003)(66899024)(356005)(426003)(336012)(53546011)(47076005)(81166007)(36756003)(478600001)(41300700001)(31686004)(83380400001)(40480700001)(316002)(6916009)(16576012)(70586007)(70206006)(54906003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 21:10:38.7894
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dea78db9-432d-48f0-fc1e-08dbe48cfcaa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099D8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
 
-On Mon, 2023-11-13 at 16:21 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
-> Xen is a system specific accelerator, it makes no sense
-> to include its headers in user emulation.
->=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
+On 11/6/23 04:26, Jan Beulich wrote:
+> On 02.11.2023 20:59, Stewart Hildebrand wrote:
+>> --- a/xen/arch/x86/include/asm/domain.h
+>> +++ b/xen/arch/x86/include/asm/domain.h
+>> @@ -503,6 +503,15 @@ struct arch_domain
+>>  #define has_vpit(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIT))
+>>  #define has_pirq(d)        (!!((d)->arch.emulation_flags & X86_EMU_USE_PIRQ))
+>>  
+>> +#define is_pvh_domain(d) ({                                  \
+>> +    unsigned int _emflags = (d)->arch.emulation_flags;       \
+>> +    IS_ENABLED(CONFIG_HVM) &&                                \
+>> +        ((_emflags == X86_EMU_LAPIC) ||                      \
+>> +         (_emflags == (X86_EMU_LAPIC | X86_EMU_IOAPIC))); })
+> 
+> I'm not convinced we want to re-introduce such a predicate; it'll be at
+> risk of going stale when the boundary between HVM and PVH becomes more
+> "fuzzy".
 
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+OK, I'll drop it
 
+> 
+>> +/* PCI passthrough may be backed by qemu for non-PVH domains */
+>> +#define arch_needs_vpci(d) is_pvh_domain(d)
+> 
+> Wouldn't we want to check for exactly what the comment alludes to then,
+> i.e. whether the domain has any (specific?) device model attached?
 
+This patch is primarily dealing with Arm, so I'm considering simply making it return false for now:
 
---=-K3DQCzBX2d3e16nNYhJQ
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+#define arch_needs_vpci(d) ({ (void)(d); false; })
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMjAxMzEyWjAvBgkqhkiG9w0BCQQxIgQgwLgKgQV1
-nuluf1wJ0RV4LJr82RNOKekO4fw0OWjv2rQwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBFUC5/82+ok9sTIvJXIC9H5HjGbcyAHtMr
-PBoE4v+Vp2Y/f1LYr/9pA1ok6N94diFFkKCVFH5CaInbgm5Y00e3AF8k+tqX306GjDwRPT+F/Fwb
-ke5pyDG1WQ+IZEUSs0V6JXB9PkMMUU4b3KhDTYq2w+nSesTs1dV5VChaZA7RdWFAgPRcuQ6vuHAS
-4etNC8VGRwYCv98V2y+it7bcFYSZvj5b/XSdvQqK9soN4J5+t8M/mVy4xpsWmOXRYe0uKnxovwMs
-EGnQJoKlylMP8e5w97Jh4bzckdi9Dm/K8Mi3e3aXOjGFNT1R4tjVpnS34jQhLky0v6oZ+5wTx9vF
-APDK6an7Fdm53hgKhRPeUPxOGPy0qJ9ML/WJYaEZgmOIbdwJ9bOY5pr4xTM8tCDlRS1UCRH3MItv
-PH6L1OTEc4q+5fwfpuqD1y59EwcEn1m4/nfynIBrMTRN4wygGtKAb4+Y5vKr3z3yd4MW3507Akp6
-9haCHpndR+H9gllZRx/Pizlv6B9TQiBE29+fSypE2a1ln0lj2G9pHIaPdyhZvjMfw6WwgEmMrnw+
-aJIRz24O0/6e7FFRCtCOa0iyfo6gNKpdKxCoTvlekI1eGMM62Z7viQtKBGhUbb2h3VPw8b9XiX3X
-Ob42mbmvCa5wM30HbE/cJYU3mXk0ihfJXPPGlUpn3AAAAAAAAA==
+If it needs to be changed in the future when we enable vPCI for PVH domUs, we can deal with it at that time.
 
+> 
+>> --- a/xen/include/xen/domain.h
+>> +++ b/xen/include/xen/domain.h
+>> @@ -51,8 +51,17 @@ void arch_get_domain_info(const struct domain *d,
+>>  
+>>  #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+>>  
+>> -#define has_vpci(d) (((d)->options & XEN_DOMCTL_CDF_vpci) && \
+>> -                     IS_ENABLED(CONFIG_HAS_VPCI))
+>> +#define has_vpci(d) ({                                                        \
+>> +    const struct domain *_d = (d);                                            \
+>> +    bool _has_vpci = false;                                                   \
+>> +    if ( (_d->options & XEN_DOMCTL_CDF_vpci) && IS_ENABLED(CONFIG_HAS_VPCI) ) \
+>> +    {                                                                         \
+>> +        if ( is_hardware_domain(_d) )                                         \
+>> +            _has_vpci = true;                                                 \
+>> +        else if ( IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) )                 \
+>> +            _has_vpci = true;                                                 \
+>> +    }                                                                         \
+>> +    _has_vpci; })
+> 
+> This is a commonly executed check, and as such wants to remain as simple as
+> possible. Wouldn't it be better anyway to prevent XEN_DOMCTL_CDF_vpci getting
+> set for a domain which cannot possibly have vPCI?
 
---=-K3DQCzBX2d3e16nNYhJQ--
+Yes, agreed, I'll leave has_vpci alone
+
+> 
+> Jan
 
