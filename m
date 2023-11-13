@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30EF07E9FCA
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 16:21:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631693.985306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A69E7E9FCC
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 16:21:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631697.985315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Ykt-0007Lu-1D; Mon, 13 Nov 2023 15:21:39 +0000
+	id 1r2Yl0-0007tC-8a; Mon, 13 Nov 2023 15:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631693.985306; Mon, 13 Nov 2023 15:21:38 +0000
+Received: by outflank-mailman (output) from mailman id 631697.985315; Mon, 13 Nov 2023 15:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Yks-0007IP-Sc; Mon, 13 Nov 2023 15:21:38 +0000
-Received: by outflank-mailman (input) for mailman id 631693;
- Mon, 13 Nov 2023 15:21:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r2Yl0-0007qi-56; Mon, 13 Nov 2023 15:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 631697;
+ Mon, 13 Nov 2023 15:21:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DPbO=G2=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r2Ykr-0005il-HQ
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 15:21:37 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5604f5d6-8238-11ee-98da-6d05b1d4d9a1;
- Mon, 13 Nov 2023 16:21:36 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5437269a661so11297035a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 13 Nov 2023 07:21:36 -0800 (PST)
+ id 1r2Yky-0007fE-NM
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 15:21:44 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59b59792-8238-11ee-9b0e-b553b5be7939;
+ Mon, 13 Nov 2023 16:21:43 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-9e2838bcb5eso672348266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Nov 2023 07:21:43 -0800 (PST)
 Received: from m1x-phil.lan ([176.164.221.204])
  by smtp.gmail.com with ESMTPSA id
- 11-20020a50874b000000b0053e2a64b5f8sm3913912edv.14.2023.11.13.07.21.34
+ d17-20020a17090648d100b009e6cedc8bf5sm4165051ejt.29.2023.11.13.07.21.40
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 13 Nov 2023 07:21:36 -0800 (PST)
+ Mon, 13 Nov 2023 07:21:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5604f5d6-8238-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 59b59792-8238-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699888896; x=1700493696; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1699888902; x=1700493702; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dMhWA/NoPTBRWdKt+DCwjQph3Exp2cV0GiTpIObeWaI=;
-        b=eC+tcMr8YPUPZXRcjewL9pLwKzuQKSvdAZDUX2wQEWBgy7L/fESwHtwxO1oKjWZQvH
-         cADqCjTlRXvVOiAbWkfYUj5w55XFdEm8PXD6ZRLTb3prGoQczPfsuND5Tc+ZxYZl7QBQ
-         7CGVrxlBsjaqMYaFPhP7PAc5XWXOGYiquA7LTCygoREpDCzs29QSyfrGBvXHGQzhhQ36
-         7V2G1oKSNzSA7MZc4FZEwK7uMRyB21g3Fat+oSTSRjxqeEuqdTTL7dfDhVzkPwxs0XqD
-         ivwa3hYoJce2932GnaLH7PCJ3kvPvK28q0ylok5zaZXC9dusGZZpgsVDxBN+EzqyBRt/
-         BTHQ==
+        bh=YAZk+3Dse8rl86kxKUGHVuPZUfUpHgJaPljFBSi46HI=;
+        b=Dm8Bg4/Mn5BSImYcP7u268GzoYOpZ1eZIVw/97Bznf6cFTLfTTXaRmeh8ZwQpYHhhx
+         +G/hBe2xuvlD/bSQhEFdmG12qmj95r1uNzhDIw1cTBxmuXtZzlPPzY/TKKpaan3dZaDJ
+         ImkcrfTyRFTFVKZCYSGnuRGj6qyDoJht2X0cWNPQIZ6dFCy949qHjIgL4O07VW0uN+aK
+         TZtL+zKce2cCoHHybUi2KQoBpA8KHTudwpyxi7Wk/d3/+FfPv882VuVJ9Oc/ioAXTTt7
+         GRM8vIeew4iRaA6mpUqR2hZqCfTNHIjdOldhd1e9OM/XhXj59nfK+OKuoVoku9MGanQb
+         bNNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699888896; x=1700493696;
+        d=1e100.net; s=20230601; t=1699888902; x=1700493702;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dMhWA/NoPTBRWdKt+DCwjQph3Exp2cV0GiTpIObeWaI=;
-        b=reC3TmliD2fjvW8Nloq7LScLYiDtq7wawlUPj6npXmkGTHuNI1R0pQgxWMlbg/Lv02
-         cNrmyrLmSt/dOu9ikHN1p0mP5nCbkoiCFipX9B3HgNaspLMHz0Ifmo6wZOfU/W9/Icsm
-         CdxZieaVDEbpgmuPxGF1WPVtlXSKE29GE2rQ5ehqykIAJdILF6dKsaptHSZnrXLq1eCf
-         4Ihv1F6rq1suEsG43MnwijA/KyNztxxP1SW/N649qy6LCMfnP4+bZXYKFDqTEul8O7Xv
-         dsBSUWAG0Ve4Kj0ax2yItzgn3k58yP1D3/Cuc0S+7UrtHv5S+lEcdcK84SksRkcIaiF+
-         AdqA==
-X-Gm-Message-State: AOJu0Yzd9Fhzb0YlzjQssBWpxKKR/3APVehU7MsCovqjul5BUbaQAZx+
-	6JTxnTbf4QgrLrT23piSov/UnQ==
-X-Google-Smtp-Source: AGHT+IGc2vVbLMMmJTrJzN8L348x5fFie1XMuffaYHScqr/mEvB+nkKPvDnad4c+cU6PUAspz7oR2w==
-X-Received: by 2002:a05:6402:2553:b0:533:5d3d:7efe with SMTP id l19-20020a056402255300b005335d3d7efemr9304050edb.6.1699888896473;
-        Mon, 13 Nov 2023 07:21:36 -0800 (PST)
+        bh=YAZk+3Dse8rl86kxKUGHVuPZUfUpHgJaPljFBSi46HI=;
+        b=kewo1LXzFGtQ/9hOS/0nzbMyetZNLjY1XNSe1E2uCtsvnCirXvZixTS9+I1qlkSw5R
+         hyMyW2H4xcwRxou4Z1mklVE7ADIqOYfbFQL9HjP8Ci4H5xof11eU//ZRCfyyVsJMetcl
+         25yKskKFAttFTtEpBEvYo730FNNxSlQHYeMoiJkfvRqI4+ik49RIRiYw2HXoVH1ISW4s
+         UXBrvCPLY0d8jTw9xNINvAgUJlzmMJodtvcL84EsxeA0cHkaMN7xsZxk9SR1o282ji7d
+         lZmcv1MBg+83Nsdf0YHYTJzUYKfyeBO4vJFqqPhPueTrvjPCOHxByZAWLwb/y5MCpdYI
+         4HkA==
+X-Gm-Message-State: AOJu0YwTmj2lU2OimpivH34hLp59vUUja2fCEhiEafOHHQU1RFu0gDJ9
+	hmQWHMjAsOE+MDWOHYf0XO9RSg==
+X-Google-Smtp-Source: AGHT+IGj6dXGN5MguahUCcbomoo2q2R5bpml51YnyeqNpSNRHHGNbaVXW8b4IH/nqJe1/joi6MIM1w==
+X-Received: by 2002:a17:906:84c:b0:9ae:6da8:1819 with SMTP id f12-20020a170906084c00b009ae6da81819mr4194118ejd.48.1699888902783;
+        Mon, 13 Nov 2023 07:21:42 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: David Woodhouse <dwmw@amazon.co.uk>,
 	qemu-devel@nongnu.org
@@ -90,12 +90,12 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
 	Paul Durrant <paul@xen.org>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	Peter Maydell <peter.maydell@linaro.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>
-Subject: [PATCH-for-9.0 03/10] hw/xen: Merge 'hw/xen/arch_hvm.h' in 'hw/xen/xen-hvm-common.h'
-Date: Mon, 13 Nov 2023 16:21:06 +0100
-Message-ID: <20231113152114.47916-4-philmd@linaro.org>
+	Eduardo Habkost <eduardo@habkost.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: [PATCH-for-9.0 04/10] hw/xen: Factor xen_arch_align_ioreq_data() out of handle_ioreq()
+Date: Mon, 13 Nov 2023 16:21:07 +0100
+Message-ID: <20231113152114.47916-5-philmd@linaro.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231113152114.47916-1-philmd@linaro.org>
 References: <20231113152114.47916-1-philmd@linaro.org>
@@ -103,118 +103,92 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-We don't need a target-specific header for common target-specific
-prototypes. Declare xen_arch_handle_ioreq() and xen_arch_set_memory()
-in "hw/xen/xen-hvm-common.h".
+Per commit f17068c1c7 ("xen-hvm: reorganize xen-hvm and move common
+function to xen-hvm-common"), handle_ioreq() is expected to be
+target-agnostic. However it uses 'target_ulong', which is a target
+specific definition.
+
+In order to compile this file once for all targets, factor the
+target-specific code out of handle_ioreq() as a per-target handler
+called xen_arch_align_ioreq_data().
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/arm/xen_arch_hvm.h   |  9 ---------
- include/hw/i386/xen_arch_hvm.h  | 11 -----------
- include/hw/xen/arch_hvm.h       |  5 -----
- include/hw/xen/xen-hvm-common.h |  6 ++++++
- hw/arm/xen_arm.c                |  1 -
- hw/i386/xen/xen-hvm.c           |  1 -
- hw/xen/xen-hvm-common.c         |  1 -
- 7 files changed, 6 insertions(+), 28 deletions(-)
- delete mode 100644 include/hw/arm/xen_arch_hvm.h
- delete mode 100644 include/hw/i386/xen_arch_hvm.h
- delete mode 100644 include/hw/xen/arch_hvm.h
+Should we have a 'unsigned qemu_target_long_bits();' helper
+such qemu_target_page_foo() API and target_words_bigendian()?
+---
+ include/hw/xen/xen-hvm-common.h | 1 +
+ hw/arm/xen_arm.c                | 8 ++++++++
+ hw/i386/xen/xen-hvm.c           | 8 ++++++++
+ hw/xen/xen-hvm-common.c         | 5 +----
+ 4 files changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/include/hw/arm/xen_arch_hvm.h b/include/hw/arm/xen_arch_hvm.h
-deleted file mode 100644
-index 6a974f2020..0000000000
---- a/include/hw/arm/xen_arch_hvm.h
-+++ /dev/null
-@@ -1,9 +0,0 @@
--#ifndef HW_XEN_ARCH_ARM_HVM_H
--#define HW_XEN_ARCH_ARM_HVM_H
--
--#include <xen/hvm/ioreq.h>
--void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req);
--void xen_arch_set_memory(XenIOState *state,
--                         MemoryRegionSection *section,
--                         bool add);
--#endif
-diff --git a/include/hw/i386/xen_arch_hvm.h b/include/hw/i386/xen_arch_hvm.h
-deleted file mode 100644
-index 2822304955..0000000000
---- a/include/hw/i386/xen_arch_hvm.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--#ifndef HW_XEN_ARCH_I386_HVM_H
--#define HW_XEN_ARCH_I386_HVM_H
--
--#include <xen/hvm/ioreq.h>
--#include "hw/xen/xen-hvm-common.h"
--
--void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req);
--void xen_arch_set_memory(XenIOState *state,
--                         MemoryRegionSection *section,
--                         bool add);
--#endif
-diff --git a/include/hw/xen/arch_hvm.h b/include/hw/xen/arch_hvm.h
-deleted file mode 100644
-index c7c515220d..0000000000
---- a/include/hw/xen/arch_hvm.h
-+++ /dev/null
-@@ -1,5 +0,0 @@
--#if defined(TARGET_I386) || defined(TARGET_X86_64)
--#include "hw/i386/xen_arch_hvm.h"
--#elif defined(TARGET_ARM) || defined(TARGET_ARM_64)
--#include "hw/arm/xen_arch_hvm.h"
--#endif
 diff --git a/include/hw/xen/xen-hvm-common.h b/include/hw/xen/xen-hvm-common.h
-index 4e9904f1a6..27e938d268 100644
+index 27e938d268..734bfa3183 100644
 --- a/include/hw/xen/xen-hvm-common.h
 +++ b/include/hw/xen/xen-hvm-common.h
-@@ -96,4 +96,10 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
-                         const MemoryListener *xen_memory_listener);
+@@ -97,6 +97,7 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
  
  void cpu_ioreq_pio(ioreq_t *req);
-+
-+void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req);
-+void xen_arch_set_memory(XenIOState *state,
-+                         MemoryRegionSection *section,
-+                         bool add);
-+
- #endif /* HW_XEN_HVM_COMMON_H */
+ 
++void xen_arch_align_ioreq_data(ioreq_t *req);
+ void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req);
+ void xen_arch_set_memory(XenIOState *state,
+                          MemoryRegionSection *section,
 diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
-index 28d790f4ce..6a1d7719e9 100644
+index 6a1d7719e9..c646fd70d0 100644
 --- a/hw/arm/xen_arm.c
 +++ b/hw/arm/xen_arm.c
-@@ -33,7 +33,6 @@
- #include "sysemu/sysemu.h"
- #include "hw/xen/xen-hvm-common.h"
- #include "sysemu/tpm.h"
--#include "hw/xen/arch_hvm.h"
+@@ -128,6 +128,14 @@ static void xen_init_ram(MachineState *machine)
+     }
+ }
  
- #define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
- OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
++void xen_arch_align_ioreq_data(ioreq_t *req)
++{
++    if (!req->data_is_ptr && (req->dir == IOREQ_WRITE)
++            && (req->size < sizeof(target_ulong))) {
++        req->data &= ((target_ulong) 1 << (8 * req->size)) - 1;
++    }
++}
++
+ void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req)
+ {
+     hw_error("Invalid ioreq type 0x%x\n", req->type);
 diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-index ffa95e3c3d..f8a195270a 100644
+index f8a195270a..aff5c5b81d 100644
 --- a/hw/i386/xen/xen-hvm.c
 +++ b/hw/i386/xen/xen-hvm.c
-@@ -21,7 +21,6 @@
- #include "qemu/range.h"
+@@ -699,6 +699,14 @@ void xen_arch_set_memory(XenIOState *state, MemoryRegionSection *section,
+     }
+ }
  
- #include "hw/xen/xen-hvm-common.h"
--#include "hw/xen/arch_hvm.h"
- #include <xen/hvm/e820.h>
- 
- static MemoryRegion ram_640k, ram_lo, ram_hi;
++void xen_arch_align_ioreq_data(ioreq_t *req)
++{
++    if (!req->data_is_ptr && (req->dir == IOREQ_WRITE)
++            && (req->size < sizeof(target_ulong))) {
++        req->data &= ((target_ulong) 1 << (8 * req->size)) - 1;
++    }
++}
++
+ void xen_arch_handle_ioreq(XenIOState *state, ioreq_t *req)
+ {
+     switch (req->type) {
 diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
-index 1d8bd9aea7..c028c1b541 100644
+index c028c1b541..03f9417e7e 100644
 --- a/hw/xen/xen-hvm-common.c
 +++ b/hw/xen/xen-hvm-common.c
-@@ -7,7 +7,6 @@
- #include "hw/xen/xen-hvm-common.h"
- #include "hw/xen/xen-bus.h"
- #include "hw/boards.h"
--#include "hw/xen/arch_hvm.h"
+@@ -426,10 +426,7 @@ static void handle_ioreq(XenIOState *state, ioreq_t *req)
+     trace_handle_ioreq(req, req->type, req->dir, req->df, req->data_is_ptr,
+                        req->addr, req->data, req->count, req->size);
  
- MemoryRegion ram_memory;
+-    if (!req->data_is_ptr && (req->dir == IOREQ_WRITE) &&
+-            (req->size < sizeof (target_ulong))) {
+-        req->data &= ((target_ulong) 1 << (8 * req->size)) - 1;
+-    }
++    xen_arch_align_ioreq_data(req);
  
+     if (req->dir == IOREQ_WRITE)
+         trace_handle_ioreq_write(req, req->type, req->df, req->data_is_ptr,
 -- 
 2.41.0
 
