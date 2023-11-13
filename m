@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05C9E7EA460
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 21:10:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631999.985824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C957A7EA484
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 21:12:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632001.985835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2dFy-0004Gl-5G; Mon, 13 Nov 2023 20:10:02 +0000
+	id 1r2dIM-0006PU-HH; Mon, 13 Nov 2023 20:12:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631999.985824; Mon, 13 Nov 2023 20:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 632001.985835; Mon, 13 Nov 2023 20:12:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2dFy-0004Cp-2L; Mon, 13 Nov 2023 20:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 631999;
- Mon, 13 Nov 2023 20:10:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r2dIM-0006NT-Dx; Mon, 13 Nov 2023 20:12:30 +0000
+Received: by outflank-mailman (input) for mailman id 632001;
+ Mon, 13 Nov 2023 20:12:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lyvv=G2=casper.srs.infradead.org=BATV+4b2d4fa8b3c13737bab4+7386+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r2dFw-0004BH-Gf
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 20:10:00 +0000
+ id 1r2dIK-0006NL-M5
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 20:12:28 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9eec7319-8260-11ee-98db-6d05b1d4d9a1;
- Mon, 13 Nov 2023 21:09:59 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5ae9168-8260-11ee-9b0e-b553b5be7939;
+ Mon, 13 Nov 2023 21:12:24 +0100 (CET)
 Received: from [12.186.190.1] (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r2dFe-00GDYK-II; Mon, 13 Nov 2023 20:09:43 +0000
+ id 1r2dIA-00GDfw-00; Mon, 13 Nov 2023 20:12:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,20 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9eec7319-8260-11ee-98db-6d05b1d4d9a1
+X-Inumbo-ID: f5ae9168-8260-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=RPMPzz9i1BequIN2qb1D2kZ94UKPCFkt9Mpn3oIoJKo=; b=OanfNBX7b+eXbQxCggOQL2bnrL
-	/CDwSttmzKhHjZqislHPtGGJ49J4QT03wHvWiF7E0dd0oIGpnEXTW/0on+f0gch58aY7xO2hKP5P2
-	VR5kNmeauO7WEUo7llMOCj1IZVtpTWF+yoq3XtLIRdDNIiipk9DBDz25lgP5cNGwt3ybYQeoFjNeT
-	JhhT3Ts3acAkS0oxRiMPI2eMuRqNduSdlTgtDRL5e8V65yXNPdi8zUny/9+a55nxsxOHxXAYhAMr2
-	Z0q2kZELyVvgtXprhygc+1cXNp8FJjVdG3etOqiHYkwODCLEOrFlklfSEvW5sxZZFHvwbxNsnUh8P
-	a+W5tAbQ==;
-Message-ID: <e9cae2ced357b35d313f601318b51e491ead81c1.camel@infradead.org>
-Subject: Re: [PATCH-for-9.0 09/10] hw/xen: Extract 'xen_igd.h' from
- 'xen_pt.h'
+	bh=sQm/Tabsg7dO3SHwFkRkAeXj69ouuRh5ESlA3ivn13g=; b=labIxc4ZcCZU2BQlMoZnuQ1rx4
+	8o1bTJSSKq3rM+ZUgNxxfNFtlo68q2GDBPHM7/MRn/iDC2lRKZ81gIz3VpIeCAhUcNgfNVQkwNJWC
+	2PfJc2PhAEv3ma7I9L69IjuEuSsv3Due2N8XX2ME5B/4IMmQPi5tW582ScmzbEv4AtM6LiKLahD7m
+	9LnscN8esKs0o4yLBdDw0XiescaJYaqLHaUDaVc1zJ9G7AOG7/TtdOKKWWt6Xw7e9fw+tT7JqBPO8
+	pz5/gbArWSSN84tUq/vqzTraRjLfU4hK+LQUjGTl/JIWsOagQG7CL5fLTY+hv9ZcGnYHqELeNF4vR
+	8A1xBdvA==;
+Message-ID: <e761956a53b769ab0ccedaa985eea0dcacd70990.camel@infradead.org>
+Subject: Re: [PATCH-for-9.0 10/10] hw/xen: Have most of Xen files become
+ target-agnostic
 From: David Woodhouse <dwmw2@infradead.org>
 To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
 	qemu-devel@nongnu.org
@@ -62,45 +62,35 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>, Alex =?ISO-8859-1?Q?Benn=E9e?=
  xen-devel@lists.xenproject.org, Stefano Stabellini
  <sstabellini@kernel.org>,  qemu-block@nongnu.org, Thomas Huth
  <thuth@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>,  Richard Henderson
- <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Date: Mon, 13 Nov 2023 15:09:36 -0500
-In-Reply-To: <20231113152114.47916-10-philmd@linaro.org>
+ qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>,  Stefan Hajnoczi
+ <stefanha@redhat.com>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
+ <hreitz@redhat.com>
+Date: Mon, 13 Nov 2023 15:12:14 -0500
+In-Reply-To: <20231113152114.47916-11-philmd@linaro.org>
 References: <20231113152114.47916-1-philmd@linaro.org>
-	 <20231113152114.47916-10-philmd@linaro.org>
+	 <20231113152114.47916-11-philmd@linaro.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-eVaaov3VWp7iZK3p/HAp"
+	boundary="=-1qdYEFrlmqNAZQBgEn0B"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-eVaaov3VWp7iZK3p/HAp
+--=-1qdYEFrlmqNAZQBgEn0B
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Mon, 2023-11-13 at 16:21 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
-> "hw/xen/xen_pt.h" requires "hw/xen/xen_native.h" which is target
-> specific. It also declares IGD methods, which are not target
-> specific.
->=20
-> Target-agnostic code can use IGD methods. To allow that, extract
-> these methos into a new "hw/xen/xen_igd.h" header.
+> Previous commits re-organized the target-specific bits
+> from Xen files. We can now build the common files once
+> instead of per-target.
 >=20
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
-> ---
-> What license for the new "hw/xen/xen_igd.h" header?
 
-The existing xen_pt.h came in with xen_pt.c (GPLv2) in commit
-eaab4d60d. I think it has to be GPLv2 (and not later) just like
-xen_pt.c?
-
-
---=-eVaaov3VWp7iZK3p/HAp
+--=-1qdYEFrlmqNAZQBgEn0B
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -192,25 +182,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMjAwOTM2WjAvBgkqhkiG9w0BCQQxIgQg/xeb+vWh
-AjsJWOHTG4Htv3vvTuidSmbu8iXpLTa3nNIwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMjAxMjE0WjAvBgkqhkiG9w0BCQQxIgQgEUzKl1UF
+mgx/+JB+i5Swm0M0VJt8RVe+QRtaOGU5Wdkwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBpCGrOlqR09fDF3datn5pMjc7VlbWpE+Bg
-xd5M98o43GsYsjVGm9rD1VP1ZiXxEBtAFespxn/vbWnLtJAAztNllqO5mCDPRZ+YukadXJ+1RIbS
-CUD1hR4IGrKQDdmoBBrTN+63zcSiihj4IR20iI4EZwLYZI9rIBa1s3Fl7siKEcKk9TjG+x0W6KZk
-wkEcbSGOYzewdC/2FCZtvHK42Ryl0b0nklQWa1tlJT0uR5UOWiIIiQ/BgKmSF+b1kV9VRdkiu4r1
-qi/KbS8l3fKOAyNuSC/H8l0ZYMBn+VxraLf7LdDyOaf2Z3SxXdcD+lApAsrGgDIMN+D9og082THM
-neQrJoiZesFiPMox2AJ9FJUmJgXOJEyvyV5FQ0hdaNG5lVxUg6qzSn7DOJPeDhSQ8EvwWnLpiM71
-epHujsENsbtJAo3GQnxBHcpzNiX09k8emUXaIZboBpRWBO/XJQ3qhUcgjPMHL6Od9GtR0RGeNr69
-pnvgHw6W2A22ZM3S8zOj/FjfprkQzMT65FbulqXglZuVOxGg2129Kn5AuiRMePPUwRa7zh/VfFRr
-dDNGRLgd9hWNoz3/xUs5hkwiSxTYF4pOSD+xlV2l3bnTFwB4QANsYb5Os5cg27d4VyuB+nB8dgEp
-t1aEPpuEZSDqDKEP9LB8inSmBgsODIU6ZOsBndnXtwAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAX3bFdQMDwX9ixj3RzoEwdJTiSmlmZyYq7
+ZsSJlwSGr2p0KMcQYHLWRe+0VPYLTzyJqL8G+PWoN8BojUDwoo6o3dLCMwx0fndekIeAt3EcLc89
+NLafPYwUlZ3nNgcHzLHe+yLOivzQLx2vOvOGSFSxHgJBpEtzuzuz5OAeYMen2w4PFjc6ktS9kw2q
+lS+D2RK92vTF+3mIM9xnUKNKkECakOL87dY0V86lHS/0itrT0DWlscyYqZTLGq4CtnKbacZlfIhi
+tIyFDVhgSE/EqCacG3JGvqCQKiWFwgNsvqIA7d9qwtfnNQY9QxtDIJAm+T2rb06/0eMFy81jgMUw
+K4bZzliB+hX6HDSTiY1hwrWMtXh0bvhhGXpPhXDzxfelvhgx2GuGDIt89M8cHeTMmfEvTaHaB8Vt
+boh0PbKBxWNUuoaCnveJcX/XWuLBZThC+vj2BVWfxl0krguVoAXycPiBoyBhvwNJwXQT4elLnOkN
+bIX5gQbt4nI1k0++5HLgyPvjmpx7NIOOWhlshqIuIGk0TmKabjW4EzqNIxhbgrj45LLwzBqwGaey
+gmezTM4DEqeJ6sqIXyYZm+tFgSgNIrxsnk5mBh79iSsuQ7hd4JikNx0p05EkL1HASJ7jziw7ens+
+vaZwUv6UWpzdGIIi2tikFS3WqiWZeYmGJ06oZe9oIAAAAAAAAA==
 
 
---=-eVaaov3VWp7iZK3p/HAp--
+--=-1qdYEFrlmqNAZQBgEn0B--
 
