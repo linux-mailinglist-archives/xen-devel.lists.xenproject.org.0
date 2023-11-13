@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277AB7EA346
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 20:06:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631976.985775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB35F7EA3EE
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 20:41:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631981.985785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2cFe-0002WN-8x; Mon, 13 Nov 2023 19:05:38 +0000
+	id 1r2cmx-0000F6-SN; Mon, 13 Nov 2023 19:40:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631976.985775; Mon, 13 Nov 2023 19:05:38 +0000
+Received: by outflank-mailman (output) from mailman id 631981.985785; Mon, 13 Nov 2023 19:40:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2cFe-0002UD-5j; Mon, 13 Nov 2023 19:05:38 +0000
-Received: by outflank-mailman (input) for mailman id 631976;
- Mon, 13 Nov 2023 19:05:36 +0000
+	id 1r2cmx-0000BP-O6; Mon, 13 Nov 2023 19:40:03 +0000
+Received: by outflank-mailman (input) for mailman id 631981;
+ Mon, 13 Nov 2023 19:40:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GGJv=G2=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1r2cFc-0002Sm-Ih
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 19:05:36 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061c.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::61c])
+ <SRS0=lyvv=G2=casper.srs.infradead.org=BATV+4b2d4fa8b3c13737bab4+7386+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r2cmv-0008DL-MM
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 19:40:02 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d775a28-8257-11ee-9b0e-b553b5be7939;
- Mon, 13 Nov 2023 20:05:32 +0100 (CET)
-Received: from MW4PR04CA0328.namprd04.prod.outlook.com (2603:10b6:303:82::33)
- by IA1PR12MB6580.namprd12.prod.outlook.com (2603:10b6:208:3a0::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Mon, 13 Nov
- 2023 19:05:28 +0000
-Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:303:82:cafe::87) by MW4PR04CA0328.outlook.office365.com
- (2603:10b6:303:82::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29 via Frontend
- Transport; Mon, 13 Nov 2023 19:05:27 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.14 via Frontend Transport; Mon, 13 Nov 2023 19:05:27 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
- 2023 13:05:26 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
- 2023 11:05:26 -0800
-Received: from [172.28.214.164] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Mon, 13 Nov 2023 13:05:24 -0600
+ id 6d293aa5-825c-11ee-9b0e-b553b5be7939;
+ Mon, 13 Nov 2023 20:39:57 +0100 (CET)
+Received: from [12.186.190.1] (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r2cma-00G5fM-4F; Mon, 13 Nov 2023 19:39:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,210 +40,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d775a28-8257-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UoGskbkWvri6yInXm9yZAjjy77NmITKsaLpg8cby9GSmDMeBzQ7M18J5qk2lapEUZEjcF1udKh82fFTu8wh0jVz+4uj38krkv4ULPBzd4jQtZGu1iM20Wza8VviaTEIJ5SIV5dbhv6TI9uvdfni6/BlDwksM05TNalWXQQWhRBMbr2VNQ+NTLxp6BMUZG/Wrff7Oiebs3Xmclj6e+k0mtJoI1ZaCgSw+IAZzLFOn/zauK7moc1h+0KgTTsZmblUyziVFsauPAzy2oTpyIvGUtR/oGUpHVit6ttJfi/wBr+dok9PNB5yIon+gdMDpYbXgz5IjXuWXnhNXeTWiXGUhNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UCe4eD9oaRB62GlGJ28XMi+rUooA+Gc1m8/hClXDXBM=;
- b=TIf+f3iLJi8qGJX4sUaaAh/63XnNCa+OUrlJnXfbPTTihg7+dglUEtu+zAXwydGCsQou4DuoBa640/tMiGzAvOG2TV00cCpKLO0qjhBDTWRelsmduj3gS1RrZs6AnswuQ9a0MD57rjbS9XOIvcfDWH/OPylj13oAlT5/+aq1HHcu+jawEHHadEsizS1i2t6cWArXvNL3mDevFOrsliFrCvN+R+SS4/cMrfZcbTY+qRcYCLkfmfbInB5jUfs6aWdBln9Om2ZbY8j5pa8hBF25u39gZzeJrfrDesBQyTmOzZWGQJrWmvUd2QEkJId2ErAuq/qXgfsGG7lLxLIOZJH03w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCe4eD9oaRB62GlGJ28XMi+rUooA+Gc1m8/hClXDXBM=;
- b=XwRdcLyCRWRctxNkWv4kBgyrEItMGF/RHw/4xqfO5LMHKwvvpeBhyR+TiV0YqjDCgK7nq1YHrJ9JVXJKKENHouJdsO00nGDKNJP+osx9OdharQIsUq0wVHgvhP473kA4HG8lqFxtkUtd4xfTB0OT8KytSX7H9MVS8lzpaPaYQDo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <8fdb7e15-d5a7-46c9-bcde-53e4adac1ade@amd.com>
-Date: Mon, 13 Nov 2023 14:05:23 -0500
+X-Inumbo-ID: 6d293aa5-825c-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=TNulHO67NIckCB8oHPrROeoDh3QBnKCESKDLV560ROg=; b=VLEbrmDpvYCyLJf0Y3MoYe5jes
+	S3c4+/lo9pwqRveNzHcGLkTpbGH8eXlVvhfuxf37IrmEhGvuxxST00XTNSoaQx3QVloN9tsgB6uzN
+	iJ9oQCTRoVd5CM9mot54DM+LEJwkSWSPAAejeX9eCRUPHNJNOl/IBC5DetRQWSjonfx/mTqykD1dB
+	amGx/xWPiMnH27papNLDaOv/0CamlDDAR/08hHNpVsAOymM5o5IlcD7u+YovzRGTxpllMi0UB6PTG
+	55C/sMUw32IvQlctlb229s0Adr8pNS3G9n+e4AnzFtYVdED031dfxGeZijNYgZfPfCnTQUOzg6YLl
+	+f3k1V1Q==;
+Message-ID: <15b379e44cca703ddcbc7f93db3e9cdbc04b8305.camel@infradead.org>
+Subject: Re: [PATCH-for-9.0 05/10] hw/xen: Use target-agnostic
+ qemu_target_page_bits()
+From: David Woodhouse <dwmw2@infradead.org>
+To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
+	qemu-devel@nongnu.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Alex =?ISO-8859-1?Q?Benn=E9e?=
+ <alex.bennee@linaro.org>, Anthony Perard <anthony.perard@citrix.com>, 
+ xen-devel@lists.xenproject.org, Stefano Stabellini
+ <sstabellini@kernel.org>,  qemu-block@nongnu.org, Thomas Huth
+ <thuth@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>
+Date: Mon, 13 Nov 2023 14:39:34 -0500
+In-Reply-To: <20231113152114.47916-6-philmd@linaro.org>
+References: <20231113152114.47916-1-philmd@linaro.org>
+	 <20231113152114.47916-6-philmd@linaro.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-Ykjvuzguo0f2dUfjNvwE"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/5] xen/vpci: move xen_domctl_createdomain vPCI flag
- to common
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
- Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Oleksandr
- Andrushchenko" <oleksandr_andrushchenko@epam.com>, Rahul Singh
-	<rahul.singh@arm.com>, Christian Lindig <christian.lindig@cloud.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20231102195938.1254489-1-stewart.hildebrand@amd.com>
- <20231102195938.1254489-3-stewart.hildebrand@amd.com>
- <3f949fae-da52-7a8d-ad87-8fe84eeba8a2@suse.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <3f949fae-da52-7a8d-ad87-8fe84eeba8a2@suse.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-Ykjvuzguo0f2dUfjNvwE
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|IA1PR12MB6580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63cfc274-aaab-44fe-6905-08dbe47b7fb9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	nAqetug/1gpIrn/xK6poEozclY9rAbu4pwgzG9iYu7CgwRE4eRYGBeFV5stmeaFTUlp/7/IYWXy6nlwpuUYmzqR462OASHBOKbOjaG6NpY7czO4nm7mPrcGpZ636qp0nqIP7Fkg/WVbeuzZYjuNpWY47Xzw1z1eft9CpZmSiW8DogdE93BZTjIFZGGm/arM6zzCOW5wMUxara7oAcim83S72FvP9rk5DtGhIi5ZzIAdh95EwrEw+Q9a54cdGyDJB5Ojk0+MRgqhR3Sy81S6DPoQEvCuji3rhF+2MImHVRzNILf2W3e7NYH0aaHS5xnAtdtEspL13BZIkA3Hh9LuV/t+xJHt2ATcsg8QrZiKDeCX+Bcq8xcglnzYJ0w+nhejLNYkFSQH62ZXFU0Nf/bgPjcD6RAP/ooTElE1iL3+OXPE692Ua8tvy5sdfCKNuaQO6BZDSXBaM/NMpKnkaScEvFtNKt98vQAaSxoAgndpKJFfzJmpIJI29dUuc/6VWAfRLuvjEdQJabTGnDjOHjsTBcKwcLTzdpBCw3hk3kPDfaKmGiU1ht0J2Ot6+ijoYSlJj9rPd5YKP8ja8ApG4W2rzWRlGjTPWK4S3+d5mhaVUODZtfps8NMRmJXbUvgmOkY/u4cYLmHPuSaV2yQEJwPshFizaxQEpVzn3HpyPVCl3VjDjrbHIeRh9zw3Tor2pCRXwQhy/3UhouHYcLFim2XsavAAaHIsPFszZ5712lNG+oHiImj/rKUylUOiHQ6SuQhgDgU4VGtt+QLVJOUCVCopPobnYIKG/xF1iVT6ok5Fl8bs=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(396003)(136003)(376002)(230922051799003)(64100799003)(1800799009)(82310400011)(186009)(451199024)(40470700004)(46966006)(36840700001)(2616005)(26005)(336012)(426003)(47076005)(36860700001)(53546011)(83380400001)(7416002)(5660300002)(44832011)(2906002)(41300700001)(966005)(478600001)(16576012)(8676002)(8936002)(4326008)(70206006)(70586007)(316002)(6916009)(54906003)(40460700003)(81166007)(356005)(82740400003)(86362001)(36756003)(31696002)(31686004)(40480700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 19:05:27.6306
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63cfc274-aaab-44fe-6905-08dbe47b7fb9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042A7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6580
+Content-Transfer-Encoding: quoted-printable
 
-On 11/13/23 08:26, Jan Beulich wrote:
-> On 02.11.2023 20:59, Stewart Hildebrand wrote:
->> --- a/tools/libs/light/libxl_x86.c
->> +++ b/tools/libs/light/libxl_x86.c
->> @@ -8,13 +8,16 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>  {
->>      switch(d_config->c_info.type) {
->>      case LIBXL_DOMAIN_TYPE_HVM:
->> -        config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
->> +        config->arch.emulation_flags = XEN_X86_EMU_ALL;
->> +        config->flags &= ~XEN_DOMCTL_CDF_vpci;
->>          break;
->>      case LIBXL_DOMAIN_TYPE_PVH:
->>          config->arch.emulation_flags = XEN_X86_EMU_LAPIC;
->> +        config->flags &= ~XEN_DOMCTL_CDF_vpci;
->>          break;
->>      case LIBXL_DOMAIN_TYPE_PV:
->>          config->arch.emulation_flags = 0;
->> +        config->flags &= ~XEN_DOMCTL_CDF_vpci;
->>          break;
-> 
-> Why all this explicit clearing of XEN_DOMCTL_CDF_vpci? I can't even spot
-> where the bit would be set.
+On Mon, 2023-11-13 at 16:21 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
+> Instead of the target-specific TARGET_PAGE_BITS definition,
+> use qemu_target_page_bits() which is target agnostic.
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
 
-You're right, it's not being set currently, so no need to explicitly clear the bit here. I'll remove.
+Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
-> 
->> --- a/tools/python/xen/lowlevel/xc/xc.c
->> +++ b/tools/python/xen/lowlevel/xc/xc.c
->> @@ -159,7 +159,10 @@ static PyObject *pyxc_domain_create(XcObject *self,
->>  
->>  #if defined (__i386) || defined(__x86_64__)
->>      if ( config.flags & XEN_DOMCTL_CDF_hvm )
->> -        config.arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
->> +    {
->> +        config.arch.emulation_flags = XEN_X86_EMU_ALL;
->> +        config.flags &= ~XEN_DOMCTL_CDF_vpci;
->> +    }
-> 
-> Same question here then.
+--=-Ykjvuzguo0f2dUfjNvwE
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-Same answer here.
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMTkzOTM0WjAvBgkqhkiG9w0BCQQxIgQgJ+15/aej
+gxjORszaOOljsnbif9LyxmsNJAutxuYWcFwwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgApIhaarkalFWI1YN4BDdTs8A3Isb4jzkZx
+dNJFAOO2jqyCjgsKcPokt1fBYvfQmPvyEQfacTxzOJWpRRIjGaAj6bqtt3fv3pxTEPnDffYCbPV5
+AaCCRa844AvXsJDoyEH8Cq36eSWOfdC7Zv8yXSGV8r8k0gUfuY8X5QqfXrSrDrRtzg/eZO0TEFD4
+NBi6QiKh87is5tB9q0Q+pX1CvpW3t/J1gvYNFx8/oAsVzNHLl51mw3hf5iGMtIFA7Mll8U0l+TzH
+fkCUBbst0RopEUfUWl64lrxiArj9BrhfjtqyNpD+Bcr8GVUG58VAIjmiDO0QMtPJBgkp5dl8jKEF
+lBbzIFmVlHvLXelMxiWtiaBOSYGDUUTDjyUgYlNi2s6VH4ZyhUyJE2N3st+UxX3ypSoAcOmtiwQH
+BZjE0AEQ4DRcAGi8eWVrXlpqEfMSKajGTyrEYx4AE82TXNeOQjMPHxqY/Et+1I+nFdwOKLe6e2ZK
+8fe0uJbrUFXZuA6wcGawAXo/ZO/LTr/ZrSkRhfWkOUXleV+krJuzOs0VXul7TBaFAqwEZTpfaWr4
+3fFPOxNxgMtsRaKH0LRBDCAnQGsVmPEcHUGz48ryDxwIcC2gUeluw/trD0AH7Y4/RcHBPWoRCJGB
+6OzQt1sy75liLdAxKae2ZC0TEKXKyXQaGjZLAmokYQAAAAAAAA==
 
-> 
->> @@ -575,6 +577,18 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
->>          return -EINVAL;
->>      }
->>  
->> +    if ( vpci && !hvm )
->> +    {
->> +        dprintk(XENLOG_INFO, "vPCI requested for non-HVM guest\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    if ( vpci && !IS_ENABLED(CONFIG_HAS_VPCI) )
->> +    {
->> +        dprintk(XENLOG_INFO, "vPCI requested but not enabled\n");
->> +        return -EINVAL;
->> +    }
-> 
-> Maybe flip the order of these checks? But I'm uncertain about the first
-> one anyway: Isn't this something that needs deciding per-arch?
 
-In v4, the equivalent of the ( vpci && !hvm ) check was indeed in xen/arch/x86/domain.c:emulation_flags_ok(), but it seemed there was a suggestion that it be moved to common code... See discussion at [1]. How about putting it back into xen/arch/x86/domain.c, in arch_sanitise_domain_config(), not emulation_flags_ok()?
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02345.html
-
-> 
->> --- a/xen/include/public/arch-x86/xen.h
->> +++ b/xen/include/public/arch-x86/xen.h
->> @@ -283,15 +283,12 @@ struct xen_arch_domainconfig {
->>  #define XEN_X86_EMU_PIT             (1U<<_XEN_X86_EMU_PIT)
->>  #define _XEN_X86_EMU_USE_PIRQ       9
->>  #define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
->> -#define _XEN_X86_EMU_VPCI           10
->> -#define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
-> 
-> This, aiui, being the reason for ...
-> 
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -21,7 +21,7 @@
->>  #include "hvm/save.h"
->>  #include "memory.h"
->>  
->> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000016
->> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000017
-> 
-> ... this bump, I wonder whether nevertheless we wouldn't better leave a
-> comment there to indicate that bit 10 better wouldn't be used again any
-> time soon.
-
-I'll add a comment (above, in arch-x86/xen.h)
-
-> 
->> @@ -55,9 +55,12 @@ struct xen_domctl_createdomain {
->>  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
->>  /* Should we expose the vPMU to the guest? */
->>  #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
->> +/* Should vPCI be enabled for the guest? */
->> +#define _XEN_DOMCTL_CDF_vpci          8
-> 
-> What is this needed for besides ...
-> 
->> +#define XEN_DOMCTL_CDF_vpci           (1U<<_XEN_DOMCTL_CDF_vpci)
-> 
-> ... its use here? Imo like was done for vpmu, there should be only one
-> new identifier. As an aside, there are blanks missing around <<.
-
-OK, I'll fix this
-
-> 
->> --- a/xen/include/xen/domain.h
->> +++ b/xen/include/xen/domain.h
->> @@ -51,6 +51,9 @@ void arch_get_domain_info(const struct domain *d,
->>  
->>  #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
->>  
->> +#define has_vpci(d) (((d)->options & XEN_DOMCTL_CDF_vpci) && \
->> +                     IS_ENABLED(CONFIG_HAS_VPCI))
-> 
-> Aiui the IS_ENABLED() is wanted so where suitable code conditional upon
-> this predicate can be eliminated by the compiler. Question is whether
-> we can't achieve this by, say, overriding XEN_DOMCTL_CDF_vpci to 0 in
-> such cases (without touching what you add to the public header, i.e.
-> not as easy as what we do in xen/arch/x86/include/asm/domain.h for
-> X86_EMU_*).
-
-I had only added the IS_ENABLED() here due to some (unnecessary) related changes in the later patch ("xen/arm: enable vPCI for domUs"). I hadn't considered the compiler optimization aspect. I can understand the potential benefit, but I'm not ready to introduce such complexity at this time. I'm in favor of "simpler is better" in this case, so I'll change it back to how it was in v4:
-
-#define has_vpci(d) (!!((d)->options & XEN_DOMCTL_CDF_vpci))
-
-> 
-> Jan
+--=-Ykjvuzguo0f2dUfjNvwE--
 
