@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65ECB7EA1D5
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 18:29:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631865.985605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4AD7EA1D8
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 18:30:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631867.985615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2aki-0000ZH-Js; Mon, 13 Nov 2023 17:29:36 +0000
+	id 1r2ala-0002DB-TK; Mon, 13 Nov 2023 17:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631865.985605; Mon, 13 Nov 2023 17:29:36 +0000
+Received: by outflank-mailman (output) from mailman id 631867.985615; Mon, 13 Nov 2023 17:30:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2aki-0000XV-Gt; Mon, 13 Nov 2023 17:29:36 +0000
-Received: by outflank-mailman (input) for mailman id 631865;
- Mon, 13 Nov 2023 17:29:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r2ala-0002BT-QF; Mon, 13 Nov 2023 17:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 631867;
+ Mon, 13 Nov 2023 17:30:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lyvv=G2=casper.srs.infradead.org=BATV+4b2d4fa8b3c13737bab4+7386+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r2akh-0000XP-HC
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 17:29:35 +0000
+ id 1r2alZ-0002BH-7R
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 17:30:29 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34f038b7-824a-11ee-9b0e-b553b5be7939;
- Mon, 13 Nov 2023 18:29:32 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55b54e37-824a-11ee-98da-6d05b1d4d9a1;
+ Mon, 13 Nov 2023 18:30:27 +0100 (CET)
 Received: from [12.186.190.1] (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r2akV-00FWLA-O1; Mon, 13 Nov 2023 17:29:24 +0000
+ id 1r2alS-00FWQE-0a; Mon, 13 Nov 2023 17:30:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,20 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34f038b7-824a-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 55b54e37-824a-11ee-98da-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=dDRCldRPFTZG0rTRzpEGqdhyEmmyv/FTFvgvq/Rnfuw=; b=VMhGlz0rwErA2w27phfszPQ2ej
-	AAOCf6IpDCi3pz3hN/2gUkr7hC6FY79s7JYZPbSwGxHuZj3dYIADcWzkeKygZcPkmu2uAPZgeTxvr
-	JQDDSRJgi+PdSwyXCT6KlqcIIsG9dDdXnNEaILnQjgtCj+w1Pd6Dx5iuy8dYLcN614jtmcBlEqJV0
-	VPQPnyTmRPVInCap4HKisClliO+S/IFBmBt/85arl0BQA91DZ65D9e1KY54f6v0xi6n+ZViFRkIOH
-	UBjlbE5awc3ZI4TFddVuUJDg3lYLDf/W6VV2vtwy/r7qSNWE3opohzHNRXEUvolxnQtTqcCUBBSOb
-	ZkbWLuGQ==;
-Message-ID: <204a3e8c7f5d5788c92ea3d141b64162896dcdad.camel@infradead.org>
-Subject: Re: [PATCH-for-9.0 02/10] hw/xen/xen_arch_hvm: Rename prototypes
- using 'xen_arch_' prefix
+	bh=GqpAuiVSurDPO9oLkl5Tt+QdMged1AYvegCOKkIjHp0=; b=e0Tj116ePzY/+UsNi8hQLOByc6
+	QSf6kIOBM1LZkUZtpoY7ZUaUyq6govAlklRoUrOq9Gl2Iw/piLyaNYG8t3+LCiGjCs10fpsF0caXq
+	r7zEx86hpvKLwrbL4fOxqHbbxcc/LxpFgKhZLA95qmhFLcCxZZ2EyvAHpmLkMxHh+UhepTyEJPyKK
+	n/VVRofMG13eS2zcq9D80gqS60JggtlTw0advsCS5NOIa+zudh7hau/ZIUb7GnsNRxdvJMb2hn9yQ
+	lFUSEyIgz4SvFNUpxTd9w7n05KQGWPOhbGDBue7ZwPxk1h/ZJCKTfnZr+6mU+yz0+ci1mjC8DcZrw
+	h5ccXYYQ==;
+Message-ID: <493ed80c397118c25d426b0e2a76a046b40e9109.camel@infradead.org>
+Subject: Re: [PATCH-for-9.0 03/10] hw/xen: Merge 'hw/xen/arch_hvm.h' in
+ 'hw/xen/xen-hvm-common.h'
 From: David Woodhouse <dwmw2@infradead.org>
 To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
 	qemu-devel@nongnu.org
@@ -63,33 +63,34 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>, Alex =?ISO-8859-1?Q?Benn=E9e?=
  <sstabellini@kernel.org>,  qemu-block@nongnu.org, Thomas Huth
  <thuth@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
  qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>, Peter Maydell
- <peter.maydell@linaro.org>, Richard Henderson
- <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Date: Mon, 13 Nov 2023 12:29:20 -0500
-In-Reply-To: <20231113152114.47916-3-philmd@linaro.org>
+ <peter.maydell@linaro.org>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>, Eduardo Habkost
+ <eduardo@habkost.net>
+Date: Mon, 13 Nov 2023 12:30:17 -0500
+In-Reply-To: <20231113152114.47916-4-philmd@linaro.org>
 References: <20231113152114.47916-1-philmd@linaro.org>
-	 <20231113152114.47916-3-philmd@linaro.org>
+	 <20231113152114.47916-4-philmd@linaro.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-xD0NYpOPeVgXZjGfxwVi"
+	boundary="=-EsP2EfjjVfnTjEiaOgEQ"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-xD0NYpOPeVgXZjGfxwVi
+--=-EsP2EfjjVfnTjEiaOgEQ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Mon, 2023-11-13 at 16:21 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
-> Use a common 'xen_arch_' prefix for architecture-specific functions.
-> Rename xen_arch_set_memory() and xen_arch_handle_ioreq().
+> We don't need a target-specific header for common target-specific
+> prototypes. Declare xen_arch_handle_ioreq() and xen_arch_set_memory()
+> in "hw/xen/xen-hvm-common.h".
 >=20
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-xD0NYpOPeVgXZjGfxwVi
+--=-EsP2EfjjVfnTjEiaOgEQ
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -181,25 +182,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMTcyOTIwWjAvBgkqhkiG9w0BCQQxIgQg6jhHz92J
-MJKBNRblGCkbjCkl6E0wkpKOVWu3VAUHOJAwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTEzMTczMDE3WjAvBgkqhkiG9w0BCQQxIgQg+/5IWIKj
+VcqDu6HwTLKmV5kj+LU5Va9mSDS7/fjQjMkwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBpVukIq67YsRl/tl8dtWxSCPgIbd+2T8W9
-PUxu92CiG6ilLC40cGJgOX0Vp4GMyZ67qLNzUTQjGV76sSankDhHGoBxZZAXZMgzq23ZL8sai/0q
-U3ZDpRtqD7IsV05CP5IkkqtOi55NwCImmhRhYHykWtraWGJxLi91U54CJurhpgjx5D8Is3guZcex
-X8pjap4fOJGejhkAY8bftsfCo3HnX00Av26wgGXGA/TbrM1CZCUsYYygmNs+w2e+JHvckQzFgd/a
-LEjivYe2dp3gs8qSoK+dHL54kyF3nWsHLpo/TlTaz6plvUtiuWQd9F4FCyM3gVzh77B2EYoSzZ7z
-AAqeV8olLrFRHmxbn5TFb5f099uQeuYvMu1dwubUXNQJHW0U8a3SAxZnrwhtTkVBbLezHB9ltGrn
-pGH9516y7rm7Yj/Lq2tfPrz5tfIV4QSOSHWCw5Iy51Ww5YGhGv43j0pb423kJUUNvQrXBxb3QWmO
-nHUid1b334Z0RLHWWNgABufE9WPJTREVi7ybSrKNX7tPMs8ue0yi/MTlus2ELSeRUTzsJPx4EH3u
-4pOC6VJqkhUSCUNIVcLjZZWTUqVC8Zmis/0DFRCHEt8BGhSv2i5QFtlFKCd9i4R9LhTa1gcU2Cei
-DPSQI/091x1ptdObTnUNmk1tbj7Lm0V+RKpOjTvScgAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAPTE78UYE/i+4mH1gjCOy2QLeK9nVMbIgk
+BsRupjEIy7iR3oFnXLCjtQ2CNSJ6upZSOdZkgP51ZR5dEaqEM5DAMWdNC+i1ozopnV1vbUOCdPnf
+6kL8eS/4CAnMQvA+SFieE8ke39vpDZyNlpkQI2OUVIWPrwlaMbbzzbjNTj57UzpW3EU56ppK/KHI
+dc64ceAQbmVv6QnIWr8NkojoYp7Ak+0DMxpMPsjJFHVu6TEMzodYFoMEwW3sAnrJoawXhUskJXz2
+fRjkUpWE9fXCQ7WQz/Ntdxa+xfujcEClbRLOdl57ko+VMQZji6erHFym5y3hlXoXH0nBy2krgfuz
+bQwcw9i8zNDJ21jt2ABvfqJj73yv7k6mtUyBfh77BdxAfwto1Egcem6AwNIPbFpvC6qvoNA6bf/G
+fUCzpA6qTaitJaji2DwdmuUet3EprfjUBwfUntnuyBUXEFD3NGrZZl86fjPN1Cis8JX9R8F8/DNH
+Rfzp4tWm94A8VtP5O1Vg9ZCJf7Nt1hN3bwNn87Ztpfjk9kpa49rVhZONxtyQX3Pnwm6TYLVpMPnp
+y05qzTup5Zr3URhZWqpPgGfUF59Bd+igMZqPFmgtiwBiHwkqWfi1Y9msyJY54DeBmn9YuKxLQrkq
+wqSeR7Rb2narBzPU5HFVgCJ0tYMF62JiBT7R5OMfGwAAAAAAAA==
 
 
---=-xD0NYpOPeVgXZjGfxwVi--
+--=-EsP2EfjjVfnTjEiaOgEQ--
 
