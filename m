@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E497A7E97E0
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 09:37:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631376.984648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83AD97E9816
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 09:53:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631381.984658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2SRm-0002HL-EE; Mon, 13 Nov 2023 08:37:30 +0000
+	id 1r2Sgd-0007E3-ON; Mon, 13 Nov 2023 08:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631376.984648; Mon, 13 Nov 2023 08:37:30 +0000
+Received: by outflank-mailman (output) from mailman id 631381.984658; Mon, 13 Nov 2023 08:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2SRm-0002EZ-BZ; Mon, 13 Nov 2023 08:37:30 +0000
-Received: by outflank-mailman (input) for mailman id 631376;
- Mon, 13 Nov 2023 08:37:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r2SRl-0002EP-5U; Mon, 13 Nov 2023 08:37:29 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r2SRl-0005Pe-1Y; Mon, 13 Nov 2023 08:37:29 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r2SRk-0005vH-Is; Mon, 13 Nov 2023 08:37:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1r2SRk-0007RP-IJ; Mon, 13 Nov 2023 08:37:28 +0000
+	id 1r2Sgd-0007Br-Ln; Mon, 13 Nov 2023 08:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 631381;
+ Mon, 13 Nov 2023 08:52:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h1x5=G2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r2Sgc-0007Bl-D0
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 08:52:50 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 034a6308-8202-11ee-9b0e-b553b5be7939;
+ Mon, 13 Nov 2023 09:52:45 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2c50cf61f6dso58018941fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Nov 2023 00:52:48 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ t9-20020a05600c198900b00407752bd834sm7361180wmq.1.2023.11.13.00.52.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Nov 2023 00:52:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +44,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1mpv50Bm/GND3ujW5IzM1MwcbkHXbelqlY0OlCtX1ME=; b=04QXW582jh7VtJzdV4Bc1xhYgu
-	IrQOJUFvpbxgIcLKs+OpRjKkfIMqg8mWY+ob/5nbo+3hD6N4zddt+ou1zMkLtzK85QxmBmv7qQWSo
-	67/RrksjnWN6c5uHI+dmkej+ZB/emMQTxbzbIPYviWeh9E7MrVOK6nw4OGxb6t5JeDCA=;
+X-Inumbo-ID: 034a6308-8202-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1699865567; x=1700470367; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=i41EUFcBrTV5a0pKEIKGdyFmARmH0W13cJ7pDnX0qRY=;
+        b=OYIL55/SZDPLd3xOaqieEATeraU3Yhmhrt31hzjTVGmSMZoySNPD3QrmkcpKlQPbSf
+         t3lsKrD3WUUBYz6LWh1Qm3SrALRvQck459/OTKn8PPJB7y7vUbNbDN3LIpUzSTTzLf3f
+         xAeqfAPvhoVnxBccw/+8KNnvpVQFedOqDzFj0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699865567; x=1700470367;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=i41EUFcBrTV5a0pKEIKGdyFmARmH0W13cJ7pDnX0qRY=;
+        b=Oh1pu5WNVpifZ6BzK76iT7sE7bOly3TClspO8PuuWw1a3BWNLtLkzza5nKQQybqxuI
+         vUScL0h6KNAGkvPDM/V8+5mKYqEXmnP5J1JF1oy2jDUFPdu/Ux7fuTmlUV9WFmHc4Gwl
+         ygZGgswnodVop8HgZhCPqRJQBJLZZWPr0OXZM4GPRGwOrz7oE+WFBn0wPwBRpb0jfeOL
+         c+OLspg2aop61i/p+I+wqtPM/ADV/+cNFvQZjZR4RAOANrsMvYR4ekFOizCbmkYnWRFY
+         NqtJlmMFOhWhbCWyqE2ic/g8w2uoxMGlr8YsDeiR2Xjoml9J1tB21bldxCoORbWXYHhD
+         RUqw==
+X-Gm-Message-State: AOJu0Yzc/cIyi+iUqtPvOGKggNZGLvuIhJT9QyOnPZI+OB+OdGvG9a6y
+	aWURv8YT0Lj4ZP+f0OweD6ITkU/D+beGeZ4OB9A=
+X-Google-Smtp-Source: AGHT+IEXIWu9jm2jOF3kMofE85dAqIw9SEA45xnCcQguM2FII9ASIMLzF0Qe929VtqI6FqGiOAsxlw==
+X-Received: by 2002:a2e:3a09:0:b0:2c5:15a5:826a with SMTP id h9-20020a2e3a09000000b002c515a5826amr3995557lja.19.1699865567054;
+        Mon, 13 Nov 2023 00:52:47 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183741-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/intel: fix indentation
+Date: Mon, 13 Nov 2023 09:51:30 +0100
+Message-ID: <20231113085130.43458-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Subject: [ovmf test] 183741: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=c9cce5a00591dc437c258f0365b5d434c628b1e0
-X-Osstest-Versions-That:
-    ovmf=33deaa3b845f0d588ffd068003558be46f90aaac
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Nov 2023 08:37:28 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 183741 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183741/
+Adjust line to use a hard tab and align using spaces afterwards, instead of
+using all spaces.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 c9cce5a00591dc437c258f0365b5d434c628b1e0
-baseline version:
- ovmf                 33deaa3b845f0d588ffd068003558be46f90aaac
+Fixes: fc3090a47b21 ('x86/boot: Clear XD_DISABLE from the early boot path')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Realized while doing backports, not sure if it's worth fixing on it's own.
+---
+ xen/arch/x86/cpu/intel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Last test of basis   183733  2023-11-11 02:41:07 Z    2 days
-Testing same since   183741  2023-11-13 05:42:55 Z    0 days    1 attempts
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index a8ba3191e618..dfee64689ffe 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -307,7 +307,7 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
+ 		c->x86_cache_alignment = 128;
+ 
+ 	if (c == &boot_cpu_data &&
+-            bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
++	    bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
+ 		printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
+ 
+ 	/* Unmask CPUID levels and NX if masked: */
+-- 
+2.42.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Nhi Pham <nhi@os.amperecomputing.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   33deaa3b84..c9cce5a005  c9cce5a00591dc437c258f0365b5d434c628b1e0 -> xen-tested-master
 
