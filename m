@@ -2,52 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0587EA604
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 23:23:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632041.985954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A8A7EA60C
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 23:23:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632044.985965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2fKi-0005js-5r; Mon, 13 Nov 2023 22:23:04 +0000
+	id 1r2fLP-0006Sc-Eh; Mon, 13 Nov 2023 22:23:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632041.985954; Mon, 13 Nov 2023 22:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 632044.985965; Mon, 13 Nov 2023 22:23:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2fKi-0005h9-2t; Mon, 13 Nov 2023 22:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 632041;
- Mon, 13 Nov 2023 22:23:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r2fLP-0006QH-Be; Mon, 13 Nov 2023 22:23:47 +0000
+Received: by outflank-mailman (input) for mailman id 632044;
+ Mon, 13 Nov 2023 22:23:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GGJv=G2=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1r2fKg-0003AY-Vd
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 22:23:02 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060f.outbound.protection.outlook.com
- [2a01:111:f400:7e89::60f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33f74631-8273-11ee-9b0e-b553b5be7939;
- Mon, 13 Nov 2023 23:23:01 +0100 (CET)
-Received: from BL0PR02CA0070.namprd02.prod.outlook.com (2603:10b6:207:3d::47)
- by IA1PR12MB6042.namprd12.prod.outlook.com (2603:10b6:208:3d6::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29; Mon, 13 Nov
- 2023 22:22:56 +0000
-Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:207:3d:cafe::4a) by BL0PR02CA0070.outlook.office365.com
- (2603:10b6:207:3d::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31 via Frontend
- Transport; Mon, 13 Nov 2023 22:22:56 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.13 via Frontend Transport; Mon, 13 Nov 2023 22:22:55 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
- 2023 16:22:53 -0600
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Mon, 13 Nov 2023 16:22:52 -0600
+ <SRS0=Lmv8=G2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r2fLO-0006EV-KM
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 22:23:46 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e26fee6-8273-11ee-98db-6d05b1d4d9a1;
+ Mon, 13 Nov 2023 23:23:45 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2A458CE0918;
+ Mon, 13 Nov 2023 22:23:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E6EC433C8;
+ Mon, 13 Nov 2023 22:23:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,98 +42,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33f74631-8273-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fxjqhUtRdNSsue6WKx5PE+QP0EGEUYU85GIElfpcJsiU+Lgz5GcxruZnexjKdm0sI9CzghpPKYgeJSyQdG13mBai09ll2pM+/ZhUqyZhp/vKeymkmETCls8L//qBRblbUEFIm+fy7HoU0pTxoAzjyr+qfQk20TFLmCGcTUGPSTf9BE0bnvpOMKo7E/uigFuHjDFy9HcjbovaLr+nneGgcF1qAYxKzTf4sFXflYEcgMA6zS0Dsi+5e8onwVt+M1rQ/OiP651qcrOWUxJBcWOnmSk/tKo2kufyZHwYd222uMk++DwgrPfuCXQK+Z5/j4xRc7GTMrZw6mks6hWwRw9MWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V1ygEMRNlCIyFbC9uBsJtxb9vimpr+FuY6Zv4K74hIw=;
- b=GT4uKT7Bln/91OJY9+eTYzRqT4zElnQjFNoCQHlZNdpYqM22QX5tywYeVdNyGj6Uy5evBL6IpI3NuLwKdN/fbjEnCnMUt4yVich+EXDrZhftwbqD81s4Ig+CM3hQjRYWko0DL1aBxQFsWHTSOrXkgJfIgZGjWpjJl6pjxBvxivnCu2jUZqDw1PIbYGuKSzEBPCeRkFJW13ESqvmd6VXI9rKhqE7MzsvagG7s53kQO95Yk5jiO33GkINjm4Q2sMAcYTn3SSO1MDsozZw/l14GttLqjvm+6+32jQvrKrNAtGo7hX3ZfV00fhYEA/C8ev5gsAdw0NuQcY1FvPGz6oR3gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V1ygEMRNlCIyFbC9uBsJtxb9vimpr+FuY6Zv4K74hIw=;
- b=oLlpepXzkqkkoNms1hpbu1yFgFdUysSPmiOyqRoPSjQKphhbjhWGz5Ix9+Bx5YDyDnWbgG2/rrNpNAxgk+/fGy/mFGQQY1PGWvt6x5LIzOq1EqnWpbSmDCfcIo45RZxCQREgWMUCuzhpsRwURCzvDnBsSWZM09A6Mx+PymXZQsk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH v6 5/5] [FUTURE] tools/arm: enable vPCI for domUs
-Date: Mon, 13 Nov 2023 17:21:14 -0500
-Message-ID: <20231113222118.825758-6-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231113222118.825758-1-stewart.hildebrand@amd.com>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
+X-Inumbo-ID: 4e26fee6-8273-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699914220;
+	bh=QeOVJBn2axuEjno4ACSpIkn+lD/20YFjDJ4rgNThGF4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rb07h6hlY4/4jNkLPoDeYiXQ6hNybi+vcwFQM2CPs93uCthCN4ykHrMWmIYNNDFZA
+	 h9FgKPRo6PIhpamhU9zRoPvytq/jMrq44x79F0BSHuwbQ5IvkW84xNoLJIq7rwLSg9
+	 JnsO+RCtkgrS6NbGT5aumnRfD9dPs+hx9MScbhnCRL6pujPMJXkWSv6qyJblgC0Bfd
+	 JP2q22cJBJ6SdJgZWkzVm9it1Rj75Qt0aa2BNuCgk+yUdR6U0iN0PTmSE/tDwbnp0Y
+	 wKwYwM/RJGLtu/d3Rhag8pQbgVzEiGujhXvJc9jq065WCF+eqSHiJJsOf/UDiyYxIj
+	 EAl3/0KiFhPXg==
+Date: Mon, 13 Nov 2023 14:23:38 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org, 
+    committers@xenproject.org
+Subject: Re: Informal voting proposal
+In-Reply-To: <96df2df9-b295-6334-d45c-183d116fff88@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2311131349470.160649@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=zCpobcXHnAGeLL1tOP5dyqyThVri3a=76t_xYDMa+mrA@mail.gmail.com> <96df2df9-b295-6334-d45c-183d116fff88@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|IA1PR12MB6042:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc4e231c-d4b9-4b9c-3899-08dbe497158d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gVcWFUd6BeU9Kw00LyP/JHH23ye9MWx07xdwzPhJSm/kc0IetilhCORNQxNpUCZ6E6Z25eRn697zCnN3ooSs6Fhm1MzSHTbH5rSlIw0/YmP+j8eSIRiL5m9Ep2TGCLko7kWTVeE2AHjwXA8MMj2bECUP2emlEbZNI6AIUxc3hbdnuk4BxmEEar8NBwIVBrVYURU9Nr/kkfc2UqtAeGnH5dQvYsziWMAMiI7YIbT/SAiErBBlTTIgHwhiH3n2iHohaJe+9RQpmhB2r+riyr0bHoIdoAPRDZK+HpTo0hc7dPCc5zg9gmvuTYkmArURWbTlMS+rKnTaYN43EnCqUjnoFDavE9tUk9ykbx2buwpkQ47npayEXQgi9qbbSmSRnOwEq0QzYnzhw2U5LjwORLPe/1/bcYehkVrULHwfWt76v+2JUZ6bpCfAtUJ6QV8ZZWspobFs1S+mi7UWf5xCL3tYderClAMuWfy45WAM8PuJjUDc/VhfCEO4oOrOjv25lkWH6B2aelE24+wodJ8lTPWUUO+NM+o22moNCjud97Q3yqlqt1+yWcuuQFirEf4nymni924/A9RwSLtunHemJRV5J+cpMYqAfeQX0dxirVDnap9L2VNeMh6Vs0RpTbOhED9X2tW6fpMLdxG9v19/ey+YU9Sa5IYMBi8zCoiJT1RCQc/3XM29PcFdGjdt5S8qptKWPcLuoTgp7fGH84zpmoD0DY8TmOF9Q1frYHKmP7uveE88WuMPOHxGAGIF6vRZDrYV5Gc5X/E7OQOqr0wSYzACJA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(136003)(39860400002)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(40460700003)(4326008)(8676002)(8936002)(70206006)(316002)(70586007)(6916009)(54906003)(41300700001)(44832011)(4744005)(2906002)(86362001)(5660300002)(81166007)(47076005)(356005)(2616005)(82740400003)(426003)(336012)(1076003)(26005)(36860700001)(478600001)(36756003)(6666004)(40480700001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 22:22:55.5359
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc4e231c-d4b9-4b9c-3899-08dbe497158d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB75.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6042
+Content-Type: text/plain; charset=US-ASCII
 
-Set the vPCI flag in xen_domctl_createdomain to enable vPCI if a pci
-device has been specified in the xl domain config file.
+On Mon, 13 Nov 2023, Jan Beulich wrote:
+> On 06.11.2023 17:40, Kelly Choi wrote:
+> > Hi all,
+> > 
+> > As an open-source community, there will always be differences of opinion in
+> > approaches and the way we think. It is imperative, however, that we view
+> > this diversity as a source of strength rather than a hindrance.
+> > 
+> > Recent deliberations within our project have led to certain matters being
+> > put on hold due to an inability to reach a consensus. While formal voting
+> > procedures serve their purpose, they can be time-consuming and may not
+> > always lead to meaningful progress.
+> > 
+> > Having received agreement from a few maintainers already, I would like to
+> > propose the following:
+> > 
+> > *Informal voting method:*
+> > 
+> >    1. Each project should ideally have more than 2 maintainers to
+> >    facilitate impartial discussions. Projects lacking this configuration will
+> >    be addressed at a later stage.
+> 
+> Terminology question: What is "project" here? Considering how ./MAINTAINERS
+> is structured, is it perhaps more "component"?
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
-Same story as the patch before this regarding the [FUTURE] tag.
+Yes, I think "component" is the right word
 
-v5->v6:
-* no change
 
-v4->v5:
-* no change
+> >    2. Anyone in the community is welcome to voice their opinions, ideas,
+> >    and concerns about any patch or contribution.
+> >    3. If members cannot agree, the majority informal vote of the
+> >    maintainers will be the decision that stands. For instance, if, after
+> >    careful consideration of all suggestions and concerns, 2 out of 3
+> >    maintainers endorse a solution within the x86 subsystem, it shall be the
+> >    decision we move forward with.
+> 
+> In a later reply you make explicit what can only be guessed here: There
+> you suggest that out of a range of possible options, up front two are
+> picked to then choose between. However, when there is a range options
+> available, and when those can be viewed as points on a scale (rather
+> than, to take Stefano's earlier example of SAF-* naming, cases where
+> it's hard to view choices as being on a linear scale), picking two
+> "points" up front may already pose a problem. (See also another reply
+> mentioning how to ensure that the various possible options were even
+> taken into consideration.)
+> 
+> Not only in such situations, but in general, to me a prereq to even
+> coming to the point of needing an informal vote is the willingness of
+> everyone involved to find a compromise. When there's a range of views,
+> and when "knowing" what's going to be best for the project would require
+> a crystal ball, experience suggests to me that chances for an optimal
+> choice are better when picking a "point" not at the far ends of the scale.
+> (Such a result then would also much better reflect your named goal of
+> seeing diversity as a strength.)
+> 
+> With such willingness I think even informal votes could be avoided most
+> of the time, at which point it becomes questionable whether for the few
+> remaining cases informal and formal votes really need specifying
+> separately.
 
-v3->v4:
-* split from ("xen/arm: enable vPCI for domUs")
----
- tools/libs/light/libxl_arm.c | 3 +++
- 1 file changed, 3 insertions(+)
+The key difference in point of views is that you see as very common to
+have options on a linear scale, where finding a middle ground makes
+sense, and you see as an exception cases like SAF-* naming that are not
+on a scale. In my view cases like SAF-* naming are the common case,
+while it would be an exception to have options on a linear scale. If
+it turns out there are indeed many cases where multiple options are on a
+linear scale, we might be able to come up with another idea on how to
+get a quick informal consensus for those issues.
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 15391917748c..6daed958e598 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -222,6 +222,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-         config->arch.sve_vl = d_config->b_info.arch_arm.sve_vl / 128U;
-     }
- 
-+    if (d_config->num_pcidevs)
-+        config->flags |= XEN_DOMCTL_CDF_vpci;
-+
-     return 0;
- }
- 
--- 
-2.42.0
+
+> >    4. Naturally, there may be exceptional circumstances, as such, a formal
+> >    vote may be warranted but should happen only a few times a year for serious
+> >    cases only.
+> >    5. Informal votes can be as easy as 2 out of 3 maintainers providing
+> >    their Acked-by/Reviewed-by tag. Alternatively, Maintainers can call an
+> >    informal vote by simply emailing the thread with "informal vote proposed,
+> >    option 1 and option 2."
+> 
+> I find this difficult. Both A-b and R-b assert that the person offering
+> the tag endorses the presented solution to the indicated degree. It does
+> not say anything on possible alternative solutions. As a result taking
+> such tags as votes is (once again, and once again in my personal view)
+> reasonable only when there's a black-and-white decision to be taken.
+
+From a practical perspective, A-b and R-b are a quick and easy way to
+gauge informal consensus on an issue. Also, exploring alternative
+solutions take time. Time for the reviewer, time for the contributor,
+time for everyone else involved in the email thread. A-b and R-b have a
+very important role: they say "this is good enough". When you have a
+majority of people saying "this is good enough", I think we would be
+better off spending our timing fixing other deficiencies, reviewing
+other patches, rather than trying to further optimize that particular
+patch.
+
+
+> >    6. *All maintainers should reply with their vote within 5 working days.*
+> > 
+> >    7. Please note that with any new process, there will always be room for
+> >    improvement and we will reiterate where needed.
+> > 
+> > Ultimately our goal here is to prevent the project coming to a standstill
+> > while deliberating decisions that we all cannot agree on. This may mean
+> > compromising in the short term but I am sure the long-term benefits will
+> > stand for themselves.
+> > 
+> > *If you have any strong objections to the informal voting, please let me
+> > know by 30th November 2023. *
+> 
+> Just FTAOD none of the above is meant to be a "strong objection". Despite
+> being unconvinced of the proposal (including the need for one, not the
+> least also considering what has triggered this sudden effort, when there
+> are - imo - worse problems of "standstill"), I'll try to be a good citizen
+> and play by what's going to be put in place.
+
+Thank you. Let's give it a try and see how it goes. As for every change,
+we are trying to make improvements. If they don't work, or better ideas
+come along, we can change again.
 
 
