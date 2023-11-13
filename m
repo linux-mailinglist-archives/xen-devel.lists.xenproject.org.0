@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83AD97E9816
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 09:53:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631381.984658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE4E7E982A
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 09:55:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631386.984669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Sgd-0007E3-ON; Mon, 13 Nov 2023 08:52:51 +0000
+	id 1r2Sig-0000p0-40; Mon, 13 Nov 2023 08:54:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631381.984658; Mon, 13 Nov 2023 08:52:51 +0000
+Received: by outflank-mailman (output) from mailman id 631386.984669; Mon, 13 Nov 2023 08:54:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Sgd-0007Br-Ln; Mon, 13 Nov 2023 08:52:51 +0000
-Received: by outflank-mailman (input) for mailman id 631381;
- Mon, 13 Nov 2023 08:52:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r2Sig-0000m1-14; Mon, 13 Nov 2023 08:54:58 +0000
+Received: by outflank-mailman (input) for mailman id 631386;
+ Mon, 13 Nov 2023 08:54:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h1x5=G2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r2Sgc-0007Bl-D0
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 08:52:50 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 034a6308-8202-11ee-9b0e-b553b5be7939;
- Mon, 13 Nov 2023 09:52:45 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2c50cf61f6dso58018941fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 13 Nov 2023 00:52:48 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- t9-20020a05600c198900b00407752bd834sm7361180wmq.1.2023.11.13.00.52.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Nov 2023 00:52:46 -0800 (PST)
+ <SRS0=hsVx=G2=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1r2Sie-0000lr-9v
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 08:54:56 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50c4ba2b-8202-11ee-98da-6d05b1d4d9a1;
+ Mon, 13 Nov 2023 09:54:55 +0100 (CET)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r2Shn-00DHEt-7m; Mon, 13 Nov 2023 08:54:04 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 8FD82300427; Mon, 13 Nov 2023 09:54:03 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,71 +43,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 034a6308-8202-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1699865567; x=1700470367; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=i41EUFcBrTV5a0pKEIKGdyFmARmH0W13cJ7pDnX0qRY=;
-        b=OYIL55/SZDPLd3xOaqieEATeraU3Yhmhrt31hzjTVGmSMZoySNPD3QrmkcpKlQPbSf
-         t3lsKrD3WUUBYz6LWh1Qm3SrALRvQck459/OTKn8PPJB7y7vUbNbDN3LIpUzSTTzLf3f
-         xAeqfAPvhoVnxBccw/+8KNnvpVQFedOqDzFj0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699865567; x=1700470367;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=i41EUFcBrTV5a0pKEIKGdyFmARmH0W13cJ7pDnX0qRY=;
-        b=Oh1pu5WNVpifZ6BzK76iT7sE7bOly3TClspO8PuuWw1a3BWNLtLkzza5nKQQybqxuI
-         vUScL0h6KNAGkvPDM/V8+5mKYqEXmnP5J1JF1oy2jDUFPdu/Ux7fuTmlUV9WFmHc4Gwl
-         ygZGgswnodVop8HgZhCPqRJQBJLZZWPr0OXZM4GPRGwOrz7oE+WFBn0wPwBRpb0jfeOL
-         c+OLspg2aop61i/p+I+wqtPM/ADV/+cNFvQZjZR4RAOANrsMvYR4ekFOizCbmkYnWRFY
-         NqtJlmMFOhWhbCWyqE2ic/g8w2uoxMGlr8YsDeiR2Xjoml9J1tB21bldxCoORbWXYHhD
-         RUqw==
-X-Gm-Message-State: AOJu0Yzc/cIyi+iUqtPvOGKggNZGLvuIhJT9QyOnPZI+OB+OdGvG9a6y
-	aWURv8YT0Lj4ZP+f0OweD6ITkU/D+beGeZ4OB9A=
-X-Google-Smtp-Source: AGHT+IEXIWu9jm2jOF3kMofE85dAqIw9SEA45xnCcQguM2FII9ASIMLzF0Qe929VtqI6FqGiOAsxlw==
-X-Received: by 2002:a2e:3a09:0:b0:2c5:15a5:826a with SMTP id h9-20020a2e3a09000000b002c515a5826amr3995557lja.19.1699865567054;
-        Mon, 13 Nov 2023 00:52:47 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/intel: fix indentation
-Date: Mon, 13 Nov 2023 09:51:30 +0100
-Message-ID: <20231113085130.43458-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.42.0
+X-Inumbo-ID: 50c4ba2b-8202-11ee-98da-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=dutrm5ccD7TaxoUTd5HetFxAB3OI7e+5hdO7Sj9SVNo=; b=wROikK0F+E/0+gQCY5aizziwZM
+	QBnqTdIASK/w4O/XE3EW5v2abecSdYkvK+1zJnluPUtnBngldSvjaMgTnd7kRGV514mvgKT2hU0vC
+	zyXBTRnb7A9gFNaBRlwjzsA4yg5tTIt5CaM1p3Y5thi2fixgzbu9gYQs2dMIhNq7ghLsDwXDjPCGW
+	c4IO6A3VhEeYayv5zlUHiiN4fSixzrzW2ZU+OFXqHfAYwdcx8Ci4e1LYOZbFbUtVyqtN+xQnmTz7h
+	4Bnr6O5PUCwR9sOreXh5yplAfAZI8hKiF8rtnUT8tx3OIE8Nkxzi4qJBpBkKgX1hESNRrFrl/uuYN
+	3iMt4jmQ==;
+Date: Mon, 13 Nov 2023 09:54:03 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Kees Cook <keescook@chromium.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Alexander Graf <graf@amazon.com>,
+	Chao Peng <chao.p.peng@linux.intel.com>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	Forrest Yuan Yu <yuanyu@google.com>,
+	James Gowans <jgowans@amazon.com>,
+	James Morris <jamorris@linux.microsoft.com>,
+	John Andersen <john.s.andersen@intel.com>,
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>,
+	Marian Rotariu <marian.c.rotariu@gmail.com>,
+	Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>,
+	=?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
+	Thara Gopinath <tgopinath@microsoft.com>,
+	Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Yu Zhang <yu.c.zhang@linux.intel.com>,
+	Zahra Tarkhani <ztarkhani@microsoft.com>,
+	=?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
+	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
+	x86@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH v2 18/19] heki: x86: Protect guest kernel memory
+ using the KVM hypervisor
+Message-ID: <20231113085403.GC16138@noisy.programming.kicks-ass.net>
+References: <20231113022326.24388-1-mic@digikod.net>
+ <20231113022326.24388-19-mic@digikod.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231113022326.24388-19-mic@digikod.net>
 
-Adjust line to use a hard tab and align using spaces afterwards, instead of
-using all spaces.
+On Sun, Nov 12, 2023 at 09:23:25PM -0500, MickaÎl Sala¸n wrote:
+> From: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+> 
+> Implement a hypervisor function, kvm_protect_memory() that calls the
+> KVM_HC_PROTECT_MEMORY hypercall to request the KVM hypervisor to
+> set specified permissions on a list of guest pages.
+> 
+> Using the protect_memory() function, set proper EPT permissions for all
+> guest pages.
+> 
+> Use the MEM_ATTR_IMMUTABLE property to protect the kernel static
+> sections and the boot-time read-only sections. This enables to make sure
+> a compromised guest will not be able to change its main physical memory
+> page permissions. However, this also disable any feature that may change
+> the kernel's text section (e.g., ftrace, Kprobes), but they can still be
+> used on kernel modules.
+> 
+> Module loading/unloading, and eBPF JIT is allowed without restrictions
+> for now, but we'll need a way to authenticate these code changes to
+> really improve the guests' security. We plan to use module signatures,
+> but there is no solution yet to authenticate eBPF programs.
+> 
+> Being able to use ftrace and Kprobes in a secure way is a challenge not
+> solved yet. We're looking for ideas to make this work.
+> 
+> Likewise, the JUMP_LABEL feature cannot work because the kernel's text
+> section is read-only.
 
-Fixes: fc3090a47b21 ('x86/boot: Clear XD_DISABLE from the early boot path')
-Signed-off-by: Roger Pau Monn√© <roger.pau@citrix.com>
----
-Realized while doing backports, not sure if it's worth fixing on it's own.
----
- xen/arch/x86/cpu/intel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index a8ba3191e618..dfee64689ffe 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -307,7 +307,7 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
- 		c->x86_cache_alignment = 128;
- 
- 	if (c == &boot_cpu_data &&
--            bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
-+	    bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
- 		printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
- 
- 	/* Unmask CPUID levels and NX if masked: */
--- 
-2.42.0
-
+What is the actual problem? As is the kernel text map is already RO and
+never changed.
 
