@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB3167EA5B2
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 23:04:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632022.985885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E19BF7EA5B7
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 23:09:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632025.985894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2f2N-0005On-Kp; Mon, 13 Nov 2023 22:04:07 +0000
+	id 1r2f7i-0007Zq-6r; Mon, 13 Nov 2023 22:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632022.985885; Mon, 13 Nov 2023 22:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 632025.985894; Mon, 13 Nov 2023 22:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2f2N-0005Li-Hg; Mon, 13 Nov 2023 22:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 632022;
- Mon, 13 Nov 2023 22:04:06 +0000
+	id 1r2f7i-0007Xo-43; Mon, 13 Nov 2023 22:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 632025;
+ Mon, 13 Nov 2023 22:09:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r2f2M-0005Lc-1U
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 22:04:06 +0000
+ (envelope-from <julien@xen.org>) id 1r2f7g-0007Xi-F2
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 22:09:36 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r2f2L-0002fG-BC; Mon, 13 Nov 2023 22:04:05 +0000
+ id 1r2f7f-0002ur-QN; Mon, 13 Nov 2023 22:09:35 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r2f2L-0002x4-6O; Mon, 13 Nov 2023 22:04:05 +0000
+ id 1r2f7f-0003CE-KT; Mon, 13 Nov 2023 22:09:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,125 +42,108 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bKEvVTgAWl7vU9e/e1LuY9pdTLgdtAsisf2AnHR/10k=; b=wwUEGhgUwedgYFAdcL/XdUVXb9
-	4f5flB9HL9PkFUaAFasx2zVwWywCbPF6JDqEUVB9M3lByC2iLtL1VnArzaznRy5XXvJME+Uj33NUG
-	ymDNfeJ0li8xEFuryGonlYCBilW+lLpXYS94YkZbixzItsfYtJk5D64HKH8F1aTR42uU=;
-Message-ID: <3df5d15e-c42d-4e95-bbea-41969a0b2b5e@xen.org>
-Date: Mon, 13 Nov 2023 22:04:03 +0000
+	bh=1neYyg6XXIPc2/PeOGtCYgrhmqQGt6yk1Za5rStFhfg=; b=GCRSGI9A2MYTRkqAvSM1947VCK
+	7l7FDzoXlWpzQ+AQAg7jzWzipzUFIcaB+brLTCw820ybzWt00FGqWIUsnXcPt+z94brg5oYJaeeLP
+	54WURgBvHS1TNQ/WCyMsCWw3xPTBl9iQ0GtaJG4Ml3tLDjPKSd4WENQACpeVMpM5Pumk=;
+Message-ID: <e637cc9f-246e-4834-b255-b4cdeb40178f@xen.org>
+Date: Mon, 13 Nov 2023 22:09:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/29] tools/xenstored: map stubdom interface
+Subject: Re: [PATCH v2 26/29] tools/xenstored: mount 9pfs device in stubdom
 Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
 References: <20231110160804.29021-1-jgross@suse.com>
- <20231110160804.29021-26-jgross@suse.com>
+ <20231110160804.29021-27-jgross@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231110160804.29021-26-jgross@suse.com>
+In-Reply-To: <20231110160804.29021-27-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Juergen,
 
 On 10/11/2023 16:08, Juergen Gross wrote:
-> When running as stubdom, map the stubdom's Xenstore ring page in order
-> to support using the 9pfs frontend.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->   tools/xenstored/core.c   |  2 ++
->   tools/xenstored/domain.c | 27 ++++++++++++++++++++++++++-
->   tools/xenstored/domain.h |  1 +
->   3 files changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
-> index b9ec50b34c..4a9d874f17 100644
-> --- a/tools/xenstored/core.c
-> +++ b/tools/xenstored/core.c
-> @@ -2991,6 +2991,8 @@ int main(int argc, char *argv[])
->   		lu_read_state();
->   #endif
->   
-> +	stubdom_init();
-> +
->   	check_store();
->   
->   	/* Get ready to listen to the tools. */
 > diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-> index fa17f68618..162b87b460 100644
+> index 162b87b460..4263c1360f 100644
 > --- a/tools/xenstored/domain.c
 > +++ b/tools/xenstored/domain.c
-> @@ -37,6 +37,10 @@
->   #include <xenctrl.h>
+> @@ -1236,6 +1236,8 @@ void stubdom_init(void)
+>   		barf_perror("Failed to initialize stubdom");
+>   
+>   	xenevtchn_notify(xce_handle, stubdom->port);
+> +
+> +	mount_9pfs();
+>   #endif
+>   }
+>   
+> diff --git a/tools/xenstored/minios.c b/tools/xenstored/minios.c
+> index 202d70387a..fddbede869 100644
+> --- a/tools/xenstored/minios.c
+> +++ b/tools/xenstored/minios.c
+> @@ -19,8 +19,16 @@
+>   #include <sys/mman.h>
+>   #include "core.h"
 >   #include <xen/grant_table.h>
->   
-> +#ifdef __MINIOS__
+> +#include <mini-os/9pfront.h>
+>   #include <mini-os/events.h>
+>   #include <mini-os/gnttab.h>
+> +#include <mini-os/sched.h>
 > +#include <mini-os/xenbus.h>
-> +#endif
+> +#include <mini-os/xmalloc.h>
 > +
->   static xc_interface **xc_handle;
->   xengnttab_handle **xgt_handle;
->   static evtchn_port_t virq_port;
-> @@ -500,6 +504,11 @@ static void *map_interface(domid_t domid)
->   	if (domid == xenbus_master_domid())
->   		return xenbus_map();
+> +#define P9_STATE_PATH	"device/9pfs/0/state"
+> +
+> +static void *p9_device;
 >   
-> +#ifdef __MINIOS__
-> +	if (domid == stub_domid)
-> +		return xenstore_buf;
-> +#endif
-> +
->   	return xengnttab_map_grant_ref(*xgt_handle, domid,
->   				       GNTTAB_RESERVED_XENSTORE,
->   				       PROT_READ|PROT_WRITE);
-> @@ -509,7 +518,7 @@ static void unmap_interface(domid_t domid, void *interface)
+>   void write_pidfile(const char *pidfile)
 >   {
->   	if (domid == xenbus_master_domid())
->   		unmap_xenbus(interface);
-> -	else
-> +	else if (domid != stub_domid)
->   		xengnttab_unmap(*xgt_handle, interface, 1);
+> @@ -62,3 +70,31 @@ void early_init(void)
+>   	if (stub_domid == DOMID_INVALID)
+>   		barf("could not get own domid");
 >   }
->   
-> @@ -1214,6 +1223,22 @@ void dom0_init(void)
->   	xenevtchn_notify(xce_handle, dom0->port);
->   }
->   
-> +void stubdom_init(void)
+> +
+> +static void mount_thread(void *p)
 > +{
-> +#ifdef __MINIOS__
-> +	struct domain *stubdom;
+> +	xenbus_event_queue events = NULL;
+> +	char *err;
+> +	char *dummy;
 > +
-> +	if (stub_domid < 0)
-> +		return;
-> +
-> +	stubdom = introduce_domain(NULL, stub_domid, xenbus_evtchn, false);
-> +	if (!stubdom)
-> +		barf_perror("Failed to initialize stubdom");
-> +
-> +	xenevtchn_notify(xce_handle, stubdom->port);
+> +	free(xenbus_watch_path_token(XBT_NIL, P9_STATE_PATH, "9pfs", &events));
 
-If I compare to introduce_domain(), it is not entirely clear to me why 
-the notification is done unconditionally here. Can you clarify?
+AFAICT, xenbus_watch_path_token() can fail. I agree this is unlikely, 
+but if it fails, then it would be useful to get some logs. Otherwise...
 
-> +#endif
+> +
+> +	for (;;) {
+
+... this loop would be infinite.
+
+> +		xenbus_wait_for_watch(&events);
+> +		err = xenbus_read(XBT_NIL, P9_STATE_PATH, &dummy);
+
+Can you explain why don't care about the value of the node?
+
+> +		if (!err)
+> +			break;
+> +		free(err);
+> +	}
+> +
+> +	free(dummy);
+> +
+> +	free(xenbus_unwatch_path_token(XBT_NIL, P9_STATE_PATH, "9pfs"));
+
+xenbus_unwatch_path_token() could technically fails. It would be helpful 
+to print a message.
+
+> +
+> +	p9_device = init_9pfront(0, XENSTORE_LIB_DIR);
 > +}
 > +
->   static unsigned int domhash_fn(const void *k)
->   {
->   	return *(const unsigned int *)k;
-> diff --git a/tools/xenstored/domain.h b/tools/xenstored/domain.h
-> index 6c00540311..49c60c56bf 100644
-> --- a/tools/xenstored/domain.h
-> +++ b/tools/xenstored/domain.h
-> @@ -85,6 +85,7 @@ int do_reset_watches(const void *ctx, struct connection *conn,
->   void domain_static_init(void);
->   void domain_init(int evtfd);
->   void dom0_init(void);
-> +void stubdom_init(void);
->   void domain_deinit(void);
->   void ignore_connection(struct connection *conn, unsigned int err);
->   
+> +void mount_9pfs(void)
+> +{
+> +	create_thread("mount-9pfs", mount_thread, NULL);
+> +}
 
 Cheers,
 
