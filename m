@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39847E971E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 08:42:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.631344.984594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683497E9721
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Nov 2023 08:49:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.631350.984605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Raq-0003Sa-Uv; Mon, 13 Nov 2023 07:42:48 +0000
+	id 1r2RhB-0006i8-KA; Mon, 13 Nov 2023 07:49:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 631344.984594; Mon, 13 Nov 2023 07:42:48 +0000
+Received: by outflank-mailman (output) from mailman id 631350.984605; Mon, 13 Nov 2023 07:49:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2Raq-0003Qx-SG; Mon, 13 Nov 2023 07:42:48 +0000
-Received: by outflank-mailman (input) for mailman id 631344;
- Mon, 13 Nov 2023 07:42:47 +0000
+	id 1r2RhB-0006g8-HW; Mon, 13 Nov 2023 07:49:21 +0000
+Received: by outflank-mailman (input) for mailman id 631350;
+ Mon, 13 Nov 2023 07:49:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OC0U=G2=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r2Rap-0003Qr-TP
- for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 07:42:47 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2051.outbound.protection.outlook.com [40.107.7.51])
+ id 1r2RhA-0006g2-8Q
+ for xen-devel@lists.xenproject.org; Mon, 13 Nov 2023 07:49:20 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on060d.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::60d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cdacdfa-81f8-11ee-98da-6d05b1d4d9a1;
- Mon, 13 Nov 2023 08:42:47 +0100 (CET)
+ id 2674c018-81f9-11ee-98da-6d05b1d4d9a1;
+ Mon, 13 Nov 2023 08:49:19 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB9PR04MB9258.eurprd04.prod.outlook.com (2603:10a6:10:372::12)
+ by AS8PR04MB8229.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.15; Mon, 13 Nov
- 2023 07:42:17 +0000
+ 2023 07:49:15 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7002.015; Mon, 13 Nov 2023
- 07:42:17 +0000
+ 07:49:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,189 +47,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cdacdfa-81f8-11ee-98da-6d05b1d4d9a1
+X-Inumbo-ID: 2674c018-81f9-11ee-98da-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EjDzev0lUJe/fopdm2N3VmubACCSzFcd5fRcjBxdAWmlVVYLolxIWXXObReajDkTfPz4aWMEjPTNuUWfoV/GlrsncPIrAMn+V5ZCZozsaPHE+2JtsCVXl1/n3r3YxF5AAG8dvw6OeMzGQksuXS22AunGRhaUVi/r6cAOP74AGdeFuYs+0Janw850pW4pkflyRjBOCb1kvA7pG2nl4AF5x3pd7z4iSJE4Oe6ckP1N7Z/T02NoS1azK3PMAHROUu5yAuz2zlFUOPGpEDfiwAr0RwR6gRUNrZ1C83G+kW8Qy92FpEsWU5eII9oHX7SrnvKYWvqW2NTiKq98q7NFw4X8Cg==
+ b=d2zugJ0Ijrf2G/Ct3md7Xriuh67Ynt0qEGazpErXEYSTBEl0zMxEa6lRpJa+d3yx+4dRJIMiPyv3ct62icQ44JncBdh85/+2wfVNcS+ALrBf/9XpZlfuCPhqHTINcDLw+jYeLUoVHOG9gW/fo5SNbxgRKdkKJ13++oZrh41ovfp8kNIFidAnut8b67WxZxkYDomRP7UnASvUe1RGF+NXDxvkG21njrO4LhJ0WapMQ9FfglLgJ/ZadfBk3NIzqDc3EspAiFhLEp9jgO2XaGIaRSR8IiilzTNok5UB4534ZTkTGMaQm2iMrBFZWqR9k2z9IAp1nJLYlhyTnerUt4TrvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vQdPypHk1D38FvhAeKAP2lmJ5NwIRU0tMSeoUducric=;
- b=Sm4NhG2n7d4nn28j5N/xmbe6Nx5+DKF1BpMQ44gEd+pXZjWtucXTAZQ/5hWCfoj8sfJ0OPIIOiUX/9ljhh+UsIXpz4Ml15gLOo6grPvfkgfTS+2ItREGvETYVfokRTbmL2cnZXg6LhhnDS1HvjuBE7jXGxMyg1IXo88eGQ/u3ccyNm9TJhMFQKFnr4apFRqEAcuMYhSzxt361qOhbA5jeiOpcZt3125LzdEljae76Daxpm5qLxrrwjGLVJylmu8qfGyPfu/i77tM0BIxAC5CIvz/n1ghB9Hgj6WLVNSzBWoxBQEqRVQWie3Vb6kvC96gSw++ElAkDuPNfOeVc38mWg==
+ bh=13evBTS3gLDxiaQDp6lh28J08Wm9BN39xCzkv5i+jEk=;
+ b=oSQIhytHHMLjFsk2pSETOE6THztNyjvqIFCxWO4rJ410pTwQDMxfbWaC4/Nr7cvl1hrqzEf3Q7CGWBVBd7SzAYZZRxEQgkFdOfBJNc+COB02qT8SdgTwidEYgskispbBn6/vV0kVH7KDVasiUAmqjd0ey8AzvKbdva7WJ4P6cUrNLAT7q/gsRlDVJFvJeFy7/mFUFFQCCfLSrJLlzRWwefyRkmbepykpnWnvmyQt14Z/r8CNr4C0FZT5cOjRbICt6fcKGqj8P+crraMQXNsTg0PUlHCdb7R6taUjtgXdkF4gi5j+G5TexY8t27MOIdpsvIDv5wxCTUH6899iABYtvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vQdPypHk1D38FvhAeKAP2lmJ5NwIRU0tMSeoUducric=;
- b=S3VUhPT+2TE/659x/O1J83X3e04/Y+eeXwl/rY6hwBM3BmcybLNOyt5LD3OJFommcPHlXv3LRwCw4QI2/vn+kOhzmOus5+eKKWIzlDfSLR6R4YN+KjXuEcrkg5KnqsOu5ut1+uKgjULarZdLHnnMdOlitmv1WRx78H/C4M5S7/e1W5NjwXHzfBGjpQyuLGSEyKD3e4VlJ9n56Z94RZDA8Kxrjp0rs0/Qmz8JtKTfOB9Y7K+1JlVqj9PHb1b1qIIR/GWpw2y6Aexl3wg8py5lFTGqSICA5RL3uufIG5weaxBpMiG1/h2WsVM1VuXPF9YHTvREzzTl+xgJyDd9l+jd9g==
+ bh=13evBTS3gLDxiaQDp6lh28J08Wm9BN39xCzkv5i+jEk=;
+ b=HFn2KIK3iAc9nr1AS4tnPxn8BdVfg6Fy6Rtz+/Cuy/4zWX2SWNYdFXEYDfNxBHICSZTSsNOU+LuXwDrGL11icwrwkEdLjXMOQJnngJkqrM/NYmGjPezQvv4KjIkRGjdLvznVtDpJIWQs/66CA6uQU+ppYqyqgdA31XHOUEcii5JqXptt0Xn77fzxIx+wok3SJ9ZafkuRvrqXSFE2iHDnzChg9s6rT/9MvhbDa2Xk9YazqqrmH6N0z+7NbNG/YTwMeGzuP5IdsRAzQ2FIgdoIO82QrKZ75Hf2ugoLo+jZXNDHK8N31ZuFiThsY5eUOw3RN6cEtcepCLcCWqa9ZMUmtA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <5a3ae560-13fa-b8df-75b7-6473048232f3@suse.com>
-Date: Mon, 13 Nov 2023 08:42:16 +0100
+Message-ID: <b0260269-a515-8fc1-12ec-f38e45451a45@suse.com>
+Date: Mon, 13 Nov 2023 08:49:14 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH for-4.18] docs: Delete kconfig docs to fix licensing
- violation
+Subject: Re: [RFC 1/4] x86/ioemul: address MISRA C:2012 Rule 9.3
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20231108143751.49309-1-andrew.cooper3@citrix.com>
- <a6f54856-f0e2-a2ef-5cbc-900ed87c5d31@suse.com>
- <alpine.DEB.2.22.394.2311091558380.3478774@ubuntu-linux-20-04-desktop>
- <a162733f-859f-41ce-8575-89b0e2cf702e@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <cover.1698155925.git.nicola.vetrini@bugseng.com>
+ <76c9f78179a8bb5b4f99b34f163933394f79066c.1698155925.git.nicola.vetrini@bugseng.com>
+ <60e26ad6-7366-2604-e9b2-ed401cee6e73@suse.com>
+ <alpine.DEB.2.22.394.2310241317030.271731@ubuntu-linux-20-04-desktop>
+ <41562c7a-6260-3104-b2d4-d6fd4df0cffc@suse.com>
+ <4e88d7ab94b9fc73554eee5b78612b63@bugseng.com>
+ <8cb336ca-41ed-8adc-957a-28b5585c84f1@suse.com>
+ <alpine.DEB.2.22.394.2310271419260.271731@ubuntu-linux-20-04-desktop>
+ <9888aa5c298584c22cf55b13befeaaa6@bugseng.com>
+ <alpine.DEB.2.22.394.2311101719120.3478774@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a162733f-859f-41ce-8575-89b0e2cf702e@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2311101719120.3478774@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0018.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::23) To DU2PR04MB8790.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0357.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::18) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB9PR04MB9258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ef6007e-fedd-4b3a-e533-08dbe41c0f63
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8229:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46cc21c3-335a-44c4-1cd8-08dbe41d08b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	VlXBLv8QCkbwDgvL0Ggydl/qHVHFQudoXGX2byy/kEZNbHG1M1/gbSwsxzhPjmmeMZ2EwDQ1aNhdTX1/xVAp3IjQHk9dYkzH3orvcXLrNv8pF+LEcvhvlXe63H+tAxJxVBMtgaBQJwjvuAFodiDrhsbHr6IOWnIvzqsJJqzGjLXUY44rexNSX0T7xdHqnXn4wMGOccwa9D4TantDnUsRlVFNqsux5bNT1SJ8cOujvy4+rqc0l7jKk+vqmEPIo+82rlQD5hHJJc+HRE7UeqTuVtdZzqDSWJFAiAwRpIWhwKi8GGnYfs/J+xUOjb4WY2lvHOkjF1hqyKsbWrFeq76yRoX3r3SnvaP7eTkX7TtiZRQCoNuepqsxaHogP0Xkd3blLiWLxKSDWNBjGayY41GgMamfdN2obO1kypsRxJBLoH4MG5eHtFHefV+ifFCzQRL8sK4XfnM3cMreCJ1SZmvy2tHO6nxGOPdbPtybg2XZc/l6p4ile71tiMy3++fZdsHQSF72o3tP517uR+/qBKywp837vlr2baIBfPdzP1ZO/ftGS6HAKGZIg+il6Pp4k3ou+G6V4wYW9+pDIUoPo9ct2+b5qxS/j6qIINqYOHuHDl6A4FgH2Qh3EhOuJAf9tu03lejgTp9kS820KTnPiyH1fg==
+	yDpdvU9qGTYm0KIy2sVN0vfbDwjjwbHGujXFI7HZbz6Uu2Up0YbENzERaSpn6fInWVZ9YaS3Va+YIYi+YBcceAy0TCSClv4zepubYBoSWUg0iIFmUgtICQYJlNyqQ4RjcwVDTCBMGOK3ALSu7cBPmh8cJLlmBqq/v3tHrEXfPxuZDE6Nu3uhkt777rV9GqfStcoMeySNkTMBmMqX9YsIUuTqPMrvgCfStA/vhCfEvI7zs9Ng7kaDGHLJPPlTqscXewzv++oiHAVazYEdveeOmba4gGbH0U+VkP0btrI3i6/CvXs/ZgiLkUEwUCoMz9QMO8Z59oR4Fqa4w6sxeQoPauLOr2VtBU3VAigwj00cveaeGGqN86mwi2EYHAp0lBtqipAReG1FlrQkJIJ32N6hvfJGgvkPpBCXQEUcP9B2WDSGhgZX8OkTanzTGJ8uI6lPOwIgTV/k/yEn6yBeDBC4UVjPOar/fSEsndWgroGew9bkD1rYuKutoQGSNSr1YK8Kqv4C09xqnLSzEyM45yHFi1W8I0H4u864wP8NrKqqyqEquVEON6OaON6kDcSgiCXAJ2Mwx6B1KkdD+ZGj6n0+IPtuHF+A1CdUwIzble0skuPJSzbe/lFe+/Ftiu+5zVtTEEiUZr2CmwxPuAU1iwF+J0XFeGe0RZiImf5xEneL6zA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(366004)(346002)(396003)(39860400002)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(38100700002)(2616005)(53546011)(6512007)(6506007)(83380400001)(31686004)(26005)(6486002)(966005)(478600001)(66899024)(66946007)(54906003)(66476007)(66556008)(316002)(6916009)(36756003)(41300700001)(8676002)(4326008)(8936002)(2906002)(86362001)(31696002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(136003)(346002)(376002)(366004)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(2906002)(6506007)(53546011)(478600001)(31696002)(86362001)(26005)(2616005)(6512007)(54906003)(6916009)(316002)(66476007)(66556008)(66946007)(6486002)(38100700002)(83380400001)(5660300002)(7416002)(8936002)(36756003)(8676002)(4326008)(41300700001)(31686004)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dndXQk9mcDB0MkhtdHU5akIrZkZYSGg1YTMxSDFrYjFjbVhVbGRUWUdZa3BJ?=
- =?utf-8?B?YU9VNytGVldzMS9UUitTdlZmM1o5cEw4dWw1WitYQjBHb2RhOC9kRWZvdnRN?=
- =?utf-8?B?b1hvK3RZNTlHSVBZbEpTZExaanFMNU11Z1NoVEJnSUVMTzM1dkk5NXF6TEc2?=
- =?utf-8?B?b1dZbnVKL2xHZ003WkhldE1wQmZwQVpNazBrOWVXVEpaZm5yVDhOeGFQUXR4?=
- =?utf-8?B?SkNTSE9Lc015NU9MT2NjbVIyRjM0UWMvdWp3ZWpnY0IyaFF4MXhnb0ZMOHlr?=
- =?utf-8?B?Q1VsTitSTHpTeE1mYkxGaHhvSTl0N3E2L3h0QXlRdWE4bndWUHg2ODFLVzVE?=
- =?utf-8?B?YnNKMmZLRFo2akxzNnhEelJJVzl2Qnh2ZEdIVDA3emI2emlSc3BOcGJUSG10?=
- =?utf-8?B?aTloWFdyNVk3ZlZHUzZ3ZElFL3lQZE5YZGlydnloS3VmWXlna09RYURNZXlC?=
- =?utf-8?B?R2V5V0NXWCtMNVgvVVAySjhZOWtOUmd2T0hJV1M1ZUJOSkZERmN4QnZiTjMz?=
- =?utf-8?B?S0NlNXdxbFJJQ3d5OFVLWGsrSlE5c1VJY290N2VCdnpySjc1Q0lnQzVvZWhi?=
- =?utf-8?B?WW1zeFlQMVJqaW9zQVcyb3F4VHpEa2dxbXdGQmVlK0VxYjMzcVk0SUFsRWZC?=
- =?utf-8?B?dUltSW44SVM2bUQvOHZQMzJJMURZbWEyY2VQaGJ2WkpUMjZ6Mkk5ZVR6RWJQ?=
- =?utf-8?B?WHJIZGhibE53VW1DU0RrbVp6QjRZem92ZHRzeEpXUnI4UWJXZk5NN044Qmtp?=
- =?utf-8?B?Zlo4Z09hTEIvQnAydTM3WTBjU1ptRXJjY3RkNmswUUt4TFJKb1ZLVHRSeTNN?=
- =?utf-8?B?QVJoVDdiV3JGc0x3WGpWZzVUQk9PN0I1YWpRUjRKNDNHVEw2aituRi9MNk5Z?=
- =?utf-8?B?TlI3SDM1eGtROFhEUllTNmJFbXc3Sys5WU0zOVN5cjZ4RkdNUW9oUy9PeDBN?=
- =?utf-8?B?ajJBMmVuc2hTUld5KzhWSWRzRFZJY0U5UmRkK1ZFa1BraVg1WGk0SG1oNFl6?=
- =?utf-8?B?c01xWVpLUk9Fd0s3cTRvU3RLUEFoTVZBRHBEMDdteStWYzF5ck9WTS9DdVBo?=
- =?utf-8?B?a1BwZ0twVVVDK2Y3Zm9rZ1ZzeWUzdEtlUDZJSW1ad2g1N2JNaVZmamdIK3hF?=
- =?utf-8?B?aGVta3FwSVFLd1htSXV5cFk4aCtUS0dFSzJzUzNqNUp6RVYvSzZScEx0WXhY?=
- =?utf-8?B?MWRVUmtLS2lncGNMMEZZSkVwTkMySHB1T210b1lsblZOejdwSndWMFlRdVpH?=
- =?utf-8?B?R01VakVXTm82WllRaGlrWG1aQkV1V01mNnNLSE1ESGJqeTBVZ2JEa1ZiaTJQ?=
- =?utf-8?B?a0NPUXJFVVZ2aFpDT3VRcGlBU21NK00yd1BpeUdqcmNSQ1RPZ09hdGxCWVFX?=
- =?utf-8?B?Y204UUltekRsRFo4VjJmQ1E0RklTd2JRV2xSVU9lb0F5ajRCVVZqZXhCVHNX?=
- =?utf-8?B?NUZuUVEvT2tUMzJzaFdLNmk1eFRSdWpIYVhBZVNGcFBlVHFGclpWUU5DcFBP?=
- =?utf-8?B?SkJCSDJ4REd5Vkx1OVJ1MlVEQW51d2NlVVN0aDg2NzNTY080YWQyS0orVFBE?=
- =?utf-8?B?bDUrVWlMK3VnTkM5eEhNSlpyNGEzR0RzbEZUZUwxV3B4Mno1MFR5UTVkUXAx?=
- =?utf-8?B?Ri80YzZZWFpIT2FiQXdETEZLa1pmUWl4YWZPWHZTa2hQbUNRMjRsWmVvZ3VG?=
- =?utf-8?B?OEY4dW5OM3pKY1BqeWZjV1pETlFwN1lKYXBIKzNnM3JLMjNncWsvQnNLRVJF?=
- =?utf-8?B?UEZzNVR4OWxKcSt1em5yaks4cEhaSjVBNjVmUXQvQkR4NC9XV3hFcDRmNW1U?=
- =?utf-8?B?RmREU0hMdEtwUDd2alFDZHF3elEzUklTUThGQkliMXdKemoxczZsTnlZSnJk?=
- =?utf-8?B?Q2FZM3JGWUlTVmpWTXpPSCtyVlZsa0EzUDZKV0xOU0g4SFNab1Jyc2grMWpx?=
- =?utf-8?B?dVBSWWJaNVdkNlpCZHZaUXpTZ29uWmpaSFVOVlZQZzhPRkFFbWJQNlJXRVdS?=
- =?utf-8?B?alB4TW4reXcxQ1FCeWNWaHhXQjhTOHJwd2pmVVZNditoR2NUUTVnVUdsSGVl?=
- =?utf-8?B?Szg2WjNQamV2NVR3T0Vkbmx2bmRYU0pCVGZKOTN2Sit4eWdGczJaMzl4MHRt?=
- =?utf-8?Q?rPYGKITCH8eHeZzy8QLnT2r05?=
+	=?utf-8?B?aG0vZkl0TEUxWnhjdEN1WTB0cnNjZXh5aEp0cU1YNjg4aVVyby9mc1Qrdm5C?=
+ =?utf-8?B?K0wwOHQ3WXpSVmQ0eEdvNE1BTElCQ24rQ3BNV0M4WWdvd1MwQlQxM1ppem9y?=
+ =?utf-8?B?dnZPWmc2bXI5ZGpTZE9JVUp3ZW5xQ3VuWlJyZzl4TDI4SHpDaFUzZDEycFZj?=
+ =?utf-8?B?SnVXck5TQjBMemRvQU5tQXVXVHdWSWwvbGUzOGV5OTF4cWJycWRmc090eG1J?=
+ =?utf-8?B?R1VRSHQyQStKTHRwZ3hBRjQxdUlMeEdQOFFBTTdUbkIxMVpLQitlT3pvYi9n?=
+ =?utf-8?B?VTJIRW0yOEp1OWFYeXIrQW9rN2h4Zkw2dEh1TWluei9RRGRENURjRXdKYlpO?=
+ =?utf-8?B?Z2tvZlROUG52c1p0bEtFZmhJT1FFR3duQ2NLRzhhSHVGNTh5NFpGRjVHdVM0?=
+ =?utf-8?B?T0x3bkZkcGtHdmh2SEpKeXU0V2JvSUhjdENZVTBKRWRSd2pwOXRlWXl0RzB6?=
+ =?utf-8?B?cGJFaXl6VndZRm9aSTJNZXNFcXZIV0lHVnVPM0c4LzR1RUhnR2pMekhLUGI4?=
+ =?utf-8?B?K0x0a3htSW9FVjJTNmtnWGJUUVo5eGJmV2lRSzRrZk96MThlS1hJb0F0Vzl6?=
+ =?utf-8?B?UjlFRkZTS1ZlbzNvUk5Fb01pYk1FS1piM1NQYXZzeFA4cTdpb0JUTWVmZkEz?=
+ =?utf-8?B?dTFxU1ZqSUp0MVhFVzFsZG03OGFOZysyTEpSZjlka3oreVJxN09GSTJwTUpC?=
+ =?utf-8?B?ckRPbko3a25WRkdMaVJqZWdZMWh0eGtTeG5wenIzZzdtNytrbEZPZ21yYkZ6?=
+ =?utf-8?B?MjA1a1R0RW85blNwTklmbGxHcnVzMFBZRjE4NjlWU1ZLay80MUFrSFhQQVdD?=
+ =?utf-8?B?WVY4b21Ga0pmK3Npa0FxbmVUekNnb3RNbTdYUnVVZm9QdmRJNFNKVlNSSk9h?=
+ =?utf-8?B?R2lJWGpJNzhqODh4SUt2eDlVRDY1QWtMKzFRZnpjNk8xVm9TTHV1ME1pNkRS?=
+ =?utf-8?B?OXB3aXVST0ZLbE03TGM5Tys1UVlKZXpFK2dLeThPb2ZTcFJIb0dLQk1mWjBR?=
+ =?utf-8?B?TmdQcXh6WHdVVy9TVGF0VE5yNFk5OG9wZGJ6bytyRThVQW42dHhJT2dHbG8r?=
+ =?utf-8?B?dy9qQkhIRTI4OWZ3QVIwOXlLN3YvaXNOZzJsbElqbm4yM01sM0FJS3F6Ty9k?=
+ =?utf-8?B?MzB0c0V5QTdTUWswanB1amxDZXlENituNGlYZTFUcTFDQlJnbVNWS2NKczha?=
+ =?utf-8?B?NlJWcWpGOXFVNitnODF1VnBXK1J6cVZqRVRaRGJFNW0vblFHdTFFRnIyTCty?=
+ =?utf-8?B?cUtDOHUxL09HMjJCNUJJd0ExZU1KdXJvU3NjbTBSVFNyVUtEd0VaTjJkbTZj?=
+ =?utf-8?B?cnJQUWdWYXoxNHFzS09NSEErSm1meUF1Y1ROMzgzVGZWcUk3RGx0ZkQ5bzI4?=
+ =?utf-8?B?akZFWjZzTnArZmVwZzJJUnh3UVI0dFFaNWorK2FOOHFVNDcrYVo0OU5BajB2?=
+ =?utf-8?B?eW5JWUF6RzBSM2pkVEVUTDlTbDFvbWkySnorMUNlVEJCQ0pvZytwV2ZzRTc3?=
+ =?utf-8?B?alNQL0hsaEtCT1N0QnptTHhraWZYTzRJVXd2NGZXYTErSURFbmlKd2RIODFu?=
+ =?utf-8?B?cG1qM0pIdGs1SG5aYk9ud2lOZWxuT1pIWXJhbitHMVJ3WTlKV0ludmIzNFlU?=
+ =?utf-8?B?WjhVa01yNWhONnpCd3Q4bHdFaGwxQzAvVzJoL1ArdFFDNHJLSXg5RW4rbE5q?=
+ =?utf-8?B?V2pEVGJ2QSt5VGZNQmY3a3RTSTZvaGJ6elI1VE5OU3d6cWxTbXI4cUF0UFdn?=
+ =?utf-8?B?U2k4bjJzZTJMeUFqM0p1K0pMMWwvTWZFL1JNcFE2S0pxSTBjUitVZFJiNWNt?=
+ =?utf-8?B?L3huSFZHY0ZneXhHVkQ1Y2xmYzRaZ2lYWG1FNDNXME4xSmpXdUMzMEhzbFFD?=
+ =?utf-8?B?UVJRM2wzaUhvQitoL2x2a1BRbXBRRngvL1lPWm1kM0ltbi9KeE9VVFl4aWxR?=
+ =?utf-8?B?aE9WTGhZanRSRS9NVUR6T2pNS0dFbG8vc3A3MXM4N3k5dmJJSk1ZUFRRYnpB?=
+ =?utf-8?B?ZHk1QmdiVU5lK2NLT2hJMEZabEUyNDdVQU01NWJHZldad2xwVE5ENXhRbDBH?=
+ =?utf-8?B?ZUdXdXA5Y2s3VjNyUVFrcm15Yjh0TVIvL2hESVcvSzd0ZXZwRFZqckpIa3hw?=
+ =?utf-8?Q?VLiAasptUwnNd3VIzaBPcETnf?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ef6007e-fedd-4b3a-e533-08dbe41c0f63
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46cc21c3-335a-44c4-1cd8-08dbe41d08b4
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 07:42:17.2614
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 07:49:15.5450
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eb16bdrhsZNE9nq2yzXq8NNXInDygqKdJRDh7gXeNlKeNfKSBHw9YdPbdAs6YyBDjp1lByk7RVu3Kyq5p6bLBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9258
+X-MS-Exchange-CrossTenant-UserPrincipalName: xEQkeVSvdYpRTcE3pYjfv59ZS+CiSUwALE23NlwuN2Q/9n0nv3sKzQG24sTq6DzUhB7eeUW6aPJGmu28NjlS1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8229
 
-On 10.11.2023 23:13, Andrew Cooper wrote:
-> On 09/11/2023 11:59 pm, Stefano Stabellini wrote:
->> On Thu, 9 Nov 2023, Jan Beulich wrote:
->>> On 08.11.2023 15:37, Andrew Cooper wrote:
->>>> These 3 Kconfig docs were imported from Linux erroneously.  They are
->>>> GPL-2.0-only in Linux, but have no SPDX tag and were placed in such a way to
->>>> be included by the blanket statement saying that all RST files are CC-BY-4.0.
+On 11.11.2023 02:23, Stefano Stabellini wrote:
+> On Mon, 6 Nov 2023, Nicola Vetrini wrote:
+>>>>> There's also this functionally equivalent alternative, with or without
+>>>>> the zeros, which
+>>>>> doesn't incur in the risk of mistakenly attempting to initialize the
+>>>>> same element twice,
+>>>>> while also giving an explicit cue to the reader that all elements are
+>>>>> truly zero-initialized.
+>>>>>
+>>>>>           .matches = {
+>>>>>               DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+>>>>>               DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL5"),
+>>>>> +            {0}, {0}
+>>>>>           },
 >>>>
->>>> We should not be carrying a shadow copy of these docs.  They aren't even wired
->>>> into our Sphinx docs, and anyone wanting to refer to Kconfig docs is going to
->>>> look at the Linux docs anyway.  These, and more docs can be found at:
->>>>
->>>>   https://www.kernel.org/doc/html/latest/kbuild/
->>>>
->>>> which also have corrections vs the snapshot we took.
->>> Imo this reference ...
+>>>> Adding a dependency on the array actually having 4 elements (while iirc
+>>>> we have seen already that we could in principle go down to 3). A change
+>>>> of this number would then require touching all these sites, which is
+>>>> what we'd like to avoid.
 >>>
->>>> Fixes: f80fe2b34f08 ("xen: Update Kconfig to Linux v5.4")
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> ---
->>>> CC: George Dunlap <George.Dunlap@citrix.com>
->>>> CC: Jan Beulich <JBeulich@suse.com>
->>>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>>> CC: Wei Liu <wl@xen.org>
->>>> CC: Julien Grall <julien@xen.org>
->>>> CC: Henry Wang <Henry.Wang@arm.com>
->>>> ---
->>>>  docs/misc/kconfig-language.rst       | 701 ---------------------------
->>>>  docs/misc/kconfig-macro-language.rst | 247 ----------
->>>>  docs/misc/kconfig.rst                | 304 ------------
->>>>  3 files changed, 1252 deletions(-)
->>>>  delete mode 100644 docs/misc/kconfig-language.rst
->>>>  delete mode 100644 docs/misc/kconfig-macro-language.rst
->>>>  delete mode 100644 docs/misc/kconfig.rst
->>> ... wants putting into, say, the last of these three files you delete, as
->>> a replacement. I can't spot any other place where we would have such a
->>> reference.
->>>
->>> One problem I see with deleting our shadow copy is that by referring to
->>> Linux'es doc, the wrong impression may arise that whatever new features
->>> they invent we also support. Thoughts? (If nothing else, I'd expect this
->>> aspect to be mentioned / justified in the description.)
->> I think the ideal solution would be to replace the shadow copies with a
->> link to the Linux docs of a specific Linux tag (v5.4), instead of
->> generic Linux master. I am not sure where to place the links though.
+>>> How often the array needs to change though? Looking at the git history
+>>> it doesn't seem the number of elements ever changed. So I think it is a
+>>> good tradeoff, and I would go with this type of fix (maybe also at the
+>>> other locations mechanically too although I haven't looked at them in
+>>> details).
+>>
+>> Hi, any updates on this? Considering the opinions expressed above, what would
+>> be the path preferred by the community?
 > 
-> I don't personally think we need to keep any other reference around. 
-> They're not interesting, because they're not going to be found by anyone
-> except those who already know they're there, and won't need to refer to
-> them for the kind of content they provide.
+> Hi Jan, to bring this discussion to a conclusion, I think we have these
+> options:
 > 
-> Kconfig isn't a fast-moving target, and there's nothing new in Linux vs
-> what we've got here.  The only interesting difference between us and
-> Linux is the fact we don't use modules, and we didn't even strip that
-> out of the shadow copy.
+> 1) fix these violations by adding {}, {}
+> 2) fix these violations by adding [0]=xxx,[1]=xxx
+> 3) deviate these violations by adding /* SAF-safe-xxx */
+> 4) remove the MISRA rule 9.3 from docs/misra/rules.rst
 > 
-> We do have xen/tools/kconfig/README.source which states where it came from.
-> 
-> I could be persuaded to add the following hunk.  What we have isn't
-> precisely v5.4 anyway - we've got some reasonable differences in the
-> makefile side of things.
-> 
-> ~Andrew
-> 
-> diff --git a/xen/tools/kconfig/README.source
-> b/xen/tools/kconfig/README.source
-> index 44631f68e8..ac394106b9 100644
-> --- a/xen/tools/kconfig/README.source
-> +++ b/xen/tools/kconfig/README.source
-> @@ -5,5 +5,7 @@ in this part of the Xen source tree.
->  
->  xen/tools/kconfig
->  -----------------
-> -The kconfig directory was originally imported from the linux kernel
-> -git tree at kernel/git/torvalds/linux.git, path: scripts/kconfig
-> +The kconfig directory was originally imported from the Linux kernel
-> +git tree at kernel/git/torvalds/linux.git, path: scripts/kconfig of
-> +roughly v5.4.  Linux's documentation can be found at:
-> +https://www.kernel.org/doc/html/latest/kbuild/
+> Let's make a decision. My preference is 1) as we only have ~50
+> violations.
 
-With that addition:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Of these, to be honest, my preference would be 4. Just that that's
+undesirable for other reasons. But have we thought of alternatives, say
+a variadic macro that would supply the "missing" initializers? Imo such
+decisions shouldn't be rushed; there are enough other issues to take
+care of in the meantime. A sound solution is, I think, generally
+preferable to a quick one. (Whether my new suggestion is "sound" I of
+course can't tell, until it was tried out and the overall result /
+effects can be inspected.)
 
 Jan
 
