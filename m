@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144CA7EAFBA
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 13:19:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632351.986629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D906B7EAFD0
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 13:26:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632354.986638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2sNB-0001xc-9r; Tue, 14 Nov 2023 12:18:29 +0000
+	id 1r2sUE-0003Pj-Uh; Tue, 14 Nov 2023 12:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632351.986629; Tue, 14 Nov 2023 12:18:29 +0000
+Received: by outflank-mailman (output) from mailman id 632354.986638; Tue, 14 Nov 2023 12:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2sNB-0001uO-6r; Tue, 14 Nov 2023 12:18:29 +0000
-Received: by outflank-mailman (input) for mailman id 632351;
- Tue, 14 Nov 2023 12:18:27 +0000
+	id 1r2sUE-0003N5-S4; Tue, 14 Nov 2023 12:25:46 +0000
+Received: by outflank-mailman (input) for mailman id 632354;
+ Tue, 14 Nov 2023 12:25:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vqel=G3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r2sN9-0001uI-Sg
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 12:18:27 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6V1E=G3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1r2sUD-0003Mz-Bx
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 12:25:45 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8e3ce07-82e7-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 13:18:26 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40842752c6eso45557365e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 04:18:25 -0800 (PST)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h9-20020a05600c350900b004094d4292aesm11272478wmq.18.2023.11.14.04.18.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 04:18:24 -0800 (PST)
+ id ee4f6a23-82e8-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 13:25:43 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-53e04b17132so8617674a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 04:25:43 -0800 (PST)
+Received: from [192.168.69.100] (cac94-h02-176-184-25-155.dsl.sta.abo.bbox.fr.
+ [176.184.25.155]) by smtp.gmail.com with ESMTPSA id
+ rs4-20020a170907036400b009a1a653770bsm5412508ejb.87.2023.11.14.04.25.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Nov 2023 04:25:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8e3ce07-82e7-11ee-98db-6d05b1d4d9a1
+X-Inumbo-ID: ee4f6a23-82e8-11ee-98db-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1699964305; x=1700569105; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=A85wZepMEi4zg8+KKhXoracYhZUvVUnNKrthvKCiGDE=;
-        b=Zjlsv2ozN40ggMRpHFCgZchfcfnC9OrOeOYVaIRiwGa3Iq3uj/Qp+61PdgHoyCTuBF
-         3ayE7y6QXivBSdaxqQcg2j6608jQMWR37L/tjyGjrtYrGny/z/oiAVXBBuFRDR6bgaBr
-         sa2TDIRecsbKjUQ7KsambY0nLbAUcS8o+WhyY=
+        d=linaro.org; s=google; t=1699964743; x=1700569543; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/OaNUIXzZbTozIX8X4xF9tfJTPhcFd4ZMAc/W8lKR1s=;
+        b=zk8DWupF9N0cmWp66FR4v1J33Xs3YMYJPyNA/noejWJ/G3ZnqbJvkrvcT5iVpC9Ef3
+         Nc4e383D0qYfnRvTZnKwHrVhbObKqHuIUBg7AtZndT+UrTIZrZQ2gAwzVZMTqOEKdoun
+         15evxMjzMic/nYEnDrFyiVhgCc21KQlxkJgtSkY78JhhPEPOuG7+5+62oEExfATho4Uw
+         s7wiu/YxL/xRUiflPV4n2tF3X5JH+xMkLznVIPxnYuFbuvflI/yVHVLKQm0YmJuDSVMI
+         V1VNF6tH2MAyyrasl9CAtDQ08LxJ1Fa3c2yKMN8rmAkxPB8RUTx5xL6mnmoy6bAa6Fx5
+         +1Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699964305; x=1700569105;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id
+        d=1e100.net; s=20230601; t=1699964743; x=1700569543;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=A85wZepMEi4zg8+KKhXoracYhZUvVUnNKrthvKCiGDE=;
-        b=MU4pc1BwVljlPcWjQJNWg7J7xL7hXWk4VsdoODLYVYZTaKg4e4zRZcQHFVz8tNyXS0
-         qTGgiu69NumhE6PtLlFdHWOiR8iT2Gcm3L7CAQuwnXd1p1CU+xXZRZqhOPUZzmjpQIVv
-         yKica5MxP8xV33UWRQlzy8bD6qD9/JYEugZ7Aeg5aXg0+zLJO4SXAKLyJv3llKeT72eN
-         LRbljmL2gLkzRaXCjAWbgK2yGFqcDas52bqhYQ2WMPqOFijnfqW6uwzhpxhPU+nCOC2M
-         4xBpA2vnK4qjahIboPAPzHPfyNWpX42E49iTi3EXIGgsjfKf2tzsmMwDKju85M5teG4D
-         /1NA==
-X-Gm-Message-State: AOJu0YwHKaX/b/sxjsNj50LsgyX5em3mUNLKZnl7ZcegqvJ0aiu6zJ/q
-	O8XECVZxnh5aDzm4ROl9Vcmgzg==
-X-Google-Smtp-Source: AGHT+IGkG922mh2zAONqg8uiz7tEwvUfDdtnn+/WM/2+2Gjg6eqhVzbk8K1IFsDOA9U7HhNsFk6Qtg==
-X-Received: by 2002:a05:600c:5493:b0:40a:4a7d:606b with SMTP id iv19-20020a05600c549300b0040a4a7d606bmr8090921wmb.40.1699964304752;
-        Tue, 14 Nov 2023 04:18:24 -0800 (PST)
-Message-ID: <65536590.050a0220.eb28a.617d@mx.google.com>
-X-Google-Original-Message-ID: <ZVNljowDpefvYKZp@EMEAENGAAD19049.>
-Date: Tue, 14 Nov 2023 12:18:22 +0000
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/x86: On x2APIC mode, derive LDR from APIC_ID
-References: <20231113165023.5824-1-alejandro.vallejo@cloud.com>
- <ZVJifMqOR_3zINYZ@macbook.local>
- <5c4a237e-975d-f452-1261-f9fc10ef65c6@suse.com>
+        bh=/OaNUIXzZbTozIX8X4xF9tfJTPhcFd4ZMAc/W8lKR1s=;
+        b=h0jhAFzpYW4TztaaqAsnyiFPZUwSWClIDkJ7613JQjIkJyfPFw0TAaYzxHyP178+N+
+         7fzUX5pPlBOaJiVo2U8jQnpzEaCziwm1INGoOFrgq3cfZ7q6PzzWRutwtX+owwMnsNtu
+         axtlAZ2DvyrUT7vwb3Eqkwhq2r5+/4dktadQsA5Jndp8DwUQvP0u0f7pPjy/WOQAvuTa
+         nPGGBrFCDbSVMskAjHdvgULuq6plkmlkm3oDw08QZAjKQlHr74NakqqEMsusuz6cu61P
+         WmD10ZQw+U9UZ3RRSTBpUowrtAQ0wdc+vFcgeYecpHa0+jRyKiy+ZmLNDNmUUnUDlehu
+         Mt6w==
+X-Gm-Message-State: AOJu0YzvjHFTwDaF2bFtCfNRogrbJoCEDBnpkst+2G3d1olfRRQ1udKN
+	XG1wk0R+pNqs9CzlkJkIKvlmkg==
+X-Google-Smtp-Source: AGHT+IHM6IuBxGUDmhvjGjE56b7qH2UrMdIaZaFuXREseUVLlPhT1pToLbIdRgtL7O9mZ4K3ubCdVQ==
+X-Received: by 2002:a17:906:5245:b0:9e5:2b1f:13f4 with SMTP id y5-20020a170906524500b009e52b1f13f4mr6552715ejm.42.1699964743415;
+        Tue, 14 Nov 2023 04:25:43 -0800 (PST)
+Message-ID: <86153cf2-129d-4e1e-8949-786764bdf607@linaro.org>
+Date: Tue, 14 Nov 2023 13:25:40 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-for-9.0 07/10] sysemu/xen-mapcache: Check Xen availability
+ with CONFIG_XEN_IS_POSSIBLE
+Content-Language: en-US
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
+ Thomas Huth <thuth@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ qemu-arm@nongnu.org, Paul Durrant <paul@xen.org>
+References: <20231113152114.47916-1-philmd@linaro.org>
+ <20231113152114.47916-8-philmd@linaro.org>
+ <9ba10b4a92ac6782d0c581b1e1ee5d5efee44c33.camel@infradead.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <9ba10b4a92ac6782d0c581b1e1ee5d5efee44c33.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5c4a237e-975d-f452-1261-f9fc10ef65c6@suse.com>
 
-On Tue, Nov 14, 2023 at 11:14:22AM +0100, Jan Beulich wrote:
-> On 13.11.2023 18:53, Roger Pau Monn� wrote:
-> > On Mon, Nov 13, 2023 at 04:50:23PM +0000, Alejandro Vallejo wrote:
-> >> Both Intel and AMD manuals agree that on x2APIC mode, the APIC LDR and ID
-> >> registers are derivable from each other through a fixed formula.
-> >>
-> >> Xen uses that formula, but applies it to vCPU IDs (which are sequential)
-> >> rather than x2APIC_IDs (which are not, at the moment). As I understand it,
-> >> this is an attempt to tightly pack vCPUs into clusters so each cluster has
-> >> 16 vCPUs rather than 8, but this is problematic for OSs that might read the
-> >> x2APIC_ID and internally derive LDR (or the other way around)
-> > 
-> > I would replace the underscore from x2APIC ID with a space instead.
-> > 
-> > Seeing the commit that introduced the bogus LDR value, I'm not sure it
-> > was intentional,
+On 13/11/23 20:52, David Woodhouse wrote:
+> On Mon, 2023-11-13 at 16:21 +0100, Philippe Mathieu-Daudé wrote:
+>> "sysemu/xen.h" defines CONFIG_XEN_IS_POSSIBLE as a target-agnostic
+>> version of CONFIG_XEN. Use it in order to use "sysemu/xen-mapcache.h"
+>> in target-agnostic files.
+>>
+>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > 
-> Hard to reconstruct over 9 years later. It feels like Alejandro may be right
-> with his derivation.
-> 
-> > as previous Xen code had:
-> > 
-> > u32 id = vlapic_get_reg(vlapic, APIC_ID);
-> > u32 ldr = ((id & ~0xf) << 16) | (1 << (id & 0xf));
-> > vlapic_set_reg(vlapic, APIC_LDR, ldr);
-> > 
-> > Which was correct, as the LDR was derived from the APIC ID and not the
-> > vCPU ID.
-> 
-> Well, it gave the appearance of deriving from the APIC ID. Just that it was
-> missing GET_xAPIC_ID() around the vlapic_get_reg() (hence why LDR was
-> uniformly 1 on all CPUs).
-> 
-> >> This patch fixes the implementation so we follow the rules in the x2APIC
-> >> spec(s).
-> >>
-> >> While in the neighborhood, replace the u32 type with the standard uint32_t
-> > 
-> > Likely wants:
-> > 
-> > Fixes: f9e0cccf7b35 ('x86/HVM: fix ID handling of x2APIC emulation')
-> 
-> +1
-> 
-> >> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > 
-> > I do wonder whether we need to take any precautions with guests being
-> > able to trigger an APIC reset, and thus seeing a changed LDR register
-> > if the guest happens to be migrated from an older hypervisor version
-> > that doesn't have this fix.  IOW: I wonder whether Xen should keep the
-> > previous bogus LDR value across APIC resets for guests that have
-> > already seen it.
-> 
-> That earlier change deliberately fixed up any bogus values. I wonder
-> whether what you suggest will do more good or more harm than going
-> even farther and once again fixing up bad values in lapic_load_fixup().
-> After all LDR being wrong affects vlapic_match_logical_addr()'s outcome.
-> I think one of the two wants adding to the change, though.
-> 
-> Jan
-You mean changing the LDR of a vCPU to the correct value on migrate? That
-feels like playing with fire. A migrated VM is presumably a VM that is
-running without issues (or it would have been rebooted). Letting it run
-as it did seems safer.
+> Noting that CONFIG_XEN_IS_POSSIBLE is for Xen accelerator support, and
+> may not be set in all cases when we're hosting Xen-compatible guests,
 
-I don't think vlapic_match_logical_addr() is affected. The LDR's are still
-unique in the bogus case so the matching ought to work. Problem would arise
-if the guest makes assumptions about APIC_ID and LDR relationships.
+As is CONFIG_XEN.
 
-Cheers,
-Alejandro
+Maybe be worth renaming CONFIG_ACCEL_XEN if you think we need
+guest hw specific CONFIG_foo_XEN variables.
+
+> Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+
+Thanks!
 
