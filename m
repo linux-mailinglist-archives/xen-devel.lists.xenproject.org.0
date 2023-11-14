@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B20B27EB336
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:14:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632770.987179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03F007EB33F
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:14:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632774.987199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v6y-0008Et-Np; Tue, 14 Nov 2023 15:13:56 +0000
+	id 1r2v7Z-0000l5-D5; Tue, 14 Nov 2023 15:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632770.987179; Tue, 14 Nov 2023 15:13:56 +0000
+Received: by outflank-mailman (output) from mailman id 632774.987199; Tue, 14 Nov 2023 15:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v6y-0008Br-K6; Tue, 14 Nov 2023 15:13:56 +0000
-Received: by outflank-mailman (input) for mailman id 632770;
- Tue, 14 Nov 2023 15:13:54 +0000
+	id 1r2v7Z-0000j7-9u; Tue, 14 Nov 2023 15:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 632774;
+ Tue, 14 Nov 2023 15:14:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gJWh=G3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r2v6w-0008AQ-I7
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:13:54 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ <SRS0=eqXQ=G3=casper.srs.infradead.org=BATV+a8e905033730cff805ca+7387+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r2v7W-0008AQ-AQ
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:14:30 +0000
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c487ea4-8300-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 16:13:53 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-507cd62472dso7380661e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:13:53 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- f18-20020a05651232d200b00507987edd22sm1348822lfg.156.2023.11.14.07.13.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 07:13:51 -0800 (PST)
+ id 815e72df-8300-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 16:14:29 +0100 (CET)
+Received: from [12.186.190.2] (helo=[127.0.0.1])
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r2v73-008dEf-2f; Tue, 14 Nov 2023 15:14:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,126 +39,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c487ea4-8300-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699974832; x=1700579632; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eni2uQcHzPa3p0BXkZBXBU2/wAC0HDdu58dG92X4l7M=;
-        b=Z+wy+1JBsk7MlZpZytGLbrHPQWSsV2MYyUW/RZ642njxYGQaliAoTTP2lsvNYAqWqt
-         MYLA6mw2ERwc1wf6Na4n8JnJTSvQB+kvM8zehF7QYr+ji7AAyDNAtAdCDxwbC8H2el/B
-         DSuP5QyfI5oY4yeyCQNZBY75O+mPgW3wMTNOd17UDG2s6TFRI9QmklBqxTwhy6EQA3JS
-         xMLCusODhqWtmEAJi8OVTLLd9OYk2OMBb2VUuZQR1nXRhRr50hA9WKgg7bvdKZrJxYIu
-         NXm8cKEjSW0eW5Kv4g1ZlVR7NOxWWfKc/6Kd5M7ESiLHFg8Ot2pMiqwJmlcd8zFuGgKO
-         lWNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699974832; x=1700579632;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eni2uQcHzPa3p0BXkZBXBU2/wAC0HDdu58dG92X4l7M=;
-        b=DGKZFYGwHgV0rcpliKqTtz7xygaJrqin3jRK8B0JY4RQ9O2HMc+gsizJWrt6grIwwZ
-         iWfr0RzVGNLDSbrIbIIUMaNFewS5ihTY+SRH2321PgaceIahRnK4g7HF339cP3n0t5v8
-         P9ON+x+T1m9iaaiUjSuhpATceUsyOD/6skN/cVSijKYRdu99egTUraOCYc95mkhvKSmX
-         RnWMPCAFNYWLZR9scozNcZbK4YgYX8sM65TBfRkTnvTDVvqD3nIOXsa0XvBbOgnfhfOC
-         vJKdzok5OzmGsn/mzQ6eSFS6JPijs/HoYdYTPhaprIBJHCdDfq9yuucpH8BJ3l740IJs
-         CvLw==
-X-Gm-Message-State: AOJu0Yw00rRfwWzT1x16Ail0QTh+FaxeYrNeyT02iblnUTb49KUBkBgN
-	MHolKldhIXNKaRP88qf+YDJU92zx8+k=
-X-Google-Smtp-Source: AGHT+IEzcpy18UDDhhnN+a+RNf+F0kB/z2W2MF5MLcjpqSpUTxrMDiRTRF7evh7oap6bN8DHUtnA5g==
-X-Received: by 2002:a05:6512:3d1b:b0:500:acae:30c5 with SMTP id d27-20020a0565123d1b00b00500acae30c5mr1275757lfv.15.1699974832143;
-        Tue, 14 Nov 2023 07:13:52 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3] xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
-Date: Tue, 14 Nov 2023 17:13:49 +0200
-Message-ID: <371c5dd29fa974ca27db1f720f17fb0ffdd667a0.1699974488.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Inumbo-ID: 815e72df-8300-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=zLWRl6fuh+QlAq2JcSTCgSqOD3rW63ZP4Laj6regjn0=; b=CDbCkxBOGqoE0okEs41cvDk5fY
+	avC36PbcnvrY2oGlWB+RQPF4liPIPZGR3EmI5Av83WCkoqFq/6JecFkFY7vUWsvo7/8BmYzi44D1g
+	Ws5geOrtzOEM5Q+9dgkqYhjuO8CCj0m7FwKXRyGH/otFSxezkrYf7thCJcuan3UovTroWWy1VVTp0
+	pnd+C2RYiX9iD91nqIjI4v94iVedb61DZAmiijnR8rGW40PapOik1v9uw6WmF0h27udRo7vUsUI+/
+	CdQBeD4lSkTeDsX/DqpzXtj+VzppGTN+wtPUM4BmDuIgnKf9HDMxmYUNaj5vpn46oYHJTmkvPF/K5
+	uuDkjPBA==;
+Date: Tue, 14 Nov 2023 10:13:58 -0500
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
+CC: =?ISO-8859-1?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>,
+ Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+ Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
+ Thomas Huth <thuth@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH-for-9=2E0_v2_06/19=5D_hw/pci/msi?= =?US-ASCII?Q?=3A_Restrict_xen=5Fis=5Fpirq=5Fmsi=28=29_call_to_Xen?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20231114143816.71079-7-philmd@linaro.org>
+References: <20231114143816.71079-1-philmd@linaro.org> <20231114143816.71079-7-philmd@linaro.org>
+Message-ID: <EEC18CA6-88F2-4F18-BDE5-5E9AAE5778A7@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-ifdefing inclusion of <asm/mem_access.h> in <xen/mem_access.h>
-allows to avoid generation of empty <asm/mem_access.h> header
-for the case when !CONFIG_MEM_ACCESS.
+On 14 November 2023 09:38:02 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <phil=
+md@linaro=2Eorg> wrote:
+>Similarly to the restriction in hw/pci/msix=2Ec (see commit
+>e1e4bf2252 "msix: fix msix_vector_masked"), restrict the
+>xen_is_pirq_msi() call in msi_is_masked() to Xen=2E
+>
+>Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro=2Eorg>
 
-For Arm it was explicitly added inclusion of <asm/mem_access.h> for p2m.c
-and traps.c because they require some functions from <asm/mem_access.h> which
-aren't available in case of !CONFIG_MEM_ACCESS.
+Hm, we do also support the Xen abomination of snooping on MSI table writes=
+ to see if they're targeted at a Xen PIRQ, then actually unmasking the MSI =
+from QEMU when the guest binds the corresponding event channel to that PIRQ=
+=2E
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+I think this is going to break in CI as kvm_xen_guest=2Epy does deliberate=
+ly exercise that use case, doesn't it?
 
----
-This patch was part of patch series:
-https://lore.kernel.org/xen-devel/cover.1699633310.git.oleksii.kurochko@gmail.com/
-
-The patch series hasn't been reviewed all yet so send this path
-separately.
----
- xen/arch/arm/p2m.c           | 6 ++++++
- xen/arch/arm/traps.c         | 6 ++++++
- xen/include/xen/mem_access.h | 2 ++
- 3 files changed, 14 insertions(+)
-
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index de32a2d638..9050c72acf 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -11,6 +11,12 @@
- #include <asm/event.h>
- #include <asm/flushtlb.h>
- #include <asm/guest_walk.h>
-+/*
-+ * Inclusion of <asm/mem_acces.h> in <xen/mem_access.h> is #ifdef-ed with
-+ * CONFIG_MEM_ACCESS so in case of !CONFIG_MEM_ACCESS will cause a compilation
-+ * issue "implicit declaration of functions 'p2m_mem_access*'.
-+ */
-+#include <asm/mem_access.h>
- #include <asm/page.h>
- #include <asm/traps.h>
- 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index ce89f16404..5e39b26272 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -35,6 +35,12 @@
- #include <asm/cpufeature.h>
- #include <asm/event.h>
- #include <asm/hsr.h>
-+/*
-+ * Inclusion of <asm/mem_acces.h> in <xen/mem_access.h> is #ifdef-ed with
-+ * CONFIG_MEM_ACCESS so in case of !CONFIG_MEM_ACCESS will cause a compilation
-+ * issue "implicit declaration of functions 'p2m_mem_access*.
-+ */
-+#include <asm/mem_access.h>
- #include <asm/mmio.h>
- #include <asm/regs.h>
- #include <asm/smccc.h>
-diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
-index 4e4811680d..87d93b31f6 100644
---- a/xen/include/xen/mem_access.h
-+++ b/xen/include/xen/mem_access.h
-@@ -33,7 +33,9 @@
-  */
- struct vm_event_st;
- 
-+#ifdef CONFIG_MEM_ACCESS
- #include <asm/mem_access.h>
-+#endif
- 
- /*
-  * Additional access types, which are used to further restrict
--- 
-2.41.0
+I deliberately *didn't* switch to testing the Xen PV net device, with a co=
+mment that testing MSI and irqchip permutations was far more entertaining=
+=2E So I hope it should catch this?
 
 
