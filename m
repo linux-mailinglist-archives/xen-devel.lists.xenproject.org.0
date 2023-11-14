@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BBE77EB97D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 23:38:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633369.988102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7C67EB99D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 23:51:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633375.988112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r322c-0001pa-Ob; Tue, 14 Nov 2023 22:37:54 +0000
+	id 1r32FV-0007Zo-Vh; Tue, 14 Nov 2023 22:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633369.988102; Tue, 14 Nov 2023 22:37:54 +0000
+Received: by outflank-mailman (output) from mailman id 633375.988112; Tue, 14 Nov 2023 22:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r322c-0001nn-K6; Tue, 14 Nov 2023 22:37:54 +0000
-Received: by outflank-mailman (input) for mailman id 633369;
- Tue, 14 Nov 2023 22:37:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r32FV-0007Y4-Sw; Tue, 14 Nov 2023 22:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 633375;
+ Tue, 14 Nov 2023 22:51:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wE9C=G3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r322b-0001nh-BA
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 22:37:53 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 712443b3-833e-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 23:37:51 +0100 (CET)
+ id 1r32FT-0007WQ-Vq
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 22:51:11 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c4ec507-8340-11ee-9b0e-b553b5be7939;
+ Tue, 14 Nov 2023 23:51:09 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E53E2614BE;
- Tue, 14 Nov 2023 22:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F600C433C9;
- Tue, 14 Nov 2023 22:37:47 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id CD3AACE19CC;
+ Tue, 14 Nov 2023 22:51:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F24C433C7;
+ Tue, 14 Nov 2023 22:51:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,143 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 712443b3-833e-11ee-98db-6d05b1d4d9a1
+X-Inumbo-ID: 4c4ec507-8340-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700001469;
-	bh=yOE4bTOxcIO+/lKvnL6+2Wwcmz1beT1Zmcaf1EQj4TE=;
+	s=k20201202; t=1700002264;
+	bh=rXuPcuKblQ2qAoyXc/SDPOPFr8+f293u7eK/92quR5Q=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gIM1RGIaBipC2M41XT3S1Zx/1MDGNaZSU3hnhqHnI962A7Lj7dJlI2UsmkB9nhZ++
-	 ZyRSmyrsHzIVFg6lzEWIx1YR1HWRRgpcW076zx5/c+i5XTnM1vBJJoLYdjf8ND3KmJ
-	 KbIWaz1WyEExlSCJ5NvPxGWJr+HJd5TleFSoGtJ45/Cgr0p+Lvss2tH3Rn0uxcQxm7
-	 1Nk7zE0cx6hjS96ikr53Md0r7QgBsnHmOzSafSVxgZbtxaUWZEOk25AhNME0nvs/tp
-	 cNBWzhKxqHDnUqtSKiwqCVMgfF38+ylwsxmNOTyi3cuX+27fxe3u5qV0m8zuRzunag
-	 EFigo1tbK/VeQ==
-Date: Tue, 14 Nov 2023 14:37:46 -0800 (PST)
+	b=Eb8U/L38nFzq6mMT36GVhM97JJgbS1W8aonl8XfYPfHGtt00sgriditvwjDxRPwph
+	 b40Ij7gnvP2GE0dQN68gP97/IZhMISWDRM11pouwzEyZ64CRkDSwOAOfIPcRZoOhJW
+	 FoeaRz/xdmyheE7T/hb+4fkHbbVErZ0X9XigM9MpHDWi43BQcZq+thaQTK8MPzV3/d
+	 ECmEKqodx720LxFibC4445sxUQGnUQvVuDoF+XyhEvTEmuLepudmNlemmNv55ac3cs
+	 GDLbGbb1kf8hkjm8q0I3zO0SWjHbClQ3c00jBtK8eFZGQqCAxYVAVlDjF/sBMX7QQk
+	 dXmZmsl84q2lA==
+Date: Tue, 14 Nov 2023 14:51:01 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] docs/misra: add R11.1 R11.2 R11.3 R11.6
-In-Reply-To: <6695fcfb-0762-e48b-69d2-3871a3acaad6@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2311141431090.160649@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2311131540490.160649@ubuntu-linux-20-04-desktop> <6695fcfb-0762-e48b-69d2-3871a3acaad6@suse.com>
+To: Mario Marietto <marietto2008@gmail.com>
+cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Chuck Zmudzinski <brchuckz@netscape.net>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Values generated by the ViryaOS uboot-script-gen do not work
+ correctly on the Chromebook Snow
+In-Reply-To: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop>
+References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-2014568259-1700002169=:160649"
+Content-ID: <alpine.DEB.2.22.394.2311141449350.160649@ubuntu-linux-20-04-desktop>
 
-On Tue, 14 Nov 2023, Jan Beulich wrote:
-> On 14.11.2023 00:44, Stefano Stabellini wrote:
-> > --- a/docs/misra/rules.rst
-> > +++ b/docs/misra/rules.rst
-> > @@ -383,6 +383,38 @@ maintainers if you want to suggest a change.
-> >  
-> >         CFLAGS="-Warith-conversion -Wno-error=arith-conversion" make -C xen
-> >  
-> > +   * - `Rule 11.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_01.c>`_
-> > +     - Required
-> > +     - Conversions shall not be performed between a pointer to a
-> > +       function and any other type
-> > +     - All conversions to integer types are permitted if the destination
-> > +       type has enough bits to hold the entire value. Conversions to
-> > +       bool and void* are permitted.
-> > +
-> > +   * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_02.c>`_
-> > +     - Required
-> > +     - Conversions shall not be performed between a pointer to an
-> > +       incomplete type and any other type
-> > +     - All conversions to integer types are permitted if the destination
-> > +       type has enough bits to hold the entire value. Conversions to
-> > +       bool and void* are permitted.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-2014568259-1700002169=:160649
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2311141449351.160649@ubuntu-linux-20-04-desktop>
+
+Hi Mario,
+
+It is difficult to know how to change uboot-script-gen if we don't know
+why it is currently going wrong.
+
+uboot-script-gen assumes that the memory range specified by
+MEMORY_START-MEMORY_END is valid and correct.
+
+So if you specified a valid and correct memory range in your config file
+(0x41e00000-0x60000000) why is it failing?
+
+The only thing uboot-script-gen does is choosing aligned addresses
+within the MEMORY_START-MEMORY_END range. The addresses are supposed not
+to overlap (meaning the initrd will not overwrite part of the kernel
+when loaded). If the issue is a bug in uboot-script-gen, such as the
+generated addresses overlap or they are not aligned, then we can fix the
+alignment or overlap bug. To debug this kind of issues please post:
+- the imagebuilder config file
+- the generate boot.source script
+- the size of all the binaries specified in the imagebuilder config file
+
+On the other hand if 0x41e00000-0x60000000 is not a safe memory range to
+use, then you need to specify a different memory range.
+
+Cheers,
+
+Stefano
+
+
+
+On Mon, 13 Nov 2023, Mario Marietto wrote:
+> Hello.
 > 
-> Assuming the rule's exception 2 really means void, not void*, the mentioning
-> of void* here is still fine.
+> I'm trying to find an easier way to the problem that you can read here :
 > 
-> > +   * - `Rule 11.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_03.c>`_
-> > +     - Required
-> > +     - A cast shall not be performed between a pointer to object type
-> > +       and a pointer to a different object type
-> > +     - All conversions to integer types are permitted if the destination
-> > +       type has enough bits to hold the entire value. Conversions to
-> > +       bool and void* are permitted.
+> https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest
 > 
-> Here and ...
+> where Chuck says :
 > 
-> > +   * - `Rule 11.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_06.c>`_
-> > +     - Required
-> > +     - A cast shall not be performed between pointer to void and an
-> > +       arithmetic type
-> > +     - All conversions to integer types are permitted if the destination
-> > +       type has enough bits to hold the entire value. Conversions to
-> > +       bool and void* are permitted.
+>  6. Create the u-boot shell commands that will be used to boot Xen and dom0.
 > 
-> ... here, however I consider its mentioning misleading: "void" is neither
-> an object type nor an arithmetic one.
-
-Yes I think here it is misleading. I'll remove the mention of void* for
-Rule 11.6. I'll keep it for Rule 11.1 and 11.2.
-
-For Rule 11.3, I think I should remove the entire note as it is not
-helpful.
-
-
----
-[PATCH v2] docs/misra: add R11.1 R11.2 R11.3 R11.6
-
-Add MISRA C Rules 11.1, 11.2, 11.3, 11.6 as discussed.
-
-Explicitly add in the notes that conversions to integer types are
-permitted if the destination type has enough bits to hold the entire
-value. GCC gives enough guarantees in terms of preserving the bit
-content in such situations.
-
-Also allow for bool conversions (e.g. to check if a function point is
-valid).
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index aa65eb4dd0..da343ab3ac 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -383,6 +383,36 @@ maintainers if you want to suggest a change.
- 
-        CFLAGS="-Warith-conversion -Wno-error=arith-conversion" make -C xen
- 
-+   * - `Rule 11.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_01.c>`_
-+     - Required
-+     - Conversions shall not be performed between a pointer to a
-+       function and any other type
-+     - All conversions to integer types are permitted if the destination
-+       type has enough bits to hold the entire value. Conversions to
-+       bool and void* are permitted.
-+
-+   * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_02.c>`_
-+     - Required
-+     - Conversions shall not be performed between a pointer to an
-+       incomplete type and any other type
-+     - All conversions to integer types are permitted if the destination
-+       type has enough bits to hold the entire value. Conversions to
-+       bool and void* are permitted.
-+
-+   * - `Rule 11.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_03.c>`_
-+     - Required
-+     - A cast shall not be performed between a pointer to object type
-+       and a pointer to a different object type
-+     -
-+
-+   * - `Rule 11.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_06.c>`_
-+     - Required
-+     - A cast shall not be performed between pointer to void and an
-+       arithmetic type
-+     - All conversions to integer types are permitted if the destination
-+       type has enough bits to hold the entire value. Conversions to
-+       bool are permitted.
-+
-    * - `Rule 11.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_11_07.c>`_
-      - Required
-      - A cast shall not be performed between pointer to object and a noninteger arithmetic type
+> Create a file in /home/user (or any other directory) named bootxen.source with these contents :
+> 
+> 
+> mmc dev 1 && mmc rescan 1
+> ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
+> ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
+> ext2load mmc 1:3 0x5ffec000 exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
+> fdt addr 0x5ffec000
+> fdt resize 1024
+> fdt set /chosen \#address-cells <0x2>
+> fdt set /chosen \#size-cells <0x2>
+> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=2 bootscrub=0 vwfi=native"
+> fdt mknod /chosen dom0
+> fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
+> fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
+> fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> bootm 0x51000000 - 0x5ffec000
+> 
+> The hex value 0x7D7200 is the size of the zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the uboot-script-gen script
+> available from here :
+> 
+> 
+> https://gitlab.com/ViryaOS/imagebuilder
+> 
+> 
+> This is the interesting point :
+> 
+> 
+> Please note that most of the other values in the script generated by the ViryaOS uboot-script-gen do not work correctly with the Chromebook
+> Snow, but the script does correctly calculate the size of the dom0 Linux kernel image.
+> 
+> 
+> Some time ago Stefano suggested to put the values below for MEMORY_START and MEMORY_END inside the xen-config file :
+> 
+> 
+> nano xen-config file :
+> 
+> 
+> MEMORY_START="0x41e00000"
+> MEMORY_END="0x60000000"
+> LOAD_CMD="ext2load mmc 1:3"
+> BOOT_CMD="bootm"
+> DEVICE_TREE="exynos5250-snow.dtb"
+> XEN="xen-4.17-armhf"
+> XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=768M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
+> DOM0_KERNEL="zImage-6.6.0-xen-dma-mapping"
+> DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> UBOOT_SOURCE="xen.source"
+> 
+> 
+> bash ./uboot-script-gen -c xen-config -d .
+> 
+> 
+> Image Name:    
+> Created:      Thu Nov  2 20:59:24 2023
+> Image Type:   ARM Linux Kernel Image (uncompressed)
+> Data Size:    884744 Bytes = 864.01 KiB = 0.84 MiB
+> Load Address: 42c00000
+> Entry Point:  42c00000
+> 
+> 
+> Generated uboot script xen.scr, to be loaded at address 0x42000000:
+> ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
+> 
+> 
+> and I tried to boot Xen and Linux 6.6 as dom0 :
+> 
+> SMDK5250 # mmc dev 1
+> SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
+> but it did not work : it reboots on the verification screen.
+> 
+> --
+> Mario.
+> 
+> 
+--8323329-2014568259-1700002169=:160649--
 
