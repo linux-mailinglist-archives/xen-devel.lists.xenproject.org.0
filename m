@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D98567EB5F4
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7F37EB5F3
 	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 18:58:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633087.987639 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.633081.987616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xfO-00014x-Qg; Tue, 14 Nov 2023 17:57:38 +0000
+	id 1r2xfN-0000kc-FT; Tue, 14 Nov 2023 17:57:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633087.987639; Tue, 14 Nov 2023 17:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 633081.987616; Tue, 14 Nov 2023 17:57:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xfO-0000zw-Be; Tue, 14 Nov 2023 17:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 633087;
- Tue, 14 Nov 2023 17:50:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r2xfN-0000Yj-CV; Tue, 14 Nov 2023 17:57:37 +0000
+Received: by outflank-mailman (input) for mailman id 633081;
+ Tue, 14 Nov 2023 17:50:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5HBD=G3=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
- id 1r2xYe-0004wk-SX
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:40 +0000
-Received: from 12.mo583.mail-out.ovh.net (12.mo583.mail-out.ovh.net
- [46.105.39.65]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51dedb92-8316-11ee-9b0e-b553b5be7939;
+ id 1r2xYd-0004mK-H8
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:39 +0000
+Received: from 8.mo550.mail-out.ovh.net (8.mo550.mail-out.ovh.net
+ [178.33.110.239]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5233b874-8316-11ee-98db-6d05b1d4d9a1;
  Tue, 14 Nov 2023 18:50:38 +0100 (CET)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.108.4.72])
- by mo583.mail-out.ovh.net (Postfix) with ESMTP id E7C18293F1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:37 +0000 (UTC)
+Received: from director8.ghost.mail-out.ovh.net (unknown [10.108.16.30])
+ by mo550.mail-out.ovh.net (Postfix) with ESMTP id 83145294F8
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:38 +0000 (UTC)
 Received: from ghost-submission-6684bf9d7b-x5j2z (unknown [10.110.115.90])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 72C7E1FD24;
+ by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id EFD131FDF1;
  Tue, 14 Nov 2023 17:50:37 +0000 (UTC)
 Received: from 3mdeb.com ([37.59.142.103])
  by ghost-submission-6684bf9d7b-x5j2z with ESMTPSA
- id aBEEGW2zU2V/lwcATVRwWg
+ id CGqmN22zU2V/lwcATVRwWg
  (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -46,132 +46,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51dedb92-8316-11ee-9b0e-b553b5be7939
-Authentication-Results:garm.ovh; auth=pass (GARM-103G0055adfc20a-9646-4e70-96a1-0204e862fa82,
+X-Inumbo-ID: 5233b874-8316-11ee-98db-6d05b1d4d9a1
+Authentication-Results:garm.ovh; auth=pass (GARM-103G00598bb5702-cfe7-4f88-8cef-640e0a4e1820,
                     1C6EC45AC3E1968723EBE40916FD99D0F8B07574) smtp.auth=krystian.hebel@3mdeb.com
 X-OVh-ClientIp:213.192.77.249
 From: Krystian Hebel <krystian.hebel@3mdeb.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
 	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 01/10] x86/spec-ctrl: Remove conditional IRQs-on-ness for INT $0x80/0x82 paths
-Date: Tue, 14 Nov 2023 18:49:57 +0100
-Message-ID: <a48bb129f1b9ff55c22cf6d2b589247c8ba3b10e.1699981248.git.krystian.hebel@3mdeb.com>
+Subject: [PATCH 02/10] x86/boot: choose AP stack based on APIC ID
+Date: Tue, 14 Nov 2023 18:49:58 +0100
+Message-ID: <0e7dd957b6f26fa7b752bdce1ef6ebe97c825903.1699981248.git.krystian.hebel@3mdeb.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <cover.1699981248.git.krystian.hebel@3mdeb.com>
 References: <cover.1699981248.git.krystian.hebel@3mdeb.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12928990108487231856
+X-Ovh-Tracer-Id: 12929271583775369584
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpefmrhihshhtihgrnhcujfgvsggvlhcuoehkrhihshhtihgrnhdrhhgvsggvlhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepuddtieefheevleefuefgheffkeeivdeggffgleehjeelkeevuefgieevfeejvdeknecuffhomhgrihhnpegvnhhtrhihrdhssgenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekfedpmhhouggvpehsmhhtphhouhht
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpefhgfdtvdeigedtvedvudehgefgkeefffetfeekkedthfdvveeiteduteehtedvgfenucffohhmrghinhepthhrrghmphholhhinhgvrdhssgdpgiekiegpieegrdhssgenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehtddpmhhouggvpehsmhhtphhouhht
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+This is made as first step of making parallel AP bring-up possible. It
+should be enough for pre-C code.
 
-Before speculation defences, some paths in Xen could genuinely get away with
-being IRQs-on at entry.  But XPTI invalidated this property on most paths, and
-attempting to maintain it on the remaining paths was a mistake.
-
-Fast forward, and DO_SPEC_CTRL_COND_IBPB (protection for AMD BTC/SRSO) is not
-IRQ-safe, running with IRQs enabled in some cases.  The other actions taken on
-these paths happen to be IRQ-safe.
-
-Make entry_int82() and int80_direct_trap() unconditionally Interrupt Gates
-rather than Trap Gates.  Remove the conditional re-adjustment of
-int80_direct_trap() in smp_prepare_cpus(), and have entry_int82() explicitly
-enable interrupts when safe to do so.
-
-In smp_prepare_cpus(), with the conditional re-adjustment removed, the
-clearing of pv_cr3 is the only remaining action gated on XPTI, and it is out
-of place anyway, repeating work already done by smp_prepare_boot_cpu().  Drop
-the entire if() condition to avoid leaving an incorrect vestigial remnant.
-
-Also drop comments which make incorrect statements about when its safe to
-enable interrupts.
-
-This is XSA-446 / CVE-2023-46836
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 ---
- xen/arch/x86/pv/traps.c            |  4 ++--
- xen/arch/x86/smpboot.c             | 14 --------------
- xen/arch/x86/x86_64/compat/entry.S |  2 ++
- xen/arch/x86/x86_64/entry.S        |  1 -
- 4 files changed, 4 insertions(+), 17 deletions(-)
+ xen/arch/x86/boot/trampoline.S | 20 ++++++++++++++++++++
+ xen/arch/x86/boot/x86_64.S     | 28 +++++++++++++++++++++++++++-
+ xen/arch/x86/setup.c           |  7 +++++++
+ 3 files changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 74f333da7e1c..240d1a2db7a3 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -139,11 +139,11 @@ void __init pv_trap_init(void)
- #ifdef CONFIG_PV32
-     /* The 32-on-64 hypercall vector is only accessible from ring 1. */
-     _set_gate(idt_table + HYPERCALL_VECTOR,
--              SYS_DESC_trap_gate, 1, entry_int82);
-+              SYS_DESC_irq_gate, 1, entry_int82);
- #endif
+diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
+index b8ab0ffdcbb0..ec254125016d 100644
+--- a/xen/arch/x86/boot/trampoline.S
++++ b/xen/arch/x86/boot/trampoline.S
+@@ -72,6 +72,26 @@ trampoline_protmode_entry:
+         mov     $X86_CR4_PAE,%ecx
+         mov     %ecx,%cr4
  
-     /* Fast trap for int80 (faster than taking the #GP-fixup path). */
--    _set_gate(idt_table + LEGACY_SYSCALL_VECTOR, SYS_DESC_trap_gate, 3,
-+    _set_gate(idt_table + LEGACY_SYSCALL_VECTOR, SYS_DESC_irq_gate, 3,
-               &int80_direct_trap);
- 
-     open_softirq(NMI_SOFTIRQ, nmi_softirq);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 3a1a659082c6..4c54ecbc91d7 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1158,20 +1158,6 @@ void __init smp_prepare_cpus(void)
- 
-     stack_base[0] = (void *)((unsigned long)stack_start & ~(STACK_SIZE - 1));
- 
--    if ( opt_xpti_hwdom || opt_xpti_domu )
--    {
--        get_cpu_info()->pv_cr3 = 0;
--
--#ifdef CONFIG_PV
--        /*
--         * All entry points which may need to switch page tables have to start
--         * with interrupts off. Re-write what pv_trap_init() has put there.
--         */
--        _set_gate(idt_table + LEGACY_SYSCALL_VECTOR, SYS_DESC_irq_gate, 3,
--                  &int80_direct_trap);
--#endif
--    }
--
-     set_nr_sockets();
- 
-     socket_cpumask = xzalloc_array(cpumask_t *, nr_sockets);
-diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
-index bd5abd8040bd..fcc3a721f147 100644
---- a/xen/arch/x86/x86_64/compat/entry.S
-+++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -21,6 +21,8 @@ ENTRY(entry_int82)
-         SPEC_CTRL_ENTRY_FROM_PV /* Req: %rsp=regs/cpuinfo, %rdx=0, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
- 
-+        sti
++        /*
++         * Get APIC ID while we're in non-paged mode. Start by checking if
++         * x2APIC is enabled.
++         */
++        mov     $MSR_APIC_BASE, %ecx
++        rdmsr
++        and     $APIC_BASE_EXTD, %eax
++        jnz     .Lx2apic
 +
-         CR4_PV32_RESTORE
++        /* Not x2APIC, read from MMIO */
++        mov     0xfee00020, %esp
++        shr     $24, %esp
++        jmp     1f
++
++.Lx2apic:
++        mov     $(MSR_X2APIC_FIRST + (0x20 >> 4)), %ecx
++        rdmsr
++        mov     %eax, %esp
++1:
++
+         /* Load pagetable base register. */
+         mov     $sym_offs(idle_pg_table),%eax
+         add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+index 04bb62ae8680..b85b47b5c1a0 100644
+--- a/xen/arch/x86/boot/x86_64.S
++++ b/xen/arch/x86/boot/x86_64.S
+@@ -15,7 +15,33 @@ ENTRY(__high_start)
+         mov     $XEN_MINIMAL_CR4,%rcx
+         mov     %rcx,%cr4
  
-         GET_CURRENT(bx)
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 5ca74f5f62b2..9a7b129aa7e4 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -327,7 +327,6 @@ ENTRY(sysenter_entry)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
--        /* sti could live here when we don't switch page tables below. */
-         pushq $FLAT_USER_SS
-         pushq $0
-         pushfq
+-        mov     stack_start(%rip),%rsp
++        test    %ebx,%ebx
++        cmovz   stack_start(%rip), %rsp
++        jz      .L_stack_set
++
++        /* APs only: get stack base from APIC ID saved in %esp. */
++        mov     $-1, %rax
++        lea     x86_cpu_to_apicid(%rip), %rcx
++1:
++        add     $1, %rax
++        cmp     $NR_CPUS, %eax
++        jb      2f
++        hlt
++2:
++        cmp     %esp, (%rcx, %rax, 4)
++        jne     1b
++
++        /* %eax is now Xen CPU index. */
++        lea     stack_base(%rip), %rcx
++        mov     (%rcx, %rax, 8), %rsp
++
++        test    %rsp,%rsp
++        jnz     1f
++        hlt
++1:
++        add     $(STACK_SIZE - CPUINFO_sizeof), %rsp
++
++.L_stack_set:
+ 
+         /* Reset EFLAGS (subsumes CLI and CLD). */
+         pushq   $0
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index a3d3f797bb1e..1285969901e0 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1951,6 +1951,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+      */
+     if ( !pv_shim )
+     {
++        /* Separate loop to make parallel AP bringup possible. */
+         for_each_present_cpu ( i )
+         {
+             /* Set up cpu_to_node[]. */
+@@ -1958,6 +1959,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+             /* Set up node_to_cpumask based on cpu_to_node[]. */
+             numa_add_cpu(i);
+ 
++            if ( stack_base[i] == NULL )
++                stack_base[i] = cpu_alloc_stack(i);
++        }
++
++        for_each_present_cpu ( i )
++        {
+             if ( (park_offline_cpus || num_online_cpus() < max_cpus) &&
+                  !cpu_online(i) )
+             {
 -- 
 2.41.0
 
