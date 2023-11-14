@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9087EB334
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:13:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632768.987168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B20B27EB336
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:14:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632770.987179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v6S-0007dz-EA; Tue, 14 Nov 2023 15:13:24 +0000
+	id 1r2v6y-0008Et-Np; Tue, 14 Nov 2023 15:13:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632768.987168; Tue, 14 Nov 2023 15:13:24 +0000
+Received: by outflank-mailman (output) from mailman id 632770.987179; Tue, 14 Nov 2023 15:13:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v6S-0007bt-BD; Tue, 14 Nov 2023 15:13:24 +0000
-Received: by outflank-mailman (input) for mailman id 632768;
- Tue, 14 Nov 2023 15:13:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6V1E=G3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r2v6R-0007bn-8d
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:13:23 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58850bba-8300-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 16:13:20 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9d216597f64so873701266b.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:13:20 -0800 (PST)
-Received: from [192.168.69.100] (cac94-h02-176-184-25-155.dsl.sta.abo.bbox.fr.
- [176.184.25.155]) by smtp.gmail.com with ESMTPSA id
- fi6-20020a170906da0600b009e6a990a55esm5644531ejb.158.2023.11.14.07.13.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Nov 2023 07:13:17 -0800 (PST)
+	id 1r2v6y-0008Br-K6; Tue, 14 Nov 2023 15:13:56 +0000
+Received: by outflank-mailman (input) for mailman id 632770;
+ Tue, 14 Nov 2023 15:13:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gJWh=G3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1r2v6w-0008AQ-I7
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:13:54 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6c487ea4-8300-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 16:13:53 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-507cd62472dso7380661e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:13:53 -0800 (PST)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ f18-20020a05651232d200b00507987edd22sm1348822lfg.156.2023.11.14.07.13.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Nov 2023 07:13:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +44,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58850bba-8300-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 6c487ea4-8300-11ee-98db-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699974798; x=1700579598; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HIHi0yKkQuExrrqaReTTaHyYp9veWL43i8XQ+amSwZ4=;
-        b=RYPAC6Oryvie5mhlJj4FFrctnVnNT1+pUoG+hGnxuDKONqYHEO1jL4YMnZoklSc8VL
-         wrH5x4NA3oAkM9oSFDDQr9WcZxR8/EbAeewNcSrTu0RxdiWy7Zl4bO7bFjUYQK1fXPCq
-         9bSQwrC0dD5EsYG5/K/AOBT581e3Ql5xvgoIXQsdgoLuewLkpW9Ca+84COppQeR/yODu
-         2w7BzCCWHlr3CVDWw2PugfSpIhT5ir9ammVimb6/VB2JnjoI7r8C77RFEWzuiGWocPtB
-         CcWheeHUXm77jKqN1cixt3eKBljquoM0IogfdE7NzgjQr/XAyaR13jEde5CgRvVgxFxr
-         bpqw==
+        d=gmail.com; s=20230601; t=1699974832; x=1700579632; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eni2uQcHzPa3p0BXkZBXBU2/wAC0HDdu58dG92X4l7M=;
+        b=Z+wy+1JBsk7MlZpZytGLbrHPQWSsV2MYyUW/RZ642njxYGQaliAoTTP2lsvNYAqWqt
+         MYLA6mw2ERwc1wf6Na4n8JnJTSvQB+kvM8zehF7QYr+ji7AAyDNAtAdCDxwbC8H2el/B
+         DSuP5QyfI5oY4yeyCQNZBY75O+mPgW3wMTNOd17UDG2s6TFRI9QmklBqxTwhy6EQA3JS
+         xMLCusODhqWtmEAJi8OVTLLd9OYk2OMBb2VUuZQR1nXRhRr50hA9WKgg7bvdKZrJxYIu
+         NXm8cKEjSW0eW5Kv4g1ZlVR7NOxWWfKc/6Kd5M7ESiLHFg8Ot2pMiqwJmlcd8zFuGgKO
+         lWNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699974798; x=1700579598;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HIHi0yKkQuExrrqaReTTaHyYp9veWL43i8XQ+amSwZ4=;
-        b=pUuNcKc3rthlbNw/VuksX+36C/kMtLUb88Drj4tJJEsqL8oIw4limSwC7C1rO1Z6l/
-         RTTVnL3eR+YdcZsFXDQpLU1ie8fCD2vmMljQzQB6Q+4caY8MfgFx0K4CKGwaKnd4sQnp
-         dAqoNkItywB/mGQxfoxsXCX0y+ovhsrF7FsmLgBhIchlldPBaYLil8gitthJy89jw8sM
-         v38JjTWyFMgFX9KkH/8z9oCPbpFjIYPqx8r/EJ5AEJKCFBRR/GAuKs7/S1SNn71dXKdR
-         oD/mlmOnRgfWXHc2zjlsCoNrM6rKkBkXLCMclVovGBF/dnPUVjJY8mO0pn7osz6/ixXU
-         GdEQ==
-X-Gm-Message-State: AOJu0Yx/TFG2Dc/J12Sks26L6c4dtOu/lmnkrKFEBC4REv2ouRDqvrgh
-	I1uMjksDbvdqK9vvtZmYLup1uQ==
-X-Google-Smtp-Source: AGHT+IHGFXgwRm95QaGDvzmEn8xmzfuJoAXM9MDWtXppVWdC9PPQJI2AOwqlfdbCPZx6yH7hHs/ywQ==
-X-Received: by 2002:a17:906:c01:b0:9e5:d618:d6c1 with SMTP id s1-20020a1709060c0100b009e5d618d6c1mr8703674ejf.19.1699974797997;
-        Tue, 14 Nov 2023 07:13:17 -0800 (PST)
-Message-ID: <04917b57-d778-41a2-b320-c8c0afbe9ffb@linaro.org>
-Date: Tue, 14 Nov 2023 16:13:14 +0100
+        d=1e100.net; s=20230601; t=1699974832; x=1700579632;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eni2uQcHzPa3p0BXkZBXBU2/wAC0HDdu58dG92X4l7M=;
+        b=DGKZFYGwHgV0rcpliKqTtz7xygaJrqin3jRK8B0JY4RQ9O2HMc+gsizJWrt6grIwwZ
+         iWfr0RzVGNLDSbrIbIIUMaNFewS5ihTY+SRH2321PgaceIahRnK4g7HF339cP3n0t5v8
+         P9ON+x+T1m9iaaiUjSuhpATceUsyOD/6skN/cVSijKYRdu99egTUraOCYc95mkhvKSmX
+         RnWMPCAFNYWLZR9scozNcZbK4YgYX8sM65TBfRkTnvTDVvqD3nIOXsa0XvBbOgnfhfOC
+         vJKdzok5OzmGsn/mzQ6eSFS6JPijs/HoYdYTPhaprIBJHCdDfq9yuucpH8BJ3l740IJs
+         CvLw==
+X-Gm-Message-State: AOJu0Yw00rRfwWzT1x16Ail0QTh+FaxeYrNeyT02iblnUTb49KUBkBgN
+	MHolKldhIXNKaRP88qf+YDJU92zx8+k=
+X-Google-Smtp-Source: AGHT+IEzcpy18UDDhhnN+a+RNf+F0kB/z2W2MF5MLcjpqSpUTxrMDiRTRF7evh7oap6bN8DHUtnA5g==
+X-Received: by 2002:a05:6512:3d1b:b0:500:acae:30c5 with SMTP id d27-20020a0565123d1b00b00500acae30c5mr1275757lfv.15.1699974832143;
+        Tue, 14 Nov 2023 07:13:52 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3] xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+Date: Tue, 14 Nov 2023 17:13:49 +0200
+Message-ID: <371c5dd29fa974ca27db1f720f17fb0ffdd667a0.1699974488.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-for-9.0 v2 01/19] tests/avocado: Add 'guest:xen' tag to
- tests running Xen guest
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, David Woodhouse
- <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
-Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
- Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
- Thomas Huth <thuth@redhat.com>, Cleber Rosa <crosa@redhat.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- Beraldo Leal <bleal@redhat.com>
-References: <20231114143816.71079-1-philmd@linaro.org>
- <20231114143816.71079-2-philmd@linaro.org>
- <94D9484A-917D-4970-98DE-35B84BEDA1DC@infradead.org>
- <407f32ee-e489-4c05-9c3d-fa6c29bb1d99@linaro.org>
- <074BCACF-C8D0-440A-A805-CDB0DB21C416@infradead.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <074BCACF-C8D0-440A-A805-CDB0DB21C416@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 14/11/23 16:08, David Woodhouse wrote:
-> On 14 November 2023 10:00:09 GMT-05:00, "Philippe Mathieu-Daudé" <philmd@linaro.org> wrote:
->> On 14/11/23 15:50, David Woodhouse wrote:
->>> On 14 November 2023 09:37:57 GMT-05:00, "Philippe Mathieu-Daudé" <philmd@linaro.org> wrote:
->>>> Add a tag to run all Xen-specific tests using:
->>>>
->>>>    $ make check-avocado AVOCADO_TAGS='guest:xen'
->>>>
->>>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->>>> ---
->>>> tests/avocado/boot_xen.py      | 3 +++
->>>> tests/avocado/kvm_xen_guest.py | 1 +
->>>> 2 files changed, 4 insertions(+)
->>>
->>> Those two are very different. One runs on Xen, the other on KVM. Do we want to use the same tag for both?
->>
->> My understanding is,
->> - boot_xen.py runs Xen on TCG
->> - kvm_xen_guest.py runs Xen on KVM
->> so both runs Xen guests.
-> 
-> Does boot_xen.py actually boot *Xen*? And presumably at least one Xen guest *within* Xen?
+ifdefing inclusion of <asm/mem_access.h> in <xen/mem_access.h>
+allows to avoid generation of empty <asm/mem_access.h> header
+for the case when !CONFIG_MEM_ACCESS.
 
-I'll let Alex confirm, but yes, I expect Xen guest within Xen guest 
-within TCG. So the tags "accel:tcg" (already present) and "guest:xen".
+For Arm it was explicitly added inclusion of <asm/mem_access.h> for p2m.c
+and traps.c because they require some functions from <asm/mem_access.h> which
+aren't available in case of !CONFIG_MEM_ACCESS.
 
-> kvm_xen_guest.py boots a "Xen guest" under KVM directly without any real Xen being present. It's *emulating* Xen.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Yes, so the tag "guest:xen" is correct.
+---
+This patch was part of patch series:
+https://lore.kernel.org/xen-devel/cover.1699633310.git.oleksii.kurochko@gmail.com/
 
-> They do both run Xen guests (or at least guests which use Xen hypercalls and *think* they're running under Xen). But is that the important classification for lumping them together?
+The patch series hasn't been reviewed all yet so send this path
+separately.
+---
+ xen/arch/arm/p2m.c           | 6 ++++++
+ xen/arch/arm/traps.c         | 6 ++++++
+ xen/include/xen/mem_access.h | 2 ++
+ 3 files changed, 14 insertions(+)
 
-The idea of AVOCADO_TAGS is to restrict testing to what you want to 
-cover. So here this allow running 'anything that can run Xen guest'
-in a single command, for example it is handy on my macOS aarch64 host.
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index de32a2d638..9050c72acf 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -11,6 +11,12 @@
+ #include <asm/event.h>
+ #include <asm/flushtlb.h>
+ #include <asm/guest_walk.h>
++/*
++ * Inclusion of <asm/mem_acces.h> in <xen/mem_access.h> is #ifdef-ed with
++ * CONFIG_MEM_ACCESS so in case of !CONFIG_MEM_ACCESS will cause a compilation
++ * issue "implicit declaration of functions 'p2m_mem_access*'.
++ */
++#include <asm/mem_access.h>
+ #include <asm/page.h>
+ #include <asm/traps.h>
+ 
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index ce89f16404..5e39b26272 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -35,6 +35,12 @@
+ #include <asm/cpufeature.h>
+ #include <asm/event.h>
+ #include <asm/hsr.h>
++/*
++ * Inclusion of <asm/mem_acces.h> in <xen/mem_access.h> is #ifdef-ed with
++ * CONFIG_MEM_ACCESS so in case of !CONFIG_MEM_ACCESS will cause a compilation
++ * issue "implicit declaration of functions 'p2m_mem_access*.
++ */
++#include <asm/mem_access.h>
+ #include <asm/mmio.h>
+ #include <asm/regs.h>
+ #include <asm/smccc.h>
+diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
+index 4e4811680d..87d93b31f6 100644
+--- a/xen/include/xen/mem_access.h
++++ b/xen/include/xen/mem_access.h
+@@ -33,7 +33,9 @@
+  */
+ struct vm_event_st;
+ 
++#ifdef CONFIG_MEM_ACCESS
+ #include <asm/mem_access.h>
++#endif
+ 
+ /*
+  * Additional access types, which are used to further restrict
+-- 
+2.41.0
+
 
