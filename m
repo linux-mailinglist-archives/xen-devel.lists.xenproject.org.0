@@ -2,34 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4367EA755
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 01:16:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632088.986065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B15E17EA7BF
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 01:44:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632096.986076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2h5i-0002E1-Kf; Tue, 14 Nov 2023 00:15:42 +0000
+	id 1r2hWy-00028q-Lw; Tue, 14 Nov 2023 00:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632088.986065; Tue, 14 Nov 2023 00:15:42 +0000
+Received: by outflank-mailman (output) from mailman id 632096.986076; Tue, 14 Nov 2023 00:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2h5i-0002BW-Ga; Tue, 14 Nov 2023 00:15:42 +0000
-Received: by outflank-mailman (input) for mailman id 632088;
- Tue, 14 Nov 2023 00:15:41 +0000
+	id 1r2hWy-00025V-Ia; Tue, 14 Nov 2023 00:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 632096;
+ Tue, 14 Nov 2023 00:43:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wE9C=G3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r2h5h-0002BO-66
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 00:15:41 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MKY2=G3=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1r2hWw-000256-JL
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 00:43:50 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1552495-8282-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 01:15:40 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 9DAF3B80EA4;
- Tue, 14 Nov 2023 00:15:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC926C433C8;
- Tue, 14 Nov 2023 00:15:37 +0000 (UTC)
+ id dd7d20da-8286-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 01:43:47 +0100 (CET)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2023 16:43:43 -0800
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 13 Nov 2023 16:43:43 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Mon, 13 Nov 2023 16:43:43 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34 via Frontend Transport; Mon, 13 Nov 2023 16:43:43 -0800
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.41) by
+ edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Mon, 13 Nov 2023 16:43:42 -0800
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
+ by MN2PR11MB4518.namprd11.prod.outlook.com (2603:10b6:208:24f::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Tue, 14 Nov
+ 2023 00:43:38 +0000
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3]) by SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3%7]) with mapi id 15.20.6977.029; Tue, 14 Nov 2023
+ 00:43:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +63,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1552495-8282-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699920938;
-	bh=XXwebpHoGLgqzzoCPYcjVgyxmcReSMn84/NnF5OhPLE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iytKT/VJDciYjo5TUh2hXP4Ya31qx/18sZlmAfyTHWhwCdffnjAdXvAglebBrVKZi
-	 LNmAnAl1KQ1D/G1d7ebGWfpi9y+6OGZR24WSMzyQVmtcnTwhOHgOWWhmcvP9JL76O5
-	 0itR9NCoD5IK38lOzAPjVEVr6a+07ymnfd/cLYH4C9fsqAe9Sq20LSY66sWxeMRuAW
-	 7xbaUTRIHYy0zLDSCOmLWp7W13nE6IEK0h2FrWfRNWXv7zXNNQ+UKkR+qhxGE1IW4J
-	 B3h6hAKjpR+mkEu3VP1PU5EMRiP2GZCTc7jKPgPn+7vSgwpM8H2bYtDsQQxbzKXrce
-	 q9z5Hw6/8QZbA==
-Date: Mon, 13 Nov 2023 16:15:36 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Anthony PERARD <anthony.perard@citrix.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] CI: Rework RISCV smoke test
-In-Reply-To: <ebb51a9b-2397-4105-ad20-4cede5872f48@perard>
-Message-ID: <alpine.DEB.2.22.394.2311131613470.160649@ubuntu-linux-20-04-desktop>
-References: <20231109154922.49118-1-anthony.perard@citrix.com> <7bffd0ff-290f-461c-a0ce-35440b36240a@citrix.com> <ebb51a9b-2397-4105-ad20-4cede5872f48@perard>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: dd7d20da-8286-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1699922627; x=1731458627;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=NKtNRhIUg7Mr+IyCpRpr8MQo5ET9Z7oU1fIbXO8JoU8=;
+  b=eIWwivabrUkhV0jhbQvjav2WxhWgQViQe3EMaa87NmCPagRNz0P/pTpk
+   Q4avrBWLeGsu/YWEPLvgt/3he73q2X0BvatnGrDwoC5HnGGZ/wPzPjY6h
+   t+/a0uxx7Vb2CRf99sQwQWoEQXpFM9rCAdJp8Tz4BBqWsZ71/HAb1tEZp
+   LL8fZ18Zzvv1p5VvWnGOqnS8bT8QND9Q5EhSQ7qAfl1pZrV/ex34q931q
+   w3gwancrQtvezYQT53/mAeP29NkREUAPH8oBOEr2qGKTFafTjSNYaJgnz
+   TwMYt6NURnurd/8S1EkPUJHPZW7j9Z3kJermSnBRmWokgDGgpV78nj06+
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="394446544"
+X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; 
+   d="scan'208";a="394446544"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10893"; a="799340171"
+X-IronPort-AV: E=Sophos;i="6.03,299,1694761200"; 
+   d="scan'208";a="799340171"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NSPDeNCoXl3IHtoQGb8wPENcO4t60WfRnst39UGMz8Dbw96e0glvk8ZLEwcYIWXniWMZpTGqTay0zOU++PPGmQUGXQ5vrokx+C6yKv6goAIt413lNuWv7H/4Dxb8v8E/WdDanocvby+i6juv5NTps6fxBSladgKacSGvclVluZ88J9LUyStAfAt+SBwtUi1RUXjnk//Q1gSASrREdo4iTYpMZnslPd53onrqarkUC93ONnQ+unPFKP7v0l4bbzDN4hP/WuCIfpFnUavXIIgbkcAfU7ElVCL5lGnEGVTSun6AU5kLj3wWCPD2AzgdDsF8QdQymo09lYzQWRQM1dXWDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NKtNRhIUg7Mr+IyCpRpr8MQo5ET9Z7oU1fIbXO8JoU8=;
+ b=jc/3kFpfvuGw7Y2GYmYDcSspPl2spaF7pmqmTyw8biUWeMJqCPSrqxFi6ai9yT/il1qr8KRzaNo4Ggo4OU7SQJr2amqWZgir3xnlzfB5gt7BzUUHINkqAEg1J0ZGm4FE88XYwlvZ0p2pFHyBK/ZA3fMI8Un3nZ+mIj63bocnEz28GbSf+SIuLtZNyAURKOL/X5tDftLhAU5tl1bxVDw7EcKwMBgDNufMfpBTvypiC6k2a38P+y1/4F4OX9SsL5VvBkdKCx9P6OAAPpKFdkeJeAKZOetkJ93crSAR4evA1c1N5YoV5MsN5WseL9SNC1O75ce1LCmnNFJZg2BzzKTaAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Li, Xin3" <xin3.li@intel.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
+	"mingo@redhat.com" <mingo@redhat.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy" <luto@kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Christopherson,, Sean"
+	<seanjc@google.com>, "peterz@infradead.org" <peterz@infradead.org>, "Gross,
+ Jurgen" <jgross@suse.com>, "Shankar, Ravi V" <ravi.v.shankar@intel.com>,
+	"mhiramat@kernel.org" <mhiramat@kernel.org>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "jiangshanlai@gmail.com"
+	<jiangshanlai@gmail.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
+Subject: RE: [PATCH v12 01/37] x86/cpufeatures: Add the cpu feature bit for
+ WRMSRNS
+Thread-Topic: [PATCH v12 01/37] x86/cpufeatures: Add the cpu feature bit for
+ WRMSRNS
+Thread-Index: AQHZ9caG3VIRGozoEkidJJiXW1l1kbBwlOyAgAieqDA=
+Date: Tue, 14 Nov 2023 00:43:38 +0000
+Message-ID: <SA1PR11MB673495967E44583FC36B5E39A8B2A@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <20231003062458.23552-1-xin3.li@intel.com>
+ <20231003062458.23552-2-xin3.li@intel.com>
+ <20231108123647.GBZUuA31zntox0W0gu@fat_crate.local>
+In-Reply-To: <20231108123647.GBZUuA31zntox0W0gu@fat_crate.local>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|MN2PR11MB4518:EE_
+x-ms-office365-filtering-correlation-id: 9a6e5578-8a6c-45f6-3d07-08dbe4aabdb7
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 191my9q75Ck1wvghTTQhs1geZ00xzBfZU0e4D/aVd7PoVcZxC0WozSdBEfVQjVAWjs7+VFxIvug0cgNR9khJgjkD9Mq78a+OkDhvzg5BPlWhfqtx1Ye7K6mFvhpP89GJEgGXwaC5kRX7uwOA5Gyvjf1gzLIeWXoBfaRPICjpBhVbop6orATmkAIxW1L9t29NOVmb8mcTLPBKEB9tSVkQFP13rlh/P72R/o8s+ZoRp0ZqRieAnuJ9ug/PDpvsFUS8t3rO5A9PZnQnu5IEVCt6UPd2WytZr37CebQb16ITGQerAX4BVTfkYQEBOFhOGjAg5yWqaUjeiSfwJV5CMU7dsxT1FGfD45c1t8Lqma4qsjFGK14pt2Klr1ZM1C5wwC+lHs8sP8TawWGgcvfr4xgQx8R1rkTtvyOA4xvVNK4tbnPmHBJ369yAJ5Xq84++BCaiQKqeKSnkJW4r2nnDpbLCYI8VquRrvkmuqBD4/Ot7Ab+WJWMy2D5W8tX3XhDGc3Hy+/CqfROVtZqSXr4VbYB3G9r7b/iAq9qeRy2zMIV9x2Q+vu0XW00WD9AZTDODEHSDTVLxXzuCKJ6vi1NEwB7dWzSRbkT7YwGtKFyO2VmfLrfnOhRr3SHVFx9lnfpgiRxiykFfMDNK9FZ7akziBqNRiw==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(376002)(366004)(136003)(346002)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(38070700009)(122000001)(82960400001)(26005)(6506007)(478600001)(7696005)(71200400001)(966005)(9686003)(86362001)(55016003)(7416002)(5660300002)(52536014)(33656002)(41300700001)(2906002)(38100700002)(8676002)(8936002)(64756008)(316002)(6916009)(66476007)(66446008)(76116006)(4326008)(54906003)(66556008)(66946007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QVdvRmZ6TG9MNjR1cE5CRGRqZjZ5R3RGeWlRK1FUYW9BVldMMmg2UmFpcjlL?=
+ =?utf-8?B?eG0vOXZyUy8vQm9xeVlvWkFlMGpNQldDTDNIRllRWnVZVk1LYi84MkZiL25m?=
+ =?utf-8?B?dU0zSm1PeEhyd29aWElQbW9McVY1VUcwY0VVcE9kRTFGeW93Q2QrYitZc2RM?=
+ =?utf-8?B?bDFYa3cvZjBTV2tOQVloS3ZSUXhCVEpNZ05Kbk40RWUwR2tOWWRVUklSL3lM?=
+ =?utf-8?B?NTRvQUU0V1NuOHo1cmxydTMyejlxNVVCQjI4SVQvU2kxdWFVMkpKMTZUMnBH?=
+ =?utf-8?B?WmNmZjhXdktRZEZtZFYvNDRHM0JVODg1VGRycUNONmJMK3Y2UXgrLzRUdUZQ?=
+ =?utf-8?B?UlByOWZwSExlWFpWdFZhbThLbVl5UW9xN09LVm9wakxQUFRiY3ZTNXJlTWJU?=
+ =?utf-8?B?UjQyTG1VQXQ2SmpUcFlDamxZYi9tSndjY3QxSUMxZmRBTU1ibzhQR2JPNExH?=
+ =?utf-8?B?cFBqUWFNM3pTelZ5VDFrS3NRcHhUQ1FRd1VtNGxzd3c1UWZyUU53M1QzbEFx?=
+ =?utf-8?B?L0tUMlZid0FYbDFzOEo0eXJPa2hUK1BJKzNkd0MyMTREZUNic29NOC8wSkFR?=
+ =?utf-8?B?ayt1ekl0elpRQUtHeVZGN254LzVDY1lFeERsbytqeVNIVmVIQ2Y3OUE1OXpP?=
+ =?utf-8?B?Y1dvUXZURHFOUTNsMG9Fd29DdEVkRWMvYlZQS2JxWVcwWDZtOXdIN2R5SEUv?=
+ =?utf-8?B?aE1oYlFZZWVXYXYzUzdFVDhxNlJWMTV5WWs2a0JYRk51NHMva3hVd3Bpdjgr?=
+ =?utf-8?B?UmtpVHAwRjArMzdXeG1oQitOZUJ4VW5TNU5GdlN5TXNDRkFaR1BXMFRwVzJL?=
+ =?utf-8?B?bm9SZ2lEY2loU2ZnaENTUEpMYUJKRFJBc0pkaXVFUlJwODVFR21oWSt3Rzd0?=
+ =?utf-8?B?eWUzeXZ1VjUrbFU0M3RNRHlNYktDbXA3WGtsZHFUQUpTdjc0Q2VoanVVOWRG?=
+ =?utf-8?B?TEUzelRuTEpYNU9oSm5BSG5odFdCQSt3U1RGZXJiTUdQZ0o2Y2t4WEI4UVRC?=
+ =?utf-8?B?dDRjUDNYL0VwbzloZkRzSVd0ZXdMS2daY1AwbzdqRTFzbE80T1BqalA1MS9S?=
+ =?utf-8?B?dFphb0R6WThwK0hQMnpDcFZHaFN6dmkwYW5USHB2OEM1bmRIRU5MSjJPR25w?=
+ =?utf-8?B?dmNkSmRQRXdpakV5emZ0MTNiUDFjOUFMMlNhMm5GdWV4VGRLVVJKQWUxRWhF?=
+ =?utf-8?B?eTI4bzUrSlNoN1NDWHQvUENKTGRhcVNzOHl3WjdjV29zOGpKbTh5clErSDJr?=
+ =?utf-8?B?K3BMMG8vcnFva0FUSjlqMjVhQ1QrV0cwU1JtYUNrYlZteHBsRUZwekZJS08v?=
+ =?utf-8?B?eEFEdU56WlhPd0ZkKzBJTitzVnR3b1JtYlBqb2hRT0pYR2MyRGRvN2I2d1dj?=
+ =?utf-8?B?SDdiNC9XbmsrUmlZaUVGc2RDL25SYWRUUzk5MXdwQnJoVm1YamwvYW0xZlRT?=
+ =?utf-8?B?TEtKQUVWV0xHWHNKWk5wQnRvbkNSSkV6NzVrSndlR2Q3bHAwUGRMd2IyL1B1?=
+ =?utf-8?B?cXYvNmk3VFdjd2xTc2Y0Wk9RT21ObjIraEc0T0ZvQTM4UTBuSTREL3A1ek81?=
+ =?utf-8?B?Uy84ajNNZzBMNEZIR1JPQXpUeWI5dEY4ZkkraGV4ZDF5cHp4NFNFenhFZUlp?=
+ =?utf-8?B?YXFrdnFoOSs5aEhaeFl2NVV3U0dZUU9Rek00YTEwWFZrN0gwbHprUEora3BV?=
+ =?utf-8?B?NHZ1UHlqLzVRNVA3REJFdzZzOWZBSmZSQ1h0ZUdiOFdFQ2ExZFVqUUxVQWRx?=
+ =?utf-8?B?UkNaaWxCY0RLNy92T0RsR0xmV00wOU9VTmcyR1VhTlVtYjNNK1k4UURjU2Nk?=
+ =?utf-8?B?ZVpDSlNsQU1DeWg1WUZXcUdBUUlSUjBLenpSNE9oVlE3NFpXeHpWM1h2U0Ro?=
+ =?utf-8?B?eEpHUHpLREVNVEVPbkRLRkx5ak50YXN0NkRtMG5MeTh4MHZaZXBCaHBvQTZK?=
+ =?utf-8?B?WTNEWDBkbkRFWTBlb3I5dG1MYk1OaWpqUjVTUWN1TTNJYVo5d2dGSlRGb3FB?=
+ =?utf-8?B?T1M3SHFiVjNsTzJJS1poZWlCUnVDTDhDR1A5UnRKMU1mOFFPL09CREdiNDlI?=
+ =?utf-8?B?ZVBybExrRE9kZVdFdlEzQ2ZQNGw0TlNJcTlGcHl4QXRPTEZEQnV5ZnNBMlRa?=
+ =?utf-8?Q?hssM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a6e5578-8a6c-45f6-3d07-08dbe4aabdb7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2023 00:43:38.1514
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: klIHhrmQhTRhSjfJiHg4VlmRUYuZgdNQwVS0Rsltj7dt88KeT5qPeyp0yOAq6vKQkILvatMQItVYEU6DFVV+aQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4518
+X-OriginatorOrg: intel.com
 
-On Mon, 13 Nov 2023, Anthony PERARD wrote:
-> On Thu, Nov 09, 2023 at 04:52:36PM +0000, Andrew Cooper wrote:
-> > On 09/11/2023 3:49 pm, Anthony PERARD wrote:
-> > > Currently, the test rely on QEMU and Xen finishing the boot in under
-> > > two seconds. That's both very long and very short. Xen usually managed
-> > > to print "All set up" under a second. Unless for some reason we try to
-> > > run the test on a machine that's busy doing something else.
-> > >
-> > > Rework the test to exit as soon as Xen is done.
-> > >
-> > > There's two `tail -f`, the first one is there simply to monitor test
-> > > progress in GitLab console. The second one is used to detect the test
-> > > result as soon as QEMU add it to the file. Both `tail` exit as soon as
-> > > QEMU exit.
-> > >
-> > > If QEMU fails at start, and exit early, both `tail` will simply exit,
-> > > resulting in a failure.
-> > >
-> > > If the line we are looking for is never printed, the `timeout` on the
-> > > second `tail` will force the test to exit with an error.
-> > >
-> > > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > 
-> > Looks plausible, but all these qemu-smoke scripts are pretty similar,
-> > and copied from one-another.
-> > 
-> > We should make this change consistently to all testing (there's nothing
-> > RISC-V specific about why this test is failing on this runner), and it
-> > would be really nice if we could try to make it a bit more common than
-> > it currently is.
-> 
-> Yes, it would be nice if a change to a qemu-smoke script was applied to
-> every other one. But making those scripts more generic is a lot more
-> works, which would be useful to apply a change once for all.
-> 
-> The problem I'm trying to resolve only appear with this script, because
-> of a timeout been too short, a solution could just be to increase the
-> timeout (or not allowing runners to do more than one thing at a time).
-> 
-> BTW, the last time I've been told to apply a change to other things, I
-> never managed to finish it and the change wasn't applied at all (would
-> have result in some containers been smaller).
-> 
-> I guess will see if anyone complain about the test randomly failing. :-)
-
-Hi Anthony, I think it is OK if you only fix this script for now. As
-part of the tests we are writing for Xen FuSa we want to improve the
-basic gitlab testing infrastructure and make the code common like Andrew
-asked (we haven't done it yet but soon). We should get to it in the next
-few months.
+PiBUaGVuLCBmdXJ0aGVyIGRvd24gaW4gdGhlIHBhdGNoc2V0LCBpdCBzYXlzOg0KPiANCj4gKwlp
+ZiAoY3B1X2ZlYXR1cmVfZW5hYmxlZChYODZfRkVBVFVSRV9GUkVEKSkgew0KPiArCQkvKiBXUk1T
+Uk5TIGlzIGEgYmFzZWxpbmUgZmVhdHVyZSBmb3IgRlJFRC4gKi8NCj4gDQo+IGJ1dCBXUk1TUk5T
+IGlzIG5vdCBtZW50aW9uZWQgaW4gdGhlIEZSRUQgc3BlYyAiRG9jdW1lbnQgTnVtYmVyOg0KPiAz
+NDY0NDYtMDA1VVMsIFJldmlzaW9uOiA1LjAiIHdoaWNoLCBhY2NvcmRpbmcgdG8NCj4gDQo+IGh0
+dHBzOi8vd3d3LmludGVsLmNvbS9jb250ZW50L3d3dy91cy9lbi9jb250ZW50LWRldGFpbHMvNzgw
+MTIxL2ZsZXhpYmxlLQ0KPiByZXR1cm4tYW5kLWV2ZW50LWRlbGl2ZXJ5LWZyZWQtc3BlY2lmaWNh
+dGlvbi5odG1sDQo+IA0KPiBpcyB0aGUgbGF0ZXN0Lg0KPiANCj4gQW0gSSBsb29raW5nIGF0IHRo
+ZSB3cm9uZyBvbmU/DQoNCk5vLiAgdGdseCBhc2tlZCBmb3IgaXQ6DQpodHRwczovL2xrbWwua2Vy
+bmVsLm9yZy9rdm0vODd5MWg4MWh0NC5mZnNAdGdseC8NCg0KPiANCj4gQW5kIG5vdyBJJ20gd29u
+ZGVyaW5nOiB3aGVuIHlvdSdyZSBhZGRpbmcgYSBzZXBhcmF0ZSBDUFVJRCBiaXQsIHRoZW4gdGhl
+DQo+IGFib3ZlIHNob3VsZCBiZQ0KPiANCj4gKyAgICAgICBpZiAoY3B1X2ZlYXR1cmVfZW5hYmxl
+ZChYODZfRkVBVFVSRV9XUk1TUk5TKSkgew0KPiArICAgICAgICAgICAgICAgLyogV1JNU1JOUyBp
+cyBhIGJhc2VsaW5lIGZlYXR1cmUgZm9yIEZSRUQuICovDQoNCkJlY2F1c2Ugd2UgYXJlIGRvaW5n
+IA0KCQl3cm1zcm5zKE1TUl9JQTMyX0ZSRURfUlNQMCwgLi4uKQ0KaGVyZSwgYW5kIFg4Nl9GRUFU
+VVJFX1dSTVNSTlMgZG9lc24ndCBndWFyYW50ZWUgTVNSX0lBMzJfRlJFRF9SU1AwIGV4aXN0cy4N
+Cg0KT3IgSSBtaXNzZWQgc29tZXRoaW5nPw0KDQo+IA0KPiBJIHNlZSB0aGF0IHlvdSdyZSBhZGRp
+bmcgYSBkZXBlbmRlbmN5Og0KPiANCj4gKwl7IFg4Nl9GRUFUVVJFX0ZSRUQsCQkJWDg2X0ZFQVRV
+UkVfV1JNU1JOUyAgIH0sDQo+IA0KPiB3aGljaCB0aGVuIG1lYW5zIHlvdSBkb24ndCBuZWVkIHRo
+ZSBYODZfRkVBVFVSRV9XUk1TUk5TIGRlZmluaXRpb24gYXQgYWxsDQo+IGFuZCBjYW4gdXNlIFg4
+Nl9GRUFUVVJFX0ZSRUQgb25seS4NCj4gDQo+IFNvLCB3aGF0J3MgdXA/DQoNCkZSRUQganVzdCBn
+ZXRzIHRoZSBob25vciB0byBpbnRyb2R1Y2UgV1JNU1JOUyBhbmQgaXRzIGZpcnN0IHVzYWdlOg0K
+aHR0cHM6Ly9sa21sLmtlcm5lbC5vcmcva3ZtL2IwNWUzMDkyLThiYTMtZjRlMS1iNWEzLTIxMjU5
+NDQ5MzZmZEB6eXRvci5jb20vDQoNCkFub3RoZXIgcGF0Y2ggc2V0IHNob3VsZCByZXBsYWNlIFdS
+TVNSIHdpdGggV1JNU1JOUywgd2l0aCBTRVJJQUxJWkUgYWRkZWQNCndoZW4gbmVlZGVkLg0KDQpT
+b3JyeSBmb3IgdGhlIGxhdGUgcmVzcG9uc2UsIGl0IHdhcyBhIGxvbmcgd2Vla2VuZCBpbiB0aGUg
+VVMuDQoNClRoYW5rcyENCiAgICBYaW4NCg0K
 
