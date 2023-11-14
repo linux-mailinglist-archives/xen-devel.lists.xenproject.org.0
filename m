@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75FF7EB5FC
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 18:59:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633141.987794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7F67EB61F
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 19:06:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633163.987803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xh0-0003GB-BX; Tue, 14 Nov 2023 17:59:18 +0000
+	id 1r2xnQ-0006ck-0L; Tue, 14 Nov 2023 18:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633141.987794; Tue, 14 Nov 2023 17:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 633163.987803; Tue, 14 Nov 2023 18:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xh0-0003DG-8G; Tue, 14 Nov 2023 17:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 633141;
- Tue, 14 Nov 2023 17:59:16 +0000
+	id 1r2xnP-0006Zw-Tw; Tue, 14 Nov 2023 18:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 633163;
+ Tue, 14 Nov 2023 18:05:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5HBD=G3=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
- id 1r2xYm-0004mK-J6
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:48 +0000
-Received: from 2.mo575.mail-out.ovh.net (2.mo575.mail-out.ovh.net
- [46.105.52.162]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56e500ac-8316-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 18:50:46 +0100 (CET)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.108.1.219])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 6591E291FE
+ id 1r2xYn-0004mK-JK
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:49 +0000
+Received: from 6.mo582.mail-out.ovh.net (6.mo582.mail-out.ovh.net
+ [87.98.177.69]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 573bac9d-8316-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 18:50:47 +0100 (CET)
+Received: from director8.ghost.mail-out.ovh.net (unknown [10.109.146.50])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id EF2D528E19
  for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:46 +0000 (UTC)
 Received: from ghost-submission-6684bf9d7b-x5j2z (unknown [10.110.115.90])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id D435F1FE62;
- Tue, 14 Nov 2023 17:50:45 +0000 (UTC)
+ by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7DE941FE62;
+ Tue, 14 Nov 2023 17:50:46 +0000 (UTC)
 Received: from 3mdeb.com ([37.59.142.103])
  by ghost-submission-6684bf9d7b-x5j2z with ESMTPSA
- id wKTdMHWzU2V/lwcATVRwWg
- (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:45 +0000
+ id GH/UG3azU2V/lwcATVRwWg
+ (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56e500ac-8316-11ee-98db-6d05b1d4d9a1
-Authentication-Results:garm.ovh; auth=pass (GARM-103G0050aa832c6-640f-4b02-9663-a128ddce512f,
+X-Inumbo-ID: 573bac9d-8316-11ee-98db-6d05b1d4d9a1
+Authentication-Results:garm.ovh; auth=pass (GARM-103G005f46dfe05-a74b-45be-a533-e024b49e26a8,
                     1C6EC45AC3E1968723EBE40916FD99D0F8B07574) smtp.auth=krystian.hebel@3mdeb.com
 X-OVh-ClientIp:213.192.77.249
 From: Krystian Hebel <krystian.hebel@3mdeb.com>
@@ -57,124 +57,230 @@ Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 08/10] x86/smp: drop booting_cpu variable
-Date: Tue, 14 Nov 2023 18:50:11 +0100
-Message-ID: <22109ebd7edef1140cb438a6ec5fa1726cdf2c12.1699981248.git.krystian.hebel@3mdeb.com>
+Subject: [XEN PATCH 8/9] x86/smp: make cpu_state per-CPU
+Date: Tue, 14 Nov 2023 18:50:12 +0100
+Message-ID: <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699982111.git.krystian.hebel@3mdeb.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1699981248.git.krystian.hebel@3mdeb.com>
-References: <cover.1699981248.git.krystian.hebel@3mdeb.com>
+In-Reply-To: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12931523382006163824
+X-Ovh-Tracer-Id: 12931523381681564016
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehleekveevvdfhgeetlefhjedtjefgjedtkeekffeitdffkeffueetkedtgfeiueenucffohhmrghinhepgiekiegpieegrdhssgenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgepheenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheejhedpmhhouggvpehsmhhtphhouhht
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevtdevieehieeiveekvefhlefftdfhteefueelhfdvhedtjeegkedugfefvdekffenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekvddpmhhouggvpehsmhhtphhouhht
 
-CPU id is obtained as a side effect of searching for appropriate
-stack for AP. It can be used as a parameter to start_secondary().
-Coincidentally this also makes further work on making AP bring-up
-code parallel easier.
+This will be used for parallel AP bring-up.
+
+CPU_STATE_INIT changed direction. It was previously set by BSP and never
+consumed by AP. Now it signals that AP got through assembly part of
+initialization and waits for BSP to call notifiers that set up data
+structures required for further initialization.
 
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 ---
- xen/arch/x86/boot/x86_64.S | 13 +++++++++----
- xen/arch/x86/smpboot.c     | 15 +++++----------
- 2 files changed, 14 insertions(+), 14 deletions(-)
+ xen/arch/x86/include/asm/cpufeature.h |  1 +
+ xen/arch/x86/smpboot.c                | 80 ++++++++++++++++-----------
+ 2 files changed, 49 insertions(+), 32 deletions(-)
 
-diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
-index 8d61f270761f..ad01f20d548d 100644
---- a/xen/arch/x86/boot/x86_64.S
-+++ b/xen/arch/x86/boot/x86_64.S
-@@ -20,20 +20,24 @@ ENTRY(__high_start)
-         jz      .L_stack_set
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index ff0e18864cc7..1831b5fb368f 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -38,6 +38,7 @@ struct cpuinfo_x86 {
+     unsigned int cpu_core_id;          /* core ID of each logical CPU */
+     unsigned int compute_unit_id;      /* AMD compute unit ID of each logical CPU */
+     void *stack_base;
++    unsigned int cpu_state;
+     unsigned short x86_clflush_size;
+ } __cacheline_aligned;
  
-         /* APs only: get stack base from APIC ID saved in %esp. */
--        mov     $0, %rax
-+        mov     $0, %rbx
-         lea     cpu_data(%rip), %rcx
-         /* cpu_data[0] is BSP, skip it. */
- 1:
--        add     $1, %rax
-+        add     $1, %rbx
-         add     $CPUINFO_X86_sizeof, %rcx
--        cmp     $NR_CPUS, %eax
-+        cmp     $NR_CPUS, %rbx
-         jb      2f
-         hlt
- 2:
-         cmp     %esp, CPUINFO_X86_apicid(%rcx)
-         jne     1b
- 
--        /* %rcx is now cpu_data[cpu], read stack base from it. */
-+        /*
-+         * At this point:
-+         * - %rcx is cpu_data[cpu], read stack base from it,
-+         * - %rbx (callee-save) is Xen cpu number, pass it to start_secondary().
-+         */
-         mov     CPUINFO_X86_stack_base(%rcx), %rsp
- 
-         test    %rsp,%rsp
-@@ -101,6 +105,7 @@ ENTRY(__high_start)
- .L_ap_cet_done:
- #endif /* CONFIG_XEN_SHSTK || CONFIG_XEN_IBT */
- 
-+        mov     %rbx, %rdi
-         tailcall start_secondary
- 
- .L_bsp:
 diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index a3895dafa267..39ffd356dbbc 100644
+index 39ffd356dbbc..cbea2d45f70d 100644
 --- a/xen/arch/x86/smpboot.c
 +++ b/xen/arch/x86/smpboot.c
-@@ -222,8 +222,6 @@ static void smp_callin(void)
+@@ -65,15 +65,18 @@ struct cpuinfo_x86 cpu_data[NR_CPUS] =
+         { [0 ... NR_CPUS-1] .apicid = BAD_APICID };
+ 
+ static int cpu_error;
+-static enum cpu_state {
++enum cpu_state {
+     CPU_STATE_DYING,    /* slave -> master: I am dying */
+     CPU_STATE_DEAD,     /* slave -> master: I am completely dead */
+-    CPU_STATE_INIT,     /* master -> slave: Early bringup phase 1 */
+-    CPU_STATE_CALLOUT,  /* master -> slave: Early bringup phase 2 */
++    CPU_STATE_INIT,     /* slave -> master: Early bringup phase 1 completed */
++    CPU_STATE_CALLOUT,  /* master -> slave: Start early bringup phase 2 */
+     CPU_STATE_CALLIN,   /* slave -> master: Completed phase 2 */
+     CPU_STATE_ONLINE    /* master -> slave: Go fully online now. */
+-} cpu_state;
+-#define set_cpu_state(state) do { smp_mb(); cpu_state = (state); } while (0)
++};
++#define set_cpu_state(cpu, state) do { \
++    smp_mb(); \
++    cpu_data[cpu].cpu_state = (state); \
++} while (0)
+ 
+ void initialize_cpu_data(unsigned int cpu)
+ {
+@@ -168,16 +171,7 @@ static void synchronize_tsc_slave(unsigned int slave)
+ static void smp_callin(void)
+ {
+     unsigned int cpu = smp_processor_id();
+-    int i, rc;
+-
+-    /* Wait 2s total for startup. */
+-    Dprintk("Waiting for CALLOUT.\n");
+-    for ( i = 0; cpu_state != CPU_STATE_CALLOUT; i++ )
+-    {
+-        BUG_ON(i >= 200);
+-        cpu_relax();
+-        mdelay(10);
+-    }
++    int rc;
+ 
+     /*
+      * The boot CPU has finished the init stage and is spinning on cpu_state
+@@ -213,12 +207,12 @@ static void smp_callin(void)
+     }
+ 
+     /* Allow the master to continue. */
+-    set_cpu_state(CPU_STATE_CALLIN);
++    set_cpu_state(cpu, CPU_STATE_CALLIN);
+ 
+     synchronize_tsc_slave(cpu);
+ 
+     /* And wait for our final Ack. */
+-    while ( cpu_state != CPU_STATE_ONLINE )
++    while ( cpu_data[cpu].cpu_state != CPU_STATE_ONLINE )
          cpu_relax();
  }
  
--static int booting_cpu;
--
- /* CPUs for which sibling maps can be computed. */
- static cpumask_t cpu_sibling_setup_map;
- 
-@@ -311,15 +309,14 @@ static void set_cpu_sibling_map(unsigned int cpu)
-     }
- }
- 
--void start_secondary(void *unused)
-+void start_secondary(unsigned int cpu)
+@@ -313,6 +307,9 @@ void start_secondary(unsigned int cpu)
  {
      struct cpu_info *info = get_cpu_info();
  
++    /* Tell BSP that we are awake. */
++    set_cpu_state(cpu, CPU_STATE_INIT);
++
      /*
--     * Dont put anything before smp_callin(), SMP booting is so fragile that we
-+     * Don't put anything before smp_callin(), SMP booting is so fragile that we
+      * Don't put anything before smp_callin(), SMP booting is so fragile that we
       * want to limit the things done here to the most necessary things.
-      */
--    unsigned int cpu = booting_cpu;
+@@ -320,6 +317,10 @@ void start_secondary(unsigned int cpu)
  
      /* Critical region without IDT or TSS.  Any fault is deadly! */
  
-@@ -346,9 +343,9 @@ void start_secondary(void *unused)
-      */
-     spin_debug_disable();
++    /* Wait until data set up by CPU_UP_PREPARE notifiers is ready. */
++    while ( cpu_data[cpu].cpu_state != CPU_STATE_CALLOUT )
++        cpu_relax();
++
+     set_current(idle_vcpu[cpu]);
+     this_cpu(curr_vcpu) = idle_vcpu[cpu];
+     rdmsrl(MSR_EFER, this_cpu(efer));
+@@ -585,26 +586,35 @@ static int do_boot_cpu(int apicid, int cpu)
  
--    get_cpu_info()->use_pv_cr3 = false;
--    get_cpu_info()->xen_cr3 = 0;
--    get_cpu_info()->pv_cr3 = 0;
-+    info->use_pv_cr3 = false;
-+    info->xen_cr3 = 0;
-+    info->pv_cr3 = 0;
+     /* This grunge runs the startup process for the targeted processor. */
  
-     /*
-      * BUG_ON() used in load_system_tables() and later code may end up calling
-@@ -575,8 +572,6 @@ static int do_boot_cpu(int apicid, int cpu)
-      */
-     mtrr_save_state();
- 
--    booting_cpu = cpu;
+-    set_cpu_state(CPU_STATE_INIT);
 -
-     start_eip = bootsym_phys(trampoline_realmode_entry);
+     /* Starting actual IPI sequence... */
+     boot_error = wakeup_secondary_cpu(apicid, start_eip);
  
-     /* start_eip needs be page aligned, and below the 1M boundary. */
+     if ( !boot_error )
+     {
+-        /* Allow AP to start initializing. */
+-        set_cpu_state(CPU_STATE_CALLOUT);
+-        Dprintk("After Callout %d.\n", cpu);
+-
+-        /* Wait 5s total for a response. */
+-        for ( timeout = 0; timeout < 50000; timeout++ )
++        /* Wait 2s total for a response. */
++        for ( timeout = 0; timeout < 20000; timeout++ )
+         {
+-            if ( cpu_state != CPU_STATE_CALLOUT )
++            if ( cpu_data[cpu].cpu_state == CPU_STATE_INIT )
+                 break;
+             udelay(100);
+         }
+ 
+-        if ( cpu_state == CPU_STATE_CALLIN )
++        if ( cpu_data[cpu].cpu_state == CPU_STATE_INIT )
++        {
++            /* Allow AP to start initializing. */
++            set_cpu_state(cpu, CPU_STATE_CALLOUT);
++            Dprintk("After Callout %d.\n", cpu);
++
++            /* Wait 5s total for a response. */
++            for ( timeout = 0; timeout < 500000; timeout++ )
++            {
++                if ( cpu_data[cpu].cpu_state != CPU_STATE_CALLOUT )
++                    break;
++                udelay(10);
++            }
++        }
++
++        if ( cpu_data[cpu].cpu_state == CPU_STATE_CALLIN )
+         {
+             /* number CPUs logically, starting from 1 (BSP is 0) */
+             Dprintk("OK.\n");
+@@ -612,7 +622,7 @@ static int do_boot_cpu(int apicid, int cpu)
+             synchronize_tsc_master(cpu);
+             Dprintk("CPU has booted.\n");
+         }
+-        else if ( cpu_state == CPU_STATE_DEAD )
++        else if ( cpu_data[cpu].cpu_state == CPU_STATE_DEAD )
+         {
+             smp_rmb();
+             rc = cpu_error;
+@@ -683,7 +693,7 @@ unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
+ void cpu_exit_clear(unsigned int cpu)
+ {
+     cpu_uninit(cpu);
+-    set_cpu_state(CPU_STATE_DEAD);
++    set_cpu_state(cpu, CPU_STATE_DEAD);
+ }
+ 
+ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
+@@ -1161,6 +1171,12 @@ void __init smp_prepare_cpus(void)
+     cpu_data[0].stack_base = (void *)
+              ((unsigned long)stack_start & ~(STACK_SIZE - 1));
+ 
++    /* Set state as CALLOUT so APs won't change it in initialize_cpu_data() */
++    boot_cpu_data.cpu_state = CPU_STATE_CALLOUT;
++
++    /* Not really used anywhere, but set it just in case. */
++    set_cpu_state(0, CPU_STATE_ONLINE);
++
+     set_nr_sockets();
+ 
+     socket_cpumask = xzalloc_array(cpumask_t *, nr_sockets);
+@@ -1267,7 +1283,7 @@ void __cpu_disable(void)
+ {
+     int cpu = smp_processor_id();
+ 
+-    set_cpu_state(CPU_STATE_DYING);
++    set_cpu_state(cpu, CPU_STATE_DYING);
+ 
+     local_irq_disable();
+     clear_local_APIC();
+@@ -1292,7 +1308,7 @@ void __cpu_die(unsigned int cpu)
+     unsigned int i = 0;
+     enum cpu_state seen_state;
+ 
+-    while ( (seen_state = cpu_state) != CPU_STATE_DEAD )
++    while ( (seen_state = cpu_data[cpu].cpu_state) != CPU_STATE_DEAD )
+     {
+         BUG_ON(seen_state != CPU_STATE_DYING);
+         mdelay(100);
+@@ -1393,7 +1409,7 @@ int __cpu_up(unsigned int cpu)
+ 
+     time_latch_stamps();
+ 
+-    set_cpu_state(CPU_STATE_ONLINE);
++    set_cpu_state(cpu, CPU_STATE_ONLINE);
+     while ( !cpu_online(cpu) )
+     {
+         cpu_relax();
 -- 
 2.41.0
 
