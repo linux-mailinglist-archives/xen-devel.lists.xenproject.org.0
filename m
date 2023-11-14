@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4557C7EB170
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 15:01:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632466.986823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BAF27EB186
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 15:07:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632525.986833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2tyl-0006uG-Eg; Tue, 14 Nov 2023 14:01:23 +0000
+	id 1r2u47-0001rZ-UQ; Tue, 14 Nov 2023 14:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632466.986823; Tue, 14 Nov 2023 14:01:23 +0000
+Received: by outflank-mailman (output) from mailman id 632525.986833; Tue, 14 Nov 2023 14:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2tyl-0006pa-7c; Tue, 14 Nov 2023 14:01:23 +0000
-Received: by outflank-mailman (input) for mailman id 632466;
- Tue, 14 Nov 2023 14:01:21 +0000
+	id 1r2u47-0001om-RH; Tue, 14 Nov 2023 14:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 632525;
+ Tue, 14 Nov 2023 14:06:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6ep+=G3=xenbits.xen.org=julieng@srs-se1.protection.inumbo.net>)
- id 1r2tyj-00059B-5v
- for xen-devel@lists.xen.org; Tue, 14 Nov 2023 14:01:21 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46674327-82f6-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 15:01:15 +0100 (CET)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julieng@xenbits.xen.org>)
- id 1r2tyQ-0007EB-QY; Tue, 14 Nov 2023 14:01:02 +0000
-Received: from julieng by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <julieng@xenbits.xen.org>)
- id 1r2tyQ-0002ID-NV; Tue, 14 Nov 2023 14:01:02 +0000
+ <SRS0=krWi=G3=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1r2u47-0001o0-1L
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 14:06:55 +0000
+Received: from m35-190.mailgun.net (m35-190.mailgun.net [69.72.35.190])
+ by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id 0f6af8b2-82f7-11ee-9b0e-b553b5be7939;
+ Tue, 14 Nov 2023 15:06:53 +0100 (CET)
+Received: from mg.gitlab.com (24.226.74.34.bc.googleusercontent.com
+ [34.74.226.24]) by
+ 6aee8e489c02 with SMTP id 65537efbf6aba46b4c9a0397 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Tue, 14 Nov 2023 14:06:51 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,246 +39,1118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46674327-82f6-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=LAYrzNJ1fYRbLdxpkbpHhbCzfoPYG95/y4+xPEqM1vI=; b=hWRCVd2GRTveuTBRiTi5kBoV/7
-	fITfCpThEI0pyYXQz0XzZ8N7yrbJr+hmqA1QLZiV9izxGq69FzULvUohGJ2OugtjnWU+mrEviSwyj
-	LI9oLKHw9fAA2nEpmhJ7xLt9sILaSzBVVGaTtaPF31OwRQuQYmSQ3/GU282l5ZdC1sak=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
-MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 446 v2 (CVE-2023-46836) - x86: BTC/SRSO
- fixes not fully effective
-Message-Id: <E1r2tyQ-0002ID-NV@xenbits.xenproject.org>
-Date: Tue, 14 Nov 2023 14:01:02 +0000
+X-Inumbo-ID: 0f6af8b2-82f7-11ee-9b0e-b553b5be7939
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1699970811; x=1699978011; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=Cgc+xYSVWYgmktEk6zizEnO/KNOxMXgW6rh1VWUSgVs=;
+ b=JBLwQ1tXwJdkpDmORAatUxh1S0pLQMv5cbxsmWRtAB2wSIBI2h/gfWlzVKOma2djIvbgI7FWZKdkRA79mQLEjIiLO4pTG6ha9zwGcST3RBM42SnqO1DdNoNiFlOTZH/fvMdj/SOe4cVIsrYVgd1s8gAu7SD9pTM3JSgUcANkFxo=
+X-Mailgun-Sending-Ip: 69.72.35.190
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Tue, 14 Nov 2023 14:06:50 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <65537efacf8bc_2c145b248171719@gitlab-sidekiq-catchall-v2-556c8886f-dkw78.mail>
+Subject: xen | Failed pipeline for staging-4.15 | b918c4cd
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_65537efab3ce5_2c145b24817163b";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1071943316
+X-GitLab-Pipeline-Ref: staging-4.15
+X-GitLab-Pipeline-Status: failed
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+----==_mimepart_65537efab3ce5_2c145b24817163b
+Content-Type: text/plain;
+ charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
 
-            Xen Security Advisory CVE-2023-46836 / XSA-446
-                               version 2
 
-                x86: BTC/SRSO fixes not fully effective
+Pipeline #1071943316 has failed!
 
-UPDATES IN VERSION 2
-====================
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging-4.15 ( https://gitlab.com/xen-project/xen/-/commits/staging-4.15 )
 
-Grammar fixes.
+Commit: b918c4cd ( https://gitlab.com/xen-project/xen/-/commit/b918c4cdc7ab2c1c9e9a9b54fa9d9c595913e028 )
+Commit Message: x86/spec-ctrl: Remove conditional IRQs-on-ness ...
+Commit Author: Andrew Cooper ( https://gitlab.com/andyhhp )
 
-Public release.
 
-ISSUE DESCRIPTION
-=================
+Pipeline #1071943316 ( https://gitlab.com/xen-project/xen/-/pipelines/1071943316 ) triggered by Ganis ( https://gitlab.com/ganis )
+had 19 failed jobs.
 
-The fixes for XSA-422 (Branch Type Confusion) and XSA-434 (Speculative
-Return Stack Overflow) are not IRQ-safe.  It was believed that the
-mitigations always operated in contexts with IRQs disabled.
+Job #5532197271 ( https://gitlab.com/xen-project/xen/-/jobs/5532197271/raw )
 
-However, the original XSA-254 fix for Meltdown (XPTI) deliberately left
-interrupts enabled on two entry paths; one unconditionally, and one
-conditionally on whether XPTI was active.
+Stage: build
+Name: debian-unstable-gcc-debug-arm64
+Job #5532197131 ( https://gitlab.com/xen-project/xen/-/jobs/5532197131/raw )
 
-As BTC/SRSO and Meltdown affect different CPU vendors, the mitigations
-are not active together by default.  Therefore, there is a race
-condition whereby a malicious PV guest can bypass BTC/SRSO protections
-and launch a BTC/SRSO attack against Xen.
+Stage: build
+Name: debian-stretch-clang-debug
+Job #5532197137 ( https://gitlab.com/xen-project/xen/-/jobs/5532197137/raw )
 
-IMPACT
-======
+Stage: build
+Name: debian-stretch-32-clang-debug
+Job #5532197141 ( https://gitlab.com/xen-project/xen/-/jobs/5532197141/raw )
 
-An attacker in a PV guest might be able to infer the contents of memory
-belonging to other guests.
+Stage: build
+Name: debian-stretch-32-gcc-debug
+Job #5532197144 ( https://gitlab.com/xen-project/xen/-/jobs/5532197144/raw )
 
-VULNERABLE SYSTEMS
-==================
+Stage: build
+Name: debian-unstable-clang
+Job #5532197153 ( https://gitlab.com/xen-project/xen/-/jobs/5532197153/raw )
 
-All versions of Xen are vulnerable.
+Stage: build
+Name: debian-unstable-gcc-debug
+Job #5532197161 ( https://gitlab.com/xen-project/xen/-/jobs/5532197161/raw )
 
-Xen is only vulnerable in default configurations on AMD and Hygon CPUs.
+Stage: build
+Name: debian-unstable-32-clang-debug
+Job #5532197163 ( https://gitlab.com/xen-project/xen/-/jobs/5532197163/raw )
 
-Xen is not believed to be vulnerable in default configurations on CPUs
-from other hardware vendors.
+Stage: build
+Name: debian-unstable-32-gcc-debug
+Job #5532197108 ( https://gitlab.com/xen-project/xen/-/jobs/5532197108/raw )
 
-Only PV guests can leverage the vulnerability.
+Stage: build
+Name: archlinux-gcc
+Job #5532197111 ( https://gitlab.com/xen-project/xen/-/jobs/5532197111/raw )
 
-MITIGATION
-==========
+Stage: build
+Name: archlinux-gcc-debug
+Job #5532197130 ( https://gitlab.com/xen-project/xen/-/jobs/5532197130/raw )
 
-Running only HVM or PVH VMs will avoid the vulnerability.
+Stage: build
+Name: debian-stretch-clang
+Job #5532197133 ( https://gitlab.com/xen-project/xen/-/jobs/5532197133/raw )
 
-CREDITS
-=======
+Stage: build
+Name: debian-stretch-gcc
+Job #5532197135 ( https://gitlab.com/xen-project/xen/-/jobs/5532197135/raw )
 
-This issue was discovered by Andrew Cooper of XenServer.
+Stage: build
+Name: debian-stretch-gcc-debug
+Job #5532197146 ( https://gitlab.com/xen-project/xen/-/jobs/5532197146/raw )
 
-RESOLUTION
-==========
+Stage: build
+Name: debian-unstable-clang-debug
+Job #5532197149 ( https://gitlab.com/xen-project/xen/-/jobs/5532197149/raw )
 
-Applying the appropriate attached patch resolves this issue.
+Stage: build
+Name: debian-unstable-gcc
+Job #5532197246 ( https://gitlab.com/xen-project/xen/-/jobs/5532197246/raw )
 
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
+Stage: build
+Name: opensuse-leap-clang-debug
+Job #5532197243 ( https://gitlab.com/xen-project/xen/-/jobs/5532197243/raw )
 
-xsa446.patch           xen-unstable - Xen 4.15.x
+Stage: build
+Name: opensuse-leap-clang
+Job #5532197254 ( https://gitlab.com/xen-project/xen/-/jobs/5532197254/raw )
 
-$ sha256sum xsa446*
-ed27ad5f36af31233e25c80daefb8b0078eeb18cacbc1923fdd6f10f0b394201  xsa446.patch
-$
+Stage: build
+Name: alpine-3.12-gcc
+Job #5532197269 ( https://gitlab.com/xen-project/xen/-/jobs/5532197269/raw )
 
-DEPLOYMENT DURING EMBARGO
-=========================
+Stage: build
+Name: debian-unstable-gcc-arm64
 
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
+-- 
+You're receiving this email because of your account on gitlab.com.
 
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
 
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
 
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
 
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
------BEGIN PGP SIGNATURE-----
+----==_mimepart_65537efab3ce5_2c145b24817163b
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmVTfRgMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZfLoH/iZJzkNK4d6vUrx8F5Srm8mAIDMGL4fPvJz00IsO
-7h7+/wz0+FdnaWgT/12kHjIJv7p38rNkyJ3UC3p55NFFGUXKQxaKjJ6YU70IdHmY
-zbQDdYd2eB9dGbAq2NEkZibtg5mhhThBsQw9Sf+YZuSzOV5xRWiEhnBGz7l4+Dym
-bM7vuusZo3/iUc0WgE+p+j85QmzgTFdt7VEUYY2mSTFud+hDYtvx62Ej3AkwCRdu
-I0JbGYcRaDR9RPDae2d9yvz0+E473rFgOSX6DqZLjnQ+UQivZ7eo8soJD87qY4Jh
-OrEDMQWysSNiT90NYWZ+HxsRRZVjPVPoxX6EWEkwC7+CffI=
-=2Xtx
------END PGP SIGNATURE-----
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
 
---=separator
-Content-Type: application/octet-stream; name="xsa446.patch"
-Content-Disposition: attachment; filename="xsa446.patch"
-Content-Transfer-Encoding: base64
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Failed pipeline for staging-4.15 | b918c4cd</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
 
-RnJvbSA4MGQ1YWFkYTU5OGMzYTgwMGEzNTAwMDNkNWQ1ODI5MzE1NDVlMTNj
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBBbmRyZXcgQ29vcGVy
-IDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgpEYXRlOiBUaHUsIDI2IE9j
-dCAyMDIzIDE0OjM3OjM4ICswMTAwClN1YmplY3Q6IFtQQVRDSF0geDg2L3Nw
-ZWMtY3RybDogUmVtb3ZlIGNvbmRpdGlvbmFsIElSUXMtb24tbmVzcyBmb3Ig
-SU5UCiAkMHg4MC8weDgyIHBhdGhzCk1JTUUtVmVyc2lvbjogMS4wCkNvbnRl
-bnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOApDb250ZW50LVRy
-YW5zZmVyLUVuY29kaW5nOiA4Yml0CgpCZWZvcmUgc3BlY3VsYXRpb24gZGVm
-ZW5jZXMsIHNvbWUgcGF0aHMgaW4gWGVuIGNvdWxkIGdlbnVpbmVseSBnZXQg
-YXdheSB3aXRoCmJlaW5nIElSUXMtb24gYXQgZW50cnkuICBCdXQgWFBUSSBp
-bnZhbGlkYXRlZCB0aGlzIHByb3BlcnR5IG9uIG1vc3QgcGF0aHMsIGFuZAph
-dHRlbXB0aW5nIHRvIG1haW50YWluIGl0IG9uIHRoZSByZW1haW5pbmcgcGF0
-aHMgd2FzIGEgbWlzdGFrZS4KCkZhc3QgZm9yd2FyZCwgYW5kIERPX1NQRUNf
-Q1RSTF9DT05EX0lCUEIgKHByb3RlY3Rpb24gZm9yIEFNRCBCVEMvU1JTTykg
-aXMgbm90CklSUS1zYWZlLCBydW5uaW5nIHdpdGggSVJRcyBlbmFibGVkIGlu
-IHNvbWUgY2FzZXMuICBUaGUgb3RoZXIgYWN0aW9ucyB0YWtlbiBvbgp0aGVz
-ZSBwYXRocyBoYXBwZW4gdG8gYmUgSVJRLXNhZmUuCgpNYWtlIGVudHJ5X2lu
-dDgyKCkgYW5kIGludDgwX2RpcmVjdF90cmFwKCkgdW5jb25kaXRpb25hbGx5
-IEludGVycnVwdCBHYXRlcwpyYXRoZXIgdGhhbiBUcmFwIEdhdGVzLiAgUmVt
-b3ZlIHRoZSBjb25kaXRpb25hbCByZS1hZGp1c3RtZW50IG9mCmludDgwX2Rp
-cmVjdF90cmFwKCkgaW4gc21wX3ByZXBhcmVfY3B1cygpLCBhbmQgaGF2ZSBl
-bnRyeV9pbnQ4MigpIGV4cGxpY2l0bHkKZW5hYmxlIGludGVycnVwdHMgd2hl
-biBzYWZlIHRvIGRvIHNvLgoKSW4gc21wX3ByZXBhcmVfY3B1cygpLCB3aXRo
-IHRoZSBjb25kaXRpb25hbCByZS1hZGp1c3RtZW50IHJlbW92ZWQsIHRoZQpj
-bGVhcmluZyBvZiBwdl9jcjMgaXMgdGhlIG9ubHkgcmVtYWluaW5nIGFjdGlv
-biBnYXRlZCBvbiBYUFRJLCBhbmQgaXQgaXMgb3V0Cm9mIHBsYWNlIGFueXdh
-eSwgcmVwZWF0aW5nIHdvcmsgYWxyZWFkeSBkb25lIGJ5IHNtcF9wcmVwYXJl
-X2Jvb3RfY3B1KCkuICBEcm9wCnRoZSBlbnRpcmUgaWYoKSBjb25kaXRpb24g
-dG8gYXZvaWQgbGVhdmluZyBhbiBpbmNvcnJlY3QgdmVzdGlnaWFsIHJlbW5h
-bnQuCgpBbHNvIGRyb3AgY29tbWVudHMgd2hpY2ggbWFrZSBpbmNvcnJlY3Qg
-c3RhdGVtZW50cyBhYm91dCB3aGVuIGl0cyBzYWZlIHRvCmVuYWJsZSBpbnRl
-cnJ1cHRzLgoKVGhpcyBpcyBYU0EtNDQ2IC8gQ1ZFLTIwMjMtNDY4MzYKClNp
-Z25lZC1vZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNp
-dHJpeC5jb20+ClJldmlld2VkLWJ5OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dl
-ci5wYXVAY2l0cml4LmNvbT4KLS0tCiB4ZW4vYXJjaC94ODYvcHYvdHJhcHMu
-YyAgICAgICAgICAgIHwgIDQgKystLQogeGVuL2FyY2gveDg2L3NtcGJvb3Qu
-YyAgICAgICAgICAgICB8IDE0IC0tLS0tLS0tLS0tLS0tCiB4ZW4vYXJjaC94
-ODYveDg2XzY0L2NvbXBhdC9lbnRyeS5TIHwgIDIgKysKIHhlbi9hcmNoL3g4
-Ni94ODZfNjQvZW50cnkuUyAgICAgICAgfCAgMSAtCiA0IGZpbGVzIGNoYW5n
-ZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTcgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEveGVuL2FyY2gveDg2L3B2L3RyYXBzLmMgYi94ZW4vYXJjaC94ODYv
-cHYvdHJhcHMuYwppbmRleCA3NGYzMzNkYTdlMWMuLjI0MGQxYTJkYjdhMyAx
-MDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L3B2L3RyYXBzLmMKKysrIGIveGVu
-L2FyY2gveDg2L3B2L3RyYXBzLmMKQEAgLTEzOSwxMSArMTM5LDExIEBAIHZv
-aWQgX19pbml0IHB2X3RyYXBfaW5pdCh2b2lkKQogI2lmZGVmIENPTkZJR19Q
-VjMyCiAgICAgLyogVGhlIDMyLW9uLTY0IGh5cGVyY2FsbCB2ZWN0b3IgaXMg
-b25seSBhY2Nlc3NpYmxlIGZyb20gcmluZyAxLiAqLwogICAgIF9zZXRfZ2F0
-ZShpZHRfdGFibGUgKyBIWVBFUkNBTExfVkVDVE9SLAotICAgICAgICAgICAg
-ICBTWVNfREVTQ190cmFwX2dhdGUsIDEsIGVudHJ5X2ludDgyKTsKKyAgICAg
-ICAgICAgICAgU1lTX0RFU0NfaXJxX2dhdGUsIDEsIGVudHJ5X2ludDgyKTsK
-ICNlbmRpZgogCiAgICAgLyogRmFzdCB0cmFwIGZvciBpbnQ4MCAoZmFzdGVy
-IHRoYW4gdGFraW5nIHRoZSAjR1AtZml4dXAgcGF0aCkuICovCi0gICAgX3Nl
-dF9nYXRlKGlkdF90YWJsZSArIExFR0FDWV9TWVNDQUxMX1ZFQ1RPUiwgU1lT
-X0RFU0NfdHJhcF9nYXRlLCAzLAorICAgIF9zZXRfZ2F0ZShpZHRfdGFibGUg
-KyBMRUdBQ1lfU1lTQ0FMTF9WRUNUT1IsIFNZU19ERVNDX2lycV9nYXRlLCAz
-LAogICAgICAgICAgICAgICAmaW50ODBfZGlyZWN0X3RyYXApOwogCiAgICAg
-b3Blbl9zb2Z0aXJxKE5NSV9TT0ZUSVJRLCBubWlfc29mdGlycSk7CmRpZmYg
-LS1naXQgYS94ZW4vYXJjaC94ODYvc21wYm9vdC5jIGIveGVuL2FyY2gveDg2
-L3NtcGJvb3QuYwppbmRleCAzYTFhNjU5MDgyYzYuLjRjNTRlY2JjOTFkNyAx
-MDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L3NtcGJvb3QuYworKysgYi94ZW4v
-YXJjaC94ODYvc21wYm9vdC5jCkBAIC0xMTU4LDIwICsxMTU4LDYgQEAgdm9p
-ZCBfX2luaXQgc21wX3ByZXBhcmVfY3B1cyh2b2lkKQogCiAgICAgc3RhY2tf
-YmFzZVswXSA9ICh2b2lkICopKCh1bnNpZ25lZCBsb25nKXN0YWNrX3N0YXJ0
-ICYgfihTVEFDS19TSVpFIC0gMSkpOwogCi0gICAgaWYgKCBvcHRfeHB0aV9o
-d2RvbSB8fCBvcHRfeHB0aV9kb211ICkKLSAgICB7Ci0gICAgICAgIGdldF9j
-cHVfaW5mbygpLT5wdl9jcjMgPSAwOwotCi0jaWZkZWYgQ09ORklHX1BWCi0g
-ICAgICAgIC8qCi0gICAgICAgICAqIEFsbCBlbnRyeSBwb2ludHMgd2hpY2gg
-bWF5IG5lZWQgdG8gc3dpdGNoIHBhZ2UgdGFibGVzIGhhdmUgdG8gc3RhcnQK
-LSAgICAgICAgICogd2l0aCBpbnRlcnJ1cHRzIG9mZi4gUmUtd3JpdGUgd2hh
-dCBwdl90cmFwX2luaXQoKSBoYXMgcHV0IHRoZXJlLgotICAgICAgICAgKi8K
-LSAgICAgICAgX3NldF9nYXRlKGlkdF90YWJsZSArIExFR0FDWV9TWVNDQUxM
-X1ZFQ1RPUiwgU1lTX0RFU0NfaXJxX2dhdGUsIDMsCi0gICAgICAgICAgICAg
-ICAgICAmaW50ODBfZGlyZWN0X3RyYXApOwotI2VuZGlmCi0gICAgfQotCiAg
-ICAgc2V0X25yX3NvY2tldHMoKTsKIAogICAgIHNvY2tldF9jcHVtYXNrID0g
-eHphbGxvY19hcnJheShjcHVtYXNrX3QgKiwgbnJfc29ja2V0cyk7CmRpZmYg
-LS1naXQgYS94ZW4vYXJjaC94ODYveDg2XzY0L2NvbXBhdC9lbnRyeS5TIGIv
-eGVuL2FyY2gveDg2L3g4Nl82NC9jb21wYXQvZW50cnkuUwppbmRleCBiZDVh
-YmQ4MDQwYmQuLmZjYzNhNzIxZjE0NyAxMDA2NDQKLS0tIGEveGVuL2FyY2gv
-eDg2L3g4Nl82NC9jb21wYXQvZW50cnkuUworKysgYi94ZW4vYXJjaC94ODYv
-eDg2XzY0L2NvbXBhdC9lbnRyeS5TCkBAIC0yMSw2ICsyMSw4IEBAIEVOVFJZ
-KGVudHJ5X2ludDgyKQogICAgICAgICBTUEVDX0NUUkxfRU5UUllfRlJPTV9Q
-ViAvKiBSZXE6ICVyc3A9cmVncy9jcHVpbmZvLCAlcmR4PTAsIENsb2I6IGFj
-ZCAqLwogICAgICAgICAvKiBXQVJOSU5HISBgcmV0YCwgYGNhbGwgKmAsIGBq
-bXAgKmAgbm90IHNhZmUgYmVmb3JlIHRoaXMgcG9pbnQuICovCiAKKyAgICAg
-ICAgc3RpCisKICAgICAgICAgQ1I0X1BWMzJfUkVTVE9SRQogCiAgICAgICAg
-IEdFVF9DVVJSRU5UKGJ4KQpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L3g4
-Nl82NC9lbnRyeS5TIGIveGVuL2FyY2gveDg2L3g4Nl82NC9lbnRyeS5TCmlu
-ZGV4IDVjYTc0ZjVmNjJiMi4uOWE3YjEyOWFhN2U0IDEwMDY0NAotLS0gYS94
-ZW4vYXJjaC94ODYveDg2XzY0L2VudHJ5LlMKKysrIGIveGVuL2FyY2gveDg2
-L3g4Nl82NC9lbnRyeS5TCkBAIC0zMjcsNyArMzI3LDYgQEAgRU5UUlkoc3lz
-ZW50ZXJfZW50cnkpCiAjaWZkZWYgQ09ORklHX1hFTl9TSFNUSwogICAgICAg
-ICBBTFRFUk5BVElWRSAiIiwgInNldHNzYnN5IiwgWDg2X0ZFQVRVUkVfWEVO
-X1NIU1RLCiAjZW5kaWYKLSAgICAgICAgLyogc3RpIGNvdWxkIGxpdmUgaGVy
-ZSB3aGVuIHdlIGRvbid0IHN3aXRjaCBwYWdlIHRhYmxlcyBiZWxvdy4gKi8K
-ICAgICAgICAgcHVzaHEgJEZMQVRfVVNFUl9TUwogICAgICAgICBwdXNocSAk
-MAogICAgICAgICBwdXNoZnEKCmJhc2UtY29tbWl0OiA3YmVmZWY4N2NjOWIx
-YmI4Y2ExNWQ4NjZjZTFlY2Q5MTY1Y2NiNThjCnByZXJlcXVpc2l0ZS1wYXRj
-aC1pZDogMTQyYTg3YzcwNzQxMWQ0OWUxMzZjM2ZiNzZmMWIxNDk2M2VjNmRj
-OAotLSAKMi4zMC4yCgo=
+</style>
 
---=separator--
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"alert">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#d22f57">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px; line-height: 1;" align=3D"center" valig=
+n=3D"middle">
+<img alt=3D"&#10006;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-inverted-06edddd39ba2a7f9a32f6201e420=
+175db85a4b6ac0348203fdc069001b440149.gif" style=3D"display: block;" width=
+=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1071943316 has failed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging-4.15" style=3D"color: #333333; text-decoration: none;">
+staging-4.15
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/b918c4cdc7ab2c1c9e=
+9a9b54fa9d9c595913e028" style=3D"color: #3777b0; text-decoration: none;">=
+
+b918c4cd
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+x86/spec-ctrl: Remove conditional IRQs-on-ness ...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/6cb22538f3a82e4ee99e1d0419f62385?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/andyhhp" style=3D"color: #3=
+33333; text-decoration: none;">
+Andrew Cooper
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"pre-section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; font-weight: 500; line-height: 1.4;" valign=3D"baseline">
+Pipeline <a style=3D"color: #3777b0; text-decoration: none;" href=3D"http=
+s://gitlab.com/xen-project/xen/-/pipelines/1071943316">#1071943316</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px; padding-left: 5px;" =
+width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; font-weight: 500; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 14px; font-weight: 400; line-heigh=
+t: 1.4; padding: 0 8px 16px;" align=3D"center">
+had 19 failed jobs
+</td>
+</tr>
+<tr class=3D"table-warning">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 4px 4px 0 0; overflow: hidden; color: #d22852; font-size: 14=
+px; line-height: 1.4; padding: 8px 16px; border-color: #ededed; border-st=
+yle: solid; border-width: 1px 1px 0;" align=3D"center" bgcolor=3D"#fdf4f6=
+">
+Failed jobs
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 0 0 4px 4px; overflow: hidden; padding: 0 16px; border-color=
+: #ededed; border-style: solid; border-width: 0 1px 1px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"builds" =
+style=3D"width: 100%; border-collapse: collapse;">
+<tbody>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197271" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-gcc-debug-arm64
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197131" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197137" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-32-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197141" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-32-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197144" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-clang
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197153" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197161" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-32-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197163" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-32-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197108" style=3D=
+"color: #3777b0; text-decoration: none;">
+archlinux-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197111" style=3D=
+"color: #3777b0; text-decoration: none;">
+archlinux-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197130" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-clang
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197133" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197135" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-stretch-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197146" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197149" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197246" style=3D=
+"color: #3777b0; text-decoration: none;">
+opensuse-leap-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197243" style=3D=
+"color: #3777b0; text-decoration: none;">
+opensuse-leap-clang
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197254" style=3D=
+"color: #3777b0; text-decoration: none;">
+alpine-3.12-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5532197269" style=3D=
+"color: #3777b0; text-decoration: none;">
+debian-unstable-gcc-arm64
+</a>
+
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_65537efab3ce5_2c145b24817163b--
 
