@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D5F7EBA31
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 00:18:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633389.988153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC1BF7EBA44
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 00:45:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633392.988161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r32f2-0003kF-SZ; Tue, 14 Nov 2023 23:17:36 +0000
+	id 1r3358-0005mk-Uq; Tue, 14 Nov 2023 23:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633389.988153; Tue, 14 Nov 2023 23:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 633392.988161; Tue, 14 Nov 2023 23:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r32f2-0003gu-Pj; Tue, 14 Nov 2023 23:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 633389;
- Tue, 14 Nov 2023 23:17:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3358-0005kF-S7; Tue, 14 Nov 2023 23:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 633392;
+ Tue, 14 Nov 2023 23:44:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wE9C=G3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r32f1-0003gn-Eu
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 23:17:35 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd6a0b69-8343-11ee-9b0e-b553b5be7939;
- Wed, 15 Nov 2023 00:17:33 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id DA441B8166A;
- Tue, 14 Nov 2023 23:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED333C433C7;
- Tue, 14 Nov 2023 23:17:30 +0000 (UTC)
+ <SRS0=MjOU=G3=gmail.com=marietto2008@srs-se1.protection.inumbo.net>)
+ id 1r3357-0005k9-8B
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 23:44:33 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c1a6d28c-8347-11ee-98db-6d05b1d4d9a1;
+ Wed, 15 Nov 2023 00:44:31 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9e5dd91b0acso748946266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 15:44:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,203 +40,627 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd6a0b69-8343-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700003852;
-	bh=OcOq8UAITUwo5QdZOz9sIJ34JR6EKQcVdHOtcYTMcOI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rADXvipcbcZ/N/zoAuix9pNB4t8vNic/7dQNjjfNTaV3XOHgXLHsedhOPxLn5maPa
-	 371Wpb3aTYESy4bQ3LJSyt6U/J9Ci24U6ss/irZNeY6SflqqXXbz+p0xTlyOpTYAPT
-	 9ti8iiv0IqXhsTcIf9of1h2waT7QYLF7itECDz5okKOH/JTNEi6ZpZS3DB9JZtdzOW
-	 8+ccvxvUG4/ZikwadsjXIeoPPC9Ec7OsLf4QPln0fqTVThmt1zOaBPWvFofwqrXgOW
-	 9oTHdFnelxhEFlPhbopM79MX1nDm/+p7o7SR2LGkmkkqaSrCWdqhPIJbQdBVbhF4jV
-	 yKa3bujXQFSOA==
-Date: Tue, 14 Nov 2023 15:17:29 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Mario Marietto <marietto2008@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Chuck Zmudzinski <brchuckz@netscape.net>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: c1a6d28c-8347-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700005470; x=1700610270; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=gJI8acAw7Z5wcKQuD/ZT6MKSeIPTKFbSqI1dIoL6SrM=;
+        b=Vt6N+xVxddwoC9Jwz/G8GboO4QAy/4x2rEaGF1qNG1DwjFkZBxNm41+VgqyJdTpqms
+         leUpZVe61NNV35AlRewCViLv2v7kwZbP+kCT+GPi9gn50uua1Qq+69USpcX8Mh1dNDvP
+         a0l6VxPzPsnjEityUG9TfccyzqN7M5V/JUM9GwJr4oPtZc/ddgoaf3hdxGAvT+RhTAQ+
+         2Q23uCqhAPGsY6qhywU/tbMZiFqTbSvvoMCGgjLUv0FUYFrrJ/HzKyez4yxdvwxcTJqv
+         Ut3IO+T1ZBiP+hJa8AEe5eVsDgt9ok7XJLfKIXoFMAGgQy0ymfkoblOclVFLFL0C+pdi
+         UHMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700005470; x=1700610270;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gJI8acAw7Z5wcKQuD/ZT6MKSeIPTKFbSqI1dIoL6SrM=;
+        b=H/iOIky6hVLHKiRwj69bQNpJkdRrHSjuR5GrtBB0p/d8efdlGxgcLalEL97WmRVBky
+         v1VbrHxpMT4DEiCkq732Stt691lm5pP+qNl6+1sREWufw1K3qmRhYk7+kwgCGhsdK0/U
+         8RPg/UJe7bLfg88nlR0+ZjHUBX7FHJb3MWs2zCL1W9gDHLg84kiIByJ4yg9ewzOV0VxF
+         LRZWVApl0E401r61hFnnn6LElRG6ukOn1YDlUHt5X82LNQKKgbOZSNLlJNlwz7LncawF
+         JwhIPLZApy5GB9lLcl2ec1PPryXwK7wE48NIyrkzlJkQSDsgN+YjHupKAng8Jp2MmKHX
+         1/7Q==
+X-Gm-Message-State: AOJu0YwBh81IiVL5XwxohpngoDb9BnI2E6/gihuBhi2np9LW8uscMAMV
+	DDs5dLob9+wfFQEqSQ4xtI4YYmmK0BmEhCDs27aZgu9aXMQ=
+X-Google-Smtp-Source: AGHT+IEa5KXES9mVFF04uaGz54K1tQpWNBh8MfIY78R0bm++64RrQDNyCpxityoKdITFos8oRAxzm47JxvCadONdOZs=
+X-Received: by 2002:a17:906:b350:b0:9b2:bb02:a543 with SMTP id
+ cd16-20020a170906b35000b009b2bb02a543mr8332173ejb.74.1700005470333; Tue, 14
+ Nov 2023 15:44:30 -0800 (PST)
+MIME-Version: 1.0
+References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
+ <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop>
+ <CA+1FSijk1gVZ2OZC=UCWQzUed2Ve5Nu5CagSTAnHPGf0hBRy-A@mail.gmail.com> <alpine.DEB.2.22.394.2311141513330.160649@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2311141513330.160649@ubuntu-linux-20-04-desktop>
+From: Mario Marietto <marietto2008@gmail.com>
+Date: Wed, 15 Nov 2023 00:43:53 +0100
+Message-ID: <CA+1FSijOYJneLxEfss2BoY0Q4vafa+gVdQeyOfy7A_bTAA6QLw@mail.gmail.com>
 Subject: Re: Values generated by the ViryaOS uboot-script-gen do not work
  correctly on the Chromebook Snow
-In-Reply-To: <CA+1FSijk1gVZ2OZC=UCWQzUed2Ve5Nu5CagSTAnHPGf0hBRy-A@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2311141513330.160649@ubuntu-linux-20-04-desktop>
-References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com> <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop> <CA+1FSijk1gVZ2OZC=UCWQzUed2Ve5Nu5CagSTAnHPGf0hBRy-A@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-266073672-1700003790=:160649"
-Content-ID: <alpine.DEB.2.22.394.2311141516331.160649@ubuntu-linux-20-04-desktop>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Chuck Zmudzinski <brchuckz@netscape.net>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="0000000000002cf044060a255e36"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--0000000000002cf044060a255e36
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---8323329-266073672-1700003790=:160649
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2311141516332.160649@ubuntu-linux-20-04-desktop>
+I hope that the informations below are correct :
 
-Hi Mario,
+- the imagebuilder config file :
 
-I think we misunderstood each other :-)
+MEMORY_START=3D"0x0"
+MEMORY_END=3D"0x80000000"
+LOAD_CMD=3D"ext2load mmc 1:3"
+BOOT_CMD=3D"bootm"
+DEVICE_TREE=3D"exynos5250-snow.dtb"
+XEN=3D"xen-4.17-armhf"
+XEN_CMD=3D"console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1152M dom0_max_vcpu=
+s=3D2
+bootscrub=3D0 vwfi=3Dnative sched=3Dnull"
+DOM0_KERNEL=3D"zImage-6.6.0-xen-iommu-dma-on-xen"
+DOM0_CMD=3D"console=3Dtty earlycon=3Dxen earlyprintk=3Dxen root=3D/dev/mmcb=
+lk1p4 rw
+rootwait clk_ignore_unused"
+UBOOT_SOURCE=3D"xen.source"
+UBOOT_SCRIPT=3D"xen.scr"
 
-MEMORY_START-MEMORY_END is not supposed to be computed: it is supposed
-to come from the memory node in device tree tree (/memory) of the
-platform. The idea is that you should not have to do any computations,
-but only reuse the same address range specified there.
+xen.source : (that does not work)
 
-Similarly in regards to "please post the size of all the binaries",
-this is just for debugging, so that I can see if there are any bugs with
-uboot-script-gen. I cannot debug the script unless I figure out what the
-problem is and the only way I can do that is with the binary sizes and
-redoing all the steps by hand.
+mmc dev 1
+ext2load mmc 1:3 0xE00000 zImage-6.6.0-xen-iommu-dma-on-xen
+ext2load mmc 1:3 0x1800000 xen-4.17-armhf.ub
+ext2load mmc 1:3 0x1A00000 exynos5250-snow.dtb
+fdt addr 0x1A00000
+fdt resize 1024
+fdt set /chosen \#address-cells <0x2>
+fdt set /chosen \#size-cells <0x2>
+fdt set /chosen xen,xen-bootargs "console=3Ddtuart dtuart=3Dserial0
+dom0_mem=3D1152M dom0_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative sched=3Dnul=
+l"
+fdt mknod /chosen dom0
+fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module"
+"multiboot,module"
+fdt set /chosen/dom0 reg <0x0 0xE00000 0x0 0x87C200 >
+fdt set /chosen xen,dom0-bootargs "console=3Dtty earlycon=3Dxen earlyprintk=
+=3Dxen
+root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+setenv fdt_high 0xffffffffffffffff
+bootm 0x1800000 - 0x1A00000
 
-The expected outcome is that once we resolve the problem you should be
-able to use uboot-script-gen without any additional computation needed.
+xen.source : (created by chuck and that works)
 
-Of course using static values is also OK.
+mmc dev 1
+ext2load mmc 1:3 0x42000000 zImage-6.6.0-xen-iommu-dma-on-xen
+ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
+ext2load mmc 1:3 0x5ffec000 exynos5250-snow.dtb
+fdt addr 0x5ffec000
+fdt resize 1024
+fdt set /chosen \#address-cells <0x2>
+fdt set /chosen \#size-cells <0x2>
+fdt set /chosen xen,xen-bootargs "console=3Ddtuart dtuart=3Dserial0
+dom0_mem=3D1152M dom0_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative sched=3Dnul=
+l"
+fdt mknod /chosen dom0
+fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module"
+"multiboot,module"
+fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x87C200 >
+fdt set /chosen xen,dom0-bootargs "console=3Dtty1 root=3D/dev/mmcblk1p4 rw
+rootwait clk_ignore_unused --no-log"
+bootm 0x51000000 - 0x5ffec000
+
+all the values that you see in this conf. files have been calculated by
+chuck by hand,because the values generated by the imagebuilder are wrong.
+The only value that's well calculated by the imagebuilder is 0x87C200
+
+- the size of all the binaries specified in the imagebuilder config file :
+
+exynos5250-snow.dtb =3D 46.6 KiB (47,769 byte)
+zImage-6.6.0-xen-iommu-dma-on-xen =3D 8.5 MiB (8,897,024 byte)
 
 
-On Wed, 15 Nov 2023, Mario Marietto wrote:
-> ---> uboot-script-gen assumes that the memory range specified by MEMORY_START-MEMORY_END is valid and correct.
-> 
-> Actually Chuck chose 0 as MEMORY_START and 0x800000 as MEMORY_END and these are stable values,they don't change. If you ask me to calculate
-> those values,it means that we need to compute these values. I imagine that to calculate these values is not easy.
-> 
-> ---> To debug this kind of issues please post the size of all the binaries specified in the imagebuilder config file
-> 
-> I imagine that I should also calculate those values. And again,I see a complication.
-> 
-> I'm realizing that the method used by Chuck is easier because he uses stable values. In the end,there aren't any calculations to do and
-> since I'm looking for an easier method,not a more complicated one,I think that Chuck's method is good as is. 
-> 
-> On Tue, Nov 14, 2023 at 11:51 PM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       Hi Mario,
-> 
->       It is difficult to know how to change uboot-script-gen if we don't know
->       why it is currently going wrong.
-> 
->       uboot-script-gen assumes that the memory range specified by
->       MEMORY_START-MEMORY_END is valid and correct.
-> 
->       So if you specified a valid and correct memory range in your config file
->       (0x41e00000-0x60000000) why is it failing?
-> 
->       The only thing uboot-script-gen does is choosing aligned addresses
->       within the MEMORY_START-MEMORY_END range. The addresses are supposed not
->       to overlap (meaning the initrd will not overwrite part of the kernel
->       when loaded). If the issue is a bug in uboot-script-gen, such as the
->       generated addresses overlap or they are not aligned, then we can fix the
->       alignment or overlap bug. To debug this kind of issues please post:
->       - the imagebuilder config file
->       - the generate boot.source script
->       - the size of all the binaries specified in the imagebuilder config file
-> 
->       On the other hand if 0x41e00000-0x60000000 is not a safe memory range to
->       use, then you need to specify a different memory range.
-> 
->       Cheers,
-> 
->       Stefano
-> 
-> 
-> 
->       On Mon, 13 Nov 2023, Mario Marietto wrote:
->       > Hello.
->       >
->       > I'm trying to find an easier way to the problem that you can read here :
->       >
->       > https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest
->       >
->       > where Chuck says :
->       >
->       >  6. Create the u-boot shell commands that will be used to boot Xen and dom0.
->       >
->       > Create a file in /home/user (or any other directory) named bootxen.source with these contents :
->       >
->       >
->       > mmc dev 1 && mmc rescan 1
->       > ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
->       > ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
->       > ext2load mmc 1:3 0x5ffec000 exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
->       > fdt addr 0x5ffec000
->       > fdt resize 1024
->       > fdt set /chosen \#address-cells <0x2>
->       > fdt set /chosen \#size-cells <0x2>
->       > fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=2 bootscrub=0 vwfi=native"
->       > fdt mknod /chosen dom0
->       > fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
->       > fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
->       > fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
->       > bootm 0x51000000 - 0x5ffec000
->       >
->       > The hex value 0x7D7200 is the size of the zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the
->       uboot-script-gen script
->       > available from here :
->       >
->       >
->       > https://gitlab.com/ViryaOS/imagebuilder
->       >
->       >
->       > This is the interesting point :
->       >
->       >
->       > Please note that most of the other values in the script generated by the ViryaOS uboot-script-gen do not work correctly with
->       the Chromebook
->       > Snow, but the script does correctly calculate the size of the dom0 Linux kernel image.
->       >
->       >
->       > Some time ago Stefano suggested to put the values below for MEMORY_START and MEMORY_END inside the xen-config file :
->       >
->       >
->       > nano xen-config file :
->       >
->       >
->       > MEMORY_START="0x41e00000"
->       > MEMORY_END="0x60000000"
->       > LOAD_CMD="ext2load mmc 1:3"
->       > BOOT_CMD="bootm"
->       > DEVICE_TREE="exynos5250-snow.dtb"
->       > XEN="xen-4.17-armhf"
->       > XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=768M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
->       > DOM0_KERNEL="zImage-6.6.0-xen-dma-mapping"
->       > DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
->       > UBOOT_SOURCE="xen.source"
->       >
->       >
->       > bash ./uboot-script-gen -c xen-config -d .
->       >
->       >
->       > Image Name:    
->       > Created:      Thu Nov  2 20:59:24 2023
->       > Image Type:   ARM Linux Kernel Image (uncompressed)
->       > Data Size:    884744 Bytes = 864.01 KiB = 0.84 MiB
->       > Load Address: 42c00000
->       > Entry Point:  42c00000
->       >
->       >
->       > Generated uboot script xen.scr, to be loaded at address 0x42000000:
->       > ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
->       >
->       >
->       > and I tried to boot Xen and Linux 6.6 as dom0 :
->       >
->       > SMDK5250 # mmc dev 1
->       > SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
->       > but it did not work : it reboots on the verification screen.
->       >
->       > --
->       > Mario.
->       >
->       >
-> 
-> 
-> 
-> --
-> Mario.
-> 
-> 
---8323329-266073672-1700003790=:160649--
+
+On Wed, Nov 15, 2023 at 12:17=E2=80=AFAM Stefano Stabellini <sstabellini@ke=
+rnel.org>
+wrote:
+
+> Hi Mario,
+>
+> I think we misunderstood each other :-)
+>
+> MEMORY_START-MEMORY_END is not supposed to be computed: it is supposed
+> to come from the memory node in device tree tree (/memory) of the
+> platform. The idea is that you should not have to do any computations,
+> but only reuse the same address range specified there.
+>
+> Similarly in regards to "please post the size of all the binaries",
+> this is just for debugging, so that I can see if there are any bugs with
+> uboot-script-gen. I cannot debug the script unless I figure out what the
+> problem is and the only way I can do that is with the binary sizes and
+> redoing all the steps by hand.
+>
+> The expected outcome is that once we resolve the problem you should be
+> able to use uboot-script-gen without any additional computation needed.
+>
+> Of course using static values is also OK.
+>
+>
+> On Wed, 15 Nov 2023, Mario Marietto wrote:
+> > ---> uboot-script-gen assumes that the memory range specified by
+> MEMORY_START-MEMORY_END is valid and correct.
+> >
+> > Actually Chuck chose 0 as MEMORY_START and 0x800000 as MEMORY_END and
+> these are stable values,they don't change. If you ask me to calculate
+> > those values,it means that we need to compute these values. I imagine
+> that to calculate these values is not easy.
+> >
+> > ---> To debug this kind of issues please post the size of all the
+> binaries specified in the imagebuilder config file
+> >
+> > I imagine that I should also calculate those values. And again,I see a
+> complication.
+> >
+> > I'm realizing that the method used by Chuck is easier because he uses
+> stable values. In the end,there aren't any calculations to do and
+> > since I'm looking for an easier method,not a more complicated one,I
+> think that Chuck's method is good as is.
+> >
+> > On Tue, Nov 14, 2023 at 11:51=E2=80=AFPM Stefano Stabellini <
+> sstabellini@kernel.org> wrote:
+> >       Hi Mario,
+> >
+> >       It is difficult to know how to change uboot-script-gen if we don'=
+t
+> know
+> >       why it is currently going wrong.
+> >
+> >       uboot-script-gen assumes that the memory range specified by
+> >       MEMORY_START-MEMORY_END is valid and correct.
+> >
+> >       So if you specified a valid and correct memory range in your
+> config file
+> >       (0x41e00000-0x60000000) why is it failing?
+> >
+> >       The only thing uboot-script-gen does is choosing aligned addresse=
+s
+> >       within the MEMORY_START-MEMORY_END range. The addresses are
+> supposed not
+> >       to overlap (meaning the initrd will not overwrite part of the
+> kernel
+> >       when loaded). If the issue is a bug in uboot-script-gen, such as
+> the
+> >       generated addresses overlap or they are not aligned, then we can
+> fix the
+> >       alignment or overlap bug. To debug this kind of issues please pos=
+t:
+> >       - the imagebuilder config file
+> >       - the generate boot.source script
+> >       - the size of all the binaries specified in the imagebuilder
+> config file
+> >
+> >       On the other hand if 0x41e00000-0x60000000 is not a safe memory
+> range to
+> >       use, then you need to specify a different memory range.
+> >
+> >       Cheers,
+> >
+> >       Stefano
+> >
+> >
+> >
+> >       On Mon, 13 Nov 2023, Mario Marietto wrote:
+> >       > Hello.
+> >       >
+> >       > I'm trying to find an easier way to the problem that you can
+> read here :
+> >       >
+> >       >
+> https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook=
+/xen#starting-a-domu-guest
+> >       >
+> >       > where Chuck says :
+> >       >
+> >       >  6. Create the u-boot shell commands that will be used to boot
+> Xen and dom0.
+> >       >
+> >       > Create a file in /home/user (or any other directory) named
+> bootxen.source with these contents :
+> >       >
+> >       >
+> >       > mmc dev 1 && mmc rescan 1
+> >       > ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
+> >       > ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
+> >       > ext2load mmc 1:3 0x5ffec000
+> exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
+> >       > fdt addr 0x5ffec000
+> >       > fdt resize 1024
+> >       > fdt set /chosen \#address-cells <0x2>
+> >       > fdt set /chosen \#size-cells <0x2>
+> >       > fdt set /chosen xen,xen-bootargs "console=3Ddtuart dtuart=3Dser=
+ial0
+> dom0_mem=3D1G dom0_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative"
+> >       > fdt mknod /chosen dom0
+> >       > fdt set /chosen/dom0 compatible  "xen,linux-zimage"
+> "xen,multiboot-module" "multiboot,module"
+> >       > fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
+> >       > fdt set /chosen xen,dom0-bootargs "console=3Dtty1
+> root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> >       > bootm 0x51000000 - 0x5ffec000
+> >       >
+> >       > The hex value 0x7D7200 is the size of the
+> zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the
+> >       uboot-script-gen script
+> >       > available from here :
+> >       >
+> >       >
+> >       > https://gitlab.com/ViryaOS/imagebuilder
+> >       >
+> >       >
+> >       > This is the interesting point :
+> >       >
+> >       >
+> >       > Please note that most of the other values in the script
+> generated by the ViryaOS uboot-script-gen do not work correctly with
+> >       the Chromebook
+> >       > Snow, but the script does correctly calculate the size of the
+> dom0 Linux kernel image.
+> >       >
+> >       >
+> >       > Some time ago Stefano suggested to put the values below for
+> MEMORY_START and MEMORY_END inside the xen-config file :
+> >       >
+> >       >
+> >       > nano xen-config file :
+> >       >
+> >       >
+> >       > MEMORY_START=3D"0x41e00000"
+> >       > MEMORY_END=3D"0x60000000"
+> >       > LOAD_CMD=3D"ext2load mmc 1:3"
+> >       > BOOT_CMD=3D"bootm"
+> >       > DEVICE_TREE=3D"exynos5250-snow.dtb"
+> >       > XEN=3D"xen-4.17-armhf"
+> >       > XEN_CMD=3D"console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D768M
+> dom0_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative sched=3Dnull"
+> >       > DOM0_KERNEL=3D"zImage-6.6.0-xen-dma-mapping"
+> >       > DOM0_CMD=3D"console=3Dtty earlycon=3Dxen earlyprintk=3Dxen
+> root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> >       > UBOOT_SOURCE=3D"xen.source"
+> >       >
+> >       >
+> >       > bash ./uboot-script-gen -c xen-config -d .
+> >       >
+> >       >
+> >       > Image Name:
+> >       > Created:      Thu Nov  2 20:59:24 2023
+> >       > Image Type:   ARM Linux Kernel Image (uncompressed)
+> >       > Data Size:    884744 Bytes =3D 864.01 KiB =3D 0.84 MiB
+> >       > Load Address: 42c00000
+> >       > Entry Point:  42c00000
+> >       >
+> >       >
+> >       > Generated uboot script xen.scr, to be loaded at address
+> 0x42000000:
+> >       > ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
+> >       >
+> >       >
+> >       > and I tried to boot Xen and Linux 6.6 as dom0 :
+> >       >
+> >       > SMDK5250 # mmc dev 1
+> >       > SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x420000=
+00
+> >       > but it did not work : it reboots on the verification screen.
+> >       >
+> >       > --
+> >       > Mario.
+> >       >
+> >       >
+> >
+> >
+> >
+> > --
+> > Mario.
+> >
+> >
+
+
+
+--=20
+Mario.
+
+--0000000000002cf044060a255e36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>I hope that the informations below are correct :</div=
+><div><br></div><div>
+- the imagebuilder config file :</div><div><br></div><div>MEMORY_START=3D&q=
+uot;0x0&quot;</div>MEMORY_END=3D&quot;0x80000000&quot;<br>LOAD_CMD=3D&quot;=
+ext2load mmc 1:3&quot;<br>BOOT_CMD=3D&quot;bootm&quot;<br><div></div>DEVICE=
+_TREE=3D&quot;exynos5250-snow.dtb&quot;<br>XEN=3D&quot;xen-4.17-armhf&quot;=
+<br>XEN_CMD=3D&quot;console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1152M dom0=
+_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative sched=3Dnull&quot;<br>DOM0_KERNE=
+L=3D&quot;zImage-6.6.0-xen-iommu-dma-on-xen&quot;<br>DOM0_CMD=3D&quot;conso=
+le=3Dtty earlycon=3Dxen earlyprintk=3Dxen root=3D/dev/mmcblk1p4 rw rootwait=
+ clk_ignore_unused&quot;<br>UBOOT_SOURCE=3D&quot;xen.source&quot;<br><div>U=
+BOOT_SCRIPT=3D&quot;xen.scr&quot;</div><div><br></div><div>xen.source : (th=
+at does not work)</div><div><br></div><div>mmc dev 1</div>ext2load mmc 1:3 =
+0xE00000 zImage-6.6.0-xen-iommu-dma-on-xen<br>ext2load mmc 1:3 0x1800000 xe=
+n-4.17-armhf.ub<br>ext2load mmc 1:3 0x1A00000 exynos5250-snow.dtb<br>fdt ad=
+dr 0x1A00000<br>fdt resize 1024<br>fdt set /chosen \#address-cells &lt;0x2&=
+gt;<br>fdt set /chosen \#size-cells &lt;0x2&gt;<br>fdt set /chosen xen,xen-=
+bootargs &quot;console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1152M dom0_max_=
+vcpus=3D2 bootscrub=3D0 vwfi=3Dnative sched=3Dnull&quot;<br>fdt mknod /chos=
+en dom0<br>fdt set /chosen/dom0 compatible =C2=A0&quot;xen,linux-zimage&quo=
+t; &quot;xen,multiboot-module&quot; &quot;multiboot,module&quot;<br>fdt set=
+ /chosen/dom0 reg &lt;0x0 0xE00000 0x0 0x87C200 &gt;<br>fdt set /chosen xen=
+,dom0-bootargs &quot;console=3Dtty earlycon=3Dxen earlyprintk=3Dxen root=3D=
+/dev/mmcblk1p4 rw rootwait clk_ignore_unused&quot;<br>setenv fdt_high 0xfff=
+fffffffffffff<br><div>bootm 0x1800000 - 0x1A00000</div><div><div><br></div>=
+<div>xen.source : (created by chuck and that works)</div></div><div><br></d=
+iv><div>mmc dev 1<br>ext2load mmc 1:3 0x42000000 zImage-6.6.0-xen-iommu-dma=
+-on-xen<br>ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub<b=
+r>ext2load mmc 1:3 0x5ffec000 exynos5250-snow.dtb<br>fdt addr 0x5ffec000<br=
+>fdt resize 1024<br>fdt set /chosen \#address-cells &lt;0x2&gt;<br>fdt set =
+/chosen \#size-cells &lt;0x2&gt;<br>fdt set /chosen xen,xen-bootargs &quot;=
+console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1152M dom0_max_vcpus=3D2 boots=
+crub=3D0 vwfi=3Dnative sched=3Dnull&quot;<br>fdt mknod /chosen dom0<br>fdt =
+set /chosen/dom0 compatible =C2=A0&quot;xen,linux-zimage&quot; &quot;xen,mu=
+ltiboot-module&quot; &quot;multiboot,module&quot;<br>fdt set /chosen/dom0 r=
+eg &lt;0x0 0x42000000 0x0 0x87C200 &gt;<br>fdt set /chosen xen,dom0-bootarg=
+s &quot;console=3Dtty1 root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unused =
+--no-log&quot;<br>bootm 0x51000000 - 0x5ffec000</div><div><br></div><div>al=
+l the values that you see in this conf. files have been calculated by chuck=
+ by hand,because the values generated by the imagebuilder are wrong. The on=
+ly value that&#39;s well calculated by the imagebuilder is 0x87C200</div><d=
+iv><br></div><div>
+- the size of all the binaries specified in the imagebuilder config file :<=
+br></div><div><br></div><div>exynos5250-snow.dtb =3D 46.6=C2=A0KiB (47,769 =
+byte)</div><div>zImage-6.6.0-xen-iommu-dma-on-xen =3D 8.5=C2=A0MiB (8,897,0=
+24 byte)</div><div><br></div><div><br></div></div><br><div class=3D"gmail_q=
+uote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov 15, 2023 at 12:17=
+=E2=80=AFAM Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org=
+" target=3D"_blank">sstabellini@kernel.org</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">Hi Mario,<br>
+<br>
+I think we misunderstood each other :-)<br>
+<br>
+MEMORY_START-MEMORY_END is not supposed to be computed: it is supposed<br>
+to come from the memory node in device tree tree (/memory) of the<br>
+platform. The idea is that you should not have to do any computations,<br>
+but only reuse the same address range specified there.<br>
+<br>
+Similarly in regards to &quot;please post the size of all the binaries&quot=
+;,<br>
+this is just for debugging, so that I can see if there are any bugs with<br=
+>
+uboot-script-gen. I cannot debug the script unless I figure out what the<br=
+>
+problem is and the only way I can do that is with the binary sizes and<br>
+redoing all the steps by hand.<br>
+<br>
+The expected outcome is that once we resolve the problem you should be<br>
+able to use uboot-script-gen without any additional computation needed.<br>
+<br>
+Of course using static values is also OK.<br>
+<br>
+<br>
+On Wed, 15 Nov 2023, Mario Marietto wrote:<br>
+&gt; ---&gt; uboot-script-gen assumes that the memory range specified by ME=
+MORY_START-MEMORY_END is valid and correct.<br>
+&gt; <br>
+&gt; Actually Chuck chose 0 as MEMORY_START and 0x800000 as MEMORY_END and =
+these are stable values,they don&#39;t change. If you ask me to calculate<b=
+r>
+&gt; those values,it means that we need to compute these values. I imagine =
+that to calculate these values is not easy.<br>
+&gt; <br>
+&gt; ---&gt; To debug this kind of issues please post the size of all the b=
+inaries specified in the imagebuilder config file<br>
+&gt; <br>
+&gt; I imagine that I should also calculate those values. And again,I see a=
+ complication.<br>
+&gt; <br>
+&gt; I&#39;m realizing that the method used by Chuck is easier because he u=
+ses stable values. In the end,there aren&#39;t any calculations to do and<b=
+r>
+&gt; since I&#39;m looking for an easier method,not a more complicated one,=
+I think that Chuck&#39;s method is good as is.=C2=A0<br>
+&gt; <br>
+&gt; On Tue, Nov 14, 2023 at 11:51=E2=80=AFPM Stefano Stabellini &lt;<a hre=
+f=3D"mailto:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.or=
+g</a>&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Hi Mario,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0It is difficult to know how to change uboot-=
+script-gen if we don&#39;t know<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0why it is currently going wrong.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uboot-script-gen assumes that the memory ran=
+ge specified by<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0MEMORY_START-MEMORY_END is valid and correct=
+.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0So if you specified a valid and correct memo=
+ry range in your config file<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0(0x41e00000-0x60000000) why is it failing?<b=
+r>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0The only thing uboot-script-gen does is choo=
+sing aligned addresses<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0within the MEMORY_START-MEMORY_END range. Th=
+e addresses are supposed not<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0to overlap (meaning the initrd will not over=
+write part of the kernel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0when loaded). If the issue is a bug in uboot=
+-script-gen, such as the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0generated addresses overlap or they are not =
+aligned, then we can fix the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0alignment or overlap bug. To debug this kind=
+ of issues please post:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- the imagebuilder config file<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- the generate boot.source script<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- the size of all the binaries specified in =
+the imagebuilder config file<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On the other hand if 0x41e00000-0x60000000 i=
+s not a safe memory range to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0use, then you need to specify a different me=
+mory range.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Cheers,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Stefano<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Mon, 13 Nov 2023, Mario Marietto wrote:<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Hello.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I&#39;m trying to find an easier way to=
+ the problem that you can read here :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; <a href=3D"https://github.com/mobile-vi=
+rt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest" re=
+l=3D"noreferrer" target=3D"_blank">https://github.com/mobile-virt/u-boot-ch=
+romebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; where Chuck says :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 6. Create the u-boot shell comman=
+ds that will be used to boot Xen and dom0.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Create a file in /home/user (or any oth=
+er directory) named bootxen.source with these contents :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; mmc dev 1 &amp;&amp; mmc rescan 1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; ext2load mmc 1:3 0x42000000 zImage-6.1.=
+61-stb-xen-cbe+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; ext2load mmc 1:3 0x51000000 xen-4.17-ar=
+mhf-armmp-0x51004000.ub<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; ext2load mmc 1:3 0x5ffec000 exynos5250-=
+snow-6.1.61-stb-xen-cbe+.dtb<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt addr 0x5ffec000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt resize 1024<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen \#address-cells &lt;0x2=
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen \#size-cells &lt;0x2&gt=
+;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen xen,xen-bootargs &quot;=
+console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1G dom0_max_vcpus=3D2 bootscru=
+b=3D0 vwfi=3Dnative&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt mknod /chosen dom0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen/dom0 compatible=C2=A0 &=
+quot;xen,linux-zimage&quot; &quot;xen,multiboot-module&quot; &quot;multiboo=
+t,module&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen/dom0 reg &lt;0x0 0x4200=
+0000 0x0 0x7D7200 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; fdt set /chosen xen,dom0-bootargs &quot=
+;console=3Dtty1 root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unused&quot;<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; bootm 0x51000000 - 0x5ffec000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; The hex value 0x7D7200 is the size of t=
+he zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uboot-script-gen script<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; available from here :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; <a href=3D"https://gitlab.com/ViryaOS/i=
+magebuilder" rel=3D"noreferrer" target=3D"_blank">https://gitlab.com/ViryaO=
+S/imagebuilder</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; This is the interesting point :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Please note that most of the other valu=
+es in the script generated by the ViryaOS uboot-script-gen do not work corr=
+ectly with<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0the Chromebook<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Snow, but the script does correctly cal=
+culate the size of the dom0 Linux kernel image.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Some time ago Stefano suggested to put =
+the values below for MEMORY_START and MEMORY_END inside the xen-config file=
+ :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; nano xen-config file :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; MEMORY_START=3D&quot;0x41e00000&quot;<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; MEMORY_END=3D&quot;0x60000000&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; LOAD_CMD=3D&quot;ext2load mmc 1:3&quot;=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; BOOT_CMD=3D&quot;bootm&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; DEVICE_TREE=3D&quot;exynos5250-snow.dtb=
+&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; XEN=3D&quot;xen-4.17-armhf&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; XEN_CMD=3D&quot;console=3Ddtuart dtuart=
+=3Dserial0 dom0_mem=3D768M dom0_max_vcpus=3D2 bootscrub=3D0 vwfi=3Dnative s=
+ched=3Dnull&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; DOM0_KERNEL=3D&quot;zImage-6.6.0-xen-dm=
+a-mapping&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; DOM0_CMD=3D&quot;console=3Dtty earlycon=
+=3Dxen earlyprintk=3Dxen root=3D/dev/mmcblk1p4 rw rootwait clk_ignore_unuse=
+d&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; UBOOT_SOURCE=3D&quot;xen.source&quot;<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; bash ./uboot-script-gen -c xen-config -=
+d .<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Image Name: =C2=A0=C2=A0=C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Created: =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+Thu Nov =C2=A02 20:59:24 2023<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Image Type: =C2=A0=C2=A0ARM Linux Kerne=
+l Image (uncompressed)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Data Size: =C2=A0=C2=A0=C2=A0884744 Byt=
+es =3D 864.01 KiB =3D 0.84 MiB<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Load Address: 42c00000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Entry Point: =C2=A042c00000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Generated uboot script xen.scr, to be l=
+oaded at address 0x42000000:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; ext2load mmc 1:3 0x42000000 xen.scr; so=
+urce 0x42000000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; and I tried to boot Xen and Linux 6.6 a=
+s dom0 :<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; SMDK5250 # mmc dev 1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; SMDK5250 # ext2load mmc 1:3 0x42000000 =
+xen.scr; source 0x42000000<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; but it did not work : it reboots on the=
+ verification screen.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; --<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Mario.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; --<br>
+&gt; Mario.<br>
+&gt; <br>
+&gt; </blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signatur=
+e_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature">Mario.<b=
+r></div>
+
+--0000000000002cf044060a255e36--
 
