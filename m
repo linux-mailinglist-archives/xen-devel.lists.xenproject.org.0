@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5A77EB372
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:23:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632806.987258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 482B17EB387
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:28:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632817.987269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2vGI-0000qc-FG; Tue, 14 Nov 2023 15:23:34 +0000
+	id 1r2vKo-0005ee-0g; Tue, 14 Nov 2023 15:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632806.987258; Tue, 14 Nov 2023 15:23:34 +0000
+Received: by outflank-mailman (output) from mailman id 632817.987269; Tue, 14 Nov 2023 15:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2vGI-0000p0-CU; Tue, 14 Nov 2023 15:23:34 +0000
-Received: by outflank-mailman (input) for mailman id 632806;
- Tue, 14 Nov 2023 15:23:32 +0000
+	id 1r2vKn-0005c0-Tp; Tue, 14 Nov 2023 15:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 632817;
+ Tue, 14 Nov 2023 15:28:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vqel=G3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r2vGG-0000oB-OA
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:23:32 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ <SRS0=eqXQ=G3=casper.srs.infradead.org=BATV+a8e905033730cff805ca+7387+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r2vKm-0005ae-S9
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:28:12 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c458bedc-8301-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 16:23:30 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2c83ffcdbe3so34754711fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:23:30 -0800 (PST)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- 8-20020a05600c22c800b0040303a9965asm17365332wmg.40.2023.11.14.07.23.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 07:23:30 -0800 (PST)
+ id 6a8eef00-8302-11ee-9b0e-b553b5be7939;
+ Tue, 14 Nov 2023 16:28:09 +0100 (CET)
+Received: from [12.186.190.2] (helo=[127.0.0.1])
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r2vKf-008iHm-67; Tue, 14 Nov 2023 15:28:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +40,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c458bedc-8301-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1699975410; x=1700580210; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BgH2tbSj8sbMNRKA4UI9KZ0X7Pr5mYyMKji28bWbBlI=;
-        b=SWMjfbiDu5GjjOhSctl7eWMbiqMsvLj1EeJ9ENh0dVZ3xJ0fl7OZUF9SUQxK2qKBeY
-         ELrZWaJDUx8NUT2vqKWUYeLOjd5srBRsj1tG2Ng6yb1g7G1aCugfVk3fHgh2GvmNeS+v
-         UQaTWoek44aIMlsRf8PBjcpNOmLhHUvdzIFio=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699975410; x=1700580210;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:subject:cc:to:from:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BgH2tbSj8sbMNRKA4UI9KZ0X7Pr5mYyMKji28bWbBlI=;
-        b=exSy/kQ9bGMEn2AlyfyyeIy9Ag0P5e8TLd9XitcSkzhQyt9qa4RxKu6a61CF5JpEl9
-         62WXpszb5JTT9kYIRvWFBaJBmCbMne8ik95kTSrmxEcoc47GgxdQs/x91AUT5ZzOn2bw
-         F58oXgYN1DWpK1XXp0ykKylcT21foaGjCNMCUaQlEV49EHbm+sH055EZmqxVo32g5djQ
-         MmKUGhxydcAS7ryzGywKq4jKNZ0PViN/qxL43XxYxXgfWwvHEwPZE8GDz+zLWVxLF++I
-         V70K0zISS9LqbD931Dtc2GuqkZpjnTh7Ki6/bsrK0LITvuFqP5RFlkMIHpca1GIgfC/1
-         /jig==
-X-Gm-Message-State: AOJu0YzMip2RA2r5mz/B9dEEqOoZ/QS8cAHtHjcFDLU+tF1+arm+JP+S
-	sX5Zv+dwAersnUO5V7TDV965kQ==
-X-Google-Smtp-Source: AGHT+IFIPuthyGIXGprgIblLGsjrV9Oj4CsViDKksbNIuPSo0B77C1Y8UN1Jl1Um1WZpxN3fDBkm6w==
-X-Received: by 2002:a2e:b74b:0:b0:2c5:12ae:adb3 with SMTP id k11-20020a2eb74b000000b002c512aeadb3mr1845576ljo.44.1699975410372;
-        Tue, 14 Nov 2023 07:23:30 -0800 (PST)
-Message-ID: <655390f2.050a0220.ff9eb.207c@mx.google.com>
-X-Google-Original-Message-ID: <ZVOQ8H1JJNFADK42@EMEAENGAAD19049.>
-Date: Tue, 14 Nov 2023 15:23:28 +0000
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Michal Orzel <Michal.Orzel@amd.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Clang-format configuration discussion - pt 1
-References: <174FCBBC-3C2F-47E9-936A-F1399DD9AFFB@arm.com>
- <930d7aa7-7573-97d2-e146-ebe68214c0aa@suse.com>
- <7235E3F4-8387-49D7-A3B6-0EA93CAE408B@arm.com>
- <30a94519-c622-6017-2cbf-35690114d49e@suse.com>
- <31A47242-54F9-42D4-B804-6D0A0392650C@arm.com>
+X-Inumbo-ID: 6a8eef00-8302-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=N6lsIAvT/LEG0QMHScLeB5rAujKwbWfIcynqEX/JTgg=; b=Q8wLxLTE99gkmHRWLTsrO2SdeW
+	XfdKzTjDRskRz4FgWweoVthPGWW6En3PnTPFiWPPGI0GLEqYKFCbaeUhWCc7eqRld+EkmItyFum/u
+	f8mR/LaDGf97Vypg8dR70A9njyk0ujfA7GZDBcceSMpPvIfPG8ySvMi5k6XkPRB+nhXIzXfrUJtqt
+	0clzgOwbYlqSSo1XvNoqUO0a+GmML4/eWxE/IEVjTty/Z4Wj8qtR55DQRxJj44VukxbGuuQxa91Un
+	cEKKoaJzdph/iZGXdVUaBR1VS+02QOG0uU75aMm/LiOK4lkOlIuQpg//W3mDTgD24Mh/X3NI0TbGv
+	wu90QKlA==;
+Date: Tue, 14 Nov 2023 10:27:59 -0500
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
+CC: =?ISO-8859-1?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>,
+ Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+ Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
+ Thomas Huth <thuth@redhat.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH-for-9=2E0_v2_07/19=5D_hw/xen=3A_Rem?= =?US-ASCII?Q?ove_unnecessary_xen=5Fhvm=5Finject=5Fmsi=28=29_stub?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20231114143816.71079-8-philmd@linaro.org>
+References: <20231114143816.71079-1-philmd@linaro.org> <20231114143816.71079-8-philmd@linaro.org>
+Message-ID: <017E3F40-47A2-4F1D-98B6-18863ABB0FD6@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <31A47242-54F9-42D4-B804-6D0A0392650C@arm.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi,
+On 14 November 2023 09:38:03 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <phil=
+md@linaro=2Eorg> wrote:
+>Since commit 04b0de0ee8 ("xen: factor out common functions")
+>xen_hvm_inject_msi() stub is not required=2E
+>
+>Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro=2Eorg>
 
-On Tue, Nov 14, 2023 at 02:59:35PM +0000, Luca Fancellu wrote:
-> 
-> 
-> > On 13 Nov 2023, at 16:27, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 13.11.2023 16:20, Luca Fancellu wrote:
-> >>> On 13 Nov 2023, at 11:31, Jan Beulich <jbeulich@suse.com> wrote:
-> >>> On 08.11.2023 10:53, Luca Fancellu wrote:
-> >>> --------------------------------------------------------------------------------------------------------------------------------------------------------------
-> >>>> 
-> >>>> Standard: C++03
-> >>>> 
-> >>>> ---
-> >>>> From the documentation: Parse and format C++ constructs compatible with this standard.
-> >>> 
-> >>> Since I continue to be puzzled - iirc you said this is because of lack
-> >>> of availability of "C99" as a value here. What's entirely unclear to
-> >>> me is: How does this matter to a tool checking coding style (which is
-> >>> largely about formatting, not any lexical or syntactical aspects)?
-> >>> 
-> >>>> This value is used also in Linux.
-> >>> 
-> >>> Considering how different the two styles are, I don't think this is
-> >>> overly relevant.
-> >> 
-> >> Ok, maybe I understand your point, you are looking for a reason to declare this configurable instead
-> >> of not specifying it at all?
-> > 
-> > Not really, no. Here I was merely saying that with the styles being
-> > sufficiently different, what Linux uses is probably not very significant
-> > for our own decision.
-> > 
-> >> If it’s that, from what I understand clang-format will use the default value if we don’t specify anything
-> >> for this one, so it will take ‘Latest’. I think we should put a value for this one to fix it and don’t have
-> >> surprises if that behaviour changes and seeing that also in Linux that value is fixed increased my
-> >> confidence.
-> >> 
-> >> However, if you feel that we should not specify it, I’ve done a test and not specifying it is not changing
-> >> the current output. I can’t say that for a different clang-format version though or if changes happen in the
-> >> future.
-> > 
-> > It's fine to set values. All I'm saying is that at least I would prefer
-> > if it was also clear what exact effect the setting of a value has,
-> > especially when that does not really match the language we use in the
-> > project.
-On C, allegedly, none. It ought to control defaults for things like
-SpaceBeforeCpp11BracedList, SpacesInAngles and other C++-specific things,
-because the C++ language sticks syntactical extensions every other Tuesday.
-Alas, whatever it does (there's no full list). I'd feel a lot more
-comfortable knowing it won't change under our feet.
+Reviewed-by: David Woodhouse <dwmw@amazon=2Eco=2Euk>
 
-For reference, clang-format's docs state as an example:
 
-```
-c++03:                                 latest:
-vector<set<int> > x;           vs.     vector<set<int>> x;
-```
-
-> 
-> Yes I agree, I think Alejandro’s reply to this configurable reflects my thoughts about it.
-> 
-> So if we all agree that we should set this parameter, do we all agree that it should be the
-> value above?
-> 
-> Do you have other concerns regarding this or the other parameters in this thread?
-> 
-> 
-
-Cheers,
-Alejandro
 
