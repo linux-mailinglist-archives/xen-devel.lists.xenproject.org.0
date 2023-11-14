@@ -2,39 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83107EB624
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 19:08:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633170.987813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176DF7EB644
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 19:17:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633186.987825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xpa-0007ug-BJ; Tue, 14 Nov 2023 18:08:10 +0000
+	id 1r2xy2-0003xg-5y; Tue, 14 Nov 2023 18:16:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633170.987813; Tue, 14 Nov 2023 18:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 633186.987825; Tue, 14 Nov 2023 18:16:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xpa-0007sS-8m; Tue, 14 Nov 2023 18:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 633170;
- Tue, 14 Nov 2023 18:08:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r2xy2-0003ue-2E; Tue, 14 Nov 2023 18:16:54 +0000
+Received: by outflank-mailman (input) for mailman id 633186;
+ Tue, 14 Nov 2023 18:16:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5HBD=G3=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
- id 1r2xYo-0004mK-JY
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:50 +0000
-Received: from 9.mo575.mail-out.ovh.net (9.mo575.mail-out.ovh.net
- [46.105.78.111]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 583befc2-8316-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 18:50:49 +0100 (CET)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.109.138.246])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id ABD9329246
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:48 +0000 (UTC)
-Received: from ghost-submission-6684bf9d7b-x5j2z (unknown [10.110.115.90])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3D13F1FD16;
- Tue, 14 Nov 2023 17:50:48 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.103])
- by ghost-submission-6684bf9d7b-x5j2z with ESMTPSA
- id aHObC3izU2V/lwcATVRwWg
- (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:48 +0000
+ <SRS0=dDFb=G3=epam.com=prvs=5682ba6769=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1r2xy1-0003tL-43
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 18:16:53 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa727cff-8319-11ee-9b0e-b553b5be7939;
+ Tue, 14 Nov 2023 19:16:50 +0100 (CET)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AEIEJxW003590; Tue, 14 Nov 2023 18:16:46 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ubpk9ccaw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Nov 2023 18:16:46 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by DBBPR03MB7017.eurprd03.prod.outlook.com (2603:10a6:10:201::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29; Tue, 14 Nov
+ 2023 18:16:42 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44%6]) with mapi id 15.20.6977.029; Tue, 14 Nov 2023
+ 18:16:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,213 +53,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 583befc2-8316-11ee-98db-6d05b1d4d9a1
-Authentication-Results:garm.ovh; auth=pass (GARM-103G005909cbe0d-2db8-4cee-a3fc-f8a2f45a27b0,
-                    1C6EC45AC3E1968723EBE40916FD99D0F8B07574) smtp.auth=krystian.hebel@3mdeb.com
-X-OVh-ClientIp:213.192.77.249
-From: Krystian Hebel <krystian.hebel@3mdeb.com>
-To: xen-devel@lists.xenproject.org
-Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 10/10] x86/smp: start APs in parallel during boot
-Date: Tue, 14 Nov 2023 18:50:15 +0100
-Message-ID: <77c9199eabf3a30ebcf89356b2dd35abd611a3a9.1699981248.git.krystian.hebel@3mdeb.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1699981248.git.krystian.hebel@3mdeb.com>
-References: <cover.1699981248.git.krystian.hebel@3mdeb.com>
+X-Inumbo-ID: fa727cff-8319-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cvtQdpJeembNOVEtjDMbfSuftZFXoTfhdxwLZH/C9ZW4+jTRBlRkVaNmnNmcLkce33Nuc1eQXilBVJ8/dMXL0lTuRmF4PWk4MeUg+knWtrRvyrwU3D/D7358pti1X19YsA6yKdwM5EAktHo0l8FO7lOEuJW/UoaDNgbfQDrWol48DM2GCC3CibPDn4fIaot9zcsIn24RjWzjKCxSUQ6CMs7PIkWRgUNNyQmG0Tzo/S4fW2yu0c1Z9u2WaEujX7HPIKPG5vHewNhzeeiiy14v9+La4wfYlPj6jU82sHBs0sIGfYfNGawBnLAyoFj+2MlgfPRykE39eYFX1f7FujfWDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=snhrVvvN4n1+9E1UVn5rS3vpAdArREM6gOElex3dLIg=;
+ b=gSqgqnlB4bMRw53CI8tvwHigAbLSMjICxQsn4KIzQrGbrase1Qu6uWZX2k+Mb2sG34wyC9zhZ5RUuCcZOw8ZjzLtZy0leK7Nx6Mhf+Z0zjtWkNlmQkmNumh4m2qGAZx4/CvAMqZwdusSDCWicVD5k7w2ClE1zhwe7OkcKuowtbWU6deuXlE9cJhW6Fjgeggrz8WvIyL9qiMnfsReXpTUs6EXDRK/s8Pcd5rh1YKeO6xPzdieSe5mvPO7YUgfMuLcW6p0FEScjR6iZPJMXxRBVXQ7XjBqrSSzWgpWONlZ1aDWSKRQNXLQPTFMo3W097+1aVPHsRunSQzLpkg0oFPDlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=snhrVvvN4n1+9E1UVn5rS3vpAdArREM6gOElex3dLIg=;
+ b=gW4QeQ32kf8GRi1RrzFQ6X6qQA4QYVVdRkfBqnVpdm+m6LmR8GQ2psC1FuzRNBjy3okQGcJ/KR4bMSDpmmum6ikVXpOGJG4gv4o859AgYsTUQikgskHg7amIxRTcY9fJaiitLQQIvDTI3xjiAyd8HeTkFFMCIU1hAAxqfI3iHNULy4Mrv/ZL/jjQDH7u5eomMy2XuO4E6HSAqvKDRS61LYwbzuvGg1aQxxjznky7Pyk49BP5j/JOacBVJOOOQyYCa1kbBJ1MGxWExcwZPA5SrsFFm/BlG2efBmSwAmhieAgkpyn3jCRC/yo/05a/IKrg6k65P91bG7+Ps1MQOJrHvg==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Juergen Gross <jgross@suse.com>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 7/7] xen/events: remove some info_for_irq() calls in pirq
+ handling
+Thread-Topic: [PATCH 7/7] xen/events: remove some info_for_irq() calls in pirq
+ handling
+Thread-Index: AQHZ//oeBwkqjiPvKEql1DMh00sxAbB6TXqA
+Date: Tue, 14 Nov 2023 18:16:41 +0000
+Message-ID: <1a62fc9a-7bd2-4fed-a690-0a12f2724044@epam.com>
+References: <20231016062831.20630-1-jgross@suse.com>
+ <20231016062831.20630-8-jgross@suse.com>
+In-Reply-To: <20231016062831.20630-8-jgross@suse.com>
+Accept-Language: en-US, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|DBBPR03MB7017:EE_
+x-ms-office365-filtering-correlation-id: a2062262-b042-49bd-bebd-08dbe53dda33
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ aZ4vxKZsTfc1i4esPGAbu+/6RS9Umd0Cvxg6ZTJCootQzy0CpllMLN3WEPvqXlq8z90XiKZOu44ITP5+/Y/U8RFJvmLMH/eyNZtzfaIS9Acyupu4kzMb2mISJrwHPxdWnNgkXEnpZtH0CzxNTUGrT9SrIurf54DG/qRcNZ2kyGZIGaxePR0EsJ5PhejrvryS3XBWsoh6+SO2B2GLnJayJrQRSIQd3NmvQxX/AOhyh2xCuafYzO1fGhe7VwgHA+aWzc7a4FyvrTmlhV6TJwv8/00aksuVpla4EVqudKEadvUuLf+0d6EsuLpFU0nt1LOIu4jU2XNe1DZ9FrAiQPmXPl6ZOQqsFrCakzgFhwfLmk5n0RPCCNgabmpme6JAcoJKO3akj/sDhUNL37+sZSJ3CV/I2oQMQng+AJpHzNwkKcXFqNyAcJ97Khk7DX5Eu8MKxjeUpX/B975cwvfY8j/TQx/cic4NsolO8YPCjXOX7nPqhlEEU7CmU59LJOPGIv0BBYUVPMjwtQ2P4muLxrijV4E4+TOivyHz9S/XNB7dCHqzDp7UtU/jsUQPwKx5WS0MmYeg26PSvbuXgEY+6Yedpus7fAQxxCqiTFVoPsynZ1HKcht1kV/epiQMCRXgyLjnOQyOTtdCGf8ckFD66EWe7g==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(136003)(396003)(366004)(376002)(230922051799003)(186009)(451199024)(1800799009)(64100799003)(26005)(122000001)(38100700002)(86362001)(5660300002)(38070700009)(2616005)(31686004)(6512007)(6506007)(53546011)(31696002)(478600001)(71200400001)(6486002)(36756003)(66946007)(316002)(76116006)(110136005)(54906003)(66446008)(66556008)(64756008)(91956017)(66476007)(2906002)(8676002)(8936002)(4326008)(41300700001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?azJmekl0bCtqOTltQ2czczdNZzJyWXNDL3JGV2VmTVNwem5nZ0wrMGVFelZn?=
+ =?utf-8?B?L205RGdUNnRIaVdWbzl2Q1h3T2FjTFJnL3p3bzNHTXVpWXFpd3V0dS90QkJx?=
+ =?utf-8?B?NmdtRFZua2VtOHpjbXpoZWZjNlVFcGxjaTZoeEcyVGRoVHIzZEgyVndqS1I1?=
+ =?utf-8?B?ZzFWOHdtVFZqSThKeWh6ekpYZ004NGp6T2lhb0Myak93bHc5bkpQaHc4Smdl?=
+ =?utf-8?B?UDdJRUtzaDl4dWNDV2dpWHZzVHdrYnEyMXJWdCtCZDFSejhWd1pBOFZKaXBX?=
+ =?utf-8?B?NzNTTER3WVdyOEw4WUdlcnBuTjBkOS9JV2IxbHZHTnF0Qk1kMk4xUlI0cWMx?=
+ =?utf-8?B?M2Y4L1ZxVFJnZ0p1dGY2UXAwTFZLWFpjaTVkVFlmc2UxK1JzR2NlYWhiVVY1?=
+ =?utf-8?B?bUxpVXZWa0dabEZ5SUtaRUNMNmlOQ3VHdVdUSjdYdFgvY2JhblQxaVZPTkRp?=
+ =?utf-8?B?VlV1TitpU2s4cGFzTFlFMlQvdGJubE41WG5maWVZZzlqeEZzTU1pYW82Z3J4?=
+ =?utf-8?B?SmxnZ2FtWHlOeGVFL1RTR09hTUMvbDhzWktWWlp5czgzcmU1TmQvaGszZTEx?=
+ =?utf-8?B?R3dSOVFtb1o0dVBhN2R0cXg2Y1poc0p3dEZVRmJxWXZWc01uZzN0RHQzWERW?=
+ =?utf-8?B?SG52Wm8zQXVIZnFXSVBtOTRUeGNWYjdlTmlVODBPVEYxRmppb2QxQWswVGlo?=
+ =?utf-8?B?WER4UUM0d2JwZHBhK3djYzBoSEJxcVZFMFJoQnR3dktNUWVtdm9uVnRBSzVs?=
+ =?utf-8?B?bVlISUROZ2dGWTdaenBBbzdiTG9mOWdUUEhKQytKb1lSSHlYQWw0OEpwTDY2?=
+ =?utf-8?B?L1U2ZEFENHFFWlF5UEoyOEFDWG80MS83cGtUWjRVOHBYQnRWZklLb1dXUlZw?=
+ =?utf-8?B?UWQ1WW1Kay9LQWlWTU83ckdMUEhWMjJZWngveS9xMGVGKyt1allhS2M1Mytr?=
+ =?utf-8?B?L3FIdXAvejFZc2N3bVZrYTQ2NmpOSW9DY09xV2JNalU3L1p0YjFiZGM2NzM4?=
+ =?utf-8?B?THV1RklhV2loaXlZeHJoR1lRNmwxVUw4RVdCTDNZWWxWWFBkUWdaRWpCbk5N?=
+ =?utf-8?B?enlOc0RMYVBXYjJhSU1XbG1YaG9rTXQ1ZWc2U1AvNGlQSXYvdExwczFGMWVU?=
+ =?utf-8?B?ZkE0b2dtNlFBL0JPQzU1d2l5bCtyOUpVc1Z3VzJoSjZ3dWpub2NrQ2N2SHlQ?=
+ =?utf-8?B?Snc3VmN5UE5hU2VKbGNvNmVGMWFmbjRrTy94VkpjRTFnS1o3UkcrY3VPRUFv?=
+ =?utf-8?B?RUdyckRVdVkwSTI1eWlUaWtCK1paUWhuUnZKQUpkalF2cVdtWVAzRmpOY1hZ?=
+ =?utf-8?B?L0M2Z1F6eURIcklSRjVUZjdpTDVQdXQxZC96RWd6NmxjY0YzeE90bGRzcWtI?=
+ =?utf-8?B?ZFU1SDdVeXNObk8rUDdYQU03b0RLbUx2YWVrNzBhNGQvcnEzMU40MmZXVUxW?=
+ =?utf-8?B?aHhRdVFJOTE3WndpZHhWWkMwWnNnSlB4QXVPMGsvdzV0bUdCK3JZRWF4enYr?=
+ =?utf-8?B?ZGhyM0ptbEwyV1FsY0doeGR0RmFwdVVPQktHV0h2Y0JtSW9HbGtsMEdKdGsw?=
+ =?utf-8?B?eGd3SnBENEJ6Q01SbWl1QUVnS2kxT3pjeTFaTlVDcWxGNkhDUVlkSW0ydWtj?=
+ =?utf-8?B?WFhSNVhwaUd3Y3hGbFUzUWRQOXJLYkhGd283WEh3VUFISUNPRFh2ZmlUbEox?=
+ =?utf-8?B?RmUzaVYzVUJ3UUtSS0dKL0RkTFVTODIxWTh2MFlRWEp0SVFUWVh4UWIzRzRD?=
+ =?utf-8?B?S2ZJNS93bGs4SFVaWnY3clV4OCtrWVUyc01sQ3ltUGpwMEdIR0R1THlzZkc5?=
+ =?utf-8?B?U1QvQnIxYTZaUkVJSTRZYlNtQTJtZmFubVR2V1RzUlBsN1VIbjNTRm5PcW5Q?=
+ =?utf-8?B?ZGNqQjgyN2tGcjMxQU5IaDM0TTV5LzUzeGpFbVBhQ1phTnpYcW5xWFh3VmRH?=
+ =?utf-8?B?aytQdG4rUTBmTkhQMCtudldvcnY3R2pkSi9pTW5NWlA4N1RUWUszbTJPWXlh?=
+ =?utf-8?B?U1RwY040WG1xblFqZXloVkFJdlMzTjVhZWhlNmJvMFFhOU80WEZYbWFSMGxR?=
+ =?utf-8?B?YXBOeHREdEpjSmlRYXVJV3M5bitJd1ZhVVFpMTgyMWRFdS9GS3dYT2tUNTJh?=
+ =?utf-8?B?aVB5S09FMWxyN3lCRk0yeEl1djhyM2tWeG1ZaWRjVjFoSFo2Y3E1T2I5Q1k5?=
+ =?utf-8?Q?ys5RY1x9JuxKyMhNhawR5s0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4AB0BD723298D946AF073692B4F0C8E0@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12932086331639900528
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevtdevieehieeiveekvefhlefftdfhteefueelhfdvhedtjeegkedugfefvdekffenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgepleenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheejhedpmhhouggvpehsmhhtphhouhht
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2062262-b042-49bd-bebd-08dbe53dda33
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2023 18:16:41.9334
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7vyoW0Svgq6q+96+BDFX76mB41PweLgdN+JwiqsnBGeJUDx1i/AwMBkznEkFDWCOOJBpnMbW+0crks8G5rteQ/d3m3wupbVXLbOqTFBim4A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR03MB7017
+X-Proofpoint-GUID: LXECq6xt6FDF2AAMmHf6EEvuU3s9njCl
+X-Proofpoint-ORIG-GUID: LXECq6xt6FDF2AAMmHf6EEvuU3s9njCl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-14_18,2023-11-14_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 mlxscore=0 adultscore=0
+ clxscore=1015 impostorscore=0 mlxlogscore=999 bulkscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311140139
 
-Multiple delays are required when sending IPIs and waiting for
-responses. During boot, 4 such IPIs were sent per each AP. With this
-change, only one set of broadcast IPIs is sent. This reduces boot time,
-especially for platforms with large number of cores.
-
-Single CPU initialization is still possible, it is used for hotplug.
-
-During wakeup from S3 APs are started one by one. It should be possible
-to enable parallel execution there as well, but I don't have a way of
-properly testing it as of now.
-
-Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
----
- xen/arch/x86/include/asm/smp.h |  1 +
- xen/arch/x86/setup.c           |  2 +
- xen/arch/x86/smpboot.c         | 68 ++++++++++++++++++++++++----------
- 3 files changed, 51 insertions(+), 20 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/smp.h b/xen/arch/x86/include/asm/smp.h
-index 98739028a6ed..6ca0158a368d 100644
---- a/xen/arch/x86/include/asm/smp.h
-+++ b/xen/arch/x86/include/asm/smp.h
-@@ -31,6 +31,7 @@ DECLARE_PER_CPU(cpumask_var_t, send_ipi_cpumask);
- extern bool park_offline_cpus;
- 
- void smp_send_nmi_allbutself(void);
-+void smp_send_init_sipi_sipi_allbutself(void);
- 
- void send_IPI_mask(const cpumask_t *, int vector);
- void send_IPI_self(int vector);
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index b2c0679725ea..42a9067b81eb 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1963,6 +1963,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-                 cpu_data[i].stack_base = cpu_alloc_stack(i);
-         }
- 
-+        smp_send_init_sipi_sipi_allbutself();
-+
-         for_each_present_cpu ( i )
-         {
-             if ( (park_offline_cpus || num_online_cpus() < max_cpus) &&
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index cbea2d45f70d..e9a7f78a5a6f 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -425,7 +425,7 @@ void start_secondary(unsigned int cpu)
- 
- static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
- {
--    unsigned long send_status = 0, accept_status = 0;
-+    unsigned long send_status = 0, accept_status = 0, sh = 0;
-     int maxlvt, timeout, i;
- 
-     /*
-@@ -445,6 +445,12 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
-     if ( tboot_in_measured_env() && !tboot_wake_ap(phys_apicid, start_eip) )
-         return 0;
- 
-+    /*
-+     * Use destination shorthand for broadcasting IPIs during boot.
-+     */
-+    if ( phys_apicid == BAD_APICID )
-+        sh = APIC_DEST_ALLBUT;
-+
-     /*
-      * Be paranoid about clearing APIC errors.
-      */
-@@ -458,7 +464,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
-         /*
-          * Turn INIT on target chip via IPI
-          */
--        apic_icr_write(APIC_INT_LEVELTRIG | APIC_INT_ASSERT | APIC_DM_INIT,
-+        apic_icr_write(APIC_INT_LEVELTRIG | APIC_INT_ASSERT | APIC_DM_INIT | sh,
-                        phys_apicid);
- 
-         if ( !x2apic_enabled )
-@@ -475,7 +481,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
- 
-             Dprintk("Deasserting INIT.\n");
- 
--            apic_icr_write(APIC_INT_LEVELTRIG | APIC_DM_INIT, phys_apicid);
-+            apic_icr_write(APIC_INT_LEVELTRIG | APIC_DM_INIT | sh, phys_apicid);
- 
-             Dprintk("Waiting for send to finish...\n");
-             timeout = 0;
-@@ -512,7 +518,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
-          * STARTUP IPI
-          * Boot on the stack
-          */
--        apic_icr_write(APIC_DM_STARTUP | (start_eip >> 12), phys_apicid);
-+        apic_icr_write(APIC_DM_STARTUP | (start_eip >> 12) | sh, phys_apicid);
- 
-         if ( !x2apic_enabled )
-         {
-@@ -565,7 +571,6 @@ int alloc_cpu_id(void)
- static int do_boot_cpu(int apicid, int cpu)
- {
-     int timeout, boot_error = 0, rc = 0;
--    unsigned long start_eip;
- 
-     /*
-      * Save current MTRR state in case it was changed since early boot
-@@ -573,21 +578,31 @@ static int do_boot_cpu(int apicid, int cpu)
-      */
-     mtrr_save_state();
- 
--    start_eip = bootsym_phys(trampoline_realmode_entry);
-+    /* Check if AP is already up. */
-+    if ( cpu_data[cpu].cpu_state != CPU_STATE_INIT )
-+    {
-+        /* This grunge runs the startup process for the targeted processor. */
-+        unsigned long start_eip;
-+        start_eip = bootsym_phys(trampoline_realmode_entry);
- 
--    /* start_eip needs be page aligned, and below the 1M boundary. */
--    if ( start_eip & ~0xff000 )
--        panic("AP trampoline %#lx not suitably positioned\n", start_eip);
-+        /* start_eip needs be page aligned, and below the 1M boundary. */
-+        if ( start_eip & ~0xff000 )
-+            panic("AP trampoline %#lx not suitably positioned\n", start_eip);
- 
--    /* So we see what's up   */
--    if ( opt_cpu_info )
--        printk("Booting processor %d/%d eip %lx\n",
--               cpu, apicid, start_eip);
-+        /* So we see what's up   */
-+        if ( opt_cpu_info )
-+            printk("AP trampoline at %lx\n", start_eip);
- 
--    /* This grunge runs the startup process for the targeted processor. */
-+        /* mark "stuck" area as not stuck */
-+        bootsym(trampoline_cpu_started) = 0;
-+        smp_mb();
- 
--    /* Starting actual IPI sequence... */
--    boot_error = wakeup_secondary_cpu(apicid, start_eip);
-+        /* Starting actual IPI sequence... */
-+        boot_error = wakeup_secondary_cpu(apicid, start_eip);
-+    }
-+
-+    if ( opt_cpu_info )
-+        printk("Booting processor %d/%d\n", cpu, apicid);
- 
-     if ( !boot_error )
-     {
-@@ -646,10 +661,6 @@ static int do_boot_cpu(int apicid, int cpu)
-         rc = -EIO;
-     }
- 
--    /* mark "stuck" area as not stuck */
--    bootsym(trampoline_cpu_started) = 0;
--    smp_mb();
--
-     return rc;
- }
- 
-@@ -1155,6 +1166,23 @@ static struct notifier_block cpu_smpboot_nfb = {
-     .notifier_call = cpu_smpboot_callback
- };
- 
-+void smp_send_init_sipi_sipi_allbutself(void)
-+{
-+    unsigned long start_eip;
-+    start_eip = bootsym_phys(trampoline_realmode_entry);
-+
-+    /* start_eip needs be page aligned, and below the 1M boundary. */
-+    if ( start_eip & ~0xff000 )
-+        panic("AP trampoline %#lx not suitably positioned\n", start_eip);
-+
-+    /* So we see what's up   */
-+    if ( opt_cpu_info )
-+        printk("Booting APs in parallel, eip %lx\n", start_eip);
-+
-+    /* Starting actual broadcast IPI sequence... */
-+    wakeup_secondary_cpu(BAD_APICID, start_eip);
-+}
-+
- void __init smp_prepare_cpus(void)
- {
-     register_cpu_notifier(&cpu_smpboot_nfb);
--- 
-2.41.0
-
+DQoNCk9uIDE2LjEwLjIzIDA5OjI4LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KDQpIZWxsbyBKdWVy
+Z2VuDQoNCg0KPiBJbnN0ZWFkIG9mIHRoZSBJUlEgbnVtYmVyIHVzZXIgdGhlIHN0cnVjdCBpcnFf
+aW5mbyBwb2ludGVyIGFzIHBhcmFtZXRlcg0KPiBpbiB0aGUgaW50ZXJuYWwgcGlycSByZWxhdGVk
+IGZ1bmN0aW9ucy4gVGhpcyBhbGxvd3MgdG8gZHJvcCBzb21lIGNhbGxzDQo+IG9mIGluZm9fZm9y
+X2lycSgpLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
+Y29tPg0KDQoNCkxvb2tzIGdvb2QsIHNvDQoNClJldmlld2VkLWJ5OiBPbGVrc2FuZHIgVHlzaGNo
+ZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+DQoNCg0KSnVzdCBvbmUgTklUIGJl
+bG93IC4uLg0KDQoNCltzbmlwXQ0KDQo+ICAgDQo+IC1zdGF0aWMgdm9pZCBwaXJxX3F1ZXJ5X3Vu
+bWFzayhpbnQgaXJxKQ0KPiArc3RhdGljIHZvaWQgcGlycV9xdWVyeV91bm1hc2soc3RydWN0IGly
+cV9pbmZvICppbmZvKQ0KPiAgIHsNCj4gICAJc3RydWN0IHBoeXNkZXZfaXJxX3N0YXR1c19xdWVy
+eSBpcnFfc3RhdHVzOw0KPiAtCXN0cnVjdCBpcnFfaW5mbyAqaW5mbyA9IGluZm9fZm9yX2lycShp
+cnEpOw0KPiAgIA0KPiAgIAlCVUdfT04oaW5mby0+dHlwZSAhPSBJUlFUX1BJUlEpOw0KPiAgIA0K
+PiAtCWlycV9zdGF0dXMuaXJxID0gcGlycV9mcm9tX2lycShpcnEpOw0KPiArCWlycV9zdGF0dXMu
+aXJxID0gaW5mby0+dS5waXJxLnBpcnE7DQoNCg0KICAuLi4gd2hhdCBpcyB0aGUgcmVhc29uIHRv
+IG9wZW4tY29kZSBwaXJxX2Zyb21faXJxKCkgaGVyZT8NCkZvciBleGFtcGxlLCBfX3N0YXJ0dXBf
+cGlycSgpIGNvbnRpbnVlcyB0byB1c2UgaGVscGVyIGluIGFsbW9zdCB0aGUgc2FtZSANCnNpdHVh
+dGlvbiAuLi4NCg0KDQpbc25pcF0NCg0KPiAgIA0KPiAtc3RhdGljIHVuc2lnbmVkIGludCBfX3N0
+YXJ0dXBfcGlycSh1bnNpZ25lZCBpbnQgaXJxKQ0KPiArc3RhdGljIHVuc2lnbmVkIGludCBfX3N0
+YXJ0dXBfcGlycShzdHJ1Y3QgaXJxX2luZm8gKmluZm8pDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZXZ0
+Y2huX2JpbmRfcGlycSBiaW5kX3BpcnE7DQo+IC0Jc3RydWN0IGlycV9pbmZvICppbmZvID0gaW5m
+b19mb3JfaXJxKGlycSk7DQo+IC0JZXZ0Y2huX3BvcnRfdCBldnRjaG4gPSBldnRjaG5fZnJvbV9p
+cnEoaXJxKTsNCj4gKwlldnRjaG5fcG9ydF90IGV2dGNobiA9IGluZm8tPmV2dGNobjsNCj4gICAJ
+aW50IHJjOw0KPiAgIA0KPiAgIAlCVUdfT04oaW5mby0+dHlwZSAhPSBJUlFUX1BJUlEpOw0KPiBA
+QCAtODUxLDIwICs4NjgsMjAgQEAgc3RhdGljIHVuc2lnbmVkIGludCBfX3N0YXJ0dXBfcGlycSh1
+bnNpZ25lZCBpbnQgaXJxKQ0KPiAgIAlpZiAoVkFMSURfRVZUQ0hOKGV2dGNobikpDQo+ICAgCQln
+b3RvIG91dDsNCj4gICANCj4gLQliaW5kX3BpcnEucGlycSA9IHBpcnFfZnJvbV9pcnEoaXJxKTsN
+Cj4gKwliaW5kX3BpcnEucGlycSA9IHBpcnFfZnJvbV9pcnEoaW5mbyk7DQoNCiAgICAuLi4gaGVy
+ZQ0KDQoNCg0KW3NuaXBd
 
