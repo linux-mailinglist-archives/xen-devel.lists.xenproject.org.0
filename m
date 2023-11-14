@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0347A7EB3F9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:43:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632841.987319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4DA7EB403
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:45:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632843.987329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2vZ5-0008Kx-BZ; Tue, 14 Nov 2023 15:42:59 +0000
+	id 1r2vap-0000nD-Ns; Tue, 14 Nov 2023 15:44:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632841.987319; Tue, 14 Nov 2023 15:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 632843.987329; Tue, 14 Nov 2023 15:44:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2vZ5-0008Hq-8z; Tue, 14 Nov 2023 15:42:59 +0000
-Received: by outflank-mailman (input) for mailman id 632841;
- Tue, 14 Nov 2023 15:42:57 +0000
+	id 1r2vap-0000jv-LA; Tue, 14 Nov 2023 15:44:47 +0000
+Received: by outflank-mailman (input) for mailman id 632843;
+ Tue, 14 Nov 2023 15:44:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6V1E=G3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r2vZ3-0008Hi-Sg
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:42:57 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1wlO=G3=desiato.srs.infradead.org=BATV+c0bb53cb81094deeb936+7387+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r2vao-0000ib-Ca
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:44:46 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b47fef6-8304-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 16:42:56 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-9e623356e59so638287766b.0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:42:56 -0800 (PST)
-Received: from [192.168.69.100] (cac94-h02-176-184-25-155.dsl.sta.abo.bbox.fr.
- [176.184.25.155]) by smtp.gmail.com with ESMTPSA id
- dx5-20020a170906a84500b0099bd1a78ef5sm5691278ejb.74.2023.11.14.07.42.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Nov 2023 07:42:55 -0800 (PST)
+ id bc132e8d-8304-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 16:44:45 +0100 (CET)
+Received: from [12.186.190.2] (helo=[127.0.0.1])
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1r2vag-002XCO-0y; Tue, 14 Nov 2023 15:44:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b47fef6-8304-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699976576; x=1700581376; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gCFoXhGCZFhwzHOt1ECCBxHdb8kGrjYPklFidAhJw58=;
-        b=msG0dhSbk/XigAvPPwjGDCxzZjHFUK0QPSn4jbuJs2cUCP8Fv2elRUbZf+yICjFK7Z
-         XlRPEbT8RkYwW/1ynuqfLozzbVZf70kUA46EeVakOM7m7heK2k324emOdToUffQz29Hd
-         zdjir8Rz8tc/g74CS3cxMOuJd6fqWLQ/OOLyR0DuM+JzL+AfQ5M2n7oQgfu/yFZTd+ga
-         Y5k24deSTw8B84YZ5IO5JW/8NoBYTQ+5fldl3Dp8uiiN+adLvk24OcEo328YoYVOOLBd
-         KbEuk3/Xg7s7pfKATX7i7cscms2AKUAHe5PSFGg5aCeHfH5Rj43cU5JRHK7cslz31pl6
-         q4ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699976576; x=1700581376;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gCFoXhGCZFhwzHOt1ECCBxHdb8kGrjYPklFidAhJw58=;
-        b=UeDZubchj1In1X9DRY1WoA58GnWK+tfDt1/ebXFJArEr0U+6e/Jlyw6zZk/8VfeHCK
-         Rhx6XZnnej9w/RUE0tH+WQdO83E9xb8eBZ82jknNhMaXA+t9BR679grdMg9oxpdYciSI
-         lXmE/B0NfjuuQ32ZKnMzUX/7MVAAOMBscez+qeavHsnOO5WMaQae1MtEwBD5z7kse8R9
-         5oaDxjYa/9NszZNNEAjm6IYzxDqcozQTK+Ot+GV2/lteLCagXfbDIYj5E596LwB/wS+v
-         ObrkNrVUlIECCFD9hBeWKAKYYjPMcnoHl5JPRODn1UMRPupKtoYCDn+ZhAvTwarRZJvM
-         kIGg==
-X-Gm-Message-State: AOJu0YwYzokgMMhKLGsy5okEca2aainMB6xtW+PyKjpzvVuofUJOoLzo
-	KF1CSDXgqxknblwLhZl6t9nGtA==
-X-Google-Smtp-Source: AGHT+IHp79TSN3T1f0iR/8hTGuWsFNTOnvRmliGhAL1mNCFX7w4yOvOUPmAnOLIhILS3nzzmhv8aFA==
-X-Received: by 2002:a17:906:1919:b0:9e4:121c:b9fd with SMTP id a25-20020a170906191900b009e4121cb9fdmr7690326eje.12.1699976576191;
-        Tue, 14 Nov 2023 07:42:56 -0800 (PST)
-Message-ID: <e298292d-fc40-44ca-9de2-1b159519836b@linaro.org>
-Date: Tue, 14 Nov 2023 16:42:52 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-for-9.0 v2 01/19] tests/avocado: Add 'guest:xen' tag to
- tests running Xen guest
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, David Woodhouse
- <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
-Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+X-Inumbo-ID: bc132e8d-8304-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=bYqSajk3DW7Yh+DFyVrS+kyF4H8z8qvad3x82sz2aaI=; b=YqW3uEi2vQw3DjRK/dfzLFXO0i
+	ol0JQCjTOY9WyrZiohnqK3oywKuX7QRJMv9c/r0/H1GhU4soKQE4pX546b0pOJe41eqPvQyMdlS9D
+	JjZnUsoEflQBaPcSmVeZUNC6gFb/F/AHvBgGbG45q8dq2bY/HuxOsYSn1gkamlBDPKj5PLzkQCqDV
+	uuRw94+TJstDMEwSJOdHSAZ/eg0fNDrCCSNDKnSVzYqIP5ATArH/AmuIAmdAFZxiZ3DzSlvU2j59z
+	28GUp13EJ0Phexm3TkBaux2CJfoeKPQLkCZ3AuIEn5VUs5Vc0vPfWlCWlKWTyF5ofP/H+o4pxyRJK
+	eLup9QTQ==;
+Date: Tue, 14 Nov 2023 10:44:30 -0500
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
+CC: =?ISO-8859-1?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>,
  Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
  Paolo Bonzini <pbonzini@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Richard Henderson <richard.henderson@linaro.org>,
  xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
  Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
- Thomas Huth <thuth@redhat.com>, Cleber Rosa <crosa@redhat.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- Beraldo Leal <bleal@redhat.com>
-References: <20231114143816.71079-1-philmd@linaro.org>
- <20231114143816.71079-2-philmd@linaro.org>
- <94D9484A-917D-4970-98DE-35B84BEDA1DC@infradead.org>
- <407f32ee-e489-4c05-9c3d-fa6c29bb1d99@linaro.org>
- <074BCACF-C8D0-440A-A805-CDB0DB21C416@infradead.org>
- <04917b57-d778-41a2-b320-c8c0afbe9ffb@linaro.org>
- <37D11113-662D-49FD-B1F1-757217EAFEEA@infradead.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <37D11113-662D-49FD-B1F1-757217EAFEEA@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Thomas Huth <thuth@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH-for-9=2E0_v2_06/19=5D_hw/pci/msi?= =?US-ASCII?Q?=3A_Restrict_xen=5Fis=5Fpirq=5Fmsi=28=29_call_to_Xen?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <7fd25b34-6fd9-4f7c-90b4-e44338b2b09e@linaro.org>
+References: <20231114143816.71079-1-philmd@linaro.org> <20231114143816.71079-7-philmd@linaro.org> <EEC18CA6-88F2-4F18-BDE5-5E9AAE5778A7@infradead.org> <7fd25b34-6fd9-4f7c-90b4-e44338b2b09e@linaro.org>
+Message-ID: <87CD61D3-D862-45C6-9DBC-2765D747EA58@infradead.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On 14/11/23 16:19, David Woodhouse wrote:
-> On 14 November 2023 10:13:14 GMT-05:00, "Philippe Mathieu-Daudé" <philmd@linaro.org> wrote:
->> On 14/11/23 16:08, David Woodhouse wrote:
->>> On 14 November 2023 10:00:09 GMT-05:00, "Philippe Mathieu-Daudé" <philmd@linaro.org> wrote:
->>>> On 14/11/23 15:50, David Woodhouse wrote:
->>>>> On 14 November 2023 09:37:57 GMT-05:00, "Philippe Mathieu-Daudé" <philmd@linaro.org> wrote:
->>>>>> Add a tag to run all Xen-specific tests using:
->>>>>>
->>>>>>     $ make check-avocado AVOCADO_TAGS='guest:xen'
->>>>>>
->>>>>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->>>>>> ---
->>>>>> tests/avocado/boot_xen.py      | 3 +++
->>>>>> tests/avocado/kvm_xen_guest.py | 1 +
->>>>>> 2 files changed, 4 insertions(+)
->>>>>
->>>>> Those two are very different. One runs on Xen, the other on KVM. Do we want to use the same tag for both?
->>>>
->>>> My understanding is,
->>>> - boot_xen.py runs Xen on TCG
->>>> - kvm_xen_guest.py runs Xen on KVM
->>>> so both runs Xen guests.
->>>
->>> Does boot_xen.py actually boot *Xen*? And presumably at least one Xen guest *within* Xen?
->>
->> I'll let Alex confirm, but yes, I expect Xen guest within Xen guest within TCG. So the tags "accel:tcg" (already present) and "guest:xen".
->>
->>> kvm_xen_guest.py boots a "Xen guest" under KVM directly without any real Xen being present. It's *emulating* Xen.
->>
->> Yes, so the tag "guest:xen" is correct.
->>
->>> They do both run Xen guests (or at least guests which use Xen hypercalls and *think* they're running under Xen). But is that the important classification for lumping them together?
->>
->> The idea of AVOCADO_TAGS is to restrict testing to what you want to cover. So here this allow running 'anything that can run Xen guest'
->> in a single command, for example it is handy on my macOS aarch64 host.
-> 
-> Ok, that makes sense then. Thanks for your patience.
+On 14 November 2023 10:22:23 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <phil=
+md@linaro=2Eorg> wrote:
+>On 14/11/23 16:13, David Woodhouse wrote:
+>> On 14 November 2023 09:38:02 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <=
+philmd@linaro=2Eorg> wrote:
+>>> Similarly to the restriction in hw/pci/msix=2Ec (see commit
+>>> e1e4bf2252 "msix: fix msix_vector_masked"), restrict the
+>>> xen_is_pirq_msi() call in msi_is_masked() to Xen=2E
+>>>=20
+>>> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro=2Eorg>
+>>=20
+>> Hm, we do also support the Xen abomination of snooping on MSI table wri=
+tes to see if they're targeted at a Xen PIRQ, then actually unmasking the M=
+SI from QEMU when the guest binds the corresponding event channel to that P=
+IRQ=2E
+>>=20
+>> I think this is going to break in CI as kvm_xen_guest=2Epy does deliber=
+ately exercise that use case, doesn't it?
+>
+>Hmmm I see what you mean=2E
+>
+>So you mentioned these checks:
+>
+>- host Xen accel
+>- Xen accel emulated to guest via KVM host accel
+>
+>Maybe we need here:
+>
+>- guest expected to run Xen
+>
+>  Being (
+>                Xen accel emulated to guest via KVM host accel
+>	OR
+>                host Xen accel
+>        )
+>
+>If so, possibly few places incorrectly check 'xen_enabled()'
+>instead of this 'xen_guest()'=2E
 
-No problem, I'll add a better description in v3.
+I think xen_is_pirq_msi() had that test built in, didn't it? Adding a 'xen=
+_enabled() &&' prefix was technically redundant?=20
 
-> Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+What's the actual problem we're trying to solve here? That we had two sepa=
+rate implementations of xen_is_pirq_msi() (three if you count an empty stub=
+?) which are resolved at link time and prevent you from running Xen-accel a=
+nd KVM-accel VMs within the same QEMU process?
 
-Thanks!
+>"Xen on KVM" is a tricky case=2E=2E=2E
+>
+>> I deliberately *didn't* switch to testing the Xen PV net device, with a=
+ comment that testing MSI and irqchip permutations was far more entertainin=
+g=2E So I hope it should catch this?
+>
+>=C2=AF\_(=E3=83=84)_/=C2=AF
+
+I believe that if you push your branch to a gitlab tree with the right CI =
+variables defined, it'll run all the CI? And I *hope* it fails with this pa=
+tch=2E It's precisely the kind of thing I was *intending* to catch with the=
+ testing!
 
 
