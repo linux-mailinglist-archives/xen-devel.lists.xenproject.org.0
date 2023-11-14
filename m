@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1B57EB346
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632781.987219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A279F7EB35C
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:20:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632796.987228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v94-0002Cb-VM; Tue, 14 Nov 2023 15:16:06 +0000
+	id 1r2vCu-00055i-EM; Tue, 14 Nov 2023 15:20:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632781.987219; Tue, 14 Nov 2023 15:16:06 +0000
+Received: by outflank-mailman (output) from mailman id 632796.987228; Tue, 14 Nov 2023 15:20:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2v94-0002Ak-S5; Tue, 14 Nov 2023 15:16:06 +0000
-Received: by outflank-mailman (input) for mailman id 632781;
- Tue, 14 Nov 2023 15:16:05 +0000
+	id 1r2vCu-00052N-BY; Tue, 14 Nov 2023 15:20:04 +0000
+Received: by outflank-mailman (input) for mailman id 632796;
+ Tue, 14 Nov 2023 15:20:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gJWh=G3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r2v93-0001sO-Q2
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:16:05 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ <SRS0=eqXQ=G3=casper.srs.infradead.org=BATV+a8e905033730cff805ca+7387+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r2vCt-0004pW-Fa
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:20:03 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bacd9d73-8300-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 16:16:05 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-507973f3b65so8162169e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:16:05 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a7-20020a056512020700b005079d34f330sm1342970lfo.282.2023.11.14.07.16.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 07:16:04 -0800 (PST)
+ id 483965f6-8301-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 16:20:02 +0100 (CET)
+Received: from [12.186.190.2] (helo=[127.0.0.1])
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r2vCn-008fhY-Fa; Tue, 14 Nov 2023 15:19:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +40,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bacd9d73-8300-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699974964; x=1700579764; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ktp5yOM9PEIg+T7oEz4OKeZ/CwStGNVTT5+LiWqecM4=;
-        b=isWfa6QD6PSRcGEZqf9mQmYzSS74VbC7FaihFZVl0RPvi/CfUG+oyOjMd48cHv/1aT
-         PLTc9Rw1tCG+v6JfIzCh0Nbfc/eyLQiJwgVgCtO7nqcHAwjvo9T5LbJwXXMNg6vTEQBL
-         yQlc+37t/hnpLeqpqopMp3vIpjgoyHMjKsjRRPL9M77VAAy5skLEHLo/bCLvSqcDyk8B
-         dTF7UIyAcIzYQ3xkvoE8Y1bvWBNwDD/Fo+cICaG3JYN3EcP3wiRwtSSwFQW/vchrUBv4
-         tKXbHRgwIVNJ4TfHlDvWwwMSyUgHoX39lxETKCJQDZBWhwt9rP9HMZCKxRtOlMIvYKsl
-         5wJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699974965; x=1700579765;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ktp5yOM9PEIg+T7oEz4OKeZ/CwStGNVTT5+LiWqecM4=;
-        b=s0GZGrALwP0cVTKQ5EhEuQF+wITsR9Z/FQTiJdkmNRJo8E+XQOHzJxDrSov39sVLLo
-         8I+UR3skJsjaQVSyjUQdIEGJOgfi5WqDKKAXOB3cu5ySZmxzxPXZelL9FWloWcgp2Mt0
-         3yxyUsqlcYyi3NNTvTLwvrOh1qRTh+r03vkE07oBDVzO8pgeczHURMJJIUJZTafHyboB
-         IBtwNJMQsc20bcOQ8Lbs4SvMpihlSGlOXqoK8P7DTx9t50xvBX9XKfMOfUGaE7srS9qG
-         3seOOPCW5SxfNFacHQ418tg9VzzkyQ5hBh1CpcwW2v9PFG98FCHdvtLEqasBGNP7PCFX
-         Dk5Q==
-X-Gm-Message-State: AOJu0YylEXSc3BRkOiEusWpD0sT0v7hCqQ6qieux53B36bA4GyJyTD6i
-	Jhnz2GC9vzZjPc2APHP2LeyH+OiAiIY=
-X-Google-Smtp-Source: AGHT+IEygYANju+gZ93rCVXrkgy30AYx2IbaCtR8hswwr4Yb+9WO4NXMlXCmd761sDkgTYBKNdp4hQ==
-X-Received: by 2002:ac2:57cf:0:b0:4fe:347d:7c4b with SMTP id k15-20020ac257cf000000b004fe347d7c4bmr6442969lfo.7.1699974964434;
-        Tue, 14 Nov 2023 07:16:04 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3] xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
-Date: Tue, 14 Nov 2023 17:16:01 +0200
-Message-ID: <feee97db556b5b38adb11877c4a37f1d0a09fc92.1699974909.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Inumbo-ID: 483965f6-8301-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=8oHKIB2Z25t55M8rg997hmml2qBzYjJja9p3MLoID9Q=; b=MGoU06Rd2CU4tijjS4zit7AS2o
+	EK5W2DNxSaap5vdRgr4lcPo4zGcIOq4atxzna3eoqsGisnNIWyNGw93pjsrw6oaP0WFFFgVLYBQZz
+	ClKfV7KrSJ1t1EoRo2xxMOh1jnYJshbl0jbHkjAa9cxj5rwxiL2k2+h7xbdzuUF4pLtlgUmOSkME0
+	Uq+kwwckEVCRyY9c0wqtGkbt3pl09tWIQNEMt3G1DMKTQtlMxIhdejhXq5Fe0Y7D6jA34FrWF434P
+	xU+RMJD/6Br8s11hd/K1O0XHW4bEY9r2voia+3nEj2IVrY/SvDOKzxr05FZJRtBMRX8gdRMisqfgH
+	oej8JDZQ==;
+Date: Tue, 14 Nov 2023 10:19:51 -0500
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
+CC: =?ISO-8859-1?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>,
+ Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+ Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
+ Thomas Huth <thuth@redhat.com>, Cleber Rosa <crosa@redhat.com>,
+ Wainer dos Santos Moschetta <wainersm@redhat.com>,
+ Beraldo Leal <bleal@redhat.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH-for-9=2E0_v2_01/19=5D_tests/avocado=3A_A?= =?US-ASCII?Q?dd_=27guest=3Axen=27_tag_to_tests_running_Xen_guest?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <04917b57-d778-41a2-b320-c8c0afbe9ffb@linaro.org>
+References: <20231114143816.71079-1-philmd@linaro.org> <20231114143816.71079-2-philmd@linaro.org> <94D9484A-917D-4970-98DE-35B84BEDA1DC@infradead.org> <407f32ee-e489-4c05-9c3d-fa6c29bb1d99@linaro.org> <074BCACF-C8D0-440A-A805-CDB0DB21C416@infradead.org> <04917b57-d778-41a2-b320-c8c0afbe9ffb@linaro.org>
+Message-ID: <37D11113-662D-49FD-B1F1-757217EAFEEA@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Ifdef-ing inclusion of <asm/grant_table.h> allows to avoid
-generation of empty <asm/grant_table.h> for cases when
-CONFIG_GRANT_TABLE is not enabled.
+On 14 November 2023 10:13:14 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <phil=
+md@linaro=2Eorg> wrote:
+>On 14/11/23 16:08, David Woodhouse wrote:
+>> On 14 November 2023 10:00:09 GMT-05:00, "Philippe Mathieu-Daud=C3=A9" <=
+philmd@linaro=2Eorg> wrote:
+>>> On 14/11/23 15:50, David Woodhouse wrote:
+>>>> On 14 November 2023 09:37:57 GMT-05:00, "Philippe Mathieu-Daud=C3=A9"=
+ <philmd@linaro=2Eorg> wrote:
+>>>>> Add a tag to run all Xen-specific tests using:
+>>>>>=20
+>>>>>    $ make check-avocado AVOCADO_TAGS=3D'guest:xen'
+>>>>>=20
+>>>>> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro=2Eorg>
+>>>>> ---
+>>>>> tests/avocado/boot_xen=2Epy      | 3 +++
+>>>>> tests/avocado/kvm_xen_guest=2Epy | 1 +
+>>>>> 2 files changed, 4 insertions(+)
+>>>>=20
+>>>> Those two are very different=2E One runs on Xen, the other on KVM=2E =
+Do we want to use the same tag for both?
+>>>=20
+>>> My understanding is,
+>>> - boot_xen=2Epy runs Xen on TCG
+>>> - kvm_xen_guest=2Epy runs Xen on KVM
+>>> so both runs Xen guests=2E
+>>=20
+>> Does boot_xen=2Epy actually boot *Xen*? And presumably at least one Xen=
+ guest *within* Xen?
+>
+>I'll let Alex confirm, but yes, I expect Xen guest within Xen guest withi=
+n TCG=2E So the tags "accel:tcg" (already present) and "guest:xen"=2E
+>
+>> kvm_xen_guest=2Epy boots a "Xen guest" under KVM directly without any r=
+eal Xen being present=2E It's *emulating* Xen=2E
+>
+>Yes, so the tag "guest:xen" is correct=2E
+>
+>> They do both run Xen guests (or at least guests which use Xen hypercall=
+s and *think* they're running under Xen)=2E But is that the important class=
+ification for lumping them together?
+>
+>The idea of AVOCADO_TAGS is to restrict testing to what you want to cover=
+=2E So here this allow running 'anything that can run Xen guest'
+>in a single command, for example it is handy on my macOS aarch64 host=2E
 
-The following changes were done for Arm:
-<asm/grant_table.h> should be included directly because it contains
-gnttab_dom0_frames() macros which is unique for Arm and is used in
-arch/arm/domain_build.c.
-<asm/grant_table.h> is #ifdef-ed with CONFIG_GRANT_TABLE in
-<xen/grant_table.h> so in case of !CONFIG_GRANT_TABLE gnttab_dom0_frames
-won't be available for use in arch/arm/domain_build.c.
+Ok, that makes sense then=2E Thanks for your patience=2E
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-This patch was part of patch series:
-https://lore.kernel.org/xen-devel/cover.1699633310.git.oleksii.kurochko@gmail.com/
-
-The patch series hasn't been reviewed all yet so send this path
-separately.
----
- xen/arch/arm/domain_build.c   | 10 ++++++++++
- xen/include/xen/grant_table.h |  3 +++
- 2 files changed, 13 insertions(+)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 49792dd590..54620199d2 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -33,6 +33,16 @@
- 
- #include <xen/irq.h>
- #include <xen/grant_table.h>
-+/*
-+ * <asm/grant_table.h> should be included directly because it contains
-+ * gnttab_dom0_frames() macros which is unique for Arm and is used in
-+ * this file.
-+ *
-+ * <asm/grant_table.h> is #ifdef-ed with CONFIG_GRANT_TABLE in
-+ * <xen/grant_table.h> so in case of !CONFIG_GRANT_TABLE gnttab_dom0_frames
-+ * won't be available for use in this file.
-+ */
-+#include <asm/grant_table.h>
- #include <xen/serial.h>
- 
- #define STATIC_EVTCHN_NODE_SIZE_CELLS 2
-diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
-index 85fe6b7b5e..50edfecfb6 100644
---- a/xen/include/xen/grant_table.h
-+++ b/xen/include/xen/grant_table.h
-@@ -26,7 +26,10 @@
- #include <xen/mm-frame.h>
- #include <xen/rwlock.h>
- #include <public/grant_table.h>
-+
-+#ifdef CONFIG_GRANT_TABLE
- #include <asm/grant_table.h>
-+#endif
- 
- struct grant_table;
- 
--- 
-2.41.0
+Reviewed-by: David Woodhouse <dwmw@amazon=2Eco=2Euk>
 
 
