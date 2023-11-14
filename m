@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7C67EB99D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 23:51:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633375.988112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C7897EB9B3
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 23:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633378.988121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r32FV-0007Zo-Vh; Tue, 14 Nov 2023 22:51:13 +0000
+	id 1r32NF-0004we-NZ; Tue, 14 Nov 2023 22:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633375.988112; Tue, 14 Nov 2023 22:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 633378.988121; Tue, 14 Nov 2023 22:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r32FV-0007Y4-Sw; Tue, 14 Nov 2023 22:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 633375;
- Tue, 14 Nov 2023 22:51:12 +0000
+	id 1r32NF-0004uE-Ky; Tue, 14 Nov 2023 22:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 633378;
+ Tue, 14 Nov 2023 22:59:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wE9C=G3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r32FT-0007WQ-Vq
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 22:51:11 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1r32NE-0004u8-MD
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 22:59:12 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c4ec507-8340-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 23:51:09 +0100 (CET)
+ id 6c18ac9f-8341-11ee-9b0e-b553b5be7939;
+ Tue, 14 Nov 2023 23:59:10 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CD3AACE19CC;
- Tue, 14 Nov 2023 22:51:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F24C433C7;
- Tue, 14 Nov 2023 22:51:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id C9DA5B8183A;
+ Tue, 14 Nov 2023 22:59:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24133C433C8;
+ Tue, 14 Nov 2023 22:59:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +41,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c4ec507-8340-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 6c18ac9f-8341-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700002264;
-	bh=rXuPcuKblQ2qAoyXc/SDPOPFr8+f293u7eK/92quR5Q=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Eb8U/L38nFzq6mMT36GVhM97JJgbS1W8aonl8XfYPfHGtt00sgriditvwjDxRPwph
-	 b40Ij7gnvP2GE0dQN68gP97/IZhMISWDRM11pouwzEyZ64CRkDSwOAOfIPcRZoOhJW
-	 FoeaRz/xdmyheE7T/hb+4fkHbbVErZ0X9XigM9MpHDWi43BQcZq+thaQTK8MPzV3/d
-	 ECmEKqodx720LxFibC4445sxUQGnUQvVuDoF+XyhEvTEmuLepudmNlemmNv55ac3cs
-	 GDLbGbb1kf8hkjm8q0I3zO0SWjHbClQ3c00jBtK8eFZGQqCAxYVAVlDjF/sBMX7QQk
-	 dXmZmsl84q2lA==
-Date: Tue, 14 Nov 2023 14:51:01 -0800 (PST)
+	s=k20201202; t=1700002749;
+	bh=3WOzegH/jpj+Km8ZCQS1hwV5ev7D6Vib8rjJMh8euFo=;
+	h=Date:From:To:cc:Subject:From;
+	b=uTk8gfftzACR8lLlt/3YfMA/nvsp07yBzobful+dHgaT8pp30JFTPAKu9NeUGjT8+
+	 zHhrq2OCRI0oVETkInUKEpUv3GcqRmu8NoWs/PNSBEPfOYQIcci686EqIN3vUG0fLy
+	 Nj7LhkwwgG6YJoCLVa2UUWUcouY0Slyt5K8+PjI7HZmRcAKeB/LZRvpYLfTrRBnJga
+	 XGRt2LW1pE7/vtQXNxZpDqCcPk0TQd4kExm12rMuDExsghb8CHJrkRnW8uNVCagFsi
+	 D2DTbNq00wvYpUQmWrboTpMLXW+a97WpmkfRgFQGRXt+6nuWXSFfcOldQN+w1KtluD
+	 I8egvRYaRChyA==
+Date: Tue, 14 Nov 2023 14:59:06 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Mario Marietto <marietto2008@gmail.com>
-cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Chuck Zmudzinski <brchuckz@netscape.net>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Values generated by the ViryaOS uboot-script-gen do not work
- correctly on the Chromebook Snow
-In-Reply-To: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop>
-References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>
+Subject: [PATCH v2] misra: add R21.1 R21.2
+Message-ID: <alpine.DEB.2.22.394.2311141458020.160649@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2014568259-1700002169=:160649"
-Content-ID: <alpine.DEB.2.22.394.2311141449350.160649@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Add 21.1 and 21.2, with a longer comment to explain how strategy with
+leading underscores and why we think we are safe today.
 
---8323329-2014568259-1700002169=:160649
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2311141449351.160649@ubuntu-linux-20-04-desktop>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+Changes in v2:
+- remove R14.4
+- update note section of 21.1
+---
+ docs/misra/rules.rst | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Hi Mario,
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index da343ab3ac..375a886607 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -519,6 +519,28 @@ maintainers if you want to suggest a change.
+        they are related
+      -
+ 
++   * - `Rule 21.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_01.c>`_
++     - Required
++     - #define and #undef shall not be used on a reserved identifier or
++       reserved macro name
++     - Identifiers starting with an underscore followed by another underscore
++       or an upper-case letter are reserved. Today Xen uses many, such as
++       header guards and bitwise manipulation functions. Upon analysis it turns
++       out Xen identifiers do not clash with the identifiers used by modern
++       GCC, but that is not a guarantee that there won't be a naming clash in
++       the future or with another compiler.  For these reasons we discourage
++       the introduction of new reserved identifiers in Xen, and we see it as
++       positive the reduction of reserved identifiers. At the same time,
++       certain identifiers starting with an underscore are also commonly used
++       in Linux (e.g. __set_bit) and we don't think it would be an improvement
++       to rename them.
++
++   * - `Rule 21.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_02.c>`_
++     - Required
++     - A reserved identifier or reserved macro name shall not be
++       declared
++     - See comment for Rule 21.1
++
+    * - `Rule 21.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_13.c>`_
+      - Mandatory
+      - Any value passed to a function in <ctype.h> shall be representable as an
+-- 
+2.25.1
 
-It is difficult to know how to change uboot-script-gen if we don't know
-why it is currently going wrong.
-
-uboot-script-gen assumes that the memory range specified by
-MEMORY_START-MEMORY_END is valid and correct.
-
-So if you specified a valid and correct memory range in your config file
-(0x41e00000-0x60000000) why is it failing?
-
-The only thing uboot-script-gen does is choosing aligned addresses
-within the MEMORY_START-MEMORY_END range. The addresses are supposed not
-to overlap (meaning the initrd will not overwrite part of the kernel
-when loaded). If the issue is a bug in uboot-script-gen, such as the
-generated addresses overlap or they are not aligned, then we can fix the
-alignment or overlap bug. To debug this kind of issues please post:
-- the imagebuilder config file
-- the generate boot.source script
-- the size of all the binaries specified in the imagebuilder config file
-
-On the other hand if 0x41e00000-0x60000000 is not a safe memory range to
-use, then you need to specify a different memory range.
-
-Cheers,
-
-Stefano
-
-
-
-On Mon, 13 Nov 2023, Mario Marietto wrote:
-> Hello.
-> 
-> I'm trying to find an easier way to the problem that you can read here :
-> 
-> https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest
-> 
-> where Chuck says :
-> 
->  6. Create the u-boot shell commands that will be used to boot Xen and dom0.
-> 
-> Create a file in /home/user (or any other directory) named bootxen.source with these contents :
-> 
-> 
-> mmc dev 1 && mmc rescan 1
-> ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
-> ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
-> ext2load mmc 1:3 0x5ffec000 exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
-> fdt addr 0x5ffec000
-> fdt resize 1024
-> fdt set /chosen \#address-cells <0x2>
-> fdt set /chosen \#size-cells <0x2>
-> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=2 bootscrub=0 vwfi=native"
-> fdt mknod /chosen dom0
-> fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
-> fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
-> fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
-> bootm 0x51000000 - 0x5ffec000
-> 
-> The hex value 0x7D7200 is the size of the zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the uboot-script-gen script
-> available from here :
-> 
-> 
-> https://gitlab.com/ViryaOS/imagebuilder
-> 
-> 
-> This is the interesting point :
-> 
-> 
-> Please note that most of the other values in the script generated by the ViryaOS uboot-script-gen do not work correctly with the Chromebook
-> Snow, but the script does correctly calculate the size of the dom0 Linux kernel image.
-> 
-> 
-> Some time ago Stefano suggested to put the values below for MEMORY_START and MEMORY_END inside the xen-config file :
-> 
-> 
-> nano xen-config file :
-> 
-> 
-> MEMORY_START="0x41e00000"
-> MEMORY_END="0x60000000"
-> LOAD_CMD="ext2load mmc 1:3"
-> BOOT_CMD="bootm"
-> DEVICE_TREE="exynos5250-snow.dtb"
-> XEN="xen-4.17-armhf"
-> XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=768M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
-> DOM0_KERNEL="zImage-6.6.0-xen-dma-mapping"
-> DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
-> UBOOT_SOURCE="xen.source"
-> 
-> 
-> bash ./uboot-script-gen -c xen-config -d .
-> 
-> 
-> Image Name:    
-> Created:      Thu Nov  2 20:59:24 2023
-> Image Type:   ARM Linux Kernel Image (uncompressed)
-> Data Size:    884744 Bytes = 864.01 KiB = 0.84 MiB
-> Load Address: 42c00000
-> Entry Point:  42c00000
-> 
-> 
-> Generated uboot script xen.scr, to be loaded at address 0x42000000:
-> ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
-> 
-> 
-> and I tried to boot Xen and Linux 6.6 as dom0 :
-> 
-> SMDK5250 # mmc dev 1
-> SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
-> but it did not work : it reboots on the verification screen.
-> 
-> --
-> Mario.
-> 
-> 
---8323329-2014568259-1700002169=:160649--
 
