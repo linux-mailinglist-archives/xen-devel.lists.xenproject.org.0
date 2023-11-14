@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7F67EB61F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 19:06:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633163.987803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152857EB5F6
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 18:58:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633110.987748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xnQ-0006ck-0L; Tue, 14 Nov 2023 18:05:56 +0000
+	id 1r2xfa-0004Np-RE; Tue, 14 Nov 2023 17:57:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633163.987803; Tue, 14 Nov 2023 18:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 633110.987748; Tue, 14 Nov 2023 17:57:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2xnP-0006Zw-Tw; Tue, 14 Nov 2023 18:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 633163;
- Tue, 14 Nov 2023 18:05:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r2xfZ-0003ug-Ld; Tue, 14 Nov 2023 17:57:49 +0000
+Received: by outflank-mailman (input) for mailman id 633110;
+ Tue, 14 Nov 2023 17:50:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5HBD=G3=3mdeb.com=krystian.hebel@srs-se1.protection.inumbo.net>)
- id 1r2xYn-0004mK-JK
+ id 1r2xYn-0004wk-IS
  for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 17:50:49 +0000
-Received: from 6.mo582.mail-out.ovh.net (6.mo582.mail-out.ovh.net
- [87.98.177.69]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 573bac9d-8316-11ee-98db-6d05b1d4d9a1;
+Received: from 20.mo550.mail-out.ovh.net (20.mo550.mail-out.ovh.net
+ [188.165.45.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 57962a2f-8316-11ee-9b0e-b553b5be7939;
  Tue, 14 Nov 2023 18:50:47 +0100 (CET)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.109.146.50])
- by mo582.mail-out.ovh.net (Postfix) with ESMTP id EF2D528E19
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:46 +0000 (UTC)
+Received: from director8.ghost.mail-out.ovh.net (unknown [10.108.16.30])
+ by mo550.mail-out.ovh.net (Postfix) with ESMTP id 9591C29502
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 17:50:47 +0000 (UTC)
 Received: from ghost-submission-6684bf9d7b-x5j2z (unknown [10.110.115.90])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7DE941FE62;
- Tue, 14 Nov 2023 17:50:46 +0000 (UTC)
+ by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 1B4B41FE62;
+ Tue, 14 Nov 2023 17:50:47 +0000 (UTC)
 Received: from 3mdeb.com ([37.59.142.103])
  by ghost-submission-6684bf9d7b-x5j2z with ESMTPSA
- id GH/UG3azU2V/lwcATVRwWg
- (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:46 +0000
+ id KN3PAnezU2V/lwcATVRwWg
+ (envelope-from <krystian.hebel@3mdeb.com>); Tue, 14 Nov 2023 17:50:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 573bac9d-8316-11ee-98db-6d05b1d4d9a1
-Authentication-Results:garm.ovh; auth=pass (GARM-103G005f46dfe05-a74b-45be-a533-e024b49e26a8,
+X-Inumbo-ID: 57962a2f-8316-11ee-9b0e-b553b5be7939
+Authentication-Results:garm.ovh; auth=pass (GARM-103G0055119ad6f-2ad2-4238-88e6-1a3ab37426bc,
                     1C6EC45AC3E1968723EBE40916FD99D0F8B07574) smtp.auth=krystian.hebel@3mdeb.com
 X-OVh-ClientIp:213.192.77.249
 From: Krystian Hebel <krystian.hebel@3mdeb.com>
@@ -57,18 +57,18 @@ Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 8/9] x86/smp: make cpu_state per-CPU
-Date: Tue, 14 Nov 2023 18:50:12 +0100
-Message-ID: <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699982111.git.krystian.hebel@3mdeb.com>
+Subject: [PATCH 09/10] x86/smp: make cpu_state per-CPU
+Date: Tue, 14 Nov 2023 18:50:13 +0100
+Message-ID: <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699981248.git.krystian.hebel@3mdeb.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1699982111.git.krystian.hebel@3mdeb.com>
-References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+In-Reply-To: <cover.1699981248.git.krystian.hebel@3mdeb.com>
+References: <cover.1699981248.git.krystian.hebel@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12931523381681564016
+X-Ovh-Tracer-Id: 12931804858740550000
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevtdevieehieeiveekvefhlefftdfhteefueelhfdvhedtjeegkedugfefvdekffenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekvddpmhhouggvpehsmhhtphhouhht
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvkedrudeffedgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepmfhrhihsthhirghnucfjvggsvghluceokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevtdevieehieeiveekvefhlefftdfhteefueelhfdvhedtjeegkedugfefvdekffenucfkphepuddvjedrtddrtddruddpvddufedrudelvddrjeejrddvgeelpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgepkeenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeokhhrhihsthhirghnrdhhvggsvghlseefmhguvggsrdgtohhmqedpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehtddpmhhouggvpehsmhhtphhouhht
 
 This will be used for parallel AP bring-up.
 
