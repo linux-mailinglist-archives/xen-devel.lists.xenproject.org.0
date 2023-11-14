@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18C97EB2F3
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:00:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.632717.987109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069BE7EB2F4
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 16:00:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.632718.987119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2utq-00012a-2H; Tue, 14 Nov 2023 15:00:22 +0000
+	id 1r2utt-0001ND-A4; Tue, 14 Nov 2023 15:00:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 632717.987109; Tue, 14 Nov 2023 15:00:22 +0000
+Received: by outflank-mailman (output) from mailman id 632718.987119; Tue, 14 Nov 2023 15:00:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2utp-0000zf-VT; Tue, 14 Nov 2023 15:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 632717;
- Tue, 14 Nov 2023 15:00:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6V1E=G3=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r2uto-00075e-7o
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:00:20 +0000
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86866893-82fe-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 16:00:18 +0100 (CET)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-54394328f65so8782150a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:00:18 -0800 (PST)
-Received: from [192.168.69.100] (cac94-h02-176-184-25-155.dsl.sta.abo.bbox.fr.
- [176.184.25.155]) by smtp.gmail.com with ESMTPSA id
- ay18-20020a170906d29200b009ce03057c48sm5685319ejb.214.2023.11.14.07.00.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Nov 2023 07:00:12 -0800 (PST)
+	id 1r2utt-0001LV-75; Tue, 14 Nov 2023 15:00:25 +0000
+Received: by outflank-mailman (input) for mailman id 632718;
+ Tue, 14 Nov 2023 15:00:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cJ5/=G3=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1r2utr-0000an-Ps
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 15:00:23 +0000
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 893b38e5-82fe-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 16:00:23 +0100 (CET)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4083ac51d8aso46873985e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 07:00:23 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ m4-20020a056000024400b0032fb0e2087asm7974927wrz.82.2023.11.14.07.00.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Nov 2023 07:00:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,81 +44,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86866893-82fe-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 893b38e5-82fe-11ee-98db-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699974013; x=1700578813; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hvwMnVTQaJD67434mMenkNkErgsf9DqTmkoP4qGMiTA=;
-        b=nEhnN3ZBjp7nGWdapH25Z2rVEWwYekwml0Iiecwn0FAriKBsXv3/YVbRQiY/sh4VNa
-         l/hH4rLie0CSI6DWls9+XMf5WTKXgxA4rAEfhKML+ElFNZkw3LJg/grw510IH1RweiVP
-         wrb2kpH88f1+UhSor46WpSjQnftwafe8RCqezA2W9eCkOwdni8TTS2DEl00nkV990PXk
-         Q0eaT1QMWx717VEwo1HJ5Y8FnY07WMQ/+PGnlLnPdZ3zm46AX+UuAG9FflmiCv5YzRbl
-         mtzdDTScCphdyG36yWkB35tfoM90vD13qA4HSbYeknjFOSsog7Tvq0Z9NNS6jj+RbCfo
-         IVjw==
+        d=citrix.com; s=google; t=1699974018; x=1700578818; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ap+ICSN9RyqjfxdC8R0tfXT0I3xaiCZxlJKUxY8JHNI=;
+        b=oegryhsahx3/EebclXiy6Nir0DekZO5KnVOVdW/K+oe20MM+OTXt53DJ4EZ82h6+6d
+         X9Ms/IONczTC5AqmQpn1nqoskeCGjv1Iyuj0Ae7ULqpZCtFnoRBw5xzrMDCjuvTSBHLG
+         K+uVIeShvBoq4ejTP/BBPe8SX9olfj8W/il4Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699974013; x=1700578813;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1699974018; x=1700578818;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hvwMnVTQaJD67434mMenkNkErgsf9DqTmkoP4qGMiTA=;
-        b=enqmWVHti+6h22QtXywo2w19VPiATUqJjh1EQx8reZsHqpO+IQ+QQ40rfeRZvOl2b/
-         wqXbHsnv/0sl3UMqVMFAvlIeUocQ+oJxkWQ3QyBnRlsAnSmsHBZaV/a+W8pqaUPC54Zs
-         bEvY8bfagIzO3FEP7QfNHpOcT61NZc2JbdYFzzob73AxAk9xR2I8Mc/Goouj6s5YsDFA
-         wbaZ4GdAHMusTvUQ9AuqZCFCHS8n3YLTFOLyTJTnspjN5GqcUqKc0zMQgkDaqLIW0kfY
-         HuxKW7XA6tywMVfQL6FoBpfW2FqJr/seZ27eCHelQ9ltAcBCsEBCueK+HfYrVPuNQB7G
-         rIVw==
-X-Gm-Message-State: AOJu0YwiC60IKdOiLgqeaprToRsTSYy4pL2O2pk/M61NdnqIxaPVydZP
-	TNxizg9iybA+sduKwr7KrfMbBw==
-X-Google-Smtp-Source: AGHT+IHf7MXlWtvkPtL4rKaxAjHGg7eiFZd1cU9GCPUEE1OMwcKoAJdSYUPudWARuJ4FPvDMOa6uyA==
-X-Received: by 2002:a17:906:7e06:b0:9d3:5d4a:8b6a with SMTP id e6-20020a1709067e0600b009d35d4a8b6amr7254726ejr.42.1699974013091;
-        Tue, 14 Nov 2023 07:00:13 -0800 (PST)
-Message-ID: <407f32ee-e489-4c05-9c3d-fa6c29bb1d99@linaro.org>
-Date: Tue, 14 Nov 2023 16:00:09 +0100
+        bh=ap+ICSN9RyqjfxdC8R0tfXT0I3xaiCZxlJKUxY8JHNI=;
+        b=BvMdGWsa9mm48FL2+f7yRbNdVvOPBlRyO0BAN1fVY8ibLXG6siTyrnh0zZOxOnBIYt
+         nC31mz4WMGDkQsRPsP6wl0OjgUj1l2S/t+o21XsZ9NvpMwfzF7QAhyxPzJTrg4mNLx2J
+         ZzSm3UXgmx0hySa5/FWJ+Xkxzq6S84vAkeZGFlT1KOpv8dOAx8g34PLY98vX3jLhD3dM
+         gljwT2zz/faPOSLx8ehO2QVbpBpc3XOaSoOK5ItfGamsLDofzjmBvnYCyyEz0wi6fiK2
+         EpjhDsVicppDZIdisE1vb1/gTQtYq6cypbsnRpCvlPZ0PDWGmVm6aDaEwh20YtwynIiz
+         Rm9Q==
+X-Gm-Message-State: AOJu0Yz6a1FX/3ceOXVNPo9OxshmqOZHkuZ/xQ3hE1p5TojLLbVv9hTh
+	3iwQZ8sf54LgN8ridEXwUIogUQ==
+X-Google-Smtp-Source: AGHT+IEXm507ZFWkedeR+sLODM9S9C/0tfgjAolvd0zgUyI+Hd+a5XuJSx4GQiL/geqhf1mMAi/1Fg==
+X-Received: by 2002:a5d:4648:0:b0:32d:80e:6893 with SMTP id j8-20020a5d4648000000b0032d080e6893mr6290302wrs.36.1699974018645;
+        Tue, 14 Nov 2023 07:00:18 -0800 (PST)
+Date: Tue, 14 Nov 2023 15:00:17 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH] automation: set architecture in docker files
+Message-ID: <886f6adb-5651-4c69-9d0b-ff68b5a1b094@perard>
+References: <20231113155701.52052-1-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2311131608200.160649@ubuntu-linux-20-04-desktop>
+ <ZVM3Ujf1nsws3Mxr@macbook.local>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-for-9.0 v2 01/19] tests/avocado: Add 'guest:xen' tag to
- tests running Xen guest
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, David Woodhouse
- <dwmw@amazon.co.uk>, qemu-devel@nongnu.org
-Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Paul Durrant <paul@xen.org>, qemu-arm@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
- Anthony Perard <anthony.perard@citrix.com>, kvm@vger.kernel.org,
- Thomas Huth <thuth@redhat.com>, Cleber Rosa <crosa@redhat.com>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- Beraldo Leal <bleal@redhat.com>
-References: <20231114143816.71079-1-philmd@linaro.org>
- <20231114143816.71079-2-philmd@linaro.org>
- <94D9484A-917D-4970-98DE-35B84BEDA1DC@infradead.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <94D9484A-917D-4970-98DE-35B84BEDA1DC@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZVM3Ujf1nsws3Mxr@macbook.local>
 
-On 14/11/23 15:50, David Woodhouse wrote:
-> On 14 November 2023 09:37:57 GMT-05:00, "Philippe Mathieu-Daud√©" <philmd@linaro.org> wrote:
->> Add a tag to run all Xen-specific tests using:
->>
->>   $ make check-avocado AVOCADO_TAGS='guest:xen'
->>
->> Signed-off-by: Philippe Mathieu-Daud√© <philmd@linaro.org>
->> ---
->> tests/avocado/boot_xen.py      | 3 +++
->> tests/avocado/kvm_xen_guest.py | 1 +
->> 2 files changed, 4 insertions(+)
+On Tue, Nov 14, 2023 at 10:01:06AM +0100, Roger Pau MonnÈ wrote:
+> On Mon, Nov 13, 2023 at 04:10:24PM -0800, Stefano Stabellini wrote:
+> > On Mon, 13 Nov 2023, Roger Pau Monne wrote:
+> > > Pass the desired architecture of the image in the FROM instruction if the
+> > > image is possibly multi-platform.
+> > > 
+> > > This allows using the x86 Dockerfiles on OS X on arm64 hardware.
+> > > 
+> > > No functional change intended.
+> > > 
+> > > Signed-off-by: Roger Pau MonnÈ <roger.pau@citrix.com>
+> > 
+> > Although I am not opposed to this change, so far we have been using:
+> > arm64v8/alpine:3.18
+> > 
+> > for x86 it is not specified but it would be:
+> > amd64/alpine:3.18
+> > 
+> > Two options:
+> > 1) we add amd64/ everywhere and leave the arm containers alone
+> > 2) we change all containers, including the arm containers, to use the
+> > --platform option
+> > 
+> > I don't think is a good idea to have 2 different ways to specify the
+> > architecture for x86 and arm containers
 > 
-> Those two are very different. One runs on Xen, the other on KVM. Do we want to use the same tag for both?
+> I'm not an expert on this, but attempting to use (2):
+> 
+> -FROM arm64v8/alpine:3.18
+> +FROM --platform=linux/arm64v8 alpine:3.18
+> 
+> Does not work for me:
+> 
+> % make -C automation/build alpine/3.18-arm64v8
+> docker build --pull -t registry.gitlab.com/xen-project/xen/alpine:3.18-arm64v8 -f alpine/3.18-arm64v8.dockerfile alpine
+> [+] Building 1.4s (3/3) FINISHED                                                  docker:desktop-linux
+>  => [internal] load .dockerignore                                                                 0.0s
+>  => => transferring context: 2B                                                                   0.0s
+>  => [internal] load build definition from 3.18-arm64v8.dockerfile                                 0.0s
+>  => => transferring dockerfile: 818B                                                              0.0s
+>  => ERROR [internal] load metadata for docker.io/library/alpine:3.18                              1.4s
+> ------
+>  > [internal] load metadata for docker.io/library/alpine:3.18:
+> ------
+> 3.18-arm64v8.dockerfile:1
+> --------------------
+>    1 | >>> FROM --platform=linux/arm64v8 alpine:3.18
+>    2 |     LABEL maintainer.name="The Xen Project" \
+>    3 |           maintainer.email="xen-devel@lists.xenproject.org"
+> --------------------
+> ERROR: failed to solve: alpine:3.18: no match for platform in manifest sha256:eece025e432126ce23f223450a0326fbebde39cdf496a85d8c016293fc851978: not found
+> make: *** [alpine/3.18-arm64v8] Error 1
+> 
+> That's why I've left the prefixed images alone.
+> 
+> I could prefix the x86 images with amd64/ if that's preferred, I
+> didn't try that option, as the Docker manual suggested using
+> --platform.
 
-My understanding is,
-- boot_xen.py runs Xen on TCG
-- kvm_xen_guest.py runs Xen on KVM
-so both runs Xen guests.
+So a few things to know, "--platform=linux/amd64" just select a
+different build of one container. For example, for the "alpine"
+containers, you can see all the different builds available on the docker
+hub, here a few links:
+- Official Docker, Alpine images, home:
+  https://hub.docker.com/_/alpine
+- The different builds: 
+  https://hub.docker.com/_/alpine/tags
 
-Alex, is that incorrect?
+So, for amd64v8, you probably want --platform=linux/arm64/v8
+
+Then, they are per-architecture repository that make it easier to deal
+with foreign architecture, and probably maintained by a different
+community. e.g. for alpine arm64v8:
+    https://hub.docker.com/r/arm64v8/alpine/
+
+Those provide a build for a single architecture.
+
+
+Sometime, you actually need to "--platform=*" to select a particular
+architecture, like I did for "jessie-i386.dockerfile".
+
+
+One thing I've notice when using --platform is that, if for example I
+use the container "--platform=linux/amd64 alpine:3" then
+"--platform=linux/arm/v6 alpine:3"; later when I only specify
+"alpine:3", it's going to be the armv6, and I think docker is going to
+complain if I try tu use "--platform=linux/amd64 alpine:3" without
+"docker pull" first (or I guess docker build --pull).
+
+Hope that help.
+
+So I guess using containers "amd64/*" or "arm64v8/*" is fine, but
+sometime will need to use "--platform=*".
+
+Cheers,
+
+-- 
+Anthony PERARD
 
