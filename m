@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832F87EB514
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 17:42:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633006.987535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42F77EB52A
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 17:56:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633027.987554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2wUt-00069i-GM; Tue, 14 Nov 2023 16:42:43 +0000
+	id 1r2wiA-0000ip-Vf; Tue, 14 Nov 2023 16:56:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633006.987535; Tue, 14 Nov 2023 16:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 633027.987554; Tue, 14 Nov 2023 16:56:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r2wUt-00066q-Cp; Tue, 14 Nov 2023 16:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 633006;
- Tue, 14 Nov 2023 16:42:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r2wiA-0000gX-T3; Tue, 14 Nov 2023 16:56:26 +0000
+Received: by outflank-mailman (input) for mailman id 633027;
+ Tue, 14 Nov 2023 16:56:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WRED=G3=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1r2wUs-00062s-Nr
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 16:42:42 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d38a24e8-830c-11ee-9b0e-b553b5be7939;
- Tue, 14 Nov 2023 17:42:40 +0100 (CET)
-Received: from Dell.bugseng.com (unknown [37.163.92.152])
- by support.bugseng.com (Postfix) with ESMTPSA id 0ADA84EE0738;
- Tue, 14 Nov 2023 17:42:38 +0100 (CET)
+ <SRS0=5GB7=G3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r2wi9-0000gR-UT
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 16:56:25 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id beb47a91-830e-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 17:56:24 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2c5071165d5so32913791fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Nov 2023 08:56:24 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ 11-20020a50874b000000b0053e2a64b5f8sm5443287edv.14.2023.11.14.08.56.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Nov 2023 08:56:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d38a24e8-830c-11ee-9b0e-b553b5be7939
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2] automation/eclair: add a deviation for MISRA C:2012 Rule 8.6
-Date: Tue, 14 Nov 2023 17:42:31 +0100
-Message-Id: <b9eee04bb7c6436f4951a8737eee60c68cda9df7.1699893554.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: beb47a91-830e-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1699980984; x=1700585784; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=RlfVu03uo+vrVvTuVoiOW3dTHrxtS+J2Ob+Drz7Eoj0=;
+        b=jGa8AxhkCxojZyDIyI+znf/UyRU6FMhlK3zJ5OUEkJ3yoZCfVu7CwJOQF0+q7OZ2dj
+         9cWctxz6dC3EpDKDMNOwvQgRU9TED0Z5jFqvgYQzI6r9iM7VWvN3/kw4VLniTnpecxrg
+         nTMLnxi1Rc5XERAlS4lmegeHfStwnFhHbqPOI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699980984; x=1700585784;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RlfVu03uo+vrVvTuVoiOW3dTHrxtS+J2Ob+Drz7Eoj0=;
+        b=n6BB5qV1qSKz7thFAY9mZf0evk15DzU+UwKn84R+gjeW3X1Q6P8RgSR8hS86G+M94w
+         bgy5VsgAnMpPF/1nlDmYPaHyEhLvkDuZ3OpbJ4gDJIWuoVDL7+ou7hweoEyqFtkTHneE
+         EKX8MM5F6i3A5h2+Z5keywM6oVuC5Q1FZLuzsII3VQWJvfIB7zUzsuH5sj8EczzE0b6V
+         eleqtuyHEGC1YhsXVDN8yGR6UOwE3N7EYS7MQTvRa7dVcd4yMqMuwPJF0rQ2RCfCpupZ
+         ANESQUh8Ms9gsHUuEg99J+ZO1RFKyPMf7u7mMaP4IZTT746xpazMHtB6p5fmbQJX9PD5
+         gjmQ==
+X-Gm-Message-State: AOJu0YxXr3+FDldlDBgcAfg0wvpsHCYqV849loUFGU+kM4xaqDqnnLMu
+	FOM+2QzLjB29TeUYDuc27Mq2DQ==
+X-Google-Smtp-Source: AGHT+IHwxmFSZVLlnZoI41lkf7yIXhFvDJLacmvauSIzC25CS3eZkky52lP4YGsU/xPFri1NVB8jFg==
+X-Received: by 2002:ac2:5145:0:b0:507:cfbc:bf8d with SMTP id q5-20020ac25145000000b00507cfbcbf8dmr6539967lfd.16.1699980984245;
+        Tue, 14 Nov 2023 08:56:24 -0800 (PST)
+Date: Tue, 14 Nov 2023 17:56:23 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH] automation: set architecture in docker files
+Message-ID: <ZVOmt3FI1qzyn6UM@macbook.local>
+References: <20231113155701.52052-1-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2311131608200.160649@ubuntu-linux-20-04-desktop>
+ <ZVM3Ujf1nsws3Mxr@macbook.local>
+ <886f6adb-5651-4c69-9d0b-ff68b5a1b094@perard>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <886f6adb-5651-4c69-9d0b-ff68b5a1b094@perard>
 
-Update ECLAIR configuration to take into account the search
-procedure adopted by Unix linkers.
-Update deviations.rst accordingly and tag Rule 8.6 as "clean".
+On Tue, Nov 14, 2023 at 03:00:17PM +0000, Anthony PERARD wrote:
+> On Tue, Nov 14, 2023 at 10:01:06AM +0100, Roger Pau Monné wrote:
+> > On Mon, Nov 13, 2023 at 04:10:24PM -0800, Stefano Stabellini wrote:
+> > > On Mon, 13 Nov 2023, Roger Pau Monne wrote:
+> > > > Pass the desired architecture of the image in the FROM instruction if the
+> > > > image is possibly multi-platform.
+> > > > 
+> > > > This allows using the x86 Dockerfiles on OS X on arm64 hardware.
+> > > > 
+> > > > No functional change intended.
+> > > > 
+> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > > 
+> > > Although I am not opposed to this change, so far we have been using:
+> > > arm64v8/alpine:3.18
+> > > 
+> > > for x86 it is not specified but it would be:
+> > > amd64/alpine:3.18
+> > > 
+> > > Two options:
+> > > 1) we add amd64/ everywhere and leave the arm containers alone
+> > > 2) we change all containers, including the arm containers, to use the
+> > > --platform option
+> > > 
+> > > I don't think is a good idea to have 2 different ways to specify the
+> > > architecture for x86 and arm containers
+> > 
+> > I'm not an expert on this, but attempting to use (2):
+> > 
+> > -FROM arm64v8/alpine:3.18
+> > +FROM --platform=linux/arm64v8 alpine:3.18
+> > 
+> > Does not work for me:
+> > 
+> > % make -C automation/build alpine/3.18-arm64v8
+> > docker build --pull -t registry.gitlab.com/xen-project/xen/alpine:3.18-arm64v8 -f alpine/3.18-arm64v8.dockerfile alpine
+> > [+] Building 1.4s (3/3) FINISHED                                                  docker:desktop-linux
+> >  => [internal] load .dockerignore                                                                 0.0s
+> >  => => transferring context: 2B                                                                   0.0s
+> >  => [internal] load build definition from 3.18-arm64v8.dockerfile                                 0.0s
+> >  => => transferring dockerfile: 818B                                                              0.0s
+> >  => ERROR [internal] load metadata for docker.io/library/alpine:3.18                              1.4s
+> > ------
+> >  > [internal] load metadata for docker.io/library/alpine:3.18:
+> > ------
+> > 3.18-arm64v8.dockerfile:1
+> > --------------------
+> >    1 | >>> FROM --platform=linux/arm64v8 alpine:3.18
+> >    2 |     LABEL maintainer.name="The Xen Project" \
+> >    3 |           maintainer.email="xen-devel@lists.xenproject.org"
+> > --------------------
+> > ERROR: failed to solve: alpine:3.18: no match for platform in manifest sha256:eece025e432126ce23f223450a0326fbebde39cdf496a85d8c016293fc851978: not found
+> > make: *** [alpine/3.18-arm64v8] Error 1
+> > 
+> > That's why I've left the prefixed images alone.
+> > 
+> > I could prefix the x86 images with amd64/ if that's preferred, I
+> > didn't try that option, as the Docker manual suggested using
+> > --platform.
+> 
+> So a few things to know, "--platform=linux/amd64" just select a
+> different build of one container. For example, for the "alpine"
+> containers, you can see all the different builds available on the docker
+> hub, here a few links:
+> - Official Docker, Alpine images, home:
+>   https://hub.docker.com/_/alpine
+> - The different builds: 
+>   https://hub.docker.com/_/alpine/tags
+> 
+> So, for amd64v8, you probably want --platform=linux/arm64/v8
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes is v2:
-  - deviation is based on xen/lib/*;
-  - justification improved;
-  - reflected changes to deviations.ecl;
-  - tagged rule as "clean".
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++++++
- automation/eclair_analysis/ECLAIR/tagging.ecl    |  2 +-
- docs/misra/deviations.rst                        | 12 ++++++++++++
- 3 files changed, 24 insertions(+), 1 deletion(-)
+Interesting, I guess I was looking at an outdated documentation that
+stated the tag as arm64v8 instead of arm64/v8.
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index d8170106b4..d12ac2e28e 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -214,6 +214,17 @@ definition is compiled-out or optimized-out by the compiler)"
- -config=MC3R1.R8.6,reports+={deliberate, "first_area(^.*has no definition$)"}
- -doc_end
- 
-+-doc_begin="The search procedure for Unix linkers is well defined, see ld(1)
-+manual: \"The linker will search an archive only once, at the location where it
-+is specified on the command line. If the archive defines a symbol which was
-+undefined in some object which appeared before the archive on the command line,
-+the linker will include the appropriate file(s) from the archive\".
-+In Xen, thanks to the order in which file names appear in the build commands,
-+if arch-specific definitions are present, they get always linked in before
-+searching in the lib.a archive resulting from xen/lib."
-+-config=MC3R1.R8.6,declarations+={deliberate, "loc(file(^xen/lib/.*$))"}
-+-doc_end
-+
- -doc_begin="The gnu_inline attribute without static is deliberately allowed."
- -config=MC3R1.R8.10,declarations+={deliberate,"property(gnu_inline)"}
- -doc_end
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index 78a0bc948b..d0824830d7 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -30,7 +30,7 @@
- 
- -doc_begin="Clean guidelines: new violations for these guidelines are not accepted."
- 
---service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.2||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R8.1||MC3R1.R8.5||MC3R1.R8.8||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.2||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R12.5||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6"
-+-service_selector={clean_guidelines_common,"MC3R1.D1.1||MC3R1.D2.1||MC3R1.D4.11||MC3R1.D4.14||MC3R1.R1.1||MC3R1.R1.3||MC3R1.R1.4||MC3R1.R2.2||MC3R1.R3.1||MC3R1.R3.2||MC3R1.R4.1||MC3R1.R5.1||MC3R1.R5.2||MC3R1.R5.4||MC3R1.R6.1||MC3R1.R6.2||MC3R1.R7.1||MC3R1.R8.1||MC3R1.R8.5||MC3R1.R8.6||MC3R1.R8.8||MC3R1.R8.10||MC3R1.R8.12||MC3R1.R8.14||MC3R1.R9.2||MC3R1.R9.4||MC3R1.R9.5||MC3R1.R12.5||MC3R1.R17.3||MC3R1.R17.4||MC3R1.R17.6||MC3R1.R21.13||MC3R1.R21.19||MC3R1.R21.21||MC3R1.R22.2||MC3R1.R22.4||MC3R1.R22.5||MC3R1.R22.6"
- }
- 
- -setq=target,getenv("XEN_TARGET_ARCH")
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 8511a18925..0d18e33780 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -147,6 +147,18 @@ Deviations related to MISRA C:2012 Rules:
-        definition is compiled-out or optimized-out by the compiler).
-      - Tagged as `deliberate` in ECLAIR.
- 
-+   * - R8.6
-+     - The search procedure for Unix linkers is well defined, see ld(1) manual:
-+       "The linker will search an archive only once, at the location where it
-+       is specified on the command line. If the archive defines a symbol which
-+       was undefined in some object which appeared before the archive on the
-+       command line, the linker will include the appropriate file(s) from the
-+       archive".
-+       In Xen, thanks to the order in which file names appear in the build
-+       commands, if arch-specific definitions are present, they get always
-+       linked in before searching in the lib.a archive resulting from xen/lib.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-    * - R8.10
-      - The gnu_inline attribute without static is deliberately allowed.
-      - Tagged as `deliberate` for ECLAIR.
--- 
-2.34.1
+> 
+> Then, they are per-architecture repository that make it easier to deal
+> with foreign architecture, and probably maintained by a different
+> community. e.g. for alpine arm64v8:
+>     https://hub.docker.com/r/arm64v8/alpine/
+> 
+> Those provide a build for a single architecture.
 
+Right, so those two are not actually the same image.  I wonder whether
+we would want to uniformly switch to using --platform when possible,
+in order to make sure we are using the same (multi arch) image to
+avoid surprises.
+
+> 
+> 
+> Sometime, you actually need to "--platform=*" to select a particular
+> architecture, like I did for "jessie-i386.dockerfile".
+> 
+> 
+> One thing I've notice when using --platform is that, if for example I
+> use the container "--platform=linux/amd64 alpine:3" then
+> "--platform=linux/arm/v6 alpine:3"; later when I only specify
+> "alpine:3", it's going to be the armv6, and I think docker is going to
+> complain if I try tu use "--platform=linux/amd64 alpine:3" without
+> "docker pull" first (or I guess docker build --pull).
+> 
+> Hope that help.
+> 
+> So I guess using containers "amd64/*" or "arm64v8/*" is fine, but
+> sometime will need to use "--platform=*".
+
+My take is that it's better to use --platform when possible, as then
+all platforms share the same image, and the contents of the image
+should be more consistent.
+
+I guess we could see about switching some of the image that currently
+use a prefix (like the Alpine one) in order to instead use --platform
+and share the same image.  I wouldn't want to do it in this patch
+however, as the change presented here should be non-functional, while
+switching to the multi arch image might introduce changes.
+
+Thanks, Roger.
 
