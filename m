@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BB37EB8F4
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 22:53:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633285.987973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5C597EB8F6
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Nov 2023 22:54:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633287.987983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r31LV-0005C3-KA; Tue, 14 Nov 2023 21:53:21 +0000
+	id 1r31M3-0005hy-T1; Tue, 14 Nov 2023 21:53:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633285.987973; Tue, 14 Nov 2023 21:53:21 +0000
+Received: by outflank-mailman (output) from mailman id 633287.987983; Tue, 14 Nov 2023 21:53:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r31LV-00059l-HT; Tue, 14 Nov 2023 21:53:21 +0000
-Received: by outflank-mailman (input) for mailman id 633285;
- Tue, 14 Nov 2023 21:53:20 +0000
+	id 1r31M3-0005eq-QQ; Tue, 14 Nov 2023 21:53:55 +0000
+Received: by outflank-mailman (input) for mailman id 633287;
+ Tue, 14 Nov 2023 21:53:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wE9C=G3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r31LU-00059f-8p
- for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 21:53:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1r31M1-00059f-Nm
+ for xen-devel@lists.xenproject.org; Tue, 14 Nov 2023 21:53:53 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3902c1bf-8338-11ee-98db-6d05b1d4d9a1;
- Tue, 14 Nov 2023 22:53:19 +0100 (CET)
+ id 4bcf016c-8338-11ee-98db-6d05b1d4d9a1;
+ Tue, 14 Nov 2023 22:53:52 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id D9D01B817C8;
- Tue, 14 Nov 2023 21:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667DCC433C8;
- Tue, 14 Nov 2023 21:53:15 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 5A128CE19CC;
+ Tue, 14 Nov 2023 21:53:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9055BC433C8;
+ Tue, 14 Nov 2023 21:53:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3902c1bf-8338-11ee-98db-6d05b1d4d9a1
+X-Inumbo-ID: 4bcf016c-8338-11ee-98db-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699998797;
-	bh=3wq/nWRTF4BiSiy/83N69DAV5hHWSTBRaa4l9AyHwnc=;
+	s=k20201202; t=1699998826;
+	bh=M6rQ3y7VlRyLAzvUKXIkVpfQ+FoQfIreJKI8tzVdrgU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=BiGwOOOTD1AnB+7GPBHRnf2jqv3b/9ZwM4NnqOasUK5R9RUh1dA7lpwrSrVjKjOIc
-	 QdHTn7WNXmOaodVlnIwdEOhUAe1vykJAEtkExyHhH5nUdV4cENnojx9uxAOdf4S26W
-	 vqATzoc9eJxXs2XYe6kW8vQAI0X3t7hmTgF73Uz23HW6KV2LVx/Fm51yMtHAHozyBI
-	 UbOhIxRdeOwbw+oY4dwQv0lIjf5Pjuy72bbYjno1bzQ+qq85VHFfbmqWqECCKd1vB/
-	 Ml5uq+YLikdZllon8BbBhQJKbPiMN6kKMCZOaPb5gIqL6ue5nN+kNJN4HOsNsUC5JL
-	 un2RzJ7dfXl6Q==
-Date: Tue, 14 Nov 2023 13:53:14 -0800 (PST)
+	b=GIKOV12wM6uGhvtr5yZ4itTlUGXYFVPG4I03MeX1J1RVm0gt/H8cjwok6/n+qCrlg
+	 MPyRrV6KL6n790Bz0Dpgz78jIDTlCUNNboNDAVsVE3gLC8WndD+AMikn3MD8eYcucH
+	 JjZvCUgXugeQYjfv14VhRCJJwUnY+56taSdT/s9X3TRZCxuCrqzLFYW179TT5xwSko
+	 ZmrxBLiQhW60E16VIPHVMoMSOFnFGrQ9D0/pK4JZGvK/VSkJ49KPJlUB25xHVlxERb
+	 dvcmb2fJ3qxlb1lI97OWQYTO9VsNVUbwyBv4Tbsh9WjqIyuf3ywtBeKH1bzKTLDMLi
+	 JB1Mctyk/60zw==
+Date: Tue, 14 Nov 2023 13:53:43 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
@@ -60,28 +60,21 @@ cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
     michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
     consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com, 
     roger.pau@citrix.com, bertrand.marquis@arm.com, julien@xen.org, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v4 1/2] automation/eclair: make the docs for MISRA
- C:2012 Dir 4.1 visible to ECLAIR
-In-Reply-To: <f14b266f18089f5951a3e390a5ebfe713beb8dbb.1699975581.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311141352320.160649@ubuntu-linux-20-04-desktop>
-References: <cover.1699975581.git.nicola.vetrini@bugseng.com> <f14b266f18089f5951a3e390a5ebfe713beb8dbb.1699975581.git.nicola.vetrini@bugseng.com>
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH v4 2/2] docs/misra: add guidance on the format of
+ Dir 4.1 docs for ECLAIR
+In-Reply-To: <c2ca76c67bfeaf1fab106af4bda6d6107e722208.1699975581.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311141353210.160649@ubuntu-linux-20-04-desktop>
+References: <cover.1699975581.git.nicola.vetrini@bugseng.com> <c2ca76c67bfeaf1fab106af4bda6d6107e722208.1699975581.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 14 Nov 2023, Nicola Vetrini wrote:
-> To be able to check for the existence of the necessary subsections in
-> the documentation for MISRA C:2012 Dir 4.1, ECLAIR needs to have a source
-> file that is built.
-> 
-> This file is generated from 'C-runtime-failures.rst' in docs/misra
-> and the configuration is updated accordingly.
+> Additional guidance on the formatting of the document for ECLAIR
+> is supplied.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-This is actually match better than before, thanks!
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
