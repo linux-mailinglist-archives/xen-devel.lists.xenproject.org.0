@@ -2,46 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C28747EC8F8
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 17:53:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633764.988837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A1D7EC98D
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 18:21:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633767.988847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3J7f-0003DL-Fy; Wed, 15 Nov 2023 16:52:15 +0000
+	id 1r3JZB-000097-My; Wed, 15 Nov 2023 17:20:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633764.988837; Wed, 15 Nov 2023 16:52:15 +0000
+Received: by outflank-mailman (output) from mailman id 633767.988847; Wed, 15 Nov 2023 17:20:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3J7f-0003BI-D7; Wed, 15 Nov 2023 16:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 633764;
- Wed, 15 Nov 2023 16:52:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3JZB-000076-JV; Wed, 15 Nov 2023 17:20:41 +0000
+Received: by outflank-mailman (input) for mailman id 633767;
+ Wed, 15 Nov 2023 17:20:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6a9m=G4=epam.com=prvs=56830be07e=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
- id 1r3J7d-0003BC-CQ
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 16:52:13 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f8ad4a0-83d7-11ee-9b0e-b553b5be7939;
- Wed, 15 Nov 2023 17:52:08 +0100 (CET)
-Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AFGnAsI028095; Wed, 15 Nov 2023 16:51:55 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2104.outbound.protection.outlook.com [104.47.18.104])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ucw0vhg1x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Nov 2023 16:51:54 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
- by GVXPR03MB10498.eurprd03.prod.outlook.com (2603:10a6:150:14c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.19; Wed, 15 Nov
- 2023 16:51:48 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::fea9:8f02:fb13:fd44]) by DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::fea9:8f02:fb13:fd44%6]) with mapi id 15.20.6977.029; Wed, 15 Nov 2023
- 16:51:48 +0000
+ <SRS0=CxDQ=G4=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1r3JZA-000070-2Z
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 17:20:40 +0000
+Received: from mail-183-236.mailgun.info (mail-183-236.mailgun.info
+ [23.253.183.236]) by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id 4ae0c739-83db-11ee-98db-6d05b1d4d9a1;
+ Wed, 15 Nov 2023 18:20:38 +0100 (CET)
+Received: from mg.gitlab.com (31.226.74.34.bc.googleusercontent.com
+ [34.74.226.31]) by
+ bd1dc5b56579 with SMTP id 6554fde40778bfbbb3d40136 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Wed, 15 Nov 2023 17:20:36 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,324 +39,715 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f8ad4a0-83d7-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QFOag7KHuEpIMh9D8/GGfId8NNwBqgu0e3r3wT7t19E1l1PK/UrRci1QiV4qe/iAjMCCsVPdpvdUPboLVcQMScAynsf+5NybABEbYogeK3bAt8BKT4TQxcWMh2/WaurIS+Z+dGiEhb7+1ysSYHrSTDXYHdAVVtTe4g87Xbq4tpH+bV4d0GCwxcvjidv6XcABsx/YNS18qwGu7/FlhshrtRMcY/dGiLYzdfL4+Yqjl5nBjKsydnqzVDFYRNY9lCwodVsboxe3CdB43rCeN46RLI0TIkCXOysSovoMIoBGzIfxrjN8iV7o/bpfucBrAR9/FclJecPWxsBlEmwqi33ckg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sJ4iETFiZ7hKhu5y0Odu16VNPxJx+SDND1cCLFex0RA=;
- b=hD2RayFolmHvsDBDHA9HgLjZ8HN6po2bZFe1CACxU/cIJvoHccqNy7wzLxKHXCz13TzRiAhfuW52rDjB75By/otO/lT0HAfTsUERMvmVsANe3IJkjPyw60u5ZGJ2pOl2oC3vBIoIbXDgzlvJ3GO2Ly45vTGoG7CvcKK2N/VYwuovVSNMRNBg5ZA0v8rT2MtDI/PNfGdlvmisX0bR5I4XOkKQEr2NQWOcJIOlDPEvJRjqzMSzy8EvcL9W7ALDbI3RNSB96grwd6FX60vL+qrCGjF4zWv0re1iBJNEO31df9nvcj4DVagsfQBMW4ygvDhQ9Y63AvBbyZXqL2kgrgUiNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sJ4iETFiZ7hKhu5y0Odu16VNPxJx+SDND1cCLFex0RA=;
- b=osuysw5QIqxwmCaiag8jYJXCD878sBmf1NJU8NOfpeH337jHLucXtK0W1cze/y3mKIbsuH2H33Q0FAZyFF6KFz7zSVFAAGfCx0SecBZfh4AqodQ2sBo9/I+A6gYoui6cusDvvv/0QWeJJHl9CnWBICg/w9vXlNPwrudOzzAbOEAyQk1RWTPK0luwrZKVMs3Np0U+/N5Vpw+XaReF7sQJ3FequJUfkQmiDEpGPawa84f9EsXqVUq69h2U5D5Who7dbx0pFAxTWlt1gM+bomW36K5g+5d34/aGYuC1W/Hhg9uRhSyEPsY548HOeDKk/De/56OPIMe+xbcsWOSAczAyTw==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>,
-        Bertrand Marquis
-	<bertrand.marquis@arm.com>,
-        Michal Orzel <michal.orzel@amd.com>,
-        Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
- virtio-pci
-Thread-Topic: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
- virtio-pci
-Thread-Index: AQHaF7/0l4ZQp7ixjkGnkGM6dDamtLB7mIqA
-Date: Wed, 15 Nov 2023 16:51:47 +0000
-Message-ID: <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com>
-References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
- <20231115112611.3865905-3-Sergiy_Kibrik@epam.com>
- <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
-In-Reply-To: <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|GVXPR03MB10498:EE_
-x-ms-office365-filtering-correlation-id: 9ebd34ae-7b00-434a-1c50-08dbe5fb2852
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- LJTIgKKU/7oAaDhAl3oOXwjOS1HaGHl0TCj4HZrbIdDwOcgt2AHZHHAQfrYD7IOGUPedHw/N/mCDeYNAL0qLDkYRN3kgguuG2Fm8wZTlmYva3lC2Lk07KHjWcJWVJtyXWM92tklunfp5oapcuLfpVZZTa0nMl/2RJ+DMw2eTWQPefPjEs5odE+aSTrn0QP5NEdNNUIYmgzB3qDlmdJnpveYX/1jJlK5BIW4DEKe21Zb+VBniV7Xo2y0aSMup35JvTSoPwEjbO9BOMYKN7HtNVvsRv0zGE56tghBuIqa3Org+oxzi1O7s6YiQjmv/gE3mx0MdIn+wYgffG7ZCiNTOGM6ZYahl3ETCm8+2SZVFgERwhHH/o1lTiZjJLZQnEn3ZDiQQr7N23Oa+/rVSBh6l9iTv4TjuDYo4PDZRU3woL9Pw2C/EJzHgZkAcKlt0FbB2F430x+4/bzMxxp9LUBxi9miNNJaJO1cJNnNODLxDamIiDkSTm4VYEpriyLLDFCGgJIloynu0hMA3C56D9DgUWD0x+yDdHSICEJoyiL3q6YXy47wm4qycVRg+c9uYPtl0kbOAb1GijDyDAgwAPH0qylxIbkeImGioYROv+geAXdNVXvej31Rp3QqPPDRnQLqM9r0v2YEGwEL12BXomFzLXQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(39860400002)(396003)(346002)(366004)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(5660300002)(86362001)(31696002)(6486002)(966005)(6512007)(316002)(36756003)(66476007)(66556008)(76116006)(8936002)(8676002)(66446008)(66946007)(4326008)(64756008)(54906003)(31686004)(41300700001)(2906002)(30864003)(38100700002)(91956017)(110136005)(83380400001)(26005)(122000001)(38070700009)(107886003)(2616005)(71200400001)(478600001)(6506007)(53546011)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?Ti92Tm5idG5namxNZmJGd1pFdTMrU2tvUDhod0lLa2Q0SWFNL0ZzT1IrMFBZ?=
- =?utf-8?B?Qzc2dEFXcVo3REFiT2VaTjlyajVLNUI1R3lyYmF2U09NdVNENmZqeXZ0RFZS?=
- =?utf-8?B?YWNKS3ZBcFZtS01TTSt3anJVWHhMUlRLdW5Rcy9DUE5tOTlqT0ZUbkxYODdr?=
- =?utf-8?B?VTRkOG4rYmcxeDlEZHpxT2gvYjRLbU1yUVl0dUxpQy9uZERpMnIrbHplbzZQ?=
- =?utf-8?B?Zm5xbk02ZkJOWG00QjJ6OWVzbngwaUVlREZ3RXBoZGFXOTNQMU1sdFEzYmky?=
- =?utf-8?B?UWU3enFnYUs0M1NUY2VsZXExOUhWV0UyL010dXpWUFNMb2NEMFFhYTk0OUNj?=
- =?utf-8?B?MFF4VERySjdFMVQ3UlNmaU9GMFlOZ3lkTklyVWFidG96dnJJYlkrL2tidmsy?=
- =?utf-8?B?OXM4TnEwTFJCVFBSU2xQTTZkVkFwUnN4OGRzZ0toTDRpTk5IamlTdFV2RTVT?=
- =?utf-8?B?TUxmcDcyQ3lxRGxKaEFLcWlnd3U2VGJBQ21ZZUJpSVJJVC9JMDJIemNVZmNN?=
- =?utf-8?B?cFM5ZWpIalZJcVpvZWdvcVlmdmtyeWsrdHdpeUI4cXl6WS9EMGtjcDRCVGV5?=
- =?utf-8?B?SHNad25hUVhvdldJaWptVzVYaUpjK3ZOK0VEQUIzcWhWQnVHL3N2STNIK3JR?=
- =?utf-8?B?WEdEd1VRUHkrVDlDUjR1ZGpiaU44Nnd2eGg0cmtHQWd1TWM5Y0E5dnFKQXJm?=
- =?utf-8?B?SGIwdGxjYVgyM3E0NC9Xd2x1Wmt3UVVXdVFTWnBJbmFKM0plNzIzU0ZqTGVi?=
- =?utf-8?B?K0RxaVhpSHc0b1B2MTJCcDJoTWQ3MjIxOHNQUFVSNFlERVdqVlBhRk51Zlpj?=
- =?utf-8?B?NVdPL3ZuY2RmNnpyL21DKzdMVnhVcXVvQis0a2pTWXNMSUZ0aHd5K3J4S09K?=
- =?utf-8?B?S2plTFBBVDkyNjB0b2VUdGdzWmxPUWMxaGorNkQxNmNaa2RVbUliYVl6TUNj?=
- =?utf-8?B?NzdRVE1hUUx5U1liaStkWjNWVFNlT2ExYW00azZ5ai9QcWU3aEY1TzlCbUpS?=
- =?utf-8?B?YTBCVVFIa2NaVFEwOXdDL2VPTVVhWXp3WXVOc2xFdXJKc3cxM2pDak9iLytW?=
- =?utf-8?B?YzRqTzh1Rkd1dWR6dnRyZG9LRzBLbWh6OG9oTEdUVmR2ZjdSWlJ2dC9XZENG?=
- =?utf-8?B?bXk0MHNyQThNM3hpaC9aZlFGeTVXaU5BTkdkbzZwcmx0b1JrV3cweTdwdjV5?=
- =?utf-8?B?cCtoUHhpUDQ3YXNOcGN0a3JDdUlNQWtpWjFENWhGcm90RlNtRGxzbGlSdzZJ?=
- =?utf-8?B?RTkzd2dvUlhOaTdJZGFpek5xY0I4VDh3d1czajFUQk9ySlFHZVptM3orcjR4?=
- =?utf-8?B?MXdEUnpZRlNySFIyMGtLUTVuZXJaWFF6YzRhQ3dHNnpGQ2tCMUxQUUxLOWNt?=
- =?utf-8?B?aXZCeGh2alN6V1lrYU5sbytnV2xPNjlDdFE0SjBEenJpcW45angzRDdIdzZF?=
- =?utf-8?B?aVp4SmJiU0NxSzFTT3gxUU9WdW5RclRMUWw3V1FhNDFyZmY4K3BmNWhCekpy?=
- =?utf-8?B?RWFneWtZNm45SUNyNHZ4VWRybFIzNTN2QStQd0NIamZTaTJpbUFqV3JoV3Zq?=
- =?utf-8?B?NmxSWmNMNHhvNDc1aWxDK25LY2NvREZLMVZMRFVXOE13cEhEYWJndDhocUg3?=
- =?utf-8?B?NGZldkRiRmNENDdLd3F3YmdCdmNBRFhDYzQ5VlhBS3BBajJ2T1hCY3NmTzNv?=
- =?utf-8?B?cGZIbTFWVnFxVGVjWHJjMnNLMFdndU5OMjhQNzRwTmUrak1VU2lESTYzMG9O?=
- =?utf-8?B?OEtNd0dzM2tYaUtBYXpxZThHVmNTRUVud05mcktpeUdadkZlRndtemZkWnVG?=
- =?utf-8?B?TXI1VkNnenk3WW1qdkRnM0NZazk3Nmp4UncrdmcwS1gxbUJLb2d5WkswdlVy?=
- =?utf-8?B?M3dpcUJYeStKMjZ4T21NUXVRL3VtRUE1S29nOHltU2dIMlVTZXhtQ0EzbE92?=
- =?utf-8?B?NVlMM2pLQXFHVmEwYlhoNmNxM3N6ajk5LzU1am9UY1pTTzVHcmZUOU5aUkVa?=
- =?utf-8?B?d0xGQTVCTkJ6OSs5ZVc4cGtMRElKS2pqZTduemlxVi9ZOGl5OC9ycnNPb3Nn?=
- =?utf-8?B?emw3Y05YM2hUSmtDYnVsVEI5SUJoRWtPWlBvcjZaUmRzRDZ4OW9TVlB0bWVy?=
- =?utf-8?B?MXpHemhKT0R6aTNvOXNrVnU0L1JrMjd3Q2ZiTm4xS3hWRkVocFFPdnJVa08y?=
- =?utf-8?Q?68HAl4vlVz6Ff2z/lQmWd+Q=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3BDE296447DD254C9AB81D754FAB9C13@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ebd34ae-7b00-434a-1c50-08dbe5fb2852
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2023 16:51:47.9059
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RG750/D5HPLfz3ibAEMjb10L232JWsc1fPUHaT6mREIinvoMhrVqbmEGNATVGLwtmZLUPRY3eh0wTbLZO1eMG/KOogf634aUSo6+O42/Vgg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB10498
-X-Proofpoint-ORIG-GUID: Hdlu4Hp8QhJ7GQMDrrIRF2ufLugVYejY
-X-Proofpoint-GUID: Hdlu4Hp8QhJ7GQMDrrIRF2ufLugVYejY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-15_16,2023-11-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 suspectscore=0
- adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
- mlxlogscore=999 clxscore=1011 bulkscore=0 mlxscore=0 impostorscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311150129
+X-Inumbo-ID: 4ae0c739-83db-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1700068836; x=1700076036; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=yaYoBLXrQDy5DTWsn85IN6VOw6tnzitXoiZom2hB5sw=;
+ b=B6o6LW/8Y9GvIj+6Up3p70CRgyGyJ14KQXkD5AviVUhisQLXdBL0gFYZOfzUqxn1RLN5Sy7xzyk8qR8NbvzHxy8gmzhC9mhWGikuDGTPee0d44pgJ+VYjZC8wkCpzlqTBC4rmZhwy8Ray5C/2oMsJ0ev6NCYfMPhSGFV/E0eSjo=
+X-Mailgun-Sending-Ip: 23.253.183.236
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Wed, 15 Nov 2023 17:20:36 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <6554fde42afb8_2c9b2d0413b7@gitlab-sidekiq-catchall-v2-d779f5cd4-5t9zf.mail>
+Subject: xen | Failed pipeline for staging | 7ad0c774
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_6554fde41d023_2c9b2d041257";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1073278423
+X-GitLab-Pipeline-Ref: staging
+X-GitLab-Pipeline-Status: failed
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
 
-DQoNCk9uIDE1LjExLjIzIDE0OjMzLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+IEhpLA0KDQoNCkhl
-bGxvIEp1bGllbg0KDQpMZXQgbWUgcGxlYXNlIHRyeSB0byBleHBsYWluIHNvbWUgYml0cy4NCg0K
-DQo+IA0KPiBUaGFua3MgZm9yIGFkZGluZyBzdXBwb3J0IGZvciB2aXJ0aW8tcGNpIGluIFhlbi4g
-SSBoYXZlIHNvbWUgcXVlc3Rpb25zLg0KPiANCj4gT24gMTUvMTEvMjAyMyAxMToyNiwgU2VyZ2l5
-IEtpYnJpayB3cm90ZToNCj4+IEZyb206IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJf
-dHlzaGNoZW5rb0BlcGFtLmNvbT4NCj4+DQo+PiBJbiBvcmRlciB0byBlbmFibGUgbW9yZSB1c2Ut
-Y2FzZXMgc3VjaCBhcyBoYXZpbmcgbXVsdGlwbGUNCj4+IGRldmljZS1tb2RlbHMgKFFlbXUpIHJ1
-bm5pbmcgaW4gZGlmZmVyZW50IGJhY2tlbmQgZG9tYWlucyB3aGljaCBwcm92aWRlDQo+PiB2aXJ0
-aW8tcGNpIGRldmljZXMgZm9yIHRoZSBzYW1lIGd1ZXN0LCB3ZSBhbGxvY2F0ZSBhbmQgZXhwb3Nl
-IG9uZQ0KPj4gUENJIGhvc3QgYnJpZGdlIGZvciBldmVyeSB2aXJ0aW8gYmFja2VuZCBkb21haW4g
-Zm9yIHRoYXQgZ3Vlc3QuDQo+IA0KPiBPT0ksIHdoeSBkbyB5b3UgbmVlZCB0byBleHBvc2Ugb25l
-IFBDSSBob3N0IGJyaWRnZSBmb3IgZXZlcnkgc3R1YmRvbWFpbj8NCj4gDQo+IEluIGZhY3QgbG9v
-a2luZyBhdCB0aGUgbmV4dCBwYXRjaCwgaXQgc2VlbXMgeW91IGFyZSBoYW5kbGluZyBzb21lIG9m
-IHRoZSANCj4gaG9zdGJyaWRnZSByZXF1ZXN0IGluIFhlbi4gVGhpcyBpcyBhZGRzIGEgYml0IG1v
-cmUgY29uZnVzaW9uLg0KPiANCj4gSSB3YXMgZXhwZWN0aW5nIHRoZSB2aXJ0dWFsIFBDSSBkZXZp
-Y2Ugd291bGQgYmUgaW4gdGhlIHZQQ0kgYW5kIGVhY2ggDQo+IERldmljZSBlbXVsYXRvciB3b3Vs
-ZCBhZHZlcnRpc2Ugd2hpY2ggQkRGIHRoZXkgYXJlIGNvdmVyaW5nLg0KDQoNClRoaXMgcGF0Y2gg
-c2VyaWVzIG9ubHkgY292ZXJzIHVzZS1jYXNlcyB3aGVyZSB0aGUgZGV2aWNlIGVtdWxhdG9yIA0K
-aGFuZGxlcyB0aGUgKmVudGlyZSogUENJIEhvc3QgYnJpZGdlIGFuZCBQQ0kgKHZpcnRpby1wY2kp
-IGRldmljZXMgYmVoaW5kIA0KaXQgKGkuZS4gUWVtdSkuIEFsc28gdGhpcyBwYXRjaCBzZXJpZXMg
-ZG9lc24ndCB0b3VjaCB2UENJL1BDSSANCnBhc3MtdGhyb3VnaCByZXNvdXJjZXMsIGhhbmRsaW5n
-LCBhY2NvdW50aW5nLCBub3RoaW5nLiBGcm9tIHRoZSANCmh5cGVydmlzb3Igd2Ugb25seSBuZWVk
-IGEgaGVscCB0byBpbnRlcmNlcHQgdGhlIGNvbmZpZyBzcGFjZSBhY2Nlc3NlcyANCmhhcHBlbiBp
-biBhIHJhbmdlIFtHVUVTVF9WSVJUSU9fUENJX0VDQU1fQkFTRSAuLi4gDQpHVUVTVF9WSVJUSU9f
-UENJX0VDQU1fQkFTRSArIEdVRVNUX1ZJUlRJT19QQ0lfVE9UQUxfRUNBTV9TSVpFXSBhbmQgDQpm
-b3J3YXJkIHRoZW0gdG8gdGhlIGxpbmtlZCBkZXZpY2UgZW11bGF0b3IgKGlmIGFueSksIHRoYXQn
-cyBhbGwuDQoNCkl0IGlzIG5vdCBwb3NzaWJsZSAod2l0aCBjdXJyZW50IHNlcmllcykgdG8gcnVu
-IGRldmljZSBlbXVsYXRvcnMgd2hhdA0KZW11bGF0ZSBvbmx5IHNlcGFyYXRlIFBDSSAodmlydGlv
-LXBjaSkgZGV2aWNlcy4gRm9yIGl0IHRvIGJlIHBvc3NpYmxlLCBJIA0KdGhpbmssIG11Y2ggbW9y
-ZSBjaGFuZ2VzIGFyZSByZXF1aXJlZCB0aGFuIGN1cnJlbnQgcGF0Y2ggc2VyaWVzIGRvZXMuIA0K
-VGhlcmUgYXQgbGVhc3Qgc2hvdWxkIGJlIHNwZWNpYWwgUENJIEhvc3QgYnJpZGdlIGVtdWxhdGlv
-biBpbiBYZW4gKG9yIA0KcmV1c2UgdlBDSSkgZm9yIHRoZSBpbnRlZ3JhdGlvbi4gQWxzbyBYZW4g
-c2hvdWxkIGJlIGluIGNoYXJnZSBvZiBmb3JtaW5nIA0KcmVzdWx0aW5nIFBDSSBpbnRlcnJ1cHQg
-YmFzZWQgb24gZWFjaCBQQ0kgZGV2aWNlIGxldmVsIHNpZ25hbGluZyAoaWYgd2UgDQp1c2UgbGVn
-YWN5IGludGVycnVwdHMpLCBzb21lIGtpbmQgb2YgeDg2J3MgWEVOX0RNT1Bfc2V0X3BjaV9pbnR4
-X2xldmVsLCANCmV0Yy4gUGxlYXNlIG5vdGUsIEkgYW0gbm90IHNheWluZyB0aGlzIGlzIG5vdCBw
-b3NzaWJsZSBpbiBnZW5lcmFsLCANCmxpa2VseSBpdCBpcyBwb3NzaWJsZSwgYnV0IGluaXRpYWwg
-cGF0Y2ggc2VyaWVzIGRvZXNuJ3QgY292ZXIgdGhlc2UgDQp1c2UtY2FzZXMpDQoNCldlIGV4cG9z
-ZSBvbmUgUENJIGhvc3QgYnJpZGdlIHBlciB2aXJ0aW8gYmFja2VuZCBkb21haW4uIFRoaXMgaXMg
-YSANCnNlcGFyYXRlIFBDSSBob3N0IGJyaWRnZSB0byBjb21iaW5lIGFsbCB2aXJ0aW8tcGNpIGRl
-dmljZXMgcnVubmluZyBpbiANCnRoZSBzYW1lIGJhY2tlbmQgZG9tYWluIChpbiB0aGUgc2FtZSBk
-ZXZpY2UgZW11bGF0b3IgY3VycmVudGx5KS4NClRoZSBleGFtcGxlczoNCi0gaWYgb25seSBvbmUg
-ZG9tYWluIHJ1bnMgUWVtdSB3aGljaCBzZXJ2ZXJzIHZpcnRpby1ibGssIHZpcnRpby1uZXQsIA0K
-dmlydGlvLWNvbnNvbGUgZGV2aWNlcyBmb3IgRG9tVSAtIG9ubHkgc2luZ2xlIFBDSSBIb3N0IGJy
-aWRnZSB3aWxsIGJlIA0KZXhwb3NlZCBmb3IgRG9tVQ0KLSBpZiB3ZSBhZGQgYW5vdGhlciBkb21h
-aW4gdG8gcnVuIFFlbXUgdG8gc2VydmUgYWRkaXRpb25hbGx5IHZpcnRpby1ncHUsIA0KdmlydGlv
-LWlucHV0IGFuZCB2aXJ0aW8tc25kIGZvciB0aGUgKnNhbWUqIERvbVUgLSB3ZSBleHBvc2Ugc2Vj
-b25kIFBDSSANCkhvc3QgYnJpZGdlIGZvciBEb21VDQoNCkkgYW0gYWZyYWlkLCB3ZSBjYW5ub3Qg
-ZW5kIHVwIGV4cG9zaW5nIG9ubHkgc2luZ2xlIFBDSSBIb3N0IGJyaWRnZSB3aXRoIA0KY3VycmVu
-dCBtb2RlbCAoaWYgd2UgdXNlIGRldmljZSBlbXVsYXRvcnMgcnVubmluZyBpbiBkaWZmZXJlbnQg
-ZG9tYWlucyANCnRoYXQgaGFuZGxlcyB0aGUgKmVudGlyZSogUENJIEhvc3QgYnJpZGdlcyksIHRo
-aXMgd29uJ3Qgd29yay4NCg0KUGxlYXNlIG5vdGUsIEkgbWlnaHQgbWlzcyBzb21lIGJpdHMgc2lu
-Y2UgdGhpcyBlbmFibGluZyB3b3JrLg0KDQoNCj4gDQo+Pg0KPj4gRm9yIHRoYXQgcHVycG9zZSwg
-cmVzZXJ2ZSBzZXBhcmF0ZSB2aXJ0aW8tcGNpIHJlc291cmNlcyAobWVtb3J5IGFuZCANCj4+IFNQ
-SSByYW5nZQ0KPj4gZm9yIExlZ2FjeSBQQ0kgaW50ZXJydXB0cykgdXAgdG8gOCBwb3NzaWJsZSBQ
-Q0kgaG9zdHMgKHRvIGJlIGFsaWduZWQgd2l0aA0KPiANCj4gRG8geW91IG1lYW4gaG9zdCBicmlk
-Z2UgcmF0aGVyIHRoYW4gaG9zdD8NCg0KeWVzDQoNCg0KPiANCj4+IE1BWF9OUl9JT1JFUV9TRVJW
-RVJTKSBhbmQgYWxsb2NhdGUgYSBob3N0IHBlciBiYWNrZW5kIGRvbWFpbi4gVGhlIFBDSSANCj4+
-IGhvc3QNCj4+IGRldGFpbHMgaW5jbHVkaW5nIGl0cyBob3N0X2lkIHRvIGJlIHdyaXR0ZW4gdG8g
-ZGVkaWNhdGVkIFhlbnN0b3JlIG5vZGUgDQo+PiBmb3INCj4+IHRoZSBkZXZpY2UtbW9kZWwgdG8g
-cmV0cmlldmUuDQo+IA0KPiBTbyB3aGljaCB3aXRoIGFwcHJvYWNoLCB3aG8gaXMgZGVjaWRlIHdo
-aWNoIEJERiB3aWxsIGJlIHVzZWQgZm9yIGEgZ2l2ZW4gDQo+IHZpcnRpbyBQQ0kgZGV2aWNlPw0K
-DQoNCnRvb2xzdGFjayAodmlhIGNvbmZpZ3VyYXRpb24gZmlsZSkNCg0KPiANCj4+DQo+PiBTaWdu
-ZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBh
-bS5jb20+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTZXJnaXkgS2licmlrIDxTZXJnaXlfS2licmlrQGVw
-YW0uY29tPg0KPj4gLS0tDQo+PiDCoCB4ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0uaCB8IDIx
-ICsrKysrKysrKysrKysrKysrKysrKw0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDIxIGluc2VydGlv
-bnMoKykNCj4+DQo+PiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmgg
-DQo+PiBiL3hlbi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+PiBpbmRleCBhMjVlODdkYmRh
-Li5lNmM5Y2Q1MzM1IDEwMDY0NA0KPj4gLS0tIGEveGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJt
-LmgNCj4+ICsrKyBiL3hlbi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+PiBAQCAtNDY2LDYg
-KzQ2NiwxOSBAQCB0eXBlZGVmIHVpbnQ2NF90IHhlbl9jYWxsYmFja190Ow0KPj4gwqAgI2RlZmlu
-ZSBHVUVTVF9WUENJX01FTV9BRERSwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVu
-X21rX3VsbG9uZygweDIzMDAwMDAwKQ0KPj4gwqAgI2RlZmluZSBHVUVTVF9WUENJX01FTV9TSVpF
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX21rX3VsbG9uZygweDEwMDAwMDAw
-KQ0KPj4gKy8qDQo+PiArICogMTYgTUIgaXMgcmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgY29uZmln
-dXJhdGlvbiBzcGFjZSBiYXNlZCBvbiANCj4+IGNhbGN1bGF0aW9uDQo+PiArICogOCBicmlkZ2Vz
-ICogMiBidXNlcyB4IDMyIGRldmljZXMgeCA4IGZ1bmN0aW9ucyB4IDQgS0IgPSAxNiBNQg0KPiAN
-Cj4gQ2FuIHlvdSBleHBsYWluIGhvdyB5b3VkIGVjaWRlZCB0aGUgIjIiPw0KDQpnb29kIHF1ZXN0
-aW9uLCB3ZSBoYXZlIGEgbGltaXRlZCBmcmVlIHNwYWNlIGF2YWlsYWJsZSBpbiBtZW1vcnkgbGF5
-b3V0IA0KKHdlIGhhZCBkaWZmaWN1bHRpZXMgdG8gZmluZCBhIHN1aXRhYmxlIGhvbGVzKSBhbHNv
-IHdlIGRvbid0IGV4cGVjdCBhIA0KbG90IG9mIHZpcnRpby1wY2kgZGV2aWNlcywgc28gIjI1NiIg
-dXNlZCB2UENJIHdvdWxkIGJlIHRvbyBtdWNoLiBJdCB3YXMgDQpkZWNpZGVkIHRvIHJlZHVjZSBz
-aWduaWZpY2FudGx5LCBidXQgc2VsZWN0IG1heGltdW0gdG8gZml0IGludG8gZnJlZSANCnNwYWNl
-LCB3aXRoIGhhdmluZyAiMiIgYnVzZXMgd2Ugc3RpbGwgZml0IGludG8gdGhlIGNob3NlbiBob2xl
-cy4NCg0KDQo+IA0KPj4gKyAqLw0KPj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX1BDSV9FQ0FNX0JB
-U0XCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX21rX3VsbG9uZygweDMzMDAwMDAwKQ0KPj4gKyNkZWZp
-bmUgR1VFU1RfVklSVElPX1BDSV9UT1RBTF9FQ0FNX1NJWkXCoMKgwqAgeGVuX21rX3VsbG9uZygw
-eDAxMDAwMDAwKQ0KPj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX1BDSV9IT1NUX0VDQU1fU0laRcKg
-wqDCoMKgIHhlbl9ta191bGxvbmcoMHgwMDIwMDAwMCkNCj4+ICsNCj4+ICsvKiA2NCBNQiBpcyBy
-ZXNlcnZlZCBmb3IgdmlydGlvLXBjaSBtZW1vcnkgKi8NCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJ
-T19QQ0lfQUREUl9UWVBFX01FTcKgwqDCoCB4ZW5fbWtfdWxsb25nKDB4MDIwMDAwMDApDQo+PiAr
-I2RlZmluZSBHVUVTVF9WSVJUSU9fUENJX01FTV9BRERSwqDCoMKgwqDCoMKgwqDCoCB4ZW5fbWtf
-dWxsb25nKDB4MzQwMDAwMDApDQo+PiArI2RlZmluZSBHVUVTVF9WSVJUSU9fUENJX01FTV9TSVpF
-wqDCoMKgwqDCoMKgwqDCoCB4ZW5fbWtfdWxsb25nKDB4MDQwMDAwMDApDQo+PiArDQo+PiDCoCAv
-Kg0KPj4gwqDCoCAqIDE2TUIgPT0gNDA5NiBwYWdlcyByZXNlcnZlZCBmb3IgZ3Vlc3QgdG8gdXNl
-IGFzIGEgcmVnaW9uIHRvIG1hcCBpdHMNCj4+IMKgwqAgKiBncmFudCB0YWJsZSBpbi4NCj4+IEBA
-IC00NzYsNiArNDg5LDExIEBAIHR5cGVkZWYgdWludDY0X3QgeGVuX2NhbGxiYWNrX3Q7DQo+PiDC
-oCAjZGVmaW5lIEdVRVNUX01BR0lDX0JBU0XCoCB4ZW5fbWtfdWxsb25nKDB4MzkwMDAwMDApDQo+
-PiDCoCAjZGVmaW5lIEdVRVNUX01BR0lDX1NJWkXCoCB4ZW5fbWtfdWxsb25nKDB4MDEwMDAwMDAp
-DQo+PiArLyogNjQgTUIgaXMgcmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgUHJlZmV0Y2ggbWVtb3J5
-ICovDQo+IA0KPiBUaGlzIGRvZXNuJ3Qgc2VlbSBhIGxvdCBkZXBlbmRpbmcgb24geW91ciB1c2Ug
-Y2FzZS4gQ2FuIHlvdSBkZXRhaWxzIGhvdyANCj4geW91IGNhbiB1cCB3aXRoICI2NCBNQiI/DQoN
-CnRoZSBzYW1lIGNhbGN1bGF0aW9uIGFzIGl0IHdhcyBkb25lIGNvbmZpZ3VyYXRpb24gc3BhY2Uu
-IEl0IHdhcyBvYnNlcnZlZCANCnRoYXQgb25seSAxNksgaXMgdXNlZCBwZXIgdmlydGlvLXBjaSBk
-ZXZpY2UgKG1heWJlIGl0IGNhbiBiZSBiaWdnZXIgZm9yIA0KdXN1YWwgUENJIGRldmljZSwgSSBk
-b24ndCBrbm93KS4gUGxlYXNlIGxvb2sgYXQgdGhlIGV4YW1wbGUgb2YgRG9tVSBsb2cgDQpiZWxv
-dyAodG8gc3RyaW5ncyB0aGF0IGNvbnRhaW4gIipCQVIgNDogYXNzaWduZWQqIik6DQoNCg0KPiBy
-b290QGgzdWxjYjp+IyBkbWVzZyB8IGdyZXAgcGNpDQo+IFsgICAgMC40NDQxNjNdIHBjaS1ob3N0
-LWdlbmVyaWMgMzMwMDAwMDAucGNpZTogaG9zdCBicmlkZ2UgL3BjaWVAMzMwMDAwMDAgcmFuZ2Vz
-Og0KPiBbICAgIDAuNDQ0MjU3XSBwY2ktaG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6ICAgICAg
-TUVNIDB4MDAzNDAwMDAwMC4uMHgwMDM0N2ZmZmZmIC0+IDB4MDAzNDAwMDAwMA0KPiBbICAgIDAu
-NDQ0MzA0XSBwY2ktaG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6ICAgICAgTUVNIDB4MDAzYTAw
-MDAwMC4uMHgwMDNhN2ZmZmZmIC0+IDB4MDAzYTAwMDAwMA0KPiBbICAgIDAuNDQ0Mzk2XSBwY2kt
-aG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6IEVDQU0gYXQgW21lbSAweDMzMDAwMDAwLTB4MzMx
-ZmZmZmZdIGZvciBbYnVzIDAwLTAxXQ0KPiBbICAgIDAuNDQ0NTk1XSBwY2ktaG9zdC1nZW5lcmlj
-IDMzMDAwMDAwLnBjaWU6IFBDSSBob3N0IGJyaWRnZSB0byBidXMgMDAwMDowMA0KPiBbICAgIDAu
-NDQ0NjM1XSBwY2lfYnVzIDAwMDA6MDA6IHJvb3QgYnVzIHJlc291cmNlIFtidXMgMDAtMDFdDQo+
-IFsgICAgMC40NDQ2NjJdIHBjaV9idXMgMDAwMDowMDogcm9vdCBidXMgcmVzb3VyY2UgW21lbSAw
-eDM0MDAwMDAwLTB4MzQ3ZmZmZmZdDQo+IFsgICAgMC40NDQ2OTJdIHBjaV9idXMgMDAwMDowMDog
-cm9vdCBidXMgcmVzb3VyY2UgW21lbSAweDNhMDAwMDAwLTB4M2E3ZmZmZmYgcHJlZl0NCj4gWyAg
-ICAwLjQ0NTE5M10gcGNpIDAwMDA6MDA6MDAuMDogWzFiMzY6MDAwOF0gdHlwZSAwMCBjbGFzcyAw
-eDA2MDAwMA0KPiBbICAgIDAuNDQ5NDkzXSBwY2kgMDAwMDowMDowOC4wOiBbMWFmNDoxMDQyXSB0
-eXBlIDAwIGNsYXNzIDB4MDEwMDAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiBbICAgIDAuNDUx
-NzYwXSBwY2kgMDAwMDowMDowOC4wOiByZWcgMHgyMDogW21lbSAweDAwMDAwMDAwLTB4MDAwMDNm
-ZmYgNjRiaXQgcHJlZl0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIA0KPiBbICAgIDAuNDU1OTg1XSBwY2kgMDAwMDowMDowOC4w
-OiBCQVIgNDogYXNzaWduZWQgW21lbSAweDNhMDAwMDAwLTB4M2EwMDNmZmYgNjRiaXQgcHJlZl0g
-ICANCj4gWyAgICAwLjQ1NjY3OF0gcGNpLWhvc3QtZ2VuZXJpYyAzMzIwMDAwMC5wY2llOiBob3N0
-IGJyaWRnZSAvcGNpZUAzMzIwMDAwMCByYW5nZXM6DQo+IFsgICAgMC40NTY3NDhdIHBjaS1ob3N0
-LWdlbmVyaWMgMzMyMDAwMDAucGNpZTogICAgICBNRU0gMHgwMDM0ODAwMDAwLi4weDAwMzRmZmZm
-ZmYgLT4gMHgwMDM0ODAwMDAwDQo+IFsgICAgMC40NTY3OTNdIHBjaS1ob3N0LWdlbmVyaWMgMzMy
-MDAwMDAucGNpZTogICAgICBNRU0gMHgwMDNhODAwMDAwLi4weDAwM2FmZmZmZmYgLT4gMHgwMDNh
-ODAwMDAwDQo+IFsgICAgMC40NTY4NzldIHBjaS1ob3N0LWdlbmVyaWMgMzMyMDAwMDAucGNpZTog
-RUNBTSBhdCBbbWVtIDB4MzMyMDAwMDAtMHgzMzNmZmZmZl0gZm9yIFtidXMgMDAtMDFdDQo+IFsg
-ICAgMC40NTcwMzhdIHBjaS1ob3N0LWdlbmVyaWMgMzMyMDAwMDAucGNpZTogUENJIGhvc3QgYnJp
-ZGdlIHRvIGJ1cyAwMDAxOjAwDQo+IFsgICAgMC40NTcwNzldIHBjaV9idXMgMDAwMTowMDogcm9v
-dCBidXMgcmVzb3VyY2UgW2J1cyAwMC0wMV0NCj4gWyAgICAwLjQ1NzEwNl0gcGNpX2J1cyAwMDAx
-OjAwOiByb290IGJ1cyByZXNvdXJjZSBbbWVtIDB4MzQ4MDAwMDAtMHgzNGZmZmZmZl0NCj4gWyAg
-ICAwLjQ1NzEzNl0gcGNpX2J1cyAwMDAxOjAwOiByb290IGJ1cyByZXNvdXJjZSBbbWVtIDB4M2E4
-MDAwMDAtMHgzYWZmZmZmZiBwcmVmXQ0KPiBbICAgIDAuNDU3ODA4XSBwY2kgMDAwMTowMDowMC4w
-OiBbMWIzNjowMDA4XSB0eXBlIDAwIGNsYXNzIDB4MDYwMDAwDQo+IFsgICAgMC40NjE0MDFdIHBj
-aSAwMDAxOjAwOjAxLjA6IFsxYWY0OjEwNDFdIHR5cGUgMDAgY2xhc3MgMHgwMjAwMDANCj4gWyAg
-ICAwLjQ2MzUzN10gcGNpIDAwMDE6MDA6MDEuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0w
-eDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40NjgxMzVdIHBjaSAwMDAxOjAwOjAyLjA6
-IFsxYWY0OjEwNDJdIHR5cGUgMDAgY2xhc3MgMHgwMTAwMDANCj4gWyAgICAwLjQ3MDE4NV0gcGNp
-IDAwMDE6MDA6MDIuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0
-IHByZWZdDQo+IFsgICAgMC40NzQ1NzVdIHBjaSAwMDAxOjAwOjAzLjA6IFsxYWY0OjEwNTBdIHR5
-cGUgMDAgY2xhc3MgMHgwMzgwMDANCj4gWyAgICAwLjQ3NjUzNF0gcGNpIDAwMDE6MDA6MDMuMDog
-cmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAg
-MC40ODA5NDJdIHBjaSAwMDAxOjAwOjA0LjA6IFsxYWY0OjEwNTJdIHR5cGUgMDAgY2xhc3MgMHgw
-OTAwMDANCj4gWyAgICAwLjQ4MzA5Nl0gcGNpIDAwMDE6MDA6MDQuMDogcmVnIDB4MjA6IFttZW0g
-MHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40ODc2MzFdIHBjaSAw
-MDAxOjAwOjA2LjA6IFsxYWY0OjEwNTNdIHR5cGUgMDAgY2xhc3MgMHgwNzgwMDANCj4gWyAgICAw
-LjQ4OTY5M10gcGNpIDAwMDE6MDA6MDYuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAw
-MDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40OTM2NjldIHBjaSAwMDAxOjAwOjAxLjA6IEJB
-UiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MDAwMDAtMHgzYTgwM2ZmZiA2NGJpdCBwcmVmXSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+
-IFsgICAgMC40OTU4NDBdIHBjaSAwMDAxOjAwOjAyLjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4
-M2E4MDQwMDAtMHgzYTgwN2ZmZiA2NGJpdCBwcmVmXSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+IFsgICAgMC40OTY2NTZdIHBjaSAw
-MDAxOjAwOjAzLjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MDgwMDAtMHgzYTgwYmZmZiA2
-NGJpdCBwcmVmXSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgDQo+IFsgICAgMC40OTc2NzFdIHBjaSAwMDAxOjAwOjA0LjA6IEJBUiA0OiBh
-c3NpZ25lZCBbbWVtIDB4M2E4MGMwMDAtMHgzYTgwZmZmZiA2NGJpdCBwcmVmXSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+IFsgICAg
-MC40OTgzMjBdIHBjaSAwMDAxOjAwOjA2LjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MTAw
-MDAtMHgzYTgxM2ZmZiA2NGJpdCBwcmVmXSAgICAgIA0KPiBbICAgIDAuNTAwNzMyXSB2aXJ0aW8t
-cGNpIDAwMDA6MDA6MDguMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpDQo+IFsgICAg
-MC41MDk3MjhdIHZpcnRpby1wY2kgMDAwMTowMDowMS4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDAg
-LT4gMDAwMikNCj4gWyAgICAwLjUyOTc1N10gdmlydGlvLXBjaSAwMDAxOjAwOjAyLjA6IGVuYWJs
-aW5nIGRldmljZSAoMDAwMCAtPiAwMDAyKQ0KPiBbICAgIDAuNTUwMjA4XSB2aXJ0aW8tcGNpIDAw
-MDE6MDA6MDMuMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpDQo+IFsgICAgMC41NzEw
-MTJdIHZpcnRpby1wY2kgMDAwMTowMDowNC4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDAgLT4gMDAw
-MikNCj4gWyAgICAwLjU5MTA0Ml0gdmlydGlvLXBjaSAwMDAxOjAwOjA2LjA6IGVuYWJsaW5nIGRl
-dmljZSAoMDAwMCAtPiAwMDAyKQ0KDQoNCg0KPiANCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJT19Q
-Q0lfQUREUl9UWVBFX1BSRUZFVENIX01FTSAgICANCj4+IHhlbl9ta191bGxvbmcoMHg0MjAwMDAw
-MCkNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJT19QQ0lfUFJFRkVUQ0hfTUVNX0FERFIgICAgICAg
-ICANCj4+IHhlbl9ta191bGxvbmcoMHgzYTAwMDAwMCkNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJ
-T19QQ0lfUFJFRkVUQ0hfTUVNX1NJWkUgICAgICAgICANCj4+IHhlbl9ta191bGxvbmcoMHgwNDAw
-MDAwMCkNCj4+ICsNCj4+IMKgICNkZWZpbmUgR1VFU1RfUkFNX0JBTktTwqDCoCAyDQo+PiDCoCAv
-Kg0KPj4gQEAgLTUxNSw2ICs1MzMsOSBAQCB0eXBlZGVmIHVpbnQ2NF90IHhlbl9jYWxsYmFja190
-Ow0KPj4gwqAgI2RlZmluZSBHVUVTVF9WSVJUSU9fTU1JT19TUElfRklSU1TCoMKgIDMzDQo+PiDC
-oCAjZGVmaW5lIEdVRVNUX1ZJUlRJT19NTUlPX1NQSV9MQVNUwqDCoMKgIDQzDQo+PiArI2RlZmlu
-ZSBHVUVTVF9WSVJUSU9fUENJX1NQSV9GSVJTVMKgwqAgNDQNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJ
-UlRJT19QQ0lfU1BJX0xBU1TCoMKgwqAgNzYNCj4gDQo+IEp1c3QgdG8gY29uZmlybSB0aGlzIGlz
-IDQgaW50ZXJydXB0cyBwZXIgUENJIGhvc3QgYnJpZGdlPyBJZiBzbywgY2FuIA0KPiB0aGlzIGJl
-IGNsYXJpZmllZCBpbiBhIGNvbW1lbnQ/DQoNCnllcyAoSU5UQSAtIElOVEQpDQoNCg0KPiANCj4g
-QWxzbywgYWJvdmUgeW91IHNhaWQgdGhhdCB0aGUgaG9zdCBJRCB3aWxsIGJlIHdyaXR0ZW4gdG8g
-WGVuc3RvcmUuIEJ1dCANCj4gd2hvIHdpbGwgZGVjaWRlIHdoaWNoIFNQSSBiZWxvbmdzIHRvIHdo
-aWNoIGhvc3QgYnJpZGdlPw0KDQoNCnRvb2xzdGFjaywgaXQgaW4gY2hhcmdlIG9mIFBDSSBob3N0
-IGJyaWRnZSByZXNvdXJjZXMgYWxsb2NhdGlvbiAoYXMgd2UgDQpuZWVkIHRvIGJvdGggcHJvcGVy
-bHkgY3JlYXRlIFBDSSBIb3N0IGJyaWRnZSBkZXZpY2UgdHJlZSBub2RlIGFuZCBpbmZvcm0gDQpk
-ZXZpY2UgZW11bGF0b3IgYWJvdXQgUENJIGhvc3QgYnJpZGdlIGRldGFpbHMpLiBQbGVhc2UgdGFr
-ZSBhIGxvb2sgYXQ6DQoNCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC94ZW4t
-ZGV2ZWwvcGF0Y2gvMjAyMzExMTUxMTI2MTEuMzg2NTkwNS00LVNlcmdpeV9LaWJyaWtAZXBhbS5j
-b20vDQoNCj4gDQo+IENoZWVycywNCj4g
+----==_mimepart_6554fde41d023_2c9b2d041257
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+
+Pipeline #1073278423 has failed!
+
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+
+Commit: 7ad0c774 ( https://gitlab.com/xen-project/xen/-/commit/7ad0c774e474f6d95dfda868d876af507d399657 )
+Commit Message: x86/boot: tidy #include-s
+
+As of d58a509e01c4 (...
+Commit Author: Jan Beulich ( https://gitlab.com/jbeulich )
+
+
+Pipeline #1073278423 ( https://gitlab.com/xen-project/xen/-/pipelines/1073278423 ) triggered by Ganis ( https://gitlab.com/ganis )
+had 8 failed jobs.
+
+Job #5541061819 ( https://gitlab.com/xen-project/xen/-/jobs/5541061819/raw )
+
+Stage: analyze
+Name: eclair-ARM64
+Job #5541061940 ( https://gitlab.com/xen-project/xen/-/jobs/5541061940/raw )
+
+Stage: build
+Name: alpine-3.18-clang-debug
+Job #5541062280 ( https://gitlab.com/xen-project/xen/-/jobs/5541062280/raw )
+
+Stage: build
+Name: opensuse-leap-gcc
+Job #5541062296 ( https://gitlab.com/xen-project/xen/-/jobs/5541062296/raw )
+
+Stage: build
+Name: opensuse-tumbleweed-clang
+Job #5541062200 ( https://gitlab.com/xen-project/xen/-/jobs/5541062200/raw )
+
+Stage: build
+Name: fedora-gcc-debug
+Job #5541062233 ( https://gitlab.com/xen-project/xen/-/jobs/5541062233/raw )
+
+Stage: build
+Name: ubuntu-bionic-gcc
+Job #5541062243 ( https://gitlab.com/xen-project/xen/-/jobs/5541062243/raw )
+
+Stage: build
+Name: ubuntu-focal-gcc
+Job #5541062248 ( https://gitlab.com/xen-project/xen/-/jobs/5541062248/raw )
+
+Stage: build
+Name: ubuntu-focal-gcc-debug
+
+-- 
+You're receiving this email because of your account on gitlab.com.
+
+
+
+
+----==_mimepart_6554fde41d023_2c9b2d041257
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
+
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Failed pipeline for staging | 7ad0c774</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
+
+</style>
+
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"alert">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#d22f57">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px; line-height: 1;" align=3D"center" valig=
+n=3D"middle">
+<img alt=3D"&#10006;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-inverted-06edddd39ba2a7f9a32f6201e420=
+175db85a4b6ac0348203fdc069001b440149.gif" style=3D"display: block;" width=
+=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1073278423 has failed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging" style=3D"color: #333333; text-decoration: none;">
+staging
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/7ad0c774e474f6d95d=
+fda868d876af507d399657" style=3D"color: #3777b0; text-decoration: none;">=
+
+7ad0c774
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+x86/boot: tidy #include-s
+
+As of d58a509e01c4 (...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/d85e7926e3558bc23df7a4eb6c8a7c5e?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/jbeulich" style=3D"color: #=
+333333; text-decoration: none;">
+Jan Beulich
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"pre-section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; font-weight: 500; line-height: 1.4;" valign=3D"baseline">
+Pipeline <a style=3D"color: #3777b0; text-decoration: none;" href=3D"http=
+s://gitlab.com/xen-project/xen/-/pipelines/1073278423">#1073278423</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px; padding-left: 5px;" =
+width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; font-weight: 500; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 14px; font-weight: 400; line-heigh=
+t: 1.4; padding: 0 8px 16px;" align=3D"center">
+had 8 failed jobs
+</td>
+</tr>
+<tr class=3D"table-warning">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 4px 4px 0 0; overflow: hidden; color: #d22852; font-size: 14=
+px; line-height: 1.4; padding: 8px 16px; border-color: #ededed; border-st=
+yle: solid; border-width: 1px 1px 0;" align=3D"center" bgcolor=3D"#fdf4f6=
+">
+Failed jobs
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 0 0 4px 4px; overflow: hidden; padding: 0 16px; border-color=
+: #ededed; border-style: solid; border-width: 0 1px 1px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"builds" =
+style=3D"width: 100%; border-collapse: collapse;">
+<tbody>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+analyze
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541061819" style=3D=
+"color: #3777b0; text-decoration: none;">
+eclair-ARM64
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541061940" style=3D=
+"color: #3777b0; text-decoration: none;">
+alpine-3.18-clang-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062280" style=3D=
+"color: #3777b0; text-decoration: none;">
+opensuse-leap-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062296" style=3D=
+"color: #3777b0; text-decoration: none;">
+opensuse-tumbleweed-clang
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062200" style=3D=
+"color: #3777b0; text-decoration: none;">
+fedora-gcc-debug
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062233" style=3D=
+"color: #3777b0; text-decoration: none;">
+ubuntu-bionic-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062243" style=3D=
+"color: #3777b0; text-decoration: none;">
+ubuntu-focal-gcc
+</a>
+
+</td>
+</tr>
+<tr class=3D"build-state">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
+-height: 10px;" valign=3D"middle">
+<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
+6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
+>
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
+build
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
+l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
+ 16px 0;">
+<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5541062248" style=3D=
+"color: #3777b0; text-decoration: none;">
+ubuntu-focal-gcc-debug
+</a>
+
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_6554fde41d023_2c9b2d041257--
 
