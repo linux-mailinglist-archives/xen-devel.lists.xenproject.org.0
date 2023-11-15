@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1AB57EC28D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 13:39:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633625.988653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806AF7EC2C4
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 13:45:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633630.988663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3FAq-00079l-Ga; Wed, 15 Nov 2023 12:39:16 +0000
+	id 1r3FH7-0000bK-9D; Wed, 15 Nov 2023 12:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633625.988653; Wed, 15 Nov 2023 12:39:16 +0000
+Received: by outflank-mailman (output) from mailman id 633630.988663; Wed, 15 Nov 2023 12:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3FAq-00077p-DN; Wed, 15 Nov 2023 12:39:16 +0000
-Received: by outflank-mailman (input) for mailman id 633625;
- Wed, 15 Nov 2023 12:39:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CM7O=G4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r3FAo-00076F-Kb
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 12:39:14 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb4c77b4-83b3-11ee-98db-6d05b1d4d9a1;
- Wed, 15 Nov 2023 13:39:13 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5094727fa67so9782433e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Nov 2023 04:39:13 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- r13-20020a19ac4d000000b00507a3b0eb34sm1621241lfc.264.2023.11.15.04.39.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Nov 2023 04:39:12 -0800 (PST)
+	id 1r3FH7-0000Yk-6H; Wed, 15 Nov 2023 12:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 633630;
+ Wed, 15 Nov 2023 12:45:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r3FH5-0000Ya-QG
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 12:45:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r3FH5-0000XE-FQ; Wed, 15 Nov 2023 12:45:43 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r3FH5-0003bg-9k; Wed, 15 Nov 2023 12:45:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb4c77b4-83b3-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700051953; x=1700656753; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3+kmdK5+vTbYRyctZ13aQlZSzFG0gBuTt98+lVX8nrM=;
-        b=O/7PiNtZQxQtpgCUsud2D6X6EjBOK8i8NLBLbuG7K4o7FzsRHTCQatEGaRsblZ6O6K
-         9BgiIsgi4OaXD4u6chsstjJrhGVQtGKcliIQvMigIuHOjYafGQDMCjhSDnJN6t9TXvxt
-         Bm7A+eTK/HD4i4JGdfPfEd1ZRS/pXC3E/R1NDRPFMvdsf2bH4Ro3o0HVvDMpWLdp2Qla
-         5VYHPG86dxL48ZOsyBiU+bpw4ZswLElHAAGgJSrRW+mlh2pVojhP5HsaLaviQ6kx2VQw
-         KNVLbBpqiubQiFCo4Rnz/v8ewUgDf88oicuW95nm8OHUy8kUfXcOGiVgKUN8xv0gFoJP
-         zItw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700051953; x=1700656753;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3+kmdK5+vTbYRyctZ13aQlZSzFG0gBuTt98+lVX8nrM=;
-        b=jq67L1OKyEog3vhND2bxs61M/0jxdgx1pOUlnOR75UxrLhsHHdNWaSlbrWFtxRno1B
-         kGuyyFecOLmfz3INn6w+UbDJQOH9g3fGwjzjRj/2H/d4R0xYUrtOdrVCTQ/Tz2zyEB/n
-         SXMSXgnpFNxzA4I0pIUfiQOuIOICjTZ8ddJbeKOOpyUGjg4SWDSCD3j1CFJliyLHNQ7T
-         hhAWOObJZ8q0zrWZ83A+DCvppK6zXmrpJs2TNj3Cw+PwOommsowIDX3J6g5IOtlqV9Gr
-         MbZK7/nW/qMPaQW8a4bPYXlrVpZ1vLKepiVL1Ij9JpC7lPsDZIrXwNzTKZhWHqkfyUdA
-         fGTg==
-X-Gm-Message-State: AOJu0YxU5HrwQxDFizVgcN/f9Qx4X+VSriPbzCB8Tp8pU6X3EIqsP3Ww
-	0zfbPLK04JXK+tMOdlDK5vU=
-X-Google-Smtp-Source: AGHT+IEg/4fJp0eGgFBOViqR5zRBv4kHQ6etdU7aeMh35xBl2EL7gX8WY+JEs3SgMh10Wy0Wa9yp9g==
-X-Received: by 2002:a19:521a:0:b0:507:a8cd:6c90 with SMTP id m26-20020a19521a000000b00507a8cd6c90mr8218590lfb.51.1700051952557;
-        Wed, 15 Nov 2023 04:39:12 -0800 (PST)
-Message-ID: <e3a2f0699c8476e98c2c1dba0ba92e25e3f14915.camel@gmail.com>
-Subject: Re: [PATCH v2 07/15] xen/asm-generic: introduce stub header
- <asm/random.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Wed, 15 Nov 2023 14:39:11 +0200
-In-Reply-To: <8f5f9a74-cf90-4a65-8195-ededf00da9f4@suse.com>
-References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
-	 <2464c6b984d187207fe76453bd05502d288af4f9.1699633310.git.oleksii.kurochko@gmail.com>
-	 <8f5f9a74-cf90-4a65-8195-ededf00da9f4@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=kUwTVv6zEwKQN3nfKbGHzcwRFgO9CS0FtdL4iqd2M8s=; b=O9KG5S83x20MAstwJtN8QVEALe
+	sADYuGvixTzbOv9OVyQQEexpnNcZ4mDDkHD0OvmZjEVzyuE7wGx1HnMTvFRRPoWsivjq0DIQX+mtx
+	kmzj01RCSJbTttsMu8UHXKywUmlXtJv/1A01oyck5cZUqvbjCxEI4O9LxRrJlbEF4blQ=;
+Message-ID: <d290546d-ff44-40d8-aca1-e421bf045481@xen.org>
+Date: Wed, 15 Nov 2023 12:45:41 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 5/6] xen/arm: Intercept vPCI config accesses and
+ forward them to emulator
+Content-Language: en-GB
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
+ <20231115112611.3865905-6-Sergiy_Kibrik@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231115112611.3865905-6-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2023-11-15 at 10:56 +0100, Jan Beulich wrote:
-> On 10.11.2023 17:30, Oleksii Kurochko wrote:
-> > <asm/random.h> is common for Arm, PPC and RISC-V thereby it
-> > is moved to asm-generic.
->=20
-> When you say "moved", ...
->=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V2:
-> > =C2=A0- update the commit messages
-> > ---
-> > =C2=A0xen/include/asm-generic/random.h | 20 ++++++++++++++++++++
-> > =C2=A01 file changed, 20 insertions(+)
-> > =C2=A0create mode 100644 xen/include/asm-generic/random.h
->=20
-> ... you also want to actually move things.
-Sure, I'll delete Arm and PPC's random.h in the next patch series
-version.
+Hi,
 
->=20
-> Since the above comment matches ones on earlier patches, yet otoh in
-> your
-> submissions of two individual patches you mentioned you sent them
-> separately because this series wasn't fully reviewed yet, would you
-> mind
-> clarifying whether further going through this version of the series
-> is
-> actually going to be a good use of time?
-I think it still makes sense to review this series.
+On 15/11/2023 11:26, Sergiy Kibrik wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> This is needed for supporting virtio-pci.
+> 
+> In case when the PCI Host bridge is emulated outside of Xen
+> (IOREQ server), we need some mechanism to intercept config space
+> accesses on Xen on Arm, and forward them to the emulator
+> (for example, virtio backend) via IOREQ request.
+> 
+> Unlike x86, on Arm these accesses are MMIO, there is no CFC/CF8 method
+> to detect which PCI device is targeted.
+> 
+> In order to not mix PCI passthrough with virtio-pci features we add
+> one more region to cover the total configuration space for all possible
+> host bridges which can serve virtio-pci devices for that guest.
+> We expose one PCI host bridge per virtio backend domain.
+I am a little confused. If you expose one PCI host bridge per virtio 
+backend, then why can't the backend simply register the MMIO region and 
+do the translation itself when it receives the read/write?
 
-I probably have to stop sending patches from this series separately. I
-thought merging almost-ready patches would be a little faster if they
-moved outside the patch series.
+To me, it only makes sense for Xen to emulate the host bridge access if 
+you plan to have one host bridge shared between multiple IOREQ domains 
+or mix with PCI pasthrough.
 
-If it is possible to merge approved patches separately without getting
-approved for the whole patch series, then what I did before doesn't
-make sense, and I am sorry for this inconvenience.
+ From my perspective, I don't expect we would have that many virtio PCI 
+devices. So imposing a host bridge per device emulator will mean extra 
+resource in the guest as well (they need to keep track of all the 
+hostbridge).
 
-I can return the patches I sent separately to this patch series.
+So in the longer run, I think we want to allow mixing PCI passthrough 
+and virtio-PCI (or really any emulated PCI because nothing here is 
+virtio specific).
 
-~ Oleksii
+For now, your approach would be OK to enable virtio PCI on Xen. But I 
+don't think there are any changes necessary in Xen other than reserving 
+some MMIO regions/IRQ.
 
+Cheers,
+
+-- 
+Julien Grall
 
