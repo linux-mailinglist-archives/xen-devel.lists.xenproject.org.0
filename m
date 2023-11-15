@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383337ED83A
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 00:31:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633866.989011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC8B7ED852
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 00:49:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633870.989020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3PLS-00021A-2I; Wed, 15 Nov 2023 23:30:54 +0000
+	id 1r3PdJ-00050r-Hn; Wed, 15 Nov 2023 23:49:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633866.989011; Wed, 15 Nov 2023 23:30:54 +0000
+Received: by outflank-mailman (output) from mailman id 633870.989020; Wed, 15 Nov 2023 23:49:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3PLR-0001ys-VW; Wed, 15 Nov 2023 23:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 633866;
- Wed, 15 Nov 2023 23:30:53 +0000
+	id 1r3PdJ-0004yb-FC; Wed, 15 Nov 2023 23:49:21 +0000
+Received: by outflank-mailman (input) for mailman id 633870;
+ Wed, 15 Nov 2023 23:49:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9fV7=G4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r3PLR-0001ym-1K
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 23:30:53 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1r3PdH-0004yV-Jk
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 23:49:19 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02b2e8a9-840f-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 00:30:50 +0100 (CET)
+ id 954b6d80-8411-11ee-9b0e-b553b5be7939;
+ Thu, 16 Nov 2023 00:49:16 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A91006187E;
- Wed, 15 Nov 2023 23:30:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CD4C433CA;
- Wed, 15 Nov 2023 23:30:47 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id A2BD6CE131E;
+ Wed, 15 Nov 2023 23:49:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8EE3C433C7;
+ Wed, 15 Nov 2023 23:49:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,89 +41,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02b2e8a9-840f-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 954b6d80-8411-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700091049;
-	bh=YYlHbc3CxA8d1oFkdy/g6rt3DSzIM+c1uTeMAX68Ux8=;
+	s=k20201202; t=1700092152;
+	bh=EwY+XLOpkE2iiJva+JxxU03YHbr9v+MUXiHVqNy6Hr0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ooer/TlxsG/u/Uu6lWjFymmzLY9Fv+t5IAEObgRJSbaTIlT2a4T69RBCpvwA3x5bv
-	 6Zqrzwn2p15ZnRe7L1eNLiW8262HORjFl1VbGCbpN9hnYuNOwUEQ7H4AGFJZN5IJYY
-	 ul65BOahuWtBb98VAby5na+x7ka2I1qTMbkTXvbSK8k0YZjwvtJVoU9YXFQ2/tOQYV
-	 wcXYSKEV5bQrE9Db2nIYUVt5l6Q3c0kIjf05XayOQxOX8zWfmLLUl2qxmM6GrK8IsW
-	 Xa7a28MSheSyk9UGYK66peS8HwdLFX3401tmW1JaSiZRqltNvrM2vlj5Zh4tdw7NTg
-	 0HGaDC69vxpmA==
-Date: Wed, 15 Nov 2023 15:30:46 -0800 (PST)
+	b=WxkpApe8/M7W+f/SHRuMDHZCHZjNxpTvcpKJYV1joODSmnGkSeBAA30g/n5+gUl1A
+	 BLkotz2H3imNGyDll+3xfORKgbzAZWeEB1oDot9JaStpqKgyzpeC4tTbuu0iaA8fWJ
+	 mf/d5MeEPNokAWCT/5d9FL8qIwcPfm/wvFi6y+HZ3Sqe03SCuaLwBUd7LZk2L6qKv6
+	 h6012+p5E4g24al1YyVw1150YyK2jzb3RAZxLChxIDX9WgUprcYg1fUJLbY3bG/6NH
+	 3mNmiR3j6nin0JTJh0pwbzdO7iC8r58QX+BffszDiQog52LrKRD3cU46CmyBIyoeRP
+	 WC7Kar3Um9iFg==
+Date: Wed, 15 Nov 2023 15:49:10 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+cc: Mario Marietto <marietto2008@gmail.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, vikram.garhwal@amd.com, 
-    stewart.hildebrand@amd.com
-Subject: Re: [RFC PATCH 5/6] xen/arm: Intercept vPCI config accesses and
- forward them to emulator
-In-Reply-To: <d290546d-ff44-40d8-aca1-e421bf045481@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2311151528580.160649@ubuntu-linux-20-04-desktop>
-References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com> <20231115112611.3865905-6-Sergiy_Kibrik@epam.com> <d290546d-ff44-40d8-aca1-e421bf045481@xen.org>
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Values generated by the ViryaOS uboot-script-gen do not work
+ correctly on the Chromebook Snow
+In-Reply-To: <0aeaf3a8-096b-4ae2-be40-6d39914b28ea@netscape.net>
+Message-ID: <alpine.DEB.2.22.394.2311151542030.160649@ubuntu-linux-20-04-desktop>
+References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com> <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop> <CA+1FSijk1gVZ2OZC=UCWQzUed2Ve5Nu5CagSTAnHPGf0hBRy-A@mail.gmail.com> <alpine.DEB.2.22.394.2311141513330.160649@ubuntu-linux-20-04-desktop>
+ <CA+1FSijOYJneLxEfss2BoY0Q4vafa+gVdQeyOfy7A_bTAA6QLw@mail.gmail.com> <0aeaf3a8-096b-4ae2-be40-6d39914b28ea@netscape.net>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1445648000-1700092152=:160649"
 
-On Wed, 15 Nov 2023, Julien Grall wrote:
-> Hi,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1445648000-1700092152=:160649
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 15 Nov 2023, Chuck Zmudzinski wrote:
+> On 11/14/2023 6:43 PM, Mario Marietto wrote:
+> > I hope that the informations below are correct :
 > 
-> On 15/11/2023 11:26, Sergiy Kibrik wrote:
-> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > 
-> > This is needed for supporting virtio-pci.
-> > 
-> > In case when the PCI Host bridge is emulated outside of Xen
-> > (IOREQ server), we need some mechanism to intercept config space
-> > accesses on Xen on Arm, and forward them to the emulator
-> > (for example, virtio backend) via IOREQ request.
-> > 
-> > Unlike x86, on Arm these accesses are MMIO, there is no CFC/CF8 method
-> > to detect which PCI device is targeted.
-> > 
-> > In order to not mix PCI passthrough with virtio-pci features we add
-> > one more region to cover the total configuration space for all possible
-> > host bridges which can serve virtio-pci devices for that guest.
-> > We expose one PCI host bridge per virtio backend domain.
-> I am a little confused. If you expose one PCI host bridge per virtio backend,
-> then why can't the backend simply register the MMIO region and do the
-> translation itself when it receives the read/write?
+> I don't know that they are correct. I have not spent the necessary time to
+> determine what the correct values for MEMORY_START and MEMORY_END are for
+> the Chromebook we are using. I just presumed, probably incorrectly, that
+> the entire 2 GB memory is safe, but obviously that is not the case with
+> this Chromebook. Most likely, it requires a good understanding of the
+> particular way booting is done on a Chromebook, which seems to be different
+> from other devices.
 > 
-> To me, it only makes sense for Xen to emulate the host bridge access if you
-> plan to have one host bridge shared between multiple IOREQ domains or mix with
-> PCI pasthrough.
+> I plan to eventually look into finding values for MEMORY_START and MEMORY_END
+> sothe uboot-script-gen script computes usable values for loading Xen and dom0
+> on this Chromebook in the script, but I might not get to that task immediately.
+> I plan to look at it within the next week or so.
 
-+1
+A couple of suggestions. I noticed that the addresses you chose have a
+higher alignment compared to the one chosen by Imagebuilder.
+Imagebuilder uses 2MB:
 
-This is exactly what Stewart, Vikram and I were thinking
+offset=$((2*1024*1024))
+
+I would think that a 2MB alignment should be sufficient, but you can
+increase the alignment chosen by Imagebuilder simply by changing
+"offset" at the top of uboot-script-gen. You seem to be used a 240MB
+offset:
+
+offset=$((240*1024*1024))
+
+The other suggestion is about MEMORY_START and MEMORY_END. Looking at
+the addresses you picked by hand, the following you should give you very
+similar results:
+
+MEMORY_START=0x33000000
+MEMORY_END=0x80000000
 
 
-> From my perspective, I don't expect we would have that many virtio PCI
-> devices. So imposing a host bridge per device emulator will mean extra
-> resource in the guest as well (they need to keep track of all the hostbridge).
-
-+1
-
-
-> So in the longer run, I think we want to allow mixing PCI passthrough and
-> virtio-PCI (or really any emulated PCI because nothing here is virtio
-> specific).
-
-+1
-
-
-> For now, your approach would be OK to enable virtio PCI on Xen. But I don't
-> think there are any changes necessary in Xen other than reserving some MMIO
-> regions/IRQ.
-
-I don't mean to slow down EPAM, but I think we can jump in and do the
-necessary changes to vPCI for everyone's benefits and with a timeframe
-that works for AMD, EPAM and the Xen community.
+> > - the imagebuilder config file :
+> > 
+> > MEMORY_START="0x0"
+> > MEMORY_END="0x80000000"
+> > LOAD_CMD="ext2load mmc 1:3"
+> > BOOT_CMD="bootm"
+> > DEVICE_TREE="exynos5250-snow.dtb"
+> > XEN="xen-4.17-armhf"
+> > XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
+> > DOM0_KERNEL="zImage-6.6.0-xen-iommu-dma-on-xen"
+> > DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> > UBOOT_SOURCE="xen.source"
+> > UBOOT_SCRIPT="xen.scr"
+> > 
+> > xen.source : (that does not work)
+> > 
+> > mmc dev 1
+> > ext2load mmc 1:3 0xE00000 zImage-6.6.0-xen-iommu-dma-on-xen
+> > ext2load mmc 1:3 0x1800000 xen-4.17-armhf.ub
+> > ext2load mmc 1:3 0x1A00000 exynos5250-snow.dtb
+> > fdt addr 0x1A00000
+> > fdt resize 1024
+> > fdt set /chosen \#address-cells <0x2>
+> > fdt set /chosen \#size-cells <0x2>
+> > fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
+> > fdt mknod /chosen dom0
+> > fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
+> > fdt set /chosen/dom0 reg <0x0 0xE00000 0x0 0x87C200 >
+> > fdt set /chosen xen,dom0-bootargs "console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> > setenv fdt_high 0xffffffffffffffff
+> > bootm 0x1800000 - 0x1A00000
+> > 
+> > xen.source : (created by chuck and that works)
+> > 
+> > mmc dev 1
+> > ext2load mmc 1:3 0x42000000 zImage-6.6.0-xen-iommu-dma-on-xen
+> > ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
+> > ext2load mmc 1:3 0x5ffec000 exynos5250-snow.dtb
+> > fdt addr 0x5ffec000
+> > fdt resize 1024
+> > fdt set /chosen \#address-cells <0x2>
+> > fdt set /chosen \#size-cells <0x2>
+> > fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
+> > fdt mknod /chosen dom0
+> > fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
+> > fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x87C200 >
+> > fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused --no-log"
+> > bootm 0x51000000 - 0x5ffec000
+> > 
+> > all the values that you see in this conf. files have been calculated by chuck by hand,because the values generated by the imagebuilder are wrong. The only value that's well calculated by the imagebuilder is 0x87C200
+> > 
+> > - the size of all the binaries specified in the imagebuilder config file :
+> > 
+> > exynos5250-snow.dtb = 46.6 KiB (47,769 byte)
+> > zImage-6.6.0-xen-iommu-dma-on-xen = 8.5 MiB (8,897,024 byte)
+> > 
+> > 
+> > 
+> > On Wed, Nov 15, 2023 at 12:17 AM Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org>> wrote:
+> > 
+> >     Hi Mario,
+> > 
+> >     I think we misunderstood each other :-)
+> > 
+> >     MEMORY_START-MEMORY_END is not supposed to be computed: it is supposed
+> >     to come from the memory node in device tree tree (/memory) of the
+> >     platform. The idea is that you should not have to do any computations,
+> >     but only reuse the same address range specified there.
+> > 
+> >     Similarly in regards to "please post the size of all the binaries",
+> >     this is just for debugging, so that I can see if there are any bugs with
+> >     uboot-script-gen. I cannot debug the script unless I figure out what the
+> >     problem is and the only way I can do that is with the binary sizes and
+> >     redoing all the steps by hand.
+> > 
+> >     The expected outcome is that once we resolve the problem you should be
+> >     able to use uboot-script-gen without any additional computation needed.
+> > 
+> >     Of course using static values is also OK.
+> > 
+> > 
+> >     On Wed, 15 Nov 2023, Mario Marietto wrote:
+> >     > ---> uboot-script-gen assumes that the memory range specified by MEMORY_START-MEMORY_END is valid and correct.
+> >     >
+> >     > Actually Chuck chose 0 as MEMORY_START and 0x800000 as MEMORY_END and these are stable values,they don't change. If you ask me to calculate
+> >     > those values,it means that we need to compute these values. I imagine that to calculate these values is not easy.
+> >     >
+> >     > ---> To debug this kind of issues please post the size of all the binaries specified in the imagebuilder config file
+> >     >
+> >     > I imagine that I should also calculate those values. And again,I see a complication.
+> >     >
+> >     > I'm realizing that the method used by Chuck is easier because he uses stable values. In the end,there aren't any calculations to do and
+> >     > since I'm looking for an easier method,not a more complicated one,I think that Chuck's method is good as is. 
+> >     >
+> >     > On Tue, Nov 14, 2023 at 11:51 PM Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org>> wrote:
+> >     >       Hi Mario,
+> >     >
+> >     >       It is difficult to know how to change uboot-script-gen if we don't know
+> >     >       why it is currently going wrong.
+> >     >
+> >     >       uboot-script-gen assumes that the memory range specified by
+> >     >       MEMORY_START-MEMORY_END is valid and correct.
+> >     >
+> >     >       So if you specified a valid and correct memory range in your config file
+> >     >       (0x41e00000-0x60000000) why is it failing?
+> >     >
+> >     >       The only thing uboot-script-gen does is choosing aligned addresses
+> >     >       within the MEMORY_START-MEMORY_END range. The addresses are supposed not
+> >     >       to overlap (meaning the initrd will not overwrite part of the kernel
+> >     >       when loaded). If the issue is a bug in uboot-script-gen, such as the
+> >     >       generated addresses overlap or they are not aligned, then we can fix the
+> >     >       alignment or overlap bug. To debug this kind of issues please post:
+> >     >       - the imagebuilder config file
+> >     >       - the generate boot.source script
+> >     >       - the size of all the binaries specified in the imagebuilder config file
+> >     >
+> >     >       On the other hand if 0x41e00000-0x60000000 is not a safe memory range to
+> >     >       use, then you need to specify a different memory range.
+> >     >
+> >     >       Cheers,
+> >     >
+> >     >       Stefano
+> >     >
+> >     >
+> >     >
+> >     >       On Mon, 13 Nov 2023, Mario Marietto wrote:
+> >     >       > Hello.
+> >     >       >
+> >     >       > I'm trying to find an easier way to the problem that you can read here :
+> >     >       >
+> >     >       > https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest <https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest>
+> >     >       >
+> >     >       > where Chuck says :
+> >     >       >
+> >     >       >  6. Create the u-boot shell commands that will be used to boot Xen and dom0.
+> >     >       >
+> >     >       > Create a file in /home/user (or any other directory) named bootxen.source with these contents :
+> >     >       >
+> >     >       >
+> >     >       > mmc dev 1 && mmc rescan 1
+> >     >       > ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
+> >     >       > ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
+> >     >       > ext2load mmc 1:3 0x5ffec000 exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
+> >     >       > fdt addr 0x5ffec000
+> >     >       > fdt resize 1024
+> >     >       > fdt set /chosen \#address-cells <0x2>
+> >     >       > fdt set /chosen \#size-cells <0x2>
+> >     >       > fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=2 bootscrub=0 vwfi=native"
+> >     >       > fdt mknod /chosen dom0
+> >     >       > fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
+> >     >       > fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
+> >     >       > fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> >     >       > bootm 0x51000000 - 0x5ffec000
+> >     >       >
+> >     >       > The hex value 0x7D7200 is the size of the zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the
+> >     >       uboot-script-gen script
+> >     >       > available from here :
+> >     >       >
+> >     >       >
+> >     >       > https://gitlab.com/ViryaOS/imagebuilder <https://gitlab.com/ViryaOS/imagebuilder>
+> >     >       >
+> >     >       >
+> >     >       > This is the interesting point :
+> >     >       >
+> >     >       >
+> >     >       > Please note that most of the other values in the script generated by the ViryaOS uboot-script-gen do not work correctly with
+> >     >       the Chromebook
+> >     >       > Snow, but the script does correctly calculate the size of the dom0 Linux kernel image.
+> >     >       >
+> >     >       >
+> >     >       > Some time ago Stefano suggested to put the values below for MEMORY_START and MEMORY_END inside the xen-config file :
+> >     >       >
+> >     >       >
+> >     >       > nano xen-config file :
+> >     >       >
+> >     >       >
+> >     >       > MEMORY_START="0x41e00000"
+> >     >       > MEMORY_END="0x60000000"
+> >     >       > LOAD_CMD="ext2load mmc 1:3"
+> >     >       > BOOT_CMD="bootm"
+> >     >       > DEVICE_TREE="exynos5250-snow.dtb"
+> >     >       > XEN="xen-4.17-armhf"
+> >     >       > XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=768M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
+> >     >       > DOM0_KERNEL="zImage-6.6.0-xen-dma-mapping"
+> >     >       > DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
+> >     >       > UBOOT_SOURCE="xen.source"
+> >     >       >
+> >     >       >
+> >     >       > bash ./uboot-script-gen -c xen-config -d .
+> >     >       >
+> >     >       >
+> >     >       > Image Name:    
+> >     >       > Created:      Thu Nov  2 20:59:24 2023
+> >     >       > Image Type:   ARM Linux Kernel Image (uncompressed)
+> >     >       > Data Size:    884744 Bytes = 864.01 KiB = 0.84 MiB
+> >     >       > Load Address: 42c00000
+> >     >       > Entry Point:  42c00000
+> >     >       >
+> >     >       >
+> >     >       > Generated uboot script xen.scr, to be loaded at address 0x42000000:
+> >     >       > ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
+> >     >       >
+> >     >       >
+> >     >       > and I tried to boot Xen and Linux 6.6 as dom0 :
+> >     >       >
+> >     >       > SMDK5250 # mmc dev 1
+> >     >       > SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
+> >     >       > but it did not work : it reboots on the verification screen.
+> >     >       >
+> >     >       > --
+> >     >       > Mario.
+> >     >       >
+> >     >       >
+> >     >
+> >     >
+> >     >
+> >     > --
+> >     > Mario.
+> >     >
+> >     > 
+> > 
+> > 
+> > 
+> > -- 
+> > Mario.
+> 
+--8323329-1445648000-1700092152=:160649--
 
