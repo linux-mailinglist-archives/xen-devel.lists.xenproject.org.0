@@ -2,35 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 434BD7ECA1E
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 18:58:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633828.988916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1F9A7ECA51
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 19:15:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633832.988927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3K8V-0002sJ-2P; Wed, 15 Nov 2023 17:57:11 +0000
+	id 1r3KPl-0007m5-GB; Wed, 15 Nov 2023 18:15:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633828.988916; Wed, 15 Nov 2023 17:57:11 +0000
+Received: by outflank-mailman (output) from mailman id 633832.988927; Wed, 15 Nov 2023 18:15:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3K8U-0002pI-Vu; Wed, 15 Nov 2023 17:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 633828;
- Wed, 15 Nov 2023 17:57:09 +0000
+	id 1r3KPl-0007kI-DA; Wed, 15 Nov 2023 18:15:01 +0000
+Received: by outflank-mailman (input) for mailman id 633832;
+ Wed, 15 Nov 2023 18:14:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WuA2=G4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1r3K8S-0002p8-H2
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 17:57:08 +0000
-Received: from sonic314-19.consmr.mail.gq1.yahoo.com
- (sonic314-19.consmr.mail.gq1.yahoo.com [98.137.69.82])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 630f5773-83e0-11ee-98db-6d05b1d4d9a1;
- Wed, 15 Nov 2023 18:57:06 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.gq1.yahoo.com with HTTP; Wed, 15 Nov 2023 17:57:04 +0000
-Received: by hermes--production-bf1-5b945b6d47-pb628 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID b4b4a9370e80522ac9d62dc97b11e39c; 
- Wed, 15 Nov 2023 17:56:59 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6a9m=G4=epam.com=prvs=56830be07e=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1r3KPi-0007kA-TN
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 18:14:59 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e150a1cd-83e2-11ee-98db-6d05b1d4d9a1;
+ Wed, 15 Nov 2023 19:14:57 +0100 (CET)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AFGsEtR002496; Wed, 15 Nov 2023 18:14:49 GMT
+Received: from eur02-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur02lp2104.outbound.protection.outlook.com [104.47.11.104])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ucw0vhv0x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Nov 2023 18:14:48 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by AS8PR03MB9724.eurprd03.prod.outlook.com (2603:10a6:20b:61c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.18; Wed, 15 Nov
+ 2023 18:14:44 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44%6]) with mapi id 15.20.6977.029; Wed, 15 Nov 2023
+ 18:14:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,198 +53,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 630f5773-83e0-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1700071024; bh=YF2s4xF5SCw6gmmLUOPakvJN8SjfXIcfPpzN9F2wCDs=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=BCmOSOwKpGksJ+qgav6T+PZAlWXbLvjDFvoge7YjJ95nbkp2AMX2uYObZxRptQTOArnpivIUBLKScJF2W0jEIKXUMP8RQqtVJQRulUffPFWcARHlWFKY2L7jtlAGT2cnVB6hYEz9aGmpCiwJgHm4v0uvc5vUuz9Ja6Ytp2TfxpxLJh3lFs5qzw8NfydOpCwTd8kI9KJCtH6rbkClfnIkEpfk/4tXfveYtHilLJcSCi8hzCxjOVgZ5yki7XgrzKcIWRf7z3FPD6DJGinjxH1n+2aSwvDwqAE/7rChP9lQeBROgB8OyrF2gGdQXH4IZO8ZJ0DIeK76rsMAQX5AFeHQuw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1700071024; bh=tZUQH+T6uUeYppUSz3pyuwfs9IOBZqeHgT7YvdwF5AJ=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=kx+C9tc2E+n82NhQQD9iMkwEFzmAUWJBkoo1kKrR0M9dwP91+WaCX0jHT9lcObANY06rtRwyoePM/CpJRpsZT3UscCF7cbaKYVZ0poXvn5Ubpa6zf8Y6iX4Z+b+N8rQZ5I0kIrNy9Mgxl4rLhobMUWE8+RPye8PY2u6w42YuyKexNNA9KXrLO3J5FAGFB4Sv7wCY4bSTCupBKSxCa/flDM4FLNP2Z7XYIw9tFlOOpj+HmMGDYCcSzywkaes4pADtFN7+HLUT3K2PRLkq6pV9woxKcUV6H6DbCoTSJXtWQ4K+6bkUwfB8cIw8ckWDCLy0NszZSCRepVOfPST1BcXclA==
-X-YMail-OSG: o4vf5O8VM1m2T3_r0jRIH_we3jJ0AtRvuul.BbvI3Mk5ANcbNuV1L0E_iI0t4zS
- AQJHlsb_f5nY5iR__rSiJC4.VI4lvGkjs608.WrhqmIMTaM5BJdjo8SFO_Od97soEoGqSiIifCvN
- fn6u_OBpUHFStSZBhm_h5CdzJPC7vyyP54NjiyIXwcDMEiwi2mpkQFeBy3KnwcfItF0KxJVhOr_0
- XUE0xXG_y4psjm.cO9GHmn7kvAC3h.M3LJnisqN_kKRQlD_GPav0aA7Eak_dzfjTCuUYrE3x49fW
- hMBM6_gFQutBSLTuRbFLGai4KzPpXE9DTr0f2DBbdN24dXDbT6O27Sg3mGgMw3ZF4n7V9M8PlEXG
- iXZYbozvHP.J4l9q0WyEVrTpj..LYGqQ0BJpc2viekOfAob9BUEqHJ7k.To2ylN0lqmnR2htZ7ST
- kZGV.yq8c.zkLP2rtUbSBh8shCirTzsGgkHth3qyeCl3TznoYq06KDII1_pwmqsqd.IB2hMSC805
- sahonqetVbc2frL8qC26JCys8X2nApej1DAK1tUYr5sr8q3j6SCY9ukk7KLAUHHlRU2Ji1mPaoC7
- 7.wHKHxUNVXazMIc21Gl2G4XKo9GEBXfqWrq0f_v4et4XYJxqv4B4OUXI.5ueGyR_FI4pWuSjqZ_
- HtEbIeBHWdCJUCtIiE72QE2hSGaPy4LGnTAT8eTW1UzqpVF9lvdvdph0LOCIrQnsR_SkirVgEBVM
- IRmdWyS3z0wQ9_fyL79DBJDKCLCNrs9PPvlC4CUcR1C.Bx6Q19KrxZmwZOW0aVS6vlAmpver6N1g
- oreyoPu2uczTwIz7RfwsxQxrsF5inMpF2zSz1pmapBIddeVIyX3wfP4vEVh7O18lSjysaQNlsIiM
- dhAr7BQiy7X2cnmjbhYN1zfV2twuQeKOH4r6C5E81nLsGUyAB4NoKNTEleRmLFreINLVJu3HMKpW
- iC6Npahu0cNAsRgpmtRTuKY5wqvFyXQyDFo6GfTqu5tnWWyAyzqXXVXDN7JWdfOC5i4uk7c_sXG7
- wulo3zZYgCPK4ckgI8cL17Tr0CvSbJcikFP.Upn8okAn2K_ZM9cjdMOnpnMpIe4TuZiggyVF_.7o
- edagv6OGXoACMFEcNwf_C76gxMcwo927cEJU7laPG0Vgr8Lrf6pKeWSK3CYV989HIBXPvpvzYnWD
- Omjd4v4Ivarf_.byp3mQba1BLI34EWUtxr8OAQtUr7bdhslNTMRIANZiZh6FgWCzgRgIXcR6pLSK
- QjG67YYBa_3BH95T.DZN07uW7tBuaS5ELrV9Kf_XN_Lfm.0VkWu7hcRckc9VrSQVxHaGt0LCxR2Z
- VaCpk4MYlHPajSWXXLa_i4QDwH0RSLbW.nAjUVM8A99pROm468f5oVo90R0KYCFfeh97IH8vJaex
- Y4cCivmEeF3uPBAjZMJrPQlyig3w8g75V9F66T10s7ZvIe_ej2M32gQkrV84mn7D_0vgLWkCBYJB
- 7teKcUwsjC7dMUPKZXBtcPCrKoBvvyEbbHo643pnJmYlQLS8N2jDIHl22Z6dk5sBplHOuywRdY_a
- BPNAPhtgKVNNxbofyw4cycSa_NQ4hbsFhdyEmu_g9pN17Si7TUAl.Dg0IiLRMaR.k7tN1paJ8cDX
- N0bFCY7snGgke6MG5slQmi6TzKhQcSA.LqCdUicf35ZdUs3YzMN34LmH1b8mJT9rkR0tLG1JfTdc
- QlDGFRKjzQR0ypakoDzX_Xis86n4XvAzx143LH6GAldF745jFBP5q9kJVGpiC3nw89iVj2KZj856
- US7Ov8vs8gGbohd4IOXnU4aDircchdr6Gl3vG9TlJ1SnQ1a1bdPfExjXBO_fttDqXWnxsGtGZkFy
- RwlaqKzj7y2TZW8X0z3tPR6_pDns297LwcJUX9iT506xoZrK115U_.J6C7j__f7wkTf507WLmLz7
- 3Le4BwBJKnLRLphnFRLJzS7GmmXT0JhRXs7l9uSX7Ss4YecL1gs0JU8o291Df4sFe6cMcWGlH9Xr
- 9sidateJiuzaGiqOR9gYWhkMf2LB6z0FMcrzICksbB82Ridy.FbTQ3IZ0.ZS8dk3aRuXLZnOGTD.
- JVJR8x0SfZERFFc7wHC1yUR2qQ7TT1KFvNzQCXCKi9wy5dVFq5xrzM5XlI9fOj60WcPfEqncSq50
- .WH5i5Y88wf_urFpulMmQMfSr9rebA4jz3qQsFZFiGTHCmix0Voiwh4vAFQriYdws6dcAhTDnb.5
- qpEfBR8X0QZgY
-X-Sonic-MF: <brchuckz@aim.com>
-X-Sonic-ID: b9a247e1-0ea5-473a-acc0-9f2bc933c42c
-Message-ID: <edefba96-0a17-4b3d-992c-6bfe9e62bf97@netscape.net>
-Date: Wed, 15 Nov 2023 12:56:57 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/mm: add option to prefer IOMMU ops for DMA on Xen
+X-Inumbo-ID: e150a1cd-83e2-11ee-98db-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RyhcTNf6C7wMelNEh3izlLj7VOtjZXMTj+qfYlR4LbDEG71kBwXo8lOHKWsX/+vVEtVL4gO5ySA29YhtQsZlDEtRyan4PCLrLcK3G/S8Y/6ORZFwpenvl42/I3768oheVtamchC8kK6Ul6yjnIsUs9mLXoUhqWfW9MJgvQJMzAfPvAlzwtFnygCmr3B8wBD1AtdMlfpCAoaxl2ACm7Mdw77qTtWG8DYb6+GNkJfeT4wiTogwmnRrBJqXJ5gQX7K/wPvlAjU+niCFt2k5fNr0jgakjK/ejC3ojgq3oit6KyWZhASq4YXdrlJQywN9xwcfAJOVDB8KkaRo4mFvc73XWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iPa9wODj3WruvnmGCczg8u9VL1ZINrkSUaUo/Ovo6WY=;
+ b=N2ZY78jj4tpmWd4T1YZE7epsUW8hUuZC6R4KssdGIcNeH82XPtr38zGsPNo9c7Gl4nkNS/s85EduxnCpOMwngypWlmcmSjtF+kJXzw477MNgh/G3o9ZtOda9sww8nHF5RdmG98vXKs3KbnzoxIWw6Scw3de5DJteq0EYjLce2kUgb1Gm6EoaZEy03DXySQiJ7Q0I6etNmg4lItl/6441xXTa75PAL+rSqyRGgYedE7xoHRSiQPxoIj2N04Akm3/B4saQg52Nmp/2DHZjZg1cgLLqbaO931dR8BizjAQQRIwO+JQxAcDS6ROq/twRRtNLBIAI4wUFrTanKp12bSjIlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iPa9wODj3WruvnmGCczg8u9VL1ZINrkSUaUo/Ovo6WY=;
+ b=kqs9lupv0Toj6jt1FdYD4sqL3DsK7IQgVsikiFavlSM+gyAn8ylanlY3DIZhXqDJcB9F05cApN/EzB8AQTccKvu+tQAFDCe77atskVgPVQ5r11bAEhatbf3N2mhRD9Fob84OTwDsjvbVF8MzZF4dVVME/jMepcVd23n6EACmBitHAgNtF8JEIHQtdGgROD6dr9AFJHrpS6YXWoXCQzLWlemF5oS3eSHsr9Fsu96L3+tOels2OOTbZ2eSAdcTpcayLuWmjUzynDJgLa0ecmMWCobhvgt1dBl17CiDqB1Xl0rPc6STrCS7h5I3Z08ffsWCpfREhu42Pdbj9cKNKv1pHw==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Michal Orzel <michal.orzel@amd.com>,
+        Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+Thread-Topic: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+Thread-Index: AQHaF7/0l4ZQp7ixjkGnkGM6dDamtLB7mIqAgAALAoCAAAwrAA==
+Date: Wed, 15 Nov 2023 18:14:44 +0000
+Message-ID: <1e5b414b-c730-4fbf-bc51-c292e396f6c5@epam.com>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
+ <20231115112611.3865905-3-Sergiy_Kibrik@epam.com>
+ <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
+ <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com>
+ <9e0760f2-6ffd-4010-aabf-ff4f643f288c@xen.org>
+In-Reply-To: <9e0760f2-6ffd-4010-aabf-ff4f643f288c@xen.org>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>
-Cc: Chuck Zmudzinski <brchuckz@aol.com>,
- linux-arm-kernel@lists.infradead.org, Russell King <linux@armlinux.org.uk>,
- Juergen Gross <jgross@suse.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Linus Walleij <linus.walleij@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Arnd Bergmann <arnd@arndb.de>, Julien Grall <julien@xen.org>,
- Mario Marietto <marietto2008@gmail.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20231111184538.2371-1-brchuckz.ref@aol.com>
- <20231111184538.2371-1-brchuckz@aol.com>
- <e5ebfde9-7a74-4908-b0b9-db47c4e76315@arm.com>
- <alpine.DEB.2.22.394.2311141407140.160649@ubuntu-linux-20-04-desktop>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <alpine.DEB.2.22.394.2311141407140.160649@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.21896 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|AS8PR03MB9724:EE_
+x-ms-office365-filtering-correlation-id: b1d95ceb-d223-4482-ef92-08dbe606be9a
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ r2ShGAN1Yno3ukC/gvyPsAgY86xvLtdlGdWiioYxeA+aqbhixwmNTIIPzSCGPYzEQzs+1eQA1XXiukdy/3jfB4QNC5AQ3riAddKr/bJmTBaHz46RBA+dGeCyo6Zd+qXfp62LPqZRqMvTpL6caKprkQFpuitCA42r26/YmeSMnChqsmjItwYMUav55xjg3e3eYAV82CTRAVUFR0JgqbP1FUOEGimkiIKqU7ht7vSq2mBUtl1WHWoNguW72ZSqoxvHurIMt7XZ3Wauu4rac874n1Zy0ERRxompMh3S7pp4Whn/gZ7iSqKVMsNWVmZ/SGM82K5BBHwlIowhEC1Xnl9e2vMDIlA7oXg/hk665eU9w/fzyHh8hEae0VIOhbTtlusu+PwWMEL42o7z186A1+p2ogzm3vvGsrvsrVnmLSvWJlsd0GEXrmXZWHqXhM4gBKftmbn6b1Av8u5UpaeWfIDwft+Iu8iphCw+S4GgnFef1vbddNUYx8M8e7y93GGpOglCWQIcqhsG/JIsKpl3FpqlN1xl8bbg717JcqZm9rEZZJSk9WTgKk1FZ0/nmRledGkj8dtWijoY1u76wslQle/Vt6fJgAYncpGNPD/PG3t25BDwSAMTV2WNY+a5WEsP5txrMoWpLoKHSz1UU82IsDkPSQ==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(136003)(396003)(376002)(366004)(346002)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(38070700009)(86362001)(316002)(91956017)(66946007)(110136005)(31696002)(54906003)(66556008)(64756008)(66899024)(66476007)(66446008)(36756003)(76116006)(8676002)(71200400001)(83380400001)(4326008)(8936002)(2906002)(26005)(41300700001)(53546011)(107886003)(6512007)(2616005)(6506007)(31686004)(5660300002)(6486002)(478600001)(38100700002)(122000001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?ZWxkS1J4UEFWYkJYdnFoRWQwam43T3czSmpveHoybTl3NFU4Rmc1MndsMklH?=
+ =?utf-8?B?NjY1SzBFYktjU0RZN3EvZGVRTTFWMFdub20rZU5TU0lXN2QyY2hFTTVObkxo?=
+ =?utf-8?B?d1R0dlc5MzdXU3VUSWRWUWRncitISS9vaEE4U01wNWN0UGV0Sys3dVl2MytG?=
+ =?utf-8?B?ZlNmVTVycUNWa3JCQmEvakNMaWxVcGxaUExscXZtdFRmZFUzSG1sWWVPN3R1?=
+ =?utf-8?B?YmErSW1QWkZNeFQxOCs1ZDlKdDAzcTVHKzRuYk0yV1JVOTJuZ2w5Ujd1c0Zm?=
+ =?utf-8?B?OGdrc2IwS0h2K2RrdGdQTjNweFYrMWt0cWdCOUFtNzNzWEIxTEFlcTFwenpv?=
+ =?utf-8?B?b21Fb3ZVaXlJdWFUSmZhRFQvZjArL2QzVXRXV2FkN3dNUVNxUllmSTRlL2cr?=
+ =?utf-8?B?MVkrUjZSbkVqSFdCZzZZMUZ4VENZdjNzcmJCbUVEYTdVMmpoY3VCVEp0VjBV?=
+ =?utf-8?B?V2ozb1JFRTYvT09ObDIwb29RUW9lMGFidnpBRmJVQUlvaDByNUUwcG8xdE1h?=
+ =?utf-8?B?Zlc3QjgxTThmNVEzNnExMjcyZWFlVTRPUHZvTUswZlI5UGUrYmxhRm9KbWdr?=
+ =?utf-8?B?K0ZqVmNpWlE2amx0eXdXTHNGZmFDUTRpQm1kdENYN1c3N0lGa3dmaWdNU0N5?=
+ =?utf-8?B?MEwxODhWQ3Z0K3hGS2JLWi9mRDFUVDk2dU52VzBLbVpoTlEzNDZaNGVhU2Zj?=
+ =?utf-8?B?S0t1K0psWnI0S0ZpWTB4RVBKU3o4WTF0NTFpZ0g2ektjNmp0QUlrcmNtcklT?=
+ =?utf-8?B?S0JubHI5YnRZQlQ1aS92WXBhLzIvQ3FOZWxCYWM2SE5OWWl0SkNNakdMV09O?=
+ =?utf-8?B?Z0pZRW11TThRN3p0aDVzSGFNL2t5M3BIenJJVEVZT2Y1SmlVL3ZYRTRPa0RI?=
+ =?utf-8?B?WTVPYnNZL3NwemVtVkYrcVlISjlRWWpYOWNKR2YxU1hjTXJSdE13YVh0WDRX?=
+ =?utf-8?B?a1RWbDgxMDBxNnN1K3hNeHFhZUxSeXNLVVhGTUE3SkVJUGN5ZGpZYjg1T3R6?=
+ =?utf-8?B?QjdHaTQ2cjZWb0VzcHhQb1lGUENocmVxWDBCem5qME1UYWlVSzJDY1RxSEF2?=
+ =?utf-8?B?UjFPVWNiYVI2c3VoOGpqY2VoSUcraVlLZ1poQnZvc2ZESUgrUmNJRTFja0lo?=
+ =?utf-8?B?V3JNYy9Id2tOVmYzd1hQK3g0ZFBTUmNMTkYxZVJrVnk4T2lXVUE2MlArQ25X?=
+ =?utf-8?B?Vm5mZUtkK2h1MmU4U0JwamRUeE05dDFML2s1bGZTM2FFaEtBK3MyNGJjUjlz?=
+ =?utf-8?B?SkM3TFFmM0xhN2pQc1VxdmFSdm9vZUhCeFdoOFljMURJVDNoazYza1N1Sm5N?=
+ =?utf-8?B?UDI5VGNJR21zenlFcUlhOWZkRFFzV2NhK1dxYUtqR2VEZW1mWFEzSUFKUlFs?=
+ =?utf-8?B?WXZPUU1Sc0pUQTNJNVN2VG1Rdkk4UkJSbCtyRmM5cVBIem5XaUJ1MURIMGZo?=
+ =?utf-8?B?UTFoYVBFYlNKcXAveEc2dk9YbHBMdGZhUUxFR253TUJiY2ZCUjM3eGUwdWRY?=
+ =?utf-8?B?dWYxaWxTYit0YXIxVGtSZWZsVjVUdW8wWVlmWkh3ZDFPZ201UGR5WXlNNG4z?=
+ =?utf-8?B?OXI5L1U0RmxXTGdMdVB5L0U1bXpuMFQvdjlITkNlZWNpWmpjTnNFV1dKcFh0?=
+ =?utf-8?B?Vy9vQ0JpejJaanZ5SzFmZTlhYkdZRm91d091cmQrZmpzNWZVclhGVFlVRUtS?=
+ =?utf-8?B?TjFJNTZ2Y202eG52WWc3cFlnTUg3UXNTZHJUSHJma3pldTU2bTB5aTBybkNE?=
+ =?utf-8?B?ellFYTBLSFJyVmtyalBqbm9LVEg2aDJPT3RFY2VhaEdPaGVHVzNzV1ZrbS9D?=
+ =?utf-8?B?TmR4SmdGMktpY0w3VjQzMWhwMDgvemVSU3FiUFlqZDBrZ1pQTmhzWHpmSFdl?=
+ =?utf-8?B?NCtlcmh5QVY1allHQ0dEMFk3SG8xZk5FUFEzTytjMWpIcHlYdWxTcGdwRnBO?=
+ =?utf-8?B?THVYREprci9GT0ZIM2dibm9Cd0JVSGh3MnkwSitTeld2VW5BQjZnR24zM2pM?=
+ =?utf-8?B?cFdXSTUzOStUNFcvUDJEZmR0M04wZnJWSVJ6cnpDQ2JIaG9kQkR6TnZaVEx4?=
+ =?utf-8?B?SC92dXJrdWg4KzliVGdjY1FmSGJaUDNxSFlRaUZROWlGQ08rZm4zVHVOSy9q?=
+ =?utf-8?B?aU5tMFZyVmg4ejVXdWM4YklSNkdYNGhlNkRSVHVaT1RoWWExSzVKWUZmNFRt?=
+ =?utf-8?Q?T6swsb40eKaMMyDhm3z2lb4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <14A14A75F9EA2A4FB035D57D80FB2EF7@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1d95ceb-d223-4482-ef92-08dbe606be9a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2023 18:14:44.4811
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: apWcnUw2vgcnj9swhejyJf9sBpPU1zdEn1cf1WZ85cSdBB0B0RSXGAAXKIqH7/GilkY+XkM0PTaVKns4DMVU2O/IGrPuIHGKDELYNET1p5o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9724
+X-Proofpoint-ORIG-GUID: cXwWazMioi-uNlF9IMQ6h7vA2LXT5Ars
+X-Proofpoint-GUID: cXwWazMioi-uNlF9IMQ6h7vA2LXT5Ars
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-15_17,2023-11-15_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 suspectscore=0
+ adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ mlxlogscore=999 clxscore=1015 bulkscore=0 mlxscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311150142
 
-On 11/14/2023 5:20 PM, Stefano Stabellini wrote:
-> On Tue, 14 Nov 2023, Robin Murphy wrote:
->> On 11/11/2023 6:45 pm, Chuck Zmudzinski wrote:
->> > Enabling the new option, ARM_DMA_USE_IOMMU_XEN, fixes this error when
->> > attaching the Exynos mixer in Linux dom0 on Xen on the Chromebook Snow
->> > (and probably on other devices that use the Exynos mixer):
->> > 
->> > [drm] Exynos DRM: using 14400000.fimd device for DMA mapping operations
->> > exynos-drm exynos-drm: bound 14400000.fimd (ops 0xc0d96354)
->> > exynos-mixer 14450000.mixer: [drm:exynos_drm_register_dma] *ERROR* Device
->> >                               14450000.mixer lacks support for IOMMU
->> > exynos-drm exynos-drm: failed to bind 14450000.mixer (ops 0xc0d97554): -22
->> > exynos-drm exynos-drm: adev bind failed: -22
->> > exynos-dp: probe of 145b0000.dp-controller failed with error -22
->> > 
->> > Linux normally uses xen_swiotlb_dma_ops for DMA for all devices when
->> > xen_swiotlb is detected even when Xen exposes an IOMMU to Linux. Enabling
->> > the new config option allows devices such as the Exynos mixer to use the
->> > IOMMU instead of xen_swiotlb_dma_ops for DMA and this fixes the error.
->> > 
->> > The new config option is not set by default because it is likely some
->> > devices that use IOMMU for DMA on Xen will cause DMA errors and memory
->> > corruption when Xen PV block and network drivers are in use on the system.
->> > 
->> > Link:
->> > https://lore.kernel.org/xen-devel/acfab1c5-eed1-4930-8c70-8681e256c820@netscape.net/
->> > 
->> > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
->> > ---
->> > The reported error with the Exynos mixer is not fixed by default by adding
->> > a second patch to select the new option in the Kconfig definition for the
->> > Exynos mixer if EXYNOS_IOMMU and SWIOTLB_XEN are enabled because it is
->> > not certain setting the config option is suitable for all cases. So it is
->> > necessary to explicitly select the new config option during the config
->> > stage of the Linux kernel build to fix the reported error or similar
->> > errors that have the same cause of lack of support for IOMMU on Xen. This
->> > is necessary to avoid any regressions that might be caused by enabling the
->> > new option by default for the Exynos mixer.
->> >   arch/arm/mm/dma-mapping.c |  6 ++++++
->> >   drivers/xen/Kconfig       | 16 ++++++++++++++++
->> >   2 files changed, 22 insertions(+)
->> > 
->> > diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
->> > index 5409225b4abc..ca04fdf01be3 100644
->> > --- a/arch/arm/mm/dma-mapping.c
->> > +++ b/arch/arm/mm/dma-mapping.c
->> > @@ -1779,6 +1779,12 @@ void arch_setup_dma_ops(struct device *dev, u64
->> > dma_base, u64 size,
->> >   	if (iommu)
->> >   		arm_setup_iommu_dma_ops(dev, dma_base, size, iommu, coherent);
->> >   +#ifdef CONFIG_ARM_DMA_USE_IOMMU_XEN
->> 
->> FWIW I don't think this really needs a config option - if Xen *has* made an
->> IOMMU available, then there isn't really much reason not to use it, and if for
->> some reason someone really didn't want to then they could simply disable the
->> IOMMU driver anyway.
-> 
-> The fact that the Exynos IOMMU is exposed to Linux is a mistake. Xen
-> doesn't recognize the Exynos IOMMU (it is not one of the IOMMUs Xen has
-> a driver for) so it assigns the IOMMU to Dom0. It doesn't happen on
-> purpose, it happens by accident. Certain things are going to break,
-> specifically I am fairly certain PV drivers are going to break.
-> 
-> If Xen recognized the Exynos IOMMU as an IOMMU it would probably hide it
-> from Dom0. (Today Xen doesn't have a list of IOMMUs Xen recognizes but
-> doesn't have a driver for.)
-> 
-> I think it is OK for Chuck and others to play around with this
-> configuration but I wouldn't add a new kconfig option to Linux to
-> support it.
-> 
-> If we do want a kconfig option, I would add a kconfig option or Linux
-> command line option to enable/disable swiotlb-xen. Basically a way to
-> force-enable or force-disable xen_swiotlb_detect(). That could be
-> generally useful for debugging and would also solve the problem here as
-> it could be used to force-disable swiotlb-xen. I would imagine that the
-> end result is the same: the default ops (iommu_ops) are used.
-
-I will try this. It isn't exactly what I have tested until now because
-in all my tests so far all the DMA capable devices on the Chromebook use
-swioltlb-xen except for the two devices that need to use the Exynos IOMMU
-to fix the error with the Exynos mixer.
-
-> 
-> 
-> 
->> > +	if (dev->dma_ops == &iommu_ops) {
->> > +		dev->archdata.dma_ops_setup = true;
->> 
->> The existing assignment is effectively unconditional by this point anyway, so
->> could probably just be moved earlier to save duplicating it (or perhaps just
->> make the xen_setup_dma_ops() call conditional instead to save the early return
->> as well).
->> 
->> However, are the IOMMU DMA ops really compatible with Xen? The comments about
->> hypercalls and foreign memory in xen_arch_need_swiotlb() leave me concerned
->> that assuming non-coherent DMA to any old Dom0 page is OK might not actually
->> work in general :/
-> 
-> Xen has (not yet upstreaming) support for nested IOMMU (Xen uses the
-> IOMMU while also it exposes a virtual IOMMU to guests.) In those cases
-> the iommu_ops should be compatible with Xen.
-> 
-> swiotlb-xen is useful in cases where there is no IOMMU on the platform
-> (or the IOMMU doesn't cover all DMA-capable devices) and Dom0 is 1:1
-> mapped. See include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect. If Dom0 is
-> not 1:1 mapped swiotlb-xen doesn't work. If an IOMMU is present and
-> covers all DMA-capable devices, then swiotlb-xen is superfluous.
-
-It seems that swiotlb-xen works on this Chromebook since all but two
-of the DMA capable devices use it when configured with the Kconfig option
-added here and it seems to work fine so I presume Dom0 is 1:1 mapped as
-expected. It is possible that on this device, the IOMMU is only covering
-the two devices that need to use the Exynos IOMMU in the tests I have done.
-There are many other DMA capable devices that use swiotlb-xen DMA ops
-on Xen, but I have not checked what DMA ops the other devices use when
-Linux runs on the Chromebook on bare metal without Xen.
-
-So I plan to do some tests and see what DMA ops the other devices use if
-swiotlb-xen is disabled and also what DMA ops the other devices use when
-Linux runs on the Chromebook on bare metal without Xen. If these tests
-show the problem can be fixed by disabling swiotlb-xen with a Kconfig  or
-command line option, I will propose v2 to implement that as a solution.
-
-> This last case is the interesting case for virtual IOMMU and Linux usage of
-> iommu_ops.
+DQoNCk9uIDE1LjExLjIzIDE5OjMxLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+IEhpIE9sZWtzYW5k
+ciwNCg0KDQpIZWxsbyBKdWxpZW4NCg0KPiANCj4gT24gMTUvMTEvMjAyMyAxNjo1MSwgT2xla3Nh
+bmRyIFR5c2hjaGVua28gd3JvdGU6DQo+Pg0KPj4NCj4+IE9uIDE1LjExLjIzIDE0OjMzLCBKdWxp
+ZW4gR3JhbGwgd3JvdGU6DQo+Pj4gSGksDQo+Pg0KPj4NCj4+IEhlbGxvIEp1bGllbg0KPj4NCj4+
+IExldCBtZSBwbGVhc2UgdHJ5IHRvIGV4cGxhaW4gc29tZSBiaXRzLg0KPj4NCj4+DQo+Pj4NCj4+
+PiBUaGFua3MgZm9yIGFkZGluZyBzdXBwb3J0IGZvciB2aXJ0aW8tcGNpIGluIFhlbi4gSSBoYXZl
+IHNvbWUgcXVlc3Rpb25zLg0KPj4+DQo+Pj4gT24gMTUvMTEvMjAyMyAxMToyNiwgU2VyZ2l5IEtp
+YnJpayB3cm90ZToNCj4+Pj4gRnJvbTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5kcl90
+eXNoY2hlbmtvQGVwYW0uY29tPg0KPj4+Pg0KPj4+PiBJbiBvcmRlciB0byBlbmFibGUgbW9yZSB1
+c2UtY2FzZXMgc3VjaCBhcyBoYXZpbmcgbXVsdGlwbGUNCj4+Pj4gZGV2aWNlLW1vZGVscyAoUWVt
+dSkgcnVubmluZyBpbiBkaWZmZXJlbnQgYmFja2VuZCBkb21haW5zIHdoaWNoIHByb3ZpZGUNCj4+
+Pj4gdmlydGlvLXBjaSBkZXZpY2VzIGZvciB0aGUgc2FtZSBndWVzdCwgd2UgYWxsb2NhdGUgYW5k
+IGV4cG9zZSBvbmUNCj4+Pj4gUENJIGhvc3QgYnJpZGdlIGZvciBldmVyeSB2aXJ0aW8gYmFja2Vu
+ZCBkb21haW4gZm9yIHRoYXQgZ3Vlc3QuDQo+Pj4NCj4+PiBPT0ksIHdoeSBkbyB5b3UgbmVlZCB0
+byBleHBvc2Ugb25lIFBDSSBob3N0IGJyaWRnZSBmb3IgZXZlcnkgc3R1YmRvbWFpbj8NCj4+Pg0K
+Pj4+IEluIGZhY3QgbG9va2luZyBhdCB0aGUgbmV4dCBwYXRjaCwgaXQgc2VlbXMgeW91IGFyZSBo
+YW5kbGluZyBzb21lIG9mIHRoZQ0KPj4+IGhvc3RicmlkZ2UgcmVxdWVzdCBpbiBYZW4uIFRoaXMg
+aXMgYWRkcyBhIGJpdCBtb3JlIGNvbmZ1c2lvbi4NCj4+Pg0KPj4+IEkgd2FzIGV4cGVjdGluZyB0
+aGUgdmlydHVhbCBQQ0kgZGV2aWNlIHdvdWxkIGJlIGluIHRoZSB2UENJIGFuZCBlYWNoDQo+Pj4g
+RGV2aWNlIGVtdWxhdG9yIHdvdWxkIGFkdmVydGlzZSB3aGljaCBCREYgdGhleSBhcmUgY292ZXJp
+bmcuDQo+Pg0KPj4NCj4+IFRoaXMgcGF0Y2ggc2VyaWVzIG9ubHkgY292ZXJzIHVzZS1jYXNlcyB3
+aGVyZSB0aGUgZGV2aWNlIGVtdWxhdG9yDQo+PiBoYW5kbGVzIHRoZSAqZW50aXJlKiBQQ0kgSG9z
+dCBicmlkZ2UgYW5kIFBDSSAodmlydGlvLXBjaSkgZGV2aWNlcyBiZWhpbmQNCj4+IGl0IChpLmUu
+IFFlbXUpLiBBbHNvIHRoaXMgcGF0Y2ggc2VyaWVzIGRvZXNuJ3QgdG91Y2ggdlBDSS9QQ0kNCj4+
+IHBhc3MtdGhyb3VnaCByZXNvdXJjZXMsIGhhbmRsaW5nLCBhY2NvdW50aW5nLCBub3RoaW5nLiAN
+Cj4gDQo+IEkgdW5kZXJzdG9vZCB5b3Ugd2FudCB0byBvbmUgRGV2aWNlIEVtdWxhdG9yIHRvIGhh
+bmRsZSB0aGUgZW50aXJlIFBDSSANCj4gaG9zdCBicmlkZ2UuIEJ1dC4uLg0KPiANCj4gIEZyb20g
+dGhlDQo+PiBoeXBlcnZpc29yIHdlIG9ubHkgbmVlZCBhIGhlbHAgdG8gaW50ZXJjZXB0IHRoZSBj
+b25maWcgc3BhY2UgYWNjZXNzZXMNCj4+IGhhcHBlbiBpbiBhIHJhbmdlIFtHVUVTVF9WSVJUSU9f
+UENJX0VDQU1fQkFTRSAuLi4NCj4+IEdVRVNUX1ZJUlRJT19QQ0lfRUNBTV9CQVNFICsgR1VFU1Rf
+VklSVElPX1BDSV9UT1RBTF9FQ0FNX1NJWkVdIGFuZA0KPj4gZm9yd2FyZCB0aGVtIHRvIHRoZSBs
+aW5rZWQgZGV2aWNlIGVtdWxhdG9yIChpZiBhbnkpLCB0aGF0J3MgYWxsLg0KPiANCj4gLi4uIEkg
+cmVhbGx5IGRvbid0IHNlZSB3aHkgeW91IG5lZWQgdG8gYWRkIGNvZGUgaW4gWGVuIHRvIHRyYXAg
+dGhlIA0KPiByZWdpb24uIElmIFFFTVUgaXMgZGVhbGluZyB3aXRoIHRoZSBob3N0YnJpZGdlLCB0
+aGVuIGl0IHNob3VsZCBiZSBhYmxlIA0KPiB0byByZWdpc3RlciB0aGUgTU1JTyByZWdpb24gYW5k
+IHRoZW4gZG8gdGhlIHRyYW5zbGF0aW9uLg0KDQoNCkhtbSwgc291bmRzIHN1cnByaXNpbmcgSSB3
+b3VsZCBzYXkuIEFyZSB5b3Ugc2F5aW5nIHRoYXQgdW5tb2RpZmllZCBRZW11IA0Kd2lsbCB3b3Jr
+IGlmIHdlIGRyb3AgIzU/IEkgdGhpbmsgdGhpcyB3YW50cyB0byBiZSByZS1jaGVja2VkIChAU2Vy
+Z2l5IA0KY2FuIHlvdSBwbGVhc2UgaW52ZXN0aWdhdGU/KS4gSWYgaW5kZWVkIHNvLCB0aGFuICM1
+IHdpbGwgYmUgZHJvcHBlZCBvZiANCmNvdXJzZSBmcm9tIHRoZSB0aGF0IHNlcmllcyAoSSB3b3Vs
+ZCBzYXksIHBvc3Rwb25lZCB1bnRpbCBtb3JlIHVzZS1jYXNlcykuDQoNCg0KDQo+IA0KPj4NCj4+
+IEl0IGlzIG5vdCBwb3NzaWJsZSAod2l0aCBjdXJyZW50IHNlcmllcykgdG8gcnVuIGRldmljZSBl
+bXVsYXRvcnMgd2hhdA0KPj4gZW11bGF0ZSBvbmx5IHNlcGFyYXRlIFBDSSAodmlydGlvLXBjaSkg
+ZGV2aWNlcy4gRm9yIGl0IHRvIGJlIHBvc3NpYmxlLCBJDQo+PiB0aGluaywgbXVjaCBtb3JlIGNo
+YW5nZXMgYXJlIHJlcXVpcmVkIHRoYW4gY3VycmVudCBwYXRjaCBzZXJpZXMgZG9lcy4NCj4+IFRo
+ZXJlIGF0IGxlYXN0IHNob3VsZCBiZSBzcGVjaWFsIFBDSSBIb3N0IGJyaWRnZSBlbXVsYXRpb24g
+aW4gWGVuIChvcg0KPj4gcmV1c2UgdlBDSSkgZm9yIHRoZSBpbnRlZ3JhdGlvbi4gQWxzbyBYZW4g
+c2hvdWxkIGJlIGluIGNoYXJnZSBvZiBmb3JtaW5nDQo+PiByZXN1bHRpbmcgUENJIGludGVycnVw
+dCBiYXNlZCBvbiBlYWNoIFBDSSBkZXZpY2UgbGV2ZWwgc2lnbmFsaW5nIChpZiB3ZQ0KPj4gdXNl
+IGxlZ2FjeSBpbnRlcnJ1cHRzKSwgc29tZSBraW5kIG9mIHg4NidzIFhFTl9ETU9QX3NldF9wY2lf
+aW50eF9sZXZlbCwNCj4+IGV0Yy4gUGxlYXNlIG5vdGUsIEkgYW0gbm90IHNheWluZyB0aGlzIGlz
+IG5vdCBwb3NzaWJsZSBpbiBnZW5lcmFsLA0KPj4gbGlrZWx5IGl0IGlzIHBvc3NpYmxlLCBidXQg
+aW5pdGlhbCBwYXRjaCBzZXJpZXMgZG9lc24ndCBjb3ZlciB0aGVzZQ0KPj4gdXNlLWNhc2VzKQ0K
+Pj4NCj4+IFdlIGV4cG9zZSBvbmUgUENJIGhvc3QgYnJpZGdlIHBlciB2aXJ0aW8gYmFja2VuZCBk
+b21haW4uIFRoaXMgaXMgYQ0KPj4gc2VwYXJhdGUgUENJIGhvc3QgYnJpZGdlIHRvIGNvbWJpbmUg
+YWxsIHZpcnRpby1wY2kgZGV2aWNlcyBydW5uaW5nIGluDQo+PiB0aGUgc2FtZSBiYWNrZW5kIGRv
+bWFpbiAoaW4gdGhlIHNhbWUgZGV2aWNlIGVtdWxhdG9yIGN1cnJlbnRseSkuDQo+PiBUaGUgZXhh
+bXBsZXM6DQo+PiAtIGlmIG9ubHkgb25lIGRvbWFpbiBydW5zIFFlbXUgd2hpY2ggc2VydmVycyB2
+aXJ0aW8tYmxrLCB2aXJ0aW8tbmV0LA0KPj4gdmlydGlvLWNvbnNvbGUgZGV2aWNlcyBmb3IgRG9t
+VSAtIG9ubHkgc2luZ2xlIFBDSSBIb3N0IGJyaWRnZSB3aWxsIGJlDQo+PiBleHBvc2VkIGZvciBE
+b21VDQo+PiAtIGlmIHdlIGFkZCBhbm90aGVyIGRvbWFpbiB0byBydW4gUWVtdSB0byBzZXJ2ZSBh
+ZGRpdGlvbmFsbHkgdmlydGlvLWdwdSwNCj4+IHZpcnRpby1pbnB1dCBhbmQgdmlydGlvLXNuZCBm
+b3IgdGhlICpzYW1lKiBEb21VIC0gd2UgZXhwb3NlIHNlY29uZCBQQ0kNCj4+IEhvc3QgYnJpZGdl
+IGZvciBEb21VDQo+Pg0KPj4gSSBhbSBhZnJhaWQsIHdlIGNhbm5vdCBlbmQgdXAgZXhwb3Npbmcg
+b25seSBzaW5nbGUgUENJIEhvc3QgYnJpZGdlIHdpdGgNCj4+IGN1cnJlbnQgbW9kZWwgKGlmIHdl
+IHVzZSBkZXZpY2UgZW11bGF0b3JzIHJ1bm5pbmcgaW4gZGlmZmVyZW50IGRvbWFpbnMNCj4+IHRo
+YXQgaGFuZGxlcyB0aGUgKmVudGlyZSogUENJIEhvc3QgYnJpZGdlcyksIHRoaXMgd29uJ3Qgd29y
+ay4NCj4gDQo+IFRoYXQgbWFrZXMgc2Vuc2UgYW5kIGl0IGlzIGZpbmUuIEJ1dCBzZWUgYWJvdmUs
+IEkgdGhpbmsgb25seSB0aGUgIzIgaXMgDQo+IG5lY2Vzc2FyeSBmb3IgdGhlIGh5cGVydmlzb3Iu
+IFBhdGNoICM1IHNob3VsZCBub3QgYmUgbmVjZXNzYXJ5IGF0IGFsbC4NCg0KDQpHb29kLCBpdCBz
+aG91bGQgYmUgcmUtY2hlY2tlZCB3aXRob3V0ICM1IHN1cmUuDQoNCg0KPiANCj4gWy4uLl0NCj4g
+DQo+Pj4+IFNpZ25lZC1vZmYtYnk6IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlz
+aGNoZW5rb0BlcGFtLmNvbT4NCj4+Pj4gU2lnbmVkLW9mZi1ieTogU2VyZ2l5IEtpYnJpayA8U2Vy
+Z2l5X0tpYnJpa0BlcGFtLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+IMKgwqAgeGVuL2luY2x1ZGUvcHVi
+bGljL2FyY2gtYXJtLmggfCAyMSArKysrKysrKysrKysrKysrKysrKysNCj4+Pj4gwqDCoCAxIGZp
+bGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKQ0KPj4+Pg0KPj4+PiBkaWZmIC0tZ2l0IGEveGVu
+L2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmgNCj4+Pj4gYi94ZW4vaW5jbHVkZS9wdWJsaWMvYXJj
+aC1hcm0uaA0KPj4+PiBpbmRleCBhMjVlODdkYmRhLi5lNmM5Y2Q1MzM1IDEwMDY0NA0KPj4+PiAt
+LS0gYS94ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0uaA0KPj4+PiArKysgYi94ZW4vaW5jbHVk
+ZS9wdWJsaWMvYXJjaC1hcm0uaA0KPj4+PiBAQCAtNDY2LDYgKzQ2NiwxOSBAQCB0eXBlZGVmIHVp
+bnQ2NF90IHhlbl9jYWxsYmFja190Ow0KPj4+PiDCoMKgICNkZWZpbmUgR1VFU1RfVlBDSV9NRU1f
+QUREUiAgICAgICAgICAgICAgICAgDQo+Pj4+IHhlbl9ta191bGxvbmcoMHgyMzAwMDAwMCkNCj4+
+Pj4gwqDCoCAjZGVmaW5lIEdVRVNUX1ZQQ0lfTUVNX1NJWkUgICAgICAgICAgICAgICAgIA0KPj4+
+PiB4ZW5fbWtfdWxsb25nKDB4MTAwMDAwMDApDQo+Pj4+ICsvKg0KPj4+PiArICogMTYgTUIgaXMg
+cmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgY29uZmlndXJhdGlvbiBzcGFjZSBiYXNlZCBvbg0KPj4+
+PiBjYWxjdWxhdGlvbg0KPj4+PiArICogOCBicmlkZ2VzICogMiBidXNlcyB4IDMyIGRldmljZXMg
+eCA4IGZ1bmN0aW9ucyB4IDQgS0IgPSAxNiBNQg0KPj4+DQo+Pj4gQ2FuIHlvdSBleHBsYWluIGhv
+dyB5b3VkIGVjaWRlZCB0aGUgIjIiPw0KPj4NCj4+IGdvb2QgcXVlc3Rpb24sIHdlIGhhdmUgYSBs
+aW1pdGVkIGZyZWUgc3BhY2UgYXZhaWxhYmxlIGluIG1lbW9yeSBsYXlvdXQNCj4+ICh3ZSBoYWQg
+ZGlmZmljdWx0aWVzIHRvIGZpbmQgYSBzdWl0YWJsZSBob2xlcykgYWxzbyB3ZSBkb24ndCBleHBl
+Y3QgYQ0KPj4gbG90IG9mIHZpcnRpby1wY2kgZGV2aWNlcywgc28gIjI1NiIgdXNlZCB2UENJIHdv
+dWxkIGJlIHRvbyBtdWNoLiBJdCB3YXMNCj4+IGRlY2lkZWQgdG8gcmVkdWNlIHNpZ25pZmljYW50
+bHksIGJ1dCBzZWxlY3QgbWF4aW11bSB0byBmaXQgaW50byBmcmVlDQo+PiBzcGFjZSwgd2l0aCBo
+YXZpbmcgIjIiIGJ1c2VzIHdlIHN0aWxsIGZpdCBpbnRvIHRoZSBjaG9zZW4gaG9sZXMuDQo+IA0K
+PiBJZiB5b3UgZG9uJ3QgZXhwZWN0IGEgbG90IG9mIHZpcnRpbyBkZXZpY2VzLCB0aGVuIHdoeSBk
+byB5b3UgbmVlZCB0d28gDQo+IGJ1c2VzPyBXb3VsZG4ndCBvbmUgYmUgc3VmZmljaWVudD8NCg0K
+DQpGb3Igbm93IG9uZSB3b3VsZCBzdWZmaWNpZW50IEkgdGhpbmsuIEBTZXJnaXkgaWYgeW91IHJl
+ZHVjZSB0byBhIHNpbmdsZSANCmJ1cyBoZXJlLCBkb24ndCBmb3JnZXQgdG8gdXBkYXRlICJidXMt
+cmFuZ2UiIHByb3BlcnR5IGluIGRldmljZS10cmVlIG5vZGUuDQoNCg0KDQoNCj4gDQo+Pg0KPj4N
+Cj4+Pg0KPj4+PiArICovDQo+Pj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJT19QQ0lfRUNBTV9CQVNF
+wqDCoMKgwqDCoMKgwqDCoMKgIHhlbl9ta191bGxvbmcoMHgzMzAwMDAwMCkNCj4+Pj4gKyNkZWZp
+bmUgR1VFU1RfVklSVElPX1BDSV9UT1RBTF9FQ0FNX1NJWkXCoMKgwqAgeGVuX21rX3VsbG9uZygw
+eDAxMDAwMDAwKQ0KPj4+PiArI2RlZmluZSBHVUVTVF9WSVJUSU9fUENJX0hPU1RfRUNBTV9TSVpF
+wqDCoMKgwqAgeGVuX21rX3VsbG9uZygweDAwMjAwMDAwKQ0KPj4+PiArDQo+Pj4+ICsvKiA2NCBN
+QiBpcyByZXNlcnZlZCBmb3IgdmlydGlvLXBjaSBtZW1vcnkgKi8NCj4+Pj4gKyNkZWZpbmUgR1VF
+U1RfVklSVElPX1BDSV9BRERSX1RZUEVfTUVNwqDCoMKgIHhlbl9ta191bGxvbmcoMHgwMjAwMDAw
+MCkNCj4+Pj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX1BDSV9NRU1fQUREUsKgwqDCoMKgwqDCoMKg
+wqAgeGVuX21rX3VsbG9uZygweDM0MDAwMDAwKQ0KPj4+PiArI2RlZmluZSBHVUVTVF9WSVJUSU9f
+UENJX01FTV9TSVpFwqDCoMKgwqDCoMKgwqDCoCB4ZW5fbWtfdWxsb25nKDB4MDQwMDAwMDApDQo+
+Pj4+ICsNCj4+Pj4gwqDCoCAvKg0KPj4+PiDCoMKgwqAgKiAxNk1CID09IDQwOTYgcGFnZXMgcmVz
+ZXJ2ZWQgZm9yIGd1ZXN0IHRvIHVzZSBhcyBhIHJlZ2lvbiB0byANCj4+Pj4gbWFwIGl0cw0KPj4+
+PiDCoMKgwqAgKiBncmFudCB0YWJsZSBpbi4NCj4+Pj4gQEAgLTQ3Niw2ICs0ODksMTEgQEAgdHlw
+ZWRlZiB1aW50NjRfdCB4ZW5fY2FsbGJhY2tfdDsNCj4+Pj4gwqDCoCAjZGVmaW5lIEdVRVNUX01B
+R0lDX0JBU0XCoCB4ZW5fbWtfdWxsb25nKDB4MzkwMDAwMDApDQo+Pj4+IMKgwqAgI2RlZmluZSBH
+VUVTVF9NQUdJQ19TSVpFwqAgeGVuX21rX3VsbG9uZygweDAxMDAwMDAwKQ0KPj4+PiArLyogNjQg
+TUIgaXMgcmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgUHJlZmV0Y2ggbWVtb3J5ICovDQo+Pj4NCj4+
+PiBUaGlzIGRvZXNuJ3Qgc2VlbSBhIGxvdCBkZXBlbmRpbmcgb24geW91ciB1c2UgY2FzZS4gQ2Fu
+IHlvdSBkZXRhaWxzIGhvdw0KPj4+IHlvdSBjYW4gdXAgd2l0aCAiNjQgTUIiPw0KPj4NCj4+IHRo
+ZSBzYW1lIGNhbGN1bGF0aW9uIGFzIGl0IHdhcyBkb25lIGNvbmZpZ3VyYXRpb24gc3BhY2UuIEl0
+IHdhcyBvYnNlcnZlZA0KPj4gdGhhdCBvbmx5IDE2SyBpcyB1c2VkIHBlciB2aXJ0aW8tcGNpIGRl
+dmljZSAobWF5YmUgaXQgY2FuIGJlIGJpZ2dlciBmb3INCj4+IHVzdWFsIFBDSSBkZXZpY2UsIEkg
+ZG9uJ3Qga25vdykuIFBsZWFzZSBsb29rIGF0IHRoZSBleGFtcGxlIG9mIERvbVUgbG9nDQo+PiBi
+ZWxvdyAodG8gc3RyaW5ncyB0aGF0IGNvbnRhaW4gIipCQVIgNDogYXNzaWduZWQqIik6DQo+IA0K
+PiBXaGF0IGFib3V0IHZpcnRpby1ncHU/IEkgd291bGQgZXhwZWN0IGEgYml0IG1vcmUgbWVtb3J5
+IGlzIG5lY2Vzc2FyeSBmb3IgDQo+IHRoYXQgdXNlIGNhc2UuDQoNCg0KSW4gdGhlIERvbVUgbG9n
+IEkgcHJvdmlkZWQgZHVyaW5nIGxhc3QgcmVzcG9uc2UsIHZpcnRpby1ncHUgd2FzIGFsc28gDQpw
+cmVzZW50IGFtb25nIDUgdmlydGlvLXBjaSBkZXZpY2VzIGFuZCBpdCB3b3JrZWQgYXQgdGhlIHJ1
+bnRpbWUNCg0KWyAgICAwLjQ3NDU3NV0gcGNpIDAwMDE6MDA6MDMuMDogWzFhZjQ6MTA1MF0gdHlw
+ZSAwMCBjbGFzcyAweDAzODAwMA0KWyAgICAwLjQ3NjUzNF0gcGNpIDAwMDE6MDA6MDMuMDogcmVn
+IDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAwMDAzZmZmIA0KNjRiaXQgcHJlZl0NCi4uLi4NClsg
+ICAgMC40OTY2NTZdIHBjaSAwMDAxOjAwOjAzLjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIA0KMHgz
+YTgwODAwMC0weDNhODBiZmZmIDY0Yml0IHByZWZdDQouLi4uDQpbICAgIDAuNTUwMjA4XSB2aXJ0
+aW8tcGNpIDAwMDE6MDA6MDMuMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpDQouLi4u
+DQowMDAxOjAwOjAzLjAgRGlzcGxheSBjb250cm9sbGVyOiBSZWQgSGF0LCBJbmMuIFZpcnRpbyBH
+UFUgKHJldiAwMSkNCg0KSSBndWVzcywgaW5kZWVkIGl0IG5lZWRzIG1vcmUgbWVtb3J5LCBidXQg
+dGhpcyBpcyByZWxhdGVkIHRvIEkvTyANCmRlc2NyaXB0b3JzIGF0IHRoZSBydW50aW1lIHRoYXQg
+cGFzc2VkIHZpYSB2aXJ0cXVldWUuDQoNCg0KDQo+IA0KPiBBbnkgY2FzZSwgd2hhdCBJIGFtIGxv
+b2tpbmcgZm9yIGlzIGZvciBzb21lIGV4cGxhbmF0aW9uIGluIHRoZSBjb21taXQgDQo+IG1lc3Nh
+Z2Ugb2YgdGhlIGxpbWl0cy4gSSBkb24ndCBwYXJ0aWN1bGFybHkgY2FyZSBhYm91dCB0aGUgZXhh
+Y3QgbGltaXQgDQo+IGJlY2F1c2UgdGhpcyBpcyBub3QgcGFydCBvZiBhIHN0YWJsZSBBQkkuDQoN
+Cm9rLCBzdXJlDQoNCg0KPiANCj4gQ2hlZXJzLA0KPiA=
 
