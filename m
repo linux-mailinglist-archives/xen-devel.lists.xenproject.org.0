@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806AF7EC2C4
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 13:45:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633630.988663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721AE7EC30B
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 13:55:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633633.988672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3FH7-0000bK-9D; Wed, 15 Nov 2023 12:45:45 +0000
+	id 1r3FPk-00041F-3C; Wed, 15 Nov 2023 12:54:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633630.988663; Wed, 15 Nov 2023 12:45:45 +0000
+Received: by outflank-mailman (output) from mailman id 633633.988672; Wed, 15 Nov 2023 12:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3FH7-0000Yk-6H; Wed, 15 Nov 2023 12:45:45 +0000
-Received: by outflank-mailman (input) for mailman id 633630;
- Wed, 15 Nov 2023 12:45:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r3FH5-0000Ya-QG
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 12:45:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3FH5-0000XE-FQ; Wed, 15 Nov 2023 12:45:43 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3FH5-0003bg-9k; Wed, 15 Nov 2023 12:45:43 +0000
+	id 1r3FPk-0003yc-0U; Wed, 15 Nov 2023 12:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 633633;
+ Wed, 15 Nov 2023 12:54:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CM7O=G4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1r3FPi-0003yW-Kr
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 12:54:38 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2197e3b9-83b6-11ee-9b0e-b553b5be7939;
+ Wed, 15 Nov 2023 13:54:36 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2c6efcef4eeso89603671fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Nov 2023 04:54:36 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ z20-20020a05651c023400b002bb99bd0865sm1652201ljn.38.2023.11.15.04.54.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Nov 2023 04:54:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,74 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kUwTVv6zEwKQN3nfKbGHzcwRFgO9CS0FtdL4iqd2M8s=; b=O9KG5S83x20MAstwJtN8QVEALe
-	sADYuGvixTzbOv9OVyQQEexpnNcZ4mDDkHD0OvmZjEVzyuE7wGx1HnMTvFRRPoWsivjq0DIQX+mtx
-	kmzj01RCSJbTttsMu8UHXKywUmlXtJv/1A01oyck5cZUqvbjCxEI4O9LxRrJlbEF4blQ=;
-Message-ID: <d290546d-ff44-40d8-aca1-e421bf045481@xen.org>
-Date: Wed, 15 Nov 2023 12:45:41 +0000
+X-Inumbo-ID: 2197e3b9-83b6-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700052876; x=1700657676; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FpMZ16w6mhgG7e3NcyocROQ/x0YvdkFv//zYTJ3OUY4=;
+        b=lyAaB4uFJcKkh5/A0QB6Cw6LN/LvmHf2nXoQMxibzhSo9HNqBbi9Wf23p/jLsg6xV2
+         B2Ngo46lsiCfCWayR/hcD6XxActRcu2L0Va2RzRLwBiIPQGTyLOhAyCcvpdWM4gQ1REN
+         GxkPnVd3dS7IuDuUNPF+zhtQIitXkjtBrzvz18TBHTpIMYpehl7mQoaNvRefIeDgghlp
+         cUr5hI3j8U6fcy0a3LA/kL8fEYeHwjO/qbm2pKi9RnptdbCIR9Vur7CFQD2RWCTFdHQR
+         E9qdVwwEbfUxIyyJZRHjjpTUKz13qLIDnwg7alGko2sK2Z7Eb1r+dvu2KA/JJlFY3gDu
+         sQgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700052876; x=1700657676;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FpMZ16w6mhgG7e3NcyocROQ/x0YvdkFv//zYTJ3OUY4=;
+        b=HkRvcvT/OHArWJNT6agSIKtJpUyd3Fnipj/72YJhqk6XKRCKB5ezgrdTMExudIDtil
+         CJ6u2S3J7Ccg4wAjjTAvslx6eHjcAYLUQ5zjTFXciS/f7TOplCDwhYU4ROPTe+7IUm2S
+         o1wilN86EuIB91/JTmIkMogK7KSF9hbC8FolTIHBt/j4E+eVFYsMfvGic7bahkKxnVaO
+         GGNGIkkWb8B6ZfELfqq1aJIY65HaQYhQS8WU0mS38CILwNJZ3j8FEZwv/U6NukEJJYLV
+         ceXC/fNRoti0PCV5RPWWV3HTRxktyhf+0Gc8nfc0kpB6ps195gRTuaaAue13ys93kI9m
+         IVww==
+X-Gm-Message-State: AOJu0YwJ3M5yzsHEpdxzi0HS6jTORppxrcNR+6u6WJoJnZ3c2OQePZC1
+	54f9V/pJZqNiJ22Pv1aaV3HCY1b/nK8=
+X-Google-Smtp-Source: AGHT+IELjBC1fDKp17JiXzyZdSRmvqdRRYu3vYJxefp/rwAnIDhSGEnf5qPUuSzymxpGZEQBBDXOEQ==
+X-Received: by 2002:a2e:9b54:0:b0:2bc:b75e:b88 with SMTP id o20-20020a2e9b54000000b002bcb75e0b88mr5238933ljj.18.1700052875820;
+        Wed, 15 Nov 2023 04:54:35 -0800 (PST)
+Message-ID: <e1041215c28cd3582ed1b2ecc64a0e2ef3c11c54.camel@gmail.com>
+Subject: Re: [PATCH v2 13/15] xen/asm-generic: introduce stub header
+ monitor.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
+	 <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	xen-devel@lists.xenproject.org
+Date: Wed, 15 Nov 2023 14:54:34 +0200
+In-Reply-To: <0ec74ba0-895f-4642-ae83-fc2617435303@suse.com>
+References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
+	 <9b40493df82b99904b2e4f6cf9dc8888db4a2a49.1699633310.git.oleksii.kurochko@gmail.com>
+	 <0ec74ba0-895f-4642-ae83-fc2617435303@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 5/6] xen/arm: Intercept vPCI config accesses and
- forward them to emulator
-Content-Language: en-GB
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
- <20231115112611.3865905-6-Sergiy_Kibrik@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231115112611.3865905-6-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+On Wed, 2023-11-15 at 11:00 +0100, Jan Beulich wrote:
+> On 10.11.2023 17:30, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/include/asm-generic/monitor.h
+> > @@ -0,0 +1,62 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +/*
+> > + * include/asm-GENERIC/monitor.h
+> > + *
+> > + * Arch-specific monitor_op domctl handler.
+> > + *
+> > + * Copyright (c) 2015 Tamas K Lengyel (tamas@tklengyel.com)
+> > + * Copyright (c) 2016, Bitdefender S.R.L.
+> > + *
+> > + */
+> > +
+> > +#ifndef __ASM_GENERIC_MONITOR_H__
+> > +#define __ASM_GENERIC_MONITOR_H__
+> > +
+> > +#include <xen/sched.h>
+>=20
+> What is this needed for? I expect ...
+>=20
+> > +struct xen_domctl_monitor_op;
+> > +
+> > +static inline
+> > +void arch_monitor_allow_userspace(struct domain *d, bool
+> > allow_userspace)
+>=20
+> ... struct domain, but since you never de-reference any such pointer,
+> forward-
+> declaring that (just like struct xen_domctl_monitor_op) would do
+> here. Which
+> would leave you with needing at most xen/types.h, but maybe as little
+> as
+> xen/stdbool.h and xen/stdint.h.
+Yes, the reason for " #include <xen/sched.h> " was ' struct domain '.
+Let's switch to forward-declaring.
 
-On 15/11/2023 11:26, Sergiy Kibrik wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This is needed for supporting virtio-pci.
-> 
-> In case when the PCI Host bridge is emulated outside of Xen
-> (IOREQ server), we need some mechanism to intercept config space
-> accesses on Xen on Arm, and forward them to the emulator
-> (for example, virtio backend) via IOREQ request.
-> 
-> Unlike x86, on Arm these accesses are MMIO, there is no CFC/CF8 method
-> to detect which PCI device is targeted.
-> 
-> In order to not mix PCI passthrough with virtio-pci features we add
-> one more region to cover the total configuration space for all possible
-> host bridges which can serve virtio-pci devices for that guest.
-> We expose one PCI host bridge per virtio backend domain.
-I am a little confused. If you expose one PCI host bridge per virtio 
-backend, then why can't the backend simply register the MMIO region and 
-do the translation itself when it receives the read/write?
+Shouldn't it be included <xen/compiler.h> too for inline?
 
-To me, it only makes sense for Xen to emulate the host bridge access if 
-you plan to have one host bridge shared between multiple IOREQ domains 
-or mix with PCI pasthrough.
+~ Oleksii
 
- From my perspective, I don't expect we would have that many virtio PCI 
-devices. So imposing a host bridge per device emulator will mean extra 
-resource in the guest as well (they need to keep track of all the 
-hostbridge).
+> > +{
+> > +}
+> > +
+> > +static inline
+> > +int arch_monitor_domctl_op(struct domain *d, struct
+> > xen_domctl_monitor_op *mop)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific monitor ops on GENERIC. */
+> > +=C2=A0=C2=A0=C2=A0 return -EOPNOTSUPP;
+> > +}
+> > +
+> > +int arch_monitor_domctl_event(struct domain *d,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen_domctl_monitor_op *mop);
+> > +
+> > +static inline
+> > +int arch_monitor_init_domain(struct domain *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific domain initialization on GENERI=
+C. */
+> > +=C2=A0=C2=A0=C2=A0 return 0;
+> > +}
+> > +
+> > +static inline
+> > +void arch_monitor_cleanup_domain(struct domain *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /* No arch-specific domain cleanup on GENERIC. */
+> > +}
+> > +
+> > +static inline uint32_t arch_monitor_get_capabilities(struct domain
+> > *d)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 return 0;
+> > +}
+> > +
+> > +#endif /* __ASM_GENERIC_MONITOR_H__ */
+> > +
+> > +
+> > +/*
+> > + * Local variables:
+> > + * mode: C
+> > + * c-file-style: BSD
+> > + * c-basic-offset: 4
+> > + * indent-tabs-mode: nil
+> > + * End:
+> > + */
+>=20
 
-So in the longer run, I think we want to allow mixing PCI passthrough 
-and virtio-PCI (or really any emulated PCI because nothing here is 
-virtio specific).
-
-For now, your approach would be OK to enable virtio PCI on Xen. But I 
-don't think there are any changes necessary in Xen other than reserving 
-some MMIO regions/IRQ.
-
-Cheers,
-
--- 
-Julien Grall
 
