@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58EA47EC138
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 12:23:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633566.988483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4097EC142
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 12:26:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633569.988493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3DyF-0003H2-F8; Wed, 15 Nov 2023 11:22:11 +0000
+	id 1r3E2J-00043k-TD; Wed, 15 Nov 2023 11:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633566.988483; Wed, 15 Nov 2023 11:22:11 +0000
+Received: by outflank-mailman (output) from mailman id 633569.988493; Wed, 15 Nov 2023 11:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3DyF-0003EO-C6; Wed, 15 Nov 2023 11:22:11 +0000
-Received: by outflank-mailman (input) for mailman id 633566;
- Wed, 15 Nov 2023 11:22:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r3DyE-0003EI-5X
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 11:22:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3DyD-0007UC-Jf; Wed, 15 Nov 2023 11:22:09 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3DyD-0008UD-DX; Wed, 15 Nov 2023 11:22:09 +0000
+	id 1r3E2J-00040j-QM; Wed, 15 Nov 2023 11:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 633569;
+ Wed, 15 Nov 2023 11:26:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zXr+=G4=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1r3E2H-00040Y-Tf
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 11:26:21 +0000
+Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cbb761b4-83a9-11ee-98db-6d05b1d4d9a1;
+ Wed, 15 Nov 2023 12:26:19 +0100 (CET)
+Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id ECD491CC41E;
+ Wed, 15 Nov 2023 06:26:17 -0500 (EST)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id E471B1CC41D;
+ Wed, 15 Nov 2023 06:26:17 -0500 (EST)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.109])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id D12831CC419;
+ Wed, 15 Nov 2023 06:26:16 -0500 (EST)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,170 +50,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=qo3KaNunEgv53SCHfI/K4uLo/sJkZL6X4BgMutUSWoY=; b=hYgAFk/J5S7/tUebh4rKjpYw+y
-	Gk5KEf5cwKrYJ6JjMDLVFcXSbkN7T7veNC4eGoFtVZ3jeddZIYDh9hqXD0sAaaMiy+pTf0T0OCND2
-	y22hjHeHoN2ERIQ8/ZsTgZkFapYEMtq578rMNso5OSR7lJ++ngmgZWZw3vHY28PMmFxM=;
-Message-ID: <ecbfa46d-2e0a-4685-9695-f7de37e7b6ce@xen.org>
-Date: Wed, 15 Nov 2023 11:22:06 +0000
+X-Inumbo-ID: cbb761b4-83a9-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=IYnOcdGdFg+jMm+KFkyEmtwhFYJmyjS/Q+tOUVXRUvo=; b=lKzZ
+	Ua2yHiUFz9LpkkQwJHsHv6pGvc4JlgBtB9jLxaeYR51zybAjmjmpZgap+bA6xanR
+	8QG0P8zVDxNhKpf9KI68CuYF8fsOFBvId8aoSKwjx5xRAVT6XGLZPSYh0d4zI/CW
+	WWrMMl0j9sJSkGWsFoiNeq6x/l+QHisR/y100jU=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [RFC PATCH 0/6] ARM virtio-pci initial support
+Date: Wed, 15 Nov 2023 13:26:05 +0200
+Message-Id: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 1/2] automation/eclair: make the docs for MISRA
- C:2012 Dir 4.1 visible to ECLAIR
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, bertrand.marquis@arm.com,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>
-References: <cover.1699975581.git.nicola.vetrini@bugseng.com>
- <f14b266f18089f5951a3e390a5ebfe713beb8dbb.1699975581.git.nicola.vetrini@bugseng.com>
- <f63fa9b5-a821-49d4-88f6-7d991ab6c644@xen.org>
- <1689d4b47d708098c43601a58e867f1c@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1689d4b47d708098c43601a58e867f1c@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Pobox-Relay-ID:
+ CAB65B88-83A9-11EE-B3ED-78DCEB2EC81B-90055647!pb-smtp1.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
 Hi,
+In this patch series we introduce support of PCI devices emulated by Virt=
+io=20
+on ARM platform. A guest system is presented with Virtio Host bridge devi=
+ce, through
+which a number of emulated PCI devices (e.g. disk, network, graphic, audi=
+o etc)
+can work with corresponding guests' subsystems.
 
-On 15/11/2023 11:02, Nicola Vetrini wrote:
-> On 2023-11-14 23:12, Julien Grall wrote:
->> Hi,
->>
->> On 14/11/2023 15:36, Nicola Vetrini wrote:
->>> To be able to check for the existence of the necessary subsections in
->>> the documentation for MISRA C:2012 Dir 4.1, ECLAIR needs to have a 
->>> source
->>> file that is built.
->>>
->>> This file is generated from 'C-runtime-failures.rst' in docs/misra
->>> and the configuration is updated accordingly.
->>>
->>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>> ---
->>> Changes from RFC:
->>> - Dropped unused/useless code
->>> - Revised the sed command
->>> - Revised the clean target
->>>
->>> Changes in v2:
->>> - Added explanative comment to the makefile
->>> - printf instead of echo
->>>
->>> Changes in v3:
->>> - Terminate the generated file with a newline
->>> - Build it with -std=c99, so that the documentation
->>>    for D1.1 applies.
->>> Changes in v5:
->>> - Transform and build the file directly in the eclair-specific directory
->>> ---
->>>   automation/eclair_analysis/build.sh   | 21 +++++++++++++++++++--
->>>   automation/eclair_analysis/prepare.sh |  7 ++++---
->>>   2 files changed, 23 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/automation/eclair_analysis/build.sh 
->>> b/automation/eclair_analysis/build.sh
->>> index ec087dd822fa..f24292ed0643 100755
->>> --- a/automation/eclair_analysis/build.sh
->>> +++ b/automation/eclair_analysis/build.sh
->>> @@ -33,12 +33,29 @@ else
->>>     PROCESSORS=6
->>>   fi
->>>   +runtime_failures_docs() {
->>> +  doc="C-runtime-failures.rst"
->>> +  builddir="automation/eclair_analysis"
->>> +
->>> +  cp "docs/misra/${doc}" "${builddir}"
->>
->> Is it necessary to copy the .rst? IOW, would it be sufficient to use...
->>
->>> +  cd "${builddir}"
->>> +  printf "/*\n\n" >"${doc}.tmp"
->>> +  sed -e 's|\*/|*//*|g' "${doc}" >>"${doc}.tmp"
->>
->> ... docs/misc/${doc} here?
->>
-> 
-> I didn't want to leave a stray file under docs/misra, but it's not 
-> essential.
+For that purpose we add a new "pci" virtio transport mechanism in xl
+configuration, in addition to present "mmio" mechanism.
 
-I am confused. I am suggesting to use:
+Suitable MMIO and IRQ ranges are reverved, for guests' PCI accesses are t=
+rapped
+and forwarded to IOREQ server to be handled outside of Xen. Also guest's =
+DT
+extended with PCI (#INTA..#INTD) interrupt mappings.
 
-sed -e 's|\*/|*//*|g' "../../docs/misc/${doc}" >> "${doc}.tmp"
+For now only supported combination of backends is when both PCI Host brid=
+ge
+and all PCI devices behind it are emulated by the same single instance (i=
+.e. Qemu).
 
-So *.tmp is still created at the same place.
+The code was tested with QEMU backends, yet it aims to be extendable to s=
+upport
+stand-alone backends.
 
-> 
->>> +  printf "\n\n*/\n" >>"${doc}.tmp"
->>> +  mv "${doc}.tmp" "${doc}.c"
->>
->> NIT: I am not sure why you need to first create .tmp and then create.c.
->>
-> 
-> Wasn't this a pattern to defend against interruptions of the build, just 
-> as I did in v3?
-> 
-> +$(TARGETS:.o=.c): %.c: %.rst
-> +    printf "/*\n\n" > $@.tmp
-> +    sed -e 's|\*/|*//*|g' $< >> $@.tmp
-> +    printf "\n\n*/\n" >> $@.tmp
-> +    mv $@.tmp $@
+ -Sergiy
 
-Yes but it makes sense for the Makefile because the target would not be 
-re-executed if *.c exists.
+Oleksandr Tyshchenko (6):
+  libxl: Pass max_vcpus to Qemu in case of PVH domain (Arm) as well
+  xen/public: arch-arm: reserve resources for virtio-pci
+  libxl/arm: Add basic virtio-pci support
+  libxl/arm: Reuse generic PCI-IOMMU bindings for virtio-pci devices
+  xen/arm: Intercept vPCI config accesses and forward them to emulator
+  libxl: Add "backend_type" property for the Virtio devices
 
-But I don't think this is the case for you because you are using a bash 
-script. So your function should always be re-executed regardless on 
-whether it was interrupted or not.
+ docs/man/xl.cfg.5.pod.in              |  18 +-
+ tools/libs/light/libxl_arm.c          | 351 ++++++++++++++++++++++++--
+ tools/libs/light/libxl_create.c       |  18 +-
+ tools/libs/light/libxl_dm.c           |  98 ++++++-
+ tools/libs/light/libxl_internal.h     |   5 +
+ tools/libs/light/libxl_types.idl      |  41 ++-
+ tools/libs/light/libxl_virtio.c       | 119 +++++++--
+ tools/xl/xl_parse.c                   |  39 +++
+ xen/arch/arm/Kconfig                  |  10 +
+ xen/arch/arm/domain.c                 |   2 +-
+ xen/arch/arm/{ =3D> include/asm}/vpci.h |  11 +
+ xen/arch/arm/io.c                     |   8 +-
+ xen/arch/arm/ioreq.c                  |  19 +-
+ xen/arch/arm/vpci.c                   | 106 +++++++-
+ xen/include/public/arch-arm.h         |  21 ++
+ 15 files changed, 797 insertions(+), 69 deletions(-)
+ rename xen/arch/arm/{ =3D> include/asm}/vpci.h (75%)
 
-> 
->>> +
->>> +  # Cannot redirect to /dev/null because it would be excluded from 
->>> the analysis
->>> +  "${CROSS_COMPILE}gcc-12" -std=c99 -c "${doc}.c" -o "${doc}.o"
->>
->> NIT: It would be helpful to specify why -std=c99 is used. Above, you 
->> suggest this is to enable D1.1.
->>
-> 
-> Yeah, the comment in the changelog should be pasted here
-> 
->> NIT: Can we define CC and use here and ...
->>
->>> +  cd -
->>> +}
->>> +
->>>   (
->>> -  cd xen
->>> +  runtime_failures_docs
->>>       make "-j${PROCESSORS}" "-l${PROCESSORS}.0"    \
->>>          "CROSS_COMPILE=${CROSS_COMPILE}"         \
->>>          "CC=${CROSS_COMPILE}gcc-12"              \
->>
->> ...? This would make easier to re-use the code.
->>
-> 
-> I don't expect this build script to be changed much to be honest, but if 
-> you think
-> this is beneficial then it's ok.
+--=20
+2.25.1
 
-This is not only about code evolving. It makes easier to spot your are 
-using the same compiler. I would not have made the remark if you were 
-using 'gcc'.
-
-But I noticed you were using gcc-12 and originally thought it was a 
-mistake until I saw the second use.
-
-The advantage of a variable CC (and CXX) is you can add a comment on top 
-why you are specifically requestion gcc-12? IOW, why is gcc not fine?
-
-Cheers,
-
--- 
-Julien Grall
 
