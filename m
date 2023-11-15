@@ -2,35 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AC967EC8C9
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 17:42:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.633759.988827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C28747EC8F8
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Nov 2023 17:53:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.633764.988837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3IyO-0000i9-Hx; Wed, 15 Nov 2023 16:42:40 +0000
+	id 1r3J7f-0003DL-Fy; Wed, 15 Nov 2023 16:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 633759.988827; Wed, 15 Nov 2023 16:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 633764.988837; Wed, 15 Nov 2023 16:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3IyO-0000fu-Dy; Wed, 15 Nov 2023 16:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 633759;
- Wed, 15 Nov 2023 16:42:39 +0000
+	id 1r3J7f-0003BI-D7; Wed, 15 Nov 2023 16:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 633764;
+ Wed, 15 Nov 2023 16:52:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WuA2=G4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1r3IyM-0000fk-Gd
- for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 16:42:39 +0000
-Received: from sonic301-22.consmr.mail.gq1.yahoo.com
- (sonic301-22.consmr.mail.gq1.yahoo.com [98.137.64.148])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9deed73-83d5-11ee-9b0e-b553b5be7939;
- Wed, 15 Nov 2023 17:42:35 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic301.consmr.mail.gq1.yahoo.com with HTTP; Wed, 15 Nov 2023 16:42:33 +0000
-Received: by hermes--production-bf1-5b945b6d47-ksq7q (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID eecdd960dd027959e27ffe8bc14eb181; 
- Wed, 15 Nov 2023 16:42:29 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6a9m=G4=epam.com=prvs=56830be07e=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1r3J7d-0003BC-CQ
+ for xen-devel@lists.xenproject.org; Wed, 15 Nov 2023 16:52:13 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f8ad4a0-83d7-11ee-9b0e-b553b5be7939;
+ Wed, 15 Nov 2023 17:52:08 +0100 (CET)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AFGnAsI028095; Wed, 15 Nov 2023 16:51:55 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2104.outbound.protection.outlook.com [104.47.18.104])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ucw0vhg1x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Nov 2023 16:51:54 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by GVXPR03MB10498.eurprd03.prod.outlook.com (2603:10a6:150:14c::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.19; Wed, 15 Nov
+ 2023 16:51:48 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::fea9:8f02:fb13:fd44%6]) with mapi id 15.20.6977.029; Wed, 15 Nov 2023
+ 16:51:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,307 +53,323 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9deed73-83d5-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1700066553; bh=srxkkwxvcfRXHirYDy7Km59c+mkn9/Rin6DQFhiCsA0=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=iek3tzAuouhJoN7jbq+MFDMJsX35xBq2gBEzKk0TBWVPVvvezexszqE5lbjvNFZ/zFSyd1ISqf6Qcnx9EUKpXJFQ04+nUiyuweqfCQBcd/watTqRwBazri1XP2LwUwo1gchivBgah3qbW/FUUjqTsC/SB8rbiULvLBh4ZABc0AliIMrV3V6JFAGNHq2Sbk5lW/fUvV8N61wdAMZ6B8nxv0t++/nCIgPxf6UKBaUfwshzRAQ9zV5vKH6c/KUlKiM1u/veW9V4z/JOLE5GB3oyzFMHOwNfMVkX82/dAmfIVy2hKZdqFlrYO2Q7S16Ow/NBqTQtdej05IZHCg3l/dsE5A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1700066553; bh=ZMIbsuAamn5sYS2oC8biMiXGuR1kMPPESY5j4gdKAoD=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=PwoVKisL8AJxVEFrGSPIpgHJaB3SU1tqOeBHmZawLEI3Dqxg85QSfi2MYvraLKJko8Ec6un75zxoi5ouAwGao6CWA1TVaN3VU7/+uRKIM5zmT6oJkOekHVaer2qeL8D7bKuYgMplB5F961QdRyABhsZ4zSEWFFVIdr32QGxQxUKpwaZFm9/KtVAsK6CjGiXYyiSuMBVVbMR6eiXNXb1PNt1I/RqCkR3ViIfGRIFNSPBjd/a4aKGRStN4kLQAeBRPGxxpA6ndP/UHtZ/ypiFVdKqUhJR6wchgGlnuOabjnUB77k1vOexzIkE3V90C5sZyEreyU+kqjGmfJYXMCuaalw==
-X-YMail-OSG: 3HrNc5sVM1kq47enKgK1kEy4exFL6UFQuTKeWy.V9vPjV1VoyvOgqEtJCKONVTK
- YbGkrF5WcvM4ZqmAE4sZG7mik3X7oYunfN9t92_1C4lCxxKnznyk0Pv3L77U05HmhuADzqe10LDa
- Gy2Qda1z0xDlWGWvWhhs11RltaOvujlWwInsSnOTkKJXJTK8I_NaGtUNgThsM47a.kVV2WvjYf.7
- GNIiDzc0i5rcNtYfa0Zn3ouoyq_534sJMrYKMVY.hNz5XLRa2x0tChVEnUXAytANoyEplGfc4wLM
- bMa.fJG2wb2FkPyAjLS5PMjtsYZihwAMrDd1UXToHaw2F7a74QipI6zP80cr8elCVW9MvFVo1m90
- B6gjB_oYX0GCycUzvZFFvqMvzHc4qqTOAtRiObnIIfzDX_k8fIiLS9lTxJ1jFRTMCyJ_hOoXPTnl
- kVuRHQcOYQpR19rajAprSfZRsNYFJ1JgLyXRZNo6_aMDUZEiFxCF78Z51MoWdhB3DzomlXjsPvx7
- Tr1jGCaU0eJIQGOcucd6eUjwEGFiDRfCtNBQzs_fRUaAw2NjJawYxiAOGT3snhZMuM_EwQoi5XLV
- h3j8JpFyVjERZDmA57i.zja8OzXVGMCuR42hYFJx85tlkmdP7K8QsqQMx0NAdjsoezn3tkLoxBfp
- PMXIHYWgNFRbVwen.GIDYbFq5.3C5lcqOHhziajDDLb_ECudw9n_XWJSFrnfUx9LTq6Qm9MQ5XmY
- ETCRaBS8_Np8igPapLiRuk6qsFzLBY9MmUyjfvn8tw8XFy7FyiqpuetuPqJ1SuIspDDvG_e6Y1_I
- FCVmVgoUxRWll.FWWXgO6KKBwU5lU0rnho6cPB9WsUfbyE3eMFjDHSb.mdiFjd0dXpki3HH6nXjS
- bTv4XPKfoeTp_MzTr_b7snU6VsrmMjjN_QZXt34v8mIaPl8d6aI6e_T7Fo8qC7qfD4Esl5dN_cVD
- FSCtkQ2WdTV.zeIJJPRhNwnuFkcJHEG9qE0EmX6CWx.bGYWPt8G2MBFHBuBEdMah5m7fHjjhhFMv
- MHc3SweFAo.MTB0944xtzlm_Gvf2H3ff1xzrSmYrkgxnuG09kdxTL0nvKvaMZR5gkpfvhtTN7Dij
- 2VLYqynEBiirSfgIgcKNCMMh9MuMDsPXfy.twocmtdW.jm3hNBeGjlawj0Fx2Lo7rBRuWXfWd.cu
- 2aJj242bwyfYO0Xrlhp0y8ZrZ4jSKUFjBzC1CDSHwk.PXjuOEwFStvM1JZOhPVPU6Hgr8a7uO5q6
- RzHwx5as2TFKiGw0YkVZkC3esfdphieWAP16PjJFdG_YsRUHhMVljjXkdDwjSZVg72BW2ISp.ruy
- .ZkMRFBdaTDFlqgAszukz2IWHesjcCeWlP1kfW_sHXDDxTVxCq4TexWe1CZZVKKudqG_vNGtyYqB
- mqjcj.d90WGtugu4DF17In_Vy9QKXbin6xNFbPvvTR7oXH2SSpUJPFln9A6trbDngBk2TkdQPUvA
- FWp7vYm3pRzU4ozOMm751Jt7fn4rNbVgaNeh7FVbc_uP3RFeRt4ZZPhy0rwZX4J8R6Z5rnsiaojB
- Z4SQSwIxmAJ4KPd7tNmwroNBNILUi5.vK5esXgmNWmybck31kw.bc.0_jE3vXkRnTdflP6.Os8Qn
- 0wvo87fJW_9XQFgUAic289jEH6.awje_YsUAN13zjIkgh4WBG1UHXSBb68.lTf.KFlNDfI5OC8ic
- oy18pdVVy8JEAZACx8TcaK86jljg2luQLfe0ER61Pf20AWeTJl3m2CW15qAI1buM6P9bC8KePRPM
- aorRQATSNbKxbzOrMAtZ9TK7XVjd7ZmJNS_vQzJXtrPb3AA.68faNrE2cNS9m6FEn76sIcPmoYWu
- WZK0hh9o32aRPfBwtIs8PnXO49m714tm4S1xLb1gF3m6uCuGwrq.KCYhY_UfnTi6tVd72zbjhwMN
- NIQo2HxAVDjadcXGIaoqvVXpiAyewCJTMYkVy_FP2dISFPfFWjyu2u2oRjaB2WjXB6ZRK7ueGjo9
- m4UZeCTK.cmyFQ9SqSXllzZ56uvtl45NhrGHkFNobN7AZ9vAPPgp9GI8aP7mjIUCd4FZa.hLbMcV
- qXecKtZZWv81TU_dHedfJ25wiUz2Nfy74asplrGkWNeKBALmHAkf7A6tiNKv3DpRCgSCE25eI3kG
- t36r_6uzAqtcQWxBNmoFDUIs2PQPpBSxgyC6W8QS6k5rtye9HGU5CUSDNSNX0uYi.wz5NIrelJyZ
- FnRJ2SIW05SUeGHYzOWzMH22x3Fwrhc0-
-X-Sonic-MF: <brchuckz@aim.com>
-X-Sonic-ID: 29654490-aa9f-4a19-b0a0-58f38a1284f5
-Message-ID: <0aeaf3a8-096b-4ae2-be40-6d39914b28ea@netscape.net>
-Date: Wed, 15 Nov 2023 11:42:28 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Values generated by the ViryaOS uboot-script-gen do not work
- correctly on the Chromebook Snow
-To: Mario Marietto <marietto2008@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <CA+1FSiiq9Z2sWq9R=7wEA0=LCavohupBedJOVnGrCHGiMZhR=A@mail.gmail.com>
- <alpine.DEB.2.22.394.2311141445120.160649@ubuntu-linux-20-04-desktop>
- <CA+1FSijk1gVZ2OZC=UCWQzUed2Ve5Nu5CagSTAnHPGf0hBRy-A@mail.gmail.com>
- <alpine.DEB.2.22.394.2311141513330.160649@ubuntu-linux-20-04-desktop>
- <CA+1FSijOYJneLxEfss2BoY0Q4vafa+gVdQeyOfy7A_bTAA6QLw@mail.gmail.com>
+X-Inumbo-ID: 4f8ad4a0-83d7-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QFOag7KHuEpIMh9D8/GGfId8NNwBqgu0e3r3wT7t19E1l1PK/UrRci1QiV4qe/iAjMCCsVPdpvdUPboLVcQMScAynsf+5NybABEbYogeK3bAt8BKT4TQxcWMh2/WaurIS+Z+dGiEhb7+1ysSYHrSTDXYHdAVVtTe4g87Xbq4tpH+bV4d0GCwxcvjidv6XcABsx/YNS18qwGu7/FlhshrtRMcY/dGiLYzdfL4+Yqjl5nBjKsydnqzVDFYRNY9lCwodVsboxe3CdB43rCeN46RLI0TIkCXOysSovoMIoBGzIfxrjN8iV7o/bpfucBrAR9/FclJecPWxsBlEmwqi33ckg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sJ4iETFiZ7hKhu5y0Odu16VNPxJx+SDND1cCLFex0RA=;
+ b=hD2RayFolmHvsDBDHA9HgLjZ8HN6po2bZFe1CACxU/cIJvoHccqNy7wzLxKHXCz13TzRiAhfuW52rDjB75By/otO/lT0HAfTsUERMvmVsANe3IJkjPyw60u5ZGJ2pOl2oC3vBIoIbXDgzlvJ3GO2Ly45vTGoG7CvcKK2N/VYwuovVSNMRNBg5ZA0v8rT2MtDI/PNfGdlvmisX0bR5I4XOkKQEr2NQWOcJIOlDPEvJRjqzMSzy8EvcL9W7ALDbI3RNSB96grwd6FX60vL+qrCGjF4zWv0re1iBJNEO31df9nvcj4DVagsfQBMW4ygvDhQ9Y63AvBbyZXqL2kgrgUiNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sJ4iETFiZ7hKhu5y0Odu16VNPxJx+SDND1cCLFex0RA=;
+ b=osuysw5QIqxwmCaiag8jYJXCD878sBmf1NJU8NOfpeH337jHLucXtK0W1cze/y3mKIbsuH2H33Q0FAZyFF6KFz7zSVFAAGfCx0SecBZfh4AqodQ2sBo9/I+A6gYoui6cusDvvv/0QWeJJHl9CnWBICg/w9vXlNPwrudOzzAbOEAyQk1RWTPK0luwrZKVMs3Np0U+/N5Vpw+XaReF7sQJ3FequJUfkQmiDEpGPawa84f9EsXqVUq69h2U5D5Who7dbx0pFAxTWlt1gM+bomW36K5g+5d34/aGYuC1W/Hhg9uRhSyEPsY548HOeDKk/De/56OPIMe+xbcsWOSAczAyTw==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Michal Orzel <michal.orzel@amd.com>,
+        Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+Thread-Topic: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+Thread-Index: AQHaF7/0l4ZQp7ixjkGnkGM6dDamtLB7mIqA
+Date: Wed, 15 Nov 2023 16:51:47 +0000
+Message-ID: <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
+ <20231115112611.3865905-3-Sergiy_Kibrik@epam.com>
+ <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
+In-Reply-To: <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <CA+1FSijOYJneLxEfss2BoY0Q4vafa+gVdQeyOfy7A_bTAA6QLw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.21896 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|GVXPR03MB10498:EE_
+x-ms-office365-filtering-correlation-id: 9ebd34ae-7b00-434a-1c50-08dbe5fb2852
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ LJTIgKKU/7oAaDhAl3oOXwjOS1HaGHl0TCj4HZrbIdDwOcgt2AHZHHAQfrYD7IOGUPedHw/N/mCDeYNAL0qLDkYRN3kgguuG2Fm8wZTlmYva3lC2Lk07KHjWcJWVJtyXWM92tklunfp5oapcuLfpVZZTa0nMl/2RJ+DMw2eTWQPefPjEs5odE+aSTrn0QP5NEdNNUIYmgzB3qDlmdJnpveYX/1jJlK5BIW4DEKe21Zb+VBniV7Xo2y0aSMup35JvTSoPwEjbO9BOMYKN7HtNVvsRv0zGE56tghBuIqa3Org+oxzi1O7s6YiQjmv/gE3mx0MdIn+wYgffG7ZCiNTOGM6ZYahl3ETCm8+2SZVFgERwhHH/o1lTiZjJLZQnEn3ZDiQQr7N23Oa+/rVSBh6l9iTv4TjuDYo4PDZRU3woL9Pw2C/EJzHgZkAcKlt0FbB2F430x+4/bzMxxp9LUBxi9miNNJaJO1cJNnNODLxDamIiDkSTm4VYEpriyLLDFCGgJIloynu0hMA3C56D9DgUWD0x+yDdHSICEJoyiL3q6YXy47wm4qycVRg+c9uYPtl0kbOAb1GijDyDAgwAPH0qylxIbkeImGioYROv+geAXdNVXvej31Rp3QqPPDRnQLqM9r0v2YEGwEL12BXomFzLXQ==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(39860400002)(396003)(346002)(366004)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(5660300002)(86362001)(31696002)(6486002)(966005)(6512007)(316002)(36756003)(66476007)(66556008)(76116006)(8936002)(8676002)(66446008)(66946007)(4326008)(64756008)(54906003)(31686004)(41300700001)(2906002)(30864003)(38100700002)(91956017)(110136005)(83380400001)(26005)(122000001)(38070700009)(107886003)(2616005)(71200400001)(478600001)(6506007)(53546011)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?Ti92Tm5idG5namxNZmJGd1pFdTMrU2tvUDhod0lLa2Q0SWFNL0ZzT1IrMFBZ?=
+ =?utf-8?B?Qzc2dEFXcVo3REFiT2VaTjlyajVLNUI1R3lyYmF2U09NdVNENmZqeXZ0RFZS?=
+ =?utf-8?B?YWNKS3ZBcFZtS01TTSt3anJVWHhMUlRLdW5Rcy9DUE5tOTlqT0ZUbkxYODdr?=
+ =?utf-8?B?VTRkOG4rYmcxeDlEZHpxT2gvYjRLbU1yUVl0dUxpQy9uZERpMnIrbHplbzZQ?=
+ =?utf-8?B?Zm5xbk02ZkJOWG00QjJ6OWVzbngwaUVlREZ3RXBoZGFXOTNQMU1sdFEzYmky?=
+ =?utf-8?B?UWU3enFnYUs0M1NUY2VsZXExOUhWV0UyL010dXpWUFNMb2NEMFFhYTk0OUNj?=
+ =?utf-8?B?MFF4VERySjdFMVQ3UlNmaU9GMFlOZ3lkTklyVWFidG96dnJJYlkrL2tidmsy?=
+ =?utf-8?B?OXM4TnEwTFJCVFBSU2xQTTZkVkFwUnN4OGRzZ0toTDRpTk5IamlTdFV2RTVT?=
+ =?utf-8?B?TUxmcDcyQ3lxRGxKaEFLcWlnd3U2VGJBQ21ZZUJpSVJJVC9JMDJIemNVZmNN?=
+ =?utf-8?B?cFM5ZWpIalZJcVpvZWdvcVlmdmtyeWsrdHdpeUI4cXl6WS9EMGtjcDRCVGV5?=
+ =?utf-8?B?SHNad25hUVhvdldJaWptVzVYaUpjK3ZOK0VEQUIzcWhWQnVHL3N2STNIK3JR?=
+ =?utf-8?B?WEdEd1VRUHkrVDlDUjR1ZGpiaU44Nnd2eGg0cmtHQWd1TWM5Y0E5dnFKQXJm?=
+ =?utf-8?B?SGIwdGxjYVgyM3E0NC9Xd2x1Wmt3UVVXdVFTWnBJbmFKM0plNzIzU0ZqTGVi?=
+ =?utf-8?B?K0RxaVhpSHc0b1B2MTJCcDJoTWQ3MjIxOHNQUFVSNFlERVdqVlBhRk51Zlpj?=
+ =?utf-8?B?NVdPL3ZuY2RmNnpyL21DKzdMVnhVcXVvQis0a2pTWXNMSUZ0aHd5K3J4S09K?=
+ =?utf-8?B?S2plTFBBVDkyNjB0b2VUdGdzWmxPUWMxaGorNkQxNmNaa2RVbUliYVl6TUNj?=
+ =?utf-8?B?NzdRVE1hUUx5U1liaStkWjNWVFNlT2ExYW00azZ5ai9QcWU3aEY1TzlCbUpS?=
+ =?utf-8?B?YTBCVVFIa2NaVFEwOXdDL2VPTVVhWXp3WXVOc2xFdXJKc3cxM2pDak9iLytW?=
+ =?utf-8?B?YzRqTzh1Rkd1dWR6dnRyZG9LRzBLbWh6OG9oTEdUVmR2ZjdSWlJ2dC9XZENG?=
+ =?utf-8?B?bXk0MHNyQThNM3hpaC9aZlFGeTVXaU5BTkdkbzZwcmx0b1JrV3cweTdwdjV5?=
+ =?utf-8?B?cCtoUHhpUDQ3YXNOcGN0a3JDdUlNQWtpWjFENWhGcm90RlNtRGxzbGlSdzZJ?=
+ =?utf-8?B?RTkzd2dvUlhOaTdJZGFpek5xY0I4VDh3d1czajFUQk9ySlFHZVptM3orcjR4?=
+ =?utf-8?B?MXdEUnpZRlNySFIyMGtLUTVuZXJaWFF6YzRhQ3dHNnpGQ2tCMUxQUUxLOWNt?=
+ =?utf-8?B?aXZCeGh2alN6V1lrYU5sbytnV2xPNjlDdFE0SjBEenJpcW45angzRDdIdzZF?=
+ =?utf-8?B?aVp4SmJiU0NxSzFTT3gxUU9WdW5RclRMUWw3V1FhNDFyZmY4K3BmNWhCekpy?=
+ =?utf-8?B?RWFneWtZNm45SUNyNHZ4VWRybFIzNTN2QStQd0NIamZTaTJpbUFqV3JoV3Zq?=
+ =?utf-8?B?NmxSWmNMNHhvNDc1aWxDK25LY2NvREZLMVZMRFVXOE13cEhEYWJndDhocUg3?=
+ =?utf-8?B?NGZldkRiRmNENDdLd3F3YmdCdmNBRFhDYzQ5VlhBS3BBajJ2T1hCY3NmTzNv?=
+ =?utf-8?B?cGZIbTFWVnFxVGVjWHJjMnNLMFdndU5OMjhQNzRwTmUrak1VU2lESTYzMG9O?=
+ =?utf-8?B?OEtNd0dzM2tYaUtBYXpxZThHVmNTRUVud05mcktpeUdadkZlRndtemZkWnVG?=
+ =?utf-8?B?TXI1VkNnenk3WW1qdkRnM0NZazk3Nmp4UncrdmcwS1gxbUJLb2d5WkswdlVy?=
+ =?utf-8?B?M3dpcUJYeStKMjZ4T21NUXVRL3VtRUE1S29nOHltU2dIMlVTZXhtQ0EzbE92?=
+ =?utf-8?B?NVlMM2pLQXFHVmEwYlhoNmNxM3N6ajk5LzU1am9UY1pTTzVHcmZUOU5aUkVa?=
+ =?utf-8?B?d0xGQTVCTkJ6OSs5ZVc4cGtMRElKS2pqZTduemlxVi9ZOGl5OC9ycnNPb3Nn?=
+ =?utf-8?B?emw3Y05YM2hUSmtDYnVsVEI5SUJoRWtPWlBvcjZaUmRzRDZ4OW9TVlB0bWVy?=
+ =?utf-8?B?MXpHemhKT0R6aTNvOXNrVnU0L1JrMjd3Q2ZiTm4xS3hWRkVocFFPdnJVa08y?=
+ =?utf-8?Q?68HAl4vlVz6Ff2z/lQmWd+Q=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3BDE296447DD254C9AB81D754FAB9C13@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ebd34ae-7b00-434a-1c50-08dbe5fb2852
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2023 16:51:47.9059
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RG750/D5HPLfz3ibAEMjb10L232JWsc1fPUHaT6mREIinvoMhrVqbmEGNATVGLwtmZLUPRY3eh0wTbLZO1eMG/KOogf634aUSo6+O42/Vgg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB10498
+X-Proofpoint-ORIG-GUID: Hdlu4Hp8QhJ7GQMDrrIRF2ufLugVYejY
+X-Proofpoint-GUID: Hdlu4Hp8QhJ7GQMDrrIRF2ufLugVYejY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-15_16,2023-11-15_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 suspectscore=0
+ adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ mlxlogscore=999 clxscore=1011 bulkscore=0 mlxscore=0 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311150129
 
-On 11/14/2023 6:43 PM, Mario Marietto wrote:
-> I hope that the informations below are correct :
-
-I don't know that they are correct. I have not spent the necessary time to
-determine what the correct values for MEMORY_START and MEMORY_END are for
-the Chromebook we are using. I just presumed, probably incorrectly, that
-the entire 2 GB memory is safe, but obviously that is not the case with
-this Chromebook. Most likely, it requires a good understanding of the
-particular way booting is done on a Chromebook, which seems to be different
-from other devices.
-
-I plan to eventually look into finding values for MEMORY_START and MEMORY_END
-sothe uboot-script-gen script computes usable values for loading Xen and dom0
-on this Chromebook in the script, but I might not get to that task immediately.
-I plan to look at it within the next week or so.
-
-> 
-> - the imagebuilder config file :
-> 
-> MEMORY_START="0x0"
-> MEMORY_END="0x80000000"
-> LOAD_CMD="ext2load mmc 1:3"
-> BOOT_CMD="bootm"
-> DEVICE_TREE="exynos5250-snow.dtb"
-> XEN="xen-4.17-armhf"
-> XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
-> DOM0_KERNEL="zImage-6.6.0-xen-iommu-dma-on-xen"
-> DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
-> UBOOT_SOURCE="xen.source"
-> UBOOT_SCRIPT="xen.scr"
-> 
-> xen.source : (that does not work)
-> 
-> mmc dev 1
-> ext2load mmc 1:3 0xE00000 zImage-6.6.0-xen-iommu-dma-on-xen
-> ext2load mmc 1:3 0x1800000 xen-4.17-armhf.ub
-> ext2load mmc 1:3 0x1A00000 exynos5250-snow.dtb
-> fdt addr 0x1A00000
-> fdt resize 1024
-> fdt set /chosen \#address-cells <0x2>
-> fdt set /chosen \#size-cells <0x2>
-> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
-> fdt mknod /chosen dom0
-> fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
-> fdt set /chosen/dom0 reg <0x0 0xE00000 0x0 0x87C200 >
-> fdt set /chosen xen,dom0-bootargs "console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
-> setenv fdt_high 0xffffffffffffffff
-> bootm 0x1800000 - 0x1A00000
-> 
-> xen.source : (created by chuck and that works)
-> 
-> mmc dev 1
-> ext2load mmc 1:3 0x42000000 zImage-6.6.0-xen-iommu-dma-on-xen
-> ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
-> ext2load mmc 1:3 0x5ffec000 exynos5250-snow.dtb
-> fdt addr 0x5ffec000
-> fdt resize 1024
-> fdt set /chosen \#address-cells <0x2>
-> fdt set /chosen \#size-cells <0x2>
-> fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1152M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
-> fdt mknod /chosen dom0
-> fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
-> fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x87C200 >
-> fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused --no-log"
-> bootm 0x51000000 - 0x5ffec000
-> 
-> all the values that you see in this conf. files have been calculated by chuck by hand,because the values generated by the imagebuilder are wrong. The only value that's well calculated by the imagebuilder is 0x87C200
-> 
-> - the size of all the binaries specified in the imagebuilder config file :
-> 
-> exynos5250-snow.dtb = 46.6 KiB (47,769 byte)
-> zImage-6.6.0-xen-iommu-dma-on-xen = 8.5 MiB (8,897,024 byte)
-> 
-> 
-> 
-> On Wed, Nov 15, 2023 at 12:17 AM Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org>> wrote:
-> 
->     Hi Mario,
-> 
->     I think we misunderstood each other :-)
-> 
->     MEMORY_START-MEMORY_END is not supposed to be computed: it is supposed
->     to come from the memory node in device tree tree (/memory) of the
->     platform. The idea is that you should not have to do any computations,
->     but only reuse the same address range specified there.
-> 
->     Similarly in regards to "please post the size of all the binaries",
->     this is just for debugging, so that I can see if there are any bugs with
->     uboot-script-gen. I cannot debug the script unless I figure out what the
->     problem is and the only way I can do that is with the binary sizes and
->     redoing all the steps by hand.
-> 
->     The expected outcome is that once we resolve the problem you should be
->     able to use uboot-script-gen without any additional computation needed.
-> 
->     Of course using static values is also OK.
-> 
-> 
->     On Wed, 15 Nov 2023, Mario Marietto wrote:
->     > ---> uboot-script-gen assumes that the memory range specified by MEMORY_START-MEMORY_END is valid and correct.
->     >
->     > Actually Chuck chose 0 as MEMORY_START and 0x800000 as MEMORY_END and these are stable values,they don't change. If you ask me to calculate
->     > those values,it means that we need to compute these values. I imagine that to calculate these values is not easy.
->     >
->     > ---> To debug this kind of issues please post the size of all the binaries specified in the imagebuilder config file
->     >
->     > I imagine that I should also calculate those values. And again,I see a complication.
->     >
->     > I'm realizing that the method used by Chuck is easier because he uses stable values. In the end,there aren't any calculations to do and
->     > since I'm looking for an easier method,not a more complicated one,I think that Chuck's method is good as is. 
->     >
->     > On Tue, Nov 14, 2023 at 11:51 PM Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org>> wrote:
->     >       Hi Mario,
->     >
->     >       It is difficult to know how to change uboot-script-gen if we don't know
->     >       why it is currently going wrong.
->     >
->     >       uboot-script-gen assumes that the memory range specified by
->     >       MEMORY_START-MEMORY_END is valid and correct.
->     >
->     >       So if you specified a valid and correct memory range in your config file
->     >       (0x41e00000-0x60000000) why is it failing?
->     >
->     >       The only thing uboot-script-gen does is choosing aligned addresses
->     >       within the MEMORY_START-MEMORY_END range. The addresses are supposed not
->     >       to overlap (meaning the initrd will not overwrite part of the kernel
->     >       when loaded). If the issue is a bug in uboot-script-gen, such as the
->     >       generated addresses overlap or they are not aligned, then we can fix the
->     >       alignment or overlap bug. To debug this kind of issues please post:
->     >       - the imagebuilder config file
->     >       - the generate boot.source script
->     >       - the size of all the binaries specified in the imagebuilder config file
->     >
->     >       On the other hand if 0x41e00000-0x60000000 is not a safe memory range to
->     >       use, then you need to specify a different memory range.
->     >
->     >       Cheers,
->     >
->     >       Stefano
->     >
->     >
->     >
->     >       On Mon, 13 Nov 2023, Mario Marietto wrote:
->     >       > Hello.
->     >       >
->     >       > I'm trying to find an easier way to the problem that you can read here :
->     >       >
->     >       > https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest <https://github.com/mobile-virt/u-boot-chromebook-xe303c12/tree/chromebook/xen#starting-a-domu-guest>
->     >       >
->     >       > where Chuck says :
->     >       >
->     >       >  6. Create the u-boot shell commands that will be used to boot Xen and dom0.
->     >       >
->     >       > Create a file in /home/user (or any other directory) named bootxen.source with these contents :
->     >       >
->     >       >
->     >       > mmc dev 1 && mmc rescan 1
->     >       > ext2load mmc 1:3 0x42000000 zImage-6.1.61-stb-xen-cbe+
->     >       > ext2load mmc 1:3 0x51000000 xen-4.17-armhf-armmp-0x51004000.ub
->     >       > ext2load mmc 1:3 0x5ffec000 exynos5250-snow-6.1.61-stb-xen-cbe+.dtb
->     >       > fdt addr 0x5ffec000
->     >       > fdt resize 1024
->     >       > fdt set /chosen \#address-cells <0x2>
->     >       > fdt set /chosen \#size-cells <0x2>
->     >       > fdt set /chosen xen,xen-bootargs "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=2 bootscrub=0 vwfi=native"
->     >       > fdt mknod /chosen dom0
->     >       > fdt set /chosen/dom0 compatible  "xen,linux-zimage" "xen,multiboot-module" "multiboot,module"
->     >       > fdt set /chosen/dom0 reg <0x0 0x42000000 0x0 0x7D7200 >
->     >       > fdt set /chosen xen,dom0-bootargs "console=tty1 root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
->     >       > bootm 0x51000000 - 0x5ffec000
->     >       >
->     >       > The hex value 0x7D7200 is the size of the zImage-6.1.61-stb-xen-cbe+ file, and that value is computed from the
->     >       uboot-script-gen script
->     >       > available from here :
->     >       >
->     >       >
->     >       > https://gitlab.com/ViryaOS/imagebuilder <https://gitlab.com/ViryaOS/imagebuilder>
->     >       >
->     >       >
->     >       > This is the interesting point :
->     >       >
->     >       >
->     >       > Please note that most of the other values in the script generated by the ViryaOS uboot-script-gen do not work correctly with
->     >       the Chromebook
->     >       > Snow, but the script does correctly calculate the size of the dom0 Linux kernel image.
->     >       >
->     >       >
->     >       > Some time ago Stefano suggested to put the values below for MEMORY_START and MEMORY_END inside the xen-config file :
->     >       >
->     >       >
->     >       > nano xen-config file :
->     >       >
->     >       >
->     >       > MEMORY_START="0x41e00000"
->     >       > MEMORY_END="0x60000000"
->     >       > LOAD_CMD="ext2load mmc 1:3"
->     >       > BOOT_CMD="bootm"
->     >       > DEVICE_TREE="exynos5250-snow.dtb"
->     >       > XEN="xen-4.17-armhf"
->     >       > XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=768M dom0_max_vcpus=2 bootscrub=0 vwfi=native sched=null"
->     >       > DOM0_KERNEL="zImage-6.6.0-xen-dma-mapping"
->     >       > DOM0_CMD="console=tty earlycon=xen earlyprintk=xen root=/dev/mmcblk1p4 rw rootwait clk_ignore_unused"
->     >       > UBOOT_SOURCE="xen.source"
->     >       >
->     >       >
->     >       > bash ./uboot-script-gen -c xen-config -d .
->     >       >
->     >       >
->     >       > Image Name:    
->     >       > Created:      Thu Nov  2 20:59:24 2023
->     >       > Image Type:   ARM Linux Kernel Image (uncompressed)
->     >       > Data Size:    884744 Bytes = 864.01 KiB = 0.84 MiB
->     >       > Load Address: 42c00000
->     >       > Entry Point:  42c00000
->     >       >
->     >       >
->     >       > Generated uboot script xen.scr, to be loaded at address 0x42000000:
->     >       > ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
->     >       >
->     >       >
->     >       > and I tried to boot Xen and Linux 6.6 as dom0 :
->     >       >
->     >       > SMDK5250 # mmc dev 1
->     >       > SMDK5250 # ext2load mmc 1:3 0x42000000 xen.scr; source 0x42000000
->     >       > but it did not work : it reboots on the verification screen.
->     >       >
->     >       > --
->     >       > Mario.
->     >       >
->     >       >
->     >
->     >
->     >
->     > --
->     > Mario.
->     >
->     > 
-> 
-> 
-> 
-> -- 
-> Mario.
-
+DQoNCk9uIDE1LjExLjIzIDE0OjMzLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+IEhpLA0KDQoNCkhl
+bGxvIEp1bGllbg0KDQpMZXQgbWUgcGxlYXNlIHRyeSB0byBleHBsYWluIHNvbWUgYml0cy4NCg0K
+DQo+IA0KPiBUaGFua3MgZm9yIGFkZGluZyBzdXBwb3J0IGZvciB2aXJ0aW8tcGNpIGluIFhlbi4g
+SSBoYXZlIHNvbWUgcXVlc3Rpb25zLg0KPiANCj4gT24gMTUvMTEvMjAyMyAxMToyNiwgU2VyZ2l5
+IEtpYnJpayB3cm90ZToNCj4+IEZyb206IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJf
+dHlzaGNoZW5rb0BlcGFtLmNvbT4NCj4+DQo+PiBJbiBvcmRlciB0byBlbmFibGUgbW9yZSB1c2Ut
+Y2FzZXMgc3VjaCBhcyBoYXZpbmcgbXVsdGlwbGUNCj4+IGRldmljZS1tb2RlbHMgKFFlbXUpIHJ1
+bm5pbmcgaW4gZGlmZmVyZW50IGJhY2tlbmQgZG9tYWlucyB3aGljaCBwcm92aWRlDQo+PiB2aXJ0
+aW8tcGNpIGRldmljZXMgZm9yIHRoZSBzYW1lIGd1ZXN0LCB3ZSBhbGxvY2F0ZSBhbmQgZXhwb3Nl
+IG9uZQ0KPj4gUENJIGhvc3QgYnJpZGdlIGZvciBldmVyeSB2aXJ0aW8gYmFja2VuZCBkb21haW4g
+Zm9yIHRoYXQgZ3Vlc3QuDQo+IA0KPiBPT0ksIHdoeSBkbyB5b3UgbmVlZCB0byBleHBvc2Ugb25l
+IFBDSSBob3N0IGJyaWRnZSBmb3IgZXZlcnkgc3R1YmRvbWFpbj8NCj4gDQo+IEluIGZhY3QgbG9v
+a2luZyBhdCB0aGUgbmV4dCBwYXRjaCwgaXQgc2VlbXMgeW91IGFyZSBoYW5kbGluZyBzb21lIG9m
+IHRoZSANCj4gaG9zdGJyaWRnZSByZXF1ZXN0IGluIFhlbi4gVGhpcyBpcyBhZGRzIGEgYml0IG1v
+cmUgY29uZnVzaW9uLg0KPiANCj4gSSB3YXMgZXhwZWN0aW5nIHRoZSB2aXJ0dWFsIFBDSSBkZXZp
+Y2Ugd291bGQgYmUgaW4gdGhlIHZQQ0kgYW5kIGVhY2ggDQo+IERldmljZSBlbXVsYXRvciB3b3Vs
+ZCBhZHZlcnRpc2Ugd2hpY2ggQkRGIHRoZXkgYXJlIGNvdmVyaW5nLg0KDQoNClRoaXMgcGF0Y2gg
+c2VyaWVzIG9ubHkgY292ZXJzIHVzZS1jYXNlcyB3aGVyZSB0aGUgZGV2aWNlIGVtdWxhdG9yIA0K
+aGFuZGxlcyB0aGUgKmVudGlyZSogUENJIEhvc3QgYnJpZGdlIGFuZCBQQ0kgKHZpcnRpby1wY2kp
+IGRldmljZXMgYmVoaW5kIA0KaXQgKGkuZS4gUWVtdSkuIEFsc28gdGhpcyBwYXRjaCBzZXJpZXMg
+ZG9lc24ndCB0b3VjaCB2UENJL1BDSSANCnBhc3MtdGhyb3VnaCByZXNvdXJjZXMsIGhhbmRsaW5n
+LCBhY2NvdW50aW5nLCBub3RoaW5nLiBGcm9tIHRoZSANCmh5cGVydmlzb3Igd2Ugb25seSBuZWVk
+IGEgaGVscCB0byBpbnRlcmNlcHQgdGhlIGNvbmZpZyBzcGFjZSBhY2Nlc3NlcyANCmhhcHBlbiBp
+biBhIHJhbmdlIFtHVUVTVF9WSVJUSU9fUENJX0VDQU1fQkFTRSAuLi4gDQpHVUVTVF9WSVJUSU9f
+UENJX0VDQU1fQkFTRSArIEdVRVNUX1ZJUlRJT19QQ0lfVE9UQUxfRUNBTV9TSVpFXSBhbmQgDQpm
+b3J3YXJkIHRoZW0gdG8gdGhlIGxpbmtlZCBkZXZpY2UgZW11bGF0b3IgKGlmIGFueSksIHRoYXQn
+cyBhbGwuDQoNCkl0IGlzIG5vdCBwb3NzaWJsZSAod2l0aCBjdXJyZW50IHNlcmllcykgdG8gcnVu
+IGRldmljZSBlbXVsYXRvcnMgd2hhdA0KZW11bGF0ZSBvbmx5IHNlcGFyYXRlIFBDSSAodmlydGlv
+LXBjaSkgZGV2aWNlcy4gRm9yIGl0IHRvIGJlIHBvc3NpYmxlLCBJIA0KdGhpbmssIG11Y2ggbW9y
+ZSBjaGFuZ2VzIGFyZSByZXF1aXJlZCB0aGFuIGN1cnJlbnQgcGF0Y2ggc2VyaWVzIGRvZXMuIA0K
+VGhlcmUgYXQgbGVhc3Qgc2hvdWxkIGJlIHNwZWNpYWwgUENJIEhvc3QgYnJpZGdlIGVtdWxhdGlv
+biBpbiBYZW4gKG9yIA0KcmV1c2UgdlBDSSkgZm9yIHRoZSBpbnRlZ3JhdGlvbi4gQWxzbyBYZW4g
+c2hvdWxkIGJlIGluIGNoYXJnZSBvZiBmb3JtaW5nIA0KcmVzdWx0aW5nIFBDSSBpbnRlcnJ1cHQg
+YmFzZWQgb24gZWFjaCBQQ0kgZGV2aWNlIGxldmVsIHNpZ25hbGluZyAoaWYgd2UgDQp1c2UgbGVn
+YWN5IGludGVycnVwdHMpLCBzb21lIGtpbmQgb2YgeDg2J3MgWEVOX0RNT1Bfc2V0X3BjaV9pbnR4
+X2xldmVsLCANCmV0Yy4gUGxlYXNlIG5vdGUsIEkgYW0gbm90IHNheWluZyB0aGlzIGlzIG5vdCBw
+b3NzaWJsZSBpbiBnZW5lcmFsLCANCmxpa2VseSBpdCBpcyBwb3NzaWJsZSwgYnV0IGluaXRpYWwg
+cGF0Y2ggc2VyaWVzIGRvZXNuJ3QgY292ZXIgdGhlc2UgDQp1c2UtY2FzZXMpDQoNCldlIGV4cG9z
+ZSBvbmUgUENJIGhvc3QgYnJpZGdlIHBlciB2aXJ0aW8gYmFja2VuZCBkb21haW4uIFRoaXMgaXMg
+YSANCnNlcGFyYXRlIFBDSSBob3N0IGJyaWRnZSB0byBjb21iaW5lIGFsbCB2aXJ0aW8tcGNpIGRl
+dmljZXMgcnVubmluZyBpbiANCnRoZSBzYW1lIGJhY2tlbmQgZG9tYWluIChpbiB0aGUgc2FtZSBk
+ZXZpY2UgZW11bGF0b3IgY3VycmVudGx5KS4NClRoZSBleGFtcGxlczoNCi0gaWYgb25seSBvbmUg
+ZG9tYWluIHJ1bnMgUWVtdSB3aGljaCBzZXJ2ZXJzIHZpcnRpby1ibGssIHZpcnRpby1uZXQsIA0K
+dmlydGlvLWNvbnNvbGUgZGV2aWNlcyBmb3IgRG9tVSAtIG9ubHkgc2luZ2xlIFBDSSBIb3N0IGJy
+aWRnZSB3aWxsIGJlIA0KZXhwb3NlZCBmb3IgRG9tVQ0KLSBpZiB3ZSBhZGQgYW5vdGhlciBkb21h
+aW4gdG8gcnVuIFFlbXUgdG8gc2VydmUgYWRkaXRpb25hbGx5IHZpcnRpby1ncHUsIA0KdmlydGlv
+LWlucHV0IGFuZCB2aXJ0aW8tc25kIGZvciB0aGUgKnNhbWUqIERvbVUgLSB3ZSBleHBvc2Ugc2Vj
+b25kIFBDSSANCkhvc3QgYnJpZGdlIGZvciBEb21VDQoNCkkgYW0gYWZyYWlkLCB3ZSBjYW5ub3Qg
+ZW5kIHVwIGV4cG9zaW5nIG9ubHkgc2luZ2xlIFBDSSBIb3N0IGJyaWRnZSB3aXRoIA0KY3VycmVu
+dCBtb2RlbCAoaWYgd2UgdXNlIGRldmljZSBlbXVsYXRvcnMgcnVubmluZyBpbiBkaWZmZXJlbnQg
+ZG9tYWlucyANCnRoYXQgaGFuZGxlcyB0aGUgKmVudGlyZSogUENJIEhvc3QgYnJpZGdlcyksIHRo
+aXMgd29uJ3Qgd29yay4NCg0KUGxlYXNlIG5vdGUsIEkgbWlnaHQgbWlzcyBzb21lIGJpdHMgc2lu
+Y2UgdGhpcyBlbmFibGluZyB3b3JrLg0KDQoNCj4gDQo+Pg0KPj4gRm9yIHRoYXQgcHVycG9zZSwg
+cmVzZXJ2ZSBzZXBhcmF0ZSB2aXJ0aW8tcGNpIHJlc291cmNlcyAobWVtb3J5IGFuZCANCj4+IFNQ
+SSByYW5nZQ0KPj4gZm9yIExlZ2FjeSBQQ0kgaW50ZXJydXB0cykgdXAgdG8gOCBwb3NzaWJsZSBQ
+Q0kgaG9zdHMgKHRvIGJlIGFsaWduZWQgd2l0aA0KPiANCj4gRG8geW91IG1lYW4gaG9zdCBicmlk
+Z2UgcmF0aGVyIHRoYW4gaG9zdD8NCg0KeWVzDQoNCg0KPiANCj4+IE1BWF9OUl9JT1JFUV9TRVJW
+RVJTKSBhbmQgYWxsb2NhdGUgYSBob3N0IHBlciBiYWNrZW5kIGRvbWFpbi4gVGhlIFBDSSANCj4+
+IGhvc3QNCj4+IGRldGFpbHMgaW5jbHVkaW5nIGl0cyBob3N0X2lkIHRvIGJlIHdyaXR0ZW4gdG8g
+ZGVkaWNhdGVkIFhlbnN0b3JlIG5vZGUgDQo+PiBmb3INCj4+IHRoZSBkZXZpY2UtbW9kZWwgdG8g
+cmV0cmlldmUuDQo+IA0KPiBTbyB3aGljaCB3aXRoIGFwcHJvYWNoLCB3aG8gaXMgZGVjaWRlIHdo
+aWNoIEJERiB3aWxsIGJlIHVzZWQgZm9yIGEgZ2l2ZW4gDQo+IHZpcnRpbyBQQ0kgZGV2aWNlPw0K
+DQoNCnRvb2xzdGFjayAodmlhIGNvbmZpZ3VyYXRpb24gZmlsZSkNCg0KPiANCj4+DQo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBh
+bS5jb20+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTZXJnaXkgS2licmlrIDxTZXJnaXlfS2licmlrQGVw
+YW0uY29tPg0KPj4gLS0tDQo+PiDCoCB4ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0uaCB8IDIx
+ICsrKysrKysrKysrKysrKysrKysrKw0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDIxIGluc2VydGlv
+bnMoKykNCj4+DQo+PiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmgg
+DQo+PiBiL3hlbi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+PiBpbmRleCBhMjVlODdkYmRh
+Li5lNmM5Y2Q1MzM1IDEwMDY0NA0KPj4gLS0tIGEveGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJt
+LmgNCj4+ICsrKyBiL3hlbi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+PiBAQCAtNDY2LDYg
+KzQ2NiwxOSBAQCB0eXBlZGVmIHVpbnQ2NF90IHhlbl9jYWxsYmFja190Ow0KPj4gwqAgI2RlZmlu
+ZSBHVUVTVF9WUENJX01FTV9BRERSwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVu
+X21rX3VsbG9uZygweDIzMDAwMDAwKQ0KPj4gwqAgI2RlZmluZSBHVUVTVF9WUENJX01FTV9TSVpF
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX21rX3VsbG9uZygweDEwMDAwMDAw
+KQ0KPj4gKy8qDQo+PiArICogMTYgTUIgaXMgcmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgY29uZmln
+dXJhdGlvbiBzcGFjZSBiYXNlZCBvbiANCj4+IGNhbGN1bGF0aW9uDQo+PiArICogOCBicmlkZ2Vz
+ICogMiBidXNlcyB4IDMyIGRldmljZXMgeCA4IGZ1bmN0aW9ucyB4IDQgS0IgPSAxNiBNQg0KPiAN
+Cj4gQ2FuIHlvdSBleHBsYWluIGhvdyB5b3VkIGVjaWRlZCB0aGUgIjIiPw0KDQpnb29kIHF1ZXN0
+aW9uLCB3ZSBoYXZlIGEgbGltaXRlZCBmcmVlIHNwYWNlIGF2YWlsYWJsZSBpbiBtZW1vcnkgbGF5
+b3V0IA0KKHdlIGhhZCBkaWZmaWN1bHRpZXMgdG8gZmluZCBhIHN1aXRhYmxlIGhvbGVzKSBhbHNv
+IHdlIGRvbid0IGV4cGVjdCBhIA0KbG90IG9mIHZpcnRpby1wY2kgZGV2aWNlcywgc28gIjI1NiIg
+dXNlZCB2UENJIHdvdWxkIGJlIHRvbyBtdWNoLiBJdCB3YXMgDQpkZWNpZGVkIHRvIHJlZHVjZSBz
+aWduaWZpY2FudGx5LCBidXQgc2VsZWN0IG1heGltdW0gdG8gZml0IGludG8gZnJlZSANCnNwYWNl
+LCB3aXRoIGhhdmluZyAiMiIgYnVzZXMgd2Ugc3RpbGwgZml0IGludG8gdGhlIGNob3NlbiBob2xl
+cy4NCg0KDQo+IA0KPj4gKyAqLw0KPj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX1BDSV9FQ0FNX0JB
+U0XCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX21rX3VsbG9uZygweDMzMDAwMDAwKQ0KPj4gKyNkZWZp
+bmUgR1VFU1RfVklSVElPX1BDSV9UT1RBTF9FQ0FNX1NJWkXCoMKgwqAgeGVuX21rX3VsbG9uZygw
+eDAxMDAwMDAwKQ0KPj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX1BDSV9IT1NUX0VDQU1fU0laRcKg
+wqDCoMKgIHhlbl9ta191bGxvbmcoMHgwMDIwMDAwMCkNCj4+ICsNCj4+ICsvKiA2NCBNQiBpcyBy
+ZXNlcnZlZCBmb3IgdmlydGlvLXBjaSBtZW1vcnkgKi8NCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJ
+T19QQ0lfQUREUl9UWVBFX01FTcKgwqDCoCB4ZW5fbWtfdWxsb25nKDB4MDIwMDAwMDApDQo+PiAr
+I2RlZmluZSBHVUVTVF9WSVJUSU9fUENJX01FTV9BRERSwqDCoMKgwqDCoMKgwqDCoCB4ZW5fbWtf
+dWxsb25nKDB4MzQwMDAwMDApDQo+PiArI2RlZmluZSBHVUVTVF9WSVJUSU9fUENJX01FTV9TSVpF
+wqDCoMKgwqDCoMKgwqDCoCB4ZW5fbWtfdWxsb25nKDB4MDQwMDAwMDApDQo+PiArDQo+PiDCoCAv
+Kg0KPj4gwqDCoCAqIDE2TUIgPT0gNDA5NiBwYWdlcyByZXNlcnZlZCBmb3IgZ3Vlc3QgdG8gdXNl
+IGFzIGEgcmVnaW9uIHRvIG1hcCBpdHMNCj4+IMKgwqAgKiBncmFudCB0YWJsZSBpbi4NCj4+IEBA
+IC00NzYsNiArNDg5LDExIEBAIHR5cGVkZWYgdWludDY0X3QgeGVuX2NhbGxiYWNrX3Q7DQo+PiDC
+oCAjZGVmaW5lIEdVRVNUX01BR0lDX0JBU0XCoCB4ZW5fbWtfdWxsb25nKDB4MzkwMDAwMDApDQo+
+PiDCoCAjZGVmaW5lIEdVRVNUX01BR0lDX1NJWkXCoCB4ZW5fbWtfdWxsb25nKDB4MDEwMDAwMDAp
+DQo+PiArLyogNjQgTUIgaXMgcmVzZXJ2ZWQgZm9yIHZpcnRpby1wY2kgUHJlZmV0Y2ggbWVtb3J5
+ICovDQo+IA0KPiBUaGlzIGRvZXNuJ3Qgc2VlbSBhIGxvdCBkZXBlbmRpbmcgb24geW91ciB1c2Ug
+Y2FzZS4gQ2FuIHlvdSBkZXRhaWxzIGhvdyANCj4geW91IGNhbiB1cCB3aXRoICI2NCBNQiI/DQoN
+CnRoZSBzYW1lIGNhbGN1bGF0aW9uIGFzIGl0IHdhcyBkb25lIGNvbmZpZ3VyYXRpb24gc3BhY2Uu
+IEl0IHdhcyBvYnNlcnZlZCANCnRoYXQgb25seSAxNksgaXMgdXNlZCBwZXIgdmlydGlvLXBjaSBk
+ZXZpY2UgKG1heWJlIGl0IGNhbiBiZSBiaWdnZXIgZm9yIA0KdXN1YWwgUENJIGRldmljZSwgSSBk
+b24ndCBrbm93KS4gUGxlYXNlIGxvb2sgYXQgdGhlIGV4YW1wbGUgb2YgRG9tVSBsb2cgDQpiZWxv
+dyAodG8gc3RyaW5ncyB0aGF0IGNvbnRhaW4gIipCQVIgNDogYXNzaWduZWQqIik6DQoNCg0KPiBy
+b290QGgzdWxjYjp+IyBkbWVzZyB8IGdyZXAgcGNpDQo+IFsgICAgMC40NDQxNjNdIHBjaS1ob3N0
+LWdlbmVyaWMgMzMwMDAwMDAucGNpZTogaG9zdCBicmlkZ2UgL3BjaWVAMzMwMDAwMDAgcmFuZ2Vz
+Og0KPiBbICAgIDAuNDQ0MjU3XSBwY2ktaG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6ICAgICAg
+TUVNIDB4MDAzNDAwMDAwMC4uMHgwMDM0N2ZmZmZmIC0+IDB4MDAzNDAwMDAwMA0KPiBbICAgIDAu
+NDQ0MzA0XSBwY2ktaG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6ICAgICAgTUVNIDB4MDAzYTAw
+MDAwMC4uMHgwMDNhN2ZmZmZmIC0+IDB4MDAzYTAwMDAwMA0KPiBbICAgIDAuNDQ0Mzk2XSBwY2kt
+aG9zdC1nZW5lcmljIDMzMDAwMDAwLnBjaWU6IEVDQU0gYXQgW21lbSAweDMzMDAwMDAwLTB4MzMx
+ZmZmZmZdIGZvciBbYnVzIDAwLTAxXQ0KPiBbICAgIDAuNDQ0NTk1XSBwY2ktaG9zdC1nZW5lcmlj
+IDMzMDAwMDAwLnBjaWU6IFBDSSBob3N0IGJyaWRnZSB0byBidXMgMDAwMDowMA0KPiBbICAgIDAu
+NDQ0NjM1XSBwY2lfYnVzIDAwMDA6MDA6IHJvb3QgYnVzIHJlc291cmNlIFtidXMgMDAtMDFdDQo+
+IFsgICAgMC40NDQ2NjJdIHBjaV9idXMgMDAwMDowMDogcm9vdCBidXMgcmVzb3VyY2UgW21lbSAw
+eDM0MDAwMDAwLTB4MzQ3ZmZmZmZdDQo+IFsgICAgMC40NDQ2OTJdIHBjaV9idXMgMDAwMDowMDog
+cm9vdCBidXMgcmVzb3VyY2UgW21lbSAweDNhMDAwMDAwLTB4M2E3ZmZmZmYgcHJlZl0NCj4gWyAg
+ICAwLjQ0NTE5M10gcGNpIDAwMDA6MDA6MDAuMDogWzFiMzY6MDAwOF0gdHlwZSAwMCBjbGFzcyAw
+eDA2MDAwMA0KPiBbICAgIDAuNDQ5NDkzXSBwY2kgMDAwMDowMDowOC4wOiBbMWFmNDoxMDQyXSB0
+eXBlIDAwIGNsYXNzIDB4MDEwMDAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPiBbICAgIDAuNDUx
+NzYwXSBwY2kgMDAwMDowMDowOC4wOiByZWcgMHgyMDogW21lbSAweDAwMDAwMDAwLTB4MDAwMDNm
+ZmYgNjRiaXQgcHJlZl0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIA0KPiBbICAgIDAuNDU1OTg1XSBwY2kgMDAwMDowMDowOC4w
+OiBCQVIgNDogYXNzaWduZWQgW21lbSAweDNhMDAwMDAwLTB4M2EwMDNmZmYgNjRiaXQgcHJlZl0g
+ICANCj4gWyAgICAwLjQ1NjY3OF0gcGNpLWhvc3QtZ2VuZXJpYyAzMzIwMDAwMC5wY2llOiBob3N0
+IGJyaWRnZSAvcGNpZUAzMzIwMDAwMCByYW5nZXM6DQo+IFsgICAgMC40NTY3NDhdIHBjaS1ob3N0
+LWdlbmVyaWMgMzMyMDAwMDAucGNpZTogICAgICBNRU0gMHgwMDM0ODAwMDAwLi4weDAwMzRmZmZm
+ZmYgLT4gMHgwMDM0ODAwMDAwDQo+IFsgICAgMC40NTY3OTNdIHBjaS1ob3N0LWdlbmVyaWMgMzMy
+MDAwMDAucGNpZTogICAgICBNRU0gMHgwMDNhODAwMDAwLi4weDAwM2FmZmZmZmYgLT4gMHgwMDNh
+ODAwMDAwDQo+IFsgICAgMC40NTY4NzldIHBjaS1ob3N0LWdlbmVyaWMgMzMyMDAwMDAucGNpZTog
+RUNBTSBhdCBbbWVtIDB4MzMyMDAwMDAtMHgzMzNmZmZmZl0gZm9yIFtidXMgMDAtMDFdDQo+IFsg
+ICAgMC40NTcwMzhdIHBjaS1ob3N0LWdlbmVyaWMgMzMyMDAwMDAucGNpZTogUENJIGhvc3QgYnJp
+ZGdlIHRvIGJ1cyAwMDAxOjAwDQo+IFsgICAgMC40NTcwNzldIHBjaV9idXMgMDAwMTowMDogcm9v
+dCBidXMgcmVzb3VyY2UgW2J1cyAwMC0wMV0NCj4gWyAgICAwLjQ1NzEwNl0gcGNpX2J1cyAwMDAx
+OjAwOiByb290IGJ1cyByZXNvdXJjZSBbbWVtIDB4MzQ4MDAwMDAtMHgzNGZmZmZmZl0NCj4gWyAg
+ICAwLjQ1NzEzNl0gcGNpX2J1cyAwMDAxOjAwOiByb290IGJ1cyByZXNvdXJjZSBbbWVtIDB4M2E4
+MDAwMDAtMHgzYWZmZmZmZiBwcmVmXQ0KPiBbICAgIDAuNDU3ODA4XSBwY2kgMDAwMTowMDowMC4w
+OiBbMWIzNjowMDA4XSB0eXBlIDAwIGNsYXNzIDB4MDYwMDAwDQo+IFsgICAgMC40NjE0MDFdIHBj
+aSAwMDAxOjAwOjAxLjA6IFsxYWY0OjEwNDFdIHR5cGUgMDAgY2xhc3MgMHgwMjAwMDANCj4gWyAg
+ICAwLjQ2MzUzN10gcGNpIDAwMDE6MDA6MDEuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0w
+eDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40NjgxMzVdIHBjaSAwMDAxOjAwOjAyLjA6
+IFsxYWY0OjEwNDJdIHR5cGUgMDAgY2xhc3MgMHgwMTAwMDANCj4gWyAgICAwLjQ3MDE4NV0gcGNp
+IDAwMDE6MDA6MDIuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0
+IHByZWZdDQo+IFsgICAgMC40NzQ1NzVdIHBjaSAwMDAxOjAwOjAzLjA6IFsxYWY0OjEwNTBdIHR5
+cGUgMDAgY2xhc3MgMHgwMzgwMDANCj4gWyAgICAwLjQ3NjUzNF0gcGNpIDAwMDE6MDA6MDMuMDog
+cmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAg
+MC40ODA5NDJdIHBjaSAwMDAxOjAwOjA0LjA6IFsxYWY0OjEwNTJdIHR5cGUgMDAgY2xhc3MgMHgw
+OTAwMDANCj4gWyAgICAwLjQ4MzA5Nl0gcGNpIDAwMDE6MDA6MDQuMDogcmVnIDB4MjA6IFttZW0g
+MHgwMDAwMDAwMC0weDAwMDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40ODc2MzFdIHBjaSAw
+MDAxOjAwOjA2LjA6IFsxYWY0OjEwNTNdIHR5cGUgMDAgY2xhc3MgMHgwNzgwMDANCj4gWyAgICAw
+LjQ4OTY5M10gcGNpIDAwMDE6MDA6MDYuMDogcmVnIDB4MjA6IFttZW0gMHgwMDAwMDAwMC0weDAw
+MDAzZmZmIDY0Yml0IHByZWZdDQo+IFsgICAgMC40OTM2NjldIHBjaSAwMDAxOjAwOjAxLjA6IEJB
+UiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MDAwMDAtMHgzYTgwM2ZmZiA2NGJpdCBwcmVmXSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+
+IFsgICAgMC40OTU4NDBdIHBjaSAwMDAxOjAwOjAyLjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4
+M2E4MDQwMDAtMHgzYTgwN2ZmZiA2NGJpdCBwcmVmXSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+IFsgICAgMC40OTY2NTZdIHBjaSAw
+MDAxOjAwOjAzLjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MDgwMDAtMHgzYTgwYmZmZiA2
+NGJpdCBwcmVmXSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgDQo+IFsgICAgMC40OTc2NzFdIHBjaSAwMDAxOjAwOjA0LjA6IEJBUiA0OiBh
+c3NpZ25lZCBbbWVtIDB4M2E4MGMwMDAtMHgzYTgwZmZmZiA2NGJpdCBwcmVmXSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQo+IFsgICAg
+MC40OTgzMjBdIHBjaSAwMDAxOjAwOjA2LjA6IEJBUiA0OiBhc3NpZ25lZCBbbWVtIDB4M2E4MTAw
+MDAtMHgzYTgxM2ZmZiA2NGJpdCBwcmVmXSAgICAgIA0KPiBbICAgIDAuNTAwNzMyXSB2aXJ0aW8t
+cGNpIDAwMDA6MDA6MDguMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpDQo+IFsgICAg
+MC41MDk3MjhdIHZpcnRpby1wY2kgMDAwMTowMDowMS4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDAg
+LT4gMDAwMikNCj4gWyAgICAwLjUyOTc1N10gdmlydGlvLXBjaSAwMDAxOjAwOjAyLjA6IGVuYWJs
+aW5nIGRldmljZSAoMDAwMCAtPiAwMDAyKQ0KPiBbICAgIDAuNTUwMjA4XSB2aXJ0aW8tcGNpIDAw
+MDE6MDA6MDMuMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpDQo+IFsgICAgMC41NzEw
+MTJdIHZpcnRpby1wY2kgMDAwMTowMDowNC4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDAgLT4gMDAw
+MikNCj4gWyAgICAwLjU5MTA0Ml0gdmlydGlvLXBjaSAwMDAxOjAwOjA2LjA6IGVuYWJsaW5nIGRl
+dmljZSAoMDAwMCAtPiAwMDAyKQ0KDQoNCg0KPiANCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJT19Q
+Q0lfQUREUl9UWVBFX1BSRUZFVENIX01FTSAgICANCj4+IHhlbl9ta191bGxvbmcoMHg0MjAwMDAw
+MCkNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJT19QQ0lfUFJFRkVUQ0hfTUVNX0FERFIgICAgICAg
+ICANCj4+IHhlbl9ta191bGxvbmcoMHgzYTAwMDAwMCkNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJUlRJ
+T19QQ0lfUFJFRkVUQ0hfTUVNX1NJWkUgICAgICAgICANCj4+IHhlbl9ta191bGxvbmcoMHgwNDAw
+MDAwMCkNCj4+ICsNCj4+IMKgICNkZWZpbmUgR1VFU1RfUkFNX0JBTktTwqDCoCAyDQo+PiDCoCAv
+Kg0KPj4gQEAgLTUxNSw2ICs1MzMsOSBAQCB0eXBlZGVmIHVpbnQ2NF90IHhlbl9jYWxsYmFja190
+Ow0KPj4gwqAgI2RlZmluZSBHVUVTVF9WSVJUSU9fTU1JT19TUElfRklSU1TCoMKgIDMzDQo+PiDC
+oCAjZGVmaW5lIEdVRVNUX1ZJUlRJT19NTUlPX1NQSV9MQVNUwqDCoMKgIDQzDQo+PiArI2RlZmlu
+ZSBHVUVTVF9WSVJUSU9fUENJX1NQSV9GSVJTVMKgwqAgNDQNCj4+ICsjZGVmaW5lIEdVRVNUX1ZJ
+UlRJT19QQ0lfU1BJX0xBU1TCoMKgwqAgNzYNCj4gDQo+IEp1c3QgdG8gY29uZmlybSB0aGlzIGlz
+IDQgaW50ZXJydXB0cyBwZXIgUENJIGhvc3QgYnJpZGdlPyBJZiBzbywgY2FuIA0KPiB0aGlzIGJl
+IGNsYXJpZmllZCBpbiBhIGNvbW1lbnQ/DQoNCnllcyAoSU5UQSAtIElOVEQpDQoNCg0KPiANCj4g
+QWxzbywgYWJvdmUgeW91IHNhaWQgdGhhdCB0aGUgaG9zdCBJRCB3aWxsIGJlIHdyaXR0ZW4gdG8g
+WGVuc3RvcmUuIEJ1dCANCj4gd2hvIHdpbGwgZGVjaWRlIHdoaWNoIFNQSSBiZWxvbmdzIHRvIHdo
+aWNoIGhvc3QgYnJpZGdlPw0KDQoNCnRvb2xzdGFjaywgaXQgaW4gY2hhcmdlIG9mIFBDSSBob3N0
+IGJyaWRnZSByZXNvdXJjZXMgYWxsb2NhdGlvbiAoYXMgd2UgDQpuZWVkIHRvIGJvdGggcHJvcGVy
+bHkgY3JlYXRlIFBDSSBIb3N0IGJyaWRnZSBkZXZpY2UgdHJlZSBub2RlIGFuZCBpbmZvcm0gDQpk
+ZXZpY2UgZW11bGF0b3IgYWJvdXQgUENJIGhvc3QgYnJpZGdlIGRldGFpbHMpLiBQbGVhc2UgdGFr
+ZSBhIGxvb2sgYXQ6DQoNCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC94ZW4t
+ZGV2ZWwvcGF0Y2gvMjAyMzExMTUxMTI2MTEuMzg2NTkwNS00LVNlcmdpeV9LaWJyaWtAZXBhbS5j
+b20vDQoNCj4gDQo+IENoZWVycywNCj4g
 
