@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F187E7EE348
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:49:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634369.989765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BCBB7EE34A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:50:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634375.989774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3dfh-0007o4-Oa; Thu, 16 Nov 2023 14:48:45 +0000
+	id 1r3dhh-0001K9-2y; Thu, 16 Nov 2023 14:50:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634369.989765; Thu, 16 Nov 2023 14:48:45 +0000
+Received: by outflank-mailman (output) from mailman id 634375.989774; Thu, 16 Nov 2023 14:50:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3dfh-0007lN-M3; Thu, 16 Nov 2023 14:48:45 +0000
-Received: by outflank-mailman (input) for mailman id 634369;
- Thu, 16 Nov 2023 14:48:44 +0000
+	id 1r3dhh-0001IT-0Q; Thu, 16 Nov 2023 14:50:49 +0000
+Received: by outflank-mailman (input) for mailman id 634375;
+ Thu, 16 Nov 2023 14:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=flNc=G5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r3dfg-0007lD-K0
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:48:44 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d17169d-848f-11ee-98db-6d05b1d4d9a1;
- Thu, 16 Nov 2023 15:48:43 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4084b0223ccso6698835e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 06:48:43 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- u5-20020a05600c138500b003fee6e170f9sm3936189wmf.45.2023.11.16.06.48.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Nov 2023 06:48:42 -0800 (PST)
+ <SRS0=Xmdr=G5=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1r3dhe-0001IN-VU
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:50:46 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 85982dd6-848f-11ee-98db-6d05b1d4d9a1;
+ Thu, 16 Nov 2023 15:50:45 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E021C1595;
+ Thu, 16 Nov 2023 06:51:30 -0800 (PST)
+Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
+ [10.169.190.5])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 82D953F73F;
+ Thu, 16 Nov 2023 06:50:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +43,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d17169d-848f-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700146123; x=1700750923; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=S5uy/plvclR8VEj16tPSjDIsG2AepZj04SrdNCOZWM0=;
-        b=vk5HW+cPGmTmMwc0JZASJZkDiFhW4Oh0YSOwHYOQpDO4QBGRV1Ho7TIgL3bW1oa202
-         qk/52k7Rt3SbITEjzp/9I+HMOwW2B/J6K5J0LRIZarGkX707gIoH0izCA46HPB3u+k1v
-         poasnCaA2IPFwiA8k3dIShvVljt/ixo/tK4oo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700146123; x=1700750923;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=S5uy/plvclR8VEj16tPSjDIsG2AepZj04SrdNCOZWM0=;
-        b=blDsD43Q8Eqgqt+Xsupdv2OAJ3SqRaN3h9OFMm5I1Cc9w+z4BbWlqY94zRUEuQr82R
-         pxfGrpIyyLmvzB1rzixaswIJKL/W5mO00b1VB1ETrzRKPXRTfoWOqQt8xGDCjslpuYaT
-         KjzB6iy2lcVE7Wp7/2SdRsmDp0glf4MZJbC/8ienxM0DlszZiL0rcw9UO/Ebl2SOSAjI
-         mrsr05mjlSvYNkcnNNvToW7T40kygWJTZjYU5DxaVjEPBDZgFp5E4LqAzSkEAXj9MzHI
-         5L4NsCS/6qkZYMqxHPmzCaP2AEQaVzWlITg/kQrC/W6a3Xkg1yA67Zq/ezIrbS73Tp4S
-         U7wg==
-X-Gm-Message-State: AOJu0YzmkX28gK3EZuF44gExsOJpkypc9rZYgoX+izwBpBpLFb8TsKzz
-	YHDQ4/lrdTLh0z0TQPKr69YlDQ==
-X-Google-Smtp-Source: AGHT+IHewOS0L7uoZJSjiZ/VAQETgVYz5o060dLqxncOEpucU4+GBtGv0hi2Z+w+l6yG74P8XpjPXw==
-X-Received: by 2002:a05:600c:1d93:b0:406:3977:eccd with SMTP id p19-20020a05600c1d9300b004063977eccdmr12470231wms.33.1700146123114;
-        Thu, 16 Nov 2023 06:48:43 -0800 (PST)
-Date: Thu, 16 Nov 2023 15:48:41 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
+X-Inumbo-ID: 85982dd6-848f-11ee-98db-6d05b1d4d9a1
+From: Henry Wang <Henry.Wang@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
+	Penny Zheng <penny.zheng@arm.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] livepatch: do not use .livepatch.funcs section to store
- internal state
-Message-ID: <ZVYryZ0HrKNKVtKb@macbook.local>
-References: <20231116115841.71847-1-roger.pau@citrix.com>
- <d6634601-5006-475c-b386-97a1e53c5279@suse.com>
- <ZVYfHQD1AEmNVY3h@macbook.local>
- <54cbcb8b-c895-47fe-ba66-5fb06505e00a@suse.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v9 0/8] xen/arm: Split MMU code as the prepration of MPU work
+Date: Thu, 16 Nov 2023 22:50:24 +0800
+Message-Id: <20231116145032.1651305-1-Henry.Wang@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <54cbcb8b-c895-47fe-ba66-5fb06505e00a@suse.com>
 
-On Thu, Nov 16, 2023 at 03:05:20PM +0100, Jan Beulich wrote:
-> On 16.11.2023 14:54, Roger Pau Monné wrote:
-> > On Thu, Nov 16, 2023 at 01:39:27PM +0100, Jan Beulich wrote:
-> >> On 16.11.2023 12:58, Roger Pau Monne wrote:
-> >>> --- a/xen/include/public/sysctl.h
-> >>> +++ b/xen/include/public/sysctl.h
-> >>> @@ -991,10 +991,7 @@ struct livepatch_func {
-> >>>      uint32_t new_size;
-> >>>      uint32_t old_size;
-> >>>      uint8_t version;        /* MUST be LIVEPATCH_PAYLOAD_VERSION. */
-> >>> -    uint8_t opaque[LIVEPATCH_OPAQUE_SIZE];
-> >>> -    uint8_t applied;
-> >>> -    uint8_t patch_offset;
-> >>> -    uint8_t _pad[6];
-> >>> +    uint8_t _pad[39];
-> >>
-> >> Should this be LIVEPATCH_OPAQUE_SIZE+8 and ...
-> > 
-> > Hm, I'm not sure that's any clearer.  In fact I think
-> > LIVEPATCH_OPAQUE_SIZE shouldn't have leaked into sysctl.h in the first
-> > place.
-> > 
-> > If we later want to add more fields and bump the version, isn't it
-> > easier to have the padding size clearly specified as a number?
-> 
-> If new fields (beyond the present padding size) would need adding,
-> that would constitute an incompatible change anyway.
+Based on the discussion in the Xen Summit [1], sending this series out after
+addressing the comments in v8 [2] as the preparation work to add MPU support.
 
-Not if we bump the version field I think?
+Mostly code movement and function folding, with some of Kconfig and build
+system (mainly Makefiles) adjustment.
 
-As the version is a strict match, bumping the version allows for a
-completely new layout to be implemented past the 'version' field.
+This series is based on:
+6cd046c501 xen/arm: Enlarge identity map space to 10TB
 
-> Until then imo
-> it would be clearer to keep the reference to the original constant.
-> But thinking about it again, the difference is perhaps indeed only
-> marginal. Anyway, I'll leave this to the livepatch maintainers.
-> 
-> One further related remark though: Now that you pointed me at the
-> other use of the constant in the public header, don't you want to
-> update the comment there, for it to not become stale (in referring
-> to struct livepatch_func)?
+[1] https://lore.kernel.org/xen-devel/AS8PR08MB799122F8B0CB841DED64F4819226A@AS8PR08MB7991.eurprd08.prod.outlook.com/
+[2] https://lore.kernel.org/xen-devel/20231023021345.1731436-1-Henry.Wang@arm.com/
 
-Hm, yes, indeed.  I will wait for further comments before sending just
-that comment fix.  I would add:
+Henry Wang (6):
+  xen/arm: Split page table related code to mmu/pt.c
+  xen/arm: Split MMU system SMP MM bringup code to mmu/smpboot.c
+  xen/arm: Fold mmu_init_secondary_cpu() to head.S
+  xen/arm: Extract MMU-specific MM code
+  xen/arm: Split MMU-specific setup_mm() and related code out
+  xen/arm: Fold pmap and fixmap into MMU system
 
-uint8_t data[LIVEPATCH_OPAQUE_SIZE]; /* Max number of bytes to be patched */
+Penny Zheng (2):
+  xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
+  xen/arm: mmu: move MMU specific P2M code to mmu/p2m.{c,h}
 
-Thanks, Roger.
+ xen/arch/arm/Kconfig               |    2 +-
+ xen/arch/arm/Makefile              |    1 +
+ xen/arch/arm/arm32/Makefile        |    1 +
+ xen/arch/arm/arm32/head.S          |   22 +-
+ xen/arch/arm/arm32/mmu/Makefile    |    1 +
+ xen/arch/arm/arm32/mmu/mm.c        |  301 +++++
+ xen/arch/arm/arm64/Makefile        |    1 -
+ xen/arch/arm/arm64/mmu/Makefile    |    1 +
+ xen/arch/arm/arm64/mmu/head.S      |   19 +-
+ xen/arch/arm/arm64/{ => mmu}/mm.c  |   84 ++
+ xen/arch/arm/domain.c              |   11 +-
+ xen/arch/arm/include/asm/mm.h      |   32 +-
+ xen/arch/arm/include/asm/mmu/mm.h  |   44 +
+ xen/arch/arm/include/asm/mmu/p2m.h |   26 +
+ xen/arch/arm/include/asm/p2m.h     |   32 +-
+ xen/arch/arm/include/asm/page.h    |   15 -
+ xen/arch/arm/include/asm/setup.h   |    5 +
+ xen/arch/arm/kernel.c              |   28 -
+ xen/arch/arm/mm.c                  | 1212 ------------------
+ xen/arch/arm/mmu/Makefile          |    4 +
+ xen/arch/arm/mmu/p2m.c             | 1834 ++++++++++++++++++++++++++
+ xen/arch/arm/mmu/pt.c              |  736 +++++++++++
+ xen/arch/arm/mmu/setup.c           |  376 ++++++
+ xen/arch/arm/mmu/smpboot.c         |  124 ++
+ xen/arch/arm/p2m.c                 | 1909 +---------------------------
+ xen/arch/arm/setup.c               |  324 +----
+ xen/arch/arm/smpboot.c             |    4 +-
+ 27 files changed, 3656 insertions(+), 3493 deletions(-)
+ create mode 100644 xen/arch/arm/arm32/mmu/Makefile
+ create mode 100644 xen/arch/arm/arm32/mmu/mm.c
+ rename xen/arch/arm/arm64/{ => mmu}/mm.c (61%)
+ create mode 100644 xen/arch/arm/include/asm/mmu/mm.h
+ create mode 100644 xen/arch/arm/include/asm/mmu/p2m.h
+ create mode 100644 xen/arch/arm/mmu/Makefile
+ create mode 100644 xen/arch/arm/mmu/p2m.c
+ create mode 100644 xen/arch/arm/mmu/pt.c
+ create mode 100644 xen/arch/arm/mmu/setup.c
+ create mode 100644 xen/arch/arm/mmu/smpboot.c
+
+-- 
+2.25.1
+
 
