@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 005667EE707
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 19:56:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634631.990092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C66F7EE733
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 20:12:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634634.990102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3hW7-0002EC-84; Thu, 16 Nov 2023 18:55:07 +0000
+	id 1r3hmF-0006cT-KB; Thu, 16 Nov 2023 19:11:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634631.990092; Thu, 16 Nov 2023 18:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 634634.990102; Thu, 16 Nov 2023 19:11:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3hW7-0002Bh-51; Thu, 16 Nov 2023 18:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 634631;
- Thu, 16 Nov 2023 18:55:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ywrF=G5=kernel.org=gustavoars@srs-se1.protection.inumbo.net>)
- id 1r3hW5-0002Bb-LT
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 18:55:05 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6e69c82-84b1-11ee-98db-6d05b1d4d9a1;
- Thu, 16 Nov 2023 19:55:04 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 6BC1AB81CE0;
- Thu, 16 Nov 2023 18:55:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BBB8C433C8;
- Thu, 16 Nov 2023 18:55:01 +0000 (UTC)
+	id 1r3hmF-0006ZP-Gv; Thu, 16 Nov 2023 19:11:47 +0000
+Received: by outflank-mailman (input) for mailman id 634634;
+ Thu, 16 Nov 2023 19:11:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r3hmE-0006ZF-3u; Thu, 16 Nov 2023 19:11:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r3hmE-0004Rl-02; Thu, 16 Nov 2023 19:11:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r3hmD-000283-JE; Thu, 16 Nov 2023 19:11:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r3hmD-0006A5-Ib; Thu, 16 Nov 2023 19:11:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,71 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6e69c82-84b1-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700160902;
-	bh=JwQgKXdyVFHDeYy2JqIrcrbfOB3OycZsBTQgBU7qjPM=;
-	h=Date:From:To:Cc:Subject:From;
-	b=Q2KeOstZqpSdN4JhKTSNmJecY3BmKrmxV0TKxlDYtF5gv7UBoA9ki8l+3oU7WT0Hx
-	 SGmSc3VfEncIDsy7g1gUdu/dUurdmxWoNKqVqXpNG0JIQn/9CRKtLj4EZby3gR0ebM
-	 W29DzH+9f5rXc4ky/j82PuHjBZxanaXp2OXpLgfdOeYwEyc8H6InT7BIuTjYwI2twZ
-	 K2Q59QirBuKsjjD1uHuCUq6Vt0CT0Ut1+Mc3R70pFEkwWmeLddoRJdAqfYUx+Un6j7
-	 onTVWGPMm6W16RlorLGNo7T/80qIpz+vuwThsSHkscF6lBwIA6x+UPnUOlCQ+Gw8al
-	 9yTiFS6TTIGSg==
-Date: Thu, 16 Nov 2023 12:54:59 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH][next] xen: privcmd: Replace zero-length array with
- flex-array member and use __counted_by
-Message-ID: <ZVZlg3tPMPCRdteh@work>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=IU0A0YijtMgWXBZR39YUMHv+trPf9yLThnO7mUlQxe0=; b=0Z6Q+lH6Wkn1YZG0jkCkagjv1P
+	HP+iyUqVWmiGUPI+966+3Eb5trsp6mJMxIkIkyOtlBeoU53cq8gIrho2LN3Ek6Gcp2yV5nygjU3M5
+	83VL5PJ7sgxNI6chA2GIQFgcHl0aK4X1nuqtgtQlUAD4ZwuUZaNrEF1hgDfEYN3bkU9Y=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183774-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Subject: [xen-unstable-smoke test] 183774: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6cd046c501bce48cdc42f597fc7a023aa08853e7
+X-Osstest-Versions-That:
+    xen=b739e2067b1a06328e7f0042630b543413689eac
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 16 Nov 2023 19:11:45 +0000
 
-Fake flexible arrays (zero-length and one-element arrays) are deprecated,
-and should be replaced by flexible-array members. So, replace
-zero-length array with a flexible-array member in `struct
-privcmd_kernel_ioreq`.
+flight 183774 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183774/
 
-Also annotate array `ports` with `__counted_by()` to prepare for the
-coming implementation by GCC and Clang of the `__counted_by` attribute.
-Flexible array members annotated with `__counted_by` can have their
-accesses bounds-checked at run-time via `CONFIG_UBSAN_BOUNDS` (for array
-indexing) and `CONFIG_FORTIFY_SOURCE` (for strcpy/memcpy-family functions).
+Failures :-/ but no regressions.
 
-This fixes multiple -Warray-bounds warnings:
-drivers/xen/privcmd.c:1239:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-drivers/xen/privcmd.c:1240:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-drivers/xen/privcmd.c:1241:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-drivers/xen/privcmd.c:1245:33: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-drivers/xen/privcmd.c:1258:67: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-This results in no differences in binary output.
+version targeted for testing:
+ xen                  6cd046c501bce48cdc42f597fc7a023aa08853e7
+baseline version:
+ xen                  b739e2067b1a06328e7f0042630b543413689eac
 
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
----
- drivers/xen/privcmd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Last test of basis   183770  2023-11-16 09:02:03 Z    0 days
+Testing same since   183774  2023-11-16 15:02:22 Z    0 days    1 attempts
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 1ce7f3c7a950..0eb337a8ec0f 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -1115,7 +1115,7 @@ struct privcmd_kernel_ioreq {
- 	spinlock_t lock; /* Protects ioeventfds list */
- 	struct list_head ioeventfds;
- 	struct list_head list;
--	struct ioreq_port ports[0];
-+	struct ioreq_port ports[] __counted_by(vcpus);
- };
- 
- static irqreturn_t ioeventfd_interrupt(int irq, void *dev_id)
--- 
-2.34.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien@xen.org>
+  Leo Yan <leo.yan@linaro.org>
 
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b739e2067b..6cd046c501  6cd046c501bce48cdc42f597fc7a023aa08853e7 -> smoke
 
