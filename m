@@ -2,48 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357FA7EE505
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 17:17:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634498.989995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B677EE50A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 17:21:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634503.990005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3f2C-0003IS-VZ; Thu, 16 Nov 2023 16:16:04 +0000
+	id 1r3f7E-0005EA-Hf; Thu, 16 Nov 2023 16:21:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634498.989995; Thu, 16 Nov 2023 16:16:04 +0000
+Received: by outflank-mailman (output) from mailman id 634503.990005; Thu, 16 Nov 2023 16:21:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3f2C-0003Fv-Sr; Thu, 16 Nov 2023 16:16:04 +0000
-Received: by outflank-mailman (input) for mailman id 634498;
- Thu, 16 Nov 2023 16:16:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cdtJ=G5=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1r3f2B-0003Fp-Ev
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:16:03 +0000
-Received: from smarthost01b.sbp.mail.zen.net.uk
- (smarthost01b.sbp.mail.zen.net.uk [212.23.1.3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d0660ff-849b-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 17:15:58 +0100 (CET)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01b.sbp.mail.zen.net.uk with esmtpsa (TLS1.0) tls
- TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
- (envelope-from <james@dingwall.me.uk>) id 1r3f25-008r4B-Gk
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:15:57 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 7379C8A255A
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
-Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
- by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id y98fW0nheVOU for <xen-devel@lists.xenproject.org>;
- Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
-Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:105])
- by dingwall.me.uk (Postfix) with ESMTP id 428088A2555
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
-Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
- id 8BF42B2A8F0; Thu, 16 Nov 2023 16:15:55 +0000 (GMT)
+	id 1r3f7E-0005C5-F4; Thu, 16 Nov 2023 16:21:16 +0000
+Received: by outflank-mailman (input) for mailman id 634503;
+ Thu, 16 Nov 2023 16:21:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X1T5=G5=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1r3f7C-0005By-Kq
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:21:14 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 27f54963-849c-11ee-98db-6d05b1d4d9a1;
+ Thu, 16 Nov 2023 17:21:11 +0100 (CET)
+Received: from sender by smtp.strato.de (RZmta 49.9.1 AUTH)
+ with ESMTPSA id g1b15czAGGKuWDC
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 16 Nov 2023 17:20:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,103 +41,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d0660ff-849b-11ee-9b0e-b553b5be7939
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-Date: Thu, 16 Nov 2023 16:15:55 +0000
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: xen-devel@lists.xenproject.org
-Subject: xen 4.15.5: msr_relaxed required for MSR 0x1a2
-Message-ID: <ZVZAO/W0m/h+IPbi@dingwall.me.uk>
+X-Inumbo-ID: 27f54963-849c-11ee-98db-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; t=1700151656; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=OVWmPaWyQ0SBfLbuvwYsVMQXoZm/cK6W6D2YO9LHWUdpobOgvRy96y0maiyQ/N5FuS
+    gqZtA/NvToqfxepXV8sfDOfcdEFKU1ZwQooC6eNTto+H0zT54R3GEd41WCRfl5E/t1qP
+    P7XnAXakmnGXIhQVjPiTDyuNZTJSuq+B3/CBIEyYiy98yDkPbvd+SMU15PxQN5PY9EOF
+    9gmKYxPwf8wdIKxrcx+c/za8oyOu8qjs4vCdKwlGFqIpu+6dG2X2oG5QZZPkdGgR2FlM
+    oqXiuFwT++3GTXjxJKIqlXV6/PSEn7v4j8en08coHUmi68XF+fha6mLOvlCFL7whgN4A
+    +ToQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1700151656;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=eMeji3C6FNAgNGJKxUonP8+P4cFYr4LlEyq7GSw2XxE=;
+    b=Mg6WVT8q3uON6RIQaMIW1NFMKLXkEGyoIX2JaWD8bdZ3KwFh2QLqLtethYBWyx/BHv
+    9+iBRPyeHBM+nUwowVN4pKf5vRExxP3y2kAPQcojdKmQCA478apjX3DOKCvXswTgBYSW
+    xZX7GLlYxsZ3TP7WL0w+Nk07fOTS0MogKWO+06UlHI9ZWnPQoND+qwtnrMjnGIQsNRlE
+    Kll8qZFRuPnoH+/khzKrw9J2/ATdZH3sWKDhQRd5wjZidy3S882EvWON0OHyz4szR1FH
+    WKNyHQo340q9pZxuVvrgkf16YSMdQOB39dCz1SfCBdvZZZavQVUTw5uZ94UR2JKfheiM
+    aMGA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1700151656;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=eMeji3C6FNAgNGJKxUonP8+P4cFYr4LlEyq7GSw2XxE=;
+    b=cmBGqfJpNu3h0la/22IYL9jEz3iBCvmY7ShO2BIyG8DLF+BADNqXi5OB/8etD1b6VU
+    Z1EG7b52ftA6LMn9gnhP0KNZpdaa7iEFiJ3OPXcJ3JZUO3h+cqnx3uCcb6HB/CIRZ4Pw
+    oKvuWDAMl3OKNVgSQ/F3wJ/5ZF9lw3C6P8ob4ROKQ2f/DI4J8Y+SEpBnbovoAC5VGt6W
+    e4AQxsTtH0oDDmVf9LsVXXGnTwfJzHTsWxJHoXnW2MS9/a1jM+IsY+tDNbnU+tBLeXgQ
+    9i2VIf3EE2zwoUyFxAvlDghLIr7S8ODh3WmS1X5JIUS9iPUyqf2aVaIn/KPnr6lgQK71
+    unGA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1700151656;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=eMeji3C6FNAgNGJKxUonP8+P4cFYr4LlEyq7GSw2XxE=;
+    b=Vxb0C3ndowyR+Bjmy4ZVRD/oG3wedXYMMO9EPqG/K4Igu82ZXtznlIxJRFjyczhX6e
+    w2NCjP43AB0MMBSmvjCQ==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5BhaIaRnsNaqJN2h0dTFZeqQ89seVgD7Tlo9gNQ=="
+Date: Thu, 16 Nov 2023 17:20:48 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Henry.Wang@arm.com, Julien Grall
+ <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH for-4.18] SUPPORT.md: Define support lifetime
+Message-ID: <20231116172048.0ca018e7.olaf@aepfle.de>
+In-Reply-To: <20231115121632.63868-1-julien@xen.org>
+References: <20231115121632.63868-1-julien@xen.org>
+X-Mailer: Claws Mail 20230817T113819.a897c59c hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="YEu8yWOaMoSMZV1p"
-Content-Disposition: inline
-X-Originating-smarthost01b-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+Content-Type: multipart/signed; boundary="Sig_/0L5YPd88iNXT7OqukmtQFw_";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
+
+--Sig_/0L5YPd88iNXT7OqukmtQFw_
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Wed, 15 Nov 2023 12:16:32 +0000 Julien Grall <julien@xen.org>:
+
+> +++ b/SUPPORT.md
+...
+>  Release Notes
+>  : <a href=3D"https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_N=
+otes">RN</a>
 
 
---YEu8yWOaMoSMZV1p
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This X.YY needs to be adjusted as well. Hopefully this detail is mentioned =
+in the release-process.txt.
 
-Hi,
 
-Per the msr_relaxed documentation:
+Olaf
 
-   "If using this option is necessary to fix an issue, please report a bug."
+--Sig_/0L5YPd88iNXT7OqukmtQFw_
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
-After recently upgrading an environment from Xen 4.14.5 to Xen 4.15.5 we
-started experiencing a BSOD at boot with one of our Windows guests.  We found
-that enabling `msr_relaxed = 1` in the guest configuration has resolved the
-problem.  With a debug build of Xen and `hvm_debug=2048` on the command line
-the following messages were caught as the BSOD happened:
+-----BEGIN PGP SIGNATURE-----
 
-(XEN) [HVM:11.0] <vmx_msr_read_intercept> ecx=0x1a2
-(XEN) vmx.c:3298:d11v0 RDMSR 0x000001a2 unimplemented
-(XEN) d11v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80b8de81eb5 0 0
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmVWQWAACgkQ86SN7mm1
+DoAylQ/+KZg51AyaQrYzgOGn2GJR79ZVgCsfd+7yfi7DYe3+P8rSN4t3mu/eDez+
+uIeOh7VQ4uDWmktqCbUJdlPK124lWtWbfQPa2JPFNT4X6AIDn0PiXnLIyPucuzJI
+ucOireNt17ou3cdkrpvxOejsYzO6F/aG2Q0U1lCXgzSFgviYYPcyhyOgluasy/Y2
+7+trqOu0/JlyKfdT2ivqEKOG8FExDbf1vSO16Wa623nAYg7ygPmm8pUsWUGiIWp0
+fJdz+1cew2PksSkqJNxJjYoGA259VyNYjuk1TwreZTik8f+kcKJ+cuuRBFa3lRFx
+ZszLohLbfnH13IFkxnirmHGa2yU+GQSPI+UVIVu7dhmSIfBzBdbcF2ZLrjFd+kuW
+OYQfwCH9EoW8/6QCXDbHpy5cV8ko8BcbMsSBJA+WM0ki6dHqVgnk/FzRIrEtv0A5
+W0DqbwxdDoABpIcs7wvxHBVKwtgo3sQpwIjBkBjuM0IX1O+QEskWmjRW1cuZLJgm
+kc5D1VQigrmRTXyT19FS65esU7rRvlxGLEfGpRjEtFaMGVj2DcKFitYg5qvzBQqh
+AfiiJQX9ASsoiT8+zSzX/O9BKwP8HuoWzkJHjnsC8ovtN8GzS5KjiNrzVYuWlGWR
+iNFxv3N+F8ZHDgt3oZMrLBDLX+k+qXEdY/ZyZzk2L5hyxz+yDSQ=
+=qyh3
+-----END PGP SIGNATURE-----
 
-I found that MSR 0x1a2 is MSR_TEMPERATURE_TARGET and from that this patch
-series from last month:
-
-https://patchwork.kernel.org/project/xen-devel/list/?series=796550
-
-Picking out just a small part of that fixes the problem for us. Although the
-the patch is against 4.15.5 I think it would be relevant to more recent
-releases too.
-
-Thanks,
-James
-
---YEu8yWOaMoSMZV1p
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment; filename="msr_temperature_target.patch"
-
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 54023a92587..3f64471c8a8 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3259,6 +3259,14 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-         if ( !nvmx_msr_read_intercept(msr, msr_content) )
-             goto gp_fault;
-         break;
-+
-+    case MSR_TEMPERATURE_TARGET:
-+        if ( !rdmsr_safe(msr, *msr_content) )
-+            break;
-+        /* RO for guests, MSR_PLATFORM_INFO bits set accordingly in msr.c to indicate lack of write
-+         * support. */
-+        goto gp_fault;
-+
-     case MSR_IA32_MISC_ENABLE:
-         rdmsrl(MSR_IA32_MISC_ENABLE, *msr_content);
-         /* Debug Trace Store is not supported. */
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index ed97b1d6fcc..eb9eb45e820 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -976,6 +976,9 @@ static int read_msr(unsigned int reg, uint64_t *val,
-         *val = 0;
-         return X86EMUL_OKAY;
- 
-+    case MSR_TEMPERATURE_TARGET:
-+        goto normal;
-+
-     case MSR_P6_PERFCTR(0) ... MSR_P6_PERFCTR(7):
-     case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL(3):
-     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
-diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
-index 8b3ad575dbc..34e800fdc01 100644
---- a/xen/include/asm-x86/msr-index.h
-+++ b/xen/include/asm-x86/msr-index.h
-@@ -498,6 +498,9 @@
- #define MSR_IA32_MISC_ENABLE_XD_DISABLE	(1ULL << 34)
- 
- #define MSR_IA32_TSC_DEADLINE		0x000006E0
-+
-+#define MSR_TEMPERATURE_TARGET		0x000001a2
-+
- #define MSR_IA32_ENERGY_PERF_BIAS	0x000001b0
- 
- /* Platform Shared Resource MSRs */
-
---YEu8yWOaMoSMZV1p--
+--Sig_/0L5YPd88iNXT7OqukmtQFw_--
 
