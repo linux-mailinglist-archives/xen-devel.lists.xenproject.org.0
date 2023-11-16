@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB237EE984
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 23:51:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634663.990156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 983B37EE9DB
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 00:05:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634704.990166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3lCG-0004oM-An; Thu, 16 Nov 2023 22:50:52 +0000
+	id 1r3lQ9-00077P-N5; Thu, 16 Nov 2023 23:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634663.990156; Thu, 16 Nov 2023 22:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 634704.990166; Thu, 16 Nov 2023 23:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3lCG-0004mh-7y; Thu, 16 Nov 2023 22:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 634663;
- Thu, 16 Nov 2023 22:50:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3lQ9-00075J-Jv; Thu, 16 Nov 2023 23:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 634704;
+ Thu, 16 Nov 2023 23:05:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=trnS=G5=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1r3lCE-0004ma-A9
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 22:50:50 +0000
-Received: from mail-183-236.mailgun.info (mail-183-236.mailgun.info
- [23.253.183.236]) by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
- id 94724f41-84d2-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 23:50:47 +0100 (CET)
-Received: from mg.gitlab.com (24.226.74.34.bc.googleusercontent.com
- [34.74.226.24]) by
- 2a3830d76978 with SMTP id 65569cc496fdd5e2e6deb997 (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Thu, 16 Nov 2023 22:50:44 GMT
+ <SRS0=ePBE=G5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r3lQ8-00075D-Mo
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 23:05:12 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97d5058a-84d4-11ee-98db-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 00:05:11 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 67C16B81EFC;
+ Thu, 16 Nov 2023 23:05:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FAD8C433C8;
+ Thu, 16 Nov 2023 23:05:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,395 +40,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 94724f41-84d2-11ee-9b0e-b553b5be7939
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
- q=dns/txt; s=mailo; t=1700175045; x=1700182245; h=List-Id:
- Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
- Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
- bh=0fJ4f7pFJpBPIAq9rAVyrerP5jIWnlufNYIFgCEIVok=;
- b=WcWOc8H8ESpiiVI2xj78XS0IXRLyMAVgXr0zcHJ1kOo4kb+T1QDSZzbOjISl2Y4YjYaKfkhVPM9mJT1hmnTNh7u6GJ8Vk2fyy5gc9k9KfMWQ1fbUlpn5BqDLo+bmsKcuVeti6Y8EFQ1rjWERmqiZPdNZWN2YXN8WXNsYQUd7PXk=
-X-Mailgun-Sending-Ip: 23.253.183.236
-X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
-Sender: gitlab@mg.gitlab.com
-Date: Thu, 16 Nov 2023 22:50:44 +0000
-From: GitLab <gitlab@mg.gitlab.com>
-Reply-To: GitLab <noreply@gitlab.com>
-To: xen-devel@lists.xenproject.org
-Message-ID: <65569cc4a09f4_2cf93eb8948de@gitlab-sidekiq-catchall-v2-776d5d766c-46lv6.mail>
-Subject: xen | Successful pipeline for staging-4.18 | d75f1e9b
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="--==_mimepart_65569cc496b77_2cf93eb89476b";
- charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-GitLab-Project: xen
-X-GitLab-Project-Id: 2336572
-X-GitLab-Project-Path: xen-project/xen
-X-GitLab-Pipeline-Id: 1075579727
-X-GitLab-Pipeline-Ref: staging-4.18
-X-GitLab-Pipeline-Status: success
-Auto-Submitted: auto-generated
-X-Auto-Response-Suppress: All
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 97d5058a-84d4-11ee-98db-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700175909;
+	bh=i1M0oOFM0sXnzxemSR+lMx7ZvDswDpveoSLf3Ll5lDE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=u7rpvOD8C/SDBs6ZSJ8UDb4DE5lKxSb51uR7sxMt/3tt0plA55WxrQ+PIfqLgNSb+
+	 eaqP17aBPB64+hf+7RdNX3wupqYH5XGsMAIbNRD4rxcTb2CbqgJn4v/Iod0yO2I+4F
+	 AF5yduJM4TXgKQQbb/jYHTWS5Ioy9ciWHWo9LF7N1BRFvine+zYLB/23fzK/0JSVaz
+	 ifEah1wmi8bk2iJvLMw/TnxLF23xqvYbQGR9Ue9GHUD5erhxFivB14U+AukwEo6fmV
+	 /SfawN1Vno+tsCWpLt5QqowY4TsmUNgysB/5JZvBzytwVIwLzAmn7YvWe/ibR66N3F
+	 JLRxB0pmXAOfQ==
+Date: Thu, 16 Nov 2023 15:04:49 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
+    Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>, 
+    Stewart Hildebrand <stewart.hildebrand@amd.com>
+Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+In-Reply-To: <875y2168ki.fsf@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2311161504440.773207@ubuntu-linux-20-04-desktop>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com> <20231115112611.3865905-3-Sergiy_Kibrik@epam.com> <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org> <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com> <alpine.DEB.2.22.394.2311151518500.160649@ubuntu-linux-20-04-desktop>
+ <875y2168ki.fsf@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-----==_mimepart_65569cc496b77_2cf93eb89476b
-Content-Type: text/plain;
- charset=UTF-8
-Content-Transfer-Encoding: 7bit
+On Thu, 16 Nov 2023, Volodymyr Babchuk wrote:
+> Hi Stefano,
+> 
+> Stefano Stabellini <sstabellini@kernel.org> writes:
+> 
+> > + Stewart, Vikram
+> >
+> > On Wed, 15 Nov 2023, Oleksandr Tyshchenko wrote:
+> >> On 15.11.23 14:33, Julien Grall wrote:
+> >> > Thanks for adding support for virtio-pci in Xen. I have some questions.
+> >> > 
+> >> > On 15/11/2023 11:26, Sergiy Kibrik wrote:
+> >> >> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >> >>
+> >> >> In order to enable more use-cases such as having multiple
+> >> >> device-models (Qemu) running in different backend domains which provide
+> >> >> virtio-pci devices for the same guest, we allocate and expose one
+> >> >> PCI host bridge for every virtio backend domain for that guest.
+> >> > 
+> >> > OOI, why do you need to expose one PCI host bridge for every stubdomain?
+> >> > 
+> >> > In fact looking at the next patch, it seems you are handling some of the 
+> >> > hostbridge request in Xen. This is adds a bit more confusion.
+> >> > 
+> >> > I was expecting the virtual PCI device would be in the vPCI and each 
+> >> > Device emulator would advertise which BDF they are covering.
+> >> 
+> >> 
+> >> This patch series only covers use-cases where the device emulator 
+> >> handles the *entire* PCI Host bridge and PCI (virtio-pci) devices behind 
+> >> it (i.e. Qemu). Also this patch series doesn't touch vPCI/PCI 
+> >> pass-through resources, handling, accounting, nothing. From the 
+> >> hypervisor we only need a help to intercept the config space accesses 
+> >> happen in a range [GUEST_VIRTIO_PCI_ECAM_BASE ... 
+> >> GUEST_VIRTIO_PCI_ECAM_BASE + GUEST_VIRTIO_PCI_TOTAL_ECAM_SIZE] and 
+> >> forward them to the linked device emulator (if any), that's all.
+> >> 
+> >> It is not possible (with current series) to run device emulators what
+> >> emulate only separate PCI (virtio-pci) devices. For it to be possible, I 
+> >> think, much more changes are required than current patch series does. 
+> >> There at least should be special PCI Host bridge emulation in Xen (or 
+> >> reuse vPCI) for the integration. Also Xen should be in charge of forming 
+> >> resulting PCI interrupt based on each PCI device level signaling (if we 
+> >> use legacy interrupts), some kind of x86's XEN_DMOP_set_pci_intx_level, 
+> >> etc. Please note, I am not saying this is not possible in general, 
+> >> likely it is possible, but initial patch series doesn't cover these 
+> >> use-cases)
+> >>
+> >> We expose one PCI host bridge per virtio backend domain. This is a 
+> >> separate PCI host bridge to combine all virtio-pci devices running in 
+> >> the same backend domain (in the same device emulator currently).
+> >> The examples:
+> >> - if only one domain runs Qemu which servers virtio-blk, virtio-net, 
+> >> virtio-console devices for DomU - only single PCI Host bridge will be 
+> >> exposed for DomU
+> >> - if we add another domain to run Qemu to serve additionally virtio-gpu, 
+> >> virtio-input and virtio-snd for the *same* DomU - we expose second PCI 
+> >> Host bridge for DomU
+> >> 
+> >> I am afraid, we cannot end up exposing only single PCI Host bridge with 
+> >> current model (if we use device emulators running in different domains 
+> >> that handles the *entire* PCI Host bridges), this won't work.
+> >  
+> >
+> > We were discussing the topic of vPCI and Virtio PCI just this morning
+> > with Stewart and Vikram. We also intend to make them work well together
+> > in the next couple of months (great timing!!)
+> >
+> > However, our thinking is to go with the other approach Julien
+> > suggested: a single PCI Root Complex emulated in Xen by vPCI. QEMU would
+> > register individual PCI devices against it.
+> >
+> > Vikram, Stewart, please comment. Our understanding is that it should be
+> > possible to make QEMU virtio-pci work with vPCI with relatively minor
+> > efforts and AMD volunteers to do the work in the next couple of months
+> > on the vPCI side.
+> >
+> >
+> > Although it should be possible to make both approaches work at the same
+> > time, given that it would seem that EPAM and AMD have very similar
+> > requirements, I suggest we work together and collaborate on a single
+> > approach going forward that works best for everyone.
+> >
+> >
+> > Let me start by saying that if we can get away with it, I think that a
+> > single PCI Root Complex in Xen would be best because it requires less
+> > complexity. Why emulate 2/3 PCI Root Complexes if we can emulate only
+> > one?
+> 
+> Well, in fact we tried similar setup, this was in the first version of
+> virtio-pci support. But we had a couple of issues with this. For
+> instance, this might conflict with PCI passthrough devices, with virtio
+> devices that have back-ends in different domains, etc. I am no saying
+> that this is impossible, but this just involves more moving parts.
+> 
+> With my vPCI patch series in place, hypervisor itself assigns BDFs for
+> passed-through devices. Toolstack needs to get this information to know
+> which BDFs are free and can be used by virtio-pci.
 
+I'll premise that I don't really have an opinion on how the virtual BDF
+allocation should happen.
 
+But I'll ask the opposite question that Julien asked: if it is Xen that
+does the allocation, that's fine, then couldn't we arrange so that Xen
+also does the allocation in the toolstack case too (simply by picking
+the first available virtual BDF)?
 
-Pipeline #1075579727 has passed!
-
-Project: xen ( https://gitlab.com/xen-project/xen )
-Branch: staging-4.18 ( https://gitlab.com/xen-project/xen/-/commits/staging-4.18 )
-
-Commit: d75f1e9b ( https://gitlab.com/xen-project/xen/-/commit/d75f1e9b74314cea91ce435730d4e3539ecca77d )
-Commit Message: SUPPORT.md: Update release notes URL
-
-Signed-of...
-Commit Author: Julien Grall
-
-
-
-Pipeline #1075579727 ( https://gitlab.com/xen-project/xen/-/pipelines/1075579727 ) triggered by Ganis ( https://gitlab.com/ganis )
-successfully completed 129 jobs in 3 stages.
-
--- 
-You're receiving this email because of your account on gitlab.com.
-
-
-
-
-----==_mimepart_65569cc496b77_2cf93eb89476b
-Content-Type: text/html;
- charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
-w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
-
-<head>
-<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
-/>
-<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
-t" />
-<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
-<title>xen | Successful pipeline for staging-4.18 | d75f1e9b</title>
-<style data-premailer=3D"ignore" type=3D"text/css">
-body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
-able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
-ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
-a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
-important;font-size:inherit !important;font-family:inherit !important;fon=
-t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
-margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
-39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
-ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
-ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
-ing-left:10px !important;padding-right:10px !important}}
-
-</style>
-
-<style>body {
-margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
-center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
-ica Neue", Helvetica, Arial, sans-serif;
-}
-</style></head>
-<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
- 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
-rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
-
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
-=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
-: 0;" bgcolor=3D"#fafafa">
-<tbody>
-<tr class=3D"line">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
-4fbb"></td>
-</tr>
-<tr class=3D"header">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
-px 0;">
-
-<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
-2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
-th=3D"55" height=3D"55" />
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
- style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
-gin: 0 auto;">
-<tbody>
-<tr>
-<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
-t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
-adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
-#fff">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
- style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
-<tbody>
-<tr class=3D"table-success">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
-rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
-lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse; margin: 0 auto;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
-<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
-ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
-5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
- width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #ffffff;" align=3D"center" valign=3D"middle">
-Pipeline #1075579727 has passed!
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr class=3D"spacer">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
-ight: 18px; font-size: 18px; line-height: 18px;">
-&#160;
-</td>
-</tr>
-<tr class=3D"section">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
-rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
-deded;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
-fo" style=3D"width: 100%;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
-: 0; padding: 14px 0;">
-Project
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; margin: 0; padding: 14px 0 14px 5px;">
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
-: #333333; text-decoration: none;">
-xen-project
-</a>
-/
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
-olor: #333333; text-decoration: none;">
-xen
-</a>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Branch
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
-ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
-9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
-taging-4.18" style=3D"color: #333333; text-decoration: none;">
-staging-4.18
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Commit
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
-ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
-506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<a href=3D"https://gitlab.com/xen-project/xen/-/commit/d75f1e9b74314cea91=
-ce435730d4e3539ecca77d" style=3D"color: #3777b0; text-decoration: none;">=
-d75f1e9b</a>
-</td>
-</tr>
-</tbody>
-</table>
-<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
-SUPPORT.md: Update release notes URL
-
-Signed-of...
-</div>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Commit Author
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
-ar.com/avatar/c4cdf37f0b2565754a400ffda114e915?s=3D48&amp;d=3Didenticon" =
-style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
-4" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<span>
-Julien Grall
-</span>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr class=3D"spacer">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
-ight: 18px; font-size: 18px; line-height: 18px;">
-&#160;
-</td>
-</tr>
-<tr class=3D"success-message">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
-g: 15px 5px 0;" align=3D"center">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse; margin: 0 auto;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
-Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/107557=
-9727" style=3D"color: #3777b0; text-decoration: none;">#1075579727</a> tr=
-iggered by
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
-dding-left: 5px;" width=3D"24" valign=3D"middle">
-<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
-ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
-style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
-4" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
-<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
-333; text-decoration: none;">
-Ganis
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
-sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
-t: 1.4; padding: 15px 5px;" align=3D"center">
-successfully completed 129 jobs in 3 stages.
-</td>
-</tr>
-
-
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-
-<tr class=3D"footer">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
-px 0;">
-<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
-s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
-5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
-n: 0 auto 1em;" />
-<div>
-You're receiving this email because of your account on <a target=3D"_blan=
-k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
-: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
-lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
-rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
-none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
-help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
-tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
-</div>
-</td>
-</tr>
-
-
-<tr>
-<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
-uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
-lor: #5c5c5c; padding: 25px 0;">
-
-</td>
-</tr>
-</tbody>
-</table>
-</body>
-</html>
-
-----==_mimepart_65569cc496b77_2cf93eb89476b--
+One way or the other it should be OK as long as we are consistent.
 
