@@ -2,32 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5417EE4EE
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 17:07:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634494.989986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 357FA7EE505
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 17:17:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634498.989995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3etL-0000DB-Ul; Thu, 16 Nov 2023 16:06:55 +0000
+	id 1r3f2C-0003IS-VZ; Thu, 16 Nov 2023 16:16:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634494.989986; Thu, 16 Nov 2023 16:06:55 +0000
+Received: by outflank-mailman (output) from mailman id 634498.989995; Thu, 16 Nov 2023 16:16:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3etL-0000BT-Rb; Thu, 16 Nov 2023 16:06:55 +0000
-Received: by outflank-mailman (input) for mailman id 634494;
- Thu, 16 Nov 2023 16:06:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r3etK-0000BL-BV
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:06:54 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3etK-0001Ap-12; Thu, 16 Nov 2023 16:06:54 +0000
-Received: from [15.248.3.7] (helo=[10.24.67.23])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r3etJ-0007CK-QE; Thu, 16 Nov 2023 16:06:53 +0000
+	id 1r3f2C-0003Fv-Sr; Thu, 16 Nov 2023 16:16:04 +0000
+Received: by outflank-mailman (input) for mailman id 634498;
+ Thu, 16 Nov 2023 16:16:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cdtJ=G5=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
+ id 1r3f2B-0003Fp-Ev
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:16:03 +0000
+Received: from smarthost01b.sbp.mail.zen.net.uk
+ (smarthost01b.sbp.mail.zen.net.uk [212.23.1.3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d0660ff-849b-11ee-9b0e-b553b5be7939;
+ Thu, 16 Nov 2023 17:15:58 +0100 (CET)
+Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
+ by smarthost01b.sbp.mail.zen.net.uk with esmtpsa (TLS1.0) tls
+ TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
+ (envelope-from <james@dingwall.me.uk>) id 1r3f25-008r4B-Gk
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 16:15:57 +0000
+Received: from localhost (localhost [IPv6:::1])
+ by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 7379C8A255A
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
+Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
+ by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id y98fW0nheVOU for <xen-devel@lists.xenproject.org>;
+ Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
+Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk
+ [IPv6:2a02:8010:698e:302::c0a8:105])
+ by dingwall.me.uk (Postfix) with ESMTP id 428088A2555
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 16:15:56 +0000 (GMT)
+Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
+ id 8BF42B2A8F0; Thu, 16 Nov 2023 16:15:55 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +55,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=I8F5bpET6P5qhCrDl1XuqlUr3OKVKTVGIJmoUJIjkIU=; b=1SKF1GjXbPgnTxjSx5bMeVvSw2
-	tiTJ+X4Bfsr5hQcjOKFcs+Wk/5l7SHWvtaKqJiItRqBAMtoiS4/Ny5eQ7FTrbu56sMbbLZpKtDAGa
-	OeHaxkL0DFiAiuJ1jsg3Q95lgAvg6yMFNfh10oobIrBrkSf/5vGIdqVsGrFSSkq/DVps=;
-Message-ID: <d6a58e73-da51-40f1-a2f7-576274945585@xen.org>
-Date: Thu, 16 Nov 2023 16:06:51 +0000
+X-Inumbo-ID: 6d0660ff-849b-11ee-9b0e-b553b5be7939
+X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
+Date: Thu, 16 Nov 2023 16:15:55 +0000
+From: James Dingwall <james-xen@dingwall.me.uk>
+To: xen-devel@lists.xenproject.org
+Subject: xen 4.15.5: msr_relaxed required for MSR 0x1a2
+Message-ID: <ZVZAO/W0m/h+IPbi@dingwall.me.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
-Content-Language: en-GB
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-14-volodymyr_babchuk@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231012220854.2736994-14-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="YEu8yWOaMoSMZV1p"
+Content-Disposition: inline
+X-Originating-smarthost01b-IP: [217.155.64.189]
+Feedback-ID: 217.155.64.189
 
-Hi Volodymyr,
 
-This patch was mentioned in another context about allocating the BDF. So 
-I thought I would comment here as well.
+--YEu8yWOaMoSMZV1p
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 12/10/2023 23:09, Volodymyr Babchuk wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Assign SBDF to the PCI devices being passed through with bus 0.
-> The resulting topology is where PCIe devices reside on the bus 0 of the
-> root complex itself (embedded endpoints).
-> This implementation is limited to 32 devices which are allowed on
-> a single PCI bus.
-> 
-> Please note, that at the moment only function 0 of a multifunction
-> device can be passed through.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Hi,
 
-Your signed-off-by should be added even if you are only sending the 
-patch on behalf of Oleksandr. This is part of the DCO [1]
+Per the msr_relaxed documentation:
 
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 5e34d0092a..7c46a2d3f4 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -36,6 +36,52 @@ extern vpci_register_init_t *const __start_vpci_array[];
->   extern vpci_register_init_t *const __end_vpci_array[];
->   #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
->   
-> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +static int add_virtual_device(struct pci_dev *pdev)
-> +{
-> +    struct domain *d = pdev->domain;
-> +    unsigned long new_dev_number;
-> +
-> +    if ( is_hardware_domain(d) )
-> +        return 0;
-> +
-> +    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-> +
-> +    /*
-> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
-> +     * there are multi-function ones which are not yet supported.
-> +     */
-> +    if ( pdev->info.is_extfn && !pdev->info.is_virtfn )
-> +    {
-> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
-> +                 &pdev->sbdf);
-> +        return -EOPNOTSUPP;
-> +    }
-> +    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
-> +                                         VPCI_MAX_VIRT_DEV);
+   "If using this option is necessary to fix an issue, please report a bug."
 
-IIUC, this means that Xen will allocate the BDF. I think this will 
-become a problem quite quickly as some of the PCI may need to be 
-assigned at a specific vBDF (I have the intel graphic card in mind).
+After recently upgrading an environment from Xen 4.14.5 to Xen 4.15.5 we
+started experiencing a BSOD at boot with one of our Windows guests.  We found
+that enabling `msr_relaxed = 1` in the guest configuration has resolved the
+problem.  With a debug build of Xen and `hvm_debug=2048` on the command line
+the following messages were caught as the BSOD happened:
 
-Also, xl allows you to specificy the slot (e.g. <bdf>@<vslot>) which 
-would not work with this approach.
+(XEN) [HVM:11.0] <vmx_msr_read_intercept> ecx=0x1a2
+(XEN) vmx.c:3298:d11v0 RDMSR 0x000001a2 unimplemented
+(XEN) d11v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80b8de81eb5 0 0
 
-For dom0less passthrough, I feel the virtual BDF should always be 
-specified in device-tree. When a domain is created after boot, then I 
-think you want to support <bdf>@<vslot> where <vslot> is optional.
+I found that MSR 0x1a2 is MSR_TEMPERATURE_TARGET and from that this patch
+series from last month:
 
-[1] https://cert-manager.io/docs/contributing/sign-off/
+https://patchwork.kernel.org/project/xen-devel/list/?series=796550
 
--- 
-Julien Grall
+Picking out just a small part of that fixes the problem for us. Although the
+the patch is against 4.15.5 I think it would be relevant to more recent
+releases too.
+
+Thanks,
+James
+
+--YEu8yWOaMoSMZV1p
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment; filename="msr_temperature_target.patch"
+
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 54023a92587..3f64471c8a8 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3259,6 +3259,14 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+         if ( !nvmx_msr_read_intercept(msr, msr_content) )
+             goto gp_fault;
+         break;
++
++    case MSR_TEMPERATURE_TARGET:
++        if ( !rdmsr_safe(msr, *msr_content) )
++            break;
++        /* RO for guests, MSR_PLATFORM_INFO bits set accordingly in msr.c to indicate lack of write
++         * support. */
++        goto gp_fault;
++
+     case MSR_IA32_MISC_ENABLE:
+         rdmsrl(MSR_IA32_MISC_ENABLE, *msr_content);
+         /* Debug Trace Store is not supported. */
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index ed97b1d6fcc..eb9eb45e820 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -976,6 +976,9 @@ static int read_msr(unsigned int reg, uint64_t *val,
+         *val = 0;
+         return X86EMUL_OKAY;
+ 
++    case MSR_TEMPERATURE_TARGET:
++        goto normal;
++
+     case MSR_P6_PERFCTR(0) ... MSR_P6_PERFCTR(7):
+     case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL(3):
+     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
+diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
+index 8b3ad575dbc..34e800fdc01 100644
+--- a/xen/include/asm-x86/msr-index.h
++++ b/xen/include/asm-x86/msr-index.h
+@@ -498,6 +498,9 @@
+ #define MSR_IA32_MISC_ENABLE_XD_DISABLE	(1ULL << 34)
+ 
+ #define MSR_IA32_TSC_DEADLINE		0x000006E0
++
++#define MSR_TEMPERATURE_TARGET		0x000001a2
++
+ #define MSR_IA32_ENERGY_PERF_BIAS	0x000001b0
+ 
+ /* Platform Shared Resource MSRs */
+
+--YEu8yWOaMoSMZV1p--
 
