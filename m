@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6817EE8AC
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 22:09:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634645.990121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E5EE7EE8BB
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 22:18:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634649.990132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3jbn-0001y2-1j; Thu, 16 Nov 2023 21:09:07 +0000
+	id 1r3jka-0004I8-Rf; Thu, 16 Nov 2023 21:18:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634645.990121; Thu, 16 Nov 2023 21:09:07 +0000
+Received: by outflank-mailman (output) from mailman id 634649.990132; Thu, 16 Nov 2023 21:18:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3jbm-0001wG-VM; Thu, 16 Nov 2023 21:09:06 +0000
-Received: by outflank-mailman (input) for mailman id 634645;
- Thu, 16 Nov 2023 21:09:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r3jka-0004GS-OC; Thu, 16 Nov 2023 21:18:12 +0000
+Received: by outflank-mailman (input) for mailman id 634649;
+ Thu, 16 Nov 2023 21:18:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TnVx=G5=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1r3jbk-0001wA-VC
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 21:09:05 +0000
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [2607:f8b0:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e7e8768-84c4-11ee-98db-6d05b1d4d9a1;
- Thu, 16 Nov 2023 22:09:03 +0100 (CET)
-Received: by mail-pg1-x529.google.com with SMTP id
- 41be03b00d2f7-5c19a328797so966959a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 13:09:03 -0800 (PST)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- j12-20020a056a00130c00b0068fece22469sm175211pfu.4.2023.11.16.13.08.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Nov 2023 13:08:59 -0800 (PST)
+ <SRS0=wecx=G5=embeddedor.com=gustavo@srs-se1.protection.inumbo.net>)
+ id 1r3jkY-00047l-LY
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 21:18:10 +0000
+Received: from omta38.uswest2.a.cloudfilter.net
+ (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a174a5f8-84c5-11ee-9b0e-b553b5be7939;
+ Thu, 16 Nov 2023 22:18:06 +0100 (CET)
+Received: from eig-obgw-5002a.ext.cloudfilter.net ([10.0.29.215])
+ by cmsmtp with ESMTPS
+ id 3QG6rk8xEKOkL3jkSrw631; Thu, 16 Nov 2023 21:18:04 +0000
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
+ id 3jkQrjWYxRQmi3jkRrw92C; Thu, 16 Nov 2023 21:18:03 +0000
+Received: from 187-162-21-192.static.axtel.net ([187.162.21.192]:48450
+ helo=[192.168.15.10])
+ by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96.2)
+ (envelope-from <gustavo@embeddedor.com>) id 1r3jkQ-00371x-0t;
+ Thu, 16 Nov 2023 15:18:02 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +48,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e7e8768-84c4-11ee-98db-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1700168942; x=1700773742; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=xYAFY96XcFiMxIF+L4YoxaW0MbIDBtwFnVJcSIPp9Co=;
-        b=kDiG/AGzHtjC0YsLanjx3y6RCk7CzI8L/hgJ+olY+FkgkxTpsTs8olJi0ECPvdxQX3
-         RKRSIz8X38DhNTfmR9PmBHAwL4Gk00nW30SmhpfHj6myWRcuCneppQplG7aywSf6ahXS
-         dCwWsEvP+TEKPZWlVxINFffUAmMdmVGDZy78Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700168942; x=1700773742;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xYAFY96XcFiMxIF+L4YoxaW0MbIDBtwFnVJcSIPp9Co=;
-        b=D3t35cyGzEVKYVb3zkGfySkk5ktIVufJxKL6xydYbZPzfYdQUyJ2mAnhW6UnKuvuiO
-         YviXE9TI6/PLjZX9W97GC0OX1IMvh5XqwVJUoR2QgVuy5Rfz1Kg+a9xQ1W9w43o+BO4q
-         PsdCcFo2sshYPFHK0pA7uXV0iEJWOkZAD1vi/PaawE5cY+UySTc+um3yQipVRDXBI2Nm
-         c5Rp8sLvsdKbQMGNsVEUFTVwoTTgUrXHaykf/xQzJ6Y30NcnTxZ9HYkjND0F61c4xtlZ
-         0eU37IPt6dYXJrjQwGrZSYJaKogZLqWAq2UeytAk6YISB1VxFB/OvWbwjOtApxl20Cnx
-         HeTg==
-X-Gm-Message-State: AOJu0YwBdnDDAMDwjG0td9NS1g9R32O4QfsgKD0tNodtRzTFQ4GbwOru
-	LQoyAGuIXv9N5Uvp24nRBB8GZw==
-X-Google-Smtp-Source: AGHT+IGDMJWNBh7L3/s1oXiCq33PVVTLiBNbt/MbNP2Jg71YOV8F+by6BxzlVI3bHz3WEwpQvMCriQ==
-X-Received: by 2002:a05:6a20:12c6:b0:154:b4cb:2e8c with SMTP id v6-20020a056a2012c600b00154b4cb2e8cmr18208401pzg.24.1700168942326;
-        Thu, 16 Nov 2023 13:09:02 -0800 (PST)
-Date: Thu, 16 Nov 2023 13:08:35 -0800
-From: Kees Cook <keescook@chromium.org>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
+X-Inumbo-ID: a174a5f8-84c5-11ee-9b0e-b553b5be7939
+X-Authority-Analysis: v=2.4 cv=CdcbWZnl c=1 sm=1 tr=0 ts=6556870b
+ a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=WzbPXH4gqzPVN0x6HrNMNA==:17
+ a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
+ a=IkcTkHD0fZMA:10 a=BNY50KLci1gA:10 a=wYkD_t78qR0A:10 a=VwQbUJbxAAAA:8
+ a=cm27Pg_UAAAA:8 a=CB8ylYM2jayAzffc3msA:9 a=QEXdDO2ut3YA:10
+ a=AjGcO6oz07-iQ99wixmX:22 a=xmb-EsYY8bH0VWELuYED:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=z7VN5fe7q4a712jMshNesYxaBgFBwUjNIQyqspWv/5g=; b=V2mSew9FN/FY6qQBitJwrrvBWx
+	egEJQgRKNQ7oQeoB7qzWxi8d7kDHxlcUi0laaO2uapZQn1kqX2BBhTuOi5F4Tm1aVGZ///ZTEBIao
+	Zh/9FlQMbAc5oKvjMx5lRbCAdB+GQfj+t/RPy7NAAdcTj65yoaW+AQZux7QGhiM2s/ucnU+mF+3z+
+	JTPf+oMEbE+dSkC9/CC7yC60ER+wwtRdBh5f5C6GiCKEL9ShkfsLWGLLDvIDu7UZEueYdMMjrGHMV
+	iUzAPggDiCKVY9wEC7EZT+XUCLgALD3ao9CrAMpXLZ8Ozkouxq5sF5oqVWqvDaES2kJK2fHq/02iM
+	H5a+KsZQ==;
+Message-ID: <43bf5965-84c4-420e-91fc-7a0973c27d76@embeddedor.com>
+Date: Thu, 16 Nov 2023 15:18:00 -0600
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH][next] xen: privcmd: Replace zero-length array with
  flex-array member and use __counted_by
-Message-ID: <202311161307.9422E1896B@keescook>
-References: <ZVZlg3tPMPCRdteh@work>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZVZlg3tPMPCRdteh@work>
+Content-Language: en-US
+To: Kees Cook <keescook@chromium.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <ZVZlg3tPMPCRdteh@work> <202311161307.9422E1896B@keescook>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <202311161307.9422E1896B@keescook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 187.162.21.192
+X-Source-L: No
+X-Exim-ID: 1r3jkQ-00371x-0t
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 187-162-21-192.static.axtel.net ([192.168.15.10]) [187.162.21.192]:48450
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 3
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFXhJYW/1EfLht3zA5yuY0XNZc94lYu5BRK6qEIXXcbqv+OxWcsolxNmKsfkxrEYLy+Yhnl7VDF5YHGfvi4WiZlYsOkj0i0u2sBnJAv16u01cu+GM/kt
+ lSrX7LOsIke4XsX63LNWjpRb2W+ScVL83VkEyg9ayTWXwdOy/dwdYlW7YID0RWGhpmxEaaL17xU5hItrUndHuxHK/crPF0OpXu7/HaxDXxdag//xcYvTgvDL
 
-On Thu, Nov 16, 2023 at 12:54:59PM -0600, Gustavo A. R. Silva wrote:
-> Fake flexible arrays (zero-length and one-element arrays) are deprecated,
-> and should be replaced by flexible-array members. So, replace
-> zero-length array with a flexible-array member in `struct
-> privcmd_kernel_ioreq`.
+
+
+On 11/16/23 15:08, Kees Cook wrote:
+> On Thu, Nov 16, 2023 at 12:54:59PM -0600, Gustavo A. R. Silva wrote:
+>> Fake flexible arrays (zero-length and one-element arrays) are deprecated,
+>> and should be replaced by flexible-array members. So, replace
+>> zero-length array with a flexible-array member in `struct
+>> privcmd_kernel_ioreq`.
+>>
+>> Also annotate array `ports` with `__counted_by()` to prepare for the
+>> coming implementation by GCC and Clang of the `__counted_by` attribute.
+>> Flexible array members annotated with `__counted_by` can have their
+>> accesses bounds-checked at run-time via `CONFIG_UBSAN_BOUNDS` (for array
+>> indexing) and `CONFIG_FORTIFY_SOURCE` (for strcpy/memcpy-family functions).
+>>
+>> This fixes multiple -Warray-bounds warnings:
+>> drivers/xen/privcmd.c:1239:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>> drivers/xen/privcmd.c:1240:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>> drivers/xen/privcmd.c:1241:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>> drivers/xen/privcmd.c:1245:33: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>> drivers/xen/privcmd.c:1258:67: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>>
+>> This results in no differences in binary output.
+>>
+>> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 > 
-> Also annotate array `ports` with `__counted_by()` to prepare for the
-> coming implementation by GCC and Clang of the `__counted_by` attribute.
-> Flexible array members annotated with `__counted_by` can have their
-> accesses bounds-checked at run-time via `CONFIG_UBSAN_BOUNDS` (for array
-> indexing) and `CONFIG_FORTIFY_SOURCE` (for strcpy/memcpy-family functions).
+> Looks right to me. I can see the allocation:
+
+Yep, I always check for that; in particular, the 'counter' assignment. :)
+
+Do you want me to mention it in the changelog text?
+
 > 
-> This fixes multiple -Warray-bounds warnings:
-> drivers/xen/privcmd.c:1239:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-> drivers/xen/privcmd.c:1240:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-> drivers/xen/privcmd.c:1241:30: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-> drivers/xen/privcmd.c:1245:33: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
-> drivers/xen/privcmd.c:1258:67: warning: array subscript i is outside array bounds of 'struct ioreq_port[0]' [-Warray-bounds=]
+>          size = struct_size(kioreq, ports, ioeventfd->vcpus);
+>          kioreq = kzalloc(size, GFP_KERNEL);
+>          if (!kioreq)
+>                  return ERR_PTR(-ENOMEM);
 > 
-> This results in no differences in binary output.
+>          kioreq->dom = ioeventfd->dom;
+>          kioreq->vcpus = ioeventfd->vcpus;
 > 
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> 
+> Reviewed-by: Kees Cook <keescook@chromium.org>
 
-Looks right to me. I can see the allocation:
-
-        size = struct_size(kioreq, ports, ioeventfd->vcpus);
-        kioreq = kzalloc(size, GFP_KERNEL);
-        if (!kioreq)
-                return ERR_PTR(-ENOMEM);
-
-        kioreq->dom = ioeventfd->dom;
-        kioreq->vcpus = ioeventfd->vcpus;
-
-
-Reviewed-by: Kees Cook <keescook@chromium.org>
-
--- 
-Kees Cook
+Thanks!
+--
+Gustavo
 
