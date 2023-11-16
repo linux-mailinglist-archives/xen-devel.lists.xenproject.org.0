@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F9F7EE350
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:51:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634385.989834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C4C67EE351
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:51:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634389.989845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3diA-0003s8-2f; Thu, 16 Nov 2023 14:51:18 +0000
+	id 1r3diF-0004Px-Eq; Thu, 16 Nov 2023 14:51:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634385.989834; Thu, 16 Nov 2023 14:51:18 +0000
+Received: by outflank-mailman (output) from mailman id 634389.989845; Thu, 16 Nov 2023 14:51:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3di9-0003ol-Tf; Thu, 16 Nov 2023 14:51:17 +0000
-Received: by outflank-mailman (input) for mailman id 634385;
- Thu, 16 Nov 2023 14:51:16 +0000
+	id 1r3diF-0004Mv-A4; Thu, 16 Nov 2023 14:51:23 +0000
+Received: by outflank-mailman (input) for mailman id 634389;
+ Thu, 16 Nov 2023 14:51:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xmdr=G5=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1r3di8-0001sC-Mb
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:51:16 +0000
+ id 1r3diD-0001sC-Ck
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:51:21 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 97287c1f-848f-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 15:51:14 +0100 (CET)
+ id 99f0d3a3-848f-11ee-9b0e-b553b5be7939;
+ Thu, 16 Nov 2023 15:51:19 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61BA11595;
- Thu, 16 Nov 2023 06:52:00 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B0591595;
+ Thu, 16 Nov 2023 06:52:05 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BB0F03F73F;
- Thu, 16 Nov 2023 06:51:10 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 71E6D3F73F;
+ Thu, 16 Nov 2023 06:51:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,168 +43,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97287c1f-848f-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 99f0d3a3-848f-11ee-9b0e-b553b5be7939
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
+Cc: Penny Zheng <penny.zheng@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
+	Henry Wang <Henry.Wang@arm.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v9 6/8] xen/arm: Fold pmap and fixmap into MMU system
-Date: Thu, 16 Nov 2023 22:50:30 +0800
-Message-Id: <20231116145032.1651305-7-Henry.Wang@arm.com>
+Subject: [PATCH v9 7/8] xen/arm: Rename init_secondary_pagetables() to prepare_secondary_mm()
+Date: Thu, 16 Nov 2023 22:50:31 +0800
+Message-Id: <20231116145032.1651305-8-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231116145032.1651305-1-Henry.Wang@arm.com>
 References: <20231116145032.1651305-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fixmap and pmap are MMU-specific features, so fold them to the
-MMU system. Do the folding for pmap by moving the HAS_PMAP Kconfig
-selection under MMU. Since none of the definitions in asm/fixmap.h
-actually makes sense for the MPU, so do the folding for fixmap by
-limiting the inclusion of asm/fixmap.h for MPU code when necessary.
-To guarantee that, moving the implementation of copy_from_paddr()
-from kernel.c to mmu/setup.c, so that inclusion of asm/fixmap.h in
-the kernel.c can be dropped.
+From: Penny Zheng <penny.zheng@arm.com>
 
-Take the opportunity to add a missing space before and after '-' in
-"s = paddr & (PAGE_SIZE-1);" of copy_from_paddr().
+init_secondary_pagetables() is a function in the common code path
+of both MMU and future MPU support. Since "page table" is a MMU
+specific concept, rename init_secondary_pagetables() to a generic
+name prepare_secondary_mm() as the preparation for MPU support.
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+Reword the in-code comment on top of prepare_secondary_mm() because
+this function is now supposed to be MMU/MPU agnostic.
+
+Take the opportunity to fix the incorrect coding style of the in-code
+comments.
+
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
 v9:
 - No change.
 v8:
-- Add a missing space before/after '-' in "s = paddr & (PAGE_SIZE-1);"
-  of copy_from_paddr(), mention this change in commit message.
+- Change the in-code comment on top of prepare_secondary_mm() because
+  this function is now supposed to be MMU/MPU agnostic, mention this
+  in the commit message.
 - Add Julien's Reviewed-by tag.
 v7:
 - No change.
 v6:
-- Rework original patch:
-  [v5,08/13] xen/arm: Fold pmap and fixmap into MMU system
-  and fold in the original patch:
-  [v5,12/13] xen/arm: mmu: relocate copy_from_paddr() to setup.c
+- Only rename init_secondary_pagetables() to prepare_secondary_mm().
 ---
- xen/arch/arm/Kconfig     |  2 +-
- xen/arch/arm/kernel.c    | 28 ----------------------------
- xen/arch/arm/mmu/setup.c | 27 +++++++++++++++++++++++++++
- 3 files changed, 28 insertions(+), 29 deletions(-)
+ xen/arch/arm/arm32/head.S     | 2 +-
+ xen/arch/arm/include/asm/mm.h | 5 ++---
+ xen/arch/arm/mmu/smpboot.c    | 4 ++--
+ xen/arch/arm/smpboot.c        | 2 +-
+ 4 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 2939db429b..7b5b0c0c05 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -14,7 +14,6 @@ config ARM
- 	select HAS_ALTERNATIVE
- 	select HAS_DEVICE_TREE
- 	select HAS_PASSTHROUGH
--	select HAS_PMAP
- 	select HAS_UBSAN
- 	select IOMMU_FORCE_PT_SHARE
- 
-@@ -60,6 +59,7 @@ config PADDR_BITS
- 
- config MMU
- 	def_bool y
-+	select HAS_PMAP
- 
- source "arch/Kconfig"
- 
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 508c54824d..bc3e5bd6f9 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -16,7 +16,6 @@
- #include <xen/vmap.h>
- 
- #include <asm/byteorder.h>
--#include <asm/fixmap.h>
- #include <asm/kernel.h>
- #include <asm/setup.h>
- 
-@@ -41,33 +40,6 @@ struct minimal_dtb_header {
- 
- #define DTB_MAGIC 0xd00dfeedU
- 
--/**
-- * copy_from_paddr - copy data from a physical address
-- * @dst: destination virtual address
-- * @paddr: source physical address
-- * @len: length to copy
-- */
--void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
--{
--    void *src = (void *)FIXMAP_ADDR(FIXMAP_MISC);
--
--    while (len) {
--        unsigned long l, s;
--
--        s = paddr & (PAGE_SIZE-1);
--        l = min(PAGE_SIZE - s, len);
--
--        set_fixmap(FIXMAP_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
--        memcpy(dst, src + s, l);
--        clean_dcache_va_range(dst, l);
--        clear_fixmap(FIXMAP_MISC);
--
--        paddr += l;
--        dst += l;
--        len -= l;
--    }
--}
--
- static void __init place_modules(struct kernel_info *info,
-                                  paddr_t kernbase, paddr_t kernend)
- {
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index c2df976ab2..a5a9b538ff 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -339,6 +339,33 @@ void free_init_memory(void)
-     printk("Freed %ldkB init memory.\n", (long)(__init_end-__init_begin)>>10);
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index 2c235fb34c..3011fb34aa 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -257,7 +257,7 @@ GLOBAL(init_secondary)
+ secondary_switched:
+         /*
+          * Non-boot CPUs need to move on to the proper pagetables, which were
+-         * setup in init_secondary_pagetables.
++         * setup in prepare_secondary_mm.
+          *
+          * XXX: This is not compliant with the Arm Arm.
+          */
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index d23ebc7df6..cbcf3bf147 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -204,9 +204,8 @@ extern void setup_pagetables(unsigned long boot_phys_offset);
+ extern void *early_fdt_map(paddr_t fdt_paddr);
+ /* Remove early mappings */
+ extern void remove_early_mappings(void);
+-/* Allocate and initialise pagetables for a secondary CPU. Sets init_ttbr to the
+- * new page table */
+-extern int init_secondary_pagetables(int cpu);
++/* Prepare the memory subystem to bring-up the given secondary CPU */
++extern int prepare_secondary_mm(int cpu);
+ /* Map a frame table to cover physical addresses ps through pe */
+ extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
+ /* map a physical range in virtual memory */
+diff --git a/xen/arch/arm/mmu/smpboot.c b/xen/arch/arm/mmu/smpboot.c
+index 8b6a09f843..12f1a5d761 100644
+--- a/xen/arch/arm/mmu/smpboot.c
++++ b/xen/arch/arm/mmu/smpboot.c
+@@ -67,7 +67,7 @@ static void clear_boot_pagetables(void)
  }
  
-+/**
-+ * copy_from_paddr - copy data from a physical address
-+ * @dst: destination virtual address
-+ * @paddr: source physical address
-+ * @len: length to copy
-+ */
-+void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
-+{
-+    void *src = (void *)FIXMAP_ADDR(FIXMAP_MISC);
-+
-+    while (len) {
-+        unsigned long l, s;
-+
-+        s = paddr & (PAGE_SIZE - 1);
-+        l = min(PAGE_SIZE - s, len);
-+
-+        set_fixmap(FIXMAP_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
-+        memcpy(dst, src + s, l);
-+        clean_dcache_va_range(dst, l);
-+        clear_fixmap(FIXMAP_MISC);
-+
-+        paddr += l;
-+        dst += l;
-+        len -= l;
-+    }
-+}
-+
- /*
-  * Local variables:
-  * mode: C
+ #ifdef CONFIG_ARM_64
+-int init_secondary_pagetables(int cpu)
++int prepare_secondary_mm(int cpu)
+ {
+     clear_boot_pagetables();
+ 
+@@ -80,7 +80,7 @@ int init_secondary_pagetables(int cpu)
+     return 0;
+ }
+ #else
+-int init_secondary_pagetables(int cpu)
++int prepare_secondary_mm(int cpu)
+ {
+     lpae_t *first;
+ 
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 1cf6e50a85..36db6b8880 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -448,7 +448,7 @@ int __cpu_up(unsigned int cpu)
+ 
+     printk("Bringing up CPU%d\n", cpu);
+ 
+-    rc = init_secondary_pagetables(cpu);
++    rc = prepare_secondary_mm(cpu);
+     if ( rc < 0 )
+         return rc;
+ 
 -- 
 2.25.1
 
