@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5CE07EE264
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:10:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634271.989719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 407FA7EE2A9
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:22:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634296.989729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3d4m-0000Eb-1b; Thu, 16 Nov 2023 14:10:36 +0000
+	id 1r3dFE-0004Bq-WD; Thu, 16 Nov 2023 14:21:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634271.989719; Thu, 16 Nov 2023 14:10:36 +0000
+Received: by outflank-mailman (output) from mailman id 634296.989729; Thu, 16 Nov 2023 14:21:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3d4l-0000CL-Ul; Thu, 16 Nov 2023 14:10:35 +0000
-Received: by outflank-mailman (input) for mailman id 634271;
- Thu, 16 Nov 2023 14:10:34 +0000
+	id 1r3dFE-00049T-TL; Thu, 16 Nov 2023 14:21:24 +0000
+Received: by outflank-mailman (input) for mailman id 634296;
+ Thu, 16 Nov 2023 14:21:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r3d4k-0000Ac-72
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:10:34 +0000
+ (envelope-from <julien@xen.org>) id 1r3dFC-000482-Qg
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:21:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r3d4k-0006mR-05; Thu, 16 Nov 2023 14:10:34 +0000
+ id 1r3dFA-0006x4-Ls; Thu, 16 Nov 2023 14:21:20 +0000
 Received: from 54-240-197-236.amazon.com ([54.240.197.236]
  helo=[10.95.133.161]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r3d4j-0001zk-Q9; Thu, 16 Nov 2023 14:10:33 +0000
+ id 1r3dFA-0002Ph-ER; Thu, 16 Nov 2023 14:21:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,162 +40,86 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=utkPCizrFmf3Rt2x1YfPChNmMblBsJCwUI4rgkeQJnI=; b=fXB8kKPRBhEcuT04l7kO3m1i5X
-	po7GdaEJ1F4/qQTG4hI3FCgXzDjxwjS+NWW13yfy+02rAyhHkmsfeWCLlXHmCfcvPP+BUjwyhk/rJ
-	kcZWt2hUhFYE9XF3M8XmXSM+cpkTMTLha12Pkisu8wEHE7zHaY5EK+1mZ2Lnz7fB46/A=;
-Message-ID: <9cdc4f5b-5004-4edd-8c64-ec69c91ed5fc@xen.org>
-Date: Thu, 16 Nov 2023 14:10:32 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xkwDTNf3I3mRvmhIeuJUoD+rS+2D0VFcMremTXQULuw=; b=koa/KrD4+2JfzwLnkasX4s0w0m
+	s9aHANZJCkITyph4VHIXn3AWMGYYa8oIjjm34VOMNWkOzybAGg8kjYg5/BgFAeaB5v4KCyiMaA/iz
+	4Ln3wr6ng35P3FdlBj8QxA078urT0vR5Gqaz4ZLoSV2YyzsFSuGiSdd71neHMm1BVqrs=;
+Message-ID: <81ec6ac0-8414-41d1-bfe3-ffa6c5750036@xen.org>
+Date: Thu, 16 Nov 2023 14:21:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN v3] xen/arm32: head: Replace load_paddr with adr_l when they
- are equivalent
+Subject: Re: [PATCH v4 2/2] xen/arm: Enlarge identity map space to 10TB
 Content-Language: en-GB
+To: Leo Yan <leo.yan@linaro.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Alexey Klimov <alexey.klimov@linaro.org>,
+ Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Rahul Singh <Rahul.Singh@arm.com>, Henry Wang <Henry.Wang@arm.com>
+References: <4B2BD200-5D3E-49D5-BF13-65B769AD4B90@arm.com>
+ <CANgGJDqHu0CB=zzZqda18giLYDkL3My+gT592GLO-b9HsF2A4g@mail.gmail.com>
+ <d3952200-9edb-4de0-94e3-c00c571a10b9@xen.org>
+ <794B0D71-70A7-4546-98E0-EC01573E0D89@arm.com>
+ <990b21a3-f8c7-4d02-a8ac-63d31794a76d@xen.org>
+ <alpine.DEB.2.22.394.2310171258330.965337@ubuntu-linux-20-04-desktop>
+ <4fc83e61-1e57-4f75-b017-7045842165e5@xen.org>
+ <69be876f-4238-4041-a6ff-50f7f6487d5d@xen.org>
+ <20231019093559.GA105208@leoy-huanghe.lan>
+ <80a5c950-242b-467c-8764-8f06e19dc5d4@xen.org>
+ <20231106094524.GD90848@leoy-huanghe.lan>
 From: Julien Grall <julien@xen.org>
-To: Michal Orzel <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, bertrand.marquis@arm.com
-References: <20231027180715.3484439-1-ayan.kumar.halder@amd.com>
- <fd9a1eb2-c62f-44ed-977a-e4fee498fe0c@amd.com>
- <8231d8ac-dd0c-42a7-b8cb-df1145c06a71@xen.org>
-In-Reply-To: <8231d8ac-dd0c-42a7-b8cb-df1145c06a71@xen.org>
+In-Reply-To: <20231106094524.GD90848@leoy-huanghe.lan>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16/11/2023 14:07, Julien Grall wrote:
-> On 30/10/2023 08:28, Michal Orzel wrote:
->> Hi Ayan,
+Hi Leo,
+
+On 06/11/2023 09:45, Leo Yan wrote:
+> Hi Julien,
+> 
+> On Mon, Nov 06, 2023 at 09:39:24AM +0000, Julien Grall wrote:
+> 
+> [...]
+> 
+>>> I would like to check if here is anything specific I should follow up
+>>> on. Based on the discussion in this thread, I've come to the following
+>>> conclusions:
+>>>
+>>> - Remove the fixes tags;
+>>> - Add a description in commit log, something like:
+>>>     "Since commit 1c78d76b67e1 ('xen/arm64: mm: Introduce helpers to
+>>>      prepare/enable/disable the identity mapping'), Xen will fail to boot
+>>>      up if it's loaded in memory above 2TB. This commit fixes the
+>>>      regression introduced by that commit."
+>>> - Add tages:
+>>>     A review tag from Michal Orzel
+>>>     A review tag from Bertrand Marquis
+>>>     A test tag from Henry Wang
+>>>
+>>> Should I repin a new patch set to address the items mentioned above?
 >>
->> On 27/10/2023 20:07, Ayan Kumar Halder wrote:
->>> Before the MMU is turned on, PC uses physical address. Thus, one can 
->>> use adr_l
->>> instead of load_paddr to obtain the physical address of a symbol.
->>>
->>> The only exception (for this replacement) is create_table_entry() 
->>> which is
->>> called before and after MMU is turned on.
->>>
->>> Also, in lookup_processor_type() "r10" is no longer used. The reason 
->>> being
->>> __lookup_processor_type uses adr_l (thus r10 is no longer used to 
->>> obtain the
->>> physical address offset). Consequently, there is no need to 
->>> save/restore r10.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>> Refer https://lists.archive.carbon60.com/xen/devel/682900 for details.
->>>
->>> Changes from :-
->>>
->>> v1 :- 1. No need to modify create_table_entry().
->>> 2. Remove "mov   r10, #0 " in lookup_processor_type().
->>>
->>> v2 :- 1. No need to save/restore r10 in lookup_processor_type().
->>> 2. Update the commit message title.
->>>
->>>   xen/arch/arm/arm32/head.S | 19 ++++++++-----------
->>>   1 file changed, 8 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
->>> index 33b038e7e0..1fcc6f745e 100644
->>> --- a/xen/arch/arm/arm32/head.S
->>> +++ b/xen/arch/arm/arm32/head.S
->>> @@ -171,7 +171,7 @@ past_zImage:
->>>           /* Using the DTB in the .dtb section? */
->>>   .ifnes CONFIG_DTB_FILE,""
->>> -        load_paddr r8, _sdtb
->>> +        adr_l r8, _sdtb
->>>   .endif
->>>           /* Initialize the UART if earlyprintk has been enabled. */
->>> @@ -213,7 +213,7 @@ GLOBAL(init_secondary)
->>>           mrc   CP32(r1, MPIDR)
->>>           bic   r7, r1, #(~MPIDR_HWID_MASK) /* Mask out flags to get 
->>> CPU ID */
->>> -        load_paddr r0, smp_up_cpu
->>> +        adr_l r0, smp_up_cpu
->>>           dsb
->>>   2:      ldr   r1, [r0]
->>>           cmp   r1, r7
->>> @@ -479,7 +479,7 @@ create_page_tables:
->>>            * create_table_entry_paddr() will clobber the register 
->>> storing
->>>            * the physical address of the table to point to.
->>>            */
->>> -        load_paddr r5, boot_third
->>> +        adr_l r5, boot_third
->>>           mov_w r4, XEN_VIRT_START
->>>   .rept XEN_NR_ENTRIES(2)
->>>           mov   r0, r5                        /* r0 := paddr(l3 
->>> table) */
->>> @@ -578,7 +578,7 @@ enable_mmu:
->>>           flush_xen_tlb_local r0
->>>           /* Write Xen's PT's paddr into the HTTBR */
->>> -        load_paddr r0, boot_pgtable
->>> +        adr_l r0, boot_pgtable
->>>           mov   r1, #0                 /* r0:r1 is paddr 
->>> (boot_pagetable) */
->>>           mcrr  CP64(r0, r1, HTTBR)
->>>           isb
->>> @@ -876,11 +876,10 @@ putn:   mov   pc, lr
->>>   /* This provides a C-API version of __lookup_processor_type */
->>>   ENTRY(lookup_processor_type)
->>> -        stmfd sp!, {r4, r10, lr}
->>> -        mov   r10, #0                   /* r10 := offset between 
->>> virt&phys */
->>> +        stmfd sp!, {r4, lr}
->>>           bl    __lookup_processor_type
->>>           mov r0, r1
->>> -        ldmfd sp!, {r4, r10, pc}
->>> +        ldmfd sp!, {r4, pc}
->>>   /*
->>>    *  Read processor ID register (CP#15, CR0), and Look up in the 
->>> linker-built
->>> @@ -888,8 +887,6 @@ ENTRY(lookup_processor_type)
->>>    * the __proc_info lists since we aren't running with the MMU on 
->>> (and therefore,
->>>    * we are not in correct address space). We have to calculate the 
->>> offset.
->> In v2, I mentioned that this comment needs to be tweaked as well. We 
->> no longer use load_paddr
->> thus we don't care about the offset. I would remove the comment 
->> starting from "Note that...".
->> to avoid confusion or add a proper explanation if you want to keep it.
->> With that addressed:
->> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>> You will also want to update the documentation after
+>> "docs/arm: Document where Xen should be loaded in
+>> memory"
 > 
-> I have committed with the following diff:
+> Will do.
 > 
-> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-> index 1fcc6f745e31..bbbdf7daf89e 100644
-> --- a/xen/arch/arm/arm32/head.S
-> +++ b/xen/arch/arm/arm32/head.S
-> @@ -882,10 +882,8 @@ ENTRY(lookup_processor_type)
->           ldmfd sp!, {r4, pc}
+>>> Another question is for the 'Release-acked-by' tag.  Henry gave this
+>>> tag, but I don't know how to handle it if I need to respin this patch.
+>>> Seems to me this is a special tag only for release process, so I don't
+>>> need to include it in the new patch, right?
+>>
+>> The release-acked-by tag is only necessary during freeze period if the patch
+>> will land in the next release (i.e. 4.18). In this case, your patch will be
+>> part of the 4.19, so you can remove the release-acked-by.
 > 
->   /*
-> - *  Read processor ID register (CP#15, CR0), and Look up in the 
-> linker-built
-> - * supported processor list. Note that we can't use the absolute 
-> addresses for
-> - * the __proc_info lists since we aren't running with the MMU on (and 
-> therefore,
-> - * we are not in correct address space). We have to calculate the offset.
-> + * Read processor ID register (CP#15, CR0), and Look up in the 
-> linker-built
-> + * supported processor list.
->    *
->    * Returns:
->    * r0: CPUID
-> 
-> Note that I took the opportunity to remove the extra space on the first 
-> line of the comment.
+> Okay, I will _not_ include release-acked-by tag in the respin.
 
-Oh I didn't realize there was a v4 sent. Looking at it this was this 
-only change. So I will not revert.
-
-Sorry for that.
+I have done the changes and directly committed the series. So no need to 
+respin.
 
 Cheers,
 
