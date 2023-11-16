@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4269C7EE194
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 14:33:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634217.989583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D69887EE195
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 14:33:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634219.989592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3cUH-0007Li-NE; Thu, 16 Nov 2023 13:32:53 +0000
+	id 1r3cUh-0007pS-W4; Thu, 16 Nov 2023 13:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634217.989583; Thu, 16 Nov 2023 13:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 634219.989592; Thu, 16 Nov 2023 13:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3cUH-0007IX-K5; Thu, 16 Nov 2023 13:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 634217;
- Thu, 16 Nov 2023 13:32:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3cUh-0007mZ-TA; Thu, 16 Nov 2023 13:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 634219;
+ Thu, 16 Nov 2023 13:33:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ElsB=G5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r3cUG-0007DF-JP
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 13:32:52 +0000
+ id 1r3cUg-0007gH-80
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 13:33:18 +0000
 Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2062f.outbound.protection.outlook.com
- [2a01:111:f400:7d00::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a35deb2f-8484-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 14:32:51 +0100 (CET)
+ (mail-vi1eur05on20626.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::626])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b36d4a09-8484-11ee-98db-6d05b1d4d9a1;
+ Thu, 16 Nov 2023 14:33:17 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by AS1PR04MB9333.eurprd04.prod.outlook.com (2603:10a6:20b:4df::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.18; Thu, 16 Nov
- 2023 13:32:48 +0000
+ 2023 13:33:15 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7002.019; Thu, 16 Nov 2023
- 13:32:48 +0000
+ 13:33:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,27 +47,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a35deb2f-8484-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: b36d4a09-8484-11ee-98db-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fgG/t5S8cqu9/92dBpqjmwC1a1PCcdMTGsyo9ye+tnQhntm9QeN4JbbD3FgBC64jLX1EuGQSFIEHP5mxskI0XZSJmMZIg3RKpLxPr5C5q852YZaty/0kxj8uNCJ/bppvW7Cs2Z9eRSzd/fL6/HSvQuaWwbdz5xx7jAqM3XBWe0h2Q+upKIc17ylBXv+HERLSlitvnECqN3gt6rhUVlhRDZyhzLHxlRgij/IMgUDkGLKTxyg0lXHFh4XEXRWLZMx1HQrhDhCva8LEIbvHj37afEB8iJE3yXY0kq5VFcCpSSFQ1CZqW3ceCFEk+0JZZJ/i/qORDBmBCO5Okze0bHZ2Ug==
+ b=YkDe1RIdNRswCTdrjm+GYR/+oxTqJYeNxkhOTLBaQXolbrzvwG9hGkCotCChOuXNIH2iUB1QQgoKJh3mA/wJchnqXCd7ZUM7DDx57B+LwJGXXFs8yi1mfUSyLNP6/eZXLAUULaRJIQQOnbvCQ/wUtL7TBl2IwuSFpBW0/TyPhbtlViaj8p4+F+WHYtGtyF8pRavUxZdD9XwjiAmGa2PqXrxLvrufg9xDVZPcVhhRUgjwkChXwuE3G/Eqcwh378jN7B6BlPzKB9ZlcdKTK/+oWlrUjGEp31V1S24BzNE6nuY7mnKcABYuhlBZMMEgvmVQcKIC9f1XCrB7q9v9seIzVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bIKEOf7RPr2XJINaMBbAxC+M/xeaOf3qKmLgganWrro=;
- b=ZMWhybTBRpdojieaW2+PxucipcRqEOuIRzJOYtNhip5i5S0O57PSY6KXii72RDnWpXiNN+sPvccRn+NVMJKBxHB3KPyOWUR5VLjmhc7AyXfFk+BgZBmtKTjMYvLxQZEe1kD42QO1ZOIyZFRv9jVbCrk5Z1PB1DZmGePyo88sNzt6CqYGrw/OP38L6FnVwkg/N0j341pjxQC9zbd9bC2Ivty3Zas8rkIOLeiDNs8gT1f6LG0+ZQNI+8BNLfXJhbBqyUKK60WSUrzGc71kcpEL89MshGwsSc1Dnrhfe+NM5ZqL5MFUbUxoVHIOGyxTmEhZnXQVyZWjOtV1QuqNjJJu5g==
+ bh=WstOM6kSQiRatyCSXLVmuSOk8VucCyz+eoVm0OagzGo=;
+ b=mZCCYcaIwwn1Z8iwQwM95axqSycKoHemK9G1n/qPm2ZpQZdz7eq/WcRWB6dy+h0FBb4TdlXi15BDL8XJzp8Z3lZDKm4OgmdtZKkAq0LDukC26HE/I5cV8jMLoOZoiQghhYxlyFsfYDR5KevM/680161DWl3lnkGGfXtMXHG7801TR4pqjRkBT3J0yWHRvAkVhmjnEaL3b1lDfBd8GqmJvhbNM1PYqbYCjZIUIIi8jimyGrCze3YZP7ZdPKmdMvy/TDMGSPo/TsWMkHfzf17OfwlO6VniH8mvsGJcX8KxWnBNWL72/UH4MRD9be4gsW3Ro5eZN9BZT8ca/nKlm/Fh5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bIKEOf7RPr2XJINaMBbAxC+M/xeaOf3qKmLgganWrro=;
- b=GNztj4NdwmDqLIBjY3LytSHzqJD+4HjBZL84gi7IkHzjfLI5fibD2B/+Wwb5NlokvUeu6iva69WW07jO0YO+OgqUoKIagqld2Jy883YyojXJsNe0iyZj1nr0R0KYAhQNcErZdXzhXP5Yph2CR0gANNh5uYGB7w9b3lwTELItjr7KXY5rwmLCwVNY+s2N4RjoTm20sfJzGpioxfgCwPhRP1pQQrrXZU+GQbPS6HU4ILg08ZFHv0TP9AkYvt58Oo4lClwF+/L1uWvulXIdYYpML1Xp0OStHGOmzoQ2MMQmzvCX74UXgOmUobj1lBMik4W9cWD5tDR0uBamNUZ6QM2qAA==
+ bh=WstOM6kSQiRatyCSXLVmuSOk8VucCyz+eoVm0OagzGo=;
+ b=NT+pGiZ0cB+MS90Q0W/VOKgPbIAv1LMNovDqECPgp1kpYZliQmKSSUvLpl7ESNyiY00GznYJBEOqDkwhrHx3slq0q9ECRSHzsNKlUe6XVVuG4jf/Z4ueZvakcNJ71/DYo/XvuQnJSs6e+evkM61PzKufYa4Y9NbOQhATRV+o0+lfyB2n2jaLTKHRW/8ivWQjfbKhowjOB9Y6NDYkojYVIojPu9iIEt5oQDJQQ9/+OZNoWzFAwOfmABi7ywHOl79VY4N1SQlY6SdAc67jqeBQzmsUhSPCYrYDc76og7a2FK3rMBMMTDAdPOxvPNbICOv2Vm5mDi3pSxB0rK5n0ne/kw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d5b7124f-b7cd-4a3a-b12f-e8e315e9f89d@suse.com>
-Date: Thu, 16 Nov 2023 14:32:47 +0100
+Message-ID: <40585213-99ac-43b4-9432-03d739ec452c@suse.com>
+Date: Thu, 16 Nov 2023 14:33:14 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/5] x86/HVM: drop tsc_scaling.setup() hook
+Subject: [PATCH 5/5] x86/HVM: improve CET-IBT pruning of ENDBR
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -107,142 +107,173 @@ X-ClientProxiedBy: FR4P281CA0106.DEUP281.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS1PR04MB9333:EE_
-X-MS-Office365-Filtering-Correlation-Id: 841e1965-fa3d-4183-c65d-08dbe6a88636
+X-MS-Office365-Filtering-Correlation-Id: 18cd985f-33dc-4429-76d8-08dbe6a89658
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	AnVvb76jNq8lPPTcLdqcoKUb+HjP5g5eqO9NsRSInNHCFIkg6uLB7lT1/WW+4xbYjeZqRAZT0Rn8xDd1g5FVbMBIvOpyYP65mZ71gTQ208ckIOMrqyb/Neh5+hZlx6BFqQLxSub9/d7dm01ZEX4sGHjLkNS93v9nyxW9f4ij0ZKygdfd9skMFK4ykiG+P2wfSEc0Ih85AMmMMYN+5omnnjwcEXDxVeEAfbjxlYwIdOvwUCgUl2qQAiebXpJHw5j3pxa+kABGuuvbI8H4krqd/DTRmlDGErdh4L1/NuPQMQzzuXEJPncnAwU8o37jeXtsi5Fp0MNShGKuh4Qf30I3tu3ocONoJ8CMQHAeRIn8oelowTWxqjGUfzqIbcajZ6Hrc/6W6g++4o9ExA3A43vtJS2J7ynQrw0NyIEFpcdesMoNPEaMqqYctfgAxDVI6+aBpVRp302XdbMdiR6vNMfZcw2VtwXdeoNGwBx6ksguwaDxwJZhqO05N7JnjR5oollkOMnIBm7b33R/LklSQAjheWEeNexDLus2e2DgWSylIoS+dH3pHMpfTLttsQC89xGEFafSSED0WzV63Hsw4ZYFpLII/vFU9nw01AYQggId105uYdcTBSJyo+V60Sc8p1Jz8YQHCAUle0rCxUMVSY+IeA==
+	eu00glJxmeQi9cLSD35JpcbhvJhDs+580y8xAE88diDNrkYLZRYcrOuRTSWWyhgW3xdwFwEH0k91TkItrnZj2wAxp2Bg1+eQR/QRJy/CVgygRLwF+JaCt5VvHt7l+2LoRkWvxx2/C19JZFQweGqOmPXeDcPaBcaHX01gNA43bK9H/CT5mTAPg0Xdf0fjk9+ik6mSKP1mE78jzRK45ZH1nvO4djBNk+QFfA0JUsJ0AmSZb7t5ERlRva1Zw5OIVticIp+j0sb0emvV6g4DqbPrT1AY1+ChXNr2HZfThV7esjZp3USlPcrRTxNT7qxw09RpibTwv8kVmmkfSzQMbLxg0HKZJ9aquG5ek9pxiUcjulOd4IjDq34yStK10CV15zDmA+wSCTpX1+RHx27IZ0NWkIQ6hWeQLy2hsDLz5YVWD/8pR40wqjRZeQxHixG5wbWqKqYM641W1jacwMyR9byH7BX4NLmFhgj0m2kYqRe1eXd1o/Mr5F6OCmDKeMo4BcNysiC2Do0L1O5Mh0m2EiJvmUWQAmDKQCi/EcWgP/ADgntSzyqG1KQFdMCjlbwm9+nA0I9drUkUEt4uK6+1RF57o3nHo4SGqhiMOlqpJ7O4W7vPUIOwM7mPSEuL7XCnu0RuMgl8I2kv0Z7TI5odlUohH7sGzwJPVwtSVu/Z8r5cbpc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(39860400002)(346002)(366004)(136003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(8676002)(86362001)(4326008)(8936002)(6506007)(31696002)(26005)(41300700001)(2616005)(2906002)(31686004)(66946007)(66556008)(5660300002)(6512007)(54906003)(6486002)(478600001)(66476007)(316002)(6916009)(83380400001)(38100700002)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(39860400002)(346002)(366004)(136003)(230922051799003)(186009)(1800799009)(64100799003)(451199024)(8676002)(86362001)(4326008)(8936002)(6506007)(31696002)(26005)(41300700001)(2616005)(2906002)(31686004)(66946007)(66556008)(5660300002)(6512007)(54906003)(6486002)(478600001)(66476007)(316002)(6916009)(83380400001)(38100700002)(36756003)(87944015)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZHBRY3RJdFRkTUJMdnBLaDF6V3NVUHJEMFlwT1ZmTlh4RzhIM0paenhvMUl3?=
- =?utf-8?B?R0NnVjAyNUkxOXR5UWVLZWk1a0Z0M2IyLzRWOC9Kdk53WjExUmdSSUlLNzRL?=
- =?utf-8?B?VXRUYlNuZkpjd1NIc1FNeGVwYXFMZWMwaENOVTlVSWlCYVIvMmhQbFJubVB4?=
- =?utf-8?B?QXFyOXdSYzlTNkF3M1NHcDAyZENaZU1Za2JkQzgvUlFCenppZm9KR3k3T0FC?=
- =?utf-8?B?dk1LeEtwclp3L080SE1XYjRINFpzN3I4NEJwa3RhMU5BWXAzK2RjYlZ0cVJn?=
- =?utf-8?B?and3MnU4NjVQaFJhYzRnbWN6RUVXdVpHNHBiQTNHbldyZWhza2ZUUGJtRFFJ?=
- =?utf-8?B?RFVJeWZ1RENkOVgvOWp2K1ZTZHdKTWIrdnUxNnlXOXZzY3p0QmFMWno4Ylp3?=
- =?utf-8?B?NWEzaDVTTmk1OGdnU0w2Z1FXNXFuSnp4S2tsVnZGblZNT0JSRS9yUEQ4VzFN?=
- =?utf-8?B?bFNpUk4zQW1RTllqN1NhUjQ3NmNxbWlHL2pSM0dtOEhqcCsvQWxuUEwzNnFU?=
- =?utf-8?B?dlJHSmRpakRDY3lIYVRkbFRlWkNDai9mdndxY0ZSVy9CN1krRDA5LzZrQ0pG?=
- =?utf-8?B?ZWkvRTBUZ3dubU5tVm42T2VFb1Y4eVFrVGlWMktjcGIyeXlFTTNIKzJoRFNI?=
- =?utf-8?B?dmt0R0dkeVd6bklCalhGUEZhTG1IZXVIdzZmUXpiV1htZytpTStrbUo3Q1FP?=
- =?utf-8?B?bm4wY0IyOFNOVGo5bXdvQmt6dG9CWWpOVWI4cFVVSmR5U0dwUGh1MmhXYWl0?=
- =?utf-8?B?WkFzaGMzUC9JNzdUbGwwZVd3eTRPanBKTWtwRjkxTDVzeTRhelM4RWRlU20y?=
- =?utf-8?B?UXl4bnk4RE9uSWEvbWdvVEtadUVaWGtwUCsyOFFaVm9FOERsTlQ2Q1V0N2I4?=
- =?utf-8?B?Tk12ZENYKy9QQnZHa2RaZnZsS3lQRW92eFZ1emlnbW11S3BSUUZwVGtrWmFN?=
- =?utf-8?B?UnRwU1RkL1NENmNkV0JoVFhPZkhuSmVxbE9XVU5HSTVncU9SRG1sT0hxQk11?=
- =?utf-8?B?bTV3L2dLVS9TcWFOc2R5TDlyLzhvZmJZYXJNK1BDS2tXT01QTWRWSHY0K1BM?=
- =?utf-8?B?eWdNekFKb1NZU0tDcXZIZURsc01TMDlmbHJBYXlkUUphRDE5dkNHdnlUNDl3?=
- =?utf-8?B?bXIraDZ4eE9qL1VhdDZaNHpRcjhPZFpKNmNhWUN1M0I4Qnh0dnFZbmNqTXpS?=
- =?utf-8?B?eFZ0T2RTdHhmOXhVSkgzWi9JUDBhT0cxd281bzlxNDFWOU1nU2dIWGhXTUpT?=
- =?utf-8?B?TWdBZVNaYkNmMzVCNjA5aFl0aTlzcy9mRnR4UVpjYUcwbEJaVjJWTmttNzI2?=
- =?utf-8?B?SGZ4S1M1OEEzMzNCS2Ixdlc0Y21HVTRRWDlXOERnMkFJc214bUNDNjVIWGdn?=
- =?utf-8?B?ZWdqakVXRU9BZWFoVno1Y2VyWDhwMDErby9ZNnhqZFArSURsQVNYR3lVYm8r?=
- =?utf-8?B?eEExcWc5NEgrbisyZVk0eWtmdWlDd3c5aHU1Tk9IekRQSTkxQXpMQ0dvQW01?=
- =?utf-8?B?QVlRejMyRkF3dzkvWGhLbTMwQ3FlZWxnTHNXZ1MxSVlwVGYyT0VydlE4UUlU?=
- =?utf-8?B?ZU01UVUyM3BYTTMrZlZxU1J6ZXZSTG5XQWwvQ3prMGtuSU9zT1o4YldxWEZQ?=
- =?utf-8?B?UjQzdlR1VU1iNi95T05rOE9FUDV4Z0FNVG82cm5HalhiRjVVdHY4MHZzRHdP?=
- =?utf-8?B?eWRMTmJieHNTdXcrNGdEWHhsQjFXcDhjOWd6UnFScFdSYVM3VU1CN1dzMnEy?=
- =?utf-8?B?a05PZjJvNUVEdEdCbmh1Zm9MZ0dtYzhUcW5PckRjM0xaQ1VRTlE0dFJJcEpl?=
- =?utf-8?B?a3JEZ3hsS1BUQ1B6WFVSSW44eW5FR0tjNkJTdTBOOVA2VEZHaTQveWNwMW1u?=
- =?utf-8?B?V3E5YUlmcGZjZmlldFVTQzRwQnM2RnluQWM5RnlVVGdTbVlYTGNTdFZBNkRt?=
- =?utf-8?B?bi9WWWJTU0RJYk56MVd3elM3T1pqb0VBbUZOcXRiZDVHYW96VVN3N2FqcXRz?=
- =?utf-8?B?UURiSHROdzlUMGN1M1J6dzIzUDAwZVI4R1lzQnlGVHJCM2RwdmZJSFZrdE9P?=
- =?utf-8?B?aUFkRGp5Vyt1U0trRUNvVThBdlE2c2NMNlZlbnlTQ2VmLzg2VFcwYkpkRUxa?=
- =?utf-8?Q?H2w+qwjj9Zj9Xeja3bmZuerI6?=
+	=?utf-8?B?VTRWbjBQRE93SWNOUlhuaVVmM0IwMERSa0ozYjlpNmhaUW5ZUVM2OG1JWFJD?=
+ =?utf-8?B?dnJFSzh1WTJqWkRjbDR5OHpPT2pSM3hOcytuOTZXUW9Da3FyYmI5c3JlWnZB?=
+ =?utf-8?B?S3FGdnVzVzcydFpLenRLTWF4ZU92Z09CakFCMzVDeTR1cnBYUXRMMDJPQ1Y1?=
+ =?utf-8?B?WFZlL2pHM1hiaW9rVVBHNlBFdFBSSmN1MUtramw4OUR6OVBtSWpqZklXeXFw?=
+ =?utf-8?B?OFE1VmtlbVR0YlorTU9PNTQ2d1FGOUMzNFZUOStzUWsyZElyS0hSb1lnYmxO?=
+ =?utf-8?B?L0FhcjFCMGh3eTBtZDBCT050dGQ4cTlSa3JoN1BJZVhXZGpLT2RTUHNSRS96?=
+ =?utf-8?B?MklNUlA4UUJNWnpzNGpoRklhSjY4akR0VlhEN0hVSXpBTkMvV2xWb0VMcmxJ?=
+ =?utf-8?B?UXFKa1JTNndVRXJiWDRMREh4UjVQNzEzTGJsY3BwTzJJTG1MMXhJRDRXOVU4?=
+ =?utf-8?B?b2owSzljdG83R3QrYnhvelp6V1c5MGdtUVpISmlDRVB5dmpDc3BMVm5LQ0J6?=
+ =?utf-8?B?TFJaSy9ybEJubWlvWHN6dDJPTy95c1BpTjVwVUVoZGh0Y0QxVEtEK2JzeUNz?=
+ =?utf-8?B?LzB4bUlDWFloUzkvUjhaN243RE51NkNTdW14aDg5V1Q3a1VRR2hmTTJtdUQ0?=
+ =?utf-8?B?Um4yNkVmUEhQV0tYOUNGVVAzVW1PUHVxS0xyZmRkMXF6VGJtT2lreElvRmRp?=
+ =?utf-8?B?WVg5M2RvQVY1OFZIc1MrL0lodExNSnhlOHg0ajVsTXcrWnhyekdzRkQrS01T?=
+ =?utf-8?B?QkQwRi9URkpaZkU1QmQ2bXo2akhRc1pqUDAwUDNKRzYrUldpTWp0QndQNGdz?=
+ =?utf-8?B?cnYwRTEwZG5iYVF6OXpNZk1kQXNCaFE0bFJaQ2lSWTBKSE51Zm1JZVNLYnRI?=
+ =?utf-8?B?MEQxQUpld2xuYktDS3cwNWFKNVRqbzJnSVBmWE54OUw5eUtMQjVQamlHOTFs?=
+ =?utf-8?B?RGszTHptMDJRNjlEdWhuRlp5VXRvbmYzTmJsVzZiZjBRd1cvdnViT2FZTGlv?=
+ =?utf-8?B?NEhldmdzL1kxTThnN0U1dHRpcnZxSU1TaWRSZFVabmNab3VjdEZWY3ZqMWRp?=
+ =?utf-8?B?YUJ4K2dZYTlNUWtqWWpiV1YvNUdUTEJDN21RU0tCVzdJeGh3elRDblRBbVZK?=
+ =?utf-8?B?THM3eGl2b1U1MnFFUVo4aE80cFJzWnVGemZma2tlV0YxaGhKc3ozejdiVExw?=
+ =?utf-8?B?L0dyYkl1UzQxb04yMVpNWkZFTjBGMjdNZStJTm1BK3IwMUxPS0h0RUd5Z0tj?=
+ =?utf-8?B?UTdUOWZzb3dOZ1FKMHlaSmhXRURIU01EU0hCamV2YWVTNnkrSXJNQjhJQlRi?=
+ =?utf-8?B?ZVFiNEVRbHhWY0pTeVZmTUxXRDRwQUxmUHJPYVFma3RlUzZUbkFyWVRML1Y5?=
+ =?utf-8?B?WmZYNUFQMVU3cHFKbU5YR3l1Uzl3YUlWbzBPMUtvdStzZHpKUGJPZWVPdWJD?=
+ =?utf-8?B?VHdPVjVnbTJNWjNyQStXamMxUTM1c2RORVpSZ2YxVE0zTlIxRUZnNnRKWXpk?=
+ =?utf-8?B?akQ5aTFaZE1vR0tlQms3cXhxK2hEbWlYSFFDU1hRN1JZNU94RFZMeWZKNUhN?=
+ =?utf-8?B?WEtqKzFuMGl6RlNMUnIwbE5sY2xYS3ZXcTRYcFRKT3gvWStjTUNYYzlGWWV3?=
+ =?utf-8?B?T0EwOWRVVFNNQmQ0aDFqYjlpSERRblRnMnliR2dNdnVCMUFMdnNLMC9ZQ0ZJ?=
+ =?utf-8?B?SXdtZjlzNVVXdG9ub3Q4RGZIYmNicG43QUwreFZTQjIzNCtndTNmMHA4MzZp?=
+ =?utf-8?B?ekl3K21rcmV6K3RJYWFKeG9jMERuZ3BMUXBVMXk1cGlmVHdIbGFGVVl0ZjRF?=
+ =?utf-8?B?TEUrN0tGTXM0RUhYZkhDdW8wYlFBU3NhM05xN2l2V1JFeU9SWDU4Qy8yM1Bt?=
+ =?utf-8?B?V0RnYTk0QTZ5Q3FHV2F5WU9ldkFTUHBRc0ZIRkFYcjhnWUFsNmxDVmwrWlB4?=
+ =?utf-8?B?TXgrbDhvdGg0VXJvUm1qQ0hCZGQrM3EwSUxXWmx6SVJiUk5KbjV2SE1TUmpk?=
+ =?utf-8?B?MldFNCtCZnBySjRtbU9oaU8yOTZPc2pXV1Uxb1p6OFZCTThIL2JwYS9pdjBp?=
+ =?utf-8?B?Y2ErUmNIanRTZVpaSXdRMGxqbVFlbW1zT1psVDVJZ2poRW5sNGtUV043UUVT?=
+ =?utf-8?Q?erQnjB5WW0/+kq2crS7WDGPQl?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 841e1965-fa3d-4183-c65d-08dbe6a88636
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18cd985f-33dc-4429-76d8-08dbe6a89658
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2023 13:32:48.5119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2023 13:33:15.5907
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hnATFyoVvGC67MADXogEyYhpEo3hd8XdM3TzUNMOi7pz9NdM/ycr64B6apIUYDQVuKRFp0lt7o1iZSdPZyHv8Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: GFOGWneO+XVUD2GRqu3Xzq3X2q+wuyF4gKg7e+TmrfJmwX9Pmj9uj/DP+hf7l4kGJrTDywVs89/XArcsi1lNjA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9333
 
-This was used by VMX only, and the intended VMCS write can as well
-happen from vmx_set_tsc_offset(), invoked (directly or indirectly)
-almost immediately after the present call sites of the hook.
-vmx_set_tsc_offset() isn't invoked frequently elsewhere, so the extra
-VMCS write shouldn't raise performance concerns.
+__init{const,data}_cf_clobber can have an effect only for pointers
+actually populated in the respective tables. While not the case for SVM
+right now, VMX installs a number of pointers only under certain
+conditions. Hence the respective functions would have their ENDBR purged
+only when those conditions are met. Invoke "pruning" functions after
+having copied the respective tables, for them to install any "missing"
+pointers.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+This is largely cosmetic for present hardware, which when supporting
+CET-IBT likely also supports all of the advanced VMX features for which
+hook pointers are installed conditionally. The only case this would make
+a difference there is when use of respective features was suppressed via
+command line option (where available). For future hooks it may end up
+relevant even by default, and it also would be if AMD started supporting
+CET-IBT; right now it matters only for .pi_update_irte, as iommu_intpost
+continues to default to off.
+
+Originally I had meant to put the SVM and VMX functions in presmp-
+initcalls, but hvm/{svm,vmx}/built_in.o are linked into hvm/built_in.o
+before hvm/hvm.o. And I don't think I want to fiddle with link order
+here.
 
 --- a/xen/arch/x86/hvm/hvm.c
 +++ b/xen/arch/x86/hvm/hvm.c
-@@ -1086,9 +1086,6 @@ static int cf_check hvm_load_cpu_ctxt(st
-     v->arch.hvm.guest_cr[2] = ctxt.cr2;
-     hvm_update_guest_cr(v, 2);
+@@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
+     else if ( cpu_has_svm )
+         fns = start_svm();
  
--    if ( hvm_funcs.tsc_scaling.setup )
--        alternative_vcall(hvm_funcs.tsc_scaling.setup, v);
--
-     v->arch.msrs->tsc_aux = ctxt.msr_tsc_aux;
++    if ( fns )
++        hvm_funcs = *fns;
++
++    prune_vmx();
++    prune_svm();
++
+     if ( fns == NULL )
+         return 0;
  
-     hvm_set_guest_tsc_fixed(v, ctxt.tsc, d->arch.hvm.sync_tsc);
-@@ -4033,9 +4030,6 @@ void hvm_vcpu_reset_state(struct vcpu *v
-     hvm_set_segment_register(v, x86_seg_gdtr, &reg);
-     hvm_set_segment_register(v, x86_seg_idtr, &reg);
+-    hvm_funcs = *fns;
+     hvm_enabled = 1;
  
--    if ( hvm_funcs.tsc_scaling.setup )
--        alternative_vcall(hvm_funcs.tsc_scaling.setup, v);
--
-     /* Sync AP's TSC with BSP's. */
-     v->arch.hvm.cache_tsc_offset =
-         v->domain->vcpu[0]->arch.hvm.cache_tsc_offset;
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -1454,20 +1454,13 @@ static void cf_check vmx_handle_cd(struc
-     }
+     printk("HVM: %s enabled\n", fns->name);
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2587,6 +2587,19 @@ const struct hvm_function_table * __init
+     return &svm_function_table;
  }
  
--static void cf_check vmx_setup_tsc_scaling(struct vcpu *v)
--{
--    if ( v->domain->arch.vtsc )
--        return;
--
--    vmx_vmcs_enter(v);
--    __vmwrite(TSC_MULTIPLIER, hvm_tsc_scaling_ratio(v->domain));
--    vmx_vmcs_exit(v);
--}
--
- static void cf_check vmx_set_tsc_offset(struct vcpu *v, u64 offset, u64 at_tsc)
- {
-     vmx_vmcs_enter(v);
- 
-+    if ( !v->domain->arch.vtsc && cpu_has_vmx_tsc_scaling )
-+        __vmwrite(TSC_MULTIPLIER, hvm_tsc_scaling_ratio(v->domain));
++void __init prune_svm(void)
++{
++    /*
++     * Now that svm_function_table was copied, populate all function pointers
++     * which may have been left at NULL, for __initdata_cf_clobber to have as
++     * much of an effect as possible.
++     */
++    if ( !IS_ENABLED(CONFIG_XEN_IBT) )
++        return;
 +
-     if ( nestedhvm_vcpu_in_guestmode(v) )
-         offset += nvmx_get_tsc_offset(v);
++    /* Nothing at present. */
++}
++
+ void svm_vmexit_handler(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3032,6 +3032,30 @@ const struct hvm_function_table * __init
+     return &vmx_function_table;
+ }
  
-@@ -3030,10 +3023,7 @@ const struct hvm_function_table * __init
-     }
- 
-     if ( cpu_has_vmx_tsc_scaling )
--    {
-         vmx_function_table.tsc_scaling.ratio_frac_bits = 48;
--        vmx_function_table.tsc_scaling.setup = vmx_setup_tsc_scaling;
--    }
- 
-     model_specific_lbr = get_model_specific_lbr();
-     lbr_tsx_fixup_check();
++void __init prune_vmx(void)
++{
++    /*
++     * Now that vmx_function_table was copied, populate all function pointers
++     * which may have been left at NULL, for __initdata_cf_clobber to have as
++     * much of an effect as possible.
++     */
++    if ( !IS_ENABLED(CONFIG_XEN_IBT) )
++        return;
++
++    vmx_function_table.set_descriptor_access_exiting =
++        vmx_set_descriptor_access_exiting;
++
++    vmx_function_table.update_eoi_exit_bitmap = vmx_update_eoi_exit_bitmap;
++    vmx_function_table.process_isr            = vmx_process_isr;
++    vmx_function_table.handle_eoi             = vmx_handle_eoi;
++
++    vmx_function_table.pi_update_irte = vmx_pi_update_irte;
++
++    vmx_function_table.deliver_posted_intr = vmx_deliver_posted_intr;
++    vmx_function_table.sync_pir_to_irr     = vmx_sync_pir_to_irr;
++    vmx_function_table.test_pir            = vmx_test_pir;
++}
++
+ /*
+  * Not all cases receive valid value in the VM-exit instruction length field.
+  * Callers must know what they're doing!
 --- a/xen/arch/x86/include/asm/hvm/hvm.h
 +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -240,9 +240,6 @@ struct hvm_function_table {
-         uint8_t  ratio_frac_bits;
-         /* maximum-allowed TSC scaling ratio */
-         uint64_t max_ratio;
--
--        /* Architecture function to setup TSC scaling ratio */
--        void (*setup)(struct vcpu *v);
-     } tsc_scaling;
- };
+@@ -250,6 +250,9 @@ extern s8 hvm_port80_allowed;
+ extern const struct hvm_function_table *start_svm(void);
+ extern const struct hvm_function_table *start_vmx(void);
  
++void prune_svm(void);
++void prune_vmx(void);
++
+ int hvm_domain_initialise(struct domain *d,
+                           const struct xen_domctl_createdomain *config);
+ void hvm_domain_relinquish_resources(struct domain *d);
 
 
