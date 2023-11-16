@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C21D7EDE04
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 10:53:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634102.989333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D897EDE18
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 11:02:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634107.989343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3Z44-0005O0-Sc; Thu, 16 Nov 2023 09:53:36 +0000
+	id 1r3ZCk-0007yj-Nk; Thu, 16 Nov 2023 10:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634102.989333; Thu, 16 Nov 2023 09:53:36 +0000
+Received: by outflank-mailman (output) from mailman id 634107.989343; Thu, 16 Nov 2023 10:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3Z44-0005Ls-Pi; Thu, 16 Nov 2023 09:53:36 +0000
-Received: by outflank-mailman (input) for mailman id 634102;
- Thu, 16 Nov 2023 09:53:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=X1T5=G5=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1r3Z43-0005Lg-DV
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 09:53:35 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.166]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01393b4f-8466-11ee-98db-6d05b1d4d9a1;
- Thu, 16 Nov 2023 10:53:34 +0100 (CET)
-Received: from sender by smtp.strato.de (RZmta 49.9.1 AUTH)
- with ESMTPSA id g1b15czAG9rUTbm
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 16 Nov 2023 10:53:30 +0100 (CET)
+	id 1r3ZCk-0007wN-KI; Thu, 16 Nov 2023 10:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 634107;
+ Thu, 16 Nov 2023 10:02:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RqoQ=G5=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1r3ZCj-0007wH-BM
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 10:02:33 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41398586-8467-11ee-9b0e-b553b5be7939;
+ Thu, 16 Nov 2023 11:02:30 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 306694EE0741;
+ Thu, 16 Nov 2023 11:02:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,111 +39,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01393b4f-8466-11ee-98db-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; t=1700128410; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=G6wY6AtshmXhqmrxXRbSL/QyvtfsluE1x6DA6srdeQalkyz5E8F/dZ/G2dXF89O5Vq
-    PYS/jxIPN2Ty6CGrIf158Sof+7L3uv93SQ32glJmXc3xnS6E//eXA/t3J1TaDlNFIlHC
-    Ze7VMsaaIPB4AJT9SvmaJZdqKPXG7c2F2/YP7Fs+fa+fJpwjqP8+zyTUDzskJoh1cDY5
-    oElNDL66M8KGj+lFlpOyo3N/sqdRkdrwyMkfwVLuNZUcltDqyeZcAwHxvjqZ2ePCijlo
-    +iRrEQ9VDjvRMRjt8vhLTAh68/3yZpKuqu5DYWQ36K6xuP+qjexDSLk8/6M+l6vfTG9q
-    S5eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1700128410;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=a5ntrmbSeDKC3MIUkTN+rwYj0A/SouzIhz0NCta5JaM=;
-    b=BP5oWqGJi1NkhQNOSbXu7P+FpSg/hNRmx0B4rO8Gqx85EGok4m3KikT4ANXknBt65A
-    fXNSLE0L4huiGQGfuprnbwEuCeQ+qj7UZxLKwKCAxB1JAahabhI2aXavHougCZm/1lvn
-    xUbxDjgiiT4Smr2q7swINgDruBWCkqm7/64dRSovBc/DGspmxqigv6NR2y+bSLjoPc57
-    is7ZYT3B39VQEf9QRwgVutWdvdA0vkOIREyTw47Apvd/IQQaFFc4yd7vXX6gOPv4fEos
-    dVkWjRoTWRc72jIxUWBCKNObIDOaNj9ax85UnBEHLPSg7QxfYCR5pTkgAC5mnpQdZKDb
-    PG0w==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1700128410;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=a5ntrmbSeDKC3MIUkTN+rwYj0A/SouzIhz0NCta5JaM=;
-    b=UXQfpDpeBOA/+uQIoH9PCmXFEnvsddqcUNpFfPvniDr88ck7Xx2c1N0P4Pj+BMWFLo
-    HQp6iMSjT8kNXq7u/RvM2VHotHPDlNvVGzarsTQn03DoQ+tDG83SUOIHpO6mmSccCQDB
-    7M1y1AHog2zekWbWkPXy0RSuZw13OkkSdWkg9A0cQS+YdmsmEiMReCVH3+FAGRrlQytj
-    jkpVrVL9GAhsDXAzRCj+KV3cOjGtUBH6RKSmzy+XsmyWdDGv8a6OYv+5JWFM6itLaHbb
-    rpi6WE9WZ+Hyq1TumzGWHHnoqyFrNT4oq/Ja22ECrbCyS4yH8inf1gdIhdgTjvPDuRQv
-    1J0g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1700128410;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=a5ntrmbSeDKC3MIUkTN+rwYj0A/SouzIhz0NCta5JaM=;
-    b=yjV8xLA93WZtNSIH3tTzY/2X0yG6Zzoe4u3b9IYAOmCl1AGsjv8F4MX54NemKKrNLI
-    s1ovWuEf61101zTE0cBw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5BhaIaRnsNaqJN2h0dTFZeqQ89seVgD7Tlo9gNQ=="
-Date: Thu, 16 Nov 2023 10:53:21 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Xen-devel
- <xen-devel@lists.xenproject.org>, "anthony.perard@citrix.com"
- <anthony.perard@citrix.com>, "jgross@suse.com" <jgross@suse.com>, Rahul
- Singh <Rahul.Singh@arm.com>, Divin Raj <Divin.Raj@arm.com>
-Subject: Re: [Discussion]: Making "LIBXL_HOTPLUG_TIMEOUT" configurable
- through 'xl.conf'
-Message-ID: <20231116105321.4a59eed4.olaf@aepfle.de>
-In-Reply-To: <A6D4B8C2-E781-4964-A757-C72F38169246@arm.com>
-References: <4a54e7e7-c041-44d3-a16e-d331e9fdd414@arm.com>
-	<20231115182340.505df6c3.olaf@aepfle.de>
-	<4f418916-b76d-425a-96a2-05b56a3dc195@suse.com>
-	<20231116085629.40a0445b.olaf@aepfle.de>
-	<A6D4B8C2-E781-4964-A757-C72F38169246@arm.com>
-X-Mailer: Claws Mail 20230817T113819.a897c59c hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 41398586-8467-11ee-9b0e-b553b5be7939
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/yz=gulrvVJb+Omug_624L6P";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Date: Thu, 16 Nov 2023 11:02:30 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Simone Ballarin
+ <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH][for-4.19 v4 1/8] xen/include: add macro
+ ISOLATE_LOW_BIT
+In-Reply-To: <392566d1-109b-413c-b904-0e4cb4007263@suse.com>
+References: <cover.1698410970.git.nicola.vetrini@bugseng.com>
+ <dca236bf9199f596bafb35eb48d81adc280d8cca.1698410970.git.nicola.vetrini@bugseng.com>
+ <f88edc35-6b1b-0136-aa1f-6429652c4016@suse.com>
+ <alpine.DEB.2.22.394.2310301536390.1625118@ubuntu-linux-20-04-desktop>
+ <7c26fb70-6a8c-58a3-6a1d-300dd57b5827@suse.com>
+ <817fab34432c854ce585aba80db77f7c@bugseng.com>
+ <8b4e0da82930375b2a95387a9031c73f@bugseng.com>
+ <1178b79c-d6a3-a46c-5556-3fb5964dc051@suse.com>
+ <392566d1-109b-413c-b904-0e4cb4007263@suse.com>
+Message-ID: <6b6f051130b724ee6a813235e049354c@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
---Sig_/yz=gulrvVJb+Omug_624L6P
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 2023-11-16 09:26, Jan Beulich wrote:
+> On 31.10.2023 11:20, Jan Beulich wrote:
+>> On 31.10.2023 11:03, Nicola Vetrini wrote:
+>>> On 2023-10-31 09:28, Nicola Vetrini wrote:
+>>>> On 2023-10-31 08:43, Jan Beulich wrote:
+>>>>> On 30.10.2023 23:44, Stefano Stabellini wrote:
+>>>>>> On Mon, 30 Oct 2023, Jan Beulich wrote:
+>>>>>>> On 27.10.2023 15:34, Nicola Vetrini wrote:
+>>>>>>>> --- a/xen/include/xen/macros.h
+>>>>>>>> +++ b/xen/include/xen/macros.h
+>>>>>>>> @@ -8,8 +8,14 @@
+>>>>>>>>  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
+>>>>>>>>  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+>>>>>>>> 
+>>>>>>>> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
+>>>>>>>> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
+>>>>>>>> +/*
+>>>>>>>> + * Given an unsigned integer argument, expands to a mask where
+>>>>>>>> just the least
+>>>>>>>> + * significant nonzero bit of the argument is set, or 0 if no 
+>>>>>>>> bits
+>>>>>>>> are set.
+>>>>>>>> + */
+>>>>>>>> +#define ISOLATE_LOW_BIT(x) ((x) & -(x))
+>>>>>>> 
+>>>>>>> Not even considering future Misra changes (which aiui may require
+>>>>>>> that
+>>>>>>> anyway), this generalization of the macro imo demands that its
+>>>>>>> argument
+>>>>>>> now be evaluated only once.
+>>>>>> 
+>>>>>> Fur sure that would be an improvement, but I don't see a trivial 
+>>>>>> way
+>>>>>> to
+>>>>>> do it and this issue is also present today before the patch.
+>>>>> 
+>>>>> This was an issue here for MASK_EXTR() and MASK_INSR(), yes, but 
+>>>>> the
+>>>>> new
+>>>>> macro has wider use, and there was no issue elsewhere so far.
+>>>>> 
+>>>>>> I think it
+>>>>>> would be better to avoid scope-creeping this patch as we are 
+>>>>>> already
+>>>>>> at
+>>>>>> v4 for something that was expected to be a trivial mechanical 
+>>>>>> change.
+>>>>>> I
+>>>>>> would rather review the fix as a separate patch, maybe sent by you 
+>>>>>> as
+>>>>>> you probably have a specific implementation in mind?
+>>>>> 
+>>>>> #define ISOLATE_LOW_BIT(x) ({ \
+>>>>>     typeof(x) x_ = (x); \
+>>>>>     x_ & -x_; \
+>>>>> })
+>>>>> 
+>>>>> Hard to see the scope creep here. What I would consider scope creep 
+>>>>> I
+>>>>> specifically didn't even ask for: I'd like this macro to be
+>>>>> overridable
+>>>>> by an arch. Specifically (see my earlier naming hint) I'd like to 
+>>>>> use
+>>>>> x86's BMI insn BLSI in the context of "x86: allow Kconfig control 
+>>>>> over
+>>>>> psABI level", when ABI v2 or higher is in use.
+>>>> 
+>>>> I appreciate you suggesting an implementation; I'll send a v5
+>>>> incorporating it.
+>>> 
+>>> There's an issue with this approach, though: since the macro is used
+>>> indirectly
+>>> in expressions that are e.g. case labels or array sizes, the build 
+>>> fails
+>>> (see [1] for instance).
+>>> Perhaps it's best to leave it as is?
+>> 
+>> Hmm. I'm afraid it's not an option to "leave as is", not the least 
+>> because
+>> - as said - I'm under the impression that another Misra rule requires
+>> macro arguments to be evaluated exactly once. Best I can think of 
+>> right
+>> away is to have a macro for limited use (to address such build issues)
+>> plus an inline function (for general use). But yes, maybe that then 
+>> indeed
+>> needs to be a 2nd step.
+> 
+> While I've committed this patch (hoping that I got the necessary 
+> context
+> adjustment right for the 
+> automation/eclair_analysis/ECLAIR/deviations.ecl
+> change), I'd like to come back to this before going further with users 
+> of
+> the new macro: I still think we ought to try to get to the single
+> evaluation wherever possible. The macro would then be used only in 
+> cases
+> where the alternative construct (perhaps an isolate_lsb() macro, living
+> perhaps in xen/bitops.h) cannot be used. ISOLATE_LSB() would then want 
+> to
+> gain a comment directing people to the "better" sibling. Thoughts?
+> 
 
-Thu, 16 Nov 2023 09:21:06 +0000 Luca Fancellu <Luca.Fancellu@arm.com>:
+Having the users in place would help me estimate the remaining work that 
+needs to be done on this rule and see if my local counts match up with 
+the counts in staging.
 
-> I see your patch is handling this issue but maybe was not meant to be ups=
-treamed,
-> so I would like to ask if you are willing to make it upstream-able or if =
-it=E2=80=99s not planned
-> to do so.
-
-Right now I do not have the time to work on this.
-
-First there need to be an agreement about how the timeout needs to be confi=
-gured.
-
-
-Olaf
-
---Sig_/yz=gulrvVJb+Omug_624L6P
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmVV5pEACgkQ86SN7mm1
-DoBb8w//XinCmXvCLujEkTR7VJ3BftycYI6brd1nz7xnqb80cVyNyQUc64mBwQHI
-N/ydw/R35BQns5AUw2hIk3jpFt9G0ihOi/Gmap3cYMQ57FmmHjL1LMg9vQ7R8M+f
-Snr+xiBmCWET7QkyJqyX0hbefQZyWGXLiHurlak8Y6hMtV2N+wWqJS+aBAzdaJJN
-YevKmanRIxNpfKEHevtrzVIeJSJaPn47ImA3x/LYkwhtZA+sBjdgxlnxZf4oGwYv
-+0BY6n1oVZTXRhdUuao4yeqNrOOjwVsCQuUXogX9RZ48Pyq11pNk6yQeBtqMrQmx
-KPy0KfPSZAZ2j6+XzkL4WgJLORruZcnA0DfJI2o5tb48C9wnCOjJ635MytUY+xq+
-8wZ0g1uVoMW7wI/iNBg6gMaJG1RV7fXGaw6vPG2BEpPUtCW7vUQFYa42XOASeZYy
-bmTr7ogOqJb8wrvJjrN0yOirwjRsbw+2m6jeZjZgQj1cKPUk5YKgZhQ8hqi5euSi
-hMqUtfTQ63L7SwL3W1YKEuAnIYqUwAIw4UIogqkXNtyTjmvKG7WPCwBcr7lk4zpr
-QQG/Qrv8gj4CYrbyDonXvSrZbdhQpOXv7tJRIyBLo8WLBBzzT6ZdBGnpv2zhF8O1
-7rUA9KTzOhkQtdzcB5mnan4aLa855pXw9925sAT6jf0Fj+hFCEI=
-=SnGN
------END PGP SIGNATURE-----
-
---Sig_/yz=gulrvVJb+Omug_624L6P--
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
