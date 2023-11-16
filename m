@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390E67EE056
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 13:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634142.989424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DB667EE078
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 13:13:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634146.989432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3b6x-00015d-BD; Thu, 16 Nov 2023 12:04:43 +0000
+	id 1r3bFU-0003br-4c; Thu, 16 Nov 2023 12:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634142.989424; Thu, 16 Nov 2023 12:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 634146.989432; Thu, 16 Nov 2023 12:13:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3b6x-00012K-7w; Thu, 16 Nov 2023 12:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 634142;
- Thu, 16 Nov 2023 12:04:41 +0000
+	id 1r3bFU-0003ZS-23; Thu, 16 Nov 2023 12:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 634146;
+ Thu, 16 Nov 2023 12:13:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aqXc=G5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r3b6v-00012C-QM
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 12:04:41 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=flNc=G5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r3bFS-0003ZM-S3
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 12:13:30 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5278c375-8478-11ee-98db-6d05b1d4d9a1;
- Thu, 16 Nov 2023 13:04:41 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5094727fa67so996952e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 04:04:41 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- d20-20020ac241d4000000b0050a72e696e1sm1932917lfi.117.2023.11.16.04.04.39
+ id 8d98cda2-8479-11ee-98db-6d05b1d4d9a1;
+ Thu, 16 Nov 2023 13:13:29 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4084b0223ccso5375485e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 04:13:29 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ dk14-20020a0560000b4e00b0032179c4a46dsm13517657wrb.100.2023.11.16.04.13.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Nov 2023 04:04:40 -0800 (PST)
+ Thu, 16 Nov 2023 04:13:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +44,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5278c375-8478-11ee-98db-6d05b1d4d9a1
+X-Inumbo-ID: 8d98cda2-8479-11ee-98db-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700136280; x=1700741080; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=/TAQJ0p9YnaxcOAT+8G7dAwXbJw97tfts4uTfp1Y7Xg=;
-        b=gGcDdbtkTIk8YdAhrJh8excyeVuRt3/umtIu6ovkrRifhFq33gAH8o9G1ZhDO/HqC/
-         vxKld7IHA/KWGPS8ld6qE8I3TQqKZGjPE8sVT5J9J3PaC6+N4+d9ef+iKINeLCJNRqFO
-         H7Q0ng1RIcXKP+8NMVcQkhWHNMgx2T7WEFlYHmWoIVH3ldGCtb+KtP/yuyBwvA0Zmoiz
-         Kczh3FAyae8rj3H8404TiNVwuuU4WVTg7RxTi2rO6EAv7ybL7lD6Fq8muUiiNMzMYxFr
-         vt8yPOinWy3no4cavaJMsUv6hWtdKroMxSILorJhqnpfkGDnP80yN+2LwnJCS0TSN3RD
-         Vrjw==
+        d=citrix.com; s=google; t=1700136808; x=1700741608; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MyuybwvHT4fiOcG6F7Us+wWuyqI0xHKPsg6Q+aCkCvs=;
+        b=nOCxDsdQcJpaxByYgrSocXc4ScvY5FNGD/QZ42kYYEPbYafvAmPWZD7rYSVmHaKRmS
+         Lwa+srJduy+pwxMmBr7X9nRy6LIkVSkSg3LXh9AvksPF8lSaANafCTkwFXC+v6cwWRtS
+         XeupCSb4pkizE4Wn3hNxY8gScLCoPtOQqcSeQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700136280; x=1700741080;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/TAQJ0p9YnaxcOAT+8G7dAwXbJw97tfts4uTfp1Y7Xg=;
-        b=PUrkHlKXyovHUoRqbnBtklCxLJVtYULsO5SXbAhMXavbfdK6QzrVGISAaWUnpiEkVr
-         6tKVjttg7/+VlyrUtGHEucGUkbrbj9TDlzMdafG09cUcbQq//nfwQXIDy6BG1Vwx4Hfh
-         6Rn6Q6iY17aV1K4kAuSqpQQnTtKNRou6RHOw4JWE68qQyfWui9NdKCCPrAE8Dn4t5Gmo
-         6tl21BcTykzYH3V1kit8Agl8oX8IQgDDBQyEk9ayRpbLp/ZiaH1G8OEhWOWZLAZnksKN
-         nAgoHP7VPtFuRmK+El/V+uBvKGAuw2AGnRnXvnrbqZiLOxQ46RZSGi9DxzY6B/hV+xEM
-         v1UQ==
-X-Gm-Message-State: AOJu0YwbzmVz1aeyzAQVH+XOpZiP0V4ueXlKJomtFcPL2PPHvvlJn9rr
-	F4d3UKxwIJc4CxC2PNvDET8=
-X-Google-Smtp-Source: AGHT+IFCT6Pzz/VCtT1h8jJgGIsYFJwr6tuiRhPnMMd+4hRXVqwrZvBTRrGPzKI9KLRzFgU1DKGn5w==
-X-Received: by 2002:ac2:4d01:0:b0:503:19d8:8dc3 with SMTP id r1-20020ac24d01000000b0050319d88dc3mr1532062lfi.31.1700136280245;
-        Thu, 16 Nov 2023 04:04:40 -0800 (PST)
-Message-ID: <45623d7e6ca4f9ed34c1818ae304cbf49d82da4a.camel@gmail.com>
-Subject: Re: [PATCH v2 08/15] xen/asm-generic: introduce generic header
- percpu.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Thu, 16 Nov 2023 14:04:39 +0200
-In-Reply-To: <f7fca726-f4d5-4cdf-981e-2a6fcf5085b0@suse.com>
-References: <cover.1699633310.git.oleksii.kurochko@gmail.com>
-	 <d0ecdf04ceea49f57a54e15cc129c165a142a5cb.1699633310.git.oleksii.kurochko@gmail.com>
-	 <f7fca726-f4d5-4cdf-981e-2a6fcf5085b0@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+        d=1e100.net; s=20230601; t=1700136808; x=1700741608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MyuybwvHT4fiOcG6F7Us+wWuyqI0xHKPsg6Q+aCkCvs=;
+        b=fUaOuG2Z5z5dmJVABvcCOfb0qcuLFyqI5GEgI/FTR7UATHui7A+4fma06rcpWZSxXU
+         0Uay4Wdtv1AhBcH2o5cMIbHTF1YiJm32CsDXF2MYxkGJIJwUgymqqBHA/ZoaU2Lzpv+n
+         CRfqxdHFhV9bwgjUiXslFnCIJjtlE38gJAn8YgXaWtpM6h+8iWZ740fvIlegkTD5p0ZU
+         uqEUElHYb5EqE1BaNezttsVHBBlzqHq9gziSQYvrvNSPaTMrpPnv1duFnKiGzx2MmE6w
+         sTVTvz0n1k7PYheEMS/l6YIWt9P4n6V9VxLGFRcdPLDhWRDC/a9Wjm0N9kNHzSiSnQlz
+         M6gw==
+X-Gm-Message-State: AOJu0YyOGK2LC/yioGhf13HMQbQbcfZUnMv6u+VFL04UESNovzQdcNiB
+	Z/pb0wymkT9VJRHWq3kWoRhHf1avkCFcSiIfWLc=
+X-Google-Smtp-Source: AGHT+IHl8P1D6qC6HcAZp+4Bmpienb5wfgWccG8xSGdjgeURLUHa2HAmc5NQhkx8NQbxpoEfQrGyqQ==
+X-Received: by 2002:adf:9dcc:0:b0:331:3b67:3bc0 with SMTP id q12-20020adf9dcc000000b003313b673bc0mr11541826wre.37.1700136808522;
+        Thu, 16 Nov 2023 04:13:28 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 0/6] automation: minor fixes and improvements
+Date: Thu, 16 Nov 2023 13:13:04 +0100
+Message-ID: <20231116121310.72210-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2023-11-16 at 08:36 +0100, Jan Beulich wrote:
-> On 10.11.2023 17:30, Oleksii Kurochko wrote:
-> > --- /dev/null
-> > +++ b/xen/include/asm-generic/percpu.h
-> > @@ -0,0 +1,35 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +#ifndef __ASM_GENERIC_PERCPU_H__
-> > +#define __ASM_GENERIC_PERCPU_H__
-> > +
-> > +#ifndef __ASSEMBLY__
-> > +
-> > +#include <xen/types.h>
-> > +
-> > +extern char __per_cpu_start[], __per_cpu_data_end[];
->=20
-> Can we go one tiny step beyond what Arm presently has and make the
-> latter of the two const?
-I am not sure I think we will have compilation issue with the following
-code in Arm and x86 because of [-Werror=3Ddiscarded-qualifiers]:
+Hello,
 
-static void cf_check _free_percpu_area(struct rcu_head *head)
-{
-    struct free_info *info =3D container_of(head, struct free_info, rcu);
-    unsigned int cpu =3D info->cpu;
-    char *p =3D __per_cpu_start + __per_cpu_offset[cpu];
+Some assorted minor fixes and improvements, as a result of work I'm
+doing to expand the tests.
 
-    free_xenheap_pages(p, PERCPU_ORDER);
-    __per_cpu_offset[cpu] =3D INVALID_PERCPU_AREA;
-}
+I've done a full run with the updated containers, and found no major
+issues:
 
-I guess cast can help.
+https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1074512137
 
+There's however one tests that fails with the updated container,
+debian-buster-gcc-ibt:
 
-~ Oleksii
+https://gitlab.com/xen-project/people/royger/xen/-/jobs/5550235258
+
+With:
+
+$ ./automation/scripts/build 2>&1 | tee build.log
++ test -f /etc/os-release
++ cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+NAME="Debian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
++ cc=gcc
++ gcc --version
+./automation/scripts/build: line 10: /opt/gcc-11-ibt/bin/gcc: No such file or directory
+
+I assume there's something wrong in the Dockerfile, but not caused by
+this series.
+
+I suggest we hold off updating debian:buster-gcc-ibt image until this is
+fixed.
+
+Note the bookworm amd64 image must be updated in the registry ahead of
+pushing the changes here (patch 4/6 depends on the new image).
+
+Thanks, Roger.
+
+Roger Pau Monne (6):
+  automation: remove CR characters from QEMU serial
+  automation: add timestamps to QEMU non-smoke x86-64 test
+  automation: fix jessie/stretch images to use archive.debian.org apt
+    repos
+  automation: update tests to use Debian Bookworm
+  automation: set architecture in docker files
+  automation: switch to multi-platform images when possible
+
+ automation/build/alpine/3.18-arm64v8.dockerfile    |  2 +-
+ automation/build/alpine/3.18.dockerfile            |  2 +-
+ .../build/archlinux/current-riscv64.dockerfile     |  2 +-
+ automation/build/archlinux/current.dockerfile      |  2 +-
+ automation/build/centos/7.dockerfile               |  2 +-
+ .../debian/bookworm-arm64v8-arm32-gcc.dockerfile   |  2 +-
+ .../build/debian/bookworm-arm64v8.dockerfile       |  2 +-
+ .../build/debian/bookworm-cppcheck.dockerfile      |  2 +-
+ automation/build/debian/bookworm-i386.dockerfile   |  2 +-
+ automation/build/debian/bookworm.dockerfile        |  7 ++++++-
+ .../build/debian/bullseye-ppc64le.dockerfile       |  2 +-
+ automation/build/debian/buster-gcc-ibt.dockerfile  |  2 +-
+ automation/build/debian/jessie-i386.dockerfile     |  7 +++++++
+ automation/build/debian/jessie.dockerfile          |  9 ++++++++-
+ automation/build/debian/stretch-i386.dockerfile    |  9 ++++++++-
+ automation/build/debian/stretch.dockerfile         | 14 ++++++++------
+ automation/build/fedora/29.dockerfile              |  2 +-
+ automation/build/suse/opensuse-leap.dockerfile     |  2 +-
+ .../build/suse/opensuse-tumbleweed.dockerfile      |  2 +-
+ automation/build/ubuntu/bionic.dockerfile          |  2 +-
+ automation/build/ubuntu/focal.dockerfile           |  2 +-
+ automation/build/ubuntu/trusty.dockerfile          |  2 +-
+ automation/build/ubuntu/xenial-xilinx.dockerfile   |  2 +-
+ automation/build/ubuntu/xenial.dockerfile          |  2 +-
+ automation/gitlab-ci/test.yaml                     |  4 ++--
+ automation/scripts/qemu-alpine-x86_64.sh           |  7 +++++--
+ 26 files changed, 63 insertions(+), 32 deletions(-)
+
+-- 
+2.42.0
+
 
