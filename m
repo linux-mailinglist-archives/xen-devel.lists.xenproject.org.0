@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569A07EE1F8
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 14:54:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634248.989663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF627EE20F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Nov 2023 15:01:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634254.989673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3cpO-0000ks-Gr; Thu, 16 Nov 2023 13:54:42 +0000
+	id 1r3cuz-0004PQ-57; Thu, 16 Nov 2023 14:00:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634248.989663; Thu, 16 Nov 2023 13:54:42 +0000
+Received: by outflank-mailman (output) from mailman id 634254.989673; Thu, 16 Nov 2023 14:00:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3cpO-0000jK-Dw; Thu, 16 Nov 2023 13:54:42 +0000
-Received: by outflank-mailman (input) for mailman id 634248;
- Thu, 16 Nov 2023 13:54:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=flNc=G5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r3cpN-0000jE-Jn
- for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 13:54:41 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af5671b6-8487-11ee-9b0e-b553b5be7939;
- Thu, 16 Nov 2023 14:54:39 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40a4848c6e1so5967315e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Nov 2023 05:54:39 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- j33-20020a05600c1c2100b0040772934b12sm3811491wms.7.2023.11.16.05.54.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Nov 2023 05:54:38 -0800 (PST)
+	id 1r3cuz-0004MC-2V; Thu, 16 Nov 2023 14:00:29 +0000
+Received: by outflank-mailman (input) for mailman id 634254;
+ Thu, 16 Nov 2023 14:00:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r3cux-0004M6-Qs
+ for xen-devel@lists.xenproject.org; Thu, 16 Nov 2023 14:00:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r3cuv-0006bg-4q; Thu, 16 Nov 2023 14:00:25 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=[10.95.133.161]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r3cuu-0001cZ-V1; Thu, 16 Nov 2023 14:00:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af5671b6-8487-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700142879; x=1700747679; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=xKTzq8QmL5nph3FhIC9HZWC8JtqB3D3C6ffHzchqmkk=;
-        b=blilvhxjyuNViquqR5rMeWZibLGuQjMPGfhhfOxW8REa0imRS/MyFTT+taL1iI+iwX
-         JGVrJPD3L/7xLQ278ciJ241v+h7b/O9igf8e9TT7FE+TDYL1nePcdc9KW/k2ifMVlIAS
-         b3GgjTHqeItz8ndRZe47aa6OWqyYpXvHnFMr8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700142879; x=1700747679;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xKTzq8QmL5nph3FhIC9HZWC8JtqB3D3C6ffHzchqmkk=;
-        b=CSmbAkqauRKakD6e1VXOchjc8WoNklhCJaHj+CKoSu3Tn8Cq0VS14XSeZEw1jw6fmW
-         SJ+pWYtdKlo21q545Qu3K1U/9llBoCm6F3df6AZ9DSw8nB8fQFXibmbU2gXyoy6w0vG2
-         ENdRD/BN+LpLEj4yBJlqP4W9CF27CV3MDQwLeq4gS83kDNwwCPym8OzHpQbtiasUhXFZ
-         8Wg8isrBHh5IceFbPy/Gu1SCD+DaaSdaEkOxqNx9Y/7jFqMtK5A2XEmTGWoMyED8IUOY
-         1qnYsb2qiuiyISFip8t8SBH6iRCvjHQOaTzqxxg7C01c2qZw7RenI982ehKrP6+SxAJQ
-         bD4g==
-X-Gm-Message-State: AOJu0YydY+b3o0g3v2z/cby5t50dAwXmHqTIHK8+1EqIefW4r0SVLj5O
-	SEhPmntRn61kYdyNXhVkIxQxkg==
-X-Google-Smtp-Source: AGHT+IH77B3Q+Kp9bzF8wZ5XOWEF2gQpbnxwyOu5e+1DXEzi/bJLN24ADA+Cuum3N8y4/S4aHQbH2g==
-X-Received: by 2002:a05:600c:3596:b0:408:4160:1528 with SMTP id p22-20020a05600c359600b0040841601528mr12847381wmq.30.1700142878772;
-        Thu, 16 Nov 2023 05:54:38 -0800 (PST)
-Date: Thu, 16 Nov 2023 14:54:37 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] livepatch: do not use .livepatch.funcs section to store
- internal state
-Message-ID: <ZVYfHQD1AEmNVY3h@macbook.local>
-References: <20231116115841.71847-1-roger.pau@citrix.com>
- <d6634601-5006-475c-b386-97a1e53c5279@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=A6miHsw0opItqgAV11USOyMB+3Jx+buaP0HvesB2xiU=; b=ZtbeYa5PJcSzTa7so+hcwKLUHh
+	rhHH8dz7MvDLyAACEaEHAtj99+27GP1nCoa4FMJfehufFyz18aT/Mn4aAl/51fNe3z7hofwUDh5Vn
+	mA4bZpepahLdRtIZWCphP5JlfdNiKhI5c5bTLQX5nx96/iTtMy2m3BANcq31gt60w/KE=;
+Message-ID: <569a0499-e6ce-4568-adae-650a51d223df@xen.org>
+Date: Thu, 16 Nov 2023 14:00:22 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d6634601-5006-475c-b386-97a1e53c5279@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen/arm: Skip memory nodes if not enabled
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+To: Leo Yan <leo.yan@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20231013120442.1267488-1-leo.yan@linaro.org>
+ <20231106021742.GA90848@leoy-huanghe.lan>
+ <191b5aa4-182f-4b2e-8430-e605de592890@xen.org>
+ <20231106103212.GE90848@leoy-huanghe.lan>
+ <d4196b09-427d-458f-87f4-7e7126bf6f39@xen.org>
+In-Reply-To: <d4196b09-427d-458f-87f4-7e7126bf6f39@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 16, 2023 at 01:39:27PM +0100, Jan Beulich wrote:
-> On 16.11.2023 12:58, Roger Pau Monne wrote:
-> > --- a/xen/include/public/sysctl.h
-> > +++ b/xen/include/public/sysctl.h
-> > @@ -991,10 +991,7 @@ struct livepatch_func {
-> >      uint32_t new_size;
-> >      uint32_t old_size;
-> >      uint8_t version;        /* MUST be LIVEPATCH_PAYLOAD_VERSION. */
-> > -    uint8_t opaque[LIVEPATCH_OPAQUE_SIZE];
-> > -    uint8_t applied;
-> > -    uint8_t patch_offset;
-> > -    uint8_t _pad[6];
-> > +    uint8_t _pad[39];
+
+Hi,
+
+On 06/11/2023 11:31, Julien Grall wrote:
+> On 06/11/2023 10:32, Leo Yan wrote:
+>> Hi Julien,
+>>
+>> On Mon, Nov 06, 2023 at 09:52:45AM +0000, Julien Grall wrote:
+>>
+>> [...]
+>>
+>>>> Gentle ping.
+>>>>
+>>>> I don't see this patch is landed in Xen master or staging branch, 
+>>>> should
+>>>> anything I need to follow up?
+>>>
+>>> The tree has been frozen for the past few weeks for any patches that 
+>>> are not
+>>> meant for 4.18. We branched for 4.18 last week so staging is now in
+>>> soft-reopening until 4.18 is released.
+>>
+>> Thank you for the info.
+>>
+>>> I am aware of few patches that are ready to be merged. But I haven't yet
+>>> gone through all of them and merge to 4.19. It will probably be done 
+>>> once
+>>> 4.18 is released.
+>>
+>> Sure, good to know this.  I will wait a bit and just let me know if
+>> I need to follow up anything.
 > 
-> Should this be LIVEPATCH_OPAQUE_SIZE+8 and ...
-
-Hm, I'm not sure that's any clearer.  In fact I think
-LIVEPATCH_OPAQUE_SIZE shouldn't have leaked into sysctl.h in the first
-place.
-
-If we later want to add more fields and bump the version, isn't it
-easier to have the padding size clearly specified as a number?
-
+> Please ping me in ~ 2 weeks time if your patch is still not merged.
 > 
-> > --- a/xen/include/xen/livepatch.h
-> > +++ b/xen/include/xen/livepatch.h
-> > @@ -13,6 +13,9 @@ struct xen_sysctl_livepatch_op;
-> >  
-> >  #include <xen/elfstructs.h>
-> >  #include <xen/errno.h> /* For -ENOSYS or -EOVERFLOW */
-> > +
-> > +#include <public/sysctl.h> /* For LIVEPATCH_OPAQUE_SIZE */
-> > +
-> >  #ifdef CONFIG_LIVEPATCH
-> >  
-> >  /*
-> > @@ -51,6 +54,12 @@ struct livepatch_symbol {
-> >      bool_t new_symbol;
-> >  };
-> >  
-> > +struct livepatch_fstate {
-> > +    unsigned int patch_offset;
-> > +    enum livepatch_func_state applied;
-> > +    uint8_t opaque[LIVEPATCH_OPAQUE_SIZE];
-> 
-> ... this use a separate, new (and internal only) constant? Thus also
-> elimiating the need to include public/sysctl.h above?
+> @Stefano, did you add this patch in your for-next branch?
 
-The size of the buffer here is tied to the buffer size in
-livepatch_expectation data field, so if using a different size
-internally we would still need to ensure that the internal size is >=
-LIVEPATCH_OPAQUE_SIZE, not sure there's much benefit in it.
+It is now committed.
 
-In any case, I would suggest to do this in a followup patch, the
-content in this patch is IMO enough.
+Cheers,
 
-Thanks, Roger.
+-- 
+Julien Grall
 
