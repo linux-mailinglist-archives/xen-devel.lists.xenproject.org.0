@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819D37EF418
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 15:10:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635230.991102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9ED7EF485
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 15:34:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635241.991111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3zXk-0006ym-5e; Fri, 17 Nov 2023 14:10:00 +0000
+	id 1r3zuR-0007oV-4d; Fri, 17 Nov 2023 14:33:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635230.991102; Fri, 17 Nov 2023 14:10:00 +0000
+Received: by outflank-mailman (output) from mailman id 635241.991111; Fri, 17 Nov 2023 14:33:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3zXk-0006wG-2I; Fri, 17 Nov 2023 14:10:00 +0000
-Received: by outflank-mailman (input) for mailman id 635230;
- Fri, 17 Nov 2023 14:09:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3zuR-0007mq-1u; Fri, 17 Nov 2023 14:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 635241;
+ Fri, 17 Nov 2023 14:33:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1XSP=G6=epam.com=prvs=568571a16b=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1r3zXi-0006w8-Fc
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 14:09:58 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb5d2e47-8552-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 15:09:55 +0100 (CET)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AHDrv7c028308; Fri, 17 Nov 2023 14:09:50 GMT
-Received: from eur01-ve1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2050.outbound.protection.outlook.com [104.47.1.50])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ue4n2sa3s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Nov 2023 14:09:50 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
- by AM9PR03MB8012.eurprd03.prod.outlook.com (2603:10a6:20b:43f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.23; Fri, 17 Nov
- 2023 14:09:46 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7002.022; Fri, 17 Nov 2023
- 14:09:46 +0000
+ <SRS0=1e97=G6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r3zuQ-0007mk-2j
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 14:33:26 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43cf815f-8556-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 15:33:24 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-32faea0fa1fso1232084f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 06:33:24 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ d4-20020a5d4f84000000b0032d96dd703bsm2457985wru.70.2023.11.17.06.33.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Nov 2023 06:33:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,189 +44,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb5d2e47-8552-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=frMZ94+2hnWQvwicJqu9lsL/xl2ieGtSevenqZVftPyTc17ncZPBcpdtvjlBzv97XamkrCAE0Dt5aQLPtFX/2E/8hZmkTSiDRqd5tQ4gpYmYRI7MEGaDyWm6OMu2eDFitYYd4/1C5gP0BicbVWVsa4vN6XdqJ1njESn+z31rTqfMXK04J+9sYGG2AaoZJ1moYAlgsge/yW6cPk4gSWrYLWRxSlX3xHz+wjo7PcBnwFcmdo54hs2K1hlnZBYIkYTJ9Iceqg8cfVJ66I3P7Gw9z1YsoveGF/lKjjobzxiAMSTBTH5MtQ3gJcWwgyFP65cQDkxzxFY+/KMcz4CotFKPpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fuBBkHLeKxPPcTjX4iPg8HLwrDzoBN98yDG2OCNvbjI=;
- b=Ehldz8NxBTQDrAiVt5tQkmFoQKIqvnqxGS0LFeqILSntN/1z2J45GUrWLH0PePivq2Trm2Zmip8AtDI63b60NOG9UrVsUFAGdewHKIqkVnAo2p8kgqnZa1XHFlbo1JxsIRhcsL7Jytkm6RxTHb8pW72r5dKsMtc/vnI7Gb7ih/vg4HdzWqcTCacQ3O3hjAV2ht9qayR0JwcJNptqgQZEO1aAs7ADBrKgx9t+D4dmx65pETj33/YRv8kF9e17WASRiISVh+XxPv+98Ht3B4Dt2qZDhB8O+XdifoKbrADuGZXqSMxQJab3edPtmxyM47kGtYwHuUjHRfiFRUZGcQh5eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fuBBkHLeKxPPcTjX4iPg8HLwrDzoBN98yDG2OCNvbjI=;
- b=ZlAPtyHxGyCOUmzJSMsSWDf4UigHGRWp/2QX8uzvhDzT5NajopfCQGQtYtJDcZBLLFVKI1E9Ok8f/6bu/LZ7fSJCer21qHU+UxF80iHZnv7ezHwSflpuKFctR2XJgs8F5LGNd03U2ieFp3G+gP2dAdufRQeN+g3zm282fV/ibkbiuuowXGpxyrYiTeI8PJjVfiQNEfEd5+JuTYblMXZUkjszJ/oGHhuEDRrrZGPp1S2PniosXEUGHSnV9zTUJ46/TG4QrDpRiQV6/kVbpi0czPa6tjoJ8UYjWA2NIZgK+UklUFHMvpPkoMYV996iNSmvTgNEtnkBFGMz/5MF4Gm2Fw==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>,
-        Stewart Hildebrand
-	<stewart.hildebrand@amd.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>,
-        Andrew Cooper
-	<andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        Jan
- Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
-Thread-Topic: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
-Thread-Index: AQHZ/Vi+wP3QsyKZ0EartcLXqtnBRLB9UyCAgAB7YgCAAAiUAIAAEHKAgADZXQA=
-Date: Fri, 17 Nov 2023 14:09:45 +0000
-Message-ID: <87a5rc4gk7.fsf@epam.com>
+X-Inumbo-ID: 43cf815f-8556-11ee-98dc-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1700231604; x=1700836404; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aKti1lsl/A8T/TPv7EBXllSJ3HFsGsEi80ZTnOCbMV4=;
+        b=n2jRjiMF6uI+34DdGqzOXRRXkIzKAIwcVeJ7at4KzMlwIlt0Hk6A9O4ByWR/cEzYVs
+         tE3Wun7cQjv4gnxlceOfZngFBL8MqFhcCNMgzCvZJpBMNnQG8do+3wpmCR3xsHnOdYto
+         5EBkKf7Z6rBnEyIMVZ8PhsFa/pqvxStrHiK20=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700231604; x=1700836404;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=aKti1lsl/A8T/TPv7EBXllSJ3HFsGsEi80ZTnOCbMV4=;
+        b=si+NUa3E2k2PcIkgIbDu8a9L5djZvWbxUu/2UKzgR/8NXHVQFjPoFdRagZNYG1opSS
+         AqD2h8q8/5+rXZXeu+49mQj2iLZBVosvevAzFbvp8UM70Lm9sUJR1Ea1n9X/OG8ogI0k
+         +RrvRQybkHKXMpRuvZIUja/kZr4S4txgSNtsdWNm1gnGhWQcFWBH7IwZDUMc/ApPi5sU
+         juwgfbM/UTR0W/5Bav/bwedhl7DdY+rDsjoUGQoa5rry6gXrPrWQ97VC/bhmIkm4Tfcs
+         rX8qvrAR7GCZolopegI74uTjWklR4MV5zOahTBxupJ/xnXIHtL8Nlz2nGWYNJpE/o6PM
+         1lCQ==
+X-Gm-Message-State: AOJu0YwQN9BD57BqtPNUM9iuDQhBpDtsuOM2OQEjWNjNTaNneNa8faJD
+	yXwXlO/RQuzf81jWHVjN68nVlA==
+X-Google-Smtp-Source: AGHT+IGZee6A+GzISWGJGJYzZDT50scBSV7rVibefOfUKsI9uy1Xgn4ESQ19wghPrJ84i+ZNWt/NwA==
+X-Received: by 2002:a5d:59a4:0:b0:32d:c792:fcaf with SMTP id p4-20020a5d59a4000000b0032dc792fcafmr4055234wrr.26.1700231604225;
+        Fri, 17 Nov 2023 06:33:24 -0800 (PST)
+Date: Fri, 17 Nov 2023 15:33:22 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>, Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH v10 02/17] pci: introduce per-domain PCI rwlock
+Message-ID: <ZVd5spOWUw3UnkQO@macbook.local>
 References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-14-volodymyr_babchuk@epam.com>
- <d6a58e73-da51-40f1-a2f7-576274945585@xen.org>
- <alpine.DEB.2.22.394.2311161513210.773207@ubuntu-linux-20-04-desktop>
- <87o7ft44bv.fsf@epam.com>
- <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop>
-In-Reply-To: 
- <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.10.7; emacs 29.1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM9PR03MB8012:EE_
-x-ms-office365-filtering-correlation-id: baa2f263-00d3-44c2-3fba-08dbe776da7a
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- EzzkWjU8B9AtztSnPiABrgDsjPsxIpkocE5cA69CoVeb1MmFthYcNoPbEXSc15+11QVxPqAjf2zKDn1IT/Nr/7nf6Q3onJfgTpzCa9UVGEX9phXGsVNCaF7QDWmYiRFz3B6HWU8j57GZ55DA0/6IEtSHOwmBxMdt0mKQ/53q492iD7uucRZMHrKb+4QGLVuTTy4QhcoqSx813TSPnpQtjrnYGzaGJgxZj2RIpyY6PYS3qk4/EQgtqUODx5QFExCaTcSBGDJRx02C7lpVK+lKq5kdQOICz4peXW+puT7CQ/FSiKA9F5R9wa24lVFjk/ejUU5GNEBchF+UPcyJWZeXB8rjPaAG71TlV+xL4QVxVKOkiVcauNyyUx4N1P6ULQpHzmEAekaDk5L+xYLaODKLtpIkjlpPkLRZ2Up/1uYlFBOYxS7UXmViFcAmPAJzXICCDmtPYFP+Kqd679v1mz63uEyJsaPl97lCDCX0foyTDhOBv1M/giMvkoWkzkuLqyTlKc3YRvfWr5oq2gdh3Z8s38XBGa/s9hdm99rdTFsylD2L6FM98VJv610HoZ/wT1HGYLqxLBGIC7Mu/MT9SI0SNSlwYraHU+9LOP8OoA7jj1S/mIVe9CSIEWkh82JR5ALp
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(396003)(346002)(366004)(39860400002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(6512007)(36756003)(2906002)(71200400001)(66946007)(54906003)(64756008)(66476007)(66446008)(6916009)(76116006)(91956017)(55236004)(6506007)(66556008)(86362001)(478600001)(6486002)(26005)(41300700001)(38100700002)(5660300002)(2616005)(122000001)(38070700009)(66899024)(83380400001)(316002)(8936002)(4326008)(8676002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?pvkGqb3+f0eu1GoIpbyMApOSD8W9HlAkFc10T5FpQARcAntoL27857j7UM?=
- =?iso-8859-1?Q?Xu3bfklHXoNVWJLipj+XmzQ0thZThPBd8UmV2ePthR1BUrRmLfs1wtDC97?=
- =?iso-8859-1?Q?4I3AwKjVwnIWvOac9t78tWwr+/WE9rEMEdbbffb9ORBmYatFC/FLbIBirw?=
- =?iso-8859-1?Q?FT6CvJSphHBmNV/sxR4eWsea+uNiQOFYzKU16vEdeiqz7i5Ydj92NFpeGd?=
- =?iso-8859-1?Q?87ur8VFw2aA8l8X+LZvLmPjlzQVlTFOWOsXznD28/sJjvc8eDr46LfE083?=
- =?iso-8859-1?Q?l0lUGnXsq3zNdfO11iAa2VejkVHV4LqaO2NRp3REDqSgHvVsZavBj6Cwik?=
- =?iso-8859-1?Q?HHK5GYYb81Uwo1PjjkE/KHorWLUdsolFy1bOSol1IGicjTo0QiKLemVdJa?=
- =?iso-8859-1?Q?k9HxMYgKtdhvtOUjrw/jP6vfyi2xSaOCNEKJTV2oNHI3RliSkA3YDqDCpX?=
- =?iso-8859-1?Q?Uc3RM5YdnN7kVHK69mXWDOXp8KPhd9lP3Xi+1+zResa23rOsDzwUbztSAY?=
- =?iso-8859-1?Q?y0Cu0i3+Bvs/1QNju2BZuV4XpVXROaRCWW56fMytnCNQ1PeXO+V7gvNQXz?=
- =?iso-8859-1?Q?NJ1bIlFjg5R/HMVRMku2jq67E+5CLJxH+i5Hl20Yea86u3/RH8/WqiNLL3?=
- =?iso-8859-1?Q?oTDfkshLiKy9869Vi3zgMzMowSEsQnUuHOoHPCmOkYzMLiI5JXiXSc992P?=
- =?iso-8859-1?Q?QyfVqlKDogLCa9DtpGGiNoT57LpK/B6CxPN1ILhqWhy/rGEO/Pcp937K+n?=
- =?iso-8859-1?Q?FV4sapOyMTrOGOQ78uME0dhh2xQ5GTOz56rdw4bBrjAMk7yXSj+LcWO40G?=
- =?iso-8859-1?Q?8t2oHmNcst8F0FhTJCQlWfLkAmemVIkXToeat5NoEKPGgpEkhZw0GXe9cE?=
- =?iso-8859-1?Q?2nBl85j6IzW+EwuvGntIrg4BQgH78Gc9UM+ZMIqGM4xovqtHlT39kybccV?=
- =?iso-8859-1?Q?9A11M/A7i+k+qWd7HmKen2P1vItHrwl/ggEZu/SPpEf3Clk+7vcFv3EJxW?=
- =?iso-8859-1?Q?qHGnAONvfQMkOxvoVgbOSO5d4VrHT6DTiFFOcWmp6PgXi506tnogZ6ZCHz?=
- =?iso-8859-1?Q?k4TNGly9txhR7yKA8EYT1Oh52z20FvdwLRyAIiItc/MZjmQA7SQT5kDyNQ?=
- =?iso-8859-1?Q?Hl3YpoRwfiugfRRMSkkCpFfrVedEnRylVyJJ3afm/AvlW74Xclo6c3bngu?=
- =?iso-8859-1?Q?KffNK0X14A6kGlMi5Bewgwd6Oy1VkQLIx1fpC3nXdxxHWQVfFJX7UoX0Sr?=
- =?iso-8859-1?Q?VIHdEVJGsUDK5K9YbU/deycc5A4vS95v3DeS74CkYGHeabdssxqvXRcrrg?=
- =?iso-8859-1?Q?M6/84VP5NxHBBc9T6MODm72C22zz5MbEGyWwsbLmjgCQ5/Wm5TiZOgb5va?=
- =?iso-8859-1?Q?caC8hZl2P1REzgXWg58hXslObqvCa34KFTZbj1stNLpZqoTksqJ3PiZHwo?=
- =?iso-8859-1?Q?b8duuL/3PdCtb+Dj7wN7/0/SnJs2PhNJTvNWyk0KuSzHquMJrBDwuHkzXh?=
- =?iso-8859-1?Q?6qirhYkKdEWlmNuBvQDPxYu0/F/CqEv1pKHJWeCjUoYCp+7cmMzGqOa1cI?=
- =?iso-8859-1?Q?f2v7gKK4xsq/me8NgMDZDaLHXgzJaUcN8TvPwf/X7/piOUGhR18PDHtV6c?=
- =?iso-8859-1?Q?G4YQReCW+dX6yGvytvgFh/g0KpV8wGjcT8O8pnVwxLZPLlzs4Nx4Gg1A?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ <20231012220854.2736994-3-volodymyr_babchuk@epam.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: baa2f263-00d3-44c2-3fba-08dbe776da7a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2023 14:09:46.0252
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OIPCHojV0A7XoXq68TBImEptoMCWfZshSm9H6rhsTFdiEyq5IUwdxqQD+zLuUm80XUlIl9yjhGzh2Bt6SMoxovJUrGPsbGU8qn7jp0boWgw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB8012
-X-Proofpoint-ORIG-GUID: TQdgYxLt8k2umVUCwoo6LFkaoVJQDVsC
-X-Proofpoint-GUID: TQdgYxLt8k2umVUCwoo6LFkaoVJQDVsC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-17_12,2023-11-17_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 mlxlogscore=999 malwarescore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 impostorscore=0 adultscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311170105
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231012220854.2736994-3-volodymyr_babchuk@epam.com>
 
+On Thu, Oct 12, 2023 at 10:09:15PM +0000, Volodymyr Babchuk wrote:
+> Add per-domain d->pci_lock that protects access to
+> d->pdev_list. Purpose of this lock is to give guarantees to VPCI code
+> that underlying pdev will not disappear under feet. This is a rw-lock,
+> but this patch adds only write_lock()s. There will be read_lock()
+> users in the next patches.
+> 
+> This lock should be taken in write mode every time d->pdev_list is
+> altered. All write accesses also should be protected by pcidevs_lock()
+> as well. Idea is that any user that wants read access to the list or
+> to the devices stored in the list should use either this new
+> d->pci_lock or old pcidevs_lock(). Usage of any of this two locks will
+> ensure only that pdev of interest will not disappear from under feet
+> and that the pdev still will be assigned to the same domain. Of
+> course, any new users should use pcidevs_lock() when it is
+> appropriate (e.g. when accessing any other state that is protected by
+> the said lock). In case both the newly introduced per-domain rwlock
+> and the pcidevs lock is taken, the later must be acquired first.
+                                     ^ latter
 
-Hi Stefano,
+> 
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Stefano Stabellini <sstabellini@kernel.org> writes:
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-> On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
->> > I still think, no matter the BDF allocation scheme, that we should try
->> > to avoid as much as possible to have two different PCI Root Complex
->> > emulators. Ideally we would have only one PCI Root Complex emulated by
->> > Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
->> > tolerable but not ideal.
->>=20
->> But what is exactly wrong with this setup?
->
-> [...]
->
->> > The worst case I would like to avoid is to have
->> > two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
->>=20
->> This is how our setup works right now.
->
-> If we have:
-> - a single PCI Root Complex emulated in Xen
-> - Xen is safety certified
-> - individual Virtio devices emulated by QEMU with grants for memory
->
-> We can go very far in terms of being able to use Virtio in safety
-> use-cases. We might even be able to use Virtio (frontends) in a SafeOS.
->
-> On the other hand if we put an additional Root Complex in QEMU:
-> - we pay a price in terms of complexity of the codebase
-> - we pay a price in terms of resource utilization
-> - we have one additional problem in terms of using this setup with a
->   SafeOS (one more device emulated by a non-safe component)
->
-> Having 2 PCI Root Complexes both emulated in Xen is a middle ground
-> solution because:
-> - we still pay a price in terms of resource utilization
-> - the code complexity goes up a bit but hopefully not by much
-> - there is no impact on safety compared to the ideal scenario
->
-> This is why I wrote that it is tolerable.
+I'm a bit concerned with the logic used in pci_release_devices(), but
+I guess it's fine for now as long as the global pcidevs_lock is still
+held.
 
-Ah, I see now. Yes, I am agree with this. Also I want to add some more
-points:
+> ---
+> 
+> Changes in v10:
+>  - pdev->domain is assigned after removing from source domain but
+>    before adding to target domain in reassign_device() functions.
+> 
+> Changes in v9:
+>  - returned back "pdev->domain = target;" in AMD IOMMU code
+>  - used "source" instead of pdev->domain in IOMMU functions
+>  - added comment about lock ordering in the commit message
+>  - reduced locked regions
+>  - minor changes non-functional changes in various places
+> 
+> Changes in v8:
+>  - New patch
+> 
+> Changes in v8 vs RFC:
+>  - Removed all read_locks after discussion with Roger in #xendevel
+>  - pci_release_devices() now returns the first error code
+>  - extended commit message
+>  - added missing lock in pci_remove_device()
+>  - extended locked region in pci_add_device() to protect list_del() calls
+> ---
+>  xen/common/domain.c                         |  1 +
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c |  9 ++-
+>  xen/drivers/passthrough/pci.c               | 71 +++++++++++++++++----
+>  xen/drivers/passthrough/vtd/iommu.c         |  9 ++-
+>  xen/include/xen/sched.h                     |  1 +
+>  5 files changed, 78 insertions(+), 13 deletions(-)
+> 
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 8f9ab01c0c..785c69e48b 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -651,6 +651,7 @@ struct domain *domain_create(domid_t domid,
+>  
+>  #ifdef CONFIG_HAS_PCI
+>      INIT_LIST_HEAD(&d->pdev_list);
+> +    rwlock_init(&d->pci_lock);
+>  #endif
+>  
+>      /* All error paths can depend on the above setup. */
+> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> index 836c24b02e..36a617bed4 100644
+> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> @@ -476,8 +476,15 @@ static int cf_check reassign_device(
+>  
+>      if ( devfn == pdev->devfn && pdev->domain != target )
+>      {
+> -        list_move(&pdev->domain_list, &target->pdev_list);
+> +        write_lock(&source->pci_lock);
+> +        list_del(&pdev->domain_list);
+> +        write_unlock(&source->pci_lock);
+> +
+>          pdev->domain = target;
+> +
+> +        write_lock(&target->pci_lock);
+> +        list_add(&pdev->domain_list, &target->pdev_list);
+> +        write_unlock(&target->pci_lock);
+>      }
+>  
+>      /*
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+> index 04d00c7c37..b8ad4fa07c 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -453,7 +453,9 @@ static void __init _pci_hide_device(struct pci_dev *pdev)
+>      if ( pdev->domain )
+>          return;
+>      pdev->domain = dom_xen;
+> +    write_lock(&dom_xen->pci_lock);
+>      list_add(&pdev->domain_list, &dom_xen->pdev_list);
+> +    write_unlock(&dom_xen->pci_lock);
+>  }
+>  
+>  int __init pci_hide_device(unsigned int seg, unsigned int bus,
+> @@ -746,7 +748,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>      if ( !pdev->domain )
+>      {
+>          pdev->domain = hardware_domain;
+> +        write_lock(&hardware_domain->pci_lock);
+>          list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+> +        write_unlock(&hardware_domain->pci_lock);
+>  
+>          /*
+>           * For devices not discovered by Xen during boot, add vPCI handlers
+> @@ -756,7 +760,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>          if ( ret )
+>          {
+>              printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
+> +            write_lock(&hardware_domain->pci_lock);
+>              list_del(&pdev->domain_list);
+> +            write_unlock(&hardware_domain->pci_lock);
+>              pdev->domain = NULL;
+>              goto out;
+>          }
+> @@ -764,7 +770,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>          if ( ret )
+>          {
+>              vpci_remove_device(pdev);
+> +            write_lock(&hardware_domain->pci_lock);
+>              list_del(&pdev->domain_list);
+> +            write_unlock(&hardware_domain->pci_lock);
+>              pdev->domain = NULL;
+>              goto out;
+>          }
+> @@ -814,7 +822,11 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+>              pci_cleanup_msi(pdev);
+>              ret = iommu_remove_device(pdev);
+>              if ( pdev->domain )
+> +            {
+> +                write_lock(&pdev->domain->pci_lock);
+>                  list_del(&pdev->domain_list);
+> +                write_unlock(&pdev->domain->pci_lock);
+> +            }
+>              printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
+>              free_pdev(pseg, pdev);
+>              break;
+> @@ -885,26 +897,61 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+>  
+>  int pci_release_devices(struct domain *d)
+>  {
+> -    struct pci_dev *pdev, *tmp;
+> -    u8 bus, devfn;
+> -    int ret;
+> +    int combined_ret;
+> +    LIST_HEAD(failed_pdevs);
+>  
+>      pcidevs_lock();
+> -    ret = arch_pci_clean_pirqs(d);
+> -    if ( ret )
+> +
+> +    combined_ret = arch_pci_clean_pirqs(d);
+> +    if ( combined_ret )
+>      {
+>          pcidevs_unlock();
+> -        return ret;
+> +        return combined_ret;
+>      }
+> -    list_for_each_entry_safe ( pdev, tmp, &d->pdev_list, domain_list )
+> +
+> +    write_lock(&d->pci_lock);
 
-- There is ongoing work on implementing virtio backends as a separate
-  applications, written in Rust. Linaro are doing this part. Right now
-  they are implementing only virtio-mmio, but if they want to provide
-  virtio-pci as well, they will need a mechanism to plug only
-  virtio-pci, without Root Complex. This is argument for using single Root
-  Complex emulated in Xen.
+Strictly speaking this could be a read_lock, since you are not
+modifying the list here, just getting an element out of it.  I see
+however that the late half of the loop does require the lock in write
+mode for altering the domain pdev list, and hence might be clearer to
+just use the lock in write mode all along.
 
-- As far as I know (actually, Oleksandr told this to me), QEMU has no
-  mechanism for exposing virtio-pci backends without exposing PCI root
-  complex as well. Architecturally, there should be a PCI bus to which
-  virtio-pci devices are connected. Or we need to make some changes to
-  QEMU internals to be able to create virtio-pci backends that are not
-  connected to any bus. Also, added benefit that PCI Root Complex
-  emulator in QEMU handles legacy PCI interrupts for us. This is
-  argument for separate Root Complex for QEMU.
+> +
+> +    while ( !list_empty(&d->pdev_list) )
+>      {
+> -        bus = pdev->bus;
+> -        devfn = pdev->devfn;
+> -        ret = deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+> +        struct pci_dev *pdev = list_first_entry(&d->pdev_list,
+> +                                                struct pci_dev,
+> +                                                domain_list);
+> +        uint16_t seg = pdev->seg;
+> +        uint8_t bus = pdev->bus;
+> +        uint8_t devfn = pdev->devfn;
 
-As right now we have only virtio-pci backends provided by QEMU and this
-setup is already working, I propose to stick to this
-solution. Especially, taking into account that it does not require any
-changes to hypervisor code.
+What's the point of those local variables?  They are used only once,
+and getting them is trivial.  Is this protection against 'pdev' being
+removed since we no longer hold the per-domain lock?
 
---=20
-WBR, Volodymyr=
+I don't like much dropping the lock in the middle of a loop, as I
+think it's dangerous, but I don't have much better suggestion here.
+
+One thing that we might look into is to move the whole device list to
+a local variable under the per domain pci lock, and then iterate over
+that list without requiring the per domain lock to be taken.
+
+Thanks, Roger.
 
