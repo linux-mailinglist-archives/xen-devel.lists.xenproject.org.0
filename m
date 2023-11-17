@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48D377EF228
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:56:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635087.990828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9AF7EF234
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 13:03:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635095.990837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xRu-0008Ls-5U; Fri, 17 Nov 2023 11:55:50 +0000
+	id 1r3xZE-000339-6L; Fri, 17 Nov 2023 12:03:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635087.990828; Fri, 17 Nov 2023 11:55:50 +0000
+Received: by outflank-mailman (output) from mailman id 635095.990837; Fri, 17 Nov 2023 12:03:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xRu-0008Ij-2N; Fri, 17 Nov 2023 11:55:50 +0000
-Received: by outflank-mailman (input) for mailman id 635087;
- Fri, 17 Nov 2023 11:55:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3xZE-000318-3d; Fri, 17 Nov 2023 12:03:24 +0000
+Received: by outflank-mailman (input) for mailman id 635095;
+ Fri, 17 Nov 2023 12:03:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tr9K=G6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r3xRt-0008Ic-KF
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:55:49 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ed18cec-8540-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 12:55:47 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40859c466efso14650435e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 03:55:47 -0800 (PST)
+ id 1r3xZC-000312-CE
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 12:03:22 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4d64c5b3-8541-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 13:03:21 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4083cd3917eso15973895e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 04:03:21 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u26-20020a05600c211a00b0040775501256sm2394806wml.16.2023.11.17.03.55.46
+ q12-20020adff50c000000b003296b488961sm2129221wro.31.2023.11.17.04.03.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Nov 2023 03:55:46 -0800 (PST)
+ Fri, 17 Nov 2023 04:03:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ed18cec-8540-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 4d64c5b3-8541-11ee-98dc-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700222147; x=1700826947; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700222601; x=1700827401; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Kbp8v6A7pV0vR1R65wiZQS25OaKzEZu/oKSKdpv/tOI=;
-        b=SOyKqWtYQETyBDsW5n1kuaHBKObpVwA8axIgTzoN+giwAOplEmLo3Nw2cFYSXvrfGE
-         VPz10/17F3heGkXl9S9iK7cmA4FxIdJsTa9Dr5INgbypcPyJZVNNFiZLgNlDt9yDYGGc
-         yo7o2I/HQ/EhMoXYN9VihfLj6p7EtxnXdRsYU=
+        bh=47FWNWfawMNZstRZQMncdQJ9HNDFpcNwczf4o/08RGk=;
+        b=iM1gOY20SP/mfMEQOkdg7pZuNVPiQn3aJ2US8nhQkoBNYOluBuq6oQvj43FTsjrdwz
+         ajq1lk9xzaHrw2EjcyAC1L7zFtPu6SineRP+fIjV5oU3zqgcA/Wx5b8VMlXaarAESsCs
+         +JcIFyEpY3UFbVpQaptgZXuu0K0Z16g3srv+0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700222147; x=1700826947;
+        d=1e100.net; s=20230601; t=1700222601; x=1700827401;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Kbp8v6A7pV0vR1R65wiZQS25OaKzEZu/oKSKdpv/tOI=;
-        b=aOTJ2xwCUZg0aj6ofvGc7NpqdQsAHxxD/chwW49xmVBMWqZx/fnuhMZxQlhqG746ov
-         pCv+vYnoOJl9sSoykeVCT0nu+qbKRW2v4C8xvZS6o0RkZF0I7zJK1Cn/m4/JXvsiC8mD
-         eQ/y1aJDDAI3pgIVwLiSwW/l0AeA4rC/LOsD5CQYhVi7XMcrC54OIhVB9Hd6q9Os0SsI
-         0CLpXZ+uzX5jUtnl6t4VQG+eBPlL9AJ1GiW+5nIFFbpgxMVX7QNwXtAaU+DMooHqB3lR
-         VklMPzsU3v8Y/H3kcKTFhVCcNrlFSG70EPB8P1CQJC0k3m6kl1gkDHUc3l13N6Lwho6I
-         DL+A==
-X-Gm-Message-State: AOJu0Yyn92iynO4FnY34VFk3Q0bTI37syXUTtIvGd/wCnt7aI/9x24tr
-	v407sWM2M3UiymZ+KvDMFZJkdg==
-X-Google-Smtp-Source: AGHT+IFjBikGSe/zUEq/Zamh2hQg7g2jOyVaX5Ro3P2j6x/xMzdY343b8VqCLakPi/whz8SGBLuwvQ==
-X-Received: by 2002:a05:600c:c0c:b0:405:3a3b:2aa2 with SMTP id fm12-20020a05600c0c0c00b004053a3b2aa2mr14566272wmb.37.1700222146804;
-        Fri, 17 Nov 2023 03:55:46 -0800 (PST)
-Message-ID: <e90d416e-f4dd-4b2c-9247-0e3aa35c26d9@citrix.com>
-Date: Fri, 17 Nov 2023 11:55:46 +0000
+        bh=47FWNWfawMNZstRZQMncdQJ9HNDFpcNwczf4o/08RGk=;
+        b=iAo55h7Vk81XjA249Jiww8fQvmzNutaKQawgl+eY4031msNHWwYdfKD1b3IpnFw1w7
+         SfYrHyaFCm1gKd5PpY+b8lY6Ynj+zK3/0aw5dtZcFbydJsZ4o3/HZRVY1JyGw78BuiUk
+         Twmt6EUr69AmdD1XI5ZdM1eC9mnbCuGbuNBBXPtlsatatFeEuf4HH+rq6CaSHVujWTtC
+         3jcwG/bRdWbuO/75Ana99ug+uSaCeYJVOZks70YR7R6WyXn0z1ZU2Gy9pLg5Tpm5pq1i
+         PTpBXxlxZQfWs7bFtUCcIiho5wsaBwUNOhq/yZ+ndhgEM+DdLEsgGVUv5IjCDEeVdywA
+         T3hg==
+X-Gm-Message-State: AOJu0Yzpu+elnrmEONgBgPSWdeSJ/F9tlg5awxDo1c1MiT1V2bOKgF4w
+	Cn6hzKvgVBsegUlvZ5isebY2Ww==
+X-Google-Smtp-Source: AGHT+IF2xwz04ejzZYTF8Dj6usaPJSpFuuGHnVkR3/Yy/9ukwSzE4YSO5/oKf1SgPkGc9N3isipYDg==
+X-Received: by 2002:a05:600c:3548:b0:401:daf2:2737 with SMTP id i8-20020a05600c354800b00401daf22737mr14683153wmq.30.1700222600820;
+        Fri, 17 Nov 2023 04:03:20 -0800 (PST)
+Message-ID: <81534803-9da4-49b7-894e-f3fb5e8fb131@citrix.com>
+Date: Fri, 17 Nov 2023 12:03:19 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] amd-vi: use the same IOMMU page table levels for PV
- and HVM
+Subject: Re: [PATCH 2/3] x86/iommu: move xen_in_range() so it can be made
+ static
 Content-Language: en-GB
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>
 References: <20231117094749.81091-1-roger.pau@citrix.com>
- <20231117094749.81091-2-roger.pau@citrix.com>
+ <20231117094749.81091-3-roger.pau@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,79 +128,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231117094749.81091-2-roger.pau@citrix.com>
+In-Reply-To: <20231117094749.81091-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 17/11/2023 9:47 am, Roger Pau Monne wrote:
-> Using different page table levels for HVM or PV guest is not helpful, and is
-> not inline with the IOMMU implementation used by the other architecture vendor
-> (VT-d).
+> No functional change intended.
 >
-> Switch to uniformly use DEFAULT_DOMAIN_ADDRESS_WIDTH in order to set the AMD-Vi
-> page table levels.
->
-> Note using the max RAM address for PV was bogus anyway, as there's no guarantee
-> there can't be device MMIO or reserved regions past the maximum RAM region.
-
-Indeed - and the MMIO regions do matter for P2P DMA.
-
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Variable-height IOMMU pagetables are not worth the security
-vulnerabilities they're made of.  I regret not fighting hard enough to
-kill them entirely several years ago...
+There may only be one caller (after dropping some bogus tboot logic
+recently IIRC), but this isn't an IOMMU-specific helper.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+See the comment in the middle which shows the other opencoded things
+this needs to be kept up to date.  (And I'd hoped to make this common
+because every architecture seems to have different bugs opencoding this
+calculation.)
 
-> ---
->  xen/drivers/passthrough/amd/pci_amd_iommu.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> index 6bc73dc21052..f9e749d74da2 100644
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -359,21 +359,17 @@ int __read_mostly amd_iommu_min_paging_mode = 1;
->  static int cf_check amd_iommu_domain_init(struct domain *d)
->  {
->      struct domain_iommu *hd = dom_iommu(d);
-> +    int pgmode = amd_iommu_get_paging_mode(
-> +        1UL << (DEFAULT_DOMAIN_ADDRESS_WIDTH - PAGE_SHIFT));
-
-"paging mode" comes from the spec, but it's a very backwards way of
-spelling height.
-
-Can we at least start to improve the comprehensibility by renaming this
-variable.
-
-> +
-> +    if ( pgmode < 0 )
-> +        return pgmode;
->  
->      /*
-> -     * Choose the number of levels for the IOMMU page tables.
-> -     * - PV needs 3 or 4, depending on whether there is RAM (including hotplug
-> -     *   RAM) above the 512G boundary.
-> -     * - HVM could in principle use 3 or 4 depending on how much guest
-> -     *   physical address space we give it, but this isn't known yet so use 4
-> -     *   unilaterally.
-> -     * - Unity maps may require an even higher number.
-> +     * Choose the number of levels for the IOMMU page tables, taking into
-> +     * account unity maps.
->       */
-> -    hd->arch.amd.paging_mode = max(amd_iommu_get_paging_mode(
-> -            is_hvm_domain(d)
-> -            ? 1UL << (DEFAULT_DOMAIN_ADDRESS_WIDTH - PAGE_SHIFT)
-> -            : get_upper_mfn_bound() + 1),
-> -        amd_iommu_min_paging_mode);
-> +    hd->arch.amd.paging_mode = max(pgmode, amd_iommu_min_paging_mode);
-
-I think these min/max variables can be dropped now we're not doing
-variable height IOMMU pagetables, which further simplifies this expression.
-
-Dunno if it's something better folded into this patch, or done at some
-point in the future.
+Switching to rangesets is fine, but the result still wants to be
+something generic, rather than IOMMU-specific.
 
 ~Andrew
 
