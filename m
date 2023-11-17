@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 892807EF779
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 19:30:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635354.991232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 950FC7EF7BA
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 20:16:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635361.991241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r43bW-0006AU-34; Fri, 17 Nov 2023 18:30:10 +0000
+	id 1r44Jr-0005er-G6; Fri, 17 Nov 2023 19:15:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635354.991232; Fri, 17 Nov 2023 18:30:10 +0000
+Received: by outflank-mailman (output) from mailman id 635361.991241; Fri, 17 Nov 2023 19:15:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r43bW-00068M-0K; Fri, 17 Nov 2023 18:30:10 +0000
-Received: by outflank-mailman (input) for mailman id 635354;
- Fri, 17 Nov 2023 18:30:08 +0000
+	id 1r44Jr-0005cx-DF; Fri, 17 Nov 2023 19:15:59 +0000
+Received: by outflank-mailman (input) for mailman id 635361;
+ Fri, 17 Nov 2023 19:15:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r43bU-00068G-5I
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 18:30:08 +0000
+ (envelope-from <julien@xen.org>) id 1r44Jq-0005cr-Pb
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 19:15:58 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r43bQ-0006AP-2G; Fri, 17 Nov 2023 18:30:04 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ id 1r44Jq-0006yl-0R; Fri, 17 Nov 2023 19:15:58 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=[192.168.17.66]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r43bP-0001e9-Rf; Fri, 17 Nov 2023 18:30:03 +0000
+ id 1r44Jp-0003xY-NY; Fri, 17 Nov 2023 19:15:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,117 +42,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=QsEAN6NLU6dZsKSF6Jqz+IYBctAEEtO6lnm/DI0Ghbg=; b=pCYDC3bsZVhcVVATt4+L0ABIeJ
-	SA0mV5sjBtfQ6cRdHpZJKydYARwbIPkJGDpJuinZjDatOkt9edQrCMAuXvflx3iA/CNX98zah2Bnk
-	edLy8IJ+Od+tzW+42sT0GC+9Rj7Xzzp3NHS/C42vHlRoDP6pVcYGOq0egrNE5dq21ZAE=;
-Message-ID: <770aaef8-09f4-480a-95b8-cc0448ad07ff@xen.org>
-Date: Fri, 17 Nov 2023 18:30:01 +0000
+	bh=ytkRD/PHoScSCragUN67/e3oTlxBIrr42n7Sb4Jzzfo=; b=obUsutDl5Gds1or78LbHD1s3Di
+	kxfyeXCsox82Bl1dCym5bLYaFgUTu+8Q3ZaaK34wHhS1yjmH2iwQKDemumwRSRcsO+1UqbKMpYhJq
+	+Y8CCVpTKrAv/gxuM1waFHebWMyVf9lnj/oIKnP296rmqy3T95TKFZlM9c0CX8ibOYgU=;
+Message-ID: <40a3918e-730f-48b9-924f-d8707b197e14@xen.org>
+Date: Fri, 17 Nov 2023 19:15:54 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
+Subject: Re: [XEN PATCH v3] xen: replace occurrences of SAF-1-safe with
+ asmlinkage attribute
 Content-Language: en-GB
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-14-volodymyr_babchuk@epam.com>
- <d6a58e73-da51-40f1-a2f7-576274945585@xen.org>
- <alpine.DEB.2.22.394.2311161513210.773207@ubuntu-linux-20-04-desktop>
- <87o7ft44bv.fsf@epam.com>
- <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop>
- <87a5rc4gk7.fsf@epam.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <b193825385eae75ae320ab7d8c7f63b61c8c8786.1700125246.git.nicola.vetrini@bugseng.com>
+ <991883873b73e644ccaf8114a80331c0@bugseng.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <87a5rc4gk7.fsf@epam.com>
+In-Reply-To: <991883873b73e644ccaf8114a80331c0@bugseng.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Volodymyr,
+Hi Nicola,
 
-On 17/11/2023 14:09, Volodymyr Babchuk wrote:
-> 
-> Hi Stefano,
-> 
-> Stefano Stabellini <sstabellini@kernel.org> writes:
-> 
->> On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
->>>> I still think, no matter the BDF allocation scheme, that we should try
->>>> to avoid as much as possible to have two different PCI Root Complex
->>>> emulators. Ideally we would have only one PCI Root Complex emulated by
->>>> Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
->>>> tolerable but not ideal.
->>>
->>> But what is exactly wrong with this setup?
+On 16/11/2023 09:15, Nicola Vetrini wrote:
+> On 2023-11-16 10:08, Nicola Vetrini wrote:
+>> The comment-based justifications for MISRA C:2012 Rule 8.4 are replaced
+>> by the asmlinkage pseudo-attribute, for the sake of uniformity.
 >>
->> [...]
+>> Add missing 'xen/compiler.h' #include-s where needed.
 >>
->>>> The worst case I would like to avoid is to have
->>>> two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
->>>
->>> This is how our setup works right now.
+>> The text in docs/misra/deviations.rst and docs/misra/safe.json
+>> is modified to reflect this change.
 >>
->> If we have:
->> - a single PCI Root Complex emulated in Xen
->> - Xen is safety certified
->> - individual Virtio devices emulated by QEMU with grants for memory
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>> This patch should be applied after patch 2 of this series.
+>> The request made by Julien to update the wording is
+>> contained in the present patch.
+>> https://lore.kernel.org/all/9ad7f6210c15f520297aac00e8af0e64@bugseng.com/
 >>
->> We can go very far in terms of being able to use Virtio in safety
->> use-cases. We might even be able to use Virtio (frontends) in a SafeOS.
+>> Concerns about efi_multiboot2 will be dealt with separately.
 >>
->> On the other hand if we put an additional Root Complex in QEMU:
->> - we pay a price in terms of complexity of the codebase
->> - we pay a price in terms of resource utilization
->> - we have one additional problem in terms of using this setup with a
->>    SafeOS (one more device emulated by a non-safe component)
+>> Changes in v2:
+>> - Edit safe.json.
+>> - Remove mention of SAF-1-safe in deviations.rst.
+>> Changes in v3:
+>> - Sorted #include-s and rebased against
+>> 7ad0c774e474 ("x86/boot: tidy #include-s")
+>> ---
+>>  docs/misra/deviations.rst   |  5 ++---
+>>  docs/misra/safe.json        |  2 +-
+>>  xen/arch/arm/cpuerrata.c    |  7 +++----
+>>  xen/arch/arm/setup.c        |  5 ++---
+>>  xen/arch/arm/smpboot.c      |  3 +--
+>>  xen/arch/arm/traps.c        | 21 +++++++--------------
+>>  xen/arch/x86/boot/cmdline.c |  5 +++--
+>>  xen/arch/x86/boot/reloc.c   |  6 +++---
+>>  xen/arch/x86/extable.c      |  3 +--
+>>  xen/arch/x86/setup.c        |  3 +--
+>>  xen/arch/x86/traps.c        | 27 +++++++++------------------
+>>  xen/common/efi/boot.c       |  5 ++---
+>>  12 files changed, 35 insertions(+), 57 deletions(-)
 >>
->> Having 2 PCI Root Complexes both emulated in Xen is a middle ground
->> solution because:
->> - we still pay a price in terms of resource utilization
->> - the code complexity goes up a bit but hopefully not by much
->> - there is no impact on safety compared to the ideal scenario
->>
->> This is why I wrote that it is tolerable.
 > 
-> Ah, I see now. Yes, I am agree with this. Also I want to add some more
-> points:
+> In hindsight I should have added an
 > 
-> - There is ongoing work on implementing virtio backends as a separate
->    applications, written in Rust. Linaro are doing this part. Right now
->    they are implementing only virtio-mmio, but if they want to provide
->    virtio-pci as well, they will need a mechanism to plug only
->    virtio-pci, without Root Complex. This is argument for using single Root
->    Complex emulated in Xen.
+> Acked-by: Julien Grall <jgrall@amazon.com>
 > 
-> - As far as I know (actually, Oleksandr told this to me), QEMU has no
->    mechanism for exposing virtio-pci backends without exposing PCI root
->    complex as well. Architecturally, there should be a PCI bus to which
->    virtio-pci devices are connected. Or we need to make some changes to
->    QEMU internals to be able to create virtio-pci backends that are not
->    connected to any bus. Also, added benefit that PCI Root Complex
->    emulator in QEMU handles legacy PCI interrupts for us. This is
->    argument for separate Root Complex for QEMU.
-> 
-> As right now we have only virtio-pci backends provided by QEMU and this
-> setup is already working, I propose to stick to this
-> solution. Especially, taking into account that it does not require any
-> changes to hypervisor code.
+> given that the comment has been addressed in my opinion.
 
-I am not against two hostbridge as a temporary solution as long as this 
-is not a one way door decision. I am not concerned about the hypervisor 
-itself, I am more concerned about the interface exposed by the toolstack 
-and QEMU.
+I am a bit confused how you considered it was addressed. I see no update 
+in safe.json when I clearly asked for some (I wouldn't have bothered to 
+comment in v2 otherwise and just gave an ack).
 
-To clarify, I don't particular want to have to maintain the two 
-hostbridges solution once we can use a single hostbridge. So we need to 
-be able to get rid of it without impacting the interface too much.
+To be explicit, I requested to:
+   1. update the description in [1] to clarify that SAF-1 is deprecated.
+   2. This patch is rebased on top and therefore remove completely the 
+mention of SAF-1.
+
+I am well-aware that the end result is technically the same. But patches 
+are meant to be self-contained so if we revert the latest, then the 
+meaning is still the same.
+
+This patch is unlikely to be removed and this is now the nth time I 
+asked it the same (maybe it was not clear enough?). So I am going to 
+content with the current proposal because this is not worth to go 
+further. But I will at least express my discontent how this is handled.
+
+TBH, there are far too many MISRA patches on the ML spread across 
+multiple threads. Some are based on top of the others. This makes 
+extremely difficult to follow and know what is addressed or not. Can we 
+at least try to condense some of work in similar area in the same 
+series? For instance, this patch could have been included in the other 
+series [1].
+
+Lastly, right now, I have 300 emails (31 threads) with MISRA in the 
+title in my inbox. It is a little unclear what has been committed/review 
+or require input. I am concerned to miss key series (the patch to 
+compile in docs/ was nearly missed).
+
+Do we track anywhere which series are still inflights? Can we consider 
+to pause or at least slow down the rate of new MISRA patches until the 
+backlog is cleared? (Adding more patches is not really helping).
 
 Cheers,
+
+[1] 
+https://lore.kernel.org/all/a1b5c3b273145c35535fed3647bf850d9ae5db7f.1698829473.git.nicola.vetrini@bugseng.com/ 
+
+
+I pointed out that the patch in
+
+> 
 
 -- 
 Julien Grall
