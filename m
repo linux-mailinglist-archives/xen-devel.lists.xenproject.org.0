@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1873F7EF208
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:45:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635080.990817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D377EF228
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:56:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635087.990828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xH6-0005H9-5u; Fri, 17 Nov 2023 11:44:40 +0000
+	id 1r3xRu-0008Ls-5U; Fri, 17 Nov 2023 11:55:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635080.990817; Fri, 17 Nov 2023 11:44:40 +0000
+Received: by outflank-mailman (output) from mailman id 635087.990828; Fri, 17 Nov 2023 11:55:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xH6-0005FF-3L; Fri, 17 Nov 2023 11:44:40 +0000
-Received: by outflank-mailman (input) for mailman id 635080;
- Fri, 17 Nov 2023 11:44:38 +0000
+	id 1r3xRu-0008Ij-2N; Fri, 17 Nov 2023 11:55:50 +0000
+Received: by outflank-mailman (input) for mailman id 635087;
+ Fri, 17 Nov 2023 11:55:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1e97=G6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r3xH4-0005F9-M3
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:44:38 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ <SRS0=Tr9K=G6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r3xRt-0008Ic-KF
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:55:49 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aeafc375-853e-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 12:44:36 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2c50cf61f6dso24620511fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 03:44:36 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- n13-20020a05600c500d00b004083996dad8sm6919097wmr.18.2023.11.17.03.44.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Nov 2023 03:44:35 -0800 (PST)
+ id 3ed18cec-8540-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 12:55:47 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40859c466efso14650435e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 03:55:47 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ u26-20020a05600c211a00b0040775501256sm2394806wml.16.2023.11.17.03.55.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Nov 2023 03:55:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,222 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeafc375-853e-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 3ed18cec-8540-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700221475; x=1700826275; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6acT+zOE4DVW55AXMKMPraaarh0Wr+IxcAkBMw7xQYk=;
-        b=gthb8S14/kzMHOuCJQ3I5uh6qh0iNsHoGj+IM7w4fJxnTkolU3XzYUD+w6d7r5yFiP
-         kRDs5/3m1w8JkOlGY0BmgeJSdavdLZ/SlHJqSf7eaW4l/sEgjooCt7IiwSgxAoTMlaFu
-         +oBRwmANZx/fK8xmbFhpUtf1SnpUYnXmtRmX0=
+        d=citrix.com; s=google; t=1700222147; x=1700826947; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Kbp8v6A7pV0vR1R65wiZQS25OaKzEZu/oKSKdpv/tOI=;
+        b=SOyKqWtYQETyBDsW5n1kuaHBKObpVwA8axIgTzoN+giwAOplEmLo3Nw2cFYSXvrfGE
+         VPz10/17F3heGkXl9S9iK7cmA4FxIdJsTa9Dr5INgbypcPyJZVNNFiZLgNlDt9yDYGGc
+         yo7o2I/HQ/EhMoXYN9VihfLj6p7EtxnXdRsYU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700221475; x=1700826275;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6acT+zOE4DVW55AXMKMPraaarh0Wr+IxcAkBMw7xQYk=;
-        b=dwd25gZJKdv1I3iPk/ru9CajteBR4dRIQXfE6pxQE9Q/GxNrg6RCgJEsdMM0/WCOg9
-         pWTE9KMkq4uwTMKc0ohbuJIaf9XeKYT9Op0dKhjW/XyrMyn34RkWTzb1pzfcjvj+3TnZ
-         48XmYQYQUZlAF+/bKu4wsmHPOjmJYzDzOxhE3EVnEAbAbNStXzvncaoqA4EliyTBDcoS
-         FDqa3X36a5ekr74HnfDL2SL+O7sQwHdMsLcnBykkSM1lj2kKTkhINtL4TrY76X0iWIpZ
-         ELJCgh2vH81jT33iG0PsDyTT2TBaPOF1xLCd6r8alctpFFgYQ3u/UHsZMW/rZVr6K1Ze
-         PiXA==
-X-Gm-Message-State: AOJu0YzewxSmnyO6Sslei0uJRoZy5/AriKDuxfqRv0/kvzh4CQoRfqTv
-	vPzM8NalqtPzju7uEUglPBrd7w==
-X-Google-Smtp-Source: AGHT+IGWzO6rzG5SSttMgmhDr0NNqPHWG5JVjfVEnBJ6K61otFJ0lokTV1VATssH4PYPokePCd6fLg==
-X-Received: by 2002:a2e:9b13:0:b0:2c5:2813:5534 with SMTP id u19-20020a2e9b13000000b002c528135534mr9234699lji.51.1700221475597;
-        Fri, 17 Nov 2023 03:44:35 -0800 (PST)
-Date: Fri, 17 Nov 2023 12:44:33 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v7 2/2] xen/vpci: header: filter PCI capabilities
-Message-ID: <ZVdSIUSDA5den3a3@macbook.local>
-References: <20230913143550.14565-1-stewart.hildebrand@amd.com>
- <20230913143550.14565-3-stewart.hildebrand@amd.com>
+        d=1e100.net; s=20230601; t=1700222147; x=1700826947;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kbp8v6A7pV0vR1R65wiZQS25OaKzEZu/oKSKdpv/tOI=;
+        b=aOTJ2xwCUZg0aj6ofvGc7NpqdQsAHxxD/chwW49xmVBMWqZx/fnuhMZxQlhqG746ov
+         pCv+vYnoOJl9sSoykeVCT0nu+qbKRW2v4C8xvZS6o0RkZF0I7zJK1Cn/m4/JXvsiC8mD
+         eQ/y1aJDDAI3pgIVwLiSwW/l0AeA4rC/LOsD5CQYhVi7XMcrC54OIhVB9Hd6q9Os0SsI
+         0CLpXZ+uzX5jUtnl6t4VQG+eBPlL9AJ1GiW+5nIFFbpgxMVX7QNwXtAaU+DMooHqB3lR
+         VklMPzsU3v8Y/H3kcKTFhVCcNrlFSG70EPB8P1CQJC0k3m6kl1gkDHUc3l13N6Lwho6I
+         DL+A==
+X-Gm-Message-State: AOJu0Yyn92iynO4FnY34VFk3Q0bTI37syXUTtIvGd/wCnt7aI/9x24tr
+	v407sWM2M3UiymZ+KvDMFZJkdg==
+X-Google-Smtp-Source: AGHT+IFjBikGSe/zUEq/Zamh2hQg7g2jOyVaX5Ro3P2j6x/xMzdY343b8VqCLakPi/whz8SGBLuwvQ==
+X-Received: by 2002:a05:600c:c0c:b0:405:3a3b:2aa2 with SMTP id fm12-20020a05600c0c0c00b004053a3b2aa2mr14566272wmb.37.1700222146804;
+        Fri, 17 Nov 2023 03:55:46 -0800 (PST)
+Message-ID: <e90d416e-f4dd-4b2c-9247-0e3aa35c26d9@citrix.com>
+Date: Fri, 17 Nov 2023 11:55:46 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230913143550.14565-3-stewart.hildebrand@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] amd-vi: use the same IOMMU page table levels for PV
+ and HVM
+Content-Language: en-GB
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20231117094749.81091-1-roger.pau@citrix.com>
+ <20231117094749.81091-2-roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20231117094749.81091-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 13, 2023 at 10:35:47AM -0400, Stewart Hildebrand wrote:
-> Currently, Xen vPCI only supports virtualizing the MSI and MSI-X capabilities.
-> Hide all other PCI capabilities (including extended capabilities) from domUs for
-> now, even though there may be certain devices/drivers that depend on being able
-> to discover certain capabilities.
-> 
-> We parse the physical PCI capabilities linked list and add vPCI register
-> handlers for the next elements, inserting our own next value, thus presenting a
-> modified linked list to the domU.
-> 
-> Introduce helper functions vpci_hw_read8 and vpci_read_val. The vpci_read_val
-> helper function returns a fixed value, which may be used for RAZ registers, or
-> registers whose value doesn't change.
-> 
-> Introduce pci_find_next_cap_ttl() helper while adapting the logic from
-> pci_find_next_cap() to suit our needs, and implement the existing
-> pci_find_next_cap() in terms of the new helper.
-> 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 17/11/2023 9:47 am, Roger Pau Monne wrote:
+> Using different page table levels for HVM or PV guest is not helpful, and is
+> not inline with the IOMMU implementation used by the other architecture vendor
+> (VT-d).
+>
+> Switch to uniformly use DEFAULT_DOMAIN_ADDRESS_WIDTH in order to set the AMD-Vi
+> page table levels.
+>
+> Note using the max RAM address for PV was bogus anyway, as there's no guarantee
+> there can't be device MMIO or reserved regions past the maximum RAM region.
+
+Indeed - and the MMIO regions do matter for P2P DMA.
+
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Variable-height IOMMU pagetables are not worth the security
+vulnerabilities they're made of.  I regret not fighting hard enough to
+kill them entirely several years ago...
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+
 > ---
-> v6->v7:
-> * no change
-> 
-> v5->v6:
-> * add register handlers before status register handler in init_bars()
-> * s/header->mask_cap_list/mask_cap_list/
-> 
-> v4->v5:
-> * use more appropriate types, continued
-> * get rid of unnecessary hook function
-> * add Jan's R-b
-> 
-> v3->v4:
-> * move mask_cap_list setting to this patch
-> * leave pci_find_next_cap signature alone
-> * use more appropriate types
-> 
-> v2->v3:
-> * get rid of > 0 in loop condition
-> * implement pci_find_next_cap in terms of new pci_find_next_cap_ttl function so
->   that hypothetical future callers wouldn't be required to pass &ttl.
-> * change NULL to (void *)0 for RAZ value passed to vpci_read_val
-> * change type of ttl to unsigned int
-> * remember to mask off the low 2 bits of next in the initial loop iteration
-> * change return type of pci_find_next_cap and pci_find_next_cap_ttl
-> * avoid wrapping the PCI_STATUS_CAP_LIST condition by using ! instead of == 0
-> 
-> v1->v2:
-> * change type of ttl to int
-> * use switch statement instead of if/else
-> * adapt existing pci_find_next_cap helper instead of rolling our own
-> * pass ttl as in/out
-> * "pass through" the lower 2 bits of the next pointer
-> * squash helper functions into this patch to avoid transient dead code situation
-> * extended capabilities RAZ/WI
-> ---
->  xen/drivers/pci/pci.c     | 26 +++++++++-----
->  xen/drivers/vpci/header.c | 76 +++++++++++++++++++++++++++++++++++++++
->  xen/drivers/vpci/vpci.c   | 12 +++++++
->  xen/include/xen/pci.h     |  3 ++
->  xen/include/xen/vpci.h    |  5 +++
->  5 files changed, 113 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/drivers/pci/pci.c b/xen/drivers/pci/pci.c
-> index 3569ccb24e9e..8799d60c2156 100644
-> --- a/xen/drivers/pci/pci.c
-> +++ b/xen/drivers/pci/pci.c
-> @@ -39,31 +39,39 @@ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap)
->      return 0;
->  }
->  
-> -unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
-> -                               unsigned int cap)
-> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
-> +                                   bool (*is_match)(unsigned int),
-> +                                   unsigned int cap, unsigned int *ttl)
-
-Maybe this has been discussed in previous patch versions, but why
-pass a match function instead of expanding the cap parameter to
-be an array of capabilities to search for?
-
-I find it kind of weird to be able to pass both a specific capability
-to match against and also a match function.
-
-What the expected behavior if the caller provides both a match
-function and a cap value?
-
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+>
+> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> index 6bc73dc21052..f9e749d74da2 100644
+> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> @@ -359,21 +359,17 @@ int __read_mostly amd_iommu_min_paging_mode = 1;
+>  static int cf_check amd_iommu_domain_init(struct domain *d)
 >  {
-> -    u8 id;
-> -    int ttl = 48;
-> +    unsigned int id;
->  
-> -    while ( ttl-- )
-> +    while ( (*ttl)-- )
->      {
->          pos = pci_conf_read8(sbdf, pos);
->          if ( pos < 0x40 )
->              break;
->  
-> -        pos &= ~3;
-> -        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
-> +        id = pci_conf_read8(sbdf, (pos & ~3) + PCI_CAP_LIST_ID);
->  
->          if ( id == 0xff )
->              break;
-> -        if ( id == cap )
-> +        if ( (is_match && is_match(id)) || (!is_match && id == cap) )
->              return pos;
->  
-> -        pos += PCI_CAP_LIST_NEXT;
-> +        pos = (pos & ~3) + PCI_CAP_LIST_NEXT;
->      }
+>      struct domain_iommu *hd = dom_iommu(d);
+> +    int pgmode = amd_iommu_get_paging_mode(
+> +        1UL << (DEFAULT_DOMAIN_ADDRESS_WIDTH - PAGE_SHIFT));
+
+"paging mode" comes from the spec, but it's a very backwards way of
+spelling height.
+
+Can we at least start to improve the comprehensibility by renaming this
+variable.
+
 > +
->      return 0;
->  }
+> +    if ( pgmode < 0 )
+> +        return pgmode;
 >  
-> +unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
-> +                               unsigned int cap)
-> +{
-> +    unsigned int ttl = 48;
-> +
-> +    return pci_find_next_cap_ttl(sbdf, pos, NULL, cap, &ttl) & ~3;
-> +}
-> +
->  /**
->   * pci_find_ext_capability - Find an extended capability
->   * @sbdf: PCI device to query
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index af267b75ac31..1e7dfe668ccf 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -513,6 +513,18 @@ static void cf_check rom_write(
->          rom->addr = val & PCI_ROM_ADDRESS_MASK;
->  }
->  
-> +static bool cf_check vpci_cap_supported(unsigned int id)
-> +{
-> +    switch ( id )
-> +    {
-> +    case PCI_CAP_ID_MSI:
-> +    case PCI_CAP_ID_MSIX:
-> +        return true;
-> +    default:
-> +        return false;
-> +    }
-> +}
-> +
->  static int cf_check init_bars(struct pci_dev *pdev)
->  {
->      uint16_t cmd;
-> @@ -545,6 +557,70 @@ static int cf_check init_bars(struct pci_dev *pdev)
+>      /*
+> -     * Choose the number of levels for the IOMMU page tables.
+> -     * - PV needs 3 or 4, depending on whether there is RAM (including hotplug
+> -     *   RAM) above the 512G boundary.
+> -     * - HVM could in principle use 3 or 4 depending on how much guest
+> -     *   physical address space we give it, but this isn't known yet so use 4
+> -     *   unilaterally.
+> -     * - Unity maps may require an even higher number.
+> +     * Choose the number of levels for the IOMMU page tables, taking into
+> +     * account unity maps.
+>       */
+> -    hd->arch.amd.paging_mode = max(amd_iommu_get_paging_mode(
+> -            is_hvm_domain(d)
+> -            ? 1UL << (DEFAULT_DOMAIN_ADDRESS_WIDTH - PAGE_SHIFT)
+> -            : get_upper_mfn_bound() + 1),
+> -        amd_iommu_min_paging_mode);
+> +    hd->arch.amd.paging_mode = max(pgmode, amd_iommu_min_paging_mode);
 
-We might have to rename this to init_header() now :).
+I think these min/max variables can be dropped now we're not doing
+variable height IOMMU pagetables, which further simplifies this expression.
 
->      if ( rc )
->          return rc;
->  
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        if ( !(pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST) )
-> +        {
-> +            /* RAZ/WI */
+Dunno if it's something better folded into this patch, or done at some
+point in the future.
 
-That RAZ/WI acronym seems very Arm specific (TBH I had to search for
-it).
-
-FWIW, it's my understanding that if the status register doesn't report
-the capability list support, the register is unimplemented, and hence
-would be fine to return ~0 from reads of PCI_CAPABILITY_LIST?
-
-IOW: I'm not sure we need to add this handler for PCI_CAPABILITY_LIST
-if it's not supported.
-
-Thanks, Roger.
+~Andrew
 
