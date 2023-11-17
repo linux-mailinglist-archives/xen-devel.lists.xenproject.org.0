@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBF27EEA95
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 02:09:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634795.990325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C667EEA9A
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 02:14:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634800.990336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nMP-0004T3-R6; Fri, 17 Nov 2023 01:09:29 +0000
+	id 1r3nRF-0006wp-Da; Fri, 17 Nov 2023 01:14:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634795.990325; Fri, 17 Nov 2023 01:09:29 +0000
+Received: by outflank-mailman (output) from mailman id 634800.990336; Fri, 17 Nov 2023 01:14:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nMP-0004RD-OR; Fri, 17 Nov 2023 01:09:29 +0000
-Received: by outflank-mailman (input) for mailman id 634795;
- Fri, 17 Nov 2023 01:09:28 +0000
+	id 1r3nRF-0006ug-9c; Fri, 17 Nov 2023 01:14:29 +0000
+Received: by outflank-mailman (input) for mailman id 634800;
+ Fri, 17 Nov 2023 01:14:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5d38=G6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r3nMO-0004R1-Dy
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 01:09:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1r3nRD-0006ua-L9
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 01:14:27 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3a96ab2-84e5-11ee-98dc-6d05b1d4d9a1;
- Fri, 17 Nov 2023 02:09:27 +0100 (CET)
+ id a669c5cd-84e6-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 02:14:26 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3A0B661C1D;
- Fri, 17 Nov 2023 01:09:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF649C433C7;
- Fri, 17 Nov 2023 01:09:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 30ECAB81D91;
+ Fri, 17 Nov 2023 01:14:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BDEC433C8;
+ Fri, 17 Nov 2023 01:14:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,101 +41,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3a96ab2-84e5-11ee-98dc-6d05b1d4d9a1
+X-Inumbo-ID: a669c5cd-84e6-11ee-98dc-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700183365;
-	bh=jLGFi7MR1qihu+EiJfw2686JzKVJm6mit3R9c2T1gA4=;
+	s=k20201202; t=1700183665;
+	bh=S/Wock/t2u/4Z5ILrOZxSatsff7734SSgrbjCzQJr5k=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VFR18JR0WXWlQduu8IsHJ57xiVhr5rkb9OJ6+qTwmNnvzlk+I/sXsQsGWli4t+6GV
-	 Qy42dD4eRombPXUILTQVMpfmbj9rY0KgpmbxlisQ/jmFyBPMADhBIAW9ku/7+rKEEt
-	 k0EjH1CpuUejQw0ykGURo8qewzfEo1l2tZ0ZTZ3Z8z5maZ3v5YhwutqOMfHQ4Fl0cY
-	 RaX5D1mwxQ9G5pYZ8mh3AFDTPnqR4XzLMsXfoJFbcpAMkhwux8/HMrhhAOvKFa+Zbj
-	 7guno+VyXje5vc5aMqSUFnXcXv+aXMV7bzxCL4omFZxzx2EeE8ZzP01P0aCZj3V3uj
-	 lSwF7YGB4sa5A==
-Date: Thu, 16 Nov 2023 17:09:23 -0800 (PST)
+	b=OxwN5qZXrAXMKX0WzOV0WHGy+u8Z0u66QScJotZX3EGZfHYq4bh/9xP8VajIlDVO4
+	 EH7OyDwWzX6mPgcnqVfPCi1So6TqioZe41xjT8n/4Do2J7rjvirtqWrMNCiH6/npGT
+	 9HNScaCLG0+nbqqkNh8SA8uEVM41jQ/G3ZuN+pQTWs3eOOhLEA1qukQWu0LnDihxSm
+	 89fTA0mEV01lNsT71NaDlm3y85iCu3eUaJbBPlvBbDodiIEiTRzwg1m+j9S4Ap8qMK
+	 H7hlqIW4cClEBhidoYheCZcYab6/TdW3lDWlV6OOpNak48PlCmWunk6N9z/lnVXw9A
+	 +MW536qXqHU3Q==
+Date: Thu, 16 Nov 2023 17:14:23 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Roger Pau Monne <roger.pau@citrix.com>
 cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 4/6] automation: update tests to use Debian Bookworm
-In-Reply-To: <20231116121310.72210-5-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311161709030.773207@ubuntu-linux-20-04-desktop>
-References: <20231116121310.72210-1-roger.pau@citrix.com> <20231116121310.72210-5-roger.pau@citrix.com>
+Subject: Re: [PATCH 6/6] automation: switch to multi-platform images when
+ possible
+In-Reply-To: <20231116121310.72210-7-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2311161711560.773207@ubuntu-linux-20-04-desktop>
+References: <20231116121310.72210-1-roger.pau@citrix.com> <20231116121310.72210-7-roger.pau@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2025486830-1700183365=:773207"
+Content-Type: multipart/mixed; BOUNDARY="8323329-1226307592-1700183613=:773207"
+Content-ID: <alpine.DEB.2.22.394.2311161713520.773207@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-2025486830-1700183365=:773207
-Content-Type: text/plain; charset=UTF-8
+--8323329-1226307592-1700183613=:773207
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2311161713521.773207@ubuntu-linux-20-04-desktop>
 
 On Thu, 16 Nov 2023, Roger Pau Monne wrote:
-> Switch tests using Stretch to Bookworm, as Stretch is EOL.
-> 
-> Note the packages are not removed from the Stretch dockerfile, because the
-> tests in stable branches will run using the old containers.
+> Instead of using specific architecture image, switch to using multi-arch ones
+> and specify the desired architecture using the --platform option.
 > 
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> I haven't touched the Yocto dockerfile because I'm not sure how it's used.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+We are missing:
+
+automation/build/debian/buster-gcc-ibt.dockerfile
+automation/build/debian/bookworm-cppcheck.dockerfile
+automation/tests-artifacts/*
+
+Aside from that, it is fine.
+
+How did you test the updated containers? Have you already pushed them to
+the registry?
 
 
 > ---
-> The Bookworm container needs to be updated to contain the required tools before
-> pushing this change.
-
-I'll do that after the release just to stay on the safe side
-
-
-> ---
->  automation/build/debian/bookworm.dockerfile | 5 +++++
->  automation/gitlab-ci/test.yaml              | 4 ++--
->  2 files changed, 7 insertions(+), 2 deletions(-)
+>  automation/build/alpine/3.18-arm64v8.dockerfile               | 2 +-
+>  automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile | 2 +-
+>  automation/build/debian/bookworm-arm64v8.dockerfile           | 2 +-
+>  automation/build/debian/bookworm-cppcheck.dockerfile          | 2 +-
+>  automation/build/debian/bookworm-i386.dockerfile              | 2 +-
+>  automation/build/debian/stretch-i386.dockerfile               | 2 +-
+>  6 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
-> index ae008c8d46e5..7aea081c13a9 100644
-> --- a/automation/build/debian/bookworm.dockerfile
-> +++ b/automation/build/debian/bookworm.dockerfile
-> @@ -46,6 +46,11 @@ RUN apt-get update && \
->          gnupg \
->          apt-transport-https \
->          golang \
-> +        # for test phase, qemu-smoke-* jobs
-> +        qemu-system-x86 \
-> +        # for test phase, qemu-alpine-* jobs
-> +        cpio \
-> +        busybox-static \
->          && \
->          apt-get autoremove -y && \
->          apt-get clean && \
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 61e642cce0cc..6aabdb9d156f 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -43,7 +43,7 @@
->  .qemu-x86-64:
->    extends: .test-jobs-common
->    variables:
-> -    CONTAINER: debian:stretch
-> +    CONTAINER: debian:bookworm
->      LOGFILE: qemu-smoke-x86-64.log
->    artifacts:
->      paths:
-> @@ -130,7 +130,7 @@
->  build-each-commit-gcc:
->    extends: .test-jobs-common
->    variables:
-> -    CONTAINER: debian:stretch
-> +    CONTAINER: debian:bookworm
->      XEN_TARGET_ARCH: x86_64
->      CC: gcc
->    script:
+> diff --git a/automation/build/alpine/3.18-arm64v8.dockerfile b/automation/build/alpine/3.18-arm64v8.dockerfile
+> index 470f5d72a921..91e90220240f 100644
+> --- a/automation/build/alpine/3.18-arm64v8.dockerfile
+> +++ b/automation/build/alpine/3.18-arm64v8.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM arm64v8/alpine:3.18
+> +FROM --platform=linux/arm64/v8 alpine:3.18
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile b/automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile
+> index b3295c435ed5..a05ffeac04f9 100644
+> --- a/automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile
+> +++ b/automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM arm64v8/debian:bookworm
+> +FROM --platform=linux/arm64/v8 debian:bookworm
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/bookworm-arm64v8.dockerfile b/automation/build/debian/bookworm-arm64v8.dockerfile
+> index 640b1e0eadf2..2c432aacb765 100644
+> --- a/automation/build/debian/bookworm-arm64v8.dockerfile
+> +++ b/automation/build/debian/bookworm-arm64v8.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM arm64v8/debian:bookworm
+> +FROM --platform=linux/arm64/v8 debian:bookworm
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/bookworm-cppcheck.dockerfile b/automation/build/debian/bookworm-cppcheck.dockerfile
+> index d64fb7b18c66..d368d69472cb 100644
+> --- a/automation/build/debian/bookworm-cppcheck.dockerfile
+> +++ b/automation/build/debian/bookworm-cppcheck.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM arm64v8/debian:bookworm AS builder
+> +FROM --platform=linux/arm64/v8 debian:bookworm AS builder
+>  
+>  ENV DEBIAN_FRONTEND=noninteractive
+>  ENV CPPCHECK_VERSION=2.7
+> diff --git a/automation/build/debian/bookworm-i386.dockerfile b/automation/build/debian/bookworm-i386.dockerfile
+> index 559bf670f0f1..89a650338566 100644
+> --- a/automation/build/debian/bookworm-i386.dockerfile
+> +++ b/automation/build/debian/bookworm-i386.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM i386/debian:bookworm
+> +FROM --platform=linux/i386 debian:bookworm
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/stretch-i386.dockerfile b/automation/build/debian/stretch-i386.dockerfile
+> index 9739651e25dd..da93fed8ea68 100644
+> --- a/automation/build/debian/stretch-i386.dockerfile
+> +++ b/automation/build/debian/stretch-i386.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM i386/debian:stretch
+> +FROM --platform=linux/i386 debian:stretch
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
 > -- 
 > 2.42.0
 > 
---8323329-2025486830-1700183365=:773207--
+--8323329-1226307592-1700183613=:773207--
 
