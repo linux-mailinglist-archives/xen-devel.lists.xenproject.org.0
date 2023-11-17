@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D36A7EEA6F
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 01:44:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634772.990255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1732D7EEA74
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 01:51:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634775.990266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3mxE-0005xX-Ac; Fri, 17 Nov 2023 00:43:28 +0000
+	id 1r3n4e-00007U-19; Fri, 17 Nov 2023 00:51:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634772.990255; Fri, 17 Nov 2023 00:43:28 +0000
+Received: by outflank-mailman (output) from mailman id 634775.990266; Fri, 17 Nov 2023 00:51:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3mxE-0005ug-7e; Fri, 17 Nov 2023 00:43:28 +0000
-Received: by outflank-mailman (input) for mailman id 634772;
- Fri, 17 Nov 2023 00:43:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r3n4d-00004v-UZ; Fri, 17 Nov 2023 00:51:07 +0000
+Received: by outflank-mailman (input) for mailman id 634775;
+ Fri, 17 Nov 2023 00:51:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5d38=G6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r3mxD-0005ua-6h
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 00:43:27 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f4fff77-84e2-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 01:43:23 +0100 (CET)
+ id 1r3n4c-0008WV-Ro
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 00:51:06 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 636e7f4c-84e3-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 01:51:05 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5D34BCE2304;
- Fri, 17 Nov 2023 00:43:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51D1C433C8;
- Fri, 17 Nov 2023 00:43:18 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id C14CFB81E12;
+ Fri, 17 Nov 2023 00:51:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC614C433C8;
+ Fri, 17 Nov 2023 00:51:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,177 +41,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f4fff77-84e2-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 636e7f4c-84e3-11ee-98dc-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700181800;
-	bh=JBPVIVIWsFABvhAUH9JSdi0RCuYl91TU/76bDgyqrwA=;
+	s=k20201202; t=1700182264;
+	bh=Jnr/5tdEafWGgOr/LVZyKbe6eLy6JdNyvd3cPdHSNQc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nCzpI7qAbNpOYQl/6T0e3KWPWIjoIdJhHjtrnE2XXkE8vuPQ/u865Fx28jMjjVR3X
-	 FcbaILrmINcQFxwp4BUGS6xExA/M0EB1ocVQfeeU+VrgrQblCyhi2qooqUGXwqA5ZI
-	 LfTGOJBrBCFVKDye3HROSRHDIz2Q2NvmXN5hWk12TIBkhBgvTAjcrAGd0sF4U5C4hH
-	 7dl2v4AuoP5U/WXyUsuu6gk/eG+mm1Ahvf867VEIwEjHX0xwfRcsoFipjC6Jkco/zO
-	 KC+m/wHmi/We2/Zp+QG3lI95tGBzth7mFyLgx+85SLCurZcBsb3PCSj3wRSTjaV955
-	 g6uctYJzu2cpA==
-Date: Thu, 16 Nov 2023 16:43:17 -0800 (PST)
+	b=btNFbREMGcTwPQuvM3r+dscGk5fUb5me2RKCrbIgeudzDm9RaiSWl3o8ZmXadGGnq
+	 vAJuYxmXvM3T5SC0S7KKY7KKtaxfk8PHAAe5Ao39TTq9K/8v+dyJApgFSnUo4Rri/1
+	 /rYJyeodJO0VACHjE0RJbve6u0S3qkCslD24q2hw9zfkJtMD2EZOkSzREmq1xGjSIU
+	 0i236qgv5lqDOX0dq5zvO4IPg+nuTVw0HkXJRbqa+x1/W+rMzk6ltIH+SQDbvXRs+y
+	 G9t8ZOID2fUDVFK2AZ1/w3DM4h03DG9MzzfyizG2ugMV5Sc+zMyF7uYVJpahpD4rvu
+	 fM2IXVo/3TRoA==
+Date: Thu, 16 Nov 2023 16:51:01 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH][for-4.19 v4 1/8] xen/include: add macro
- ISOLATE_LOW_BIT
-In-Reply-To: <7cbf6f0f-d5b1-44e2-9a0e-a9d7d353eb6b@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2311161635200.773207@ubuntu-linux-20-04-desktop>
-References: <cover.1698410970.git.nicola.vetrini@bugseng.com> <dca236bf9199f596bafb35eb48d81adc280d8cca.1698410970.git.nicola.vetrini@bugseng.com> <f88edc35-6b1b-0136-aa1f-6429652c4016@suse.com> <alpine.DEB.2.22.394.2310301536390.1625118@ubuntu-linux-20-04-desktop>
- <7c26fb70-6a8c-58a3-6a1d-300dd57b5827@suse.com> <817fab34432c854ce585aba80db77f7c@bugseng.com> <8b4e0da82930375b2a95387a9031c73f@bugseng.com> <1178b79c-d6a3-a46c-5556-3fb5964dc051@suse.com> <392566d1-109b-413c-b904-0e4cb4007263@suse.com>
- <6b6f051130b724ee6a813235e049354c@bugseng.com> <7cbf6f0f-d5b1-44e2-9a0e-a9d7d353eb6b@suse.com>
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
+    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
+ topology
+In-Reply-To: <2c358b80-ad87-4e36-84ca-96380a8f39e4@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2311161649380.773207@ubuntu-linux-20-04-desktop>
+References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com> <20231012220854.2736994-14-volodymyr_babchuk@epam.com> <d6a58e73-da51-40f1-a2f7-576274945585@xen.org> <alpine.DEB.2.22.394.2311161513210.773207@ubuntu-linux-20-04-desktop>
+ <2c358b80-ad87-4e36-84ca-96380a8f39e4@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 16 Nov 2023, Jan Beulich wrote:
-> On 16.11.2023 11:02, Nicola Vetrini wrote:
-> > On 2023-11-16 09:26, Jan Beulich wrote:
-> >> On 31.10.2023 11:20, Jan Beulich wrote:
-> >>> On 31.10.2023 11:03, Nicola Vetrini wrote:
-> >>>> On 2023-10-31 09:28, Nicola Vetrini wrote:
-> >>>>> On 2023-10-31 08:43, Jan Beulich wrote:
-> >>>>>> On 30.10.2023 23:44, Stefano Stabellini wrote:
-> >>>>>>> On Mon, 30 Oct 2023, Jan Beulich wrote:
-> >>>>>>>> On 27.10.2023 15:34, Nicola Vetrini wrote:
-> >>>>>>>>> --- a/xen/include/xen/macros.h
-> >>>>>>>>> +++ b/xen/include/xen/macros.h
-> >>>>>>>>> @@ -8,8 +8,14 @@
-> >>>>>>>>>  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
-> >>>>>>>>>  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
-> >>>>>>>>>
-> >>>>>>>>> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
-> >>>>>>>>> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
-> >>>>>>>>> +/*
-> >>>>>>>>> + * Given an unsigned integer argument, expands to a mask where
-> >>>>>>>>> just the least
-> >>>>>>>>> + * significant nonzero bit of the argument is set, or 0 if no 
-> >>>>>>>>> bits
-> >>>>>>>>> are set.
-> >>>>>>>>> + */
-> >>>>>>>>> +#define ISOLATE_LOW_BIT(x) ((x) & -(x))
-> >>>>>>>>
-> >>>>>>>> Not even considering future Misra changes (which aiui may require
-> >>>>>>>> that
-> >>>>>>>> anyway), this generalization of the macro imo demands that its
-> >>>>>>>> argument
-> >>>>>>>> now be evaluated only once.
-> >>>>>>>
-> >>>>>>> Fur sure that would be an improvement, but I don't see a trivial 
-> >>>>>>> way
-> >>>>>>> to
-> >>>>>>> do it and this issue is also present today before the patch.
-> >>>>>>
-> >>>>>> This was an issue here for MASK_EXTR() and MASK_INSR(), yes, but 
-> >>>>>> the
-> >>>>>> new
-> >>>>>> macro has wider use, and there was no issue elsewhere so far.
-> >>>>>>
-> >>>>>>> I think it
-> >>>>>>> would be better to avoid scope-creeping this patch as we are 
-> >>>>>>> already
-> >>>>>>> at
-> >>>>>>> v4 for something that was expected to be a trivial mechanical 
-> >>>>>>> change.
-> >>>>>>> I
-> >>>>>>> would rather review the fix as a separate patch, maybe sent by you 
-> >>>>>>> as
-> >>>>>>> you probably have a specific implementation in mind?
-> >>>>>>
-> >>>>>> #define ISOLATE_LOW_BIT(x) ({ \
-> >>>>>>     typeof(x) x_ = (x); \
-> >>>>>>     x_ & -x_; \
-> >>>>>> })
-> >>>>>>
-> >>>>>> Hard to see the scope creep here. What I would consider scope creep 
-> >>>>>> I
-> >>>>>> specifically didn't even ask for: I'd like this macro to be
-> >>>>>> overridable
-> >>>>>> by an arch. Specifically (see my earlier naming hint) I'd like to 
-> >>>>>> use
-> >>>>>> x86's BMI insn BLSI in the context of "x86: allow Kconfig control 
-> >>>>>> over
-> >>>>>> psABI level", when ABI v2 or higher is in use.
-> >>>>>
-> >>>>> I appreciate you suggesting an implementation; I'll send a v5
-> >>>>> incorporating it.
-> >>>>
-> >>>> There's an issue with this approach, though: since the macro is used
-> >>>> indirectly
-> >>>> in expressions that are e.g. case labels or array sizes, the build 
-> >>>> fails
-> >>>> (see [1] for instance).
-> >>>> Perhaps it's best to leave it as is?
-> >>>
-> >>> Hmm. I'm afraid it's not an option to "leave as is", not the least 
-> >>> because
-> >>> - as said - I'm under the impression that another Misra rule requires
-> >>> macro arguments to be evaluated exactly once. Best I can think of 
-> >>> right
-> >>> away is to have a macro for limited use (to address such build issues)
-> >>> plus an inline function (for general use). But yes, maybe that then 
-> >>> indeed
-> >>> needs to be a 2nd step.
-> >>
-> >> While I've committed this patch (hoping that I got the necessary 
-> >> context
-> >> adjustment right for the 
-> >> automation/eclair_analysis/ECLAIR/deviations.ecl
-> >> change), I'd like to come back to this before going further with users 
-> >> of
-> >> the new macro: I still think we ought to try to get to the single
-> >> evaluation wherever possible. The macro would then be used only in 
-> >> cases
-> >> where the alternative construct (perhaps an isolate_lsb() macro, living
-> >> perhaps in xen/bitops.h) cannot be used. ISOLATE_LSB() would then want 
-> >> to
-> >> gain a comment directing people to the "better" sibling. Thoughts?
-> > 
-> > Having the users in place would help me estimate the remaining work that 
-> > needs to be done on this rule and see if my local counts match up with 
-> > the counts in staging.
+On Fri, 17 Nov 2023, Julien Grall wrote:
+> Hi Stefano,
 > 
-> By "having the users in place", you mean you want other patches in this
-> and the dependent series to be committed as-is (except for the name
-> change)? That's what I'd like to avoid, as it would mean touching all
-> those use sites again where the proposed isolate_lsb() could be used
-> instead. I'd rather see all use sites be put into their final shape
-> right away.
+> On 16/11/2023 23:28, Stefano Stabellini wrote:
+> > On Thu, 16 Nov 2023, Julien Grall wrote:
+> > > IIUC, this means that Xen will allocate the BDF. I think this will become
+> > > a
+> > > problem quite quickly as some of the PCI may need to be assigned at a
+> > > specific
+> > > vBDF (I have the intel graphic card in mind).
+> > > 
+> > > Also, xl allows you to specificy the slot (e.g. <bdf>@<vslot>) which would
+> > > not
+> > > work with this approach.
+> > > 
+> > > For dom0less passthrough, I feel the virtual BDF should always be
+> > > specified in
+> > > device-tree. When a domain is created after boot, then I think you want to
+> > > support <bdf>@<vslot> where <vslot> is optional.
+> > 
+> > Hi Julien,
+> > 
+> > I also think there should be a way to specify the virtual BDF, but if
+> > possible (meaning: it is not super difficult to implement) I think it
+> > would be very convenient if we could let Xen pick whatever virtual BDF
+> > Xen wants when the user doesn't specify the virtual BDF. That's
+> > because it would make it easier to specify the configuration for the
+> > user. Typically the user doesn't care about the virtual BDF, only to
+> > expose a specific host device to the VM. There are exceptions of course
+> > and that's why I think we should also have a way for the user to
+> > request a specific virtual BDF. One of these exceptions are integrated
+> > GPUs: the OS drivers used to have hardcoded BDFs. So it wouldn't work if
+> > the device shows up at a different virtual BDF compared to the host.
+> 
+> If you let Xen allocating the vBDF, then wouldn't you need a way to tell the
+> toolstack/Device Models which vBDF was allocated?
+> 
+> > 
+> > Thinking more about this, one way to simplify the problem would be if we
+> > always reuse the physical BDF as virtual BDF for passthrough devices. I
+> > think that would solve the problem and makes it much more unlikely to
+> > run into drivers bugs.
+> 
+> This works so long you have only one physical segment (i.e. hostbridge). If
+> you have multiple one, then you either have to expose multiple hostbridge to
+> the guest (which is not great) or need someone to allocate the vBDF.
+> 
+> > 
+> > And we allocate a "special" virtual BDF space for emulated devices, with
+> > the Root Complex still emulated in Xen. For instance, we could reserve
+> > ff:xx:xx.
+> Hmmm... Wouldn't this means reserving ECAM space for 256 buses? Obviously, we
+> could use 5 (just as random number). Yet, it still requires to reserve more
+> memory than necessary.
+> 
+> > and in case of clashes we could refuse to continue.
+> 
+> Urgh. And what would be the solution users triggering this clash?
+> 
+> > Or we could
+> > allocate the first free virtual BDF, after all the pasthrough devices.
+> 
+> This is only works if you don't want to support PCI hotplug. It may not be a
+> thing for embedded, but it is used by cloud. So you need a mechanism that
+> works with hotplug as well.
+> 
+> > 
+> > Example:
+> > - the user wants to assign physical 00:11.5 and b3:00.1 to the guest
+> > - Xen create virtual BDFs 00:11.5 and b3:00.1 for the passthrough devices
+> > - Xen allocates the next virtual BDF for emulated devices: b4:xx.x
+> > - If more virtual BDFs are needed for emulated devices, Xen allocates
+> >    b5:xx.x >
+> > I still think, no matter the BDF allocation scheme, that we should try
+> > to avoid as much as possible to have two different PCI Root Complex
+> > emulators. Ideally we would have only one PCI Root Complex emulated by
+> > Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
+> > tolerable but not ideal. The worst case I would like to avoid is to have
+> > two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
+> 
+> So while I agree that one emulated hostbridge is the best solution, I don't
+> think your proposal would work. As I wrote above, you may have a system with
+> multiple physical hostbridge. It would not be possible to assign two PCI
+> devices with the same BDF but from different segment.
+> 
+> I agree unlikely, but if we can avoid it then it would be best. There are one
+> scheme which fits that:
+>   1. If the vBDF is not specified, then pick a free one.
+>   2. Otherwise check if the specified vBDF is free. If not return an error.
+> 
+> This scheme should be used for both virtual and physical. This is pretty much
+> the algorithm used by QEMU today. It works, so what's would be the benefits to
+> do something different?
 
-This request is coming a bit late and also after all the patches have
-been reviewed already. I for one am not looking forward to review them
-again.
-
-That said, if you could be more specified maybe it could become
-actionable:
-
-- do you have a pseudo code implementation of the "better" macro you
-  would like to propose?
-- do you have an list of call sites you would like to be changed to use
-  the "better" macro?
-
-
-Also, you might remember past discussions about time spent making
-changes yourself vs. others doing the same. This is one of those cases
-that it would be faster for you to make the change and send a patch than
-explaining someone else how to do it, then review the result (and
-review it again as it probably won't be exactly as you asked the first
-time.)
-
-If you don't want the call sites to be changes twice, may I suggest you
-provide a patch on top of Nicola's series, I review and ack your patch,
-and Nicola or I rebase & resend the series so that the call sites are
-only changes once as you would like? I think that's going to be way
-faster.
+I am OK with that. I was trying to find a way that could work without
+user intervention in almost 100% of the cases. I think both 1. and 2.
+you proposed are fine.
 
