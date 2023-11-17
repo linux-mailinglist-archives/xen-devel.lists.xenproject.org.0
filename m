@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C34E87EF680
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 17:46:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635320.991212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB767EF774
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 19:25:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635349.991223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r41ye-0002LP-Rt; Fri, 17 Nov 2023 16:45:56 +0000
+	id 1r43WA-0003yI-H3; Fri, 17 Nov 2023 18:24:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635320.991212; Fri, 17 Nov 2023 16:45:56 +0000
+Received: by outflank-mailman (output) from mailman id 635349.991223; Fri, 17 Nov 2023 18:24:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r41ye-0002IO-OS; Fri, 17 Nov 2023 16:45:56 +0000
-Received: by outflank-mailman (input) for mailman id 635320;
- Fri, 17 Nov 2023 16:45:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1e97=G6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r41yc-0002II-OZ
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 16:45:54 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c529c0b9-8568-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 17:45:52 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4079ed65582so17168565e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 08:45:52 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- p19-20020a05600c05d300b004081a011c0esm7523360wmd.12.2023.11.17.08.45.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Nov 2023 08:45:51 -0800 (PST)
+	id 1r43WA-0003uz-E2; Fri, 17 Nov 2023 18:24:38 +0000
+Received: by outflank-mailman (input) for mailman id 635349;
+ Fri, 17 Nov 2023 18:24:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1r43W9-0003ur-0q
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 18:24:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r43W8-00063G-Is; Fri, 17 Nov 2023 18:24:36 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=[192.168.17.66]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r43W8-0001Wf-CO; Fri, 17 Nov 2023 18:24:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c529c0b9-8568-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700239552; x=1700844352; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=yVo6DqtPUzrFKz0gl1yax1yTDGlE+9FdDqEQaRRgmYo=;
-        b=M9WAnZ2hzXBU2ooLPiiuLIA2y62CvnaD7ASAHfrPGf3MMlX3cj5OQXli9DDaig0U+d
-         atigqkSa4nfSFNAsWJkPbymw8f2SQIXD+wUk3wCM9xhaBo2d7wER1XvtWn1n3LyoK0rt
-         fwzRO6sIbgPgTSEP9UYgZx/sqhJWTPy5zT1GQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700239552; x=1700844352;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yVo6DqtPUzrFKz0gl1yax1yTDGlE+9FdDqEQaRRgmYo=;
-        b=Lsah+33Z/JgvCjPm4G6m9HjaDtqoQlrBQgbGcOQdnNRlERbXwHLsaAdUfO4KE9s1Iw
-         67sI55FfIwvEJIUzYV4HLEWtTUKHl0mhCbOM07iBz8jGvbd+GtRqntpDiIUjSwX0jfZa
-         sgTyMCZbRgIWb13+MtWTG1KBB5w5YumTgwubPdd0DdTCVX8+KCSNmid4henllBluSdG/
-         /naTh9VRaLj+SGlsfEYE3Z/X28m/w4JCTe/VCiUeRRb1stKYJeDmEEay00WyPCBUwUfH
-         Seo0u6r6avekE3Fh4+IcdpaV/WIpZce9GlU6dX/OotrP0R+Pb5/QE+jKkTqPkGeCbL42
-         0Zpw==
-X-Gm-Message-State: AOJu0Ywr4pkZN/QTfPg//6qA0AtkKSyFQn/qZV5tzAQYfg2KTiMjnZLB
-	O0xFB6RJ1gxO/Gxk5nmvl17S7zV9z1YTUVqvnKE=
-X-Google-Smtp-Source: AGHT+IGnG6iTsOCEeWm1J9/vBV8FvHt1UXZ8jhBsSjIYIOIg9UodqxSKA+w49PcJtZA/V+3cAN5uWQ==
-X-Received: by 2002:a05:600c:3c87:b0:402:8896:bb7b with SMTP id bg7-20020a05600c3c8700b004028896bb7bmr14473294wmb.6.1700239552120;
-        Fri, 17 Nov 2023 08:45:52 -0800 (PST)
-Date: Fri, 17 Nov 2023 17:45:50 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v7 1/2] xen/vpci: header: status register handler
-Message-ID: <ZVeYviUt9BIa6Y1B@macbook.local>
-References: <20230913143550.14565-1-stewart.hildebrand@amd.com>
- <20230913143550.14565-2-stewart.hildebrand@amd.com>
- <ZVdfRQpGFSU1OIkh@macbook.local>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ItFAbYz68LqIotY379B9VsIxxIiSzDvZxosbm44fRrc=; b=hD/3sWV8x6aGstT5MB2pBxnuNa
+	2TTHrsTyMQTOdshQBuM4Dv8mTbWQV15dUtdfe3WYMBdMy5sp6wc+VUyChIOrvPGkai9yWNeL1tP5B
+	n6ltwiDA4HBeej+OBtPEEd1yh8TDq/2zgucbAmLD4AAmhJerSnsGjNYi8bsOoDW8eOPg=;
+Message-ID: <cd2146a5-bbb6-4c49-bca8-c340b4acaf36@xen.org>
+Date: Fri, 17 Nov 2023 18:24:34 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+Content-Language: en-GB
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
+ <20231115112611.3865905-3-Sergiy_Kibrik@epam.com>
+ <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
+ <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com>
+ <9e0760f2-6ffd-4010-aabf-ff4f643f288c@xen.org>
+ <98e05fb7-ea8b-48a4-b860-01d2a081e897@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <98e05fb7-ea8b-48a4-b860-01d2a081e897@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZVdfRQpGFSU1OIkh@macbook.local>
 
-On Fri, Nov 17, 2023 at 01:40:37PM +0100, Roger Pau Monné wrote:
-> On Wed, Sep 13, 2023 at 10:35:46AM -0400, Stewart Hildebrand wrote:
-> >      {
-> > -        uint32_t val;
-> > -
-> >          val = r->read(pdev, r->offset, r->private);
-> > +        val &= ~r->rw1c_mask;
-> >          data = merge_result(val, data, size, offset);
-> >      }
-> >  
-> > +    data &= ~(r->rsvdz_mask | r->ro_mask);
-> > +    data |= val & r->ro_mask;
+Hi Sergiy,
+
+On 17/11/2023 13:19, Sergiy Kibrik wrote:
+>>>>> + */
+>>>>> +#define GUEST_VIRTIO_PCI_ECAM_BASE          xen_mk_ullong(0x33000000)
+>>>>> +#define GUEST_VIRTIO_PCI_TOTAL_ECAM_SIZE    xen_mk_ullong(0x01000000)
+>>>>> +#define GUEST_VIRTIO_PCI_HOST_ECAM_SIZE     xen_mk_ullong(0x00200000)
+>>>>> +
+>>>>> +/* 64 MB is reserved for virtio-pci memory */
+>>>>> +#define GUEST_VIRTIO_PCI_ADDR_TYPE_MEM    xen_mk_ullong(0x02000000)
+>>>>> +#define GUEST_VIRTIO_PCI_MEM_ADDR         xen_mk_ullong(0x34000000)
+>>>>> +#define GUEST_VIRTIO_PCI_MEM_SIZE         xen_mk_ullong(0x04000000)
+>>>>> +
+>>>>>    /*
+>>>>>     * 16MB == 4096 pages reserved for guest to use as a region to 
+>>>>> map its
+>>>>>     * grant table in.
+>>>>> @@ -476,6 +489,11 @@ typedef uint64_t xen_callback_t;
+>>>>>    #define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
+>>>>>    #define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
+>>>>> +/* 64 MB is reserved for virtio-pci Prefetch memory */
+>>>>
+>>>> This doesn't seem a lot depending on your use case. Can you details how
+>>>> you can up with "64 MB"?
+>>>
+>>> the same calculation as it was done configuration space. It was observed
+>>> that only 16K is used per virtio-pci device (maybe it can be bigger for
+>>> usual PCI device, I don't know). Please look at the example of DomU log
+>>> below (to strings that contain "*BAR 4: assigned*"):
+>>
+>> What about virtio-gpu? I would expect a bit more memory is necessary 
+>> for that use case.
+>>
+>> Any case, what I am looking for is for some explanation in the commit 
+>> message of the limits. I don't particularly care about the exact limit 
+>> because this is not part of a stable ABI.
 > 
-> You cannot apply the register masks directly into the final value, you
-> need to offset and mask them as necessary, likewise for val, see
-> what's done in merge_result().
+> sure, I'll put a bit more explanation in both comment and commit 
+> message. Should I post updated patch series, with updated resources and 
+> without patch #5, or shall we wait for some more comments here?
 
-Never mind, I was wrong, there's no need to offset anything here.
+I would wait for comments before posting in particular if you haven't 
+yet received any comment on the tools side.
 
-Roger.
+Cheers,
+
+-- 
+Julien Grall
 
