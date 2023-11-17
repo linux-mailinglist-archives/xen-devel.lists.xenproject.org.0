@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950FC7EF7BA
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 20:16:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635361.991241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A716B7EF7C5
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 20:22:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635364.991252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r44Jr-0005er-G6; Fri, 17 Nov 2023 19:15:59 +0000
+	id 1r44Pf-0007q2-46; Fri, 17 Nov 2023 19:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635361.991241; Fri, 17 Nov 2023 19:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 635364.991252; Fri, 17 Nov 2023 19:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r44Jr-0005cx-DF; Fri, 17 Nov 2023 19:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 635361;
- Fri, 17 Nov 2023 19:15:58 +0000
+	id 1r44Pf-0007oO-1E; Fri, 17 Nov 2023 19:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 635364;
+ Fri, 17 Nov 2023 19:21:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r44Jq-0005cr-Pb
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 19:15:58 +0000
+ (envelope-from <julien@xen.org>) id 1r44Pd-0007oH-7b
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 19:21:57 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r44Jq-0006yl-0R; Fri, 17 Nov 2023 19:15:58 +0000
+ id 1r44Pc-00076K-GT; Fri, 17 Nov 2023 19:21:56 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=[192.168.17.66]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1r44Jp-0003xY-NY; Fri, 17 Nov 2023 19:15:57 +0000
+ id 1r44Pc-00044j-8x; Fri, 17 Nov 2023 19:21:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,122 +42,188 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ytkRD/PHoScSCragUN67/e3oTlxBIrr42n7Sb4Jzzfo=; b=obUsutDl5Gds1or78LbHD1s3Di
-	kxfyeXCsox82Bl1dCym5bLYaFgUTu+8Q3ZaaK34wHhS1yjmH2iwQKDemumwRSRcsO+1UqbKMpYhJq
-	+Y8CCVpTKrAv/gxuM1waFHebWMyVf9lnj/oIKnP296rmqy3T95TKFZlM9c0CX8ibOYgU=;
-Message-ID: <40a3918e-730f-48b9-924f-d8707b197e14@xen.org>
-Date: Fri, 17 Nov 2023 19:15:54 +0000
+	bh=wcMZmFe43PazEsymAusMaw2wdZTHPIcgLWW1hn8EBBU=; b=07LPpUbBLCYImj04A+6T6alWfx
+	5UI8NMK6CSCJt48KoNHgWcyamW3CD7/uiWB6eiNPK8XR2jQJ9tgwNWEj42xJ8i6UDNoTie18TmFuN
+	ssiK+RwXQ9QVJSYAWXADjxGqsU79v7Kfj1CTCWtjGHDHVnfD6fL7fk+cmgX9qhBe+lco=;
+Message-ID: <90f41e53-783b-43e6-9188-abbae847e370@xen.org>
+Date: Fri, 17 Nov 2023 19:21:53 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] xen: replace occurrences of SAF-1-safe with
- asmlinkage attribute
+Subject: Re: [XEN PATCH v4 1/2] automation/eclair: make the docs for MISRA
+ C:2012 Dir 4.1 visible to ECLAIR
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <b193825385eae75ae320ab7d8c7f63b61c8c8786.1700125246.git.nicola.vetrini@bugseng.com>
- <991883873b73e644ccaf8114a80331c0@bugseng.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ roger.pau@citrix.com, bertrand.marquis@arm.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <cover.1699975581.git.nicola.vetrini@bugseng.com>
+ <f14b266f18089f5951a3e390a5ebfe713beb8dbb.1699975581.git.nicola.vetrini@bugseng.com>
+ <f63fa9b5-a821-49d4-88f6-7d991ab6c644@xen.org>
+ <1689d4b47d708098c43601a58e867f1c@bugseng.com>
+ <ecbfa46d-2e0a-4685-9695-f7de37e7b6ce@xen.org>
+ <fd6f51afebb9fd90531e30289eb99d8c@bugseng.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <991883873b73e644ccaf8114a80331c0@bugseng.com>
+In-Reply-To: <fd6f51afebb9fd90531e30289eb99d8c@bugseng.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Nicola,
+Hi,
 
-On 16/11/2023 09:15, Nicola Vetrini wrote:
-> On 2023-11-16 10:08, Nicola Vetrini wrote:
->> The comment-based justifications for MISRA C:2012 Rule 8.4 are replaced
->> by the asmlinkage pseudo-attribute, for the sake of uniformity.
+On 16/11/2023 08:45, Nicola Vetrini wrote:
+> On 2023-11-15 12:22, Julien Grall wrote:
+>> Hi,
 >>
->> Add missing 'xen/compiler.h' #include-s where needed.
+>> On 15/11/2023 11:02, Nicola Vetrini wrote:
+>>> On 2023-11-14 23:12, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 14/11/2023 15:36, Nicola Vetrini wrote:
+>>>>> To be able to check for the existence of the necessary subsections in
+>>>>> the documentation for MISRA C:2012 Dir 4.1, ECLAIR needs to have a 
+>>>>> source
+>>>>> file that is built.
+>>>>>
+>>>>> This file is generated from 'C-runtime-failures.rst' in docs/misra
+>>>>> and the configuration is updated accordingly.
+>>>>>
+>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> ---
+>>>>> Changes from RFC:
+>>>>> - Dropped unused/useless code
+>>>>> - Revised the sed command
+>>>>> - Revised the clean target
+>>>>>
+>>>>> Changes in v2:
+>>>>> - Added explanative comment to the makefile
+>>>>> - printf instead of echo
+>>>>>
+>>>>> Changes in v3:
+>>>>> - Terminate the generated file with a newline
+>>>>> - Build it with -std=c99, so that the documentation
+>>>>>    for D1.1 applies.
+>>>>> Changes in v5:
+>>>>> - Transform and build the file directly in the eclair-specific 
+>>>>> directory
+>>>>> ---
+>>>>>   automation/eclair_analysis/build.sh   | 21 +++++++++++++++++++--
+>>>>>   automation/eclair_analysis/prepare.sh |  7 ++++---
+>>>>>   2 files changed, 23 insertions(+), 5 deletions(-)
+>>>>>
+>>>>> diff --git a/automation/eclair_analysis/build.sh 
+>>>>> b/automation/eclair_analysis/build.sh
+>>>>> index ec087dd822fa..f24292ed0643 100755
+>>>>> --- a/automation/eclair_analysis/build.sh
+>>>>> +++ b/automation/eclair_analysis/build.sh
+>>>>> @@ -33,12 +33,29 @@ else
+>>>>>     PROCESSORS=6
+>>>>>   fi
+>>>>>   +runtime_failures_docs() {
+>>>>> +  doc="C-runtime-failures.rst"
+>>>>> +  builddir="automation/eclair_analysis"
+>>>>> +
+>>>>> +  cp "docs/misra/${doc}" "${builddir}"
+>>>>
+>>>> Is it necessary to copy the .rst? IOW, would it be sufficient to use...
+>>>>
+>>>>> +  cd "${builddir}"
+>>>>> +  printf "/*\n\n" >"${doc}.tmp"
+>>>>> +  sed -e 's|\*/|*//*|g' "${doc}" >>"${doc}.tmp"
+>>>>
+>>>> ... docs/misc/${doc} here?
+>>>>
+>>>
+>>> I didn't want to leave a stray file under docs/misra, but it's not 
+>>> essential.
 >>
->> The text in docs/misra/deviations.rst and docs/misra/safe.json
->> is modified to reflect this change.
+>> I am confused. I am suggesting to use:
 >>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->> This patch should be applied after patch 2 of this series.
->> The request made by Julien to update the wording is
->> contained in the present patch.
->> https://lore.kernel.org/all/9ad7f6210c15f520297aac00e8af0e64@bugseng.com/
+>> sed -e 's|\*/|*//*|g' "../../docs/misc/${doc}" >> "${doc}.tmp"
 >>
->> Concerns about efi_multiboot2 will be dealt with separately.
->>
->> Changes in v2:
->> - Edit safe.json.
->> - Remove mention of SAF-1-safe in deviations.rst.
->> Changes in v3:
->> - Sorted #include-s and rebased against
->> 7ad0c774e474 ("x86/boot: tidy #include-s")
->> ---
->>  docs/misra/deviations.rst   |  5 ++---
->>  docs/misra/safe.json        |  2 +-
->>  xen/arch/arm/cpuerrata.c    |  7 +++----
->>  xen/arch/arm/setup.c        |  5 ++---
->>  xen/arch/arm/smpboot.c      |  3 +--
->>  xen/arch/arm/traps.c        | 21 +++++++--------------
->>  xen/arch/x86/boot/cmdline.c |  5 +++--
->>  xen/arch/x86/boot/reloc.c   |  6 +++---
->>  xen/arch/x86/extable.c      |  3 +--
->>  xen/arch/x86/setup.c        |  3 +--
->>  xen/arch/x86/traps.c        | 27 +++++++++------------------
->>  xen/common/efi/boot.c       |  5 ++---
->>  12 files changed, 35 insertions(+), 57 deletions(-)
+>> So *.tmp is still created at the same place.
 >>
 > 
-> In hindsight I should have added an
+> Ok, makes sense.
 > 
-> Acked-by: Julien Grall <jgrall@amazon.com>
+>>>
+>>>>> +  printf "\n\n*/\n" >>"${doc}.tmp"
+>>>>> +  mv "${doc}.tmp" "${doc}.c"
+>>>>
+>>>> NIT: I am not sure why you need to first create .tmp and then create.c.
+>>>>
+>>>
+>>> Wasn't this a pattern to defend against interruptions of the build, 
+>>> just as I did in v3?
+>>>
+>>> +$(TARGETS:.o=.c): %.c: %.rst
+>>> +    printf "/*\n\n" > $@.tmp
+>>> +    sed -e 's|\*/|*//*|g' $< >> $@.tmp
+>>> +    printf "\n\n*/\n" >> $@.tmp
+>>> +    mv $@.tmp $@
+>>
+>> Yes but it makes sense for the Makefile because the target would not 
+>> be re-executed if *.c exists.
+>>
+>> But I don't think this is the case for you because you are using a 
+>> bash script. So your function should always be re-executed regardless 
+>> on whether it was interrupted or not.
+>>
 > 
-> given that the comment has been addressed in my opinion.
+> Ok.
+> 
+>>>
+>>>>> +
+>>>>> +  # Cannot redirect to /dev/null because it would be excluded from 
+>>>>> the analysis
+>>>>> +  "${CROSS_COMPILE}gcc-12" -std=c99 -c "${doc}.c" -o "${doc}.o"
+>>>>
+>>>> NIT: It would be helpful to specify why -std=c99 is used. Above, you 
+>>>> suggest this is to enable D1.1.
+>>>>
+>>>
+>>> Yeah, the comment in the changelog should be pasted here
+>>>
+>>>> NIT: Can we define CC and use here and ...
+>>>>
+>>>>> +  cd -
+>>>>> +}
+>>>>> +
+>>>>>   (
+>>>>> -  cd xen
+>>>>> +  runtime_failures_docs
+>>>>>       make "-j${PROCESSORS}" "-l${PROCESSORS}.0"    \
+>>>>>          "CROSS_COMPILE=${CROSS_COMPILE}"         \
+>>>>>          "CC=${CROSS_COMPILE}gcc-12"              \
+>>>>
+>>>> ...? This would make easier to re-use the code.
+>>>>
+>>>
+>>> I don't expect this build script to be changed much to be honest, but 
+>>> if you think
+>>> this is beneficial then it's ok.
+>>
+>> This is not only about code evolving. It makes easier to spot your are 
+>> using the same compiler. I would not have made the remark if you were 
+>> using 'gcc'.
+>>
+>> But I noticed you were using gcc-12 and originally thought it was a 
+>> mistake until I saw the second use.
+>>
+>> The advantage of a variable CC (and CXX) is you can add a comment on 
+>> top why you are specifically requestion gcc-12? IOW, why is gcc not fine?
+>>
+> 
+> The assumptions in C-language-toolchain.rst (which are reflected in the 
+> analysis config) are using gcc-12 explicitly; that's just easier from a 
+> certification perspective to have a fixed version.
 
-I am a bit confused how you considered it was addressed. I see no update 
-in safe.json when I clearly asked for some (I wouldn't have bothered to 
-comment in v2 otherwise and just gave an ack).
-
-To be explicit, I requested to:
-   1. update the description in [1] to clarify that SAF-1 is deprecated.
-   2. This patch is rebased on top and therefore remove completely the 
-mention of SAF-1.
-
-I am well-aware that the end result is technically the same. But patches 
-are meant to be self-contained so if we revert the latest, then the 
-meaning is still the same.
-
-This patch is unlikely to be removed and this is now the nth time I 
-asked it the same (maybe it was not clear enough?). So I am going to 
-content with the current proposal because this is not worth to go 
-further. But I will at least express my discontent how this is handled.
-
-TBH, there are far too many MISRA patches on the ML spread across 
-multiple threads. Some are based on top of the others. This makes 
-extremely difficult to follow and know what is addressed or not. Can we 
-at least try to condense some of work in similar area in the same 
-series? For instance, this patch could have been included in the other 
-series [1].
-
-Lastly, right now, I have 300 emails (31 threads) with MISRA in the 
-title in my inbox. It is a little unclear what has been committed/review 
-or require input. I am concerned to miss key series (the patch to 
-compile in docs/ was nearly missed).
-
-Do we track anywhere which series are still inflights? Can we consider 
-to pause or at least slow down the rate of new MISRA patches until the 
-backlog is cleared? (Adding more patches is not really helping).
+I am not against fixed version. It just needs to be documented. At least 
+reading C-language-toolchain.rst, it is not obvious to me that this is 
+only applying to GCC-12.
 
 Cheers,
-
-[1] 
-https://lore.kernel.org/all/a1b5c3b273145c35535fed3647bf850d9ae5db7f.1698829473.git.nicola.vetrini@bugseng.com/ 
-
-
-I pointed out that the patch in
-
-> 
 
 -- 
 Julien Grall
