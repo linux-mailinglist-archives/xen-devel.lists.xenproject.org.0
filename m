@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 949617EF101
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 11:50:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635052.990758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62B47EF158
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:04:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635057.990767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3wPl-00052X-1Z; Fri, 17 Nov 2023 10:49:33 +0000
+	id 1r3we3-0001Ta-9e; Fri, 17 Nov 2023 11:04:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635052.990758; Fri, 17 Nov 2023 10:49:33 +0000
+Received: by outflank-mailman (output) from mailman id 635057.990767; Fri, 17 Nov 2023 11:04:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3wPk-00050Q-Us; Fri, 17 Nov 2023 10:49:32 +0000
-Received: by outflank-mailman (input) for mailman id 635052;
- Fri, 17 Nov 2023 10:49:31 +0000
+	id 1r3we3-0001R9-6v; Fri, 17 Nov 2023 11:04:19 +0000
+Received: by outflank-mailman (input) for mailman id 635057;
+ Fri, 17 Nov 2023 11:04:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Lb0=G6=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1r3wPj-00050K-K8
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 10:49:31 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=Tr9K=G6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r3we1-0001R3-98
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:04:17 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fbda4351-8536-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 11:49:29 +0100 (CET)
-Received: from [172.20.10.2] (unknown [37.163.77.7])
- by support.bugseng.com (Postfix) with ESMTPSA id 906A84EE0744;
- Fri, 17 Nov 2023 11:49:27 +0100 (CET)
+ id 0b8a8a12-8539-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 12:04:14 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2c523ac38fbso23851161fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 03:04:14 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ j32-20020a05600c1c2000b004094c5d929asm2348941wms.10.2023.11.17.03.04.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Nov 2023 03:04:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbda4351-8536-11ee-9b0e-b553b5be7939
-Message-ID: <a665cac0-93f3-4fbb-a1bc-104bc36fbf61@bugseng.com>
-Date: Fri, 17 Nov 2023 11:49:26 +0100
+X-Inumbo-ID: 0b8a8a12-8539-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1700219054; x=1700823854; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dsMEn8VdLDcY4n9dfxdRO2j5SuKks8m5V1waqXpirS4=;
+        b=M4GwRm0Z8oEnD3ehckNZwlNN7cBjuDlztKY7P1g2ZcfH1JHXwlQvoIWhywWmXy2W/j
+         ii18M0IF7YmXpRgIHHM20moXMkRaivP4MNT91fL/q09iVGRTYId2C9YnzYCBJFxGUDwm
+         jJPrw3dGHLKbxKhg+rdTbBXrig+U2LkrGtido=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700219054; x=1700823854;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dsMEn8VdLDcY4n9dfxdRO2j5SuKks8m5V1waqXpirS4=;
+        b=eJ50aD1pIBH/W+yCaST22Yrc1oP0JUM/0MQr3keyeSHoCETLy37W+7UBVRwqDa9laG
+         sZoC7tVmiirbmrKAW2S1jK5chKpbdq+hLKPfXtroRG9vgInvROWoxyDnxwFfV36FjlYp
+         aKETDJY9eOVn2sSXdvgYJn92hDXDMv4iqsbRr9dheujuMVQ7BRlRDSi9oBxB7yvSsf4j
+         dsHmWEPF+LVre02U0LbLvkycL/V8BEkePvRaqGAxOXknrwOFYCFZTRsjKWgUZqr3ZN5r
+         anPKl22pIQ9oRZc3JXwyI9iAc3bgkm0Snm1e4Un2b01aZ7/6S6H42mB2alDm3TEqhcmP
+         IZCg==
+X-Gm-Message-State: AOJu0YxegijIQGMukqgOcJuHBgAU3FMN6gF3zQM6OSRt6mV2uvqmEmOz
+	KGTbVvlQ44iC5lJMUH0SqsTmlA==
+X-Google-Smtp-Source: AGHT+IGSF2HngHygQA4Y7YnYdrfVQgHOdTH4TwIDyk7AfCHxUNwZFWIw838AnPSNpvmOZaszxBFOuA==
+X-Received: by 2002:a2e:8e6c:0:b0:2c6:efc6:946f with SMTP id t12-20020a2e8e6c000000b002c6efc6946fmr3836568ljk.30.1700219054347;
+        Fri, 17 Nov 2023 03:04:14 -0800 (PST)
+Message-ID: <ddb70b8e-e014-4389-9572-8d5272a73ec3@citrix.com>
+Date: Fri, 17 Nov 2023 11:04:13 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] xen/mm: address violations of MISRA C:2012 Rules
- 8.2 and 8.3
-Content-Language: en-US, it
-To: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: consulting@bugseng.com, Julien Grall <julien@xen.org>,
+Subject: Re: Devise macros to encapsulate (x & -x)
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen Devel <xen-devel@lists.xenproject.org>
+Cc: Consulting <consulting@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Jbeulich <jbeulich@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Roger Pau <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Henry Wang <henry.wang@arm.com>, xen-devel@lists.xenproject.org
-References: <eedcfeb8d1c81527b7e18fcc0eca252577f00035.1696344012.git.federico.serafini@bugseng.com>
- <d7cd7a02-b960-384e-4af2-f70b425e5ad1@suse.com>
- <alpine.DEB.2.22.394.2310181543030.965337@ubuntu-linux-20-04-desktop>
- <30e35f13-d2d0-eaf3-9660-c508655b84ce@suse.com>
- <alpine.DEB.2.22.394.2310190921020.1945130@ubuntu-linux-20-04-desktop>
- <965cdb62-1b96-c8a1-733b-ad006bb2edc6@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <965cdb62-1b96-c8a1-733b-ad006bb2edc6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Michal Orzel <michal.orzel@amd.com>
+References: <08e6cb27d65250d109df0ef8a49dc80a@bugseng.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <08e6cb27d65250d109df0ef8a49dc80a@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 20/10/23 08:35, Jan Beulich wrote:
-> On 19.10.2023 18:26, Stefano Stabellini wrote:
->> On Thu, 19 Oct 2023, Jan Beulich wrote:
->>> On 19.10.2023 00:43, Stefano Stabellini wrote:
->>>> On Mon, 16 Oct 2023, Jan Beulich wrote:
->>>>> On 03.10.2023 17:24, Federico Serafini wrote:
->>>>>> --- a/xen/arch/x86/mm.c
->>>>>> +++ b/xen/arch/x86/mm.c
->>>>>> @@ -5901,17 +5901,17 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->>>>>>    * a problem.
->>>>>>    */
->>>>>>   void init_or_livepatch modify_xen_mappings_lite(
->>>>>> -    unsigned long s, unsigned long e, unsigned int _nf)
->>>>>> +    unsigned long s, unsigned long e, unsigned int nf)
->>>>>>   {
->>>>>> -    unsigned long v = s, fm, nf;
->>>>>> +    unsigned long v = s, fm, flags;
->>>>>
->>>>> While it looks correct, I consider this an unacceptably dangerous
->>>>> change: What if by the time this is to be committed some new use of
->>>>> the local "nf" appears, without resulting in fuzz while applying the
->>>>> patch? Imo this needs doing in two steps: First nf -> flags, then
->>>>> _nf -> nf.
->>>>
->>>> Wouldn't it be sufficient for the committer to pay special attention
->>>> when committing this patch? We are in code freeze anyway, the rate of
->>>> changes affecting staging is low.
->>>
->>> Any kind of risk excludes a patch from being a 4.18 candidate, imo.
->>
->> I agree on that. I think it is best to commit it for 4.19 when the tree
->> opens.
->>
->>
->>> That was the case in early RCs already, and is even more so now. Paying
->>> special attention is generally a possibility, yet may I remind you that
->>> committing in general is intended to be a purely mechanical operation?
->>
->> Sure, and I am not asking for a general process change. I am only
->> suggesting that this specific concern on this patch is best solved in
->> the simplest way: by a committer making sure the patch is correct on
->> commit. It is meant to save time for everyone.
->>
->> Jan, if you are OK with it, we could just trust you to commit it the
->> right away as the earliest opportunity.
-> 
-> If you can get Andrew or Roger to ack this patch in its present shape,
-> I won't stand in the way. I'm not going to ack the change without the
-> indicated split.
+On 17/11/2023 10:17 am, Nicola Vetrini wrote:
+> Hi all,
+>
+> As discussed in this thread [1], which is about complying with MISRA C
+> Rule 10.1,
+> a macro was introduced to encapsulate a well-known construct:
+>
+> /*
+>  * Given an unsigned integer argument, expands to a mask where just
+> the least
+>  * significant nonzero bit of the argument is set, or 0 if no bits are
+> set.
+>  */
+> #define ISOLATE_LSB(x) ((x) & -(x))
+>
+> This macro has a gained some calls in the subsequent patches in that
+> thread, but concerns were raised around the fact that it would be
+> better to devise a macro that evaluates its argument only once. A
+> proposed solution is this (thanks to Jan Beulich):
+>
+> #define ISOLATE_LSB(x) ({ \
+>      typeof(x) x_ = (x); \
+>      x_ & -x_; \
+> })
 
-I'll propose a new patch series where changes are splitted as indicated.
-I also noticed a discrepancy between Arm and x86 in the name of the
-last parameter of xenmem_add_to_physmap_one().
-Do you have any suggestions about how to solve it?
-If we reach an agreement, then I can put the changes related to the mm 
-module in a single patch.
+Of course this was going to explode.
 
--- 
-Federico Serafini, M.Sc.
+This isn't even the first time an unwise attempt to do single-evaluation
+has needed to be reverted because it doesn't work with Integer Constant
+Expressions.
 
-Software Engineer, BUGSENG (http://bugseng.com)
+Switch it back to the first form.  It's obviously a macro to begin with,
+and not likely to be used in cases that have side effects.
+
+~Andrew
 
