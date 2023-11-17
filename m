@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6CD7EF1EC
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:39:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635076.990807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1873F7EF208
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 12:45:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635080.990817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xC1-0003oG-Ii; Fri, 17 Nov 2023 11:39:25 +0000
+	id 1r3xH6-0005H9-5u; Fri, 17 Nov 2023 11:44:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635076.990807; Fri, 17 Nov 2023 11:39:25 +0000
+Received: by outflank-mailman (output) from mailman id 635080.990817; Fri, 17 Nov 2023 11:44:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xC1-0003la-Fp; Fri, 17 Nov 2023 11:39:25 +0000
-Received: by outflank-mailman (input) for mailman id 635076;
- Fri, 17 Nov 2023 11:39:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r3xBz-0003lS-US
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:39:23 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on060e.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::60e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3dc98c5-853d-11ee-98dc-6d05b1d4d9a1;
- Fri, 17 Nov 2023 12:39:23 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AS8PR04MB8771.eurprd04.prod.outlook.com (2603:10a6:20b:42c::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.11; Fri, 17 Nov
- 2023 11:39:20 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7025.010; Fri, 17 Nov 2023
- 11:39:20 +0000
+	id 1r3xH6-0005FF-3L; Fri, 17 Nov 2023 11:44:40 +0000
+Received: by outflank-mailman (input) for mailman id 635080;
+ Fri, 17 Nov 2023 11:44:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1e97=G6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r3xH4-0005F9-M3
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 11:44:38 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aeafc375-853e-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 12:44:36 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2c50cf61f6dso24620511fa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 03:44:36 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ n13-20020a05600c500d00b004083996dad8sm6919097wmr.18.2023.11.17.03.44.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Nov 2023 03:44:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,171 +44,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3dc98c5-853d-11ee-98dc-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZXTJyuf5EQL5L7knLmhhLxi7YNqZO4agApaZ7yY/KuzC1+GCzpLUh+A5hIj8vXzh1kBygxgQuNmlLxx9bbWn4m11FGLqDu7tC1Ef5Z2f9Sd7n7imin6XhkRIGeaFVczghOoo/zOOVDDOeYEROwPlIk4lvq3A1GYyBCuPYQzeD5Mx6zxxV6gtDqLiIDZk7AKZyEmWtYUWaz6/t9la8aA13aN38udSgu3p9zejLkqLKTqUhtOuLRLTrPmJo5DBEOL9VYrbTAO1Wskyph37nZHIfUYcTsuleeMM3215VYPFqSnRm2spQF4oBo0CWj8gdbyjLMS1raPucJINBxzeBpBiKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xy4UtCTwjIpla34dHFXHMEV+J0x9hnovQCzacCqo3Ug=;
- b=e2qapYBffWKiO28TBdxBllI1ULwuxmq8+nze+BR+6+rqF4oLHdtfUV1HQt+AzUKVOob6d89d7i8KQ6wtlx3uQpyR9Lcb+porzVy57VHG3hYK86eioyxG5ZSxAyIL2y+O3n4ITCEqeM860+nzPdFkmQuYWCw//1FxRgReYH2D93YDzixm4TsPtEwYTou56PZ2ooETfvNbUea426T1/RiqWehoHVBKurSl0PlwhDE711FW03GHMAIYjv/u2MyXXiymF3rSup1bUuYx2rAqqtKhvYTkUvZ+BkarOmrkOfPYP+LJY5BfylSSNEG69n5+FQaiFC5O06O9TjeelRPUeYWetw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xy4UtCTwjIpla34dHFXHMEV+J0x9hnovQCzacCqo3Ug=;
- b=OHANToCTZ5tN2ilJ7Fp1ZMiQj2TkAlibO20uRJmRI2iF2gy6xlSU1NB9IYdbu+SQbQtorqqbv+lBclQDSIIgi/Jcapdrrfwpp4Ck8RCyoD+99LUIrvHg5/QmcaXSMqqE8ybAnLLNJy0fzUiumjre8BwmVNMdR36bkVvxGJifzICxCv4cunXF44doBRipUet/tnFY/j32FMJU0OPjw3W5rFm0VarQd1NEUWmFJU4cJkuumT/TxVP39hQs4yg3qborRixGDeYYVVE1GoiIgL5L2CDEAAt6zYQnMabWCn2TSX6x/4LnOnov/dvr7IanP0XekffyJp+HeG2Gu0XAW3QPHA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <683af6f7-1110-4d5a-9d42-6893398fae84@suse.com>
-Date: Fri, 17 Nov 2023 12:39:17 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: Devise macros to encapsulate (x & -x)
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Consulting <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper3 <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Roger Pau <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xen Devel <xen-devel@lists.xenproject.org>
-References: <08e6cb27d65250d109df0ef8a49dc80a@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <08e6cb27d65250d109df0ef8a49dc80a@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0048.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f0::16) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: aeafc375-853e-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1700221475; x=1700826275; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=6acT+zOE4DVW55AXMKMPraaarh0Wr+IxcAkBMw7xQYk=;
+        b=gthb8S14/kzMHOuCJQ3I5uh6qh0iNsHoGj+IM7w4fJxnTkolU3XzYUD+w6d7r5yFiP
+         kRDs5/3m1w8JkOlGY0BmgeJSdavdLZ/SlHJqSf7eaW4l/sEgjooCt7IiwSgxAoTMlaFu
+         +oBRwmANZx/fK8xmbFhpUtf1SnpUYnXmtRmX0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700221475; x=1700826275;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6acT+zOE4DVW55AXMKMPraaarh0Wr+IxcAkBMw7xQYk=;
+        b=dwd25gZJKdv1I3iPk/ru9CajteBR4dRIQXfE6pxQE9Q/GxNrg6RCgJEsdMM0/WCOg9
+         pWTE9KMkq4uwTMKc0ohbuJIaf9XeKYT9Op0dKhjW/XyrMyn34RkWTzb1pzfcjvj+3TnZ
+         48XmYQYQUZlAF+/bKu4wsmHPOjmJYzDzOxhE3EVnEAbAbNStXzvncaoqA4EliyTBDcoS
+         FDqa3X36a5ekr74HnfDL2SL+O7sQwHdMsLcnBykkSM1lj2kKTkhINtL4TrY76X0iWIpZ
+         ELJCgh2vH81jT33iG0PsDyTT2TBaPOF1xLCd6r8alctpFFgYQ3u/UHsZMW/rZVr6K1Ze
+         PiXA==
+X-Gm-Message-State: AOJu0YzewxSmnyO6Sslei0uJRoZy5/AriKDuxfqRv0/kvzh4CQoRfqTv
+	vPzM8NalqtPzju7uEUglPBrd7w==
+X-Google-Smtp-Source: AGHT+IGWzO6rzG5SSttMgmhDr0NNqPHWG5JVjfVEnBJ6K61otFJ0lokTV1VATssH4PYPokePCd6fLg==
+X-Received: by 2002:a2e:9b13:0:b0:2c5:2813:5534 with SMTP id u19-20020a2e9b13000000b002c528135534mr9234699lji.51.1700221475597;
+        Fri, 17 Nov 2023 03:44:35 -0800 (PST)
+Date: Fri, 17 Nov 2023 12:44:33 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v7 2/2] xen/vpci: header: filter PCI capabilities
+Message-ID: <ZVdSIUSDA5den3a3@macbook.local>
+References: <20230913143550.14565-1-stewart.hildebrand@amd.com>
+ <20230913143550.14565-3-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8771:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3aa0a871-94cd-41c8-46fe-08dbe761d66f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	RwDA6mU7SiJEqCWpFDTFEmDPymkBswAiwEl9VDCO7RA67ppVKNgCHFQykuh7+OZaAh+72/V0qt2ayl0S7dZjfXR6kRWmuon+Qr7hJwzEILwdkzHWE0cSQrFU8rgsEGA4Fs79VqYqdu4NtieO1MXxFvYfBKievzQ2Aj5w86xB805lyrEmUxQhP7nSGSksA52/7L/mj6EDkudlM9eAtbBpuFkScTCW+qlGoZ5fk0ToqEihtXLZzFCn2TZsJ43KYhCfPJa+Ao3eU2U612jaC/JgdA0E/XxsPQpDH2toIIBAwq0dmE5BZV0dirZyQ55v3WGAxO8HooyRJC+6EsVRs0SqSfOGKjSUbyPf3noh+GnCPm1/FdUMEptmZDptQvI73G/tF5DvAKbGBwxNIkXP8EuDuQM/68Oe+zwsT38f9FpXu6W65htKtlfIJoUTZJxTQ2JfO9uoFjt/1BJF+XwELJlE/nd4ysur9U2wVSryPeAij2H+v3nHkJQib0PBK4OdGhjAgKFkk1vTBvF+IuCOR2DA5VcGSK8UYqYjzeMrCZMvo5RDd5LHbvpXHw8jNnUSRVPdsRBOzoONalUfSwSTHoVCtG9eTLzpSqmbCViQsdCjdR3mNZ5ubMDhHEVAZVva6hyYhE6d1AVuwxsBaf53G1Spsw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(39860400002)(396003)(366004)(376002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(53546011)(6506007)(6512007)(6486002)(36756003)(38100700002)(6666004)(2906002)(26005)(31696002)(31686004)(86362001)(5660300002)(8676002)(8936002)(4326008)(7416002)(2616005)(478600001)(316002)(6916009)(66556008)(54906003)(66476007)(66946007)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WTl6Nm9KcHl5UWwrckFTeGM3U3NJa09jREtnRE4wVW5hTEVuYUhuYlRRa3B1?=
- =?utf-8?B?OTJPNWc5dmF4RjJTeG5aSE9jTkVRb0pRNEoya1VuMmlqOWJmRDY5eEZKN1NT?=
- =?utf-8?B?UWZvK2plK2R0M09aYlBhVnZabmVJdUxPOTJrbjN1KzM5K0QyaFlEMy9YL2ZG?=
- =?utf-8?B?WlViRWFOR3NSZTFTMjZwYnRYdkJENk5OWUhUMHBRaytWQjZrQnp5TXJZcmFv?=
- =?utf-8?B?dTFaVmVXZ0VIUHRpc2hLemYzbWduU016MFlKOUJkTlY1MjlIb0E0QzFub3JM?=
- =?utf-8?B?SjA1ck1Cc1hhZDdsVmRXNVZWMmFyaHluQnlvcVEwbTlsTmhPQ0tyYzJNUndT?=
- =?utf-8?B?S2JTOFUxUjMzVldBamFLQzVMN1pnRkhhZzlGZUVnMkdha2Q4di9kMm1melBq?=
- =?utf-8?B?cEx1d1FxYjEybUliNXpLTm00YitQKzRNN0M4UmJPN1UzN0xIalhCcDlRYnhi?=
- =?utf-8?B?dzM5WWh1ZXNJSUx3NnVua3gzbDhLR3d1L0tZK0x3dTVuWW4vWjBBanU5cU44?=
- =?utf-8?B?OHcxTFR2elVQbWVDUzFHU1RveE41WTAyeThoNXN3MndXdUZrMlBiRnF4Nisw?=
- =?utf-8?B?VkpSWHdjL01aQzZKazNsZnlDcThDVUNkOEhnOUNCcW5RT2c4bXM2MmptMkxl?=
- =?utf-8?B?eFBCNk1KOXBOcjRoU29EbStxUGMzNTFIWGdpN1dWU1ErTkRnVVRXL2VyQ1NZ?=
- =?utf-8?B?eml3cEo4dVBPaWo4dGl5SldKMWJEenlRYWE2dytQSm1TTUVsbWNZekZCaEZu?=
- =?utf-8?B?aVdmVnZHMXpZdU9CTzNtcVJpUTZ5b1ROc2xEclJObzc5Z2RNVWxTSHVsdk1F?=
- =?utf-8?B?aEdVMi9iNXhTbysxak1rYldVczBQTWhkSUkrL2poQ3NKR3R4T21mRHhUMXJp?=
- =?utf-8?B?RjVFR2JnaDVVS1l6Q20yQllBdGFSdXRwZCtWdE0xMXA3djJMdDJBa01idHMz?=
- =?utf-8?B?djRRdmI5M2FLOG9RZTFMQ3pLYm1lUmZUWHZXcmlsV1J4RVZlTHVTcDZVM3d6?=
- =?utf-8?B?eWt0MVEvSkdZOGdCYlIzNkFSb2Zwdkt4V0t0cStBOFVmY2NsNjhSdEdUdGli?=
- =?utf-8?B?OThIV0J3WXBkVkNBRFhZWjRUTWh3VENrSVNQSDE1ZjVkdkZNcHI4WDFleVNM?=
- =?utf-8?B?OVB1cFVsbzJpdnNXUVZFVXc5dmNTeVJhQzZ3Zi9RZVZCc3NBeWJDKzBaSHVB?=
- =?utf-8?B?OHBGK2kxUDVmWTJMNnJnR21mOVhDSTJmMUFaVmtuUXM1TmNmNWtCWldLeS9C?=
- =?utf-8?B?U3pxTkordnR3QWE2Q2hJTElxeFFEVUhKdnJVSGxrM0U2T1pOVkUrL1YrbHYy?=
- =?utf-8?B?UVl2ampYUmQxaGl0eXJYaXc0MG9RSjYvVW9kQklFellzcjBIRmRiQiszMWk1?=
- =?utf-8?B?VjcwbnY0R1NlUVh2YlpuamR5cFhMcXV1aFZpU1RLWGZ6UmpYSzRpSWJLd3Yx?=
- =?utf-8?B?Mmh1dzhyZTRhd2ZIb3dlU1Izem1iQ3czc0pCQlBlMktzZ2FCTW5IWGl2a1Qx?=
- =?utf-8?B?dk9IaGM0ZHg3ZXNUMXdPaWtzenFBTGZidDBidkRVTVdJdU0rTVE4UVFCcGJu?=
- =?utf-8?B?bG1EZ1lOM21FYTNQOEZZZEM2ZW9WUHJRRWlVK1FJSE1EMlVyVFMrNEU0UGM4?=
- =?utf-8?B?NHk0UzRQNEhzRVRuT3JZMEN0dnFjM3dNQjNBdGdXRGVLRUlMdk5IVXdzQW5P?=
- =?utf-8?B?ZFQxdWttckhjV3dmNEgyMFpsQzlUVEFtUXMyZUpJYUMwVGIrZWRVL0FTOCtZ?=
- =?utf-8?B?aXlDYndvREpKZmpaRUd1OEZDUTBLbUZBUWV1dy9DSllqRDFvRkhLWndGZytt?=
- =?utf-8?B?TkV1SjZsUmg1ZjNoai8yLzc5TE9XWFErWERVZEFRMWxhSVRkOFBwa2VPU2hN?=
- =?utf-8?B?bStqZENicUk3ZmtCbDJHRWFjRjRxaER6T3hBZ0lZMkhUb3NNcU02L2IxQWpo?=
- =?utf-8?B?YTNUQ1NubWRYMVcvNTR3OVJCWVJ2aU02and3U0s0bHc5cHZVWGhvVE5HM2kx?=
- =?utf-8?B?WVlWcUU5MzB1MGRLeTBoN21tenZDZnM1LytLckxBSXk4clgwcGFreWRxWUt2?=
- =?utf-8?B?MkRHQmF5MWVNOWVySFpMMFJiRysrN2lPa2g2U3l0TE1ZQ3MwY1Mrak82Rllk?=
- =?utf-8?Q?fgc0K3xg+8lqxrKccqnbGYFNk?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3aa0a871-94cd-41c8-46fe-08dbe761d66f
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2023 11:39:19.9704
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eLO58AsBlb4sT5rx4XEeFauFQH3JQrkRzQzPiiTXBtjmqB8v5ctTZH0azcglbxxU6qvASNSFXbaO2CP9Ne5DbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8771
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230913143550.14565-3-stewart.hildebrand@amd.com>
 
-On 17.11.2023 11:17, Nicola Vetrini wrote:
-> Hi all,
+On Wed, Sep 13, 2023 at 10:35:47AM -0400, Stewart Hildebrand wrote:
+> Currently, Xen vPCI only supports virtualizing the MSI and MSI-X capabilities.
+> Hide all other PCI capabilities (including extended capabilities) from domUs for
+> now, even though there may be certain devices/drivers that depend on being able
+> to discover certain capabilities.
 > 
-> As discussed in this thread [1], which is about complying with MISRA C 
-> Rule 10.1,
-> a macro was introduced to encapsulate a well-known construct:
+> We parse the physical PCI capabilities linked list and add vPCI register
+> handlers for the next elements, inserting our own next value, thus presenting a
+> modified linked list to the domU.
 > 
-> /*
->   * Given an unsigned integer argument, expands to a mask where just the 
-> least
->   * significant nonzero bit of the argument is set, or 0 if no bits are 
-> set.
->   */
-> #define ISOLATE_LSB(x) ((x) & -(x))
+> Introduce helper functions vpci_hw_read8 and vpci_read_val. The vpci_read_val
+> helper function returns a fixed value, which may be used for RAZ registers, or
+> registers whose value doesn't change.
 > 
-> This macro has a gained some calls in the subsequent patches in that 
-> thread, but concerns were raised around the fact that it would be better 
-> to devise a macro that evaluates its argument only once. A proposed 
-> solution is this (thanks to Jan Beulich):
+> Introduce pci_find_next_cap_ttl() helper while adapting the logic from
+> pci_find_next_cap() to suit our needs, and implement the existing
+> pci_find_next_cap() in terms of the new helper.
 > 
-> #define ISOLATE_LSB(x) ({ \
->       typeof(x) x_ = (x); \
->       x_ & -x_; \
-> })
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v6->v7:
+> * no change
 > 
-> However, it can't be used in all call sites that the previous macro 
-> would have once that series is committed, as can be seen in [2]. 
-> Therefore, while the implementation looks ok,
-> a case has been made to have separate macros, of which the latter form 
-> is preferred.
+> v5->v6:
+> * add register handlers before status register handler in init_bars()
+> * s/header->mask_cap_list/mask_cap_list/
 > 
-> The following points require some thought:
+> v4->v5:
+> * use more appropriate types, continued
+> * get rid of unnecessary hook function
+> * add Jan's R-b
 > 
-> - where the single evaluation macro should be placed?
->    One proposed location is xen/include/xen/bitops.h
+> v3->v4:
+> * move mask_cap_list setting to this patch
+> * leave pci_find_next_cap signature alone
+> * use more appropriate types
+> 
+> v2->v3:
+> * get rid of > 0 in loop condition
+> * implement pci_find_next_cap in terms of new pci_find_next_cap_ttl function so
+>   that hypothetical future callers wouldn't be required to pass &ttl.
+> * change NULL to (void *)0 for RAZ value passed to vpci_read_val
+> * change type of ttl to unsigned int
+> * remember to mask off the low 2 bits of next in the initial loop iteration
+> * change return type of pci_find_next_cap and pci_find_next_cap_ttl
+> * avoid wrapping the PCI_STATUS_CAP_LIST condition by using ! instead of == 0
+> 
+> v1->v2:
+> * change type of ttl to int
+> * use switch statement instead of if/else
+> * adapt existing pci_find_next_cap helper instead of rolling our own
+> * pass ttl as in/out
+> * "pass through" the lower 2 bits of the next pointer
+> * squash helper functions into this patch to avoid transient dead code situation
+> * extended capabilities RAZ/WI
+> ---
+>  xen/drivers/pci/pci.c     | 26 +++++++++-----
+>  xen/drivers/vpci/header.c | 76 +++++++++++++++++++++++++++++++++++++++
+>  xen/drivers/vpci/vpci.c   | 12 +++++++
+>  xen/include/xen/pci.h     |  3 ++
+>  xen/include/xen/vpci.h    |  5 +++
+>  5 files changed, 113 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/drivers/pci/pci.c b/xen/drivers/pci/pci.c
+> index 3569ccb24e9e..8799d60c2156 100644
+> --- a/xen/drivers/pci/pci.c
+> +++ b/xen/drivers/pci/pci.c
+> @@ -39,31 +39,39 @@ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap)
+>      return 0;
+>  }
+>  
+> -unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+> -                               unsigned int cap)
+> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+> +                                   bool (*is_match)(unsigned int),
+> +                                   unsigned int cap, unsigned int *ttl)
 
-Or next to the existing one in macros.h. I can see pros and cons for either.
+Maybe this has been discussed in previous patch versions, but why
+pass a match function instead of expanding the cap parameter to
+be an array of capabilities to search for?
 
-> - is the proposed form actually the best, or maybe it could be an inline 
-> function?
+I find it kind of weird to be able to pass both a specific capability
+to match against and also a match function.
 
-How would you make such a function type generic?
+What the expected behavior if the caller provides both a match
+function and a cap value?
 
-Jan
+>  {
+> -    u8 id;
+> -    int ttl = 48;
+> +    unsigned int id;
+>  
+> -    while ( ttl-- )
+> +    while ( (*ttl)-- )
+>      {
+>          pos = pci_conf_read8(sbdf, pos);
+>          if ( pos < 0x40 )
+>              break;
+>  
+> -        pos &= ~3;
+> -        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
+> +        id = pci_conf_read8(sbdf, (pos & ~3) + PCI_CAP_LIST_ID);
+>  
+>          if ( id == 0xff )
+>              break;
+> -        if ( id == cap )
+> +        if ( (is_match && is_match(id)) || (!is_match && id == cap) )
+>              return pos;
+>  
+> -        pos += PCI_CAP_LIST_NEXT;
+> +        pos = (pos & ~3) + PCI_CAP_LIST_NEXT;
+>      }
+> +
+>      return 0;
+>  }
+>  
+> +unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+> +                               unsigned int cap)
+> +{
+> +    unsigned int ttl = 48;
+> +
+> +    return pci_find_next_cap_ttl(sbdf, pos, NULL, cap, &ttl) & ~3;
+> +}
+> +
+>  /**
+>   * pci_find_ext_capability - Find an extended capability
+>   * @sbdf: PCI device to query
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index af267b75ac31..1e7dfe668ccf 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -513,6 +513,18 @@ static void cf_check rom_write(
+>          rom->addr = val & PCI_ROM_ADDRESS_MASK;
+>  }
+>  
+> +static bool cf_check vpci_cap_supported(unsigned int id)
+> +{
+> +    switch ( id )
+> +    {
+> +    case PCI_CAP_ID_MSI:
+> +    case PCI_CAP_ID_MSIX:
+> +        return true;
+> +    default:
+> +        return false;
+> +    }
+> +}
+> +
+>  static int cf_check init_bars(struct pci_dev *pdev)
+>  {
+>      uint16_t cmd;
+> @@ -545,6 +557,70 @@ static int cf_check init_bars(struct pci_dev *pdev)
+
+We might have to rename this to init_header() now :).
+
+>      if ( rc )
+>          return rc;
+>  
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +    {
+> +        if ( !(pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST) )
+> +        {
+> +            /* RAZ/WI */
+
+That RAZ/WI acronym seems very Arm specific (TBH I had to search for
+it).
+
+FWIW, it's my understanding that if the status register doesn't report
+the capability list support, the register is unimplemented, and hence
+would be fine to return ~0 from reads of PCI_CAPABILITY_LIST?
+
+IOW: I'm not sure we need to add this handler for PCI_CAPABILITY_LIST
+if it's not supported.
+
+Thanks, Roger.
 
