@@ -2,46 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF447EEA4B
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 01:23:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634767.990245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D36A7EEA6F
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 01:44:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634772.990255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3me2-00018H-Hj; Fri, 17 Nov 2023 00:23:38 +0000
+	id 1r3mxE-0005xX-Ac; Fri, 17 Nov 2023 00:43:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634767.990245; Fri, 17 Nov 2023 00:23:38 +0000
+Received: by outflank-mailman (output) from mailman id 634772.990255; Fri, 17 Nov 2023 00:43:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3me2-00015u-El; Fri, 17 Nov 2023 00:23:38 +0000
-Received: by outflank-mailman (input) for mailman id 634767;
- Fri, 17 Nov 2023 00:23:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r3mxE-0005ug-7e; Fri, 17 Nov 2023 00:43:28 +0000
+Received: by outflank-mailman (input) for mailman id 634772;
+ Fri, 17 Nov 2023 00:43:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1XSP=G6=epam.com=prvs=568571a16b=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1r3me0-00015Y-39
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 00:23:36 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8aad8723-84df-11ee-98dc-6d05b1d4d9a1;
- Fri, 17 Nov 2023 01:23:34 +0100 (CET)
-Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AGNXLKt015452; Fri, 17 Nov 2023 00:23:27 GMT
-Received: from eur04-he1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3udhuvt6ma-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Nov 2023 00:23:26 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
- by GV1PR03MB8765.eurprd03.prod.outlook.com (2603:10a6:150:8b::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.23; Fri, 17 Nov
- 2023 00:23:21 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7002.021; Fri, 17 Nov 2023
- 00:23:20 +0000
+ <SRS0=5d38=G6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r3mxD-0005ua-6h
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 00:43:27 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f4fff77-84e2-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 01:43:23 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5D34BCE2304;
+ Fri, 17 Nov 2023 00:43:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51D1C433C8;
+ Fri, 17 Nov 2023 00:43:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,260 +42,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8aad8723-84df-11ee-98dc-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RtcfnA9GRcpryy0wVpIHgHX5LtSARekptl7sZc/iL9danjuH8/MJ6fiXpW8k/sT223AtHkfB1oggnOpxXNahmzcBOaabZGPJoBUlIk2mLoVfdIKJ7dBy2QAq10w+r0w/vC38AHOAu9Mfk5nmIW2noaypbJ/0JmOh4jp+xaaNFqY5NAD3CrwDyhGRk4yXPxQECvcGF/SSqvGDVU1rY33RKtZrRYEkFlN8LmvifOQqE1T+CHo0SdmlVikUc4/uqyjNIM5p11KGKpDNM1Bt3E4L8xomFsJKH22xWnCYfhX7aCJMiTPxWp6DyiOFSXf45kcQA+3XSZz5Fazn3pi84qCjDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MzYVP+bjllP06yFDXRnAeEPwHMmHpAPVPwmTc967Exs=;
- b=S72oVX0MGbmaV3XPv4Jg8wYJJ8qyYlDHn91mBj062h+3hJ1bPzeYqeUwGMhjGuD96h8pGU7no7mp5foE+zprvPLqwbemHuX2ztDHIHNULknROfHL7QmOmQcU2f8YenNjYvczPg6g8IfdjvV/+dM3Y2LGf3i7rAn6oPVpj+yl6Io4NdrbHpDw5PryKLcy66vOqRKpB07nve5u0fqZEhMoaBuTNEOJtDzfCPs957LyaWqVGqRq7mWdSaGIlPSpV1dLExxBY3AC1LtJXipZ3fJYdMmk+WMQ6hKpxeKtiC+ffxaMIbsiehV1N4JGnfKvmtXsnZaYEs13QbHg9i6ph0FTDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MzYVP+bjllP06yFDXRnAeEPwHMmHpAPVPwmTc967Exs=;
- b=PdZ9aoVz53uFqjbB/nu2JLgnoOHVw13kgTPE0Z2IcQuc7rHUcqsZQscfPfH9n8d/3tk5MqQJQSI7rl+Ox8/VLY6VLH2qYsmdMD3NkVikg5Y8S+3hhh/dziScA+gvBH4JAqU5Ma8Uz6HvZqcAwewRYKfUHuOPu8k8rNhtsaTdZlZdki99NS58N0ZUIRq4GLLccqZOkc3dCG5ApcjMGGKivu7Lpgou2zPo84eu6wjN870zq9JYLrljwrZIvCznPOhUEom0Og3Dk0iSQq2AHnuN2gEyGbSTamN5SHRuTcNjzcHrTbjH7QQDwD3ZcTi18UA500rFAVneI/n2u5Wpt7w+ZQ==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
-        Julien Grall
-	<julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Bertrand
- Marquis <bertrand.marquis@arm.com>,
-        Michal Orzel <michal.orzel@amd.com>,
-        "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>,
-        Stewart Hildebrand
-	<stewart.hildebrand@amd.com>
-Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
- virtio-pci
-Thread-Topic: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
- virtio-pci
-Thread-Index: AQHaF7/0FLT7PaxCl0mKzTq8kNpAxLB7mIqAgABuuwCAAP6dAIAAjTaAgAAVo4A=
-Date: Fri, 17 Nov 2023 00:23:20 +0000
-Message-ID: <87h6ll4493.fsf@epam.com>
-References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com>
- <20231115112611.3865905-3-Sergiy_Kibrik@epam.com>
- <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org>
- <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com>
- <alpine.DEB.2.22.394.2311151518500.160649@ubuntu-linux-20-04-desktop>
- <875y2168ki.fsf@epam.com>
- <alpine.DEB.2.22.394.2311161504440.773207@ubuntu-linux-20-04-desktop>
-In-Reply-To: 
- <alpine.DEB.2.22.394.2311161504440.773207@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.10.7; emacs 29.1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|GV1PR03MB8765:EE_
-x-ms-office365-filtering-correlation-id: d8f019e3-cb1c-4b76-159f-08dbe703675c
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- DLBtAXZxcWJ4UbP6Aq0JmiWvkd4WQuOc8MTaCj3pDU3fqJY7nyokGYgiG3U92CjIho6XJ/LhkV/9+miv0N/mQrTgbUFOg4Lu+BIvxxRDO1ltk+29eBGT7ijR1YntWeDlONY6nZ6NtaIV0iA1zACDn8XeiKn/rAUcA3Jyz6EYWbqE/K7pfcNcZBioz+KyTMa3y9eX1i2VxUJblb1935QJg3If5+npYvkocrpEMjlDucchj23Yj4nq6fGy4qnqonHPER0qro4q0k2uTWHzyCfvOauNqzE+4lKaUVuxh70UOy8ZnqcYxkujCs0uCtj/N9g8bEwPntpl+F8/O1hQu7sxtaqP8WoZMsTuSBMkyVRp+19c5MnF+7l5O8coAS7VGGM5ifa24yEU2hzqGnLVJyKKj8Airm14ykdI+Y/XS3sPqeb6TM2idC7KYy9aNbaeSqkjcOckOEi/nauAnrsS3LXQ+Xuf345NSYI9U6oxMrW2SMVMCNhITpL2iGIKpWZML3jLm9PIQOe6B+J9eZHlgW2pOwVlYO9B4+nT21umpgFqoWR/vx/OfjrLBe02PSX7p1l+UxTADrFJF2iBI0dTx6M+cZwau5XwSprfDz8UzcnjTNPWFuyB5RL2uGyiLlizYb1h
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(396003)(346002)(136003)(376002)(230922051799003)(1800799009)(451199024)(186009)(64100799003)(53546011)(55236004)(71200400001)(478600001)(83380400001)(2616005)(6512007)(6506007)(26005)(6486002)(6916009)(316002)(66946007)(76116006)(66476007)(66446008)(64756008)(54906003)(66556008)(91956017)(8676002)(8936002)(38070700009)(5660300002)(38100700002)(2906002)(86362001)(4326008)(41300700001)(122000001)(36756003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?hAYJ3xVK/FwR6hzqG5DT0FFstiDFm2s/hvifBEKzXe0M1FsuKOz9fUlixx?=
- =?iso-8859-1?Q?o60Nj7rnRpKCic3PVmcayFZRtTFHVZJGArMLgebzRi9qkmL+e6auYTwjKJ?=
- =?iso-8859-1?Q?vix2RrogvMbbLgaRFfratnW5TPrCLx4mJhTBFAdRwHQJC4Ktvut/E/KpKz?=
- =?iso-8859-1?Q?iVcwrQ0D8phEz8p0h7uhL7j3aMhzebUC9JACKyto5Q4ddFUucMhwLX/KY5?=
- =?iso-8859-1?Q?c6mXyw5qGoe2OS6QtUWSncuG+AdDXlNse/vONGkUhGApdwTrups++r8G4P?=
- =?iso-8859-1?Q?aMYdhmeKRyo4fTWOzxWyVZpdJZo68ppB9Q81cE6fvY8S8aJOHFFdrLtRyg?=
- =?iso-8859-1?Q?w5Xiw/4V9GWScBJZTRm00Zx/meQ9ir+D+l5K4yXCQGCdW+dw+C2IvKfDmt?=
- =?iso-8859-1?Q?4h3ky/a/xvuh/SGtT4G9rjZKCCaGxOmwe6pJuSlwsI4IZJ424/CZ3FpdnM?=
- =?iso-8859-1?Q?VpSawBCwFMJtXfS1YBqhNLbFGq2Rq3f6Ct+Z4qxdm7Ag0fkkN8yxP59Go+?=
- =?iso-8859-1?Q?0QIP8vVHB2YF5NX7fH1M9g9ZaVOJdIwyoRGm6sMAggY8yrRVbX7fs49mzZ?=
- =?iso-8859-1?Q?z0SChZVwFXZv8IMyZckOZHUplDeiF915s1eMJozvIBqDrpd8bEJQjphD6x?=
- =?iso-8859-1?Q?oy4IdtgFsqEA74Ylhx/EqpSBxkEi/l1iWGGaSHoTSQpdbbPx0W+Ty6f7Mb?=
- =?iso-8859-1?Q?GGroLPfA8L++y1UyK+Nbuk4azcDuxdPk5MWlzhSz2hmaKgJMAzTsXxO8RH?=
- =?iso-8859-1?Q?KFp/hR3La2mYzR0Vdr1WuZiIdH154t2ypyTVZieocxq4tAQn2Ton113weu?=
- =?iso-8859-1?Q?KIvrrDoFlsrG8P+cXrhTbWc67scRncTtH3nA1VD+sKgk5BbfoLo0wREJzw?=
- =?iso-8859-1?Q?FZ+UuHkW2y4sxD8bjocofwlzBdJGn0DerzTDG/SmXHAEFsGwa5RdNG/t+F?=
- =?iso-8859-1?Q?Sl97yEH8vko1JMZlH8nW3uv5ztw/p2YXZDC3gqTgy6xfqm2AbeddUxnHya?=
- =?iso-8859-1?Q?5tLE1AeA83zpaLDqXpqFkyxcDTXqmuTscHBNUo3NTZDRzrst9cQ2HXKLiw?=
- =?iso-8859-1?Q?N+OZjWVY7RJEoZL/MtHvUd1X1saKBpwxuvREtR+XT2Ug//6OdXr9nVgpnQ?=
- =?iso-8859-1?Q?7Ybyk2TB21OVfRECwIUKtXDLmDzcsALhRwBTRhCsLXWubP9usSU4YjClOW?=
- =?iso-8859-1?Q?c1VUDS9E1ksoYJXLMtOWeSV+Kjmie5oLd/TgJcNQyCQQRB88F8DlcQlJE1?=
- =?iso-8859-1?Q?IwBf7h5jU2geqfksgn7EG6UswgSO7hQUEWrHNZ0BRxdlU61gurZxaffCXC?=
- =?iso-8859-1?Q?9Rv/AQZOJLlsb3N9JCGJ+G7EZu0Axth2CZ/7oCQvluyOX0hszsk0e31Zvl?=
- =?iso-8859-1?Q?tTzmTU1HCJbQ5Uw/wBLy7pQZSI7t5mQ/iJVif7xD3tr7+6aF3A/7qI/M8F?=
- =?iso-8859-1?Q?FyyqyR+vkXGXGxNLKjiCPAxOJYobZMcWnFiYig5Y4LP1NjZRLWaYxR1uS9?=
- =?iso-8859-1?Q?eG7KPFjs9qOH9h7D/Iptf8RgsDTy83y4CgsEXcAfUB8IJXAB53+RgapxuI?=
- =?iso-8859-1?Q?iznf+XuuxMv1JN6TV+At1ZpCpA0jvLD1e6BRGn5ruBKpo5sPiC4JOTFlQV?=
- =?iso-8859-1?Q?QgO0zS6z5w0VLH6jSpse/1sDqyOu64VN2pT88cpbq0swM1PAzcsVKh0A?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 4f4fff77-84e2-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700181800;
+	bh=JBPVIVIWsFABvhAUH9JSdi0RCuYl91TU/76bDgyqrwA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nCzpI7qAbNpOYQl/6T0e3KWPWIjoIdJhHjtrnE2XXkE8vuPQ/u865Fx28jMjjVR3X
+	 FcbaILrmINcQFxwp4BUGS6xExA/M0EB1ocVQfeeU+VrgrQblCyhi2qooqUGXwqA5ZI
+	 LfTGOJBrBCFVKDye3HROSRHDIz2Q2NvmXN5hWk12TIBkhBgvTAjcrAGd0sF4U5C4hH
+	 7dl2v4AuoP5U/WXyUsuu6gk/eG+mm1Ahvf867VEIwEjHX0xwfRcsoFipjC6Jkco/zO
+	 KC+m/wHmi/We2/Zp+QG3lI95tGBzth7mFyLgx+85SLCurZcBsb3PCSj3wRSTjaV955
+	 g6uctYJzu2cpA==
+Date: Thu, 16 Nov 2023 16:43:17 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, michal.orzel@amd.com, 
+    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, andrew.cooper3@citrix.com, roger.pau@citrix.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH][for-4.19 v4 1/8] xen/include: add macro
+ ISOLATE_LOW_BIT
+In-Reply-To: <7cbf6f0f-d5b1-44e2-9a0e-a9d7d353eb6b@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2311161635200.773207@ubuntu-linux-20-04-desktop>
+References: <cover.1698410970.git.nicola.vetrini@bugseng.com> <dca236bf9199f596bafb35eb48d81adc280d8cca.1698410970.git.nicola.vetrini@bugseng.com> <f88edc35-6b1b-0136-aa1f-6429652c4016@suse.com> <alpine.DEB.2.22.394.2310301536390.1625118@ubuntu-linux-20-04-desktop>
+ <7c26fb70-6a8c-58a3-6a1d-300dd57b5827@suse.com> <817fab34432c854ce585aba80db77f7c@bugseng.com> <8b4e0da82930375b2a95387a9031c73f@bugseng.com> <1178b79c-d6a3-a46c-5556-3fb5964dc051@suse.com> <392566d1-109b-413c-b904-0e4cb4007263@suse.com>
+ <6b6f051130b724ee6a813235e049354c@bugseng.com> <7cbf6f0f-d5b1-44e2-9a0e-a9d7d353eb6b@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8f019e3-cb1c-4b76-159f-08dbe703675c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2023 00:23:20.7495
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FUao/bt/mBn+YXW+dRmY4EJzubVgTRUSpfDKBDsHLb5b1U84VNByHH6LcpNHpBdN7JrubNnjUE9zMtrDZ8qwIEpfrDtrMPl9G/CcUGOFNOA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB8765
-X-Proofpoint-GUID: oPh3WBxziuWjx4_GNnKpKjalTNgvqQdE
-X-Proofpoint-ORIG-GUID: oPh3WBxziuWjx4_GNnKpKjalTNgvqQdE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-16_24,2023-11-16_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 malwarescore=0
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- adultscore=0 mlxlogscore=999 impostorscore=0 spamscore=0 clxscore=1015
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311170000
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 16 Nov 2023, Jan Beulich wrote:
+> On 16.11.2023 11:02, Nicola Vetrini wrote:
+> > On 2023-11-16 09:26, Jan Beulich wrote:
+> >> On 31.10.2023 11:20, Jan Beulich wrote:
+> >>> On 31.10.2023 11:03, Nicola Vetrini wrote:
+> >>>> On 2023-10-31 09:28, Nicola Vetrini wrote:
+> >>>>> On 2023-10-31 08:43, Jan Beulich wrote:
+> >>>>>> On 30.10.2023 23:44, Stefano Stabellini wrote:
+> >>>>>>> On Mon, 30 Oct 2023, Jan Beulich wrote:
+> >>>>>>>> On 27.10.2023 15:34, Nicola Vetrini wrote:
+> >>>>>>>>> --- a/xen/include/xen/macros.h
+> >>>>>>>>> +++ b/xen/include/xen/macros.h
+> >>>>>>>>> @@ -8,8 +8,14 @@
+> >>>>>>>>>  #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
+> >>>>>>>>>  #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+> >>>>>>>>>
+> >>>>>>>>> -#define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
+> >>>>>>>>> -#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
+> >>>>>>>>> +/*
+> >>>>>>>>> + * Given an unsigned integer argument, expands to a mask where
+> >>>>>>>>> just the least
+> >>>>>>>>> + * significant nonzero bit of the argument is set, or 0 if no 
+> >>>>>>>>> bits
+> >>>>>>>>> are set.
+> >>>>>>>>> + */
+> >>>>>>>>> +#define ISOLATE_LOW_BIT(x) ((x) & -(x))
+> >>>>>>>>
+> >>>>>>>> Not even considering future Misra changes (which aiui may require
+> >>>>>>>> that
+> >>>>>>>> anyway), this generalization of the macro imo demands that its
+> >>>>>>>> argument
+> >>>>>>>> now be evaluated only once.
+> >>>>>>>
+> >>>>>>> Fur sure that would be an improvement, but I don't see a trivial 
+> >>>>>>> way
+> >>>>>>> to
+> >>>>>>> do it and this issue is also present today before the patch.
+> >>>>>>
+> >>>>>> This was an issue here for MASK_EXTR() and MASK_INSR(), yes, but 
+> >>>>>> the
+> >>>>>> new
+> >>>>>> macro has wider use, and there was no issue elsewhere so far.
+> >>>>>>
+> >>>>>>> I think it
+> >>>>>>> would be better to avoid scope-creeping this patch as we are 
+> >>>>>>> already
+> >>>>>>> at
+> >>>>>>> v4 for something that was expected to be a trivial mechanical 
+> >>>>>>> change.
+> >>>>>>> I
+> >>>>>>> would rather review the fix as a separate patch, maybe sent by you 
+> >>>>>>> as
+> >>>>>>> you probably have a specific implementation in mind?
+> >>>>>>
+> >>>>>> #define ISOLATE_LOW_BIT(x) ({ \
+> >>>>>>     typeof(x) x_ = (x); \
+> >>>>>>     x_ & -x_; \
+> >>>>>> })
+> >>>>>>
+> >>>>>> Hard to see the scope creep here. What I would consider scope creep 
+> >>>>>> I
+> >>>>>> specifically didn't even ask for: I'd like this macro to be
+> >>>>>> overridable
+> >>>>>> by an arch. Specifically (see my earlier naming hint) I'd like to 
+> >>>>>> use
+> >>>>>> x86's BMI insn BLSI in the context of "x86: allow Kconfig control 
+> >>>>>> over
+> >>>>>> psABI level", when ABI v2 or higher is in use.
+> >>>>>
+> >>>>> I appreciate you suggesting an implementation; I'll send a v5
+> >>>>> incorporating it.
+> >>>>
+> >>>> There's an issue with this approach, though: since the macro is used
+> >>>> indirectly
+> >>>> in expressions that are e.g. case labels or array sizes, the build 
+> >>>> fails
+> >>>> (see [1] for instance).
+> >>>> Perhaps it's best to leave it as is?
+> >>>
+> >>> Hmm. I'm afraid it's not an option to "leave as is", not the least 
+> >>> because
+> >>> - as said - I'm under the impression that another Misra rule requires
+> >>> macro arguments to be evaluated exactly once. Best I can think of 
+> >>> right
+> >>> away is to have a macro for limited use (to address such build issues)
+> >>> plus an inline function (for general use). But yes, maybe that then 
+> >>> indeed
+> >>> needs to be a 2nd step.
+> >>
+> >> While I've committed this patch (hoping that I got the necessary 
+> >> context
+> >> adjustment right for the 
+> >> automation/eclair_analysis/ECLAIR/deviations.ecl
+> >> change), I'd like to come back to this before going further with users 
+> >> of
+> >> the new macro: I still think we ought to try to get to the single
+> >> evaluation wherever possible. The macro would then be used only in 
+> >> cases
+> >> where the alternative construct (perhaps an isolate_lsb() macro, living
+> >> perhaps in xen/bitops.h) cannot be used. ISOLATE_LSB() would then want 
+> >> to
+> >> gain a comment directing people to the "better" sibling. Thoughts?
+> > 
+> > Having the users in place would help me estimate the remaining work that 
+> > needs to be done on this rule and see if my local counts match up with 
+> > the counts in staging.
+> 
+> By "having the users in place", you mean you want other patches in this
+> and the dependent series to be committed as-is (except for the name
+> change)? That's what I'd like to avoid, as it would mean touching all
+> those use sites again where the proposed isolate_lsb() could be used
+> instead. I'd rather see all use sites be put into their final shape
+> right away.
+
+This request is coming a bit late and also after all the patches have
+been reviewed already. I for one am not looking forward to review them
+again.
+
+That said, if you could be more specified maybe it could become
+actionable:
+
+- do you have a pseudo code implementation of the "better" macro you
+  would like to propose?
+- do you have an list of call sites you would like to be changed to use
+  the "better" macro?
 
 
-Hi Stefano,
+Also, you might remember past discussions about time spent making
+changes yourself vs. others doing the same. This is one of those cases
+that it would be faster for you to make the change and send a patch than
+explaining someone else how to do it, then review the result (and
+review it again as it probably won't be exactly as you asked the first
+time.)
 
-Stefano Stabellini <sstabellini@kernel.org> writes:
-
-> On Thu, 16 Nov 2023, Volodymyr Babchuk wrote:
->> Hi Stefano,
->>=20
->> Stefano Stabellini <sstabellini@kernel.org> writes:
->>=20
->> > + Stewart, Vikram
->> >
->> > On Wed, 15 Nov 2023, Oleksandr Tyshchenko wrote:
->> >> On 15.11.23 14:33, Julien Grall wrote:
->> >> > Thanks for adding support for virtio-pci in Xen. I have some questi=
-ons.
->> >> >=20
->> >> > On 15/11/2023 11:26, Sergiy Kibrik wrote:
->> >> >> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> >> >>
->> >> >> In order to enable more use-cases such as having multiple
->> >> >> device-models (Qemu) running in different backend domains which pr=
-ovide
->> >> >> virtio-pci devices for the same guest, we allocate and expose one
->> >> >> PCI host bridge for every virtio backend domain for that guest.
->> >> >=20
->> >> > OOI, why do you need to expose one PCI host bridge for every stubdo=
-main?
->> >> >=20
->> >> > In fact looking at the next patch, it seems you are handling some o=
-f the=20
->> >> > hostbridge request in Xen. This is adds a bit more confusion.
->> >> >=20
->> >> > I was expecting the virtual PCI device would be in the vPCI and eac=
-h=20
->> >> > Device emulator would advertise which BDF they are covering.
->> >>=20
->> >>=20
->> >> This patch series only covers use-cases where the device emulator=20
->> >> handles the *entire* PCI Host bridge and PCI (virtio-pci) devices beh=
-ind=20
->> >> it (i.e. Qemu). Also this patch series doesn't touch vPCI/PCI=20
->> >> pass-through resources, handling, accounting, nothing. From the=20
->> >> hypervisor we only need a help to intercept the config space accesses=
-=20
->> >> happen in a range [GUEST_VIRTIO_PCI_ECAM_BASE ...=20
->> >> GUEST_VIRTIO_PCI_ECAM_BASE + GUEST_VIRTIO_PCI_TOTAL_ECAM_SIZE] and=20
->> >> forward them to the linked device emulator (if any), that's all.
->> >>=20
->> >> It is not possible (with current series) to run device emulators what
->> >> emulate only separate PCI (virtio-pci) devices. For it to be possible=
-, I=20
->> >> think, much more changes are required than current patch series does.=
-=20
->> >> There at least should be special PCI Host bridge emulation in Xen (or=
-=20
->> >> reuse vPCI) for the integration. Also Xen should be in charge of form=
-ing=20
->> >> resulting PCI interrupt based on each PCI device level signaling (if =
-we=20
->> >> use legacy interrupts), some kind of x86's XEN_DMOP_set_pci_intx_leve=
-l,=20
->> >> etc. Please note, I am not saying this is not possible in general,=20
->> >> likely it is possible, but initial patch series doesn't cover these=20
->> >> use-cases)
->> >>
->> >> We expose one PCI host bridge per virtio backend domain. This is a=20
->> >> separate PCI host bridge to combine all virtio-pci devices running in=
-=20
->> >> the same backend domain (in the same device emulator currently).
->> >> The examples:
->> >> - if only one domain runs Qemu which servers virtio-blk, virtio-net,=
-=20
->> >> virtio-console devices for DomU - only single PCI Host bridge will be=
-=20
->> >> exposed for DomU
->> >> - if we add another domain to run Qemu to serve additionally virtio-g=
-pu,=20
->> >> virtio-input and virtio-snd for the *same* DomU - we expose second PC=
-I=20
->> >> Host bridge for DomU
->> >>=20
->> >> I am afraid, we cannot end up exposing only single PCI Host bridge wi=
-th=20
->> >> current model (if we use device emulators running in different domain=
-s=20
->> >> that handles the *entire* PCI Host bridges), this won't work.
->> > =20
->> >
->> > We were discussing the topic of vPCI and Virtio PCI just this morning
->> > with Stewart and Vikram. We also intend to make them work well togethe=
-r
->> > in the next couple of months (great timing!!)
->> >
->> > However, our thinking is to go with the other approach Julien
->> > suggested: a single PCI Root Complex emulated in Xen by vPCI. QEMU wou=
-ld
->> > register individual PCI devices against it.
->> >
->> > Vikram, Stewart, please comment. Our understanding is that it should b=
-e
->> > possible to make QEMU virtio-pci work with vPCI with relatively minor
->> > efforts and AMD volunteers to do the work in the next couple of months
->> > on the vPCI side.
->> >
->> >
->> > Although it should be possible to make both approaches work at the sam=
-e
->> > time, given that it would seem that EPAM and AMD have very similar
->> > requirements, I suggest we work together and collaborate on a single
->> > approach going forward that works best for everyone.
->> >
->> >
->> > Let me start by saying that if we can get away with it, I think that a
->> > single PCI Root Complex in Xen would be best because it requires less
->> > complexity. Why emulate 2/3 PCI Root Complexes if we can emulate only
->> > one?
->>=20
->> Well, in fact we tried similar setup, this was in the first version of
->> virtio-pci support. But we had a couple of issues with this. For
->> instance, this might conflict with PCI passthrough devices, with virtio
->> devices that have back-ends in different domains, etc. I am no saying
->> that this is impossible, but this just involves more moving parts.
->>=20
->> With my vPCI patch series in place, hypervisor itself assigns BDFs for
->> passed-through devices. Toolstack needs to get this information to know
->> which BDFs are free and can be used by virtio-pci.
->
-> I'll premise that I don't really have an opinion on how the virtual BDF
-> allocation should happen.
->
-> But I'll ask the opposite question that Julien asked: if it is Xen that
-> does the allocation, that's fine, then couldn't we arrange so that Xen
-> also does the allocation in the toolstack case too (simply by picking
-> the first available virtual BDF)?
-
-Actually, this was my intention as well. As I said in the another email,
-we just need to extend or add another domctl to manage vBFDs.
-
---=20
-WBR, Volodymyr=
+If you don't want the call sites to be changes twice, may I suggest you
+provide a patch on top of Nicola's series, I review and ack your patch,
+and Nicola or I rebase & resend the series so that the call sites are
+only changes once as you would like? I think that's going to be way
+faster.
 
