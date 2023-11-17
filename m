@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2907EEA9B
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 02:15:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634803.990345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D5E87EEB58
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 04:19:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634829.990356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nSJ-0007Wr-Pb; Fri, 17 Nov 2023 01:15:35 +0000
+	id 1r3pNJ-0002bk-Go; Fri, 17 Nov 2023 03:18:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634803.990345; Fri, 17 Nov 2023 01:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 634829.990356; Fri, 17 Nov 2023 03:18:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nSJ-0007Uj-Mx; Fri, 17 Nov 2023 01:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 634803;
- Fri, 17 Nov 2023 01:15:34 +0000
+	id 1r3pNJ-0002ZF-D1; Fri, 17 Nov 2023 03:18:33 +0000
+Received: by outflank-mailman (input) for mailman id 634829;
+ Fri, 17 Nov 2023 03:18:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5d38=G6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r3nSI-0007UV-CU
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 01:15:34 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Fp3v=G6=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1r3pNH-0002Z9-VJ
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 03:18:32 +0000
+Received: from sonic301-20.consmr.mail.gq1.yahoo.com
+ (sonic301-20.consmr.mail.gq1.yahoo.com [98.137.64.146])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc43400a-84e6-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 02:15:31 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8F3D4CE21FC;
- Fri, 17 Nov 2023 01:15:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F962C433C7;
- Fri, 17 Nov 2023 01:15:24 +0000 (UTC)
+ id f9d39f2a-84f7-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 04:18:29 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Fri, 17 Nov 2023 03:18:27 +0000
+Received: by hermes--production-ne1-56df75844-2xz9h (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 2d6715d33867073cd4a75dc60ca8514f; 
+ Fri, 17 Nov 2023 03:18:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,128 +42,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc43400a-84e6-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700183724;
-	bh=InRDp9G1uU4PcQDoE/JSVFCXhBDOGqsWBf+3hOzsdBs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GA9sAoVxkRZxR0/tfqXivD+FzvXu0mLprR2xSka1HRfBGaiKm5rb452ryChJmalaa
-	 M+lWHeoJ8hJEly1iS3t1ISpMvCOXly3Q49GwcE9I/1yLeV7Wr0KQp5BqNrfS16Iokm
-	 8sFHF0PsKHdm1686fCgaXnzU+sAjgqWBgrHpg3P/NnHPT2gEmABRFAjkZ/cqeQo2FU
-	 ukU+xmkL8jc237CG2pBLkBKGlE875a+u/pNqNDdt+uQbnBhNDVFF1wCKTFAx0kRLrY
-	 rldPtQJ9tXbyoRsAdbSyCgl4gu2JCYMQUogbkIV1yAz9d7RgVnPvpaiLCSMLjgsl3M
-	 7R2Pet//l60ag==
-Date: Thu, 16 Nov 2023 17:15:23 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Roger Pau Monne <roger.pau@citrix.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 3/6] automation: fix jessie/stretch images to use
- archive.debian.org apt repos
-In-Reply-To: <20231116121310.72210-4-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311161715170.773207@ubuntu-linux-20-04-desktop>
-References: <20231116121310.72210-1-roger.pau@citrix.com> <20231116121310.72210-4-roger.pau@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: f9d39f2a-84f7-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1700191107; bh=bO5ted+P1A5SGXs96O4z/73BO8Z3ap47fgrFTtk6ec0=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=p7PoNBbbpxMlpHgmJtjMlBR1ErmscOnmpwr/7UwZ4JnTv4ZCtoCF4f9ULpqSqsAjtTW7k7l33yB4792Af1PXGxwQ/uh3caCCf9zWLw9BJGN9Cmx3xdtVvS2HO40UHvdFhFMOqzARJvUJMkBihEtGNFPwgchxI+7nrAlHO5lDHKsFxqUS8HJZxNq/uruusywRD9hgrVsXCUnKSRK08YVkGY8XWpeNwMzg/JYnW7lVifc14I+sVWeA6hETngdIuc4Ee4stuSS5eEsdN+x02o9gEFzT2kXdkDHOeB5jcLWEOMTh8tWzhLzr8+g8p7K2aY87dDR63CNrTUldyAfit7vkZA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1700191107; bh=FS3Ium9Ve7xz7p3mB3DqxcJ6Cse7/KC59ZGsgR4a/Si=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=JJGC2O4POKRNdrTd/RZst9d5SbYmI/XQXhF1+bG+ZReqMkgykDkpOY99+LuGzQ6gZrt1Ct7jq5syKPu5Tzpx/aEv2F3l41WcRMiEbE6+ibzXhgPpQwgg79BdMiAqV39jeiPIr3h8POP/66iQi3iqy49nfQdQrLuLSm5SxY/9YlYOT+fQwTbJKRVMhGZkIiM1LZM+vrdhdDt2EfD/NmnwYC8M82Fb960PT/udi74m0vn3DYiwYdCA/NNXMTnzP3TgWRvlfEHTL821IM4efV+D5fP9NCsSpzTHiNJlZAbOGI0lkOTbrDOtlcwT+cgzhjQ7h0WBLo61yx5+uQ7j+5NwJQ==
+X-YMail-OSG: X_Xv1XoVM1kFtq0nkQmJiT2QiH5WrIQ.SG1S_4P9MhRhfHZfdB_Jwt7weFsLUf5
+ 9vP5BOHJh5dMSxRbfHXcfAaLcetnSNeqobLaBUAAsDtlTKLF22Zf0SvPbhElIc2cXK7cqzC3DR1a
+ 6vch9fZQ7mrxvR3MO4yWlZK7bPzuFpJLvbzuh.lOtJpWo0uyymlNgubH7GVkp2VUJHa3X_bYp3eE
+ levu7Xh_YKp9CMgWshqxD5LN2iSWxcTZ2ihGYEgg70y7_DSb09OwMDQmjGzxOgy8GknRMV74Pbc6
+ W9iHeBPrsMxruWkSg5dQ7E7zyELsp8pEwq1OMl5PZ4EMYs2WQ3KgoTnxATm2a9sgClZpnS_upp35
+ sH_0hzO1gEVI6u__L4ySgVsG_ZigDNaxvS96AF6b1PH_VW3faAH_Q04YSfMxOw7RVVon9rZcwFPs
+ iH2ETdwx3qeQAE5QbLMl06CbnQExqBwi2Wq9paPp4geoMon0aOs9BDvEe6QfFbh0sId5gCYifXa1
+ wntIwEz2HXib9pBEJwrIzGBOroYX2YmoCJ4x_pb0B6.1AtwEqT8bVNk3LSMFOWDnneWOSzSVzJWG
+ zwcIqboziQm0obx8QL68hpDAkH4MLc2IeDib8ZzF38pVaO7pFSMrBPXPAqqsaJiwVxPnCOekvXU4
+ OTY7cUtpMRycsoLwhbZNsUv3YVzfOa5OL.IzZzPHtFVZROX48Llg7dyxbT3fiCdy3KEyHejZiGNJ
+ tZnGRyhlSIsZOeco5_LV.2uxzjX.NXglgdvGPkcDtmqYSHA9pXlX4WWBjkYBZnVfkWJiaXokwnCq
+ sh6nrSUh5aLSidUeRBhgjrM2gidfVlU.ObTlg_MRilsU94emz66FL3pQ1XbQgbmLUK9qNzdd26jf
+ xvzYTVL_Mmggz7dM2.KnqY9vVdjROG8MCjK2jVeT6IrA9OPyNQwZK6EWqD6GNkvnZk8xGdjc6xnq
+ _8X4iOZxAoqzWaLSWz2Md0f6TkdHf_Jz2Bi8hYvrn35vsmJeVe3wV9dn0P7ATMpQ5d9zF9G_qSyc
+ gALkSz6F1zaFvRDlXdTU6CjBc6.QZ_3Pi_zeGQvkulNDI9WgaT1GEQkZBkWYlDAJSjxGaXmKx8pD
+ .X0DsjfNh9QN7Aa_ZVG_o6YpVbxwsWm2lnx2GWAE2AmM1nLuM.EGB1VQ11dMzLXrxRRqYZCosTUa
+ 4Zo_CCKdeOOUOlgQDIrBLqZpnRrVI5OT2ENNIwkBhlwrszGVoPo5taBIvwYz1gF.xO4dKF1RHlDF
+ fgQNvaYFHIWoVOQdOyNYORX.Iqj7Scyg85zdJtdYBA90HdkhFiM5uIqx9Lo6sqB7HukUxrMaENtJ
+ SPhGAXP.lgxe29nC38kTyyge0.fzmtr_OWtke92APn_DP5IwuQSYWAWi_Y3pii1GQqEMqYHXOXUe
+ 79HcaMthZKqn5K.ORPFxWrHB1ryXXS_CXSwkWWcLflnF6qxWdo65KWxWQL3xVxnyd_TQ4_s_AAu9
+ bt4IH57bS58RE7FipGm.DepK.5pxctkNDYrxx5icEr9WrZ8b1_ohpXEqON6Aiq4GwWOH1UmM_Bxt
+ C0bO85BrDkBYk4tpzDb9PDJ0OhCTxHUhpAkQRqzVMlhxErheRs2ukVWW8AYI.gVRyabfNeVgfI73
+ RkAuyuDizj3iiRdqIm8.ra_DaDiJaQCrxpEK17wRhkX4g2Jl3e2EHEW4mhCaZMPxbzQRr.GXd6Xw
+ A5230sohrdi5GHy0B4YcY3AbY_EZrOrZhDyIWlr.ewHxlBcWLvgTW3PF76BgcSH0jZMSmDC5MEqy
+ lbMu8P30HGGZtQpGG7pUkp6.VOLWa5YfmjElS4pYCPjdMDmuytw6FaawKI25DXb8JcMEvTGaOBty
+ G3t5Sz.2649Abf7ehcOT6EErPLhuIodN4BrAdicnJeBQXMvhDsIT7NQz0g5Ffl9uvSk2Nvxtw.I2
+ dNHsI3LhTYsMY2RrEGlA3PDfpH4qIKbXXgIU.v38jrThXzpoZwAf3Mm1EZLTX.uiwxfjIgq4CeeU
+ LA2zuW8rHYJ0dtInRxAaQX4iLKqhihZeMlEQDwa3LqbjVtvrz0jfoCoNLw4COytbD2xKV5w91JDj
+ 6.S8P2wmOnrlbEpp8J3LwSPHWuie7wt5eBWWRH1AC1ygWggXrw_PQa3BVY_RBnyLekH68z6_pWOz
+ .RDqKB_hrbB_Y7i9FCiF.eU.1IAEA49YEscW8X_QDxfcWZxR0by0OBQQT4BB66g0thmTpxxFdzA8
+ .5wMF.tzi
+X-Sonic-MF: <brchuckz@aim.com>
+X-Sonic-ID: 681c8a96-fdee-4e51-ac62-0881e8c8f908
+Message-ID: <f1e3f54a-7553-46c9-ac89-5a760437c3eb@netscape.net>
+Date: Thu, 16 Nov 2023 22:18:22 -0500
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-606778400-1700183724=:773207"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-606778400-1700183724=:773207
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm/mm: add option to prefer IOMMU ops for DMA on Xen
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>
+Cc: Chuck Zmudzinski <brchuckz@aol.com>,
+ linux-arm-kernel@lists.infradead.org, Russell King <linux@armlinux.org.uk>,
+ Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Arnd Bergmann <arnd@arndb.de>, Julien Grall <julien@xen.org>,
+ Mario Marietto <marietto2008@gmail.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20231111184538.2371-1-brchuckz.ref@aol.com>
+ <20231111184538.2371-1-brchuckz@aol.com>
+ <e5ebfde9-7a74-4908-b0b9-db47c4e76315@arm.com>
+ <alpine.DEB.2.22.394.2311141407140.160649@ubuntu-linux-20-04-desktop>
+ <edefba96-0a17-4b3d-992c-6bfe9e62bf97@netscape.net>
+In-Reply-To: <edefba96-0a17-4b3d-992c-6bfe9e62bf97@netscape.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.21896 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On Thu, 16 Nov 2023, Roger Pau Monne wrote:
-> Otherwise it's impossible to build the images.
+On 11/15/2023 12:56 PM, Chuck Zmudzinski wrote:
+> On 11/14/2023 5:20 PM, Stefano Stabellini wrote:
+>> On Tue, 14 Nov 2023, Robin Murphy wrote:
+>>> On 11/11/2023 6:45 pm, Chuck Zmudzinski wrote:
+>>> > Enabling the new option, ARM_DMA_USE_IOMMU_XEN, fixes this error when
+>>> > attaching the Exynos mixer in Linux dom0 on Xen on the Chromebook Snow
+>>> > (and probably on other devices that use the Exynos mixer):
+>>> > 
+>>> > [drm] Exynos DRM: using 14400000.fimd device for DMA mapping operations
+>>> > exynos-drm exynos-drm: bound 14400000.fimd (ops 0xc0d96354)
+>>> > exynos-mixer 14450000.mixer: [drm:exynos_drm_register_dma] *ERROR* Device
+>>> >                               14450000.mixer lacks support for IOMMU
+>>> > exynos-drm exynos-drm: failed to bind 14450000.mixer (ops 0xc0d97554): -22
+>>> > exynos-drm exynos-drm: adev bind failed: -22
+>>> > exynos-dp: probe of 145b0000.dp-controller failed with error -22
+>>> > 
+>>> > Linux normally uses xen_swiotlb_dma_ops for DMA for all devices when
+>>> > xen_swiotlb is detected even when Xen exposes an IOMMU to Linux. Enabling
+>>> > the new config option allows devices such as the Exynos mixer to use the
+>>> > IOMMU instead of xen_swiotlb_dma_ops for DMA and this fixes the error.
+>>> > 
+>>> > The new config option is not set by default because it is likely some
+>>> > devices that use IOMMU for DMA on Xen will cause DMA errors and memory
+>>> > corruption when Xen PV block and network drivers are in use on the system.
+>>> > 
+>>> > Link:
+>>> > https://lore.kernel.org/xen-devel/acfab1c5-eed1-4930-8c70-8681e256c820@netscape.net/
+>>> > 
+>>> > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+>>> > ---
+>>> > The reported error with the Exynos mixer is not fixed by default by adding
+>>> > a second patch to select the new option in the Kconfig definition for the
+>>> > Exynos mixer if EXYNOS_IOMMU and SWIOTLB_XEN are enabled because it is
+>>> > not certain setting the config option is suitable for all cases. So it is
+>>> > necessary to explicitly select the new config option during the config
+>>> > stage of the Linux kernel build to fix the reported error or similar
+>>> > errors that have the same cause of lack of support for IOMMU on Xen. This
+>>> > is necessary to avoid any regressions that might be caused by enabling the
+>>> > new option by default for the Exynos mixer.
+>>> >   arch/arm/mm/dma-mapping.c |  6 ++++++
+>>> >   drivers/xen/Kconfig       | 16 ++++++++++++++++
+>>> >   2 files changed, 22 insertions(+)
+>>> > 
+>>> > diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+>>> > index 5409225b4abc..ca04fdf01be3 100644
+>>> > --- a/arch/arm/mm/dma-mapping.c
+>>> > +++ b/arch/arm/mm/dma-mapping.c
+>>> > @@ -1779,6 +1779,12 @@ void arch_setup_dma_ops(struct device *dev, u64
+>>> > dma_base, u64 size,
+>>> >   	if (iommu)
+>>> >   		arm_setup_iommu_dma_ops(dev, dma_base, size, iommu, coherent);
+>>> >   +#ifdef CONFIG_ARM_DMA_USE_IOMMU_XEN
+>>> 
+>>> FWIW I don't think this really needs a config option - if Xen *has* made an
+>>> IOMMU available, then there isn't really much reason not to use it, and if for
+>>> some reason someone really didn't want to then they could simply disable the
+>>> IOMMU driver anyway.
+>> 
+>> The fact that the Exynos IOMMU is exposed to Linux is a mistake. Xen
+>> doesn't recognize the Exynos IOMMU (it is not one of the IOMMUs Xen has
+>> a driver for) so it assigns the IOMMU to Dom0. It doesn't happen on
+>> purpose, it happens by accident. Certain things are going to break,
+>> specifically I am fairly certain PV drivers are going to break.
+>> 
+>> If Xen recognized the Exynos IOMMU as an IOMMU it would probably hide it
+>> from Dom0. (Today Xen doesn't have a list of IOMMUs Xen recognizes but
+>> doesn't have a driver for.)
+>> 
+>> I think it is OK for Chuck and others to play around with this
+>> configuration but I wouldn't add a new kconfig option to Linux to
+>> support it.
+>> 
+>> If we do want a kconfig option, I would add a kconfig option or Linux
+>> command line option to enable/disable swiotlb-xen. Basically a way to
+>> force-enable or force-disable xen_swiotlb_detect(). That could be
+>> generally useful for debugging and would also solve the problem here as
+>> it could be used to force-disable swiotlb-xen. I would imagine that the
+>> end result is the same: the default ops (iommu_ops) are used.
+
+Actually, if the swiotlb-xen DMA ops are disabled, arm/mm/dma-mapping.c
+does not set DMA ops for any of the devices except for the two devices
+that the Exyos DRM driver uses: the Exyno fimd and the Exynos mixer,
+and only for those two devices do iommu_ops get set.
+
+The same thing happens on bare metal. Only those same two devices have
+iommu_ops set, and all the other devices do not have any DMA ops set at
+all on the bare metal, at least not by arm/mm/dma-mapping.c.
+
+I will work on implementing the option to disable swiotlb-xen on the command
+line which makes it possible to do testing and debugging and also enables
+fixing the problem with the Exynos mixer by setting a command line option
+instead of recompiling the kernel with a new config option.
+
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  automation/build/debian/jessie-i386.dockerfile  | 7 +++++++
->  automation/build/debian/jessie.dockerfile       | 7 +++++++
->  automation/build/debian/stretch-i386.dockerfile | 7 +++++++
->  automation/build/debian/stretch.dockerfile      | 7 +++++++
->  4 files changed, 28 insertions(+)
+> I will try this. It isn't exactly what I have tested until now because
+> in all my tests so far all the DMA capable devices on the Chromebook use
+> swioltlb-xen except for the two devices that need to use the Exynos IOMMU
+> to fix the error with the Exynos mixer.
 > 
-> diff --git a/automation/build/debian/jessie-i386.dockerfile b/automation/build/debian/jessie-i386.dockerfile
-> index c9ac15a3ffd6..a8dec82bb299 100644
-> --- a/automation/build/debian/jessie-i386.dockerfile
-> +++ b/automation/build/debian/jessie-i386.dockerfile
-> @@ -10,6 +10,13 @@ WORKDIR /build
->  
->  ENTRYPOINT ["linux32"]
->  
-> +# replace repos in archive as release is EOL
-> +RUN cat <<"END" > /etc/apt/sources.list
-> +deb http://archive.debian.org/debian/ jessie main contrib non-free
-> +deb http://archive.debian.org/debian/ jessie-backports main contrib non-free
-> +deb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
-> +END
-> +
->  # build depends
->  RUN apt-get update && \
->      apt-get --quiet --yes install \
-> diff --git a/automation/build/debian/jessie.dockerfile b/automation/build/debian/jessie.dockerfile
-> index 63b2c1e5b771..5c71c3e3ea75 100644
-> --- a/automation/build/debian/jessie.dockerfile
-> +++ b/automation/build/debian/jessie.dockerfile
-> @@ -8,6 +8,13 @@ ENV USER root
->  RUN mkdir /build
->  WORKDIR /build
->  
-> +# replace repos in archive as release is EOL
-> +RUN cat <<"END" > /etc/apt/sources.list
-> +deb http://archive.debian.org/debian/ jessie main contrib non-free
-> +deb http://archive.debian.org/debian/ jessie-backports main contrib non-free
-> +deb http://archive.debian.org/debian-security/ jessie/updates main contrib non-free
-> +END
-> +
->  # build depends
->  RUN apt-get update && \
->      apt-get --quiet --yes install \
-> diff --git a/automation/build/debian/stretch-i386.dockerfile b/automation/build/debian/stretch-i386.dockerfile
-> index d93f74c979ef..9739651e25dd 100644
-> --- a/automation/build/debian/stretch-i386.dockerfile
-> +++ b/automation/build/debian/stretch-i386.dockerfile
-> @@ -10,6 +10,13 @@ WORKDIR /build
->  
->  ENTRYPOINT ["linux32"]
->  
-> +# replace repos in archive as release is EOL
-> +RUN cat <<"END" > /etc/apt/sources.list
-> +deb http://archive.debian.org/debian/ stretch main contrib non-free
-> +deb http://archive.debian.org/debian/ stretch-backports main contrib non-free
-> +deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free
-> +END
-> +
->  # build depends
->  RUN apt-get update && \
->      apt-get --quiet --yes install \
-> diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
-> index 1af6c691f8f4..2f1a99f45017 100644
-> --- a/automation/build/debian/stretch.dockerfile
-> +++ b/automation/build/debian/stretch.dockerfile
-> @@ -8,6 +8,13 @@ ENV USER root
->  RUN mkdir /build
->  WORKDIR /build
->  
-> +# replace repos in archive as release is EOL
-> +RUN cat <<"END" > /etc/apt/sources.list
-> +deb http://archive.debian.org/debian/ stretch main contrib non-free
-> +deb http://archive.debian.org/debian/ stretch-backports main contrib non-free
-> +deb http://archive.debian.org/debian-security/ stretch/updates main contrib non-free
-> +END
-> +
->  # build depends
->  RUN apt-get update && \
->      apt-get --quiet --yes install \
-> -- 
-> 2.42.0
+>> 
+>> 
+>> 
+>>> > +	if (dev->dma_ops == &iommu_ops) {
+>>> > +		dev->archdata.dma_ops_setup = true;
+>>> 
+>>> The existing assignment is effectively unconditional by this point anyway, so
+>>> could probably just be moved earlier to save duplicating it (or perhaps just
+>>> make the xen_setup_dma_ops() call conditional instead to save the early return
+>>> as well).
+>>> 
+>>> However, are the IOMMU DMA ops really compatible with Xen? The comments about
+>>> hypercalls and foreign memory in xen_arch_need_swiotlb() leave me concerned
+>>> that assuming non-coherent DMA to any old Dom0 page is OK might not actually
+>>> work in general :/
+>> 
+>> Xen has (not yet upstreaming) support for nested IOMMU (Xen uses the
+>> IOMMU while also it exposes a virtual IOMMU to guests.) In those cases
+>> the iommu_ops should be compatible with Xen.
+>> 
+>> swiotlb-xen is useful in cases where there is no IOMMU on the platform
+>> (or the IOMMU doesn't cover all DMA-capable devices) and Dom0 is 1:1
+>> mapped. See include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect. If Dom0 is
+>> not 1:1 mapped swiotlb-xen doesn't work. If an IOMMU is present and
+>> covers all DMA-capable devices, then swiotlb-xen is superfluous.
 > 
---8323329-606778400-1700183724=:773207--
+> It seems that swiotlb-xen works on this Chromebook since all but two
+> of the DMA capable devices use it when configured with the Kconfig option
+> added here and it seems to work fine so I presume Dom0 is 1:1 mapped as
+> expected. It is possible that on this device, the IOMMU is only covering
+> the two devices that need to use the Exynos IOMMU in the tests I have done.
+> There are many other DMA capable devices that use swiotlb-xen DMA ops
+> on Xen, but I have not checked what DMA ops the other devices use when
+> Linux runs on the Chromebook on bare metal without Xen.
+> 
+> So I plan to do some tests and see what DMA ops the other devices use if
+> swiotlb-xen is disabled and also what DMA ops the other devices use when
+> Linux runs on the Chromebook on bare metal without Xen. If these tests
+> show the problem can be fixed by disabling swiotlb-xen with a Kconfig  or
+> command line option, I will propose v2 to implement that as a solution.
+> 
+>> This last case is the interesting case for virtual IOMMU and Linux usage of
+>> iommu_ops.
+
 
