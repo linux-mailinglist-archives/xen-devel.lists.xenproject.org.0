@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF517EF7C8
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 20:23:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635367.991262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7617EF7D1
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 20:27:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635373.991271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r44Ql-0008PQ-I5; Fri, 17 Nov 2023 19:23:07 +0000
+	id 1r44U7-0001j0-1W; Fri, 17 Nov 2023 19:26:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635367.991262; Fri, 17 Nov 2023 19:23:07 +0000
+Received: by outflank-mailman (output) from mailman id 635373.991271; Fri, 17 Nov 2023 19:26:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r44Ql-0008Nm-EO; Fri, 17 Nov 2023 19:23:07 +0000
-Received: by outflank-mailman (input) for mailman id 635367;
- Fri, 17 Nov 2023 19:23:05 +0000
+	id 1r44U6-0001gX-Ug; Fri, 17 Nov 2023 19:26:34 +0000
+Received: by outflank-mailman (input) for mailman id 635373;
+ Fri, 17 Nov 2023 19:26:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n/Se=G6=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1r44Qj-0008Ne-AD
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 19:23:05 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b854243b-857e-11ee-9b0e-b553b5be7939;
- Fri, 17 Nov 2023 20:23:01 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 6B8E482857EB;
- Fri, 17 Nov 2023 13:22:59 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id yNE14JElk8to; Fri, 17 Nov 2023 13:22:57 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 12A1382857EC;
- Fri, 17 Nov 2023 13:22:57 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id IZQe10XAnIj5; Fri, 17 Nov 2023 13:22:56 -0600 (CST)
-Received: from raptor-ewks-026.2lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id 92D2482857EB;
- Fri, 17 Nov 2023 13:22:56 -0600 (CST)
+ <SRS0=l3xh=G6=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1r44U4-0001gO-OK
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 19:26:32 +0000
+Received: from mail-183-236.mailgun.info (mail-183-236.mailgun.info
+ [23.253.183.236]) by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id 3554ce10-857f-11ee-9b0e-b553b5be7939;
+ Fri, 17 Nov 2023 20:26:30 +0100 (CET)
+Received: from mg.gitlab.com (68.90.74.34.bc.googleusercontent.com
+ [34.74.90.68]) by
+ 4672b52283f5 with SMTP id 6557be648bb4e2b045f09afe (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Fri, 17 Nov 2023 19:26:28 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,840 +39,429 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b854243b-857e-11ee-9b0e-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 12A1382857EC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1700248977; bh=rrS98yFoCir+fVp7z2VJPB9bRNWgZ1ymV3ZhVtsKbi8=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=E2J1n4RF7Ir1NJRc83bEKJDlzWkkDHHbd4xNEXApDrWPI1NzfBD+hi5XU9E2/33Y5
-	 vIuSFh2oEGTjrvPIuADxwGILV7WECBUBCvXj8MrN+KpCeNauD/N2jcyl9TTu+jm7Lu
-	 Cu32HP8vryP5jTwdxTlOdZCFIuORGJ/nGgf0FytE=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
+X-Inumbo-ID: 3554ce10-857f-11ee-9b0e-b553b5be7939
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1700249188; x=1700256388; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=f9dtwpd5QHAsp8c/Iyw+zun+R+e4NQS9X6l8WsLSa1s=;
+ b=of+pDZMJ94ELE5sQ4Y7YIU4QJPrbToWmBxzJAn0/kAH2V48Cv5sEwXunPg9usuHytpf1+mEt2AYTmJRJ/qbbepaxWZY8pZt/Ud3ahTqLTXdQRRHvSqL9GXXrlzuewlRpjbIWlK5ZXyjKNIZ2XOllZ5rIGQYbp0sSNGpQoM1XGYU=
+X-Mailgun-Sending-Ip: 23.253.183.236
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Fri, 17 Nov 2023 19:26:28 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
 To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH] xen/ppc: Enable Boot Allocator
-Date: Fri, 17 Nov 2023 13:22:13 -0600
-Message-Id: <20231117192213.3848826-1-sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
+Message-ID: <6557be6467e60_2c9b30c5318e@gitlab-sidekiq-catchall-v2-fc469789f-xn4nh.mail>
+Subject: xen | Successful pipeline for staging | 97f8555a
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_6557be645ee05_2c9b30c5309";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1076704625
+X-GitLab-Pipeline-Ref: staging
+X-GitLab-Pipeline-Status: success
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
+
+----==_mimepart_6557be645ee05_2c9b30c5309
+Content-Type: text/plain;
+ charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Adapt arm's earlyfdt parsing code to ppc64 and enable Xen's early boot
-allocator. Routines for parsing arm-specific devicetree nodes (e.g.
-multiboot) were excluded, reducing the overall footprint of code that
-was copied.
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
----
- xen/arch/ppc/Makefile            |   1 +
- xen/arch/ppc/bootfdt.c           | 507 +++++++++++++++++++++++++++++++
- xen/arch/ppc/include/asm/setup.h | 113 +++++++
- xen/arch/ppc/setup.c             | 109 ++++++-
- 4 files changed, 729 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/ppc/bootfdt.c
 
-diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
-index 71feb5e2c4..8a2a809c70 100644
---- a/xen/arch/ppc/Makefile
-+++ b/xen/arch/ppc/Makefile
-@@ -1,5 +1,6 @@
- obj-$(CONFIG_PPC64) += ppc64/
- 
-+obj-y += bootfdt.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.init.o
- obj-y += mm-radix.o
- obj-y += opal.o
-diff --git a/xen/arch/ppc/bootfdt.c b/xen/arch/ppc/bootfdt.c
-new file mode 100644
-index 0000000000..791e1ca61f
---- /dev/null
-+++ b/xen/arch/ppc/bootfdt.c
-@@ -0,0 +1,507 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Early Device Tree and boot info bookkeeping.
-+ * Derived from arch/arm/bootfdt.c and setup.c.
-+ *
-+ * Copyright (C) 2012-2014 Citrix Systems, Inc.
-+ * Copyright (C) Raptor Engineering LLC
-+ */
-+
-+#include <xen/types.h>
-+#include <xen/lib.h>
-+#include <xen/kernel.h>
-+#include <xen/init.h>
-+#include <xen/efi.h>
-+#include <xen/device_tree.h>
-+#include <xen/lib.h>
-+#include <xen/libfdt/libfdt-xen.h>
-+#include <xen/sort.h>
-+#include <xsm/xsm.h>
-+#include <asm/setup.h>
-+
-+struct bootinfo __initdata bootinfo;
-+
-+struct bootmodule __init *add_boot_module(bootmodule_kind kind,
-+                                          paddr_t start, paddr_t size,
-+                                          bool domU)
-+{
-+    struct bootmodules *mods = &bootinfo.modules;
-+    struct bootmodule *mod;
-+    unsigned int i;
-+
-+    if ( mods->nr_mods == MAX_MODULES )
-+    {
-+        printk("Ignoring %s boot module at %"PRIpaddr"-%"PRIpaddr" (too many)\n",
-+               boot_module_kind_as_string(kind), start, start + size);
-+        return NULL;
-+    }
-+
-+    if ( check_reserved_regions_overlap(start, size) )
-+        return NULL;
-+
-+    for ( i = 0 ; i < mods->nr_mods ; i++ )
-+    {
-+        mod = &mods->module[i];
-+        if ( mod->kind == kind && mod->start == start )
-+        {
-+            if ( !domU )
-+                mod->domU = false;
-+            return mod;
-+        }
-+    }
-+
-+    mod = &mods->module[mods->nr_mods++];
-+    mod->kind = kind;
-+    mod->start = start;
-+    mod->size = size;
-+    mod->domU = domU;
-+
-+    return mod;
-+}
-+
-+const char * __init boot_module_kind_as_string(bootmodule_kind kind)
-+{
-+    switch ( kind )
-+    {
-+    case BOOTMOD_XEN:     return "Xen";
-+    case BOOTMOD_FDT:     return "Device Tree";
-+    case BOOTMOD_KERNEL:  return "Kernel";
-+    default: BUG();
-+    }
-+}
-+
-+/*
-+ * TODO: '*_end' could be 0 if the module/region is at the end of the physical
-+ * address space. This is for now not handled as it requires more rework.
-+ */
-+static bool __init bootmodules_overlap_check(struct bootmodules *bootmodules,
-+                                             paddr_t region_start,
-+                                             paddr_t region_size)
-+{
-+    paddr_t mod_start = INVALID_PADDR, mod_end = 0;
-+    paddr_t region_end = region_start + region_size;
-+    unsigned int i, mod_num = bootmodules->nr_mods;
-+
-+    for ( i = 0; i < mod_num; i++ )
-+    {
-+        mod_start = bootmodules->module[i].start;
-+        mod_end = mod_start + bootmodules->module[i].size;
-+
-+        if ( region_end <= mod_start || region_start >= mod_end )
-+            continue;
-+        else
-+        {
-+            printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with"
-+                   " mod[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n", region_start,
-+                   region_end, i, mod_start, mod_end);
-+            return true;
-+        }
-+    }
-+
-+    return false;
-+}
-+
-+/*
-+ * TODO: '*_end' could be 0 if the bank/region is at the end of the physical
-+ * address space. This is for now not handled as it requires more rework.
-+ */
-+static bool __init meminfo_overlap_check(struct meminfo *meminfo,
-+                                         paddr_t region_start,
-+                                         paddr_t region_size)
-+{
-+    paddr_t bank_start = INVALID_PADDR, bank_end = 0;
-+    paddr_t region_end = region_start + region_size;
-+    unsigned int i, bank_num = meminfo->nr_banks;
-+
-+    for ( i = 0; i < bank_num; i++ )
-+    {
-+        bank_start = meminfo->bank[i].start;
-+        bank_end = bank_start + meminfo->bank[i].size;
-+
-+        if ( region_end <= bank_start || region_start >= bank_end )
-+            continue;
-+        else
-+        {
-+            printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with"
-+                   " bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n", region_start,
-+                   region_end, i, bank_start, bank_end);
-+            return true;
-+        }
-+    }
-+
-+    return false;
-+}
-+
-+/*
-+ * Given an input physical address range, check if this range is overlapping
-+ * with the existing reserved memory regions defined in bootinfo.
-+ * Return true if the input physical address range is overlapping with any
-+ * existing reserved memory regions, otherwise false.
-+ */
-+bool __init check_reserved_regions_overlap(paddr_t region_start,
-+                                           paddr_t region_size)
-+{
-+    /* Check if input region is overlapping with bootinfo.reserved_mem banks */
-+    if ( meminfo_overlap_check(&bootinfo.reserved_mem,
-+                               region_start, region_size) )
-+        return true;
-+
-+    /* Check if input region is overlapping with bootmodules */
-+    if ( bootmodules_overlap_check(&bootinfo.modules,
-+                                   region_start, region_size) )
-+        return true;
-+
-+    return false;
-+}
-+
-+static bool __init device_tree_node_matches(const void *fdt, int node,
-+                                            const char *match)
-+{
-+    const char *name;
-+    size_t match_len;
-+
-+    name = fdt_get_name(fdt, node, NULL);
-+    match_len = strlen(match);
-+
-+    /*
-+     * Match both "match" and "match@..." patterns but not
-+     * "match-foo".
-+     */
-+    return strncmp(name, match, match_len) == 0
-+        && (name[match_len] == '@' || name[match_len] == '\0');
-+}
-+
-+void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-+                                uint32_t size_cells, paddr_t *start,
-+                                paddr_t *size)
-+{
-+    uint64_t dt_start, dt_size;
-+
-+    /*
-+     * dt_next_cell will return uint64_t whereas paddr_t may not be 64-bit.
-+     * Thus, there is an implicit cast from uint64_t to paddr_t.
-+     */
-+    dt_start = dt_next_cell(address_cells, cell);
-+    dt_size = dt_next_cell(size_cells, cell);
-+
-+    if ( dt_start != (paddr_t)dt_start )
-+    {
-+        printk("Physical address greater than max width supported\n");
-+        WARN();
-+    }
-+
-+    if ( dt_size != (paddr_t)dt_size )
-+    {
-+        printk("Physical size greater than max width supported\n");
-+        WARN();
-+    }
-+
-+    /*
-+     * Xen will truncate the address/size if it is greater than the maximum
-+     * supported width and it will give an appropriate warning.
-+     */
-+    *start = dt_start;
-+    *size = dt_size;
-+}
-+
-+static int __init device_tree_get_meminfo(const void *fdt, int node,
-+                                          const char *prop_name,
-+                                          uint32_t address_cells, uint32_t size_cells,
-+                                          void *data, enum membank_type type)
-+{
-+    const struct fdt_property *prop;
-+    unsigned int i, banks;
-+    const __be32 *cell;
-+    uint32_t reg_cells = address_cells + size_cells;
-+    paddr_t start, size;
-+    struct meminfo *mem = data;
-+
-+    if ( address_cells < 1 || size_cells < 1 )
-+    {
-+        printk("fdt: property `%s': invalid #address-cells or #size-cells",
-+               prop_name);
-+        return -EINVAL;
-+    }
-+
-+    prop = fdt_get_property(fdt, node, prop_name, NULL);
-+    if ( !prop )
-+        return -ENOENT;
-+
-+    cell = (const __be32 *)prop->data;
-+    banks = fdt32_to_cpu(prop->len) / (reg_cells * sizeof(uint32_t));
-+
-+    for ( i = 0; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
-+    {
-+        device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
-+        if ( mem == &bootinfo.reserved_mem &&
-+             check_reserved_regions_overlap(start, size) )
-+            return -EINVAL;
-+        /* Some DT may describe empty bank, ignore them */
-+        if ( !size )
-+            continue;
-+        mem->bank[mem->nr_banks].start = start;
-+        mem->bank[mem->nr_banks].size = size;
-+        mem->bank[mem->nr_banks].type = type;
-+        mem->nr_banks++;
-+    }
-+
-+    if ( i < banks )
-+    {
-+        printk("Warning: Max number of supported memory regions reached.\n");
-+        return -ENOSPC;
-+    }
-+
-+    return 0;
-+}
-+
-+uint32_t __init device_tree_get_uint32_t(const void *fdt, int node,
-+                               const char *prop_name, uint32_t dflt)
-+{
-+    const struct fdt_property *prop;
-+
-+    prop = fdt_get_property(fdt, node, prop_name, NULL);
-+    if ( !prop || prop->len < sizeof(uint32_t) )
-+        return dflt;
-+
-+    return fdt32_to_cpu(*(uint32_t*)prop->data);
-+}
-+
-+/**
-+ * device_tree_for_each_node - iterate over all device tree sub-nodes
-+ * @fdt: flat device tree.
-+ * @node: parent node to start the search from
-+ * @func: function to call for each sub-node.
-+ * @data: data to pass to @func.
-+ *
-+ * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-+ *
-+ * Returns 0 if all nodes were iterated over successfully.  If @func
-+ * returns a value different from 0, that value is returned immediately.
-+ */
-+int __init device_tree_for_each_node(const void *fdt, int node,
-+                                     device_tree_node_func func,
-+                                     void *data)
-+{
-+    /*
-+     * We only care about relative depth increments, assume depth of
-+     * node is 0 for simplicity.
-+     */
-+    int depth = 0;
-+    const int first_node = node;
-+    uint32_t address_cells[DEVICE_TREE_MAX_DEPTH];
-+    uint32_t size_cells[DEVICE_TREE_MAX_DEPTH];
-+    int ret;
-+
-+    do {
-+        const char *name = fdt_get_name(fdt, node, NULL);
-+        uint32_t as, ss;
-+
-+        if ( depth >= DEVICE_TREE_MAX_DEPTH )
-+        {
-+            printk("Warning: device tree node `%s' is nested too deep\n",
-+                   name);
-+            continue;
-+        }
-+
-+        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
-+        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
-+
-+        address_cells[depth] = device_tree_get_uint32_t(fdt, node,
-+                                                   "#address-cells", as);
-+        size_cells[depth] = device_tree_get_uint32_t(fdt, node,
-+                                                "#size-cells", ss);
-+
-+        /* skip the first node */
-+        if ( node != first_node )
-+        {
-+            ret = func(fdt, node, name, depth, as, ss, data);
-+            if ( ret != 0 )
-+                return ret;
-+        }
-+
-+        node = fdt_next_node(fdt, node, &depth);
-+    } while ( node >= 0 && depth > 0 );
-+
-+    return 0;
-+}
-+
-+static int __init process_memory_node(const void *fdt, int node,
-+                                      const char *name, int depth,
-+                                      uint32_t address_cells, uint32_t size_cells,
-+                                      void *data)
-+{
-+    return device_tree_get_meminfo(fdt, node, "reg", address_cells, size_cells,
-+                                   data, MEMBANK_DEFAULT);
-+}
-+
-+static int __init process_reserved_memory_node(const void *fdt, int node,
-+                                               const char *name, int depth,
-+                                               uint32_t address_cells,
-+                                               uint32_t size_cells,
-+                                               void *data)
-+{
-+    int rc;
-+
-+    rc = process_memory_node(fdt, node, name, depth, address_cells,
-+                                 size_cells, data);
-+
-+
-+    if ( rc == -ENOSPC )
-+        panic("Max number of supported reserved-memory regions reached.\n");
-+    else if ( rc != -ENOENT )
-+        return rc;
-+    return 0;
-+}
-+
-+static int __init process_reserved_memory(const void *fdt, int node,
-+                                          const char *name, int depth,
-+                                          uint32_t address_cells, uint32_t size_cells)
-+{
-+    return device_tree_for_each_node(fdt, node,
-+                                     process_reserved_memory_node,
-+                                     &bootinfo.reserved_mem);
-+}
-+
-+static int __init process_chosen_node(const void *fdt, int node,
-+                                      const char *name,
-+                                      uint32_t address_cells, uint32_t size_cells)
-+{
-+    const struct fdt_property *prop;
-+    paddr_t start, end;
-+    int len;
-+
-+    printk("Checking for initrd in /chosen\n");
-+
-+    prop = fdt_get_property(fdt, node, "linux,initrd-start", &len);
-+    if ( !prop )
-+        /* No initrd present. */
-+        return 0;
-+    if ( len != sizeof(uint32_t) && len != sizeof(uint64_t) )
-+    {
-+        printk("linux,initrd-start property has invalid length %d\n", len);
-+        return -EINVAL;
-+    }
-+    start = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
-+
-+    prop = fdt_get_property(fdt, node, "linux,initrd-end", &len);
-+    if ( !prop )
-+    {
-+        printk("linux,initrd-end not present but -start was\n");
-+        return -EINVAL;
-+    }
-+    if ( len != sizeof(uint32_t) && len != sizeof(uint64_t) )
-+    {
-+        printk("linux,initrd-end property has invalid length %d\n", len);
-+        return -EINVAL;
-+    }
-+    end = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
-+
-+    if ( start >= end )
-+    {
-+        printk("linux,initrd limits invalid: %"PRIpaddr" >= %"PRIpaddr"\n",
-+                  start, end);
-+        return -EINVAL;
-+    }
-+
-+    printk("Initrd %"PRIpaddr"-%"PRIpaddr"\n", start, end);
-+
-+    add_boot_module(BOOTMOD_RAMDISK, start, end-start, false);
-+
-+    return 0;
-+}
-+
-+static int __init early_scan_node(const void *fdt,
-+                                  int node, const char *name, int depth,
-+                                  uint32_t address_cells, uint32_t size_cells,
-+                                  void *data)
-+{
-+    int rc = 0;
-+
-+    if( device_tree_node_matches(fdt, node, "memory") )
-+        rc = process_memory_node(fdt, node, name, depth,
-+                                 address_cells, size_cells, &bootinfo.mem);
-+    else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
-+        rc = process_reserved_memory(fdt, node, name, depth,
-+                                     address_cells, size_cells);
-+    else if ( depth == 1 && device_tree_node_matches(fdt, node, "chosen") )
-+        rc = process_chosen_node(fdt, node, name, address_cells, size_cells);
-+
-+    if ( rc < 0 )
-+        printk("fdt: node `%s': parsing failed\n", name);
-+    return rc;
-+}
-+
-+static void __init early_print_info(void)
-+{
-+    struct meminfo *mi = &bootinfo.mem;
-+    struct meminfo *mem_resv = &bootinfo.reserved_mem;
-+    struct bootmodules *mods = &bootinfo.modules;
-+    struct bootcmdlines *cmds = &bootinfo.cmdlines;
-+    unsigned int i, j;
-+
-+    for ( i = 0; i < mi->nr_banks; i++ )
-+        printk("RAM: %"PRIpaddr" - %"PRIpaddr"\n",
-+                mi->bank[i].start,
-+                mi->bank[i].start + mi->bank[i].size - 1);
-+    printk("\n");
-+    for ( i = 0 ; i < mods->nr_mods; i++ )
-+        printk("MODULE[%d]: %"PRIpaddr" - %"PRIpaddr" %-12s\n",
-+                i,
-+                mods->module[i].start,
-+                mods->module[i].start + mods->module[i].size,
-+                boot_module_kind_as_string(mods->module[i].kind));
-+
-+    for ( j = 0; j < mem_resv->nr_banks; j++, i++ )
-+    {
-+        printk(" RESVD_[%u]: %"PRIpaddr" - %"PRIpaddr"\n", i,
-+               mem_resv->bank[j].start,
-+               mem_resv->bank[j].start + mem_resv->bank[j].size - 1);
-+    }
-+    printk("\n");
-+    for ( i = 0 ; i < cmds->nr_mods; i++ )
-+        printk("CMDLINE[%"PRIpaddr"]:%s %s\n", cmds->cmdline[i].start,
-+               cmds->cmdline[i].dt_name,
-+               &cmds->cmdline[i].cmdline[0]);
-+    printk("\n");
-+}
-+
-+/**
-+ * boot_fdt_init - initialize bootinfo from a DTB
-+ * @fdt: flattened device tree binary
-+ * @paddr: physical address of device tree binary
-+ *
-+ * Returns the size of the DTB.
-+ */
-+size_t __init boot_fdt_init(const void *fdt, paddr_t paddr)
-+{
-+    int ret;
-+    paddr_t xen_start, xen_end;
-+
-+    ret = fdt_check_header(fdt);
-+    if ( ret < 0 )
-+        panic("No valid device tree\n");
-+
-+    device_tree_for_each_node((void *)fdt, 0, early_scan_node, NULL);
-+
-+    /*
-+     * The device tree passed to us may have been allocated by skiboot, in which
-+     * case it will exist within a reserved region and this call will fail. This
-+     * is fine, however, since either way the allocator will know not to step on
-+     * the device tree.
-+     */
-+    add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
-+
-+    /*
-+     * Xen relocates itself at the ppc64 entrypoint, so we need to manually mark
-+     * the kernel module.
-+     */
-+    xen_start = __pa(_start);
-+    xen_end = PAGE_ALIGN(__pa(_end));
-+    if ( !add_boot_module(BOOTMOD_KERNEL, xen_start, xen_end, false) )
-+        panic("Xen overlaps reserved memory! %016lx - %016lx\n", xen_start,
-+              xen_end);
-+
-+    early_print_info();
-+
-+    return fdt_totalsize(fdt);
-+}
-diff --git a/xen/arch/ppc/include/asm/setup.h b/xen/arch/ppc/include/asm/setup.h
-index e4f64879b6..f6e1940fa9 100644
---- a/xen/arch/ppc/include/asm/setup.h
-+++ b/xen/arch/ppc/include/asm/setup.h
-@@ -3,4 +3,117 @@
- 
- #define max_init_domid (0)
- 
-+#include <public/version.h>
-+#include <asm/p2m.h>
-+#include <xen/device_tree.h>
-+
-+#define MIN_FDT_ALIGN 8
-+#define MAX_FDT_SIZE SZ_2M
-+
-+#define NR_MEM_BANKS 256
-+
-+#define MAX_MODULES 32 /* Current maximum useful modules */
-+
-+typedef enum {
-+    BOOTMOD_XEN,
-+    BOOTMOD_FDT,
-+    BOOTMOD_KERNEL,
-+    BOOTMOD_RAMDISK,
-+}  bootmodule_kind;
-+
-+enum membank_type {
-+    /*
-+     * The MEMBANK_DEFAULT type refers to either reserved memory for the
-+     * device/firmware (when the bank is in 'reserved_mem') or any RAM (when
-+     * the bank is in 'mem').
-+     */
-+    MEMBANK_DEFAULT,
-+    /*
-+     * The MEMBANK_STATIC_DOMAIN type is used to indicate whether the memory
-+     * bank is bound to a static Xen domain. It is only valid when the bank
-+     * is in reserved_mem.
-+     */
-+    MEMBANK_STATIC_DOMAIN,
-+    /*
-+     * The MEMBANK_STATIC_HEAP type is used to indicate whether the memory
-+     * bank is reserved as static heap. It is only valid when the bank is
-+     * in reserved_mem.
-+     */
-+    MEMBANK_STATIC_HEAP,
-+};
-+
-+/* Indicates the maximum number of characters(\0 included) for shm_id */
-+#define MAX_SHM_ID_LENGTH 16
-+
-+struct membank {
-+    paddr_t start;
-+    paddr_t size;
-+    enum membank_type type;
-+};
-+
-+struct meminfo {
-+    unsigned int nr_banks;
-+    struct membank bank[NR_MEM_BANKS];
-+};
-+
-+/*
-+ * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
-+ * The purpose of the domU flag is to avoid getting confused in
-+ * kernel_probe, where we try to guess which is the dom0 kernel and
-+ * initrd to be compatible with all versions of the multiboot spec.
-+ */
-+#define BOOTMOD_MAX_CMDLINE 1024
-+struct bootmodule {
-+    bootmodule_kind kind;
-+    bool domU;
-+    paddr_t start;
-+    paddr_t size;
-+};
-+
-+/* DT_MAX_NAME is the node name max length according the DT spec */
-+#define DT_MAX_NAME 41
-+struct bootcmdline {
-+    bootmodule_kind kind;
-+    bool domU;
-+    paddr_t start;
-+    char dt_name[DT_MAX_NAME];
-+    char cmdline[BOOTMOD_MAX_CMDLINE];
-+};
-+
-+struct bootmodules {
-+    int nr_mods;
-+    struct bootmodule module[MAX_MODULES];
-+};
-+
-+struct bootcmdlines {
-+    unsigned int nr_mods;
-+    struct bootcmdline cmdline[MAX_MODULES];
-+};
-+
-+struct bootinfo {
-+    struct meminfo mem;
-+    struct meminfo reserved_mem;
-+    struct bootmodules modules;
-+    struct bootcmdlines cmdlines;
-+    bool static_heap;
-+};
-+
-+extern struct bootinfo bootinfo;
-+
-+/*
-+ * setup.c
-+ */
-+
-+bool check_reserved_regions_overlap(paddr_t region_start, paddr_t region_size);
-+struct bootmodule *add_boot_module(bootmodule_kind kind,
-+                                   paddr_t start, paddr_t size, bool domU);
-+void add_boot_cmdline(const char *name, const char *cmdline,
-+                      bootmodule_kind kind, paddr_t start, bool domU);
-+const char *boot_module_kind_as_string(bootmodule_kind kind);
-+
-+/*
-+ * bootfdt.c
-+ */
-+size_t boot_fdt_init(const void *fdt, paddr_t paddr);
-+
- #endif /* __ASM_PPC_SETUP_H__ */
-diff --git a/xen/arch/ppc/setup.c b/xen/arch/ppc/setup.c
-index 101bdd8bb6..90de99051e 100644
---- a/xen/arch/ppc/setup.c
-+++ b/xen/arch/ppc/setup.c
-@@ -1,16 +1,116 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
- #include <xen/init.h>
- #include <xen/lib.h>
-+#include <xen/libfdt/libfdt.h>
- #include <xen/mm.h>
- #include <public/version.h>
- #include <asm/boot.h>
- #include <asm/early_printk.h>
- #include <asm/mm.h>
- #include <asm/processor.h>
-+#include <asm/setup.h>
- 
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE] __aligned(STACK_SIZE);
- 
-+/*
-+ * Return the end of the non-module region starting at s. In other
-+ * words return s the start of the next modules after s.
-+ *
-+ * On input *end is the end of the region which should be considered
-+ * and it is updated to reflect the end of the module, clipped to the
-+ * end of the region if it would run over.
-+ */
-+static paddr_t __init next_module(paddr_t s, paddr_t *end)
-+{
-+    struct bootmodules *mi = &bootinfo.modules;
-+    paddr_t lowest = ~(paddr_t)0;
-+    int i;
-+
-+    for ( i = 0; i < mi->nr_mods; i++ )
-+    {
-+        paddr_t mod_s = mi->module[i].start;
-+        paddr_t mod_e = mod_s + mi->module[i].size;
-+
-+        if ( !mi->module[i].size )
-+            continue;
-+
-+        if ( mod_s < s )
-+            continue;
-+        if ( mod_s > lowest )
-+            continue;
-+        if ( mod_s > *end )
-+            continue;
-+        lowest = mod_s;
-+        *end = min(*end, mod_e);
-+    }
-+    return lowest;
-+}
-+
-+static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
-+                                         void (*cb)(paddr_t ps, paddr_t pe),
-+                                         unsigned int first)
-+{
-+    unsigned int i;
-+
-+    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        paddr_t r_s = bootinfo.reserved_mem.bank[i].start;
-+        paddr_t r_e = r_s + bootinfo.reserved_mem.bank[i].size;
-+
-+        if ( s < r_e && r_s < e )
-+        {
-+            dt_unreserved_regions(r_e, e, cb, i + 1);
-+            dt_unreserved_regions(s, r_s, cb, i + 1);
-+            return;
-+        }
-+    }
-+
-+    cb(s, e);
-+}
-+
-+/*
-+ * Populate the boot allocator. Based on arch/arm/setup.c's
-+ * populate_boot_allocator.
-+ * All RAM but the following regions will be added to the boot allocator:
-+ *  - Modules (e.g., Xen, Kernel)
-+ *  - Reserved regions
-+ */
-+static void __init populate_boot_allocator(void)
-+{
-+    unsigned int i;
-+    const struct meminfo *banks = &bootinfo.mem;
-+    paddr_t s, e;
-+
-+    for ( i = 0; i < banks->nr_banks; i++ )
-+    {
-+        const struct membank *bank = &banks->bank[i];
-+        paddr_t bank_end = bank->start + bank->size;
-+
-+        s = bank->start;
-+        while ( s < bank_end )
-+        {
-+            paddr_t n = bank_end;
-+
-+            e = next_module(s, &n);
-+
-+            if ( e == ~(paddr_t)0 )
-+                e = n = bank_end;
-+
-+            /*
-+             * Module in a RAM bank other than the one which we are
-+             * not dealing with here.
-+             */
-+            if ( e > bank_end )
-+                e = bank_end;
-+
-+            dt_unreserved_regions(s, e, init_boot_pages, 0);
-+
-+            s = n;
-+        }
-+    }
-+}
-+
- void setup_exceptions(void)
- {
-     unsigned long lpcr;
-@@ -24,6 +124,8 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
-                                unsigned long r5, unsigned long r6,
-                                unsigned long r7)
- {
-+    void *boot_fdt;
-+
-     if ( r5 )
-     {
-         /* Unsupported OpenFirmware boot protocol */
-@@ -32,11 +134,16 @@ void __init noreturn start_xen(unsigned long r3, unsigned long r4,
-     else
-     {
-         /* kexec boot protocol */
--        boot_opal_init((void *)r3);
-+        boot_fdt = (void *)r3;
-+        boot_opal_init(boot_fdt);
-     }
- 
-     setup_exceptions();
- 
-+    boot_fdt_init(boot_fdt, r3);
-+
-+    populate_boot_allocator();
-+
-     setup_initial_pagetables();
- 
-     early_printk("Hello, ppc64le!\n");
+Pipeline #1076704625 has passed!
+
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+
+Commit: 97f8555a ( https://gitlab.com/xen-project/xen/-/commit/97f8555acbf3da013ed713ca0bbe739d41c48da9 )
+Commit Message: xenstored: print domain id in traces
+
+It is ver...
+Commit Author: Volodymyr Babchuk
+Committed by: Julien Grall
+
+
+
+Pipeline #1076704625 ( https://gitlab.com/xen-project/xen/-/pipelines/1076704625 ) triggered by Ganis ( https://gitlab.com/ganis )
+successfully completed 129 jobs in 3 stages.
+
 -- 
-2.30.2
+You're receiving this email because of your account on gitlab.com.
 
+
+
+
+----==_mimepart_6557be645ee05_2c9b30c5309
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
+
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Successful pipeline for staging | 97f8555a</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
+
+</style>
+
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"table-success">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
+<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
+5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
+ width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1076704625 has passed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging" style=3D"color: #333333; text-decoration: none;">
+staging
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/97f8555acbf3da013e=
+d713ca0bbe739d41c48da9" style=3D"color: #3777b0; text-decoration: none;">=
+97f8555a</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+xenstored: print domain id in traces
+
+It is ver...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/1612fe187ffd73c7146f0ae982a79c06?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Volodymyr Babchuk
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Committed by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/51553d20dbeb50c199767049bd40c57b?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Julien Grall
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"success-message">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
+Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/107670=
+4625" style=3D"color: #3777b0; text-decoration: none;">#1076704625</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
+dding-left: 5px;" width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
+t: 1.4; padding: 15px 5px;" align=3D"center">
+successfully completed 129 jobs in 3 stages.
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_6557be645ee05_2c9b30c5309--
 
