@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98D0A7EEA7D
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 01:58:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.634785.990285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E357EEA90
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 02:06:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.634788.990296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nBU-0002R7-65; Fri, 17 Nov 2023 00:58:12 +0000
+	id 1r3nId-0002OU-TM; Fri, 17 Nov 2023 01:05:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 634785.990285; Fri, 17 Nov 2023 00:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 634788.990296; Fri, 17 Nov 2023 01:05:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3nBU-0002Oo-3Q; Fri, 17 Nov 2023 00:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 634785;
- Fri, 17 Nov 2023 00:58:10 +0000
+	id 1r3nId-0002Mf-QA; Fri, 17 Nov 2023 01:05:35 +0000
+Received: by outflank-mailman (input) for mailman id 634788;
+ Fri, 17 Nov 2023 01:05:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5d38=G6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r3nBS-0002Oi-M1
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 00:58:10 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1r3nIb-0002MZ-Lb
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 01:05:33 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ef45a93-84e4-11ee-98dc-6d05b1d4d9a1;
- Fri, 17 Nov 2023 01:58:09 +0100 (CET)
+ id 67b3e6c6-84e5-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 02:05:31 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DAD38CE1F93;
- Fri, 17 Nov 2023 00:58:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B51C433C7;
- Fri, 17 Nov 2023 00:58:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 7F3A6B81DF9;
+ Fri, 17 Nov 2023 01:05:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7BBC433CA;
+ Fri, 17 Nov 2023 01:05:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,85 +41,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ef45a93-84e4-11ee-98dc-6d05b1d4d9a1
+X-Inumbo-ID: 67b3e6c6-84e5-11ee-98dc-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700182684;
-	bh=iSCe/NlY/cwE44CdQs/W5hA5o6eEHNFKZrLovXzk6F4=;
+	s=k20201202; t=1700183130;
+	bh=y5hA3OIyjM3FGXQiQJZ0GgRRUAPkCMdb9P5Fj71ap0M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nl/lV/dfTZ5j1dfCXgT4WVUdQQvAOb3uwAVZMUKz0c784z6PK3bmzf4Sz2aAIm5rg
-	 kMEfz9WqdQu1z+LEZbb2wWOetshNZvWXUbQjOZajexQHUPT3JljUcuIiYVKVWt0GoZ
-	 EApEYp4htdqVreXGPU9x3X/aPVZXahUEj+hBV4X3swoq3g0QwybZBRM/mzbWRj8CsR
-	 Mcqk6KWJyzhsb571Kw1TiKfS7XlHDDBn7dshgaiFMt7IznDteLMTkNmG2ADMFflXhh
-	 sF4VCG8+SzIvNqce6O5Q1LbBn+b3cR89+LGHuF1AFumbRwKrYGhspDw3xWwNxBxAKs
-	 DnE2y8pefgTWg==
-Date: Thu, 16 Nov 2023 16:58:01 -0800 (PST)
+	b=GRZfJBa9hmvg70SPD++lTvMf2O80ZN8sNKqIxbyBbKBBJGn39UDLxGWYvrE0t9WUZ
+	 BZd31c31fvsuOeXI5tig83uHxhEQCEWzPkncjS4HSpK03SnRX1pbxVB0EkwcttjWdU
+	 YWpgtutb/XJXrdHdjCr1waPKwlkvY7GRzC+5WIi0LoVZ+rK0Zw6nqbYsvFZPgkmjpg
+	 UKpbTzwTkNXZbXoauFeVCkzzW+WAYjeDh+RDWnTde3wj0aWtwP23cLmKTULuLIN9MN
+	 fnZFMCxnVyJrpzc0Yr59xTiMQEpHFWTRn+TcpG/ZCe6CbUmkM+YCp/lpjBc8ubezeL
+	 12kS+Vi2on34w==
+Date: Thu, 16 Nov 2023 17:05:28 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
-In-Reply-To: <87o7ft44bv.fsf@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com> <20231012220854.2736994-14-volodymyr_babchuk@epam.com> <d6a58e73-da51-40f1-a2f7-576274945585@xen.org> <alpine.DEB.2.22.394.2311161513210.773207@ubuntu-linux-20-04-desktop>
- <87o7ft44bv.fsf@epam.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 1/6] automation: remove CR characters from QEMU serial
+In-Reply-To: <20231116121310.72210-2-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2311161701420.773207@ubuntu-linux-20-04-desktop>
+References: <20231116121310.72210-1-roger.pau@citrix.com> <20231116121310.72210-2-roger.pau@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-913588650-1700183115=:773207"
+Content-ID: <alpine.DEB.2.22.394.2311161705260.773207@ubuntu-linux-20-04-desktop>
 
-On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
-> > I still think, no matter the BDF allocation scheme, that we should try
-> > to avoid as much as possible to have two different PCI Root Complex
-> > emulators. Ideally we would have only one PCI Root Complex emulated by
-> > Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
-> > tolerable but not ideal.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-913588650-1700183115=:773207
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2311161705261.773207@ubuntu-linux-20-04-desktop>
+
+On Thu, 16 Nov 2023, Roger Pau Monne wrote:
+> The gitlab CI webpage seems to have issues displaying the \CR\CR\LF "\r\r\n"
+> sequence on the web interface used as line returns by the Linux kernel serial
+> output.  This leads to the QEMU tests output looking like:
 > 
-> But what is exactly wrong with this setup?
-
-[...]
-
-> > The worst case I would like to avoid is to have
-> > two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
+> (XEN) Guest Loglevel: Nothing (Rate-limited: Errors and warnings)
+> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+> (XEN) Freed 664kB init memory
+> mapping kernel into physical memory
+> about to get started...
+> qemu-system-x86_64: terminating on signal 15 from pid 52 (timeout)
 > 
-> This is how our setup works right now.
+> This not helpful, so strip the CR characters from the output that goes to
+> stdout, leaving the output in the smoke.serial untouched.
+> 
+> Fixes: 3030a73bf849 ('automation: add a QEMU based x86_64 Dom0/DomU test')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-If we have:
-- a single PCI Root Complex emulated in Xen
-- Xen is safety certified
-- individual Virtio devices emulated by QEMU with grants for memory
+Thanks for the patch. Let me see if I understood correctly.
 
-We can go very far in terms of being able to use Virtio in safety
-use-cases. We might even be able to use Virtio (frontends) in a SafeOS.
+In the gitlab web UI everything after the last (XEN) log line
+disappears, for instance:
 
-On the other hand if we put an additional Root Complex in QEMU:
-- we pay a price in terms of complexity of the codebase
-- we pay a price in terms of resource utilization
-- we have one additional problem in terms of using this setup with a
-  SafeOS (one more device emulated by a non-safe component)
+https://gitlab.com/xen-project/xen/-/jobs/5556551478
 
-Having 2 PCI Root Complexes both emulated in Xen is a middle ground
-solution because:
-- we still pay a price in terms of resource utilization
-- the code complexity goes up a bit but hopefully not by much
-- there is no impact on safety compared to the ideal scenario
-
-This is why I wrote that it is tolerable.
+(XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER0
+/ # qemu-system-aarch64: terminating on signal 15 from pid 145 (timeout)
 
 
-> I agree that we need some way to provide static vBDF numbers. But I am
-> wondering what is the best way to do this. We need some entity that
-> manages and assigns those vBDFs. It should reside in Xen, because there
-> is Dom0less use case. Probably we need to extend
-> xen_domctl_assign_device so we can either request a free vBDF or a
-> specific vBDF. And in the first case, Xen should return assigned vBDF so
-> toolstack can give it to a backend, if PCI device is purely virtual.
+While if I look at the full logs there are plenty of Linux kernel logs
+after it:
+https://cdn.artifacts.gitlab-static.net/ec/ad/ecad5145a0ec1eb179fd47d1590d5ec43d705e8af2f9a816607ac31891cb82b9/2023_11_16/5556551478/6032156805/job.log?response-content-type=text%2Fplain%3B%20charset%3Dutf-8&response-content-disposition=inline&Expires=1700183635&KeyName=gprd-artifacts-cdn&Signature=vT8CBwI2Th23OvRvQKvNPgHiT5Y=
 
-I think that would be fine.
+And this patch aims at fixing that, is that correct?
+
+
+But I went to check your pipeline
+https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1074512137
+and the corresponding job
+https://gitlab.com/xen-project/people/royger/xen/-/jobs/5549620441 has
+the same issue?
+
+
+
+
+
+
+
+> ---
+>  automation/scripts/qemu-alpine-x86_64.sh | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
+> index 8c8d0b0cd759..a1c41c030a47 100755
+> --- a/automation/scripts/qemu-alpine-x86_64.sh
+> +++ b/automation/scripts/qemu-alpine-x86_64.sh
+> @@ -84,7 +84,10 @@ qemu-system-x86_64 \
+>      -monitor none -serial stdio \
+>      -nographic \
+>      -device virtio-net-pci,netdev=n0 \
+> -    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& tee smoke.serial
+> +    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& \
+> +        # Remove carriage returns from the stdout output, as gitlab
+> +        # interface chokes on them
+> +        tee smoke.serial | sed 's/\r//'
+>  
+>  set -e
+>  (grep -q "Domain-0" smoke.serial && grep -q "BusyBox" smoke.serial) || exit 1
+> -- 
+> 2.42.0
+> 
+--8323329-913588650-1700183115=:773207--
 
