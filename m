@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9AF7EF234
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 13:03:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.635095.990837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2A837EF235
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Nov 2023 13:05:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.635099.990848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xZE-000339-6L; Fri, 17 Nov 2023 12:03:24 +0000
+	id 1r3xal-0003bC-Hx; Fri, 17 Nov 2023 12:04:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 635095.990837; Fri, 17 Nov 2023 12:03:24 +0000
+Received: by outflank-mailman (output) from mailman id 635099.990848; Fri, 17 Nov 2023 12:04:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r3xZE-000318-3d; Fri, 17 Nov 2023 12:03:24 +0000
-Received: by outflank-mailman (input) for mailman id 635095;
- Fri, 17 Nov 2023 12:03:22 +0000
+	id 1r3xal-0003Xr-F2; Fri, 17 Nov 2023 12:04:59 +0000
+Received: by outflank-mailman (input) for mailman id 635099;
+ Fri, 17 Nov 2023 12:04:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tr9K=G6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r3xZC-000312-CE
- for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 12:03:22 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=1e97=G6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r3xaj-0003Xj-Rk
+ for xen-devel@lists.xenproject.org; Fri, 17 Nov 2023 12:04:57 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d64c5b3-8541-11ee-98dc-6d05b1d4d9a1;
- Fri, 17 Nov 2023 13:03:21 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4083cd3917eso15973895e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 04:03:21 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- q12-20020adff50c000000b003296b488961sm2129221wro.31.2023.11.17.04.03.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Nov 2023 04:03:20 -0800 (PST)
+ id 863fb1d0-8541-11ee-98dc-6d05b1d4d9a1;
+ Fri, 17 Nov 2023 13:04:56 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4079ed65471so15538015e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Nov 2023 04:04:56 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ v21-20020a05600c429500b0040a4cc876e0sm2447375wmc.40.2023.11.17.04.04.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Nov 2023 04:04:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +44,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d64c5b3-8541-11ee-98dc-6d05b1d4d9a1
+X-Inumbo-ID: 863fb1d0-8541-11ee-98dc-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700222601; x=1700827401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=47FWNWfawMNZstRZQMncdQJ9HNDFpcNwczf4o/08RGk=;
-        b=iM1gOY20SP/mfMEQOkdg7pZuNVPiQn3aJ2US8nhQkoBNYOluBuq6oQvj43FTsjrdwz
-         ajq1lk9xzaHrw2EjcyAC1L7zFtPu6SineRP+fIjV5oU3zqgcA/Wx5b8VMlXaarAESsCs
-         +JcIFyEpY3UFbVpQaptgZXuu0K0Z16g3srv+0=
+        d=citrix.com; s=google; t=1700222696; x=1700827496; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dLFzUW6/wb0srpQqKWk54q2GmVgvGwjkRl4RtOKuHn0=;
+        b=hU7DNS+4lyDrL+78wv+6DB5uBMkQnDpegciA4cxzV9DvPMPgYpbZXqrOUY7+hUtE+M
+         oqlhX84b98inFCpw25e7ntLfHEYut3QAnICN8KxU9xqZYUMFCizkIXK+BL1xz8ajVHPU
+         9xGhi2pvPu4kpd7jXbxnjIcAerTldDfoIdPD0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700222601; x=1700827401;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1700222696; x=1700827496;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=47FWNWfawMNZstRZQMncdQJ9HNDFpcNwczf4o/08RGk=;
-        b=iAo55h7Vk81XjA249Jiww8fQvmzNutaKQawgl+eY4031msNHWwYdfKD1b3IpnFw1w7
-         SfYrHyaFCm1gKd5PpY+b8lY6Ynj+zK3/0aw5dtZcFbydJsZ4o3/HZRVY1JyGw78BuiUk
-         Twmt6EUr69AmdD1XI5ZdM1eC9mnbCuGbuNBBXPtlsatatFeEuf4HH+rq6CaSHVujWTtC
-         3jcwG/bRdWbuO/75Ana99ug+uSaCeYJVOZks70YR7R6WyXn0z1ZU2Gy9pLg5Tpm5pq1i
-         PTpBXxlxZQfWs7bFtUCcIiho5wsaBwUNOhq/yZ+ndhgEM+DdLEsgGVUv5IjCDEeVdywA
-         T3hg==
-X-Gm-Message-State: AOJu0Yzpu+elnrmEONgBgPSWdeSJ/F9tlg5awxDo1c1MiT1V2bOKgF4w
-	Cn6hzKvgVBsegUlvZ5isebY2Ww==
-X-Google-Smtp-Source: AGHT+IF2xwz04ejzZYTF8Dj6usaPJSpFuuGHnVkR3/Yy/9ukwSzE4YSO5/oKf1SgPkGc9N3isipYDg==
-X-Received: by 2002:a05:600c:3548:b0:401:daf2:2737 with SMTP id i8-20020a05600c354800b00401daf22737mr14683153wmq.30.1700222600820;
-        Fri, 17 Nov 2023 04:03:20 -0800 (PST)
-Message-ID: <81534803-9da4-49b7-894e-f3fb5e8fb131@citrix.com>
-Date: Fri, 17 Nov 2023 12:03:19 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/iommu: move xen_in_range() so it can be made
- static
-Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
+        bh=dLFzUW6/wb0srpQqKWk54q2GmVgvGwjkRl4RtOKuHn0=;
+        b=hX9+NKbV/ewbD8tpT0oqvCD0XUJA8aClPbuXVuMtv+r14nMDuIB4OQt5Z6d79zkp7b
+         cdVJh8k44TW0UiipUJpYa4IxnN68XmJTC3MH/d9SRzsdV+4obSF5+Ej8trwBtHiQF/0I
+         aOfW5uGaJVrjy/nigb/G3Rh06vGeFVE4xkIapPtQIh9CZ0dDbsfw0cUfTWFE/uroaDP7
+         eQQTyzZpjHCmEtO0L0TyagKtmAETfnFhRj4d1923M6YfthHYwp+YlcgQmwAMFB55fATS
+         UybubmrmzCggUSEt9t9RconnGUuM7qTSljMD2k/1YvV42DwsRPuz5XaqvS/MW9PvFUPo
+         JWlw==
+X-Gm-Message-State: AOJu0Yw2ICVUHd4+0wonYzKbD6U8sEzqEPm/MlZx+MlcJW3a0Ih8EBFl
+	7lh86kbH+hH3647+Km4XiCv4mZuoVBghoOEz0lA=
+X-Google-Smtp-Source: AGHT+IEKApUrJxfbalBtW+AgaBcxk6AWSfoSkFTzaZNGbKEENcCnDeuz6BH59IZrcGOeTMN/Uee1mg==
+X-Received: by 2002:a05:600c:138b:b0:408:4160:150a with SMTP id u11-20020a05600c138b00b004084160150amr4204823wmf.33.1700222695996;
+        Fri, 17 Nov 2023 04:04:55 -0800 (PST)
+Date: Fri, 17 Nov 2023 13:04:54 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 3/3] x86/iommu: use a rangeset for hwdom setup
+Message-ID: <ZVdW5lf8VlauTDh-@macbook.local>
 References: <20231117094749.81091-1-roger.pau@citrix.com>
- <20231117094749.81091-3-roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20231117094749.81091-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+ <20231117094749.81091-4-roger.pau@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231117094749.81091-4-roger.pau@citrix.com>
 
-On 17/11/2023 9:47 am, Roger Pau Monne wrote:
-> No functional change intended.
->
+On Fri, Nov 17, 2023 at 10:47:49AM +0100, Roger Pau Monne wrote:
+> The current loop that iterates from 0 to the maximum RAM address in order to
+> setup the IOMMU mappings is highly inefficient, and it will get worse as the
+> amount of RAM increases.  It's also not accounting for any reserved regions
+> past the last RAM address.
+> 
+> Instead of iterating over memory addresses, iterate over the memory map regions
+> and use a rangeset in order to keep track of which ranges need to be identity
+> mapped in the hardware domain physical address space.
+> 
+> On an AMD EPYC 7452 with 512GiB of RAM, the time to execute
+> arch_iommu_hwdom_init() in nanoseconds is:
+> 
+> x old
+> + new
+>     N           Min           Max        Median           Avg        Stddev
+> x   5 2.2364154e+10  2.338244e+10 2.2474685e+10 2.2622409e+10 4.2949869e+08
+> +   5       1025012       1033036       1026188     1028276.2     3623.1194
+> Difference at 95.0% confidence
+> 	-2.26214e+10 +/- 4.42931e+08
+> 	-99.9955% +/- 9.05152e-05%
+> 	(Student's t, pooled s = 3.03701e+08)
+> 
+> Execution time of arch_iommu_hwdom_init() goes down from ~22s to ~0.001s.
+> 
+> Note there's a change for HVM domains (ie: PVH dom0) that get switched to
+> create the p2m mappings using map_mmio_regions() instead of
+> p2m_add_identity_entry(), so that ranges can be mapped with a single function
+> call if possible.  Note that the interface of map_mmio_regions() doesn't
+> allow creating read-only mappings, but so far there are no such mappings
+> created for PVH dom0 in arch_iommu_hwdom_init().
+> 
+> No change intended in the resulting mappings that a hardware domain gets.
+> 
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hvm/io.c               |  15 +-
+>  xen/arch/x86/include/asm/hvm/io.h   |   4 +-
+>  xen/drivers/passthrough/x86/iommu.c | 355 +++++++++++++++++-----------
+>  3 files changed, 231 insertions(+), 143 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
+> index d75af83ad01f..7c4b7317b13a 100644
+> --- a/xen/arch/x86/hvm/io.c
+> +++ b/xen/arch/x86/hvm/io.c
+> @@ -364,9 +364,20 @@ static const struct hvm_mmcfg *vpci_mmcfg_find(const struct domain *d,
+>      return NULL;
+>  }
+>  
+> -bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr)
+> +int vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r)
+>  {
+> -    return vpci_mmcfg_find(d, addr);
+> +    const struct hvm_mmcfg *mmcfg;
+> +
+> +    list_for_each_entry ( mmcfg, &d->arch.hvm.mmcfg_regions, next )
+> +    {
+> +        int rc = rangeset_remove_range(r, PFN_DOWN(mmcfg->addr),
+> +                                       PFN_DOWN(mmcfg->addr + mmcfg->size - 1));
+> +
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return 0;
+>  }
+>  
+>  static unsigned int vpci_mmcfg_decode_addr(const struct hvm_mmcfg *mmcfg,
+> diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+> index e5225e75ef26..c9d058fd5695 100644
+> --- a/xen/arch/x86/include/asm/hvm/io.h
+> +++ b/xen/arch/x86/include/asm/hvm/io.h
+> @@ -153,8 +153,8 @@ int register_vpci_mmcfg_handler(struct domain *d, paddr_t addr,
+>  /* Destroy tracked MMCFG areas. */
+>  void destroy_vpci_mmcfg(struct domain *d);
+>  
+> -/* Check if an address is between a MMCFG region for a domain. */
+> -bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr);
+> +/* Remove MMCFG regions from a given rangeset. */
+> +int vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r);
+>  
+>  #endif /* __ASM_X86_HVM_IO_H__ */
+>  
+> diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+> index d70cee9fea77..be2c909f61d8 100644
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -301,129 +301,133 @@ void iommu_identity_map_teardown(struct domain *d)
+>      }
+>  }
+>  
+> -static int __hwdom_init xen_in_range(unsigned long mfn)
+> +static int __hwdom_init remove_xen_ranges(struct rangeset *r)
+>  {
+>      paddr_t start, end;
+> -    int i;
+> -
+> -    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
+> -    static struct {
+> -        paddr_t s, e;
+> -    } xen_regions[nr_regions] __hwdom_initdata;
+> +    int rc;
+>  
+> -    /* initialize first time */
+> -    if ( !xen_regions[0].s )
+> -    {
+> -        /* S3 resume code (and other real mode trampoline code) */
+> -        xen_regions[region_s3].s = bootsym_phys(trampoline_start);
+> -        xen_regions[region_s3].e = bootsym_phys(trampoline_end);
+> +    /* S3 resume code (and other real mode trampoline code) */
+> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
+> +                               PFN_DOWN(bootsym_phys(trampoline_end)));
+> +    if ( rc )
+> +        return rc;
+>  
+> -        /*
+> -         * This needs to remain in sync with the uses of the same symbols in
+> -         * - __start_xen()
+> -         * - is_xen_fixed_mfn()
+> -         * - tboot_shutdown()
+> -         */
+> +    /*
+> +     * This needs to remain in sync with the uses of the same symbols in
+> +     * - __start_xen()
+> +     * - is_xen_fixed_mfn()
+> +     * - tboot_shutdown()
+> +     */
+> +    /* hypervisor .text + .rodata */
+> +    rc = rangeset_remove_range(r, PFN_DOWN(__pa(&_stext)),
+> +                               PFN_DOWN(__pa(&__2M_rodata_end)));
+> +    if ( rc )
+> +        return rc;
+>  
+> -        /* hypervisor .text + .rodata */
+> -        xen_regions[region_ro].s = __pa(&_stext);
+> -        xen_regions[region_ro].e = __pa(&__2M_rodata_end);
+> -        /* hypervisor .data + .bss */
+> -        xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
+> -        xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
+> -        if ( efi_boot_mem_unused(&start, &end) )
+> -        {
+> -            ASSERT(__pa(start) >= xen_regions[region_rw].s);
+> -            ASSERT(__pa(end) <= xen_regions[region_rw].e);
+> -            xen_regions[region_rw].e = __pa(start);
+> -            xen_regions[region_bss].s = __pa(end);
+> -            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
+> -        }
+> +    /* hypervisor .data + .bss */
+> +    if ( efi_boot_mem_unused(&start, &end) )
+> +    {
+> +        ASSERT(__pa(start) >= __pa(&__2M_rwdata_start));
+> +        rc = rangeset_remove_range(r, PFN_DOWN(__pa(&__2M_rwdata_start)),
+> +                                   PFN_DOWN(__pa(start)));
+> +        if ( rc )
+> +            return rc;
+> +        ASSERT(__pa(end) <= __pa(&__2M_rwdata_end));
+> +        rc = rangeset_remove_range(r, PFN_DOWN(__pa(end)),
+> +                                   PFN_DOWN(__pa(&__2M_rwdata_end)));
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +    else
+> +    {
+> +        rc = rangeset_remove_range(r, PFN_DOWN(__pa(&__2M_rwdata_start)),
+> +                                   PFN_DOWN(__pa(&__2M_rwdata_end)));
+> +        if ( rc )
+> +            return rc;
+>      }
+> -
+> -    start = (paddr_t)mfn << PAGE_SHIFT;
+> -    end = start + PAGE_SIZE;
+> -    for ( i = 0; i < nr_regions; i++ )
+> -        if ( (start < xen_regions[i].e) && (end > xen_regions[i].s) )
+> -            return 1;
+>  
+>      return 0;
+>  }
+>  
+> -static unsigned int __hwdom_init hwdom_iommu_map(const struct domain *d,
+> -                                                 unsigned long pfn,
+> -                                                 unsigned long max_pfn)
+> +static int __hwdom_init map_subtract(unsigned long s, unsigned long e,
 
-There may only be one caller (after dropping some bogus tboot logic
-recently IIRC), but this isn't an IOMMU-specific helper.
+Bah, this (and others below) are missing cf_check attribute.
 
-See the comment in the middle which shows the other opencoded things
-this needs to be kept up to date.  (And I'd hoped to make this common
-because every architecture seems to have different bugs opencoding this
-calculation.)
+Will fix in v2.
 
-Switching to rangesets is fine, but the result still wants to be
-something generic, rather than IOMMU-specific.
-
-~Andrew
+Roger.
 
