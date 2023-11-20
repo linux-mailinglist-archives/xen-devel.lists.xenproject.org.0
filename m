@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C46A7F20AC
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 23:49:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637324.993045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E9E7F20B0
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 23:49:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637327.993076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5D53-000596-PJ; Mon, 20 Nov 2023 22:49:25 +0000
+	id 1r5D59-0005yD-NA; Mon, 20 Nov 2023 22:49:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637324.993045; Mon, 20 Nov 2023 22:49:25 +0000
+Received: by outflank-mailman (output) from mailman id 637327.993076; Mon, 20 Nov 2023 22:49:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5D53-00056Z-MX; Mon, 20 Nov 2023 22:49:25 +0000
-Received: by outflank-mailman (input) for mailman id 637324;
- Mon, 20 Nov 2023 22:49:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5D59-0005vD-Fm; Mon, 20 Nov 2023 22:49:31 +0000
+Received: by outflank-mailman (input) for mailman id 637327;
+ Mon, 20 Nov 2023 22:49:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Uh/B=HB=citrix.com=prvs=681f0548f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1r5D52-0004rh-US
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 22:49:24 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c51adc8-87f7-11ee-98e0-6d05b1d4d9a1;
- Mon, 20 Nov 2023 23:49:24 +0100 (CET)
+ id 1r5D57-0005pp-BF
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 22:49:29 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cdfd9a8-87f7-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 23:49:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,95 +36,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c51adc8-87f7-11ee-98e0-6d05b1d4d9a1
+X-Inumbo-ID: 0cdfd9a8-87f7-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1700520564;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=1PNgt8ahr7MDW2ofRpWOPAJ3J7cBGmpTa8t/w1olBm4=;
-  b=cB6uh9idqT38TQVQCvOrMmy4xS4QCdb2WpaxbNMvRq6bsoBm74EGSQKk
-   0srJzzIWIYXFMG/uHm5Z4XP18jNeYj9GDjIHFrFdTNbLrA2MEdR+PibE9
-   cH41JaMHu+mTzljL4lNyGPVFj1YppNlklfF5+TlnGd/KpS73qH/9+KeP/
-   c=;
-X-CSE-ConnectionGUID: WaXQkFtXSsexmHBFI/oWVg==
-X-CSE-MsgGUID: F6seg06jSYqecBNQuv675g==
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1700520566;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=fXKH+lmodmLPygRsUw8ADaKchTw1j5k6JR9llmINrLo=;
+  b=XhzxsYNbETJpZqQHJyRyLACtcZ0P7u4YMUVE7MSv0peB4hAmu0IEUuu5
+   RVa5Zmf6LbM6/BUkmPKDj7Y/qh0UsKgMPXK06rzGrXdxS774qmjawUZaQ
+   CAshBu6EsepUIhGZWEpZFL6WCbAc/vrCuQ87l1HPSVKaVvY7gxw4eEsdD
+   w=;
+X-CSE-ConnectionGUID: LtYo8xJLRvC+jqiF6E23hw==
+X-CSE-MsgGUID: bUpW3/HoQGi4hHSN83IxsA==
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 128662991
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 127436304
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:9Kyjaa3L40gdMDW5wPbD5S9xkn2cJEfYwER7XKvMYLTBsI5bp2ACx
- jYdCzqAP/reN2fwKtp3PtvgpE8CscDQn9I3SAI+pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8teTb9HuDgNyo4GlD5wVkPagR1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfPmh+z
- P82NAA2dR2TgsKc7pP8TdZSiZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGc+KkuYC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTH5ULwBzJ9
- zuuE2LRLE8BOdPHlzi+w2uhjcXppD7lBt1PG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAfVSJIYtEisM4wRBQp2
- 0WPktevAiZg2JWKTVqN+7HSqim9UQAXMGsDaCksXQYDpd75r+kbsBXLSdpyFb+vuff8Ezrw3
- jOioTA3gvMYistj/6+250zdijSg4J3AVBco5x7/V3igqAh+YeaNYo2j6VHfq/FaPoudZlCEs
- D4PnM32xPoJB5yXiCvLSuwCGriz7t6PLTLHjFhgWZIm8lyF/X+oeoRZpi9zOF1oNMcscyLme
- 0LVtkVa45o7AZexRfYpOcTrUZ1slPWxU4u9PhzJUjZQSqd4RDaE0j1eXlWdz2XNumYN1qYAB
- 5jOJK5AEk0m5bRbICueHrhFieN6mHpnmwvuqYbHIwNLOIdyhUJ5qp9faTNilshjsMu5TPz9q
- r6zzfeixRRFS/HZaSLK64MVJl1iBSFkXcir85ENKrfafVQO9IQd5xn5m+tJl2tNxfw9qws11
- ivlBh8wJKTX2RUr1jlmmlg8MeiyDP6TXFowPDA2PEbA5pTQSd/H0UvrTLNuJeNP3LU6nZZJo
- wwtJ53o7gJnFm6WpFzwrPDV8ORfSfhcrVvfY3P4OGFnIM8Iqs6g0oaMQzYDPRImVkKf3fbSa
- ZX5vu8HafLvnzhfMfs=
-IronPort-HdrOrdr: A9a23:I6Bu9KArS/zX0w3lHemg55DYdb4zR+YMi2TC1yhKJyC9Ffbo8P
- xG/c5rsSMc5wxwZJhNo7y90cq7MBbhHPxOkOos1N6ZNWGM0gaVxelZnO3fKlbbehEWmNQz6U
- 4ZSdkdNOHN
-X-Talos-CUID: 9a23:WXvVqm/kKMcp/gisy3yVv3EdKvkmXGHt92zdM0qYI0hID7qqd1DFrQ==
-X-Talos-MUID: =?us-ascii?q?9a23=3AR1FdiAwaOsww8sFTfSC+ZdBPx5eaqIrwE00Cycs?=
- =?us-ascii?q?EgPidOCdaHQ6AkmroH4Byfw=3D=3D?=
+IronPort-Data: A9a23:NRCWsKPWwwIoxHjvrR2ll8FynXyQoLVcMsEvi/4bfWQNrUpx0jAHm
+ 2AcUDzXafaNN2LyLttzbduy8BkA75LXx9ZjSwto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/7rRC9H5qyo42pB5ARmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0sJrMGYe5
+ d48Ei4mLRKahszo7ejgSvY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEOHwwNHwsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4bVGZ4LxR7Ez
+ o7A127EGi5Bc/yY8BWErnKMvcmfxgLrQ6tHQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFamlBMBX9tbE8Uh9RqAjKHT5m6xGWwsXjNHLts8u6ceQz0h0
+ VuA2c3kGSZutry9Q2+S7bqSonW5Pi19BXUFbyIeUQxD6dDspogphzrFU9l4Hai6yNbyHFnNL
+ yui9XZkwe9J1IhSivT9ogivby+QSobhahIE4VXHfEaf8Cg6ZpekSdKFswPb8qMVRGqGdWVtr
+ EToiuDHs7hWUcDTznXTKNjhCo1F8BpsDdE9vbKMN8N4n9hV0yT/Fb28GRknTKuTDu4KeCXyf
+ GjYsh5L6ZlYMROCNPAvO9/pVp52lPG/S7wJs8w4iPIUOvCdkyfdpElTibO4hTixwCDAb4ljU
+ XtkTSpcJSlDUvk2pNZHb+wczaUq1kgDKZD7HPjGI+Cc+ePGPha9EO5VWGZim8hltMtoVi2Jq
+ YcAXyZLoj0DONDDjt7/qN9PdA1SdCBkVPgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc3h9/gsQw
+ kyAZw==
+IronPort-HdrOrdr: A9a23:/82i1aPMKG9BnsBcTvmjsMiBIKoaSvp037Eqv3oedfUzSL3gqy
+ nOpoV86faaslYssR0b9exofZPwJE80lqQFhrX5X43SPzUO0VHAROoJgLcKgQeQfxEWntQtrZ
+ uIGJIeNDSfNzdHZL7BkWuFL+o=
+X-Talos-CUID: 9a23:4OQ3wW7pNSFkW19Rmtss0FIlHZA1UFnn0lyTIVa5JzhEEuaVVgrF
+X-Talos-MUID: 9a23:fvtYYQWPqreOFqPq/DXRnA45c+dv2ouvVEAtqrNW4OiULgUlbg==
 X-IronPort-AV: E=Sophos;i="6.04,214,1695700800"; 
-   d="scan'208";a="128662991"
+   d="scan'208";a="127436304"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Roberto Bagnara
-	<roberto.bagnara@bugseng.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 0/6] xen: Enable -Wwrite-strings
-Date: Mon, 20 Nov 2023 22:49:06 +0000
-Message-ID: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Nicola Vetrini
+	<nicola.vetrini@bugseng.com>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Roberto Bagnara <roberto.bagnara@bugseng.com>
+Subject: [PATCH 1/6] x86/setup: Make the loader variable const
+Date: Mon, 20 Nov 2023 22:49:07 +0000
+Message-ID: <20231120224912.1421916-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
+References: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-I got carried away and fixed all remaining -Wwrite-strings issues I could
-reproduce in local builds.
+It is never written to, but has a string literal assigned, and needs to be
+const to support -Wwrite-strings
 
-Pipeline in Gitlab:
+Suggested-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ xen/arch/x86/setup.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1079379918
-
-Andrew Cooper (6):
-  x86/setup: Make the loader variable const
-  x86/setup: Rework cmdline_cook() to be compatible with -Wwrite-strings
-  xen/efi: Make efi-boot.h compile with -Wwrite-strings
-  arm/duart: make dt_uart_init() compile with -Wwrite-strings
-  arm/platforms: Make compatbile with -Wwrite-strings
-  xen: Enable -Wwrite-strings
-
- xen/Makefile                     |  2 +-
- xen/arch/arm/efi/efi-boot.h      |  2 +-
- xen/arch/arm/platforms/brcm.c    |  2 +-
- xen/arch/arm/platforms/exynos5.c |  2 +-
- xen/arch/x86/efi/efi-boot.h      |  3 ++-
- xen/arch/x86/setup.c             | 21 +++++++++++----------
- xen/drivers/char/arm-uart.c      | 12 ++++++++----
- 7 files changed, 25 insertions(+), 19 deletions(-)
-
-
-base-commit: fa2da5bce90b3777aa7a323e1cf201c97b56d278
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index a3d3f797bb1e..c41dfdb2bdf8 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -971,8 +971,8 @@ static struct domain *__init create_dom0(const module_t *image,
+ /* SAF-1-safe */
+ void __init noreturn __start_xen(unsigned long mbi_p)
+ {
+-    const char *memmap_type = NULL;
+-    char *cmdline, *kextra, *loader;
++    const char *memmap_type = NULL, *loader;
++    char *cmdline, *kextra;
+     void *bsp_stack;
+     struct cpu_info *info = get_cpu_info(), *bsp_info;
+     unsigned int initrdidx, num_parked = 0;
+@@ -1023,8 +1023,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         mod = __va(mbi->mods_addr);
+     }
+ 
+-    loader = (mbi->flags & MBI_LOADERNAME)
+-        ? (char *)__va(mbi->boot_loader_name) : "unknown";
++    loader = (mbi->flags & MBI_LOADERNAME) ? __va(mbi->boot_loader_name)
++                                           : "unknown";
+ 
+     /* Parse the command-line options. */
+     cmdline = cmdline_cook((mbi->flags & MBI_CMDLINE) ?
 -- 
 2.30.2
 
