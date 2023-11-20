@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C24797F16B8
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:07:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637031.992721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9298A7F16C0
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:10:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637039.992733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55rd-0004vm-8G; Mon, 20 Nov 2023 15:07:05 +0000
+	id 1r55un-0006gx-OC; Mon, 20 Nov 2023 15:10:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637031.992721; Mon, 20 Nov 2023 15:07:05 +0000
+Received: by outflank-mailman (output) from mailman id 637039.992733; Mon, 20 Nov 2023 15:10:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55rd-0004sV-5a; Mon, 20 Nov 2023 15:07:05 +0000
-Received: by outflank-mailman (input) for mailman id 637031;
- Mon, 20 Nov 2023 15:07:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r55un-0006eo-K3; Mon, 20 Nov 2023 15:10:21 +0000
+Received: by outflank-mailman (input) for mailman id 637039;
+ Mon, 20 Nov 2023 15:10:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GG8d=HB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r55rb-0004sN-5l
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:07:03 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 753b2297-87b6-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 16:07:01 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-32f78dcf036so3352281f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 07:07:01 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- o2-20020a05600c510200b0040a4835d2b2sm18559042wms.37.2023.11.20.07.07.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Nov 2023 07:07:00 -0800 (PST)
+ <SRS0=Uh/B=HB=citrix.com=prvs=681f0548f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1r55um-0006ei-98
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:10:20 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e949a97e-87b6-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 16:10:17 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,84 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 753b2297-87b6-11ee-98df-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700492821; x=1701097621; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qYbNEj6nnd8wC2KXw22FbWZHbNjLNWL/PTFK924pEe0=;
-        b=XRxQ1zgf2KNiV/zWE/QLsdMS2PY3spNEVis/kqbu5Ez9IV+CXOHXkOduLEgKIk0qfX
-         I0/AaE1nwc3fb1ExaCpV+AO2DjxeGlrH7u2zGX43AP6RUhG1lGBaE38VcPYFCvgw4DG/
-         j3kXTH/POA1LgLHiN6KKaG48PpduAFs+7zTII=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700492821; x=1701097621;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qYbNEj6nnd8wC2KXw22FbWZHbNjLNWL/PTFK924pEe0=;
-        b=QdbxR/xn86Cc/trKhrHscPLPbyZ1hEcqHR1p2YiAyoyx7LyIyBSUVYy8o5FxOY3TT1
-         PrT/FOXdnnuiyoitGYV7w+M89M1lwKihRWxhEySsIyJ5JNVBkkuHqrUP8Py4pYvOIq2C
-         NMkugu2FLhnjYTwsBn5d6q0e3nqNm1QIQyJxBvFRBtQ9p2snOtlaBC4GSnQ+vt54WFvK
-         ka8rsaFwyafwk2ovh6IlL3ApMBDGFxHtQ3HNnA+v8l3mL3weaJlqlLdVP+hKjA2Gd3vM
-         cYj1ozMDilbQYNQ6mGrbVNzlA895ccWKysBiOwuUDPURdTnJppEG1scIhms92bPcwhov
-         t8Aw==
-X-Gm-Message-State: AOJu0Yycu5t2juL8P+hWkhkl9Vbxy1wWxz8VIdxcKL7h9GLqsHWAN5A+
-	OCNEjisACaG2MzWJJSjzcExcCCoBahIM+Pb6FHw=
-X-Google-Smtp-Source: AGHT+IHZGdbt+R4UWBAaTlZLOmcD6YmBCeVqIhtTu3zxvwt6CLwRA0wLsXXC3dut9jMwQTVQCgR/4w==
-X-Received: by 2002:a05:6000:1445:b0:332:cb0e:73b6 with SMTP id v5-20020a056000144500b00332cb0e73b6mr1579470wrx.2.1700492821154;
-        Mon, 20 Nov 2023 07:07:01 -0800 (PST)
-Date: Mon, 20 Nov 2023 16:07:00 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v10 06/17] vpci/header: rework exit path in init_bars
-Message-ID: <ZVt2FHPtfxXHzMtq@macbook.local>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-7-volodymyr_babchuk@epam.com>
+X-Inumbo-ID: e949a97e-87b6-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1700493017;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kC7RdHcgu6U8n1RbkgbqsUC2zwXH5BRBvYDFx3KLDeA=;
+  b=Vq6PY11yNxLyDbBk1QS7akt48wIeOcZHtmDCilEstY8zffKUF1OoUEPV
+   8DCstNiRkSveu684XXndyBGvvOjZxqZtprzTzkhdBUDY0knS/ntF7cTHw
+   VIj3CaR+UKOoNZG1lV0sVI13HA+P9FVEyCjja+09CvnGngnIIh/BPuUip
+   M=;
+X-CSE-ConnectionGUID: WSSa2cKdS7GG7jOciW9hCg==
+X-CSE-MsgGUID: Cs/Z1UAWQSmA9ZEYytm8gg==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 128209282
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:Y3rw7Kmj+VNngUwd8IyI4QTo5gzCJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJMXTuFbvqLZ2SmL49+YI22oxwPscDcxoRqSwo5qy03EyMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE0p5KiaVA8w5ARkPqkS5geGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ cMjEzlXZTOPvL2Z7+25beJtuZUjB8a+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzI/
+ DqXpTSjav0cHPeEjgjcz1uTv9TKtHLJdbMDCLjo+fE/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
+ Te0c8jBXGI19ufPEDTEq+bS8mva1TUpwXEqWhQ/RFEOwNXY/64c0RDoRddcQa6egYigcd3v+
+ AxmvBTSlp1K0pZTi/3qowCX6w9AsKQlWeLc2+k2Yo5GxlkgDGJdT9b0gWU3FN4ZRGpjcnGPv
+ WIfh++V5/0UAJeGmUSlGbpVRO3wt6fYbmGG2jaD+qXNEBz3oxaekX14umkidC+FzO5ZEdMWX
+ KMjkVwIv8ICVJdbRaR2f5iwG6wXIVvITLzYugTvRoMWOPBZLVbXlByCkGbMhwgBZmBwy/BgU
+ XpaGO7wZUsn5VNPlmvrHbxFi+RymkjTBwr7HPjG8vhu6pLGDFb9dFvPGALmgjwRhE9cnDjoz
+ g==
+IronPort-HdrOrdr: A9a23:kdga36vwahorckdNqtHhhGj77skDctV00zEX/kB9WHVpm5qj5q
+ STdZUgtSMc5wx7ZJhNo7q90cq7IE80l6Qb3WBLB8bGYOCOggLBEGgF1+bfKlbbdREWmNQw6U
+ /OGZIOb+EZoTJB/KXHCKjTKadD/OW6
+X-Talos-CUID: =?us-ascii?q?9a23=3AtkR1BWnb+zRn2rN5yi0PQ5jUpsHXOULm936KKGy?=
+ =?us-ascii?q?0MjlGZ+KXblSRx/JkuMU7zg=3D=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3AOpGYwA6tAxNoc3TDGE8vSUF4xoxD+OOcUX0krqw?=
+ =?us-ascii?q?9vuDVBwFBKiuY3Du4F9o=3D?=
+X-IronPort-AV: E=Sophos;i="6.04,214,1695700800"; 
+   d="scan'208";a="128209282"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/ioapic: Check 1k alignment for IO-APIC physical addresses
+Date: Mon, 20 Nov 2023 15:10:06 +0000
+Message-ID: <20231120151006.168773-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231012220854.2736994-7-volodymyr_babchuk@epam.com>
 
-On Thu, Oct 12, 2023 at 10:09:16PM +0000, Volodymyr Babchuk wrote:
-> Introduce "fail" label in init_bars() function to have the centralized
-> error return path. This is the pre-requirement for the future changes
-> in this function.
-> 
-> This patch does not introduce functional changes.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> --
-> In v10:
-> - Added Roger's A-b tag.
-> In v9:
-> - New in v9
-> ---
->  xen/drivers/vpci/header.c | 20 +++++++-------------
->  1 file changed, 7 insertions(+), 13 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 176fe16b9f..33db58580c 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -581,11 +581,7 @@ static int cf_check init_bars(struct pci_dev *pdev)
->              rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg,
->                                     4, &bars[i]);
->              if ( rc )
-> -            {
-> -                pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-> -                return rc;
-> -            }
-> -
-> +                goto fail;
+The MP spec requires a minimum of 1k alignment.  So too does Xen's use of a
+single fixmap page to map the IO-APIC.
 
-One nit that can be fixed at commit IMO, could you please avoid
-removing the empty line between goto fail; and continue;?
+Reject out-of-spec values so we don't end up in a position where a bad
+firmware value causes Xen to use the wrong mapping.
 
-Thanks, Roger.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/io_apic.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index 0ef61fb2f167..db1ea6e2f2ca 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -2589,10 +2589,11 @@ static void __init ioapic_init_mappings(void)
+         union IO_APIC_reg_01 reg_01;
+         paddr_t ioapic_phys = mp_ioapics[i].mpc_apicaddr;
+ 
+-        if ( !ioapic_phys )
++        if ( !ioapic_phys || (ioapic_phys & (KB(1) - 1)) )
+         {
+             printk(KERN_ERR
+-                   "WARNING: bogus zero IO-APIC address found in MPTABLE, disabling IO/APIC support!\n");
++                   "WARNING: bogus IO-APIC address %08lx found in MPTABLE, disabling IO/APIC support!\n",
++                   ioapic_phys);
+             smp_found_config = false;
+             skip_ioapic_setup = true;
+             break;
+-- 
+2.30.2
+
 
