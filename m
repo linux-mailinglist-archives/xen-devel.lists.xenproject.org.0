@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC2C7F1243
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 12:39:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636648.992328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02DD77F1276
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 12:52:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636671.992367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r52d1-0000PF-Qs; Mon, 20 Nov 2023 11:39:47 +0000
+	id 1r52ot-0006xm-QK; Mon, 20 Nov 2023 11:52:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636648.992328; Mon, 20 Nov 2023 11:39:47 +0000
+Received: by outflank-mailman (output) from mailman id 636671.992367; Mon, 20 Nov 2023 11:52:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r52d1-0000La-Mp; Mon, 20 Nov 2023 11:39:47 +0000
-Received: by outflank-mailman (input) for mailman id 636648;
- Mon, 20 Nov 2023 11:39:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r52ot-0006vb-N8; Mon, 20 Nov 2023 11:52:03 +0000
+Received: by outflank-mailman (input) for mailman id 636671;
+ Mon, 20 Nov 2023 11:52:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WPLm=HB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r52cz-0004F8-KD
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 11:39:45 +0000
+ id 1r52d6-0005BS-Km
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 11:39:52 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80769206-8799-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 12:39:45 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 83da69b1-8799-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 12:39:50 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D120D21904;
- Mon, 20 Nov 2023 11:39:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 87AB22190B;
+ Mon, 20 Nov 2023 11:39:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B54713499;
- Mon, 20 Nov 2023 11:39:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A6A213499;
+ Mon, 20 Nov 2023 11:39:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UCfJHIBFW2VGPgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Nov 2023 11:39:44 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id skrLDIZFW2VQPgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 20 Nov 2023 11:39:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,31 +51,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80769206-8799-11ee-98df-6d05b1d4d9a1
+X-Inumbo-ID: 83da69b1-8799-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1700480384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1700480390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=N+flDa3QzRsLPq+/48lq4lck4jmCIJAz+WNkz+xc0Qc=;
-	b=eJkmQIWq9/8AJdat3kFBJcE73XFskS0n6ZIDobSaIunrzRjhNgdsjl+jbnjcEMyl8OqaF6
-	en2oq8uNDA/5xn7qDhyTNgkNOcY0KAh/j1mDT8ExZKbHsD7xKLmpUqUqOr4YU2OPaBbsCa
-	hCK0hIzIEgQNTeN96rKfQjqJafajUF0=
+	bh=Q/EYfxk8Qg0QVlYL7ei3uVdlG67nL3oHtwpOh/6nVK4=;
+	b=uUUb19ylb0VAXIkKN8njGIYCENNkVJLyLwL11/88tC1y/gbcui7uRghhUmC/MRdeTiU0Ef
+	4Wid+Ph+vCMXMMYZQGFZDD9o4/tx5civOpNDOEIyiHxEtxlzGL0zEsIhprAsQX+oFELAtb
+	6rpU5IF379Ougi8nYweHuyo06bxe8Zc=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: javi.merino@cloud.com,
 	Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v3 10/13] xen/spinlock: add missing rspin_is_locked() and rspin_barrier()
-Date: Mon, 20 Nov 2023 12:38:39 +0100
-Message-Id: <20231120113842.5897-11-jgross@suse.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 11/13] xen/spinlock: split recursive spinlocks from normal ones
+Date: Mon, 20 Nov 2023 12:38:40 +0100
+Message-Id: <20231120113842.5897-12-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231120113842.5897-1-jgross@suse.com>
 References: <20231120113842.5897-1-jgross@suse.com>
@@ -98,7 +96,7 @@ X-Spamd-Result: default: False [-3.30 / 50.00];
 	 NEURAL_HAM_LONG(-1.00)[-1.000];
 	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCPT_COUNT_SEVEN(0.00)[11];
+	 RCPT_COUNT_SEVEN(0.00)[9];
 	 MID_CONTAINS_FROM(1.00)[];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
@@ -108,138 +106,231 @@ X-Spamd-Result: default: False [-3.30 / 50.00];
 	 BAYES_HAM(-3.00)[100.00%]
 X-Spam-Flag: NO
 
-Add rspin_is_locked() and rspin_barrier() in order to prepare differing
-spinlock_t and rspinlock_t types.
+Recursive and normal spinlocks are sharing the same data structure for
+representation of the lock. This has two major disadvantages:
+
+- it is not clear from the definition of a lock, whether it is intended
+  to be used recursive or not, while a mixture of both usage variants
+  needs to be
+
+- in production builds (builds without CONFIG_DEBUG_LOCKS) the needed
+  data size of an ordinary spinlock is 8 bytes instead of 4, due to the
+  additional recursion data needed (associated with that the rwlock
+  data is using 12 instead of only 8 bytes)
+
+Fix that by introducing a struct spinlock_recursive for recursive
+spinlocks only, and switch recursive spinlock functions to require
+pointers to this new struct.
+
+This allows to check the correct usage at build time.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
-- partially carved out from V1 patch, partially new
+- use shorter names (Jan Beulich)
+- don't embed spinlock_t in rspinlock_t (Jan Beulich)
 ---
- xen/arch/x86/mm/p2m-pod.c     |  2 +-
- xen/common/domain.c           |  2 +-
- xen/common/page_alloc.c       |  2 +-
- xen/common/spinlock.c         | 17 +++++++++++++++++
- xen/drivers/char/console.c    |  4 ++--
- xen/drivers/passthrough/pci.c |  2 +-
- xen/include/xen/spinlock.h    |  2 ++
- 7 files changed, 25 insertions(+), 6 deletions(-)
+ xen/common/spinlock.c      | 49 ++++++++++++++++++++++++++++++++
+ xen/include/xen/spinlock.h | 58 +++++++++++++++++++++++++-------------
+ 2 files changed, 88 insertions(+), 19 deletions(-)
 
-diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-index 5361c2c5b1..ad49c64ead 100644
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -385,7 +385,7 @@ int p2m_pod_empty_cache(struct domain *d)
- 
-     /* After this barrier no new PoD activities can happen. */
-     BUG_ON(!d->is_dying);
--    spin_barrier(&p2m->pod.lock.lock);
-+    rspin_barrier(&p2m->pod.lock.lock);
- 
-     lock_page_alloc(p2m);
- 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 604f70ff5a..17da8e0746 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -974,7 +974,7 @@ int domain_kill(struct domain *d)
-     case DOMDYING_alive:
-         domain_pause(d);
-         d->is_dying = DOMDYING_dying;
--        spin_barrier(&d->domain_lock);
-+        rspin_barrier(&d->domain_lock);
-         argo_destroy(d);
-         vnuma_destroy(d->vnuma);
-         domain_set_outstanding_pages(d, 0);
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index a25c00a7d4..14010b6fa5 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -476,7 +476,7 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
- {
-     long dom_before, dom_after, dom_claimed, sys_before, sys_after;
- 
--    ASSERT(spin_is_locked(&d->page_alloc_lock));
-+    ASSERT(rspin_is_locked(&d->page_alloc_lock));
-     d->tot_pages += pages;
- 
-     /*
 diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 8b991cf385..8bb6691b14 100644
+index 8bb6691b14..0467541f43 100644
 --- a/xen/common/spinlock.c
 +++ b/xen/common/spinlock.c
-@@ -458,6 +458,23 @@ void _spin_barrier(spinlock_t *lock)
-     spin_barrier_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
+@@ -541,6 +541,55 @@ void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags)
+     local_irq_restore(flags);
  }
  
-+int rspin_is_locked(const rspinlock_t *lock)
++int nrspin_trylock(rspinlock_t *lock)
 +{
-+    /*
-+     * Recursive locks may be locked by another CPU, yet we return
-+     * "false" here, making this function suitable only for use in
-+     * ASSERT()s and alike.
-+     */
-+    return lock->recurse_cpu == SPINLOCK_NO_CPU
-+           ? spin_is_locked_common(&lock->tickets)
-+           : lock->recurse_cpu == smp_processor_id();
++    check_lock(&lock->debug, true);
++
++    if ( unlikely(lock->recurse_cpu != SPINLOCK_NO_CPU) )
++        return 0;
++
++    return spin_trylock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
 +}
 +
-+void rspin_barrier(rspinlock_t *lock)
++void nrspin_lock(rspinlock_t *lock)
 +{
-+    spin_barrier_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
++    spin_lock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR, NULL,
++                     NULL);
 +}
 +
- int rspin_trylock(rspinlock_t *lock)
- {
-     unsigned int cpu = smp_processor_id();
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index c5609f32b5..a1aca2b60b 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -328,7 +328,7 @@ static void cf_check do_dec_thresh(unsigned char key, struct cpu_user_regs *regs
++void nrspin_unlock(rspinlock_t *lock)
++{
++    spin_unlock_common(&lock->tickets, &lock->debug, LOCK_PROFILE_PAR);
++}
++
++void nrspin_lock_irq(rspinlock_t *lock)
++{
++    ASSERT(local_irq_is_enabled());
++    local_irq_disable();
++    nrspin_lock(lock);
++}
++
++void nrspin_unlock_irq(rspinlock_t *lock)
++{
++    nrspin_unlock(lock);
++    local_irq_enable();
++}
++
++unsigned long __nrspin_lock_irqsave(rspinlock_t *lock)
++{
++    unsigned long flags;
++
++    local_irq_save(flags);
++    nrspin_lock(lock);
++    return flags;
++}
++
++void nrspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags)
++{
++    nrspin_unlock(lock);
++    local_irq_restore(flags);
++}
++
+ #ifdef CONFIG_DEBUG_LOCK_PROFILE
  
- static void conring_puts(const char *str, size_t len)
- {
--    ASSERT(spin_is_locked(&console_lock));
-+    ASSERT(rspin_is_locked(&console_lock));
- 
-     while ( len-- )
-         conring[CONRING_IDX_MASK(conringp++)] = *str++;
-@@ -766,7 +766,7 @@ static void __putstr(const char *str)
- {
-     size_t len = strlen(str);
- 
--    ASSERT(spin_is_locked(&console_lock));
-+    ASSERT(rspin_is_locked(&console_lock));
- 
-     console_serial_puts(str, len);
-     video_puts(str, len);
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 22342f07ac..f55c1a5cf4 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -64,7 +64,7 @@ void pcidevs_unlock(void)
- 
- bool pcidevs_locked(void)
- {
--    return !!spin_is_locked(&_pcidevs_lock);
-+    return rspin_is_locked(&_pcidevs_lock);
- }
- 
- static struct radix_tree_root pci_segments;
+ struct lock_profile_anc {
 diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index ccb1cafa5f..fb6ca1949a 100644
+index fb6ca1949a..a2b1bb2df6 100644
 --- a/xen/include/xen/spinlock.h
 +++ b/xen/include/xen/spinlock.h
-@@ -239,6 +239,8 @@ void rspin_lock(rspinlock_t *lock);
- unsigned long __rspin_lock_irqsave(rspinlock_t *lock);
- void rspin_unlock(rspinlock_t *lock);
- void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags);
-+int rspin_is_locked(const rspinlock_t *lock);
-+void rspin_barrier(rspinlock_t *lock);
+@@ -76,8 +76,6 @@ union lock_debug { };
+ */
  
+ struct spinlock;
+-/* Temporary hack until a dedicated struct rspinlock is existing. */
+-#define rspinlock spinlock
+ 
+ struct lock_profile {
+     struct lock_profile *next;       /* forward link */
+@@ -108,6 +106,10 @@ struct lock_profile_qhead {
+     __used_section(".lockprofile.data") =                                     \
+     &__lock_profile_data_##name
+ #define _SPIN_LOCK_UNLOCKED(x) {                                              \
++    .debug =_LOCK_DEBUG,                                                      \
++    .profile = x,                                                             \
++}
++#define _RSPIN_LOCK_UNLOCKED(x) {                                             \
+     .recurse_cpu = SPINLOCK_NO_CPU,                                           \
+     .debug =_LOCK_DEBUG,                                                      \
+     .profile = x,                                                             \
+@@ -117,8 +119,9 @@ struct lock_profile_qhead {
+     spinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                 \
+     static struct lock_profile __lock_profile_data_##l = _LOCK_PROFILE(l);    \
+     _LOCK_PROFILE_PTR(l)
++#define RSPIN_LOCK_UNLOCKED _RSPIN_LOCK_UNLOCKED(NULL)
+ #define DEFINE_RSPINLOCK(l)                                                   \
+-    rspinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                \
++    rspinlock_t l = _RSPIN_LOCK_UNLOCKED(NULL);                               \
+     static struct lock_profile __lock_profile_data_##l = _RLOCK_PROFILE(l);   \
+     _LOCK_PROFILE_PTR(l)
+ 
+@@ -143,8 +146,11 @@ struct lock_profile_qhead {
+ 
+ #define spin_lock_init_prof(s, l)                                             \
+     __spin_lock_init_prof(s, l, lock, spinlock_t, 0)
+-#define rspin_lock_init_prof(s, l)                                            \
+-    __spin_lock_init_prof(s, l, rlock, rspinlock_t, 1)
++#define rspin_lock_init_prof(s, l) do {                                       \
++        __spin_lock_init_prof(s, l, rlock, rspinlock_t, 1);                   \
++        (s)->l.recurse_cpu = SPINLOCK_NO_CPU;                                 \
++        (s)->l.recurse_cnt = 0;                                               \
++    } while (0)
+ 
+ void _lock_profile_register_struct(
+     int32_t type, struct lock_profile_qhead *qhead, int32_t idx);
+@@ -166,11 +172,15 @@ struct lock_profile_qhead { };
+ struct lock_profile { };
+ 
+ #define SPIN_LOCK_UNLOCKED {                                                  \
++    .debug =_LOCK_DEBUG,                                                      \
++}
++#define RSPIN_LOCK_UNLOCKED {                                                 \
++    .debug =_LOCK_DEBUG,                                                      \
+     .recurse_cpu = SPINLOCK_NO_CPU,                                           \
+     .debug =_LOCK_DEBUG,                                                      \
+ }
+ #define DEFINE_SPINLOCK(l) spinlock_t l = SPIN_LOCK_UNLOCKED
+-#define DEFINE_RSPINLOCK(l) rspinlock_t l = SPIN_LOCK_UNLOCKED
++#define DEFINE_RSPINLOCK(l) rspinlock_t l = RSPIN_LOCK_UNLOCKED
+ 
+ #define spin_lock_init_prof(s, l) spin_lock_init(&((s)->l))
+ #define rspin_lock_init_prof(s, l) rspin_lock_init(&((s)->l))
+@@ -180,7 +190,6 @@ struct lock_profile { };
+ 
+ #endif
+ 
+-
+ typedef union {
+     uint32_t head_tail;
+     struct {
+@@ -192,6 +201,14 @@ typedef union {
+ #define SPINLOCK_TICKET_INC { .head_tail = 0x10000, }
+ 
+ typedef struct spinlock {
++    spinlock_tickets_t tickets;
++    union lock_debug debug;
++#ifdef CONFIG_DEBUG_LOCK_PROFILE
++    struct lock_profile *profile;
++#endif
++} spinlock_t;
++
++typedef struct rspinlock {
+     spinlock_tickets_t tickets;
+     uint16_t recurse_cpu:SPINLOCK_CPU_BITS;
+ #define SPINLOCK_NO_CPU        ((1u << SPINLOCK_CPU_BITS) - 1)
+@@ -202,12 +219,10 @@ typedef struct spinlock {
+ #ifdef CONFIG_DEBUG_LOCK_PROFILE
+     struct lock_profile *profile;
+ #endif
+-} spinlock_t;
+-
+-typedef spinlock_t rspinlock_t;
++} rspinlock_t;
+ 
+ #define spin_lock_init(l) (*(l) = (spinlock_t)SPIN_LOCK_UNLOCKED)
+-#define rspin_lock_init(l) (*(l) = (rspinlock_t)SPIN_LOCK_UNLOCKED)
++#define rspin_lock_init(l) (*(l) = (rspinlock_t)RSPIN_LOCK_UNLOCKED)
+ 
+ void _spin_lock(spinlock_t *lock);
+ void _spin_lock_cb(spinlock_t *lock, void (*cb)(void *), void *data);
+@@ -242,6 +257,19 @@ void rspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags);
+ int rspin_is_locked(const rspinlock_t *lock);
+ void rspin_barrier(rspinlock_t *lock);
+ 
++int nrspin_trylock(rspinlock_t *lock);
++void nrspin_lock(rspinlock_t *lock);
++void nrspin_unlock(rspinlock_t *lock);
++void nrspin_lock_irq(rspinlock_t *lock);
++void nrspin_unlock_irq(rspinlock_t *lock);
++#define nrspin_lock_irqsave(l, f)                               \
++    ({                                                          \
++        BUILD_BUG_ON(sizeof(f) != sizeof(unsigned long));       \
++        ((f) = __nrspin_lock_irqsave(l));                       \
++    })
++unsigned long __nrspin_lock_irqsave(rspinlock_t *lock);
++void nrspin_unlock_irqrestore(rspinlock_t *lock, unsigned long flags);
++
  #define spin_lock(l)                  _spin_lock(l)
  #define spin_lock_cb(l, c, d)         _spin_lock_cb(l, c, d)
+ #define spin_lock_irq(l)              _spin_lock_irq(l)
+@@ -270,12 +298,4 @@ void rspin_barrier(rspinlock_t *lock);
+ /* Ensure a lock is quiescent between two critical operations. */
+ #define spin_barrier(l)               _spin_barrier(l)
+ 
+-#define nrspin_trylock(l)    spin_trylock(l)
+-#define nrspin_lock(l)       spin_lock(l)
+-#define nrspin_unlock(l)     spin_unlock(l)
+-#define nrspin_lock_irq(l)   spin_lock_irq(l)
+-#define nrspin_unlock_irq(l) spin_unlock_irq(l)
+-#define nrspin_lock_irqsave(l, f)      spin_lock_irqsave(l, f)
+-#define nrspin_unlock_irqrestore(l, f) spin_unlock_irqrestore(l, f)
+-
+ #endif /* __SPINLOCK_H__ */
 -- 
 2.35.3
 
