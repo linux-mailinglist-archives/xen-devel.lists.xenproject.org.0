@@ -2,29 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9298A7F16C0
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:10:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637039.992733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FB787F16ED
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:13:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637046.992741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55un-0006gx-OC; Mon, 20 Nov 2023 15:10:21 +0000
+	id 1r55xn-0007i7-3j; Mon, 20 Nov 2023 15:13:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637039.992733; Mon, 20 Nov 2023 15:10:21 +0000
+Received: by outflank-mailman (output) from mailman id 637046.992741; Mon, 20 Nov 2023 15:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55un-0006eo-K3; Mon, 20 Nov 2023 15:10:21 +0000
-Received: by outflank-mailman (input) for mailman id 637039;
- Mon, 20 Nov 2023 15:10:20 +0000
+	id 1r55xn-0007fI-0U; Mon, 20 Nov 2023 15:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 637046;
+ Mon, 20 Nov 2023 15:13:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uh/B=HB=citrix.com=prvs=681f0548f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1r55um-0006ei-98
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:10:20 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e949a97e-87b6-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 16:10:17 +0100 (CET)
+ <SRS0=F3F/=HB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1r55xm-0007fC-0X
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:13:26 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20631.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58c346e1-87b7-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 16:13:23 +0100 (CET)
+Received: from DM6PR17CA0024.namprd17.prod.outlook.com (2603:10b6:5:1b3::37)
+ by CY5PR12MB6227.namprd12.prod.outlook.com (2603:10b6:930:21::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
+ 2023 15:13:20 +0000
+Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
+ (2603:10b6:5:1b3:cafe::10) by DM6PR17CA0024.outlook.office365.com
+ (2603:10b6:5:1b3::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
+ Transport; Mon, 20 Nov 2023 15:13:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 15:13:19 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 09:13:18 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 20 Nov
+ 2023 07:13:18 -0800
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34
+ via Frontend Transport; Mon, 20 Nov 2023 09:13:17 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,97 +63,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e949a97e-87b6-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1700493017;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=kC7RdHcgu6U8n1RbkgbqsUC2zwXH5BRBvYDFx3KLDeA=;
-  b=Vq6PY11yNxLyDbBk1QS7akt48wIeOcZHtmDCilEstY8zffKUF1OoUEPV
-   8DCstNiRkSveu684XXndyBGvvOjZxqZtprzTzkhdBUDY0knS/ntF7cTHw
-   VIj3CaR+UKOoNZG1lV0sVI13HA+P9FVEyCjja+09CvnGngnIIh/BPuUip
-   M=;
-X-CSE-ConnectionGUID: WSSa2cKdS7GG7jOciW9hCg==
-X-CSE-MsgGUID: Cs/Z1UAWQSmA9ZEYytm8gg==
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 128209282
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:Y3rw7Kmj+VNngUwd8IyI4QTo5gzCJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJMXTuFbvqLZ2SmL49+YI22oxwPscDcxoRqSwo5qy03EyMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5KiaVA8w5ARkPqkS5geGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- cMjEzlXZTOPvL2Z7+25beJtuZUjB8a+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzI/
- DqXpTSjav0cHPeEjgjcz1uTv9TKtHLJdbMDCLjo+fE/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
- Te0c8jBXGI19ufPEDTEq+bS8mva1TUpwXEqWhQ/RFEOwNXY/64c0RDoRddcQa6egYigcd3v+
- AxmvBTSlp1K0pZTi/3qowCX6w9AsKQlWeLc2+k2Yo5GxlkgDGJdT9b0gWU3FN4ZRGpjcnGPv
- WIfh++V5/0UAJeGmUSlGbpVRO3wt6fYbmGG2jaD+qXNEBz3oxaekX14umkidC+FzO5ZEdMWX
- KMjkVwIv8ICVJdbRaR2f5iwG6wXIVvITLzYugTvRoMWOPBZLVbXlByCkGbMhwgBZmBwy/BgU
- XpaGO7wZUsn5VNPlmvrHbxFi+RymkjTBwr7HPjG8vhu6pLGDFb9dFvPGALmgjwRhE9cnDjoz
- g==
-IronPort-HdrOrdr: A9a23:kdga36vwahorckdNqtHhhGj77skDctV00zEX/kB9WHVpm5qj5q
- STdZUgtSMc5wx7ZJhNo7q90cq7IE80l6Qb3WBLB8bGYOCOggLBEGgF1+bfKlbbdREWmNQw6U
- /OGZIOb+EZoTJB/KXHCKjTKadD/OW6
-X-Talos-CUID: =?us-ascii?q?9a23=3AtkR1BWnb+zRn2rN5yi0PQ5jUpsHXOULm936KKGy?=
- =?us-ascii?q?0MjlGZ+KXblSRx/JkuMU7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AOpGYwA6tAxNoc3TDGE8vSUF4xoxD+OOcUX0krqw?=
- =?us-ascii?q?9vuDVBwFBKiuY3Du4F9o=3D?=
-X-IronPort-AV: E=Sophos;i="6.04,214,1695700800"; 
-   d="scan'208";a="128209282"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/ioapic: Check 1k alignment for IO-APIC physical addresses
-Date: Mon, 20 Nov 2023 15:10:06 +0000
-Message-ID: <20231120151006.168773-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 58c346e1-87b7-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jFrG1TrMd/e0kh+Sdl95eMt08tN7krfMiKlnWMjdYI5w9hayHZOsGYgrl95RBKU4hXA6Y4oVtflZPXb1ivLbaSuclkSC0R5GUEUeB9sNPSlYJoQahZoGMawoVvBWldDNwc98de6AB+ezPGJGumUf6W3h8ArHnVosnYjhkEd589pnpD/cn18iYLE2/ntFDVE2I9Z/+KGxJYxIsOGdH7F6UeW98hAHdx3JGY0zp2fcqExApAY3RjOKBrc+Pc7BiALsLP2Pq6zwcYxm/LaHTLaSvI+GdZ0V8lNrIPrMaVyHKaTcPzimPG/3oKv3oyshjwrb6DiagETX9iUQ/rr7afjrAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z/PiRdYgrtDdEJE4tNAgZp4K4hnRT1QsFVLpTkw9TnE=;
+ b=KEjYJEIRWQ5k2G5dtSKamO4NllQwnV534xuJVMAsH/dufgBwiYeWx7WzxFprTJmdiQ+A9UFQkVgVJJE73mlopxlZtRRcKu53q8geXEoq7lUaxqcI9YW+lVWDP4+/9fpt1ZVdlVQM+v1eDwkKSDWq2njGlr0ENfIrg2dVSn6uC7LK59gRQm4XdzsWW49ZwAAE0t9xg02dtu5bRjR0EjZW/mw3zavnNTd8akUXOvUwZ70F3d7pQWeS5e22W20s5R52fkQsU4m2ShRyCqiWoXJzSa8U+T/CPH7TlWX+Bttd8k4bW4K83KNKWXfqdv/5y8EhR5WeAgHNjVbi2+3OYXK0ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z/PiRdYgrtDdEJE4tNAgZp4K4hnRT1QsFVLpTkw9TnE=;
+ b=M5aOfXATlc3pO4nBQN2laNILqomc2GufUPnEeO2BOVGMm8IJqiYHpTxJuhNMQPabFMGNazVVLAovjyzGTHMHSCXVNpda9U1/3Uoxgs9VnhOW5SeaFED4tu1BYmYrtnY+od0h73mPBowY4TJMwBW2G2OntrdMKYeZiSztu+mCF0M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
+Subject: [ImageBuilder] uboot-script-gen: use size from arm32 zImage header
+Date: Mon, 20 Nov 2023 16:13:15 +0100
+Message-ID: <20231120151315.92119-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CY5PR12MB6227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 853348fe-508f-4760-30da-08dbe9db3acb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	gyrMlXcS4PLMsz1HhaEEtEqIuHZt8J17YLthEk03+sd5m8FxhrXLxtp/9PHO2fAuFcQRAgCx088XmxX1J0+e76wIARayV+4gO/AyPHP6+j6BpfSJZE1TNUtG2n1DoEhV4nUWm54tBrRDMbpp2zFc+G+KCfZjtYw91afcaMAf4E91pJsX7Hx2oUjNXlEndojjzn8XFjWVu8N9S9YhG0KS9oJypWQ8DntRlIZEkfzNiew0j2NEiEnu87maqK7TtTaL+IqSRVckbL9UJX79gtj6q10r72q9a2Wsp2QpkpiPIlgIMNSDq8hr8slfnJ42zVPSsurnqU8+pQA2y8pH1PpUEigWAzYYlZRdvzTSCo8VOczW3JG+XT999rfPu70caL57qGgQE/DJQq3DKtbV7DfZWYwJr4AeegZ74wqbISvR1k7Jp9k4vAVBpBIxreTvUSzq8kY1eZzAfop9xH8KfxB6sHzuVNNqZFmqw+R53UnYrg2z/x1bhpYiWsg4dTkJdwXgkInp+zT8+WTynzWlMjYaTvm59JGdqw5nMoBnmpH46eldhPInkvPxe4orzIy5f1bWIQ418o1yF4CVuq/eo6j/r/eRdA4FHnr71gHMZNvFFpNeTeH/8S8i43YfrXc3W+WHGEXKdtLpfheRaxiTctY84YuFwgUYeWid70iJI7GMC7wuOG9c/0yTnWk1AnfJkDzFU5+h4/SfV1wXDDyr4PAq1y8usYPxqwfOy5HBdM2pxeHrHytCCf+OSKITx2dyRqXX
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(396003)(376002)(346002)(230922051799003)(82310400011)(186009)(451199024)(64100799003)(1800799012)(46966006)(36840700001)(40470700004)(26005)(40460700003)(70586007)(1076003)(83380400001)(54906003)(316002)(6916009)(70206006)(336012)(426003)(86362001)(5660300002)(2906002)(36860700001)(47076005)(478600001)(36756003)(44832011)(82740400003)(356005)(81166007)(41300700001)(2616005)(40480700001)(8676002)(4326008)(8936002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 15:13:19.5467
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 853348fe-508f-4760-30da-08dbe9db3acb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6227
 
-The MP spec requires a minimum of 1k alignment.  So too does Xen's use of a
-single fixmap page to map the IO-APIC.
+Take an example from commit 8bf401c99035 ("uboot-script-gen: use size from
+arm64 Image header") and add support for calculating the effective image
+size from arm32 zImage header.
 
-Reject out-of-spec values so we don't end up in a position where a bad
-firmware value causes Xen to use the wrong mapping.
+Introduce get_image_size() function and use it to to probe the supported
+header magic values and to retrieve the effective image size. Use this
+value in add_size(), whenever it's bigger than the one obtained using
+'stat -L'.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+This patch together with 'bootz' support will allow us to enable testing Xen
+on arm{32,64} in gitlab CI with UBSAN enabled.
 ---
- xen/arch/x86/io_apic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ scripts/uboot-script-gen | 38 ++++++++++++++++++++++++++++----------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 0ef61fb2f167..db1ea6e2f2ca 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2589,10 +2589,11 @@ static void __init ioapic_init_mappings(void)
-         union IO_APIC_reg_01 reg_01;
-         paddr_t ioapic_phys = mp_ioapics[i].mpc_apicaddr;
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index 9e3d86e4743a..078a667c61ab 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -431,23 +431,41 @@ function device_tree_editing()
+     fi
+ }
  
--        if ( !ioapic_phys )
-+        if ( !ioapic_phys || (ioapic_phys & (KB(1) - 1)) )
-         {
-             printk(KERN_ERR
--                   "WARNING: bogus zero IO-APIC address found in MPTABLE, disabling IO/APIC support!\n");
-+                   "WARNING: bogus IO-APIC address %08lx found in MPTABLE, disabling IO/APIC support!\n",
-+                   ioapic_phys);
-             smp_found_config = false;
-             skip_ioapic_setup = true;
-             break;
+-function add_size()
++# Read effective image size from a header, which may be larger than the filesize
++# due to noload sections, e.g. bss.
++function get_image_size()
+ {
+-    local filename=$1
+-    local size=`stat -L --printf="%s" $filename`
++    local image=$1
++    local effective_size=0
+     # Read arm64 header magic (https://www.kernel.org/doc/Documentation/arm64/booting.txt)
+-    local arm64_header_magic=$(od -j 56 -N 4 -t x4 ${filename} | awk 'NR==1 {print $2}')
++    local arm64_header_magic=$(od -j 56 -N 4 -t x4 ${image} | awk 'NR==1 {print $2}')
++    # Read arm32 header magic (http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html)
++    local arm32_header_magic=$(od -j 36 -N 4 -t x4 ${image} | awk 'NR==1 {print $2}')
+ 
+     # Check for valid arm64 header magic value 0x644d5241
+     if [ "${arm64_header_magic}" = "644d5241" ]
+     then
+-        # Read effective size, which may be larger than the filesize due to noload sections, e.g. bss
+-        local arm64_header_size=$(od -j 16 -N 8 -t u8 ${filename} | awk 'NR==1 {print $2}')
++        effective_size=$(od -j 16 -N 8 -t u8 ${image} | awk 'NR==1 {print $2}')
++    # Check for valid arm32 header magic value 0x016f2818
++    elif [ "${arm32_header_magic}" = "016f2818" ]
++    then
++        local start=$(od -j 40 -N 4 -t u4 ${image} | awk 'NR==1 {print $2}')
++        local end=$(od -j 44 -N 4 -t u4 ${image} | awk 'NR==1 {print $2}')
++        effective_size=$(( end - start ))
++    fi
+ 
+-        if [ "${arm64_header_size}" -gt "${size}" ]
+-        then
+-            size=${arm64_header_size}
+-        fi
++    printf "%u" $effective_size
++}
++
++function add_size()
++{
++    local filename=$1
++    local size=`stat -L --printf="%s" $filename`
++    local image_size=`get_image_size $filename`
++
++    if [ "${image_size}" -gt "${size}" ]
++    then
++        size=${image_size}
+     fi
+ 
+     memaddr=$(( $memaddr + $size + $offset - 1))
 -- 
-2.30.2
+2.25.1
 
 
