@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9367F1298
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 13:02:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636681.992378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63047F1315
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 13:20:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636690.992387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r52yO-0002Sz-QV; Mon, 20 Nov 2023 12:01:52 +0000
+	id 1r53G2-0000pk-A6; Mon, 20 Nov 2023 12:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636681.992378; Mon, 20 Nov 2023 12:01:52 +0000
+Received: by outflank-mailman (output) from mailman id 636690.992387; Mon, 20 Nov 2023 12:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r52yO-0002Qz-NB; Mon, 20 Nov 2023 12:01:52 +0000
-Received: by outflank-mailman (input) for mailman id 636681;
- Mon, 20 Nov 2023 12:01:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r53G2-0000my-6W; Mon, 20 Nov 2023 12:20:06 +0000
+Received: by outflank-mailman (input) for mailman id 636690;
+ Mon, 20 Nov 2023 12:20:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GG8d=HB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r52yN-0002Qt-Bs
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 12:01:51 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 964b1122-879c-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 13:01:50 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4083f61312eso17199585e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 04:01:50 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- q1-20020a5d61c1000000b00332cb8fd5b7sm693352wrv.67.2023.11.20.04.01.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Nov 2023 04:01:49 -0800 (PST)
+ <SRS0=Dn+W=HB=casper.srs.infradead.org=BATV+a382181226579416d6c1+7393+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r53Fz-0000NQ-Mn
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 12:20:05 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f2ee990-879f-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 13:20:01 +0100 (CET)
+Received: from [2001:8b0:10b:5:da9d:e969:c8a2:ee38]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r53Fn-004TxA-Qi; Mon, 20 Nov 2023 12:19:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,162 +41,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 964b1122-879c-11ee-98df-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700481709; x=1701086509; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=m8V6AfJdcPcxDFtN0eGZ2PlgKo6saqWElPxwXFF+2tQ=;
-        b=lZ78NUs5xlA344BnWb014Wd5FtyNnRqhiFHGQBXWIFvVWNqlE1uAuUCph9ct5kwOmc
-         5BbUfBqw69wG37OUYX+syDelkQ7Gi7oLHXb5yuEuU2S58ZsAm5uASs+qL03ZTwKpC4Aa
-         z/5DlM5OFxP5Cosv8H1Tm1C8U531RUrQLFVWc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700481709; x=1701086509;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m8V6AfJdcPcxDFtN0eGZ2PlgKo6saqWElPxwXFF+2tQ=;
-        b=nkp/ow1ieznYb+wXZWOeo2qb7cMfGy6C4I4P/5E9exttUExMhiHmb5c2cbJX+fAroR
-         yMROuuvelF6N7Kts56O6effAVXxXRY9E7gHF56+Q1RJLCxHHof39aiRX/Wfn6FXfMQOL
-         siwsRLeJvcpS3aAirGdqgY1quxbLW+4IXGHxaAL3hgQviojtqkkVATeCw0qcw/NNCAHS
-         wovnldpHDTD3i1qJbUyMilhUwVE+Y6hRlZOs9sgvbsSR9JAYpvoUCNr0rC3jq3G6+zUV
-         hEsbTuaoJBoTNuXDzx/QixhMWiQoEgBCacKb1cL7KErDGOxQQHM5CQqGz0I6sbGntut/
-         Ks/Q==
-X-Gm-Message-State: AOJu0Yw+d/6ktSbCfNTNgq41NFxd2nYzCqEvHhG9/RF1xdHkIBYcD4PX
-	5fMroj4nQCs8xKUlaHEhbNbO5g==
-X-Google-Smtp-Source: AGHT+IEk1Mu0Cm3kge8q3rp+/1FukqtmUc+/R89Y7bU4Azt2Lu8JZhyh4DCiWp3vnZyg+hHFIyOkxQ==
-X-Received: by 2002:a5d:64c6:0:b0:332:c527:66e8 with SMTP id f6-20020a5d64c6000000b00332c52766e8mr2151394wri.7.1700481709552;
-        Mon, 20 Nov 2023 04:01:49 -0800 (PST)
-Date: Mon, 20 Nov 2023 13:01:48 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/3] amd-vi: use the same IOMMU page table levels for PV
- and HVM
-Message-ID: <ZVtKrKTyGli-Uj9H@macbook.local>
-References: <20231117094749.81091-1-roger.pau@citrix.com>
- <20231117094749.81091-2-roger.pau@citrix.com>
- <e90d416e-f4dd-4b2c-9247-0e3aa35c26d9@citrix.com>
- <0392fe23-7589-4dc2-b664-1e7e01c3914d@suse.com>
- <ZVs0fvUQI9C7NRc5@macbook.local>
- <f414730f-307d-4ef6-9aaa-a861925fdab4@suse.com>
- <ZVs52elOtWbTaD0i@macbook.local>
- <a857c016-7cc7-48ed-968a-8a9f2748c8d3@suse.com>
+X-Inumbo-ID: 1f2ee990-879f-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=1wc7aABWxfght02fxue0bKA9qaNZbrLWEyUN5dIiUnc=; b=WvWmFbSE9NcWYHAPBbRuZl/sZI
+	z8oC7QUuq+be/C8MjXEM/qZNH6u/ObR0rHlnwcIig0ybWyEtLnmmwkMl5BlS45JwPuhsJevIhaVD6
+	mVwzNMcxRlfuIN6+sDurqyoIsF34mo2DIyMyzJyePFgYSlEABxhTJp/hfgaTeMSJt5Lipg+ljHZG3
+	LeKIiiR8h+rGDzTIrt+j6a4AfBXNcozM4I0neC4djphnJETr6AnbD4Li8thxoiq372CdYfdiKrSxN
+	KrB6OvEyoT5lqrcjChRYJUOXKfIe46FxwS5lwGPpWfY0AoNdDkPQcq7adDbHuxNIVRngX/x6sqAEH
+	BL7PpUSQ==;
+Message-ID: <da465baf0ebcfa3c31e5be7e70319b0796ac59da.camel@infradead.org>
+Subject: Re: [PATCH] acpi_idle: use raw_safe_halt() from
+ acpi_idle_play_dead()
+From: David Woodhouse <dwmw2@infradead.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-acpi <linux-acpi@vger.kernel.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>, xen-devel
+ <xen-devel@lists.xenproject.org>, Ingo Molnar <mingo@redhat.com>, Will
+ Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>, Boqun Feng
+ <boqun.feng@gmail.com>
+Date: Mon, 20 Nov 2023 12:19:51 +0000
+In-Reply-To: <20231027191435.GF26550@noisy.programming.kicks-ass.net>
+References: <a079bba5a0e47d6534b307553fc3772d26ce911b.camel@infradead.org>
+	 <20231027191435.GF26550@noisy.programming.kicks-ass.net>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-9pNWePa5/CdS8Gw0E/Mh"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a857c016-7cc7-48ed-968a-8a9f2748c8d3@suse.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Mon, Nov 20, 2023 at 12:34:45PM +0100, Jan Beulich wrote:
-> On 20.11.2023 11:50, Roger Pau Monné wrote:
-> > On Mon, Nov 20, 2023 at 11:37:43AM +0100, Jan Beulich wrote:
-> >> On 20.11.2023 11:27, Roger Pau Monné wrote:
-> >>> On Mon, Nov 20, 2023 at 10:45:29AM +0100, Jan Beulich wrote:
-> >>>> On 17.11.2023 12:55, Andrew Cooper wrote:
-> >>>>> On 17/11/2023 9:47 am, Roger Pau Monne wrote:
-> >>>>>>      /*
-> >>>>>> -     * Choose the number of levels for the IOMMU page tables.
-> >>>>>> -     * - PV needs 3 or 4, depending on whether there is RAM (including hotplug
-> >>>>>> -     *   RAM) above the 512G boundary.
-> >>>>>> -     * - HVM could in principle use 3 or 4 depending on how much guest
-> >>>>>> -     *   physical address space we give it, but this isn't known yet so use 4
-> >>>>>> -     *   unilaterally.
-> >>>>>> -     * - Unity maps may require an even higher number.
-> >>>>>> +     * Choose the number of levels for the IOMMU page tables, taking into
-> >>>>>> +     * account unity maps.
-> >>>>>>       */
-> >>>>>> -    hd->arch.amd.paging_mode = max(amd_iommu_get_paging_mode(
-> >>>>>> -            is_hvm_domain(d)
-> >>>>>> -            ? 1UL << (DEFAULT_DOMAIN_ADDRESS_WIDTH - PAGE_SHIFT)
-> >>>>>> -            : get_upper_mfn_bound() + 1),
-> >>>>>> -        amd_iommu_min_paging_mode);
-> >>>>>> +    hd->arch.amd.paging_mode = max(pgmode, amd_iommu_min_paging_mode);
-> >>>>>
-> >>>>> I think these min/max variables can be dropped now we're not doing
-> >>>>> variable height IOMMU pagetables, which further simplifies this expression.
-> >>>>
-> >>>> Did you take unity maps into account? At least $subject and comment looks
-> >>>> to not be consistent in this regard: Either unity maps need considering
-> >>>> specially (and then we don't uniformly use the same depth), or they don't
-> >>>> need mentioning in the comment (anymore).
-> >>>
-> >>> Unity maps that require an address width > DEFAULT_DOMAIN_ADDRESS_WIDTH
-> >>> will currently only work on PV at best, as HVM p2m code is limited to
-> >>> 4 level page tables, so even if the IOMMU page tables support a
-> >>> greater address width the call to map such regions will trigger an
-> >>> error in the p2m code way before attempting to create any IOMMU
-> >>> mappings.
-> >>>
-> >>> We could do:
-> >>>
-> >>> hd->arch.amd.paging_mode =
-> >>>     is_hvm_domain(d) ? pgmode : max(pgmode, amd_iommu_min_paging_mode);
-> >>>
-> >>> Putting IVMD/RMRR regions that require the usage of 5 level page
-> >>> tables would be a very short sighted move by vendors IMO.
-> >>>
-> >>> And will put us back in a situation where PV vs HVM can get different
-> >>> IOMMU page table levels, which is undesirable.  It might be better to
-> >>> just assume all domains use DEFAULT_DOMAIN_ADDRESS_WIDTH and hide
-> >>> devices that have IVMD/RMRR regions above that limit.
-> >>
-> >> That's a possible approach, yes. To be honest, I was actually hoping we'd
-> >> move in a different direction: Do away with the entirely arbitrary
-> >> DEFAULT_DOMAIN_ADDRESS_WIDTH, and use actual system properties instead.
-> > 
-> > Hm, yes, that might be a sensible approach, but right now I don't want
-> > to block this series on such (likely big) piece of work.  I think we
-> > should aim for HVM and PV to have the same IOMMU page table levels,
-> > and that's currently limited by the p2m code only supporting 4 levels.
-> 
-> No, I certainly don't mean to introduce a dependency there. Yet what
-> you do here goes actively against that possible movement in the other
-> direction: What "actual system properties" are differs between PV and
-> HVM (host properties vs guest properties), and hence there would
-> continue to be a (possible) difference in depth between the two.
 
-Might be.  Overall seems like more complexity for a little win.
+--=-9pNWePa5/CdS8Gw0E/Mh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The simplest option would be to unconditionally use the maximum page
-table levels supported by both the CPU and the IOMMU.
+On Fri, 2023-10-27 at 21:14 +0200, Peter Zijlstra wrote:
+> On Fri, Oct 27, 2023 at 07:36:51PM +0100, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > Xen HVM guests were observed taking triple-faults when attempting to
+> > online a previously offlined vCPU.
+> >=20
+> > Investigation showed that the fault was coming from a failing call
+> > to lockdep_assert_irqs_disabled(), in load_current_idt() which was
+> > too early in the CPU bringup to actually catch the exception and
+> > report the failure cleanly.
+> >=20
+> > This was a false positive, caused by acpi_idle_play_dead() setting
+> > the per-cpu hardirqs_enabled flag by calling safe_halt(). Switch it
+> > to use raw_safe_halt() instead, which doesn't do so.
+> >=20
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > ---
+> > We might {also,instead} explicitly set the hardirqs_enabled flag to
+> > zero when bringing up an AP?
+>=20
+> So I fixed up the idle paths the other day (see all that __cpuidle
+> stuff) but I've not yet gone through the whole hotplug thing :/
+>=20
+> This seems right, at this point everything, including RCU is very much
+> gone, any instrumentation is undesired.
+>=20
+> Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-> >> Whether having PV and HVM have uniform depth is indeed desirable is also
-> >> not entirely obvious to me. Having looked over patch 3 now, it also
-> >> hasn't become clear to me why the change here is actually a (necessary)
-> >> prereq.
-> > 
-> > Oh, it's a prereq because I've found AMD systems that have reserved
-> > regions > 512GB, but no RAM past that region.  arch_iommu_hwdom_init()
-> > would fail on those systems when patch 3/3 was applied, as then
-> > reserved regions past the last RAM address are also mapped in
-> > arch_iommu_hwdom_init().
-> 
-> Hmm, interesting. I can't bring together "would fail" and "are also
-> mapped" though, unless the latter was meant to say "are attempted to
-> also be mapped", in which case I could at least see room for failure.
+Ping? Who's taking this?
 
-Yes, "are attempted to also be mapped", and that attempt fails.  I
-would assume that "would fail" was already connected to "also mapped",
-but maybe it's not clear enough.
+Needs a Cc:stable@vger.kernel.org now too, to fix 6.6.x.
 
-> Yet still this would then feel like an issue with the last patch alone,
-> which the change here is merely avoiding (without this being a strict
-> prereq). Instead I'd expect us to use 4 levels whenever there are any
-> kind of regions (reserved or not) above 512G. Without disallowing use
-> of 3 levels on other (smaller) systems.
 
-While reserved regions are the ones that made me realize about this
-IOMMU page table difference, what about device MMIO regions?
+--=-9pNWePa5/CdS8Gw0E/Mh
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-There's no limitation that avoids MMIO regions from living past the
-last RAM address, and possibly above the 512GB mark.
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTIwMTIxOTUxWjAvBgkqhkiG9w0BCQQxIgQgOCk6OIS7
+FebwlSAu1c2d86wYz9oteD5SpZ5MvejqJWowgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCkxBUNUWCuNgc7P48lFk2IwPkZzCVuCUuu
+0QKHK97a6naCl46Yjru3ErS8d3v948BGwDeRnJE5p9QJheNPRUXcMNMt6uWtKQbV3cRy/MRagxfw
+h6IEj4ZO2UIN6wDyN/zCHpHINGvhDiZD94UbFNkLLCCvY1U+Az0s5cR2EUynQ+eDvKBSvhb57vBz
+vhwnPaRUo7uUdpqwcrEfwB4lIUbqr479c1AF2Sy/5Tx/+WsnbAuA9q7FT6SM6SrO3HO5CvNO62kQ
+dO/s9s82q7z5dQ2jGuCkMtfi4waDoueozMI+KEslr15glViLW4WTQcv1Vqg4c6yTatiBxdmZl3GA
+wevUkFkoBsAo90rHC/etYIK5hdtQM1KUUq4nJEX+NUiVnKIksl3cSx7sqNgEgn2JwubmHttuqJcI
+qaQDyEdZHwc1EUVPhf5w9K/PWqVT3DvOOJK8a98vfHabCSE+IfzrYf6yfF9xftV28vWGZ9l6e/Fg
+o8w4xMcCBei/1aXnauektxoBsvOWIWrCYlq2VsV89LqfIkId02J3F9hXHTSlwkI5MNj/uVRVCQqA
+t0Wk3+oPaA842nR+N2UaMFWyRcbS8jmM5YwzpJQup9C0d2SzVJdnVDsxH0xt60MAx3LJ+f32R2W5
+2/8BCQNXBJocLplQgxAcedeSElSx4I9qLYU9IvRNnAAAAAAAAA==
 
-If anything for PV we should limit page table levels based on the
-supported paddr bits reported by the CPU, but limiting it based on the
-memory map seems plain bogus.
 
-Thanks, Roger.
+--=-9pNWePa5/CdS8Gw0E/Mh--
 
