@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB65A7F1500
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 14:56:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636746.992477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C38217F1544
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 15:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636754.992488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r54ki-00047z-3B; Mon, 20 Nov 2023 13:55:52 +0000
+	id 1r54ul-0006nU-2j; Mon, 20 Nov 2023 14:06:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636746.992477; Mon, 20 Nov 2023 13:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 636754.992488; Mon, 20 Nov 2023 14:06:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r54ki-00045c-0X; Mon, 20 Nov 2023 13:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 636746;
- Mon, 20 Nov 2023 13:55:50 +0000
+	id 1r54uk-0006kx-VV; Mon, 20 Nov 2023 14:06:14 +0000
+Received: by outflank-mailman (input) for mailman id 636754;
+ Mon, 20 Nov 2023 14:06:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4RyQ=HB=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1r54kg-00044B-QN
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 13:55:50 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=hay4=HB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1r54uj-0006kq-84
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 14:06:13 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81f1335c-87ac-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 14:55:48 +0100 (CET)
-Received: from [10.253.41.90] (unknown [160.78.253.159])
- by support.bugseng.com (Postfix) with ESMTPSA id 48A3C4EE0739;
- Mon, 20 Nov 2023 14:55:47 +0100 (CET)
+ id f53c6f26-87ad-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 15:06:11 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-50a6ff9881fso6407655e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 06:06:10 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ fc11-20020a056512138b00b00503258fa962sm1177157lfb.199.2023.11.20.06.06.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Nov 2023 06:06:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,136 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81f1335c-87ac-11ee-9b0e-b553b5be7939
-Message-ID: <a03a8d60-5e46-4ef2-9e35-cc6892d229ee@bugseng.com>
-Date: Mon, 20 Nov 2023 14:55:46 +0100
+X-Inumbo-ID: f53c6f26-87ad-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700489170; x=1701093970; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=s6ku04AVgWw+VDiskuv9LroSS7thY3NklnbnE1JKyaM=;
+        b=jw4nh6OMhn64RD3/XiRX/RZUNZV3etoiQsEaVsAq8Xmd7yRlFU9sQWdJlrt0RWN+Xx
+         IcF36/IkyV0eobln4K9UwEK3YFe1TN/GKsu5P71s/v0cpEI1++QRHYAGT912hTSlPlYD
+         5Ja11Gpxat8vt0BLdozxgldU+7LpY3oktl8sCgva24XLa6A2bvITILPKV5mPmp1ZoS+M
+         HGIcNUKysYGwjeIcS2hzXVElcLF6kF3k6uDWnkaHmJ4ypJ5nYiZR/AxzVKg9o/UREM7u
+         SHRSQqnoQbVxcmfLdeWdwvqJgDPQftVl9xylqgG5CW46WH4nRRlepo4ZXHqdlIXnHGRJ
+         jqcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700489170; x=1701093970;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s6ku04AVgWw+VDiskuv9LroSS7thY3NklnbnE1JKyaM=;
+        b=TJ1rcipOv5RudWd6t4FxjQwrFQCHOgeKvKje83AtGym4bud7n1uQGwwH0PUSVKFGH7
+         5j/djObLeXNEJD7GLWE5cnM9iLm1K/VZsNFrBJi+9uhIrWIOWSYn+Ja/6aMNWFQSLfDd
+         aXhWREKKvVnX0nPm8w2YwpI/7ZqToKf56LxyrDSF2nUJLejvUmOEQVaj1Jr8OHcwgPh7
+         5E/7vK9rPQUhZ1vrEhnj77bAEtPc4yD1dlZQL0uo8ZS8XNhoJGeiE0n+BWngioQnSs7X
+         nLQT8rFJ1q23xLZLTtNhHi+E74Q6SceJ1tgAwIbQL1bk5eDfbs5ZceFoBOrdLdqoqol+
+         1Z1g==
+X-Gm-Message-State: AOJu0YzgZPlE6Tui7PIXWSzLqCWHo46vIkitSrE3sQOPeNEAdMEQ6Ue4
+	mp/AL/AwFfHccvE6BqVPuHFeSJLLFX8=
+X-Google-Smtp-Source: AGHT+IEGeR7Vks+686HyihvFmkdaQTXq8riGDliHXUCGlG/Nxm0kkCXlURjwh0GfXFAtPBeYy32Umg==
+X-Received: by 2002:ac2:563b:0:b0:4ff:7004:545e with SMTP id b27-20020ac2563b000000b004ff7004545emr5171809lff.4.1700489169303;
+        Mon, 20 Nov 2023 06:06:09 -0800 (PST)
+Message-ID: <0cb1254f433536a9995c278c919372e226059934.camel@gmail.com>
+Subject: Interest in Release Manager Role
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Henry.Wang@arm.com, kelly.choi@cloud.com, marc.ungeschikts@vates.tech, 
+	olivier.lambert@vates.fr, marc.ungeschikts@vates.fr
+Date: Mon, 20 Nov 2023 16:06:08 +0200
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/5] xen/common: address violations of MISRA C:2012
- Rule 8.2
-Content-Language: en-US, it
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>
-References: <cover.1700209834.git.federico.serafini@bugseng.com>
- <ccc8b4bea515360e448f1975dadb326ad2e6c918.1700209834.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2311171851260.773207@ubuntu-linux-20-04-desktop>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <alpine.DEB.2.22.394.2311171851260.773207@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 18/11/23 03:59, Stefano Stabellini wrote:
-> On Fri, 17 Nov 2023, Federico Serafini wrote:
->> diff --git a/xen/common/stop_machine.c b/xen/common/stop_machine.c
->> index 3adbe380de..398cfd507c 100644
->> --- a/xen/common/stop_machine.c
->> +++ b/xen/common/stop_machine.c
->> @@ -46,7 +46,7 @@ struct stopmachine_data {
->>   
->>       unsigned int fn_cpu;
->>       int fn_result;
->> -    int (*fn)(void *);
->> +    int (*fn)(void *data);
->>       void *fn_data;
->>   };
-> 
-> At least one of the possible function used here calls the parameter
-> "arg", see take_cpu_down. But I don't think it is a MISRA requirement to
-> also harmonize those?
-> 
-> 
->> @@ -73,7 +73,7 @@ static void stopmachine_wait_state(void)
->>    * mandatory to be called only on an idle vcpu, as otherwise active core
->>    * scheduling might hang.
->>    */
->> -int stop_machine_run(int (*fn)(void *), void *data, unsigned int cpu)
->> +int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
->>   {
->>       unsigned int i, nr_cpus;
->>       unsigned int this = smp_processor_id();
->> diff --git a/xen/common/tasklet.c b/xen/common/tasklet.c
->> index 3ad67b5c24..3649798e6b 100644
->> --- a/xen/common/tasklet.c
->> +++ b/xen/common/tasklet.c
->> @@ -199,7 +199,7 @@ static void migrate_tasklets_from_cpu(unsigned int cpu, struct list_head *list)
->>       spin_unlock_irqrestore(&tasklet_lock, flags);
->>   }
->>   
->> -void tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
->> +void tasklet_init(struct tasklet *t, void (*func)(void *data), void *data)
->>   {
->>       memset(t, 0, sizeof(*t));
->>       INIT_LIST_HEAD(&t->list);
->> @@ -208,7 +208,8 @@ void tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
->>       t->data = data;
->>   }
->>   
->> -void softirq_tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
->> +void softirq_tasklet_init(struct tasklet *t,
->> +                          void (*func)(void *data), void *data)
->>   {
->>       tasklet_init(t, func, data);
->>       t->is_softirq = 1;
->> diff --git a/xen/common/timer.c b/xen/common/timer.c
->> index 0fddfa7487..bf7792dcb3 100644
->> --- a/xen/common/timer.c
->> +++ b/xen/common/timer.c
->> @@ -291,7 +291,7 @@ static bool active_timer(const struct timer *timer)
->>   
->>   void init_timer(
->>       struct timer *timer,
->> -    void        (*function)(void *),
->> +    void        (*function)(void *data),
->>       void         *data,
->>       unsigned int  cpu)
->>   {
->> @@ -441,7 +441,7 @@ void kill_timer(struct timer *timer)
->>   
->>   static void execute_timer(struct timers *ts, struct timer *t)
->>   {
->> -    void (*fn)(void *) = t->function;
->> +    void (*fn)(void *data) = t->function;
->>       void *data = t->data;
->>   
->>       t->status = TIMER_STATUS_inactive;
->> diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
->> index 135f33f606..390f7b6082 100644
->> --- a/xen/include/xen/rangeset.h
->> +++ b/xen/include/xen/rangeset.h
->> @@ -68,7 +68,7 @@ bool_t __must_check rangeset_overlaps_range(
->>       struct rangeset *r, unsigned long s, unsigned long e);
->>   int rangeset_report_ranges(
->>       struct rangeset *r, unsigned long s, unsigned long e,
->> -    int (*cb)(unsigned long s, unsigned long e, void *), void *ctxt);
->> +    int (*cb)(unsigned long s, unsigned long e, void *data), void *ctxt);
-> 
-> Also here some of the functions use "arg" instead of ctxt
-> 
-> 
->>   /*
->>    * Note that the consume function can return an error value apart from
->> @@ -77,7 +77,7 @@ int rangeset_report_ranges(
->>    */
->>   int rangeset_consume_ranges(struct rangeset *r,
->>                               int (*cb)(unsigned long s, unsigned long e,
->> -                                      void *, unsigned long *c),
->> +                                      void *ctxt, unsigned long *c),
->>                               void *ctxt);
-> 
-> Also here some of the functions use "dom" like irq_remove_cb.
-> 
-> 
-> But I actually like the patch as is, so if that's OK from a MISRA point
-> of view then I would give my reviewed-by.
+Dear Xen Community,
 
-Yes, this is OK for MISRA.
+I am keen on stepping into the role of a Release Manager for our next
+release. Despite not having direct experience yet, I am eager to learn,
+adapt, and grow into this role with your guidance and support.
 
--- 
-Federico Serafini, M.Sc.
+Have a nice week.
 
-Software Engineer, BUGSENG (http://bugseng.com)
+Best regards,
+ Oleksii
 
