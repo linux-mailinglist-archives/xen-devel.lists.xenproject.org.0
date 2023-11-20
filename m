@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67A4B7F155C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 15:12:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636761.992497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3697F15AB
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 15:27:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636818.992532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5507-0000lS-PD; Mon, 20 Nov 2023 14:11:47 +0000
+	id 1r55FG-0003vo-AS; Mon, 20 Nov 2023 14:27:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636761.992497; Mon, 20 Nov 2023 14:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 636818.992532; Mon, 20 Nov 2023 14:27:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5507-0000iv-MS; Mon, 20 Nov 2023 14:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 636761;
- Mon, 20 Nov 2023 14:11:46 +0000
+	id 1r55FG-0003u9-7E; Mon, 20 Nov 2023 14:27:26 +0000
+Received: by outflank-mailman (input) for mailman id 636818;
+ Mon, 20 Nov 2023 14:27:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F3F/=HB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1r5506-0000ip-2j
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 14:11:46 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [2a01:111:f400:7eae::600])
+ <SRS0=/O0h=HB=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1r55FF-0003sS-7K
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 14:27:25 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb8c0ca2-87ae-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 15:11:44 +0100 (CET)
-Received: from DM6PR04CA0024.namprd04.prod.outlook.com (2603:10b6:5:334::29)
- by DM4PR12MB5213.namprd12.prod.outlook.com (2603:10b6:5:394::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
- 2023 14:11:39 +0000
-Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:5:334:cafe::13) by DM6PR04CA0024.outlook.office365.com
- (2603:10b6:5:334::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
- Transport; Mon, 20 Nov 2023 14:11:39 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 14:11:39 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
- 2023 08:11:38 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 20 Nov
- 2023 06:11:38 -0800
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 20 Nov 2023 08:11:37 -0600
+ id ec280426-87b0-11ee-98df-6d05b1d4d9a1;
+ Mon, 20 Nov 2023 15:27:24 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5401bab7525so6394686a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 06:27:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,177 +40,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb8c0ca2-87ae-11ee-98df-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L+C2wvS4J11rxgtnpscgNlmLcgGekdhYX67ju7PTYolQj5b1xX8Zv5xuBt+sTdfUAxGx3Q/ISkXNyJ+CCIzoHpcfZkr5BsVnEZgserg3OpBDrDIGSRTcfi7+CasD25Lx2g/OmgQ9e8+Rn9ILHsAD4hzslouvWEP7uG5UcODqBWfhoLYSXl5KNhV27cl3MD9PyfZJWlEOajqEAMr5CvjifG+GUBT0PHFeDh1EluXlusvmQ2369p4Dnwh7elMqZzDhNE4R/DShWH5j0v8MDvBAH4m6I7Rk2z36+5mSxWk9lPcAqcxg2tnZNMPV1HsXHKOeHmp9+rO0OtaRGVPgR63X0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S41VByiRrvoiPRPnLpeCS5uG9H8Z4GUq1fuhplVzUxw=;
- b=MpygGSuj/vYN0C9QUcbHMJPT5QHUIvHMV2b3+FWVOzlWQHIC26qDDbCah6czndIFtbmsoMQwf7igj3Otsw8y9hkk357tOiLvzzCpnwKvCiqKh5RL5lS7Pev+wXgWrIwfaT9NN54uFO/EJnP290HQ+5Zjk898mUvp16gUtU/owsR2xtp0XvXde+Qi3n9INJX1P1+UxJa8YkvPVuGy2GsJlVDLpN+DTfNDAgVDrM/6VL+UJIJu+lY21cjtrlKGpy87Ajh/jc/34vF865ihCJyTQlFIMu5XYALtQ8ORaVawTrG2LLODHUpwe5rLBUMHTuofmGeAJ8YyE0ttiu3nb6fYDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S41VByiRrvoiPRPnLpeCS5uG9H8Z4GUq1fuhplVzUxw=;
- b=a3sq3N/VJwTQRX7lf2N0JQH96ufmSCs/0SuSm3MOuth+8cATLcj4C3l8qnCfI93/A13OwX2zbfNbHVzTjb6RmOspRR7pJsAxY+7Dc/Rtxml817P06BLpDHaSFJspjUnCvWjgBp8/zNulMfI2IWqW+Dk7be0NmS0Uyb8ymG9vbs0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <a60d951b-7e23-4421-a7c6-68b99f33cba0@amd.com>
-Date: Mon, 20 Nov 2023 15:11:31 +0100
+X-Inumbo-ID: ec280426-87b0-11ee-98df-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1700490444; x=1701095244; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qNFYmDZfbRBhs93gK4+zGEZ63y8cCEjejgetHSWadjQ=;
+        b=cz9ItTJj5Hv3DjfB2x1aMdy1NztZ3fVuSq1Kp+2inPwn2DlPjSswkZ3dAr4jW9J4zC
+         aJ55KpRUEEZf4KNCtevQ4gYbqvHk8+OuPcCInzspVp2i1tl/Qjm4+xGqoPGZas4lg9eL
+         5ZqL4tgZR0kR6yIECSrHQbzrmb3APA4MT5bew=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700490444; x=1701095244;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qNFYmDZfbRBhs93gK4+zGEZ63y8cCEjejgetHSWadjQ=;
+        b=AAMCR1iGHf4yBxl7N3e4SL8x5jS3tlxxd8bzndSSGBcmnbnJUh7FF6ojz3bxaCjjfI
+         IgS2XPc3S4VwOVyEsE6gqrezmiuevoiPKLdoChP+AMY8kcZhYy1wTqlFU+Sm3y0PwPMe
+         Kyi9+3Q7ecnZtwxe3zquwLWRAXT+Jo31qzbTKvt8gp0QHRoqgdKWXU/n3D13WEEGpxlM
+         vBRiOWicQbK3mYLI66ZJWAdIlG3pXskUqqri6H/h7LXVLBiC1Mc5+EZJevlcViMrTbKm
+         7rtuaBY9tSKJCN9uP8B2AxmNbfksafdLpYLQK4JZ5WIhDnf4QCk0g7W1kaMByjYyRv50
+         Suhg==
+X-Gm-Message-State: AOJu0YwSyu8Ttfmk5Qs7LEg4hnbPC9VbB9g54/ZZAHBtd7YcOXf17/dQ
+	eQb89ZBvuulKA07pu6YIUnYEL/+rw/sTXqoS3+2+Ew==
+X-Google-Smtp-Source: AGHT+IHvoF8KIOAWCqE286MZx99mLdLqM4ZlEvzC37WX3r2khLxJUuBetrQi+RXgDD31qw+qHTWeAluewX80ggsXcEM=
+X-Received: by 2002:aa7:d755:0:b0:547:9ebd:c0ab with SMTP id
+ a21-20020aa7d755000000b005479ebdc0abmr5821401eds.13.1700490443683; Mon, 20
+ Nov 2023 06:27:23 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] arm/dom0less: put dom0less feature code in a
- separate module
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Luca Fancellu <luca.fancellu@arm.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <rahul.singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <20231114090356.875180-1-luca.fancellu@arm.com>
- <20231114090356.875180-4-luca.fancellu@arm.com>
- <98980da0-2940-43d2-a6c1-e064f4921e74@amd.com>
- <0c32e2eb-7ffe-486c-a11c-477c3cff5cba@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <0c32e2eb-7ffe-486c-a11c-477c3cff5cba@xen.org>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Mon, 20 Nov 2023 14:26:47 +0000
+Message-ID: <CAO-mL=x0wpaERs7jTK2GmfEhq-EJ4X4wyHERVyoQpfQXQYjUcA@mail.gmail.com>
+Subject: Xen Project Releases Version 4.18
+To: =?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLSGVucnkgV2FuZw==?= <Henry.Wang@arm.com>, 
+	George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org, 
+	xen-users@lists.xenproject.org, xen-announce@lists.xenproject.org, 
+	advisory-board@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000d71711060a9648dd"
+
+--000000000000d71711060a9648dd
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|DM4PR12MB5213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 725607bb-c63d-4bcd-1066-08dbe9d29d43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	W1zmftNtAKUvwp5VA0KwBCB75o5xYZ9GMeKt0RoUMNglTWiuuV1bWG9vu7slGhExxbgREiKqFIbjRc/NxeL6t/RKhg2PiJR+tqPyIYjwfXLhF93WyIcHbh7MzaJTRo9GB7eNe4ZLOyRjwQavAWayKi+U0gpVHTDMN19150EzP+8ScTIK+zDcQwY5lILleJlmJd2uQIZcvuH9DGUCMGtEmc82wjDvMhBIXbZT2Agf+HhTOcHCOmMHiHHhelu9xjD8dQeVJxe84ByvaJkRjhtqZUT5RR9ItiVt/GhC9erkJ0DteKipWHFORXpG3eguTi4EjVU+vxN228cvQylIVgmnWBQVaPrOg5S9RoSxpooIkoislOEWdPHntGH9QmvYomqW9wu88L7QZhyBdBzRIAppv/BzONqISfRpSX38rPQXN0u28LWeKuW7ldS2eFqIbGrels18tnCeWAuQ/F4xFzeM6uCI3KFCBSEizqn+KxM0KiMej8x84z8ojX+/cq03lDm1IHUdk4EpeBBk4ev34KDSR34omEaujgC+X1k8+ftreokR9DHLbUbFJxBvKhlTlf6I7Y0j4NCwYCl8mKRz61uc2pjPAtnce24NgKYFyH9K+wHKpaBtzBfmksYyVoEuM+WcwmaT7QTqkjNgwzsjF1VUKCrrZehqFKeIO1wiv11Z7DeA9KCuwdMLYO4jNZ+rFNtBmgWFmtkFlXqjWFYPyLo5+ZnQBI0PBEVpqnrez02saqe1nvuhM041u4fhDNYa2LdNdevsuGjXl/kUB6L/slPLQl77xFeGeHUQG+VO3eIAfMCmBxqwU/WePcj0kxvbU7Lj/lL3fFk8gQK4RHdf1dbsiOtmSJeH/0ujaZ/EMxQNkThSAmOCSjTzo8TdsiMztECN
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(376002)(346002)(396003)(230273577357003)(230173577357003)(230922051799003)(82310400011)(451199024)(1800799012)(64100799003)(186009)(46966006)(40470700004)(36840700001)(110136005)(16576012)(316002)(70206006)(70586007)(54906003)(426003)(336012)(26005)(40460700003)(36756003)(4326008)(8676002)(8936002)(41300700001)(81166007)(82740400003)(36860700001)(47076005)(44832011)(31696002)(86362001)(2906002)(5660300002)(83380400001)(478600001)(6666004)(31686004)(53546011)(356005)(2616005)(40480700001)(32563001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 14:11:39.2785
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 725607bb-c63d-4bcd-1066-08dbe9d29d43
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5213
+Content-Transfer-Encoding: quoted-printable
 
-Hi Julien,
+Hi everyone,
 
-On 20/11/2023 14:40, Julien Grall wrote:
-> 
-> 
-> On 20/11/2023 07:34, Michal Orzel wrote:
->> Hi Luca,
->>
->> On 14/11/2023 10:03, Luca Fancellu wrote:
->>>
->>>
->>> Currently the dom0less feature code is mostly inside domain_build.c
->>> and setup.c, it is a feature that may not be useful to everyone so
->>> put the code in a different compilation module in order to make it
->>> easier to disable the feature in the future.
->>>
->>> Move gic_interrupt_t in domain_build.h to use it with the function
->>> declaration, move its comment above the declaration.
->>>
->>> The following functions are now visible externally from domain_build
->>> because they are used also from the dom0less-build module:
->>>   - get_allocation_size
->>>   - set_interrupt
->>>   - domain_fdt_begin_node
->>>   - make_memory_node
->>>   - make_resv_memory_node
->>>   - make_hypervisor_node
->>>   - make_psci_node
->>>   - make_cpus_node
->>>   - make_timer_node
->>>   - handle_device_interrupts
->>>   - construct_domain
->>>   - process_shm
->>>   - allocate_bank_memory
->>>
->>> The functions allocate_static_memory and assign_static_memory_11
->>> are now externally visible, so put their declarations into
->>> domain_build.h and move the #else and stub definition in the header
->>> as well.
->>>
->>> Move is_dom0less_mode from setup.c to dom0less-build.c and make it
->>> externally visible.
->>>
->>> The function allocate_bank_memory is used only by dom0less code
->>> at the moment, but it's been decided to leave it in domain_build.c
->>> in case that in the future the dom0 code can use it.
->>>
->>> Where spotted, fix code style issues.
->>>
->>> No functional change is intended.
->>>
->>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
->>
->> with one remark...
->>
->>> ---
->>> Changes from v4:
->>>   - fixed name in inclusion macro __ASM_* instead of __ARM_*, fixed
->>>     emacs local variable 'end:', style fix (Michal)
->>> Changes from v3:
->>>   - remove header in dom0less-build.c (Michal)
->>> Changes from v2:
->>>   - move allocate_bank_memory back in domain_build.c, remove header
->>>     from dom0less-build.c.
->>> ---
->>>   xen/arch/arm/Makefile                     |    1 +
->>>   xen/arch/arm/dom0less-build.c             | 1018 +++++++++++++++++
->>>   xen/arch/arm/domain_build.c               | 1265 +++------------------
->>>   xen/arch/arm/include/asm/dom0less-build.h |   20 +
->>>   xen/arch/arm/include/asm/domain_build.h   |   60 +
->>>   xen/arch/arm/include/asm/setup.h          |    1 -
->>>   xen/arch/arm/setup.c                      |   33 +-
->>>   7 files changed, 1240 insertions(+), 1158 deletions(-)
->>>   create mode 100644 xen/arch/arm/dom0less-build.c
->>>   create mode 100644 xen/arch/arm/include/asm/dom0less-build.h
->>>
->>
->> [...]
->>> diff --git a/xen/arch/arm/include/asm/dom0less-build.h b/xen/arch/arm/include/asm/dom0less-build.h
->>> new file mode 100644
->>> index 000000000000..81446cbd8bf3
->>> --- /dev/null
->>> +++ b/xen/arch/arm/include/asm/dom0less-build.h
->>> @@ -0,0 +1,20 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +
->>> +#ifndef __ASM_DOM0LESS_BUILD_H_
->>> +#define __ASM_DOM0LESS_BUILD_H_
->>> +
->>> +#include <asm/kernel.h>
->> No need for this include, especially if you are removing it in the subsequent patch.
-> 
-> Are you suggesting that this patch builds without including asm/kernel.h?
-Yes.
+It's with great pleasure that I announce our 4.18 PR release!
 
-> 
->> This could be done on commit (+ there is a conflcit between your series and Henry's mmu/mpu split)
-> 
-> While I am in general happy to handle some changes on commit, I don't
-> want to solve conflict between series.
-> 
-> One will have to rebase on top of the others. I suggest that this is
-> just rebased on top of Henry, purely because I will likely commit it
-> today or tomorrow.
-Sounds ok.
+*Please find the PR article attached here
+<https://www.businesswire.com/news/home/20231120045533/en/Xen-Project-Relea=
+ses-Version-4.18-with-New-Security-Performance-and-Architecture-Enhancement=
+s-for-AIML-Applications>,
+and information on our blog here
+<https://xenproject.org/2023/11/20/xen-project-releases-version-4-18-with-n=
+ew-security-performance-and-architecture-enhancements-for-ai-ml-application=
+s/>.*
 
-~Michal
+I want to thank the whole community for their efforts in getting this
+release published.
+
+In particular, I'd like to express gratitude to @Henry Wang
+<Henry.Wang@arm.com> for his help as the release manager, @George Dunlap
+<george.dunlap@cloud.com> for collating the downloads, and the Advisory
+Board for their continued support and quotes in the article.
+
+*Some notable features:*
+
+   - *Arm*
+      - *The Scalable Vector Extension (SVE) is now merged in upstream Xen
+      as a tech preview.*
+      - *The Arm=C2=AE Firmware Framework for Arm A-profile (FF-A) framewor=
+k
+      support is now merged in upstream Xen as a tech preview.*
+      - *The memory subsystem in Xen on Arm64 is now more compliant with
+      the Arm architecture.*
+   - *x86*
+      - *On all Intel systems, MSR_ARCH_CAPS is now visible in guests, and
+      controllable from the VM's config file. For CPUs from 2019 onwards, t=
+his
+      allows guest kernels to see details about hardware fixes for speculat=
+ive
+      mitigations.*
+      - *Support for features new in 4th Gen AMD EPYC Processors:*
+         - *CPUID_USER_DIS (CPUID Faulting) used by Xen to control PV
+         guest's view of CPUID data*
+      - *Support for features new in Intel Sapphire Rapids CPUs:*
+         - *PKS (Protection Key Supervisor) available to HVM/PVH guests*
+         - *VM-Notify used by Xen to mitigate certain micro-architectural
+         pipeline livelocks, instead of crashing the entire server*
+         - *Bus-lock detection, used by Xen to mitigate (by rate-limiting)
+         the systemwide impact of a guest misusing atomic instructions*
+      - *Support for features new in Intel Granite Rapids CPUs:*
+         - *AVX512-FP16*
+      - *Add Intel Hardware P-States (HWP) cpufreq driver*
+      - *Support for enforcing system-wide operation in Data Operand
+      Independent Timing Mode*
+   - *RISC-V and PowerPC*
+      - *Upstream Xen GitLab CI has been set up with full Xen build and a
+      message printed from Xen early printk*
+   - *Security*
+      - *20 XSAs has been published, enhancing the security of the project
+      to keep it safe from common vulnerabilities*
+   - *MISRA-C*
+      - *The project has officially adopted more MISRA-C rules, from four
+      directives and 24 rules in 4.17 to 6 directives and 65 rules of MISRA=
+-C*
+
+We are doing great things in The Xen Project, and this wouldn't have been
+possible without the community working together.
+
+I look forward to seeing what we can all achieve in the future!
+
+Many thanks,
+Kelly Choi
+
+Come join the conversation on Matrix:
+
+XenProject: https://matrix.to/#/#XenProject:matrix.org
+
+XenDevel: https://matrix.to/#/#XenDevel:matrix.org
+
+XenSocial: https://matrix.to/#/#XenSocial:matrix.org
+
+
+Open Source Community Manager
+XenServer, Cloud Software Group
+
+--000000000000d71711060a9648dd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi everyone,<div><br></div><div>It&#39;s with great pleasu=
+re that I announce our 4.18 PR release!=C2=A0</div><div><br></div><div><b>P=
+lease find the <a href=3D"https://www.businesswire.com/news/home/2023112004=
+5533/en/Xen-Project-Releases-Version-4.18-with-New-Security-Performance-and=
+-Architecture-Enhancements-for-AIML-Applications">PR article attached here<=
+/a>, and information on our <a href=3D"https://xenproject.org/2023/11/20/xe=
+n-project-releases-version-4-18-with-new-security-performance-and-architect=
+ure-enhancements-for-ai-ml-applications/">blog here</a>.</b></div><div><br>=
+</div><div>I want to thank the whole community for their efforts in getting=
+ this release published.</div><div><br></div><div>In particular, I&#39;d li=
+ke to express gratitude to=C2=A0<a class=3D"gmail_plusreply" id=3D"plusRepl=
+yChip-1" href=3D"mailto:Henry.Wang@arm.com" tabindex=3D"-1" style=3D"">@Hen=
+ry Wang</a>=C2=A0for his help as the release manager,=C2=A0<a class=3D"gmai=
+l_plusreply" id=3D"plusReplyChip-2" href=3D"mailto:george.dunlap@cloud.com"=
+ tabindex=3D"-1">@George Dunlap</a>=C2=A0for collating the downloads,=C2=A0=
+and the Advisory Board for their continued support and quotes in the articl=
+e.=C2=A0</div><div><br></div><div><b>Some notable features:</b></div><div><=
+ul class=3D"gmail-bwlistdisc" style=3D"margin:0px 0px 1.5em;padding:0px 0px=
+ 0px 24px;overflow:hidden;color:rgb(68,68,68);font-family:&quot;Helvetica N=
+eue&quot;,Helvetica,Arial,&quot;Lucida Grande&quot;,sans-serif;background-c=
+olor:rgb(254,254,254)"><li style=3D"list-style-type:disc;margin:0px 0px 5px=
+"><b><i>Arm</i></b><ul class=3D"gmail-bwlistcircle" style=3D"margin:0px;pad=
+ding:0px 0px 0px 24px;overflow:hidden"><li style=3D"list-style-type:circle;=
+margin:0px"><i>The Scalable Vector Extension (SVE) is now merged in upstrea=
+m Xen as a tech preview.</i></li><li style=3D"list-style-type:circle;margin=
+:0px"><i>The Arm=C2=AE Firmware Framework for Arm A-profile (FF-A) framewor=
+k support is now merged in upstream Xen as a tech preview.</i></li><li styl=
+e=3D"list-style-type:circle;margin:0px"><i>The memory subsystem in Xen on A=
+rm64 is now more compliant with the Arm architecture.</i></li></ul></li><li=
+ style=3D"list-style-type:disc;margin:0px 0px 5px"><b><i>x86</i></b><ul cla=
+ss=3D"gmail-bwlistcircle" style=3D"margin:0px;padding:0px 0px 0px 24px;over=
+flow:hidden"><li style=3D"list-style-type:circle;margin:0px"><i>On all Inte=
+l systems, MSR_ARCH_CAPS is now visible in guests, and controllable from th=
+e VM&#39;s config file. For CPUs from 2019 onwards, this allows guest kerne=
+ls to see details about hardware fixes for speculative mitigations.</i></li=
+><li style=3D"list-style-type:circle;margin:0px"><i>Support for features ne=
+w in 4<span style=3D"line-height:0;vertical-align:baseline">th</span>=C2=A0=
+Gen AMD EPYC Processors:</i><ul class=3D"gmail-bwlistsquare" style=3D"margi=
+n:0px;padding:0px 0px 0px 24px;overflow:hidden"><li style=3D"list-style-typ=
+e:square;margin:0px"><i>CPUID_USER_DIS (CPUID Faulting) used by Xen to cont=
+rol PV guest&#39;s view of CPUID data</i></li></ul></li><li style=3D"list-s=
+tyle-type:circle;margin:0px"><i>Support for features new in Intel Sapphire =
+Rapids CPUs:</i><ul class=3D"gmail-bwlistsquare" style=3D"margin:0px;paddin=
+g:0px 0px 0px 24px;overflow:hidden"><li style=3D"list-style-type:square;mar=
+gin:0px"><i>PKS (Protection Key Supervisor) available to HVM/PVH guests</i>=
+</li><li style=3D"list-style-type:square;margin:0px"><i>VM-Notify used by X=
+en to mitigate certain micro-architectural pipeline livelocks, instead of c=
+rashing the entire server</i></li><li style=3D"list-style-type:square;margi=
+n:0px"><i>Bus-lock detection, used by Xen to mitigate (by rate-limiting) th=
+e systemwide impact of a guest misusing atomic instructions</i></li></ul></=
+li><li style=3D"list-style-type:circle;margin:0px"><i>Support for features =
+new in Intel Granite Rapids CPUs:</i><ul class=3D"gmail-bwlistsquare" style=
+=3D"margin:0px;padding:0px 0px 0px 24px;overflow:hidden"><li style=3D"list-=
+style-type:square;margin:0px"><i>AVX512-FP16</i></li></ul></li><li style=3D=
+"list-style-type:circle;margin:0px"><i>Add Intel Hardware P-States (HWP) cp=
+ufreq driver</i></li><li style=3D"list-style-type:circle;margin:0px"><i>Sup=
+port for enforcing system-wide operation in Data Operand Independent Timing=
+ Mode</i></li></ul></li><li style=3D"list-style-type:disc;margin:0px 0px 5p=
+x"><b><i>RISC-V and PowerPC</i></b><ul class=3D"gmail-bwlistcircle" style=
+=3D"margin:0px;padding:0px 0px 0px 24px;overflow:hidden"><li style=3D"list-=
+style-type:circle;margin:0px"><i>Upstream Xen GitLab CI has been set up wit=
+h full Xen build and a message printed from Xen early printk</i></li></ul><=
+/li><li style=3D"list-style-type:disc;margin:0px 0px 5px"><b><i>Security</i=
+></b><ul class=3D"gmail-bwlistcircle" style=3D"margin:0px;padding:0px 0px 0=
+px 24px;overflow:hidden"><li style=3D"list-style-type:circle;margin:0px"><i=
+>20 XSAs has been published, enhancing the security of the project to keep =
+it safe from common vulnerabilities</i></li></ul></li><li style=3D"list-sty=
+le-type:disc;margin:0px 0px 5px"><b><i>MISRA-C</i></b><ul class=3D"gmail-bw=
+listcircle" style=3D"margin:0px;padding:0px 0px 0px 24px;overflow:hidden"><=
+li style=3D"list-style-type:circle;margin:0px"><i>The project has officiall=
+y adopted more MISRA-C rules, from four directives and 24 rules in 4.17 to =
+6 directives and 65 rules of MISRA-C</i></li></ul></li></ul><div><div dir=
+=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
+dir=3D"ltr"><div>We are doing great things in The Xen Project, and this wou=
+ldn&#39;t have been possible without the community working together.=C2=A0<=
+/div><div><br></div><div>I look forward to seeing what we can all achieve i=
+n the future!=C2=A0</div><div><br></div><div>Many thanks,</div><div>Kelly C=
+hoi</div><div><br></div><div>Come join the conversation on Matrix:</div><di=
+v>
+
+
+
+
+
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-variant-alternates:normal;font-kerning:auto;=
+font-feature-settings:normal;font-stretch:normal;font-size:13px;line-height=
+:normal;font-family:&quot;Helvetica Neue&quot;">XenProject: <a href=3D"http=
+s://matrix.to/#/#XenProject:matrix.org">https://matrix.to/#/#XenProject:mat=
+rix.org</a></p>
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-variant-alternates:normal;font-kerning:auto;=
+font-feature-settings:normal;font-stretch:normal;font-size:13px;line-height=
+:normal;font-family:&quot;Helvetica Neue&quot;">XenDevel: <a href=3D"https:=
+//matrix.to/#/#XenDevel:matrix.org">https://matrix.to/#/#XenDevel:matrix.or=
+g</a></p>
+<p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:normal;font-=
+variant-east-asian:normal;font-variant-alternates:normal;font-kerning:auto;=
+font-feature-settings:normal;font-stretch:normal;font-size:13px;line-height=
+:normal;font-family:&quot;Helvetica Neue&quot;">XenSocial: <a href=3D"https=
+://matrix.to/#/#XenSocial:matrix.org">https://matrix.to/#/#XenSocial:matrix=
+.org</a></p><p class=3D"gmail-p1" style=3D"margin:0px;font-variant-numeric:=
+normal;font-variant-east-asian:normal;font-variant-alternates:normal;font-k=
+erning:auto;font-feature-settings:normal;font-stretch:normal;font-size:13px=
+;line-height:normal;font-family:&quot;Helvetica Neue&quot;"><br></p></div><=
+div><div style=3D"color:rgb(136,136,136)">Open Source Community Manager</di=
+v><div style=3D"color:rgb(136,136,136)">XenServer, Cloud Software Group</di=
+v></div></div></div></div></div></div>
+
+--000000000000d71711060a9648dd--
 
