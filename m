@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D2B7F0C80
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 08:08:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636435.991927 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 196FC7F0CAC
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 08:16:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636438.991938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4yNW-0005iM-Id; Mon, 20 Nov 2023 07:07:30 +0000
+	id 1r4yVj-0007Kn-Dk; Mon, 20 Nov 2023 07:15:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636435.991927; Mon, 20 Nov 2023 07:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 636438.991938; Mon, 20 Nov 2023 07:15:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4yNW-0005gW-G4; Mon, 20 Nov 2023 07:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 636435;
- Mon, 20 Nov 2023 07:07:29 +0000
+	id 1r4yVj-0007HR-Ai; Mon, 20 Nov 2023 07:15:59 +0000
+Received: by outflank-mailman (input) for mailman id 636438;
+ Mon, 20 Nov 2023 07:15:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F3F/=HB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1r4yNV-0005g7-DG
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 07:07:29 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20607.outbound.protection.outlook.com
- [2a01:111:f400:fe59::607])
+ id 1r4yVh-0007Fv-Na
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 07:15:57 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20604.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::604])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7334a343-8773-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 08:07:22 +0100 (CET)
-Received: from MW4PR04CA0140.namprd04.prod.outlook.com (2603:10b6:303:84::25)
- by DS7PR12MB5935.namprd12.prod.outlook.com (2603:10b6:8:7e::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ id a49b930d-8774-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 08:15:55 +0100 (CET)
+Received: from SN4PR0501CA0059.namprd05.prod.outlook.com
+ (2603:10b6:803:41::36) by CY5PR12MB6429.namprd12.prod.outlook.com
+ (2603:10b6:930:3b::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
- 2023 07:07:18 +0000
-Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:303:84:cafe::b0) by MW4PR04CA0140.outlook.office365.com
- (2603:10b6:303:84::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26 via Frontend
- Transport; Mon, 20 Nov 2023 07:07:18 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ 2023 07:15:51 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:803:41:cafe::5c) by SN4PR0501CA0059.outlook.office365.com
+ (2603:10b6:803:41::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.16 via Frontend
+ Transport; Mon, 20 Nov 2023 07:15:51 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 07:07:17 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 07:15:51 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
- 2023 01:07:15 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
- 2023 01:07:14 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 20 Nov 2023 01:07:13 -0600
+ 2023 01:15:50 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Mon, 20 Nov 2023 01:15:48 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,142 +59,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7334a343-8773-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: a49b930d-8774-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kpQDOhKojxeJailGZTn2hUTMcHcWX8k7EAIBWuVbd54g29OQTvEPTE4sfVYlSNMO/6mtJPKbmo4kodf490PkQf9n07/1rxTiUqnQ73Kk1elIAmcReBugVegKkSxHGcgakwxUCPA67vHRWObDNv4hgz/2eSwFkr6vDXx0NFGK4QcpvHL53hyGP7GYi/YAI+HdWCt7XNzPoZv5V2ucblFn7JZdNJcUolEzvPF16w3IGl4KnPEEhB1R/qeq7pQFveE9iydPGZrHl0yavs4GS61ZSvNFOMoWtrWYFwz3P8Sfl+zVL9G2wOmygQL5or5CFoM+HbUbYWQ4vlD1jDYm2Sz5fw==
+ b=gFoVutBphW+PFnsrNd2r1bEhz7E2CIK7kmjNbFjT48k1zIAsM8tC/Jd1EJWTgk/QyCbqxp4ZEFFEWChaBRdKwAk1x4i564pX2GnI2m/GExwokN5+xnuKmRyR+ECbVGyePmRDrJQ6n0aCSRj4YMQX8GHzFHfm/dVk7Zj1cTiZCwxnmVaqMKKF1GfJM+xUWZ6DLyDZ0rY0gzYmXgxrjx5WOseUKuRSZRblSf946zzEf5fE3nb4GR/xpRBDI/fsLLp4tUycyloW5nQyxsa3NJlAlHTs9fZRy8/OoyeoBNp5JAHVuxLXxX24MYFl1mEzyfoDwOp6Xuar8qnERvi5dxZBtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BYh1IDibsWIqHo7v72+Jzf4DCElzE2X9QKGgnPPDBjI=;
- b=k7SzM7zErTI/bdT/wgR+00hVROcq+J19MayCAApmAVe3pQwe84muEPfko/8y/hbFOejqOo4SfeDK1VyRjfmn/D8NnMkkThWAZiqPh6s3CZZXA6nWYNAChr9kIFTGTp7gIc1NYpAf1XDw7F1BZPnWOjar8vDn/Qui9ZW1s24TOmhvENQr/mmZxWv/sgHcVb78r5HeHvkTFRyfvFFi5Hddw5/zTme9bbtjKt39IIlsTeECJ0fF+2DcA9PJU4a4pG/NLyrcNy899YXlUuWDbwKL1E/tMzPSz+1BPWh44khGHvet6k0BOsTnkPJ7TqZkbjcOwkz+zZReqYBrJc71XU/GGA==
+ bh=vrlQYgJHgK6HAxzYUY6qjs2fOwtmA1j64QxnoohF3/A=;
+ b=InatV80tqZYqmzrOAGGiw3FAq/ciT4bDQPch08YJYtcXZObO4FvELsx2JMomeNmxk2yOprBwh08Cy8WpiEyaQIa8IC8Gt2Q0gGqb2qwKYT0iQ671kxtSdGdKw3VaWDOoCV9E963gLXyS6bkZTEcmN3OKjwDO/NrVwTsCs8a6emlCGWv17U5XIhr0/Oty1FRFa9CSGf241SoTAjEoT+EKkaS2kfl6lpxsBnKzjbx4fIsbZLVeEWpS7Bb8HQWiT8o3CL3vhzdwbCIDpkncfESngEML9B6+i8La8bQF1NPMLk+sBsl+K3vYeJNya8LT+u2OyGyOVUQb3sYMV4H4tMDUpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BYh1IDibsWIqHo7v72+Jzf4DCElzE2X9QKGgnPPDBjI=;
- b=NyPsfgvZV6wI5oJRMn1yKigyYZ1gAxEY1/1fq4SfzT6JNEVo6QtJeQf+fcUJcGqZ7ysAp2Yc5+QQjx6vgJD73VYXrCafkK154AbxPcPt2Ibbxw6nXGuMOf2aim+R8IOFxyxAUJ/UXydwcNxkC0y2/6QJAdXBaDVU7ig1r+xrxW8=
+ bh=vrlQYgJHgK6HAxzYUY6qjs2fOwtmA1j64QxnoohF3/A=;
+ b=baumge+7UV8Y16nIUDBz1b/bo+ri5AlFvU6UddFhkgJGyAkbh39y3CUppRoXhD6b846xF1fXv75stIQ1TpnwJ4PpBTCX/2XCGkYbI0KQGecymhTFwfigGCoYQZkgSPkYFcOAQDrPBuWtgvPUkielktEC7CY1SIxGNXXzlR74eLY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <bf4b9899-8efe-4270-b1d6-afb29e76d907@amd.com>
-Date: Mon, 20 Nov 2023 08:07:07 +0100
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <8a1aba2d-a940-44ab-8dea-99f44e74eead@amd.com>
+Date: Mon, 20 Nov 2023 08:15:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN v4 1/2] xen/arm32: head: Introduce
- enable_{boot,secondary}_cpu_mm()
+Subject: Re: [XEN v4 2/2] xen/arm32: head Split and move MMU-specific head.S
+ to mmu/head.S
+Content-Language: en-US
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	<xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
 	<jgrall@amazon.com>, <henry.wang@arm.com>
 References: <20231117153101.2902792-1-ayan.kumar.halder@amd.com>
- <20231117153101.2902792-2-ayan.kumar.halder@amd.com>
-Content-Language: en-US
+ <20231117153101.2902792-3-ayan.kumar.halder@amd.com>
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231117153101.2902792-2-ayan.kumar.halder@amd.com>
+In-Reply-To: <20231117153101.2902792-3-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|DS7PR12MB5935:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7cbb7ec-5f8e-4a12-c407-08dbe99754d4
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|CY5PR12MB6429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a1e9baa-d450-4891-1422-08dbe99886f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gqNy6vRpjRu6px96lIlnCU0t5BcxnjFLx5VB+WP8H18Dmhv4JdtsZ6yHbqYy23KxyMlp9n2faezdW9zuxXQvXbXQaQztw07+PrwvEIc8LJNpi9jzhNQOhPYgBuoqxYbPDe5Awa02Iu5Mg0gUiMjfAc2yxlCPhB3csh8qjRpJYHX+LNfF6t73IZLmMSDXpid1Hr0pOpj8jxnkzGh17UUBRf2pVmOOZMUcipnCdRQTAyfNv6FG+JKNcmBUOnUwbYMqWT2a5nBcLuIwd2WpwIj5EvPxnISoO0huIX4rcvqPLp4rDwP8q+lH7Oi81JTUIkrY8X0t7ICimYkE7W1UaqEDg2ltrm+fQeTo37KomT5g+0J37FXIio2JVJkfIGsyhubMfYyfhty3KNzFJJpVLVOw9XxTS5sg8fhOTtwD8oGBcRe7mFPKAZTUaFTdr8kScFxsQdwFT5myUemNF1ubjAl48wGksknqaA85euniJ2HcfXB3zKRxY6hZntZbnf4bD+WnBEQfxbUwEIeaLlN9a4I9T5IdC7mnWv8biK8r1ffTHdsYUyn9yAQc9EKXfAHmwWcB7Tw9Qs9qzptelqTXg23JwLyRvq/liwqNa7ScRlGj1jDGkR/+QWg4tDbu0onv7Xd1tbSsQ951qD+2yV/HzKZB11fUVsBxX4lshI4xjEGGtpPM1z48pNsbuh9CLbIDK/CQupu27PLN3jn+xEZV8FZtCeCCIX1SQkAR5wkyjy6/AYTUzJ8Vh2Vva2kp5YpY4Whv8e2uJRV7AhfAemZnXf420RmpceUC4zhjJqm7gNsPD4zAqwOlMxPH+kDInHso0jrj
+	1MU1AxmXVndGbdGJoq9ZCDqtXk3wj3qQhxx1zjxpAORid6JrPr767fm3yGWBBVWzy/a9iRmv4ZKAsMxs4T9VCCjMOra87mqGmE7/ClisIXhP2EE9ARQgEB/mO0qbVyVyXDSS8ZhRv1exIe7rgZL3cH0Bnuw491l7pilnEQ3jZ2hq1eykvk70VYFNGS8E3yyitlLVsYNbxh1ITgUSz9XzLWjWVDX+xKH4bVqWB96cmuhrK7hOEZRUHX6lNufi+XqZstEHu4hVEtDAT/K4TJwimX3hs+oixzSbPBvtMEyPsF1usRyzPnaCQE1zdApe5gS5NjWhZjFtFarWE7ZurwQ311dyo/rWSakdUY3LfQnMCSoLTS4TVpF232fW9y05H9f6zwBjusj5xEpe2OSmhQuEhV2PBlNXw5PH5UwFD5UVwybFvJdD9Gnqi7MdAw4+N3eWK7Zk8GqxUTPHGXLBSu5D50yGSI/2bBdf4T4qNFM94OKPsdZdaWoaMfDHpRcOCnpaZOrid7k/qJGAblLewIHZXMmdICoDiomstc0RelDJDrp4EcT5TUug8j7K25YN97mVGalVVTLPZwQG4I5e81V2w0dktbZnFIA6qmpvy0sUDPcDav7wkyne2vYFDxpW/LRI4wzoqW6zts2yh4X7lM7tI0fAIO6CgTq+ZJAQ1ORQsIDeXOvm1tab//GtglHxjFEAtpQt8lu4C8r8CFS7E8HTrLouHsE0I0tCqmiNIoNlkLOioHmoqkVyS09XgsrCxdYhyHyy23ZO/YqvuPaXTOJx6PjxSGDTf5UWlGZHw8F8Q9jqbEt9m/0OWdQCiqCP3ZlB7BfHuV9kk7mMecch/qgCuziqyfMEqJN+HId548Me+Lg=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(376002)(396003)(230922051799003)(82310400011)(451199024)(64100799003)(1800799012)(186009)(46966006)(36840700001)(40470700004)(41300700001)(36756003)(40460700003)(2906002)(31696002)(44832011)(86362001)(5660300002)(81166007)(47076005)(40480700001)(356005)(2616005)(26005)(478600001)(83380400001)(336012)(426003)(82740400003)(8936002)(8676002)(4326008)(6666004)(316002)(53546011)(70206006)(54906003)(70586007)(16576012)(31686004)(110136005)(36860700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(376002)(136003)(396003)(346002)(230922051799003)(230173577357003)(230273577357003)(1800799012)(451199024)(64100799003)(186009)(82310400011)(36840700001)(40470700004)(46966006)(4326008)(44832011)(2906002)(8676002)(31686004)(8936002)(41300700001)(26005)(2616005)(110136005)(70206006)(316002)(16576012)(70586007)(54906003)(53546011)(6666004)(5660300002)(426003)(36860700001)(478600001)(336012)(83380400001)(47076005)(40480700001)(81166007)(356005)(82740400003)(86362001)(31696002)(36756003)(40460700003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 07:07:17.1870
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 07:15:51.0941
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7cbb7ec-5f8e-4a12-c407-08dbe99754d4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a1e9baa-d450-4891-1422-08dbe99886f5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042AA.namprd03.prod.outlook.com
+	SN1PEPF0002BA4F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5935
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6429
 
 Hi Ayan,
 
 On 17/11/2023 16:31, Ayan Kumar Halder wrote:
-> All the MMU related functionality have been clubbed together in
-> enable_boot_cpu_mm() for booting primary cpu and enable_secondary_cpu_mm() for
-> booting secondary cpus.
-> This is done in preparation for moving the code related to MMU in MMU specific
-> file and in order to support non MMU cpus in future.
+> The MMU specific code in head.S will not be used on MPU systems.
+> Instead of introducing more #ifdefs which will bring complexity
+> to the code, move MMU related code to mmu/head.S and keep common
+> code in head.S. Two notes while moving:
+>  - As "fail" in original head.S is very simple and this name is too
+>    easy to be conflicted, duplicate it in mmu/head.S instead of
+>    exporting it.
+>  - Realigned ".macro ret" so that the alignment matches to the other
+>    macros.
+>  - Rename puts to asm_puts, putn to asm_putn (this denotes that the
+>    macros are used within the context of assembly only).
+>  - Use ENTRY() for enable_secondary_cpu_mm, enable_boot_cpu_mm,
+>    setup_fixmap, asm_puts, asm_putn  as they will be used externally.
 > 
-> This is based on d2f8df5b3ede ("xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()").
+> Also move the assembly macros shared by head.S and mmu/head.S to
+> macros.h.
+> 
+> This is based on 6734327d76be ("xen/arm64: Split and move MMU-specific head.S to mmu/head.S").
 > 
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> Acked-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+with a few remarks...
+
 > ---
 > 
-> Changes from :-
+> Changes from v1 :-
 > 
-> v1 - 1. Added a proper commit message.
-> 2. Some style and other fixes suggested in v1. 
+> 1. Added a commit message
+> 2. Moved load_paddr to mmu/head.S
 > 
-> v2 - 1. Updated the comment on top of enable_boot_cpu_mm() and
-> enable_secondary_cpu_mm() ie mentioned the input and output registers.
-> 2. Updated the comment inside enable_boot_cpu_mm().
+> v2 :-
 > 
-> v3 - 1. No changes.
+> 1. Renamed puts to asm_puts and putn to asm_putn. Exported asm_putn().
+> 2. Moved XEN_TEMPORARY_OFFSET to head.S.
+> 3. Some style issues.
 > 
->  xen/arch/arm/arm32/head.S | 102 ++++++++++++++++++++++++++++++--------
->  1 file changed, 80 insertions(+), 22 deletions(-)
+> v3 :-
+> 
+> 1. Updated the comments on top of asm_puts() and asm_putn().
+> 2. Removed some stubs.
+> 3. PRINT() invokes asm_puts.
+> 
+>  xen/arch/arm/arm32/head.S               | 630 +-----------------------
+>  xen/arch/arm/arm32/mmu/Makefile         |   1 +
+>  xen/arch/arm/arm32/mmu/head.S           | 573 +++++++++++++++++++++
+>  xen/arch/arm/include/asm/arm32/macros.h |  58 ++-
+>  4 files changed, 638 insertions(+), 624 deletions(-)
+>  create mode 100644 xen/arch/arm/arm32/mmu/head.S
 > 
 [...]
 
+>  
+> @@ -947,8 +335,6 @@ RODATA_STR(hex, "0123456789abcdef")
+>  
+>  ENTRY(early_puts)
+>  init_uart:
+> -puts:
+> -putn:   mov   pc, lr
+You removed putn, puts and even the return. Looking at the codebase, early_puts global makes no sense
+and init_uart is only used within #ifdef. So I would expect the entire block to be removed.
+
+>  
+>  #endif /* !CONFIG_EARLY_PRINTK */
+>  
+> diff --git a/xen/arch/arm/arm32/mmu/Makefile b/xen/arch/arm/arm32/mmu/Makefile
+> index b18cec4836..a8a750a3d0 100644
+> --- a/xen/arch/arm/arm32/mmu/Makefile
+> +++ b/xen/arch/arm/arm32/mmu/Makefile
+> @@ -1 +1,2 @@
+> +obj-y += head.o
+>  obj-y += mm.o
+> diff --git a/xen/arch/arm/arm32/mmu/head.S b/xen/arch/arm/arm32/mmu/head.S
+> new file mode 100644
+> index 0000000000..6d427328f3
+> --- /dev/null
+> +++ b/xen/arch/arm/arm32/mmu/head.S
+> @@ -0,0 +1,573 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * xen/arch/arm/arm32/mmu/head.S
+> + *
+> + * Arm32 MMU specific start-of-day code.
+> + */
+> +
+> +#include <asm/page.h>
+> +#include <asm/early_printk.h>
+> +
+> +#define PT_PT     0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
+> +#define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
+> +#define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
+> +#define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
+> +#define PT_DEV_L3 0xe73 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=1 P=1 */
+> +
+> +#define PT_UPPER(x) (PT_##x & 0xf00)
+> +#define PT_LOWER(x) (PT_##x & 0x0ff)
+> +
+> +/* Convenience defines to get slot used by Xen mapping. */
+> +#define XEN_FIRST_SLOT      first_table_offset(XEN_VIRT_START)
+> +#define XEN_SECOND_SLOT     second_table_offset(XEN_VIRT_START)
+> +
+> +/* Offset between the early boot xen mapping and the runtime xen mapping */
+> +#define XEN_TEMPORARY_OFFSET      (TEMPORARY_XEN_VIRT_START - XEN_VIRT_START)
+> +
+> +.macro load_paddr rb, sym
+> +        mov_w \rb, \sym
+> +        add   \rb, \rb, r10
+> +.endm
 > +
 > +/*
-> + * Enable mm (turn on the data cache and the MMU) for the boot CPU.
-> + * The function will return to the virtual address provided in LR (e.g. the
-> + * runtime mapping).
+> + * Flush local TLBs
 > + *
-> + * Inputs:
-> + *   r9 : paddr(start)
-> + *   r10: phys offset
-> + *   lr : Virtual address to return to.
+> + * @tmp: Scratch register
 > + *
-> + * Output:
-> + *   r12: Was a temporary mapping created?
-> + *
-> + * Clobbers r0 - r6
+> + * See asm/arm32/flushtlb.h for the explanation of the sequence.
 > + */
-> +enable_boot_cpu_mm:
-> +        mov   r6, lr
+> +.macro flush_xen_tlb_local tmp
+> +        dsb   nshst
+> +        mcr   CP32(\tmp, TLBIALLH)
+> +        dsb   nsh
+> +        isb
+> +.endm
 > +
-> +        bl    create_page_tables
-> +
-> +        /* Address in the runtime mapping to jump to after the MMU is enabled */
-> +        mov_w lr, 1f
-> +        b     enable_mmu
-> +1:
+> +/*
+> + * Enforce Xen page-tables do not contain mapping that are both
+> + * Writable and eXecutables.
+> + *
+> + * This should be called on each secondary CPU.
+> + */
+> +.macro pt_enforce_wxn tmp
+> +        mrc   CP32(\tmp, HSCTLR)
+> +        orr   \tmp, \tmp, #SCTLR_Axx_ELx_WXN
+> +        dsb
+> +        mcr   CP32(\tmp, HSCTLR)
 > +        /*
-> +         * Prepare the fixmap. The function will return to the virtual address
-> +         * requested by the caller.
+> +         * The TLBs may cache SCTLR_EL2.WXN. So ensure it is synchronized
+> +         * before flushing the TLBs.
 > +         */
-It seems like you did not handle my remark from v3. This comment should be moved above branch
-to setup_fixmap.
-
-> +        mov   lr, r6
+> +        isb
+> +        flush_xen_tlb_local \tmp
+> +.endm
 > +
-> +        b     setup_fixmap
-> +ENDPROC(enable_boot_cpu_mm)
+> +/* Macro to find the slot number at a given page-table level
+> + *
+> + * slot:     slot computed
+> + * virt:     virtual address
+> + * lvl:      page-table level
+> + *
+> + * Note that ubxf is unpredictable when the end bit is above 32-bit. So we
+> + * can't use it for first level offset.
+> + */
+> +.macro get_table_slot, slot, virt, lvl
+> +    .if \lvl == 1
+> +        lsr   \slot, \virt, #XEN_PT_LEVEL_SHIFT(\lvl)
+> +    .else
+> +        ubfx  \slot, \virt, #XEN_PT_LEVEL_SHIFT(\lvl), #XEN_PT_LPAE_SHIFT
+> +    .endif
+> +.endm
 > +
->  /*
->   * Remove the 1:1 map from the page-tables. It is not easy to keep track
->   * where the 1:1 map was mapped, so we will look for the top-level entry
+> +/*
+> + * Macro to create a page table entry in \ptbl to \tbl (physical
+> + * address)
+> + *
+> + * ptbl:    table symbol where the entry will be created
+> + * tbl:     physical address of the table to point to
+> + * virt:    virtual address
+> + * lvl:     page-table level
+> + *
+> + * Preserves \virt
+> + * Clobbers \tbl, r1 - r3
+> + *
+> + * Note that \tbl and \virt should be in a register other than r1 - r3
+> + */
+> +.macro create_table_entry_from_paddr, ptbl, tbl, virt, lvl
+> +        get_table_slot r1, \virt, \lvl  /* r1 := slot in \tbl */
+> +        lsl   r1, r1, #3                /* r1 := slot offset in \tbl */
+> +
+> +        movw  r2, #PT_PT             /* r2:r3 := right for linear PT */
+> +        orr   r2, r2, \tbl           /*           + \tbl paddr */
+> +        mov   r3, #0
+> +
+> +        adr_l \tbl, \ptbl            /* \tbl := (v,p)addr of \ptbl */
+> +
+> +        strd  r2, r3, [\tbl, r1]
+> +.endm
+> +
+> +
+NIT: too many blank lines
 
+[...]
+> diff --git a/xen/arch/arm/include/asm/arm32/macros.h b/xen/arch/arm/include/asm/arm32/macros.h
+> index a4e20aa520..c41861efbe 100644
+> --- a/xen/arch/arm/include/asm/arm32/macros.h
+> +++ b/xen/arch/arm/include/asm/arm32/macros.h
+> @@ -1,8 +1,62 @@
+>  #ifndef __ASM_ARM_ARM32_MACROS_H
+>  #define __ASM_ARM_ARM32_MACROS_H
+>  
+> -    .macro ret
+> +.macro ret
+>          mov     pc, lr
+> -    .endm
+> +.endm
+>  
+> +/*
+> + * Move an immediate constant into a 32-bit register using movw/movt
+> + * instructions.
+> + */
+> +.macro mov_w reg, word
+> +        movw  \reg, #:lower16:\word
+> +        movt  \reg, #:upper16:\word
+> +.endm
+> +
+> +/*
+> + * Pseudo-op for PC relative adr <reg>, <symbol> where <symbol> is
+> + * within the range +/- 4GB of the PC.
+> + *
+> + * @dst: destination register
+> + * @sym: name of the symbol
+> + */
+> +.macro adr_l, dst, sym
+> +        mov_w \dst, \sym - .Lpc\@
+> +        .set  .Lpc\@, .+ 8          /* PC bias */
+> +        add   \dst, \dst, pc
+> +.endm
+> +
+> +#ifdef CONFIG_EARLY_PRINTK
+> +/*
+> + * Macro to print a string to the UART, if there is one.
+> + *
+> + * Clobbers r0 - r3
+> + */
+> +#define PRINT(_s)           \
+> +        mov   r3, lr       ;\
+> +        adr_l r0, 98f      ;\
+> +        bl    asm_puts     ;\
+> +        mov   lr, r3       ;\
+> +        RODATA_STR(98, _s)
+> +
+> +/*
+> + * Macro to print the value of register \rb
+> + *
+> + * Clobbers r0 - r4
+> + */
+> +.macro print_reg rb
+> +        mov   r0, \rb
+> +        mov   r4, lr
+> +        bl    asm_putn
+> +        mov   lr, r4
+> +.endm
+> +
+> +#else /* CONFIG_EARLY_PRINTK */
+> +#define PRINT(s)
+> +
+> +.macro print_reg rb
+> +.endm
+> +
+> +#endif /* !CONFIG_EARLY_PRINTK */
+please add one blank line here to separate #endif's
+
+>  #endif /* __ASM_ARM_ARM32_MACROS_H */
 
 ~Michal
 
