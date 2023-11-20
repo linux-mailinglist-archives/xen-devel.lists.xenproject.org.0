@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009F37F0E58
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 10:03:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636497.992048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2070E7F0EE7
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 10:22:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636504.992058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r50B0-00056U-5P; Mon, 20 Nov 2023 09:02:42 +0000
+	id 1r50TG-0000t7-IG; Mon, 20 Nov 2023 09:21:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636497.992048; Mon, 20 Nov 2023 09:02:42 +0000
+Received: by outflank-mailman (output) from mailman id 636504.992058; Mon, 20 Nov 2023 09:21:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r50B0-00053d-1m; Mon, 20 Nov 2023 09:02:42 +0000
-Received: by outflank-mailman (input) for mailman id 636497;
- Mon, 20 Nov 2023 09:02:41 +0000
+	id 1r50TG-0000qj-FO; Mon, 20 Nov 2023 09:21:34 +0000
+Received: by outflank-mailman (input) for mailman id 636504;
+ Mon, 20 Nov 2023 09:21:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9+lD=HB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r50Az-00053X-56
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 09:02:41 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20629.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GG8d=HB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r50TE-0000qY-Jh
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 09:21:32 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8de41645-8783-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 10:02:38 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DBBPR04MB7740.eurprd04.prod.outlook.com (2603:10a6:10:1ee::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.16; Mon, 20 Nov
- 2023 09:02:37 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7025.015; Mon, 20 Nov 2023
- 09:02:37 +0000
+ id 30318105-8786-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 10:21:30 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4083f613275so15163595e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 01:21:30 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ f11-20020a05600c4e8b00b0040535648639sm13013788wmq.36.2023.11.20.01.21.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Nov 2023 01:21:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,144 +44,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8de41645-8783-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B7HlSXvLPeoHaVzWCjQi9eHdpScXR7vvWGd1cm3kbmpRsQAsc20jafY71/HWtqGcsXktd58+sfe3CYVE4OjWW7eShiZvG4YPIfhVukVmp5nkjSYVvTmtkHiyuqfY9aqiW+0JhqAaOavqArrcVUanJGspgvLS7souikTAOVDTTrkfgl52dL4QzwNy12FDIhWP6nSbebAXPF46Ex+Zel0Pc1MyhmkxaAxtYXcWCd16QeEdzoJ8hILYB9HPYp5gcugo2/4iFnwl5ya4eXKyRW4cdxR8fctjmx3/ERVTiPN+YbMaQucH/m1kdrneCwhCyDhjILXtAt46V0Q8WfgbJCL3lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HICccsNUF/EOWkVvcxfIwhFU09YZGjCFraXnkhzxsA0=;
- b=QFAesjpsLRcWy5eRYmj3JBSvuZvmrUqWv9TxLDUB1vKEPR4aAXCs5R0+Nw+NBhNHpOnn+eIjNiLOzU5Kjcjke2oUdsf4ShROo1qmc4BqOqHcn93kwXdtrD0dvtort5n7tTw0TCTLZHmqWvKaoFSoQ26ulzBFAdIvL+GJ/VkzdI277yQRu64YAlBlPSsTt2adfc52NjZL6jHBjKHDN+XehQRHI93rVwG7inAVjF++6x1cum+ZodTkrtEnuS1leMzhfozyr9yBXMuiU3Tf/Gc5Zq/6/7PyD8GOXBGU+xCwF+GJVimPSNDEq1Ev2Q2eVBxSzL29TVnD9CikjyqQH0LlYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HICccsNUF/EOWkVvcxfIwhFU09YZGjCFraXnkhzxsA0=;
- b=IVMtKGEBjPBHAWlrsOAbwvnBN8EIhUVrOWe3csX1pKRu7/vIM9wNSYRMdRLFB2hKDMeDOklKrxW6RfsHpUA7frL+jh5UuPPVc7GvTA8G8stN1v0FHwAHoDO3NhALnnyDO9FK0WgxaeZY9I4Hvu4loamKGmlwhNctHYMP1RQ+3urFJjaa94NPmamhsjBkLuTgcITpX/e7b2Gwq2qIBJ02M0+riwPUAG+DyYmHPU/4+1pipRfwgmkbUhRGKlIPjS0cVRKmx+gyfW+wOy1VYbDwUODBdMBzcrc3HmDSPYMmOWdqwGKI05uooBNV+rDPvGeoEn+W9m2kfb1xF1lSbMWRYg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <19d887e6-8c07-43f3-a2de-88ce0a0c99ba@suse.com>
-Date: Mon, 20 Nov 2023 10:02:37 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/5] xen/sort: address violations of MISRA C:2012 Rule
- 8.2
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1700209834.git.federico.serafini@bugseng.com>
- <de68f8220fbb97ae6a3382138c23e81d0988a472.1700209834.git.federico.serafini@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <de68f8220fbb97ae6a3382138c23e81d0988a472.1700209834.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 30318105-8786-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1700472089; x=1701076889; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/Y7z44IMmtxg3JLnszHwZ9hbE6G7yoE0v9EloD2EQCg=;
+        b=rhV1yz2M9/40g2jNUWKCxlp0LzUPySWS2Jei/Vqat/ZnCs1DPS1/Qjn25o9mRANTdZ
+         j8smIuFGLH/72oR6xd6nrL4r6FgKpCedcfPNGLWPikRnbyttxLDvUdb8ZcH3TNBg0Udj
+         I2Cla4acy/dpkLaGI81kvi67xt8vld05lAuIQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700472089; x=1701076889;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/Y7z44IMmtxg3JLnszHwZ9hbE6G7yoE0v9EloD2EQCg=;
+        b=wKn5Nflxm5xvSojeVE0nD61TEU2vG7n9/Pzf6m/P/E2Ogx7TkMENALNNE4ywHDUFXb
+         oWVmCe/drSFKYkJFXHCLh9R5fFi0etM9yZls7s4dJWPZyqPschXNJYrVrUN3WHCAiRtu
+         79L1lzAfHowRHCkHfjcSBltXJY1USPNClJn8JlIy3L6JPpHfSw4YETSXrnTGcZGjj1Bk
+         XbuwR51JlwHVDgm4ULcmxSK8SsRvqeXXpbptZUWbNGzB/NlCcwUw0iHDis5q5XKnqeo2
+         EtzV0Ce21ugQ4TOIeFYvNNScggk8c8QSFtUM5wQ2yKNp16AY03f/nc/Kxeg2L0VO/KlH
+         1zNw==
+X-Gm-Message-State: AOJu0YzYZYSnQsp7LwaodZEjmxs2ld8b2LNHOu/c0HJ58h0hKxlavtnj
+	t0ZxaMbsBDmZ7Gt5dnDFgCVL0Q==
+X-Google-Smtp-Source: AGHT+IGVj2s7D54HC3ta6IG5kGHl5LDyjyNQtrSlZqcM85zKDzIeCoUKNpSk8KOmY6T3+6CbMYDObw==
+X-Received: by 2002:a05:600c:350a:b0:409:19a0:d247 with SMTP id h10-20020a05600c350a00b0040919a0d247mr5616773wmq.18.1700472089486;
+        Mon, 20 Nov 2023 01:21:29 -0800 (PST)
+Date: Mon, 20 Nov 2023 10:21:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: James Dingwall <james-xen@dingwall.me.uk>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: xen 4.15.5: msr_relaxed required for MSR 0x1a2
+Message-ID: <ZVslGC8VGP0kZ-dK@macbook.local>
+References: <ZVZAO/W0m/h+IPbi@dingwall.me.uk>
+ <aa13be5e-d90c-4074-a16c-d3b051da754d@citrix.com>
+ <ZVcv7259slJF4wBh@dingwall.me.uk>
+ <ZVc9yq9b6fezMWcY@macbook.local>
+ <ZVsceVGKOMP2zhU9@dingwall.me.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DBBPR04MB7740:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b2a6cc5-7b3e-4e16-5bb9-08dbe9a77144
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	58/Th3gV2Q0EAHoEAgQIXIxDZABffTCqR4LfwXcVycvHZFhaBVb603KLcPeqTx4vwyQJBOaqTgvQ+dhbAN1qHu+shRQro68Ijl+2Va34SdvKZzM+lZ3zrrIRcIfvQP+eo+PjmGZIMSXCETOaQXXYVjkUR7g9BMxu8f/jI+muCqoB4pxQa8qN97ePpwWWNfC1lFR+r5pBCnBfzNXm55BlFcbQDdaWofJ9Mg2n9zZ9a/suvPgQY8RQW9xwcl+aRswi0xf+4frgihjlc4gxBmwnA5HUbVT1NfeOc63AVAr4WlJEETXwQJgyiFxl/nIl78ZBiFuE7LkOrv5Hljcw2eMyVF1OwgttYNHPebpNbYoJyueyBctVq9yEKO/j2rdXByRfBvbyHRp6yO6vUcDxE4TOzrkdEWWpQNIZ9yPuazZuIfJ4eoX7gL/aUcDHuXLY6tlRM4TMzeNYhCEoyXRB/EpIZ/NiFVmW1dpdkRtaY+uhXykY0WouGRI4smEB8ldWNjHofGTyET4Sk1ohU/nO0mdKQpkD4IHKsit77ziReBrfi9PgbYHFRrAw4IqrZSkuCTk0FE/BMhORM9wrCDOvdCoRcFPCVPNMeZqc0KZII85c/XV/gV1na2MWW6r1q/T346+vI3lL5+IjUg5fARAmJI6Fjw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(136003)(376002)(366004)(39860400002)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(66946007)(66556008)(316002)(6916009)(66476007)(54906003)(26005)(36756003)(8936002)(4326008)(8676002)(38100700002)(41300700001)(31696002)(86362001)(2906002)(4744005)(5660300002)(6486002)(478600001)(6512007)(31686004)(53546011)(6506007)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Mmlka2hReHY0SkpoZFJYcjFyRmVld3FOMnQrQ2g4S1BKM1RQUldOWkwzYVVz?=
- =?utf-8?B?bmJTb0tueUhhaU5MMVFyaXhiNTNJYUd2dTB2R3MydVdxdkN2bHhVTTRJbFlS?=
- =?utf-8?B?K3J2TUZuMWd3QjkzSHlMVEtWN05mL04zaDQ1NUF5aFJpZDY3R3pnWmxwS3FJ?=
- =?utf-8?B?blVwU3FSRlNUYU93NlFTWG53cndQQnp1VmlYSThwNlBScTU0VGFRN3NZZU9P?=
- =?utf-8?B?VlhldExmVFJ1WCt1aVNCUE1WdDh3NGVEek50dU8ycCtNU0Z2Zm05d0MyOHVl?=
- =?utf-8?B?MFpBd2QzWGRXb3ZDV2hQdnlyZFRvb3hDR3hPREd5MVJ1M1Z1T0hURjRxaWxG?=
- =?utf-8?B?Z2dCSWd1c2FBaTFMOGRlYVNseHBQZlVQTFY0dnZpekFlbGU0SEkwcGs4ditr?=
- =?utf-8?B?Rm1Bb0d3eVI0M2NqTVJ0bUppaDB1S2RLM3hwd1FKOEtGM05jVFVqTE5Bd0lJ?=
- =?utf-8?B?RGtvMlJxclBIOGVKczd4YXJTNTRlNTc2WVdCVlhXY2s5M1hZd1JnQVRQRUpz?=
- =?utf-8?B?Q3JaUTJXOVRuMVkzVURaenQxSklDOW9iSDhBRThWbllOc3BDemVtbmVWTFJJ?=
- =?utf-8?B?NXB0OUROZUhQTG16YXE2LzBBNFhidEJjcGcvRE9LY011VVVKd0Z2R0pNMVhh?=
- =?utf-8?B?WW80TklRaVI0SVFIdDFLdTlScUQva0N2VWpISmRUd01LQ2ZSdEdENFJ1WTA0?=
- =?utf-8?B?a0hRM1ExSENlZVZ2Nmpta0wyVkRjWkdpMzBzRzlzYnpwUHlFSHh2UjU3Uy9Z?=
- =?utf-8?B?N2FnUmpiQVdOOEE0d20rcjFDS0Rva0UrQWVBd2JTYktFd2FDeENMWVYzQlg1?=
- =?utf-8?B?VFBlR1RZUklKOHI1NjJWcXo4Mzc0aUpMZnFRQXBFc3kzOXBZMm5ETll4eU5P?=
- =?utf-8?B?WGZUQkk4NW9xMEZ5VGRCMmlxSUVZRi9PZWM5YjBVL1Q1YVNlUko2dENiNkRs?=
- =?utf-8?B?NnpLVmhCZFNiT3puSjVLM295elI5MEtTZEE5emlxc2l2L0hORnRCNVRRSjJ2?=
- =?utf-8?B?UHordms2VzZLeUJzcDE0YStjSWhsVkFlT0E0RE5UMWpoS09DRi9RWUl5city?=
- =?utf-8?B?UXhPVnJYaGNWckgzOTJORTRSWDMxMUVIVVpYV3VoWXBObmV5ekVuR1FFd1BO?=
- =?utf-8?B?MGE4ZGkxTGxCa3hOYktqbGR1Z2lCcUdoWEpCWTZuNkNRVnBqYm40d0J1N1Jl?=
- =?utf-8?B?dzFDUzQwc3I1Z1ZlQVlUeWE3UWoxWWVjWHJJZlBMRUQ4RnQvMkVRbS9FL1Ay?=
- =?utf-8?B?TDVhTjNaR2lVa29URkpqMUFTMEo3RExxNEdmeWFxbWlyVWRvUk9LZFRheVBp?=
- =?utf-8?B?QXRDaTFvQW0vUHMwck9hUjhXOVdHNkw5M1JqTkVWNi9hVklXNWkzR25oTTJD?=
- =?utf-8?B?eUNPNlJvNkFFUXZJUjlyMk9GMlA1UDZkTnNCZHpvMFc2YkZaRGZKMFBDekcr?=
- =?utf-8?B?RU5wVU02T1Nqd1ZuNCtuZktIYWtqdksvaDBsNzU0TzdyQWNsa2d3YnhQZmNy?=
- =?utf-8?B?ZmNPR0hwR0FoSnZiUjl2eGZPT2phQVMzNmFzV0dhMG90K0lreU0rZzNBTmlE?=
- =?utf-8?B?QzJkT1ppWDNNTk1vbVlLY0FhYVdZU1BMckhCcTZydHJjSlc4M0Jid2tlejhV?=
- =?utf-8?B?SjcxaXY5VElzWmlhTnBwdzFRbHFybDhOOEpUSEkzYmxaZzh5QzRlREJHNmZJ?=
- =?utf-8?B?Sk5BS2dLeGFoL2Y3cU1NaFJEMmpqQmMwM3F6OUFxaVgyT3dMb2RhTnc5REVI?=
- =?utf-8?B?VURhQlh2K2ZMMmpORlRmK2Uxc0VzM2NFT2xkaUdDdkJBS1B4MFJ2aktpajJX?=
- =?utf-8?B?RHVTTTh3S0VDM21oWmViVTNDUVFBc2dxeFpSR3BpSlNoMkRuOHVhdjJJRTdk?=
- =?utf-8?B?MWoxUVIzK2FZOVVGcEJ2eGZHRXhBa0lPVmdXREFSRFZFaTRkK0dXeTNuSG9O?=
- =?utf-8?B?K0d4M0xaU213NHBGZS8ySm5wNVQ0dEppakxDaE1BRlArQkplRkZLUFN5YUN2?=
- =?utf-8?B?Vm91TGEzSCt2VnprRnB4T25aV1hBUGVDQmQ3TlRhKzc5cnZic0VBcC9vWjU4?=
- =?utf-8?B?S3d3aWZObktYYlpjUlNLQWxBdURreHZESDJrQS9JeGZ6TXczay9lZ2hieENH?=
- =?utf-8?Q?L6heR0X5xiJBAIvmojPqMnV4Y?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b2a6cc5-7b3e-4e16-5bb9-08dbe9a77144
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 09:02:37.3407
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5kY3hSA25guDMJot6fve/ZHhQJHAaP7izIljyEfSwAI57DQUi42SD40GeUlK2aHXJfvmuHGsOEhZ1EyExb3fhg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7740
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZVsceVGKOMP2zhU9@dingwall.me.uk>
 
-On 17.11.2023 09:40, Federico Serafini wrote:
-> --- a/xen/include/xen/sort.h
-> +++ b/xen/include/xen/sort.h
-> @@ -23,8 +23,8 @@
->  extern gnu_inline
->  #endif
->  void sort(void *base, size_t num, size_t size,
-> -          int (*cmp)(const void *, const void *),
-> -          void (*swap)(void *, void *, size_t))
-> +          int (*cmp)(const void *key, const void *elem),
+On Mon, Nov 20, 2023 at 08:44:41AM +0000, James Dingwall wrote:
+> On Fri, Nov 17, 2023 at 11:17:46AM +0100, Roger Pau Monné wrote:
+> > On Fri, Nov 17, 2023 at 09:18:39AM +0000, James Dingwall wrote:
+> > > On Thu, Nov 16, 2023 at 04:32:47PM +0000, Andrew Cooper wrote:
+> > > > On 16/11/2023 4:15 pm, James Dingwall wrote:
+> > > > > Hi,
+> > > > >
+> > > > > Per the msr_relaxed documentation:
+> > > > >
+> > > > >    "If using this option is necessary to fix an issue, please report a bug."
+> > > > >
+> > > > > After recently upgrading an environment from Xen 4.14.5 to Xen 4.15.5 we
+> > > > > started experiencing a BSOD at boot with one of our Windows guests.  We found
+> > > > > that enabling `msr_relaxed = 1` in the guest configuration has resolved the
+> > > > > problem.  With a debug build of Xen and `hvm_debug=2048` on the command line
+> > > > > the following messages were caught as the BSOD happened:
+> > > > >
+> > > > > (XEN) [HVM:11.0] <vmx_msr_read_intercept> ecx=0x1a2
+> > > > > (XEN) vmx.c:3298:d11v0 RDMSR 0x000001a2 unimplemented
+> > > > > (XEN) d11v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80b8de81eb5 0 0
+> > > > >
+> > > > > I found that MSR 0x1a2 is MSR_TEMPERATURE_TARGET and from that this patch
+> > > > > series from last month:
+> > > > >
+> > > > > https://patchwork.kernel.org/project/xen-devel/list/?series=796550
+> > > > >
+> > > > > Picking out just a small part of that fixes the problem for us. Although the
+> > > > > the patch is against 4.15.5 I think it would be relevant to more recent
+> > > > > releases too.
+> > > > 
+> > > > Which version of Windows, and what hardware?
+> > > > 
+> > > > The Viridian Crash isn't about the RDMSR itself - it's presumably
+> > > > collateral damage shortly thereafter.
+> > > > 
+> > > > Does filling in 0 for that MSR also resolve the issue?  It's model
+> > > > specific and we absolutely cannot pass it through from real hardware
+> > > > like that.
+> > > > 
+> > > 
+> > > Hi Andrew,
+> > > 
+> > > Thanks for your response.  The guest is running Windows 10 and the crash
+> > > happens in a proprietary hardware driver.
+> > 
+> > When you say proprietary you mean a custom driver made for your
+> > use-case, or is this some vendor driver widely available?
+> > 
+> 
+> Hi Roger,
+> 
+> We have emulated some point of sale hardware with a custom qemu device.  It
+> is reasonably common but limited to its particular sector.  As the physical
+> hardware is all built to the same specification I assume the driver has made
+> assumptions about the availability of MSR_TEMPERATURE_TARGET and doesn't
+> handle the case it is absent which leads to the BSOD in the Windows guest.
 
-Why "key" and "elem" here, but ...
+Hello James,
 
-> +          void (*swap)(void *a, void *b, size_t size))
+We have in the past exposed MSRs in order to workaround OSes
+assumptions about such MSRs being unconditionally present, so it's not
+completely unacceptable that we might end up exposing this if strictly
+required.
 
-... "a" and "b" here? The first example of users of sort() that I'm
-looking at right now (x86/extable.c) is consistent in its naming.
+My question would be, is it possible for such driver to get fixed in
+order to avoid unconditionally poking at MSR_TEMPERATURE_TARGET, or
+that's impossible?
 
-Jan
+From the Intel manual it seems like MSR_TEMPERATURE_TARGET is
+unconditionally present on certain models, and hence we might have no
+other option but to end up adding a dummy handler for reads.  I do
+wonder whether returning all 0 is correct, as then the "thermal
+throttling" would be enable when the CPU temp > 0C, which is
+unrealistic.  I assume that wouldn't matter much as long as drivers
+don't choke on such weird value.
+
+Thanks, Roger.
 
