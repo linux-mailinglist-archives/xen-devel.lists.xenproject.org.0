@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A577F20AD
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 23:49:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637328.993081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B5CA7F20AF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 23:49:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637326.993065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5D5A-00064H-49; Mon, 20 Nov 2023 22:49:32 +0000
+	id 1r5D56-0005dn-Ab; Mon, 20 Nov 2023 22:49:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637328.993081; Mon, 20 Nov 2023 22:49:32 +0000
+Received: by outflank-mailman (output) from mailman id 637326.993065; Mon, 20 Nov 2023 22:49:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5D59-0005yU-Qo; Mon, 20 Nov 2023 22:49:31 +0000
-Received: by outflank-mailman (input) for mailman id 637328;
- Mon, 20 Nov 2023 22:49:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r5D56-0005bZ-67; Mon, 20 Nov 2023 22:49:28 +0000
+Received: by outflank-mailman (input) for mailman id 637326;
+ Mon, 20 Nov 2023 22:49:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Uh/B=HB=citrix.com=prvs=681f0548f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1r5D58-0005pp-0G
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 22:49:30 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d40d0f7-87f7-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 23:49:26 +0100 (CET)
+ id 1r5D54-0004rh-Ud
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 22:49:26 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0d453ff8-87f7-11ee-98e0-6d05b1d4d9a1;
+ Mon, 20 Nov 2023 23:49:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,50 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d40d0f7-87f7-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0d453ff8-87f7-11ee-98e0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1700520566;
+  d=citrix.com; s=securemail; t=1700520565;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KkoH8o86oD3O0Ak+wVVUBX4N9gH8HsFtd6JZOUHqS1o=;
-  b=c09Exnye5lku1hWOJRPzaKZfyY1Tmv9FR37eZjlRO8FgQVezXdQ+6TsH
-   0+Od9eQCr93rJex1VUvxmyc9K4Z/7jJe2V4kYf1fK9BPU6pONsUQVqYUi
-   0GmladJGPzG9M0Tq1B/WHFTBuEskn4w1tZsWc+Muvpo+kiWdQB44E/YDT
-   E=;
-X-CSE-ConnectionGUID: LtYo8xJLRvC+jqiF6E23hw==
-X-CSE-MsgGUID: 6O6XcPceSZ2koK5f5Nn6tg==
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=EVJR9V5+k1L0Xv34e64y+YGh6kPJI63dNHLzn39U6pA=;
+  b=icIo2ZNdPWV0gjqVlGhvtX78q2xZMaRMYsmmWPRPn18Qdy0Ipky8SWq/
+   xNkwSec/chVRf7S8sPHk6nsZ8nLwYgrcLwcr/7r5cNRE8U1Lg2sBKO+QS
+   6o0xSzE9BEovptx0wXh9Hvt9M9gfKojHym1uWKGprx6/hH/U+6O2jJmh7
+   M=;
+X-CSE-ConnectionGUID: WaXQkFtXSsexmHBFI/oWVg==
+X-CSE-MsgGUID: vYXeQnT6QZ6dKD6x9aj9UQ==
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 127436305
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 128662993
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:3MPTDq+LoP2SHNuUIsiQDrUDX36TJUtcMsCJ2f8bNWPcYEJGY0x3m
- GJLWGuAbPiLN2qgf9wgboTg8U4D75aEm4NhTAJs+yA8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ksz1BjOkGlA5AdnPKoT5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklq6
- c0feCAvSiqdrKG02bOVFMQ23cQ8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUWGPEUn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwPwRrD+
- DmeogwVBDlEE4KvwgKO/0me3OzIvn71BaQUSqG3o6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0QMFMGuc37AWMzKv84AuDAGUACDlbZ7QOttIyRDEs/
- k+EmZXuHzMHmIOSTXWR57KFtwSYMCIeLXIBTSIcRA5D6N7myKk5gwjTVN9lHOiwh8fsBDDr6
- zmQqW41gLB7pcsK3KWy+RbAmSChorDASwJz7QLSNkq/6Ql0fpKiIYah5l7S9/9oJpuWVVSHs
- z4PnM32xOYPBpaJnWqTTfkXHbeoz/yYPybRh1EpFJ4knwlB4Fb6I9oWumsnYh40Y4BbIVcFf
- XM/pyt1+K5UbGuISZVpSMGzEsUEk4W6TtT6A6W8gsV1XnRhSOOW1HgxPRbMjj63yRZErE0pB
- XuMnS+R4Zcm5UdPlmPeqx81i+ND+8zH7Tq7qWrH5xqmy6GCQ3WeVK0INlCDBshgs/vc/V2Iq
- YoGbpTUo/m6bAEYSnOPmWL0BQpSRUXX+Lis85AHHgJ9ClYO9J4d5w/5nup6Jt0Nc1V9nebU5
- HCtMnK0O3Km7UAr3T6iMyg5AJu2BMYXkJ7OFXB0Vbpe8yR5MNnHAWZ2X8dfQITLA8Q6nKItE
- qFcI5rRahmNIxyekwkggVDGhNQKXHyWacimZkJJvBBXk0ZcejH0
-IronPort-HdrOrdr: A9a23:rRuryKuMF6MG75yJeqwIG/u67skDTtV00zEX/kB9WHVpmszxra
- 6TdZMgpHnJYVcqKQkdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
- YFT0EXMqyIMbEQt6fHCWeDfOrIuOP3kpyVuQ==
-X-Talos-CUID: 9a23:gxaWTW7h4b5VFXWyf9ss0FIlHZA1UFnn0lyTIVa5JzhEEuaVVgrF
-X-Talos-MUID: 9a23:Nr5UswmcUORqbrt/l8Sfdno8E5lY6JylBXs/y5YBmJSKaAp2ZSuS2WE=
+IronPort-Data: A9a23:7Yx7WaOvDVN+r2vvrR16l8FynXyQoLVcMsEvi/4bfWQNrUog0zECz
+ GMaWmDSOavYYGWjLthxbd/ioUlX7cSGyoVgGQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CQ6jefQAOOkVIYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/7rRC9H5qyo42pB5ARmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0tl+MVhN2
+ +AoEysAfhWjrcyXh7WEdOY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEOHwwNHwsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4baG5sPzxfDz
+ o7A13rIMhwjMuDB8Ajb/lGA2P+elCGqZbtHQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFafpQIVUddUF+w86SmOx7DS7gLfAXILJhZDddgnuckeVTEsk
+ FiTkLvBOztrt7GETGOHwZ2dpziyJCs9IHcLYGkPSg5ty9Puup0phxTDCNNqCreoj8bdECv1h
+ TuNqUAWgrQYjccPkaKh713Dqzupqt7CSQtdzh/QVG+/8gQ/boeqYYWy4HDR8PlbIYCWCFKGu
+ RAsncmV6+QHS4+AiDaMRuQlFqym/PuDP3vXhlsHInU6323zoTj5J9kWuWwvYhgxWioZRdP3S
+ HDaiTpSyoNjB2CnfapXSayQTMMV86e1QLwJScvogspyjolZLVDfpH0/OxTJgQjQfF4QfbbT0
+ Kp3kPpA7l5AUMyLNBLsG48gPUYDn0jSP1/7S5Hh1AiA2rGDfnOTQrptGALRNrhktP7e/FyMr
+ Ig32y62J/N3CrWWjs7/q9Z7ELz3BSJjWcCeRzJ/KoZv3TaK6El+UqSMkNvNiqRunrhPl/egw
+ 51OchYw9bYLvlWecV/iQik6ONvSsWNX8SpT0doEYQz5hBDOoO+HsM8iSnfAVeB2qLU+lacsE
+ KhtlgfpKq0ndwkrMg81NfHVxLGOvjzy7e5SF0JJuAQCQqM=
+IronPort-HdrOrdr: A9a23:NgNX+ai79DJOlJx7BX2/oURwDXBQXuIji2hC6mlwRA09TySZ//
+ rBoB19726MtN9xYgBHpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
+ 0QF5SWYOeAdWSS5vya3ODXKbkdKaG8gcKVuds=
+X-Talos-CUID: =?us-ascii?q?9a23=3Ajsly/2sWA5XPJ2tPQJv9A9+36Isae03kz1nME3S?=
+ =?us-ascii?q?jBHZsaJe7aBiXx51rxp8=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3AAkEUMg4FyJ26Mo7pnZGtscHYxox20pSjMUYxz6w?=
+ =?us-ascii?q?05cWnGXJgaj6f3QmOF9o=3D?=
 X-IronPort-AV: E=Sophos;i="6.04,214,1695700800"; 
-   d="scan'208";a="127436305"
+   d="scan'208";a="128662993"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
@@ -87,27 +89,31 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>, Roberto Bagnara
 	<roberto.bagnara@bugseng.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 4/6] arm/duart: make dt_uart_init() compile with -Wwrite-strings
-Date: Mon, 20 Nov 2023 22:49:10 +0000
-Message-ID: <20231120224912.1421916-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/6] arm/platforms: Make compatbile with -Wwrite-strings
+Date: Mon, 20 Nov 2023 22:49:11 +0000
+Message-ID: <20231120224912.1421916-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
 References: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
 GCC complains:
 
-  drivers/char/arm-uart.c: In function 'dt_uart_init':
-  drivers/char/arm-uart.c:81:17: error: assignment discards 'const' qualifier from pointer target type [-Werror=discarded-qualifiers]
-     81 |         options = "";
-        |                 ^
+  arch/arm/platforms/brcm.c: In function ‘brcm_populate_plat_regs’:
+  arch/arm/platforms/brcm.c:76:27: error: passing argument 1 of ‘brcm_get_dt_node’ discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+     76 |     rc = brcm_get_dt_node("brcm,brcmstb-cpu-biu-ctrl", &node, &reg_base);
+        |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The problem is using the options string for both splitting opt_duart, and to
-hold a token "" for no options.
+and
 
-Use two variables; one mutable one one const.
+  arch/arm/platforms/exynos5.c: In function ‘exynos5_smp_init’:
+  arch/arm/platforms/exynos5.c:109:20: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+    109 |         compatible = "samsung,exynos4210-sysram-ns";
+        |                    ^
+
+In both cases, just make the relevant variable const.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -119,39 +125,36 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/drivers/char/arm-uart.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ xen/arch/arm/platforms/brcm.c    | 2 +-
+ xen/arch/arm/platforms/exynos5.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/drivers/char/arm-uart.c b/xen/drivers/char/arm-uart.c
-index 8098a968c285..91f13a41368d 100644
---- a/xen/drivers/char/arm-uart.c
-+++ b/xen/drivers/char/arm-uart.c
-@@ -42,7 +42,8 @@ static void __init dt_uart_init(void)
-     struct dt_device_node *dev;
-     int ret;
-     const char *devpath = opt_dtuart;
--    char *options;
-+    const char *options;
-+    char *split;
+diff --git a/xen/arch/arm/platforms/brcm.c b/xen/arch/arm/platforms/brcm.c
+index 951e4d6cc328..43a07ab1a69d 100644
+--- a/xen/arch/arm/platforms/brcm.c
++++ b/xen/arch/arm/platforms/brcm.c
+@@ -35,7 +35,7 @@ static u32 brcm_boot_continuation_pc;
  
-     if ( !console_has("dtuart") )
-         return; /* Not for us */
-@@ -74,9 +75,12 @@ static void __init dt_uart_init(void)
-         return;
-     }
+ static struct brcm_plat_regs regs;
  
--    options = strchr(opt_dtuart, ':');
--    if ( options != NULL )
--        *(options++) = '\0';
-+    split = strchr(opt_dtuart, ':');
-+    if ( split )
-+    {
-+        split[0] = '\0';
-+        options = split + 1;
-+    }
-     else
-         options = "";
- 
+-static __init int brcm_get_dt_node(char *compat_str,
++static __init int brcm_get_dt_node(const char *compat_str,
+                                    const struct dt_device_node **dn,
+                                    u32 *reg_base)
+ {
+diff --git a/xen/arch/arm/platforms/exynos5.c b/xen/arch/arm/platforms/exynos5.c
+index c48093cd4fa4..f7c09520675e 100644
+--- a/xen/arch/arm/platforms/exynos5.c
++++ b/xen/arch/arm/platforms/exynos5.c
+@@ -96,7 +96,7 @@ static int __init exynos5_smp_init(void)
+ {
+     struct dt_device_node *node;
+     void __iomem *sysram;
+-    char *compatible;
++    const char *compatible;
+     paddr_t sysram_addr;
+     paddr_t size;
+     paddr_t sysram_offset;
 -- 
 2.30.2
 
