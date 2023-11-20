@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580D27F1824
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 17:06:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637069.992772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F9F67F1826
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 17:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637076.992781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r56mx-0006mc-DX; Mon, 20 Nov 2023 16:06:19 +0000
+	id 1r56ne-0007OE-P4; Mon, 20 Nov 2023 16:07:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637069.992772; Mon, 20 Nov 2023 16:06:19 +0000
+Received: by outflank-mailman (output) from mailman id 637076.992781; Mon, 20 Nov 2023 16:07:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r56mx-0006kb-9Q; Mon, 20 Nov 2023 16:06:19 +0000
-Received: by outflank-mailman (input) for mailman id 637069;
- Mon, 20 Nov 2023 16:06:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GG8d=HB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r56mw-0006kV-31
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 16:06:18 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc5e215f-87be-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 17:06:16 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-507f1c29f25so6044752e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 08:06:16 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- az30-20020adfe19e000000b00332c36b6563sm5496221wrb.101.2023.11.20.08.06.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Nov 2023 08:06:16 -0800 (PST)
+	id 1r56ne-0007Lh-M9; Mon, 20 Nov 2023 16:07:02 +0000
+Received: by outflank-mailman (input) for mailman id 637076;
+ Mon, 20 Nov 2023 16:07:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9+lD=HB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1r56nd-0007C9-FC
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 16:07:01 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20624.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::624])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d5b16c17-87be-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 17:06:59 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DU2PR04MB8758.eurprd04.prod.outlook.com (2603:10a6:10:2e1::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.16; Mon, 20 Nov
+ 2023 16:06:57 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7025.015; Mon, 20 Nov 2023
+ 16:06:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,311 +47,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc5e215f-87be-11ee-98df-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700496376; x=1701101176; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IdwP2KnwV3r+qdjUG+P5rZTetHQuycAJTio1w6dKjLI=;
-        b=T1J7OzaUYyBwZO025cDvo8zA9CHKzyf3LJ/pafXO4XSosodqWm2ETKSG6RcGlUfH3/
-         ESfYZQyA7TIyQzaDj28hmQRakqqxURjyj540o4bud5QCCv9O2oCrjxkAZLfKJmgCMuGj
-         AdnKe9KvR987l1eE1e/sYcNF1gif7aPf1C+B4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700496376; x=1701101176;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IdwP2KnwV3r+qdjUG+P5rZTetHQuycAJTio1w6dKjLI=;
-        b=sAwhj9+UcNN4KN2g8LeAqjEVyQuPz+LC6AgqRD5wyiOc84ea/7XI1t6kIUk0a4Z7zW
-         /250Qsb92MW5xTZvDGB3DYVcy7QJbzBTg2FZyFkeD8SqQhhL8U79xvxKhdqP7Vd2+MDj
-         c7H6FIplDhAsF11pk0GJeP4S91/XSDBlx1kjtynpHrmGrbgKLVk3AALDATu47tvM32e7
-         EnzSTQDMhEOvhyhLq8xBowmos6Q47Q5vw0+Mzr9rr1Lqml87cm8ok10/yPg9XrEKwacg
-         DNR90DJUV6d8EbkEzBg+fp+i/56MDt8d8yf29KYiYwz4tYDHDnzDJEweIEj/dvIB30/r
-         je3g==
-X-Gm-Message-State: AOJu0YyWsSXUxX9WNS5jmLmaXzPI9HQzALuKxrNg7jhp5b0amwyjeMqT
-	oZ2JMQHS5KFbKf8f+TQnb2H+Eg==
-X-Google-Smtp-Source: AGHT+IH5EhfS6lOKW17ESUTlI0600QtjBJ9924vu0cwA+8cEUm2CRxoJlhLdlCqFaro34NW0dgmQ6g==
-X-Received: by 2002:a05:6512:b11:b0:509:3806:b80 with SMTP id w17-20020a0565120b1100b0050938060b80mr7335878lfu.53.1700496376308;
-        Mon, 20 Nov 2023 08:06:16 -0800 (PST)
-Date: Mon, 20 Nov 2023 17:06:15 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v10 07/17] vpci/header: implement guest BAR register
- handlers
-Message-ID: <ZVuD9wJuqxhL_XOk@macbook.local>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-8-volodymyr_babchuk@epam.com>
+X-Inumbo-ID: d5b16c17-87be-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ETFCMp5EtyXdNW/xb2caB643Yd8VLBL9dsgfrWrVkeSrwNb8qE1FQUQ7DwiGJn+A7t4kIlHJHY0bOUOfudHWymhesoaTlbpitkTXZF/dv44MnZDMdqatFcUYowyx7a27URKOUPBr/ThHgRuNwsldY7AhPB0GLqQTfy1rfvkP98itzuwrpCBok7a2jcQMPMi4ycFdyPYdAd4Mu8RvF7JVHWLb7hpNhk+AdcdhUVlO/Yi80ET80LthFACf3sL7F0cIwRNq5wvZaM1pMYYSGCpWnbmG1lWeuV1ALjZbOzYA3EfWEGBgEEsNTuIRyiqN+aAmO+9J9u8QOSzDGUjRCvX2jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=etcYvFyZck0gAecVyGECofQ+De9b1SDCIDyHr3EFwJE=;
+ b=Rm8VmbHpxH5faXCOMQqItlDAjUFPnILoPl4qNAcmcolTQ2FEJWhNGV3SfcZxOaI64Yiv7LSPZCoiBhFm8vGAO0kK1dbXsVV3gZc3pmSg8e6kcIENXSD73//AcwxDPxCSZNrjXNTVdG6tms6+kb0TUrX/iN9HtPo+VhjdBe41rCNcj9bC+y/iyD/H5+oBp+1Fq8LxFMgwAjEMaLWKUIvUhptu+/YsTKrTuRrePMz236GEuLBU7amuZuDkpJPu/esvCPDyNllhED2F9Ue9vqKIdug4TXn1XQDTY6YODPlzWsPMOOB5yetAd464xBb9CDK+U/w9TVhbKj1nKAq76EbkRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=etcYvFyZck0gAecVyGECofQ+De9b1SDCIDyHr3EFwJE=;
+ b=XWnSWs2Hg6dqFXMVv63HMoeiJnCjY8AJkWtrnWUa/3MVDpHCwoz5gy+ADkZ/ayskRwFsViIL/uY3SqZ2Hr+arO9LyS6MCIOiW8MNnnjF6qvklYIYJ/o5ZNGov50RU9jadvutBYN27K+1kd+kPCdDjQ0f9IjGgR8aYdAma8fpQRlZH17t7mKCb8g4Thmjz93RGeVoioWjahPwOS9/WTUQYlO4VMiGHb9WoNuWuX2LO6/v5lbHnwEGKWrAfEKOjVo22Ttj0Gx8Bc1NElTjgsZy8Uz+g74k6FVti+B26uKw5qsPI0ezbjvMc153AA1it7Y3rfgLheLQ9RGzWjk1L/LJzQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2ad91848-4dce-4654-9d82-e24ead7e7063@suse.com>
+Date: Mon, 20 Nov 2023 17:06:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/ioapic: Check 1k alignment for IO-APIC physical
+ addresses
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20231120151006.168773-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231120151006.168773-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0208.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e5::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231012220854.2736994-8-volodymyr_babchuk@epam.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU2PR04MB8758:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77314d62-d297-483c-1854-08dbe9e2b895
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ycCdzZo+I9wpFR18O14W72ME4kybg4JXXDT+sKvsdGeH75tc5rse767CFQVu0ToD1sQcoeGfqeBZwtmnxNR7zP7b+Jh5utgvOgenEwvtB90ia9m5lQ1QW+4wShIkGCyVXa44Jd/8GcB86PLEAs4A5o0uHU0Y3yTzbFdGLf0Z1NwchapyYf+M2BLxFS5DyxkCz/hrXNzEyyomlvk0AH6w4Idl9KirCFwSuP0vnga+0bj3PCfarXqrlY7dXIZnHYyd5383fJyA+8hOOzPYT3XdDHLuqEbbKwUJG7rZtXFZ1UBk03Zf+wJLR3eEGwiXpvlOoMEMkqfF0agvqSMQlLCVsfM9VQaWISxnWJWyBUhHXvLsjoF4EXy03XiqHlnVVVCdg4WtZ2RAS+ahf87cL22EVu13A3+Z2ADrlEIY1dIN+ST969yO+xWgkw0qK+XoP8ObsLRRhYLUxYAS3Drhtb7cZtc0GE1ZdakmGeMTSiGC2Tki4kCUK11CwgCPBuqWVfxUjrApmM5CFvsPCFNgcVBOcB9/I9NjQq2Sj0RGpHbbsWpVw4aWhNmTK/izkSz5tfiwJOEeHRxoPvMgpkwDDAujQEmlB9olhPasrg9119vgptdTHzZMqXuaqnJROK+IIh2ssFsDxsv6sIaMfHRD+y8aSw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(136003)(396003)(346002)(376002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(53546011)(6506007)(6512007)(2616005)(8936002)(8676002)(38100700002)(4326008)(66946007)(54906003)(316002)(6916009)(66556008)(66476007)(6486002)(478600001)(26005)(31686004)(31696002)(86362001)(4744005)(41300700001)(5660300002)(36756003)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVl2R0dOSFNwS0hyU2ROeGpnenp1TkdNV1dEcUZkb2xPbEVhSzdhOXJnWDQ1?=
+ =?utf-8?B?NVovZUE2dFVWU3U1NlJmam9EOG5QVk5qNnBLSFVtT0RLUm0yY0ZFU0RXenRS?=
+ =?utf-8?B?SUdXM2NCNHhFVmVpUGVCZXkvU2lyOFpKUnBOTmtxTEoxeTJ1SFhCUm1qNEVz?=
+ =?utf-8?B?Y2ZWc04wUmJyZVE0NzEySU94TWdjUThZWUFlZkxsaFFLcTUwM2MrRzlpbFVP?=
+ =?utf-8?B?M3VRL0paSWdHT2JnRnhtWjVnNzFBNzBtWDNxR2dpdWZRbllQanRmQ3hOYVN0?=
+ =?utf-8?B?SG9ZdDdNV09EcXh2MW9kb1pVZlQ0UHJVWnZDTFlVZUQrWnFLMEhsYzFVMnZI?=
+ =?utf-8?B?emlrb0dncFBBVGl3QkMyeDMvR0hnRi9tZVFYYVBXcFI1RXhDRW5xY3ZYRlB0?=
+ =?utf-8?B?TmoxZ3FMQW44emRSZHJPVWc2OW1KUitpcFV0M3ZPVnpaQlFPbTVqeTFJSTM3?=
+ =?utf-8?B?ZU9sUytCSWhJcjM1TlZuV0RndkNhbGNkaVVRdzVBaXBVRGpNa3RheElaVURk?=
+ =?utf-8?B?bW9IbHRmQ2RaL3RnTi9aU2NYcTZXUHhLRXN6NFlXVTd6TzB1eDdqVEtFNFpG?=
+ =?utf-8?B?ZGoySUdyN3RCUi9kdVZhZXQrSHhyRG9nWFNLdXIvSTV5ZmVLRVFhNUdDbkE2?=
+ =?utf-8?B?NTI4eXJBdFpFeDNDVnF5TzNFaUdrS2hHSGZhMmdMN3JsdEdQY2VHZVNHbWd3?=
+ =?utf-8?B?T0VhT3l3RzdyOEtXZ1psMW4raCt5OXoxZlFLR3ROL1Y3ZStmbHRTdTFZWU95?=
+ =?utf-8?B?OU1uSEllMVk3WWRJc09XY0tObG41WVp4SmoxREtFeEFHL1NoRndIMUFWdDNL?=
+ =?utf-8?B?cnJEU0dwVy9DYTNnczNvd0hPNDBYZVZlMHNFWnN2YXh3aVRBSkR3NHI4YTBJ?=
+ =?utf-8?B?eGpPKy9SY0d1U0RidHZhcXUva29wbzZQMldNbWNFNE9MRDFHbUk0TXN1Tm9n?=
+ =?utf-8?B?di81VW1MOU5yYkVHNTZvVGJiRlZKNWk1YjR2RXJjU3ZrOVEzS000OXp0QURh?=
+ =?utf-8?B?dlkxRnJteEs1emttcTBmWHlnVXRYSlZiVVpZazVtQk9JQ0pvdDNIVlJIMGw0?=
+ =?utf-8?B?em4wYnRqNzcrWHVFR0MvMGo3SDNJbEkwcGFWSFluNXFtc2VENVg3aVp6clFQ?=
+ =?utf-8?B?MlBQcDVuTmg1OVB0Z3g3ZWVvQVR1dXJLbGNXK2xLQnF6UnErVm8vc1BxRGpv?=
+ =?utf-8?B?YTVDKzdmMUlLTVg4dldIbUJ4NnBQY29MNWVlU0ZUbjRCMkhSWWhGemlWVElo?=
+ =?utf-8?B?WGFEaDdTdjQrdWl4NEZzNDFKR0haYzBVRnBVRkxnU0U0R1lSaloxZzk2VTlr?=
+ =?utf-8?B?MDRHNlhkSXE4SmI2bDgraEczcTljL1RHMjVxSXdOMDBFeHRnL28wMWlQOHZ1?=
+ =?utf-8?B?cXpzWFB0V0hqQlYwdm5DeitoUjc1WlVodURBMGthTUNsRG1CeDJUcWJyd25M?=
+ =?utf-8?B?NjhvRXNoYUpmRGJTRm5WTmkvM0tKQjF3bGpZcFNEV1NXRGsxMUlsZ1VvWDRN?=
+ =?utf-8?B?OU9mZ0ZRVGpsS2V1V0xVN1ZHb2J3SFhseEdvT0w5U3lPZDhQUDBZaUhzeEFi?=
+ =?utf-8?B?Zlp5ZXRDekpBOUxvSXBVcXV6dDdDNDhNZ0pCYlNtV280VkROY1N5a1F0RDJU?=
+ =?utf-8?B?Rmx4TzNZdEFmREFLRXR6NFNqU1BQL0lZRXVISUNLendQbERKVEdqOFRDQ2I2?=
+ =?utf-8?B?MVFkUWJtYzBzVUpHM0ZoK2ZtU0ZjWG8rTDcvWmp5NExnYlRNRGdhdHlXWnI1?=
+ =?utf-8?B?dDAzbmYrd0lXd0tzM2dRbVo5OTNkRHRtR2dBUWpodm12dlExWitJaE1YS0Vw?=
+ =?utf-8?B?QmJNRDNaRURFc09ELzFvS21zMmQ3VDFCSFRVTEo0S2JKRUFOeno5dkRDTEpH?=
+ =?utf-8?B?V251bFN2cFloN1RRVUxWcXFKUml6Q0hkR0N5eW9NeHZpcEswRzBFQzVHZFJt?=
+ =?utf-8?B?eFZLMjg1Vlc5Yk12VVNVS0hmT2dsSFhkd2lhYUZSNWx4UVJ2R2RQaXVhRk91?=
+ =?utf-8?B?U2tlZlIxWVp0OHFkNEZMUmxVbVB2VSsvcStKRG5WbE5ZWW1RUHRtSXlQdW4r?=
+ =?utf-8?B?MUpTZCtPTWRBSmZGVFl0eGZZUHZYSDdtTVhqK3Q3U1loUTVnN3dXbEtCZjJl?=
+ =?utf-8?Q?O29QgDQEyXw4xKpIvlmeZfyXa?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77314d62-d297-483c-1854-08dbe9e2b895
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 16:06:57.2995
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UWqxjA+QshNDroXds0xrWcP+39rFpiXCDmQ4p+NyfKshgzM56GUkH2AscPE7O3U+SXWb/aGZd7TcBmNRpa6aOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8758
 
-On Thu, Oct 12, 2023 at 10:09:16PM +0000, Volodymyr Babchuk wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On 20.11.2023 16:10, Andrew Cooper wrote:
+> The MP spec requires a minimum of 1k alignment.  So too does Xen's use of a
+> single fixmap page to map the IO-APIC.
 > 
-> Add relevant vpci register handlers when assigning PCI device to a domain
-> and remove those when de-assigning. This allows having different
-> handlers for different domains, e.g. hwdom and other guests.
+> Reject out-of-spec values so we don't end up in a position where a bad
+> firmware value causes Xen to use the wrong mapping.
 > 
-> Emulate guest BAR register values: this allows creating a guest view
-> of the registers and emulates size and properties probe as it is done
-> during PCI device enumeration by the guest.
-> 
-> All empty, IO and ROM BARs for guests are emulated by returning 0 on
-> reads and ignoring writes: this BARs are special with this respect as
-> their lower bits have special meaning, so returning default ~0 on read
-> may confuse guest OS.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
-> In v10:
-> - ull -> ULL to be MISRA-compatbile
-> - Use PAGE_OFFSET() instead of combining with ~PAGE_MASK
-> - Set type of empty bars to VPCI_BAR_EMPTY
-> In v9:
-> - factored-out "fail" label introduction in init_bars()
-> - replaced #ifdef CONFIG_X86 with IS_ENABLED()
-> - do not pass bars[i] to empty_bar_read() handler
-> - store guest's BAR address instead of guests BAR register view
-> Since v6:
-> - unify the writing of the PCI_COMMAND register on the
->   error path into a label
-> - do not introduce bar_ignore_access helper and open code
-> - s/guest_bar_ignore_read/empty_bar_read
-> - update error message in guest_bar_write
-> - only setup empty_bar_read for IO if !x86
-> Since v5:
-> - make sure that the guest set address has the same page offset
->   as the physical address on the host
-> - remove guest_rom_{read|write} as those just implement the default
->   behaviour of the registers not being handled
-> - adjusted comment for struct vpci.addr field
-> - add guest handlers for BARs which are not handled and will otherwise
->   return ~0 on read and ignore writes. The BARs are special with this
->   respect as their lower bits have special meaning, so returning ~0
->   doesn't seem to be right
-> Since v4:
-> - updated commit message
-> - s/guest_addr/guest_reg
-> Since v3:
-> - squashed two patches: dynamic add/remove handlers and guest BAR
->   handler implementation
-> - fix guest BAR read of the high part of a 64bit BAR (Roger)
-> - add error handling to vpci_assign_device
-> - s/dom%pd/%pd
-> - blank line before return
-> Since v2:
-> - remove unneeded ifdefs for CONFIG_HAS_VPCI_GUEST_SUPPORT as more code
->   has been eliminated from being built on x86
-> Since v1:
->  - constify struct pci_dev where possible
->  - do not open code is_system_domain()
->  - simplify some code3. simplify
->  - use gdprintk + error code instead of gprintk
->  - gate vpci_bar_{add|remove}_handlers with CONFIG_HAS_VPCI_GUEST_SUPPORT,
->    so these do not get compiled for x86
->  - removed unneeded is_system_domain check
->  - re-work guest read/write to be much simpler and do more work on write
->    than read which is expected to be called more frequently
->  - removed one too obvious comment
-> ---
->  xen/drivers/vpci/header.c | 137 +++++++++++++++++++++++++++++++++-----
->  xen/include/xen/vpci.h    |   3 +
->  2 files changed, 123 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 33db58580c..40d1a07ada 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -477,6 +477,74 @@ static void cf_check bar_write(
->      pci_conf_write32(pdev->sbdf, reg, val);
->  }
->  
-> +static void cf_check guest_bar_write(const struct pci_dev *pdev,
-> +                                     unsigned int reg, uint32_t val, void *data)
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-In case we want to add handlers for IO BARs in the future, might be
-better to name this guest_mem_bar_write() (or some similar name that
-makes it clear applies to the memory BARs only).
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> +{
-> +    struct vpci_bar *bar = data;
-> +    bool hi = false;
-> +    uint64_t guest_addr = bar->guest_addr;
-> +
-> +    if ( bar->type == VPCI_BAR_MEM64_HI )
-> +    {
-> +        ASSERT(reg > PCI_BASE_ADDRESS_0);
-> +        bar--;
-> +        hi = true;
-> +    }
-> +    else
-> +    {
-> +        val &= PCI_BASE_ADDRESS_MEM_MASK;
-> +    }
+I'm curious though: Was this observed in practice?
 
-Shouldn't writes to the BAR be refused when bar->enabled is set?
-Otherwise the bar->guest_addr address would get out of sync with the
-mappings created on the p2m, and memory decoding disabling (BAR
-unmapping) won't work as expected.
-
-> +
-> +    guest_addr &= ~(0xffffffffULL << (hi ? 32 : 0));
-> +    guest_addr |= (uint64_t)val << (hi ? 32 : 0);
-> +
-> +    /* Allow guest to size BAR correctly */
-> +    guest_addr &= ~(bar->size - 1);
-> +
-> +    /*
-> +     * Make sure that the guest set address has the same page offset
-> +     * as the physical address on the host or otherwise things won't work as
-> +     * expected.
-> +     */
-> +    if ( guest_addr != ~(bar->size -1 )  &&
-                                      ^ nit: missing space
-> +         PAGE_OFFSET(guest_addr) != PAGE_OFFSET(bar->addr) )
-> +    {
-> +        gprintk(XENLOG_WARNING,
-> +                "%pp: ignored BAR %zu write attempting to change page offset\n",
-> +                &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
-> +        return;
-
-I think this will trigger on valid sizing attempts if the guest writes
-the low part of the address before having updated the high one first
-in case of 64bit BARs?
-
-Reading the PCI Local Bus Spec 3.0 I don't see any restriction in
-which the write of ~0 should be performed in order to size the BARs
-(see the Implementation Note in section 6.2.5.1.)
-
-So I think wrong offset can only be detected when the BAR map is
-attempted to be established in the p2m, in modify_bars().
-
-> +    }
-> +
-> +    bar->guest_addr = guest_addr;
-> +}
-> +
-> +static uint32_t cf_check guest_bar_read(const struct pci_dev *pdev,
-> +                                        unsigned int reg, void *data)
-> +{
-> +    const struct vpci_bar *bar = data;
-> +    uint32_t reg_val;
-> +
-> +    if ( bar->type == VPCI_BAR_MEM64_HI )
-> +    {
-> +        ASSERT(reg > PCI_BASE_ADDRESS_0);
-> +        bar--;
-> +        return bar->guest_addr >> 32;
-> +    }
-> +
-> +    reg_val = bar->guest_addr;
-> +    reg_val |= bar->type == VPCI_BAR_MEM32 ? PCI_BASE_ADDRESS_MEM_TYPE_32 :
-> +                                             PCI_BASE_ADDRESS_MEM_TYPE_64;
-> +    reg_val |= bar->prefetchable ? PCI_BASE_ADDRESS_MEM_PREFETCH : 0;
-> +
-> +    return reg_val;
-> +}
-> +
-> +static uint32_t cf_check empty_bar_read(const struct pci_dev *pdev,
-> +                                        unsigned int reg, void *data)
-> +{
-> +    return 0;
-> +}
-> +
->  static void cf_check rom_write(
->      const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
->  {
-> @@ -537,6 +605,7 @@ static int cf_check init_bars(struct pci_dev *pdev)
->      struct vpci_header *header = &pdev->vpci->header;
->      struct vpci_bar *bars = header->bars;
->      int rc;
-> +    bool is_hwdom = is_hardware_domain(pdev->domain);
->  
->      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
->  
-> @@ -578,8 +647,10 @@ static int cf_check init_bars(struct pci_dev *pdev)
->          if ( i && bars[i - 1].type == VPCI_BAR_MEM64_LO )
->          {
->              bars[i].type = VPCI_BAR_MEM64_HI;
-> -            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg,
-> -                                   4, &bars[i]);
-> +            rc = vpci_add_register(pdev->vpci,
-> +                                   is_hwdom ? vpci_hw_read32 : guest_bar_read,
-> +                                   is_hwdom ? bar_write : guest_bar_write,
-> +                                   reg, 4, &bars[i]);
->              if ( rc )
->                  goto fail;
->              continue;
-> @@ -588,7 +659,17 @@ static int cf_check init_bars(struct pci_dev *pdev)
->          val = pci_conf_read32(pdev->sbdf, reg);
->          if ( (val & PCI_BASE_ADDRESS_SPACE) == PCI_BASE_ADDRESS_SPACE_IO )
->          {
-> -            bars[i].type = VPCI_BAR_IO;
-
-Why are you removing this assignment?
-
-This would leave the BAR with type VPCI_BAR_EMPTY on x86, which I
-don't think will cause issues right now, but it's not correct either.
-
-> +            if ( !IS_ENABLED(CONFIG_X86) && !is_hwdom )
-> +            {
-> +                rc = vpci_add_register(pdev->vpci, empty_bar_read, NULL,
-> +                                       reg, 4, NULL);
-> +                if ( rc )
-> +                {
-> +                    bars[i].type = VPCI_BAR_EMPTY;
-> +                    goto fail;
-
-I'm confused as to why it matters setting the BAR type for the failure
-path.
-
-> +                }
-> +            }
-> +
->              continue;
->          }
->          if ( (val & PCI_BASE_ADDRESS_MEM_TYPE_MASK) ==
-> @@ -605,6 +686,15 @@ static int cf_check init_bars(struct pci_dev *pdev)
->          if ( size == 0 )
->          {
->              bars[i].type = VPCI_BAR_EMPTY;
-> +
-> +            if ( !is_hwdom )
-> +            {
-> +                rc = vpci_add_register(pdev->vpci, empty_bar_read, NULL,
-> +                                       reg, 4, NULL);
-> +                if ( rc )
-> +                    goto fail;
-> +            }
-> +
->              continue;
->          }
->  
-> @@ -612,28 +702,41 @@ static int cf_check init_bars(struct pci_dev *pdev)
->          bars[i].size = size;
->          bars[i].prefetchable = val & PCI_BASE_ADDRESS_MEM_PREFETCH;
->  
-> -        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg, 4,
-> -                               &bars[i]);
-> +        rc = vpci_add_register(pdev->vpci,
-> +                               is_hwdom ? vpci_hw_read32 : guest_bar_read,
-> +                               is_hwdom ? bar_write : guest_bar_write,
-> +                               reg, 4, &bars[i]);
->          if ( rc )
->              goto fail;
->      }
->  
-> -    /* Check expansion ROM. */
-> -    rc = pci_size_mem_bar(pdev->sbdf, rom_reg, &addr, &size, PCI_BAR_ROM);
-> -    if ( rc > 0 && size )
-> +    /* TODO: Check expansion ROM, we do not handle ROM for guests for now. */
-
-Nit: it would be better to place the TODO comment in the else branch
-that applied to the !is_hwdom case.
-
-Thanks, Roger.
+Jan
 
