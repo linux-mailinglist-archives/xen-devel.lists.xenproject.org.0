@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984D57F1AB6
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 18:38:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637146.992902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EB67F1BAF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 18:55:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637153.992912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r58Dz-0006Gy-08; Mon, 20 Nov 2023 17:38:19 +0000
+	id 1r58UB-0002as-CK; Mon, 20 Nov 2023 17:55:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637146.992902; Mon, 20 Nov 2023 17:38:18 +0000
+Received: by outflank-mailman (output) from mailman id 637153.992912; Mon, 20 Nov 2023 17:55:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r58Dy-0006F1-TV; Mon, 20 Nov 2023 17:38:18 +0000
-Received: by outflank-mailman (input) for mailman id 637146;
- Mon, 20 Nov 2023 17:38:17 +0000
+	id 1r58UB-0002Yq-9Q; Mon, 20 Nov 2023 17:55:03 +0000
+Received: by outflank-mailman (input) for mailman id 637153;
+ Mon, 20 Nov 2023 17:55:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6jYu=HB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r58Dx-0006Et-FZ
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 17:38:17 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 964476c7-87cb-11ee-98e0-6d05b1d4d9a1;
- Mon, 20 Nov 2023 18:38:16 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40790b0a224so16806835e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 09:38:16 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- f16-20020a05600c155000b003fe1fe56202sm14320824wmg.33.2023.11.20.09.38.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 09:38:15 -0800 (PST)
+ <SRS0=WhrZ=HB=epam.com=prvs=56889b6e60=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1r58U9-0002Yk-5x
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 17:55:01 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb8482f8-87cd-11ee-98e0-6d05b1d4d9a1;
+ Mon, 20 Nov 2023 18:54:59 +0100 (CET)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AKHjlpl005009; Mon, 20 Nov 2023 17:54:56 GMT
+Received: from eur01-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2050.outbound.protection.outlook.com [104.47.2.50])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ug8f7h79b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Nov 2023 17:54:56 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by DU0PR03MB9421.eurprd03.prod.outlook.com (2603:10a6:10:418::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26; Mon, 20 Nov
+ 2023 17:54:52 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7002.026; Mon, 20 Nov 2023
+ 17:54:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +53,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 964476c7-87cb-11ee-98e0-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700501896; x=1701106696; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NSnj4Ir/BIyg7YqVMpipKz0H2y+awRGAO5bBiPXFF24=;
-        b=nWRqB/ZJLQRjBKwRTBU92ulCIBhHgED+d0qIREP+vmUHe0sd68gxbPnBWM0npwV1v4
-         IGrz9MeQ5W6Gf9kmScKMg/uYtp+ze0bIgeVT9wUfYCnKpaDNGewg8rQpYJ3ckVamqOHo
-         oFugCq2JPb8cZt2ATrVwZxdwdNZst8CCgWArM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700501896; x=1701106696;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NSnj4Ir/BIyg7YqVMpipKz0H2y+awRGAO5bBiPXFF24=;
-        b=UUx14Yfzsnwi0TuVBxLR5TjF1fARkvebiLPhwvxTnDnTxXd4etZ5ActwnDHsi0FkgS
-         h7AUk4rnvVJ75RCS3l3r2RalbeZ/h5vTF2aboiza0T4PrIQc1A5QteQPElgUM9Ec5MPH
-         USNTCmhKmG3sOqDCbARfPvIuG5/JIMFOR/zXz9lR2VkxxwztJqHYICugZjSvXXsux7JN
-         z2A4ThxwtYjT+r/eXkJlXfxOBh0YPL6YLb3+upyI8c8l9mQ/FcWgXcvA+4gBFH1C3GCE
-         ODfG5EeE837X3kcPQSLHGNX2jazjcferkxLPKRZBWRhs18BHx9M5cFKUqMB6zJFWN/xc
-         Im0w==
-X-Gm-Message-State: AOJu0YyGlpG5JPSutFoyICIUtoC7DQ+TfA4peItiZGJrkYxV79eL02Ud
-	3O1/HHeBcvOQ5uZDqeydkgbqWQ==
-X-Google-Smtp-Source: AGHT+IET9orfASAPMQ6FezJGVO+rpzWc3i4up7r8RvcwCAsrHJlIN/DH1juSOlSBTAxUUFeASXp3sw==
-X-Received: by 2002:a05:600c:1c8b:b0:3fe:f667:4e4c with SMTP id k11-20020a05600c1c8b00b003fef6674e4cmr7004730wms.12.1700501896033;
-        Mon, 20 Nov 2023 09:38:16 -0800 (PST)
-Message-ID: <39cf6dbc-e5c4-43a4-abf1-2e62d3c3925a@citrix.com>
-Date: Mon, 20 Nov 2023 17:38:15 +0000
+X-Inumbo-ID: eb8482f8-87cd-11ee-98e0-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L51UDomAnVJsNXBi8KhcC1OLsCOocjzHgjCZh6Ev0hjILrNesvSzJGv84g9RnC1fzKZIx1CC8sxKXI0b53Vi/n8WkGiRUagbNnCqzMA4WCU00GWrASqVLEjJw6GNzb06sKcAo395hZgMsoQbmQgxrj5TOcY/IJ0xf48fMUuRZw3tvn+ANaq0YtUtJMwR7h8UVohXi42eCQl4gotftn4kkHBIddelMPZXTwssn9i43GGAPwLPxJceJ+2l07uCRTJ6Wl+kGxf7V1nyX9LhlUWbhjJLL22b3asvLdcMGZnmGBE40eYWQv/7Y+Q8MY6Ycw+vhYCvYqLYWyxPi2WyxNzo4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kve1c783C17rBE+5Qbtqf0zjZhg6w19eo7cPFwsG0TM=;
+ b=Fv0w4FnmiH8h186jTL5Xv1gTitfhUZaRqks8a4/7pzLPU7eoMOT1ALABaI5g677PXgPWCDx/v/yJv/xG5CZVVVEXWpsWwrwwTJmx9Iz/yG6pzvPquGftEpLUoxflQD1+oFk2pbfxKXSijkqB6qAz+x7njaK84R15Ou3U6S9mo+IW4VJVF2jLTOtUEQeYYp6zXcZVdwN3EgjN4HTZrxflOLPI28cVrO2jT2x5ViDkPIDYXlRRo808AzeWwR2oRTjdr2hhOnVkMzJxnth4ZFdDstperQeGoaASZG4jJYf8l9MwZaekjI9QZUg8A/1Mkv48jkMSVBRJVK6DTTpd1Ib3uQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kve1c783C17rBE+5Qbtqf0zjZhg6w19eo7cPFwsG0TM=;
+ b=FkuYD3nVOlazf4KBUQxCV0qenPCwsGMFgYVSmthAJIvl3E17SfSSJQujFRiJW/kQeU8MdaG5nqD9BHq9dC3WKxlwi5j1HJjCO/cbU9NhKg3Lk5tJzT4vCgF8JhOPEKB3MbCg6tOZDCWWHU0HED128jaYLBDuay6KSh3csSOIVHM+eUTQ/N6UYFJSAef5tFusYRpmLXeTWTOT2DBMCxMOZ7clPPoQlr89GKr1Csnb/G5nXSJvzJdWx+jQzEUCvlNWTyMUs4FyD6ckwdCyoPuNGs5nLSbQ2b0VpR2gFDxn0Job+mDnvNxk8QXaNcPcH1ISrS4F0KHE9QH91eNVzwkrkg==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
+        Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
+        Anthony
+ PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] xenstored: use correct conversion specifier in the tracing
+ function
+Thread-Topic: [PATCH] xenstored: use correct conversion specifier in the
+ tracing function
+Thread-Index: AQHaG9qpkpU9N65Obkmv1tQPzqtBKQ==
+Date: Mon, 20 Nov 2023 17:54:52 +0000
+Message-ID: <20231120175357.219142-1-volodymyr_babchuk@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: git-send-email 2.42.0
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DU0PR03MB9421:EE_
+x-ms-office365-filtering-correlation-id: 7a3ab0e3-9a69-4fed-e66d-08dbe9f1cc05
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ s9IvvUwsnhWmaEwzCF/BkCkb12fIwNAgtvrNBg0Oca0q62D0gfBG4yxKJ2hQ7kIbUwVc+TKygjohNxCmdtdH73m6/tKh3aLR5s6Zo4P6ycnkG5mQKD7hmY4GgNuMSanytOJ4mfO5v3rU2dMBCs1a0n7oUX73SNZOekYDtnrhljP2LeUXajpmTHIFf791cy1pj3fl4SYhKu/UU1ncvjMtL2M6DLIwC0uRg5ozz5Zwy7WUYxsYA6E6zP1GJ7UibeKC/yIrm+I1Qf7LD6IN4BhxiyLBnTnSboriaz23WrPzf2oUu4Z+2qlHseoLtoSaXhIhxyc76v+tvUnT80WrutJsCC/ouCdW+gIP5aKm6Vt7jNv2swr0DleI+wyzDwQNgO3MfsIeFeuMe6WvTpCPsquV8i5Lw3rbLWjwRwXhcS1v06bSZVaxADxOx2neiAx5PctvhnpPdlHuq7+VY8bIgz10WyeQ+n+O52jTg+4ZP0yQyOpw2o73QOHpt+G4D+iWJIQisvygXp/mvgIeRR5viJD1HCK+eYCk2r84BJa8b8ng8wSnvxjvSm/W6vk0RxNF4BSVIFqv8YA1x4h29AgbExRdrJ1eZC1tYMwMPpxtvzaTQGOOk8qqzYY4CfjF1r6nOy7L
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39860400002)(396003)(346002)(136003)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(91956017)(76116006)(66556008)(66946007)(316002)(6916009)(64756008)(66446008)(66476007)(54906003)(26005)(8676002)(4326008)(8936002)(38070700009)(36756003)(38100700002)(41300700001)(122000001)(86362001)(2906002)(4744005)(5660300002)(55236004)(83380400001)(6506007)(6486002)(478600001)(6512007)(1076003)(2616005)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?qiACC6tj+OxSP1rEFJAU/RtnsPVF6C5XkkWhRaEqvA1IRrfXDZdpR4P6FA?=
+ =?iso-8859-1?Q?U9DkBXeNwh+gdvG/RMC54Z/qKd7v+393pXLHlP9D9ajlHNgQEArW+2B7Cv?=
+ =?iso-8859-1?Q?162KV2DmdfmbYuCVk4AHqzOoGKI48gJ9lbeBLhHOanUqbg8IuIalg6xe8H?=
+ =?iso-8859-1?Q?p9b9rWa/WwnGo/wVc84rY2VztrrzHQA/T99SSFn0RvnD8A4IJErB9ZJlNW?=
+ =?iso-8859-1?Q?CfirfeqpZins2hxHi6cBGir2uyjnNBuRlDD3OPUIceacfFXVonZzReG0fH?=
+ =?iso-8859-1?Q?3nhwLUKhI7RRtG7q+lY6NJPAifXM58oqfWVbnwQ4SconumCBD9Pps0yqIb?=
+ =?iso-8859-1?Q?4Uj3VCbnFi817Cw95Bcw4c5POPROM4FJ9LrTmrkiRns6Fh0pv5rGzpcoC+?=
+ =?iso-8859-1?Q?lkJHC6DWswMlKFgKXr1yrQV4F3rEm4P1Nw6nhcEqW8SS6lSmFkAqq+YQ/Z?=
+ =?iso-8859-1?Q?pHUDgz9paK/5csq6At4iZe0qk2XZ1ZnF6aEId7c1xfuoma0Eslpl5Z6ZqK?=
+ =?iso-8859-1?Q?J0KgLsgkKQqQwXIr+PKeyeDldJIXI+msVPgyh+bu3TS5gdMItdtTu05GTH?=
+ =?iso-8859-1?Q?RLI89dqsy2q8J25hXPlLHnVSBHyD/x2Q86a4IAxp22USzhQ37Gfo9GIHJH?=
+ =?iso-8859-1?Q?MCfzmIVNmhNGOF4EwM+eO3qxO+69nMgj3suaEXXW+pz4RHcuwK7HY+DkRU?=
+ =?iso-8859-1?Q?KFjar1p1EcgD0rSkEiBGmldmVHtwtHli7GFArUWeN1wFzFERx0SF0xd5mn?=
+ =?iso-8859-1?Q?EcTC+0QQSjxdgL2wtEwBsRg45048ai5eyeduDM6MTgdtfaDoWC58uggsEX?=
+ =?iso-8859-1?Q?Ys4x9GwPdB6yNed51e4b5YfPB66ht62NZOebJZMrN88uS1KRsciotO/JR+?=
+ =?iso-8859-1?Q?l4/KKriGS09LQpuwgn7PW/j0qEQHwS/MvC0/XhHQBQ4Wi+pCGGiNESoIzy?=
+ =?iso-8859-1?Q?JfCxOsnK6n3riB2QkkahqDZ9HuWW/DpKclcPGa2SqsqaX5f0mlGu4pHTKg?=
+ =?iso-8859-1?Q?gd8vG1BLJ7p5icfpJxAvmW7VlGC2DOgk8OgZ+OtSMA8eQMAKzKSKKc3qwg?=
+ =?iso-8859-1?Q?VpmjO6U94EYVV0Wu5qMtC+gqup/eFIy3og0De9eRAHXKA34G9VrDyR5qSY?=
+ =?iso-8859-1?Q?18KMAx22qoqm7uOIM83oa7y+wRpOLRt5rC7I765GRTndWUng2UoMKlvpoY?=
+ =?iso-8859-1?Q?q+dFHMSAe4F2Yv9GV8ci+PL0nHDR63BgOmWF1Hx94tJVZCEpCl5ur7Scrl?=
+ =?iso-8859-1?Q?kbOoB27oIFYUV5Nrno9mqX2qS4PspJ5WXkIpVGiScHJ8bNNyAoSJv8hyky?=
+ =?iso-8859-1?Q?NM1ts+Inmi+jfD6afAJezka27G+pY6xHcl8jNbq6Nhf4Wp+X5+k74HWpqU?=
+ =?iso-8859-1?Q?DJ2QxQLpJ0m1yHJ9k92FCbiWgPtL53IkTz1E7CvnLFqc96Sy4TJKkqFa5L?=
+ =?iso-8859-1?Q?PsOCoATjYkyrXXEpMBZ7uyEoxq6ya/yr+YNpxF+V9Y8bJsI6ibfiQ+u9zC?=
+ =?iso-8859-1?Q?Xl093LtkC5CQHLgu/OTkqHGOIBqenvJAikS4FYNslSY5gyEnekb5yA5JI9?=
+ =?iso-8859-1?Q?xulzUUL/fsGW1zC3eT5//TWUlB8ME2mzjkMpHNHDJGIDnr0kY2KIw62w3F?=
+ =?iso-8859-1?Q?i7ojOjHry+ZRX9ocUCBlYAWa+4b225pnNbAirMKem9fs1NWiDysZfjug?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/ioapic: Check 1k alignment for IO-APIC physical
- addresses
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <20231120151006.168773-1-andrew.cooper3@citrix.com>
- <ZVuZBGcbyZK8CESL@macbook.local>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZVuZBGcbyZK8CESL@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a3ab0e3-9a69-4fed-e66d-08dbe9f1cc05
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2023 17:54:52.2052
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EF2UW2eFiz/YGKFLXSuKALIYM6JUHcEIGy+qULWd7//q+NHFbCGNy2dFL4mZAYO/Fjshez8Yg10u4V4CFxiHaKuLC04Fyx8gaGipe5yT76U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9421
+X-Proofpoint-ORIG-GUID: 58HyNEcjv5fV71zXVRjN0XiY-qCMtleP
+X-Proofpoint-GUID: 58HyNEcjv5fV71zXVRjN0XiY-qCMtleP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-20_17,2023-11-20_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 bulkscore=0 suspectscore=0 mlxlogscore=670
+ malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 mlxscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311200127
 
-On 20/11/2023 5:36 pm, Roger Pau Monné wrote:
-> On Mon, Nov 20, 2023 at 03:10:06PM +0000, Andrew Cooper wrote:
->> The MP spec requires a minimum of 1k alignment.  So too does Xen's use of a
->> single fixmap page to map the IO-APIC.
->>
->> Reject out-of-spec values so we don't end up in a position where a bad
->> firmware value causes Xen to use the wrong mapping.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  xen/arch/x86/io_apic.c | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
->> index 0ef61fb2f167..db1ea6e2f2ca 100644
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -2589,10 +2589,11 @@ static void __init ioapic_init_mappings(void)
->>          union IO_APIC_reg_01 reg_01;
->>          paddr_t ioapic_phys = mp_ioapics[i].mpc_apicaddr;
->>  
->> -        if ( !ioapic_phys )
->> +        if ( !ioapic_phys || (ioapic_phys & (KB(1) - 1)) )
-> Might be clearer to use !IS_ALIGNED()
+Previous change to xenstored used "%d" to format conn->id while in fact
+conn->id has "unsigned int" type, so "%u" should be used.
 
-Hmm, yeah.  Will change.
+Fixes: 97f8555acbf3 ("xenstored: print domain id in traces")
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+---
+ tools/xenstored/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> , otherwise:
->
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
->
->>          {
->>              printk(KERN_ERR
->> -                   "WARNING: bogus zero IO-APIC address found in MPTABLE, disabling IO/APIC support!\n");
->> +                   "WARNING: bogus IO-APIC address %08lx found in MPTABLE, disabling IO/APIC support!\n",
-> FWIW, I think the '!' at the end is not useful, and I would adjust
-> the last 'IO/APIC' to 'IO-APIC' if already modifying the line.
-
-Ok.  will do.
-
-~Andrew
+diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
+index 311764eb0c..184b130d12 100644
+--- a/tools/xenstored/core.c
++++ b/tools/xenstored/core.c
+@@ -135,7 +135,7 @@ static void trace_io(const struct connection *conn,
+ 	now =3D time(NULL);
+ 	tm =3D localtime(&now);
+=20
+-	trace("io: %s %p (d%d) %04d%02d%02d %02d:%02d:%02d %s (",
++	trace("io: %s %p (d%u) %04d%02d%02d %02d:%02d:%02d %s (",
+ 	      out ? "OUT" : "IN", conn, conn->id,
+ 	      tm->tm_year + 1900, tm->tm_mon + 1,
+ 	      tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
+--=20
+2.42.0
 
