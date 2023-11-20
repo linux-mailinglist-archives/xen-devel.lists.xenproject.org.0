@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 318107F213B
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 00:08:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637385.993135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC297F2172
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 00:32:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637393.993144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5DNK-0005j4-UM; Mon, 20 Nov 2023 23:08:18 +0000
+	id 1r5DjY-0003LF-NT; Mon, 20 Nov 2023 23:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637385.993135; Mon, 20 Nov 2023 23:08:18 +0000
+Received: by outflank-mailman (output) from mailman id 637393.993144; Mon, 20 Nov 2023 23:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5DNK-0005g6-RA; Mon, 20 Nov 2023 23:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 637385;
- Mon, 20 Nov 2023 23:08:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r5DjY-0003Jc-Kk; Mon, 20 Nov 2023 23:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 637393;
+ Mon, 20 Nov 2023 23:31:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6jYu=HB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5DNK-0005g0-75
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 23:08:18 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afc38ee5-87f9-11ee-9b0e-b553b5be7939;
- Tue, 21 Nov 2023 00:08:16 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-32d895584f1so3526195f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 15:08:16 -0800 (PST)
+ id 1r5DjX-0003Hb-3m
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 23:31:15 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e48a132b-87fc-11ee-98e0-6d05b1d4d9a1;
+ Tue, 21 Nov 2023 00:31:13 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40b2979a74eso387505e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 15:31:13 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- d16-20020adfe2d0000000b003316a2aedadsm12087799wrj.36.2023.11.20.15.08.15
+ c7-20020adffb47000000b00332c0aace23sm7692017wrs.105.2023.11.20.15.31.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Nov 2023 15:08:15 -0800 (PST)
+ Mon, 20 Nov 2023 15:31:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afc38ee5-87f9-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: e48a132b-87fc-11ee-98e0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700521695; x=1701126495; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700523072; x=1701127872; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ha5D/Q/yqNUz9A/aVWSCNPq+91m0UVj1KOw/S8qoB0U=;
-        b=cBQUi19l+6IalwmAPR9BE9SME67GH7Qt7uaRgumOFe9bjW02WJFA+pTX64ogeFvMx5
-         nKMWtqZ5ev2el1ayKoO8TxjEYiDeJFNbuthR1E6aWEUt6T8GYlNdYTk10rwqH5GtrXWp
-         cs3DHRtrQx0gCu/pkxSmoh8cfBPSOEP1rzc5A=
+        bh=GZsp1iS9lufMKEOOnvV1BhNRVC5EP+QClewItX9GZE0=;
+        b=lOyL3HEsSMAOyqrB3w9Hse5J/axWhBmq1DjVNoRkhpn9zyHe4rGAIE5cUsDjL4W2Ar
+         Jdcnbc/KJEmMy12V5m/ui4T628DzUBIPK6uIdDCerMq4DLazIZaR8arx+aT7XKR3fIxM
+         mTepxdO979DDke74qpZdys8vrH4dWeRXpM0vA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700521695; x=1701126495;
+        d=1e100.net; s=20230601; t=1700523072; x=1701127872;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ha5D/Q/yqNUz9A/aVWSCNPq+91m0UVj1KOw/S8qoB0U=;
-        b=XX1pJGKGtmw9sOwzBruaAhZgfdjC+faYeUigq/99itb7o9qU/7qgAbxmXAXVftmYOS
-         XaEoAwlyLN0kmej6jFQjwmWWdcL6xtqTSOiwjbJymeJt1/7bhpe2L21YwPUkzUkc+yVj
-         LJdZAUdNP+aJEZES8m7Jr3qw5AysUKHz+zzEkbLg9dI1mTC9cH5qd2hSVBle5n6LeL4z
-         h1MmPMEV8rnTjtZxbcpyK3DGTAWblp11jXVcPGUIrepfqtoSKtxn+iSAs4eZRWCYQL9U
-         PUgQ4VbPpDVXMrQtkKDbW+l0LhV9FnIF2uvD0E+wKF7HO4esewLssSGmvVIYnK9POm/+
-         Xljw==
-X-Gm-Message-State: AOJu0Yxm5Xx+iFCasln/HQBkZNk2tsGRa70qMoiUeArRtqdIulaVn6bt
-	NHr+QvWNPTCdLCs9Wxow0DEsKA==
-X-Google-Smtp-Source: AGHT+IE1VH/lv5w6GrhWph1C3WD85a6JVx5U5hWWFtpBK5xo12wD2fIMRiJSqHphCIIIidMX1gknpA==
-X-Received: by 2002:a5d:5f90:0:b0:32d:967d:1baf with SMTP id dr16-20020a5d5f90000000b0032d967d1bafmr6301554wrb.1.1700521695582;
-        Mon, 20 Nov 2023 15:08:15 -0800 (PST)
-Message-ID: <df193960-b808-46fc-9361-b3850c249833@citrix.com>
-Date: Mon, 20 Nov 2023 23:08:14 +0000
+        bh=GZsp1iS9lufMKEOOnvV1BhNRVC5EP+QClewItX9GZE0=;
+        b=upsMdWvEPKLeEcOdYtNEsNn4Sw9ky3rEOWyj1+jgIEuQprIchtnG4pcgn+TtG0fwqW
+         oEGbvlxTYyoDQ46mHCEduM5+u1AfVCLMC5YLajeUmnMOeAfpBUl1vjX9IFKbVNdB/Ot5
+         NLs5RJfW9gUoSPdHoz497KEPp+avn2nqeZPvHYJnXQnvC6+8S5RJK6h8qtcL/2XLrF15
+         vGuHFgbQ4i7p0DIcWPGRFEJRILj1ViHjA71beV07Z4LWLit6oTpf2pv7GX9FvE4BqnDM
+         V53ePzTtjxTHsNzfc8wTeNOk4f7dqILpzag2vzxO+xA6alnzbL/Sgo9PIbMwaNAQaqWr
+         MqWw==
+X-Gm-Message-State: AOJu0Yzxz/OYPtosH/mnVbI4rgz5s9i4QJPVCiDuIMTeXSxJ5jVGK2qj
+	mMhlZeYqAaNSBPwXxceP89Gh3S/g+P7Qsd7zFkM=
+X-Google-Smtp-Source: AGHT+IF3Nendwxe6yj04ihLdF0q7SV9ljS1KOSUry2IWBSSUypjuh0XPZvdEaWyyMLnXa0oUfOLqHQ==
+X-Received: by 2002:a5d:64af:0:b0:331:3c88:6fcd with SMTP id m15-20020a5d64af000000b003313c886fcdmr7009520wrp.53.1700523071810;
+        Mon, 20 Nov 2023 15:31:11 -0800 (PST)
+Message-ID: <8f52b3d7-1a4c-4e9e-80ef-63f148c4392e@citrix.com>
+Date: Mon, 20 Nov 2023 23:31:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Remaining violations of MISRA Rule 7.4
+Subject: Re: [PATCH 0/6] xen: Enable -Wwrite-strings
 Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Xen Devel <xen-devel@lists.xenproject.org>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Jbeulich <jbeulich@suse.com>, Roger Pau <roger.pau@citrix.com>,
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Consulting <consulting@bugseng.com>
-References: <21761f2a6633a08ceb2b70a46013486a@bugseng.com>
- <bdb7efb1-b8b2-4426-a46d-e8f5afdba0f6@citrix.com>
- <edd14ce515721eebf5a897ae0e5b61c4@bugseng.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,41 +132,42 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <edd14ce515721eebf5a897ae0e5b61c4@bugseng.com>
+In-Reply-To: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/11/2023 4:40 pm, Nicola Vetrini wrote:
->> I've just rebased and pushed the residual from the past work (although I
->> missed the ARM EFI fix.)
->>
->> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=commitdiff;h=0f06bab762f5201f3e00aaaee704c3c01f516b51
->>
->> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1065699873
->>
->> I'm going to make a firm request that we fix this by activating
->> -Wwrite-strings Xen wide, because that's by far and away the best way to
->> stop regressions creeping back in.
->>
->> In start_xen(), basically whatever goes.  All that's doing is processing
->> of one command line into another, and your version looks a bit neater
->> than mine.
->>
->> The name.s cases (it's duplicated in x86 and ARM) are more tricky.  The
->> compiler warning can be silenced by swapping name.s for name.cs but I
->> have no idea whether Eclair can see through that piece of blatent lying.
->>
->> ~Andrew
+On 20/11/2023 10:49 pm, Andrew Cooper wrote:
+> I got carried away and fixed all remaining -Wwrite-strings issues I could
+> reproduce in local builds.
 >
-> Just to avoid any misunderstanding: do you have the intention of
-> evaluating and then perhaps integrate the fixes that at the moment
-> block the introduction of -Wwrite-strings and then respin your patch,
-> or should I do something specifically?
+> Pipeline in Gitlab:
 >
+>   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1079379918
 
-Hopefully you'll find
-https://lore.kernel.org/xen-devel/20231120224912.1421916-1-andrew.cooper3@citrix.com/T/#u
-to your liking.
+Randconfig found:
+
+https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/5580160813
+
+which looks to be the ACPI support.
+
+diff --git a/xen/arch/arm/acpi/domain_build.c
+b/xen/arch/arm/acpi/domain_build.c
+index ed824c017882..b58389ce9e9f 100644
+--- a/xen/arch/arm/acpi/domain_build.c
++++ b/xen/arch/arm/acpi/domain_build.c
+@@ -245,7 +245,7 @@ static int __init acpi_create_rsdp(struct domain *d,
+struct membank tbl_add[])
+ 
+ static void __init acpi_xsdt_modify_entry(u64 entry[],
+                                           unsigned long entry_count,
+-                                          char *signature, u64 addr)
++                                          const char *signature, u64 addr)
+ {
+     int i;
+     struct acpi_table_header *table;
+
+
+should fix it, and it probably wants to merge into patch 5.
 
 ~Andrew
 
