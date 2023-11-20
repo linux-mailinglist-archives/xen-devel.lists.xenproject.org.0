@@ -2,47 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30E17F0D88
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 09:28:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636468.991978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59A2F7F0DB1
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 09:40:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636474.991987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4zdA-00042J-V3; Mon, 20 Nov 2023 08:27:44 +0000
+	id 1r4zoB-000687-U4; Mon, 20 Nov 2023 08:39:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636468.991978; Mon, 20 Nov 2023 08:27:44 +0000
+Received: by outflank-mailman (output) from mailman id 636474.991987; Mon, 20 Nov 2023 08:39:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4zdA-000405-RZ; Mon, 20 Nov 2023 08:27:44 +0000
-Received: by outflank-mailman (input) for mailman id 636468;
- Mon, 20 Nov 2023 08:27:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r4zoB-00065t-RU; Mon, 20 Nov 2023 08:39:07 +0000
+Received: by outflank-mailman (input) for mailman id 636474;
+ Mon, 20 Nov 2023 08:39:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mHkN=HB=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1r4zd8-0003y2-Vr
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 08:27:42 +0000
-Received: from smarthost01a.sbp.mail.zen.net.uk
- (smarthost01a.sbp.mail.zen.net.uk [212.23.1.1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9d97633-877e-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 09:27:38 +0100 (CET)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01a.sbp.mail.zen.net.uk with esmtpsa (TLS1.0) tls
- TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
- (envelope-from <james@dingwall.me.uk>) id 1r4zd3-00C8a9-Mc;
- Mon, 20 Nov 2023 08:27:37 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 851FE8A7D36;
- Mon, 20 Nov 2023 08:27:36 +0000 (GMT)
-Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
- by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id xic8OCOXCtpS; Mon, 20 Nov 2023 08:27:36 +0000 (GMT)
-Received: from ghoul.dingwall.me.uk (ghoul.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:1c8])
- by dingwall.me.uk (Postfix) with ESMTP id 3F38C8A7D31;
- Mon, 20 Nov 2023 08:27:36 +0000 (GMT)
-Received: by ghoul.dingwall.me.uk (Postfix, from userid 1000)
- id 2A3E9B4; Mon, 20 Nov 2023 08:27:36 +0000 (GMT)
+ <SRS0=Am9Z=HB=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1r4zoB-00065n-59
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 08:39:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 437d802b-8780-11ee-98df-6d05b1d4d9a1;
+ Mon, 20 Nov 2023 09:39:05 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 0BCCC4EE0739;
+ Mon, 20 Nov 2023 09:39:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,168 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9d97633-877e-11ee-9b0e-b553b5be7939
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-Date: Mon, 20 Nov 2023 08:27:36 +0000
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: James Dingwall <james-xen@dingwall.me.uk>,
-	xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: xen 4.15.5: msr_relaxed required for MSR 0x1a2
-Message-ID: <ZVsYeB7DG/F2EdM7@dingwall.me.uk>
-References: <ZVZAO/W0m/h+IPbi@dingwall.me.uk>
- <aa13be5e-d90c-4074-a16c-d3b051da754d@citrix.com>
- <ZVcv7259slJF4wBh@dingwall.me.uk>
- <2bd9028d-bd3d-435f-8788-38f3460ea188@suse.com>
+X-Inumbo-ID: 437d802b-8780-11ee-98df-6d05b1d4d9a1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="+WxErqjFHESB8d9P"
-Content-Disposition: inline
+Date: Mon, 20 Nov 2023 09:39:05 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
+ consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
+ roger.pau@citrix.com, bertrand.marquis@arm.com, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH v3] xen: replace occurrences of SAF-1-safe with
+ asmlinkage attribute
+In-Reply-To: <40a3918e-730f-48b9-924f-d8707b197e14@xen.org>
+References: <b193825385eae75ae320ab7d8c7f63b61c8c8786.1700125246.git.nicola.vetrini@bugseng.com>
+ <991883873b73e644ccaf8114a80331c0@bugseng.com>
+ <40a3918e-730f-48b9-924f-d8707b197e14@xen.org>
+Message-ID: <c4ff5ecc8f4e11cae4a8e282d87c4e14@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bd9028d-bd3d-435f-8788-38f3460ea188@suse.com>
-X-Originating-smarthost01a-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
 
-
---+WxErqjFHESB8d9P
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-
-On Fri, Nov 17, 2023 at 10:56:30AM +0100, Jan Beulich wrote:
-> On 17.11.2023 10:18, James Dingwall wrote:
-> > On Thu, Nov 16, 2023 at 04:32:47PM +0000, Andrew Cooper wrote:
-> >> On 16/11/2023 4:15 pm, James Dingwall wrote:
-> >>> Hi,
-> >>>
-> >>> Per the msr_relaxed documentation:
-> >>>
-> >>>    "If using this option is necessary to fix an issue, please report a bug."
-> >>>
-> >>> After recently upgrading an environment from Xen 4.14.5 to Xen 4.15.5 we
-> >>> started experiencing a BSOD at boot with one of our Windows guests.  We found
-> >>> that enabling `msr_relaxed = 1` in the guest configuration has resolved the
-> >>> problem.  With a debug build of Xen and `hvm_debug=2048` on the command line
-> >>> the following messages were caught as the BSOD happened:
-> >>>
-> >>> (XEN) [HVM:11.0] <vmx_msr_read_intercept> ecx=0x1a2
-> >>> (XEN) vmx.c:3298:d11v0 RDMSR 0x000001a2 unimplemented
-> >>> (XEN) d11v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80b8de81eb5 0 0
-> >>>
-> >>> I found that MSR 0x1a2 is MSR_TEMPERATURE_TARGET and from that this patch
-> >>> series from last month:
-> >>>
-> >>> https://patchwork.kernel.org/project/xen-devel/list/?series=796550
-> >>>
-> >>> Picking out just a small part of that fixes the problem for us. Although the
-> >>> the patch is against 4.15.5 I think it would be relevant to more recent
-> >>> releases too.
-> >>
-> >> Which version of Windows, and what hardware?
-> >>
-> >> The Viridian Crash isn't about the RDMSR itself - it's presumably
-> >> collateral damage shortly thereafter.
-> >>
-> >> Does filling in 0 for that MSR also resolve the issue?� It's model
-> >> specific and we absolutely cannot pass it through from real hardware
-> >> like that.
-> >>
-> > 
-> > Hi Andrew,
-> > 
-> > Thanks for your response.  The guest is running Windows 10 and the crash
-> > happens in a proprietary hardware driver.  A little bit of knowledge as
-> > they say was enough to stop the crash but I don't understand the impact
-> > of what I've actually done...
-> > 
-> > To rework the patch I'd need a bit of guidance, if I understand your
-> > suggestion I set the MSR to 0 with this change in emul-priv-op.c:
+On 2023-11-17 20:15, Julien Grall wrote:
+> Hi Nicola,
 > 
-> For the purpose of the experiment suggested by Andrew ...
+> On 16/11/2023 09:15, Nicola Vetrini wrote:
+>> On 2023-11-16 10:08, Nicola Vetrini wrote:
+>>> The comment-based justifications for MISRA C:2012 Rule 8.4 are 
+>>> replaced
+>>> by the asmlinkage pseudo-attribute, for the sake of uniformity.
+>>> 
+>>> Add missing 'xen/compiler.h' #include-s where needed.
+>>> 
+>>> The text in docs/misra/deviations.rst and docs/misra/safe.json
+>>> is modified to reflect this change.
+>>> 
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>> This patch should be applied after patch 2 of this series.
+>>> The request made by Julien to update the wording is
+>>> contained in the present patch.
+>>> https://lore.kernel.org/all/9ad7f6210c15f520297aac00e8af0e64@bugseng.com/
+>>> 
+>>> Concerns about efi_multiboot2 will be dealt with separately.
+>>> 
+>>> Changes in v2:
+>>> - Edit safe.json.
+>>> - Remove mention of SAF-1-safe in deviations.rst.
+>>> Changes in v3:
+>>> - Sorted #include-s and rebased against
+>>> 7ad0c774e474 ("x86/boot: tidy #include-s")
+>>> ---
+>>>  docs/misra/deviations.rst   |  5 ++---
+>>>  docs/misra/safe.json        |  2 +-
+>>>  xen/arch/arm/cpuerrata.c    |  7 +++----
+>>>  xen/arch/arm/setup.c        |  5 ++---
+>>>  xen/arch/arm/smpboot.c      |  3 +--
+>>>  xen/arch/arm/traps.c        | 21 +++++++--------------
+>>>  xen/arch/x86/boot/cmdline.c |  5 +++--
+>>>  xen/arch/x86/boot/reloc.c   |  6 +++---
+>>>  xen/arch/x86/extable.c      |  3 +--
+>>>  xen/arch/x86/setup.c        |  3 +--
+>>>  xen/arch/x86/traps.c        | 27 +++++++++------------------
+>>>  xen/common/efi/boot.c       |  5 ++---
+>>>  12 files changed, 35 insertions(+), 57 deletions(-)
+>>> 
+>> 
+>> In hindsight I should have added an
+>> 
+>> Acked-by: Julien Grall <jgrall@amazon.com>
+>> 
+>> given that the comment has been addressed in my opinion.
 > 
-> > diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-> > index ed97b1d6fcc..66f5e417df6 100644
-> > --- a/xen/arch/x86/pv/emul-priv-op.c
-> > +++ b/xen/arch/x86/pv/emul-priv-op.c
-> > @@ -976,6 +976,10 @@ static int read_msr(unsigned int reg, uint64_t *val,
-> >          *val = 0;
-> >          return X86EMUL_OKAY;
-> >  
-> > +    case MSR_TEMPERATURE_TARGET:
-> > +        *val = 0;
-> > +        return X86EMUL_OKAY;
-> > +
-> >      case MSR_P6_PERFCTR(0) ... MSR_P6_PERFCTR(7):
-> >      case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL(3):
-> >      case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
-> 
-> ... you wouldn't need this (affects PV domains only), and ...
-> 
-> > and this in vmx.c:
-> > 
-> > diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> > index 54023a92587..bbf37b7f272 100644
-> > --- a/xen/arch/x86/hvm/vmx/vmx.c
-> > +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> > @@ -3259,6 +3259,11 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-> >          if ( !nvmx_msr_read_intercept(msr, msr_content) )
-> >              goto gp_fault;
-> >          break;
-> > +
-> > +    case MSR_TEMPERATURE_TARGET:
-> > +        *msr_content = 0;
-> > +        break;
-> > +
-> >      case MSR_IA32_MISC_ENABLE:
-> >          rdmsrl(MSR_IA32_MISC_ENABLE, *msr_content);
-> >          /* Debug Trace Store is not supported. */
-> 
-> ... indeed this ought to do. An eventual real patch may want to look
-> different, though.
+> I am a bit confused how you considered it was addressed. I see no 
+> update in safe.json when I clearly asked for some (I wouldn't have 
+> bothered to comment in v2 otherwise and just gave an ack).
 > 
 
-Thanks Jan, based on the information I've reduced the patch to what seems the
-minimal necessary to workaround the BSOD.  I assume simply not ending up at
-X86EMUL_EXCEPTION is the resolution regardless of what value is set.
+I did update safe.json like so:
 
-Regards,
-James
+-            "text": "Functions and variables used only by asm modules 
+do not need to have a visible declaration prior to their definition."
++            "text": "Not used anymore."
 
+but given what you wrote below, maybe you wanted this in the series [1], 
+right?
 
---+WxErqjFHESB8d9P
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment; filename="msr_temperature_target-v2.patch"
+> To be explicit, I requested to:
+>   1. update the description in [2] to clarify that SAF-1 is deprecated.
+>   2. This patch is rebased on top and therefore remove completely the 
+> mention of SAF-1.
+> 
+> I am well-aware that the end result is technically the same. But 
+> patches are meant to be self-contained so if we revert the latest, then 
+> the meaning is still the same.
+> 
+> This patch is unlikely to be removed and this is now the nth time I 
+> asked it the same (maybe it was not clear enough?). So I am going to 
+> content with the current proposal because this is not worth to go 
+> further. But I will at least express my discontent how this is handled.
+> 
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 54023a92587..bbf37b7f272 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3259,6 +3259,11 @@ static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
-         if ( !nvmx_msr_read_intercept(msr, msr_content) )
-             goto gp_fault;
-         break;
-+
-+    case MSR_TEMPERATURE_TARGET:
-+        *msr_content = 0;
-+        break;
-+
-     case MSR_IA32_MISC_ENABLE:
-         rdmsrl(MSR_IA32_MISC_ENABLE, *msr_content);
-         /* Debug Trace Store is not supported. */
-diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
-index 8b3ad575dbc..34e800fdc01 100644
---- a/xen/include/asm-x86/msr-index.h
-+++ b/xen/include/asm-x86/msr-index.h
-@@ -498,6 +498,9 @@
- #define MSR_IA32_MISC_ENABLE_XD_DISABLE	(1ULL << 34)
- 
- #define MSR_IA32_TSC_DEADLINE		0x000006E0
-+
-+#define MSR_TEMPERATURE_TARGET		0x000001a2
-+
- #define MSR_IA32_ENERGY_PERF_BIAS	0x000001b0
- 
- /* Platform Shared Resource MSRs */
+I misunderstood your previous comments then. When you commented on v2 I 
+surmised that you were ok with this patch condensing all the shuffling. 
+Clearly this was not the case, but I also want to point out that. Given 
+that [2] hasn't been committed yet either, then I can do what you asked.
 
---+WxErqjFHESB8d9P--
+[2] 
+https://lore.kernel.org/all/cover.1698829473.git.nicola.vetrini@bugseng.com/
+
+> TBH, there are far too many MISRA patches on the ML spread across 
+> multiple threads. Some are based on top of the others. This makes 
+> extremely difficult to follow and know what is addressed or not. Can we 
+> at least try to condense some of work in similar area in the same 
+> series? For instance, this patch could have been included in the other 
+> series [1].
+> 
+> Lastly, right now, I have 300 emails (31 threads) with MISRA in the 
+> title in my inbox. It is a little unclear what has been 
+> committed/review or require input. I am concerned to miss key series 
+> (the patch to compile in docs/ was nearly missed).
+> 
+> Do we track anywhere which series are still inflights? Can we consider 
+> to pause or at least slow down the rate of new MISRA patches until the 
+> backlog is cleared? (Adding more patches is not really helping).
+> 
+
+I do have a folder with all my in-flight patches. Please note that this 
+big backlog has partly been the result of patches being acked, but not 
+committed. I'll double check with my colleagues Stefano's list in his 
+reply, to see if there are any differences.
+
+> Cheers,
+> 
+> [1] 
+> https://lore.kernel.org/all/a1b5c3b273145c35535fed3647bf850d9ae5db7f.1698829473.git.nicola.vetrini@bugseng.com/
+> 
+> 
+> I pointed out that the patch in
+> 
+>> 
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
