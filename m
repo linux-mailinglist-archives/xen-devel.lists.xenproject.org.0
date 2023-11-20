@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B54F7F14FB
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 14:54:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636744.992468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB65A7F1500
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 14:56:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636746.992477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r54jI-0003Z9-Qm; Mon, 20 Nov 2023 13:54:24 +0000
+	id 1r54ki-00047z-3B; Mon, 20 Nov 2023 13:55:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636744.992468; Mon, 20 Nov 2023 13:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 636746.992477; Mon, 20 Nov 2023 13:55:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r54jI-0003WK-ND; Mon, 20 Nov 2023 13:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 636744;
- Mon, 20 Nov 2023 13:54:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r54jH-0003WE-0e
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 13:54:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r54jG-0007Ty-6e; Mon, 20 Nov 2023 13:54:22 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=[192.168.18.184]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r54jF-0006PS-T8; Mon, 20 Nov 2023 13:54:22 +0000
+	id 1r54ki-00045c-0X; Mon, 20 Nov 2023 13:55:52 +0000
+Received: by outflank-mailman (input) for mailman id 636746;
+ Mon, 20 Nov 2023 13:55:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4RyQ=HB=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1r54kg-00044B-QN
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 13:55:50 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81f1335c-87ac-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 14:55:48 +0100 (CET)
+Received: from [10.253.41.90] (unknown [160.78.253.159])
+ by support.bugseng.com (Postfix) with ESMTPSA id 48A3C4EE0739;
+ Mon, 20 Nov 2023 14:55:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +39,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wvu691h30NLjTL7ttnnBQN4/RJmZXqF7VdOmD9t6MnE=; b=HDaXylDwJELYY5upUlwHEajkOR
-	6/gf09bMNZ7IH0rSUYWM85lopykmU2AG+QnqUIXgdyZd1XbvbGTjHZnk1APmG/TVoCX9ADM2qb1s+
-	gVvBO6n308xphnkz6imWakzRDfJD8fhtN0zTM96TEBVDs75w5bBDb05C7zRd1eSLRV/M=;
-Message-ID: <4ad7f6ba-89f8-48ff-9b60-8d9d0dbe9afe@xen.org>
-Date: Mon, 20 Nov 2023 13:54:20 +0000
+X-Inumbo-ID: 81f1335c-87ac-11ee-9b0e-b553b5be7939
+Message-ID: <a03a8d60-5e46-4ef2-9e35-cc6892d229ee@bugseng.com>
+Date: Mon, 20 Nov 2023 14:55:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xenstored: print domain id in traces
-Content-Language: en-GB
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20231116205613.3796068-1-volodymyr_babchuk@epam.com>
- <16a320e7-3d12-4c9e-9010-ce0fe37c7e33@xen.org> <874jhg38yd.fsf@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <874jhg38yd.fsf@epam.com>
+Subject: Re: [XEN PATCH 1/5] xen/common: address violations of MISRA C:2012
+ Rule 8.2
+Content-Language: en-US, it
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <cover.1700209834.git.federico.serafini@bugseng.com>
+ <ccc8b4bea515360e448f1975dadb326ad2e6c918.1700209834.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2311171851260.773207@ubuntu-linux-20-04-desktop>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <alpine.DEB.2.22.394.2311171851260.773207@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Volodymyr,
-
-On 20/11/2023 12:28, Volodymyr Babchuk wrote:
-> Julien Grall <julien@xen.org> writes:
+On 18/11/23 03:59, Stefano Stabellini wrote:
+> On Fri, 17 Nov 2023, Federico Serafini wrote:
+>> diff --git a/xen/common/stop_machine.c b/xen/common/stop_machine.c
+>> index 3adbe380de..398cfd507c 100644
+>> --- a/xen/common/stop_machine.c
+>> +++ b/xen/common/stop_machine.c
+>> @@ -46,7 +46,7 @@ struct stopmachine_data {
+>>   
+>>       unsigned int fn_cpu;
+>>       int fn_result;
+>> -    int (*fn)(void *);
+>> +    int (*fn)(void *data);
+>>       void *fn_data;
+>>   };
 > 
->> Hi Volodymyr,
->>
->> On 16/11/2023 20:56, Volodymyr Babchuk wrote:
->>> It is very helpful to see domain id why analyzing xenstored
->>> traces. Especially when you are trying to understand which exactly
->>> domain performs an action.
->>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->>> ---
->>>    tools/xenstored/core.c | 4 ++--
->>>    1 file changed, 2 insertions(+), 2 deletions(-)
->>> diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
->>> index edd07711db..311764eb0c 100644
->>> --- a/tools/xenstored/core.c
->>> +++ b/tools/xenstored/core.c
->>> @@ -135,8 +135,8 @@ static void trace_io(const struct connection *conn,
->>>    	now = time(NULL);
->>>    	tm = localtime(&now);
->>>    -	trace("io: %s %p %04d%02d%02d %02d:%02d:%02d %s (",
->>> -	      out ? "OUT" : "IN", conn,
->>> +	trace("io: %s %p (d%d) %04d%02d%02d %02d:%02d:%02d %s (",
->>
->> AFAICT conn->id is an unsigned int. So it should be d%u. This can be
->> dealt on commit.
->>
+> At least one of the possible function used here calls the parameter
+> "arg", see take_cpu_down. But I don't think it is a MISRA requirement to
+> also harmonize those?
 > 
-> Yes, I missed this part. I have noticed that you already committed this
-> change and even mentioned %u in the commit message. But in the diff [1] I am
-> seeing %d. Should I sent another another patch that fixes this?
+> 
+>> @@ -73,7 +73,7 @@ static void stopmachine_wait_state(void)
+>>    * mandatory to be called only on an idle vcpu, as otherwise active core
+>>    * scheduling might hang.
+>>    */
+>> -int stop_machine_run(int (*fn)(void *), void *data, unsigned int cpu)
+>> +int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
+>>   {
+>>       unsigned int i, nr_cpus;
+>>       unsigned int this = smp_processor_id();
+>> diff --git a/xen/common/tasklet.c b/xen/common/tasklet.c
+>> index 3ad67b5c24..3649798e6b 100644
+>> --- a/xen/common/tasklet.c
+>> +++ b/xen/common/tasklet.c
+>> @@ -199,7 +199,7 @@ static void migrate_tasklets_from_cpu(unsigned int cpu, struct list_head *list)
+>>       spin_unlock_irqrestore(&tasklet_lock, flags);
+>>   }
+>>   
+>> -void tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
+>> +void tasklet_init(struct tasklet *t, void (*func)(void *data), void *data)
+>>   {
+>>       memset(t, 0, sizeof(*t));
+>>       INIT_LIST_HEAD(&t->list);
+>> @@ -208,7 +208,8 @@ void tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
+>>       t->data = data;
+>>   }
+>>   
+>> -void softirq_tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
+>> +void softirq_tasklet_init(struct tasklet *t,
+>> +                          void (*func)(void *data), void *data)
+>>   {
+>>       tasklet_init(t, func, data);
+>>       t->is_softirq = 1;
+>> diff --git a/xen/common/timer.c b/xen/common/timer.c
+>> index 0fddfa7487..bf7792dcb3 100644
+>> --- a/xen/common/timer.c
+>> +++ b/xen/common/timer.c
+>> @@ -291,7 +291,7 @@ static bool active_timer(const struct timer *timer)
+>>   
+>>   void init_timer(
+>>       struct timer *timer,
+>> -    void        (*function)(void *),
+>> +    void        (*function)(void *data),
+>>       void         *data,
+>>       unsigned int  cpu)
+>>   {
+>> @@ -441,7 +441,7 @@ void kill_timer(struct timer *timer)
+>>   
+>>   static void execute_timer(struct timers *ts, struct timer *t)
+>>   {
+>> -    void (*fn)(void *) = t->function;
+>> +    void (*fn)(void *data) = t->function;
+>>       void *data = t->data;
+>>   
+>>       t->status = TIMER_STATUS_inactive;
+>> diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
+>> index 135f33f606..390f7b6082 100644
+>> --- a/xen/include/xen/rangeset.h
+>> +++ b/xen/include/xen/rangeset.h
+>> @@ -68,7 +68,7 @@ bool_t __must_check rangeset_overlaps_range(
+>>       struct rangeset *r, unsigned long s, unsigned long e);
+>>   int rangeset_report_ranges(
+>>       struct rangeset *r, unsigned long s, unsigned long e,
+>> -    int (*cb)(unsigned long s, unsigned long e, void *), void *ctxt);
+>> +    int (*cb)(unsigned long s, unsigned long e, void *data), void *ctxt);
+> 
+> Also here some of the functions use "arg" instead of ctxt
+> 
+> 
+>>   /*
+>>    * Note that the consume function can return an error value apart from
+>> @@ -77,7 +77,7 @@ int rangeset_report_ranges(
+>>    */
+>>   int rangeset_consume_ranges(struct rangeset *r,
+>>                               int (*cb)(unsigned long s, unsigned long e,
+>> -                                      void *, unsigned long *c),
+>> +                                      void *ctxt, unsigned long *c),
+>>                               void *ctxt);
+> 
+> Also here some of the functions use "dom" like irq_remove_cb.
+> 
+> 
+> But I actually like the patch as is, so if that's OK from a MISRA point
+> of view then I would give my reviewed-by.
 
-:(. I keep forgetting that "git commit --amend" only ammend the commit 
-message. If you don't mind, can you send a follow-up?
-
-Sorry for the inconvenience.
-
-Cheers,
+Yes, this is OK for MISRA.
 
 -- 
-Julien Grall
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
