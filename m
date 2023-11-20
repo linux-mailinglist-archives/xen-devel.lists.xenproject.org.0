@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E8B67F0BD2
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 07:23:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.636432.991917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D2B7F0C80
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 08:08:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.636435.991927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4xg1-000071-BV; Mon, 20 Nov 2023 06:22:33 +0000
+	id 1r4yNW-0005iM-Id; Mon, 20 Nov 2023 07:07:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 636432.991917; Mon, 20 Nov 2023 06:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 636435.991927; Mon, 20 Nov 2023 07:07:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r4xg1-0008Vy-8l; Mon, 20 Nov 2023 06:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 636432;
- Mon, 20 Nov 2023 06:22:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WPLm=HB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r4xg0-0008Vs-9A
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 06:22:32 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f4e364a-876d-11ee-98df-6d05b1d4d9a1;
- Mon, 20 Nov 2023 07:22:31 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 40FD61F74D;
- Mon, 20 Nov 2023 06:22:30 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27C2E13912;
- Mon, 20 Nov 2023 06:22:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /JJ2CCb7WmVSFQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Nov 2023 06:22:30 +0000
+	id 1r4yNW-0005gW-G4; Mon, 20 Nov 2023 07:07:30 +0000
+Received: by outflank-mailman (input) for mailman id 636435;
+ Mon, 20 Nov 2023 07:07:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F3F/=HB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1r4yNV-0005g7-DG
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 07:07:29 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20607.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::607])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7334a343-8773-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 08:07:22 +0100 (CET)
+Received: from MW4PR04CA0140.namprd04.prod.outlook.com (2603:10b6:303:84::25)
+ by DS7PR12MB5935.namprd12.prod.outlook.com (2603:10b6:8:7e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
+ 2023 07:07:18 +0000
+Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
+ (2603:10b6:303:84:cafe::b0) by MW4PR04CA0140.outlook.office365.com
+ (2603:10b6:303:84::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26 via Frontend
+ Transport; Mon, 20 Nov 2023 07:07:18 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 07:07:17 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 01:07:15 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
+ 2023 01:07:14 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Mon, 20 Nov 2023 01:07:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,204 +63,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f4e364a-876d-11ee-98df-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1700461350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=hp7oNuxjAK9fig6xl+k6Q19EBnit7bAB/9BppaK2TOw=;
-	b=RSjefr7qrZzuD7/KOCwzw1MbW6CdkBjgP+eT1xYd49F/XxJMstHsQA0qMvXa93JdblrhjQ
-	UwbaPXbliyr7QCNCk3pAPW3qJH3EK1qXElmEHr2vv+D/Ay3G+9CvKrohS0pkGowVxvCKld
-	5qzLaVzXRj2aFjP/IbweXyqmA0tV5Ck=
-Message-ID: <f7b11bb5-9d08-4678-bb97-3a2d96537439@suse.com>
-Date: Mon, 20 Nov 2023 07:22:29 +0100
+X-Inumbo-ID: 7334a343-8773-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kpQDOhKojxeJailGZTn2hUTMcHcWX8k7EAIBWuVbd54g29OQTvEPTE4sfVYlSNMO/6mtJPKbmo4kodf490PkQf9n07/1rxTiUqnQ73Kk1elIAmcReBugVegKkSxHGcgakwxUCPA67vHRWObDNv4hgz/2eSwFkr6vDXx0NFGK4QcpvHL53hyGP7GYi/YAI+HdWCt7XNzPoZv5V2ucblFn7JZdNJcUolEzvPF16w3IGl4KnPEEhB1R/qeq7pQFveE9iydPGZrHl0yavs4GS61ZSvNFOMoWtrWYFwz3P8Sfl+zVL9G2wOmygQL5or5CFoM+HbUbYWQ4vlD1jDYm2Sz5fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BYh1IDibsWIqHo7v72+Jzf4DCElzE2X9QKGgnPPDBjI=;
+ b=k7SzM7zErTI/bdT/wgR+00hVROcq+J19MayCAApmAVe3pQwe84muEPfko/8y/hbFOejqOo4SfeDK1VyRjfmn/D8NnMkkThWAZiqPh6s3CZZXA6nWYNAChr9kIFTGTp7gIc1NYpAf1XDw7F1BZPnWOjar8vDn/Qui9ZW1s24TOmhvENQr/mmZxWv/sgHcVb78r5HeHvkTFRyfvFFi5Hddw5/zTme9bbtjKt39IIlsTeECJ0fF+2DcA9PJU4a4pG/NLyrcNy899YXlUuWDbwKL1E/tMzPSz+1BPWh44khGHvet6k0BOsTnkPJ7TqZkbjcOwkz+zZReqYBrJc71XU/GGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BYh1IDibsWIqHo7v72+Jzf4DCElzE2X9QKGgnPPDBjI=;
+ b=NyPsfgvZV6wI5oJRMn1yKigyYZ1gAxEY1/1fq4SfzT6JNEVo6QtJeQf+fcUJcGqZ7ysAp2Yc5+QQjx6vgJD73VYXrCafkK154AbxPcPt2Ibbxw6nXGuMOf2aim+R8IOFxyxAUJ/UXydwcNxkC0y2/6QJAdXBaDVU7ig1r+xrxW8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <bf4b9899-8efe-4270-b1d6-afb29e76d907@amd.com>
+Date: Mon, 20 Nov 2023 08:07:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-linus test] 183794: regressions - FAIL
+Subject: Re: [XEN v4 1/2] xen/arm32: head: Introduce
+ enable_{boot,secondary}_cpu_mm()
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<jgrall@amazon.com>, <henry.wang@arm.com>
+References: <20231117153101.2902792-1-ayan.kumar.halder@amd.com>
+ <20231117153101.2902792-2-ayan.kumar.halder@amd.com>
 Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <osstest-183794-mainreport@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <osstest-183794-mainreport@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------He59u0SK0gzeb3R44XEdhOgd"
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spam-Level: ***
-X-Spam-Score: 3.76
-X-Spamd-Result: default: False [3.76 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 BAYES_HAM(-0.64)[82.49%];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 MIME_BASE64_TEXT(0.10)[];
-	 NEURAL_SPAM_LONG(3.50)[1.000];
-	 NEURAL_SPAM_SHORT(2.90)[0.965];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Spam-Flag: NO
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20231117153101.2902792-2-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|DS7PR12MB5935:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7cbb7ec-5f8e-4a12-c407-08dbe99754d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	gqNy6vRpjRu6px96lIlnCU0t5BcxnjFLx5VB+WP8H18Dmhv4JdtsZ6yHbqYy23KxyMlp9n2faezdW9zuxXQvXbXQaQztw07+PrwvEIc8LJNpi9jzhNQOhPYgBuoqxYbPDe5Awa02Iu5Mg0gUiMjfAc2yxlCPhB3csh8qjRpJYHX+LNfF6t73IZLmMSDXpid1Hr0pOpj8jxnkzGh17UUBRf2pVmOOZMUcipnCdRQTAyfNv6FG+JKNcmBUOnUwbYMqWT2a5nBcLuIwd2WpwIj5EvPxnISoO0huIX4rcvqPLp4rDwP8q+lH7Oi81JTUIkrY8X0t7ICimYkE7W1UaqEDg2ltrm+fQeTo37KomT5g+0J37FXIio2JVJkfIGsyhubMfYyfhty3KNzFJJpVLVOw9XxTS5sg8fhOTtwD8oGBcRe7mFPKAZTUaFTdr8kScFxsQdwFT5myUemNF1ubjAl48wGksknqaA85euniJ2HcfXB3zKRxY6hZntZbnf4bD+WnBEQfxbUwEIeaLlN9a4I9T5IdC7mnWv8biK8r1ffTHdsYUyn9yAQc9EKXfAHmwWcB7Tw9Qs9qzptelqTXg23JwLyRvq/liwqNa7ScRlGj1jDGkR/+QWg4tDbu0onv7Xd1tbSsQ951qD+2yV/HzKZB11fUVsBxX4lshI4xjEGGtpPM1z48pNsbuh9CLbIDK/CQupu27PLN3jn+xEZV8FZtCeCCIX1SQkAR5wkyjy6/AYTUzJ8Vh2Vva2kp5YpY4Whv8e2uJRV7AhfAemZnXf420RmpceUC4zhjJqm7gNsPD4zAqwOlMxPH+kDInHso0jrj
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(136003)(376002)(396003)(230922051799003)(82310400011)(451199024)(64100799003)(1800799012)(186009)(46966006)(36840700001)(40470700004)(41300700001)(36756003)(40460700003)(2906002)(31696002)(44832011)(86362001)(5660300002)(81166007)(47076005)(40480700001)(356005)(2616005)(26005)(478600001)(83380400001)(336012)(426003)(82740400003)(8936002)(8676002)(4326008)(6666004)(316002)(53546011)(70206006)(54906003)(70586007)(16576012)(31686004)(110136005)(36860700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 07:07:17.1870
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7cbb7ec-5f8e-4a12-c407-08dbe99754d4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000042AA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5935
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------He59u0SK0gzeb3R44XEdhOgd
-Content-Type: multipart/mixed; boundary="------------HDXJMG0QK0Ik3mDZtZqN20l6";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <f7b11bb5-9d08-4678-bb97-3a2d96537439@suse.com>
-Subject: Re: [linux-linus test] 183794: regressions - FAIL
-References: <osstest-183794-mainreport@xen.org>
-In-Reply-To: <osstest-183794-mainreport@xen.org>
+Hi Ayan,
 
---------------HDXJMG0QK0Ik3mDZtZqN20l6
-Content-Type: multipart/mixed; boundary="------------KYfeEtiy8fPD9RrrtRhhKSqM"
+On 17/11/2023 16:31, Ayan Kumar Halder wrote:
+> All the MMU related functionality have been clubbed together in
+> enable_boot_cpu_mm() for booting primary cpu and enable_secondary_cpu_mm() for
+> booting secondary cpus.
+> This is done in preparation for moving the code related to MMU in MMU specific
+> file and in order to support non MMU cpus in future.
+> 
+> This is based on d2f8df5b3ede ("xen/arm64: head.S: Introduce enable_{boot,secondary}_cpu_mm()").
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Acked-by: Julien Grall <jgrall@amazon.com>
+> ---
+> 
+> Changes from :-
+> 
+> v1 - 1. Added a proper commit message.
+> 2. Some style and other fixes suggested in v1. 
+> 
+> v2 - 1. Updated the comment on top of enable_boot_cpu_mm() and
+> enable_secondary_cpu_mm() ie mentioned the input and output registers.
+> 2. Updated the comment inside enable_boot_cpu_mm().
+> 
+> v3 - 1. No changes.
+> 
+>  xen/arch/arm/arm32/head.S | 102 ++++++++++++++++++++++++++++++--------
+>  1 file changed, 80 insertions(+), 22 deletions(-)
+> 
+[...]
 
---------------KYfeEtiy8fPD9RrrtRhhKSqM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +
+> +/*
+> + * Enable mm (turn on the data cache and the MMU) for the boot CPU.
+> + * The function will return to the virtual address provided in LR (e.g. the
+> + * runtime mapping).
+> + *
+> + * Inputs:
+> + *   r9 : paddr(start)
+> + *   r10: phys offset
+> + *   lr : Virtual address to return to.
+> + *
+> + * Output:
+> + *   r12: Was a temporary mapping created?
+> + *
+> + * Clobbers r0 - r6
+> + */
+> +enable_boot_cpu_mm:
+> +        mov   r6, lr
+> +
+> +        bl    create_page_tables
+> +
+> +        /* Address in the runtime mapping to jump to after the MMU is enabled */
+> +        mov_w lr, 1f
+> +        b     enable_mmu
+> +1:
+> +        /*
+> +         * Prepare the fixmap. The function will return to the virtual address
+> +         * requested by the caller.
+> +         */
+It seems like you did not handle my remark from v3. This comment should be moved above branch
+to setup_fixmap.
 
-T24gMjAuMTEuMjMgMDM6MjEsIG9zc3Rlc3Qgc2VydmljZSBvd25lciB3cm90ZToNCj4gZmxp
-Z2h0IDE4Mzc5NCBsaW51eC1saW51cyByZWFsIFtyZWFsXQ0KPiBodHRwOi8vbG9ncy50ZXN0
-LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTgzNzk0Lw0KPiANCj4gUmVncmVz
-c2lvbnMgOi0oDQo+IA0KPiBUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQgYW5kIGFyZSBi
-bG9ja2luZywNCj4gaW5jbHVkaW5nIHRlc3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46DQo+
-ICAgdGVzdC1hcm02NC1hcm02NC1leGFtaW5lICAgICAgOCByZWJvb3QgICAgICAgICAgICAg
-ICAgICAgZmFpbCBSRUdSLiB2cy4gMTgzNzY2DQoNCkknbSBzZWVpbmcgdGhlIGZvbGxvd2lu
-ZyBpbiB0aGUgc2VyaWFsIGxvZzoNCg0KTm92IDIwIDAwOjI1OjQxLjU4NjcxMiBbICAgIDAu
-NTY3MzE4XSBrZXJuZWwgQlVHIGF0IA0KYXJjaC9hcm02NC94ZW4vLi4vLi4vYXJtL3hlbi9l
-bmxpZ2h0ZW4uYzoxNjQhDQpOb3YgMjAgMDA6MjU6NDEuNTk4NzExIFsgICAgMC41NzQwMDJd
-IEludGVybmFsIGVycm9yOiBPb3BzIC0gQlVHOiANCjAwMDAwMDAwZjIwMDA4MDAgWyMxXSBQ
-UkVFTVBUIFNNUA0KDQpUaGUgcmVsYXRlZCBzb3VyY2UgY29kZSBsaW5lcyBpbiB0aGUga2Vy
-bmVsIGFyZToNCg0KwrfCt8K3wrfCt8K3wrfCt2VyciA9IEhZUEVSVklTT1JfdmNwdV9vcChW
-Q1BVT1BfcmVnaXN0ZXJfdmNwdV9pbmZvLCB4ZW5fdmNwdV9ucihjcHUpLA0KwrfCt8K3wrfC
-t8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfCt8K3wrfC
-tyAmaW5mbyk7DQrCt8K3wrfCt8K3wrfCt8K3QlVHX09OKGVycik7DQoNCkkgc3VzcGVjdCBj
-b21taXQgMjBmM2I4ZWFmZTBiYSB0byBiZSB0aGUgY3VscHJpdC4NCg0KU3RlZmFubywgY291
-bGQgeW91IHBsZWFzZSBoYXZlIGEgbG9vaz8NCg0KDQpKdWVyZ2VuDQo=
---------------KYfeEtiy8fPD9RrrtRhhKSqM
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> +        mov   lr, r6
+> +
+> +        b     setup_fixmap
+> +ENDPROC(enable_boot_cpu_mm)
+> +
+>  /*
+>   * Remove the 1:1 map from the page-tables. It is not easy to keep track
+>   * where the 1:1 map was mapped, so we will look for the top-level entry
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------KYfeEtiy8fPD9RrrtRhhKSqM--
-
---------------HDXJMG0QK0Ik3mDZtZqN20l6--
-
---------------He59u0SK0gzeb3R44XEdhOgd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVa+yUFAwAAAAAACgkQsN6d1ii/Ey9c
-QAf8CwzkpPNtN+lgJJwaXpUB4ouVw0M8b3vL3pixjWkrr0rW5Cl0mWCFtz5wqRgT+tSv/2RyBV+3
-BQ2wQWgRVSxK++m7PbGWzf3ycxbD4GiQxS8FN5wkavt8fUQP352DHUOlk9z4jp9/35/sjHkxUtwA
-ZwKwJnmTNGsWHYhjXBSlCVhAxbcQvkOOLkISIArWolX/zylnZNVwI9kouHMoMBgCT8AfvFPk8vXu
-E+a/nwv+C1Mae+wxiB2OrlB2uQ4WzQQbU8mzuVM9+TCL3hbhRVmSj2m756m1+/ZpSSqwm+5nm4ii
-zz+pfhzEjYXAusq1XWBDYeL2VWnbqpd+PtZ9am8+Dg==
-=/69v
------END PGP SIGNATURE-----
-
---------------He59u0SK0gzeb3R44XEdhOgd--
+~Michal
 
