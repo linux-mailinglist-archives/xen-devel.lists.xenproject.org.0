@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB787F16ED
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:13:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637046.992741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 534F47F17CD
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Nov 2023 16:50:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637062.992753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55xn-0007i7-3j; Mon, 20 Nov 2023 15:13:27 +0000
+	id 1r56Wy-00013w-TM; Mon, 20 Nov 2023 15:49:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637046.992741; Mon, 20 Nov 2023 15:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 637062.992753; Mon, 20 Nov 2023 15:49:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r55xn-0007fI-0U; Mon, 20 Nov 2023 15:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 637046;
- Mon, 20 Nov 2023 15:13:26 +0000
+	id 1r56Wy-00010j-PK; Mon, 20 Nov 2023 15:49:48 +0000
+Received: by outflank-mailman (input) for mailman id 637062;
+ Mon, 20 Nov 2023 15:49:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F3F/=HB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1r55xm-0007fC-0X
- for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:13:26 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20631.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::631])
+ <SRS0=KKU3=HB=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r56Wx-00010b-Kr
+ for xen-devel@lists.xenproject.org; Mon, 20 Nov 2023 15:49:47 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58c346e1-87b7-11ee-9b0e-b553b5be7939;
- Mon, 20 Nov 2023 16:13:23 +0100 (CET)
-Received: from DM6PR17CA0024.namprd17.prod.outlook.com (2603:10b6:5:1b3::37)
- by CY5PR12MB6227.namprd12.prod.outlook.com (2603:10b6:930:21::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
- 2023 15:13:20 +0000
-Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:5:1b3:cafe::10) by DM6PR17CA0024.outlook.office365.com
- (2603:10b6:5:1b3::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
- Transport; Mon, 20 Nov 2023 15:13:20 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 15:13:19 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 20 Nov
- 2023 09:13:18 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 20 Nov
- 2023 07:13:18 -0800
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34
- via Frontend Transport; Mon, 20 Nov 2023 09:13:17 -0600
+ id 6c392da7-87bc-11ee-9b0e-b553b5be7939;
+ Mon, 20 Nov 2023 16:49:43 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-54553e4888bso6275714a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Nov 2023 07:49:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,135 +40,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58c346e1-87b7-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jFrG1TrMd/e0kh+Sdl95eMt08tN7krfMiKlnWMjdYI5w9hayHZOsGYgrl95RBKU4hXA6Y4oVtflZPXb1ivLbaSuclkSC0R5GUEUeB9sNPSlYJoQahZoGMawoVvBWldDNwc98de6AB+ezPGJGumUf6W3h8ArHnVosnYjhkEd589pnpD/cn18iYLE2/ntFDVE2I9Z/+KGxJYxIsOGdH7F6UeW98hAHdx3JGY0zp2fcqExApAY3RjOKBrc+Pc7BiALsLP2Pq6zwcYxm/LaHTLaSvI+GdZ0V8lNrIPrMaVyHKaTcPzimPG/3oKv3oyshjwrb6DiagETX9iUQ/rr7afjrAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/PiRdYgrtDdEJE4tNAgZp4K4hnRT1QsFVLpTkw9TnE=;
- b=KEjYJEIRWQ5k2G5dtSKamO4NllQwnV534xuJVMAsH/dufgBwiYeWx7WzxFprTJmdiQ+A9UFQkVgVJJE73mlopxlZtRRcKu53q8geXEoq7lUaxqcI9YW+lVWDP4+/9fpt1ZVdlVQM+v1eDwkKSDWq2njGlr0ENfIrg2dVSn6uC7LK59gRQm4XdzsWW49ZwAAE0t9xg02dtu5bRjR0EjZW/mw3zavnNTd8akUXOvUwZ70F3d7pQWeS5e22W20s5R52fkQsU4m2ShRyCqiWoXJzSa8U+T/CPH7TlWX+Bttd8k4bW4K83KNKWXfqdv/5y8EhR5WeAgHNjVbi2+3OYXK0ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z/PiRdYgrtDdEJE4tNAgZp4K4hnRT1QsFVLpTkw9TnE=;
- b=M5aOfXATlc3pO4nBQN2laNILqomc2GufUPnEeO2BOVGMm8IJqiYHpTxJuhNMQPabFMGNazVVLAovjyzGTHMHSCXVNpda9U1/3Uoxgs9VnhOW5SeaFED4tu1BYmYrtnY+od0h73mPBowY4TJMwBW2G2OntrdMKYeZiSztu+mCF0M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: [ImageBuilder] uboot-script-gen: use size from arm32 zImage header
-Date: Mon, 20 Nov 2023 16:13:15 +0100
-Message-ID: <20231120151315.92119-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 6c392da7-87bc-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700495383; x=1701100183; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iJCeHYF2Uzczd8KumTZgdj4yK5tz2hxjsQizCJwXMhY=;
+        b=DMMi5R4AFtLXYdCvDJ7C8F6E0W4KPdLZYQnYQidaV5Tnr35w2xmMxU2alYU35Eiv0s
+         ASX1kLQlLWYVUapYqDuVwQdZAtOnbKXnJfwUyBZHsSSnl8fRUdwTxoG9+oxwPPwAiWMC
+         1zLACa7vzetvmFANEsPIx90q24MMB8X+sNuviMS+x1dibz7eFRXqx/R3zFnMNJUKYC0z
+         MHYjUKIxlZkeeHN8JXDZLVy+lgtFIOac/CMl7WDYzTXJe7C8pJu2yDmtDJUkKubLocMh
+         +6e046coTqwfA2hgi4Yb8ThS93p7fzvTiTq3Dsa++M1GxQtRyPYIKbtn+i9XMTSa6NDW
+         QgBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700495383; x=1701100183;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iJCeHYF2Uzczd8KumTZgdj4yK5tz2hxjsQizCJwXMhY=;
+        b=VE16NClLj5YtDtZpMFeFDbwGeDy39LA+j/qwYulbLD0liGbvlpw0ikgTTW0CuiOXBi
+         aD/A3q/J8/IwVvfx7MA0t87ezUp48essHe46bEYGVCvnIqbNoSpFGSJL/I8toLCySbXg
+         Neze8H8tl3ECwCv98T826mjSAekWK2W+arEdZ9ejtSy5FCbDbixrxNLXCkLlv1DWWLpO
+         dnQPGXK9oUFFdKM6Y814MvAx/t29gtAlMIp8Tr+XrqF8otGa3i1iDqK60O6/jrzr2LG5
+         8SWqrAXSlG3U+cNv8ypBahjUIsA6rutu7meJ2Y4OmfEXUV5nh5UUYukfRsxy7AfWvxzA
+         ENWQ==
+X-Gm-Message-State: AOJu0YyYOdpk0BsfsL1evX32evWo4ca0RJ4zZgFL3NvmUzKE5celmSLr
+	mn/RP1owjueDNOfWCVNdflzJTUNyMNKcqYLWYV8=
+X-Google-Smtp-Source: AGHT+IHXeRMerO0akX9519U+wBVy3YIZ5ebWXrHI8l38/RXZW5uHW2ioqCrkYCu3iT1D0Q3dQOG7dAokY73QHCCvNnU=
+X-Received: by 2002:a05:6402:26d4:b0:548:7a3a:ef39 with SMTP id
+ x20-20020a05640226d400b005487a3aef39mr5538906edd.35.1700495382820; Mon, 20
+ Nov 2023 07:49:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CY5PR12MB6227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 853348fe-508f-4760-30da-08dbe9db3acb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gyrMlXcS4PLMsz1HhaEEtEqIuHZt8J17YLthEk03+sd5m8FxhrXLxtp/9PHO2fAuFcQRAgCx088XmxX1J0+e76wIARayV+4gO/AyPHP6+j6BpfSJZE1TNUtG2n1DoEhV4nUWm54tBrRDMbpp2zFc+G+KCfZjtYw91afcaMAf4E91pJsX7Hx2oUjNXlEndojjzn8XFjWVu8N9S9YhG0KS9oJypWQ8DntRlIZEkfzNiew0j2NEiEnu87maqK7TtTaL+IqSRVckbL9UJX79gtj6q10r72q9a2Wsp2QpkpiPIlgIMNSDq8hr8slfnJ42zVPSsurnqU8+pQA2y8pH1PpUEigWAzYYlZRdvzTSCo8VOczW3JG+XT999rfPu70caL57qGgQE/DJQq3DKtbV7DfZWYwJr4AeegZ74wqbISvR1k7Jp9k4vAVBpBIxreTvUSzq8kY1eZzAfop9xH8KfxB6sHzuVNNqZFmqw+R53UnYrg2z/x1bhpYiWsg4dTkJdwXgkInp+zT8+WTynzWlMjYaTvm59JGdqw5nMoBnmpH46eldhPInkvPxe4orzIy5f1bWIQ418o1yF4CVuq/eo6j/r/eRdA4FHnr71gHMZNvFFpNeTeH/8S8i43YfrXc3W+WHGEXKdtLpfheRaxiTctY84YuFwgUYeWid70iJI7GMC7wuOG9c/0yTnWk1AnfJkDzFU5+h4/SfV1wXDDyr4PAq1y8usYPxqwfOy5HBdM2pxeHrHytCCf+OSKITx2dyRqXX
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(396003)(376002)(346002)(230922051799003)(82310400011)(186009)(451199024)(64100799003)(1800799012)(46966006)(36840700001)(40470700004)(26005)(40460700003)(70586007)(1076003)(83380400001)(54906003)(316002)(6916009)(70206006)(336012)(426003)(86362001)(5660300002)(2906002)(36860700001)(47076005)(478600001)(36756003)(44832011)(82740400003)(356005)(81166007)(41300700001)(2616005)(40480700001)(8676002)(4326008)(8936002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 15:13:19.5467
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 853348fe-508f-4760-30da-08dbe9db3acb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6227
+References: <20231110160804.29021-1-jgross@suse.com> <20231110160804.29021-4-jgross@suse.com>
+In-Reply-To: <20231110160804.29021-4-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 20 Nov 2023 10:49:30 -0500
+Message-ID: <CAKf6xpvb33Om8pQp-iv92r3LFU50Rn1yBiMbJ4R1eufVyx=Tag@mail.gmail.com>
+Subject: Re: [PATCH v2 03/29] tools/xenlogd: connect to frontend
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Take an example from commit 8bf401c99035 ("uboot-script-gen: use size from
-arm64 Image header") and add support for calculating the effective image
-size from arm32 zImage header.
+On Fri, Nov 10, 2023 at 1:04=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
+te:
+>
+> Add the code for connecting to frontends to xenlogd.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Introduce get_image_size() function and use it to to probe the supported
-header magic values and to retrieve the effective image size. Use this
-value in add_size(), whenever it's bigger than the one obtained using
-'stat -L'.
+> diff --git a/tools/xen-9pfsd/xen-9pfsd.c b/tools/xen-9pfsd/xen-9pfsd.c
+> index c365b35fe5..cc5734402d 100644
+> --- a/tools/xen-9pfsd/xen-9pfsd.c
+> +++ b/tools/xen-9pfsd/xen-9pfsd.c
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-This patch together with 'bootz' support will allow us to enable testing Xen
-on arm{32,64} in gitlab CI with UBSAN enabled.
----
- scripts/uboot-script-gen | 38 ++++++++++++++++++++++++++++----------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+>
+> +static int check_host_path(device *device)
+> +{
+> +    struct stat statbuf;
+> +    char *path, *p;
+> +    int ret =3D 1;
+> +
+> +    if ( !device->host_path )
+> +        return 1;
+> +
+> +    if ( device->host_path[0] !=3D '/' )
+> +        return 1;
+> +
 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 9e3d86e4743a..078a667c61ab 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -431,23 +431,41 @@ function device_tree_editing()
-     fi
- }
- 
--function add_size()
-+# Read effective image size from a header, which may be larger than the filesize
-+# due to noload sections, e.g. bss.
-+function get_image_size()
- {
--    local filename=$1
--    local size=`stat -L --printf="%s" $filename`
-+    local image=$1
-+    local effective_size=0
-     # Read arm64 header magic (https://www.kernel.org/doc/Documentation/arm64/booting.txt)
--    local arm64_header_magic=$(od -j 56 -N 4 -t x4 ${filename} | awk 'NR==1 {print $2}')
-+    local arm64_header_magic=$(od -j 56 -N 4 -t x4 ${image} | awk 'NR==1 {print $2}')
-+    # Read arm32 header magic (http://www.simtec.co.uk/products/SWLINUX/files/booting_article.html)
-+    local arm32_header_magic=$(od -j 36 -N 4 -t x4 ${image} | awk 'NR==1 {print $2}')
- 
-     # Check for valid arm64 header magic value 0x644d5241
-     if [ "${arm64_header_magic}" = "644d5241" ]
-     then
--        # Read effective size, which may be larger than the filesize due to noload sections, e.g. bss
--        local arm64_header_size=$(od -j 16 -N 8 -t u8 ${filename} | awk 'NR==1 {print $2}')
-+        effective_size=$(od -j 16 -N 8 -t u8 ${image} | awk 'NR==1 {print $2}')
-+    # Check for valid arm32 header magic value 0x016f2818
-+    elif [ "${arm32_header_magic}" = "016f2818" ]
-+    then
-+        local start=$(od -j 40 -N 4 -t u4 ${image} | awk 'NR==1 {print $2}')
-+        local end=$(od -j 44 -N 4 -t u4 ${image} | awk 'NR==1 {print $2}')
-+        effective_size=$(( end - start ))
-+    fi
- 
--        if [ "${arm64_header_size}" -gt "${size}" ]
--        then
--            size=${arm64_header_size}
--        fi
-+    printf "%u" $effective_size
-+}
-+
-+function add_size()
-+{
-+    local filename=$1
-+    local size=`stat -L --printf="%s" $filename`
-+    local image_size=`get_image_size $filename`
-+
-+    if [ "${image_size}" -gt "${size}" ]
-+    then
-+        size=${image_size}
-     fi
- 
-     memaddr=$(( $memaddr + $size + $offset - 1))
--- 
-2.25.1
+From v1, you stated for alloc_fid_mem(device, fid, path):
+> No, "path" is always starting with a "/" if it is not empty.
 
+And then
+snprintf(fidp->path, pathlen, "%s%s", device->host_path, path);
+
+While alloc_fid_mem() uses "%s%s"
+
+And p9_create() uses "%s/%s"
+
+p9_walk does:
+const char *rel_path =3D path + strlen(device->host_path)
+...
+alloc_fid_mem(device, fid, rel_path);
+
+So host_path is expected not to have a tailing '/' to ensure that
+rel_path starts with a '/'.  So you want to error out for a trailing
+'/' (or overwrite with '\0')?
+
+It seems like alloc_fid_mem() should also check to ensure path is "'/'
+if it is not empty".
+
+This is all subtle and security relevant, so it's important to get
+this right.  A code comment explaining the expectation of paths for
+host_path vs. fids would be good.
+
+Also, maybe using openat() would be a better approach?  Create the
+dirfd pointing at the 9pfs export and then use relative paths for the
+paths inside.  This would cut down on the manual path manipulations.
+
+> +    path =3D strdup(device->host_path);
+> +    if ( !path )
+> +    {
+> +        syslog(LOG_CRIT, "memory allocation failure!");
+> +        return 1;
+> +    }
+> +
+> +    for ( p =3D path; p; )
+> +    {
+> +        p =3D strchr(p + 1, '/');
+> +        if ( p )
+> +            *p =3D 0;
+> +        if ( !stat(path, &statbuf) )
+> +        {
+> +            if ( !(statbuf.st_mode & S_IFDIR) )
+> +                break;
+> +            if ( !p )
+> +            {
+> +                ret =3D 0;
+> +                break;
+> +            }
+> +            *p =3D '/';
+> +            continue;
+> +        }
+> +        if ( mkdir(path, 0777) )
+> +            break;
+> +        if ( p )
+> +            *p =3D '/';
+> +    }
+> +
+> +    free(path);
+> +    return ret;
+> +}
+> +
+
+> +
+> +static int write_backend_node(device *device, const char *node, const ch=
+ar *val)
+> +{
+> +    struct path p;
+> +    struct xs_permissions perms[2] =3D {
+> +        { .id =3D 0, .perms =3D XS_PERM_NONE },
+
+This hard codes dom0.  If xs_permissions supported DOMID_SELF, it
+wouldn't need to be looked up.
+
+> +        { .id =3D device->domid, .perms =3D XS_PERM_READ }
+> +    };
+> +
+> +    construct_backend_path(device, node, &p);
+> +    if ( !xs_write(xs, XBT_NULL, p.path, val, strlen(val)) )
+> +    {
+> +        syslog(LOG_ERR, "error writing bac=E1=B8=B1end node \"%s\" for d=
+evice %u/%u",
+> +               node, device->domid, device->devid);
+> +        return 1;
+> +    }
+> +
+> +    if ( !xs_set_permissions(xs, XBT_NULL, p.path, perms, 2) )
+> +    {
+> +        syslog(LOG_ERR, "error setting permissions for \"%s\"", p.path);
+> +        return 1;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+
+> +
+> +static void connect_device(device *device)
+> +{
+> +    unsigned int val;
+> +    unsigned int ring_idx;
+> +    char node[20];
+> +    struct ring *ring;
+> +    xenevtchn_port_or_error_t evtchn;
+> +
+> +    val =3D read_frontend_node_uint(device, "version", 0);
+> +    if ( val !=3D 1 )
+> +        return connect_err(device, "frontend specifies illegal version")=
+;
+> +    device->num_rings =3D read_frontend_node_uint(device, "num-rings", 0=
+);
+> +    if ( device->num_rings < 1 || device->num_rings > MAX_RINGS )
+> +        return connect_err(device, "frontend specifies illegal ring numb=
+er");
+> +
+> +    for ( ring_idx =3D 0; ring_idx < device->num_rings; ring_idx++ )
+> +    {
+> +        ring =3D calloc(1, sizeof(*ring));
+> +        if ( !ring )
+> +            return connect_err(device, "could not allocate ring memory")=
+;
+> +        device->ring[ring_idx] =3D ring;
+> +        ring->device =3D device;
+> +        pthread_cond_init(&ring->cond, NULL);
+> +        pthread_mutex_init(&ring->mutex, NULL);
+> +
+> +
+
+extra blank line.
+
+Regards,
+Jason
 
