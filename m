@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9997F352C
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 18:47:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638101.994403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 641227F358D
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 19:04:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638107.994413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Upj-0003fA-Rb; Tue, 21 Nov 2023 17:46:47 +0000
+	id 1r5V5r-0003bI-4X; Tue, 21 Nov 2023 18:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638101.994403; Tue, 21 Nov 2023 17:46:47 +0000
+Received: by outflank-mailman (output) from mailman id 638107.994413; Tue, 21 Nov 2023 18:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Upj-0003cj-Ov; Tue, 21 Nov 2023 17:46:47 +0000
-Received: by outflank-mailman (input) for mailman id 638101;
- Tue, 21 Nov 2023 17:46:47 +0000
+	id 1r5V5r-0003Z0-1w; Tue, 21 Nov 2023 18:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 638107;
+ Tue, 21 Nov 2023 18:03:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MZRi=HC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r5Upj-0003bR-4g
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 17:46:47 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r5V5q-0003Yu-3J
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 18:03:26 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efdba605-8895-11ee-9b0e-b553b5be7939;
- Tue, 21 Nov 2023 18:46:45 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-332ce3fa438so545000f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 09:46:45 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- dh18-20020a0560000a9200b00332cb1bcd01sm5241564wrb.86.2023.11.21.09.46.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 09:46:44 -0800 (PST)
+ id 4312480d-8898-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 19:03:23 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4083cd3917eso28004065e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 10:03:23 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
+ by smtp.gmail.com with ESMTPSA id
+ 21-20020a05600c229500b004090798d29csm17453669wmf.15.2023.11.21.10.03.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Nov 2023 10:03:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efdba605-8895-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 4312480d-8898-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700588804; x=1701193604; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5v0GsRSLbXtnzUX+/gz5SxkzE/xYlrq7LkIqrPSj1Oc=;
-        b=SVwLugPDQK7Rb1d0+VDYj4J1+s0U2jelaFqiJxg92mlGgvsphKavKHwFibWQwFHwcN
-         MnCxils1LhyRFptS64eIogl12ma8P7IxacWsK7Yu5gv00uJQcN1BqyNQ+fW4GITTnL0l
-         35yHdQ5pHgBrWd/2dqvnV7zKLsSjrVd1Qb0eE=
+        d=citrix.com; s=google; t=1700589803; x=1701194603; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2sx3CjrIEKnkCxO2YcDSuz1G0N5LW//qnZTmQUxz3Gg=;
+        b=FqwKkcpEIODC73Kd3LjJ2GPpAsTaVwO2w2moOW9NxjyKDhq/Q04eonnKFrD9p0nZd7
+         90f3j8VWy57xhk1LAzhxsjqVpJiCVK2UG/VHZWc5xeCAixkP3dqdDYyuAFZk7PNuvznd
+         I5duAOWP9nX9d5gKA1NY5b2VEHKKqBz62rFrA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700588804; x=1701193604;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1700589803; x=1701194603;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5v0GsRSLbXtnzUX+/gz5SxkzE/xYlrq7LkIqrPSj1Oc=;
-        b=TYmkJaFxemFCDpMDBHubrt0El/sSt1PdVTN0OCn5ixDTWHnM11UQ5F6TW3IafQllAc
-         5j6roNLJ6brlPa9jHU+574RRTqzxpf/bi0SDIq7S0IvTB07w09y7+Jag88RLd4WZJyfw
-         aLi7ItCyoWyXo+uewJm81mLmsswS08ZK7YTxrsaEtpPitBVJZ7QLc/CvOJOZuva98v5Z
-         O0HyyJz3+y1pT84s5iH8kp4NO9I2pQIjtVGSFrl8bi+OASKH6sv7AFLmrazNWlQkNwIB
-         e63qwO6InEyE8grwLBuYdfz2fmlmrtQMoNtzdlSt9YeTDgt3XWSi2OUM/nWdjsbFxNQy
-         FQZw==
-X-Gm-Message-State: AOJu0YwQXnv2wHTV2HgPTzlQkLCi9jwyc/ZkWsetvrdR5XFSv35D9wVB
-	T0kOjN1r65y45o/LC1Q6cq21fg==
-X-Google-Smtp-Source: AGHT+IHVVGSnwv3z+r+ZQ5313nZLltOwG7Ll1HYB/rBx+fiK/M9tZD5VFBG/KBmhIDNyeK9w11N/gQ==
-X-Received: by 2002:a5d:5f4d:0:b0:32f:7ff9:b731 with SMTP id cm13-20020a5d5f4d000000b0032f7ff9b731mr7541wrb.1.1700588804602;
-        Tue, 21 Nov 2023 09:46:44 -0800 (PST)
-Date: Tue, 21 Nov 2023 18:46:43 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jun Nakajima <jun.nakajima@intel.com>
-Subject: Re: [PATCH 1/5] VMX: drop vmx_virt_exception and make vmx_vmfunc
- static
-Message-ID: <ZVztAzdwDTnJuJE4@macbook.local>
-References: <791a9f45-2bed-48f9-af6a-9fbde65bcc71@suse.com>
- <fd9d6043-4877-4156-97d9-4bdf7cc8fe04@suse.com>
- <ZVzROZu9Afs-mEah@macbook.local>
- <a058b837-82da-4b93-be5c-b616511d24f9@suse.com>
+        bh=2sx3CjrIEKnkCxO2YcDSuz1G0N5LW//qnZTmQUxz3Gg=;
+        b=iC8IFnkEASbPmpdEnA0OODPl0aAHz5QjnGBpLd4CrxPRb+n4bC9mmO9NmJ/OhAJpN6
+         nxz/mLFWI6L91DM0P+Ct7zQtUUCLvShguMGgDtzQGDxvba5Zqxa+upuBhQyJ6EDHGcDP
+         ftOftxX39Ke983/RTL7iVibQJluY7M9tMo2LTvMnHYr2mMAViNh6GH9gjPuGustxoQWv
+         hRVIgimHyAizoZPnKXI6iM6XJWAjjHrBchY/YkNhu83W4PS3W7ltKV6QPuXloCfKsmMG
+         azoQJp1/78FaP5r56OoxiIRQDdN0EgNdB9YVUe1Ylbgf50FLTf2/H5jX/5/Nu/9+3j6j
+         19vw==
+X-Gm-Message-State: AOJu0YxIwQJxMQdT8n5ikKO4s7FIogBxLHQkON+OVJPMMEAimX46Z5rY
+	P5yYQlnkMYi2GHdNrxMXFZKkWA==
+X-Google-Smtp-Source: AGHT+IEljxGl+qcUNF5zOXsLFdOHWlYh2fnvUt+S8o1WD71A0CVIc8l1jJhuyIgR974tYndoHvq3nQ==
+X-Received: by 2002:a05:600c:5487:b0:409:5580:bc9f with SMTP id iv7-20020a05600c548700b004095580bc9fmr76848wmb.34.1700589803241;
+        Tue, 21 Nov 2023 10:03:23 -0800 (PST)
+Message-ID: <c9ce3570-c4ea-4f0d-b8ec-9a74d2c0e569@citrix.com>
+Date: Tue, 21 Nov 2023 18:03:22 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a058b837-82da-4b93-be5c-b616511d24f9@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] xen/efi: Make efi-boot.h compile with -Wwrite-strings
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
+ <20231120224912.1421916-4-andrew.cooper3@citrix.com>
+ <a17c5268-fcb8-49bc-af68-a6df2227d48b@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a17c5268-fcb8-49bc-af68-a6df2227d48b@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 21, 2023 at 06:22:37PM +0100, Jan Beulich wrote:
-> On 21.11.2023 16:48, Roger Pau Monné wrote:
-> > On Thu, Nov 16, 2023 at 02:30:41PM +0100, Jan Beulich wrote:
-> >> The variable was introduced by 69b830e5ffb4 ("VMX: VMFUNC and #VE
-> >> definitions and detection") without any use and - violating Misra C:2012
-> >> rule 8.4 - without a declaration. Since no use has appeared, drop it.
-> >>
-> >> For vmx_vmfunc the situation is similar, but not identical: It at least
-> >> has one use. Convert it to be static (and make style adjustments while
-> >> there).
-> > 
-> > I think you could also remove the sole user of vmx_vmfunc, as it's
-> > just a cap_check() usage (unless there are more hidden usages).
-> 
-> Well, perhaps (and hence my post-commit-message remark in the original
-> submission). Yet then I thought we permitted vmfunc use for altp2m, at
-> which point the cap_check() is meaningful.
+On 21/11/2023 8:40 am, Jan Beulich wrote:
+> On 20.11.2023 23:49, Andrew Cooper wrote:
+>> GCC complains:
+>>
+>>   In file included from arch/arm/efi/boot.c:700:
+>>   arch/arm/efi/efi-boot.h: In function 'efi_arch_handle_cmdline':
+>>   arch/arm/efi/efi-boot.h:482:16: error: assignment discards 'const' qualifier from pointer target type [-Werror=discarded-qualifiers]
+>>     482 |         name.s = "xen";
+>>         |                ^
+>>
+>> There's no easy option.  .rodata is really read-only, so the fact Xen doesn't
+>> crash means these strings aren't written to.
+> And the consuming sites confirm this being the case. Hence ...
+>
+>> Lie to the compiler using a union.
+> ... to at least slightly limit the lying, how about ...
+>
+>> --- a/xen/arch/arm/efi/efi-boot.h
+>> +++ b/xen/arch/arm/efi/efi-boot.h
+>> @@ -479,7 +479,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
+>>          w2s(&name);
+>>      }
+>>      else
+>> -        name.s = "xen";
+>> +        name.cs = "xen"; /* TODO, find a better way of doing this. */
+>>  
+>>      prop_len = 0;
+>>      prop_len += snprintf(buf + prop_len,
+> ... you also switch to using name.cs down below here and ...
+>
+>> --- a/xen/arch/x86/efi/efi-boot.h
+>> +++ b/xen/arch/x86/efi/efi-boot.h
+>> @@ -324,7 +324,8 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
+>>          w2s(&name);
+>>      }
+>>      else
+>> -        name.s = "xen";
+>> +        name.cs = "xen"; /* TODO, find a better way of doing this. */
+>> +
+>>      place_string(&mbi.cmdline, name.s);
+> ... here?
+>
+> An alternative would be to introduce 'char xen[4] = "xen";' in both
+> cases, and use them instead of plain string literals.
 
-Right, I see now that we do only enable VMFUNC if EPTP switching is
-supported, and hence we need to assert it's present on any other
-CPUs, so yes, we must keep vmx_vmfunc.
+They'd have to be static, or dynamically allocated or they'll end up out
+of scope, wont they?
 
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Thanks.
-> 
-> >> ---
-> >> In how far the sole vmx_vmfunc use is actually meaningful (on its own)
-> >> I'm not really sure.
-> 
-> (Here ^^^)
-> 
-> >> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> >> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> >> @@ -167,8 +167,7 @@ u32 vmx_secondary_exec_control __read_mo
-> >>  u32 vmx_vmexit_control __read_mostly;
-> >>  u32 vmx_vmentry_control __read_mostly;
-> >>  u64 vmx_ept_vpid_cap __read_mostly;
-> >> -u64 vmx_vmfunc __read_mostly;
-> >> -bool_t vmx_virt_exception __read_mostly;
-> >> +static uint64_t __read_mostly vmx_vmfunc;
-> > 
-> > I'm quite sure this should be __ro_after_init, but I guess we cannot
-> > be sure give the current code in vmx_init_vmcs_config().
-> 
-> I think we can be sure. But if we were to switch, I think all the
-> related variables should also be switched at the same time.
+I have to admit I find this logic very hard to follow.
 
-OK, IIRC in the past we have switched those kind of attributes as we
-changed the code for other reasons I think, but I won't insist.
-Coherency of attributes might be more valuable here.
+Furthermore, I note:
 
-> 
-> > Any CPU hot plugged that has a different set of VMX controls should
-> > not be onlined, the more that migrating an already running VMCS to
-> > such CPU will lead to failures if non-supported features are used.
-> 
-> That's the intention of that code, yes.
+mbi.boot_loader_name = (long)"EFI";
 
-Hm, yes, since we do require PIN_BASED_EXT_INTR_MASK and
-PIN_BASED_NMI_EXITING on pin_based_exec_control the setting of the
-vmx_ fields is only done on the BSP, or else VMX is not enabled.  It
-would be IMO clearer to do the initial setting of the vmx_ fields
-based on the function `bsp` parameter.  Anyway, not for this patch.
+which is exactly the kind of pointer which is liable to end up being
+edited via kextra in the other patch.
 
-Thanks, Roger.
+~Andrew
 
