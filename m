@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06B3B7F3163
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 15:46:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637879.993933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D5D7F316B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 15:46:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637880.993943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5S0j-0002MM-GI; Tue, 21 Nov 2023 14:45:57 +0000
+	id 1r5S0t-0002j3-R3; Tue, 21 Nov 2023 14:46:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637879.993933; Tue, 21 Nov 2023 14:45:57 +0000
+Received: by outflank-mailman (output) from mailman id 637880.993943; Tue, 21 Nov 2023 14:46:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5S0j-0002Jk-DY; Tue, 21 Nov 2023 14:45:57 +0000
-Received: by outflank-mailman (input) for mailman id 637879;
- Tue, 21 Nov 2023 14:45:55 +0000
+	id 1r5S0t-0002h9-OC; Tue, 21 Nov 2023 14:46:07 +0000
+Received: by outflank-mailman (input) for mailman id 637880;
+ Tue, 21 Nov 2023 14:46:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MZRi=HC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r5S0h-0002IR-OK
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 14:45:55 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=f+q9=HC=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1r5S0s-0002IR-Cm
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 14:46:06 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id abeaf724-887c-11ee-9b0e-b553b5be7939;
- Tue, 21 Nov 2023 15:45:53 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4084de32db5so29829825e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 06:45:53 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- t8-20020a05600c198800b0040531f5c51asm17594664wmq.5.2023.11.21.06.45.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 06:45:52 -0800 (PST)
+ id b28be2a8-887c-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 15:46:04 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 9E8CB4EE073A;
+ Tue, 21 Nov 2023 15:46:04 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +39,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abeaf724-887c-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700577953; x=1701182753; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=B10FEUkPquyYJVao+8x8hkDKra7t28rf6e/rn+u3em4=;
-        b=JS/X0Id4dPCgP2pqsTq5NjLHGEQw4GORbXa0FcPC69TAp9X7hGEtAnqVu4FLkEtYn5
-         UohQE1EPk6PVu3liHLaW3KN++Ch/Kn4Vpz04YXZUURW+kI2aA1t12fHBrGpovG2/VZ+R
-         LvQK2QiJHXWDiNoFx9HvZbihBH3N1oijHXjV0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700577953; x=1701182753;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B10FEUkPquyYJVao+8x8hkDKra7t28rf6e/rn+u3em4=;
-        b=IyAGeFXEWDr2pmGQU/3Qdmeh/yQtrbXxnLXT9XPtoge1cHOR/xxNxxjto9qB6jkmZs
-         HH72/1HscCtb0B9u0D9s6FWWfH3Q1RMD7dGoa+ELdUlAKS3708ykwP5xHjb8QxqBTg3I
-         1/wX0LZb/RnAz0WqNGD68Np4Jy1NLbDnTfrqFjj03JVnKF+Ut7S9ajX1BT9JmqAhmcU6
-         6UMwd09431JGrcTIT5pE0l3PfseXhuKYY5YPItwss+PQtoFg6GH+QwYZcHH3tOwItcJ+
-         xgJnkl7nfSl6/+o9w9LI+mi67oS1BGlMoyZAnvqwfcMbexx09OSe3S1i0sCkHTlZDjEJ
-         iHBg==
-X-Gm-Message-State: AOJu0YzW+prkjzkMXyy/V76d9Ndtgd5+VZRAxi3X4uSYWU02DIBYFe0g
-	ie3qTDdtz4ruRHrfP9MSYgXRnQ==
-X-Google-Smtp-Source: AGHT+IHeGTYD9wX9V3tDIBHZhKzPw27YNUiyY8fM7rY+/Sml4aJ6dmJkIismof+fMFvWgPKcydhx2w==
-X-Received: by 2002:a05:600c:19d4:b0:40b:2a85:d7ae with SMTP id u20-20020a05600c19d400b0040b2a85d7aemr1195261wmq.16.1700577953241;
-        Tue, 21 Nov 2023 06:45:53 -0800 (PST)
-Date: Tue, 21 Nov 2023 15:45:51 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v7 1/2] xen/vpci: header: status register handler
-Message-ID: <ZVzCn60-qvdRsi3q@macbook.local>
-References: <20230913143550.14565-1-stewart.hildebrand@amd.com>
- <20230913143550.14565-2-stewart.hildebrand@amd.com>
+X-Inumbo-ID: b28be2a8-887c-11ee-9b0e-b553b5be7939
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230913143550.14565-2-stewart.hildebrand@amd.com>
+Date: Tue, 21 Nov 2023 15:46:04 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, Wei Liu <wl@xen.org>, Paul
+ Durrant <paul@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien
+ Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC PATCH] x86/vlapic: address a violation of MISRA C:2012 Rule
+ 16.2
+In-Reply-To: <99114c15a4256e6a0f39bd6de232ee4b8ad9b587.1698239734.git.nicola.vetrini@bugseng.com>
+References: <99114c15a4256e6a0f39bd6de232ee4b8ad9b587.1698239734.git.nicola.vetrini@bugseng.com>
+Message-ID: <0d67fdc30190bc8f3dfbf13b2d7e818b@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 13, 2023 at 10:35:46AM -0400, Stewart Hildebrand wrote:
-> @@ -407,26 +439,25 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->  
->  /*
->   * Perform a maybe partial write to a register.
-> - *
-> - * Note that this will only work for simple registers, if Xen needs to
-> - * trap accesses to rw1c registers (like the status PCI header register)
-> - * the logic in vpci_write will have to be expanded in order to correctly
-> - * deal with them.
->   */
->  static void vpci_write_helper(const struct pci_dev *pdev,
->                                const struct vpci_register *r, unsigned int size,
->                                unsigned int offset, uint32_t data)
->  {
-> +    uint32_t val = 0;
-> +
->      ASSERT(size <= r->size);
->  
-> -    if ( size != r->size )
-> +    if ( (size != r->size) || r->ro_mask )
->      {
-> -        uint32_t val;
-> -
->          val = r->read(pdev, r->offset, r->private);
-> +        val &= ~r->rw1c_mask;
->          data = merge_result(val, data, size, offset);
->      }
->  
-> +    data &= ~(r->rsvdz_mask | r->ro_mask);
-> +    data |= val & r->ro_mask;
+On 2023-10-25 15:22, Nicola Vetrini wrote:
+> The clauses of a switch should be enclosed directly by a switch
+> statement to make the code more easily understandable and less
+> prone to errors.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> This patch is mainly indended to probe how the community, especially 
+> the
+> maintainers, would receive such modifications to the code, and whether 
+> there
+> would be consensus on the rule's adoption. Anyone is welcome to
+> give feedback on this, especially on the x86 side, where this pattern
+> is used more frequently.
+> ---
+>  xen/arch/x86/hvm/vlapic.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
 
-I've been thinking about this, and the way the ro_mask is implemented
-(and the way we want to handle ro bits) is the same behavior as RsvdP.
-I would suggest to rename the ro_mask to rsvdp_mask and note
-that for resilience reasons we will handle RO bits as RsvdP.
+Cc: all the relevant maintainers (mostly x86)
 
-Thanks, Roger.
+An update on the status of this rule's adoption. It has been deemed not 
+beneficial to go after violations in xen/arch/x86/x86_emulate/.* , 
+therefore the only patches to be expected for this rule will be about 
+the few remaining violations in both arm, x86 and common code.
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
