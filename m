@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA947F2D11
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 13:25:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637799.993844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AACE7F2D13
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 13:26:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637805.993853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Po1-0002Cu-Ji; Tue, 21 Nov 2023 12:24:41 +0000
+	id 1r5PpM-0002vk-Tx; Tue, 21 Nov 2023 12:26:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637799.993844; Tue, 21 Nov 2023 12:24:41 +0000
+Received: by outflank-mailman (output) from mailman id 637805.993853; Tue, 21 Nov 2023 12:26:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Po1-0002Ad-Fd; Tue, 21 Nov 2023 12:24:41 +0000
-Received: by outflank-mailman (input) for mailman id 637799;
- Tue, 21 Nov 2023 12:24:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5PpM-0002tQ-QB; Tue, 21 Nov 2023 12:26:04 +0000
+Received: by outflank-mailman (input) for mailman id 637805;
+ Tue, 21 Nov 2023 12:26:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MZRi=HC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r5Po0-0002AX-AW
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 12:24:40 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f085e3b4-8868-11ee-98e1-6d05b1d4d9a1;
- Tue, 21 Nov 2023 13:24:39 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40842752c6eso25061955e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 04:24:39 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- k21-20020a7bc415000000b004042dbb8925sm20988119wmi.38.2023.11.21.04.24.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Nov 2023 04:24:37 -0800 (PST)
+ <SRS0=3FOU=HC=casper.srs.infradead.org=BATV+dd65dc28b6171b1f8060+7394+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r5PpL-0002tK-BP
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 12:26:03 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1fa2847b-8869-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 13:26:00 +0100 (CET)
+Received: from [2001:8b0:10b:5:9608:1c8b:df8c:28f9]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r5PpE-005ZwI-AI; Tue, 21 Nov 2023 12:25:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,242 +41,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f085e3b4-8868-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700569478; x=1701174278; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=RQeT6KKUkQy9CM8Hn9Dp8XvubCgVcIJ6EBj14432r1s=;
-        b=EXBMcYGpTnGW2j/WFZgUJIWBb52+fywjnNTBAmJ0tf4BloSeiFVW/qP7Duw7X8hWTT
-         xyYGtcoDO+0zYHSz17duLYHG8+WlE+4i7KiYE2kG+yvcjsI3xexCY0S025QLa314wGvC
-         xJOHiC8mEr51vMf/SmLyatIjywd8Zhb8Kt9N8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700569478; x=1701174278;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RQeT6KKUkQy9CM8Hn9Dp8XvubCgVcIJ6EBj14432r1s=;
-        b=PGxJx+QhHlJkheXoVsM6LUEZwJueEtkYPSI62rBgaTgubwQ7ATwbON4uGqf57Kc6G6
-         xL+jnbL71BE8v3oRvHzdIUTiR0W9BZddZ8BgYKYXiUkCWumNaPUvAfH8pKjvpR6Hed+F
-         /vsaqs5G/vBBVxs6YknJjG9acr0uqBcYp2rTl1NtRV1YX7UuaMLrtQU34xpDdUtWhCIM
-         llDnwbkqdEkLabxG5CmdcuqSaUp6PzZcnIDElGS9dmSCZGIde6S2QFo2kMNp0Wal/GaQ
-         oTrWTUUv+/lbdUsOyqxRciOpX3pzMSjl/hVJpqD57LeYwYICE4ceBiCgmWksq4N4sdZh
-         ZDNg==
-X-Gm-Message-State: AOJu0Ywtkp730T6QCMLTd4+TIPh59xQBfJMMWbelHaY+d2L8XfsPOfyW
-	FU31MnDhDDB/zPxvu070VyRHZF4D7WEXssjbzWY=
-X-Google-Smtp-Source: AGHT+IH8v9ni+jzRsBZ4FEmzQoOBeJSAqPmC98tu7Hht1uR8MKuUijARUOJOMi/nvzNSd5hjrw0jPw==
-X-Received: by 2002:a05:600c:4ec8:b0:409:5580:bc9f with SMTP id g8-20020a05600c4ec800b004095580bc9fmr8118656wmq.34.1700569478387;
-        Tue, 21 Nov 2023 04:24:38 -0800 (PST)
-Date: Tue, 21 Nov 2023 13:24:37 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v10 11/17] vpci/header: program p2m with guest BAR view
-Message-ID: <ZVyhhcJagG-OCMNn@macbook.local>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com>
- <20231012220854.2736994-12-volodymyr_babchuk@epam.com>
+X-Inumbo-ID: 1fa2847b-8869-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=YbnoFbHOJP34t98n8U9xwnthCBmbFv/PCkdcF4geYfE=; b=VEaBr5MDsdTaZkklfcru5V5N02
+	mCvvR1hAk1cYeQllDatwRfHux8cZ5hw8LTB+PZkj71of+mPTI8bYWURLDP9H/DKkyeKV0VLz+zEiK
+	+EZtVOizhPjO9LkkDA6FZJOJ+iHPuGXCB0kUUqEK0G4/+Z7ZxZbkE56nCg9LkxDD+Lm1HPTwJHLvW
+	2M02SI2nvEnVPEoctI+QQrDVsMQ/e0185hnoap1BDproR2tSVUnVkIvnf8hlQlH+m0KrcFjcxmGS+
+	puJgFNkYYWluTZlNnn8CWf7N7YluR0ArbPIsPq35JxAR5ISv5i+wUc4Q25srXHftivbtA8/0h7rMl
+	BQfKbk0A==;
+Message-ID: <708be5bf6573aadb73f9ac1be4a3adae304586c3.camel@infradead.org>
+Subject: Re: [PATCH 06/12] hw/xen: add get_frontend_path() method to
+ XenDeviceClass
+From: David Woodhouse <dwmw2@infradead.org>
+To: paul@xen.org, qemu-devel@nongnu.org
+Cc: Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>,  =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
+ <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
+ Marcelo Tosatti <mtosatti@redhat.com>, qemu-block@nongnu.org,
+ xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Date: Tue, 21 Nov 2023 12:25:55 +0000
+In-Reply-To: <4d059cb96a92004fe25fdb140a6c0b12e91b4d7e.camel@infradead.org>
+References: <20231016151909.22133-1-dwmw2@infradead.org>
+	 <20231016151909.22133-7-dwmw2@infradead.org>
+	 <5ef43a7c-e535-496d-8a14-bccbadab3bc0@xen.org>
+	 <d43b900a6c7987c6832ceeede9b4c5ab65d5bacd.camel@infradead.org>
+	 <55bb6967-9499-45ef-b4c8-00fbfaccef0d@xen.org>
+	 <4d059cb96a92004fe25fdb140a6c0b12e91b4d7e.camel@infradead.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-3F9/wyoYYAMsi6WYTL8o"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231012220854.2736994-12-volodymyr_babchuk@epam.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Oct 12, 2023 at 10:09:17PM +0000, Volodymyr Babchuk wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Take into account guest's BAR view and program its p2m accordingly:
-> gfn is guest's view of the BAR and mfn is the physical BAR value.
-> This way hardware domain sees physical BAR values and guest sees
-> emulated ones.
-> 
-> Hardware domain continues getting the BARs identity mapped, while for
-> domUs the BARs are mapped at the requested guest address without
-> modifying the BAR address in the device PCI config space.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> ---
-> In v10:
-> - Moved GFN variable definition outside the loop in map_range()
-> - Updated printk error message in map_range()
-> - Now BAR address is always stored in bar->guest_addr, even for
->   HW dom, this removes bunch of ugly is_hwdom() checks in modify_bars()
-> - vmsix_table_base() now uses .guest_addr instead of .addr
-> In v9:
-> - Extended the commit message
-> - Use bar->guest_addr in modify_bars
-> - Extended printk error message in map_range
-> - Moved map_data initialization so .bar can be initialized during declaration
-> Since v5:
-> - remove debug print in map_range callback
-> - remove "identity" from the debug print
-> Since v4:
-> - moved start_{gfn|mfn} calculation into map_range
-> - pass vpci_bar in the map_data instead of start_{gfn|mfn}
-> - s/guest_addr/guest_reg
-> Since v3:
-> - updated comment (Roger)
-> - removed gfn_add(map->start_gfn, rc); which is wrong
-> - use v->domain instead of v->vpci.pdev->domain
-> - removed odd e.g. in comment
-> - s/d%d/%pd in altered code
-> - use gdprintk for map/unmap logs
-> Since v2:
-> - improve readability for data.start_gfn and restructure ?: construct
-> Since v1:
->  - s/MSI/MSI-X in comments
-> ---
->  xen/drivers/vpci/header.c | 53 ++++++++++++++++++++++++++++-----------
->  xen/include/xen/vpci.h    |  3 ++-
->  2 files changed, 41 insertions(+), 15 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 5c056923ad..efce0bc2ae 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -33,6 +33,7 @@
->  
->  struct map_data {
->      struct domain *d;
-> +    const struct vpci_bar *bar;
->      bool map;
->  };
->  
-> @@ -40,11 +41,21 @@ static int cf_check map_range(
->      unsigned long s, unsigned long e, void *data, unsigned long *c)
->  {
->      const struct map_data *map = data;
-> +    /* Start address of the BAR as seen by the guest. */
-> +    unsigned long start_gfn = PFN_DOWN(map->bar->guest_addr);
-> +    /* Physical start address of the BAR. */
-> +    mfn_t start_mfn = _mfn(PFN_DOWN(map->bar->addr));
->      int rc;
->  
->      for ( ; ; )
->      {
->          unsigned long size = e - s + 1;
-> +        /*
-> +         * Ranges to be mapped don't always start at the BAR start address, as
-> +         * there can be holes or partially consumed ranges. Account for the
-> +         * offset of the current address from the BAR start.
-> +         */
-> +        mfn_t map_mfn = mfn_add(start_mfn, s - start_gfn);
->  
->          if ( !iomem_access_permitted(map->d, s, e) )
 
-This check must be switched to use host physical addresses (mfns), not
-the guest ones, same for the xsm_iomem_mapping() check just below.
+--=-3F9/wyoYYAMsi6WYTL8o
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->          {
-> @@ -72,8 +83,8 @@ static int cf_check map_range(
->           * - {un}map_mmio_regions doesn't support preemption.
->           */
->  
-> -        rc = map->map ? map_mmio_regions(map->d, _gfn(s), size, _mfn(s))
-> -                      : unmap_mmio_regions(map->d, _gfn(s), size, _mfn(s));
-> +        rc = map->map ? map_mmio_regions(map->d, _gfn(s), size, map_mfn)
-> +                      : unmap_mmio_regions(map->d, _gfn(s), size, map_mfn);
->          if ( rc == 0 )
->          {
->              *c += size;
-> @@ -82,8 +93,9 @@ static int cf_check map_range(
->          if ( rc < 0 )
->          {
->              printk(XENLOG_G_WARNING
-> -                   "Failed to identity %smap [%lx, %lx] for d%d: %d\n",
-> -                   map->map ? "" : "un", s, e, map->d->domain_id, rc);
-> +                   "Failed to %smap [%lx %lx] -> [%lx %lx] for %pd: %d\n",
-> +                   map->map ? "" : "un", s, e, mfn_x(map_mfn),
-> +                   mfn_x(map_mfn) + size, map->d, rc);
->              break;
->          }
->          ASSERT(rc < size);
-> @@ -162,10 +174,6 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
->  bool vpci_process_pending(struct vcpu *v)
->  {
->      struct pci_dev *pdev = v->vpci.pdev;
-> -    struct map_data data = {
-> -        .d = v->domain,
-> -        .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> -    };
->      struct vpci_header *header = NULL;
->      unsigned int i;
->  
-> @@ -184,6 +192,11 @@ bool vpci_process_pending(struct vcpu *v)
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> +        struct map_data data = {
-> +            .d = v->domain,
-> +            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> +            .bar = bar,
-> +        };
->          int rc;
->  
->          if ( rangeset_is_empty(bar->mem) )
-> @@ -234,7 +247,6 @@ bool vpci_process_pending(struct vcpu *v)
->  static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
->                              uint16_t cmd)
->  {
-> -    struct map_data data = { .d = d, .map = true };
->      struct vpci_header *header = &pdev->vpci->header;
->      int rc = 0;
->      unsigned int i;
-> @@ -244,6 +256,7 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> +        struct map_data data = { .d = d, .map = true, .bar = bar };
->  
->          if ( rangeset_is_empty(bar->mem) )
->              continue;
-> @@ -311,12 +324,16 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->       * First fill the rangesets with the BAR of this device or with the ROM
->       * BAR only, depending on whether the guest is toggling the memory decode
->       * bit of the command register, or the enable bit of the ROM BAR register.
-> +     *
-> +     * For non-hardware domain we use guest physical addresses.
->       */
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
->          unsigned long start = PFN_DOWN(bar->addr);
->          unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
-> +        unsigned long start_guest = PFN_DOWN(bar->guest_addr);
-> +        unsigned long end_guest = PFN_DOWN(bar->guest_addr + bar->size - 1);
->  
->          if ( !bar->mem )
->              continue;
-> @@ -336,11 +353,11 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              continue;
->          }
->  
-> -        rc = rangeset_add_range(bar->mem, start, end);
-> +        rc = rangeset_add_range(bar->mem, start_guest, end_guest);
+On Tue, 2023-10-24 at 14:29 +0100, David Woodhouse wrote:
+>=20
+> > > As a general rule (I'll be doing a bombing run on xen-bus once I get =
+my
+> > > patch queue down into single digits) we should never check 'if (*errp=
+)'
+> > > to check if a function had an error. It should *also* return a succes=
+s
+> > > or failure indication, and we should cope with errp being NULL.
+> > >=20
+> >=20
+> > I'm pretty sure someone told me the exact opposite a few years back.
+>=20
+> Then they were wrong :)
 
-I think you will have to add a check here to ensure that guest and
-host address use the same page offset, as it's AFAICT not possible to
-do so from the BAR write handler like you have it in patch 10.
 
->          if ( rc )
->          {
->              printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
-> -                   start, end, rc);
-> +                   start_guest, end_guest, rc);
->              return rc;
->          }
->  
-> @@ -357,7 +374,7 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              {
->                  gprintk(XENLOG_WARNING,
->                         "%pp: failed to remove overlapping range [%lx, %lx]: %d\n",
-> -                        &pdev->sbdf, start, end, rc);
-> +                        &pdev->sbdf, start_guest, end_guest, rc);
+cf. https://gitlab.com/qemu-project/qemu/-/commit/e3fe3988d7
 
-Don't you need to also adjust the call to rangeset_remove_range()
-above this error message to use {start,end}_guest instead of
-{start,end}?
+"Whenever practical, also return a value that indicates success / failure"
 
-Thanks, Roger.
+--=-3F9/wyoYYAMsi6WYTL8o
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTIxMTIyNTU1WjAvBgkqhkiG9w0BCQQxIgQgT12EB9I0
+U/TDp0Kowg+uOgI5GoTLkW/fxOi6LzePicUwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAWr/HhmFhoqSkHS/1GjX0d3ShqkY/Bo3DN
+d/w3ryr2pbdGDQb1P18J2OvdwJcytcJJOZps1ru2G5Zy5T6pt3ORZtaDdPTIbKJCvet6MyYeAF47
+2+16xJXvK9zuN1xApV35Ah1UKkdCNaYEnXKJfkqk4sMG9/dA1b8Gkkz7IT9XPMoZfUD4YjpNe4r+
+bxjWkiVnTejXEnMrtAo2/3q4yB0RYF2SKzFmaLfrvWd1NeW8BCcmw3AOx4POLLmNdhLWSvkhWMcb
+AIRDUYe3sI33Qrwa4tVZmrFT0PlmBb4vKaD1f4xKJztCJk2pdvrdJXva5x0dyGlpZbFo4eC56olj
+mxgVYDK8tgf3hEg5qgZng0rXh5p3jQzYG/0MesZUygkD9t/cbjVVGjf1OU9q7ADVgOklrHHQkZko
+4bNH153MCUFZPLtdWQAb4xXzCSF4gcv7t0xKEIMMhEjPJAolevW6eb0ymWmCaUT4eQoqHIdKg4B7
+A61HzxdD4ksF4Oj903+WCHk1LvEmr2qu0OuRAgMrSL0vWvWVFLyYTFIkzjEeSfudE1eiwql8wKV3
+BNhpgokLVVaVVGq9Be2oEznRyFHPe9R0AgqvhS4bOQFqFdCUlYAO2ZMrk/3UhbdSXglZ4tkk0ieq
+LYvvM1VUFn5o8jrrvHE4olxDKs21v7F0273oWLWJpAAAAAAAAA==
+
+
+--=-3F9/wyoYYAMsi6WYTL8o--
 
