@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7547F37D7
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 22:08:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638242.994596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E88A7F37EB
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 22:15:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638256.994626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5XyB-0005PT-Fw; Tue, 21 Nov 2023 21:07:43 +0000
+	id 1r5Y56-0007r4-Fk; Tue, 21 Nov 2023 21:14:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638242.994596; Tue, 21 Nov 2023 21:07:43 +0000
+Received: by outflank-mailman (output) from mailman id 638256.994626; Tue, 21 Nov 2023 21:14:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5XyB-0005OV-Bc; Tue, 21 Nov 2023 21:07:43 +0000
-Received: by outflank-mailman (input) for mailman id 638242;
- Tue, 21 Nov 2023 21:07:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r5Y56-0007oB-Cr; Tue, 21 Nov 2023 21:14:52 +0000
+Received: by outflank-mailman (input) for mailman id 638256;
+ Tue, 21 Nov 2023 21:14:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5XyA-0005K2-5j
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 21:07:42 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00a93036-88b2-11ee-9b0e-b553b5be7939;
- Tue, 21 Nov 2023 22:07:39 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4083ac51d8aso29317475e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 13:07:39 -0800 (PST)
+ id 1r5Y54-0007o5-SX
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 21:14:50 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0124d737-88b3-11ee-98e1-6d05b1d4d9a1;
+ Tue, 21 Nov 2023 22:14:49 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4079ed65582so26841625e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 13:14:49 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- u26-20020a05600c211a00b0040775501256sm17713704wml.16.2023.11.21.13.07.37
+ 19-20020a05600c025300b004053e9276easm22240825wmj.32.2023.11.21.13.14.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 13:07:38 -0800 (PST)
+ Tue, 21 Nov 2023 13:14:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00a93036-88b2-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 0124d737-88b3-11ee-98e1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700600859; x=1701205659; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700601289; x=1701206089; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jgNO5LRmGdsG/v6mlyGGtMlD9QQ0M9jAkocWQA2QnGE=;
-        b=kZNHc/S6+umnLX29YK0tNoOyjzrxwREqFD7Gb6zbOhozt76I82GCmJNPwh7EGXkz6n
-         wneiUX3WyoH0rgow8BlhtGsX2H8w2CI3rAKle64rMh8esns3nVRqVMRW9VK+dszPFvac
-         xF3Uth+KpuY2bVAFtD6WaL4KeurCiCNy19ITA=
+        bh=LbhToocL/NPh7/WphDs4BwLUSo96QT9wEyvu8CnugKE=;
+        b=ktFBWgdRdjDqIMGVqrQKLDEbrHOMzDBAVOvQCt/q3MbaMThUVq1iHUXnhsQu5NHhCi
+         OpFF269gkM8iWVSXNRcnRtPB54SfVTt9enaTcnrYyE+Qo5P5zQrMwrAuXdpr1hGxdD52
+         MoL8m2Ost7OSEJ99DKSpLPx5V5skgNJOibHZw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700600859; x=1701205659;
+        d=1e100.net; s=20230601; t=1700601289; x=1701206089;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jgNO5LRmGdsG/v6mlyGGtMlD9QQ0M9jAkocWQA2QnGE=;
-        b=kC2g6GVKG2lIJ/WOuqyEQaWE2pi+8aZHntK6uVzha34klvc3BODR4WJRPipF1xdWXn
-         0pUs5AvxFPlH/n4IepT6EIrZV/xMo7kc9A2Mmwd6h/DZJt82/71qGMmRBWaKQ7nv/CB/
-         XdJRPslzHj6wy4k9ZfSmeyle8Es4WbddMWyHnGuREBCxMrNhHGaEjnAT7NRRIXvaWwHs
-         BGA1y2NwNNJymjRn8zyar7TyAZh8sDWyX9ACeWTP6KnDh7z6ytFybxTTKwLTmBOCfJjr
-         zCwIydxbZh50hPIOJGuLTbneNveGjvPTBQTxzQZbx+pUwLB2XwboNUfIjyIgtYEZJYKL
-         wBoQ==
-X-Gm-Message-State: AOJu0Yy/OqpAE4IKKPld69pZ53BWh6vk93BEQcG281hjNTJPfDbJLr+p
-	wPyqoA6SDQ2BBUqe8kMWbkpmcg==
-X-Google-Smtp-Source: AGHT+IE+g28waaWWIBR6YLYdBMDhVjYxDwUUTt8vYdI+2rpDD2DFRenjDKF7Gnxmz6qcEWcZ85IOFg==
-X-Received: by 2002:a05:600c:46d5:b0:408:4d0e:68b2 with SMTP id q21-20020a05600c46d500b004084d0e68b2mr372261wmo.36.1700600858661;
-        Tue, 21 Nov 2023 13:07:38 -0800 (PST)
-Message-ID: <e496ec5b-f498-4617-adc0-7291e76a1665@citrix.com>
-Date: Tue, 21 Nov 2023 21:07:37 +0000
+        bh=LbhToocL/NPh7/WphDs4BwLUSo96QT9wEyvu8CnugKE=;
+        b=s57NQb1qZNc8QcrF/GdofekQmGZCVgodcnFvtw+mL9zHx5aGVJ55InNTIziYmiCGl+
+         bJInq/uZyqyzb1Xlw74K5WP/D1HOgE2pIgQ41bqSh4fR4bPAnAGCAmszRZR8OK0iXzXU
+         LwUHzX7nZkikxAYcjx+vflkgvthpRr0XvZ/tF/Z6liBFB2h7IeB0i80cSh95r9OBObgT
+         3NHj213xSWjU+fX2A4l41vLZDrVNPx280adZe8cu19IMP9xfbYNpBY82oXltPso8hkgm
+         E+nRVowqoFf44t/f0HUxdldRXdtSaKYZk3y9r4LWUIx/fJEOHYIfHNkwehimd80NXhVK
+         Jlbg==
+X-Gm-Message-State: AOJu0YwSArVi1EA/acr3avVlaWyci2AX9LOpKW0Sz/Ezl+cgFNG08T6+
+	XyvQ359TVn7u6P5D6f6W6w1Svw==
+X-Google-Smtp-Source: AGHT+IE0sBYyWtxX8DuC6U9n6axwYcoO9bwmBo32kKM/yiv4FcQmBsYnLc37kJwEBBzT8MSOneB+1g==
+X-Received: by 2002:a1c:7c01:0:b0:405:1c19:b747 with SMTP id x1-20020a1c7c01000000b004051c19b747mr429173wmc.15.1700601289064;
+        Tue, 21 Nov 2023 13:14:49 -0800 (PST)
+Message-ID: <b45d743e-2ed4-49a5-92d9-1811d7be0188@citrix.com>
+Date: Tue, 21 Nov 2023 21:14:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/5] Mini-OS: preparations for 9pfs in xenstore-stubdom
+Subject: Re: [PATCH] stubdom: remove caml-stubdom
 Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-References: <20231121094953.22430-1-jgross@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20231101160837.32241-1-jgross@suse.com>
+ <7b6658b4-cd36-4d52-991b-f4b94b6fb172@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -126,30 +127,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231121094953.22430-1-jgross@suse.com>
+In-Reply-To: <7b6658b4-cd36-4d52-991b-f4b94b6fb172@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/11/2023 9:49 am, Juergen Gross wrote:
-> This small patch series is doing some preparations for being able to
-> use 9pfs in Xenstore-stubdom.
+On 20/11/2023 10:36 am, Juergen Gross wrote:
+> On 01.11.23 17:08, Juergen Gross wrote:
+>> In order to build caml-stubdom, it must be explicitly enabled via
+>> "configure --enable-caml-stubdom". The build process is failing due to
+>> stubdom/ocaml.patch failing to apply. Since the patched file has been
+>> modified in 2014 the last time, it seems nobody cares for caml-stubdom
+>> since at least then.
+>>
+>> Remove caml-stubdom from the build system.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >
-> Changes in V2:
-> - added patches 2 and 5
->
-> Changes in V3:
-> - rename function to get own domid (patch 2)
->
-> Juergen Gross (5):
->   Mini-OS: make xenstore_buf externally visible
->   Mini-OS: get own domid
->   Mini-OS: don't crash if no shutdown node is available
->   Mini-OS: fix 9pfs stat receive format
->   Mini-OS: fix 9pfs response receiving
+> Any comments?
 
-Committed.
+I'd say the tumbleweeds from the Ocaml folks says enough.
 
-I guess you want to patch xen.git to use minios master now?
+Any chance you can resend with the Changelog adjustment, and with the
+option stripped out of ./configure ?  Might as well clean up everything
+as we go.
 
 ~Andrew
 
