@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 193F47F38F6
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 23:09:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638292.994706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C13B7F38F7
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 23:10:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638297.994716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Yv7-0004hx-QE; Tue, 21 Nov 2023 22:08:37 +0000
+	id 1r5Ywa-00066J-5V; Tue, 21 Nov 2023 22:10:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638292.994706; Tue, 21 Nov 2023 22:08:37 +0000
+Received: by outflank-mailman (output) from mailman id 638297.994716; Tue, 21 Nov 2023 22:10:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Yv7-0004fZ-NX; Tue, 21 Nov 2023 22:08:37 +0000
-Received: by outflank-mailman (input) for mailman id 638292;
- Tue, 21 Nov 2023 22:08:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5Ywa-00064W-2i; Tue, 21 Nov 2023 22:10:08 +0000
+Received: by outflank-mailman (input) for mailman id 638297;
+ Tue, 21 Nov 2023 22:10:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5Yv6-0004fT-GX
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 22:08:36 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 838bccdf-88ba-11ee-98e1-6d05b1d4d9a1;
- Tue, 21 Nov 2023 23:08:34 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-32f7abbb8b4so4099619f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 14:08:34 -0800 (PST)
+ id 1r5YwY-0005zW-B4
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 22:10:06 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8c2e718-88ba-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 23:10:04 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40b2fa4ec5eso1699175e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 14:10:04 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- q1-20020a5d61c1000000b00332cb8fd5b7sm5215018wrv.67.2023.11.21.14.08.33
+ q1-20020a5d61c1000000b00332cb8fd5b7sm5215018wrv.67.2023.11.21.14.10.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 14:08:33 -0800 (PST)
+ Tue, 21 Nov 2023 14:10:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 838bccdf-88ba-11ee-98e1-6d05b1d4d9a1
+X-Inumbo-ID: b8c2e718-88ba-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700604514; x=1701209314; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700604603; x=1701209403; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wDL9htsDHeynmoWH0epGZfnNAXUKOakCP+zQcrx4kyA=;
-        b=tX0FFuZ1v1TRwp8tqntdEnoZqyfRqpFIEnROFzvjvjmiRiN2IMTvA+bK1fEs7Sqe+s
-         WyKMPe38uJ2/QMosUZAd53ZRN6vLLvMzFtv8TZZzalv/tJ0+s65F/7Vs/9XSu/C6kmHL
-         tIdK7HLKhzXDPrjgFs4xCVy2Yf8DKkX4cwgeo=
+        bh=CpQ3J+xA2uZXvAgA9C8OmO72RbYtAnJUl0wPZ4DPutk=;
+        b=oC4Es49skFEv0VPxEts5zDh1wMgw8jUOUdQwN+Ntl0oluITTeCfZR2T4T7eEyHsq92
+         77LdNvh8RsuXJDVDIVFKPGt9Mb4+nfb5CwiLFybvjHLnKLkOb7KWXarxs4WtI4YJa18J
+         YwBQbrz0Eg+Nz4fOS+0hGO09WfiX0b+zG0ylI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700604514; x=1701209314;
+        d=1e100.net; s=20230601; t=1700604603; x=1701209403;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wDL9htsDHeynmoWH0epGZfnNAXUKOakCP+zQcrx4kyA=;
-        b=sVmoLaG363F+OIejMiM2sRXB94YNO24+8AXHzgqO9ijBX9U0+CFmaNJbEO7IhCMMG0
-         um7FxzshlOj3cdYcsTM0+wPiVDvsLIqZJL9GH05aiMONO06iOL3aVn0sE0wCLcyOr+Px
-         88CP/1O0wDxpFZLZUNTpJcKprnXrG/+0jtFGNzNzSYot+EWQiehQ8vHfnhN8a40qSmH/
-         FiJuqSNGD+chNb4VD8BEO82nGvxhIzg+Iri6vRZcGJs/125HphHyV1yOsVbFyF+P+hqD
-         fe/mzDnkHgTUqWaDigJH3uZhMFOWjMDh78jRPxtT1v2oWtm3qRu6/4qsEouqHTkOcOV1
-         FZiw==
-X-Gm-Message-State: AOJu0Yy5x2m+s0xGcIX8KMGlnREN/EjgqqE7HhiXmArlCs7roUl6VkjX
-	vkjImWkyqrpvddYKUBYpVaFreg==
-X-Google-Smtp-Source: AGHT+IEEq4HfYuNmsRLPlylf3BgAgNV5aBNs3ckXNmiPm2jfd4JoMRIeBmA9qRtjIiM3mFAMPFPjKA==
-X-Received: by 2002:adf:f70f:0:b0:331:6c7a:73f with SMTP id r15-20020adff70f000000b003316c7a073fmr123441wrp.17.1700604514345;
-        Tue, 21 Nov 2023 14:08:34 -0800 (PST)
-Message-ID: <62939263-5492-491b-8077-984ab3707800@citrix.com>
-Date: Tue, 21 Nov 2023 22:08:33 +0000
+        bh=CpQ3J+xA2uZXvAgA9C8OmO72RbYtAnJUl0wPZ4DPutk=;
+        b=AP0KFRXq+Pws5eWwGXUC4jmdLVxFJu0OiGqpgDVTHZYUQr+YlFlZrFTT7Dd71PUB9/
+         Y/FVHcvFLLnXE2jk2rm9txZaw8qGQ8PF1Yo68cfy+0xTiQoDkiMVYZo+gMttQJ5SovWj
+         PU/MwWsFgcW6XxDZDXnJ6/OaPnXpaGXIPprai2GLZJYkB3rqSKdSdb4HzTrLuGobgwWA
+         R8zz2Xo/HwKpoaw94jtpEDWWfxeYn5+MFtDDTNo1//YUlJORspxFOUoRPhCBDuiiS7if
+         +D2GKoITQpyoI+XzlzBqCIKW9xRQ+AwRrTXtG3CVXQA5bCQbt6qGkLdTAEsmCqpOzncF
+         el6A==
+X-Gm-Message-State: AOJu0YwWPB0LzFElu0CTjFG8obupbmhUQQmPuiEbkVec4SYAjYx/p8RP
+	zAurcedw/Fz6nuH3wOlO49PYvQ==
+X-Google-Smtp-Source: AGHT+IHtbmktJLsG9sVP/Yw1mklroWU1RubrSf1K4HOYYzvyuOwNraITPFW7g/cnBl47kNgnYuFdmg==
+X-Received: by 2002:a5d:6d0d:0:b0:332:c5ff:1ba5 with SMTP id e13-20020a5d6d0d000000b00332c5ff1ba5mr335946wrq.13.1700604603666;
+        Tue, 21 Nov 2023 14:10:03 -0800 (PST)
+Message-ID: <f2f0009e-69f0-4b2b-bee0-c1d3eb9fb73d@citrix.com>
+Date: Tue, 21 Nov 2023 22:10:03 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] x86/HVM: split restore state checking from state
- loading
+Subject: Re: [PATCH v2 3/5] x86/HVM: adjust save/restore hook registration for
+ optional check handler
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>
 References: <08e0708c-17e2-4a5e-aaf7-5f60a40f76db@suse.com>
- <822a6328-36d3-43e9-9fc4-36d01a6b9ef2@suse.com>
+ <3627a561-939c-472e-840c-6925f4774631@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,59 +129,14 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <822a6328-36d3-43e9-9fc4-36d01a6b9ef2@suse.com>
+In-Reply-To: <3627a561-939c-472e-840c-6925f4774631@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16/11/2023 1:46 pm, Jan Beulich wrote:
-> ..., at least as reasonably feasible without making a check hook
-> mandatory (in particular strict vs relaxed/zero-extend length checking
-> can't be done early this way).
+On 16/11/2023 1:47 pm, Jan Beulich wrote:
+> Register NULL uniformly as a first step.
 >
-> Note that only one of the two uses of hvm_load() is accompanied with
-> hvm_check(). The other directly consumes hvm_save() output, which ought
-> to be well-formed. This means that while input data related checks don't
-> need repeating in the "load" function when already done by the "check"
-> one (albeit assertions to this effect may be desirable), domain state
-> related checks (e.g. has_xyz(d)) will be required in both places.
->
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Do we really need all the copying involved in use of _hvm_read_entry()
-> (backing hvm_load_entry()? Zero-extending loads are likely easier to
-> handle that way, but for strict loads all we gain is a reduced risk of
-> unaligned accesses (compared to simply pointing into h->data[]).
 
-Pointless copying is best avoided, but it would mean that we either need
-to enforce proper alignment within the buffer (hard, but at least it's
-page aligned to start with), or __pack all of the structures so they get
-an alignment of 1.
-
-Not that I expect things to break in practice, but UB is UB and in some
-copious free time it might be nice to re-activate the unaligned checking
-in UBSAN on x86.
-
-> Would the hvm_sr_handlers[] better use array_access_nospec()?
-
-It's control plane only, and we have speculative protections for domU
-entering domctls much earlier.  I wouldn't worry.
-
-> --- a/xen/arch/x86/hvm/save.c
-> +++ b/xen/arch/x86/hvm/save.c
-> @@ -291,9 +369,8 @@ int hvm_load(struct domain *d, hvm_domai
->      if ( !hdr )
->          return -ENODATA;
->  
-> -    rc = arch_hvm_load(d, hdr);
-> -    if ( rc )
-> -        return rc;
-> +    ASSERT(!arch_hvm_check(d, hdr));
-
-You're normally the proponent of not having side effects in ASSERT()s
-like this.
-
-But our caller did this anyway, so why re-assert it here?
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
