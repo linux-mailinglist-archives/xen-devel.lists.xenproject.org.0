@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67B177F34E2
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 18:23:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638069.994354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E577F34EE
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 18:27:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638078.994365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5UTE-0002q3-0B; Tue, 21 Nov 2023 17:23:32 +0000
+	id 1r5UWi-0004pR-Je; Tue, 21 Nov 2023 17:27:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638069.994354; Tue, 21 Nov 2023 17:23:31 +0000
+Received: by outflank-mailman (output) from mailman id 638078.994365; Tue, 21 Nov 2023 17:27:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5UTD-0002nX-Sk; Tue, 21 Nov 2023 17:23:31 +0000
-Received: by outflank-mailman (input) for mailman id 638069;
- Tue, 21 Nov 2023 17:23:30 +0000
+	id 1r5UWi-0004m6-Gt; Tue, 21 Nov 2023 17:27:08 +0000
+Received: by outflank-mailman (input) for mailman id 638078;
+ Tue, 21 Nov 2023 17:27:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5UTC-0002n3-Is
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 17:23:30 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GR51=HC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1r5UWh-0004m0-4S
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 17:27:07 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:7eaf::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afda5fba-8892-11ee-98e1-6d05b1d4d9a1;
- Tue, 21 Nov 2023 18:23:29 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40907b82ab9so18820495e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 09:23:29 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- fc16-20020a05600c525000b004054dcbf92asm17662853wmb.20.2023.11.21.09.23.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 09:23:28 -0800 (PST)
+ id 30f739d7-8893-11ee-98e1-6d05b1d4d9a1;
+ Tue, 21 Nov 2023 18:27:06 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AS1PR04MB9454.eurprd04.prod.outlook.com (2603:10a6:20b:4d9::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.17; Tue, 21 Nov
+ 2023 17:27:04 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7025.017; Tue, 21 Nov 2023
+ 17:27:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +47,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afda5fba-8892-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700587409; x=1701192209; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V6MVjz21MkAYciOQfLcyNdlSyQV1QXuslEw7sigZlAk=;
-        b=pNbNEzYZX1Q5dgX+5xOqjZGkKY05DU2+6Pk0Eo43P70cr/mRaEfgGFY8orc4sDTPAt
-         DMU+T1QcIViJMi9GsfNlkcMm/58y2GyD/xPMT+7bRZo41yBFYwWL5AcwbrrZAdjXQ9L7
-         4IlXrrn431SStMFsnpb5ol0PA5RsgYenVBHT4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700587409; x=1701192209;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=V6MVjz21MkAYciOQfLcyNdlSyQV1QXuslEw7sigZlAk=;
-        b=wJw1PTS6exc1Eb9dc+67uVWuhRAP8zigraC84h2Fcg4vL0Q9D4UIlDWCfcVcN0qtld
-         NGn9OWm9OMaHn+/EuVMPFfFkre1Nz+zeDxnxtY2heVvKVyAV/pUgCPfzOYcqSluAWeKa
-         59E0s7+SH+iVzhRy3xXnHx2eJAl2xX7DDYtWU2FMcsSqG/ddtDyZl2tK/1MuVTXBz+Qp
-         U55GJI0xPXygBVdgeJ21F4X3TBfkj/tH7VVJZjC5IM9UJNLZATPInL3P9dVU82AAtufD
-         dvHu2ubuQN3efj/xfSQ+AN+qBCaKRwNl+vPYpdhrgM2L1UMBtCMj3l1bQ992GYjZ/Uf5
-         ystA==
-X-Gm-Message-State: AOJu0Yz0k8SngG6YUtNcZDrQazwGhJQaNGJdtFjsxAx4/s14n26GddpT
-	PluDe6B6Th21bnlJk7r5MnC59Q==
-X-Google-Smtp-Source: AGHT+IFWzbK479gtl9NlYu85YvAa8SjAUmYAaXa0S4OU13snzpPrwL1Q5W8MVuRUQ/SljWeJOqiKZQ==
-X-Received: by 2002:a05:600c:3b8d:b0:408:411c:4f6d with SMTP id n13-20020a05600c3b8d00b00408411c4f6dmr2803254wms.14.1700587408700;
-        Tue, 21 Nov 2023 09:23:28 -0800 (PST)
-Message-ID: <e613b1f0-c79e-446d-a93c-827c098b43ec@citrix.com>
-Date: Tue, 21 Nov 2023 17:23:27 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: 30f739d7-8893-11ee-98e1-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ApqOYzZLzQgCv8Rx4lCzwIUmjhWba5IRjTT2UY9xGWgaE3zqnvHnArlL/g6H4Mpmrz7D9f/J0AqiuwsRLvLrS4EwXVscRr/eN/2hCf+N4VthzMim4lgSMjRgbIo+re7oMlM1J6F68k6ek6p43cDlU9LAAlBSbv9hlgT6fQCLpWXeWUHTHfTxzwBQkzim48bpLsPG6g1mGAr2E5UlVIYf1b/zJTE2TASqx/e3gyu4bSfHD8RVZcX0dZiHajlqfSupUub1sQEp41BGFO7uiOVSKLsO46FoAlNgemQX7nSPwnlZRm0IrPDZRppvEkg95rNLzJFU7wwcATuInupSmk8ZAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AztCK9YvTIowAQp3pevVNinOJ8bdaPDeMOPaiVVA4dY=;
+ b=d6Ih1mZ/gfS0MoUAfcv7sInG274yy0L/brT7bwLo+j8Ps8OfwcnFo3xbvA06mgKBs0GP5c6I4/f3XIqC54LkP/2o2sLroFot/5oaIm6ljXMWYF8DAXr6GH9aDDqaSuwUfo4J0jy/cXB2EQaMTT/DaxNkDDPnMAGdSSvzPsA/4KyoPTokhFoUKwrRdToA8CRcq+mdHxkNs8QRdi3qM8GsbrUpC3cYyXoAyODB5PvFHW6e3Im/xHkOkJqQCrd9mEQ6tP/7AXr3tjicuxgssbjiDLq3DbCI5bebVuTGRfQdZjrMfNMfE4aS8XCnLL9gr2FsHyejByPEsuN1PPdX4grjdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AztCK9YvTIowAQp3pevVNinOJ8bdaPDeMOPaiVVA4dY=;
+ b=NeYtsploOOqLFNGxy50E5cpBaWj0evQuBD62FbXh9EVwXqS+gOzh31Dodd/fqgkw2hR00cQuXWHeNa7v+JRsIX0huR8KgMMFuLpwwAnqr8oXrf1BM0ub5bmsQV7z1LKzsMQ4REteQTbe1+VbSuXtG8O7DidfKjaOMxf2BjmiiDeUTn8hUill7bvrt4EBSIAWjvbhGw+fMLq9drLOZ3yZZrzLd3HUYoa1HjkykCYDcr76PLpHPC4tzHf8Q4WnTUJlcucxiiulkwTrLu+bZhLTrk3hIvjZSQvBlK2bZN1tPy33WtoU7FL9cJrN7Nwcskt6qsiH2y4/AK6dB/rPEEaFGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <d63dfc54-cf89-44b7-ab7e-983037892833@suse.com>
+Date: Tue, 21 Nov 2023 18:27:02 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] x86/setup: Rework cmdline_cook() to be compatible
- with -Wwrite-strings
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231120224912.1421916-1-andrew.cooper3@citrix.com>
- <20231120224912.1421916-3-andrew.cooper3@citrix.com>
- <7c954d5a-b2dd-4a8a-8b3f-2ec398bf5a25@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <7c954d5a-b2dd-4a8a-8b3f-2ec398bf5a25@suse.com>
+Subject: Re: [PATCH 2/5] x86/HVM: hide SVM/VMX when their enabling is
+ prohibited by firmware
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+References: <791a9f45-2bed-48f9-af6a-9fbde65bcc71@suse.com>
+ <b16802f5-13ae-47a0-b12d-604928f4cf7e@suse.com>
+ <ZVzZy-KYgdAsqRE3@macbook.local>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZVzZy-KYgdAsqRE3@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0031.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::9) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS1PR04MB9454:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b6c8175-f406-44ca-e66d-08dbeab71401
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	6kJ4XEAdZT6EaqzEPwIHvbrxBE510RW9w5ZnWQZWCw4Dt4DcGhF13xnwygL7RLrgTxDJ+aHi2J+bdfDZFL7lKkYecp+tk2wVuVMTK0dKNTzl5sInaPchnvQ3DztowqklFgDyIPP3my6EIA3pD25sDxXlqoRRzK6SYjH3JiQyCnZKrgAdXxRwVd7yaYIdlxoURy7UluanEBQo30/N2JamcxX0qIlNsGztJAiSpdNsyHgBx7A34LdYk+RywiCGajsCORWk1ajOBqBjlkCB0I3oLXJYxInV45By8bpgT5VSPAp780J0lyqCSK1RPJkCCL6R/YbP9BrYt+7XX31Jz2encr5/geZxsbr5J8xijPoL5xC66lIqN5tSs0aH5E0YPu01bRHwbXP6a9HmCgV6yIMBEJG35xkS0r5Q3mX3YL8mbtROhxmmkcdjTaG8/ANV3/eHFEyUl7Aj/H65tXlbe+2qFKzTOT7KhnIDkclpVuGOBwWYvicZQ8jhycuB/Wu8fg9pDwOk1gWoHs0sndfs+LaMiGktHo54G8ds4q2+OTZDag4gLS/Vk1kTp7+3Es17q13w/AnmtJmL52mmJcY6rbLjQDM7ZsZQMMTJsIxH+7o9fzYdZgJT0xGMUvYeH0MQWcFrgNWmgSBX6uknAMK2044Hng==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(39860400002)(366004)(376002)(396003)(346002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(2616005)(31696002)(31686004)(86362001)(6486002)(966005)(6506007)(66946007)(66476007)(66556008)(6916009)(54906003)(316002)(36756003)(6512007)(53546011)(26005)(83380400001)(2906002)(478600001)(5660300002)(8936002)(41300700001)(4326008)(38100700002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVdkaXluNnVTS3NjanNjUjdGYzh6K1R0MFc4aUR4N0RvcG1lVkFFWjNlQlBa?=
+ =?utf-8?B?Y1hsV1UyaVRVdm1OYmFTNmp6T0lqTnkyRHkrNURQK0ROZFFGN29Sb2lIeEVG?=
+ =?utf-8?B?dGdxWml5dm9QUm9oTXNiU2E5bG1xalh0aVZ3SUs1OWZCSkl2Q0dWWGMxNHFp?=
+ =?utf-8?B?QmpJTHhIQVp3OFkrVW5PaWJzZkdKQkM0bkhaMDhnYnArbUlnNXZOYlRyOGs1?=
+ =?utf-8?B?YUlNWWhORk16b1JhRXE0OVJWN2c3VnIrbDlHT3RWeisrd2VTa05GejlOb1Ex?=
+ =?utf-8?B?MXNPcCs2MHduRGdmQXVpV3QrQnVXcFJQeTlQd3ZvUEUrUWhoZFR3cHlyM05y?=
+ =?utf-8?B?REsxRXUxdm10c2tKNkpkV1NOTS9XczFNLzM2b1RnY1ArL2JtdEQvdWNnM0V3?=
+ =?utf-8?B?bVBvTmtReUtWbkNBQWE0bk1wVnJ6LzZYVUFZZ0l2K1c5UWprTUllNisyQXJh?=
+ =?utf-8?B?WXhQK0VpNHZlT1N2WnFVblVDVHEyVFVMQWt3THlVWE5tU0RIZ1ViOHUrQkNI?=
+ =?utf-8?B?TE5EbU9USzVYMHlEQmxmK3ViczhMVHkza2ZkVWQzMFA3YkpoUzdibUlGWVRn?=
+ =?utf-8?B?ZlFZdk1GVERPT0ZFeGsyUTRMUUpvdVF4Vlk1aTcxVzhYcEF1aWRzNlJTVVNR?=
+ =?utf-8?B?SEs3OXVkemx5S3E4WjMxTnhnbTFEZHN2cUJzalY0elhDaWFLc2IvQUFLNi9N?=
+ =?utf-8?B?akMxbHBLTlhEYnhWbkZHMHp0SjBaVGgxNnlaWFJNWjFaK3dLTnNsN0t1L1Nn?=
+ =?utf-8?B?RmNSNFhFNmNzQm9UcGJMcTRGZEJyVCt1cGRsMEZGcXAyY3hMQ3RXRmpqejRv?=
+ =?utf-8?B?cXhVN0N2eS96V2hsbWN2MXhCUlNubWhvTWg2d3hITkdZQXhJcEN2OGVJZC9D?=
+ =?utf-8?B?VytqVjUrTjZlUG5ONExFbGxXMmJYZUpnRituMjNqOEIzUkpQanRkSi9NTEY5?=
+ =?utf-8?B?R2ZNZ1FsZnRWWlk5UzgxLzNzcTkyZVRFelMxK2p5RVVUVE5iMHhPZU9SbTYz?=
+ =?utf-8?B?WkxqdHNiNmo4TzNLa1dESU1TNmZqN21ZVnhiakJoTFZJVEhFZmR1VksxSDI2?=
+ =?utf-8?B?QXNCL3dJQXQ0cG5ndkx6QkczeTQ3SlNlaW1FRnN3a01rMHNYbFp3OHhoYlJZ?=
+ =?utf-8?B?NTJRYjJ6SlFRTjZsOVFBdmRManNxSjY3ZyswbU1CcnJmNWVZb1RDZG9OcXE3?=
+ =?utf-8?B?cWVHbEpsZ2sxbW9hMHVoOEdRK3d1N1BabVVjSjBjeHhJS2VDWWRjUm92Qnc1?=
+ =?utf-8?B?MVk5eWI4LzJQVmZCVDNXUHlmNlRmQWU2Q3h1a3ZLT1R3bVU5VkkrQk1EeEFE?=
+ =?utf-8?B?ZTNjNGl2WG4rd1J1Q1QwL0Y4aXhoV3o3S0VWelJkK1pWekxybmxra1VXb1dY?=
+ =?utf-8?B?TlFpc0o5VW16WGlSSE9zT0tOamwzVWxpbk92L1ZBUC9qTzBsSG12N0ZjaGI1?=
+ =?utf-8?B?cmRKV2oxMHR2NXQyT2JWV1dQTlVFOGg1dHc3dVh1ZGVDUEwwcjk4cFhxWTB0?=
+ =?utf-8?B?VTNPdk5LbUdWcEdBM0k2VDdnMDZ4RTdMT1BzaG5EREI2MCtrNVRic09RQTZP?=
+ =?utf-8?B?SkJmTXNFQThMKzRkMjUvOXNjNGtnVS9mdkFaT2cwbFdRclMrbFRiVVd0b2h1?=
+ =?utf-8?B?djZBc1F4V3VlVHhNZmlZYkcrc2tRa3FwSVdIcExxMTJ5QlQ0NmFpQWZlZ1ox?=
+ =?utf-8?B?bk02WmpXaGM2S2pHRHlPMml2UWwrVm5OeC8yN0tSTFBUVkNIbUlzU2FKVHc5?=
+ =?utf-8?B?eENieCtLMDVXaG1uU3AxZDMyZi94YzliSnozbnhpeTF5dURZeFRqN0dPMEZy?=
+ =?utf-8?B?amkzRytKTW5sbnR4YnRZNUpoKzRjVklCc2Ewak85QWtKUVVuQ1ZhTzRLUG91?=
+ =?utf-8?B?MUVIRXFtUUhZOWRYQWEvSmFxL1Rtayt3Nnd3MUJWQ1NWaHlJaWhHaGJIUEFP?=
+ =?utf-8?B?c3pZbmVTS01oT1ppVE5SUjFCdDV5UzhYLzE5SkRIanUzNndVWUNNanhOcTJl?=
+ =?utf-8?B?NUhFaXlZdW43eHU4RXE5L3Z1cFVaRW9wbWhPSDNWN2dLTEN1ZnZvNk9wVUFj?=
+ =?utf-8?B?R3puVFgxYnpCKytXZ21PRC9aaVpyZXNHa1d3NnZGbGxtRVIxeWxOWmZBR1BB?=
+ =?utf-8?Q?fxaywaszJqyGH/QaFbz4DS16I?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b6c8175-f406-44ca-e66d-08dbeab71401
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2023 17:27:04.0327
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S4f7zhMHK+DAHQArXubPgixElvn2LGWbZA1GyE4+m/Sv8sAKpiA4odsPfUu+l/84359O4ZjsTNPqKbJK6YH8LA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9454
 
-On 21/11/2023 8:21 am, Jan Beulich wrote:
-> On 20.11.2023 23:49, Andrew Cooper wrote:
->> Constify both cmdline variables in create_dom0() and __start_xen().
->> Initialise Xen's variable to the empty string to simplify the parsing logic.
+On 21.11.2023 17:24, Roger Pau Monné wrote:
+> On Thu, Nov 16, 2023 at 02:31:05PM +0100, Jan Beulich wrote:
+>> ... or we fail to enable the functionality on the BSP for other reasons.
+>> The only place where hardware announcing the feature is recorded is the
+>> raw CPU policy/featureset.
 >>
->> Update cmdline_cook() to take and return const pointers, changing it to have
->> an early exit for a NULL input (which can happen if the mbi-> pointers happen
->> to be 0).
+>> Inspired by https://lore.kernel.org/all/20230921114940.957141-1-pbonzini@redhat.com/.
 >>
->> Note this only compiles because strstr() launders the const off the pointer
->> when assigning to the mutable kextra, but that logic only mutates the
->> mbi->cmdline buffer.
-> And a good static analyzer would spot this. At the very least I think this
-> warrants a comment next to that code. But really I'm inclined to re-write
-> this to eliminate the issue altogether; I'll try to remember to do so once
-> your change has gone in.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-This string handling leaves a lot to be desired.
+Thanks.
 
->
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -837,9 +837,10 @@ static bool __init loader_is_grub2(const char *loader_name)
->>      return (p != NULL) && (p[5] != '0');
->>  }
+>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+>> @@ -2163,6 +2163,23 @@ int __init vmx_vmcs_init(void)
 >>  
->> -static char * __init cmdline_cook(char *p, const char *loader_name)
->> +static const char *__init cmdline_cook(const char *p, const char *loader_name)
->>  {
->> -    p = p ? : "";
->> +    if ( !p )
->> +        return "";
-> This change is now needed only for create_dom0(), whereas the call site
-> change to __start_xen() is redundant with the change here. Did you
-> consider doing a similar transformation in create_dom0(), thus
-> eliminating the need for this check altogether? Alternatively I'd like
-> to ask that ...
-
-It occurs to me that __va(0) != 0, so this path isn't actually taken,
-even when there is a bad mbi-> pointer.
-
-But the mbi information is already processed by us earlier on boot so we
-have reasonable expectation that the pointer is good if MBI_CMDLINE is set.
-
->
->> @@ -885,7 +886,7 @@ static struct domain *__init create_dom0(const module_t *image,
->>          },
->>      };
->>      struct domain *d;
->> -    char *cmdline;
->> +    const char *cmdline;
->>      domid_t domid;
->>  
->>      if ( opt_dom0_pvh )
->> @@ -971,8 +972,8 @@ static struct domain *__init create_dom0(const module_t *image,
->>  /* SAF-1-safe */
->>  void __init noreturn __start_xen(unsigned long mbi_p)
->>  {
->> -    const char *memmap_type = NULL, *loader;
->> -    char *cmdline, *kextra;
->> +    const char *memmap_type = NULL, *loader, *cmdline = "";
->> +    char *kextra;
->>      void *bsp_stack;
->>      struct cpu_info *info = get_cpu_info(), *bsp_info;
->>      unsigned int initrdidx, num_parked = 0;
->> @@ -1027,9 +1028,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->>                                             : "unknown";
->>  
->>      /* Parse the command-line options. */
->> -    cmdline = cmdline_cook((mbi->flags & MBI_CMDLINE) ?
->> -                           __va(mbi->cmdline) : NULL,
->> -                           loader);
->> +    if ( mbi->flags & MBI_CMDLINE )
->> +        cmdline = cmdline_cook(__va(mbi->cmdline), loader);
+>>      if ( !ret )
+>>          register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
+>> +    else
+>> +    {
+>> +        setup_clear_cpu_cap(X86_FEATURE_VMX);
 >> +
->>      if ( (kextra = strstr(cmdline, " -- ")) != NULL )
->>      {
->>          /*
-> ... this last hunk be dropped, along with cmdline's initializer. No need
-> for extra code churn when not gaining us anything. (Also but not only
-> because the reformatting here is actually beneficial from a readability
-> pov imo, the variant with applying the same transformation to create_dom0()
-> would seem preferable to me.)
+>> +        /*
+>> +         * _vmx_vcpu_up() may have made it past feature identification.
+>> +         * Make sure all dependent features are off as well.
+>> +         */
+>> +        vmx_basic_msr              = 0;
+>> +        vmx_pin_based_exec_control = 0;
+>> +        vmx_cpu_based_exec_control = 0;
+>> +        vmx_secondary_exec_control = 0;
+>> +        vmx_vmexit_control         = 0;
+>> +        vmx_vmentry_control        = 0;
+>> +        vmx_ept_vpid_cap           = 0;
+>> +        vmx_vmfunc                 = 0;
+> 
+> Are there really any usages of those variables if VMX is disabled in
+> CPUID?
 
-I'll see what I can do.  I definitely do prefer this form, from a
-clarity point of view.
+I wanted to be on the safe side, as to me the question was "Are there really
+_no_ uses anywhere of those variables if VMX is disabled in CPUID?" And I
+couldn't easily convince myself of this being the case, seeing how all of
+vmcs.h's cpu_has_* are defined (and I'm pretty sure we have uses outside of
+arch/x86/hvm/vmx/).
 
-~Andrew
+Jan
 
