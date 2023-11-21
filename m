@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702AF7F227A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 01:48:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637432.993224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33C907F227F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 01:50:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637434.993234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Ew3-0008Md-Hc; Tue, 21 Nov 2023 00:48:15 +0000
+	id 1r5Exh-0000T8-Sg; Tue, 21 Nov 2023 00:49:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637432.993224; Tue, 21 Nov 2023 00:48:15 +0000
+Received: by outflank-mailman (output) from mailman id 637434.993234; Tue, 21 Nov 2023 00:49:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Ew3-0008Ki-Ez; Tue, 21 Nov 2023 00:48:15 +0000
-Received: by outflank-mailman (input) for mailman id 637432;
- Tue, 21 Nov 2023 00:48:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5Exh-0000RQ-Pq; Tue, 21 Nov 2023 00:49:57 +0000
+Received: by outflank-mailman (input) for mailman id 637434;
+ Tue, 21 Nov 2023 00:49:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GQYN=HC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r5Ew2-0008KZ-70
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 00:48:14 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5a09a8b-8807-11ee-98e0-6d05b1d4d9a1;
- Tue, 21 Nov 2023 01:48:12 +0100 (CET)
+ id 1r5Exg-0000RI-1b
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 00:49:56 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e259bcef-8807-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 01:49:54 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A0B0F6133A;
- Tue, 21 Nov 2023 00:48:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88B8C433C8;
- Tue, 21 Nov 2023 00:48:09 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id A278CB81C84;
+ Tue, 21 Nov 2023 00:49:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD35EC433C9;
+ Tue, 21 Nov 2023 00:49:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,66 +41,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5a09a8b-8807-11ee-98e0-6d05b1d4d9a1
+X-Inumbo-ID: e259bcef-8807-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700527691;
-	bh=LUHpDX5wqMLjvKfPjNvWlzIsD0EF2aldBVWWDZeRGV4=;
+	s=k20201202; t=1700527792;
+	bh=05e9fkep8pIy8QiX75uiBvfa+BpkZO+PGxJIJ9Kgdxg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Hz2j2lZnHFdNAYfGVcgAHn2yHs92kYJq2YsGt+HA/GzQaTBtybXzBG92OkAI+17id
-	 /3wKAg+6Zqt1j3gflICJ0BmZa2irwb9zlAznGBU46814Z/dllR1Mx0TeUK1ce2tBAa
-	 cc+VFTVQO6WRg2t9evNWVsfGM40ZU3X5u8aVnO6hqUqfvCN5kZJiuTQKtZVAacFWeU
-	 NLJHHyJ7gcWL2ivhEEAfemcYnu8/ZeUsw3T7jRiptJmw80C99UQ0oPwcLQVQXqGA46
-	 GNEO37XjNM6bSRueqsRvegXbYcd5Du5ayt94+Oboyj/T8m+rRvr4152ITIjCYFpITK
-	 rl+yQFZtJGtCw==
-Date: Mon, 20 Nov 2023 16:48:08 -0800 (PST)
+	b=bOqM7An5PYIqDce8J+8DlFN3fA2Rctcy66oAVk28LAh7+8NxB3BShT075NzYOV2LI
+	 +UQKx25FqA0URvccDe3B6vEWeutgh1zT8Cg+HOgGfKn6oTjg3fWC8tDNNzw8ZH/MKC
+	 ng+JHd600X0Y2rCC2nc0wXSkWViikS6+w+yop3MzSJteFd9dLANN84A/Y8s0nlGDRS
+	 5tDyAiVzugoJbmDqUvF5gXvZeOnBm7qhhWcuo2cwDvv8G6HkvmPXKeI15oZMGHPuGP
+	 EE48jMP3+PYf9i2ogAftJn6w6bjLs895H2CZdnYGuT7ssOl/mBUCqUgegC/YUl5VV6
+	 4qkJL8X7SxVfQ==
+Date: Mon, 20 Nov 2023 16:49:50 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
     Roberto Bagnara <roberto.bagnara@bugseng.com>, 
     Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [PATCH 3/6] xen/efi: Make efi-boot.h compile with
+Subject: Re: [PATCH 4/6] arm/duart: make dt_uart_init() compile with
  -Wwrite-strings
-In-Reply-To: <20231120224912.1421916-4-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311201645150.773207@ubuntu-linux-20-04-desktop>
-References: <20231120224912.1421916-1-andrew.cooper3@citrix.com> <20231120224912.1421916-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20231120224912.1421916-5-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2311201649430.773207@ubuntu-linux-20-04-desktop>
+References: <20231120224912.1421916-1-andrew.cooper3@citrix.com> <20231120224912.1421916-5-andrew.cooper3@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1842415497-1700527691=:773207"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1842415497-1700527691=:773207
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 20 Nov 2023, Andrew Cooper wrote:
 > GCC complains:
 > 
->   In file included from arch/arm/efi/boot.c:700:
->   arch/arm/efi/efi-boot.h: In function 'efi_arch_handle_cmdline':
->   arch/arm/efi/efi-boot.h:482:16: error: assignment discards 'const' qualifier from pointer target type [-Werror=discarded-qualifiers]
->     482 |         name.s = "xen";
->         |                ^
+>   drivers/char/arm-uart.c: In function 'dt_uart_init':
+>   drivers/char/arm-uart.c:81:17: error: assignment discards 'const' qualifier from pointer target type [-Werror=discarded-qualifiers]
+>      81 |         options = "";
+>         |                 ^
 > 
-> There's no easy option.  .rodata is really read-only, so the fact Xen doesn't
-> crash means these strings aren't written to.
+> The problem is using the options string for both splitting opt_duart, and to
+> hold a token "" for no options.
 > 
-> Lie to the compiler using a union.
+> Use two variables; one mutable one one const.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
 > CC: Stefano Stabellini <sstabellini@kernel.org>
 > CC: Julien Grall <julien@xen.org>
 > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
@@ -108,54 +98,42 @@ On Mon, 20 Nov 2023, Andrew Cooper wrote:
 > CC: Michal Orzel <michal.orzel@amd.com>
 > CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
 > CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> I *really* don't like this, but it's the only suggestion given.
-
-Hi Andrew, I am trying to understand what is the part you don't like. I
-understand that union string looks iffy due to being a union with const
-and non-const. Is that your concern or you also spotted additional
-problems with this?
-
-If that is the only issue, maybe we can come up with a matter in-code
-comment or commit message. (The TODO is not immediately obvious to me
-what the issue to be improved is.)
-
-
 > ---
->  xen/arch/arm/efi/efi-boot.h | 2 +-
->  xen/arch/x86/efi/efi-boot.h | 3 ++-
->  2 files changed, 3 insertions(+), 2 deletions(-)
+>  xen/drivers/char/arm-uart.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index 1c3640bb65fd..c26bf18b68b9 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -479,7 +479,7 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
->          w2s(&name);
->      }
->      else
-> -        name.s = "xen";
-> +        name.cs = "xen"; /* TODO, find a better way of doing this. */
+> diff --git a/xen/drivers/char/arm-uart.c b/xen/drivers/char/arm-uart.c
+> index 8098a968c285..91f13a41368d 100644
+> --- a/xen/drivers/char/arm-uart.c
+> +++ b/xen/drivers/char/arm-uart.c
+> @@ -42,7 +42,8 @@ static void __init dt_uart_init(void)
+>      struct dt_device_node *dev;
+>      int ret;
+>      const char *devpath = opt_dtuart;
+> -    char *options;
+> +    const char *options;
+> +    char *split;
 >  
->      prop_len = 0;
->      prop_len += snprintf(buf + prop_len,
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index eebc54180bf7..e2d256e0517b 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -324,7 +324,8 @@ static void __init efi_arch_handle_cmdline(CHAR16 *image_name,
->          w2s(&name);
+>      if ( !console_has("dtuart") )
+>          return; /* Not for us */
+> @@ -74,9 +75,12 @@ static void __init dt_uart_init(void)
+>          return;
 >      }
->      else
-> -        name.s = "xen";
-> +        name.cs = "xen"; /* TODO, find a better way of doing this. */
-> +
->      place_string(&mbi.cmdline, name.s);
 >  
->      if ( mbi.cmdline )
+> -    options = strchr(opt_dtuart, ':');
+> -    if ( options != NULL )
+> -        *(options++) = '\0';
+> +    split = strchr(opt_dtuart, ':');
+> +    if ( split )
+> +    {
+> +        split[0] = '\0';
+> +        options = split + 1;
+> +    }
+>      else
+>          options = "";
+>  
 > -- 
 > 2.30.2
 > 
 > 
---8323329-1842415497-1700527691=:773207--
 
