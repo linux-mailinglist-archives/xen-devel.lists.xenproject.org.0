@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97DDB7F34F1
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 18:31:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638086.994384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D81DE7F3519
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 18:41:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638093.994393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Uaf-0008Fc-Aj; Tue, 21 Nov 2023 17:31:13 +0000
+	id 1r5UkK-00025r-6v; Tue, 21 Nov 2023 17:41:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638086.994384; Tue, 21 Nov 2023 17:31:13 +0000
+Received: by outflank-mailman (output) from mailman id 638093.994393; Tue, 21 Nov 2023 17:41:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Uaf-0008D8-7b; Tue, 21 Nov 2023 17:31:13 +0000
-Received: by outflank-mailman (input) for mailman id 638086;
- Tue, 21 Nov 2023 17:31:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5UkK-00023Z-42; Tue, 21 Nov 2023 17:41:12 +0000
+Received: by outflank-mailman (input) for mailman id 638093;
+ Tue, 21 Nov 2023 17:41:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5Uad-0007h1-6y
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 17:31:11 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2d4012e-8893-11ee-98e1-6d05b1d4d9a1;
- Tue, 21 Nov 2023 18:31:10 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3316bd84749so2863124f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 09:31:10 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- v11-20020adfe28b000000b0032d09f7a713sm15049973wri.18.2023.11.21.09.31.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 09:31:09 -0800 (PST)
+ <SRS0=T8a9=HC=citrix.com=prvs=682c61bdb=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1r5UkI-00023T-G5
+ for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 17:41:10 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 210ab505-8895-11ee-9b0e-b553b5be7939;
+ Tue, 21 Nov 2023 18:41:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +36,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2d4012e-8893-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700587870; x=1701192670; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WG3CpO8GGSOx8ROiV6YhOUkLfmA8nltY0tnQdpEYci4=;
-        b=ajINeXb/+tL8/K6CG+etff7rX8YS54iPLLHB42XNlbM4QvuvXEutSOpLaj1shFDr0O
-         KLJOiuMEU5BktC87eEDQWXKlAH0zrH1YIocqqem8kCMEjn06LyL6urIgR2EijL+qCE3d
-         AZFMPO48048KW+J5poYaQdBrvRWFWB2P49Jyo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700587870; x=1701192670;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WG3CpO8GGSOx8ROiV6YhOUkLfmA8nltY0tnQdpEYci4=;
-        b=loPqYF/viyx1y9CDSFgCR6B3glPnGfOE4rM6kgNj8JViB4epCROkGfXxhZnSp82kZd
-         zZPvVLNHww1j7Vf9g2JOL4BGwO50p9ORlvwRWKNsUy4Dc26R4xlthuH312WLXzY75HFo
-         UsnpDaUcLCSOVQLqIxDB6bYSpV87x6HzMr7YnhiDu5DC0OwkrZ3tp9R/zZtCAkuIp2zR
-         UjxwvMs1UarJ1af5WQjVNfuSIZykRbyjzHz3rgl/yOoUutqQEP96oX5eQm9r6Lp46J1r
-         kLQfiuyJBSHwC8DISohh2+Igg2X4y68yoWIRa5o8QRJ8g2shp5EMnDQAfOJLF6qGKgzp
-         rF0A==
-X-Gm-Message-State: AOJu0Yw8Zia6psq+Ye4DVDwYZJFn8Vhtr9cupC0NLZnffA4nea9fOMQU
-	rmQU+QCLQpm/kIR3T+m8DxkJxQ==
-X-Google-Smtp-Source: AGHT+IFNjbadjIOemi/C4HGF9dkpGtGBHIRawNVHYOTzvIsSYmAF34Y/ES9VSmgy5Nr//KC6Hc3kYw==
-X-Received: by 2002:a05:6000:402a:b0:332:c4f7:1f83 with SMTP id cp42-20020a056000402a00b00332c4f71f83mr5839057wrb.7.1700587870141;
-        Tue, 21 Nov 2023 09:31:10 -0800 (PST)
-Message-ID: <b75a4d31-260c-4377-b68c-c8153dfd948e@citrix.com>
-Date: Tue, 21 Nov 2023 17:31:09 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86/HVM: hide SVM/VMX when their enabling is
- prohibited by firmware
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>
-References: <791a9f45-2bed-48f9-af6a-9fbde65bcc71@suse.com>
- <b16802f5-13ae-47a0-b12d-604928f4cf7e@suse.com>
- <ZVzZy-KYgdAsqRE3@macbook.local>
- <d63dfc54-cf89-44b7-ab7e-983037892833@suse.com>
+X-Inumbo-ID: 210ab505-8895-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1700588460;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=7sQBvGrzPAdz2hLvp1ZfmS+2Ui7XE8YmjVh+zVlLuxI=;
+  b=IBYqSkru/UG1VvdApyRlfkvsueS98e3gj/YdxnXnNcJEAx1/WbzC0gva
+   5AjET/GS5Vi9Jy7R+XXukIA7aYNCEuID+v3ZtDQbh8V6edqArl+IKXRyH
+   9hG9e2GZDJTJH1VNJQqKtBEH9K+2WiO+mHN35CHij2cobqkYrm3dq1wkD
+   M=;
+X-CSE-ConnectionGUID: sAH0mqliSUWIBz1fVCftTQ==
+X-CSE-MsgGUID: R0so3EzmRuqMWmxtQPWjRg==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 128243828
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:v5t0lK+maK2e2BeYeKfNDrUDyX6TJUtcMsCJ2f8bNWPcYEJGY0x3x
+ mIcXzuHOKyKN2qnKY11b9y+8xwFvpXRzNY1QQRrrHg8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ksz1BjOkGlA5AdnPKoS5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklV3
+ NxALSkJbyu+uMOc0uu1dMJimvgaeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUWGPEUn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwPzhzE/
+ TKcrwwVBDkgbMeYkheX90ixn8rwmDPnYbotFoe3o6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiFFQMwrsokxXzNC6
+ 7OSt4q3X3o16uTTEC/MsOjMxd+vBcQLBXQrRXcBVA8E2OTcgash1xzxZdh/LJfg27UZBgrML
+ yC2QDkW3upL1ZNbjfjkrTj6bySQSo8lpzPZBzk7vUr/t2uVnKb/O+SVBaHztJ6s1rqxQFibp
+ 2QjkMOD9u0IBpzlvHXSGL1QROzzu6/cb2O0bbtT838JrWzFF5mLJ9g43d2DDB0xbpZslcHBP
+ Cc/Rj+9FLcMZSD3PMebkqq6CtgwzLiIKDgWfqm8Uza6WbAoLFXv1Hg3NSatM5XFzBBEfVcXZ
+ c3KLq5BzB8yVcxa8dZBb75GjedzmHFumT+7qFKS503P7IdyrUW9Ed8tWGZipMhjhE9YiG05K
+ +piCvY=
+IronPort-HdrOrdr: A9a23:uBnM+qgDDL3bNFrElqCifuP8Y3BQXtYji2hC6mlwRA09TySZ//
+ rBoB19726StN9xYgBFpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkNK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
+X-Talos-CUID: 9a23:+Pd2VmwgqRxYc5U7oTI2BgUPM+B9d2TZzUztHG6SGz9ndpabVWOprfY=
+X-Talos-MUID: 9a23:mF+UIQgj5RkoffFku+ErHMMpDp9z5P+DGkU3jIwjhMyUKRVIBDWng2Hi
+X-IronPort-AV: E=Sophos;i="6.04,216,1695700800"; 
+   d="scan'208";a="128243828"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <d63dfc54-cf89-44b7-ab7e-983037892833@suse.com>
-Content-Type: text/plain; charset=UTF-8
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/hvm: Trivial style cleanup in vlapic.c
+Date: Tue, 21 Nov 2023 17:40:54 +0000
+Message-ID: <20231121174054.1486631-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-On 21/11/2023 5:27 pm, Jan Beulich wrote:
-> On 21.11.2023 17:24, Roger Pau Monné wrote:
->> On Thu, Nov 16, 2023 at 02:31:05PM +0100, Jan Beulich wrote:
->>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
->>> @@ -2163,6 +2163,23 @@ int __init vmx_vmcs_init(void)
->>>  
->>>      if ( !ret )
->>>          register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
->>> +    else
->>> +    {
->>> +        setup_clear_cpu_cap(X86_FEATURE_VMX);
->>> +
->>> +        /*
->>> +         * _vmx_vcpu_up() may have made it past feature identification.
->>> +         * Make sure all dependent features are off as well.
->>> +         */
->>> +        vmx_basic_msr              = 0;
->>> +        vmx_pin_based_exec_control = 0;
->>> +        vmx_cpu_based_exec_control = 0;
->>> +        vmx_secondary_exec_control = 0;
->>> +        vmx_vmexit_control         = 0;
->>> +        vmx_vmentry_control        = 0;
->>> +        vmx_ept_vpid_cap           = 0;
->>> +        vmx_vmfunc                 = 0;
->> Are there really any usages of those variables if VMX is disabled in
->> CPUID?
-> I wanted to be on the safe side, as to me the question was "Are there really
-> _no_ uses anywhere of those variables if VMX is disabled in CPUID?" And I
-> couldn't easily convince myself of this being the case, seeing how all of
-> vmcs.h's cpu_has_* are defined (and I'm pretty sure we have uses outside of
-> arch/x86/hvm/vmx/).
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-Before you commit, are you sure that VT-d will continue to be happy
-using IOMMU superpages when the EPT features are cleared like this?
+Another patch I've found hidden away in my pile of unfinished branches...
+This one collided with the bool_t cleanup.
+---
+ xen/arch/x86/hvm/vlapic.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-That's the only linkage I'm aware of that might cause issues.
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index a54010d71ea1..5cb87f864908 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -191,8 +191,7 @@ uint32_t vlapic_set_ppr(struct vlapic *vlapic)
+    return ppr;
+ }
+ 
+-static bool vlapic_match_logical_addr(const struct vlapic *vlapic,
+-                                      uint32_t mda)
++static bool vlapic_match_logical_addr(const struct vlapic *vlapic, uint32_t mda)
+ {
+     bool result = false;
+     uint32_t logical_id = vlapic_get_reg(vlapic, APIC_LDR);
+@@ -208,11 +207,11 @@ static bool vlapic_match_logical_addr(const struct vlapic *vlapic,
+     {
+     case APIC_DFR_FLAT:
+         if ( logical_id & mda )
+-            result = 1;
++            result = true;
+         break;
+     case APIC_DFR_CLUSTER:
+         if ( ((logical_id >> 4) == (mda >> 0x4)) && (logical_id & mda & 0xf) )
+-            result = 1;
++            result = true;
+         break;
+     default:
+         printk(XENLOG_G_WARNING "%pv: bad LAPIC DFR value %08x\n",
+@@ -244,7 +243,7 @@ bool vlapic_match_dest(
+         return (target == source);
+ 
+     case APIC_DEST_ALLINC:
+-        return 1;
++        return true;
+ 
+     case APIC_DEST_ALLBUT:
+         return (target != source);
+@@ -254,7 +253,7 @@ bool vlapic_match_dest(
+         break;
+     }
+ 
+-    return 0;
++    return false;
+ }
+ 
+ static void vlapic_init_sipi_one(struct vcpu *target, uint32_t icr)
+@@ -462,7 +461,7 @@ static bool is_multicast_dest(struct vlapic *vlapic, unsigned int short_hand,
+                               uint32_t dest, bool dest_mode)
+ {
+     if ( vlapic_domain(vlapic)->max_vcpus <= 2 )
+-        return 0;
++        return false;
+ 
+     if ( short_hand )
+         return short_hand != APIC_DEST_SELF;
+@@ -837,7 +836,7 @@ void vlapic_reg_write(struct vcpu *v, unsigned int reg, uint32_t val)
+ 
+     case APIC_LVTT:         /* LVT Timer Reg */
+         if ( vlapic_lvtt_tdt(vlapic) !=
+-             ((val & APIC_TIMER_MODE_MASK) == APIC_TIMER_MODE_TSC_DEADLINE))
++             ((val & APIC_TIMER_MODE_MASK) == APIC_TIMER_MODE_TSC_DEADLINE) )
+         {
+             vlapic_set_reg(vlapic, APIC_TMICT, 0);
+             vlapic->hw.tdt_msr = 0;
+@@ -1163,7 +1162,7 @@ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
+     return X86EMUL_OKAY;
+ }
+ 
+-uint64_t  vlapic_tdt_msr_get(struct vlapic *vlapic)
++uint64_t vlapic_tdt_msr_get(struct vlapic *vlapic)
+ {
+     if ( !vlapic_lvtt_tdt(vlapic) )
+         return 0;
+@@ -1184,7 +1183,7 @@ void vlapic_tdt_msr_set(struct vlapic *vlapic, uint64_t value)
+         HVM_DBG_LOG(DBG_LEVEL_VLAPIC_TIMER, "ignore tsc deadline msr write");
+         return;
+     }
+-    
++
+     /* new_value = 0, >0 && <= now, > now */
+     guest_tsc = hvm_get_guest_tsc(v);
+     if ( value > guest_tsc )
+@@ -1539,8 +1538,8 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+         return -EINVAL;
+     }
+     s = vcpu_vlapic(v);
+-    
+-    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 ) 
++
++    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
+         return -EINVAL;
+ 
+     s->loaded.hw = 1;
+@@ -1573,8 +1572,8 @@ static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
+         return -EINVAL;
+     }
+     s = vcpu_vlapic(v);
+-    
+-    if ( hvm_load_entry(LAPIC_REGS, h, s->regs) != 0 ) 
++
++    if ( hvm_load_entry(LAPIC_REGS, h, s->regs) != 0 )
+         return -EINVAL;
+ 
+     s->loaded.id = vlapic_get_reg(s, APIC_ID);
 
-~Andrew
+base-commit: 10081c2dc571775b538bb00982606a39832ad7e3
+-- 
+2.30.2
+
 
