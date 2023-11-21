@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34ED37F2D63
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 13:39:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.637825.993864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEE807F2D85
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Nov 2023 13:47:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.637831.993874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Q2C-0006jI-4q; Tue, 21 Nov 2023 12:39:20 +0000
+	id 1r5Q9X-0000aN-R5; Tue, 21 Nov 2023 12:46:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 637825.993864; Tue, 21 Nov 2023 12:39:20 +0000
+Received: by outflank-mailman (output) from mailman id 637831.993874; Tue, 21 Nov 2023 12:46:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5Q2C-0006h6-1r; Tue, 21 Nov 2023 12:39:20 +0000
-Received: by outflank-mailman (input) for mailman id 637825;
- Tue, 21 Nov 2023 12:39:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qy+O=HC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5Q2A-0006h0-12
- for xen-devel@lists.xenproject.org; Tue, 21 Nov 2023 12:39:18 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbbb5969-886a-11ee-98e1-6d05b1d4d9a1;
- Tue, 21 Nov 2023 13:39:16 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4084de32db5so28602735e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 04:39:16 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- p2-20020a5d4582000000b003316d1a3b05sm13014525wrq.78.2023.11.21.04.39.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 04:39:16 -0800 (PST)
+	id 1r5Q9X-0000Y8-O8; Tue, 21 Nov 2023 12:46:55 +0000
+Received: by outflank-mailman (input) for mailman id 637831;
+ Tue, 21 Nov 2023 12:46:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r5Q9W-0000Xy-6L; Tue, 21 Nov 2023 12:46:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r5Q9W-0000nv-3Q; Tue, 21 Nov 2023 12:46:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r5Q9V-0001fn-Nm; Tue, 21 Nov 2023 12:46:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r5Q9V-0000eZ-NG; Tue, 21 Nov 2023 12:46:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbbb5969-886a-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700570356; x=1701175156; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AmgnFCQ1TsuKnJtkTYLuPYqC0gRqMFI3ZJkxy1O/ikA=;
-        b=Hw0/yxkXKK6gYGX54LLhxMtQkWqjAIx7AMTg1cRd1CTwwLFzajwlSfi4eE9jisvRQx
-         pApdxOEcDFpGcyXk13bhon+e+X0s9nyLBd0iTFJ6KNBxxTVpL7zTprrMg2PK5+bCLAYS
-         1kDHtsbVXNiJO/a6LctUv/auSoLzjS3ddhgY4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700570356; x=1701175156;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AmgnFCQ1TsuKnJtkTYLuPYqC0gRqMFI3ZJkxy1O/ikA=;
-        b=meCD/MeYNQdDLCtNR9mX776a1K8zKX4//D8vJ2zBInc5l6ieRrZDFDasOZuU3MngPn
-         s6BxEh1K76gM8fIFQiaeLd2Cppl3vK0U5vx/RE99Qv7+ZZVD6V2xRdMlyQ7ObaFoIqwA
-         Nw+0fVNV/PVOBA9ARb8PrO1Cul9TujaLLGtxDd9nFeIIc6ItRTssqfdr4xXUQOFpQuVf
-         DwRQPLUDVlg/1H753JqLb/f+uGmCGMLCR6/llr0AQfTcKSupM1L7uYAAgFGeJutAeH+R
-         AAdNRnu4nOJFuD0wAyGEhrdGXvDYmKxIdG0hY72GHzWTC8yiL4w4vmU35AFktHpjpLSM
-         iD0Q==
-X-Gm-Message-State: AOJu0Ywl5uwBGzMRVIhqme6yEOar2tBb/1vRnaMQadhTGCMt04utO7Pv
-	a5hzR6G2zj3FPijndaFStrxcog==
-X-Google-Smtp-Source: AGHT+IGNJAjdd02m8R9CrJstTtZ1EFPeGG3LPJ+EiMHlUeLGoHIBkLZlxbCIkZz4KIlarbVkmGYBRA==
-X-Received: by 2002:a05:6000:156c:b0:32d:9fc9:d14a with SMTP id 12-20020a056000156c00b0032d9fc9d14amr11112101wrz.12.1700570356224;
-        Tue, 21 Nov 2023 04:39:16 -0800 (PST)
-Message-ID: <7ef0e3bc-5832-4b58-8649-75d88262cdca@citrix.com>
-Date: Tue, 21 Nov 2023 12:39:15 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/traps: More use of nocall
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231120194537.1341452-1-andrew.cooper3@citrix.com>
- <ad117bbb-890e-4387-bb5a-cfd226c68bd2@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ad117bbb-890e-4387-bb5a-cfd226c68bd2@suse.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dbmtDJaNxAATzzUkLP9EoxAtAK5emspPWFULOKM0Eoo=; b=qmVdsuK9aib85cIrAtAmtUna7D
+	s4i34QNnK1khiFb5SeBlb50zIVqfaM4XWo89ObDRuj4lcjX1+JxoYzzrqnzwwoqyQjdSDoeadCzuL
+	Y8jrSoO3hSoomRnD5RdKb2mUtMvmVNcz1jJmQC7AQl2oNTC0UCfJbdD7Pfqqc+WVrUT8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183809-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183809: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a1f9490cccb7bda80d736cd439be4611286d2042
+X-Osstest-Versions-That:
+    xen=fa2da5bce90b3777aa7a323e1cf201c97b56d278
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 Nov 2023 12:46:53 +0000
 
-On 21/11/2023 8:52 am, Jan Beulich wrote:
-> On 20.11.2023 20:45, Andrew Cooper wrote:
->> sysenter_eflags_saved() and int80_direct_trap() are now only used by a single
->> translation unit.  Move the declarations into the respective traps.c, renaming
->> int80_direct_trap() to entry_int80() to match the style elsewhere.
->>
->> Annotate all 3 with nocall like all other entry paths.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+flight 183809 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183809/
 
-Thanks.
+Failures :-/ but no regressions.
 
-> Nevertheless I wonder if this wouldn't better be deferred until asmlinkage
-> has appeared in the code base, such that along with nocall that could be
-> added at the same time. (Even then it's not entirely clear to me whether
-> Misra is going to be happy with declarations not living in headers. But
-> imo limiting exposure trumps Misra's possible pickiness.)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-We've been over this many times.
+version targeted for testing:
+ xen                  a1f9490cccb7bda80d736cd439be4611286d2042
+baseline version:
+ xen                  fa2da5bce90b3777aa7a323e1cf201c97b56d278
 
-MISRA demands that it is declared only once.  It *does not* demand that
-the declaration is in a header file.
+Last test of basis   183802  2023-11-20 20:00:27 Z    0 days
+Testing same since   183809  2023-11-21 10:02:16 Z    0 days    1 attempts
 
-And this has been confirmed by our MISRA experts previously.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-~Andrew
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   fa2da5bce9..a1f9490ccc  a1f9490cccb7bda80d736cd439be4611286d2042 -> smoke
 
