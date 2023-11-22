@@ -2,52 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 664AF7F53A7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:47:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639255.996355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1612A7F53B6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:50:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639260.996366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vzh-0005BE-32; Wed, 22 Nov 2023 22:46:53 +0000
+	id 1r5w2n-0007N3-L3; Wed, 22 Nov 2023 22:50:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639255.996355; Wed, 22 Nov 2023 22:46:53 +0000
+Received: by outflank-mailman (output) from mailman id 639260.996366; Wed, 22 Nov 2023 22:50:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vzh-00058P-05; Wed, 22 Nov 2023 22:46:53 +0000
-Received: by outflank-mailman (input) for mailman id 639255;
- Wed, 22 Nov 2023 22:46:51 +0000
+	id 1r5w2n-0007Io-HJ; Wed, 22 Nov 2023 22:50:05 +0000
+Received: by outflank-mailman (input) for mailman id 639260;
+ Wed, 22 Nov 2023 22:50:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EnF+=HD=amazon.co.uk=prvs=6830d628d=dwmw@srs-se1.protection.inumbo.net>)
- id 1r5vzf-00055B-2P
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:46:51 +0000
-Received: from smtp-fw-9106.amazon.com (smtp-fw-9106.amazon.com
- [207.171.188.206]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 043a1697-8989-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 23:46:48 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2c-m6i4x-b1c0e1d0.us-west-2.amazon.com)
- ([10.25.36.210]) by smtp-border-fw-9106.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2023 22:46:41 +0000
-Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (pdx2-ws-svc-p26-lb5-vlan3.pdx.amazon.com [10.39.38.70])
- by email-inbound-relay-pdx-2c-m6i4x-b1c0e1d0.us-west-2.amazon.com (Postfix)
- with ESMTPS id 123A980E6E; Wed, 22 Nov 2023 22:46:40 +0000 (UTC)
-Received: from EX19MTAUEC002.ant.amazon.com [10.0.44.209:37335]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.93.120:2525]
- with esmtp (Farcaster)
- id 23a927f1-40ae-457a-96a3-4944dacd7816; Wed, 22 Nov 2023 22:46:39 +0000 (UTC)
-Received: from EX19D008UEC004.ant.amazon.com (10.252.135.170) by
- EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.39; Wed, 22 Nov 2023 22:46:39 +0000
-Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
- EX19D008UEC004.ant.amazon.com (10.252.135.170) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.39;
- Wed, 22 Nov 2023 22:46:39 +0000
-Received: from EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797]) by
- EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797%3]) with mapi id
- 15.02.1118.039; Wed, 22 Nov 2023 22:46:39 +0000
+ <SRS0=hBnL=HD=epam.com=prvs=56903895d3=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1r5w2l-0006wv-Ri
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:50:03 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 77a45472-8989-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 23:50:01 +0100 (CET)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AMMcJYf030777; Wed, 22 Nov 2023 22:49:48 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2051.outbound.protection.outlook.com [104.47.12.51])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3uhet1afc2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 22 Nov 2023 22:49:48 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by AM7PR03MB6354.eurprd03.prod.outlook.com (2603:10a6:20b:1b0::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Wed, 22 Nov
+ 2023 22:49:45 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7025.020; Wed, 22 Nov 2023
+ 22:49:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,216 +51,141 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 043a1697-8989-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1700693209; x=1732229209;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to;
-  bh=ZNus4MNDWH9zvdQFbx0y4aBO6KcLzPt3p8zCCp44DF4=;
-  b=gMc4jWQgrCx82RG6Zfs/xuG4nYb8d4XcBdlr7YvFHjDFE6/A1gaxvTfe
-   AcGVtmNDxxphhl7AVjBytHd7EwAUNiKJHY8XZTdGQ0MQi2UVlmX1pInbp
-   a+4XXJOsqtzzNXxZoBzknqX4uE0RSn6oObd/+yq1kAbdVIFc6z1lJE5nT
-   4=;
-X-Amazon-filename: smime.p7s
-X-IronPort-AV: E=Sophos;i="6.04,219,1695686400"; 
-   d="p7s'?scan'208";a="685919465"
-Content-Type: multipart/mixed; boundary="===============4348891245300251586=="
-MIME-Version: 1.0
-X-Farcaster-Flow-ID: 23a927f1-40ae-457a-96a3-4944dacd7816
-From: "Woodhouse, David" <dwmw@amazon.co.uk>
-To: "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, "paul@xen.org"
-	<paul@xen.org>
-CC: "julien@xen.org" <julien@xen.org>, "hreitz@redhat.com"
-	<hreitz@redhat.com>, "anthony.perard@citrix.com" <anthony.perard@citrix.com>,
-	"Oleksandr_Tyshchenko@epam.com" <Oleksandr_Tyshchenko@epam.com>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>, "qemu-block@nongnu.org"
-	<qemu-block@nongnu.org>, "marcandre.lureau@redhat.com"
-	<marcandre.lureau@redhat.com>, "kwolf@redhat.com" <kwolf@redhat.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "jasowang@redhat.com"
-	<jasowang@redhat.com>
-Subject: Re:  [PATCH v2 2/6] xen: backends: touch some XenStore nodes only if
+X-Inumbo-ID: 77a45472-8989-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dy9+GtYdotcK8R99kCm2Y0VI5qkAVti2L9sUzcXLjWyoHEJwYJVBe5ALA2zf7RUG0Fsr2WT1Gd3OeA8LnV/yncoN101r9IZXVQxnwphazh6Dve71QI5hsOt2lmE7oIpiOZiNa4QIioXLwG8HaehgQIaUdOkjTcHsuL6zGPVsYxFbpWPx2riliOEwQuFJOrbANmiBbT63xWWjYkOH4VKDkcI98Ht7iULopb94cbmj2cEIHFVnRSBPAVD9vPLWgouH9/8aK/IjRzuRRh3EKF9jt20aUZVqyVPR9S00CVr+M330zC2U1VgVyGQ2WX6KPN2f0eE1lvCKDeEYlnwahh81Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GALFRJg55jt6JiEZfRw+xo/FTGLqR3bGnHTe36biIuQ=;
+ b=HWgPgDVATnlsc9nOB4BveR24O3Lfowm4PHvkY2WdWXNW/raxqLbt8qeMSae16WF3MgEm6GXDOIkqKxAuksJFX8smikeqseKM6yzJ+1B/jdpHWB61hCI6aKn/t337j0zX1ruVpJM3dKzzmVFYICIi5JL13Mwmhc5KttYHFLtpQvgJoHhZshtXg5tYLhcORWgJVXiQzzyOECQN7mZMBxDdQrnKG/04vVYhn9UGdfYT3KQE6+t85X/YhDjDAh9EceNig1ppNDmbircNl8jimdwrND5PMAraL8IBuL0ASv3M4YykdHjDMHOBEx/2VGPpSfVLfRq6WZnMsvUwWshBzs4zqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GALFRJg55jt6JiEZfRw+xo/FTGLqR3bGnHTe36biIuQ=;
+ b=JJKlnFpihG6vcggTa0SPNYDLBGqg0Vdy+4s0yAh/zuT6GRebndVuS1qlaPtyPxi8whwk3P01MHLL1r5LykzA8QUV1VaGAJZij6HZ/I9r2P4Rl6XTAjoTHmiUlOwIzQL/p5PDkkIMvyoEvhmshCWrgYGBCaAfr8iYCAPMMQpV8RmpVs4svjKgOces6C1XWoB+McKD5Gme74dB3CoLlbs73I/xYRJBWtDsyN77SvAPBzg1l/6Odm0RwBjN9vRx89z20YnApsEyl+TLs5kS/gIrqfiL8G/A1JLKIe7VYL5ECnYRAYQbwpbmXDm+WaqT8zI2/pkZ4Zpmffd5RWXvtL9vQw==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: =?utf-8?B?UGhpbGlwcGUgTWF0aGlldS1EYXVkw6k=?= <philmd@linaro.org>
+CC: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+        David Woodhouse
+	<dwmw@amazon.co.uk>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Julien
+ Grall <julien@xen.org>, Paul Durrant <xadimgnik@gmail.com>,
+        Oleksandr
+ Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+        Anthony Perard
+	<anthony.perard@citrix.com>,
+        Paul Durrant <paul@xen.org>, Kevin Wolf
+	<kwolf@redhat.com>,
+        Hanna Reitz <hreitz@redhat.com>,
+        =?utf-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>,
+        Paolo
+ Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>,
+        "open
+ list:Block layer core" <qemu-block@nongnu.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 2/6] xen: backends: touch some XenStore nodes only if
  device...
 Thread-Topic: [PATCH v2 2/6] xen: backends: touch some XenStore nodes only if
  device...
-Thread-Index: AQHaHZXBy3TgSmEg1EqB/qkwqHzB+g==
-Date: Wed, 22 Nov 2023 22:46:39 +0000
-Message-ID: <e9bec5052be942021b9d28432173d8a7ce987f8b.camel@amazon.co.uk>
+Thread-Index: AQHaHMeI7KczK4z02kGE/beB6udNwrCGLpiAgADDwYA=
+Date: Wed, 22 Nov 2023 22:49:44 +0000
+Message-ID: <87msv51jzu.fsf@epam.com>
 References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
-	 <20231121221023.419901-3-volodymyr_babchuk@epam.com>
-	 <02fcd3c2-afe2-43f4-8a15-7caa85a147f5@xen.org>
-In-Reply-To: <02fcd3c2-afe2-43f4-8a15-7caa85a147f5@xen.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.106.83.18]
-MIME-Version: 1.0
-Precedence: Bulk
-
---===============4348891245300251586==
+ <20231121221023.419901-3-volodymyr_babchuk@epam.com>
+ <19f6fcaf-ac2b-4cc3-b226-27ec659d7478@linaro.org>
+In-Reply-To: <19f6fcaf-ac2b-4cc3-b226-27ec659d7478@linaro.org>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Type: multipart/signed; micalg=sha-256;
-	protocol="application/pkcs7-signature"; boundary="=-SG96OccgDQ0z6HS++6Hc"
-
---=-SG96OccgDQ0z6HS++6Hc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2023-11-22 at 17:03 +0000, Paul Durrant wrote:
->=20
-> > This patch checks presence of xendev->backend to check if Xen PV
-> > device is acting as a backend (i.e. it was configured by Xen
->=20
-> Technally *all* XenDevice objects are backends.
-
-Right. The key criterion is whether the backend was created by QEMU, or
-merely discovered by QEMU after the toolstack created it.
-
---=-SG96OccgDQ0z6HS++6Hc
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEjww
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhAwggT4oAMCAQICEQC/QgfpbUT3q2fHshU/ReqfMA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowIjEgMB4GCSqGSIb3DQEJARYRZHdtd0BhbWF6b24uY28udWsw
-ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCZgnzd4h6STv/MQcUPixvDN/dNtp4yVSdc
-xz9mB1OcA7HXd4WdPyYagmkcH0WguDYaQnOszkSdElI+2XRFSlGXhY7U9tktvdWuY1zAY1UWES8e
-3BUHqSKbIKx4SX6GuctCcPnyagVZ9Hk21YUElx9cdmrqt0bGoydgxAspEx56J9Q5a48WfvFYjLBF
-NL1dw+P1eUeAljco30+Xggf5faawKfPArUX0cmU4VIh5DMUyv4d0xxfNN6cK1GMj/HGUg2T9OTHW
-nbTdq+OHJwHGi/37mCWx1O3uV0hbZzA1fNklaqlsr1Acg0elPeCFXLb8dSkMgQZHNJVjn+mBvG4d
-MG4FS3ntipApytA+a5IaMP3LNAo0EoBd5/xVy0M6TXbiYesYLq9rhnrLgO1qcw7+if0jH9YoEJ6a
-Je1m7omfEXh2XpospSLaohmAqaBKlyhXDXbTnUVnIf79zU5ohHZof0cP2amnnvYUVD72iuf9qe7X
-4L1Rj589qEWYROKiMil5X7l/smE1dAmxhKxx6YWvWkXH9u7JOcmLGdKST0voaY7j3Wk0lxK3NKsk
-q0G3BpqbPz3P8BYtn38BvbkFnwVW7F7Qzus3KZJgP62eN25QHxoFj44x3sppx4I5WlYG4lxdFZsY
-smQdj64c7MaJ7cp8RJN+eO32RKrkndEkihzxevl11wIDAQABo4IByjCCAcYwHwYDVR0jBBgwFoAU
-CcDy/AvalNtf/ivfqJlCz8ngrQAwHQYDVR0OBBYEFJ418HpIgZaPnwpWdCNSvm4XgH/lMA4GA1Ud
-DwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAjBA
-BgNVHSAEOTA3MDUGDCsGAQQBsjEBAgEBATAlMCMGCCsGAQUFBwIBFhdodHRwczovL3NlY3RpZ28u
-Y29tL0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3JsLnNlY3RpZ28uY29tL1NlY3RpZ29S
-U0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3JsMIGKBggrBgEFBQcBAQR+
-MHwwVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1
-dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3Nw
-LnNlY3RpZ28uY29tMBwGA1UdEQQVMBOBEWR3bXdAYW1hem9uLmNvLnVrMA0GCSqGSIb3DQEBCwUA
-A4IBAQCSez7gtf1wlWJr568crX21nm6QFWRdJ/YxMOReeqYtGs8QZf2zm2vIEFab61MrgJFJcFJL
-sRhVHwnH/hvax3ZldDpUhM0ODpA9soUjYsvKJ0boFAHPtI1BL0yrZNCBdsUGxMv0t64Acj2ovxQ+
-OxPd5ngHu0MzYIKLDvTSehxkh/qW23X7Ey/fPR0sgnAK4IV7clidmuWBbrqX+WKEyEP2kaEvLsRg
-8plzYbVVFJl37rX2waKnGaWYnJ3BrvcMMgDSQCuoxMThWAOr7wxOh0ni0K3rW7CwDIAjUSk+fFmS
-2EacUvIv/0xUW1nXzGJ12/Qyi+Mw65m0qE776qfcftg3MIIGEDCCBPigAwIBAgIRAL9CB+ltRPer
-Z8eyFT9F6p8wDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVy
-IE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+
-MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0EwHhcNMjIwMTA3MDAwMDAwWhcNMjUwMTA2MjM1OTU5WjAiMSAwHgYJKoZIhvcNAQkBFhFk
-d213QGFtYXpvbi5jby51azCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAJmCfN3iHpJO
-/8xBxQ+LG8M39022njJVJ1zHP2YHU5wDsdd3hZ0/JhqCaRwfRaC4NhpCc6zORJ0SUj7ZdEVKUZeF
-jtT22S291a5jXMBjVRYRLx7cFQepIpsgrHhJfoa5y0Jw+fJqBVn0eTbVhQSXH1x2auq3RsajJ2DE
-CykTHnon1DlrjxZ+8ViMsEU0vV3D4/V5R4CWNyjfT5eCB/l9prAp88CtRfRyZThUiHkMxTK/h3TH
-F803pwrUYyP8cZSDZP05MdadtN2r44cnAcaL/fuYJbHU7e5XSFtnMDV82SVqqWyvUByDR6U94IVc
-tvx1KQyBBkc0lWOf6YG8bh0wbgVLee2KkCnK0D5rkhow/cs0CjQSgF3n/FXLQzpNduJh6xgur2uG
-esuA7WpzDv6J/SMf1igQnpol7WbuiZ8ReHZemiylItqiGYCpoEqXKFcNdtOdRWch/v3NTmiEdmh/
-Rw/Zqaee9hRUPvaK5/2p7tfgvVGPnz2oRZhE4qIyKXlfuX+yYTV0CbGErHHpha9aRcf27sk5yYsZ
-0pJPS+hpjuPdaTSXErc0qySrQbcGmps/Pc/wFi2ffwG9uQWfBVbsXtDO6zcpkmA/rZ43blAfGgWP
-jjHeymnHgjlaVgbiXF0VmxiyZB2PrhzsxontynxEk3547fZEquSd0SSKHPF6+XXXAgMBAAGjggHK
-MIIBxjAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUnjXwekiBlo+f
-ClZ0I1K+bheAf+UwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEW
-F2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2Vj
-dGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5j
-cmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9T
-ZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEF
-BQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHAYDVR0RBBUwE4ERZHdtd0BhbWF6b24uY28u
-dWswDQYJKoZIhvcNAQELBQADggEBAJJ7PuC1/XCVYmvnrxytfbWebpAVZF0n9jEw5F56pi0azxBl
-/bOba8gQVpvrUyuAkUlwUkuxGFUfCcf+G9rHdmV0OlSEzQ4OkD2yhSNiy8onRugUAc+0jUEvTKtk
-0IF2xQbEy/S3rgByPai/FD47E93meAe7QzNggosO9NJ6HGSH+pbbdfsTL989HSyCcArghXtyWJ2a
-5YFuupf5YoTIQ/aRoS8uxGDymXNhtVUUmXfutfbBoqcZpZicncGu9wwyANJAK6jExOFYA6vvDE6H
-SeLQretbsLAMgCNRKT58WZLYRpxS8i//TFRbWdfMYnXb9DKL4zDrmbSoTvvqp9x+2DcxggTHMIIE
-wwIBATCBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-A1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdv
-IFJTQSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPer
-Z8eyFT9F6p8wDQYJYIZIAWUDBAIBBQCgggHrMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJ
-KoZIhvcNAQkFMQ8XDTIzMTEyMjIyNDYzOFowLwYJKoZIhvcNAQkEMSIEIL2CGScqsCri7T8i1EiB
-nkVDSib+7y6jnQJwTyew1EEXMIG9BgkrBgEEAYI3EAQxga8wgawwgZYxCzAJBgNVBAYTAkdCMRsw
-GQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1Nl
-Y3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9u
-IGFuZCBTZWN1cmUgRW1haWwgQ0ECEQC/QgfpbUT3q2fHshU/ReqfMIG/BgsqhkiG9w0BCRACCzGB
-r6CBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
-BxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJT
-QSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPerZ8ey
-FT9F6p8wDQYJKoZIhvcNAQEBBQAEggIAXhp8SGJ5fcg4I6OMpvZ0cEl18+BaIaV6tVsHoZ3tlOcC
-/LRj2/ybNJYLEHW6DXXTjAE28rIMQXuHs4Eo75PWeb/mOqV5SmJvx4KMYyAf9Gl0jlYscr9v8NA1
-udSN2QRLofL9yzV09Ymwq9QOMKiWNp9UWQmejba+5WKl78A7rYkhl50rX2y34/8sG4d0iPPN1GB3
-15bMCkSs9NBY/440M4o52YNgkgp5e5UEAAp/DRxYYq533Fyml7UvIK+3rqwv3wnCoqZbFViVRFSV
-zk+mAEoAYwD9920k3NhFicVVLOI6zASpngdhDBrqvDfpyo7AP0cgU20Ms2x1QrznHGUmao7h6qsU
-5Fvpv4g8Svd2nBSqHmRplckXKZ8vBgNfcvdUmiImxn1reETpun0tSJXh0ALcc9JaJzEMU66TDgCU
-hYf9jQdphcI7pgH/12AQco+QYBLLEdQ916Bj8EhcoyvybqNdhg62gBhlCA9vCxGcrY/3G1hzvaOZ
-mgooMkWRsdQbEBizW1H50CV3UWW4p/xc1AD2QOSDmiwF7SkKQKrcWo4KFi8fBArf4Z2s+EqgHuBn
-PtGJXb2Id/SpVEup9BKImFiWTSAbq/XZF/tT/Y5NMsevErrFPMiP3XyJw8oMxHK4OC41ZCI8671r
-mVSpae6QsTZdEXUyELaLKJxFHLUHFHoAAAAAAAA=
-
-
---=-SG96OccgDQ0z6HS++6Hc--
-
---===============4348891245300251586==
-Content-Type: multipart/alternative; boundary="===============8724680922320975902=="
-MIME-Version: 1.0
-Content-Disposition: inline
-
---===============8724680922320975902==
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.10.7; emacs 29.1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6354:EE_
+x-ms-office365-filtering-correlation-id: 747e80bf-822b-43c8-b85a-08dbebad5286
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ xpAdNMpjfOIlWWe/YfCvFf3oFiLkbpqrb2RD97fYyxqGH5tpRM0SGBq25KFR1z9pfuRC2oTLtZcHo5t5kRVR5T/VjCU0O6tY24dcpPEyRYrqsFAsrxhe211kNe+tP6c7TMbLGgilezluRfxTCQQ7MKQO2wEMRAwOFSmthKY7HNg6OmJSbex4Sj10cbryycUB5ANI0Np194tL93jxC/gBucAUbTmsQEGaXp7q4FUC0QnRb88qvPIhu5+DmWwi5SuSyfB3IFfKboihi44WRpZtRi84Ypp1gq2ClT9DQuBbUciKbnWapHMcmWonBcOJqMvoyE/sZomA9scuzbXOk2oAtOhY3oIT5m4vmHZx5JPL8WQ5JqktaYhIUCPI0MoVLL8Zexp2di4vxKfCQ9190FsYrHKiGJ3g9HfQDQv6o6Kwp7gHBHL5ntj35NN6jFIpA+Pkv/CevS6cCTnpNfns3drquDIpCQeXj5MmRKTtMBhCZ/AoI2nPNaz7HypBvWoN6j+Mw6mFDfKMamdzD9wpIqo6HskJfNUXFd53l86gb0hCbhtqIsIc6OdS/XVE7/XRitPauPgQG/m+pgZ7syIjUhEFZoggApTxG0/QIlbdaMSSD/CHPHrMu2yzEhMZUiy6Bgcz
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(376002)(39860400002)(346002)(136003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(7416002)(2906002)(4744005)(71200400001)(86362001)(6506007)(478600001)(2616005)(26005)(55236004)(53546011)(6512007)(66556008)(66476007)(66446008)(64756008)(316002)(54906003)(6916009)(8676002)(4326008)(8936002)(36756003)(66946007)(6486002)(91956017)(76116006)(122000001)(38100700002)(5660300002)(38070700009)(41300700001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?WVZqQWR5SEpFcE1HbHdsZjdDek81MEh6eU8zV01zQTRiRjZhbi9GbFpWblRo?=
+ =?utf-8?B?VEFDWll1M3dmT1Vha1MzbTBXUjROYWJTbXFTdzNodjdoZzcxWGkzZHNZWC9p?=
+ =?utf-8?B?TTEycTUyZG1OUUgxUFppbFlNcnBJY3pod0h6aml4MXFpZjBQYTdOcjN4ZTU3?=
+ =?utf-8?B?WUdiMlNOSUZOUmpib1VNak51SC9SVGhzVWduR3BPN3ZkV3cxZ05lZ051RDEz?=
+ =?utf-8?B?REl5bzJJM05YSndsamJnelRGMHdaV3JZVVUzYjBQN3ZUTDRBTFNHZHYxQ0I0?=
+ =?utf-8?B?NTBFdnpGYUMyeFcvYnRMdE9Kd05kb1JmRGd2OUszRDZPNWFXL01BL3QvYWV0?=
+ =?utf-8?B?TE5VSkFDOG02cmhEdmxJUEtkWVdoZ1A4K0luTDRjQ2E0am5CaUJYN1F3dVpQ?=
+ =?utf-8?B?UFVkYUFwd1QxUDJBNjJxOFVXVUwrL1ZLcXdiWUZBelV1VjZML3Y3KzlzVnJK?=
+ =?utf-8?B?Yzd2OFRWY1BKcFYyZ0xoVXhSUGsxVGg5N3hCQTNtdHl1bjBhdWpIVk5OSkRt?=
+ =?utf-8?B?dUtlSk9KQW5FbFNYRmVibjJpZjVqUmc0bEs5L24xQllnb3ZKNng0dHZUUHA3?=
+ =?utf-8?B?TWpjRStpV2lkdEliR09PczQwY2ZOUWxoaXZLRS9BaEhxTEhnWUZ3d3hlL0tl?=
+ =?utf-8?B?VVJ2d0dESElRaXhvV1NtdFFxWUk1MTQ3L2pmUjNJOWlKQVZBSk5hZ1NsQ21L?=
+ =?utf-8?B?bWVoOUExK1M0dkpUVkVMeUNyK25uK3h5SzJwWFdjV1JFb0dmaTNNREpwNEtH?=
+ =?utf-8?B?bG95TkhLRzZQYUp3bXJMcG95WGxpSDdPTCtxZDIyaWNNT1h5clArUDJwelI2?=
+ =?utf-8?B?Tld3dURpMER5aVZEUGF3MXgyS2h0endzZmZqWVprVmlrK1pOaWZvUUxkTzdH?=
+ =?utf-8?B?S1JpdC9FRVlUK1lwdTZLNDJGMC9tanRWZWZnTkVQZkZoOXg2YWVDcmg3NFdv?=
+ =?utf-8?B?NERNeGlmWjhSUlUvZkp3TFJ3N3gxMEd1S2ZpeFZsYWxhNWlXcXBMMHp1Umg2?=
+ =?utf-8?B?cWkxSEUyNVNSUXVYWE56U2haU29UTlR2V3NHTkhiSmdMUmw5Q0NqVFJVcmNt?=
+ =?utf-8?B?NVJiZmpZZVZ3RFBFYWJZdjVrNHlRQkVldlBURDlha2JiUk1aMWJSTTJ3WHh5?=
+ =?utf-8?B?L04rdDhYYTNzcndZMjliSXZRa3hRTG54emc3a3podGxrTS8wYXJjU3d0a3Iy?=
+ =?utf-8?B?OWU1aFlNMmlLOW01UmFkWmFQZFJXSGZHaEZBQ1VCclNzamx3ZExIOFJDWndl?=
+ =?utf-8?B?WWZoV1haWnp6aG92Sm5SNmlsc3pWbXM4T25xZWJMSi9oUFUxbitaVjRBM3RU?=
+ =?utf-8?B?NnFKWjl1c2RHK09NOEFBNGVaOFBZNHlSSGYyTWtoWUxLaHEwbG9FeGhGNXZ4?=
+ =?utf-8?B?cDhjb0QyRjczNnpvMUxiMWZnclNsQ2tWaDlpZVRlL2F4K2g3akVCK2xpRXp3?=
+ =?utf-8?B?TDF2bStjTTAxbXZSNS9mOEZKS3ZHajBzc3BOazVSd1MrbEJscDZZQm5YbytZ?=
+ =?utf-8?B?Y25DRml5SHFTSFZGanlkQVRkc3V3bUU1S0J5OVl6Uk5mejYvaUltNDZTbnN3?=
+ =?utf-8?B?bTBGSUo3a1ZFRFFRcmlOWGZXUE9LWGQvamkyanU4UmcySU0rcW5HZndkcFpt?=
+ =?utf-8?B?MXdWSGEzTURPRGdwQUg1clppeEROYXpnczAvbTR6TVlmNDFQOHR2Sm5jS0dS?=
+ =?utf-8?B?RVgvT3p4SkJ5bjZtV3ZEM2VtOWsra3Q4ejAvOXdIYlY5UG4rZEEzRjBocVNr?=
+ =?utf-8?B?dXU4M2dCdWNoTkRTa1NacXNZVVI5YVBDOXg4ZW40OVhIVzFTMFJQb1BQdnlS?=
+ =?utf-8?B?Qy9YSzFhWHN5ZnRUQjNORi9RRHQwTnpWaCtCNXRKMU5zMlNORkprSkpocWZT?=
+ =?utf-8?B?QkxmclMrcHRLYzhJNFdDVVVJSUFhZHZFd1h5WSswRW9qLzlCOXdxZGZiUlNv?=
+ =?utf-8?B?NnBqZXo3UUFLcENYS1kzZGZzWkllYmlpL0h6T0lEZlAvMDQ0cHdoOVRqZms2?=
+ =?utf-8?B?UENqcUhBVlNiSVp3Qlh6dzBsSGU5eFBDOE5TeXhOOE9oOFprNHp6M1hXQVpx?=
+ =?utf-8?B?OUZ6RmUzR3dwQVRmMmNUbVhFVEZUTHFxL05vSWNxZ2VtT3YyM2dsbm9rWHJ6?=
+ =?utf-8?B?bEFmbUFBb0hKWEFFM2dwQXdWaVptTFVTakRBaTVENi9OSFV2Y0I1SVJQd3NF?=
+ =?utf-8?B?akE9PQ==?=
 Content-Type: text/plain; charset="utf-8"
+Content-ID: <558673417E63B54794723FA5361A733C@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 747e80bf-822b-43c8-b85a-08dbebad5286
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2023 22:49:44.9113
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Upao47tIkFHEI3P5cGQ21Dw7lyxI4iEgB4ivSdhWjT1dfdNkqUDHiroo9yvJvbZapRd+91IaH8nX6Y97pWdKWtfXTgPP4mBhXu/soD6B+cs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6354
+X-Proofpoint-GUID: dz3GyM25Aie6dJIaASEcMMoHQf1dbo_-
+X-Proofpoint-ORIG-GUID: dz3GyM25Aie6dJIaASEcMMoHQf1dbo_-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-22_18,2023-11-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1011 phishscore=0
+ spamscore=0 mlxscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ mlxlogscore=935 priorityscore=1501 adultscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311220167
 
-
-
-
-Amazon Development Centre (London) Ltd. Registered in England and Wales wit=
-h registration number 04543232 with its registered office at 1 Principal Pl=
-ace, Worship Street, London EC2A 2FA, United Kingdom.
-
-
-
---===============8724680922320975902==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><br>Amazon Development Centre (London) Ltd.Registered in England an=
-d Wales with registration number 04543232 with its registered office at 1 P=
-rincipal Place, Worship Street, London EC2A 2FA, United Kingdom.<br><br><br>
-
---===============8724680922320975902==--
---===============4348891245300251586==--
+DQpIaSBQaGlsaXBwZSwNCg0KUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPHBoaWxtZEBsaW5hcm8u
+b3JnPiB3cml0ZXM6DQoNCj4gSGkgVm9sb2R5bXlyLA0KPg0KPiBPbiAyMS8xMS8yMyAyMzoxMCwg
+Vm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+PiB3YXMgY3JlYXRlZCBieSBRRU1VDQo+DQo+IFBs
+ZWFzZSBkbyBub3Qgc3BsaXQgbGluZXMgYmV0d2VlbiBzdWJqZWN0IGFuZCBjb250ZW50LiBSZXdy
+aXRlIHRoZQ0KPiBmdWxsIGxpbmUuIFByZWZlcmFibHkgcmVzdHJpY3QgdGhlIHN1YmplY3QgdG8g
+NzIgY2hhcnMuDQoNCkkgdHJpZWQgdG8gY29tZSB3aXRoIHNob3J0ZXIgZGVzY3JpcHRpb24sIGJ1
+dCBmYWlsZWQuIEknbGwgcmV3cml0ZSBpdCBpbg0KdGhlIG5leHQgdmVyc2lvbi4NCg0KLS0gDQpX
+QlIsIFZvbG9keW15cg==
 
