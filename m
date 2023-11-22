@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C6DD7F51D8
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 21:46:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639163.996160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 169797F5275
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 22:19:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639170.996170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5u71-0000A3-9Q; Wed, 22 Nov 2023 20:46:19 +0000
+	id 1r5ucM-0000K5-Hn; Wed, 22 Nov 2023 21:18:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639163.996160; Wed, 22 Nov 2023 20:46:19 +0000
+Received: by outflank-mailman (output) from mailman id 639170.996170; Wed, 22 Nov 2023 21:18:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5u71-00007u-6P; Wed, 22 Nov 2023 20:46:19 +0000
-Received: by outflank-mailman (input) for mailman id 639163;
- Wed, 22 Nov 2023 20:46:17 +0000
+	id 1r5ucM-0000Gv-ED; Wed, 22 Nov 2023 21:18:42 +0000
+Received: by outflank-mailman (input) for mailman id 639170;
+ Wed, 22 Nov 2023 21:18:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q+k4=HD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5u6z-00007m-Mq
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 20:46:17 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=lIMN=HD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r5ucK-0000CD-C0
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 21:18:40 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ea7ebba-8978-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 21:46:16 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4094301d505so951485e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 12:46:16 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- e6-20020a5d5946000000b00332c36b6563sm269791wri.101.2023.11.22.12.46.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 12:46:16 -0800 (PST)
+ id b2f6000a-897c-11ee-98e1-6d05b1d4d9a1;
+ Wed, 22 Nov 2023 22:18:38 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id D6A35B829A4;
+ Wed, 22 Nov 2023 21:18:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D525CC433C7;
+ Wed, 22 Nov 2023 21:18:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +41,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ea7ebba-8978-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700685976; x=1701290776; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5CCnMDItFYpBJqgA5iPVkAqT8XBVZoV9AbPn/QCCFgE=;
-        b=C4l3BtZFuhvRbyg6vI2DSnGltSRrf96DtsGoeeURyvFjV22dl1rPmvtZdOuk42oqEl
-         WKty//wlIL43n7qxKd2vc2eozsWKl6G209k4VeP2vZqB1JtWH/VJuy1a9S+E5LOsN0Uy
-         9QiZwCkEpL+ojUwYGcWwxBmYrbHp/1iVijZ8w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700685976; x=1701290776;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5CCnMDItFYpBJqgA5iPVkAqT8XBVZoV9AbPn/QCCFgE=;
-        b=sHjphZkVDP4oAB6nvZUQZ0bnxxQRg0A/qDz4D3RzuYgBjBFBlnLtAi3z2Vksbj7+IY
-         GgohvVyDSU1THe9QmTtVJFnkEE/YD/futV8Dwq83zoCrhDVNb5H0/7OqDZwau8RrBM+A
-         N3F7u0U7z+3bhEKpKgVaKDVwflmdMI9k9WaC9RHqSAbHpXuyEZKGOx7N1E6G+cgI1Wbe
-         U3JHPBrnQFaL2PtCYugtcGk+yTiFZH68kKV0kn2tHC4lRZM3TwQkOj9F+ODJWtBgHVQj
-         Jp6pY7j8SvUZ67TOdVKD77HSQf87fPmHoh73sfZAXd+mReFID6/bIU5yh5DxTHCbtzXh
-         7fmw==
-X-Gm-Message-State: AOJu0Yz8IRLA1OdYDfMvv23kWysSP4wgR/pmqWdwDIKXz+FWuSac5M+c
-	/PGPUiUEz97vmAxAaDYr7EtTeQ==
-X-Google-Smtp-Source: AGHT+IH5MysLvzXO4lS26blKN4j/5/ROjGaTJGmDUrXlVn3Fx7/kJHw0BvBPQPfalDbeSKCHaLargQ==
-X-Received: by 2002:a05:600c:19ca:b0:407:8f23:cf3 with SMTP id u10-20020a05600c19ca00b004078f230cf3mr2655036wmq.26.1700685976331;
-        Wed, 22 Nov 2023 12:46:16 -0800 (PST)
-Message-ID: <32049b29-39eb-4031-b5ef-45d591208686@citrix.com>
-Date: Wed, 22 Nov 2023 20:46:15 +0000
+X-Inumbo-ID: b2f6000a-897c-11ee-98e1-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700687915;
+	bh=EewVR80HMkkioeqsh2flkjPAQSyl9mvD4SiueovGads=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ZSETPo+5ya2Nl+LF6MRenfRdH3VBCzCRRx7w3acVcUGEl9tUIo+gZRKMttj5Z4boT
+	 813NDJeUSLTLYmCwNtJtwDmHxzaWTWN4h84AdBm1et56xEOEfltxLSHirIh/SCyEGi
+	 WVY7sFpConU+7fivxDoHjrsHzi/FCtSVq+NcjEwhjGfW7z/bH/0oNUM/n9/bQlKw9s
+	 o+RUDxMw9d42PQMop/Uc/1x9Ftu9bDRcKLpEFZK+fQD6ARvAmo7jyCBIxvPz+PW64D
+	 P4Xf3td2WZstLcoSMZtn6pYNU6TYSyXJbeX3Kts98aZRlANyjfemD8j6ZM7rUuRIdQ
+	 X1Je/y1AbVxAQ==
+Date: Wed, 22 Nov 2023 13:18:32 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Julien Grall <julien@xen.org>, 
+    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
+    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
+ topology
+In-Reply-To: <ZV3r1uc3av1wQu4W@macbook>
+Message-ID: <alpine.DEB.2.22.394.2311221306060.2053963@ubuntu-linux-20-04-desktop>
+References: <87o7ft44bv.fsf@epam.com> <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop> <87a5rc4gk7.fsf@epam.com> <770aaef8-09f4-480a-95b8-cc0448ad07ff@xen.org> <8734x43zxi.fsf@epam.com> <alpine.DEB.2.22.394.2311171339010.773207@ubuntu-linux-20-04-desktop>
+ <87edgo2f6j.fsf@epam.com> <alpine.DEB.2.22.394.2311171633190.773207@ubuntu-linux-20-04-desktop> <87ttpg0wdx.fsf@epam.com> <alpine.DEB.2.22.394.2311211712090.2053963@ubuntu-linux-20-04-desktop> <ZV3r1uc3av1wQu4W@macbook>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xenpvboot: remove as unable to convert to Python 3
-Content-Language: en-GB
-To: Olaf Hering <olaf@aepfle.de>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20231006145046.98450-1-roger.pau@citrix.com>
- <b46b276d-4df0-4c28-ba4c-e0147d0b98fd@citrix.com>
- <20231122214342.66d40d6c.olaf@aepfle.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20231122214342.66d40d6c.olaf@aepfle.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-1579814357-1700687241=:2053963"
+Content-ID: <alpine.DEB.2.22.394.2311221307320.2053963@ubuntu-linux-20-04-desktop>
 
-On 22/11/2023 8:43 pm, Olaf Hering wrote:
-> Wed, 22 Nov 2023 20:30:59 +0000 Andrew Cooper <andrew.cooper3@citrix.com>:
->
->> Does this mean there are SLES/OpenSUSE users of xenpvboot ?
-> We do not know. It is gone by now, in 4.18:
->
-> https://build.opensuse.org/request/show/1126897
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Yes.  The email I replied to was the patch we merged into 4.18 deleting
-it because we thought noone had ever made it function for Py3, with the
-implication being that if this was going to be a problem, we could
-reinstate it with the fixes from your patch.
+--8323329-1579814357-1700687241=:2053963
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2311221307321.2053963@ubuntu-linux-20-04-desktop>
 
-But that entirely depends on whether you think anyone is using it or not.
+On Wed, 22 Nov 2023, Roger Pau Monné wrote:
+> On Tue, Nov 21, 2023 at 05:12:15PM -0800, Stefano Stabellini wrote:
+> > On Tue, 20 Nov 2023, Volodymyr Babchuk wrote:
+> > > Stefano Stabellini <sstabellini@kernel.org> writes:
+> > > > On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
+> > > >> > On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
+> > > >> >> Hi Julien,
+> > > >> >> 
+> > > >> >> Julien Grall <julien@xen.org> writes:
+> > > >> >> 
+> > > >> >> > Hi Volodymyr,
+> > > >> >> >
+> > > >> >> > On 17/11/2023 14:09, Volodymyr Babchuk wrote:
+> > > >> >> >> Hi Stefano,
+> > > >> >> >> Stefano Stabellini <sstabellini@kernel.org> writes:
+> > > >> >> >> 
+> > > >> >> >>> On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
+> > > >> >> >>>>> I still think, no matter the BDF allocation scheme, that we should try
+> > > >> >> >>>>> to avoid as much as possible to have two different PCI Root Complex
+> > > >> >> >>>>> emulators. Ideally we would have only one PCI Root Complex emulated by
+> > > >> >> >>>>> Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
+> > > >> >> >>>>> tolerable but not ideal.
+> > > >> >> >>>>
+> > > >> >> >>>> But what is exactly wrong with this setup?
+> > > >> >> >>>
+> > > >> >> >>> [...]
+> > > >> >> >>>
+> > > >> >> >>>>> The worst case I would like to avoid is to have
+> > > >> >> >>>>> two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
+> > > >> >> >>>>
+> > > >> >> >>>> This is how our setup works right now.
+> > > >> >> >>>
+> > > >> >> >>> If we have:
+> > > >> >> >>> - a single PCI Root Complex emulated in Xen
+> > > >> >> >>> - Xen is safety certified
+> > > >> >> >>> - individual Virtio devices emulated by QEMU with grants for memory
+> > > >> >> >>>
+> > > >> >> >>> We can go very far in terms of being able to use Virtio in safety
+> > > >> >> >>> use-cases. We might even be able to use Virtio (frontends) in a SafeOS.
+> > > >> >> >>>
+> > > >> >> >>> On the other hand if we put an additional Root Complex in QEMU:
+> > > >> >> >>> - we pay a price in terms of complexity of the codebase
+> > > >> >> >>> - we pay a price in terms of resource utilization
+> > > >> >> >>> - we have one additional problem in terms of using this setup with a
+> > > >> >> >>>    SafeOS (one more device emulated by a non-safe component)
+> > > >> >> >>>
+> > > >> >> >>> Having 2 PCI Root Complexes both emulated in Xen is a middle ground
+> > > >> >> >>> solution because:
+> > > >> >> >>> - we still pay a price in terms of resource utilization
+> > > >> >> >>> - the code complexity goes up a bit but hopefully not by much
+> > > >> >> >>> - there is no impact on safety compared to the ideal scenario
+> > > >> >> >>>
+> > > >> >> >>> This is why I wrote that it is tolerable.
+> > > >> >> >> Ah, I see now. Yes, I am agree with this. Also I want to add some
+> > > >> >> >> more
+> > > >> >> >> points:
+> > > >> >> >> - There is ongoing work on implementing virtio backends as a
+> > > >> >> >> separate
+> > > >> >> >>    applications, written in Rust. Linaro are doing this part. Right now
+> > > >> >> >>    they are implementing only virtio-mmio, but if they want to provide
+> > > >> >> >>    virtio-pci as well, they will need a mechanism to plug only
+> > > >> >> >>    virtio-pci, without Root Complex. This is argument for using single Root
+> > > >> >> >>    Complex emulated in Xen.
+> > > >> >> >> - As far as I know (actually, Oleksandr told this to me), QEMU has
+> > > >> >> >> no
+> > > >> >> >>    mechanism for exposing virtio-pci backends without exposing PCI root
+> > > >> >> >>    complex as well. Architecturally, there should be a PCI bus to which
+> > > >> >> >>    virtio-pci devices are connected. Or we need to make some changes to
+> > > >> >> >>    QEMU internals to be able to create virtio-pci backends that are not
+> > > >> >> >>    connected to any bus. Also, added benefit that PCI Root Complex
+> > > >> >> >>    emulator in QEMU handles legacy PCI interrupts for us. This is
+> > > >> >> >>    argument for separate Root Complex for QEMU.
+> > > >> >> >> As right now we have only virtio-pci backends provided by QEMU and
+> > > >> >> >> this
+> > > >> >> >> setup is already working, I propose to stick to this
+> > > >> >> >> solution. Especially, taking into account that it does not require any
+> > > >> >> >> changes to hypervisor code.
+> > > >> >> >
+> > > >> >> > I am not against two hostbridge as a temporary solution as long as
+> > > >> >> > this is not a one way door decision. I am not concerned about the
+> > > >> >> > hypervisor itself, I am more concerned about the interface exposed by
+> > > >> >> > the toolstack and QEMU.
+> > > >> >
+> > > >> > I agree with this...
+> > > >> >
+> > > >> >
+> > > >> >> > To clarify, I don't particular want to have to maintain the two
+> > > >> >> > hostbridges solution once we can use a single hostbridge. So we need
+> > > >> >> > to be able to get rid of it without impacting the interface too much.
+> > > >> >
+> > > >> > ...and this
+> > > >> >
+> > > >> >
+> > > >> >> This depends on virtio-pci backends availability. AFAIK, now only one
+> > > >> >> option is to use QEMU and QEMU provides own host bridge. So if we want
+> > > >> >> get rid of the second host bridge we need either another virtio-pci
+> > > >> >> backend or we need to alter QEMU code so it can live without host
+> > > >> >> bridge.
+> > > >> >> 
+> > > >> >> As for interfaces, it appears that QEMU case does not require any changes
+> > > >> >> into hypervisor itself, it just boils down to writing couple of xenstore
+> > > >> >> entries and spawning QEMU with correct command line arguments.
+> > > >> >
+> > > >> > One thing that Stewart wrote in his reply that is important: it doesn't
+> > > >> > matter if QEMU thinks it is emulating a PCI Root Complex because that's
+> > > >> > required from QEMU's point of view to emulate an individual PCI device.
+> > > >> >
+> > > >> > If we can arrange it so the QEMU PCI Root Complex is not registered
+> > > >> > against Xen as part of the ioreq interface, then QEMU's emulated PCI
+> > > >> > Root Complex is going to be left unused. I think that would be great
+> > > >> > because we still have a clean QEMU-Xen-tools interface and the only
+> > > >> > downside is some extra unused emulation in QEMU. It would be a
+> > > >> > fantastic starting point.
+> > > >> 
+> > > >> I believe, that in this case we need to set manual ioreq handlers, like
+> > > >> what was done in patch "xen/arm: Intercept vPCI config accesses and
+> > > >> forward them to emulator", because we need to route ECAM accesses
+> > > >> either to a virtio-pci backend or to a real PCI device. Also we need
+> > > >> to tell QEMU to not install own ioreq handles for ECAM space.
+> > > >
+> > > > I was imagining that the interface would look like this: QEMU registers
+> > > > a PCI BDF and Xen automatically starts forwarding to QEMU ECAM
+> > > > reads/writes requests for the PCI config space of that BDF only. It
+> > > > would not be the entire ECAM space but only individual PCI conf
+> > > > reads/writes that the BDF only.
+> > > >
+> > > 
+> > > Okay, I see that there is the
+> > > xendevicemodel_map_pcidev_to_ioreq_server() function and corresponding
+> > > IOREQ_TYPE_PCI_CONFIG call. Is this what you propose to use to register
+> > > PCI BDF?
+> > 
+> > Yes, I think that's best.
+> > 
+> > Let me expand on this. Like I wrote above, I think it is important that
+> > Xen vPCI is the only in-use PCI Root Complex emulator. If it makes the
+> > QEMU implementation easier, it is OK if QEMU emulates an unneeded and
+> > unused PCI Root Complex. From Xen point of view, it doesn't exist.
+> > 
+> > In terms if ioreq registration, QEMU calls
+> > xendevicemodel_map_pcidev_to_ioreq_server for each PCI BDF it wants to
+> > emulate. That way, Xen vPCI knows exactly what PCI config space
+> > reads/writes to forward to QEMU.
+> > 
+> > Let's say that:
+> > - 00:02.0 is PCI passthrough device
+> > - 00:03.0 is a PCI emulated device
+> > 
+> > QEMU would register 00:03.0 and vPCI would know to forward anything
+> > related to 00:03.0 to QEMU, but not 00:02.0.
+> 
+> I think there's some work here so that we have a proper hierarchy
+> inside of Xen.  Right now both ioreq and vpci expect to decode the
+> accesses to the PCI config space, and setup (MM)IO handlers to trap
+> ECAM, see vpci_ecam_{read,write}().
+> 
+> I think we want to move to a model where vPCI doesn't setup MMIO traps
+> itself, and instead relies on ioreq to do the decoding and forwarding
+> of accesses.  We need some work in order to represent an internal
+> ioreq handler, but that shouldn't be too complicated.  IOW: vpci
+> should register devices it's handling with ioreq, much like QEMU does.
 
-~Andrew
+I think this could be a good idea.
+
+This would be the very first IOREQ handler implemented in Xen itself,
+rather than outside of Xen. Some code refactoring might be required,
+which worries me given that vPCI is at v10 and has been pending for
+years. I think it could make sense as a follow-up series, not v11.
+
+I think this idea would be beneficial if, in the example above, vPCI
+doesn't really need to know about device 00:03.0. vPCI registers via
+IOREQ the PCI Root Complex and device 00:02.0 only, QEMU registers
+00:03.0, and everything works. vPCI is not involved at all in PCI config
+space reads and writes for 00:03.0. If this is the case, then moving
+vPCI to IOREQ could be good.
+
+On the other hand if vPCI actually needs to know that 00:03.0 exists,
+perhaps because it changes something in the PCI Root Complex emulation
+or vPCI needs to take some action when PCI config space registers of
+00:03.0 are written to, then I think this model doesn't work well. If
+this is the case, then I think it would be best to keep vPCI as MMIO
+handler and let vPCI forward to IOREQ when appropriate.
+
+I haven't run any experiements, but my gut feeling tells me that we'll
+have to follow the second approach because the first is too limiting.
+--8323329-1579814357-1700687241=:2053963--
 
