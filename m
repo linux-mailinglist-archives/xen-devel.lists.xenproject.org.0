@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1BBA7F3B13
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 02:13:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638340.994806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 092217F3B15
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 02:14:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638342.994815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5bn8-0003M2-N9; Wed, 22 Nov 2023 01:12:34 +0000
+	id 1r5bp6-0003sn-1a; Wed, 22 Nov 2023 01:14:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638340.994806; Wed, 22 Nov 2023 01:12:34 +0000
+Received: by outflank-mailman (output) from mailman id 638342.994815; Wed, 22 Nov 2023 01:14:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5bn8-0003JB-K1; Wed, 22 Nov 2023 01:12:34 +0000
-Received: by outflank-mailman (input) for mailman id 638340;
- Wed, 22 Nov 2023 01:12:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r5bp5-0003qf-VG; Wed, 22 Nov 2023 01:14:35 +0000
+Received: by outflank-mailman (input) for mailman id 638342;
+ Wed, 22 Nov 2023 01:14:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lIMN=HD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r5bn7-0003J5-CY
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 01:12:33 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 342ab051-88d4-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 02:12:30 +0100 (CET)
+ id 1r5bp4-0003qX-N3
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 01:14:34 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7dc81526-88d4-11ee-98e1-6d05b1d4d9a1;
+ Wed, 22 Nov 2023 02:14:33 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 642B0CE1E91;
- Wed, 22 Nov 2023 01:12:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A4FC433C7;
- Wed, 22 Nov 2023 01:12:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 51F3161BD1;
+ Wed, 22 Nov 2023 01:14:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0024C433C9;
+ Wed, 22 Nov 2023 01:14:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,191 +41,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 342ab051-88d4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 7dc81526-88d4-11ee-98e1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700615546;
-	bh=+BROR+QS3r0GPbPxzNB/D/UwRDl6uwVB9j+aJRysZfw=;
+	s=k20201202; t=1700615671;
+	bh=fva6UkXo8yJFzKn+8NB5CkzT6L9wTtbwWCv/BmrGO3k=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oDQYwYWOBfI5PzGsfYOCt6i3whjYbByt4ACej2bu0ztwfYQ7WgaQtmBzADF5UXG59
-	 U5luAa+TdO3TnVSZH6hvWbrxFUNPNuFE3GXn1ZtCcgbCBSAg+EqFZiBUJGAxFv1hfs
-	 3a3fOn1jXPCNLH+zTv6eOnNV6F203HOiXODZZr04QAUqYrfBsb/ZQ9gqCv0ysSYrDr
-	 mjDXXZAEqWqHZg6fL2my09ieNXPkrH3dZmVoD7vC5qX91Nq9fAHqvWrzJN+ABAg8vN
-	 oRjNeFHSCnG+v20pC3qwbKWlc1YRFijMCiptPgC9B5tXwg3qedq7CkYfI1FxSdWZSo
-	 2Ri7vAtJEMx6A==
-Date: Tue, 21 Nov 2023 17:12:15 -0800 (PST)
+	b=nlOzqkLadcY70GMBrv0WjnQZD9pbeNDSgvX+aJfrIRzzzTuPzmbz7rQEXOYtgEJnS
+	 +Hq8yXcU0H9q6nnL96MhHSBh1QJPQ6l8HLoPhcG7qKTKm7x9wHhXkT4rZSypMRdBjR
+	 4LryoRRiRBPsUl6MTTS+RKwlYBe2mhMQUHDs5Amv/TU64s48osdkUdseTyrbwz430y
+	 1c5fv/UieKEJVjSzKrmcOEP/D8/osk8DB5AjUmYgLpfq18l96imDFvuIzmQTItKU6S
+	 uTSlryw+SvDsEN4kaU64XqZjezbhOU69qGcKsDKgTL0m1EO0GKEV2bYnD9aDPYFil2
+	 FpbKDoHM9l8Aw==
+Date: Tue, 21 Nov 2023 17:14:28 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v10 13/17] vpci: add initial support for virtual PCI bus
- topology
-In-Reply-To: <87ttpg0wdx.fsf@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2311211712090.2053963@ubuntu-linux-20-04-desktop>
-References: <20231012220854.2736994-1-volodymyr_babchuk@epam.com> <20231012220854.2736994-14-volodymyr_babchuk@epam.com> <d6a58e73-da51-40f1-a2f7-576274945585@xen.org> <alpine.DEB.2.22.394.2311161513210.773207@ubuntu-linux-20-04-desktop> <87o7ft44bv.fsf@epam.com>
- <alpine.DEB.2.22.394.2311161651090.773207@ubuntu-linux-20-04-desktop> <87a5rc4gk7.fsf@epam.com> <770aaef8-09f4-480a-95b8-cc0448ad07ff@xen.org> <8734x43zxi.fsf@epam.com> <alpine.DEB.2.22.394.2311171339010.773207@ubuntu-linux-20-04-desktop> <87edgo2f6j.fsf@epam.com>
- <alpine.DEB.2.22.394.2311171633190.773207@ubuntu-linux-20-04-desktop> <87ttpg0wdx.fsf@epam.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
+    Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [RFC PATCH 2/6] xen/public: arch-arm: reserve resources for
+ virtio-pci
+In-Reply-To: <54294601-76fe-4994-9500-e6a9999dba73@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2311211713560.2053963@ubuntu-linux-20-04-desktop>
+References: <20231115112611.3865905-1-Sergiy_Kibrik@epam.com> <20231115112611.3865905-3-Sergiy_Kibrik@epam.com> <f4523916-f8aa-4f3c-a148-2fc73b0c5fa4@xen.org> <a5ce647b-f372-41ee-b1d2-b6ff16c3d1a0@epam.com> <alpine.DEB.2.22.394.2311151518500.160649@ubuntu-linux-20-04-desktop>
+ <78c59979-5110-4fa3-855d-e0fa6df116f0@amd.com> <a96732c2-cdfb-43fb-9e88-1cd54994eab4@epam.com> <54294601-76fe-4994-9500-e6a9999dba73@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 20 Nov 2023, Volodymyr Babchuk wrote:
-> Stefano Stabellini <sstabellini@kernel.org> writes:
-> > On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
-> >> > On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
-> >> >> Hi Julien,
-> >> >> 
-> >> >> Julien Grall <julien@xen.org> writes:
-> >> >> 
-> >> >> > Hi Volodymyr,
-> >> >> >
-> >> >> > On 17/11/2023 14:09, Volodymyr Babchuk wrote:
-> >> >> >> Hi Stefano,
-> >> >> >> Stefano Stabellini <sstabellini@kernel.org> writes:
-> >> >> >> 
-> >> >> >>> On Fri, 17 Nov 2023, Volodymyr Babchuk wrote:
-> >> >> >>>>> I still think, no matter the BDF allocation scheme, that we should try
-> >> >> >>>>> to avoid as much as possible to have two different PCI Root Complex
-> >> >> >>>>> emulators. Ideally we would have only one PCI Root Complex emulated by
-> >> >> >>>>> Xen. Having 2 PCI Root Complexes both of them emulated by Xen would be
-> >> >> >>>>> tolerable but not ideal.
-> >> >> >>>>
-> >> >> >>>> But what is exactly wrong with this setup?
-> >> >> >>>
-> >> >> >>> [...]
-> >> >> >>>
-> >> >> >>>>> The worst case I would like to avoid is to have
-> >> >> >>>>> two PCI Root Complexes, one emulated by Xen and one emulated by QEMU.
-> >> >> >>>>
-> >> >> >>>> This is how our setup works right now.
-> >> >> >>>
-> >> >> >>> If we have:
-> >> >> >>> - a single PCI Root Complex emulated in Xen
-> >> >> >>> - Xen is safety certified
-> >> >> >>> - individual Virtio devices emulated by QEMU with grants for memory
-> >> >> >>>
-> >> >> >>> We can go very far in terms of being able to use Virtio in safety
-> >> >> >>> use-cases. We might even be able to use Virtio (frontends) in a SafeOS.
-> >> >> >>>
-> >> >> >>> On the other hand if we put an additional Root Complex in QEMU:
-> >> >> >>> - we pay a price in terms of complexity of the codebase
-> >> >> >>> - we pay a price in terms of resource utilization
-> >> >> >>> - we have one additional problem in terms of using this setup with a
-> >> >> >>>    SafeOS (one more device emulated by a non-safe component)
-> >> >> >>>
-> >> >> >>> Having 2 PCI Root Complexes both emulated in Xen is a middle ground
-> >> >> >>> solution because:
-> >> >> >>> - we still pay a price in terms of resource utilization
-> >> >> >>> - the code complexity goes up a bit but hopefully not by much
-> >> >> >>> - there is no impact on safety compared to the ideal scenario
-> >> >> >>>
-> >> >> >>> This is why I wrote that it is tolerable.
-> >> >> >> Ah, I see now. Yes, I am agree with this. Also I want to add some
-> >> >> >> more
-> >> >> >> points:
-> >> >> >> - There is ongoing work on implementing virtio backends as a
-> >> >> >> separate
-> >> >> >>    applications, written in Rust. Linaro are doing this part. Right now
-> >> >> >>    they are implementing only virtio-mmio, but if they want to provide
-> >> >> >>    virtio-pci as well, they will need a mechanism to plug only
-> >> >> >>    virtio-pci, without Root Complex. This is argument for using single Root
-> >> >> >>    Complex emulated in Xen.
-> >> >> >> - As far as I know (actually, Oleksandr told this to me), QEMU has
-> >> >> >> no
-> >> >> >>    mechanism for exposing virtio-pci backends without exposing PCI root
-> >> >> >>    complex as well. Architecturally, there should be a PCI bus to which
-> >> >> >>    virtio-pci devices are connected. Or we need to make some changes to
-> >> >> >>    QEMU internals to be able to create virtio-pci backends that are not
-> >> >> >>    connected to any bus. Also, added benefit that PCI Root Complex
-> >> >> >>    emulator in QEMU handles legacy PCI interrupts for us. This is
-> >> >> >>    argument for separate Root Complex for QEMU.
-> >> >> >> As right now we have only virtio-pci backends provided by QEMU and
-> >> >> >> this
-> >> >> >> setup is already working, I propose to stick to this
-> >> >> >> solution. Especially, taking into account that it does not require any
-> >> >> >> changes to hypervisor code.
-> >> >> >
-> >> >> > I am not against two hostbridge as a temporary solution as long as
-> >> >> > this is not a one way door decision. I am not concerned about the
-> >> >> > hypervisor itself, I am more concerned about the interface exposed by
-> >> >> > the toolstack and QEMU.
-> >> >
-> >> > I agree with this...
-> >> >
-> >> >
-> >> >> > To clarify, I don't particular want to have to maintain the two
-> >> >> > hostbridges solution once we can use a single hostbridge. So we need
-> >> >> > to be able to get rid of it without impacting the interface too much.
-> >> >
-> >> > ...and this
-> >> >
-> >> >
-> >> >> This depends on virtio-pci backends availability. AFAIK, now only one
-> >> >> option is to use QEMU and QEMU provides own host bridge. So if we want
-> >> >> get rid of the second host bridge we need either another virtio-pci
-> >> >> backend or we need to alter QEMU code so it can live without host
-> >> >> bridge.
-> >> >> 
-> >> >> As for interfaces, it appears that QEMU case does not require any changes
-> >> >> into hypervisor itself, it just boils down to writing couple of xenstore
-> >> >> entries and spawning QEMU with correct command line arguments.
-> >> >
-> >> > One thing that Stewart wrote in his reply that is important: it doesn't
-> >> > matter if QEMU thinks it is emulating a PCI Root Complex because that's
-> >> > required from QEMU's point of view to emulate an individual PCI device.
-> >> >
-> >> > If we can arrange it so the QEMU PCI Root Complex is not registered
-> >> > against Xen as part of the ioreq interface, then QEMU's emulated PCI
-> >> > Root Complex is going to be left unused. I think that would be great
-> >> > because we still have a clean QEMU-Xen-tools interface and the only
-> >> > downside is some extra unused emulation in QEMU. It would be a
-> >> > fantastic starting point.
-> >> 
-> >> I believe, that in this case we need to set manual ioreq handlers, like
-> >> what was done in patch "xen/arm: Intercept vPCI config accesses and
-> >> forward them to emulator", because we need to route ECAM accesses
-> >> either to a virtio-pci backend or to a real PCI device. Also we need
-> >> to tell QEMU to not install own ioreq handles for ECAM space.
-> >
-> > I was imagining that the interface would look like this: QEMU registers
-> > a PCI BDF and Xen automatically starts forwarding to QEMU ECAM
-> > reads/writes requests for the PCI config space of that BDF only. It
-> > would not be the entire ECAM space but only individual PCI conf
-> > reads/writes that the BDF only.
-> >
+On Tue, 21 Nov 2023, Stewart Hildebrand wrote:
+> On 11/17/23 03:11, Oleksandr Tyshchenko wrote:
+> > 
+> > 
+> > On 17.11.23 05:31, Stewart Hildebrand wrote:
+> > 
+> > Hello Stewart
+> > 
+> > [answering only for virtio-pci bits as for vPCI I am only familiar with 
+> > code responsible for trapping config space accesses]
+> > 
+> > [snip]
+> > 
+> >>>
+> >>>
+> >>> Let me start by saying that if we can get away with it, I think that a
+> >>> single PCI Root Complex in Xen would be best because it requires less
+> >>> complexity. Why emulate 2/3 PCI Root Complexes if we can emulate only
+> >>> one?
+> >>>
+> >>> Stewart, you are deep into vPCI, what's your thinking?
+> >>
+> >> First allow me explain the moving pieces in a bit more detail (skip ahead to "Back to the question: " if you don't want to be bored with the details). I played around with this series, and I passed through a PCI device (with vPCI) and enabled virtio-pci:
+> >>
+> >> virtio = [ "type=virtio,device,transport=pci,bdf=0000:00:00.0,backend_type=qemu" ]
+> >> device_model_args = [ "-device", "virtio-serial-pci" ]
+> >> pci = [ "01:00.0" ]
+> >>
+> >> Indeed we get two root complexes (2 ECAM ranges, 2 sets of interrupts, etc.) from the domU point of view:
+> >>
+> >>      pcie@10000000 {
+> >>          compatible = "pci-host-ecam-generic";
+> >>          device_type = "pci";
+> >>          reg = <0x00 0x10000000 0x00 0x10000000>;
+> >>          bus-range = <0x00 0xff>;
+> >>          #address-cells = <0x03>;
+> >>          #size-cells = <0x02>;
+> >>          status = "okay";
+> >>          ranges = <0x2000000 0x00 0x23000000 0x00 0x23000000 0x00 0x10000000 0x42000000 0x01 0x00 0x01 0x00 0x01 0x00>;
+> >>          #interrupt-cells = <0x01>;
+> >>          interrupt-map = <0x00 0x00 0x00 0x01 0xfde8 0x00 0x74 0x04>;
+> >>          interrupt-map-mask = <0x00 0x00 0x00 0x07>;
+> > 
+> > 
+> > I am wondering how you got interrupt-map here? AFAIR upstream toolstack 
+> > doesn't add that property for vpci dt node.
 > 
-> Okay, I see that there is the
-> xendevicemodel_map_pcidev_to_ioreq_server() function and corresponding
-> IOREQ_TYPE_PCI_CONFIG call. Is this what you propose to use to register
-> PCI BDF?
+> You are correct. I'm airing my dirty laundry here: this is a hack to get a legacy interrupt passed through on a ZCU102 board (Zynq UltraScale+), which doesn't have GICv3/ITS. In a system with a GICv3/ITS, we would have an msi-map property (this is also not yet upstream, but is in a couple of downstreams).
+> 
+> > 
+> >>      };
+> >>
+> >>      pcie@33000000 {
+> >>          compatible = "pci-host-ecam-generic";
+> >>          device_type = "pci";
+> >>          reg = <0x00 0x33000000 0x00 0x200000>;
+> >>          bus-range = <0x00 0x01>;
+> >>          #address-cells = <0x03>;
+> >>          #size-cells = <0x02>;
+> >>          status = "okay";
+> >>          ranges = <0x2000000 0x00 0x34000000 0x00 0x34000000 0x00 0x800000 0x42000000 0x00 0x3a000000 0x00 0x3a000000 0x00 0x800000>;
+> >>          dma-coherent;
+> >>          #interrupt-cells = <0x01>;
+> >>          interrupt-map = <0x00 0x00 0x00 0x01 0xfde8 0x00 0x0c 0x04 0x00 0x00 0x00 0x02 0xfde8 0x00 0x0d 0x04 0x00 0x00 0x00 0x03 0xfde8 0x00 0x0e 0x04 0x00 0x00 0x00 0x04 0xfde8 0x00 0x0f 0x04 0x800 0x00 0x00 0x01 0xfde8 0x00 0x0d 0x04 0x800 0x00 0x00 0x02 0xfde8 0x00 0x0e 0x04 0x800 0x00 0x00 0x03 0xfde8 0x00 0x0f 0x04 0x800 0x00 0x00 0x04 0xfde8 0x00 0x0c 0x04 0x1000 0x00 0x00 0x01 0xfde8 0x00 0x0e 0x04 0x1000 0x00 0x00 0x02 0xfde8 0x00 0x0f 0x04 0x1000 0x00 0x00 0x03 0xfde8 0x00 0x0c 0x04 0x1000 0x00 0x00 0x04 0xfde8 0x00 0x0d 0x04 0x1800 0x00 0x00 0x01 0xfde8 0x00 0x0f 0x04 0x1800 0x00 0x00 0x02 0xfde8 0x00 0x0c 0x04 0x1800 0x00 0x00 0x03 0xfde8 0x00 0x0d 0x04 0x1800 0x00 0x00 0x04 0xfde8 0x00 0x0e 0x04>;
+> >>          interrupt-map-mask = <0x1800 0x00 0x00 0x07>;
+> > 
+> > 
+> > that is correct dump.
+> > 
+> > BTW, if you added "grant_usage=1" (it is disabled by default for dom0) 
+> > to virtio configuration you would get iommu-map property here as well 
+> > [1]. This is another point to think about when considering combined 
+> > approach (single PCI Host bridge node -> single virtual root complex), I 
+> > guess usual PCI device doesn't want grant based DMA addresses, correct? 
+> > If so, it shouldn't be specified in the property.
+> 
+> Right, a usual PCI device doesn't want/need grant based DMA addresses. The iommu-map property [2] is flexible enough to make it apply only to certain vBDFs or ranges of vBDFs. Actually, it looks like ("libxl/arm: Reuse generic PCI-IOMMU bindings for virtio-pci devices") already has the logic for doing exactly this. So it should be fine to have the iommu-map property in the single root complex and still do regular PCI passthrough.
+> 
+> Presumably, we would also want msi-map [3] to apply to some vBDFs, not others. msi-map has the same flexible BDF matching as iommu-map (these two bindings actually share the same parsing function), so we should be able to use a similar strategy here if needed.
+> 
+> We would also want interrupt-map [4] to apply to some vBDFs, not others. The BDF matching with interrupt-map behaves slightly differently, but I believe it is still flexible enough to achieve this. In this case, the function create_virtio_pci_irq_map(), added in ("libxl/arm: Add basic virtio-pci support"), would need some re-thinking.
+> 
+> In summary, with a single virtual root complex, the toolstack needs to know which vBDFs are virtio-pci, and which vBDFs are passthrough, so it can create the [iommu,msi,interrupt]-map properties accordingly.
 
-Yes, I think that's best.
-
-Let me expand on this. Like I wrote above, I think it is important that
-Xen vPCI is the only in-use PCI Root Complex emulator. If it makes the
-QEMU implementation easier, it is OK if QEMU emulates an unneeded and
-unused PCI Root Complex. From Xen point of view, it doesn't exist.
-
-In terms if ioreq registration, QEMU calls
-xendevicemodel_map_pcidev_to_ioreq_server for each PCI BDF it wants to
-emulate. That way, Xen vPCI knows exactly what PCI config space
-reads/writes to forward to QEMU.
-
-Let's say that:
-- 00:02.0 is PCI passthrough device
-- 00:03.0 is a PCI emulated device
-
-QEMU would register 00:03.0 and vPCI would know to forward anything
-related to 00:03.0 to QEMU, but not 00:02.0.
-
-
-
-> I see that xen-hvm-common.c in QEMU is able to handle only standard 256
-> bytes configuration space, but I hope that it will be easy fix.
+That should be fine given that the toolstack also knows all the PCI
+Passthrough devices too.
 
