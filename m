@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3017A7F53C7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:57:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639269.996395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 755907F5413
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 00:01:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639273.996405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5w9c-0001bg-Py; Wed, 22 Nov 2023 22:57:08 +0000
+	id 1r5wDk-00049i-9j; Wed, 22 Nov 2023 23:01:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639269.996395; Wed, 22 Nov 2023 22:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 639273.996405; Wed, 22 Nov 2023 23:01:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5w9c-0001Zr-NT; Wed, 22 Nov 2023 22:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 639269;
- Wed, 22 Nov 2023 22:57:07 +0000
+	id 1r5wDk-00047E-72; Wed, 22 Nov 2023 23:01:24 +0000
+Received: by outflank-mailman (input) for mailman id 639273;
+ Wed, 22 Nov 2023 23:01:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lIMN=HD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r5w9b-0000uP-JA
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:57:07 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=u3EM=HD=casper.srs.infradead.org=BATV+90b6cdb086a81a73aad6+7395+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r5wDg-00045r-PX
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 23:01:22 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75249b8d-898a-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 23:57:06 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 5B388B829CB;
- Wed, 22 Nov 2023 22:57:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0143C433C8;
- Wed, 22 Nov 2023 22:57:03 +0000 (UTC)
+ id 086e24ee-898b-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 00:01:15 +0100 (CET)
+Received: from [2001:8b0:10b:5:aa35:270f:6b3d:6d64]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r5wDN-006vE0-AH; Wed, 22 Nov 2023 23:01:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,139 +41,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75249b8d-898a-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700693824;
-	bh=xRSABOPimkruIhnojy34S2rdFT8BG80gt5EZHEfktV0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aO1G0FjD2pePl1QAJFZxP3SbLK/s/jNXm8Cr0j3yPDtsouw9zCA/iX1J2u7X0vdmj
-	 //XoZ1xpmdlgZuSha8ZokfNkOxB922u2hrE2xpsiHkJDxjwI1Zbxr2VWYWpuiT/QU8
-	 kTh38XdO/lRjMzakTiqFveRg/kDoDRPGZouXsDf495AVlks7y858DFQfYaeZZZl1Q7
-	 byfnd0QrQKjdLKt0oRObJ6n7foTKDFGegwkgfx7+MFO091yRcLTXF+duYx9z5S/Dhv
-	 UMy1AcWo+ymO8Xt97Y8agRMizVW85OVX+eOtWJjnlV1aUcbQurAJd5IJh4EmF1qUN8
-	 J4Ue2ejVWIFPQ==
-Date: Wed, 22 Nov 2023 14:57:02 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH] automation/eclair: improve scheduled analyses
-In-Reply-To: <fc51fe5b-3e2f-4a62-8078-a86d064c9ef1@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311221455530.2053963@ubuntu-linux-20-04-desktop>
-References: <54204ba682f4a5dc6fb8202b593d9562caff6d06.1700486902.git.simone.ballarin@bugseng.com> <alpine.DEB.2.22.394.2311211733330.2053963@ubuntu-linux-20-04-desktop> <fc51fe5b-3e2f-4a62-8078-a86d064c9ef1@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 086e24ee-898b-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=dn6n38p+1RlbrhuYYXSPhee9dfd4gwqiyjVvhla9KpI=; b=dD6OjKuV5holwLT9Vk3N5QUh0B
+	sFCDty+opG3nBOjujndKzwk+fCkQpp+Kh5xunZ3CodXekEEmbhDW9PfJoyw/1zoPb3u8Mn1Evvcoy
+	8ExpePSWrJ0mLpZ5wIQmzht2azUZByecqP0J3SHlkBajfLISeKSiLO4wiMmEr2N2q4/jgrI7DbfJr
+	7wEMPG3+a7LT/AcoEzs6TzjXesXuAImZ/tNC34B6nDiaemg7KZeWjdG1y30Mxg4ZjCR6tBnUFrnhI
+	tOHZ4+wLdZGhBC/nnkIvanzopxGk11kqAu+EOzb7NEheeHzn6rQ/l9eA/K9k+ZpE699wRSPfjPTlZ
+	Ey6fIOpg==;
+Message-ID: <777dd8fb393464bcac2130210ef2a538a2e606f9.camel@infradead.org>
+Subject: Re: [PATCH v2 3/6] xen: xenstore: add possibility to preserve owner
+From: David Woodhouse <dwmw2@infradead.org>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "qemu-devel@nongnu.org"
+	 <qemu-devel@nongnu.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>,  Paul Durrant <paul@xen.org>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo
+ Bonzini <pbonzini@redhat.com>, Richard Henderson
+ <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
+ Anthony Perard <anthony.perard@citrix.com>, "open list:X86 Xen CPUs"
+ <xen-devel@lists.xenproject.org>
+Date: Wed, 22 Nov 2023 23:01:00 +0000
+In-Reply-To: <20231121221023.419901-4-volodymyr_babchuk@epam.com>
+References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
+	 <20231121221023.419901-4-volodymyr_babchuk@epam.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-z54sDm+tHJmxmiVUzMQw"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Wed, 22 Nov 2023, Simone Ballarin wrote:
-> > > diff --git a/automation/gitlab-ci/build.yaml
-> > > b/automation/gitlab-ci/build.yaml
-> > > index 32af30cced..6b2ac97248 100644
-> > > --- a/automation/gitlab-ci/build.yaml
-> > > +++ b/automation/gitlab-ci/build.yaml
-> > > @@ -1,6 +1,10 @@
-> > >   .build-tmpl: &build
-> > >     stage: build
-> > >     image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> > > +  rules:
-> > > +    - if: $CI_PIPELINE_SOURCE == "schedule"
-> > > +      when: never
-> > > +    - when: always
-> > 
-> > ...does it mean that we are going to stop all the build jobs...
-> > 
-> > 
-> > >     script:
-> > >       - ./automation/scripts/build 2>&1 | tee build.log
-> > >     artifacts:
-> > > diff --git a/automation/gitlab-ci/test.yaml
-> > > b/automation/gitlab-ci/test.yaml
-> > > index 61e642cce0..47fc8cb3eb 100644
-> > > --- a/automation/gitlab-ci/test.yaml
-> > > +++ b/automation/gitlab-ci/test.yaml
-> > > @@ -1,6 +1,10 @@
-> > >   .test-jobs-common:
-> > >     stage: test
-> > >     image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> > > +  rules:
-> > > +    - if: $CI_PIPELINE_SOURCE == "schedule"
-> > > +      when: never
-> > > +    - when: always
-> > 
-> > ...and also stop all the test jobs?
-> > 
-> > So basically the only thing left is .eclair-analysis:on-schedule ?
-> 
-> Yes, you're right. I don't know if this is the indented behavior,
-> but without these changes all jobs run implicitly.
-> 
-> If test and build stages are supposed to run on scheduled pipelines,
-> I suggest making it explicit by reversing the guard.
-
-Yes I think it is OK to run build and test jobs on scheduled pipelines,
-it is not worth optimized them out. I would reduce this patch to the
-below. Would that work?
-
-If so, please resend with only the below, and you can add my
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
-diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
-index f96368ffc7..3cba1a3afb 100644
---- a/automation/eclair_analysis/ECLAIR/action.settings
-+++ b/automation/eclair_analysis/ECLAIR/action.settings
-@@ -134,7 +134,7 @@ push)
-     badgeLabel="ECLAIR ${ANALYSIS_KIND} ${ref}${variantHeadline} #${jobId}"
-     ;;
- auto_pull_request)
--    git remote remove autoPRRemote || true
-+    git remote remove autoPRRemote 2>/dev/null || true
-     git remote add autoPRRemote "${autoPRRemoteUrl}"
-     git fetch -q autoPRRemote
-     subDir="${ref}"
-diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
-index fe418d6da1..2507a8e787 100644
---- a/automation/eclair_analysis/ECLAIR/analysis.ecl
-+++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
-@@ -2,7 +2,13 @@
- -project_name=getenv("ECLAIR_PROJECT_NAME")
- -project_root=getenv("ECLAIR_PROJECT_ROOT")
- 
---setq=data_dir,getenv("ECLAIR_DATA_DIR")
-+setq(data_dir,getenv("ECLAIR_DATA_DIR"))
-+setq(analysis_kind,getenv("ANALYSIS_KIND"))
-+setq(scheduled_analysis,nil)
-+
-+strings_map("scheduled-analysis",500,"","^.*scheduled$",0,setq(scheduled_analysis,t))
-+strings_map("scheduled-analysis",500,"","^.*$",0)
-+map_strings("scheduled-analysis",analysis_kind)
- 
- -verbose
- 
-@@ -15,7 +21,9 @@
- 
- -eval_file=toolchain.ecl
- -eval_file=public_APIs.ecl
---eval_file=out_of_scope.ecl
-+if(scheduled_analysis,
-+    eval_file("out_of_scope.ecl")
-+)
- -eval_file=deviations.ecl
- -eval_file=call_properties.ecl
- -eval_file=tagging.ecl
-diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
-index bd9a68de31..6631db53fa 100644
---- a/automation/gitlab-ci/analyze.yaml
-+++ b/automation/gitlab-ci/analyze.yaml
-@@ -28,6 +28,8 @@
-   extends: .eclair-analysis
-   allow_failure: true
-   rules:
-+    - if: $CI_PIPELINE_SOURCE == "schedule"
-+      when: never
-     - if: $WTOKEN && $CI_PROJECT_PATH =~ /^xen-project\/people\/.*$/
-       when: manual
-     - !reference [.eclair-analysis, rules]
+--=-z54sDm+tHJmxmiVUzMQw
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+T24gVHVlLCAyMDIzLTExLTIxIGF0IDIyOjEwICswMDAwLCBWb2xvZHlteXIgQmFiY2h1ayB3cm90
+ZToKPiAKPiAtLS0gYS9ody94ZW4veGVuLW9wZXJhdGlvbnMuYwo+ICsrKyBiL2h3L3hlbi94ZW4t
+b3BlcmF0aW9ucy5jCj4gQEAgLTMwMCw2ICszMDAsMTggQEAgc3RhdGljIGJvb2wgbGlieGVuc3Rv
+cmVfY3JlYXRlKHN0cnVjdCBxZW11X3hzX2hhbmRsZSAqaCwgeHNfdHJhbnNhY3Rpb25fdCB0LAo+
+IMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGZhbHNlOwo+IMKgwqDCoMKgIH0KPiDCoAo+ICvCoMKg
+wqAgaWYgKG93bmVyID09IFhTX1BSRVNFUlZFX09XTkVSKSB7Cj4gK8KgwqDCoMKgwqDCoMKgIHN0
+cnVjdCB4c19wZXJtaXNzaW9ucyAqdG1wOwo+ICvCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQg
+bnVtOwo+ICsKPiArwqDCoMKgwqDCoMKgwqAgdG1wID0geHNfZ2V0X3Blcm1pc3Npb25zKGgtPnhz
+aCwgdCwgcGF0aCwgJm51bSk7Cj4gK8KgwqDCoMKgwqDCoMKgIGlmICh0bXAgPT0gTlVMTCkgewo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBmYWxzZTsKPiArwqDCoMKgwqDCoMKgwqAg
+fQo+ICvCoMKgwqDCoMKgwqDCoCBwZXJtc19saXN0WzBdLmlkID0gdG1wWzBdLmlkOwo+ICvCoMKg
+wqDCoMKgwqDCoCBmcmVlKHRtcCk7Cj4gK8KgwqDCoCB9Cj4gKwo+IMKgwqDCoMKgIHJldHVybiB4
+c19zZXRfcGVybWlzc2lvbnMoaC0+eHNoLCB0LCBwYXRoLCBwZXJtc19saXN0LAo+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBUlJB
+WV9TSVpFKHBlcm1zX2xpc3QpKTsKPiDCoH0KCklmIHRoZSBleGlzdGluZyB0cmFuc2FjdGlvbiBp
+cyBYQlRfTlVMTCBJIHRoaW5rIHlvdSB3YW50IHRvIGNyZWF0ZSBhCm5ldyB0cmFuc2FjdGlvbiBm
+b3IgaXQsIGRvbid0IHlvdT8K
+
+
+--=-z54sDm+tHJmxmiVUzMQw
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTIyMjMwMTAwWjAvBgkqhkiG9w0BCQQxIgQg8QlSiIHx
+VRLDrp2UzepRUGM0yEpcv8KVVmpwrGygiaMwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBnbwYrpO6cnF3i0rDelnungpjHorJU3Myi
+2sOa7uPfQCnSl3prb8uB2hu4ZIDGBPrMO+Hy9J97VJFc8/YUECJhbQ+qr4NfQHqa9UVmJ5xQgyhJ
+rwel117UhyznFIGFQSrRG4PWzJk/+B1uActwxsmIjutpUaOYyx+4fYguM/565Rs9b+ZMNDu6yqkL
+Nv8ZxmNVK646ykZQqWnR2/4sBbv7cWyHkqijEbF5x5FsXKiUvk5+bqx1wcpeB92Mkx6xEHeP3yHN
+dsaHlbg6jEsG8Nqh4YsV61JVz3OCGOSA7GlhItUs0vXApZU5qxNVRZGUIoRS28pNmMC18KRM6OJU
+r1aur1QslTKm3bKlJhQ4dM5fy86WewTzlXGyDvfLkiBW2WLJs73I/s30lwT3oMWE3Gwlx0AAGYa5
+H77H/55AtZr6bKjgX1aMTRzvgYTZ8o1um54d42RHi0FonxzHCLxpJiJKtXJgErAC60QBwLHZRNUm
+qRgVOhspl6/eiMDiwCVU5vFu0UJWSaV9z6JGCPmwPaJpOa81TqinTPIbAPR/PbvIX10BsXQXzzxT
+XITzx9E+kmR5WJHB6Zd6mn9jsFk2oxpirEodadHGfHStB25xQ/gPIQ2LZqSwkDxYR4l4dibOg3yJ
+Z8DezD/DM5WKVyqJoBjgxBVMAp238pRi83EzVAtJ0AAAAAAAAA==
+
+
+--=-z54sDm+tHJmxmiVUzMQw--
 
