@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6907F539D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:44:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639253.996346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 664AF7F53A7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:47:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639255.996355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vxS-00047j-MD; Wed, 22 Nov 2023 22:44:34 +0000
+	id 1r5vzh-0005BE-32; Wed, 22 Nov 2023 22:46:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639253.996346; Wed, 22 Nov 2023 22:44:34 +0000
+Received: by outflank-mailman (output) from mailman id 639255.996355; Wed, 22 Nov 2023 22:46:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vxS-00044r-J7; Wed, 22 Nov 2023 22:44:34 +0000
-Received: by outflank-mailman (input) for mailman id 639253;
- Wed, 22 Nov 2023 22:44:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5vzh-00058P-05; Wed, 22 Nov 2023 22:46:53 +0000
+Received: by outflank-mailman (input) for mailman id 639255;
+ Wed, 22 Nov 2023 22:46:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EnF+=HD=amazon.co.uk=prvs=6830d628d=dwmw@srs-se1.protection.inumbo.net>)
- id 1r5vxQ-00044l-Tl
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:44:33 +0000
-Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com [52.95.48.154])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2a1ef27-8988-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 23:44:31 +0100 (CET)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2a-m6i4x-1cca8d67.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-6001.iad6.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2023 22:44:27 +0000
+ id 1r5vzf-00055B-2P
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:46:51 +0000
+Received: from smtp-fw-9106.amazon.com (smtp-fw-9106.amazon.com
+ [207.171.188.206]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 043a1697-8989-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 23:46:48 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-pdx-2c-m6i4x-b1c0e1d0.us-west-2.amazon.com)
+ ([10.25.36.210]) by smtp-border-fw-9106.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2023 22:46:41 +0000
 Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
  (pdx2-ws-svc-p26-lb5-vlan3.pdx.amazon.com [10.39.38.70])
- by email-inbound-relay-pdx-2a-m6i4x-1cca8d67.us-west-2.amazon.com (Postfix)
- with ESMTPS id 8505A803C1; Wed, 22 Nov 2023 22:44:25 +0000 (UTC)
-Received: from EX19MTAUEB001.ant.amazon.com [10.0.29.78:23688]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.47.126:2525]
+ by email-inbound-relay-pdx-2c-m6i4x-b1c0e1d0.us-west-2.amazon.com (Postfix)
+ with ESMTPS id 123A980E6E; Wed, 22 Nov 2023 22:46:40 +0000 (UTC)
+Received: from EX19MTAUEC002.ant.amazon.com [10.0.44.209:37335]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.93.120:2525]
  with esmtp (Farcaster)
- id 7fe55016-f93d-4488-b783-cbe6f4c76cb0; Wed, 22 Nov 2023 22:44:24 +0000 (UTC)
+ id 23a927f1-40ae-457a-96a3-4944dacd7816; Wed, 22 Nov 2023 22:46:39 +0000 (UTC)
 Received: from EX19D008UEC004.ant.amazon.com (10.252.135.170) by
- EX19MTAUEB001.ant.amazon.com (10.252.135.108) with Microsoft SMTP Server
+ EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.39; Wed, 22 Nov 2023 22:44:24 +0000
+ 15.2.1118.39; Wed, 22 Nov 2023 22:46:39 +0000
 Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
  EX19D008UEC004.ant.amazon.com (10.252.135.170) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.39;
- Wed, 22 Nov 2023 22:44:24 +0000
+ Wed, 22 Nov 2023 22:46:39 +0000
 Received: from EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797]) by
  EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797%3]) with mapi id
- 15.02.1118.039; Wed, 22 Nov 2023 22:44:23 +0000
+ 15.02.1118.039; Wed, 22 Nov 2023 22:46:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,46 +58,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2a1ef27-8988-11ee-98e1-6d05b1d4d9a1
+X-Inumbo-ID: 043a1697-8989-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1700693072; x=1732229072;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   subject;
-  bh=3xMfyZaGNKUZXY6J9RAacwbWahOUcmHquHqcJeXeqtQ=;
-  b=MSmk7+j7mHQ+5BNCCAyq3nNnnxOfOoP9nzjHeUR+nk5Xlxi/f1vSu5P+
-   BqheOEXDN0BdjLo6qTIaLfIIM/YWx9D3nDrtwD0T/aWs8FiS/xh/QRZtR
-   G3NMnL8nKMfwTlkPWMEp2gwF264YusTqi+sYeqLlV01vvb786t5G9wDFd
-   E=;
+  s=amazon201209; t=1700693209; x=1732229209;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to;
+  bh=ZNus4MNDWH9zvdQFbx0y4aBO6KcLzPt3p8zCCp44DF4=;
+  b=gMc4jWQgrCx82RG6Zfs/xuG4nYb8d4XcBdlr7YvFHjDFE6/A1gaxvTfe
+   AcGVtmNDxxphhl7AVjBytHd7EwAUNiKJHY8XZTdGQ0MQi2UVlmX1pInbp
+   a+4XXJOsqtzzNXxZoBzknqX4uE0RSn6oObd/+yq1kAbdVIFc6z1lJE5nT
+   4=;
 X-Amazon-filename: smime.p7s
 X-IronPort-AV: E=Sophos;i="6.04,219,1695686400"; 
-   d="p7s'?scan'208";a="372029929"
-Subject: Re: [PATCH v2 1/6] hw/xen: Set XenBackendInstance in the XenDevice before
- realizing it
-Thread-Topic: [PATCH v2 1/6] hw/xen: Set XenBackendInstance in the XenDevice before
- realizing it
-Content-Type: multipart/mixed; boundary="===============6888344725671669387=="
+   d="p7s'?scan'208";a="685919465"
+Content-Type: multipart/mixed; boundary="===============4348891245300251586=="
 MIME-Version: 1.0
-X-Farcaster-Flow-ID: 7fe55016-f93d-4488-b783-cbe6f4c76cb0
+X-Farcaster-Flow-ID: 23a927f1-40ae-457a-96a3-4944dacd7816
 From: "Woodhouse, David" <dwmw@amazon.co.uk>
 To: "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
 	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, "paul@xen.org"
 	<paul@xen.org>
 CC: "julien@xen.org" <julien@xen.org>, "hreitz@redhat.com"
 	<hreitz@redhat.com>, "anthony.perard@citrix.com" <anthony.perard@citrix.com>,
-	"marcandre.lureau@redhat.com" <marcandre.lureau@redhat.com>,
+	"Oleksandr_Tyshchenko@epam.com" <Oleksandr_Tyshchenko@epam.com>,
 	"sstabellini@kernel.org" <sstabellini@kernel.org>, "qemu-block@nongnu.org"
-	<qemu-block@nongnu.org>, "kwolf@redhat.com" <kwolf@redhat.com>,
+	<qemu-block@nongnu.org>, "marcandre.lureau@redhat.com"
+	<marcandre.lureau@redhat.com>, "kwolf@redhat.com" <kwolf@redhat.com>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	"pbonzini@redhat.com" <pbonzini@redhat.com>, "jasowang@redhat.com"
 	<jasowang@redhat.com>
-Thread-Index: AQHaHMezmCau/R+6yESi3gnmA/l9g7CGkpmAgABetgA=
-Date: Wed, 22 Nov 2023 22:44:23 +0000
-Message-ID: <c715df296cef35bd67ede0cfdec8f5cd294f0db2.camel@amazon.co.uk>
+Subject: Re:  [PATCH v2 2/6] xen: backends: touch some XenStore nodes only if
+ device...
+Thread-Topic: [PATCH v2 2/6] xen: backends: touch some XenStore nodes only if
+ device...
+Thread-Index: AQHaHZXBy3TgSmEg1EqB/qkwqHzB+g==
+Date: Wed, 22 Nov 2023 22:46:39 +0000
+Message-ID: <e9bec5052be942021b9d28432173d8a7ce987f8b.camel@amazon.co.uk>
 References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
-	 <20231121221023.419901-2-volodymyr_babchuk@epam.com>
-	 <e1663064-247d-41e3-9a36-16f81303fb94@xen.org>
-In-Reply-To: <e1663064-247d-41e3-9a36-16f81303fb94@xen.org>
+	 <20231121221023.419901-3-volodymyr_babchuk@epam.com>
+	 <02fcd3c2-afe2-43f4-8a15-7caa85a147f5@xen.org>
+In-Reply-To: <02fcd3c2-afe2-43f4-8a15-7caa85a147f5@xen.org>
 Accept-Language: en-GB, en-US
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
@@ -105,57 +106,26 @@ x-originating-ip: [10.106.83.18]
 MIME-Version: 1.0
 Precedence: Bulk
 
---===============6888344725671669387==
+--===============4348891245300251586==
 Content-Language: en-US
 Content-Type: multipart/signed; micalg=sha-256;
-	protocol="application/pkcs7-signature"; boundary="=-4HxZNZF5ZSWudBV0ZC1y"
+	protocol="application/pkcs7-signature"; boundary="=-SG96OccgDQ0z6HS++6Hc"
 
---=-4HxZNZF5ZSWudBV0ZC1y
+--=-SG96OccgDQ0z6HS++6Hc
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2023-11-22 at 17:05 +0000, Paul Durrant wrote:
-> On 21/11/2023 22:10, Volodymyr Babchuk wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
-> >=20
-> > This allows a XenDevice implementation to know whether it was created
-> > by QEMU, or merely discovered in XenStore after the toolstack created
-> > it. This will allow us to create frontend/backend nodes only when we
-> > should, rather than unconditionally attempting to overwrite them from
-> > a driver domain which doesn't have privileges to do so.
-> >=20
-> > As an added benefit, it also means we no longer have to call the
-> > xen_backend_set_device() function from the device models immediately
-> > after calling qdev_realize_and_unref(). Even though we could make
-> > the argument that it's safe to do so, and the pointer to the unreffed
-> > device *will* actually still be valid, it still made my skin itch to
-> > look at it.
-> >=20
-> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > ---
-> > =C2=A0 hw/block/xen-block.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 3 +--
-> > =C2=A0 hw/char/xen_console.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-| 2 +-
-> > =C2=A0 hw/net/xen_nic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
-> > =C2=A0 hw/xen/xen-bus.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 4 ++++
-> > =C2=A0 include/hw/xen/xen-backend.h | 2 --
-> > =C2=A0 include/hw/xen/xen-bus.h=C2=A0=C2=A0=C2=A0=C2=A0 | 2 ++
-> > =C2=A0 6 files changed, 9 insertions(+), 6 deletions(-)
-> >=20
+On Wed, 2023-11-22 at 17:03 +0000, Paul Durrant wrote:
 >=20
-> Actually, I think you should probably update
-> xen_backend_try_device_destroy() in this patch too. It currently uses
-> xen_backend_list_find() to check whether the specified XenDevice has an
-> associated XenBackendInstance.
+> > This patch checks presence of xendev->backend to check if Xen PV
+> > device is acting as a backend (i.e. it was configured by Xen
+>=20
+> Technally *all* XenDevice objects are backends.
 
-I think I did that in
-https://git.infradead.org/users/dwmw2/qemu.git/commitdiff/94f1b474478ce0ede
-but didn't get round to sending it out again because of travel.
+Right. The key criterion is whether the backend was created by QEMU, or
+merely discovered by QEMU after the toolstack created it.
 
---=-4HxZNZF5ZSWudBV0ZC1y
+--=-SG96OccgDQ0z6HS++6Hc
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -247,34 +217,34 @@ wwIBATCBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
 A1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdv
 IFJTQSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPer
 Z8eyFT9F6p8wDQYJYIZIAWUDBAIBBQCgggHrMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJ
-KoZIhvcNAQkFMQ8XDTIzMTEyMjIyNDQyMlowLwYJKoZIhvcNAQkEMSIEIJOuU9TqQ3EgHfiN92/V
-f6iFBgb8IGfIlmYfdY/2mxdjMIG9BgkrBgEEAYI3EAQxga8wgawwgZYxCzAJBgNVBAYTAkdCMRsw
+KoZIhvcNAQkFMQ8XDTIzMTEyMjIyNDYzOFowLwYJKoZIhvcNAQkEMSIEIL2CGScqsCri7T8i1EiB
+nkVDSib+7y6jnQJwTyew1EEXMIG9BgkrBgEEAYI3EAQxga8wgawwgZYxCzAJBgNVBAYTAkdCMRsw
 GQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1Nl
 Y3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9u
 IGFuZCBTZWN1cmUgRW1haWwgQ0ECEQC/QgfpbUT3q2fHshU/ReqfMIG/BgsqhkiG9w0BCRACCzGB
 r6CBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
 BxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJT
 QSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPerZ8ey
-FT9F6p8wDQYJKoZIhvcNAQEBBQAEggIAFMR7WCJnQz2E0urV+aommhX99QWjP6y97UDgXzFujzjr
-Gz6HCyguuUu0Wby6H/83oT5EQmOyYXZ3nJYTvIpsfRvs1SxMbqsUIyIT5IFgwDKCwjBxbQ6AmWEU
-gs++fhWf0ulk+cxzXa06SuZtTAGmvaY9IdnMPGWj3KM6XVMdtGcmTaxiHiGlbnqdeohM/QLGOnwT
-ugz6B3UE9u0/ftazoQ2ZMBL1fuTK/VmWmWyerbRG2PrSZflkDKoPLPliwtq1HiLwfqoAOgzdXliI
-Vg05cq0eBZQy2CjrxT1aA1Y1+ABguaRCK6XU9XB7FaF16o4oBbhskrvAsyvqNjOy5PfasMqTfxu8
-wnAkSDkyZL0AUolkuDNenKjA2iqNKSI7O6lCRRb5W/cqmwIykMnTg5NL3ETKHqY7DidEkDcWwwAY
-2qUpWhvsl2IsWFUg3VCro7rFvwF3CIYdKBiUEMzEvV/4ATIZrvuwWD41iVe4ik/V50BcfzU1Ans8
-CnODoBBOgfqu54+7KKdbf0nMWDGxEgLsMUja0peDZlapHoJDtHQJZGUVrZj5hSsC04+K9Fyh6qMv
-7lLEV9S1tQzcy/wE+heyjHR4c4vbqzFFr1Ae9li+ljeDLgZ3Shqg0muLkeP5dFwU++MsGbFEAeQk
-tMmiDnJTbld5FaiapdiIGpMqY8894PcAAAAAAAA=
+FT9F6p8wDQYJKoZIhvcNAQEBBQAEggIAXhp8SGJ5fcg4I6OMpvZ0cEl18+BaIaV6tVsHoZ3tlOcC
+/LRj2/ybNJYLEHW6DXXTjAE28rIMQXuHs4Eo75PWeb/mOqV5SmJvx4KMYyAf9Gl0jlYscr9v8NA1
+udSN2QRLofL9yzV09Ymwq9QOMKiWNp9UWQmejba+5WKl78A7rYkhl50rX2y34/8sG4d0iPPN1GB3
+15bMCkSs9NBY/440M4o52YNgkgp5e5UEAAp/DRxYYq533Fyml7UvIK+3rqwv3wnCoqZbFViVRFSV
+zk+mAEoAYwD9920k3NhFicVVLOI6zASpngdhDBrqvDfpyo7AP0cgU20Ms2x1QrznHGUmao7h6qsU
+5Fvpv4g8Svd2nBSqHmRplckXKZ8vBgNfcvdUmiImxn1reETpun0tSJXh0ALcc9JaJzEMU66TDgCU
+hYf9jQdphcI7pgH/12AQco+QYBLLEdQ916Bj8EhcoyvybqNdhg62gBhlCA9vCxGcrY/3G1hzvaOZ
+mgooMkWRsdQbEBizW1H50CV3UWW4p/xc1AD2QOSDmiwF7SkKQKrcWo4KFi8fBArf4Z2s+EqgHuBn
+PtGJXb2Id/SpVEup9BKImFiWTSAbq/XZF/tT/Y5NMsevErrFPMiP3XyJw8oMxHK4OC41ZCI8671r
+mVSpae6QsTZdEXUyELaLKJxFHLUHFHoAAAAAAAA=
 
 
---=-4HxZNZF5ZSWudBV0ZC1y--
+--=-SG96OccgDQ0z6HS++6Hc--
 
---===============6888344725671669387==
-Content-Type: multipart/alternative; boundary="===============3362504651177648591=="
+--===============4348891245300251586==
+Content-Type: multipart/alternative; boundary="===============8724680922320975902=="
 MIME-Version: 1.0
 Content-Disposition: inline
 
---===============3362504651177648591==
+--===============8724680922320975902==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -288,7 +258,7 @@ ace, Worship Street, London EC2A 2FA, United Kingdom.
 
 
 
---===============3362504651177648591==
+--===============8724680922320975902==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -297,6 +267,6 @@ Content-Transfer-Encoding: quoted-printable
 d Wales with registration number 04543232 with its registered office at 1 P=
 rincipal Place, Worship Street, London EC2A 2FA, United Kingdom.<br><br><br>
 
---===============3362504651177648591==--
---===============6888344725671669387==--
+--===============8724680922320975902==--
+--===============4348891245300251586==--
 
