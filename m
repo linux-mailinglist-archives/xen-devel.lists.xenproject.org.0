@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383A17F5366
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:29:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639236.996316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF097F5377
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:36:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639246.996325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vip-00067P-Rs; Wed, 22 Nov 2023 22:29:27 +0000
+	id 1r5vp0-0000N3-Fb; Wed, 22 Nov 2023 22:35:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639236.996316; Wed, 22 Nov 2023 22:29:27 +0000
+Received: by outflank-mailman (output) from mailman id 639246.996325; Wed, 22 Nov 2023 22:35:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vip-000652-O7; Wed, 22 Nov 2023 22:29:27 +0000
-Received: by outflank-mailman (input) for mailman id 639236;
- Wed, 22 Nov 2023 22:29:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r5vp0-0000Ky-Cq; Wed, 22 Nov 2023 22:35:50 +0000
+Received: by outflank-mailman (input) for mailman id 639246;
+ Wed, 22 Nov 2023 22:35:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q+k4=HD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5vin-00063c-Qx
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:29:25 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 966d918b-8986-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 23:29:23 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40859c466efso1651175e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 14:29:23 -0800 (PST)
+ id 1r5voy-0000Jd-GG
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:35:48 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7af759fd-8987-11ee-98e1-6d05b1d4d9a1;
+ Wed, 22 Nov 2023 23:35:47 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4084de32db5so1746255e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 14:35:47 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- g9-20020a05600c310900b004094e565e71sm45734wmo.23.2023.11.22.14.29.22
+ f18-20020a05600c4e9200b00403b63e87f2sm40521wmq.32.2023.11.22.14.35.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 14:29:23 -0800 (PST)
+ Wed, 22 Nov 2023 14:35:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 966d918b-8986-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 7af759fd-8987-11ee-98e1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700692163; x=1701296963; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=tibco.com; s=googleworkspace; t=1700692547; x=1701297347; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3xBLE/mbfJdHz6sZVR4UZF3jmQzSTJE2y3sDa2qMA/k=;
-        b=qULVwGd77h4WAcyff1v2fPPdkrmnuV0YykLweMOB/gGxqMYbmJSJYNJ0IYRJJVJnX7
-         nWDY3YhwDuomTUt4xrgyE9GYwp8tVCI2pIoCOJXIlc1TBF8GPEsFTsCchIb0GBKNEw6Z
-         OCqAskG4uljLD6bkWyjJh7CsvCbIbafd9qT1k=
+        bh=cxwBEItUcZsrg5eAe3C4X1FSVhfqBB7ITeGtM8ovgX8=;
+        b=ne94HwtjMHJrJxZLtoFUbH1PtxJulpEjJpv1Jj9gCHjZ5rsUs3A/trsMTwSs8RJ0rj
+         ZeAAZL3O6Gh5hZDpug1/5qf4BGg6C5wITE8ME+YAfaZ/PY11ciOA33y1Ej2ven/Eu9p6
+         x9yo4u9YOf11UThdmIhqNM8Ri6KqctUv50WpRA8SewgXu7XPTBdjj1MiLZ0V31n44dkI
+         PRpqk5ugt9Hh/kIXslgR/ZFoXpm+3nxhlsO2pmd+oXwSTGgr1G0F7R+kT4gOA1p7qMuI
+         B6jGmnUOg0paSbVn5BEpdy4g47bCxrC7AJQTgmYVCQmFlUsnB+41/qICexQ8TIuzVvHq
+         t0kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700692163; x=1701296963;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1700692547; x=1701297347;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3xBLE/mbfJdHz6sZVR4UZF3jmQzSTJE2y3sDa2qMA/k=;
-        b=fBEkow2F4ceOkt24OAsz48fw/59YESv5IRXAsPu+66tJdEDs//yqvptamRV6w0Vumt
-         BABEyx+g09/EytGQqYZgHohIq4HUCOrl1rhaCGv8k032pTPbadvYW4aYd+3tqfvlKYH2
-         vy+2llxNKHjhnpLuQ9aYK4nEHCLPkfc/abC5iNzbbV8853qR0h61BNjOS901ZURqqOhA
-         Pz3odLpczxcTKvRxFFO4MWCx+HLE3DdCFR3YCdjVWwKVIPLxbpZNolkhAyJd5KyCLDCS
-         HCwa1bCTJFL50A/ktHd6rT44N2IjA7bsqsCzhW+t1UihHweHwjKbiZ2x2rvouM+GrzlA
-         zaMg==
-X-Gm-Message-State: AOJu0YyTu8EGG3IMQyT1LGdZDHB6evAjKr6M4nNh3DgQ9/NBJ8oTKqqP
-	t8SP4ZkvnAvHD4TKhkKfFGQw81w1nob1nxS33E0=
-X-Google-Smtp-Source: AGHT+IEDQQeazRpqw4ix1ayRKRaQxNjyDwYWMOsxWB7zsHYc2wAueNLPCZnj+TD9nQr8hPqn6a4k1g==
-X-Received: by 2002:a05:600c:3590:b0:404:f9c1:d5d7 with SMTP id p16-20020a05600c359000b00404f9c1d5d7mr2601958wmq.25.1700692163299;
-        Wed, 22 Nov 2023 14:29:23 -0800 (PST)
-Message-ID: <f1a4d1ac-abc3-410e-a171-581b074b8155@citrix.com>
-Date: Wed, 22 Nov 2023 22:29:22 +0000
+        bh=cxwBEItUcZsrg5eAe3C4X1FSVhfqBB7ITeGtM8ovgX8=;
+        b=gcdnKp4N/BlVR9xclTRqEAtEmGMBVmI1tgs3qFW2TfW5IYNs1eyV9U05umKGgCyxU9
+         6Gt2iAgF7hfuB5Xft2cfJ15/yBbF68jcmOeUJxvJJ8M8FdoUBH2NPIJ2VnL7qik8dMiy
+         CMvD42TbL2OLhYpVcxhnAhKUwlLkSduiUZq3HuvJ8gpkMAqEZGa6fpnhgIz8deA/f+ts
+         lYdN/EI0cVeX0CLJgHXZrbVAujseYgfKs6gZ+Iy/XvBvuVi76xHP1QaeX+30M7XdBNQL
+         X0IgtdXnK5foqCqbzWtOyBdFx9xCWowoeshAoCwKVCJY/v/kg1fYeCdTaEnvLvXB9qSx
+         dvlA==
+X-Gm-Message-State: AOJu0Yw/eZiAYvmWWTJS0aHQzFTKbNwkEP3hZ0RByp4ELE2PRY8Oh7oW
+	FRVa5dVrwLjYfTDybe458EekkqZtFoO/tf+NCM4=
+X-Google-Smtp-Source: AGHT+IG5HNygPkQQKMMQaiMgR88CNdn/bH0hggezZV1y7Bn4FBsYZN2by4CgyicXvm7gPzQnGdOutA==
+X-Received: by 2002:a05:600c:4453:b0:404:4b6f:d705 with SMTP id v19-20020a05600c445300b004044b6fd705mr2791079wmn.17.1700692546798;
+        Wed, 22 Nov 2023 14:35:46 -0800 (PST)
+Message-ID: <48d6adeb-eb2d-40ac-949b-b6676dcab4f9@tibco.com>
+Date: Wed, 22 Nov 2023 22:35:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] tools/libfsimage: Add an fdopen() interface to
- libfsimage
+Subject: Re: [PATCH 5/6] tools/pygrub: Expose libfsimage's fdopen() to python
 Content-Language: en-GB
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 References: <20231106150508.22665-1-alejandro.vallejo@cloud.com>
- <20231106150508.22665-5-alejandro.vallejo@cloud.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20231106150508.22665-5-alejandro.vallejo@cloud.com>
+ <20231106150508.22665-6-alejandro.vallejo@cloud.com>
+From: Andrew Cooper <andcooper@tibco.com>
+In-Reply-To: <20231106150508.22665-6-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 06/11/2023 3:05 pm, Alejandro Vallejo wrote:
-> diff --git a/tools/libfsimage/common/fsimage_priv.h b/tools/libfsimage/common/fsimage_priv.h
-> index 2274403557..779e433b37 100644
-> --- a/tools/libfsimage/common/fsimage_priv.h
-> +++ b/tools/libfsimage/common/fsimage_priv.h
-> @@ -29,6 +29,7 @@ extern C {
->  #endif
->  
->  #include <sys/types.h>
-> +#include <stdbool.h>
->  
->  #include "xenfsimage.h"
->  #include "xenfsimage_plugin.h"
-> @@ -54,7 +55,7 @@ struct fsi_file {
->  	void *ff_data;
->  };
->  
-> -int find_plugin(fsi_t *, const char *, const char *);
-> +int find_plugin(fsi_t *, const char *);
->  
->  #ifdef __cplusplus
->  };
+> Create a wrapper for the new fdopen() function of libfsimage.
+>
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-These are the only two hunks in this file.  Is the stdbool include stale?
+I'd appreciate it if Marek would cast his eye (as python maintainer)
+over it.
 
-It seems to compile fine with it removed.
+That said, ...
 
-> diff --git a/tools/libfsimage/ext2fs-lib/ext2fs-lib.c b/tools/libfsimage/ext2fs-lib/ext2fs-lib.c
-> index 864a15b349..9f07ea288f 100644
-> --- a/tools/libfsimage/ext2fs-lib/ext2fs-lib.c
-> +++ b/tools/libfsimage/ext2fs-lib/ext2fs-lib.c
-> @@ -25,15 +25,25 @@
->  #include INCLUDE_EXTFS_H
->  #include <errno.h>
->  #include <inttypes.h>
-> +#include <stdio.h>
+> diff --git a/tools/pygrub/src/fsimage/fsimage.c b/tools/pygrub/src/fsimage/fsimage.c
+> index 12dfcff6e3..216f265331 100644
+> --- a/tools/pygrub/src/fsimage/fsimage.c
+> +++ b/tools/pygrub/src/fsimage/fsimage.c
+> @@ -270,6 +270,30 @@ fsimage_open(PyObject *o, PyObject *args, PyObject *kwargs)
+>  	return (PyObject *)fs;
+>  }
 >  
->  static int
-> -ext2lib_mount(fsi_t *fsi, const char *name, const char *options)
-> +ext2lib_mount(fsi_t *fsi, const char *options)
->  {
->  	int err;
->  	char opts[30] = "";
->  	ext2_filsys *fs;
->  	uint64_t offset = fsip_fs_offset(fsi);
->  
-> +	/*
-> +	 * We must choose unixfd_io_manager rather than unix_io_manager in
-> +	 * order for the library to accept fd strings instead of paths. It
-> +	 * still means we must pass a string representing an fd rather than
-> +	 * an int, but at least this way we don't need to pass paths around
-> +	 */
-> +	char name[32] = {0};
+> +static PyObject *
+> +fsimage_fdopen(PyObject *o, PyObject *args, PyObject *kwargs)
+> +{
+> +	static char *kwlist[] = { "fd", "offset", "options", NULL };
+> +	int fd;
+> +	char *options = NULL;
+> +	uint64_t offset = 0;
+> +	fsimage_fs_t *fs;
+> +
+> +	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|Ls", kwlist,
+> +	    &fd, &offset, &options))
+> +		return (NULL);
+> +
+> +	if ((fs = PyObject_NEW(fsimage_fs_t, &fsimage_fs_type)) == NULL)
+> +		return (NULL);
+> +
+> +	if ((fs->fs = fsi_fdopen_fsimage(fd, offset, options)) == NULL) {
+> +		PyErr_SetFromErrno(PyExc_IOError);
 
-For an int?  12 will do fine including a terminator, and practical
-system limits leave it far smaller than that generally.
-
-Given that it is guaranteed long enough, you don't need to zero it just
-to have snprintf() write a well-formed string in.
+Don't we need a Py_DECREF(fs) here to avoid leaking it?
 
 ~Andrew
+
+> +		return (NULL);
+> +	}
+> +
+> +	return (PyObject *)fs;
+> +}
+> +
+>  static PyObject *
+>  fsimage_getbootstring(PyObject *o, PyObject *args)
+>  {
+> @@ -302,6 +326,13 @@ PyDoc_STRVAR(fsimage_open__doc__,
+>      "offset - offset of file system within file image.\n"
+>      "options - mount options string.\n");
+>  
+> +PyDoc_STRVAR(fsimage_fdopen__doc__,
+> +    "fdopen(fd, [offset=off]) - Use the file provided by the given fd as a filesystem image.\n"
+> +    "\n"
+> +    "fd - File descriptor to use.\n"
+> +    "offset - offset of file system within file image.\n"
+> +    "options - mount options string.\n");
+> +
+>  PyDoc_STRVAR(fsimage_getbootstring__doc__,
+>      "getbootstring(fs) - Return the boot string needed for this file system "
+>      "or NULL if none is needed.\n");
+> @@ -315,6 +346,8 @@ static struct PyMethodDef fsimage_module_methods[] = {
+>  	    METH_VARARGS, fsimage_init__doc__ },
+>  	{ "open", (PyCFunction)fsimage_open,
+>  	    METH_VARARGS|METH_KEYWORDS, fsimage_open__doc__ },
+> +	{ "fdopen", (PyCFunction)fsimage_fdopen,
+> +	    METH_VARARGS|METH_KEYWORDS, fsimage_fdopen__doc__ },
+>  	{ "getbootstring", (PyCFunction)fsimage_getbootstring,
+>  	    METH_VARARGS, fsimage_getbootstring__doc__ },
+>  	{ NULL, NULL, 0, NULL }
+
 
