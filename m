@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E157F3AC5
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 01:39:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638328.994785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF5E97F3AEA
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 01:57:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638336.994796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5bFe-0006hf-P4; Wed, 22 Nov 2023 00:37:58 +0000
+	id 1r5bYO-00022X-EF; Wed, 22 Nov 2023 00:57:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638328.994785; Wed, 22 Nov 2023 00:37:58 +0000
+Received: by outflank-mailman (output) from mailman id 638336.994796; Wed, 22 Nov 2023 00:57:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5bFe-0006ep-Ly; Wed, 22 Nov 2023 00:37:58 +0000
-Received: by outflank-mailman (input) for mailman id 638328;
- Wed, 22 Nov 2023 00:37:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q+k4=HD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5bFc-0006eO-Qd
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 00:37:56 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6016b822-88cf-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 01:37:54 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4083ac51d8aso30512575e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 16:37:54 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- l19-20020a05600c089300b004080f0376a0sm318242wmp.42.2023.11.21.16.37.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 16:37:53 -0800 (PST)
+	id 1r5bYO-00020j-BE; Wed, 22 Nov 2023 00:57:20 +0000
+Received: by outflank-mailman (input) for mailman id 638336;
+ Wed, 22 Nov 2023 00:57:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0ttS=HD=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1r5bYN-00020d-6v
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 00:57:19 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 139db6ca-88d2-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 01:57:16 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 3AM0unSn029547
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 21 Nov 2023 19:56:54 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.17.1/8.15.2/Submit) id 3AM0ul0f029546;
+ Tue, 21 Nov 2023 16:56:47 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,245 +43,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6016b822-88cf-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700613474; x=1701218274; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nB2LDbE3P1q+lYK7Rw1XZuQRMktjRTI8WM+Mp9sGJ9o=;
-        b=lAal4tW6tnxWV2Z+ndEwBBe7PkBd+Kk7LdH/BGpPCmkpYWrHf3PzmccDWJqxuUPhzn
-         VphTGog/gVBcR7mdhi31tV7/1kuoKg8hgVt3Ty4OS2DUaPW7R78nqeIfijojM5quBe9c
-         I4aYgAaQKgGJwqmQifjUMroZ6SugTmVff83VY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700613474; x=1701218274;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nB2LDbE3P1q+lYK7Rw1XZuQRMktjRTI8WM+Mp9sGJ9o=;
-        b=f8h2phHGu7Po8axRqF30Mu/iVNlM/InGkObedwXd8KtXlBkN1HcgmTy347kn1taoGj
-         ae/YnhUP7lFNaH0KU4xXFuMgd9z+jIlg0mUbgvMGGY9OAS3X2xrr+EmIVXQqPvejjJS0
-         MraUIyjzt1yqz7Q8HmugMKoo0YJK9ZA5/Rj9CgYIuPePSFvdXxKFy+eUAGFpzTUeXvZ3
-         8/TdqVD1vrmr8pOUDglE2rm2D9oaIYmusKZBU3Fp/XUwcKKl4Vm4WYWoLD/IoQCXTIB6
-         y2xniwck9+f0qc548oJSAMNL2zfQrVtP+TFxx17tu0ARlPatPSFwPIfKFxPENMI8WHby
-         uSEQ==
-X-Gm-Message-State: AOJu0Yxft7apZDCOulvaATca0cA042i68Uq5Tp3o8hJxZyPEOAVTuaPX
-	Ui6jaCrgsx3zNlOHnBHmiiJ2AKTWANs5hgIQ5gE=
-X-Google-Smtp-Source: AGHT+IGgYm67tzb3DIj8WUmvS9470ZAaWbBNHZ3lYhQ2BRZSqgw25kgOcE5sUZWchR63z+2mOMpGmQ==
-X-Received: by 2002:a05:600c:4c94:b0:40b:2b12:1463 with SMTP id g20-20020a05600c4c9400b0040b2b121463mr660510wmp.9.1700613474190;
-        Tue, 21 Nov 2023 16:37:54 -0800 (PST)
-Message-ID: <804bc3be-256b-4a07-8779-06a5c2be1cef@citrix.com>
-Date: Wed, 22 Nov 2023 00:37:52 +0000
+X-Inumbo-ID: 139db6ca-88d2-11ee-9b0e-b553b5be7939
+Date: Tue, 21 Nov 2023 16:56:47 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Henry Wang <Henry.Wang@arm.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        xen-devel@lists.xenproject.org,
+        George Dunlap <george.dunlap@citrix.com>,
+        Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+        Neowutran <xen@neowutran.ovh>
+Subject: Re: [PATCH] x86/x2apic: introduce a mixed physical/cluster mode
+Message-ID: <ZV1Rz+FmmyWFHiM9@mattapan.m5p.com>
+References: <20231024135150.49232-1-roger.pau@citrix.com>
+ <ZT/Cs+MsBPibcc9D@mattapan.m5p.com>
+ <ZT_LWjKgQxOE9lpj@macbook>
+ <ZUqRfgAmzJRImW4O@mattapan.m5p.com>
+ <hqj6xjxb7r5lb52biejbzzue2jth3rcth3bouadya4jwarll4l@oswerq2ejbli>
+ <ZVgp0wshHg3ZQ/Md@mattapan.m5p.com>
+ <81f6bbd5-0487-461a-af1a-dbb6ead47cab@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] x86/vPIT: check values loaded from state save
- record
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <08e0708c-17e2-4a5e-aaf7-5f60a40f76db@suse.com>
- <584f566f-a0c9-49b5-b592-89ac4f1ecd05@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <584f566f-a0c9-49b5-b592-89ac4f1ecd05@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <81f6bbd5-0487-461a-af1a-dbb6ead47cab@citrix.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=4.0.0
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
 
-On 16/11/2023 1:47 pm, Jan Beulich wrote:
-> In particular pit_latch_status() and speaker_ioport_read() perform
-> calculations which assume in-bounds values. Several of the state save
-> record fields can hold wider ranges, though. Refuse to load values which
-> cannot result from normal operation, except mode, the init state of
-> which (see also below) cannot otherwise be reached.
->
-> Note that ->gate should only be possible to be zero for channel 2;
-> enforce that as well.
->
-> Adjust pit_reset()'s writing of ->mode as well, to not unduly affect
-> the value pit_latch_status() may calculate. The chosen mode of 7 is
-> still one which cannot be established by writing the control word. Note
-> that with or without this adjustment effectively all switch() statements
-> using mode as the control expression aren't quite right when the PIT is
-> still in that init state; there is an apparent assumption that before
-> these can sensibly be invoked, the guest would init the PIT (i.e. in
-> particular set the mode).
+On Sat, Nov 18, 2023 at 11:33:55AM +0000, Andrew Cooper wrote:
+> On 18/11/2023 3:04 am, Elliott Mitchell wrote:
+> > On Fri, Nov 17, 2023 at 11:12:37AM +0100, Neowutran wrote:
+> >> On 2023-11-07 11:11, Elliott Mitchell wrote:
+> >>> On Mon, Oct 30, 2023 at 04:27:22PM +01
+> >>>> On Mon, Oct 30, 2023 at 07:50:27AM -0700, Elliott Mitchell wrote:
+> >>>>> On Tue, Oct 24, 2023 at 03:51:50PM +0200, Roger Pau Monne wrote:
+> >>>>>> diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
+> >>>>>> index 707deef98c27..15632cc7332e 100644
+> >>>>>> --- a/xen/arch/x86/genapic/x2apic.c
+> >>>>>> +++ b/xen/arch/x86/genapic/x2apic.c
+> >>>>>> @@ -220,38 +239,56 @@ static struct notifier_block x2apic_cpu_nfb = {
+> >>>>>>  static int8_t __initdata x2apic_phys = -1;
+> >>>>>>  boolean_param("x2apic_phys", x2apic_phys);
+> >>>>>>  
+> >>>>>> +enum {
+> >>>>>> +   unset, physical, cluster, mixed
+> >>>>>> +} static __initdata x2apic_mode = unset;
+> >>>>>> +
+> >>>>>> +static int __init parse_x2apic_mode(const char *s)
+> >>>>>> +{
+> >>>>>> +    if ( !cmdline_strcmp(s, "physical") )
+> >>>>>> +        x2apic_mode = physical;
+> >>>>>> +    else if ( !cmdline_strcmp(s, "cluster") )
+> >>>>>> +        x2apic_mode = cluster;
+> >>>>>> +    else if ( !cmdline_strcmp(s, "mixed") )
+> >>>>>> +   
+> >>>>>> +    else
+> >>>>>> +        return EINVAL;
+> >>>>>> +
+> >>>>>> +    return 0;
+> >>>>>> +}
+> >>>>>> +custom_param("x2apic-mode", parse_x2apic_mode);
+> >>>>>> +
+> >>>>>>  const struct genapic *__init apic_x2apic_probe(void)
+> >>>>>>  {
+> >>>>>> -    if ( x2apic_phys < 0 )
+> >>>>>> +    /* x2apic-mode option has preference over x2apic_phys. */
+> >>>>>> +    if ( x2apic_phys >= 0 && x2apic_mode == unset )
+> >>>>>> +        x2apic_mode = x2apic_phys ? physical : cluster;
+> >>>>>> +
+> >>>>>> +    if ( x2apic_mode == unset )
+> >>>>>>      {
+> >>>>>> -        /*
+> >>>>>> -         * Force physical mode if there's no (full) interrupt remapping support:
+> >>>>>> -         * The ID in clustered mode requires a 32 bit destination field due to
+> >>>>>> -         * the usage of the high 16 bits to hold the cluster ID.
+> >>>>>> -         */
+> >>>>>> -        x2apic_phys = iommu_intremap != iommu_intremap_full ||
+> >>>>>> -                      (acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL) ||
+> >>>>>> -        
+> >>>>>> -    }
+> >>>>>> -    else if ( !x2apic_phys )
+> >>>>>> -        switch ( iommu_intremap )
+> >>>>>> +        if ( acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL )
+> >>>>>>          {
+> >>>>> Could this explain the issues with recent AMD processors/motherboards?
+> >>>>>
+> >>>>> Mainly the firmware had been setting this flag, but Xen was previously
+> >>>>> ignoring it?
+> >>>> No, not unless you pass {no-}x2apic_phys={false,0} on the Xen command
+> >>>> line to force logical (clustered) destination mode.
+> >>>>
+> >>>>> As such Xen had been attempting to use cluster mode on an
+> >>>>> x2APIC where that mode was broken for physical interrupts?
+> >>>> No, not realy, x2apic_phys was already forced to true if
+> >>>> acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL is set on the FADT (I
+> >>>> just delete that line in this same chunk and move it here).
+> >>> Okay, that was from a quick look at the patch.  Given the symptoms and
+> >>> workaround with recent AMD motherboards, this looked
+> >>>
+> >>> In that case it might be a bug in what AMD is providing to motherboard
+> >>> manufacturers.  Mainly this bit MUST be set, but AMD's implementation
+> >>> leaves it unset.
+> >>>
+> >>> Could also be if the setup is done correctly the bit can be cleared, but
+> >>> multiple motherboard manufacturers are breaking this.  Perhaps the steps
+> >>> are fragile and AMD needed to provide better guidance.
+> >>>
+> >>>
+> >>> Neowutran, are you still setup to and interested in doing
+> >>> experimentation/testing with Xen on your AMD computer?  Would you be up
+> >>> for trying the patch here:
+> >>>
+> >>> https://lore.kernel.org/xen-devel/20231106142739.19650-1-roger.pau@citrix.com/raw
+> >>>
+> >>> I have a suspicion this *might* fix the x2APIC issue everyone has been
+> >>> seeing.
+> >>>
+> >>> How plausible would it be to release this as a bugfix/workaround on 4.17?
+> >>> I'm expecting a "no", but figured I should ask given how widespread the
+> >>> issue is.
+> >> I just applied the patch on my setup ( https://lore.kernel.org/xen-devel/20231106142739.19650-1-roger.pau@citrix.com/raw ) 
+> >> It seems to fix the x2APIC issue I was having. 
+> >>
+> >> I only did some quick tests: 
+> >>
+> >> I tried all the differents values in my bios for the X2APIC settings. 
+> >> Now the system successfully boot in all the cases, without needing
+> >> manual override of the x2apic_phys/x2apic_mode parameter in boot commandline .
+> > In light of this issue effecting a large number of people with recent
+> > hardware, I formally request the patch
+> > "x86/x2apic: introduce a mixed physical/cluster mode" be considered for
+> > backport release on the 4.17 and 4.18 branches.
+> >
+> > (I'm unsure whether it is realistic for a 4.17 update, but I figure I
+> > should ask)
+> 
+> This is an unreasonable ask.
+> 
+> I believe you when you say there is (or at least was) an x2apic bug (or
+> bugs), but not once did you provide the logging requested, nor engage
+> usefully with us in debugging.
 
-Looking in the datasheet, we have:
+It was insisted that full logs be sent to xen-devel.  Perhaps I am
+paranoid, but I doubt I would have been successful at scrubbing all
+hardware serial numbers.  As such, I was willing to post substantial
+sections, but not everything.
 
----8<---
-After power-up, the state of the 8254 is undefined.  The Mode, count
-value and output of all Counters are undefined.
+Since the two were at loggerheads, there was nothing I could do.
 
-How each Counter operates is determined when it is programmed.  Each
-Counter must be programmed before it can be used.  Unused counters need
-not be programmed.
----8<---
+Problem is the x86 machine is trying to remain close to a Linux
+distribution and that distribution has been sluggish with that update.
+I plan to double-check later when things are ready.
 
-So software is required to explicitly configure a mode before using it.
+> Now you come along guessing alone at x2apic in a patch name that it
+> fixes your problem, on a patch which is not a bugfix - it's a
+> performance optimisation.
 
-As long as mode 7 doesn't behave unsafely, I think we're good.
+It was created as a performance optimization, but I had hopes it might
+also workaround the problem which was occurring.
 
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> For mode we could refuse to load values in the [0x08,0xfe] range; I'm
-> not certain that's going to be overly helpful.
->
-> For count I was considering to clip the saved value to 16 bits (i.e. to
-> convert the internally used 0x10000 back to the architectural 0x0000),
-> but pit_save() doesn't easily lend itself to such a "fixup". If desired
-> perhaps better a separate change anyway.
 
-I suspect that at this point, it's not worth trying to fix this.  We
-can't change the stream format without a giant overhaul.
+Has it been given proper consideration by the Release Manager?  As long
+as the answer to that is "yes", then I will accept the decision of the
+Release Manager.  I was under no illusion it was likely to be accepted
+for backport.
 
-> ---
-> v2: Introduce separate checking function; switch to refusing to load
->     bogus values. Re-base.
->
-> --- a/xen/arch/x86/emul-i8254.c
-> +++ b/xen/arch/x86/emul-i8254.c
-> @@ -47,6 +47,7 @@
->  #define RW_STATE_MSB 2
->  #define RW_STATE_WORD0 3
->  #define RW_STATE_WORD1 4
-> +#define RW_STATE_NUM 5
->  
->  #define get_guest_time(v) \
->     (is_hvm_vcpu(v) ? hvm_get_guest_time(v) : (u64)get_s_time())
-> @@ -427,6 +428,47 @@ static int cf_check pit_save(struct vcpu
->      return rc;
->  }
->  
-> +static int cf_check pit_check(const struct domain *d, hvm_domain_context_t *h)
-> +{
-> +    const struct hvm_hw_pit *hw;
-> +    unsigned int i;
-> +
-> +    if ( !has_vpit(d) )
-> +        return -ENODEV;
-> +
-> +    hw = hvm_point_entry(PIT, h);
-> +    if ( !hw )
-> +        return -ENODATA;
-> +
-> +    /*
-> +     * Check to-be-loaded values are within valid range, for them to represent
-> +     * actually reachable state.  Uses of some of the values elsewhere assume
-> +     * this is the case.  Note that the channels' mode fields aren't checked;
-> +     * older Xen might save them as 0xff.
 
-"older Xen" goes stale very quickly.  "Xen prior to 4.19", or "Xen prior
-to the time of writing (Nov 2023)" if you're planning to backport this.
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-> +     */
-> +    if ( hw->speaker_data_on > 1 || hw->pad0 )
-> +        return -EDOM;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(hw->channels); ++i )
-> +    {
-> +        const struct hvm_hw_pit_channel *ch = &hw->channels[i];
-> +
-> +        if ( ch->count > 0x10000 ||
-> +             ch->count_latched >= RW_STATE_NUM ||
-> +             ch->read_state >= RW_STATE_NUM ||
-> +             ch->write_state >= RW_STATE_NUM ||
-> +             ch->rw_mode > RW_STATE_WORD0 ||
-> +             ch->gate > 1 ||
-> +             ch->bcd > 1 )
-> +            return -EDOM;
-> +
-> +        if ( i != 2 && !ch->gate )
-> +            return -EINVAL;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->  static int cf_check pit_load(struct domain *d, hvm_domain_context_t *h)
->  {
->      PITState *pit = domain_vpit(d);
-> @@ -443,6 +485,14 @@ static int cf_check pit_load(struct doma
->          goto out;
->      }
->      
-> +    for ( i = 0; i < ARRAY_SIZE(pit->hw.channels); ++i )
-> +    {
-> +        struct hvm_hw_pit_channel *ch = &pit->hw.channels[i];
-> +
-> +        if ( (ch->mode &= 7) > 5 )
-> +            ch->mode -= 4;
 
-How does this work?  If we get in an 0xff, we'll turn it into 0xfb
-rather than 7.
-
-> +    }
-> +
->      /*
->       * Recreate platform timers from hardware state.  There will be some 
->       * time jitter here, but the wall-clock will have jumped massively, so 
-> @@ -458,7 +508,7 @@ static int cf_check pit_load(struct doma
->      return rc;
->  }
->  
-> -HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, NULL, pit_load, 1, HVMSR_PER_DOM);
-> +HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_check, pit_load, 1, HVMSR_PER_DOM);
->  #endif
->  
->  /* The intercept action for PIT DM retval: 0--not handled; 1--handled. */
-> @@ -575,7 +625,7 @@ void pit_reset(struct domain *d)
->      for ( i = 0; i < 3; i++ )
->      {
->          s = &pit->hw.channels[i];
-> -        s->mode = 0xff; /* the init mode */
-> +        s->mode = 7; /* the init mode */
-
-I think it would be helpful to modify the comment to say /* unreachable
-sentinel */ or something.
-
-~Andrew
 
