@@ -2,65 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954EE7F3ED6
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 08:25:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638457.994976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F2EC7F3EDF
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 08:27:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638459.994985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5hc6-0005Yi-NG; Wed, 22 Nov 2023 07:25:34 +0000
+	id 1r5hdX-0006aa-1X; Wed, 22 Nov 2023 07:27:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638457.994976; Wed, 22 Nov 2023 07:25:34 +0000
+Received: by outflank-mailman (output) from mailman id 638459.994985; Wed, 22 Nov 2023 07:27:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5hc6-0005WZ-Jw; Wed, 22 Nov 2023 07:25:34 +0000
-Received: by outflank-mailman (input) for mailman id 638457;
- Wed, 22 Nov 2023 07:25:33 +0000
+	id 1r5hdW-0006YS-Uo; Wed, 22 Nov 2023 07:27:02 +0000
+Received: by outflank-mailman (input) for mailman id 638459;
+ Wed, 22 Nov 2023 07:27:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d996=HD=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1r5hc5-0005WP-5g
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 07:25:33 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061c.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4N3t=HD=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1r5hdU-0006Y6-Uf
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 07:27:01 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0619.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::619])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51295842-8908-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 08:25:31 +0100 (CET)
-Received: from AM6P192CA0027.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:83::40)
- by DU0PR08MB7565.eurprd08.prod.outlook.com (2603:10a6:10:316::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.19; Wed, 22 Nov
- 2023 07:25:22 +0000
-Received: from AMS1EPF00000049.eurprd04.prod.outlook.com
- (2603:10a6:209:83:cafe::33) by AM6P192CA0027.outlook.office365.com
- (2603:10a6:209:83::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
- Transport; Wed, 22 Nov 2023 07:25:22 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AMS1EPF00000049.mail.protection.outlook.com (10.167.16.133) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7025.12 via Frontend Transport; Wed, 22 Nov 2023 07:25:21 +0000
-Received: ("Tessian outbound 26ee1d40577c:v228");
- Wed, 22 Nov 2023 07:25:21 +0000
-Received: from 77c170e0ade4.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 2BE1A6AE-360D-4102-9F74-46EA9C8BFBF3.1; 
- Wed, 22 Nov 2023 07:25:15 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 77c170e0ade4.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 22 Nov 2023 07:25:15 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by AS4PR08MB7854.eurprd08.prod.outlook.com (2603:10a6:20b:51d::5)
+ id 856657c8-8908-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 08:26:58 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM9PR04MB7553.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
- 2023 07:25:09 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::c64b:7a3:ac99:25db]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::c64b:7a3:ac99:25db%2]) with mapi id 15.20.7002.027; Wed, 22 Nov 2023
- 07:25:09 +0000
+ 2023 07:26:56 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7025.019; Wed, 22 Nov 2023
+ 07:26:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,136 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51295842-8908-11ee-9b0e-b553b5be7939
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=fkOmPtoFu4V+QwDOXpUSI67hw+W91eZy+8yfhwv7zuxc6CYNF3XKC9prWZdbEGGhC+niRDOWCtCpeDR2VQ2G2ltfdL7Kd6VauQQTBb9WjaoE0nk5Vf43WqCqH0LC8y4eKHBD+2A8ocot63CBV00CDm3vOuj1oZ1XZWcpkFdUW/AjwIBoc/J9RSbNO9yLfhivP5eYayBc6x3bkhX/WwNxOOVLxyqxM0G+m39maiicArlTo2ueLJ3i8Q/FZkYUlY064CQ3LSMekOIU79yN727i6+jfxulZmVCYBlCwYsWBXnlgZN9sEWkMnw3EYgkJpd1eEmjuJ6oPxRFGlaY6RDGlMg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
- b=fSAWVSJjrVHf5RlCgnLnp7aH1beJukNs0pF14u31Yz0e9wpAIZnQHQWJ84HjDgR+sxZCLvLR5nL9GfdAe4nksNPnSIeDUD4LskJkatkOjkKyxDzL3JTZ2vuZqwz0v8TfcwoFF+Q8Kz+ggIUBbv6+ovbB44dP9Aul3kcRi6gZ4b+UylPPgwjAibCz54Kf5+njGbQCDpqODPrCZVIQHzeE/rz4wZu8WHn8VgEIQSw42cQa838s9TS1D/klstPm3oMPfHkjMr5cm2zRk+gxNseKIVsMBtmOI75LCMRpxLb7eG4SKrZo7jasfgBkMocGOXDW7ZtrDTVD3LIpC68z8UZWQA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
- b=tlbpfYPtNuQNJDRN7q8BxbTWwZxCEOvchXAOOohVmtWYepY7aJlVu5i99NytU6VJRF9foh5Pk50Ek2gqfL6vLgEnu3qD6IlOVYCJDL6Z2JjjJ4BYkWhB2+yug6kUxKBu2kqpKRbGg3yk9+G1V783suwH61qP+jyXXL3Z85EFIyc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: c77d31cd0c372e56
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 856657c8-8908-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KL+OaJGlaJ9PoPvqDfjs6fOVrGb2+d5wo3ZZIM+6j/Yf4ODx7FhxP336mB5e7lLCOoQsu8zHwAVt4BGCMdsjddryQmKpn4QxCGcf6Os5MfZsYJDHv6rAQ3/m7Z1sQU0NX727azQVeHQ5aX4yD2pq5kLUOdg5ED4EN1KufgulVWPrVzunLxdLGd6px/Yfns1eD859QyS8c1Hxqx03VBKLOl2NlttheWQm9+6Npl5yljTAE/F46X+/bMPGshx4n8F2Uau81Ya+5lYvQPXdflqO0DLV0iZna2GoqlADzW8R+3pHwIGROABpkN7rgKnjb6V/KZsC6aVMSe24v/8faHv76g==
+ b=WUuYPJ03XiXAKCeiRU0MDcSZm2gAgpGopnyJxfy7pc8NWlmAKDN971E98bBXuMUl9pPI+6YmJtV8ewPyEGaN0/zDuz3hiCRwo6v5hsO6CPR4gGBId3B7imV+bj6pj7cj2/PCLSdBr7AAMymIRWTnm8/wklN2sxmMq3ufgwYn3SdA0H6jcHsPN4unSZ6ziFeoXgQSa0UHwtsuhQ2+AA116RghgJClcvlkrjZBJZRhksQ0ppFjZ7giMiXPH5guyLmJnMdrS80ke+JIdE2WWyEe2gSme+WSRevHPqvAvJQ+ZY1r078Mdz94EPeg4BqNFRHXmzEhpOvQiPy7DD5TCzj+ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
- b=KrcRYMLpH/eEZMfzb4vrPsVoPey6znF0RzhM/GrMgWjBRVs23v9Q1+ipSkHDlqVjZTx1FN9ToBimwYmquvcrWndnvSnx+ZGH7yI8OPRehdLJaAj06YJyIqtX13YEQcf46KsIjuCKD2/43NtX6zxrTO58r5kh8shgfVINJbSZBX9lKG04AEZroCNVyoM1QFrPmLDJSJsE7dGx/JDUHvWRd071JXe9OG/6Xy9M7m+1LLw6ZofWS21xFSpJ1ZMyW+miYmOECHKMPriRQeBrJm9/m5IDoYrppurkufwIs08MhJ9eQfbwtP5Ab06HKANUBQD++KKHk4koTmQd6jFGRvyd8g==
+ bh=OrRT2d6nhLuczwYoReeGVYFpUDdj/NqW5AyC00HBsBI=;
+ b=iy0C/j7RGg3ub6Wq3VEJHDc3zWHYhDw/Sgof2gDRoeveljYAYae90RClgluGD2szRLSr+xf3xlw07SdNs9hrNTwOTQJHjin3B2VVwHagRB3YkkDnU22AnLCuU7NNr8TLcU+wxtwu0GcM+Do16TothcmUQSaIwLa+7N9CufnVReQlmh1VCT9JB/xFexmBd2fhihaV4wHIoZe1qLRFjpkWzmvH6X2KN1MlS56CKOS/e24Y4jM737lLUNIfWBIn3wUYo4UPKmyqnSxj+9R57egQ1yirxtams1tQPKei94ybt35m188tb3qwIIbfrykOjfy7+bvxm6vhILwE3C3zXC99Og==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
- b=tlbpfYPtNuQNJDRN7q8BxbTWwZxCEOvchXAOOohVmtWYepY7aJlVu5i99NytU6VJRF9foh5Pk50Ek2gqfL6vLgEnu3qD6IlOVYCJDL6Z2JjjJ4BYkWhB2+yug6kUxKBu2kqpKRbGg3yk9+G1V783suwH61qP+jyXXL3Z85EFIyc=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Juergen Gross <jgross@suse.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Community Manager
-	<community.manager@xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: Re: [PATCH v2] stubdom: remove caml-stubdom
-Thread-Topic: [PATCH v2] stubdom: remove caml-stubdom
-Thread-Index: AQHaHRSAQgxp/yEYoE29tMVtjHxyKbCF79SA
-Date: Wed, 22 Nov 2023 07:25:09 +0000
-Message-ID: <B6CE7706-7417-4EF0-A699-93B97ECBD247@arm.com>
-References: <20231122072110.22413-1-jgross@suse.com>
-In-Reply-To: <20231122072110.22413-1-jgross@suse.com>
-Accept-Language: zh-CN, en-US
+ bh=OrRT2d6nhLuczwYoReeGVYFpUDdj/NqW5AyC00HBsBI=;
+ b=FQLDVYzP1su8Ql6X/GYbBCuHnWbfnqT3g5ifKGumASGYEPiydiVF50zhNSQHfFor3jzSdWYI7n/LqUVnE0o7Grs0wV6yigiXIzch1t/iAxYvcN/mW239rV9vlTDInNZFUrEmXQzkfsVk0BoYirxnI3Q+9oS2hAH8q90u912btYkWO6+VU1mVcqTCdc+IrNKfvP4DiQZCIlTRZPFyOl7/SAjDG7/txEjxsge8E2hrffgLGxhhtukBCLrFdLDp3gZBbp7V1Bk65FDG6gdEUEG0yvdjbNHlMnLptg/bbh6UhDJHFHAmq2TJq9tLonp3dZv2fwwuOFnpRluZz55JDa2YlA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <aef9579b-f32d-4bc2-8be9-f875605d17a6@suse.com>
+Date: Wed, 22 Nov 2023 08:26:54 +0100
+User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.200.91.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|AS4PR08MB7854:EE_|AMS1EPF00000049:EE_|DU0PR08MB7565:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75a15f0c-0df3-4330-fb50-08dbeb2c2ff9
-x-checkrecipientrouted: true
-nodisclaimer: true
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86emul: deal with decode failure in predicates test
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0096.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB7553:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3a53913-a2ee-497e-d2f0-08dbeb2c67e6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- iqyiDlty5bgJDieniUWjQnbByuSkOOfm6jUqA/flJ6KUatNLoMD4KNbmy1xCZyLQa/4J26QfhYDGn74QiEoeOrgw0o9UWQAglgm9Z7d+pQwTSCzkANFz5jCTyEZv9SpuJmpSoyQlWaCd6MCYHG5AYZXx0ojYPgMMjl3JrKT4MztEmIx1U0+pInZHoptVTy1kYjbR9L8h67Fdv224cAC4FFw8UJ9+vNckhe7Ir8kVxxAJ3/wfyh2PKqyNbrawnB3p3g4Ap18yoem7kUKgMcZ2uEfV+vp20KWR4KJ2TkmQqLOSvmL6doiBhjOuG0IsHxoD2N+pZ5p+pqdYwYJcunLWcfFrAhRdo2cIBDeC+4fqMnaUzootjKu55r+N4q1/rOsXIAKMpofFlYy9YOULCVvW7Jdql9QprWQ+BzRThy4bY24DtAZEFXrUrZsXUlAu6MsimI+lQVflAx8xacOT51w1FqtJI9PdYpEGtiCOJSB7bLP68VO1+ge+w8vGGakVI2Lgcda3pn2r6p88nmxXj+QJPdVgOtZ/Xw6ws+TiZ3fIG8Swu5tLdobBVnjPcX58LNs46U7c0T4yTW1CrUzHe/ZsODJ1BDJS4LZ8eGAi8iIqmIJOrkt2bVgoy1AxEGyw9ssePVz4vVn7TsNpemd/+G4saA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(39860400002)(136003)(346002)(376002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(5660300002)(7416002)(71200400001)(2906002)(4744005)(6486002)(478600001)(4326008)(8676002)(8936002)(66556008)(64756008)(54906003)(66946007)(66476007)(6916009)(316002)(76116006)(66446008)(91956017)(86362001)(122000001)(41300700001)(83380400001)(33656002)(26005)(38100700002)(36756003)(2616005)(53546011)(6506007)(38070700009)(6512007)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <FF2B32D9D29F07468D20FADA29B0D4A6@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7854
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS1EPF00000049.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	62a833c7-78b4-454a-31ee-08dbeb2c289d
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	/uX51REubECGqX3HnidJWix5X0rBYXTCPeCUJZqpmKugvroHIT75hhmWlkEbI1KPA77sVzNBCQnUrDU1XQyi+daoKBR668qFl+i5RlI7czBPinMUjIV5SXTCs5aW8kQoTNEcq5oQLwU4R0SDM/Ni+dRUFBmAyowuI9pipEwFUjzUWeZUwRxnzG9XW+5VwZrIrCRn9ZsuuF8c06sERrFdrvRG45dg7cF5kbZPUJ1mByndtB3AXCjiafQ1zHaz3ycNVdHVcd/TPRwpg4RnbKBQexF2ijxZ/Wsx0oYc19znhwNLF5o//wHRKAqOQWDPxMFp72iNS4reEQKOtjTWgHYeaQhAi8zpdH6F7582r6/UYPLPTblLemJFeIGGBWIpyPKtX12+wtFmd2W18sbxnmEbLQvgkwlPWvc6zpN9nFn5peVRDPkA1vPiAOzxNB4PJXkbcjRMt9QrrzgCrWvG7Lyi8pfwG2EJoHs+iolkZhWJvR4iXGSaMykf9BiQh0FFBEemkRQ3+9weXvosVIrDwrnohvH/VUD+r4+yAD7bO+3W2j0nqOu1Pdy7UMLcaai4Bgav2qa6Vxe/btoundnQBaibGTPNCEHS8GJcSYqdJVqlzYR+tiJVqz0VjHY+hcRKBSKvNMfQPIwMgrOkijKteU8pxcu8Pg7SE2cCvbJgR5ogbNh8P9VYqeQsFCfHqGHzf/n0isYX9WTnTF2VCVv9WhfUJg+kE3GHQquG0mvJ0hCjkp1+bIPJZwmGwegX5COsQgUB
+	k+U9sZlIucHCV0VGhDLbB75HU0YcgARzgpVs0ngsL9q+NtrcGYZQ6yalkRpVm2ikREi/fNcdGY+Xzex8QNwJ2YVmCmQkebjRyGbb0gYVtXfgvh8/fgAISHWg541jamVLyvEGusxDvEWSlVK4P6Us32iAyUxJp7hucDbfy2w6UxRHxRES7bGvWVc4vG3Z80BB5h4MPZZ16gDfCvTW0S4pMppX1FgPj4NfDUVA7AS52iF8xm/nJVjDObRqAxbu4ppqaaQ4rAZ1CucdU3HBb10vwdaMN4OQVQTymbihWvqQYwKXXWjBXOc4U+8qLGXY9heVNZnOybvWiRstLNdu/7bfFixIodo3i7o9v1DS2WJRTgnrfqjl+eoGPnSvBT+g/sg45MdqNNsP70ZUMGmRJ1BRazSF07PyR8XVHIOfJqWZYpFKi7iOe1EpxF/uo2ctfpsOwoc4ZM/6/dkkekB3oVVBZsR0MdxPdEsnt8kArNHVsFD4Zef7Sv9vpa0E0fUAf8XgOp4mCsJ0+IxzomFf7BlYdJBfr46OQReX2hbP5f0htL3AEaYYJmCRSdvkIMDT6GFcdRdzv/3cKhZEftmEwbdaSPVRr7DBhZuAMj+BXKYj4tGYh6CeCDLh65jW9EZFZH5rwTd4kSshYkSzmm9TAs+o3g==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(376002)(136003)(396003)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799012)(46966006)(40470700004)(36840700001)(40480700001)(41300700001)(2906002)(4744005)(5660300002)(6862004)(4326008)(8676002)(8936002)(316002)(54906003)(70586007)(70206006)(26005)(336012)(2616005)(40460700003)(478600001)(6486002)(6506007)(6512007)(53546011)(81166007)(356005)(83380400001)(107886003)(47076005)(36756003)(86362001)(33656002)(36860700001)(82740400003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 07:25:21.8588
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(136003)(396003)(346002)(376002)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(54906003)(316002)(6916009)(66556008)(66946007)(6506007)(4326008)(8676002)(8936002)(6486002)(478600001)(6512007)(2906002)(4744005)(36756003)(41300700001)(38100700002)(31686004)(2616005)(26005)(86362001)(31696002)(66476007)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TEJoMHlrNHp1V3hFVWE5VnYzT2ZkUTRhYmVsK1liMUx2bFZRcEJSdmNPZXgv?=
+ =?utf-8?B?RXpTRzRUejd1djV2UnU1V09zMm5ndmdGM1N6TXBpSG56Z3RZZCtVVVN3YVdU?=
+ =?utf-8?B?b2FDbG16cGE4WnZiWVlFL3NHY2xMR1QxY2xNTHN4dllLWlZza3NHeUY4a1FL?=
+ =?utf-8?B?RmdGUVVyaGVoeFpUV1hpQjMrYi9CcVdNaFFFYTh1MnZEWXBKOHIvYWk2cVZv?=
+ =?utf-8?B?SThUTFkyYTZTNmlNaWdiVjMyTDIxcGlOMU9XWERPQjdWUWFhNXQvY1FWNW5p?=
+ =?utf-8?B?ZVpWNGI0cnpLVlZ2a1NITVNpeHdBSk10WDdzRHQ5ZHZJMWFJbzQzTThjQ2VD?=
+ =?utf-8?B?VlVHS0dKTjZxTVV1SzVqMUxqNENHMlJiV2NlcENqaVVjaGRVcFh2NDFacWxo?=
+ =?utf-8?B?dHpEUFlRbXhhS1RMeXA4aGlpRU04U0RkWEpNSTFsMldlUXEyWGJTSjc5U0la?=
+ =?utf-8?B?cjVtRG5sazJHanR6NkcxTVpHNWtvUngwSmxYZUR1aVd1dVBRdUsyVTFEbHdK?=
+ =?utf-8?B?dTNSTFRQTlc1SmZFZmcySDQ4UUZCOFZhWThaUHdzZmpoSHFEMTlvdEJrNE0y?=
+ =?utf-8?B?RndEQXNQZXNNNlBkSFZrQkhEZit0ODdpbTA3REtMa1Rnc28rbVVlWGpZbmx1?=
+ =?utf-8?B?U0tqSVFYV2dEWWxPMFFHdUlyRW8wbXJPMC9NV0NWOFNadEErSzF2VEhnN0Vh?=
+ =?utf-8?B?WFUrQ2d4QzE0U2dhRTdUQlhycmxTQS9mWnNFODJWeGZRWlpOekNRaVV2UVg2?=
+ =?utf-8?B?SzBOcmRCSXVONXZGZ1Fyanp5WEhMNjE3dXJWeE5rbU55Vmc4U3g0UUxlK2c1?=
+ =?utf-8?B?Q1Q5RW9DSTRrNVlSV1IvbngrRUJCcGdhMFFSeGpjSm5FdUJjQnIzN0JDb1NL?=
+ =?utf-8?B?YTlQREtwdHZiV2tjNTQyeVFtWlR6TnQrdHhha1FLcFE0QXg3TWp3UFJCc2RP?=
+ =?utf-8?B?VnRzait1ZVNtRThvNkFaNWFiSzUyNUZlOVJtS2dxLy83V1dZNWlKOUQ0ODA3?=
+ =?utf-8?B?c2d2OC9TcCtRTjVjY2Y3OEtEM2FrQzlyYUkxV0gwNnhCTmV3MWVuY1JGc0J4?=
+ =?utf-8?B?Sk1oTWxWVkRSb1NBRkZwSmk1NXVRcWVKdllxRFBDTU1KMU51V2lpK3VSOWFj?=
+ =?utf-8?B?ZjI2WExkRjVTRWp1WDBOcFo3ZGR5bTBsMWtTVzdGL0YwYTNpV1hSell5eHBk?=
+ =?utf-8?B?U0hVQ080WXlhaHVPc1lIL1NkOXNnNmU5YkgwRFZweDJYdmw5bzVISi9wQ0Zn?=
+ =?utf-8?B?MmN0bSs2NFdpR3NPWFFPRFJ4LzRnbXpYR244NjBockVNNmNPU3UrS2Y1Wi8z?=
+ =?utf-8?B?bjJldG5oLzk2Zm1UNXhubzZ2d0FsbUxXSnZNV093N2hHaUFYNlp5UFV2Tkti?=
+ =?utf-8?B?dHRzMk9iL082c1NTUWVWNkxVTXlEU29VV2pURU9uNEs5Q1A4ZVQ4WTFkUGln?=
+ =?utf-8?B?K0ozRFkwNVp5SmJzTVVxRExxZ3hla3ZGcEdkejdGU2ZXT1A2cHJUMmhwbzhp?=
+ =?utf-8?B?aFFPVmY5SGU0TmhDb3J3OEQ1Y0J2c1p2NkFrUDNoSDUrZ3ZPdHB6WVZscXhp?=
+ =?utf-8?B?OW9aRzdDR29Xazh6cXhQMytJVVNoMERCenVXUnduOXpnSHlCOHAvMk0zY3Qv?=
+ =?utf-8?B?VjRhOHo0dXViUFcrTng2YlZKbFFBaWkzUmtuQVYxdEVqc29pTS9GYkpqbXpF?=
+ =?utf-8?B?ZUl4aFpaRjZKVGtBcWpqbm9vMlhLdXJFSjlhTjZ2SFZwc2dwcDZURGhNTkFV?=
+ =?utf-8?B?YUl5TktMR25WTlVMcG42bFQvQzVkcXgyWStHK3cvR0lZbkJkUk11czY0alQv?=
+ =?utf-8?B?SUlNbHhaSHdGVENpN2w4aFZNYXBwRGtOQlRiaDg0ZTgvMzBwRkNMRHVQeVI0?=
+ =?utf-8?B?NUoxWDNQRmtLM3Q3UnJjbTRQNzQ3RXd0M0Vza0ZhYkJMRjZHNWlCYzFQUG03?=
+ =?utf-8?B?aS9FZ3FwWTc1U1RnWmxPS1dGVlhXamNRR00yT2ZGdzJBWHh3VGVjaCs0TnVG?=
+ =?utf-8?B?NWVqdHpMM3VBTng3bEZ4Sys2M0ZQcEtvdkxZcVBpY1ZSM0krUG93TVIvQ0R3?=
+ =?utf-8?B?RHdLdWw4aDdBOGlPVHhqOE9RZWJpT2RaTmFxd2NablFLMm4yWGN5N29NSTRY?=
+ =?utf-8?Q?vITQovsvzJd2RL34igZsLcjkU?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3a53913-a2ee-497e-d2f0-08dbeb2c67e6
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 07:26:55.8555
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75a15f0c-0df3-4330-fb50-08dbeb2c2ff9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000049.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7565
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G3xmgb3aRsTFJv+67zLxhx5dOkNtBPUqEcMjpc5y8gUW+EbQlqjgldUVZ0ict+XvyoFAc/SBU3/7YR9PxR/LLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7553
 
-Hi Juergen,
+Don't let this end in SEGV, due to the subsequent NULL deref.
 
-> On Nov 22, 2023, at 15:21, Juergen Gross <jgross@suse.com> wrote:
->=20
-> In order to build caml-stubdom, it must be explicitly enabled via
-> "configure --enable-caml-stubdom". The build process is failing due to
-> stubdom/ocaml.patch failing to apply. Since the patched file has been
-> modified in 2014 the last time, it seems nobody cares for caml-stubdom
-> since at least then.
->=20
-> Remove caml-stubdom from the build system.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - add CHANGELOG entry (Andrew Cooper)
-> ---
-> CHANGELOG.md             |  2 ++
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Henry Wang <Henry.Wang@arm.com> # CHANGELOG
-
-Kind regards,
-Henry
-
+--- a/tools/tests/x86_emulator/predicates.c
++++ b/tools/tests/x86_emulator/predicates.c
+@@ -2189,6 +2189,13 @@ void do_test(uint8_t *instr, unsigned in
+     {
+         s = x86_decode_insn(ctxt, fetch);
+ 
++        if ( !s )
++        {
++            print_insn(instr, len);
++            printf(" failed to decode\n");
++            return;
++        }
++
+         if ( x86_insn_length(s, ctxt) != len )
+         {
+             print_insn(instr, len);
+@@ -2218,6 +2225,13 @@ void do_test(uint8_t *instr, unsigned in
+ 
+         s = x86_decode_insn(ctxt, fetch);
+ 
++        if ( !s )
++        {
++            print_insn(instr, len);
++            printf(" failed to decode\n");
++            return;
++        }
++
+         if ( x86_insn_length(s, ctxt) != len )
+         {
+             print_insn(instr, len);
 
