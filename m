@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E3A7F3B46
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 02:26:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638353.994846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE8777F3B4F
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 02:29:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638358.994856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5c0Q-0007YU-Mq; Wed, 22 Nov 2023 01:26:18 +0000
+	id 1r5c37-0000NM-2h; Wed, 22 Nov 2023 01:29:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638353.994846; Wed, 22 Nov 2023 01:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 638358.994856; Wed, 22 Nov 2023 01:29:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5c0Q-0007Wn-IZ; Wed, 22 Nov 2023 01:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 638353;
- Wed, 22 Nov 2023 01:26:17 +0000
+	id 1r5c36-0000Kl-Vy; Wed, 22 Nov 2023 01:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 638358;
+ Wed, 22 Nov 2023 01:29:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q+k4=HD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5c0P-0007Vb-8u
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 01:26:17 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=lIMN=HD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1r5c35-0000Kf-Ih
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 01:29:03 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21753feb-88d6-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 02:26:16 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4083f613275so30391405e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Nov 2023 17:26:16 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
- by smtp.gmail.com with ESMTPSA id
- q1-20020a5d61c1000000b00332cb8fd5b7sm5477168wrv.67.2023.11.21.17.26.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 17:26:15 -0800 (PST)
+ id 8335b102-88d6-11ee-98e1-6d05b1d4d9a1;
+ Wed, 22 Nov 2023 02:29:01 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AF0CECE1E06;
+ Wed, 22 Nov 2023 01:28:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB48C433C7;
+ Wed, 22 Nov 2023 01:28:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +41,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21753feb-88d6-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700616376; x=1701221176; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=houFHBNzhX5fo5r9OcCkSwEG6ICg6TON+t4NlDtgrtc=;
-        b=XG0nWECdsY8YlZeOiKI9suITYJE8cHXq1RM6PEQMiDIyICtt2bITXPAwbdVpeWd6xL
-         hOzqWYxjTraH/wHCg/FrltS+JIWtccTiBqI2CpPqkgyavmo6vFdHWKPwruCKNzTwA3Fx
-         6CUtumfhh/xHV5Wtb1oYGc8LY9DUmaOuVa5IY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700616376; x=1701221176;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=houFHBNzhX5fo5r9OcCkSwEG6ICg6TON+t4NlDtgrtc=;
-        b=WCLLMDnTEkJCziN6IdxFy8YKeP0U36wAfs3/sH4QVCHcpMeRhbD+x40G4fG4nmXzsb
-         0Pu+xZKd5L5RlXfY+Yc+45FpNiEPlwxcZL+a8gopVDXLqp3egZaOasWRTX49HUpl3Te4
-         y4GBFrsg2tzBZD3RD2oJBx+Ta7Fof9JjeLJofuq7EKNlgq6YqXeVWMhu/BNHU6Dyuh4B
-         VAswgyWAN/VhenX+tQvh0ZzCFlaRKIRpjBjAN1OLgSc576knzN1tS+8o25VYWeclI9My
-         yYaiHxDkJsZLJWGAfoiwQvZ6iQSe0kymhqRe1qaWlSxQKNYj23tBv/pvrksCS2uYD1yU
-         rnuw==
-X-Gm-Message-State: AOJu0YxuHxH/HK2Vj8Ih5DuTH85fcwO7gZlgtpSgxFRjpX/29vkIwHwC
-	XOYR9l3o6C+/5aHcM3+68/DdMg==
-X-Google-Smtp-Source: AGHT+IG6rnYZEhQeteDmusyc5gajgo3P6dfQbhR8ifcAD4xujwIEJXkRAy/7BHDMm4y3+N6R18kr6w==
-X-Received: by 2002:a05:600c:4ed0:b0:405:95ae:4a94 with SMTP id g16-20020a05600c4ed000b0040595ae4a94mr359016wmq.5.1700616375581;
-        Tue, 21 Nov 2023 17:26:15 -0800 (PST)
-Message-ID: <52ec938a-053f-4f73-b4d9-984547497e16@citrix.com>
-Date: Wed, 22 Nov 2023 01:26:14 +0000
+X-Inumbo-ID: 8335b102-88d6-11ee-98e1-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700616535;
+	bh=5SSQDIRXfY5abYgW4pOVXXGfv25hfcrN/rwWKMcqPGs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=spaJ2uAkebbdemlqtHDLf92Zt099WpzJbynq89Fu4gCHE28OPIuvMs6BAW5Gs+cSB
+	 Fq54vrH3/iHHWg8sGhd/3agF7EvbZwZuTMEgUVxQXU0QJT2JzHpmE1NIzRg7vW/EMT
+	 XFjFDwMnQdVuWXvP8M3rkOanVqH5jn0CRzHZ/kVa9pR25KCHT676RrGLsjP0X5kf72
+	 xT5JtV2g9ePyUBO9/1Q+hm5IGnKziuF7GovXeBSaUQztSlT1aAfx/7GO/vszw2epMN
+	 WWT5tOZnEzO2ZRlbn0xS7QherMlNS4WdxwsMU+TpuJI/qmm26jDIwAKusWgASEPljW
+	 QAg4oqMWpKQlQ==
+Date: Tue, 21 Nov 2023 17:28:52 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Roger Pau Monne <roger.pau@citrix.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 6/7] automation: set architecture in docker files
+In-Reply-To: <20231121160358.8080-7-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2311211728460.2053963@ubuntu-linux-20-04-desktop>
+References: <20231121160358.8080-1-roger.pau@citrix.com> <20231121160358.8080-7-roger.pau@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] x86/vPIC: check values loaded from state save
- record
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <08e0708c-17e2-4a5e-aaf7-5f60a40f76db@suse.com>
- <976532e6-9514-4a46-8ca1-edf66f22659b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <976532e6-9514-4a46-8ca1-edf66f22659b@suse.com>
+Content-Type: multipart/mixed; boundary="8323329-1719195801-1700616534=:2053963"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1719195801-1700616534=:2053963
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8BIT
 
-On 16/11/2023 1:48 pm, Jan Beulich wrote:
-> Loading is_master from the state save record can lead to out-of-bounds
-> accesses via at least the two container_of() uses by vpic_domain() and
-> __vpic_lock(). Make sure the value is consistent with the instance being
-> loaded.
->
-> For ->int_output (which for whatever reason isn't a 1-bit bitfield),
-> besides bounds checking also take ->init_state into account.
->
-> For ELCR follow what vpic_intercept_elcr_io()'s write path and
-> vpic_reset() do, i.e. don't insist on the internal view of the value to
-> be saved. Adjust vpic_elcr_mask() to allow using it easily for the new
-> case, but still also especially in the 2nd of the uses by
-> vpic_intercept_elcr_io()).
+On Tue, 21 Nov 2023, Roger Pau Monne wrote:
+> Pass the desired architecture of the image in the FROM instruction if the
+> image is possibly multi-platform.
+> 
+> This allows using the x86 Dockerfiles on OS X on arm64 hardware.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I'm afraid I'm totally lost trying to follow this change.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-What is mb2 and why is it variable?
-
-This does look like a logically unrelated change (the only overlap is
-using the new vpic_elcr_mask() form to audit the incoming data), so I
-think it needs breaking out simply for review-ability.
-
->
-> Move the instance range check as well, leaving just an assertion in the
-> load handler.
->
-> While there also correct vpic_domain() itself, to use its parameter in
-> both places.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v2: Introduce separate checking function; switch to refusing to load
->     bogus values. Re-base.
->
-> --- a/xen/arch/x86/hvm/vpic.c
-> +++ b/xen/arch/x86/hvm/vpic.c
-> @@ -35,13 +35,13 @@
->  #include <asm/hvm/save.h>
+> I haven't touched the Yocto dockerfile because I'm not sure how it's used.
+> ---
+>  automation/build/alpine/3.18.dockerfile                       | 2 +-
+>  automation/build/archlinux/current-riscv64.dockerfile         | 2 +-
+>  automation/build/archlinux/current.dockerfile                 | 2 +-
+>  automation/build/centos/7.dockerfile                          | 2 +-
+>  automation/build/debian/bookworm.dockerfile                   | 2 +-
+>  automation/build/debian/bullseye-ppc64le.dockerfile           | 2 +-
+>  automation/build/debian/buster-gcc-ibt.dockerfile             | 4 ++--
+>  automation/build/debian/jessie.dockerfile                     | 2 +-
+>  automation/build/debian/stretch.dockerfile                    | 2 +-
+>  automation/build/fedora/29.dockerfile                         | 2 +-
+>  automation/build/suse/opensuse-leap.dockerfile                | 2 +-
+>  automation/build/suse/opensuse-tumbleweed.dockerfile          | 2 +-
+>  automation/build/ubuntu/bionic.dockerfile                     | 2 +-
+>  automation/build/ubuntu/focal.dockerfile                      | 2 +-
+>  automation/build/ubuntu/trusty.dockerfile                     | 2 +-
+>  automation/build/ubuntu/xenial-xilinx.dockerfile              | 2 +-
+>  automation/build/ubuntu/xenial.dockerfile                     | 2 +-
+>  automation/tests-artifacts/alpine/3.18.dockerfile             | 2 +-
+>  automation/tests-artifacts/kernel/6.1.19.dockerfile           | 2 +-
+>  .../tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile  | 2 +-
+>  20 files changed, 21 insertions(+), 21 deletions(-)
+> 
+> diff --git a/automation/build/alpine/3.18.dockerfile b/automation/build/alpine/3.18.dockerfile
+> index 5d2a69a06010..4ae9cb5e9e30 100644
+> --- a/automation/build/alpine/3.18.dockerfile
+> +++ b/automation/build/alpine/3.18.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM alpine:3.18
+> +FROM --platform=linux/amd64 alpine:3.18
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
 >  
->  #define vpic_domain(v) (container_of((v), struct domain, \
-> -                        arch.hvm.vpic[!vpic->is_master]))
-> +                                     arch.hvm.vpic[!(v)->is_master]))
-
-This appears to have only compiled before because both callers have vpic
-as their parameter.
-
-I think this is worthy of breaking out into a separate change, because
-it wants backporting further than I expect you're likely to want to
-backport this patch in general.
-
-~Andrew
+> diff --git a/automation/build/archlinux/current-riscv64.dockerfile b/automation/build/archlinux/current-riscv64.dockerfile
+> index abf8e7bf0b88..af75b5c720ce 100644
+> --- a/automation/build/archlinux/current-riscv64.dockerfile
+> +++ b/automation/build/archlinux/current-riscv64.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM archlinux
+> +FROM --platform=linux/amd64 archlinux
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
+> index 47e79637a4a6..d974a1434fd5 100644
+> --- a/automation/build/archlinux/current.dockerfile
+> +++ b/automation/build/archlinux/current.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM archlinux:base-devel
+> +FROM --platform=linux/amd64 archlinux:base-devel
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/centos/7.dockerfile b/automation/build/centos/7.dockerfile
+> index 69dcefb2f011..ab450f0b3a0e 100644
+> --- a/automation/build/centos/7.dockerfile
+> +++ b/automation/build/centos/7.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM centos:7
+> +FROM --platform=linux/amd64 centos:7
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
+> index 7aea081c13a9..459f8e30bdc6 100644
+> --- a/automation/build/debian/bookworm.dockerfile
+> +++ b/automation/build/debian/bookworm.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:bookworm
+> +FROM --platform=linux/amd64 debian:bookworm
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/bullseye-ppc64le.dockerfile b/automation/build/debian/bullseye-ppc64le.dockerfile
+> index 4de8458445ae..6fdfb6bc2b40 100644
+> --- a/automation/build/debian/bullseye-ppc64le.dockerfile
+> +++ b/automation/build/debian/bullseye-ppc64le.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:bullseye-slim
+> +FROM --platform=linux/amd64 debian:bullseye-slim
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/buster-gcc-ibt.dockerfile b/automation/build/debian/buster-gcc-ibt.dockerfile
+> index 96ab4fe8a2f1..6a3e50ef6b3f 100644
+> --- a/automation/build/debian/buster-gcc-ibt.dockerfile
+> +++ b/automation/build/debian/buster-gcc-ibt.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:buster-slim AS builder
+> +FROM --platform=linux/amd64 debian:buster-slim AS builder
+>  
+>  ENV DEBIAN_FRONTEND=noninteractive
+>  ENV USER root
+> @@ -41,7 +41,7 @@ RUN ./configure \
+>  RUN make -j`nproc` && make -j`nproc` install
+>  
+>  
+> -FROM debian:buster-slim
+> +FROM --platform=linux/amd64 debian:buster-slim
+>  COPY --from=builder /opt/gcc-11-ibt /opt/gcc-11-ibt
+>  
+>  LABEL maintainer.name="The Xen Project" \
+> diff --git a/automation/build/debian/jessie.dockerfile b/automation/build/debian/jessie.dockerfile
+> index 5c71c3e3ea75..32fc952fbc2d 100644
+> --- a/automation/build/debian/jessie.dockerfile
+> +++ b/automation/build/debian/jessie.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian/eol:jessie
+> +FROM --platform=linux/amd64 debian/eol:jessie
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
+> index 2f1a99f45017..e2706a8f3589 100644
+> --- a/automation/build/debian/stretch.dockerfile
+> +++ b/automation/build/debian/stretch.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:stretch
+> +FROM --platform=linux/amd64 debian:stretch
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/fedora/29.dockerfile b/automation/build/fedora/29.dockerfile
+> index e55b06a4517e..42a87ce6c84b 100644
+> --- a/automation/build/fedora/29.dockerfile
+> +++ b/automation/build/fedora/29.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM fedora:29
+> +FROM --platform=linux/amd64 fedora:29
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
+> index 7010b71acaa0..e1ec38a41445 100644
+> --- a/automation/build/suse/opensuse-leap.dockerfile
+> +++ b/automation/build/suse/opensuse-leap.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM opensuse/leap
+> +FROM --platform=linux/amd64 opensuse/leap
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
+> index 959e1f6939f0..38f6fda2ff1b 100644
+> --- a/automation/build/suse/opensuse-tumbleweed.dockerfile
+> +++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM opensuse/tumbleweed
+> +FROM --platform=linux/amd64 opensuse/tumbleweed
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/ubuntu/bionic.dockerfile b/automation/build/ubuntu/bionic.dockerfile
+> index e15f54431efb..77d7f933860c 100644
+> --- a/automation/build/ubuntu/bionic.dockerfile
+> +++ b/automation/build/ubuntu/bionic.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM ubuntu:18.04
+> +FROM --platform=linux/amd64 ubuntu:18.04
+>  LABEL maintainer.name="The Xen Project " \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
+> index e3d11194ee2f..30a9b8e84ffe 100644
+> --- a/automation/build/ubuntu/focal.dockerfile
+> +++ b/automation/build/ubuntu/focal.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM ubuntu:20.04
+> +FROM --platform=linux/amd64 ubuntu:20.04
+>  LABEL maintainer.name="The Xen Project " \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/ubuntu/trusty.dockerfile b/automation/build/ubuntu/trusty.dockerfile
+> index 22e294c20cac..0d33578c4e1d 100644
+> --- a/automation/build/ubuntu/trusty.dockerfile
+> +++ b/automation/build/ubuntu/trusty.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM ubuntu:14.04
+> +FROM --platform=linux/amd64 ubuntu:14.04
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/ubuntu/xenial-xilinx.dockerfile b/automation/build/ubuntu/xenial-xilinx.dockerfile
+> index 5f7087135213..49f27b322995 100644
+> --- a/automation/build/ubuntu/xenial-xilinx.dockerfile
+> +++ b/automation/build/ubuntu/xenial-xilinx.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM ubuntu:16.04
+> +FROM --platform=linux/amd64 ubuntu:16.04
+>  LABEL maintainer.name="The Xen Project " \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/build/ubuntu/xenial.dockerfile b/automation/build/ubuntu/xenial.dockerfile
+> index 2d2ba3e31f63..e8035434f804 100644
+> --- a/automation/build/ubuntu/xenial.dockerfile
+> +++ b/automation/build/ubuntu/xenial.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM ubuntu:16.04
+> +FROM --platform=linux/amd64 ubuntu:16.04
+>  LABEL maintainer.name="The Xen Project " \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/tests-artifacts/alpine/3.18.dockerfile b/automation/tests-artifacts/alpine/3.18.dockerfile
+> index 5f521572b8fb..f1b4a8b7a191 100644
+> --- a/automation/tests-artifacts/alpine/3.18.dockerfile
+> +++ b/automation/tests-artifacts/alpine/3.18.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM alpine:3.18
+> +FROM --platform=linux/amd64 alpine:3.18
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/tests-artifacts/kernel/6.1.19.dockerfile b/automation/tests-artifacts/kernel/6.1.19.dockerfile
+> index d5b787c1cbb5..3a4096780d20 100644
+> --- a/automation/tests-artifacts/kernel/6.1.19.dockerfile
+> +++ b/automation/tests-artifacts/kernel/6.1.19.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:bookworm
+> +FROM --platform=linux/amd64 debian:bookworm
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> diff --git a/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile b/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
+> index 7376ca46ff8e..65857147bf4f 100644
+> --- a/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
+> +++ b/automation/tests-artifacts/qemu-system-ppc64/8.1.0-ppc64.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:bullseye-slim
+> +FROM --platform=linux/amd64 debian:bullseye-slim
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> -- 
+> 2.42.0
+> 
+--8323329-1719195801-1700616534=:2053963--
 
