@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3AEA7F5351
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:23:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639227.996286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB4E7F5364
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 23:28:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639233.996295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vcb-0003nf-LY; Wed, 22 Nov 2023 22:23:01 +0000
+	id 1r5vhp-0005Cx-6j; Wed, 22 Nov 2023 22:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639227.996286; Wed, 22 Nov 2023 22:23:01 +0000
+Received: by outflank-mailman (output) from mailman id 639233.996295; Wed, 22 Nov 2023 22:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5vcb-0003lg-HI; Wed, 22 Nov 2023 22:23:01 +0000
-Received: by outflank-mailman (input) for mailman id 639227;
- Wed, 22 Nov 2023 22:23:00 +0000
+	id 1r5vhp-0005Ao-49; Wed, 22 Nov 2023 22:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 639233;
+ Wed, 22 Nov 2023 22:28:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lIMN=HD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r5vca-0003la-2U
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:23:00 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1r5vho-0005Ai-5z
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 22:28:24 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id affe0be2-8985-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 23:22:58 +0100 (CET)
+ id 71121fb8-8986-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 23:28:21 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9A74A61F9C;
- Wed, 22 Nov 2023 22:22:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85143C433C7;
- Wed, 22 Nov 2023 22:22:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6A43961FA2;
+ Wed, 22 Nov 2023 22:28:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583C0C433C9;
+ Wed, 22 Nov 2023 22:28:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,46 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: affe0be2-8985-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 71121fb8-8986-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700691776;
-	bh=gX+ZWOEDdXr6yb1WIejQZL1ucNpcjlQ2UdwLDR7bXz4=;
+	s=k20201202; t=1700692100;
+	bh=IYEbm+Te2s+3DVqYAnCSl9Rjj8b4SlzdeOGto+Ex/FI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ufu+xjHIqUXxAODsDfNoweUt+aIJIwn/FoTY6dzxkl4c6aDvG0YevLlJ1zHT8u8CB
-	 oHtTAqzx4WzlvhvzgSs1Uj9IJ+ojnP3UF+kU7u92b6RUT4GzulZcom6ESR3bLRiKYa
-	 9mkfBvZKfThiKzOHHQwv+L8mKl9iiEihRRx6QV4ualKVYtyXkbBfee62QBEAB0J5H0
-	 jgKGo+ux5RelAYFux1/6HBvwIUx8Na3U9Jz+qki7FMlQ90sTGEmH9VcfpDp8rGNym4
-	 wM4+6ALQ4JKF84xySg6Jo+QA77HW+NS92zf959ebxPvqRcRazm/CByUClMAv/jGBSL
-	 jfqW563Cr6VZQ==
-Date: Wed, 22 Nov 2023 14:22:53 -0800 (PST)
+	b=baWp3gnUCvW9zxP7t9Ri1KuhZHnGF56bClQ5fcKtGoxqihiU4eUKDZpRFSVHtikrX
+	 TBCEZBnRTlIu6ooMmq5Co0gdzNCea4wZ3FtgDSwgqCTQUnUAF8TJx/nECoQR6xgqro
+	 np4xoQpdchz109+FmyROJvufcrGxFmICt4cCkd/NqbsmIl5Pf6vgE79IGLzjZxpzGj
+	 7dDaIjlGrWOdiqUZJ+BeYJSy2WFo7VMvgNMkd5PkeRNRd44c2KX0OQxWUqCN3MgAeH
+	 FfxtpKM3Z07yPKxXmH8kPkheCh0WyygDbXxM9SeolcNgPh4ofxNqMf4e15hCmUDbu5
+	 KtJ8MagnbLdyQ==
+Date: Wed, 22 Nov 2023 14:28:16 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+To: paul@xen.org
+cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, 
+    David Woodhouse <dwmw@amazon.co.uk>, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, Shawn Anastasio <sanastasio@raptorengineering.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN PATCH v4 2/2] xen/mm: address violations of MISRA C:2012
- Rules 8.2 and 8.3
-In-Reply-To: <9a73c479f3a9b2a3f796f8f65de3b3feb735c56d.1700645120.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311221422440.2053963@ubuntu-linux-20-04-desktop>
-References: <cover.1700645120.git.federico.serafini@bugseng.com> <9a73c479f3a9b2a3f796f8f65de3b3feb735c56d.1700645120.git.federico.serafini@bugseng.com>
+    David Woodhouse <dwmw2@infradead.org>, 
+    "Michael S. Tsirkin" <mst@redhat.com>, 
+    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+    Paolo Bonzini <pbonzini@redhat.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Eduardo Habkost <eduardo@habkost.net>, 
+    Anthony Perard <anthony.perard@citrix.com>, 
+    "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 3/6] xen: xenstore: add possibility to preserve
+ owner
+In-Reply-To: <c9b15b1c-e86b-45b4-b348-8c9edde5e60d@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2311221427220.2053963@ubuntu-linux-20-04-desktop>
+References: <20231121221023.419901-1-volodymyr_babchuk@epam.com> <20231121221023.419901-4-volodymyr_babchuk@epam.com> <c9b15b1c-e86b-45b4-b348-8c9edde5e60d@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 22 Nov 2023, Federico Serafini wrote:
-> Add missing parameter names and uniform the interfaces of
-> modify_xen_mappings() and modify_xen_mappings_lite().
+On Wed, 22 Nov 2023, Paul Durrant wrote:
+> On 21/11/2023 22:10, Volodymyr Babchuk wrote:
+> > Add option to preserve owner when creating an entry in Xen Store. This
+> > may be needed in cases when Qemu is working as device model in a
 > 
-> No functional change.
+> *may* be needed?
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> I don't undertstand why this patch is necessary and the commit comment isn't
+> really helping me.
+> 
+> > domain that is Domain-0, e.g. in driver domain.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+I think Volodymyr meant: 
+
+domain that is *not* Domain-0
+
+So I am guessing this patch is needed otherwise QEMU will run into
+permissions errors doing xenstore operations
+
+
+
+> > "owner" parameter for qemu_xen_xs_create() function can have special
+> > value XS_PRESERVE_OWNER, which will make specific implementation to
+> > get original owner of an entry and pass it back to
+> > set_permissions() call.
+> > 
+> > Please note, that XenStore inherits permissions, so even if entry is
+> > newly created by, it already has the owner set to match owner of entry
+> > at previous level.
+> > 
+> > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> 
 
