@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F737F4DF0
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 18:12:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638949.995963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A9A7F4EE6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 19:03:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638953.996014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5qlU-0005Vc-J7; Wed, 22 Nov 2023 17:11:52 +0000
+	id 1r5rZV-00052b-Ht; Wed, 22 Nov 2023 18:03:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638949.995963; Wed, 22 Nov 2023 17:11:52 +0000
+Received: by outflank-mailman (output) from mailman id 638953.996014; Wed, 22 Nov 2023 18:03:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5qlU-0005U0-GK; Wed, 22 Nov 2023 17:11:52 +0000
-Received: by outflank-mailman (input) for mailman id 638949;
- Wed, 22 Nov 2023 17:11:50 +0000
+	id 1r5rZV-0004zF-Ey; Wed, 22 Nov 2023 18:03:33 +0000
+Received: by outflank-mailman (input) for mailman id 638953;
+ Wed, 22 Nov 2023 17:16:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aeb/=HD=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1r5qlS-0005Tu-B5
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 17:11:50 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ <SRS0=WFg3=HD=gmail.com=dzyuzin21@srs-se1.protection.inumbo.net>)
+ id 1r5qpl-0006na-WB
+ for xen-devel@lists.xen.org; Wed, 22 Nov 2023 17:16:18 +0000
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [2607:f8b0:4864:20::72d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 390bee8d-895a-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 18:11:49 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40b2ad4953cso6541055e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 09:11:49 -0800 (PST)
-Received: from [10.95.134.92] (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id
- i16-20020a05600c355000b003fc0505be19sm44748wmq.37.2023.11.22.09.11.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 09:11:48 -0800 (PST)
+ id d836ed4a-895a-11ee-98e1-6d05b1d4d9a1;
+ Wed, 22 Nov 2023 18:16:17 +0100 (CET)
+Received: by mail-qk1-x72d.google.com with SMTP id
+ af79cd13be357-77d55e986ecso139486385a.2
+ for <xen-devel@lists.xen.org>; Wed, 22 Nov 2023 09:16:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +40,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 390bee8d-895a-11ee-98e1-6d05b1d4d9a1
+X-Inumbo-ID: d836ed4a-895a-11ee-98e1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700673109; x=1701277909; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wD1Osv68moY2wmNYERX6SE0aq7IXfRHUNiLz0dpPw9w=;
-        b=gVuOsBd+LA2SLqEF3HAShijqCSdvJPtwVwjvRxvYkJgyrl3XEAGw5KvJlU486+h2rG
-         8op6fMz28nUZgAAV2lORZh305Z1nMMm8wqdhP2O4KBfMGzQc4+Xwgjy9Hp9fkBPkDjSz
-         /kPVxfQr8zAIaGcCSJiJ33WBGlOhdTguw9ZOs3ltXDJgVG/TH/YNYAQ8RIF+wklZhqKo
-         k5InTmRC5FnU4kXkBAUbCxkc+O8mEqG/fT/AJnHUWsKJPsyq73hxCigPYxX12IayRs6E
-         d1Kav+YTm43AQLecJm5Cdn3Q/4lCa9WJ7v2/+ixs+hrK2Hh9GcXrsMOS1DIY4m5ATk1X
-         l2PQ==
+        d=gmail.com; s=20230601; t=1700673375; x=1701278175; darn=lists.xen.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=MELkYOzplcPTEttvjP3Ol7h0KPf50HYqmemdYhuL/aA=;
+        b=EMEFRFJjP4028F8PPfQ182NWXVVhTjWksyE1A/PThDb+z1U2FIgUkPFvA3GsR5ZseK
+         52hjBzyIcwBUr0Efb04jySp3DkKqj8IqEK3/UHFcXvgTm03jt5gKCJlNJT4kh4O1Mw7p
+         9QABYW0I4CE7+Nv8fXd76oT7Zv9uvpGbLC9aBKTEProzxlwUOX30f6Qw1xVmG8+ecTUb
+         8VcDv/r5RdGWTA0lZZB5aK5KcjRz4pbcNgm/jMFOQ9hEtoKoZv5v4t38yl1NBkqzDX+j
+         6sPpv8n5ZzT0bFhva/SFjxYJTI11r60ghEg5bTWFzmFva4qypsAhoakuNwTd6VztVTuh
+         vI3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700673109; x=1701277909;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wD1Osv68moY2wmNYERX6SE0aq7IXfRHUNiLz0dpPw9w=;
-        b=Lq4jf3hy5e1WW6V0qsq/OxFn6/wr+8sC2H9sn/KaLy0q20ynTJKPyQWJIMFueCJmvH
-         /BhDrgrR3FSjYZ3mwFcacrDJpUaLZzYDD9H96fMs66ZSgi9FPPM4WGhELvms1q5DQQTn
-         QxLUuPT5qhDVUdyuhU4o7KSp/IMRNrZ1gdmu+jl+T7vxiepSO6HY5MbB8QcQoBw3cT+6
-         L8gKqNY4NYTKKJ892UcJ5MQgk7tXJKpFC71PwdfhcQzIaI8Q/SprUn+8A9INgDxgprMA
-         RH21wGax1Kds5niUKb6EE5C4qsresDIyBlKb78/Az4/1hD9fPiShx2EeVmsa91r+vmDp
-         Gj7A==
-X-Gm-Message-State: AOJu0Yw2Zmh9nUc7R+Z1eEZVkccg7gzAbo7QhxAoi7qnxcLVVFeW4TTa
-	qca4teMAHOHB9+jD/MQ398M=
-X-Google-Smtp-Source: AGHT+IHlFn1oy68B82kGrutJ1vBhDlOH4mto5RqdBz1ZBta1MhC8vRAp0CKHAUcgl2mg05DpKVubbA==
-X-Received: by 2002:a05:600c:1c9f:b0:40b:2a08:c45e with SMTP id k31-20020a05600c1c9f00b0040b2a08c45emr104751wms.3.1700673108689;
-        Wed, 22 Nov 2023 09:11:48 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <b04daedc-ba6a-4109-8e23-fbcd023bcfec@xen.org>
-Date: Wed, 22 Nov 2023 17:11:47 +0000
+        d=1e100.net; s=20230601; t=1700673375; x=1701278175;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MELkYOzplcPTEttvjP3Ol7h0KPf50HYqmemdYhuL/aA=;
+        b=sBw+Y4K7R5RQKtW9B7KG1GEC6rIWrlaaa/NTB4XrXnCbKLSH28o92r4xkhHaXAwlt1
+         afgs80XOZeYI6UpkN65HwcjKka30zZJ11+xlCUaneQ3CCHj2sZ7P/o49TvliKvlgRF+I
+         TMCprlcjPjjrdRoVbS07b1o9kV58BBSvnaCzZTD6oatV4Z88aR9ayDVo2tgVEEPlAE7A
+         sR49MnJdw1ZkEkeepZORKhN5oGpEKUp2dFyXIIhqaPXCt6cVjUifxCLjZr7LaSjyk2Ue
+         8mgtWyBeSNqgU4bs0wxsaG93kg/rpNGG1YBYoW4NC66GY7AysFPD2HG+pOLPDd53OAg3
+         VDDw==
+X-Gm-Message-State: AOJu0YysU/AvOsiSSlSNF85S4mdH5TA5NRvmXavtyX9IWHI/OZ/bb45p
+	uvwzAkUXNdMLTxshu31iAGLZiedrORiDw9DxdhS7psknrkdmQw==
+X-Google-Smtp-Source: AGHT+IEh/8yNJ9mgd3IsfqntqvwCJd8wseekweF5wlFhwoxl5u0yYSdhtHt34Iwo+S0/7FFGnz+cfyObBI9TAAhiZvg=
+X-Received: by 2002:a05:6214:2a88:b0:679:f299:620d with SMTP id
+ jr8-20020a0562142a8800b00679f299620dmr3677990qvb.4.1700673375490; Wed, 22 Nov
+ 2023 09:16:15 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH v2 4/6] xen_pvdev: Do not assume Dom0 when creating a
- directory
-Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
-Cc: David Woodhouse <dwmw@amazon.co.uk>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
- <20231121221023.419901-5-volodymyr_babchuk@epam.com>
-Organization: Xen Project
-In-Reply-To: <20231121221023.419901-5-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Dmitry Zyuzin <dzyuzin21@gmail.com>
+Date: Wed, 22 Nov 2023 20:16:04 +0300
+Message-ID: <CAPAcLADsTDNSw-vka=x25YdGSPi2P+YGZyjcECVoKqo-rJ+UkA@mail.gmail.com>
+Subject: Testing Xen v4.17 on ARMv8
+To: xen-devel@lists.xen.org
+Content-Type: multipart/alternative; boundary="0000000000006cd901060ac0e067"
 
-On 21/11/2023 22:10, Volodymyr Babchuk wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Instead of forcing the owner to domid 0, use XS_PRESERVE_OWNER to
-> inherit the owner of the directory.
+--0000000000006cd901060ac0e067
+Content-Type: text/plain; charset="UTF-8"
 
-Ah... so that's why the previous patch is there.
+Dear Sir or Madam,
 
-This is not the right way to fix it. The QEMU Xen support is *assuming* 
-that QEMU is either running in, or emulating, dom0. In the emulation 
-case this is probably fine, but the 'real Xen' case it should be using 
-the correct domid for node creation. I guess this could either be 
-supplied on the command line or discerned by reading the local domain 
-'domid' node.
+I am a firmware developer working on ARM-based SoC. We have recently added
+Xen support (v4.17) to our firmware. Now I am trying to find a test
+framework for routine testing of Xen on our SoCs.
 
-> 
-> Note that for other than Dom0 domain (non toolstack domain) the
-> "driver_domain" property should be set in domain config file for the
-> toolstack to create required directories in advance.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> ---
->   hw/xen/xen_pvdev.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/hw/xen/xen_pvdev.c b/hw/xen/xen_pvdev.c
-> index c5ad71e8dc..42bdd4f6c8 100644
-> --- a/hw/xen/xen_pvdev.c
-> +++ b/hw/xen/xen_pvdev.c
-> @@ -60,7 +60,8 @@ void xen_config_cleanup(void)
->   
->   int xenstore_mkdir(char *path, int p)
->   {
-> -    if (!qemu_xen_xs_create(xenstore, 0, 0, xen_domid, p, path)) {
-> +    if (!qemu_xen_xs_create(xenstore, 0, XS_PRESERVE_OWNER,
-> +                            xen_domid, p, path)) {
->           xen_pv_printf(NULL, 0, "xs_mkdir %s: failed\n", path);
->           return -1;
->       }
+Unfortunately, wiki.xenproject.org is not very up-to-date, and the
+situation with tests (https://wiki.xenproject.org/wiki/Testing_Xen,
+https://wiki.xenproject.org/wiki/Category:Test_Day) is even worse.  As far
+as I can see, the latest tested version of Xen mentioned there is 4.15. I
+found the Smoke test (
+https://wiki.xenproject.org/wiki/Xen_ARM_Manual_Smoke_Test). It passes
+successfully, but its coverage is quite low.
+Besides that, I have found the Xen OSSTest framework (
+http://xenbits.xen.org/gitweb/?p=osstest.git;a=summary). If I'm not
+mistaken, it was written for internal use approximately in 2013. But
+currently, I have not managed to make the framework usable for individual
+ad-hoc testing in standalone mode for ARM64.
+Also there is mentioned XenRT test (
+https://wiki.xenproject.org/wiki/Category:XenRT), but there are no *working*
+links for its source code.
 
+Could you kindly tell me:
+1. Which tests or test suites would you recommend for testing Xen
+(including regression tests)?
+2. Where can I find source code of the XenRT test framework?
+3.  Is there any clear and up-to-date manual on using and porting the
+Osstest?
+
+Sincerely yours,
+Dmitry Zyuzin, firmware developer.
+
+--0000000000006cd901060ac0e067
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><font size=3D"4"><span style=3D"font-family:arial,san=
+s-serif">Dear Sir or Madam,</span></font></div><div><font size=3D"4"><span =
+style=3D"font-family:arial,sans-serif"><br></span></font></div><div><font s=
+ize=3D"4"><span style=3D"font-family:arial,sans-serif"><span>I am a firmwar=
+e developer working on ARM-based SoC</span>. We have recently added Xen sup=
+port (v4.17) to our firmware. Now I am trying to find a test framework for =
+routine testing of Xen on our SoCs.</span></font></div><div><font size=3D"4=
+"><span style=3D"font-family:arial,sans-serif"><br></span></font></div><div=
+><font size=3D"4"><span style=3D"font-family:arial,sans-serif">Unfortunatel=
+y, <a href=3D"http://wiki.xenproject.org">wiki.xenproject.org</a> is not ve=
+ry up-to-date, and the situation with tests (<a href=3D"https://wiki.xenpro=
+ject.org/wiki/Testing_Xen">https://wiki.xenproject.org/wiki/Testing_Xen</a>=
+, <a href=3D"https://wiki.xenproject.org/wiki/Category:Test_Day">https://wi=
+ki.xenproject.org/wiki/Category:Test_Day</a>) is even worse.=C2=A0<font siz=
+e=3D"4"><span style=3D"font-family:arial,sans-serif"> As far as I can see, =
+the latest tested version of Xen<span class=3D"gmail-Lm gmail-ng gmail-Vt g=
+mail-Vs"> mentioned</span> there is 4.15. </span></font> I found the Smoke =
+test (<a href=3D"https://wiki.xenproject.org/wiki/Xen_ARM_Manual_Smoke_Test=
+">https://wiki.xenproject.org/wiki/Xen_ARM_Manual_Smoke_Test</a>). It passe=
+s successfully, but its coverage is quite low.</span></font></div><div><fon=
+t size=3D"4"><span style=3D"font-family:arial,sans-serif">Besides that, I h=
+ave found the Xen OSSTest framework (<a href=3D"http://xenbits.xen.org/gitw=
+eb/?p=3Dosstest.git;a=3Dsummary">http://xenbits.xen.org/gitweb/?p=3Dosstest=
+.git;a=3Dsummary</a>). If I&#39;m not mistaken, it was written for internal=
+ use approximately in 2013. But currently, I have not managed to make the f=
+ramework usable for individual ad-hoc testing in standalone mode for ARM64.=
+ <br></span></font></div><div><font size=3D"4"><span style=3D"font-family:a=
+rial,sans-serif">Also there is mentioned XenRT test (<a href=3D"https://wik=
+i.xenproject.org/wiki/Category:XenRT">https://wiki.xenproject.org/wiki/Cate=
+gory:XenRT</a>), but there are no <b>working</b> links for its source code.=
+<br></span></font></div><div><font size=3D"4"><span style=3D"font-family:ar=
+ial,sans-serif"><br></span></font></div><font size=3D"4"><span>Could you ki=
+ndly tell me:</span></font><div><font size=3D"4"><span style=3D"font-family=
+:arial,sans-serif">1. Which tests or test suites would you recommend for te=
+sting Xen (including regression tests)?</span></font></div><div><font size=
+=3D"4"><span style=3D"font-family:arial,sans-serif">2. Where can I find sou=
+rce code of the XenRT test framework?</span></font></div><div><font size=3D=
+"4"><span style=3D"font-family:arial,sans-serif">3.=C2=A0 Is there any clea=
+r and up-to-date manual on using and porting the Osstest?<br><br></span></f=
+ont></div><div><font size=3D"4"><span style=3D"font-family:arial,sans-serif=
+">Sincerely yours,</span></font></div><div><font size=3D"4"><span style=3D"=
+font-family:arial,sans-serif">Dmitry Zyuzin, firmware developer.</span></fo=
+nt><br></div></div>
+
+--0000000000006cd901060ac0e067--
 
