@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E84607F3ECD
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 08:21:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638454.994966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954EE7F3ED6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 08:25:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638457.994976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5hXx-0004r8-1l; Wed, 22 Nov 2023 07:21:17 +0000
+	id 1r5hc6-0005Yi-NG; Wed, 22 Nov 2023 07:25:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638454.994966; Wed, 22 Nov 2023 07:21:17 +0000
+Received: by outflank-mailman (output) from mailman id 638457.994976; Wed, 22 Nov 2023 07:25:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5hXw-0004ok-UX; Wed, 22 Nov 2023 07:21:16 +0000
-Received: by outflank-mailman (input) for mailman id 638454;
- Wed, 22 Nov 2023 07:21:16 +0000
+	id 1r5hc6-0005WZ-Jw; Wed, 22 Nov 2023 07:25:34 +0000
+Received: by outflank-mailman (input) for mailman id 638457;
+ Wed, 22 Nov 2023 07:25:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9zcJ=HD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r5hXw-0004oe-8O
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 07:21:16 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d996=HD=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1r5hc5-0005WP-5g
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 07:25:33 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2061c.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::61c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7a31c29-8907-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 08:21:13 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B70801F85D;
- Wed, 22 Nov 2023 07:21:12 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 67CEC13461;
- Wed, 22 Nov 2023 07:21:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aAkHGOirXWV9NwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 22 Nov 2023 07:21:12 +0000
+ id 51295842-8908-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 08:25:31 +0100 (CET)
+Received: from AM6P192CA0027.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:83::40)
+ by DU0PR08MB7565.eurprd08.prod.outlook.com (2603:10a6:10:316::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.19; Wed, 22 Nov
+ 2023 07:25:22 +0000
+Received: from AMS1EPF00000049.eurprd04.prod.outlook.com
+ (2603:10a6:209:83:cafe::33) by AM6P192CA0027.outlook.office365.com
+ (2603:10a6:209:83::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
+ Transport; Wed, 22 Nov 2023 07:25:22 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AMS1EPF00000049.mail.protection.outlook.com (10.167.16.133) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7025.12 via Frontend Transport; Wed, 22 Nov 2023 07:25:21 +0000
+Received: ("Tessian outbound 26ee1d40577c:v228");
+ Wed, 22 Nov 2023 07:25:21 +0000
+Received: from 77c170e0ade4.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 2BE1A6AE-360D-4102-9F74-46EA9C8BFBF3.1; 
+ Wed, 22 Nov 2023 07:25:15 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 77c170e0ade4.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 22 Nov 2023 07:25:15 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS4PR08MB7854.eurprd08.prod.outlook.com (2603:10a6:20b:51d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
+ 2023 07:25:09 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::c64b:7a3:ac99:25db]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::c64b:7a3:ac99:25db%2]) with mapi id 15.20.7002.027; Wed, 22 Nov 2023
+ 07:25:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,477 +72,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7a31c29-8907-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1700637672; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MnXdZpA9KWX08AMPs4kn4UmUpg1zNTQfrmsAZOIqgxA=;
-	b=DMzhpjR0DrW/wSigRGCxodUow5q/atzCL9rB1XNsYj63eQ1FU/kve6kEZygaLTZOwX21FO
-	qfgYZT54JFsgggVBD8PfiIh2YCNYfA86/0nvzuSKGMEFH5YbtJE0zyQGmILc82vqgXMySe
-	BRf+ndTbch1GGofqwX3/4qqJ38dtQIM=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Henry Wang <Henry.Wang@arm.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2] stubdom: remove caml-stubdom
-Date: Wed, 22 Nov 2023 08:21:10 +0100
-Message-Id: <20231122072110.22413-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 51295842-8908-11ee-9b0e-b553b5be7939
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=fkOmPtoFu4V+QwDOXpUSI67hw+W91eZy+8yfhwv7zuxc6CYNF3XKC9prWZdbEGGhC+niRDOWCtCpeDR2VQ2G2ltfdL7Kd6VauQQTBb9WjaoE0nk5Vf43WqCqH0LC8y4eKHBD+2A8ocot63CBV00CDm3vOuj1oZ1XZWcpkFdUW/AjwIBoc/J9RSbNO9yLfhivP5eYayBc6x3bkhX/WwNxOOVLxyqxM0G+m39maiicArlTo2ueLJ3i8Q/FZkYUlY064CQ3LSMekOIU79yN727i6+jfxulZmVCYBlCwYsWBXnlgZN9sEWkMnw3EYgkJpd1eEmjuJ6oPxRFGlaY6RDGlMg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
+ b=fSAWVSJjrVHf5RlCgnLnp7aH1beJukNs0pF14u31Yz0e9wpAIZnQHQWJ84HjDgR+sxZCLvLR5nL9GfdAe4nksNPnSIeDUD4LskJkatkOjkKyxDzL3JTZ2vuZqwz0v8TfcwoFF+Q8Kz+ggIUBbv6+ovbB44dP9Aul3kcRi6gZ4b+UylPPgwjAibCz54Kf5+njGbQCDpqODPrCZVIQHzeE/rz4wZu8WHn8VgEIQSw42cQa838s9TS1D/klstPm3oMPfHkjMr5cm2zRk+gxNseKIVsMBtmOI75LCMRpxLb7eG4SKrZo7jasfgBkMocGOXDW7ZtrDTVD3LIpC68z8UZWQA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
+ b=tlbpfYPtNuQNJDRN7q8BxbTWwZxCEOvchXAOOohVmtWYepY7aJlVu5i99NytU6VJRF9foh5Pk50Ek2gqfL6vLgEnu3qD6IlOVYCJDL6Z2JjjJ4BYkWhB2+yug6kUxKBu2kqpKRbGg3yk9+G1V783suwH61qP+jyXXL3Z85EFIyc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: c77d31cd0c372e56
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KL+OaJGlaJ9PoPvqDfjs6fOVrGb2+d5wo3ZZIM+6j/Yf4ODx7FhxP336mB5e7lLCOoQsu8zHwAVt4BGCMdsjddryQmKpn4QxCGcf6Os5MfZsYJDHv6rAQ3/m7Z1sQU0NX727azQVeHQ5aX4yD2pq5kLUOdg5ED4EN1KufgulVWPrVzunLxdLGd6px/Yfns1eD859QyS8c1Hxqx03VBKLOl2NlttheWQm9+6Npl5yljTAE/F46X+/bMPGshx4n8F2Uau81Ya+5lYvQPXdflqO0DLV0iZna2GoqlADzW8R+3pHwIGROABpkN7rgKnjb6V/KZsC6aVMSe24v/8faHv76g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
+ b=KrcRYMLpH/eEZMfzb4vrPsVoPey6znF0RzhM/GrMgWjBRVs23v9Q1+ipSkHDlqVjZTx1FN9ToBimwYmquvcrWndnvSnx+ZGH7yI8OPRehdLJaAj06YJyIqtX13YEQcf46KsIjuCKD2/43NtX6zxrTO58r5kh8shgfVINJbSZBX9lKG04AEZroCNVyoM1QFrPmLDJSJsE7dGx/JDUHvWRd071JXe9OG/6Xy9M7m+1LLw6ZofWS21xFSpJ1ZMyW+miYmOECHKMPriRQeBrJm9/m5IDoYrppurkufwIs08MhJ9eQfbwtP5Ab06HKANUBQD++KKHk4koTmQd6jFGRvyd8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IwkdA+/UVLHP0vBZBpNmKdGXKJYSDcxN7vw+GbZDFg8=;
+ b=tlbpfYPtNuQNJDRN7q8BxbTWwZxCEOvchXAOOohVmtWYepY7aJlVu5i99NytU6VJRF9foh5Pk50Ek2gqfL6vLgEnu3qD6IlOVYCJDL6Z2JjjJ4BYkWhB2+yug6kUxKBu2kqpKRbGg3yk9+G1V783suwH61qP+jyXXL3Z85EFIyc=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Juergen Gross <jgross@suse.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Community Manager
+	<community.manager@xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: Re: [PATCH v2] stubdom: remove caml-stubdom
+Thread-Topic: [PATCH v2] stubdom: remove caml-stubdom
+Thread-Index: AQHaHRSAQgxp/yEYoE29tMVtjHxyKbCF79SA
+Date: Wed, 22 Nov 2023 07:25:09 +0000
+Message-ID: <B6CE7706-7417-4EF0-A699-93B97ECBD247@arm.com>
+References: <20231122072110.22413-1-jgross@suse.com>
+In-Reply-To: <20231122072110.22413-1-jgross@suse.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.200.91.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|AS4PR08MB7854:EE_|AMS1EPF00000049:EE_|DU0PR08MB7565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75a15f0c-0df3-4330-fb50-08dbeb2c2ff9
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ iqyiDlty5bgJDieniUWjQnbByuSkOOfm6jUqA/flJ6KUatNLoMD4KNbmy1xCZyLQa/4J26QfhYDGn74QiEoeOrgw0o9UWQAglgm9Z7d+pQwTSCzkANFz5jCTyEZv9SpuJmpSoyQlWaCd6MCYHG5AYZXx0ojYPgMMjl3JrKT4MztEmIx1U0+pInZHoptVTy1kYjbR9L8h67Fdv224cAC4FFw8UJ9+vNckhe7Ir8kVxxAJ3/wfyh2PKqyNbrawnB3p3g4Ap18yoem7kUKgMcZ2uEfV+vp20KWR4KJ2TkmQqLOSvmL6doiBhjOuG0IsHxoD2N+pZ5p+pqdYwYJcunLWcfFrAhRdo2cIBDeC+4fqMnaUzootjKu55r+N4q1/rOsXIAKMpofFlYy9YOULCVvW7Jdql9QprWQ+BzRThy4bY24DtAZEFXrUrZsXUlAu6MsimI+lQVflAx8xacOT51w1FqtJI9PdYpEGtiCOJSB7bLP68VO1+ge+w8vGGakVI2Lgcda3pn2r6p88nmxXj+QJPdVgOtZ/Xw6ws+TiZ3fIG8Swu5tLdobBVnjPcX58LNs46U7c0T4yTW1CrUzHe/ZsODJ1BDJS4LZ8eGAi8iIqmIJOrkt2bVgoy1AxEGyw9ssePVz4vVn7TsNpemd/+G4saA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(39860400002)(136003)(346002)(376002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(5660300002)(7416002)(71200400001)(2906002)(4744005)(6486002)(478600001)(4326008)(8676002)(8936002)(66556008)(64756008)(54906003)(66946007)(66476007)(6916009)(316002)(76116006)(66446008)(91956017)(86362001)(122000001)(41300700001)(83380400001)(33656002)(26005)(38100700002)(36756003)(2616005)(53546011)(6506007)(38070700009)(6512007)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <FF2B32D9D29F07468D20FADA29B0D4A6@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: 0.70
-X-Spamd-Result: default: False [0.70 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 R_MISSING_CHARSET(2.50)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 BROKEN_CONTENT_TYPE(1.50)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.20)[-0.989];
-	 RCPT_COUNT_TWELVE(0.00)[12];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-X-Spam-Flag: NO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7854
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS1EPF00000049.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	62a833c7-78b4-454a-31ee-08dbeb2c289d
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/uX51REubECGqX3HnidJWix5X0rBYXTCPeCUJZqpmKugvroHIT75hhmWlkEbI1KPA77sVzNBCQnUrDU1XQyi+daoKBR668qFl+i5RlI7czBPinMUjIV5SXTCs5aW8kQoTNEcq5oQLwU4R0SDM/Ni+dRUFBmAyowuI9pipEwFUjzUWeZUwRxnzG9XW+5VwZrIrCRn9ZsuuF8c06sERrFdrvRG45dg7cF5kbZPUJ1mByndtB3AXCjiafQ1zHaz3ycNVdHVcd/TPRwpg4RnbKBQexF2ijxZ/Wsx0oYc19znhwNLF5o//wHRKAqOQWDPxMFp72iNS4reEQKOtjTWgHYeaQhAi8zpdH6F7582r6/UYPLPTblLemJFeIGGBWIpyPKtX12+wtFmd2W18sbxnmEbLQvgkwlPWvc6zpN9nFn5peVRDPkA1vPiAOzxNB4PJXkbcjRMt9QrrzgCrWvG7Lyi8pfwG2EJoHs+iolkZhWJvR4iXGSaMykf9BiQh0FFBEemkRQ3+9weXvosVIrDwrnohvH/VUD+r4+yAD7bO+3W2j0nqOu1Pdy7UMLcaai4Bgav2qa6Vxe/btoundnQBaibGTPNCEHS8GJcSYqdJVqlzYR+tiJVqz0VjHY+hcRKBSKvNMfQPIwMgrOkijKteU8pxcu8Pg7SE2cCvbJgR5ogbNh8P9VYqeQsFCfHqGHzf/n0isYX9WTnTF2VCVv9WhfUJg+kE3GHQquG0mvJ0hCjkp1+bIPJZwmGwegX5COsQgUB
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(376002)(136003)(396003)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799012)(46966006)(40470700004)(36840700001)(40480700001)(41300700001)(2906002)(4744005)(5660300002)(6862004)(4326008)(8676002)(8936002)(316002)(54906003)(70586007)(70206006)(26005)(336012)(2616005)(40460700003)(478600001)(6486002)(6506007)(6512007)(53546011)(81166007)(356005)(83380400001)(107886003)(47076005)(36756003)(86362001)(33656002)(36860700001)(82740400003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 07:25:21.8588
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75a15f0c-0df3-4330-fb50-08dbeb2c2ff9
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS1EPF00000049.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7565
 
-In order to build caml-stubdom, it must be explicitly enabled via
-"configure --enable-caml-stubdom". The build process is failing due to
-stubdom/ocaml.patch failing to apply. Since the patched file has been
-modified in 2014 the last time, it seems nobody cares for caml-stubdom
-since at least then.
+Hi Juergen,
 
-Remove caml-stubdom from the build system.
+> On Nov 22, 2023, at 15:21, Juergen Gross <jgross@suse.com> wrote:
+>=20
+> In order to build caml-stubdom, it must be explicitly enabled via
+> "configure --enable-caml-stubdom". The build process is failing due to
+> stubdom/ocaml.patch failing to apply. Since the patched file has been
+> modified in 2014 the last time, it seems nobody cares for caml-stubdom
+> since at least then.
+>=20
+> Remove caml-stubdom from the build system.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - add CHANGELOG entry (Andrew Cooper)
+> ---
+> CHANGELOG.md             |  2 ++
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- add CHANGELOG entry (Andrew Cooper)
----
- CHANGELOG.md             |  2 ++
- INSTALL                  |  1 -
- stubdom/Makefile         | 52 -------------------------------------
- stubdom/caml/Makefile    | 24 -----------------
- stubdom/caml/hello.ml    |  4 ---
- stubdom/caml/main-caml.c | 42 ------------------------------
- stubdom/caml/minios.cfg  |  0
- stubdom/configure        | 56 ----------------------------------------
- stubdom/configure.ac     |  2 --
- stubdom/ocaml.patch      | 19 --------------
- 10 files changed, 2 insertions(+), 200 deletions(-)
- delete mode 100644 stubdom/caml/Makefile
- delete mode 100644 stubdom/caml/hello.ml
- delete mode 100644 stubdom/caml/main-caml.c
- delete mode 100644 stubdom/caml/minios.cfg
- delete mode 100644 stubdom/ocaml.patch
+Acked-by: Henry Wang <Henry.Wang@arm.com> # CHANGELOG
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index c341c9d0bf..bbb3cd5beb 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-      for IPIs and Physical addressing mode for external interrupts.
- 
- ### Removed
-+- caml-stubdom has been removed. It didn't build since 2014, so nobody seems
-+  to care.
- 
- ## [4.18.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.18.0) - 2023-11-16
- 
-diff --git a/INSTALL b/INSTALL
-index 3816c17dcd..88c1464816 100644
---- a/INSTALL
-+++ b/INSTALL
-@@ -163,7 +163,6 @@ Build various stubom components, some are only example code. Its usually
- enough to specify just --enable-stubdom and leave these options alone.
-   --enable-ioemu-stubdom
-   --enable-c-stubdom
--  --enable-caml-stubdom
-   --disable-pv-grub
-   --disable-xenstore-stubdom
-   --enable-vtpm-stubdom
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 0ddfce1ba2..71c9b2200e 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -257,37 +257,6 @@ $(TPMEMU_STAMPFILE): tpm_emulator-$(XEN_TARGET_ARCH) $(GMP_STAMPFILE)
- .PHONY: cross-tpmemu
- cross-tpmemu: $(TPMEMU_STAMPFILE)
- 
--#############
--# Cross-ocaml
--#############
--
--CAMLLIB = $(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf/lib/ocaml
--OCAML_STAMPFILE=$(CAMLLIB)/.dirstamp
--
--ocaml-$(OCAML_VERSION).tar.gz:
--	$(FETCHER) $@ $(OCAML_URL)/$@
--
--ocaml-$(XEN_TARGET_ARCH)/.dirstamp: ocaml-$(OCAML_VERSION).tar.gz ocaml.patch
--	tar xzf $<
--	cd ocaml-$(OCAML_VERSION) && patch -p0 < ../ocaml.patch
--	rm -rf ocaml-$(XEN_TARGET_ARCH)
--	mv ocaml-$(OCAML_VERSION) ocaml-$(XEN_TARGET_ARCH)
--	touch $@
--
--MINIOS_HASNOT=IPV6 INET_ATON
--
--.PHONY: cross-ocaml
--cross-ocaml: $(OCAML_STAMPFILE)
--$(OCAML_STAMPFILE): ocaml-$(XEN_TARGET_ARCH)/.dirstamp
--	cd ocaml-$(XEN_TARGET_ARCH) &&  ./configure -prefix $(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf \
--		-no-pthread -no-shared-libs -no-tk -no-curses \
--		-cc "$(CC) -U_FORTIFY_SOURCE -fno-stack-protector -mno-red-zone"
--	$(foreach i,$(MINIOS_HASNOT),sed -i 's,^\(#define HAS_$(i)\),//\1,' ocaml-$(XEN_TARGET_ARCH)/config/s.h ; )
--	$(MAKE) DESTDIR= -C ocaml-$(XEN_TARGET_ARCH) world
--	$(MAKE) DESTDIR= -C ocaml-$(XEN_TARGET_ARCH) opt
--	$(MAKE) -C ocaml-$(XEN_TARGET_ARCH) install
--	touch $@
--
- #######
- # Links
- #######
-@@ -419,17 +388,6 @@ ioemu: cross-zlib cross-libpci libxenguest ioemu-minios-config.mk
- 	    $(QEMU_ROOT)/xen-setup-stubdom )
- 	$(MAKE) DESTDIR= -C ioemu -f $(QEMU_ROOT)/Makefile
- 
--######
--# caml
--######
--
--caml-minios-config.mk: $(CURDIR)/caml/minios.cfg
--	MINIOS_CONFIG="$<" CONFIG_FILE="$(CURDIR)/$@" $(MAKE) DESTDIR= -C $(MINI_OS) config
--
--.PHONY: caml
--caml: $(CROSS_ROOT)
--	CPPFLAGS="$(TARGET_CPPFLAGS) $(shell cat caml-minios-config.mk)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C $@ LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) OCAMLC_CROSS_PREFIX=$(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf/bin/
--
- ###
- # C
- ###
-@@ -516,10 +474,6 @@ ioemu-stubdom: APP_OBJS=$(CURDIR)/ioemu/i386-stubdom/qemu.a $(CURDIR)/ioemu/i386
- ioemu-stubdom: mini-os-$(XEN_TARGET_ARCH)-ioemu lwip-$(XEN_TARGET_ARCH) libxenguest ioemu
- 	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/ioemu-minios.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS="$(APP_OBJS)"
- 
--.PHONY: caml-stubdom
--caml-stubdom: mini-os-$(XEN_TARGET_ARCH)-caml lwip-$(XEN_TARGET_ARCH) libxenguest cross-ocaml caml
--	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/caml/minios.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS="$(CURDIR)/caml/main-caml.o $(CURDIR)/caml/caml.o $(CAMLLIB)/libasmrun.a"
--
- .PHONY: c-stubdom
- c-stubdom: mini-os-$(XEN_TARGET_ARCH)-c lwip-$(XEN_TARGET_ARCH) libxenguest c
- 	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/c/minios.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS=$(CURDIR)/c/main.a
-@@ -580,8 +534,6 @@ endif
- 
- install-c: c-stubdom
- 
--install-caml: caml-stubdom
--
- install-xenstore: xenstore-stubdom
- 	$(INSTALL_DIR) "$(DESTDIR)$(XENFIRMWAREDIR)"
- 	$(INSTALL_DATA) mini-os-$(XEN_TARGET_ARCH)-xenstore/mini-os.gz "$(DESTDIR)$(XENFIRMWAREDIR)/xenstore-stubdom.gz"
-@@ -642,13 +594,11 @@ clean: $(foreach lib,$(STUB_LIBS),clean-libxen$(lib))
- clean:
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-ioemu
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-c
--	rm -fr mini-os-$(XEN_TARGET_ARCH)-caml
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-grub
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-xenstore
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-xenstorepvh
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-vtpm
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-vtpmmgr
--	$(MAKE) DESTDIR= -C caml clean
- 	$(MAKE) DESTDIR= -C c clean
- 	$(MAKE) -C vtpm clean
- 	$(MAKE) -C vtpmmgr clean
-@@ -672,7 +622,6 @@ crossclean: clean
- 	rm -fr polarssl-$(XEN_TARGET_ARCH)
- 	rm -fr tpm_emulator-$(XEN_TARGET_ARCH)
- 	rm -f mk-headers-$(XEN_TARGET_ARCH)
--	rm -fr ocaml-$(XEN_TARGET_ARCH)
- 	rm -fr include
- 
- # clean patched sources
-@@ -695,7 +644,6 @@ downloadclean: patchclean
- 	rm -f pciutils-$(LIBPCI_VERSION).tar.bz2
- 	rm -f grub-$(GRUB_VERSION).tar.gz
- 	rm -f lwip-$(LWIP_VERSION).tar.gz
--	rm -f ocaml-$(OCAML_VERSION).tar.gz
- 	rm -f polarssl-$(POLARSSL_VERSION)-gpl.tgz
- 
- .PHONY: distclean
-diff --git a/stubdom/caml/Makefile b/stubdom/caml/Makefile
-deleted file mode 100644
-index f550de1680..0000000000
---- a/stubdom/caml/Makefile
-+++ /dev/null
-@@ -1,24 +0,0 @@
--XEN_ROOT = $(CURDIR)/../..
--
--ifeq (,$(findstring clean,$(MAKECMDGOALS)))
--include $(XEN_ROOT)/Config.mk
--endif
--
--CAMLLIB = $(shell $(OCAMLC_CROSS_PREFIX)ocamlc -where)
--DEF_CPPFLAGS += -I$(CAMLLIB)
--
--OCAMLOPT=$(OCAMLC_CROSS_PREFIX)ocamlopt
--
--OBJS := hello.cmx
--LIBS := 
--
--all: main-caml.o caml.o
--
--%.cmx: %.ml
--	$(OCAMLOPT) -c $< -o $@
--
--caml.o: $(OBJS)
--	$(OCAMLOPT) $(LIBS) $^ -output-obj -o $@
--
--clean:
--	rm -f *.a *.o *.cmx *.cmi
-diff --git a/stubdom/caml/hello.ml b/stubdom/caml/hello.ml
-deleted file mode 100644
-index 3a7181134a..0000000000
---- a/stubdom/caml/hello.ml
-+++ /dev/null
-@@ -1,4 +0,0 @@
--let main arg =
--  Printf.printf "Hello, world!\n%!."
--
--let _ = Callback.register "main" main
-diff --git a/stubdom/caml/main-caml.c b/stubdom/caml/main-caml.c
-deleted file mode 100644
-index dd55aca38f..0000000000
---- a/stubdom/caml/main-caml.c
-+++ /dev/null
-@@ -1,42 +0,0 @@
--/*
-- * Caml bootstrap
-- *
-- * Samuel Thibault <Samuel.Thibault@eu.citrix.net>, January 2008
-- */
--
--#include <stdio.h>
--#include <errno.h>
--
--#include <caml/mlvalues.h>
--#include <caml/callback.h>
--#include <unistd.h>
--
--/* Ugly binary compatibility with Linux */
--FILE *_stderr asm("stderr");
--int *__errno_location;
--/* Will probably break everything, probably need to fetch from glibc */
--void *__ctype_b_loc;
--
--int main(int argc, char *argv[], char *envp[])
--{
--    value *val;
--
--    /* Get current thread's value */
--    _stderr = stderr;
--    __errno_location = &errno;
--
--    printf("starting caml\n");
--
--    /* Wait before things might hang up */
--    sleep(1);
--
--    caml_startup(argv);
--    val = caml_named_value("main");
--    if (!val) {
--        printf("Couldn't find Caml main");
--        return 1;
--    }
--    caml_callback(*val, Val_int(0));
--    printf("callback returned\n");
--    return 0;
--}
-diff --git a/stubdom/caml/minios.cfg b/stubdom/caml/minios.cfg
-deleted file mode 100644
-index e69de29bb2..0000000000
-diff --git a/stubdom/configure b/stubdom/configure
-index 9a2226c3b7..6d41be91b6 100755
---- a/stubdom/configure
-+++ b/stubdom/configure
-@@ -600,8 +600,6 @@ POLARSSL_VERSION
- POLARSSL_URL
- GMP_VERSION
- GMP_URL
--OCAML_VERSION
--OCAML_URL
- GRUB_VERSION
- GRUB_URL
- LWIP_VERSION
-@@ -633,7 +631,6 @@ debug
- xenstorepvh
- xenstore
- grub
--caml
- c
- host_os
- host_vendor
-@@ -687,7 +684,6 @@ ac_user_opts='
- enable_option_checking
- enable_ioemu_stubdom
- enable_c_stubdom
--enable_caml_stubdom
- enable_pv_grub
- enable_xenstore_stubdom
- enable_xenstorepvh_stubdom
-@@ -711,7 +707,6 @@ LIBPCI_URL
- NEWLIB_URL
- LWIP_URL
- GRUB_URL
--OCAML_URL
- GMP_URL
- POLARSSL_URL
- TPMEMU_URL'
-@@ -1341,7 +1336,6 @@ Optional Features:
-   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
-   --enable-ioemu-stubdom  Build and install ioemu-stubdom
-   --enable-c-stubdom      Build and install c-stubdom (default is DISABLED)
--  --enable-caml-stubdom   Build and install caml-stubdom (default is DISABLED)
-   --enable-pv-grub        Build and install pv-grub (default is DISABLED)
-   --disable-xenstore-stubdom
-                           Build and install xenstore-stubdom (default is
-@@ -1371,7 +1365,6 @@ Some influential environment variables:
-   NEWLIB_URL  Download url for newlib
-   LWIP_URL    Download url for lwip
-   GRUB_URL    Download url for grub
--  OCAML_URL   Download url for ocaml
-   GMP_URL     Download url for libgmp
-   POLARSSL_URL
-               Download url for polarssl
-@@ -2061,44 +2054,6 @@ fi
- 
- 
- 
--# Check whether --enable-caml-stubdom was given.
--if test "${enable_caml_stubdom+set}" = set; then :
--  enableval=$enable_caml_stubdom;
--
--if test "x$enableval" = "xyes"; then :
--
--
--caml=y
--STUBDOM_TARGETS="$STUBDOM_TARGETS caml"
--STUBDOM_BUILD="$STUBDOM_BUILD caml-stubdom"
--STUBDOM_INSTALL="$STUBDOM_INSTALL install-caml"
--STUBDOM_UNINSTALL="$STUBDOM_UNINSTALL install-caml"
--
--
--else
--
--if test "x$enableval" = "xno"; then :
--
--
--caml=n
--
--
--fi
--
--fi
--
--
--else
--
--
--caml=n
--
--
--fi
--
--
--
--
- # Check whether --enable-pv-grub was given.
- if test "${enable_pv_grub+set}" = set; then :
-   enableval=$enable_pv_grub;
-@@ -3600,17 +3555,6 @@ GRUB_VERSION="0.97"
- 
- 
- 
--if test "x$OCAML_URL" = "x"; then :
--
--	OCAML_URL="https://caml.inria.fr/pub/distrib/ocaml-4.02"
--
--fi
--OCAML_VERSION="4.02.0"
--
--
--
--
--
- if test "x$GMP_URL" = "x"; then :
- 
- 	if test "x$extfiles" = "xy"; then :
-diff --git a/stubdom/configure.ac b/stubdom/configure.ac
-index 471e371e14..fc736c0387 100644
---- a/stubdom/configure.ac
-+++ b/stubdom/configure.ac
-@@ -20,7 +20,6 @@ m4_include([../m4/fetcher.m4])
- # Enable/disable stub domains
- AX_STUBDOM_CONDITIONAL([ioemu-stubdom], [ioemu])
- AX_STUBDOM_DEFAULT_DISABLE([c-stubdom], [c])
--AX_STUBDOM_DEFAULT_DISABLE([caml-stubdom], [caml])
- AX_STUBDOM_DEFAULT_DISABLE([pv-grub], [grub])
- AX_STUBDOM_DEFAULT_ENABLE([xenstore-stubdom], [xenstore])
- AX_STUBDOM_DEFAULT_ENABLE([xenstorepvh-stubdom], [xenstorepvh])
-@@ -60,7 +59,6 @@ AX_STUBDOM_LIB([LIBPCI], [libpci], [2.2.9], [https://mirrors.edge.kernel.org/pub
- AX_STUBDOM_LIB([NEWLIB], [newlib], [1.16.0], [https://sourceware.org/ftp/newlib])
- AX_STUBDOM_LIB([LWIP], [lwip], [1.3.0], [https://download.savannah.gnu.org/releases/lwip])
- AX_STUBDOM_LIB([GRUB], [grub], [0.97], [https://alpha.gnu.org/gnu/grub])
--AX_STUBDOM_LIB_NOEXT([OCAML], [ocaml], [4.02.0], [https://caml.inria.fr/pub/distrib/ocaml-4.02])
- AX_STUBDOM_LIB([GMP], [libgmp], [4.3.2], [https://gmplib.org/download/gmp/archive])
- AX_STUBDOM_LIB([POLARSSL], [polarssl], [1.1.4])
- AX_STUBDOM_LIB([TPMEMU], [berlios tpm emulator], [0.7.4])
-diff --git a/stubdom/ocaml.patch b/stubdom/ocaml.patch
-deleted file mode 100644
-index 50db4869dd..0000000000
---- a/stubdom/ocaml.patch
-+++ /dev/null
-@@ -1,19 +0,0 @@
----- byterun/Makefile.orig	2009-04-07 12:14:02.000000000 +0100
--+++ byterun/Makefile	2009-04-07 12:13:50.000000000 +0100
--@@ -22,14 +22,14 @@
-- DOBJS=$(OBJS:.o=.d.o) instrtrace.d.o
-- PICOBJS=$(OBJS:.o=.pic.o)
-- 
---#ifeq ($(SUPPORTS_SHARED_LIBRARIES),true)
--+ifeq ($(SUPPORTS_SHARED_LIBRARIES),true)
-- 
-- all:: libcamlrun_shared.so
-- 
-- install::
-- 	cp libcamlrun_shared.so $(LIBDIR)/libcamlrun_shared.so
-- 
---#endif
--+endif
-- 
-- ocamlrun$(EXE): libcamlrun.a prims.o
-- 	$(MKEXE) $(BYTECCLINKOPTS) -o ocamlrun$(EXE) \
--- 
-2.35.3
+Kind regards,
+Henry
 
 
