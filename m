@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41D37F4E82
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 18:37:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638958.995974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E80B7F4E8D
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 18:41:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638961.995984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5r9Z-0004I2-Lb; Wed, 22 Nov 2023 17:36:45 +0000
+	id 1r5rDN-0007YL-5U; Wed, 22 Nov 2023 17:40:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638958.995974; Wed, 22 Nov 2023 17:36:45 +0000
+Received: by outflank-mailman (output) from mailman id 638961.995984; Wed, 22 Nov 2023 17:40:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5r9Z-0004Fa-Io; Wed, 22 Nov 2023 17:36:45 +0000
-Received: by outflank-mailman (input) for mailman id 638958;
- Wed, 22 Nov 2023 17:36:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r5rDN-0007Vz-2f; Wed, 22 Nov 2023 17:40:41 +0000
+Received: by outflank-mailman (input) for mailman id 638961;
+ Wed, 22 Nov 2023 17:40:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f1AL=HD=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r5r9Y-0004FU-Ud
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 17:36:44 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3b118a0-895d-11ee-98e1-6d05b1d4d9a1;
- Wed, 22 Nov 2023 18:36:43 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40b344101f2so459885e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 09:36:43 -0800 (PST)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fk4-20020a05600c0cc400b004068495910csm130148wmb.23.2023.11.22.09.36.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Nov 2023 09:36:42 -0800 (PST)
+ <SRS0=E1Gm=HD=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1r5rDM-0007Vt-8e
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 17:40:40 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3ec89aca-895e-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 18:40:37 +0100 (CET)
+Received: from [192.168.1.9] (net-37-182-35-120.cust.vodafonedsl.it
+ [37.182.35.120])
+ by support.bugseng.com (Postfix) with ESMTPSA id EC25C4EE073C;
+ Wed, 22 Nov 2023 18:40:35 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +40,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3b118a0-895d-11ee-98e1-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1700674603; x=1701279403; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qdaaiWiaeEeZMUMcYPxtcc3iXmAuzpoGBdoaGAL9Y6Y=;
-        b=lk+ARGzUljosHRSLQyx9A1JUmw4/1RLyK+xTerCHyQ1GuoxxDmAENpdyQwcpVDENc0
-         q/PzW+ePCUS9tcK0r4d3NF7VB4gvrmA7ZF1U1uYa7O94kD8GAqrBVxu2Wlazguzk3Nlz
-         tGYopevbY0a9KNHucVHQKEN9ZNsxy6Gqi/WL4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700674603; x=1701279403;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qdaaiWiaeEeZMUMcYPxtcc3iXmAuzpoGBdoaGAL9Y6Y=;
-        b=peD9TdO88RHe01VFsyj2A7lVbs52qrAGJqmHAP6mQa2h/+90+2MDOsIGYxR00N6ngu
-         /ZyiFwedspPtJYGVLBEiQ5u9oLT9ruysHUPcLEp14CTaIe10y+MC+NnfF//w/GB1oUeq
-         gjyMTfZwWvLdjyg96D1LbosmaHvZKDytUJvnL7M7NMbl9b+/4Hx5qtIGDmd4U8l3UcF3
-         KUPEQq95wLrZ+5gxuskV3UefzqdmNXBxM0WoX2vq5xAHKyxcKlk/kUcaN9zAdzFf3xYN
-         9I1t3b1p/jS07+vDc+zZRE1YgxD3n40hskYvTRN9/QB7MIreXjQXFbKNX1B2z7qN4jZ8
-         QmGw==
-X-Gm-Message-State: AOJu0Yz4fzaf1BBHcb3QSE8CTk6dH5SiujzILHMM+xG1w+z2FXBswv2e
-	hnzrsy6B7M4uQBDGurRpy1qoyZ633DnwezP6GUk=
-X-Google-Smtp-Source: AGHT+IGx/rLKU1wJk4wNRfuLPdtPCTgHgCYzKKnuwORqkDqH6NsXMoUTuZrpim8VN83S1iIgbJFi3A==
-X-Received: by 2002:a05:600c:45d2:b0:405:19dd:ad82 with SMTP id s18-20020a05600c45d200b0040519ddad82mr144244wmo.16.1700674602710;
-        Wed, 22 Nov 2023 09:36:42 -0800 (PST)
-Message-ID: <655e3c2a.050a0220.eedc6.0b67@mx.google.com>
-X-Google-Original-Message-ID: <ZV48JyxD06zs9CfV@EMEAENGAAD19049.>
-Date: Wed, 22 Nov 2023 17:36:39 +0000
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3] xen/x86: On x2APIC mode, derive LDR from APIC ID
-References: <20231122160817.15266-1-alejandro.vallejo@cloud.com>
+X-Inumbo-ID: 3ec89aca-895e-11ee-9b0e-b553b5be7939
+Message-ID: <2519be0c-6198-4cbe-85eb-829f7b2f2a17@bugseng.com>
+Date: Wed, 22 Nov 2023 18:40:35 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231122160817.15266-1-alejandro.vallejo@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] xen/MISRA: Remove nonstandard inline keywords
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20231122142733.1818331-1-andrew.cooper3@citrix.com>
+ <20231122142733.1818331-4-andrew.cooper3@citrix.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <20231122142733.1818331-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 22, 2023 at 04:08:17PM +0000, Alejandro Vallejo wrote:
-> Both Intel and AMD manuals agree that on x2APIC mode, the APIC LDR and ID
-> registers are derivable from each other through a fixed formula.
+On 22/11/23 15:27, Andrew Cooper wrote:
+> The differences between inline, __inline and __inline__ keywords are a
+> vestigial remnant of older C standards, and in Xen we use inline almost
+> exclusively.
 > 
-> Xen uses that formula, but applies it to vCPU IDs (which are sequential)
-> rather than x2APIC IDs (which are not, at the moment). As I understand it,
-> this is an attempt to tightly pack vCPUs into clusters so each cluster has
-> 16 vCPUs rather than 8, but this is problematic for OSs that might read the
-> x2APIC ID and internally derive LDR (or the other way around)
+> Replace __inline and __inline__ with regular inline, and remove their
+> exceptions from the MISRA configuration.
 > 
-> This patch fixes the implementation so we follow the rules in the x2APIC
-> spec(s) and covers migrations from broken hypervisors, so LDRs are
-> preserved even for hotppluggable CPUs and across APIC resets.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- > CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> CC: Simone Ballarin <simone.ballarin@bugseng.com>
 > 
-> While touching that area, I removed the existing printk statement in
-> vlapic_load_fixup() (as the checks it performed didn't make sense in x2APIC
-> mode and wouldn't affect the outcome) and put another printk as an else
-> branch so we get warnings trying to load nonsensical LDR values we don't
-> know about.
-> 
-> Fixes: f9e0cccf7b35 ("x86/HVM: fix ID handling of x2APIC emulation")
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> I'm entirely guessing at the Eclair configuration.
 > ---
-> v3:
->   * Removed underscores from (x2)APIC_ID in commit message
->   * Added commit msg explaining the removal of the vlapic_load_fixup() printk
->   * Restored lowercase to hex "F"s
->   * Refactored a bit vlapic_load_fixup() so it has a trailing printk in
->     case of spotting a nonsensical LDR it doesn't understand.
->   * Moved field in domain.h with the other booleans
->   * Trimmed down field name in domain.h
->   * Trimmed down field comment in domain.h
+>   .../eclair_analysis/ECLAIR/toolchain.ecl      |  6 +++---
+>   docs/misra/C-language-toolchain.rst           |  2 +-
+>   xen/arch/x86/include/asm/apic.h               | 20 +++++++++----------
+>   xen/include/acpi/cpufreq/cpufreq.h            |  4 ++--
+>   xen/include/xen/bitops.h                      |  4 ++--
+>   xen/include/xen/compiler.h                    |  7 +++----
+>   6 files changed, 21 insertions(+), 22 deletions(-)
 > 
-> If the field name in domain.h still seems too long I'm happy for it to be
-> trimmed further down, but I do want to preserve the "_bug_" part of it.
-I sent this one before Roger had a chance to reply to my reply on v2, which was...
+> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> index e6cd289b5e92..71a1e2cce029 100644
+> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> @@ -15,7 +15,7 @@
+>       _Static_assert: see Section \"2.1 C Language\" of "GCC_MANUAL".
+>       asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 How to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
+>       __volatile__: see Sections \"6.48 Alternate Keywords\" and \"6.47.2.1 Volatile\" of "GCC_MANUAL".
+> -    __const__, __inline__, __inline: see Section \"6.48 Alternate Keywords\" of "GCC_MANUAL".
+> +    __const__ : see Section \"6.48 Alternate Keywords\" of "GCC_MANUAL".
+>       typeof, __typeof__: see Section \"6.7 Referring to a Type with typeof\" of "GCC_MANUAL".
+>       __alignof__, __alignof: see Sections \"6.48 Alternate Keywords\" and \"6.44 Determining the Alignment of Functions, Types or Variables\" of "GCC_MANUAL".
+>       __attribute__: see Section \"6.39 Attribute Syntax\" of "GCC_MANUAL".
+> @@ -23,8 +23,8 @@
+>       __builtin_va_arg: non-documented GCC extension.
+>       __builtin_offsetof: see Section \"6.53 Support for offsetof\" of "GCC_MANUAL".
+>   "
+> --config=STD.tokenext,behavior+={c99, GCC_ARM64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|__inline__|typeof|__typeof__|__alignof__|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
+> --config=STD.tokenext,behavior+={c99, GCC_X86_64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|__inline__|__inline|typeof|__typeof__|__alignof__|__alignof|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
+> +-config=STD.tokenext,behavior+={c99, GCC_ARM64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|typeof|__typeof__|__alignof__|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
+> +-config=STD.tokenext,behavior+={c99, GCC_X86_64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|typeof|__typeof__|__alignof__|__alignof|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
+>   -doc_end
+>   
+>   -doc_begin="Non-documented GCC extension."
+> diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+> index 2866cb191b1a..b7c2000992ac 100644
+> --- a/docs/misra/C-language-toolchain.rst
+> +++ b/docs/misra/C-language-toolchain.rst
+> @@ -84,7 +84,7 @@ The table columns are as follows:
+>             see Sections "6.48 Alternate Keywords" and "6.47 How to Use Inline Assembly Language in C Code" of GCC_MANUAL.
+>          __volatile__:
+>             see Sections "6.48 Alternate Keywords" and "6.47.2.1 Volatile" of GCC_MANUAL.
+> -       __const__, __inline__, __inline:
+> +       __const__:
+>             see Section "6.48 Alternate Keywords" of GCC_MANUAL.
+>          typeof, __typeof__:
+>             see Section "6.7 Referring to a Type with typeof" of GCC_MANUAL.
+> diff --git a/xen/arch/x86/include/asm/apic.h b/xen/arch/x86/include/asm/apic.h
+> index 486d689478b2..b20fae7ebc6a 100644
+> --- a/xen/arch/x86/include/asm/apic.h
+> +++ b/xen/arch/x86/include/asm/apic.h
+> @@ -49,12 +49,12 @@ const struct genapic *apic_x2apic_probe(void);
+>    * Basic functions accessing APICs.
+>    */
+>   
+> -static __inline void apic_mem_write(unsigned long reg, u32 v)
+> +static inline void apic_mem_write(unsigned long reg, u32 v)
+>   {
+>   	*((volatile u32 *)(APIC_BASE+reg)) = v;
+>   }
+>   
+> -static __inline u32 apic_mem_read(unsigned long reg)
+> +static inline u32 apic_mem_read(unsigned long reg)
+>   {
+>   	return *((volatile u32 *)(APIC_BASE+reg));
+>   }
+> @@ -63,7 +63,7 @@ static __inline u32 apic_mem_read(unsigned long reg)
+>    * access the 64-bit ICR register.
+>    */
+>   
+> -static __inline void apic_wrmsr(unsigned long reg, uint64_t msr_content)
+> +static inline void apic_wrmsr(unsigned long reg, uint64_t msr_content)
+>   {
+>       if (reg == APIC_DFR || reg == APIC_ID || reg == APIC_LDR ||
+>           reg == APIC_LVR)
+> @@ -72,7 +72,7 @@ static __inline void apic_wrmsr(unsigned long reg, uint64_t msr_content)
+>       wrmsrl(MSR_X2APIC_FIRST + (reg >> 4), msr_content);
+>   }
+>   
+> -static __inline uint64_t apic_rdmsr(unsigned long reg)
+> +static inline uint64_t apic_rdmsr(unsigned long reg)
+>   {
+>       uint64_t msr_content;
+>   
+> @@ -83,7 +83,7 @@ static __inline uint64_t apic_rdmsr(unsigned long reg)
+>       return msr_content;
+>   }
+>   
+> -static __inline void apic_write(unsigned long reg, u32 v)
+> +static inline void apic_write(unsigned long reg, u32 v)
+>   {
+>   
+>       if ( x2apic_enabled )
+> @@ -92,7 +92,7 @@ static __inline void apic_write(unsigned long reg, u32 v)
+>           apic_mem_write(reg, v);
+>   }
+>   
+> -static __inline u32 apic_read(unsigned long reg)
+> +static inline u32 apic_read(unsigned long reg)
+>   {
+>       if ( x2apic_enabled )
+>           return apic_rdmsr(reg);
+> @@ -100,7 +100,7 @@ static __inline u32 apic_read(unsigned long reg)
+>           return apic_mem_read(reg);
+>   }
+>   
+> -static __inline u64 apic_icr_read(void)
+> +static inline u64 apic_icr_read(void)
+>   {
+>       u32 lo, hi;
+>   
+> @@ -115,7 +115,7 @@ static __inline u64 apic_icr_read(void)
+>       return ((u64)lo) | (((u64)hi) << 32);
+>   }
+>   
+> -static __inline void apic_icr_write(u32 low, u32 dest)
+> +static inline void apic_icr_write(u32 low, u32 dest)
+>   {
+>       if ( x2apic_enabled )
+>           apic_wrmsr(APIC_ICR, low | ((uint64_t)dest << 32));
+> @@ -126,13 +126,13 @@ static __inline void apic_icr_write(u32 low, u32 dest)
+>       }
+>   }
+>   
+> -static __inline bool apic_isr_read(uint8_t vector)
+> +static inline bool apic_isr_read(uint8_t vector)
+>   {
+>       return (apic_read(APIC_ISR + ((vector & ~0x1f) >> 1)) >>
+>               (vector & 0x1f)) & 1;
+>   }
+>   
+> -static __inline u32 get_apic_id(void) /* Get the physical APIC id */
+> +static inline u32 get_apic_id(void)
+>   {
+>       u32 id = apic_read(APIC_ID);
+>       return x2apic_enabled ? id : GET_xAPIC_ID(id);
+> diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
+> index b0c860f0ec21..3456d4c95f98 100644
+> --- a/xen/include/acpi/cpufreq/cpufreq.h
+> +++ b/xen/include/acpi/cpufreq/cpufreq.h
+> @@ -148,7 +148,7 @@ extern int cpufreq_driver_getavg(unsigned int cpu, unsigned int flag);
+>   extern int cpufreq_update_turbo(int cpuid, int new_state);
+>   extern int cpufreq_get_turbo_status(int cpuid);
+>   
+> -static __inline__ int
+> +static inline int
+>   __cpufreq_governor(struct cpufreq_policy *policy, unsigned int event)
+>   {
+>       return policy->governor->governor(policy, event);
+> @@ -179,7 +179,7 @@ extern struct cpufreq_driver cpufreq_driver;
+>   
+>   int cpufreq_register_driver(const struct cpufreq_driver *);
+>   
+> -static __inline__
+> +static inline
+>   void cpufreq_verify_within_limits(struct cpufreq_policy *policy,
+>                                     unsigned int min, unsigned int max)
+>   {
+> diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+> index edd6817d5356..a88d45475c40 100644
+> --- a/xen/include/xen/bitops.h
+> +++ b/xen/include/xen/bitops.h
+> @@ -127,7 +127,7 @@ static inline int generic_fls64(__u64 x)
+>   # endif
+>   #endif
+>   
+> -static __inline__ int get_bitmask_order(unsigned int count)
+> +static inline int get_bitmask_order(unsigned int count)
+>   {
+>       int order;
+>       
+> @@ -135,7 +135,7 @@ static __inline__ int get_bitmask_order(unsigned int count)
+>       return order;   /* We could be slightly more clever with -1 here... */
+>   }
+>   
+> -static __inline__ int get_count_order(unsigned int count)
+> +static inline int get_count_order(unsigned int count)
+>   {
+>       int order;
+>   
+> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+> index 04b8bc18df0e..16d554f2a593 100644
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -20,9 +20,8 @@
+>   #define likely(x)     __builtin_expect(!!(x),1)
+>   #define unlikely(x)   __builtin_expect(!!(x),0)
+>   
+> -#define inline        __inline__
+> -#define always_inline __inline__ __attribute__ ((__always_inline__))
+> -#define gnu_inline    __inline__ __attribute__ ((__gnu_inline__))
+> +#define always_inline inline __attribute__((__always_inline__))
+> +#define gnu_inline    inline __attribute__((__gnu_inline__))
+>   #define noinline      __attribute__((__noinline__))
+>   
+>   #define noreturn      __attribute__((__noreturn__))
+> @@ -83,7 +82,7 @@
+>    * inline functions not expanded inline get placed in .init.text.
+>    */
+>   #include <xen/init.h>
+> -#define __inline__ __inline__ __init
+> +#define inline inline __init
+>   #endif
+>   
+>   #define __attribute_pure__  __attribute__((__pure__))
 
-> 
-> OK, if you think mentioning `bug` is helpful, I think it would be best
-> placed as a prefix: bug_x2apic_ldr_vcpu_id.  Having it in the middle
-> of the field name makes it harder to spot.
-> 
-> Thanks, Roger.
-... and I'm fine with that adjustment here.
+Reviewed-by: Simone Ballarin <simone.ballarin@bugseng.com>
 
-Cheers,
-Alejandro
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
