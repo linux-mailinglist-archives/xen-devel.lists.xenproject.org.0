@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E1697F4C39
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 17:20:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.638879.995814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B72A7F4C42
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Nov 2023 17:21:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.638884.995824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5pxn-0004VH-Fy; Wed, 22 Nov 2023 16:20:31 +0000
+	id 1r5pyI-0004x4-O2; Wed, 22 Nov 2023 16:21:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 638879.995814; Wed, 22 Nov 2023 16:20:31 +0000
+Received: by outflank-mailman (output) from mailman id 638884.995824; Wed, 22 Nov 2023 16:21:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r5pxn-0004SX-Cd; Wed, 22 Nov 2023 16:20:31 +0000
-Received: by outflank-mailman (input) for mailman id 638879;
- Wed, 22 Nov 2023 16:20:29 +0000
+	id 1r5pyI-0004uf-Ko; Wed, 22 Nov 2023 16:21:02 +0000
+Received: by outflank-mailman (input) for mailman id 638884;
+ Wed, 22 Nov 2023 16:21:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q+k4=HD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r5pxl-0004SI-OT
- for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 16:20:29 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1r5pyH-0004SI-33
+ for xen-devel@lists.xenproject.org; Wed, 22 Nov 2023 16:21:01 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c319f9a-8953-11ee-9b0e-b553b5be7939;
- Wed, 22 Nov 2023 17:20:27 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3316c6e299eso3321188f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 08:20:27 -0800 (PST)
+ id 1f49394f-8953-11ee-9b0e-b553b5be7939;
+ Wed, 22 Nov 2023 17:20:59 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2c501bd6ff1so87461771fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Nov 2023 08:20:59 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-107-252.as13285.net. [92.26.107.252])
  by smtp.gmail.com with ESMTPSA id
- p14-20020a5d59ae000000b0032f7cc56509sm11894171wrr.98.2023.11.22.08.20.26
+ p14-20020a5d59ae000000b0032f7cc56509sm11894171wrr.98.2023.11.22.08.20.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 08:20:26 -0800 (PST)
+ Wed, 22 Nov 2023 08:20:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c319f9a-8953-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 1f49394f-8953-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700670027; x=1701274827; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700670059; x=1701274859; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fVNqdDo79oFbehNswTSM9zIKl9E9+nWQNS9DtE4S/eA=;
-        b=UEY+4aoKMsB8CwmaylhkS2ka6YT1M6/LKBC/mQPXhZt5yoAIb4WGbWYST8Pxu5Bmei
-         XTCaIsv8k4KZ8n1kTG7CI41NIh2CDaFwmsxjTzhZJ6vjYbYM6H2oB47aWlqAxJwNMbIo
-         0uA1JCUNFrALDXDknmBuHFAGogPHPYUXqfYHY=
+        bh=JqyOpbcPcjMSUf+cCBQGQ4wLGNpOMcVn2Kq4BNKk858=;
+        b=v5CzqArWvw+qINrYtLbqHgyLYdE2ipDcU/oD97pOTj0z9/E+yXXa9RFysqy4aRRLYA
+         013ts922tEMTrLK4VLMxX814/b05/GI8EDx4GFPNjym+9Qme9X6aKKcOVFEdhCZtEOnd
+         kOMxDETjtfvyp2rfBFzDmuc0io0hbzNi8akQs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700670027; x=1701274827;
+        d=1e100.net; s=20230601; t=1700670059; x=1701274859;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fVNqdDo79oFbehNswTSM9zIKl9E9+nWQNS9DtE4S/eA=;
-        b=MaGos99XpU/IciCTWtkKchL4ROweXKofWhErO9bPQ4bbNgqcW5J35mdl1cZ7AHJM3E
-         v6kPQFV3B+xDHGcnbY268g62pvi1qHBf5HtwZSgBvZyFLGk0ieoML6A06Huf31bhxJ0E
-         Ixs0Jh6b/jxjfZd4dHX+EWtNjm5xwNt9kwXQJ6CrcvSTFHGSZGZhcezNVqdV2pIhaeV2
-         JX7fMjuHWmtAcwFv9xAC1wftdG/uKj9pAOXyvTMpTCqUm9nutf/wAoyDzzDEG+PH6nWs
-         7DAA0+oCIwuTU+PdJBlwfmePjh3HO3vbXP8zRvIg/d/1ObVo+lBKEdM1G2auPY9fMv/q
-         krHQ==
-X-Gm-Message-State: AOJu0YyOtais1aoS06bFf2Ku72J4Bdv4I8KMluoXoslh9cwe2aTM1CFa
-	g+hTptTefFYcgS3PDheqvAQ5mQ==
-X-Google-Smtp-Source: AGHT+IGO6IlSsTIyt5Ibrh9vtrf4T+3p/5MFH9dacGT2Kk0pBSPw293CxdjaNhG12md+NXL2fd9Mkw==
-X-Received: by 2002:a5d:457c:0:b0:32f:dcce:bf38 with SMTP id a28-20020a5d457c000000b0032fdccebf38mr1907491wrc.62.1700670027038;
-        Wed, 22 Nov 2023 08:20:27 -0800 (PST)
-Message-ID: <b190898e-2c10-49cd-9dc5-40ddd8c71c74@citrix.com>
-Date: Wed, 22 Nov 2023 16:20:25 +0000
+        bh=JqyOpbcPcjMSUf+cCBQGQ4wLGNpOMcVn2Kq4BNKk858=;
+        b=PhWxjuuWSeTfymOzeqL8QHiH64Vn3Mab5MHtAANldNRgeG5mwP/wcZOGf3Lb7d6AnI
+         75lk2+rkyQyzT3mYvB994kUp+VyOwNC7M4RLeQsf5knRO/V5b0kkolXdko5A2p7Xj8s8
+         IQqxlM/eDQHYQsatTMjUEbn3pE3eAvzzkp5xPlMSUbkdy9/RGaOD9ueX8iMTohJodvD2
+         7b5+r9Kji8fjkFQaF7Iw8+FQ30kLaE1EdcxY86LNW36bE+/IVvNJsfUNquzwnL7UD8CY
+         nHaXLbPBrAzDBugqjwAUYuXy4pkrOtzmC23QvGrwlZgGZ1DejSFPYdhDwxsqnbYFDaKF
+         9Y3A==
+X-Gm-Message-State: AOJu0Yyj3K7NqlKQ9LHZDbf7N39d6/BNI7FV/bWvZAwZTNjs4xLrdyBJ
+	HmY5jOqmMWWXsJO+6VBZphqf2w==
+X-Google-Smtp-Source: AGHT+IH6gQhpO/QaswbA+a6M5SU2Rr8G1rfw7o3duHrWSiZ4mkeVhyicw2oXMzseOHfiE3KTbzLkbg==
+X-Received: by 2002:a2e:7a02:0:b0:2c5:12b:6ef2 with SMTP id v2-20020a2e7a02000000b002c5012b6ef2mr1986470ljc.33.1700670059085;
+        Wed, 22 Nov 2023 08:20:59 -0800 (PST)
+Message-ID: <95e23c13-541f-41be-9f1f-6a35cefc4b8f@citrix.com>
+Date: Wed, 22 Nov 2023 16:20:58 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/setup: Clean up cmdline handling in
- create_dom0()
+Subject: Re: [PATCH v2 3/5] x86/efi: Simplify efi_arch_handle_cmdline()
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -88,8 +87,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20231121201540.1528161-1-andrew.cooper3@citrix.com>
- <20231121201540.1528161-2-andrew.cooper3@citrix.com>
- <a6c8bac9-5bbd-44cc-b516-51a8a57d360f@suse.com>
+ <20231121201540.1528161-4-andrew.cooper3@citrix.com>
+ <d4c54e6b-baf2-4141-890c-7b62462971d9@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -134,19 +133,18 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <a6c8bac9-5bbd-44cc-b516-51a8a57d360f@suse.com>
+In-Reply-To: <d4c54e6b-baf2-4141-890c-7b62462971d9@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22/11/2023 9:02 am, Jan Beulich wrote:
+On 22/11/2023 9:27 am, Jan Beulich wrote:
 > On 21.11.2023 21:15, Andrew Cooper wrote:
->> There's a confusing mix of variables; a static dom0_cmdline[], and a cmdline
->> pointer which points to image->string before being pointed at the static
->> buffer in order to be passed into construct_dom0().  cmdline being a mutable
->> pointer falls over -Wwrite-strings builds.
+>> -Wwrite-strings is unhappy with assigning "xen" to a mutable pointer, but all
+>> this work is useless; it's making a memory allocation just to prepend the
+>> image name which cmdline_cook() intentionally strips back out.
 >>
->> Delete the cmdline pointer, and rename dom0_cmdline[] to cmdline extending it
->> to have full function scope.
+>> Simply forgo the work and identify EFI_LOADER as one of the loaders which
+>> doesn't prepend the image name.
 >>
 >> No functional change.
 >>
@@ -155,74 +153,22 @@ On 22/11/2023 9:02 am, Jan Beulich wrote:
 
 Thanks.
 
-> with two remarks:
+> with one nit:
 >
 >> --- a/xen/arch/x86/setup.c
 >> +++ b/xen/arch/x86/setup.c
->> @@ -873,6 +873,8 @@ static struct domain *__init create_dom0(const module_t *image,
->>                                           module_t *initrd, const char *kextra,
->>                                           const char *loader)
->>  {
->> +    static char __initdata cmdline[MAX_GUEST_CMDLINE];
->> +
->>      struct xen_domctl_createdomain dom0_cfg = {
-> While I think I see why you're adding the blank line there, I'm not overly
-> happy about you doing so: Our usual use of blank lines after declarations
-> is to separate from statements, not from other (in this case non-static)
-> declarations. (And really, just a remark, leaving it to you to keep as is
-> or adjust.)
-
-We have plenty of examples of this pattern in the codebase already.  Not
-quite half of the cases with both static and local variable
-declarations, but not far off either.
-
-From a clarity point of view it is helpful to separate the stack locals
-from the globals-with-local-scope.
-
->
->> @@ -913,33 +914,30 @@ static struct domain *__init create_dom0(const module_t *image,
->>          panic("Error creating d%uv0\n", domid);
+>> @@ -850,8 +850,11 @@ static const char *__init cmdline_cook(const char *p, const char *loader_name)
+>>      while ( *p == ' ' )
+>>          p++;
 >>  
->>      /* Grab the DOM0 command line. */
->> -    cmdline = image->string ? __va(image->string) : NULL;
->> -    if ( cmdline || kextra )
->> +    if ( image->string || kextra )
->>      {
->> -        static char __initdata dom0_cmdline[MAX_GUEST_CMDLINE];
->> -
->> -        cmdline = cmdline_cook(cmdline, loader);
->> -        safe_strcpy(dom0_cmdline, cmdline);
->> +        if ( image->string )
->> +            safe_strcpy(cmdline, cmdline_cook(__va(image->string), loader));
->>  
->>          if ( kextra )
->>              /* kextra always includes exactly one leading space. */
->> -            safe_strcat(dom0_cmdline, kextra);
->> +            safe_strcat(cmdline, kextra);
->>  
->>          /* Append any extra parameters. */
->> -        if ( skip_ioapic_setup && !strstr(dom0_cmdline, "noapic") )
->> -            safe_strcat(dom0_cmdline, " noapic");
->> +        if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
->> +            safe_strcat(cmdline, " noapic");
->> +
->>          if ( (strlen(acpi_param) == 0) && acpi_disabled )
->>          {
->>              printk("ACPI is disabled, notifying Domain 0 (acpi=off)\n");
->>              safe_strcpy(acpi_param, "off");
->>          }
->> -        if ( (strlen(acpi_param) != 0) && !strstr(dom0_cmdline, "acpi=") )
->> +
->> +        if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
-> As you're touching this anyway, how about replacing the strlen() by just
-> *acpi_param? We don't really care exactly how long the string is. (As an
-> aside, strstr() uses like the one here are of course also pretty fragile.
-> But of course that's nothing to care about in this change.)
+>> -    /* GRUB2 and PVH don't not include image name as first item on command line. */
+>> -    if ( xen_guest || loader_is_grub2(loader_name) )
+>> +    /*
+>> +     * PVH, our EFI loader, and GRUB2 don't not include image name as first
+> Just "don't", or "do not"? (I realize it was this way before, but perhaps a
+> good chance to tidy.)
 
-There's the same pattern just above it, not touched, and this patch is
-already getting complicated.
-
-I think there's other cleanup to do here, so I'll defer it to later.
+Will fix.  I completely missed that while rewording it.
 
 ~Andrew
 
