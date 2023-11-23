@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 240F07F59CF
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 09:11:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639407.996744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32FD27F59D6
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 09:14:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639414.996754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r64nL-0007Ev-RC; Thu, 23 Nov 2023 08:10:43 +0000
+	id 1r64rD-0007vG-Fm; Thu, 23 Nov 2023 08:14:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639407.996744; Thu, 23 Nov 2023 08:10:43 +0000
+Received: by outflank-mailman (output) from mailman id 639414.996754; Thu, 23 Nov 2023 08:14:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r64nL-0007DG-Oa; Thu, 23 Nov 2023 08:10:43 +0000
-Received: by outflank-mailman (input) for mailman id 639407;
- Thu, 23 Nov 2023 08:10:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r64rD-0007sU-Cz; Thu, 23 Nov 2023 08:14:43 +0000
+Received: by outflank-mailman (input) for mailman id 639414;
+ Thu, 23 Nov 2023 08:14:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r64nK-0007D8-Gh
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 08:10:42 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5ade8d9-89d7-11ee-98e2-6d05b1d4d9a1;
- Thu, 23 Nov 2023 09:10:32 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-409299277bbso3685165e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 00:10:32 -0800 (PST)
+ id 1r64rC-0007sO-Ck
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 08:14:42 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5824fbce-89d8-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 09:14:38 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40b31232bf0so4387665e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 00:14:38 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- a10-20020a056000050a00b0032ddf2804ccsm887539wrf.83.2023.11.23.00.10.31
+ i18-20020a5d5592000000b003316a2aedadsm915460wrv.36.2023.11.23.00.14.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 00:10:31 -0800 (PST)
+ Thu, 23 Nov 2023 00:14:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5ade8d9-89d7-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: 5824fbce-89d8-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700727032; x=1701331832; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700727277; x=1701332077; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=KKmwbA6+M4RcmFFTP/sku16AaY+V057EzNOgN2RXvrM=;
-        b=kuVcpkVu0prQihuk6jXaLDLwfH3LG5/SJY1p41t5dytXb3m2Jii/LE0NW75b6e6wUa
-         6B8cTHJAmeWfYURUsEVh3cUeN0HSyeSa3llsNXottOTVxFDgcLR7qfoToaK5xYU/yjMc
-         virjNBJukk6IXrq0Np98/SvC1mkMiYc4yP3rM=
+        bh=eGikuQEnMU1wbY+Kds9GFhjxhXhIU7I3GXsmCFEGcZs=;
+        b=m+RhVegeG74f7mLlDlErGQFBhEZ28SHiIUitwplxJDbCCa4ncUpuMV3tAmIUhJcK3o
+         2qKqf8uIGsjDnDrA8gYr8EEZQ+gi7WO7m5x/hRE5XWCU+EjsxAsmc2ZZ5Yw/dShIWU3b
+         iW9ujdz9M6w92RbYs+OHMCxdSs1ndtwjq9v4s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700727032; x=1701331832;
+        d=1e100.net; s=20230601; t=1700727277; x=1701332077;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KKmwbA6+M4RcmFFTP/sku16AaY+V057EzNOgN2RXvrM=;
-        b=tvwx98HiwMNwvNbqqa0hOgXKmvnaDhyAXKMVVzzY5qGrx0SM3Ms2e0ZyB8PpC/t1Ct
-         Hu46EPMgQk5jyRFoxFMuPbLBkJ/U0wNT1qZH4EQNj0KSqTaFKFYBY28naQNACKFHLZSS
-         65VEDdAQE5NxHX5kXzSl9Icae5kfOEtr0LEhT59rTvMM2KVAdfvyHWjN3DqsspMPkdzR
-         Aq3u6+t5yhf/VSbXh4QdzkSaeRFV8xG0dGHXP6XoY1C71MN0YIUkR7WBL+GmAs4BiqeU
-         4zNOBgDS3lbBVGXv8nTJK25ods9cfesaCR91mOkJ4Tej8O+eqdp/v47c/vUnTzPJNFy2
-         F8fQ==
-X-Gm-Message-State: AOJu0YwTdBxMK3D//jcUWqdQ33Aj5o1Y4M7sra3E40qOSyXJROJrDGjg
-	DrRTStN34lB6lNMaSSQVLuAqJA==
-X-Google-Smtp-Source: AGHT+IF78/OewSG68sPgcP6GJQFHovzaBrmdOgvQBEIqoedX/hPXaZvvdN/TIXWg8MFOBuC9Y9KhAg==
-X-Received: by 2002:a05:600c:1c9d:b0:405:4776:735a with SMTP id k29-20020a05600c1c9d00b004054776735amr3655975wms.2.1700727031893;
-        Thu, 23 Nov 2023 00:10:31 -0800 (PST)
-Date: Thu, 23 Nov 2023 09:10:30 +0100
+        bh=eGikuQEnMU1wbY+Kds9GFhjxhXhIU7I3GXsmCFEGcZs=;
+        b=pUoYw+bhI2tcGj4mBYiT925eA6YlGmShcFHRP6JptMz47tXeZE0/fi0qlMssscnwCw
+         0P9SUP9QwKcN4OLCqXqcgu5+HSSLDbpFqLEfNJeFrCor3M7Qnpy3wuh2xeG2c4jCIrec
+         owUQTKCZ+ybntdMSH6bzjmrBgIFRKLI/cK9Dej3Fm4Er6Xkn+qmMqApaqDfoZwCZixvm
+         l3OsT81pVceSsZiUUjPHiScnQyaaPy4TZZyBRnLh7he1YS5n+/jJknRJgIIUB6O//cgi
+         Ny8CqxK/tEl+TKWX2qqIuMC+jpT2O3rovNqDx6Uqc2JHHlX3IgmfWJh0xAV7lthlkQvG
+         O8kw==
+X-Gm-Message-State: AOJu0YysGUllkWyRPNld7mAO7BkMUlD6/25x/laKMv54oUWq6nGBExeI
+	wxRsh2ReWwa0yeWVBF3oBlnhEA==
+X-Google-Smtp-Source: AGHT+IEyBuFD3hOsqB8bH0VBjvglexof08H1lbuunClqQziuXyTvQnav15pKhgIf7kQmoHgthN4Ykg==
+X-Received: by 2002:a05:6000:1446:b0:32f:8248:e00 with SMTP id v6-20020a056000144600b0032f82480e00mr2246564wrx.51.1700727277570;
+        Thu, 23 Nov 2023 00:14:37 -0800 (PST)
+Date: Thu, 23 Nov 2023 09:14:36 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] livepatch: do not use .livepatch.funcs section to store
- internal state
-Message-ID: <ZV8I9qSxeQ8zi9ZU@macbook>
-References: <20231116115841.71847-1-roger.pau@citrix.com>
- <d6634601-5006-475c-b386-97a1e53c5279@suse.com>
- <ZVYfHQD1AEmNVY3h@macbook.local>
- <CAG7k0Eo=p6sn0-p=JWGDTuN9u8B2=d9K13qpWUoAqJfX0uhcLA@mail.gmail.com>
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v7 1/2] xen/vpci: header: status register handler
+Message-ID: <ZV8J7CoFJyN9a5GO@macbook>
+References: <20230913143550.14565-1-stewart.hildebrand@amd.com>
+ <20230913143550.14565-2-stewart.hildebrand@amd.com>
+ <ZVdfRQpGFSU1OIkh@macbook.local>
+ <a28239cd-e94e-4e0e-b415-a7ae32befd40@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG7k0Eo=p6sn0-p=JWGDTuN9u8B2=d9K13qpWUoAqJfX0uhcLA@mail.gmail.com>
+In-Reply-To: <a28239cd-e94e-4e0e-b415-a7ae32befd40@amd.com>
 
-On Wed, Nov 22, 2023 at 04:31:07PM +0000, Ross Lagerwall wrote:
-> On Thu, Nov 16, 2023 at 1:54 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >
-> > On Thu, Nov 16, 2023 at 01:39:27PM +0100, Jan Beulich wrote:
-> > > On 16.11.2023 12:58, Roger Pau Monne wrote:
-> > > > --- a/xen/include/public/sysctl.h
-> > > > +++ b/xen/include/public/sysctl.h
-> > > > @@ -991,10 +991,7 @@ struct livepatch_func {
-> > > >      uint32_t new_size;
-> > > >      uint32_t old_size;
-> > > >      uint8_t version;        /* MUST be LIVEPATCH_PAYLOAD_VERSION. */
-> > > > -    uint8_t opaque[LIVEPATCH_OPAQUE_SIZE];
-> > > > -    uint8_t applied;
-> > > > -    uint8_t patch_offset;
-> > > > -    uint8_t _pad[6];
-> > > > +    uint8_t _pad[39];
-> > >
-> > > Should this be LIVEPATCH_OPAQUE_SIZE+8 and ...
-> >
-> > Hm, I'm not sure that's any clearer.  In fact I think
-> > LIVEPATCH_OPAQUE_SIZE shouldn't have leaked into sysctl.h in the first
-> > place.
-> >
-> > If we later want to add more fields and bump the version, isn't it
-> > easier to have the padding size clearly specified as a number?
+On Wed, Nov 22, 2023 at 03:16:29PM -0500, Stewart Hildebrand wrote:
+> On 11/17/23 07:40, Roger Pau Monné wrote:
+> > On Wed, Sep 13, 2023 at 10:35:46AM -0400, Stewart Hildebrand wrote:
+> >>      r->write(pdev, r->offset, data & (0xffffffffU >> (32 - 8 * r->size)),
+> >>               r->private);
+> >>  }
+> >> diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+> >> index 84b18736a85d..b72131729db6 100644
+> >> --- a/xen/include/xen/pci_regs.h
+> >> +++ b/xen/include/xen/pci_regs.h
+> >> @@ -66,6 +66,15 @@
+> >>  #define  PCI_STATUS_REC_MASTER_ABORT	0x2000 /* Set on master abort */
+> >>  #define  PCI_STATUS_SIG_SYSTEM_ERROR	0x4000 /* Set when we drive SERR */
+> >>  #define  PCI_STATUS_DETECTED_PARITY	0x8000 /* Set on parity error */
+> >> +#define  PCI_STATUS_RSVDZ_MASK		0x0006
+> > 
+> > In my copy of the PCIe 6 spec bit 6 is also RsvdZ, so the mask should
+> > be 0x46.
 > 
-> I prefer using the number as it makes it clear that this padding is not
-> (anymore) related to the size of the instruction buffer in livepatch_fstate.
+> Right, mine too. It's probably safer to follow the newer version of the spec, so I'll make the change. For completeness / archaeology purposes, I just want to document some relevant data points here.
 > 
-> Do you think it would be better to call livepatch_fstate.opaque
-> something like livepatch_fstate.insn_buffer instead (and rename
+> In PCIe 4 spec, it says this about bit 6:
+> "These bits were used in previous versions of the programming model. Careful consideration should be given to any attempt to repurpose them."
+> 
+> Going further back, PCI (old school PCI, not Express) spec 3.0 says this about bit 6:
+> "This bit is reserved. *"
+> "* In Revision 2.1 of this specification, this bit was used to indicate whether or not a device supported User Definable Features."
+> 
+> Just above in our pci_regs.h (and equally in Linux include/uapi/linux/pci_regs.h) we have this definition for bit 6:
+> #define  PCI_STATUS_UDF         0x40    /* Support User Definable Features [obsolete] */
+> 
+> Qemu hw/xen/xen_pt_config_init.c treats bit 6 as RO:
+>         .ro_mask    = 0x06F8,
 
-That would be fine.
-
-> the constant accordingly) since it is internal to Xen and is not
-> hiding something from tools building live patches?
-
-The constant would be needed anyway due to the usage in the livepatch
-tests, see the layout of livepatch_expectation_t which is public and
-part of livepatch_func.
-
-I don't mind changing fstate->opaque to insn_buffer, but I would avoid
-touching anything in livepatch_expectation_t as part of this patch.
+Right, given the implementation of ro_mask that would likely be fine.
+Reading unconditionally as 0 while preserving the value on writes
+seems the safest option.
 
 Thanks, Roger.
 
