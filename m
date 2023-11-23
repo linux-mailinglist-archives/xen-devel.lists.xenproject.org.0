@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DD1D7F5AAF
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 09:59:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639448.996834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CBAE7F5AB7
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 10:03:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639452.996843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r65YS-0004DW-Fa; Thu, 23 Nov 2023 08:59:24 +0000
+	id 1r65cE-0005kX-16; Thu, 23 Nov 2023 09:03:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639448.996834; Thu, 23 Nov 2023 08:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 639452.996843; Thu, 23 Nov 2023 09:03:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r65YS-0004Am-CW; Thu, 23 Nov 2023 08:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 639448;
- Thu, 23 Nov 2023 08:59:23 +0000
+	id 1r65cD-0005iH-Ug; Thu, 23 Nov 2023 09:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 639452;
+ Thu, 23 Nov 2023 09:03:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=licP=HE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r65YR-0004Ac-Nr
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 08:59:23 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2062e.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r65cC-0005hv-Cy
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 09:03:16 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97b21237-89de-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 09:59:21 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB7491.eurprd04.prod.outlook.com (2603:10a6:20b:283::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.12; Thu, 23 Nov
- 2023 08:59:18 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.012; Thu, 23 Nov 2023
- 08:59:18 +0000
+ id 2246dc09-89df-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 10:03:14 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40b344101f2so3499165e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 01:03:14 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ p18-20020a05600c359200b0040b360cc65csm1280037wmq.0.2023.11.23.01.03.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Nov 2023 01:03:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,241 +44,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97b21237-89de-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RuuJ5dkGfalmi4/yY3WKYkFM6yh2/tHZCi2eK4uf2C1k5xrWRpqt7l9g9Dn6oMJm+lhignct4jFP5p/z2gkWhPnQOkh0hkuSFKxEgp22jUyNHnJQ9wgABvtsAm+2BAyfw4I8QMNGttoQSbSo7YhAt/wBdV2gSfSZIYfrqzyA1IZVEzwaF2P7ARwTuqPwNXsca6EWrUbgWpxVMvlu4YDX7MDuT3gl+qCB6sfpytm91FtrjeZiViXfUi7Rb/Un325gSXEM+7R73ZJ7r9WhfSZp9AP8/zZ70DzzsoGqS6OBWdmIieTHRw2Dm3UU0eqZnmsufHfwZHwhvpWwklYj4FFDLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PUwS8YtdcKR3ZozL4x8+P03QzR7X367404VRUQDFq/4=;
- b=TPRKSol8SXXpoXTBe2sbozkw6ARtPiRekYEEhBOo9q3jOypI+35df79w77rksIF+fBZ0+9Rra0FxZDjOJ5lE/pGqwnPLJp2qu1iuEHF02tvTlATu8DKgP84OkPldJU4vDTMymCJg1N5WRaq3ZjVX0sZGEQWK5CKHWBfDEpQO7S3OWswu6YfPB8Y8j9MXuJulykpNiyZ5kFKCQux5yl9p4U2E8vD8oYUo9fV31D7Yle6R6C4vVGvNvBYYitsPUrVcubeZjsquN4vh8C4Xe/R5tUbStThiTL7m6a/g/hPbqWyvWALMPtKp5YGqJ7ljRflr5/TethlCoa6tHrCg2tbEtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PUwS8YtdcKR3ZozL4x8+P03QzR7X367404VRUQDFq/4=;
- b=l1c6FfamB2A3fz/DuE2K2/biTI0skD4mi5X997PRbmNArYw+s0Sh7MA8T0xFv5BXSkI02O3LE+VuKC3zH6jUKEoU6rPZUzzOuAWoiNgYVKP4/H3svBH6KN2hGgvIxuuvEsLf1tctNdUBaEXHowQp6O7juChgAMgt8339cbD2FflTNslrQiathfkxJHhv96L1K5GeXgXTrHz67FMFWWxBhc6Z2E2Jgo0uJ5xHVOZNycivGxXd25sCSjoMy6yL49LaqHVt/FlQRjWK16zB4ChyUTf+IJV9gr4Sqdk0Fjp/13doMIgLUPlgiV6T7g3zvgP2Pd5WwFogF38vmHAfd6ATfw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0b700af5-52d3-4014-94b4-af8700c73465@suse.com>
-Date: Thu, 23 Nov 2023 09:59:14 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/5] xen/common: address violations of MISRA C:2012
- Rule 8.2
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1700209834.git.federico.serafini@bugseng.com>
- <ccc8b4bea515360e448f1975dadb326ad2e6c918.1700209834.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2311171851260.773207@ubuntu-linux-20-04-desktop>
- <a03a8d60-5e46-4ef2-9e35-cc6892d229ee@bugseng.com>
- <alpine.DEB.2.22.394.2311201602500.773207@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2311201602500.773207@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GVYP280CA0028.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:f9::10) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: 2246dc09-89df-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1700730194; x=1701334994; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dDZG0Ru8F1zXYrV7g7ilvrqlP3Zf1sj77aGL6JGCDbA=;
+        b=c08pw61v1CzgAXXWoqM44HCv/dmaHNItSWSU4LGDCtNxJicnY2BA+Jd0FYb8DDBTt7
+         y0J68+hUd65lRS1oj4GMMZkHCWa78mHkcf1viIi3lfcQCVR0nY4HwgtotNfnaWlxqNdy
+         ws1bRexueQYvh7y2V7Ayu9hb+3iWzJCVdSrmI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700730194; x=1701334994;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dDZG0Ru8F1zXYrV7g7ilvrqlP3Zf1sj77aGL6JGCDbA=;
+        b=UTu18JaPKaRaTZxhtMWdcMxu4+j4zPT21daluEH7o4NSS+BJVnaeBMfMDe/8kcd03L
+         TIlDuqdD5EDZTARZbr/kp7SglIyyUjg2ATnNZnrPnUnOvvZLr1EDFMMYA21GOT5jkueI
+         BDF7tzS3qDEdTFHhzvEu/iLw/fw31FqyI3DhC9o5tJU7g2oRVZ6PIml8k6VglPpdi8eJ
+         UoLJmDAjJ0cGtTylPD1kvBEfcIA7fOoycWyvRafEB+BZNxFROEqnclm+Nn7hdRaQ5ZEF
+         hbFdLZp7BEFvvZOqoj6wsT9zOa0WeWZdOHM+x6vxBqk9fiCd30UjokCGplPVrSF2j877
+         7gXA==
+X-Gm-Message-State: AOJu0YwXdYcQqVT8c1nWUBMvJXqwVZLGUZK94J8KiR3p1Ex4L5bfjOeK
+	bSwyFFHTbICSey79AGMAj8n9Bg==
+X-Google-Smtp-Source: AGHT+IFJwacrcJt3bDS1qBeoRDM1XjTHQ+85W2ux5zGAY29PD28exo2RPIeO8RbvwFsMgGv131SYXQ==
+X-Received: by 2002:a05:600c:3587:b0:3fe:1fd9:bedf with SMTP id p7-20020a05600c358700b003fe1fd9bedfmr1638699wmq.11.1700730193602;
+        Thu, 23 Nov 2023 01:03:13 -0800 (PST)
+Date: Thu, 23 Nov 2023 10:03:12 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3] xen/x86: On x2APIC mode, derive LDR from APIC ID
+Message-ID: <ZV8VUFmNe30prv7_@macbook>
+References: <20231122160817.15266-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB7491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47cc92b1-897e-4d3d-7746-08dbec0279dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0mvDzybyZNGjmzdYUML9crtodeDYp0SCzODy/DxSCxLwIo9wuzd3d94XoQrkPPHetOIbU5mejh8KPK175tePkPxtKmkMPNgRcF5PFHOGAKvFjO4x3B8+f10Hnb8AkctjkbLdZOVEfuuqO3IRO904n01zhVf9ytaXgms8WHBBKTa46JXtURMLIUzrcqv4kNdPwK79awzDmtnKM6kWwRHUurbqIALPrPSttaYsoTP5r5aMoLKN882aheX4f/yf0f3eXWY0RPgdrjOElVnyITN4DZrUOKTwj7FP3IJrGeadVsWgMi+5/3ot/rjpBfCVAWYpDdkObgRpRRtBqoaH7fSqv1W/anLmQTuuC2sPuPXAsODvpqZQSDQlvV8gC1jJseLsgJ/9OwF/0YnjW5WaJpFr3iGp16N4DQOWeBNx1/WARQiUfT9xnfaokcF668OWsbykXIEI9SZUkBUc/pE2f24AW/FRtES6W6XlJD7nSWjQPU3UchRwUVxeODF79Yqza12I0CjyeBbAWpK1DZvun/LipfKwgqFXBdjsfdPGVTvdgCfAOvBljSR5EWIWnPtrGQUI8Pjz3CEvcy1whN226Z5falrfPrECleeyrwyjWLvB5AfP+9MbnJyjhM7j5vX/QRvCmK/U5qj3l66eZRW+WWIprg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(366004)(346002)(376002)(136003)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(26005)(83380400001)(6666004)(6512007)(6506007)(2616005)(53546011)(5660300002)(8676002)(4326008)(41300700001)(8936002)(2906002)(6486002)(478600001)(316002)(6916009)(66946007)(66556008)(54906003)(66476007)(86362001)(31696002)(36756003)(38100700002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enI3TVRoRjZpVlluVkxJeDhCckpQZXczSkN4dU4zeG5CZ3V3dDFJbWs5Mndn?=
- =?utf-8?B?UFBIQlRTaVBPUnY0YzJSL0d4TjlpZkZZcFpKSWd4akVUOCtJS0o3Sm5zYjA1?=
- =?utf-8?B?NzZCQ2FiS1RKSWFJUTE5MzRHS3VScHl6bEt3bXBpb2l5alFHOE9CMHNZMjFW?=
- =?utf-8?B?VDE0SzBTRTNMWXQ0emF5cklsWVlRMFpMa2VtVHFMbW1xcis0ZktpaDV6N1JS?=
- =?utf-8?B?V1FNRnloTEdUMnJqNHk2b0QzcGZYN0FXU0dka1p0dFZZeE4xWTVPRlJYcGNF?=
- =?utf-8?B?WEFWU0lnN2xnaXE1T1ErR01Yc0U5Z1Y5L1FycGxuemFNbWZOZEIweEx2c25a?=
- =?utf-8?B?NXZUV25HWVJOamJGVmhqWkdva2YvRjNzcWpkOTJMdnR0alVBdnNpOHRTN1Za?=
- =?utf-8?B?UDdPRHA2bCtCRU9VK1AwOFhKQ2xxZS93MCttbVF0MWFTRFVQbGhzUHlMNlY1?=
- =?utf-8?B?dlgrV0liMm5ueURESzB6WURxOGpxRVNidVZpaE50K1h1TWtOb0FVOTBTYU1K?=
- =?utf-8?B?SHhSaWRXLytiYnlRUVVJQ3I2ZitXakhlNVRyd0J5TENTQXlJMUc4RDkyVmIr?=
- =?utf-8?B?dVNRNGhBNFBQeWxJNkJPTGpYK3ljWlB5a0VrK2VXdE9qK3Q2UG5vZThqUWsx?=
- =?utf-8?B?Wmc0WGJxOStGMFl2NVZmNklCMGNzczZyZnVaTkFVUFJpeWE3VTJ3ZmNwMGx3?=
- =?utf-8?B?M01JLzNRc0VtR3BGSHMwVVFhWUkwMzNuNGg0SnIzTDd6LzVPSlFnZU5HSHlQ?=
- =?utf-8?B?TzlJVFZ1RHNjY3BLcWNjRDBTMVlPMkJLNFBLU0MwMDBTWWZFWWNJZENXOVpo?=
- =?utf-8?B?alpDSTRKV1JLZ2YxcW41dDFNZG0rNGV0UGIyUTc0bjJZTUI4bDFHaWRMby9J?=
- =?utf-8?B?UExvTGk3TUNNUHdKUEF0MnNXUkxnRlAxMVdNZ0RaQTR5TElqcU9GUFFpSldJ?=
- =?utf-8?B?WGRFc0xhZTRTN1NzWUFCMTRCQnVLQ3U0K1NYeFNKSzhqSnNEQys4WDNsWk9o?=
- =?utf-8?B?ZmhjTGN4NTFDWExzWnJ2ckxONDlWWmtIK0FVVHNQTnlPNTNJOTdxMjN5ekM0?=
- =?utf-8?B?bzA4am1GYStJdHJ5SkZJRWY4ZWxvZFdHQWJlNXRlY1p2amdUUXhwZFdaemdV?=
- =?utf-8?B?VDZWNnRhMlBTVXhtUlRhZUNMTGJ5aEhkejZtTCtqdytOaldIWmpmWk5VL0dV?=
- =?utf-8?B?ZDZvU1NlWktRb0x0ZjZBeUtjcytaZmNZMmd2OWh4cUFITGNVSjg1eVBLRlRx?=
- =?utf-8?B?aXFES05Fb2xjdXVlMFRNMTdHT0JHM3NLMDYzTHJ6WVNwSUZTMi8zRzg2M1p0?=
- =?utf-8?B?TndDSE91NzNtelpSRnorZ3Z3RERUSGMyTXhtb2JDVllPMlRuU00vbVkrT3d6?=
- =?utf-8?B?a3JaY1lQRGgyOTdTYnlJUVEvTjBSb0psL1phdTZLOG5uQ0xWUGlYZ2V5Z1U0?=
- =?utf-8?B?RVVyeWNuMStTanNMODVUajRoaU54YzBHQkszZVhmeTdzTmlPT3l1RkI2OVM4?=
- =?utf-8?B?UkxkMks0NXBqSXBRTVNacWVCay9lUkhPcERhUUFab0xEaGtMZllGd0RVT2w0?=
- =?utf-8?B?Rkl2bi9DcW5PalFORHFZazFIQ2dIdVVEbGFpYXhUYVIzQTUyVDRjYVE2MjU3?=
- =?utf-8?B?bFNLMW8zbFR3cHhyTXZIdFFqblI2TmFBa29URWJTSllvWDlNVEFyVVRza1pn?=
- =?utf-8?B?RXI4aE0yV1F5cmI4bC9xWVFrT2hvcTl4SDVQQ1oxU3VJbVV4QkNPT1gwRklY?=
- =?utf-8?B?d3RJd1Nhb1Awa042QWx1QktjdFlLRitTVGs0by84ZGVVZFZyZUd0aGlSZmtU?=
- =?utf-8?B?OEg1OXpHUWJuQkVZclZJcWhxU2Y0dktYYkFCdU9xczJWdS9DKzVDN3g3elVN?=
- =?utf-8?B?UlNDTkJweS9GR3Y2bm1FdHQ4c01KWGNLeFJiS2hpUC9TU0RkQjVtZjNicnV1?=
- =?utf-8?B?YnBzNkxWWWFlUzc0MnFXejUwZE05VHFNY3ZXb3RXMDFwOWhzY3hVVUYxUWV5?=
- =?utf-8?B?Mmd2TzhDZ0RVWCtzNnRWZXNFaDdEbmZvY0xPWXhvU09YNm1DQzEzWHlXNFFH?=
- =?utf-8?B?YUZtS004c2FNRHJIUkVlNjNaMlgwR1RMM21sT1lwYlRRQ21nRDdrb0xMZzNr?=
- =?utf-8?Q?x/S7ZIoF8aXktKnoClDsmV2eQ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47cc92b1-897e-4d3d-7746-08dbec0279dd
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 08:59:18.3215
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Yi7vGNQXS+5vH0A+5CDlD2PpGxTACR2zPiCp7FcKtMTcbNiLESlHhJI2ivDIyTeuqpeDU/mmoKQF2DWZDVi0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7491
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231122160817.15266-1-alejandro.vallejo@cloud.com>
 
-On 21.11.2023 01:02, Stefano Stabellini wrote:
-> On Mon, 19 Nov 2023, Federico Serafini wrote:
->> On 18/11/23 03:59, Stefano Stabellini wrote:
->>> On Fri, 17 Nov 2023, Federico Serafini wrote:
->>>> diff --git a/xen/common/stop_machine.c b/xen/common/stop_machine.c
->>>> index 3adbe380de..398cfd507c 100644
->>>> --- a/xen/common/stop_machine.c
->>>> +++ b/xen/common/stop_machine.c
->>>> @@ -46,7 +46,7 @@ struct stopmachine_data {
->>>>         unsigned int fn_cpu;
->>>>       int fn_result;
->>>> -    int (*fn)(void *);
->>>> +    int (*fn)(void *data);
->>>>       void *fn_data;
->>>>   };
->>>
->>> At least one of the possible function used here calls the parameter
->>> "arg", see take_cpu_down. But I don't think it is a MISRA requirement to
->>> also harmonize those?
->>>
->>>
->>>> @@ -73,7 +73,7 @@ static void stopmachine_wait_state(void)
->>>>    * mandatory to be called only on an idle vcpu, as otherwise active core
->>>>    * scheduling might hang.
->>>>    */
->>>> -int stop_machine_run(int (*fn)(void *), void *data, unsigned int cpu)
->>>> +int stop_machine_run(int (*fn)(void *data), void *data, unsigned int cpu)
->>>>   {
->>>>       unsigned int i, nr_cpus;
->>>>       unsigned int this = smp_processor_id();
->>>> diff --git a/xen/common/tasklet.c b/xen/common/tasklet.c
->>>> index 3ad67b5c24..3649798e6b 100644
->>>> --- a/xen/common/tasklet.c
->>>> +++ b/xen/common/tasklet.c
->>>> @@ -199,7 +199,7 @@ static void migrate_tasklets_from_cpu(unsigned int
->>>> cpu, struct list_head *list)
->>>>       spin_unlock_irqrestore(&tasklet_lock, flags);
->>>>   }
->>>>   -void tasklet_init(struct tasklet *t, void (*func)(void *), void *data)
->>>> +void tasklet_init(struct tasklet *t, void (*func)(void *data), void
->>>> *data)
->>>>   {
->>>>       memset(t, 0, sizeof(*t));
->>>>       INIT_LIST_HEAD(&t->list);
->>>> @@ -208,7 +208,8 @@ void tasklet_init(struct tasklet *t, void (*func)(void
->>>> *), void *data)
->>>>       t->data = data;
->>>>   }
->>>>   -void softirq_tasklet_init(struct tasklet *t, void (*func)(void *), void
->>>> *data)
->>>> +void softirq_tasklet_init(struct tasklet *t,
->>>> +                          void (*func)(void *data), void *data)
->>>>   {
->>>>       tasklet_init(t, func, data);
->>>>       t->is_softirq = 1;
->>>> diff --git a/xen/common/timer.c b/xen/common/timer.c
->>>> index 0fddfa7487..bf7792dcb3 100644
->>>> --- a/xen/common/timer.c
->>>> +++ b/xen/common/timer.c
->>>> @@ -291,7 +291,7 @@ static bool active_timer(const struct timer *timer)
->>>>     void init_timer(
->>>>       struct timer *timer,
->>>> -    void        (*function)(void *),
->>>> +    void        (*function)(void *data),
->>>>       void         *data,
->>>>       unsigned int  cpu)
->>>>   {
->>>> @@ -441,7 +441,7 @@ void kill_timer(struct timer *timer)
->>>>     static void execute_timer(struct timers *ts, struct timer *t)
->>>>   {
->>>> -    void (*fn)(void *) = t->function;
->>>> +    void (*fn)(void *data) = t->function;
->>>>       void *data = t->data;
->>>>         t->status = TIMER_STATUS_inactive;
->>>> diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
->>>> index 135f33f606..390f7b6082 100644
->>>> --- a/xen/include/xen/rangeset.h
->>>> +++ b/xen/include/xen/rangeset.h
->>>> @@ -68,7 +68,7 @@ bool_t __must_check rangeset_overlaps_range(
->>>>       struct rangeset *r, unsigned long s, unsigned long e);
->>>>   int rangeset_report_ranges(
->>>>       struct rangeset *r, unsigned long s, unsigned long e,
->>>> -    int (*cb)(unsigned long s, unsigned long e, void *), void *ctxt);
->>>> +    int (*cb)(unsigned long s, unsigned long e, void *data), void *ctxt);
->>>
->>> Also here some of the functions use "arg" instead of ctxt
->>>
->>>
->>>>   /*
->>>>    * Note that the consume function can return an error value apart from
->>>> @@ -77,7 +77,7 @@ int rangeset_report_ranges(
->>>>    */
->>>>   int rangeset_consume_ranges(struct rangeset *r,
->>>>                               int (*cb)(unsigned long s, unsigned long e,
->>>> -                                      void *, unsigned long *c),
->>>> +                                      void *ctxt, unsigned long *c),
->>>>                               void *ctxt);
->>>
->>> Also here some of the functions use "dom" like irq_remove_cb.
->>>
->>>
->>> But I actually like the patch as is, so if that's OK from a MISRA point
->>> of view then I would give my reviewed-by.
->>
->> Yes, this is OK for MISRA.
+On Wed, Nov 22, 2023 at 04:08:17PM +0000, Alejandro Vallejo wrote:
+> Both Intel and AMD manuals agree that on x2APIC mode, the APIC LDR and ID
+> registers are derivable from each other through a fixed formula.
 > 
+> Xen uses that formula, but applies it to vCPU IDs (which are sequential)
+> rather than x2APIC IDs (which are not, at the moment). As I understand it,
+> this is an attempt to tightly pack vCPUs into clusters so each cluster has
+> 16 vCPUs rather than 8, but this is problematic for OSs that might read the
+> x2APIC ID and internally derive LDR (or the other way around)
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> This patch fixes the implementation so we follow the rules in the x2APIC
+> spec(s) and covers migrations from broken hypervisors, so LDRs are
+> preserved even for hotppluggable CPUs and across APIC resets.
+> 
+> While touching that area, I removed the existing printk statement in
+> vlapic_load_fixup() (as the checks it performed didn't make sense in x2APIC
+> mode and wouldn't affect the outcome) and put another printk as an else
+> branch so we get warnings trying to load nonsensical LDR values we don't
+> know about.
+> 
+> Fixes: f9e0cccf7b35 ("x86/HVM: fix ID handling of x2APIC emulation")
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-To cover EFI:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Mostly some style nits, and one comment adjustment.
 
-Jan
+If you are OK with those:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+> ---
+> v3:
+>   * Removed underscores from (x2)APIC_ID in commit message
+>   * Added commit msg explaining the removal of the vlapic_load_fixup() printk
+>   * Restored lowercase to hex "F"s
+>   * Refactored a bit vlapic_load_fixup() so it has a trailing printk in
+>     case of spotting a nonsensical LDR it doesn't understand.
+>   * Moved field in domain.h with the other booleans
+>   * Trimmed down field name in domain.h
+>   * Trimmed down field comment in domain.h
+> 
+> If the field name in domain.h still seems too long I'm happy for it to be
+> trimmed further down, but I do want to preserve the "_bug_" part of it.
+
+I think the _with_ part is redundant, but it's certainly shorter than
+previously :).
+
+> ---
+>  xen/arch/x86/hvm/vlapic.c             | 62 +++++++++++++++++----------
+>  xen/arch/x86/include/asm/hvm/domain.h |  3 ++
+>  2 files changed, 43 insertions(+), 22 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> index 5cb87f8649..cd929c3716 100644
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -1061,13 +1061,23 @@ static const struct hvm_mmio_ops vlapic_mmio_ops = {
+>      .write = vlapic_mmio_write,
+>  };
+>  
+> +static uint32_t x2apic_ldr_from_id(uint32_t id)
+> +{
+> +    return ((id & ~0xf) << 12) | (1 << (id & 0xf));
+> +}
+> +
+>  static void set_x2apic_id(struct vlapic *vlapic)
+>  {
+> -    u32 id = vlapic_vcpu(vlapic)->vcpu_id;
+> -    u32 ldr = ((id & ~0xf) << 12) | (1 << (id & 0xf));
+> +    uint32_t vcpu_id = vlapic_vcpu(vlapic)->vcpu_id;
+> +    uint32_t apic_id = vcpu_id * 2;
+> +    uint32_t apic_ldr = x2apic_ldr_from_id(apic_id);
+> +
+> +    /* This is a migration bug workaround. See wall of text in lapic_load_fixup() */
+
+Line length > 80 cols.
+
+I try to avoid referencing function names in comments, as they tend to
+get out of sync without noticing.  It's much easier to use cscope to
+grep for x2apic_ldr_bug_with_vcpu_id and find the comment itself.
+
+> +    if ( vlapic_domain(vlapic)->arch.hvm.x2apic_ldr_bug_with_vcpu_id )
+> +        apic_ldr = x2apic_ldr_from_id(vcpu_id);
+>  
+> -    vlapic_set_reg(vlapic, APIC_ID, id * 2);
+> -    vlapic_set_reg(vlapic, APIC_LDR, ldr);
+> +    vlapic_set_reg(vlapic, APIC_ID, apic_id);
+> +    vlapic_set_reg(vlapic, APIC_LDR, apic_ldr);
+>  }
+>  
+>  int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
+> @@ -1498,27 +1508,35 @@ static int cf_check lapic_save_regs(struct vcpu *v, hvm_domain_context_t *h)
+>   */
+>  static void lapic_load_fixup(struct vlapic *vlapic)
+>  {
+> -    uint32_t id = vlapic->loaded.id;
+> +    /* Skip fixups on xAPIC mode, or if the x2APIC LDR is already correct */
+> +    if ( !vlapic_x2apic_mode(vlapic) ||
+> +         (vlapic->loaded.ldr == x2apic_ldr_from_id(vlapic->loaded.id)) )
+> +        return;
+>  
+> -    if ( vlapic_x2apic_mode(vlapic) && id && vlapic->loaded.ldr == 1 )
+> -    {
+> +    if ( vlapic->loaded.ldr == 1 )
+> +       /*
+> +        * Xen <= 4.4 had a bug by which all the APICs configured in x2APIC
+> +        * mode got LDR = 1. We can't leave it as-is because it assigned the
+> +        * same LDR to every CPU.  We'll fix fix the bug now and assign an
+> +        * LDR value consistent with the APIC ID.
+> +        */
+> +        set_x2apic_id(vlapic);
+> +    else if ( vlapic->loaded.ldr ==
+> +              x2apic_ldr_from_id(vlapic_vcpu(vlapic)->vcpu_id) )
+>          /*
+> -         * This is optional: ID != 0 contradicts LDR == 1. It's being added
+> -         * to aid in eventual debugging of issues arising from the fixup done
+> -         * here, but can be dropped as soon as it is found to conflict with
+> -         * other (future) changes.
+> +         * This is a migration from a broken Xen between 4.4 and 4.18 and
+> +         * we must _PRESERVE_ LDRs so new vCPUs use consistent derivations.
+
+Not sure if we should try to avoid mentioning specific versions in the
+comments, as I this fix will be backported to stable branches (I hope),
+and hence those will no longer be affected.
+
+> +         * This is so existing running guests that may have already read
+> +         * the LDR at the source host aren't surprised when IPIs stop
+> +         * working as they did at the other end. To address this, we set
+> +         * this domain boolean so future CPU hotplugs derive an LDR
+> +         * consistent with the older Xen's broken idea of consistency.
+
+I think this is possibly too verbose, I would be fine with just the
+first sentence TBH.  If we want the full comment however, the wording
+should be slightly addressed: it's not just IPIs that would possibly
+fail to be delivered, but any interrupt attempting to target the APIC
+using the previous LDR addressing (either an IPI or an external
+interrupt).
+
+>           */
+> -        if ( GET_xAPIC_ID(id) != vlapic_vcpu(vlapic)->vcpu_id * 2 ||
+> -             id != SET_xAPIC_ID(GET_xAPIC_ID(id)) )
+> -            printk(XENLOG_G_WARNING "%pv: bogus APIC ID %#x loaded\n",
+> -                   vlapic_vcpu(vlapic), id);
+> -        set_x2apic_id(vlapic);
+> -    }
+> -    else /* Undo an eventual earlier fixup. */
+> -    {
+> -        vlapic_set_reg(vlapic, APIC_ID, id);
+> -        vlapic_set_reg(vlapic, APIC_LDR, vlapic->loaded.ldr);
+> -    }
+> +        vlapic_domain(vlapic)->arch.hvm.x2apic_ldr_bug_with_vcpu_id = true;
+> +    else
+> +        printk(XENLOG_G_WARNING
+> +               "%pv: bogus x2APIC loaded id=%#x ldr=%#x\n",
+> +               vlapic_vcpu(vlapic), vlapic->loaded.id, vlapic->loaded.ldr);
+
+Could you write the expected values while at it:
+
+"%pv: bogus x2APIC loaded id=%#x ldr=%#x (expected id=%#x ldr=%#x)\n"
+
+>  }
+>  
+>  static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+> diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
+> index 6e53ce4449..2fee3874cd 100644
+> --- a/xen/arch/x86/include/asm/hvm/domain.h
+> +++ b/xen/arch/x86/include/asm/hvm/domain.h
+> @@ -106,6 +106,9 @@ struct hvm_domain {
+>  
+>      bool                   is_s3_suspended;
+>  
+> +    /* Compat setting for a bug in x2APIC LDR. See vlapic_load_fixup() */
+> +    bool x2apic_ldr_bug_with_vcpu_id;
+
+I think you already mentioned in a followup reply that using
+bug_x2apic_ldr_vcpu_id would be fine.
+
+Thanks, Roger.
 
