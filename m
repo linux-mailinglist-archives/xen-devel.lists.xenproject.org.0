@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC437F63A3
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A7C77F63A4
 	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 17:09:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639825.997519 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.639826.997532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6CFq-0002x6-Ve; Thu, 23 Nov 2023 16:08:38 +0000
+	id 1r6CFs-0003L6-65; Thu, 23 Nov 2023 16:08:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639825.997519; Thu, 23 Nov 2023 16:08:38 +0000
+Received: by outflank-mailman (output) from mailman id 639826.997532; Thu, 23 Nov 2023 16:08:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6CFq-0002qf-RG; Thu, 23 Nov 2023 16:08:38 +0000
-Received: by outflank-mailman (input) for mailman id 639825;
- Thu, 23 Nov 2023 16:08:37 +0000
+	id 1r6CFs-0003IM-2Y; Thu, 23 Nov 2023 16:08:40 +0000
+Received: by outflank-mailman (input) for mailman id 639826;
+ Thu, 23 Nov 2023 16:08:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r6CFp-0002oi-Ho
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 16:08:37 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1r6CFq-0002oi-DN
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 16:08:38 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e75e311-8a1a-11ee-9b0e-b553b5be7939;
+ id 8efde5f9-8a1a-11ee-9b0e-b553b5be7939;
  Thu, 23 Nov 2023 17:08:36 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-332e3ad436cso415973f8f.3
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2c5b7764016so11767431fa.1
  for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 08:08:36 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- q14-20020adff78e000000b0031c52e81490sm1994948wrp.72.2023.11.23.08.08.34
+ z4-20020a1c4c04000000b0040b32edf626sm2389446wmf.31.2023.11.23.08.08.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 08:08:34 -0800 (PST)
+ Thu, 23 Nov 2023 08:08:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e75e311-8a1a-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 8efde5f9-8a1a-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700755715; x=1701360515; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700755716; x=1701360516; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rMkauDFn+qAfuR/oZAOw0ra8gHEXx3ErgUZ/htH3VG0=;
-        b=dQ2EjVj0qsCz/FdrqNhZXb5Jw0inDEuecf5HiXvCT2iHClnBtVbFAlfa4v4pZ0sgLK
-         6PK62G8SollWfE5zIhs65JXi+FMT1LU5m6TkbidyQnomVo6qUNRzZ6/feeHhQlX6TdG8
-         0q4lzljSdH/67EVYK7ZrnsaFA9mczWSIXi9MM=
+        bh=nfobU6oQZA/gb41m+Lcagy1PuTHLFIO9Dot16l0EkH8=;
+        b=n3/NcrC++yMlQc7SToGcbcGxTQbrfQjd+Oj1O6IF9vwHzVGD2bpiEotcmLvPXVSIgV
+         UgS0yq1fusDeYRSYfjVvaTIEEf0eizxBSRToesjCW4YIlbZ2v907U+9mWsyY0Ee2VZtX
+         9nAXkeUgRCCI+kFAdz+N742wh1DkkVxIUaGvw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700755715; x=1701360515;
+        d=1e100.net; s=20230601; t=1700755716; x=1701360516;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rMkauDFn+qAfuR/oZAOw0ra8gHEXx3ErgUZ/htH3VG0=;
-        b=jB7tWBnByb3/pIke4ds8rB5QA2BCMG87Fijbd4zKDJSqN4dGtsNVeKNgFWIf0Et1aP
-         g2gALmcWduMv+VbmwKy1JdeH7cCAYQfIYBVbEDKE9xM/txpYsL3HivlSHEcl6/dZ9+2G
-         +1i+ewGBPG66DfztcOl0z2z84ctC7sB6tYfebdtg+dtVFzXbopdhqsCtdP4JRDAIeNLL
-         hMJ5kFEFGrhAO4FdDJbJQRtM4aoGMY//K3Ss9Y/gFfK40IB5N9G6MO9m+aIin4TpMQu4
-         uAN1SSi1GsaT28aSViFdf0SldaT7fNmqOf6Ige99lJcyTMVuW5HD0cr1nbXaAchrV8i+
-         ujrA==
-X-Gm-Message-State: AOJu0YwdfSGkMIitnZ5BB/pLSNdgLQ5OZHYB5WKxSkFmnX3M1FbA4gCR
-	ba2a8XEKWG3S6dCBCmRsI0FdC7/WVicFuJT2NVI=
-X-Google-Smtp-Source: AGHT+IHJaU8zC+nXolQBUc96aBO3NKFRA31Z/rp8UDlbKGxszXv7kGob8xzwyqCzkQa/ZwAGJVQ8jg==
-X-Received: by 2002:adf:ec4e:0:b0:332:c5bd:1d9e with SMTP id w14-20020adfec4e000000b00332c5bd1d9emr3794889wrn.4.1700755714811;
-        Thu, 23 Nov 2023 08:08:34 -0800 (PST)
+        bh=nfobU6oQZA/gb41m+Lcagy1PuTHLFIO9Dot16l0EkH8=;
+        b=Ov9b16DQcrk5M5UF/r5Bn477l7zjxmesJtREr4tdIV9adxuG+HNzg6ebQtERcBCG75
+         j0JQtppOToMT5A2Ou7smbiHLcZ25B5vot8UdIBskaP4Qv2aBOQJlahaZ5o8+FygsswUQ
+         xTAUlPNOc37WeJ6DdnubyzDsz2DvZQNxg9aVu/zdOSN+L5fm4X4k5m9K4PZgZVICIdfR
+         7Dh+BovYt88NFkKQPmozLZvaglQte/+If0axk0IFEHtPur7bK78i0CUqsKFu+GL72hTR
+         0eNiaWopgnkA2VnSylCoJP54djA0VvFABIYqJDDHRaojUj41mffNSuxfZA4cqrlm7+rS
+         A2hQ==
+X-Gm-Message-State: AOJu0Yz/+1IDQxV+U+1Uf6oXPBPLU6UvjZFKRFq93P6b89FmPKwqpDpN
+	Y5jDKpP8djCh91LtuECKa2M66/z7ODz3BpyZrH8=
+X-Google-Smtp-Source: AGHT+IErJ5LvfgBLNdXMU2XeRi7CmqTTb4oF0dHB65UIsSG26Lhx5thivbpCT/4zNzHhguujexxr8A==
+X-Received: by 2002:a2e:9f4e:0:b0:2c5:f1a:1f31 with SMTP id v14-20020a2e9f4e000000b002c50f1a1f31mr3188351ljk.1.1700755716042;
+        Thu, 23 Nov 2023 08:08:36 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Ross Lagerwall <ross.lagerwall@citrix.com>,
 	Roger Pau Monne <roger.pau@citrix.com>
-Subject: [PATCH 1/2] livepatch-build-tools: remove usage of gawk
-Date: Thu, 23 Nov 2023 17:05:34 +0100
-Message-ID: <20231123160535.18658-2-roger.pau@citrix.com>
+Subject: [PATCH 2/2] livepatch-build-tools: do not use readlink -m option
+Date: Thu, 23 Nov 2023 17:05:35 +0100
+Message-ID: <20231123160535.18658-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231123160535.18658-1-roger.pau@citrix.com>
 References: <20231123160535.18658-1-roger.pau@citrix.com>
@@ -86,32 +86,93 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-And instead use plain awk.
+Busybox readlink implementation only supports the -f option to follow symlinks,
+so adjust the logic in order to keep the same behaviour without using the -m
+option.
 
-There's no need to use the --non-decimal-data option for gawk, since the
-numbers that we want to print are already prefixed with '0x', and so plain awk
-will do the conversion from hexadecimal to decimal just fine.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Singed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- livepatch-build | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ livepatch-build | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
 diff --git a/livepatch-build b/livepatch-build
-index 91d203bda0eb..26c88a2ed2c3 100755
+index 26c88a2ed2c3..2f35e98d30a3 100755
 --- a/livepatch-build
 +++ b/livepatch-build
-@@ -422,7 +422,7 @@ if [ "${SKIP}" != "build" ]; then
-     echo "Reading special section data"
-     # Using xen-syms built in the previous step by build_full().
-     SPECIAL_VARS=$(readelf -wi "$OUTPUT/xen-syms" |
--               gawk --non-decimal-data '
-+               awk '
-                BEGIN { a = b = e = 0 }
-                a == 0 && /DW_AT_name.* alt_instr/ {a = 1; next}
-                b == 0 && /DW_AT_name.* bug_frame/ {b = 1; next}
-
-base-commit: e588b7914e7afa3abb64b15a32fc2fdb57ded341
+@@ -336,8 +336,8 @@ while [[ $# -gt 0 ]]; do
+             ;;
+         --xen-syms)
+             shift
+-            XENSYMS="$(readlink -m -- "$1")"
+-            [ -f "$XENSYMS" ] || die "xen-syms file does not exist"
++            [ -f "$1" ] || die "xen-syms file does not exist"
++            XENSYMS="$(readlink -f -- "$1")"
+             shift
+             ;;
+         --depends)
+@@ -366,22 +366,20 @@ while [[ $# -gt 0 ]]; do
+ done
+ 
+ [ -z "$srcarg" ] && die "Xen directory not given"
++[ -d "$srcarg" ] || die "Xen directory does not exist"
+ [ -z "$patcharg" ] && die "Patchfile not given"
++[ -f "$patcharg" ] || die "Patchfile does not exist"
+ [ -z "$configarg" ] && die ".config not given"
++[ -f "$configarg" ] || die ".config does not exist"
+ [ -z "$outputarg" ] && die "Output directory not given"
+ [ -z "$DEPENDS" ] && die "Build-id dependency not given"
+ [ -z "$XEN_DEPENDS" ] && die "Xen Build-id dependency not given"
+ 
+-SRCDIR="$(readlink -m -- "$srcarg")"
++SRCDIR="$(readlink -f -- "$srcarg")"
+ # We need an absolute path because we move around, but we need to
+ # retain the name of the symlink (= realpath -s)
+ PATCHFILE="$(readlink -f "$(dirname "$patcharg")")/$(basename "$patcharg")"
+-CONFIGFILE="$(readlink -m -- "$configarg")"
+-OUTPUT="$(readlink -m -- "$outputarg")"
+-
+-[ -d "${SRCDIR}" ] || die "Xen directory does not exist"
+-[ -f "${PATCHFILE}" ] || die "Patchfile does not exist"
+-[ -f "${CONFIGFILE}" ] || die ".config does not exist"
++CONFIGFILE="$(readlink -f -- "$configarg")"
+ 
+ PATCHNAME=$(make_patch_name "${PATCHFILE}")
+ 
+@@ -390,17 +388,20 @@ echo
+ echo "Xen directory: ${SRCDIR}"
+ echo "Patch file: ${PATCHFILE}"
+ echo ".config file: ${CONFIGFILE}"
+-echo "Output directory: ${OUTPUT}"
++echo "Output directory: $outputarg"
+ echo "================================================"
+ echo
+ 
+ if [ "${SKIP}" != "build" ]; then
+-    [ -e "${OUTPUT}" ] && die "Output directory exists"
++    # Make sure output directory doesn't exist, and create it.
++    [ -e "$outputarg" ] && die "Output directory exists"
++    mkdir -p "$outputarg" || die
++    OUTPUT="$(readlink -f -- "$outputarg")"
++
+     grep -q 'CONFIG_LIVEPATCH=y' "${CONFIGFILE}" || die "CONFIG_LIVEPATCH must be enabled"
+     cd "$SRCDIR" || die
+     patch -s -N -p1 -f --fuzz=0 --dry-run < "$PATCHFILE" || die "Source patch file failed to apply"
+ 
+-    mkdir -p "${OUTPUT}" || die
+     cp -f "${CONFIGFILE}" "${OUTPUT}/.config"
+     cp -f "${OUTPUT}/.config" "xen/.config"
+ 
+@@ -453,7 +454,9 @@ if [ "${SKIP}" != "build" ]; then
+ fi
+ 
+ if [ "${SKIP}" != "diff" ]; then
+-    [ -d "${OUTPUT}" ] || die "Output directory does not exist"
++    cd "${SCRIPTDIR}" || die
++    [ -d "$outputarg" ] || die "Output directory does not exist"
++    OUTPUT="$(readlink -f -- "$outputarg")"
+ 
+     cd "${OUTPUT}" || die
+     create_patch
 -- 
 2.43.0
 
