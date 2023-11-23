@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C867F6918
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 23:46:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640023.997840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FBD97F6976
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 00:14:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640062.997850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6ISq-0000ZC-3f; Thu, 23 Nov 2023 22:46:28 +0000
+	id 1r6Itn-0004zW-9s; Thu, 23 Nov 2023 23:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640023.997840; Thu, 23 Nov 2023 22:46:28 +0000
+Received: by outflank-mailman (output) from mailman id 640062.997850; Thu, 23 Nov 2023 23:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6ISq-0000WE-04; Thu, 23 Nov 2023 22:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 640023;
- Thu, 23 Nov 2023 22:46:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zW5S=HE=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1r6ISp-0000Vp-5V
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 22:46:27 +0000
-Received: from m226-146.mailgun.net (m226-146.mailgun.net [159.135.226.146])
- by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
- id 20e5cb49-8a52-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 23:46:24 +0100 (CET)
-Received: from mg.gitlab.com (3.226.74.34.bc.googleusercontent.com
- [34.74.226.3]) by
- 0d7408950feb with SMTP id 655fd63eeef17b1c76424aad (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Thu, 23 Nov 2023 22:46:22 GMT
+	id 1r6Itn-0004xn-4s; Thu, 23 Nov 2023 23:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 640062;
+ Thu, 23 Nov 2023 23:14:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r6Itl-0004xd-A9; Thu, 23 Nov 2023 23:14:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r6Itl-0005NJ-6X; Thu, 23 Nov 2023 23:14:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r6Itk-0003la-Nb; Thu, 23 Nov 2023 23:14:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r6Itk-00045r-N3; Thu, 23 Nov 2023 23:14:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,426 +41,446 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 20e5cb49-8a52-11ee-9b0e-b553b5be7939
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
- q=dns/txt; s=mailo; t=1700779582; x=1700786782; h=List-Id:
- Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
- Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
- bh=Qq1nkBECtGy2wLzg2GQwXMR34UgB0wrkwsUaFNAU4SM=;
- b=TbTIr9KxSJewl7Xg4Mh95ISIBAZWjOa5JbWcZfh4HLCLQqxd1aQeF9hJFE0lu6bRq5VzZXdSmYLIs2TrMKVAjYn7cIKVmr7evywcvi4LhV3iPpZNwMXceZ8Hxq2yWKjXV6BYZYx0Cm+Cs7Q29TH4SVwn1h8z29UXn4qF0wzZGeo=
-X-Mailgun-Sending-Ip: 159.135.226.146
-X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
-Sender: gitlab@mg.gitlab.com
-Date: Thu, 23 Nov 2023 22:46:22 +0000
-From: GitLab <gitlab@mg.gitlab.com>
-Reply-To: GitLab <noreply@gitlab.com>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=kXp0PvADDiJ4oi6DqFksdbc8ak25HNSBFAcjNaS1dls=; b=eBKkEn1fsDH2AVEbAxvD2Zn2gN
+	r6wUPq5m84RzhM2Xy5xca5RbfUouBf9/OwDJeNbWMzV29ZJHFeU7PrcRVanfPw9ERaexaXG5xctcT
+	euI/Zo9iOmzbd4LY9H27hvxHhI4YBplZCj6TeUrKO6vM4nvXWYTIdKTah95pMeTx0ezo=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <655fd63edd18f_2c9ad58910c6@gitlab-sidekiq-catchall-v2-6ddc8774b5-z8nrc.mail>
-Subject: xen | Successful pipeline for staging | 03d6720a
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="--==_mimepart_655fd63ed3809_2c9ad5890984";
- charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-GitLab-Project: xen
-X-GitLab-Project-Id: 2336572
-X-GitLab-Project-Path: xen-project/xen
-X-GitLab-Pipeline-Id: 1083211317
-X-GitLab-Pipeline-Ref: staging
-X-GitLab-Pipeline-Status: success
-Auto-Submitted: auto-generated
-X-Auto-Response-Suppress: All
+Message-ID: <osstest-183841-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 183841: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=9b6de136b5f0158c60844f85286a593cb70fb364
+X-Osstest-Versions-That:
+    linux=c42d9eeef8e5ba9292eda36fd8e3c11f35ee065c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 23 Nov 2023 23:14:16 +0000
 
-----==_mimepart_655fd63ed3809_2c9ad5890984
-Content-Type: text/plain;
- charset=UTF-8
-Content-Transfer-Encoding: 7bit
+flight 183841 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183841/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 183766
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 183766
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 183766
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183766
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183766
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183766
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183766
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183766
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183766
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183766
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183766
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ linux                9b6de136b5f0158c60844f85286a593cb70fb364
+baseline version:
+ linux                c42d9eeef8e5ba9292eda36fd8e3c11f35ee065c
+
+Last test of basis   183766  2023-11-15 17:14:16 Z    8 days
+Failing since        183773  2023-11-16 13:12:48 Z    7 days   17 attempts
+Testing same since   183832  2023-11-23 00:13:43 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  "Michael S. Tsirkin" <mst@redhat.com>
+  Abel Wu <wuyun.abel@bytedance.com>
+  Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alex Hung <alex.hung@amd.com>
+  Alex Pakhunov <alexey.pakhunov@spacex.com>
+  Alexei Starovoitov <ast@kernel.org>
+  Alistair Francis <alistair.francis@wdc.com>
+  Amir Goldstein <amir73il@gmail.com>
+  Anastasia Belova <abelova@astralinux.ru>
+  Anders Roxell <anders.roxell@linaro.org>
+  Andi Shyti <andi.shyti@kernel.org>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrii Nakryiko <andrii@kernel.org>
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Andy Shevchenko <andy.shevchenko@gmail.com>
+  Ani Sinha <anisinha@redhat.com>
+  Anthony Iliopoulos <ailiop@suse.com>
+  Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Arpana Arland <arpanax.arland@intel.com> (A Contingent worker at Intel)
+  Asad Kamal <asad.kamal@amd.com>
+  Bagas Sanjaya <bagasdotme@gmail.com>
+  Baruch Siach <baruch@tkos.co.il>
+  Bibo Mao <maobibo@loongson.cn>
+  Björn Töpel <bjorn@rivosinc.com>
+  Breno Leitao <leitao@debian.org>
+  Brenton Simpson <appsforartists@google.com>
+  Chandan Babu R <chandanbabu@kernel.org>
+  Chandradeep Dey <codesigning@chandradeepdey.com>
+  Chen Yu <yu.c.chen@intel.com>
+  Christian König <christian.koenig@amd.com>
+  Christoph Hellwig <hch@infradead.org>
+  Christoph Hellwig <hch@lst.de>
+  Chuck Lever <chuck.lever@oracle.com>
+  ChunHao Lin <hau@realtek.com>
+  Clément Léger <cleger@rivosinc.com>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  Dan Nowlin <dan.nowlin@intel.com>
+  Daniel J Blueman <daniel@quora.org>
+  Daniel Vetter <daniel.vetter@ffwll.ch>
+  Daniel Wheeler <daniel.wheeler@amd.com>
+  Danilo Krummrich <dakr@redhat.com>
+  Dave Airlie <airlied@redhat.com>
+  Dave Chinner <dchinner@redhat.com>
+  Dave Hansen <dave.hansen@linux.intel.com>
+  David S. Miller <davem@davemloft.net>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Dexuan Cui <decui@microsoft.com>
+  Duncan Ma <duncan.ma@amd.com>
+  Dust Li <dust.li@linux.alibaba.com>
+  Eduard Zingerman <eddyz87@gmail.com>
+  Ekaterina Esina <eesina@astralinux.ru>
+  Erez Shitrit <erezsh@nvidia.com>
+  Eric Dumazet <edumazet@google.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Eymen Yigit <eymenyg01@gmail.com>
+  Fang Xiang <fangxiang3@xiaomi.com>
+  Fangzhi Zuo <jerry.zuo@amd.com>
+  Ferry Meng <mengferry@linux.alibaba.com>
+  Gal Pressman <gal@nvidia.com>
+  Gao Xiang <hsiangkao@linux.alibaba.com>
+  Gavin Li <gavinl@nvidia.com>
+  Geliang Tang <geliang.tang@suse.com>
+  Gustavo A. R. Silva <gustavoars@kernel.org>
+  Hamza Mahfooz <hamza.mahfooz@amd.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+  Helge Deller <deller@gmx.de>
+  Hou Tao <houtao1@huawei.com>
+  Huacai Chen <chenhuacai@loongson.cn>
+  Hyeongtak Ji <hyeongtak.ji@sk.com>
+  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+  Ingo Molnar <mingo@kernel.org>
+  Itamar Gozlan <igozlan@nvidia.com>
+  Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jakub Sitnicki <jakub@cloudflare.com>
+  Jan Bottorff <janb@os.amperecomputing.com>
+  Jan Kiszka <jan.kiszka@siemens.com>
+  Jarkko Nikula <jarkko.nikula@linux.intel.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Wang <jasowang@redhat.com>
+  Jay Vosburgh <jay.vosburgh@canonical.com>
+  Jeff Layton <jlayton@kernel.org
+  Jeff Layton <jlayton@kernel.org>
+  Jens Axboe <axboe@kernel.dk>
+  Jian Shen <shenjian15@huawei.com>
+  Jianbo Liu <jianbol@nvidia.com>
+  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+  Jijie Shao <shaojijie@huawei.com>
+  Jingbo Xu <jefflexu@linux.alibaba.com>
+  Jithu Joseph <jithu.joseph@intel.com>
+  Johannes Weiner <hannes@cmpxchg.org>
+  Johnathan Mantey <johnathanx.mantey@intel.com>
+  José Pekkarinen <jose.pekkarinen@foxhound.fi>
+  Jozsef Kadlecsik <kadlec@netfilter.org>
+  Juergen Gross <jgross@suse.com>
+  Kai Huang <kai.huang@intel.com>
+  Kai Vehmanen <kai.vehmanen@linux.intel.com>
+  Kailang Yang <kailang@realtek.com>
+  Kees Cook <keescook@chromium.org>
+  Keisuke Nishimura <keisuke.nishimura@inria.fr>
+  Kent Overstreet <kent.overstreet@gmail.com>
+  Kent Overstreet <kent.overstreet@linux.dev>
+  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+  Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+  Le Ma <le.ma@amd.com>
+  Leah Rumancik <leah.rumancik@gmail.com>
+  Len Brown <len.brown@intel.com>
+  Lewis Huang <lewis.huang@amd.com>
+  Lijo Lazar <lijo.lazar@amd.com>
+  Linkui Xiao <xiaolinkui@kylinos.cn>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Liu Tie <liutie4@huawei.com>
+  Long Li <leo.lilong@huawei.com>
+  Lorenzo Bianconi <lorenzo@kernel.org>
+  Luca Boccassi <bluca@debian.org>
+  Lukas Bulwahn <lukas.bulwahn@gmail.com>
+  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+  Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+  Maher Sanalla <msanalla@nvidia.com>
+  Mahmoud Adam <mngyadam@amazon.com>
+  Marek Behún <kabel@kernel.org>
+  Mario Limonciello <mario.limonciello@amd.com>
+  Mario Limonciello <mario.limonciello@amd.com> # PHX & Navi33
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  matoro <matoro_mailinglist_kernel@matoro.tk>
+  Matthew Wilcox (Oracle) <willy@infradead.org>
+  Matthieu Baerts <matttbe@kernel.org>
+  Matus Malych <matus@malych.org>
+  MD Danish Anwar <danishanwar@ti.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Mike Christie <michael.christie@oracle.com>
+  Mike Snitzer <snitzer@kernel.org>
+  Mikulas Patocka <mpatocka@redhat.com>
+  Ming Lei <ming.lei@redhat.com>
+  Muhammad Ahmed <ahmed.ahmed@amd.com>
+  Muhammad Usama Anjum <usama.anjum@collabora.com>
+  Naomi Chu <naomi.chu@mediatek.com>
+  Nathan Chancellor <nathan@kernel.org>
+  Neil Armstrong <neil.armstrong@linaro.org>
+  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+  Nicholas Susanto <nicholas.susanto@amd.com>
+  Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+  Nilesh Javali <njavali@marvell.com>
+  Omar Sandoval <osandov@fb.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paul Greenwalt <paul.greenwalt@intel.com>
+  Paul Hsieh <paul.hsieh@amd.com>
+  Paul Moore <paul@paul-moore.com>
+  Pengfei Xu <pengfei.xu@intel.com>
+  Peter Korsgaard <peter@korsgaard.com>
+  Peter Wang <peter.wang@mediatek.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Quinn Tran <qutran@marvell.com>
+  Rahul Rameshbabu <rrameshbabu@nvidia.com>
+  Randy Dunlap <rdunlap@infradead.org>
+  Ravi Gunasekaran <r-gunasekaran@ti.com>
+  Richard Cochran <richardcochran@gmail.com>
+  Richard Fitzgerald <rf@opensource.cirrus.com>
+  Rick Edgecombe <rick.p.edgecombe@intel.com>
+  Robert Marko <robert.marko@sartura.hr>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Roman Gushchin <roman.gushchin@linux.dev>
+  Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+  Ryan Roberts <ryan.roberts@arm.com>
+  Saeed Mahameed <saeedm@nvidia.com>
+  Sam James <sam@gentoo.org>
+  Samuel Holland <samuel.holland@sifive.com>
+  Saurabh Sengar <ssengar@linux.microsoft.com>
+  SeongJae Park <sj@kernel.org>
+  Serge Semin <fancer.lancer@gmail.com>
+  Shakeel Butt <shakeelb@google.com>
+  Shannon Nelson <shannon.nelson@amd.com>
+  Shigeru Yoshida <syoshida@redhat.com>
+  Shiwu Zhang <shiwu.zhang@amd.com>
+  Shyam Prasad N <sprasad@microsoft.com>
+  Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+  Simon Glass <sjg@chromium.org>
+  Simon Trimmer <simont@opensource.cirrus.com>
+  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+  Stanislav Fomichev <sdf@google.com>
+  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+  Stefan Binding <sbinding@opensource.cirrus.com>
+  Stefan Roesch <shr@devkernel.io>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Steve French <stfrench@microsoft.com>
+  Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+  Sumeet Pawnikar <sumeet.r.pawnikar@intel.com>
+  Sunitha Mekala <sunithax.d.mekala@intel.com> (A Contingent worker at Intel)
+  Suren Baghdasaryan <surenb@google.com>
+  Sven Auhagen <sven.auhagen@voleatech.de>
+  Takashi Iwai <tiwai@suse.de>
+  Thomas Gleixner <tglx@linutronix.de>
+  Tianci Yin <tianci.yin@amd.com>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Uros Bizjak <ubizjak@gmail.com>
+  Victor Lu <victorchengchi.lu@amd.com>
+  Vincent Wong <vincent.wong2@spacex.com>
+  Vlad Buslov <vladbu@nvidia.com>
+  WANG Rui <wangrui@loongson.cn>
+  Wei Liu <wei.liu@kernel.org>
+  Willem de Bruijn <willemb@google.com>
+  Wolfram Sang <wsa@kernel.org>
+  Xin Long <lucien.xin@gmail.com>
+  Yang Li <yang.lee@linux.alibaba.com>
+  Yang Wang <kevinyang.wang@amd.com>
+  Yanteng Si <siyanteng@loongson.cn>
+  Yi Zhang <yi.zhang@redhat.com>
+  Yonghong Song <yonghong.song@linux.dev>
+  Yonglong Liu <liuyonglong@huawei.com>
+  YuanShang <YuanShang.Mao@amd.com>
+  Yuran Pereira <yuran.pereira@hotmail.com>
+  Zhang Rui <rui.zhang@intel.com>
+  Ziwei Xiao <ziweixiao@google.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Pipeline #1083211317 has passed!
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Project: xen ( https://gitlab.com/xen-project/xen )
-Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Commit: 03d6720a ( https://gitlab.com/xen-project/xen/-/commit/03d6720a4c62c283f9a9f09858eeccd24299b312 )
-Commit Message: tools/pygrub: Restrict depriv operation with RL...
-Commit Author: Alejandro Vallejo
-Committed by: Andrew Cooper ( https://gitlab.com/andyhhp )
-
-
-
-Pipeline #1083211317 ( https://gitlab.com/xen-project/xen/-/pipelines/1083211317 ) triggered by Ganis ( https://gitlab.com/ganis )
-successfully completed 129 jobs in 3 stages.
-
--- 
-You're receiving this email because of your account on gitlab.com.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
 
-
-----==_mimepart_655fd63ed3809_2c9ad5890984
-Content-Type: text/html;
- charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
-w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
-
-<head>
-<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
-/>
-<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
-t" />
-<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
-<title>xen | Successful pipeline for staging | 03d6720a</title>
-<style data-premailer=3D"ignore" type=3D"text/css">
-body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
-able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
-ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
-a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
-important;font-size:inherit !important;font-family:inherit !important;fon=
-t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
-margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
-39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
-ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
-ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
-ing-left:10px !important;padding-right:10px !important}}
-
-</style>
-
-<style>body {
-margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
-center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
-ica Neue", Helvetica, Arial, sans-serif;
-}
-</style></head>
-<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
- 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
-rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
-
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
-=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
-: 0;" bgcolor=3D"#fafafa">
-<tbody>
-<tr class=3D"line">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
-4fbb"></td>
-</tr>
-<tr class=3D"header">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
-px 0;">
-
-<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
-2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
-th=3D"55" height=3D"55" />
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
- style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
-gin: 0 auto;">
-<tbody>
-<tr>
-<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
-t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
-adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
-#fff">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
- style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
-<tbody>
-<tr class=3D"table-success">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
-rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
-lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse; margin: 0 auto;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
-<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
-ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
-5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
- width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #ffffff;" align=3D"center" valign=3D"middle">
-Pipeline #1083211317 has passed!
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr class=3D"spacer">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
-ight: 18px; font-size: 18px; line-height: 18px;">
-&#160;
-</td>
-</tr>
-<tr class=3D"section">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
-rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
-deded;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
-fo" style=3D"width: 100%;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
-: 0; padding: 14px 0;">
-Project
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; margin: 0; padding: 14px 0 14px 5px;">
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
-: #333333; text-decoration: none;">
-xen-project
-</a>
-/
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
-olor: #333333; text-decoration: none;">
-xen
-</a>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Branch
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
-ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
-9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
-taging" style=3D"color: #333333; text-decoration: none;">
-staging
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Commit
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
-ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
-506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<a href=3D"https://gitlab.com/xen-project/xen/-/commit/03d6720a4c62c283f9=
-a9f09858eeccd24299b312" style=3D"color: #3777b0; text-decoration: none;">=
-03d6720a</a>
-</td>
-</tr>
-</tbody>
-</table>
-<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
-tools/pygrub: Restrict depriv operation with RL...
-</div>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Commit Author
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
-ar.com/avatar/50133b2b73449e317452c72069da8553?s=3D48&amp;d=3Didenticon" =
-style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
-4" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<span>
-Alejandro Vallejo
-</span>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
--top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
-in: 0; padding: 14px 0;">
-Committed by
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
- 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
- solid; margin: 0; padding: 14px 0 14px 5px;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
-<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
-ar.com/avatar/6cb22538f3a82e4ee99e1d0419f62385?s=3D48&amp;d=3Didenticon" =
-style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
-4" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"middle">
-<a class=3D"muted" href=3D"https://gitlab.com/andyhhp" style=3D"color: #3=
-33333; text-decoration: none;">
-Andrew Cooper
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr class=3D"spacer">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
-ight: 18px; font-size: 18px; line-height: 18px;">
-&#160;
-</td>
-</tr>
-<tr class=3D"success-message">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
-g: 15px 5px 0;" align=3D"center">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse; margin: 0 auto;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
-Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/108321=
-1317" style=3D"color: #3777b0; text-decoration: none;">#1083211317</a> tr=
-iggered by
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
-dding-left: 5px;" width=3D"24" valign=3D"middle">
-<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
-ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
-style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
-4" />
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
-nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
-<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
-333; text-decoration: none;">
-Ganis
-</a>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
-sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
-t: 1.4; padding: 15px 5px;" align=3D"center">
-successfully completed 129 jobs in 3 stages.
-</td>
-</tr>
-
-
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-
-<tr class=3D"footer">
-<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
-ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
-px 0;">
-<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
-s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
-5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
-n: 0 auto 1em;" />
-<div>
-You're receiving this email because of your account on <a target=3D"_blan=
-k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
-: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
-lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
-rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
-none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
-help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
-tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
-</div>
-</td>
-</tr>
-
-
-<tr>
-<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
-uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
-lor: #5c5c5c; padding: 25px 0;">
-
-</td>
-</tr>
-</tbody>
-</table>
-</body>
-</html>
-
-----==_mimepart_655fd63ed3809_2c9ad5890984--
+(No revision log; it would be 8840 lines long.)
 
