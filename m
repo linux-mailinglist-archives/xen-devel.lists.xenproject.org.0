@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE9637F6471
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 17:56:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639939.997601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C74317F6478
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 17:57:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639940.997612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6D0O-0001i1-33; Thu, 23 Nov 2023 16:56:44 +0000
+	id 1r6D0k-0002Ak-B6; Thu, 23 Nov 2023 16:57:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639939.997601; Thu, 23 Nov 2023 16:56:44 +0000
+Received: by outflank-mailman (output) from mailman id 639940.997612; Thu, 23 Nov 2023 16:57:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6D0O-0001fT-0Q; Thu, 23 Nov 2023 16:56:44 +0000
-Received: by outflank-mailman (input) for mailman id 639939;
- Thu, 23 Nov 2023 16:56:42 +0000
+	id 1r6D0k-00028P-8J; Thu, 23 Nov 2023 16:57:06 +0000
+Received: by outflank-mailman (input) for mailman id 639940;
+ Thu, 23 Nov 2023 16:57:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fVVO=HE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r6D0M-0001fL-Bg
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 16:56:42 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ id 1r6D0i-0001fL-87
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 16:57:04 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 462d4f54-8a21-11ee-98e2-6d05b1d4d9a1;
- Thu, 23 Nov 2023 17:56:41 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-507ad511315so1441146e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 08:56:41 -0800 (PST)
+ id 539628fd-8a21-11ee-98e2-6d05b1d4d9a1;
+ Thu, 23 Nov 2023 17:57:03 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-32dc9ff4a8fso703111f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 08:57:03 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- df2-20020a5d5b82000000b0032fbe5b1e45sm2089010wrb.61.2023.11.23.08.56.40
+ df2-20020a5d5b82000000b0032fbe5b1e45sm2089010wrb.61.2023.11.23.08.57.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 08:56:40 -0800 (PST)
+ Thu, 23 Nov 2023 08:57:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 462d4f54-8a21-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: 539628fd-8a21-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700758601; x=1701363401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oBNn7jJG4lYeTriQcEhM9ixI3wBPM7jvwLZzjFwo4Qw=;
-        b=dpNrbG2flxAx/LBtn3VJSLiFIx2PK9Z4QpxDDVbUsqwgblr2gS7BnCHAE28wMzQ8SB
-         PYL+ZbWVWGb1zY6tIdW8vZooozCevSiu/7F/ITAfO2d+Nr5kWWuLqq5H/ijpLgxd+W1i
-         0CD6PEBv0zxGKkKWK07zNhDmY9/OGwAHz6l34=
+        d=citrix.com; s=google; t=1700758623; x=1701363423; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nL9Lrzli2/83sINQl90CXNfa5qp0gGlv9hp0GrRE4N8=;
+        b=KWCPfrV6Tgt9vVa4bxejJSEI2knJlSPQtUyHpC8uKNtdlvq5rkF1I8DHEZqM6QdLTH
+         NeojDa6pRzWpl43KgV/EjanKnQWgkHrQVcTngqGrHx5WBNBpwqyIkGV9XLzLo52wpcGf
+         B3blSNNdxDK0jVb3gDHfKNjVYdfgV8zyjMY/8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700758601; x=1701363401;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oBNn7jJG4lYeTriQcEhM9ixI3wBPM7jvwLZzjFwo4Qw=;
-        b=NX5NqvcTA5YQU6CZjNHugrKavo5vvIUet5N1HIcFDxHMGtuUgdX2+62em24emax0dW
-         As4cOO4tjFnFoeZhha4oh/2FMpo/qa3xxs2uVf2t1RdIKQkQa8693ZBBD2cAw2krQKNQ
-         DyIXZLzliZyCuD4rJD2QlvLaeadPJvaIoyes43lkYuo818M1dEvOqbMzGXRtvYItteEZ
-         mVDvStirKel5B9muYCA+/wBhrVmlXVynDn1TsR7+auTAWKTBEpXyJ1pDUfGEgjX7o/IZ
-         Es/sj+04R1flULUOnTDtk1Vqz6bo5ktDJ0r6Jw5I2hNi36aWJv6XtLDAeeG/KLnA2OVh
-         5/dw==
-X-Gm-Message-State: AOJu0YyQOCREklLQYY68H7CZncIrqTDnO57acw+wKTu4I1lcckaPmJgE
-	r9crWEycpDq0o7hDeOYQlUegMA==
-X-Google-Smtp-Source: AGHT+IHDra7Hz48a+TBpWM1gz8ylsu4+5PO9vcpVK6bVf4J9uVQbReOeRY5jzw6Y/7UTGRwFlLEnWA==
-X-Received: by 2002:ac2:4c2a:0:b0:508:269d:1342 with SMTP id u10-20020ac24c2a000000b00508269d1342mr4145311lfq.35.1700758600558;
-        Thu, 23 Nov 2023 08:56:40 -0800 (PST)
-Message-ID: <c4a6866d-1522-4a21-b323-52fa9c807691@citrix.com>
-Date: Thu, 23 Nov 2023 16:56:39 +0000
+        d=1e100.net; s=20230601; t=1700758623; x=1701363423;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nL9Lrzli2/83sINQl90CXNfa5qp0gGlv9hp0GrRE4N8=;
+        b=Sf1WZLqywtQVban8b+AHr1qv6ALwrVYTkgc7Ymf0GFZRbV03ia+8tzqm1fbHCApUc1
+         7dV33zs8zJBKsuqj5DtGL2kdO4Eh7D9TULBVw002kx6Gn1ppJTuHussWJcdiwK8uTlRp
+         qXv/ucNznItFeGWJqFTTidAFkXiKkh031P3UykAPa6TtDKQNmbqvrHkf1p0PiGOzXPyx
+         qP5rzhQuH5eTlihuzw1J07cISmyT/1ww9jx7pUR364Q10QE1QoEi1FAN40pWxxorUkeU
+         9x3iEY+zZNT2wYBKDCajuRGr2+te1A4KuuA3ffeyhOsZmtfmT0iiWapbjU8yN4LQJIxk
+         8Okg==
+X-Gm-Message-State: AOJu0YwSabx2cfRENfQA4lWy3Ag2BIHG3/KQ+dGBHMMCQSGrs9xJQxWu
+	W+I1at+6y3loLNqSkNtVO4TUeA==
+X-Google-Smtp-Source: AGHT+IFNLCZEJISWHAujthmyH7HyNTzACUbz+tnKpm59of71nm6Po4wKqVhQ+xGSsL3yu0ylo83RHA==
+X-Received: by 2002:adf:ef46:0:b0:332:ced7:56cf with SMTP id c6-20020adfef46000000b00332ced756cfmr25671wrp.48.1700758623205;
+        Thu, 23 Nov 2023 08:57:03 -0800 (PST)
+Message-ID: <420cffb8-96f7-43f2-9ba2-019eb4abf49d@citrix.com>
+Date: Thu, 23 Nov 2023 16:57:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/3] livepatch: add a dummy hypercall for testing purposes
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20231123112338.14477-1-roger.pau@citrix.com>
- <20231123112338.14477-3-roger.pau@citrix.com>
+Subject: Re: [PATCH v2.5/6] tools/pygrub: Fix expression before it's copied
+ elsewhere
 Content-Language: en-GB
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20231106150508.22665-3-alejandro.vallejo@cloud.com>
+ <20231122200702.1874420-1-andrew.cooper3@citrix.com>
+ <90f63f30-38d3-4d70-aae3-1ec3a307c4c1@cloud.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -132,65 +129,40 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231123112338.14477-3-roger.pau@citrix.com>
+In-Reply-To: <90f63f30-38d3-4d70-aae3-1ec3a307c4c1@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23/11/2023 11:23 am, Roger Pau Monne wrote:
-> Introduce a dummy XEN_SYSCTL_LIVEPATCH_TEST hypercall to be used in order to
-> test livepatch functionality.  The hypercall fills a value in the passed
-> structure, which is returned to the caller.
+On 23/11/2023 4:50 pm, Alejandro Vallejo wrote:
+> On 22/11/2023 20:07, Andrew Cooper wrote:
+>> This has an identical meaning, and is the more pythonic way of
+>> writing it.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Anthony PERARD <anthony.perard@citrix.com>
+>> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> ---
+>>   tools/pygrub/src/pygrub | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/pygrub/src/pygrub b/tools/pygrub/src/pygrub
+>> index 327cf51774fc..2c06684d6532 100755
+>> --- a/tools/pygrub/src/pygrub
+>> +++ b/tools/pygrub/src/pygrub
+>> @@ -88,7 +88,7 @@ def downgrade_rlimits():
+>>       # filesystem we set RLIMIT_FSIZE to a high bound, so that the file
+>>       # write permissions are bound.
+>>       fsize = LIMIT_FSIZE
+>> -    if "PYGRUB_MAX_FILE_SIZE_MB" in os.environ.keys():
+>> +    if "PYGRUB_MAX_FILE_SIZE_MB" in os.environ:
+>>           fsize = int(os.environ["PYGRUB_MAX_FILE_SIZE_MB"]) << 20
+>>         resource.setrlimit(resource.RLIMIT_FSIZE, (fsize, fsize))
 >
-> The xen-livepatch utility is expanded to allow calling that hypercall, and
-> printing the returned value on stdout.
->
-> Finally, add dummy patch that changes the returned value of the hypercall from
-> 1 to 2.  Such patch can be used with livepatch-build-tools in order to generate
-> a livepatch payload, that when applied to the hypervisor change the printed
-> value of `xen-livepatch test`.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> The whole logic is very simple now.  I think it's enough to have a skeleton we
-> can later expand.
->
-> Unsure whether we should do some kind of test (with `patch -F0`) that the patch
-> still applies cleanly as part of Xen build.
+> LGTM.
 
-Thanks for looking into this.  I think one tweak towards the larger plan
-might help here.
-
-When I envisaged this originally, it was something along the lines of
-test_self_modify_code() which would be called on boot after alternatives
-were called, which would sanity check the result of certain simple cases.
-
-Then, for livepatching, I was thinking of something like this:
-
-obj-y += test_smc.o
-targets-y += test_smc_alt.o
-
-i.e. we have test_smc.c and test_smc_alt.c which are two slightly
-different copies of the same thing, and we compile both but don't link
-the second one in.
-
-Then, we can diff the two C files in order to make the patch to build as
-a livepatch.  This way we're not maintaining a patch committed into the
-tree, which I suspect will make everyone's lives easier.  I suspect in
-practice that we'll want test_smc_asm.S pairs too.
-
-Not necessarily for now, but I was also thinking we'd have a test stage
-where we know exactly what the livepatch ought to look like, so we audit
-the eventual livepatch elf that it has all the expected differences
-encoded, and no extraneous ones.
-
-Finally, I was thinking that the hypercall would (re)run
-test_self_modify_code().  I'm on the fence about making it part of the
-livepatch infrastructure, given that the nature of the test is wider,
-but I can't think of any case that we'd be wanting runtime self
-modifying code (e.g. rerun alternatives after ucode load) which isn't
-linked to a new livepatch to begin with.
-
-Thoughts?
+Can I take that as a R-by then?
 
 ~Andrew
 
