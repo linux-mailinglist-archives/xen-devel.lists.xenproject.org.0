@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E297F5B12
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 10:30:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639468.996879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4577F5B2E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 10:40:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639474.996893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r661z-0004SR-Jm; Thu, 23 Nov 2023 09:29:55 +0000
+	id 1r66BU-00083B-KW; Thu, 23 Nov 2023 09:39:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639468.996879; Thu, 23 Nov 2023 09:29:55 +0000
+Received: by outflank-mailman (output) from mailman id 639474.996893; Thu, 23 Nov 2023 09:39:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r661z-0004Qa-G1; Thu, 23 Nov 2023 09:29:55 +0000
-Received: by outflank-mailman (input) for mailman id 639468;
- Thu, 23 Nov 2023 09:29:54 +0000
+	id 1r66BU-00081G-Ht; Thu, 23 Nov 2023 09:39:44 +0000
+Received: by outflank-mailman (input) for mailman id 639474;
+ Thu, 23 Nov 2023 09:39:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XtUW=HE=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1r661y-0004QT-15
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 09:29:54 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r66BT-000819-2T
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 09:39:43 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id daa74af9-89e2-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 10:29:52 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40b27b498c3so4275475e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 01:29:52 -0800 (PST)
-Received: from [192.168.13.100] (54-240-197-239.amazon.com. [54.240.197.239])
- by smtp.gmail.com with ESMTPSA id
- s15-20020adf978f000000b00332d41f0798sm1133102wrb.29.2023.11.23.01.29.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 01:29:51 -0800 (PST)
+ id 398dbdf4-89e4-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 10:39:40 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2c5056059e0so8612371fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 01:39:40 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ h10-20020a9f3f0a000000b007c442a209d0sm174826uaj.35.2023.11.23.01.39.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Nov 2023 01:39:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +44,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daa74af9-89e2-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 398dbdf4-89e4-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700731791; x=1701336591; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=uUwE7u3onPGssHGYPcJFRGaN2UI16fqtGIi4M3Ht1a4=;
-        b=AGxvtSS0NfxkvxwyeQmkz/Cq72Yzep5m5cfmwXhZ0ARZQDBKsFGrEMkfcLlFW+mdC9
-         1rHugvaGfVJI+T4NIVXkp3k0tPAtWqiN7jYtrkEKAvmFwYL9B2AqSBPGIKQGll3Zdc4L
-         nd40XVwzLZnxl9Psjr0eZ6/T6Rdu64Df182fXUYtts+/cO2XNtOxjALdl/jiht9s5sXT
-         BMqnuSah04GPulHB6qIkW7cDeeTOX87VsihMlZ/sJOHejm6RcJUWnbEOugx7XYzMMnao
-         XzhbosmTOzK9BpyiyFcrsGyhiTBTSOd/OaY77ruSOzo35ws/0bLsGxzbMWTM8E0B/lWI
-         v3PQ==
+        d=citrix.com; s=google; t=1700732380; x=1701337180; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=HKHBrK7wqpklaj5tlyf32nTbWwPH2Nb+I3aVwJSu/BI=;
+        b=rpz4raAntP9cpL+87+WDDkWnbQtB3uy03Qxru6ysX2wVuGzeakZZ4DwLmbqV1WGuYs
+         j6AmpNLNHLJhZjmzydgHJOxU5y9KVwMXRuk3KPRNPGdLN6A/WiTziVbDzRs1epEvNDPN
+         mWWK4uYEaPS51vTZ+upUJ+DFX962+cOUdjXkA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700731791; x=1701336591;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1700732380; x=1701337180;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uUwE7u3onPGssHGYPcJFRGaN2UI16fqtGIi4M3Ht1a4=;
-        b=HZ8LeXeNDj/BR6bhlR4+k2rnC+dlcGnWbvp2fwl+OXgN54xDtTqaYFbmJdlgqOlEnv
-         qPfp0KId0PGOEWbGljZCLokAdsuwMlFujA9t0oDOpDQdwov/NCrMCetPsgItSeBK6IFk
-         EuCd4CXpQtRAp7inxR62NXgXcxJYWQOwVItx4rOHgLKoQyUlQnOzuCnmTemkVjwJC7of
-         +7aLutvnBWIoz3psDekqMhiMvjTH0OK3sTYPAOwfkExAYxP500fhZqzNVvzcCVKotRWZ
-         /8HMg6t84cTJKSsggbOFi1UTB8eDUPqW+eULKcgl+mhgGxZ66QSqx0CroA1j8Iui0iTY
-         w+VQ==
-X-Gm-Message-State: AOJu0YwZ+w/mjxELlaFCOH8rRaqDdbyPESlkrbf5BjPZNRhBsdx0AdnU
-	aDZebKNj3vO79KAaMOfbA3U=
-X-Google-Smtp-Source: AGHT+IFlygPZqpcnr3ZfDt4tmxZcvFNUOiDOTe0AZd7sdtL0/KrfYErVCG8BikAxQK6z7g+6mdxvPQ==
-X-Received: by 2002:a5d:4bc6:0:b0:32f:b1ab:ee87 with SMTP id l6-20020a5d4bc6000000b0032fb1abee87mr3685763wrt.25.1700731791454;
-        Thu, 23 Nov 2023 01:29:51 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <630819c4-4343-401d-8c7b-342cfd5f50c0@xen.org>
-Date: Thu, 23 Nov 2023 09:29:50 +0000
+        bh=HKHBrK7wqpklaj5tlyf32nTbWwPH2Nb+I3aVwJSu/BI=;
+        b=EWx0ettU5zmOihq2QksOsfQOJhNEybNsffKJz/95RwCNxTA8N/lNtbH1AX89myxGtV
+         UU/Pmz4x4IT/GFLm/j0h8hGXtc7ErH2St8Ph+/2LM8H2SFNyL5nrH9bDu6gImTbcAZfS
+         NQwUp8xXUIlZTPelyKuKKK86Eqa6JeEA6bUKronI35j4lLzji3YbJHYiBJ8JTkIurdZb
+         2MTex5TRIO8NvjlB57lgs4+ujROk4KP7M/LCb/SeZg3sY9WHQKrgzYTZCx1eGscWQE/g
+         sbJp+txUWxBC1uvI9xkttQ4PirzFloFUZyFhJeh8hPSeZ+7ziaQE/yC8/ZcJxKk77Ggn
+         g3OA==
+X-Gm-Message-State: AOJu0YyGpXL/MYadzuKlS6awyCozECrawE1yWVRiJBlUMmGBPC1PZZ6l
+	BcPgxHez1u5QAnri64MN/jjc7w==
+X-Google-Smtp-Source: AGHT+IE2wSb/9qonnoe+/7PXzTLwJqK7k6lXMvAC9hzo8/BOxgHMzkQgBSPLbLWAbYuf2WNci6Xugw==
+X-Received: by 2002:a05:651c:1214:b0:2bc:d8cb:59fe with SMTP id i20-20020a05651c121400b002bcd8cb59femr3429956lja.8.1700732380196;
+        Thu, 23 Nov 2023 01:39:40 -0800 (PST)
+Date: Thu, 23 Nov 2023 10:39:37 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Neowutran <xen@neowutran.ovh>
+Subject: Re: [PATCH] x86/x2apic: introduce a mixed physical/cluster mode
+Message-ID: <ZV8d2ZiiiBBNySgc@macbook>
+References: <20231024135150.49232-1-roger.pau@citrix.com>
+ <ZT/Cs+MsBPibcc9D@mattapan.m5p.com>
+ <ZT_LWjKgQxOE9lpj@macbook>
+ <ZUqRfgAmzJRImW4O@mattapan.m5p.com>
+ <hqj6xjxb7r5lb52biejbzzue2jth3rcth3bouadya4jwarll4l@oswerq2ejbli>
+ <ZVgp0wshHg3ZQ/Md@mattapan.m5p.com>
+ <81f6bbd5-0487-461a-af1a-dbb6ead47cab@citrix.com>
+ <ZV1Rz+FmmyWFHiM9@mattapan.m5p.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH v2 1/6] hw/xen: Set XenBackendInstance in the XenDevice
- before realizing it
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>,
- "open list:Block layer core" <qemu-block@nongnu.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
- <20231121221023.419901-2-volodymyr_babchuk@epam.com>
- <e1663064-247d-41e3-9a36-16f81303fb94@xen.org> <878r6p1jp2.fsf@epam.com>
- <67e06eae161072e05f4b0990dbde1da869241670.camel@infradead.org>
-Organization: Xen Project
-In-Reply-To: <67e06eae161072e05f4b0990dbde1da869241670.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ZV1Rz+FmmyWFHiM9@mattapan.m5p.com>
 
-On 22/11/2023 23:04, David Woodhouse wrote:
-> On Wed, 2023-11-22 at 22:56 +0000, Volodymyr Babchuk wrote:
->>
->>
->> Paul Durrant <xadimgnik@gmail.com> writes:
->>
->>> On 21/11/2023 22:10, Volodymyr Babchuk wrote:
->>>> From: David Woodhouse <dwmw@amazon.co.uk>
->>>> This allows a XenDevice implementation to know whether it was
->>>> created
->>>> by QEMU, or merely discovered in XenStore after the toolstack created
->>>> it. This will allow us to create frontend/backend nodes only when we
->>>> should, rather than unconditionally attempting to overwrite them from
->>>> a driver domain which doesn't have privileges to do so.
->>>> As an added benefit, it also means we no longer have to call the
->>>> xen_backend_set_device() function from the device models immediately
->>>> after calling qdev_realize_and_unref(). Even though we could make
->>>> the argument that it's safe to do so, and the pointer to the unreffed
->>>> device *will* actually still be valid, it still made my skin itch to
->>>> look at it.
->>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
->>>> ---
->>>>    hw/block/xen-block.c         | 3 +--
->>>>    hw/char/xen_console.c        | 2 +-
->>>>    hw/net/xen_nic.c             | 2 +-
->>>>    hw/xen/xen-bus.c             | 4 ++++
->>>>    include/hw/xen/xen-backend.h | 2 --
->>>>    include/hw/xen/xen-bus.h     | 2 ++
->>>>    6 files changed, 9 insertions(+), 6 deletions(-)
->>>>
->>>
->>> Actually, I think you should probably update
->>> xen_backend_try_device_destroy() in this patch too. It currently uses
->>> xen_backend_list_find() to check whether the specified XenDevice has
->>> an associated XenBackendInstance.
->>
->> Sure. Looks like it is the only user of xen_backend_list_find(), so we
->> can get rid of it as well.
->>
->> I'll drop your R-b tag, because of those additional changes in the new
->> version.
-> 
-> I think it's fine to keep. He told me to do it :)
+On Tue, Nov 21, 2023 at 04:56:47PM -0800, Elliott Mitchell wrote:
+> It was insisted that full logs be sent to xen-devel.  Perhaps I am
+> paranoid, but I doubt I would have been successful at scrubbing all
+> hardware serial numbers.  As such, I was willing to post substantial
+> sections, but not everything.
 
-I confirm that :-)
+Can you please point out which hardware serial numbers are you
+referring to, and where are they printed in Xen dmesg?
+
+Thanks, Roger.
 
