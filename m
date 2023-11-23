@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 753E67F5C68
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 11:34:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639512.996993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 398067F5C73
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 11:36:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639516.997003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r672k-0001Uo-3o; Thu, 23 Nov 2023 10:34:46 +0000
+	id 1r673o-0002GL-DJ; Thu, 23 Nov 2023 10:35:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639512.996993; Thu, 23 Nov 2023 10:34:46 +0000
+Received: by outflank-mailman (output) from mailman id 639516.997003; Thu, 23 Nov 2023 10:35:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r672k-0001SE-0f; Thu, 23 Nov 2023 10:34:46 +0000
-Received: by outflank-mailman (input) for mailman id 639512;
- Thu, 23 Nov 2023 10:34:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r673o-0002Db-9U; Thu, 23 Nov 2023 10:35:52 +0000
+Received: by outflank-mailman (input) for mailman id 639516;
+ Thu, 23 Nov 2023 10:35:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fVVO=HE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r672j-00017G-8t
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 10:34:45 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea41b1f5-89eb-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 11:34:43 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-332ce50450dso479857f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 02:34:43 -0800 (PST)
+ id 1r673n-0002DT-AC
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 10:35:51 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11f7b628-89ec-11ee-98e2-6d05b1d4d9a1;
+ Thu, 23 Nov 2023 11:35:50 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3316c6e299eso471752f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 02:35:50 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- j14-20020adff54e000000b0032db8cccd3asm1294939wrp.114.2023.11.23.02.34.42
+ j14-20020adff54e000000b0032db8cccd3asm1294939wrp.114.2023.11.23.02.35.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 02:34:43 -0800 (PST)
+ Thu, 23 Nov 2023 02:35:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea41b1f5-89eb-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 11f7b628-89ec-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700735683; x=1701340483; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700735750; x=1701340550; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ClnH6me5J6MLemqiKYkj+VSimOnfNG6wlNsGZ4gbcbI=;
-        b=T4emXz9UgQZ90VejZJlWhhKSuM0XI8c8ShBX9eHI6hzU1s58UGcSs6B30rgZpqq1m8
-         gcUm6mRv6ACAC/YCTdkt1Bikqe3QT+Ulzyl4dj2y+XzYSzNqHLjp/KIvjG4nyEcLZ5IE
-         nQWmG6WglUUR/FH6cEsKwnyGw3dwgJaenPxBA=
+        bh=iA44kAn7NZCRNRT6spxN9UeiJp3AHVq0xMA+G5wHLRQ=;
+        b=uxc+z0BTuaraR7pncLB1OAYey6KLOLid2Lf093Ip139L/2KFqhD423ZZzjIVXCfG30
+         qlwWRXppZAhe6YfCfN26YHKw1HJa8VamJiPuo2gwCRnJKulaStYbqXu3/J+qWiiHFKsd
+         CR3Kwg10YoYIZbRXq3tH0xn9Ub9BDP+AJQosk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700735683; x=1701340483;
+        d=1e100.net; s=20230601; t=1700735750; x=1701340550;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ClnH6me5J6MLemqiKYkj+VSimOnfNG6wlNsGZ4gbcbI=;
-        b=Il27KBY6VdwN6qttEImqrKXviGdtQ50lrP6noNpfOk5u31kXN8h3wi5WdEJKCWIG5l
-         efo1oU+hnwTBM2Wcdo2S0yNSysdoid69oJa4b+zBgoJtjZRLzm1W5x1t4vhXKutFTfQ2
-         zlP/8c+Ael9w9Z+jUnNubrETJOJE/OqN3RfTB2XpXQu8B+YBiVJ9ukg2BGqev2rBESkz
-         APQbeGL7oAPgcQVh8o7Wfhy4TdgnmXT1HgKtqqHBoYFYwRwnEba0FVjhfUKbrvsFS0Oz
-         YJi5NlzVNJ79sSsfgNcuFiZLW2VTcldWfbyvXKyXZGq66Ylr0G9OOkWdPEvukxIXqZGY
-         tBvQ==
-X-Gm-Message-State: AOJu0YwcfBIqn0MN9h00UsSwlbBr7jV9fJb+PvqqvPaPONsLQfYPEynZ
-	jqXh2EhcV6Xuc0tusQsMn6ute6Fnmt3/p2Dy7C4=
-X-Google-Smtp-Source: AGHT+IHFnEA3Nkj7B0N0scbTx0Dt9MLCPBLvogmFNs0HsKXGEGEIR1B4VVr93HpfUrMc1x1FYTuNPA==
-X-Received: by 2002:a05:6000:ace:b0:332:e1f0:591a with SMTP id di14-20020a0560000ace00b00332e1f0591amr979152wrb.67.1700735683167;
-        Thu, 23 Nov 2023 02:34:43 -0800 (PST)
-Message-ID: <8a2508e3-d3ee-46df-be0c-ab98374cce56@citrix.com>
-Date: Thu, 23 Nov 2023 10:34:42 +0000
+        bh=iA44kAn7NZCRNRT6spxN9UeiJp3AHVq0xMA+G5wHLRQ=;
+        b=DmO83yWq2/C6AZIjht1oApB82R+UnuBAKbdryYew5Vgu6z9Nhf1oXbTmrMUWgXWV+f
+         VAsz4NHMqX+EVmOBszkr9rg9aaF9mUPPWsupkWy733n7toTxEiQdIQryDilaawMIe5a2
+         cL8Ds2hcGLvxHCv+FtZydbkeWtZwWf5XSmJ4vVp977uEDVD/9ZsjQeJtAEw2DQozohwE
+         nZ6+ByDEqvHI05rLPoRKrhSJuu0RbsHDw8jFSxdp+pSZqFrrfkmObRwG8z4wurWdmGh8
+         Edv6Cs/AY0CGkc/ZgzRc70iAtyru1e/Cmx1msFvixj4KMu33f3h9dP08SNutSn9vHyW8
+         YAWQ==
+X-Gm-Message-State: AOJu0Yz5x03jTv7DQp2fqwVSfnpNw2vZX9LKFQDTLd4is34oo+A9KzR0
+	lqKsvFZf27wdMPuqE9JZ9KoTmg==
+X-Google-Smtp-Source: AGHT+IFqiklXwDQMqODDiTQHeobMM80HJBNjffWqL7lz63EYAoK5etaf2twNc8O6taBRnqJ0d1mFmA==
+X-Received: by 2002:a5d:4851:0:b0:332:c4e3:9aff with SMTP id n17-20020a5d4851000000b00332c4e39affmr3394945wrs.7.1700735749784;
+        Thu, 23 Nov 2023 02:35:49 -0800 (PST)
+Message-ID: <e93fe838-199e-493f-af1e-66bd618aa20f@citrix.com>
+Date: Thu, 23 Nov 2023 10:35:49 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vPIC: correct vcpi_domain()
+Subject: Re: [PATCH v2 4/5] arm/efi: Simplify efi_arch_handle_cmdline()
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <f7016076-19a4-4416-b7be-df16e8d4a017@suse.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, Henry Wang <Henry.Wang@arm.com>
+References: <20231121201540.1528161-1-andrew.cooper3@citrix.com>
+ <20231121201540.1528161-5-andrew.cooper3@citrix.com>
+ <379DF4D1-8DB9-46AF-9586-861ED78DFF38@arm.com>
+ <03c6aa83-6c8f-4d40-9f36-d89725bd614b@citrix.com>
+ <3222AE09-B511-490E-8298-8808261DEFAE@arm.com>
+ <0eb64ed9-a56c-491e-b9b8-a03e90c4c2f1@citrix.com>
+ <364FAA71-A00A-4D47-8210-DFE4EC590F79@arm.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,15 +138,76 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <f7016076-19a4-4416-b7be-df16e8d4a017@suse.com>
+In-Reply-To: <364FAA71-A00A-4D47-8210-DFE4EC590F79@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/11/2023 10:20 am, Jan Beulich wrote:
-> Make it use its parameter in both places.
+On 23/11/2023 9:46 am, Luca Fancellu wrote:
 >
-> Fixes: 00a70f44a68c ("[HVM] Update VPIC device model for new interrupt delivery code")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> On 22 Nov 2023, at 18:03, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>
+>> On 22/11/2023 3:49 pm, Luca Fancellu wrote:
+>>>> On 21 Nov 2023, at 20:41, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>>>
+>>>> On 21/11/2023 8:33 pm, Luca Fancellu wrote:
+>>>>> + CC henry
+>>>>>
+>>>>>> On 21 Nov 2023, at 20:15, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>>>>>
+>>>>>> -Wwrite-strings is unhappy with assigning "xen" to a mutable pointer, but this
+>>>>>> logic looks incorrect.  It was inherited from the x86 side, where the logic
+>>>>>> was redundant and has now been removed.
+>>>>>>
+>>>>>> In the ARM case it inserts the image name into "xen,xen-bootargs" and there is
+>>>>>> no logic at all to strip this before parsing it as the command line.
+>>>>>>
+>>>>>> The absence of any logic to strip an image name suggests that it shouldn't
+>>>>>> exist there, or having a Xen image named e.g. "hmp-unsafe" in the filesystem
+>>>>>> is going to lead to some unexpected behaviour on boot.
+>>>>>>
+>>>>>> No functional change.
+>>>>>>
+>>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>>> ---
+>>>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>> CC: Wei Liu <wl@xen.org>
+>>>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>>>> CC: Julien Grall <julien@xen.org>
+>>>>>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>>>>>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+>>>>>> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+>>>>>> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>>
+>>>>>> v2:
+>>>>>> * New.
+>>>>>>
+>>>>>> I'm afraid that all of this reasoning is based on reading the source code.  I
+>>>>>> don't have any way to try this out in a real ARM UEFI environment.
+>>>>> I will test this one tomorrow on an arm board
+>>> I confirm that booting though UEFI on an arm board works
+>>>
+>>> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+>> Thanks, and you confirmed that the first cmdline parameter is still usable?
+> Yes, I’m using a xen.cfg like this:
+>
+> [global]
+> default=xen
+>
+> [xen]
+> options=noreboot dom0_mem=4096M bootscrub=0 iommu=on loglvl=error guest_loglvl=error
+> kernel=Image console=hvc0 earlycon=xenboot rootwait root=PARTUUID=6a60524d-061d-454a-bfd1-38989910eccd
+>
+> And in Xen boot I can see this:
+>
+> [...]
+> (XEN) Command line:  noreboot dom0_mem=4096M bootscrub=0 iommu=on loglvl=error guest_loglvl=error
+> [...]
+>
+> So I think it’s passing every parameter
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Thankyou all for the testing.
+
+~Andrew
 
