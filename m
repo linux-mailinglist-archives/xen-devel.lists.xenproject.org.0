@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D95A7F6225
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 15:58:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639775.997473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33BE67F625D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 16:10:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639778.997481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6B9H-0001Pa-OA; Thu, 23 Nov 2023 14:57:47 +0000
+	id 1r6BL7-0004YW-Oo; Thu, 23 Nov 2023 15:10:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639775.997473; Thu, 23 Nov 2023 14:57:47 +0000
+Received: by outflank-mailman (output) from mailman id 639778.997481; Thu, 23 Nov 2023 15:10:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6B9H-0001MP-KB; Thu, 23 Nov 2023 14:57:47 +0000
-Received: by outflank-mailman (input) for mailman id 639775;
- Thu, 23 Nov 2023 14:57:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r6B9F-0001MJ-Qh
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 14:57:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r6B9C-0003xD-Mq; Thu, 23 Nov 2023 14:57:42 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.16.119]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r6B9C-00029Q-CZ; Thu, 23 Nov 2023 14:57:42 +0000
+	id 1r6BL7-0004Wi-MC; Thu, 23 Nov 2023 15:10:01 +0000
+Received: by outflank-mailman (input) for mailman id 639778;
+ Thu, 23 Nov 2023 15:10:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/TSj=HE=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1r6BL6-0004Wa-EA
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 15:10:00 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5cd2d271-8a12-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 16:09:57 +0100 (CET)
+Received: from beta.station (net-37-182-35-120.cust.vodafonedsl.it
+ [37.182.35.120])
+ by support.bugseng.com (Postfix) with ESMTPSA id 249D24EE073C;
+ Thu, 23 Nov 2023 16:09:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,157 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=FDbqb8AizAaW/Ds6q8kPkMYSC5GdzYOmgJamcbamTjI=; b=rQ57aXEUU7IN5Uf5MpTcbG3Ox7
-	gZOeuWzPGtFtjBoMX0/6ypubzXyRotuaRtI1iqi64Ipz3JWUMmV+6QTCV7eRamYO93ZHgkAc/tKmA
-	g5CM72IrgLEqPO88LQXXew66Gt/j12tuxJiFt2dHS4KxmkjeijiY+vVjRhkTbA4Eost8=;
-Message-ID: <b1d7fce9-d7fe-4c0e-a689-c28d2fac1ef0@xen.org>
-Date: Thu, 23 Nov 2023 14:57:40 +0000
+X-Inumbo-ID: 5cd2d271-8a12-11ee-9b0e-b553b5be7939
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2] automation/eclair: improve scheduled analyses
+Date: Thu, 23 Nov 2023 16:09:13 +0100
+Message-Id: <36ea68b24a1e336ef9170b7f89949d282ee1e746.1700752056.git.simone.ballarin@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-linus test] 183794: regressions - FAIL
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, oleksandr_tyshchenko@epam.com
-References: <osstest-183794-mainreport@xen.org>
- <f7b11bb5-9d08-4678-bb97-3a2d96537439@suse.com>
- <alpine.DEB.2.22.394.2311201631140.773207@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2311211823110.2053963@ubuntu-linux-20-04-desktop>
- <ff31f5a6-396e-48cc-8b1b-6941369c620b@suse.com>
- <alpine.DEB.2.22.394.2311221501340.2053963@ubuntu-linux-20-04-desktop>
- <fade29d2-2383-4f99-9735-6edebc66cd87@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <fade29d2-2383-4f99-9735-6edebc66cd87@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+The scheduled analyses are intended to maintain an overall vision
+of the MISRA complaince of the entire project. For this reason,
+the file exclusions in "out_of_scope.ecl" should not be applied.
 
-On 23/11/2023 05:57, Juergen Gross wrote:
-> On 23.11.23 00:07, Stefano Stabellini wrote:
->> On Wed, 22 Nov 2023, Juergen Gross wrote:
->>> On 22.11.23 04:07, Stefano Stabellini wrote:
->>>> On Mon, 20 Nov 2023, Stefano Stabellini wrote:
->>>>> On Mon, 20 Nov 2023, Juergen Gross wrote:
->>>>>> On 20.11.23 03:21, osstest service owner wrote:
->>>>>>> flight 183794 linux-linus real [real]
->>>>>>> http://logs.test-lab.xenproject.org/osstest/logs/183794/
->>>>>>>
->>>>>>> Regressions :-(
->>>>>>>
->>>>>>> Tests which did not succeed and are blocking,
->>>>>>> including tests which could not be run:
->>>>>>>     test-arm64-arm64-examine      8 reboot                   fail 
->>>>>>> REGR.
->>>>>>> vs.
->>>>>>> 183766
->>>>>>
->>>>>> I'm seeing the following in the serial log:
->>>>>>
->>>>>> Nov 20 00:25:41.586712 [    0.567318] kernel BUG at
->>>>>> arch/arm64/xen/../../arm/xen/enlighten.c:164!
->>>>>> Nov 20 00:25:41.598711 [    0.574002] Internal error: Oops - BUG:
->>>>>> 00000000f2000800 [#1] PREEMPT SMP
->>>>>>
->>>>>> The related source code lines in the kernel are:
->>>>>>
->>>>>> ········err = HYPERVISOR_vcpu_op(VCPUOP_register_vcpu_info,
->>>>>> xen_vcpu_nr(cpu),
->>>>>> ································ &info);
->>>>>> ········BUG_ON(err);
->>>>>>
->>>>>> I suspect commit 20f3b8eafe0ba to be the culprit.
->>>>>>
->>>>>> Stefano, could you please have a look?
->>>>
->>>> The good news and bad news is that I cannot repro this neither with nor
->>>> without CONFIG_UNMAP_KERNEL_AT_EL0. I looked at commit 20f3b8eafe0ba 
->>>> but
->>>> I cannot see anything wrong with it. Looking at the register dump, 
->>>> from:
->>>>
->>>> x0 : fffffffffffffffa
->>>>
->>>> I am guessing the error was -ENXIO which is returned from 
->>>> map_guest_area
->>>> in Xen.
->>>>
->>>> Could it be that the struct is crossing a page boundary? Or that it is
->>>> not 64-bit aligned? Do we need to do something like the following?
->>>>
->>>> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
->>>> index 9afdc4c4a5dc..5326070c5dc0 100644
->>>> --- a/arch/arm/xen/enlighten.c
->>>> +++ b/arch/arm/xen/enlighten.c
->>>> @@ -484,7 +485,7 @@ static int __init xen_guest_init(void)
->>>>         * for secondary CPUs as they are brought up.
->>>>         * For uniformity we use VCPUOP_register_vcpu_info even on cpu0.
->>>>         */
->>>> -    xen_vcpu_info = alloc_percpu(struct vcpu_info);
->>>> +    xen_vcpu_info = __alloc_percpu(struct vcpu_info, PAGE_SIZE);
->>>>        if (xen_vcpu_info == NULL)
->>>>            return -ENOMEM;
->>>
->>> May I suggest to use a smaller alignment? What about:
->>>
->>> 1 << fls(sizeof(struct vcpu_info) - 1)
->>
->> See below
->>
->> ---
->> [PATCH] arm/xen: fix xen_vcpu_info allocation alignment
+This patch amends ECLAIR settings to prevent exempting files for
+scheduled analyses.
 
-Stefano, are you going to submit the patch formally?
+Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
->>
->> xen_vcpu_info is a percpu area than needs to be mapped by Xen.
->> Currently, it could cross a page boundary resulting in Xen being unable
->> to map it:
->>
->> [    0.567318] kernel BUG at 
->> arch/arm64/xen/../../arm/xen/enlighten.c:164!
->> [    0.574002] Internal error: Oops - BUG: 00000000f2000800 [#1] 
->> PREEMPT SMP
->>
->> Fix the issue by using __alloc_percpu and requesting alignment for the
->> memory allocation.
->>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+Changes in v2:
+- drop changes to inhibit test and build stages in scheduled pipelines.
+---
+ automation/eclair_analysis/ECLAIR/action.settings |  2 +-
+ automation/eclair_analysis/ECLAIR/analysis.ecl    | 12 ++++++++++--
+ automation/gitlab-ci/analyze.yaml                 |  2 ++
+ 3 files changed, 13 insertions(+), 3 deletions(-)
 
-I am guessing we want to backport it. So should this contain a tag to 
-indicate the intention?
-
->>
->> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
->> index 9afdc4c4a5dc..09eb74a07dfc 100644
->> --- a/arch/arm/xen/enlighten.c
->> +++ b/arch/arm/xen/enlighten.c
->> @@ -484,7 +484,8 @@ static int __init xen_guest_init(void)
->>        * for secondary CPUs as they are brought up.
->>        * For uniformity we use VCPUOP_register_vcpu_info even on cpu0.
->>        */
->> -    xen_vcpu_info = alloc_percpu(struct vcpu_info);
->> +    xen_vcpu_info = __alloc_percpu(sizeof(struct vcpu_info),
->> +                                   1 << fls(sizeof(struct vcpu_info) 
->> - 1));
-> 
-> Nit: one tab less, please (can be fixed while committing).
-> 
->>       if (xen_vcpu_info == NULL)
->>           return -ENOMEM;
-> 
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-
-Juergen, looking at the x86 code, you seem to use DEFINE_PER_CPU(). So 
-what guarantees that this is not going to cross a page?
-
-Cheers,
-
+diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
+index f96368ffc7..3cba1a3afb 100644
+--- a/automation/eclair_analysis/ECLAIR/action.settings
++++ b/automation/eclair_analysis/ECLAIR/action.settings
+@@ -134,7 +134,7 @@ push)
+     badgeLabel="ECLAIR ${ANALYSIS_KIND} ${ref}${variantHeadline} #${jobId}"
+     ;;
+ auto_pull_request)
+-    git remote remove autoPRRemote || true
++    git remote remove autoPRRemote 2>/dev/null || true
+     git remote add autoPRRemote "${autoPRRemoteUrl}"
+     git fetch -q autoPRRemote
+     subDir="${ref}"
+diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
+index fe418d6da1..2507a8e787 100644
+--- a/automation/eclair_analysis/ECLAIR/analysis.ecl
++++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
+@@ -2,7 +2,13 @@
+ -project_name=getenv("ECLAIR_PROJECT_NAME")
+ -project_root=getenv("ECLAIR_PROJECT_ROOT")
+ 
+--setq=data_dir,getenv("ECLAIR_DATA_DIR")
++setq(data_dir,getenv("ECLAIR_DATA_DIR"))
++setq(analysis_kind,getenv("ANALYSIS_KIND"))
++setq(scheduled_analysis,nil)
++
++strings_map("scheduled-analysis",500,"","^.*scheduled$",0,setq(scheduled_analysis,t))
++strings_map("scheduled-analysis",500,"","^.*$",0)
++map_strings("scheduled-analysis",analysis_kind)
+ 
+ -verbose
+ 
+@@ -15,7 +21,9 @@
+ 
+ -eval_file=toolchain.ecl
+ -eval_file=public_APIs.ecl
+--eval_file=out_of_scope.ecl
++if(scheduled_analysis,
++    eval_file("out_of_scope.ecl")
++)
+ -eval_file=deviations.ecl
+ -eval_file=call_properties.ecl
+ -eval_file=tagging.ecl
+diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+index bd9a68de31..6631db53fa 100644
+--- a/automation/gitlab-ci/analyze.yaml
++++ b/automation/gitlab-ci/analyze.yaml
+@@ -28,6 +28,8 @@
+   extends: .eclair-analysis
+   allow_failure: true
+   rules:
++    - if: $CI_PIPELINE_SOURCE == "schedule"
++      when: never
+     - if: $WTOKEN && $CI_PROJECT_PATH =~ /^xen-project\/people\/.*$/
+       when: manual
+     - !reference [.eclair-analysis, rules]
 -- 
-Julien Grall
+2.34.1
+
 
