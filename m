@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7927C7F5DBD
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 12:24:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639616.997152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9517F5DBB
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 12:24:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639617.997163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r67oF-000114-KO; Thu, 23 Nov 2023 11:23:51 +0000
+	id 1r67oG-0001H0-Sl; Thu, 23 Nov 2023 11:23:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639616.997152; Thu, 23 Nov 2023 11:23:51 +0000
+Received: by outflank-mailman (output) from mailman id 639617.997163; Thu, 23 Nov 2023 11:23:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r67oF-0000zM-Hf; Thu, 23 Nov 2023 11:23:51 +0000
-Received: by outflank-mailman (input) for mailman id 639616;
- Thu, 23 Nov 2023 11:23:50 +0000
+	id 1r67oG-0001EC-Px; Thu, 23 Nov 2023 11:23:52 +0000
+Received: by outflank-mailman (input) for mailman id 639617;
+ Thu, 23 Nov 2023 11:23:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r67oE-0000zG-M8
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 11:23:50 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ id 1r67oF-0000zG-Bx
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 11:23:51 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c59b75ad-89f2-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 12:23:48 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5079f3f3d7aso1038439e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 03:23:48 -0800 (PST)
+ id c6375b7e-89f2-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 12:23:49 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4083f61322fso5546985e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 03:23:49 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- jg28-20020a05600ca01c00b004063cd8105csm2384791wmb.22.2023.11.23.03.23.47
+ o7-20020a05600c510700b0040b36ad5413sm1517387wms.46.2023.11.23.03.23.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 03:23:47 -0800 (PST)
+ Thu, 23 Nov 2023 03:23:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,94 +44,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c59b75ad-89f2-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: c6375b7e-89f2-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700738628; x=1701343428; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WPhgdKiA0Qnpii00cZhFiVFGp+c5vexH8n0jcy3WPms=;
-        b=ol4MhUFQlOoO81EFgT56hqb/B3BVxNKFjUtNvaPsMfzOigGxw7u8y7zTccd+f7ToV9
-         k1VrLjUAgTeCa/hV7n0Y4NOjl9sSPmjqb6eXncJR9hJp6ebCzx643MiuPBUcXqfyPgGa
-         KvFNOeq8QVOlCGpGJBQCU1IQgL/09wV+MvgLY=
+        d=citrix.com; s=google; t=1700738629; x=1701343429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wo3ZoyDOsm6vfE7b7gB3JvtmVqfZ9c23rBT3rNX08wQ=;
+        b=mDwidpTF5Bu4Qqn5Su56rxY/jjV5aKgqZb6Y0Pxf2rwEH8lww4IJqPQWFNxwnxIEcZ
+         tZm+BiR7TUllRurQjB4RxswtcJXVo85TucsfudWxOhWsGtFxFt+45V0mqtMNag3Yry/q
+         qwNS4xNqiG8vySrlUgoOgLOg/HyKvnOdhnpFM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700738628; x=1701343428;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WPhgdKiA0Qnpii00cZhFiVFGp+c5vexH8n0jcy3WPms=;
-        b=t7EYWE8uxlcXUhVFB8AeP8uIj9ZZuIR2Z26xIxY/oyiQqW7ncK2n3Ogitz/bVgYFc3
-         tAAFPWKAWIU3K2nklcMqdZJ3zzO56S1iUsMei0Z0k+CVFZNB554Yma5b+ma/i2dR4KJ3
-         Ge8EvEu4riZDVPkyoCdthTuH0lzuwZKJYlicWu/XtHgESeozqh37SoLpDrKYKdAQDUUT
-         PvKJpIHP5M2nW1CnIzQ+l2I2UGcfrq3HJiwenSTRsG2x4DZXpDTOD1S/PhpXErOQkHqn
-         lrmZyYkf9PydipuDynUyitzZnp0OV4SVecrIze8z2iasLGalL7DSoaleQGkQZBb+Ogls
-         DBvQ==
-X-Gm-Message-State: AOJu0YydLoKqE2UbsumPRKha6kgLWet/8fO3MFayVrs2gnJROQFhY/Zl
-	EOQtC5lhVjm1ChzCbBKauN/rJN1UaLqC7HjTb7Y=
-X-Google-Smtp-Source: AGHT+IFPovOILCn5j/2wGj/3p8Nuc8mE6/91x/WVtzz045HcSCft30cztSVEFSgjzZGlS/5kH+OjIw==
-X-Received: by 2002:a2e:9582:0:b0:2c5:f8e:35cf with SMTP id w2-20020a2e9582000000b002c50f8e35cfmr3736200ljh.20.1700738627868;
-        Thu, 23 Nov 2023 03:23:47 -0800 (PST)
+        d=1e100.net; s=20230601; t=1700738629; x=1701343429;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wo3ZoyDOsm6vfE7b7gB3JvtmVqfZ9c23rBT3rNX08wQ=;
+        b=swQeVllLt4Yoe4rkXu5lgoF0OhIzqVQ3tym9zby2W6H0ZyZbfe58oy/Lze7gID5AbC
+         KLf87HkVKihQuqow9q+4Fgjh5Q0oSFyPNJUBfHQXBgVNaRlo15iYNon/jVGaTrR5fC2g
+         tZqZrJvZ//xh72duGZluPXtaCTGeOuDC6cuRxh4CG2QhIxLY6onmrB/NlgZ4xyDPoRoh
+         q+eP2quv8H4giUmMJcqkZg9QaXTTLe8L39yEx2A9Fy4gWruTj4SL3iOEJygMKh/AkUOd
+         njChRXVQBC8QbKx+TEB6d0RyTCY64KPl0+6n8lTDCW0f0/Qnbn0JXN4HSt4KJkleUskf
+         NwPw==
+X-Gm-Message-State: AOJu0Yy2/XzAALZ+yUPy503SrtnGmX6Bp1C31ANVfch6KpIQwdRXM0rT
+	ZI6uA0bXKrEtm1ctawNAXyH4dglmW8CRLkMfsgg=
+X-Google-Smtp-Source: AGHT+IGf5xv8yJqt4BMhVCmerRVLtFKzG4hXzB4fOythjOMK4qB54YinEYQ8zZkHczq1xlv4H0okLA==
+X-Received: by 2002:a05:600c:1d03:b0:408:3696:3d51 with SMTP id l3-20020a05600c1d0300b0040836963d51mr4147460wms.4.1700738628892;
+        Thu, 23 Nov 2023 03:23:48 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH 0/3] automation: add livepatch testing
-Date: Thu, 23 Nov 2023 12:23:35 +0100
-Message-ID: <20231123112338.14477-1-roger.pau@citrix.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 1/3] automation/alpine: add elfutils-dev and coreutils for livepatch-build-tools
+Date: Thu, 23 Nov 2023 12:23:36 +0100
+Message-ID: <20231123112338.14477-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20231123112338.14477-1-roger.pau@citrix.com>
+References: <20231123112338.14477-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
+In preparation for adding some livepatch-build-tools test update the Alpine
+container to also install elfutils-dev, coreutils and GNU awk.
 
-The following series attempts to introduce some basic livepatch testing
-in the gitlab CI loop.  Such testing will be more similar to what
-downstreams use, as the patch payload will be built using
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+I don't very much like to add coreutils and gawk, as it's also good to test
+that we can build Xen with Busybox, but I also got tired of adjusting
 livepatch-build-tools.
+---
+ automation/build/alpine/3.18.dockerfile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-A sample gitlab run can be found at:
-
-https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1082636267
-
-The series introduces a new build and test steps.
-
-Thanks, Roger.
-
-Roger Pau Monne (3):
-  automation/alpine: add elfutils-dev and coreutils for
-    livepatch-build-tools
-  livepatch: add a dummy hypercall for testing purposes
-  automation: add x86-64 livepatching test
-
- automation/build/alpine/3.18.dockerfile       |  4 +
- automation/gitlab-ci/build.yaml               |  8 ++
- automation/gitlab-ci/test.yaml                |  8 ++
- automation/scripts/build                      | 13 +++
- .../scripts/qemu-alpine-x86_64-livepatch.sh   | 79 +++++++++++++++++++
- tools/include/xenctrl.h                       |  3 +
- tools/libs/ctrl/xc_misc.c                     | 14 ++++
- tools/misc/xen-livepatch.c                    | 25 ++++++
- xen/common/Makefile                           |  2 +-
- xen/common/livepatch-test.c                   | 20 +++++
- xen/common/livepatch.c                        |  4 +
- xen/include/public/sysctl.h                   |  7 ++
- xen/include/xen/livepatch.h                   |  4 +
- xen/test/livepatch/patches/test1.patch        | 13 +++
- 14 files changed, 203 insertions(+), 1 deletion(-)
- create mode 100755 automation/scripts/qemu-alpine-x86_64-livepatch.sh
- create mode 100644 xen/common/livepatch-test.c
- create mode 100644 xen/test/livepatch/patches/test1.patch
-
+diff --git a/automation/build/alpine/3.18.dockerfile b/automation/build/alpine/3.18.dockerfile
+index 4ae9cb5e9e30..fa6789347d87 100644
+--- a/automation/build/alpine/3.18.dockerfile
++++ b/automation/build/alpine/3.18.dockerfile
+@@ -47,3 +47,7 @@ RUN apk --no-cache add \
+   libcap-ng-dev \
+   ninja \
+   pixman-dev \
++  # livepatch-tools deps
++  elfutils-dev \
++  coreutils \
++  gawk \
 -- 
 2.43.0
 
