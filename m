@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 511F47F64DC
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 18:07:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639953.997652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A25FE7F64EF
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 18:10:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639955.997662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6DAq-0006a7-W2; Thu, 23 Nov 2023 17:07:32 +0000
+	id 1r6DDQ-0008Cp-CP; Thu, 23 Nov 2023 17:10:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639953.997652; Thu, 23 Nov 2023 17:07:32 +0000
+Received: by outflank-mailman (output) from mailman id 639955.997662; Thu, 23 Nov 2023 17:10:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6DAq-0006XW-Sq; Thu, 23 Nov 2023 17:07:32 +0000
-Received: by outflank-mailman (input) for mailman id 639953;
- Thu, 23 Nov 2023 17:07:31 +0000
+	id 1r6DDQ-0008Ac-8e; Thu, 23 Nov 2023 17:10:12 +0000
+Received: by outflank-mailman (input) for mailman id 639955;
+ Thu, 23 Nov 2023 17:10:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/xmv=HE=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r6DAp-0006Vp-BE
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 17:07:31 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1r6DDO-0008AU-CA
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 17:10:10 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c91b2c5c-8a22-11ee-98e2-6d05b1d4d9a1;
- Thu, 23 Nov 2023 18:07:30 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40839652b97so7037815e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 09:07:30 -0800 (PST)
+ id 264f0079-8a23-11ee-98e2-6d05b1d4d9a1;
+ Thu, 23 Nov 2023 18:10:06 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2c87903d314so14056721fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 09:10:06 -0800 (PST)
 Received: from [10.80.4.253] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- x22-20020a05600c189600b0040a4cc876e0sm2501784wmp.40.2023.11.23.09.07.29
+ n7-20020adff087000000b003316d1a3b05sm2104531wro.78.2023.11.23.09.10.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 09:07:29 -0800 (PST)
+ Thu, 23 Nov 2023 09:10:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c91b2c5c-8a22-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: 264f0079-8a23-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1700759250; x=1701364050; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1700759406; x=1701364206; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Y6dXTmJDvOfSqRg7KUpaUNcQYZIePsctVf2lQGF8vdU=;
-        b=dIMhvhXTtsKTVrdtWZBH4j4jS2+8PRPBaHLXDf+Ob/CcEv4i0IR3Ac9NHfk+O01SCE
-         oNq4oK3vLHAXCaWz7Vh8wh+VdN6Uk2I9gZttH7sqnYa6THC4Hd2rAA+F2Ca3Fw6NBqd8
-         cWRvgBpI8NYza1ToypRqsjaqAxdOtB9c9TLTY=
+        bh=4c8k81uClM/uqFpAmLEk8/hlWeBjVXEzuSST+wv78Hw=;
+        b=Mpet6DS6jPv9sqOdHB+1KCUg+dmjKKbMmXZHDpN4Wpligs0VWFmOcPgdCwmv7I/whV
+         XMd7isBGTAjXigxhqy1su79FWivHSjewrujEnF+gtJtKFUcOYxq5UMB8Vjv4mgcLvjzC
+         kbG9i8Jp+EKG4YVstw4LzIqW6/RaX6/X4iE0o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700759250; x=1701364050;
+        d=1e100.net; s=20230601; t=1700759406; x=1701364206;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y6dXTmJDvOfSqRg7KUpaUNcQYZIePsctVf2lQGF8vdU=;
-        b=J6KkqojzgTF4PRsUqyYIABGG6O5TprH4/XEWIvLJQHOKbv6LKTU1uabxZn/75uUaNR
-         YDyPYsYakjoy5eh2Ws6eUNVdVPX/Qwi60p/TnAC/evWImkaHg7PcGGHHUMXj4ujLp4x9
-         YhFuvqnn3MhA6SB4DoBsLb3lDQCAgd44eOKmPUjB395m/CLsYEtBFeF/ow1WcahPF4E2
-         OQXlRg6ISjU9hQRXy7PeRMZOA6V+DLgYxN2d6QxIAXMQbmuA6ToeCOIlopZrC0DEZMLt
-         Pd7ZDYnUcy5mkVClqbKjadkM3btU9p2ChxUGc4LAvUIOVWfhIZiB+HLVUU2cygg/EDWu
-         5o8A==
-X-Gm-Message-State: AOJu0YzziRTyeP7CHx7YwEj1SupMxGBvRtE+KfpxR0geVcdUJsZlbEfc
-	s0qp1UkWr6oowg+q6ggqoSnkT7KTM+wE2gVhnCk=
-X-Google-Smtp-Source: AGHT+IEUOmmGOJdy4YHRz70zhS5ES8cwkMYJ3Ibj7YUD9L3zeKKej2sTKSdwqQw+ftnHFPWEPJiNZg==
-X-Received: by 2002:a05:600c:1d10:b0:408:5ba9:d707 with SMTP id l16-20020a05600c1d1000b004085ba9d707mr172569wms.16.1700759249794;
-        Thu, 23 Nov 2023 09:07:29 -0800 (PST)
-Message-ID: <476ba35b-947f-4cf0-8988-55ea8ae0d093@cloud.com>
-Date: Thu, 23 Nov 2023 17:07:28 +0000
+        bh=4c8k81uClM/uqFpAmLEk8/hlWeBjVXEzuSST+wv78Hw=;
+        b=ADY1b7iFI+t3FawIt1rV6/0sMwc3sAg2pQ6sP+XGaVpx1kpLfipsRcTpMsmPbXp/ua
+         auPshgA3+aq6YyBzfL3hDoxYTmaOqmL/X8rubHK8LCbGqV+0+1Y5lf7TsHGf5wW+iyuc
+         oo91REcT7Eu/IB9ol4v1Tgg/fdcxqzX9FDg7WnPNgbc3AzxBdMuTzE4VvrgAht9w2fVC
+         9Lu2T2hBWbejTslYhVqOhYvdwYiqoA+UiDMAY1jhFHXgHzCci/lCyghGsNyIaORF9Hbf
+         dHsWE3N6rs4s6X5+fversHkulfKwDWXyX2WSDzGRiJJ6gsNdgxwr2dSuBVbB8hJZhN+T
+         by4g==
+X-Gm-Message-State: AOJu0YxKoPBniN+QhVxOffibDy7DkXSMWGhm9WojVGq42Lmg0H2oLt9w
+	jJCgaOJSgCydSBapfuOl1UHh3Q==
+X-Google-Smtp-Source: AGHT+IH0MsO9ZgK0P8czNGXhaxhnOScXZC6X06ToS60kcqQfkra9ivgCq13t/fD4ZoTR+tvwMLUcqw==
+X-Received: by 2002:a2e:9d09:0:b0:2bc:c650:81b with SMTP id t9-20020a2e9d09000000b002bcc650081bmr539lji.15.1700759406242;
+        Thu, 23 Nov 2023 09:10:06 -0800 (PST)
+Message-ID: <958b6113-2fba-4699-ae19-d3852d44b155@cloud.com>
+Date: Thu, 23 Nov 2023 17:10:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] tools/pygrub: Restrict depriv operation with
- RLIMIT_AS
+Subject: Re: [PATCH 5/6] tools/pygrub: Expose libfsimage's fdopen() to python
 Content-Language: en-US
 To: Andrew Cooper <andcooper@tibco.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 References: <20231106150508.22665-1-alejandro.vallejo@cloud.com>
- <20231106150508.22665-4-alejandro.vallejo@cloud.com>
- <72585cdd-756b-49f6-b97f-7bb739217e6c@tibco.com>
+ <20231106150508.22665-6-alejandro.vallejo@cloud.com>
+ <48d6adeb-eb2d-40ac-949b-b6676dcab4f9@tibco.com>
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <72585cdd-756b-49f6-b97f-7bb739217e6c@tibco.com>
+In-Reply-To: <48d6adeb-eb2d-40ac-949b-b6676dcab4f9@tibco.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 22/11/2023 20:16, Andrew Cooper wrote:
+On 22/11/2023 22:35, Andrew Cooper wrote:
 > On 06/11/2023 3:05 pm, Alejandro Vallejo wrote:
->> diff --git a/tools/pygrub/src/pygrub b/tools/pygrub/src/pygrub
->> index 327cf51774..b96bdfd849 100755
->> --- a/tools/pygrub/src/pygrub
->> +++ b/tools/pygrub/src/pygrub
->> @@ -75,6 +80,11 @@ def downgrade_rlimits():
->>       resource.setrlimit(resource.RLIMIT_CORE,     (0, 0))
->>       resource.setrlimit(resource.RLIMIT_MEMLOCK,  (0, 0))
+>> Create a wrapper for the new fdopen() function of libfsimage.
+>>
+>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> 
+> I'd appreciate it if Marek would cast his eye (as python maintainer)
+> over it.
+> 
+> That said, ...
+> 
+>> diff --git a/tools/pygrub/src/fsimage/fsimage.c b/tools/pygrub/src/fsimage/fsimage.c
+>> index 12dfcff6e3..216f265331 100644
+>> --- a/tools/pygrub/src/fsimage/fsimage.c
+>> +++ b/tools/pygrub/src/fsimage/fsimage.c
+>> @@ -270,6 +270,30 @@ fsimage_open(PyObject *o, PyObject *args, PyObject *kwargs)
+>>   	return (PyObject *)fs;
+>>   }
 >>   
->> +    max_ram_usage = LIMIT_AS
->> +    if "PYGRUB_MAX_RAM_USAGE_MB" in os.environ.keys():
+>> +static PyObject *
+>> +fsimage_fdopen(PyObject *o, PyObject *args, PyObject *kwargs)
+>> +{
+>> +	static char *kwlist[] = { "fd", "offset", "options", NULL };
+>> +	int fd;
+>> +	char *options = NULL;
+>> +	uint64_t offset = 0;
+>> +	fsimage_fs_t *fs;
+>> +
+>> +	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|Ls", kwlist,
+>> +	    &fd, &offset, &options))
+>> +		return (NULL);
+>> +
+>> +	if ((fs = PyObject_NEW(fsimage_fs_t, &fsimage_fs_type)) == NULL)
+>> +		return (NULL);
+>> +
+>> +	if ((fs->fs = fsi_fdopen_fsimage(fd, offset, options)) == NULL) {
+>> +		PyErr_SetFromErrno(PyExc_IOError);
 > 
-> With the .keys() dropped as per patch 2.5/6,
+> Don't we need a Py_DECREF(fs) here to avoid leaking it?
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Happy to do this on commit.
-
-Sure
+> ~Andrew
+If so, there's a bug in fsimage_open() as well. The logic here identical
+to the logic there.
 
 Cheers,
 Alejandro
