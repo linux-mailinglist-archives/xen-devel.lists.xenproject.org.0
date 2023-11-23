@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C72667F5C64
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 11:34:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639511.996982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 753E67F5C68
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 11:34:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639512.996993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r672T-00019e-Q8; Thu, 23 Nov 2023 10:34:29 +0000
+	id 1r672k-0001Uo-3o; Thu, 23 Nov 2023 10:34:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639511.996982; Thu, 23 Nov 2023 10:34:29 +0000
+Received: by outflank-mailman (output) from mailman id 639512.996993; Thu, 23 Nov 2023 10:34:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r672T-00017R-NN; Thu, 23 Nov 2023 10:34:29 +0000
-Received: by outflank-mailman (input) for mailman id 639511;
- Thu, 23 Nov 2023 10:34:27 +0000
+	id 1r672k-0001SE-0f; Thu, 23 Nov 2023 10:34:46 +0000
+Received: by outflank-mailman (input) for mailman id 639512;
+ Thu, 23 Nov 2023 10:34:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fVVO=HE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r672R-00017G-Oi
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 10:34:27 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1r672j-00017G-8t
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 10:34:45 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df8f7c62-89eb-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 11:34:25 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso4462845e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 02:34:25 -0800 (PST)
+ id ea41b1f5-89eb-11ee-9b0e-b553b5be7939;
+ Thu, 23 Nov 2023 11:34:43 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-332ce50450dso479857f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 02:34:43 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- j14-20020adff54e000000b0032db8cccd3asm1294939wrp.114.2023.11.23.02.34.24
+ j14-20020adff54e000000b0032db8cccd3asm1294939wrp.114.2023.11.23.02.34.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 02:34:25 -0800 (PST)
+ Thu, 23 Nov 2023 02:34:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df8f7c62-89eb-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: ea41b1f5-89eb-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700735665; x=1701340465; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700735683; x=1701340483; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=tfZNYgqkYyF0ehKVZuSW//48Wm6Gsm5reiH4JvF+SNI=;
-        b=rWeK+KCkgTCU6Y+oPbMkUp6dE4nE3D1x2b+E8kIX21kyf9VInzbIav6mIcZxuQ9D+a
-         uQEyhfGr/0d/8GfT0+f0yhoGK/S+6s8ohPdUFegpmjT4co+2vNd0aLFCDKmN78uuYVhV
-         pXtVIl2JRP5iOy0gUE+drMEHl6L2QEzfXc2Ds=
+        bh=ClnH6me5J6MLemqiKYkj+VSimOnfNG6wlNsGZ4gbcbI=;
+        b=T4emXz9UgQZ90VejZJlWhhKSuM0XI8c8ShBX9eHI6hzU1s58UGcSs6B30rgZpqq1m8
+         gcUm6mRv6ACAC/YCTdkt1Bikqe3QT+Ulzyl4dj2y+XzYSzNqHLjp/KIvjG4nyEcLZ5IE
+         nQWmG6WglUUR/FH6cEsKwnyGw3dwgJaenPxBA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700735665; x=1701340465;
+        d=1e100.net; s=20230601; t=1700735683; x=1701340483;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tfZNYgqkYyF0ehKVZuSW//48Wm6Gsm5reiH4JvF+SNI=;
-        b=ub7avnMkl578WmBTvlN9YJW4VJrKO7+SzKVi8HPk09pzxCRTJH1/VXAW8GVrNvqEBD
-         EUvTY9T5ZwRJHpyy+2bsE18jLqXU3W9QNW0/gy55GNDMCkAO2vVcXluoLavA5qBKdUKz
-         9ALugnijdIpR6Ih+xLoSnn5QffzwOYt7Ugvud8o4QLiK0PSrUaey93BekaoHZVA50fRL
-         7thPtUwwEgVBbphe6vfh7N7SgCwqXKT/CmwXz0p/OGX7x5DhVw70+EVzZZIae2TPotMf
-         NdPkYd4V+gHxjhKjjWCQKradqslCYOmrWzeyhAkIkxSkBBDyQ/DwPW0b4gYRP5MsBIPL
-         hLoQ==
-X-Gm-Message-State: AOJu0YzNeC6bnX6qbsuFGSjHwpZh7Q7MPnvHYBCQ2g/p9WuSk0VjpxUq
-	ufMJOOOcBqQa08Dq2IvqggJmjQ==
-X-Google-Smtp-Source: AGHT+IEeKmhwnGLzHbccN0FYqOsYCRFI17EHWbkCLf4Rnpji/CTR7WdYsJEiJrmpuSY2f0RV4K6fUA==
-X-Received: by 2002:a05:600c:3b97:b0:408:3707:b199 with SMTP id n23-20020a05600c3b9700b004083707b199mr3841688wms.3.1700735665192;
-        Thu, 23 Nov 2023 02:34:25 -0800 (PST)
-Message-ID: <9c896ec8-2ec9-4fa6-bad6-58591b68345f@citrix.com>
-Date: Thu, 23 Nov 2023 10:34:24 +0000
+        bh=ClnH6me5J6MLemqiKYkj+VSimOnfNG6wlNsGZ4gbcbI=;
+        b=Il27KBY6VdwN6qttEImqrKXviGdtQ50lrP6noNpfOk5u31kXN8h3wi5WdEJKCWIG5l
+         efo1oU+hnwTBM2Wcdo2S0yNSysdoid69oJa4b+zBgoJtjZRLzm1W5x1t4vhXKutFTfQ2
+         zlP/8c+Ael9w9Z+jUnNubrETJOJE/OqN3RfTB2XpXQu8B+YBiVJ9ukg2BGqev2rBESkz
+         APQbeGL7oAPgcQVh8o7Wfhy4TdgnmXT1HgKtqqHBoYFYwRwnEba0FVjhfUKbrvsFS0Oz
+         YJi5NlzVNJ79sSsfgNcuFiZLW2VTcldWfbyvXKyXZGq66Ylr0G9OOkWdPEvukxIXqZGY
+         tBvQ==
+X-Gm-Message-State: AOJu0YwcfBIqn0MN9h00UsSwlbBr7jV9fJb+PvqqvPaPONsLQfYPEynZ
+	jqXh2EhcV6Xuc0tusQsMn6ute6Fnmt3/p2Dy7C4=
+X-Google-Smtp-Source: AGHT+IHFnEA3Nkj7B0N0scbTx0Dt9MLCPBLvogmFNs0HsKXGEGEIR1B4VVr93HpfUrMc1x1FYTuNPA==
+X-Received: by 2002:a05:6000:ace:b0:332:e1f0:591a with SMTP id di14-20020a0560000ace00b00332e1f0591amr979152wrb.67.1700735683167;
+        Thu, 23 Nov 2023 02:34:43 -0800 (PST)
+Message-ID: <8a2508e3-d3ee-46df-be0c-ab98374cce56@citrix.com>
+Date: Thu, 23 Nov 2023 10:34:42 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul/test: fold AVX512VL scatter/gather test blobs
- with AVX512F ones
+Subject: Re: [PATCH] x86/vPIC: correct vcpi_domain()
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-References: <002261fe-99f4-5aa4-3984-1fd7d4d250ff@suse.com>
+References: <f7016076-19a4-4416-b7be-df16e8d4a017@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,17 +127,15 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <002261fe-99f4-5aa4-3984-1fd7d4d250ff@suse.com>
+In-Reply-To: <f7016076-19a4-4416-b7be-df16e8d4a017@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/08/2023 11:53 am, Jan Beulich wrote:
-> Everywhere else the VL tests are grouped with the basic ones,
-> distinguished simply by the "form" specifiers.
+On 23/11/2023 10:20 am, Jan Beulich wrote:
+> Make it use its parameter in both places.
 >
-> No change to the generated test blobs, and hence no functional change.
->
+> Fixes: 00a70f44a68c ("[HVM] Update VPIC device model for new interrupt delivery code")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
