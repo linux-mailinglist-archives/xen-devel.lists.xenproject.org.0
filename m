@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CCC37F5F00
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 13:26:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.639694.997333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FC07F5F01
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Nov 2023 13:28:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.639701.997343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r68mM-00078z-Rl; Thu, 23 Nov 2023 12:25:58 +0000
+	id 1r68oU-0001hD-64; Thu, 23 Nov 2023 12:28:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 639694.997333; Thu, 23 Nov 2023 12:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 639701.997343; Thu, 23 Nov 2023 12:28:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r68mM-00077H-NX; Thu, 23 Nov 2023 12:25:58 +0000
-Received: by outflank-mailman (input) for mailman id 639694;
- Thu, 23 Nov 2023 12:25:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r68oU-0001f3-3K; Thu, 23 Nov 2023 12:28:10 +0000
+Received: by outflank-mailman (input) for mailman id 639701;
+ Thu, 23 Nov 2023 12:28:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RRmN=HE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r68mL-00077B-NS
- for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 12:25:57 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7315e04c-89fb-11ee-9b0e-b553b5be7939;
- Thu, 23 Nov 2023 13:25:55 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40839652b97so5028955e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Nov 2023 04:25:55 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- c13-20020adfe70d000000b003316aeb280esm1492076wrm.104.2023.11.23.04.25.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Nov 2023 04:25:54 -0800 (PST)
+ <SRS0=vIdj=HE=desiato.srs.infradead.org=BATV+39fc1edcc778f4c9f1e2+7396+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r68oT-0001ex-9C
+ for xen-devel@lists.xenproject.org; Thu, 23 Nov 2023 12:28:09 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c1bb521c-89fb-11ee-98e2-6d05b1d4d9a1;
+ Thu, 23 Nov 2023 13:28:07 +0100 (CET)
+Received: from [154.49.97.70] (helo=[127.0.0.1])
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1r68oO-00D1r7-1U; Thu, 23 Nov 2023 12:28:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,81 +40,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7315e04c-89fb-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700742355; x=1701347155; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/HFJpuys/3C0iueHY40knEFy2BG8O360o9QtqcgX8nk=;
-        b=oxnRSKphqhCAxEMMP42e+6GDE2D3Y74gzlUPlg+RSKZ967rgDIOcjejWT5LKlLxrh0
-         lFg77EezoiGHH6RCYxHa7Y+eZpw4zju7gOO/9Y++TuL9sj5mdL12D1/gW5HNyhRhyXjD
-         YuxURhUJWKESYhjWqoOldduHV+bhzghVOo2Ns=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700742355; x=1701347155;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/HFJpuys/3C0iueHY40knEFy2BG8O360o9QtqcgX8nk=;
-        b=k+fuNATOESPVDAGwxQmCGttTr8S0RnPRlapD5SD0Eu3dyM75U26pA5lPlkQDoJK47T
-         3FJaj2n/KaqksPT8JIUxYVT7ZhcmqBc46TzPNUXB7rJwocrfvKYGtHF5BZMpQ8AiOD1X
-         82TcukSHnuXVH7TZfV7s4kzR3/qkQGpkzBUFHlGuLSxs6jeEPmgMXPFhsamT1+z/pY8M
-         SagjyFpLpzRnT2x411Ii5jKss7uTygNChzCKhHslLePbDq1ufgvWOQLFRloo9zo0AEp0
-         Ea+4FKJkHp5+atZQ7v7tw2zQBPHRTlw05dTT+h+U3SGGXCHGJO+XXJq0rMsIxoBQx2Sn
-         mHPQ==
-X-Gm-Message-State: AOJu0YwwDP/8vmk1FnjgjrMay+MpVCSsxSKFwQYunDCW8vAzVHf3fO0X
-	5INVwI9phoATBVquZ8Q3cfnvJg==
-X-Google-Smtp-Source: AGHT+IE4uOJukdoW4ggmJjJ+gn8neCDCSoYapGuiCY1apY+EjzaP9LVKdM63vphb+MLcDYaeKGUtVw==
-X-Received: by 2002:a05:600c:4f8f:b0:408:37aa:4766 with SMTP id n15-20020a05600c4f8f00b0040837aa4766mr4158290wmq.5.1700742355018;
-        Thu, 23 Nov 2023 04:25:55 -0800 (PST)
-Date: Thu, 23 Nov 2023 13:25:53 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 1/3] automation/alpine: add elfutils-dev and coreutils
- for livepatch-build-tools
-Message-ID: <ZV9E0WQV2eQtkdzU@macbook>
-References: <20231123112338.14477-1-roger.pau@citrix.com>
- <20231123112338.14477-2-roger.pau@citrix.com>
- <a55bd27f-a8e1-4ea8-9da7-b80bd424315d@citrix.com>
+X-Inumbo-ID: c1bb521c-89fb-11ee-98e2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=VWAK5xRltuUBYASYt9N56sGcUspu6GohkiBafufHCA0=; b=EiBAOkdFLOJ1usJy9AlhHcl2sM
+	Ta/5PJj91vLX5+bH5MXaGjle+lRV/jAShyvmu/i8I35lhzusJ+2Sc/O/DCi5kFkY3G53OnSId0xa+
+	P5B+wYJczBuLDkCZyzkm+oxkTTF2rapRawGWikVcHNqAYZlyLEv1UM4/am95yWycJgJdJuAhfKkla
+	TAbBp7q4TlyZAoOqrgN7DhUH9Bo3OY3BLkWZKHS0setC0zL6Q67Hky4Rqrqx7Nj1KlfeuGQrRlCsI
+	qwgwZclYE+W3lNuWSFNR/r+W2Hw+NDHeIZYOnANn5BM8Y19BPR9wWaR9N+xKBtVuc4t7xKpNSPypY
+	LGwVMR0w==;
+Date: Thu, 23 Nov 2023 12:27:58 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: "paul@xen.org" <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+ Julien Grall <julien@xen.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_4/6=5D_xen=5Fpvdev=3A_Do_not_?= =?US-ASCII?Q?assume_Dom0_when_creating_a_directory?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <87v89swtmz.fsf@epam.com>
+References: <20231121221023.419901-1-volodymyr_babchuk@epam.com> <20231121221023.419901-5-volodymyr_babchuk@epam.com> <b04daedc-ba6a-4109-8e23-fbcd023bcfec@xen.org> <alpine.DEB.2.22.394.2311221428570.2053963@ubuntu-linux-20-04-desktop> <ce719f35e72a9387fc04af098e6d688f9bbdca4e.camel@infradead.org> <alpine.DEB.2.22.394.2311221508270.2424505@ubuntu-linux-20-04-desktop> <a4e6a62a7cfe756344a1efcb8b2c3cfb1e50817e.camel@infradead.org> <alpine.DEB.2.22.394.2311221515010.2424505@ubuntu-linux-20-04-desktop> <87r0khz6zj.fsf@epam.com> <87cyw1z61i.fsf@epam.com> <dce4efb0-4fdc-404c-8e5d-c90ed732eb8a@xen.org> <87bkbky9bb.fsf@epam.com> <5941AF2D-71E7-4A5B-A519-25F87F90DC05@infradead.org> <87v89swtmz.fsf@epam.com>
+Message-ID: <C2DEE963-41CB-4377-93FD-BD9FB500926F@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a55bd27f-a8e1-4ea8-9da7-b80bd424315d@citrix.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Nov 23, 2023 at 11:51:33AM +0000, Andrew Cooper wrote:
-> On 23/11/2023 11:23 am, Roger Pau Monne wrote:
-> > In preparation for adding some livepatch-build-tools test update the Alpine
-> > container to also install elfutils-dev, coreutils and GNU awk.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > I don't very much like to add coreutils and gawk, as it's also good to test
-> > that we can build Xen with Busybox, but I also got tired of adjusting
-> > livepatch-build-tools.
-> 
-> Right now, the alpine environment is the main one which spots violations
-> of Xen's requirement for simply a POSIX-compliant awk, which I think
-> this would break?
+On 23 November 2023 12:17:57 GMT, Volodymyr Babchuk <Volodymyr_Babchuk@epam=
+=2Ecom> wrote:
+>
+>Hi David,
+>
+>David Woodhouse <dwmw2@infradead=2Eorg> writes:
+>> Which PV backends do you care about? We already have net, block and con=
+sole converted=2E
+>
+>Well, this is all what we need, actually=2E Even console only will be
+>sufficient, as we are using QEMU to provide virtio-pci backends, so both
+>storage and networking should be provided by virtio=2E Are you proposing
+>to just drop this patch at all? I believe we can live without it, yes=2E
 
-Likely, we also test on Cirrus using FreeBSD, so we would at least
-spot instances where the extensions are not implemented by BSD sed.
+Yeah, I think you can drop anything that's only needed for the legacy back=
+ends=2E I'm tempted to make a separate config option to compile those out=
+=2E
 
-> How much effort would it be fix livepatch-build-tools?  I think that
-> would be preferable, and could be persuaded to do some simple busywork...
-
-I can give it a try.
-
-> What about coreutils?  Presumably that's down to some differences from
-> busybox ?
-
-Yeah, it's for the usage of `readlink -m` by livepatch-build-tools.
-
-We will have to switch to using `readlink -f`, as that's the only
-canonicalize option supported by BusyBox readlink.  Note that anyway
-`readlink` is not part of POSIX.
-
-Thanks, Roger.
 
