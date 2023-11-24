@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135BD7F85C8
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 23:06:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640960.999753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B4A7F8624
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 23:29:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640964.999764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6eJI-0001b8-PR; Fri, 24 Nov 2023 22:06:04 +0000
+	id 1r6efN-0006lC-JP; Fri, 24 Nov 2023 22:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640960.999753; Fri, 24 Nov 2023 22:06:04 +0000
+Received: by outflank-mailman (output) from mailman id 640964.999764; Fri, 24 Nov 2023 22:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6eJI-0001ZN-Mk; Fri, 24 Nov 2023 22:06:04 +0000
-Received: by outflank-mailman (input) for mailman id 640960;
- Fri, 24 Nov 2023 22:06:04 +0000
+	id 1r6efN-0006i3-G1; Fri, 24 Nov 2023 22:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 640964;
+ Fri, 24 Nov 2023 22:28:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6Spf=HF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r6eJI-0001ZH-0a
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 22:06:04 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1r6efL-0006hx-S1
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 22:28:51 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6a353b5-8b15-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 23:06:01 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40b2afd049aso16213595e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 14:06:00 -0800 (PST)
+ id d7068a01-8b18-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 23:28:50 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40b27726369so16705155e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 14:28:50 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r7-20020a05600c35c700b0040b30be6244sm6182326wmq.24.2023.11.24.14.05.58
+ fc8-20020a05600c524800b0040b3807ec38sm4861984wmb.33.2023.11.24.14.28.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 14:05:58 -0800 (PST)
+ Fri, 24 Nov 2023 14:28:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6a353b5-8b15-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: d7068a01-8b18-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700863560; x=1701468360; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700864929; x=1701469729; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pztvtz7Mem9/nCOY2LQsG6s0Hmtvkt037Gm1ogHRzQg=;
-        b=ThdXlV6j8Y0i7EaaaeV4M94Xwvh4FOw0ksQtDASv4yuGxD8KtMqTyX32DSKYNaIlP3
-         7FUqon7Tl5a+q8uAZzcU+P6I/tRpDRPKisN3qKx3WCmY9EnPoqAtthviNHNO7+9QujZs
-         uZgMcNFJyML3chWmVKbqBky267Hyj+j1hBsSM=
+        bh=8jigi7JLBGC52EdYWf5218yQYyxx3D5XldiBSdv1Xus=;
+        b=g085WizITxZJodH2nqYugouguEGGi5I7fw03rMn/rXLQ18VwXk1/OfjDp3Wrva67om
+         VnFI4js7R0lWKTlAq3Fjmt0WL/Bm5DodkKgHZA9L8aVIrEzWwGod8wXHvKMzLBkOv2JI
+         jRi/2sh718Xl+jiX6O9qcvg1Lnx/yuDw7pzeE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700863560; x=1701468360;
+        d=1e100.net; s=20230601; t=1700864929; x=1701469729;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pztvtz7Mem9/nCOY2LQsG6s0Hmtvkt037Gm1ogHRzQg=;
-        b=w+ZKrWvNGg6vAVUmQR1P06SBuF08gY07SJctK5VRijXOxXofboEgWfvIw72cXsygnZ
-         iEQSkvvurbMjadnHMIB/pLLY8GX9acQVyS0kFz40jyLV54Dh+Hy1C5qsT2bquTnGY/SY
-         Pkvetp8YlOl6sl47WQykfvwWa/s3XH1tsd6nhWRybC3EcYNq1DCk7t4mzKZP7FJIFc0L
-         3sHrx4o7M1dsmNCnHFCcm0+EznT/Jkmvas+QLSeXz2ihv1ZXsD3mR+UcTKQscxVfCrS6
-         8/phOmvA0Isov7V0VJfhUKaFyGp1Q6ePTNLWXfssPn4z0gh1t3dY4xA9u44ikiLsYbYW
-         iA1w==
-X-Gm-Message-State: AOJu0YyQluaPRYjK/Tb7jUUhm8uvAsvbB2yAOFrwIXekm7na3AeW1tFI
-	6vpqe3nV4lLeKhrCJGNFTu4DfRogvcNdlyRIBww=
-X-Google-Smtp-Source: AGHT+IHFf74aTLj91CRDZ4Apo7tq/ZzjoYE2w+6hlzrPvmEtJr9n0ITwf2xnO14psKQw22nsF979eA==
-X-Received: by 2002:a05:600c:450b:b0:405:9666:5242 with SMTP id t11-20020a05600c450b00b0040596665242mr3705961wmo.31.1700863558968;
-        Fri, 24 Nov 2023 14:05:58 -0800 (PST)
-Message-ID: <e96e7f7b-d2d5-496a-9a2b-e8da2017a282@citrix.com>
-Date: Fri, 24 Nov 2023 22:05:58 +0000
+        bh=8jigi7JLBGC52EdYWf5218yQYyxx3D5XldiBSdv1Xus=;
+        b=i/kfdzymE6bUDG5TjaH9/1ApFoNW2rLFJRC6zRhZdzExuwMb4zSfqlI/4u8XRaYk+T
+         zS5FicPRUUhQHJsJQJFtrohwcEGixpG6KGycaBx2DF/pi0pgEPO3e4BVWyZv85oanAyc
+         W9a/gVthBcuD2mqMUx4n4gN/Xh1jHWnLQFm/QUzj/a/uB5Z22MR83dwH/mndrkZImE25
+         a6ctjfSMn8KtYxQyo/OB/yW9k7fZKYV0sYFz32BtiNAagLewdm5Ot90VY1uaKOd/wL4s
+         J+1vFx7rNC9nF+5e7plQOS8rTKX7pE2pn7xSHkgXjSUszs+QcDQFYZse7EgSgJYGW7nU
+         I2eA==
+X-Gm-Message-State: AOJu0YwqTePp70b8EDQLDcvl+vlovlHb84t+qKYzhDVIlFvPUjlWCBSE
+	DRuBTC0HsKRzotM8f+B2wQrVow==
+X-Google-Smtp-Source: AGHT+IHIDQhvJwBIomk0XHW25kwumr6iS/6gcwSs8ezMoKWIbDqwqK1cmtSW0pL9srye/2HMsQv2AQ==
+X-Received: by 2002:a05:600c:1f82:b0:408:364e:34a2 with SMTP id je2-20020a05600c1f8200b00408364e34a2mr3700206wmb.10.1700864929359;
+        Fri, 24 Nov 2023 14:28:49 -0800 (PST)
+Message-ID: <c7e50f7f-690e-4402-a873-1534d01c6434@citrix.com>
+Date: Fri, 24 Nov 2023 22:28:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen/x86: On x2APIC mode, derive LDR from APIC ID
+Subject: Re: [PATCH v2 06/15] x86/HVM: improve CET-IBT pruning of ENDBR
 Content-Language: en-GB
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20231123173057.1325-1-alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ George Dunlap <george.dunlap@citrix.com>
+References: <b63b648f-02d0-4e52-a5e5-94ffd5666a14@suse.com>
+ <8112f1f9-3e3a-4839-9124-9adb87f82c29@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,202 +130,136 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231123173057.1325-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <8112f1f9-3e3a-4839-9124-9adb87f82c29@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A few minor grammar notes.
-
-"x86/vlapic: In x2APIC ..."
-
-
-On 23/11/2023 5:30 pm, Alejandro Vallejo wrote:
-> Both Intel and AMD manuals agree that on x2APIC mode, the APIC LDR and ID
-> registers are derivable from each other through a fixed formula.
+On 24/11/2023 8:39 am, Jan Beulich wrote:
+> __init{const,data}_cf_clobber can have an effect only for pointers
+> actually populated in the respective tables. While not the case for SVM
+> right now, VMX installs a number of pointers only under certain
+> conditions. Hence the respective functions would have their ENDBR purged
+> only when those conditions are met. Invoke "pruning" functions after
+> having copied the respective tables, for them to install any "missing"
+> pointers.
 >
-> Xen uses that formula, but applies it to vCPU IDs (which are sequential)
-> rather than x2APIC IDs (which are not, at the moment). As I understand it,
-> this is an attempt to tightly pack vCPUs into clusters so each cluster has
-> 16 vCPUs rather than 8, but this is problematic for OSs that might read the
-> x2APIC ID and internally derive LDR (or the other way around)
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Missing full stop.  But I'd also phrase this explicitly as "violating
-the spec", rather than "problematic".
+In theory Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but see
+later.
 
-Intel is crystal clear on the matter:
+I have to admit that I'd overlooked this point when putting together
+__init{}_cf_clobber originally.  Then again, I did have more urgent
+things on my mind at the time.
 
-  Logical x2APIC ID = [(x2APIC ID[19:4] « 16) | (1 « x2APIC ID[3:0])]
-
-and Xen isn't implementing this.
-
-> This patch fixes the implementation so we follow the rules in the x2APIC
-> spec(s) and covers migrations from broken hypervisors, so LDRs are
-> preserved even for hotppluggable CPUs and across APIC resets.
-
-"This patch fixes the implementation so we follow the x2APIC spec for
-new VMs, while preserving the behaviour (buggy or fixed) for migrated-in
-VMs."
-
-Hotpluggable isn't relevant.  We have the state, and it's either as it
-was before, or it's fixed.
-
-
->
-> While touching that area, I removed the existing printk statement in
-> vlapic_load_fixup() (as the checks it performed didn't make sense in x2APIC
-> mode and wouldn't affect the outcome) and put another printk as an else
-> branch so we get warnings trying to load nonsensical LDR values we don't
-> know about.
->
-> Fixes: f9e0cccf7b35 ("x86/HVM: fix ID handling of x2APIC emulation")
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 > ---
-> v4:
->   * Removed "See <function>()" part of comment in set_x2apic_id()
->   * Removed _with_ in field name
->   * Trimmed down comments further
->   * Rephrased the Xen versions in the comments so it's implied not every
->     Xen 4.X is affected (as they won't be after this patch is backported)
->   * Replace Xen 4.18 reference with date+4.19 dev window
-> ---
->  xen/arch/x86/hvm/vlapic.c             | 66 ++++++++++++++++++---------
->  xen/arch/x86/include/asm/hvm/domain.h |  3 ++
->  2 files changed, 47 insertions(+), 22 deletions(-)
+> This is largely cosmetic for present hardware, which when supporting
+> CET-IBT likely also supports all of the advanced VMX features for which
+> hook pointers are installed conditionally. The only case this would make
+> a difference there is when use of respective features was suppressed via
+> command line option (where available). For future hooks it may end up
+> relevant even by default, and it also would be if AMD started supporting
+> CET-IBT; right now it matters only for .pi_update_irte, as iommu_intpost
+> continues to default to off.
 >
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index 5cb87f8649..cd4701c5a2 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -1061,13 +1061,26 @@ static const struct hvm_mmio_ops vlapic_mmio_ops = {
->      .write = vlapic_mmio_write,
->  };
+> Originally I had meant to put the SVM and VMX functions in presmp-
+> initcalls, but hvm/{svm,vmx}/built_in.o are linked into hvm/built_in.o
+> before hvm/hvm.o. And I don't think I want to fiddle with link order
+> here.
+
+An alternative is the form I used for microcode, where start_{vmx,svm}()
+fills in fns, and doesn't have to fill in all hooks.
+
+That will be more amenable to Kconfig-ing generally, and will probably
+be less fragile to getting forgotten.
+
+> ---
+> v2: Use cpu_has_xen_ibt in prune_{svm,vmx}().
+>
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
+>      else if ( cpu_has_svm )
+>          fns = start_svm();
 >  
-> +static uint32_t x2apic_ldr_from_id(uint32_t id)
-> +{
-> +    return ((id & ~0xf) << 12) | (1 << (id & 0xf));
-> +}
+> +    if ( fns )
+> +        hvm_funcs = *fns;
 > +
->  static void set_x2apic_id(struct vlapic *vlapic)
->  {
-
-const struct vcpu *v = vlapic_vcpu(vlapic);
-
-seeing as you've got the expression used twice already.
-
-With that, the following logic is shorter too; you can get away with
-dropping the vcpu_id variable as v->vcpu_id is the more common form to
-use in Xen.
-
-
-> -    u32 id = vlapic_vcpu(vlapic)->vcpu_id;
-> -    u32 ldr = ((id & ~0xf) << 12) | (1 << (id & 0xf));
-> +    uint32_t vcpu_id = vlapic_vcpu(vlapic)->vcpu_id;
-> +    uint32_t apic_id = vcpu_id * 2;
-
-/* TODO: Fix topology */ as a suffix here.
-
-Just to make it clear that we're aware that this *2 logic is faulty, but
-it needs to remain like this in the short term.
-
-> +    uint32_t apic_ldr = x2apic_ldr_from_id(apic_id);
+> +    prune_vmx();
+> +    prune_svm();
 > +
-> +    /*
-> +     * Workaround for migrated domains to derive LDRs as the source host
-> +     * would've.
-> +     */
-> +    if ( vlapic_domain(vlapic)->arch.hvm.bug_x2apic_ldr_vcpu_id )
-> +        apic_ldr = x2apic_ldr_from_id(vcpu_id);
+>      if ( fns == NULL )
+>          return 0;
 >  
-> -    vlapic_set_reg(vlapic, APIC_ID, id * 2);
-> -    vlapic_set_reg(vlapic, APIC_LDR, ldr);
-> +    vlapic_set_reg(vlapic, APIC_ID, apic_id);
-> +    vlapic_set_reg(vlapic, APIC_LDR, apic_ldr);
+> -    hvm_funcs = *fns;
+>      hvm_enabled = 1;
+>  
+>      printk("HVM: %s enabled\n", fns->name);
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -2587,6 +2587,19 @@ const struct hvm_function_table * __init
+>      return &svm_function_table;
 >  }
 >  
->  int guest_wrmsr_apic_base(struct vcpu *v, uint64_t val)
-> @@ -1498,27 +1511,36 @@ static int cf_check lapic_save_regs(struct vcpu *v, hvm_domain_context_t *h)
->   */
->  static void lapic_load_fixup(struct vlapic *vlapic)
->  {
-
-Again, const struct vcpu *v = vlapic_vcpu(vlapic); here helps legibility.
-
-> -    uint32_t id = vlapic->loaded.id;
-> +    uint32_t good_ldr = x2apic_ldr_from_id(vlapic->loaded.id);
->  
-> -    if ( vlapic_x2apic_mode(vlapic) && id && vlapic->loaded.ldr == 1 )
-> -    {
-> +    /* Skip fixups on xAPIC mode, or if the x2APIC LDR is already correct */
-> +    if ( !vlapic_x2apic_mode(vlapic) ||
-> +         (vlapic->loaded.ldr == good_ldr) )
+> +void __init prune_svm(void)
+> +{
+> +    /*
+> +     * Now that svm_function_table was copied, populate all function pointers
+> +     * which may have been left at NULL, for __initdata_cf_clobber to have as
+> +     * much of an effect as possible.
+> +     */
+> +    if ( !cpu_has_xen_ibt )
 > +        return;
 > +
-> +    if ( vlapic->loaded.ldr == 1 )
-> +       /*
-> +        * Xen <= 4.4 may have a bug by which all the APICs configured in
-> +        * x2APIC mode got LDR = 1. We can't leave it as-is because it
-> +        * assigned the same LDR to every CPU.  We'll fix fix the bug now
-> +        * and assign an LDR value consistent with the APIC ID.
-> +        */
-> +        set_x2apic_id(vlapic);
-> +    else if ( vlapic->loaded.ldr ==
+> +    /* Nothing at present. */
+> +}
+> +
+>  void asmlinkage svm_vmexit_handler(void)
+>  {
+>      struct cpu_user_regs *regs = guest_cpu_user_regs();
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -3033,6 +3033,30 @@ const struct hvm_function_table * __init
+>      return &vmx_function_table;
+>  }
+>  
+> +void __init prune_vmx(void)
+> +{
+> +    /*
+> +     * Now that vmx_function_table was copied, populate all function pointers
+> +     * which may have been left at NULL, for __initdata_cf_clobber to have as
+> +     * much of an effect as possible.
+> +     */
+> +    if ( !cpu_has_xen_ibt )
+> +        return;
+> +
+> +    vmx_function_table.set_descriptor_access_exiting =
+> +        vmx_set_descriptor_access_exiting;
+> +
+> +    vmx_function_table.update_eoi_exit_bitmap = vmx_update_eoi_exit_bitmap;
+> +    vmx_function_table.process_isr            = vmx_process_isr;
+> +    vmx_function_table.handle_eoi             = vmx_handle_eoi;
+> +
+> +    vmx_function_table.pi_update_irte = vmx_pi_update_irte;
+> +
+> +    vmx_function_table.deliver_posted_intr = vmx_deliver_posted_intr;
+> +    vmx_function_table.sync_pir_to_irr     = vmx_sync_pir_to_irr;
+> +    vmx_function_table.test_pir            = vmx_test_pir;
 
-I know these are single statement if's, and the coding style permits
-them without braces, but the comment makes it visually awkward to follow.
+That said...
 
-This is an example where braces help readability generally, but also (as
-it happens) help make a more readable diff.
+This (the hooks being conditional in the first place) is bogus to begin
+with.  Posted interrupts (or not) are a per-VM property even if we don't
+wire this up properly yet.  It will be forced to be done properly in
+order to support nested virt, as L0 Xen *must* comply with the settings
+chosen by the L1 hypervisor.
 
+So the choice to use the hooks will have to come from per-vCPU state,
+and not from the conditional-ness of them.
 
-> +              x2apic_ldr_from_id(vlapic_vcpu(vlapic)->vcpu_id) )
->          /*
-> -         * This is optional: ID != 0 contradicts LDR == 1. It's being added
-> -         * to aid in eventual debugging of issues arising from the fixup done
-> -         * here, but can be dropped as soon as it is found to conflict with
-> -         * other (future) changes.
-> +         * Migrations from Xen 4.4 to date (4.19 dev window, Nov 2023) may
-> +         * show this bug.
-
-"may have had LDR derived from the vCPU_ID, not the APIC_ID."
-
-Better to clearly state what the bug is.
-
->  We must preserve LDRs so new vCPUs use consistent
-> +         * derivations and existing guests, which may have already read the
-> +         * LDR at the source host, aren't surprised when interrupts stop
-> +         * working the way they did at the other end.
->           */
-> -        if ( GET_xAPIC_ID(id) != vlapic_vcpu(vlapic)->vcpu_id * 2 ||
-> -             id != SET_xAPIC_ID(GET_xAPIC_ID(id)) )
-> -            printk(XENLOG_G_WARNING "%pv: bogus APIC ID %#x loaded\n",
-> -                   vlapic_vcpu(vlapic), id);
-> -        set_x2apic_id(vlapic);
-> -    }
-> -    else /* Undo an eventual earlier fixup. */
-> -    {
-> -        vlapic_set_reg(vlapic, APIC_ID, id);
-> -        vlapic_set_reg(vlapic, APIC_LDR, vlapic->loaded.ldr);
-> -    }
-> +        vlapic_domain(vlapic)->arch.hvm.bug_x2apic_ldr_vcpu_id = true;
-> +    else
-> +        printk(XENLOG_G_WARNING
-> +               "%pv: bogus x2APIC loaded id=%#x ldr=%#x (expected ldr=%#x)\n",
-
-%pv: bogus loaded x2APIC ID %#x, LDR %#x, expected LDR %#x\n
-
-If you properly capitalise x2APIC, you should capitalise ID and LDR. 
-The other changes are matter of taste, but make for a less cluttered log
-message IMO.
-
-
-This is a long list of minor niggles, but they're all style/comment
-issues, and nothing to do with the logic itself.  I'm happy to fix them
-all up on commit, and here is the result with them merged:
-
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=commitdiff;h=953dcb0317d20959ffee14e404595cfbb66c607a
-
-for you to glance over.
+Any chance I can talk you into instead making the hooks unconditional? 
+If not, someone (George was volunteering) is going to have to undo this
+in fairly short order.
 
 ~Andrew
 
