@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D23117F6EBE
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:46:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640268.998286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 187907F6EBD
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:46:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640266.998275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6RpG-00057y-26; Fri, 24 Nov 2023 08:46:14 +0000
+	id 1r6Rp0-0004j8-Ps; Fri, 24 Nov 2023 08:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640268.998286; Fri, 24 Nov 2023 08:46:14 +0000
+Received: by outflank-mailman (output) from mailman id 640266.998275; Fri, 24 Nov 2023 08:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6RpF-00056E-VF; Fri, 24 Nov 2023 08:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 640268;
- Fri, 24 Nov 2023 08:46:12 +0000
+	id 1r6Rp0-0004hF-Mx; Fri, 24 Nov 2023 08:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 640266;
+ Fri, 24 Nov 2023 08:45:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ulgz=HF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r6RmO-0001P4-4r
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:43:16 +0000
+ id 1r6Rmh-0001P4-4t
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:43:35 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2060f.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::60f])
+ (mail-am6eur05on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::61e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80d8be69-8aa5-11ee-9b0e-b553b5be7939;
- Fri, 24 Nov 2023 09:43:13 +0100 (CET)
+ id 8cdd901b-8aa5-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 09:43:33 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by PA4PR04MB9438.eurprd04.prod.outlook.com (2603:10a6:102:2aa::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Fri, 24 Nov
- 2023 08:43:11 +0000
+ 2023 08:43:32 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.012; Fri, 24 Nov 2023
- 08:43:11 +0000
+ 08:43:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,27 +47,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80d8be69-8aa5-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 8cdd901b-8aa5-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iu51CulISHlDiM2yC/3N3pNnlM6zF1YpR81rTU4ag695U0kaC1Ux+A6vNH7ghBqmxeLkfHJWnGBo+Td2X84IgEUJU1ZEpV4QkfvGyJb1pwT+4nS3Xw/PNhmzkcUrzEgEPFgOM9kUPCTtG2DxjFzMNU6fm2u0sTcybIL4wPajk7fK+WjkEUGfzkr5ES+8AZoVA/DS3teBGqbqUWcebbsFNo6QXrOe+OfuR3BH4stwSwtYDH0Orr43WGLzQ/Rbyc93ihoRU/PhVVOtg97AS37Z6699HELYZoLwj+yGpcQ72/8wReTJULZM7iXqotu8+1Co3boZhynhfc7O+UPu/TkpoQ==
+ b=Yb5MX3H/CR3nJGPjJyCJ+gTwsNfIMuKwh9tGGlsIpVPh7yLMyykgB6uGjmwAdhPGdOJrZjQXN2kzYNVOS0W5GHepG2t8GMRag4s1T+O6Sl2AwnL6VYx4cQiqGXlrwbmBUlZm5MpniN/jNH/BCfjdbGWDoLjlcvamQLfIaigd1c5eMPEcgOsi9x5RSq15UBzYdi/4p2fIXXp2DERRTK+4udoeA3omZjzXyaQ08NbqAR0gYaM/NgVXw2fQ5dug/bWwmbw0lE2GUHFJIy7COqS5TkVoF6S4t/RZI5B/GrKezppbr69YJ8BKE2MvYbBpWjxuwN1dRSfWlbT5FM3cgMTXyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ii+zo1xobGN3wN/BEdb/rynTYs7jRTblTW/YlpNzeJY=;
- b=bjo3fac8oivXCVCYMLc+hyAuTyUMzAFv5FT1DPiNnD65FEnccZ9De0Kia1e53rThtxWMY1iIfHzkGey4sI786s8TkLRzBhPmikZmfF2xuQq83JGF/CD8sJO43NYGTAJFk7jM2Mf7LI7r5yw2S6u5mh/zOkkShfANJ784yIi6/oqlaYCLuR2ip/9BKVRjJ/fC+1Tjh6fDEHyWqLrCJiXjgTO7xHvzC+SXh9Y6Sz4ayoFjsSEWT2QQDOWzT60b5N4VKH9ftjT3X8aKWPxlr/XhR6INWniEeS+oHCF0umiieaXhVsWB4pUNFmnKvGwn/fr/69+0x+z5JN00zI1q4b5T8w==
+ bh=Szpwc2wO4UnJhZHXRLFJK3uPqEZ4uan9C+psmzvZ6/w=;
+ b=aLFLQ1Q+5ZoBp366aP9HN81bksYgXuaKraGdIMR8hWFta1HtLvM0lmiT6e6lcw+sClIOdFuB50IKrg+ccD0BHjGu1MVLG/vyd7EFsoguKLilg85W7xxYHErxhNonl79blI3nqM8XTL/5XF4zkAv7mo3u50gXh7id/FTipnoAXFLuIE2vRbc/X/shSa/LCxoZ6stmoF4vx8wH8kFD/AOVLwPChF+R5+SatBnTFyKQ6xzRZnsyoQf4OXj7rDhuFyGy13QlZG6wOoD34un0/GK3Alc5Qs0NLImhOf+9f4fEzHMur51NhdwPQs/ckolJLrex9Mt8EavjbCcb814JA0EN7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ii+zo1xobGN3wN/BEdb/rynTYs7jRTblTW/YlpNzeJY=;
- b=0dptbUAJtUcfk5luLSqJX5vpriOlselL4lq7wRzGzBFjPjPwaLJi2ZFU9CBZw4cDAxag1WnXoTXhpELD9pywEn/4UfOoVgFDttlBhSX5l5+Ub83FPoHX3ooXOx3opjWoCbWq0KC5fxaKVFo9bvejE7QwIogMGzibXJ1z3it1IYG8Ug9AVaAvAYbDkLMWefiqyMhbFQTvmBER6bC4m1r87zpE0iQLIB0rUYXSvMTm/f9I9FJ17WvC4o32HyeSSxxndv6QwymiSmBS32az91qCp6/nYW5Xrpt8o4RJ/X7b1fZe+EmwkmxTb8oUxxAbQfbMf48nRgcbVQjQXWZ1V3WSRQ==
+ bh=Szpwc2wO4UnJhZHXRLFJK3uPqEZ4uan9C+psmzvZ6/w=;
+ b=iliFBDPLsIB147Mmjdq9xtvFf9wUy6Po68kCXob7APjDaDXgXHk7IVXgtDRcEQ+OIXkKMXBL52vByyiHsf0ktzcTApgQIE5IIrE5OuJ+qx2fmU2shlZMVVXNnfeRRBVb/edm6rYmWCBZA5KbYvy20fu/T3EXLm25icPD/Jc4iUheBWWSx4xD9KImFrMQEyoz9jA+XiGINTZZHeLpefvvGzkA4BiG0cGNnb0T3aq8G2HQLWRsdALHwAnzo070mYjbzpDZVZsJBs+xhthDEEPr3awI8506sfgqTk2Y6F6aj5XzUh9GDspn0yxY4guqlRn4Gn+AZ3OgR4R1Qdu1j4FDDw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4745e02e-b9b1-4381-b79b-f9ab63b81daf@suse.com>
-Date: Fri, 24 Nov 2023 09:43:10 +0100
+Message-ID: <b2accc3a-9b54-45b4-8cec-29cad9c2d638@suse.com>
+Date: Fri, 24 Nov 2023 09:43:31 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 14/15] VMX: convert vmx_ept_vpid_cap
+Subject: [PATCH v2 14/15] VMX: convert vmx_vmfunc
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -107,66 +107,65 @@ X-ClientProxiedBy: FR4P281CA0408.DEUP281.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB9438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 231ec47e-4f9f-4aa9-2352-08dbecc963f4
+X-MS-Office365-Filtering-Correlation-Id: d836cb5e-49c1-41c2-62e2-08dbecc97052
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	MIuZl7woFkd2puIYIRvcWdqBU6AXyGeBdkwCyJ93LCh2xbNTgViP4aQtk3G1HKMEm0cMe/pqC9IdFSII9YBmFSOrJMV7TbJcRgTnhFZ+s3KOj0gcvdWleDKkwLYATpWYXNHukMeLXGvRbBkgDpRmXKWIaX+esTfZbLuHARedmKLERczl+XrpClvPa2c6zMDYHiO3tkzDfME2ob/aXZyKkUf0FLl+DdBH7X0Q/GOqT1cC67/XmS+6e54B9SUzGnKBhmqLb94BX0wfkZKIvI/U4/lM1vKlKXhul3O3Sl8/q710TGFUzwWWorcKSTJsNwlQrfFoUU7FqQtnrlcDiD3embB3bvOu3lGbwf3hzXwNKma34k/Rvgecw74ArC7hwuVj7uytRrxMN2Nyr0wtzVlswXqXyJc2j9JUuf51vPUTGUp2L8NSGGMOTSw2a0h+ONvaGwvWYOdaB7mwYpaASYe2h7oql9Xzp2nu8erO7QaSeBxULuyHLyxOsg4RT6UzeqFsbk6ap5Izx6GqeRDpsikFPB0uP6HhWUOI/VDvP3rWT6nu3bUcD5gFgdA1eXMehxJsHvqRsy1ychyRtdhMoxJloHMwLzGygMeSTn+Xh1eAkpqE+yIn/43GfDSjf+gD9ieH30+GawjO90DI+tdleCrvKQ==
+	OXENjelHW7Sm+60ukAF35A3fHHbsR58KPEt8iFqOyplehV4ZgnOqaUjwRS0JVq63oQ6AC1Eu/CjlfHzHvCoHet7jDtIsU0QaHSJy5LjcyVBNCmi5gTPRYGV9OyB2CsRwLinBnXIoJ7ziS991F/s8cDePsHUJ8Rny3C9GFPADCxFunjnkbiZYpTDSza5Y2G6igEINa+9xtsLk4vObTdR93v1jHj/wqfrUC3WLzXjpqEINnhGLRH4zGT6HNCBmaZIMGOnKVIB+QWhE1+RJdZOLjYODY1vlZ+PB3frKAd4+ziJdGRuTJLqDRTAPPjXuK6RcCAnizdwYHYWXUFb/QVYGET0Wej+B1ctmJA1qJ0PiIos54sB0WjQvoSnvc/Bug23JN6EPjDS0nhubvO+dRndcTa6Vjf7OyyLAH9J1OxpV4gnuBz0QaxbQegrHV15ltq78aDHfPMN9TP3hbKP/xv48CJAcs3aiWQSd33UOA7BNV7kPqFp6PwNwEWKButkcb4PI5OhEsCwmLJ3u8Lh/AbRCDQbgIh4COo46xAzQpJmRYypI1ES+BgkXHOcZ/g/yUYEFkcYmRydvNqh3LJX+xRz9Pz5RSZGJdOumEbme62ie+enKWGYNJMx4cXG0j5iPhjUGlJHcNcl7ck+7TlK/z3MgMw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(136003)(366004)(396003)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(36756003)(2616005)(6512007)(8936002)(83380400001)(5660300002)(4326008)(8676002)(26005)(6506007)(66476007)(54906003)(66556008)(66946007)(316002)(6486002)(2906002)(6916009)(478600001)(31686004)(86362001)(31696002)(41300700001)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(136003)(366004)(396003)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(36756003)(2616005)(6512007)(8936002)(5660300002)(4326008)(8676002)(26005)(6506007)(66476007)(54906003)(66556008)(66946007)(316002)(6486002)(2906002)(6916009)(478600001)(31686004)(86362001)(31696002)(41300700001)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MEl0d1hNNUpjQ3hjdE1oSTlMNzFqQ0t2VGp4OFJxVWsrK0VIb3VyRGtDTkZk?=
- =?utf-8?B?SmZ3QjJueFljQitvTFptMktLZklBRDMwNUQ3RS96N1o1UmlvMUtxSXpVdU5o?=
- =?utf-8?B?MzlYc0g2YWFmNU9ZZzY1bXhXRHg1MjZ2YTFzOEJFY2RFL2FHMUNiZkZNd2Fj?=
- =?utf-8?B?cmI1TndZRCs3ZE1WM1ZLNGVHWjQ5NVFFY09KZUlRTlhLUlBxcEtyWDhTK0hD?=
- =?utf-8?B?LzNOeWR6VDJkTXgxK2ZhczJmUnBXeDFrenJnMks0UFhVbkZkYnRIMFlhQ1hk?=
- =?utf-8?B?SlcveFl6SC9iam1lZis0UkhaaGRkMFNkanZwUzlJYnJEZk5ISGY1L0FEZEhn?=
- =?utf-8?B?N29jZjl0WFJ4QTJyckhueWIraDR1Wi9hallQRTRYMUxUU2pyYVZDOHRrTHo3?=
- =?utf-8?B?dnVNSk1BeXlLRUkvNFdiWG9RNlRrWlJqam54bUJEN3FUNW44c240UEYxUlh4?=
- =?utf-8?B?dStwNzh2WVBKNmhoZUJRcXFIdHJVZm1iS0dYZFJVQU8rWmk5dEd3ZXltWlp6?=
- =?utf-8?B?Q05CODdqZlRRWlRiRmNOUHdodEdwejY1NkhvbmltUUZGS1hFOUpGalNCRVdT?=
- =?utf-8?B?eDhhVnJQNnB1eVRrdUZtb1BIaitZVHcyYlplb2ZUTmVFaG1xaklsU0ZURVdn?=
- =?utf-8?B?QWkwVTFhOERuay82NDhQa3BIZTFZSEhtY2tPOWIyUlVZRjFBQk5MZGEvZW01?=
- =?utf-8?B?dTFPY3paQXlvZnVTZmYzNTJQWi9qUnllRHQ2SzBUR0E5eFJVSUdCeVRQWDBn?=
- =?utf-8?B?bUo1azVJNmd5bk9jcDB6SndSbnp0b3FXMEF4enlqazlDVlJVWjkxdXg0ZDhi?=
- =?utf-8?B?V0xUc0YweDNKenpVVWZRdG1vbnN1MERjSTZVSDV0VElKQ2xvN2hEM2xQRU55?=
- =?utf-8?B?OStVRGdEMCtYM2RscXJOem9jdUM5elAxZmZLWHlxSTc1ZU9XWE9UVm1kR0dJ?=
- =?utf-8?B?NlZ5Wm5CaXgrRkpJaXNOdEZKUjVRSzdTK0MvZW42QUZzNUpCMWYrM0dvNVh5?=
- =?utf-8?B?TXptdXprbmF6OExFem1GQmsrVWsvWnMzNW1tbmt0SjN5WVhFZjRDNEM1bUI1?=
- =?utf-8?B?MGNwaGlLVTUrSEREMksvVDk3WnJlTjY1L1ZueHgrbHpYWHNaU1N4YW15MGcv?=
- =?utf-8?B?Z29PTDV4Qnc0UlBmZUlTWHVzUmVNL09KNUNiNUIrQlRlUjFjUzBVOWg5RXpI?=
- =?utf-8?B?QUM4ODRRQ3hsVmtFWVFreWlNRExEMUs5VDBjV1F5bVYvUjhpbTM2SmJndjRJ?=
- =?utf-8?B?cXg3d1VWeXp2S0lNc05YQ2o0UW04MHFtdko4WExHeVhVWVRIRW9GVitRTGJn?=
- =?utf-8?B?Nk1hT0pvb0ViNi9GdTBrVG1iaHhQMFpRdTNDYUsrT09YTUUzdjlVbGJJQWVG?=
- =?utf-8?B?Vk5IYTVCTzdPclNaeFhJY0RtamVlY2FNUlBuL2ZvbHlhTzVzK1h4b2RXeGxn?=
- =?utf-8?B?R25LSHl0a25WaXczcGYzSnVxeEhpcCtwSlFTQlB5T1JxY0lKTmYrdlRubUJ2?=
- =?utf-8?B?SnROWFd6V2ZSMkVMQmplMkQ0WjhjM0N0RWIyeGpaUEpOMndFa2IwUVRvbCtl?=
- =?utf-8?B?eU9SWmdiZVMzM0dkaEcwRGNWSTJjNFdIeUtmeEFwSEJmU1ZHcWdqWWZDZVMx?=
- =?utf-8?B?eWJXNFJyWDlWNG93cWdIMElScDFiek82OFprR0haYlNZeHUrOEJTWDZCeFVV?=
- =?utf-8?B?TGR3L2FaU2JsTWpEdlF5Rk93ekQ4M0hBVDJXT3hUdHBsdEJUdW1yNlU0dVlv?=
- =?utf-8?B?eXc3bkVhb01mME55TllDVW10NGpsUktJL3Q2QVJIc21LaGMyYTNMTGM4ZGdM?=
- =?utf-8?B?aVVWSDNtZEhFOTF1YkJEVlcxdzlRMkptU1ZITThTNnFuQWlNazh4bjNsSnVK?=
- =?utf-8?B?NCtYOHlOdEp3b3U1R2hhaEhMaU1NRy9vSElhcjR2TS9yd0dFMFhITm5MWWpv?=
- =?utf-8?B?d2w0WFIrT0ErbG91STFYYVVNMFBudkdYdWJhVGtJeGlaU3BOdjZCVlhkamY5?=
- =?utf-8?B?Sy8yTWtKM1J1KzNuV3ZkeFpDTkhTZ1hRYXlBalZDS3M1ak53dVNqMEFXZUo5?=
- =?utf-8?B?cFNuOGlkV2NKbW5VNnhqaGhQTFAxQ0kxanRHdWl4YmFPTDdBVE1PbWI4Mk5u?=
- =?utf-8?Q?JgrsRkPZer4Ws6qhWfQnbyusL?=
+	=?utf-8?B?ZlFCVW1xRmF0VTRIcjhobVlaOFBzekZnUmsxOFk4MmcwM2prNjNKN2tLaWxF?=
+ =?utf-8?B?YW91UnA5czRGQi9TT095MGpIU3RCSXM4RjNtOSswZ0VRcHNNa3NZNWZwUCtx?=
+ =?utf-8?B?ZFFOcWJwTHB3NlFoUzY2UGpneTI1S2VmbFBWNmpJd3FJVHYxaGdNWnpRODVq?=
+ =?utf-8?B?U2U2MWMyN25JL1BaNm1JUEl2ZE11Zkd6MVFSZ3FxQTYrQXJCbWZ3RVpOSHNH?=
+ =?utf-8?B?Y00xT2dBamtWd1kxNGNSZUtIQ3p5WXJkOE80YzVHcE9UK0tjQjRFWmlhWmYw?=
+ =?utf-8?B?U0xDSW1mSDNlWUpnQ0YwaktuOEdJK3gzQ2dlQ0pOblArNnJsd3FWTkgvT2xy?=
+ =?utf-8?B?MG4vMmdpdjhQb0xCaVgvQ0xhdUpXMk1aNE8xS0RlYTI5SlR4VlZWUTB6VXBp?=
+ =?utf-8?B?dTdYY2R5SDBiK3o0SHRXL3hGTlQ4eXJsVTJwZFBtaERTdk15Sm9ySVFnWWhZ?=
+ =?utf-8?B?d3dTdWJSVnQzakRlenpEN2RhSEJzZ2RnUlVndXFiTjlyZVVDWi9xNTVHTjNW?=
+ =?utf-8?B?Rm5XNjNxVXVXUmZlZmNRTFNlSHdpQnFRb2tROUphenlwMkVJTWpLM3NzMDFZ?=
+ =?utf-8?B?Rk9EeU9SbnZkTG1LZHZub0ZrSmNaMitvY3NweEp3c3JMWUYxckNFdW5PSVhW?=
+ =?utf-8?B?WTYxeCtwQ1E3NFA0Y1RXWVJ6ek40UW04NGRsZjRXRmpiOURjcTR6RDloYVdw?=
+ =?utf-8?B?Zzh3OUZKNVVMNGpLczFCVGtJM2lKSnhyL09TS3VHZVY0L1VjeWROWG1tUUFp?=
+ =?utf-8?B?ZzBPZnluUWhMVU1jZEdhWGVJNEhIN29BK2tiM2dLbXF1bFFvSTl0bnBEOWdp?=
+ =?utf-8?B?cTc2dmtFL0hsZSt4c0tQT0VjTUlaUmVwMGkvK2VrNU5NSXA0aDN0a1ljZG9T?=
+ =?utf-8?B?dkowdGRJbTlSOWxGMG85anVGQms5eGx6MG1JUVZiYnZ6M0dmQS9ZZjBlYWxo?=
+ =?utf-8?B?bHFscUs3UGNDS0NvK0ZiZzlUNi9rNDRlWTNVSWhGN1ZvcXdEb21hbFhwUmV4?=
+ =?utf-8?B?dW1tV1U0QUQ5VjhVZWxsMzNLSE94T0ZmNHFtaE5Ybyt4V2NKUG0yVEc4TFVs?=
+ =?utf-8?B?SUNsa0NiSjkwL0FLMThDckwvN1h3WXF2VlczZnl0T3A1RCtLNTZ5TVY1RDFE?=
+ =?utf-8?B?VU5FRUZ3U1NiNnNMZVM0b3A1dTVvVksvdHlXU1pxQnMvOGFBOGFjSDdzWWJK?=
+ =?utf-8?B?R1UwUDNhU3Nqa2sxQ2F1azN1NktYZ1c4L2xYT242NjduUEF3OEorbkViQzhi?=
+ =?utf-8?B?V09ZODEwZkt3aGtNNVdVbm9yeU5JSFdOaU5zek1JbTBIZUVMK1pKU3BjSjBT?=
+ =?utf-8?B?enFwOUEvd1ZaT0NnTXBNNHlXdTlvWmdVOTNmRmNDOUVMZ296M05jSUhBK0FC?=
+ =?utf-8?B?M2RPUCs5bjEvRGl4UmZieXN0QVg5S21ST2RrbkR6bDBNU01jV1ZNc0diOU15?=
+ =?utf-8?B?YTRPQW9KRzJnWmtIcUFpdTVjUlZFWmNBYlI0Qm1ZNUhPOFVBNlFSdVpacHVD?=
+ =?utf-8?B?czZQOTRodW1TV3hjNUhsWGg0MFV6bjFINExnTzBSc2RpaEg1bDU2UHJDVVZU?=
+ =?utf-8?B?bFNXNks2SmFlZHplVTNiVlpFMXpKQXRkY25IRTZhYTgyblFuYysrdm5IL0hj?=
+ =?utf-8?B?ZXhtcmdRcW9TUFpMcUNyMllTRVBoY0NEOFpIcjBWZmNUVzg0SWhGM0lGb0xU?=
+ =?utf-8?B?Ui96Wk1KaHA2Z212T3BvdVY2c2pHTHNPdkoxNmdjam5sQ1NGOENWSjVjV0Nk?=
+ =?utf-8?B?R1NtWVRSOUUwOEQxdGxhbHBKRVVjbU1yZUFZOURJWCtUSXdOZ1hUcEJHVGdH?=
+ =?utf-8?B?cTVUV1B4azdNT2UyWFgzMWJLbHZVYlFXZFc3M2FpN3pYZWRVRS9JeC9RczAy?=
+ =?utf-8?B?M1JDZkpQb2R1Z2FFS2FYaFk1ZGxudmNET09sdmtXQnpTU1dRTS8xc3JhMUVm?=
+ =?utf-8?B?RGlJQlk0cEx1TlNpUThVVCtNWm5zTFl3MUpVS1dHQzg4Y3V0YjQ2OUhFYVM0?=
+ =?utf-8?B?YkplSnZidWZTbVNnN2F2eFhmSzdrcTVPK3ZSckdvekIrMVNkcXJhajU1b200?=
+ =?utf-8?B?eENMaXBiWG5QNk5kd0Ezb01uR2t1dUwrYnFmZnpMeG1PZXYvQW9CUmxWU3hW?=
+ =?utf-8?Q?PefCrxZqKIyZCpRsfEWK6QPCT?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 231ec47e-4f9f-4aa9-2352-08dbecc963f4
+X-MS-Exchange-CrossTenant-Network-Message-Id: d836cb5e-49c1-41c2-62e2-08dbecc97052
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:43:11.3754
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:43:32.1555
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c/rU9Py4OQNUqRmoruCpxOLtfE1VNkDV597Gmu6fxPURMD3PZ6DDZnfz+6XiU5PWkzPgBwRCitjmVxs41EiILw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: bIAy8xEwfSnkJR2cfWGOONq89L0VuWDPeVEUivjegATm54Gkv/s9sndbVTr/9z9eck8tsdaUX9LfITpamuXg1g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9438
 
-... to fields in the capability/controls struct: Take the opportunity
-and split the two halves into separate EPT and VPID fields.
+... to a field in the capability/controls struct.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
@@ -178,157 +177,69 @@ v2: New.
  
  /* Dynamic (run-time adjusted) execution control flags. */
  struct vmx_caps __ro_after_init vmx_caps;
--u64 vmx_ept_vpid_cap __read_mostly;
- static uint64_t __read_mostly vmx_vmfunc;
+-static uint64_t __read_mostly vmx_vmfunc;
  
  static DEFINE_PER_CPU_READ_MOSTLY(paddr_t, vmxon_region);
+ static DEFINE_PER_CPU(paddr_t, current_vmcs);
 @@ -234,7 +233,6 @@ static int vmx_init_vmcs_config(bool bsp
- {
      u32 vmx_basic_msr_low, vmx_basic_msr_high, min, opt;
      struct vmx_caps caps;
--    u64 _vmx_ept_vpid_cap = 0;
      u64 _vmx_misc_cap = 0;
-     u64 _vmx_vmfunc = 0;
+-    u64 _vmx_vmfunc = 0;
      bool mismatch = false;
-@@ -333,10 +331,10 @@ static int vmx_init_vmcs_config(bool bsp
-     if ( caps.secondary_exec_control & (SECONDARY_EXEC_ENABLE_EPT |
-                                         SECONDARY_EXEC_ENABLE_VPID) )
+ 
+     rdmsr(MSR_IA32_VMX_BASIC, vmx_basic_msr_low, vmx_basic_msr_high);
+@@ -426,14 +424,14 @@ static int vmx_init_vmcs_config(bool bsp
+     /* The IA32_VMX_VMFUNC MSR exists only when VMFUNC is available */
+     if ( caps.secondary_exec_control & SECONDARY_EXEC_ENABLE_VM_FUNCTIONS )
      {
--        rdmsrl(MSR_IA32_VMX_EPT_VPID_CAP, _vmx_ept_vpid_cap);
-+        rdmsr(MSR_IA32_VMX_EPT_VPID_CAP, caps.ept, caps.vpid);
- 
-         if ( !opt_ept_ad )
--            _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
-+            caps.ept &= ~VMX_EPT_AD_BIT;
+-        rdmsrl(MSR_IA32_VMX_VMFUNC, _vmx_vmfunc);
++        rdmsrl(MSR_IA32_VMX_VMFUNC, caps.vmfunc);
  
          /*
-          * Additional sanity checking before using EPT:
-@@ -349,9 +347,9 @@ static int vmx_init_vmcs_config(bool bsp
+          * VMFUNC leaf 0 (EPTP switching) must be supported.
           *
-          * Or we just don't use EPT.
+          * Or we just don't use VMFUNC.
           */
--        if ( !(_vmx_ept_vpid_cap & VMX_EPT_MEMORY_TYPE_WB) ||
--             !(_vmx_ept_vpid_cap & VMX_EPT_WALK_LENGTH_4_SUPPORTED) ||
--             !(_vmx_ept_vpid_cap & VMX_EPT_INVEPT_ALL_CONTEXT) )
-+        if ( !(caps.ept & VMX_EPT_MEMORY_TYPE_WB) ||
-+             !(caps.ept & VMX_EPT_WALK_LENGTH_4_SUPPORTED) ||
-+             !(caps.ept & VMX_EPT_INVEPT_ALL_CONTEXT) )
-             caps.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_EPT;
- 
-         /*
-@@ -360,11 +358,11 @@ static int vmx_init_vmcs_config(bool bsp
-          *
-          * Or we just don't use VPID.
-          */
--        if ( !(_vmx_ept_vpid_cap & VMX_VPID_INVVPID_ALL_CONTEXT) )
-+        if ( !(caps.vpid & VMX_VPID_INVVPID_ALL_CONTEXT) )
-             caps.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_VPID;
- 
-         /* EPT A/D bits is required for PML */
--        if ( !(_vmx_ept_vpid_cap & VMX_EPT_AD_BIT) )
-+        if ( !(caps.ept & VMX_EPT_AD_BIT) )
-             caps.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_PML;
+-        if ( !(_vmx_vmfunc & VMX_VMFUNC_EPTP_SWITCHING) )
++        if ( !(caps.vmfunc & VMX_VMFUNC_EPTP_SWITCHING) )
+             caps.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_VM_FUNCTIONS;
      }
  
 @@ -456,7 +454,6 @@ static int vmx_init_vmcs_config(bool bsp
-     {
-         /* First time through. */
          vmx_caps = caps;
--        vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
          vmx_caps.basic_msr = ((uint64_t)vmx_basic_msr_high << 32) |
                               vmx_basic_msr_low;
-         vmx_vmfunc                 = _vmx_vmfunc;
-@@ -494,9 +491,8 @@ static int vmx_init_vmcs_config(bool bsp
-         mismatch |= cap_check(
-             "VMEntry Control",
-             vmx_caps.vmentry_control, caps.vmentry_control);
--        mismatch |= cap_check(
--            "EPT and VPID Capability",
--            vmx_ept_vpid_cap, _vmx_ept_vpid_cap);
-+        mismatch |= cap_check("EPT Capability", vmx_caps.ept, caps.ept);
-+        mismatch |= cap_check("VPID Capability", vmx_caps.vpid, caps.vpid);
+-        vmx_vmfunc                 = _vmx_vmfunc;
+ 
+         vmx_display_features();
+ 
+@@ -495,7 +492,7 @@ static int vmx_init_vmcs_config(bool bsp
+         mismatch |= cap_check("VPID Capability", vmx_caps.vpid, caps.vpid);
          mismatch |= cap_check(
              "VMFUNC Capability",
-             vmx_vmfunc, _vmx_vmfunc);
-@@ -2157,7 +2153,6 @@ int __init vmx_vmcs_init(void)
+-            vmx_vmfunc, _vmx_vmfunc);
++            vmx_caps.vmfunc, caps.vmfunc);
+         if ( cpu_has_vmx_ins_outs_instr_info !=
+              !!(vmx_basic_msr_high & (VMX_BASIC_INS_OUT_INFO >> 32)) )
+         {
+@@ -2153,7 +2150,6 @@ int __init vmx_vmcs_init(void)
           * Make sure all dependent features are off as well.
           */
          memset(&vmx_caps, 0, sizeof(vmx_caps));
--        vmx_ept_vpid_cap           = 0;
-         vmx_vmfunc                 = 0;
+-        vmx_vmfunc                 = 0;
      }
  
+     return ret;
 --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
 +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -265,12 +265,11 @@ void vmx_vmcs_reload(struct vcpu *v);
- #define VMX_EPT_AD_BIT                                      0x00200000
- #define VMX_EPT_INVEPT_SINGLE_CONTEXT                       0x02000000
- #define VMX_EPT_INVEPT_ALL_CONTEXT                          0x04000000
--#define VMX_VPID_INVVPID_INSTRUCTION                     0x00100000000ULL
--#define VMX_VPID_INVVPID_INDIVIDUAL_ADDR                 0x10000000000ULL
--#define VMX_VPID_INVVPID_SINGLE_CONTEXT                  0x20000000000ULL
--#define VMX_VPID_INVVPID_ALL_CONTEXT                     0x40000000000ULL
--#define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 0x80000000000ULL
--extern u64 vmx_ept_vpid_cap;
-+#define VMX_VPID_INVVPID_INSTRUCTION                        0x00000001
-+#define VMX_VPID_INVVPID_INDIVIDUAL_ADDR                    0x00000100
-+#define VMX_VPID_INVVPID_SINGLE_CONTEXT                     0x00000200
-+#define VMX_VPID_INVVPID_ALL_CONTEXT                        0x00000400
-+#define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL    0x00000800
- 
- #define VMX_MISC_PROC_TRACE                     0x00004000
- #define VMX_MISC_CR3_TARGET                     0x01ff0000
-@@ -286,6 +285,8 @@ struct vmx_caps {
-     uint32_t secondary_exec_control;
-     uint32_t vmexit_control;
+@@ -287,6 +287,7 @@ struct vmx_caps {
      uint32_t vmentry_control;
-+    uint32_t ept;
-+    uint32_t vpid;
+     uint32_t ept;
+     uint32_t vpid;
++    uint64_t vmfunc;
  };
  extern struct vmx_caps vmx_caps;
  
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -278,17 +278,17 @@ typedef union cr_access_qual {
- extern uint8_t posted_intr_vector;
- 
- #define cpu_has_vmx_ept_exec_only_supported        \
--    (vmx_ept_vpid_cap & VMX_EPT_EXEC_ONLY_SUPPORTED)
-+    (vmx_caps.ept & VMX_EPT_EXEC_ONLY_SUPPORTED)
- 
- #define cpu_has_vmx_ept_wl4_supported           \
--    (vmx_ept_vpid_cap & VMX_EPT_WALK_LENGTH_4_SUPPORTED)
--#define cpu_has_vmx_ept_mt_uc (vmx_ept_vpid_cap & VMX_EPT_MEMORY_TYPE_UC)
--#define cpu_has_vmx_ept_mt_wb (vmx_ept_vpid_cap & VMX_EPT_MEMORY_TYPE_WB)
--#define cpu_has_vmx_ept_2mb   (vmx_ept_vpid_cap & VMX_EPT_SUPERPAGE_2MB)
--#define cpu_has_vmx_ept_1gb   (vmx_ept_vpid_cap & VMX_EPT_SUPERPAGE_1GB)
--#define cpu_has_vmx_ept_ad    (vmx_ept_vpid_cap & VMX_EPT_AD_BIT)
-+    (vmx_caps.ept & VMX_EPT_WALK_LENGTH_4_SUPPORTED)
-+#define cpu_has_vmx_ept_mt_uc (vmx_caps.ept & VMX_EPT_MEMORY_TYPE_UC)
-+#define cpu_has_vmx_ept_mt_wb (vmx_caps.ept & VMX_EPT_MEMORY_TYPE_WB)
-+#define cpu_has_vmx_ept_2mb   (vmx_caps.ept & VMX_EPT_SUPERPAGE_2MB)
-+#define cpu_has_vmx_ept_1gb   (vmx_caps.ept & VMX_EPT_SUPERPAGE_1GB)
-+#define cpu_has_vmx_ept_ad    (vmx_caps.ept & VMX_EPT_AD_BIT)
- #define cpu_has_vmx_ept_invept_single_context   \
--    (vmx_ept_vpid_cap & VMX_EPT_INVEPT_SINGLE_CONTEXT)
-+    (vmx_caps.ept & VMX_EPT_INVEPT_SINGLE_CONTEXT)
- 
- #define EPT_2MB_SHIFT     16
- #define EPT_1GB_SHIFT     17
-@@ -299,11 +299,11 @@ extern uint8_t posted_intr_vector;
- #define INVEPT_ALL_CONTEXT      2
- 
- #define cpu_has_vmx_vpid_invvpid_individual_addr                    \
--    (vmx_ept_vpid_cap & VMX_VPID_INVVPID_INDIVIDUAL_ADDR)
-+    (vmx_caps.vpid & VMX_VPID_INVVPID_INDIVIDUAL_ADDR)
- #define cpu_has_vmx_vpid_invvpid_single_context                     \
--    (vmx_ept_vpid_cap & VMX_VPID_INVVPID_SINGLE_CONTEXT)
-+    (vmx_caps.vpid & VMX_VPID_INVVPID_SINGLE_CONTEXT)
- #define cpu_has_vmx_vpid_invvpid_single_context_retaining_global    \
--    (vmx_ept_vpid_cap & VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL)
-+    (vmx_caps.vpid & VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL)
- 
- #define INVVPID_INDIVIDUAL_ADDR                 0
- #define INVVPID_SINGLE_CONTEXT                  1
 
 
