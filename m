@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E107F742C
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 13:47:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640664.999204 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57ECB7F742D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 13:48:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640666.999214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Vaf-00078X-Qe; Fri, 24 Nov 2023 12:47:25 +0000
+	id 1r6VbB-0007d0-23; Fri, 24 Nov 2023 12:47:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640664.999204; Fri, 24 Nov 2023 12:47:25 +0000
+Received: by outflank-mailman (output) from mailman id 640666.999214; Fri, 24 Nov 2023 12:47:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Vaf-00075h-N7; Fri, 24 Nov 2023 12:47:25 +0000
-Received: by outflank-mailman (input) for mailman id 640664;
- Fri, 24 Nov 2023 12:47:24 +0000
+	id 1r6VbA-0007aA-V9; Fri, 24 Nov 2023 12:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 640666;
+ Fri, 24 Nov 2023 12:47:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ulgz=HF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r6Vae-00075b-PO
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 12:47:24 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0628.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::628])
+ (envelope-from <SRS0=dUjn=HF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1r6Vb9-00075b-DH
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 12:47:55 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d11d052-8ac7-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 13:47:23 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB8196.eurprd04.prod.outlook.com (2603:10a6:20b:3e9::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.14; Fri, 24 Nov
- 2023 12:47:21 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.012; Fri, 24 Nov 2023
- 12:47:21 +0000
+ id af9b3d79-8ac7-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 13:47:54 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E4A8721C0C;
+ Fri, 24 Nov 2023 12:47:53 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2EBD1340B;
+ Fri, 24 Nov 2023 12:47:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TSlYKnmbYGUTJwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 24 Nov 2023 12:47:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,237 +51,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d11d052-8ac7-11ee-98e2-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G6szqs3C3opcLwHvNV+KTY7nYwGtGFUQe+YDCq63gBQKvcEyiJjQkvgHvIzTI6kz39uS1rH7Y63KuH0RlTN2MJgzZP0MLs3PxhZr/+RTcICxQ+CqAoO2q6Wg87feiIyf2DLzkKCwuQqde97fltMAgQllCk6HSFqVtSHBr/O/Z72DfNU1cis4mKawjqUsRzLXjb8ifg97Ef6TGYiLvdqzzUJIAyhM46+rHZNBuOmuDsFSc1KVL+Gf0qRKVjR+7XBhTwSOkFmBUlqNYNCDiiqUWNoVE4XdxEldlMId2V8ojdVPafkVKTIJPmUZhjQq2GyysbKTzOQpkOGi4H3w4DOL3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xeF6dLSwz+mFiIfBIWs4Ze+QNXHHg4PqH1GD9i/IG6A=;
- b=mek5FIMGDBTnwcDq80Zw9arEIexFYv7Yq4Ob4zrLgqSId7o0HutNdG5as1Gqnt8o01lTlXELVvps/pzrczhQj9NYXiUVvV9a+R+xKWXXh0ep2xu53n7T/DCSmj/uAgkKsvGPV6weP02mOalF3h3sX3sP7dfUk/PbDFGKaxVVjLrQntzCWNkom95M0gQ4lyEzRRFvPRngjilRwJ/PjyMYB4qo2J0w4AhFNXmAS0QjrveNw4BnrcCN3DTfFsGbYWfyfVALpp1X/F80vYef2IemjdyjFMljTK6XcTkk6UaluCSnfTkzDGD/kqBCek5RAKCR2UX0EmOsIJshOq3zJR8ZXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xeF6dLSwz+mFiIfBIWs4Ze+QNXHHg4PqH1GD9i/IG6A=;
- b=v21OwbvRuKrfM0TV+HWn2gjCPdYVdPHEfhWcMHg4o4sg1EgLnR3sd3QIus5oxHQsKKHJ8IDcfn7B+rJtztt68nkykRePI0l/zuhXEAA3wUhxP61afGzRc7bp7ygTf0HL4XfTGilDzoJfeuUga26p3EkWGEqQjgF/ZOjbl+77W+j5satQV6D9t5OoMLS2MexHMDqnzRh/cu5vyECiXi2cdHno47LG/QDqk5NuFQ+BNYEZXUXyRpoqVxR/A8RqIyt3W02s+3txTdQmiWwzpf5C+ALYikM0WM6qNfNDxy7WMKnDjKJeUtd11BfI62jTuvFNiRJOUI0Dxwkoqg7SAlV6Ig==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1e770335-9606-4e9a-9f96-d04834675426@suse.com>
-Date: Fri, 24 Nov 2023 13:47:19 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: Clang-format configuration discussion - pt 2
-Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <Michal.Orzel@amd.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <1B83FF45-E93B-47D7-AD21-615CFCFD0816@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1B83FF45-E93B-47D7-AD21-615CFCFD0816@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0293.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::6) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: af9b3d79-8ac7-11ee-98e2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1700830073; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=OYHedQBnJY15XZhMAd5H6ml7PVh7BVJsJmASk8AHfoY=;
+	b=nRFtU9jlWZYGRm8Z0E40OCEgaO0Yf/dz3Y8TGON2UJofzq+0Wxn3RCQtq1PSSvFx/8Ioao
+	t9gPnLK+b4Ykm/rWEkkh1jFbEB0c8tJ8kYw0U5h0ATvcbvKbzYLLUUxkJbtKmeGKiQXbOj
+	wdyg2yISjDnLnX3Mm7c6JMrmdS7plXA=
+Message-ID: <7a4ca8fe-da45-428f-a300-241b2bf0b2f2@suse.com>
+Date: Fri, 24 Nov 2023 13:47:53 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8196:EE_
-X-MS-Office365-Filtering-Correlation-Id: df3a4efc-fe40-4d01-9e3e-08dbeceb8000
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SdrZUaRJh+oJq2Dvxnpf+UEJEPLjKXzL1eaL7iOJy3ojPNBwEPoYzxxjUwXmffaove5XQNjtM6UDPupbnqEyXNHccuqR+29vwVQ244U9ebRgUYhE2gjhq4ko/KwM31jFmB9uvSNzKDkq79QnPRlvqfZV5S4GLu2AYdHKy6P4UdTQW5gQ4keUbo451kS9PxzWCySJcibcz2hCS6CG56YHoj6i+6KZLB3gz11qEZixPh8mDbGY8GZwm+d+E+xdDD05d6sr/iXetN2y9wRjsdffrzZQYBRHduZJO2vWIj2ptbVfaEofUUxWdbT6h0zWG76mGrADIvcqF4LEaI9Wf4g1E7F4icvej7wyAufxo/rDAoen6Lu9FsRcOnyt7zCotvtdWFRKjQIgsT7Mro7i6ftUButRpWEwRROG8o/VKM2urw73RF2uQ1ndRYs6NK/gyXZnL9er2CTJKurT9dyKW341JQdYh6REQQuG9/2QsMtcHWbZnhGQYFu9hOjFIhDAOQ6rb5Wlus4HUdVMu8jKKEYM1+BKi6N6j9EXds53PADrx3M1lfCLgvleERF8qAXPpj9nl9TYKjgq6jlHskEyh6puK0R5uYus85SCojJHI9pqXshBRQJDzUQOY3sL7PjfiE+oXD/yoN7tksCD1D1YaOA0DQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(376002)(396003)(136003)(366004)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(31686004)(26005)(6512007)(53546011)(83380400001)(2616005)(6506007)(966005)(478600001)(6486002)(66946007)(66476007)(316002)(54906003)(2906002)(86362001)(66556008)(31696002)(5660300002)(7416002)(6916009)(36756003)(8676002)(8936002)(38100700002)(4326008)(66899024)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TlBUZjA4M054eDVTYzNDRTFlMkQzN3paSERNLzl5bFhrMUxvZkk2cm51Z0hq?=
- =?utf-8?B?NVpva012djVhK3RCY01nek5tbW5McCtLMGtKU2wyY2JTN2RUb2hxOEFHaVZR?=
- =?utf-8?B?b1ZRNTVzaFM1L0tjM0ZQOHRvNkdsR3BiNXFLTXlDRnI4eElnb2FCVkhYV1Na?=
- =?utf-8?B?b1A2QXJEdm5ZeklpQjVUZlhzUXA2dzliODIzOGNmb3VQRTFkYXhPWktob25q?=
- =?utf-8?B?TjBlQTc5T0VpaWpOOGVaU0dhSTdmMFV1NUc5WjZXZUxBZHNwTmVTYXN1VnM0?=
- =?utf-8?B?dGx5Zy9kOVlDS1RtQnJTWDZKcjdWZFNxMmVBekk2RmhkZGdSeUFYdVdyUEdW?=
- =?utf-8?B?RkIwWFdKWkdPSDRKekdHUjRSdmEwV2F2Sk1uaFJ2aVhFMlEzeVJiUi9WMy9O?=
- =?utf-8?B?NWpOZUFqYXFGM0lFQk9LRUs0V1BVUU95YWp2NjI1aFFkTlUyaGdyVEZUYVB3?=
- =?utf-8?B?cGkrUTBLaTFxcENkYWhYeVZNNWMvV3U3NGs5Z2lQbmJOM085ZmsybHNaYWx6?=
- =?utf-8?B?Y3dlWk9WZWFaK1JrS1dyc0RKTXpFQnNBQ3dma011SHgzN0NWZDZDaENuS1FO?=
- =?utf-8?B?cjBZRlRIWjE0ZjJKdmxNSXVvbW56clFXcHhqV21LWFpEWkE0QkhRcHh4R0hE?=
- =?utf-8?B?aEo3Nlg3L3NkdFYyWXBwU3RHZUF4V2JCVFNyWC9CbnMwV2E4TW03Uithc0Rp?=
- =?utf-8?B?emVseTAycFNSMnNlL1NDQXA0aTVOQnNNTWV6TlZweWo3djcyZzJFeHNaTVdw?=
- =?utf-8?B?czhoRzJBdmJJZFRsbUF0bzFmaVpSdzMzMkp5RHM4THRiVkU2SEpLaElSL1ZS?=
- =?utf-8?B?RFJ1K29KRnppd1lqU3h0Y3BtbFlBNGRMVUc2Q1VqRmFOalY4ejVacEw3enFz?=
- =?utf-8?B?WGZDSy9NdXZkN3hlU2RNOC8vYm1lU1hFcTcrR2xBNDJlQzV0T29iR1BvUGJT?=
- =?utf-8?B?bUEvRmMrUUw4dCtRRDA3ejJOaDdNeC93ZW1aMExnTjNFVWUxZlJ0R053czlU?=
- =?utf-8?B?akdtMFE4WVdLQVJMcXRPUGtvb3lVYlRpVXBjYk5EZU5wc2dicUN1aG1yS3NF?=
- =?utf-8?B?WFBuUkpWNm5raCtNRjgwTVIwa0ljSjdoSXlXNUR2WTNMMHJjKzA2STRCakpT?=
- =?utf-8?B?bXZMRTBMYTdNdXNFcGdscmF4SFZab3VVMXpMaWEvTXM2Vk5pRUtBWGVqRlk4?=
- =?utf-8?B?aUtqcHRUcVVtci9FU1IzQ3NBUFhMQWVCUXRBbmsyN3J5Yy8zTFU0ZjNFTTY5?=
- =?utf-8?B?aVBGUWt0OElJNjRKeUpadW5XUmp2UFcrOGkrNzRKdEgxM3l0a0dwRHY1VnV1?=
- =?utf-8?B?RVRoVHRaTy9KOTV0bzFRRXhzcE1YTmRubFhzcWJ2MHFxQWNRTGwxVGRXcUo0?=
- =?utf-8?B?ZkpJRkZiVlE5RjhRcFJwM0JYcHhIUklqSWx1V29rQ3phTUMvZ3J6K3lSYzhy?=
- =?utf-8?B?eFFHRmh0SysrMC8wKzEyWFFkUmx3ckpORXhDUHpiK1lRWDdKRXlRUXlHOWw2?=
- =?utf-8?B?QXNxakp2R0o0SkRkZU1iUDRNamNnUzRMMURwVmJkcC9JZExCZTg4OHZZY1hV?=
- =?utf-8?B?R20vUGFIbnUxWTFQd2VxMzdRcll0MlFna0dSYjJ3M3hWOUNNS0Vtd0dxUmlD?=
- =?utf-8?B?V0RYd2tMUXRMOHF3cVJmaUpyUytnSmRyYVVDdDI4REw5dEtmWmo0Zm8xTVB1?=
- =?utf-8?B?RmxrM2NXckNrQjZrZXpRZnBqcjlBaTcwN2FxZ1BGUVdBYXZmMk1BNzFtVXpo?=
- =?utf-8?B?NDVkRFhOaFBScG1OZFk2cmVJaGlJTnJBajBnUUVKay9udUdqWnpxZzhwelVk?=
- =?utf-8?B?ZndhVE1oSDZrMHM0SGY0YU9KUUtFVzVJNnh5VVBZQmhtV1JyNytnWVN0UUQw?=
- =?utf-8?B?bjNLNG9lNDlhc0lGdEhETFlEaEMrT2tLZk53RzhHeTh3YVhQdlFPc0ZlajU0?=
- =?utf-8?B?c2RuWlFEWjFjWkdqOHZqaWFXdXoyMFMvTzFnbE51dmVEdkM3M2JEaEo2azE0?=
- =?utf-8?B?K09vd3hkMzV4K0VVVG1ZWmtGMnRZMWtyM2t3b2YzanlpUVBuZDN6UTVUS3Qy?=
- =?utf-8?B?bUJTRStUQkFjakU1TndsZzJQeTRjR09ER3JZWDUwU0RiVzZaK1pwOERtOE03?=
- =?utf-8?Q?CIF1ob9R1bPoEBj/vE6Ogywxa?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df3a4efc-fe40-4d01-9e3e-08dbeceb8000
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 12:47:21.3029
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v/dAlZFZc/Ps+X5zp+uJJv1gocHKev6BqAm/JTUn8y88mgFyOeReO/sOyPu4Zo/QulNbOugHl8U2FUn6NiL90Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8196
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Discussion]: Making "LIBXL_HOTPLUG_TIMEOUT" configurable through
+ 'xl.conf'
+Content-Language: en-US
+To: Divin Raj <divin.raj@arm.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>,
+ "anthony.perard@citrix.com" <anthony.perard@citrix.com>
+Cc: Olaf Hering <olaf@aepfle.de>, Jan Beulich <jbeulich@suse.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>, Rahul Singh <Rahul.Singh@arm.com>
+References: <4a54e7e7-c041-44d3-a16e-d331e9fdd414@arm.com>
+ <20231115182340.505df6c3.olaf@aepfle.de>
+ <4f418916-b76d-425a-96a2-05b56a3dc195@suse.com>
+ <20231116085629.40a0445b.olaf@aepfle.de>
+ <A6D4B8C2-E781-4964-A757-C72F38169246@arm.com>
+ <20231116105321.4a59eed4.olaf@aepfle.de>
+ <47ec45a1-2004-410c-86c7-861d03c1939b@arm.com>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <47ec45a1-2004-410c-86c7-861d03c1939b@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------8h407fNXi9WwSufgbpZopa3w"
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Score: -3.33
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.33 / 50.00];
+	 ARC_NA(0.00)[];
+	 TO_DN_EQ_ADDR_SOME(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BAYES_HAM(-0.14)[68.38%];
+	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	 HAS_ATTACHMENT(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.19)[-0.974];
+	 MIME_BASE64_TEXT(0.10)[];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[opensuse.org:url];
+	 SIGNED_PGP(-2.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[];
+	 MIME_UNKNOWN(0.10)[application/pgp-keys]
 
-On 23.11.2023 15:47, Luca Fancellu wrote:
-> Hi all,
-> 
-> Let’s continue the discussion about clang-format configuration, this is part 2, previous discussions are:
-> 
->  - https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg00498.html
-> 
-> You can find the serie introducing clang-format here:
-> https://patchwork.kernel.org/project/xen-devel/cover/20231031132304.2573924-1-luca.fancellu@arm.com/
-> and there is also a patch linked to my gitlab account where you can find the output for the hypervisor code.
-> 
-> For a full list of configurables and to find the possible values for them, please refer to this page:
-> https://clang.llvm.org/docs/ClangFormatStyleOptions.html
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> Our coding style doesn’t mention anything about alignment, shall we add a new section?
-> I can send patches when we reach agreement on each of these rules.
-> 
-> 
-> QualifierAlignment: Custom
-> QualifierOrder: ['static', 'inline', 'const', 'volatile', 'type']
-> 
-> ---
-> For “QualifierAlignment” I chose Custom in order to apply in “QualifierOrder” an order for the
-> qualifiers that match the current codebase, we could specify also “Leave” in order to keep
-> them as they are.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------8h407fNXi9WwSufgbpZopa3w
+Content-Type: multipart/mixed; boundary="------------KiOcREk6wMFjJ0yZms9PUraz";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Divin Raj <divin.raj@arm.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>,
+ "anthony.perard@citrix.com" <anthony.perard@citrix.com>
+Cc: Olaf Hering <olaf@aepfle.de>, Jan Beulich <jbeulich@suse.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>, Rahul Singh <Rahul.Singh@arm.com>
+Message-ID: <7a4ca8fe-da45-428f-a300-241b2bf0b2f2@suse.com>
+Subject: Re: [Discussion]: Making "LIBXL_HOTPLUG_TIMEOUT" configurable through
+ 'xl.conf'
+References: <4a54e7e7-c041-44d3-a16e-d331e9fdd414@arm.com>
+ <20231115182340.505df6c3.olaf@aepfle.de>
+ <4f418916-b76d-425a-96a2-05b56a3dc195@suse.com>
+ <20231116085629.40a0445b.olaf@aepfle.de>
+ <A6D4B8C2-E781-4964-A757-C72F38169246@arm.com>
+ <20231116105321.4a59eed4.olaf@aepfle.de>
+ <47ec45a1-2004-410c-86c7-861d03c1939b@arm.com>
+In-Reply-To: <47ec45a1-2004-410c-86c7-861d03c1939b@arm.com>
 
-Where do attributes go in this sequence?
+--------------KiOcREk6wMFjJ0yZms9PUraz
+Content-Type: multipart/mixed; boundary="------------Q2Des5hqV5SkGb0ZOjmF0nTx"
 
-> Depending on how the discussion goes on this one, it could be an entry in our coding style
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> AlignAfterOpenBracket: Align
-> 
-> ---
-> This one is to align function parameters that overflows the line length, I chose to align them
-> to the open bracket to match the current codebase (hopefully)
-> 
-> e.g.:
-> someLongFunction(argument1,
->                                 argument2);
+--------------Q2Des5hqV5SkGb0ZOjmF0nTx
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-The above matches neither of the two generally permitted styles:
+T24gMjMuMTEuMjMgMTY6MTgsIERpdmluIFJhaiB3cm90ZToNCj4gT24gMTEvMTYvMjMgOTo1
+MyBBTSwgT2xhZiBIZXJpbmcgd3JvdGU6DQo+PiBUaHUsIDE2IE5vdiAyMDIzIDA5OjIxOjA2
+ICswMDAwIEx1Y2EgRmFuY2VsbHUgPEx1Y2EuRmFuY2VsbHVAYXJtLmNvbT46DQo+Pg0KPj4+
+IEkgc2VlIHlvdXIgcGF0Y2ggaXMgaGFuZGxpbmcgdGhpcyBpc3N1ZSBidXQgbWF5YmUgd2Fz
+IG5vdCBtZWFudCB0byBiZSANCj4+PiB1cHN0cmVhbWVkLA0KPj4+IHNvIEkgd291bGQgbGlr
+ZSB0byBhc2sgaWYgeW91IGFyZSB3aWxsaW5nIHRvIG1ha2UgaXQgdXBzdHJlYW0tYWJsZSBv
+ciBpZiBpdOKAmXMgDQo+Pj4gbm90IHBsYW5uZWQNCj4+PiB0byBkbyBzby4NCj4+DQo+PiBS
+aWdodCBub3cgSSBkbyBub3QgaGF2ZSB0aGUgdGltZSB0byB3b3JrIG9uIHRoaXMuDQo+Pg0K
+Pj4gRmlyc3QgdGhlcmUgbmVlZCB0byBiZSBhbiBhZ3JlZW1lbnQgYWJvdXQgaG93IHRoZSB0
+aW1lb3V0IG5lZWRzIHRvIGJlIGNvbmZpZ3VyZWQuDQo+Pg0KPj4NCj4+IE9sYWYNCj4gDQo+
+IEhlbGxvIGV2ZXJ5b25lLA0KPiANCj4gRm9sbG93aW5nIG91ciBlYXJsaWVyIGRpc2N1c3Np
+b24sIHdlIGxlYXJuZWQgdGhhdCB0aGVyZSBpcyBhbHJlYWR5IGEgc29sdXRpb24gdG8gDQo+
+IGZpeCB0aGUgTElCWEwgaG90cGx1ZyB0aW1lb3V0IGlzc3VlLiBDdXJyZW50bHksIHdlIGhh
+dmUgdHdvIG9wdGlvbnM6DQo+IA0KPiAxLiBYZW5zdG9yZSBLZXkvVmFsdWUgQXBwcm9hY2g6
+IFRoaXMgaXMgaW1wbGVtZW50ZWQgaW4gdGhlIHBhdGNoIA0KPiAibGlieGwuTElCWExfSE9U
+UExVR19USU1FT1VULnBhdGNoIi4gVGhpcyBtZXRob2QgZG9lcyBub3QgcmVxdWlyZSByZWNv
+bXBpbGluZyANCj4gbGlieGwuIEl0IGludm9sdmVzIHNldHRpbmcgdXAgYSBrZXkvdmFsdWUg
+aW4gWGVuc3RvcmUgYmVmb3JlIGRvbWFpbiBjcmVhdGlvbi4gDQo+IFRoZSBwYXRjaCBjYW4g
+YmUgdmlld2VkIGhlcmU6IA0KPiBbaHR0cHM6Ly9idWlsZC5vcGVuc3VzZS5vcmcvcGFja2Fn
+ZS92aWV3X2ZpbGUvb3BlblNVU0U6RmFjdG9yeS94ZW4vbGlieGwuTElCWExfSE9UUExVR19U
+SU1FT1VULnBhdGNoP2V4cGFuZD0xXS4NCg0KSSBkb24ndCBsaWtlIHRoaXMgYXBwcm9hY2gu
+IEl0IHdhcyB1c2VkIHRvIHNvbHZlIHRoZSBwcm9ibGVtIHdpdGhvdXQNCmFmZmVjdGluZyB0
+aGUgQUJJLCBidXQgaXQgaXMgYmFzaWNhbGx5IGEgaGFjay4NCg0KPiANCj4gMi4gQ29uZmln
+dXJhdGlvbiB2aWEgJ3hsLmNvbmYnOiBXZSBjYW4gbWFrZSAiTElCWExfSE9UUExVR19USU1F
+T1VUIiBjb25maWd1cmFibGUgDQo+IHRocm91Z2ggdGhlICd4bC5jb25mJyBmaWxlLg0KDQpB
+cyBPbGFmIGhhcyBzYWlkIGFscmVhZHk6IHRoaXMgd291bGRuJ3QgY292ZXIgYWN0aW9ucyBl
+LmcuIGJ5IGxpYnZpcnQuDQoNCkkgdGhpbmsgd2UgbWlnaHQgd2FudCBzb21ldGhpbmcgbGlr
+ZSBsaWJ4bC5jb25mIChvciB4ZW4uY29uZj8pIHNldHRpbmcNCmRlZmF1bHRzIGZvciBBTEwg
+dG9vbCBzdGFja3MuIEkgdGhpbmsgd2Ugc2hvdWxkIGV2ZW4gbW92ZSBzb21lIG9mIHRoZQ0K
+c2V0dGluZ3MgZnJvbSB4bC5jb25mIGludG8gdGhlIG5ldyBmaWxlIChsaWtlIGF1dG9iYWxs
+b29uLCBtYXhfZ3JhbnRfZnJhbWVzLA0KZXRjLikuDQoNCg0KSnVlcmdlbg0K
+--------------Q2Des5hqV5SkGb0ZOjmF0nTx
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-    someLongFunction(argument1,
-                     argument2);
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-    someLongFunction(
-        argument1,
-        argument2);
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Then again from its name I would infer this isn't just about function
-arguments?
+--------------Q2Des5hqV5SkGb0ZOjmF0nTx--
 
-> This one can be a candidate for an entry in our coding style
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> AlignArrayOfStructures: Left
-> 
-> ---
-> “When using initialization for an array of structs aligns the fields into columns."
-> It’s important to say that even if we specify “None”, it is going to format the data structure anyway,
-> I choose left, but clearly I’m open to suggestions.
+--------------KiOcREk6wMFjJ0yZms9PUraz--
 
-You don't say in which way it re-formats such constructs.
+--------------8h407fNXi9WwSufgbpZopa3w
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-> I don’t know how to phrase this one in our coding style
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> AlignConsecutiveAssignments: None
-> 
-> ---
-> This one is disabled because of feedbacks from Stefano and Alejandro about some weird behaviour on our
-> codebase.
-> 
-> This one could be phased along this line: “Consecutive assignments don't need to be aligned.”, the issue is
-> that in this way it seems that it’s optional, but clang-format is going to remove the alignment anyway for
-> assignment that are consecutive and aligned.
+-----BEGIN PGP SIGNATURE-----
 
-Like below if there's no way to say "leave alone", then I don't consider this
-usable. Imo we want to permit people to align when they think it helps, but
-we don't want to demand them doing so.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVgm3kFAwAAAAAACgkQsN6d1ii/Ey+x
+egf8D/TntIXjNTMyOvX5e05WjZbc8UlkyADKc+aaC85Tp3lHzCHEQf7ZaiZBdDPYu26gzEukqwjq
+l6d5An8aj7Rb6goUz5vndY2/XXFtEkveXkF9tZPKsdFoRiUXnC3GgBs1Wiw9J6oiLep4SOh/NAhK
+HKLnXAv3/ylznqvp+BZtXNLFv6hn1oQi+cBHir7XU/vVKcCFWtNXyitk+yVvVFyVGR1YXnrZwzFa
+mFWHhxt8brMeAWZdoSEz05WYcgIkzSbvJRy/B/P0xv0OFofx3oKxz8t61P7oTaeICgyogJCRSPhe
++prbw5BbrO3sgDWYY2gO0gceuh+8CsE2rAPNozQjdw==
+=ed1i
+-----END PGP SIGNATURE-----
 
-Jan
-
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> AlignConsecutiveBitFields: None
-> 
-> ---
-> Same thing as AlignConsecutiveAssignments, but for bitfields.
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> AlignConsecutiveDeclarations: None
-> 
-> ---
-> This aligns declarations names, same considerations as AlignConsecutiveAssignments.
-> 
-> --------------------------------------------------------------------------------------------------------------------------------------------------
-> 
-> Ok this is it for now, let me know your thoughts about them, ideally if I don’t get any reply in two weeks (7th of December),
-> I will consider that we have an agreement on these configuration.
-> 
-> Cheers,
-> Luca
-
+--------------8h407fNXi9WwSufgbpZopa3w--
 
