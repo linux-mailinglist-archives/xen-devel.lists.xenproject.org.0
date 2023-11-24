@@ -2,64 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083BC7F73D5
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 13:30:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640632.999106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB227F73D6
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 13:30:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640635.999116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6VJm-0005As-Uy; Fri, 24 Nov 2023 12:29:58 +0000
+	id 1r6VKP-0006db-Ab; Fri, 24 Nov 2023 12:30:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640632.999106; Fri, 24 Nov 2023 12:29:58 +0000
+Received: by outflank-mailman (output) from mailman id 640635.999116; Fri, 24 Nov 2023 12:30:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6VJm-000595-RK; Fri, 24 Nov 2023 12:29:58 +0000
-Received: by outflank-mailman (input) for mailman id 640632;
- Fri, 24 Nov 2023 12:29:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r6VKP-0006bX-7o; Fri, 24 Nov 2023 12:30:37 +0000
+Received: by outflank-mailman (input) for mailman id 640635;
+ Fri, 24 Nov 2023 12:30:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vqky=HF=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1r6VJl-00058z-8c
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 12:29:57 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2078.outbound.protection.outlook.com [40.107.7.78])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2cbc1caf-8ac5-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 13:29:55 +0100 (CET)
-Received: from DU6P191CA0046.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:53f::20)
- by GV1PR08MB7708.eurprd08.prod.outlook.com (2603:10a6:150:53::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Fri, 24 Nov
- 2023 12:29:24 +0000
-Received: from DB5PEPF00014B9A.eurprd02.prod.outlook.com
- (2603:10a6:10:53f:cafe::2a) by DU6P191CA0046.outlook.office365.com
- (2603:10a6:10:53f::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.21 via Frontend
- Transport; Fri, 24 Nov 2023 12:29:24 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5PEPF00014B9A.mail.protection.outlook.com (10.167.8.167) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7025.12 via Frontend Transport; Fri, 24 Nov 2023 12:29:23 +0000
-Received: ("Tessian outbound 8289ea11ec17:v228");
- Fri, 24 Nov 2023 12:29:23 +0000
-Received: from 197e5eec30ca.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 539BEDD5-0D4E-44E5-A45B-FA8ABC4EE38C.1; 
- Fri, 24 Nov 2023 12:29:12 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 197e5eec30ca.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 24 Nov 2023 12:29:12 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by PAWPR08MB10260.eurprd08.prod.outlook.com (2603:10a6:102:369::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Fri, 24 Nov
- 2023 12:29:10 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::8da:b5c2:b334:838]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::8da:b5c2:b334:838%7]) with mapi id 15.20.7025.021; Fri, 24 Nov 2023
- 12:29:10 +0000
+ <SRS0=TtXz=HF=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
+ id 1r6VKO-0006W5-1C
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 12:30:36 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4286d232-8ac5-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 13:30:33 +0100 (CET)
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-609-764UsHq8PWG6qsSSWXmzag-1; Fri, 24 Nov 2023 07:30:30 -0500
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-9fd0a58549bso212631766b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 04:30:30 -0800 (PST)
+Received: from imammedo.users.ipa.redhat.com ([185.140.112.229])
+ by smtp.gmail.com with ESMTPSA id
+ z2-20020a170906074200b009d268e3b801sm2005640ejb.37.2023.11.24.04.30.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Nov 2023 04:30:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,157 +49,411 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cbc1caf-8ac5-11ee-98e2-6d05b1d4d9a1
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=Eb+t+SGoOGhzAHqQuIRUkpLh48n9SotXpKZkeS+Nu1B2j6WgukwZ4sxZWl+OwHV91QKe+saosqtHQQ/w0E1CnBhYnFZRyI8TO3JvAq5TeDlYjvDgrAHWXjVTFs5SWy+mnUEqsiphGmoGRqE+dZgZnzT1CbNyx3tATREjF3jvnwiutqYVkR0NBJAY7EpgIYzzI12mWLgVoG3PKGsUZE/cEnBqJ8uzh0CZEtBQH+MJlK6Wr+gC1Q/uxShI4o+rUI9Rj0jZ0RXjQNAsgJ1iz/ZSzo3qOgL+hYG9O9dBuE/2Jg0/3LVkKzHiYLdNfW2zDwazOBHQE6Y24UrxQ//oJAUHOg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F+imr9Fvw7+ydrW6GcafTxf2V/lPdnwSEjm262AZCEs=;
- b=WfEA9/wEirrL+PTNGdP1zhF5/lwIR9uKbvzEqDLgqBeVUvNgQ86kl/piV2RJrmW47iRulLbstghPh7MOp8pWWjLk3R0JDcM7Yk+f8oLiZIRzOz/rtFKnFhPxYl8YysM64Y6Vrgq/mNuIZmatCIWoKzQW1bCPpeEfXf4ZBqFFRxGbADxvkuEpEeuQBxVqCQ7o1z5fDOERwEcfacMkNMM0alzxMzSNEuWM+MoOKcG5bKLiyWiCMGPY6rZFbGrOka8oSSTLDCki7AkjgOGqBEgFpBVNoHZge871D0IKlSAlL+FIs9d8cqou9KMjRGLgWuUX6TyY8kQH3UuPJtyn7BRzTg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F+imr9Fvw7+ydrW6GcafTxf2V/lPdnwSEjm262AZCEs=;
- b=zUclnHNLnKDX1EHEIP6xbYstWgCH28zhZLnj64yOZ6hL2k8JJYKPRKys/laoj02xCw9Aq0d2TgkD2yuO/emnCc/ReNdvFuVyRbevH5QV+3GTO1IUNT1ytMCKTvA/+tITllCA76+Kv9cTYb7a2VlJmRWHDMSZdb2rysgSotP4GTI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0f6ef7b87a7b3c54
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YrrNGjCZrNSyXNoOIjXxgQBkLWNzYM+Nivsi3Js1a9v1rjcZy2kGtpIkwV5IcBCAH6ta9VsKEILEMR3Arpc2dC8Y3uJCYLlcwegVFbYd2PCqqE5tZfjTt9G2kPyuM8dFHqz1hT3mMZVFlJsVRdUMHogjq76ZCz7LKZGw5ZpVHDwip7Wmo+ZfsBhR/9yWKQG2gE84yDbYevrmW0fwj9nZJwm3qSPV2Qv/xs/gouWnDECgoRUv/HTjAOq7fDOCHUWXhQpSzDIvStuL7o9WO8EzzeuyYZiIE3Hz3T1WLAu9OQHZYr/XtPwicaPhxsgpJE1EFAHdkXykGsMa7Xbj3TRwMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F+imr9Fvw7+ydrW6GcafTxf2V/lPdnwSEjm262AZCEs=;
- b=SKUj8t+Dh57/G4Pd9jlKSp/qo5J3tUffceNPGZpWFKWg4iA2F3leJKEL4tY53JHp/SXKy3LjUcsVgv6jXMLDh8Y1M/FwaXKUjckcA/Ma5v/+GCw0BdFY5IYj1Xv2Rdr2t0NwHEylE7+4am1V0eXjNnkXOydJFpxKLEg84o+AiuDUCZI3AjjrKguA8WfBYjyKyPMlsXrWT3fXjPswEqBZiCKmyhLrXZSEbnHRmocgYmU0qGPnQuERgsZAQzD6jPW6T7IbKQiY+zh+S8mQieP6R7Y3AALFyVEqLc2vZJNd56UWyn421KqwyCSYdiPbCSbOG2mOKb3L/5C90MANfKWqpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F+imr9Fvw7+ydrW6GcafTxf2V/lPdnwSEjm262AZCEs=;
- b=zUclnHNLnKDX1EHEIP6xbYstWgCH28zhZLnj64yOZ6hL2k8JJYKPRKys/laoj02xCw9Aq0d2TgkD2yuO/emnCc/ReNdvFuVyRbevH5QV+3GTO1IUNT1ytMCKTvA/+tITllCA76+Kv9cTYb7a2VlJmRWHDMSZdb2rysgSotP4GTI=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal
- Orzel <Michal.Orzel@amd.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@cloud.com>
-Subject: Re: Clang-format configuration discussion - pt 2
-Thread-Topic: Clang-format configuration discussion - pt 2
-Thread-Index: AQHaHhwDfni7SbjBtk6S7YLD/w4HebCJUeoAgAANCgCAAAc3gIAAATaA
-Date: Fri, 24 Nov 2023 12:29:10 +0000
-Message-ID: <DB3B132B-0148-4AD7-9BC0-5D4C50D8E6BF@arm.com>
-References: <1B83FF45-E93B-47D7-AD21-615CFCFD0816@arm.com>
- <CA+zSX=YL0fjM+ZTEoXNpzQ9iFKFwzdZRR-QsyQAZCQVeOGdj6A@mail.gmail.com>
- <DE78DF95-3E57-4283-8252-01A0BA2219F8@arm.com>
- <ced05080-ef2b-4288-93be-74535a7a3982@suse.com>
-In-Reply-To: <ced05080-ef2b-4288-93be-74535a7a3982@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.200.91.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|PAWPR08MB10260:EE_|DB5PEPF00014B9A:EE_|GV1PR08MB7708:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5513b19-66a8-4704-a90c-08dbece8fd76
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- GO/pamyFkSYdmtv/qfq1u25j0Z1OfYJeoLq5pxSe9xpH9bF+BuP1ayl8xrSMOqY4hzfo264m9UyqNLzmYQVaO4EBjmHPW8pRLZ9m8+444fBCswyJU6VX84NI2399jQbsrKzUkFiV9MM4Uq7peoP2rVwixA4yy2Az9deRF0sPPk1iDuTLuUefGrQFDtfu3kuZyZfhS5AGljjzSkbBTu+IkaZu5/bFjQWwXW9pSY7PSwlNcCPtC41iWS02uKI4KxyYmxzraqgB05zbrkOW9M7tSgVj6zPlwbS7qYWau+gH9UWfWxaTgEUkB9jKG/qlFBqX/BSnwJm+snD6N095ISnIJi5q1el2QTWeh0QbRGe5a3PH+igzW+F0LFZmPYu7AFE4L2Ts9ycpIlMh2LgX0KWp6OVD6ifWX7gb94kpMkqP0sTMPdxxirx99R3mA+Dsd1TZEptuC03p2qk2YElm4wu1wiAP+7cm8AeUJ9me2i40CDSIinLLqf+r0Fiw2BNr8QihttIBa5j9blcbRmJQKnTp7rNMXeCCfW+dbIMBKSXVt6noTQsXhCDbh/00IVE0U5/nKp42RDXZjXxb8UGD8yVUJSTaJgTH42+OoS7Pb+YUgeugxsETDQzRvG+GX0zQQfiLmyw08BQRDp2aF78w0Jiwow==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(136003)(366004)(39860400002)(396003)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(6486002)(966005)(53546011)(6506007)(38070700009)(36756003)(122000001)(6512007)(26005)(66446008)(2906002)(5660300002)(2616005)(86362001)(4326008)(91956017)(83380400001)(66476007)(41300700001)(8676002)(66946007)(64756008)(54906003)(8936002)(76116006)(66556008)(316002)(33656002)(6916009)(38100700002)(71200400001)(478600001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <1F35428D9ABAF64E8C799D26387C6416@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 4286d232-8ac5-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1700829032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SOnQZJiPoycuaOOjIvzYkhhazzVkk/CroKuGK8Q3kS4=;
+	b=EMhi0IVHf+TTvqryj3L+HFy7U2v+qWUEQwuyN56/JFiaXlS0e5AKvQBwfK36zMlLM/KkCq
+	d5DuZ4mpR15z8H7tGXCaUU9ZakfYywaSrO+JSrXLU6RpslDNOD7y0UFZFW+VWqvPQSuFb5
+	0aoOVanSxstglhcCiwjGwX/ugws6XgY=
+X-MC-Unique: 764UsHq8PWG6qsSSWXmzag-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700829030; x=1701433830;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SOnQZJiPoycuaOOjIvzYkhhazzVkk/CroKuGK8Q3kS4=;
+        b=nA8UjZ+xECrWbW1sNa24HefX2cBdvasXVzFl7gfexWzAWwexX/ziwVf2DibTeiqTAk
+         9oSteZB9eqUkUIG9uBOCNArS38b1YFkqpuNLvhqEW8ILzyYGFq+3DQo0dc8ui/SmTjSu
+         pin9U1YzYkgTCpmb/OO73cgM7JoF/4K0umYIWP48LKepISeNrjsqQ2gIJoUtm8zlfdqg
+         B7PkKfTjQ1W0QxKVEUSnyjaBiXfRdJ/dS5q+xd/1jF0hg+XxDCL3MhXCC4QVH5xgRXgP
+         iPm33SbwnAxN9nK9Y7fTgTcgJPanoZhK4BSvyBztCg/mNXud6YcrZJx6GS27Q9j/iQ5A
+         42zA==
+X-Gm-Message-State: AOJu0Yxj4AyDWcGKsQNjsbWTHfiud2hTOySSq+l/GEcMSETBcIxuc5BC
+	fmWCZNwmVfoUDhBf1QmafoN5qVdkAxVtuosK223K5tcFSZeyNXU7famNZMSsiybepnOgY+D9yiu
+	aiU+U3KxruajFaQN3UV3zi48SNGc=
+X-Received: by 2002:a17:906:5308:b0:a01:bd67:d2fb with SMTP id h8-20020a170906530800b00a01bd67d2fbmr5048526ejo.0.1700829029730;
+        Fri, 24 Nov 2023 04:30:29 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF5hhYCSBRFGjFVJaIpCtN6Ifeb8GN525CYnoyjVkMd+Ma3rQLs4ESjB+FNOmY5MZ/w2M2iWg==
+X-Received: by 2002:a17:906:5308:b0:a01:bd67:d2fb with SMTP id h8-20020a170906530800b00a01bd67d2fbmr5048504ejo.0.1700829029358;
+        Fri, 24 Nov 2023 04:30:29 -0800 (PST)
+Date: Fri, 24 Nov 2023 13:30:28 +0100
+From: Igor Mammedov <imammedo@redhat.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, David Woodhouse
+ <dwmw@amazon.co.uk>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Oleksandr Tyshchenko
+ <Oleksandr_Tyshchenko@epam.com>, Peter Maydell <peter.maydell@linaro.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>, "open list:X86 Xen CPUs"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 6/6] xen_arm: Add virtual PCIe host bridge support
+Message-ID: <20231124133028.72ba1d6e@imammedo.users.ipa.redhat.com>
+In-Reply-To: <20231121221023.419901-7-volodymyr_babchuk@epam.com>
+References: <20231121221023.419901-1-volodymyr_babchuk@epam.com>
+	<20231121221023.419901-7-volodymyr_babchuk@epam.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10260
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5PEPF00014B9A.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	b554c4a7-2728-41c0-967c-08dbece8f59f
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6Nhb+yg79Y6BlXwGEmVmy8M0O/RiCL/IMeleY5/nj9swMplJNAt43DPG1CalzqJ7s3sH8sd6FvafT2RIzKK+dLFxe0TJXfyeCnSq1owx0CvCnjwatot5B5N/4PHD2jEHGmYzjZszRtFkPA/yLDcxsWWdka+PSju4jX08CaTT4oW9TuhJ5ktTaSaDHL5AeOSTRKYYvsjsJxIlyVLP/dfal99onIoECcaMFJ0KcVZKNs40IMYi47UpF3819Y+UrOdhYWr+mgSWcmhDc951/abcoetSvP09dCmoS2pYiSUyePfSeb+FF8uusiVVYDomUfUJ/0kBfa37AuQbm/Do1O12R/XNqERUUYhiLGnSySc4WMpgSPcvgI5WjQ4BoGAhPOSNCHeJHDUMobq3COV1pntAOay7sGgmDHllu1QauKv/oBASSEZ1yCGuOrghQGowe5yMMgpbVyfcd5Fi++927BCCxdtaVLV71VpRyPvIG5tvIquZ57coWg4pL5yJv4kL8aDax2/7wNBvSf76LSwQPMiy4+dc2d3c7uANe4uvQOzmWeu0I1k04D5aRecJTl671Q6s6zuSPQp2iiVRbp02kEANy78/QvffHqQdDaML5nz2lUJFk3v4EqaC/nyjSdjZnMNOh7TXFcUjccCt0QDSjbWZ4kWZ5Jag/3RriJPsW4+0aMe/S+vy7cigINnE/d+L60FJ3vHCXJZOw1w/mkxfqZgnqGhhgzvGUYDXU+dkJxWuO3I=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(346002)(396003)(39860400002)(230922051799003)(82310400011)(64100799003)(451199024)(186009)(1800799012)(46966006)(36840700001)(40470700004)(4326008)(70586007)(70206006)(8676002)(8936002)(6862004)(316002)(53546011)(54906003)(6506007)(107886003)(40460700003)(2616005)(6512007)(966005)(478600001)(6486002)(2906002)(36756003)(33656002)(41300700001)(5660300002)(36860700001)(47076005)(86362001)(40480700001)(81166007)(356005)(82740400003)(83380400001)(336012)(26005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 12:29:23.2037
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5513b19-66a8-4704-a90c-08dbece8fd76
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B9A.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7708
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4gT24gMjQgTm92IDIwMjMsIGF0IDEyOjI0LCBKYW4gQmV1bGljaCA8amJldWxpY2hAc3Vz
-ZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMjQuMTEuMjAyMyAxMjo1OSwgTHVjYSBGYW5jZWxsdSB3
-cm90ZToNCj4+IEBAIC0zMzMzLDE5ICszMzE4LDE4IEBAIHN0YXRpYyBpbnQgX19pbml0IGFsbG9j
-X2RvbWFpbl9ldnRjaG4oc3RydWN0IGR0X2RldmljZV9ub2RlICpub2RlKQ0KPj4gcmMgPSBldnRj
-aG5fYWxsb2NfdW5ib3VuZCgmYWxsb2NfdW5ib3VuZCwgZG9tVTFfcG9ydCk7DQo+PiBpZiAoIHJj
-IDwgMCApDQo+PiB7DQo+PiAtIHByaW50ayhYRU5MT0dfRVJSDQo+PiAtICJldnRjaG5fYWxsb2Nf
-dW5ib3VuZCgpIGZhaWx1cmUgKEVycm9yICVkKSBcbiIsIHJjKTsNCj4+ICsgcHJpbnRrKFhFTkxP
-R19FUlIgImV2dGNobl9hbGxvY191bmJvdW5kKCkgZmFpbHVyZSAoRXJyb3IgJWQpIFxuIiwgcmMp
-Ow0KPj4gcmV0dXJuIHJjOw0KPj4gfQ0KPj4gLSBiaW5kX2ludGVyZG9tYWluLnJlbW90ZV9kb20g
-PSBkMS0+ZG9tYWluX2lkOw0KPj4gKyBiaW5kX2ludGVyZG9tYWluLnJlbW90ZV9kb20gPSBkMS0+
-ZG9tYWluX2lkOw0KPj4gYmluZF9pbnRlcmRvbWFpbi5yZW1vdGVfcG9ydCA9IGRvbVUxX3BvcnQ7
-DQo+PiByYyA9IGV2dGNobl9iaW5kX2ludGVyZG9tYWluKCZiaW5kX2ludGVyZG9tYWluLCBkMiwg
-ZG9tVTJfcG9ydCk7DQo+PiBpZiAoIHJjIDwgMCApDQo+PiB7DQo+PiANCj4+IEFzc2lnbm1lbnQg
-b2YgYmluZF9pbnRlcmRvbWFpbi5yZW1vdGVfZG9tIHdhcyBhbGlnbmVkIHdpdGggdGhlIGZvbGxv
-d2luZyBsaW5lLCBidXQgc2luY2UgdGhlIHZhbHVlDQo+PiBvZiB0aGlzIGNvbmZpZ3VyYWJsZSBp
-cyDigJxOb25l4oCdLCBjbGFuZy1mb3JtYXQgaXMgbW9kaWZ5aW5nIHRoYXQgdG8gdXNlIG9ubHkg
-b25lIHNwYWNlIGJlZm9yZSB0aGUgYXNzaWdubWVudA0KPj4gb3BlcmF0b3IuDQo+IA0KPiBOZWl0
-aGVyIGhlcmUgbm9yIC4uLg0KPiANCj4+IE9uZSBleGFtcGxlIHJlbGF0ZWQgdG8gbWFjcm9zIGNh
-biBiZSBmb3VuZCBvbiBsaW5lIDE2NjM6DQo+PiANCj4+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9h
-cm0vYXJtMzIvaW5zbi5jIGIveGVuL2FyY2gvYXJtL2FybTMyL2luc24uYw0KPj4gaW5kZXggNDk5
-NTNhMDQyYS4uMTYzNWM0YjZkMSAxMDA2NDQNCj4+IC0tLSBhL3hlbi9hcmNoL2FybS9hcm0zMi9p
-bnNuLmMNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS9hcm0zMi9pbnNuLmMNCj4+IEBAIC0xOSw5ICsx
-OSw5IEBADQo+PiAjaW5jbHVkZSA8YXNtL2luc24uaD4NCj4+IC8qIE1hc2sgb2YgYnJhbmNoIGlu
-c3RydWN0aW9ucycgaW1tZWRpYXRlLiAqLw0KPj4gLSNkZWZpbmUgQlJBTkNIX0lOU05fSU1NX01B
-U0sgR0VOTUFTSygyMywgMCkNCj4+ICsjZGVmaW5lIEJSQU5DSF9JTlNOX0lNTV9NQVNLIEdFTk1B
-U0soMjMsIDApDQo+PiAvKiBTaGlmdCBvZiBicmFuY2ggaW5zdHJ1Y3Rpb25zJyBpbW1lZGlhdGUu
-ICovDQo+PiAtI2RlZmluZSBCUkFOQ0hfSU5TTl9JTU1fU0hJRlQgMA0KPj4gKyNkZWZpbmUgQlJB
-TkNIX0lOU05fSU1NX1NISUZUIDANCj4+IA0KPj4gQ2xhbmcgZm9ybWF0IHNlZXMgdGhlIGNvbW1l
-bnQgYmV0d2VlbiBCUkFOQ0hfSU5TTl9JTU1fTUFTSyBhbmQgQlJBTkNIX0lOU05fSU1NX1NISUZU
-IGFuZA0KPj4gZXZlbiBpZiBiZWZvcmUgdGhlIHZhbHVlIG9mIHRoZSBtYWNyb3Mgd2VyZSBhbGln
-bmVkLCBpdCBhcHBsaWVzIHRoZSBydWxlIG9mIG9uZSBzcGFjZSBiZXR3ZWVuIHRoZSBtYWNybyBu
-YW1lDQo+PiBhbmQgdGhlIHZhbHVlLg0KPiANCj4gLi4uIGhlcmUgdGhlcmUgaXMgYW55IGNoYW5n
-ZSBpbiB0aGUgZm9ybWF0dGluZyBvbiB0aGUgbGluZXMgaW4gcXVlc3Rpb24uDQo+IEkgd2FzIGZp
-cnN0IHN1c3BlY3RpbmcgYSBwb3NzaWJsZSBpc3N1ZSB3aXRoIG15IG1haWwgVUksIGJ1dA0KPiBo
-dHRwczovL2xpc3RzLnhlbi5vcmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyMy0xMS9tc2cw
-MjEzMi5odG1sDQo+IGxvb2tzIHRvIGNvbmZpcm0gdGhlIGlzc3VlIHRvIG1vcmUgbGlrZWx5IGJl
-IG9uIHlvdXIgZW5kIChhcHBhcmVudGx5IGFsc28NCj4gcmVzdWx0aW5nIGluIGxlYWRpbmcgd2hp
-dGVzcGFjZSBoYXZpbmcgYmVlbiBkcm9wcGVkKS4NCg0KWWVzIGluZGVlZCwgaXQgc2VlbXMgdGhh
-dCBjb3B5IHBhc3RlIHJlbW92ZWQgdGhlIG9yaWdpbmFsIGZvcm1hdHRpbmcsDQpidXQgdGhlc2Ug
-c25pcHBldHMgY2FuIGJlIGNoZWNrZWQgaW4gdGhlIHBhdGNoIGZpbGUgSSBsaW5rZWQsIEnigJl2
-ZSBhZGRlZA0KYSBsaW5lIG51bWJlci4NClNvcnJ5IGZvciB0aGUgaW5jb252ZW5pZW5jZS4NCg0K
-Q2hlZXJzLA0KTHVjYQ0KDQo=
+On Tue, 21 Nov 2023 22:10:28 +0000
+Volodymyr Babchuk <Volodymyr_Babchuk@epam.com> wrote:
+
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> The bridge is needed for virtio-pci support, as QEMU can emulate the
+> whole bridge with any virtio-pci devices connected to it.
+> 
+> This patch provides a flexible way to configure PCIe brige resources
+> with xenstore. We made this for several reasons:
+> 
+> - We don't want to clash with vPCI devices, so we need information
+>   from Xen toolstack on which PCI bus to use.
+> - The guest memory layout that describes these resources is not stable
+>   and may vary between guests, so we cannot rely on static resources
+>   to be always the same for both ends.
+> - Also the device-models which run in different domains and serve
+>   virtio-pci devices for the same guest should use different host
+>   bridge resources for Xen to distinguish. The rule for the guest
+>   device-tree generation is one PCI host bridge per backend domain.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> 
+> ---
+> 
+> Changes from v1:
+> 
+>  - Renamed virtio_pci_host to pcie_host entries in XenStore, because
+>  there is nothing specific to virtio-pci: any PCI device can be
+>  emulated via this newly created bridge.
+> ---
+>  hw/arm/xen_arm.c            | 186 ++++++++++++++++++++++++++++++++++++
+>  hw/xen/xen-hvm-common.c     |   9 +-
+>  include/hw/xen/xen_native.h |   8 +-
+>  3 files changed, 200 insertions(+), 3 deletions(-)
+> 
+> diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
+> index b9c3ae14b6..d506d55d0f 100644
+> --- a/hw/arm/xen_arm.c
+> +++ b/hw/arm/xen_arm.c
+> @@ -22,6 +22,7 @@
+>   */
+>  
+>  #include "qemu/osdep.h"
+> +#include "qemu/cutils.h"
+>  #include "qemu/error-report.h"
+>  #include "qapi/qapi-commands-migration.h"
+>  #include "qapi/visitor.h"
+> @@ -34,6 +35,9 @@
+>  #include "hw/xen/xen-hvm-common.h"
+>  #include "sysemu/tpm.h"
+>  #include "hw/xen/arch_hvm.h"
+> +#include "exec/address-spaces.h"
+> +#include "hw/pci-host/gpex.h"
+> +#include "hw/virtio/virtio-pci.h"
+>  
+>  #define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
+>  OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
+> @@ -58,6 +62,11 @@ struct XenArmState {
+>      struct {
+>          uint64_t tpm_base_addr;
+>      } cfg;
+> +
+> +    MemMapEntry pcie_mmio;
+> +    MemMapEntry pcie_ecam;
+> +    MemMapEntry pcie_mmio_high;
+> +    int         pcie_irq;
+>  };
+>  
+>  static MemoryRegion ram_lo, ram_hi;
+> @@ -73,6 +82,7 @@ static MemoryRegion ram_lo, ram_hi;
+>  #define NR_VIRTIO_MMIO_DEVICES   \
+>     (GUEST_VIRTIO_MMIO_SPI_LAST - GUEST_VIRTIO_MMIO_SPI_FIRST)
+>  
+> +/* TODO It should be xendevicemodel_set_pci_intx_level() for PCI interrupts. */
+>  static void xen_set_irq(void *opaque, int irq, int level)
+>  {
+>      if (xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level)) {
+> @@ -129,6 +139,176 @@ static void xen_init_ram(MachineState *machine)
+>      }
+>  }
+>  
+> +static void xen_create_pcie(XenArmState *xam)
+> +{
+> +    MemoryRegion *mmio_alias, *mmio_alias_high, *mmio_reg;
+> +    MemoryRegion *ecam_alias, *ecam_reg;
+> +    DeviceState *dev;
+> +    int i;
+> +
+> +    dev = qdev_new(TYPE_GPEX_HOST);
+> +    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+> +
+> +    /* Map ECAM space */
+> +    ecam_alias = g_new0(MemoryRegion, 1);
+> +    ecam_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0);
+> +    memory_region_init_alias(ecam_alias, OBJECT(dev), "pcie-ecam",
+> +                             ecam_reg, 0, xam->pcie_ecam.size);
+> +    memory_region_add_subregion(get_system_memory(), xam->pcie_ecam.base,
+> +                                ecam_alias);
+> +
+> +    /* Map the MMIO space */
+> +    mmio_alias = g_new0(MemoryRegion, 1);
+> +    mmio_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 1);
+> +    memory_region_init_alias(mmio_alias, OBJECT(dev), "pcie-mmio",
+> +                             mmio_reg,
+> +                             xam->pcie_mmio.base,
+> +                             xam->pcie_mmio.size);
+> +    memory_region_add_subregion(get_system_memory(), xam->pcie_mmio.base,
+> +                                mmio_alias);
+> +
+> +    /* Map the MMIO_HIGH space */
+> +    mmio_alias_high = g_new0(MemoryRegion, 1);
+> +    memory_region_init_alias(mmio_alias_high, OBJECT(dev), "pcie-mmio-high",
+> +                             mmio_reg,
+> +                             xam->pcie_mmio_high.base,
+> +                             xam->pcie_mmio_high.size);
+> +    memory_region_add_subregion(get_system_memory(), xam->pcie_mmio_high.base,
+> +                                mmio_alias_high);
+> +
+> +    /* Legacy PCI interrupts (#INTA - #INTD) */
+> +    for (i = 0; i < GPEX_NUM_IRQS; i++) {
+> +        qemu_irq irq = qemu_allocate_irq(xen_set_irq, NULL,
+> +                                         xam->pcie_irq + i);
+> +
+> +        sysbus_connect_irq(SYS_BUS_DEVICE(dev), i, irq);
+> +        gpex_set_irq_num(GPEX_HOST(dev), i, xam->pcie_irq + i);
+> +    }
+> +
+
+> +    DPRINTF("Created PCIe host bridge\n");
+replace DPRINTFs with trace_foo(), see 885f380f7be for example
+
+> +}
+> +
+> +static bool xen_read_pcie_prop(XenArmState *xam, unsigned int xen_domid,
+> +                               const char *prop_name, unsigned long *data)
+> +{
+> +    char path[128], *value = NULL;
+> +    unsigned int len;
+> +    bool ret = true;
+> +
+> +    snprintf(path, sizeof(path), "device-model/%d/pcie_host/%s",
+> +             xen_domid, prop_name);
+
+try to avoid usage of snprintf() in series
+see d2fe2264679 as an example
+
+> +    value = xs_read(xam->state->xenstore, XBT_NULL, path, &len);
+maybe use g_autofree
+
+> +
+> +    if (qemu_strtou64(value, NULL, 16, data)) {
+> +        error_report("xenpv: Failed to get 'pcie_host/%s' prop",
+> +                     prop_name);
+
+if it's error, then better would be to use error_fatal so qemu would exit
+on the 1st encounter.
+
+> +        ret = false;
+> +    }
+> +
+> +    free(value);
+> +
+> +    return ret;
+> +}
+> +
+> +static int xen_get_pcie_params(XenArmState *xam)
+> +{
+> +    char path[128], *value = NULL, **entries = NULL;
+> +    unsigned int len, tmp;
+> +    int rc = -1;
+> +
+> +    snprintf(path, sizeof(path), "device-model/%d/pcie_host",
+> +             xen_domid);
+> +    entries = xs_directory(xam->state->xenstore, XBT_NULL, path, &len);
+> +    if (entries == NULL) {
+> +        error_report("xenpv: 'pcie_host' dir is not present");
+> +        return -1;
+> +    }
+> +    free(entries);
+
+maybe use g_autofree for strings in this function
+
+> +    if (len != 9) {
+> +        error_report("xenpv: Unexpected number of entries in 'pcie_host' dir");
+> +        goto out;
+> +    }
+> +
+> +    snprintf(path, sizeof(path), "device-model/%d/pcie_host/id",
+> +             xen_domid);
+> +    value = xs_read(xam->state->xenstore, XBT_NULL, path, &len);
+> +    if (qemu_strtoui(value, NULL, 10, &tmp)) {
+> +        error_report("xenpv: Failed to get 'pcie_host/id' prop");
+> +        goto out;
+> +    }
+> +    free(value);
+
+> +    value = NULL;
+and then get rid of pointless assignment 
+
+> +    if (tmp > 0xffff) {
+> +        error_report("xenpv: Wrong 'pcie_host/id' value %u", tmp);
+> +        goto out;
+> +    }
+> +    xen_pci_segment = tmp;
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "ecam_base",
+> +                            &xam->pcie_ecam.base)) {
+> +        goto out;
+> +    }
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "ecam_size",
+> +                            &xam->pcie_ecam.size)) {
+> +        goto out;
+> +    }
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "mem_base",
+> +                            &xam->pcie_mmio.base)) {
+> +        goto out;
+> +    }
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "mem_size",
+> +                            &xam->pcie_mmio.base)) {
+> +        goto out;
+> +    }
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "prefetch_mem_base",
+> +                            &xam->pcie_mmio_high.base)) {
+> +        goto out;
+> +    }
+> +
+> +    if (!xen_read_pcie_prop(xam, xen_domid, "prefetch_mem_size",
+> +                            &xam->pcie_mmio_high.size)) {
+> +        goto out;
+> +    }
+> +
+> +    snprintf(path, sizeof(path), "device-model/%d/pcie_host/irq_first",
+> +             xen_domid);
+> +    value = xs_read(xam->state->xenstore, XBT_NULL, path, &len);
+> +    if (qemu_strtoi(value, NULL, 10, &xam->pcie_irq)) {
+> +        error_report("xenpv: Failed to get 'pcie_host/irq_first' prop");
+> +        goto out;
+> +    }
+> +    free(value);
+> +    value = NULL;
+> +    DPRINTF("PCIe host bridge: irq_first %u\n", xam->pcie_irq);
+> +
+> +    snprintf(path, sizeof(path), "device-model/%d/pcie_host/num_irqs",
+> +             xen_domid);
+> +    value = xs_read(xam->state->xenstore, XBT_NULL, path, &len);
+> +    if (qemu_strtoui(value, NULL, 10, &tmp)) {
+> +        error_report("xenpv: Failed to get 'pcie_host/num_irqs' prop");
+> +        goto out;
+> +    }
+> +    free(value);
+> +    value = NULL;
+> +    if (tmp != GPEX_NUM_IRQS) {
+> +        error_report("xenpv: Wrong 'pcie_host/num_irqs' value %u", tmp);
+> +        goto out;
+> +    }
+> +    DPRINTF("PCIe host bridge: num_irqs %u\n", tmp);
+> +
+> +    rc = 0;
+> +out:
+> +    if (value) {
+> +        free(value);
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+>  void arch_handle_ioreq(XenIOState *state, ioreq_t *req)
+>  {
+>      hw_error("Invalid ioreq type 0x%x\n", req->type);
+> @@ -189,6 +369,12 @@ static void xen_arm_init(MachineState *machine)
+>      xen_register_ioreq(xam->state, machine->smp.cpus, &xen_memory_listener);
+>  
+>      xen_create_virtio_mmio_devices(xam);
+> +    if (!xen_get_pcie_params(xam)) {
+> +        xen_create_pcie(xam);
+> +    } else {
+> +        DPRINTF("PCIe host bridge is not available,"
+> +                "only virtio-mmio can be used\n");
+
+so if something went wrong, it will be just ignored.
+Is it really expected behavior?
+
+> +    }
+>  
+>  #ifdef CONFIG_TPM
+>      if (xam->cfg.tpm_base_addr) {
+> diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+> index 565dc39c8f..0f78f15057 100644
+> --- a/hw/xen/xen-hvm-common.c
+> +++ b/hw/xen/xen-hvm-common.c
+> @@ -47,6 +47,8 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
+>      g_free(pfn_list);
+>  }
+>  
+> +uint16_t xen_pci_segment;
+> +
+>  static void xen_set_memory(struct MemoryListener *listener,
+>                             MemoryRegionSection *section,
+>                             bool add)
+> @@ -382,7 +384,12 @@ static void cpu_ioreq_config(XenIOState *state, ioreq_t *req)
+>      }
+>  
+>      QLIST_FOREACH(xendev, &state->dev_list, entry) {
+> -        if (xendev->sbdf != sbdf) {
+> +        /*
+> +         * As we append xen_pci_segment just before forming dm_op in
+> +         * xen_map_pcidev() we need to check with appended xen_pci_segment
+> +         * here as well.
+> +         */
+> +        if ((xendev->sbdf | (xen_pci_segment << 16)) != sbdf) {
+>              continue;
+>          }
+>  
+> diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
+> index 6f09c48823..2b1debaff4 100644
+> --- a/include/hw/xen/xen_native.h
+> +++ b/include/hw/xen/xen_native.h
+> @@ -431,6 +431,8 @@ static inline void xen_unmap_io_section(domid_t dom,
+>                                                      0, start_addr, end_addr);
+>  }
+>  
+> +extern uint16_t xen_pci_segment;
+> +
+>  static inline void xen_map_pcidev(domid_t dom,
+>                                    ioservid_t ioservid,
+>                                    PCIDevice *pci_dev)
+> @@ -441,7 +443,8 @@ static inline void xen_map_pcidev(domid_t dom,
+>  
+>      trace_xen_map_pcidev(ioservid, pci_dev_bus_num(pci_dev),
+>                           PCI_SLOT(pci_dev->devfn), PCI_FUNC(pci_dev->devfn));
+> -    xendevicemodel_map_pcidev_to_ioreq_server(xen_dmod, dom, ioservid, 0,
+> +    xendevicemodel_map_pcidev_to_ioreq_server(xen_dmod, dom, ioservid,
+> +                                              xen_pci_segment,
+>                                                pci_dev_bus_num(pci_dev),
+>                                                PCI_SLOT(pci_dev->devfn),
+>                                                PCI_FUNC(pci_dev->devfn));
+> @@ -457,7 +460,8 @@ static inline void xen_unmap_pcidev(domid_t dom,
+>  
+>      trace_xen_unmap_pcidev(ioservid, pci_dev_bus_num(pci_dev),
+>                             PCI_SLOT(pci_dev->devfn), PCI_FUNC(pci_dev->devfn));
+> -    xendevicemodel_unmap_pcidev_from_ioreq_server(xen_dmod, dom, ioservid, 0,
+> +    xendevicemodel_unmap_pcidev_from_ioreq_server(xen_dmod, dom, ioservid,
+> +                                                  xen_pci_segment,
+>                                                    pci_dev_bus_num(pci_dev),
+>                                                    PCI_SLOT(pci_dev->devfn),
+>                                                    PCI_FUNC(pci_dev->devfn));
+
 
