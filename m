@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E04A7F86A2
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CC07F86A1
 	for <lists+xen-devel@lfdr.de>; Sat, 25 Nov 2023 00:25:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640982.999784 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.640984.999800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6fXL-0001UQ-Ue; Fri, 24 Nov 2023 23:24:39 +0000
+	id 1r6fXM-0001oG-O8; Fri, 24 Nov 2023 23:24:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640982.999784; Fri, 24 Nov 2023 23:24:39 +0000
+Received: by outflank-mailman (output) from mailman id 640984.999800; Fri, 24 Nov 2023 23:24:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6fXL-0001SC-R8; Fri, 24 Nov 2023 23:24:39 +0000
-Received: by outflank-mailman (input) for mailman id 640982;
- Fri, 24 Nov 2023 23:24:37 +0000
+	id 1r6fXM-0001hJ-JB; Fri, 24 Nov 2023 23:24:40 +0000
+Received: by outflank-mailman (input) for mailman id 640984;
+ Fri, 24 Nov 2023 23:24:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SG+4=HF=epam.com=prvs=569229df20=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1r6fXJ-0001Rw-Mj
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 23:24:37 +0000
+ id 1r6fXL-0001Rw-AY
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 23:24:39 +0000
 Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
  [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0c0b35b-8b20-11ee-98e2-6d05b1d4d9a1;
- Sat, 25 Nov 2023 00:24:35 +0100 (CET)
+ id a1ddba27-8b20-11ee-98e2-6d05b1d4d9a1;
+ Sat, 25 Nov 2023 00:24:37 +0100 (CET)
 Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
  by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AOMwAPI014042; Fri, 24 Nov 2023 23:24:29 GMT
+ 3AOMwAPN014042; Fri, 24 Nov 2023 23:24:31 GMT
 Received: from eur05-vi1-obe.outbound.protection.outlook.com
  (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3uk2wmr6b0-3
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3uk2wmr6b0-6
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 23:24:28 +0000
+ Fri, 24 Nov 2023 23:24:31 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
  by DU0PR03MB8551.eurprd03.prod.outlook.com (2603:10a6:10:3e2::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20; Fri, 24 Nov
- 2023 23:24:23 +0000
+ 2023 23:24:24 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7025.022; Fri, 24 Nov 2023
- 23:24:23 +0000
+ 23:24:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,51 +53,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0c0b35b-8b20-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: a1ddba27-8b20-11ee-98e2-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NbVatzfST7Db17RlJcewQWIWs4r66OEQ9LAUFhZ+QOzyjbdVsLxBIl5jD8KxYy+3MPODmsV2JB3UMYOPurzihF8M6I8Whs7x6bKL8+s7G+sQI6Gy3UskpCTZPNZF98XyhGYRACWbehJ7ynXGxy/z6E5/zPHyCcO+jipcZU8vj8g5+N4bUdDASP0tCtWyDansmLdVPLTVy0evDF/E+yzaAFHahDh2xMhDvBY4V8CY74O9puukCi7+XxmprHsywdv8+AcR7eKQIxvcqHu4yWbXKP0jOtKl6xmauESnkLpyNK4at/kQNLPYA2zicBXL6GTvOL51Nlk0Lp0V34ECOxjIow==
+ b=N5VkXAhLS1mC99Iq0T0NI3IIk8YiTMTNW7pmF+nOP677+Dr2gVnQcvhDXr7Zq9YRVCl2RgEjbf32VdHVx0jdtLVfG6Ug74rEbooZT0AQckFeBJE/0dd6G5HpYTGjvdpNt44TtlORQufKPibOqUsXoZBkAT9yy0WLjy78ykkE1sHWKd1YnFskvseOBjra18N1b96gAjpeR8HneYXdxoUiA7blJu6tgKucY1v/4r9SQWdn+X3zbbu6OjAgplYN002KLbE2pQUev+s+8vOcs4b9/R3uet71yFX8zCvRjfUbbdVrORwy+2BXp3INyhzWxMDzMcN4zvMNCUn7VRWOMJl1Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y5NInDPYzynXk4olgXY22V4iJ6pK1OKa9T7IrkYRcgc=;
- b=QsY1WR92DT6I0UlUrcyjvYf+oWUR1aWUn0BxMGRKFhjXYy28SoVoSKHnmSGc8kL9OiuQ8GgjYvG8PVyjgpTXEKPAlPZFAl7dhJb2KOX88v2pt9gnUKWhZ0xvjNc9aj9RZIJhXHLL8Ay+a0xtVwzs+FR/dMVbvHJwawBbDjB1MwOWqovetrKB6uQ4r8dx5EpJfLdzuFO8WhsxtNY8TGxA5iYUCj+VCWeZuOqE0ZO/evmsuGEU72hktzLQSR32dqrz8GBkAjGZXhCfZ/B3LQno7igh/8hFP78VR9dTu31eRw26b4579sVH7d531YuyfgMtWbBf7LxHjOBirPBiGJieCg==
+ bh=D1sE3o7/1/WPykkUQrLgvygBnr35JJ7+xArB8a3+h6c=;
+ b=huE7CyX2ZEIq5Kf7JISLh6KglMfgR/pe1o1vGP6D6Zjkhl0rCcPbXlnb84Ycr/Fp+9XzkyvTjkOc6jhyJ8kpQ/88xV6RDNpPjdxbreVsvAx2bZXSS7Q2qk09/XgBFjSDsTzBr4VVKs+C1MDKg0t1lTmBePcqQ6c4kukYJQkQC2+x0+7Vc8iZt3Id200m3Vc6futN8G4Y3zDOBj4C9Xov3rioJ1hchxUXeNDF0wM7OmLmcN9zD5qRoWBvpA9EFsi21EqPEtk6Tvz2jmTRy6MSOIr8xEg000JnRds7RgvDp5460N1/QKy7tYZ9t2JCrlKXy61CJ7CwKqxEHYz42ex7gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y5NInDPYzynXk4olgXY22V4iJ6pK1OKa9T7IrkYRcgc=;
- b=UNtw5F8wJ5FGYckK8d/sZr7L9+kItSpRlAWiK8+7Cr0g0fDdBfd/slCXyzbmeB5oUr/gy4UkxNCp9sgIZfQ6WPzKdJtse0DCvi6IDq2+gabQi1EhlKkABF7EhEXG8mp3ce9CBB9yB+HbVak0B11a0FIlLojTQfKgUyFLr7LXsNBASv2RaTfds9r/XnNibabRjRJl8dkS1bEy3/Ug/Frl8BiAZknkv65527jpbBArf1r9ddpONtG6NSyEEWOqT+AZL9NcV5eCNhJWhnGxjtjBFvS8Vf6lS084/Swz3F/x0fy/EtL9f+EzF2wb7gzCO2M+RMOMJ/XnY10JY5Cwx87sAQ==
+ bh=D1sE3o7/1/WPykkUQrLgvygBnr35JJ7+xArB8a3+h6c=;
+ b=rfFnJzc4Sh9CHT4pWcaokKQnKCfjoIl2rJY5c2gI9qRcKoiVDybsSsaW73GFlANfODsBiHuqf3zi2AusIuWknkFauxflpAqh2URsyApqDvwih8/X8r3w3ycXuOm5dordQib9NP+gJ7bqFlSJZOzO7qLIDggb3s4mRVxKAVMXcdCx7gyJRAmLeXjI8eQHQbjqPs5WF07fszMnZfqh6qK2J+K3Ltk+YgCjEj7LWMQrIXfuV5JsU0TGkoO2ApXZ+Lk31dXTElR39mFnPKh+OjwnUqFOJEGNYc2bNBbb5d69lLffgxpaRbs4uhslRUrKpitu4W3vjvsfZ55WEIuWhrMqdw==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
 CC: David Woodhouse <dwmw@amazon.co.uk>,
         Stefano Stabellini
 	<sstabellini@kernel.org>,
         Julien Grall <julien@xen.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
         Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>,
-        Paul Durrant <xadimgnik@gmail.com>,
-        Oleksandr
- Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
-        Anthony Perard
-	<anthony.perard@citrix.com>,
-        Paul Durrant <paul@xen.org>, Kevin Wolf
-	<kwolf@redhat.com>,
-        Hanna Reitz <hreitz@redhat.com>,
-        =?iso-8859-1?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>,
-        Paolo
- Bonzini <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>,
-        "open
- list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
-        "open list:Block layer
- core" <qemu-block@nongnu.org>
-Subject: [PATCH v3 2/5] xen: backends: don't overwrite XenStore nodes created
- by toolstack
-Thread-Topic: [PATCH v3 2/5] xen: backends: don't overwrite XenStore nodes
- created by toolstack
-Thread-Index: AQHaHy1b3EzvbBTaE06mm4g67YDmDQ==
-Date: Fri, 24 Nov 2023 23:24:22 +0000
-Message-ID: <20231124232400.943580-3-volodymyr_babchuk@epam.com>
+        Peter Maydell <peter.maydell@linaro.org>,
+        Anthony Perard <anthony.perard@citrix.com>,
+        Paul Durrant <paul@xen.org>,
+        "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
+        "open list:X86 Xen CPUs"
+	<xen-devel@lists.xenproject.org>
+Subject: [PATCH v3 5/5] xen_arm: Add virtual PCIe host bridge support
+Thread-Topic: [PATCH v3 5/5] xen_arm: Add virtual PCIe host bridge support
+Thread-Index: AQHaHy1b0mzAt+6ABEigm2G74/KugQ==
+Date: Fri, 24 Nov 2023 23:24:23 +0000
+Message-ID: <20231124232400.943580-6-volodymyr_babchuk@epam.com>
 References: <20231124232400.943580-1-volodymyr_babchuk@epam.com>
 In-Reply-To: <20231124232400.943580-1-volodymyr_babchuk@epam.com>
 Accept-Language: en-US
@@ -107,44 +98,44 @@ X-MS-TNEF-Correlator:
 x-mailer: git-send-email 2.42.0
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DU0PR03MB8551:EE_
-x-ms-office365-filtering-correlation-id: 79aa1d96-b998-457c-9410-08dbed447e27
+x-ms-office365-filtering-correlation-id: 2624485c-5b2f-4db5-647a-08dbed447eda
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- PX5QxQ/3/kiqNtjA8aiYBrNGyfixFZag0Y2G457JCoSybbEJ2X/zNH+bRXrInOiMY9CqtB5PRb6kkfTdZIPB969ikRwsx1gPkeSw99BkvQ6n3mkWdMDzGj7yUPV1rRBjv9ph1CKMXKBaeG45vMVGyn0DCA3aGALcZwVti1oor6BiNnblLqTclufjCY2q0A/9eF566Ho0Ww17Kj96H0om+CRZ/Qka1/kTznYVkRf//p1eYljH0duKe5nFbPCG+bwmER0g1I/+6Jfooc1CsjQQsTuz3Hf0Ty1xcMF3xfhG3Wc6rGE9kXQPFsUCJzx+EZGb8DY2I0fiN7mWarOygunie+1egNWw058y6IH6OfKB51rc8+w3x07K5WYpuBamq9ySmjIEY14n4Pr5d94m285x+s7/RDkPXDF2maSgUNNnXUdu4vApYt//y3xN+lCk8j77FFeF3WAHgQh51Bj6GvQknsVBbRY/ayDsHyioYp7YL9Jxf4hm5BJ93g4vU1HfDcwfzhU7sVaTNk4yQc/WZsjV50hvbubfhBs2wGla44EWR6TMLwilNp/R1/bDQbXxjbG3KotGZBLUuNWuXX8Og0ibAuD7m6bAYxjTzag5ptxAL20wEkEe8YhAt0ffUFKsxQGM
+ 0dw3QvhJzIeRch7/T2ifhNUsO8E5XgmhR9UXKqTvfhi1rT9ValVr5Ja5GfKyMIS0t5w23MF2ZTABrjFAeP6nT7+SgZMx/Ya8hsNd6e2Wjz8iJe7TJyuiyRsdvgBRH8qLboX3NXg1QeTUxSrVARFsHWZvq30JV7DjFxEAIyO//EDBU+cOTkhpTx1lTTKnwpPZVxc8m0vYzf5O35zZqbWgEqtO/6uMCAER6/y5fm3vA+yLwhBg1h4ZQxve/p0ewUEF+eIxbuHXXxBNpLP7UA0gNznWN2gOHaoUJ+bBRum36B6Yx7varMPSOPlBB5wax988zGpKj1ULWsXFAMEHe4CUeTw7BEZQdlrthpipKanbEPM8n3VIo0/0Rgz/i9rOJeLv8xkFa50J3i8DV2DVY3Ddnw5LApRKPWvVO9aMQhCH0eAQo2Y2RsFk0aniPIQsOxLzkyWTLZs3QdWBTkrnXA01fK0EneOCrwYAT5dxENMcjOTlDat193Pe4Gs++RzHeCKH1SM5y9z4U3rV3J22tybOSPyRwEDp+2XaTa2eg1TnLC41yuL+Jrxo3z8YxRlVtDvZcetgAB5wILL51/ddRif2aXslJ7PCA9ew/aSdxhdbAHyiX7bu57HvZRdfpRj8ggI+
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(366004)(136003)(376002)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(38100700002)(1076003)(6512007)(83380400001)(2616005)(6506007)(55236004)(71200400001)(41300700001)(8676002)(4326008)(5660300002)(8936002)(26005)(7416002)(478600001)(6486002)(2906002)(6916009)(316002)(91956017)(66476007)(66446008)(54906003)(64756008)(76116006)(66946007)(66556008)(86362001)(122000001)(36756003)(38070700009);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(366004)(136003)(376002)(39860400002)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(38100700002)(1076003)(6512007)(83380400001)(2616005)(6506007)(55236004)(71200400001)(41300700001)(8676002)(4326008)(5660300002)(8936002)(26005)(478600001)(6486002)(30864003)(2906002)(6916009)(316002)(91956017)(66476007)(66446008)(54906003)(64756008)(76116006)(66946007)(66556008)(86362001)(122000001)(36756003)(38070700009);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?P5Zk/L9SG8UthSFzLsCkHbt/S6WyBm8+U7I/ORZv+rPdcD9abqEQfjbBwh?=
- =?iso-8859-1?Q?XbhynglhgNPobt6+GYHck+kzZAQPzUOSw1b7Jg+/MmMnF4ayNxuQOgxdW7?=
- =?iso-8859-1?Q?WRQA6MOaxj3pwk6d5VZZPwIiPx5HM4+k5t0L/Qa9/RcHclCOWMUMAPWBHq?=
- =?iso-8859-1?Q?7FyHiig5can1lhcXjRmSHOhJBKbAeFBUUcijbnJFiCBx0jiRKI6uluzKDU?=
- =?iso-8859-1?Q?8/aLvdWyTC2n6tQikY4kmsrW3nmK/cf50+TucX7oegxUZKhP97oiQezPQC?=
- =?iso-8859-1?Q?W4OyPpKNmX1nW+4GUtzkxH9qGrrtl1PzDHBdyCGw37UAIpMjzx0LJPGkrE?=
- =?iso-8859-1?Q?dN8HKpK45ZS8bg125CCaCSZh5fumZl4/RF23LCtga3KFGekJ8EuKWV50Cj?=
- =?iso-8859-1?Q?EMusd4kMALvYLyRO3km0lL+pFVxtImkO46dJtNMMfj8v5gjvcH0V4YYgsh?=
- =?iso-8859-1?Q?lBfLpcfqttovs60xpakvXemoHlPr3koRVlAr6bTIGNxw3IRjT3MIdI4VxL?=
- =?iso-8859-1?Q?wqqSH+Ut3yIjHtUMg/aR8oPdxrcSXUAVeGrx0iEeoyV9NJDKEq+wj4Xjda?=
- =?iso-8859-1?Q?inwLj5cmmvd0uupUl+e8QyibMzCb2VEOIyoPx393RTfx6DvLtHaXiMkrK7?=
- =?iso-8859-1?Q?RNx65IPfzWxUuMNY3/uKwqE0O3aI6dGCUUtaJefMSxTKnQds2FhOAOioUc?=
- =?iso-8859-1?Q?NTggrNswn6lpKt8WTPRpnQyM6Fa2rP1n8Btd2ZlOGYZESdxMbtkcnt0JM7?=
- =?iso-8859-1?Q?86HEyqdh7gpO4QgbKMvtvIE/fwOezfjb9F6tnKKpIfHW0FIu/APPLaJCs/?=
- =?iso-8859-1?Q?Fd6I59M0Vo2guRTT5Bb9iQKkVScXQE3z7Hk20D3Nh/va4U1VyfkovqEoHb?=
- =?iso-8859-1?Q?Vfas4/KBszV08b1eL89Or5tLYrxngbG0tqzC2O3iAKhZC+vdIhuNNd5aZE?=
- =?iso-8859-1?Q?+Ht+uhzdSyHhuBi3YdgYacZPzXO7WgutJ22tutN3Jq82qpVjVYrB9C57wx?=
- =?iso-8859-1?Q?4js+n06l0phNUKKK0JVb4ItaXleiYtJp3N78+LMuWrnB4uzqFs8HTHuRdi?=
- =?iso-8859-1?Q?jP2WerCmaN/f+S5C0g4UWItIuF6En7Rx93yJFIRNzhUV0z/QE+5kxM27uG?=
- =?iso-8859-1?Q?0xgS0lLti7lk7rwQo3jSA+X0VYm7fLYIwrDDczxGTy15rzre2glOxT8yRA?=
- =?iso-8859-1?Q?lcO1x5gSK1luKZCzvO1NeeDcK/RK6kp2wd6yA46GpT8ajO93Hjraua6ssG?=
- =?iso-8859-1?Q?OmFBO7Gx1otGgiCrOOMC06g+kOykXowHRXdUtgYeBb4SDb9pta6oYBjYcY?=
- =?iso-8859-1?Q?CT+KEgpAnY35U6C6Bm7+aU89Cjx3ExVtQIlQarisBR3XOFqXhbCjtPSNNL?=
- =?iso-8859-1?Q?aT5Y6q7H/5N8PIZguSJ+1udV/mPvjVSfd2kaGdtWxVnjMppEKDwZFr/cXw?=
- =?iso-8859-1?Q?Ox6chBtAZAl5/V5c0grVobCx/zeMJxSufQ+cHvtos9fAvBKk87sHBEgQUx?=
- =?iso-8859-1?Q?F5fYz0z8Fb68m88pidzR6LCZkSXEGB9T+2PUIaqMySXyQMVyCOLI+VWjW5?=
- =?iso-8859-1?Q?qm+TYCytMgcfnKpRz69aF8wERw5VXiXV7cfGh69FoskZO6CFyTdUl65D3r?=
- =?iso-8859-1?Q?O0Qckf41XxgkveMjOn8nJK+VsbkZbZeyUBvJfhPWKn6r8/gwi6ummsMQ?=
+ =?iso-8859-1?Q?nc651D1DQsrI1tXHu4/DrE5IVnTVih62bIweyETHOzZ+OKb6OpDiYQp5Zx?=
+ =?iso-8859-1?Q?skHzHMx+0hGC95uOyVgZv1GquHewkfNKCQVov4qMckhD0W1yZraRj6OCjC?=
+ =?iso-8859-1?Q?bDtS/RZrNsIqFxdxhQJaAoWZjODRCKMVJfYCP+iq5SSIshI0tgXfp8o5Ik?=
+ =?iso-8859-1?Q?8WaQywi1Dli+xdMMYF4VoWfwPx4HbhwAhtbdacYBaS61bhvmeJHfoqjuiB?=
+ =?iso-8859-1?Q?5IWAsVRwNJjLW9DihTy3sZjcg3XbHsOWxzQoFrkAynbfPnlmT0eA1XUSPY?=
+ =?iso-8859-1?Q?ZB3b4hrQzbr3sh+H1V5W4BfUvFCe458oovQWBf0nGV9KWt2BuD0vpW24hZ?=
+ =?iso-8859-1?Q?zuUg+tqeMwPlj3xaxj1W23Kedst0z5/up5iQJPmicBpDnXXM0rV3wrLkfX?=
+ =?iso-8859-1?Q?loZutFWuQi9KtXum4MhVFmtTRRcC/Rql+Fo5lo+MYIQoOYnQ/gAx1vvX6c?=
+ =?iso-8859-1?Q?ViK9uWc8fjhbDusV0HkwXIEEUT7yV/+bm2FnCBThqNSAdyKfqE140WZAfm?=
+ =?iso-8859-1?Q?koNH86Zbf21GFRD8szn5U6jfUSNHifLBFH40pte+LeeUOEwA/aycEARd+S?=
+ =?iso-8859-1?Q?HNnSd4y+xAEiFRf4H8vKcn3jogabV9hiGOyMQ+bPXsHzjaSkf6rRZuD9Dc?=
+ =?iso-8859-1?Q?I37StdfCK1n9R35LbLcuQs8VByI/JhP1rzYdHUxzZ82XMrKNGR7qzEi3Rb?=
+ =?iso-8859-1?Q?m6FxEMlShdMfR8vyoMlaxHnNUGSfRm2qE7orzmoS1N/gCeTsSZ8DpTJVCM?=
+ =?iso-8859-1?Q?KLH+WDdqX+XqSLN7fbB9YNOF85foIKmOn5xai900IeKC0aUgN+xB28Steq?=
+ =?iso-8859-1?Q?bsYg+pQS4hR1tEtjpQtvJfakvSJm0ukgfIAtJ2Tl2lFDPSj0KgqvKDSQAQ?=
+ =?iso-8859-1?Q?3Lf2sLOQr1XN55v7TDdy4OJiOj3CHRldy3HDawPGsfsy7etsx/IhTd6OEn?=
+ =?iso-8859-1?Q?xbdNoipbeNiQ7w7TCatXCRveptdkrN3sy+a/oyjuPOiS/g7A/bqFqNQavu?=
+ =?iso-8859-1?Q?6BklwEkeehDFuc8USdxxeGI0RZnc01cLPZew/OImvc/n/TRQ6wuWMTmFg4?=
+ =?iso-8859-1?Q?JX1+VMAcfDk1LN/vCRB7HiWL4j6iMnLXd1Rc6JGRnzYKfdfg17EocNurKJ?=
+ =?iso-8859-1?Q?q2IVdWebmoewCh7flmE5PXDKX7Y+R4wqLzLjcKU1KPGvAWM+tV7VJ9w7N+?=
+ =?iso-8859-1?Q?xRBGp3kYgAeYavgbd+9Gx87pU58J80UeeKlpz2unH0vRtJ1HloBMPlegxW?=
+ =?iso-8859-1?Q?6mEiLPY3Byp+42cPUoFTJXl1qtJpBoHrxCPKeBvc/VTxNxUFUYb3Dd2tL9?=
+ =?iso-8859-1?Q?ngNEXtLlD9fDecdcc/dHV+w+K+YjfL7LQbTdkIMoIAeseL5FsusoYWH28l?=
+ =?iso-8859-1?Q?OOArVNvo0/HRayJfyho0ASNtur2Wb2R1xckfXD3CCHkyJ7JO6naOTCSpdq?=
+ =?iso-8859-1?Q?ab1Iu8yTmHpugKdHnPLLuJ0hPVf2pOMX/AG0oaFvI2Jl6J9FM0c9ZZlQH6?=
+ =?iso-8859-1?Q?Zkxn6hSOJmWOQmYa/0q2lpIevyKc985995HiSoB/uaWFJcsnrBTtF2yPKY?=
+ =?iso-8859-1?Q?5X5pFUbJiKFg69lrEO1LRHY2c4UycokjI1BK7ol8vlvqxfv6nBJDYqi+m/?=
+ =?iso-8859-1?Q?zGLGaTw3wzzxH85lHvYepCSWCTmL/4LiQkR0CfxFxG6GZbWuayei0GaA?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -152,177 +143,422 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79aa1d96-b998-457c-9410-08dbed447e27
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2023 23:24:22.5517
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2624485c-5b2f-4db5-647a-08dbed447eda
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2023 23:24:23.7566
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xNkyqKI4YT4IIdT+ljJO8sagcbRBqB2Fuv6M9yFz1v8iP/hdl/kWRESJTCJqW1KfiUgAMAUlMRepVUWpLavnOEXzKt9n2h9MOEmtMwUYtrI=
+X-MS-Exchange-CrossTenant-userprincipalname: 3VCbrezFxuhWwkrIzUou/D+DEh5gK8wwvmULD316tIvxCmOdQ+BrReAnns9YNlDGUi5O2qIfHdMlpdWAJJoUGf9367lrJWV+CuKagPpg8fY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8551
-X-Proofpoint-GUID: 79EPq4XasLgjwOuPBklnjbU3ybtvPQIo
-X-Proofpoint-ORIG-GUID: 79EPq4XasLgjwOuPBklnjbU3ybtvPQIo
+X-Proofpoint-GUID: IuhptZD8j7yZJTKtZiqN36M2VDN9hsRh
+X-Proofpoint-ORIG-GUID: IuhptZD8j7yZJTKtZiqN36M2VDN9hsRh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-11-24_09,2023-11-22_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
  malwarescore=0 priorityscore=1501 mlxscore=0 spamscore=0 bulkscore=0
- suspectscore=0 phishscore=0 mlxlogscore=971 adultscore=0
+ suspectscore=0 phishscore=0 mlxlogscore=999 adultscore=0
  lowpriorityscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.12.0-2311060000 definitions=main-2311240182
 
-Xen PV devices in QEMU can be created in two ways: either by QEMU
-itself, if they were passed via command line, or by Xen toolstack. In
-the latter case, QEMU scans XenStore entries and configures devices
-accordingly.
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-In the second case we don't want QEMU to write/delete front-end
-entries for two reasons: it might have no access to those entries if
-it is running in un-privileged domain and it is just incorrect to
-overwrite entries already provided by Xen toolstack, because toolstack
-manages those nodes. For example, it might read backend- or frontend-
-state to be sure that they are both disconnected and it is safe to
-destroy a domain.
+The bridge is needed for virtio-pci support, as QEMU can emulate the
+whole bridge with any virtio-pci devices connected to it.
 
-This patch checks presence of xendev->backend to check if Xen PV
-device was configured by Xen toolstack to decide if it should touch
-frontend entries in XenStore. Also, when we need to remove XenStore
-entries during device teardown only if they weren't created by Xen
-toolstack. If they were created by toolstack, then it is toolstack's
-job to do proper clean-up.
+This patch provides a flexible way to configure PCIe bridge resources
+using QEMU machine properties. We made this for several reasons:
 
-Suggested-by: Paul Durrant <xadimgnik@gmail.com>
-Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-Co-Authored-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+- We don't want to clash with vPCI devices, so we need information
+  from Xen toolstack on which PCI bus to use.
+- The guest memory layout that describes these resources is not stable
+  and may vary between guests, so we cannot rely on static resources
+  to be always the same for both ends.
+- Also the device-models which run in different domains and serve
+  virtio-pci devices for the same guest should use different host
+  bridge resources for Xen to distinguish. The rule for the guest
+  device-tree generation is one PCI host bridge per backend domain.
+
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
 ---
 
 Changes in v3:
 
- - Rephrased the commit message
----
- hw/block/xen-block.c  | 16 +++++++++-------
- hw/char/xen_console.c |  2 +-
- hw/net/xen_nic.c      | 18 ++++++++++--------
- hw/xen/xen-bus.c      | 14 +++++++++-----
- 4 files changed, 29 insertions(+), 21 deletions(-)
+ - Use QOM properties instead of reading from XenStore
+ - Remove unneeded includes
+ - Move pcie_* fields into "struct cfg"
 
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index c2ac9db4a2..dac519a6d3 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -390,13 +390,15 @@ static void xen_block_realize(XenDevice *xendev, Erro=
-r **errp)
+Changes in v2:
+
+ - Renamed virtio_pci_host to pcie_host entries in XenStore, because
+ there is nothing specific to virtio-pci: any PCI device can be
+ emulated via this newly created bridge.
+---
+ hw/arm/xen_arm.c            | 226 ++++++++++++++++++++++++++++++++++++
+ hw/xen/xen-hvm-common.c     |   9 +-
+ include/hw/xen/xen_native.h |   8 +-
+ 3 files changed, 240 insertions(+), 3 deletions(-)
+
+diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
+index b9c3ae14b6..dc6d3a1d82 100644
+--- a/hw/arm/xen_arm.c
++++ b/hw/arm/xen_arm.c
+@@ -34,6 +34,7 @@
+ #include "hw/xen/xen-hvm-common.h"
+ #include "sysemu/tpm.h"
+ #include "hw/xen/arch_hvm.h"
++#include "hw/pci-host/gpex.h"
 =20
-     xen_device_backend_printf(xendev, "info", "%u", blockdev->info);
+ #define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
+ OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
+@@ -57,6 +58,10 @@ struct XenArmState {
 =20
--    xen_device_frontend_printf(xendev, "virtual-device", "%lu",
--                               vdev->number);
--    xen_device_frontend_printf(xendev, "device-type", "%s",
--                               blockdev->device_type);
--
--    xen_device_backend_printf(xendev, "sector-size", "%u",
--                              conf->logical_block_size);
-+    if (!xendev->backend) {
-+        xen_device_frontend_printf(xendev, "virtual-device", "%lu",
-+                                   vdev->number);
-+        xen_device_frontend_printf(xendev, "device-type", "%s",
-+                                   blockdev->device_type);
+     struct {
+         uint64_t tpm_base_addr;
++        MemMapEntry pcie_mmio;
++        MemMapEntry pcie_ecam;
++        MemMapEntry pcie_mmio_high;
++        int         pcie_irq_base;
+     } cfg;
+ };
+=20
+@@ -73,6 +78,15 @@ static MemoryRegion ram_lo, ram_hi;
+ #define NR_VIRTIO_MMIO_DEVICES   \
+    (GUEST_VIRTIO_MMIO_SPI_LAST - GUEST_VIRTIO_MMIO_SPI_FIRST)
+=20
++#define XEN_ARM_PCIE_ECAM_BASE          "pcie-ecam-base"
++#define XEN_ARM_PCIE_ECAM_SIZE          "pcie-ecam-size"
++#define XEN_ARM_PCIE_MEM_BASE           "pcie-mem-base"
++#define XEN_ARM_PCIE_MEM_SIZE           "pcie-mem-size"
++#define XEN_ARM_PCIE_PREFETCH_BASE      "pcie-prefetch-mem-base"
++#define XEN_ARM_PCIE_PREFETCH_SIZE      "pcie-prefetch-mem-size"
++#define XEN_ARM_PCIE_IRQ_BASE           "pcie-irq-base"
 +
-+        xen_device_backend_printf(xendev, "sector-size", "%u",
-+                                  conf->logical_block_size);
-+    }
-=20
-     xen_block_set_size(blockdev);
-=20
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index bef8a3a621..b52ddddabf 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -450,7 +450,7 @@ static void xen_console_realize(XenDevice *xendev, Erro=
-r **errp)
-=20
-     trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)));
-=20
--    if (CHARDEV_IS_PTY(cs)) {
-+    if (CHARDEV_IS_PTY(cs) && !xendev->backend) {
-         /* Strip the leading 'pty:' */
-         xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4);
++/* TODO It should be xendevicemodel_set_pci_intx_level() for PCI interrupt=
+s. */
+ static void xen_set_irq(void *opaque, int irq, int level)
+ {
+     if (xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level)) {
+@@ -129,6 +143,89 @@ static void xen_init_ram(MachineState *machine)
      }
-diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-index afa10c96e8..27442bef38 100644
---- a/hw/net/xen_nic.c
-+++ b/hw/net/xen_nic.c
-@@ -315,14 +315,16 @@ static void xen_netdev_realize(XenDevice *xendev, Err=
-or **errp)
+ }
 =20
-     qemu_macaddr_default_if_unset(&netdev->conf.macaddr);
-=20
--    xen_device_frontend_printf(xendev, "mac", "%02x:%02x:%02x:%02x:%02x:%0=
-2x",
--                               netdev->conf.macaddr.a[0],
--                               netdev->conf.macaddr.a[1],
--                               netdev->conf.macaddr.a[2],
--                               netdev->conf.macaddr.a[3],
--                               netdev->conf.macaddr.a[4],
--                               netdev->conf.macaddr.a[5]);
--
-+    if (!xendev->backend) {
-+        xen_device_frontend_printf(xendev, "mac",
-+                                   "%02x:%02x:%02x:%02x:%02x:%02x",
-+                                   netdev->conf.macaddr.a[0],
-+                                   netdev->conf.macaddr.a[1],
-+                                   netdev->conf.macaddr.a[2],
-+                                   netdev->conf.macaddr.a[3],
-+                                   netdev->conf.macaddr.a[4],
-+                                   netdev->conf.macaddr.a[5]);
++static bool xen_validate_pcie_config(XenArmState *xam)
++{
++    if (xam->cfg.pcie_ecam.base =3D=3D 0 &&
++        xam->cfg.pcie_ecam.size =3D=3D 0 &&
++        xam->cfg.pcie_mmio.base =3D=3D 0 &&
++        xam->cfg.pcie_mmio.size =3D=3D 0 &&
++        xam->cfg.pcie_mmio_high.base =3D=3D 0 &&
++        xam->cfg.pcie_mmio_high.size =3D=3D 0 &&
++        xam->cfg.pcie_irq_base =3D=3D 0) {
++
++        /* It's okay, user just don't want PCIe brige */
++
++        return false;
 +    }
-     netdev->nic =3D qemu_new_nic(&net_xen_info, &netdev->conf,
-                                object_get_typename(OBJECT(xendev)),
-                                DEVICE(xendev)->id, netdev);
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index dd0171ab98..d0f17aeb27 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -599,8 +599,10 @@ static void xen_device_backend_destroy(XenDevice *xend=
-ev)
-=20
-     g_assert(xenbus->xsh);
-=20
--    xs_node_destroy(xenbus->xsh, XBT_NULL, xendev->backend_path,
--                    &local_err);
-+    if (!xendev->backend) {
-+        xs_node_destroy(xenbus->xsh, XBT_NULL, xendev->backend_path,
-+                        &local_err);
++
++    if (xam->cfg.pcie_ecam.base =3D=3D 0 ||
++        xam->cfg.pcie_ecam.size =3D=3D 0 ||
++        xam->cfg.pcie_mmio.base =3D=3D 0 ||
++        xam->cfg.pcie_mmio.size =3D=3D 0 ||
++        xam->cfg.pcie_mmio_high.base =3D=3D 0 ||
++        xam->cfg.pcie_mmio_high.size =3D=3D 0 ||
++        xam->cfg.pcie_irq_base =3D=3D 0) {
++
++        /* User provided some PCIe options, but not all of them */
++
++        error_printf("Incomplete PCIe bridge configuration\n");
++
++        exit(1);
 +    }
-     g_free(xendev->backend_path);
-     xendev->backend_path =3D NULL;
-=20
-@@ -764,8 +766,10 @@ static void xen_device_frontend_destroy(XenDevice *xen=
-dev)
-=20
-     g_assert(xenbus->xsh);
-=20
--    xs_node_destroy(xenbus->xsh, XBT_NULL, xendev->frontend_path,
--                    &local_err);
-+    if (!xendev->backend) {
-+        xs_node_destroy(xenbus->xsh, XBT_NULL, xendev->frontend_path,
-+                        &local_err);
++
++    return true;
++}
++
++static void xen_create_pcie(XenArmState *xam)
++{
++    MemoryRegion *mmio_alias, *mmio_alias_high, *mmio_reg;
++    MemoryRegion *ecam_alias, *ecam_reg;
++    DeviceState *dev;
++    int i;
++
++    dev =3D qdev_new(TYPE_GPEX_HOST);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
++
++    /* Map ECAM space */
++    ecam_alias =3D g_new0(MemoryRegion, 1);
++    ecam_reg =3D sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0);
++    memory_region_init_alias(ecam_alias, OBJECT(dev), "pcie-ecam",
++                             ecam_reg, 0, xam->cfg.pcie_ecam.size);
++    memory_region_add_subregion(get_system_memory(), xam->cfg.pcie_ecam.ba=
+se,
++                                ecam_alias);
++
++    /* Map the MMIO space */
++    mmio_alias =3D g_new0(MemoryRegion, 1);
++    mmio_reg =3D sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 1);
++    memory_region_init_alias(mmio_alias, OBJECT(dev), "pcie-mmio",
++                             mmio_reg,
++                             xam->cfg.pcie_mmio.base,
++                             xam->cfg.pcie_mmio.size);
++    memory_region_add_subregion(get_system_memory(), xam->cfg.pcie_mmio.ba=
+se,
++                                mmio_alias);
++
++    /* Map the MMIO_HIGH space */
++    mmio_alias_high =3D g_new0(MemoryRegion, 1);
++    memory_region_init_alias(mmio_alias_high, OBJECT(dev), "pcie-mmio-high=
+",
++                             mmio_reg,
++                             xam->cfg.pcie_mmio_high.base,
++                             xam->cfg.pcie_mmio_high.size);
++    memory_region_add_subregion(get_system_memory(),
++                                xam->cfg.pcie_mmio_high.base,
++                                mmio_alias_high);
++
++    /* Legacy PCI interrupts (#INTA - #INTD) */
++    for (i =3D 0; i < GPEX_NUM_IRQS; i++) {
++        qemu_irq irq =3D qemu_allocate_irq(xen_set_irq, NULL,
++                                         xam->cfg.pcie_irq_base + i);
++
++        sysbus_connect_irq(SYS_BUS_DEVICE(dev), i, irq);
++        gpex_set_irq_num(GPEX_HOST(dev), i, xam->cfg.pcie_irq_base + i);
 +    }
-     g_free(xendev->frontend_path);
-     xendev->frontend_path =3D NULL;
++
++    DPRINTF("Created PCIe host bridge\n");
++}
++
+ void arch_handle_ioreq(XenIOState *state, ioreq_t *req)
+ {
+     hw_error("Invalid ioreq type 0x%x\n", req->type);
+@@ -189,6 +286,12 @@ static void xen_arm_init(MachineState *machine)
+     xen_register_ioreq(xam->state, machine->smp.cpus, &xen_memory_listener=
+);
 =20
-@@ -1063,7 +1067,7 @@ static void xen_device_realize(DeviceState *dev, Erro=
-r **errp)
-     xen_device_backend_set_online(xendev, true);
-     xen_device_backend_set_state(xendev, XenbusStateInitWait);
+     xen_create_virtio_mmio_devices(xam);
++    if (xen_validate_pcie_config(xam)) {
++        xen_create_pcie(xam);
++    } else {
++        DPRINTF("PCIe host bridge is not configured,"
++                " only virtio-mmio can be used\n");
++    }
 =20
--    if (!xen_device_frontend_exists(xendev)) {
-+    if (!xen_device_frontend_exists(xendev) && !xendev->backend) {
-         xen_device_frontend_printf(xendev, "backend", "%s",
-                                    xendev->backend_path);
-         xen_device_frontend_printf(xendev, "backend-id", "%u",
+ #ifdef CONFIG_TPM
+     if (xam->cfg.tpm_base_addr) {
+@@ -225,6 +328,90 @@ static void xen_arm_set_tpm_base_addr(Object *obj, Vis=
+itor *v,
+ }
+ #endif
+=20
++static void xen_arm_get_pcie_prop(Object *obj, Visitor *v,
++                                  const char *name, void *opaque,
++                                  Error **errp)
++{
++    XenArmState *xam =3D XEN_ARM(obj);
++    hwaddr *target;
++
++    if (!strcmp(name, XEN_ARM_PCIE_ECAM_BASE)) {
++        target =3D &xam->cfg.pcie_ecam.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_ECAM_SIZE)) {
++        target =3D &xam->cfg.pcie_ecam.size;
++    } else if (!strcmp(name, XEN_ARM_PCIE_MEM_BASE)) {
++        target =3D &xam->cfg.pcie_mmio.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_MEM_SIZE)) {
++        target =3D &xam->cfg.pcie_mmio.size;
++    } else if (!strcmp(name, XEN_ARM_PCIE_PREFETCH_BASE)) {
++        target =3D &xam->cfg.pcie_mmio_high.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_PREFETCH_SIZE)) {
++        target =3D &xam->cfg.pcie_mmio_high.size;
++    } else {
++        /* Unreachable */
++        assert(false);
++        return;
++    }
++
++    visit_type_uint64(v, name, target, errp);
++}
++
++static void xen_arm_set_pcie_prop(Object *obj, Visitor *v,
++                                  const char *name, void *opaque,
++                                  Error **errp)
++{
++    XenArmState *xam =3D XEN_ARM(obj);
++    uint64_t value;
++    hwaddr *target;
++
++    if (!strcmp(name, XEN_ARM_PCIE_ECAM_BASE)) {
++        target =3D &xam->cfg.pcie_ecam.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_ECAM_SIZE)) {
++        target =3D &xam->cfg.pcie_ecam.size;
++    } else if (!strcmp(name, XEN_ARM_PCIE_MEM_BASE)) {
++        target =3D &xam->cfg.pcie_mmio.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_MEM_SIZE)) {
++        target =3D &xam->cfg.pcie_mmio.size;
++    } else if (!strcmp(name, XEN_ARM_PCIE_PREFETCH_BASE)) {
++        target =3D &xam->cfg.pcie_mmio_high.base;
++    } else if (!strcmp(name, XEN_ARM_PCIE_PREFETCH_SIZE)) {
++        target =3D &xam->cfg.pcie_mmio_high.size;
++    } else {
++        /* Unreachable */
++        assert(false);
++        return;
++    }
++
++    if (!visit_type_uint64(v, name, &value, errp)) {
++        return;
++    }
++    *target =3D value;
++}
++
++static void xen_arm_get_pcie_irq_base(Object *obj, Visitor *v,
++                                      const char *name, void *opaque,
++                                      Error **errp)
++{
++    XenArmState *xam =3D XEN_ARM(obj);
++    int64_t value =3D xam->cfg.pcie_irq_base;
++
++    visit_type_int(v, name, &value, errp);
++}
++
++static void xen_arm_set_pcie_irq_base(Object *obj, Visitor *v,
++                                      const char *name, void *opaque,
++                                      Error **errp)
++{
++    XenArmState *xam =3D XEN_ARM(obj);
++    int64_t value;
++
++    if (!visit_type_int(v, name, &value, errp)) {
++        return;
++    }
++
++    xam->cfg.pcie_irq_base =3D value;
++}
++
+ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
+ {
+=20
+@@ -246,6 +433,45 @@ static void xen_arm_machine_class_init(ObjectClass *oc=
+, void *data)
+=20
+     machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TPM_TIS_SYSBUS);
+ #endif
++
++    object_class_property_add(oc, XEN_ARM_PCIE_ECAM_BASE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_ECAM_BASE,
++        "Base address for ECAM range of virtual PCIe host bridge");
++    object_class_property_add(oc, XEN_ARM_PCIE_ECAM_SIZE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_ECAM_SIZE,
++        "Size of ECAM range of virtual PCIe host bridge");
++
++    object_class_property_add(oc, XEN_ARM_PCIE_MEM_BASE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_MEM_BASE,
++        "Base address for non-prefetchable memory of virtual PCIe host bri=
+dge");
++    object_class_property_add(oc, XEN_ARM_PCIE_MEM_SIZE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_MEM_SIZE,
++        "Size of non-prefetchable memory of virtual PCIe host bridge");
++
++    object_class_property_add(oc, XEN_ARM_PCIE_PREFETCH_BASE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_PREFETCH_BASE,
++        "Base address for prefetchable memory of virtual PCIe host bridge"=
+);
++    object_class_property_add(oc, XEN_ARM_PCIE_PREFETCH_SIZE, "uint64_t",
++                              xen_arm_get_pcie_prop,
++                              xen_arm_set_pcie_prop, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_PREFETCH_SIZE,
++        "Size of prefetchable memory of virtual PCIe host bridge");
++
++    object_class_property_add(oc, XEN_ARM_PCIE_IRQ_BASE, "int",
++                              xen_arm_get_pcie_irq_base,
++                              xen_arm_set_pcie_irq_base, NULL, NULL);
++    object_class_property_set_description(oc, XEN_ARM_PCIE_IRQ_BASE,
++        "Number of first PCI legacy interrupt for PCIe host bridge");
+ }
+=20
+ static const TypeInfo xen_arm_machine_type =3D {
+diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+index 2e7897dbd2..19fcccdb16 100644
+--- a/hw/xen/xen-hvm-common.c
++++ b/hw/xen/xen-hvm-common.c
+@@ -47,6 +47,8 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, =
+MemoryRegion *mr,
+     g_free(pfn_list);
+ }
+=20
++uint16_t xen_pci_segment;
++
+ static void xen_set_memory(struct MemoryListener *listener,
+                            MemoryRegionSection *section,
+                            bool add)
+@@ -382,7 +384,12 @@ static void cpu_ioreq_config(XenIOState *state, ioreq_=
+t *req)
+     }
+=20
+     QLIST_FOREACH(xendev, &state->dev_list, entry) {
+-        if (xendev->sbdf !=3D sbdf) {
++        /*
++         * As we append xen_pci_segment just before forming dm_op in
++         * xen_map_pcidev() we need to check with appended xen_pci_segment
++         * here as well.
++         */
++        if ((xendev->sbdf | (xen_pci_segment << 16)) !=3D sbdf) {
+             continue;
+         }
+=20
+diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
+index 6f09c48823..2b1debaff4 100644
+--- a/include/hw/xen/xen_native.h
++++ b/include/hw/xen/xen_native.h
+@@ -431,6 +431,8 @@ static inline void xen_unmap_io_section(domid_t dom,
+                                                     0, start_addr, end_add=
+r);
+ }
+=20
++extern uint16_t xen_pci_segment;
++
+ static inline void xen_map_pcidev(domid_t dom,
+                                   ioservid_t ioservid,
+                                   PCIDevice *pci_dev)
+@@ -441,7 +443,8 @@ static inline void xen_map_pcidev(domid_t dom,
+=20
+     trace_xen_map_pcidev(ioservid, pci_dev_bus_num(pci_dev),
+                          PCI_SLOT(pci_dev->devfn), PCI_FUNC(pci_dev->devfn=
+));
+-    xendevicemodel_map_pcidev_to_ioreq_server(xen_dmod, dom, ioservid, 0,
++    xendevicemodel_map_pcidev_to_ioreq_server(xen_dmod, dom, ioservid,
++                                              xen_pci_segment,
+                                               pci_dev_bus_num(pci_dev),
+                                               PCI_SLOT(pci_dev->devfn),
+                                               PCI_FUNC(pci_dev->devfn));
+@@ -457,7 +460,8 @@ static inline void xen_unmap_pcidev(domid_t dom,
+=20
+     trace_xen_unmap_pcidev(ioservid, pci_dev_bus_num(pci_dev),
+                            PCI_SLOT(pci_dev->devfn), PCI_FUNC(pci_dev->dev=
+fn));
+-    xendevicemodel_unmap_pcidev_from_ioreq_server(xen_dmod, dom, ioservid,=
+ 0,
++    xendevicemodel_unmap_pcidev_from_ioreq_server(xen_dmod, dom, ioservid,
++                                                  xen_pci_segment,
+                                                   pci_dev_bus_num(pci_dev)=
+,
+                                                   PCI_SLOT(pci_dev->devfn)=
+,
+                                                   PCI_FUNC(pci_dev->devfn)=
+);
 --=20
 2.42.0
 
