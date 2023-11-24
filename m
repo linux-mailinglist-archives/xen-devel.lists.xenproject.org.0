@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D1DD7F6E61
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:39:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640229.998185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9034A7F6E6B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:39:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640233.998195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6RiG-0006qL-In; Fri, 24 Nov 2023 08:39:00 +0000
+	id 1r6Rig-0007Pq-Ve; Fri, 24 Nov 2023 08:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640229.998185; Fri, 24 Nov 2023 08:39:00 +0000
+Received: by outflank-mailman (output) from mailman id 640233.998195; Fri, 24 Nov 2023 08:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6RiG-0006od-Fg; Fri, 24 Nov 2023 08:39:00 +0000
-Received: by outflank-mailman (input) for mailman id 640229;
- Fri, 24 Nov 2023 08:38:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r6Rig-0007NN-SG; Fri, 24 Nov 2023 08:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 640233;
+ Fri, 24 Nov 2023 08:39:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ulgz=HF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r6RiF-0006oK-4h
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:38:59 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20617.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::617])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8f5fcf6-8aa4-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 09:38:58 +0100 (CET)
+ id 1r6Rie-0006hT-J4
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:39:24 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20613.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::613])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f788340e-8aa4-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 09:39:23 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PA4PR04MB9438.eurprd04.prod.outlook.com (2603:10a6:102:2aa::6)
+ by AS8PR04MB8326.eurprd04.prod.outlook.com (2603:10a6:20b:3ff::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Fri, 24 Nov
- 2023 08:38:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.14; Fri, 24 Nov
+ 2023 08:39:20 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.012; Fri, 24 Nov 2023
- 08:38:56 +0000
+ 08:39:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,32 +47,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8f5fcf6-8aa4-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: f788340e-8aa4-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VWWTt2lN4FuWcdLEghiqx6ZLaagWN/yFPTWilip+MoqqQ2/5dsFyZLCHshvMMH/mNv+nylBS0QQng768AhMlQ9LqoykwhledQJsxlVEKH+WogVLVJjnm1cB1qkQ91PFm4b8INZBA7QcxS4jlDW48VuRDSL6tDSdkKPWOVcMbW47BRBuwdNoF6tfYS+/mETd6t0XK8V2p6nXYipTHKNCoYZk20aEEZLz//6p9wbyB5qXRudaAxsrE2m5lzX/BRgjWmxDP/65VqKj2/vDr5Upm3H1Bii0x3OjIMPk1C7iclKlXY+IebGqS4MCrieXd/NOcAx/MHpzRu5+Laf/LUbeBfA==
+ b=c5YSit9iUYcDbeG2RNyi/5Dpokd8C7IECTBKWJJBp4+PKUURwIEz9R4TPgzsl5yUqv3vl1g1v+oA9A+2ynDm9JNFtzGDOndQohxEvN5exAlpuq+5LzuRvyso7ejWeG5/944MHh+zodIofAJ9U0MJq2DiE+IQ2HNKt0a8qkhalvi9YQWyKpn+vbboviuKso6Rc7sBGBsWM/6ivNRuApTofi1rNc/aGfKoNKrt6RRQoYJNnHPpmYfVY+VxdzDdPtgYIXuGIasTll5Az4sexm1dyATIHXqogFCqN7Gvv9zKEF4kG2nGCBte5Prthu2uBbzxR5Vvn+ZfqR2zFRx762+QYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JvvpFQBeLYGJ9UIkAzWZ3Gq7BhQMOUOR1+k4804XyM4=;
- b=hT/pV/n/6APq75scMZ4L8nl+U08Jaew+vcEfofG54M/22hXuUuQ/g/lvou7bkROC739QqPkvsmY5yD0NOw4C+ipmlB6D9M7hKfcob9/6BurkKiFRghi0m9GW5+3pjPfPLhvjgvOrfz0O3ayC1DPHc2DzcqFOm6xSK3QFRrJDrZg45u5IWjH4I5YvBHSvtagfUtzMY8M9XOqSqifNY7yqp3A5YSB2FPC5krh5gj/rXiH678ho4Bwb1CPSuUZw0yN1bD/dX0BKiWkU1NiIbjAwyJyUIIZqHN9Tf+7fXxrwvcu+yxyHmPFNx6GUleDU0H/0l6BzLivVSdohu/5rR1rmww==
+ bh=Lk4G/GJfzS49frg+rcG+l0gtehLpkSIGFkMrZcweWR8=;
+ b=T1psXOXk2EJlkRdTgCAD/tAzNksw8lkThI4KXylsKK08zvqB4yPCtds4LHs3g5ok7folb810UwET5f4TAblJAsfnzbam0WB4pdByd6d5A2aKCG30iJ4d3ZidD7JZdqoS3UMnUQkXQlOMPAY6PRs6TbAqfKOqUxhEMmbCYDJoGI29NWUUeNvqkjc6Jd+HilF3J27aYkZHFlooI9sTjoM5xKnWeDzAr1EVfQJXuNmcNpIaKipVBaYYXb7LvkolMaCRfKWsofoNfhibuVikowj3IXdpLxtjsk848Ok7p6UcjiVhqmn3Br9DDcxeumpZSOqIYgEcmsC4Ar0G0RWWt6Bw9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JvvpFQBeLYGJ9UIkAzWZ3Gq7BhQMOUOR1+k4804XyM4=;
- b=Xs7baik+7y8oJVaZbnGRXCkQx/3PCy9eme+348f/d8DoPIXNvVpm48EjYAdWTpK8x9+Kbp7ZtHGn/jirwQmgyu4JTAODV5KdPudFjpoPcLlXd+tm780p4XVy9VpW7Ve2ZRoHfJos5+l63UHs41iTVl9Eh8kjffpody6Xduk5f0+79X7BmfJi2lXKVgEGy8ZHyUuD6/EKmsZulzjVcYQU6sgvZwf1U6Qh/TapngwcLrPwWXFy4eGI6X1cElmY+Vo64UMBzV9pd8XAbGGDSkX8OsNNhGuvW2Lbbosx158qShYEEYtN3OYJU9B4Ugv56i7J5mdX3fVJBPfVwHQaxHhNxA==
+ bh=Lk4G/GJfzS49frg+rcG+l0gtehLpkSIGFkMrZcweWR8=;
+ b=i4W3Ph32tFpdqw91bKFiERkj/Iga084exAWcPGiXbdNWuExdfd+v4EGo1yOfVT6c4rzvd6TxMRj585s3y0jJXC9xFUduHGONab28GgErR6yOSM7Ufz6fKhaVL5Arw+/PD9M9hlAZeLbvTiOretStmMlHPNPoDJDzoXUsUHewMcwIpggj8Jr4DYbyA7Ijpx8ZDCa/Q4d1vlKSMPV5+tnDrPv/PgD7kYard1sVkuYKGVs5T44caLs9Z1Fy36+j/jBGKoL91myF9QXSiLKlrd0nRGgx7j1zNFSHWc/3bMrbOVhQFmDejmv1HAcO9jvnei68c9D8Mv4xj71pH+txnrYEKA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8f9c3db0-bedb-4b8d-9560-3e5526288b5f@suse.com>
-Date: Fri, 24 Nov 2023 09:38:55 +0100
+Message-ID: <8112f1f9-3e3a-4839-9124-9adb87f82c29@suse.com>
+Date: Fri, 24 Nov 2023 09:39:19 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 05/15] x86: amend cpu_has_xen_[ibt,shstk}
+Subject: [PATCH v2 06/15] x86/HVM: improve CET-IBT pruning of ENDBR
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
 References: <b63b648f-02d0-4e52-a5e5-94ffd5666a14@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -105,86 +106,176 @@ X-ClientProxiedBy: FR4P281CA0408.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB9438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b668637-8777-4989-a6bc-08dbecc8cbf5
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9925fe6a-9bfa-48aa-d25b-08dbecc8da24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	pdFNgzNObgfxTTrJpS2f6UEJKA+WCzVe3hC2W/Uk4D0TypSIeWMtu32/Gfj6zOXu8cu9c50L0hWRwyCtl99He5JXHnBuJhWf11a1/kMRAAxp8jUywVGe86Zq3VkrDn8eGzJYFnDQ2tBZrNl7ksrECGk3YLEoAUdP9r3bRylOG8ERXpggnj+cRyV5Q9AcmwM4UeAraA0HrC/71f8fdysTAAQlXfHw6VnkYGxQYp0JE1lcoevCSTq5ebn82kpp/CKVoHsbJrvRiIIacbU+0JEBxlELcQQrYYgLhM9sF+d2ojWWh//IdIFzJCX4c0Ic1TIjuEP7VkSXqJRC08ZnhxEflm5D22Ebv3mxS1RpWl0a6sbSB3syipA9iowoEJERESugTYHelDKB530i9lTCe6nY3vp7JKCRsSUGHy3RkFmhzEK0vYk+uI1MSiLfoBe6nR7tuOkUj5/Dm57thRqSal9GCD3lNa4g4rILxJR37rrofWZFqeTfQQEXHEoz/W0HjainLvQOgx2ui5lqe8jsY2dFkBpKexYLRX4DUBK0dq8EniSNbuiABka577vc56lcdZTnGTxsIxfAxaJ33BWXGf8BYs6lCuB8U8n+nEtW7R7xojJr2a7z7FvTD2U7QemUELHzJMpD2T2jWymIRKRNIdqoaA==
+	DRohmgedkpukofN0yN3ZAZDkJ0MAi7e7QJ8+9uwWTgIZhzFJTfUWj+j/8Lb0feopxXq2rOJAJ6s1S/CrBVS+HzX54r9hd4opVjiB+GTHyow4LPv+E3PKWOyHfQSbXTUFtjhCh/3P6U5Oyo3OcVCWSqfmF3fD8NarIskUBHxfh1HShSbhfeT93/aZOpiyMZKmXwHe8JEXKET/L5xgQ5YbbXUTdRoScILTFBHuvD60xYXF62RAdaxyXCD3amhPJDXj7aRp4igGEgoq3eOtVOIAox1oq46YRk6r49Hsg8RxlRzrrRCGwHtqqVAOxeDRBiowUHCPgRYf2BAFVlrxhh4KxWWNwzovxZqe0SJ3r89gh5d4Yu3TzTfA6Y9xTbokBhXgbrQPR2d8QHx0swa73Z+8SHOs5hrVdAt/PHMgHQY0G29zD32cgbBjoDBwDNHrwnf5oiooE3qVsHtWD2wThoAE4/1PLQGmZL45gfn3yo2DaGjtH45DLRuR3xrXsK0qkDR+zHMxurCnrTRKC4D2MKP0M2xOZa8ZEe7fpJ4Htye+7wjrc29pBV15tALYlP+RiZhzqIOOKr6vaN7pTnPG9MibNZLxWuaAMwHH5bI06xkzhlt75x3XXoIsy7GqQSNdb3WMH7UrRTI9WZi1mugoJNVbx1bK0CtEj3RyzVMZBu81XVs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(136003)(366004)(396003)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(36756003)(2616005)(6512007)(8936002)(5660300002)(4326008)(8676002)(26005)(6506007)(4744005)(66476007)(54906003)(66556008)(66946007)(316002)(6486002)(2906002)(6916009)(478600001)(31686004)(86362001)(31696002)(41300700001)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(396003)(376002)(39860400002)(366004)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(31686004)(26005)(66946007)(6916009)(66476007)(66556008)(54906003)(38100700002)(36756003)(31696002)(86362001)(6486002)(83380400001)(2616005)(6512007)(6506007)(478600001)(4326008)(2906002)(316002)(8676002)(8936002)(5660300002)(41300700001)(87944015)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZVgzWXdDK0lJQ0pxN3M2UnRWYU9JMWNWNXc4dUVZSnJvVVJlY0dwdzRVR3No?=
- =?utf-8?B?clBJUzFWckVYVU9FVjQrc3ZCTmdEaXFza3cvV0lrbDBjMjdZaWJFajdSRUlO?=
- =?utf-8?B?eXZyK1RDL3BaUFI2Q1UwSmhxakExcnFLcUVYYVhReUd4cit4dDhud3BHcFhL?=
- =?utf-8?B?TWFrYS9EdlhZczhYa2VVMURFZko0allFTGIxYmIxWXArMngvL1FsNTdRQ01J?=
- =?utf-8?B?WXBsQVhVSFgxU0xWbDl1b3NaSlVTY3hIS0YvYi9Xc29rUlVPZjRMbEhVVHps?=
- =?utf-8?B?aWdVMkl2cTRlQUpZWkxiOXVyTWg4TkZlaXpSUVZ2TXJZb1JneGlGTEVYZml3?=
- =?utf-8?B?a1FPaldqSWFLSWRQS1d1RUM1QVl5aUNYelc4WFVKYjBJL05VZHYvQ05PSFR5?=
- =?utf-8?B?WlI4QklQYVVQRTA4dzl4eUMyT1UybmtlaVBVbVhpQm9MQXBIMUNPZ2FyNWRJ?=
- =?utf-8?B?Z0xKRWJYWjZHSC8zR2tEQms5Sm5tczV5MkxqMDJKTmxsZjRMRVRUaU5TS0p0?=
- =?utf-8?B?MkJuai9oUGxiZGMwVU9WRnVpQjZxV0RFa3FIR05CSUJQVlJXbEdzRFF0M25r?=
- =?utf-8?B?d3R1QTZFNXluTWxldzhxdVM2QmJHcmYyMVcySjZRSzJaNWJjSzQ1MmJjbVIy?=
- =?utf-8?B?eXYxU3NQQVFabytQNjhuTjhvNGhPMGQwWExwU1ZKd0dPWm8rNTNWZWZURGUr?=
- =?utf-8?B?c1U2cm0rQWxhcHJ6N2orQldYNkc1aVhFUWw0dWdLbUpDaitPUFRwUkFCeHZH?=
- =?utf-8?B?N3pVRGZGOFVrQk1YR3NUbGdJTmFIclNicVlETVZIQ05KV0lhUEl0cWVPbGY0?=
- =?utf-8?B?ZG05NW5IKzJ2aXFpTlNPQ0hNT2tjcnpGMlJZazVyT0FxeXQxaWpyWjVpeElB?=
- =?utf-8?B?SG5JblNGZG0yODZqU1JtUnpjRjZGdUZxcXJtY0hUY1FjVTI5TGtMa3FDczNy?=
- =?utf-8?B?b1dUVmFlRlNqMjhnWFZoc1pudURXUElzN3pCZitjRUZHcjcwbktxM0NnZEZK?=
- =?utf-8?B?ekw1bE9mSDU0QVhmZ1BlaHVXR0xXMGRJSGJaM3ZBQjc0TUd3SStDcFZFZUg0?=
- =?utf-8?B?a05NS21lbVYyR0lyLzVBblpZS1RyZ0NNSDJ2ZzFGS0ZLQndvaWFacE9BQmwy?=
- =?utf-8?B?Z0pnK0lXbmxmczFETGFkOXBQVzYyNitYMHZVd2x4NU50ZTJGd3cvU0V5RGE3?=
- =?utf-8?B?cUwwQzdyTDJpT0Mzb2FrbEZBNXNBUHdGYi9qajZOenFYL2NxV2x4SkhyR3py?=
- =?utf-8?B?N0pZOVFMckpQcUpCdE41eG5wdWYzcTRuTGNLVzVCY1NTeXlpZUVCWENOUkpj?=
- =?utf-8?B?ZU1Hc3FXdTBDS2t4UXdlQkkySlFwaXYrQzlwV1pEa0dvN01tU2pRL3JjdE9F?=
- =?utf-8?B?bXVMcEZYUHEwYzZ5RzlaR1RDL0J1aDhSaWVQQno0ZXVHWlZLUlJxSzB5NEpo?=
- =?utf-8?B?aG9VK0lLU1RsT2U0djJqcXRKc3pwYWZBZlAxNWh6bDJCUGwzbXlXd2o3akdl?=
- =?utf-8?B?QnFlVitiejdKUXplQTlYR0dlZ3lMUG1zWkxrVjJBNytRakN3UGJ0YndGb3VU?=
- =?utf-8?B?REd0K2FUT0pSMWtmZ1hCdWdXelBoLzhEdDNYTCsyTXpBTHBKV0JKM2FLMkl1?=
- =?utf-8?B?UkRrYm5uZmtCdDM3Z2owM2VuTCt1MTA2UWJxVXBJdVZhblphNW9aa2ZiT3cx?=
- =?utf-8?B?VEhCd1Q1NG1uSTdPcVRlUTZGNkZVQW5JWDlJYzY1VU1QNVVJVmJsZi9uaWhm?=
- =?utf-8?B?Vjl6ZmY2OCtaeFhyem5qWkNwbUI0c2VtcWdmcE9QWDNsR3QwTWZHSzFsaUth?=
- =?utf-8?B?UjB0MThRREZiVUE5RklxWVhJMnJ3RUZJc0E5Yk5WWkcwcE9xSG5lNGxuRFBG?=
- =?utf-8?B?aDZEbGtOOXB4c1EyQUh0dTd6VUh0QkRJK240K3hvek9IeWc3aTN5aXRLakE2?=
- =?utf-8?B?R0JtUlZuRDdmZEdHNXBGLytXM3BRQnRsZU9XSS9zNmVOTVFIL0I0YnNBbXVD?=
- =?utf-8?B?RTZYaTU1Tm4xRXp4M2ZybjZadXkrbGEyeVVQT21OU2x4eFVBeVRTak9wMWZE?=
- =?utf-8?B?a3Flc0I2MWtRU2FJMXJkR0xlcnlkSzY1bHZxK1RlQzBOUjN5aVh4YmIyeklw?=
- =?utf-8?Q?PUss/gy6nvOoHPXxQ336A2dK2?=
+	=?utf-8?B?SEd4Ry9lZEUraW55MWpkbUlTbFdDak5PN2JyZmMweW5aWi81bkdjdm1ucmpK?=
+ =?utf-8?B?Y0NGcWQ0Vzc1WkVBcThoL1VoZ1FGZlA5Uk1zWTBsWTRZRVFsZ2h5Rk9MNmVX?=
+ =?utf-8?B?WXp5U1p5KzhlSDZiWWU5bUtxckdORXR5d21CTitpNHdPUW1oa3ZrNWxRMG5H?=
+ =?utf-8?B?NGN1UWp5aDc0a1NheUh5OGF2Skc3S2NtOUR4cHF6cFJOVUhQVkJ6VFJGb2Jz?=
+ =?utf-8?B?K3pxY3QrQUxGVitZYmF0ZmMzaDg2bHlMMTZxakkyZDJlYXB5N0Zma3d0cmpL?=
+ =?utf-8?B?L0VkTVVCVjRnYWJUZjhId1l4MlhCdWg3Sk41T0Y0VkIwYjkwSnkzSnNNSlFr?=
+ =?utf-8?B?SDFSY2Rtbm5tZ1VPdnpSK01pSElpeGVDTHdub0xtZ1RXelgyZnhHcitLaXJz?=
+ =?utf-8?B?Wmh5djlvWXRUVGFTelNVMERSUm04TnRCcHFwdGlzZ2FKVnk1eDZ2SnE4OVhm?=
+ =?utf-8?B?T0k5dTI4UkpuS0crMFFXeWZqYnV1YWVJa29VdHJhY3IwNWlBb0c2NkhBTS9a?=
+ =?utf-8?B?REtzL0xxUVUwYnEzRTE1dUpoVWVDU3JoRWI4NWRPU01XSnd3YXM5Q2lPQ0Q1?=
+ =?utf-8?B?bzM4WGE4TjdJMFlVNVdwcGpQNzlta3dqcVdWUW51cWpBdVRHaGYzNkJDSGNX?=
+ =?utf-8?B?WUlsaENaVUpYRU9YS29GdWtkME1sV2p3SVc4SjdwK1NWeEpjQ0J5aHo0Sk51?=
+ =?utf-8?B?ZTh0bmJhcHI2bkx1dFpZS2F0ZDZrYlByaWlCLzJSeThrOVJsdDMvWDFrUWxu?=
+ =?utf-8?B?b0NOR1I5RitHbXlReDFHMEVWc2pGbXZvMnN3bG9aQ0V6UUhvaXBkNHN4WFRp?=
+ =?utf-8?B?b1F0eWlNWHNZY2d4ZVFjZGFJMi9kRk15bExMaVMvZFZCZ1JZTW42Yy9STHgy?=
+ =?utf-8?B?TnFOOHBaTlpxeUJEZjFkNE4wVkVOMXAvSUVhVTZTVmFmNnNQeHhySkFMVW84?=
+ =?utf-8?B?N2Zwc0E4NU02bDMxdGVockNoQU5IM25PcWNvd1ZaZG81bU9CRmYvQkVGdUNk?=
+ =?utf-8?B?aHNUanJ3Wmt1V1EyeEEwUWR2dGMrdE5XVk9ITExOWmxtV005ZklZUTcwUkVI?=
+ =?utf-8?B?Nk9OUnVKK1I3SHhSS09mTjE5emlCT1FtUE1tUGhmS2lZSW1nd3NQVkphRWQr?=
+ =?utf-8?B?UWRSOHpHNUNtNGF0Q3pjaGlMYkMyUGlvRVFOZ2hiSFJESWljREYyaHJWTE5s?=
+ =?utf-8?B?ZUFEdFlwWk1PeEh0OVJtNWQ1RElPTE42TTA1R0dSdXFGQS9LM0RlOHQ2UTZQ?=
+ =?utf-8?B?TWQ2VjlJaVRyd2VGajduejdKTzFTcjNaRFcvbDBtdmMxN3J4SlhmUDVySkhs?=
+ =?utf-8?B?VUdmRU9JU3VqelFPN0ZTWVJHcHJpeVdzaEtmQXJGR3FpZlhqa3hoRjE1SWlC?=
+ =?utf-8?B?NDhYNk5sMUR1Nm95MzUvSG1BeGxrTEZPLzExaHpOU3Q2Q2Q4Q0p3RWdLTWNC?=
+ =?utf-8?B?aEtoYWE1YW96QjMxbkJZeDNhRjNqTnF6SzRNTjRaRVl4bmRWeFg0YzVza0FH?=
+ =?utf-8?B?R1NrVXNTMEpmTU1yKzlVcWtNeXJ0VVhNMHhnTTRmN1ZUMFVaMXNvUGlJSHNq?=
+ =?utf-8?B?RUpMUmlwMktPb0gzTTFzd2hWZlpHUGFXQkZ4TG1yaDlBR1J1VWh5N05Ubmh1?=
+ =?utf-8?B?TUVpT1ZOVzIrM0JTUWVBVENLU0FWUExoUktsa2Jzd09TNU5rZUhwYnJxbWpk?=
+ =?utf-8?B?cTBUTXIvTnNmYkJYSkx2YmJ2bDVERnNSQWNZY210ay9BRC9tWjZjT3VVUFhr?=
+ =?utf-8?B?UEZ0OXB4ZktGZVk2b3dFZmNSWnhmUUhMb0t5SFdwdXh0V0IrZHk2ZHU2NzFj?=
+ =?utf-8?B?S2JqTUthYVkxSXlYL3l3MWJSL1JONm1VUmY2UGRFbFVRODN6SU9BQU9KdlN1?=
+ =?utf-8?B?TXpuOFNUV1RxUDh2RUpZazU2UGhyTzZpQzMraEgwWTVieGRkSG5ScDVJWnlI?=
+ =?utf-8?B?Q2tYdG95bnUxUFA2b0JnSWR3RXFCOXQ1OTIwNnBFU0wweGhRYTdTa2ZCQzVn?=
+ =?utf-8?B?Nk9KTmZVZklIYnFsL0xLVno0ckh5TUJPQllpdWtMTndXSVB1OUg5dUlQNVFS?=
+ =?utf-8?B?NGc2TXhVaExkK3YyNzBSZkVBTzNsR29zQW1oR2ExVEVkQ2dpM2FDNFdPUXpQ?=
+ =?utf-8?Q?Rqr5hVXktwUQihXfnweVCI3wJ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b668637-8777-4989-a6bc-08dbecc8cbf5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9925fe6a-9bfa-48aa-d25b-08dbecc8da24
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:38:56.4009
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:39:20.2028
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mK8CpvkA7+50gP7wnLFCMlXkd2+XC0mi1uKi5ghAseJUijFdMDa4qr1fzo8N46+MOUD06iw5Qak2gcgg3L8WEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9438
+X-MS-Exchange-CrossTenant-UserPrincipalName: WPFfhS0jWYG/vXPMg8UhZ1C1bhJBv4VgrMq9mDbAS9BPaVGcFDyZ5HM23aHsIfCximY6aiqmbHa38gYA7Pu6cg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8326
 
-... to evaluate to false at compile-time when the respective Kconfig
-control is off, thus allowing the compiler to eliminate then-dead code.
+__init{const,data}_cf_clobber can have an effect only for pointers
+actually populated in the respective tables. While not the case for SVM
+right now, VMX installs a number of pointers only under certain
+conditions. Hence the respective functions would have their ENDBR purged
+only when those conditions are met. Invoke "pruning" functions after
+having copied the respective tables, for them to install any "missing"
+pointers.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: New.
+This is largely cosmetic for present hardware, which when supporting
+CET-IBT likely also supports all of the advanced VMX features for which
+hook pointers are installed conditionally. The only case this would make
+a difference there is when use of respective features was suppressed via
+command line option (where available). For future hooks it may end up
+relevant even by default, and it also would be if AMD started supporting
+CET-IBT; right now it matters only for .pi_update_irte, as iommu_intpost
+continues to default to off.
 
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -215,8 +215,10 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_lfence_dispatch boot_cpu_has(X86_FEATURE_LFENCE_DISPATCH)
- #define cpu_has_nscb            boot_cpu_has(X86_FEATURE_NSCB)
- #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
--#define cpu_has_xen_shstk       boot_cpu_has(X86_FEATURE_XEN_SHSTK)
--#define cpu_has_xen_ibt         boot_cpu_has(X86_FEATURE_XEN_IBT)
-+#define cpu_has_xen_shstk       (IS_ENABLED(CONFIG_XEN_SHSTK) && \
-+                                 boot_cpu_has(X86_FEATURE_XEN_SHSTK))
-+#define cpu_has_xen_ibt         (IS_ENABLED(CONFIG_XEN_IBT) && \
-+                                 boot_cpu_has(X86_FEATURE_XEN_IBT))
+Originally I had meant to put the SVM and VMX functions in presmp-
+initcalls, but hvm/{svm,vmx}/built_in.o are linked into hvm/built_in.o
+before hvm/hvm.o. And I don't think I want to fiddle with link order
+here.
+---
+v2: Use cpu_has_xen_ibt in prune_{svm,vmx}().
+
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
+     else if ( cpu_has_svm )
+         fns = start_svm();
  
- #define cpu_has_msr_tsc_aux     (cpu_has_rdtscp || cpu_has_rdpid)
++    if ( fns )
++        hvm_funcs = *fns;
++
++    prune_vmx();
++    prune_svm();
++
+     if ( fns == NULL )
+         return 0;
  
+-    hvm_funcs = *fns;
+     hvm_enabled = 1;
+ 
+     printk("HVM: %s enabled\n", fns->name);
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2587,6 +2587,19 @@ const struct hvm_function_table * __init
+     return &svm_function_table;
+ }
+ 
++void __init prune_svm(void)
++{
++    /*
++     * Now that svm_function_table was copied, populate all function pointers
++     * which may have been left at NULL, for __initdata_cf_clobber to have as
++     * much of an effect as possible.
++     */
++    if ( !cpu_has_xen_ibt )
++        return;
++
++    /* Nothing at present. */
++}
++
+ void asmlinkage svm_vmexit_handler(void)
+ {
+     struct cpu_user_regs *regs = guest_cpu_user_regs();
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3033,6 +3033,30 @@ const struct hvm_function_table * __init
+     return &vmx_function_table;
+ }
+ 
++void __init prune_vmx(void)
++{
++    /*
++     * Now that vmx_function_table was copied, populate all function pointers
++     * which may have been left at NULL, for __initdata_cf_clobber to have as
++     * much of an effect as possible.
++     */
++    if ( !cpu_has_xen_ibt )
++        return;
++
++    vmx_function_table.set_descriptor_access_exiting =
++        vmx_set_descriptor_access_exiting;
++
++    vmx_function_table.update_eoi_exit_bitmap = vmx_update_eoi_exit_bitmap;
++    vmx_function_table.process_isr            = vmx_process_isr;
++    vmx_function_table.handle_eoi             = vmx_handle_eoi;
++
++    vmx_function_table.pi_update_irte = vmx_pi_update_irte;
++
++    vmx_function_table.deliver_posted_intr = vmx_deliver_posted_intr;
++    vmx_function_table.sync_pir_to_irr     = vmx_sync_pir_to_irr;
++    vmx_function_table.test_pir            = vmx_test_pir;
++}
++
+ /*
+  * Not all cases receive valid value in the VM-exit instruction length field.
+  * Callers must know what they're doing!
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -250,6 +250,9 @@ extern s8 hvm_port80_allowed;
+ extern const struct hvm_function_table *start_svm(void);
+ extern const struct hvm_function_table *start_vmx(void);
+ 
++void prune_svm(void);
++void prune_vmx(void);
++
+ int hvm_domain_initialise(struct domain *d,
+                           const struct xen_domctl_createdomain *config);
+ void hvm_domain_relinquish_resources(struct domain *d);
 
 
