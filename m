@@ -2,34 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03FE7F7484
+	by mail.lfdr.de (Postfix) with ESMTPS id 2628B7F7483
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 14:04:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640680.999263 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.640679.999255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6VrT-0000mk-Ir; Fri, 24 Nov 2023 13:04:47 +0000
+	id 1r6VrS-0000W9-7a; Fri, 24 Nov 2023 13:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640680.999263; Fri, 24 Nov 2023 13:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 640679.999255; Fri, 24 Nov 2023 13:04:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6VrT-0000jo-FQ; Fri, 24 Nov 2023 13:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 640680;
- Fri, 24 Nov 2023 13:04:46 +0000
+	id 1r6VrS-0000TJ-3L; Fri, 24 Nov 2023 13:04:46 +0000
+Received: by outflank-mailman (input) for mailman id 640679;
+ Fri, 24 Nov 2023 13:04:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qY/0=HF=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1r6VrS-0000T4-7c
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 13:04:46 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.164]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0986e765-8aca-11ee-9b0e-b553b5be7939;
- Fri, 24 Nov 2023 14:04:44 +0100 (CET)
-Received: from sender by smtp.strato.de (RZmta 49.9.1 AUTH)
- with ESMTPSA id g1b15czAOD4dz4a
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 24 Nov 2023 14:04:39 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u6gD=HF=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1r6VrQ-0000T4-WD
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 13:04:45 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20603.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::603])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 08138c1d-8aca-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 14:04:43 +0100 (CET)
+Received: from DS7PR03CA0057.namprd03.prod.outlook.com (2603:10b6:5:3b5::32)
+ by BY5PR12MB4113.namprd12.prod.outlook.com (2603:10b6:a03:207::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.22; Fri, 24 Nov
+ 2023 13:04:39 +0000
+Received: from DS1PEPF00017091.namprd03.prod.outlook.com
+ (2603:10b6:5:3b5:cafe::43) by DS7PR03CA0057.outlook.office365.com
+ (2603:10b6:5:3b5::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.20 via Frontend
+ Transport; Fri, 24 Nov 2023 13:04:38 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7025.12 via Frontend Transport; Fri, 24 Nov 2023 13:04:38 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 24 Nov
+ 2023 07:04:38 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Fri, 24 Nov 2023 07:04:36 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +59,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0986e765-8aca-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; t=1700831080; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=e27Lk99MGkXVCQlI9WZjRAI7s7c4N57GUKrQzLUgPyJg15uDGYIrfSiF+7APYeTVm4
-    4As3I5vaZQbVmnM6i1aLugevakfXgJ2rplmXQiGGEavensy8+0MZ1o3fd+2DzEUzrKgZ
-    VrP1szw2WP4IbA2diYTw8E4K3j8rvD01rVzL89ZzFMKtR89ZQaL5KAr22XSnUoti4s6N
-    XDLf3KSMk49D9LAalRw5z7UZh8UlOYBOLjsP2J629OHiy0VUEgzgmck5+P6Is7hRilqT
-    fcs1SdJIl2c7eL9h6sGyRyQk15RMpZToqpCL7jG5LFQUNa1asKzX/26Y5YDl2ukscpOt
-    HGXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1700831080;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=9TKf/tqiBhMxJLHGBCTMKwbEORd3jvKTVIyEkD2ibxQ=;
-    b=Su7S3cZ6dG7Q1hlb+LgdhrjGV6n7T5PbksUIdBnexYzoOllZKyFr0gF2LIvr7SrFZv
-    hc5Sd9MtemDZF8t2dVeVQxlsCmehbIroyQz1PiS9TJGEuk2szyJGsR6lLBSE5WR84YOr
-    GZIEe6KDHlOQ2QszIsnviIS6+6a8ao9VnncfzdBfwpsatwU73RcVAPB+1A2ws+EAdmSP
-    4DU/5/OlqQUy2UVjgOjGNrvlXeYnPzF1ybTUCT6G4Uw+HTGlwCaRk9vLbWsZ5iFoFT66
-    YESxP1SY4jbrFp93gMfiaRarXSkgxcaX53IezLkQ+K49xt5saqjBAukZqU/Y1qMX4jki
-    E0zw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1700831080;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=9TKf/tqiBhMxJLHGBCTMKwbEORd3jvKTVIyEkD2ibxQ=;
-    b=bRU8wCZRNvRNNBGr0Yk8WAbGpzpfbpxNcbJcpR7AM3D76hdMgBgP3+c79GGZ4jwsPL
-    RlYX0zhTGr4azyJotk9gppXbpEjDt0Nz9ryLIVryGkN0PtA1MwE/iMX3p+60xRiTPfNX
-    I/R/pRaKseeGpRjhw7yvbM/eAmsefT2m+s5GnQsT+xU1H82Hs35mLptj9Bfz9Z0ultMi
-    whp9APLnpsU6+7f8SY4Qm8nUxhHeq/5i9U80b4IJrhtE/0l/iRqSlRBsf37pqLYdGckc
-    IIDQjiXRMMWk0ZocWA1sHeEgpeOFe9dpYZb9Kd8Sl3wyEWx96eaRXN120apmblbSdJMX
-    T5eg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1700831080;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=9TKf/tqiBhMxJLHGBCTMKwbEORd3jvKTVIyEkD2ibxQ=;
-    b=Z8n+9zJpRY+j7w6yxHW3653mYAVQ4TjXwyAqotwWU/KKmmcSdaXPK9ODxpDs4hnON9
-    TVbqFM4motw8mdqMogAw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5VxOIOx7sW7Yq7k+0gzUhLCSnSrvMYFPvEI3Cdw=="
-Date: Fri, 24 Nov 2023 14:04:32 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: Divin Raj <divin.raj@arm.com>, Xen-devel
- <xen-devel@lists.xenproject.org>, "anthony.perard@citrix.com"
- <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>, Luca Fancellu
- <Luca.Fancellu@arm.com>, Rahul Singh <Rahul.Singh@arm.com>
-Subject: Re: [Discussion]: Making "LIBXL_HOTPLUG_TIMEOUT" configurable
- through 'xl.conf'
-Message-ID: <20231124140432.53105119.olaf@aepfle.de>
-In-Reply-To: <7a4ca8fe-da45-428f-a300-241b2bf0b2f2@suse.com>
-References: <4a54e7e7-c041-44d3-a16e-d331e9fdd414@arm.com>
-	<20231115182340.505df6c3.olaf@aepfle.de>
-	<4f418916-b76d-425a-96a2-05b56a3dc195@suse.com>
-	<20231116085629.40a0445b.olaf@aepfle.de>
-	<A6D4B8C2-E781-4964-A757-C72F38169246@arm.com>
-	<20231116105321.4a59eed4.olaf@aepfle.de>
-	<47ec45a1-2004-410c-86c7-861d03c1939b@arm.com>
-	<7a4ca8fe-da45-428f-a300-241b2bf0b2f2@suse.com>
-X-Mailer: Claws Mail 20230817T113819.a897c59c hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 08138c1d-8aca-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KS4QuOHpHERfAIz1gTwYY9OLGDOzZnOuFdBKav2iEYWTUhi3Mh9vTMbV22RiPLU5RSmXYRuJsZ5sQw6aYBKafPxXzYMbrE9itkB42oLt3kyuj+UQzo/Q1pMv0kj9eNJhShCBuiTx380R/Baq13A5yUrSa4Au7F3RPLcbW/wXdV26DPbUhPL3e8LuEQ5pLVgaVABv3hrnE7B1kS8t9zQr1dYwyjoCs3/rZqvQWpgZWd7ebEi2V7kgM0LCDxBfL8bHcpRGtvJBozCE8xRKt57hrdg6CfId8GcGZCnVszYDTreDBxqgpXb3gkNE0mrX5/MTl6oL9txj2kFaoAbEDfpPvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f6yHv2FbX5bmSiHz9aprPTQAUGyPsfIp5cb1QNJOO3o=;
+ b=fwmpAQAQGg/LYsh+8WkOXofrXlIHdzr8kTKGgRu8kKxHcTzhkbpESYppdFNtlsSmZc2V/LuV2dgKjraJH068VlaNd9kxxCAtpPjoK6DfT56i3wHl2fRIPhCMn3k1c8W3JrGEj3WNP8Kod8js8ertNG2lzlHHtnrT5id5IT3rEmnFNCZU18+Yni1lTZz9AXRJ+N4C66yFBLbJUS1SFhHamWEy2hosoncmXUkZ8tWCUAwMRW2XiCueJSldQuKzjraA5psN6HwwVdu1Atd2XIbcgxb4hMZAXDZZhQP2qIdCI8FDEJ/ByPSmkFx2s0gDI1645XwqsTiyeG6X9BCCv+xEHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f6yHv2FbX5bmSiHz9aprPTQAUGyPsfIp5cb1QNJOO3o=;
+ b=fhwOK/NTHzW2XmumDkDJHmuH84/qammOLWnbjKCA+j4j5YrOrP9U8WT1ygpYF2Oru5AkTxyR5YgqnK9F0RNjH9+MMkJoXQhhLItWBSva1sgF8hGI7d/FDtycyVhFE791V7L45iSnMMKZMjB0/OHVh0y6OdNr3gMCYkNZc9fZjls=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <14c1f186-bbe9-4a66-b6ad-e89d85fef8ae@amd.com>
+Date: Fri, 24 Nov 2023 14:04:36 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/LUj/PFA2cU_wx.cFGsxsjFO";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/14] xen/asm-generic: introduce stub header softirq.h
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Shawn Anastasio
+	<sanastasio@raptorengineering.com>
+References: <cover.1700221559.git.oleksii.kurochko@gmail.com>
+ <8b1969350a4f05758969058d47ac3ec10d80db50.1700221559.git.oleksii.kurochko@gmail.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <8b1969350a4f05758969058d47ac3ec10d80db50.1700221559.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|BY5PR12MB4113:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfd56358-0c2b-4d25-2f24-08dbecedea86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xZsnWz2hwnrgJqIbQzTYtXZDrGfFroIK3l6wbXabIHy5wo295BXYWbhsHdtcSKfSclVAFAA7lrE4qd2v49rb0pcSUhJL5GRDKS8p2nYBuHlQ7A6cEWNNc2U87hme5IRKdz7O57dQO3Fau/ZbJSgATuTuDrM1gHKD3cIwqMBt+bSOrvo5KwpYA3IUnSp/Y8QITPzj8SbgdX/ztav5+un98s7jwsB53yjDBFkUl+9PO4VkXleFGiuZW95nB1b7lfi5ohpJSV0/i+nnZbzsB8KTLaJiXz+haUxXuPmp0cHbhlXS/J/mcfB3U4sRKc9r2sD2oNjGqEHpmVhPPy6XFOflQl0qusxf2CaVRQFXuqK5gMd8twcU8/9DoJB8gQuozHVTTCzzLM73m3jFWWTIG/9yG6OCNTb86IrhvICPeO3o7jLmY5qVAJLg0/jGGs5AW2VcPHZu7tqEoK4SxL/se1F2DeWzU9NDcG9hbhdHvQPny+ldtzuO/cFoKOgZMCWcNUNcEyWFheZnu6NbyHeBMkkgus/806V+JoJ81wgkednOtYR98nzm74NtWLeNjdMmzSOCR565puFO1Mz3/HAoKSf+PU0HB2R3W9K47CJlk/brdBX8eNmKg8jaQaw3ZvYY+Tsl93AL57/vMFOIjbIypbASGud0+mi2/k9YI/PZLmbyJeafh0Q5rgoHGJ8OhQrpqCmFNXxx9iT/dakcljwOUYVwOnHw//JNBAyqEpecCMeQEUXBhWc55UBxfTNoKmC/t0ypTSGrq3XVVWZUR98B77R0Hd6RSzAZj7twrfW7D0AXw3cjPF2b/I3bxMXmBvk3gwFOUU0RLiPun/ES0C7goVIGPw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(346002)(39850400004)(376002)(136003)(230922051799003)(64100799003)(451199024)(186009)(82310400011)(1800799012)(46966006)(40470700004)(36840700001)(558084003)(110136005)(70206006)(70586007)(54906003)(16576012)(316002)(478600001)(40460700003)(7416002)(5660300002)(86362001)(2906002)(4326008)(8676002)(8936002)(31696002)(44832011)(82740400003)(81166007)(356005)(47076005)(426003)(336012)(26005)(31686004)(36756003)(36860700001)(41300700001)(40480700001)(2616005)(53546011)(41533002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 13:04:38.8186
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfd56358-0c2b-4d25-2f24-08dbecedea86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4113
 
---Sig_/LUj/PFA2cU_wx.cFGsxsjFO
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Fri, 24 Nov 2023 13:47:53 +0100 Juergen Gross <jgross@suse.com>:
+On 17/11/2023 13:24, Oleksii Kurochko wrote:
+> 
+> 
+> <asm/softirq.h> is common between Arm, PPC and RISC-V so it is
+> moved to asm-generic.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-> As Olaf has said already: this wouldn't cover actions e.g. by libvirt.
+~Michal
 
-Jim pointed me to /etc/libvirt/libxl.conf. So from this perspective both
-xl and libvirt is covered. Now it just takes someone to implement it.
-
-
-Olaf
-
---Sig_/LUj/PFA2cU_wx.cFGsxsjFO
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmVgn2AACgkQ86SN7mm1
-DoAVCQ/7BnBEdxxYDkYaXc89SSjneOxauYDELN+9uY+jv0tdf1pnfGpAeZPqRzwq
-n3MJGMxZyq7Wg+/C/9gyIn7NVkoXCJizeHNz5CQSXiwAA3OYZzuUcQMv/sza8rqw
-JjPYoFxvo93kRu2jHrA4WosuajZG/X0AHfb3/T41flDQ8UJ8Jj5f+x9XeOEtO/CS
-XStqJytT6pnb8hHNVFs9d6BN5JJ8DPthUCDfOfkYJSkcz9PS2Xe7a0ezY0NN0zyc
-WLL75FhbRkKGP7kx8btAsul5hQl36G/uIRnZPy+Osmv0yKAda1UciKuO5pTUNE71
-fSGba6zfv7XZFkXAVvK6lSBX1dBLtATNcrig3wJSD/o2b+sYKSP2IPThTYlSQmXk
-YsocDWyR2gD2hxIE9II5AdLsfpb+055af80tu72umEv/dTOTJPPzhL5wgGNNMyrq
-YGzFI6mZ0XCf6wEGvHxUpeBxBQkfR7tzCw+y8s89fpV7O7sGH6x9HwiM1zyk2aEh
-RgQBxOAWd1UEzReNgYtnSJ0D1Q0NElBMzLoi0mbc0y7eLPN0Tkdmf+QhopE/XiEL
-vxhKKj9g6ZNbuSk9f3O7RNx5F5GkkzFsVAuzOz6cEUSt8B7jeUiI/Ww/NuOXBpa5
-Vaqz9tgb/84nb9TaMK1vvVpwGm/1GFQL+jWE61OhReqy4FAVnSo=
-=wAY0
------END PGP SIGNATURE-----
-
---Sig_/LUj/PFA2cU_wx.cFGsxsjFO--
 
