@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6547F75A6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 14:53:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640720.999344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CF2E7F75DB
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 14:59:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640725.999357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Wby-0003j6-TV; Fri, 24 Nov 2023 13:52:50 +0000
+	id 1r6Wi7-0002v7-Io; Fri, 24 Nov 2023 13:59:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640720.999344; Fri, 24 Nov 2023 13:52:50 +0000
+Received: by outflank-mailman (output) from mailman id 640725.999357; Fri, 24 Nov 2023 13:59:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Wby-0003h5-Q9; Fri, 24 Nov 2023 13:52:50 +0000
-Received: by outflank-mailman (input) for mailman id 640720;
- Fri, 24 Nov 2023 13:52:49 +0000
+	id 1r6Wi7-0002t4-G3; Fri, 24 Nov 2023 13:59:11 +0000
+Received: by outflank-mailman (input) for mailman id 640725;
+ Fri, 24 Nov 2023 13:59:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6Spf=HF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r6Wbx-0003gz-SU
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 13:52:49 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dUjn=HF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1r6Wi6-0002rA-6T
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 13:59:10 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c09bdf68-8ad0-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 14:52:48 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40b397793aaso5077005e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 05:52:48 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- be7-20020a05600c1e8700b00405442edc69sm5793837wmb.14.2023.11.24.05.52.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 05:52:47 -0800 (PST)
+ id a3039d44-8ad1-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 14:59:08 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E45861FDD9;
+ Fri, 24 Nov 2023 13:59:06 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id BBF50139E8;
+ Fri, 24 Nov 2023 13:59:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id TSCSLCqsYGURGwAAn2gu4w
+ (envelope-from <jgross@suse.com>); Fri, 24 Nov 2023 13:59:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +52,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c09bdf68-8ad0-11ee-98e2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700833968; x=1701438768; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0jveOIPMrLWlwynVVgSlo6Fx43+tBBc8fLFCdM/DHpk=;
-        b=gSzhRVM99vEs8WdJltkNld7jmdn7hslLSQuXaGc2hgmLxlRTq5l86Rb5b9GcKvFo8v
-         MJ9n5zBsY6p1zaAwsOL6rW7kaEkwA7kzuM60kvG3IRXeB7tIgbRB1cUrLLNbAzllgMGb
-         fdD//nbBDlPYOQM0IThmBDVBLIJ/clBQ7gQ1Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700833968; x=1701438768;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0jveOIPMrLWlwynVVgSlo6Fx43+tBBc8fLFCdM/DHpk=;
-        b=frExmIuBY9PDGJzmxhyc4DxGjEyHYU1uazPcMSjFdyy1nGiZx+7cES3MvVNg+wgzEI
-         8K/FxgSxmZ9G3AycFbyWhWqbx2he4Q5jjelUfi/x4tGPMizZ8VWFkAp8cpr4iCV7Aumd
-         oDsM+gvXRc0VSreTGgkS5OzElDlCRgY0Oke+T8waIAHKO1M1vWrR7muk7tXFCbZ1x1Tw
-         EYKMC2VLqdQnAG7IURWz34ERyHFsciTTNmb70AU8RnnYb4qgICvOmxaY7CrMj6ZX2nLL
-         XXFsxdU3HGjtERCqBLDPKabtr/qFvfcacOIkTYUp21CbhHSGuf9az9STxIY9BPjsSocH
-         RQfA==
-X-Gm-Message-State: AOJu0YxK7j3pnwjTrHO5WhZi9mDdc2Hnnh8TG7T5bWaiaEcQZDgGdQ/s
-	uGMDI8JM2wqCSCbFj5YCsK1trQ==
-X-Google-Smtp-Source: AGHT+IFNtJQwOUa94719J8GqOvLVTpJs4dT06EQkpFH+DamN9hEvHOe+3A5bsjqgJd7ZLeQlXzRSHQ==
-X-Received: by 2002:a05:600c:138d:b0:40b:2afd:1a9 with SMTP id u13-20020a05600c138d00b0040b2afd01a9mr5529565wmf.15.1700833968032;
-        Fri, 24 Nov 2023 05:52:48 -0800 (PST)
-Message-ID: <2dad26f0-e73c-4d92-9060-fd3771f3f53f@citrix.com>
-Date: Fri, 24 Nov 2023 13:52:47 +0000
+X-Inumbo-ID: a3039d44-8ad1-11ee-98e2-6d05b1d4d9a1
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	wl@xen.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [RFC PATCH] Mini-OS: explicitly mark symbols to be visible for apps
+Date: Fri, 24 Nov 2023 14:59:03 +0100
+Message-Id: <20231124135903.16621-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/15] x86: amend cpu_has_xen_[ibt,shstk}
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <b63b648f-02d0-4e52-a5e5-94ffd5666a14@suse.com>
- <8f9c3db0-bedb-4b8d-9560-3e5526288b5f@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <8f9c3db0-bedb-4b8d-9560-3e5526288b5f@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: *********************
+X-Spamd-Bar: +++++++++++++++++++++
+Authentication-Results: smtp-out2.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=suse.com (policy=quarantine);
+	spf=fail (smtp-out2.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:98 as permitted sender) smtp.mailfrom=jgross@suse.com
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [21.50 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
+	 TO_DN_SOME(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 RCPT_COUNT_FIVE(0.00)[5];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 MX_GOOD(-0.01)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 BAYES_HAM(-3.00)[100.00%];
+	 ARC_NA(0.00)[];
+	 R_SPF_FAIL(1.00)[-all];
+	 FROM_HAS_DN(0.00)[];
+	 DMARC_POLICY_QUARANTINE(1.50)[suse.com : No valid SPF, No valid DKIM,quarantine];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_SPAM_SHORT(3.00)[1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_SPAM_LONG(3.50)[1.000];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,mini-os.map:url];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: 21.50
+X-Rspamd-Queue-Id: E45861FDD9
+X-Spam-Flag: NO
 
-In the subject, [ -> {
+Add an EXPORT_SYMBOL() macro to explicitly mark a symbol to be visible
+for an app or library linked with Mini-OS. This enables to hide all
+other symbols from external components, avoiding any problems with
+duplicate symbol names.
 
-?
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+Based on top of my previous series "Mini-OS: hide mini-os internal
+symbols".
+This is a RFC as an alternative to the map file containing all
+visible symbol names. It would add more code churn, but it has the
+large benefit of declaring visibility of a symbol at the place
+where it is defined, reducing the chance to miss a proper symbol
+visibility definition.
+This patch is including an example for the do_exit() function in
+order to prove the viability of the approach.
+In case this idea is approved, I'd setup a patch series replacing
+the second patch of above series with this patch (minus the do_exit()
+example) and the scattered EXPORT_SYMBOL() instances.
 
-On 24/11/2023 8:38 am, Jan Beulich wrote:
-> ... to evaluate to false at compile-time when the respective Kconfig
-> control is off, thus allowing the compiler to eliminate then-dead code.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ Makefile      | 3 ++-
+ include/lib.h | 6 ++++++
+ kernel.c      | 1 +
+ mini-os.map   | 1 -
+ 4 files changed, 9 insertions(+), 2 deletions(-)
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-I've got part of a series trying to do some cleanup to this effect, but
-I'll rebase it around this.
-
+diff --git a/Makefile b/Makefile
+index d4768110..5dbad8ce 100644
+--- a/Makefile
++++ b/Makefile
+@@ -166,7 +166,8 @@ $(OBJ_DIR)/arch/x86/minios-x86%.lds:  arch/x86/minios-x86.lds.S
+ 
+ $(OBJ_DIR)/$(TARGET)-kern.o: $(OBJS) arch_lib $(OBJ_DIR)/$(TARGET_ARCH_DIR)/minios-$(MINIOS_TARGET_ARCH).lds mini-os.map
+ 	$(LD) -r $(LDFLAGS) $(HEAD_OBJ) $(OBJS) $(LDARCHLIB) -o $@
+-	$(OBJCOPY) -w -G $(GLOBAL_PREFIX)* --keep-global-symbols=mini-os.map $@ $@
++	$(OBJCOPY) --dump-section .export_symbol=syms mini-os-kern.o
++	$(OBJCOPY) -w -G $(GLOBAL_PREFIX)* --keep-global-symbols=mini-os.map --keep-global-symbols=syms --remove-section=.export_symbol $@ $@
+ 
+ $(OBJ_DIR)/$(TARGET): $(OBJ_DIR)/$(TARGET)-kern.o $(APP_O)
+ 	$(LD) -r $(LDFLAGS) $(OBJ_DIR)/$(TARGET)-kern.o $(APP_O) $(LDLIBS) -o $@.o
+diff --git a/include/lib.h b/include/lib.h
+index dd68985a..24fd0186 100644
+--- a/include/lib.h
++++ b/include/lib.h
+@@ -64,6 +64,12 @@
+ #define BUILD_BUG_ON(cond) ((void)BUILD_BUG_ON_ZERO(cond))
+ #endif
+ 
++#define EXPORT_SYMBOL(sym)                    \
++    extern typeof(sym) sym;                   \
++    asm(".section \".export_symbol\",\"a\"\n" \
++        "\t.ascii \""#sym"\n\"\n"             \
++        ".previous")
++
+ #ifdef HAVE_LIBC
+ #include <sys/queue.h>
+ #include <sys/stat.h>
+diff --git a/kernel.c b/kernel.c
+index 1f97d8dd..29eed535 100644
+--- a/kernel.c
++++ b/kernel.c
+@@ -199,3 +199,4 @@ void do_exit(void)
+         HYPERVISOR_sched_op(SCHEDOP_shutdown, &sched_shutdown);
+     }
+ }
++EXPORT_SYMBOL(do_exit);
+diff --git a/mini-os.map b/mini-os.map
+index 58a3a0ee..90f02edf 100644
+--- a/mini-os.map
++++ b/mini-os.map
+@@ -69,7 +69,6 @@ close
+ closedir
+ closelog
+ connect
+-do_exit
+ dup
+ dup2
+ err
+-- 
+2.35.3
 
 
