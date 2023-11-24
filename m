@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6621C7F6EA4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:42:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640247.998225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBA0E7F6EA5
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 09:42:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640248.998235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Rl8-0001ia-0P; Fri, 24 Nov 2023 08:41:58 +0000
+	id 1r6Rl9-0001xx-AE; Fri, 24 Nov 2023 08:41:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640247.998225; Fri, 24 Nov 2023 08:41:57 +0000
+Received: by outflank-mailman (output) from mailman id 640248.998235; Fri, 24 Nov 2023 08:41:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Rl7-0001gZ-Tx; Fri, 24 Nov 2023 08:41:57 +0000
-Received: by outflank-mailman (input) for mailman id 640247;
- Fri, 24 Nov 2023 08:41:56 +0000
+	id 1r6Rl9-0001vT-6g; Fri, 24 Nov 2023 08:41:59 +0000
+Received: by outflank-mailman (input) for mailman id 640248;
+ Fri, 24 Nov 2023 08:41:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ulgz=HF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r6Rl5-0001P4-RJ
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:41:55 +0000
+ id 1r6Rl7-0001P4-Fo
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 08:41:57 +0000
 Received: from EUR04-HE1-obe.outbound.protection.outlook.com
  (mail-he1eur04on2040.outbound.protection.outlook.com [40.107.7.40])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51994c53-8aa5-11ee-9b0e-b553b5be7939;
- Fri, 24 Nov 2023 09:41:54 +0100 (CET)
+ id 52c92db0-8aa5-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 09:41:55 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by AS8PR04MB8326.eurprd04.prod.outlook.com (2603:10a6:20b:3ff::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.14; Fri, 24 Nov
- 2023 08:41:25 +0000
+ 2023 08:41:46 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.012; Fri, 24 Nov 2023
- 08:41:25 +0000
+ 08:41:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,27 +46,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51994c53-8aa5-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 52c92db0-8aa5-11ee-9b0e-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hRjYUBesvoPaIYNm2KzqTC43oH0NP35DOxn98HD07RWI3vmBhMm0Bn7B/Ar7OcoVgX1JT30BW5dIAVycoZiTS1VNtPrOGH3pA9NbcRHFBQl70+UIJCfULCoVAATRnPFJH0B3KPgo5NSFYy3PPMbNohg+PfS5payoo3ScANLdIp78j2bWUa+0/GvnGPdB0iFO5A6HqGm64HaQps9kGxCCl2nUqlbG+xZGQ+RWI9TkQ+gYsgPbJL1atzmfSEJeQHvVfF2D0OelqSQYf47qDYq8D1jEyctB263eIMZz+lUFu4JxQOeTibO1hAVdqAKeNlZICD2PbRMMwSgv+3bobTjBAg==
+ b=nXdgE19PPtwNK00DKfOe0tEBFGkHf4saI403QUhU8EArbow5rS/VG6V8cjWVWJtCDtMlPwLXON0GTEPii5fnQqt4PsvaJ0FitWRXXJTPydQoPYVjc6fo5fflJikg5FL3Ap4+M3iKnh7yVWAlKktVTrDZXcWlttN0jnNdF63EFtGv5hpBkOO9KIZ7TCCpXyk5yyUPjpUTEaHmfug+NClA6OudviXi2PXZJY+apjggdlD8Psm/wxnXaa9b34OstjJes3cWmzBwDjkGUZduobxoSiLk/Px/MlqEERijBCqgqGnTB7aRlAZXCkSg5xEne+a7nQKAQdMeOop2Hz5tzn5izQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tDxOHEulPqfdO7PDE9bteBUoSvMOCgMjXRk/bt4LOO0=;
- b=gf+T+MWvf2DtUsUNbGQsVFZ8TISGKOsqDkzG7NZ5u2Hv867+2uXfWaWsX4Ml5htQH6ytvnb8qzf/3jIuapqw4IUmHXAOhp8KzgnNGO0H7MxyCp9LIOgM05MuGPoK5Bo0w4V0jjjThIbDfWf3/RG1fyndsio88J5GDXW3YGnCSEyDFy8mIFZG4FI3i2SGRZ1BsXr6f4uOS6hvfwl6NqocN+wp/8AQNUm6cCNHpxL803lRiIMRcqcJZx1KogiCCpokKcYPID/ftqoJCEHBXDsjvjOJaXig0Je4zphRihd5yUu0fioQ6A9h4EHjFpXODxBjvpGQncVSExYP4fce4DVX5A==
+ bh=C5lXav2XkZNNALmwvDKfV3gih8J86FdHybiKziaUjVo=;
+ b=kPNSxCyfHotYacIeredoL2gVjTezHZDEppwcKADM1E1MaDq+SBJIlrUYn4QcSLqRLtGCqTERhiA7sI8RafKeILl5ORMUqUu3wYvj6PJLMkhNcATpfbtPXMlvE6Ufw3V5dyM42d1+3uENeiZgEr4KDP7xjHLAmLGM36S+haGGalIicy3hanUgBlfyQfb+mSs6lNhPZ+2BbhimFE2syKObvfziWWd3a4DmPVuyZKByzZFd+8imS8RgeihKiLYgwWEkaS6Oy7VkSJn6ffjj5la9pndZQIH01LKQ4KMLc9tPXqV7FFfM5P1VwnnOBWyOutgPQSBrlUqPVEphTyf1k7sbqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tDxOHEulPqfdO7PDE9bteBUoSvMOCgMjXRk/bt4LOO0=;
- b=AePe7+GRbkKpAEqAE9/pdEcJkEbUZKeKihy605WBp+CkqwMRvQUeYnnKQ2/nVye9spmizatHwXgTODiOH1fb5e9x6UbTsi5BsZsWPPeVnp1DtVgDNImRHAxFfk9dsaezm1qhZOW3rAA96DJB2xGZlxD1HOYgFugdpWx0kz1850Fv7aFbCZfYgQiqo3WtbPTsKnipZKEXqE68ey/Eqj0RxNcI2QwOBcITY+gdk+Ndy5zQxVWS+IZsWnzAYt1XWlwVJfZx2j57Uk7EvRCC6a5u2xSkJxOcpAp+jfAyntHvv/oKb3WNQHGCV+rVP2GGb0kakmhw7sNG2zKvV5zrbqQcCw==
+ bh=C5lXav2XkZNNALmwvDKfV3gih8J86FdHybiKziaUjVo=;
+ b=qDffSD9TL6sdVEooP7Udt9PLSFmhQAAlijqoAScUlKOUxydtUUZcEZWxv5hjN7ysil+kDhKpFfESmrsNBhmkZ3KobK0pyyRVOfWoVb+OhIInJN70/Vi8lNvAo2za/x0+iA/zgYFs3Bu9wyYNCNH8cj5bysymsIf/lXUsFQqIZl6wsjLacitvy1lC1+O3YBmQmY2eM3ibQCAU0lXFE7c0euB5lthdIgsYGRS/9QSvqciwyoCTEFarPWdBR49A+OPCmSdQFKW6yDAgg/JvuqIxv07m7VUX0gAy1kiBOBEQmd+t1iazZAvXB6DbqrLc8/G+fhCdsrlbxLVRjunHCi77cQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dfe9d39e-3be7-4a83-b8c6-3c9b5b85f51a@suse.com>
-Date: Fri, 24 Nov 2023 09:41:24 +0100
+Message-ID: <15d8e4cf-449f-4792-b235-f5ee218e2e0e@suse.com>
+Date: Fri, 24 Nov 2023 09:41:45 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 09/15] VMX: convert vmx_pin_based_exec_control
+Subject: [PATCH v2 10/15] VMX: convert vmx_cpu_based_exec_control
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -106,66 +106,65 @@ X-ClientProxiedBy: FR4P281CA0408.DEUP281.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 655cace7-7a4e-47a8-33c7-08dbecc924c3
+X-MS-Office365-Filtering-Correlation-Id: 8ce5cf1e-d9d3-472c-243a-08dbecc93113
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Xe52i6xVakOgvfsGU5fZ/TX14LZmS9UAvd8q71quqOU9JmYu9SpgFfIoz+gH1AMEWSsw5w7HRVgyd2xmJDRR2TS0SLLW4Fk+DFahR8UV+FNAmQc94mbUDbfq0EifaC7Gtuj8Q2T8bRXEo+cE7E/IwPbZPsGSW8tPQ8+toXfB01Zr+eGszatH2tvHIMMRpdvd6bRhzSmMYDi8QynI8XeDBpOMzUpbXiesaZmD/eql8+hFgX1pozdjv2V/0mmUTrYZMX5MinzCPOeIxxE+orc8h313XI8qA+/y6XsveEEbVsd77eooXylRutwvvHhvmTOtZwFadlnGUj7koDwKaWlJfeEejJKqVrDBxaQcfbfqrj3tx+0y5O78Us1XMCimxLNec465ZjtuepW7z3TVEpTRUx5itm/XRPhNQOYNEXDk6dHoprTTWhHHNWctIwCUAHsgt/Xnf0Ebfq61V3i6tFl44EUnxxeV6uoTwgHiR5SHSOs5XELM9QwaJycs3cnPfv1QmRjmS6bHG/rvUgx/YiKKIT0J2QRpTtwFlq97gWW5M99xZE38T/bZfNPBIV4crGJ8otvtyyGRoXDK/7I4hRcHtrpzuf2e48yqnafLJs3kCDpqaAhqchsMKl0UqUXKDkF5TC6ll0z3SL62Th807jPQqg==
+	OyVrJgLCrKFOhug8zkHqNLBUaBLJrBpF852Jb/+6l5yP9ual3DoxK+5k8O1dn/fKi5NxYEQsCf2F664h2dBbzHyDmV2dQ3t8YDTgu32O9NWXF5YMzmIrPTfBZALhqGzsZNRNHj/AO8ZenFTNEYLYZC5YWB5treo/1p7VBY1vBVZzuSzaDKGeT5hiV3Vxtebwp5ny9TwBGG5ugMHAr58lJ+O6jxWte8hBd+zUc/DCfvbuJQzAm4Do5aLizEUU0E650oT12uIHehAfRGNOnUzyADVL6ymz7q/KJ5M691g89QHtidj6hfG+T0vnsGXmMbyDVXZll7tK58slkac9yAc2gyWIt0JrmOXkGRNtRVqWSIXJpPDlCU6RoJbhjJemFDMOisreJGcagz5fsWG05Y2hJGo2AMbV2x6QvstiWOCDLipoK1eHV8G8utRObI7/AotmCa2BWKK9lXQtm1Dkvx5RgAf+XdJe7B1CNFUVibwtE6GgNKe2beILSXRn2C1bAs3m7rCEd0pv9NNfqkrDxCNPK04YpVOYBXYaBToCeJ0aRyQ84pixClsBtk4nEYVkPI/fcylCmnrVxM9c5IBOq10OrviactG75G+JWDZs3O+kBlx0CtONIFAJB3hzeq0A5nBMh59htaTpoOaRbu9eB74Lag==
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(396003)(376002)(39860400002)(366004)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(31686004)(26005)(66946007)(6916009)(66476007)(66556008)(54906003)(38100700002)(36756003)(31696002)(86362001)(6486002)(83380400001)(2616005)(6512007)(6506007)(478600001)(4326008)(2906002)(316002)(8676002)(8936002)(5660300002)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2wvVEpJbWM0TjlCeWJwMnFiT0J4V29LYk1lck5pUnhFM0tCcUJoQ25QUWlD?=
- =?utf-8?B?YzA2dkV0M3BJbTAyVUZuRGEwbG5qU0g1K2lRcGFldG5OZnJuaHpibHVTNmh5?=
- =?utf-8?B?T0JPRXhMdk9kU256ZUord25ITnNvZEx0S0Z0d3VpSDN4SGdXdFFuc2UxY3k4?=
- =?utf-8?B?eWNVU2dYM2svY01Yd2k5aTl3cXgwK1hMTEZNSzNLWkFBY3M1bHZrWUdFTzBZ?=
- =?utf-8?B?dDBMWmZCbHFkYXpxQ1NWc21ITlNkWlk1LzNIS09CWlpzTlB6Tk15dVJUbHFX?=
- =?utf-8?B?WWtuNzByK3FpRGlKL0p6MHlkaVRtamhxZDN4VHlwNXhyU09ra3pMbEZHakMv?=
- =?utf-8?B?N3dRYlVyVW0xS2l0dmJZUCtoODBXdm9iNXFucUprV2tjQXdhVEY0WWZqV0JM?=
- =?utf-8?B?RzUybVpzL09JV1ZHMnZreDE3YmxBN1MrZzh3NlhJREQwbS9EdHZzTkdYZ2E3?=
- =?utf-8?B?bEFXSnV0Y3ROQkFDSUt0REVZRW15QnJmNVdIeGI2ZTlUa2tpY2N4amo5SzNP?=
- =?utf-8?B?eDExYW5zOUVvNXJsYXlBa2l2Yktza0Zjcy9TVVU1Yk0vcjEvRjdIQTV1c1FU?=
- =?utf-8?B?cDRpWUJnU2NubG5ZNjFVZE1vRm1hQUIyNFN4MFZ0elJIK0xEcWd1ZWZ4NGdK?=
- =?utf-8?B?MnRIdkFBMm1EWTNQM3AxcUdaVlBJaGZDQ3VlUmpUb1JKOE84aytHZ3BEdnN1?=
- =?utf-8?B?eDhneGpaTDJJVEdVVnFEakZlRDUydzJiaVRkbXhIRndHVmVacjc4aDl5bCtk?=
- =?utf-8?B?OXJpbFdQSTRhK3ZzNzF3NjRhSDhMSVEwRGdEMy9yK2pweFUyMlQ0eEMxbStR?=
- =?utf-8?B?NXQ1bis0MDlVS0dLNlRzbUE5c0JtcHBZeWgwQkc1ZlRLTVVqam1LOHZoeWNN?=
- =?utf-8?B?azdPVkpsVVJsMmR2Vkt1cE13NHlWbXNTN1Z3eklTWGN5dzRJRUZpRkR6dG9p?=
- =?utf-8?B?eUl5VTB4UkUxZWhlR1J4Rmh2WXduYk1xMGFJeUgrUDFpWldjTlRxODgvemV2?=
- =?utf-8?B?MzZaR0pqYXpiYXJQdHZvWnJWenY5RlJxU0VHRXpNWlU0RTdRQkV3Y2Q4bGdx?=
- =?utf-8?B?SFl5Uitpa2dmZ1BRYld4TjVXa3d6akk3azJzYXJ4WTNJV0VlR1p5NkROKytS?=
- =?utf-8?B?cktaNFNwMWNzUEJrVURQcXhuVXcrb2Z4cG1udVRxMUExL1lOTDA0djc3cU5u?=
- =?utf-8?B?Ti9SUG1KQlE0ckd2Q2prclVMSzJyRnZWMExMVFhZZUJhV1hKNktSenRBemRr?=
- =?utf-8?B?dGdxalpYbzV1MktsZ3p3S25BVDQ2M0pTb0tpNTZydDFnellpMWdHVU1oWVZZ?=
- =?utf-8?B?a3dTVmZrNmt3cnpuS09TMUFaWXhxR1JWcEtBY2JiZFJUVkVxenRkT0JiTElU?=
- =?utf-8?B?djd5Mmhwa3VpbGtWS25PVlZQOUx1cWFpSXY0RkQwckJQaFhBaDJzSXRQNC9W?=
- =?utf-8?B?UG40cEUyenNnR0FKaEdYNUNJVGFQQllzc1IrNnlubFZKaUhFY2VyT1JlM0s3?=
- =?utf-8?B?NXZPbUkxRElieXpnZUp0MFBUdnlrVXRZQVFKTyt0amIwUFh4UXJEM01iKyti?=
- =?utf-8?B?YUJFZTN2YVRDWWtJWXpRc05rUCt4SFozNHRFbGl4eDlYMFhsakdlby92bUtQ?=
- =?utf-8?B?aUNHUmd1V3plMnFQejIzK2lDLy9zcFpWYllSb1RGNzBUZXNnWDltbXNIU3Fx?=
- =?utf-8?B?cG5rMkpabC9vSzNKS1pZRXZFcDVHRUFyZHMyUVQ0NFB1cDQ2RDRpckJwcFM2?=
- =?utf-8?B?TjQ4ajJkbXluN0NkQS9wZXNsU01LQ1FSS0llaW8rMTV5cWY0bFdCSXo0dzhI?=
- =?utf-8?B?cVd1YlUwUlFScE9VS2ZDTWFpTWRSaXl1VnZlNlA1VUs2bzNQOEk3azZDTE1R?=
- =?utf-8?B?RWFHbWR1TkgxMmpEWS8vSCtlWjJ2dytnZ2Y1VjlMQkhZbytwUW9CZUlzZlZj?=
- =?utf-8?B?WVY1aUJyeS9walhkbmNUN3hFdlM5QkNXeHphcXZ2dFVENU1SM0xDQmhYMG14?=
- =?utf-8?B?bWxWemxINHAySkxSNmt6U2RpV3psWlpLVjc3QXU1VTVMbVcwbWEvYjNHNTJR?=
- =?utf-8?B?b0dqQ3RzczR2VGUxZ2tYajRRU2JPZzVyZHlsdmtNZTM2cndiaG9zbXdORElx?=
- =?utf-8?Q?9RNDUNUWpxeu2ytnNaHhS1288?=
+	=?utf-8?B?RHBuNUVmb1NFYlJCendFeFVKMjZuQmpKdjhtdHpLSTlJbU96T1BHNDVENi9y?=
+ =?utf-8?B?RnRzOHd0K0o2cjNtY3JpZTFaNnVVcjV1cVovckFrYzRzQXBBM3VHYlV1WjRh?=
+ =?utf-8?B?QUpFOVJrM3dSblhRKzcwWWVpczhjRXltcjB5bkw4WW8wUzdETXFXNzBBVktG?=
+ =?utf-8?B?VSsyQlU3bTYyeGwrbndQcFJpNDc2b211aEkxUjVyb3dRVnd4QVB5THZCVVJr?=
+ =?utf-8?B?OUhYQjFldm1vM3Y5SlVRT1pabXpSN0YzdjRDNy9EWEN5SFRXbUg0VjRPTVU0?=
+ =?utf-8?B?aWpTK0RPYVgwZU1yWHMzZmdTSmd5V0FRZlVtZm14MjlWbGszRkpZZDJkOTR0?=
+ =?utf-8?B?bmloMU81VkM2bWpFQVB1RWpud0VjOUt2elk2cmM1Qk5WcGd4UXRDOXpMRCt5?=
+ =?utf-8?B?WmtVaGdQY2JKNWJtVlZLWGRibW5SL0lVL2JTVXZDbTRzSDRteFFkT2ZBSHVD?=
+ =?utf-8?B?UFlqcmNRWEtQblhXM3Q4VCttWjQ4c2tSTlFLMkRQOG92YjYzNkMvNHMyblNK?=
+ =?utf-8?B?YSsyN1ZDdFgra3lqN1h6SjNJbzFOY1VqVCtERVpQRFcreVZVSzZKUXh4eXRZ?=
+ =?utf-8?B?S1E5QzJYZUZCSVdhUWVvZmFPVmZLZG9vd1lrNExxRFVJclFoT3gxUDYzTm5O?=
+ =?utf-8?B?OEVMUWhDNUR4VGN2VUR3czhZQmxFVDd3dk1DcUxmc3gzdEVzdEk4emM1R2xO?=
+ =?utf-8?B?dUwrejg1RVNMSXpjbTBHQXhSenA1NDhUMWpjSERzV0F4enlyUUhYL3RSNWow?=
+ =?utf-8?B?a2ZFZU1nUS9vTjV6K2RYTnFtNWdDNTRBZnJidTRndXBuZ1AyU01ETzBRWUg0?=
+ =?utf-8?B?Znk3Vy9wV0dJOHBPRWxOTnBXdUM4U1o1bFRrTi9iTUVkK2Qva3pwaHNwZ25z?=
+ =?utf-8?B?K3ZnZFlsTzdBTWxIN1lDTHl3cEFNaVR1QWp5VkNUc20zUnFhL1dQVXpxS1Zp?=
+ =?utf-8?B?S1dTWWVDNElLMkJFNjFqeGg0cG9GRlRJVHc0RlZpbTF5QnZLQVU0ZmxKQVJa?=
+ =?utf-8?B?UnlxZ0dkMjM4NHpMMWczVnJvM2hBMlp6UU5rNHR1U0NRbG4xQWZNQWk3ME1h?=
+ =?utf-8?B?ZDBFSlFMZW9TcVNoOVZWelcvZkQrMVY3eGpmalQ2Zm9xMnczYlhXWWNyY1J1?=
+ =?utf-8?B?MzRVcGxFay9rVGtNd3R1MzhuV3RRbi9wYlVJRWs2N0U5OXZoaTBSdUorTDBO?=
+ =?utf-8?B?cXZuY3U3YUFBWmJnN0ptaGk2Njl5ZGltV0VvY3lMLzFkc1M0SkRCQVVDZjVh?=
+ =?utf-8?B?d0NESVpJMFZwcktjWXQ5SjJqZ3ZWTk03KzZOUWxnaUZibGl6QXVxcWN4ajhZ?=
+ =?utf-8?B?N3lwbGFDR1VhRGtZWnpHRWRUT2FZcFVEbEdnT1B4Zll5eWdPMXdOdzBOb1hN?=
+ =?utf-8?B?UjY4M1ZDVDhpRG02dDBTYWt5YzZuYUtLdXVxWHNvWVpFNncvTWNnT3NiZnRj?=
+ =?utf-8?B?ZWtTY0FGblQ5eGhEZC90ZjRadW16b29icFFtZGpnS1RSUXlydGxrUkZWVjlk?=
+ =?utf-8?B?L09MNkdxcnlzSDh3L3F2aDRickFnMGdzR1RTa2wzcUVnU2pUV2dtT1VxR3Qr?=
+ =?utf-8?B?bHlSSXNGZngwU0RZVHQyVWZLRHJkaUcwYy9yRkFacldGRGsrcnNJdG16SGti?=
+ =?utf-8?B?MHBPMHVtbUgyVnlITHRHeUI1VEhYZ2xsckFvRzFUNWJJMTVaSFBMSmV0TXIx?=
+ =?utf-8?B?WnJCdTFYaS96UGxRM3h1R2M3Y2RkNnByc1NlRTFUcmorZmY1NGkxMmJmYlBm?=
+ =?utf-8?B?c2cySnhOVlNzbDNEeTZBaEhwbThNRFhYYjlwcm0vNEdGRkRxRVVObHFhR01X?=
+ =?utf-8?B?Sm9hL2wxa2RRMlNFdGlVczN6bVBoUzl6Qk03THZ0OTlUWUdlZWlzSWNNOVJJ?=
+ =?utf-8?B?dVZvczBXSWR6SFF1d2dYYVo3TkZrMDRDTlFvcG5ycE1qNzBrblZHOWQvdEZX?=
+ =?utf-8?B?Sm44Y2Z0YVZHWEwwTjBpeXVGLzFHeTNYSkFhOXg2ekowNnpuS0tsa3FJVUxt?=
+ =?utf-8?B?aFhjTGxSV2owRnMwZzBINHFnSlRuRWl6TFc3eFhLS2VjR0xMam1ScEZwUnFm?=
+ =?utf-8?B?MWEzTm5BMmVvNWh6b2grOVF2cGhwVUhVSHVndjRiK1p0b3NmRDlTZDdyV3BV?=
+ =?utf-8?Q?zTRTYAUdDt8r1nCt1jshXgZc0?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 655cace7-7a4e-47a8-33c7-08dbecc924c3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ce5cf1e-d9d3-472c-243a-08dbecc93113
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:41:25.3472
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2023 08:41:46.0110
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5ITHPp5Pj6v9+sNpI0+guN5I7NSVMfPEtWD4igCe3y+d9y6Zvk5Vqugb1mrhmMulKolD+RV04sPjRM94xByCpQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: yVIgkohcqWNmemg5gKQaWvH/WaOKiusXHjQwRDxm8ByIf9CKXWApkQNYxXYCVwDQSSB6xiZzVsD9QxU750xr/w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8326
 
-... to a field in the capability/controls struct. Use an instance of
-that struct also in vmx_init_vmcs_config().
+... to a field in the capability/controls struct.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
@@ -177,144 +176,130 @@ v2: New.
  
  /* Dynamic (run-time adjusted) execution control flags. */
  struct vmx_caps __ro_after_init vmx_caps;
--u32 vmx_pin_based_exec_control __read_mostly;
- u32 vmx_cpu_based_exec_control __read_mostly;
+-u32 vmx_cpu_based_exec_control __read_mostly;
  u32 vmx_secondary_exec_control __read_mostly;
  u32 vmx_vmexit_control __read_mostly;
-@@ -238,7 +237,7 @@ static bool cap_check(const char *name,
- static int vmx_init_vmcs_config(bool bsp)
+ u32 vmx_vmentry_control __read_mostly;
+@@ -238,7 +237,6 @@ static int vmx_init_vmcs_config(bool bsp
  {
      u32 vmx_basic_msr_low, vmx_basic_msr_high, min, opt;
--    u32 _vmx_pin_based_exec_control;
-+    struct vmx_caps caps;
-     u32 _vmx_cpu_based_exec_control;
+     struct vmx_caps caps;
+-    u32 _vmx_cpu_based_exec_control;
      u32 _vmx_secondary_exec_control = 0;
      u64 _vmx_ept_vpid_cap = 0;
-@@ -254,7 +253,7 @@ static int vmx_init_vmcs_config(bool bsp
-            PIN_BASED_NMI_EXITING);
-     opt = (PIN_BASED_VIRTUAL_NMIS |
-            PIN_BASED_POSTED_INTERRUPT);
--    _vmx_pin_based_exec_control = adjust_vmx_controls(
-+    caps.pin_based_exec_control = adjust_vmx_controls(
-         "Pin-Based Exec Control", min, opt,
-         MSR_IA32_VMX_PINBASED_CTLS, &mismatch);
+     u64 _vmx_misc_cap = 0;
+@@ -274,12 +272,12 @@ static int vmx_init_vmcs_config(bool bsp
+            CPU_BASED_TPR_SHADOW |
+            CPU_BASED_MONITOR_TRAP_FLAG |
+            CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
+-    _vmx_cpu_based_exec_control = adjust_vmx_controls(
++    caps.cpu_based_exec_control = adjust_vmx_controls(
+         "CPU-Based Exec Control", min, opt,
+         MSR_IA32_VMX_PROCBASED_CTLS, &mismatch);
+-    _vmx_cpu_based_exec_control &= ~CPU_BASED_RDTSC_EXITING;
+-    if ( _vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW )
+-        _vmx_cpu_based_exec_control &=
++    caps.cpu_based_exec_control &= ~CPU_BASED_RDTSC_EXITING;
++    if ( caps.cpu_based_exec_control & CPU_BASED_TPR_SHADOW )
++        caps.cpu_based_exec_control &=
+             ~(CPU_BASED_CR8_LOAD_EXITING | CPU_BASED_CR8_STORE_EXITING);
  
-@@ -406,7 +405,7 @@ static int vmx_init_vmcs_config(bool bsp
-     if ( (_vmx_secondary_exec_control & SECONDARY_EXEC_PAUSE_LOOP_EXITING) &&
-           ple_gap == 0 )
-     {
--        if ( !vmx_pin_based_exec_control )
-+        if ( !vmx_caps.pin_based_exec_control )
-             printk(XENLOG_INFO "Disable Pause-Loop Exiting.\n");
-         _vmx_secondary_exec_control &= ~ SECONDARY_EXEC_PAUSE_LOOP_EXITING;
-     }
-@@ -424,10 +423,10 @@ static int vmx_init_vmcs_config(bool bsp
-      * is a minimal requirement, only check the former, which is optional.
-      */
-     if ( !(_vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY) )
--        _vmx_pin_based_exec_control &= ~PIN_BASED_POSTED_INTERRUPT;
-+        caps.pin_based_exec_control &= ~PIN_BASED_POSTED_INTERRUPT;
- 
-     if ( iommu_intpost &&
--         !(_vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT) )
-+         !(caps.pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT) )
-     {
-         printk("Intel VT-d Posted Interrupt is disabled for CPU-side Posted "
-                "Interrupt is not enabled\n");
-@@ -461,10 +460,10 @@ static int vmx_init_vmcs_config(bool bsp
-     if ( mismatch )
+     rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+@@ -296,7 +294,7 @@ static int vmx_init_vmcs_config(bool bsp
          return -EINVAL;
+     }
  
--    if ( !vmx_pin_based_exec_control )
-+    if ( !vmx_caps.pin_based_exec_control )
+-    if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS )
++    if ( caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS )
+     {
+         min = 0;
+         opt = (SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES |
+@@ -326,7 +324,7 @@ static int vmx_init_vmcs_config(bool bsp
+          * "APIC Register Virtualization" and "Virtual Interrupt Delivery"
+          * can be set only when "use TPR shadow" is set
+          */
+-        if ( (_vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW) &&
++        if ( (caps.cpu_based_exec_control & CPU_BASED_TPR_SHADOW) &&
+              opt_apicv_enabled )
+             opt |= SECONDARY_EXEC_APIC_REGISTER_VIRT |
+                    SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY |
+@@ -464,7 +462,6 @@ static int vmx_init_vmcs_config(bool bsp
      {
          /* First time through. */
--        vmx_pin_based_exec_control = _vmx_pin_based_exec_control;
-+        vmx_caps = caps;
-         vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
+         vmx_caps = caps;
+-        vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
          vmx_secondary_exec_control = _vmx_secondary_exec_control;
          vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
-@@ -494,7 +493,7 @@ static int vmx_init_vmcs_config(bool bsp
-             vmcs_revision_id, vmx_basic_msr_low & VMX_BASIC_REVISION_MASK);
-         mismatch |= cap_check(
-             "Pin-Based Exec Control",
--            vmx_pin_based_exec_control, _vmx_pin_based_exec_control);
-+            vmx_caps.pin_based_exec_control, caps.pin_based_exec_control);
+         vmx_vmexit_control         = _vmx_vmexit_control;
+@@ -496,7 +493,7 @@ static int vmx_init_vmcs_config(bool bsp
+             vmx_caps.pin_based_exec_control, caps.pin_based_exec_control);
          mismatch |= cap_check(
              "CPU-Based Exec Control",
-             vmx_cpu_based_exec_control, _vmx_cpu_based_exec_control);
-@@ -1072,7 +1071,7 @@ static int construct_vmcs(struct vcpu *v
-     vmx_vmcs_enter(v);
- 
+-            vmx_cpu_based_exec_control, _vmx_cpu_based_exec_control);
++            vmx_caps.cpu_based_exec_control, caps.cpu_based_exec_control);
+         mismatch |= cap_check(
+             "Secondary Exec Control",
+             vmx_secondary_exec_control, _vmx_secondary_exec_control);
+@@ -1073,7 +1070,7 @@ static int construct_vmcs(struct vcpu *v
      /* VMCS controls. */
--    __vmwrite(PIN_BASED_VM_EXEC_CONTROL, vmx_pin_based_exec_control);
-+    __vmwrite(PIN_BASED_VM_EXEC_CONTROL, vmx_caps.pin_based_exec_control);
+     __vmwrite(PIN_BASED_VM_EXEC_CONTROL, vmx_caps.pin_based_exec_control);
  
-     v->arch.hvm.vmx.exec_control = vmx_cpu_based_exec_control;
+-    v->arch.hvm.vmx.exec_control = vmx_cpu_based_exec_control;
++    v->arch.hvm.vmx.exec_control = vmx_caps.cpu_based_exec_control;
      if ( d->arch.vtsc && !cpu_has_vmx_tsc_scaling )
-@@ -2091,7 +2090,7 @@ void vmcs_dump_vcpu(struct vcpu *v)
-     printk("TSC Offset = 0x%016lx  TSC Multiplier = 0x%016lx\n",
-            vmr(TSC_OFFSET), vmr(TSC_MULTIPLIER));
-     if ( (v->arch.hvm.vmx.exec_control & CPU_BASED_TPR_SHADOW) ||
--         (vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT) )
-+         (vmx_caps.pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT) )
-         printk("TPR Threshold = 0x%02x  PostedIntrVec = 0x%02x\n",
-                vmr32(TPR_THRESHOLD), vmr16(POSTED_INTR_NOTIFICATION_VECTOR));
-     if ( (v->arch.hvm.vmx.secondary_exec_control &
-@@ -2170,7 +2169,6 @@ int __init vmx_vmcs_init(void)
+         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
+ 
+@@ -2169,7 +2166,6 @@ int __init vmx_vmcs_init(void)
           * Make sure all dependent features are off as well.
           */
          memset(&vmx_caps, 0, sizeof(vmx_caps));
--        vmx_pin_based_exec_control = 0;
-         vmx_cpu_based_exec_control = 0;
+-        vmx_cpu_based_exec_control = 0;
          vmx_secondary_exec_control = 0;
          vmx_vmexit_control         = 0;
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -1054,7 +1054,7 @@ static void load_shadow_control(struct v
-      * and EXCEPTION
-      * Enforce the removed features
-      */
--    nvmx_update_pin_control(v, vmx_pin_based_exec_control);
-+    nvmx_update_pin_control(v, vmx_caps.pin_based_exec_control);
-     vmx_update_cpu_exec_control(v);
-     vmx_update_secondary_exec_control(v);
-     nvmx_update_exit_control(v, vmx_vmexit_control);
+         vmx_vmentry_control        = 0;
 --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
 +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -215,7 +215,6 @@ extern u32 vmx_cpu_based_exec_control;
- #define PIN_BASED_VIRTUAL_NMIS          0x00000020
- #define PIN_BASED_PREEMPT_TIMER         0x00000040
- #define PIN_BASED_POSTED_INTERRUPT      0x00000080
--extern u32 vmx_pin_based_exec_control;
+@@ -208,7 +208,6 @@ void vmx_vmcs_reload(struct vcpu *v);
+ #define CPU_BASED_MONITOR_EXITING             0x20000000U
+ #define CPU_BASED_PAUSE_EXITING               0x40000000U
+ #define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000U
+-extern u32 vmx_cpu_based_exec_control;
  
- #define VM_EXIT_SAVE_DEBUG_CNTRLS       0x00000004
- #define VM_EXIT_IA32E_MODE              0x00000200
+ #define PIN_BASED_EXT_INTR_MASK         0x00000001
+ #define PIN_BASED_NMI_EXITING           0x00000008
 @@ -286,6 +285,7 @@ extern u64 vmx_ept_vpid_cap;
- /* Capabilities and dynamic (run-time adjusted) execution control flags. */
  struct vmx_caps {
      uint64_t basic_msr;
-+    uint32_t pin_based_exec_control;
+     uint32_t pin_based_exec_control;
++    uint32_t cpu_based_exec_control;
  };
  extern struct vmx_caps vmx_caps;
  
-@@ -296,7 +296,7 @@ extern struct vmx_caps vmx_caps;
+@@ -294,13 +294,13 @@ extern struct vmx_caps vmx_caps;
+ #define cpu_has_vmx_virtualize_apic_accesses \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)
  #define cpu_has_vmx_tpr_shadow \
-     (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
+-    (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
++    (vmx_caps.cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
  #define cpu_has_vmx_vnmi \
--    (vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
-+    (vmx_caps.pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
+     (vmx_caps.pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
  #define cpu_has_vmx_msr_bitmap \
-     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
+-    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
++    (vmx_caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
  #define cpu_has_vmx_secondary_exec_control \
-@@ -331,7 +331,7 @@ extern struct vmx_caps vmx_caps;
- #define cpu_has_vmx_virtualize_x2apic_mode \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE)
- #define cpu_has_vmx_posted_intr_processing \
--    (vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT)
-+    (vmx_caps.pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT)
- #define cpu_has_vmx_vmcs_shadowing \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VMCS_SHADOWING)
- #define cpu_has_vmx_vmfunc \
+-    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
++    (vmx_caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
+ #define cpu_has_vmx_ept \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_EPT)
+ #define cpu_has_vmx_dt_exiting \
+@@ -310,7 +310,7 @@ extern struct vmx_caps vmx_caps;
+ #define cpu_has_vmx_vpid \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VPID)
+ #define cpu_has_monitor_trap_flag \
+-    (vmx_cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
++    (vmx_caps.cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
+ #define cpu_has_vmx_pat \
+     (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
+ #define cpu_has_vmx_efer \
 
 
