@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7517F72C3
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 12:32:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640571.999006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 299527F72FD
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 12:44:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640588.999015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6UPR-0002KQ-4v; Fri, 24 Nov 2023 11:31:45 +0000
+	id 1r6Uak-0001Nn-61; Fri, 24 Nov 2023 11:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640571.999006; Fri, 24 Nov 2023 11:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 640588.999015; Fri, 24 Nov 2023 11:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6UPR-0002Il-1k; Fri, 24 Nov 2023 11:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 640571;
- Fri, 24 Nov 2023 11:31:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6UPP-0002IT-Ee; Fri, 24 Nov 2023 11:31:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6UPP-0002uv-5f; Fri, 24 Nov 2023 11:31:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6UPO-000686-Qc; Fri, 24 Nov 2023 11:31:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1r6UPO-0002ko-Q6; Fri, 24 Nov 2023 11:31:42 +0000
+	id 1r6Uak-0001JA-3N; Fri, 24 Nov 2023 11:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 640588;
+ Fri, 24 Nov 2023 11:43:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=duVF=HF=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1r6Uai-0001H6-V6
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 11:43:25 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aac8d173-8abe-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 12:43:21 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40b36339549so11424905e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 03:43:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +40,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=zDChr6l69/RxAUduRamokc43s1IqgH174vCY69Qlyec=; b=4V/Kt1g6ymIzATrSEHH900SkIW
-	fc8FF5ZrNvnLn/96WWoTQKEHgX1ZAeQuaewLVsnqCK/Tn4lbQFT4rSshxdY27Ok0oJ+HGRWKKyzgX
-	twsbGDMgRJvAwYHT5DTPPKteYAmGyvlFpWq17lGCUeWjyn1OVkDpBZ8NpwQQCiGO7g2o=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183851-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: aac8d173-8abe-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1700826200; x=1701431000; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JfrB3biUnqKTE9rzNIaB9S0krvx419fPma1fwrnHOA8=;
+        b=aD/yNoXaZdGuYBoOjlGrOGBOaZuFC6I57bMbJbtNw6BzNojPp0yPp34yQy1H/Ug1Ea
+         YstRFPolUSFZMZsKSIzR0RSepAHJGrygmFonML0sceLJO59RpnGdZR5tadAVpcGaBzxa
+         3oG3rvgObLsJ/vYJpJOje7ddmtE/ZYv9hkZBE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700826200; x=1701431000;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=JfrB3biUnqKTE9rzNIaB9S0krvx419fPma1fwrnHOA8=;
+        b=Xls3CEkOczjomKCl5v+EteUk40rGW0i3jrt/BIzbw03UCj2hMyS1lv/S6N31Mnsf6A
+         cOs09EuE03CwV19vYu6um0qJbs3mf3QTA5U3ZA6VC124l1RsZs7N3DyJvRX2BNosuyPP
+         NaHyEaezk9EdX0khwYsh8eB/jOcUBb1X0X4Dvmsna+bjqC0fAagMHlIcqcAzhKGX41M4
+         FhDKSn0WErOUx/iovvJtDfUThZawm79/wyAw/mjihMtYCGXGKBnsPeNtSXXkeqMsi50a
+         U325ND3EWV6wD/S90EOsBYrLfWdgLSdRMPgBQk6CqoScdI18wzshBxRhCuibe2P8HG+a
+         8e5g==
+X-Gm-Message-State: AOJu0YxHJnL6+NdRZzLHaMZrma+fN2UvzX4HBsWiSsowFW3ChnZZch8K
+	OeGbyh5nJsVHAjn45TAe/5ma/QNpq+196rDUHYwm
+X-Google-Smtp-Source: AGHT+IHUcVQQ6wohs/QUxoX+U8k5mNx7cQcbmuzO97AUA7Az8YgABGgq7xJBoZtPyzmot4txTBRAjyEWcSER08LfN0Y=
+X-Received: by 2002:a05:600c:9a2:b0:409:7900:f3d0 with SMTP id
+ w34-20020a05600c09a200b004097900f3d0mr1971055wmp.34.1700826200510; Fri, 24
+ Nov 2023 03:43:20 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183851: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=80c153c48b255bae61948827241c26671207cf4e
-X-Osstest-Versions-That:
-    xen=03d6720a4c62c283f9a9f09858eeccd24299b312
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 24 Nov 2023 11:31:42 +0000
+References: <20231123160535.18658-1-roger.pau@citrix.com> <20231123160535.18658-2-roger.pau@citrix.com>
+In-Reply-To: <20231123160535.18658-2-roger.pau@citrix.com>
+From: Ross Lagerwall <ross.lagerwall@cloud.com>
+Date: Fri, 24 Nov 2023 11:43:09 +0000
+Message-ID: <CAG7k0EqQZLZDMMJg=20EgnKwhbXZ9US-9zMs0NkJD7eWYR2vtA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] livepatch-build-tools: remove usage of gawk
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 183851 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183851/
+On Thu, Nov 23, 2023 at 4:08=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
+om> wrote:
+>
+> And instead use plain awk.
+>
+> There's no need to use the --non-decimal-data option for gawk, since the
+> numbers that we want to print are already prefixed with '0x', and so plai=
+n awk
+> will do the conversion from hexadecimal to decimal just fine.
 
-Failures :-/ but no regressions.
+I don't think that's true (at least with gnu awk 5.1.1):
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+$ echo '<e98b7>   DW_AT_byte_size   : 0x14' | awk '{printf("%d\n", $4)}'
+0
 
-version targeted for testing:
- xen                  80c153c48b255bae61948827241c26671207cf4e
-baseline version:
- xen                  03d6720a4c62c283f9a9f09858eeccd24299b312
+Having said that, my version of readelf actually gives the value in
+decimal so the patch still works. But is that the case for all
+versions of readelf? I assume the code was written like that for a
+reason...
 
-Last test of basis   183846  2023-11-23 19:02:06 Z    0 days
-Testing same since   183851  2023-11-24 09:03:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Jan Beulich <jbeulich@suse.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   03d6720a4c..80c153c48b  80c153c48b255bae61948827241c26671207cf4e -> smoke
+Ross
 
