@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308777F71AE
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 11:40:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640440.998705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D92A7F71A9
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 11:39:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640435.998665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6TbI-0007Sg-Gn; Fri, 24 Nov 2023 10:39:56 +0000
+	id 1r6TbE-0006Gm-3K; Fri, 24 Nov 2023 10:39:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640440.998705; Fri, 24 Nov 2023 10:39:56 +0000
+Received: by outflank-mailman (output) from mailman id 640435.998665; Fri, 24 Nov 2023 10:39:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6TbI-0007QA-Bs; Fri, 24 Nov 2023 10:39:56 +0000
-Received: by outflank-mailman (input) for mailman id 640440;
- Fri, 24 Nov 2023 10:39:55 +0000
+	id 1r6TbE-0006Ex-08; Fri, 24 Nov 2023 10:39:52 +0000
+Received: by outflank-mailman (input) for mailman id 640435;
+ Fri, 24 Nov 2023 10:39:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fpHI=HF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r6TTG-0006hx-AF
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 10:31:38 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1r6TTL-0006hx-BK
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 10:31:43 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4207aef-8ab4-11ee-9b0e-b553b5be7939;
- Fri, 24 Nov 2023 11:31:34 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a002562bd8bso338542166b.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 02:31:34 -0800 (PST)
+ id a499f04d-8ab4-11ee-9b0e-b553b5be7939;
+ Fri, 24 Nov 2023 11:31:35 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a00a9c6f1e9so250594566b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 02:31:35 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- g1-20020a170906348100b009de3641d538sm1882374ejb.134.2023.11.24.02.31.32
+ g1-20020a170906348100b009de3641d538sm1882374ejb.134.2023.11.24.02.31.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Nov 2023 02:31:33 -0800 (PST)
+ Fri, 24 Nov 2023 02:31:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4207aef-8ab4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: a499f04d-8ab4-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700821893; x=1701426693; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1700821895; x=1701426695; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h1NXcb7jdaaZuI6SEewIcUNgTZv6aenL5cTsYiy8AuM=;
-        b=S51rFyc9h/8ZqbooOO74S2uhqmAeWfWtuXFMDqdDGEhxJ7yjE2/y3GlrCLAGe9CY3J
-         4dMjh6CfCIBeIa0FFkW4QR9xnfzXAqbjbLM4qi1/3Po/1pq1nbn5z3VPkLJ4vSbISw5g
-         9VAP52B4f4MIVquBmP8lqtFi8X+PO//oEQbib1mvxfXJW0rT6iuOZP3s7D51N2BD3El3
-         MDt7aes1Qs6eiUBF0XfSlKxHuHph9209Nu8AKr/qY1KSZnAMoUjdTYQ62bLrUcrhJFZa
-         HMBR1HXS8tXQqcK4lsEKy9ZLWEPEc1PY3+0u7t9QRwzyi6KGf5wSB1cnxtauvcy8W3Fc
-         V7gA==
+        bh=e0C3Ch6z8tKuY04JIx8qm7izpoD3XbU6+MQf/w9I+Zg=;
+        b=Jz0jnAij40C/FlFCQEXeaCfWm9azMGfWycv0NiPjnSxurFRvep9p8O141HWh3ggh7l
+         3WuXpecglVSlzEHE5n1mQCGOQyBYs41sgy5LICESj65TY323eYyo65FbcVAL7rZu6/CJ
+         MWG/7yBdvWu02Y4bQV0it9GkMQekWV1/QdACbJGDtFoj7xGJYn46w/2FoaxrKxuxh2z+
+         xwZHzvXgD7vXvtEc+Pb+06ohJxOSUX8TIEGS8W7O4kFpP0WZBN8lbv3s9rK/iRrBBZWj
+         8vt5cSvhjFHs4Sm3e6mEiBD2yRXvBC8QEBPBcAsLvSnuSUGAx5mGzHXXYjmAMbecOXP7
+         F88w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700821893; x=1701426693;
+        d=1e100.net; s=20230601; t=1700821895; x=1701426695;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=h1NXcb7jdaaZuI6SEewIcUNgTZv6aenL5cTsYiy8AuM=;
-        b=kco5ZzssmCFKPcGgMHk7qzpsf1G9KmcYdX/XmZHbmnvdhKLkwbJuzq3RszResbb7PE
-         Vycn28d0L57Wqq8JQCtoz9f6YracVJAmg23avF71lXJTO5NraCc5Msf/yvnjABHRXCwC
-         /t5pppNy+p/GVggMovIMvjH/A9ozkmYQjiSekubhqzlcoVs45XSoEeglgo9sM0TRB34d
-         ricsA2JorVvag9Q21RzELr1XvN5yetlMwISKkMUElkIHYDNjEemp7dWO3RRwzZ6iRxyB
-         vBw0Rbgyf5598w8OzERr8DEvDglaehaLbk3ME/gBDJ7USh83upbH6YlCQvRVNpDAau7c
-         KNHA==
-X-Gm-Message-State: AOJu0Yzvvl5i1w5FFY71siQZf8WYeZDfXTxaZdzE1jC238iHEdEKHeEl
-	JQ0bLB7vrLRafmUGVfNmlgNrOJsbnAtKDg==
-X-Google-Smtp-Source: AGHT+IEpnpSVM6zekDmA0E7mtOm2rvIi+vPqePZUXFRfPofCeJaNKbtrbTJxjumOjWTHEvf70cgIxg==
-X-Received: by 2002:a17:906:2088:b0:9ef:b466:abe0 with SMTP id 8-20020a170906208800b009efb466abe0mr1873955ejq.8.1700821893680;
-        Fri, 24 Nov 2023 02:31:33 -0800 (PST)
+        bh=e0C3Ch6z8tKuY04JIx8qm7izpoD3XbU6+MQf/w9I+Zg=;
+        b=CCynR8pbHQZOTRdrQLrr1VeTP50IbGRUGJ093UmSYHtnNnJDvH15ZACx2qE6B/2C3R
+         sYAyABn3vgLL4EwQVe3NMniuPmmvvS1ZkS2N3Jw/V59uBNHlc8XOBOsaok/2iSxdnAhi
+         yiXiKVbenNqjMRXXC/+hJW4BOJpFr736wc3cs5sHqXU/bOzkFBjecFt9av+5VYLBvLD3
+         6uC1jg7s6Ffkp+QXo9dnKe7SGETiA6/9qWwJ/+MHNWU1uW0Tp+4JyEasyoLBtaPMLzgX
+         /zqtLItVhQjHbiY/QCr/KRFZ60Ok7qW4QT3oMCihv1NJuKWeGiEuTwVszZpivDwD2WLR
+         WKkQ==
+X-Gm-Message-State: AOJu0YzPaAEPkGvF/SouqrZqJUMtdcCQUr+D65M+1/2SPiYA60NBcEWm
+	dxqptYImWfgDgRAMx4yNVvZ5LWlzksb9gA==
+X-Google-Smtp-Source: AGHT+IFbdkFJ3SEuPodqyEBLwy6PEEz9f13WyBgHKw4XZGO8lZGGSRe/E8hTB495cXvr+mH5d0l/aQ==
+X-Received: by 2002:a17:907:c718:b0:9ff:1dea:83b5 with SMTP id ty24-20020a170907c71800b009ff1dea83b5mr2001059ejc.42.1700821894858;
+        Fri, 24 Nov 2023 02:31:34 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 23/39] xen/riscv: introduce asm/guest_access.h
-Date: Fri, 24 Nov 2023 12:30:43 +0200
-Message-ID: <7dda759b846003fcb453f1118cefbfd2eeb804d7.1700761381.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 24/39] xen/riscv: introduce asm/irq.h
+Date: Fri, 24 Nov 2023 12:30:44 +0200
+Message-ID: <e9fc98cad562dad495ac1eb87b98be77cda72524.1700761381.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <cover.1700761381.git.oleksii.kurochko@gmail.com>
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
@@ -98,47 +98,57 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V2:
- - change xen/mm.h to xen/types.h
+	- add ifdef CONFIG_HAS_DEVICE_TREE for things that shouldn't be
+      in case !CONFIG_HAS_DEVICE_TREE
+	- use proper includes.
 ---
- xen/arch/riscv/include/asm/guest_access.h | 29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/guest_access.h
+ xen/arch/riscv/include/asm/irq.h | 37 ++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/irq.h
 
-diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
+diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
 new file mode 100644
-index 0000000000..122ecdc048
+index 0000000000..ca49d3f9b4
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/guest_access.h
-@@ -0,0 +1,29 @@
-+#ifndef __ASM_RISCV_GUEST_ACCESS_H__
-+#define __ASM_RISCV_GUEST_ACCESS_H__
++++ b/xen/arch/riscv/include/asm/irq.h
+@@ -0,0 +1,37 @@
++#ifndef __ASM_RISCV_IRQ_H__
++#define __ASM_RISCV_IRQ_H__
 +
-+#include <xen/types.h>
++#include <xen/bug.h>
++#ifdef CONFIG_HAS_DEVICE_TREE
++#include <xen/device_tree.h>
++#endif
 +
-+unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
-+unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
++/* TODO */
++#define nr_irqs 0U
++#define nr_static_irqs 0
++#define arch_hwdom_irqs(domid) 0U
 +
-+#define __raw_copy_to_guest raw_copy_to_guest
-+#define __raw_copy_from_guest raw_copy_from_guest
++#define domain_pirq_to_irq(d, pirq) (pirq)
 +
-+#define guest_handle_okay(hnd, nr) (1)
-+#define guest_handle_subrange_okay(hnd, first, last) (1)
++#define arch_evtchn_bind_pirq(d, pirq) ((void)((d) + (pirq)))
 +
-+struct domain;
-+unsigned long copy_to_guest_phys(struct domain *d,
-+                                 paddr_t gpa,
-+                                 void *buf,
-+                                 unsigned int len);
++struct arch_pirq {
++};
 +
-+#endif /* __ASM_RISCV_GUEST_ACCESS_H__ */
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
++struct arch_irq_desc {
++    unsigned int type;
++};
++
++static inline void arch_move_irqs(struct vcpu *v)
++{
++    BUG();
++}
++
++#ifdef CONFIG_HAS_DEVICE_TREE
++static inline int platform_get_irq(const struct dt_device_node *device, int index)
++{
++    BUG();
++}
++#endif
++
++#endif /* __ASM_RISCV_IRQ_H__ */
 -- 
 2.42.0
 
