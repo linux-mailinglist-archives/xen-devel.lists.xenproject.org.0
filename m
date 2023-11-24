@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DED137F7A97
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 18:54:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640877.999638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 658F07F7A9A
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 18:56:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640879.999647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6aNB-0000r3-Ep; Fri, 24 Nov 2023 17:53:49 +0000
+	id 1r6aPu-000214-Re; Fri, 24 Nov 2023 17:56:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640877.999638; Fri, 24 Nov 2023 17:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 640879.999647; Fri, 24 Nov 2023 17:56:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6aNB-0000oY-Bi; Fri, 24 Nov 2023 17:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 640877;
- Fri, 24 Nov 2023 17:53:48 +0000
+	id 1r6aPu-0001yQ-Oi; Fri, 24 Nov 2023 17:56:38 +0000
+Received: by outflank-mailman (input) for mailman id 640879;
+ Fri, 24 Nov 2023 17:56:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6Spf=HF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r6aNA-0000oS-4E
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 17:53:48 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1r6aPt-0001wl-86
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 17:56:37 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a296767-8af2-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 18:53:46 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-332ca7f95e1so1408983f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 09:53:46 -0800 (PST)
+ id cf7d5a64-8af2-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 18:56:36 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-32fdc5be26dso1278235f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 09:56:36 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- t20-20020adfa2d4000000b00332cbece829sm4859115wra.59.2023.11.24.09.53.45
+ k15-20020a5d628f000000b0033134ab9691sm4838717wru.57.2023.11.24.09.56.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 09:53:45 -0800 (PST)
+ Fri, 24 Nov 2023 09:56:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a296767-8af2-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: cf7d5a64-8af2-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700848426; x=1701453226; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700848596; x=1701453396; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9PVSYbMiYRTryxGmNHXxEZwteVuSejVZGm7hB10ECB0=;
-        b=umpMHRzRbqaBCkPRrZkJwSRBcyc9wkT7FCL+I9Keqk9EkvM8HCs4QCcxe4aF/cJ7lN
-         3x3UZgcm97ooHHEtU+nNTTFcbGRw2IDDM4d9WEFUXEZ44V72kN8qOoDftM9+WhhqQmer
-         F/wH6SxSMMMFWHHJKsV+5djhwzzY3XorPZl1I=
+        bh=q6ThfQWYpQpxgVWPFy3Li72hemEFQoaXfreBHLbqYV0=;
+        b=NoEIBQifpI5NoJUhH+GQQNf6zkLYZPaFQb8gofVhoqsb4z92NLVOlcHBsVlZ3/JGfA
+         +YSgF9S0WGHvv9+Ry3Iu0TlkSq+o4f9O9YNrbgT2EYMszxBYNLkeHZDpwn1Vbn5SuwhO
+         07S3lDD3F43M15xurDbl00XLac41dI0sLOMU0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700848426; x=1701453226;
+        d=1e100.net; s=20230601; t=1700848596; x=1701453396;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9PVSYbMiYRTryxGmNHXxEZwteVuSejVZGm7hB10ECB0=;
-        b=AXzfefh5TuiBlohmIcuIKWELXo4lGdvsp52TxY177NI1gx09Y5GfF1HHwMIsrUzr1r
-         VzfkAyv9n7lKmYv50cL/IfGdD7JmmwHkXpwcLuCoR+4GEOE6Zlw7b3S6R++fDQEG2+I0
-         kTCc1Xv6/NI8U0aYqoOTlfYlmOhZknuf9M8H8splu6/CHeIQg3x5KTrRLEdHBGCNyggS
-         KkbQKG/cBPX3c2T8bkBqXq8/Yt+F9ZeOLdfqzl24/hjWoVkkDUnWaiceasXywWDt+qq7
-         KkJ1WWL7pbXJaoSYfaV6seMk3LtLAD3itMAFNvbk/kAkDmGAFb4lxbEjJwEVWuR15cbs
-         AdmQ==
-X-Gm-Message-State: AOJu0Yx+fQfOeQD4dX3/srY1fpGP0IkkCm4pIdnfnYJxpv/ebS7WqW4N
-	RGReShOn5Sg3mAcDOJ/scOjkNw==
-X-Google-Smtp-Source: AGHT+IGergJ0yFAow9AAticP/arID+iq9Ni18FKhLzWdeJZm+t4Tl/Yvs8Scmnztl6+QdxYV/HOhYg==
-X-Received: by 2002:a5d:51c5:0:b0:332:cfbc:cbd0 with SMTP id n5-20020a5d51c5000000b00332cfbccbd0mr3064326wrv.9.1700848425921;
-        Fri, 24 Nov 2023 09:53:45 -0800 (PST)
-Message-ID: <77cd9dd3-d4ce-4804-829f-41bab971adac@citrix.com>
-Date: Fri, 24 Nov 2023 17:53:45 +0000
+        bh=q6ThfQWYpQpxgVWPFy3Li72hemEFQoaXfreBHLbqYV0=;
+        b=EwfkA/xWQeVzaCIGgh8C8NkfjRE50YKI+W6KZO06Qu8hkD35vAgynQ4f8zF27Du259
+         rvFAajNp8x8GdHjFH/QFwkZcuE/UCJbgdJK1ru693/KLeBGtuP5Q5zLWxKZCbYXgqXT3
+         5kzSSOXiDoiTKEgM0ZDRR0Yg9Nkp2Gf7bsEbONksygvTQ+iXSV0FuEsXBpeGyqbw0MsX
+         SgzC28q1VbcmI6qfaMHxD6ccANyvOIrvGXRLkWZId/zLPadGxCePn+9JDelifycHPQs/
+         WnsFGGPH0mAgIcHccCf8KNIKjErPVDQypu7BPFV8+6QRGLwy9ZrWx2UMiP7Wzt5NFjQ3
+         OvYg==
+X-Gm-Message-State: AOJu0YwPO8hwpPla0QQSWmVmuJPyT3PydlvrGiMkn7vvpyAPDPMq+Sn9
+	Q3MC1eBBSyADkKGFFn6wjzVlL33n1AFcLy07Ndc=
+X-Google-Smtp-Source: AGHT+IFmf/dnMTnPJ6gyTTkQqLc/mym2mfVBbaIZNZjt9kme4BGKdnKDgnpHkb9pZ91qfVpBAUC0vw==
+X-Received: by 2002:adf:e60a:0:b0:332:e692:a127 with SMTP id p10-20020adfe60a000000b00332e692a127mr3381821wrm.50.1700848595914;
+        Fri, 24 Nov 2023 09:56:35 -0800 (PST)
+Message-ID: <b8e0926a-bb63-4227-a5d5-3fb9f4a1bf49@citrix.com>
+Date: Fri, 24 Nov 2023 17:56:35 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] AMD/IOMMU: address violations of MISRA C:2012 Rule
- 11.8
+Subject: Re: [PATCH 0/5] xen: address violations of MISRA C:2012 Rule 11.8
 Content-Language: en-GB
 To: Simone Ballarin <simone.ballarin@bugseng.com>,
  xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com, maria.celeste.cesario@bugseng.com,
- Jan Beulich <jbeulich@suse.com>
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <cover.1700842832.git.maria.celeste.cesario@bugseng.com>
- <11fc193f35be188165294665b1e989b2db17a776.1700842832.git.maria.celeste.cesario@bugseng.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,39 +132,21 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <11fc193f35be188165294665b1e989b2db17a776.1700842832.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <cover.1700842832.git.maria.celeste.cesario@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 24/11/2023 4:29 pm, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
->
-> Add missing const qualifier in casting to comply with Rule 11.8.
-> The type of the formal parameter ivhd_block is const qualified.
-> No functional change.
->
-> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
-> ---
->  xen/drivers/passthrough/amd/iommu_acpi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
-> index 699d33f429..00923a6bb5 100644
-> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
-> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
-> @@ -1232,7 +1232,7 @@ static int __init get_last_bdf_ivhd(
->      while ( ivhd_block->header.length >=
->              (block_length + sizeof(struct acpi_ivrs_de_header)) )
->      {
-> -        ivhd_device = (const void *)((u8 *)ivhd_block + block_length);
-> +        ivhd_device = (const void *)((const uint8_t *)ivhd_block + block_length);
+> Maria Celeste Cesario (5):
+>   x86/platform_hypercall: address violations of MISRA C:2012 Rule 11.8
+>   x86/boot/reloc: address violations of MISRA C:2012 Rule 11.8
+>   AMD/IOMMU: address violations of MISRA C:2012 Rule 11.8
+>   x86/atomic: address violations of MISRA C:2012 Rule 11.8
+>   xen/arm: address violations of MISRA C:2012 Rule 11.8
 
-This we should simplify into just:
+Patches 1,2,4 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-    ivhd_device = (const void *)ivhd_block + block_length;
-
-We use this GCC extension in many other places too.
+Patch 3 I'm happy to fix on commit if you're happy with the suggestion.
 
 ~Andrew
 
