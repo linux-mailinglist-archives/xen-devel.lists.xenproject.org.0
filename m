@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF307F71A6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 11:39:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640427.998645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD9F7F71F5
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 11:47:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640498.998817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Taw-00050J-Gs; Fri, 24 Nov 2023 10:39:34 +0000
+	id 1r6Thx-00022i-Cs; Fri, 24 Nov 2023 10:46:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640427.998645; Fri, 24 Nov 2023 10:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 640498.998817; Fri, 24 Nov 2023 10:46:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6Taw-0004yb-E0; Fri, 24 Nov 2023 10:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 640427;
- Fri, 24 Nov 2023 10:39:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r6Thx-0001zL-9i; Fri, 24 Nov 2023 10:46:49 +0000
+Received: by outflank-mailman (input) for mailman id 640498;
+ Fri, 24 Nov 2023 10:46:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fpHI=HF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r6TTT-0006hx-D2
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 10:31:51 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a74debed-8ab4-11ee-9b0e-b553b5be7939;
- Fri, 24 Nov 2023 11:31:40 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-9fd0059a967so543561866b.1
+ id 1r6TTJ-0006hy-Cv
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 10:31:41 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a7c33535-8ab4-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 11:31:41 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a00b056ca38so243303466b.2
  for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 02:31:40 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- g1-20020a170906348100b009de3641d538sm1882374ejb.134.2023.11.24.02.31.37
+ g1-20020a170906348100b009de3641d538sm1882374ejb.134.2023.11.24.02.31.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Nov 2023 02:31:38 -0800 (PST)
+ Fri, 24 Nov 2023 02:31:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a74debed-8ab4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: a7c33535-8ab4-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700821899; x=1701426699; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1700821900; x=1701426700; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fLjNioN0z9kxErlbS/a9Yo17p/MesEH5oUEwnGWW1s0=;
-        b=GUdI8Z8X+4atcDRkBKrqW0JSj5v8XhdFL5f5kBFvxlMGXDD+tB75KaR6gAK7OV+1pO
-         h5V6bOjSXaf07ZPaynszlOfLzlI06BE+uPj+7RC8Btm4AVXW811+Qtn9YKVuBuqExyjm
-         hfNvCYUfN8dPpxr38JYzms3oDYHO8QzWaFkpbjVwqZJmdrAenN0m+bBtl3sN85hbnCBS
-         cM+4tj5tJnQPKil1RNwi+2DGMnBmHo3wCSRY1g4fSdme0+a+zjS3bs4pV9DN0ez6LiMk
-         GPrF4opYkMwSJsluKJKYuo23p3ilyyCXkXQ71gmelyQBVJ9l1i/SEkYR0sgJu0CY5Jaa
-         Zmyw==
+        bh=9g8XJvXceN+LKbnSsjmmA9nK3GbE+uM4xbSpxuIFeFA=;
+        b=OWKBXiScXFjkE8ARZS7zfqGjv9pPMhMOGawWNYrsNHnMCk63u5V34Q5LeaeHX884eL
+         aPNsUF98ajfwmHIiTRDxPINtIyiEVy9cm/XMGCEbAte1VewOglC1viOtIDWvuO/G5mo1
+         VV+xVCI6p4mdp7SnNbuGbP+Nzc8maSVRZ1QzqzfSI6ZkeyB5FPK9RT7KHIQCK+krk32u
+         SOGDNV/j8yvI4S+f4LoIPtbqLKnJP/lkIPCSgUHyP17O+tyXjEvlJhBqs/xS71xWkXM/
+         KzvMdEYL529EhH4vYttuUX9Le7twtCaO+DVy5Ceg7EVgNwz4bNd+9dds0jDus6bKk2i8
+         wIYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700821899; x=1701426699;
+        d=1e100.net; s=20230601; t=1700821900; x=1701426700;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=fLjNioN0z9kxErlbS/a9Yo17p/MesEH5oUEwnGWW1s0=;
-        b=Xa6euFVZF2nXsuUkFybQkDLygKc4ZbPGGxeBve1yArp7rRZGqJTMTcE2yza2TbR5uP
-         9k5BXUX3PV/uaAHqB/eSB1HL4fWDa0g9y4PY/ZhN14iQBhxbwA78VVAYGOxDZXwWE0a7
-         cDDlrJ5rwFBpzF/gaKF0OI6CrN3VK2iaszEHfMP4upAdjzzJ0zYbA4Si8kSGzGPih4tP
-         M0UYnROQnFnxmAcXGZ3eZOcqCBnx1/NT71B8DeX6aKbbTBfSzuz9ycvJwlhmKu8tAD3d
-         Wt2OvzyQWMrYnXHJAcNRs04Bsnn6cxCS5nkQFlzhAqtO6Cl9B9HP1QQIow5XzLtWJ8MC
-         4PuA==
-X-Gm-Message-State: AOJu0Yye9y7xXZQWwx/4etifDEFljO4EZ/80VTBQ7kHQ8qEkRKAjBEBO
-	kvM+bASy7Q9t+L7GQi0OfbljFQ4Z6pU/Bg==
-X-Google-Smtp-Source: AGHT+IFDkis3KsXlvXscmPgpaABJmffrS3eJnFFygdQG4dlEDlHjpNwVJOw/cergcf3I8X21FIWjVg==
-X-Received: by 2002:a17:907:e92:b0:9a5:dc2b:6a5 with SMTP id ho18-20020a1709070e9200b009a5dc2b06a5mr5821323ejc.35.1700821898692;
-        Fri, 24 Nov 2023 02:31:38 -0800 (PST)
+        bh=9g8XJvXceN+LKbnSsjmmA9nK3GbE+uM4xbSpxuIFeFA=;
+        b=nJJ9gA527tNVx/3kqKeCZGTrsA7b76W3EKrrumi/8/yXe/jr0+w/OqXvv82PPd/BuX
+         uWeXS1aujbtCVaxHP7zNP14uD1tB4bH+B3sYve6zsY3yfZddxN6eJM91nrXZSVwV7dmv
+         07+7DUl1VJMWgltQsnYVhLfZvdk7TtIiCmX9Em/fI0cPcrFhOt68U9KuD3QlrYzywO/F
+         b7tt2Mt/GD2KnO+MHrrhMNtPLNDOanIadyBktZi8lrvo6P1KCW9mchPS0rXateOawkeb
+         3frlghtRcP+GqfNCilt24MvNC3wZR/Ka8YeqLpmphIcW2pN38ZfSsEGL4kn4HokHL2j5
+         r66g==
+X-Gm-Message-State: AOJu0YzewTdy2rE2jpdivfEcHTTHYiGlRsZEbvLWr6lU87VMpQ4RiSO3
+	kkK4Jz+M0W/oYICNimz0MLM6gk7UxqWzYQ==
+X-Google-Smtp-Source: AGHT+IFkhEVq1Zkgib05dna2HJ+QkOBxYxZNOJFEkC8rVWydgHS3i40ZDia5EJjHZwgOtC4fN8rAAQ==
+X-Received: by 2002:a17:906:218:b0:9de:24d:f245 with SMTP id 24-20020a170906021800b009de024df245mr1426447ejd.12.1700821900174;
+        Fri, 24 Nov 2023 02:31:40 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,64 +86,39 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 28/39] xen/riscv: introduce asm/event.h
-Date: Fri, 24 Nov 2023 12:30:48 +0200
-Message-ID: <492c6183a8248046f0b6fdb186ad5b33953c3b24.1700761381.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 29/39] xen/riscv: add definition of __read_mostly
+Date: Fri, 24 Nov 2023 12:30:49 +0200
+Message-ID: <7fec1c9f906ee120ebae606de59f9f70efb79aff.1700761381.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <cover.1700761381.git.oleksii.kurochko@gmail.com>
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+The definition of __read_mostly should be removed in:
+https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+
+The patch introduces it in arch-specific header to not
+block enabling of full Xen build for RISC-V.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V2:
- - Nothing changed. Only rebase.
+ - update the commit message
 ---
- xen/arch/riscv/include/asm/event.h | 34 ++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/event.h
+ xen/arch/riscv/include/asm/cache.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/event.h b/xen/arch/riscv/include/asm/event.h
-new file mode 100644
-index 0000000000..48630c77b3
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/event.h
-@@ -0,0 +1,34 @@
-+#ifndef __ASM_RISCV_EVENT_H__
-+#define __ASM_RISCV_EVENT_H__
+diff --git a/xen/arch/riscv/include/asm/cache.h b/xen/arch/riscv/include/asm/cache.h
+index 69573eb051..94bd94db53 100644
+--- a/xen/arch/riscv/include/asm/cache.h
++++ b/xen/arch/riscv/include/asm/cache.h
+@@ -3,4 +3,6 @@
+ #ifndef _ASM_RISCV_CACHE_H
+ #define _ASM_RISCV_CACHE_H
+ 
++#define __read_mostly __section(".data.read_mostly")
 +
-+void vcpu_mark_events_pending(struct vcpu *v);
-+
-+static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
-+{
-+    return 0;
-+}
-+
-+static inline int local_events_need_delivery(void)
-+{
-+    return 0;
-+}
-+
-+static inline void local_event_delivery_enable(void)
-+{
-+}
-+
-+/* No arch specific virq definition now. Default to global. */
-+static inline bool arch_virq_is_global(unsigned int virq)
-+{
-+    return true;
-+}
-+
-+#endif
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+ #endif /* _ASM_RISCV_CACHE_H */
 -- 
 2.42.0
 
