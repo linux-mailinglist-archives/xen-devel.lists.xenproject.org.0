@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B4A7F8624
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 23:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.640964.999764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A955C7F863E
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Nov 2023 23:42:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.640967.999774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6efN-0006lC-JP; Fri, 24 Nov 2023 22:28:53 +0000
+	id 1r6erv-0001cd-M9; Fri, 24 Nov 2023 22:41:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 640964.999764; Fri, 24 Nov 2023 22:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 640967.999774; Fri, 24 Nov 2023 22:41:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6efN-0006i3-G1; Fri, 24 Nov 2023 22:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 640964;
- Fri, 24 Nov 2023 22:28:51 +0000
+	id 1r6erv-0001Zv-J4; Fri, 24 Nov 2023 22:41:51 +0000
+Received: by outflank-mailman (input) for mailman id 640967;
+ Fri, 24 Nov 2023 22:41:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6Spf=HF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r6efL-0006hx-S1
- for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 22:28:51 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1r6ert-0001Zp-La
+ for xen-devel@lists.xenproject.org; Fri, 24 Nov 2023 22:41:49 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7068a01-8b18-11ee-98e2-6d05b1d4d9a1;
- Fri, 24 Nov 2023 23:28:50 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40b27726369so16705155e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 14:28:50 -0800 (PST)
+ id a71d2423-8b1a-11ee-98e2-6d05b1d4d9a1;
+ Fri, 24 Nov 2023 23:41:48 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40b2afd049aso16363035e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Nov 2023 14:41:48 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fc8-20020a05600c524800b0040b3807ec38sm4861984wmb.33.2023.11.24.14.28.48
+ k10-20020a05600c1c8a00b004042dbb8925sm6887623wms.38.2023.11.24.14.41.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 14:28:49 -0800 (PST)
+ Fri, 24 Nov 2023 14:41:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7068a01-8b18-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: a71d2423-8b1a-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1700864929; x=1701469729; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1700865708; x=1701470508; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8jigi7JLBGC52EdYWf5218yQYyxx3D5XldiBSdv1Xus=;
-        b=g085WizITxZJodH2nqYugouguEGGi5I7fw03rMn/rXLQ18VwXk1/OfjDp3Wrva67om
-         VnFI4js7R0lWKTlAq3Fjmt0WL/Bm5DodkKgHZA9L8aVIrEzWwGod8wXHvKMzLBkOv2JI
-         jRi/2sh718Xl+jiX6O9qcvg1Lnx/yuDw7pzeE=
+        bh=oPmmjenKolGdlAbWzy5dL4bLDjsXuW5ddnW22P4orks=;
+        b=vGK/TnhflU4IQzug+SPlfzBuo5OwE6+TVucVDooEWPH5YbEqeEjsTWhN8tubQnalYT
+         OZrtuMkjUEHB0iUw4VJRZ2e2ca67QElSihxQObpDh3FF7nBcMWHjR4MT24cMVrJtW/Ei
+         qItGo9fdmRM6VgYMzWKKRPIG12KsniZ8A20FA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700864929; x=1701469729;
+        d=1e100.net; s=20230601; t=1700865708; x=1701470508;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8jigi7JLBGC52EdYWf5218yQYyxx3D5XldiBSdv1Xus=;
-        b=i/kfdzymE6bUDG5TjaH9/1ApFoNW2rLFJRC6zRhZdzExuwMb4zSfqlI/4u8XRaYk+T
-         zS5FicPRUUhQHJsJQJFtrohwcEGixpG6KGycaBx2DF/pi0pgEPO3e4BVWyZv85oanAyc
-         W9a/gVthBcuD2mqMUx4n4gN/Xh1jHWnLQFm/QUzj/a/uB5Z22MR83dwH/mndrkZImE25
-         a6ctjfSMn8KtYxQyo/OB/yW9k7fZKYV0sYFz32BtiNAagLewdm5Ot90VY1uaKOd/wL4s
-         J+1vFx7rNC9nF+5e7plQOS8rTKX7pE2pn7xSHkgXjSUszs+QcDQFYZse7EgSgJYGW7nU
-         I2eA==
-X-Gm-Message-State: AOJu0YwqTePp70b8EDQLDcvl+vlovlHb84t+qKYzhDVIlFvPUjlWCBSE
-	DRuBTC0HsKRzotM8f+B2wQrVow==
-X-Google-Smtp-Source: AGHT+IHIDQhvJwBIomk0XHW25kwumr6iS/6gcwSs8ezMoKWIbDqwqK1cmtSW0pL9srye/2HMsQv2AQ==
-X-Received: by 2002:a05:600c:1f82:b0:408:364e:34a2 with SMTP id je2-20020a05600c1f8200b00408364e34a2mr3700206wmb.10.1700864929359;
-        Fri, 24 Nov 2023 14:28:49 -0800 (PST)
-Message-ID: <c7e50f7f-690e-4402-a873-1534d01c6434@citrix.com>
-Date: Fri, 24 Nov 2023 22:28:48 +0000
+        bh=oPmmjenKolGdlAbWzy5dL4bLDjsXuW5ddnW22P4orks=;
+        b=FNERDMcIwp2kRCQXFkcej2h+fQL4Pyv5YxstQu8iCO0D7zLK8sydpDeFjWY4ZuNZbz
+         WxfyV9QgfgpfB/Ml1eB7hbfcRXZ0y+4ydCSaYT8Xr2tR6im4Rw+3se7pVqa59pbXDYnt
+         sJZKaMwLCL65USephnQIRBlVcLAQi4hw7W7cmvDQRJn+1K+FJBjoyposM5HnAqV4PxrE
+         utQKzlSAu93PhULj2boRB3JVmmlz+qRZELUG63Vb6PaAzCKaHqEr4k9ESWeVpCoW5TWe
+         KC4lRccRGjeTi7MhOXrDaLwhcowD322WNSDdfTb+ON6pJydVRbL2CrVJMHO7qZEqm0g6
+         jjoA==
+X-Gm-Message-State: AOJu0YxJpxMPJOkjjKw/lL8+c4WyCVWvZjsvf2L85oTemfQ+Rw2zulfe
+	yvAnkuqsB85W3UZcakeBTxo2mQ==
+X-Google-Smtp-Source: AGHT+IHiRcfCi+rJ/+EI3usXO99qWzcwsf8x9VZnI6cI0czItg1LeA/lnKvZlAxaIIQUhU8t8FlMyQ==
+X-Received: by 2002:a05:600c:4fc5:b0:408:4120:bad2 with SMTP id o5-20020a05600c4fc500b004084120bad2mr3872851wmq.9.1700865707973;
+        Fri, 24 Nov 2023 14:41:47 -0800 (PST)
+Message-ID: <e17d6e45-b03c-4906-9fb3-af4770aa3cf0@citrix.com>
+Date: Fri, 24 Nov 2023 22:41:47 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/15] x86/HVM: improve CET-IBT pruning of ENDBR
+Subject: Re: [PATCH v2 08/15] VMX: convert vmx_basic_msr
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -85,7 +85,7 @@ Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  Jun Nakajima <jun.nakajima@intel.com>,
  George Dunlap <george.dunlap@citrix.com>
 References: <b63b648f-02d0-4e52-a5e5-94ffd5666a14@suse.com>
- <8112f1f9-3e3a-4839-9124-9adb87f82c29@suse.com>
+ <d07fb86f-ef9c-4c2b-ba9a-f1e5c813d45d@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -130,136 +130,42 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <8112f1f9-3e3a-4839-9124-9adb87f82c29@suse.com>
+In-Reply-To: <d07fb86f-ef9c-4c2b-ba9a-f1e5c813d45d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24/11/2023 8:39 am, Jan Beulich wrote:
-> __init{const,data}_cf_clobber can have an effect only for pointers
-> actually populated in the respective tables. While not the case for SVM
-> right now, VMX installs a number of pointers only under certain
-> conditions. Hence the respective functions would have their ENDBR purged
-> only when those conditions are met. Invoke "pruning" functions after
-> having copied the respective tables, for them to install any "missing"
-> pointers.
+On 24/11/2023 8:41 am, Jan Beulich wrote:
+> ... to a struct field, which is then going to be accompanied by other
+> capability/control data presently living in individual variables. As
+> this structure isn't supposed to be altered post-boot, put it in
+> .data.ro_after_init right away.
 >
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-In theory Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but see
-later.
+For (usable) nested virt, we're going to need the VMX MSRs, in their
+architectural form, in struct cpu_policy.  And just like CPUID features,
+I want it to end up with nice bitfields to use.
 
-I have to admit that I'd overlooked this point when putting together
-__init{}_cf_clobber originally.  Then again, I did have more urgent
-things on my mind at the time.
+Looking through the rest of this series, vmx_caps ends up almost in
+architectural form.
 
-> ---
-> This is largely cosmetic for present hardware, which when supporting
-> CET-IBT likely also supports all of the advanced VMX features for which
-> hook pointers are installed conditionally. The only case this would make
-> a difference there is when use of respective features was suppressed via
-> command line option (where available). For future hooks it may end up
-> relevant even by default, and it also would be if AMD started supporting
-> CET-IBT; right now it matters only for .pi_update_irte, as iommu_intpost
-> continues to default to off.
->
-> Originally I had meant to put the SVM and VMX functions in presmp-
-> initcalls, but hvm/{svm,vmx}/built_in.o are linked into hvm/built_in.o
-> before hvm/hvm.o. And I don't think I want to fiddle with link order
-> here.
+Could I talk you into having a "struct vmx_msrs" (or similar - 'caps'
+doesn't feel quite right here) in the policy object, and also
+instantiating one instance of it for this purpose here?
 
-An alternative is the form I used for microcode, where start_{vmx,svm}()
-fills in fns, and doesn't have to fill in all hooks.
+AFAICT, it would only be a minor deviation to the latter half of this
+series, but it would be an excellent start to fixing nested virt - and
+getting this data in the policy really is the first task in getting the
+ball rolling on nested virt.
 
-That will be more amenable to Kconfig-ing generally, and will probably
-be less fragile to getting forgotten.
+I don't mind about serialising/de-serialsing it - that still has a bit
+of userspace complexity to work out, and depends on some of the cleanup
+still needing a repost.
 
-> ---
-> v2: Use cpu_has_xen_ibt in prune_{svm,vmx}().
->
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -161,10 +161,15 @@ static int __init cf_check hvm_enable(vo
->      else if ( cpu_has_svm )
->          fns = start_svm();
->  
-> +    if ( fns )
-> +        hvm_funcs = *fns;
-> +
-> +    prune_vmx();
-> +    prune_svm();
-> +
->      if ( fns == NULL )
->          return 0;
->  
-> -    hvm_funcs = *fns;
->      hvm_enabled = 1;
->  
->      printk("HVM: %s enabled\n", fns->name);
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -2587,6 +2587,19 @@ const struct hvm_function_table * __init
->      return &svm_function_table;
->  }
->  
-> +void __init prune_svm(void)
-> +{
-> +    /*
-> +     * Now that svm_function_table was copied, populate all function pointers
-> +     * which may have been left at NULL, for __initdata_cf_clobber to have as
-> +     * much of an effect as possible.
-> +     */
-> +    if ( !cpu_has_xen_ibt )
-> +        return;
-> +
-> +    /* Nothing at present. */
-> +}
-> +
->  void asmlinkage svm_vmexit_handler(void)
->  {
->      struct cpu_user_regs *regs = guest_cpu_user_regs();
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -3033,6 +3033,30 @@ const struct hvm_function_table * __init
->      return &vmx_function_table;
->  }
->  
-> +void __init prune_vmx(void)
-> +{
-> +    /*
-> +     * Now that vmx_function_table was copied, populate all function pointers
-> +     * which may have been left at NULL, for __initdata_cf_clobber to have as
-> +     * much of an effect as possible.
-> +     */
-> +    if ( !cpu_has_xen_ibt )
-> +        return;
-> +
-> +    vmx_function_table.set_descriptor_access_exiting =
-> +        vmx_set_descriptor_access_exiting;
-> +
-> +    vmx_function_table.update_eoi_exit_bitmap = vmx_update_eoi_exit_bitmap;
-> +    vmx_function_table.process_isr            = vmx_process_isr;
-> +    vmx_function_table.handle_eoi             = vmx_handle_eoi;
-> +
-> +    vmx_function_table.pi_update_irte = vmx_pi_update_irte;
-> +
-> +    vmx_function_table.deliver_posted_intr = vmx_deliver_posted_intr;
-> +    vmx_function_table.sync_pir_to_irr     = vmx_sync_pir_to_irr;
-> +    vmx_function_table.test_pir            = vmx_test_pir;
-
-That said...
-
-This (the hooks being conditional in the first place) is bogus to begin
-with.  Posted interrupts (or not) are a per-VM property even if we don't
-wire this up properly yet.  It will be forced to be done properly in
-order to support nested virt, as L0 Xen *must* comply with the settings
-chosen by the L1 hypervisor.
-
-So the choice to use the hooks will have to come from per-vCPU state,
-and not from the conditional-ness of them.
-
-Any chance I can talk you into instead making the hooks unconditional? 
-If not, someone (George was volunteering) is going to have to undo this
-in fairly short order.
+If you don't want to take the added space in cpu_policy yet, how about
+having the declaration there and just forgo instantiating the subobject
+in the short term?
 
 ~Andrew
 
