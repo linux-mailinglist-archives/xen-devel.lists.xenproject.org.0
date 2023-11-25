@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E46EE7F8BAF
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Nov 2023 15:31:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641134.999940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146EC7F8BB7
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Nov 2023 15:33:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641138.999950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6tg8-0008St-BH; Sat, 25 Nov 2023 14:30:40 +0000
+	id 1r6tiU-0000bx-Ol; Sat, 25 Nov 2023 14:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641134.999940; Sat, 25 Nov 2023 14:30:40 +0000
+Received: by outflank-mailman (output) from mailman id 641138.999950; Sat, 25 Nov 2023 14:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r6tg8-0008RC-8I; Sat, 25 Nov 2023 14:30:40 +0000
-Received: by outflank-mailman (input) for mailman id 641134;
- Sat, 25 Nov 2023 14:30:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6tg6-0008R2-JO; Sat, 25 Nov 2023 14:30:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6tg6-00019N-B4; Sat, 25 Nov 2023 14:30:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r6tg5-0000hX-Sv; Sat, 25 Nov 2023 14:30:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1r6tg5-0003zZ-SB; Sat, 25 Nov 2023 14:30:37 +0000
+	id 1r6tiU-0000a0-M0; Sat, 25 Nov 2023 14:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 641138;
+ Sat, 25 Nov 2023 14:33:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kKti=HG=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1r6tiS-0000Zu-Lx
+ for xen-devel@lists.xenproject.org; Sat, 25 Nov 2023 14:33:04 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 88b2da80-8b9f-11ee-98e2-6d05b1d4d9a1;
+ Sat, 25 Nov 2023 15:33:01 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CD2BD60C23;
+ Sat, 25 Nov 2023 14:32:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF1EC433C9;
+ Sat, 25 Nov 2023 14:32:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,221 +41,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nztODIX2gPzd7ED2ue1PyfxxYkky+PamhIu42cv7DBs=; b=ldIZ7pH40DPiKCzvvMlwgQnEp/
-	n0VP23ndFw1WZcvzQK0xRq+IBuPeTALNVEFoEkPlpUuFndMdC6Cv6+9ZFuHPYabwP3lB/m8fQFOSU
-	NW7qwQnNWOcK4aJCEuN1t/HDf/igdb4atHysRbX2//CJ5a+/le7gy30KwcxTde+8MNUA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183856-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 88b2da80-8b9f-11ee-98e2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1700922779;
+	bh=oSd7BcOK3bP0I8DfntCNNyxB1mRx7mQJk5aYCZ56Jps=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tb+b1AGjl66gEFJb49YPJaFeRIASRiFOTSxrZYFb/9UEMzhBhJ7dj03XjtnQqURkF
+	 TfRgGHRdUiAjOE44N/FKpf7JzCF5V8n47LggUk8mYZ6WAEYe+BIWeDP2a/vA3Woy4L
+	 +jv6Fe3Kj+6ny2tml8PShu+0hReicMnk89ZJEMIM=
+Date: Sat, 25 Nov 2023 14:32:55 +0000
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: hch@infradead.org, ming.lei@redhat.com, axboe@kernel.dk,
+	roger.pau@citrix.com, colyli@suse.de, kent.overstreet@gmail.com,
+	joern@lazybastard.org, miquel.raynal@bootlin.com, richard@nod.at,
+	vigneshr@ti.com, sth@linux.ibm.com, hoeppner@linux.ibm.com,
+	hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+	jejb@linux.ibm.com, martin.petersen@oracle.com, clm@fb.com,
+	josef@toxicpanda.com, dsterba@suse.com, viro@zeniv.linux.org.uk,
+	brauner@kernel.org, nico@fluxnic.net, xiang@kernel.org,
+	chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+	agruenba@redhat.com, jack@suse.com, konishi.ryusuke@gmail.com,
+	dchinner@redhat.com, linux@weissschuh.net, min15.li@samsung.com,
+	dlemoal@kernel.org, willy@infradead.org, akpm@linux-foundation.org,
+	p.raghav@samsung.com, hare@suse.de, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
+	linux-nilfs@vger.kernel.org, yukuai3@huawei.com,
+	yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH -next] block: remove field 'bd_inode' from block_device
+Message-ID: <2023112544-subpanel-national-58e5@gregkh>
+References: <20231125093912.141486-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 183856: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=0f5cc96c367f2e780eb492cc9cab84e3b2ca88da
-X-Osstest-Versions-That:
-    linux=c42d9eeef8e5ba9292eda36fd8e3c11f35ee065c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 25 Nov 2023 14:30:37 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231125093912.141486-1-yukuai1@huaweicloud.com>
 
-flight 183856 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183856/
+On Sat, Nov 25, 2023 at 05:39:12PM +0800, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+> 
+> block_devcie is allocated from bdev_alloc() by bdev_alloc_inode(), and
+> currently block_device contains a pointer that point to the address of
+> inode, while such inode is allocated together:
+> 
+> bdev_alloc
+>  inode = new_inode()
+>   // inode is &bdev_inode->vfs_inode
+>  bdev = I_BDEV(inode)
+>   // bdev is &bdev_inode->bdev
+>  bdev->inode = inode
+> 
+> Add a new helper to get address of inode from bdev by add operation
+> instead of memory access, which is more efficiency. Also prepare to
+> add a new field 'bd_flags' in the first cacheline(64 bytes).
+> 
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+> ---
+>  block/bdev.c                       | 39 +++++++++++++++++-------------
+>  block/blk-zoned.c                  |  4 +--
+>  block/fops.c                       |  4 +--
+>  block/genhd.c                      |  8 +++---
+>  block/ioctl.c                      |  8 +++---
+>  block/partitions/core.c            |  9 ++++---
+>  drivers/block/xen-blkback/xenbus.c |  2 +-
+>  drivers/md/bcache/super.c          |  2 +-
+>  drivers/mtd/devices/block2mtd.c    | 12 ++++-----
+>  drivers/s390/block/dasd_ioctl.c    |  2 +-
+>  drivers/scsi/scsicam.c             |  2 +-
+>  fs/bcachefs/util.h                 |  2 +-
+>  fs/btrfs/disk-io.c                 |  6 ++---
+>  fs/btrfs/volumes.c                 |  4 +--
+>  fs/btrfs/zoned.c                   |  2 +-
+>  fs/buffer.c                        |  8 +++---
+>  fs/cramfs/inode.c                  |  2 +-
+>  fs/erofs/data.c                    |  2 +-
+>  fs/ext4/dir.c                      |  2 +-
+>  fs/ext4/ext4_jbd2.c                |  2 +-
+>  fs/ext4/super.c                    |  8 +++---
+>  fs/gfs2/glock.c                    |  2 +-
+>  fs/gfs2/ops_fstype.c               |  2 +-
+>  fs/jbd2/journal.c                  |  3 ++-
+>  fs/jbd2/recovery.c                 |  2 +-
+>  fs/nilfs2/segment.c                |  2 +-
+>  include/linux/blk_types.h          | 10 ++++++--
+>  include/linux/blkdev.h             |  4 +--
+>  include/linux/buffer_head.h        |  4 +--
+>  29 files changed, 86 insertions(+), 73 deletions(-)
 
-Regressions :-(
+You should do this as a patch series, add the helper function that does
+nothing, convert all the different portions of the kernel as different
+patches, and _then_ change the implementation of the block layer to
+handle the change in the structure.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 183766
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 183766
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 183766
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 183766
+Otherwise this is going to be hard to get accepted.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183766
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183766
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183766
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183766
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183766
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183766
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183766
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+Also, one note:
 
-version targeted for testing:
- linux                0f5cc96c367f2e780eb492cc9cab84e3b2ca88da
-baseline version:
- linux                c42d9eeef8e5ba9292eda36fd8e3c11f35ee065c
+> @@ -85,6 +84,13 @@ struct block_device {
+>  #define bdev_kobj(_bdev) \
+>  	(&((_bdev)->bd_device.kobj))
+>  
+> +static inline struct inode *bdev_inode(struct block_device *bdev)
+> +{
+> +	void *inode = bdev + 1;
 
-Last test of basis   183766  2023-11-15 17:14:16 Z    9 days
-Failing since        183773  2023-11-16 13:12:48 Z    9 days   20 attempts
-Testing same since   183856  2023-11-25 03:26:35 Z    0 days    1 attempts
+That's crazy, if something changes, this will keep working yet the
+kernel will break and no one will know why.
 
-------------------------------------------------------------
-315 people touched revisions under test,
-not listing them all
+Please use container_of(), that's what it is there for, this exact type
+of thing.  Or if not, are you just assuming that the memory location
+right after bdev is the inode?  That's a tough assumption, how are you
+going to assure it really stays there?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      pass    
+thanks,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 13200 lines long.)
+greg k-h
 
