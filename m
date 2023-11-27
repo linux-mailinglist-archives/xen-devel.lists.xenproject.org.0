@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68F17FA39B
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 15:53:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642207.1001546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5819F7FA3D4
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 15:58:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642213.1001556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7czL-0001LY-7J; Mon, 27 Nov 2023 14:53:31 +0000
+	id 1r7d43-0002mM-Pz; Mon, 27 Nov 2023 14:58:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642207.1001546; Mon, 27 Nov 2023 14:53:31 +0000
+Received: by outflank-mailman (output) from mailman id 642213.1001556; Mon, 27 Nov 2023 14:58:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7czL-0001Ic-4P; Mon, 27 Nov 2023 14:53:31 +0000
-Received: by outflank-mailman (input) for mailman id 642207;
- Mon, 27 Nov 2023 14:53:30 +0000
+	id 1r7d43-0002jj-Lx; Mon, 27 Nov 2023 14:58:23 +0000
+Received: by outflank-mailman (input) for mailman id 642213;
+ Mon, 27 Nov 2023 14:58:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j1wO=HI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r7czK-0001IW-9A
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 14:53:30 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7709f04-8d34-11ee-9b0e-b553b5be7939;
- Mon, 27 Nov 2023 15:53:25 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-32f8441dfb5so2959854f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 06:53:25 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- h9-20020a05600c314900b0040b32edf626sm8532359wmo.31.2023.11.27.06.53.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Nov 2023 06:53:24 -0800 (PST)
+ <SRS0=YLEH=HI=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1r7d42-0002jd-3l
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 14:58:22 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 663ac947-8d35-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 15:58:19 +0100 (CET)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3ARE3wV6003550; Mon, 27 Nov 2023 14:57:58 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3uk8yd35nw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 27 Nov 2023 14:57:58 +0000
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 3AREn1NR001437; Mon, 27 Nov 2023 14:57:57 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2168.outbound.protection.outlook.com [104.47.59.168])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3uk7cbm50u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 27 Nov 2023 14:57:57 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by SJ2PR10MB7656.namprd10.prod.outlook.com (2603:10b6:a03:53e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29; Mon, 27 Nov
+ 2023 14:57:55 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f1c7:5e12:4b90:ecf9]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::f1c7:5e12:4b90:ecf9%7]) with mapi id 15.20.7025.022; Mon, 27 Nov 2023
+ 14:57:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,179 +63,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7709f04-8d34-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 663ac947-8d35-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2023-11-20;
+ bh=XQ/yRXFLIasp+bV/depr1T0UJ+5B064yXkIN3kExU9A=;
+ b=YJoQuOeIU7x7Tv6a0b1YEXtj37mRVKw/u1LkuM+QXTdcGJUev8fx6ZRmdQkQ3ExPb1um
+ rQ1yH0yDvahhUccRoyGS5fXJUjO6QUYBoTAoUoFewn5NO1w+mg4XyOqSCBTtXEo3LxTQ
+ CyNA4+w+lHFwTwexxS9+GH8cy1rGXsjMvCfQ2VuDiOmpsTMK7qH7OJUB33ATU1WCWPgA
+ OvNbtNif1YxMeBp8OdybgGTUfG31W4/t/fqxv+fst8s5f7p4fPL3tbSjM+FyGBgcq+JN
+ sGysDxwPoGrfOQocbgjyFgGJvxbLajBVWb4pJ8/OqHpr6kiUqtdG3tSkXdVM8/WeMge6 YA== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kSAJLLTcqEGsq55GEQNbFH/KrxTbUsv0CfUv6nIiV1vhl5xL8ZJ4ABGVGyVkV4hXVAgSZtFH5p2/VeOE6P+FTpNZOsO0d1vvl7/orutyPyAcPimqAOphvx+SF8s7gQteV2Oj7ZsaLY7SKDMmotwIBy1secOad8hlVW1PhU4MzI5k6KMNi6wViNewmO3lWtK+xyk3Gjd54+6Ubj+3FSLMX1aHO7P7UQkMHf+h4URVMrHdgmfC6xPqYLXt+JQXGJz5Zyd9DsCkV3OURkY9QDyuaWW7Eh9iypyBSsY0ubm+aY/z01+iE4w85lmXznLwprvQiDhG/xBO2bGhlb3Nh2JZZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XQ/yRXFLIasp+bV/depr1T0UJ+5B064yXkIN3kExU9A=;
+ b=kdZLVIAqpgen419s3kqbrZThgQwHmcPFDGyYV/AwAc59MRTEsKoKNj3o5LJGFd3arIjcFEQzQX5mpWBf8L1Jt/mIUj3flhXPrLOeSSBu6m1TThbKefPe2yJyjVPGaLtwS3J5Rwt4GUyyvoWYfqq06djWIwBNgPc0xm+V7ImEJa3rUZe1KfIDYdXjEgFYVE2GtPkXUZ0GJGwimcq95b/w1EKvmWX/cRgQgxhmg5b2g+Vju5z1Dfyi6ZM8ai0ntYv+CA1DPwfKaWmCiNSTjotdhE73e3O2P/tu8HmlYcY6XJmiBXFHB4zun+YtIk/c0962wNQppscIKT/AwF984UZwhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701096805; x=1701701605; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=myBAOJYFsx4wkz4rU0sw7kfl9scNwXPkx5D7RaVVg5Y=;
-        b=KZVOIMe5QMAtbKQJU71KfA6mkUDAtXljMJ6RdkVZ2pNF7ETjALxilH8/WcTi6Z/2Zv
-         bN37NS/JMNbabJmNVJ4m9k9QA0fQL9a6/KN+3dxfNMvvHOlo4cFA0WV2NrsAiBBdLNwR
-         i89zLH+uKu3LeuCa0lcv1lVqcp8luscjAWDPc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701096805; x=1701701605;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=myBAOJYFsx4wkz4rU0sw7kfl9scNwXPkx5D7RaVVg5Y=;
-        b=CnYB2uIgrWrJsT1JntxVIqtf3EZBugZCMxMPdoPRhVrwZCwVpdcJFTKC+D/hqD+C9x
-         OOp5BcbmSkRWo2gtn1Qe/9NAqk09THixT8S40UEH6kawZdFqnTcMmbY5TD/D5oTw82gc
-         S4gRZVczI1lnRgKapuKG4nr/fwrzQi30WivG9vaB4gB30oFxY3qXlep9A8o+CWzubjvk
-         bRM1hTpeDGmWf6/UdcXgbICFBDy0rQQF1RjY5DaCu3tsDTEktltGYQ59GfDGUWOnDmkm
-         e8YJU9om+hkJkocblDnC+3tImlTLZkiz/GXZk2BHzVIAGtduyrNeYOqP69a58kfQj2ql
-         KQEA==
-X-Gm-Message-State: AOJu0Yyw8eZz++GNywruaRUw7yojpsR5nMJfRuj30wuTjCrYbZ2DXvh8
-	ULicRvwWip9ckBzH41L4PBuwQw==
-X-Google-Smtp-Source: AGHT+IErJJqMy2gqG4PnroabFbwfgaSz2K9mSYXh2JNm6jERD+YGieUe0eBo5H8hKvFX7vFhNrIAmA==
-X-Received: by 2002:adf:e543:0:b0:32f:7be5:50f with SMTP id z3-20020adfe543000000b0032f7be5050fmr7924484wrm.48.1701096804755;
-        Mon, 27 Nov 2023 06:53:24 -0800 (PST)
-Date: Mon, 27 Nov 2023 15:53:23 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Neowutran <xen@neowutran.ovh>, Elliott Mitchell <ehem+xen@m5p.com>,
-	Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] x86/x2apic: introduce a mixed physical/cluster mode
-Message-ID: <ZWStY7G_Anh1MWHX@macbook>
-References: <20231024135150.49232-1-roger.pau@citrix.com>
- <ZT/Cs+MsBPibcc9D@mattapan.m5p.com>
- <ZT_LWjKgQxOE9lpj@macbook>
- <ZUqRfgAmzJRImW4O@mattapan.m5p.com>
- <hqj6xjxb7r5lb52biejbzzue2jth3rcth3bouadya4jwarll4l@oswerq2ejbli>
- <ZVgp0wshHg3ZQ/Md@mattapan.m5p.com>
- <81f6bbd5-0487-461a-af1a-dbb6ead47cab@citrix.com>
- <x4qzfuqkkebjkdfmhw6rvdhrn2ewa6ghjtjqd7xevnuylfahh7@pjratinsg76a>
- <a4b4546a-60b8-4d0e-bdf4-9af6699fb925@citrix.com>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XQ/yRXFLIasp+bV/depr1T0UJ+5B064yXkIN3kExU9A=;
+ b=HOupqUhUWW7hiR6SiRipDFOokJEUVBLd3IjWgDtU9WdsFfME7KAr+j6kip8SvWYQf39GmDrM0RoO95RucuMOUV72KigPL+p4aCLLmM/vMDNHsRcENLij9z7EPJsi+li1XpJ886ZElArR3tDeTDwHW5otZW8R/QX1ZYY4mzdt6Zk=
+Message-ID: <69ba2a99-90f7-4d39-afc6-971b0867a1c8@oracle.com>
+Date: Mon, 27 Nov 2023 09:57:49 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/xen: fix percpu vcpu_info allocation
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+        x86@kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
+References: <20231124074852.25161-1-jgross@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+In-Reply-To: <20231124074852.25161-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BYAPR06CA0066.namprd06.prod.outlook.com
+ (2603:10b6:a03:14b::43) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a4b4546a-60b8-4d0e-bdf4-9af6699fb925@citrix.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BLAPR10MB5009:EE_|SJ2PR10MB7656:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1224e94-307f-4d41-f828-08dbef593c7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	9mkdpxwEe5SnMwfbpN7cRV8ojIwQ10J4WGYuXYzI92Br3ojqvKkrejAhen8lTR/6jReX71pVakm8688VbFDtHRJd4r7YpXRTW4uWftHi7mdisfRWYv5Uhn+w4gwuRCkiTUgdUHL+R4aoRofMh9wxJTRj/D0gex+HpA1WYnDlH4fJ+/DntykNeFgfxZyHHquVesvW7zK0iUO+5cF3ocEj8dQ0FjwHyDDaOamR/eAbHEDy3CTOFwmFZoM8AnMfz2OLI0WOCCWqGvT9LXMK59wiwUygXy1DNwsdPmQ2MXH5f26t76ph71bdRrHnnhlt6EEMy0sY1xfukx7bT6XL8E4Q8VuANhT1ZISrqtz8N4sA/zOZVcgPzQxOStwI25F+cGQzB3tdPhLg8lacVU6SVdrRWkQAostrSnyuu1RGisoafnCaieqV9bnk9qxiEakY/Z0Gu6K4EXHth7GHcXLhhc12yz2so7dJJ/M7fcpcxxSa6XcBzEhcy3mCMBsmEBaGYjaGgfF4JYxUTvbfQpZhMEol4Xy0WfjT9cQ8xy6UACE8gBKgY+Qr0Z7EGIOjkC24I03dDBI048KA99vGnbpCpOPzEzJ3WML+GLTI/IAPRZzkp1RCI9trROyMBIMBltPOgTGP8Ucb3pyfCkY2LsgijqEYjw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39860400002)(346002)(136003)(396003)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(4326008)(44832011)(2906002)(4744005)(31686004)(8676002)(8936002)(41300700001)(26005)(66476007)(66556008)(316002)(54906003)(66946007)(6512007)(53546011)(5660300002)(2616005)(6506007)(6666004)(31696002)(86362001)(38100700002)(6486002)(478600001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NVNIWVJqdUR5bzRzZ205K2JCMnRCRlRXYVUwdURUeDdhWis4akluUGIxRDlB?=
+ =?utf-8?B?MVcrMHNiWjFodmpqU1V5cVBoMkZBYTh0QnBHMkNhT01Wai80bC92ZDJ6ZExK?=
+ =?utf-8?B?UnpOVFRIYU02SG5DbHVZb0ZRUXB2eU5LbHhXRzJXZmw0cVRhbTJCamNQOElh?=
+ =?utf-8?B?R0h0cGI2SnBZMGl2NlhPeVBCZS83RGpFUGlRS1ZmaENTSFdRMTRXcjh4aUVz?=
+ =?utf-8?B?REJMZkhQQ1ZZNTNaVlAyVVk1eEt0bDVnSzREeVpWZHZHbVJLNytvelorK2dy?=
+ =?utf-8?B?cGZ6YTVEWkNMTFR3TXcwNEI2YlpFSGZhMElybUJRckRNVUxuVTFLR3YvUStL?=
+ =?utf-8?B?UldQWnBCbjhIUVVyb1ZJYXhURGpTWFlyWExDSHZ2TnljK0REaXJPVnB0TmJ5?=
+ =?utf-8?B?QTd2Ynl0M3dRaldFSHJURmRIbnRiV0xyTksyNytvYUJYRzh6cXovWDY3SkEw?=
+ =?utf-8?B?VGVTVGg3QUhWNmZCcVUzVnBNaDRHMi9Pc1FIc0pZTXVXTUU4MUczYUwvamJa?=
+ =?utf-8?B?Z3VlS1JUOHAxNkhpc1VLUGpQUXNNb1c1ZEhIQmpUNkFvU1phVHR1cDdKQ0k2?=
+ =?utf-8?B?ZmpIMy9HS3ZKNi80bUw0WTFhSXhhcCtqU29pNkNUWU1jYnEwc3p2YlBnRCs1?=
+ =?utf-8?B?WEk3dlA3eTk3aXRacy8vVFdJS282dU1vRDB5OFZBSktJVVhuL3U3T1N6M2l5?=
+ =?utf-8?B?Z2MxSU0vcGdQNTJrSEZkbzZOemFUaUplQ0lnOUEwWlFoRjZibUNhRk5vUjFa?=
+ =?utf-8?B?WkJNL1NDcGNnMGpieXN5dnlCdXN4OVYwZ0dCV29hanRQL2Q1WUNpWjEzc1BJ?=
+ =?utf-8?B?QjN4VW5FV21CZFBYVXVkbjNNclFEOHFKNlM1cU53Lzc4TU1IcXk1VFhPWnNh?=
+ =?utf-8?B?eTVuMldycTZhREw1SENBZnhSRkhNUVorZm9GdStOZWJzWkp0TDVkS25SKzhT?=
+ =?utf-8?B?eklWcXlZRC9yVGNiZVRvRmxEb2ZWcEZwbkNRbytSbGhtM2t2amlsYkJDaWFv?=
+ =?utf-8?B?SE4xcTNteUxEeTB1YTVDd0t2ZUdZNHg5Qm12RHBEM2FzZEowRFRhQ0ViNDgx?=
+ =?utf-8?B?WDBsYWJ1eHozM29vWVM0NVk5WWNJSU8zbmhaVXY4T25HWEhwNmNPeUJqMmRT?=
+ =?utf-8?B?SC9YQXJuOGpEVXMyN3FVWFJMVHcrejA1dis5WnZPQ3JLRzRwM2NwVHlUWFdl?=
+ =?utf-8?B?UDZ0aWpJNHd2R0FwUDdQUlZpVEJmNmcvZTg2VFp3MTQ1b1YvenZaejZtODBC?=
+ =?utf-8?B?WHJDaG5jamNxTlBKZkI1ZDRhMUY0dVVwUFpTajhkZTVXRFFWMU9zSHlrWlQ2?=
+ =?utf-8?B?Z0VITitIbEZ4S3BUYzMvSE5UNGxBbUt4ZTBBVUoxQWtaYXVTU29QSExwVEN1?=
+ =?utf-8?B?NDVTcXF0WmxqQVcrQ1BXOTNJS2NpdjY5WWl0MjdNS0xERlZTdkdmV3dVUVBs?=
+ =?utf-8?B?NzVqaGtCZzMraTBkc2V0TGpyT1lEWTRGR2VXS3B6RW9yOTVmcEtWelpKL1A5?=
+ =?utf-8?B?MllsSHVyTUo4VTdYU0xTcFdDZklqQ1liZU5VVHlCWmlpTjZvcnlRWXYyUEpW?=
+ =?utf-8?B?WmJaM3hnWVFKdTNPQUtsaC81NTM1ZjJGQ04zbG9jYjczbVlCelBtelMvM0RQ?=
+ =?utf-8?B?OXRjUzQwSlFRSFZOeXFCRzlMS0hmUHcrOFhiV2FFM3hSMnhXeU5RMUZzbVNP?=
+ =?utf-8?B?SFVsV0Z5N0xrbDF3dXlKeXl0c0wwb0IydngzTjJVcklMaXFicXRYeWdGL1k3?=
+ =?utf-8?B?ZzcyR0d1V3BvRURjcVlFYkNuRlQyNGJURmhXYkJpbnYwMUZRRFBZZUFjQmps?=
+ =?utf-8?B?NmQxTkR2N3pXdlhUZUl4ZHhWazZpOXRxajRhZElveHZ3YUhQMHFEMmdUUHRP?=
+ =?utf-8?B?T1JLQ3V6M1lnbUdnMUdlbmpDTzhaN1VJblhzdjQ0OGVhSDhWbjF2SkVXU3hx?=
+ =?utf-8?B?eVRUYnphK0U1TWVRakNPeGdhd3lXWTZNWmVNcUVkQzVFRUtMZG1yckNyWmU3?=
+ =?utf-8?B?ZEpmVXlQSElUdkxEbnVnWGo3OTFNR2RER3ZhV2hlNngyQkx1M3dsZERhSFJa?=
+ =?utf-8?B?Vk1JcHNjT0NjU2hnc01IUzlYdGtsditWeFJUUHU4Mk9Hc0hRV243R2xzbko1?=
+ =?utf-8?B?WWZ3NHpUeXBBL3YyRnZyNzVCdHhYR0VoZWlKQ0tGZndoYVV0c2kvVzFCbm13?=
+ =?utf-8?B?Snc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
+	=?utf-8?B?ZkthYzZTRnZzTjg4NXlNY2FYV1hld0FMc0hMOWJYcHVKVzVSajRZNHFWcjFp?=
+ =?utf-8?B?SkNtZ2pXYVk1QVZZWVM3Zk5TeFBSM3JsYVl4aTZDWFZCTjExRWpxSzZiU2NC?=
+ =?utf-8?B?MlM3VWtGT3pDeHorM0FZRjEyeExUVElTSEZWTll2ME5vbEZ0ZXNKaVJqVkhW?=
+ =?utf-8?B?VUxwS2Y3RTZ3eEJmMzVpanJha2l3NDRPVmR5QjNjd3lybWJxS29PWXVWd2Iv?=
+ =?utf-8?B?MnhzNVRVdU40RGdWQjRvdWFMQTRqVUkrTkJzTHF6RVJpeFFOZzNIL1hjY2Jq?=
+ =?utf-8?B?YWQxSFBTWnA1SlpraUxJNEhDRE1qWjN5RlBQangwWjZzY3JpSThYZGNYalZu?=
+ =?utf-8?B?TnRYM0dLaDhMaXBWSEx3UXZUMUJ4M0dOR1hxb3RhUXVHQUlKMmpjdHVKVDd1?=
+ =?utf-8?B?VUxOdS9ZY1VjRW5PWDVqdHF2ZXdjN1o2MXF0RCthWUIraUdCYk13YWh6SHAr?=
+ =?utf-8?B?WEZNK29lMWc0YU1Sb1JKSDkzNGdTYkFveVJmNy9GZHh0OHFLUjBNRTZaa1JC?=
+ =?utf-8?B?QWhQSXFtRVREOURYQTVibzhUWlVUOWR4NkpJMVZOVVFjWWRMZWZ2RnVLeGpM?=
+ =?utf-8?B?Zm9menI5enR4Q2I2QmdGWUtrdjdmM2JzN2Q0WTJqejR3cFdyclpISldCLzdQ?=
+ =?utf-8?B?R1A0ZWhVTkQ1cjFBYjdDNFZLT09JMXNWNGRoQ3JUc2l3L2h2Q201OHluY1B5?=
+ =?utf-8?B?ckNwN3pNM29lOFBhS1VIbnBzMkxSSXBJeWdQWDFYTmJLTnRaSmtFNGR2Z001?=
+ =?utf-8?B?OWpWQXBvWXZrSDdGYWRaRWx0Z2FYT0ZNN1A3UXZnNEN6Sml2LzBBa0dRYlNK?=
+ =?utf-8?B?aGRCeHJrY3RZQnBTMkFTVThCTVdkUWt5NnZ1b1BpbzJ4eG9Dc0kxdDFLVTNk?=
+ =?utf-8?B?RitOY01BSy9sbWt3dWFlR3JnVUJZRXo1djMrWjBmaGRHajFNMnJlRUpEMVdq?=
+ =?utf-8?B?VFBHY3Bha0p0dE1VS3Q0aHh4WkZIeDJzL0IxZlA0Y2hjalZWaTAwaUZxanlz?=
+ =?utf-8?B?UFVsY00vMHFIOUxhNzV0NHgwR2xwenBvcmZaUlhRODdmeFZzc2hvZDRtS2hF?=
+ =?utf-8?B?TFdreEpFaVozQTNUN056a0FTdmhHN0tEMHNINnRuQU82YVhaU3RHTGZzVURQ?=
+ =?utf-8?B?SHByMTRacnhOOE83LzVrNFlNUVdodHg3WUxkZVFreWNOVEc2dWJHOTVCQ1hU?=
+ =?utf-8?B?S2JOQVNoOHNVSGhFN0Z3aHIyWC9NV2IzbUo5a1RiTFJGdHB0UWdMbnJYZmR3?=
+ =?utf-8?B?VTdqZG56RFpzdDltWmpVZEREeDlSOWhZenRyWXdaTElaYzlwbW5RTUdyRnNX?=
+ =?utf-8?B?L1ZsVTN2Q2NRZ04zaWpKS29DenVmVE1UVjZzcjY5VUZnbWUxZGZPVWljV0NJ?=
+ =?utf-8?B?VHE2MmNJTWFWTUE9PQ==?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1224e94-307f-4d41-f828-08dbef593c7b
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 14:57:55.0217
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dh+6rpqBGdEp/I1l2afm+7Rcu7osUZxyYr6OwucU9Drx2puWb+nH9BXwL3ELLqOfEQovgtZ5ivBM4JfQBmszZzENCsivn2JX4rpooghQjbg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7656
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-27_13,2023-11-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 suspectscore=0 bulkscore=0
+ mlxlogscore=999 adultscore=0 malwarescore=0 mlxscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311060000
+ definitions=main-2311270102
+X-Proofpoint-ORIG-GUID: lsAtb85udv-wQ7MVwfZq2cVdKscrQT9m
+X-Proofpoint-GUID: lsAtb85udv-wQ7MVwfZq2cVdKscrQT9m
 
-On Mon, Nov 27, 2023 at 11:49:03AM +0000, Andrew Cooper wrote:
-> On 24/11/2023 7:54 pm, Neowutran wrote:
-> > Hi, 
-> > I did some more tests and research, indeed this patch improved/solved my specific case. 
-> >
-> > Starting point: 
-> >
-> > I am using Xen version 4.17.2 (exactly this source https://github.com/QubesOS/qubes-vmm-xen).
-> > In the bios (a Asus motherboard), I configured the "local apic" parameter to "X2APIC".
-> > For Xen, I did not set the parameter "x2apic-mode" nor the parameter "x2apic_phys". 
-> >
-> > Case 1:
-> > I tryied to boot just like that, result: system is unusuably slow
-> >
-> > Case 2:
-> > Then, I applied a backport of the patch  
-> > https://lore.kernel.org/xen-devel/20231106142739.19650-1-roger.pau@citrix.com/raw 
-> > to the original Xen version of QubesOS and I recompiled. 
-> > (https://github.com/neowutran/qubes-vmm-xen/blob/x2apic3/X2APIC.patch)
-> > Result: it work, the system is usable. 
-> >
-> > Case 3:
-> > Then, I applied the patch https://github.com/xen-project/xen/commit/26a449ce32cef33f2cb50602be19fcc0c4223ba9
-> > to the original Xen version of QubesOS and I recompiled.
-> > (https://github.com/neowutran/qubes-vmm-xen/blob/x2apic4/X2APIC.patch)
-> > Result: system is  
-> > unusuably slow. 
-> >
-> >
-> > In "Case 2", the value returned by the function "apic_x2apic_probe" is "&apic_x2apic_mixed". 
-> > In "Case 3", the value returned by the function "apic_x2apic_probe" is "&apic_x2apic_cluster". 
-> >
-> >
-> > -------------------
-> > If you want / need, details for the function "apic_x2apic_probe":
-> >
-> > Known "input" value:
-> >
-> > "CONFIG_X2APIC_PHYSICAL" is not defined
-> > "iommu_intremap == iommu_intremap_off" = false
-> > "acpi_gbl_FADT.flags & ACPI_FADT_APIC_PHYSICAL" -> 0
-> > "acpi_gbl_FADT.flags" = 247205 (in decimal)
-> > "CONFIG_X2APIC_PHYSICAL" is not defined
-> > "CONFIG_X2APIC_MIXED" is defined, because it is the default choice
-> > "x2apic_mode" = 0
-> > "x2apic_phys" = -1
-> >
-> >
-> >
-> > Trace log (I did some call "printk" to trace what was going on)
-> > Case 2:
-> > (XEN) NEOWUTRAN: X2APIC_MODE: 0 
-> > (XEN) NEOWUTRAN: X2APIC_PHYS: -1 
-> > (XEN) NEOWUTRAN: acpi_gbl_FADT.flags: 247205 
-> > (XEN) NEOWUTRAN IOMMU_INTREMAP: different 
-> > (XEN) Neowutran: PASSE 2 
-> > (XEN) Neowutran: PASSE 4 
-> > (XEN) NEOWUTRAN: X2APIC_MODE: 3 
-> > (XEN) Neowutran: PASSE 7 
-> > (XEN) NEOWUTRAN: X2APIC_MODE: 3 
-> >  
-> > (XEN) NEOWUTRAN: X2APIC_PHYS: -1 
-> > (XEN) NEOWUTRAN: acpi_gbl_FADT.flags: 247205 
-> > (XEN) NEOWUTRAN IOMMU_INTREMAP: different 
-> >
-> > Case 3:
-> > (XEN) NEOWUTRAN2: X2APIC_PHYS: -1 
-> > (XEN) NEOWUTRAN2: acpi_gbl_FADT.flags: 247205 
-> > (XEN) NEOWUTRAN2 IOMMU_INTREMAP: different 
-> > (XEN) Neowutran2: Passe 1 
-> > (XEN) NEOWUTRAN2: X2APIC_PHYS: 0 
-> > (XEN) Neowutran2: Passe 6 
-> > (XEN) Neowutran2: Passe 7 
-> > (XEN) NEOWUTRAN2: X2APIC_PHYS: 0 
-> > (XEN) NEOWUTRAN2: acpi_gbl_FADT.flags: 247205 
-> > (XEN) NEOWUTRAN2 IOMMU_INTREMAP: different 
-> > (XEN) Neowutran2: Passe 2 
-> > (XEN) Neowutran2: Passe 4 
-> > (XEN) Neowutran2: Passe 7
-> >
-> >
-> >
-> > If you require the full logs, I could publish the full logs somewhere.
-> > ----------------------
-> >
-> > ( However I do not understand if the root issue is a buggy motherboard, a
-> > bug in xen, or if the parameter "X2APIC_PHYSICAL" should have been set
-> > by the QubesOS project, or something else)
-> 
-> Hello,
-> 
-> Thankyou for the analysis.
-> 
-> For your base version of QubeOS Xen, was that 4.13.2-5 ?   I can't see
-> any APIC changes in the patchqueue, and I believe all relevant bugfixes
-> are in 4.17.2, but I'd just like to confirm.
-> 
-> First, by "unusable slow", other than the speed, did everything else
-> appear to operate adequately?  Any chance you could guess the slowdown. 
-> i.e. was it half the speed, or "seconds per log console line during
-> boot" levels of slow?
-> 
-> 
-> Having re-reviewed 26a449ce32, the patch is correct but the reasoning is
-> wrong.
-> 
-> ACPI_FADT_APIC_CLUSTER predates x2APIC by almost a decade (it appeared
-> in ACPI 3.0), and is not relevant outside of xAPIC mode.  xAPIC has 2
-> different logical destination modes, cluster and flat, and their
-> applicability is dependent on whether you have fewer or more than 8
-> local APICs, hence that property being called out in the ACPI spec.
-> 
-> x2APIC does not have this property.  DFR was removed from the
-> architecture, and logical mode is strictly cluster.  So the bit should
-> never have been interpreted on an x2APIC code path.
 
-FWIW, Jan also pointed out that the ACPI spec mentions xAPIC strictly,
-even for ACPI_FADT_APIC_PHYSICAL.  It's possible APIC_PHYSICAL should
-also be enforced only in xAPIC mode.  Or it's also possible the ACPI
-spec was not updated to mention both xAPIC and x2APIC modes.
 
-Roger.
+On 11/24/23 2:48 AM, Juergen Gross wrote:
+> Today the percpu struct vcpu_info is allocated via DEFINE_PER_CPU(),
+> meaning that it could cross a page boundary. In this case registering
+> it with the hypervisor will fail, resulting in a panic().
+> 
+> This can easily be fixed by using DEFINE_PER_CPU_ALIGNED() instead,
+> as struct vcpu_info is guaranteed to have a size of 64 bytes, matching
+> the cache line size of x86 64-bit processors (Xen doesn't support
+> 32-bit processors).
+> 
+> Fixes: 5ead97c84fa7 ("xen: Core Xen implementation")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.con>
+
+although I am not sure in usefulness of BUILD_BUG_ON --- 64 bytes is part of ABI and hypervisor already has its own BUILD_BUG_ON for this.
+
+
+-boris
+
+
+> @@ -160,6 +163,7 @@ void xen_vcpu_setup(int cpu)
+>   	int err;
+>   	struct vcpu_info *vcpup;
+>   
+> +	BUILD_BUG_ON(sizeof(*vcpup) > SMP_CACHE_BYTES);
+>   	BUG_ON(HYPERVISOR_shared_info == &xen_dummy_shared_info);
 
