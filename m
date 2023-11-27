@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D5697F9DB5
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:38:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641836.1000782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 177977F9D6D
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:27:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641747.1000584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Z0F-0006kV-It; Mon, 27 Nov 2023 10:38:11 +0000
+	id 1r7Yph-0004Sh-2H; Mon, 27 Nov 2023 10:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641836.1000782; Mon, 27 Nov 2023 10:38:11 +0000
+Received: by outflank-mailman (output) from mailman id 641747.1000584; Mon, 27 Nov 2023 10:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Z0F-0006hl-Fb; Mon, 27 Nov 2023 10:38:11 +0000
-Received: by outflank-mailman (input) for mailman id 641836;
- Mon, 27 Nov 2023 10:38:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7Ypg-0004Q7-VG; Mon, 27 Nov 2023 10:27:16 +0000
+Received: by outflank-mailman (input) for mailman id 641747;
+ Mon, 27 Nov 2023 10:27:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gVlU=HI=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r7YpX-0000Co-8A
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:27:07 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82c2956e-8d0f-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 11:27:05 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ id 1r7Ype-0004NR-Rf
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:27:14 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 861a515c-8d0f-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 11:27:11 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1360D21B08;
- Mon, 27 Nov 2023 10:27:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 940B7202A5;
+ Mon, 27 Nov 2023 10:27:10 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id DDA65132A6;
- Mon, 27 Nov 2023 10:27:04 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 6AB62132A6;
+ Mon, 27 Nov 2023 10:27:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id wEHaNPhuZGX0fgAAn2gu4w
- (envelope-from <jgross@suse.com>); Mon, 27 Nov 2023 10:27:04 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id qH7JGP5uZGX/fgAAn2gu4w
+ (envelope-from <jgross@suse.com>); Mon, 27 Nov 2023 10:27:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,119 +52,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82c2956e-8d0f-11ee-98e2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1701080825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=90LIXqRuYEhUqlUUdjvXyDMioMTVUvaIxj4Mp4Wj2kc=;
-	b=QV5+kCYudc661PKbdtL8tjQn+f8YBhkFTsFP1xfGGZQz87GjDG8z2zpgl/KK4gdFqN/CKG
-	6U/wC9bgs3tkGWa7QTQFLG+4NMrSkW1OuCw3xFyhBZVRAZg2SUdPUwVV5J8tcjqVXG7iLb
-	fwO9QO0EqIgZlYCgBdS/L0CDtM9U8zc=
+X-Inumbo-ID: 861a515c-8d0f-11ee-9b0e-b553b5be7939
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 18/32] Mini-OS: add EXPORT_SYMBOL() instances to gnttab.c
-Date: Mon, 27 Nov 2023 11:25:09 +0100
-Message-Id: <20231127102523.28003-19-jgross@suse.com>
+Subject: [PATCH v3 19/32] Mini-OS: add EXPORT_SYMBOL() instances to ioremap.c
+Date: Mon, 27 Nov 2023 11:25:10 +0100
+Message-Id: <20231127102523.28003-20-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231127102523.28003-1-jgross@suse.com>
 References: <20231127102523.28003-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: ****************
-X-Spam-Score: 16.27
-X-Spamd-Result: default: False [16.27 / 50.00];
-	 ARC_NA(0.00)[];
+X-Spamd-Bar: +++++++++++++++
+X-Spam-Score: 15.00
+X-Rspamd-Server: rspamd1
+X-Spam-Level: ***************
+X-Rspamd-Queue-Id: 940B7202A5
+X-Spam-Flag: YES
+Authentication-Results: smtp-out2.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=suse.com (policy=quarantine);
+	spf=fail (smtp-out2.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:98 as permitted sender) smtp.mailfrom=jgross@suse.com
+X-Spamd-Result: default: False [15.00 / 50.00];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 BAYES_SPAM(4.87)[99.42%];
+	 R_SPF_FAIL(1.00)[-all];
+	 ARC_NA(0.00)[];
 	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 R_MISSING_CHARSET(2.50)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
-	 NEURAL_SPAM_SHORT(3.00)[1.000];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
 	 BROKEN_CONTENT_TYPE(1.50)[];
+	 DMARC_POLICY_QUARANTINE(1.50)[suse.com : No valid SPF, No valid DKIM,quarantine];
 	 RCPT_COUNT_FIVE(0.00)[5];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
 	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_SPAM_LONG(3.50)[1.000];
+	 BAYES_SPAM(0.16)[64.98%];
+	 MX_GOOD(-0.01)[];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
 	 MID_CONTAINS_FROM(1.00)[];
 	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
 	 MIME_TRACE(0.00)[0:+];
 	 RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
+X-Spam: Yes
 
-Add the needed instances of EXPORT_SYMBOL() to gnttab.c.
+Add the needed instances of EXPORT_SYMBOL() to ioremap.c.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V3:
 - new patch
 ---
- gnttab.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/ioremap.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/gnttab.c b/gnttab.c
-index 6978a9bc..8168ed5d 100644
---- a/gnttab.c
-+++ b/gnttab.c
-@@ -80,6 +80,7 @@ gnttab_grant_access(domid_t domid, unsigned long frame, int readonly)
- 
-     return ref;
+diff --git a/arch/x86/ioremap.c b/arch/x86/ioremap.c
+index 4384b1c0..fda74d5d 100644
+--- a/arch/x86/ioremap.c
++++ b/arch/x86/ioremap.c
+@@ -51,11 +51,13 @@ void *ioremap(unsigned long phys_addr, unsigned long size)
+ {
+     return __do_ioremap(phys_addr, size, IO_PROT);
  }
-+EXPORT_SYMBOL(gnttab_grant_access);
++EXPORT_SYMBOL(ioremap);
  
- grant_ref_t
- gnttab_grant_transfer(domid_t domid, unsigned long pfn)
-@@ -94,6 +95,7 @@ gnttab_grant_transfer(domid_t domid, unsigned long pfn)
- 
-     return ref;
+ void *ioremap_nocache(unsigned long phys_addr, unsigned long size)
+ {
+     return __do_ioremap(phys_addr, size, IO_PROT_NOCACHE);
  }
-+EXPORT_SYMBOL(gnttab_grant_transfer);
++EXPORT_SYMBOL(ioremap_nocache);
  
- int
- gnttab_end_access(grant_ref_t ref)
-@@ -114,6 +116,7 @@ gnttab_end_access(grant_ref_t ref)
-     put_free_entry(ref);
-     return 1;
+ /* Un-map the io-remapped region. Currently no list of existing mappings is
+  * maintained, so the caller has to supply the size */
+@@ -69,7 +71,6 @@ void iounmap(void *virt_addr, unsigned long size)
+ 
+     unmap_frames(va & PAGE_MASK, num_pages);
  }
-+EXPORT_SYMBOL(gnttab_end_access);
+-
+-
++EXPORT_SYMBOL(iounmap);
  
- unsigned long
- gnttab_end_transfer(grant_ref_t ref)
-@@ -144,6 +147,7 @@ gnttab_end_transfer(grant_ref_t ref)
- 
-     return frame;
- }
-+EXPORT_SYMBOL(gnttab_end_transfer);
- 
- grant_ref_t
- gnttab_alloc_and_grant(void **map)
-@@ -156,6 +160,7 @@ gnttab_alloc_and_grant(void **map)
-     gref = gnttab_grant_access(0, mfn, 0);
-     return gref;
- }
-+EXPORT_SYMBOL(gnttab_alloc_and_grant);
- 
- static const char * const gnttabop_error_msgs[] = GNTTABOP_error_msgs;
- 
-@@ -168,6 +173,7 @@ gnttabop_error(int16_t status)
-     else
-         return gnttabop_error_msgs[status];
- }
-+EXPORT_SYMBOL(gnttabop_error);
- 
- void
- init_gnttab(void)
+ /* -*-  Mode:C; c-basic-offset:4; tab-width:4 indent-tabs-mode:nil -*- */
 -- 
 2.35.3
 
