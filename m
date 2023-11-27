@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB6CA7FAA7F
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E8C7FAA7E
 	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 20:39:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642433.1001857 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.642436.1001866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7hR2-0000fb-CV; Mon, 27 Nov 2023 19:38:24 +0000
+	id 1r7hRu-0001AV-Pw; Mon, 27 Nov 2023 19:39:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642433.1001857; Mon, 27 Nov 2023 19:38:24 +0000
+Received: by outflank-mailman (output) from mailman id 642436.1001866; Mon, 27 Nov 2023 19:39:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7hR2-0000cH-8d; Mon, 27 Nov 2023 19:38:24 +0000
-Received: by outflank-mailman (input) for mailman id 642433;
- Mon, 27 Nov 2023 19:38:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7hRu-00017x-Mw; Mon, 27 Nov 2023 19:39:18 +0000
+Received: by outflank-mailman (input) for mailman id 642436;
+ Mon, 27 Nov 2023 19:39:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5+WV=HI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r7hR0-0000cB-Pb
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 19:38:22 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85909d29-8d5c-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 20:38:21 +0100 (CET)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2c503da4fd6so56392871fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 11:38:21 -0800 (PST)
+ id 1r7hRt-0000xu-Fp
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 19:39:17 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a627ba99-8d5c-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 20:39:16 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50aab3bf71fso6332964e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 11:39:16 -0800 (PST)
 Received: from [192.168.220.211] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- v19-20020a2e7a13000000b002c87132d618sm1421346ljc.91.2023.11.27.11.38.19
+ f27-20020ac2533b000000b0050b6662220csm1581533lfh.96.2023.11.27.11.39.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Nov 2023 11:38:20 -0800 (PST)
+ Mon, 27 Nov 2023 11:39:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85909d29-8d5c-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: a627ba99-8d5c-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701113901; x=1701718701; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1701113955; x=1701718755; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=y7ym5EEv0/qhi2tFDB8t3lmkWrG2Zwe9T6aXR1Ng7lU=;
-        b=laFL2c7bfpkYaS/B56rzgTfUJ9nEgIse44vPvlhZNV6dC8zwCNpaqh777CENbyZHJ8
-         AHNW7HMYBTLVm/W6ZP3EYEebNJ1hu7VBLV18Vq+M8AIeRv+WbQWAfJQctb1vtpSCuJmY
-         u60xEIJgyfntSq7VgE0tuqWy2Od38Xa4I3PERG0RmmR8qWStt4CZd6vwsWH+IXAVT9k9
-         Jx28LOL9i3V1T9IP795sCQMwZFGjRCTUEBHN7bwdt/WgpfH1vPn/RpHbFU/vUz+lXQcG
-         1dKeKpAxKaIZ09ghrDnIDXIV4MRQH0WAbZ/+Qnup1Xq5Kc6Iv6eNZntnyhZrPsjzJKI5
-         6ErA==
+        bh=PHM+G1lwPknfo1C3GINi4VSZV2dlYS1InrAKROhEkR8=;
+        b=WQsRidls+Mq4sWERzXVyyheDC2RVw+ZYGEtVCm+gI/PBwcovAiOTe6P7QIBnZb9iDW
+         P2/bV9/H/xOxv+CCLJgbjTfcd6iJfGuiG6VnR0hrxSrYBkSqkDS2V4C9wWl2f3sJC1il
+         1GbQcAm6Rwp4537E7ypdt0UcMoHmvvKMlg7K2lwDWHqIBw8Kt42F/NdTegAac+LrsygH
+         nU+AzIPbKwHCQKaQwiq+6G1RDmpf3pzS5P/ocmiIpvivoQ4Vv2MocQ3ABqEIbViBLrvz
+         TRoDFdoEo57pTpBTJRyQDCe+vekAOrmxOqvwOEPXYlX2YtgBhDJtBYOhgIXwM5SoRQPy
+         n6nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701113901; x=1701718701;
+        d=1e100.net; s=20230601; t=1701113955; x=1701718755;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=y7ym5EEv0/qhi2tFDB8t3lmkWrG2Zwe9T6aXR1Ng7lU=;
-        b=gqW7wejJAfpH6k4Exoyd/QaGDm+Y628h64XNQTxQGt6D6BCwQvUSBZO/5GnGJIHdet
-         FUQCmX4iB+qXPg8HqPsogb5uOowpPJr4lcHfCxWqcjLrgtA5VmarA/AAfzTwLYRvqExl
-         vDCjVTP6xkKD0bUXAvgv/EKE36t8eg6KQArsPn70XsUzRgv2eRAKFJCP9tX4ii9tMc9a
-         cCn21IgsSKTtYSLltqNuzA9PJeALQPM7uhWLjGkUo1z9Gf915NJmvPtbPVWVtED+yFm9
-         6rAJTi3XlQIjKWHxuzHoVILfEQPHR1W2eRXasG7AdMGBaPpBo0inn99XZZT+XPbYaZIf
-         AHxw==
-X-Gm-Message-State: AOJu0YwXEyYl0XKzD6fsRCMI1oBQhoaHOlZjd4miYIXc7BpSVlF2+Bb9
-	AYDCK4H2mEMP1b//nct9r7Gdj8r//Z6Wow==
-X-Google-Smtp-Source: AGHT+IG6TModd5iRVCGWHNckKn89o1Zhswr6HPzAlWFjYodMnx11gTbkg7kOGDyg4cFEFvopnzJQdQ==
-X-Received: by 2002:a2e:8602:0:b0:2c5:128c:fae7 with SMTP id a2-20020a2e8602000000b002c5128cfae7mr8779998lji.38.1701113900431;
-        Mon, 27 Nov 2023 11:38:20 -0800 (PST)
-Message-ID: <6543c6aec8f69878e37912924b6d6208136a02af.camel@gmail.com>
-Subject: Re: [PATCH v4 13/14] xen: ifdef inclusion of <asm/grant_table.h> in
- <xen/grant_table.h>
+        bh=PHM+G1lwPknfo1C3GINi4VSZV2dlYS1InrAKROhEkR8=;
+        b=tHf7yRV07hZLHkk4fqFCqGQe4IofhhV5Tu8nYUZAMbYhFzHFmuOZPyyv4BfnzLgF9y
+         v6bxZIxRxAdSFIPWsKpX2bOi5sOAXdeWH07rV6I4b/E9P4S+TvcMBUPazZpNMJW148m2
+         GVTJm3Vy03ckUC4zUsF6O9NYM6RCbwh6XNa8s8Xi0RKqqgYeSWlD7J9vdiNZ3wtpR0Sw
+         4/J0fyl0Uze21Nl/IC4cmKGJSuUrTN0O+/JwOPa2IuF+/nrERZKAAjYtfXu+mYBeOnv6
+         DP26FcPxb4dSq7ZtMyrdzy5UE9O/ZMrn9Yy9NhmvlltKJ2NzyH0TgpiPxAHJFDwozLoC
+         6uxQ==
+X-Gm-Message-State: AOJu0YyMOhUDc6Z5C86pA1NitUR7qrB/5X4TW/5D0qGVZMZazQ2znoB7
+	gP+SH1u+jpVIwXE/CfE7jKE=
+X-Google-Smtp-Source: AGHT+IGo+KaM6TrWKahR1U5gXW1+a1ILa6w6bPkfM2ogQYBoH8wUPvSd73KaLUe1V2abg9jfTg4Paw==
+X-Received: by 2002:a05:6512:3c87:b0:50b:a64d:acf with SMTP id h7-20020a0565123c8700b0050ba64d0acfmr9731529lfv.59.1701113955321;
+        Mon, 27 Nov 2023 11:39:15 -0800 (PST)
+Message-ID: <ead8e884eec7f0779c29c5d3d020f0283093fbee.camel@gmail.com>
+Subject: Re: [PATCH v4 12/14] xen/asm-generic: introduce stub header
+ softirq.h
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
@@ -86,49 +86,31 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Shawn
  Anastasio <sanastasio@raptorengineering.com>, xen-devel@lists.xenproject.org
-Date: Mon, 27 Nov 2023 21:38:19 +0200
-In-Reply-To: <21ca8f55-d720-489f-a2d0-59a1f78d3656@suse.com>
+Date: Mon, 27 Nov 2023 21:39:14 +0200
+In-Reply-To: <36211cd7-6b62-40ec-ba1e-110df2653c5d@suse.com>
 References: <cover.1701093907.git.oleksii.kurochko@gmail.com>
-	 <fdff8da7431ac6e8e44f08c3f95c897be23ec745.1701093907.git.oleksii.kurochko@gmail.com>
-	 <21ca8f55-d720-489f-a2d0-59a1f78d3656@suse.com>
+	 <090991be61252cabefc06da19597e3a86a4cd1da.1701093907.git.oleksii.kurochko@gmail.com>
+	 <36211cd7-6b62-40ec-ba1e-110df2653c5d@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
 MIME-Version: 1.0
 
-On Mon, 2023-11-27 at 15:41 +0100, Jan Beulich wrote:
+On Mon, 2023-11-27 at 15:36 +0100, Jan Beulich wrote:
 > On 27.11.2023 15:13, Oleksii Kurochko wrote:
-> > --- a/xen/arch/ppc/include/asm/grant_table.h
-> > +++ /dev/null
-> > @@ -1,5 +0,0 @@
-> > -/* SPDX-License-Identifier: GPL-2.0-only */
-> > -#ifndef __ASM_PPC_GRANT_TABLE_H__
-> > -#define __ASM_PPC_GRANT_TABLE_H__
-> > -
-> > -#endif /* __ASM_PPC_GRANT_TABLE_H__ */
+> > <asm/softirq.h> is common between Arm, PPC and RISC-V so it is
+> > moved to asm-generic.
+> >=20
+> > Drop Arm and PPC's softirq.h and use asm-generic version instead.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> > Added Acked-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Removing this header would be correct only if GRANT_TABLE had a
-> "depends on
-> !PPC", I'm afraid. Recall that the earlier randconfig adjustment in
-> CI was
-> actually requested to be undone, at which point what an arch's
-> defconfig
-> says isn't necessarily what a randconfig should use.
-We can do depends on !PPC && !RISCV but shouldn't it be enough only to
-turn CONFIG_GRANT_TABLE off in defconfig and set CONFIG_GRANT_TABLE=3Dn
-in EXTRA_XEN_CONFIG?
+> In case a v5 is needed, please drop the stray "Added".
+Thanks.
 
-Some time ago I also tried to redefine "Config GRANT_TABLE" in arch-
-specific Kconfig + defconfig + EXTRA_XEN_CONFIG and it works for me.
-Could it be solution instead of "depends on..." ?
-
-One more question I have do we really need this randconfig? On RISC-V
-side, I launched several time this patch series ( from v1 to v4 + runs
-during test of patch series ) and I haven't faced case
-when CONFIG_GRANT_TABLE=3Dn. ( but I turned the config off in defconfig +
-EXTRA_XEN_CONFIG ). Also when it "Config GRANT_TABLE" was re-defined in
-arch-specific KConfig I haven't face an issue with CONFIG_GRANT_TABLE
-too.
+I'll do in case a v5 is needed.
 
 ~ Oleksii
 
