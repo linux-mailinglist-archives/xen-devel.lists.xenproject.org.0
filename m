@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961107FA122
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 14:34:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642094.1001236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3951B7FA144
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 14:47:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642100.1001246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7bkz-0008Ag-Ph; Mon, 27 Nov 2023 13:34:37 +0000
+	id 1r7bwL-0003rA-Qg; Mon, 27 Nov 2023 13:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642094.1001236; Mon, 27 Nov 2023 13:34:37 +0000
+Received: by outflank-mailman (output) from mailman id 642100.1001246; Mon, 27 Nov 2023 13:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7bkz-00088a-Mx; Mon, 27 Nov 2023 13:34:37 +0000
-Received: by outflank-mailman (input) for mailman id 642094;
- Mon, 27 Nov 2023 13:34:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r7bky-00088Q-GC; Mon, 27 Nov 2023 13:34:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r7bky-0005Ni-23; Mon, 27 Nov 2023 13:34:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1r7bkx-0008JA-OU; Mon, 27 Nov 2023 13:34:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1r7bkx-0007sF-O2; Mon, 27 Nov 2023 13:34:35 +0000
+	id 1r7bwL-0003pN-No; Mon, 27 Nov 2023 13:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 642100;
+ Mon, 27 Nov 2023 13:46:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fJh/=HI=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
+ id 1r7bwJ-0003nj-U9
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 13:46:19 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 56cf92cf-8d2b-11ee-98e2-6d05b1d4d9a1;
+ Mon, 27 Nov 2023 14:46:17 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3316d3d11e1so2384584f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 05:46:17 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ v5-20020a5d6105000000b0032f7fab0712sm12018505wrt.52.2023.11.27.05.46.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Nov 2023 05:46:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,179 +44,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=F6JhvZX0azjhn78atV1ttwjKGFpeB4K46h2nm4C+zoY=; b=NOadTQN/wYyYjepmmrMb56Qgt4
-	ZUXnLkGgdmSn5srnzzaTLGXghwnOyDgfBdvRi3hi517z0MNuLJezl5o/a5Hc+mkJRJ68gW+VuFUFi
-	GoiMYQ//vJ9acF1dFZxcjisG+t1hVLla6ExjetqwajXEMdDRO5UkIH47sVRaV8vTEO5M=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183867-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 56cf92cf-8d2b-11ee-98e2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1701092777; x=1701697577; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YundCbgOqgxog8krRgkHDMLd3spWK5TLMe9KGeiCx18=;
+        b=I50vKEjuTOGuHoDB9kO2x5K+/PWjNnaN5HD6Vxm1UIsUkvycIvNjexWeTPkMGS/bHl
+         JxvJT8plOL5keMHEPiSujSwB7KADu62F6ejqcjmKcbMpv70nUCAMV8C7D6u0srHwiksZ
+         72X/sFO592FvJTBRSdvOxNEorbQFlwC3RfxNcPGfWGZ/f6BSQFlwhlhF+3FpfqMAl/Xh
+         pV4N9ZDHeaGbtfqneqLECqMErEhonBTaI0TvKlVvJW2Ol34j+sakC9goR92bOv3yv/BG
+         pfJDAEzmgUsvmWtxAw9oM/7GesufqQpU80ZmQ66RT2FR7sSONlT0SD+jOKJ5pLomhcOl
+         E1PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701092777; x=1701697577;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YundCbgOqgxog8krRgkHDMLd3spWK5TLMe9KGeiCx18=;
+        b=Zl52ExJzlIDjA/HQzRybaMFA4mlJe441njkxczoObSKjDHo0noRIPY98Ic4CXefD9f
+         aB/x/HHW8yUEcfZLjp+ZGHgk0R9cTIG2TVjjLxHeGPA/QTeHfo76iSt19RzCqGzwaJd3
+         vw75nksz6VMi3c6MAf7IDm5KqopXPFfcJpDd/QO+C8zAnHmLTVYcbZXThJdG2rqFFqIj
+         huJU53XQyqqi9J2FdDsGFasU6LBQ1/Ufebrpi3NkLYGYU4Q4X42OYEZWTZzFWWc/8qY5
+         PU74b3hvQmkCrfkiamUHO42gyNBvdbiz4/+srRyXEyH08HQgTxkcSHgN4M4vQX0q1UhD
+         MVjg==
+X-Gm-Message-State: AOJu0Yyb2C7aIOZ1KRhbORpQMAnO580/8yhzPzRNKFNOgBuInubtWqJS
+	V9VObgAXOFLAFgu95b78ZuyEXA==
+X-Google-Smtp-Source: AGHT+IHvZXohMRpWp9ljekBnVunFfdsN+Aw6FeyybD7055qlsh79kgqr97OPSx0yef3zaO71BUfszw==
+X-Received: by 2002:a5d:64e3:0:b0:333:47e:4cf4 with SMTP id g3-20020a5d64e3000000b00333047e4cf4mr1874886wri.15.1701092776947;
+        Mon, 27 Nov 2023 05:46:16 -0800 (PST)
+Date: Mon, 27 Nov 2023 16:46:12 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Julien Grall <jgrall@amazon.com>, Rahul Singh <rahul.singh@arm.com>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	David Vrabel <david.vrabel@citrix.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] xen/events: fix error codes in xen_bind_pirq_msi_to_irq()
+Message-ID: <4e85c67c-7e3a-47e1-a493-4906cd79306b@suswa.mountain>
+References: <60028de8-a137-423d-91d8-00b2942bd73d@moroto.mountain>
+ <6f9c8b08-3865-479f-8f32-686f778203f6@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 183867: trouble: blocked/broken
-X-Osstest-Failures:
-    ovmf:build-amd64:<job status>:broken:regression
-    ovmf:build-amd64-pvops:<job status>:broken:regression
-    ovmf:build-amd64-xsm:<job status>:broken:regression
-    ovmf:build-i386:<job status>:broken:regression
-    ovmf:build-i386-pvops:<job status>:broken:regression
-    ovmf:build-i386-xsm:<job status>:broken:regression
-    ovmf:build-i386:host-install(4):broken:regression
-    ovmf:build-i386-xsm:host-install(4):broken:regression
-    ovmf:build-i386-pvops:host-install(4):broken:regression
-    ovmf:build-amd64-pvops:host-install(4):broken:regression
-    ovmf:build-amd64:host-install(4):broken:regression
-    ovmf:build-amd64-xsm:host-install(4):broken:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=33e31c289cc7b417f110d6da70dc8224443d32d3
-X-Osstest-Versions-That:
-    ovmf=8736b8fdca85e02933cdb0a13309de14c9799ece
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 27 Nov 2023 13:34:35 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6f9c8b08-3865-479f-8f32-686f778203f6@suse.com>
 
-flight 183867 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183867/
+On Mon, Nov 27, 2023 at 02:17:05PM +0100, Juergen Gross wrote:
+> On 27.11.23 13:57, Dan Carpenter wrote:
+> > The error code needs to be set on these error paths.
+> > 
+> > Fixes: 5dd9ad32d775 ("xen/events: drop xen_allocate_irqs_dynamic()")
+> > Fixes: d2ba3166f23b ("xen/events: move drivers/xen/events.c into drivers/xen/events/")
+> 
+> Please drop the last Fixes: tag. Said patch didn't introduce any new problem.
 
-Failures and problems with tests :-(
+Yup.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-amd64-pvops               <job status>                 broken
- build-amd64-xsm                 <job status>                 broken
- build-i386                      <job status>                 broken
- build-i386-pvops                <job status>                 broken
- build-i386-xsm                  <job status>                 broken
- build-i386                    4 host-install(4)        broken REGR. vs. 183825
- build-i386-xsm                4 host-install(4)        broken REGR. vs. 183825
- build-i386-pvops              4 host-install(4)        broken REGR. vs. 183825
- build-amd64-pvops             4 host-install(4)        broken REGR. vs. 183825
- build-amd64                   4 host-install(4)        broken REGR. vs. 183825
- build-amd64-xsm               4 host-install(4)        broken REGR. vs. 183825
+> 
+> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > ---
+> > Are we going to backport these to stable?  Should I split this into two
+> > patches?
+> > 
+> >   drivers/xen/events/events_base.c | 8 ++++++--
+> >   1 file changed, 6 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+> > index f5edb9e27e3c..aae62603b461 100644
+> > --- a/drivers/xen/events/events_base.c
+> > +++ b/drivers/xen/events/events_base.c
+> > @@ -1105,13 +1105,17 @@ int xen_bind_pirq_msi_to_irq(struct pci_dev *dev, struct msi_desc *msidesc,
+> >   	mutex_lock(&irq_mapping_update_lock);
+> >   	irq = irq_alloc_descs(-1, 0, nvec, -1);
+> > -	if (irq < 0)
+> > +	if (irq < 0) {
+> > +		ret = irq;
+> >   		goto out;
+> > +	}
+> 
+> Why? The return value for the out: label is in irq.
+> 
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+This patch is full of embarrassment.  I misread this code.  I thought
+the out label was in the error handling block.
 
-version targeted for testing:
- ovmf                 33e31c289cc7b417f110d6da70dc8224443d32d3
-baseline version:
- ovmf                 8736b8fdca85e02933cdb0a13309de14c9799ece
+> >   	for (i = 0; i < nvec; i++) {
+> >   		info = xen_irq_init(irq + i);
+> > -		if (!info)
+> > +		if (!info) {
+> > +			ret = -ENOMEM;
+> >   			goto error_irq;
+> > +		}
+> 
+> It would be easier to just preset ret with -ENOMEM when defining it.
+> 
 
-Last test of basis   183825  2023-11-22 13:41:06 Z    4 days
-Testing same since   183867  2023-11-27 05:41:07 Z    0 days    1 attempts
+That only works if it fails on the first iteration.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  xieyuanh <yuanhao.xie@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
+I'll fix this up and resend.
 
-jobs:
- build-amd64-xsm                                              broken  
- build-i386-xsm                                               broken  
- build-amd64                                                  broken  
- build-i386                                                   broken  
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            broken  
- build-i386-pvops                                             broken  
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+regards,
+dan carpenter
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64 broken
-broken-job build-amd64-pvops broken
-broken-job build-amd64-xsm broken
-broken-job build-i386 broken
-broken-job build-i386-pvops broken
-broken-job build-i386-xsm broken
-broken-step build-i386 host-install(4)
-broken-step build-i386-xsm host-install(4)
-broken-step build-i386-pvops host-install(4)
-broken-step build-amd64-pvops host-install(4)
-broken-step build-amd64 host-install(4)
-broken-step build-amd64-xsm host-install(4)
-
-Not pushing.
-
-------------------------------------------------------------
-commit 33e31c289cc7b417f110d6da70dc8224443d32d3
-Author: xieyuanh <yuanhao.xie@intel.com>
-Date:   Mon Nov 20 12:09:14 2023 +0800
-
-    UefiCpuPkg/MpInitLib: Update the comments of _CPU_MP_DATA.
-    
-    No functional changes in this patch.
-    
-    Updates the comments of _CPU_MP_DATA to delcared that duplications in
-    CpuMpData are present to avoid to be direct accessed and comprehended
-     in assembly code. CpuMpData: Intended for use in C code while
-     ExchangeInfo are used in assembly code in this module.
-    
-    This patch deletes the unnecessary comments in CpuMpData, since
-    CpuMpData is no longer responsible for passing information from PEI to
-    DXE.
-    
-    Signed-off-by: Yuanhao Xie <yuanhao.xie@intel.com>
-    Cc: Laszlo Ersek lersek@redhat.com
-    Cc: Eric Dong <eric.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-
-commit cb3f41a9378822a0bcf0febf898af254b4994b8d
-Author: Yuanhao Xie <yuanhao.xie@intel.com>
-Date:   Fri Nov 10 16:03:02 2023 +0800
-
-    UefiCpuPkg/MpInitLib: Enable execute disable bit.
-    
-    This patch synchronizes the No-Execute bit in the IA32_EFER
-    register for the APs before the RestoreVolatileRegisters operation.
-    
-    The commit 964a4f0, titled "Eliminate the second INIT-SIPI-SIPI
-    sequence," replaces the second INIT-SIPI-SIPI sequence with the BSP
-    calling the SwitchApContext function to initiate a specialized start-up
-    signal, waking up APs in the DXE instead of using INIT-SIPI-SIPI.
-    
-    Due to this change, the logic for "Enable execute disable bit" in
-    MpFuncs.nasm is no longer executed. However, to ensure the proper setup
-    of the page table, it is necessary to synchronize the IA32_EFER.NXE for
-    APs before executing RestoreVolatileRegisters .
-    
-    Based on SDM:
-    If IA32_EFER.NXE is set to 1, it signifies execute-disable, meaning
-    instruction fetches are not allowed from the 4-KByte page controlled by
-    this entry. Conversely, if it is set to 0, it is reserved.
-    
-    Signed-off-by: Yuanhao Xie <yuanhao.xie@intel.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Laszlo Ersek lersek@redhat.com
-    Cc: Eric Dong <eric.dong@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
 
