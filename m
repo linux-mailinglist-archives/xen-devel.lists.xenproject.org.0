@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3407F9DAD
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:37:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641822.1000764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A04B7F9DC0
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:38:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641855.1000826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7YzY-0005if-2U; Mon, 27 Nov 2023 10:37:28 +0000
+	id 1r7Z0o-0008ST-Jn; Mon, 27 Nov 2023 10:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641822.1000764; Mon, 27 Nov 2023 10:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 641855.1000826; Mon, 27 Nov 2023 10:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7YzX-0005ff-VO; Mon, 27 Nov 2023 10:37:27 +0000
-Received: by outflank-mailman (input) for mailman id 641822;
- Mon, 27 Nov 2023 10:37:26 +0000
+	id 1r7Z0o-0008QT-Dm; Mon, 27 Nov 2023 10:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 641855;
+ Mon, 27 Nov 2023 10:38:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gVlU=HI=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r7Yoj-0000Co-Hl
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:26:17 +0000
+ id 1r7Yoo-0000Co-75
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:26:22 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 651adca2-8d0f-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 11:26:15 +0100 (CET)
+ id 6865c561-8d0f-11ee-98e2-6d05b1d4d9a1;
+ Mon, 27 Nov 2023 11:26:21 +0100 (CET)
 Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5714D21B08;
- Mon, 27 Nov 2023 10:26:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D80AA21A5E;
+ Mon, 27 Nov 2023 10:26:20 +0000 (UTC)
 Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D7B1132A6;
- Mon, 27 Nov 2023 10:26:15 +0000 (UTC)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id AEEAA132A6;
+ Mon, 27 Nov 2023 10:26:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id ARfVCcduZGW1fgAAn2gu4w
- (envelope-from <jgross@suse.com>); Mon, 27 Nov 2023 10:26:15 +0000
+ by imap2.dmz-prg2.suse.org with ESMTPSA id JriAKcxuZGW3fgAAn2gu4w
+ (envelope-from <jgross@suse.com>); Mon, 27 Nov 2023 10:26:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 651adca2-8d0f-11ee-98e2-6d05b1d4d9a1
+X-Inumbo-ID: 6865c561-8d0f-11ee-98e2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1701080775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1701080780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0DRQp+amWyFgc15qgsA7zVmZocwANgk7w1gaKIUS3eY=;
-	b=d5MvaSh4q9nCVYwqr++Wx8UgiX7f6CC2PE4OGZgo2LW/fPYdtLx5j5wncG7/YYT87kEQJT
-	tePy0SXfyF8EECUPGw5FYhM/bztxtBYwxGtGUMZ9idU+BlEbfXYj15Cvb1GAqgQbzZTLa4
-	poPn5xzk9p54DzwuLPREzUi7oqaDYos=
+	bh=ktKhOGmur4jQ1Brbb0nDkjWoCytuJc3+OYR5hECH7CE=;
+	b=IjYs3Cs2b2fDJ3zRFhwBZ2fdsjgytBwFlhVyufPK6Kks/dxRbKSpbdlKH+yCrYRmlsjoI6
+	FDaSPq0TJBmoKfP94ajBemev0J17uiv40Ca4NESo7mvgs7+88VfKCSBVo18EHNxgam5/Oe
+	fc/+FfV8ugeqZS1kaWzBBK+VAtajTCA=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 09/32] Mini-OS: add EXPORT_SYMBOL() instances to lib/math.c
-Date: Mon, 27 Nov 2023 11:25:00 +0100
-Message-Id: <20231127102523.28003-10-jgross@suse.com>
+Subject: [PATCH v3 10/32] Mini-OS: add EXPORT_SYMBOL() instances to lib/printf.c
+Date: Mon, 27 Nov 2023 11:25:01 +0100
+Message-Id: <20231127102523.28003-11-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20231127102523.28003-1-jgross@suse.com>
 References: <20231127102523.28003-1-jgross@suse.com>
@@ -78,11 +78,10 @@ Content-Transfer-Encoding: 8bit
 Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: ***********
-X-Spam-Score: 11.43
-X-Spamd-Result: default: False [11.43 / 50.00];
+X-Spam-Score: 11.40
+X-Spamd-Result: default: False [11.40 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 BAYES_SPAM(0.03)[52.25%];
 	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
@@ -102,65 +101,92 @@ X-Spamd-Result: default: False [11.43 / 50.00];
 	 RCVD_TLS_ALL(0.00)[]
 X-Spam-Flag: NO
 
-Add the needed instances of EXPORT_SYMBOL() to lib/math.c.
+Add the needed instances of EXPORT_SYMBOL() to lib/printf.c.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V3:
 - new patch
 ---
- lib/math.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ lib/printf.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/lib/math.c b/lib/math.c
-index b98cc1d2..9ee9fcdb 100644
---- a/lib/math.c
-+++ b/lib/math.c
-@@ -338,6 +338,7 @@ __qdivrem(u_quad_t uq, u_quad_t vq, u_quad_t *arq)
- 	tmp.ul[L] = COMBINE(qspace[3], qspace[4]);
- 	return (tmp.q);
+diff --git a/lib/printf.c b/lib/printf.c
+index f9e9d682..0e054957 100644
+--- a/lib/printf.c
++++ b/lib/printf.c
+@@ -150,6 +150,7 @@ strtoul(const char *nptr, char **endptr, int base)
+                 *endptr = __DECONST(char *, any ? s - 1 : nptr);
+         return (acc);
  }
-+EXPORT_SYMBOL(__qdivrem);
++EXPORT_SYMBOL(strtoul);
  
  /*
-  * From
-@@ -365,6 +366,7 @@ __divdi3(quad_t a, quad_t b)
- 	uq = __qdivrem(ua, ub, (u_quad_t *)0);
- 	return (neg ? -uq : uq);
+  * Convert a string to a quad integer.
+@@ -241,6 +242,7 @@ strtoq(const char *nptr, char **endptr, int base)
+                 *endptr = __DECONST(char *, any ? s - 1 : nptr);
+         return (acc);
  }
-+EXPORT_SYMBOL(__divdi3);
++EXPORT_SYMBOL(strtoq);
  
  /*
-  * From
-@@ -379,6 +381,7 @@ __udivdi3(u_quad_t a, u_quad_t b)
+  * Convert a string to an unsigned quad integer.
+@@ -309,6 +311,7 @@ strtouq(const char *nptr, char **endptr, int base)
+                 *endptr = __DECONST(char *, any ? s - 1 : nptr);
+         return (acc);
+ }
++EXPORT_SYMBOL(strtouq);
+ 
+ /*
+  * Scaled down version of printf(3).
+@@ -585,6 +588,7 @@ number:
+         }
+ #undef PCHAR
+ }
++EXPORT_SYMBOL(vsnprintf);
+ 
+ /**
+  * snprintf - Format a string and place it in a buffer
+@@ -603,6 +607,7 @@ int snprintf(char * buf, size_t size, const char *fmt, ...)
+     va_end(args);
+     return i;
+ }
++EXPORT_SYMBOL(snprintf);
+ 
+ /**
+  * vsprintf - Format a string and place it in a buffer
+@@ -617,7 +622,7 @@ int vsprintf(char *buf, const char *fmt, va_list args)
  {
- 	return (__qdivrem(a, b, (u_quad_t *)0));
+     return vsnprintf(buf, 0xFFFFFFFFUL, fmt, args);
  }
-+EXPORT_SYMBOL(__udivdi3);
+-
++EXPORT_SYMBOL(vsprintf);
+ 
+ /**
+  * sprintf - Format a string and place it in a buffer
+@@ -635,6 +640,7 @@ int sprintf(char * buf, const char *fmt, ...)
+     va_end(args);
+     return i;
+ }
++EXPORT_SYMBOL(sprintf);
  
  /*
-  * From
-@@ -396,6 +399,7 @@ __umoddi3(u_quad_t a, u_quad_t b)
- 	(void)__qdivrem(a, b, &r);
- 	return (r);
+  * Fill in the given table from the scanset at the given format
+@@ -1214,6 +1220,7 @@ input_failure:
+ match_failure:
+         return (nassigned);
  }
-+EXPORT_SYMBOL(__umoddi3);
++EXPORT_SYMBOL(vsscanf);
  
- /*
-  * Returns the quotient and places remainder in r
-@@ -405,6 +409,7 @@ __udivmoddi4(u_quad_t a, u_quad_t b, u_quad_t *r)
- {
- 	return __qdivrem(a, b, r);
+ /**
+  * sscanf - Unformat a buffer into a list of arguments
+@@ -1231,5 +1238,6 @@ int sscanf(const char * buf, const char * fmt, ...)
+ 	va_end(args);
+ 	return i;
  }
-+EXPORT_SYMBOL(__udivmoddi4);
++EXPORT_SYMBOL(sscanf);
  
- /*
-  * From
-@@ -434,3 +439,4 @@ __moddi3(quad_t a, quad_t b)
- 	(void)__qdivrem(ua, ub, &ur);
- 	return (neg ? -ur : ur);
- }
-+EXPORT_SYMBOL(__moddi3);
+ #endif
 -- 
 2.35.3
 
