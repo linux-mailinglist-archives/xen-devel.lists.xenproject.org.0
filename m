@@ -2,52 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13097F9C07
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 09:46:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641696.1000472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B49BD7F9C75
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 10:16:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641704.1000482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7XGC-0003YR-GF; Mon, 27 Nov 2023 08:46:32 +0000
+	id 1r7Xiw-0002SS-OR; Mon, 27 Nov 2023 09:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641696.1000472; Mon, 27 Nov 2023 08:46:32 +0000
+Received: by outflank-mailman (output) from mailman id 641704.1000482; Mon, 27 Nov 2023 09:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7XGC-0003Ve-D4; Mon, 27 Nov 2023 08:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 641696;
- Mon, 27 Nov 2023 08:46:30 +0000
+	id 1r7Xiw-0002QB-KU; Mon, 27 Nov 2023 09:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 641704;
+ Mon, 27 Nov 2023 09:16:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lpOF=HI=amazon.co.uk=prvs=6887de0c1=dwmw@srs-se1.protection.inumbo.net>)
- id 1r7XGA-0003VY-En
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 08:46:30 +0000
-Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
- [99.78.197.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 734a1a14-8d01-11ee-9b0e-b553b5be7939;
- Mon, 27 Nov 2023 09:46:28 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-pdx-2a-m6i4x-1197e3af.us-west-2.amazon.com)
- ([10.25.36.214]) by smtp-border-fw-80006.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2023 08:46:24 +0000
-Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (pdx2-ws-svc-p26-lb5-vlan2.pdx.amazon.com [10.39.38.66])
- by email-inbound-relay-pdx-2a-m6i4x-1197e3af.us-west-2.amazon.com (Postfix)
- with ESMTPS id 266D8100FBD; Mon, 27 Nov 2023 08:46:23 +0000 (UTC)
-Received: from EX19MTAUEA002.ant.amazon.com [10.0.44.209:44475]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.6.41:2525] with
- esmtp (Farcaster)
- id 141044fc-c10d-4cf8-bc11-f71ae1145270; Mon, 27 Nov 2023 08:46:22 +0000 (UTC)
-Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
- EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.39; Mon, 27 Nov 2023 08:46:22 +0000
-Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
- EX19D008UEC001.ant.amazon.com (10.252.135.232) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.39;
- Mon, 27 Nov 2023 08:46:22 +0000
-Received: from EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797]) by
- EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797%3]) with mapi id
- 15.02.1118.039; Mon, 27 Nov 2023 08:46:22 +0000
+ <SRS0=k6Bw=HI=epam.com=prvs=56951a8688=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1r7Xiu-0002OM-J0
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 09:16:12 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 99b2c031-8d05-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 10:16:09 +0100 (CET)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AR8lxbW031745; Mon, 27 Nov 2023 09:15:47 GMT
+Received: from eur02-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur02lp2104.outbound.protection.outlook.com [104.47.11.104])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3umqhjg7ga-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Nov 2023 09:15:47 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by AS8PR03MB6741.eurprd03.prod.outlook.com (2603:10a6:20b:23c::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Mon, 27 Nov
+ 2023 09:15:43 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::8e03:368:1fd7:1822%6]) with mapi id 15.20.7025.022; Mon, 27 Nov 2023
+ 09:15:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,267 +51,206 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 734a1a14-8d01-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1701074788; x=1732610788;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to;
-  bh=2f4ZZ4v4ePsCyOCB+yogvbTxlVa8DfjeKoghatgYhHI=;
-  b=KeWcBEOjfc+eNBLZZI7Yw7mdHXnumIevTAUFTOIFLp/fS7qgJHvA+IRh
-   zj6vbBwMOQvAUAtFK1YgzPU0mKwBi91AmNkmQxezlxFfL828QTUx1TnCo
-   2hOd4APbZVY6lLYxFLIp6BcY/3j67+VZh6pxs9IqHnLbfAma/FgtFs4TJ
-   s=;
-X-Amazon-filename: smime.p7s
-X-IronPort-AV: E=Sophos;i="6.04,230,1695686400"; 
-   d="p7s'?scan'208";a="255012342"
-Content-Type: multipart/mixed; boundary="===============3000760005954283363=="
-MIME-Version: 1.0
-X-Farcaster-Flow-ID: 141044fc-c10d-4cf8-bc11-f71ae1145270
-From: "Woodhouse, David" <dwmw@amazon.co.uk>
-To: "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
-CC: "eduardo@habkost.net" <eduardo@habkost.net>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "marcel.apfelbaum@gmail.com"
-	<marcel.apfelbaum@gmail.com>, "groug@kaod.org" <groug@kaod.org>,
-	"qemu_oss@crudebyte.com" <qemu_oss@crudebyte.com>, "pbonzini@redhat.com"
-	<pbonzini@redhat.com>, "richard.henderson@linaro.org"
-	<richard.henderson@linaro.org>, "julien@xen.org" <julien@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"paul@xen.org" <paul@xen.org>, "anthony.perard@citrix.com"
-	<anthony.perard@citrix.com>, "kraxel@redhat.com" <kraxel@redhat.com>,
-	"marcandre.lureau@redhat.com" <marcandre.lureau@redhat.com>,
-	"berrange@redhat.com" <berrange@redhat.com>, "philmd@linaro.org"
-	<philmd@linaro.org>, "thuth@redhat.com" <thuth@redhat.com>, "mst@redhat.com"
+X-Inumbo-ID: 99b2c031-8d05-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kJeuUpsTFBpbEsDoGoRWb+oOmrBya7GVJ19HAzUxp+ZeEYDu8ZgqqhFrJR3U8BV893Of25hDTfT4B74ykVHtQdbjPaKEnjHneRQ6L5gEC28xlm+ApV6dW/OyJs7xw1DuyvBZVjFRN0GskVp8/kS3YwHsE1q72tAtvsonqwM9SqjMgsr6ufBAlQvo4KDCJ7dS/7dRre5fnPtfDU0ji8cor3OqDjbORlwmiggMRg2Cz0hI44H9NdlhwlSJJLKzOReU3DGl9EPV9JfgLe6MYORkucvwg5DieKCnWVaxliKEL49rXr6EofSJrzGIpee8cWS5OgIf5kpMJdoiuv6z6kNDBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xFzyiHh/QMZTRP7tUR5OUPs10G9l38g+TiH8pO4ZwuA=;
+ b=lrjb+f4aPpKQTuOOnON5d1uq5kIRpCcNpNpT19sEKo3fV7tXS4TmNTKBpCCo3jCLUfLU9d0f0Bb2J6n0Ay3JYo3oAVp3yvBiF66Ill0GsJtFMSnJcMT+VGbWOm7Zl6KWmDDD7yoKJHuY7IijGJ/KINTlXbte6L8zkjHwUTbW4ipL1yvSG6AF5HhRFX9NrEiJni5dVTCVxs8+RYi8GH6dxvoeIbYlpRWiN8FX5ACpR7hATnh8awrjpXNPPIlPsta7AUU7SH9GQPZpOy9omy6ZjuvNhxlzeGVLvl+/6Gjfw77exUvGXv+ZXuw0B6KqNKsh7qWlVPH8qQoh4l1fYNOxkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xFzyiHh/QMZTRP7tUR5OUPs10G9l38g+TiH8pO4ZwuA=;
+ b=eO9sZuv12/6ZmTFmCARXgknOGla776TtBHAUUo6eE8A3SepKva02zn1wltjpjsWOoJb0g+sn+iNd1eUBLgmbgpSJA/n5E2gvfLxSJ2B2fFADvHETkoH7DZ8tSfuExdVfpa3kZfvoyB1i8PxcqFCXueyi0reAdBABttYxggBvSA3fLuZ2LGcx8OdQ/Ck1LtgrWcjN6zYx29xYxyWJapWDOP4JSWNBX0NmPFbDOkO29ocko20ysPLDYirgIWqsMJnLNfyTovDM2L6RSnH1yyOEdnASWvdw4segwzR48hcMcI7mtwwdYmhyEe9KB48BW0/gBwpELgmP8zwvsOpzkGVpxg==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "Woodhouse, David" <dwmw@amazon.co.uk>
+CC: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+        "eduardo@habkost.net"
+	<eduardo@habkost.net>,
+        "sstabellini@kernel.org" <sstabellini@kernel.org>,
+        "marcel.apfelbaum@gmail.com" <marcel.apfelbaum@gmail.com>,
+        "groug@kaod.org"
+	<groug@kaod.org>,
+        "qemu_oss@crudebyte.com" <qemu_oss@crudebyte.com>,
+        "pbonzini@redhat.com" <pbonzini@redhat.com>,
+        "richard.henderson@linaro.org"
+	<richard.henderson@linaro.org>,
+        "julien@xen.org" <julien@xen.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "paul@xen.org" <paul@xen.org>,
+        "anthony.perard@citrix.com"
+	<anthony.perard@citrix.com>,
+        "kraxel@redhat.com" <kraxel@redhat.com>,
+        "marcandre.lureau@redhat.com" <marcandre.lureau@redhat.com>,
+        "berrange@redhat.com" <berrange@redhat.com>,
+        "philmd@linaro.org"
+	<philmd@linaro.org>,
+        "thuth@redhat.com" <thuth@redhat.com>,
+        "mst@redhat.com"
 	<mst@redhat.com>
 Subject: Re: [RFC PATCH v3 3/5] xen: add option to disable legacy backends
 Thread-Topic: [RFC PATCH v3 3/5] xen: add option to disable legacy backends
-Thread-Index: AQHaIQ4y9k/QGRqAmk6N5LqHUfs1XQ==
-Date: Mon, 27 Nov 2023 08:46:21 +0000
-Message-ID: <a876dd8d01570f76da06f009eb8ed96bc3e0fea6.camel@amazon.co.uk>
+Thread-Index: AQHaHy1b1vaaoDkYtEa69hkezixH/LCN3giAgAAHWwA=
+Date: Mon, 27 Nov 2023 09:15:43 +0000
+Message-ID: <871qcbwo8x.fsf@epam.com>
 References: <20231124232400.943580-1-volodymyr_babchuk@epam.com>
-	 <20231124232400.943580-4-volodymyr_babchuk@epam.com>
-In-Reply-To: <20231124232400.943580-4-volodymyr_babchuk@epam.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.106.82.23]
-MIME-Version: 1.0
-Precedence: Bulk
-
---===============3000760005954283363==
+ <20231124232400.943580-4-volodymyr_babchuk@epam.com>
+ <a876dd8d01570f76da06f009eb8ed96bc3e0fea6.camel@amazon.co.uk>
+In-Reply-To: <a876dd8d01570f76da06f009eb8ed96bc3e0fea6.camel@amazon.co.uk>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Type: multipart/signed; micalg=sha-256;
-	protocol="application/pkcs7-signature"; boundary="=-x5o5G14s2DLSe/tKK17B"
-
---=-x5o5G14s2DLSe/tKK17B
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.10.7; emacs 29.1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AS8PR03MB6741:EE_
+x-ms-office365-filtering-correlation-id: c908b975-f085-4d55-c2cc-08dbef296ec9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ EnMH7v1sM1TrQ/uGzdFyLfhC+9A6MIVXVC93H1x/8Msu/fPpskJ331arUSBhaWpt9MFGO2gZX0TexrVtBKKh97FlNTvxw7ZzS3R1vbIsOINtnqQawlAAHz0KMOLKbVnPNdA8lOjiDsCMpL36LsX75tHEERaL3ArgO5PCrrh+WTki1Dtd75gvKhewoss01l3WVOCiYzh5IeQ2jEGpCgGMGfaHxF7EJwOfA/yleus9iNsx+0xs/6iSVGD8vBO86nKQ+BPsEsee/yOLJwAKSn2vYuNG1yicA3ntoCmR+rDZdmae1YztQtCgl3HY4jeMC/JAwQk06xa+K1eJkLoeU2+DJapGC1EIZmcWxbUcAed4WBXk3c9QpfD9k65fQh0uXXI98aa5w+WKEQtpT60CGBGveKy5wTQkFnaMxrHh7fhcJFtn105eE5AxAOeTIByHRDPA5wFptCY5Q1uvw8qKMkFrD8kbzsC9NHNNqcDYvftG1N2MAyF8gufNdA/L+PYq/jQZxPW09lB0Tc4+Yl3ab5S/DdS+De9aKCrPfn2UeBhIQXG8WILDiaa9wYEPTqAkR2kxIec1LLKNs3nbl/ocrW0rxakauNsRwvko7DJcbea5P/o=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(39860400002)(366004)(396003)(136003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(38100700002)(41300700001)(36756003)(86362001)(4001150100001)(38070700009)(122000001)(2906002)(5660300002)(7416002)(26005)(2616005)(6512007)(55236004)(6506007)(71200400001)(8676002)(4326008)(8936002)(478600001)(6486002)(966005)(66446008)(66946007)(91956017)(64756008)(76116006)(54906003)(66476007)(66556008)(6916009)(316002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?/kAxux74LSvL9unhpDUhwi2npPk0bO4Ngurhrzvka/K3sIBaC6o1vA1UdH?=
+ =?iso-8859-1?Q?PY4GQ7K0YolvN4Y9Vh0g9weeUbrfF+r7H8Xa8asEE9jGfjECs6iAsXC6Dx?=
+ =?iso-8859-1?Q?TjXTVABxWDsiUztd95MoXdzSdE2JJkZNdRsYeGAUYgJBE3vjEp3erDYHpB?=
+ =?iso-8859-1?Q?YOl9LOWmCvcQo9f2g5lLIlniIH8YvoVC5fteTVDM6wR5pe1d/8XjG5dY1I?=
+ =?iso-8859-1?Q?3eC1hvycDZetgNeQwqMwztUKTJrW2525Xn1Y6JCi1F4YNW4PZlqMMxl3fT?=
+ =?iso-8859-1?Q?EhUv5Mf7q6+w+ZZWv8CXnvtZSvLuJyXLNP/6teBkqkO+VN0IRBEm0Nrx+k?=
+ =?iso-8859-1?Q?k14uAtpS3Ru9dvpnAiUoWBTDgwPq4K+4aEuI60mEw9rBbITJwmcWSHP+yB?=
+ =?iso-8859-1?Q?oLjr+0KDz7/cUTQ/saKJbm6NI1HLwOnzoXx8upCwruwU+AnGFwkFE+MDvw?=
+ =?iso-8859-1?Q?a8fB0uzu3WfudWpP3vOS6OWArdqnM695ArNj97jNny9E5z98OP6emLYlKo?=
+ =?iso-8859-1?Q?QJBMfiRWS5ts2jNWxUDmkOEVXKt4mXIYyMmhzKGysNCRr5m6XtbfWpgV2Y?=
+ =?iso-8859-1?Q?dgvmgG6PVgPJ5CID+VXPnZ1hMfuhNQ2F/R3FiuIL4NURn9GcpTj27FSQoA?=
+ =?iso-8859-1?Q?azpwW8Qg0qcjtCdA4gmy2aE2xhcKkTFxGOS45zCvI5vhts6TrcdefYgWnQ?=
+ =?iso-8859-1?Q?0TMdwCS+MsWG1h1Su7lpncocqy3u7IbmcvuTptew4d6LJPtPGoMb++YNCT?=
+ =?iso-8859-1?Q?AA2M8BpXG47qmn8JGWsWUMkj28oANcU9BH/4ztMIUmultPK0Ozf4jyBZ33?=
+ =?iso-8859-1?Q?rwaMS6LQszUkJxUYFlDpadIzVfphcMvUh63Od/XcP8LahJ4bWL/2RVI7os?=
+ =?iso-8859-1?Q?M18E6UEtbB8xyHUcQB4ElPFfplPFySnTfM6TRpnMjQKDhDriKQWaDHrUEN?=
+ =?iso-8859-1?Q?FCMgO9aamXFra483fox8spzj4Vt8/tUoxKQqRiFI285QY4As/meKq8hsLc?=
+ =?iso-8859-1?Q?oSDMo8FEyMcEPQfn1jWId5hiWitRpla+hWx90FWcmn6C3TTKjm4dI16KwS?=
+ =?iso-8859-1?Q?BLZ2QNWksGvIjs1e8zlci31M7b/djjjh1mIHhhhtC7HmA5BUkl6S6X8M+O?=
+ =?iso-8859-1?Q?6x3ZE7gHMDeXo+JRAemGmLJFHbzLfz1eGhobBce2MpJA7vq1KudUUXfWjY?=
+ =?iso-8859-1?Q?KiWlZNe9u6R0kHiAX1OhmfhcxEBn35UMyuNAI/8t6uqlV9jTmgPYwm+TVY?=
+ =?iso-8859-1?Q?CCTF3d9GbckZboJpuDczEH6AflMCgx5iYSNp2p/BnYam+e2YJxVPeqMRKT?=
+ =?iso-8859-1?Q?ecawO3Spe4sW5VldTUQb6XzDqW4y6T0ntiHdWJa6++mIWtFU2OGdQ2HgRx?=
+ =?iso-8859-1?Q?6IGNB5zOzYZpRDwhGpdBLg01rIpkBPX5x0Tp6rpFWyKAE/hS8P+ZxMx4W3?=
+ =?iso-8859-1?Q?gRuiwc5F+rPIsKcquRg0gYmym4F7RGoTAhf7jfuf+DubtuoTqFJq6xqVhj?=
+ =?iso-8859-1?Q?WrVczi4hLvNTkkbDkUfSl3rcaSLfiKq90VLfyCdK5fpzzqrtOLRbCge0TU?=
+ =?iso-8859-1?Q?k0eZDqLYZlWr4ss7nUk2bg31lDmcadjgs42ANvvP2Ka/+4VKMyn+dtAPc4?=
+ =?iso-8859-1?Q?x4uC8wkZqGGJqmtenkAmO4V+JcKGqA30T0ysxObHJD9BubQSRcR7tX8Q?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c908b975-f085-4d55-c2cc-08dbef296ec9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2023 09:15:43.3919
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kQHQTZK6WLjgB1ehk1w3cv1cDV3fIHrol/lqaJwfwPtoFgtO4gI7TKl6NRUc5UWLElRXuiK4jE5hC9z0mYD7kaqve31SHKL21HhhBw7gSmA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6741
+X-Proofpoint-GUID: ovnmhCe0hxnTS8isImgkJDed2dlVCqQh
+X-Proofpoint-ORIG-GUID: ovnmhCe0hxnTS8isImgkJDed2dlVCqQh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-27_07,2023-11-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ clxscore=1015 mlxscore=0 malwarescore=0 adultscore=0 suspectscore=0
+ phishscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311270064
 
-On Fri, 2023-11-24 at 23:24 +0000, Volodymyr Babchuk wrote:
-> This patch makes legacy backends optional. As was discussed at [1]
-> this is a solution to a problem when we can't run QEMU as a device
-> model in a non-privileged domain. This is because legacy backends
-> assume that they are always running in domain with ID =3D 0. Actually,
-> this may prevent running QEMU in a privileged domain with ID not equal
-> to zero.
->=20
-> To be able to disable legacy backends we need to alter couple of
-> source files that unintentionally depend on them. For example
-> xen-all.c used xen_pv_printf to report errors, while not providing any
-> additional like xendev pointer. Also, we need to move xenstore
-> structure from xen-legacy-backend.c, because it is apparently used in
-> xen-all.c.
->=20
-> With this patch it is possible to provide
-> "--disable-xen-legacy-backends" configure option to get QEMU binary
-> that can run in a driver domain. With price of not be able to use
-> legacy backends of course.
->=20
-> [1]
-> https://lists.gnu.org/archive/html/qemu-devel/2023-11/msg05022.html
->=20
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->=20
-> ---
->=20
-> I am not sure if I made correct changes to the build system, thus this
-> patch is tagged as RFC.
 
-Hm, I was imagining a new CONFIG_LEGACY_XEN_BACKENDS option which would
-look a lot like CONFIG_XEN_BUS (which would now be only for the new
-XenBus code).
+Hi David,
 
-This looks weird to me:
+"Woodhouse, David" <dwmw@amazon.co.uk> writes:
 
-> --- a/hw/display/meson.build
-> +++ b/hw/display/meson.build
-> @@ -14,7 +14,9 @@ system_ss.add(when: 'CONFIG_PL110', if_true:
-> files('pl110.c'))
->  system_ss.add(when: 'CONFIG_SII9022', if_true: files('sii9022.c'))
->  system_ss.add(when: 'CONFIG_SSD0303', if_true: files('ssd0303.c'))
->  system_ss.add(when: 'CONFIG_SSD0323', if_true: files('ssd0323.c'))
+> [[S/MIME Signed Part:Undecided]]
+> On Fri, 2023-11-24 at 23:24 +0000, Volodymyr Babchuk wrote:
+>> This patch makes legacy backends optional. As was discussed at [1]
+>> this is a solution to a problem when we can't run QEMU as a device
+>> model in a non-privileged domain. This is because legacy backends
+>> assume that they are always running in domain with ID =3D 0. Actually,
+>> this may prevent running QEMU in a privileged domain with ID not equal
+>> to zero.
+>>=20
+>> To be able to disable legacy backends we need to alter couple of
+>> source files that unintentionally depend on them. For example
+>> xen-all.c used xen_pv_printf to report errors, while not providing any
+>> additional like xendev pointer. Also, we need to move xenstore
+>> structure from xen-legacy-backend.c, because it is apparently used in
+>> xen-all.c.
+>>=20
+>> With this patch it is possible to provide
+>> "--disable-xen-legacy-backends" configure option to get QEMU binary
+>> that can run in a driver domain. With price of not be able to use
+>> legacy backends of course.
+>>=20
+>> [1]
+>> https://lists.gnu.org/archive/html/qemu-devel/2023-11/msg05022.html
+>>=20
+>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>>=20
+>> ---
+>>=20
+>> I am not sure if I made correct changes to the build system, thus this
+>> patch is tagged as RFC.
+>
+> Hm, I was imagining a new CONFIG_LEGACY_XEN_BACKENDS option which would
+> look a lot like CONFIG_XEN_BUS (which would now be only for the new
+> XenBus code).
+>
+
+It was my original intention too. But it appears that it is not possible
+to add Kconfig value and then make it configurable via ./config
+script. As I understood it can be set only via defconfig file.
+
+> This looks weird to me:
+>
+>> --- a/hw/display/meson.build
+>> +++ b/hw/display/meson.build
+>> @@ -14,7 +14,9 @@ system_ss.add(when: 'CONFIG_PL110', if_true:
+>> files('pl110.c'))
+>>  system_ss.add(when: 'CONFIG_SII9022', if_true: files('sii9022.c'))
+>>  system_ss.add(when: 'CONFIG_SSD0303', if_true: files('ssd0303.c'))
+>>  system_ss.add(when: 'CONFIG_SSD0323', if_true: files('ssd0323.c'))
+>> -system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xenfb.c'))
+>> +if have_xen_legacy_backends
+>> +  system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xenfb.c'))
+>> +endif
+>>=20
+>>  system_ss.add(when: 'CONFIG_VGA_PCI', if_true: files('vga-pci.c'))
+>>  system_ss.add(when: 'CONFIG_VGA_ISA', if_true: files('vga-isa.c'))
+>
+> I'd prefer to see just:
+>
 > -system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xenfb.c'))
-> +if have_xen_legacy_backends
-> +  system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xenfb.c'))
-> +endif
->=20
->  system_ss.add(when: 'CONFIG_VGA_PCI', if_true: files('vga-pci.c'))
->  system_ss.add(when: 'CONFIG_VGA_ISA', if_true: files('vga-isa.c'))
+> +system_ss.add(when: 'CONFIG_XEN_LEGACY_BACKENDS', if_true: files('xenfb.=
+c'))
 
-I'd prefer to see just:
+I tried, but it does not work this way. I need to create Kconfig
+variable to do this, but then other problems appear.
 
--system_ss.add(when: 'CONFIG_XEN_BUS', if_true: files('xenfb.c'))
-+system_ss.add(when: 'CONFIG_XEN_LEGACY_BACKENDS', if_true: files('xenfb.c'=
-))
+>
+> Probably also better to split out the bits in accel/xen/xen-all.c and
+> hw/xen/xen-legacy-backend.c to a separate preparatory commit.
 
+Okay, will do.
 
-Probably also better to split out the bits in accel/xen/xen-all.c and
-hw/xen/xen-legacy-backend.c to a separate preparatory commit.
-
---=-x5o5G14s2DLSe/tKK17B
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEjww
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhAwggT4oAMCAQICEQC/QgfpbUT3q2fHshU/ReqfMA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowIjEgMB4GCSqGSIb3DQEJARYRZHdtd0BhbWF6b24uY28udWsw
-ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCZgnzd4h6STv/MQcUPixvDN/dNtp4yVSdc
-xz9mB1OcA7HXd4WdPyYagmkcH0WguDYaQnOszkSdElI+2XRFSlGXhY7U9tktvdWuY1zAY1UWES8e
-3BUHqSKbIKx4SX6GuctCcPnyagVZ9Hk21YUElx9cdmrqt0bGoydgxAspEx56J9Q5a48WfvFYjLBF
-NL1dw+P1eUeAljco30+Xggf5faawKfPArUX0cmU4VIh5DMUyv4d0xxfNN6cK1GMj/HGUg2T9OTHW
-nbTdq+OHJwHGi/37mCWx1O3uV0hbZzA1fNklaqlsr1Acg0elPeCFXLb8dSkMgQZHNJVjn+mBvG4d
-MG4FS3ntipApytA+a5IaMP3LNAo0EoBd5/xVy0M6TXbiYesYLq9rhnrLgO1qcw7+if0jH9YoEJ6a
-Je1m7omfEXh2XpospSLaohmAqaBKlyhXDXbTnUVnIf79zU5ohHZof0cP2amnnvYUVD72iuf9qe7X
-4L1Rj589qEWYROKiMil5X7l/smE1dAmxhKxx6YWvWkXH9u7JOcmLGdKST0voaY7j3Wk0lxK3NKsk
-q0G3BpqbPz3P8BYtn38BvbkFnwVW7F7Qzus3KZJgP62eN25QHxoFj44x3sppx4I5WlYG4lxdFZsY
-smQdj64c7MaJ7cp8RJN+eO32RKrkndEkihzxevl11wIDAQABo4IByjCCAcYwHwYDVR0jBBgwFoAU
-CcDy/AvalNtf/ivfqJlCz8ngrQAwHQYDVR0OBBYEFJ418HpIgZaPnwpWdCNSvm4XgH/lMA4GA1Ud
-DwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAjBA
-BgNVHSAEOTA3MDUGDCsGAQQBsjEBAgEBATAlMCMGCCsGAQUFBwIBFhdodHRwczovL3NlY3RpZ28u
-Y29tL0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3JsLnNlY3RpZ28uY29tL1NlY3RpZ29S
-U0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3JsMIGKBggrBgEFBQcBAQR+
-MHwwVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1
-dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3Nw
-LnNlY3RpZ28uY29tMBwGA1UdEQQVMBOBEWR3bXdAYW1hem9uLmNvLnVrMA0GCSqGSIb3DQEBCwUA
-A4IBAQCSez7gtf1wlWJr568crX21nm6QFWRdJ/YxMOReeqYtGs8QZf2zm2vIEFab61MrgJFJcFJL
-sRhVHwnH/hvax3ZldDpUhM0ODpA9soUjYsvKJ0boFAHPtI1BL0yrZNCBdsUGxMv0t64Acj2ovxQ+
-OxPd5ngHu0MzYIKLDvTSehxkh/qW23X7Ey/fPR0sgnAK4IV7clidmuWBbrqX+WKEyEP2kaEvLsRg
-8plzYbVVFJl37rX2waKnGaWYnJ3BrvcMMgDSQCuoxMThWAOr7wxOh0ni0K3rW7CwDIAjUSk+fFmS
-2EacUvIv/0xUW1nXzGJ12/Qyi+Mw65m0qE776qfcftg3MIIGEDCCBPigAwIBAgIRAL9CB+ltRPer
-Z8eyFT9F6p8wDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVy
-IE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+
-MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0EwHhcNMjIwMTA3MDAwMDAwWhcNMjUwMTA2MjM1OTU5WjAiMSAwHgYJKoZIhvcNAQkBFhFk
-d213QGFtYXpvbi5jby51azCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAJmCfN3iHpJO
-/8xBxQ+LG8M39022njJVJ1zHP2YHU5wDsdd3hZ0/JhqCaRwfRaC4NhpCc6zORJ0SUj7ZdEVKUZeF
-jtT22S291a5jXMBjVRYRLx7cFQepIpsgrHhJfoa5y0Jw+fJqBVn0eTbVhQSXH1x2auq3RsajJ2DE
-CykTHnon1DlrjxZ+8ViMsEU0vV3D4/V5R4CWNyjfT5eCB/l9prAp88CtRfRyZThUiHkMxTK/h3TH
-F803pwrUYyP8cZSDZP05MdadtN2r44cnAcaL/fuYJbHU7e5XSFtnMDV82SVqqWyvUByDR6U94IVc
-tvx1KQyBBkc0lWOf6YG8bh0wbgVLee2KkCnK0D5rkhow/cs0CjQSgF3n/FXLQzpNduJh6xgur2uG
-esuA7WpzDv6J/SMf1igQnpol7WbuiZ8ReHZemiylItqiGYCpoEqXKFcNdtOdRWch/v3NTmiEdmh/
-Rw/Zqaee9hRUPvaK5/2p7tfgvVGPnz2oRZhE4qIyKXlfuX+yYTV0CbGErHHpha9aRcf27sk5yYsZ
-0pJPS+hpjuPdaTSXErc0qySrQbcGmps/Pc/wFi2ffwG9uQWfBVbsXtDO6zcpkmA/rZ43blAfGgWP
-jjHeymnHgjlaVgbiXF0VmxiyZB2PrhzsxontynxEk3547fZEquSd0SSKHPF6+XXXAgMBAAGjggHK
-MIIBxjAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUnjXwekiBlo+f
-ClZ0I1K+bheAf+UwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEW
-F2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2Vj
-dGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5j
-cmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9T
-ZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEF
-BQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHAYDVR0RBBUwE4ERZHdtd0BhbWF6b24uY28u
-dWswDQYJKoZIhvcNAQELBQADggEBAJJ7PuC1/XCVYmvnrxytfbWebpAVZF0n9jEw5F56pi0azxBl
-/bOba8gQVpvrUyuAkUlwUkuxGFUfCcf+G9rHdmV0OlSEzQ4OkD2yhSNiy8onRugUAc+0jUEvTKtk
-0IF2xQbEy/S3rgByPai/FD47E93meAe7QzNggosO9NJ6HGSH+pbbdfsTL989HSyCcArghXtyWJ2a
-5YFuupf5YoTIQ/aRoS8uxGDymXNhtVUUmXfutfbBoqcZpZicncGu9wwyANJAK6jExOFYA6vvDE6H
-SeLQretbsLAMgCNRKT58WZLYRpxS8i//TFRbWdfMYnXb9DKL4zDrmbSoTvvqp9x+2DcxggTHMIIE
-wwIBATCBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-A1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdv
-IFJTQSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPer
-Z8eyFT9F6p8wDQYJYIZIAWUDBAIBBQCgggHrMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJ
-KoZIhvcNAQkFMQ8XDTIzMTEyNzA4NDYyMFowLwYJKoZIhvcNAQkEMSIEILpChnzCNBsdRY+Ea+pi
-uD6W5dicbuIDxzBGftFR3+onMIG9BgkrBgEEAYI3EAQxga8wgawwgZYxCzAJBgNVBAYTAkdCMRsw
-GQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1Nl
-Y3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9u
-IGFuZCBTZWN1cmUgRW1haWwgQ0ECEQC/QgfpbUT3q2fHshU/ReqfMIG/BgsqhkiG9w0BCRACCzGB
-r6CBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
-BxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJT
-QSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPerZ8ey
-FT9F6p8wDQYJKoZIhvcNAQEBBQAEggIAlbdFSh4QuvBisYDKpPOxH1gNP2da8eaCyyaAHPff1CQK
-UhxjNkoewU5matatC2SDw2mMt7i7p56zNkqKeZG20c4L5mV9E0KlQfwls5ADLozZxKJLhcPPxK+A
-AS7H13/MP6oIVIU5KHS4JF8btFecaUC2ZoRTZEXv0aLnOGGNtSKs2+O3tUBW24MWhek5gPLCB9aE
-nuLUh1l3O3Ws3lqIbpV2W0WfppQtPYx56Dyx24MYtWdYXSq0oLkpCcujFjABjN1IwvlyBj959S/+
-v4x3pQyoJetanuSYQ6015XY4OaXG9pOaqso9tYN+G8UwbyWqfWuyhbeAfWfYjYMzqcZ4V/EwIYij
-rzelcB40PbJuB54hpi6yu2iPDb3W+zA90AiWZo1WUKs76uhhiGORWmN+wfynMzs+8Kdkvn8x/4s7
-kpDvoAFR9sBvVDd23WPQtj1hqJr05i9hgiIbQs8TknWAlI/ZC3nqkw9bWRDLoq24JyB8pKyyXN8C
-CHRwaw3S/RzXjBxAt6x496lHCo73E9x7l+YI6mMeef5JvJSg4HA0J6i2hlVkOgfYm9f8ZoaX0B/l
-jt/S7F2Ah8X09UGvFKfX/PWJ9vuKXiMUBePA1Uiym//falgCZj0EGFQDrYPpQvfOrYq1P1lvWSQ0
-H3b78dS0RusX3gHUok8+C9oQT2NZ6csAAAAAAAA=
-
-
---=-x5o5G14s2DLSe/tKK17B--
-
---===============3000760005954283363==
-Content-Type: multipart/alternative; boundary="===============2959059955995353066=="
-MIME-Version: 1.0
-Content-Disposition: inline
-
---===============2959059955995353066==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-Amazon Development Centre (London) Ltd. Registered in England and Wales wit=
-h registration number 04543232 with its registered office at 1 Principal Pl=
-ace, Worship Street, London EC2A 2FA, United Kingdom.
-
-
-
---===============2959059955995353066==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><br>Amazon Development Centre (London) Ltd.Registered in England an=
-d Wales with registration number 04543232 with its registered office at 1 P=
-rincipal Place, Worship Street, London EC2A 2FA, United Kingdom.<br><br><br>
-
---===============2959059955995353066==--
---===============3000760005954283363==--
+--=20
+WBR, Volodymyr=
 
