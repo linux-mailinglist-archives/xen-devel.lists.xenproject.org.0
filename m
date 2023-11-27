@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC497FA11B
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 14:29:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642092.1001225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961107FA122
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 14:34:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642094.1001236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7bfm-0005uR-6k; Mon, 27 Nov 2023 13:29:14 +0000
+	id 1r7bkz-0008Ag-Ph; Mon, 27 Nov 2023 13:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642092.1001225; Mon, 27 Nov 2023 13:29:14 +0000
+Received: by outflank-mailman (output) from mailman id 642094.1001236; Mon, 27 Nov 2023 13:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7bfm-0005sS-47; Mon, 27 Nov 2023 13:29:14 +0000
-Received: by outflank-mailman (input) for mailman id 642092;
- Mon, 27 Nov 2023 13:29:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hhMp=HI=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1r7bfk-0005sM-P9
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 13:29:12 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2a8b127-8d28-11ee-9b0e-b553b5be7939;
- Mon, 27 Nov 2023 14:29:10 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-332f90a375eso1096288f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 05:29:10 -0800 (PST)
-Received: from [10.80.4.253] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- y14-20020adff6ce000000b0033308db2576sm148139wrp.56.2023.11.27.05.29.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Nov 2023 05:29:09 -0800 (PST)
+	id 1r7bkz-00088a-Mx; Mon, 27 Nov 2023 13:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 642094;
+ Mon, 27 Nov 2023 13:34:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7bky-00088Q-GC; Mon, 27 Nov 2023 13:34:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7bky-0005Ni-23; Mon, 27 Nov 2023 13:34:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7bkx-0008JA-OU; Mon, 27 Nov 2023 13:34:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7bkx-0007sF-O2; Mon, 27 Nov 2023 13:34:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2a8b127-8d28-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701091750; x=1701696550; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0LNIHfEOwDBsf8wwbpILXgkaYyvbksHHNoO7waMEB0A=;
-        b=CAVuf7gS5DyOcPUg9Clg23VZV+RFF5Ips6PeNw5ZCmP+2AXZDqDJO9ei0BPMercPK3
-         wsFiNUFACmXQfCD5aiRG6iZbLerOdXforxiBmyEIlM97+wlg7Q90jhiMsc01VFtYe/Rt
-         8sgE1LcsIBm09ZdEHwAsjLJjKjvwioItR66jY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701091750; x=1701696550;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0LNIHfEOwDBsf8wwbpILXgkaYyvbksHHNoO7waMEB0A=;
-        b=ESNgC85f9eWKOn7Y4wk+Lj80Ndf/gkvEP6cIjhYdBZ6xW0SyBRZPCWtpq19BOPbsS2
-         CAaU3aodBP1QAqYDJRJp9rsEC8ELocNwy3vwGjiwZnE39Y8ekq4sqcUA8I1QFA14KcbZ
-         mPutEENrulw8WA7AMlLiSEInlPBdYiDCT5Thld3D33BzFtnPOlRxPFiGROEAy3N9gh7T
-         +NPEISkNgdHH21VKlsdHdmChZB0X0wlo5QGgiP2sIuuAsxTZRTOP4ye3rjHPzhO2kKec
-         bXRW6tuE/SLmish2lNP7SVuaUtuTO8dsuU3XcsZyjKgRWQiOOl5frXe33b4nLnORbITP
-         l2EA==
-X-Gm-Message-State: AOJu0Yxh/VeR5LCPykG+Y5Vs+aSqCdfGoTT6XTmvy83ElzfDfViIh1Ae
-	IqubYe6d6XxV05DPnLo3+foYmw==
-X-Google-Smtp-Source: AGHT+IEWugLVOsvwueuT3N0ZHByMItJT6RJk8Al5V6OyMNsZEaQmEVlIDhgm20mBPhD0NDNhoO7EwA==
-X-Received: by 2002:adf:fc4f:0:b0:332:ec48:a132 with SMTP id e15-20020adffc4f000000b00332ec48a132mr6333744wrs.53.1701091750188;
-        Mon, 27 Nov 2023 05:29:10 -0800 (PST)
-Message-ID: <ba992154-0681-46fe-88a9-3a526fb0ca30@cloud.com>
-Date: Mon, 27 Nov 2023 13:29:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=F6JhvZX0azjhn78atV1ttwjKGFpeB4K46h2nm4C+zoY=; b=NOadTQN/wYyYjepmmrMb56Qgt4
+	ZUXnLkGgdmSn5srnzzaTLGXghwnOyDgfBdvRi3hi517z0MNuLJezl5o/a5Hc+mkJRJ68gW+VuFUFi
+	GoiMYQ//vJ9acF1dFZxcjisG+t1hVLla6ExjetqwajXEMdDRO5UkIH47sVRaV8vTEO5M=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183867-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen/x86: On x2APIC mode, derive LDR from APIC ID
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231123173057.1325-1-alejandro.vallejo@cloud.com>
- <2fedb7c1-5742-46d7-9882-d2ec336beece@suse.com>
- <71a22900-6167-490f-9d33-fe924bb96c5c@cloud.com>
- <699ef5f9-50c0-4c15-8874-833dda81e251@suse.com>
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-In-Reply-To: <699ef5f9-50c0-4c15-8874-833dda81e251@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 183867: trouble: blocked/broken
+X-Osstest-Failures:
+    ovmf:build-amd64:<job status>:broken:regression
+    ovmf:build-amd64-pvops:<job status>:broken:regression
+    ovmf:build-amd64-xsm:<job status>:broken:regression
+    ovmf:build-i386:<job status>:broken:regression
+    ovmf:build-i386-pvops:<job status>:broken:regression
+    ovmf:build-i386-xsm:<job status>:broken:regression
+    ovmf:build-i386:host-install(4):broken:regression
+    ovmf:build-i386-xsm:host-install(4):broken:regression
+    ovmf:build-i386-pvops:host-install(4):broken:regression
+    ovmf:build-amd64-pvops:host-install(4):broken:regression
+    ovmf:build-amd64:host-install(4):broken:regression
+    ovmf:build-amd64-xsm:host-install(4):broken:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=33e31c289cc7b417f110d6da70dc8224443d32d3
+X-Osstest-Versions-That:
+    ovmf=8736b8fdca85e02933cdb0a13309de14c9799ece
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 27 Nov 2023 13:34:35 +0000
 
-On 27/11/2023 12:24, Jan Beulich wrote:
-> On 27.11.2023 13:17, Alejandro Vallejo wrote:
->> On 27/11/2023 08:40, Jan Beulich wrote:
->>> On 23.11.2023 18:30, Alejandro Vallejo wrote:
->>>> @@ -1498,27 +1511,36 @@ static int cf_check lapic_save_regs(struct vcpu *v, hvm_domain_context_t *h)
->>>>    */
->>>>   static void lapic_load_fixup(struct vlapic *vlapic)
->>>>   {
->>>> -    uint32_t id = vlapic->loaded.id;
->>>> +    uint32_t good_ldr = x2apic_ldr_from_id(vlapic->loaded.id);
->>>>   
->>>> -    if ( vlapic_x2apic_mode(vlapic) && id && vlapic->loaded.ldr == 1 )
->>>> -    {
->>>> +    /* Skip fixups on xAPIC mode, or if the x2APIC LDR is already correct */
->>>> +    if ( !vlapic_x2apic_mode(vlapic) ||
->>>> +         (vlapic->loaded.ldr == good_ldr) )
->>>> +        return;
->>>> +
->>>> +    if ( vlapic->loaded.ldr == 1 )
->>>> +       /*
->>>> +        * Xen <= 4.4 may have a bug by which all the APICs configured in
->>>> +        * x2APIC mode got LDR = 1. We can't leave it as-is because it
->>>> +        * assigned the same LDR to every CPU.  We'll fix fix the bug now
->>>> +        * and assign an LDR value consistent with the APIC ID.
->>>> +        */
->>>
->>> Just one comment on top of Andrew's: Is the double "fix" really intended
->>> here? (I could see it might be, but then "fix the bug fix" would read
->>> slightly more smoothly to me as a non-native speaker.)
->>
->> It's not intended indeed. s/fix fix/fix/
->>
->>>
->>> Another aspect here is what exactly the comment states (and does not
->>> state). Original comments made explicit that LDR == 1 contradicts ID == 0.
->>> In the new comment you only emphasize that all CPUs cannot have that same
->>> LDR. But the value of 1 being bogus in the first place doesn't become clear
->>> anymore.
->>
->> 1 is bogus for id!=0, but so would be 3, 7 or 42.
-> 
-> Yet 3, 7, and 42 aren't interesting in the context of that older bug.
-> 
->> In particular we have
->> ID==2 contradicting LDR=2, and we're allowing it. The reason why we must
->> fix this other case is because all LDRs are equal, otherwise it would
->> get the same treatment as the other bug.
-> 
-> I understand all that; still there's loss of information in the comments,
-> from my perspective.
-> 
-> Jan
+flight 183867 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183867/
 
-v2 did have a "Note that "x2apic_id == 0" has always been correct and
-can't be used to discriminate these cases." and another in front of the
-early exit "No need to perform fixups in non-x2apic mode, and x2apic_id
-== 0 has always been correct.". They were trimmed as versions went on.
+Failures and problems with tests :-(
 
-As mentioned before this is all cosmetic, so I'm happy either way. I'll
-reinstate something to this effect in a v5.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                     <job status>                 broken
+ build-amd64-pvops               <job status>                 broken
+ build-amd64-xsm                 <job status>                 broken
+ build-i386                      <job status>                 broken
+ build-i386-pvops                <job status>                 broken
+ build-i386-xsm                  <job status>                 broken
+ build-i386                    4 host-install(4)        broken REGR. vs. 183825
+ build-i386-xsm                4 host-install(4)        broken REGR. vs. 183825
+ build-i386-pvops              4 host-install(4)        broken REGR. vs. 183825
+ build-amd64-pvops             4 host-install(4)        broken REGR. vs. 183825
+ build-amd64                   4 host-install(4)        broken REGR. vs. 183825
+ build-amd64-xsm               4 host-install(4)        broken REGR. vs. 183825
 
-Cheers,
-Alejandro
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 33e31c289cc7b417f110d6da70dc8224443d32d3
+baseline version:
+ ovmf                 8736b8fdca85e02933cdb0a13309de14c9799ece
+
+Last test of basis   183825  2023-11-22 13:41:06 Z    4 days
+Testing same since   183867  2023-11-27 05:41:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  xieyuanh <yuanhao.xie@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+
+jobs:
+ build-amd64-xsm                                              broken  
+ build-i386-xsm                                               broken  
+ build-amd64                                                  broken  
+ build-i386                                                   broken  
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            broken  
+ build-i386-pvops                                             broken  
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-amd64 broken
+broken-job build-amd64-pvops broken
+broken-job build-amd64-xsm broken
+broken-job build-i386 broken
+broken-job build-i386-pvops broken
+broken-job build-i386-xsm broken
+broken-step build-i386 host-install(4)
+broken-step build-i386-xsm host-install(4)
+broken-step build-i386-pvops host-install(4)
+broken-step build-amd64-pvops host-install(4)
+broken-step build-amd64 host-install(4)
+broken-step build-amd64-xsm host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 33e31c289cc7b417f110d6da70dc8224443d32d3
+Author: xieyuanh <yuanhao.xie@intel.com>
+Date:   Mon Nov 20 12:09:14 2023 +0800
+
+    UefiCpuPkg/MpInitLib: Update the comments of _CPU_MP_DATA.
+    
+    No functional changes in this patch.
+    
+    Updates the comments of _CPU_MP_DATA to delcared that duplications in
+    CpuMpData are present to avoid to be direct accessed and comprehended
+     in assembly code. CpuMpData: Intended for use in C code while
+     ExchangeInfo are used in assembly code in this module.
+    
+    This patch deletes the unnecessary comments in CpuMpData, since
+    CpuMpData is no longer responsible for passing information from PEI to
+    DXE.
+    
+    Signed-off-by: Yuanhao Xie <yuanhao.xie@intel.com>
+    Cc: Laszlo Ersek lersek@redhat.com
+    Cc: Eric Dong <eric.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+
+commit cb3f41a9378822a0bcf0febf898af254b4994b8d
+Author: Yuanhao Xie <yuanhao.xie@intel.com>
+Date:   Fri Nov 10 16:03:02 2023 +0800
+
+    UefiCpuPkg/MpInitLib: Enable execute disable bit.
+    
+    This patch synchronizes the No-Execute bit in the IA32_EFER
+    register for the APs before the RestoreVolatileRegisters operation.
+    
+    The commit 964a4f0, titled "Eliminate the second INIT-SIPI-SIPI
+    sequence," replaces the second INIT-SIPI-SIPI sequence with the BSP
+    calling the SwitchApContext function to initiate a specialized start-up
+    signal, waking up APs in the DXE instead of using INIT-SIPI-SIPI.
+    
+    Due to this change, the logic for "Enable execute disable bit" in
+    MpFuncs.nasm is no longer executed. However, to ensure the proper setup
+    of the page table, it is necessary to synchronize the IA32_EFER.NXE for
+    APs before executing RestoreVolatileRegisters .
+    
+    Based on SDM:
+    If IA32_EFER.NXE is set to 1, it signifies execute-disable, meaning
+    instruction fetches are not allowed from the 4-KByte page controlled by
+    this entry. Conversely, if it is set to 0, it is reserved.
+    
+    Signed-off-by: Yuanhao Xie <yuanhao.xie@intel.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Laszlo Ersek lersek@redhat.com
+    Cc: Eric Dong <eric.dong@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
 
