@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D70937FA689
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 17:33:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642347.1001766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 576A67FA6D7
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 17:49:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642353.1001776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7eY3-00044M-CR; Mon, 27 Nov 2023 16:33:27 +0000
+	id 1r7emj-0000cI-KM; Mon, 27 Nov 2023 16:48:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642347.1001766; Mon, 27 Nov 2023 16:33:27 +0000
+Received: by outflank-mailman (output) from mailman id 642353.1001776; Mon, 27 Nov 2023 16:48:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7eY3-00041H-9D; Mon, 27 Nov 2023 16:33:27 +0000
-Received: by outflank-mailman (input) for mailman id 642347;
- Mon, 27 Nov 2023 16:33:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7emj-0000aT-HW; Mon, 27 Nov 2023 16:48:37 +0000
+Received: by outflank-mailman (input) for mailman id 642353;
+ Mon, 27 Nov 2023 16:48:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sMaF=HI=bombadil.srs.infradead.org=BATV+6fdacddc1aa5db9ef0e1+7400+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1r7eY1-00040s-Et
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 16:33:26 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aef71281-8d42-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 17:33:24 +0100 (CET)
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1r7eXO-0030D4-22; Mon, 27 Nov 2023 16:32:46 +0000
+ <SRS0=gQ2W=HI=linux.microsoft.com=madvenka@srs-se1.protection.inumbo.net>)
+ id 1r7emi-0000aN-9s
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 16:48:36 +0000
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id ccfdb32c-8d44-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 17:48:33 +0100 (CET)
+Received: from [192.168.4.26] (unknown [47.186.13.91])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 862F420B74C0;
+ Mon, 27 Nov 2023 08:48:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +39,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aef71281-8d42-11ee-98e2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=N2zDXv8N842SdWeP1QfvmzEvIcEsyQplx8msSV1RBzc=; b=3w8bJekjauD14xkhiSXsSeP1yp
-	9N3b2DKZZPdBt27xj1DIEE7RXLXZrvHxDKR2sRYD21pNAAIJ3vl1ZCKZ4NFvv5G6xjzqey6N1n0KK
-	ZrI0nakNUBsMEbW2Q4e4j1NRh5OeO1tyxIFUhlV8EaqwcQbah9MgH17+QPadh0DqL/pm4sqZ5f/vV
-	IH1EMWIP6up9ybGx4dw0MvcLdLRClPIEOMfWizJpOcO8WEMAVnlOuY5kgUVe2HK2Xt75AhDq2qkmf
-	jzAFQBFfr3qP/5tAASIdgOPBH9JmPj2A8s0x9fJ50RYVccYl2K4OsZZ71u82sMqjEZ1B5f5BIa6y8
-	Lia9qiAg==;
-Date: Mon, 27 Nov 2023 08:32:46 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Yu Kuai <yukuai1@huaweicloud.com>
-Cc: Christoph Hellwig <hch@infradead.org>, ming.lei@redhat.com,
-	axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
-	kent.overstreet@gmail.com, joern@lazybastard.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
-	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
-	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
-	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
-	adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
-	konishi.ryusuke@gmail.com, dchinner@redhat.com,
-	linux@weissschuh.net, min15.li@samsung.com, dlemoal@kernel.org,
-	willy@infradead.org, akpm@linux-foundation.org, hare@suse.de,
-	p.raghav@samsung.com, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
-	linux-nilfs@vger.kernel.org, yi.zhang@huawei.com,
-	yangerkun@huawei.com, "yukuai (C)" <yukuai3@huawei.com>
-Subject: Re: [PATCH block/for-next v2 01/16] block: add a new helper to get
- inode from block_device
-Message-ID: <ZWTErvnMf7HiO1Wj@infradead.org>
-References: <20231127062116.2355129-1-yukuai1@huaweicloud.com>
- <20231127062116.2355129-2-yukuai1@huaweicloud.com>
- <ZWRDeQ4K8BiYnV+X@infradead.org>
- <6acdeece-7163-3219-95e2-827e54eadd0c@huaweicloud.com>
+X-Inumbo-ID: ccfdb32c-8d44-11ee-9b0e-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 862F420B74C0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1701103712;
+	bh=jeMkp5Q+EKa19c6aqn2EEeUT1WIFRK1lWII/T1Aq+rQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aDtpsQCv5Z7lrnyBfZDtXIQ5YkOeXU+eDniqpgG5DSD+i9xBYSIgXtJO6yM/hN7oZ
+	 EiQi/S+Yjy2TnSaq8aWFJwrDCDQJ4E01iXdFLG0uIDqHbnx9CwBuz6XIqHOPh2NLet
+	 Jzp9sNlniTRePSjgypI8ZiHOZ0a54xSepS+7ZLF8=
+Message-ID: <a52d8885-43cc-4a4e-bb47-9a800070779e@linux.microsoft.com>
+Date: Mon, 27 Nov 2023 10:48:29 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6acdeece-7163-3219-95e2-827e54eadd0c@huaweicloud.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 17/19] heki: x86: Update permissions counters
+ during text patching
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8?=
+ =?UTF-8?Q?n?= <mic@digikod.net>
+Cc: Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Alexander Graf <graf@amazon.com>, Chao Peng <chao.p.peng@linux.intel.com>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ Forrest Yuan Yu <yuanyu@google.com>, James Gowans <jgowans@amazon.com>,
+ James Morris <jamorris@linux.microsoft.com>,
+ John Andersen <john.s.andersen@intel.com>,
+ Marian Rotariu <marian.c.rotariu@gmail.com>,
+ =?UTF-8?Q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>,
+ =?UTF-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
+ Thara Gopinath <tgopinath@microsoft.com>,
+ Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>,
+ Will Deacon <will@kernel.org>, Yu Zhang <yu.c.zhang@linux.intel.com>,
+ Zahra Tarkhani <ztarkhani@microsoft.com>,
+ =?UTF-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
+ dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
+ x86@kernel.org, xen-devel@lists.xenproject.org
+References: <20231113022326.24388-1-mic@digikod.net>
+ <20231113022326.24388-18-mic@digikod.net>
+ <20231113081929.GA16138@noisy.programming.kicks-ass.net>
+From: "Madhavan T. Venkataraman" <madvenka@linux.microsoft.com>
+In-Reply-To: <20231113081929.GA16138@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 27, 2023 at 09:07:22PM +0800, Yu Kuai wrote:
-> 1) Is't okay to add a new helper to pass in bdev for following apis?
+Apologies for the late reply. I was on vacation. Please see my response below:
 
-
-For some we already have them (e.g. bdev_nr_bytes to read the bdev)
-size, for some we need to add them.  The big thing that seems to
-stick out is page cache API, and I think that is where we need to
-define maintainable APIs for file systems and others to use the
-block device page cache.  Probably only in folio versions and not
-pages once if we're touching the code anyay
-
-> 2) For the file fs/buffer.c, there are some special usage like
-> following that I don't think it's good to add a helper:
+On 11/13/23 02:19, Peter Zijlstra wrote:
+> On Sun, Nov 12, 2023 at 09:23:24PM -0500, Mickaël Salaün wrote:
+>> From: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+>>
+>> X86 uses a function called __text_poke() to modify executable code. This
+>> patching function is used by many features such as KProbes and FTrace.
+>>
+>> Update the permissions counters for the text page so that write
+>> permissions can be temporarily established in the EPT to modify the
+>> instructions in that page.
+>>
+>> Cc: Borislav Petkov <bp@alien8.de>
+>> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+>> Cc: H. Peter Anvin <hpa@zytor.com>
+>> Cc: Ingo Molnar <mingo@redhat.com>
+>> Cc: Kees Cook <keescook@chromium.org>
+>> Cc: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+>> Cc: Mickaël Salaün <mic@digikod.net>
+>> Cc: Paolo Bonzini <pbonzini@redhat.com>
+>> Cc: Sean Christopherson <seanjc@google.com>
+>> Cc: Thomas Gleixner <tglx@linutronix.de>
+>> Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+>> Cc: Wanpeng Li <wanpengli@tencent.com>
+>> Signed-off-by: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+>> ---
+>>
+>> Changes since v1:
+>> * New patch
+>> ---
+>>  arch/x86/kernel/alternative.c |  5 ++++
+>>  arch/x86/mm/heki.c            | 49 +++++++++++++++++++++++++++++++++++
+>>  include/linux/heki.h          | 14 ++++++++++
+>>  3 files changed, 68 insertions(+)
+>>
+>> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+>> index 517ee01503be..64fd8757ba5c 100644
+>> --- a/arch/x86/kernel/alternative.c
+>> +++ b/arch/x86/kernel/alternative.c
+>> @@ -18,6 +18,7 @@
+>>  #include <linux/mmu_context.h>
+>>  #include <linux/bsearch.h>
+>>  #include <linux/sync_core.h>
+>> +#include <linux/heki.h>
+>>  #include <asm/text-patching.h>
+>>  #include <asm/alternative.h>
+>>  #include <asm/sections.h>
+>> @@ -1801,6 +1802,7 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
+>>  	 */
+>>  	pgprot = __pgprot(pgprot_val(PAGE_KERNEL) & ~_PAGE_GLOBAL);
+>>  
+>> +	heki_text_poke_start(pages, cross_page_boundary ? 2 : 1, pgprot);
+>>  	/*
+>>  	 * The lock is not really needed, but this allows to avoid open-coding.
+>>  	 */
+>> @@ -1865,7 +1867,10 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
+>>  	}
+>>  
+>>  	local_irq_restore(flags);
+>> +
+>>  	pte_unmap_unlock(ptep, ptl);
+>> +	heki_text_poke_end(pages, cross_page_boundary ? 2 : 1, pgprot);
+>> +
+>>  	return addr;
+>>  }
 > 
-> spin_lock(&bd_inode->i_mapping->private_lock);
-> 
-> Is't okay to move following apis from fs/buffer.c directly to
-> block/bdev.c?
-> 
-> __find_get_block
-> bdev_getblk
+> This makes no sense, we already use a custom CR3 with userspace alias
+> for the actual pages to write to, why are you then frobbing permissions
+> on that *again* ?
 
-I'm not sure moving is a good idea, but we might end up the
-some kind of low-level access from buffer.c, be that special
-helpers, a separate header or something else.  Let's sort out
-the rest of the kernel first.
+Today, the permissions for a guest page in the extended page table (EPT) are RWX (unless permissions are
+restricted for some specific reason like for shadow page table pages). In this Heki feature, we don't allow
+RWX by default in the EPT. We only allow those permissions in the EPT that the guest page actually needs.
+E.g., for a text page, it is R_X in both the guest page table and the EPT.
 
+For text patching, the above code establishes an alternate mapping in the guest page table that is RW_ so
+that the text can be patched. That needs to be reflected in the EPT so that the EPT permissions will change
+from R_X to RWX. In other words, RWX is allowed only as necessary. At the end of patching, the EPT permissions
+are restored to R_X.
+
+Does that address your comment?
+
+Madhavan
 
