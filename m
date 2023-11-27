@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6D57F9977
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 07:23:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641568.1000241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31EB37F997C
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 07:23:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641569.1000252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7V1w-0005tA-0Q; Mon, 27 Nov 2023 06:23:40 +0000
+	id 1r7V1y-0006C2-9r; Mon, 27 Nov 2023 06:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641568.1000241; Mon, 27 Nov 2023 06:23:39 +0000
+Received: by outflank-mailman (output) from mailman id 641569.1000252; Mon, 27 Nov 2023 06:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7V1v-0005qo-Tu; Mon, 27 Nov 2023 06:23:39 +0000
-Received: by outflank-mailman (input) for mailman id 641568;
- Mon, 27 Nov 2023 06:23:39 +0000
+	id 1r7V1y-00068r-5k; Mon, 27 Nov 2023 06:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 641569;
+ Mon, 27 Nov 2023 06:23:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f6Ye=HI=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
- id 1r7V1v-0005KR-0O
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 06:23:39 +0000
-Received: from dggsgout12.his.huawei.com (unknown [45.249.212.56])
+ id 1r7V1w-0005KR-VF
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 06:23:40 +0000
+Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e6c88f3-8ced-11ee-9b0e-b553b5be7939;
- Mon, 27 Nov 2023 07:23:36 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4SdwWl5fVBz4f3kG9
- for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 14:23:31 +0800 (CST)
+ id 7f9452c6-8ced-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 07:23:38 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4SdwWm58V8z4f3k68
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 14:23:32 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
- by mail.maildlp.com (Postfix) with ESMTP id 9D74F1A0AF2
- for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 14:23:33 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id 8642B1A0808
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 14:23:35 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP1 (Coremail) with SMTP id cCh0CgBXWhDeNWRlxeA8CA--.60190S6;
- Mon, 27 Nov 2023 14:23:33 +0800 (CST)
+ by APP1 (Coremail) with SMTP id cCh0CgBXWhDeNWRlxeA8CA--.60190S7;
+ Mon, 27 Nov 2023 14:23:34 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,7 +45,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e6c88f3-8ced-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 7f9452c6-8ced-11ee-9b0e-b553b5be7939
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: hch@infradead.org,
 	ming.lei@redhat.com,
@@ -103,20 +103,20 @@ Cc: linux-block@vger.kernel.org,
 	yukuai1@huaweicloud.com,
 	yi.zhang@huawei.com,
 	yangerkun@huawei.com
-Subject: [PATCH block/for-next v2 12/16] gfs2: use new helper to get inode from block_device
-Date: Mon, 27 Nov 2023 14:22:48 +0800
-Message-Id: <20231127062252.2367645-3-yukuai1@huaweicloud.com>
+Subject: [PATCH block/for-next v2 13/16] jbd2: use new helper to get inode from block_device
+Date: Mon, 27 Nov 2023 14:22:49 +0800
+Message-Id: <20231127062252.2367645-4-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231127062252.2367645-1-yukuai1@huaweicloud.com>
 References: <20231127062252.2367645-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBXWhDeNWRlxeA8CA--.60190S6
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1rurWfGr4fAw4UAF15XFb_yoW8Jw1fpr
-	9rJF1YkF4kWrnIgaykuF4Fq3WUuay8G3yIy3s5Cwn0vrsrGw1aga92kF4DJayrXa97ZwsI
-	ga1a9w4avr1Ygr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:cCh0CgBXWhDeNWRlxeA8CA--.60190S7
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFWUJF45XF1kJF1UAF1UWrg_yoW8Gr1xpr
+	y7GF98Ca98Zry8tFn7GF4vqrWjqa4I9FWUCr1kuwnYywsxJr12vw18KrnxGa4YyFWvqayF
+	qr1jv3y8G3yYgrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
 	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
 	Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
 	8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
@@ -127,7 +127,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1rurWfGr4fAw4UAF15XFb_yoW8Jw1fpr
 	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2
 	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
 	Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJw
-	CI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUFrcTDUUU
+	CI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUFfHUDUUU
 	U
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
@@ -138,36 +138,37 @@ Which is more efficiency, and also prepare to remove the field
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- fs/gfs2/glock.c      | 2 +-
- fs/gfs2/ops_fstype.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/jbd2/journal.c  | 3 ++-
+ fs/jbd2/recovery.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/gfs2/glock.c b/fs/gfs2/glock.c
-index d6bf1f8c25dc..ec6394544ebb 100644
---- a/fs/gfs2/glock.c
-+++ b/fs/gfs2/glock.c
-@@ -1210,7 +1210,7 @@ int gfs2_glock_get(struct gfs2_sbd *sdp, u64 number,
- 	mapping = gfs2_glock2aspace(gl);
- 	if (mapping) {
-                 mapping->a_ops = &gfs2_meta_aops;
--		mapping->host = s->s_bdev->bd_inode;
-+		mapping->host = bdev_inode(s->s_bdev);
- 		mapping->flags = 0;
- 		mapping_set_gfp_mask(mapping, GFP_NOFS);
- 		mapping->private_data = NULL;
-diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
-index b108c5d26839..dfc4735cfd54 100644
---- a/fs/gfs2/ops_fstype.c
-+++ b/fs/gfs2/ops_fstype.c
-@@ -114,7 +114,7 @@ static struct gfs2_sbd *init_sbd(struct super_block *sb)
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index ed53188472f9..e2d034cc9dc0 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -2003,7 +2003,8 @@ static int __jbd2_journal_erase(journal_t *journal, unsigned int flags)
+ 		byte_count = (block_stop - block_start + 1) *
+ 				journal->j_blocksize;
  
- 	address_space_init_once(mapping);
- 	mapping->a_ops = &gfs2_rgrp_aops;
--	mapping->host = sb->s_bdev->bd_inode;
-+	mapping->host = bdev_inode(sb->s_bdev);
- 	mapping->flags = 0;
- 	mapping_set_gfp_mask(mapping, GFP_NOFS);
- 	mapping->private_data = NULL;
+-		truncate_inode_pages_range(journal->j_dev->bd_inode->i_mapping,
++		truncate_inode_pages_range(
++				bdev_inode(journal->j_dev)->i_mapping,
+ 				byte_start, byte_stop);
+ 
+ 		if (flags & JBD2_JOURNAL_FLUSH_DISCARD) {
+diff --git a/fs/jbd2/recovery.c b/fs/jbd2/recovery.c
+index 01f744cb97a4..7774efe872e8 100644
+--- a/fs/jbd2/recovery.c
++++ b/fs/jbd2/recovery.c
+@@ -309,7 +309,7 @@ int jbd2_journal_recover(journal_t *journal)
+ 	}
+ 
+ 	wb_err = 0;
+-	mapping = journal->j_fs_dev->bd_inode->i_mapping;
++	mapping = bdev_inode(journal->j_fs_dev)->i_mapping;
+ 	errseq_check_and_advance(&mapping->wb_err, &wb_err);
+ 	err = do_one_pass(journal, &info, PASS_SCAN);
+ 	if (!err)
 -- 
 2.39.2
 
