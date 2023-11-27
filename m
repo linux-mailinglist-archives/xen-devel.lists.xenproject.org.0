@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF27A7F969F
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 00:47:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641521.1000093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFA87F971A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 02:15:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641531.1000102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Opt-0005yZ-9v; Sun, 26 Nov 2023 23:46:49 +0000
+	id 1r7QCG-00005b-AL; Mon, 27 Nov 2023 01:14:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641521.1000093; Sun, 26 Nov 2023 23:46:49 +0000
+Received: by outflank-mailman (output) from mailman id 641531.1000102; Mon, 27 Nov 2023 01:14:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Opt-0005vH-6j; Sun, 26 Nov 2023 23:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 641521;
- Sun, 26 Nov 2023 23:46:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7QCG-0008Ul-6a; Mon, 27 Nov 2023 01:14:00 +0000
+Received: by outflank-mailman (input) for mailman id 641531;
+ Mon, 27 Nov 2023 01:13:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+N0s=HH=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1r7Opr-0005sP-PA
- for xen-devel@lists.xenproject.org; Sun, 26 Nov 2023 23:46:47 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d37903b-8cb6-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 00:46:46 +0100 (CET)
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177]) by mx.zohomail.com
- with SMTPS id 1701042399444835.4044586813383;
- Sun, 26 Nov 2023 15:46:39 -0800 (PST)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-5cf57a493d0so9216517b3.1
- for <xen-devel@lists.xenproject.org>; Sun, 26 Nov 2023 15:46:39 -0800 (PST)
+ <SRS0=f6Ye=HI=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
+ id 1r7QCE-0008Uf-9Y
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 01:13:58 +0000
+Received: from dggsgout12.his.huawei.com (unknown [45.249.212.56])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 39e8e389-8cc2-11ee-9b0e-b553b5be7939;
+ Mon, 27 Nov 2023 02:13:54 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4SdnfM28xsz4f3kFG
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 09:13:47 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id 239E31A0735
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 09:13:49 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP1 (Coremail) with SMTP id cCh0CgDX2hBD7WNlrI8oCA--.40143S3;
+ Mon, 27 Nov 2023 09:13:42 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,57 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d37903b-8cb6-11ee-98e2-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; t=1701042401; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bC8cNsOJY27Jj4FhIFy5jm9N2of9qbo5nFxmT1mmThDr94eROvA4ZDHju1SH+6bbXbdMLovUue3Jv+dC9xR3vlt1rRKibs3UyOZTJj7iPWqEO/PbCKSKprKE1aCcj0kHCIHyEh4cn3mXuQuc+za9zmN+l943XtUPnggBxZy/q0U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1701042401; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Uz2eRhp6iKugdEeT5lsnYhFwH8XzKH0UxT+wL1pXRDg=; 
-	b=gq4UMMcZGCLRnXevVqqsGm9dMTdkn4pY0wWebNGsXHilP8CkT7Ej0Rlx0Xg8kqmTid0VyN/TYhZueHExjpkdt95s/ZFNzNuGizN9rHDLisjJCptbgkoNGYEdVrL8Bq2QTbfDybmCeoKYAuPaLDZY4nDuiG9Hgfs1CKeH0JLJ1dk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1701042401;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Uz2eRhp6iKugdEeT5lsnYhFwH8XzKH0UxT+wL1pXRDg=;
-	b=KHpC9uwYb7pVoI8JPfzC7QBXxR9K1hjPmFV4bKnH2uPyshjoxbp+LJG5P4Sg97cs
-	VyYMlnrK5c892V35HgVFBUYIFSQTqm/Q5mD19gmi5nZFg39rAFjF/NCU0MWDdvi5Xgt
-	czKmgrsdx3I+bhZEsSkMPjfpnso8yYIzhJWe+rI0=
-X-Gm-Message-State: AOJu0YxdNAS3xFA2RwIxBQWG5vR7Nmnm8cZptjlL5q19yaB5C1HwVCWI
-	yjJXnk/+nIdtOpvIunH+gG3Xwh32yTAQfp2Xs0s=
-X-Google-Smtp-Source: AGHT+IF06cIj/noODB+LOaJuKzXjuqm+DaeNuwHP91kAe0XnwDuWPDrzITYorjOjfWtFA+p41KDYM7/TSS3YDAlWO0w=
-X-Received: by 2002:a0d:fc05:0:b0:5cb:332e:ab68 with SMTP id
- m5-20020a0dfc05000000b005cb332eab68mr9842957ywf.5.1701042398943; Sun, 26 Nov
- 2023 15:46:38 -0800 (PST)
+X-Inumbo-ID: 39e8e389-8cc2-11ee-9b0e-b553b5be7939
+Subject: Re: [PATCH -next] block: remove field 'bd_inode' from block_device
+To: Greg KH <gregkh@linuxfoundation.org>, Yu Kuai <yukuai1@huaweicloud.com>
+Cc: hch@infradead.org, ming.lei@redhat.com, axboe@kernel.dk,
+ roger.pau@citrix.com, colyli@suse.de, kent.overstreet@gmail.com,
+ joern@lazybastard.org, miquel.raynal@bootlin.com, richard@nod.at,
+ vigneshr@ti.com, sth@linux.ibm.com, hoeppner@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+ jejb@linux.ibm.com, martin.petersen@oracle.com, clm@fb.com,
+ josef@toxicpanda.com, dsterba@suse.com, viro@zeniv.linux.org.uk,
+ brauner@kernel.org, nico@fluxnic.net, xiang@kernel.org, chao@kernel.org,
+ tytso@mit.edu, adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
+ konishi.ryusuke@gmail.com, dchinner@redhat.com, linux@weissschuh.net,
+ min15.li@samsung.com, dlemoal@kernel.org, willy@infradead.org,
+ akpm@linux-foundation.org, p.raghav@samsung.com, hare@suse.de,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+ gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org, yi.zhang@huawei.com,
+ yangerkun@huawei.com, "yukuai (C)" <yukuai3@huawei.com>
+References: <20231125093912.141486-1-yukuai1@huaweicloud.com>
+ <2023112544-subpanel-national-58e5@gregkh>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <6ef798a6-8c0c-16b0-9991-b461258eb7d4@huaweicloud.com>
+Date: Mon, 27 Nov 2023 09:13:39 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20231122162620.4354-1-frediano.ziglio@cloud.com> <55fb9f8d-8834-414a-b789-7fcff76950c5@citrix.com>
-In-Reply-To: <55fb9f8d-8834-414a-b789-7fcff76950c5@citrix.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Sun, 26 Nov 2023 18:46:02 -0500
-X-Gmail-Original-Message-ID: <CABfawhmbTfRQbMMqerPrOnPDqCKvqTncDWCF+a-izFJm3PP3Sw@mail.gmail.com>
-Message-ID: <CABfawhmbTfRQbMMqerPrOnPDqCKvqTncDWCF+a-izFJm3PP3Sw@mail.gmail.com>
-Subject: Re: [PATCH] x86/mem_sharing: Fix typo in comment
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>, xen-devel@lists.xenproject.org, 
-	Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <2023112544-subpanel-national-58e5@gregkh>
+Content-Type: text/plain; charset=gbk; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgDX2hBD7WNlrI8oCA--.40143S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw48Jw4DZF43tw18tFWrKrg_yoW5ZFW8pr
+	W3GFZ5AFyq9ry7uF4IqF1xXryrJ3Wku3y3JrySyw10vrWYvF12gryvyr93uFy8ZrZ7tr4j
+	qF1aq34vkr18CrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
+	JVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCYjI0SjxkI62AI1cAE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j
+	6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUd8n5UUUUU=
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
-On Wed, Nov 22, 2023 at 11:27=E2=80=AFAM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> On 22/11/2023 4:26 pm, Frediano Ziglio wrote:
-> > ambigious -> ambiguous
-> >
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi,
 
-Not sure if it's still needed but either case:
+ÔÚ 2023/11/25 22:32, Greg KH Ð´µÀ:
+> On Sat, Nov 25, 2023 at 05:39:12PM +0800, Yu Kuai wrote:
+>> From: Yu Kuai <yukuai3@huawei.com>
+>>
+>> block_devcie is allocated from bdev_alloc() by bdev_alloc_inode(), and
+>> currently block_device contains a pointer that point to the address of
+>> inode, while such inode is allocated together:
+>>
+>> bdev_alloc
+>>   inode = new_inode()
+>>    // inode is &bdev_inode->vfs_inode
+>>   bdev = I_BDEV(inode)
+>>    // bdev is &bdev_inode->bdev
+>>   bdev->inode = inode
+>>
+>> Add a new helper to get address of inode from bdev by add operation
+>> instead of memory access, which is more efficiency. Also prepare to
+>> add a new field 'bd_flags' in the first cacheline(64 bytes).
+>>
+>> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+>> ---
+>>   block/bdev.c                       | 39 +++++++++++++++++-------------
+>>   block/blk-zoned.c                  |  4 +--
+>>   block/fops.c                       |  4 +--
+>>   block/genhd.c                      |  8 +++---
+>>   block/ioctl.c                      |  8 +++---
+>>   block/partitions/core.c            |  9 ++++---
+>>   drivers/block/xen-blkback/xenbus.c |  2 +-
+>>   drivers/md/bcache/super.c          |  2 +-
+>>   drivers/mtd/devices/block2mtd.c    | 12 ++++-----
+>>   drivers/s390/block/dasd_ioctl.c    |  2 +-
+>>   drivers/scsi/scsicam.c             |  2 +-
+>>   fs/bcachefs/util.h                 |  2 +-
+>>   fs/btrfs/disk-io.c                 |  6 ++---
+>>   fs/btrfs/volumes.c                 |  4 +--
+>>   fs/btrfs/zoned.c                   |  2 +-
+>>   fs/buffer.c                        |  8 +++---
+>>   fs/cramfs/inode.c                  |  2 +-
+>>   fs/erofs/data.c                    |  2 +-
+>>   fs/ext4/dir.c                      |  2 +-
+>>   fs/ext4/ext4_jbd2.c                |  2 +-
+>>   fs/ext4/super.c                    |  8 +++---
+>>   fs/gfs2/glock.c                    |  2 +-
+>>   fs/gfs2/ops_fstype.c               |  2 +-
+>>   fs/jbd2/journal.c                  |  3 ++-
+>>   fs/jbd2/recovery.c                 |  2 +-
+>>   fs/nilfs2/segment.c                |  2 +-
+>>   include/linux/blk_types.h          | 10 ++++++--
+>>   include/linux/blkdev.h             |  4 +--
+>>   include/linux/buffer_head.h        |  4 +--
+>>   29 files changed, 86 insertions(+), 73 deletions(-)
+> 
+> You should do this as a patch series, add the helper function that does
+> nothing, convert all the different portions of the kernel as different
+> patches, and _then_ change the implementation of the block layer to
+> handle the change in the structure.
+> 
+> Otherwise this is going to be hard to get accepted.
 
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+Okay, thanks for the adivce, I'll do that in v2.
+
+By the way, I was thinking that this patch is quite simple, and doesn't
+worth spliting into 10+ patches,
+> 
+> Also, one note:
+> 
+>> @@ -85,6 +84,13 @@ struct block_device {
+>>   #define bdev_kobj(_bdev) \
+>>   	(&((_bdev)->bd_device.kobj))
+>>   
+>> +static inline struct inode *bdev_inode(struct block_device *bdev)
+>> +{
+>> +	void *inode = bdev + 1;
+> 
+> That's crazy, if something changes, this will keep working yet the
+> kernel will break and no one will know why.
+> 
+> Please use container_of(), that's what it is there for, this exact type
+> of thing.  Or if not, are you just assuming that the memory location
+> right after bdev is the inode?  That's a tough assumption, how are you
+> going to assure it really stays there?
+
+Struct bdev_inode never changes since commit 8fbd544cbca5 ("[PATCH]
+bdev: add I_BDEV()") from 2004, and I think it won't change unless
+there is a different way to manage lifetime of block_device.
+
+And the 'bdev + 1' is copied from blk_mq_rq_to_pdu(), however, I aggre
+that use container_of() is better and I will use it in v2.
+
+Thanks,
+Kuai
+
+> 
+> thanks,
+> 
+> greg k-h
+> .
+> 
+
 
