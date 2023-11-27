@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DADF7FA86F
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 18:58:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642385.1001826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F0F17FA89E
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 19:08:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642389.1001835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7frb-0005mD-PA; Mon, 27 Nov 2023 17:57:43 +0000
+	id 1r7g17-00086Q-LQ; Mon, 27 Nov 2023 18:07:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642385.1001826; Mon, 27 Nov 2023 17:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 642389.1001835; Mon, 27 Nov 2023 18:07:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7frb-0005kY-MI; Mon, 27 Nov 2023 17:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 642385;
- Mon, 27 Nov 2023 17:57:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VqC2=HI=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1r7fra-0005io-Dh
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 17:57:42 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 756193b2-8d4e-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 18:57:41 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id D15D34EE0737;
- Mon, 27 Nov 2023 18:57:40 +0100 (CET)
+	id 1r7g17-00083f-Ia; Mon, 27 Nov 2023 18:07:33 +0000
+Received: by outflank-mailman (input) for mailman id 642389;
+ Mon, 27 Nov 2023 18:07:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7g15-00083V-MK; Mon, 27 Nov 2023 18:07:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7g15-0002qf-G0; Mon, 27 Nov 2023 18:07:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7g15-0005tA-4l; Mon, 27 Nov 2023 18:07:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7g15-0000us-4I; Mon, 27 Nov 2023 18:07:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +42,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 756193b2-8d4e-11ee-98e2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=z8pEe0SkpZhulk3sM56x/bFQ6eetXtnnnCWR7OrkL9g=; b=zpEaQrBk5SC7dEULZ2NyIq/jvE
+	lJe5l3oHuHZiTpC6MWmpdDnNTzLG0rBhCucDfvhjYZsTxhyt4y5GDelhNtgNsUvhgm6q/RHCDDoHL
+	aWLaO02TOn0dYpWZ9sEf2/gWESJ3RsBZ5SIo+uT8uV32JHOd6VlROXSidH5PmfNMqnvY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183871-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Mon, 27 Nov 2023 18:57:40 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper3
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Xen Devel
- <xen-devel@lists.xenproject.org>
-Subject: Re: MISRA: Compatible declarations for sort and bsearch
-In-Reply-To: <b3e14bf0-def2-4e1c-83f6-a94a203c7b8d@suse.com>
-References: <f60a702c838c3274cf9e1193964222f4@bugseng.com>
- <ca540835e3cce50a852fdf2b3956205a@bugseng.com>
- <b3e14bf0-def2-4e1c-83f6-a94a203c7b8d@suse.com>
-Message-ID: <5ebb62b5485bb1a0c4e805af6580ab6d@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 183871: trouble: blocked/broken
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64:host-install(4):broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=fbcec32d6d3ea0ac329301925b317478316209ed
+X-Osstest-Versions-That:
+    xen=80c153c48b255bae61948827241c26671207cf4e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 27 Nov 2023 18:07:31 +0000
 
-On 2023-11-27 15:59, Jan Beulich wrote:
-> On 27.11.2023 15:32, Nicola Vetrini wrote:
->> Still on the matter of Rule 8.4, though not related to bsearch or 
->> sort:
->> 
->> - the definition of do_mca in x86/cpu/mcheck/mca.c has the following
->> header:
->>    #include <xen/hypercall.h> /* for do_mca */
->>    which in turn leads to x86/include/asm/hypercall.h, which includes 
->> the
->> following:
->>    #include <public/arch-x86/xen-mca.h> /* for do_mca */
->> 
->>    where I can't see a declaration for do_mca, as I would have 
->> expected.
->> I'd like to understand what's going on here, since I may be missing 
->> some
->> piece of information (perhaps something is generated during the 
->> build).
-> 
-> It can't possibly live in the public header. The comment simply went
-> stale with the auto-generation of headers; the decl is in 
-> hypercall-defs.h
-> now.
-> 
+flight 183871 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183871/
 
-Ok, thanks.
+Failures and problems with tests :-(
 
->> - x86/traps.c do_general_protection may want a declaration in
->> x86/include/asm/traps.h, or perhaps it should gain the asmlinkage
->> attribute, given that it's used only by asm and the TU that defines 
->> it.
-> 
-> Neither is really attractive imo.
-> 
->> - function test and variable data in x86/efi/check.c look like they
->> should not be MISRA compliant, so they may be added to the
->> exclude-list.json
-> 
-> This file isn't contributing to the final binary.
-> 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                     <job status>                 broken
+ build-arm64-xsm                 <job status>                 broken
+ build-armhf                     <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 183851
+ build-amd64                   4 host-install(4)        broken REGR. vs. 183851
+ build-armhf                   4 host-install(4)        broken REGR. vs. 183851
 
-Then I'll exclude them
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
 
->> - given the comment in xen/common/page_alloc.c for first_valid_mfn
->> 
->> /*
->>   * first_valid_mfn is exported because it is use in ARM specific NUMA
->>   * helpers. See comment in arch/arm/include/asm/numa.h.
->>   */
->> mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
->> 
->> and the related ARM comment
->> 
->> /*
->>   * TODO: make first_valid_mfn static when NUMA is supported on Arm, 
->> this
->>   * is required because the dummy helpers are using it.
->>   */
->> extern mfn_t first_valid_mfn;
->> 
->> it should probably be deviated.
-> 
-> NUMA work is still in progress for Arm, I think, so I'd rather wait 
-> with
-> deviating.
-> 
+version targeted for testing:
+ xen                  fbcec32d6d3ea0ac329301925b317478316209ed
+baseline version:
+ xen                  80c153c48b255bae61948827241c26671207cf4e
 
-+Stefano
+Last test of basis   183851  2023-11-24 09:03:53 Z    3 days
+Testing same since   183871  2023-11-27 14:00:26 Z    0 days    1 attempts
 
-I can leave it as is, if that's indeed going to become static at some 
-point.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
 
->> - compat_set_{px,cx}_pminfo in x86/x86_64/cpufreq.c are perhaps 
->> declared
->> with an autogenerated header?
-> 
-> I don't think so. Only top-level hypercall handlers would be. This 
-> works by
-> (perhaps even unintentional) trickery: xen/pmstat.h is included only 
-> after
-> set_{c,p}x_pminfo are re-defined to compat_set_{c,p}x_pminfo, so the 
-> same
-> declarations happen to serve two purposes (but of course don't provide 
-> the
-> intended caller/callee agreement).
-> 
+jobs:
+ build-arm64-xsm                                              broken  
+ build-amd64                                                  broken  
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
-I didn't understand your explanation fully; I see xen/pmstat.h in 
-cpufreq.c included before
-compat/platform.h which, as I understand it, redefines set_{c,p}x_pminfo 
-to compat_set_{c,p}x_pminfo, therefore down below no declaration for 
-compat_set_{c,p}x_pminfo is visible, triggering the violation.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-amd64 broken
+broken-job build-arm64-xsm broken
+broken-job build-armhf broken
+broken-step build-arm64-xsm host-install(4)
+broken-step build-amd64 host-install(4)
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit fbcec32d6d3ea0ac329301925b317478316209ed
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:39:55 2023 +0000
+
+    x86/mem_sharing: Release domain if we are not able to enable memory sharing
+    
+    In case it's not possible to enable memory sharing (mem_sharing_control
+    fails) we just return the error code without releasing the domain
+    acquired some lines above by rcu_lock_live_remote_domain_by_id().
+    
+    Fixes: 72f8d45d69b8 ("x86/mem_sharing: enable mem_sharing on first memop")
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+
+commit b9eeb1992676ec83cee285b97fee94d03eaa9836
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:26:20 2023 +0000
+
+    x86/mem_sharing: Fix typo in comment
+    
+    ambigious -> ambiguous
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+(qemu changes not included)
 
