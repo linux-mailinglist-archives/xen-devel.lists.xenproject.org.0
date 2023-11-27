@@ -2,65 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DECD7F9D9F
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:36:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.641772.1000642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50E2F7F9DEA
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Nov 2023 11:47:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.641936.1000974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Yxu-00084t-W0; Mon, 27 Nov 2023 10:35:46 +0000
+	id 1r7Z8R-0000FK-Rv; Mon, 27 Nov 2023 10:46:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 641772.1000642; Mon, 27 Nov 2023 10:35:46 +0000
+Received: by outflank-mailman (output) from mailman id 641936.1000974; Mon, 27 Nov 2023 10:46:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7Yxu-0007yc-Sz; Mon, 27 Nov 2023 10:35:46 +0000
-Received: by outflank-mailman (input) for mailman id 641772;
- Mon, 27 Nov 2023 10:35:45 +0000
+	id 1r7Z8R-0000Cg-Ob; Mon, 27 Nov 2023 10:46:39 +0000
+Received: by outflank-mailman (input) for mailman id 641936;
+ Mon, 27 Nov 2023 10:46:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+izA=HI=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1r7Yr0-0000Co-Ti
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:28:39 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0607.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::607])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nblC=HI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1r7Z8Q-0000Ca-QR
+ for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 10:46:39 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20614.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::614])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9678f25-8d0f-11ee-98e2-6d05b1d4d9a1;
- Mon, 27 Nov 2023 11:28:37 +0100 (CET)
-Received: from AS9PR06CA0777.eurprd06.prod.outlook.com (2603:10a6:20b:484::31)
- by PAWPR08MB8837.eurprd08.prod.outlook.com (2603:10a6:102:336::16)
+ id 3d53ce9c-8d12-11ee-98e2-6d05b1d4d9a1;
+ Mon, 27 Nov 2023 11:46:37 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by DU0PR04MB9347.eurprd04.prod.outlook.com (2603:10a6:10:357::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Mon, 27 Nov
- 2023 10:28:29 +0000
-Received: from AMS0EPF00000190.eurprd05.prod.outlook.com
- (2603:10a6:20b:484:cafe::7a) by AS9PR06CA0777.outlook.office365.com
- (2603:10a6:20b:484::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.28 via Frontend
- Transport; Mon, 27 Nov 2023 10:28:29 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AMS0EPF00000190.mail.protection.outlook.com (10.167.16.213) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7046.17 via Frontend Transport; Mon, 27 Nov 2023 10:28:29 +0000
-Received: ("Tessian outbound e243565b0037:v228");
- Mon, 27 Nov 2023 10:28:29 +0000
-Received: from 0e5ff7cda270.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- B7227366-587E-4624-BDC9-2BBEF6826A51.1; 
- Mon, 27 Nov 2023 10:28:18 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0e5ff7cda270.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 27 Nov 2023 10:28:18 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by DB8PR08MB5324.eurprd08.prod.outlook.com (2603:10a6:10:11e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.28; Mon, 27 Nov
- 2023 10:28:13 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::c64b:7a3:ac99:25db]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::c64b:7a3:ac99:25db%2]) with mapi id 15.20.7025.022; Mon, 27 Nov 2023
- 10:28:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.19; Mon, 27 Nov
+ 2023 10:46:33 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.015; Mon, 27 Nov 2023
+ 10:46:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,230 +47,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9678f25-8d0f-11ee-98e2-6d05b1d4d9a1
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=MDSAmbO0IALIddBK2mER5ueBx+6Xr++6cBrpMpHv/mpa/vwoMENG4c4jtf0LMscdjSR6E6PWJLV9q+6sVRTr+LuzvyoMQHtBLY9ifcfAly1a0KX0uyC58nlzF1V1M4Bx56nv/8KED9xLjIgQBKbLB2i0BheSLCjznyNU/kXXKbwQ9swpHcp78Q5CPU4NqqHgvXjowlPdphdizwFwduFghiqoqIEzl1zW5vXnE7/dHCG+dC0RoIfE28lyZhxQrZuLW/N0vIBTLSpHI41aFt1v/t/MkP6By9n9AwRUoXiIwSaNYZj0Fm1/dOTh1ug8OApWts6wi5pTHnCVW7jILymW1w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZDDgmvC3H7XGbddnRDRljG9XE/z5a7o6VdO5cApr62k=;
- b=he9vTyAqxwGTVhbkSBX7qswNf9m4vH69TQRfi3o3VIi633ROhd2C5Sh6/UOoIu7CFQWd9m9tzrip9TFBPzA2vrb1c/yONPbTr9E5gSl6J1uxBOIPbKwcMTYfxXvc8STSKj8YwsFhA8drl4EcPF+GgeCpHugXNfrYbL3bgYV/LdLzlojR8JLMsk394uKRiXO/BLWQEgFPIVlVZz3M8muc5knEg93E08TqbXVIZBMPzv52ea8sFnYe5ULQHi5DkTnRT1Irw8egrQeKvpcN/qvReDq3hMQvjqkCu0tVQw8sCcPS106kYO4zzXDt+ONobVJB4CTSGQ8hz9o9JRnpIKCW0Q==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZDDgmvC3H7XGbddnRDRljG9XE/z5a7o6VdO5cApr62k=;
- b=mKCWxCSEzQDQgBQdr6Uxp3dU5geC4S6Ar0K9DcoA5yXaxrloZknLEVaGtdr8ItU+l8ZsKw4JEbLUy8FpGZscvTp589o3seVD6lHscKZwGU+O2Eu45Y9TAAKrENIiP5CysLqm4Iflbwuv77rl9hFgqep6GVKJZIAW0CDn26nmUAc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0c6312e545a37815
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 3d53ce9c-8d12-11ee-98e2-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cm2kxOj1QH/dKO8xAuS4514kCAHbtK22oYjq8m1PmS4lY6T/SDBIOd4ht7ApRVIINFebkaoS1/rzjphhZrbmEdKJPG4dt0aLGjjr3+nLCEuHWnIDc59F4zxnlU4Y79yjewipDsoK3gPqeCcS2p2zs+Y9ksygpBYHmRx0sVBgJsKgAoCKG5nGj9ccgAnzgltuYybNtZoTHera2juSIGsadaeoQaWXWn25Q66tj+iWGk7ArHWD3fBojetWv4oqWK0i9dgHvuPDu+ql9lwI3XGTNYJlOmmNqTTXg+OKfIO/R7VX4Nkqvb3SHvMY7hxCg6uzXhTgvBtSD8ey5wfaoCH93A==
+ b=kSGOndY5/81GeY338cD/5BpTEFjlmU3DF+IiTbP7jGRulEGNAUYaEljZjFY1oQptpX4jblhiOzhVqE3YDfym3NdVIUAaAN2gCqOFVLB6zJSpbWlJc3/Wp/6KeBCx91K/kiLEOu83Z6nZnguonBUzj1NdFl/ji6HDUTB2+B0TcaeZu0X1WVgeSrIZyw4uOfz+v8F0Wm7uSlcF9pgMwIJIkH+MM+lqLLLzbkMhsGw4XNdtItKi656pPMYoS/3Hk2jjLkTE2aF5K1NCE6XDvJk1ECX3TQnLbNp5cc8f85TRE0OXMLIaMQJhYgV+wnfJoYUnBOLSOCiJ6+6hh/v5iIcbQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZDDgmvC3H7XGbddnRDRljG9XE/z5a7o6VdO5cApr62k=;
- b=OXJKIHcyv8Q/GQCptuD0f02NIAd4AOXnx9sOlDPeclszAOvF87QEGaYAaJwTU+B2oxPkl9uI2igZtmWUFJm/BzrGVzPV2J3iv7nID77jyztpgCjpUf6kIoBipE8pX1y6NCZKUgtuv+G+S8yG7YvHQDK1t1oPxC/c5EmDGCQrdUhHYW+NZJkMd4+yTU+JJla5gL32pQ0EGueMaFPZdWlQGG67ZSDVtXtbjDONCDbtl4ZC6yTeOyKttQep5LBCFzZs3ZAN60c1TVN4qS4VQAagJWj40DGaPBW8DnDg7IpdRhxAE7Fi3iY8V3LewsrdtoBcQFGb36QG/xp8kfGc5cNO+A==
+ bh=M3F4Z7GcJNquQVuGDzotKNtGtAraWw7HhIc6dlAURqE=;
+ b=RIe+ldkJeWwfBIZcUuigS58fDbFREhlQtogKAvIe8fvmSUuNnJwYu+7BW5DkUSmuj1ehXxNkYr3inHqUeSyw3WYRrFQ2jxD1m+OIpq90/OALXwDgqbSJmNZ6xp+wN8kX+2IBHViFx0T8U4NVyRQN2sXc9oxetDl8GoOX8PKH4Uqi6/WWZvR+tiFHFH/GmiHZTWmnXgBqvWUO56N9cXDexAql4SpPnZOGwKkmWYy0Ga7b/0lk93s/8x3fBjPlHlLH1LMRftIXei9+qx+kE4nFyvaLy9b44nYpM/wLhYd/TzQoD9TtNZaMKQU5RAkWbqEmMLEsw5T0fW1iVs+kbVN4Ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZDDgmvC3H7XGbddnRDRljG9XE/z5a7o6VdO5cApr62k=;
- b=mKCWxCSEzQDQgBQdr6Uxp3dU5geC4S6Ar0K9DcoA5yXaxrloZknLEVaGtdr8ItU+l8ZsKw4JEbLUy8FpGZscvTp589o3seVD6lHscKZwGU+O2Eu45Y9TAAKrENIiP5CysLqm4Iflbwuv77rl9hFgqep6GVKJZIAW0CDn26nmUAc=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Mario Marietto <marietto2008@gmail.com>
-CC: Demi Marie Obenour <demi@invisiblethingslab.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>
-Subject: Re: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32
- bit
-Thread-Topic: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32
- bit
-Thread-Index: AQHaIRqC1LNxkfiXQEOwpgfnTEw2i7CN9pcA
-Date: Mon, 27 Nov 2023 10:28:13 +0000
-Message-ID: <C0A0E9FA-5AAB-4324-BBBD-D07412CD7F32@arm.com>
-References:
- <CA+1FSiggg=XZmif6c3pY0+jz7i9caU-OTwFy80gwO7MVpXiwcA@mail.gmail.com>
- <CA+1FSigM1PZc4WfZNUJSMsZbNPPTyThRJ7MMQwQ9TWn6VnSUTg@mail.gmail.com>
-In-Reply-To:
- <CA+1FSigM1PZc4WfZNUJSMsZbNPPTyThRJ7MMQwQ9TWn6VnSUTg@mail.gmail.com>
-Accept-Language: zh-CN, en-US
+ bh=M3F4Z7GcJNquQVuGDzotKNtGtAraWw7HhIc6dlAURqE=;
+ b=e5ZL4hJb5dhLeu+pyDK4+Lykf95uesWdIQUtUxVd4PyIf1a9jjt+k4VivB7Ojoy4kXODZsF/BMF7tJzwR+4gedt4kpYHFAS9FOSs8evxMMnwipfW8bVh9aYtOemOmTrV/KEwgGCifiKoB6jr412mFbvp/9MdlTxr0/xvVI/xZPxTk8XzYupUheuMtpFs16w5nEUHULZJTy2ubmcpemSwLLIeMLhg6Jr9VitGPD8wpFg42wokYPhk4o0h29wkAOhy2itwj6o37Xx/DhAqrvsBUeGvFdAQEpEKGEFB2DHEoxkQyRSFghgerfih+7MG2SFoanPNAww36nb+JBeDe9eT0Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <ec587cf6-088b-4142-8067-4d9d67fc58c1@suse.com>
+Date: Mon, 27 Nov 2023 11:46:34 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 2/3] xen/arm: add SAF deviation for debugging and
+ logging effects
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.200.91.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|DB8PR08MB5324:EE_|AMS0EPF00000190:EE_|PAWPR08MB8837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d7fbbc4-c1a2-4a34-cb1b-08dbef33990b
-x-checkrecipientrouted: true
-nodisclaimer: true
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <cover.1700844359.git.simone.ballarin@bugseng.com>
+ <761ce615438312ca5d37fb8829a0ba903375392f.1700844359.git.simone.ballarin@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <761ce615438312ca5d37fb8829a0ba903375392f.1700844359.git.simone.ballarin@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0138.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::12) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DU0PR04MB9347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f5709a8-8585-4029-f9a1-08dbef361f49
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- WFH5EVkGk1EhTczUBfWOpy0Qqh7rhjo4lBPNw4rR702urF7WLjMssGlDSqLd3OOfxn83url8y2+yA6oxDRkXGULI965x1NlCs1Q4m0yYZtfDYA7qhvUswCxY3OKAyB8lBbcOk8o+Xo2OFJ7BBtLx4e4riNN8fPTluaLpkNb7QEBdTnqjStXDx9H8kwtLF+HiFJJMhH8SOQZPGRFfwsV6fmIETxMsOphOpsqMGdYSRtc+wYuD2NGeHxoobiC0bcTqq+VCVKQdch4ofZUHkqhFv+6emz0eCH9p2cYUVecMBzEOboOO7tdgWQm970AfgzlEdHJZndJGgyxVzwg2RoFOGTpwbYUYblCKsrV8ECx24uuWj5hyZx3ZkjhJUZtTj763ZGzDcRkXxscxzasMUKQpZ0ButI0j55wFgHmMTXsDUdZxzasxBzDyr7sxVJHxYNW4jkURoTgXPhM++9PUdTr4J7aVkIvRnEChSaTe2HMB2uOu4JLDeTRuU2NzPlM1pUWOjPsqbLsCRcjHktvH149Yl10PrVg8QuE7AUzXKsXaMmkGnfkQR4cROmdPtt5cHQhUs5mpa7rlcIHG23HsW555EcPtzcO5rUGsSL4r+GPti69RTgqXouCg/7qC8uOrLMfD
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(396003)(39860400002)(136003)(376002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(6512007)(53546011)(6506007)(2616005)(6486002)(478600001)(966005)(71200400001)(83380400001)(2906002)(5660300002)(41300700001)(91956017)(66946007)(76116006)(66556008)(54906003)(66476007)(6916009)(316002)(64756008)(4326008)(8936002)(8676002)(66446008)(38100700002)(38070700009)(86362001)(36756003)(122000001)(33656002)(26005)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <4E402AC98D7E374295B0470B8E9308D0@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5324
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF00000190.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	5204ef92-7b81-4a11-158a-08dbef338f6c
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	vuIDi70f/2oGchz77WbQrLrKU1Xj8st1kuJ0FpGb78KH3u/HMZ8UxNhnYY1IQukw/Kdxe9co1wZRhdCsJNoU5LcUFDCTSkli7rqpyiGVMDijcqUBhLRy8UIF224SqCZGwvBNOzdfJX9NMT78eY3Ddmu5T6Avlw/o+OO8bC72gncIehkQFKKsnXdNQhxHNn0v4tEH9utsRX6OaC2GkaV/Z1us+Goswu0F2Nb9KgNbpYkRM/+63mRZd18abtdpEITBJX0wyI0rCupM7ej/DeoCP8f7mkCkHh81RdGp+6WRRR7U8ur+IGXRBQz7dKubSHPC7/om8FatkcaEZ6b50OXZEEsPsPSFmm9yz0Oxm4M3EN/3d0rVQYbH3VQtgzuCjM3Eyrf1oy0oa/N0oodQoTfhZu6qplYtrQhj6zg5rzi3N+4d1b49285wsgx09IfeNdd/QEXaHzQeXrdnUYgjtVX0EH6bCx28FtXgYpLy8NRT45LpIgXxEv4YX/3pioxXaUxLNqFre4iqLwPFDbWUuqYxtoYp/F6DEzmpWXjWC5Rvqj5woxC3zMwhzyY7OduurKhOm9bNDGK4qPYVj2zRLOZarkQLbuEcFfCzXErMBUjWQHtNQ0NuzABUuV4vOJXOzlW69IYHyU+rvbWR5TH7w3WQSUg0hjUVoO/qqzar5x6VqigA3jbTM4ue/6rXGls9jccG2zfYQYJPs5ZOlTML2cA7QAxhZkHnp0pevnKNG0ZjvQk=
+	UPaPIDp2o39ig2/M63dSmdZl9+qbk0l2uQTvTq95DxJtbawxvSBlGdDROQS8YMvll3u9PdddkrRopcXOptPawtp6zIh3kr9pDlYMrm5pjwSnado/DMEcArUTPj5wmgb9scsWvss+WL/K0MChtvGXQcllErnDSNIUuhFaPe5wRTX3rj+8QeMuMs67mzCepcMVQGM0eHKclWLZe5/QZcDRtfHe7H3GQNlYWDZVtARdjplpQBHOdhJlZ7qDBgoKdFszYOk4XjL5+50H/HKQmvLzuKW7Qjgcr1kDt5aeuY9cUNGGXhn7EupTdtbq4SbhX7lOb4xCKyYtJH1O0bOpvKLUSidVYH+z4bZM8hYqLE0h9oFhVf0qcbyrnie/0U50zMWq8AbCTtU8nq3OfledMuMx6IGQnUpLNv/LghnyoUdZvZqTqn5ir911H2VpOkKKCGi0VF+8/1uyjvlJOqt3Gun5U8OdBCZkTThpVqzidtrVA1YY1oToIvtKQfJS49uUYY6jJvOny6xbZYbhsFuAInoBl3jNRUtk0bGak7Ji0LU0nCjwBzrvqNBKbDI8e0uMfr651+3r1qpSpW0MatCZcCsol7rIiq9bBGNnXhlQOrtjKnpO/+SlJnLHyqrYqzUJV18SYpLBsc+eWm0wGoWoFWUOuA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(346002)(396003)(39860400002)(230922051799003)(451199024)(82310400011)(1800799012)(186009)(64100799003)(46966006)(40470700004)(36840700001)(83380400001)(81166007)(356005)(47076005)(336012)(82740400003)(6506007)(6512007)(8936002)(4326008)(70586007)(70206006)(966005)(316002)(36860700001)(54906003)(6486002)(53546011)(5660300002)(8676002)(6862004)(478600001)(86362001)(40480700001)(41300700001)(33656002)(2906002)(36756003)(26005)(2616005)(40460700003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 10:28:29.2332
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(376002)(396003)(346002)(136003)(230922051799003)(64100799003)(1800799012)(186009)(451199024)(6512007)(6506007)(53546011)(2616005)(6486002)(478600001)(83380400001)(7416002)(2906002)(5660300002)(41300700001)(66946007)(54906003)(66556008)(4326008)(6916009)(316002)(8936002)(8676002)(66476007)(36756003)(38100700002)(86362001)(31696002)(31686004)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NXJrOW1pZTRGRC9lK0d6ZlF2WXBxZHErbFhERmYvTHpjVmltTUVkT3NrNEhv?=
+ =?utf-8?B?TXFaSkladitRMlZNcW9hNi94Z2pCMFF5cGozdGZlOE1sMnhZY3RxTTRPUWE5?=
+ =?utf-8?B?M0V5ZHlqMjloUllrelkwdlNlVnYxN0RKYVpXUVVkb3BFbXZRS1o4WXQ5Tndh?=
+ =?utf-8?B?Y1h3NE5FeEU3VU5yWEFkemVlWk80ci9NTDJwckxiVkJVQXgzUitzams0T3Ex?=
+ =?utf-8?B?c2tMclZTcjBLNlJsREVLUEFxZ3pOS0RSUXZYWjRvTkRJVkwxZURoaEI4ZGZZ?=
+ =?utf-8?B?ZkFBb3hBR2hUZXp0Y2ZNMEk0WTdxRlkzNTc5Zi85aXh4MklCTjFDbzgxQ2xl?=
+ =?utf-8?B?KzYrcmFYb1hlN1lLWGI4MWlHU1NIVjlQMG5rVVFFcHhsR0JXVWFtQmx1UVV6?=
+ =?utf-8?B?WWVYSmYvTE9zMzRQUHpTaStGVUJ3c2xjeThyVjkrVFNnV0JoSXN2a2JaYStT?=
+ =?utf-8?B?ZWR4Z1pGU1BTSkVscG11QWl2ZHlnQnErcmlEamhMVEJWT2Q0YmRZUERFSk5R?=
+ =?utf-8?B?RHEvVjFiL1VjeTlicGJuN3lCRVdRempkOFBOT2JpYy9rbGd2SU1XK3BWdHo5?=
+ =?utf-8?B?Sm5lTHA5WjZVZ3NscUNsSi9GNmRqMGFSOG5aS2F3T0RVSWZ2VlRDMmV5RXYv?=
+ =?utf-8?B?OGd1cStqdFZuMW1BWTBBbEJsci9McHFqTjlYeUlEVFZ0a2FpZlJpd0xHeWIz?=
+ =?utf-8?B?VEJJUzRVRzdVNXhiU1pPZVhZYXVqS0ZFRDlYODVYeGZ6ODlMUlhhdjU2bk1P?=
+ =?utf-8?B?bEN6cjkyTUZESGlXOTFybzRtSnBRQ20xQlJkSU5NYmtmdTZrTE5RUlo1akZI?=
+ =?utf-8?B?R3NwdWMrSHB1eTQ4R2ZZclFVRG1kOWZrOC8xbnRxYmp4d1VRT3U0TTZkaWdK?=
+ =?utf-8?B?ejJiaWhxZmtNMVpWWGlkTUovSHE2RHJDdGYzWnh1b0w0cHdvdmpJYkRoTjQ1?=
+ =?utf-8?B?UXRnYlhVamhHY1FnUDEzRG51UkFkNXhQdkVhb0owaWwvdG5yWS9pcStsbDNF?=
+ =?utf-8?B?a29yMGgrZkV4RjBiL0JkWWoveThSUVhQa2x0eFdUMFB3TkNvL2M1bXBaM29Q?=
+ =?utf-8?B?VlFjM1g2eVBsaXFRMWlTSnZLbllRN1FOL0h3SnVxbFlueTU3MDB5T3h0M0Ri?=
+ =?utf-8?B?bEVKNFl5Z3RNR0hqL2MrQnpwQ2tTOHZwK1RldDlTTTJ1RTl5T25RN0tZVFFm?=
+ =?utf-8?B?ZHpHcSs1U2VWUkg3c0pHcDg3Z2JpZlMwYkVKTHZGK0VtbXNtbzFlZjZqNk5G?=
+ =?utf-8?B?elpMOWlnbC9KbGZ2RHRnajlTTzlDZ2FrbzJaaWNkekZzUEdMeGdFOVEwQmFp?=
+ =?utf-8?B?YnZCVEZTU3k2a2FlaEUyNzVzWVI5ekpGRDZRcERVZjk0TDdjRFdiSFAzQ0pK?=
+ =?utf-8?B?R25oTGtMZHFXVlN2bktCYndBVHVGSnVCekNEbFh0SHVZY1V3Ky9FcmgwR3h0?=
+ =?utf-8?B?bzl6cWRmR0w1UVhjaUZTc1I4bTZ3YTkrbVE4Y0hQdjhYMGREeDFjbDRVemVV?=
+ =?utf-8?B?U0xWSVEyUTg1Y1A5ZEo0MERrZk9zdEdxbmxJZE11amQrSEloMXNTc0Iyb0JH?=
+ =?utf-8?B?cEV6T25kUktmRFJTeExTUVh3ZUkvSUs0eDNCbmhaTVlwaVNaM1FxaXhuSlN3?=
+ =?utf-8?B?clNCYmd6TURQMXlrTHRERjc3TnpqdnU3YXVTV2pJNVdRVFFkdHUrQ1FSUnFC?=
+ =?utf-8?B?cklvNFp2dHhTcEhXb3VTNEZMc0M5SGtMYXdkaHhaWC9wZ0RSOXNqZzZyU09t?=
+ =?utf-8?B?T3lVU1picVIzcldmTFpETlhHSmRtV1pReU1IUGhYQ1AyWWNtWWVLUGQwTldt?=
+ =?utf-8?B?QnBUS2hhSUN4bmRIbUpWWnA2Q0NrS1ZqWFZEbldmd1pQSjFkVU43aGxIdDg3?=
+ =?utf-8?B?VCthWkgxUkVZdW1uMjUyNGFTdVNwWjE2NTdKU1pob1hKOUgxSUdRWVpQSk9X?=
+ =?utf-8?B?cGt6T20vMWVmRlVaQzZKb1hRVTFsSCtPZUo2ZVRpTUpnaXdsRHdrOXRNQXFk?=
+ =?utf-8?B?Sm5FeGxKNGJoUmFWeW9INlk2cjhLR2wrOFB3Nmk1NjRBT3ZMQnBEZnNia3E5?=
+ =?utf-8?B?d3V5SVE4YXBpZkhkbjRRelB3cDZsYmhkQkd0MTdHcnU1U0Y3cENoZTlHZ2RY?=
+ =?utf-8?Q?i6BeuQZIGxFvUflJxJUUclm5t?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f5709a8-8585-4029-f9a1-08dbef361f49
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 10:46:33.6384
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d7fbbc4-c1a2-4a34-cb1b-08dbef33990b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF00000190.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB8837
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9W8cv7Qu5KcQvPuBK+fkcvQkvN4I4+NLEAjhuHz4f219bLysYsgERQqZx5d6GajNSS/ZliL/NJN3UIym4oKR+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9347
 
-+(xen-devel and Arm maintainers, including Julien)
+On 24.11.2023 18:29, Simone Ballarin wrote:
+> Rule 13.1: Initializer lists shall not contain persistent side effects
+> 
+> Effects caused by debug/logging macros and functions (like ASSERT, __bad_atomic_size,
+> LOG, etc ...) that crash execution or produce logs are not dangerous in initializer
+> lists. The evaluation order in abnormal conditions is not relevant. Evaluation order
+> of logging effects is always safe.
+> 
+> This patch deviates violations using SAF commits caused by debug/logging macros and
+> functions.
+> 
+> Asm volatile statements in initializer lists that do not perform any persistent side
+> effect are safe: this patch deviates violations caused by uses of the current macro
+> (that contains an asm volatile) in initializer lists.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> 
+> ---
+> Changes in v2:
+> New patch based on the discussion for "xen/arm: address violations of MISRA C:2012 Rule 13.1".
+> ---
+>  docs/misra/safe.json     | 16 ++++++++++++++++
+>  xen/arch/arm/device.c    |  1 +
+>  xen/arch/arm/guestcopy.c |  4 ++++
+>  xen/arch/x86/hvm/hvm.c   |  1 +
+>  xen/common/sched/core.c  |  3 +++
 
-> On Nov 27, 2023, at 18:03, Mario Marietto <marietto2008@gmail.com> wrote:
->=20
-> Hello.
-> We have just virtualized Debian 12 on our arm (32 bit) Chromebook model x=
-e303c12 . As host / dom0 we have chosen Devuan 5,and for guest / domU,Debia=
-n 12. It works great. But our goal is different. We want to virtualize Free=
-BSD as domU. Can we have a working Xen PV network driver for a FreeBSD arm =
-guest ?. I found that Julien Grall has ported the Xen drivers to FreeBSD on=
- arm. I would like to know if Julien's work was accepted upstream by FreeBS=
-D, in which case FreeBSD as a Xen guest on arm should work if we enable the=
- Xen PV drivers in the FreeBSD on arm kernel. If Julien's work was not acce=
-pted upstream by FreeBSD, we will have to find his patches and apply them o=
-urselves to the FreeBSD on arm kernel.
-> We found these slides :
->=20
-> https://events.static.linuxfound.org/sites/events/files/slides/Porting%20=
-FreeBSD%20on%20Xen%20on%20ARM%20.pdf
->=20
-> Slide 13 refers to a XENHVM FreeBSD on arm kernel config - that is what w=
-e want to find.
-> It looks like when that slide presentation was written, there were some l=
-imitations on FreeBSD Xen guests. For example, for our debian bookworm gues=
-t, I am using vcpus =3D '2' to match the number of real cpus on our Chromeb=
-ook, but slide 13 mentions support for only 1 VCPU with a FreeBSD guest, so=
- I will need to change that vcpus =3D '1' in the FreeBSD guest config unles=
-s support for 2 or more vcpus was added later, which is possible because th=
-at slide presentation is 9 years old.
-> Here is where I would expect to find the XENHVM FreeBSD on arm kernel con=
-fig file:
->=20
-> https://cgit.freebsd.org/src/tree/sys/arm/conf
->=20
-> But it is not there unless I am not understanding something correctly. Fo=
-r now, unfortunately conclude that the support for Xen on arm that Julien G=
-rall mentioned in that slide presentation 9 years ago was never added to th=
-e official FreeBSD source code. I am searching the web now to see if the pa=
-tches that Julien Grall wrote are still posted somewhere online. If we cann=
-ot find them, we can ask here and on the xen-users mailing list. Julien reg=
-ularly reads that list and responds to questions about Xen on arm, so I thi=
-nk he will tell us how to find the patches if we cannot find them online.
-> According to this page from the FreeBSD wiki:
->=20
-> https://wiki.freebsd.org/Xen
->=20
-> I think FreeBSD only supports Xen on x86, not arm. So this is going to be=
- a bit of a challenge to get a Xen FreeBSD guest on arm working. We know Ju=
-lien Grall has some patches that made it work in the past !
-> I found a slightly newer slide presentation by Julien here:
->=20
-> https://www.slideshare.net/xen_com_mgr/bsdcan-2015-how-to-port-your-bsd
->=20
-> It is about the same, but it mentions the GENERIC FreeBSD kernel supports=
- Xen on arm64, but still says we need the XENHVM FreeBSD config for Xen on =
-arm 32 bit, which I haven't found online yet.
-> Please,take a look at this output of the linux kernel that can boot on Xe=
-n, and the FreeBSD kernel that cannot :
->=20
-> % file zImage-6.1.59-stb-xen-cbe+
-> zImage-6.1.59-stb-xen-cbe+: Linux kernel ARM boot executable zImage (litt=
-le-endian)
->=20
-> % file FREEBSD-XENVIRT=20
-> FREEBSD-XENVIRT: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), =
-dynamically linked, interpreter /red/herring, for FreeBSD 11.0 (1100048), n=
-ot stripped
->=20
->=20
-> The FreeBSD kernel that won't boot is in ELF format but the Linux kernel =
-that does boot is in zImage format. This is the error we get :
-> # xl create freebsd.cfg=20
-> Parsing config from freebsd.cfg xc: error: panic: xg_dom_elfloader.c:63: =
-xc_dom_guest_type: image not capable of booting inside a HV
-> M container: Invalid kernel=20
-> libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed=
-=20
-> libxl: error: libxl_create.c:1640:domcreate_rebuild_done: Domain 4:cannot=
- (re-)build domain: -3=20
-> libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 4:Non-exis=
-tant domain=20
-> libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 4:Unabl=
-e to destroy guest=20
-> libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 4:Destruction=
- of domain failed
->=20
-> We are spending time reading the docs on xenbits.xenproject.org, and acco=
-rding to those docs Xen on arm only knows how to boot a kernel in the zImag=
-e format, so the FreeBSD kernel is in a format that modern Xen incorrectly =
-detects as an x86 kernel.
-> I also watched Julien Grall's 30 minute video presentation of his work to=
- boot FreeBSD/arm on Xen at FOSDEM 2014 here :
->=20
-> https://archive.fosdem.org/2014/schedule/event/freebsd_xen_arm/
->=20
-> In that video, and in other places, Julien mentions that the boot ABI for=
- FreeBSD/arm on Xen was not yet developed and he was getting occasional cra=
-shes and needed to investigate the problem. He mentioned the zImage ABI tha=
-t Linux uses, but pointed out FreeBSD does not use that format, and back th=
-en it was an open question which format to use to boot FreeBSD/arm on Xen. =
-Unfortunately, nine years later, the only supported format is still the zIm=
-age format that Linux uses.
-> It looks like Julien's work back then was using an ELF binary to boot Fre=
-eBSD/arm on Xen instead of the supported zImage format that Linux uses and =
-the modern Xen toolstack exits with an error when trying to boot the FreeBS=
-D ELF formatted binary that Julien's patch creates. So the best solution wo=
-uld be to try to port the rules to build a FreeBSD kernel in the zImage for=
-mat instead of the ELF format. I have been studying the Makefiles in Linux =
-to see how Linux builds the Linux arm kernel in the zImage format, but it i=
-s not trivial to understand.
-> --=20
-> Mario.
+The latter two don't really fit the title prefix.
 
+> --- a/docs/misra/safe.json
+> +++ b/docs/misra/safe.json
+> @@ -28,6 +28,22 @@
+>          },
+>          {
+>              "id": "SAF-3-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.R13.1"
+> +            },
+> +            "name": "MC3R1.R13.1: effects for debugging and logging",
+> +            "text": "Effects for debugging and loggings reasons that crash execution or produce logs are allowed in initializer lists. The evaluation order in abnormal conditions is not relevant."
+> +        },
+
+I'm wary of this statement. Order may not matter much anymore _after_ an
+abnormal condition was encountered, but in the course of determining whether
+an abnormal condition might have been reached it may very well still matter.
+
+> +        {
+> +            "id": "SAF-4-safe",
+> +            "analyser": {
+> +                "eclair": "MC3R1.R13.1"
+> +            },
+> +            "name": "MC3R1.R13.1: volatile asm statements that do not perform any persistent side effect",
+> +            "text": "Volatile asm statements in an initializer list if do not perform persistent side effects are safe."
+
+Since each respective comment ought to affect just a single asm(), I think
+this wants writing in singular. I further don't think it is useful for
+"text" to largely restate what "name" already says.
+
+> --- a/xen/arch/arm/device.c
+> +++ b/xen/arch/arm/device.c
+> @@ -331,6 +331,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+>          .p2mt = p2mt,
+>          .skip_mapping = !own_device ||
+>                          (is_pci_passthrough_enabled() &&
+> +                        /* SAF-3-safe effects for debugging/logging reasons are safe */
+>                          (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
+
+What's the debugging / logging reason on the commented line?
+
+> --- a/xen/arch/arm/guestcopy.c
+> +++ b/xen/arch/arm/guestcopy.c
+> @@ -110,18 +110,21 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
+>  unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
+>  {
+>      return copy_guest((void *)from, (vaddr_t)to, len,
+> +                      /* SAF-4-safe No persistent side effects */
+>                        GVA_INFO(current), COPY_to_guest | COPY_linear);
+>  }
+>  
+>  unsigned long raw_copy_to_guest_flush_dcache(void *to, const void *from,
+>                                               unsigned int len)
+>  {
+> +    /* SAF-4-safe No persistent side effects */
+>      return copy_guest((void *)from, (vaddr_t)to, len, GVA_INFO(current),
+>                        COPY_to_guest | COPY_flush_dcache | COPY_linear);
+>  }
+>  
+>  unsigned long raw_clear_guest(void *to, unsigned int len)
+>  {
+> +    /* SAF-4-safe No persistent side effects */
+>      return copy_guest(NULL, (vaddr_t)to, len, GVA_INFO(current),
+>                        COPY_to_guest | COPY_linear);
+>  }
+> @@ -129,6 +132,7 @@ unsigned long raw_clear_guest(void *to, unsigned int len)
+>  unsigned long raw_copy_from_guest(void *to, const void __user *from,
+>                                    unsigned int len)
+>  {
+> +    /* SAF-4-safe No persistent side effects */
+>      return copy_guest(to, (vaddr_t)from, len, GVA_INFO(current),
+>                        COPY_from_guest | COPY_linear);
+>  }
+
+I can only guess that in all four of these it's the use of "current" which
+requires the comment. Yet imo that either needs making explicit, or such a
+comment shouldn't go on use sites of "current", but on its definition site.
+
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -1517,6 +1517,7 @@ long vcpu_yield(void)
+>  
+>      SCHED_STAT_CRANK(vcpu_yield);
+>  
+> +    /* SAF-4-safe No persistent side effects */
+>      TRACE_2D(TRC_SCHED_YIELD, current->domain->domain_id, current->vcpu_id);
+>      raise_softirq(SCHEDULE_SOFTIRQ);
+>      return 0;
+> @@ -1895,6 +1896,7 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          if ( copy_from_guest(&sched_shutdown, arg, 1) )
+>              break;
+>  
+> +        /* SAF-4-safe No persistent side effects */
+>          TRACE_3D(TRC_SCHED_SHUTDOWN,
+>                   current->domain->domain_id, current->vcpu_id,
+>                   sched_shutdown.reason);
+> @@ -1912,6 +1914,7 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          if ( copy_from_guest(&sched_shutdown, arg, 1) )
+>              break;
+>  
+> +        /* SAF-4-safe No persistent side effects */
+>          TRACE_3D(TRC_SCHED_SHUTDOWN_CODE,
+>                   d->domain_id, current->vcpu_id, sched_shutdown.reason);
+>  
+
+In at least the former two of these cases pulling out "current" into a local
+variable "curr" would likely eliminate the violation and at the same time
+improve code a little.
+
+Jan
 
