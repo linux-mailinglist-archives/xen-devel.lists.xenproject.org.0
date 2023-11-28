@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4297FC017
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:15:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643358.1003471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83DAB7FC01C
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:16:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643363.1003491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81gB-0008M3-6F; Tue, 28 Nov 2023 17:15:23 +0000
+	id 1r81hO-000207-PT; Tue, 28 Nov 2023 17:16:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643358.1003471; Tue, 28 Nov 2023 17:15:23 +0000
+Received: by outflank-mailman (output) from mailman id 643363.1003491; Tue, 28 Nov 2023 17:16:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81gB-0008K6-3R; Tue, 28 Nov 2023 17:15:23 +0000
-Received: by outflank-mailman (input) for mailman id 643358;
- Tue, 28 Nov 2023 17:15:21 +0000
+	id 1r81hO-0001y2-Mk; Tue, 28 Nov 2023 17:16:38 +0000
+Received: by outflank-mailman (input) for mailman id 643363;
+ Tue, 28 Nov 2023 17:16:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=az8h=HJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r81g9-0008K0-EX
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:15:21 +0000
+ id 1r81hN-0001wM-8x
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:16:37 +0000
 Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
  [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b56f7376-8e11-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 18:15:20 +0100 (CET)
+ id e2a02c17-8e11-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 18:16:36 +0100 (CET)
 Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40b5155e154so299645e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:15:20 -0800 (PST)
+ 5b1f17b1804b1-40b4d9e81deso7224115e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:16:36 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- t20-20020a0560001a5400b00332f1900476sm1009170wry.81.2023.11.28.09.15.19
+ t20-20020a0560001a5400b00332f1900476sm1009170wry.81.2023.11.28.09.16.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Nov 2023 09:15:19 -0800 (PST)
+ Tue, 28 Nov 2023 09:16:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b56f7376-8e11-11ee-98e3-6d05b1d4d9a1
+X-Inumbo-ID: e2a02c17-8e11-11ee-98e3-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701191720; x=1701796520; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701191796; x=1701796596; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=L1NWZ9RZFwxAbbfwV+2hxXu9CaqWbqOBElzOz1uOhXo=;
-        b=lr91ex2jjQtNoi6sMmlUJJRQNdmhxupIiqv/FoMv36j0T7UKIAZpiPq4Uukl/tzW99
-         DcNetjqpu0AiOZjg3SJ9FX2vbAkfffXo90UXmb0K1aRiVIWb7xH3ttU6/EaNiad1u4xw
-         P5Msw7uAADGJPmtzPJYqTj+MpT05GoiGW45vA=
+        bh=AAIJpK7bVocy8yDaFspBnY8E6kCFIjUs3qsJwNQRxuw=;
+        b=N0yC/4zz4UAgpWnwA+lLi19ym0VFAPJMMNC6B7hl9gJmWXqyZOz3lR7oJvMuLlnBL/
+         lsS1wXwGAbRmJSe2cx9FJV8kOcZijYEmEz2U4p8iXLoUlIVn4nA9M2JxweVIFoR/vsqI
+         tC0UcDEMGeH5zlwwfNQo/EArl5m/0n1MhEQV4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701191720; x=1701796520;
+        d=1e100.net; s=20230601; t=1701191796; x=1701796596;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=L1NWZ9RZFwxAbbfwV+2hxXu9CaqWbqOBElzOz1uOhXo=;
-        b=A3U7cUMqDvPOnWQAaCSiPLu9Ak65fCjq8iSQhWQFBRxNM3crnGyMkfIF4JOG5cKbDe
-         XdV4t5AsZBpQSE9tOrieas1nw3UlxlG5MuywU1GJy1NtOW7u5MC++a5hE26xj3+iqxkj
-         cOujPyBFCLartbNDGbrVYIBuyPBs9DEHlXI9ZBqomw/orvwhx3sgUhDwMU1dK4fFWvla
-         e1zFXMdGyEcuENc028xYHiiEHc/Fa54DHSJiHhBB/urPfP7WibwmMGxh61u3AMwMhilL
-         N2bH8R++eXTWfqvwbckFB57YONj5cSZ/m3ggbeG/n0uqYQrNeCxYqgHPRQRRw9yU5tnn
-         Dd3A==
-X-Gm-Message-State: AOJu0Yx6+Aa1MX8EVVh0+q2q4c2gbtgjyELXVaV41PV+ZGBdAZWWMGNl
-	pAm/3gzAr2yS3DGX47sQsGU2nYApr8bXYoIAFOE=
-X-Google-Smtp-Source: AGHT+IF+cm2fB+0D6f5G/xwowc75IAQttaypI+ndgDWAUf4Tw/kkTKOEqC3zqUnjneER8yAmblrwQg==
-X-Received: by 2002:a5d:424e:0:b0:333:3cf:11b2 with SMTP id s14-20020a5d424e000000b0033303cf11b2mr4597289wrr.32.1701191720105;
-        Tue, 28 Nov 2023 09:15:20 -0800 (PST)
-Message-ID: <4d4ad755-46f3-4c1d-adfe-8716672e7f38@citrix.com>
-Date: Tue, 28 Nov 2023 17:15:19 +0000
+        bh=AAIJpK7bVocy8yDaFspBnY8E6kCFIjUs3qsJwNQRxuw=;
+        b=HRHjvtclGKxBEp4Oz8x+Mj8AWDyU7dHc5jZ+UpkDdY5+0SCmyuuqRqeHpqJroYNt0s
+         7bFVmH3WCv51B9hlOJRAky4OXnYpevT/hhQ6GEzad9thb8BC4FqIj/HPWJYuTg/HlLtT
+         X0rAQBSnTuBJWRSfLvbxA77iC2/OOcBenak3THV219RpT5zb80wOJ2W27u4WYCFtPT4n
+         N/0LaVdvyGOi9ghtZWpTgpSibLQn4duPfGqAaWcGBi4jGP0oTQoskTh91z7u9twZaGtx
+         3VcIhopAy2C2VPrdQStMhJe1d2M0ieLTwDZ7BhDaRZUOSQf3nypTj61Qm/zX7BJDzw7P
+         eZXg==
+X-Gm-Message-State: AOJu0YyIqFqUI2WfckysNwumWs0rBS3e5+qd4nJULED7nwBaVsb/vQMy
+	8ajA24pgXbahbj75bpgZRlxHQw==
+X-Google-Smtp-Source: AGHT+IEKGMyNM1D99TPmpNWJlX4FUYcwkbOA93lK00q9JAm8pqh1T0p37QBYQjg1s1wPOSQjqodnow==
+X-Received: by 2002:a5d:678b:0:b0:333:12b2:21fe with SMTP id v11-20020a5d678b000000b0033312b221femr873251wru.42.1701191795918;
+        Tue, 28 Nov 2023 09:16:35 -0800 (PST)
+Message-ID: <b4c9791e-1fb9-463e-8aac-9d6cd7cec36f@citrix.com>
+Date: Tue, 28 Nov 2023 17:16:35 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ubsan: Introduce CONFIG_UBSAN_FATAL to panic on UBSAN
- failure
+Subject: Re: [PATCH] cirrus-ci: update FreeBSD versions
 Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
  <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20231127144156.361656-1-michal.orzel@amd.com>
+References: <20231128171150.38290-1-roger.pau@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,28 +127,21 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20231127144156.361656-1-michal.orzel@amd.com>
+In-Reply-To: <20231128171150.38290-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/11/2023 2:41 pm, Michal Orzel wrote:
-> diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
-> index a3a80fa99eec..dd5ee0013648 100644
-> --- a/xen/common/ubsan/ubsan.c
-> +++ b/xen/common/ubsan/ubsan.c
-> @@ -174,6 +174,10 @@ static void ubsan_epilogue(unsigned long *flags)
->  		"========================================\n");
->  	spin_unlock_irqrestore(&report_lock, *flags);
->  	current->in_ubsan--;
-> +
-> +#ifdef CONFIG_UBSAN_FATAL
-> +	panic("UBSAN failure detected\n");
-> +#endif
+On 28/11/2023 5:11 pm, Roger Pau Monne wrote:
+> FreeBSD 14.0 has already been released, so switch to the release version image,
+> and introduce a FreeBSD 15.0 version to track current FreeBSD unstable
+> (development) branch.
+>
+> Sample output at:
+>
+> https://github.com/royger/xen/runs/19105278189
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-if ( IS_ENABLED(CONFIG_UBSAN_FATAL) )
-    panic("UBSAN failure detected\n");
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-please.  Happy to fix on commit.
-
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
