@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1861F7FC06F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:42:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643400.1003581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E4E37FC078
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:44:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643407.1003592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r825q-0005XC-SM; Tue, 28 Nov 2023 17:41:54 +0000
+	id 1r828H-0006Xh-9E; Tue, 28 Nov 2023 17:44:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643400.1003581; Tue, 28 Nov 2023 17:41:54 +0000
+Received: by outflank-mailman (output) from mailman id 643407.1003592; Tue, 28 Nov 2023 17:44:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r825q-0005Tz-PS; Tue, 28 Nov 2023 17:41:54 +0000
-Received: by outflank-mailman (input) for mailman id 643400;
- Tue, 28 Nov 2023 17:41:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r828H-0006VO-5m; Tue, 28 Nov 2023 17:44:25 +0000
+Received: by outflank-mailman (input) for mailman id 643407;
+ Tue, 28 Nov 2023 17:44:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PT6c=HJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r825o-0005Ts-Uq
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:41:53 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69a7bea6-8e15-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 18:41:51 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40b4a8db331so10853255e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:41:51 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- h17-20020a5d5491000000b0033307ffb19fsm4440761wrv.37.2023.11.28.09.41.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 09:41:50 -0800 (PST)
+ <SRS0=az8h=HJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r828F-0006VG-5q
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:44:23 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2f3c03f-8e15-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 18:44:21 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40b472f98b1so17877465e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:44:21 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ q19-20020a05600c46d300b0040b35195e54sm18187948wmo.5.2023.11.28.09.44.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Nov 2023 09:44:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,384 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69a7bea6-8e15-11ee-98e3-6d05b1d4d9a1
+X-Inumbo-ID: c2f3c03f-8e15-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701193310; x=1701798110; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=p01uU/HUMxa7CGZkx8Qb8b+bDgJZ8Ga7cwAsgScQFo4=;
-        b=ufe8bVzaKFRsyKRCwScRQMdSEPxMk8kgyI/f8dd5+Inx2j8HDcQQZojusksr7PInoZ
-         ay8+zkLn97hs63OxTnzqKZBMO0lBbY76oRcC2sHUwg504AZ2EkIlzdhjUOA4YTD8wqSz
-         4gW3CqUaBlvcrJeHz3TRKV+NH6OW4JcdnzE00=
+        d=citrix.com; s=google; t=1701193461; x=1701798261; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RhUMjIlxPJIPFUidNq+LtQ/QHqx+T76995jn+Dzs/aA=;
+        b=kevFgH8bEK3XSqcNpmE4NsWCTk8rAeeDoDGvWFDD6tU3x9Hl+uWbtd012euq0fB2M4
+         ah8KYKUUIEqpQHIo85qUfMzh/7tEES1hFzaReIauKUmmrulG28JDp4SUV/71CU8bnSsp
+         D9oudm3DjtIhgqgBu/Unmp52peg0naONqGgng=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701193310; x=1701798110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p01uU/HUMxa7CGZkx8Qb8b+bDgJZ8Ga7cwAsgScQFo4=;
-        b=QgZObf6Cp4BzvpwX4i8HP9kYkFCJHnSuZ/WT5uzd5llxQT/RW0ZBVyaK+ohlaJOIjW
-         poQaVqi3PFwVGGj3S+8v4RLwzX0vLu80wmuB9iKsVz9hfX/+zPtknuw3Pa6yNuViqDey
-         WAtGJweIOJiv9IZSWAbUbOuEYfOGC6c1bPgf3/0lATsOKmbGHj4EncU71xYcPp+WZKp0
-         zzAgfKmWYkMMsbpU6yYumXSJHvNK47oj0ZocWQ+hWUirSmE2bG6Mf+yNf2DanGjocO/k
-         yf6vpIzSZ8B2NtHsmLrrodiQ4KvHoInyibPRyj+OrbmJZjDJKlrTx2T3T0Lg08r8rSDz
-         JL5A==
-X-Gm-Message-State: AOJu0Ywk9AmKMyGWQ7p9gb5N/lrKNm/I0aWICdW1varQ6g591zPiB5wC
-	Rs6XwEujhsS+cQ0TtZ0nwtA16wlk9VAEX6fZNAQ=
-X-Google-Smtp-Source: AGHT+IHq9SG6ctHJ3JAtYuYEV3jUijn+fooDLrQtilf64q0J9uDwcHObw2EQTqesAgvuTfDv/j2ywA==
-X-Received: by 2002:adf:ecc9:0:b0:333:1096:656 with SMTP id s9-20020adfecc9000000b0033310960656mr1714909wro.33.1701193310323;
-        Tue, 28 Nov 2023 09:41:50 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH] xen/livepatch: fix livepatch tests
-Date: Tue, 28 Nov 2023 18:41:31 +0100
-Message-ID: <20231128174131.38642-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1701193461; x=1701798261;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RhUMjIlxPJIPFUidNq+LtQ/QHqx+T76995jn+Dzs/aA=;
+        b=pZ+kPohHILqzWVeg7OwN9t6rALafMUalKrE6vVjoKt1B3UV624VaXKu+XFpaXj22Z6
+         VmLu+ZQz6tT5XhyVcG5TqMLpf7i7kwmo6bXxJs/dgc0M5AZOKk5IEha1hnzPTB6BGQZU
+         LeKKB9/jqGr9wRtCxXoKBBAAmlV+kqZKIzKUBldOiGv28/lyCuLUKhE1t+lpAeKqqgHg
+         bpZW4HhV+gujgFuktLF3EMAKX3czr50uL+2bbpz1Eer1gFKCOemI6eqU9hELp3f5wCRj
+         t39ur1Y/26ukMDhXLGBG4jYJoUAEpM2fbUoeRrB2VlVuAT5k2ZYwJz04UPZJ2KXy6SYZ
+         lOzQ==
+X-Gm-Message-State: AOJu0YzMxJ4txzRscyWZqjTLJqfNAdoiiADpwCX2b/F6LvVM1VVbSiAQ
+	z2KQkv3PBf8qAXlFYQRrMbbXbQ==
+X-Google-Smtp-Source: AGHT+IGydH4VQLQuLnV76j7p9a3dvoWLrTgHhXB2paFEy6xTfuWZSU6QogXCVka7PNQN7jAvxt+BVA==
+X-Received: by 2002:a05:600c:1d95:b0:407:3b6d:b561 with SMTP id p21-20020a05600c1d9500b004073b6db561mr12930661wms.9.1701193460801;
+        Tue, 28 Nov 2023 09:44:20 -0800 (PST)
+Message-ID: <a9274a55-7323-4618-afa7-aa942515da6a@citrix.com>
+Date: Tue, 28 Nov 2023 17:44:20 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/livepatch: fix livepatch tests
+Content-Language: en-GB
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20231128174131.38642-1-roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20231128174131.38642-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The current set of in-tree livepatch tests in xen/test/livepatch started
-failing after the constify of the payload funcs array, and the movement of the
-status data into a separate array.
+On 28/11/2023 5:41 pm, Roger Pau Monne wrote:
+> The current set of in-tree livepatch tests in xen/test/livepatch started
+> failing after the constify of the payload funcs array, and the movement of the
+> status data into a separate array.
+>
+> Fix the tests so they respect the constness of the funcs array and also make
+> use of the new location of the per-func state data.
+>
+> Fixes: 82182ad7b46e ('livepatch: do not use .livepatch.funcs section to store internal state')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Fix the tests so they respect the constness of the funcs array and also make
-use of the new location of the per-func state data.
-
-Fixes: 82182ad7b46e ('livepatch: do not use .livepatch.funcs section to store internal state')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-I will see about getting those tests build in gitlab, in the meantime we should
-take this fix in order to unblock osstest.
----
- xen/test/livepatch/xen_action_hooks.c         | 12 +++++-----
- xen/test/livepatch/xen_action_hooks_marker.c  | 20 ++++++++++-------
- xen/test/livepatch/xen_action_hooks_noapply.c | 22 +++++++++++--------
- xen/test/livepatch/xen_action_hooks_nofunc.c  |  6 ++---
- .../livepatch/xen_action_hooks_norevert.c     | 22 +++++++++++--------
- xen/test/livepatch/xen_prepost_hooks.c        |  8 +++----
- xen/test/livepatch/xen_prepost_hooks_fail.c   |  2 +-
- 7 files changed, 53 insertions(+), 39 deletions(-)
-
-diff --git a/xen/test/livepatch/xen_action_hooks.c b/xen/test/livepatch/xen_action_hooks.c
-index 39b531302731..fa0b3ab35f38 100644
---- a/xen/test/livepatch/xen_action_hooks.c
-+++ b/xen/test/livepatch/xen_action_hooks.c
-@@ -26,9 +26,10 @@ static int apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        func->applied = LIVEPATCH_FUNC_APPLIED;
-+        fstate->applied = LIVEPATCH_FUNC_APPLIED;
-         apply_cnt++;
- 
-         printk(KERN_DEBUG "%s: applying: %s\n", __func__, func->name);
-@@ -47,9 +48,10 @@ static int revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        func->applied = LIVEPATCH_FUNC_NOT_APPLIED;
-+        fstate->applied = LIVEPATCH_FUNC_NOT_APPLIED;
-         revert_cnt++;
- 
-         printk(KERN_DEBUG "%s: reverting: %s\n", __func__, func->name);
-@@ -68,7 +70,7 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         printk(KERN_DEBUG "%s: reverted: %s\n", __func__, func->name);
-     }
-diff --git a/xen/test/livepatch/xen_action_hooks_marker.c b/xen/test/livepatch/xen_action_hooks_marker.c
-index 4f807a577f25..d2e22f70d1f4 100644
---- a/xen/test/livepatch/xen_action_hooks_marker.c
-+++ b/xen/test/livepatch/xen_action_hooks_marker.c
-@@ -23,9 +23,10 @@ static int pre_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre applied: %s\n", __func__, func->name);
-     }
- 
-@@ -42,9 +43,10 @@ static void post_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied != LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: post applied: %s\n", __func__, func->name);
-     }
- 
-@@ -59,9 +61,10 @@ static int pre_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied != LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre reverted: %s\n", __func__, func->name);
-     }
- 
-@@ -78,9 +81,10 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: post reverted: %s\n", __func__, func->name);
-     }
- 
-diff --git a/xen/test/livepatch/xen_action_hooks_noapply.c b/xen/test/livepatch/xen_action_hooks_noapply.c
-index 4c55c156a621..646a5fd2f002 100644
---- a/xen/test/livepatch/xen_action_hooks_noapply.c
-+++ b/xen/test/livepatch/xen_action_hooks_noapply.c
-@@ -25,9 +25,10 @@ static int pre_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre applied: %s\n", __func__, func->name);
-     }
- 
-@@ -44,7 +45,7 @@ static int apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         apply_cnt++;
-         printk(KERN_DEBUG "%s: applying: %s\n", __func__, func->name);
-@@ -63,10 +64,11 @@ static void post_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
-         BUG_ON(apply_cnt != 1);
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: post applied: %s\n", __func__, func->name);
-     }
- 
-@@ -81,9 +83,10 @@ static int pre_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre reverted: %s\n", __func__, func->name);
-     }
- 
-@@ -100,9 +103,10 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: post reverted: %s\n", __func__, func->name);
-     }
- 
-diff --git a/xen/test/livepatch/xen_action_hooks_nofunc.c b/xen/test/livepatch/xen_action_hooks_nofunc.c
-index 2b4e90436fce..077c4c173888 100644
---- a/xen/test/livepatch/xen_action_hooks_nofunc.c
-+++ b/xen/test/livepatch/xen_action_hooks_nofunc.c
-@@ -23,7 +23,7 @@ static int apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         apply_cnt++;
-         printk(KERN_DEBUG "%s: applying: %s\n", __func__, func->name);
-@@ -42,7 +42,7 @@ static int revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         revert_cnt++;
-         printk(KERN_DEBUG "%s: reverting: %s\n", __func__, func->name);
-@@ -61,7 +61,7 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         printk(KERN_DEBUG "%s: reverted: %s\n", __func__, func->name);
-     }
-diff --git a/xen/test/livepatch/xen_action_hooks_norevert.c b/xen/test/livepatch/xen_action_hooks_norevert.c
-index ef77e720713e..1c4873f55640 100644
---- a/xen/test/livepatch/xen_action_hooks_norevert.c
-+++ b/xen/test/livepatch/xen_action_hooks_norevert.c
-@@ -25,9 +25,10 @@ static int pre_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre applied: %s\n", __func__, func->name);
-     }
- 
-@@ -44,9 +45,10 @@ static void post_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied != LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: post applied: %s\n", __func__, func->name);
-     }
- 
-@@ -62,8 +64,9 @@ static int pre_revert_hook(livepatch_payload_t *payload)
-     for (i = 0; i < payload->nfuncs; i++)
-     {
-         struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
--        BUG_ON(func->applied != LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
-         printk(KERN_DEBUG "%s: pre reverted: %s\n", __func__, func->name);
-     }
- 
-@@ -80,7 +83,7 @@ static int revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         revert_cnt++;
-         printk(KERN_DEBUG "%s: reverting: %s\n", __func__, func->name);
-@@ -99,16 +102,17 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
-+        struct livepatch_fstate *fstate = &payload->fstate[i];
- 
-         BUG_ON(revert_cnt != 1);
--        BUG_ON(func->applied != LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied != LIVEPATCH_FUNC_APPLIED);
- 
-         /* Outside of quiesce zone: MAY TRIGGER HOST CRASH/UNDEFINED BEHAVIOR */
-         arch_livepatch_quiesce();
-         common_livepatch_revert(payload);
-         arch_livepatch_revive();
--        BUG_ON(func->applied == LIVEPATCH_FUNC_APPLIED);
-+        BUG_ON(fstate->applied == LIVEPATCH_FUNC_APPLIED);
- 
-         printk(KERN_DEBUG "%s: post reverted: %s\n", __func__, func->name);
-     }
-diff --git a/xen/test/livepatch/xen_prepost_hooks.c b/xen/test/livepatch/xen_prepost_hooks.c
-index 889377d6ebfd..17f5af6a1921 100644
---- a/xen/test/livepatch/xen_prepost_hooks.c
-+++ b/xen/test/livepatch/xen_prepost_hooks.c
-@@ -30,7 +30,7 @@ static int pre_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         pre_apply_cnt++;
-         printk(KERN_DEBUG "%s: applying: %s\n", __func__, func->name);
-@@ -49,7 +49,7 @@ static void post_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         post_apply_cnt++;
-         printk(KERN_DEBUG "%s: applied: %s\n", __func__, func->name);
-@@ -66,7 +66,7 @@ static int pre_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         pre_revert_cnt++;
-         printk(KERN_DEBUG "%s: reverting: %s\n", __func__, func->name);
-@@ -86,7 +86,7 @@ static void post_revert_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         post_revert_cnt++;
-         printk(KERN_DEBUG "%s: reverted: %s\n", __func__, func->name);
-diff --git a/xen/test/livepatch/xen_prepost_hooks_fail.c b/xen/test/livepatch/xen_prepost_hooks_fail.c
-index c6feb5d32dbd..52fd7f642ecb 100644
---- a/xen/test/livepatch/xen_prepost_hooks_fail.c
-+++ b/xen/test/livepatch/xen_prepost_hooks_fail.c
-@@ -24,7 +24,7 @@ static int pre_apply_hook(livepatch_payload_t *payload)
- 
-     for (i = 0; i < payload->nfuncs; i++)
-     {
--        struct livepatch_func *func = &payload->funcs[i];
-+        const struct livepatch_func *func = &payload->funcs[i];
- 
-         printk(KERN_DEBUG "%s: pre applying: %s\n", __func__, func->name);
-     }
--- 
-2.43.0
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
