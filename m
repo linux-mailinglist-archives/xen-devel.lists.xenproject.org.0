@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38FF7FBC3C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 15:08:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643200.1003171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EAF07FBC44
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 15:10:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643209.1003182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7ylD-0001wW-HU; Tue, 28 Nov 2023 14:08:23 +0000
+	id 1r7ymh-0002hB-UD; Tue, 28 Nov 2023 14:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643200.1003171; Tue, 28 Nov 2023 14:08:23 +0000
+Received: by outflank-mailman (output) from mailman id 643209.1003182; Tue, 28 Nov 2023 14:09:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7ylD-0001us-Eu; Tue, 28 Nov 2023 14:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 643200;
- Tue, 28 Nov 2023 14:08:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7ymh-0002et-Pf; Tue, 28 Nov 2023 14:09:55 +0000
+Received: by outflank-mailman (input) for mailman id 643209;
+ Tue, 28 Nov 2023 14:09:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PT6c=HJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r7ylC-0001uk-6m
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 14:08:22 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 960afef2-8df7-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 15:08:21 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50aab0ca90aso7907081e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 06:08:20 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- u19-20020a05600c139300b0040b4562ee20sm938516wmf.0.2023.11.28.06.08.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 06:08:20 -0800 (PST)
+ <SRS0=ImyS=HJ=gmail.com=marietto2008@srs-se1.protection.inumbo.net>)
+ id 1r7ymg-0002dM-BK
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 14:09:54 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cc87629b-8df7-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 15:09:52 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-548f0b7ab11so7425778a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 06:09:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,194 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 960afef2-8df7-11ee-98e3-6d05b1d4d9a1
+X-Inumbo-ID: cc87629b-8df7-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701180500; x=1701785300; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=09LGEuN7I4iZi00afpG/Xfc7kxLl8AhrI6FyWaiUvyY=;
-        b=QxsQJC1hXsPeoca4I64jwUBykxwI65D1KyP2252FQ0ap450MQ+cWR9QyXkQne0GjfS
-         ue7zbtUaHhQOqR2R4rkAP09Aebztr8RmwbJf1BmBxjS8rlflJQMQYaIE6Ow/YhyDGzQT
-         sFMlNz0CkERTBKWRrWQDDNSaN2s3/c+JAUGsE=
+        d=gmail.com; s=20230601; t=1701180592; x=1701785392; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=PlrdFyGNurI44kKWdXyrbgiAqyzrPSoKNJZniOqbxKw=;
+        b=Tdxe2JGDP31VhXml6/b/w17LjOvLB4lijWpVbVvfBCCLh9WlQE5UdB7fHlHgsV7GOq
+         ucUsY1zqi0ibWAJH/rglcLwRbdjfCko1SPLex0PnQoJKY83RNj/KNW3rpeRJAep2Ih/E
+         8EwATQXbKAx3hLLkNu2sg3cEpsMfKiE49KZOVIHV7hqtbQgbjtbEn4x47Kt7Ht9kX0N8
+         4HMvY5qVQt/Uo3S+olJ39IDEZxEU+gevKITPV+34NF+43sAWTLSpQS6FxE7iUAqV9FLk
+         q1GXe93DZzevOlkR1wa9On22ywGoedILVqsu2zpWm7k/UhIiUV+mLsvGktqppBE4VSxs
+         jaSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701180500; x=1701785300;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=09LGEuN7I4iZi00afpG/Xfc7kxLl8AhrI6FyWaiUvyY=;
-        b=LR85oZbhMaTkGjuRE6GxwuBl7lC/li2F12J23NZdwhd8QYcNFr+BEQBnDss8NtG6WM
-         rqJfGnzRsJehQE+vl9l1oZZJ6od4Xygk4j296YtGyAavKlAPbvk7eCVi7hOBEmY18N57
-         zLqfnZtHm8HjA3AjQh4yUP7bcMZlyAZ7gT5BoPBUFh1MxTnzWwVT1AZm18iTnMA0t4gg
-         sqp7y3DDYNTJv9EFp5/cil9OYDgxFjGcwUDCi9tFPbFDpL9Rp0OP5nI4OmVBdVS+znig
-         Mn1oXL4j8fAcv2J8VFDtZHJsGDh4hj96mXdlZHfgg3rHJBkIKtoRP/Ozrz04F3Z8/s9c
-         8d0Q==
-X-Gm-Message-State: AOJu0YxEfbPip720Sg9li5nAqPkuVzdFdqMOapahejCq+mYt36kHgh8J
-	5EE8HrqOz1qJlWtvdGD20I9WDQ==
-X-Google-Smtp-Source: AGHT+IFRLdgroHb99jGaL6IAV4E4qKAmiDhFFBHlpexPnZZz0NmTGjuHdpZY5YNWN+mwQ6CS52lCHw==
-X-Received: by 2002:a05:6512:511:b0:50b:c1ec:4755 with SMTP id o17-20020a056512051100b0050bc1ec4755mr156913lfb.16.1701180500344;
-        Tue, 28 Nov 2023 06:08:20 -0800 (PST)
-Date: Tue, 28 Nov 2023 15:08:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
-	Alex Deucher <Alexander.Deucher@amd.com>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Huang Rui <Ray.Huang@amd.com>,
-	Honglei Huang <Honglei1.Huang@amd.com>,
-	Julia Zhang <Julia.Zhang@amd.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [RFC XEN PATCH v2 1/3] xen/vpci: Clear all vpci status of device
-Message-ID: <ZWX0U1tYooY70UJo@macbook>
-References: <20231124104136.3263722-1-Jiqian.Chen@amd.com>
- <20231124104136.3263722-2-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1701180592; x=1701785392;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PlrdFyGNurI44kKWdXyrbgiAqyzrPSoKNJZniOqbxKw=;
+        b=tH+cuwyD4VvSstSlq/byb3O3BY2I8wsJr3VSxjljLF2vpkoW9Bld1jde6zEssPOvRz
+         D5kGfPer5+Bkyr3v/EaldDYnNoBSy3JJMtonxcUVepFGoCUjBGRlZBNYQg3U5N9Gg7tX
+         9PNtpB/25uaYKqyxKeM2vpQi7RbjsO+Dtc5xp1pvl4WT6U6qL0yBYe/Tytf5KE/PUO6a
+         /XPIl2ViCBlWxa3LCdvPuYtr9Rw35j+faCG1r29kbpT8KvPT2MLyyXdK+6WQsIdKgPZo
+         AoAldRWIqJI6g5UWrtLcvhJTTFudyW49KT8kAOpyP78Z8ZfKGATQynx5UYfpDnJ5iPcv
+         j5Hg==
+X-Gm-Message-State: AOJu0YyBDDz+wp2ggyzF78ua6dw4u1i66HuoyN3Gf3Jhn8kn9UFGBbka
+	GnBYHvQ113MBROuwE14/3e1lMLNXMcbb0AM6k+k=
+X-Google-Smtp-Source: AGHT+IHyEbMr4ubxy5b3vHZDq1v0O84MM5I7dgFR1+zZUzfVOj0RFT+K6gXKUORTfOuLHp48+R1vbTWCMP3gGO5FyM0=
+X-Received: by 2002:a17:906:73d0:b0:a03:edf:ba1c with SMTP id
+ n16-20020a17090673d000b00a030edfba1cmr10709792ejl.1.1701180591341; Tue, 28
+ Nov 2023 06:09:51 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231124104136.3263722-2-Jiqian.Chen@amd.com>
+References: <CA+1FSiggg=XZmif6c3pY0+jz7i9caU-OTwFy80gwO7MVpXiwcA@mail.gmail.com>
+ <CA+1FSigM1PZc4WfZNUJSMsZbNPPTyThRJ7MMQwQ9TWn6VnSUTg@mail.gmail.com>
+ <C0A0E9FA-5AAB-4324-BBBD-D07412CD7F32@arm.com> <ZWR1v5Y3EpRK817B@macbook>
+ <CA+1FSij2Q9f9Vj0A06HUYeUxTddrEyF=Q8X5fbs96CRr83_BPg@mail.gmail.com>
+ <4fc95518-7e46-4f82-b540-afdbc941508a@netscape.net> <f606be07-c4ff-43c6-acf9-42065a84b594@netscape.net>
+ <ZWUgfkP4U5kOmQNj@mattapan.m5p.com> <ZWXvBMaRJ5Lbb5S9@macbook>
+In-Reply-To: <ZWXvBMaRJ5Lbb5S9@macbook>
+From: Mario Marietto <marietto2008@gmail.com>
+Date: Tue, 28 Nov 2023 15:09:14 +0100
+Message-ID: <CA+1FSii4WeKQBuzW9TS_AkHD2nbm=Q+iL9j3wkfu+ZsC0V_=1w@mail.gmail.com>
+Subject: Re: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32 bit
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Elliott Mitchell <ehem+freebsd@m5p.com>, Chuck Zmudzinski <brchuckz@netscape.net>, 
+	Demi Marie Obenour <demi@invisiblethingslab.com>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>
+Content-Type: multipart/alternative; boundary="000000000000d885fe060b36f868"
 
-On Fri, Nov 24, 2023 at 06:41:34PM +0800, Jiqian Chen wrote:
-> When a device has been reset on dom0 side, the vpci on Xen
-> side won't get notification, so the cached state in vpci is
-> all out of date compare with the real device state.
-> To solve that problem, this patch add new hypercall to clear
-> all vpci device state. And when reset device happens on dom0
-> side, dom0 can call this hypercall to notify vpci.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> ---
->  xen/arch/x86/hvm/hypercall.c  |  1 +
->  xen/drivers/passthrough/pci.c | 21 +++++++++++++++++++++
->  xen/drivers/pci/physdev.c     | 14 ++++++++++++++
->  xen/drivers/vpci/vpci.c       |  9 +++++++++
->  xen/include/public/physdev.h  |  2 ++
->  xen/include/xen/pci.h         |  1 +
->  xen/include/xen/vpci.h        |  6 ++++++
->  7 files changed, 54 insertions(+)
-> 
-> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-> index eeb73e1aa5..6ad5b4d5f1 100644
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -84,6 +84,7 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      case PHYSDEVOP_pci_mmcfg_reserved:
->      case PHYSDEVOP_pci_device_add:
->      case PHYSDEVOP_pci_device_remove:
-> +    case PHYSDEVOP_pci_device_state_reset:
->      case PHYSDEVOP_dbgp_op:
->          if ( !is_hardware_domain(currd) )
->              return -ENOSYS;
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 04d00c7c37..f871715585 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -824,6 +824,27 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      return ret;
->  }
->  
-> +int pci_reset_device_state(u16 seg, u8 bus, u8 devfn)
+--000000000000d885fe060b36f868
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-You could use pci_sbdf_t here instead of 3 parameters.
+For booting a FreeBSD kernel as a guest OS on XEN,should we install xen
+4.18 from source ?
 
-I'm however unsure whether we really need this helper just to fetch
-the pdev and call vpci_reset_device_state(), I think you could place
-this logic directly in pci_physdev_op().  Unless there are plans to
-use such logic outside of pci_physdev_op().
+On Tue, Nov 28, 2023 at 2:45=E2=80=AFPM Roger Pau Monn=C3=A9 <roger.pau@cit=
+rix.com>
+wrote:
 
-> +{
-> +    struct pci_dev *pdev;
-> +    int ret = -ENODEV;
+> On Mon, Nov 27, 2023 at 03:04:30PM -0800, Elliott Mitchell wrote:
+> > BTW Roger Pau Monn=C3=A9, now that Xen 4.18 is out, take a look at the
+> > "royger" branch?
+>
+> I've pushed a bunch of those, there are still some, I've made comments
+> on the branch.
+>
+> I think there isn't much left after the swept I've done.
+>
+> If you can rebase and reply to the comments I will take a look at
+> what's remaining.
+>
+> Regards, Roger.
+>
 
-Some XSM check should be introduced fro this operation, as none of the
-existing ones is suitable.  See xsm_resource_unplug_pci() for example.
 
-xsm_resource_reset_state_pci() or some such I would assume.
+--=20
+Mario.
 
-(adding the XSM maintainer for feedback).
+--000000000000d885fe060b36f868
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +
-> +    pcidevs_lock();
-> +
-> +    pdev = pci_get_pdev(NULL, PCI_SBDF(seg, bus, devfn));
-> +    if ( !pdev )
-> +        goto error;
-> +
-> +    ret = vpci_reset_device_state(pdev);
-> +    if (ret)
-> +        printk(XENLOG_ERR "PCI reset device %pp state failed\n", &pdev->sbdf);
-> +
-> +error:
-> +    pcidevs_unlock();
-> +
-> +    return ret;
-> +}
-> +
->  /* Caller should hold the pcidevs_lock */
->  static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
->                             uint8_t devfn)
-> diff --git a/xen/drivers/pci/physdev.c b/xen/drivers/pci/physdev.c
-> index 42db3e6d13..cfdb545654 100644
-> --- a/xen/drivers/pci/physdev.c
-> +++ b/xen/drivers/pci/physdev.c
-> @@ -67,6 +67,20 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          break;
->      }
->  
-> +    case PHYSDEVOP_pci_device_state_reset: {
-> +        struct physdev_pci_device dev;
-> +
-> +        if ( !is_pci_passthrough_enabled() )
-> +            return -EOPNOTSUPP;
-> +
-> +        ret = -EFAULT;
-> +        if ( copy_from_guest(&dev, arg, 1) != 0 )
-> +            break;
-> +
-> +        ret = pci_reset_device_state(dev.seg, dev.bus, dev.devfn);
-> +        break;
-> +    }
-> +
->      default:
->          ret = -ENOSYS;
->          break;
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 3bec9a4153..e9c3eb1cd6 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -103,6 +103,15 @@ int vpci_add_handlers(struct pci_dev *pdev)
->  
->      return rc;
->  }
-> +
-> +int vpci_reset_device_state(struct pci_dev *pdev)
-> +{
-> +    ASSERT(pcidevs_locked());
-> +
-> +    vpci_remove_device(pdev);
-> +    return vpci_add_handlers(pdev);
-> +}
-> +
->  #endif /* __XEN__ */
->  
->  static int vpci_register_cmp(const struct vpci_register *r1,
-> diff --git a/xen/include/public/physdev.h b/xen/include/public/physdev.h
-> index f0c0d4727c..4156948903 100644
-> --- a/xen/include/public/physdev.h
-> +++ b/xen/include/public/physdev.h
-> @@ -305,6 +305,8 @@ struct physdev_pci_device {
->  typedef struct physdev_pci_device physdev_pci_device_t;
->  DEFINE_XEN_GUEST_HANDLE(physdev_pci_device_t);
->  
-> +#define PHYSDEVOP_pci_device_state_reset      32
+<div dir=3D"ltr">For booting a FreeBSD kernel as a guest OS on XEN,should w=
+e install xen 4.18 from source ? <br></div><br><div class=3D"gmail_quote"><=
+div dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 28, 2023 at 2:45=E2=80=AFP=
+M Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger.pau@citrix.com">roger.pa=
+u@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">On Mon, Nov 27, 2023 at 03:04:30PM -0800, Elliott Mitchell wrot=
+e:<br>
+&gt; BTW Roger Pau Monn=C3=A9, now that Xen 4.18 is out, take a look at the=
+<br>
+&gt; &quot;royger&quot; branch?<br>
+<br>
+I&#39;ve pushed a bunch of those, there are still some, I&#39;ve made comme=
+nts<br>
+on the branch.<br>
+<br>
+I think there isn&#39;t much left after the swept I&#39;ve done.<br>
+<br>
+If you can rebase and reply to the comments I will take a look at<br>
+what&#39;s remaining.<br>
+<br>
+Regards, Roger.<br>
+</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
+fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature">Mario.<br></d=
+iv>
 
-This needs some comment in order to explain the expected behaviour,
-and might be better placed a bit up after PHYSDEVOP_release_msix.
-
-Thanks, Roger.
+--000000000000d885fe060b36f868--
 
