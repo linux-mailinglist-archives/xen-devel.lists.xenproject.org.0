@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6037FC018
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:15:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643359.1003481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB4297FC017
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:15:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643358.1003471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81gG-0000BX-Hu; Tue, 28 Nov 2023 17:15:28 +0000
+	id 1r81gB-0008M3-6F; Tue, 28 Nov 2023 17:15:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643359.1003481; Tue, 28 Nov 2023 17:15:28 +0000
+Received: by outflank-mailman (output) from mailman id 643358.1003471; Tue, 28 Nov 2023 17:15:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81gG-00009Q-E4; Tue, 28 Nov 2023 17:15:28 +0000
-Received: by outflank-mailman (input) for mailman id 643359;
- Tue, 28 Nov 2023 17:15:26 +0000
+	id 1r81gB-0008K6-3R; Tue, 28 Nov 2023 17:15:23 +0000
+Received: by outflank-mailman (input) for mailman id 643358;
+ Tue, 28 Nov 2023 17:15:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DME+=HJ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1r81gE-0008K0-5L
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:15:26 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20619.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::619])
+ <SRS0=az8h=HJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r81g9-0008K0-EX
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:15:21 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7bff91d-8e11-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 18:15:25 +0100 (CET)
-Received: from MN2PR05CA0060.namprd05.prod.outlook.com (2603:10b6:208:236::29)
- by BY5PR12MB4145.namprd12.prod.outlook.com (2603:10b6:a03:212::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.28; Tue, 28 Nov
- 2023 17:15:21 +0000
-Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
- (2603:10b6:208:236:cafe::16) by MN2PR05CA0060.outlook.office365.com
- (2603:10b6:208:236::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22 via Frontend
- Transport; Tue, 28 Nov 2023 17:15:21 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Tue, 28 Nov 2023 17:15:21 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 28 Nov
- 2023 11:15:19 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 28 Nov
- 2023 11:15:15 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 28 Nov 2023 11:15:13 -0600
+ id b56f7376-8e11-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 18:15:20 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40b5155e154so299645e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:15:20 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ t20-20020a0560001a5400b00332f1900476sm1009170wry.81.2023.11.28.09.15.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Nov 2023 09:15:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,127 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7bff91d-8e11-11ee-98e3-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aOfkEfR2/IzmbrPr+AONvhFu1tnihZMCY5dGRR+rOmwrTIcXH/mgqWDXJGtjBQXT0Ggor3jC9OFNohEOYqiHGKf3erIaeHYuufVpdHfUyLKv57KLg0l32P4UtbziLC5JRoDGwNkhyTBK2av3xHkBVOXxmAHAaOVjWObJY2ME1aANyNpuLpX5w6FLHddrivXiMb6FafSRmhtDyRaKapxOkAnu4l43FMgayz3GKAFRycHOdakc7R5nrvebJbunJXrQDPOJmX6ZA/G8umEEBXoLNhwSExBN1fZ/TnImbdPHnVQFxZ5m3ROyIwczvZ33/swkLGLsqxAOWvv5SrH/fremZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d5kQNYotyjuKlxB7a5AQ4zR40ZmPyz4cdIsmaSGYHbM=;
- b=Dv3K0Ur382ppT9Kq9TGoniFx/o08oe//mu0ChpkKDdI2LYsxP8qSaQQSyR3G1/gLw88AhtOw00iQBAP7V0tJmVvhzApWZA9TjWJYv2XwC/zWesxZLG4s8Jy+fUApxn3VODNuY2zaKXaarcQoOWixcThYvN/emCRYPDe4Fjf1/kUim2InXu3dXTslUsZ6SyUE6NZIb9jh/C2MZB11vo8jBjgm8TOa9Pmuln8mkSjjvzVu9Ws77FCyZPIKvnoZXTsLdnx2mRphiOIAV4yXy+G6xq5bvjYfSR5HZa+xFjyurjemRZ5vkp8hDhO6/7k4WXwm3WKiC4XZgWq09l1ZvjikBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d5kQNYotyjuKlxB7a5AQ4zR40ZmPyz4cdIsmaSGYHbM=;
- b=UMM8wh8j9s0avft1OxOxWoQAZ3RrjsjKx0j6GTQsJ4z1wq9EkoYc5Ji4TzMMQfzd75J0WKA1ViJPvmzel/9S7nl+jMDkoo0kpmOwcZnMnOhbxOpppLElN9zPibFOyvWUj0k3HKmKEA0IjZrcGLJNHYzwVNgzvo/qF1o8eLpLXPA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <16b73400-b592-4a1a-9b87-8c49aad9208d@amd.com>
-Date: Tue, 28 Nov 2023 18:15:13 +0100
+X-Inumbo-ID: b56f7376-8e11-11ee-98e3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701191720; x=1701796520; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=L1NWZ9RZFwxAbbfwV+2hxXu9CaqWbqOBElzOz1uOhXo=;
+        b=lr91ex2jjQtNoi6sMmlUJJRQNdmhxupIiqv/FoMv36j0T7UKIAZpiPq4Uukl/tzW99
+         DcNetjqpu0AiOZjg3SJ9FX2vbAkfffXo90UXmb0K1aRiVIWb7xH3ttU6/EaNiad1u4xw
+         P5Msw7uAADGJPmtzPJYqTj+MpT05GoiGW45vA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701191720; x=1701796520;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=L1NWZ9RZFwxAbbfwV+2hxXu9CaqWbqOBElzOz1uOhXo=;
+        b=A3U7cUMqDvPOnWQAaCSiPLu9Ak65fCjq8iSQhWQFBRxNM3crnGyMkfIF4JOG5cKbDe
+         XdV4t5AsZBpQSE9tOrieas1nw3UlxlG5MuywU1GJy1NtOW7u5MC++a5hE26xj3+iqxkj
+         cOujPyBFCLartbNDGbrVYIBuyPBs9DEHlXI9ZBqomw/orvwhx3sgUhDwMU1dK4fFWvla
+         e1zFXMdGyEcuENc028xYHiiEHc/Fa54DHSJiHhBB/urPfP7WibwmMGxh61u3AMwMhilL
+         N2bH8R++eXTWfqvwbckFB57YONj5cSZ/m3ggbeG/n0uqYQrNeCxYqgHPRQRRw9yU5tnn
+         Dd3A==
+X-Gm-Message-State: AOJu0Yx6+Aa1MX8EVVh0+q2q4c2gbtgjyELXVaV41PV+ZGBdAZWWMGNl
+	pAm/3gzAr2yS3DGX47sQsGU2nYApr8bXYoIAFOE=
+X-Google-Smtp-Source: AGHT+IF+cm2fB+0D6f5G/xwowc75IAQttaypI+ndgDWAUf4Tw/kkTKOEqC3zqUnjneER8yAmblrwQg==
+X-Received: by 2002:a5d:424e:0:b0:333:3cf:11b2 with SMTP id s14-20020a5d424e000000b0033303cf11b2mr4597289wrr.32.1701191720105;
+        Tue, 28 Nov 2023 09:15:20 -0800 (PST)
+Message-ID: <4d4ad755-46f3-4c1d-adfe-8716672e7f38@citrix.com>
+Date: Tue, 28 Nov 2023 17:15:19 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] ubsan: Introduce CONFIG_UBSAN_FATAL to panic on UBSAN
  failure
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20231127144156.361656-1-michal.orzel@amd.com>
- <443a56fa-a175-4d10-9343-577c825fbd7a@xen.org>
- <0985c860-ac1f-44ca-a4ab-147723fc6b36@amd.com>
- <b0127019-4976-42e3-bde1-643cc56f18b0@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <b0127019-4976-42e3-bde1-643cc56f18b0@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|BY5PR12MB4145:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4dd2d992-4c89-4fb5-23fc-08dbf0359a13
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Pq6UZO+lSx709P2ddgrwklAaZZYq3HKUt1HHvEUXr6RXLIhyqOSiJ/k3JNytjjACakrh0BRs2VI57diuZVTU/Vg41fwmGlb1AD7fVy5fV7bGl7qiaUKcsM2pkVdLtRIdRAUwaZ0NdPPFTa7zhRt0tDa6RBpT0xBy9UisGgzvWtR0vX2oKQMrWJhOBCvCm1Y0AwiiL7ZYsCjREgC6Wdywk2HYwZlWgm/QptOan78IplI4uhXcXvuOtIKqzP2D9ExnEg3q3FRABbWYdf/VLNdG1WaOpJtRZH7wZkxJM4xBDbqwn1W+flqplG/Lg/TSNgUy5brItn0KGkhavsMyFyRRXIdGXlkoYc5Hs8lc8VUVOAvNx/iBKRbkK8ydZVtjcT6PikMyrf2DyBVssPV2+IHZmmrP6AI9+Vx2BIvjWCf/3LsRo4Ntr1p3yZBnbrCJTbzWs7n/ky35lwkPbeSm8luvgpqeNuNbCXyohz1oM0GMzRzZLKq2q7vS0VkIa/dDH59rLWjwsAUcfnLmCHotSs7gTrmlPRTohdB2VnCODxP//mef/KKgtsFjueFdLL7DnUkkFHMaT8xQTxMU7GQI7RtGNL4oTKwVjmbmmcso3Nh6+nYNWqNdzjRZp4+hTgyYa/eL/n3jU2IOBEe0a9LqoVPwU68mpaOOlmaUTLknb3LDQnjranG2Yjm+rTd2Op5BDMEbwtdQNFrv3Yrdn5EYOJKDI6cXp+WHiFR9H0K5wwwnEWsdFM9WS56kD3jF9NRZOSHhwvip8c7c8cR7DqlEw9r+1OTMMkBSyTIldcIrdvs328/ZBT7CKWiwys310o5IzeAn
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(451199024)(82310400011)(64100799003)(1800799012)(186009)(36840700001)(40470700004)(46966006)(36860700001)(86362001)(36756003)(82740400003)(356005)(40460700003)(81166007)(31696002)(41300700001)(8936002)(8676002)(4326008)(54906003)(70586007)(16576012)(316002)(70206006)(53546011)(110136005)(478600001)(5660300002)(2906002)(44832011)(31686004)(47076005)(336012)(40480700001)(426003)(26005)(2616005)(83380400001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 17:15:21.1466
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dd2d992-4c89-4fb5-23fc-08dbf0359a13
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4145
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20231127144156.361656-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 27/11/2023 2:41 pm, Michal Orzel wrote:
+> diff --git a/xen/common/ubsan/ubsan.c b/xen/common/ubsan/ubsan.c
+> index a3a80fa99eec..dd5ee0013648 100644
+> --- a/xen/common/ubsan/ubsan.c
+> +++ b/xen/common/ubsan/ubsan.c
+> @@ -174,6 +174,10 @@ static void ubsan_epilogue(unsigned long *flags)
+>  		"========================================\n");
+>  	spin_unlock_irqrestore(&report_lock, *flags);
+>  	current->in_ubsan--;
+> +
+> +#ifdef CONFIG_UBSAN_FATAL
+> +	panic("UBSAN failure detected\n");
+> +#endif
 
+if ( IS_ENABLED(CONFIG_UBSAN_FATAL) )
+    panic("UBSAN failure detected\n");
 
-On 28/11/2023 18:09, Julien Grall wrote:
-> 
-> 
-> On 28/11/2023 18:00, Michal Orzel wrote:
->> Hi Julien,
->>
->> On 28/11/2023 17:14, Julien Grall wrote:
->>>
->>>
->>> Hi Michal,
->>>
->>> On 27/11/2023 15:41, Michal Orzel wrote:
->>>> Introduce the CONFIG_UBSAN_FATAL option to cater to scenarios where prompt
->>>> attention to undefined behavior issues, notably during CI test runs, is
->>>> essential. When enabled, this option causes Xen to panic upon detecting
->>>> UBSAN failure (as the last step in ubsan_epilogue()).
->>>
->>> I have mixed opinions on this patch. This would be a good one if we had
->>> a Xen mostly free from UBSAN behavior. But this is not the case at least
->>> on arm32. So we would end up to stop at the first error. IOW, we would
->>> need to fix the first error before we can see the next one.
->> Well, this patch introduces a config option disabled by default.
-> 
-> I understood this is disabled by default... I am pointing out that I am
-> not convinced about the usefulness until we are at the stage where Xen
-> is normally not reporting any USBAN error.
-> 
->> If we end up enabling it for CI for reasons* stated by Andrew, then the natural way
->> of handling such issues is to do the investigation locally.
-> 
-> This will not always be possible. One example is when you are only able
-> to reproduce some of the USBAN errors on a specific HW.
-> 
->> Then, you are not forced
->> to select this option and you can see all the UBSAN issues if you want.
-> 
-> See above, I got that point. I am mostly concerned about the implication
-> in the CI right now.
-> 
->>
->>>
->>> So I feel it would be best if the gitlab CI jobs actually check for
->>> USBAN in the logs and fail if there are any. With that, we can get the
->>> full list of UBSAN issues on each job.
->> Well, I prefer Andrew suggestion (both [1] and on IRC), hence this patch.
->>
->> *my plan was to first fix the UBSAN issues and then enable this option for CI.
-> 
-> That would have been useful to describe your goal after "---". With that
-> in mind, then I suggest to revisit this patch once all the UBSAN issues
-> in a normal build are fixed.
-But this patch does not enable this option for CI automatically, right? Why are you so keen to push it back?
-Is it because you see no point in this option other than for the upstream CI loop? I find it useful on a day-to-day
-Xen runs, and I would for sure enable it by default in my config not to miss UBSAN failures.
+please.  Happy to fix on commit.
 
-~Michal
-
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
