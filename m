@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0CA47FB7F9
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 11:35:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642945.1002779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6647FB7FE
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 11:36:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642949.1002790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7vQl-0001gk-AQ; Tue, 28 Nov 2023 10:35:03 +0000
+	id 1r7vRW-0002Ks-N3; Tue, 28 Nov 2023 10:35:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642945.1002779; Tue, 28 Nov 2023 10:35:03 +0000
+Received: by outflank-mailman (output) from mailman id 642949.1002790; Tue, 28 Nov 2023 10:35:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7vQl-0001eo-6T; Tue, 28 Nov 2023 10:35:03 +0000
-Received: by outflank-mailman (input) for mailman id 642945;
- Tue, 28 Nov 2023 10:35:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r7vRW-0002HZ-JE; Tue, 28 Nov 2023 10:35:50 +0000
+Received: by outflank-mailman (input) for mailman id 642949;
+ Tue, 28 Nov 2023 10:35:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xcZ5=HJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r7vQi-0001eS-Ua
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 10:35:01 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0606.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::606])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7410ee2-8dd9-11ee-9b0e-b553b5be7939;
- Tue, 28 Nov 2023 11:34:58 +0100 (CET)
+ id 1r7vRV-0002HL-NJ
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 10:35:49 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2043.outbound.protection.outlook.com [40.107.7.43])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e511a115-8dd9-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 11:35:48 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
  by AM9PR04MB8844.eurprd04.prod.outlook.com (2603:10a6:20b:40b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22; Tue, 28 Nov
- 2023 10:34:57 +0000
+ 2023 10:35:19 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.015; Tue, 28 Nov 2023
- 10:34:57 +0000
+ 10:35:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,34 +46,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7410ee2-8dd9-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: e511a115-8dd9-11ee-98e3-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I/GB5xavGsit3C5KGxn6FretSoyY3qBHzDsYC4aRpAKcz96SqU7UZCK+qS3OtP/IlTrPdMo3+9i2OF6cM9z2oC10oq0E0s2VxqRlL32jZPYMHY99BI4kkmrrlFgx+jMumjFI54UavzUhTQBB/iec+5BHIRBW5QzSXfq3+GPum6hjpi5XbynBoTKs5D6ZxMfA2q44nIEjvEA0b0zFx+fWGl90ciRRoopuyRiTqF7u5PZwW7i/Ciq15nzRmnBjhwe29J9eu08KR08oPCdIJWc56i5xO0tGEfvUYg+nsMRIHO2Zaw7iAbxcakMA4IhebcCr5LILihiVbYSSTJz+x7i+ZQ==
+ b=nTY9VZ3FtFfNLLNf1tLwN6lFg/c1KOZELtmNav7n5bPB8zNgj43QoZN4oN4Ow0R52tG3Jmx2bCti4I3KmsO2JpmSciChaKNkbgqG1UwfYInDLVlt5XpE8B99r1Jw0DZU/auGqkLQ9Wsv/PrPDu8zJ2lvYBpZDN0OtCc6HoENnh8X7Pyu8KC8zs46eRSfUPxSASWapxWMxYyzDEYXTcTVe28ZHSs4rqRGU6Qj53FsIoJ0BNS4B1zP1qtaoGp9ScB+EZLhf2xtIf6E3WVh5BX4c2zgK26rS3PlF02xTlCoG80/+J9Vq8agkZlCAWP8LcYtmidqf3FV7zQIUArRsMDbAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VPblwhZxXKXmmMEQwPYJhq3BZo9HkDC2DOK95SX8Bhw=;
- b=RSAn5rkq266bpDOt1vQKrRrRiCn7+nGs1Oo6HtHLJNt0DDqQNaEYA6KJuX8Be/D6alhb6FlD9TGNDm6FGKghxOAs7lGmdxfykul0lq4K7o8fSb9sH0VLa5hy9Ae9rbjK8I4b1FASrcTOD1M5jKDPpRw+Zncjyy4p0vgyE1mvgtFRPyo3FaGO5ffzbgVnks5BsW+2AOKHkrhV9LHl89bpJ28vYn5J4eKX69PcCZP8P/e6xZyJ42cnuZ/ykvw7Ye46T1jhVko0T31bGuIBYwZQUtCwU6bOb12UUCveLCNZNLrxeK5rcKL/ruKYYENZW32q1878e0okb7YBou50FHtoNQ==
+ bh=a9/1l+ViIg+Ju3Vw0L1eHHvCH642HR7HZCOl2I/vlGY=;
+ b=VyfwxxaoXlvKdU8n4BLRHyB6yvZkVY3i4bykJutSp/1Bs5aOylONNKN/H784IDk0jM00w2HlfWpXCt/OyYB2kE9S8AyeZCVH9lf7ARhImP2LEGnBQDaASVG7yv/QNohSjmB2ccbIAWrChNFfW6xqGynUMIDwtpyo5ds1FN4lTND3bZHy6K9VeKqQDtpqGoZF7sUufQrTOiiL2sZ+Z5wtdwioQClq27gDUPLRq6k9TVnzEVzJJvwC3Lz+d0+slPkXpa+nIXJZYSTsfYxdpS3D4SQ3JI8uiXmwFDKnPCzQEoY5iDfMqAaDvESy4uK0vq1qGtb1tLIwM4r+Ct5EhwGs8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VPblwhZxXKXmmMEQwPYJhq3BZo9HkDC2DOK95SX8Bhw=;
- b=u/oIFidpg4oE+dJb26v59hPJZANIgUReV3AsOa0yr5Ne/36uykVexqapAWn/JPwwE8q8378sxMtaGJiG+wgk0MegoKI74wE4HQhvhSf18RGzPeWjCBCwSMNy4bPtw8MmVGWmsJH8JlCU/XJfmGI5INJWjuaEdWjdkQVN/HGYJ4bZrSSIAEr+fDquGZgApseN3GfiiO16sgMaY/Q/SAvQjmodsPMNs/GNPVEcQAZvw0CxFWsLJlC9XSbwPLsGQupp+Zn4c3IO6mwv2oDWW9dxMGR7EuHEr7WxAe9ekqMnH2Hsbm1IqReujh0lndStkVXarCwcHmqxW3wv44LhWdEx5A==
+ bh=a9/1l+ViIg+Ju3Vw0L1eHHvCH642HR7HZCOl2I/vlGY=;
+ b=HQXjIyfaMYcgjy66AqnuSRACYplrEefhMlDjdjyAcUJdJ0CVu01mb9znvb9F+1F40N5mU5MmeA+sWxyxpc66nFrgRDSRpf8wFjMoKUsgMvNpl7gkrzLUGs3VInmxKJkH13/lvE6iMAhSrArHsrpcgxSdNwcHMxGEuNwqorPpuiOReNKvp2KiWc8MOReF2NzMUP62RrkYL61AQQZ6c1J9NHxqc8RGXS7rU6bo1jCxzuLJdBJsGomj8aufxKYjNU3PHQcPa+ocZJudLLzPRBFBF5++PP/LS4aRTQQg05fSCdoDwGEPU0QvSEhjncmBgVlTpBYp4+D9GvTUK7LWPdR6ug==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dbd5bc8d-baf9-4181-8f75-6e8c4f2351a4@suse.com>
-Date: Tue, 28 Nov 2023 11:34:57 +0100
+Message-ID: <cf1ff132-878a-4cb6-8eae-1995a78576a0@suse.com>
+Date: Tue, 28 Nov 2023 11:35:18 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 3/6] x86/HVM: adjust save/restore hook registration for
- optional check handler
+Subject: [PATCH v3 4/6] x86/vPIT: check values loaded from state save record
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -108,287 +105,186 @@ X-ClientProxiedBy: FR4P281CA0444.DEUP281.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8844:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09482840-8f91-4fc5-9f63-08dbeffdaac5
+X-MS-Office365-Filtering-Correlation-Id: 4da09ffa-6143-47c3-4b43-08dbeffdb7be
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	t2dPqKkbG8YOGiziGkBRGMxX++Fib838ObmeL+AiDZoIth8pQEAMQh5Fr8b89jpyEtYEIJhIOBk/jOoao5puvJggO+xa9G7Fp+JVLnbm8CCK//ZmOwzjUWYHdQujDqdPTY2LhjDCyDYaM92SO4EqZQtamo5+JtN2vZ8ZLyo3BPp4gfNB+x/2lQevImkymdmO5rfvkV56LbEU+9o35w/qNNo8MoS6tWh9XtIFo4tDLwgKsU0mfX74rmFL1cijxFRY3LkFQcN1Rpk2DM9cv9jColhqsRM2TjIQHXGWRTlUz6ajiKv6i3qCxYU0w5rFKnWKHi5a0pfqXesfMr9e4bRR3svoX5sU79OVKNXnCt0aphkhCRa8vAnOaBqkjGOhfjECQAZDKgoRVMFFlvbmZ+8lW7xroJc1/fV0lkFMWHWU8ILs9fZKZXfGUGzpTyQbhl7exmYvq43gwV+kI0DYw73fJGA7XSXai/8fcfPbKE8K0H2H2QlEhiAORBRtFyYcMEN221w43U4l9S4ZZtHh/SLwh99oyv0ZcFDgYF9hP+HrnWnBZtRLKC70s1IdZa0Da+J27KmuuUlae+Rrr1Tv8BwDq+WIjn7oxLn5EEwtQLWL4Ag8bF7G4TzQAz+MbDWyhfWME+PFFyzI87sCdZRsCHJ4lw==
+	iXNWD1FmDPjz0f923BEYB20iueGRpWcff9PlMURHPL2qBDeqNXU9ApeWDsirgWjHbIu7fDnXSK2BD/I2fGHR3/7YQFps9j1FpG5nG7zQ26mSlR+OKZDTah2uxC47IhUmt73qo6pZVPBqbwyMxxd6ghnHwLNPkG0tNj/v5I/qjM35t5/5irT75abEAqDYqDesCejxb4RsG+DIhsFrAwlkTjVkUITiGL/znAwqDGTBOOUVMFGTRtxfIR1RAXz4CJ6uIe7rCz5I7SMKa1uvpo7N8xzO0ucm3aX6SEkePLI0HfdUcUVwE89UeTIMnOo9NIyiOGtdH3wAceg/c3IT52tBG+8Q5ve/RculWIKeQSeXebWSLatWHNAF4+jHp2E6mgQMb9XGtAIZsJOiaN95O2f5RjSbZDszexolEX4G+CedBASTKcZU3eqjFkpMwlMWHI96uQfBkLdKVL0deyFqHZBI9NDDQg4BgjLC0EKaKl/Oox5n6OptwQlIJQ5sldfVH8j9cpt38vurOser4+3lKh1QW2vFvzLnu1qvw+8PonIOFHZwiezBoGRXKK0Tkf5Cwxg8EkpsDl1svzogP2jjJ3H3Fe3q0Bc5TscKtk5BX6bunOIowU39eNmKTUH2Q162+gWuSGhC3XcRQswqJ1yxsAsuOg==
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(136003)(346002)(396003)(376002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(31696002)(86362001)(2906002)(5660300002)(6512007)(31686004)(6506007)(8676002)(4326008)(41300700001)(8936002)(83380400001)(316002)(54906003)(38100700002)(36756003)(2616005)(478600001)(6486002)(66476007)(66946007)(6916009)(26005)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZHlFOUZyUHNFSjU3QjdNYVpSallTMmdQSmlnMk83MTZTSGE0ZHZhOHhPVDBM?=
- =?utf-8?B?UGtLWUVveTIzYUhqeGlmUXFyZkdDeGxyWXh1NEFZT3JMd1dROEh6U2NJSFor?=
- =?utf-8?B?b3RQNHU5bGpwdXhrQjdZZWd2cEZTMyt3RzNFdWZmZmc4UjJ5UitmSU5janpj?=
- =?utf-8?B?dEozczVaUVBYWStkQzRodHRYSTlvT2Rudm1nclFzV1RoVGUvUys2NlpmZXYv?=
- =?utf-8?B?cWMvWm5xSWxXUWFoWVFNdnExTTYwMUp5am94R2J0cFU3UXV3THZhNHRLd1dv?=
- =?utf-8?B?eE1PL2xJdlI3RjZnYTdLSTcvUUNxWlozTit6Z0hJRDRTb3ViWEoyUmhzNWR5?=
- =?utf-8?B?aVFTVWtnWUlFU054aHpaZEZoSURTbEd4Y29CQTRaQkRjY2NGMnJvT3hxdEFU?=
- =?utf-8?B?RHB2OUxPVUd2ZytCVFRDOWNRbC9iVHBQTjh6S0JsTnFORGk4a1pBOUt1RnBM?=
- =?utf-8?B?YmN0V05PVFVqSzBvUnFiamJwMHNoeFNPTFBDK3JJSlpLcUd1SmVxNWZOK3F6?=
- =?utf-8?B?dkNBRUwzSWhNU2JYN1ZHWWJHR3kzS0FVN0U5bWUvRUVTbjhnY1lvT2FxWWkz?=
- =?utf-8?B?TkNiZ28xclNQUFRGbytjcTRjcU9TZHFhM1RvaGVJcEpEYWpwQWJ1ekx6ZE1J?=
- =?utf-8?B?cHZOYWN6bkorb1RFMXVnZ20ram8xS090V2luL0lTcXFXUUxUZlB5SDNoTDZp?=
- =?utf-8?B?Wnp3Rkx1eVVidGRkTHlibTVFOXplT2lqWHlzMXl3ZVNRQmcrOUlZN280UDlq?=
- =?utf-8?B?R0d2b01EU0xkUDlpejVNS3JXa2h0U0RDa3BmMHNGbnRpRlJpTjR6U0xoNU9C?=
- =?utf-8?B?Yjd4YTdkdFk4NU0zNTdLMThaMVcvcllQOU94NGJEOFU1OUdXU2ZXQWs3SHpk?=
- =?utf-8?B?eWdNODNjOWpXNEw0L1JBVTVyYUpsaFZFVWNVS0VaSjE2dEYzTVRWTjZwK3RC?=
- =?utf-8?B?NjZnL2ljUmE2NjJ5WHAzcW1sYzdianR6bmhXSXYyS3REUW93cTJMZXNXRHMz?=
- =?utf-8?B?Y1FXN01PSkZVcUppdHRkWEZvUEJMSWRianFwc2RrY1hwSjdTeTZBV1dCeUZR?=
- =?utf-8?B?bVhsSTI3YlpuNEtONWttNEJCOUFORGJVOWZMZk5ycXVKeng4YllTeUVFSFZv?=
- =?utf-8?B?WHE5TkF6bkI0Y2lNeXpsc0p2TE5XV0NFMXg3am96OHh5VVJuZFZTL2dHdUgr?=
- =?utf-8?B?NjNFa3ZNNDVGMDBVWThzdHJhWU5USThWR2pmek83Mkc5OXhiRmNrL20rUU91?=
- =?utf-8?B?anhmMGh1bkV3T2E1NTBBTXZYNE0vemFnd1NOdjB1OTkvQ0dMa0NjdFFsSGha?=
- =?utf-8?B?QUljNE56MlFBMzhvRUJDd1paOG10V2Z0M3Fvalo3UnRLYzFKMHRUbG5kZ3hs?=
- =?utf-8?B?YTYwblFieFFPcURTVytvbkdEWkVEclZGMUxwdURxR3BrcGZSN3JMQ1BKS1hS?=
- =?utf-8?B?SjZ0QWtTWUlsOTRMTVpqVzVybENtNk5qQnU2R0E2TkJibHpIRDk3VFFndWdp?=
- =?utf-8?B?RmZHU2Q5Mk0vbFQ3V0xjb0hLbkt2Njk1YWlpeHZ6S1dEbjV1cGlmaTFmMk5F?=
- =?utf-8?B?Vm5TTnVaeTRrbVA3Wk5Uc2I3dWJ2dk5wbXVTa29JZ3hYWFBLM3hFdUFldUJl?=
- =?utf-8?B?UzVDQTJYMFRrVzRuRy9jUVQvQi85aW4wMlRVYXZjQW5CTGJvVVl1Z1BxMWs3?=
- =?utf-8?B?ekJvek0rSkxRTHhKUFBIMUpQZG5neDN0RGN6QzBGNVUxampqT0l1ZmNweDdN?=
- =?utf-8?B?TzJzbXNyRkY3NEFaQ1lwQmlLUjFnTGJrT05MSEFZNkh2WHEvNHlwQXBMbUE2?=
- =?utf-8?B?cjVpejdOa0hYUHVrajZHYzFXOWVYYWlCSVA3RUUxMkxCWmpaTnVUM0d1T2hI?=
- =?utf-8?B?dTRiZ3dLRXhPYkx0NGpER3N5d0JWSWt5c0V2NHFlSmpTQjRaeTNyTG1aZGdy?=
- =?utf-8?B?cHR5a2RJNXFJc2VjSDJ6NVZ3NXZtMnEvQ3lTYzlCeWhmQ2VjTnZHd0poZklH?=
- =?utf-8?B?NkNZcE0zUWRJRFg2Z2xQSkROTWJIOExPME0xdjRwOGdXaFdMS1FmMHBhamEw?=
- =?utf-8?B?Z05OZmV1NVpBR0hYbFJ5Y3AwNTdaVDRmc0lqMXkwcU0zT1dTNm5DWUpyK0VQ?=
- =?utf-8?Q?cp7RZIU6UUUgreVh9JTbBsb2m?=
+	=?utf-8?B?MnJFTE91anNEaVpNMjhyM0o2c2lLTGtlYkJFUHRVZFQvVkVNOXptRTBpYWZZ?=
+ =?utf-8?B?VUplU013aWs4ejEvOGV6OGZFVWNaNWRYR2VyZ3NzVlBpMTFnTDVzSm5jWmIv?=
+ =?utf-8?B?Qzc1UklHTWdleWd4TllFV0k2UVZ2bkdqdCtaRWx3RFB2Vk0rZ3VVb0hZMFRy?=
+ =?utf-8?B?Tk5zNXd1RmQ3OTY5YXlTNCtOZnV3QUxTR2FoajN5cS85bU16cW9QVkhvVHBE?=
+ =?utf-8?B?WWhxUWtOdzAzVElmLzFDOVJLRUxVd3JmbFlTUTFzeElSa2ljVW0xcm5uaG41?=
+ =?utf-8?B?a2d5blJEaGEwcEtZNzB5cmZsWWpWQWlub1lpSHVkZGRxQjQrN2NRdnB2VjE5?=
+ =?utf-8?B?U0VGOUdLL2xuOUdCMllxcGtzcU5EQy9WR0N4YWI2d2JLVW9GWUdhWE1pUzdx?=
+ =?utf-8?B?eVM4YmhHMmlmUGl4TGhYaUF5M2wvMi9DZmdCNi9MczVpMHNJWGc2NktKRDBz?=
+ =?utf-8?B?MHp1b3JmOFR4dTA5cThYaVVMY0pxWUJFV3VQQkpPaENmZlJRMFZ0eUZxcTdy?=
+ =?utf-8?B?RElFK0pZY3h0WXJJaE5xcE9jWGgyaVE4MTVnZU56dXc2dDc3cjh6ZjhyLzgy?=
+ =?utf-8?B?bTEzelRtc3RmVmtFVlJlaURPL3cxam1kUmkwdlRNaDc3V1BKQ0ovRm1kaitV?=
+ =?utf-8?B?Yjd2ZEVzSWtUL0lXTnlTVzhjVUxWQkxhOUV4T1JRdTZFbDQ4N01CWGRoV3Ux?=
+ =?utf-8?B?SXpsSkFxV210QlJ1dEVCVU9RL1Y3RXcwYjVkR00xQzd4cFJQVXhKUzVXNVZo?=
+ =?utf-8?B?T1dYbHBraDRIbW9kUnhTekJ3TW1MeFQ1TDE3ZDhTdVMyclJ6WVA3d2VDWmhx?=
+ =?utf-8?B?Nm93OGVyNDRkZTA0eVZZR0ZKZnpWOXdNZVB6YU5DZG5HUERpZzMxVm1tUmVH?=
+ =?utf-8?B?SUxEUkVaOFZ5eFhIWG5hV1hHaXNObnl0REk5cGtVTFlyY0RyQWNCMEJDVk1G?=
+ =?utf-8?B?bHFIRHRnTm5BaFZqcEhzTUlobkduZXpEbFdZcUYvOUJxNU1qMXhjZjBFTWJt?=
+ =?utf-8?B?M0N2VDg2VzMvdUIycHM2akVXWGpLRzF1dWdxbDFkY29wTzRaaVQxMDZDRG40?=
+ =?utf-8?B?a3lyT3lzR255WVFRYXlISHZoSWpyZEVaaFJEMy9CalVDLy9mUVNkZ21vNzRr?=
+ =?utf-8?B?VEd3S3kyUnRKSW0wVEN2YVhPWTE5NmpVWDVYa2YxdWtCRmp0VTJ2YlBGSTUv?=
+ =?utf-8?B?MVpMSDNUaUl4c1pGbit5MmtUYzc5amR6RE05MVBGWVlvMU1ZZldvZkI5ZGxj?=
+ =?utf-8?B?em1JemFMdnE5Zm5zTGloREhhNEUwa0NBK05vNEUzS2E5UEl0Y0s5Y0hJSU9R?=
+ =?utf-8?B?TzErcWJiS2czNEpwSlJBbGdZYzFtNGxkVVJmTUhWWXNFMGRxQmFYb3lDOTIx?=
+ =?utf-8?B?ZDV5Z2QwdlRKTzNETjdWaVBzVE04UXpCTjk1M3BvZXcxSlVoTEZlRG14UVk1?=
+ =?utf-8?B?Ulo2U2xsT2pWbTNpbWpzSkhNOWdZR0dmSTB3djMrblpDS3Vvcjh0ZkxXZGx6?=
+ =?utf-8?B?WGZ6ZUhJOTMwbHUzbDZQNjl6ZDFwMG03MUxRQ0dLdzRycVlEcHE1U0tXamU3?=
+ =?utf-8?B?bVo3S0FGV0dDQ05MMGtEb0VCa0ttMEt1WEcrYndiZTAvK2xoTzVpbDQrdVBk?=
+ =?utf-8?B?bFBBUzRjN2hYVlY0Vy9XdVBUWnA5RWdqcFJmaW5KUHJZejZta0ZaRlovV1E4?=
+ =?utf-8?B?bXlQRmlXaU4zamJyUXRoWTZSalAvTnFVQzF6U2hZRGNTNEtMMVN6anNyUDhx?=
+ =?utf-8?B?NCt1cTZNMFk4Q2h0RjVSUE1zdjArN1NQZzRweVZTNFJqNmRlbisvVndyZ3Z0?=
+ =?utf-8?B?MHVNTWVMaG00TDg2dVNmZ1pFZ3JGVnJBblJLRUt3bDd2blFhZG5YYmR4VW1l?=
+ =?utf-8?B?Mm1kQk5GZlZFRVJQc3ZrU05HYTdSekYyb082RXUrYzJGOXB5VEh2WXJ3QSt6?=
+ =?utf-8?B?NmVIRnlEN21pd29DMjZkTDM3ckRNUWUydktmeHY4ZDZpamVITzgwblFFd21t?=
+ =?utf-8?B?RE4zMUU2alQySzdDRlgzcFFRZE1rSXBkeGVQL1k2K3R3SVQ2NG9HMEV3ZTNF?=
+ =?utf-8?B?V3ZNWHMyQWo5eTlWb3ZOUm9KMTU4NlVUSnY4eEZ2eERnR21oRWd2cmNpWTh6?=
+ =?utf-8?Q?F6ktacHrOJG/MmlgQC5vy10m0?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09482840-8f91-4fc5-9f63-08dbeffdaac5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4da09ffa-6143-47c3-4b43-08dbeffdb7be
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 10:34:57.4683
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 10:35:19.2332
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MO8lOy9zTZFWNXZUsmBa7A1ByF1CmiIAWUIBNtR8vITWKmwHb38zEP8cCE7JL+nRPhrSgQdClVzon1dgfAHfpQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: D9dMEiegVL26VEHoGUtEuntx9NjLCoeimn1EkVE05YZZpP76j+78Lozx9QBQQRQZYtH6tvdnLpmfZ+Z2piXfqQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8844
 
-Register NULL uniformly as a first step.
+In particular pit_latch_status() and speaker_ioport_read() perform
+calculations which assume in-bounds values. Several of the state save
+record fields can hold wider ranges, though. Refuse to load values which
+cannot result from normal operation, except mode, the init state of
+which (see also below) cannot otherwise be reached.
+
+Note that ->gate should only be possible to be zero for channel 2;
+enforce that as well.
+
+Adjust pit_reset()'s writing of ->mode as well, to not unduly affect
+the value pit_latch_status() may calculate. The chosen mode of 7 is
+still one which cannot be established by writing the control word. Note
+that with or without this adjustment effectively all switch() statements
+using mode as the control expression aren't quite right when the PIT is
+still in that init state; there is an apparent assumption that before
+these can sensibly be invoked, the guest would init the PIT (i.e. in
+particular set the mode).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-v2: New.
+For mode we could refuse to load values in the [0x08,0xfe] range; I'm
+not certain that's going to be overly helpful.
 
---- a/xen/arch/x86/cpu/mcheck/vmce.c
-+++ b/xen/arch/x86/cpu/mcheck/vmce.c
-@@ -374,7 +374,7 @@ static int cf_check vmce_load_vcpu_ctxt(
-     return err ?: vmce_restore_vcpu(v, &ctxt);
- }
- 
--HVM_REGISTER_SAVE_RESTORE(VMCE_VCPU, vmce_save_vcpu_ctxt,
-+HVM_REGISTER_SAVE_RESTORE(VMCE_VCPU, vmce_save_vcpu_ctxt, NULL,
-                           vmce_load_vcpu_ctxt, 1, HVMSR_PER_VCPU);
- #endif
- 
+For count I was considering to clip the saved value to 16 bits (i.e. to
+convert the internally used 0x10000 back to the architectural 0x0000),
+but pit_save() doesn't easily lend itself to such a "fixup". If desired
+perhaps better a separate change anyway.
+---
+v3: Slightly adjust two comments. Re-base over rename in earlier patch.
+v2: Introduce separate checking function; switch to refusing to load
+    bogus values. Re-base.
+
 --- a/xen/arch/x86/emul-i8254.c
 +++ b/xen/arch/x86/emul-i8254.c
-@@ -458,7 +458,7 @@ static int cf_check pit_load(struct doma
+@@ -47,6 +47,7 @@
+ #define RW_STATE_MSB 2
+ #define RW_STATE_WORD0 3
+ #define RW_STATE_WORD1 4
++#define RW_STATE_NUM 5
+ 
+ #define get_guest_time(v) \
+    (is_hvm_vcpu(v) ? hvm_get_guest_time(v) : (u64)get_s_time())
+@@ -427,6 +428,47 @@ static int cf_check pit_save(struct vcpu
      return rc;
  }
  
--HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_load, 1, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, NULL, pit_load, 1, HVMSR_PER_DOM);
++static int cf_check pit_check(const struct domain *d, hvm_domain_context_t *h)
++{
++    const struct hvm_hw_pit *hw;
++    unsigned int i;
++
++    if ( !has_vpit(d) )
++        return -ENODEV;
++
++    hw = hvm_get_entry(PIT, h);
++    if ( !hw )
++        return -ENODATA;
++
++    /*
++     * Check to-be-loaded values are within valid range, for them to represent
++     * actually reachable state.  Uses of some of the values elsewhere assume
++     * this is the case.  Note that the channels' mode fields aren't checked;
++     * Xen prior to 4.19 might save them as 0xff.
++     */
++    if ( hw->speaker_data_on > 1 || hw->pad0 )
++        return -EDOM;
++
++    for ( i = 0; i < ARRAY_SIZE(hw->channels); ++i )
++    {
++        const struct hvm_hw_pit_channel *ch = &hw->channels[i];
++
++        if ( ch->count > 0x10000 ||
++             ch->count_latched >= RW_STATE_NUM ||
++             ch->read_state >= RW_STATE_NUM ||
++             ch->write_state >= RW_STATE_NUM ||
++             ch->rw_mode > RW_STATE_WORD0 ||
++             ch->gate > 1 ||
++             ch->bcd > 1 )
++            return -EDOM;
++
++        if ( i != 2 && !ch->gate )
++            return -EINVAL;
++    }
++
++    return 0;
++}
++
+ static int cf_check pit_load(struct domain *d, hvm_domain_context_t *h)
+ {
+     PITState *pit = domain_vpit(d);
+@@ -443,6 +485,14 @@ static int cf_check pit_load(struct doma
+         goto out;
+     }
+     
++    for ( i = 0; i < ARRAY_SIZE(pit->hw.channels); ++i )
++    {
++        struct hvm_hw_pit_channel *ch = &pit->hw.channels[i];
++
++        if ( (ch->mode &= 7) > 5 )
++            ch->mode -= 4;
++    }
++
+     /*
+      * Recreate platform timers from hardware state.  There will be some 
+      * time jitter here, but the wall-clock will have jumped massively, so 
+@@ -458,7 +508,7 @@ static int cf_check pit_load(struct doma
+     return rc;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, NULL, pit_load, 1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_check, pit_load, 1, HVMSR_PER_DOM);
  #endif
  
  /* The intercept action for PIT DM retval: 0--not handled; 1--handled. */
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -692,7 +692,7 @@ static int cf_check hpet_load(struct dom
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(HPET, hpet_save, hpet_load, 1, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(HPET, hpet_save, NULL, hpet_load, 1, HVMSR_PER_DOM);
- 
- static void hpet_set(HPETState *h)
- {
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -793,7 +793,7 @@ static int cf_check hvm_load_tsc_adjust(
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(TSC_ADJUST, hvm_save_tsc_adjust,
-+HVM_REGISTER_SAVE_RESTORE(TSC_ADJUST, hvm_save_tsc_adjust, NULL,
-                           hvm_load_tsc_adjust, 1, HVMSR_PER_VCPU);
- 
- static int cf_check hvm_save_cpu_ctxt(struct vcpu *v, hvm_domain_context_t *h)
-@@ -1189,7 +1189,7 @@ static int cf_check hvm_load_cpu_ctxt(st
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, hvm_load_cpu_ctxt, 1,
-+HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, NULL, hvm_load_cpu_ctxt, 1,
-                           HVMSR_PER_VCPU);
- 
- #define HVM_CPU_XSAVE_SIZE(xcr0) (offsetof(struct hvm_hw_cpu_xsave, \
-@@ -1538,6 +1538,7 @@ static int __init cf_check hvm_register_
-     hvm_register_savevm(CPU_XSAVE_CODE,
-                         "CPU_XSAVE",
-                         hvm_save_cpu_xsave_states,
-+                        NULL,
-                         hvm_load_cpu_xsave_states,
-                         HVM_CPU_XSAVE_SIZE(xfeature_mask) +
-                             sizeof(struct hvm_save_descriptor),
-@@ -1546,6 +1547,7 @@ static int __init cf_check hvm_register_
-     hvm_register_savevm(CPU_MSR_CODE,
-                         "CPU_MSR",
-                         hvm_save_cpu_msrs,
-+                        NULL,
-                         hvm_load_cpu_msrs,
-                         HVM_CPU_MSR_SIZE(ARRAY_SIZE(msrs_to_send)) +
-                             sizeof(struct hvm_save_descriptor),
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -784,9 +784,9 @@ static int cf_check irq_load_link(struct
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(PCI_IRQ, irq_save_pci, irq_load_pci,
-+HVM_REGISTER_SAVE_RESTORE(PCI_IRQ, irq_save_pci, NULL, irq_load_pci,
-                           1, HVMSR_PER_DOM);
--HVM_REGISTER_SAVE_RESTORE(ISA_IRQ, irq_save_isa, irq_load_isa,
-+HVM_REGISTER_SAVE_RESTORE(ISA_IRQ, irq_save_isa, NULL, irq_load_isa,
-                           1, HVMSR_PER_DOM);
--HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, irq_load_link,
-+HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, NULL, irq_load_link,
-                           1, HVMSR_PER_DOM);
---- a/xen/arch/x86/hvm/mtrr.c
-+++ b/xen/arch/x86/hvm/mtrr.c
-@@ -773,7 +773,7 @@ static int cf_check hvm_load_mtrr_msr(st
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(MTRR, hvm_save_mtrr_msr, hvm_load_mtrr_msr, 1,
-+HVM_REGISTER_SAVE_RESTORE(MTRR, hvm_save_mtrr_msr, NULL, hvm_load_mtrr_msr, 1,
-                           HVMSR_PER_VCPU);
- 
- void memory_type_changed(struct domain *d)
---- a/xen/arch/x86/hvm/pmtimer.c
-+++ b/xen/arch/x86/hvm/pmtimer.c
-@@ -300,7 +300,7 @@ static int cf_check acpi_load(struct dom
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(PMTIMER, acpi_save, acpi_load,
-+HVM_REGISTER_SAVE_RESTORE(PMTIMER, acpi_save, NULL, acpi_load,
-                           1, HVMSR_PER_DOM);
- 
- int pmtimer_change_ioport(struct domain *d, uint64_t version)
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -797,7 +797,7 @@ static int cf_check rtc_load(struct doma
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(RTC, rtc_save, rtc_load, 1, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(RTC, rtc_save, NULL, rtc_load, 1, HVMSR_PER_DOM);
- 
- void rtc_reset(struct domain *d)
- {
---- a/xen/arch/x86/hvm/save.c
-+++ b/xen/arch/x86/hvm/save.c
-@@ -88,6 +88,7 @@ static struct {
- void __init hvm_register_savevm(uint16_t typecode,
-                                 const char *name,
-                                 hvm_save_handler save_state,
-+                                hvm_check_handler check_state,
-                                 hvm_load_handler load_state,
-                                 size_t size, int kind)
- {
-@@ -96,6 +97,7 @@ void __init hvm_register_savevm(uint16_t
-     ASSERT(hvm_sr_handlers[typecode].check == NULL);
-     ASSERT(hvm_sr_handlers[typecode].load == NULL);
-     hvm_sr_handlers[typecode].save = save_state;
-+    hvm_sr_handlers[typecode].check = check_state;
-     hvm_sr_handlers[typecode].load = load_state;
-     hvm_sr_handlers[typecode].name = name;
-     hvm_sr_handlers[typecode].size = size;
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -631,7 +631,8 @@ static int cf_check ioapic_load(struct d
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, ioapic_load, 1, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, NULL, ioapic_load, 1,
-+                          HVMSR_PER_DOM);
- 
- void vioapic_reset(struct domain *d)
- {
---- a/xen/arch/x86/hvm/viridian/viridian.c
-+++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -1145,7 +1145,7 @@ static int cf_check viridian_load_domain
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_DOMAIN, viridian_save_domain_ctxt,
-+HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_DOMAIN, viridian_save_domain_ctxt, NULL,
-                           viridian_load_domain_ctxt, 1, HVMSR_PER_DOM);
- 
- static int cf_check viridian_save_vcpu_ctxt(
-@@ -1188,7 +1188,7 @@ static int cf_check viridian_load_vcpu_c
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_VCPU, viridian_save_vcpu_ctxt,
-+HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_VCPU, viridian_save_vcpu_ctxt, NULL,
-                           viridian_load_vcpu_ctxt, 1, HVMSR_PER_VCPU);
- 
- static int __init cf_check parse_viridian_version(const char *arg)
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1591,9 +1591,9 @@ static int cf_check lapic_load_regs(stru
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden,
-+HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, NULL,
-                           lapic_load_hidden, 1, HVMSR_PER_VCPU);
--HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs,
-+HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, NULL,
-                           lapic_load_regs, 1, HVMSR_PER_VCPU);
- 
- int vlapic_init(struct vcpu *v)
---- a/xen/arch/x86/hvm/vpic.c
-+++ b/xen/arch/x86/hvm/vpic.c
-@@ -449,7 +449,7 @@ static int cf_check vpic_load(struct dom
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, vpic_load, 2, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, NULL, vpic_load, 2, HVMSR_PER_DOM);
- 
- void vpic_reset(struct domain *d)
- {
---- a/xen/arch/x86/include/asm/hvm/save.h
-+++ b/xen/arch/x86/include/asm/hvm/save.h
-@@ -113,6 +113,7 @@ typedef int (*hvm_load_handler) (struct
- void hvm_register_savevm(uint16_t typecode,
-                          const char *name, 
-                          hvm_save_handler save_state,
-+                         hvm_check_handler check_state,
-                          hvm_load_handler load_state,
-                          size_t size, int kind);
- 
-@@ -122,12 +123,13 @@ void hvm_register_savevm(uint16_t typeco
- 
- /* Syntactic sugar around that function: specify the max number of
-  * saves, and this calculates the size of buffer needed */
--#define HVM_REGISTER_SAVE_RESTORE(_x, _save, _load, _num, _k)             \
-+#define HVM_REGISTER_SAVE_RESTORE(_x, _save, check, _load, _num, _k)      \
- static int __init cf_check __hvm_register_##_x##_save_and_restore(void)   \
- {                                                                         \
-     hvm_register_savevm(HVM_SAVE_CODE(_x),                                \
-                         #_x,                                              \
-                         &_save,                                           \
-+                        check,                                            \
-                         &_load,                                           \
-                         (_num) * (HVM_SAVE_LENGTH(_x)                     \
-                                   + sizeof (struct hvm_save_descriptor)), \
+@@ -575,7 +625,7 @@ void pit_reset(struct domain *d)
+     for ( i = 0; i < 3; i++ )
+     {
+         s = &pit->hw.channels[i];
+-        s->mode = 0xff; /* the init mode */
++        s->mode = 7; /* unreachable sentinel */
+         s->gate = (i != 2);
+         pit_load_count(pit, i, 0);
+     }
 
 
