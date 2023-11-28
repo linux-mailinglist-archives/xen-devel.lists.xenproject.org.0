@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF99F7FB5C7
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 10:29:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642847.1002591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7229D7FB636
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 10:47:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642853.1002608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7uOf-00006s-KE; Tue, 28 Nov 2023 09:28:49 +0000
+	id 1r7ug3-0004Sb-4H; Tue, 28 Nov 2023 09:46:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642847.1002591; Tue, 28 Nov 2023 09:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 642853.1002608; Tue, 28 Nov 2023 09:46:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7uOf-0008Vx-HG; Tue, 28 Nov 2023 09:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 642847;
- Tue, 28 Nov 2023 09:28:49 +0000
+	id 1r7ug3-0004Qx-1L; Tue, 28 Nov 2023 09:46:47 +0000
+Received: by outflank-mailman (input) for mailman id 642853;
+ Tue, 28 Nov 2023 09:46:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C3UE=HJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r7uOe-0008Vr-Tf
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 09:28:49 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ <SRS0=XwP9=HJ=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1r7ug2-0004Qr-27
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 09:46:46 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8764f6a6-8dd0-11ee-9b0e-b553b5be7939;
- Tue, 28 Nov 2023 10:28:46 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-50aab3bf71fso7111061e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 01:28:46 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- g20-20020a19ee14000000b0050aaafe2923sm1801262lfb.77.2023.11.28.01.28.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 01:28:45 -0800 (PST)
+ id 09298792-8dd3-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 10:46:42 +0100 (CET)
+Received: from Dell.homenet.telecomitalia.it
+ (host-79-21-6-128.retail.telecomitalia.it [79.21.6.128])
+ by support.bugseng.com (Postfix) with ESMTPSA id D96444EE0737;
+ Tue, 28 Nov 2023 10:46:42 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +40,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8764f6a6-8dd0-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701163726; x=1701768526; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=0XuMjoXYZeSyME50U244VGsguh0x7O1pzxe3Son4AXc=;
-        b=nEd4eI0g2qWEPY3dYqRQc3W3TzSdR18aPq5miij4rmYIpYvejYU23kQXOr8nxiagfJ
-         t/RIQRhE/6rW7zjqHumJxCri88+mEJxx23JjX++Dc3fmmhbrGsn85XAXrYYgEOGj7GwH
-         FaGBlgDScljV7mx2BIxBtD5pnr9158CDodGFbPRL8gvqT3z0MK4z5n9wmDcjSQ4rd+ra
-         TZkqbOV6ZNv/RYVvERltPLO16IZFlf0XNR5bdgQEuCc0C22eEw4q/SaxGBxQ4zT5aurL
-         d3BsErzl4hPcRKc3p2CBMllcv20bIMTk8bEDyt3PnfV1AmFAV3iPr9NMnnNyOJ8DTK6c
-         PF2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701163726; x=1701768526;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0XuMjoXYZeSyME50U244VGsguh0x7O1pzxe3Son4AXc=;
-        b=M8088beA4BD8VRonZqhOPWuOKtfsfdzT1mRJpbwPD0o+/PtazLdomqwjzDZTcrk8MR
-         K2i9VzaU6udGwIRh/CoLXSrAthknnqsZeFo2uQ0DPiQkI1ohXCuLlLu4XwtzgLP+011u
-         rumQ+X2cVk8IK+SdAqWklCycYHUgj7dh6i0OWo8Wir6GEhlJYf6jy1cPMRwMwtEULj3p
-         u3dSDzJRnqQvbRKi2D9nh/e2eKS7X8rTWqcaeud2/zbye9x4bEi6Uh6v/ymPKhAUQkCa
-         20MKi/EnzxRKF22UXUZSPlaWxoGjlB+UukPqm1aUgrB9wiIZoIWfxOK9wfFLC+DC/z/4
-         6Umw==
-X-Gm-Message-State: AOJu0YxhkrSfiOtIyHISf0q/Ca7btym7YYrwIPb/3V0w8rgCVsrXfs7k
-	/biN+l4p4+RmRHRN8Fe1cF4=
-X-Google-Smtp-Source: AGHT+IH0IRpAvwytA2cFcIe79uxE5kybdJ1XjyefJeU0wVOp5K67RAvP04DG+r3n/TA5aC8o0EHKjg==
-X-Received: by 2002:a05:6512:280c:b0:503:3808:389a with SMTP id cf12-20020a056512280c00b005033808389amr13211737lfb.11.1701163725987;
-        Tue, 28 Nov 2023 01:28:45 -0800 (PST)
-Message-ID: <195a50316efde86113f6f5df269c754a90490c57.camel@gmail.com>
-Subject: Re: [PATCH v4 13/14] xen: ifdef inclusion of <asm/grant_table.h> in
- <xen/grant_table.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Shawn
- Anastasio <sanastasio@raptorengineering.com>, xen-devel@lists.xenproject.org
-Date: Tue, 28 Nov 2023 11:28:45 +0200
-In-Reply-To: <405c2d66-a6f4-4bbb-ada5-2ac49c8c9744@suse.com>
-References: <cover.1701093907.git.oleksii.kurochko@gmail.com>
-	 <fdff8da7431ac6e8e44f08c3f95c897be23ec745.1701093907.git.oleksii.kurochko@gmail.com>
-	 <21ca8f55-d720-489f-a2d0-59a1f78d3656@suse.com>
-	 <6543c6aec8f69878e37912924b6d6208136a02af.camel@gmail.com>
-	 <405c2d66-a6f4-4bbb-ada5-2ac49c8c9744@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
+X-Inumbo-ID: 09298792-8dd3-11ee-9b0e-b553b5be7939
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [XEN PATCH] x86/guest_walk: address violations of MISRA C:2012 Rule 8.3
+Date: Tue, 28 Nov 2023 10:46:34 +0100
+Message-Id: <e0422c0127ebb402bb4f593d41571caf36b0864b.1701164432.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2023-11-28 at 08:57 +0100, Jan Beulich wrote:
-> On 27.11.2023 20:38, Oleksii wrote:
-> > On Mon, 2023-11-27 at 15:41 +0100, Jan Beulich wrote:
-> > > On 27.11.2023 15:13, Oleksii Kurochko wrote:
-> > > > --- a/xen/arch/ppc/include/asm/grant_table.h
-> > > > +++ /dev/null
-> > > > @@ -1,5 +0,0 @@
-> > > > -/* SPDX-License-Identifier: GPL-2.0-only */
-> > > > -#ifndef __ASM_PPC_GRANT_TABLE_H__
-> > > > -#define __ASM_PPC_GRANT_TABLE_H__
-> > > > -
-> > > > -#endif /* __ASM_PPC_GRANT_TABLE_H__ */
-> > >=20
-> > > Removing this header would be correct only if GRANT_TABLE had a
-> > > "depends on
-> > > !PPC", I'm afraid. Recall that the earlier randconfig adjustment
-> > > in
-> > > CI was
-> > > actually requested to be undone, at which point what an arch's
-> > > defconfig
-> > > says isn't necessarily what a randconfig should use.
-> > We can do depends on !PPC && !RISCV but shouldn't it be enough only
-> > to
-> > turn CONFIG_GRANT_TABLE off in defconfig and set
-> > CONFIG_GRANT_TABLE=3Dn
-> > in EXTRA_XEN_CONFIG?
->=20
-> That _might_ be sufficient for CI, but we shouldn't take CI as the
-> only
-> thing in the world. Personally I consider any kind of overriding for,
-> in particular, randconfig at bets bogus. Whatever may not be selected
-> (or must be selected) should be arranged for by Kconfig files
-> themselves.
-> That said, there may be _rare_ exceptions. But what PPC's and RISC-
-> V's
-> defconfig-s have right now is more than "rare" imo.
->=20
-> > Some time ago I also tried to redefine "Config GRANT_TABLE" in
-> > arch-
-> > specific Kconfig + defconfig + EXTRA_XEN_CONFIG and it works for
-> > me.
-> > Could it be solution instead of "depends on..." ?
->=20
-> Why would we want to re-define an setting? There wants to be one
-> single
-> place where a common option is defined. Or maybe I don't understand
-> what you're suggesting ...
-I just thought this change is temporary because grant_table.h will be
-introduced later or earlier, and it will be needed to remove "depends
-on !PPC && !RISCV". And not to litter common KConfig with the change
-which will be removed, it will be better to redefine it in arch-
-specific Kconfig with default n.
+Uniform declaration and definition of guest_walk_tables() using
+parameter name "pfec_walk":
+this name highlights the connection with PFEC_* constants and it is
+consistent with the use of the parameter within function body.
+No functional change.
 
-But after your words about one place, I realized that it would be
-better to update a place where a common option is defined.
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/arch/x86/include/asm/guest_pt.h |  2 +-
+ xen/arch/x86/mm/guest_walk.c        | 39 +++++++++++++++--------------
+ 2 files changed, 21 insertions(+), 20 deletions(-)
 
-The only thing I would like to change is probably it will be better to
-do the opposite, add "depends on" arches that support
-CONFIG_GRANT_TABLE now so it will not need to update "depends on" for
-new arches or arches that don't support CONFIG_GRANT_TABLE.
+diff --git a/xen/arch/x86/include/asm/guest_pt.h b/xen/arch/x86/include/asm/guest_pt.h
+index bc312343cd..5edf687dce 100644
+--- a/xen/arch/x86/include/asm/guest_pt.h
++++ b/xen/arch/x86/include/asm/guest_pt.h
+@@ -422,7 +422,7 @@ static inline unsigned int guest_walk_to_page_order(const walk_t *gw)
+ 
+ bool
+ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+-                  unsigned long va, walk_t *gw, uint32_t pfec,
++                  unsigned long va, walk_t *gw, uint32_t pfec_walk,
+                   gfn_t top_gfn, mfn_t top_mfn, void *top_map);
+ 
+ /* Pretty-print the contents of a guest-walk */
+diff --git a/xen/arch/x86/mm/guest_walk.c b/xen/arch/x86/mm/guest_walk.c
+index fe7393334f..20a19bd7e2 100644
+--- a/xen/arch/x86/mm/guest_walk.c
++++ b/xen/arch/x86/mm/guest_walk.c
+@@ -69,7 +69,7 @@ static bool set_ad_bits(guest_intpte_t *guest_p, guest_intpte_t *walk_p,
+  */
+ bool
+ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+-                  unsigned long va, walk_t *gw, uint32_t walk,
++                  unsigned long va, walk_t *gw, uint32_t pfec_walk,
+                   gfn_t top_gfn, mfn_t top_mfn, void *top_map)
+ {
+     struct domain *d = v->domain;
+@@ -100,16 +100,17 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+      * inputs to a guest walk, but a whole load of code currently passes in
+      * other PFEC_ constants.
+      */
+-    walk &= (PFEC_implicit | PFEC_insn_fetch | PFEC_user_mode | PFEC_write_access);
++    pfec_walk &= (PFEC_implicit | PFEC_insn_fetch | PFEC_user_mode |
++                  PFEC_write_access);
+ 
+     /* Only implicit supervisor data accesses exist. */
+-    ASSERT(!(walk & PFEC_implicit) ||
+-           !(walk & (PFEC_insn_fetch | PFEC_user_mode)));
++    ASSERT(!(pfec_walk & PFEC_implicit) ||
++           !(pfec_walk & (PFEC_insn_fetch | PFEC_user_mode)));
+ 
+     perfc_incr(guest_walk);
+     memset(gw, 0, sizeof(*gw));
+     gw->va = va;
+-    gw->pfec = walk & (PFEC_user_mode | PFEC_write_access);
++    gw->pfec = pfec_walk & (PFEC_user_mode | PFEC_write_access);
+ 
+     /*
+      * PFEC_insn_fetch is only reported if NX or SMEP are enabled.  Hardware
+@@ -117,7 +118,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+      * rights.
+      */
+     if ( guest_nx_enabled(v) || guest_smep_enabled(v) )
+-        gw->pfec |= (walk & PFEC_insn_fetch);
++        gw->pfec |= (pfec_walk & PFEC_insn_fetch);
+ 
+ #if GUEST_PAGING_LEVELS >= 3 /* PAE or 64... */
+ #if GUEST_PAGING_LEVELS >= 4 /* 64-bit only... */
+@@ -399,7 +400,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+      * N.B. In the case that the walk ended with a superpage, the fabricated
+      * gw->l1e contains the appropriate leaf pkey.
+      */
+-    if ( !(walk & PFEC_insn_fetch) &&
++    if ( !(pfec_walk & PFEC_insn_fetch) &&
+          ((ar & _PAGE_USER) ? guest_pku_enabled(v)
+                             : guest_pks_enabled(v)) )
+     {
+@@ -408,8 +409,8 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+         unsigned int pk_ar = (pkr >> (pkey * PKEY_WIDTH)) & (PKEY_AD | PKEY_WD);
+ 
+         if ( (pk_ar & PKEY_AD) ||
+-             ((walk & PFEC_write_access) && (pk_ar & PKEY_WD) &&
+-              ((walk & PFEC_user_mode) || guest_wp_enabled(v))) )
++             ((pfec_walk & PFEC_write_access) && (pk_ar & PKEY_WD) &&
++              ((pfec_walk & PFEC_user_mode) || guest_wp_enabled(v))) )
+         {
+             gw->pfec |= PFEC_prot_key;
+             goto out;
+@@ -417,17 +418,17 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+     }
+ #endif
+ 
+-    if ( (walk & PFEC_insn_fetch) && (ar & _PAGE_NX_BIT) )
++    if ( (pfec_walk & PFEC_insn_fetch) && (ar & _PAGE_NX_BIT) )
+         /* Requested an instruction fetch and found NX? Fail. */
+         goto out;
+ 
+-    if ( walk & PFEC_user_mode ) /* Requested a user acess. */
++    if ( pfec_walk & PFEC_user_mode ) /* Requested a user acess. */
+     {
+         if ( !(ar & _PAGE_USER) )
+             /* Got a supervisor walk?  Unconditional fail. */
+             goto out;
+ 
+-        if ( (walk & PFEC_write_access) && !(ar & _PAGE_RW) )
++        if ( (pfec_walk & PFEC_write_access) && !(ar & _PAGE_RW) )
+             /* Requested a write and only got a read? Fail. */
+             goto out;
+     }
+@@ -435,18 +436,18 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+     {
+         if ( ar & _PAGE_USER ) /* Got a user walk. */
+         {
+-            if ( (walk & PFEC_insn_fetch) && guest_smep_enabled(v) )
++            if ( (pfec_walk & PFEC_insn_fetch) && guest_smep_enabled(v) )
+                 /* User insn fetch and smep? Fail. */
+                 goto out;
+ 
+-            if ( !(walk & PFEC_insn_fetch) && guest_smap_enabled(v) &&
+-                 ((walk & PFEC_implicit) ||
++            if ( !(pfec_walk & PFEC_insn_fetch) && guest_smap_enabled(v) &&
++                 ((pfec_walk & PFEC_implicit) ||
+                   !(guest_cpu_user_regs()->eflags & X86_EFLAGS_AC)) )
+                 /* User data access and smap? Fail. */
+                 goto out;
+         }
+ 
+-        if ( (walk & PFEC_write_access) && !(ar & _PAGE_RW) &&
++        if ( (pfec_walk & PFEC_write_access) && !(ar & _PAGE_RW) &&
+              guest_wp_enabled(v) )
+             /* Requested a write, got a read, and CR0.WP is set? Fail. */
+             goto out;
+@@ -468,7 +469,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+ 
+     case 1:
+         if ( set_ad_bits(&l1p[guest_l1_table_offset(va)].l1, &gw->l1e.l1,
+-                         (walk & PFEC_write_access)) )
++                         (pfec_walk & PFEC_write_access)) )
+         {
+             paging_mark_dirty(d, gw->l1mfn);
+             hvmemul_write_cache(v, l1gpa, &gw->l1e, sizeof(gw->l1e));
+@@ -476,7 +477,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+         /* Fallthrough */
+     case 2:
+         if ( set_ad_bits(&l2p[guest_l2_table_offset(va)].l2, &gw->l2e.l2,
+-                         (walk & PFEC_write_access) && leaf_level == 2) )
++                         (pfec_walk & PFEC_write_access) && leaf_level == 2) )
+         {
+             paging_mark_dirty(d, gw->l2mfn);
+             hvmemul_write_cache(v, l2gpa, &gw->l2e, sizeof(gw->l2e));
+@@ -485,7 +486,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
+ #if GUEST_PAGING_LEVELS == 4 /* 64-bit only... */
+     case 3:
+         if ( set_ad_bits(&l3p[guest_l3_table_offset(va)].l3, &gw->l3e.l3,
+-                         (walk & PFEC_write_access) && leaf_level == 3) )
++                         (pfec_walk & PFEC_write_access) && leaf_level == 3) )
+         {
+             paging_mark_dirty(d, gw->l3mfn);
+             hvmemul_write_cache(v, l3gpa, &gw->l3e, sizeof(gw->l3e));
+-- 
+2.34.1
 
->=20
-> > One more question I have do we really need this randconfig? On
-> > RISC-V
-> > side, I launched several time this patch series ( from v1 to v4 +
-> > runs
-> > during test of patch series ) and I haven't faced case
-> > when CONFIG_GRANT_TABLE=3Dn. ( but I turned the config off in
-> > defconfig +
-> > EXTRA_XEN_CONFIG ).
->=20
-> That override is why in CI you wouldn't see an issue. But as said -
-> CI
-> isn't everything.
-From this point of view it will be better to add "depends on !PPC &&
-!RISCV" to "Config GRANT_TABLE".
-
-
-~ Oleksii
 
