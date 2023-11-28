@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94B87FB1AF
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 06:59:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642670.1002391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C357FB1B5
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 07:00:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642695.1002400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7r7Z-0005ng-2C; Tue, 28 Nov 2023 05:58:57 +0000
+	id 1r7r8N-0006JG-Bq; Tue, 28 Nov 2023 05:59:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642670.1002391; Tue, 28 Nov 2023 05:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 642695.1002400; Tue, 28 Nov 2023 05:59:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7r7Y-0005lN-VU; Tue, 28 Nov 2023 05:58:56 +0000
-Received: by outflank-mailman (input) for mailman id 642670;
- Mon, 27 Nov 2023 23:05:06 +0000
+	id 1r7r8N-0006H9-91; Tue, 28 Nov 2023 05:59:47 +0000
+Received: by outflank-mailman (input) for mailman id 642695;
+ Tue, 28 Nov 2023 01:37:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A91w=HI=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1r7kf4-00033H-Ss
- for xen-devel@lists.xenproject.org; Mon, 27 Nov 2023 23:05:06 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2PfH=HJ=gmail.com=emelyvollmer@srs-se1.protection.inumbo.net>)
+ id 1r7n2q-0008Bz-Fy
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 01:37:48 +0000
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [2607:f8b0:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 655827c5-8d79-11ee-98e2-6d05b1d4d9a1;
- Tue, 28 Nov 2023 00:05:04 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 3ARN4UpH061379
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 27 Nov 2023 18:04:36 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 3ARN4UhW061378;
- Mon, 27 Nov 2023 15:04:30 -0800 (PST) (envelope-from ehem)
+ id bb90b01b-8d8e-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 02:37:47 +0100 (CET)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ 46e09a7af769-6d30d9f4549so3084567a34.0
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Nov 2023 17:37:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,156 +40,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 655827c5-8d79-11ee-98e2-6d05b1d4d9a1
-Date: Mon, 27 Nov 2023 15:04:30 -0800
-From: Elliott Mitchell <ehem+freebsd@m5p.com>
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: Mario Marietto <marietto2008@gmail.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Demi Marie Obenour <demi@invisiblethingslab.com>,
-        Anthony PERARD <anthony.perard@citrix.com>,
-        Julien Grall <julien@xen.org>,
-        Xen-devel <xen-devel@lists.xenproject.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Bertrand Marquis <Bertrand.Marquis@arm.com>,
-        Michal Orzel <michal.orzel@amd.com>
-Subject: Re: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32
- bit
-Message-ID: <ZWUgfkP4U5kOmQNj@mattapan.m5p.com>
-References: <CA+1FSiggg=XZmif6c3pY0+jz7i9caU-OTwFy80gwO7MVpXiwcA@mail.gmail.com>
- <CA+1FSigM1PZc4WfZNUJSMsZbNPPTyThRJ7MMQwQ9TWn6VnSUTg@mail.gmail.com>
- <C0A0E9FA-5AAB-4324-BBBD-D07412CD7F32@arm.com>
- <ZWR1v5Y3EpRK817B@macbook>
- <CA+1FSij2Q9f9Vj0A06HUYeUxTddrEyF=Q8X5fbs96CRr83_BPg@mail.gmail.com>
- <4fc95518-7e46-4f82-b540-afdbc941508a@netscape.net>
- <f606be07-c4ff-43c6-acf9-42065a84b594@netscape.net>
+X-Inumbo-ID: bb90b01b-8d8e-11ee-98e3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701135466; x=1701740266; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Jy/oTCykTaM00e347CNwkHBaLS2CcP30AyMFVm4vGQw=;
+        b=InSl1ON5f3e/8hmVKKOXx9kaJy0fgY2JlS06URJdZD2pOpamGMU6kw10/fIX0ETU6m
+         dVIDay8Q8VvsFIwZtu9o9MvS9DEvUEhyqz+RIHpbwvdf01zqeoScACbNXIrAPQPQuFHh
+         FDVakPRmYH3XFbzSbkIrcyugRgsM/fMSVDmKAKvS59Rgomrct5JYrLGq6s4NKyV72C2M
+         t7shmzMlf4BC63cQpFP9HvlDjPkU3Zl2qlmKLTj5LgjDpRhuED2J2Opg7GMURxi+41pW
+         whaTF9j94pO1v1qNUYotQDcmwilRS974MZ0YrvSoqm1QIqEv66BVAmc/fur1/Z3tKaeE
+         xPFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701135466; x=1701740266;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Jy/oTCykTaM00e347CNwkHBaLS2CcP30AyMFVm4vGQw=;
+        b=ao0TYGyz14XM1kB+2cNivb5GttXWGQxl1VMveU3fSlKpKZxmgr16kg1mZKNBZ7lKDt
+         2KNCa5bS7+0vs9mXE9m4aJHNhsx99v6iLC/UH3ReQNtGQmcQR+cf1x0enICIiwjazuZ2
+         OW98Qr1xAYOlvjE8Zs522JnjooonQekN+xubpmPWKHU9hJ9QCSoeG5xt02bX57N7SGKQ
+         FC64tLm2/9fqDxceyY7AkDMjUy7bX+O/rFY/wCtAPOZV/5OZba/9yx/wNyVlCnwa5cCr
+         ILciXKDy6DMiKWvXV1iTQXPBLAtgQ2dn94ZoUt6uwZ5KRh7xy+3e6K6JZPvaFB1YswcP
+         1M9w==
+X-Gm-Message-State: AOJu0Yw2+v7sawiizXj9M+TmIaF8Wd4g372Fd345MAn77529CFhEcqkx
+	rbBccPxw+th/eyuKfyCluzPDx6upk+WiCvfj84JggHki
+X-Google-Smtp-Source: AGHT+IEdvahee5qc9B66WkqTMMcEicKk+Fr+/x+6R+emAg1zM+NNzXz9qxS8FUlODbHrfA3PGtMd2eDYoKHZvvjHKOc=
+X-Received: by 2002:a05:6870:7021:b0:1f0:811a:324d with SMTP id
+ u33-20020a056870702100b001f0811a324dmr15690215oae.51.1701135465895; Mon, 27
+ Nov 2023 17:37:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f606be07-c4ff-43c6-acf9-42065a84b594@netscape.net>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+From: Emely Vollmer <emelyvollmer@gmail.com>
+Date: Tue, 28 Nov 2023 02:37:34 +0100
+Message-ID: <CAEe9NNQvj=2F_=teO7UvN7doA3gJMgJU_oHct6txTyTFTTCfEg@mail.gmail.com>
+Subject: Inquiry Regarding Usage of Xen Project Images for Private T-shirt Printing
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000028e56e060b2c7743"
 
-On Mon, Nov 27, 2023 at 10:57:42AM -0500, Chuck Zmudzinski wrote:
-> On 11/27/2023 10:22 AM, Chuck Zmudzinski wrote:
-> > 
-> > I have been collaborating with Mario, and I can explain what we have done so far :
-> > 
-> > We are using Julien's patch set against an old development version of FreeBSD 11
-> > from 2014-12-03 :
-> > 
-> > https://xenbits.xen.org/gitweb/?p=people/julieng/freebsd.git;a=shortlog;h=refs/heads/xen-arm-v2.2
-> > 
-> > We successfully built the XENVIRT kernel and FreeBSD world, and created the
-> > FreeBSD rootfs according to Julien's instructions here :
-> > 
-> > https://lists.freebsd.org/pipermail/freebsd-xen/2014-November/002202.html
-> > 
-> > There were some adjustments to the instructions :
-> > 
-> > To build the kernel, we used :
-> > 
-> > $ sudo make TARGET_ARCH=armv6 KERNCONF=XENVIRT buildkernel
-> > 
-> > instead of
-> > 
-> > $ sudo make TARGET_ARCH=armv6 KERNCONF=XENHVM buildkernel
-> > 
-> > The FreeBSD 'kernel' file is in ELF format and did not work, and we spent
-> > some time trying to convert it to the zImage format without realizing the
-> > build of the FreeBSD kernel creates the 'kernel.bin' file in the zImage format.
-> > So when booting with the 'kernel.bin' file instead, it actually boots :
-> > 
-> > user@devuan-bunsen ~ % sudo xl create freebsd.cfg
-> > Parsing config from freebsd.cfg
-> > user@devuan-bunsen ~ % sudo xl li
-> > Name                                        ID   Mem VCPUs	State	Time(s)
-> > Domain-0                                     0   768     2     r-----    1439.4
-> > freebsd                                      1  1152     1     r-----       3.0
-> > user@devuan-bunsen ~ %
-> > 
-> > However, the guest is still not working correctly :
-> > 
-> > 1. Attaching the console with the -c option at creation or with
-> >    'xl console freebsd' results in no output to the console.
-> > 
-> > 2. The timestamp on the virtual disk image file shows that the filesystem
-> >    was at best mounted read-only, if it was mounted at all by the guest
-> >    FreeBSD kernel.
-> > 
-> > 3. The 'xl shutdown freebsd' command does not work, it just hangs. To stop
-> >    the guest, you need to do 'xl destroy freebsd'.
-> > 
-> > However, I think we can get the console to work and the rootfs to mount because I
-> > just realized I forgot to do the steps from Julien's instructions of editing the
-> > /etc/fstab and /etc/ttys files in the FreeBSD rootfs :
-> > 
-> > $ echo "/dev/xbd0       /       ufs     rw      1       1" > /mnt/etc/fstab
-> > $ vi /mnt/etc/ttys (add the line 'xc0 "/usr/libexec/getty Pc" xterm on secure")
-> > 
-> > I will add those and see if the console and disk are working.
-> 
-> Unfortunately, adding xc0 to /etc/ttys and /dev/xbd0 as the root device in
-> /etc/fstab did not make the console or disk work. Still no output on the
-> xen console from the guest kernel, and the timestamp on the rootfs image
-> file did not change so it did not mount read-write.
-> 
-> We could use some advice for troubleshooting this. Now, we are blind because
-> we are not getting any xen console output But I am pleased we were able to
-> demonstrate that Julien's old patch set for FreeBSD 11 allows us to boot
-> FreeBSD 11 on a modern version of Xen on arm - we are using the Debian
-> stable Xen 4.17 packages.
+--00000000000028e56e060b2c7743
+Content-Type: text/plain; charset="UTF-8"
 
-The only method for booting I ever tried was Tianocore/EDK2.  As brought
-up previously, that needs an update for Xen 4.17 though:
-https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg00278.html
-Essentially they had two uses of the shared info page, one was unmapped
-and the other never got unmapped.  That is good enough for FreeBSD's
-bootloader to function.
+Dear Xen Project Team,
 
-FreeBSD's handling of patches is unfortunately very friendly to people
-who have permission to commit, or know someone responsible for a
-particular area.  If you're trying to get patches for something which
-has shared responsibility and you're unfunded you're SoL.  As such my
-work has basically stalled.  Everything works, but without anyone with
-an interest it is simply sitting here mouldering.  Combined with the
-annoyance curse it is simply sitting.
+I trust this message finds you well. My name is Emely. I am an avid
+supporter and admirer of the Xen Project, and I am writing to seek your
+guidance and permission regarding the use of your images for personal,
+non-commercial purposes.
 
-Julien Grall's patches are very much PoC.  As such I've done a lot of
-updating.  Take a look at branch "submit":
-https://gitlab.com/ehem/freebsd-src.git
+I have recently been exploring ways to express my enthusiasm for the Xen
+Project within the confines of my private interests. To this end, I am
+interested in creating a custom t-shirt featuring the Xen Project images.
+These shirts would be exclusively for personal use and would not be
+utilized for any commercial purposes or intentions of selling.
 
-Problem is FreeBSD's interrupt situation is troublesome.  Rather than 1
-interrupt framework, there are 4.  Each has different built-in
-assumptions.  "INTRNG" was designed for ARM and deliberately threw away
-the x86 assumptions, but then added other assumptions.
+In my research, I came across your usage guidelines, which state, "You can
+use the images and material without attribution when used in a context that
+refers to the Xen Project [...] Where the context is not clear, attribution
+must be made to XenProject.org, and images used on merchandise, such as a
+sticker, must contain the Xen Project logo." I appreciate the clarity you
+provide on the acceptable use of Xen Project materials.
 
-The tip of the "submit" branch has a mix of different potential
-approaches to working with "INTRNG".  Several of these might be rejected,
-but hopefully one might be accepted.  Really I need someone in the
-FreeBSD organization with the authority to override Michal Meloun's
-proselytizing about INTRNG being perfect.
+However, I find myself in a situation where I am unsure whether the
+proposed use falls within the defined boundaries. Specifically, I would
+like to confirm whether it is permissible to print Xen Project images on
+private-use t-shirts without the intent to sell or engage in any commercial
+activities.
 
-The other problem is no one in the FreeBSD organization wants to deal
-with it's interrupt disaster.  By the time anyone is allowed to commit,
-they've been thoroughly burned by the situation and are unwilling to
-touch the interrupt system.  Thus leading to the antipattern of it being
-just barely maintained.
+I understand the importance of respecting intellectual property rights, and
+I want to ensure that I adhere to your guidelines and policies. If there
+are any additional conditions or steps I should follow to obtain formal
+approval for this specific use, please do let me know, and I will be more
+than happy to comply.
 
-I've got it working, just I'm stuck.
+I appreciate your time and consideration in addressing this matter. Thank
+you for your commitment to fostering a collaborative and supportive
+community around the Xen Project.
 
+Best regards,
 
-BTW Roger Pau Monné, now that Xen 4.18 is out, take a look at the
-"royger" branch?
+Emely V.
 
+--00000000000028e56e060b2c7743
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+<div dir=3D"auto"><span style=3D"font-size:17px">Dear Xen Project Team,</sp=
+an>
+<br><br><span style=3D"font-size:17px">I trust this message finds you well.=
+ My name is Emely. I am an avid supporter and admirer of the Xen Project, a=
+nd I am writing to seek your guidance and permission regarding the use of y=
+our images for personal, non-commercial purposes.</span>
+<br><br><span style=3D"font-size:17px">I have recently been exploring ways =
+to express my enthusiasm for the Xen Project within the confines of my priv=
+ate interests. To this end, I am interested in creating a custom t-shirt fe=
+aturing the Xen Project images. These shirts would be exclusively for perso=
+nal use and would not be utilized for any commercial purposes or intentions=
+ of selling.</span>
+<br><br><span style=3D"font-size:17px">In my research, I came across your u=
+sage guidelines, which state, &quot;You can use the images and material wit=
+hout attribution when used in a context that refers to the Xen Project [...=
+] Where the context is not clear, attribution must be made to XenProject.or=
+g, and images used on merchandise, such as a sticker, must contain the Xen =
+Project logo.&quot; I appreciate the clarity you provide on the acceptable =
+use of Xen Project materials.</span>
+<br><br><span style=3D"font-size:17px">However, I find myself in a situatio=
+n where I am unsure whether the proposed use falls within the defined bound=
+aries. Specifically, I would like to confirm whether it is permissible to p=
+rint Xen Project images on private-use t-shirts without the intent to sell =
+or engage in any commercial activities.</span>
+<br><br><span style=3D"font-size:17px">I understand the importance of respe=
+cting intellectual property rights, and I want to ensure that I adhere to y=
+our guidelines and policies. If there are any additional conditions or step=
+s I should follow to obtain formal approval for this specific use, please d=
+o let me know, and I will be more than happy to comply.</span>
+<br><br><span style=3D"font-size:17px">I appreciate your time and considera=
+tion in addressing this matter. Thank you for your commitment to fostering =
+a collaborative and supportive community around the Xen Project.</span>
+<br><br><span style=3D"font-size:17px">Best regards,</span>
+<br><br><span style=3D"font-size:17px">Emely V.</span></div>
 
-
+--00000000000028e56e060b2c7743--
 
