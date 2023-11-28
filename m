@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF1B7FC30F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 19:26:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643423.1003622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A41BE7FC38C
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 19:39:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643428.1003638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r82mG-0005Ox-TG; Tue, 28 Nov 2023 18:25:44 +0000
+	id 1r82zI-0001mh-4E; Tue, 28 Nov 2023 18:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643423.1003622; Tue, 28 Nov 2023 18:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 643428.1003638; Tue, 28 Nov 2023 18:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r82mG-0005MT-QE; Tue, 28 Nov 2023 18:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 643423;
- Tue, 28 Nov 2023 18:25:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1r82zI-0001jP-0p; Tue, 28 Nov 2023 18:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 643428;
+ Tue, 28 Nov 2023 18:39:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r82mF-0005M4-J3
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 18:25:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r82mF-0006oH-0h; Tue, 28 Nov 2023 18:25:43 +0000
-Received: from static-css-csq-252138.business.bouyguestelecom.com
- ([176.175.252.138] helo=[172.20.7.85])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r82mE-00074m-Rg; Tue, 28 Nov 2023 18:25:42 +0000
+ (envelope-from <SRS0=qQ+R=HJ=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1r82zG-0001hl-69
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 18:39:10 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 690e2d5f-8e1d-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 19:39:08 +0100 (CET)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2023 10:39:05 -0800
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmsmga002.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 28 Nov 2023 10:39:04 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Tue, 28 Nov 2023 10:39:04 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34 via Frontend Transport; Tue, 28 Nov 2023 10:39:04 -0800
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.41) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Tue, 28 Nov 2023 10:39:04 -0800
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
+ by SJ0PR11MB5791.namprd11.prod.outlook.com (2603:10b6:a03:423::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Tue, 28 Nov
+ 2023 18:39:01 +0000
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3]) by SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3%7]) with mapi id 15.20.7025.022; Tue, 28 Nov 2023
+ 18:39:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +63,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=xrv/ZrJ7SRugKYcAoEqXVw0goAHEJnGSYW2gpurKCr8=; b=dDfkvzdz3dpPn1gFJwhq18E5a5
-	6JYu+kwHL8vF2v2DST2MP3b2CSXjqkFRVkS58lQZpz2JUjEsj9q98unqxBdH15hlSRCptk4c3lP73
-	lSPLbmIt8vARZpcnFvXZqVGmWarBDUkN0eDIuIVutEo8ojEJ5Bo2pPiyrab8VqFEhH3s=;
-Message-ID: <2aba3981-b479-4939-a51b-8c142ebd6ed7@xen.org>
-Date: Tue, 28 Nov 2023 19:25:40 +0100
+X-Inumbo-ID: 690e2d5f-8e1d-11ee-98e3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1701196748; x=1732732748;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=rX2CeJgIYJbGV+oh0r4hEsDAougQ3cxnrsEAgRifYew=;
+  b=JIwhbCpFYEoSe2qxa2gy9lg2reMIjjXlnttWpcEGd5s7HcT9F10ubTtr
+   hMor5dOFLoMmrMNwRMWaX/RUbTi0fZJEGf70oCXGWotbs0fXHf0nVwm4V
+   6z+syUKepaakq+XOOZVu9PVXtgxZCKY0NCYtaQDGLVylVA97MZE/KM5fe
+   nJihXRDItVaILRubW8VK5MhcBILQIG8OfBUZNyqG4TfOMmH+p7txT1gdL
+   C4YWP7x+vcfmiRwARd4QjqtEbkWqEmr/kXHclPovDYuGQiSO4BG6pjLDv
+   HXhnVUW0z04S9KNsxTKsl4f+O0Tu3hxZvHAeT+f6ibHkF8vDvum04VtoQ
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="424137358"
+X-IronPort-AV: E=Sophos;i="6.04,234,1695711600"; 
+   d="scan'208";a="424137358"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="886498092"
+X-IronPort-AV: E=Sophos;i="6.04,234,1695711600"; 
+   d="scan'208";a="886498092"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A1EqYyZui79ew1E9p6XpzjS9PwzOOvoyDRglp21l/9SWIe+wiijb5m6n8SWWpay5Sflupxj1lrDH/SLbEcojBuuwJTk5bJ9Ua9Wh9Cp7adF9ryZ5lQX1igus6Fg7hw8gyt9bT7KFsBORYM6Sd9Db+Or7uxU6LW7HDH76+2VwyrYhD22NE77H/+gCtXLe1vuLzMY3gj5URuVcsM2yACcIV9qin7E4Rx/MJj4qfTY9X+E3mlDUqSOXNfrXzW1A2DObs9zIDdcq7/XHnSDqNLAObHh8e7LpqKw0T47bZDO2dMQR4ewmo3Lit/xM/gewslmppW3FAni1+CZkxsK07M91iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rX2CeJgIYJbGV+oh0r4hEsDAougQ3cxnrsEAgRifYew=;
+ b=lVZUZCrtMlwfvLDHko4O6WKZ30m2o4/rDInVJ4mOEZ6FUQjJVKRqeW7wZIOW0NvxyFPEdjyCz147PwYK6OjEHnO1mI2uFQrh2JQXEZAUo2gsz/NGuFlPogUzVSBe0YAumNyxK8eiXAyUwLDFyuVXkQeWQ6rW7LsKEKziZneslsp4WmSOX78KLZyKo7m4AnB7Lu/Fkine27Mo95LNhNa1wTACmXjxPvDYAeAqvTr5A+cA9C58QMKy6FEJvoF9COuhEdO4jaZ8bzEx5Qjy0j/LFGn66IhfcVcAb3sfAxC4Nq5XNpuBGJwlAjhOsZxVnx90cIGb8CbvBlb6h0Bxs9e+QA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Li, Xin3" <xin3.li@intel.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
+	"mingo@redhat.com" <mingo@redhat.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy" <luto@kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "seanjc@google.com"
+	<seanjc@google.com>, "peterz@infradead.org" <peterz@infradead.org>, "Gross,
+ Jurgen" <jgross@suse.com>, "Shankar, Ravi V" <ravi.v.shankar@intel.com>,
+	"mhiramat@kernel.org" <mhiramat@kernel.org>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "jiangshanlai@gmail.com"
+	<jiangshanlai@gmail.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
+Subject: RE: [PATCH v12 24/37] x86/idtentry: Incorporate
+ definitions/declarations of the FRED entries
+Thread-Topic: [PATCH v12 24/37] x86/idtentry: Incorporate
+ definitions/declarations of the FRED entries
+Thread-Index: AQHZ9cbM5vceRic94kyD24auDkj9FbCP2k4AgACNKrA=
+Date: Tue, 28 Nov 2023 18:39:01 +0000
+Message-ID: <SA1PR11MB6734A1E439870989C7006166A8BCA@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <20231003062458.23552-1-xin3.li@intel.com>
+ <20231003062458.23552-25-xin3.li@intel.com>
+ <20231128100910.GSZWW8RnyhX0YQjwDm@fat_crate.local>
+In-Reply-To: <20231128100910.GSZWW8RnyhX0YQjwDm@fat_crate.local>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|SJ0PR11MB5791:EE_
+x-ms-office365-filtering-correlation-id: f3d2bc8c-72e7-4900-1143-08dbf0414a9e
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: m9TihtS3lt6MjaQbQteWlp1zUBYnu9OYNGGBgRiCVH4GOEZVMc7yrepwtn5N16QoPF0Ljz7JTHkH37yZ4dCQefBbc1g6/9GxONrQi1QhznIj2kWJCRlVMiWNxY4L8oymRyWqnOZYmG67f5pVo8Ndtc0fMMeQH+G5ZW5NoI2QoOd2wMO3km42ocrstWZzQcPihGo73hWfGbfjWdWgiInYd0dwyQolnQXvV+wFiQnEeLL/dKbmuVfozzDaRrDMUf5o8iVaOyauKfStHHMse7Y+jhLGFuavFIByN1BJgfxq91vVDzhlmvhqldXpqTTOsqvVScWjErFCfi741zc5LUGkmVYdk9t1sDbYwH4ggicZLiPv102JJpno/p9YbTXe05avRbqQ9dF3yFgoR0boqnuGXDLFI6Z4d0cwbImalofwq3FHjkMkP3HmIn4K9eQU3xHe8OLv1RVIFKlVkHgVcYNmipAUYPondmWHHtAsu3K9tdRmpVMcZTkeIn+L3fOtn6kF9vPNTdFS61lmXsrt5HfshNu8Q4rBU752XiTXP7RFDFf//G4RVsNjv8lGsBIooGYs3JxFylXxIpKLIHk5AhSBM0symSAlE3q3GSqRit08790ypCzQl4aDqQ8qEnPGSWMi
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(396003)(136003)(39860400002)(376002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(76116006)(66476007)(66556008)(66446008)(66946007)(64756008)(54906003)(6916009)(8676002)(316002)(8936002)(4326008)(52536014)(83380400001)(2906002)(38100700002)(4744005)(55016003)(9686003)(38070700009)(478600001)(86362001)(7696005)(6506007)(122000001)(33656002)(41300700001)(82960400001)(71200400001)(5660300002)(26005)(7416002);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TEllUW5xNjVZZWpJMFFRTG1Bc0xsMysrZityeTBHWmFHQkpMTXhOL0lGOWcz?=
+ =?utf-8?B?VFYwZ0FVR0JBZWdFNmYrS1piN3dRcGRzY0kyVGJFL1N5eXlHc2VpNUdaY1Zq?=
+ =?utf-8?B?UjBmTmkxckhWYklyUEZvaG9MdVhiREpMVHhmcUxieWczOVpoTSs1ZkxZbENO?=
+ =?utf-8?B?SUJZbG9Sb2xFSi90OVg1VkJlcXpiYnlrRWtHZHNubHRzUGlSVzJ3azNKVkI3?=
+ =?utf-8?B?Ky8vajdJZitGekFnTVpQM1pJSTE5YmtSeVVtbENNbENnUXpaTlMwdXBDb2lE?=
+ =?utf-8?B?U2hxT0RRcktvWExoL0k2bDBJOWFOYVRmSHYvdUx5SDRqSDR3bHVVbnpZd2FR?=
+ =?utf-8?B?alR2dGtpRHQ1ZEVvMjdNaHByVE9qUWNvem5FNlFrMU5IMm9UNm10S3FqSlRj?=
+ =?utf-8?B?SDRCcHRJNW1FdGpiWDBZQlY0eXlHYWZ2QzVHQXZNVTk1OFhHSkxCVjVwQ24x?=
+ =?utf-8?B?N0YvOFZvZTM5NnZGakRqTHFGM1l1MllVdDNLTk40ME1OUVZEdXdPT3g5T3p4?=
+ =?utf-8?B?YWJGZXUveEZQeENEczdXc0RLMFdWTjNWZndPNWtjL0Q3QmhPQ1FqOWVBWmVi?=
+ =?utf-8?B?TlU2L3FFajF0MXBMM2I1Mjh5QjdXc2diYkpnMEpXQ2JadFU5dXZKR0Q2eDBz?=
+ =?utf-8?B?Yk9kdWNkUCthVm9BNEVqTThvb1U1cE95K0lmcndPWVZaT21LcStsTmlGZW9Q?=
+ =?utf-8?B?WSs5TnB4c3E4R0VoMHhtbFIwWm8ySW1uK2djWEw0UmZJbjlNalN3R0NIMlVG?=
+ =?utf-8?B?KzlCUGNaVTJmYlVkU3VhaE5aTTVYOWQ1c1MxTFhGMmFjSlAyT3VsS2RPRnBD?=
+ =?utf-8?B?eG54V0U4c0xENEFBQWd4UW9QN3pDY1NXTng0R2QrcEpUOWxQUkR4WWxRajlU?=
+ =?utf-8?B?SzMzRHovd0R1WDgxNnFiUDNBdmhSQjJoQUpaelhQMXZxbUthUFlPWGcxcGl5?=
+ =?utf-8?B?aDVYM0NRbnlkSCtMYkM2bEk4V1dIRERmNXRuUDd0RElUdEFNbGU0cmZQRlRp?=
+ =?utf-8?B?KzR3R05qMU5RU0RJdTVUeWhiUFZnSkhzQzV4dU9yT0N3Z1NkZUFTNHlsNUh5?=
+ =?utf-8?B?WU5NQnAyZG9LOXBIVkRiMVFyM1doVWFyNHduQTVCTU9GWTJSWUh0N29sNVNo?=
+ =?utf-8?B?U0s1NmhiTytFVjlmYTd1eEhPcnU3bWxZdU1pYTlUVURGSndEdnpKS211a3Av?=
+ =?utf-8?B?cGtudk1PaksyWmRnL1Y4ZkJBd3JpbUZyNEFsV003dDFWV0JaT3RkLzhBMGpu?=
+ =?utf-8?B?NWU2Z2ovT21RRG9Fcm9xR3lidURwcllFa3JSUkFsa2lvVFpqMkdhZ1NkRVdn?=
+ =?utf-8?B?K0Z1ME42d252YjI0bWRWWmJ2UlltWWdGYkx4WCthc1gvZktRTkw0ay9tMUFn?=
+ =?utf-8?B?aTR2TjlqUW92dm0vZ3FZRVhVWTFtcFB6eUpyanFxdncvYURPdFVGenp2M215?=
+ =?utf-8?B?QzdTYmdUNGhnWDNhNm5IQkREeFgxZnhRbHN5NlhhRmQ1Q1h1SEF6dTBJdmdG?=
+ =?utf-8?B?RlViQkgrRGlZVThwKzZyUWM1STlUS1phZGswWUR4UWd5aHZ6bXhaWXVMWUl2?=
+ =?utf-8?B?Ri9QTFNwakxrZTZhdU5md0lKZjRINEhBYy9KVGdOVkRieDQ2dFIzb2R1RDY4?=
+ =?utf-8?B?NkZraTlqR3JPN3ZwSTRqUCtZb0hGL3JJOVBVVmI4VC8zeVFLV3dEcFpIdDI5?=
+ =?utf-8?B?TFFFbEhJRkdENEtrdEZreTJpVU9YeEJuNjU4OXJTRUNLazRudnVZRDdaZFZG?=
+ =?utf-8?B?L0RDcHl5NFlnUU1abE1GZUZybHFZRjBDOTJJUWNnWVhzVDNMOVZSdWJxMUwv?=
+ =?utf-8?B?QWl5dDIva3VGRzF3cVVzSVd4OFluL2FoMW1RRjJMMm9Pc0pla1hYdm5VcGFu?=
+ =?utf-8?B?L1dHemRmekhuVXhxaEx1QkE0Ynlkb3hIdkV6Mk9OVWJJZGFMMWNqeHo2NDRi?=
+ =?utf-8?B?VmdlakswZ2Y5SDBjbzJDeDM1R0lNbXNYcXpzby9pbmlhY1VYck5rQ2lnMjVR?=
+ =?utf-8?B?NHg0OHJ4bU82azhndlVYTDY3SXVLNkRvbFN3WHg5bWtOUVIxRVpiSCs1b2py?=
+ =?utf-8?B?VDAweWhyWTA4cGlQb1V5QXVWM2cyUGpYNW80eEgvU3liUU50K3MzZ25EOE5v?=
+ =?utf-8?Q?PRLw=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/5] arm/dom0less: put dom0less feature code in a
- separate module
-To: Michal Orzel <michal.orzel@amd.com>, Luca Fancellu
- <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <20231124094841.1475381-1-luca.fancellu@arm.com>
- <20231124094841.1475381-4-luca.fancellu@arm.com>
- <b3581594-1559-4dcb-812b-8ab18f2e5633@amd.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b3581594-1559-4dcb-812b-8ab18f2e5633@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3d2bc8c-72e7-4900-1143-08dbf0414a9e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Nov 2023 18:39:01.8150
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Hfy1QLfx5oxUlzrMa2UGMzP979LypAiOvewkLcNiAhvI+S5wdmt92ZQW/gBnn7dkA6QNeAuK+2+jjoaBmyCHrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5791
+X-OriginatorOrg: intel.com
 
-Hi,
-
-On 24/11/2023 12:01, Michal Orzel wrote:
-> On 24/11/2023 10:48, Luca Fancellu wrote:
->>
->>
->> Currently the dom0less feature code is mostly inside domain_build.c
->> and setup.c, it is a feature that may not be useful to everyone so
->> put the code in a different compilation module in order to make it
->> easier to disable the feature in the future.
->>
->> Move gic_interrupt_t in domain_build.h to use it with the function
->> declaration, move its comment above the declaration.
->>
->> The following functions are now visible externally from domain_build
->> because they are used also from the dom0less-build module:
->>   - get_allocation_size
->>   - set_interrupt
->>   - domain_fdt_begin_node
->>   - make_memory_node
->>   - make_resv_memory_node
->>   - make_hypervisor_node
->>   - make_psci_node
->>   - make_cpus_node
->>   - make_timer_node
->>   - handle_device_interrupts
->>   - construct_domain
->>   - process_shm
->>   - allocate_bank_memory
->>
->> The functions allocate_static_memory and assign_static_memory_11
->> are now externally visible, so put their declarations into
->> domain_build.h and move the #else and stub definition in the header
->> as well.
->>
->> Move is_dom0less_mode from setup.c to dom0less-build.c and make it
->> externally visible.
->>
->> The function allocate_bank_memory is used only by dom0less code
->> at the moment, but it's been decided to leave it in domain_build.c
->> in case that in the future the dom0 code can use it.
->>
->> Where spotted, fix code style issues.
->>
->> No functional change is intended.
->>
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
->> ---
->> Changes from v5:
->>   - remove unneeded include (Michal)
-> Including asm/kernel.h was indeed not required. However, I'm thinking that if we want the header
-> to be self-contained and given that ...
-> 
-> [...]
-> 
->> diff --git a/xen/arch/arm/include/asm/dom0less-build.h b/xen/arch/arm/include/asm/dom0less-build.h
->> new file mode 100644
->> index 000000000000..c5625925d940
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/dom0less-build.h
->> @@ -0,0 +1,18 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#ifndef __ASM_DOM0LESS_BUILD_H_
->> +#define __ASM_DOM0LESS_BUILD_H_
->> +
->> +void create_domUs(void);
->> +bool is_dom0less_mode(void);
-> here we use bool, I think we should include <xen/stdbool.h>
-
-I have done the change on commit. However, this introduced a clash in 
-the next patch.
-
-I have done it this time because it is minor.
-
-Cheers,
-
--- 
-Julien Grall
+PiA+IEZSRUQgYW5kIElEVCBjYW4gc2hhcmUgbW9zdCBvZiB0aGUgZGVmaW5pdGlvbnMgYW5kIGRl
+Y2xhcmF0aW9ucyBzbw0KPiA+IHRoYXQgaW4gdGhlIG1ham9yaXR5IG9mIGNhc2VzIHRoZSBhY3R1
+YWwgaGFuZGxlciBpbXBsZW1lbnRhdGlvbiBpcyB0aGUNCj4gPiBzYW1lLg0KPiA+DQo+ID4gVGhl
+IGRpZmZlcmVuY2VzIGFyZSB0aGUgZXhjZXB0aW9ucyB3aGVyZSBGUkVEIHN0b3JlcyBleGNlcHRp
+b24gcmVsYXRlZA0KPiA+IGluZm9ybWF0aW9uIG9uIHRoZSBzdGFjayBhbmQgdGhlIHN5c3ZlYyBp
+bXBsZW1lbnRhdGlvbnMgYXMgRlJFRCBjYW4NCj4gPiBoYW5kbGUgaXJxZW50cnkvZXhpdCgpIGlu
+IHRoZSBkaXNwYXRjaGVyIGluc3RlYWQgb2YgaGF2aW5nIGl0IGluIGVhY2gNCj4gPiBoYW5kbGVy
+Lg0KPiA+DQo+ID4gQWxzbyBhZGQgc3R1YiBkZWZpbmVzIGZvciB2ZWN0b3JzIHdoaWNoIGFyZSBu
+b3QgdXNlZCBkdWUgdG8gS2NvbmZpZw0KPiA+IGRlY2lzaW9ucyB0byBzcGFyZSB0aGUgaWZkZWZm
+ZXJ5IGluIHRoZSBhY3R1YWwgRlJFRCBkaXNwYXRjaCBjb2RlLg0KPiA+DQo+ID4gVGVzdGVkLWJ5
+OiBTaGFuIEthbmcgPHNoYW4ua2FuZ0BpbnRlbC5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTogVGhv
+bWFzIEdsZWl4bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+DQo+ID4gU2lnbmVkLW9mZi1ieTogWGlu
+IExpIDx4aW4zLmxpQGludGVsLmNvbT4NCj4gDQo+IFRoaXMgbWFrZXMgbWUgd29uZGVyIHRvbyB3
+aG8gdGhlIGF1dGhvciBpcy4gVGhlIGNvbW1pdCBtZXNzYWdlIHRleHQgc291bmRzDQo+IGxpa2Ug
+dGdseC4gOikNCg0KWW91IGhhdmUgYSB2ZXJ5IGdvb2Qgc2Vuc2Ug8J+Yig0KDQpUaGlzIGlzIG1v
+c3RseSBmcm9tIGhpcyByZXZpZXcgY29tbWVudHMgYW5kIHN1Z2dlc3Rpb25zIG9uIG15IG9yaWdp
+bmFsDQpjaGFuZ2VzIHRvIElEVEVOVFJZLiAgU28gcHJvYmFibHkgSSBzaG91bGQgcHV0IGEgIlN1
+Z2dlc3RlZC1ieSIgaW5zdGVhZA0Kb2YgIlNpZ25lZC1vZmYtYnkiIGFzIEhQQSBwb2ludGVkIG91
+dCENCg0KVGhhbmtzIQ0KICAgIFhpbg0K
 
