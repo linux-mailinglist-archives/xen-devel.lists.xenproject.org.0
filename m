@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702E77FB8FC
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 12:06:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643031.1002874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A36C7FB900
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 12:07:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643035.1002893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7vuw-0008Un-5y; Tue, 28 Nov 2023 11:06:14 +0000
+	id 1r7vvj-00011v-Oa; Tue, 28 Nov 2023 11:07:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643031.1002874; Tue, 28 Nov 2023 11:06:14 +0000
+Received: by outflank-mailman (output) from mailman id 643035.1002893; Tue, 28 Nov 2023 11:07:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7vuw-0008T1-2R; Tue, 28 Nov 2023 11:06:14 +0000
-Received: by outflank-mailman (input) for mailman id 643031;
- Tue, 28 Nov 2023 11:06:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r7vvj-0000zh-LW; Tue, 28 Nov 2023 11:07:03 +0000
+Received: by outflank-mailman (input) for mailman id 643035;
+ Tue, 28 Nov 2023 11:07:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xcZ5=HJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r7vuu-0008Sq-Hx
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 11:06:12 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on062a.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 224cb7b8-8dde-11ee-9b0e-b553b5be7939;
- Tue, 28 Nov 2023 12:06:09 +0100 (CET)
+ id 1r7vvh-0000OW-Ju
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 11:07:01 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2088.outbound.protection.outlook.com [40.107.7.88])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 41015128-8dde-11ee-98e3-6d05b1d4d9a1;
+ Tue, 28 Nov 2023 12:07:00 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AM9PR04MB8276.eurprd04.prod.outlook.com (2603:10a6:20b:3e7::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ by PA4PR04MB7517.eurprd04.prod.outlook.com (2603:10a6:102:e0::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.21; Tue, 28 Nov
- 2023 11:06:07 +0000
+ 2023 11:06:31 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.015; Tue, 28 Nov 2023
- 11:06:07 +0000
+ 11:06:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,27 +46,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 224cb7b8-8dde-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: 41015128-8dde-11ee-98e3-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oL3MlrunuHOzwpSyhG0X/PCdkf5M4mI0H0QcyH2oW3JC7iOZhi5usBuTFqSQG4C8/YEO5OpvKBSZfqLY1bF3KEvb1uywVR3VxvZ6UOIIzbO3cx+ao4g1akzNwI+QQ7erm00Zp0NU9nnE882UaY8NAaQhvNOAKKxRFhwje5+1VDgUAR9HxMXvS3aJ68d3TDlbmMoas1Ij4NjsZqYC+OU0Y2CatNHrb72RCz3CNxyfe2mEdcL4uCGtodjBEwcxPCUSPtn2nv3hfbNq5jJFQTSnGOV1ett1d/JUNXgnIPfPli8j8QR7DaVNqpl5TcWJQLVTbetKX1IeRVZVMGepgCITDQ==
+ b=YEoYu6wfxPKHyjTbnN88MSxvDX33DhKyBiAMUFefgHV9yglWRiBaSwpqgShXAvUDRQkgaubdC8bwnTqQDnP8aSJy3vFfV+nRzw1v11gFaDiz9wGFWRwxrCk1c5YXhZp/hS3w0cMkoqucrZbvgxYirP0e7cXoCGOnCyDoKQJVwjJSFRMfB4QpPfEJ5ueRAQ6HTsURTJjAq2afOGCoKtSSWiHz2yWgJpHIY3A/UvXvcPevbypn+Zj+dI/fGFAI6v9o++fOHUYms30pBOVIt6yTYmklSCAWkhKKkDWVpZBxigrZudxf/WPPcm2kM9fq6u6+Yz5IjbeJBr/GOHrLKuwFeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2tCzUFHVVtZFMv3PlvJkQSJbk+2DfNWvtQzHlBmgIuQ=;
- b=Vi47j5CV7QJp11BWu1EnmoIq3psCv58hl/zp6IAuLrhEZ6HkTfQmelT4Rj+FFdy94aQDGPg21b/Hl1Lsj08WZAFW8aAuxhsg+CgllHsDLzdl3guniR0FTip54DrC8iTCo8r8n46XjDflc3hyRR2SAHIxrPpguivqV21/Eou/sQyMhMDJQVBt+pRZZUGLI9GyiOD3DdVBnSh25AQs3z9N7hs0NtIqrV0QDaoQzb09pMbsl5XF3DhZM5u54sUSi2VTJL/nQdBiUSPwqvGWM0yQ6+/yid3SnnCD1HnpSsR/Srs05RSvSvyfLI998SPCOqIcg24bgPyhInaKZZb0u7HBvA==
+ bh=1MUubPn8Vwssi86CUDg9oJURDLWCW1lqV2zisTjO2sI=;
+ b=H0BH/evT/xWHaYFwf+GPyZcGQAkESAHGPlZbwVVsaY4ALZwVNMXEkO26TeRqNksMqtvcgr574Qu+wuuAh2urGvyeg1p6123jSOdRbkb7b+xNud1txTFgQWSiMyPtw9ZwgAG+m8Tp7vTsu7PXPor2/BUqa0y63xYBvq5f44FZqT0UfpfyBjyZsBFOehQ1+4h64iN8tV/5MDA3DJkyRiek5t6WEx8vRBxTSW0pIsBa809Ue7+HAXa+bBveVhFJ4AJCSghkGG9U9lWvhZL64UaHeKnEENS/w8WcX7Sy7pmGhbFozl3RePwk2KscPZ6N1/i3HdVlE29yDgtLwoYH9VLlcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2tCzUFHVVtZFMv3PlvJkQSJbk+2DfNWvtQzHlBmgIuQ=;
- b=puPEj2efDnKt2JkN9RCQqUr0W/inooGIJA0TsnuWr0vRbOXT3C83Qe/wOOgVYHIQIQqwpJeFHvB5mNjNyHZllyrJITaBQbkuW8VH7UQhv7CuJpqNnsJgpCTUIpdO5+UC/oR0DFgr5HAIFR/HmEjYbywXZ3ev1Ja1EODXwiql4ZVaOQcuOLRB4vIGy2cjFOKdzRaWuevp94tYxdKW+TtaGhb0GkEp51IqD4Hl5MFeb4M6EAu3YkB90BCXta8r8bUklJQNPn6a8PvmHbmLoA3v/llWs1QmF4LLc0jHE0a7d7HtG69GesmhlcaG1VAV7GZzZ+/JAyLSJ22ifxe6pPwvDQ==
+ bh=1MUubPn8Vwssi86CUDg9oJURDLWCW1lqV2zisTjO2sI=;
+ b=TWXaRLyidBiggDsezc5YePJBZT8grBd/IR5vGj9FGhs08CE3CntqPlT44wHixjW8irb11xqlkug6GqjBF1lOCPgehy5TJmdPmv4fqAD5nBFI9hLoTa0jumZRR4zfCSCErzvk2PfBzKdg16QEdsxQ4wClDIRlE/J6mkyBTQtPJdsXl20Lh1eDxk3+CgGsqn5t37eXat3H8L0P6SJG8F+mEDkThW+BJ+JJyNqBZJ/0GLdqogyKuj7xHQIWk6AIypV6huzu9qSW0mvynFDmGD8toue6y1vft1Fg/+O23LfS2eIPyG61seXk9vllrAobMB/tzNaFdLUIzzmc9t5nUuCSUw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2050719c-6a16-410c-b057-eed20733ffba@suse.com>
-Date: Tue, 28 Nov 2023 12:06:06 +0100
+Message-ID: <24060b1d-fa13-47a5-9bb5-e431b1ea7afc@suse.com>
+Date: Tue, 28 Nov 2023 12:06:30 +0100
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 1/6] x86emul: support LKGS
+Subject: [PATCH v3 2/6] x86emul: support CMPccXADD
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -105,354 +104,369 @@ X-ClientProxiedBy: FR0P281CA0192.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM9PR04MB8276:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b87a92d-5e59-424b-ec6e-08dbf002053d
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PA4PR04MB7517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44f5ca90-aaac-406d-adc9-08dbf002135d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zYtZpJyx60aAbeFSHjUfATBObixXMlD1SW9ESTYicFsIqPO8e38nZhpdM3mo3V/8krKilZag2/HmcpbIUf2uh0MPcgm521W6vw43rQbpn67eXJaXKPw1GaCNRcYCnJQPAP5paTAz7brpkT68aaM60LrFmXHLApWeoUQYJhVKgDdiCKligLrULRS957WqblEA1ruKJNjL8FKLXwWJJ1f99VgBqZs/eP8WnK9KcVhaDjwU1LJe4SL2QtRoVtcHFBKfw5OtSk0QhybBPZjIux4NaDqD1eh4JQCL6qnz1A2LiAXUJuY3M7wFArFNDUkKMyS1jcX3XNCeMnkqPhW67q8yE5FJp4CaxcKyIHf3A+dXwVCDyuVsALYMSuAezvHrJnIW1b3GoxN1f62cp9+Sad6unIdz1OFfhsqXKTLZpDf9CO1VmCCHv4sco0Ur+6+HUn+V4Ci8DsUiNyVfclWc/okwAXZpgEF8eiTmSv1EB7WbQBtTZPiiMDO04t0hm+nHmO5lUKmieEPGho/ZL9r+/JpjWErD0PyZI/lVryQYnLY3B22ZlcF8TRG8WKSnkr+I2pB/dAJirWkaYBnLSbdpQFamuo0COZ4H0RC67/dhSMngz+Z/2eFExTZ9b4eDXDY2hsLUqFQEEdV6WreutGZia5n5jQ==
+	NaJ1H1/2a4EjgHVMrjOl0v13g7kRuUwkyBBvjbCiKCpD+l2vJxq+Anb4Yw1JVMmzDoNpJsmSRStHKGT0YDYhxFkQIFYiRsxlpjRMvXYBZFVw938r+hGzhqjuM0LMDt9XtmihuWUkZ6PtikT1l5itNgDBULyLrH9Ogi4352k2qq7u/7ELFKMEnm8m9dcbWl4nggbm7FvOObimy8FhoviSaTwPF2O6RY49lcRbNgPWf8h1TV6nemUyysrdhnK5YDdpH4RlXLhwCVBALF2eThTPdi/X/qcbVOWredb7zSwuO1/VOQtbvHUzBgtdBlckJ3Nxqjf2CyT4kPjjtk+/Sbn9BOZQcYlfFlo5GgbPYemjbggx/g8dzQWMrVlBh48mJSf25p7utpZLuBuEh+L9uqDbrC2F7vBQC0m/OdtnTnhGKpkgaPiRozocmk/mC2qwbc2bMS4zB0MNSLrk7YFQDwVYDOY3U0rdPhJiITgpjeOm6d8F+ulb0NWa/tWSagtgmrVg1pcuOjaCouZ8A4tYUuVL/87nVznpzFyPrxk66kJZPfkJe4tBTwvxCQjbUVNygo2TYee75C22vQZ3sQ5fl/PRz7DuPQArFAbhveQwS7U/jw5p9xZn+wHeAME4k6nRotn0bQqOTwcwtI+7XspT+tUxnA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(136003)(366004)(346002)(39860400002)(230922051799003)(451199024)(64100799003)(1800799012)(186009)(31686004)(26005)(2616005)(478600001)(6486002)(6506007)(6512007)(38100700002)(86362001)(5660300002)(31696002)(36756003)(41300700001)(2906002)(66946007)(83380400001)(66476007)(66556008)(316002)(8676002)(6916009)(54906003)(8936002)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(366004)(396003)(39860400002)(346002)(230922051799003)(186009)(64100799003)(1800799012)(451199024)(86362001)(31696002)(83380400001)(66574015)(26005)(6506007)(6512007)(2616005)(31686004)(36756003)(38100700002)(478600001)(66556008)(66946007)(66476007)(6916009)(4326008)(6486002)(8936002)(8676002)(5660300002)(2906002)(30864003)(41300700001)(316002)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aGxob2tVMWM5QU5LdXFGemdNTWVMaHhKWjNidjZKdXhQdzZ5d1JQdXZ1NjUy?=
- =?utf-8?B?SThoU3haeFBQbElVdHZiUnRrWHUvZTZQcFlMV0Rkb3FpZXhTTnVhV1FTNnll?=
- =?utf-8?B?dXU5UXNvTng0d3o5ZGNVVzBVQzhTSytEMGJJYUNpNHArN2Q2OUxadG1QZ1Qw?=
- =?utf-8?B?RnZuMEV3V29hYVpiK0RLbWYvSXdmODdPWkZMYnpHS1huOHh4Uld1QWRuWm9u?=
- =?utf-8?B?RFdKMDE3dDlNK1pmYWM0K2JBY1RBNHB1YTNoQXJIaUNhVHZ5SlpxeVpDNnZR?=
- =?utf-8?B?bTdMTGhpWE5oL2xZSG42Q2hCUTMxQTZ3R3NzWGpZdlZsb0lZQ0orZzB5Tm1t?=
- =?utf-8?B?dHo4b0dtZGtSUVk4TDh4OVFzSmRrbEZCMnhxN2cvY1FyRXk3UTdEWUNHYk5p?=
- =?utf-8?B?eGR0MTIyNkU2SmpBR05yenVWdU1zQTFzNVprSG42ekF1ZUdXUVRsMHZwWE4y?=
- =?utf-8?B?d3plTFEyYVQ3Ti9qTlc1clpxUEdENDdRM0JaZGgxNE83TXpnUlF4bzRmb3lV?=
- =?utf-8?B?OHNnUUNWeGs5bmhEMzVGNmc3bjY5OXI1MXBCN1c4VHhOTHgrczJla1pvWTBq?=
- =?utf-8?B?b1V2MDJ0UWpBWkhBbGdlUnUzUXlPeFlZTWxkRlZNUEkwQnlMTG5LMW0zdzFX?=
- =?utf-8?B?dlNBOGtuLzBqcmUwdHF4Vm1OVjhuNkdFRXlRbkV2YmlVOGlxRThrR2NaMFJC?=
- =?utf-8?B?a2RwZGNJRzVjNEhBTWVad1pEd3JjWE13V3B3YThWK3V3Wm9UQjBWWkJacW9l?=
- =?utf-8?B?WnFYWmw5VHBocUtYemJCbkI2aFU3THlJWFZ6SlJ6UUdYNkJTYWRhZHBSZHBE?=
- =?utf-8?B?OVExWlROVDJOd3F3N3B2Z0ZIRWRQT1BRY3A4TXd1QXBlMWhXcE4rN3ZCQyta?=
- =?utf-8?B?eGJSa3plWisyRmhDZjFnTmVoRFNzeWhEOURvcUxLNUw0R05jT0YvMnhhSWlz?=
- =?utf-8?B?SFNJVCtaTWlVcWdXNU9CWVAvd3MyWjVXMzh0MU9xajU4WC9zTlllZk9GR2x6?=
- =?utf-8?B?cDFPckw4cHZHWDgrb2F5V3NNQUpxVUo4cnllQk9hbHNNb3UyMHZ5RnZzTktQ?=
- =?utf-8?B?VG9HQUtvUGJrdWJUNmRqUnd1RVhCT2RYWm4wMTgzYkJrTE9zZVdyVGRjYWdn?=
- =?utf-8?B?NWpBQ0ZteFVxb05nYThoK1p3VnUyVWlJQ09kbXBOK1BnYmlOdUd2RCtPUlNl?=
- =?utf-8?B?cVdOeGk0RUl0eFY5bURwakZwOWM3bTk0SUFPRFZLS1pZZE1Jb1luMU1PN2Rl?=
- =?utf-8?B?YWQyRGQ3S05FVndqdFFkZVU1cFg3Ym1aWVFxVEpCNGd2dFMrN1ZHL0hkUDFi?=
- =?utf-8?B?bUxHQUlEYitSSGNhMDVSYUJSY1lMUjhRdkM4OEQ5MGVISXRHYmlTUnk2bWZ0?=
- =?utf-8?B?dGRBcDZkcURiQnIxMldERGNrWi9aekpEUmNwM2dQVmdoaVduSDhPczd1endw?=
- =?utf-8?B?V1JORW1hS09ZUFVISU9PZnY0RTYvTmtoYmFMUmtQak1SbW40M2dxM1MxeC82?=
- =?utf-8?B?Y1p6R1RQSXJrWjRXUDJJUlpLQnlxSEdBcGVZYjNVRWE1WFlJNmRMUmFUbzFo?=
- =?utf-8?B?dFhTT3ZrNFAzYTJuNHBmbDlsMkNRWkFrSHMvUHE4amxSTlkxV2diRkM1cUVw?=
- =?utf-8?B?bTlwTG9oYXRRQWpOZ0J4Unh5dFRMdkFEaFlzSWlpWTE1ZVRMVk9OV0RCc0tQ?=
- =?utf-8?B?cTVzOEloRmo1REg4RDJVN2ZJTjhpcDdONFlCUDd6VVFNT2lINk4vUXJMOG81?=
- =?utf-8?B?V1R0RG9HMW52anF0czA3eGd1ejFqeGpwbDdVcjBOR0lBTkNlWWtKbFRXWkRj?=
- =?utf-8?B?U0lqNEpLUHFQeDRpNS9JemZNb0NsRnNucEVJcW5mSFpSeGt0TWhaZ1lONU1R?=
- =?utf-8?B?bG9SWGI2YlFnZUtzTnJacGIvNHRuNkVIWjJwMFRsM0lHdi9iYlIwb3lLdGVv?=
- =?utf-8?B?VnBVRXVqWW41Wi9EZjE4NjIrL3czd25yZ2R5ZmVkY0psR01CcXQ0RXZJT2Y1?=
- =?utf-8?B?TmpFZGVONnpuZUdPMkVXaGk0VG1oTGpvSE9NK0w0dXI2ZEpzckY0QTVsenN1?=
- =?utf-8?B?WmZ4RWw3MzhBUk55OHNxVWE2Yy9GOGsxWWtncFNNaWFWaUloL1Npd3BVb3pE?=
- =?utf-8?Q?+ocn3Cb0tHl4OwQyZM4xPGm7g?=
+	=?utf-8?B?MFR3VVBxRlNCSEFZdUs4ZTJXK1BwTDZvbHZucWZtcHpLNzdNTjYyOTA0UmNw?=
+ =?utf-8?B?elNyNE1iVklLdGlQeGZWcDFXU1RLaE1mUkQ5TEZVQ2htelg3TzNFdGNwcEs1?=
+ =?utf-8?B?NW92eXZqbjFXdGJSSFVhc0oranlPcDdjeDdlRjRrcEJDdmJGa0JZTjAwc0pE?=
+ =?utf-8?B?ZFJPTHA0VUNYQmZTNDdUTkZnTXp2L0NKTGhrbzhSUXRzY2tNSFJSY1RnWTBs?=
+ =?utf-8?B?YUlkNFYzclVYNzJBckRIL2lJMGtyUGJ4MEFCSlVYODVJTnljaEJPSFFqRWtZ?=
+ =?utf-8?B?a0ZnWHphdmpCd2pXSnZrOHo5RG0rMGNSRUVOZkh5bXBYRWJOK1Zab0xsV0F4?=
+ =?utf-8?B?SGttQm0vSzlIUnY4QjlIKzB2UTdEWW1sRGlVZHlvdGFXT2hWYk13dlNtZnAx?=
+ =?utf-8?B?RmtFTzRTbDBORWN1NHo1UEkvYVJQdHpYeU53eHdnOFFkR0ZUSExsaWlvOHlV?=
+ =?utf-8?B?ZDJGYWVJZlg0NzZOL1dkaTgzR0hwT1dCZGVBK0x4WHZ5bUhKMVpQcThOVGl5?=
+ =?utf-8?B?VnllaEkwRTFFMkoxM3N0TFRWZVBNVjhYWENCVnYxT3UvaUNQUWZUYUpHWE9m?=
+ =?utf-8?B?ZVhCcnp1WFN3dFl4VnJCTkZGVHBlNXJ6M0NnMkhmQ1BMeXkrTUYzWDBpL1Vj?=
+ =?utf-8?B?UWFlaU5VVXdrdVI2M1l3b1dHdUZqWS9XeEZ2dFh5c2hHSWNmN0tzcEd0NVNI?=
+ =?utf-8?B?dWhLckZrbXRLbDhqRTFFRk9xSWFDQ00vZ3loaWF4TzQ4TzNrdkxkaWsxcTM4?=
+ =?utf-8?B?VjByaU8vY0gwSnFXRmxSTnBPdVVqb0oyaDBMd0FodldQeCtTRFNUZ1YremJ6?=
+ =?utf-8?B?Yy8vbmg3b0VyYUxpNGY3SzlVaVBSVUFFWHJtcXFIRUlmdnRhbC9jNGdDZlky?=
+ =?utf-8?B?Wk5GTjk2Rmt0cVJyQTJhS0JJTWJrdGF3SlIwT000MExOcXJqUER4VEJyMWoy?=
+ =?utf-8?B?WmdRbjVDazZTNEFCdGMzMy9EcUpVV0VFM0g2NG92MHd3RUROOTNpNldOMDFq?=
+ =?utf-8?B?MWlHYWRpeTIzZU9jVlhGclRUZnloUTZkVllnWW5MN25KZVFFUTU5NlR0Y2FY?=
+ =?utf-8?B?OWxlWmNLSEhNTXprVU51K011TXNjRHV3a3pqbmdRNW9MaGpJMWR3Q3NTbTVr?=
+ =?utf-8?B?ZTlEWWlkWThYbTlEbmRkeFljWFczQU1FeEFzMlZ4S2NZQUdhR0VFcDFPZ015?=
+ =?utf-8?B?dm5EZ2YyVHdZdWpjQnpQYzBTWnczOS81T3k3OUdiY1RycHlpZ0x1R2RXWTNH?=
+ =?utf-8?B?UFVRaS9RM3VBeXpydVIvdGV1T3c0NmEwOFdvVm9laTJvYzZQazFoOGN1RlVH?=
+ =?utf-8?B?YnlXVDVmeCtsbVlFNUFTZzJqOWk1ZElDV3ZnTEYrWWFWdVU2aFNaYUlLdXNt?=
+ =?utf-8?B?dkZnMnFlVDdsT0M0TUJ2amdkZHhmYnROcjNVUXJraW52Mzd3Y01oK2lhOVhM?=
+ =?utf-8?B?cmxGQWo5YTZUemRxb3JMWDlHWVUwUzhVa3lodmc3c1BHSWNWbWJlZExxaCt2?=
+ =?utf-8?B?TTNLVzJldVEzWHZWZVZZYUhwcEduZGZMZEUwTGUrKzkrczUvMndEUUNVUGVW?=
+ =?utf-8?B?MGpmQndWaHNBbDA5WktXMHQ5Mlo4d2FyWWxpbE00RkduS0tXdGcyNzZWbnFt?=
+ =?utf-8?B?aE4yTE9tbk10Y2lrNTRGaWl1T0FscndVUndyU2lSeEtjQW9kbENwRUxRS09k?=
+ =?utf-8?B?RVZzM2FyeUVwYTgzL2ZySDRrYmZncW83bWlSdXRja0VrWjQ0c3VVNW5ZLzFa?=
+ =?utf-8?B?YTJCa3hGUXRxMVdmZ214WjRrTlhIRVprV0VBK1BPQzVZc0d0dTEwc2JhUE02?=
+ =?utf-8?B?ZGRCaGdTelVKWFUwUkpZRHh3VjgrZ045RzQxL21ERGt3NE1XQlNuU3NxZk9I?=
+ =?utf-8?B?S2lEd1JUdzM2M25jL0NHdTlRY0lVWUdYWkNQT09mNC91UjA4ZDNHYWFhR2Zk?=
+ =?utf-8?B?Rk5xNnYycWEraEI4Y3dxY3R4TkZxOWtOaFpMT2FjTTFDNFNRNjQ5WWRBME9o?=
+ =?utf-8?B?K0JkVWpwaFNBb0RTSmxHZFV0MHpmdTE4RS9oZldlVWhCRGtMNGJ2MHU4Z3Fm?=
+ =?utf-8?B?cVRwOEllVWhmN2hWSGtnWEdJVWk0eGpvVkVCTEpqUm9WZE9EQ01zaXlqeGx3?=
+ =?utf-8?Q?c+cD8P6OPgbFo6KVlwa2MWQ3v?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b87a92d-5e59-424b-ec6e-08dbf002053d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44f5ca90-aaac-406d-adc9-08dbf002135d
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 11:06:07.2483
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 11:06:30.9534
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4fzMLgQg626sMxPug5uDyRmIGujOMKauzXDK1WxZBUDwdw7YGRf+81H/ok8QHxzdaO9+4YoFsu2ZrQ6O+i1/sA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8276
+X-MS-Exchange-CrossTenant-UserPrincipalName: fsWsY5O3s/uanTybo9ufWPOZ6FteTrzkjacxdzpy4A48vTFdIirIIVkX+70nwtZgOb3RVc0u+DkYuCIwwHtAGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7517
 
-Provide support for this insn, which is a prereq to FRED. CPUID-wise
-introduce both its and FRED's bit at this occasion, thus allowing to
-also express the dependency right away.
-
-While adding a testcase, also add a SWAPGS one. In order to not affect
-the behavior of pre-existing tests, install write_{segment,msr} hooks
-only transiently.
+Unconditionally wire this through the ->rmw() hook. Since x86_emul_rmw()
+now wants to construct and invoke a stub, make stub_exn available to it
+via a new field in the emulator state structure.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Instead of ->read_segment() we could of course also use ->read_msr() to
-fetch the original GS base. I don't think I can see a clear advantage of
-either approach; the way it's done it matches how we handle SWAPGS.
-
-For PV save_segments() would need adjustment, but the insn being
-restricted to ring 0 means PV guests can't use it anyway (unless we
-wanted to emulate it as another privileged insn).
----
 v3: Add dependency on LM. Re-base.
-v2: Use X86_EXC_*. Add comments.
+v2: Use X86_EXC_*. Move past introduction of stub_exn in struct
+    x86_emulate_state. Keep feature at just "a" for now.
+---
+SDE: -grr or -srf
 
 --- a/tools/misc/xen-cpuid.c
 +++ b/tools/misc/xen-cpuid.c
-@@ -190,7 +190,8 @@ static const char *const str_7a1[32] =
+@@ -186,6 +186,7 @@ static const char *const str_7d0[32] =
+ static const char *const str_7a1[32] =
+ {
+     [ 4] = "avx-vnni",      [ 5] = "avx512-bf16",
++    /* 6 */                 [ 7] = "cmpccxadd",
+ 
      [10] = "fzrm",          [11] = "fsrs",
      [12] = "fsrcs",
- 
--    /* 18 */                [19] = "wrmsrns",
-+    /* 16 */                [17] = "fred",
-+    [18] = "lkgs",          [19] = "wrmsrns",
- 
-     /* 22 */                [23] = "avx-ifma",
- };
 --- a/tools/tests/x86_emulator/predicates.c
 +++ b/tools/tests/x86_emulator/predicates.c
-@@ -326,6 +326,7 @@ static const struct {
-     { { 0x00, 0x18 }, { 2, 2 }, T, R }, /* ltr */
-     { { 0x00, 0x20 }, { 2, 2 }, T, R }, /* verr */
-     { { 0x00, 0x28 }, { 2, 2 }, T, R }, /* verw */
-+    { { 0x00, 0x30 }, { 0, 2 }, T, R, pfx_f2 }, /* lkgs */
-     { { 0x01, 0x00 }, { 2, 2 }, F, W }, /* sgdt */
-     { { 0x01, 0x08 }, { 2, 2 }, F, W }, /* sidt */
-     { { 0x01, 0x10 }, { 2, 2 }, F, R }, /* lgdt */
+@@ -1403,6 +1403,22 @@ static const struct vex {
+     { { 0xdd }, 2, T, R, pfx_66, WIG, Ln }, /* vaesenclast */
+     { { 0xde }, 2, T, R, pfx_66, WIG, Ln }, /* vaesdec */
+     { { 0xdf }, 2, T, R, pfx_66, WIG, Ln }, /* vaesdeclast */
++    { { 0xe0 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpoxadd */
++    { { 0xe1 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnoxadd */
++    { { 0xe2 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpbxadd */
++    { { 0xe3 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnbxadd */
++    { { 0xe4 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpexadd */
++    { { 0xe5 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnexadd */
++    { { 0xe6 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpbexadd */
++    { { 0xe7 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpaxadd */
++    { { 0xe8 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpsxadd */
++    { { 0xe9 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnsxadd */
++    { { 0xea }, 2, F, W, pfx_66, Wn, L0 }, /* cmppxadd */
++    { { 0xeb }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnpxadd */
++    { { 0xec }, 2, F, W, pfx_66, Wn, L0 }, /* cmplxadd */
++    { { 0xed }, 2, F, W, pfx_66, Wn, L0 }, /* cmpgexadd */
++    { { 0xee }, 2, F, W, pfx_66, Wn, L0 }, /* cmplexadd */
++    { { 0xef }, 2, F, W, pfx_66, Wn, L0 }, /* cmpgxadd */
+     { { 0xf2 }, 2, T, R, pfx_no, Wn, L0 }, /* andn */
+     { { 0xf3, 0x08 }, 2, T, R, pfx_no, Wn, L0 }, /* blsr */
+     { { 0xf3, 0x10 }, 2, T, R, pfx_no, Wn, L0 }, /* blsmsk */
 --- a/tools/tests/x86_emulator/test_x86_emulator.c
 +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -680,6 +680,10 @@ static int blk(
-     return x86_emul_blk((void *)offset, p_data, bytes, eflags, state, ctxt);
- }
- 
-+#ifdef __x86_64__
-+static unsigned long gs_base, gs_base_shadow;
-+#endif
-+
- static int read_segment(
-     enum x86_segment seg,
-     struct segment_register *reg,
-@@ -689,8 +693,30 @@ static int read_segment(
-         return X86EMUL_UNHANDLEABLE;
-     memset(reg, 0, sizeof(*reg));
-     reg->p = 1;
-+
-+#ifdef __x86_64__
-+    if ( seg == x86_seg_gs )
-+        reg->base = gs_base;
-+#endif
-+
-+    return X86EMUL_OKAY;
-+}
-+
-+#ifdef __x86_64__
-+static int write_segment(
-+    enum x86_segment seg,
-+    const struct segment_register *reg,
-+    struct x86_emulate_ctxt *ctxt)
-+{
-+    if ( !is_x86_user_segment(seg) )
-+        return X86EMUL_UNHANDLEABLE;
-+
-+    if ( seg == x86_seg_gs )
-+        gs_base = reg->base;
-+
-     return X86EMUL_OKAY;
- }
-+#endif
- 
- static int read_msr(
-     unsigned int reg,
-@@ -703,6 +729,20 @@ static int read_msr(
-         *val = ctxt->addr_size > 32 ? 0x500 /* LME|LMA */ : 0;
-         return X86EMUL_OKAY;
- 
-+#ifdef __x86_64__
-+    case 0xc0000101: /* GS_BASE */
-+        if ( ctxt->addr_size < 64 )
-+            break;
-+        *val = gs_base;
-+        return X86EMUL_OKAY;
-+
-+    case 0xc0000102: /* SHADOW_GS_BASE */
-+        if ( ctxt->addr_size < 64 )
-+            break;
-+        *val = gs_base_shadow;
-+        return X86EMUL_OKAY;
-+#endif
-+
-     case 0xc0000103: /* TSC_AUX */
- #define TSC_AUX_VALUE 0xCACACACA
-         *val = TSC_AUX_VALUE;
-@@ -712,6 +752,31 @@ static int read_msr(
-     return X86EMUL_UNHANDLEABLE;
- }
- 
-+#ifdef __x86_64__
-+static int write_msr(
-+    unsigned int reg,
-+    uint64_t val,
-+    struct x86_emulate_ctxt *ctxt)
-+{
-+    switch ( reg )
-+    {
-+    case 0xc0000101: /* GS_BASE */
-+        if ( ctxt->addr_size < 64 || !is_canonical_address(val) )
-+            break;
-+        gs_base = val;
-+        return X86EMUL_OKAY;
-+
-+    case 0xc0000102: /* SHADOW_GS_BASE */
-+        if ( ctxt->addr_size < 64 || !is_canonical_address(val) )
-+            break;
-+        gs_base_shadow = val;
-+        return X86EMUL_OKAY;
-+    }
-+
-+    return X86EMUL_UNHANDLEABLE;
-+}
-+#endif
-+
- #define INVPCID_ADDR 0x12345678
- #define INVPCID_PCID 0x123
- 
-@@ -1345,6 +1410,41 @@ int main(int argc, char **argv)
-         printf("%u bytes read - ", bytes_read);
-         goto fail;
+@@ -1412,6 +1412,78 @@ int main(int argc, char **argv)
      }
-+    printf("okay\n");
-+
-+    emulops.write_segment = write_segment;
-+    emulops.write_msr     = write_msr;
-+
-+    printf("%-40s", "Testing swapgs...");
-+    instr[0] = 0x0f; instr[1] = 0x01; instr[2] = 0xf8;
-+    regs.eip = (unsigned long)&instr[0];
-+    gs_base = 0xffffeeeecccc8888UL;
-+    gs_base_shadow = 0x0000111122224444UL;
-+    rc = x86_emulate(&ctxt, &emulops);
-+    if ( (rc != X86EMUL_OKAY) ||
-+         (regs.eip != (unsigned long)&instr[3]) ||
-+         (gs_base != 0x0000111122224444UL) ||
-+         (gs_base_shadow != 0xffffeeeecccc8888UL) )
-+        goto fail;
-+    printf("okay\n");
-+
-+    printf("%-40s", "Testing lkgs 2(%rdx)...");
-+    instr[0] = 0xf2; instr[1] = 0x0f; instr[2] = 0x00; instr[3] = 0x72; instr[4] = 0x02;
-+    regs.eip = (unsigned long)&instr[0];
-+    regs.edx = (unsigned long)res;
-+    res[0]   = 0x00004444;
-+    res[1]   = 0x8888cccc;
-+    i = cp.extd.nscb; cp.extd.nscb = true; /* for AMD */
-+    rc = x86_emulate(&ctxt, &emulops);
-+    if ( (rc != X86EMUL_OKAY) ||
-+         (regs.eip != (unsigned long)&instr[5]) ||
-+         (gs_base != 0x0000111122224444UL) ||
-+         gs_base_shadow )
-+        goto fail;
-+
-+    cp.extd.nscb = i;
-+    emulops.write_segment = NULL;
-+    emulops.write_msr     = NULL;
- #endif
      printf("okay\n");
  
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -86,6 +86,7 @@ bool emul_test_init(void)
-     cp.feat.adx = true;
-     cp.feat.avx512pf = cp.feat.avx512f;
-     cp.feat.rdpid = true;
-+    cp.feat.lkgs = true;
-     cp.feat.wrmsrns = true;
-     cp.extd.clzero = true;
++    printf("%-40s", "Testing cmpbxadd %rbx,%r9,(%rdx)...");
++    if ( stack_exec && cpu_has_cmpccxadd )
++    {
++        instr[0] = 0xc4; instr[1] = 0x62; instr[2] = 0xe1; instr[3] = 0xe2; instr[4] = 0x0a;
++        regs.rip = (unsigned long)&instr[0];
++        regs.eflags = EFLAGS_ALWAYS_SET;
++        res[0] = 0x11223344;
++        res[1] = 0x01020304;
++        regs.rdx = (unsigned long)res;
++        regs.r9  = 0x0001020300112233UL;
++        regs.rbx = 0x0101010101010101UL;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[5]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x0101010101010101UL) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_PF | EFLAGS_ALWAYS_SET)) ||
++             (res[0] != 0x11223344) ||
++             (res[1] != 0x01020304) )
++            goto fail;
++
++        regs.rip = (unsigned long)&instr[0];
++        regs.r9 <<= 8;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[5]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x0101010101010101UL) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_CF | X86_EFLAGS_PF | X86_EFLAGS_SF |
++               EFLAGS_ALWAYS_SET)) ||
++             (res[0] != 0x12233445) ||
++             (res[1] != 0x02030405) )
++            goto fail;
++        printf("okay\n");
++
++        printf("%-40s", "Testing cmpsxadd %r9d,%ebx,4(%r10)...");
++        instr[1] = 0xc2; instr[2] = 0x31; instr[3] = 0xe8; instr[4] = 0x5a; instr[5] = 0x04;
++        regs.rip = (unsigned long)&instr[0];
++        res[2] = res[0] = ~0;
++        regs.r10 = (unsigned long)res;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[6]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x02030405) ||
++             ((regs.eflags & EFLAGS_MASK) != EFLAGS_ALWAYS_SET) ||
++             (res[0] + 1) ||
++             (res[1] != 0x02030405) ||
++             (res[2] + 1) )
++            goto fail;
++
++        regs.rip = (unsigned long)&instr[0];
++        regs.rbx <<= 8;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[6]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x02030405) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_CF | X86_EFLAGS_PF | X86_EFLAGS_SF |
++               EFLAGS_ALWAYS_SET)) ||
++             (res[0] + 1) ||
++             (res[1] != 0x13253749) ||
++             (res[2] + 1) )
++            goto fail;
++        printf("okay\n");
++    }
++    else
++        printf("skipped\n");
++
+     emulops.write_segment = write_segment;
+     emulops.write_msr     = write_msr;
  
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -178,6 +178,7 @@ void wrpkru(unsigned int val);
+ #define cpu_has_avx512_fp16 (cp.feat.avx512_fp16 && xcr0_mask(0xe6))
+ #define cpu_has_avx_vnni   (cp.feat.avx_vnni && xcr0_mask(6))
+ #define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
++#define cpu_has_cmpccxadd  cp.feat.cmpccxadd
+ #define cpu_has_avx_ifma   (cp.feat.avx_ifma && xcr0_mask(6))
+ #define cpu_has_avx_vnni_int8 (cp.feat.avx_vnni_int8 && xcr0_mask(6))
+ #define cpu_has_avx_ne_convert (cp.feat.avx_ne_convert && xcr0_mask(6))
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -186,6 +186,7 @@ static inline bool boot_cpu_has(unsigned
+ /* CPUID level 0x00000007:1.eax */
+ #define cpu_has_avx_vnni        boot_cpu_has(X86_FEATURE_AVX_VNNI)
+ #define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
++#define cpu_has_cmpccxadd       boot_cpu_has(X86_FEATURE_CMPCCXADD)
+ #define cpu_has_avx_ifma        boot_cpu_has(X86_FEATURE_AVX_IFMA)
+ 
+ /* CPUID level 0x00000007:1.edx */
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -741,8 +741,12 @@ decode_twobyte(struct x86_emulate_state
-         case 0:
-             s->desc |= DstMem | SrcImplicit | Mov;
-             break;
-+        case 6:
-+            if ( !(s->modrm_reg & 1) && mode_64bit() )
-+            {
-         case 2: case 4:
--            s->desc |= SrcMem16;
-+                s->desc |= SrcMem16;
-+            }
-             break;
-         }
+@@ -439,6 +439,7 @@ static const struct ext0f38_table {
+     [0xd7] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
+     [0xdb] = { .simd_size = simd_packed_int, .two_op = 1 },
+     [0xdc ... 0xdf] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
++    [0xe0 ... 0xef] = { .to_mem = 1 },
+     [0xf0] = { .two_op = 1 },
+     [0xf1] = { .to_mem = 1, .two_op = 1 },
+     [0xf2 ... 0xf3] = {},
+@@ -931,6 +932,8 @@ decode_0f38(struct x86_emulate_state *s,
+             ctxt->opcode |= MASK_INSR(s->vex.pfx, X86EMUL_OPC_PFX_MASK);
          break;
+ 
++    case X86EMUL_OPC_VEX_66(0, 0xe0) ...
++         X86EMUL_OPC_VEX_66(0, 0xef): /* cmp<cc>xadd */
+     case X86EMUL_OPC_VEX(0, 0xf2):    /* andn */
+     case X86EMUL_OPC_VEX(0, 0xf3):    /* Grp 17 */
+     case X86EMUL_OPC_VEX(0, 0xf5):    /* bzhi */
 --- a/xen/arch/x86/x86_emulate/private.h
 +++ b/xen/arch/x86/x86_emulate/private.h
-@@ -589,6 +589,7 @@ amd_like(const struct x86_emulate_ctxt *
+@@ -257,6 +257,7 @@ struct x86_emulate_state {
+         rmw_btc,
+         rmw_btr,
+         rmw_bts,
++        rmw_cmpccxadd,
+         rmw_dec,
+         rmw_inc,
+         rmw_neg,
+@@ -589,6 +590,7 @@ amd_like(const struct x86_emulate_ctxt *
  #define vcpu_has_avx512_fp16() (ctxt->cpuid->feat.avx512_fp16)
  #define vcpu_has_avx_vnni()    (ctxt->cpuid->feat.avx_vnni)
  #define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
-+#define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
++#define vcpu_has_cmpccxadd()   (ctxt->cpuid->feat.cmpccxadd)
+ #define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
  #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
  #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
- #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -2853,8 +2853,35 @@ x86_emulate(
-                 break;
-             }
-             break;
--        default:
--            generate_exception_if(true, X86_EXC_UD);
-+        case 6: /* lkgs */
-+            generate_exception_if((modrm_reg & 1) || vex.pfx != vex_f2,
-+                                  X86_EXC_UD);
-+            generate_exception_if(!mode_64bit() || !mode_ring0(), X86_EXC_UD);
-+            vcpu_must_have(lkgs);
-+            fail_if(!ops->read_segment || !ops->read_msr ||
-+                    !ops->write_segment || !ops->write_msr);
-+            if ( (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
-+                                     ctxt)) != X86EMUL_OKAY ||
-+                 (rc = ops->read_segment(x86_seg_gs, &sreg,
-+                                         ctxt)) != X86EMUL_OKAY )
-+                goto done;
-+            dst.orig_val = sreg.base; /* Preserve full GS Base. */
-+            if ( (rc = protmode_load_seg(x86_seg_gs, src.val, false, &sreg,
-+                                         ctxt, ops)) != X86EMUL_OKAY ||
-+                 /* Write (32-bit) base into SHADOW_GS. */
-+                 (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
-+                                      ctxt)) != X86EMUL_OKAY )
-+                goto done;
-+            sreg.base = dst.orig_val; /* Reinstate full GS Base. */
-+            if ( (rc = ops->write_segment(x86_seg_gs, &sreg,
-+                                          ctxt)) != X86EMUL_OKAY )
-+            {
-+                /* Best effort unwind (i.e. no real error checking). */
-+                if ( ops->write_msr(MSR_SHADOW_GS_BASE, msr_val,
-+                                    ctxt) == X86EMUL_EXCEPTION )
-+                    x86_emul_reset_event(ctxt);
-+                goto done;
-+            }
-             break;
-         }
-         break;
+@@ -6918,6 +6918,15 @@ x86_emulate(
+ 
+ #endif /* !X86EMUL_NO_SIMD */
+ 
++    case X86EMUL_OPC_VEX_66(0x0f38, 0xe0) ...
++         X86EMUL_OPC_VEX_66(0x0f38, 0xef): /* cmp<cc>xadd r,r,m */
++        generate_exception_if(!mode_64bit() || dst.type != OP_MEM || vex.l,
++                              X86_EXC_UD);
++        host_and_vcpu_must_have(cmpccxadd);
++        fail_if(!ops->rmw);
++        state->rmw = rmw_cmpccxadd;
++        break;
++
+     case X86EMUL_OPC(0x0f38, 0xf0): /* movbe m,r */
+     case X86EMUL_OPC(0x0f38, 0xf1): /* movbe r,m */
+         vcpu_must_have(movbe);
+@@ -8191,14 +8200,20 @@ x86_emulate(
+     {
+         ea.val = src.val;
+         op_bytes = dst.bytes;
++        state->stub_exn = &stub_exn;
+         rc = ops->rmw(dst.mem.seg, dst.mem.off, dst.bytes, &_regs.eflags,
+                       state, ctxt);
++#ifdef __XEN__
++        if ( rc == X86EMUL_stub_failure )
++            goto emulation_stub_failure;
++#endif
+         if ( rc != X86EMUL_OKAY )
+             goto done;
+ 
+         /* Some operations require a register to be written. */
+         switch ( state->rmw )
+         {
++        case rmw_cmpccxadd:
+         case rmw_xchg:
+         case rmw_xadd:
+             switch ( dst.bytes )
+@@ -8473,6 +8488,7 @@ int x86_emul_rmw(
+     uint32_t *eflags,
+     struct x86_emulate_state *s,
+     struct x86_emulate_ctxt *ctxt)
++#define stub_exn (*s->stub_exn) /* for invoke_stub() */
+ {
+     unsigned long *dst = ptr;
+ 
+@@ -8538,6 +8554,37 @@ int x86_emul_rmw(
+ #undef BINOP
+ #undef SHIFT
+ 
++#ifdef __x86_64__
++    case rmw_cmpccxadd:
++    {
++        struct x86_emulate_stub stub = {};
++        uint8_t *buf = get_stub(stub);
++        typeof(s->vex) *pvex = container_of(buf + 1, typeof(s->vex),
++                                            raw[0]);
++        unsigned long dummy;
++
++        buf[0] = 0xc4;
++        *pvex = s->vex;
++        pvex->b = 1;
++        pvex->r = 1;
++        pvex->reg = 0xf; /* rAX */
++        buf[3] = ctxt->opcode;
++        buf[4] = 0x11; /* reg=rDX r/m=(%RCX) */
++        buf[5] = 0xc3;
++
++        *eflags &= ~EFLAGS_MASK;
++        invoke_stub("",
++                    _POST_EFLAGS("[eflags]", "[mask]", "[tmp]"),
++                    "+m" (*dst), "+d" (s->ea.val),
++                    [tmp] "=&r" (dummy), [eflags] "+g" (*eflags)
++                    : "a" (*decode_vex_gpr(s->vex.reg, ctxt->regs, ctxt)),
++                      "c" (dst), [mask] "i" (EFLAGS_MASK));
++
++        put_stub(stub);
++        break;
++    }
++#endif
++
+     case rmw_not:
+         switch ( s->op_bytes )
+         {
+@@ -8633,7 +8680,13 @@ int x86_emul_rmw(
+ #undef JCXZ
+ 
+     return X86EMUL_OKAY;
++
++#if defined(__XEN__) && defined(__x86_64__)
++ emulation_stub_failure:
++    return X86EMUL_stub_failure;
++#endif
+ }
++#undef stub_exn
+ 
+ static void __init __maybe_unused build_assertions(void)
+ {
 --- a/xen/include/public/arch-x86/cpufeatureset.h
 +++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -282,6 +282,8 @@ XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /
+@@ -279,6 +279,7 @@ XEN_CPUFEATURE(SSBD,          9*32+31) /
+ /* Intel-defined CPU features, CPUID level 0x00000007:1.eax, word 10 */
+ XEN_CPUFEATURE(AVX_VNNI,     10*32+ 4) /*A  AVX-VNNI Instructions */
+ XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
++XEN_CPUFEATURE(CMPCCXADD,    10*32+ 7) /*a  CMPccXADD Instructions */
  XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
  XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
  XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
-+XEN_CPUFEATURE(FRED,         10*32+17) /*   Flexible Return and Event Delivery */
-+XEN_CPUFEATURE(LKGS,         10*32+18) /*S  Load Kernel GS Base */
- XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
- XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
- 
 --- a/xen/tools/gen-cpuid.py
 +++ b/xen/tools/gen-cpuid.py
 @@ -274,7 +274,7 @@ def crunch_numbers(state):
          # superpages, PCID and PKU are only available in 4 level paging.
          # NO_LMSL indicates the absense of Long Mode Segment Limits, which
          # have been dropped in hardware.
--        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL],
-+        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS],
+-        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS],
++        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS, CMPCCXADD],
  
          # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
          # standard 3DNow in the earlier K6 processors.
-@@ -332,6 +332,9 @@ def crunch_numbers(state):
- 
-         # The behaviour described by RRSBA depend on eIBRS being active.
-         EIBRS: [RRSBA],
-+
-+        # FRED builds on the LKGS instruction.
-+        LKGS: [FRED],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
 
 
