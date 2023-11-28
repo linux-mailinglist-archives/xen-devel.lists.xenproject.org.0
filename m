@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B19897FB591
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 10:23:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642822.1002552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 364C17FB592
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 10:23:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642825.1002582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7uIU-0004wP-3Q; Tue, 28 Nov 2023 09:22:26 +0000
+	id 1r7uIW-0005e0-QK; Tue, 28 Nov 2023 09:22:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642822.1002552; Tue, 28 Nov 2023 09:22:26 +0000
+Received: by outflank-mailman (output) from mailman id 642825.1002582; Tue, 28 Nov 2023 09:22:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7uIU-0004tx-0d; Tue, 28 Nov 2023 09:22:26 +0000
-Received: by outflank-mailman (input) for mailman id 642822;
- Tue, 28 Nov 2023 09:22:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7uIW-0005cI-ND; Tue, 28 Nov 2023 09:22:28 +0000
+Received: by outflank-mailman (input) for mailman id 642825;
+ Tue, 28 Nov 2023 09:22:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PT6c=HJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r7uIS-0004tq-Sj
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 09:22:24 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a32bb506-8dcf-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 10:22:23 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40b31232bf0so42186155e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 01:22:23 -0800 (PST)
+ id 1r7uIU-0004tr-Kw
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 09:22:26 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3ccb24d-8dcf-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 10:22:24 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3316bb1303bso3233170f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 01:22:25 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- p34-20020a05600c1da200b00406408dc788sm17535442wms.44.2023.11.28.01.22.22
+ b7-20020adfe307000000b00332fbf7ab21sm6834899wrj.60.2023.11.28.01.22.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 01:22:22 -0800 (PST)
+ Tue, 28 Nov 2023 01:22:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a32bb506-8dcf-11ee-98e3-6d05b1d4d9a1
+X-Inumbo-ID: a3ccb24d-8dcf-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701163343; x=1701768143; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701163344; x=1701768144; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OgDIL9w5jx+UxCwj2sM5xrPgOrkinlsQKkLBTFvRxoc=;
-        b=Yr1o+KfN8zJHB4DoKfB2Nc7tjtBMcDQfRoT6R5TmvS+4oOSj8sAT9OJFyfpZkj5XfQ
-         Lly9EKEXkvWBriy6UyAb3EOw1uN9R3ebGwYotkG+DvUDRVNO4X0M2viV/p+uxcpoiPDH
-         fDmBqj2O/cLfDaAyjA2y9d0JKVndAFCHd/cfY=
+        bh=h5HPry0cHVXYa7E65UlZUEhBkm420RlLl9/gqlG+ArQ=;
+        b=BKFwDsMvtefl2dhVlXZFUuughPuwhabDvJjl8vY5hQCWU3R+dHFu/GgCQ3iqn20iHz
+         xHYT9WQ617iOMTkRXDZp6cTauItHg7A33DRHiTnwAlF51qh+XKDYyH/4MrsK1j5pw07n
+         u2ikulgVxRh4P0D1IpNHlq0kG35r8Ht5H/dK0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701163343; x=1701768143;
+        d=1e100.net; s=20230601; t=1701163344; x=1701768144;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=OgDIL9w5jx+UxCwj2sM5xrPgOrkinlsQKkLBTFvRxoc=;
-        b=FINwW9i5TzdJ6Qe73HB4UJ0OAyYmnG7A0hlF/bLFU8V/IpQld46IhR5d1qMG1L3ChU
-         sVH55Gqo3Oasi92gG6VwkTNbX52yLRvD6YcNhTIPl8IDfQZfyG/n6UBqZu2eWcNayiFL
-         x9QnNSRTjgflMgOQtW+bgd/RzEuJ1XfXpd5Z5A9xlRnzBq+ylPi97QwLIMsAgc4IkMI2
-         InIMq/q4uE83/MygRTid0m52BRLwB/P85Xm+HDH2uvru9D/fyPsVEn1Bl4Iy2Z/xrcta
-         QyvsXvQmeckl6TIPFvZt5eF8sLcMmP2Z2GzcM2IG8fyO7nV1Zs+CL8m12z2tLUMVE/fG
-         ByFw==
-X-Gm-Message-State: AOJu0YyD+XwaPsNslqQ5vJBCaHLG0hYU7lcK+EmdcJhWSJQtwvcU/1Sy
-	BQz2gEU8m4YZcuU7C4igJwLBOh/DapZlabi+6Qc=
-X-Google-Smtp-Source: AGHT+IERTa201gF0CHZeOAYrIVyvM0E4oJr0RIksH0nF29I7usiI6qaKzScDtaVOuV+0vNMPsuXnYg==
-X-Received: by 2002:a05:600c:4f16:b0:40b:3857:12f9 with SMTP id l22-20020a05600c4f1600b0040b385712f9mr9408150wmq.5.1701163342885;
-        Tue, 28 Nov 2023 01:22:22 -0800 (PST)
+        bh=h5HPry0cHVXYa7E65UlZUEhBkm420RlLl9/gqlG+ArQ=;
+        b=gdIE698slba8G89/W7bDN1d2ykemlqLjeKlPLoz4d2NDWKpE7L8c9mGJCrohxbB6jD
+         sSvNv4qeYm4M/2RKR9DB2Hw4eZ7nc8GxlIckWeJFdLusgmJbbvNvcM+FU7oh3TYUC0XL
+         rLqc7tTqYxOEXKmEK5GAj9ImzXLIZxWSqAIq3lPtYXv4MN3Yts02FVKdwMBfiN7Pv8+H
+         UbYTDXNpUUeBVwgcX8vxKwpKyH1M0cZZnH6yl+2PYDqzrXDXzPim6J+asZMQsM8DIbJT
+         6L0PXO5xPEM5iKkZ11boC3mYqSgv8r7UlmJEbC3E5MMhrp4CWJwXzEi/WSPaKhY20ONm
+         dtiQ==
+X-Gm-Message-State: AOJu0YwEcNK+ChUOrn9wNc/40pwSTWDgZ1BUxw0HmVC9JOLc+42U7McD
+	9eFGn8DWTgtOktf+KHUJR5wIxmRzZ395XiUQXUk=
+X-Google-Smtp-Source: AGHT+IEQiMZYddsFFj7Vr/s1dpjiADp3UuvyPpdn8nKI0utkQ7+Yp9K9ye8K+CxyXt8skoTiuCjdFg==
+X-Received: by 2002:adf:f349:0:b0:333:ed:82ed with SMTP id e9-20020adff349000000b0033300ed82edmr4459304wrp.66.1701163343894;
+        Tue, 28 Nov 2023 01:22:23 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Ross Lagerwall <ross.lagerwall@citrix.com>,
 	Roger Pau Monne <roger.pau@citrix.com>
-Subject: [PATCH v2 1/3] livepatch-build-tools: do not use readlink -m option
-Date: Tue, 28 Nov 2023 10:21:50 +0100
-Message-ID: <20231128092152.35039-2-roger.pau@citrix.com>
+Subject: [PATCH v2 2/3] livepatch-build-tools: remove usage of gawk
+Date: Tue, 28 Nov 2023 10:21:51 +0100
+Message-ID: <20231128092152.35039-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231128092152.35039-1-roger.pau@citrix.com>
 References: <20231128092152.35039-1-roger.pau@citrix.com>
@@ -86,96 +86,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Busybox readlink implementation only supports the -f option to follow symlinks,
-so adjust the logic in order to keep the same behaviour without using the -m
-option.
+And instead use plain awk.
 
-Singed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Since plain awk cannot do the conversion from hex to decimal, use the shell
+(bash) printf to convert the (maybe) hexadecimal output of readelf.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- livepatch-build | 29 ++++++++++++++++-------------
- 1 file changed, 16 insertions(+), 13 deletions(-)
+Changes since v1:
+ - Use shell printf to convert.
+---
+ livepatch-build | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/livepatch-build b/livepatch-build
-index 91d203bda0eb..305644037ee7 100755
+index 305644037ee7..e2ccce4f7fd7 100755
 --- a/livepatch-build
 +++ b/livepatch-build
-@@ -336,8 +336,8 @@ while [[ $# -gt 0 ]]; do
-             ;;
-         --xen-syms)
-             shift
--            XENSYMS="$(readlink -m -- "$1")"
--            [ -f "$XENSYMS" ] || die "xen-syms file does not exist"
-+            [ -f "$1" ] || die "xen-syms file does not exist"
-+            XENSYMS="$(readlink -f -- "$1")"
-             shift
-             ;;
-         --depends)
-@@ -366,22 +366,20 @@ while [[ $# -gt 0 ]]; do
- done
- 
- [ -z "$srcarg" ] && die "Xen directory not given"
-+[ -d "$srcarg" ] || die "Xen directory does not exist"
- [ -z "$patcharg" ] && die "Patchfile not given"
-+[ -f "$patcharg" ] || die "Patchfile does not exist"
- [ -z "$configarg" ] && die ".config not given"
-+[ -f "$configarg" ] || die ".config does not exist"
- [ -z "$outputarg" ] && die "Output directory not given"
- [ -z "$DEPENDS" ] && die "Build-id dependency not given"
- [ -z "$XEN_DEPENDS" ] && die "Xen Build-id dependency not given"
- 
--SRCDIR="$(readlink -m -- "$srcarg")"
-+SRCDIR="$(readlink -f -- "$srcarg")"
- # We need an absolute path because we move around, but we need to
- # retain the name of the symlink (= realpath -s)
- PATCHFILE="$(readlink -f "$(dirname "$patcharg")")/$(basename "$patcharg")"
--CONFIGFILE="$(readlink -m -- "$configarg")"
--OUTPUT="$(readlink -m -- "$outputarg")"
--
--[ -d "${SRCDIR}" ] || die "Xen directory does not exist"
--[ -f "${PATCHFILE}" ] || die "Patchfile does not exist"
--[ -f "${CONFIGFILE}" ] || die ".config does not exist"
-+CONFIGFILE="$(readlink -f -- "$configarg")"
- 
- PATCHNAME=$(make_patch_name "${PATCHFILE}")
- 
-@@ -390,17 +388,20 @@ echo
- echo "Xen directory: ${SRCDIR}"
- echo "Patch file: ${PATCHFILE}"
- echo ".config file: ${CONFIGFILE}"
--echo "Output directory: ${OUTPUT}"
-+echo "Output directory: $outputarg"
- echo "================================================"
- echo
- 
- if [ "${SKIP}" != "build" ]; then
--    [ -e "${OUTPUT}" ] && die "Output directory exists"
-+    # Make sure output directory doesn't exist, and create it.
-+    [ -e "$outputarg" ] && die "Output directory exists"
-+    mkdir -p "$outputarg" || die
-+    OUTPUT="$(readlink -f -- "$outputarg")"
-+
-     grep -q 'CONFIG_LIVEPATCH=y' "${CONFIGFILE}" || die "CONFIG_LIVEPATCH must be enabled"
-     cd "$SRCDIR" || die
-     patch -s -N -p1 -f --fuzz=0 --dry-run < "$PATCHFILE" || die "Source patch file failed to apply"
- 
--    mkdir -p "${OUTPUT}" || die
-     cp -f "${CONFIGFILE}" "${OUTPUT}/.config"
-     cp -f "${OUTPUT}/.config" "xen/.config"
- 
-@@ -453,7 +454,9 @@ if [ "${SKIP}" != "build" ]; then
- fi
- 
- if [ "${SKIP}" != "diff" ]; then
--    [ -d "${OUTPUT}" ] || die "Output directory does not exist"
-+    cd "${SCRIPTDIR}" || die
-+    [ -d "$outputarg" ] || die "Output directory does not exist"
-+    OUTPUT="$(readlink -f -- "$outputarg")"
- 
-     cd "${OUTPUT}" || die
-     create_patch
-
-base-commit: e588b7914e7afa3abb64b15a32fc2fdb57ded341
+@@ -423,14 +423,15 @@ if [ "${SKIP}" != "build" ]; then
+     echo "Reading special section data"
+     # Using xen-syms built in the previous step by build_full().
+     SPECIAL_VARS=$(readelf -wi "$OUTPUT/xen-syms" |
+-               gawk --non-decimal-data '
++               awk '
+                BEGIN { a = b = e = 0 }
+                a == 0 && /DW_AT_name.* alt_instr/ {a = 1; next}
+                b == 0 && /DW_AT_name.* bug_frame/ {b = 1; next}
+                e == 0 && /DW_AT_name.* exception_table_entry/ {e = 1; next}
+-               a == 1 {printf("export ALT_STRUCT_SIZE=%d\n", $4); a = 2}
+-               b == 1 {printf("export BUG_STRUCT_SIZE=%d\n", $4); b = 2}
+-               e == 1 {printf("export EX_STRUCT_SIZE=%d\n", $4); e = 2}
++               # Use shell printf to (possibly) convert from hex to decimal
++               a == 1 {printf("export ALT_STRUCT_SIZE=`printf \"%%d\" \"%s\"`\n", $4); a = 2}
++               b == 1 {printf("export BUG_STRUCT_SIZE=`printf \"%%d\" \"%s\"`\n", $4); b = 2}
++               e == 1 {printf("export EX_STRUCT_SIZE=`printf \"%%d\" \"%s\"`\n", $4); e = 2}
+                a == 2 && b == 2 && e == 2 {exit}')
+     [[ -n $SPECIAL_VARS ]] && eval "$SPECIAL_VARS"
+     if [[ -z $ALT_STRUCT_SIZE ]] || [[ -z $BUG_STRUCT_SIZE ]] || [[ -z $EX_STRUCT_SIZE ]]; then
 -- 
 2.43.0
 
