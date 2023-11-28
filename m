@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0DDF7FAFA2
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 02:36:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.642691.1002338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD927FB011
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 03:26:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.642705.1002351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7n1K-0007dX-50; Tue, 28 Nov 2023 01:36:14 +0000
+	id 1r7nmd-0007Fp-OL; Tue, 28 Nov 2023 02:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 642691.1002338; Tue, 28 Nov 2023 01:36:14 +0000
+Received: by outflank-mailman (output) from mailman id 642705.1002351; Tue, 28 Nov 2023 02:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7n1K-0007ck-1X; Tue, 28 Nov 2023 01:36:14 +0000
-Received: by outflank-mailman (input) for mailman id 642691;
- Tue, 28 Nov 2023 01:36:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3GcI=HJ=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
- id 1r7n1I-0007ce-Lr
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 01:36:12 +0000
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7dd318b7-8d8e-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 02:36:05 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.163.216])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4SfQ5T24WRz4f3k5c
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:35:57 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
- by mail.maildlp.com (Postfix) with ESMTP id 227771A0AA0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 09:36:00 +0800 (CST)
-Received: from [10.174.176.73] (unknown [10.174.176.73])
- by APP1 (Coremail) with SMTP id cCh0CgDn6hD8Q2VlfLiHCA--.59632S3;
- Tue, 28 Nov 2023 09:35:59 +0800 (CST)
+	id 1r7nmd-0007E8-Kp; Tue, 28 Nov 2023 02:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 642705;
+ Tue, 28 Nov 2023 02:25:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7nmb-0007Dy-G0; Tue, 28 Nov 2023 02:25:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7nmb-0003nC-5Z; Tue, 28 Nov 2023 02:25:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7nma-0006ry-QB; Tue, 28 Nov 2023 02:25:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r7nma-0006NU-Pk; Tue, 28 Nov 2023 02:25:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +42,314 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dd318b7-8d8e-11ee-98e3-6d05b1d4d9a1
-Subject: Re: [PATCH block/for-next v2 01/16] block: add a new helper to get
- inode from block_device
-To: Christoph Hellwig <hch@infradead.org>, Yu Kuai <yukuai1@huaweicloud.com>
-Cc: ming.lei@redhat.com, axboe@kernel.dk, roger.pau@citrix.com,
- colyli@suse.de, kent.overstreet@gmail.com, joern@lazybastard.org,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
- gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
- dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
- nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
- adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
- konishi.ryusuke@gmail.com, dchinner@redhat.com, linux@weissschuh.net,
- min15.li@samsung.com, dlemoal@kernel.org, willy@infradead.org,
- akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org, yi.zhang@huawei.com,
- yangerkun@huawei.com, "yukuai (C)" <yukuai3@huawei.com>
-References: <20231127062116.2355129-1-yukuai1@huaweicloud.com>
- <20231127062116.2355129-2-yukuai1@huaweicloud.com>
- <ZWRDeQ4K8BiYnV+X@infradead.org>
- <6acdeece-7163-3219-95e2-827e54eadd0c@huaweicloud.com>
- <ZWTErvnMf7HiO1Wj@infradead.org>
-From: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <bc64da80-e9bd-84cb-f173-876623303131@huaweicloud.com>
-Date: Tue, 28 Nov 2023 09:35:56 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <ZWTErvnMf7HiO1Wj@infradead.org>
-Content-Type: text/plain; charset=gbk; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Mzu7HwPKeXRucoJW1OL//ZEb+U9LK9GEI5ZwnqeosbY=; b=oQtFO8s0rA2WND9EwTS5XPnfSz
+	iQyyZLtoJA55dCJB7x3d8HOiEQJoS8EfQgenaxjJjfJYldBpJIwL5vCSKEUWRCev2ojdYKf+Ja4Ro
+	I39uojHItQWn13LPlwpg8VGfsG4EfR4gh8ZhoANIUG1cmDudIIqHXhCi2/TgddMnUK4o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183874-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgDn6hD8Q2VlfLiHCA--.59632S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF1rGFWkXF1DXFy3WF45ZFb_yoW8Wry7pF
-	Wjkan8GF1DAFnrur4kWa1xK3yFy3sFkrW7GFy8CryxA3y5WF9FgFyfKw4UJFyDGr4DJr4q
-	qa10vFy3Xa48WaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_WFyU
-	JVCq3wCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjfUojjgUUUUU
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 183874: trouble: blocked/broken
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64:host-install(4):broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=72d51813d631fe27d37736b7a55eeec08f246983
+X-Osstest-Versions-That:
+    xen=80c153c48b255bae61948827241c26671207cf4e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Nov 2023 02:25:04 +0000
 
-Hi,
+flight 183874 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183874/
 
-‘⁄ 2023/11/28 0:32, Christoph Hellwig –¥µ¿:
-> On Mon, Nov 27, 2023 at 09:07:22PM +0800, Yu Kuai wrote:
->> 1) Is't okay to add a new helper to pass in bdev for following apis?
-> 
-> 
-> For some we already have them (e.g. bdev_nr_bytes to read the bdev)
-> size, for some we need to add them.  The big thing that seems to
-> stick out is page cache API, and I think that is where we need to
-> define maintainable APIs for file systems and others to use the
-> block device page cache.  Probably only in folio versions and not
-> pages once if we're touching the code anyay
+Failures and problems with tests :-(
 
-Thanks for the advice! In case I'm understanding correctly, do you mean
-that all other fs/drivers that is using pages versions can safely switch
-to folio versions now?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                     <job status>                 broken
+ build-arm64-xsm                 <job status>                 broken
+ build-armhf                     <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 183851
+ build-amd64                   4 host-install(4)        broken REGR. vs. 183851
+ build-armhf                   4 host-install(4)        broken REGR. vs. 183851
 
-By the way, my orginal idea was trying to add a new field 'bd_flags'
-in block_devcie, and then add a new bit so that bio_check_ro() will
-only warn once for each partition. Now that this patchset will be quite
-complex, I'll add a new bool field 'bd_ro_warned' to fix the above
-problem first, and then add 'bd_flags' once this patchset is done.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
 
-Thanks,
-Kuai
+version targeted for testing:
+ xen                  72d51813d631fe27d37736b7a55eeec08f246983
+baseline version:
+ xen                  80c153c48b255bae61948827241c26671207cf4e
 
-> 
->> 2) For the file fs/buffer.c, there are some special usage like
->> following that I don't think it's good to add a helper:
->>
->> spin_lock(&bd_inode->i_mapping->private_lock);
->>
->> Is't okay to move following apis from fs/buffer.c directly to
->> block/bdev.c?
->>
->> __find_get_block
->> bdev_getblk
-> 
-> I'm not sure moving is a good idea, but we might end up the
-> some kind of low-level access from buffer.c, be that special
-> helpers, a separate header or something else.  Let's sort out
-> the rest of the kernel first.
-> 
-> .
-> 
+Last test of basis   183851  2023-11-24 09:03:53 Z    3 days
+Failing since        183871  2023-11-27 14:00:26 Z    0 days    2 attempts
+Testing same since   183874  2023-11-27 19:00:27 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  Jan Beulich <jbeulich@suse.com>
+  Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+  Roger Pau Monn√© <roger.pau@citrix.com>
+  Simone Ballarin  <simone.ballarin@bugseng.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              broken  
+ build-amd64                                                  broken  
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-amd64 broken
+broken-job build-arm64-xsm broken
+broken-job build-armhf broken
+broken-step build-arm64-xsm host-install(4)
+broken-step build-amd64 host-install(4)
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 72d51813d631fe27d37736b7a55eeec08f246983
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Nov 27 15:18:48 2023 +0100
+
+    x86: amend cpu_has_xen_{ibt,shstk}
+    
+    ... to evaluate to false at compile-time when the respective Kconfig
+    control is off, thus allowing the compiler to eliminate then-dead code.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 17754972fa98bff2dfdec09b8094f54530bafcb8
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:56 2023 +0100
+
+    x86/atomic: address violations of MISRA C:2012 Rule 11.8
+    
+    Edit casts that unnecessarily remove const qualifiers
+    to comply with Rule 11.8.
+    The type of the provided pointer may be const qualified.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit fc63c0ebefe7e9d166b07971273c1de62428eb18
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:32 2023 +0100
+
+    AMD/IOMMU: address violations of MISRA C:2012 Rule 11.8
+    
+    Drop an unnecessary cast discarding a const qualifier, to comply with
+    Rule 11.8. The type of the formal parameter ivhd_block is const
+    qualified.
+    
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit fe26cb2dd20fa864deb05e4b278bc9993ba120e6
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:07 2023 +0100
+
+    x86/boot/reloc: address violations of MISRA C:2012 Rule 11.8
+    
+    Add missing const qualifier in casting to comply with Rule 11.8.
+    Argument tag is typically const qualified.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 09c2fe438da1dfc83f70d921b52240bea576615f
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:16:43 2023 +0100
+
+    x86/platform_hypercall: address violations of MISRA C:2012 Rule 11.8
+    
+    Add const qualifier in cast that unnecessarily removes it
+    to comply with Rule 11.8.
+    The variable info is declared with a const qualified type.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 82182ad7b46e0f7a3856bb12c7a9bf2e2a4570bc
+Author: Roger Pau Monn√© <roger.pau@citrix.com>
+Date:   Mon Nov 27 15:16:01 2023 +0100
+
+    livepatch: do not use .livepatch.funcs section to store internal state
+    
+    Currently the livepatch logic inside of Xen will use fields of struct
+    livepatch_func in order to cache internal state of patched functions.  Note
+    this is a field that is part of the payload, and is loaded as an ELF section
+    (.livepatch.funcs), taking into account the SHF_* flags in the section
+    header.
+    
+    The flags for the .livepatch.funcs section, as set by livepatch-build-tools,
+    are SHF_ALLOC, which leads to its contents (the array of livepatch_func
+    structures) being placed in read-only memory:
+    
+    Section Headers:
+      [Nr] Name              Type             Address           Offset
+           Size              EntSize          Flags  Link  Info  Align
+    [...]
+      [ 4] .livepatch.funcs  PROGBITS         0000000000000000  00000080
+           0000000000000068  0000000000000000   A       0     0     8
+    
+    This previously went unnoticed, as all writes to the fields of livepatch_func
+    happen in the critical region that had WP disabled in CR0.  After 8676092a0f16
+    however WP is no longer toggled in CR0 for patch application, and only the
+    hypervisor .text mappings are made write-accessible.  That leads to the
+    following page fault when attempting to apply a livepatch:
+    
+    ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
+    CPU:    4
+    RIP:    e008:[<ffff82d040221e81>] common/livepatch.c#apply_payload+0x45/0x1e1
+    [...]
+    Xen call trace:
+       [<ffff82d040221e81>] R common/livepatch.c#apply_payload+0x45/0x1e1
+       [<ffff82d0402235b2>] F check_for_livepatch_work+0x385/0xaa5
+       [<ffff82d04032508f>] F arch/x86/domain.c#idle_loop+0x92/0xee
+    
+    Pagetable walk from ffff82d040625079:
+     L4[0x105] = 000000008c6c9063 ffffffffffffffff
+     L3[0x141] = 000000008c6c6063 ffffffffffffffff
+     L2[0x003] = 000000086a1e7063 ffffffffffffffff
+     L1[0x025] = 800000086ca5d121 ffffffffffffffff
+    
+    ****************************************
+    Panic on CPU 4:
+    FATAL PAGE FAULT
+    [error_code=0003]
+    Faulting linear address: ffff82d040625079
+    ****************************************
+    
+    Fix this by moving the internal Xen function patching state out of
+    livepatch_func into an area not allocated as part of the ELF payload.  While
+    there also constify the array of livepatch_func structures in order to prevent
+    further surprises.
+    
+    Note there's still one field (old_addr) that gets set during livepatch load.  I
+    consider this fine since the field is read-only after load, and at the point
+    the field gets set the underlying mapping hasn't been made read-only yet.
+    
+    Fixes: 8676092a0f16 ('x86/livepatch: Fix livepatch application when CET is active')
+    Signed-off-by: Roger Pau Monn√© <roger.pau@citrix.com>
+    Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+
+commit 46f2e2c3bcd5b17dae0fd1e45ed8619d6c047b55
+Author: Federico Serafini <federico.serafini@bugseng.com>
+Date:   Mon Nov 27 15:15:09 2023 +0100
+
+    xen/mm: address violations of MISRA C:2012 Rules 8.2 and 8.3
+    
+    Add missing parameter names and uniform the interfaces of
+    modify_xen_mappings() and modify_xen_mappings_lite().
+    
+    No functional change.
+    
+    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit b82b867a6694368b9a74ed00397b2393d129a24d
+Author: Federico Serafini <federico.serafini@bugseng.com>
+Date:   Mon Nov 27 15:14:00 2023 +0100
+
+    x86/mm: preparation work to uniform modify_xen_mappings* interfaces
+    
+    The objective is to use parameter name "nf" to denote "new flags"
+    in all the modify_xen_mappings* functions.
+    Since modify_xen_mappings_lite() is currently using "nf" as identifier
+    for a local variable, bad things could happen if new uses of such
+    variable are committed while a renaming patch is waiting for the
+    approval.
+    To avoid such danger, as first thing rename the local variable from
+    "nf" to "flags".
+    
+    No functional change.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit fbcec32d6d3ea0ac329301925b317478316209ed
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:39:55 2023 +0000
+
+    x86/mem_sharing: Release domain if we are not able to enable memory sharing
+    
+    In case it's not possible to enable memory sharing (mem_sharing_control
+    fails) we just return the error code without releasing the domain
+    acquired some lines above by rcu_lock_live_remote_domain_by_id().
+    
+    Fixes: 72f8d45d69b8 ("x86/mem_sharing: enable mem_sharing on first memop")
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+
+commit b9eeb1992676ec83cee285b97fee94d03eaa9836
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:26:20 2023 +0000
+
+    x86/mem_sharing: Fix typo in comment
+    
+    ambigious -> ambiguous
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+(qemu changes not included)
 
