@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F687FBD10
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 15:45:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643262.1003263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 201B67FBDA9
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 16:05:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643271.1003283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7zKm-00021Z-DQ; Tue, 28 Nov 2023 14:45:08 +0000
+	id 1r7zdn-0000Cw-3H; Tue, 28 Nov 2023 15:04:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643262.1003263; Tue, 28 Nov 2023 14:45:08 +0000
+Received: by outflank-mailman (output) from mailman id 643271.1003283; Tue, 28 Nov 2023 15:04:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r7zKm-0001yl-An; Tue, 28 Nov 2023 14:45:08 +0000
-Received: by outflank-mailman (input) for mailman id 643262;
- Tue, 28 Nov 2023 14:45:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r7zdm-0000A2-Vs; Tue, 28 Nov 2023 15:04:46 +0000
+Received: by outflank-mailman (input) for mailman id 643271;
+ Tue, 28 Nov 2023 15:04:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C3UE=HJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r7zKk-0001yZ-Fj
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 14:45:06 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b82ea506-8dfc-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 15:45:05 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50bbc36f767so892534e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 06:45:05 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- c37-20020a05651223a500b0050aa6bdd12esm1859625lfv.6.2023.11.28.06.45.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 06:45:04 -0800 (PST)
+ <SRS0=zxdS=HJ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1r7zdl-00009L-Sk
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 15:04:45 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 75aff0ec-8dff-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 16:04:42 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-50bbb4de875so923102e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Nov 2023 07:04:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +40,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b82ea506-8dfc-11ee-98e3-6d05b1d4d9a1
+X-Inumbo-ID: 75aff0ec-8dff-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701182705; x=1701787505; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=KfGd4ab310AsxiKSY3TXfdDWoTTuBnt+9aGFV/fwthQ=;
-        b=K5vgEC0aFsezCakvMv/jyjECusAFvfboN0edakOcQZB0GT5r+mGY4Qy9MLBYIOiz/8
-         qQKXJNtfNebqmmJkK0u7d5K3W4G2ImhdD+grDl4ehFomjLIbb/AZgYIgCGV1nJVav8an
-         f+QZi5SzSKwUTIeud2+X3a7yceUx6f4TiM8Dcp9Kkb+sj5+jHD5g9AuaMgMdT/9SLDRy
-         8X2neaFm6NFZKFPtZhWDm1NYITpWEfrAjdKDuxfa/0edUGqBvoZkG74JQnz+wJTBnbMv
-         fuTdsh3YLmzVdCCgHCZ/p4KOqUI1bD6HNY1v8g6es3z9qo2Yp2o2D0sUVjc4wE4sjxX4
-         +Lnw==
+        d=gmail.com; s=20230601; t=1701183882; x=1701788682; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B6RasPRjqLekPaCWTZWVwoaNF9xE1LG4BiV0oARaPgY=;
+        b=Bv9BUMTITZ985d9l093sm4ZJpCfng5EeCIqXOZ6TbDGwVJ0C+nzCwi3BQJEJcNA4Qc
+         e73tguVao1ws+/NqO0GAUFzwhJOaT4J2qe/8c4IuKTWqLdqqTUcHrBDYmFAIrHDi1mu9
+         Z6odYzMKJipCVlBLNtQaJQCavpMqfMVQ/nJepS33yMMuEJNiN9Q+sGbNKC5fDjvJN0Ml
+         R2ennBjYAqhcrzu1ierdfs/xF05wR3AOw9/QgN/4VlcB1hZBMMCkL4CaSuTKmQvYgW6n
+         yHDYpSuVprey7CTrl4aTVpEFlBHV+9wdp3qQTdR2jc5AmI/tA/Bg+dXL8iehXFqThgOM
+         m4mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701182705; x=1701787505;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KfGd4ab310AsxiKSY3TXfdDWoTTuBnt+9aGFV/fwthQ=;
-        b=X6BHJyKEQtm2e6MhrxYgODXFTY+n3M9W5xLURM2iSfBpY2XiPNP3msK1RY6fMzX7kW
-         K4ezQoRcTahZZS0cTQvatbcmuj8jJsO0sIov3whxivlAYfvpt8f6H1U9lCD6orE/IxJW
-         leFtVV/072a710Anoe93jWAqPbEmDfIn/NZD1NzKcF4jCcB6Xzne/GbXJezWvMymgLMf
-         ik4qf3APFknts/iUbB3Tifd56fZIJkPzEoZM44dO+ViLnWCz/W6uv83xCuKWBnFl2flH
-         IpJ9rHkXjyXHmpy9IJwz3inG1ZRxBe1EKtVa3riWvqV/tu0cJLL6aTN5PA2I0aaS13dG
-         nKrA==
-X-Gm-Message-State: AOJu0YwlV9zASFi1plm665MUUDLLoephL1NbSErhWMaglXVbbs6fHLgy
-	iBJrDJARcuZgSViWfpAYtL8=
-X-Google-Smtp-Source: AGHT+IEHFSrGMKpQmty4/o/U1cd110W7l4wI2z4IPM1+ppx0fBqWiclq0BgReY29Fs9WhO6LTBP4AQ==
-X-Received: by 2002:ac2:55b9:0:b0:50b:bfc2:7912 with SMTP id y25-20020ac255b9000000b0050bbfc27912mr742519lfg.34.1701182704948;
-        Tue, 28 Nov 2023 06:45:04 -0800 (PST)
-Message-ID: <c594af5abe74f85a37b05ef9030e6361dfb3b67f.camel@gmail.com>
-Subject: Re: [PATCH] .gitignore: generalize *.new
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	 <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Date: Tue, 28 Nov 2023 16:45:03 +0200
-In-Reply-To: <40438252-0d54-47f0-aad8-e76d57508bc5@suse.com>
-References: <40438252-0d54-47f0-aad8-e76d57508bc5@suse.com>
+        d=1e100.net; s=20230601; t=1701183882; x=1701788682;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=B6RasPRjqLekPaCWTZWVwoaNF9xE1LG4BiV0oARaPgY=;
+        b=fduIFRyRLOdeZq/guwexo36t6FxqjM/2xvtFWlkBQ2oum14qcMslykmR0TE4O9QhD+
+         sM7srBIYnXXRR54IlXxWa+Lp45Sw5f1HKMBS8Yzf/aplJallCiYrEPthxGgultyVs9BS
+         jUe0KeQaWaIu924izo1kv/kTTP6yYGdzwOnJzDJ14ePVz4QmmBhNOtQAyu78lqIfb1Ur
+         fSo795Cm1s9iuCKZ/IbpFFlBcEkRayBx0Lze+pBRMnKPwNVjpNEJryDoh2rkcz/IHqn8
+         aKR3Qpw3I58miz8eVbKYwcuCtTCJdAC/5/TlcgfwWxNeNSXfYIzG51LCoAwdVC17wj7e
+         dMHw==
+X-Gm-Message-State: AOJu0YwuR8cS7C39oUbyOUmos61BqDjIlxr7buc7/s7O1DbGFD8rLlI6
+	THTvWdPslTUnjYZjpo9dLK7yTsZFtHK/HaOz6So=
+X-Google-Smtp-Source: AGHT+IHeNh40yWCjaLBVfoCGZ/wk7inbvg6pxaMLvvP+/1Laqq3LLIWKV/gVTn4t5u1zwB+MqumSTwR+W6xd4Eaeubw=
+X-Received: by 2002:a05:6512:68:b0:50b:ad95:7a44 with SMTP id
+ i8-20020a056512006800b0050bad957a44mr5432234lfo.46.1701183881686; Tue, 28 Nov
+ 2023 07:04:41 -0800 (PST)
+MIME-Version: 1.0
+References: <20231110160804.29021-1-jgross@suse.com> <20231110160804.29021-9-jgross@suse.com>
+In-Reply-To: <20231110160804.29021-9-jgross@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 28 Nov 2023 10:04:29 -0500
+Message-ID: <CAKf6xptdYwcS+Jhj2jbyB-CX3kRwUL4vXXceuF3+dDxLA6QOrQ@mail.gmail.com>
+Subject: Re: [PATCH v2 08/29] tools/xenlogd: add 9pfs walk request support
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
-MIME-Version: 1.0
 
-Hi Jan,
+On Fri, Nov 10, 2023 at 1:16=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
+te:
+>
+> Add the walk request of the 9pfs protocol.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-On Tue, 2023-11-28 at 13:51 +0100, Jan Beulich wrote:
-> It's not only in xen/include/xen/ that we generate (intermediate)
-> *.new
-> files.
->=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Really I don't think I can spot what *.new we create in that specific
-> directory. xen/include/ certainly has some.
->=20
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -17,6 +17,7 @@
-> =C2=A0*.so.[0-9]*
-> =C2=A0*.bin
-> =C2=A0*.bak
-> +*.new
-> =C2=A0*.tmp
-> =C2=A0*.spot
-> =C2=A0*.spit
-> @@ -277,7 +278,6 @@
-> =C2=A0xen/include/config/
-> =C2=A0xen/include/generated/
-> =C2=A0xen/include/public/public
-> -xen/include/xen/*.new
-> =C2=A0xen/include/xen/acm_policy.h
-> =C2=A0xen/include/xen/compile.h
-> =C2=A0xen/include/xen/hypercall-defs.h
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
-I am happy with these changes.
+9P2000.u has support for symlinks which you're explicitly not
+supporting.  A symlink would only be present if someone on the backend
+side created one.  So there could be some corner case that is
+disallowed, but it is probably better to just disallow them.
 
-Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-~ Oleksii
-
+Regards,
+Jason
 
