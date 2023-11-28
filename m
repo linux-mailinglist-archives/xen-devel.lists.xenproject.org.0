@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60007FC040
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:25:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643386.1003561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F417FC044
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 18:28:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643391.1003572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81po-0007WD-3K; Tue, 28 Nov 2023 17:25:20 +0000
+	id 1r81t5-000125-IW; Tue, 28 Nov 2023 17:28:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643386.1003561; Tue, 28 Nov 2023 17:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 643391.1003572; Tue, 28 Nov 2023 17:28:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r81po-0007Th-0D; Tue, 28 Nov 2023 17:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 643386;
- Tue, 28 Nov 2023 17:25:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r81t5-0000y8-F0; Tue, 28 Nov 2023 17:28:43 +0000
+Received: by outflank-mailman (input) for mailman id 643391;
+ Tue, 28 Nov 2023 17:28:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xcZ5=HJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r81pm-000731-Se
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 17:25:18 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2061f.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::61f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 190fc642-8e13-11ee-9b0e-b553b5be7939;
- Tue, 28 Nov 2023 18:25:17 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by DB8PR04MB7161.eurprd04.prod.outlook.com (2603:10a6:10:124::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.21; Tue, 28 Nov
- 2023 17:25:15 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7046.015; Tue, 28 Nov 2023
- 17:25:15 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r81t4-0000xg-F1; Tue, 28 Nov 2023 17:28:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r81t4-0005li-6v; Tue, 28 Nov 2023 17:28:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r81t3-0006f0-Tk; Tue, 28 Nov 2023 17:28:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r81t3-0003uV-TI; Tue, 28 Nov 2023 17:28:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,133 +42,302 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 190fc642-8e13-11ee-9b0e-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E0ZTuS654kR4yYufjffTKS8WXIPV/kDInL8cKI/8nc3rxrO+3f8zCnZyvoC5K4bkbVfe8q2oJBw6deCZbjtVTq3bRV1ZLdg2qIx4eXFPX4IPlFt1v/YSkLqJM1pjiZBUbbaKV22kjB9hNR2o96+FRltWUkH0B64Mw8uuH2QMac1C7iyzuBtXc5TcnlSf1hvGiGixmoHOJRFg3zncvky7GO0RlDyM3aD6EqVOO5Lks+SxXRRCFeocFKybD+IrQxSwrK15M1ejrJKATdUokxyqi/9yCf3FqSpLQyXVMc30soMoUxMg+kdGvUKLcdVHBDj+welnAXJDncqf9PiRGmNLxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=359se0zwheblR3gQ8iCEWo19fEVQkaMnFaZyxNlsiXQ=;
- b=ljw9OUxBGbROejrSOjeyJln8B/rZ7CWsZ+VrkMROG3FlfSqpfXBl3q3Ws3C2z6JbEKhuZYBDdAnz52iYiUzg5vo255WmoWYE+AFMgybmBXzqSyXGONMkODRYP66W4DtMvXWAI7t88MMyBKwu8Cm/AaxCheg7eLA/JCfg/YVCIB3FQEeCPjl0H1so1y4zcbwI7Io1EacbZvYhtRvdagF60ZP0HZ7JTOq7/WN5xvwCGSKt+6TJJ3bu+9j1gMy1JeoPPhfRrTQx4zYM5br8RtbgwJM4uT2pidGAfOTZTdDZ3hcr3aRyvKsHkdKQWb+ObUEGBydqisKLDW+2b4lqF1lw9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=359se0zwheblR3gQ8iCEWo19fEVQkaMnFaZyxNlsiXQ=;
- b=pl3Vaau0QZwp0IGKiEwoHtREO653zYHauZnr+7xFT5PLeuuyvVB1gp5TyE/PekIJbmc/zWGB0saKkPBuxkCwXR82xXGByLhmQOnU07mWkvIgwSh276fTgIpKRcmg0SkL/K9KD13zAhAwkAwrbGy5ftsGiK9mLOoptZVgZ5slqpObkeKID4hSrNJ4aBn5jXBMT5uOsBcy6sq+cMWMbTPbJbgKl5TnUmlmYJ5/Hs4/VpXl+h7WTXnNZqoP42pgB2Nk+UCeG2hx3OEknveyd/fhpz1xK6jGuBETkJ9iFTGCs5cDzXjj8LtNUt4zUJ5Z3p6si/YIclu5EF7UJZ12Tze5zQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3d425c3a-bb4b-4d0a-a3c5-c224b385a43b@suse.com>
-Date: Tue, 28 Nov 2023 18:25:15 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 04/11] xen/dmi: address a violation of MISRA C:2012
- Rule 8.2
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1700832962.git.federico.serafini@bugseng.com>
- <0eaa7a31011dc3b2f22217d2c7389570d5634549.1700832962.git.federico.serafini@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0eaa7a31011dc3b2f22217d2c7389570d5634549.1700832962.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0371.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f8::7) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qmi2n6N6uIRCfEClviV22sMHnXqog09p/l/kX6cCAGA=; b=OqyhWMRKpTdtRmwWd4JL4HhdUd
+	U+MilaxEuEMSFjPIEAjTpJ6bHJLme73ZLuide6XJCtlPC6QMdikVOv/8wm8rFtmXN/2B9PFTl/ake
+	KMCmzYqTtBcJIF0jalQr34f4UOTJKJf/FWsxtXsFbggkphrNQmFUNsSToPiLsrivdZuw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183899-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|DB8PR04MB7161:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7be171af-b2aa-416b-96a6-08dbf036fc6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	iY0g+aJo01PCL3JNlWs3NE19PPfQI77FdR0Zsx+qndaI0Ju2iN8j+UZAzfKPbUxFBAJVxTqUJteseyn4NA1P9m1L64rbljtZw4NoRjfUf/9XApVzgyG9U73edj/hKFHURI2Eb0OCnXbrKMJ9Kkz0VDR+plMuHrvP333Yx6T5g1BE5XTYCsEbhv0Gv+Jt/RJa7uo3duFm03O6T3buQQV3F6qdAK6CAHXX8QuayB4qEf3VweGIvkVeXX997aPfQKAye9SK7l+AfutFovpbXEt+tc7r3NtreOGg3Prr66YfMuBCw+49AyTam5RrXb76VPpye0KThMGzs/1lksU5iGFh+kgH++OEuVb7B17rUsY7o+p9HpwrQYwjytj3TxeX1GorAutvEExnH9nILmcwDzan6patRPGXvBSaBzh0UwjIm50Nayv6Hk3w/PN093yonwiSI+8znL2HVFXk8+vH391e/NkZaqnE9+O5mCaPSgywpGzUXQbPZdSsDXEugmAm89lBpYKeNa3uJ0snxy3juuxaqR7FcE7f7CB5RED9DTvZYzEwVM05dAUoPU7pzq6oB7/SBg/xRm9EfNecGFNGl7sQh6jNDiFK7cDpUarBny68TeQdkGdBh0Np5eoGfd1mdO7Agq9t7kUAHl3A7lVrD28niw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(39860400002)(136003)(396003)(346002)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(66556008)(316002)(6916009)(54906003)(31696002)(66476007)(66946007)(8936002)(8676002)(4326008)(6486002)(478600001)(41300700001)(36756003)(86362001)(5660300002)(2906002)(558084003)(38100700002)(2616005)(26005)(6506007)(6512007)(53546011)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VG5hdzZ0TUg4elJJM3c3NkxrWDNLNTBWckx4VzJnbUs1VVowUS91UThKajRV?=
- =?utf-8?B?L3JKZXF2WStMWTVsVSsrRWplOCthSE9CTFBGVFNTQ0dIWkV5VXBLVnBLZStB?=
- =?utf-8?B?L2xtR0VYak5Mbk1lZzZ6VEFYeXhEWmVhSGtiNjRKZHFGZW9HSHExQVUvaGZ3?=
- =?utf-8?B?UUFQZCtqWU5EbHlpY3lEdlFXQ3o0Y1ZzK3p4RU5xcjR6VHRFZGtKemV5MVRt?=
- =?utf-8?B?WGtOYlM4TXl0S292dnRncHlJZ25laDMvOWV6V2RvZWV1MzVJYTA1WEdpbUZJ?=
- =?utf-8?B?aWV5WGd0a2M5cUF6cTkvZTNhOTdRZFBBT2N6b2gydTR3a0FRVU9XR3JLd2JM?=
- =?utf-8?B?em12MjFiZml3cjdSUUE3WDkxRHhuMENDVFNDNW1aU2F1UFdHODVDSTBVTG8w?=
- =?utf-8?B?cndtbEFqODlVM0tQQ0I2N3hkOUVrR3c5Y2FZQ1RJRTI0MndEcHJ5QkFjQWtl?=
- =?utf-8?B?Nnl4M09jVENITW9NWWVWUmtvUHRFbktJd25JVE1nYzhBR1hMV08vOUZJS0pW?=
- =?utf-8?B?YTd0Zi9neUMreTNBczl4K0VRMC8zNzVTU0EyaEdXRXZZRU8rbWo3Tm9MKzJI?=
- =?utf-8?B?bmpwTld1MDBjMWQ3eDJMdTVUR0dnbTZYeWUvbkI1OHVRSmd0cjZkRzdPWEhu?=
- =?utf-8?B?VkFjU1VDbzdjdURjZTZRSVR3MUZrcFd5R01DbnRZSVBlbWRsbFU1THlsV2xk?=
- =?utf-8?B?WkxJWHd1c0l4aTVCcEpob2Zvc0lNSTY0b3lBcjJEei95VkVITDNUNEJ0a2Ro?=
- =?utf-8?B?aXJYY01oSWdMVDR5b2drMGtsZFNLdUFRSzcvcFVPZ0hwL3Y2TER5ZUp1eUZM?=
- =?utf-8?B?bGRta3Z1UXpET0lGWE1xL2x3QjRydHdycWFlbGhFL29sVDFtM1Y1RVM1OTBp?=
- =?utf-8?B?ZjRMQUM4L284Tis2YmY1eGV0TzJPNVNTKzAxTDBVQ1V2UXZkK1RMbmpjbWdm?=
- =?utf-8?B?Z253RTM4L3NZWFcxZzVXZ2VBdnJjTW1BL1VnTmc0bmpNTDJjUjY1alhiWm02?=
- =?utf-8?B?ajNGdndsTU1HNlFsYkltZ3FHR1dSK2djRFFJck4vTUtjOCtmL0ZqRmRSVm1Y?=
- =?utf-8?B?UUZ2VHJFa09OR05wcnV2MnF6TzNETnJQVDV0OWN4eEN1VXVOcVpiMi9RMksr?=
- =?utf-8?B?Q1k1eFRRMlRhU1htMjV0QWJQRXpzSCtpaG55ZWFwNHlmQ3I5N1JsV0tiZFd0?=
- =?utf-8?B?dXg1V3V4U0lKaDdJbkI5aTFoeHB0V3NvQmVxTmsvQ3JNRjFDRVJSTnVCR0I5?=
- =?utf-8?B?WVJKeFBOYmRRTUY1Slg3Ymd0NHUyQVp0OXo2VjBSdzdDRU5DZ0wzTktlZjhH?=
- =?utf-8?B?YXRHR1laK0JFUmh4dVVjdlhyWHJISzEwS3JOVFFsTFRxankwQm40TTEvakpo?=
- =?utf-8?B?aHZEMmVoZlRNam1lRzZoWE94bi9QNlBIUE9JWGZwckdVWkFWMHg5Q1FUdlVu?=
- =?utf-8?B?YWMrb0h4eWlyMnZPMnBtR3JMNW9EM1R6bUt2c2syNElmVzF2TDdCRHI1SUg0?=
- =?utf-8?B?T0duaGtrVEhDQ0dTL2puNHE2dGQ2NmwrcTB2bXFpT2x0Ym95NklTMjVvSjBn?=
- =?utf-8?B?Vmp1eG1zQ0xrbkNRQVlEZDdkTFo0a1dhbmlHcTFOZDJyZUhjcUE1UklOSlA4?=
- =?utf-8?B?eVQvb0ZTK0wzRGV0elN0ZnhLVW1kY3Q1UjJkQU9TSHNnY09MK09tNmpycUY5?=
- =?utf-8?B?RkRvRWhNNnhYQW1qUEFVdXpFNzhUU1hDdUlhdDVYUXhWa0gwb1U5T2dxay9i?=
- =?utf-8?B?MnF1Y2JGcUVFVytxS2prMTZRS21BdHBxRll2MVBSMlM4Vjd3dkMvUGJnOUt2?=
- =?utf-8?B?QmlSR0ZESGVhNU9jYjZKRHNpL04xbm5lMnNXV0xFTHJtdmxWcHlpZ2RhZDBL?=
- =?utf-8?B?WVV1blFUU0ttN2EwR05NVDZibnMrd0ozbFgvMGhheUhSQm8vWnJIRU5PSWpC?=
- =?utf-8?B?U3Fta2FJNGpaQmJDT2kyanNONHZUbjRkT0dyZWpONHQ4MDlsVVI1ZVF2SUE0?=
- =?utf-8?B?b1JMcUhneGE1cldPNkxSZG9UdWNIODdlUW8yK09WZktmbXlwa0ZTZHEzQXlC?=
- =?utf-8?B?ajc0TlNmUk4yWUhmVm9JbSsyY3R1eDBBb0xJVGZwMWVzaElmZFVNS1JXVURw?=
- =?utf-8?Q?orosNImZjqfpUxSJbOSc8naUY?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7be171af-b2aa-416b-96a6-08dbf036fc6c
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 17:25:15.7887
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dh1IQPVO6GWz3SAPj7I0PGdaMf7SVPnajnZczQ24EPbL3QyduFHkAH3czaZjdvVj6+IXh3sdfWc6NMsWDnctAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7161
+Subject: [xen-unstable-smoke test] 183899: regressions - all pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build/dist-test:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build/dist-test:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build/dist-test:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=72d51813d631fe27d37736b7a55eeec08f246983
+X-Osstest-Versions-That:
+    xen=80c153c48b255bae61948827241c26671207cf4e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Nov 2023 17:28:41 +0000
 
-On 24.11.2023 15:03, Federico Serafini wrote:
-> Add missing parameter name. No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+flight 183899 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183899/
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   7 xen-build/dist-test      fail REGR. vs. 183851
+ build-arm64-xsm               7 xen-build/dist-test      fail REGR. vs. 183851
+ build-armhf                   7 xen-build/dist-test      fail REGR. vs. 183851
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  72d51813d631fe27d37736b7a55eeec08f246983
+baseline version:
+ xen                  80c153c48b255bae61948827241c26671207cf4e
+
+Last test of basis   183851  2023-11-24 09:03:53 Z    4 days
+Failing since        183871  2023-11-27 14:00:26 Z    1 days    6 attempts
+Testing same since   183874  2023-11-27 19:00:27 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  Jan Beulich <jbeulich@suse.com>
+  Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Simone Ballarin  <simone.ballarin@bugseng.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 72d51813d631fe27d37736b7a55eeec08f246983
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Nov 27 15:18:48 2023 +0100
+
+    x86: amend cpu_has_xen_{ibt,shstk}
+    
+    ... to evaluate to false at compile-time when the respective Kconfig
+    control is off, thus allowing the compiler to eliminate then-dead code.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 17754972fa98bff2dfdec09b8094f54530bafcb8
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:56 2023 +0100
+
+    x86/atomic: address violations of MISRA C:2012 Rule 11.8
+    
+    Edit casts that unnecessarily remove const qualifiers
+    to comply with Rule 11.8.
+    The type of the provided pointer may be const qualified.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit fc63c0ebefe7e9d166b07971273c1de62428eb18
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:32 2023 +0100
+
+    AMD/IOMMU: address violations of MISRA C:2012 Rule 11.8
+    
+    Drop an unnecessary cast discarding a const qualifier, to comply with
+    Rule 11.8. The type of the formal parameter ivhd_block is const
+    qualified.
+    
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit fe26cb2dd20fa864deb05e4b278bc9993ba120e6
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:17:07 2023 +0100
+
+    x86/boot/reloc: address violations of MISRA C:2012 Rule 11.8
+    
+    Add missing const qualifier in casting to comply with Rule 11.8.
+    Argument tag is typically const qualified.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 09c2fe438da1dfc83f70d921b52240bea576615f
+Author: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Date:   Mon Nov 27 15:16:43 2023 +0100
+
+    x86/platform_hypercall: address violations of MISRA C:2012 Rule 11.8
+    
+    Add const qualifier in cast that unnecessarily removes it
+    to comply with Rule 11.8.
+    The variable info is declared with a const qualified type.
+    No functional change.
+    
+    Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+    Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 82182ad7b46e0f7a3856bb12c7a9bf2e2a4570bc
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Mon Nov 27 15:16:01 2023 +0100
+
+    livepatch: do not use .livepatch.funcs section to store internal state
+    
+    Currently the livepatch logic inside of Xen will use fields of struct
+    livepatch_func in order to cache internal state of patched functions.  Note
+    this is a field that is part of the payload, and is loaded as an ELF section
+    (.livepatch.funcs), taking into account the SHF_* flags in the section
+    header.
+    
+    The flags for the .livepatch.funcs section, as set by livepatch-build-tools,
+    are SHF_ALLOC, which leads to its contents (the array of livepatch_func
+    structures) being placed in read-only memory:
+    
+    Section Headers:
+      [Nr] Name              Type             Address           Offset
+           Size              EntSize          Flags  Link  Info  Align
+    [...]
+      [ 4] .livepatch.funcs  PROGBITS         0000000000000000  00000080
+           0000000000000068  0000000000000000   A       0     0     8
+    
+    This previously went unnoticed, as all writes to the fields of livepatch_func
+    happen in the critical region that had WP disabled in CR0.  After 8676092a0f16
+    however WP is no longer toggled in CR0 for patch application, and only the
+    hypervisor .text mappings are made write-accessible.  That leads to the
+    following page fault when attempting to apply a livepatch:
+    
+    ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
+    CPU:    4
+    RIP:    e008:[<ffff82d040221e81>] common/livepatch.c#apply_payload+0x45/0x1e1
+    [...]
+    Xen call trace:
+       [<ffff82d040221e81>] R common/livepatch.c#apply_payload+0x45/0x1e1
+       [<ffff82d0402235b2>] F check_for_livepatch_work+0x385/0xaa5
+       [<ffff82d04032508f>] F arch/x86/domain.c#idle_loop+0x92/0xee
+    
+    Pagetable walk from ffff82d040625079:
+     L4[0x105] = 000000008c6c9063 ffffffffffffffff
+     L3[0x141] = 000000008c6c6063 ffffffffffffffff
+     L2[0x003] = 000000086a1e7063 ffffffffffffffff
+     L1[0x025] = 800000086ca5d121 ffffffffffffffff
+    
+    ****************************************
+    Panic on CPU 4:
+    FATAL PAGE FAULT
+    [error_code=0003]
+    Faulting linear address: ffff82d040625079
+    ****************************************
+    
+    Fix this by moving the internal Xen function patching state out of
+    livepatch_func into an area not allocated as part of the ELF payload.  While
+    there also constify the array of livepatch_func structures in order to prevent
+    further surprises.
+    
+    Note there's still one field (old_addr) that gets set during livepatch load.  I
+    consider this fine since the field is read-only after load, and at the point
+    the field gets set the underlying mapping hasn't been made read-only yet.
+    
+    Fixes: 8676092a0f16 ('x86/livepatch: Fix livepatch application when CET is active')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+
+commit 46f2e2c3bcd5b17dae0fd1e45ed8619d6c047b55
+Author: Federico Serafini <federico.serafini@bugseng.com>
+Date:   Mon Nov 27 15:15:09 2023 +0100
+
+    xen/mm: address violations of MISRA C:2012 Rules 8.2 and 8.3
+    
+    Add missing parameter names and uniform the interfaces of
+    modify_xen_mappings() and modify_xen_mappings_lite().
+    
+    No functional change.
+    
+    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit b82b867a6694368b9a74ed00397b2393d129a24d
+Author: Federico Serafini <federico.serafini@bugseng.com>
+Date:   Mon Nov 27 15:14:00 2023 +0100
+
+    x86/mm: preparation work to uniform modify_xen_mappings* interfaces
+    
+    The objective is to use parameter name "nf" to denote "new flags"
+    in all the modify_xen_mappings* functions.
+    Since modify_xen_mappings_lite() is currently using "nf" as identifier
+    for a local variable, bad things could happen if new uses of such
+    variable are committed while a renaming patch is waiting for the
+    approval.
+    To avoid such danger, as first thing rename the local variable from
+    "nf" to "flags".
+    
+    No functional change.
+    
+    Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit fbcec32d6d3ea0ac329301925b317478316209ed
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:39:55 2023 +0000
+
+    x86/mem_sharing: Release domain if we are not able to enable memory sharing
+    
+    In case it's not possible to enable memory sharing (mem_sharing_control
+    fails) we just return the error code without releasing the domain
+    acquired some lines above by rcu_lock_live_remote_domain_by_id().
+    
+    Fixes: 72f8d45d69b8 ("x86/mem_sharing: enable mem_sharing on first memop")
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+
+commit b9eeb1992676ec83cee285b97fee94d03eaa9836
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Nov 22 16:26:20 2023 +0000
+
+    x86/mem_sharing: Fix typo in comment
+    
+    ambigious -> ambiguous
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+(qemu changes not included)
 
