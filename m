@@ -2,41 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3347FC429
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 20:19:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643436.1003658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410CC7FC463
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Nov 2023 20:45:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643447.1003673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r83c6-0006rE-CE; Tue, 28 Nov 2023 19:19:18 +0000
+	id 1r840k-0005E7-G9; Tue, 28 Nov 2023 19:44:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643436.1003658; Tue, 28 Nov 2023 19:19:18 +0000
+Received: by outflank-mailman (output) from mailman id 643447.1003673; Tue, 28 Nov 2023 19:44:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r83c6-0006p0-8A; Tue, 28 Nov 2023 19:19:18 +0000
-Received: by outflank-mailman (input) for mailman id 643436;
- Tue, 28 Nov 2023 19:19:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Oxj7=HJ=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1r83c4-0006os-On
- for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 19:19:16 +0000
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05265f7a-8e23-11ee-98e3-6d05b1d4d9a1;
- Tue, 28 Nov 2023 20:19:15 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8352C40E0195; 
- Tue, 28 Nov 2023 19:19:14 +0000 (UTC)
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id kZwaEBiXw0lG; Tue, 28 Nov 2023 19:19:13 +0000 (UTC)
-Received: from zn.tnic (pd95304da.dip0.t-ipconnect.de [217.83.4.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6D25E40E0031;
- Tue, 28 Nov 2023 19:18:50 +0000 (UTC)
+	id 1r840k-0005CV-DV; Tue, 28 Nov 2023 19:44:46 +0000
+Received: by outflank-mailman (input) for mailman id 643447;
+ Tue, 28 Nov 2023 19:44:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FWLy=HJ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1r840j-0005CM-BI
+ for xen-devel@lists.xenproject.org; Tue, 28 Nov 2023 19:44:45 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20621.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::621])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 922adb6b-8e26-11ee-9b0e-b553b5be7939;
+ Tue, 28 Nov 2023 20:44:42 +0100 (CET)
+Received: from SA9PR13CA0068.namprd13.prod.outlook.com (2603:10b6:806:23::13)
+ by MW4PR12MB6974.namprd12.prod.outlook.com (2603:10b6:303:207::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.28; Tue, 28 Nov
+ 2023 19:44:38 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10b6:806:23:cafe::2e) by SA9PR13CA0068.outlook.office365.com
+ (2603:10b6:806:23::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22 via Frontend
+ Transport; Tue, 28 Nov 2023 19:44:37 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7046.17 via Frontend Transport; Tue, 28 Nov 2023 19:44:37 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 28 Nov
+ 2023 13:44:36 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 28 Nov
+ 2023 13:44:36 -0600
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Tue, 28 Nov 2023 13:44:34 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,78 +63,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05265f7a-8e23-11ee-98e3-6d05b1d4d9a1
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1701199152; bh=g5Mn3al0jfBF2Tc5wdFDpfH6j9nnJam8vvaA6CzuQO0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RY+zlK738bCdkjafOW/V4nnZkY05ywQPnrWVB+d3C58AHMANGruc+O4gqMj87sCo8
-	 MHFuVexopL8HzEHdGlTSWn6aYW4utbPnl1oZNDLUySXdxmccA9uYoyZwm9tJaO9Zct
-	 bHTOI0Lz40C9i6AboHFAKMJCFgAJXRon8/+UyTJ4R6lY8h3lXOq9s+N+C/DK5+5ITv
-	 MRvAWiI/e8bs2qKj6sLM0LKJhKWgGS9x1up2i3Muagi9zDDYjxLo+Na+rLPqEGcJnr
-	 TMDsYWzdbzbpYUjnBsCraFphskDd+LXJN3mnyc12EpYKyXDNKA8B73FRpAPDsW340o
-	 aVQLz32kGRCtitobbENoKLorI70wVbAENFxQMWHMmyMmxggWAa5WiTkDiiPypxxKQe
-	 D3xEe9CCNd0QTPz85sS7S0HED4LrWmPvPySTmA//rAy2VoXeO8LcGM7H4vIF3uhx8w
-	 83JaBy4uRgI0daywYmI55bpcOvThNMvh7vV4TblLP/xZg8I8NQUYLQ1PqLsNq+T2ZN
-	 RHi1c0M6hb48t4V1io8+ATkvHlkps0GClejTQvhNQ2/TCiCkRCAxEITdjHT5cFKFHm
-	 BBnMRZAVISopwt4jD/3fm1Dek3PFT9OzznmkCjuEeRXGq00E+IigRL08qs6TtyO9hw
-	 foVI56DUkjq2/5lxqyuHUIsI=
-Date: Tue, 28 Nov 2023 20:18:49 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: "Li, Xin3" <xin3.li@intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"Lutomirski, Andy" <luto@kernel.org>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"peterz@infradead.org" <peterz@infradead.org>,
-	"Gross, Jurgen" <jgross@suse.com>,
-	"Shankar, Ravi V" <ravi.v.shankar@intel.com>,
-	"mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>
-Subject: Re: [PATCH v12 24/37] x86/idtentry: Incorporate
- definitions/declarations of the FRED entries
-Message-ID: <20231128191849.GEZWY9GbzySrVI1vpv@fat_crate.local>
-References: <20231003062458.23552-1-xin3.li@intel.com>
- <20231003062458.23552-25-xin3.li@intel.com>
- <20231128100910.GSZWW8RnyhX0YQjwDm@fat_crate.local>
- <SA1PR11MB6734A1E439870989C7006166A8BCA@SA1PR11MB6734.namprd11.prod.outlook.com>
- <EE769C0F-FA81-49AD-A90B-F0E5D2A1DA7B@zytor.com>
+X-Inumbo-ID: 922adb6b-8e26-11ee-9b0e-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XNyuvkqtH+RyK2xAiYftmGIJ5/93Odjh95wR8YpF56Tkj/s5W9GLAtCaiIwQOgQl4R7Il+3GsD3gY0l330edXnoMa29SlJ9+xaUqks2OckNPfmD9L4RRjrCu1gicNKftonzeyzFNuMxas/c6lGNJL6KCSL0SzEr2vvtYEhux+cNlg5Kp4W42jdR1fm23fBV2c9xa5nB7NYOGIoDTvvBVE8TseD46vscAf0Y4IN1vvsCQDna9GarI6S/W47kntvurP+dd9E6QNK6z8TarwpudRMCWZJZNisgIshe9/aB04FXCXweA1nUlUBA85YGVXh9+lyMYg+qiJ83VPrHHBIUdkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5uXUlNdzuoy+V/xqdDmeP61vCOVi61BDWDYruLA5SG8=;
+ b=AVZdU1awjtdECQM7TZTr5j5W0TsdeL+xD03chLgxi+jiASa41z0KyDOwg0QZEf4kzRaw28BgSU6RBQXfAUFGDio2gzhs7o7ZVCXbao4ktWbngMYh8GpiBD3rRnghFEKpXOnsHftdY8TB3eVjQ65PqpB4WPB0kXYmuGpyzs6/SDQrtYRsHMRXqdQCwKQpVptx74jM5R/u25v5yFXkhN8xIK5N4rU1vpx4X1knslzptZrsiTUDroNFmMRmSeujJ/VgY9GIjL1Z3f6V+rypTtGo/mIydcJL7Y+vSwpaV610sIIF/78migWEa5EPGD23xstCLaKcfFAk4eTwDSSdqt8xiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5uXUlNdzuoy+V/xqdDmeP61vCOVi61BDWDYruLA5SG8=;
+ b=RvIEPCOKb9KdyBcFWj+Wab1cJJfIsRhRcpyUONSiRmelMEfz1H8ZZUJTmd0EYVls8EyvOvgYn8YNF5wRP4c83S+aelRNsAJB6HVj2iSfzT8HlYf4icqjTZBg0kkMvjhN8WCuSX4IzyF59hvuX+yLYF/PxEZCfucWJnquJNp/vyU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: [PATCH v8 0/2] vPCI capabilities filtering
+Date: Tue, 28 Nov 2023 14:44:23 -0500
+Message-ID: <20231128194427.2513249-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <EE769C0F-FA81-49AD-A90B-F0E5D2A1DA7B@zytor.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|MW4PR12MB6974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 183f4b58-989e-4723-d0fc-08dbf04a7474
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	M9HpDg21R8OJDeiYo19IKRhruF+uupDrMxw+x6T86KVa9MbndrpMwGAwfIrMQhsQfT4n0Vj8h+FndQ3Rg5Pw9v8XvVuJIbXuLCw0OR41kC4LQjuItTsfbXxujmaTi5x35QPfCufbHKaXC6ls01lh9K7ViI6z9RwhliJf3fMQGBGNrPFGetrCSZZhRuRgI9ySGCt+0J/0N0G6vYsXQ002xpZ7D1Bg1QbWca4laAYEil4JfFeY+clXhWWEYxTkqtmLa5SUeLoP9urw8KotX3DBq3dLmJ9n7EPqAHeTQtSakYueMjadsiiZZZhMh3wF+CmWjkgrlrLbM9wV4NrAx1pTN3snpOH7WoxJ+hFBX+pZJnL6y1UYDS0ylXLeQ/1JuDP09kvLyXE1RIo1v5Zur2/lS0G/K+SSsmj+g2tCu4xidYk9sD3wYaE4AO8zeHfb3qumJh4qQQKHLCMyQgQbpvl8WOvTvtwN8tF9rUTi8KFS+WznklXiEChOtujZwJNVNzaBNY5bU6ESxxKK2FqTgmd6C8a6Rz86bBk2+WsA2oW1e8VNVwf4pZ+9JO90jyXo3kX8vQEq3Aq1PeQh0rKEb7dPA2buSehA6HPxyDcPHproFwoT3/n7BqYdGg4fqdF9TFTmO6K9wFpQ6WxMJKd7E3apMknAMFPT20fO3hUkNk33m5UmSKcim3Fbqz+n0bHDz5r+SiaUEhoOortJbw6UaM1TtSDZk/YN4mtGwLcmLygrGK8TIhItHrjGqlaeg4a+GKYLbSEqVZ7ABFDe48ILsYTZeA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(376002)(346002)(396003)(136003)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(82310400011)(40470700004)(46966006)(36840700001)(6666004)(8936002)(4326008)(8676002)(66899024)(70586007)(70206006)(316002)(6916009)(54906003)(966005)(478600001)(40460700003)(81166007)(47076005)(36860700001)(356005)(41300700001)(36756003)(1076003)(86362001)(44832011)(26005)(40480700001)(2906002)(2616005)(83380400001)(426003)(336012)(5660300002)(82740400003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 19:44:37.4491
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 183f4b58-989e-4723-d0fc-08dbf04a7474
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6974
 
-On Tue, Nov 28, 2023 at 10:58:50AM -0800, H. Peter Anvin wrote:
-> >You have a very good sense =F0=9F=98=8A
+This small series enables vPCI to filter which PCI capabilities we expose to a
+domU. This series adds vPCI register handlers within
+xen/drivers/vpci/header.c:init_bars(), along with some supporting functions.
 
-I've been reading code of a couple of people for a couple of years. :-)
+Note there are minor rebase conflicts with the in-progress vPCI series [1].
+These conflicts fall into the category of functions and code being added
+adjacent to one another, so are easily resolved. I did not identify any
+dependency on the vPCI locking work, and the two series deal with different
+aspects of emulating the PCI header.
 
-> Remember that Signed-off-by: relates to the *patch flow*.
+Future work may involve adding handlers for more registers in the vPCI header,
+such as VID/DID, etc. Future work may also involve exposing additional
+capabilities to the guest for broader device/driver support.
 
-Yes, you should take the time to read Documentation/process/ and
-especially submitting-patches.rst.
+v7->v8:
+* address feedback
 
-We have it all written down and I point new(-er) people at that
-directory at least once a week. :-\
+v6->v7:
+* address feedback in ("xen/vpci: header: status register handler")
+* drop ("xen/pci: convert pci_find_*cap* to pci_sbdf_t") and
+  ("x86/msi: rearrange read_pci_mem_bar slightly") as they were committed
 
---=20
-Regards/Gruss,
-    Boris.
+v5->v6:
+* drop ("xen/pci: update PCI_STATUS_* constants") as it has been committed
 
-https://people.kernel.org/tglx/notes-about-netiquette
+v4->v5:
+* drop ("x86/msi: remove some unused-but-set-variables") as it has been
+  committed
+* add ("xen/pci: update PCI_STATUS_* constants")
+* squash ro_mask patch
+
+v3->v4:
+* drop "xen/pci: address a violation of MISRA C:2012 Rule 8.3" as it has been
+  committed
+* re-order status register handler and capabilities filtering patches
+* split an unrelated change from ("xen/pci: convert pci_find_*cap* to pci_sbdf_t")
+  into its own patch
+* add new patch ("x86/msi: rearrange read_pci_mem_bar slightly") based on
+  feedback
+* add new RFC patch ("xen/vpci: support ro mask")
+
+v2->v3:
+* drop RFC "xen/vpci: header: avoid cast for value passed to vpci_read_val"
+* minor misra C violation fixup in preparatory patch
+* switch to pci_sbdf_t in preparatory patch
+* introduce status handler
+
+v1->v2:
+* squash helper functions into the patch where they are used to avoid transient
+  dead code situation
+* add new RFC patch, possibly throwaway, to get an idea of what it would look
+  like to get rid of the (void *)(uintptr_t) cast by introducing a new memory
+  allocation
+
+[1] https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html
+
+Stewart Hildebrand (2):
+  xen/vpci: header: status register handler
+  xen/vpci: header: filter PCI capabilities
+
+ tools/tests/vpci/main.c    | 98 ++++++++++++++++++++++++++++++++++++++
+ xen/drivers/pci/pci.c      | 31 ++++++++----
+ xen/drivers/vpci/header.c  | 75 +++++++++++++++++++++++++++++
+ xen/drivers/vpci/vpci.c    | 74 +++++++++++++++++++++++-----
+ xen/include/xen/pci.h      |  3 ++
+ xen/include/xen/pci_regs.h |  9 ++++
+ xen/include/xen/vpci.h     | 14 ++++++
+ 7 files changed, 282 insertions(+), 22 deletions(-)
+
+
+base-commit: 18540a313cc66a04eb15a67d74c7992a8576fbec
+-- 
+2.43.0
+
 
