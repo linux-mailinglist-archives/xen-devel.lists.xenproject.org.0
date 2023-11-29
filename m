@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281627FD700
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 13:41:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643897.1004437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCE4B7FD719
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 13:50:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643901.1004445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Jsw-0003NC-2v; Wed, 29 Nov 2023 12:41:46 +0000
+	id 1r8K0t-0005bW-Qm; Wed, 29 Nov 2023 12:49:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643897.1004437; Wed, 29 Nov 2023 12:41:46 +0000
+Received: by outflank-mailman (output) from mailman id 643901.1004445; Wed, 29 Nov 2023 12:49:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Jsv-0003KF-VD; Wed, 29 Nov 2023 12:41:45 +0000
-Received: by outflank-mailman (input) for mailman id 643897;
- Wed, 29 Nov 2023 12:41:45 +0000
+	id 1r8K0t-0005ZJ-O1; Wed, 29 Nov 2023 12:49:59 +0000
+Received: by outflank-mailman (input) for mailman id 643901;
+ Wed, 29 Nov 2023 12:49:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LZl0=HK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r8Jsv-0003K9-0U
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 12:41:45 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1r8K0s-0005ZB-1E
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 12:49:58 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6416fad-8eb4-11ee-9b0e-b553b5be7939;
- Wed, 29 Nov 2023 13:41:43 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-50bc743c7f7so501027e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 Nov 2023 04:41:43 -0800 (PST)
+ id cc112fe1-8eb5-11ee-9b0e-b553b5be7939;
+ Wed, 29 Nov 2023 13:49:56 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2c9b77be7ceso21295661fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Nov 2023 04:49:55 -0800 (PST)
 Received: from [192.168.220.211] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- b22-20020a056512071600b0050bc059f535sm388425lfs.112.2023.11.29.04.41.41
+ s1-20020a2e2c01000000b002c88c5edc74sm1994923ljs.71.2023.11.29.04.49.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Nov 2023 04:41:42 -0800 (PST)
+ Wed, 29 Nov 2023 04:49:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6416fad-8eb4-11ee-9b0e-b553b5be7939
+X-Inumbo-ID: cc112fe1-8eb5-11ee-9b0e-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701261702; x=1701866502; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1701262195; x=1701866995; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=SfgfV21wd0b8TXs2r60JlUvLeEStshnt1PcnHlBjQFE=;
-        b=lWGl+27HekZHiw4pT6ZtxzRrVCnyDeUXwx1NIN7OR8oNCIhYuo6NUS0mdmPkRI079M
-         DwxPRVPv5tkyPG+9ygc/FPKjZH/aY7TwXfDtCz7D4/6Q+jqC9Rk6TuIF3BYLKBl7qx+5
-         no37d0QVkP+RGKs05S27ASgDEKNbZilkPZiy3FO4S3hV0MqDVdFklPPnZ0LvuBLeFp2Y
-         o6QR8+w/AYh+L6oEK5HhfTFS/oPJljHxaD9H5HWk+w3+k22Dwg0t/yVuh9EYuNaVnMcZ
-         9/hSOGMgypyEoqN6ffqG5QOKO0qOJWHlR6PEFqKr2I6N8Ivn/65KjfFRh5PfAlEJ9dMr
-         1e6Q==
+        bh=1pTltL5XAo6S7Xo033wZb8MgpESrg+A6FCGNL/dtwPw=;
+        b=R2zPKasjRz3V8L4DGfSwbdWZXsU11l7FVPfSqzqKMjWWDRLebrbdU+/fcc9iqXo+v2
+         GiTsdIK3k5S4zqqDey0MMIQZchI+Th/7FWMP+RJQec+WZ9eEEnLbMBhiLamA+dQ9Cbfu
+         BRHpyNW8/aU08s9wjXTvDCjQ9A5TGcMCvZAdIBFWEJ77U0AtcmEMVwRpePUmWQ3zqAuL
+         Q7DfvPJQ8Q4SEnLmOtjfZHWlsIDbQP0ccMqUMBMtI7e7qkvn2L9lnSFrFsQMxtyMZUMi
+         98l/bMmpKwDlrLpUq0yYzxT8A5v6wDYYhhLiMxvBmJ7Vw2XdClbOZPSf/KgLw1DrTGkL
+         e1ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701261702; x=1701866502;
+        d=1e100.net; s=20230601; t=1701262195; x=1701866995;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=SfgfV21wd0b8TXs2r60JlUvLeEStshnt1PcnHlBjQFE=;
-        b=tWx9Mv1K8jtkP5pD3poc68j7UyFsXpc6fBFDr+NZ08KaiUVb3HvjS2dOa7RsxBackR
-         gcx8+bm3zr9GcYJsNAHR5Ci0EVglP6RJ57cQVxswaQJpqc2aQyrdw2t6mq1BI6olRffU
-         8nCwG8Qm0Skc0o6o9s2YywOl6C6fEfvGoH5Mjh0MEduxsZIZI54YYCnPQVYXOOaZYLOE
-         kZ4eombH9z9T5zPxKpX20/5paG8y1CGT2n05ynBOT6XZSU1zoibCieioh7/v+yYlzjTe
-         wS72SYTmAZBvpswP7BFM7OPL9zKFPWFAlhzk0K/y+BG29b7zBg1Ti/THeALCyH9JuztS
-         3/ww==
-X-Gm-Message-State: AOJu0Yw2rtYHwHqZQFdtzPJHJNw03unsVwMYOkzvybI/3rC4W35EmVZP
-	frCCPqDcZxLUx2nPbOBxsTWWsfAjUQbcRg==
-X-Google-Smtp-Source: AGHT+IESUeQqpq9dZsnSYNiCFnH20ABnq6/OqkN4IAJN4Lz4fLMlDQUebRpj2iip9Rxt7hf0FqP7Og==
-X-Received: by 2002:a05:6512:465:b0:507:9fa0:e244 with SMTP id x5-20020a056512046500b005079fa0e244mr11259999lfd.65.1701261702263;
-        Wed, 29 Nov 2023 04:41:42 -0800 (PST)
-Message-ID: <95765836bfbb596851bbef7819d2abba834ce94f.camel@gmail.com>
-Subject: Re: [PATCH v4 10/14] xen/asm-generic: introduce stub header
- monitor.h
+        bh=1pTltL5XAo6S7Xo033wZb8MgpESrg+A6FCGNL/dtwPw=;
+        b=QSnkNs3XMiWShKF+qhuUMLbfLcw+raccQ/VX1xVlZPHODSB68mvsqR88j2sf9/0aPX
+         8xfj3RzPeGShOPZEt2HKMjRi8wmefK1i7gSsLmI1VdWgT9MFCt+6rDB1yNLO+O8PpLQW
+         HEvfJbpJnSmHqJih+LY4sTFb9XoIS4nMwKIcd8jOyLehz3Ywlt3gohXNFwfJRsVmi5r/
+         yxc5kb8n4FL5mu42OeuGn44dIHbfYvbIetvrgARk1a5aJ1kMTCopOKi2nId8KFHmDQZD
+         vOlqAfxZLmy0MZ1zRKMqYht20LK+61f9dN5lmFxEVDt1SBqFiWC8OkG656ptpONzBh84
+         Tadw==
+X-Gm-Message-State: AOJu0YySLZV1AjFi5L2p4Kqtro7QeVjpHg3wfIL4V6Mz7rRT5bGaoOjE
+	9tHGC/tRsClTO0W/J32EVQo=
+X-Google-Smtp-Source: AGHT+IEw7PaEmJZ7K12I6qFNrBQFW9h0bJF/hsAVvmVYjUC5mnqQOPa89sp4hk70859GTD7ubgarpg==
+X-Received: by 2002:a2e:9646:0:b0:2c9:ba46:f107 with SMTP id z6-20020a2e9646000000b002c9ba46f107mr2338758ljh.19.1701262195010;
+        Wed, 29 Nov 2023 04:49:55 -0800 (PST)
+Message-ID: <e29665f849d23a768262c6d1a7436916a7ec887c.camel@gmail.com>
+Subject: Re: [PATCH v4 02/14] xen/asm-generic: introduce generic device.h
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Shawn Anastasio
-	 <sanastasio@raptorengineering.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
-	 <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+To: Shawn Anastasio <sanastasio@raptorengineering.com>, 
 	xen-devel@lists.xenproject.org
-Date: Wed, 29 Nov 2023 14:41:41 +0200
-In-Reply-To: <8350624b-a889-4258-b0e7-0d3ad021b3cd@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+Date: Wed, 29 Nov 2023 14:49:53 +0200
+In-Reply-To: <98023f51-5953-4384-918d-ae726d74ef7c@raptorengineering.com>
 References: <cover.1701093907.git.oleksii.kurochko@gmail.com>
-	 <83e16ccc588d35042b804e0d56ebdb5fe710695b.1701093907.git.oleksii.kurochko@gmail.com>
-	 <22ffed63-8f05-477f-b37c-c660410c2ce6@raptorengineering.com>
-	 <77169e15-f1ce-485c-a7be-45901708056d@suse.com>
-	 <8350624b-a889-4258-b0e7-0d3ad021b3cd@suse.com>
+	 <67172a4fbf88833480203fcb1e2c640b6d39a556.1701093907.git.oleksii.kurochko@gmail.com>
+	 <98023f51-5953-4384-918d-ae726d74ef7c@raptorengineering.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
 MIME-Version: 1.0
 
-On Wed, 2023-11-29 at 09:21 +0100, Jan Beulich wrote:
-> On 29.11.2023 09:19, Jan Beulich wrote:
-> > On 28.11.2023 23:21, Shawn Anastasio wrote:
-> > > On 11/27/23 8:13 AM, Oleksii Kurochko wrote:
-> > > > --- a/xen/arch/ppc/include/asm/monitor.h
-> > > > +++ /dev/null
-> > > > @@ -1,43 +0,0 @@
-> > > > -/* SPDX-License-Identifier: GPL-2.0-only */
-> > > > -/* Derived from xen/arch/arm/include/asm/monitor.h */
-> > > > -#ifndef __ASM_PPC_MONITOR_H__
-> > > > -#define __ASM_PPC_MONITOR_H__
-> > > > -
-> > > > -#include <public/domctl.h>
-> > > > -#include <xen/errno.h>
-> > > > -
-> > > > -static inline
-> > > > -void arch_monitor_allow_userspace(struct domain *d, bool
-> > > > allow_userspace)
-> > > > -{
-> > > > -}
-> > > > -
-> > > > -static inline
-> > > > -int arch_monitor_domctl_op(struct domain *d, struct
-> > > > xen_domctl_monitor_op *mop)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 /* No arch-specific monitor ops on PPC. */
-> > > > -=C2=A0=C2=A0=C2=A0 return -EOPNOTSUPP;
-> > > > -}
-> > > > -
-> > > > -int arch_monitor_domctl_event(struct domain *d,
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen_domctl_monitor_op
-> > > > *mop);
-> > > > -
-> > > > -static inline
-> > > > -int arch_monitor_init_domain(struct domain *d)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 /* No arch-specific domain initialization on PP=
-C. */
-> > > > -=C2=A0=C2=A0=C2=A0 return 0;
-> > > > -}
-> > > > -
-> > > > -static inline
-> > > > -void arch_monitor_cleanup_domain(struct domain *d)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 /* No arch-specific domain cleanup on PPC. */
-> > > > -}
-> > > > -
-> > > > -static inline uint32_t arch_monitor_get_capabilities(struct
-> > > > domain *d)
-> > > > -{
-> > > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > >=20
-> > > I'm not sure how I feel about this assertion being dropped in the
-> > > generic header. In general my philosophy when creating these stub
-> > > headers was to insert as many of these assertions as possible so
-> > > we
-> > > don't end up in a scenario where during early bringup I miss a
-> > > function
-> > > that was originally stubbed but ought to be implemented
-> > > eventually.
-> > >=20
-> > > Looking at ARM's monitor.h too, it seems that this function is
-> > > the only
-> > > one that differs from the generic/stub version. I'm wondering if
-> > > it
-> > > would make sense to leave this function out of the generic
-> > > header, to be
-> > > defined by the arch similar to what you've done with some other
-> > > functions in this series. That would also allow ARM to be brought
-> > > in to
-> > > using the generic variant.
-> >=20
-> > Yet then where would that function live, if not in
-> > arch/*/include/asm/monitor.h?
+On Tue, 2023-11-28 at 15:28 -0600, Shawn Anastasio wrote:
+> Hi Oleksii,
 >=20
-> Hmm, maybe implicitly you're proposing that
-> arch/*/include/asm/monitor.h
-> include include/asm-generic/monitor.h in such a case, and define this
-> one
-> function on top?
-I think it can be a solution. The same I suggest in my direct reply to
-Shawn message ( I didn't see your answer ).
+> On 11/27/23 8:13 AM, Oleksii Kurochko wrote:
+> > diff --git a/xen/arch/ppc/include/asm/Makefile
+> > b/xen/arch/ppc/include/asm/Makefile
+> > index ece7fa66dd..df4c1ebb08 100644
+> > --- a/xen/arch/ppc/include/asm/Makefile
+> > +++ b/xen/arch/ppc/include/asm/Makefile
+> > @@ -1,3 +1,4 @@
+> > =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> > +generic-y +=3D device.h
+> > =C2=A0generic-y +=3D paging.h
+> > =C2=A0generic-y +=3D vm_event.h
+> > diff --git a/xen/arch/ppc/include/asm/device.h
+> > b/xen/arch/ppc/include/asm/device.h
+> > deleted file mode 100644
+> > index 8253e61d51..0000000000
+> > --- a/xen/arch/ppc/include/asm/device.h
+> > +++ /dev/null
+> > @@ -1,53 +0,0 @@
+> > -/* SPDX-License-Identifier: GPL-2.0-only */
+> > -#ifndef __ASM_PPC_DEVICE_H__
+> > -#define __ASM_PPC_DEVICE_H__
+> > -
+> > -enum device_type
+> > -{
+> > -=C2=A0=C2=A0=C2=A0 DEV_DT,
+> > -=C2=A0=C2=A0=C2=A0 DEV_PCI,
+> > -};
+> > -
+> > -struct device {
+> > -=C2=A0=C2=A0=C2=A0 enum device_type type;
+> > -#ifdef CONFIG_HAS_DEVICE_TREE
+> > -=C2=A0=C2=A0=C2=A0 struct dt_device_node *of_node; /* Used by drivers =
+imported
+> > from Linux */
+> > -#endif
+> > -};
+> > -
+> > -enum device_class
+> > -{
+> > -=C2=A0=C2=A0=C2=A0 DEVICE_SERIAL,
+> > -=C2=A0=C2=A0=C2=A0 DEVICE_IOMMU,
+> > -=C2=A0=C2=A0=C2=A0 DEVICE_PCI_HOSTBRIDGE,
+> > -=C2=A0=C2=A0=C2=A0 /* Use for error */
+> > -=C2=A0=C2=A0=C2=A0 DEVICE_UNKNOWN,
+> > -};
+> > -
+> > -struct device_desc {
+> > -=C2=A0=C2=A0=C2=A0 /* Device name */
+> > -=C2=A0=C2=A0=C2=A0 const char *name;
+> > -=C2=A0=C2=A0=C2=A0 /* Device class */
+> > -=C2=A0=C2=A0=C2=A0 enum device_class class;
+> > -=C2=A0=C2=A0=C2=A0 /* List of devices supported by this driver */
+> > -=C2=A0=C2=A0=C2=A0 const struct dt_device_match *dt_match;
+> > -=C2=A0=C2=A0=C2=A0 /*
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Device initialization.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 * -EAGAIN is used to indicate that device pro=
+bing is
+> > deferred.
+> > -=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > -=C2=A0=C2=A0=C2=A0 int (*init)(struct dt_device_node *dev, const void =
+*data);
+> > -};
+> > -
+> > -typedef struct device device_t;
+> > -
+> > -#define DT_DEVICE_START(name_, namestr_,
+> > class_)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -static const struct device_desc __dev_desc_##name_
+> > __used=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -__section(".dev.info") =3D
+> > {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -=C2=A0=C2=A0=C2=A0 .name =3D
+> > namestr_,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -=C2=A0=C2=A0=C2=A0 .class =3D
+> > class_,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -
+> > -#define
+> > DT_DEVICE_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > -};
+> > -
+> > -#endif /* __ASM_PPC_DEVICE_H__ */
+> > diff --git a/xen/arch/ppc/include/asm/irq.h
+> > b/xen/arch/ppc/include/asm/irq.h
+> > index 5c37d0cf25..49193fddff 100644
+> > --- a/xen/arch/ppc/include/asm/irq.h
+> > +++ b/xen/arch/ppc/include/asm/irq.h
+> > @@ -3,7 +3,9 @@
+> > =C2=A0#define __ASM_PPC_IRQ_H__
+> > =C2=A0
+> > =C2=A0#include <xen/lib.h>
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+>=20
+> I realize that you were likely following PPC's device.h which also
+> checks CONFIG_HAS_DEVICE_TREE, but I'm not sure that it makes sense
+> to
+> check this conditional in PPC code at all -- we will always have
+> HAS_DEVICE_TREE (selected by PPC) and I can't imagine a scenario
+> where
+> this will ever not be the case.
+What about case if ACPI is used? Does ACPI is supported by PPC?
 
-If everyone is OK with such solution, I can apply it for the next
-version of patch series.
+But if you are sure that CONFIG_HAS_DEVICE_TREE will be always selected
+then I am OK to remove this change.
+
+>=20
+> Unless Jan (or someone else) disagrees, I'd rather this conditional
+> be
+> dropped inside of PPC code.
+I'll double check but I think I had a compilation issue if it isn't
+defined.
+
+>=20
+> > =C2=A0#include <xen/device_tree.h>
+> > +#endif
+> > =C2=A0#include <public/device_tree_defs.h>
+> > =C2=A0
+> > =C2=A0/* TODO */
+> > @@ -25,9 +27,11 @@ static inline void arch_move_irqs(struct vcpu
+> > *v)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > =C2=A0}
+> > =C2=A0
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+>=20
+> Ditto.
+>=20
+> > =C2=A0static inline int platform_get_irq(const struct dt_device_node
+> > *device, int index)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > =C2=A0}
+> > +#endif
+> > =C2=A0
+> > =C2=A0#endif /* __ASM_PPC_IRQ_H__ */
+
+Thanks.
 
 ~ Oleksii
-
 
