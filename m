@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580C27FE1D9
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:27:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644254.1005108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8258A7FE2A6
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 23:06:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644274.1005123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8S5E-0001q3-Dw; Wed, 29 Nov 2023 21:27:00 +0000
+	id 1r8Sgs-0000Bo-AC; Wed, 29 Nov 2023 22:05:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644254.1005108; Wed, 29 Nov 2023 21:27:00 +0000
+Received: by outflank-mailman (output) from mailman id 644274.1005123; Wed, 29 Nov 2023 22:05:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8S5E-0001j0-1K; Wed, 29 Nov 2023 21:27:00 +0000
-Received: by outflank-mailman (input) for mailman id 644254;
- Wed, 29 Nov 2023 21:26:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8Sgs-00009C-7K; Wed, 29 Nov 2023 22:05:54 +0000
+Received: by outflank-mailman (input) for mailman id 644274;
+ Wed, 29 Nov 2023 22:05:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J7nN=HK=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1r8S5C-00008d-5Z
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 21:26:58 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0489934e-8efe-11ee-98e4-6d05b1d4d9a1;
- Wed, 29 Nov 2023 22:26:55 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-120-FSUOmW5LOtChOrGn_QBs1g-1; Wed,
- 29 Nov 2023 16:26:51 -0500
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63A1138049F9;
- Wed, 29 Nov 2023 21:26:49 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.91])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 41F60492BE0;
- Wed, 29 Nov 2023 21:26:48 +0000 (UTC)
+ <SRS0=s/FI=HK=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1r8Sgq-00007l-Ak
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 22:05:52 +0000
+Received: from m226-146.mailgun.net (m226-146.mailgun.net [159.135.226.146])
+ by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id 73bf85fb-8f03-11ee-9b0f-b553b5be7939;
+ Wed, 29 Nov 2023 23:05:49 +0100 (CET)
+Received: from mg.gitlab.com (18.226.74.34.bc.googleusercontent.com
+ [34.74.226.18]) by
+ 5570efcce685 with SMTP id 6567b5bb0fb9767d22518800 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Wed, 29 Nov 2023 22:05:47 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,389 +39,425 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0489934e-8efe-11ee-98e4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701293214;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BpLNXxP4Yehpq7UvX9OuyGYKLdha9NvrROrpeAtoX0o=;
-	b=Gu8Ymmv44Elij5mK8jFXcUituPCnDLYAJpD9KXKFLVX9MubljpeNOfIwTcsSvP9jqYTB1P
-	LoyVPmeqlu8HMZqSUUsezu+7M6v0GUxt0cKJNErFjcdaKZYaG1Qhrje96yCL7jQiJ2WsVf
-	C4GQj6L64KW/yT8mcvzvDN1y5Fb5OHc=
-X-MC-Unique: FSUOmW5LOtChOrGn_QBs1g-1
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
-	Fabiano Rosas <farosas@suse.de>,
-	qemu-s390x@nongnu.org,
-	Song Gao <gaosong@loongson.cn>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Hyman Huang <yong.huang@smartx.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Kevin Wolf <kwolf@redhat.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Paul Durrant <paul@xen.org>,
-	Jagannathan Raman <jag.raman@oracle.com>,
-	Juan Quintela <quintela@redhat.com>,
-	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	qemu-arm@nongnu.org,
-	Jason Wang <jasowang@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Hanna Reitz <hreitz@redhat.com>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Hailiang Zhang <zhanghailiang@xfusion.com>,
-	Roman Bolshakov <rbolshakov@ddn.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Fam Zheng <fam@euphon.net>,
-	Eric Blake <eblake@redhat.com>,
-	Jiri Slaby <jslaby@suse.cz>,
-	Alexander Graf <agraf@csgraf.de>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Stafford Horne <shorne@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Cameron Esfahani <dirty@apple.com>,
-	xen-devel@lists.xenproject.org,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	qemu-riscv@nongnu.org,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	John Snow <jsnow@redhat.com>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	Michael Roth <michael.roth@amd.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Bin Meng <bin.meng@windriver.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	kvm@vger.kernel.org,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	qemu-block@nongnu.org,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Peter Xu <peterx@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
-	qemu-ppc@nongnu.org,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Leonardo Bras <leobras@redhat.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: [PATCH 6/6] Rename "QEMU global mutex" to "BQL" in comments and docs
-Date: Wed, 29 Nov 2023 16:26:25 -0500
-Message-ID: <20231129212625.1051502-7-stefanha@redhat.com>
-In-Reply-To: <20231129212625.1051502-1-stefanha@redhat.com>
-References: <20231129212625.1051502-1-stefanha@redhat.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+X-Inumbo-ID: 73bf85fb-8f03-11ee-9b0f-b553b5be7939
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1701295547; x=1701302747; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=WZ8Hiv29vyp7JKXAZIREbShTQSIGvZnPd7ptOTwC+5Q=;
+ b=EFXDOrjz7WZBK5T7fp7f5tpsLnX+tnaNyJRpON0SWehWjCE63INasAJjbycDuxYHfI7g8xr5S89438rMumx4JShDrHjgMGyV3mteKJldunRsmszWGgpRY6j9GTGzO35m3dG4i+s0hJxZwSr+apve8Lt1+1hErt6MKx8P9Qw7H8k=
+X-Mailgun-Sending-Ip: 159.135.226.146
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Wed, 29 Nov 2023 22:05:47 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <6567b5bb6bb0b_2c9ad803302c@gitlab-sidekiq-catchall-v2-668d449c49-5pzbq.mail>
+Subject: xen | Successful pipeline for staging | f0dd0cd9
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_6567b5bb5f3d2_2c9ad80329c0";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1089709752
+X-GitLab-Pipeline-Ref: staging
+X-GitLab-Pipeline-Status: success
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
 
-The term "QEMU global mutex" is identical to the more widely used Big
-QEMU Lock ("BQL"). Update the code comments and documentation to use
-"BQL" instead of "QEMU global mutex".
+----==_mimepart_6567b5bb5f3d2_2c9ad80329c0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- docs/devel/multi-thread-tcg.rst   |  7 +++----
- docs/devel/qapi-code-gen.rst      |  2 +-
- docs/devel/replay.rst             |  2 +-
- docs/devel/multiple-iothreads.txt | 16 ++++++++--------
- include/block/blockjob.h          |  6 +++---
- include/io/task.h                 |  2 +-
- include/qemu/coroutine-core.h     |  2 +-
- include/qemu/coroutine.h          |  2 +-
- hw/block/dataplane/virtio-blk.c   |  8 ++++----
- hw/block/virtio-blk.c             |  2 +-
- hw/scsi/virtio-scsi-dataplane.c   |  6 +++---
- net/tap.c                         |  2 +-
- 12 files changed, 28 insertions(+), 29 deletions(-)
 
-diff --git a/docs/devel/multi-thread-tcg.rst b/docs/devel/multi-thread-tcg.rst
-index c9541a7b20..7302c3bf53 100644
---- a/docs/devel/multi-thread-tcg.rst
-+++ b/docs/devel/multi-thread-tcg.rst
-@@ -226,10 +226,9 @@ instruction. This could be a future optimisation.
- Emulated hardware state
- -----------------------
- 
--Currently thanks to KVM work any access to IO memory is automatically
--protected by the global iothread mutex, also known as the BQL (Big
--QEMU Lock). Any IO region that doesn't use global mutex is expected to
--do its own locking.
-+Currently thanks to KVM work any access to IO memory is automatically protected
-+by the BQL (Big QEMU Lock). Any IO region that doesn't use the BQL is expected
-+to do its own locking.
- 
- However IO memory isn't the only way emulated hardware state can be
- modified. Some architectures have model specific registers that
-diff --git a/docs/devel/qapi-code-gen.rst b/docs/devel/qapi-code-gen.rst
-index 7f78183cd4..ea8228518c 100644
---- a/docs/devel/qapi-code-gen.rst
-+++ b/docs/devel/qapi-code-gen.rst
-@@ -594,7 +594,7 @@ blocking the guest and other background operations.
- Coroutine safety can be hard to prove, similar to thread safety.  Common
- pitfalls are:
- 
--- The global mutex isn't held across ``qemu_coroutine_yield()``, so
-+- The BQL isn't held across ``qemu_coroutine_yield()``, so
-   operations that used to assume that they execute atomically may have
-   to be more careful to protect against changes in the global state.
- 
-diff --git a/docs/devel/replay.rst b/docs/devel/replay.rst
-index 0244be8b9c..effd856f0c 100644
---- a/docs/devel/replay.rst
-+++ b/docs/devel/replay.rst
-@@ -184,7 +184,7 @@ modes.
- Reading and writing requests are created by CPU thread of QEMU. Later these
- requests proceed to block layer which creates "bottom halves". Bottom
- halves consist of callback and its parameters. They are processed when
--main loop locks the global mutex. These locks are not synchronized with
-+main loop locks the BQL. These locks are not synchronized with
- replaying process because main loop also processes the events that do not
- affect the virtual machine state (like user interaction with monitor).
- 
-diff --git a/docs/devel/multiple-iothreads.txt b/docs/devel/multiple-iothreads.txt
-index a3e949f6b3..828e5527a3 100644
---- a/docs/devel/multiple-iothreads.txt
-+++ b/docs/devel/multiple-iothreads.txt
-@@ -5,7 +5,7 @@ the COPYING file in the top-level directory.
- 
- 
- This document explains the IOThread feature and how to write code that runs
--outside the QEMU global mutex.
-+outside the BQL.
- 
- The main loop and IOThreads
- ---------------------------
-@@ -29,13 +29,13 @@ scalability bottleneck on hosts with many CPUs.  Work can be spread across
- several IOThreads instead of just one main loop.  When set up correctly this
- can improve I/O latency and reduce jitter seen by the guest.
- 
--The main loop is also deeply associated with the QEMU global mutex, which is a
--scalability bottleneck in itself.  vCPU threads and the main loop use the QEMU
--global mutex to serialize execution of QEMU code.  This mutex is necessary
--because a lot of QEMU's code historically was not thread-safe.
-+The main loop is also deeply associated with the BQL, which is a
-+scalability bottleneck in itself.  vCPU threads and the main loop use the BQL
-+to serialize execution of QEMU code.  This mutex is necessary because a lot of
-+QEMU's code historically was not thread-safe.
- 
- The fact that all I/O processing is done in a single main loop and that the
--QEMU global mutex is contended by all vCPU threads and the main loop explain
-+BQL is contended by all vCPU threads and the main loop explain
- why it is desirable to place work into IOThreads.
- 
- The experimental virtio-blk data-plane implementation has been benchmarked and
-@@ -66,7 +66,7 @@ There are several old APIs that use the main loop AioContext:
- 
- Since they implicitly work on the main loop they cannot be used in code that
- runs in an IOThread.  They might cause a crash or deadlock if called from an
--IOThread since the QEMU global mutex is not held.
-+IOThread since the BQL is not held.
- 
- Instead, use the AioContext functions directly (see include/block/aio.h):
-  * aio_set_fd_handler() - monitor a file descriptor
-@@ -105,7 +105,7 @@ used in the block layer and can lead to hangs.
- 
- There is currently no lock ordering rule if a thread needs to acquire multiple
- AioContexts simultaneously.  Therefore, it is only safe for code holding the
--QEMU global mutex to acquire other AioContexts.
-+BQL to acquire other AioContexts.
- 
- Side note: the best way to schedule a function call across threads is to call
- aio_bh_schedule_oneshot().  No acquire/release or locking is needed.
-diff --git a/include/block/blockjob.h b/include/block/blockjob.h
-index e594c10d23..b2bc7c04d6 100644
---- a/include/block/blockjob.h
-+++ b/include/block/blockjob.h
-@@ -54,7 +54,7 @@ typedef struct BlockJob {
- 
-     /**
-      * Speed that was set with @block_job_set_speed.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under BQL (GLOBAL_STATE_CODE).
-      */
-     int64_t speed;
- 
-@@ -66,7 +66,7 @@ typedef struct BlockJob {
- 
-     /**
-      * Block other operations when block job is running.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under BQL (GLOBAL_STATE_CODE).
-      */
-     Error *blocker;
- 
-@@ -89,7 +89,7 @@ typedef struct BlockJob {
- 
-     /**
-      * BlockDriverStates that are involved in this block job.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under BQL (GLOBAL_STATE_CODE).
-      */
-     GSList *nodes;
- } BlockJob;
-diff --git a/include/io/task.h b/include/io/task.h
-index dc7d32ebd0..0b5342ee84 100644
---- a/include/io/task.h
-+++ b/include/io/task.h
-@@ -149,7 +149,7 @@ typedef void (*QIOTaskWorker)(QIOTask *task,
-  * lookups) to be easily run non-blocking. Reporting the
-  * results in the main thread context means that the caller
-  * typically does not need to be concerned about thread
-- * safety wrt the QEMU global mutex.
-+ * safety wrt the BQL.
-  *
-  * For example, the socket_listen() method will block the caller
-  * while DNS lookups take place if given a name, instead of IP
-diff --git a/include/qemu/coroutine-core.h b/include/qemu/coroutine-core.h
-index 230bb56517..503bad6e0e 100644
---- a/include/qemu/coroutine-core.h
-+++ b/include/qemu/coroutine-core.h
-@@ -22,7 +22,7 @@
-  * rather than callbacks, for operations that need to give up control while
-  * waiting for events to complete.
-  *
-- * These functions are re-entrant and may be used outside the global mutex.
-+ * These functions are re-entrant and may be used outside the BQL.
-  *
-  * Functions that execute in coroutine context cannot be called
-  * directly from normal functions.  Use @coroutine_fn to mark such
-diff --git a/include/qemu/coroutine.h b/include/qemu/coroutine.h
-index a65be6697f..e6aff45301 100644
---- a/include/qemu/coroutine.h
-+++ b/include/qemu/coroutine.h
-@@ -26,7 +26,7 @@
-  * rather than callbacks, for operations that need to give up control while
-  * waiting for events to complete.
-  *
-- * These functions are re-entrant and may be used outside the global mutex.
-+ * These functions are re-entrant and may be used outside the BQL.
-  *
-  * Functions that execute in coroutine context cannot be called
-  * directly from normal functions.  Use @coroutine_fn to mark such
-diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
-index f83bb0f116..eafc573407 100644
---- a/hw/block/dataplane/virtio-blk.c
-+++ b/hw/block/dataplane/virtio-blk.c
-@@ -47,7 +47,7 @@ void virtio_blk_data_plane_notify(VirtIOBlockDataPlane *s, VirtQueue *vq)
-     virtio_notify_irqfd(s->vdev, vq);
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- bool virtio_blk_data_plane_create(VirtIODevice *vdev, VirtIOBlkConf *conf,
-                                   VirtIOBlockDataPlane **dataplane,
-                                   Error **errp)
-@@ -100,7 +100,7 @@ bool virtio_blk_data_plane_create(VirtIODevice *vdev, VirtIOBlkConf *conf,
-     return true;
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_blk_data_plane_destroy(VirtIOBlockDataPlane *s)
- {
-     VirtIOBlock *vblk;
-@@ -117,7 +117,7 @@ void virtio_blk_data_plane_destroy(VirtIOBlockDataPlane *s)
-     g_free(s);
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- int virtio_blk_data_plane_start(VirtIODevice *vdev)
- {
-     VirtIOBlock *vblk = VIRTIO_BLK(vdev);
-@@ -261,7 +261,7 @@ static void virtio_blk_data_plane_stop_bh(void *opaque)
-     }
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_blk_data_plane_stop(VirtIODevice *vdev)
- {
-     VirtIOBlock *vblk = VIRTIO_BLK(vdev);
-diff --git a/hw/block/virtio-blk.c b/hw/block/virtio-blk.c
-index a1f8e15522..2a5f6544cc 100644
---- a/hw/block/virtio-blk.c
-+++ b/hw/block/virtio-blk.c
-@@ -1500,7 +1500,7 @@ static void virtio_blk_resize(void *opaque)
-     VirtIODevice *vdev = VIRTIO_DEVICE(opaque);
- 
-     /*
--     * virtio_notify_config() needs to acquire the global mutex,
-+     * virtio_notify_config() needs to acquire the BQL,
-      * so it can't be called from an iothread. Instead, schedule
-      * it to be run in the main context BH.
-      */
-diff --git a/hw/scsi/virtio-scsi-dataplane.c b/hw/scsi/virtio-scsi-dataplane.c
-index 1e684beebe..56ecc5b12e 100644
---- a/hw/scsi/virtio-scsi-dataplane.c
-+++ b/hw/scsi/virtio-scsi-dataplane.c
-@@ -20,7 +20,7 @@
- #include "scsi/constants.h"
- #include "hw/virtio/virtio-bus.h"
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_scsi_dataplane_setup(VirtIOSCSI *s, Error **errp)
- {
-     VirtIOSCSICommon *vs = VIRTIO_SCSI_COMMON(s);
-@@ -93,7 +93,7 @@ static void virtio_scsi_dataplane_stop_bh(void *opaque)
-     }
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- int virtio_scsi_dataplane_start(VirtIODevice *vdev)
- {
-     int i;
-@@ -191,7 +191,7 @@ fail_guest_notifiers:
-     return -ENOSYS;
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_scsi_dataplane_stop(VirtIODevice *vdev)
- {
-     BusState *qbus = qdev_get_parent_bus(DEVICE(vdev));
-diff --git a/net/tap.c b/net/tap.c
-index c23d0323c2..c698b70475 100644
---- a/net/tap.c
-+++ b/net/tap.c
-@@ -219,7 +219,7 @@ static void tap_send(void *opaque)
- 
-         /*
-          * When the host keeps receiving more packets while tap_send() is
--         * running we can hog the QEMU global mutex.  Limit the number of
-+         * running we can hog the BQL.  Limit the number of
-          * packets that are processed per tap_send() callback to prevent
-          * stalling the guest.
-          */
+
+Pipeline #1089709752 has passed!
+
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+
+Commit: f0dd0cd9 ( https://gitlab.com/xen-project/xen/-/commit/f0dd0cd9598f22ee5509bb5d1466e4821834c4ba )
+Commit Message: docs/misra: add guidance on the format of Dir 4...
+Commit Author: Nicola Vetrini
+Committed by: Julien Grall
+
+
+
+Pipeline #1089709752 ( https://gitlab.com/xen-project/xen/-/pipelines/1089709752 ) triggered by Ganis ( https://gitlab.com/ganis )
+successfully completed 129 jobs in 3 stages.
+
 -- 
-2.42.0
+You're receiving this email because of your account on gitlab.com.
 
+
+
+
+----==_mimepart_6567b5bb5f3d2_2c9ad80329c0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
+
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Successful pipeline for staging | f0dd0cd9</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
+
+</style>
+
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"table-success">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
+<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
+5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
+ width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1089709752 has passed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging" style=3D"color: #333333; text-decoration: none;">
+staging
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/f0dd0cd9598f22ee55=
+09bb5d1466e4821834c4ba" style=3D"color: #3777b0; text-decoration: none;">=
+f0dd0cd9</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+docs/misra: add guidance on the format of Dir 4...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/23d68b797e165570c641942285dfe06e?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Nicola Vetrini
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Committed by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/c4cdf37f0b2565754a400ffda114e915?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Julien Grall
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"success-message">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
+Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/108970=
+9752" style=3D"color: #3777b0; text-decoration: none;">#1089709752</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
+dding-left: 5px;" width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
+t: 1.4; padding: 15px 5px;" align=3D"center">
+successfully completed 129 jobs in 3 stages.
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_6567b5bb5f3d2_2c9ad80329c0--
 
