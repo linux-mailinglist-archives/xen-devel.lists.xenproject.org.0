@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69FDA7FE1C1
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:26:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644244.1005045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6008B7FE1D1
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:26:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644247.1005054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8S3g-0007Mm-Av; Wed, 29 Nov 2023 21:25:24 +0000
+	id 1r8S50-0000Eg-Or; Wed, 29 Nov 2023 21:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644244.1005045; Wed, 29 Nov 2023 21:25:24 +0000
+Received: by outflank-mailman (output) from mailman id 644247.1005054; Wed, 29 Nov 2023 21:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8S3g-0007JR-7F; Wed, 29 Nov 2023 21:25:24 +0000
-Received: by outflank-mailman (input) for mailman id 644244;
- Wed, 29 Nov 2023 21:25:22 +0000
+	id 1r8S50-0000Be-LV; Wed, 29 Nov 2023 21:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 644247;
+ Wed, 29 Nov 2023 21:26:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uyrv=HK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1r8S3e-0007JJ-Cl
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 21:25:22 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20623.outbound.protection.outlook.com
- [2a01:111:f400:7e88::623])
+ <SRS0=J7nN=HK=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1r8S4y-00008d-Uf
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 21:26:44 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbe13da8-8efd-11ee-98e4-6d05b1d4d9a1;
- Wed, 29 Nov 2023 22:25:20 +0100 (CET)
-Received: from SA9P223CA0024.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::29)
- by LV2PR12MB5992.namprd12.prod.outlook.com (2603:10b6:408:14e::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22; Wed, 29 Nov
- 2023 21:25:14 +0000
-Received: from SA2PEPF00001509.namprd04.prod.outlook.com
- (2603:10b6:806:26:cafe::e0) by SA9P223CA0024.outlook.office365.com
- (2603:10b6:806:26::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22 via Frontend
- Transport; Wed, 29 Nov 2023 21:25:14 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Wed, 29 Nov 2023 21:25:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 29 Nov
- 2023 15:25:13 -0600
-Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 29 Nov 2023 15:25:10 -0600
+ id fda5c6e8-8efd-11ee-98e4-6d05b1d4d9a1;
+ Wed, 29 Nov 2023 22:26:43 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-201-jezd3L4pMveGVd7IsGPLnQ-1; Wed,
+ 29 Nov 2023 16:26:38 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63038381BE86;
+ Wed, 29 Nov 2023 21:26:30 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.91])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C50A02027019;
+ Wed, 29 Nov 2023 21:26:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,119 +51,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbe13da8-8efd-11ee-98e4-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JC8j6yJeHLHLP/JXlQWqrZMm5tM7Oq+HNM+94GkIOI8mFlgr9YRP0jvLBM25cXmeC5CMazjsxM3svwBZSL20nppps44SUIzTWPA5X9fn5RQFNAPD9SzYX4rSPgpheYb5xo+4ZXv1OFdGqBBGDv7nA9hb6z2txtMGpPo2RcNEcFxqeI8xlN5zlAKUIFKJ5a731UYfkdc5qxaqzjsyW3vJ1dhcMStS2LmS1VIxzKcvmhN80yhGjfILLciMU9vH8P6D/cVYCCgvwrO7967mWI6ZnpVtlEHPJq+9w16DkK8gR0AxK8RkgTq9bSvbk7YGp3VVNaL+SsEz5lo8L7FHdRu3Ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GTwAxKmxs+Q4Xpgd54ShO2z39QSwedi6ap1tpSP5ih4=;
- b=BbEC1N/LCAi0OIUHZmb21fthg4NcUaoJgECmeF5M32TtD6AzEeDntp5ElD3WmA+6EtBRR9ylhEtQVMauf4YApeU1K1u/Vi6NzmxD7uoAH18qd1ddTu35ERP0YLFYOFGUY7rGb1+oD2djxZ7BneVdeRIZRIaU9WRsANAYRRyqUthrU/Hm/E9YLTR0ddR+8saDsdtDLnDT9FAb7JyAp/7nlhi88joNUngIefhnZT0NpfIDxDyHzPaBfqS7eJYEYNajr5wEwWDMI2Ar2MYedjylJBTiGJyOkYF58JeMx2aXH1/K+9zfnYFJPvpgeG8tS+nsbzsBPb/q5LS53SGdCO6NSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GTwAxKmxs+Q4Xpgd54ShO2z39QSwedi6ap1tpSP5ih4=;
- b=mGjzAGdMTFtZcU57x5CNxhfqLd5WcIJbL+pFYq7U/ugxCWu4VbaoNvp6q+e80hqFIK03jYOFQL0nfaF5N5mMUfGelodydaIyAKcz2pyPV7jiZzWKV0tKWV6o8n/8IGmk+y4xhLoA6zxfCOZA6PAG2LQm/yXgRbxxnxk2GM6kYqE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <e6019342-8e46-48c9-8211-26105c61fa52@amd.com>
-Date: Wed, 29 Nov 2023 16:25:10 -0500
+X-Inumbo-ID: fda5c6e8-8efd-11ee-98e4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1701293202;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qIu73bEmAYNa5+9Duiskzg7KzH7tsLGKxcaWpL0jd+U=;
+	b=GYdWPgVG0MMO4iNG4H1/5QIeD5EpvAVyaRAcRdJ5GUuExnK+rDA9koJ2RrlNr5116S9oAo
+	wtK++0qHxnsVtm11UdEeqGTmKBzu/M8vG6AVdcI8QnCuj9qPI1Zz9jehVnMoIaEwN1zMMN
+	+woBIbjN/dNR/9tmZznrza1C79o1fgI=
+X-MC-Unique: jezd3L4pMveGVd7IsGPLnQ-1
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
+	Fabiano Rosas <farosas@suse.de>,
+	qemu-s390x@nongnu.org,
+	Song Gao <gaosong@loongson.cn>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Thomas Huth <thuth@redhat.com>,
+	Hyman Huang <yong.huang@smartx.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Andrey Smirnov <andrew.smirnov@gmail.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Kevin Wolf <kwolf@redhat.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Artyom Tarasenko <atar4qemu@gmail.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Paul Durrant <paul@xen.org>,
+	Jagannathan Raman <jag.raman@oracle.com>,
+	Juan Quintela <quintela@redhat.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	qemu-arm@nongnu.org,
+	Jason Wang <jasowang@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Hanna Reitz <hreitz@redhat.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	BALATON Zoltan <balaton@eik.bme.hu>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Hailiang Zhang <zhanghailiang@xfusion.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Fam Zheng <fam@euphon.net>,
+	Eric Blake <eblake@redhat.com>,
+	Jiri Slaby <jslaby@suse.cz>,
+	Alexander Graf <agraf@csgraf.de>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Weiwei Li <liwei1518@gmail.com>,
+	Eric Farman <farman@linux.ibm.com>,
+	Stafford Horne <shorne@gmail.com>,
+	David Hildenbrand <david@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Cameron Esfahani <dirty@apple.com>,
+	xen-devel@lists.xenproject.org,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	qemu-riscv@nongnu.org,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	John Snow <jsnow@redhat.com>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Michael Roth <michael.roth@amd.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Bin Meng <bin.meng@windriver.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	kvm@vger.kernel.org,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	qemu-block@nongnu.org,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+	qemu-ppc@nongnu.org,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Akihiko Odaki <akihiko.odaki@daynix.com>,
+	Leonardo Bras <leobras@redhat.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>
+Subject: [PATCH 0/6] Make Big QEMU Lock naming consistent
+Date: Wed, 29 Nov 2023 16:26:19 -0500
+Message-ID: <20231129212625.1051502-1-stefanha@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/5] xen/vpci: move xen_domctl_createdomain vPCI flag
- to common
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
- Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>, Rahul Singh <rahul.singh@arm.com>,
-	Christian Lindig <christian.lindig@cloud.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-3-stewart.hildebrand@amd.com>
- <da9eb6fe-3eaf-de9a-2790-79165ecfd917@suse.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <da9eb6fe-3eaf-de9a-2790-79165ecfd917@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|LV2PR12MB5992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 565bbfce-675d-4d47-9423-08dbf121ad36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	N+XQF/rtfBdPoZ3mf3VUlvI4OcfacGotXXkjxx7bZePiM6yR2LkFWMyf7gvuc+IcV1yWLweOM7+wgmn4J6yV9zQyZ5O2+RsIQ1q7ydnJ/w3Lm/eDUh2kObVjOJr6oiiSK7zgIp5/VOfMtCK8J/F55Yen+a90XeHdQA9UMQHzYcqxC0g4LWfRVkbG63F7BvbR5qpBV0DLQe8r+Osc0h6GmaiOu5P8Fmd8J/QEQUDjixam6RXQCIph73ttp2lcG+VfkgPNrWBgNIKCxcre+XSGUnko2c0Iry8TAXrArusGfnGEUENgRUIF35kh+RK4kZKs6ff+5eCdox97qmoLEx7wY2pCoSvrlcP46kyyMxxIIuqdMCH77Qd/ZXJYOJZM7EapJe9+bZy931fkGMNOg/yHSHz9xotHCsAYEgNwThJqJhHRYl3Y2g8t5WWcNxPDYDviar/KobDDbcM+D+jaIdh2U3UjCgAlPvv/GsnTkUypjnNRdZQQpHYKSxbGK8e1IxuBhM93xeTfd+7kAl6xE66DHMBUBexwwBlls6Qsem2JplPAN9eeLiDoav2kLa9KKQ/5/5AMXSS4US2NUPq0DpXFcb9O7nSkidZSF5MuResLRGcHXidRqaoxIHCCHGwxcQAuoeRTXN/IhgiCZGLQQDUMDIU+YB9YxbTVvs+HWswQGl+AYwyNwdXEdWG535KqfwVmAthOCoBJoZdPW5i7zwDe0OaGbATO0ZbEh58nKsapdXmajj6zDTdghes946iiGz+/FsBO5l7mSU6oIDbUp5u+rvwBJReiGEAsqSZc3FveI/31Iz3ZSo+6BvvxXrRzeLlDaGJR14i6EEBOscAXSrm5TFBbUuGWqgFxAMq9G/Vhl2I=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(451199024)(186009)(1800799012)(82310400011)(64100799003)(36840700001)(46966006)(40470700004)(31686004)(40480700001)(426003)(336012)(26005)(2616005)(40460700003)(478600001)(356005)(81166007)(82740400003)(202311291699003)(31696002)(36756003)(86362001)(2906002)(83380400001)(41300700001)(44832011)(36860700001)(47076005)(53546011)(7416002)(6916009)(54906003)(316002)(4326008)(5660300002)(70206006)(16576012)(8676002)(8936002)(70586007)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2023 21:25:14.4525
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 565bbfce-675d-4d47-9423-08dbf121ad36
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00001509.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
 
-On 11/14/23 04:11, Jan Beulich wrote:
-> On 13.11.2023 23:21, Stewart Hildebrand wrote:
->> @@ -709,10 +710,17 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>          return -EINVAL;
->>      }
->>  
->> +    if ( vpci && !hvm )
->> +    {
->> +        dprintk(XENLOG_INFO, "vPCI requested for non-HVM guest\n");
->> +        return -EINVAL;
->> +    }
->> +
->>      return 0;
->>  }
-> 
-> As said on the v5 thread, I think my comment was misguided (I'm sorry)
-> and this wants keeping in common code as you had it.
+The Big QEMU Lock ("BQL") has two other names: "iothread lock" and "QEMU global
+mutex". The term "iothread lock" is easily confused with the unrelated --object
+iothread (iothread.c).
 
-I'll move it back to xen/common/domain.c. No worries.
+This series updates the code and documentation to consistently use "BQL". This
+makes the code easier to understand.
 
-> 
->> --- a/xen/include/public/arch-x86/xen.h
->> +++ b/xen/include/public/arch-x86/xen.h
->> @@ -283,15 +283,16 @@ struct xen_arch_domainconfig {
->>  #define XEN_X86_EMU_PIT             (1U<<_XEN_X86_EMU_PIT)
->>  #define _XEN_X86_EMU_USE_PIRQ       9
->>  #define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
->> -#define _XEN_X86_EMU_VPCI           10
->> -#define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
->> +/*
->> + * Note: bit 10 was previously used for a XEN_X86_EMU_VPCI flag. This bit should
->> + * not be re-used without careful consideration.
->> + */
-> 
-> I think a multi-line comment is drawing overly much attention to this.
-> How about "Note: Bit 10 was previously used for XEN_X86_EMU_VPCI. Re-use
-> with care." which I think fits in a single line comment.
+Stefan Hajnoczi (6):
+  system/cpus: rename qemu_mutex_lock_iothread() to qemu_bql_lock()
+  qemu/main-loop: rename QEMU_IOTHREAD_LOCK_GUARD to QEMU_BQL_LOCK_GUARD
+  qemu/main-loop: rename qemu_cond_wait_iothread() to
+    qemu_cond_wait_bql()
+  system/cpus: rename qemu_global_mutex to qemu_bql
+  Replace "iothread lock" with "BQL" in comments
+  Rename "QEMU global mutex" to "BQL" in comments and docs
 
-Sounds good.
+ docs/devel/multi-thread-tcg.rst      |   7 +-
+ docs/devel/qapi-code-gen.rst         |   2 +-
+ docs/devel/replay.rst                |   2 +-
+ docs/devel/reset.rst                 |   2 +-
+ docs/devel/multiple-iothreads.txt    |  16 ++--
+ hw/display/qxl.h                     |   2 +-
+ include/block/aio-wait.h             |   2 +-
+ include/block/blockjob.h             |   6 +-
+ include/exec/cpu-common.h            |   2 +-
+ include/exec/memory.h                |   4 +-
+ include/exec/ramblock.h              |   2 +-
+ include/io/task.h                    |   2 +-
+ include/migration/register.h         |   8 +-
+ include/qemu/coroutine-core.h        |   2 +-
+ include/qemu/coroutine.h             |   2 +-
+ include/qemu/main-loop.h             |  54 ++++++------
+ target/arm/internals.h               |   4 +-
+ accel/accel-blocker.c                |  10 +--
+ accel/dummy-cpus.c                   |   8 +-
+ accel/hvf/hvf-accel-ops.c            |   4 +-
+ accel/kvm/kvm-accel-ops.c            |   4 +-
+ accel/kvm/kvm-all.c                  |  22 ++---
+ accel/tcg/cpu-exec.c                 |  26 +++---
+ accel/tcg/cputlb.c                   |  20 ++---
+ accel/tcg/tcg-accel-ops-icount.c     |   6 +-
+ accel/tcg/tcg-accel-ops-mttcg.c      |  12 +--
+ accel/tcg/tcg-accel-ops-rr.c         |  18 ++--
+ accel/tcg/tcg-accel-ops.c            |   2 +-
+ accel/tcg/translate-all.c            |   2 +-
+ cpu-common.c                         |   4 +-
+ dump/dump.c                          |   4 +-
+ hw/block/dataplane/virtio-blk.c      |   8 +-
+ hw/block/virtio-blk.c                |   2 +-
+ hw/core/cpu-common.c                 |   6 +-
+ hw/display/virtio-gpu.c              |   2 +-
+ hw/i386/intel_iommu.c                |   6 +-
+ hw/i386/kvm/xen_evtchn.c             |  30 +++----
+ hw/i386/kvm/xen_gnttab.c             |   2 +-
+ hw/i386/kvm/xen_overlay.c            |   2 +-
+ hw/i386/kvm/xen_xenstore.c           |   2 +-
+ hw/intc/arm_gicv3_cpuif.c            |   2 +-
+ hw/intc/s390_flic.c                  |  18 ++--
+ hw/mips/mips_int.c                   |   2 +-
+ hw/misc/edu.c                        |   4 +-
+ hw/misc/imx6_src.c                   |   2 +-
+ hw/misc/imx7_src.c                   |   2 +-
+ hw/net/xen_nic.c                     |   8 +-
+ hw/ppc/pegasos2.c                    |   2 +-
+ hw/ppc/ppc.c                         |   6 +-
+ hw/ppc/spapr.c                       |   2 +-
+ hw/ppc/spapr_events.c                |   2 +-
+ hw/ppc/spapr_rng.c                   |   4 +-
+ hw/ppc/spapr_softmmu.c               |   4 +-
+ hw/remote/mpqemu-link.c              |  14 ++--
+ hw/remote/vfio-user-obj.c            |   2 +-
+ hw/s390x/s390-skeys.c                |   2 +-
+ hw/scsi/virtio-scsi-dataplane.c      |   6 +-
+ migration/block-dirty-bitmap.c       |  14 ++--
+ migration/block.c                    |  40 ++++-----
+ migration/colo.c                     |  62 +++++++-------
+ migration/dirtyrate.c                |  12 +--
+ migration/migration.c                |  54 ++++++------
+ migration/ram.c                      |  16 ++--
+ net/tap.c                            |   2 +-
+ replay/replay-internal.c             |   2 +-
+ semihosting/console.c                |   8 +-
+ stubs/iothread-lock.c                |   6 +-
+ system/cpu-throttle.c                |   6 +-
+ system/cpus.c                        |  52 ++++++------
+ system/dirtylimit.c                  |   4 +-
+ system/memory.c                      |   2 +-
+ system/physmem.c                     |  14 ++--
+ system/runstate.c                    |   2 +-
+ system/watchpoint.c                  |   4 +-
+ target/arm/arm-powerctl.c            |  14 ++--
+ target/arm/helper.c                  |   6 +-
+ target/arm/hvf/hvf.c                 |   8 +-
+ target/arm/kvm.c                     |   4 +-
+ target/arm/kvm64.c                   |   4 +-
+ target/arm/ptw.c                     |   6 +-
+ target/arm/tcg/helper-a64.c          |   8 +-
+ target/arm/tcg/m_helper.c            |   6 +-
+ target/arm/tcg/op_helper.c           |  24 +++---
+ target/arm/tcg/psci.c                |   2 +-
+ target/hppa/int_helper.c             |   8 +-
+ target/i386/hvf/hvf.c                |   6 +-
+ target/i386/kvm/hyperv.c             |   4 +-
+ target/i386/kvm/kvm.c                |  28 +++----
+ target/i386/kvm/xen-emu.c            |  16 ++--
+ target/i386/nvmm/nvmm-accel-ops.c    |   6 +-
+ target/i386/nvmm/nvmm-all.c          |  20 ++---
+ target/i386/tcg/sysemu/fpu_helper.c  |   6 +-
+ target/i386/tcg/sysemu/misc_helper.c |   4 +-
+ target/i386/whpx/whpx-accel-ops.c    |   6 +-
+ target/i386/whpx/whpx-all.c          |  24 +++---
+ target/loongarch/csr_helper.c        |   4 +-
+ target/mips/kvm.c                    |   4 +-
+ target/mips/tcg/sysemu/cp0_helper.c  |   4 +-
+ target/openrisc/sys_helper.c         |  16 ++--
+ target/ppc/excp_helper.c             |  14 ++--
+ target/ppc/helper_regs.c             |   2 +-
+ target/ppc/kvm.c                     |   4 +-
+ target/ppc/misc_helper.c             |   8 +-
+ target/ppc/timebase_helper.c         |   8 +-
+ target/riscv/cpu_helper.c            |   4 +-
+ target/s390x/kvm/kvm.c               |   4 +-
+ target/s390x/tcg/misc_helper.c       | 118 +++++++++++++--------------
+ target/sparc/int32_helper.c          |   2 +-
+ target/sparc/int64_helper.c          |   6 +-
+ target/sparc/win_helper.c            |  20 ++---
+ target/xtensa/exc_helper.c           |   8 +-
+ ui/spice-core.c                      |   6 +-
+ util/async.c                         |   2 +-
+ util/main-loop.c                     |   8 +-
+ util/rcu.c                           |  16 ++--
+ audio/coreaudio.m                    |   8 +-
+ memory_ldst.c.inc                    |  18 ++--
+ target/i386/hvf/README.md            |   2 +-
+ ui/cocoa.m                           |  56 ++++++-------
+ 119 files changed, 627 insertions(+), 628 deletions(-)
 
-> 
-> Jan
+-- 
+2.42.0
+
 
