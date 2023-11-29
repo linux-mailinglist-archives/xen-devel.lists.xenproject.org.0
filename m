@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4778E7FDBFE
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 16:54:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644104.1004671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D2507FDC05
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 16:55:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644107.1004682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8MsO-0005zO-Tg; Wed, 29 Nov 2023 15:53:24 +0000
+	id 1r8Muc-0006cg-GR; Wed, 29 Nov 2023 15:55:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644104.1004671; Wed, 29 Nov 2023 15:53:24 +0000
+Received: by outflank-mailman (output) from mailman id 644107.1004682; Wed, 29 Nov 2023 15:55:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8MsO-0005xM-Ql; Wed, 29 Nov 2023 15:53:24 +0000
-Received: by outflank-mailman (input) for mailman id 644104;
- Wed, 29 Nov 2023 15:53:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8Muc-0006ZJ-DE; Wed, 29 Nov 2023 15:55:42 +0000
+Received: by outflank-mailman (input) for mailman id 644107;
+ Wed, 29 Nov 2023 15:55:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xuz2=HK=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1r8MsM-0005xF-Uv
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 15:53:23 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6be7d3d5-8ecf-11ee-98e3-6d05b1d4d9a1;
- Wed, 29 Nov 2023 16:53:21 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a011e9bf336so954287566b.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 Nov 2023 07:53:21 -0800 (PST)
+ <SRS0=Uyrv=HK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1r8MuZ-0006Z9-SR
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 15:55:40 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbc60fcc-8ecf-11ee-9b0f-b553b5be7939;
+ Wed, 29 Nov 2023 16:55:37 +0100 (CET)
+Received: from BL0PR0102CA0037.prod.exchangelabs.com (2603:10b6:208:25::14) by
+ IA1PR12MB8586.namprd12.prod.outlook.com (2603:10b6:208:44e::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7025.29; Wed, 29 Nov 2023 15:55:32 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:25:cafe::32) by BL0PR0102CA0037.outlook.office365.com
+ (2603:10b6:208:25::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29 via Frontend
+ Transport; Wed, 29 Nov 2023 15:55:32 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7046.17 via Frontend Transport; Wed, 29 Nov 2023 15:55:32 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 29 Nov
+ 2023 09:55:29 -0600
+Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 29 Nov 2023 09:55:28 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,363 +59,366 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6be7d3d5-8ecf-11ee-98e3-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701273201; x=1701878001; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=hBp+fk+bSKBdjq+spVKbfJflMlcqlsQ73yRsfRGaOs4=;
-        b=lUA1W/uY19xK6aeP9yknMGnKhgGjcxTkvW4ZdlNKUqJNMAqNlukJ3G8rPIGSenjdjA
-         j/t/Lu92z3TkGF+c02q+wmqtZx15NCuYD1foOMM85FKBCRhu5qWIAkDw1q4cHZ5K+n3i
-         XPhkATrOoj4V1oSvKgdLtQF/sOEa2MkG6nrAA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701273201; x=1701878001;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hBp+fk+bSKBdjq+spVKbfJflMlcqlsQ73yRsfRGaOs4=;
-        b=M38AIgNBfj0DylGn99hPXd6mlTFOmRMoWpQLjIyaLTzJQVdhey28wcSLzmNWaD/h89
-         EzzfgEK4dunRahCatZnNigr5kAQ6P1FGP652FcwmmTDquEhw6IzNqRiI3iQisB+Wh2Wm
-         9a9zTvR4ycyth/Ez0+mQQ56gYKhXyiAEDSVPXyEB30wz2oPDqFm8atw+CvcXNzYaT3lB
-         T9O5Jw6YAqWSoWUvLvXedE5B2bX2B/ZEjXcZT8aL3FhOuUZxF9Zh/g9vpdQi0Sl5kAcS
-         z7PouxGzWFBbyNHHuVItM5y8c4+jyyhCARYjlcrHjZZRXzJf2uDEjLs6pU9AfEOZOUuw
-         cgTQ==
-X-Gm-Message-State: AOJu0YwFi/6DSFbK5PsPFEejWE3qNOZgDiyj0yhQUHR8EQA/nlhs3flv
-	cHV53iGyL5LmYw5Ik2GZ0hNBsCFvsBhDeddj15fWIT1qJ2LRXnV+CM8=
-X-Google-Smtp-Source: AGHT+IEpBh7epoOMeK4HHm4+g600fifywKuLimJLzj6t9qArQPmjjL1+U+0JlecIgVvZQaiB9DlurNxG0OpNgkaAYBk=
-X-Received: by 2002:a17:906:194f:b0:a04:3f97:f3f1 with SMTP id
- b15-20020a170906194f00b00a043f97f3f1mr14403528eje.58.1701273200706; Wed, 29
- Nov 2023 07:53:20 -0800 (PST)
+X-Inumbo-ID: bbc60fcc-8ecf-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KbrEXsrduzYV1oPgLUkZWJZfDZwv7dNSgt33jqBAZvkLWGAcfAU3PplRk4gz7J1WiT9bywXPM6aZ4c5Nc4TRjw6G+w+eCEUYm+KB726/ETVCXezW7MkyMs2Y7t0qXEZJQ3rUVBdFl5eXqHaquMP+N7DJMmib/UWHdMmG4Nb5JqTCITGYIvOxmNAk4kv6UrlekSigzkj44/07tLExS7PrMo3+WSmdQ8ATU7f7987hB4Uvgv2o+ZeBYYQ6LX5k3qGzdM9GIbCK8jDUffuY8WPpCXMcm/bfoITSPyeafI6bRIIumuBUkcatCyWkkGHXFA7LkMfjKKb6JXqtJElVMQJgzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZP2lczezGp1Mbf67op031hoWzRqiLUyWTHsL7F1US78=;
+ b=dVmAO8TB0LoqAzJSSsDhko7x5uBs/cke0p9n/8j74lSjrld9KC/tXkEHfXewaIsqXE3Mm6OA4PGWkI2A8EpTV7srBkspHLoOdWMeNHhqk+Wlviocrq3DO+vnT/ruQyA8EenMFq/0lsi+F7P4hXeMsBh0KSFilfX2lG3XY5P+m8Y2p//BOSlSqswqMK0DY0pVXd36c01JTGWnF4Ny7eNuYUj67iVdIQyv7ABfiKzkuIb7bIQSoqJ6QZhhDr45DtOKjHtfeOl77pbGq2Q2xzfJs5NvipEvCYhHLx4xS5OAMG1AZw+VjzGSE/jWT42xUEBvvX7A0eBdxHZc4fuKh9IDWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZP2lczezGp1Mbf67op031hoWzRqiLUyWTHsL7F1US78=;
+ b=Ail3T7+zZIAF8hAFjNDjFcHE+5NKIHGdlxn3y4u9igB3bqBKW0hZSOQ8ioUFxolaMK3UyEeWFO4MTwRUOWlgVs7SaBe6j9jIehs9dhBy9pkoUON0h5ZGJOXszun5InCr4gwRuMfW4S1utEnXTjYP/NgBbZumAtwEU7nvXD+PsW4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <92b49bec-4d07-4f27-83f3-dca886e6fcc1@amd.com>
+Date: Wed, 29 Nov 2023 10:55:27 -0500
 MIME-Version: 1.0
-References: <CAO-mL=wq2_gtE224RfavM3o6mhEASwygN6-fnKEP1YNUiuWEig@mail.gmail.com>
- <6554b6b7.df0a0220.412e6.4a71@mx.google.com> <CAO-mL=zCOA2-q6DpRSJ4O2mvdx9ypJPg7VXC14_+ZWy8Eqt7Yw@mail.gmail.com>
-In-Reply-To: <CAO-mL=zCOA2-q6DpRSJ4O2mvdx9ypJPg7VXC14_+ZWy8Eqt7Yw@mail.gmail.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Wed, 29 Nov 2023 15:52:44 +0000
-Message-ID: <CAO-mL=y1X_nbggFBbCpWDSCR_ttshcpkU4Xo9wd2zEWbpgy-vg@mail.gmail.com>
-Subject: Re: Important - Documentation Discussion
-To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Content-Type: multipart/alternative; boundary="000000000000cb6383060b4c8823"
-
---000000000000cb6383060b4c8823
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] xen/vpci: header: filter PCI capabilities
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20231128194427.2513249-1-stewart.hildebrand@amd.com>
+ <20231128194427.2513249-3-stewart.hildebrand@amd.com>
+ <ZWdFFa1J6l73kvxb@macbook>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <ZWdFFa1J6l73kvxb@macbook>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|IA1PR12MB8586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2960b872-3c59-43c2-087b-08dbf0f39e5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	q6FPZsKDYc1lsugYBSDb85+tLtV03ghVbmCWNozB2H+A/Ec50Jud0WpfxE5ltJLirK/EjE2dJuGH+Eg/WKy+ynGQ7Au7kQ9JbTDLf03pjCZhKrPtm4nZT/fh45+zre4jDQBTJw4o5123VlWeAQji2YUpmzzJ6bN5+E0ThEy3HPPesaqepEzYT/K4Y/uOidCA9knFQmGZ0OZ7TaF0zA9xlHLDnct5yPvQbZe0ScV6KAmyfKy85npP/iGAwUMwDzmOSKtd8hB05EfCC4A517PKitX3lZdjUUNYmLj9SdusVozmzeoi7ZCriAGOrtiIA3M4puvIzSfsf+P/KdhpXRh40A+1CPzSj9FR6Ow6a0VB/cb5TjV2UAJgeFm5MYuG9TfPl+NowTIcANvis5TwWNpe2R6pt5eZd7Qdr4HKZUU8gmc/HZxT/3Oj5ASwcyh6FmcKoNWs8uSQc98MtpavWW6u7cnvP8Z+eboy9SMnUhbbQqgENG/j9jjKcJqWaUnzuKbIe3b0rdq5+JKD1ZeLKRDjOi4gvwrkwiiDA68WmsVFvVI83VVr4phE6cXagdBHGgJ0IkClJmJc/0vRCAZyRIWxo5fiYUMhbWOzaVbkzjdWeWH10u90+7QlPPaUvCs/l+nGvfWesLDlQxFNU/Mp8qAErjPCnBgX8/kUbER6gRnK1RSCL95fbcr3f9x8dGr9lEoPen6srQUJ1MSoETP0dgQUhe5vJrneMxr4i24yXI/uV6H76rM6R1wZjWY0OcBN4A4mqpwB9zjijX2OprO5JmwPVKDrLLwUJbCNbO217epybH4GGRudmF1SOYuZLFY0wAcj
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(346002)(396003)(39860400002)(230922051799003)(451199024)(1800799012)(186009)(82310400011)(64100799003)(40470700004)(46966006)(36840700001)(31696002)(26005)(36756003)(40460700003)(44832011)(336012)(478600001)(82740400003)(426003)(83380400001)(2616005)(86362001)(4326008)(8676002)(8936002)(53546011)(2906002)(66899024)(36860700001)(16576012)(6916009)(54906003)(41300700001)(316002)(70586007)(70206006)(31686004)(40480700001)(5660300002)(356005)(81166007)(47076005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2023 15:55:32.7335
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2960b872-3c59-43c2-087b-08dbf0f39e5f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8586
 
-Hi all,
-
-After gathering different feedback from members of the community, please
-see below.
-
-*We will be moving ahead with Git + RST + Sphinx + Kroki as the new
-platforms for user documentation.*
-
-*Many of you have specified you don't necessarily have a preference for the
-platform, but instead a need for updated content. *
-
-Anticipated next steps:
-
-   1. Begin scoping how documentation will be split out (e.g. getting
-   started/tutorials/how-tos)
-   2. Building out the new documentation platform
-   3. Migrate the existing/relevant content over to the new platform
-   4. Commit changes in Git
-   5. Use Sphinx to generate HTML or other formats needed from RST files
-   6. Align this to be launched on our new Xen Project webpage. (We may
-   have the existing content visible whilst we work on revamping the
-   documentation.)
-   7. Create smaller working groups to update and plan documentation, and
-   update these periodically, before pushing to the new webpage.
-
-This will be a joint effort within the community, and I am hoping to
-count on our members to facilitate these changes. I'll be asking everyone
-for their help, but if you'd like to volunteer on any of the specific
-steps, please let me know. The smaller working groups are likely to split
-into teams concerning the subprojects, but this is open for discussion.
-
-Many thanks,
-Kelly Choi
-
-Xen Project Community Manager
-XenServer, Cloud Software Group
-
-
-On Fri, Nov 17, 2023 at 1:58=E2=80=AFPM Kelly Choi <kelly.choi@cloud.com> w=
-rote:
-
-> Hey Alejandro,
->
-> Thanks for your feedback.
-> I'll consider all your points, and any other comments from the community
-> before proceeding on the next steps.
->
-> If anyone else has any further ideas, please let me know *Friday 24th
-> November 2023.*
->
-> Many thanks,
-> Kelly Choi
->
-> Open Source Community Manager
-> XenServer, Cloud Software Group
->
->
-> On Wed, Nov 15, 2023 at 12:16=E2=80=AFPM Alejandro Vallejo <
-> alejandro.vallejo@cloud.com> wrote:
->
->> Hi,
+On 11/29/23 09:05, Roger Pau Monné wrote:
+> On Tue, Nov 28, 2023 at 02:44:25PM -0500, Stewart Hildebrand wrote:
+>> Currently, Xen vPCI only supports virtualizing the MSI and MSI-X capabilities.
+>> Hide all other PCI capabilities (including extended capabilities) from domUs for
+>> now, even though there may be certain devices/drivers that depend on being able
+>> to discover certain capabilities.
 >>
->> On Wed, Nov 15, 2023 at 11:43:46AM +0000, Kelly Choi wrote:
->> > Hi all,
->> >
->> > As you may be aware, we are in the process of reviewing our existing
->> > documentation platform and content. In order to meet the requirements =
-of
->> > the community and project, I need your input and feedback.
->> >
->> > The aim of the new documentation is to encourage community members to
->> > collaborate in updating content (where possible) and educate users on
->> how
->> > the project works. The updated documentation will be hosted on our new
->> > upcoming website.
->> >
->> > *Suggestion for user-orientated documentation:*
->> >
->> >    - git - for hosting (gitlab recommended)
->> >    - RST - for the format of the documentation
->> >    - Sphynx - to generate web pages and PDF and other formats from RST
->> In my experience Sphinx's strength is in its ability to cross-reference
->> the
->> code. That isn't something terribly helpful for user documentation, and =
-it
->> makes the whole thing harder to set up for no clear benefit.
+>> We parse the physical PCI capabilities linked list and add vPCI register
+>> handlers for the next elements, inserting our own next value, thus presenting a
+>> modified linked list to the domU.
 >>
->> For user-facing docs I'd propose `mkdocs` instead, which is a lot more
->> focused and simpler to set up (can be done literally in a couple of
->> minutes). The main difference would be that it takes Markdown rather tha=
-n
->> RST[1]. It trivially supports plugins for interesting things, like merma=
-id
->> (for sequence/block diagrams or FSMs)
->>
->> Main website: https://www.mkdocs.org/
->> Plugin catalog: https://github.com/mkdocs/catalog
->>     * mermaid plugin: https://github.com/fralau/mkdocs-mermaid2-plugin
->>     * kroki plugin: https://kroki.io/
->>
->> [1] I happen to prefer Markdown, as I find it easier to read and write,
->> but
->>     that's just personal preference
->>
->> >
->> > *Suggestion for developer reference documentation:*
->> >
->> >    - Doxygen
->> >    - Kerneldoc
->> >    - Open to other suggestions here
->> There's 2 areas here. The format for the annotations, and the
->> visualization
->> frontend. They need not be the same. Using Doxygen seems the less
->> "not-invented-here" approach, while kerneldoc would
->>
->> As for the frontend I would suggest to _not_ use Doxygen itself as the
->> generated websites are hideous to look at. Sphinx (through Breathe) or a=
-ny
->> other Doxygen-database parse wouldr do the job as well providing a much
->> (much) better output.
->>
->> >
->> > Example of how documentation will be split:
->> >
->> >    1. Getting started/beginner user guides
->> >    2. Learning orientated tutorials
->> >    3. Goal-orientated how-to guides
->> >    4. Developer related documentation
->> (1-3) seem like pretty much the same thing. Guides of increasing
->> complexity
->> meant to train a new user/admin. Dividing such a section in those 3 bloc=
-ks
->> seems sensible.
->>
->> (4) could be split in a "Developer Manual", which would contain plain
->> explanation for dev-heavy concepts, and a "Reference Manual" with links =
-to
->> the Doxygen-esque websites and a higher focus on implementation details.
->>
->> >
->> > Side note: Whilst I appreciate everyone has a different vision of what
->> > ideal documentation looks like, please be mindful that not everyone's
->> > thought processes or depth of knowledge are the same. All ideas are
->> > welcome, and decisions made will always reflect community needs.
->> >
->> > Many thanks,
->> > Kelly Choi
->> >
->> > Open Source Community Manager
->> > XenServer, Cloud Software Group
->>
->> Cheers,
->> Alejandro
->>
->
+>> Introduce helper functions vpci_hw_read8 and vpci_read_val. The vpci_read_val
+>> helper function returns a fixed value, which may be used for RAZ registers, or
+>                                                                ^ read as zero
 
---000000000000cb6383060b4c8823
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I'll change it
 
-<div dir=3D"ltr"><div dir=3D"ltr">Hi all,<div><br></div><div>After gatherin=
-g different feedback from members of the community, please see below.</div>=
-<div><b><br></b></div><div><b>We will be moving ahead with=C2=A0<u>Git=C2=
-=A0+ RST=C2=A0+ Sphinx=C2=A0+ Kroki</u>=C2=A0as the new platforms for user =
-documentation.</b></div><div><b><br></b></div><div><i>Many of you have spec=
-ified you don&#39;t necessarily have a preference=C2=A0for the platform, bu=
-t instead a need for updated content.=C2=A0</i></div><div><br></div><div>An=
-ticipated next steps:</div><div><ol><li>Begin scoping how documentation wil=
-l be split out (e.g. getting started/tutorials/how-tos)</li><li>Building ou=
-t the new documentation platform=C2=A0</li><li>Migrate the existing/relevan=
-t content over to the new platform=C2=A0</li><li>Commit changes in Git=C2=
-=A0</li><li>Use Sphinx to generate HTML or other formats needed from RST fi=
-les</li><li>Align this to be launched on our new Xen Project webpage. (We m=
-ay have the existing content visible=C2=A0whilst we work on revamping the d=
-ocumentation.)</li><li>Create smaller working groups to update and plan doc=
-umentation, and update these periodically, before pushing to the new webpag=
-e.=C2=A0</li></ol><div>This will be a joint effort within the community, an=
-d I am hoping to count=C2=A0on our members to facilitate=C2=A0these changes=
-. I&#39;ll be asking everyone for their help, but if you&#39;d like to volu=
-nteer on any of the specific steps, please let me know. The smaller working=
- groups are likely to split into teams concerning the subprojects, but this=
- is open for=C2=A0discussion.=C2=A0</div></div><div><br></div><div><div><di=
-v dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,<=
-/div><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,1=
-36,136)">Xen Project Community Manager</div><div style=3D"color:rgb(136,136=
-,136)">XenServer, Cloud Software Group</div></div></div></div></div><br></d=
-iv></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
-r">On Fri, Nov 17, 2023 at 1:58=E2=80=AFPM Kelly Choi &lt;<a href=3D"mailto=
-:kelly.choi@cloud.com" target=3D"_blank">kelly.choi@cloud.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"lt=
-r">Hey Alejandro,<div><br></div><div>Thanks for your feedback.</div><div>I&=
-#39;ll consider all your points, and any other comments from the community =
-before proceeding on the next steps.</div><div><br></div><div>If anyone els=
-e has any further ideas, please let me know <b><u>Friday 24th November 2023=
-.</u></b></div><div><b><u><br clear=3D"all"></u></b><div><div dir=3D"ltr" c=
-lass=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly=
- Choi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)">Open S=
-ource Community Manager</div><div style=3D"color:rgb(136,136,136)">XenServe=
-r, Cloud Software Group</div></div></div></div></div><br></div></div><br><d=
-iv class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov =
-15, 2023 at 12:16=E2=80=AFPM Alejandro Vallejo &lt;<a href=3D"mailto:alejan=
-dro.vallejo@cloud.com" target=3D"_blank">alejandro.vallejo@cloud.com</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-On Wed, Nov 15, 2023 at 11:43:46AM +0000, Kelly Choi wrote:<br>
-&gt; Hi all,<br>
-&gt; <br>
-&gt; As you may be aware, we are in the process of reviewing our existing<b=
-r>
-&gt; documentation platform and content. In order to meet the requirements =
-of<br>
-&gt; the community and project, I need your input and feedback.<br>
-&gt; <br>
-&gt; The aim of the new documentation is to encourage community members to<=
-br>
-&gt; collaborate in updating content (where possible) and educate users on =
-how<br>
-&gt; the project works. The updated documentation will be hosted on our new=
-<br>
-&gt; upcoming website.<br>
-&gt; <br>
-&gt; *Suggestion for user-orientated documentation:*<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 - git - for hosting (gitlab recommended)<br>
-&gt;=C2=A0 =C2=A0 - RST - for the format of the documentation<br>
-&gt;=C2=A0 =C2=A0 - Sphynx - to generate web pages and PDF and other format=
-s from RST<br>
-In my experience Sphinx&#39;s strength is in its ability to cross-reference=
- the<br>
-code. That isn&#39;t something terribly helpful for user documentation, and=
- it<br>
-makes the whole thing harder to set up for no clear benefit.<br>
-<br>
-For user-facing docs I&#39;d propose `mkdocs` instead, which is a lot more<=
-br>
-focused and simpler to set up (can be done literally in a couple of<br>
-minutes). The main difference would be that it takes Markdown rather than<b=
-r>
-RST[1]. It trivially supports plugins for interesting things, like mermaid<=
-br>
-(for sequence/block diagrams or FSMs) <br>
-<br>
-Main website: <a href=3D"https://www.mkdocs.org/" rel=3D"noreferrer" target=
-=3D"_blank">https://www.mkdocs.org/</a><br>
-Plugin catalog: <a href=3D"https://github.com/mkdocs/catalog" rel=3D"norefe=
-rrer" target=3D"_blank">https://github.com/mkdocs/catalog</a><br>
-=C2=A0 =C2=A0 * mermaid plugin: <a href=3D"https://github.com/fralau/mkdocs=
--mermaid2-plugin" rel=3D"noreferrer" target=3D"_blank">https://github.com/f=
-ralau/mkdocs-mermaid2-plugin</a><br>
-=C2=A0 =C2=A0 * kroki plugin: <a href=3D"https://kroki.io/" rel=3D"noreferr=
-er" target=3D"_blank">https://kroki.io/</a><br>
-<br>
-[1] I happen to prefer Markdown, as I find it easier to read and write, but=
-<br>
-=C2=A0 =C2=A0 that&#39;s just personal preference<br>
-<br>
-&gt; <br>
-&gt; *Suggestion for developer reference documentation:*<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 - Doxygen<br>
-&gt;=C2=A0 =C2=A0 - Kerneldoc<br>
-&gt;=C2=A0 =C2=A0 - Open to other suggestions here<br>
-There&#39;s 2 areas here. The format for the annotations, and the visualiza=
-tion<br>
-frontend. They need not be the same. Using Doxygen seems the less<br>
-&quot;not-invented-here&quot; approach, while kerneldoc would <br>
-<br>
-As for the frontend I would suggest to _not_ use Doxygen itself as the<br>
-generated websites are hideous to look at. Sphinx (through Breathe) or any<=
-br>
-other Doxygen-database parse wouldr do the job as well providing a much<br>
-(much) better output.<br>
-<br>
-&gt; <br>
-&gt; Example of how documentation will be split:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 1. Getting started/beginner user guides<br>
-&gt;=C2=A0 =C2=A0 2. Learning orientated tutorials<br>
-&gt;=C2=A0 =C2=A0 3. Goal-orientated how-to guides<br>
-&gt;=C2=A0 =C2=A0 4. Developer related documentation<br>
-(1-3) seem like pretty much the same thing. Guides of increasing complexity=
-<br>
-meant to train a new user/admin. Dividing such a section in those 3 blocks<=
-br>
-seems sensible.<br>
-<br>
-(4) could be split in a &quot;Developer Manual&quot;, which would contain p=
-lain<br>
-explanation for dev-heavy concepts, and a &quot;Reference Manual&quot; with=
- links to<br>
-the Doxygen-esque websites and a higher focus on implementation details.<br=
->
-<br>
-&gt; <br>
-&gt; Side note: Whilst I appreciate everyone has a different vision of what=
-<br>
-&gt; ideal documentation looks like, please be mindful that not everyone&#3=
-9;s<br>
-&gt; thought processes or depth of knowledge are the same. All ideas are<br=
->
-&gt; welcome, and decisions made will always reflect community needs.<br>
-&gt; <br>
-&gt; Many thanks,<br>
-&gt; Kelly Choi<br>
-&gt; <br>
-&gt; Open Source Community Manager<br>
-&gt; XenServer, Cloud Software Group<br>
-<br>
-Cheers,<br>
-Alejandro<br>
-</blockquote></div>
-</blockquote></div></div>
+>> registers whose value doesn't change.
+>>
+>> Introduce pci_find_next_cap_ttl() helper while adapting the logic from
+>> pci_find_next_cap() to suit our needs, and implement the existing
+>> pci_find_next_cap() in terms of the new helper.
+>>
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> 
+> LGTM, some nits below:
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
---000000000000cb6383060b4c8823--
+Thanks!
+
+> 
+>> ---
+>> v7->v8:
+>> * use to array instead of match function
+>> * include lib.h for ARRAY_SIZE
+>> * don't emulate PCI_CAPABILITY_LIST register if PCI_STATUS_CAP_LIST bit is not
+>>   set in hardware
+>> * spell out RAZ/WI acronym
+>> * dropped R-b tag since the patch has changed moderately since the last rev
+>>
+>> v6->v7:
+>> * no change
+>>
+>> v5->v6:
+>> * add register handlers before status register handler in init_bars()
+>> * s/header->mask_cap_list/mask_cap_list/
+>>
+>> v4->v5:
+>> * use more appropriate types, continued
+>> * get rid of unnecessary hook function
+>> * add Jan's R-b
+>>
+>> v3->v4:
+>> * move mask_cap_list setting to this patch
+>> * leave pci_find_next_cap signature alone
+>> * use more appropriate types
+>>
+>> v2->v3:
+>> * get rid of > 0 in loop condition
+>> * implement pci_find_next_cap in terms of new pci_find_next_cap_ttl function so
+>>   that hypothetical future callers wouldn't be required to pass &ttl.
+>> * change NULL to (void *)0 for RAZ value passed to vpci_read_val
+>> * change type of ttl to unsigned int
+>> * remember to mask off the low 2 bits of next in the initial loop iteration
+>> * change return type of pci_find_next_cap and pci_find_next_cap_ttl
+>> * avoid wrapping the PCI_STATUS_CAP_LIST condition by using ! instead of == 0
+>>
+>> v1->v2:
+>> * change type of ttl to int
+>> * use switch statement instead of if/else
+>> * adapt existing pci_find_next_cap helper instead of rolling our own
+>> * pass ttl as in/out
+>> * "pass through" the lower 2 bits of the next pointer
+>> * squash helper functions into this patch to avoid transient dead code situation
+>> * extended capabilities RAZ/WI
+>> ---
+>>  xen/drivers/pci/pci.c     | 31 ++++++++++++-------
+>>  xen/drivers/vpci/header.c | 63 +++++++++++++++++++++++++++++++++++++++
+>>  xen/drivers/vpci/vpci.c   | 12 ++++++++
+>>  xen/include/xen/pci.h     |  3 ++
+>>  xen/include/xen/vpci.h    |  5 ++++
+>>  5 files changed, 104 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/xen/drivers/pci/pci.c b/xen/drivers/pci/pci.c
+>> index 3569ccb24e9e..1645b3118220 100644
+>> --- a/xen/drivers/pci/pci.c
+>> +++ b/xen/drivers/pci/pci.c
+>> @@ -39,31 +39,42 @@ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap)
+>>      return 0;
+>>  }
+>>  
+>> -unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+>> -                               unsigned int cap)
+>> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+>> +                                   unsigned int *cap, unsigned int n,
+>> +                                   unsigned int *ttl)
+>>  {
+>> -    u8 id;
+>> -    int ttl = 48;
+>> +    unsigned int id, i;
+> 
+> Nit: those can be defined inside the while loop.
+
+I'll move them
+
+> 
+>> -    while ( ttl-- )
+>> +    while ( (*ttl)-- )
+>>      {
+>>          pos = pci_conf_read8(sbdf, pos);
+>>          if ( pos < 0x40 )
+>>              break;
+>>  
+>> -        pos &= ~3;
+>> -        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
+>> +        id = pci_conf_read8(sbdf, (pos & ~3) + PCI_CAP_LIST_ID);
+>>  
+>>          if ( id == 0xff )
+>>              break;
+>> -        if ( id == cap )
+>> -            return pos;
+>> +        for ( i = 0; i < n; i++ )
+>> +        {
+>> +            if ( id == cap[i] )
+>> +                return pos;
+>> +        }
+>>  
+>> -        pos += PCI_CAP_LIST_NEXT;
+>> +        pos = (pos & ~3) + PCI_CAP_LIST_NEXT;
+>>      }
+>> +
+>>      return 0;
+>>  }
+>>  
+>> +unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+>> +                               unsigned int cap)
+>> +{
+>> +    unsigned int ttl = 48;
+>> +
+>> +    return pci_find_next_cap_ttl(sbdf, pos, &cap, 1, &ttl) & ~3;
+>> +}
+>> +
+>>  /**
+>>   * pci_find_ext_capability - Find an extended capability
+>>   * @sbdf: PCI device to query
+>> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+>> index 351318121e48..d7dc0c82a6ba 100644
+>> --- a/xen/drivers/vpci/header.c
+>> +++ b/xen/drivers/vpci/header.c
+>> @@ -18,6 +18,7 @@
+>>   */
+>>  
+>>  #include <xen/iocap.h>
+>> +#include <xen/lib.h>
+>>  #include <xen/sched.h>
+>>  #include <xen/softirq.h>
+>>  #include <xen/vpci.h>
+>> @@ -545,6 +546,68 @@ static int cf_check init_bars(struct pci_dev *pdev)
+> 
+> Could you please rename to init_header now that we do much more than
+> dealing with the BARs?
+
+Yes. Hm. Do you think it's deserving of a separate patch? It's a 2-line change.
+
+> 
+>>      if ( rc )
+>>          return rc;
+>>  
+>> +    if ( !is_hardware_domain(pdev->domain) )
+>> +    {
+>> +        if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
+>> +        {
+>> +            /* Only expose capabilities to the guest that vPCI can handle. */
+>> +            unsigned int next, ttl = 48;
+>> +            unsigned int supported_caps[] = {
+> 
+> const?
+
+Will do
+
+> 
+> We likely need to find a way to do this programmatically, so that when
+> a new capability is supported we don't need to go and modify the list
+> here every time.  We can sort that out at a later point however.
+> 
+>> +                PCI_CAP_ID_MSI,
+>> +                PCI_CAP_ID_MSIX,
+>> +            };
+>> +
+>> +            next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
+>> +                                         supported_caps,
+>> +                                         ARRAY_SIZE(supported_caps), &ttl);
+>> +
+>> +            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+>> +                                   PCI_CAPABILITY_LIST, 1,
+>> +                                   (void *)(uintptr_t)next);
+>> +            if ( rc )
+>> +                return rc;
+>> +
+>> +            next &= ~3;
+>> +
+>> +            if ( !next )
+>> +                /*
+>> +                 * If we don't have any supported capabilities to expose to the
+>> +                 * guest, mask the PCI_STATUS_CAP_LIST bit in the status
+>> +                 * register.
+>> +                 */
+>> +                mask_cap_list = true;
+>> +
+>> +            while ( next && ttl )
+>> +            {
+>> +                unsigned int pos = next;
+>> +
+>> +                next = pci_find_next_cap_ttl(pdev->sbdf,
+>> +                                             pos + PCI_CAP_LIST_NEXT,
+>> +                                             supported_caps,
+>> +                                             ARRAY_SIZE(supported_caps), &ttl);
+>> +
+>> +                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
+>> +                                       pos + PCI_CAP_LIST_ID, 1, NULL);
+>> +                if ( rc )
+>> +                    return rc;
+>> +
+>> +                rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+>> +                                       pos + PCI_CAP_LIST_NEXT, 1,
+>> +                                       (void *)(uintptr_t)next);
+>> +                if ( rc )
+>> +                    return rc;
+>> +
+>> +                next &= ~3;
+>> +            }
+>> +        }
+>> +
+>> +        /* Extended capabilities read as zero, write ignore */
+>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL, 0x100, 4,
+>> +                               (void *)0);
+>> +        if ( rc )
+>> +            return rc;
+>> +    }
+>> +
+>>      /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
+>>      rc = vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
+>>                                  PCI_STATUS, 2, NULL,
+>> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+>> index 96187b70141b..99307e310bbb 100644
+>> --- a/xen/drivers/vpci/vpci.c
+>> +++ b/xen/drivers/vpci/vpci.c
+>> @@ -137,6 +137,18 @@ static void cf_check vpci_ignored_write(
+>>  {
+>>  }
+>>  
+>> +uint32_t cf_check vpci_read_val(
+>> +    const struct pci_dev *pdev, unsigned int reg, void *data)
+>> +{
+>> +    return (uintptr_t)data;
+>> +}
+>> +
+>> +uint32_t cf_check vpci_hw_read8(
+>> +    const struct pci_dev *pdev, unsigned int reg, void *data)
+>> +{
+>> +    return pci_conf_read8(pdev->sbdf, reg);
+>> +}
+>> +
+>>  uint32_t cf_check vpci_hw_read16(
+>>      const struct pci_dev *pdev, unsigned int reg, void *data)
+>>  {
+>> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+>> index 50d7dfb2a2fd..b2dcef01a1cf 100644
+>> --- a/xen/include/xen/pci.h
+>> +++ b/xen/include/xen/pci.h
+>> @@ -205,6 +205,9 @@ int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+>>  int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+>>                      unsigned int devfn, int reg, int len, u32 value);
+>>  unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap);
+>> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+>> +                                   unsigned int *cap, unsigned int n,
+>> +                                   unsigned int *ttl);
+>>  unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+>>                                 unsigned int cap);
+>>  unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap);
+>> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+>> index 8e8e42372ec1..3c14a74d6255 100644
+>> --- a/xen/include/xen/vpci.h
+>> +++ b/xen/include/xen/vpci.h
+>> @@ -52,7 +52,12 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size);
+>>  void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+>>                  uint32_t data);
+>>  
+>> +uint32_t cf_check vpci_read_val(
+>> +    const struct pci_dev *pdev, unsigned int reg, void *data);
+> 
+> A small comment could be helpful: helper to return the value passed in the data
+> parameter.
+
+Will do
+
+> 
+> Thanks, Roger.
 
