@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05547FDDFC
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 18:10:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644125.1004725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6DF07FDE22
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 18:17:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644130.1004734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8O4j-0000sB-Ka; Wed, 29 Nov 2023 17:10:13 +0000
+	id 1r8OBk-0002m4-9z; Wed, 29 Nov 2023 17:17:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644125.1004725; Wed, 29 Nov 2023 17:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 644130.1004734; Wed, 29 Nov 2023 17:17:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8O4j-0000py-H0; Wed, 29 Nov 2023 17:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 644125;
- Wed, 29 Nov 2023 17:10:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8OBk-0002ju-6j; Wed, 29 Nov 2023 17:17:28 +0000
+Received: by outflank-mailman (input) for mailman id 644130;
+ Wed, 29 Nov 2023 17:17:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L+uX=HK=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1r8O4i-0000ps-9o
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 17:10:12 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25f99c04-8eda-11ee-98e3-6d05b1d4d9a1;
- Wed, 29 Nov 2023 18:10:09 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 3ATH9gjD071331
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 29 Nov 2023 12:09:48 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 3ATH9fkb071330;
- Wed, 29 Nov 2023 09:09:41 -0800 (PST) (envelope-from ehem)
+ (envelope-from <julien@xen.org>) id 1r8OBi-0002jn-Ku
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 17:17:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r8OBi-0008LN-08; Wed, 29 Nov 2023 17:17:26 +0000
+Received: from 82-132-227-204.dab.02.net ([82.132.227.204] helo=[172.20.10.4])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r8OBh-0003Ml-No; Wed, 29 Nov 2023 17:17:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,74 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25f99c04-8eda-11ee-98e3-6d05b1d4d9a1
-Date: Wed, 29 Nov 2023 09:09:41 -0800
-From: Elliott Mitchell <ehem+freebsd@m5p.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Mario Marietto <marietto2008@gmail.com>,
-        Chuck Zmudzinski <brchuckz@netscape.net>,
-        Demi Marie Obenour <demi@invisiblethingslab.com>,
-        Anthony PERARD <anthony.perard@citrix.com>,
-        Julien Grall <julien@xen.org>,
-        Xen-devel <xen-devel@lists.xenproject.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Bertrand Marquis <Bertrand.Marquis@arm.com>,
-        Michal Orzel <michal.orzel@amd.com>
-Subject: Re: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32
- bit
-Message-ID: <ZWdwVVIV4gBJPsdu@mattapan.m5p.com>
-References: <C0A0E9FA-5AAB-4324-BBBD-D07412CD7F32@arm.com>
- <ZWR1v5Y3EpRK817B@macbook>
- <CA+1FSij2Q9f9Vj0A06HUYeUxTddrEyF=Q8X5fbs96CRr83_BPg@mail.gmail.com>
- <4fc95518-7e46-4f82-b540-afdbc941508a@netscape.net>
- <f606be07-c4ff-43c6-acf9-42065a84b594@netscape.net>
- <ZWUgfkP4U5kOmQNj@mattapan.m5p.com>
- <ZWXvBMaRJ5Lbb5S9@macbook>
- <CA+1FSii4WeKQBuzW9TS_AkHD2nbm=Q+iL9j3wkfu+ZsC0V_=1w@mail.gmail.com>
- <ZWYC-omtTOxIHNwF@macbook>
- <ZWZyEtGMhjRba/Z2@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=/cKwaw2qI5kmqL0z54xgDMX/8DmmQyFuSYSVcPr+yGM=; b=MO935J1XH9xFizFzQTF4EjteS6
+	k5sgSrsRxgBjBvrtOuDYo6e6Uf1y75DrinkzxLDlSb14a8TOX0mso+oheCKEf0qJeUjjjUjivp8+R
+	aG3gWSeSu9tUOVD0E1cDsuZz/AmCKbWcZScTde9SR/cIfc9TVwoMGuA7VE733YTreHDI=;
+Message-ID: <c51e40ed-0cd7-4562-921f-d2dc67b9e4e6@xen.org>
+Date: Wed, 29 Nov 2023 18:17:22 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZWZyEtGMhjRba/Z2@mattapan.m5p.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/arm: Move static event channel feature to a separate
+ module
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231129153417.84421-1-michal.orzel@amd.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231129153417.84421-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 28, 2023 at 03:04:50PM -0800, Elliott Mitchell wrote:
-> On Tue, Nov 28, 2023 at 04:10:50PM +0100, Roger Pau Monné wrote:
-> > On Tue, Nov 28, 2023 at 03:09:14PM +0100, Mario Marietto wrote:
-> > > For booting a FreeBSD kernel as a guest OS on XEN,should we install xen
-> > > 4.18 from source ?
+Hi Michal
+
+On 29/11/2023 16:34, Michal Orzel wrote:
+> Move static event channel feature related code to a separate module
+> (static-evtchn.{c,h}) in the spirit of fine granular configuration, so
+> that the feature can be disabled if not needed.
 > 
-> > I don't think so, I'm not aware of the FreeBSD port requiring a
-> > specific version of Xen.  I do think the work is limited to aarch64
-> > however, so there's no support in sight for arm32 FreeBSD guests as
-> > far as I'm aware.
+> Introduce Kconfig option CONFIG_STATIC_EVTCHN, enabled by default (to
+> keep the current behavior) dependent on CONFIG_DOM0LESS. While it could
+> be possible to create a loopback connection for dom0 only, this use case
+> does not really need this feature and all the docs and commit messages
+> refer explicitly to the use in dom0less system.
 > 
-> I've only ever tried arm64, but since arm32 didn't appear to need much
-> to have operational I tried to make it possible.  In theory it /should/
-> work on arm32, but I've never tried it.  What was missing was I had never
-> added it to the configuration and one link was needed.  Updated "submit"
-> branch has the tiny adjustment.
-> 
-> (the only difference is the hypercall wrappers, register naming and where
-> the op code goes, very simple compatibility)
+> The only function visible externally is alloc_static_evtchn(), so move
+> the prototype to static-evtchn.h and provide a stub in case a feature
+> is disabled. Guard static_evtchn_created in struct dt_device_node and
+> move its helpers to static-evtchn.h.
 
-Ugh, goof and send this before the final check completes...   Appears a
-bit more work is needed to get this operational.  Mainly need to figure
-out the Clang option to enable the key op code.
+I guess this is a matter of taste, but I think 
+dt_device_set_static_evtchn_created() and 
+dt_device_static_evtchn_created() are better suited in device_tree.h 
+because they are touching a field in the device tree structure.
 
-Issue is the arm hypercall.h header and the HYPERVISOR_*() wrappers.  I
-fear the traditional approach might be easier to get working.
+This would stay consistent with the helper dt_device_set_protected() 
+which is only used by the IOMMU code yet is defined in device_tree.h.
 
+That said, I could settle on defining the two helpers in the *.c 
+directly because they are not meant to be used outside of a single *.c.
+
+Simarly...
+
+> diff --git a/xen/arch/arm/include/asm/static-evtchn.h b/xen/arch/arm/include/asm/static-evtchn.h
+> new file mode 100644
+> index 000000000000..472673fae345
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/static-evtchn.h
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef __ASM_STATIC_EVTCHN_H_
+> +#define __ASM_STATIC_EVTCHN_H_
+> +
+> +#ifdef CONFIG_STATIC_EVTCHN
+> +
+> +#include <xen/device_tree.h>
+> +
+> +#define STATIC_EVTCHN_NODE_SIZE_CELLS 2
+
+... this used to be defined in domain_build.c. AFAICT the only use is 
+now in static-evtchn.c. So why is it defined in the header?
+
+If this is moved in the *.c, then the header static-evtchn.h would only 
+contain alloc_static_evtchn(). This could be moved in domain_build.h or 
+setup.h (I don't have any preference).
+
+Cheers,
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Julien Grall
 
