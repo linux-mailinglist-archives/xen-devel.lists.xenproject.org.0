@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2461A7FE089
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 20:56:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644185.1004944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EF67FE08D
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 20:56:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644189.1004963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Qfe-00035R-6z; Wed, 29 Nov 2023 19:56:30 +0000
+	id 1r8Qfh-0003oM-Tx; Wed, 29 Nov 2023 19:56:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644185.1004944; Wed, 29 Nov 2023 19:56:30 +0000
+Received: by outflank-mailman (output) from mailman id 644189.1004963; Wed, 29 Nov 2023 19:56:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Qfe-000327-1k; Wed, 29 Nov 2023 19:56:30 +0000
-Received: by outflank-mailman (input) for mailman id 644185;
- Wed, 29 Nov 2023 19:56:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8Qfh-0003j3-Pj; Wed, 29 Nov 2023 19:56:33 +0000
+Received: by outflank-mailman (input) for mailman id 644189;
+ Wed, 29 Nov 2023 19:56:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J7nN=HK=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1r8Qfc-0000tx-PS
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 19:56:28 +0000
+ id 1r8Qfg-0000Sw-4W
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 19:56:32 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6119a210-8ef1-11ee-9b0f-b553b5be7939;
- Wed, 29 Nov 2023 20:56:27 +0100 (CET)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 63bcdf84-8ef1-11ee-98e4-6d05b1d4d9a1;
+ Wed, 29 Nov 2023 20:56:31 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-368-V4RCa5FgOVyNOyjvlaQEWQ-1; Wed, 29 Nov 2023 14:56:22 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+ us-mta-15-z9E51FFMPQOGFuJl_yEIDg-1; Wed, 29 Nov 2023 14:56:26 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDC72185A781;
- Wed, 29 Nov 2023 19:56:21 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 569E8852ACC;
+ Wed, 29 Nov 2023 19:56:25 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.91])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 59B8540C6EBA;
- Wed, 29 Nov 2023 19:56:21 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A6CB32026D66;
+ Wed, 29 Nov 2023 19:56:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,18 +51,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6119a210-8ef1-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 63bcdf84-8ef1-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701287786;
+	s=mimecast20190719; t=1701287790;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dKDLiHF1X71kKBGZSvHJbLZCC/+L9f9ZlF5nJQ5JHss=;
-	b=X6wSY8RxPat3bgpHmYKU1oqbd3c//eONLxQ1eaNz39Wai9PtSKLF8wwc4zfknFGD/bvHqu
-	pNsRCfimNe2IglWYCueTa/Y9hnovs0h58Sq4D9MEPKrCsCBdJnXWXdV4BXfzAfVv1PerbD
-	ag9HkoGrIqvN19S4PF3ADTLkc29uQKU=
-X-MC-Unique: V4RCa5FgOVyNOyjvlaQEWQ-1
+	bh=LEy9EWuebl4CuFgfogaWwDt3UnxTDs2t+LuSpg8gM1k=;
+	b=QIpFOEM3P+UcwlRS8PFadX67/n06mUI3wwBsyA+41zLZhFgbmON4Pj/jS6JA6dc6XfHOLu
+	gsJQo+9PEPCTTIOD79+BEp+MZNDsTvvbS9qIOOwLO0OXT44Cvnt2WzP4doAebFJPr0cHrk
+	1f4lS52OFLkIsh1D1hfzWsQTlMe8xm0=
+X-MC-Unique: z9E51FFMPQOGFuJl_yEIDg-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Hanna Reitz <hreitz@redhat.com>,
@@ -96,97 +96,93 @@ Cc: Hanna Reitz <hreitz@redhat.com>,
 	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
 	Fam Zheng <fam@euphon.net>,
 	Fabiano Rosas <farosas@suse.de>
-Subject: [PATCH 08/12] aio: remove aio_context_acquire()/aio_context_release() API
-Date: Wed, 29 Nov 2023 14:55:49 -0500
-Message-ID: <20231129195553.942921-9-stefanha@redhat.com>
+Subject: [PATCH 09/12] docs: remove AioContext lock from IOThread docs
+Date: Wed, 29 Nov 2023 14:55:50 -0500
+Message-ID: <20231129195553.942921-10-stefanha@redhat.com>
 In-Reply-To: <20231129195553.942921-1-stefanha@redhat.com>
 References: <20231129195553.942921-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
 
-Delete these functions because nothing calls these functions anymore.
-
-I introduced these APIs in commit 98563fc3ec44 ("aio: add
-aio_context_acquire() and aio_context_release()") in 2014. It's with a
-sigh of relief that I delete these APIs almost 10 years later.
-
-Thanks to Paolo Bonzini's vision for multi-queue QEMU, we got an
-understanding of where the code needed to go in order to remove the
-limitations that the original dataplane and the IOThread/AioContext
-approach that followed it.
-
-Emanuele Giuseppe Esposito had the splendid determination to convert
-large parts of the codebase so that they no longer needed the AioContext
-lock. This was a painstaking process, both in the actual code changes
-required and the iterations of code review that Emanuele eeked out of
-Kevin and me over many months.
-
-Kevin Wolf tackled multitudes of graph locking conversions to protect
-in-flight I/O from run-time changes to the block graph as well as the
-clang Thread Safety Analysis annotations that allow the compiler to
-check whether the graph lock is being used correctly.
-
-And me, well, I'm just here to add some pizzazz to the QEMU multi-queue
-block layer :). Thank you to everyone who helped with this effort,
-including Eric Blake, code reviewer extraordinaire, and others who I've
-forgotten to mention.
+Encourage the use of locking primitives and stop mentioning the
+AioContext lock since it is being removed.
 
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- include/block/aio.h | 17 -----------------
- util/async.c        | 10 ----------
- 2 files changed, 27 deletions(-)
+ docs/devel/multiple-iothreads.txt | 45 +++++++++++--------------------
+ 1 file changed, 15 insertions(+), 30 deletions(-)
 
-diff --git a/include/block/aio.h b/include/block/aio.h
-index f08b358077..af05512a7d 100644
---- a/include/block/aio.h
-+++ b/include/block/aio.h
-@@ -278,23 +278,6 @@ void aio_context_ref(AioContext *ctx);
-  */
- void aio_context_unref(AioContext *ctx);
+diff --git a/docs/devel/multiple-iothreads.txt b/docs/devel/multiple-iothreads.txt
+index a3e949f6b3..4865196bde 100644
+--- a/docs/devel/multiple-iothreads.txt
++++ b/docs/devel/multiple-iothreads.txt
+@@ -88,27 +88,18 @@ loop, depending on which AioContext instance the caller passes in.
  
--/* Take ownership of the AioContext.  If the AioContext will be shared between
-- * threads, and a thread does not want to be interrupted, it will have to
-- * take ownership around calls to aio_poll().  Otherwise, aio_poll()
-- * automatically takes care of calling aio_context_acquire and
-- * aio_context_release.
-- *
-- * Note that this is separate from bdrv_drained_begin/bdrv_drained_end.  A
-- * thread still has to call those to avoid being interrupted by the guest.
-- *
-- * Bottom halves, timers and callbacks can be created or removed without
-- * acquiring the AioContext.
-- */
--void aio_context_acquire(AioContext *ctx);
--
--/* Relinquish ownership of the AioContext. */
--void aio_context_release(AioContext *ctx);
--
- /**
-  * aio_bh_schedule_oneshot_full: Allocate a new bottom half structure that will
-  * run only once and as soon as possible.
-diff --git a/util/async.c b/util/async.c
-index dfd44ef612..460529057c 100644
---- a/util/async.c
-+++ b/util/async.c
-@@ -719,16 +719,6 @@ void aio_context_unref(AioContext *ctx)
-     g_source_unref(&ctx->source);
- }
+ How to synchronize with an IOThread
+ -----------------------------------
+-AioContext is not thread-safe so some rules must be followed when using file
+-descriptors, event notifiers, timers, or BHs across threads:
++Variables that can be accessed by multiple threads require some form of
++synchronization such as qemu_mutex_lock(), rcu_read_lock(), etc.
  
--void aio_context_acquire(AioContext *ctx)
--{
--    /* TODO remove this function */
--}
+-1. AioContext functions can always be called safely.  They handle their
+-own locking internally.
 -
--void aio_context_release(AioContext *ctx)
--{
--    /* TODO remove this function */
--}
+-2. Other threads wishing to access the AioContext must use
+-aio_context_acquire()/aio_context_release() for mutual exclusion.  Once the
+-context is acquired no other thread can access it or run event loop iterations
+-in this AioContext.
 -
- QEMU_DEFINE_STATIC_CO_TLS(AioContext *, my_aiocontext)
+-Legacy code sometimes nests aio_context_acquire()/aio_context_release() calls.
+-Do not use nesting anymore, it is incompatible with the BDRV_POLL_WHILE() macro
+-used in the block layer and can lead to hangs.
+-
+-There is currently no lock ordering rule if a thread needs to acquire multiple
+-AioContexts simultaneously.  Therefore, it is only safe for code holding the
+-QEMU global mutex to acquire other AioContexts.
++AioContext functions like aio_set_fd_handler(), aio_set_event_notifier(),
++aio_bh_new(), and aio_timer_new() are thread-safe. They can be used to trigger
++activity in an IOThread.
  
- AioContext *qemu_get_current_aio_context(void)
+ Side note: the best way to schedule a function call across threads is to call
+-aio_bh_schedule_oneshot().  No acquire/release or locking is needed.
++aio_bh_schedule_oneshot().
++
++The main loop thread can wait synchronously for a condition using
++AIO_WAIT_WHILE().
+ 
+ AioContext and the block layer
+ ------------------------------
+@@ -124,22 +115,16 @@ Block layer code must therefore expect to run in an IOThread and avoid using
+ old APIs that implicitly use the main loop.  See the "How to program for
+ IOThreads" above for information on how to do that.
+ 
+-If main loop code such as a QMP function wishes to access a BlockDriverState
+-it must first call aio_context_acquire(bdrv_get_aio_context(bs)) to ensure
+-that callbacks in the IOThread do not run in parallel.
+-
+ Code running in the monitor typically needs to ensure that past
+ requests from the guest are completed.  When a block device is running
+ in an IOThread, the IOThread can also process requests from the guest
+ (via ioeventfd).  To achieve both objects, wrap the code between
+ bdrv_drained_begin() and bdrv_drained_end(), thus creating a "drained
+-section".  The functions must be called between aio_context_acquire()
+-and aio_context_release().  You can freely release and re-acquire the
+-AioContext within a drained section.
++section".
+ 
+-Long-running jobs (usually in the form of coroutines) are best scheduled in
+-the BlockDriverState's AioContext to avoid the need to acquire/release around
+-each bdrv_*() call.  The functions bdrv_add/remove_aio_context_notifier,
+-or alternatively blk_add/remove_aio_context_notifier if you use BlockBackends,
+-can be used to get a notification whenever bdrv_try_change_aio_context() moves a
++Long-running jobs (usually in the form of coroutines) are often scheduled in
++the BlockDriverState's AioContext.  The functions
++bdrv_add/remove_aio_context_notifier, or alternatively
++blk_add/remove_aio_context_notifier if you use BlockBackends, can be used to
++get a notification whenever bdrv_try_change_aio_context() moves a
+ BlockDriverState to a different AioContext.
 -- 
 2.42.0
 
