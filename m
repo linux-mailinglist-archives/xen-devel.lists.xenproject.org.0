@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 090187FE189
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:07:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644241.1005034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69FDA7FE1C1
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:26:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644244.1005045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8RmG-00080L-PA; Wed, 29 Nov 2023 21:07:24 +0000
+	id 1r8S3g-0007Mm-Av; Wed, 29 Nov 2023 21:25:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644241.1005034; Wed, 29 Nov 2023 21:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 644244.1005045; Wed, 29 Nov 2023 21:25:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8RmG-0007yP-MC; Wed, 29 Nov 2023 21:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 644241;
- Wed, 29 Nov 2023 21:07:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8S3g-0007JR-7F; Wed, 29 Nov 2023 21:25:24 +0000
+Received: by outflank-mailman (input) for mailman id 644244;
+ Wed, 29 Nov 2023 21:25:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L0pV=HK=linux.microsoft.com=madvenka@srs-se1.protection.inumbo.net>)
- id 1r8RmF-0007yJ-Cy
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 21:07:23 +0000
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 48d50af3-8efb-11ee-9b0f-b553b5be7939;
- Wed, 29 Nov 2023 22:07:20 +0100 (CET)
-Received: from [192.168.4.26] (unknown [47.186.13.91])
- by linux.microsoft.com (Postfix) with ESMTPSA id 9F48020B74C0;
- Wed, 29 Nov 2023 13:07:16 -0800 (PST)
+ <SRS0=Uyrv=HK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1r8S3e-0007JJ-Cl
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 21:25:22 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20623.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::623])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cbe13da8-8efd-11ee-98e4-6d05b1d4d9a1;
+ Wed, 29 Nov 2023 22:25:20 +0100 (CET)
+Received: from SA9P223CA0024.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::29)
+ by LV2PR12MB5992.namprd12.prod.outlook.com (2603:10b6:408:14e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22; Wed, 29 Nov
+ 2023 21:25:14 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:26:cafe::e0) by SA9P223CA0024.outlook.office365.com
+ (2603:10b6:806:26::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22 via Frontend
+ Transport; Wed, 29 Nov 2023 21:25:14 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7046.17 via Frontend Transport; Wed, 29 Nov 2023 21:25:14 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 29 Nov
+ 2023 15:25:13 -0600
+Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 29 Nov 2023 15:25:10 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,318 +59,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48d50af3-8efb-11ee-9b0f-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9F48020B74C0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1701292039;
-	bh=g0AY9rrkukTGXOLxBKqEJb1vaakkKHoCObfBMRMkeqo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aWfFSrWef7i6zVJabhgmnM4JnmCqk6BrvDkrAAbiBIkBnHQPuwTfObHozAznpz4Bn
-	 67aS84GZ/hKOvAy61RmoxVipr08LJ9KgYhyYxV9Zfc+gr9QD2ZTY7JBJ6F92OXI8p8
-	 9mn/NAs3EoxT5SKa/o4LBX1a/ygyKoz+jPGoJrpY=
-Message-ID: <ea63ae4e-e8ea-4fbf-9383-499e14de2f5e@linux.microsoft.com>
-Date: Wed, 29 Nov 2023 15:07:15 -0600
+X-Inumbo-ID: cbe13da8-8efd-11ee-98e4-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JC8j6yJeHLHLP/JXlQWqrZMm5tM7Oq+HNM+94GkIOI8mFlgr9YRP0jvLBM25cXmeC5CMazjsxM3svwBZSL20nppps44SUIzTWPA5X9fn5RQFNAPD9SzYX4rSPgpheYb5xo+4ZXv1OFdGqBBGDv7nA9hb6z2txtMGpPo2RcNEcFxqeI8xlN5zlAKUIFKJ5a731UYfkdc5qxaqzjsyW3vJ1dhcMStS2LmS1VIxzKcvmhN80yhGjfILLciMU9vH8P6D/cVYCCgvwrO7967mWI6ZnpVtlEHPJq+9w16DkK8gR0AxK8RkgTq9bSvbk7YGp3VVNaL+SsEz5lo8L7FHdRu3Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GTwAxKmxs+Q4Xpgd54ShO2z39QSwedi6ap1tpSP5ih4=;
+ b=BbEC1N/LCAi0OIUHZmb21fthg4NcUaoJgECmeF5M32TtD6AzEeDntp5ElD3WmA+6EtBRR9ylhEtQVMauf4YApeU1K1u/Vi6NzmxD7uoAH18qd1ddTu35ERP0YLFYOFGUY7rGb1+oD2djxZ7BneVdeRIZRIaU9WRsANAYRRyqUthrU/Hm/E9YLTR0ddR+8saDsdtDLnDT9FAb7JyAp/7nlhi88joNUngIefhnZT0NpfIDxDyHzPaBfqS7eJYEYNajr5wEwWDMI2Ar2MYedjylJBTiGJyOkYF58JeMx2aXH1/K+9zfnYFJPvpgeG8tS+nsbzsBPb/q5LS53SGdCO6NSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GTwAxKmxs+Q4Xpgd54ShO2z39QSwedi6ap1tpSP5ih4=;
+ b=mGjzAGdMTFtZcU57x5CNxhfqLd5WcIJbL+pFYq7U/ugxCWu4VbaoNvp6q+e80hqFIK03jYOFQL0nfaF5N5mMUfGelodydaIyAKcz2pyPV7jiZzWKV0tKWV6o8n/8IGmk+y4xhLoA6zxfCOZA6PAG2LQm/yXgRbxxnxk2GM6kYqE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <e6019342-8e46-48c9-8211-26105c61fa52@amd.com>
+Date: Wed, 29 Nov 2023 16:25:10 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 17/19] heki: x86: Update permissions counters
- during text patching
+Subject: Re: [PATCH v6 2/5] xen/vpci: move xen_domctl_createdomain vPCI flag
+ to common
 Content-Language: en-US
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Kees Cook <keescook@chromium.org>, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Wanpeng Li <wanpengli@tencent.com>, Alexander Graf <graf@amazon.com>,
- Chao Peng <chao.p.peng@linux.intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- Forrest Yuan Yu <yuanyu@google.com>, James Gowans <jgowans@amazon.com>,
- James Morris <jamorris@linux.microsoft.com>,
- John Andersen <john.s.andersen@intel.com>,
- Marian Rotariu <marian.c.rotariu@gmail.com>,
- =?UTF-8?Q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>,
- =?UTF-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
- Thara Gopinath <tgopinath@microsoft.com>,
- Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>,
- Will Deacon <will@kernel.org>, Yu Zhang <yu.c.zhang@linux.intel.com>,
- Zahra Tarkhani <ztarkhani@microsoft.com>,
- =?UTF-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
- dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
- x86@kernel.org, xen-devel@lists.xenproject.org
-References: <20231113022326.24388-1-mic@digikod.net>
- <20231113022326.24388-18-mic@digikod.net>
- <20231113081929.GA16138@noisy.programming.kicks-ass.net>
- <a52d8885-43cc-4a4e-bb47-9a800070779e@linux.microsoft.com>
- <20231127200841.GZ3818@noisy.programming.kicks-ass.net>
-From: "Madhavan T. Venkataraman" <madvenka@linux.microsoft.com>
-In-Reply-To: <20231127200841.GZ3818@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Jan Beulich <jbeulich@suse.com>
+CC: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
+ Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Oleksandr Andrushchenko
+	<oleksandr_andrushchenko@epam.com>, Rahul Singh <rahul.singh@arm.com>,
+	Christian Lindig <christian.lindig@cloud.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
+ <20231113222118.825758-3-stewart.hildebrand@amd.com>
+ <da9eb6fe-3eaf-de9a-2790-79165ecfd917@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <da9eb6fe-3eaf-de9a-2790-79165ecfd917@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|LV2PR12MB5992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 565bbfce-675d-4d47-9423-08dbf121ad36
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	N+XQF/rtfBdPoZ3mf3VUlvI4OcfacGotXXkjxx7bZePiM6yR2LkFWMyf7gvuc+IcV1yWLweOM7+wgmn4J6yV9zQyZ5O2+RsIQ1q7ydnJ/w3Lm/eDUh2kObVjOJr6oiiSK7zgIp5/VOfMtCK8J/F55Yen+a90XeHdQA9UMQHzYcqxC0g4LWfRVkbG63F7BvbR5qpBV0DLQe8r+Osc0h6GmaiOu5P8Fmd8J/QEQUDjixam6RXQCIph73ttp2lcG+VfkgPNrWBgNIKCxcre+XSGUnko2c0Iry8TAXrArusGfnGEUENgRUIF35kh+RK4kZKs6ff+5eCdox97qmoLEx7wY2pCoSvrlcP46kyyMxxIIuqdMCH77Qd/ZXJYOJZM7EapJe9+bZy931fkGMNOg/yHSHz9xotHCsAYEgNwThJqJhHRYl3Y2g8t5WWcNxPDYDviar/KobDDbcM+D+jaIdh2U3UjCgAlPvv/GsnTkUypjnNRdZQQpHYKSxbGK8e1IxuBhM93xeTfd+7kAl6xE66DHMBUBexwwBlls6Qsem2JplPAN9eeLiDoav2kLa9KKQ/5/5AMXSS4US2NUPq0DpXFcb9O7nSkidZSF5MuResLRGcHXidRqaoxIHCCHGwxcQAuoeRTXN/IhgiCZGLQQDUMDIU+YB9YxbTVvs+HWswQGl+AYwyNwdXEdWG535KqfwVmAthOCoBJoZdPW5i7zwDe0OaGbATO0ZbEh58nKsapdXmajj6zDTdghes946iiGz+/FsBO5l7mSU6oIDbUp5u+rvwBJReiGEAsqSZc3FveI/31Iz3ZSo+6BvvxXrRzeLlDaGJR14i6EEBOscAXSrm5TFBbUuGWqgFxAMq9G/Vhl2I=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(451199024)(186009)(1800799012)(82310400011)(64100799003)(36840700001)(46966006)(40470700004)(31686004)(40480700001)(426003)(336012)(26005)(2616005)(40460700003)(478600001)(356005)(81166007)(82740400003)(202311291699003)(31696002)(36756003)(86362001)(2906002)(83380400001)(41300700001)(44832011)(36860700001)(47076005)(53546011)(7416002)(6916009)(54906003)(316002)(4326008)(5660300002)(70206006)(16576012)(8676002)(8936002)(70586007)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2023 21:25:14.4525
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 565bbfce-675d-4d47-9423-08dbf121ad36
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
 
-
-
-On 11/27/23 14:08, Peter Zijlstra wrote:
-> On Mon, Nov 27, 2023 at 10:48:29AM -0600, Madhavan T. Venkataraman wrote:
->> Apologies for the late reply. I was on vacation. Please see my response below:
->>
->> On 11/13/23 02:19, Peter Zijlstra wrote:
->>> On Sun, Nov 12, 2023 at 09:23:24PM -0500, Mickaël Salaün wrote:
->>>> From: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
->>>>
->>>> X86 uses a function called __text_poke() to modify executable code. This
->>>> patching function is used by many features such as KProbes and FTrace.
->>>>
->>>> Update the permissions counters for the text page so that write
->>>> permissions can be temporarily established in the EPT to modify the
->>>> instructions in that page.
->>>>
->>>> Cc: Borislav Petkov <bp@alien8.de>
->>>> Cc: Dave Hansen <dave.hansen@linux.intel.com>
->>>> Cc: H. Peter Anvin <hpa@zytor.com>
->>>> Cc: Ingo Molnar <mingo@redhat.com>
->>>> Cc: Kees Cook <keescook@chromium.org>
->>>> Cc: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
->>>> Cc: Mickaël Salaün <mic@digikod.net>
->>>> Cc: Paolo Bonzini <pbonzini@redhat.com>
->>>> Cc: Sean Christopherson <seanjc@google.com>
->>>> Cc: Thomas Gleixner <tglx@linutronix.de>
->>>> Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
->>>> Cc: Wanpeng Li <wanpengli@tencent.com>
->>>> Signed-off-by: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
->>>> ---
->>>>
->>>> Changes since v1:
->>>> * New patch
->>>> ---
->>>>  arch/x86/kernel/alternative.c |  5 ++++
->>>>  arch/x86/mm/heki.c            | 49 +++++++++++++++++++++++++++++++++++
->>>>  include/linux/heki.h          | 14 ++++++++++
->>>>  3 files changed, 68 insertions(+)
->>>>
->>>> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
->>>> index 517ee01503be..64fd8757ba5c 100644
->>>> --- a/arch/x86/kernel/alternative.c
->>>> +++ b/arch/x86/kernel/alternative.c
->>>> @@ -18,6 +18,7 @@
->>>>  #include <linux/mmu_context.h>
->>>>  #include <linux/bsearch.h>
->>>>  #include <linux/sync_core.h>
->>>> +#include <linux/heki.h>
->>>>  #include <asm/text-patching.h>
->>>>  #include <asm/alternative.h>
->>>>  #include <asm/sections.h>
->>>> @@ -1801,6 +1802,7 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
->>>>  	 */
->>>>  	pgprot = __pgprot(pgprot_val(PAGE_KERNEL) & ~_PAGE_GLOBAL);
->>>>  
->>>> +	heki_text_poke_start(pages, cross_page_boundary ? 2 : 1, pgprot);
->>>>  	/*
->>>>  	 * The lock is not really needed, but this allows to avoid open-coding.
->>>>  	 */
->>>> @@ -1865,7 +1867,10 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
->>>>  	}
->>>>  
->>>>  	local_irq_restore(flags);
->>>> +
->>>>  	pte_unmap_unlock(ptep, ptl);
->>>> +	heki_text_poke_end(pages, cross_page_boundary ? 2 : 1, pgprot);
->>>> +
->>>>  	return addr;
->>>>  }
->>>
->>> This makes no sense, we already use a custom CR3 with userspace alias
->>> for the actual pages to write to, why are you then frobbing permissions
->>> on that *again* ?
->>
->> Today, the permissions for a guest page in the extended page table
->> (EPT) are RWX (unless permissions are restricted for some specific
->> reason like for shadow page table pages). In this Heki feature, we
->> don't allow RWX by default in the EPT. We only allow those permissions
->> in the EPT that the guest page actually needs.  E.g., for a text page,
->> it is R_X in both the guest page table and the EPT.
+On 11/14/23 04:11, Jan Beulich wrote:
+> On 13.11.2023 23:21, Stewart Hildebrand wrote:
+>> @@ -709,10 +710,17 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>          return -EINVAL;
+>>      }
+>>  
+>> +    if ( vpci && !hvm )
+>> +    {
+>> +        dprintk(XENLOG_INFO, "vPCI requested for non-HVM guest\n");
+>> +        return -EINVAL;
+>> +    }
+>> +
+>>      return 0;
+>>  }
 > 
-> To what end? If you always mirror what the guest does, you've not
-> actually gained anything.
+> As said on the v5 thread, I think my comment was misguided (I'm sorry)
+> and this wants keeping in common code as you had it.
+
+I'll move it back to xen/common/domain.c. No worries.
+
 > 
->> For text patching, the above code establishes an alternate mapping in
->> the guest page table that is RW_ so that the text can be patched. That
->> needs to be reflected in the EPT so that the EPT permissions will
->> change from R_X to RWX. In other words, RWX is allowed only as
->> necessary. At the end of patching, the EPT permissions are restored to
->> R_X.
->>
->> Does that address your comment?
+>> --- a/xen/include/public/arch-x86/xen.h
+>> +++ b/xen/include/public/arch-x86/xen.h
+>> @@ -283,15 +283,16 @@ struct xen_arch_domainconfig {
+>>  #define XEN_X86_EMU_PIT             (1U<<_XEN_X86_EMU_PIT)
+>>  #define _XEN_X86_EMU_USE_PIRQ       9
+>>  #define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
+>> -#define _XEN_X86_EMU_VPCI           10
+>> -#define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
+>> +/*
+>> + * Note: bit 10 was previously used for a XEN_X86_EMU_VPCI flag. This bit should
+>> + * not be re-used without careful consideration.
+>> + */
 > 
-> No, if you want to mirror the native PTEs why don't you hook into the
-> paravirt page-table muck and get all that for free?
+> I think a multi-line comment is drawing overly much attention to this.
+> How about "Note: Bit 10 was previously used for XEN_X86_EMU_VPCI. Re-use
+> with care." which I think fits in a single line comment.
+
+Sounds good.
+
 > 
-> Also, this is the user range, are you saying you're also playing these
-> daft games with user maps?
-
-I think that we should have done a better job of communicating the threat model in Heki and
-how we are trying to address it. I will correct that here. I think this will help answer
-many questions. Some of these questions also came up in the LPC when we presented this.
-Apologies for the slightly long answer. It is for everyone's benefit. Bear with me.
-
-Threat Model
-------------
-
-In the threat model in Heki, the attacker is a user space attacker who exploits
-a kernel vulnerability to gain more privileges or bypass the kernel's access
-control and self-protection mechanisms. 
-
-In the context of the guest page table, one of the things that the threat model translates
-to is a hacker gaining access to a guest page with RWX permissions. E.g., by adding execute
-permissions to a writable page or by adding write permissions to an executable page.
-
-Today, the permissions for a guest page in the extended page table are RWX by
-default. So, if a hacker manages to establish RWX for a page in the guest page
-table, then that is all he needs to do some damage.
-
-How to defeat the threat
-------------------------
-
-To defeat this, we need to establish the correct permissions for a guest page
-in the extended page table as well. That is, R_X for a text page, R__ for a
-read-only page and RW_ for a writable page. The only exception is a guest page
-that is mapped via multiple mappings with different permissions in each
-mapping. In that case, the collective permissions across all mappings needs
-to be established in the extended page table so that all mappings can work.
-
-Mechanism
----------
-
-To achieve all this, Heki finds all the kernel mappings at the end of kernel
-boot and reflects their permissions in the extended page table before
-kicking off the init process.
-
-During runtime, permissions on a guest page can change because of genuine
-kernel operations:
-	- vmap/vunmap
-	- text patching for FTrace, Kprobes, etc
-	- set_memory_*()
-
-In each of these cases as well, the permissions need to be reflected in the
-extended page table. In summary, the extended page table permissions mirror
-the guest page table ones.
-
-Authentication
---------------
-
-The above approach addresses the case where a hacker tries to directly
-modify a guest page table entry. It doesn't matter since the extended page
-table permissions are not changed.
-
-Now, the question is - what if a hacker manages to use the Heki primitives
-and establish the permissions he wants in the extended page table? All of
-this work is for nothing!!
-
-The answer is - authentication. If an entity outside the guest can validate
-or authenticate each guest request to change extended page table permissions,
-then it can tell a genuine request from an attack. We are planning to make the
-VMM that entity. In the case of a genuine request, the VMM will call the
-hypervisor and establish the correct permissions in the extended page table.
-If the VMM thinks that it is an attack, it will have the hypervisor send an
-exception to the guest.
-
-In the current version (RFC V2), we don't have authentication in place. The
-VMM is not in the picture yet. This is WIP. We are hoping to implement some
-authentication in V3 and improve it as we go forward. So, in V2, we only have
-the mechanisms in place.
-
-So, I agree that it is kinda hard to see the value of Heki without authentication.
-
-Kernel Lockdown
----------------
-
-But, we must provide at least some security in V2. Otherwise, it is useless.
-
-So, we have implemented what we call a kernel lockdown. At the end of kernel
-boot, Heki establishes permissions in the extended page table as mentioned
-before. Also, it adds an immutable attribute for kernel text and kernel RO data.
-Beyond that point, guest requests that attempt to modify permissions on any of
-the immutable pages will be denied.
-
-This means that features like FTrace and KProbes will not work on kernel text
-in V2. This is a temporary limitation. Once authentication is in place, the
-limitation will go away.
-
-Additional information
-----------------------
-
-The following primitives call Heki functions to reflect guest page table
-permissions in the extended page table:
-
-heki_arch_late_init()
-	This calls heki_protect().
-	
-	This is called at the end of kernel boot to protect all guest kernel
-	mappings at that point.
-
-vmap_range_noflush()
-vmap_small_pages_range_noflush()
-	These functions call heki_map().
-
-	These are the lowest level functions called from different places
-	to map something in the kernel address space.
-
-set_memory_nx()
-set_memory_rw()
-	These functions call heki_change_page_attr_set().
-
-set_memory_x()
-set_memory_ro()
-set_memory_rox()
-	These functions call heki_change_page_attr_clear().
-
-__text_poke()
-	This function is called by various features to patch text.
-	This calls heki_text_poke_start() and heki_text_poke_end().
-
-	heki_text_poke_start() is called to add write permissions to the
-	extended page table so that text can be patched. heki_text_poke_end()
-	is called to revert write permissions in the extended page table.
-
-User mappings
--------------
-
-All of this work is only for protecting guest kernel mappings. So, the idea is
-- the VMM+Hypervisor protect the integrity of the kernel and the kernel
-protects the integrity of user land. So, user pages continue to have RWX in the
-extended page table. The MBEC feature makes it possible to have separate execute
-permission bits in the page table entry for user and kernel.
-
-One final thing
----------------
-
-Peter mentioned the following:
-
-"if you want to mirror the native PTEs why don't you hook into the
-paravirt page-table muck and get all that for free?"
-
-We did consider using a shadow page table kind of approach so that guest page table
-modifications can be intercepted and reflected in the page table entry. We did not
-do this for two reasons:
-
-- there are bits in the page table entry that are not permission bits. We would like
-  the guest kernel to be able to modify them directly.
-
-- we cannot tell a genuine request from an attack.
-
-That said, we are still considering making the guest page table read only for added
-security. This is WIP. I do not have details yet.
-
-If I have not addressed any comment, please let me know.
-
-As always, thanks for your comments.
-
-Madhavan T Venkataraman
-
-
-
-
+> Jan
 
