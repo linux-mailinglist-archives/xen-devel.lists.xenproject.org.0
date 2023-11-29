@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C68137FD435
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 11:33:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643797.1004306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A9887FD43F
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 11:34:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643800.1004316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8HsC-0004YH-Uo; Wed, 29 Nov 2023 10:32:52 +0000
+	id 1r8Htm-0005Od-94; Wed, 29 Nov 2023 10:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643797.1004306; Wed, 29 Nov 2023 10:32:52 +0000
+Received: by outflank-mailman (output) from mailman id 643800.1004316; Wed, 29 Nov 2023 10:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8HsC-0004Vn-Pv; Wed, 29 Nov 2023 10:32:52 +0000
-Received: by outflank-mailman (input) for mailman id 643797;
- Wed, 29 Nov 2023 10:32:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r8HsB-0004VQ-7m
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 10:32:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r8Hs9-0007sK-Un; Wed, 29 Nov 2023 10:32:49 +0000
-Received: from 82-132-247-131.dab.02.net ([82.132.247.131] helo=[172.20.10.4])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r8Hs9-0003NT-Ja; Wed, 29 Nov 2023 10:32:49 +0000
+	id 1r8Htm-0005MB-5G; Wed, 29 Nov 2023 10:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 643800;
+ Wed, 29 Nov 2023 10:34:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LgJk=HK=linutronix.de=alex@srs-se1.protection.inumbo.net>)
+ id 1r8Htk-0005M0-44
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 10:34:28 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de3cb37c-8ea2-11ee-9b0e-b553b5be7939;
+ Wed, 29 Nov 2023 11:34:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,174 +36,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5Ob0aBhfw7+DqSp4nCd7/EX/X+QBbmhlOmAvvfX5S1E=; b=ceuCtacUniowcFQFh6Bp1Kr+SW
-	9D2axyAn1ncpEHQv0mF1ZZW9lCef075fX/AOzKE/H+YC5buNMh3RBvbIebicPN9ZNbdtqM2xSSZgx
-	JMh9PcMMEC8jp070xvuMtBXozNO3PPoDTydsRsz6loDS1JHBMGn6+YCW5el6B8G5um+0=;
-Message-ID: <8e40c0a2-0d74-4611-8faf-84184ab371c8@xen.org>
-Date: Wed, 29 Nov 2023 11:32:46 +0100
+X-Inumbo-ID: de3cb37c-8ea2-11ee-9b0e-b553b5be7939
+Message-ID: <81043e30-c9fd-4c5e-ad63-0e42edea733d@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1701254065;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yh5RLEiGr6J+S9KBnf/MC6zZrCVpXq6RDso1F0RnEzQ=;
+	b=SpWt5PnF1Gmzj5PoBmT+9PgaSBNKrsG4mGzVIyEKnBk8u1HilCV1XRJ89fp1MhQhcBNWcn
+	K9xU8f6MICOjSewzlQAeSJo3xX7stOAoR/se5uGVtKnt9a2LvyR/ZbLJ2gyBaqOa6CPsJP
+	uWh/C65DM2wWGTf/R2iqjtV1Kx+iqbCfEbRblVuBt0FDNDmCW65gFwKmqGCvp7Y+proaQa
+	MZalWGxlAezvyzsD674XM/jLvg1R2V8X6QBSMfmlrjwvW+XFstXv918UkWb3k6Xwye5b0f
+	ifW9txPGULQ40VP3FVNWn0MDKVdQ814tgsuwd04BjYKwXRbRjKLtc8OHwzWT0A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1701254065;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yh5RLEiGr6J+S9KBnf/MC6zZrCVpXq6RDso1F0RnEzQ=;
+	b=koYeVMLl/yPIXknsrWbIF2rAeVk7+gqh0w/WwDDj32ad/mXCcnc1a3Gqa71cssQQPwXV33
+	hw5W+bRxHrepaEAQ==
+Date: Wed, 29 Nov 2023 11:34:22 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ubsan: Introduce CONFIG_UBSAN_FATAL to panic on UBSAN
- failure
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] Config.mk: drop -Wdeclaration-after-statement
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20231127144156.361656-1-michal.orzel@amd.com>
- <443a56fa-a175-4d10-9343-577c825fbd7a@xen.org>
- <0985c860-ac1f-44ca-a4ab-147723fc6b36@amd.com>
- <b0127019-4976-42e3-bde1-643cc56f18b0@xen.org>
- <16b73400-b592-4a1a-9b87-8c49aad9208d@amd.com>
- <9d1e385e-152e-404a-8d8b-47c5ac08d76a@xen.org>
- <ce98090d-d81f-4a02-8ad1-9fa5ba647409@amd.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ce98090d-d81f-4a02-8ad1-9fa5ba647409@amd.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231128174729.3880113-1-alex@linutronix.de>
+ <fcb1cc57-b985-4711-a234-4aaa380b9abe@suse.com>
+Content-Language: en-US
+From: Alexander Kanavin <alex@linutronix.de>
+Autocrypt: addr=alex@linutronix.de; keydata=
+ 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
+In-Reply-To: <fcb1cc57-b985-4711-a234-4aaa380b9abe@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+On 11/29/23 08:51, Jan Beulich wrote:
+
+> On 28.11.2023 18:47, Alexander Kanavin wrote:
+>> Such constructs are fully allowed by C99:
+>> https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/Mixed-Labels-and-Declarations.html#Mixed-Labels-and-Declarations
+> There's more to this: It may also be a policy of ours (or of any sub-component)
+> to demand that declarations and statements are properly separated. This would
+> therefore need discussing first.
+
+The error is coming from python 3.12 headers and not from anything in 
+xen tree, no? As you don't have control over those headers, I'm not sure 
+what other solution there could be.
 
 
-
-On 29/11/2023 09:02, Michal Orzel wrote:
-> Hi Julien,
-
-Hi,
-
-> On 28/11/2023 18:52, Julien Grall wrote:
->>
->>
->> Hi Michal,
->>
->> On 28/11/2023 18:15, Michal Orzel wrote:
->>>
->>>
->>> On 28/11/2023 18:09, Julien Grall wrote:
->>>>
->>>>
->>>> On 28/11/2023 18:00, Michal Orzel wrote:
->>>>> Hi Julien,
->>>>>
->>>>> On 28/11/2023 17:14, Julien Grall wrote:
->>>>>>
->>>>>>
->>>>>> Hi Michal,
->>>>>>
->>>>>> On 27/11/2023 15:41, Michal Orzel wrote:
->>>>>>> Introduce the CONFIG_UBSAN_FATAL option to cater to scenarios where prompt
->>>>>>> attention to undefined behavior issues, notably during CI test runs, is
->>>>>>> essential. When enabled, this option causes Xen to panic upon detecting
->>>>>>> UBSAN failure (as the last step in ubsan_epilogue()).
->>>>>>
->>>>>> I have mixed opinions on this patch. This would be a good one if we had
->>>>>> a Xen mostly free from UBSAN behavior. But this is not the case at least
->>>>>> on arm32. So we would end up to stop at the first error. IOW, we would
->>>>>> need to fix the first error before we can see the next one.
->>>>> Well, this patch introduces a config option disabled by default.
->>>>
->>>> I understood this is disabled by default... I am pointing out that I am
->>>> not convinced about the usefulness until we are at the stage where Xen
->>>> is normally not reporting any USBAN error.
->>>>
->>>>> If we end up enabling it for CI for reasons* stated by Andrew, then the natural way
->>>>> of handling such issues is to do the investigation locally.
->>>>
->>>> This will not always be possible. One example is when you are only able
->>>> to reproduce some of the USBAN errors on a specific HW.
->>>>
->>>>> Then, you are not forced
->>>>> to select this option and you can see all the UBSAN issues if you want.
->>>>
->>>> See above, I got that point. I am mostly concerned about the implication
->>>> in the CI right now.
->>>>
->>>>>
->>>>>>
->>>>>> So I feel it would be best if the gitlab CI jobs actually check for
->>>>>> USBAN in the logs and fail if there are any. With that, we can get the
->>>>>> full list of UBSAN issues on each job.
->>>>> Well, I prefer Andrew suggestion (both [1] and on IRC), hence this patch.
->>>>>
->>>>> *my plan was to first fix the UBSAN issues and then enable this option for CI.
->>>>
->>>> That would have been useful to describe your goal after "---". With that
->>>> in mind, then I suggest to revisit this patch once all the UBSAN issues
->>>> in a normal build are fixed.
->>> But this patch does not enable this option for CI automatically, right?
->>
->> Correct.
->>
->>> Why are you so keen to push it back?
->>
->> I have been pushing back because your commit message refers to the CI
->> specifically and today this would not really work (read as I would not
->> be happy if this option is enabled in the CI right now at least on arm32).
-> I mentioned CI as a noteworthy example. In no case, I wrote that this implies the immediate
-> enabling of this option for all the arches in CI. Especially, given that I'm aware of arm32 issues
-> as you might know.
-
-You are missing my point... If you read what I wrote a paragraph after, 
-I am pointing out that even in the future, I would prefer if the CI 
-reports all the errors rather than stopping at the first one.
-
-When I assess a patch, I also assess based on the examples provided in 
-the commit message. Sadly, I don't get CCed to the CI patches, so I much 
-prefer to express my opinion earlier rather than missing out the 
-opportunity to do it ...
-
-> 
->>
->> If you want to fail a CI job for UBSAN today, then we need to find a
->> different approach so we can get the full list of UBSAN error rather
->> than fixing one, retry and then next one.
->>
->>> Is it because you see no point in this option other than for the upstream CI loop?
->>
->> Even in the upstream CI loop, I am a little unsure about this approach.
->> At least, I feel I would want to see all the reports at once in the CI.
->>
->> But this is not really a strong feeling.
->>
->>> I find it useful on a day-to-day
->>> Xen runs, and I would for sure enable it by default in my config not to miss UBSAN failures.
->>
->> Fair enough. I view USBAN issues the same a WARN_ON. They all need to be
->> investigated. So now you have an inconsistent policy.
->>
->> Are you are also intending to switch WARN_ON() to fatal? If not, then
->> why would UBSAN warnings more important that the other warnings?
-> WARN_ON() is placed by the developer to detect e.g. incorrect configuration. The fact that someone
-> decided to use WARN_ON and not BUG_ON means that this person did some investigation the result of
-> which suggests no critical consequence.
-The general guidance is to use BUG_ON() when it is not possible to pass 
-the error up to the stack and that could cause privilege escalation / 
-information leak. But for anything else (e.g. DoS), then it would be 
-more common to use WARN_ON() as an indication that something is fishy.
-
-To give a concrete example, in Linux, we recently had an XSA [1] which 
-could have been detected earlier if we had pay attention to WARN splats 
-(albeit they were only showing up in certain configuration).
-
-So I would not treat WARN and UBSAN splats differently. In particular in 
-the context of a CI system, we really want to know about any splats.
-
-> For UBSAN, you can't always be sure (read undefined).
-> It might be at the same level as WARN_ON but can also result in unpredictable behavior leading to security issues.
-
-I wish this were true :). My example above is not Xen, but still...
-
-> 
-> That said, I do believe that we should also have option to panic on WARN().
-> As for this patch, Andrew provided Rb and Stefano is happy with it. Do you want more people to vote?
-
-No as long as this is not planned to be used in the Gitlab CI.
-
-Cheers,
-
-[1] https://xenbits.xen.org/xsa/advisory-441.html
+Alex
 
 -- 
-Julien Grall
+
+Alexander Kanavin
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 39; Fax.: +49 7556 25 999 99
+
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy
+can be found here): https://linutronix.de/legal/data-protection.php
+
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen |
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700
+806 | Geschäftsführer (Managing Directors): Heinz Egger, Thomas Gleixner,
+Sharon Heck, Yulia Beck, Tiffany Silva
+
 
