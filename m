@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 316D27FE0BC
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 21:05:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644207.1004983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53CF57FE17E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 22:02:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644236.1005024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Qni-00009p-9K; Wed, 29 Nov 2023 20:04:50 +0000
+	id 1r8Rgf-0006tO-56; Wed, 29 Nov 2023 21:01:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644207.1004983; Wed, 29 Nov 2023 20:04:50 +0000
+Received: by outflank-mailman (output) from mailman id 644236.1005024; Wed, 29 Nov 2023 21:01:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Qni-00007R-6U; Wed, 29 Nov 2023 20:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 644207;
- Wed, 29 Nov 2023 20:04:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s3b2=HK=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1r8Qng-00007L-IZ
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 20:04:48 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b6c87b8-8ef2-11ee-98e4-6d05b1d4d9a1;
- Wed, 29 Nov 2023 21:04:47 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 3C2868285459;
- Wed, 29 Nov 2023 14:04:46 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id rsWPAH0ZGu_4; Wed, 29 Nov 2023 14:04:45 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 7DC068285494;
- Wed, 29 Nov 2023 14:04:45 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id x9Qh34KDNANS; Wed, 29 Nov 2023 14:04:45 -0600 (CST)
-Received: from [10.11.0.3] (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id E82628285459;
- Wed, 29 Nov 2023 14:04:44 -0600 (CST)
+	id 1r8Rgf-0006rk-29; Wed, 29 Nov 2023 21:01:37 +0000
+Received: by outflank-mailman (input) for mailman id 644236;
+ Wed, 29 Nov 2023 21:01:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8Rgd-0006ra-P9; Wed, 29 Nov 2023 21:01:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8Rgd-0004cZ-F7; Wed, 29 Nov 2023 21:01:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8Rgd-0000OT-3v; Wed, 29 Nov 2023 21:01:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8Rgd-0004ph-3N; Wed, 29 Nov 2023 21:01:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,49 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b6c87b8-8ef2-11ee-98e4-6d05b1d4d9a1
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 7DC068285494
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1701288285; bh=9YCpgw5K1Pm5Pd6CadDcMixEq5iCcxEGQZkZfgBK1Ew=;
-	h=Message-ID:Date:MIME-Version:To:From;
-	b=NliLccXb8suItIRTwhXh2WKcAbqBMDaHdVUTvw3qCJkCnV7bz4zk5hRTk+f8bDB0S
-	 g4kcE64RR+pblHaK0cF+bvyhEHMk/BtYe4XbFT1GhZ/0UxxrqMPOPvGdP2g0UaYOWu
-	 qWzpy5tvofYACw4vWSqxXUK1jsVgeQytf2VUiOnM=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Message-ID: <042eb87d-de49-4c5f-82e0-58a184829271@raptorengineering.com>
-Date: Wed, 29 Nov 2023 14:04:44 -0600
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=5zuyPra+Ja/RHmrjBV6REyI21TR0aTHa+ANPiq6clAk=; b=HfiioFcZjxdIih27NIAUKy7Jrv
+	FcIy1IgCmMnOmcXgEfUGxogtu37dfV0qzmiJ2C2085qyaKVOxBPC/gPC+T7fRV14zygd7V3b3R//W
+	nV8Px57wCfAITGdJtkjfbXo2m2U0EDHzf5gSoLYeoXeKDbgo4qYup8sMDqmH/zDRzvHo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183939-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/14] xen/asm-generic: introduce stub header softirq.h
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <cover.1701093907.git.oleksii.kurochko@gmail.com>
- <090991be61252cabefc06da19597e3a86a4cd1da.1701093907.git.oleksii.kurochko@gmail.com>
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-In-Reply-To: <090991be61252cabefc06da19597e3a86a4cd1da.1701093907.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 183939: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=f0dd0cd9598f22ee5509bb5d1466e4821834c4ba
+X-Osstest-Versions-That:
+    xen=902377b690f42ddf44ae91c4b0751d597f1cd694
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 29 Nov 2023 21:01:35 +0000
 
-Hi Oleksii,
+flight 183939 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183939/
 
-On 11/27/23 8:13 AM, Oleksii Kurochko wrote:
-> <asm/softirq.h> is common between Arm, PPC and RISC-V so it is
-> moved to asm-generic.
-> 
-> Drop Arm and PPC's softirq.h and use asm-generic version instead.
-> 
+Failures :-/ but no regressions.
 
-Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Thanks,
-Shawn
+version targeted for testing:
+ xen                  f0dd0cd9598f22ee5509bb5d1466e4821834c4ba
+baseline version:
+ xen                  902377b690f42ddf44ae91c4b0751d597f1cd694
+
+Last test of basis   183934  2023-11-29 11:04:12 Z    0 days
+Testing same since   183939  2023-11-29 18:02:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   902377b690..f0dd0cd959  f0dd0cd9598f22ee5509bb5d1466e4821834c4ba -> smoke
 
