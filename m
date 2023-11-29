@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A951F7FD7D0
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 14:20:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643914.1004482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50EBA7FD83D
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 14:34:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643918.1004492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8KUO-0006cg-K0; Wed, 29 Nov 2023 13:20:28 +0000
+	id 1r8KhN-0002SB-Tb; Wed, 29 Nov 2023 13:33:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643914.1004482; Wed, 29 Nov 2023 13:20:28 +0000
+Received: by outflank-mailman (output) from mailman id 643918.1004492; Wed, 29 Nov 2023 13:33:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8KUO-0006aG-GA; Wed, 29 Nov 2023 13:20:28 +0000
-Received: by outflank-mailman (input) for mailman id 643914;
- Wed, 29 Nov 2023 13:20:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4CTn=HK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1r8KUM-0006a8-Vm
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 13:20:27 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dd65bb3-8eba-11ee-9b0e-b553b5be7939;
- Wed, 29 Nov 2023 14:20:24 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40b54261442so4241285e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 29 Nov 2023 05:20:25 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- m5-20020a5d56c5000000b0033172f984eesm17848719wrw.50.2023.11.29.05.20.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Nov 2023 05:20:24 -0800 (PST)
+	id 1r8KhN-0002QJ-Ov; Wed, 29 Nov 2023 13:33:53 +0000
+Received: by outflank-mailman (input) for mailman id 643918;
+ Wed, 29 Nov 2023 13:33:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1r8KhM-0002QC-QE
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 13:33:52 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eed2163a-8ebb-11ee-98e3-6d05b1d4d9a1;
+ Wed, 29 Nov 2023 14:33:51 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C08DD1FCF3;
+ Wed, 29 Nov 2023 13:33:50 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D8461376F;
+ Wed, 29 Nov 2023 13:33:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id tvlGEb49Z2V6HwAAn2gu4w
+ (envelope-from <jgross@suse.com>); Wed, 29 Nov 2023 13:33:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +51,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dd65bb3-8eba-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tibco.com; s=googleworkspace; t=1701264024; x=1701868824; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+J0x7a0PD9p/VqLGjkyGZvLQjOrtRWY5Ac+AxcGQlA4=;
-        b=QV341FabIy3tMsmuMzPJVbnBBYF/kBOEvUTqX6RScAb9lgY8H3dS7Y/eMMyF4lVkTI
-         HeOFR2MZhstbUsCzgZjhZDeUhCvqKwTZX7AQ9xZWHjmhU1NvAOxew+39eFRyTUqwhaca
-         GG5tQ6RtqRUAh9BfpoLtIJX7FjbtIHOBVaU+lMkCVo//aY7UW4jCcYgI6NI/xPLAIAef
-         5LQPwWAxdLzXLfPRvAOjJmRKS4L9/GCF4YVYW9nCgB3LRtANlPpFcR10CVI6YGURRrRR
-         F2xLy1Mbns9RirRTlBjd0t2FNLmubYcjqpRGZxYPfRx9kEtEzRrcOSDOif5de/LEWAvx
-         /0LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701264024; x=1701868824;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+J0x7a0PD9p/VqLGjkyGZvLQjOrtRWY5Ac+AxcGQlA4=;
-        b=lCR7UAgk8UKPich77p+eAHKyP1wWi0rUdYp3AXRp/JwIvK/s4HiXqpnOIVip76Fbwa
-         z5HQyRB3NkzVZcBA0/UXJ+Ui+BkkCNviWcnVwMnZzhQBeAA0dr4nSvC7DP7pAQtxTN+b
-         aHYJ9RxoAvHOtJ6aWKImujUkM3zKgBaR8JlZTkCByKry6no6KT08SjvbH9qJ/XCVnMtI
-         jcKhzOCbPXGP1LVreYpcCClR9CGXsU+REHXRHA7egE8bQMSSYiI7ls02Y4dQTA3i6Qlx
-         QbNRROvC4NJnrCoApHXynqA1P9lcyuRcMV5TlNGM6vEaF5y8JQhnYHMp108uJZk2Ie9e
-         pAdw==
-X-Gm-Message-State: AOJu0Ywfhk0mq3+e9QhDIORsCWbNpCcVYTl4DaH2qUgamBgLwalfCHaY
-	rz/qDjbUybq0wojaH5pmRGzghA==
-X-Google-Smtp-Source: AGHT+IGnCTDn/ocF0tMbS4LipIfjyh3BMG5LBCWajW8mp0972XdvdgNouolyFX+JonfjbzSGJjCP+Q==
-X-Received: by 2002:a05:600c:1c81:b0:40a:3e13:22aa with SMTP id k1-20020a05600c1c8100b0040a3e1322aamr13246196wms.7.1701264024514;
-        Wed, 29 Nov 2023 05:20:24 -0800 (PST)
-Message-ID: <291fd6bd-9ea7-45c4-96dd-5a76cdc7342e@tibco.com>
-Date: Wed, 29 Nov 2023 13:20:23 +0000
+X-Inumbo-ID: eed2163a-8ebb-11ee-98e3-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1701264830; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Qd/edhp+5962psCPMPy4XP3r2u443myO08oYjOHlTLA=;
+	b=Pa0EKVY0qxxUd5ai3BkeXQ5O36LsXwze2YUAWSo+uhiqrqu+qQnOMc08tb752X/3bhkI4m
+	zYIZAMIQnrocT+NXv0m6eFE9HhHgm/vc2JCCLVRkIuKeW6Gq8NZCOTCDWChK+a1azg+4be
+	jXG4Qt7cAEBdPBvNbmAiVU1MYGGsVv0=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <akaher@vmware.com>,
+	Alexey Makhalov <amakhalov@vmware.com>,
+	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 0/5] 86/paravirt: Get rid of paravirt patching
+Date: Wed, 29 Nov 2023 14:33:27 +0100
+Message-Id: <20231129133332.31043-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/public: fix flexible array definitions
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20230725135557.20518-1-jgross@suse.com>
-From: Andrew Cooper <andcooper@tibco.com>
-In-Reply-To: <20230725135557.20518-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: 0.90
+X-Spamd-Result: default: False [0.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 RCPT_COUNT_TWELVE(0.00)[18];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Spam-Flag: NO
 
-On 25/07/2023 2:55 pm, Juergen Gross wrote:
-> Flexible arrays in public headers can be problematic with some
-> compilers.
->
-> Replace them with arr[XEN_FLEX_ARRAY_DIM] in order to avoid compilation
-> errors.
->
-> This includes arrays defined as "arr[1]", as seen with a recent Linux
-> kernel [1].
->
-> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=217693
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+This is a small series getting rid of paravirt patching by switching
+completely to alternative patching for the same functionality.
 
-I know this is a change in the public headers, and I know it will cause
-changes in the behaviour of sizeof() against these, but
+The basic idea is to add the capability to switch from indirect to
+direct calls via a special alternative patching option.
 
-1) We expect people to copy these files, so the change here isn't
-breaking others, and
-2) The use of sizeof() on these structs is buggy in the first place, and
-3) The use of sizeof() with these structs is unlikely because they're
-variadic
-4) It really genuinely is UB as reported by toolchains
+This removes _some_ of the paravirt macro maze, but most of it needs
+to stay due to the need of hiding the call instructions from the
+compiler in order to avoid needless register save/restore.
 
-It may not be great, but it's the least bad of a lot of bad options.
+What is going away is the nasty stacking of alternative and paravirt
+patching and (of course) the special .parainstructions linker section.
 
-This definitely needs a note in CHANGELOG.  Subject to something
-suitable there, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I have tested the series on bare metal and as Xen PV domain to still
+work.
 
-~Andrew
+Note that objtool might need some changes to cope with the new
+indirect call patching mechanism. Additionally some paravirt handling
+can probably be removed from it.
+
+Changes in V5:
+- addressed Boris' comments
+- rebased on top of the tip/master branch
+
+Changes in V4:
+- addressed Boris' comments in patch 1
+- fixed bugs found by kernel test robot (patch 2)
+
+Changes in V3:
+- split v2 patch 3 into 2 patches as requested by Peter and Ingo
+
+Changes in V2:
+- split last patch into 2
+- rebase of patch 2 as suggested by Peter
+- addressed Peter's comments for patch 3
+
+Juergen Gross (5):
+  x86/paravirt: introduce ALT_NOT_XEN
+  x86/paravirt: move some functions and defines to alternative
+  x86/alternative: add indirect call patching
+  x86/paravirt: switch mixed paravirt/alternative calls to alternative_2
+  x86/paravirt: remove no longer needed paravirt patching code
+
+ arch/x86/include/asm/alternative.h        |  30 +++++-
+ arch/x86/include/asm/paravirt.h           |  77 ++++---------
+ arch/x86/include/asm/paravirt_types.h     |  85 +++++----------
+ arch/x86/include/asm/qspinlock_paravirt.h |   4 +-
+ arch/x86/include/asm/text-patching.h      |  12 ---
+ arch/x86/kernel/alternative.c             | 125 ++++++++++------------
+ arch/x86/kernel/callthunks.c              |  17 ++-
+ arch/x86/kernel/kvm.c                     |   4 +-
+ arch/x86/kernel/module.c                  |  20 +---
+ arch/x86/kernel/paravirt.c                |  54 ++--------
+ arch/x86/kernel/vmlinux.lds.S             |  13 ---
+ arch/x86/tools/relocs.c                   |   2 +-
+ arch/x86/xen/irq.c                        |   2 +-
+ 13 files changed, 161 insertions(+), 284 deletions(-)
+
+-- 
+2.35.3
+
 
