@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 525C97FD83E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 14:34:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.643919.1004502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B5597FD8EE
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Nov 2023 15:06:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.643926.1004512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Khc-0002qX-46; Wed, 29 Nov 2023 13:34:08 +0000
+	id 1r8LBi-00042u-Ea; Wed, 29 Nov 2023 14:05:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 643919.1004502; Wed, 29 Nov 2023 13:34:08 +0000
+Received: by outflank-mailman (output) from mailman id 643926.1004512; Wed, 29 Nov 2023 14:05:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8Khc-0002nV-1L; Wed, 29 Nov 2023 13:34:08 +0000
-Received: by outflank-mailman (input) for mailman id 643919;
- Wed, 29 Nov 2023 13:34:06 +0000
+	id 1r8LBi-00041B-AO; Wed, 29 Nov 2023 14:05:14 +0000
+Received: by outflank-mailman (input) for mailman id 643926;
+ Wed, 29 Nov 2023 14:05:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q0oM=HK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1r8Kha-0002jy-Ok
- for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 13:34:06 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Cdkt=HK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r8LBg-000415-Tk
+ for xen-devel@lists.xenproject.org; Wed, 29 Nov 2023 14:05:12 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f52d6fdc-8ebb-11ee-9b0e-b553b5be7939;
- Wed, 29 Nov 2023 14:34:02 +0100 (CET)
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4266221A11;
- Wed, 29 Nov 2023 13:34:02 +0000 (UTC)
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id CB5761376F;
- Wed, 29 Nov 2023 13:34:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap2.dmz-prg2.suse.org with ESMTPSA id xrd3MMk9Z2WIHwAAn2gu4w
- (envelope-from <jgross@suse.com>); Wed, 29 Nov 2023 13:34:01 +0000
+ id 4f172c8a-8ec0-11ee-9b0e-b553b5be7939;
+ Wed, 29 Nov 2023 15:05:10 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2c9c30c7eafso4271571fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Nov 2023 06:05:10 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ t6-20020a05600001c600b00332ff21038fsm9505546wrx.106.2023.11.29.06.05.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Nov 2023 06:05:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,291 +44,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f52d6fdc-8ebb-11ee-9b0e-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1701264842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s43tT/0lOWwUKHb7lEKdLQRTdpPjlepqBNd7X0Dbxp4=;
-	b=NFfZEDWBnpDadbcSNgqdgOKOkTS56mcCclKuy0myGNkGJ6iNXtTF3xSkIyja69QDgyz+zI
-	sl3jqyvP06wQxFjig+LY6WgcvNdGXSucb/H3JHdoCOEwpwJ+3fmXd57e5hvTSBFagD/V8j
-	tboKRBSa7QVVKENUj6R3s2DlqrNawE0=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <akaher@vmware.com>,
-	Alexey Makhalov <amakhalov@vmware.com>,
-	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v5 2/5] x86/paravirt: move some functions and defines to alternative
-Date: Wed, 29 Nov 2023 14:33:29 +0100
-Message-Id: <20231129133332.31043-3-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20231129133332.31043-1-jgross@suse.com>
-References: <20231129133332.31043-1-jgross@suse.com>
+X-Inumbo-ID: 4f172c8a-8ec0-11ee-9b0e-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701266710; x=1701871510; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AD67BY4tJsvOLcX8AuCp6fBVFOrKOImlKDzoMs0C+1g=;
+        b=Z0oqyG7pZvDmc16B8XiL20+ejskqfWm0q0Mog6/uwc+VvqvhnitqX/aAj+NeLfiFR9
+         59NKvkE6ItEzW9rXpAaSvvAkTMfLD2s4f5GEmtmYPLr0301TY5W39OadwsI6agkZIJVf
+         yW5Y9wb6fmuzutMiqK4i3S7i6NzxVLXk/d3/U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701266710; x=1701871510;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AD67BY4tJsvOLcX8AuCp6fBVFOrKOImlKDzoMs0C+1g=;
+        b=B+d3J1Pg8738q2CHF9t2AuLxbrAMWpJve6M0ixM8i6ERqq6GLEDQYzT8WdQbCEvREo
+         lrPYoKRSGMS37ZJEO5zb+AWmbd8QxCoVGOzu32xRGVcjZnPWs2aJ2ipC71i3e0Fiw20M
+         bLCMAlkhmGxVhHC+7H/JLOP62Wmt1Oqkt0CzeF1utogIVmqoX2kiVNIq7dlMY6apfjVX
+         X+bfrUUvMBevjpcAobcucuyjBee+OSKXYZSgIZW2D4u4H1wc7EM6dcXNjaSf8dB0LsQx
+         Vp/o4gXeceEo+OfySlKH6n2p7HPjTr4NIvO9J7Os25DJCTm7G37kxbZRCg4hu7BNVgk+
+         MROA==
+X-Gm-Message-State: AOJu0YxWQHjZ+U7Er3KxY8VCJdZ2zqmgOMdRnQhPLDqoQaih1346CJzT
+	hGkN2hdtXZlyNVs/edRZuw94Eg==
+X-Google-Smtp-Source: AGHT+IG9LkSDIm9/Z7mjsSHlO4Rnr/A/EVV6bOfNmwDoXIS4LGi4HGxbMCYbkqleqyOo5HlaEo/yCg==
+X-Received: by 2002:a2e:9987:0:b0:2c9:b84a:147d with SMTP id w7-20020a2e9987000000b002c9b84a147dmr3390039lji.19.1701266710133;
+        Wed, 29 Nov 2023 06:05:10 -0800 (PST)
+Date: Wed, 29 Nov 2023 15:05:09 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v8 2/2] xen/vpci: header: filter PCI capabilities
+Message-ID: <ZWdFFa1J6l73kvxb@macbook>
+References: <20231128194427.2513249-1-stewart.hildebrand@amd.com>
+ <20231128194427.2513249-3-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.20 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 R_MISSING_CHARSET(2.50)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 BROKEN_CONTENT_TYPE(1.50)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.10)[-0.524];
-	 RCPT_COUNT_TWELVE(0.00)[18];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-X-Spam-Score: -3.20
+In-Reply-To: <20231128194427.2513249-3-stewart.hildebrand@amd.com>
 
-As a preparation for replacing paravirt patching completely by
-alternative patching, move some backend functions and #defines to
-alternative code and header.
+On Tue, Nov 28, 2023 at 02:44:25PM -0500, Stewart Hildebrand wrote:
+> Currently, Xen vPCI only supports virtualizing the MSI and MSI-X capabilities.
+> Hide all other PCI capabilities (including extended capabilities) from domUs for
+> now, even though there may be certain devices/drivers that depend on being able
+> to discover certain capabilities.
+> 
+> We parse the physical PCI capabilities linked list and add vPCI register
+> handlers for the next elements, inserting our own next value, thus presenting a
+> modified linked list to the domU.
+> 
+> Introduce helper functions vpci_hw_read8 and vpci_read_val. The vpci_read_val
+> helper function returns a fixed value, which may be used for RAZ registers, or
+                                                               ^ read as zero
+> registers whose value doesn't change.
+> 
+> Introduce pci_find_next_cap_ttl() helper while adapting the logic from
+> pci_find_next_cap() to suit our needs, and implement the existing
+> pci_find_next_cap() in terms of the new helper.
+> 
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V4:
-- rename x86_nop() to nop_func() and x86_BUG() to BUG_func() (Boris
-  Petkov)
----
- arch/x86/include/asm/alternative.h        | 16 ++++++++++++
- arch/x86/include/asm/paravirt.h           | 12 ---------
- arch/x86/include/asm/paravirt_types.h     |  4 +--
- arch/x86/include/asm/qspinlock_paravirt.h |  4 +--
- arch/x86/kernel/alternative.c             | 10 ++++++++
- arch/x86/kernel/kvm.c                     |  4 +--
- arch/x86/kernel/paravirt.c                | 30 +++++++----------------
- arch/x86/xen/irq.c                        |  2 +-
- 8 files changed, 41 insertions(+), 41 deletions(-)
+LGTM, some nits below:
 
-diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/alternative.h
-index 65f79092c9d9..ce788ab4e77c 100644
---- a/arch/x86/include/asm/alternative.h
-+++ b/arch/x86/include/asm/alternative.h
-@@ -330,6 +330,22 @@ static inline int alternatives_text_reserved(void *start, void *end)
-  */
- #define ASM_NO_INPUT_CLOBBER(clbr...) "i" (0) : clbr
- 
-+/* Macro for creating assembler functions avoiding any C magic. */
-+#define DEFINE_ASM_FUNC(func, instr, sec)		\
-+	asm (".pushsection " #sec ", \"ax\"\n"		\
-+	     ".global " #func "\n\t"			\
-+	     ".type " #func ", @function\n\t"		\
-+	     ASM_FUNC_ALIGN "\n"			\
-+	     #func ":\n\t"				\
-+	     ASM_ENDBR					\
-+	     instr "\n\t"				\
-+	     ASM_RET					\
-+	     ".size " #func ", . - " #func "\n\t"	\
-+	     ".popsection")
-+
-+void BUG_func(void);
-+void nop_func(void);
-+
- #else /* __ASSEMBLY__ */
- 
- #ifdef CONFIG_SMP
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index aa76ac7c806c..f18bfa7f3070 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -720,18 +720,6 @@ static __always_inline unsigned long arch_local_irq_save(void)
- #undef PVOP_VCALL4
- #undef PVOP_CALL4
- 
--#define DEFINE_PARAVIRT_ASM(func, instr, sec)		\
--	asm (".pushsection " #sec ", \"ax\"\n"		\
--	     ".global " #func "\n\t"			\
--	     ".type " #func ", @function\n\t"		\
--	     ASM_FUNC_ALIGN "\n"			\
--	     #func ":\n\t"				\
--	     ASM_ENDBR					\
--	     instr "\n\t"				\
--	     ASM_RET					\
--	     ".size " #func ", . - " #func "\n\t"	\
--	     ".popsection")
--
- extern void default_banner(void);
- void native_pv_lock_init(void) __init;
- 
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 483e19e5ca7a..166e9618158f 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -540,8 +540,6 @@ int paravirt_disable_iospace(void);
- 	__PVOP_VCALL(op, PVOP_CALL_ARG1(arg1), PVOP_CALL_ARG2(arg2),	\
- 		     PVOP_CALL_ARG3(arg3), PVOP_CALL_ARG4(arg4))
- 
--void _paravirt_nop(void);
--void paravirt_BUG(void);
- unsigned long paravirt_ret0(void);
- #ifdef CONFIG_PARAVIRT_XXL
- u64 _paravirt_ident_64(u64);
-@@ -551,7 +549,7 @@ void pv_native_irq_enable(void);
- unsigned long pv_native_read_cr2(void);
- #endif
- 
--#define paravirt_nop	((void *)_paravirt_nop)
-+#define paravirt_nop	((void *)nop_func)
- 
- extern struct paravirt_patch_site __parainstructions[],
- 	__parainstructions_end[];
-diff --git a/arch/x86/include/asm/qspinlock_paravirt.h b/arch/x86/include/asm/qspinlock_paravirt.h
-index 85b6e3609cb9..ef9697f20129 100644
---- a/arch/x86/include/asm/qspinlock_paravirt.h
-+++ b/arch/x86/include/asm/qspinlock_paravirt.h
-@@ -56,8 +56,8 @@ __PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock_slowpath, ".spinlock.text");
- 	"pop    %rdx\n\t"						\
- 	FRAME_END
- 
--DEFINE_PARAVIRT_ASM(__raw_callee_save___pv_queued_spin_unlock,
--		    PV_UNLOCK_ASM, .spinlock.text);
-+DEFINE_ASM_FUNC(__raw_callee_save___pv_queued_spin_unlock,
-+		PV_UNLOCK_ASM, .spinlock.text);
- 
- #else /* CONFIG_64BIT */
- 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index be35c8ccf826..ca25dd280b8c 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -385,6 +385,16 @@ apply_relocation(u8 *buf, size_t len, u8 *dest, u8 *src, size_t src_len)
- 	}
- }
- 
-+/* Low-level backend functions usable from alternative code replacements. */
-+DEFINE_ASM_FUNC(nop_func, "", .entry.text);
-+EXPORT_SYMBOL_GPL(nop_func);
-+
-+noinstr void BUG_func(void)
-+{
-+	BUG();
-+}
-+EXPORT_SYMBOL_GPL(BUG_func);
-+
- /*
-  * Replace instructions with better alternatives for this CPU type. This runs
-  * before SMP is initialized to avoid SMP problems with self modifying code.
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 0ddb3bd0f1aa..c461c1a4b6af 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -803,8 +803,8 @@ extern bool __raw_callee_save___kvm_vcpu_is_preempted(long);
-  "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "+steal_time(%rax)\n\t" \
-  "setne  %al\n\t"
- 
--DEFINE_PARAVIRT_ASM(__raw_callee_save___kvm_vcpu_is_preempted,
--		    PV_VCPU_PREEMPTED_ASM, .text);
-+DEFINE_ASM_FUNC(__raw_callee_save___kvm_vcpu_is_preempted,
-+		PV_VCPU_PREEMPTED_ASM, .text);
- #endif
- 
- static void __init kvm_guest_init(void)
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 97f1436c1a20..acc5b1004f0f 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -34,14 +34,8 @@
- #include <asm/io_bitmap.h>
- #include <asm/gsseg.h>
- 
--/*
-- * nop stub, which must not clobber anything *including the stack* to
-- * avoid confusing the entry prologues.
-- */
--DEFINE_PARAVIRT_ASM(_paravirt_nop, "", .entry.text);
--
- /* stub always returning 0. */
--DEFINE_PARAVIRT_ASM(paravirt_ret0, "xor %eax,%eax", .entry.text);
-+DEFINE_ASM_FUNC(paravirt_ret0, "xor %eax,%eax", .entry.text);
- 
- void __init default_banner(void)
- {
-@@ -49,12 +43,6 @@ void __init default_banner(void)
- 	       pv_info.name);
- }
- 
--/* Undefined instruction for dealing with missing ops pointers. */
--noinstr void paravirt_BUG(void)
--{
--	BUG();
--}
--
- static unsigned paravirt_patch_call(void *insn_buff, const void *target,
- 				    unsigned long addr, unsigned len)
- {
-@@ -64,11 +52,11 @@ static unsigned paravirt_patch_call(void *insn_buff, const void *target,
- }
- 
- #ifdef CONFIG_PARAVIRT_XXL
--DEFINE_PARAVIRT_ASM(_paravirt_ident_64, "mov %rdi, %rax", .text);
--DEFINE_PARAVIRT_ASM(pv_native_save_fl, "pushf; pop %rax", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_irq_disable, "cli", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_irq_enable, "sti", .noinstr.text);
--DEFINE_PARAVIRT_ASM(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
-+DEFINE_ASM_FUNC(_paravirt_ident_64, "mov %rdi, %rax", .text);
-+DEFINE_ASM_FUNC(pv_native_save_fl, "pushf; pop %rax", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_irq_disable, "cli", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_irq_enable, "sti", .noinstr.text);
-+DEFINE_ASM_FUNC(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
- #endif
- 
- DEFINE_STATIC_KEY_TRUE(virt_spin_lock_key);
-@@ -96,9 +84,9 @@ unsigned int paravirt_patch(u8 type, void *insn_buff, unsigned long addr,
- 	unsigned ret;
- 
- 	if (opfunc == NULL)
--		/* If there's no function, patch it with paravirt_BUG() */
--		ret = paravirt_patch_call(insn_buff, paravirt_BUG, addr, len);
--	else if (opfunc == _paravirt_nop)
-+		/* If there's no function, patch it with BUG_func() */
-+		ret = paravirt_patch_call(insn_buff, BUG_func, addr, len);
-+	else if (opfunc == nop_func)
- 		ret = 0;
- 	else
- 		/* Otherwise call the function. */
-diff --git a/arch/x86/xen/irq.c b/arch/x86/xen/irq.c
-index 6092fea7d651..39982f955cfe 100644
---- a/arch/x86/xen/irq.c
-+++ b/arch/x86/xen/irq.c
-@@ -45,7 +45,7 @@ static const typeof(pv_ops) xen_irq_ops __initconst = {
- 		/* Initial interrupt flag handling only called while interrupts off. */
- 		.save_fl = __PV_IS_CALLEE_SAVE(paravirt_ret0),
- 		.irq_disable = __PV_IS_CALLEE_SAVE(paravirt_nop),
--		.irq_enable = __PV_IS_CALLEE_SAVE(paravirt_BUG),
-+		.irq_enable = __PV_IS_CALLEE_SAVE(BUG_func),
- 
- 		.safe_halt = xen_safe_halt,
- 		.halt = xen_halt,
--- 
-2.35.3
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
+> ---
+> v7->v8:
+> * use to array instead of match function
+> * include lib.h for ARRAY_SIZE
+> * don't emulate PCI_CAPABILITY_LIST register if PCI_STATUS_CAP_LIST bit is not
+>   set in hardware
+> * spell out RAZ/WI acronym
+> * dropped R-b tag since the patch has changed moderately since the last rev
+> 
+> v6->v7:
+> * no change
+> 
+> v5->v6:
+> * add register handlers before status register handler in init_bars()
+> * s/header->mask_cap_list/mask_cap_list/
+> 
+> v4->v5:
+> * use more appropriate types, continued
+> * get rid of unnecessary hook function
+> * add Jan's R-b
+> 
+> v3->v4:
+> * move mask_cap_list setting to this patch
+> * leave pci_find_next_cap signature alone
+> * use more appropriate types
+> 
+> v2->v3:
+> * get rid of > 0 in loop condition
+> * implement pci_find_next_cap in terms of new pci_find_next_cap_ttl function so
+>   that hypothetical future callers wouldn't be required to pass &ttl.
+> * change NULL to (void *)0 for RAZ value passed to vpci_read_val
+> * change type of ttl to unsigned int
+> * remember to mask off the low 2 bits of next in the initial loop iteration
+> * change return type of pci_find_next_cap and pci_find_next_cap_ttl
+> * avoid wrapping the PCI_STATUS_CAP_LIST condition by using ! instead of == 0
+> 
+> v1->v2:
+> * change type of ttl to int
+> * use switch statement instead of if/else
+> * adapt existing pci_find_next_cap helper instead of rolling our own
+> * pass ttl as in/out
+> * "pass through" the lower 2 bits of the next pointer
+> * squash helper functions into this patch to avoid transient dead code situation
+> * extended capabilities RAZ/WI
+> ---
+>  xen/drivers/pci/pci.c     | 31 ++++++++++++-------
+>  xen/drivers/vpci/header.c | 63 +++++++++++++++++++++++++++++++++++++++
+>  xen/drivers/vpci/vpci.c   | 12 ++++++++
+>  xen/include/xen/pci.h     |  3 ++
+>  xen/include/xen/vpci.h    |  5 ++++
+>  5 files changed, 104 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/drivers/pci/pci.c b/xen/drivers/pci/pci.c
+> index 3569ccb24e9e..1645b3118220 100644
+> --- a/xen/drivers/pci/pci.c
+> +++ b/xen/drivers/pci/pci.c
+> @@ -39,31 +39,42 @@ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap)
+>      return 0;
+>  }
+>  
+> -unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+> -                               unsigned int cap)
+> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+> +                                   unsigned int *cap, unsigned int n,
+> +                                   unsigned int *ttl)
+>  {
+> -    u8 id;
+> -    int ttl = 48;
+> +    unsigned int id, i;
+
+Nit: those can be defined inside the while loop.
+
+> -    while ( ttl-- )
+> +    while ( (*ttl)-- )
+>      {
+>          pos = pci_conf_read8(sbdf, pos);
+>          if ( pos < 0x40 )
+>              break;
+>  
+> -        pos &= ~3;
+> -        id = pci_conf_read8(sbdf, pos + PCI_CAP_LIST_ID);
+> +        id = pci_conf_read8(sbdf, (pos & ~3) + PCI_CAP_LIST_ID);
+>  
+>          if ( id == 0xff )
+>              break;
+> -        if ( id == cap )
+> -            return pos;
+> +        for ( i = 0; i < n; i++ )
+> +        {
+> +            if ( id == cap[i] )
+> +                return pos;
+> +        }
+>  
+> -        pos += PCI_CAP_LIST_NEXT;
+> +        pos = (pos & ~3) + PCI_CAP_LIST_NEXT;
+>      }
+> +
+>      return 0;
+>  }
+>  
+> +unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+> +                               unsigned int cap)
+> +{
+> +    unsigned int ttl = 48;
+> +
+> +    return pci_find_next_cap_ttl(sbdf, pos, &cap, 1, &ttl) & ~3;
+> +}
+> +
+>  /**
+>   * pci_find_ext_capability - Find an extended capability
+>   * @sbdf: PCI device to query
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 351318121e48..d7dc0c82a6ba 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -18,6 +18,7 @@
+>   */
+>  
+>  #include <xen/iocap.h>
+> +#include <xen/lib.h>
+>  #include <xen/sched.h>
+>  #include <xen/softirq.h>
+>  #include <xen/vpci.h>
+> @@ -545,6 +546,68 @@ static int cf_check init_bars(struct pci_dev *pdev)
+
+Could you please rename to init_header now that we do much more than
+dealing with the BARs?
+
+>      if ( rc )
+>          return rc;
+>  
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +    {
+> +        if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
+> +        {
+> +            /* Only expose capabilities to the guest that vPCI can handle. */
+> +            unsigned int next, ttl = 48;
+> +            unsigned int supported_caps[] = {
+
+const?
+
+We likely need to find a way to do this programmatically, so that when
+a new capability is supported we don't need to go and modify the list
+here every time.  We can sort that out at a later point however.
+
+> +                PCI_CAP_ID_MSI,
+> +                PCI_CAP_ID_MSIX,
+> +            };
+> +
+> +            next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
+> +                                         supported_caps,
+> +                                         ARRAY_SIZE(supported_caps), &ttl);
+> +
+> +            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+> +                                   PCI_CAPABILITY_LIST, 1,
+> +                                   (void *)(uintptr_t)next);
+> +            if ( rc )
+> +                return rc;
+> +
+> +            next &= ~3;
+> +
+> +            if ( !next )
+> +                /*
+> +                 * If we don't have any supported capabilities to expose to the
+> +                 * guest, mask the PCI_STATUS_CAP_LIST bit in the status
+> +                 * register.
+> +                 */
+> +                mask_cap_list = true;
+> +
+> +            while ( next && ttl )
+> +            {
+> +                unsigned int pos = next;
+> +
+> +                next = pci_find_next_cap_ttl(pdev->sbdf,
+> +                                             pos + PCI_CAP_LIST_NEXT,
+> +                                             supported_caps,
+> +                                             ARRAY_SIZE(supported_caps), &ttl);
+> +
+> +                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
+> +                                       pos + PCI_CAP_LIST_ID, 1, NULL);
+> +                if ( rc )
+> +                    return rc;
+> +
+> +                rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+> +                                       pos + PCI_CAP_LIST_NEXT, 1,
+> +                                       (void *)(uintptr_t)next);
+> +                if ( rc )
+> +                    return rc;
+> +
+> +                next &= ~3;
+> +            }
+> +        }
+> +
+> +        /* Extended capabilities read as zero, write ignore */
+> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL, 0x100, 4,
+> +                               (void *)0);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+>      /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
+>      rc = vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
+>                                  PCI_STATUS, 2, NULL,
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 96187b70141b..99307e310bbb 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -137,6 +137,18 @@ static void cf_check vpci_ignored_write(
+>  {
+>  }
+>  
+> +uint32_t cf_check vpci_read_val(
+> +    const struct pci_dev *pdev, unsigned int reg, void *data)
+> +{
+> +    return (uintptr_t)data;
+> +}
+> +
+> +uint32_t cf_check vpci_hw_read8(
+> +    const struct pci_dev *pdev, unsigned int reg, void *data)
+> +{
+> +    return pci_conf_read8(pdev->sbdf, reg);
+> +}
+> +
+>  uint32_t cf_check vpci_hw_read16(
+>      const struct pci_dev *pdev, unsigned int reg, void *data)
+>  {
+> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+> index 50d7dfb2a2fd..b2dcef01a1cf 100644
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -205,6 +205,9 @@ int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+>  int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+>                      unsigned int devfn, int reg, int len, u32 value);
+>  unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap);
+> +unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+> +                                   unsigned int *cap, unsigned int n,
+> +                                   unsigned int *ttl);
+>  unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
+>                                 unsigned int cap);
+>  unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap);
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 8e8e42372ec1..3c14a74d6255 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -52,7 +52,12 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size);
+>  void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+>                  uint32_t data);
+>  
+> +uint32_t cf_check vpci_read_val(
+> +    const struct pci_dev *pdev, unsigned int reg, void *data);
+
+A small comment could be helpful: helper to return the value passed in the data
+parameter.
+
+Thanks, Roger.
 
