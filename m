@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FEC87FFC00
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:09:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645122.1006997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB517FFC76
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:29:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645128.1007007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nLJ-0008Cp-VA; Thu, 30 Nov 2023 20:09:01 +0000
+	id 1r8nf7-0004NJ-HM; Thu, 30 Nov 2023 20:29:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645122.1006997; Thu, 30 Nov 2023 20:09:01 +0000
+Received: by outflank-mailman (output) from mailman id 645128.1007007; Thu, 30 Nov 2023 20:29:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nLJ-0008BA-SG; Thu, 30 Nov 2023 20:09:01 +0000
-Received: by outflank-mailman (input) for mailman id 645122;
- Thu, 30 Nov 2023 20:09:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=k41O=HL=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1r8nLH-00089e-VL
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:08:59 +0000
+	id 1r8nf7-0004Lb-EV; Thu, 30 Nov 2023 20:29:29 +0000
+Received: by outflank-mailman (input) for mailman id 645128;
+ Thu, 30 Nov 2023 20:29:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PSmm=HL=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1r8nf6-0004LV-Hc
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:29:28 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b1760c5-8fbc-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 21:08:58 +0100 (CET)
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-618-kvMiOI0lN1ikNiNaCsWQyA-1; Thu, 30 Nov 2023 15:08:55 -0500
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-58dc1a18554so210158eaf.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 12:08:55 -0800 (PST)
-Received: from x1n (cpe688f2e2cb7c3-cm688f2e2cb7c0.cpe.net.cable.rogers.com.
- [99.254.121.117]) by smtp.gmail.com with ESMTPSA id
- qr13-20020a05620a390d00b0077d5e1e4edesm790071qkn.57.2023.11.30.12.08.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 12:08:54 -0800 (PST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26fa903e-8fbf-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 21:29:26 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-500-DFipSJ9NNb6fbEEPaw_Vzw-1; Thu,
+ 30 Nov 2023 15:29:21 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B2941C06EC1;
+ Thu, 30 Nov 2023 20:29:18 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.46])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1713E36E2;
+ Thu, 30 Nov 2023 20:27:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,40 +51,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b1760c5-8fbc-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: 26fa903e-8fbf-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701374936;
+	s=mimecast20190719; t=1701376164;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vQ5m3o7+UqdtWYSDU6QubOO0VIH9lcTK3EaDyGHvbxw=;
-	b=Mtct1fO/ctWsHPFB+5wB3YkKWIi/8kY27OjH8kRwmuhYOoj/9W0NoGoJs1A18gtogaCYUD
-	vRffEee1eUh+KlaA+W6L6CSktX+K5UIEAVyUr+LBUSgmdRbz278lk3afFfDrj6OZVBpOpg
-	eBP1oeEHCSNxEordsBYKyhvdgJ8WBVU=
-X-MC-Unique: kvMiOI0lN1ikNiNaCsWQyA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701374935; x=1701979735;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vQ5m3o7+UqdtWYSDU6QubOO0VIH9lcTK3EaDyGHvbxw=;
-        b=R7+RZnmTs5JEfhUDDzWKPI49nlH91gFwHfc+vO6sP/Mfg/IMTV9rmJgtp4OQmB5qVe
-         dY9OmzwihdmTdBBxNQkICAAw52IYHwS4kuWle8fLfmXKyiO2A2lfBljBfJWxedfALESY
-         XE2H4SCAVtVDiZjJZJfRm08AgDb09mRWIfaFmTIAJtYzuEL+/cxCfu9XugKdSqAWRiXj
-         CJRVfz3HLxWY/2y687NssERPICjT74jMUbWgtXWM7O5hhCyCayuj0M4EkzOX6z1Snstp
-         2ux56DwMedYxf6aTUsSV7nP6cSfK6Vk/YXnge/E1jQp+GLk7nleuKfifaVnqpYNoqziS
-         Pyxg==
-X-Gm-Message-State: AOJu0Yxsdbuu1lHDIWwqrU3F9vsiw1k7QWJubPZ7ONYxUtG1ouwxr6W1
-	+9gJh8v5ynfhg5bUan9lAeyrHJVGEAWaFhgiPzLOca0cLM0brgwbKPxsabKND8NVW+xw2q8yivh
-	3i37JyP+Ss2yBwrxCOILeeuJjxU8=
-X-Received: by 2002:a05:6820:a8f:b0:58d:e3d3:ec72 with SMTP id de15-20020a0568200a8f00b0058de3d3ec72mr3219669oob.0.1701374934934;
-        Thu, 30 Nov 2023 12:08:54 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEFrVwMaTOwUyaQhegCiYW255oqkz3A1nA2DFXZquNCGnC+wsIvv9V9+I7etJ6uoaw71Bi5Lw==
-X-Received: by 2002:a05:6820:a8f:b0:58d:e3d3:ec72 with SMTP id de15-20020a0568200a8f00b0058de3d3ec72mr3219606oob.0.1701374934634;
-        Thu, 30 Nov 2023 12:08:54 -0800 (PST)
-Date: Thu, 30 Nov 2023 15:08:49 -0500
-From: Peter Xu <peterx@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
+	bh=pspgY/UtbTR6ASTEqbHV7C5jZMpcDbn0C1ttaW0vK+0=;
+	b=MUByS6TXp2b5SlHUn8tYIPNx45ojPf44Ceh7bnTuvAVka6ZqOJTzLpaYLyMZgEq3MZY9Lz
+	UDnBw4zrKWP5m6wzCirg1D2UgXsPh9rGg8n6l1SMTjzgu1UUS2ahrx7YlqwsQiX3fq67E0
+	xGyNJWpyvnaD4hsISiqHA4FK1v4orUA=
+X-MC-Unique: DFipSJ9NNb6fbEEPaw_Vzw-1
+Date: Thu, 30 Nov 2023 15:27:32 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
 Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	Fabiano Rosas <farosas@suse.de>, qemu-s390x@nongnu.org,
 	Song Gao <gaosong@loongson.cn>,
@@ -92,7 +74,7 @@ Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	David Woodhouse <dwmw2@infradead.org>,
 	Andrey Smirnov <andrew.smirnov@gmail.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
-	Kevin Wolf <kwolf@redhat.com>, Ilya Leoshkevich <iii@linux.ibm.com>,
+	Kevin Wolf <kwolf@redhat.com>,
 	Artyom Tarasenko <atar4qemu@gmail.com>,
 	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
 	Max Filippov <jcmvbkbc@gmail.com>,
@@ -100,10 +82,10 @@ Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	Paul Durrant <paul@xen.org>,
 	Jagannathan Raman <jag.raman@oracle.com>,
 	Juan Quintela <quintela@redhat.com>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
 	qemu-arm@nongnu.org, Jason Wang <jasowang@redhat.com>,
 	Gerd Hoffmann <kraxel@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
 	BALATON Zoltan <balaton@eik.bme.hu>,
 	Daniel Henrique Barboza <danielhb413@gmail.com>,
 	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
@@ -132,74 +114,106 @@ Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	Bin Meng <bin.meng@windriver.com>,
 	Stefano Stabellini <sstabellini@kernel.org>, kvm@vger.kernel.org,
 	qemu-block@nongnu.org, Halil Pasic <pasic@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
 	Eduardo Habkost <eduardo@habkost.net>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
 	qemu-ppc@nongnu.org,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
 	Christian Borntraeger <borntraeger@linux.ibm.com>,
 	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	Leonardo Bras <leobras@redhat.com>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: Re: [PATCH 1/6] system/cpus: rename qemu_mutex_lock_iothread() to
- qemu_bql_lock()
-Message-ID: <ZWjr0TKxihlpd1jm@x1n>
+Subject: Re: [PATCH 2/6] qemu/main-loop: rename QEMU_IOTHREAD_LOCK_GUARD to
+ QEMU_BQL_LOCK_GUARD
+Message-ID: <20231130202732.GA1184658@fedora>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-2-stefanha@redhat.com>
+ <20231129212625.1051502-3-stefanha@redhat.com>
+ <c3ac8d9c2b9d611e84672436ce1a96aedcaacf5e.camel@linux.ibm.com>
 MIME-Version: 1.0
-In-Reply-To: <20231129212625.1051502-2-stefanha@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="IGy9nSmIZnwUahKG"
 Content-Disposition: inline
+In-Reply-To: <c3ac8d9c2b9d611e84672436ce1a96aedcaacf5e.camel@linux.ibm.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
 
-On Wed, Nov 29, 2023 at 04:26:20PM -0500, Stefan Hajnoczi wrote:
-> The Big QEMU Lock (BQL) has many names and they are confusing. The
-> actual QemuMutex variable is called qemu_global_mutex but it's commonly
-> referred to as the BQL in discussions and some code comments. The
-> locking APIs, however, are called qemu_mutex_lock_iothread() and
-> qemu_mutex_unlock_iothread().
-> 
-> The "iothread" name is historic and comes from when the main thread was
-> split into into KVM vcpu threads and the "iothread" (now called the main
-> loop thread). I have contributed to the confusion myself by introducing
-> a separate --object iothread, a separate concept unrelated to the BQL.
-> 
-> The "iothread" name is no longer appropriate for the BQL. Rename the
-> locking APIs to:
-> - void qemu_bql_lock(void)
-> - void qemu_bql_unlock(void)
-> - bool qemu_bql_locked(void)
-> 
-> There are more APIs with "iothread" in their names. Subsequent patches
-> will rename them. There are also comments and documentation that will be
-> updated in later patches.
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-Acked-by: Peter Xu <peterx@redhat.com>
+--IGy9nSmIZnwUahKG
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Two nickpicks:
+On Thu, Nov 30, 2023 at 10:14:47AM +0100, Ilya Leoshkevich wrote:
+> On Wed, 2023-11-29 at 16:26 -0500, Stefan Hajnoczi wrote:
+> > The name "iothread" is overloaded. Use the term Big QEMU Lock (BQL)
+> > instead, it is already widely used and unambiguous.
+> >=20
+> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > ---
+> > =A0include/qemu/main-loop.h=A0 | 20 ++++++++++----------
+> > =A0hw/i386/kvm/xen_evtchn.c=A0 | 14 +++++++-------
+> > =A0hw/i386/kvm/xen_gnttab.c=A0 |=A0 2 +-
+> > =A0hw/mips/mips_int.c=A0=A0=A0=A0=A0=A0=A0 |=A0 2 +-
+> > =A0hw/ppc/ppc.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0 2 +-
+> > =A0target/i386/kvm/xen-emu.c |=A0 2 +-
+> > =A0target/ppc/excp_helper.c=A0 |=A0 2 +-
+> > =A0target/ppc/helper_regs.c=A0 |=A0 2 +-
+> > =A0target/riscv/cpu_helper.c |=A0 4 ++--
+> > =A09 files changed, 25 insertions(+), 25 deletions(-)
+> >=20
+> > diff --git a/include/qemu/main-loop.h b/include/qemu/main-loop.h
+> > index d6f75e57bd..0b6a3e4824 100644
+> > --- a/include/qemu/main-loop.h
+> > +++ b/include/qemu/main-loop.h
+> > @@ -344,13 +344,13 @@ void qemu_bql_lock_impl(const char *file, int
+> > line);
+> > =A0void qemu_bql_unlock(void);
+> > =A0
+> > =A0/**
+> > - * QEMU_IOTHREAD_LOCK_GUARD
+> > + * QEMU_BQL_LOCK_GUARD
+> > =A0 *
+> > - * Wrap a block of code in a conditional
+> > qemu_mutex_{lock,unlock}_iothread.
+> > + * Wrap a block of code in a conditional qemu_bql_{lock,unlock}.
+> > =A0 */
+> > -typedef struct IOThreadLockAuto IOThreadLockAuto;
+> > +typedef struct BQLLockAuto BQLLockAuto;
+> > =A0
+> > -static inline IOThreadLockAuto *qemu_iothread_auto_lock(const char
+> > *file,
+> > +static inline BQLLockAuto *qemu_bql_auto_lock(const char *file,
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 int line)
+>=20
+> The padding is not correct anymore.
 
-  - BQL contains "QEMU" as the 2nd character, so maybe easier to further
-    rename qemu_bql into bql_?
+Good point, I didn't check the formatting after search-and-replace. I
+will fix this across the patch series in v2.
 
-  - Could we keep the full spell of BQL at some places, so people can still
-    reference it if not familiar?  IIUC most of the BQL helpers will root
-    back to the major three functions (_lock, _unlock, _locked), perhaps
-    add a comment of "BQL stands for..." over these three functions as
-    comment?
+Stefan
 
-Please take or ignore these nitpicks; my ACK will stand irrelevant.
+--IGy9nSmIZnwUahKG
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Peter Xu
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVo8DQACgkQnKSrs4Gr
+c8ge1wf+IIHG7oAMqIyOTOA/oFS2QG8uPyiFJQq8Zhme5LBuPIvsf8300Z76gAFP
+LqKNIp9tEHi376ORvR9zKqXs6EyrAjdTT9jBThkjo9Dsw8WtdpMy1OP3sRZ6RZ5Z
+BKv5+J0R2bvw5JBpc/wk7Fnypv5lgxFtWE/MiKDSG6jfjr6+6VDuHt3/CiBBs0cU
+XCtQeZrqhRpjJVA0k05LM+8lVbx8H27bqQxQ9kLFFGpiDm0mMNtiQ+VyXLsxprcW
+0OZ+iv46HtHiJtiBYEMxGxI7q3OJjnvS7fKklk3dLJAJxGHVUEedtOg9gzcMCec1
+64wQWmIUbq61hdMdbFULncGwAIGa0w==
+=I8on
+-----END PGP SIGNATURE-----
+
+--IGy9nSmIZnwUahKG--
 
 
