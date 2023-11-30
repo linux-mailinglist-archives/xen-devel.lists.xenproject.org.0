@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C0A7FF256
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644742.1006241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEA5B7FF288
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:40:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644831.1006553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC4-0002Yu-If; Thu, 30 Nov 2023 14:39:08 +0000
+	id 1r8iCt-0006MK-EC; Thu, 30 Nov 2023 14:39:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644742.1006241; Thu, 30 Nov 2023 14:39:08 +0000
+Received: by outflank-mailman (output) from mailman id 644831.1006553; Thu, 30 Nov 2023 14:39:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC4-0002Sh-D6; Thu, 30 Nov 2023 14:39:08 +0000
-Received: by outflank-mailman (input) for mailman id 644742;
- Thu, 30 Nov 2023 14:30:56 +0000
+	id 1r8iCs-00060a-8D; Thu, 30 Nov 2023 14:39:58 +0000
+Received: by outflank-mailman (input) for mailman id 644831;
+ Thu, 30 Nov 2023 14:37:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i48-0004Xw-Ev
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:30:56 +0000
+ id 1r8i4k-0004Xw-Ql
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:31:34 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10b8fafd-8f8d-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 15:30:54 +0100 (CET)
+ id 27aa5209-8f8d-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 15:31:32 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:30:52 -0800
+ 30 Nov 2023 06:31:01 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:30:42 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:30:52 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10b8fafd-8f8d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 27aa5209-8f8d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354654; x=1732890654;
+  t=1701354693; x=1732890693;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LfXluGcV2XSbwSzs1A7j8csA0H78Hr7rImWxVfjhw/E=;
-  b=V6UG72gsbeGYESC94oLSnMkVPRcFWSBkNUTMWl8YiamJ0Eq94IdgTOM3
-   UDr9QsLyRzHbbvwe0bwcorUsJGsh6HKiYt26dpL3ufjfZlX+IlQgFJe4J
-   z2c+Ssl66EGv6eqMoLO48uafxSABwwt3iMG6uh9V4yINF05ob9aiMWwP2
-   uuQHU5ekK8aCw5uyTCrYVIRskRp7siWXhYKWyDatMXliKKZObrcyvoyi6
-   EgdvGrU3cwEgVVfAI9JF1JdNP5LiV1ZkA1InGgNtb58cCqgMrzdHN0bm1
-   qvGpAQtTPz31naWKuW0ERZvlcrlV37lQgps5YFCf9tE6fgk087yu383f2
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479530883"
+  bh=50lNzU4oWEfgKNc9gIKf0MEOC0NyWyVi0AxeNokOwXU=;
+  b=epqoRAPAS/YlNO/PAcLcqAiqY1fh7I1c0c3+oAeflmd8i8EYeX1ALeBI
+   1TMdzOBvGKNadyzHTg/3aonx1OPYT2xWNvDsEzCzQjjdAy6GiPwH4glZ8
+   byNSkgc3emlRnSvymHo4cAjTTOWuEm7BpnNUPjxNRxv/tLasRJh7fTquD
+   8lMwnIl3KErl5v7RqhHGmLJNWy0RDQmARN6Qjo9d1ETU70gwOp//eEG89
+   4vl1PoQZjlwSdSADoqry7toWuGmOdeS7gXL/ne51+zxYiawErRbyUFuj0
+   bzxkUz3GomiL99X0IxlH7VPe6hQepu5qy6HlnjurelZ0NIy8bgqD6zBPb
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479530949"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479530883"
+   d="scan'208";a="479530949"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729606"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729615"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942729606"
+   d="scan'208";a="942729615"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 02/41] qdev: Allow qdev_device_add() to add specific category device
-Date: Thu, 30 Nov 2023 22:41:24 +0800
-Message-Id: <20231130144203.2307629-3-zhao1.liu@linux.intel.com>
+Subject: [RFC 03/41] system: Create base category devices from cli before board initialization
+Date: Thu, 30 Nov 2023 22:41:25 +0800
+Message-Id: <20231130144203.2307629-4-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,133 +115,113 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-Topology devices need to be created and realized before board
-initialization.
+Topology devices are required to complete CPU topology building before
+*_init_cpus() in MachineClass.init().
 
-Allow qdev_device_add() to specify category to help create topology
-devices early.
+Add a qemu_create_cli_base_devices() before board initialization to
+help create and realize topology devices from cli early.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/net/virtio-net.c    |  2 +-
- hw/usb/xen-usb.c       |  3 ++-
- include/monitor/qdev.h |  4 ++--
- system/qdev-monitor.c  | 12 ++++++++----
- system/vl.c            |  4 ++--
- 5 files changed, 15 insertions(+), 10 deletions(-)
+ system/vl.c | 51 ++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 34 insertions(+), 17 deletions(-)
 
-diff --git a/hw/net/virtio-net.c b/hw/net/virtio-net.c
-index 80c56f0cfcf1..fc225049ee30 100644
---- a/hw/net/virtio-net.c
-+++ b/hw/net/virtio-net.c
-@@ -965,7 +965,7 @@ static void failover_add_primary(VirtIONet *n, Error **errp)
-         return;
-     }
- 
--    dev = qdev_device_add_from_qdict(n->primary_opts,
-+    dev = qdev_device_add_from_qdict(n->primary_opts, NULL,
-                                      n->primary_opts_from_json,
-                                      &err);
-     if (err) {
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 09ec326aeae5..bc00d47ff021 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -766,7 +766,8 @@ static void usbback_portid_add(struct usbback_info *usbif, unsigned port,
-     qdict_put_str(qdict, "hostport", portname);
-     opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict,
-                                 &error_abort);
--    usbif->ports[port - 1].dev = USB_DEVICE(qdev_device_add(opts, &local_err));
-+    usbif->ports[port - 1].dev = USB_DEVICE(
-+                                     qdev_device_add(opts, NULL, &local_err));
-     if (!usbif->ports[port - 1].dev) {
-         qobject_unref(qdict);
-         xen_pv_printf(&usbif->xendev, 0,
-diff --git a/include/monitor/qdev.h b/include/monitor/qdev.h
-index 1d57bf657794..f5fd6e6c1ffc 100644
---- a/include/monitor/qdev.h
-+++ b/include/monitor/qdev.h
-@@ -8,8 +8,8 @@ void hmp_info_qdm(Monitor *mon, const QDict *qdict);
- void qmp_device_add(QDict *qdict, QObject **ret_data, Error **errp);
- 
- int qdev_device_help(QemuOpts *opts);
--DeviceState *qdev_device_add(QemuOpts *opts, Error **errp);
--DeviceState *qdev_device_add_from_qdict(const QDict *opts,
-+DeviceState *qdev_device_add(QemuOpts *opts, long *category, Error **errp);
-+DeviceState *qdev_device_add_from_qdict(const QDict *opts, long *category,
-                                         bool from_json, Error **errp);
- 
- /**
-diff --git a/system/qdev-monitor.c b/system/qdev-monitor.c
-index 0f163b2d0310..7ee33a50142a 100644
---- a/system/qdev-monitor.c
-+++ b/system/qdev-monitor.c
-@@ -617,7 +617,7 @@ const char *qdev_set_id(DeviceState *dev, char *id, Error **errp)
-     return prop->name;
- }
- 
--DeviceState *qdev_device_add_from_qdict(const QDict *opts,
-+DeviceState *qdev_device_add_from_qdict(const QDict *opts, long *category,
-                                         bool from_json, Error **errp)
- {
-     ERRP_GUARD();
-@@ -639,6 +639,10 @@ DeviceState *qdev_device_add_from_qdict(const QDict *opts,
-         return NULL;
-     }
- 
-+    if (category && !test_bit(*category, dc->categories)) {
-+        return NULL;
-+    }
-+
-     /* find bus */
-     path = qdict_get_try_str(opts, "bus");
-     if (path != NULL) {
-@@ -731,12 +735,12 @@ err_del_dev:
- }
- 
- /* Takes ownership of @opts on success */
--DeviceState *qdev_device_add(QemuOpts *opts, Error **errp)
-+DeviceState *qdev_device_add(QemuOpts *opts, long *category, Error **errp)
- {
-     QDict *qdict = qemu_opts_to_qdict(opts, NULL);
-     DeviceState *ret;
- 
--    ret = qdev_device_add_from_qdict(qdict, false, errp);
-+    ret = qdev_device_add_from_qdict(qdict, category, false, errp);
-     if (ret) {
-         qemu_opts_del(opts);
-     }
-@@ -858,7 +862,7 @@ void qmp_device_add(QDict *qdict, QObject **ret_data, Error **errp)
-         qemu_opts_del(opts);
-         return;
-     }
--    dev = qdev_device_add(opts, errp);
-+    dev = qdev_device_add(opts, NULL, errp);
- 
-     /*
-      * Drain all pending RCU callbacks. This is done because
 diff --git a/system/vl.c b/system/vl.c
-index 2bcd9efb9a64..0be155b530b4 100644
+index 0be155b530b4..65add2fb2460 100644
 --- a/system/vl.c
 +++ b/system/vl.c
-@@ -1198,7 +1198,7 @@ static int device_init_func(void *opaque, QemuOpts *opts, Error **errp)
+@@ -1197,8 +1197,9 @@ static int device_help_func(void *opaque, QemuOpts *opts, Error **errp)
+ static int device_init_func(void *opaque, QemuOpts *opts, Error **errp)
  {
      DeviceState *dev;
++    long *category = opaque;
  
--    dev = qdev_device_add(opts, errp);
-+    dev = qdev_device_add(opts, NULL, errp);
+-    dev = qdev_device_add(opts, NULL, errp);
++    dev = qdev_device_add(opts, category, errp);
      if (!dev && *errp) {
          error_report_err(*errp);
          return -1;
-@@ -2646,7 +2646,7 @@ static void qemu_create_cli_devices(void)
+@@ -2617,25 +2618,13 @@ static void qemu_init_board(void)
+     realtime_init();
+ }
+ 
+-static void qemu_create_cli_devices(void)
++static void qemu_create_cli_devices(long *category)
+ {
+     DeviceOption *opt;
+ 
+-    soundhw_init();
+-
+-    qemu_opts_foreach(qemu_find_opts("fw_cfg"),
+-                      parse_fw_cfg, fw_cfg_find(), &error_fatal);
+-
+-    /* init USB devices */
+-    if (machine_usb(current_machine)) {
+-        if (foreach_device_config(DEV_USB, usb_parse) < 0)
+-            exit(1);
+-    }
+-
+-    /* init generic devices */
+     rom_set_order_override(FW_CFG_ORDER_OVERRIDE_DEVICE);
+     qemu_opts_foreach(qemu_find_opts("device"),
+-                      device_init_func, NULL, &error_fatal);
++                      device_init_func, category, &error_fatal);
+     QTAILQ_FOREACH(opt, &device_opts, next) {
+         DeviceState *dev;
+         loc_push_restore(&opt->loc);
+@@ -2646,13 +2635,40 @@ static void qemu_create_cli_devices(void)
           * from the start, so call qdev_device_add_from_qdict() directly for
           * now.
           */
--        dev = qdev_device_add_from_qdict(opt->opts, true, &error_fatal);
-+        dev = qdev_device_add_from_qdict(opt->opts, NULL, true, &error_fatal);
+-        dev = qdev_device_add_from_qdict(opt->opts, NULL, true, &error_fatal);
++        dev = qdev_device_add_from_qdict(opt->opts, category,
++                                         true, &error_fatal);
          object_unref(OBJECT(dev));
          loc_pop(&opt->loc);
      }
+     rom_reset_order_override();
+ }
+ 
++static void qemu_create_cli_base_devices(void)
++{
++    long category = DEVICE_CATEGORY_CPU_DEF;
++
++    qemu_opts_foreach(qemu_find_opts("fw_cfg"),
++                      parse_fw_cfg, fw_cfg_find(), &error_fatal);
++
++    /* init CPU topology devices which don't support hotplug. */
++    qemu_create_cli_devices(&category);
++}
++
++static void qemu_create_cli_periphery_devices(void)
++{
++    soundhw_init();
++
++    /* init USB devices */
++    if (machine_usb(current_machine)) {
++        if (foreach_device_config(DEV_USB, usb_parse) < 0) {
++            exit(1);
++        }
++    }
++
++    /* init generic devices */
++    qemu_create_cli_devices(NULL);
++}
++
+ static void qemu_machine_creation_done(void)
+ {
+     MachineState *machine = MACHINE(qdev_get_machine());
+@@ -2701,8 +2717,9 @@ void qmp_x_exit_preconfig(Error **errp)
+         return;
+     }
+ 
++    qemu_create_cli_base_devices();
+     qemu_init_board();
+-    qemu_create_cli_devices();
++    qemu_create_cli_periphery_devices();
+     qemu_machine_creation_done();
+ 
+     if (loadvm) {
 -- 
 2.34.1
 
