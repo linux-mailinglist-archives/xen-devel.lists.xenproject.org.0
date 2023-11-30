@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5DD7FFCB4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:37:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645134.1007027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3CF97FFCB6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:37:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645137.1007037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nmC-0007hY-Fc; Thu, 30 Nov 2023 20:36:48 +0000
+	id 1r8nmv-0000HL-RW; Thu, 30 Nov 2023 20:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645134.1007027; Thu, 30 Nov 2023 20:36:48 +0000
+Received: by outflank-mailman (output) from mailman id 645137.1007037; Thu, 30 Nov 2023 20:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nmC-0007f8-Ct; Thu, 30 Nov 2023 20:36:48 +0000
-Received: by outflank-mailman (input) for mailman id 645134;
- Thu, 30 Nov 2023 20:36:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8nmv-0000Fc-OT; Thu, 30 Nov 2023 20:37:33 +0000
+Received: by outflank-mailman (input) for mailman id 645137;
+ Thu, 30 Nov 2023 20:37:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PSmm=HL=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1r8nmB-0007f2-BX
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:36:47 +0000
+ id 1r8nmu-0008JW-CE
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:37:32 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c21b466-8fc0-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 21:36:44 +0100 (CET)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4879d134-8fc0-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 21:37:31 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-SIexcsI8MJKCO3SfmX55Dg-1; Thu,
- 30 Nov 2023 15:36:38 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-342-EGzAGfmtP1Gfd_b9MrP_Pw-1; Thu,
+ 30 Nov 2023 15:37:25 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3AB4280666F;
- Thu, 30 Nov 2023 20:36:35 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D6F62802292;
+ Thu, 30 Nov 2023 20:37:21 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7B9DD2166B26;
- Thu, 30 Nov 2023 20:36:34 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DDF641C060BD;
+ Thu, 30 Nov 2023 20:37:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,18 +51,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c21b466-8fc0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4879d134-8fc0-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701376603;
+	s=mimecast20190719; t=1701376650;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eYEi0Y5+QQuaOwHuJk++/9L4d3OIIjWT68mwc8kKwmY=;
-	b=h3DzD7HXvKMnsy90OPZGabZ/JQKmAM5x5hyDdsweD2rYwIw9MPDRdcKDX4en8zpmJ4c9h/
-	XqHQ/wpeBUyFUUxwlLIUfLqBjOMae4PyDskl+u7cXvEI07hHaCEM0c9XzNMHdZwETCY6dS
-	ZhOAz+8kk9wR+pH2YsFB0RwekzqmFrg=
-X-MC-Unique: SIexcsI8MJKCO3SfmX55Dg-1
-Date: Thu, 30 Nov 2023 15:36:33 -0500
+	bh=+iKxVT3Aoxm2ETYbHgSKpvUXyQ0XJ8rFvA2vgboplHU=;
+	b=WoHDYjhkWvUNMfzjEK6PZ0HXews1WDTt9so/SenbNYE1HA+vZFbBw3YmZQcZ/QHjg0PjGb
+	1gAkW1XaCsKosYmFfaxmPBGTDhz3bAhdgfoh2Ol8dZR/YjwqRH0rhBw6EGS3VNDm6d1zuR
+	EwzU0fYTJUyWoFmJufYYS7eT80IXIFQ=
+X-MC-Unique: EGzAGfmtP1Gfd_b9MrP_Pw-1
+Date: Thu, 30 Nov 2023 15:37:18 -0500
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
 Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
@@ -128,106 +128,106 @@ Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	Leonardo Bras <leobras@redhat.com>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: Re: [PATCH 5/6] Replace "iothread lock" with "BQL" in comments
-Message-ID: <20231130203633.GC1184658@fedora>
+Subject: Re: [PATCH 6/6] Rename "QEMU global mutex" to "BQL" in comments and
+ docs
+Message-ID: <20231130203718.GD1184658@fedora>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-6-stefanha@redhat.com>
- <9c305a84-fd86-42fe-98ae-9297d480acd6@linaro.org>
+ <20231129212625.1051502-7-stefanha@redhat.com>
+ <fcaff24d-0ced-4547-898f-a9b8bf49be45@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ADMBXqBOX1KM7dkn"
+	protocol="application/pgp-signature"; boundary="rAX955JzN10OrQ/Q"
 Content-Disposition: inline
-In-Reply-To: <9c305a84-fd86-42fe-98ae-9297d480acd6@linaro.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+In-Reply-To: <fcaff24d-0ced-4547-898f-a9b8bf49be45@linaro.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 
 
---ADMBXqBOX1KM7dkn
+--rAX955JzN10OrQ/Q
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 30, 2023 at 02:47:49PM +0100, Philippe Mathieu-Daud=E9 wrote:
-> Hi Stefan,
->=20
+On Thu, Nov 30, 2023 at 02:49:48PM +0100, Philippe Mathieu-Daud=E9 wrote:
 > On 29/11/23 22:26, Stefan Hajnoczi wrote:
-> > The term "iothread lock" is obsolete. The APIs use Big QEMU Lock (BQL)
-> > in their names. Update the code comments to use "BQL" instead of
-> > "iothread lock".
+> > The term "QEMU global mutex" is identical to the more widely used Big
+> > QEMU Lock ("BQL"). Update the code comments and documentation to use
+> > "BQL" instead of "QEMU global mutex".
 > >=20
 > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > > ---
-> >   docs/devel/reset.rst             |  2 +-
-> >   hw/display/qxl.h                 |  2 +-
-> >   include/exec/cpu-common.h        |  2 +-
-> >   include/exec/memory.h            |  4 ++--
-> >   include/exec/ramblock.h          |  2 +-
-> >   include/migration/register.h     |  8 ++++----
-> >   target/arm/internals.h           |  4 ++--
-> >   accel/tcg/cputlb.c               |  4 ++--
-> >   accel/tcg/tcg-accel-ops-icount.c |  2 +-
-> >   hw/remote/mpqemu-link.c          |  2 +-
-> >   migration/block-dirty-bitmap.c   | 10 +++++-----
-> >   migration/block.c                | 24 ++++++++++++------------
-> >   migration/colo.c                 |  2 +-
-> >   migration/migration.c            |  2 +-
-> >   migration/ram.c                  |  4 ++--
-> >   system/physmem.c                 |  6 +++---
-> >   target/arm/helper.c              |  2 +-
-> >   target/arm/tcg/m_helper.c        |  2 +-
-> >   ui/spice-core.c                  |  2 +-
-> >   util/rcu.c                       |  2 +-
-> >   audio/coreaudio.m                |  4 ++--
-> >   ui/cocoa.m                       |  6 +++---
-> >   22 files changed, 49 insertions(+), 49 deletions(-)
+> >   docs/devel/multi-thread-tcg.rst   |  7 +++----
+> >   docs/devel/qapi-code-gen.rst      |  2 +-
+> >   docs/devel/replay.rst             |  2 +-
+> >   docs/devel/multiple-iothreads.txt | 16 ++++++++--------
+> >   include/block/blockjob.h          |  6 +++---
+> >   include/io/task.h                 |  2 +-
+> >   include/qemu/coroutine-core.h     |  2 +-
+> >   include/qemu/coroutine.h          |  2 +-
+> >   hw/block/dataplane/virtio-blk.c   |  8 ++++----
+> >   hw/block/virtio-blk.c             |  2 +-
+> >   hw/scsi/virtio-scsi-dataplane.c   |  6 +++---
+> >   net/tap.c                         |  2 +-
+> >   12 files changed, 28 insertions(+), 29 deletions(-)
 >=20
 >=20
-> > diff --git a/include/exec/ramblock.h b/include/exec/ramblock.h
-> > index 69c6a53902..a2bc0a345d 100644
-> > --- a/include/exec/ramblock.h
-> > +++ b/include/exec/ramblock.h
-> > @@ -34,7 +34,7 @@ struct RAMBlock {
-> >       ram_addr_t max_length;
-> >       void (*resized)(const char*, uint64_t length, void *host);
-> >       uint32_t flags;
-> > -    /* Protected by iothread lock.  */
-> > +    /* Protected by BQL.  */
+> > diff --git a/include/block/blockjob.h b/include/block/blockjob.h
+> > index e594c10d23..b2bc7c04d6 100644
+> > --- a/include/block/blockjob.h
+> > +++ b/include/block/blockjob.h
+> > @@ -54,7 +54,7 @@ typedef struct BlockJob {
+> >       /**
+> >        * Speed that was set with @block_job_set_speed.
+> > -     * Always modified and read under QEMU global mutex (GLOBAL_STATE_=
+CODE).
+> > +     * Always modified and read under BQL (GLOBAL_STATE_CODE).
 >=20
-> There is only one single BQL, so preferably:
+> "under the BQL"
 >=20
-> "by the BQL"
+> >        */
+> >       int64_t speed;
+> > @@ -66,7 +66,7 @@ typedef struct BlockJob {
+> >       /**
+> >        * Block other operations when block job is running.
+> > -     * Always modified and read under QEMU global mutex (GLOBAL_STATE_=
+CODE).
+> > +     * Always modified and read under BQL (GLOBAL_STATE_CODE).
 >=20
-> >       char idstr[256];
-> >       /* RCU-enabled, writes protected by the ramlist lock */
-> >       QLIST_ENTRY(RAMBlock) next;
+> Ditto,
 >=20
+> >        */
+> >       Error *blocker;
+> > @@ -89,7 +89,7 @@ typedef struct BlockJob {
+> >       /**
+> >        * BlockDriverStates that are involved in this block job.
+> > -     * Always modified and read under QEMU global mutex (GLOBAL_STATE_=
+CODE).
+> > +     * Always modified and read under BQL (GLOBAL_STATE_CODE).
 >=20
+> Ditto.
 >=20
->=20
-> > -/* Called with iothread lock taken.  */
-> > +/* Called with BQL taken.  */
->=20
-> "with the BQL" (other uses)
+> >        */
+> >       GSList *nodes;
+> >   } BlockJob;
 
-I will try to change these for v2. It's a pre-existing issue though
-because there was only ever one "iothread lock" too.
+Will fix in v2.
 
 Stefan
 
---ADMBXqBOX1KM7dkn
+--rAX955JzN10OrQ/Q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVo8lEACgkQnKSrs4Gr
-c8inmQf8CHG08Gjf/Xbq1d507Sf6BOzXT42zcBsMdkGeul6WorzG8oHfr1SMVJgi
-Fkex2GIeIAH3TjLTtiXePxp/7MXVrArmRxUltKaaZZAcD48aA8VXeOylS3pnZnU+
-2cqukgamf6tOSIc43sr1ZX06y154qL7xAMQ8Xl0sUu3ERaJob0bzyfPKf2xgjnas
-wVfsXUS7nEcRMJVi94oT9ST1WpJPbA9yDVyVX3LwtX0KECWoYIiN9or7jTlP2TnA
-9/GXVa9I8R/eA0P2xLU2RpfNNNY9A9+MZvgHSU75u9C9jN4/CR59W8EjyBTl+/fA
-KHaDBsL7B4GbwgONA8VDLiAbIN/g3Q==
-=Ause
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVo8n4ACgkQnKSrs4Gr
+c8hqqggAtuleOhegca1BHCQqICnBO4Olum6obo9K4B6RhmNaK9kIfqeO3kNFY9K0
+xy7SGfNACel07j3Lttl6p+xHJOe1zaE7IV2o9jKqMK0J09vpTZSXq06ssaTJrYZn
+p2hGeneWnTJU5O3qUpotRsBp19PdMJLL3o2V7fJ+FRmE+0bc1KTCfzaIDC0IWFQD
+rc5d8Et49WwA+aKWhDsn3GeRlvfxIxk/TFHsfdkLSdpU/LVU9lP/ExNVLqwYTNl9
+OChcXKr+5mvuONgflXwub4uzX8FbIS/HoPIIC7uBG5xE+gao+EYmNRXVFFHRC+CP
+/rjI7iW5qJHCSKa8tj2XY0KwbTSlcQ==
+=hoap
 -----END PGP SIGNATURE-----
 
---ADMBXqBOX1KM7dkn--
+--rAX955JzN10OrQ/Q--
 
 
