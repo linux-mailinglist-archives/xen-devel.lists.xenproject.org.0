@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B33257FF272
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644797.1006415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 993D87FF273
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644799.1006427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCQ-0007vX-DF; Thu, 30 Nov 2023 14:39:30 +0000
+	id 1r8iCS-0008EB-UP; Thu, 30 Nov 2023 14:39:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644797.1006415; Thu, 30 Nov 2023 14:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 644799.1006427; Thu, 30 Nov 2023 14:39:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCP-0007es-89; Thu, 30 Nov 2023 14:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 644797;
- Thu, 30 Nov 2023 14:34:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8iCR-0007vo-4o; Thu, 30 Nov 2023 14:39:31 +0000
+Received: by outflank-mailman (input) for mailman id 644799;
+ Thu, 30 Nov 2023 14:34:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i7k-0008E0-U9
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:34:40 +0000
+ id 1r8i7v-0008Nr-07
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:34:51 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9743db74-8f8d-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 15:34:40 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9cb3f37e-8f8d-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 15:34:49 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:34:37 -0800
+ 30 Nov 2023 06:34:47 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:34:28 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:34:37 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9743db74-8f8d-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: 9cb3f37e-8f8d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354880; x=1732890880;
+  t=1701354889; x=1732890889;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RiCVpo1qnLcoDF3gFOkmvt/7Et6vXhRGVnHUCJw060w=;
-  b=Gd0+I34fYrJQ8fW9UAgUvSatB8+xB0MkdBgr5hj/PJsdyid6PM/TqC4o
-   PLtaQW9x0LMIquokBemNzOSpxeNd/eKQ4lDjGBBJGsiDY1NUHdkBHsuQD
-   XKpfpyQKaEq6bY73dqmqIrkVZkiZtFLcqWS7lyIGSq6qCfzkDmCfLHqbM
-   XsyUw3AGSWbrX/HVuKVQJCxekULHAmdm4hLSBLAF9DjXcy53g1TASuIkg
-   94rcDQXsErSqGkQRN8y1h1U1COQKFR2CtJgt6X4volbT8Up0K70W9aIRu
-   FJXnU0GufBC6AErDc3eWEB4QKiZzrI5OdLw0OXC4FgYSttED016rJdkLb
+  bh=dK+ilj3Q1LqgiJ2/EiJWYjQp1qXfjG6+/g3hE8BTtcM=;
+  b=S+uqvQeIY/+UlzIPEQmvk9Kko1omXkX6YAvDYBAQIsl2Z54fRu7mwDPD
+   DIXIzmYyKSW0TWZCL5MiGkIyfm9munIEfmjlMdjY/YOQ5rY/0/9XLz/C9
+   yY8ORf9uBtaGxhtE7FvxiJvru3To7eKtjZTHj7LBY+SfSjFVEI4MPYNmV
+   JLC3ejyvDepJHTfxVeNhv2rQnPXBUFo0YAp4GA5/YCmTorNSaEqCvSocJ
+   BGzYMVO2VMS09rRv257X2abEG5fLB81t7kvgmvQcVXuwY4t5Ic/t2erbn
+   HWj9LIT6kyTcZ7qc3HfjqK4TD+5IoQoILhgUR/Y/2ugXIFtp/z2kXELwY
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532241"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532281"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479532241"
+   d="scan'208";a="479532281"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730101"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730118"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942730101"
+   d="scan'208";a="942730118"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,63 +104,59 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 26/41] hw/cpu/drawer: Abstract cpu-drawer level as topology device
-Date: Thu, 30 Nov 2023 22:41:48 +0800
-Message-Id: <20231130144203.2307629-27-zhao1.liu@linux.intel.com>
+Subject: [RFC 27/41] hw/core/slot: Introduce CPU slot as the root of CPU topology
+Date: Thu, 30 Nov 2023 22:41:49 +0800
+Message-Id: <20231130144203.2307629-28-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-Abstract drawer level as a topology device "cpu-drawer" to allow user to
-create drawer level topology from cli and later the cpu-drawers could be
-added into topology tree.
-
-In addition, mark the cpu-drawer as DEVICE_CATEGORY_CPU_DEF category to
-indicate it belongs to the basic CPU definition and should be created
-from cli before board initialization.
+Abstract the root of topology tree as a special topology device
+"cpu-slot".
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- MAINTAINERS             |  2 ++
- hw/cpu/drawer.c         | 46 +++++++++++++++++++++++++++++++++++++++++
- hw/cpu/meson.build      |  2 +-
- include/hw/cpu/drawer.h | 38 ++++++++++++++++++++++++++++++++++
- 4 files changed, 87 insertions(+), 1 deletion(-)
- create mode 100644 hw/cpu/drawer.c
- create mode 100644 include/hw/cpu/drawer.h
+ MAINTAINERS                |  2 ++
+ hw/core/cpu-slot.c         | 48 ++++++++++++++++++++++++++++++++++++++
+ hw/core/meson.build        |  1 +
+ include/hw/core/cpu-slot.h | 38 ++++++++++++++++++++++++++++++
+ 4 files changed, 89 insertions(+)
+ create mode 100644 hw/core/cpu-slot.c
+ create mode 100644 include/hw/core/cpu-slot.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index dd5adfda64cc..4b373ff46ce3 100644
+index 4b373ff46ce3..ac08b5a8c4e0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1865,6 +1865,7 @@ F: hw/core/numa.c
- F: hw/cpu/book.c
- F: hw/cpu/cluster.c
- F: hw/cpu/die.c
-+F: hw/cpu/drawer.c
- F: hw/cpu/socket.c
- F: qapi/machine.json
- F: qapi/machine-common.json
-@@ -1875,6 +1876,7 @@ F: include/hw/core/cpu-topo.h
+@@ -1856,6 +1856,7 @@ R: Philippe Mathieu-Daudé <philmd@linaro.org>
+ R: Yanan Wang <wangyanan55@huawei.com>
+ S: Supported
+ F: hw/core/cpu.c
++F: hw/core/cpu-slot.c
+ F: hw/core/cpu-topo.c
+ F: hw/core/machine-qmp-cmds.c
+ F: hw/core/machine.c
+@@ -1872,6 +1873,7 @@ F: qapi/machine-common.json
+ F: qapi/machine-target.json
+ F: include/hw/boards.h
+ F: include/hw/core/cpu.h
++F: include/hw/core/cpu-slot.h
+ F: include/hw/core/cpu-topo.h
  F: include/hw/cpu/book.h
  F: include/hw/cpu/cluster.h
- F: include/hw/cpu/die.h
-+F: include/hw/cpu/drawer.h
- F: include/hw/cpu/socket.h
- F: include/sysemu/numa.h
- F: tests/unit/test-smp-parse.c
-diff --git a/hw/cpu/drawer.c b/hw/cpu/drawer.c
+diff --git a/hw/core/cpu-slot.c b/hw/core/cpu-slot.c
 new file mode 100644
-index 000000000000..f1ccfd153284
+index 000000000000..5aef5b0189c2
 --- /dev/null
-+++ b/hw/cpu/drawer.c
-@@ -0,0 +1,46 @@
++++ b/hw/core/cpu-slot.c
+@@ -0,0 +1,48 @@
 +/*
-+ * CPU drawer abstract device
++ * CPU slot device abstraction
 + *
 + * Copyright (c) 2023 Intel Corporation
 + * Author: Zhao Liu <zhao1.liu@intel.com>
@@ -180,49 +176,53 @@ index 000000000000..f1ccfd153284
 + */
 +
 +#include "qemu/osdep.h"
-+#include "hw/cpu/drawer.h"
 +
-+static void cpu_drawer_class_init(ObjectClass *oc, void *data)
++#include "hw/core/cpu-slot.h"
++
++static void cpu_slot_class_init(ObjectClass *oc, void *data)
 +{
 +    DeviceClass *dc = DEVICE_CLASS(oc);
 +    CPUTopoClass *tc = CPU_TOPO_CLASS(oc);
 +
 +    set_bit(DEVICE_CATEGORY_CPU_DEF, dc->categories);
++    dc->user_creatable = false;
 +
-+    tc->level = CPU_TOPO_DRAWER;
++    tc->level = CPU_TOPO_ROOT;
 +}
 +
-+static const TypeInfo cpu_drawer_type_info = {
-+    .name = TYPE_CPU_DRAWER,
++static const TypeInfo cpu_slot_type_info = {
++    .name = TYPE_CPU_SLOT,
 +    .parent = TYPE_CPU_TOPO,
-+    .class_init = cpu_drawer_class_init,
-+    .instance_size = sizeof(CPUDrawer),
++    .class_init = cpu_slot_class_init,
++    .instance_size = sizeof(CPUSlot),
 +};
 +
-+static void cpu_drawer_register_types(void)
++static void cpu_slot_register_types(void)
 +{
-+    type_register_static(&cpu_drawer_type_info);
++    type_register_static(&cpu_slot_type_info);
 +}
 +
-+type_init(cpu_drawer_register_types)
-diff --git a/hw/cpu/meson.build b/hw/cpu/meson.build
-index c44b54c5abb0..0dea39364b98 100644
---- a/hw/cpu/meson.build
-+++ b/hw/cpu/meson.build
-@@ -1,4 +1,4 @@
--system_ss.add(files('core.c', 'cluster.c', 'die.c', 'socket.c', 'book.c'))
-+system_ss.add(files('core.c', 'cluster.c', 'die.c', 'socket.c', 'book.c', 'drawer.c'))
++type_init(cpu_slot_register_types)
+diff --git a/hw/core/meson.build b/hw/core/meson.build
+index 501d2529697e..3347c054e162 100644
+--- a/hw/core/meson.build
++++ b/hw/core/meson.build
+@@ -23,6 +23,7 @@ else
+ endif
  
- system_ss.add(when: 'CONFIG_ARM11MPCORE', if_true: files('arm11mpcore.c'))
- system_ss.add(when: 'CONFIG_REALVIEW', if_true: files('realview_mpcore.c'))
-diff --git a/include/hw/cpu/drawer.h b/include/hw/cpu/drawer.h
+ common_ss.add(files('cpu-common.c'))
++common_ss.add(files('cpu-slot.c'))
+ common_ss.add(files('cpu-topo.c'))
+ common_ss.add(files('machine-smp.c'))
+ system_ss.add(when: 'CONFIG_FITLOADER', if_true: files('loader-fit.c'))
+diff --git a/include/hw/core/cpu-slot.h b/include/hw/core/cpu-slot.h
 new file mode 100644
-index 000000000000..34ae089d33bf
+index 000000000000..718c8ecaa751
 --- /dev/null
-+++ b/include/hw/cpu/drawer.h
++++ b/include/hw/core/cpu-slot.h
 @@ -0,0 +1,38 @@
 +/*
-+ * CPU drawer abstract device
++ * CPU slot device abstraction
 + *
 + * Copyright (c) 2023 Intel Corporation
 + * Author: Zhao Liu <zhao1.liu@intel.com>
@@ -241,24 +241,24 @@ index 000000000000..34ae089d33bf
 + * along with this program; if not, see <http://www.gnu.org/licenses/>.
 + */
 +
-+#ifndef HW_CPU_DRAWER_H
-+#define HW_CPU_DRAWER_H
++#ifndef CPU_SLOT_H
++#define CPU_SLOT_H
 +
 +#include "hw/core/cpu-topo.h"
 +#include "hw/qdev-core.h"
 +
-+#define TYPE_CPU_DRAWER "cpu-drawer"
++#define TYPE_CPU_SLOT "cpu-slot"
 +
-+OBJECT_DECLARE_SIMPLE_TYPE(CPUDrawer, CPU_DRAWER)
++OBJECT_DECLARE_SIMPLE_TYPE(CPUSlot, CPU_SLOT)
 +
-+struct CPUDrawer {
++struct CPUSlot {
 +    /*< private >*/
-+    CPUTopoState obj;
++    CPUTopoState parent_obj;
 +
 +    /*< public >*/
 +};
 +
-+#endif /* HW_CPU_DRAWER_H */
++#endif /* CPU_SLOT_H */
 -- 
 2.34.1
 
