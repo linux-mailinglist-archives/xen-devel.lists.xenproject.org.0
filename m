@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA4697FF342
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:13:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644959.1006679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490377FF390
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:26:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644990.1006702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8ijC-0002ip-2Y; Thu, 30 Nov 2023 15:13:22 +0000
+	id 1r8ivZ-0002FV-Ct; Thu, 30 Nov 2023 15:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644959.1006679; Thu, 30 Nov 2023 15:13:22 +0000
+Received: by outflank-mailman (output) from mailman id 644990.1006702; Thu, 30 Nov 2023 15:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8ijB-0002gd-UJ; Thu, 30 Nov 2023 15:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 644959;
- Thu, 30 Nov 2023 15:13:21 +0000
+	id 1r8ivZ-0002Ca-AE; Thu, 30 Nov 2023 15:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 644990;
+ Thu, 30 Nov 2023 15:26:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Jom=HL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r8ijB-0002MF-1p
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:13:21 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3Itg=HL=redhat.com=eblake@srs-se1.protection.inumbo.net>)
+ id 1r8ivX-0002CR-NE
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:26:07 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff25cda7-8f92-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 16:13:20 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40b54261442so8829885e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 07:13:20 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- l8-20020a5d4bc8000000b003316b3d69b3sm1760620wrt.46.2023.11.30.07.13.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 07:13:19 -0800 (PST)
+ id c53d729c-8f94-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 16:26:03 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-631-AkwYzv4cPa23jxw8AoYvfg-1; Thu,
+ 30 Nov 2023 10:25:58 -0500
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 597981C0F479;
+ Thu, 30 Nov 2023 15:25:57 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.190])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C7778492BE7;
+ Thu, 30 Nov 2023 15:25:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,97 +51,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff25cda7-8f92-11ee-98e4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701357200; x=1701962000; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zHbIpqKppVrirWnuO8nHfLF6hK+LIbZb7v0QlMQXF8Q=;
-        b=ECjywN+bgv5Rl30aVSDWNtbvj3TlnB75SfHrnGU6Z+rXPwPkmePxAhoEmPI8g0wNut
-         CGuCRnRGZrTGnAPy4M3QDb9uPB1sSWoOv+GKM1QhsaS1tk+qa3Tjr2sSxYFplMxW7K8j
-         iPefBDZSs1+3c+CFnscGI23avCpm+dFE4F8uI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701357200; x=1701962000;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zHbIpqKppVrirWnuO8nHfLF6hK+LIbZb7v0QlMQXF8Q=;
-        b=oXzAgQCcGqJlD5vcxmitFi+dRhexQsG7tU1z1jQRcg+OOec3dA5wOTffmEbTVBK1w1
-         h9hihlLZOgGypQC4Kn1sQTa0oCovpDgPuTVx/vhkR6i25EgC6xiyaHHwEsH70DWiVjAQ
-         03O5wfDLDuyW8b3JC+OKxE6MwbyCGFGUuonEftPTI2v7z67lV3Wn97v25kfPn7U5NiG/
-         N48iNK1yKzCivvniBpDNROTpA5UOKxC/IkH1aQSQzJ4iZ4HocGvEKLtsVfYJGMQDv3Yw
-         xRTjGzKjCuoPhI+QxQKoBVCEaMLvv4Ewq0YrPSxBfLfz7WdgWipIXGg4+NzgCcQpSoPB
-         XiAw==
-X-Gm-Message-State: AOJu0Yx1ar55alxxGEOkFirtW4MBm1DV2zSm0LP9C9P+fbJBF76UQX0W
-	HCKicLMYzBHoDdZ796injkAmEI00ZMJYPhSl8+w=
-X-Google-Smtp-Source: AGHT+IEvGDWaS2xSJN5CO2xPYnnHJJ+5awRVwaMq+O0xpPyRzVLJIJ7UO7pc9Meccu3QUa3cZQ9coQ==
-X-Received: by 2002:a05:600c:4b2a:b0:40b:4337:7cbf with SMTP id i42-20020a05600c4b2a00b0040b43377cbfmr10468364wmp.1.1701357200043;
-        Thu, 30 Nov 2023 07:13:20 -0800 (PST)
-Date: Thu, 30 Nov 2023 16:13:18 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
-	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
-	"Huang, Ray" <Ray.Huang@amd.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>
-Subject: Re: [RFC XEN PATCH v2 2/3] x86/pvh: Open PHYSDEVOP_map_pirq for PVH
- dom0
-Message-ID: <ZWimjreYPWvAtle5@macbook>
-References: <20231124104136.3263722-1-Jiqian.Chen@amd.com>
- <20231124104136.3263722-3-Jiqian.Chen@amd.com>
- <ZWX2c7oQfeZxrpEF@macbook>
- <BL1PR12MB5849A2AB56BAC75D4558F873E782A@BL1PR12MB5849.namprd12.prod.outlook.com>
+X-Inumbo-ID: c53d729c-8f94-11ee-98e4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1701357962;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1E3MmvTBcjlJZU/lnnO0iHKSu14HCeHV8F5Op4ocv4k=;
+	b=V6CarrlKE0XZtZv4t4mORZoUcC2iuJHNkXQ8TB5KBgcVrXGIlMGLQ7P8pondgEvEjP3gkj
+	epwnPHUx+cwarvIxML6EzTNpolcOPqfR922JBg6oa7/Wz8c888yc1GIdepjZc/nvQ769c/
+	qOfTHVBsVerqYqj202emGzAu6MRR8ks=
+X-MC-Unique: AkwYzv4cPa23jxw8AoYvfg-1
+Date: Thu, 30 Nov 2023 09:25:52 -0600
+From: Eric Blake <eblake@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>, 
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Alberto Garcia <berto@igalia.com>, Emanuele Giuseppe Esposito <eesposit@redhat.com>, 
+	John Snow <jsnow@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
+	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org, xen-devel@lists.xenproject.org, 
+	Coiby Xu <Coiby.Xu@gmail.com>, Eduardo Habkost <eduardo@habkost.net>, 
+	Xie Changlong <xiechanglong.d@gmail.com>, Ari Sundholm <ari@tuxera.com>, 
+	Li Zhijian <lizhijian@fujitsu.com>, Cleber Rosa <crosa@redhat.com>, 
+	Juan Quintela <quintela@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>, Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>, 
+	Anthony Perard <anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Leonardo Bras <leobras@redhat.com>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, 
+	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
+Subject: Re: [PATCH 01/12] virtio-scsi: replace AioContext lock with
+ tmf_bh_lock
+Message-ID: <tng432xox5h3zwi7vkc7nbuu2bckkackqtdifqt2dtsn7t2eti@m2jwhopket2s>
+References: <20231129195553.942921-1-stefanha@redhat.com>
+ <20231129195553.942921-2-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <BL1PR12MB5849A2AB56BAC75D4558F873E782A@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <20231129195553.942921-2-stefanha@redhat.com>
+User-Agent: NeoMutt/20231103
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 
-On Thu, Nov 30, 2023 at 06:32:00AM +0000, Chen, Jiqian wrote:
+On Wed, Nov 29, 2023 at 02:55:42PM -0500, Stefan Hajnoczi wrote:
+> Protect the Task Management Function BH state with a lock. The TMF BH
+> runs in the main loop thread. An IOThread might process a TMF at the
+> same time as the TMF BH is running. Therefore tmf_bh_list and tmf_bh
+> must be protected by a lock.
 > 
-> On 2023/11/28 22:17, Roger Pau Monné wrote:
-> > On Fri, Nov 24, 2023 at 06:41:35PM +0800, Jiqian Chen wrote:
-> >> If we run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
-> >> a passthrough device by using gsi, see xen_pt_realize->xc_physdev_map_pirq
-> >> and pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq will
-> >> call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq is not allowed
-> >> because currd is PVH dom0 and PVH has no X86_EMU_USE_PIRQ flag, it will
-> >> fail at has_pirq check.
-> >>
-> >> So, I think we may need to allow PHYSDEVOP_map_pirq when currd is dom0 (at
-> > 
-> > And PHYSDEVOP_unmap_pirq also?
-> Yes, in the failed path, PHYSDEVOP_unmap_pirq will be called. I will add some descriptions about it into the commit message.
+> Run TMF request completion in the IOThread using aio_wait_bh_oneshot().
+> This avoids more locking to protect the virtqueue and SCSI layer state.
+
+Are we trying to get this into 8.2?
+
 > 
-> > 
-> >> present dom0 is PVH).
-> > 
-> > IMO it would be better to implement a new set of DMOP hypercalls that
-> > handle the setup of interrupts from physical devices that are assigned
-> > to a guest.  That should allow us to get rid of the awkward PHYSDEVOP
-> > + XEN_DOMCTL_{,un}bind_pt_irq hypercall interface, which currently
-> > prevents QEMU from being hypervisor version agnostic (since the domctl
-> > interface is not stable).
-> > 
-> > I understand this might be too much to ask for, but something to take
-> > into account.
-> Yes, that will be a complex project. I think current change can meet the needs. We can take DMOP into account in the future. Thank you.
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
+>  include/hw/virtio/virtio-scsi.h |  3 +-
+>  hw/scsi/virtio-scsi.c           | 62 ++++++++++++++++++++++-----------
+>  2 files changed, 43 insertions(+), 22 deletions(-)
+>
 
-The issue with this approach is that we always do things in a rush and
-cut corners, and then never pay back the debt.  Anyway, I'm not going
-to block this, and I'm not blaming you.
+Reviewed-by: Eric Blake <eblake@redhat.com>
 
-Sadly this is just focused on getting something working in the short
-term rather than thinking long term in a maintainable interface.
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
 
-Regards, Roger.
 
