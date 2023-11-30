@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFEBB7FE7AB
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 04:31:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644382.1005287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E387FE7B6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 04:38:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644386.1005296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8XlS-0008UM-95; Thu, 30 Nov 2023 03:30:58 +0000
+	id 1r8Xsu-0001Xr-1J; Thu, 30 Nov 2023 03:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644382.1005287; Thu, 30 Nov 2023 03:30:58 +0000
+Received: by outflank-mailman (output) from mailman id 644386.1005296; Thu, 30 Nov 2023 03:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8XlS-0008SE-6H; Thu, 30 Nov 2023 03:30:58 +0000
-Received: by outflank-mailman (input) for mailman id 644382;
- Thu, 30 Nov 2023 03:30:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8Xst-0001VM-Ur; Thu, 30 Nov 2023 03:38:39 +0000
+Received: by outflank-mailman (input) for mailman id 644386;
+ Thu, 30 Nov 2023 03:38:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SKhV=HL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8XlR-0008S6-6J
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 03:30:57 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de090048-8f30-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 04:30:55 +0100 (CET)
+ id 1r8Xss-0001VG-Hg
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 03:38:38 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f120a32f-8f31-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 04:38:37 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CCBAD6190B;
- Thu, 30 Nov 2023 03:30:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9C5C433C7;
- Thu, 30 Nov 2023 03:30:52 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id EB4F7CE1F29;
+ Thu, 30 Nov 2023 03:38:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60389C433C7;
+ Thu, 30 Nov 2023 03:38:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,136 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de090048-8f30-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: f120a32f-8f31-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701315053;
-	bh=nXnOQZe/e/wXpCVk0mtiepuNjWeXigfCkoSPRbU8F3k=;
+	s=k20201202; t=1701315512;
+	bh=GWXNKCoRnBbU4oQqwsz5WdqR6hMVIH5wCFVkS26DkZE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RulUvwTxKUZs4pU/JumlSr1U1QnsEsQYd3TTGDrnt4+2ITc8oZeQRrHzotrLOmfA3
-	 iE46/5L0yY34we8BkX9KKF1BD4wfdwiCf+BNkn46V2l03Rh9Gol9TYGpGUpVbpmusd
-	 SHx+s1CMBiR+qMOuz5ZO0gcSqJTQSpXkfrJB9w7a2vFXuXfbsDVtbBeMFzM7cS+5y4
-	 677rDF7o/J1JQxdKYmD0IebbEtlgD3yp2nYcqZdHTegu7RF3WHepVS/GHDb/lL6j6Z
-	 EJOoxI4v2Y8H2UV1heVrvsvgp9kTpgCsX0PL3nGxJMyY9HUsr1+vW6IrtQiOvPXGt6
-	 MvhMd8cPay6WA==
-Date: Wed, 29 Nov 2023 19:30:51 -0800 (PST)
+	b=pKXnezyHy99g0xmIMvjtuA/yM8N9+EYg1tCznTIRMa2J0Yt4Fbxo0XOwzheNLdyDQ
+	 9a52mji0Or5DjQH2SrBZwT/vQiGZegUOgfHnqQJqjomgCkzIlWDl5Dm1eOUauBR3HZ
+	 XPlrOr2B/9MY2BLF2cqRkZyVYwcrgt7IgeHe1r+X7i+lMRvXwkQb1U1kGapPhnHjuX
+	 A5w/r6RoRXddvs25BIHKCD9yhW1ibuKzGGoE4Anm5czs2RMAIyWAR7K5FdyyJC4+l6
+	 uPNbR1AhERAVByh9ria3l5KRWLO62uFON2qgprTh8QiHQGESYLDTNGPb79xx9P+IR5
+	 aahp6Xlo7m5bg==
+Date: Wed, 29 Nov 2023 19:38:28 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v4 4/6] automation: switch to a wifi card on ADL system
-In-Reply-To: <9f18111c2d48b0715837789fc905d9e7b2a1ef0c.1700790421.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2311291929040.3533093@ubuntu-linux-20-04-desktop>
-References: <cover.e8ee4f1e4458c19070007220034a9bfdc34190d5.1700790421.git-series.marmarek@invisiblethingslab.com> <9f18111c2d48b0715837789fc905d9e7b2a1ef0c.1700790421.git-series.marmarek@invisiblethingslab.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Jiqian Chen <Jiqian.Chen@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
+    Alex Deucher <Alexander.Deucher@amd.com>, 
+    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Huang Rui <Ray.Huang@amd.com>, Honglei Huang <Honglei1.Huang@amd.com>, 
+    Julia Zhang <Julia.Zhang@amd.com>
+Subject: Re: [RFC XEN PATCH v2 3/3] tools: Add new function to get gsi from
+ irq
+In-Reply-To: <ZWX4R9UEE6oXiqaz@macbook>
+Message-ID: <alpine.DEB.2.22.394.2311291937170.3533093@ubuntu-linux-20-04-desktop>
+References: <20231124104136.3263722-1-Jiqian.Chen@amd.com> <20231124104136.3263722-4-Jiqian.Chen@amd.com> <ZWX4R9UEE6oXiqaz@macbook>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1207037616-1701315053=:3533093"
+Content-Type: multipart/mixed; boundary="8323329-1534059129-1701315511=:3533093"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1207037616-1701315053=:3533093
+--8323329-1534059129-1701315511=:3533093
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
-On Fri, 24 Nov 2023, Marek Marczykowski-Górecki wrote:
-> Switch to a wifi card that has registers on a MSI-X page. This tests the
-> "x86/hvm: Allow writes to registers on the same page as MSI-X table"
-> feature. Switch it only for HVM test, because MSI-X adjacent write is
-> not supported on PV.
+On Tue, 28 Nov 2023, Roger Pau Monné wrote:
+> On Fri, Nov 24, 2023 at 06:41:36PM +0800, Jiqian Chen wrote:
+> > In PVH dom0, it uses the linux local interrupt mechanism,
+> > when it allocs irq for a gsi, it is dynamic, and follow
+> > the principle of applying first, distributing first. And
+> > if you debug the kernel codes, you will find the irq
+> > number is alloced from small to large, but the applying
+> > gsi number is not, may gsi 38 comes before gsi 28, that
+> > causes the irq number is not equal with the gsi number.
+> > And when we passthrough a device, QEMU will use its gsi
+> > number to do mapping actions, see xen_pt_realize->
+> > xc_physdev_map_pirq, but the gsi number is got from file
+> > /sys/bus/pci/devices/xxxx:xx:xx.x/irq in current code,
+> > so it will fail when mapping.
+> > And in current codes, there is no method to translate
+> > irq to gsi for userspace.
 > 
-> This requires also including drivers and firmware in system for tests.
-> Remove firmware unrelated to the test, to not increase initrd size too
-> much (all firmware takes over 100MB compressed).
-> And finally adjusts test script to handle not only eth0 as a test device,
-> but also wlan0 and connect it to the wifi network.
+> I think it would be cleaner to just introduce a new sysfs node that
+> contains the gsi if a device is using one (much like the irq sysfs
+> node)?
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Such ioctl to translate from IRQ to GSI has nothing to do with Xen, so
+> placing it in privcmd does seem quite strange to me.  I understand
+> that for passthrough we need the GSI, but such translation layer from
+> IRQ to GSI is all Linux internal, and it would be much simpler to just
+> expose the GSI in sysfs IMO.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> This needs two new gitlab variables: WIFI_HW2_SSID and WIFI_HW2_PSK. I'll
-> provide them in private.
-> 
-> This change requires rebuilding test containers.
-> 
-> This can be applied only after QEMU change is committed. Otherwise the
-> test will fail.
-> ---
->  automation/gitlab-ci/test.yaml                      | 4 ++++
->  automation/scripts/qubes-x86-64.sh                  | 7 +++++++
->  automation/tests-artifacts/alpine/3.18.dockerfile   | 7 +++++++
->  automation/tests-artifacts/kernel/6.1.19.dockerfile | 2 ++
->  4 files changed, 20 insertions(+)
-> 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 6aabdb9d156f..931a8fb28e1d 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -195,6 +195,10 @@ adl-pci-pv-x86-64-gcc-debug:
->  
->  adl-pci-hvm-x86-64-gcc-debug:
->    extends: .adl-x86-64
-> +  variables:
-> +    PCIDEV: "00:14.3"
-> +    WIFI_SSID: "$WIFI_HW2_SSID"
-> +    WIFI_PSK: "$WIFI_HW2_PSK"
->    script:
->      - ./automation/scripts/qubes-x86-64.sh pci-hvm 2>&1 | tee ${LOGFILE}
->    needs:
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index 7eabc1bd6ad4..60498ef1e89a 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -94,6 +94,13 @@ on_reboot = "destroy"
->      domU_check="
->  set -x -e
->  interface=eth0
-> +if [ -e /sys/class/net/wlan0 ]; then
-> +    interface=wlan0
-> +    set +x
-> +    wpa_passphrase "$WIFI_SSID" "$WIFI_PSK" > /etc/wpa_supplicant.conf
-> +    set -x
-> +    wpa_supplicant -B -iwlan0 -c /etc/wpa_supplicant.conf
-> +fi
->  ip link set \"\$interface\" up
->  timeout 30s udhcpc -i \"\$interface\"
->  pingip=\$(ip -o -4 r show default|cut -f 3 -d ' ')
-> diff --git a/automation/tests-artifacts/alpine/3.18.dockerfile b/automation/tests-artifacts/alpine/3.18.dockerfile
-> index f1b4a8b7a191..b821a291fed3 100644
-> --- a/automation/tests-artifacts/alpine/3.18.dockerfile
-> +++ b/automation/tests-artifacts/alpine/3.18.dockerfile
-> @@ -34,6 +34,13 @@ RUN \
->    apk add curl && \
->    apk add udev && \
->    apk add pciutils && \
-> +  apk add wpa_supplicant && \
-> +  # Select firmware for hardware tests
-> +  apk add linux-firmware-other && \
-> +  mkdir /lib/firmware-preserve && \
-> +  mv /lib/firmware/iwlwifi-so-a0-gf-a0* /lib/firmware-preserve/ && \
-> +  rm -rf /lib/firmware && \
-> +  mv /lib/firmware-preserve /lib/firmware && \
->    \
->    # Xen
->    cd / && \
-> diff --git a/automation/tests-artifacts/kernel/6.1.19.dockerfile b/automation/tests-artifacts/kernel/6.1.19.dockerfile
-> index 3a4096780d20..84ed5dff23ae 100644
-> --- a/automation/tests-artifacts/kernel/6.1.19.dockerfile
-> +++ b/automation/tests-artifacts/kernel/6.1.19.dockerfile
-> @@ -32,6 +32,8 @@ RUN curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"$LINUX_VERSI
->      make xen.config && \
->      scripts/config --enable BRIDGE && \
->      scripts/config --enable IGC && \
-> +    scripts/config --enable IWLWIFI && \
-> +    scripts/config --enable IWLMVM && \
->      cp .config .config.orig && \
->      cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
->      make -j$(nproc) bzImage && \
-> -- 
-> git-series 0.9.1
-> 
---8323329-1207037616-1701315053=:3533093--
+Maybe something to add to drivers/xen/sys-hypervisor.c in Linux.
+Juergen what do you think?
+--8323329-1534059129-1701315511=:3533093--
 
