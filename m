@@ -2,52 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 850097FF326
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644934.1006651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C9E57FF351
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:18:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644972.1006689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iZT-0007tR-KI; Thu, 30 Nov 2023 15:03:19 +0000
+	id 1r8ioR-000519-LK; Thu, 30 Nov 2023 15:18:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644934.1006651; Thu, 30 Nov 2023 15:03:19 +0000
+Received: by outflank-mailman (output) from mailman id 644972.1006689; Thu, 30 Nov 2023 15:18:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iZT-0007rT-Gg; Thu, 30 Nov 2023 15:03:19 +0000
-Received: by outflank-mailman (input) for mailman id 644934;
- Thu, 30 Nov 2023 15:03:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8ioR-0004xz-Hx; Thu, 30 Nov 2023 15:18:47 +0000
+Received: by outflank-mailman (input) for mailman id 644972;
+ Thu, 30 Nov 2023 15:18:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/hl0=HL=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1r8iZR-0007rN-JM
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:03:17 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20621.outbound.protection.outlook.com
- [2a01:111:f400:fe59::621])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 957fb148-8f91-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 16:03:14 +0100 (CET)
-Received: from CH0PR03CA0085.namprd03.prod.outlook.com (2603:10b6:610:cc::30)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.23; Thu, 30 Nov
- 2023 15:03:11 +0000
-Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::a7) by CH0PR03CA0085.outlook.office365.com
- (2603:10b6:610:cc::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.24 via Frontend
- Transport; Thu, 30 Nov 2023 15:03:11 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7046.17 via Frontend Transport; Thu, 30 Nov 2023 15:03:10 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 30 Nov
- 2023 09:03:07 -0600
-Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Thu, 30 Nov 2023 09:03:04 -0600
+ <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
+ id 1r8i8q-0008E0-8m
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:35:48 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf59b2a9-8f8d-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 15:35:47 +0100 (CET)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2023 06:35:45 -0800
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:35:35 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,206 +41,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 957fb148-8f91-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WuXxCCq93TEs+cYSdr60I22HQfUnnoKryJ3HAmvy+lkYS7KRa7bvT9HUaHIHk3R7LmhrFF4RIr2QpOzw9kKY06u2/88wLiYmxnyNkUv4BOCXY/DCxmZDVdTi/m42vEEeSnqcpSjL+Q3n/UzSzzUxFK03J3y/I/GE/SFbVrJNK2h3J3YyzfJuijvlz1XavrUuD2xL8TlFH/zBg51zc6Cu8seSYB4TrKreiNejvmctPqfglrQZ7K9jW93liagvMLqtWHX1r8NvVYtLH/9/xbK9h34AvtwKdtyA9uJYJCCRX/8UG2Mi1u0ZF7/emZBEpbcp+93qVcIGyID4/xwB9sxIqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBFIVtiQXa0sNx/4VzJnx+rOix4DIGI+pZcFJLf3UZw=;
- b=ZuaUS0uxj68MnNbglX1WG9af5nVMtnfzFVYl9HGNf0LIHCDMbbR2fLgJtWSrtCGSdE+q3qYn81IAddJX7ptJad9MpYrXIbvWlrQiDYrv5f/DjYsLL0LB2n+5Ey0hIGjTqD4xDEv4T7R1m3+V3Wtzn7vEqz0mxDcMW9CjBvGW5xlCjciNGVEaNUUl711YlDM1kf4pUgwivaE8OZpZck2uQjqn1hIuMeieV1dZ+/6Dj9OS1Gl+FVBUHhKfp/qDSY4C5R/tKiY2rdXZ8voZmpAtErZR2xgW9uHW0L+BoF03OSoEgIkPehVbofQxrJk4IlcMcmlqM0bIknr5cXmRYTtZYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBFIVtiQXa0sNx/4VzJnx+rOix4DIGI+pZcFJLf3UZw=;
- b=r0Ras1tkhSDJVNk+S8BIv8KY1eqp9ZB61akeaVyeDaQWKJYUb3wGiIU8WSWtexrhex3RKznrjJb7lCX5sbxoAiFAnPIhc3aS+aTUh8QUOPPIfcwV7Wd0SrOY5ygboUIC2cRveJ3OfYeX/HSrHR10Ug8GcqYS/URiqpG29G010s4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <f78395f3-6588-4bc9-8612-3450a8f44be7@amd.com>
-Date: Thu, 30 Nov 2023 10:03:02 -0500
+X-Inumbo-ID: bf59b2a9-8f8d-11ee-98e4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1701354947; x=1732890947;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zMs3wimSwFi3OS/xT8fCJCLyivsPCu0OTNgeR6TOgP0=;
+  b=Nw9Zwe69Mk+TS601A3YuuhAalgfKvFgpVCFb1nIq3+pqYPt0WlQCT0xm
+   umeFpcCRZAXdCRhocduL+Zy0/iuFg+C6Zm+ewBg9woT1xr/ra5LJwHv4X
+   KWQ0Uql02opxuXzfEyMS3mb85SwAp+mW/Ir1f83khKERRKRzjIKttS8v1
+   z3KwKEWA0gNRNSuTQQlMjJ/SRzuXFMwVzzzqn5n6QAlIQIgaMoYpPEqTq
+   ULj3wcbKW7bb/RXwTA6RRpztzAO3oewm2YCYRyU9xnk37LoP7KmCAY2Ou
+   XBMdNpi0oBQtU5BOBZU4C7JFj8p3TiXeOD9z0/dqy3Rn+O2x1YkAbpF6m
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532483"
+X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
+   d="scan'208";a="479532483"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730310"
+X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
+   d="scan'208";a="942730310"
+From: Zhao Liu <zhao1.liu@linux.intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	Igor Mammedov <imammedo@redhat.com>,
+	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+	=?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Barrat?= <fbarrat@linux.ibm.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Alistair Francis <alistair@alistair23.me>,
+	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
+	=?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	Bin Meng <bin.meng@windriver.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Weiwei Li <liwei1518@gmail.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	qemu-devel@nongnu.org,
+	kvm@vger.kernel.org,
+	qemu-ppc@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	qemu-arm@nongnu.org,
+	qemu-riscv@nongnu.org,
+	qemu-s390x@nongnu.org
+Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
+	Thomas Huth <thuth@redhat.com>,
+	Zhiyuan Lv <zhiyuan.lv@intel.com>,
+	Zhenyu Wang <zhenyu.z.wang@intel.com>,
+	Yongwei Ma <yongwei.ma@intel.com>,
+	Zhao Liu <zhao1.liu@intel.com>
+Subject: [RFC 33/41] hw/machine: Validate smp topology tree without -smp
+Date: Thu, 30 Nov 2023 22:41:55 +0800
+Message-Id: <20231130144203.2307629-34-zhao1.liu@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
+References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC KERNEL PATCH v2 1/3] xen/pci: Add xen_reset_device_state
- function
-Content-Language: en-US
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: Juergen Gross <jgross@suse.com>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Thomas Gleixner <tglx@linutronix.de>, "Boris
- Ostrovsky" <boris.ostrovsky@oracle.com>, "Rafael J . Wysocki"
-	<rafael@kernel.org>, Len Brown <lenb@kernel.org>, Bjorn Helgaas
-	<bhelgaas@google.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-acpi@vger.kernel.org"
-	<linux-acpi@vger.kernel.org>, "Stabellini, Stefano"
-	<stefano.stabellini@amd.com>, "Deucher, Alexander"
-	<Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, "Huang, Honglei1"
-	<Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>, "Huang, Ray"
-	<Ray.Huang@amd.com>
-References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
- <20231124103123.3263471-2-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2311291943260.3533093@ubuntu-linux-20-04-desktop>
- <BL1PR12MB58490EB260D226500141557EE782A@BL1PR12MB5849.namprd12.prod.outlook.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <BL1PR12MB58490EB260D226500141557EE782A@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c753df2-6631-4fdb-5150-08dbf1b57823
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	vqNgQS6+MyAmGysQyzTvULI2XB9tcAY7ALXeSWoFkM+jhBkNSccCU6PvqCnnKB51BcVkpiBqrwGwi8T0NVI51dDQHZOBHHWI8SOHMrw9ffY8AoOe6I21mvDRaovgrSnKgMRUaU4pPUulyB6Nh6cxSZ07QiJleHlMCsFr3Yj6Bv020ouNNLCIh4oLh732ZlWl2Sxx4WfF3Eb07wwwkwJC6GrIqNfyh2qQcr4wzzRZWucQK6YB0xwUYyVzcFrwxwHgIRpWRvxuKIiMR46jD+1GeHdRDJeux6U0YxlUGfQ2pjtDL+5+92Hj7VuGZISnDnyjHYb9cz9cYHA8P04yQkOnGa7NkckVGuVixHPcogly74Vp/87Pv5IuhyNC2+KyNt2vC4JY0rflMghsHLaGHGUakBXv6SLOZVub4nAFkDiPnA4+VXhalzfEkKNZdITnKVU15YeLHXRQN2fdOTZ+dcD+Lb5PB2zeRkJEKom+k/vXX3gWghwCY9IDmD4BJZB71oLuy8xvTCpHreJNxNXamY5YX1OT8+HYbwDe6sOfgQUa9pACrhgDd2ZkC/ffoO06EE8jHu1XIImIxNfaD1lQ9XMGl8Nl030V/wANPLojhqOoGoW6iDqwt0PoncQZRbJrMy/6/pCajd2dVVL+jEO1Xof9/iK6ikkZR6NwZ920lPi/YgPxIwyY+Jx/YDHuZH/PyaQlhM7boQzbR/QSRIyiNmpKJis8EXzGuhHLh0KF3KaSC6eXRQE7EVChoE0GbjmP3Xu5w7UcIqtYap0iSbC/wKFPeirW+1b2GDxS5YQUQ/deHDiUieAFrNgR8faYvwQRyA+lHhmfkpxBYCCD+dnyi+Bx17Slu8o4NZkSkGprRZqJz50=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(186009)(451199024)(64100799003)(82310400011)(1800799012)(46966006)(36840700001)(40470700004)(31686004)(40460700003)(40480700001)(2616005)(478600001)(53546011)(336012)(47076005)(26005)(36860700001)(356005)(81166007)(86362001)(36756003)(82740400003)(31696002)(70586007)(5660300002)(70206006)(44832011)(54906003)(41300700001)(426003)(7416002)(2906002)(83380400001)(4326008)(8676002)(316002)(8936002)(110136005)(16576012)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2023 15:03:10.9230
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c753df2-6631-4fdb-5150-08dbf1b57823
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+Content-Transfer-Encoding: 8bit
 
-On 11/30/23 02:03, Chen, Jiqian wrote:
-> 
-> On 2023/11/30 11:46, Stefano Stabellini wrote:
->> On Fri, 24 Nov 2023, Jiqian Chen wrote:
->>> When device on dom0 side has been reset, the vpci on Xen side
->>> won't get notification, so that the cached state in vpci is
->>> all out of date with the real device state.
->>> To solve that problem, this patch add a function to clear all
->>> vpci device state when device is reset on dom0 side.
->>>
->>> And call that function in pcistub_init_device. Because when
->>> we use "pci-assignable-add" to assign a passthrough device in
->>> Xen, it will reset passthrough device and the vpci state will
->>> out of date, and then device will fail to restore bar state.
->>>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>  drivers/xen/pci.c                  | 12 ++++++++++++
->>>  drivers/xen/xen-pciback/pci_stub.c |  3 +++
->>>  include/xen/interface/physdev.h    |  2 ++
->>>  include/xen/pci.h                  |  6 ++++++
->>>  4 files changed, 23 insertions(+)
->>>
->>> diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
->>> index 72d4e3f193af..e9b30bc09139 100644
->>> --- a/drivers/xen/pci.c
->>> +++ b/drivers/xen/pci.c
->>> @@ -177,6 +177,18 @@ static int xen_remove_device(struct device *dev)
->>>  	return r;
->>>  }
->>>  
->>> +int xen_reset_device_state(const struct pci_dev *dev)
->>> +{
->>> +	struct physdev_pci_device device = {
->>> +		.seg = pci_domain_nr(dev->bus),
->>> +		.bus = dev->bus->number,
->>> +		.devfn = dev->devfn
->>> +	};
->>> +
->>> +	return HYPERVISOR_physdev_op(PHYSDEVOP_pci_device_state_reset, &device);
->>> +}
->>> +EXPORT_SYMBOL_GPL(xen_reset_device_state);
->>> +
->>>  static int xen_pci_notifier(struct notifier_block *nb,
->>>  			    unsigned long action, void *data)
->>>  {
->>> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
->>> index e34b623e4b41..5a96b6c66c07 100644
->>> --- a/drivers/xen/xen-pciback/pci_stub.c
->>> +++ b/drivers/xen/xen-pciback/pci_stub.c
->>> @@ -421,6 +421,9 @@ static int pcistub_init_device(struct pci_dev *dev)
->>>  	else {
->>>  		dev_dbg(&dev->dev, "resetting (FLR, D3, etc) the device\n");
->>>  		__pci_reset_function_locked(dev);
->>> +		err = xen_reset_device_state(dev);
->>> +		if (err)
->>> +			goto config_release;
->>
->> Older versions of Xen won't have the hypercall
->> PHYSDEVOP_pci_device_state_reset implemented. I think we should do
->> something like:
->>
->> if (err && xen_pvh_domain())
->>     goto config_release;
->>
->>
->> Or even:
->>
->> if (xen_pvh_domain()) {
->>     err = xen_reset_device_state(dev);
->>     if (err)
->>         goto config_release;
->> }
->>
->> depending on whether we want to call xen_reset_device_state also for PV
->> guests or not. I am assuming we don't want to error out on failure such
->> as -ENOENT for PV guests.
-> Yes, only for PVH dom0, I will add the condition in next version. Thank you!
+From: Zhao Liu <zhao1.liu@intel.com>
 
-We will want to call xen_reset_device_state() for Arm dom0, too, so checking xen_pvh_domain() alone is not sufficient. I suggest instead to check !xen_pv_domain().
+QOM topology allows user to create topology tree from cli without -smp,
+in this case, validate the topology tree to meet the smp requirement.
 
-> 
->>
->>
->>>  		pci_restore_state(dev);
->>>  	}
->>>  	/* Now disable the device (this also ensures some private device
->>> diff --git a/include/xen/interface/physdev.h b/include/xen/interface/physdev.h
->>> index a237af867873..231526f80f6c 100644
->>> --- a/include/xen/interface/physdev.h
->>> +++ b/include/xen/interface/physdev.h
->>> @@ -263,6 +263,8 @@ struct physdev_pci_device {
->>>      uint8_t devfn;
->>>  };
->>>  
->>> +#define PHYSDEVOP_pci_device_state_reset     32
->>> +
->>>  #define PHYSDEVOP_DBGP_RESET_PREPARE    1
->>>  #define PHYSDEVOP_DBGP_RESET_DONE       2
->>>  
->>> diff --git a/include/xen/pci.h b/include/xen/pci.h
->>> index b8337cf85fd1..b2e2e856efd6 100644
->>> --- a/include/xen/pci.h
->>> +++ b/include/xen/pci.h
->>> @@ -4,10 +4,16 @@
->>>  #define __XEN_PCI_H__
->>>  
->>>  #if defined(CONFIG_XEN_DOM0)
->>> +int xen_reset_device_state(const struct pci_dev *dev);
->>>  int xen_find_device_domain_owner(struct pci_dev *dev);
->>>  int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
->>>  int xen_unregister_device_domain_owner(struct pci_dev *dev);
->>>  #else
->>> +static inline int xen_reset_device_state(const struct pci_dev *dev)
->>> +{
->>> +	return -1;
->>> +}
->>> +
->>>  static inline int xen_find_device_domain_owner(struct pci_dev *dev)
->>>  {
->>>  	return -1;
->>> -- 
->>> 2.34.1
->>>
-> 
+Currently, for compatibility with MachineState.smp, initialize
+MachineState.smp from topology tree in this case.
+
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+---
+ hw/core/cpu-slot.c         | 146 +++++++++++++++++++++++++++++++++++++
+ hw/core/machine.c          |  10 +++
+ include/hw/core/cpu-slot.h |   1 +
+ 3 files changed, 157 insertions(+)
+
+diff --git a/hw/core/cpu-slot.c b/hw/core/cpu-slot.c
+index ade155baf60b..45b6aef0750a 100644
+--- a/hw/core/cpu-slot.c
++++ b/hw/core/cpu-slot.c
+@@ -413,3 +413,149 @@ void machine_create_smp_topo_tree(MachineState *ms, Error **errp)
+     }
+     slot->smp_parsed = true;
+ }
++
++static void set_smp_child_topo_info(CpuTopology *smp_info,
++                                    CPUTopoStat *stat,
++                                    CPUTopoLevel child_level)
++{
++    unsigned int *smp_count;
++    CPUTopoStatEntry *entry;
++
++    smp_count = get_smp_info_by_level(smp_info, child_level);
++    entry = get_topo_stat_entry(stat, child_level);
++    *smp_count = entry->max_units ? entry->max_units : 1;
++
++    return;
++}
++
++typedef struct ValidateCbData {
++    CPUTopoStat *stat;
++    CpuTopology *smp_info;
++    Error **errp;
++} ValidateCbData;
++
++static int validate_topo_children(CPUTopoState *topo, void *opaque)
++{
++    CPUTopoLevel level = CPU_TOPO_LEVEL(topo), next_level;
++    ValidateCbData *cb = opaque;
++    unsigned int max_children;
++    CPUTopoStatEntry *entry;
++    Error **errp = cb->errp;
++
++    if (level != CPU_TOPO_THREAD && !topo->num_children &&
++        !topo->max_children) {
++        error_setg(errp, "Invalid topology: the CPU topology "
++                   "(level: %s, index: %d) isn't completed.",
++                   cpu_topo_level_to_string(level), topo->index);
++        return TOPO_FOREACH_ERR;
++    }
++
++    if (level == CPU_TOPO_UNKNOWN) {
++        error_setg(errp, "Invalid CPU topology: unknown topology level.");
++        return TOPO_FOREACH_ERR;
++    }
++
++    /*
++     * Only CPU_TOPO_THREAD level's child_level could be CPU_TOPO_UNKNOWN,
++     * but machine_validate_cpu_topology() is before CPU creation.
++     */
++    if (topo->child_level == CPU_TOPO_UNKNOWN) {
++        error_setg(errp, "Invalid CPU topology: incomplete topology "
++                   "(level: %s, index: %d), no child?.",
++                   cpu_topo_level_to_string(level), topo->index);
++        return TOPO_FOREACH_ERR;
++    }
++
++    /*
++     * Currently hybrid topology isn't supported, so only SMP topology
++     * is allowed.
++     */
++
++    entry = get_topo_stat_entry(cb->stat, topo->child_level);
++
++    /* Max threads per core is pre-configured by "nr-threads". */
++    max_children = topo->child_level != CPU_TOPO_THREAD ?
++                   topo->num_children : topo->max_children;
++
++    if (entry->max_units != max_children) {
++        error_setg(errp, "Invalid SMP topology: "
++                   "The %s topology is asymmetric.",
++                   cpu_topo_level_to_string(level));
++        return TOPO_FOREACH_ERR;
++    }
++
++    next_level = find_next_bit(cb->stat->curr_levels, USER_AVAIL_LEVEL_NUM,
++                               topo->child_level + 1);
++
++    if (next_level != level) {
++        error_setg(errp, "Invalid smp topology: "
++                   "asymmetric CPU topology depth.");
++        return TOPO_FOREACH_ERR;
++    }
++
++    set_smp_child_topo_info(cb->smp_info, cb->stat, topo->child_level);
++
++    return TOPO_FOREACH_CONTINUE;
++}
++
++/*
++ * Only check the case user configures CPU topology via -device
++ * without -smp. In this case, MachineState.smp also needs to be
++ * initialized based on topology tree.
++ */
++bool machine_validate_cpu_topology(MachineState *ms, Error **errp)
++{
++    MachineClass *mc = MACHINE_GET_CLASS(ms);
++    CPUTopoState *slot_topo = CPU_TOPO(ms->topo);
++    CPUTopoStat *stat = &ms->topo->stat;
++    CpuTopology *smp_info = &ms->smp;
++    unsigned int total_cpus;
++    ValidateCbData cb;
++
++    if (ms->topo->smp_parsed) {
++        return true;
++    } else if (!slot_topo->num_children) {
++        /*
++         * If there's no -smp nor -device to add topology children,
++         * then create the default topology.
++         */
++        machine_create_smp_topo_tree(ms, errp);
++        if (*errp) {
++            return false;
++        }
++        return true;
++    }
++
++    if (test_bit(CPU_TOPO_CLUSTER, stat->curr_levels)) {
++        mc->smp_props.has_clusters = true;
++    }
++
++    /*
++     * The next cpu_topo_child_foreach_recursive() doesn't cover the
++     * parent topology unit. Update information for root here.
++     */
++    set_smp_child_topo_info(smp_info, stat, slot_topo->child_level);
++
++    cb.stat = stat;
++    cb.smp_info = smp_info;
++    cb.errp = errp;
++
++    cpu_topo_child_foreach_recursive(slot_topo, NULL,
++                                     validate_topo_children, &cb);
++    if (*errp) {
++        return false;
++    }
++
++    ms->smp.cpus = stat->pre_plugged_cpus ?
++                   stat->pre_plugged_cpus : 1;
++    ms->smp.max_cpus = stat->max_cpus ?
++                       stat->max_cpus : 1;
++
++    total_cpus = ms->smp.drawers * ms->smp.books *
++                 ms->smp.sockets * ms->smp.dies *
++                 ms->smp.clusters * ms->smp.cores *
++                 ms->smp.threads;
++    g_assert(total_cpus == ms->smp.max_cpus);
++
++    return true;
++}
+diff --git a/hw/core/machine.c b/hw/core/machine.c
+index 0c1739814124..5fa0c826f35e 100644
+--- a/hw/core/machine.c
++++ b/hw/core/machine.c
+@@ -1505,6 +1505,16 @@ void machine_run_board_init(MachineState *machine, const char *mem_path, Error *
+                                    "on", false);
+     }
+ 
++    /*
++     * TODO: drop this check and validate topology tree by default
++     * when all arches support QOM topology.
++     */
++    if (machine_class->smp_props.possible_cpus_qom_granu) {
++        if (!machine_validate_cpu_topology(machine, errp)) {
++            return;
++        }
++    }
++
+     accel_init_interfaces(ACCEL_GET_CLASS(machine->accelerator));
+     machine_class->init(machine);
+     phase_advance(PHASE_MACHINE_INITIALIZED);
+diff --git a/include/hw/core/cpu-slot.h b/include/hw/core/cpu-slot.h
+index de3d08fcb2ac..9e1c6d6b7ff2 100644
+--- a/include/hw/core/cpu-slot.h
++++ b/include/hw/core/cpu-slot.h
+@@ -100,5 +100,6 @@ struct CPUSlot {
+ 
+ void machine_plug_cpu_slot(MachineState *ms);
+ void machine_create_smp_topo_tree(MachineState *ms, Error **errp);
++bool machine_validate_cpu_topology(MachineState *ms, Error **errp);
+ 
+ #endif /* CPU_SLOT_H */
+-- 
+2.34.1
+
 
