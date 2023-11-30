@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E23E67FEF9D
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:58:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644663.1006023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D96807FEFA2
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:59:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644669.1006033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8gco-0000UE-1d; Thu, 30 Nov 2023 12:58:38 +0000
+	id 1r8gdX-0001X1-9y; Thu, 30 Nov 2023 12:59:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644663.1006023; Thu, 30 Nov 2023 12:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 644669.1006033; Thu, 30 Nov 2023 12:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8gcn-0000SC-US; Thu, 30 Nov 2023 12:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 644663;
- Thu, 30 Nov 2023 12:58:36 +0000
+	id 1r8gdX-0001V6-6K; Thu, 30 Nov 2023 12:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 644669;
+ Thu, 30 Nov 2023 12:59:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Tvl7=HL=kaod.org=clg@ozlabs.org>)
- id 1r8gcm-0000Au-0d
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:58:36 +0000
+ id 1r8gdW-0001Uy-IZ
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:59:22 +0000
 Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27fd002a-8f80-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 13:58:30 +0100 (CET)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gandalf.ozlabs.org (Postfix) with ESMTP id 4Sgx834Y27z4xWv;
- Thu, 30 Nov 2023 23:58:27 +1100 (AEDT)
+ id 457ab45f-8f80-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 13:59:20 +0100 (CET)
+Received: from gandalf.ozlabs.org (mail.ozlabs.org
+ [IPv6:2404:9400:2221:ea00::3])
+ by gandalf.ozlabs.org (Postfix) with ESMTP id 4Sgx912pNvz4xjZ;
+ Thu, 30 Nov 2023 23:59:17 +1100 (AEDT)
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Sgx701Ypyz4xW7;
- Thu, 30 Nov 2023 23:57:31 +1100 (AEDT)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Sgx853gFPz4xW7;
+ Thu, 30 Nov 2023 23:58:28 +1100 (AEDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,13 +46,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27fd002a-8f80-11ee-9b0f-b553b5be7939
-Message-ID: <53cb0a57-d8c4-4c59-b37f-60182410e0cd@kaod.org>
-Date: Thu, 30 Nov 2023 13:57:28 +0100
+X-Inumbo-ID: 457ab45f-8f80-11ee-9b0f-b553b5be7939
+Message-ID: <0f414482-a1e7-4863-9ce1-3584b4d43e6c@kaod.org>
+Date: Thu, 30 Nov 2023 13:58:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] system/cpus: rename qemu_mutex_lock_iothread() to
- qemu_bql_lock()
+Subject: Re: [PATCH 2/6] qemu/main-loop: rename QEMU_IOTHREAD_LOCK_GUARD to
+ QEMU_BQL_LOCK_GUARD
 Content-Language: en-US
 To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
 Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
@@ -106,33 +107,15 @@ Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
  <leobras@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-2-stefanha@redhat.com>
+ <20231129212625.1051502-3-stefanha@redhat.com>
 From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <20231129212625.1051502-2-stefanha@redhat.com>
+In-Reply-To: <20231129212625.1051502-3-stefanha@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 11/29/23 22:26, Stefan Hajnoczi wrote:
-> The Big QEMU Lock (BQL) has many names and they are confusing. The
-> actual QemuMutex variable is called qemu_global_mutex but it's commonly
-> referred to as the BQL in discussions and some code comments. The
-> locking APIs, however, are called qemu_mutex_lock_iothread() and
-> qemu_mutex_unlock_iothread().
-> 
-> The "iothread" name is historic and comes from when the main thread was
-> split into into KVM vcpu threads and the "iothread" (now called the main
-> loop thread). I have contributed to the confusion myself by introducing
-> a separate --object iothread, a separate concept unrelated to the BQL.
-> 
-> The "iothread" name is no longer appropriate for the BQL. Rename the
-> locking APIs to:
-> - void qemu_bql_lock(void)
-> - void qemu_bql_unlock(void)
-> - bool qemu_bql_locked(void)
-> 
-> There are more APIs with "iothread" in their names. Subsequent patches
-> will rename them. There are also comments and documentation that will be
-> updated in later patches.
+> The name "iothread" is overloaded. Use the term Big QEMU Lock (BQL)
+> instead, it is already widely used and unambiguous.
 > 
 > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
