@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF03D7FEF0D
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:25:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644598.1005800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8BEC7FEF1A
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:27:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644600.1005811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8g6W-0002Jj-SQ; Thu, 30 Nov 2023 12:25:16 +0000
+	id 1r8g82-0003Zi-72; Thu, 30 Nov 2023 12:26:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644598.1005800; Thu, 30 Nov 2023 12:25:16 +0000
+Received: by outflank-mailman (output) from mailman id 644600.1005811; Thu, 30 Nov 2023 12:26:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8g6W-0002Gt-P4; Thu, 30 Nov 2023 12:25:16 +0000
-Received: by outflank-mailman (input) for mailman id 644598;
- Thu, 30 Nov 2023 12:25:16 +0000
+	id 1r8g82-0003WP-4P; Thu, 30 Nov 2023 12:26:50 +0000
+Received: by outflank-mailman (input) for mailman id 644600;
+ Thu, 30 Nov 2023 12:26:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cc+B=HL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1r8g6V-0002Gl-UI
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:25:16 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8219ab5b-8f7b-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 13:25:13 +0100 (CET)
-Received: from [10.10.1.94] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1701347107310525.4389985845953;
- Thu, 30 Nov 2023 04:25:07 -0800 (PST)
+ <SRS0=o0ps=HL=casper.srs.infradead.org=BATV+bcb5a996c0d123d1f7ff+7403+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1r8g80-0003WJ-IA
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:26:48 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b7fa9cfb-8f7b-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 13:26:45 +0100 (CET)
+Received: from [2001:8b0:10b:5:743c:af97:a7e4:d38e]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1r8g6u-00EQu0-JO; Thu, 30 Nov 2023 12:25:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,135 +41,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8219ab5b-8f7b-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; t=1701347108; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=kO2K1rIsIKwUXeaDQTnmz0CyXLeP7NS6+MUHGbKfmuS/O6erApdCbzAxylZhQfvooblxNttG+UyOJ8Um6M8cwJx0xaOQACRPIbM/7D1Wmsos4FYMUMdkdE66Kw63k18iHYXkw6XFDzbuLGHsqNRWnWqmIS/gae1MbhKt9hS3H3A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1701347108; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xOxn5xyE4S+AqJoqAyjd4VnJDGClj7lClMain6qvbOI=; 
-	b=A2NZYY0NX8NfpHn10Y5ZrH0s9nms2Gpqyj9zcdiERPqD1xX9zC0oBmV/GIurNUioa+t9xbYcDaVeTurE963nHy3yzaJR9nRVkp28eIalw39csbOAXKkIRVt137QUmTNentNTiYz1n1Rlr9G83Wv4Gfvnl/n6U2k6xa2mh8h0x/0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1701347108;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=xOxn5xyE4S+AqJoqAyjd4VnJDGClj7lClMain6qvbOI=;
-	b=X4MUN5vryIMIWXQgYUeQkB8bZ8ZuHwF38mQAZmRXMBqEmwkeVd52lXx5GDhXJM14
-	h00B++V7m/WVKIj3HXHNj/lZS7564urUxZ5oyn4WAV/wfGniUXDoJ0sR+PqX5Nxqx7J
-	NPUikiEERtKrrCUxRbrujpxAfzZXOdnsrxlN6rfU=
-Message-ID: <14d2dd16-be21-4e9a-97eb-bb477af49e73@apertussolutions.com>
-Date: Thu, 30 Nov 2023 07:25:05 -0500
+X-Inumbo-ID: b7fa9cfb-8f7b-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=KYs+w9tX5xQvYgwt77gAisciicGwhphGbHCAn2v/kV4=; b=ngZpcOH3dJpNLUOSKBwf1E2n+G
+	8QT3esymnfG8dUxodXc5C3c4YTVwZzZMlgZkhJ74gyplw+tNd0xiD0CjPUhovdcNWPjRKOelRjZ91
+	D99Hb2Iqlj6w/PHXzdUQ9JV3sPdpceIXzN9VQxczSF5Hvtq1jKnqRFMhO0hBViduj+EllH/NssRsS
+	m9/5V6Wjl5VnqKyMxv/2GnU84wGU1K9D3y7RN6afL5iqLyLIv7v2kw02NoqByan5e1rPcveR+5Zv+
+	Y4JBehm66YoUXqZSHyllcNdBLYp+ztqcGsBaepLwOrOL39VzN9yHAB20GDI0XZw7WmUcYTUsQJtUw
+	XeyZyyvQ==;
+Message-ID: <84cf6f6cfa498491eb37599f1f992aefafaa46d1.camel@infradead.org>
+Subject: Re: [PATCH 1/6] system/cpus: rename qemu_mutex_lock_iothread() to
+ qemu_bql_lock()
+From: David Woodhouse <dwmw2@infradead.org>
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: Jean-Christophe Dubois <jcd@tribudubois.net>, Fabiano Rosas
+ <farosas@suse.de>, qemu-s390x@nongnu.org, Song Gao <gaosong@loongson.cn>, 
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Thomas Huth
+ <thuth@redhat.com>, Hyman Huang <yong.huang@smartx.com>,  Marcelo Tosatti
+ <mtosatti@redhat.com>, Andrey Smirnov <andrew.smirnov@gmail.com>, Peter
+ Maydell <peter.maydell@linaro.org>, Kevin Wolf <kwolf@redhat.com>, Ilya
+ Leoshkevich <iii@linux.ibm.com>, Artyom Tarasenko <atar4qemu@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Max Filippov
+ <jcmvbkbc@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, Paul
+ Durrant <paul@xen.org>, Jagannathan Raman <jag.raman@oracle.com>, Juan
+ Quintela <quintela@redhat.com>, "Daniel P." =?ISO-8859-1?Q?Berrang=E9?=
+ <berrange@redhat.com>, qemu-arm@nongnu.org, Jason Wang
+ <jasowang@redhat.com>,  Gerd Hoffmann <kraxel@redhat.com>, Hanna Reitz
+ <hreitz@redhat.com>, =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
+ <marcandre.lureau@redhat.com>, BALATON Zoltan <balaton@eik.bme.hu>, Daniel
+ Henrique Barboza <danielhb413@gmail.com>, Elena Ufimtseva
+ <elena.ufimtseva@oracle.com>, Aurelien Jarno <aurelien@aurel32.net>,
+ Hailiang Zhang <zhanghailiang@xfusion.com>, Roman Bolshakov
+ <rbolshakov@ddn.com>, Huacai Chen <chenhuacai@kernel.org>, Fam Zheng
+ <fam@euphon.net>,  Eric Blake <eblake@redhat.com>, Jiri Slaby
+ <jslaby@suse.cz>, Alexander Graf <agraf@csgraf.de>, Liu Zhiwei
+ <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, Eric
+ Farman <farman@linux.ibm.com>, Stafford Horne <shorne@gmail.com>, David
+ Hildenbrand <david@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ Reinoud Zandijk <reinoud@netbsd.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Cameron Esfahani <dirty@apple.com>, xen-devel@lists.xenproject.org, Pavel
+ Dovgalyuk <pavel.dovgaluk@ispras.ru>, qemu-riscv@nongnu.org, Aleksandar
+ Rikalo <aleksandar.rikalo@syrmia.com>, John Snow <jsnow@redhat.com>, Sunil
+ Muthuswamy <sunilmut@microsoft.com>, Michael Roth <michael.roth@amd.com>,
+ David Gibson <david@gibson.dropbear.id.au>, "Michael S. Tsirkin"
+ <mst@redhat.com>,  Richard Henderson <richard.henderson@linaro.org>, Bin
+ Meng <bin.meng@windriver.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ kvm@vger.kernel.org, qemu-block@nongnu.org, Halil Pasic
+ <pasic@linux.ibm.com>, Peter Xu <peterx@redhat.com>, Anthony Perard
+ <anthony.perard@citrix.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+ Alex =?ISO-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>, Eduardo Habkost
+ <eduardo@habkost.net>, Paolo Bonzini <pbonzini@redhat.com>, Vladimir
+ Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,  =?ISO-8859-1?Q?C=E9dric?=
+ Le Goater <clg@kaod.org>, qemu-ppc@nongnu.org, Philippe
+ =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, Christian Borntraeger
+ <borntraeger@linux.ibm.com>,  Akihiko Odaki <akihiko.odaki@daynix.com>,
+ Leonardo Bras <leobras@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>
+Date: Thu, 30 Nov 2023 12:25:38 +0000
+In-Reply-To: <20231129212625.1051502-2-stefanha@redhat.com>
+References: <20231129212625.1051502-1-stefanha@redhat.com>
+	 <20231129212625.1051502-2-stefanha@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-eME1UhoVVowc+xoRrBDG"
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v2 1/3] xen/vpci: Clear all vpci status of device
-Content-Language: en-US
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, "Huang, Honglei1"
- <Honglei1.Huang@amd.com>, "Zhang, Julia" <Julia.Zhang@amd.com>
-References: <20231124104136.3263722-1-Jiqian.Chen@amd.com>
- <20231124104136.3263722-2-Jiqian.Chen@amd.com> <ZWX0U1tYooY70UJo@macbook>
- <BL1PR12MB58493CC28A32E3C9B3A1767FE782A@BL1PR12MB5849.namprd12.prod.outlook.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <BL1PR12MB58493CC28A32E3C9B3A1767FE782A@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 11/30/23 01:22, Chen, Jiqian wrote:
-> Hi Roger and Daniel P. Smith,
-> 
-> On 2023/11/28 22:08, Roger Pau Monné wrote:
->> On Fri, Nov 24, 2023 at 06:41:34PM +0800, Jiqian Chen wrote:
->>> When a device has been reset on dom0 side, the vpci on Xen
->>> side won't get notification, so the cached state in vpci is
->>> all out of date compare with the real device state.
->>> To solve that problem, this patch add new hypercall to clear
->>> all vpci device state. And when reset device happens on dom0
->>> side, dom0 can call this hypercall to notify vpci.
->>>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>> ---
->>>   xen/arch/x86/hvm/hypercall.c  |  1 +
->>>   xen/drivers/passthrough/pci.c | 21 +++++++++++++++++++++
->>>   xen/drivers/pci/physdev.c     | 14 ++++++++++++++
->>>   xen/drivers/vpci/vpci.c       |  9 +++++++++
->>>   xen/include/public/physdev.h  |  2 ++
->>>   xen/include/xen/pci.h         |  1 +
->>>   xen/include/xen/vpci.h        |  6 ++++++
->>>   7 files changed, 54 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
->>> index eeb73e1aa5..6ad5b4d5f1 100644
->>> --- a/xen/arch/x86/hvm/hypercall.c
->>> +++ b/xen/arch/x86/hvm/hypercall.c
->>> @@ -84,6 +84,7 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>       case PHYSDEVOP_pci_mmcfg_reserved:
->>>       case PHYSDEVOP_pci_device_add:
->>>       case PHYSDEVOP_pci_device_remove:
->>> +    case PHYSDEVOP_pci_device_state_reset:
->>>       case PHYSDEVOP_dbgp_op:
->>>           if ( !is_hardware_domain(currd) )
->>>               return -ENOSYS;
->>> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
->>> index 04d00c7c37..f871715585 100644
->>> --- a/xen/drivers/passthrough/pci.c
->>> +++ b/xen/drivers/passthrough/pci.c
->>> @@ -824,6 +824,27 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->>>       return ret;
->>>   }
->>>   
->>> +int pci_reset_device_state(u16 seg, u8 bus, u8 devfn)
->>
->> You could use pci_sbdf_t here instead of 3 parameters.
-> Will change in next version, thank you.
-> 
->>
->> I'm however unsure whether we really need this helper just to fetch
->> the pdev and call vpci_reset_device_state(), I think you could place
->> this logic directly in pci_physdev_op().  Unless there are plans to
->> use such logic outside of pci_physdev_op().
-> If I place the logic of pci_reset_device_state directly in pci_physdev_op. I think I need to declare vpci_reset_device_state in pci.h? If it is suitable, I will change in next version.
-> 
->>
->>> +{
->>> +    struct pci_dev *pdev;
->>> +    int ret = -ENODEV;
->>
->> Some XSM check should be introduced fro this operation, as none of the
->> existing ones is suitable.  See xsm_resource_unplug_pci() for example.
->>
->> xsm_resource_reset_state_pci() or some such I would assume.
-> I don't know what I should do in XSM function(assume it is xsm_resource_reset_state_pci).
-> Hi Daniel P. Smith, could you please give me some suggestions?
-> Just to check the XSM_PRIV action?
-> 
 
-Roger, thank you for seeing this and adding me in!
+--=-eME1UhoVVowc+xoRrBDG
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jiqian, I just wanted to let you know I have seen your post but I have 
-been a little tied up this week. Just with the cursory look, I think 
-Roger is suggesting a new XSM check/hook is warranted.
+On Wed, 2023-11-29 at 16:26 -0500, Stefan Hajnoczi wrote:
+> The Big QEMU Lock (BQL) has many names and they are confusing. The
+> actual QemuMutex variable is called qemu_global_mutex but it's commonly
+> referred to as the BQL in discussions and some code comments. The
+> locking APIs, however, are called qemu_mutex_lock_iothread() and
+> qemu_mutex_unlock_iothread().
+>=20
+> The "iothread" name is historic and comes from when the main thread was
+> split into into KVM vcpu threads and the "iothread" (now called the main
+> loop thread). I have contributed to the confusion myself by introducing
+> a separate --object iothread, a separate concept unrelated to the BQL.
+>=20
+> The "iothread" name is no longer appropriate for the BQL. Rename the
+> locking APIs to:
+> - void qemu_bql_lock(void)
+> - void qemu_bql_unlock(void)
+> - bool qemu_bql_locked(void)
+>=20
+> There are more APIs with "iothread" in their names. Subsequent patches
+> will rename them. There are also comments and documentation that will be
+> updated in later patches.
+>=20
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-If you would like to attempt at writing the dummy policy side, mimic 
-xsm_resource_plug_pci in xen/include/xsm/dummy.h and 
-xen/include/xsm/xsm.h, then I can look at handling the FLASK portion 
-next week and provide it to you for inclusion into the series. If you 
-are not comfortable with it, I can look at the whole thing next week. 
-Just let me know what you would be comfortable with.
+Acked-by: David Woodhouse <dwmw@amazon.co.uk>
 
-v/r,
-dps
+--=-eME1UhoVVowc+xoRrBDG
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTMwMTIyNTM4WjAvBgkqhkiG9w0BCQQxIgQgtzrvguLa
+kRL7lR/xcpvxo6y89HLUGNUdvRMSvQChYEIwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBz4YWm6l8v3l/jd7rf2QVbitkvjxYlUmOk
+Bv7BgJcXvVjueDWAUUs1b6WfoC4+7WMsGb2HAb3nKvbfbyso+S0tYr76NI+DcU7TMSc8Nx22FNH5
+59Vb1QAuFSZ1FRNE7mve+Y6NZUwk6rNenJ4IHJIGtXqfZXUKsG4Cd4Ni1lMOfZ03UXVCl2RDJofO
+Oi2YoBLEWFsWBdPVVz2d7899AosPuR2Fcjt1UrpZ4+d41fuTKulLw3xDfysSmuxnsoQ/vSEOIfPF
+E03OdHAZqz7o5z4hJIRv513F901TM+UTTfHLzmTT9leHI2CVe9I42LEDz8rDVEKFTCjag3TgXXAU
+r7Ydqc9IqvkvCO4sac+4zQNyg2T32P1MIfHqOJZLUN8321CliP+CTNnHaxbwlMegIt5BlboTHIMo
+vkefpXjE7bkoq7haZwkrbZWqtDjC2xNln7gHiyhjoOwDTWkTOq4Z5A5ZE9Cymo6kLn5TQ7zaVQuH
+9uMzaiU4sw96KnZ1KhC62NNHthuvpBHWRcWdExzu/8NDJK1X57+OzTgEyM8c1KxN19FB8I4y7C3t
+Biz3e2Z5Xo2/2u8YjcX9xT/jZ7ZXm9E7vgtqC6hfXGK7pJkojSVzUi05upkc+4WgL8AXF3sS9rOE
+EgZnIM7VF/Bw2/Nr20CFQA+om655lBlvsrlwt1qWgQAAAAAAAA==
+
+
+--=-eME1UhoVVowc+xoRrBDG--
 
