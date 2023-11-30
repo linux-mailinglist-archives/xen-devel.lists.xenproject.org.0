@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC68E7FFD25
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:57:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645146.1007056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 318AC7FFD8F
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 22:32:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645149.1007067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8o5X-00014d-Hg; Thu, 30 Nov 2023 20:56:47 +0000
+	id 1r8odT-0000oF-83; Thu, 30 Nov 2023 21:31:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645146.1007056; Thu, 30 Nov 2023 20:56:47 +0000
+Received: by outflank-mailman (output) from mailman id 645149.1007067; Thu, 30 Nov 2023 21:31:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8o5X-00012v-EX; Thu, 30 Nov 2023 20:56:47 +0000
-Received: by outflank-mailman (input) for mailman id 645146;
- Thu, 30 Nov 2023 20:56:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8odT-0000l8-4f; Thu, 30 Nov 2023 21:31:51 +0000
+Received: by outflank-mailman (input) for mailman id 645149;
+ Thu, 30 Nov 2023 21:31:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=k41O=HL=redhat.com=peterx@srs-se1.protection.inumbo.net>)
- id 1r8o5V-00012p-KR
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:56:45 +0000
+ (envelope-from <SRS0=3Itg=HL=redhat.com=eblake@srs-se1.protection.inumbo.net>)
+ id 1r8odS-0000l0-0i
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 21:31:50 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6e5a95d-8fc2-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 21:56:43 +0100 (CET)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ddb36d0f-8fc7-11ee-98e5-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 22:31:48 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-352-NtYf5c-bOvuDPDpZ4KOM1w-1; Thu, 30 Nov 2023 15:56:40 -0500
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-67a1f7b4a0fso3396206d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 12:56:40 -0800 (PST)
-Received: from x1n (cpe688f2e2cb7c3-cm688f2e2cb7c0.cpe.net.cable.rogers.com.
- [99.254.121.117]) by smtp.gmail.com with ESMTPSA id
- y10-20020a0cc54a000000b0067835abc38bsm811386qvi.129.2023.11.30.12.56.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 12:56:39 -0800 (PST)
+ us-mta-487-q1IMUd4SMcOPNw2L8mcRsA-1; Thu, 30 Nov 2023 16:31:43 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7125824021;
+ Thu, 30 Nov 2023 21:31:42 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.190])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 540E81C060AE;
+ Thu, 30 Nov 2023 21:31:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,200 +51,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6e5a95d-8fc2-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ddb36d0f-8fc7-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701377802;
+	s=mimecast20190719; t=1701379907;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CvBa0sQTQ4iydX+WLgMreuODjjAkBlkycz9lfLxb2yo=;
-	b=go4JouXgP/qYR0pqbpuiwCswEGdsF9/BFXEkQoDQVk+eFSzVe2FzADGiJXn+w6Cw7B5BQq
-	G1U2lRZFN6XBgFG/XtD6WNhsvB1OWchvenC7wnqDIa9FdBKdUpIAsad52JQvXil46gR3hd
-	MplBgH/IAzkCjZBbgEthJX/wCTgXT4o=
-X-MC-Unique: NtYf5c-bOvuDPDpZ4KOM1w-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701377800; x=1701982600;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CvBa0sQTQ4iydX+WLgMreuODjjAkBlkycz9lfLxb2yo=;
-        b=aQWMQdkEXWqmaXiDLjCuwfDbG0b9np23sZA1nHWH7NjhIust35EGhIpK5OkkLeI3B7
-         zIv1X3n8H+2jy8ynflDl3lf5AIDdHhiu90cTeqUVNpUEP195FW0yDkbF9rnTSo5jx8ny
-         zUIpfph1BSS/Hl90J6uqdcdyVGRlha+wr8svFEQxI+sZXvdWd3CpAGJymwLjq2pzTgm3
-         IhD4mvWJbPTa2zwbU0uokHQZJGNFolEH4Akd99FxwJfK5xk3xTp47P4qoACdxxw1rZy8
-         fVB+3yooJUntgLLjQTzT5yT5wlVbkl73K5XafMTBKwh5rPioZUwzqrFklmL/JnRArFJj
-         /mHQ==
-X-Gm-Message-State: AOJu0Yx96uCgYJi4+WxaNx/ettwsChrExApngoDFQWD5+MQvAlG+p4Lb
-	LkSf1hvzFcsTz6mCjBaU0LepsKsAzlI1H+XCDzIDD0cp7ogh5gZ6OIzGeNtLA0k5HrCS6ti6qx9
-	5ShANptxCJXm6cYbwlEw4Qjc5jxE=
-X-Received: by 2002:ad4:5246:0:b0:67a:1c70:115e with SMTP id s6-20020ad45246000000b0067a1c70115emr20447936qvq.1.1701377800282;
-        Thu, 30 Nov 2023 12:56:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFZFruQQTFBL/xGKczOZd90VtaWOUXKwFyQD2ApNFiLcB8OZlzG0+liCbF3N/eQ9eEuKWmncA==
-X-Received: by 2002:ad4:5246:0:b0:67a:1c70:115e with SMTP id s6-20020ad45246000000b0067a1c70115emr20447887qvq.1.1701377799939;
-        Thu, 30 Nov 2023 12:56:39 -0800 (PST)
-Date: Thu, 30 Nov 2023 15:56:32 -0500
-From: Peter Xu <peterx@redhat.com>
+	bh=V/gvXfT47TeQd2gZo/6v34/l0zAaPUjzItBRjKteQxw=;
+	b=TV5tquf6ZoXo207BFz4Qjby+yJn1Pui7Fn+5mVyAkydC0XR6b50/L4K5hYVjEyKZBdzg/p
+	+SOeyhAzELkQZvW4djNpkROmaqchvCUDIhIC2gtFNT6Y3tLVRH3hCSMwaCOmYSPzolaRO7
+	rRKTvdyDVRGWem/CvUUBFFiANoeVMFo=
+X-MC-Unique: q1IMUd4SMcOPNw2L8mcRsA-1
+Date: Thu, 30 Nov 2023 15:31:37 -0600
+From: Eric Blake <eblake@redhat.com>
 To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
-	Fabiano Rosas <farosas@suse.de>, qemu-s390x@nongnu.org,
-	Song Gao <gaosong@loongson.cn>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Thomas Huth <thuth@redhat.com>, Hyman Huang <yong.huang@smartx.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Kevin Wolf <kwolf@redhat.com>, Ilya Leoshkevich <iii@linux.ibm.com>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Paul Durrant <paul@xen.org>,
-	Jagannathan Raman <jag.raman@oracle.com>,
-	Juan Quintela <quintela@redhat.com>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
-	qemu-arm@nongnu.org, Jason Wang <jasowang@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Hailiang Zhang <zhanghailiang@xfusion.com>,
-	Roman Bolshakov <rbolshakov@ddn.com>,
-	Huacai Chen <chenhuacai@kernel.org>, Fam Zheng <fam@euphon.net>,
-	Eric Blake <eblake@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
-	Alexander Graf <agraf@csgraf.de>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>, Eric Farman <farman@linux.ibm.com>,
-	Stafford Horne <shorne@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Cameron Esfahani <dirty@apple.com>, xen-devel@lists.xenproject.org,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, qemu-riscv@nongnu.org,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	John Snow <jsnow@redhat.com>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	Michael Roth <michael.roth@amd.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Bin Meng <bin.meng@windriver.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, kvm@vger.kernel.org,
-	qemu-block@nongnu.org, Halil Pasic <pasic@linux.ibm.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>,
-	qemu-ppc@nongnu.org,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	Leonardo Bras <leobras@redhat.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: Re: [PATCH 1/6] system/cpus: rename qemu_mutex_lock_iothread() to
- qemu_bql_lock()
-Message-ID: <ZWj3AN5qBnEu8NcI@x1n>
-References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-2-stefanha@redhat.com>
- <ZWjr0TKxihlpd1jm@x1n>
- <20231130204325.GE1184658@fedora>
+Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>, 
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Alberto Garcia <berto@igalia.com>, Emanuele Giuseppe Esposito <eesposit@redhat.com>, 
+	John Snow <jsnow@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
+	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org, xen-devel@lists.xenproject.org, 
+	Coiby Xu <Coiby.Xu@gmail.com>, Eduardo Habkost <eduardo@habkost.net>, 
+	Xie Changlong <xiechanglong.d@gmail.com>, Ari Sundholm <ari@tuxera.com>, 
+	Li Zhijian <lizhijian@fujitsu.com>, Cleber Rosa <crosa@redhat.com>, 
+	Juan Quintela <quintela@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>, Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>, 
+	Anthony Perard <anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Leonardo Bras <leobras@redhat.com>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, 
+	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
+Subject: Re: [PATCH 05/12] block: remove AioContext locking
+Message-ID: <haqk3uaxn25it4myxsockwyqxarroyqpzpticpxfdzld4qwewh@edcz4bipmqlw>
+References: <20231129195553.942921-1-stefanha@redhat.com>
+ <20231129195553.942921-6-stefanha@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20231130204325.GE1184658@fedora>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20231129195553.942921-6-stefanha@redhat.com>
+User-Agent: NeoMutt/20231103
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
 
-On Thu, Nov 30, 2023 at 03:43:25PM -0500, Stefan Hajnoczi wrote:
-> On Thu, Nov 30, 2023 at 03:08:49PM -0500, Peter Xu wrote:
-> > On Wed, Nov 29, 2023 at 04:26:20PM -0500, Stefan Hajnoczi wrote:
-> > > The Big QEMU Lock (BQL) has many names and they are confusing. The
-> > > actual QemuMutex variable is called qemu_global_mutex but it's commonly
-> > > referred to as the BQL in discussions and some code comments. The
-> > > locking APIs, however, are called qemu_mutex_lock_iothread() and
-> > > qemu_mutex_unlock_iothread().
-> > > 
-> > > The "iothread" name is historic and comes from when the main thread was
-> > > split into into KVM vcpu threads and the "iothread" (now called the main
-> > > loop thread). I have contributed to the confusion myself by introducing
-> > > a separate --object iothread, a separate concept unrelated to the BQL.
-> > > 
-> > > The "iothread" name is no longer appropriate for the BQL. Rename the
-> > > locking APIs to:
-> > > - void qemu_bql_lock(void)
-> > > - void qemu_bql_unlock(void)
-> > > - bool qemu_bql_locked(void)
-> > > 
-> > > There are more APIs with "iothread" in their names. Subsequent patches
-> > > will rename them. There are also comments and documentation that will be
-> > > updated in later patches.
-> > > 
-> > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> > 
-> > Acked-by: Peter Xu <peterx@redhat.com>
-> > 
-> > Two nickpicks:
-> > 
-> >   - BQL contains "QEMU" as the 2nd character, so maybe easier to further
-> >     rename qemu_bql into bql_?
+On Wed, Nov 29, 2023 at 02:55:46PM -0500, Stefan Hajnoczi wrote:
+> This is the big patch that removes
+> aio_context_acquire()/aio_context_release() from the block layer and
+> affected block layer users.
 > 
-> Philippe wondered whether the variable name should end with _mutex (or
-> _lock is common too), so an alternative might be big_qemu_lock. That's
-
-IMHO mutex isn't important in this context, but an implementation detail of
-the "lock" as an abstract concept.
-
-For example, we won't need to rename it again then if the impl changes,
-e.g. using pure futex or a rwlock replacement.  When that happens we don't
-need to change all call sites again.
-
-(never really meant to change the lock impl, just an example.. :)
-
-KVM actually has that example of KVM_MMU_LOCK() macro taking as the rwlock
-write lock when the spinlock is replaced with rwlock, while it'll keep to
-be the spinlock "lock()" when !KVM_HAVE_MMU_RWLOCK.
-
-> imperfect because it doesn't start with the usual qemu_ prefix.
-> qemu_big_lock is better in that regard but inconsistent with our BQL
-> abbreviation.
+> There isn't a clean way to split this patch and the reviewers are likely
+> the same group of people, so I decided to do it in one patch.
 > 
-> I don't like putting an underscore at the end. It's unusual and would
-> make me wonder what that means.
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> ---
 
-Ah, I meant replacing the "qemu_bql_" prefix with "bql_", as that contains
-QEMU already, rather than making "_" at the end.  So they'll be bql_lock(),
-bql_unlock(), bql_locked().
+> +++ b/block.c
+> @@ -7585,29 +7433,12 @@ void coroutine_fn bdrv_co_leave(BlockDriverState *bs, AioContext *old_ctx)
+>  
+>  void coroutine_fn bdrv_co_lock(BlockDriverState *bs)
+>  {
+> -    AioContext *ctx = bdrv_get_aio_context(bs);
+> -
+> -    /* In the main thread, bs->aio_context won't change concurrently */
+> -    assert(qemu_get_current_aio_context() == qemu_get_aio_context());
+> -
+> -    /*
+> -     * We're in coroutine context, so we already hold the lock of the main
+> -     * loop AioContext. Don't lock it twice to avoid deadlocks.
+> -     */
+> -    assert(qemu_in_coroutine());
 
-> 
-> Naming is hard, but please discuss and I'm open to change to BQL
-> variable's name to whatever we all agree on.
+Is this assertion worth keeping in the short term?...
 
-I'm pretty okay with qemu_bql_lock(), etc. too.  I prefer a tiny little bit
-on bql_ over qemu_bql_ in this regard, but frankly they're all names good
-enough to me.  The "qemu_" prefix can still be a good thing saying "this is
-a qemu global function", even if contained inside "bql" itself.
+> -    if (ctx != qemu_get_aio_context()) {
+> -        aio_context_acquire(ctx);
+> -    }
+> +    /* TODO removed in next patch */
+>  }
 
-> 
-> > 
-> >   - Could we keep the full spell of BQL at some places, so people can still
-> >     reference it if not familiar?  IIUC most of the BQL helpers will root
-> >     back to the major three functions (_lock, _unlock, _locked), perhaps
-> >     add a comment of "BQL stands for..." over these three functions as
-> >     comment?
-> 
-> Yes, I'll update the doc comments to say "Big QEMU Lock (BQL)" for each
-> of these functions.
+...I guess I'll see in the next patch.
 
-Thanks!
+>  
+>  void coroutine_fn bdrv_co_unlock(BlockDriverState *bs)
+>  {
+> -    AioContext *ctx = bdrv_get_aio_context(bs);
+> -
+> -    assert(qemu_in_coroutine());
+> -    if (ctx != qemu_get_aio_context()) {
+> -        aio_context_release(ctx);
+> -    }
+> +    /* TODO removed in next patch */
+>  }
+
+Same comment.
+
+> +++ b/blockdev.c
+> @@ -1395,7 +1352,6 @@ static void external_snapshot_action(TransactionAction *action,
+>      /* File name of the new image (for 'blockdev-snapshot-sync') */
+>      const char *new_image_file;
+>      ExternalSnapshotState *state = g_new0(ExternalSnapshotState, 1);
+> -    AioContext *aio_context;
+>      uint64_t perm, shared;
+>  
+>      /* TODO We'll eventually have to take a writer lock in this function */
+
+I'm guessing removal of the locking gets us one step closer to
+implementing this TODO at a later time?  Or is it now a stale comment?
+Either way, it doesn't affect this patch.
+
+> +++ b/migration/block.c
+> @@ -270,7 +270,6 @@ static int mig_save_device_bulk(QEMUFile *f, BlkMigDevState *bmds)
+>  
+>      if (bmds->shared_base) {
+>          qemu_mutex_lock_iothread();
+> -        aio_context_acquire(blk_get_aio_context(bb));
+...
+> @@ -313,22 +311,10 @@ static int mig_save_device_bulk(QEMUFile *f, BlkMigDevState *bmds)
+>      block_mig_state.submitted++;
+>      blk_mig_unlock();
+>  
+> -    /* We do not know if bs is under the main thread (and thus does
+> -     * not acquire the AioContext when doing AIO) or rather under
+> -     * dataplane.  Thus acquire both the iothread mutex and the
+> -     * AioContext.
+> -     *
+> -     * This is ugly and will disappear when we make bdrv_* thread-safe,
+> -     * without the need to acquire the AioContext.
+> -     */
+> -    qemu_mutex_lock_iothread();
+> -    aio_context_acquire(blk_get_aio_context(bmds->blk));
+
+Will conflict, but with trivial resolution, with your other thread
+renaming things to qemu_bql_lock().
+
+
+> +++ b/tests/unit/test-blockjob.c
+
+> -static void test_complete_in_standby(void)
+> -{
+
+> @@ -531,13 +402,5 @@ int main(int argc, char **argv)
+>      g_test_add_func("/blockjob/cancel/standby", test_cancel_standby);
+>      g_test_add_func("/blockjob/cancel/pending", test_cancel_pending);
+>      g_test_add_func("/blockjob/cancel/concluded", test_cancel_concluded);
+> -
+> -    /*
+> -     * This test is flaky and sometimes fails in CI and otherwise:
+> -     * don't run unless user opts in via environment variable.
+> -     */
+> -    if (getenv("QEMU_TEST_FLAKY_TESTS")) {
+> -        g_test_add_func("/blockjob/complete_in_standby", test_complete_in_standby);
+> -    }
+
+Looks like you ripped out this entire test, because it is no longer
+viable.  I might have mentioned it in the commit message, or squashed
+the removal of this test into the earlier 02/12 patch.
+
+Reviewed-by: Eric Blake <eblake@redhat.com>
 
 -- 
-Peter Xu
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.
+Virtualization:  qemu.org | libguestfs.org
 
 
