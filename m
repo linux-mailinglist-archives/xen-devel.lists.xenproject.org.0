@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A141A7FEDFF
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 12:34:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644553.1005700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E86CD7FEE08
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 12:34:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644560.1005721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8fIX-000879-SS; Thu, 30 Nov 2023 11:33:37 +0000
+	id 1r8fJg-0000kq-G3; Thu, 30 Nov 2023 11:34:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644553.1005700; Thu, 30 Nov 2023 11:33:37 +0000
+Received: by outflank-mailman (output) from mailman id 644560.1005721; Thu, 30 Nov 2023 11:34:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8fIX-00084e-PU; Thu, 30 Nov 2023 11:33:37 +0000
-Received: by outflank-mailman (input) for mailman id 644553;
- Thu, 30 Nov 2023 11:33:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r8fIW-00084Y-B8
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 11:33:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r8fIW-0004Ax-2x; Thu, 30 Nov 2023 11:33:36 +0000
-Received: from [15.248.2.159] (helo=[10.24.67.31])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r8fIV-0002DJ-Sv; Thu, 30 Nov 2023 11:33:36 +0000
+	id 1r8fJg-0000iu-Cc; Thu, 30 Nov 2023 11:34:48 +0000
+Received: by outflank-mailman (input) for mailman id 644560;
+ Thu, 30 Nov 2023 11:34:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0Ek5=HL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1r8fJf-0000c0-15
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 11:34:47 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 75911e52-8f74-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 12:34:44 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-50bbc36f767so1218609e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 03:34:45 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ u6-20020a5d6da6000000b00332e84210c2sm1302572wrs.88.2023.11.30.03.34.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Nov 2023 03:34:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,114 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=98Rige8ox9FvcQdiJHSqw4Ca8bvvOmmUE7ZswLVOK0c=; b=QgJ6YJcCkQhUfiKVNiTPXLvRgP
-	0AeRRDdHOcCO8VVTQH2NFKEEQD4L2MhfcFQw2YiOGT8/LhADSZYwtTuGkUUZBgJuc9YCSnDjMDJp+
-	I6CJHOgmB/yUOnFQ94g7rYVemtQFbexNcu3xdKElmdO3VbU7y0apAZqCpwWNA1hcO2+0=;
-Message-ID: <d373be79-af9e-49d0-95c3-5e5c0c187cca@xen.org>
-Date: Thu, 30 Nov 2023 11:33:33 +0000
+X-Inumbo-ID: 75911e52-8f74-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701344085; x=1701948885; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qODdWoLYmtRJqGkcKUroHiwAjrj4s9ucI+X3uNz5S7c=;
+        b=Bz+Qdi0KNp2n6896b0jzL5lY4h8QYMdx3hZEJv06ntYK3wx0+1VkShgWD1vsiv28VG
+         gYE2PsxwD/HgzZEqJlQFn2pFLKxMLzqKfqZXgDzYk+TAz/F2ijFmS9EpLEnVJC1m8vYd
+         4Cw+WiBhZl+K91FBV8pjsJmsjkmA2UKDtnG08=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701344085; x=1701948885;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qODdWoLYmtRJqGkcKUroHiwAjrj4s9ucI+X3uNz5S7c=;
+        b=qffqwH9WpqrsZdo0rVitXSzUOO0AdFZDk91A2IHLlGVr29/vzRyNBHXy2WmwPrk0wV
+         BOZW8xU5Tk8NA+2H8flRgM8ZAIHfcpsb8nabtP7Kl73N7imzsBVhjbyskTxpuAE4Xz5O
+         6Bf68cPl9jkwnKis+e6DrU1z36LF758N8GPB1fHFI3p0LoYkB9BhbV0Q1GJ/MLc7hqsU
+         dxa2xWZkfFTjonsfi9kPx+aFZvUU8Dmirozo1b/+NhADKateN+z5iYJBPTFwZQw0BL3f
+         3c3wpO4HBJ8NPdsVMlDjKbwVDltQERsVwEs48dBSaovkq3Ez4fzW2Djqea9cjCbGHdnt
+         f+xQ==
+X-Gm-Message-State: AOJu0Yx4bJVta4t3PaYJLTy35DMqC1/RuymemfZe/KVz6pBVV6Ve+k2W
+	N2dTALozLA72v2Gh2PGA0Ghinw==
+X-Google-Smtp-Source: AGHT+IGBmb3H0eaA5YKJUmmmxog6cC3n/PHf8l8rj50tZyuhVhMgi4EOcv24k7sZiQwwIBnisCDC5A==
+X-Received: by 2002:a05:6512:3da6:b0:50b:d174:56cc with SMTP id k38-20020a0565123da600b0050bd17456ccmr990162lfv.21.1701344084783;
+        Thu, 30 Nov 2023 03:34:44 -0800 (PST)
+Message-ID: <36c90e92-4583-4015-9b37-823ca48d900b@citrix.com>
+Date: Thu, 30 Nov 2023 11:34:44 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] xen/public: fix flexible array definitions
 Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20231130092112.18118-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
 In-Reply-To: <20231130092112.18118-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+On 30/11/2023 9:21 am, Juergen Gross wrote:
+> Flexible arrays in public headers can be problematic with some
+> compilers.
+>
+> With XEN_FLEX_ARRAY_DIM there is a mechanism available to deal with
+> this issue, but care must be taken to not change the affected structs
+> in an incompatible way.
+>
+> So bump __XEN_LATEST_INTERFACE_VERSION__ and introduce a new macro
+> XENPV_FLEX_ARRAY_DIM which will be XENPV_FLEX_ARRAY_DIM with the
+> interface version being new enough and "1" (the value used today in
+> the affected headers) when the interface version is an old one.
+>
+> Replace the arr[1] instances (this includes the ones seen to be
+> problematic in recent Linux kernels [1]) with arr[XENPV_FLEX_ARRAY_DIM]
+> in order to avoid compilation errors.
+>
+> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=217693
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-On 30/11/2023 09:21, Juergen Gross wrote:
-> ---
-> V2:
-> - bump interface version and make change only for new version
->    (Jan Beulich)
-> ---
->   xen/include/public/io/cameraif.h | 2 +-
->   xen/include/public/io/displif.h  | 2 +-
->   xen/include/public/io/fsif.h     | 4 ++--
->   xen/include/public/io/pvcalls.h  | 2 +-
->   xen/include/public/io/ring.h     | 5 +++--
->   xen/include/public/io/sndif.h    | 2 +-
->   xen/include/public/xen-compat.h  | 2 +-
->   xen/include/public/xen.h         | 6 ++++++
->   8 files changed, 16 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/include/public/io/cameraif.h b/xen/include/public/io/cameraif.h
-> index 13763abef9..a389443769 100644
-> --- a/xen/include/public/io/cameraif.h
-> +++ b/xen/include/public/io/cameraif.h
-> @@ -763,7 +763,7 @@ struct xencamera_buf_create_req {
->    */
->   struct xencamera_page_directory {
->       grant_ref_t gref_dir_next_page;
-> -    grant_ref_t gref[1]; /* Variable length */
-> +    grant_ref_t gref[XENPV_FLEX_ARRAY_DIM];
->   };
->   
->   /*
-> diff --git a/xen/include/public/io/displif.h b/xen/include/public/io/displif.h
-> index 73d0cbdf15..132c96fa5c 100644
-> --- a/xen/include/public/io/displif.h
-> +++ b/xen/include/public/io/displif.h
-> @@ -537,7 +537,7 @@ struct xendispl_dbuf_create_req {
->   
->   struct xendispl_page_directory {
->       grant_ref_t gref_dir_next_page;
-> -    grant_ref_t gref[1]; /* Variable length */
-> +    grant_ref_t gref[XENPV_FLEX_ARRAY_DIM];
->   };
->   
->   /*
-> diff --git a/xen/include/public/io/fsif.h b/xen/include/public/io/fsif.h
-> index ec57850233..dcade1c698 100644
-> --- a/xen/include/public/io/fsif.h
-> +++ b/xen/include/public/io/fsif.h
-> @@ -40,7 +40,7 @@ struct fsif_read_request {
->       int32_t pad;
->       uint64_t len;
->       uint64_t offset;
-> -    grant_ref_t grefs[1];  /* Variable length */
-> +    grant_ref_t grefs[XENPV_FLEX_ARRAY_DIM];
->   };
->   
->   struct fsif_write_request {
-> @@ -48,7 +48,7 @@ struct fsif_write_request {
->       int32_t pad;
->       uint64_t len;
->       uint64_t offset;
-> -    grant_ref_t grefs[1];  /* Variable length */
-> +    grant_ref_t grefs[XENPV_FLEX_ARRAY_DIM];
->   };
->   
->   struct fsif_stat_request {
-> diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
-> index 230b0719e3..af0e9abd13 100644
-> --- a/xen/include/public/io/pvcalls.h
-> +++ b/xen/include/public/io/pvcalls.h
-> @@ -30,7 +30,7 @@ struct pvcalls_data_intf {
->       uint8_t pad2[52];
->   
->       RING_IDX ring_order;
-> -    grant_ref_t ref[];
-> +    grant_ref_t ref[XENPV_FLEX_ARRAY_DIM];
+CHANGELOG please.  This change, however it ends up looking, absolutely
+needs covering.
 
-I am probably missing something. In the commit message, you suggested 
-that XENPV_FLEX_ARRAY_DIM will use 1 for older interface version for 
-compatibility reason.
-
-Yet, if I am not mistaken, [] is not equivalent to [1]. So aren't you 
-effectively breaking the compatibility?
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
