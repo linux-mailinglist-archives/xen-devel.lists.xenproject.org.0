@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD267FF397
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:29:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644996.1006712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9830F7FF341
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:13:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644958.1006668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iyk-0005qO-SJ; Thu, 30 Nov 2023 15:29:26 +0000
+	id 1r8ij1-0002Ot-Po; Thu, 30 Nov 2023 15:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644996.1006712; Thu, 30 Nov 2023 15:29:26 +0000
+Received: by outflank-mailman (output) from mailman id 644958.1006668; Thu, 30 Nov 2023 15:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iyk-0005nd-PR; Thu, 30 Nov 2023 15:29:26 +0000
-Received: by outflank-mailman (input) for mailman id 644996;
- Thu, 30 Nov 2023 15:29:25 +0000
+	id 1r8ij1-0002ML-NB; Thu, 30 Nov 2023 15:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 644958;
+ Thu, 30 Nov 2023 15:13:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i8z-0008E0-He
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:35:57 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ <SRS0=ZmE5=HL=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1r8ij1-0002MF-4T
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:13:11 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4d43e5f-8f8d-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 15:35:56 +0100 (CET)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:35:54 -0800
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:35:44 -0800
+ id f8f355a8-8f92-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 16:13:10 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a187cd4eb91so117126166b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 07:13:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,267 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4d43e5f-8f8d-11ee-98e4-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354956; x=1732890956;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/v8heKKPYeoDkQz9adBaYazg44MH5EQbkce1fx19vRE=;
-  b=krqzJicKiE9OF/VYLIFFodb6Bv+V2e8jD/EznFsFuAaDKhR8h5WCwfhd
-   2kdOdXCDN/PfQF2FyaN0BkDLueV2XBpGNRUmQK9zNp0rMUcCRn2ChLR7Z
-   Gv5naYhi+a00oy/ou0QXzT8ZfkOv01IrvmmBiDbfLTxmOs0ActmdCdnBf
-   4hFBelZzadGmDta4o74zuKAIuWNQRVtDVMWaApUiUDw0ga6zYVzEa2PdX
-   1KDEp8r7r7RB8yh8uVNQPf1DOZRIeQkAnA48iD1pLsusplFdvd56u2noE
-   dbW3whWcVqIplRGOBzr8GPKoE8hv3pLDRhYinhfscP+/WIDZnr6Xt1VME
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532520"
-X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479532520"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730319"
-X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942730319"
-From: Zhao Liu <zhao1.liu@linux.intel.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Yanan Wang <wangyanan55@huawei.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	Igor Mammedov <imammedo@redhat.com>,
-	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
-	=?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Barrat?= <fbarrat@linux.ibm.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Alistair Francis <alistair@alistair23.me>,
-	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
-	=?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	Bin Meng <bin.meng@windriver.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Weiwei Li <liwei1518@gmail.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	qemu-devel@nongnu.org,
-	kvm@vger.kernel.org,
-	qemu-ppc@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	qemu-arm@nongnu.org,
-	qemu-riscv@nongnu.org,
-	qemu-s390x@nongnu.org
-Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Zhiyuan Lv <zhiyuan.lv@intel.com>,
-	Zhenyu Wang <zhenyu.z.wang@intel.com>,
-	Yongwei Ma <yongwei.ma@intel.com>,
-	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 34/41] hw/core/topo: Implement user-child to collect topology device from cli
-Date: Thu, 30 Nov 2023 22:41:56 +0800
-Message-Id: <20231130144203.2307629-35-zhao1.liu@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
-References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
+X-Inumbo-ID: f8f355a8-8f92-11ee-98e4-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1701357189; x=1701961989; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=en2qWV6gd6X60S07WN8Z5awnuTkrelPJjx0uApjIJAs=;
+        b=GkirZllYsd+/W/U3bBb2r6cnQKyE3LT9xiPtxHymt94Qw6qVJB2ttKhx6+8vCMqr5a
+         D2QVIDuRHjLNZxJFXgHZm1+niwlJmqgInEIsYTYrT5pw82NwJ7PrsTxb6NuZfrAkLIxi
+         U8pHCdi3xFWdwH1ASVdsZjB4pSVC6CsnebNrU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701357189; x=1701961989;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=en2qWV6gd6X60S07WN8Z5awnuTkrelPJjx0uApjIJAs=;
+        b=LNEfaMjUkG3kIRwAsiaAt7o3uUw5gse85ZFNdeL7qlNK+qk/gHrXWokpzNJV1epFjF
+         MRZ1ORToMkIr1qBOrlrGsmWaASzYfSj6BRb29zaKsyOAa2eM08eeAkNCc5HyLZInmBAl
+         u7NDLr+Tnooe6Rmu+V2DpZFpZj7upAjAmb+vZbmv6UCC4nxs80TV1rWEBr4e08j93s5Y
+         o8Lu4TadUeZcUp4co085np/5dm8NdPeaALexdTD8850vaprSAn9M9m8pfnKJGZZUitL7
+         eqipJS7Fc4smp9Z62karIoAK20MrYEA9RjK736fe+gYVP/eXDbMBCQVX5MIFmLmlNHoq
+         Z3uA==
+X-Gm-Message-State: AOJu0Ywjm0OHNkMWMSS5TznfN76k3SZCWQnDkr7r/xBI0ctamTPiE+Wq
+	Zw9wUqX9DuiK5Z82i4MGdZ4dHfO4gbr8u97nj1aDkFKtyJicDDhoOylczg==
+X-Google-Smtp-Source: AGHT+IG9HrOnmG3LeBZq3CrJeB1WGXpwQAKFJfUUlBsVoYPRlI3izBTje7EvnUMLF6tDWST0HMbyTMgg0r6cZb3sk1I=
+X-Received: by 2002:a17:906:c08:b0:a18:ed83:ccc0 with SMTP id
+ s8-20020a1709060c0800b00a18ed83ccc0mr761354ejf.28.1701357189262; Thu, 30 Nov
+ 2023 07:13:09 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Thu, 30 Nov 2023 15:12:33 +0000
+Message-ID: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com>
+Subject: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000e71461060b601668"
 
-From: Zhao Liu <zhao1.liu@intel.com>
+--000000000000e71461060b601668
+Content-Type: text/plain; charset="UTF-8"
 
-Support user-child for topology devices.
+Hi all,
 
-This will affect these 2 aspects:
-1. For the basic topology device (with DEVICE_CATEGORY_CPU_DEF
-   category), user could specify "parent" to build the topology
-   relationship from cli. And cpu-slot will collect all topology
-   devices.
+There have been a few discussions about how we use documentation wording
+within the community. Whilst there are differences in opinions and
+perceptions of the definition, it would be helpful to see a wider consensus
+of how we feel.
 
-2. For the hotplug topology devices (ppc-core or CPUs of other arches),
-   user-child could help to search the correct topology parent in
-   topology tree with the index properties. This is compatible with
-   the original behavior of inserting CPU/core from cli. And this
-   requires arch to support QOM topology with a few arch-specific
-   modifications, before this support, hotplugged CPUs/cores are
-   inserted into cpu-slot by default.
+*Discussion: Should we use the term 'broken' in our documentation, or do
+you think an alternative wording would be better? If you agree or disagree,
+please vote as this will impact future discussions. *
 
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
----
- hw/core/cpu-slot.c         | 44 ++++++++++++++++++++++++++++++++++++++
- hw/core/cpu-topo.c         | 38 ++++++++++++++++++++++++++++++++
- include/hw/core/cpu-slot.h |  3 +++
- include/hw/core/cpu-topo.h |  4 ++++
- 4 files changed, 89 insertions(+)
+I have purposely made the vote between two options to help us move in a
+forward direction.
 
-diff --git a/hw/core/cpu-slot.c b/hw/core/cpu-slot.c
-index 45b6aef0750a..413daa66aaad 100644
---- a/hw/core/cpu-slot.c
-+++ b/hw/core/cpu-slot.c
-@@ -559,3 +559,47 @@ bool machine_validate_cpu_topology(MachineState *ms, Error **errp)
- 
-     return true;
- }
-+
-+Object *cpu_slot_get_free_parent(CPUTopoState *child, Error **errp)
-+{
-+    MachineState *ms = MACHINE(qdev_get_machine());
-+    MachineClass *mc = MACHINE_GET_CLASS(ms);
-+    CPUTopoLevel level = CPU_TOPO_LEVEL(child);
-+    CPUSlot *slot = ms->topo;
-+
-+    if (!slot) {
-+        return NULL;
-+    }
-+
-+    /*
-+     * For CPUs and cores that support hotplug, the behavior is to specify
-+     * some topology sub ids. This requires special handling.
-+     */
-+    if (level == mc->smp_props.possible_cpus_qom_granu) {
-+        CPUTopoClass *child_tc = CPU_TOPO_GET_CLASS(child);
-+
-+        if (child_tc->search_parent_pre_plug) {
-+            return child_tc->search_parent_pre_plug(child,
-+                       CPU_TOPO(slot), errp);
-+        }
-+    }
-+
-+    /*
-+     * For other topology devices, just collect them into CPU slot.
-+     * The realize() of CPUTopoClass will check no "parent" option case.
-+     */
-+    return OBJECT(slot);
-+}
-+
-+char *cpu_slot_name_future_child(CPUTopoState *child)
-+{
-+    MachineState *ms = MACHINE(qdev_get_machine());
-+    CPUTopoLevel level = CPU_TOPO_LEVEL(child);
-+    CPUSlot *slot = ms->topo;
-+
-+    if (!slot) {
-+        return NULL;
-+    }
-+
-+    return get_topo_global_name(&slot->stat, level);
-+}
-diff --git a/hw/core/cpu-topo.c b/hw/core/cpu-topo.c
-index 351112ca7a73..143b0a148b17 100644
---- a/hw/core/cpu-topo.c
-+++ b/hw/core/cpu-topo.c
-@@ -20,8 +20,10 @@
- 
- #include "qemu/osdep.h"
- 
-+#include "hw/core/cpu-slot.h"
- #include "hw/core/cpu-topo.h"
- #include "hw/qdev-properties.h"
-+#include "monitor/user-child.h"
- #include "qapi/error.h"
- 
- const char *cpu_topo_level_to_string(CPUTopoLevel level)
-@@ -272,10 +274,38 @@ static void cpu_topo_unrealize(DeviceState *dev)
-     }
- }
- 
-+/*
-+ * Prefer to insert topology device into topology tree where the CPU
-+ * slot is the root.
-+ */
-+static Object *cpu_topo_get_parent(UserChild *uc, Error **errp)
-+{
-+    return cpu_slot_get_free_parent(CPU_TOPO(uc), errp);
-+}
-+
-+static char *cpu_topo_get_child_name(UserChild *uc, Object *parent)
-+{
-+    return cpu_slot_name_future_child(CPU_TOPO(uc));
-+}
-+
-+/* Only check type. Other topology details with be checked at realize(). */
-+static bool cpu_topo_check_user_parent(UserChild *uc, Object *parent)
-+{
-+    CPUTopoState *topo;
-+
-+    topo = (CPUTopoState *)object_dynamic_cast(parent, TYPE_CPU_TOPO);
-+    if (!topo) {
-+        return false;
-+    }
-+
-+    return true;
-+}
-+
- static void cpu_topo_class_init(ObjectClass *oc, void *data)
- {
-     DeviceClass *dc = DEVICE_CLASS(oc);
-     CPUTopoClass *tc = CPU_TOPO_CLASS(oc);
-+    UserChildClass *ucc = USER_CHILD_CLASS(oc);
- 
-     /* All topology devices belong to CPU property. */
-     set_bit(DEVICE_CATEGORY_CPU, dc->categories);
-@@ -290,6 +320,10 @@ static void cpu_topo_class_init(ObjectClass *oc, void *data)
-     dc->hotpluggable = false;
- 
-     tc->level = CPU_TOPO_UNKNOWN;
-+
-+    ucc->get_parent = cpu_topo_get_parent;
-+    ucc->get_child_name = cpu_topo_get_child_name;
-+    ucc->check_parent = cpu_topo_check_user_parent;
- }
- 
- static void cpu_topo_instance_init(Object *obj)
-@@ -310,6 +344,10 @@ static const TypeInfo cpu_topo_type_info = {
-     .class_init = cpu_topo_class_init,
-     .instance_size = sizeof(CPUTopoState),
-     .instance_init = cpu_topo_instance_init,
-+    .interfaces = (InterfaceInfo[]) {
-+        { TYPE_USER_CHILD },
-+        { }
-+    }
- };
- 
- static void cpu_topo_register_types(void)
-diff --git a/include/hw/core/cpu-slot.h b/include/hw/core/cpu-slot.h
-index 9e1c6d6b7ff2..1a63f55f52c3 100644
---- a/include/hw/core/cpu-slot.h
-+++ b/include/hw/core/cpu-slot.h
-@@ -102,4 +102,7 @@ void machine_plug_cpu_slot(MachineState *ms);
- void machine_create_smp_topo_tree(MachineState *ms, Error **errp);
- bool machine_validate_cpu_topology(MachineState *ms, Error **errp);
- 
-+Object *cpu_slot_get_free_parent(CPUTopoState *child, Error **errp);
-+char *cpu_slot_name_future_child(CPUTopoState *child);
-+
- #endif /* CPU_SLOT_H */
-diff --git a/include/hw/core/cpu-topo.h b/include/hw/core/cpu-topo.h
-index d27da0335c42..6cef26cce0b7 100644
---- a/include/hw/core/cpu-topo.h
-+++ b/include/hw/core/cpu-topo.h
-@@ -48,6 +48,8 @@ OBJECT_DECLARE_TYPE(CPUTopoState, CPUTopoClass, CPU_TOPO)
-  *     new child (including direct child and non-direct child) is added.
-  * @check_topo_child: Method to check the support for new child (including
-  *     direct child and non-direct child) to be added.
-+ * @search_parent_pre_plug: Method to search proper topology parent of @child
-+ *     from @root.
-  */
- struct CPUTopoClass {
-     /*< private >*/
-@@ -59,6 +61,8 @@ struct CPUTopoClass {
-                              bool is_realize);
-     void (*check_topo_child)(CPUTopoState *parent, CPUTopoState *child,
-                              Error **errp);
-+    Object *(*search_parent_pre_plug)(CPUTopoState *child, CPUTopoState *root,
-+                                      Error **errp);
- };
- 
- /**
--- 
-2.34.1
+*PLEASE VOTE HERE. Deadline 15th December 2023.
+<https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/>*
+*Your name will be required but will be private. If you answer anonymously,
+your vote will not count. This is to ensure it is fair and each person gets
+one vote. *
 
+As an open-source project, we need to come to a common ground, which
+sometimes means we may not personally agree. To make this fair, please note
+the final results will be used to determine our future actions within the
+community.
+
+If the majority votes for/against, we will respect the majority and
+implement this accordingly.
+
+Many thanks,
+Kelly Choi
+
+Xen Project Community Manager
+XenServer, Cloud Software Group
+
+--000000000000e71461060b601668
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,=C2=A0<div><br></div><div>There have been a few dis=
+cussions about how we use documentation wording within the community. Whils=
+t there are differences in opinions and perceptions of the definition, it w=
+ould be helpful to see a wider consensus of how we feel.=C2=A0</div><div><b=
+r></div><div><b>Discussion: Should we use the term &#39;broken&#39; in our =
+documentation, or do you think an alternative wording would be better? If y=
+ou agree or disagree, please vote as this=C2=A0will impact future=C2=A0disc=
+ussions.=C2=A0</b></div><div><b><br></b></div><div>I have purposely made th=
+e vote between two options to help us move in a forward direction.</div><di=
+v><br></div><div><b><font color=3D"#ff0000"><a href=3D"https://cryptpad.fr/=
+form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/">PLEASE VOT=
+E HERE. Deadline 15th December 2023.</a></font></b></div><div><i>Your name =
+will be required but will be private. If you answer anonymously, your vote =
+will not count. This is to ensure it is fair and each person gets one vote.=
+=C2=A0</i><br></div><div><br></div><div>As an open-source project, we need =
+to come to a common ground, which sometimes means we may not personally agr=
+ee. To make this fair, please note the final results will be used to determ=
+ine our future actions within the community.=C2=A0</div><div><br></div><div=
+>If the majority votes for/against, we will respect the majority and implem=
+ent this accordingly.=C2=A0</div><div><br clear=3D"all"><div><div dir=3D"lt=
+r" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D=
+"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div =
+style=3D"color:rgb(136,136,136)">Xen Project Community Manager</div><div st=
+yle=3D"color:rgb(136,136,136)">XenServer, Cloud Software Group</div></div><=
+/div></div></div></div></div>
+
+--000000000000e71461060b601668--
 
