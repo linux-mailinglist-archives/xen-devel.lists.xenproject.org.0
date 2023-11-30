@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44CAD7FFC88
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:31:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645130.1007017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A5DD7FFCB4
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 21:37:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645134.1007027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nhJ-0005n1-TL; Thu, 30 Nov 2023 20:31:45 +0000
+	id 1r8nmC-0007hY-Fc; Thu, 30 Nov 2023 20:36:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645130.1007017; Thu, 30 Nov 2023 20:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 645134.1007027; Thu, 30 Nov 2023 20:36:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8nhJ-0005lH-QG; Thu, 30 Nov 2023 20:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 645130;
- Thu, 30 Nov 2023 20:31:45 +0000
+	id 1r8nmC-0007f8-Ct; Thu, 30 Nov 2023 20:36:48 +0000
+Received: by outflank-mailman (input) for mailman id 645134;
+ Thu, 30 Nov 2023 20:36:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PSmm=HL=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1r8nhJ-0005l9-1e
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:31:45 +0000
+ id 1r8nmB-0007f2-BX
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 20:36:47 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 789790de-8fbf-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 21:31:43 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-145-88dqJ2RNNwmoiXaZzWJvUg-1; Thu, 30 Nov 2023 15:31:37 -0500
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+ id 2c21b466-8fc0-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 21:36:44 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-SIexcsI8MJKCO3SfmX55Dg-1; Thu,
+ 30 Nov 2023 15:36:38 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F70582BA82;
- Thu, 30 Nov 2023 20:31:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3AB4280666F;
+ Thu, 30 Nov 2023 20:36:35 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 768DF492BE0;
- Thu, 30 Nov 2023 20:31:33 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 7B9DD2166B26;
+ Thu, 30 Nov 2023 20:36:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,18 +51,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 789790de-8fbf-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 2c21b466-8fc0-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701376301;
+	s=mimecast20190719; t=1701376603;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8KFoHugi6jgybVjDl52fW0YxT+ePBaAxcnqZf4SllrU=;
-	b=fhdvEOJx3Puzl4tYDkHZC6B+2XgHZP4o1jVjkc47bJKWi37ginuMZ6uk7PxwuWvT/sD+w7
-	R//V4jVx/hGbet1jOwN5g+EBMJ2K482iWwA/5X1s1/OFmbEYKjhnVFmkJ9m+2+60Y2eVsD
-	jCU+MQtvnoHK0gbMThsLzBTHEyTyTAU=
-X-MC-Unique: 88dqJ2RNNwmoiXaZzWJvUg-1
-Date: Thu, 30 Nov 2023 15:31:32 -0500
+	bh=eYEi0Y5+QQuaOwHuJk++/9L4d3OIIjWT68mwc8kKwmY=;
+	b=h3DzD7HXvKMnsy90OPZGabZ/JQKmAM5x5hyDdsweD2rYwIw9MPDRdcKDX4en8zpmJ4c9h/
+	XqHQ/wpeBUyFUUxwlLIUfLqBjOMae4PyDskl+u7cXvEI07hHaCEM0c9XzNMHdZwETCY6dS
+	ZhOAz+8kk9wR+pH2YsFB0RwekzqmFrg=
+X-MC-Unique: SIexcsI8MJKCO3SfmX55Dg-1
+Date: Thu, 30 Nov 2023 15:36:33 -0500
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
 Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
@@ -128,75 +128,106 @@ Cc: qemu-devel@nongnu.org, Jean-Christophe Dubois <jcd@tribudubois.net>,
 	Leonardo Bras <leobras@redhat.com>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: Re: [PATCH 4/6] system/cpus: rename qemu_global_mutex to qemu_bql
-Message-ID: <20231130203132.GB1184658@fedora>
+Subject: Re: [PATCH 5/6] Replace "iothread lock" with "BQL" in comments
+Message-ID: <20231130203633.GC1184658@fedora>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-5-stefanha@redhat.com>
- <01ebd72d-affc-4b03-b491-f40964520f1c@linaro.org>
+ <20231129212625.1051502-6-stefanha@redhat.com>
+ <9c305a84-fd86-42fe-98ae-9297d480acd6@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sn71hyyf1gpGKJP8"
+	protocol="application/pgp-signature"; boundary="ADMBXqBOX1KM7dkn"
 Content-Disposition: inline
-In-Reply-To: <01ebd72d-affc-4b03-b491-f40964520f1c@linaro.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+In-Reply-To: <9c305a84-fd86-42fe-98ae-9297d480acd6@linaro.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
 
 
---sn71hyyf1gpGKJP8
+--ADMBXqBOX1KM7dkn
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 30, 2023 at 02:44:07PM +0100, Philippe Mathieu-Daud=E9 wrote:
+On Thu, Nov 30, 2023 at 02:47:49PM +0100, Philippe Mathieu-Daud=E9 wrote:
 > Hi Stefan,
 >=20
 > On 29/11/23 22:26, Stefan Hajnoczi wrote:
-> > The APIs using qemu_global_mutex now follow the Big QEMU Lock (BQL)
-> > nomenclature. It's a little strange that the actual QemuMutex variable
-> > that embodies the BQL is called qemu_global_mutex instead of qemu_bql.
-> > Rename it for consistency.
+> > The term "iothread lock" is obsolete. The APIs use Big QEMU Lock (BQL)
+> > in their names. Update the code comments to use "BQL" instead of
+> > "iothread lock".
 > >=20
 > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > > ---
-> >   system/cpus.c | 20 ++++++++++----------
-> >   1 file changed, 10 insertions(+), 10 deletions(-)
-> >=20
-> > diff --git a/system/cpus.c b/system/cpus.c
-> > index eb24a4db8e..138720a540 100644
-> > --- a/system/cpus.c
-> > +++ b/system/cpus.c
-> > @@ -65,7 +65,7 @@
-> >   #endif /* CONFIG_LINUX */
-> > -static QemuMutex qemu_global_mutex;
-> > +static QemuMutex qemu_bql;
+> >   docs/devel/reset.rst             |  2 +-
+> >   hw/display/qxl.h                 |  2 +-
+> >   include/exec/cpu-common.h        |  2 +-
+> >   include/exec/memory.h            |  4 ++--
+> >   include/exec/ramblock.h          |  2 +-
+> >   include/migration/register.h     |  8 ++++----
+> >   target/arm/internals.h           |  4 ++--
+> >   accel/tcg/cputlb.c               |  4 ++--
+> >   accel/tcg/tcg-accel-ops-icount.c |  2 +-
+> >   hw/remote/mpqemu-link.c          |  2 +-
+> >   migration/block-dirty-bitmap.c   | 10 +++++-----
+> >   migration/block.c                | 24 ++++++++++++------------
+> >   migration/colo.c                 |  2 +-
+> >   migration/migration.c            |  2 +-
+> >   migration/ram.c                  |  4 ++--
+> >   system/physmem.c                 |  6 +++---
+> >   target/arm/helper.c              |  2 +-
+> >   target/arm/tcg/m_helper.c        |  2 +-
+> >   ui/spice-core.c                  |  2 +-
+> >   util/rcu.c                       |  2 +-
+> >   audio/coreaudio.m                |  4 ++--
+> >   ui/cocoa.m                       |  6 +++---
+> >   22 files changed, 49 insertions(+), 49 deletions(-)
 >=20
-> I thought we were using _cond/_sem/_mutex suffixes, but
-> this is not enforced:
+>=20
+> > diff --git a/include/exec/ramblock.h b/include/exec/ramblock.h
+> > index 69c6a53902..a2bc0a345d 100644
+> > --- a/include/exec/ramblock.h
+> > +++ b/include/exec/ramblock.h
+> > @@ -34,7 +34,7 @@ struct RAMBlock {
+> >       ram_addr_t max_length;
+> >       void (*resized)(const char*, uint64_t length, void *host);
+> >       uint32_t flags;
+> > -    /* Protected by iothread lock.  */
+> > +    /* Protected by BQL.  */
+>=20
+> There is only one single BQL, so preferably:
+>=20
+> "by the BQL"
+>=20
+> >       char idstr[256];
+> >       /* RCU-enabled, writes protected by the ramlist lock */
+> >       QLIST_ENTRY(RAMBlock) next;
+>=20
+>=20
+>=20
+>=20
+> > -/* Called with iothread lock taken.  */
+> > +/* Called with BQL taken.  */
+>=20
+> "with the BQL" (other uses)
 
-I'm open to alternative names. Here are some I can think of:
-- big_qemu_lock (although grepping for "bql" won't find it)
-- qemu_bql_mutex
+I will try to change these for v2. It's a pre-existing issue though
+because there was only ever one "iothread lock" too.
 
-If there is no strong feeling about this then let's leave it at
-qemu_bql. Otherwise, please discuss.
-
-Thanks,
 Stefan
 
---sn71hyyf1gpGKJP8
+--ADMBXqBOX1KM7dkn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVo8SQACgkQnKSrs4Gr
-c8j+pAf/bHckak+kCTFY6THF9fWYuY9tKxDh1TAsmCqS02YPBAPs1z0YH+99X3km
-es2S24gx5+JuX1lEM4Cq3AGZibmA2Vrs+TcKe6DyN6hT5mtNrfeoTcFLiUGNHFVx
-s+czVZPIfsxatmrt9FobrI2Ih51wyLzqPPI9ibJTSbz849aMGdjCfB+///3zKHW5
-JsvpwUhaL7gomsRHXZZSyQq9f/yJrxcl7BP/tM4eJhLul0Q/3xsdQsme8PS4ImLz
-srpkocFet7WKPXnBwXpDaZ21znv5VvTybFpRqCXpFJlQoWwZR5m+bF/Jo1vdCKBU
-R3KRE4Yg7YPFP70oH/H5T7bSCUiOKg==
-=zmh7
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVo8lEACgkQnKSrs4Gr
+c8inmQf8CHG08Gjf/Xbq1d507Sf6BOzXT42zcBsMdkGeul6WorzG8oHfr1SMVJgi
+Fkex2GIeIAH3TjLTtiXePxp/7MXVrArmRxUltKaaZZAcD48aA8VXeOylS3pnZnU+
+2cqukgamf6tOSIc43sr1ZX06y154qL7xAMQ8Xl0sUu3ERaJob0bzyfPKf2xgjnas
+wVfsXUS7nEcRMJVi94oT9ST1WpJPbA9yDVyVX3LwtX0KECWoYIiN9or7jTlP2TnA
+9/GXVa9I8R/eA0P2xLU2RpfNNNY9A9+MZvgHSU75u9C9jN4/CR59W8EjyBTl+/fA
+KHaDBsL7B4GbwgONA8VDLiAbIN/g3Q==
+=Ause
 -----END PGP SIGNATURE-----
 
---sn71hyyf1gpGKJP8--
+--ADMBXqBOX1KM7dkn--
 
 
