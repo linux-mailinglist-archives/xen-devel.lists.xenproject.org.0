@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4C217FF286
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644827.1006540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 771EA7FF284
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:40:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644829.1006548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCq-0005ZG-CM; Thu, 30 Nov 2023 14:39:56 +0000
+	id 1r8iCs-00061X-ED; Thu, 30 Nov 2023 14:39:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644827.1006540; Thu, 30 Nov 2023 14:39:56 +0000
+Received: by outflank-mailman (output) from mailman id 644829.1006548; Thu, 30 Nov 2023 14:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCo-00057T-Qg; Thu, 30 Nov 2023 14:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 644827;
- Thu, 30 Nov 2023 14:36:55 +0000
+	id 1r8iCq-0005XJ-OP; Thu, 30 Nov 2023 14:39:56 +0000
+Received: by outflank-mailman (input) for mailman id 644829;
+ Thu, 30 Nov 2023 14:37:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i9v-00012Q-QO
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:36:55 +0000
+ id 1r8iA4-00012Q-T7
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:37:04 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7691a85-8f8d-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 15:36:54 +0100 (CET)
+ id ecedd737-8f8d-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 15:37:03 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:36:52 -0800
+ 30 Nov 2023 06:37:01 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:36:42 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:36:52 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7691a85-8f8d-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: ecedd737-8f8d-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701355014; x=1732891014;
+  t=1701355024; x=1732891024;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=n1bOTd1De6zljXfwth5hOf8VQYb/0aDsDjxTGUGzfGQ=;
-  b=F5QTSm5jbN6dDpxGptEEyRAKNkqpedZ1wSJ5+sA9RhQFSah02QO70J08
-   Zp/Cqx4Xl/Y0qsglGYFkBayyl2Gs3d/WCiOgNp5SS4u4Kj+phJ2qGvYQB
-   tL1oN2BkFFxsDbQ0n+GZJAdYy8ZSGjtVIKjMakS1UM6ALsnaLrrcha+CB
-   uFk4iAROETImcLkq8J9CYoK4GimVcJ66WEK8JMot0z5xh0XUWdw4653wP
-   CqwHge/vPwd99U2O6irk3KrkgOblQjV6cdBxwULrbiLLCwBcBTGF7fYfm
-   Jov4H87c6+WjB3lCTtl6lqhrf71xxknX6sbNJgro8KrNZPFcghTwIirPy
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532843"
+  bh=1TBuBuayUq5ep3LedB2XG6MRM6nllhfykxLgfM/A+kw=;
+  b=NVQsN9XsOQGKx6S/7t9IhJRy3s8xFQ54yloWKF/QeKolh5joJaEfIyCS
+   DbsTmJhBAam5nwKa6LIQuQKdajNTq5UdGlO37t2tfz9gNlhfczKtc9DfT
+   zLXtC4qjDs0/EwjEgPhKr6AqbJQN9ONQrl5NI72tp6vjkY1WAvFYsGGV+
+   IMJF0s5cROsHvKeSIdKUO//YKMb2Pgr7NQopAz6Oxs/ssl+fn0ftZsjk0
+   yVmI71N3lBigiffKgJxUDxnwvE1JVQ9u9gV5mS/JYaHn3+KDhZDAnmZrl
+   EoIVOVWb5Oa0X+w0homY3IauYYbH2CkTARlU7B8sr+8qCtjBGP2/GdDBi
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532884"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479532843"
+   d="scan'208";a="479532884"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730582"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730622"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942730582"
+   d="scan'208";a="942730622"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 40/41] hw/i386: Support QOM topology
-Date: Thu, 30 Nov 2023 22:42:02 +0800
-Message-Id: <20231130144203.2307629-41-zhao1.liu@linux.intel.com>
+Subject: [RFC 41/41] hw/i386: Cleanup non-QOM topology support
+Date: Thu, 30 Nov 2023 22:42:03 +0800
+Message-Id: <20231130144203.2307629-42-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,51 +115,92 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-Set MachineClass.smp_props.possible_cpus_qom_granu and
-TopoClass.search_parent_pre_plug for i386.
-
-So far, the i386 topology is based on the QOM topology.
+After i386 supports QOM topology, drop original topology logic.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/i386/x86.c     | 1 +
- target/i386/cpu.c | 4 ++++
- 2 files changed, 5 insertions(+)
+ hw/i386/x86.c | 52 +++++++++++----------------------------------------
+ 1 file changed, 11 insertions(+), 41 deletions(-)
 
 diff --git a/hw/i386/x86.c b/hw/i386/x86.c
-index 595d4365fdd1..99f6c502de43 100644
+index 99f6c502de43..cba8b806cdb6 100644
 --- a/hw/i386/x86.c
 +++ b/hw/i386/x86.c
-@@ -1565,6 +1565,7 @@ static void x86_machine_class_init(ObjectClass *oc, void *data)
-     mc->cpu_index_to_instance_props = x86_cpu_index_to_props;
-     mc->get_default_cpu_node_id = x86_get_default_cpu_node_id;
-     mc->possible_cpu_arch_ids = x86_possible_cpu_arch_ids;
-+    mc->smp_props.possible_cpus_qom_granu = CPU_TOPO_THREAD;
-     x86mc->save_tsc_khz = true;
-     x86mc->fwcfg_dma_enabled = true;
-     nc->nmi_monitor_handler = x86_nmi;
-diff --git a/target/i386/cpu.c b/target/i386/cpu.c
-index cd16cb893daf..1de5726691e1 100644
---- a/target/i386/cpu.c
-+++ b/target/i386/cpu.c
-@@ -41,6 +41,7 @@
- #include "exec/address-spaces.h"
- #include "hw/boards.h"
- #include "hw/i386/sgx-epc.h"
-+#include "hw/i386/x86.h"
- #endif
+@@ -118,7 +118,8 @@ out:
  
- #include "disas/capstone.h"
-@@ -8009,6 +8010,9 @@ static void x86_cpu_common_class_init(ObjectClass *oc, void *data)
- #if !defined(CONFIG_USER_ONLY)
-     object_class_property_add(oc, "crash-information", "GuestPanicInformation",
-                               x86_cpu_get_crash_info_qom, NULL, NULL, NULL);
+ void x86_cpus_init(X86MachineState *x86ms, int default_cpu_version)
+ {
+-    int i;
++    CPUCore *core;
++    int i, cpu_index = 0, core_idx = 0;
+     const CPUArchIdList *possible_cpus;
+     MachineState *ms = MACHINE(x86ms);
+     MachineClass *mc = MACHINE_GET_CLASS(x86ms);
+@@ -153,34 +154,17 @@ void x86_cpus_init(X86MachineState *x86ms, int default_cpu_version)
+ 
+     possible_cpus = mc->possible_cpu_arch_ids(ms);
+ 
+-    /*
+-     * possible_cpus_qom_granu means the QOM topology support.
+-     *
+-     * TODO: Drop the "!mc->smp_props.possible_cpus_qom_granu" case when
+-     * i386 completes QOM topology support.
+-     */
+-    if (mc->smp_props.possible_cpus_qom_granu) {
+-        CPUCore *core;
+-        int cpu_index = 0;
+-        int core_idx = 0;
+-
+-        MACHINE_CORE_FOREACH(ms, core) {
+-            for (i = 0; i < core->plugged_threads; i++) {
+-                x86_cpu_new(x86ms, possible_cpus->cpus[cpu_index].arch_id,
+-                            OBJECT(core), cpu_index, &error_fatal);
+-                cpu_index++;
+-            }
+-
+-            if (core->plugged_threads < core->nr_threads) {
+-                cpu_index += core->nr_threads - core->plugged_threads;
+-            }
+-            core_idx++;
++    MACHINE_CORE_FOREACH(ms, core) {
++        for (i = 0; i < core->plugged_threads; i++) {
++            x86_cpu_new(x86ms, possible_cpus->cpus[cpu_index].arch_id,
++                        OBJECT(core), cpu_index, &error_fatal);
++            cpu_index++;
+         }
+-    } else {
+-        for (i = 0; i < ms->smp.cpus; i++) {
+-            x86_cpu_new(x86ms, possible_cpus->cpus[i].arch_id,
+-                        NULL, i, &error_fatal);
 +
-+    CPU_TOPO_CLASS(oc)->search_parent_pre_plug =
-+        x86_cpu_search_parent_pre_plug;
- #endif
++        if (core->plugged_threads < core->nr_threads) {
++            cpu_index += core->nr_threads - core->plugged_threads;
+         }
++        core_idx++;
+     }
+ }
  
-     for (w = 0; w < FEATURE_WORDS; w++) {
+@@ -460,20 +444,6 @@ void x86_cpu_pre_plug(HotplugHandler *hotplug_dev,
+         return;
+     }
+ 
+-    /*
+-     * possible_cpus_qom_granu means the QOM topology support.
+-     *
+-     * TODO: Drop the "!mc->smp_props.possible_cpus_qom_granu" case when
+-     * i386 completes QOM topology support.
+-     */
+-    if (!mc->smp_props.possible_cpus_qom_granu) {
+-        x86_topo_ids_from_apicid(cpu->apic_id, &topo_info, &topo_ids);
+-        x86_cpu_assign_topo_id(cpu, &topo_ids, errp);
+-        if (*errp) {
+-            return;
+-        }
+-    }
+-
+     if (hyperv_feat_enabled(cpu, HYPERV_FEAT_VPINDEX) &&
+         kvm_enabled() && !kvm_hv_vpindex_settable()) {
+         error_setg(errp, "kernel doesn't allow setting HyperV VP_INDEX");
 -- 
 2.34.1
 
