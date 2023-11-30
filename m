@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924327FF049
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 14:37:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644718.1006126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD767FF082
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 14:44:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644721.1006137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8hDt-0001fy-Bc; Thu, 30 Nov 2023 13:36:57 +0000
+	id 1r8hL0-00054d-2E; Thu, 30 Nov 2023 13:44:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644718.1006126; Thu, 30 Nov 2023 13:36:57 +0000
+Received: by outflank-mailman (output) from mailman id 644721.1006137; Thu, 30 Nov 2023 13:44:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8hDt-0001d6-8l; Thu, 30 Nov 2023 13:36:57 +0000
-Received: by outflank-mailman (input) for mailman id 644718;
- Thu, 30 Nov 2023 13:36:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8hKz-00052z-Vj; Thu, 30 Nov 2023 13:44:17 +0000
+Received: by outflank-mailman (input) for mailman id 644721;
+ Thu, 30 Nov 2023 13:44:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dHGs=HL=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r8hDr-0001cv-QQ
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 13:36:55 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85f5fb94-8f85-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 14:36:53 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-332ed02ccd9so635611f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 05:36:53 -0800 (PST)
+ id 1r8hKy-00052n-8E
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 13:44:16 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8d1966ac-8f86-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 14:44:15 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-332c46d5988so557785f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 05:44:15 -0800 (PST)
 Received: from [192.168.69.100] (sev93-h02-176-184-17-116.dsl.sta.abo.bbox.fr.
  [176.184.17.116]) by smtp.gmail.com with ESMTPSA id
- i2-20020adffc02000000b003330aede2aesm1559297wrr.112.2023.11.30.05.36.47
+ cw18-20020a056000091200b00332fa6cc8acsm1576506wrb.87.2023.11.30.05.44.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Nov 2023 05:36:52 -0800 (PST)
+ Thu, 30 Nov 2023 05:44:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85f5fb94-8f85-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8d1966ac-8f86-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701351413; x=1701956213; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1701351855; x=1701956655; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=92EVl/+kAJa1w133nRnLwZdbri5T/CNJ+OGiI8vF/hc=;
-        b=nTJzlPiWMtogYQyMG51+Bvt7CkuhdSFtf2YFIraAUThjR1rNDJyDjesFgrfvgv/P34
-         NOn1CkT/wjUDxSlB1Ky6S3X+CyyIB1KshEkxW5ojx+g9m4acJRplrXHZLhcBaLtudzTM
-         uycKWekHiOxNyi9dx4P+YNziGvOBR3TsaYcKg6oBzTK1FgKMy67+jIOFjHP19foVENjh
-         ABeYFb8I7LYLMugntvkzATdFvLPRJLz8dD31bF1zeWYIaUFr20YzuyagaPX1m5UWr54z
-         drVPnOZMFdTqW8/FUnAJQ746rwy1Q1BxepKoxhfQD5rzWsS8U71h+LASEMJUDORlUgF0
-         VPZQ==
+        bh=0mf7eH2hS0c3P4+d2fQms4pu9zEXfWtMcluTCO73qZ4=;
+        b=yJCH6tL8TovbPh0Kkxbx7SCWFvX3MJXcd8mNJygIvY1hd2TtbvUsLxZTXcfOHiZVCO
+         m9tposYvN15a+E81A3J1HtX+J1fg6Dzs2PUp/stzr3VI1se/ufkB9IhIwm6EFbeGj+Om
+         a9JsHvjhC8E+ai+63yXXT6YOqG5rVHax6Ho1G7OgKh1tbRyQRYToWhXdPivBkfZph+8e
+         T8zMCTipWIUddDxAno+45pCV8oGRGkGA3Uzv0GSj7MgV/KZkIaehdGeCvEXMAXLTSsuY
+         HKPXX/2jqvkEKJbx0b2iLAO/xCiIDJTd3EU8iMwDd1hry9TzQP0adUUKWejTB36tNfwi
+         jXHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701351413; x=1701956213;
+        d=1e100.net; s=20230601; t=1701351855; x=1701956655;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=92EVl/+kAJa1w133nRnLwZdbri5T/CNJ+OGiI8vF/hc=;
-        b=fs9lBBO+bchgWHXKElJDq7jpS4WhbvZuI1dUaR8Mr11m3YwuScyXKY1TXa/rKdi/VP
-         O+I71wr8eK48IF6iE2juhl7bme/EzGYdb88ODgYillGpIZKXbGhLYEqIq859M3XuauWs
-         SSfVEgEDxVFd4Tzw4jyqMs3y4q+zqe8K3q1hO0DqbgP9NZrH87uts5VVi6yjfZ5S/9Ru
-         N20rqb1bUth5vIa4Yp9M0KW+VcxkwQCj4+x685tTomN0qZcoXqnYnWuMyLvBUs6uUzOp
-         HeTSdpdqNKPnGhcXBteJckfCtibhi5IhTOEzPVG7aHjA+vE/LcjrV7F0Zn7bRKVw52g4
-         Epow==
-X-Gm-Message-State: AOJu0YzNU+k/3nY0Ity3DmfpUZ855jkEMVVFeYXLPMCTc0m2hoKyXHK4
-	+sNqM5hV8DBcPkhQJvrz1P6loA==
-X-Google-Smtp-Source: AGHT+IGzSdlgStqYT69A2lG9GtqRHhg/niB3F/uN4GK5nKt0eJM7WDiZHR6K1BVe40jqO9Y7LSdkKg==
-X-Received: by 2002:a05:6000:10c:b0:333:2be6:860e with SMTP id o12-20020a056000010c00b003332be6860emr238311wrx.71.1701351413167;
-        Thu, 30 Nov 2023 05:36:53 -0800 (PST)
-Message-ID: <ce8686c9-ac4b-4bb8-a181-af536ef1097a@linaro.org>
-Date: Thu, 30 Nov 2023 14:36:46 +0100
+        bh=0mf7eH2hS0c3P4+d2fQms4pu9zEXfWtMcluTCO73qZ4=;
+        b=b7qh8GJdbSvIv0FA05ZUO8vh4dMnZjW3+MApKpf4FmComOsYugPYdC4UtGJAQ6aweU
+         Kk0ab9UnFSzpOOUiidf3gE53/Wk9P3dWwO1U1KDu/reW3AUrZfktwA90uMiJ6npsIih0
+         69j5BTErFFGk94fw9XjNz/G5e9p/ynFqwkGtuSgWlflA1YQxEytTkZKWTDltW6vkw6gm
+         DAXV5fBwOQY3KF96QODbBeLKrRP8p2UHNMw5vFjG445lVvmoU6T7BeJDwYTbelpe4uzi
+         ELeQlEU+NjTFKIsXZu1dKc3tkYDrawcRPVv4zJ6P7lIjcqMhfYoinzfckRKZAy5cvYvg
+         mK2w==
+X-Gm-Message-State: AOJu0YwVyM896T6+dF15T/ZHqMmYLrNCkKOjLDs3jyGgfGc5E8ti3Go4
+	Gs6hbTleZE2NLaY5WJCzf435PQ==
+X-Google-Smtp-Source: AGHT+IFUGjlT2U8pG1QuxMF95YCA0GrMa8IF7sX8GSSN6+0zFOCS7e4DUVfFAG6PfrkSgylNqNXNlw==
+X-Received: by 2002:adf:ff88:0:b0:333:a2f:e674 with SMTP id j8-20020adfff88000000b003330a2fe674mr6201850wrr.25.1701351854659;
+        Thu, 30 Nov 2023 05:44:14 -0800 (PST)
+Message-ID: <01ebd72d-affc-4b03-b491-f40964520f1c@linaro.org>
+Date: Thu, 30 Nov 2023 14:44:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] qemu/main-loop: rename qemu_cond_wait_iothread() to
- qemu_cond_wait_bql()
+Subject: Re: [PATCH 4/6] system/cpus: rename qemu_global_mutex to qemu_bql
 Content-Language: en-US
 To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
 Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
@@ -135,28 +134,156 @@ Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
  <leobras@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-4-stefanha@redhat.com>
+ <20231129212625.1051502-5-stefanha@redhat.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20231129212625.1051502-4-stefanha@redhat.com>
+In-Reply-To: <20231129212625.1051502-5-stefanha@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi Stefan,
+
 On 29/11/23 22:26, Stefan Hajnoczi wrote:
-> The name "iothread" is overloaded. Use the term Big QEMU Lock (BQL)
-> instead, it is already widely used and unambiguous.
+> The APIs using qemu_global_mutex now follow the Big QEMU Lock (BQL)
+> nomenclature. It's a little strange that the actual QemuMutex variable
+> that embodies the BQL is called qemu_global_mutex instead of qemu_bql.
+> Rename it for consistency.
 > 
 > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > ---
->   include/qemu/main-loop.h          | 8 ++++----
->   accel/tcg/tcg-accel-ops-rr.c      | 4 ++--
->   hw/display/virtio-gpu.c           | 2 +-
->   hw/ppc/spapr_events.c             | 2 +-
->   system/cpu-throttle.c             | 2 +-
->   system/cpus.c                     | 4 ++--
->   target/i386/nvmm/nvmm-accel-ops.c | 2 +-
->   target/i386/whpx/whpx-accel-ops.c | 2 +-
->   8 files changed, 13 insertions(+), 13 deletions(-)
+>   system/cpus.c | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/system/cpus.c b/system/cpus.c
+> index eb24a4db8e..138720a540 100644
+> --- a/system/cpus.c
+> +++ b/system/cpus.c
+> @@ -65,7 +65,7 @@
+>   
+>   #endif /* CONFIG_LINUX */
+>   
+> -static QemuMutex qemu_global_mutex;
+> +static QemuMutex qemu_bql;
 
+I thought we were using _cond/_sem/_mutex suffixes, but
+this is not enforced:
+
+$ git grep -hE 'Qemu(Cond|Mutex|Semaphore) [a-zA-Z]' \
+   | sed -e 's/static //' -e 's/extern //' -e 's/^ *//' \
+   | sort -u
+QemuCond comp_done_cond;
+QemuCond cond;
+QemuCond decomp_done_cond;
+QemuCond event_complete_cond;
+QemuCond exclusive_cond;
+QemuCond exclusive_resume;
+QemuCond fwnmi_machine_check_interlock_cond;
+QemuCond handle_apdu_cond;
+QemuCond init_done_cond;    /* is thread initialization done? */
+QemuCond key_cond;
+QemuCond mutex_cond;
+QemuCond page_cond;
+QemuCond page_request_cond;
+QemuCond qemu_cpu_cond;
+QemuCond qemu_pause_cond;
+QemuCond qemu_work_cond;
+QemuCond request_cond;
+QemuCond reset_cond;
+QemuCond thr_cond;
+QemuCond thread_cond;
+QemuCond worker_stopped;
+QemuMutex active_timers_lock;
+QemuMutex aio_context_list_lock;
+QemuMutex bitmap_mutex;
+QemuMutex blkio_lock;
+QemuMutex chr_write_lock;
+QemuMutex cmdq_mutex;
+QemuMutex colo_compare_mutex;
+QemuMutex comp_done_lock;
+QemuMutex counts_mutex;
+QemuMutex decomp_done_lock;
+QemuMutex dirty_bitmap_mutex;
+QemuMutex dirtylimit_mutex;
+QemuMutex error_mutex;
+QemuMutex event_list_mutex;
+QemuMutex event_mtx;
+QemuMutex evlock;
+QemuMutex free_page_lock;
+QemuMutex global_mutex;
+QemuMutex gnt_lock;
+QemuMutex handle_apdu_mutex;
+QemuMutex handlers_mutex;
+QemuMutex init_done_lock;
+QemuMutex intp_mutex; /* protect the intp_list IRQ state */
+QemuMutex io_mutex;
+QemuMutex iommu_lock;
+QemuMutex irq_level_lock[REMOTE_IOHUB_NB_PIRQS];
+QemuMutex job_mutex;
+QemuMutex key_mutex;
+QemuMutex kml_slots_lock;
+QemuMutex lock;
+QemuMutex m;
+QemuMutex map_client_list_lock;
+QemuMutex migration_threads_lock;
+QemuMutex mon_fdsets_lock;
+QemuMutex mon_lock;
+QemuMutex monitor_lock;
+QemuMutex mutex;
+QemuMutex output_mutex;
+QemuMutex page_mutex;
+QemuMutex page_request_mutex;
+QemuMutex pending_out_mutex;
+QemuMutex port_lock;
+QemuMutex postcopy_prio_thread_mutex;
+QemuMutex qemu_cpu_list_lock;
+QemuMutex qemu_file_lock;
+QemuMutex qemu_global_mutex;
+QemuMutex qemu_sigp_mutex;
+QemuMutex qjack_shutdown_lock;
+QemuMutex qmp_queue_lock;
+QemuMutex queue_mutex;
+QemuMutex queued_requests_lock; /* protects queued_requests */
+QemuMutex ram_block_discard_disable_mutex;
+QemuMutex rcu_registry_lock;
+QemuMutex rcu_sync_lock;
+QemuMutex readdir_mutex_L;
+QemuMutex reqs_lock;
+QemuMutex requests_lock;
+QemuMutex rp_mutex;    /* We send replies from multiple threads */
+QemuMutex rsp_mutex;
+QemuMutex rx_queue_lock;
+QemuMutex sigbus_mutex;
+QemuMutex sint_routes_mutex;
+QemuMutex src_page_req_mutex;
+QemuMutex start_lock;
+QemuMutex target_fd_trans_lock;
+QemuMutex thr_mutex;
+QemuMutex thread_lock;
+QemuMutex vdev_mutex;
+QemuMutex vmstop_lock;
+QemuMutex vreader_mutex; /* and guest_apdu_list mutex */
+QemuMutex work_mutex;
+QemuMutex xen_timers_lock;
+QemuMutex yank_lock;
+QemuSemaphore channels_ready;
+QemuSemaphore colo_exit_sem;
+QemuSemaphore colo_incoming_sem;
+QemuSemaphore init_done_sem; /* is thread init done? */
+QemuSemaphore pause_sem;
+QemuSemaphore postcopy_pause_sem;
+QemuSemaphore postcopy_pause_sem_dst;
+QemuSemaphore postcopy_pause_sem_fast_load;
+QemuSemaphore postcopy_pause_sem_fault;
+QemuSemaphore postcopy_qemufile_dst_done;
+QemuSemaphore postcopy_qemufile_src_sem;
+QemuSemaphore rate_limit_sem;
+QemuSemaphore rp_pong_acks;
+QemuSemaphore rp_sem;
+QemuSemaphore sem;
+QemuSemaphore sem_sync;
+QemuSemaphore sem_thread;
+QemuSemaphore wait_unplug_sem;
+
+So:
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
 
