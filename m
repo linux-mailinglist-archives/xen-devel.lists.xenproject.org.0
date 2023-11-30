@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8BEC7FEF1A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:27:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644600.1005811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB667FEF1B
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 13:27:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644601.1005821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8g82-0003Zi-72; Thu, 30 Nov 2023 12:26:50 +0000
+	id 1r8g88-0003qa-JP; Thu, 30 Nov 2023 12:26:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644600.1005811; Thu, 30 Nov 2023 12:26:50 +0000
+Received: by outflank-mailman (output) from mailman id 644601.1005821; Thu, 30 Nov 2023 12:26:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8g82-0003WP-4P; Thu, 30 Nov 2023 12:26:50 +0000
-Received: by outflank-mailman (input) for mailman id 644600;
- Thu, 30 Nov 2023 12:26:48 +0000
+	id 1r8g88-0003nX-GK; Thu, 30 Nov 2023 12:26:56 +0000
+Received: by outflank-mailman (input) for mailman id 644601;
+ Thu, 30 Nov 2023 12:26:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o0ps=HL=casper.srs.infradead.org=BATV+bcb5a996c0d123d1f7ff+7403+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1r8g80-0003WJ-IA
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:26:48 +0000
+ id 1r8g86-0003WJ-Qk
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 12:26:54 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7fa9cfb-8f7b-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 13:26:45 +0100 (CET)
+ id bda36b9d-8f7b-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 13:26:52 +0100 (CET)
 Received: from [2001:8b0:10b:5:743c:af97:a7e4:d38e]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1r8g6u-00EQu0-JO; Thu, 30 Nov 2023 12:25:40 +0000
+ id 1r8g7W-00EQw5-Sm; Thu, 30 Nov 2023 12:26:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,20 +41,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7fa9cfb-8f7b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: bda36b9d-8f7b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KYs+w9tX5xQvYgwt77gAisciicGwhphGbHCAn2v/kV4=; b=ngZpcOH3dJpNLUOSKBwf1E2n+G
-	8QT3esymnfG8dUxodXc5C3c4YTVwZzZMlgZkhJ74gyplw+tNd0xiD0CjPUhovdcNWPjRKOelRjZ91
-	D99Hb2Iqlj6w/PHXzdUQ9JV3sPdpceIXzN9VQxczSF5Hvtq1jKnqRFMhO0hBViduj+EllH/NssRsS
-	m9/5V6Wjl5VnqKyMxv/2GnU84wGU1K9D3y7RN6afL5iqLyLIv7v2kw02NoqByan5e1rPcveR+5Zv+
-	Y4JBehm66YoUXqZSHyllcNdBLYp+ztqcGsBaepLwOrOL39VzN9yHAB20GDI0XZw7WmUcYTUsQJtUw
-	XeyZyyvQ==;
-Message-ID: <84cf6f6cfa498491eb37599f1f992aefafaa46d1.camel@infradead.org>
-Subject: Re: [PATCH 1/6] system/cpus: rename qemu_mutex_lock_iothread() to
- qemu_bql_lock()
+	bh=FBDxkNw6Ln+R3ihPw6WrfsB10vPfKpisd0f6KWHydVo=; b=GKIKInfqE5y+INkZFrdVqJKh0U
+	iiiyAhC/Aw31u14bO05XgO9VybheZyH4Pyc4f4IXntoIIZZAi3xLF4Imj+tNJ1Pi8O4frxnRqpYz6
+	fgrzIr/j2cpNBXA6NJ2wrmevLq9u6jqbpgQCBrh2O3r2PU+pZGzQaPwbo423Wpg6xZI5dtCTVZeZr
+	9aigcneTGlBu4K0JD5tR3/Svli+MZVE4EuShe0EuLCQGoV6cF/Vz+NMn2vR7zE2pfgtd/Jey8cDdo
+	WMD3NaRP4sG2r6/L2li1qivb1MLpuVXZRaRJgcGGwf6/aasTNC0DsuEeKAAko5BqTTtBwRJHwTjfV
+	NqAb4IPQ==;
+Message-ID: <0e9f2e68a8ffec356183d574132e96726878eff3.camel@infradead.org>
+Subject: Re: [PATCH 2/6] qemu/main-loop: rename QEMU_IOTHREAD_LOCK_GUARD to
+ QEMU_BQL_LOCK_GUARD
 From: David Woodhouse <dwmw2@infradead.org>
 To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
 Cc: Jean-Christophe Dubois <jcd@tribudubois.net>, Fabiano Rosas
@@ -100,48 +100,30 @@ Cc: Jean-Christophe Dubois <jcd@tribudubois.net>, Fabiano Rosas
  <borntraeger@linux.ibm.com>,  Akihiko Odaki <akihiko.odaki@daynix.com>,
  Leonardo Bras <leobras@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>
-Date: Thu, 30 Nov 2023 12:25:38 +0000
-In-Reply-To: <20231129212625.1051502-2-stefanha@redhat.com>
+Date: Thu, 30 Nov 2023 12:26:17 +0000
+In-Reply-To: <20231129212625.1051502-3-stefanha@redhat.com>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
-	 <20231129212625.1051502-2-stefanha@redhat.com>
+	 <20231129212625.1051502-3-stefanha@redhat.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-eME1UhoVVowc+xoRrBDG"
+	boundary="=-kNE0zp3pKgLeGAn1Bayc"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-eME1UhoVVowc+xoRrBDG
+--=-kNE0zp3pKgLeGAn1Bayc
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2023-11-29 at 16:26 -0500, Stefan Hajnoczi wrote:
-> The Big QEMU Lock (BQL) has many names and they are confusing. The
-> actual QemuMutex variable is called qemu_global_mutex but it's commonly
-> referred to as the BQL in discussions and some code comments. The
-> locking APIs, however, are called qemu_mutex_lock_iothread() and
-> qemu_mutex_unlock_iothread().
->=20
-> The "iothread" name is historic and comes from when the main thread was
-> split into into KVM vcpu threads and the "iothread" (now called the main
-> loop thread). I have contributed to the confusion myself by introducing
-> a separate --object iothread, a separate concept unrelated to the BQL.
->=20
-> The "iothread" name is no longer appropriate for the BQL. Rename the
-> locking APIs to:
-> - void qemu_bql_lock(void)
-> - void qemu_bql_unlock(void)
-> - bool qemu_bql_locked(void)
->=20
-> There are more APIs with "iothread" in their names. Subsequent patches
-> will rename them. There are also comments and documentation that will be
-> updated in later patches.
+> The name "iothread" is overloaded. Use the term Big QEMU Lock (BQL)
+> instead, it is already widely used and unambiguous.
 >=20
 > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
 Acked-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-eME1UhoVVowc+xoRrBDG
+--=-kNE0zp3pKgLeGAn1Bayc
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -233,25 +215,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTMwMTIyNTM4WjAvBgkqhkiG9w0BCQQxIgQgtzrvguLa
-kRL7lR/xcpvxo6y89HLUGNUdvRMSvQChYEIwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMTMwMTIyNjE3WjAvBgkqhkiG9w0BCQQxIgQgwOS7ZfbP
+pcahGESlSsrnLXOQh3E3FjXQ3TUj6LqBFOEwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBz4YWm6l8v3l/jd7rf2QVbitkvjxYlUmOk
-Bv7BgJcXvVjueDWAUUs1b6WfoC4+7WMsGb2HAb3nKvbfbyso+S0tYr76NI+DcU7TMSc8Nx22FNH5
-59Vb1QAuFSZ1FRNE7mve+Y6NZUwk6rNenJ4IHJIGtXqfZXUKsG4Cd4Ni1lMOfZ03UXVCl2RDJofO
-Oi2YoBLEWFsWBdPVVz2d7899AosPuR2Fcjt1UrpZ4+d41fuTKulLw3xDfysSmuxnsoQ/vSEOIfPF
-E03OdHAZqz7o5z4hJIRv513F901TM+UTTfHLzmTT9leHI2CVe9I42LEDz8rDVEKFTCjag3TgXXAU
-r7Ydqc9IqvkvCO4sac+4zQNyg2T32P1MIfHqOJZLUN8321CliP+CTNnHaxbwlMegIt5BlboTHIMo
-vkefpXjE7bkoq7haZwkrbZWqtDjC2xNln7gHiyhjoOwDTWkTOq4Z5A5ZE9Cymo6kLn5TQ7zaVQuH
-9uMzaiU4sw96KnZ1KhC62NNHthuvpBHWRcWdExzu/8NDJK1X57+OzTgEyM8c1KxN19FB8I4y7C3t
-Biz3e2Z5Xo2/2u8YjcX9xT/jZ7ZXm9E7vgtqC6hfXGK7pJkojSVzUi05upkc+4WgL8AXF3sS9rOE
-EgZnIM7VF/Bw2/Nr20CFQA+om655lBlvsrlwt1qWgQAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCyS5mZ/f10CzR4ca1vgv1Z0GyUt84C2XUF
+VBWslHgL92N/XbiXaVlmfe1674kxjxvve2RnQFCR2bWxf9ALXRDKhbzPYCYK5tJQox+oE+hc9+Ba
+NU7MhuOLprObRia6wjDZYSxnL5G8bdrpBjuauGTRvn6UBl5DgIbcg1c4I+zn2UGpnA+nJHiEF1UK
+s8BTSlD/m4joVQa/buGIcC1EWUGy+w/SNkW0q7tvw6RpoCwoiTc/tbvxvxzXRDwKas72rNm/bI7x
+FG3mVf4N3D0KbB45wGiaTkgKcY+yQq8EuBS+jkGJUWiOFccSyLgk66IUkyoC5vaP23+claAoARCa
+Cg+5GIzUewmgLr5ppBSAFTwLgrVuDBS5pD22j8fifmINmncrpiNYM87v5+chFxTzEzfJVevFJ73x
+L7yD1uN5D+6gbdesYnKD3ewXinQ2nAU7jJSVWpDvXXw3xwi3/buBa25s3Pn5L2sWbrmJxYX5jel+
+tQHOkeYcNnfnV46u0ZnYK/mq1mmX6BSrVRA8Hf9sI+OHO9b/UunpCiLRiu/zaRktZbNC8sVswrGl
+NSp92Aso92yuBModab3x+5ykn2N4o1J4WwSBfqV9l1kxmgarhEN9Gi8XlbFbErTmTNNd1yCoweKF
+IGtOxZt2h7imUfiNlHT0R1fcjzyGfGH3FHc2oiUhxQAAAAAAAA==
 
 
---=-eME1UhoVVowc+xoRrBDG--
+--=-kNE0zp3pKgLeGAn1Bayc--
 
