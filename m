@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 714F97FF287
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:40:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644834.1006564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75AA7FF2B4
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:43:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644906.1006611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCv-0006p9-JT; Thu, 30 Nov 2023 14:40:01 +0000
+	id 1r8iFh-0008Bo-6Q; Thu, 30 Nov 2023 14:42:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644834.1006564; Thu, 30 Nov 2023 14:40:01 +0000
+Received: by outflank-mailman (output) from mailman id 644906.1006611; Thu, 30 Nov 2023 14:42:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCu-0006LP-AO; Thu, 30 Nov 2023 14:40:00 +0000
-Received: by outflank-mailman (input) for mailman id 644834;
- Thu, 30 Nov 2023 14:37:36 +0000
+	id 1r8iFh-00088m-33; Thu, 30 Nov 2023 14:42:53 +0000
+Received: by outflank-mailman (input) for mailman id 644906;
+ Thu, 30 Nov 2023 14:42:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i4u-0004Xw-Pi
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:31:44 +0000
+ id 1r8i51-0004Xw-Cg
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:31:51 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2da480e5-8f8d-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 15:31:43 +0100 (CET)
+ id 3239d44c-8f8d-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 15:31:49 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:31:10 -0800
+ 30 Nov 2023 06:31:20 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:31:01 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:31:10 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2da480e5-8f8d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3239d44c-8f8d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354703; x=1732890703;
+  t=1701354709; x=1732890709;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=q8av5JpkyS6FnEIeBR5gNojelDu9V7STUz/Dtf8UH7E=;
-  b=Pl6RCKidOy53hMl3u9OgllTrCBuThagxP6zWt4pqBM3gXsKSbNG7F7tK
-   zC4wGVlrY35oZKltxYiRdpgVknZhCrwbuDeuTfGu/nkhELnJ1dJv6NZNL
-   qw4tST/bP3IaOPs8S0si3jp/gpfmH2nAHvZ9/NHcfzbUmxE/1uIpRlKdJ
-   ZLRzKuZzcJqZaL4K+3xUwtdLS3Acr9H20fvjYYiEJ5IgqeR6Sf6vhkVPB
-   T28RrtY9hDgmdKNuMaOAH02xaxgtBIg2krB7oxYj0/59l5R612FkbnJqV
-   rB/Pjw5LQ2NtOst8JJ4WWpQqb0dXOFXUWaXyFiOQpJYRwHrv5HSRdX+4m
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531053"
+  bh=FvkKzJCE6FUWENQ9f97m08P62P/QoMoZpAQ1rnP03oI=;
+  b=UrcGRvFnCAnzdiNOM4AYpNGm+Ui5Ukg46b9RnRhw7MtlrcKLxFtdklZc
+   0ThvUH9qT7RHY1teggUxrhswQ7kv0XIrE/k7xZnReSyYPcqu1iaapInBe
+   o7DFrWV4L9rqDOuSax5dDX3bWJCdbUBeZ0QMEYZ99GWfKwG+NHmntoNMq
+   CDrDZQnrudMWwDp//KrBQhTCnPl52Kk84WB5UflLFSq9nUlLYUZ/ktE1s
+   2zng7EqBIiMSTEMhoaaM2WwxWfdMiivvxEXaEjHvDt9egh8lb1d3Uxyzk
+   MoTKkkPmgldXgcJzOteGBwCk8c6i6Ybgw35NmW/2efLSV4Xb+tnm5aDrx
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531147"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479531053"
+   d="scan'208";a="479531147"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729632"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729654"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942729632"
+   d="scan'208";a="942729654"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 04/41] qom/object: Introduce helper to resolve path from non-direct parent
-Date: Thu, 30 Nov 2023 22:41:26 +0800
-Message-Id: <20231130144203.2307629-5-zhao1.liu@linux.intel.com>
+Subject: [RFC 05/41] qdev: Set device parent and id after setting properties
+Date: Thu, 30 Nov 2023 22:41:27 +0800
+Message-Id: <20231130144203.2307629-6-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,73 +115,56 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-When we support child<> property creation from cli, the peripheral
-container (/machine/peripheral) may not be the direct parent of the
-devices created from cli.
+The properties setting does not conflict with the creation of child<>
+property.
 
-For this case, add a helper to resolve path from non-direct parent.
+Pre-setting the device's properties can help the device's parent
+selection. Some topology devices (e.g., CPUs that support hotplug)
+usually define topology sub indexes as properties, and the selection of
+their parent needs to be based on these proteries.
+
+Move qdev_set_id() after properties setting to help the next user-child
+introduction.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- include/qom/object.h | 15 +++++++++++++++
- qom/object.c         | 18 ++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ system/qdev-monitor.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/include/qom/object.h b/include/qom/object.h
-index afccd24ca7ab..494eef801be3 100644
---- a/include/qom/object.h
-+++ b/include/qom/object.h
-@@ -1562,6 +1562,21 @@ Object *object_resolve_path_type(const char *path, const char *typename,
-  */
- Object *object_resolve_path_at(Object *parent, const char *path);
+diff --git a/system/qdev-monitor.c b/system/qdev-monitor.c
+index 7ee33a50142a..107411bb50cc 100644
+--- a/system/qdev-monitor.c
++++ b/system/qdev-monitor.c
+@@ -700,14 +700,7 @@ DeviceState *qdev_device_add_from_qdict(const QDict *opts, long *category,
+         }
+     }
  
-+/**
-+ * object_resolve_path_from:
-+ * @parent: the object from which to resolve the path
-+ * @path: the path to resolve
-+ * @ambiguous: returns true if the path resolution failed because of an
-+ *   ambiguous match
-+ *
-+ * This is like object_resolve_path_at(), except @parent may be the
-+ * partial parent of @path.
-+ *
-+ * Returns: The resolved object or NULL on path lookup failure.
-+ */
-+Object *object_resolve_path_from(Object *parent, const char *path,
-+                                 bool *ambiguous);
-+
- /**
-  * object_resolve_path_component:
-  * @parent: the object in which to resolve the path
-diff --git a/qom/object.c b/qom/object.c
-index 95c0dc8285fe..da29e88816b5 100644
---- a/qom/object.c
-+++ b/qom/object.c
-@@ -2192,6 +2192,24 @@ Object *object_resolve_path_at(Object *parent, const char *path)
-     return object_resolve_abs_path(parent, parts, TYPE_OBJECT);
- }
+-    /*
+-     * set dev's parent and register its id.
+-     * If it fails it means the id is already taken.
+-     */
+     id = g_strdup(qdict_get_try_str(opts, "id"));
+-    if (!qdev_set_id(dev, id, errp)) {
+-        goto err_del_dev;
+-    }
  
-+Object *object_resolve_path_from(Object *parent, const char *path,
-+                                 bool *ambiguousp)
-+{
-+    g_auto(GStrv) parts = NULL;
-+    bool ambiguous = false;
-+    Object *obj;
-+
-+    parts = g_strsplit(path, "/", 0);
-+    assert(parts);
-+
-+    obj = object_resolve_partial_path(parent, parts, TYPE_OBJECT,
-+                                      &ambiguous);
-+    if (ambiguousp) {
-+        *ambiguousp = ambiguous;
+     /* set properties */
+     dev->opts = qdict_clone_shallow(opts);
+@@ -721,6 +714,14 @@ DeviceState *qdev_device_add_from_qdict(const QDict *opts, long *category,
+         goto err_del_dev;
+     }
+ 
++    /*
++     * set dev's parent and register its id.
++     * If it fails it means the id is already taken.
++     */
++    if (!qdev_set_id(dev, id, errp)) {
++        goto err_del_dev;
 +    }
-+    return obj;
-+}
 +
- typedef struct StringProperty
- {
-     char *(*get)(Object *, Error **);
+     if (!qdev_realize(dev, bus, errp)) {
+         goto err_del_dev;
+     }
 -- 
 2.34.1
 
