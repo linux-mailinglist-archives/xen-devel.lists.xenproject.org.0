@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 369867FE77F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 04:03:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644374.1005256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B497FE792
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 04:14:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644377.1005267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8XKe-0006X9-Pk; Thu, 30 Nov 2023 03:03:16 +0000
+	id 1r8XUD-0001a7-Mm; Thu, 30 Nov 2023 03:13:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644374.1005256; Thu, 30 Nov 2023 03:03:16 +0000
+Received: by outflank-mailman (output) from mailman id 644377.1005267; Thu, 30 Nov 2023 03:13:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8XKe-0006V1-Ms; Thu, 30 Nov 2023 03:03:16 +0000
-Received: by outflank-mailman (input) for mailman id 644374;
- Thu, 30 Nov 2023 03:03:15 +0000
+	id 1r8XUD-0001YI-JJ; Thu, 30 Nov 2023 03:13:09 +0000
+Received: by outflank-mailman (input) for mailman id 644377;
+ Thu, 30 Nov 2023 03:13:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SKhV=HL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8XKd-0006Uv-OV
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 03:03:15 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1r8XUC-0001YC-6e
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 03:13:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 004ead77-8f2d-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 04:03:13 +0100 (CET)
+ id 5fdcd513-8f2e-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 04:13:04 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id EF0ACB84147;
- Thu, 30 Nov 2023 03:03:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB35C433C7;
- Thu, 30 Nov 2023 03:03:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D69F161903;
+ Thu, 30 Nov 2023 03:13:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A277AC433C7;
+ Thu, 30 Nov 2023 03:13:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,209 +41,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 004ead77-8f2d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5fdcd513-8f2e-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701313392;
-	bh=Iuj8fLDUX6MMjuIMA2EykiFY/qyQGQuEeGbwIZKYkWo=;
+	s=k20201202; t=1701313982;
+	bh=285gX3ikY7OSPhw98EXb5J4CGJTa2YCJRFa1/XSPOWw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rysggynueIfq+8DFONVQ3neDm5LfNsWC/fLjkh4jF0OdYPB6kgIxHcQPIcYAGLYAX
-	 ObqWL0q71cnevZNOvDAXghhtyC58epLs9ko5/8Qsl1+NyAqSh+h7PmxUe7GJfUVZ9L
-	 ehMHcEzlrFwMUrc0reD5MV+C7+Sm6ArvHJzTM1jNVWb1u1O4QsIw5/VBYimBjMtSpw
-	 C8YxWdpuNX4TsH0i6r5EIweRH0QLjwu8m8WB/XefQmNrlCYBQkWJL1juOid/6VXHSK
-	 LdQO9uxEYbNXNCe1s4hYohAokupTxvFIDEoM0B5ptEbc5Le4GDJFvYXwddHQUvJpWX
-	 37mjvhzXdyEoQ==
-Date: Wed, 29 Nov 2023 19:03:10 -0800 (PST)
+	b=WCQs6Tv4S5rb59KGmBtob5kisfrrC7fbghyBbJGIf2hz0Vu9UVGAEWGFoH4y0Nj7d
+	 VjPblxGMC8SJ0CmYyzJyIOUyBO0c9Kalux/r3iCR18xDy/v2GEwqwxZkU66vvlSV4N
+	 Fx65aVKcK89L9fTlCs71YCEhPjjtdx9LvbVbYtXHR4kp4WoNn1NLRfzsyMl7OcKXCR
+	 yKLItMSrhtHwvSHEIGWlCJQq2sPtazDfawqmA3RgETG2SEVMFGx1qV167nshsvfuUh
+	 8ImsuVcVa6RZpaH0TJK3Kmk3tCbxfYOsgdjoycbCENKO5i7vb1y1OYUv01vF+u/Gyr
+	 duZPOl0D0xkSg==
+Date: Wed, 29 Nov 2023 19:13:00 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Roger Pau Monne <roger.pau@citrix.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 5/5] automation: add x86-64 livepatching test
-In-Reply-To: <20231128100352.35430-6-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2311291901250.3533093@ubuntu-linux-20-04-desktop>
-References: <20231128100352.35430-1-roger.pau@citrix.com> <20231128100352.35430-6-roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v2] automation/eclair: improve scheduled analyses
+In-Reply-To: <36ea68b24a1e336ef9170b7f89949d282ee1e746.1700752056.git.simone.ballarin@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311291911350.3533093@ubuntu-linux-20-04-desktop>
+References: <36ea68b24a1e336ef9170b7f89949d282ee1e746.1700752056.git.simone.ballarin@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-815831715-1701313391=:3533093"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-815831715-1701313391=:3533093
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 28 Nov 2023, Roger Pau Monne wrote:
-> Introduce a new gitlab tests for livepatching, using livepatch-build-tools,
-> which better reflects how downstreams build live patches rather than the
-> in-tree tests.
+On Thu, 23 Nov 2023, Simone Ballarin wrote:
+> The scheduled analyses are intended to maintain an overall vision
+> of the MISRA complaince of the entire project. For this reason,
+> the file exclusions in "out_of_scope.ecl" should not be applied.
 > 
-> The tests applies the dummy in-tree patch example, checks that the patch is
-> applied correctly and then reverts and unloads it.
+> This patch amends ECLAIR settings to prevent exempting files for
+> scheduled analyses.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
 > ---
->  automation/gitlab-ci/build.yaml               |  8 +++
->  automation/gitlab-ci/test.yaml                |  8 +++
->  automation/scripts/build                      | 21 ++++++
->  .../scripts/qemu-alpine-x86_64-livepatch.sh   | 68 +++++++++++++++++++
->  4 files changed, 105 insertions(+)
->  create mode 100755 automation/scripts/qemu-alpine-x86_64-livepatch.sh
+> Changes in v2:
+> - drop changes to inhibit test and build stages in scheduled pipelines.
+> ---
+>  automation/eclair_analysis/ECLAIR/action.settings |  2 +-
+>  automation/eclair_analysis/ECLAIR/analysis.ecl    | 12 ++++++++++--
+>  automation/gitlab-ci/analyze.yaml                 |  2 ++
+>  3 files changed, 13 insertions(+), 3 deletions(-)
 > 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 32af30ccedc9..22026df51b87 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -358,6 +358,14 @@ alpine-3.18-gcc-debug:
->    variables:
->      CONTAINER: alpine:3.18
+> diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
+> index f96368ffc7..3cba1a3afb 100644
+> --- a/automation/eclair_analysis/ECLAIR/action.settings
+> +++ b/automation/eclair_analysis/ECLAIR/action.settings
+> @@ -134,7 +134,7 @@ push)
+>      badgeLabel="ECLAIR ${ANALYSIS_KIND} ${ref}${variantHeadline} #${jobId}"
+>      ;;
+>  auto_pull_request)
+> -    git remote remove autoPRRemote || true
+> +    git remote remove autoPRRemote 2>/dev/null || true
+>      git remote add autoPRRemote "${autoPRRemoteUrl}"
+>      git fetch -q autoPRRemote
+>      subDir="${ref}"
+> diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
+> index fe418d6da1..2507a8e787 100644
+> --- a/automation/eclair_analysis/ECLAIR/analysis.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
+> @@ -2,7 +2,13 @@
+>  -project_name=getenv("ECLAIR_PROJECT_NAME")
+>  -project_root=getenv("ECLAIR_PROJECT_ROOT")
 >  
-> +alpine-3.18-gcc-livepatch:
-> +  extends: .gcc-x86-64-build
-> +  variables:
-> +    CONTAINER: alpine:3.18
-> +    LIVEPATCH: y
-> +    EXTRA_XEN_CONFIG: |
-> +      CONFIG_LIVEPATCH=y
+> --setq=data_dir,getenv("ECLAIR_DATA_DIR")
+> +setq(data_dir,getenv("ECLAIR_DATA_DIR"))
+> +setq(analysis_kind,getenv("ANALYSIS_KIND"))
+> +setq(scheduled_analysis,nil)
 > +
->  debian-stretch-gcc-debug:
->    extends: .gcc-x86-64-build-debug
->    variables:
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 6aabdb9d156f..58a90be5ed0e 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -459,3 +459,11 @@ qemu-smoke-ppc64le-powernv9-gcc:
->    needs:
->      - qemu-system-ppc64-8.1.0-ppc64-export
->      - debian-bullseye-gcc-ppc64le-debug
-> +
-> +qemu-alpine-x86_64-gcc-livepatch:
-> +  extends: .qemu-x86-64
-> +  script:
-> +    - ./automation/scripts/qemu-alpine-x86_64-livepatch.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-livepatch
-> diff --git a/automation/scripts/build b/automation/scripts/build
-> index b3c71fb6fb60..0a0a6dceb08c 100755
-> --- a/automation/scripts/build
-> +++ b/automation/scripts/build
-> @@ -103,3 +103,24 @@ else
->      cp -r dist binaries/
->      if [[ -f xen/xen ]] ; then cp xen/xen binaries/xen; fi
->  fi
-> +
-> +if [[ "$LIVEPATCH" == "y" ]]; then
-> +    # Build a test livepatch using livepatch-build-tools.
-> +
-> +    if [[ "$XEN_TARGET_ARCH" != "x86_64" ]]; then
-> +        exit 1
-> +    fi
-> +
-> +    # git diff --no-index returns 0 if no differences, otherwise 1.
-> +    git diff --no-index --output=test.patch xen/arch/x86/test-smc-lp.c \
-> +                                            xen/arch/x86/test-smc-lp-alt.c && exit 1
-> +
-> +    BUILDID=$(readelf -Wn xen/xen-syms | sed -n -e 's/^.*Build ID: //p')
-> +
-> +    git clone https://xenbits.xen.org/git-http/livepatch-build-tools.git
-> +    cd livepatch-build-tools
-> +    make
-> +    ./livepatch-build -s ../ -p ../test.patch -o out -c ../xen/.config \
-> +        --depends $BUILDID --xen-depends $BUILDID
-> +    cp out/test.livepatch ../binaries/test.livepatch
-> +fi
-
-I realize this is a matter of taste but if possible I would move this to
-qemu-alpine-x86_64-livepatch.sh not to make the build script too
-complex.
-
-Otherwise, plase create automation/scripts/livepatch and move this code
-there. You can call automation/scripts/livepatch from
-automation/scripts/build.
-
-Other than that, this is great! I'll let other review the livepatch
-specific changes in this series
+> +strings_map("scheduled-analysis",500,"","^.*scheduled$",0,setq(scheduled_analysis,t))
+> +strings_map("scheduled-analysis",500,"","^.*$",0)
+> +map_strings("scheduled-analysis",analysis_kind)
+>  
+>  -verbose
+>  
+> @@ -15,7 +21,9 @@
+>  
+>  -eval_file=toolchain.ecl
+>  -eval_file=public_APIs.ecl
+> --eval_file=out_of_scope.ecl
+> +if(scheduled_analysis,
+> +    eval_file("out_of_scope.ecl")
+> +)
 
 
+Overall the patch looks much better. Only one question: shouldn't it be
 
-> diff --git a/automation/scripts/qemu-alpine-x86_64-livepatch.sh b/automation/scripts/qemu-alpine-x86_64-livepatch.sh
-> new file mode 100755
-> index 000000000000..da478cac4376
-> --- /dev/null
-> +++ b/automation/scripts/qemu-alpine-x86_64-livepatch.sh
-> @@ -0,0 +1,68 @@
-> +#!/bin/bash
-> +
-> +set -ex
-> +
-> +cd binaries
-> +# initrd.tar.gz is Dom0 rootfs
-> +mkdir -p rootfs
-> +cd rootfs
-> +tar xvzf ../initrd.tar.gz
-> +mkdir proc
-> +mkdir run
-> +mkdir srv
-> +mkdir sys
-> +rm var/run
-> +cp -ar ../dist/install/* .
-> +cp ../test.livepatch ./root/
-> +cat << "EOF" >> etc/local.d/xen-lp.start
-> +#!/bin/bash
-> +
-> +set -ex
-> +
-> +trap poweroff EXIT
-> +
-> +export LD_LIBRARY_PATH=/usr/local/lib
-> +
-> +xen-livepatch test && exit 1 || true
-> +
-> +xen-livepatch load /root/test.livepatch
-> +
-> +# Cannot fail now
-> +xen-livepatch test
-> +
-> +xen-livepatch revert test
-> +xen-livepatch unload test
-> +
-> +xen-livepatch test && exit 1 || true
-> +
-> +echo "SUCCESS"
-> +EOF
-> +chmod +x etc/local.d/xen-lp.start
-> +echo "rc_verbose=yes" >> etc/rc.conf
-> +# rebuild Dom0 rootfs
-> +find . |cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
-> +cd ../..
-> +
-> +cat >> binaries/pxelinux.0 << EOF
-> +#!ipxe
-> +
-> +kernel xen console=com1 console_timestamps=boot
-> +module bzImage console=hvc0
-> +module xen-rootfs.cpio.gz
-> +boot
-> +EOF
-> +
-> +# Run the test
-> +rm -f smoke.serial
-> +timeout -k 1 360 \
-> +qemu-system-x86_64 \
-> +    -cpu qemu64,+svm \
-> +    -m 2G -smp 2 \
-> +    -monitor none -serial stdio \
-> +    -nographic \
-> +    -device virtio-net-pci,netdev=n0 \
-> +    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& \
-> +        tee smoke.serial | sed 's/\r//'
-> +
-> +grep -q "SUCCESS" smoke.serial
-> +exit 0
+  if not scheduled_analysis
+
+instead of:
+
+  if scheduled_analysis
+
+I don't know the language of analysis.ecl but we are supposed to add
+out_of_scope.ecl in all cases except for scheduled_analysis. Looking at
+this change it seems to do the opposite?
+
+
+>  -eval_file=deviations.ecl
+>  -eval_file=call_properties.ecl
+>  -eval_file=tagging.ecl
+> diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+> index bd9a68de31..6631db53fa 100644
+> --- a/automation/gitlab-ci/analyze.yaml
+> +++ b/automation/gitlab-ci/analyze.yaml
+> @@ -28,6 +28,8 @@
+>    extends: .eclair-analysis
+>    allow_failure: true
+>    rules:
+> +    - if: $CI_PIPELINE_SOURCE == "schedule"
+> +      when: never
+>      - if: $WTOKEN && $CI_PROJECT_PATH =~ /^xen-project\/people\/.*$/
+>        when: manual
+>      - !reference [.eclair-analysis, rules]
 > -- 
-> 2.43.0
+> 2.34.1
 > 
---8323329-815831715-1701313391=:3533093--
 
