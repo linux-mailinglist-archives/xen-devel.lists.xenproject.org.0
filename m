@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC17B7FF1D2
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB867FF1D0
 	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:31:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644745.1006176 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.644746.1006183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8i4C-0004gM-HN; Thu, 30 Nov 2023 14:31:00 +0000
+	id 1r8i4C-0004ra-QL; Thu, 30 Nov 2023 14:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644745.1006176; Thu, 30 Nov 2023 14:31:00 +0000
+Received: by outflank-mailman (output) from mailman id 644746.1006183; Thu, 30 Nov 2023 14:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8i4C-0004c2-Bs; Thu, 30 Nov 2023 14:31:00 +0000
-Received: by outflank-mailman (input) for mailman id 644745;
+	id 1r8i4C-0004go-Nf; Thu, 30 Nov 2023 14:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 644746;
  Thu, 30 Nov 2023 14:30:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4Jom=HL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r8i4B-0004Xw-Hf
+ id 1r8i4B-0004ZQ-Kg
  for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:30:59 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1390815a-8f8d-11ee-9b0f-b553b5be7939;
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1427b2f2-8f8d-11ee-98e4-6d05b1d4d9a1;
  Thu, 30 Nov 2023 15:30:58 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50bc7706520so1480969e87.3
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2c9b8aa4fc7so13200381fa.1
  for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 06:30:58 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- m40-20020a05600c3b2800b004042dbb8925sm5931131wms.38.2023.11.30.06.30.56
+ l6-20020a05600c4f0600b0040b3829eb50sm2147422wmq.20.2023.11.30.06.30.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 06:30:56 -0800 (PST)
+ Thu, 30 Nov 2023 06:30:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1390815a-8f8d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1427b2f2-8f8d-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701354657; x=1701959457; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701354658; x=1701959458; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=us5MRK85UaF1YkoiOqLuWe1/EFiuRH9wxTjWYuva1v4=;
-        b=nfdtOu6K2LPFfMV9mQs5GKbUkMMYvSDa+qR0LQH5eL7+URjLnBx9aMnWtdgCFubDhI
-         /k2EhDVE4Zq8wyDbaTlXVtMcvbkUK4JkY3PBeCyg1b9QHX+Eejkl2/6YOMh+ewzycobL
-         80VOxIMiujx9jN+EpVl543cUs1gn3rqE2CMaQ=
+        bh=fQRBfy8mxD2fxhjluFNHS4DopwBarTdVQ7BkPng8IXA=;
+        b=fLpvoDYL2GeqVCJfPWD6BV5HubfDTFZ/eX1e5FI51hjWxrOjcy2IQ7d4Xr7twO75uv
+         Rm69GXTpdgTT9r5WgCpDUBjGWTiva5FzhuK5+BK39kuLzpTdxb81rCq4JxKg37SsmpRp
+         eUCrJamRlYPzcMaTuwvVxq5rwGfTWQQScYmcs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701354657; x=1701959457;
+        d=1e100.net; s=20230601; t=1701354658; x=1701959458;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=us5MRK85UaF1YkoiOqLuWe1/EFiuRH9wxTjWYuva1v4=;
-        b=oqq0Y/C/TznlN0mDvRqv0mT4PLQduiPyA0StIUdLmItLkrz6+QKV3Odgl3NR3nRhMD
-         pmG/ZpLkA8jqIDzL5/zJnZhSV5xH3oRfSwl26KlPRoELzZlHShJOAl3HBnjMawlfTseZ
-         P5wnviKl1O8od2mVQHi4rnWI6aW3Y67JJ5rmh2/fG2nd/p7vKSI1Ymj1TYz/qV/RpTDg
-         DRef976HrEPl6GqRnrNXditL/dpZUNaWDhEDN3oTnlTXDDSqT9E5jq1VdoSzqe0MpUp5
-         DjWxpfjmB6kUCe88uk9y6pa+l3wNTdPdr6g/aynxpfHSsDc7udKziYzKJb4WcgsONI6N
-         Uwrw==
-X-Gm-Message-State: AOJu0YyFOMCEqmZHcXEFp4/tA2XJ7zbMo6nI/IxdXwl9U4dqpixsuHk+
-	P5CUuRnjpflfbbZP+qBbJkS3hKyUNNqhg6bJrMw=
-X-Google-Smtp-Source: AGHT+IHX9mQXwQI70TCAgfsOvIZgxCkfzZx6FLSpP6X1ZlxZNCNPhwvqTzRoHRynHEITwxTynST/4w==
-X-Received: by 2002:a2e:a175:0:b0:2c9:bb85:8d45 with SMTP id u21-20020a2ea175000000b002c9bb858d45mr4586305ljl.25.1701354656993;
-        Thu, 30 Nov 2023 06:30:56 -0800 (PST)
+        bh=fQRBfy8mxD2fxhjluFNHS4DopwBarTdVQ7BkPng8IXA=;
+        b=p5qHIeZZaY1zY1sS+HnF/xROFwxwMVcFQZnI8EJaheMdTYJZSDw4y2rjp6HSfmpgFh
+         hGJKcKSx4zgr6B+E327QFRwBiT4T9HQSuZDJBDNZ2wKZC+lB2+1tFtIm19t1z1OXm9tA
+         DkRvwSbZJ0d/vNVIcK3AwXwDFVAm9tvQM6XrLYzaf77pW69GvyXxKM8oZm8bqYrWIj8M
+         MU7dXutkWLMia6wBCEFStS4iENjJQBstWjp38eOhXkZegdcNJekYLzWd6TpwN9yiTL1y
+         bQ757U9PtpTF5mrnYC/f53J0RC7pk9Wn7zGBhuanFBNiWrXxwEXGa8Nw15bUjxaZp8r7
+         Hl/w==
+X-Gm-Message-State: AOJu0Yxu0D2O1qte+3d9iIuYLAsm0cC6XluhnghSOXRfTjpqh5D3tvMY
+	CQkw7mhJ9WBOsloIkBMB23m3L7reJcBmWH4pAZ8=
+X-Google-Smtp-Source: AGHT+IHE30j/1wq34RhYhglOCCZK2jwlEJyT0jRNofnQ19p5C9uTjAO/znofEM90kRWHMPbDis9o0w==
+X-Received: by 2002:a2e:7804:0:b0:2c9:af4f:4ca9 with SMTP id t4-20020a2e7804000000b002c9af4f4ca9mr6677816ljc.13.1701354657965;
+        Thu, 30 Nov 2023 06:30:57 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 1/5] xen/livepatch: register livepatch regions when loaded
-Date: Thu, 30 Nov 2023 15:29:40 +0100
-Message-ID: <20231130142944.46322-2-roger.pau@citrix.com>
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH 2/5] xen/livepatch: search for symbols in all loaded payloads
+Date: Thu, 30 Nov 2023 15:29:41 +0100
+Message-ID: <20231130142944.46322-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231130142944.46322-1-roger.pau@citrix.com>
 References: <20231130142944.46322-1-roger.pau@citrix.com>
@@ -92,136 +86,140 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Currently livepatch regions are registered as virtual regions only after the
-livepatch has been applied.
+When checking if an address belongs to a patch, or when resolving a symbol,
+take into account all loaded livepatch payloads, even if not applied.
 
-This can lead to issues when using the pre-apply or post-revert hooks, as at
-the point the livepatch is not in the virtual regions list.  If a livepatch
-pre-apply hook contains a WARN() it would trigger an hypervisor crash, as the
-code to handle the bug frame won't be able to find the instruction pointer that
-triggered the #UD in any of the registered virtual regions, and hence crash.
+This is required in order for the pre-apply and post-revert hooks to work
+properly, or else Xen won't detect the intruction pointer belonging to those
+hooks as being part of the currently active text.
 
-Fix this by adding the livepatch payloads as virtual regions as soon as loaded,
-and only remove them once the payload is unloaded.  This requires some changes
-to the virtual regions code, as the removal of the virtual regions is no longer
-done in stop machine context, and hence an RCU barrier is added in order to
-make sure there are no users of the virtual region after it's been removed from
-the list.
+Move the RCU handling to be used for payload_list instead of applied_list, as
+now the calls from trap code will iterate over the payload_list.
 
 Fixes: 8313c864fa95 ('livepatch: Implement pre-|post- apply|revert hooks')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/common/livepatch.c      |  5 +++--
- xen/common/virtual_region.c | 40 +++++++++++--------------------------
- 2 files changed, 15 insertions(+), 30 deletions(-)
+ xen/common/livepatch.c | 49 +++++++++++++++---------------------------
+ 1 file changed, 17 insertions(+), 32 deletions(-)
 
 diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index 1209fea2566c..3199432f11f5 100644
+index 3199432f11f5..4e775be66571 100644
 --- a/xen/common/livepatch.c
 +++ b/xen/common/livepatch.c
-@@ -942,6 +942,8 @@ static int prepare_payload(struct payload *payload,
-         }
-     }
- 
-+    register_virtual_region(region);
+@@ -36,13 +36,14 @@
+  * caller in schedule_work.
+  */
+ static DEFINE_SPINLOCK(payload_lock);
+-static LIST_HEAD(payload_list);
+-
+ /*
+- * Patches which have been applied. Need RCU in case we crash (and then
+- * traps code would iterate via applied_list) when adding entries on the list.
++ * Need RCU in case we crash (and then traps code would iterate via
++ * payload_list) when adding entries on the list.
+  */
+-static DEFINE_RCU_READ_LOCK(rcu_applied_lock);
++static DEFINE_RCU_READ_LOCK(rcu_payload_lock);
++static LIST_HEAD(payload_list);
 +
-     return 0;
- }
++/* Patches which have been applied. Only modified from stop machine context. */
+ static LIST_HEAD(applied_list);
  
-@@ -1071,6 +1073,7 @@ static int build_symbol_table(struct payload *payload,
- static void free_payload(struct payload *data)
+ static unsigned int payload_cnt;
+@@ -111,12 +112,8 @@ bool is_patch(const void *ptr)
+     const struct payload *data;
+     bool r = false;
+ 
+-    /*
+-     * Only RCU locking since this list is only ever changed during apply
+-     * or revert context. And in case it dies there we need an safe list.
+-     */
+-    rcu_read_lock(&rcu_applied_lock);
+-    list_for_each_entry_rcu ( data, &applied_list, applied_list )
++    rcu_read_lock(&rcu_payload_lock);
++    list_for_each_entry_rcu ( data, &payload_list, list )
+     {
+         if ( (ptr >= data->rw_addr &&
+               ptr < (data->rw_addr + data->rw_size)) ||
+@@ -130,7 +127,7 @@ bool is_patch(const void *ptr)
+         }
+ 
+     }
+-    rcu_read_unlock(&rcu_applied_lock);
++    rcu_read_unlock(&rcu_payload_lock);
+ 
+     return r;
+ }
+@@ -166,12 +163,8 @@ static const char *cf_check livepatch_symbols_lookup(
+     const void *va = (const void *)addr;
+     const char *n = NULL;
+ 
+-    /*
+-     * Only RCU locking since this list is only ever changed during apply
+-     * or revert context. And in case it dies there we need an safe list.
+-     */
+-    rcu_read_lock(&rcu_applied_lock);
+-    list_for_each_entry_rcu ( data, &applied_list, applied_list )
++    rcu_read_lock(&rcu_payload_lock);
++    list_for_each_entry_rcu ( data, &payload_list, list )
+     {
+         if ( va < data->text_addr ||
+              va >= (data->text_addr + data->text_size) )
+@@ -200,7 +193,7 @@ static const char *cf_check livepatch_symbols_lookup(
+         n = data->symtab[best].name;
+         break;
+     }
+-    rcu_read_unlock(&rcu_applied_lock);
++    rcu_read_unlock(&rcu_payload_lock);
+ 
+     return n;
+ }
+@@ -1074,7 +1067,8 @@ static void free_payload(struct payload *data)
  {
      ASSERT(spin_is_locked(&payload_lock));
-+    unregister_virtual_region(&data->region);
-     list_del(&data->list);
+     unregister_virtual_region(&data->region);
+-    list_del(&data->list);
++    list_del_rcu(&data->list);
++    rcu_barrier();
      payload_cnt--;
      payload_version++;
-@@ -1386,7 +1389,6 @@ static inline void apply_payload_tail(struct payload *data)
-      * The applied_list is iterated by the trap code.
-      */
-     list_add_tail_rcu(&data->applied_list, &applied_list);
--    register_virtual_region(&data->region);
+     free_payload_data(data);
+@@ -1173,7 +1167,7 @@ static int livepatch_upload(struct xen_sysctl_livepatch_upload *upload)
+         INIT_LIST_HEAD(&data->list);
+         INIT_LIST_HEAD(&data->applied_list);
+ 
+-        list_add_tail(&data->list, &payload_list);
++        list_add_tail_rcu(&data->list, &payload_list);
+         payload_cnt++;
+         payload_version++;
+     }
+@@ -1384,11 +1378,7 @@ static int apply_payload(struct payload *data)
+ 
+ static inline void apply_payload_tail(struct payload *data)
+ {
+-    /*
+-     * We need RCU variant (which has barriers) in case we crash here.
+-     * The applied_list is iterated by the trap code.
+-     */
+-    list_add_tail_rcu(&data->applied_list, &applied_list);
++    list_add_tail(&data->applied_list, &applied_list);
  
      data->state = LIVEPATCH_STATE_APPLIED;
  }
-@@ -1432,7 +1434,6 @@ static inline void revert_payload_tail(struct payload *data)
-      * The applied_list is iterated by the trap code.
-      */
-     list_del_rcu(&data->applied_list);
--    unregister_virtual_region(&data->region);
+@@ -1428,12 +1418,7 @@ static int revert_payload(struct payload *data)
+ 
+ static inline void revert_payload_tail(struct payload *data)
+ {
+-
+-    /*
+-     * We need RCU variant (which has barriers) in case we crash here.
+-     * The applied_list is iterated by the trap code.
+-     */
+-    list_del_rcu(&data->applied_list);
++    list_del(&data->applied_list);
  
      data->reverted = true;
      data->state = LIVEPATCH_STATE_CHECKED;
-diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
-index 5f89703f513b..b444253848cf 100644
---- a/xen/common/virtual_region.c
-+++ b/xen/common/virtual_region.c
-@@ -23,14 +23,8 @@ static struct virtual_region core_init __initdata = {
- };
- 
- /*
-- * RCU locking. Additions are done either at startup (when there is only
-- * one CPU) or when all CPUs are running without IRQs.
-- *
-- * Deletions are bit tricky. We do it when Live Patch (all CPUs running
-- * without IRQs) or during bootup (when clearing the init).
-- *
-- * Hence we use list_del_rcu (which sports an memory fence) and a spinlock
-- * on deletion.
-+ * RCU locking. Modifications to the list must be done in exclusive mode, and
-+ * hence need to hold the spinlock.
-  *
-  * All readers of virtual_region_list MUST use list_for_each_entry_rcu.
-  */
-@@ -58,38 +52,28 @@ const struct virtual_region *find_text_region(unsigned long addr)
- 
- void register_virtual_region(struct virtual_region *r)
- {
--    ASSERT(!local_irq_is_enabled());
-+    unsigned long flags;
- 
-+    spin_lock_irqsave(&virtual_region_lock, flags);
-     list_add_tail_rcu(&r->list, &virtual_region_list);
-+    spin_unlock_irqrestore(&virtual_region_lock, flags);
- }
- 
- static void remove_virtual_region(struct virtual_region *r)
- {
--    unsigned long flags;
-+     unsigned long flags;
- 
--    spin_lock_irqsave(&virtual_region_lock, flags);
--    list_del_rcu(&r->list);
--    spin_unlock_irqrestore(&virtual_region_lock, flags);
--    /*
--     * We do not need to invoke call_rcu.
--     *
--     * This is due to the fact that on the deletion we have made sure
--     * to use spinlocks (to guard against somebody else calling
--     * unregister_virtual_region) and list_deletion spiced with
--     * memory barrier.
--     *
--     * That protects us from corrupting the list as the readers all
--     * use list_for_each_entry_rcu which is safe against concurrent
--     * deletions.
--     */
-+     spin_lock_irqsave(&virtual_region_lock, flags);
-+     list_del_rcu(&r->list);
-+     spin_unlock_irqrestore(&virtual_region_lock, flags);
- }
- 
- void unregister_virtual_region(struct virtual_region *r)
- {
--    /* Expected to be called from Live Patch - which has IRQs disabled. */
--    ASSERT(!local_irq_is_enabled());
--
-     remove_virtual_region(r);
-+
-+    /* Assert that no CPU might be using the removed region. */
-+    rcu_barrier();
- }
- 
- #if defined(CONFIG_LIVEPATCH) && defined(CONFIG_X86)
 -- 
 2.43.0
 
