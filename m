@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C92CA7FF25A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644769.1006283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5497FF25C
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644771.1006295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC7-0003W9-AT; Thu, 30 Nov 2023 14:39:11 +0000
+	id 1r8iC8-0003nz-Eh; Thu, 30 Nov 2023 14:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644769.1006283; Thu, 30 Nov 2023 14:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 644771.1006295; Thu, 30 Nov 2023 14:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC7-0003Mx-2c; Thu, 30 Nov 2023 14:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 644769;
- Thu, 30 Nov 2023 14:32:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8iC8-0003Yi-0o; Thu, 30 Nov 2023 14:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 644771;
+ Thu, 30 Nov 2023 14:32:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i5n-0007mE-Hl
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:32:39 +0000
+ id 1r8i66-0007xx-Td
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:32:58 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f65e906-8f8d-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 15:32:38 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 599c935d-8f8d-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 15:32:56 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:32:26 -0800
+ 30 Nov 2023 06:32:36 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:32:17 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:32:26 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f65e906-8f8d-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: 599c935d-8f8d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354758; x=1732890758;
+  t=1701354776; x=1732890776;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=giqm05kbC3tYOPrffoLra7vHI+bWgR59/qNt+YCSQ+8=;
-  b=ViFxnAcDWpIlpeMhzKZKSxbwWJywdFVR8P+1d2i+GxXK/uup6sfcmjSF
-   CqNwne7/GJIiDp3rtuT4kqbXg87y2fAe8pbPDBia5JGTy1rvWTkTz7Bao
-   YqO9514T7X/ohXJAAUmpb6iXZNaLroEMAG69JhOKXp9cJQCDIwfGN206H
-   NKMsx6BidAh8nxrN4hxp9gqmn7cLORvTidvjPg+6+tiv8cJXlPhatWr/P
-   cHMTNwZXgrohSG8K56+fir2vEzGWOw1UzUctvds9u3x/aEr31bhzJId4I
-   X+AzrV+v1hqN1rmpYXQAWikwv53I55lY1L7jPEppuNb9XF8t227J3e3s9
+  bh=rj2qhjfojWttufVsjPIiSdC7tmdmcTNlZ7nywO+2iko=;
+  b=ZrqAURBX0AU04eDmngRZe0Tm4HxrshGk39Uniu7fzVwHURWac3W7nAfC
+   Fy9DTnNdsW031zljCZm8FDq1La1xuXA9Uzuz39cJG3hei7upRCwOek11g
+   8nDfQNX5zfffOHvi4wpTe10qsKOdqlHESGsxi0s7TpWwMjZUl7t3ZIE7+
+   tWd8E9bQqEbZF0hiLOAZHJ7ljbosclMaUZpKpr3rhhgzLHd1XozpsT6jv
+   NpnRrhloxKnXBxZM9xm6pKMId5z3+5T/DLjXGhBkVkmH8rxLxet7+uafT
+   GpyYXDoV5xXQmvlMZhOa4JQAl+8IyU6/wtCLlNCiPC3CvZ7n3vHrIcIcF
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531669"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531721"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479531669"
+   d="scan'208";a="479531721"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729853"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729870"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942729853"
+   d="scan'208";a="942729870"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 12/41] hw/core/topo: Add helpers to traverse the CPU topology tree
-Date: Thu, 30 Nov 2023 22:41:34 +0800
-Message-Id: <20231130144203.2307629-13-zhao1.liu@linux.intel.com>
+Subject: [RFC 13/41] hw/core/cpu: Convert CPU from general device to topology device
+Date: Thu, 30 Nov 2023 22:41:35 +0800
+Message-Id: <20231130144203.2307629-14-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,88 +115,158 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-The topology devices will be organized as a topology tree. Each topology
-device may have many topology children with lower topology level.
+Convert CPU to topology device then its parent topology devices could
+count the number of CPUs when new CPUs are added into topology tree.
 
-Add the helpers to traverse the CPU topology tree.
+Note since CPUs are created from *_init_cpus() in MachineClass.init() or
+added from hotplug way, it depends on board initialization. Thus CPU
+topology device isn't marked as DEVICE_CATEGORY_CPU_DEF and it will only
+be created after board initialization.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/core/cpu-topo.c         | 41 ++++++++++++++++++++++++++++++++++++++
- include/hw/core/cpu-topo.h | 13 ++++++++++++
- 2 files changed, 54 insertions(+)
+ accel/kvm/kvm-all.c   |  4 ++--
+ hw/core/cpu-common.c  | 25 +++++++++++++++++++++----
+ include/hw/core/cpu.h |  8 ++++++--
+ 3 files changed, 29 insertions(+), 8 deletions(-)
 
-diff --git a/hw/core/cpu-topo.c b/hw/core/cpu-topo.c
-index cba2dc747e74..687a4cc566ec 100644
---- a/hw/core/cpu-topo.c
-+++ b/hw/core/cpu-topo.c
-@@ -318,3 +318,44 @@ static void cpu_topo_register_types(void)
+diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
+index e39a810a4e92..2eee3eb95907 100644
+--- a/accel/kvm/kvm-all.c
++++ b/accel/kvm/kvm-all.c
+@@ -3953,7 +3953,7 @@ static void query_stats(StatsResultList **result, StatsTarget target,
+         break;
+     case STATS_TARGET_VCPU:
+         add_stats_entry(result, STATS_PROVIDER_KVM,
+-                        cpu->parent_obj.canonical_path,
++                        DEVICE(cpu)->canonical_path,
+                         stats_list);
+         break;
+     default:
+@@ -4045,7 +4045,7 @@ static void query_stats_cb(StatsResultList **result, StatsTarget target,
+         stats_args.names = names;
+         stats_args.errp = errp;
+         CPU_FOREACH(cpu) {
+-            if (!apply_str_list_filter(cpu->parent_obj.canonical_path, targets)) {
++            if (!apply_str_list_filter(DEVICE(cpu)->canonical_path, targets)) {
+                 continue;
+             }
+             query_stats_vcpu(cpu, &stats_args);
+diff --git a/hw/core/cpu-common.c b/hw/core/cpu-common.c
+index 82dae51a550b..e9ed84ff5386 100644
+--- a/hw/core/cpu-common.c
++++ b/hw/core/cpu-common.c
+@@ -195,6 +195,16 @@ static void cpu_common_realizefn(DeviceState *dev, Error **errp)
+ {
+     CPUState *cpu = CPU(dev);
+     Object *machine = qdev_get_machine();
++    CPUClass *cc = CPU_GET_CLASS(cpu);
++
++    /*
++     * The parent topology realize() must be completed before cpu_resume()
++     * where the CPU starts to run.
++     */
++    cc->parent_realize(dev, errp);
++    if (*errp) {
++        return;
++    }
+ 
+     /* qdev_get_machine() can return something that's not TYPE_MACHINE
+      * if this is one of the user-only emulators; in that case there's
+@@ -225,6 +235,7 @@ static void cpu_common_realizefn(DeviceState *dev, Error **errp)
+ static void cpu_common_unrealizefn(DeviceState *dev)
+ {
+     CPUState *cpu = CPU(dev);
++    CPUClass *cc = CPU_GET_CLASS(cpu);
+ 
+     /* Call the plugin hook before clearing the cpu is fully unrealized */
+     if (tcg_enabled()) {
+@@ -233,6 +244,7 @@ static void cpu_common_unrealizefn(DeviceState *dev)
+ 
+     /* NOTE: latest generic point before the cpu is fully unrealized */
+     cpu_exec_unrealizefn(cpu);
++    cc->parent_unrealize(dev);
  }
  
- type_init(cpu_topo_register_types)
-+
-+static int do_cpu_topo_child_foreach(CPUTopoState *topo,
-+                                     unsigned long *levels,
-+                                     topo_fn fn, void *opaque,
-+                                     bool recurse)
-+{
-+    CPUTopoState *child;
-+    int ret = TOPO_FOREACH_CONTINUE;
-+
-+    QTAILQ_FOREACH(child, &topo->children, sibling) {
-+        if (!levels || (levels && test_bit(CPU_TOPO_LEVEL(child), levels))) {
-+            ret = fn(child, opaque);
-+            if (ret == TOPO_FOREACH_END || ret == TOPO_FOREACH_ERR) {
-+                break;
-+            } else if (ret == TOPO_FOREACH_SIBLING) {
-+                continue;
-+            }
-+        }
-+
-+        if (recurse) {
-+            ret = do_cpu_topo_child_foreach(child, levels, fn, opaque, recurse);
-+            if (ret != TOPO_FOREACH_CONTINUE) {
-+                break;
-+            }
-+        }
-+    }
-+    return ret;
-+}
-+
-+int cpu_topo_child_foreach(CPUTopoState *topo, unsigned long *levels,
-+                           topo_fn fn, void *opaque)
-+{
-+    return do_cpu_topo_child_foreach(topo, levels, fn, opaque, false);
-+}
-+
-+int cpu_topo_child_foreach_recursive(CPUTopoState *topo,
-+                                     unsigned long *levels,
-+                                     topo_fn fn, void *opaque)
-+{
-+    return do_cpu_topo_child_foreach(topo, levels, fn, opaque, true);
-+}
-diff --git a/include/hw/core/cpu-topo.h b/include/hw/core/cpu-topo.h
-index 1ffdb0be6d38..453bacbb558b 100644
---- a/include/hw/core/cpu-topo.h
-+++ b/include/hw/core/cpu-topo.h
-@@ -90,4 +90,17 @@ struct CPUTopoState {
+ static void cpu_common_initfn(Object *obj)
+@@ -275,6 +287,7 @@ static void cpu_class_init(ObjectClass *klass, void *data)
+ {
+     DeviceClass *dc = DEVICE_CLASS(klass);
+     ResettableClass *rc = RESETTABLE_CLASS(klass);
++    CPUTopoClass *tc = CPU_TOPO_CLASS(klass);
+     CPUClass *k = CPU_CLASS(klass);
  
- #define CPU_TOPO_LEVEL(topo)    (CPU_TOPO_GET_CLASS(topo)->level)
+     k->parse_features = cpu_common_parse_features;
+@@ -282,9 +295,6 @@ static void cpu_class_init(ObjectClass *klass, void *data)
+     k->has_work = cpu_common_has_work;
+     k->gdb_read_register = cpu_common_gdb_read_register;
+     k->gdb_write_register = cpu_common_gdb_write_register;
+-    set_bit(DEVICE_CATEGORY_CPU, dc->categories);
+-    dc->realize = cpu_common_realizefn;
+-    dc->unrealize = cpu_common_unrealizefn;
+     rc->phases.hold = cpu_common_reset_hold;
+     cpu_class_init_props(dc);
+     /*
+@@ -292,11 +302,18 @@ static void cpu_class_init(ObjectClass *klass, void *data)
+      * IRQs, adding reset handlers, halting non-first CPUs, ...
+      */
+     dc->user_creatable = false;
++    /* CPU is the minimum granularity for hotplug. */
++    dc->hotpluggable = true;
++    device_class_set_parent_realize(dc, cpu_common_realizefn,
++                                    &k->parent_realize);
++    device_class_set_parent_unrealize(dc, cpu_common_unrealizefn,
++                                      &k->parent_unrealize);
++    tc->level = CPU_TOPO_THREAD;
+ }
  
-+#define TOPO_FOREACH_SIBLING         2
-+#define TOPO_FOREACH_END             1
-+#define TOPO_FOREACH_CONTINUE        0
-+#define TOPO_FOREACH_ERR             -1
+ static const TypeInfo cpu_type_info = {
+     .name = TYPE_CPU,
+-    .parent = TYPE_DEVICE,
++    .parent = TYPE_CPU_TOPO,
+     .instance_size = sizeof(CPUState),
+     .instance_init = cpu_common_initfn,
+     .instance_finalize = cpu_common_finalize,
+diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
+index c0c8320413e5..a700f7c39140 100644
+--- a/include/hw/core/cpu.h
++++ b/include/hw/core/cpu.h
+@@ -20,6 +20,7 @@
+ #ifndef QEMU_CPU_H
+ #define QEMU_CPU_H
+ 
++#include "hw/core/cpu-topo.h"
+ #include "hw/qdev-core.h"
+ #include "disas/dis-asm.h"
+ #include "exec/cpu-common.h"
+@@ -146,7 +147,7 @@ struct SysemuCPUOps;
+  */
+ struct CPUClass {
+     /*< private >*/
+-    DeviceClass parent_class;
++    CPUTopoClass parent_class;
+     /*< public >*/
+ 
+     ObjectClass *(*class_by_name)(const char *cpu_model);
+@@ -191,6 +192,9 @@ struct CPUClass {
+     int reset_dump_flags;
+     int gdb_num_core_regs;
+     bool gdb_stop_before_watchpoint;
 +
-+typedef int (*topo_fn)(CPUTopoState *topo, void *opaque);
-+
-+int cpu_topo_child_foreach(CPUTopoState *topo, unsigned long *levels,
-+                           topo_fn fn, void *opaque);
-+int cpu_topo_child_foreach_recursive(CPUTopoState *topo,
-+                                     unsigned long *levels,
-+                                     topo_fn fn, void *opaque);
-+
- #endif /* CPU_TOPO_H */
++    DeviceRealize parent_realize;
++    DeviceUnrealize parent_unrealize;
+ };
+ 
+ /*
+@@ -456,7 +460,7 @@ struct qemu_work_item;
+  */
+ struct CPUState {
+     /*< private >*/
+-    DeviceState parent_obj;
++    CPUTopoState parent_obj;
+     /* cache to avoid expensive CPU_GET_CLASS */
+     CPUClass *cc;
+     /*< public >*/
 -- 
 2.34.1
 
