@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CE9E7FF259
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644775.1006311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3522D7FF263
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644777.1006324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC9-0004HX-VI; Thu, 30 Nov 2023 14:39:13 +0000
+	id 1r8iCB-0004aE-9v; Thu, 30 Nov 2023 14:39:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644775.1006311; Thu, 30 Nov 2023 14:39:13 +0000
+Received: by outflank-mailman (output) from mailman id 644777.1006324; Thu, 30 Nov 2023 14:39:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iC9-00042d-Ew; Thu, 30 Nov 2023 14:39:13 +0000
-Received: by outflank-mailman (input) for mailman id 644775;
- Thu, 30 Nov 2023 14:33:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8iCA-0004F4-Jo; Thu, 30 Nov 2023 14:39:14 +0000
+Received: by outflank-mailman (input) for mailman id 644777;
+ Thu, 30 Nov 2023 14:33:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i6B-0007xx-Bo
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:33:03 +0000
+ id 1r8i6F-0007mE-2p
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:33:07 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d247342-8f8d-11ee-9b0f-b553b5be7939;
- Thu, 30 Nov 2023 15:33:01 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f5c980a-8f8d-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 15:33:06 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:32:54 -0800
+ 30 Nov 2023 06:33:04 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:32:45 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:32:54 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d247342-8f8d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5f5c980a-8f8d-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354781; x=1732890781;
+  t=1701354786; x=1732890786;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=HQNocPVaV+DgJS+Ld4DvaS6hVw4IdYUlBhgQdcIl19Q=;
-  b=AHYPBcVG1Vkrvq/FhOI7iLYwKV4z/7Eg8zTnKOXnQaRyG5Sh3iwBYJoU
-   GMK5FIfKzO0JIKJeg9yXPxEFKLwstyGtShZywRp33peMDxyULBWIO610m
-   YBLZM4hQAEJoHg1nR9m49y+NwKpF6VQkyT3eCxbhh/AsawbbjAnLNjFz6
-   Osv9zAzsz0AscT6XXt1kYd8MaJLnm/jBUkb9+4KzDBaAhiKSmLYpdXY3L
-   egSpz9Yc7pFXg+ps5ldLnAkqnRstkuNzzn5zE/OBXVlGEh3hHSiwEGjDf
-   FMGkUKTde3T+MBLZTscY4F9OMyuI7eNYzR9cjc/id2dQpS6kPhd26/sfA
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531809"
+  bh=/4XB1+0XSfZXJW6ggYvVG8+UQ24RT1LIudOfD5YSaJw=;
+  b=YSr/jK4XqQrYYeOvNbkGBNgSH+43/b7ldoAlj546+/mrr9L0Gp4ofx5H
+   4HsY11KahN2S5+bsxyMG3hPJcFlshVamQlCY5ldcL4I8ZLyuhDqUxCstr
+   KUmONaw8vy8PXZxgtX3R9W4G+gZW0/9DJYQKTJ3wkVtB+38WoBLHqgQvI
+   4I4qXsP4IHqfMHBItXbHiReVSVheK8JAwTeMz+cAWASmonoVOuIDqyIta
+   Kl//ijrYIiHsjfT/2KQLOVVMgkEfeaH3yhQJfTS8EPIbLtvdlIspqHU3W
+   RCfzSlqelWWt/RrLpYs1D1O5OedD4avABd44Ru0xkQPY0Vg+NmzqLGbeC
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479531853"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479531809"
+   d="scan'208";a="479531853"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729932"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942729971"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942729932"
+   d="scan'208";a="942729971"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 15/41] hw/cpu/core: Allow to configure plugged threads for cpu-core
-Date: Thu, 30 Nov 2023 22:41:37 +0800
-Message-Id: <20231130144203.2307629-16-zhao1.liu@linux.intel.com>
+Subject: [RFC 16/41] PPC/ppc-core: Limit plugged-threads and nr-threads to be equal
+Date: Thu, 30 Nov 2023 22:41:38 +0800
+Message-Id: <20231130144203.2307629-17-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,191 +115,73 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-When the core abstraction is applied for the architecture support CPU
-hotplug, the plugged CPUs and unplugged CPUs are distributed among the
-cores created in the topology tree.
+PPC supports CPU hotplug at core granularity, thus ppc-core only accepts
+all CPUs in a core are plugged.
 
-Add plugged_threads field to help cpu-core decide to how many CPUs to
-create.
+Check if plugged_threads and nr_threads are equal when ppc-core
+realizes.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/cpu/core.c                   | 33 +++++++++++++++++++++++++++++++++
- hw/ppc/pnv_core.c               |  6 +++++-
- hw/ppc/spapr_cpu_core.c         |  6 +++++-
- include/hw/cpu/core.h           |  9 +++++++++
- include/hw/ppc/pnv_core.h       |  2 ++
- include/hw/ppc/spapr_cpu_core.h |  2 ++
- 6 files changed, 56 insertions(+), 2 deletions(-)
+ hw/ppc/ppc_core.c         | 18 ++++++++++++++++++
+ include/hw/ppc/ppc_core.h |  1 +
+ 2 files changed, 19 insertions(+)
 
-diff --git a/hw/cpu/core.c b/hw/cpu/core.c
-index 7e274d6aebb7..15546b5b2339 100644
---- a/hw/cpu/core.c
-+++ b/hw/cpu/core.c
-@@ -36,6 +36,20 @@ static void core_prop_set_nr_threads(Object *obj, Visitor *v, const char *name,
-     core->nr_threads = value;
+diff --git a/hw/ppc/ppc_core.c b/hw/ppc/ppc_core.c
+index 4433b54af506..3857f3150052 100644
+--- a/hw/ppc/ppc_core.c
++++ b/hw/ppc/ppc_core.c
+@@ -53,20 +53,38 @@ static void powerpc_core_prop_set_core_id(Object *obj, Visitor *v,
+     core->core_id = value;
  }
  
-+static void core_prop_set_plugged_threads(Object *obj, Visitor *v,
-+                                          const char *name, void *opaque,
-+                                          Error **errp)
-+{
-+    CPUCore *core = CPU_CORE(obj);
-+    int64_t value;
-+
-+    if (!visit_type_int(v, name, &value, errp)) {
-+        return;
-+    }
-+
-+    core->plugged_threads = value;
-+}
-+
- static void cpu_core_instance_init(Object *obj)
- {
-     CPUCore *core = CPU_CORE(obj);
-@@ -48,6 +62,22 @@ static void cpu_core_instance_init(Object *obj)
-     if (current_machine) {
-         core->nr_threads = current_machine->smp.threads;
-     }
-+
-+    core->plugged_threads = -1;
-+}
-+
-+static void cpu_core_realize(DeviceState *dev, Error **errp)
++static void powerpc_core_realize(DeviceState *dev, Error **errp)
 +{
 +    CPUCore *core = CPU_CORE(dev);
++    PowerPCCoreClass *ppc_class = POWERPC_CORE_GET_CLASS(dev);
 +
-+    if (core->plugged_threads > core->nr_threads) {
-+        error_setg(errp, "Plugged threads (plugged-threads: %d) must "
-+                   "not be more than max threads (nr-threads: %d)",
-+                   core->plugged_threads, core->nr_threads);
++    if (core->plugged_threads != -1 &&
++        core->nr_threads != core->plugged_threads) {
++        error_setg(errp, "nr_threads and plugged-threads must be equal");
 +        return;
-+    } else if (core->plugged_threads == -1) {
-+        core->plugged_threads = core->nr_threads;
 +    }
- }
- 
- static void cpu_core_class_init(ObjectClass *oc, void *data)
-@@ -57,6 +87,9 @@ static void cpu_core_class_init(ObjectClass *oc, void *data)
-     set_bit(DEVICE_CATEGORY_CPU, dc->categories);
-     object_class_property_add(oc, "nr-threads", "int", core_prop_get_nr_threads,
-                               core_prop_set_nr_threads, NULL, NULL);
-+    object_class_property_add(oc, "plugged-threads", "int", NULL,
-+                              core_prop_set_plugged_threads, NULL, NULL);
-+    dc->realize = cpu_core_realize;
- }
- 
- static const TypeInfo cpu_core_type_info = {
-diff --git a/hw/ppc/pnv_core.c b/hw/ppc/pnv_core.c
-index a90d1ec92bd8..8b75739697d1 100644
---- a/hw/ppc/pnv_core.c
-+++ b/hw/ppc/pnv_core.c
-@@ -276,6 +276,8 @@ static void pnv_core_realize(DeviceState *dev, Error **errp)
- 
-     assert(pc->chip);
- 
-+    pcc->parent_realize(dev, errp);
 +
-     pc->threads = g_new(PowerPCCPU *, cc->nr_threads);
-     for (i = 0; i < cc->nr_threads; i++) {
-         PowerPCCPU *cpu;
-@@ -376,11 +378,13 @@ static void pnv_core_power10_class_init(ObjectClass *oc, void *data)
- static void pnv_core_class_init(ObjectClass *oc, void *data)
++    ppc_class->parent_realize(dev, errp);
++}
++
+ static void powerpc_core_class_init(ObjectClass *oc, void *data)
  {
      DeviceClass *dc = DEVICE_CLASS(oc);
-+    PnvCoreClass *pcc = PNV_CORE_CLASS(oc);
++    PowerPCCoreClass *ppc_class = POWERPC_CORE_CLASS(oc);
  
--    dc->realize = pnv_core_realize;
-     dc->unrealize = pnv_core_unrealize;
-     device_class_set_props(dc, pnv_core_properties);
-     dc->user_creatable = false;
-+    device_class_set_parent_realize(dc, pnv_core_realize,
-+                                    &pcc->parent_realize);
+     object_class_property_add(oc, "core-id", "int",
+                               powerpc_core_prop_get_core_id,
+                               powerpc_core_prop_set_core_id,
+                               NULL, NULL);
++    device_class_set_parent_realize(dc, powerpc_core_realize,
++                                    &ppc_class->parent_realize);
  }
  
- #define DEFINE_PNV_CORE_TYPE(family, cpu_model) \
-diff --git a/hw/ppc/spapr_cpu_core.c b/hw/ppc/spapr_cpu_core.c
-index 7c2ea1424747..5533a386f350 100644
---- a/hw/ppc/spapr_cpu_core.c
-+++ b/hw/ppc/spapr_cpu_core.c
-@@ -331,6 +331,7 @@ static void spapr_cpu_core_realize(DeviceState *dev, Error **errp)
-         (SpaprMachineState *) object_dynamic_cast(qdev_get_machine(),
-                                                   TYPE_SPAPR_MACHINE);
-     SpaprCpuCore *sc = SPAPR_CPU_CORE(OBJECT(dev));
-+    SpaprCpuCoreClass *scc = SPAPR_CPU_CORE_GET_CLASS(sc);
-     CPUCore *cc = CPU_CORE(OBJECT(dev));
-     int i;
- 
-@@ -339,6 +340,8 @@ static void spapr_cpu_core_realize(DeviceState *dev, Error **errp)
-         return;
-     }
- 
-+    scc->parent_realize(dev, errp);
-+
-     qemu_register_reset(spapr_cpu_core_reset_handler, sc);
-     sc->threads = g_new0(PowerPCCPU *, cc->nr_threads);
-     for (i = 0; i < cc->nr_threads; i++) {
-@@ -363,11 +366,12 @@ static void spapr_cpu_core_class_init(ObjectClass *oc, void *data)
-     DeviceClass *dc = DEVICE_CLASS(oc);
-     SpaprCpuCoreClass *scc = SPAPR_CPU_CORE_CLASS(oc);
- 
--    dc->realize = spapr_cpu_core_realize;
-     dc->unrealize = spapr_cpu_core_unrealize;
-     dc->reset = spapr_cpu_core_reset;
-     device_class_set_props(dc, spapr_cpu_core_properties);
-     scc->cpu_type = data;
-+    device_class_set_parent_realize(dc, spapr_cpu_core_realize,
-+                                    &scc->parent_realize);
- }
- 
- #define DEFINE_SPAPR_CPU_CORE_TYPE(cpu_model) \
-diff --git a/include/hw/cpu/core.h b/include/hw/cpu/core.h
-index 17f117bd5225..87d50151ab01 100644
---- a/include/hw/cpu/core.h
-+++ b/include/hw/cpu/core.h
-@@ -21,7 +21,16 @@ struct CPUCore {
-     DeviceState parent_obj;
- 
-     /*< public >*/
-+    int core_id;
-+
-+    /* Maximum number of threads contained in this core. */
-     int nr_threads;
-+
-+    /*
-+     * How many threads should be plugged in this core via
-+     * "-device"/"device_add"?
-+     */
-+    int plugged_threads;
+ static const TypeInfo powerpc_core_type_info = {
+     .name = TYPE_POWERPC_CORE,
+     .parent = TYPE_CPU_CORE,
+     .abstract = true,
++    .class_size = sizeof(PowerPCCoreClass),
+     .class_init = powerpc_core_class_init,
+     .instance_size = sizeof(PowerPCCore),
  };
+diff --git a/include/hw/ppc/ppc_core.h b/include/hw/ppc/ppc_core.h
+index bcc83e426e3f..1207d220872a 100644
+--- a/include/hw/ppc/ppc_core.h
++++ b/include/hw/ppc/ppc_core.h
+@@ -34,6 +34,7 @@ struct PowerPCCoreClass {
+     CPUCoreClass parent_class;
  
- #endif
-diff --git a/include/hw/ppc/pnv_core.h b/include/hw/ppc/pnv_core.h
-index 56c3f6b51f2f..3b9edf69f9fb 100644
---- a/include/hw/ppc/pnv_core.h
-+++ b/include/hw/ppc/pnv_core.h
-@@ -49,6 +49,8 @@ struct PnvCoreClass {
      /*< public >*/
-     const MemoryRegionOps *xscom_ops;
-     uint64_t xscom_size;
-+
 +    DeviceRealize parent_realize;
  };
  
- #define PNV_CORE_TYPE_SUFFIX "-" TYPE_PNV_CORE
-diff --git a/include/hw/ppc/spapr_cpu_core.h b/include/hw/ppc/spapr_cpu_core.h
-index db3e515051ca..dabdbd4bcbc9 100644
---- a/include/hw/ppc/spapr_cpu_core.h
-+++ b/include/hw/ppc/spapr_cpu_core.h
-@@ -37,6 +37,8 @@ struct SpaprCpuCoreClass {
- 
-     /*< public >*/
-     const char *cpu_type;
-+
-+    DeviceRealize parent_realize;
- };
- 
- const char *spapr_get_cpu_core_type(const char *cpu_type);
+ struct PowerPCCore {
 -- 
 2.34.1
 
