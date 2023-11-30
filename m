@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AD767FF082
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 14:44:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644721.1006137 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B88D7FF0A3
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 14:48:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644724.1006147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8hL0-00054d-2E; Thu, 30 Nov 2023 13:44:18 +0000
+	id 1r8hOa-0006aa-IA; Thu, 30 Nov 2023 13:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644721.1006137; Thu, 30 Nov 2023 13:44:18 +0000
+Received: by outflank-mailman (output) from mailman id 644724.1006147; Thu, 30 Nov 2023 13:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8hKz-00052z-Vj; Thu, 30 Nov 2023 13:44:17 +0000
-Received: by outflank-mailman (input) for mailman id 644721;
- Thu, 30 Nov 2023 13:44:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8hOa-0006Yv-E6; Thu, 30 Nov 2023 13:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 644724;
+ Thu, 30 Nov 2023 13:47:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dHGs=HL=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1r8hKy-00052n-8E
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 13:44:16 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d1966ac-8f86-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 14:44:15 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-332c46d5988so557785f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 05:44:15 -0800 (PST)
+ id 1r8hOZ-0006Yo-HP
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 13:47:59 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 118d47af-8f87-11ee-9b0f-b553b5be7939;
+ Thu, 30 Nov 2023 14:47:57 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40b4734b975so8784995e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 05:47:57 -0800 (PST)
 Received: from [192.168.69.100] (sev93-h02-176-184-17-116.dsl.sta.abo.bbox.fr.
  [176.184.17.116]) by smtp.gmail.com with ESMTPSA id
- cw18-20020a056000091200b00332fa6cc8acsm1576506wrb.87.2023.11.30.05.44.08
+ n26-20020a05600c3b9a00b0040b34409d43sm2099005wms.11.2023.11.30.05.47.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Nov 2023 05:44:14 -0800 (PST)
+ Thu, 30 Nov 2023 05:47:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d1966ac-8f86-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: 118d47af-8f87-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701351855; x=1701956655; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1701352077; x=1701956877; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0mf7eH2hS0c3P4+d2fQms4pu9zEXfWtMcluTCO73qZ4=;
-        b=yJCH6tL8TovbPh0Kkxbx7SCWFvX3MJXcd8mNJygIvY1hd2TtbvUsLxZTXcfOHiZVCO
-         m9tposYvN15a+E81A3J1HtX+J1fg6Dzs2PUp/stzr3VI1se/ufkB9IhIwm6EFbeGj+Om
-         a9JsHvjhC8E+ai+63yXXT6YOqG5rVHax6Ho1G7OgKh1tbRyQRYToWhXdPivBkfZph+8e
-         T8zMCTipWIUddDxAno+45pCV8oGRGkGA3Uzv0GSj7MgV/KZkIaehdGeCvEXMAXLTSsuY
-         HKPXX/2jqvkEKJbx0b2iLAO/xCiIDJTd3EU8iMwDd1hry9TzQP0adUUKWejTB36tNfwi
-         jXHA==
+        bh=rzryK5Ovxx7DOgDxZdQ36NxzgykTz4w4Mydj5qAA+DE=;
+        b=EzeHO7+IWferb5J459FxMhDxw8VGZXRfSX2uWJF+d5MaCzN4JlvUi2sjJ/UgqWh4xx
+         EwCTcCy4bzoqPEKW1WHFu/klMzZ1aY6s/orfhKkZy0j+Md+PiuzNi19HJYsS6i/Z7qx6
+         2xyaHrLzJDdcyUfqEsvsVmG6gZkiYDKfBON/zypjfJU6nyc5S/ZqQAyi0+H+W9PzKqVE
+         ctRNzic6+bt8NJ+WoFa1Gz0zHv2NHcpnDmECwDQudKNLTnWnlq8ezrJjKR2hLlGl8RpE
+         60czB1l/aDl7Hs3acDxpwY/j2hhKcY8QEFHsRMLwT1XO/my7SRdOTLb7g9FtyX4saKKw
+         WUsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701351855; x=1701956655;
+        d=1e100.net; s=20230601; t=1701352077; x=1701956877;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0mf7eH2hS0c3P4+d2fQms4pu9zEXfWtMcluTCO73qZ4=;
-        b=b7qh8GJdbSvIv0FA05ZUO8vh4dMnZjW3+MApKpf4FmComOsYugPYdC4UtGJAQ6aweU
-         Kk0ab9UnFSzpOOUiidf3gE53/Wk9P3dWwO1U1KDu/reW3AUrZfktwA90uMiJ6npsIih0
-         69j5BTErFFGk94fw9XjNz/G5e9p/ynFqwkGtuSgWlflA1YQxEytTkZKWTDltW6vkw6gm
-         DAXV5fBwOQY3KF96QODbBeLKrRP8p2UHNMw5vFjG445lVvmoU6T7BeJDwYTbelpe4uzi
-         ELeQlEU+NjTFKIsXZu1dKc3tkYDrawcRPVv4zJ6P7lIjcqMhfYoinzfckRKZAy5cvYvg
-         mK2w==
-X-Gm-Message-State: AOJu0YwVyM896T6+dF15T/ZHqMmYLrNCkKOjLDs3jyGgfGc5E8ti3Go4
-	Gs6hbTleZE2NLaY5WJCzf435PQ==
-X-Google-Smtp-Source: AGHT+IFUGjlT2U8pG1QuxMF95YCA0GrMa8IF7sX8GSSN6+0zFOCS7e4DUVfFAG6PfrkSgylNqNXNlw==
-X-Received: by 2002:adf:ff88:0:b0:333:a2f:e674 with SMTP id j8-20020adfff88000000b003330a2fe674mr6201850wrr.25.1701351854659;
-        Thu, 30 Nov 2023 05:44:14 -0800 (PST)
-Message-ID: <01ebd72d-affc-4b03-b491-f40964520f1c@linaro.org>
-Date: Thu, 30 Nov 2023 14:44:07 +0100
+        bh=rzryK5Ovxx7DOgDxZdQ36NxzgykTz4w4Mydj5qAA+DE=;
+        b=CLVpuYTUiZG42hSbBI0Wv1bZOMyHaDDMkqbjxB/EI72z2TKpX8aoXAjzLOD4m2G0Y8
+         x1yA3yObw/XjuX0djJeiKkPnP6rH5W1dyJxHD0zuFZiFLUXzjf7SzjyytKwBvgNtiWZu
+         +MvcJ85vNH1YDVxtKFDS14Dqgzpfy5ofGn9uVu+xrnzH+IvP2iZ4uR8Q2mN0PqBJntqo
+         2LbNXClrVhS6V5zUfEUD/s7HuM/nxTZiEk0JjgedSdmK+UAfEIl7l8QmPTj8vEr79YOJ
+         lLmrTZhY19EfLdyeI4ggkW8B8BtL2I823VgGXia3BZk12mEl+LpSLlsPn1s7e8FITTwf
+         a5sw==
+X-Gm-Message-State: AOJu0Yzy53CySC1AtcAi0HbKXSL+zsvZoFWrd/15o7fwCnUrmimChT/w
+	MbGK+pKewBSvlRU8cfCVGA4jQg==
+X-Google-Smtp-Source: AGHT+IEVx+BgPGgvtoGgXlS2ma7+soUtQpvgW6i96U/5dPN3399XP3o/9uLj4S+iHyFoPGNahzok1g==
+X-Received: by 2002:a05:600c:3c8a:b0:40b:4da4:b985 with SMTP id bg10-20020a05600c3c8a00b0040b4da4b985mr6336852wmb.38.1701352076590;
+        Thu, 30 Nov 2023 05:47:56 -0800 (PST)
+Message-ID: <9c305a84-fd86-42fe-98ae-9297d480acd6@linaro.org>
+Date: Thu, 30 Nov 2023 14:47:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] system/cpus: rename qemu_global_mutex to qemu_bql
+Subject: Re: [PATCH 5/6] Replace "iothread lock" with "BQL" in comments
 Content-Language: en-US
 To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
 Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
@@ -134,156 +134,82 @@ Cc: Jean-Christophe Dubois <jcd@tribudubois.net>,
  <leobras@redhat.com>, Nicholas Piggin <npiggin@gmail.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>
 References: <20231129212625.1051502-1-stefanha@redhat.com>
- <20231129212625.1051502-5-stefanha@redhat.com>
+ <20231129212625.1051502-6-stefanha@redhat.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20231129212625.1051502-5-stefanha@redhat.com>
+In-Reply-To: <20231129212625.1051502-6-stefanha@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 Hi Stefan,
 
 On 29/11/23 22:26, Stefan Hajnoczi wrote:
-> The APIs using qemu_global_mutex now follow the Big QEMU Lock (BQL)
-> nomenclature. It's a little strange that the actual QemuMutex variable
-> that embodies the BQL is called qemu_global_mutex instead of qemu_bql.
-> Rename it for consistency.
+> The term "iothread lock" is obsolete. The APIs use Big QEMU Lock (BQL)
+> in their names. Update the code comments to use "BQL" instead of
+> "iothread lock".
 > 
 > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > ---
->   system/cpus.c | 20 ++++++++++----------
->   1 file changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/system/cpus.c b/system/cpus.c
-> index eb24a4db8e..138720a540 100644
-> --- a/system/cpus.c
-> +++ b/system/cpus.c
-> @@ -65,7 +65,7 @@
->   
->   #endif /* CONFIG_LINUX */
->   
-> -static QemuMutex qemu_global_mutex;
-> +static QemuMutex qemu_bql;
+>   docs/devel/reset.rst             |  2 +-
+>   hw/display/qxl.h                 |  2 +-
+>   include/exec/cpu-common.h        |  2 +-
+>   include/exec/memory.h            |  4 ++--
+>   include/exec/ramblock.h          |  2 +-
+>   include/migration/register.h     |  8 ++++----
+>   target/arm/internals.h           |  4 ++--
+>   accel/tcg/cputlb.c               |  4 ++--
+>   accel/tcg/tcg-accel-ops-icount.c |  2 +-
+>   hw/remote/mpqemu-link.c          |  2 +-
+>   migration/block-dirty-bitmap.c   | 10 +++++-----
+>   migration/block.c                | 24 ++++++++++++------------
+>   migration/colo.c                 |  2 +-
+>   migration/migration.c            |  2 +-
+>   migration/ram.c                  |  4 ++--
+>   system/physmem.c                 |  6 +++---
+>   target/arm/helper.c              |  2 +-
+>   target/arm/tcg/m_helper.c        |  2 +-
+>   ui/spice-core.c                  |  2 +-
+>   util/rcu.c                       |  2 +-
+>   audio/coreaudio.m                |  4 ++--
+>   ui/cocoa.m                       |  6 +++---
+>   22 files changed, 49 insertions(+), 49 deletions(-)
 
-I thought we were using _cond/_sem/_mutex suffixes, but
-this is not enforced:
 
-$ git grep -hE 'Qemu(Cond|Mutex|Semaphore) [a-zA-Z]' \
-   | sed -e 's/static //' -e 's/extern //' -e 's/^ *//' \
-   | sort -u
-QemuCond comp_done_cond;
-QemuCond cond;
-QemuCond decomp_done_cond;
-QemuCond event_complete_cond;
-QemuCond exclusive_cond;
-QemuCond exclusive_resume;
-QemuCond fwnmi_machine_check_interlock_cond;
-QemuCond handle_apdu_cond;
-QemuCond init_done_cond;    /* is thread initialization done? */
-QemuCond key_cond;
-QemuCond mutex_cond;
-QemuCond page_cond;
-QemuCond page_request_cond;
-QemuCond qemu_cpu_cond;
-QemuCond qemu_pause_cond;
-QemuCond qemu_work_cond;
-QemuCond request_cond;
-QemuCond reset_cond;
-QemuCond thr_cond;
-QemuCond thread_cond;
-QemuCond worker_stopped;
-QemuMutex active_timers_lock;
-QemuMutex aio_context_list_lock;
-QemuMutex bitmap_mutex;
-QemuMutex blkio_lock;
-QemuMutex chr_write_lock;
-QemuMutex cmdq_mutex;
-QemuMutex colo_compare_mutex;
-QemuMutex comp_done_lock;
-QemuMutex counts_mutex;
-QemuMutex decomp_done_lock;
-QemuMutex dirty_bitmap_mutex;
-QemuMutex dirtylimit_mutex;
-QemuMutex error_mutex;
-QemuMutex event_list_mutex;
-QemuMutex event_mtx;
-QemuMutex evlock;
-QemuMutex free_page_lock;
-QemuMutex global_mutex;
-QemuMutex gnt_lock;
-QemuMutex handle_apdu_mutex;
-QemuMutex handlers_mutex;
-QemuMutex init_done_lock;
-QemuMutex intp_mutex; /* protect the intp_list IRQ state */
-QemuMutex io_mutex;
-QemuMutex iommu_lock;
-QemuMutex irq_level_lock[REMOTE_IOHUB_NB_PIRQS];
-QemuMutex job_mutex;
-QemuMutex key_mutex;
-QemuMutex kml_slots_lock;
-QemuMutex lock;
-QemuMutex m;
-QemuMutex map_client_list_lock;
-QemuMutex migration_threads_lock;
-QemuMutex mon_fdsets_lock;
-QemuMutex mon_lock;
-QemuMutex monitor_lock;
-QemuMutex mutex;
-QemuMutex output_mutex;
-QemuMutex page_mutex;
-QemuMutex page_request_mutex;
-QemuMutex pending_out_mutex;
-QemuMutex port_lock;
-QemuMutex postcopy_prio_thread_mutex;
-QemuMutex qemu_cpu_list_lock;
-QemuMutex qemu_file_lock;
-QemuMutex qemu_global_mutex;
-QemuMutex qemu_sigp_mutex;
-QemuMutex qjack_shutdown_lock;
-QemuMutex qmp_queue_lock;
-QemuMutex queue_mutex;
-QemuMutex queued_requests_lock; /* protects queued_requests */
-QemuMutex ram_block_discard_disable_mutex;
-QemuMutex rcu_registry_lock;
-QemuMutex rcu_sync_lock;
-QemuMutex readdir_mutex_L;
-QemuMutex reqs_lock;
-QemuMutex requests_lock;
-QemuMutex rp_mutex;    /* We send replies from multiple threads */
-QemuMutex rsp_mutex;
-QemuMutex rx_queue_lock;
-QemuMutex sigbus_mutex;
-QemuMutex sint_routes_mutex;
-QemuMutex src_page_req_mutex;
-QemuMutex start_lock;
-QemuMutex target_fd_trans_lock;
-QemuMutex thr_mutex;
-QemuMutex thread_lock;
-QemuMutex vdev_mutex;
-QemuMutex vmstop_lock;
-QemuMutex vreader_mutex; /* and guest_apdu_list mutex */
-QemuMutex work_mutex;
-QemuMutex xen_timers_lock;
-QemuMutex yank_lock;
-QemuSemaphore channels_ready;
-QemuSemaphore colo_exit_sem;
-QemuSemaphore colo_incoming_sem;
-QemuSemaphore init_done_sem; /* is thread init done? */
-QemuSemaphore pause_sem;
-QemuSemaphore postcopy_pause_sem;
-QemuSemaphore postcopy_pause_sem_dst;
-QemuSemaphore postcopy_pause_sem_fast_load;
-QemuSemaphore postcopy_pause_sem_fault;
-QemuSemaphore postcopy_qemufile_dst_done;
-QemuSemaphore postcopy_qemufile_src_sem;
-QemuSemaphore rate_limit_sem;
-QemuSemaphore rp_pong_acks;
-QemuSemaphore rp_sem;
-QemuSemaphore sem;
-QemuSemaphore sem_sync;
-QemuSemaphore sem_thread;
-QemuSemaphore wait_unplug_sem;
+> diff --git a/include/exec/ramblock.h b/include/exec/ramblock.h
+> index 69c6a53902..a2bc0a345d 100644
+> --- a/include/exec/ramblock.h
+> +++ b/include/exec/ramblock.h
+> @@ -34,7 +34,7 @@ struct RAMBlock {
+>       ram_addr_t max_length;
+>       void (*resized)(const char*, uint64_t length, void *host);
+>       uint32_t flags;
+> -    /* Protected by iothread lock.  */
+> +    /* Protected by BQL.  */
 
-So:
+There is only one single BQL, so preferably:
+
+"by the BQL"
+
+>       char idstr[256];
+>       /* RCU-enabled, writes protected by the ramlist lock */
+>       QLIST_ENTRY(RAMBlock) next;
+
+
+
+
+> -/* Called with iothread lock taken.  */
+> +/* Called with BQL taken.  */
+
+"with the BQL" (other uses)
+
+Otherwise,
+
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+
+>   static void dirty_bitmap_do_save_cleanup(DBMSaveState *s)
+>   {
+>       SaveBitmapState *dbms;
+> @@ -479,7 +479,7 @@ static void dirty_bitmap_do_save_cleanup(DBMSaveState *s)
+>       }
+>   }
 
 
