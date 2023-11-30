@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137E07FF269
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644785.1006361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5CB7FF268
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 15:39:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644787.1006372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCF-0005ix-O2; Thu, 30 Nov 2023 14:39:19 +0000
+	id 1r8iCH-000687-EH; Thu, 30 Nov 2023 14:39:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644785.1006361; Thu, 30 Nov 2023 14:39:19 +0000
+Received: by outflank-mailman (output) from mailman id 644787.1006372; Thu, 30 Nov 2023 14:39:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8iCE-0005Xd-Nw; Thu, 30 Nov 2023 14:39:18 +0000
-Received: by outflank-mailman (input) for mailman id 644785;
- Thu, 30 Nov 2023 14:33:45 +0000
+	id 1r8iCG-0005jE-DZ; Thu, 30 Nov 2023 14:39:20 +0000
+Received: by outflank-mailman (input) for mailman id 644787;
+ Thu, 30 Nov 2023 14:33:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jjew=HL=linux.intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1r8i6r-0008E0-71
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:33:45 +0000
+ id 1r8i6z-0008E0-Qx
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 14:33:53 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75d38361-8f8d-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 15:33:44 +0100 (CET)
+ id 7b1ace92-8f8d-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 15:33:53 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 06:33:41 -0800
+ 30 Nov 2023 06:33:50 -0800
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.36])
- by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:33:32 -0800
+ by orsmga005.jf.intel.com with ESMTP; 30 Nov 2023 06:33:41 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75d38361-8f8d-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: 7b1ace92-8f8d-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701354824; x=1732890824;
+  t=1701354833; x=1732890833;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=tVF0CmmcOBEuYyYp6LOjwJOc13qp/jolnKC9SQQ9zpo=;
-  b=f64LBCQHUvmpnb4ErDMm3hOl7i37ccVub4uYjknCHcgkYW0rAmO6qMXG
-   Dnt3RHBsiwSbT9ULIWb2awWOl5B8Yi3OBaF60L26qPrH6NlX2Lp7rlDhY
-   /eWFM1PgOzNoT4EXw06EiYTQ3govrKWacebBciq4tCtnqrSHyHFws3129
-   a4p+CDk4tm1Au4EOsl2Nm1f8eWV4Lx1jgv6UR2DfJN9rkUGn1GDnuP8QW
-   vae2G4cdYXGS2fggit8GYIAlS8LA8Mzns/iwiVg84av2+ZGf4ReR2ezBs
-   xsEgycHqtPALx6EO/iZOtW2FgwSdnOd5iOiBPgCAI1SMkOXwxFWdNTS0U
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532020"
+  bh=TLbpY7EX///aEBUshQ9nHMg5QAVw4jJxDP0uMhZZdFI=;
+  b=mGg+D15kVa+FbiZDXgQ6ZHjLcP9IGa1SsWu3qFYa5gpgh/ypdPCj33A1
+   JeaefoQgFaOxS0GfiGS4R4pew1nb1z85dO9W3SMF6vIyapkKz1ep6keIr
+   Hkk6+n8wSmLaUhekVwfsA4tXRHWK9z93cuU0jmxbhO4mlfMexQXen7MZ/
+   K8nPxIx0WKn/j0czd1kxmDaugQQ/HwUndD0MNsBwKGvWVvsl7E0qp2qXw
+   IKnQqN27c0AH8wYlEU3qWl+lC4SPw7tgvvf4ULlmsjWzWM6xml0aHDpyw
+   zlwFs0BYs278c3IBTdGSOfz5ftKbnY379boc4ijmFfn/FAWZ3iJZCN22j
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="479532051"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="479532020"
+   d="scan'208";a="479532051"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730040"
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="942730047"
 X-IronPort-AV: E=Sophos;i="6.04,239,1695711600"; 
-   d="scan'208";a="942730040"
+   d="scan'208";a="942730047"
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -104,9 +104,9 @@ Cc: Nina Schoetterl-Glausch <nsg@linux.ibm.com>,
 	Zhenyu Wang <zhenyu.z.wang@intel.com>,
 	Yongwei Ma <yongwei.ma@intel.com>,
 	Zhao Liu <zhao1.liu@intel.com>
-Subject: [RFC 20/41] hw/cpu/cluster: Descript cluster is not only used for TCG in comment
-Date: Thu, 30 Nov 2023 22:41:42 +0800
-Message-Id: <20231130144203.2307629-21-zhao1.liu@linux.intel.com>
+Subject: [RFC 21/41] hw/cpu/cluster: Allow cpu-cluster to be created by -device
+Date: Thu, 30 Nov 2023 22:41:43 +0800
+Message-Id: <20231130144203.2307629-22-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
 References: <20231130144203.2307629-1-zhao1.liu@linux.intel.com>
@@ -115,69 +115,28 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhao Liu <zhao1.liu@intel.com>
 
-Update the comment to make the cpu-cluster description more general for
-both TCG and accel cases.
+Since we will extend cpu-cluster to build CPU topology in virtualization
+case via -device, remove the original limitition.
 
 Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- hw/cpu/cluster.c         |  2 +-
- include/hw/cpu/cluster.h | 20 +++++++++++++++-----
- 2 files changed, 16 insertions(+), 6 deletions(-)
+ hw/cpu/cluster.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/hw/cpu/cluster.c b/hw/cpu/cluster.c
-index 340cfad9f8f1..27ab9e25a265 100644
+index 27ab9e25a265..8a666c27d151 100644
 --- a/hw/cpu/cluster.c
 +++ b/hw/cpu/cluster.c
-@@ -1,5 +1,5 @@
- /*
-- * QEMU CPU cluster
-+ * CPU cluster abstract device
-  *
-  * Copyright (c) 2018 GreenSocs SAS
-  *
-diff --git a/include/hw/cpu/cluster.h b/include/hw/cpu/cluster.h
-index c038f05ddc9f..b3185e2f2566 100644
---- a/include/hw/cpu/cluster.h
-+++ b/include/hw/cpu/cluster.h
-@@ -1,5 +1,5 @@
- /*
-- * QEMU CPU cluster
-+ * CPU cluster abstract device
-  *
-  * Copyright (c) 2018 GreenSocs SAS
-  *
-@@ -24,17 +24,27 @@
- #include "qom/object.h"
+@@ -96,9 +96,6 @@ static void cpu_cluster_class_init(ObjectClass *klass, void *data)
+     device_class_set_props(dc, cpu_cluster_properties);
+     dc->realize = cpu_cluster_realize;
  
- /*
-- * CPU Cluster type
-+ * # CPU Cluster
-  *
-- * A cluster is a group of CPUs which are all identical and have the same view
-- * of the rest of the system. It is mainly an internal QEMU representation and
-- * does not necessarily match with the notion of clusters on the real hardware.
-+ * A cluster is a group of CPUs, that is, a level above the CPU (or Core).
-+ *
-+ * - For accel case, it's a CPU topology level concept above cores, in which
-+ * the cores may share some resources (L2 cache or some others like L3
-+ * cache tags, depending on the Archs). It is used to emulate the physical
-+ * CPU cluster/module.
-+ *
-+ * - For TCG, cluster is used to organize CPUs directly without core. In one
-+ * cluster, CPUs are all identical and have the same view of the rest of the
-+ * system. It is mainly an internal QEMU representation and may not necessarily
-+ * match with the notion of clusters on the real hardware.
-  *
-  * If CPUs are not identical (for example, Cortex-A53 and Cortex-A57 CPUs in an
-  * Arm big.LITTLE system) they should be in different clusters. If the CPUs do
-  * not have the same view of memory (for example the main CPU and a management
-  * controller processor) they should be in different clusters.
-  *
-+ * # Use case for cluster in TCG
-+ *
-  * A cluster is created by creating an object of TYPE_CPU_CLUSTER, and then
-  * adding the CPUs to it as QOM child objects (e.g. using the
-  * object_initialize_child() or object_property_add_child() functions).
+-    /* This is not directly for users, CPU children must be attached by code */
+-    dc->user_creatable = false;
+-
+ #ifdef CONFIG_TCG
+     cc->tcg_clu_ops = &common_cluster_tcg_ops;
+ #endif
 -- 
 2.34.1
 
