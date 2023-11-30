@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9830F7FF341
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:13:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.644958.1006668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4697FF342
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Nov 2023 16:13:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.644959.1006679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8ij1-0002Ot-Po; Thu, 30 Nov 2023 15:13:11 +0000
+	id 1r8ijC-0002ip-2Y; Thu, 30 Nov 2023 15:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 644958.1006668; Thu, 30 Nov 2023 15:13:11 +0000
+Received: by outflank-mailman (output) from mailman id 644959.1006679; Thu, 30 Nov 2023 15:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8ij1-0002ML-NB; Thu, 30 Nov 2023 15:13:11 +0000
-Received: by outflank-mailman (input) for mailman id 644958;
- Thu, 30 Nov 2023 15:13:11 +0000
+	id 1r8ijB-0002gd-UJ; Thu, 30 Nov 2023 15:13:21 +0000
+Received: by outflank-mailman (input) for mailman id 644959;
+ Thu, 30 Nov 2023 15:13:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZmE5=HL=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1r8ij1-0002MF-4T
- for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:13:11 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ <SRS0=4Jom=HL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1r8ijB-0002MF-1p
+ for xen-devel@lists.xenproject.org; Thu, 30 Nov 2023 15:13:21 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8f355a8-8f92-11ee-98e4-6d05b1d4d9a1;
- Thu, 30 Nov 2023 16:13:10 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a187cd4eb91so117126166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 07:13:10 -0800 (PST)
+ id ff25cda7-8f92-11ee-98e4-6d05b1d4d9a1;
+ Thu, 30 Nov 2023 16:13:20 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40b54261442so8829885e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Nov 2023 07:13:20 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ l8-20020a5d4bc8000000b003316b3d69b3sm1760620wrt.46.2023.11.30.07.13.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Nov 2023 07:13:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,106 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8f355a8-8f92-11ee-98e4-6d05b1d4d9a1
+X-Inumbo-ID: ff25cda7-8f92-11ee-98e4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701357189; x=1701961989; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=en2qWV6gd6X60S07WN8Z5awnuTkrelPJjx0uApjIJAs=;
-        b=GkirZllYsd+/W/U3bBb2r6cnQKyE3LT9xiPtxHymt94Qw6qVJB2ttKhx6+8vCMqr5a
-         D2QVIDuRHjLNZxJFXgHZm1+niwlJmqgInEIsYTYrT5pw82NwJ7PrsTxb6NuZfrAkLIxi
-         U8pHCdi3xFWdwH1ASVdsZjB4pSVC6CsnebNrU=
+        d=citrix.com; s=google; t=1701357200; x=1701962000; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zHbIpqKppVrirWnuO8nHfLF6hK+LIbZb7v0QlMQXF8Q=;
+        b=ECjywN+bgv5Rl30aVSDWNtbvj3TlnB75SfHrnGU6Z+rXPwPkmePxAhoEmPI8g0wNut
+         CGuCRnRGZrTGnAPy4M3QDb9uPB1sSWoOv+GKM1QhsaS1tk+qa3Tjr2sSxYFplMxW7K8j
+         iPefBDZSs1+3c+CFnscGI23avCpm+dFE4F8uI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701357189; x=1701961989;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=en2qWV6gd6X60S07WN8Z5awnuTkrelPJjx0uApjIJAs=;
-        b=LNEfaMjUkG3kIRwAsiaAt7o3uUw5gse85ZFNdeL7qlNK+qk/gHrXWokpzNJV1epFjF
-         MRZ1ORToMkIr1qBOrlrGsmWaASzYfSj6BRb29zaKsyOAa2eM08eeAkNCc5HyLZInmBAl
-         u7NDLr+Tnooe6Rmu+V2DpZFpZj7upAjAmb+vZbmv6UCC4nxs80TV1rWEBr4e08j93s5Y
-         o8Lu4TadUeZcUp4co085np/5dm8NdPeaALexdTD8850vaprSAn9M9m8pfnKJGZZUitL7
-         eqipJS7Fc4smp9Z62karIoAK20MrYEA9RjK736fe+gYVP/eXDbMBCQVX5MIFmLmlNHoq
-         Z3uA==
-X-Gm-Message-State: AOJu0Ywjm0OHNkMWMSS5TznfN76k3SZCWQnDkr7r/xBI0ctamTPiE+Wq
-	Zw9wUqX9DuiK5Z82i4MGdZ4dHfO4gbr8u97nj1aDkFKtyJicDDhoOylczg==
-X-Google-Smtp-Source: AGHT+IG9HrOnmG3LeBZq3CrJeB1WGXpwQAKFJfUUlBsVoYPRlI3izBTje7EvnUMLF6tDWST0HMbyTMgg0r6cZb3sk1I=
-X-Received: by 2002:a17:906:c08:b0:a18:ed83:ccc0 with SMTP id
- s8-20020a1709060c0800b00a18ed83ccc0mr761354ejf.28.1701357189262; Thu, 30 Nov
- 2023 07:13:09 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701357200; x=1701962000;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zHbIpqKppVrirWnuO8nHfLF6hK+LIbZb7v0QlMQXF8Q=;
+        b=oXzAgQCcGqJlD5vcxmitFi+dRhexQsG7tU1z1jQRcg+OOec3dA5wOTffmEbTVBK1w1
+         h9hihlLZOgGypQC4Kn1sQTa0oCovpDgPuTVx/vhkR6i25EgC6xiyaHHwEsH70DWiVjAQ
+         03O5wfDLDuyW8b3JC+OKxE6MwbyCGFGUuonEftPTI2v7z67lV3Wn97v25kfPn7U5NiG/
+         N48iNK1yKzCivvniBpDNROTpA5UOKxC/IkH1aQSQzJ4iZ4HocGvEKLtsVfYJGMQDv3Yw
+         xRTjGzKjCuoPhI+QxQKoBVCEaMLvv4Ewq0YrPSxBfLfz7WdgWipIXGg4+NzgCcQpSoPB
+         XiAw==
+X-Gm-Message-State: AOJu0Yx1ar55alxxGEOkFirtW4MBm1DV2zSm0LP9C9P+fbJBF76UQX0W
+	HCKicLMYzBHoDdZ796injkAmEI00ZMJYPhSl8+w=
+X-Google-Smtp-Source: AGHT+IEvGDWaS2xSJN5CO2xPYnnHJJ+5awRVwaMq+O0xpPyRzVLJIJ7UO7pc9Meccu3QUa3cZQ9coQ==
+X-Received: by 2002:a05:600c:4b2a:b0:40b:4337:7cbf with SMTP id i42-20020a05600c4b2a00b0040b43377cbfmr10468364wmp.1.1701357200043;
+        Thu, 30 Nov 2023 07:13:20 -0800 (PST)
+Date: Thu, 30 Nov 2023 16:13:18 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>
+Subject: Re: [RFC XEN PATCH v2 2/3] x86/pvh: Open PHYSDEVOP_map_pirq for PVH
+ dom0
+Message-ID: <ZWimjreYPWvAtle5@macbook>
+References: <20231124104136.3263722-1-Jiqian.Chen@amd.com>
+ <20231124104136.3263722-3-Jiqian.Chen@amd.com>
+ <ZWX2c7oQfeZxrpEF@macbook>
+ <BL1PR12MB5849A2AB56BAC75D4558F873E782A@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 30 Nov 2023 15:12:33 +0000
-Message-ID: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com>
-Subject: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000e71461060b601668"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB5849A2AB56BAC75D4558F873E782A@BL1PR12MB5849.namprd12.prod.outlook.com>
 
---000000000000e71461060b601668
-Content-Type: text/plain; charset="UTF-8"
+On Thu, Nov 30, 2023 at 06:32:00AM +0000, Chen, Jiqian wrote:
+> 
+> On 2023/11/28 22:17, Roger Pau Monné wrote:
+> > On Fri, Nov 24, 2023 at 06:41:35PM +0800, Jiqian Chen wrote:
+> >> If we run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+> >> a passthrough device by using gsi, see xen_pt_realize->xc_physdev_map_pirq
+> >> and pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq will
+> >> call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq is not allowed
+> >> because currd is PVH dom0 and PVH has no X86_EMU_USE_PIRQ flag, it will
+> >> fail at has_pirq check.
+> >>
+> >> So, I think we may need to allow PHYSDEVOP_map_pirq when currd is dom0 (at
+> > 
+> > And PHYSDEVOP_unmap_pirq also?
+> Yes, in the failed path, PHYSDEVOP_unmap_pirq will be called. I will add some descriptions about it into the commit message.
+> 
+> > 
+> >> present dom0 is PVH).
+> > 
+> > IMO it would be better to implement a new set of DMOP hypercalls that
+> > handle the setup of interrupts from physical devices that are assigned
+> > to a guest.  That should allow us to get rid of the awkward PHYSDEVOP
+> > + XEN_DOMCTL_{,un}bind_pt_irq hypercall interface, which currently
+> > prevents QEMU from being hypervisor version agnostic (since the domctl
+> > interface is not stable).
+> > 
+> > I understand this might be too much to ask for, but something to take
+> > into account.
+> Yes, that will be a complex project. I think current change can meet the needs. We can take DMOP into account in the future. Thank you.
 
-Hi all,
+The issue with this approach is that we always do things in a rush and
+cut corners, and then never pay back the debt.  Anyway, I'm not going
+to block this, and I'm not blaming you.
 
-There have been a few discussions about how we use documentation wording
-within the community. Whilst there are differences in opinions and
-perceptions of the definition, it would be helpful to see a wider consensus
-of how we feel.
+Sadly this is just focused on getting something working in the short
+term rather than thinking long term in a maintainable interface.
 
-*Discussion: Should we use the term 'broken' in our documentation, or do
-you think an alternative wording would be better? If you agree or disagree,
-please vote as this will impact future discussions. *
-
-I have purposely made the vote between two options to help us move in a
-forward direction.
-
-*PLEASE VOTE HERE. Deadline 15th December 2023.
-<https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/>*
-*Your name will be required but will be private. If you answer anonymously,
-your vote will not count. This is to ensure it is fair and each person gets
-one vote. *
-
-As an open-source project, we need to come to a common ground, which
-sometimes means we may not personally agree. To make this fair, please note
-the final results will be used to determine our future actions within the
-community.
-
-If the majority votes for/against, we will respect the majority and
-implement this accordingly.
-
-Many thanks,
-Kelly Choi
-
-Xen Project Community Manager
-XenServer, Cloud Software Group
-
---000000000000e71461060b601668
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,=C2=A0<div><br></div><div>There have been a few dis=
-cussions about how we use documentation wording within the community. Whils=
-t there are differences in opinions and perceptions of the definition, it w=
-ould be helpful to see a wider consensus of how we feel.=C2=A0</div><div><b=
-r></div><div><b>Discussion: Should we use the term &#39;broken&#39; in our =
-documentation, or do you think an alternative wording would be better? If y=
-ou agree or disagree, please vote as this=C2=A0will impact future=C2=A0disc=
-ussions.=C2=A0</b></div><div><b><br></b></div><div>I have purposely made th=
-e vote between two options to help us move in a forward direction.</div><di=
-v><br></div><div><b><font color=3D"#ff0000"><a href=3D"https://cryptpad.fr/=
-form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/">PLEASE VOT=
-E HERE. Deadline 15th December 2023.</a></font></b></div><div><i>Your name =
-will be required but will be private. If you answer anonymously, your vote =
-will not count. This is to ensure it is fair and each person gets one vote.=
-=C2=A0</i><br></div><div><br></div><div>As an open-source project, we need =
-to come to a common ground, which sometimes means we may not personally agr=
-ee. To make this fair, please note the final results will be used to determ=
-ine our future actions within the community.=C2=A0</div><div><br></div><div=
->If the majority votes for/against, we will respect the majority and implem=
-ent this accordingly.=C2=A0</div><div><br clear=3D"all"><div><div dir=3D"lt=
-r" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D=
-"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div =
-style=3D"color:rgb(136,136,136)">Xen Project Community Manager</div><div st=
-yle=3D"color:rgb(136,136,136)">XenServer, Cloud Software Group</div></div><=
-/div></div></div></div></div>
-
---000000000000e71461060b601668--
+Regards, Roger.
 
