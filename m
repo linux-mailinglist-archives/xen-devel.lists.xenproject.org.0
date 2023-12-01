@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0BBA8001A7
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 03:33:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645228.1007247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9E88001A8
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 03:34:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645230.1007256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tLY-0000nu-GY; Fri, 01 Dec 2023 02:33:40 +0000
+	id 1r8tMC-0001LB-OH; Fri, 01 Dec 2023 02:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645228.1007247; Fri, 01 Dec 2023 02:33:40 +0000
+Received: by outflank-mailman (output) from mailman id 645230.1007256; Fri, 01 Dec 2023 02:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tLY-0000li-DL; Fri, 01 Dec 2023 02:33:40 +0000
-Received: by outflank-mailman (input) for mailman id 645228;
- Fri, 01 Dec 2023 02:33:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1r8tMC-0001JC-Le; Fri, 01 Dec 2023 02:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 645230;
+ Fri, 01 Dec 2023 02:34:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QmaB=HM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8tLX-0000fa-9e
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 02:33:39 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0828dedb-8ff2-11ee-9b0f-b553b5be7939;
- Fri, 01 Dec 2023 03:33:37 +0100 (CET)
+ id 1r8tMA-0001B4-Uq
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 02:34:18 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1f3c914f-8ff2-11ee-98e5-6d05b1d4d9a1;
+ Fri, 01 Dec 2023 03:34:18 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 749CAB842F8;
- Fri,  1 Dec 2023 02:33:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C172CC433C7;
- Fri,  1 Dec 2023 02:33:35 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 7A83CCE23DB;
+ Fri,  1 Dec 2023 02:34:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB501C433C8;
+ Fri,  1 Dec 2023 02:34:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0828dedb-8ff2-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1f3c914f-8ff2-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701398016;
+	s=k20201202; t=1701398054;
 	bh=x8mxYECTLAVxDVNbxafphEwTpQfKejz4k9Fd/a+Mdm4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AFCUCeLK7jVhuSbmpAFZUM4bBlKiCtlos/eyhwwOr1zn07IF3dIvflkP2cLl9NOm5
-	 24jXGCty1vBg847HOk4+fE4OSvBS+SzGHRvD4rMNiHhNCBaynG8YBNy1Zx950hsZIq
-	 ckYZfPl4r+eOzhRWKLYQwZ7X6bjHd0rcjoH2+LrtozZilU2H6xs/etTGtWd467NnkB
-	 3almKksiHidp1xwAvn+LIAj76ba2y5Ld6HeQOMRdYKptio5N2ddcyErOjb1oe/Yp2+
-	 IGr7n495dGjjQYx7wRohqH/A3vugcxfqvqK2a4m/IEuABDjY/V+eqyvwI8SKhfY32z
-	 yJnv449ZWeAmA==
-Date: Thu, 30 Nov 2023 18:33:34 -0800 (PST)
+	b=aHSwDkSTvV/XrRHB66ltBK4VFVBf40ZN+Bw2r/JWinOt6EgB8VcxiG7FxwIzDOpDZ
+	 VAy2IbSmStA8um7bpj3khjJ+s0q19EUROlFpxE9Iq7iGdbrgGdNv6i0raskG1isBva
+	 1RCs0UFP2NB9Z966H0GM2ElxsKLB/dLVZ3KNl/QhCL9OK71M+gE6x9lMdEnWezrVTi
+	 1gCDpwhnYVQPDbPKQpQ+HhOdfFt4jlBV/mwXJW5jxXSPT4V9MCk+pQ9a3ihPmrqy0f
+	 BxUpAdoQUo7FWkj5q3pcx0LgF1rO5rZmWLPWct7yzexr2InfXQW3cj1zatnuOJ7tlJ
+	 umlhH+fo/Gtrg==
+Date: Thu, 30 Nov 2023 18:34:12 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
@@ -61,11 +61,11 @@ cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 10/11] xen/perfc: address a violation of MISRA C:2012
+Subject: Re: [XEN PATCH 11/11] xen/serial: address a violation of MISRA C:2012
  Rule 8.2
-In-Reply-To: <642bcf2ea2147c797d102a12d51b7eee90f0e5a6.1700832962.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311301833290.110490@ubuntu-linux-20-04-desktop>
-References: <cover.1700832962.git.federico.serafini@bugseng.com> <642bcf2ea2147c797d102a12d51b7eee90f0e5a6.1700832962.git.federico.serafini@bugseng.com>
+In-Reply-To: <4f831a5441ac699b50783fb0559daabaa37b8e50.1700832962.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311301834040.110490@ubuntu-linux-20-04-desktop>
+References: <cover.1700832962.git.federico.serafini@bugseng.com> <4f831a5441ac699b50783fb0559daabaa37b8e50.1700832962.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
