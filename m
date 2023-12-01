@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13A78001CC
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 03:59:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645247.1007308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 939888001D9
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 04:03:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645251.1007317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tkN-0003sG-In; Fri, 01 Dec 2023 02:59:19 +0000
+	id 1r8toM-0005x2-7b; Fri, 01 Dec 2023 03:03:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645247.1007308; Fri, 01 Dec 2023 02:59:19 +0000
+Received: by outflank-mailman (output) from mailman id 645251.1007317; Fri, 01 Dec 2023 03:03:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tkN-0003pL-Ex; Fri, 01 Dec 2023 02:59:19 +0000
-Received: by outflank-mailman (input) for mailman id 645247;
- Fri, 01 Dec 2023 02:59:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QmaB=HM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8tkL-0003m3-Kb
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 02:59:17 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c260755-8ff5-11ee-9b0f-b553b5be7939;
- Fri, 01 Dec 2023 03:59:15 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D683462048;
- Fri,  1 Dec 2023 02:59:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16D4C433C7;
- Fri,  1 Dec 2023 02:59:12 +0000 (UTC)
+	id 1r8toM-0005vT-3q; Fri, 01 Dec 2023 03:03:26 +0000
+Received: by outflank-mailman (input) for mailman id 645251;
+ Fri, 01 Dec 2023 03:03:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8toL-0005vJ-B2; Fri, 01 Dec 2023 03:03:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8toL-0003ZU-7t; Fri, 01 Dec 2023 03:03:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8toK-0008K1-Qn; Fri, 01 Dec 2023 03:03:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r8toK-00043r-Pl; Fri, 01 Dec 2023 03:03:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,113 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c260755-8ff5-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701399553;
-	bh=tLfpqB5oXQYaNm7hwUYefz3R6ijUkmYMxGLy1vQLypA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kog+93pJi7AMaEwqszidxgR9RjgGIpWnll1UtKt9J/QV6tVymWwuvm1x4jodVy11v
-	 4B/IcYVz+EMEwN+ENnrLb0Ujj1Xsz+vytoEvJchh84kI32h49iYW34M30aSOi1zG6e
-	 IljYhzsjDc6Qt4XnD1/ZU873aBBOg3YUXcg/jj/cDB1N75WyRvfuoyxn3YIR4fxCF9
-	 bKQxPl8XqqNrnv9GrEyikbol2O1p++NRJHYyWzlnmtnnEiHXtUFFSWdWXvEok8NIN5
-	 3sDZYfo4RTcum/F0LPog1bpLJTwOm1OanrEhtwLmYoCkodYNNglkPfUuB89xIvkXDa
-	 SNo+p1pGRdXUw==
-Date: Thu, 30 Nov 2023 18:59:11 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v3] automation/eclair: improve scheduled analyses
-In-Reply-To: <90f35626378aae5f5a482bf22c2246b506bb547e.1701363877.git.simone.ballarin@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311301859050.110490@ubuntu-linux-20-04-desktop>
-References: <90f35626378aae5f5a482bf22c2246b506bb547e.1701363877.git.simone.ballarin@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bfsRTCQAITMeT7ISto6d/H7a/EZtNhfzAc7y4dczWEY=; b=ubghYgAH+8FLhqegs7mY9qUuUE
+	iT3O7eKx2MCCikI+UMX75YyICY6he9thMJ0dS2FWRvIHN9AD9e09xvTcLSENwa5gddtmbkM4bC6kF
+	ZWBXilUo9SoDph1o44NP961GYkAXXwPhytrdgaBquiV7fVZktdQ4t3SInwlTPY578A9w=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183958-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 183958: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=534021965f6f7c417610add53984f39d6945bbcf
+X-Osstest-Versions-That:
+    ovmf=26d484d0867b03ebd8a1ecdd9895f17e96732503
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 01 Dec 2023 03:03:24 +0000
 
-On Thu, 30 Nov 2023, Simone Ballarin wrote:
-> The scheduled analyses are intended to maintain an overall vision
-> of the MISRA complaince of the entire project. For this reason,
-> the file exclusions in "out_of_scope.ecl" should not be applied.
-> 
-> This patch amends ECLAIR settings to prevent exempting files for
-> scheduled analyses.
-> 
-> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+flight 183958 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183958/
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 534021965f6f7c417610add53984f39d6945bbcf
+baseline version:
+ ovmf                 26d484d0867b03ebd8a1ecdd9895f17e96732503
+
+Last test of basis   183956  2023-11-30 19:44:47 Z    0 days
+Testing same since   183958  2023-12-01 01:15:11 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Zhi Jin <zhi.jin@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> ---
-> Changes in v3:
-> - fix guard for inclusion of out_of_scope.ecl.
-> Changes in v2:
-> - drop changes to inhibit test and build stages in scheduled pipelines.
-> ---
->  automation/eclair_analysis/ECLAIR/action.settings |  2 +-
->  automation/eclair_analysis/ECLAIR/analysis.ecl    | 12 ++++++++++--
->  automation/gitlab-ci/analyze.yaml                 |  2 ++
->  3 files changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
-> index f96368ffc7..3cba1a3afb 100644
-> --- a/automation/eclair_analysis/ECLAIR/action.settings
-> +++ b/automation/eclair_analysis/ECLAIR/action.settings
-> @@ -134,7 +134,7 @@ push)
->      badgeLabel="ECLAIR ${ANALYSIS_KIND} ${ref}${variantHeadline} #${jobId}"
->      ;;
->  auto_pull_request)
-> -    git remote remove autoPRRemote || true
-> +    git remote remove autoPRRemote 2>/dev/null || true
->      git remote add autoPRRemote "${autoPRRemoteUrl}"
->      git fetch -q autoPRRemote
->      subDir="${ref}"
-> diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
-> index fe418d6da1..f8d4cc8c99 100644
-> --- a/automation/eclair_analysis/ECLAIR/analysis.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
-> @@ -2,7 +2,13 @@
->  -project_name=getenv("ECLAIR_PROJECT_NAME")
->  -project_root=getenv("ECLAIR_PROJECT_ROOT")
->  
-> --setq=data_dir,getenv("ECLAIR_DATA_DIR")
-> +setq(data_dir,getenv("ECLAIR_DATA_DIR"))
-> +setq(analysis_kind,getenv("ANALYSIS_KIND"))
-> +setq(scheduled_analysis,nil)
-> +
-> +strings_map("scheduled-analysis",500,"","^.*scheduled$",0,setq(scheduled_analysis,t))
-> +strings_map("scheduled-analysis",500,"","^.*$",0)
-> +map_strings("scheduled-analysis",analysis_kind)
->  
->  -verbose
->  
-> @@ -15,7 +21,9 @@
->  
->  -eval_file=toolchain.ecl
->  -eval_file=public_APIs.ecl
-> --eval_file=out_of_scope.ecl
-> +if(not(scheduled_analysis),
-> +    eval_file("out_of_scope.ecl")
-> +)
->  -eval_file=deviations.ecl
->  -eval_file=call_properties.ecl
->  -eval_file=tagging.ecl
-> diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
-> index bd9a68de31..6631db53fa 100644
-> --- a/automation/gitlab-ci/analyze.yaml
-> +++ b/automation/gitlab-ci/analyze.yaml
-> @@ -28,6 +28,8 @@
->    extends: .eclair-analysis
->    allow_failure: true
->    rules:
-> +    - if: $CI_PIPELINE_SOURCE == "schedule"
-> +      when: never
->      - if: $WTOKEN && $CI_PROJECT_PATH =~ /^xen-project\/people\/.*$/
->        when: manual
->      - !reference [.eclair-analysis, rules]
-> -- 
-> 2.34.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   26d484d086..534021965f  534021965f6f7c417610add53984f39d6945bbcf -> xen-tested-master
 
