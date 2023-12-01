@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A18C8014C8
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 21:48:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645737.1007999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AC838014CF
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 21:48:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645738.1008005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9AQr-0007GV-RV; Fri, 01 Dec 2023 20:48:17 +0000
+	id 1r9AQs-0007L3-4E; Fri, 01 Dec 2023 20:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645737.1007999; Fri, 01 Dec 2023 20:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 645738.1008005; Fri, 01 Dec 2023 20:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9AQr-0007ER-O9; Fri, 01 Dec 2023 20:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 645737;
+	id 1r9AQr-0007Gy-V9; Fri, 01 Dec 2023 20:48:17 +0000
+Received: by outflank-mailman (input) for mailman id 645738;
  Fri, 01 Dec 2023 20:48:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yVFl=HM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1r9AQq-0007Cg-6V
+ id 1r9AQq-0007Cg-Tu
  for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 20:48:16 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2db8375-908a-11ee-98e5-6d05b1d4d9a1;
- Fri, 01 Dec 2023 21:48:15 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2c9b5c12898so32468871fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 01 Dec 2023 12:48:15 -0800 (PST)
+ id f3ad980a-908a-11ee-98e5-6d05b1d4d9a1;
+ Fri, 01 Dec 2023 21:48:16 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2c9b88cf626so35147531fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Dec 2023 12:48:16 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- i18-20020a2ea372000000b002c6ed7e546esm511142ljn.124.2023.12.01.12.48.12
+ i18-20020a2ea372000000b002c6ed7e546esm511142ljn.124.2023.12.01.12.48.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Dec 2023 12:48:13 -0800 (PST)
+ Fri, 01 Dec 2023 12:48:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2db8375-908a-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: f3ad980a-908a-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701463694; x=1702068494; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MqJ/uO0Md37RBsPopiP5cQEJm40LrqWs0MJlj9zt0vs=;
-        b=BtHFfofFq8MIYvdb1PN1e97mRe20pjM5uw6sFUIFpqsOeCGxW5lGcWqGr1OtG9cGIG
-         T/+49nIxe4+q7Hf2v+DImKpA1n8T4d+5EIl35+NbG/SZg5PDaDnalbrlttDLdUHtrX+v
-         YW4f6Bc+DigFiMiHyFn4CEgxiPSIkd61H+kRFw/0J6ieWtRA0HUlFHkxuPEZkGblfX+/
-         zrSZ2YBeSJtPD5AEFnHxkQ8A3xpglPdTV9hAD6joWUwmbD+F+4zchsBYidxVLb6gTCmt
-         2KSKg4xdnSWxPtrvLWdnsIZEERXW551fiBUQo/DD85EkFZSDzcjhlcgNBAPFSZonhH6T
-         VEkQ==
+        d=gmail.com; s=20230601; t=1701463696; x=1702068496; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kntzdviDOrMkN3wCkTohVu+TWP0dwfqrKsJ3rPfsygc=;
+        b=dNAa8xN0gEsAJrzf1rOkYz12bmYnnc3It8BzpMXsjCdaPPuYhyM7jr7anzmIGPUUUq
+         HlJhlo3czhS2aOXn++vGW6VOeDzaAnyliNCQSxB0D/IjdWNs5YSumktuuW7H1lR/Pc9U
+         owtvrXuNXApgiSZeBob9JDW1hLay8xAswZROwhMHszOKvBt7SxDb8D0WKVALG0PFQ2wt
+         m1l6nr51lEwBWhpLFmkVeZ1w+r5iIroo0BbRSLqs9LoFeupw44VCmrrgjCxTBvet/LqF
+         AcRR/HjulUV38teeiBfe/RPCPwFU/9iQoLHA3ORmJcSTVkgafnwFohY5MP5hBlwFzePM
+         qy/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701463694; x=1702068494;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MqJ/uO0Md37RBsPopiP5cQEJm40LrqWs0MJlj9zt0vs=;
-        b=uwPmRe1n0BMDpPWRtsIpCe6T6sBkdYZ4rPIbaz+WEs54wh7oJvemWcB5oXmQqdX2jD
-         ZQKQQ2vfGKB/V92CKSNu0qXpIaAdVJ6ptYL80w8FZwYbpeyVXPxuEoxxr5aeXjN58t6r
-         DPEAjlSIkobma5R6tUAhefwprBM05QG/A2em7e4Qvs8IV05rAVQVyRGWrblt7/1CdPUB
-         1nVc8PijPKRG8p2+Q5aAChJKOFB7C0dm/HAPgZlYvqaBlb8QkWaU2Rag7cWbc0lZ74vV
-         6Vfhzi0WWoDD2osyVbqIhv32S/ElICRmaskIQYJ7mSOJuuiOpysu8+iOw/kYbxOBLxnY
-         L64g==
-X-Gm-Message-State: AOJu0Yzis1tJsDBgeszrho49SDp5r961QVhzNJYme5U47SBBh/0JH5dr
-	xyk9VFt84R5/COvSQ9/3AvphDJdiI8GR7g==
-X-Google-Smtp-Source: AGHT+IE73nT7gn6xZH/ptiC3DU6xw9vAmh3fNOX7mVYMrxdIkS67sCmCTNh83eXU0/Vcfd2MIlucMQ==
-X-Received: by 2002:a2e:8257:0:b0:2c5:56b:cbd1 with SMTP id j23-20020a2e8257000000b002c5056bcbd1mr1159689ljh.10.1701463693884;
-        Fri, 01 Dec 2023 12:48:13 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701463696; x=1702068496;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kntzdviDOrMkN3wCkTohVu+TWP0dwfqrKsJ3rPfsygc=;
+        b=iiMAfpMqmnL7yMxMGmxDlsxyZroly4U4PMMGth2ZJwskKXPfCfp70QjYfaJLOogryb
+         quaTR0FXKmVuT3nJQZZ+dm8qzvCTc779beuuw9hr2vczia460Ke4nrpeQFpemi3V+w5/
+         LUONiwFpMO0V5zX1XAGv4ODVNQoPxIPFCWr/ivaauK6PNHgkahtFARHTe0Z1YMy3o0T6
+         MB9fJJX9J/oLRX1iJEoHgEzyXmmfov2N2qFivXmnFPqErt2BbI7f7+DF2xmNyvc1Jrmr
+         1o0KjjrziLNfgxlwQHk9waLUe7NxKgFLYEvjip2BXHC3EiCezDq/tpRnhi8eaRgLMM71
+         ZSaw==
+X-Gm-Message-State: AOJu0YzGfbqL9GeXx8+8XKW5HU6vHKaNf+UtD6R0AtNPho3RmJ5/WaUl
+	tpfQQLVYS/QhrJsWySeYT0+T73YdG/ju8Q==
+X-Google-Smtp-Source: AGHT+IEK4j4Ndtrh17dUAZYcYk2MnIRP2Fl/vPdXGIk3NqXEZwSdCDGHgiIEbScdkHP+dYCnvK4m+g==
+X-Received: by 2002:a2e:3310:0:b0:2c9:abe5:67df with SMTP id d16-20020a2e3310000000b002c9abe567dfmr1127135ljc.48.1701463695445;
+        Fri, 01 Dec 2023 12:48:15 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,142 +87,168 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH v5 0/7] Introduce generic headers
-Date: Fri,  1 Dec 2023 22:48:03 +0200
-Message-ID: <cover.1701453087.git.oleksii.kurochko@gmail.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v5 1/7] xen/asm-generic: introduce generic div64.h header
+Date: Fri,  1 Dec 2023 22:48:04 +0200
+Message-ID: <32c29653e071f134bc3eb0c707ee6e2f947014ad.1701453087.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1701453087.git.oleksii.kurochko@gmail.com>
+References: <cover.1701453087.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some headers are common between several architectures, so the current patch series
-provide them.
+All archs have the do_div implementation for BITS_PER_LONG == 64
+so do_div64.h is moved to asm-generic.
 
-Another one reason to have them as generic is a simplification of adding support
-necessary to make a complete Xen build as it was/is being done in the patch series [1]
-and [2].
+x86 and PPC were switched to asm-generic version of div64.h.
+Arm was switched partly because Arm has different implementation
+for 32-bits.
 
-Also, instead of providing generic/stub headers, it was used
-"#ifdef CONFIG_* #include <asm/*.h> #endif" instead of providing empty headers.
-
-This patch series is a pre-requisite for "Enable build of full Xen for RISC-V" [3].
-
-[1] https://lore.kernel.org/xen-devel/cover.1694543103.git.sanastasio@raptorengineering.com/
-[2] https://lore.kernel.org/xen-devel/cover.1692181079.git.oleksii.kurochko@gmail.com/
-[3] https://lore.kernel.org/xen-devel/cover.1700761381.git.oleksii.kurochko@gmail.com/
-
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
 Changes in V5:
- - Update the patch series message as patch related to delay.h was merged.
- - Rebase on top of staging because half of the patches of the patch series were
-   merged to staging branch.
- - Add A-by for some of the patches.
- - Add "depends on X86 || Arm" for CONFIG_GRANT_TABLE and CONFIG_MEM_ACCESS to be
-   sure it won't be turned on by randconfig in CI.
- - Partly switch Arm and PPC to asm-generic/monitor.h.
- - Some other minor changes
+  - add Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+  - Update the commit message
+  - Partly switch Arm's div64.h to asm-generic version. Arm has different
+    implementation for 32-bits so only 64-bit version was switched.
 ---
 Changes in V4:
- - Update the cover letter message
- - Add Reviewed-by/Acked-by for patches:
-    [PATCH v3 01/14] xen/asm-generic: introduce stub header paging.h
-    [PATCH v3 03/14] xen/asm-generic: introduce generic hypercall.h
-    [PATCH v3 04/14] xen/asm-generic: introduce generic header iocap.h
-    [PATCH v3 05/14] xen/asm-generic: introduce stub header <asm/random.h>
-    [PATCH v3 06/14] xen/asm-generic: introduce generic header percpu.h
-    [PATCH v3 07/14] xen/asm-generic: introduce generalized hardirq.h
-    [PATCH v3 08/14] xen/asm-generic: introduce generic div64.h header
-    [PATCH v3 09/14] xen/asm-generic: introduce generic header altp2m.h
-    [PATCH v3 10/14] xen/asm-generic: introduce stub header monitor.h
-    [PATCH v3 11/14] xen/asm-generic: introduce stub header numa.h
-    [PATCH v3 12/14] xen/asm-generic: introduce stub header softirq.h
- - Fix some code style and minor issues.
- - Use asm-generic version of device.h for Arm and PPC.
+ - Added Acked-by: Jan Beulich <jbeulich@suse.com>.
+ - include <asm-generic/div64.h> in Arm's div64.h for 64-bit case.
 ---
 Changes in V3:
- - Update the commit message of the cover letter.
- - Drop the following patch as it can be arch-specific enough:
-   * [PATCH v2 09/15] xen/asm-generic: introduce generic header smp.h
- - Drop correspondent arch specific headers and use asm-generic version of
-   a header.
- - Back to the patch series patches:
-   * xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
-   * xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+ - Drop x86 and PPC's div64.h.
+ - Update the commit message.
 ---
 Changes in V2:
- - Update the commit message of the cover letter.
- - Drop the following patches because they are arch-specific or was sent as a separate patch:
-   - xen/asm-generic: introduce stub header event.h
-	 - xen/asm-generic: introduce stub header spinlock.h
-	 - [PATCH v1 03/29] xen/asm-generic: introduce stub header cpufeature.h
-	 - [PATCH v1 07/29] xen/asm-generic: introduce stub header guest_atomics.h
-	 - [PATCH v1 10/29] xen/asm-generic: introduce stub header iommu.h
-	 - [PATCH v1 12/29] xen/asm-generic: introduce stub header pci.h because separate patch was sent [5]
-	 - [PATCH v1 14/29] xen/asm-generic: introduce stub header setup.h
-	 - [PATCH v1 15/29] xen/asm-generic: introduce stub header xenoprof.h because of [3].
-	 - [PATCH v1 16/29] xen/asm-generic: introduce stub header flushtlb.h
-	 - [PATCH v1 22/29] xen/asm-generic: introduce stub header delay.h because of [3]
-	 - [PATCH v1 23/29] xen/asm-generic: introduce stub header domain.h
-	 - [PATCH v1 24/29] xen/asm-generic: introduce stub header guest_access.h
-	 - [PATCH v1 25/29] xen/asm-generic: introduce stub header irq.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
-	 - [PATCH v1 28/29] xen/asm-generic: introduce stub header p2m.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
- - For the rest of the patches please look at changes for each patch separately.
+	- rename base to divisor
+	- add "#if BITS_PER_LONG == 64"
+	- fix code style
 ---
-
-Oleksii Kurochko (7):
-  xen/asm-generic: introduce generic div64.h header
-  xen/asm-generic: introduce stub header monitor.h
-  xen/asm-generic: introduce stub header numa.h
-  xen/asm-generic: introduce stub header softirq.h
-  xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
-  xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
-  xen/asm-generic: introduce generic device.h
-
- xen/arch/arm/device.c                         |  15 ++-
- xen/arch/arm/domain_build.c                   |   3 +-
- xen/arch/arm/gic-v2.c                         |   4 +-
- xen/arch/arm/gic-v3.c                         |   6 +-
- xen/arch/arm/gic.c                            |   4 +-
- xen/arch/arm/include/asm/Makefile             |   3 +
- xen/arch/arm/include/asm/div64.h              |   8 +-
- xen/arch/arm/include/asm/monitor.h            |  28 +---
- xen/arch/arm/p2m.c                            |   1 +
- xen/arch/arm/traps.c                          |   1 +
- xen/arch/ppc/include/asm/Makefile             |   4 +
- xen/arch/ppc/include/asm/device.h             |  53 --------
- xen/arch/ppc/include/asm/div64.h              |  14 --
- xen/arch/ppc/include/asm/grant_table.h        |   5 -
- xen/arch/ppc/include/asm/mem_access.h         |   5 -
- xen/arch/ppc/include/asm/monitor.h            |  28 +---
- xen/arch/ppc/include/asm/numa.h               |  26 ----
- xen/arch/ppc/include/asm/softirq.h            |   8 --
- xen/arch/x86/include/asm/Makefile             |   1 +
- xen/arch/x86/include/asm/div64.h              |  14 --
- xen/common/Kconfig                            |   3 +-
- .../asm => include/asm-generic}/device.h      | 125 +++++++++++-------
- xen/include/asm-generic/div64.h               |  27 ++++
- xen/include/asm-generic/monitor.h             |  57 ++++++++
- .../asm => include/asm-generic}/numa.h        |  16 ++-
- .../asm => include/asm-generic}/softirq.h     |   7 +-
- xen/include/xen/grant_table.h                 |   3 +
- xen/include/xen/mem_access.h                  |   2 +
- 28 files changed, 219 insertions(+), 252 deletions(-)
- delete mode 100644 xen/arch/ppc/include/asm/device.h
+ xen/arch/arm/include/asm/div64.h  |  8 +-------
+ xen/arch/ppc/include/asm/Makefile |  1 +
+ xen/arch/ppc/include/asm/div64.h  | 14 --------------
+ xen/arch/x86/include/asm/Makefile |  1 +
+ xen/arch/x86/include/asm/div64.h  | 14 --------------
+ xen/include/asm-generic/div64.h   | 27 +++++++++++++++++++++++++++
+ 6 files changed, 30 insertions(+), 35 deletions(-)
  delete mode 100644 xen/arch/ppc/include/asm/div64.h
- delete mode 100644 xen/arch/ppc/include/asm/grant_table.h
- delete mode 100644 xen/arch/ppc/include/asm/mem_access.h
- delete mode 100644 xen/arch/ppc/include/asm/numa.h
- delete mode 100644 xen/arch/ppc/include/asm/softirq.h
  delete mode 100644 xen/arch/x86/include/asm/div64.h
- rename xen/{arch/arm/include/asm => include/asm-generic}/device.h (79%)
  create mode 100644 xen/include/asm-generic/div64.h
- create mode 100644 xen/include/asm-generic/monitor.h
- rename xen/{arch/arm/include/asm => include/asm-generic}/numa.h (67%)
- rename xen/{arch/arm/include/asm => include/asm-generic}/softirq.h (56%)
 
+diff --git a/xen/arch/arm/include/asm/div64.h b/xen/arch/arm/include/asm/div64.h
+index fc667a80f9..0459d5cc01 100644
+--- a/xen/arch/arm/include/asm/div64.h
++++ b/xen/arch/arm/include/asm/div64.h
+@@ -24,13 +24,7 @@
+ 
+ #if BITS_PER_LONG == 64
+ 
+-# define do_div(n,base) ({                                      \
+-        uint32_t __base = (base);                               \
+-        uint32_t __rem;                                         \
+-        __rem = ((uint64_t)(n)) % __base;                       \
+-        (n) = ((uint64_t)(n)) / __base;                         \
+-        __rem;                                                  \
+- })
++#include <asm-generic/div64.h>
+ 
+ #elif BITS_PER_LONG == 32
+ 
+diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
+index 2da995bb2f..a8e848d4d0 100644
+--- a/xen/arch/ppc/include/asm/Makefile
++++ b/xen/arch/ppc/include/asm/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ generic-y += altp2m.h
++generic-y += div64.h
+ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
+diff --git a/xen/arch/ppc/include/asm/div64.h b/xen/arch/ppc/include/asm/div64.h
+deleted file mode 100644
+index d213e50585..0000000000
+--- a/xen/arch/ppc/include/asm/div64.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-#ifndef __ASM_PPC_DIV64_H__
+-#define __ASM_PPC_DIV64_H__
+-
+-#include <xen/types.h>
+-
+-#define do_div(n, base) ({                       \
+-    uint32_t base_ = (base);                     \
+-    uint32_t rem_ = (uint64_t)(n) % base_;       \
+-    (n) = (uint64_t)(n) / base_;                 \
+-    rem_;                                        \
+-})
+-
+-#endif /* __ASM_PPC_DIV64_H__ */
+diff --git a/xen/arch/x86/include/asm/Makefile b/xen/arch/x86/include/asm/Makefile
+index 874429ed30..daab34ff0a 100644
+--- a/xen/arch/x86/include/asm/Makefile
++++ b/xen/arch/x86/include/asm/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
++generic-y += div64.h
+ generic-y += percpu.h
+diff --git a/xen/arch/x86/include/asm/div64.h b/xen/arch/x86/include/asm/div64.h
+deleted file mode 100644
+index dd49f64a3b..0000000000
+--- a/xen/arch/x86/include/asm/div64.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#ifndef __X86_DIV64
+-#define __X86_DIV64
+-
+-#include <xen/types.h>
+-
+-#define do_div(n,base) ({                       \
+-    uint32_t __base = (base);                   \
+-    uint32_t __rem;                             \
+-    __rem = ((uint64_t)(n)) % __base;           \
+-    (n) = ((uint64_t)(n)) / __base;             \
+-    __rem;                                      \
+-})
+-
+-#endif
+diff --git a/xen/include/asm-generic/div64.h b/xen/include/asm-generic/div64.h
+new file mode 100644
+index 0000000000..068d8a11ad
+--- /dev/null
++++ b/xen/include/asm-generic/div64.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_GENERIC_DIV64
++#define __ASM_GENERIC_DIV64
++
++#include <xen/types.h>
++
++#if BITS_PER_LONG == 64
++
++#define do_div(n, divisor) ({                   \
++    uint32_t divisor_ = (divisor);              \
++    uint32_t rem_ = (uint64_t)(n) % divisor_;   \
++    (n) = (uint64_t)(n) / divisor_;             \
++    rem_;                                       \
++})
++
++#endif /* BITS_PER_LONG */
++
++#endif
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.43.0
 
