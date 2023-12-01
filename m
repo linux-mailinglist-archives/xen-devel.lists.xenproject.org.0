@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05B8C8015A4
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 22:44:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645776.1008109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DBB1801675
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 23:36:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645780.1008119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9BJC-0003MR-RS; Fri, 01 Dec 2023 21:44:26 +0000
+	id 1r9C6d-0006vS-O8; Fri, 01 Dec 2023 22:35:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645776.1008109; Fri, 01 Dec 2023 21:44:26 +0000
+Received: by outflank-mailman (output) from mailman id 645780.1008119; Fri, 01 Dec 2023 22:35:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9BJC-0003Jj-Nx; Fri, 01 Dec 2023 21:44:26 +0000
-Received: by outflank-mailman (input) for mailman id 645776;
- Fri, 01 Dec 2023 21:44:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QmaB=HM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r9BJB-0003Jd-Fd
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 21:44:25 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cacfbd1d-9092-11ee-98e5-6d05b1d4d9a1;
- Fri, 01 Dec 2023 22:44:23 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 78BB1B8496B;
- Fri,  1 Dec 2023 21:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C182C433D9;
- Fri,  1 Dec 2023 21:44:21 +0000 (UTC)
+	id 1r9C6d-0006sc-KZ; Fri, 01 Dec 2023 22:35:31 +0000
+Received: by outflank-mailman (input) for mailman id 645780;
+ Fri, 01 Dec 2023 22:35:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r9C6c-0006sN-H2; Fri, 01 Dec 2023 22:35:30 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r9C6c-00029g-70; Fri, 01 Dec 2023 22:35:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1r9C6b-0000cD-Ry; Fri, 01 Dec 2023 22:35:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1r9C6b-0006qU-RV; Fri, 01 Dec 2023 22:35:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,91 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cacfbd1d-9092-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701467061;
-	bh=anh8td+sCO7BNAZ0CEzGJOncT8BnY0Mwtm/M6vry5Sc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TUiofiOSwSgRP6pknRcgaUUSlCpOsXV93yMJ33oqCqWqNQ6FMtRTYSgZSx+XnAge4
-	 hWidMj+K7/nGx0fHjqz/SRGxGv5y976Z2SoaiDUi8+dRhohq5W44YNBprJvpYjkZsO
-	 Jw7jfnD+WRabbQr8XQMvGHZ8zFEVKDih2jRB5+esTuBQDa/jaMHVK67hXJSp4Zwpck
-	 NNn66nsIZ9VQ6PS8K3/cLNexf8Bjg/hDcX/Z/SSyHT4kZimFCTSKvYORGuPUU5EtBG
-	 PcRQJIlq4ZPpPcdoVPJWNeCXtRiDpJqrVx38b74aBj5vQS8AesQY4rJwv9dNY3qeud
-	 B/1sBMVFM/Wsw==
-Date: Fri, 1 Dec 2023 13:44:19 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: George Dunlap <george.dunlap@cloud.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org, 
-    committers@xenproject.org
-Subject: Re: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
-In-Reply-To: <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2312011253390.110490@ubuntu-linux-20-04-desktop>
-References: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com> <alpine.DEB.2.22.394.2311301426210.110490@ubuntu-linux-20-04-desktop> <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UdQd5vJYjVNabZtBvJbbv34BdaYeFbxs+gMGWUNbE2k=; b=x4xoTiNVrmuhmgHGgLwyVbXVLk
+	wPe+xbElT2kio+I3iT6+zdlzR5aJh7+L7TYUStsBcBqZaVkfHeLiTAtqS7/rMOzEi85kEpwzWbJHw
+	U0TjyEqFrjJlnJpikh4XxEczdU0s25Hmmgp0ERbxlrmdTuK3LrANjtuc3XeYo03xC/k4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-183968-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 183968: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=525c7c094b258e8a46b494488eef96f5670eb352
+X-Osstest-Versions-That:
+    xen=1571ff7a987b88b20598a6d49910457f3b2c59f1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 01 Dec 2023 22:35:29 +0000
 
-Replying here on a couple of different people on this thread.
+flight 183968 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/183968/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  525c7c094b258e8a46b494488eef96f5670eb352
+baseline version:
+ xen                  1571ff7a987b88b20598a6d49910457f3b2c59f1
+
+Last test of basis   183963  2023-12-01 10:02:10 Z    0 days
+Testing same since   183968  2023-12-01 20:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-On Thu, 30 Nov 2023, Tamas K Lengyel wrote:
-> I think this form is bad and is not helpful. 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I agree with Tamas and (also Jan) that this form is not helpful.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-On Fri, 1 Dec 2023, George Dunlap wrote:
-> If most people in the community really do think that "broken" is
-> suitable for the documentation in our project, then of course the
-> maintainers should stop objecting to that kind of language.  If most
-> of the people in the community think that "broken" is *not* suitable
-> for technical documentation, then of course this isn't an example of
-> unreasonable review (although other instances may be).
-
-I think there was a misconception when Kelly created this form that the
-push back was on the usage of the word "broken" globally in Xen Project.
-It is not the case.
-
-I for example agree that "broken" can be used in Xen Project, but I
-don't think that it is a good idea to use it in that specific instance.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-On Fri, 1 Dec 2023, George Dunlap wrote:
-> [Andy] removing "broken" is a completely unreasonable request
+Pushing revision :
 
-I am in favor on moving faster and nitpicking less. Also, Andy put the
-effort to produce the patch so he should have the default choice in the
-wording. If the choice is taking the patch as is or rejecting it, I
-would take it as is.
-
-I might have a preference on a different wording and I voiced that
-preference. We could say that my request should have been optional, not
-mandatory. But when the majority of reviewers request the same thing,
-which wording choice should apply?
-
-If we decide to ignore the feedback as unresonable or because it should
-have been all optional and commit the patch, what would stop anyone from
-sending a patch to "fix" the wording in the comments to use "deprecated"
-instead? And if someone pushes back on the second patch, would that be
-nitpicking? If we commit the second patch, what if someone send a third
-patch changing the wording back to "broken"? We risk getting into
-"commit wars".
-
-To avoid this, I think we should go with the majority, whatever that is,
-and the decision has to stick. We have just introduced informal votes.
-We should have just used that in the original thread. By the informal
-voting, we have 3 against "broken" and 2 in favor (not 1 as George wrote
-as Andrew's vote counts too). 
-
-The easiest would have been to go with the majority, resend the patch,
-get it committed. If Andrew feels strongly that the "broken" is the best
-wording, then a proper voting form is a good idea, like Kelly did (which
-I think is a full formal vote, not an informal vote). Except that the
-form Kelly created is too generic and has too few options.
-
-In conclusion, I don't care about the wording. I do care that we reach
-alignment and move forward quicker. I think the informal voting
-mechanism is the best way to do it.
+To xenbits.xen.org:/home/xen/git/xen.git
+   1571ff7a98..525c7c094b  525c7c094b258e8a46b494488eef96f5670eb352 -> smoke
 
